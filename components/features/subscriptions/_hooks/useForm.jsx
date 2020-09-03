@@ -5,7 +5,8 @@ const ERROR = 'error'
 
 const REQUIRED_FIELD_ERROR = 'Este campo es requerido'
 const EMPTY_FIELD_ERROR = 'No se permiten espacios'
-const MIN_CARACTS_FIELD_ERROR = 'Se requiere mínimo 2 caracteres'
+const MIN_2_CARACTS_FIELD_ERROR = 'Se requiere mínimo 2 caracteres'
+const MIN_6_CARACTS_FIELD_ERROR = 'Se requiere mínimo 6 caracteres'
 const TEXT_INVALID_ERROR = 'Este valor no está permitido'
 
 /**
@@ -44,14 +45,19 @@ function notSpaces(value) {
   return ''
 }
 
-function minCaracts(value) {
-  if (value.length < 2) return MIN_CARACTS_FIELD_ERROR
+function min2Caracts(value) {
+  if (value.length < 2) return MIN_2_CARACTS_FIELD_ERROR
+  return ''
+}
+
+function min6Caracts(value) {
+  if (value.length < 6) return MIN_6_CARACTS_FIELD_ERROR
   return ''
 }
 
 function invalidText(value) {
   const lowerValue = value.toLowerCase()
-  if (lowerValue === 'undefined' || lowerValue === 'null')
+  if (lowerValue.match(/undefined/) || lowerValue === 'null')
     return TEXT_INVALID_ERROR
   return ''
 }
@@ -121,11 +127,15 @@ function useForm(
         errorObj = notSpaces(value)
       }
 
-      if (_field.mincaracts && errorObj === '') {
-        errorObj = minCaracts(value)
+      if (_field.min2caracts && errorObj === '') {
+        errorObj = min2Caracts(value)
       }
 
-      if (_field.mincaracts && errorObj === '') {
+      if (_field.min6caracts && errorObj === '') {
+        errorObj = min6Caracts(value)
+      }
+
+      if (_field.invalidtext && errorObj === '') {
         errorObj = invalidText(value)
       }
 

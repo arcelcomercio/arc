@@ -16,6 +16,7 @@ import { AuthContext } from '../_context/auth'
 import { subDniToken } from '../_dependencies/Services'
 import useForm from '../_hooks/useForm'
 import { maskDocuments, docPatterns } from '../_dependencies/Regex'
+import PWA from '../_dependencies/Pwa'
 
 const styles = {
   wrapper: 'validate__grid wrapper-buy',
@@ -362,22 +363,25 @@ export const FooterLand = ({ arcType }) => {
                       <i className="icon-instangram"></i>
                     </a>
                   </div>
-                  <div className="footer__content-encuentranos-apps">
-                    <a
-                      href={urls.appStore}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="AppStore">
-                      <i className="icon-appstore"></i>
-                    </a>
-                    <a
-                      href={urls.googlePlay}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="GooglePlay">
-                      <i className="icon-googleplay"></i>
-                    </a>
-                  </div>
+
+                  {!PWA.isPWA() && (
+                    <div className="footer__content-encuentranos-apps">
+                      <a
+                        href={urls.appStore}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="AppStore">
+                        <i className="icon-appstore"></i>
+                      </a>
+                      <a
+                        href={urls.googlePlay}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="GooglePlay">
+                        <i className="icon-googleplay"></i>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

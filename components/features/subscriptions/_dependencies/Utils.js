@@ -44,7 +44,7 @@ export const Capitalize = string => {
 
 export const checkFormatPhone = string => {
   if (!string) return ''
-  return checkUndefined(string).replace(/\+|\s|-/g, '')
+  return checkUndefined(string).replace(/\+|\s|-|\(|\)/g, '')
 }
 
 export const clearUrlAPI = urlDefault => {
@@ -90,7 +90,7 @@ export const getFullNameFormat = (firstName, lastName, secondLastName) => {
   const fullName = `${firstName} ${lastName} ${
     lowerSecLastName === 'undefined' || lowerSecLastName === 'null'
       ? ''
-      : secondLastName
+      : secondLastName || ''
   }`
   return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
 }

@@ -166,15 +166,18 @@ const Profile = () => {
     uFirstName: {
       required: true,
       validator: formatNames(),
-      mincaracts: true,
+      min2caracts: true,
+      invalidtext: true,
     },
     uLastName: {
       required: true,
       validator: formatNames(),
-      mincaracts: true,
+      min2caracts: true,
+      invalidtext: true,
     },
     uSecondLastName: {
       required: false,
+      invalidtext: true,
       validator: formatSecondLastName(),
     },
     uDocumentType: {
@@ -185,13 +188,14 @@ const Profile = () => {
       validator: {
         func: value =>
           docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
-          value !== '00000000',
+          !value.match(/00000000|12345678/),
         error: 'Formato inválido.',
       },
     },
     uPhone: {
       required: true,
       validator: formatPhone(),
+      min6caracts: true,
     },
     uEmail: {
       required: true,
