@@ -4,7 +4,6 @@ import {
   defaultImage,
   formatSlugToText,
   getCookie,
-  setSurveyCookie,
   createMarkup,
   socialMediaUrlShareList,
   popUpWindow,
@@ -323,19 +322,6 @@ describe('Función getCookie - Helpers', () => {
 
   test('Debe retornar un valor', () => {
     expect(getCookie('_cb_ls')).toBe('1')
-  })
-})
-
-describe('Función setSurveyCookie - Helpers', () => {
-  test('La función existe y/o devuelve un valor', () => {
-    expect(setSurveyCookie).toBeDefined()
-  })
-
-  test('El cookie debe tener el ID', () => {
-    const surveyId = 'ID'
-    const days = 90
-    setSurveyCookie(surveyId, days)
-    expect(global.document.cookie).toContain(surveyId)
   })
 })
 

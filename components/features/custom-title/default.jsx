@@ -114,7 +114,9 @@ const CustomTitle = props => {
       {subtitleField && (
         <h2
           itemProp="name"
-          className={`text-lg ${subLine ? 'mt-20' : 'mt-10'} mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
+          className={`text-lg ${
+            subLine ? 'mt-20' : 'mt-10'
+          } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
           dangerouslySetInnerHTML={{ __html: subtitleField }}
         />
       )}

@@ -15,7 +15,7 @@ const classes = {
   image: 'story-gallery-slider__img w-full object-cover',
   caption: 'story-gallery-slider__caption pt-20 pb-20 ',
   captionImage: `story-gallery-slider__caption-image pt-5 text-sm text-white secondary-font line-h-sm`,
-  quantity: `story-gallery-slider__quantity title-xs mr-10 flex items-center justify-center i-survey-share`,
+  quantity: `story-gallery-slider__quantity title-xs mr-10 flex items-center justify-center`,
   leftArrow: `story-gallery-slider__arrows story-gallery-slider__arrows--left icon-left text-white title-lg flex items-center justify-center h-full position-absolute top-0`,
   rightArrow: `story-gallery-slider__arrows story-gallery-slider__arrows--right icon-right text-white title-lg flex items-center justify-center h-full position-absolute top-0`,
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppContext } from 'fusion:context'
-// import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 import PowaPlayer from '../../../../global-components/powa-player'
 
 /**
@@ -12,7 +12,7 @@ import PowaPlayer from '../../../../global-components/powa-player'
  *
  * y descomentar la siguiente funcion
  */
-const getResultVideo = (streams, arcSite, type = 'ts') => {
+/* const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
       return streamType === type ? url : []
@@ -21,7 +21,7 @@ const getResultVideo = (streams, arcSite, type = 'ts') => {
   const cantidadVideo = resultVideo.length
 
   return resultVideo[cantidadVideo - 1]
-}
+} */
 
 const classes = {
   video: '__lL-video',
@@ -144,10 +144,12 @@ const StoryContentChildVideo = props => {
         uuid={uuid}
         stream={stream}
         image={imageUrl || imagenMigrate}
-        preroll={(videoData && videoData.playAds === true) ||
+        preroll={
+          (videoData && videoData.playAds === true) ||
           (videoArray && videoArray[1])
-          ? getParametroPublicidad()
-          : ''}
+            ? getParametroPublicidad()
+            : ''
+        }
         lazy={lazy}
       />
       {description && (

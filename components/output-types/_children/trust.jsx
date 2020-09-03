@@ -2,7 +2,7 @@ import React from 'react'
 import { SITE_ELCOMERCIO } from '../../utilities/constants/sitenames'
 
 export default ({ arcSite, siteUrl, siteName }) => {
-  const pathPage = 'proyecto-confianza'
+  const pathPage = 'buenas-practicas'
   const redaccion = '/autor/redaccion-ec/'
 
   const structuredDataTrust = `{
