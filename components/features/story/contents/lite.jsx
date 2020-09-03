@@ -1,6 +1,5 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import { useContent } from 'fusion:content'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -72,7 +71,6 @@ const classes = {
 }
 
 const StoryContentsLite = () => {
-  const DEFAULT_AUTHOR_IMG = 'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/author.png?d=1'
   const {
     globalContent,
     arcSite,
@@ -116,20 +114,8 @@ const StoryContentsLite = () => {
     arcSite,
   })
 
-  let authorImgSmall = authorImage
-  if(authorImage !== DEFAULT_AUTHOR_IMG){
-    ( { resized_urls: { authorImgSmall } = {} } = useContent({
-      source: 'photo-resizer',
-      query: {
-        url: authorImage,
-        presets: 'authorImgSmall:57x57',
-      },
-    }) || {} )
-  }
-
   const params = {
     authorImage,
-    authorImgSmall,
     author,
     authorRole,
     authorLink,

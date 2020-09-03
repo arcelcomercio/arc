@@ -1,4 +1,5 @@
 import React from 'react'
+import Img from '../../../../global-components/img'
 
 const classes = {
   opinionBody: 'separator__opinion--body mt-0 mb-0 ',
@@ -18,7 +19,11 @@ const classes = {
     'separator__opinion--item-threeline separator__opinion-description overflow-hidden',
 }
 
-const SeparatorsChildAuthorCard = ({ arcSite, isAdmin, stories }) => {
+const SeparatorsChildAuthorCard = ({
+  arcSite,
+  stories,
+  defaultAuthorImage,
+}) => {
   let numline = ''
   switch (arcSite) {
     case 'elcomercio':
@@ -37,15 +42,8 @@ const SeparatorsChildAuthorCard = ({ arcSite, isAdmin, stories }) => {
       {stories &&
         stories.length > 0 &&
         stories.map(
-          ({
-            author,
-            authorUrl,
-            titulo,
-            websiteUrl,
-            imageUrl,
-            multimediaLazyDefault,
-          }) => {
-            const existImageAuthor = imageUrl.includes('author.png')
+          ({ author, authorUrl, titulo, websiteUrl, authorImage }) => {
+            const existImageAuthor = authorImage.includes('author.png')
             return (
               <article className={classes.opinionItem}>
                 {existImageAuthor ? (
@@ -54,13 +52,14 @@ const SeparatorsChildAuthorCard = ({ arcSite, isAdmin, stories }) => {
                   </div>
                 ) : (
                   <a itemProp="url" href={authorUrl}>
-                    <img
-                      className={`${isAdmin ? '' : 'lazy'} ${
-                        classes.opinionItemImage
-                      }`}
-                      src={isAdmin ? imageUrl : multimediaLazyDefault}
-                      data-src={imageUrl}
-                      alt={author || ''}
+                    <Img
+                      src={defaultAuthorImage}
+                      dataSrc={authorImage}
+                      width={85}
+                      height={85}
+                      alt={author}
+                      className={classes.opinionItemImage}
+                      loading="lazy"
                     />
                   </a>
                 )}

@@ -3,6 +3,7 @@ import {
   formatDayMonthYearBasic,
   formatDateStory,
 } from '../../../../utilities/date-time/dates'
+import Img from '../../../../global-components/img'
 
 const classes = {
   author: 'story-contents__author flex ',
@@ -18,7 +19,7 @@ const classes = {
 const StoryContentChildAuthorTrustLite = ({
   author,
   authorLink,
-  authorImgSmall,
+  authorImage,
   authorRole,
   updatedDate,
   date,
@@ -33,12 +34,14 @@ const StoryContentChildAuthorTrustLite = ({
         {primarySection !== 'Columnistas' && (
           <div className={classes.authorInfo}>
             <div>
-              {authorImgSmall && (
-                <img
+              {authorImage && (
+                <Img
                   itemProp="image"
-                  alt={author}
+                  src={authorImage}
+                  width={57}
+                  height={57}
                   title={author}
-                  src={authorImgSmall}
+                  alt={author}
                   className={classes.authorImage}
                 />
               )}

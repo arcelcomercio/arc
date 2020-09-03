@@ -1,6 +1,5 @@
 import React from 'react'
-
-import { createResizedParams } from '../../../../utilities/resizer/resizer'
+import Img from '../../../../global-components/img'
 
 const classes = {
   opinionItem:
@@ -22,18 +21,8 @@ const classes = {
 const SeparatorsChildAuthorCard = props => {
   const {
     arcSite,
-    isAdmin,
-    data: {
-      author,
-      authorUrl,
-      titulo,
-      // section,
-      // sectionUrl,
-      websiteUrl,
-      imageUrl: adminImageUrl,
-      multimediaLazyDefault,
-      multimedia,
-    } = {},
+    defaultAuthorImage,
+    data: { author, authorUrl, titulo, websiteUrl, authorImage } = {},
   } = props
 
   let numline = ''
@@ -49,15 +38,7 @@ const SeparatorsChildAuthorCard = props => {
       break
   }
 
-  const { imageUrl = adminImageUrl } = isAdmin
-    ? {}
-    : createResizedParams({
-        url: multimedia,
-        arcSite,
-        presets: 'imageUrl:85x85',
-      }) || {}
-
-  const existImageAuthor = imageUrl.includes('author.png')
+  const existImageAuthor = authorImage.includes('author.png')
 
   return (
     <article className={classes.opinionItem}>
@@ -69,13 +50,14 @@ const SeparatorsChildAuthorCard = props => {
         ) : (
           <figure className={classes.opinionItemImage}>
             <a itemProp="url" href={authorUrl}>
-              <img
-                className={`${isAdmin ? '' : 'lazy'} ${
-                  classes.opinionItemImageImg
-                }`}
-                src={isAdmin ? imageUrl : multimediaLazyDefault}
-                data-src={imageUrl}
-                alt={author || ''}
+              <Img
+                src={defaultAuthorImage}
+                dataSrc={authorImage}
+                width={85}
+                height={85}
+                alt={author}
+                className={classes.opinionItemImageImg}
+                loading="lazy"
               />
             </a>
           </figure>

@@ -13,6 +13,8 @@ import { createResizedParams } from '../utilities/resizer/resizer'
  * @param {string} config.alt
  * @param {string} [config.loading]
  * @param {string} [config.filterQuality]
+ * @param {string} [config.itemProp]
+ * @param {string} [config.title]
  * @param {object} [config.style]
  * @param {string} [config.type]
  * @param {string} [config.importance]
@@ -21,13 +23,15 @@ import { createResizedParams } from '../utilities/resizer/resizer'
  *
  * @returns {HTMLImageElement} Static resized <img/>
  */
-const CustomImg = ({
+const Img = ({
   id,
   src,
   dataSrc,
   loading,
   filterQuality,
   type,
+  itemProp,
+  title,
   alt = '',
   style = {},
   className = '',
@@ -80,10 +84,12 @@ const CustomImg = ({
         className={`${lazy ? 'lazy' : ''} ${className}`}
         style={style}
         type={type}
+        itemProp={itemProp}
+        title={title}
         importance={importance}
       />
     </Static>
   )
 }
 
-export default CustomImg
+export default Img

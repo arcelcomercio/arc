@@ -3,6 +3,7 @@ import {
   formatDayMonthYearBasic,
   formatDateStory,
 } from '../../../../utilities/date-time/dates'
+import Img from '../../../../global-components/img'
 
 const classes = {
   author:
@@ -37,11 +38,13 @@ const StoryContentChildAuthorTrust = ({
           <div className={classes.authorInfo}>
             <div>
               {authorImage && (
-                <img
+                <Img
                   itemProp="image"
-                  alt={author}
-                  title={author}
                   src={authorImage}
+                  width={57}
+                  height={57}
+                  title={author}
+                  alt={author}
                   className={classes.authorImage}
                 />
               )}
