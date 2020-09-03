@@ -19,7 +19,6 @@
       }
     }
   }
-
   li {
     font-family: $tertiary-font;
     & a {
@@ -106,6 +105,10 @@
   &__list-more {
     width: 110px;
   }
+}
+
+li.story-content__item a.story-content__link {
+  text-decoration: none;
 }
 
 .opinion .content-sidebar {

@@ -351,6 +351,10 @@
     }
   }
 
+  li.story-content__item a.story-content__link {
+    text-decoration: none;
+  }
+
   &__correction {
     // background-color: #f3f5f7;
     // border-radius: 5px;
