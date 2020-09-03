@@ -134,13 +134,14 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeRulesCounter: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
     mainLogo: 'logo.png',
     mainColorBr: '#efdb96',
-    mainColorLink:'#008eff',
+    mainColorLink: '#008eff',
     authProviders: [],
   },
   gda: false, // Grupo Diarios de America

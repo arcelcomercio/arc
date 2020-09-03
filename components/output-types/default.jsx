@@ -452,7 +452,7 @@ export default ({
           )
         })()}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activePaywall) {
+          if (isElcomercioHome || !siteProperties.activeRulesCounter) {
             return null
           }
           return (
