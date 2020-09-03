@@ -145,16 +145,14 @@ export default ({
         )}
         <div className={classes.authorContainer}>
           <a itemProp="url" className={classes.authorImgLink} href={authorLink}>
-            <picture>
-              <Img
-                src={authorImage}
-                width={47}
-                height={47}
-                alt={author}
-                className={classes.authorImg}
-                loading="lazy"
-              />
-            </picture>
+            <Img
+              src={authorImage}
+              width={47}
+              height={47}
+              alt={author}
+              className={classes.authorImg}
+              loading="lazy"
+            />
           </a>
           <div className={classes.authorNameContainer}>
             <h4 itemProp="name">

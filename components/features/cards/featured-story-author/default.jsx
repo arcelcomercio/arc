@@ -3,7 +3,6 @@ import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
 import {
   includeCredits,
   includePrimarySection,
@@ -49,7 +48,7 @@ const CardFeaturedStoryAuthor = props => {
     primarySectionLink,
     author,
     authorLink,
-    authorImage: originalAuthorImage,
+    authorImage,
     multimediaLandscapeMD,
     multimediaPortraitMD,
     multimediaLandscapeL,
@@ -65,12 +64,6 @@ const CardFeaturedStoryAuthor = props => {
     contextPath,
     deployment,
     defaultImgSize: 'sm',
-  })
-
-  const { authorImage } = createResizedParams({
-    url: originalAuthorImage,
-    presets: 'authorImage:47x47',
-    arcSite,
   })
 
   return (

@@ -4,14 +4,34 @@ import { useAppContext } from 'fusion:context'
 import { defaultImage } from '../utilities/assets'
 import { createResizedParams } from '../utilities/resizer/resizer'
 
+/**
+ *
+ * @param {object} config
+ * @param {string|number} [config.id]
+ * @param {string} config.src
+ * @param {string} [config.dataSrc]
+ * @param {string} config.alt
+ * @param {string} [config.loading]
+ * @param {string} [config.filterQuality]
+ * @param {object} [config.style]
+ * @param {string} [config.type]
+ * @param {string} [config.importance]
+ * @param {number} [config.width=640]
+ * @param {number} [config.height=360]
+ *
+ * @returns {HTMLImageElement} Static resized <img/>
+ */
 const CustomImg = ({
+  id,
   src,
   dataSrc,
-  alt,
   loading,
   filterQuality,
-  className,
-  style,
+  type,
+  alt = '',
+  style = {},
+  className = '',
+  importance,
   width = 640,
   height = 360,
 }) => {
@@ -19,6 +39,7 @@ const CustomImg = ({
    * Se espera el atributo `loading` para simular los
    * estandares actuales, asi el codigo esta preparado
    * para cuando este estandar sea mayormente aceptado.
+   * @see https://web.dev/native-lazy-loading/
    */
   const lazy = loading === 'lazy'
   const presets = { image: { width, height } }
@@ -35,15 +56,31 @@ const CustomImg = ({
     arcSite,
     filterQuality,
   })
+  /**
+   * Acepta una imagen por defecto personalizada
+   * como `src` si la imagen es lazy y se recibe
+   * tambien el parametro `dataSrc`.
+   */
+  const placeholder =
+    lazy && dataSrc && src ? src : defaultImage({ contextPath, arcSite })
 
+  /**
+   * srcSet puede fallar como id si el valor de ese
+   * parametro no viene de globalContent, sino de
+   * un fetch en el propio feature. VALIDAR
+   */
   return (
-    <Static id={`image:${presets}`}>
+    <Static id={`image:${width}x${height}${id || dataSrc || src || alt}`}>
       <img
-        src={lazy ? defaultImage({ contextPath, arcSite }) : image}
+        src={lazy ? placeholder : image}
         data-src={lazy ? image : null}
-        alt={alt || ''}
+        alt={alt}
+        // width={width}
+        // height={height}
         className={`${lazy ? 'lazy' : ''} ${className}`}
-        style={style || {}}
+        style={style}
+        type={type}
+        importance={importance}
       />
     </Static>
   )
