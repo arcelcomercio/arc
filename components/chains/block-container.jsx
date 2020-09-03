@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
-const Group = ({ children }) => <Fragment>{children}</Fragment>
+const Group = ({ children }) => <>{children}</>
 
 Group.label = 'Contenedor de bloque'
 export default Group

@@ -14,7 +14,7 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
 } from '../../../../utilities/constants/subtypes'
-// import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
  *
@@ -25,7 +25,7 @@ import {
  *
  * y descomentar la siguiente funcion
  */
-const getResultVideo = (streams, arcSite, type = 'ts') => {
+/* const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
       return streamType === type ? url : []
@@ -34,7 +34,7 @@ const getResultVideo = (streams, arcSite, type = 'ts') => {
   const cantidadVideo = resultVideo.length
 
   return resultVideo[cantidadVideo - 1]
-}
+} */
 
 let hasRenderedContentVideo = false
 const presets = 'resizedImage:840x0'
@@ -100,7 +100,7 @@ const buildCorrectionTexParagraph = (
 
 const buildStampTrustTexParagraph = (paragraph, url, siteUrl = '') => {
   const result = { numberWords: 0, processedParagraph: '' }
-  const urlTrust = url || `${siteUrl}/proyecto-confianza/`
+  const urlTrust = url || `${siteUrl}/buenas-practicas/`
   result.numberWords = countWordsHelper(clearHtml(paragraph))
   result.processedParagraph = `
       <blockquote>
