@@ -51,8 +51,13 @@ const CustomSource = ({
    * parametro no viene de globalContent, sino de
    * un fetch en el propio feature. VALIDAR
    */
+  const idSuffix = id || srcSet
   return (
-    <Static id={`source:${width}x${height}${id || srcSet}`}>
+    <Static
+      id={`source:${width}x${height}${idSuffix.substring(
+        idSuffix.length - 30,
+        idSuffix.length
+      )}`}>
       <source
         srcSet={lazy ? null : image}
         data-srcset={lazy ? image : null}

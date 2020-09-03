@@ -1,9 +1,12 @@
 import React from 'react'
+import { SITE_DEPOR } from '../../../../../utilities/constants/sitenames'
+
 import MultimediaIcon from '../../../../../global-components/lite/multimedia-icon'
+import Img from '../../../../../global-components/img'
 
 const CardMostReadChildItem = props => {
-  const { item, viewImage, isAdmin } = props
-  const { websiteUrl, imageUrl, lazyImage, title, storyType } = item
+  const { item, viewImage, arcSite } = props
+  const { websiteUrl, imageUrl, title, storyType } = item
 
   const classes = {
     item: `most-read__item `,
@@ -22,11 +25,13 @@ const CardMostReadChildItem = props => {
       <a itemProp="url" href={websiteUrl} className={classes.link}>
         {viewImage && (
           <figure className={classes.figure}>
-            <img
-              className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-              src={isAdmin ? imageUrl : lazyImage}
-              data-src={imageUrl}
+            <Img
+              src={imageUrl}
+              width={arcSite === SITE_DEPOR ? 314 : 118}
+              height={arcSite === SITE_DEPOR ? 157 : 72}
               alt={title}
+              className={classes.img}
+              loading="lazy"
             />
             <MultimediaIcon type={storyType} />
           </figure>

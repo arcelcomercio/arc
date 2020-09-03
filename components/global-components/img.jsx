@@ -73,8 +73,13 @@ const Img = ({
    * parametro no viene de globalContent, sino de
    * un fetch en el propio feature. VALIDAR
    */
+  const idSuffix = id || dataSrc || src || alt
   return (
-    <Static id={`image:${width}x${height}${id || dataSrc || src || alt}`}>
+    <Static
+      id={`image:${width}x${height}${idSuffix.substring(
+        idSuffix.length - 30,
+        idSuffix.length
+      )}`}>
       <img
         src={lazy ? placeholder : image}
         data-src={lazy ? image : null}
