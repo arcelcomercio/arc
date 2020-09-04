@@ -1,5 +1,10 @@
 import React from 'react'
-import { getMultimediaIcon } from '../../../../utilities/helpers'
+import {
+  SITE_GESTION,
+  SITE_DEPOR,
+} from '../../../../utilities/constants/sitenames'
+import getMultimediaIcon from '../../../../utilities/multimedia-icon'
+import Img from '../../../../global-components/img'
 
 const classes = {
   story: `most-read-homologated-item flex flex-col w-auto border-b-1 border-solid border-gray`,
@@ -22,10 +27,24 @@ export default ({
   title,
   urlNews,
   multimedia,
-  lazyImage,
   multimediaType,
-  isAdmin,
+  arcSite,
 }) => {
+  const image = {}
+  switch (arcSite) {
+    case SITE_GESTION:
+      image.width = 50
+      image.height = 70
+      break
+    case SITE_DEPOR:
+      image.width = 253
+      image.height = 142
+      break
+    default:
+      image.width = 238
+      image.height = 134
+  }
+
   return (
     <article role="listitem" className={classes.story}>
       <div className={classes.linkBox}>
@@ -45,11 +64,12 @@ export default ({
               {multimedia && (
                 <a itemProp="url" href={urlNews}>
                   <picture>
-                    <img
-                      className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                      src={isAdmin ? multimedia : lazyImage}
-                      data-src={multimedia}
+                    <Img
+                      src={multimedia}
+                      width={image.width}
+                      height={image.height}
                       alt={title}
+                      className={classes.image}
                     />
                   </picture>
                 </a>

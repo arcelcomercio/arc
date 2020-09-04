@@ -112,7 +112,9 @@ export default ({
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
 
   const redSocialVideo = contentElementsRedesSociales
-    .map(({ youtube = '', facebook = '', twitter = '', user = '' }) => {
+    .map(algo => {
+      const { youtube = '', facebook = '', twitter = '', user = '' } =
+        algo || {}
       const thumbnailUrlYoutube =
         youtube && `https://img.youtube.com/vi/${youtube}/maxresdefault.jpg`
       const embedUrlYoutube =
