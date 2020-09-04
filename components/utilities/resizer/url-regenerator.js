@@ -16,14 +16,7 @@ export const regenerateImageUrl = (thumborParam, originalUrl, arcSite) => {
     throw new Error(
       'Es necesario que el regenerador de url reciba thumborParams y originalUrl'
     )
-  if (
-    originalUrl.includes(
-      'https://cdna.' ||
-        'https://cdnc.' ||
-        '/resources/dist/' ||
-        '/resources/assets/'
-    )
-  )
+  if (/https:\/\/cdn[c|a].|\/resources\/(?:dist|assets)\//.test(originalUrl))
     return originalUrl
   const { resizerUrl } = getProperties(arcSite)
   const urlSuffix = originalUrl.replace(/http[s]?:\/\//, '')

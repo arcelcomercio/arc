@@ -45,12 +45,7 @@ export const createResizer = (resizerKey, resizerUrl, filterQuality = 75) => {
        * en el archivo "url-regenerator"
        */
       if (
-        originalUrl.includes(
-          'https://cdna.' ||
-            'https://cdnc.' ||
-            '/resources/dist/' ||
-            '/resources/assets/'
-        )
+        /https:\/\/cdn[c|a].|\/resources\/(?:dist|assets)\//.test(originalUrl)
       )
         return originalUrl
 
