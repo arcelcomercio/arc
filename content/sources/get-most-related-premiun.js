@@ -58,15 +58,18 @@ const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { amountStories } = key
 
+  const pattern = /((.*)-noticia(.*)\/)(.*)/
+
   return request({
     uri: flagDev ? uriPostDev(website) : uriPostProd(website),
     ...options,
   }).then(resp => {
-    const arrURL = resp.slice(0, amountStories)
-    arrURL.forEach(el => {
-      // eslint-disable-next-line no-param-reassign
-      el.path = el.path.match(/((.*)-noticia(.*)\/)(.*)/)[1] || ''
-    })
+    const arrResponse = resp
+    arrResponse.filter(
+      (obj, pos) => pattern.test(obj.path) && arrResponse.indexOf(obj) === pos
+    )
+    const arrURL = arrResponse.slice(0, amountStories)
+
     const promiseArray = arrURL.map(url =>
       request({
         uri: uriAPI(url.path, website),
