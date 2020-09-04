@@ -7,7 +7,8 @@ import { createResizedParams } from '../utilities/resizer/resizer'
 /**
  *
  * @param {object} config
- * @param {string|number} [config.id]
+ * @param {string} [config.id]
+ * @param {string|number} [config.uid] Static ID
  * @param {string} config.src
  * @param {string} [config.dataSrc]
  * @param {string} config.alt
@@ -22,9 +23,13 @@ import { createResizedParams } from '../utilities/resizer/resizer'
  * @param {number} [config.height=360]
  *
  * @returns {HTMLImageElement} Static resized <img/>
+ *
+ * @see loading https://web.dev/native-lazy-loading/
+ * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
  */
 const Img = ({
   id,
+  uid,
   src,
   dataSrc,
   loading,
@@ -50,6 +55,14 @@ const Img = ({
   const { arcSite, contextPath } = useAppContext()
 
   /**
+   * Acepta una imagen por defecto personalizada
+   * como `src` si la imagen es lazy y se recibe
+   * tambien el parametro `dataSrc`.
+   */
+  const placeholder =
+    lazy && dataSrc && src ? src : defaultImage({ contextPath, arcSite })
+
+  /**
    * Si tiene lazy activado acepta la imagen por
    * `dataSrc` o `src`, este ultimo caso para alinearse
    * a los estandares actuales.
@@ -60,20 +73,13 @@ const Img = ({
     arcSite,
     filterQuality,
   })
-  /**
-   * Acepta una imagen por defecto personalizada
-   * como `src` si la imagen es lazy y se recibe
-   * tambien el parametro `dataSrc`.
-   */
-  const placeholder =
-    lazy && dataSrc && src ? src : defaultImage({ contextPath, arcSite })
 
   /**
    * srcSet puede fallar como id si el valor de ese
    * parametro no viene de globalContent, sino de
    * un fetch en el propio feature. VALIDAR
    */
-  const idSuffix = id || dataSrc || src || alt
+  const idSuffix = uid || dataSrc || src || alt
   return (
     <Static
       id={`image:${width}x${height}${idSuffix.substring(
@@ -86,6 +92,7 @@ const Img = ({
         alt={alt}
         // width={width}
         // height={height}
+        id={id}
         className={`${lazy ? 'lazy' : ''} ${className}`}
         style={style}
         type={type}
