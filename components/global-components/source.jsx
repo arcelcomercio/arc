@@ -7,7 +7,7 @@ import { createResizedParams } from '../utilities/resizer/resizer'
 /**
  *
  * @param {object} config
- * @param {string|number} [config.id]
+ * @param {string|number} [config.uid]
  * @param {string} config.srcSet
  * @param {string} [config.media]
  * @param {string} [config.loading]
@@ -19,7 +19,7 @@ import { createResizedParams } from '../utilities/resizer/resizer'
  * @returns {HTMLSourceElement} Static resized <source/>
  */
 const CustomSource = ({
-  id,
+  uid,
   srcSet,
   media,
   loading,
@@ -51,7 +51,7 @@ const CustomSource = ({
    * parametro no viene de globalContent, sino de
    * un fetch en el propio feature. VALIDAR
    */
-  const idSuffix = id || srcSet
+  const idSuffix = uid || srcSet
   return (
     <Static
       id={`source:${width}x${height}${idSuffix.substring(
