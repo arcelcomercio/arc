@@ -1,4 +1,5 @@
 import React from 'react'
+import Img from '../../../../global-components/img'
 
 const classes = {
   columnistPremium:
@@ -23,17 +24,19 @@ const ColumnistPremium = ({
   subTitle,
   isPremium,
   websiteLink,
-  isAdmin,
   logo,
 }) => {
   return (
     <article className={classes.columnistPremium}>
       <a itemProp="url" href={authorLink}>
-        <img
+        <Img
+          src={lazyImage}
+          dataSrc={authorImage}
+          width={100}
+          height={100}
           alt={`Foto de perfil de ${author}`}
-          className={`${isAdmin ? '' : 'lazy'} ${classes.profile}`}
-          src={isAdmin ? authorImage : lazyImage}
-          data-src={authorImage}
+          className={classes.profile}
+          loading="lazy"
         />
       </a>
 
