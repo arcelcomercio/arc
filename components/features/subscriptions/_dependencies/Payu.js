@@ -1,14 +1,13 @@
 import addScriptAsync from './Async'
-import PropertiesSite from './Properties'
+import { PropertiesCommon } from './Properties'
 
 const addPayU = deviceSessionId => {
   if (typeof window !== 'undefined') {
-    const { links } = PropertiesSite.common
-    const originPayuTags = links.payuTags
+    const { links } = PropertiesCommon
     return Promise.all([
       addScriptAsync({
         name: 'payuTags',
-        url: `${originPayuTags}${deviceSessionId}80200`,
+        url: `${links.payuTags}${deviceSessionId}80200`,
         includeNoScript: true,
       }),
     ]).then(() => {

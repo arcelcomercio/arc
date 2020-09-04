@@ -7,11 +7,16 @@
 import React, { useContext, useState } from 'react'
 import TextMask from 'react-text-mask'
 import { useFusionContext } from 'fusion:context'
-import PropertiesSite from '../_dependencies/Properties'
+import {
+  PropertiesSite,
+  PropertiesCommon,
+  ArcEnv,
+} from '../_dependencies/Properties'
 import { AuthContext } from '../_context/auth'
 import { subDniToken } from '../_dependencies/Services'
 import useForm from '../_hooks/useForm'
 import { maskDocuments, docPatterns } from '../_dependencies/Regex'
+import PWA from '../_dependencies/Pwa'
 
 const styles = {
   wrapper: 'validate__grid wrapper-buy',
@@ -22,19 +27,26 @@ const styles = {
   iconUp: 'icon-arrow-up',
 }
 
-export const FooterSubs = ({ arcEnv }) => {
-  const { userLoaded, userStep, updateLoading } = useContext(AuthContext)
+export const FooterSubs = () => {
+  const { userLoaded, userStep, updateLoading, userDataPlan } = useContext(
+    AuthContext
+  )
   const [loading, setLoading] = useState(false)
   const [showDocOption, setShowDocOption] = useState('DNI')
-  const { urls } = PropertiesSite.common
+  const { urls, texts } = PropertiesCommon
   const {
-    globalContent: { printAttributes = [], printedSubscriber },
+    globalContent: { name: planName, printAttributes = [], printedSubscriber },
   } = useFusionContext() || {}
 
   const textsAttr = printAttributes.reduce(
     (prev, item) => ({ ...prev, [item.name]: item.value }),
     {}
   )
+
+  const period = {
+    Month: 'Mensual',
+    Year: 'Anual',
+  }
 
   const stateSchema = {
     vDocumentType: { value: 'DNI', error: '' },
@@ -66,13 +78,13 @@ export const FooterSubs = ({ arcEnv }) => {
       })
       window.Identity.heartbeat()
         .then(resHeart => {
-          subDniToken(urls.subsDniToken[arcEnv], resHeart.accessToken)
+          subDniToken(urls.subsDniToken, resHeart.accessToken)
             .then(resDniToken => {
               if (resDniToken.token) {
                 updateLoading(true)
                 setTimeout(() => {
                   window.location.href =
-                    arcEnv === 'prod'
+                    ArcEnv === 'prod'
                       ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/`
                       : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/?outputType=subscriptions`
                 }, 1000)
@@ -119,9 +131,9 @@ export const FooterSubs = ({ arcEnv }) => {
                   </>
                 ) : (
                   <>
-                    <h4>¿Eres suscriptor de nuestra edición impresa?</h4>
+                    <h4>{texts.titleValidDni}</h4>
                     <p>
-                      Inicia sesión o regístrate y descubre el precio
+                      {texts.subTitleValidDni}
                       <span>especial para ti.</span>
                     </p>
                   </>
@@ -198,7 +210,19 @@ export const FooterSubs = ({ arcEnv }) => {
       {userStep !== 4 && (
         <section className="step__bottom">
           <button className={styles.btnDetail} type="button" id="btn-detail">
-            Elige tu plan
+            <div>
+              <span className="title-item">Resumen de pedido:</span>
+              <h5 className="name-item">
+                {`
+                  ${planName} - ${period[userDataPlan.billingFrequency]}
+                  `}
+              </h5>
+            </div>
+            <span className="price-item">
+              {userDataPlan.amount === 0
+                ? 'Gratis'
+                : `S/ ${userDataPlan.amount}.00`}
+            </span>
             <i className={styles.iconUp}></i>
           </button>
         </section>
@@ -207,8 +231,10 @@ export const FooterSubs = ({ arcEnv }) => {
   )
 }
 
-export const FooterLand = ({ arcSite, arcEnv, arcType }) => {
+export const FooterLand = ({ arcType }) => {
+  const { arcSite } = useFusionContext() || {}
   const { urls, emails, texts } = PropertiesSite[arcSite]
+  const { links } = PropertiesCommon
   return (
     <>
       <footer className="footer" id="footer">
@@ -223,7 +249,8 @@ export const FooterLand = ({ arcSite, arcEnv, arcType }) => {
                   <a
                     target="_blank"
                     rel="noreferrer"
-                    href={urls.homeUrl[arcEnv]}>
+                    href={urls.homeUrl}
+                    aria-label={arcSite}>
                     <div className="footer__content-logo"></div>
                   </a>
                   <p>
@@ -244,7 +271,7 @@ export const FooterLand = ({ arcSite, arcEnv, arcType }) => {
                   <div className="cont">
                     <p>
                       <a
-                        href={urls.preguntas[arcEnv]}
+                        href={links.preguntas}
                         target="_blank"
                         rel="noreferrer"
                         className="footer__content-link">
@@ -314,24 +341,47 @@ export const FooterLand = ({ arcSite, arcEnv, arcType }) => {
                 <div className="footer__content-encuentranos">
                   <h4 className="footer__content-title">Encuéntranos</h4>
                   <div className="footer__content-encuentranos-social">
-                    <a href={urls.twitter} target="_blank" rel="noreferrer">
+                    <a
+                      href={urls.twitter}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Twitter">
                       <i className="icon-twitter"></i>
                     </a>
-                    <a href={urls.facebook} target="_blank" rel="noreferrer">
+                    <a
+                      href={urls.facebook}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Facebook">
                       <i className="icon-facebook"></i>
                     </a>
-                    <a href={urls.instangram} target="_blank" rel="noreferrer">
+                    <a
+                      href={urls.instangram}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Instagram">
                       <i className="icon-instangram"></i>
                     </a>
                   </div>
-                  <div className="footer__content-encuentranos-apps">
-                    <a href={urls.appStore} target="_blank" rel="noreferrer">
-                      <i className="icon-appstore"></i>
-                    </a>
-                    <a href={urls.googlePlay} target="_blank" rel="noreferrer">
-                      <i className="icon-googleplay"></i>
-                    </a>
-                  </div>
+
+                  {!PWA.isPWA() && (
+                    <div className="footer__content-encuentranos-apps">
+                      <a
+                        href={urls.appStore}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="AppStore">
+                        <i className="icon-appstore"></i>
+                      </a>
+                      <a
+                        href={urls.googlePlay}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="GooglePlay">
+                        <i className="icon-googleplay"></i>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

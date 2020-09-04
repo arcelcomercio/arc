@@ -6,17 +6,18 @@ import Forgot from './_children/forgot'
 import { NavigateConsumer } from '../../../_context/navigate'
 import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
 import PWA from '../../../_dependencies/Pwa'
+import { isFbBrowser, getSessionStorage } from '../../../_dependencies/Utils'
 
-const renderTemplate = (template, site, env, isfia) => {
+const renderTemplate = (template, site, isfia) => {
   const templates = {
-    login: <Login arcSite={site} arcEnv={env} fromFia={isfia} />,
-    register: <Register arcSite={site} arcEnv={env} fromFia={isfia} />,
+    login: <Login arcSite={site} fromFia={isfia} />,
+    register: <Register arcSite={site} fromFia={isfia} />,
     forgot: <Forgot />,
   }
   return templates[template] || templates.login
 }
 
-const Singwall = ({ arcEnv }) => {
+const Singwall = () => {
   const {
     arcSite,
     globalContent: { plans = [], printedSubscriber, fromFia },
@@ -24,10 +25,6 @@ const Singwall = ({ arcEnv }) => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const isFbBrowser =
-        window.navigator.userAgent.indexOf('FBAN') > -1 ||
-        window.navigator.userAgent.indexOf('FBAV') > -1
-
       window.dataLayer.push({
         event: 'checkoutOption',
         ecommerce: {
@@ -37,9 +34,8 @@ const Singwall = ({ arcEnv }) => {
         },
       })
 
-      const origin =
-        window.sessionStorage.getItem('paywall_type_modal') || 'organico'
-      const referer = window.sessionStorage.getItem('paywall_last_url') || ''
+      const origin = getSessionStorage('paywall_type_modal') || 'organico'
+      const referer = getSessionStorage('paywall_last_url') || ''
 
       sendAction(PixelActions.PAYMENT_PLAN, {
         referer,
@@ -47,9 +43,10 @@ const Singwall = ({ arcEnv }) => {
         suscriptorImpreso: printedSubscriber ? 'si' : 'no',
         pwa: PWA.isPWA() ? 'si' : 'no',
       })
+
       window.fbq('track', 'ViewPaywall', {
         // eslint-disable-next-line no-nested-ternary
-        surface: fromFia ? 'fia' : isFbBrowser ? 'mWeb' : 'nonApp',
+        surface: fromFia ? 'fia' : isFbBrowser() ? 'mWeb' : 'nonApp',
       })
 
       window.fbq('track', 'ViewContent', {
@@ -67,7 +64,7 @@ const Singwall = ({ arcEnv }) => {
   return (
     <NavigateConsumer>
       {({ selectedTemplate }) => (
-        <>{renderTemplate(selectedTemplate, arcSite, arcEnv, fromFia)}</>
+        <>{renderTemplate(selectedTemplate, arcSite, fromFia)}</>
       )}
     </NavigateConsumer>
   )
