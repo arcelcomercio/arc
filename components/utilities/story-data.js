@@ -442,8 +442,7 @@ class StoryData {
       embed.length > 0
         ? embed.map(item => {
             const { content = '' } = item
-            return content.includes('twitter-tweet') ||
-              content.includes('instagram-media')
+            return /twitter-(?:tweet|timeline)|instagram-media/.test(content)
               ? item
               : []
           })
