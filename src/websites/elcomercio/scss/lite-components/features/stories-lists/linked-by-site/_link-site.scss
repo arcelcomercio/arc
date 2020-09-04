@@ -1,3 +1,8 @@
+/* 
+hay estilos por defecto en 
+src/general-styles/framework/core/_lite.scss
+*/
+
 .link-site {
   margin: 20px;
   border-top: 1px solid #888;
@@ -20,8 +25,6 @@
     }
   }
   &__header {
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 2px solid #e1e1e1;
     margin-bottom: 15px;
     padding-bottom: 20px;
@@ -29,7 +32,6 @@
   &__h-text {
     color: #111;
     font-weight: 700;
-    text-transform: uppercase;
     font-size: 14px;
     font-family: $primary-font;
   }
@@ -43,7 +45,6 @@
     font-weight: 700;
   }
   &__list {
-    flex-direction: column;
     @media (--tablet) {
       flex-direction: row;
       flex-wrap: wrap;
