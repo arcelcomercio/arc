@@ -36,7 +36,6 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
   return resultVideo[cantidadVideo - 1]
 } */
 
-let hasRenderedContentVideo = false
 const presets = 'resizedImage:840x0'
 
 const buildIframeAdvertising = urlAdvertising => {
@@ -259,12 +258,9 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
       break
     case ConfigParams.ELEMENT_VIDEO:
-      if (!hasRenderedContentVideo) {
-        const urlVideo = getResultVideo(streams, arcSite, 'mp4')
-        result.numberWords = numberWordMultimedia
-        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe></figure>`
-        hasRenderedContentVideo = true
-      }
+      const urlVideo = getResultVideo(streams, arcSite, 'mp4')
+      result.numberWords = numberWordMultimedia
+      result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe></figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
