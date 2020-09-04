@@ -4,13 +4,13 @@ import { createMarkup } from '../../../../../utilities/helpers'
 
 const classes = {
   container: 'link-site f f-col',
-  header: 'link-site__header f',
-  headerText: 'link-site__h-text',
+  header: 'link-site__header f alg-center just-between',
+  headerText: 'link-site__h-text uppercase',
   headerSiteText: 'link-site__subtitle',
   headerSite: 'link-site__site',
-  list: 'link-site__list f',
+  list: 'link-site__list f f-col',
   listItem: 'link-site__item f mb-15',
-  picture: 'link-site__pic ',
+  picture: 'link-site__pic',
   listItemTitle: 'link-site__title-link oflow-h ',
   image: 'link-site__image',
 }
