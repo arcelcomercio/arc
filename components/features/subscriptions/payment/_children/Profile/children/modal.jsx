@@ -45,18 +45,10 @@ function Modal({
     return ''
   }, [])
 
-  //   const childrens = React.Children.map(children, child =>
-  //     React.cloneElement(child, { close })
-  //   )
-
   return (
     <Portal id="modal">
       <div className={`modal ${open && 'open-modal'}`} {...props}>
-        <div
-          role="button"
-          className="modal-background"
-          //   onClick={() => allowEsc && close()}
-        />
+        <div role="button" className="modal-background" />
         <div className="modal-content" scrollable={scrollable}>
           {children}
         </div>

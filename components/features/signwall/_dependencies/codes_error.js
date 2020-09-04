@@ -3,7 +3,7 @@ const getCodeError = code => {
     case '300040':
     case '300037':
       return 'Correo electrónico y/o contraseña incorrecta.'
-    case '130051`':
+    case '130051':
       return 'El Correo electrónico no ha sido verificado.'
     case '100014':
     case '300014':
