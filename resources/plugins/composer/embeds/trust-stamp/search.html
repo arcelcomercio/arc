@@ -56,15 +56,22 @@
         <div class="container">
           <!-- Search Form -->
           <p class="lead text-muted">
-            Ingrese los datos para la corrección
+            Ingrese los datos para el Sello Trust
           </p>
           <p class="lead">
           </p>
           <strong>
-              Si se deja vacío el campo "URL", por defecto tomara este path <code>/buenas-practicas</code><br>
+            Si se deja vacío el campo "URL de la imagen", por defecto tomara este path <code>/buenas-practicas/#trust-project</code><br>
+            O en caso contrario inserte una URL, ej: https://elcomercio.pe/buenas-practicas/#trust-project
+          </strong>
+          <label class="w-100" for="url_img">URL de la imagen:
+            <input class="w-100" type="textfield" id="url_img" name="url_img" />
+          </label>
+          <strong>
+              Si se deja vacío el campo "URL saber más", por defecto tomara este path <code>/buenas-practicas</code><br>
               O en caso contrario inserte una URL, ej: https://elcomercio.pe/buenas-practicas/
           </strong>
-          <label class="w-100" for="url">URL:
+          <label class="w-100" for="url">URL saber más:
             <input class="w-100" type="textfield" id="url" name="url" />
           </label>
           <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
@@ -123,11 +130,13 @@
 
 
     const idEl =  Date.now() + '-' + Math.floor(Math.random() * 1000000)
+    let url_img = ''
     let url = ''
     let data = {}
 
     const handleSearch = () => {
       url = document.getElementById('url').value;
+      url_img = document.getElementById('url_img').value;
 
       // if (url ) 
       buildMessage()
@@ -141,6 +150,7 @@
         url: '/pf/api/v3/content/fetch/photo-by-id',
         config: {
           "url": url || '',
+          "url_img": url_img || '',
         }
       }
 

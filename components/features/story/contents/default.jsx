@@ -336,11 +336,16 @@ class StoryContents extends PureComponent {
                     )
                   }
                   if (type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST) {
-                    const { config: { url: urlConfig = '' } = {} } =
-                      customEmbed || {}
+                    const {
+                      config: {
+                        url: urlConfig = '',
+                        url_img: urlImgConfig = '',
+                      } = {},
+                    } = customEmbed || {}
                     return (
                       <StoryContentsChildStampTrust
                         url={urlConfig}
+                        urlImg={urlImgConfig}
                         isAmp={false}
                         siteUrl={siteUrl}
                       />
