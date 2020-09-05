@@ -1,5 +1,5 @@
 import React from 'react'
-import Img from '../../../../global-components/img'
+import Image from '../../../../global-components/image'
 
 const classes = {
   opinionBody: 'separator__opinion--body mt-0 mb-0 ',
@@ -52,9 +52,9 @@ const SeparatorsChildAuthorCard = ({
                   </div>
                 ) : (
                   <a itemProp="url" href={authorUrl}>
-                    <Img
-                      src={defaultAuthorImage}
-                      dataSrc={authorImage}
+                    <Image
+                      src={authorImage}
+                      placeholder={defaultAuthorImage}
                       width={85}
                       height={85}
                       alt={author}

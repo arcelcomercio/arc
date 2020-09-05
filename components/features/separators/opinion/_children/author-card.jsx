@@ -1,5 +1,5 @@
 import React from 'react'
-import Img from '../../../../global-components/img'
+import Image from '../../../../global-components/image'
 
 const classes = {
   opinionItem:
@@ -50,9 +50,9 @@ const SeparatorsChildAuthorCard = props => {
         ) : (
           <figure className={classes.opinionItemImage}>
             <a itemProp="url" href={authorUrl}>
-              <Img
-                src={defaultAuthorImage}
-                dataSrc={authorImage}
+              <Image
+                src={authorImage}
+                placeholder={defaultAuthorImage}
                 width={85}
                 height={85}
                 alt={author}

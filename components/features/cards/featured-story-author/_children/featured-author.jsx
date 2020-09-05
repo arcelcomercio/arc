@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Icon from '../../../../global-components/multimedia-icon'
-import Img from '../../../../global-components/img'
+import Image from '../../../../global-components/image'
 
 export default ({
   title,
@@ -145,7 +145,7 @@ export default ({
         )}
         <div className={classes.authorContainer}>
           <a itemProp="url" className={classes.authorImgLink} href={authorLink}>
-            <Img
+            <Image
               src={authorImage}
               width={47}
               height={47}

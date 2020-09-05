@@ -1,7 +1,7 @@
 import React from 'react'
 import { SITE_DEPOR } from '../../../../utilities/constants/sitenames'
 import Icon from '../../../../global-components/multimedia-icon'
-import Img from '../../../../global-components/img'
+import Image from '../../../../global-components/image'
 
 const CardMostReadChildItem = props => {
   const { item, viewImage, arcSite } = props
@@ -24,7 +24,7 @@ const CardMostReadChildItem = props => {
       <article role="listitem" className={classes.article}>
         {viewImage && (
           <figure className={classes.figure}>
-            <Img
+            <Image
               src={imageUrl}
               width={arcSite === SITE_DEPOR ? 314 : 118}
               height={arcSite === SITE_DEPOR ? 157 : 72}

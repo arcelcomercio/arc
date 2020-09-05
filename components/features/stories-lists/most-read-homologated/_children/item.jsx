@@ -4,7 +4,7 @@ import {
   SITE_DEPOR,
 } from '../../../../utilities/constants/sitenames'
 import getMultimediaIcon from '../../../../utilities/multimedia-icon'
-import Img from '../../../../global-components/img'
+import Image from '../../../../global-components/image'
 
 const classes = {
   story: `most-read-homologated-item flex flex-col w-auto border-b-1 border-solid border-gray`,
@@ -64,7 +64,7 @@ export default ({
               {multimedia && (
                 <a itemProp="url" href={urlNews}>
                   <picture>
-                    <Img
+                    <Image
                       src={multimedia}
                       width={image.width}
                       height={image.height}

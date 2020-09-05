@@ -1,5 +1,5 @@
 import React from 'react'
-import Img from '../../../../global-components/img'
+import Image from '../../../../global-components/image'
 
 const classes = {
   container: 'stories-author__container flex flex-col',
@@ -40,9 +40,9 @@ const StoriesAuthor = ({
           itemProp="url"
           className={classes.storyImgLink}
           href={data.authorLink}>
-          <Img
-            src={defaultAuthorImage}
-            dataSrc={data.authorImage}
+          <Image
+            src={data.authorImage}
+            placeholder={defaultAuthorImage}
             width={100}
             height={100}
             alt={data.titleMain}
@@ -66,10 +66,10 @@ const StoriesAuthor = ({
                 itemProp="url"
                 className={classes.storyImgLink}
                 href={el.authorLink}>
-                <Img
+                <Image
                   uid={`${el.author}${i}`}
-                  src={defaultAuthorImage}
-                  dataSrc={el.authorImage}
+                  src={el.authorImage}
+                  placeholder={defaultAuthorImage}
                   width={65}
                   height={65}
                   alt={el.title}

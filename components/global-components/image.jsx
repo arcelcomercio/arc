@@ -7,36 +7,36 @@ import { createResizedParams } from '../utilities/resizer/resizer'
 /**
  *
  * @param {object} config
- * @param {string} [config.id]
- * @param {string|number} [config.uid] Static ID
  * @param {string} config.src
- * @param {string} [config.dataSrc]
  * @param {string} config.alt
- * @param {string} [config.loading]
- * @param {string} [config.filterQuality]
- * @param {string} [config.itemProp]
- * @param {string} [config.title]
- * @param {object} [config.style]
- * @param {string} [config.type]
- * @param {string} [config.importance]
+ * @param {string|number} [config.uid] Static unique id
  * @param {number} [config.width=640]
  * @param {number} [config.height=360]
+ * @param {string} [config.loading] "lazy" | "eager" | "auto"
+ * @param {string} [config.placeholder]
+ * @param {string} [config.title]
+ * @param {object} [config.style]
+ * @param {string} [config.id]
+ * @param {string} [config.type]
+ * @param {string} [config.importance] Priority hint for browsers
+ * @param {string} [config.itemProp] Related to Structured Data
+ * @param {string} [config.filterQuality]
  *
  * @returns {HTMLImageElement} Static resized <img/>
  *
  * @see loading https://web.dev/native-lazy-loading/
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
  */
-const Img = ({
+const Image = ({
   id,
   uid,
   src,
-  dataSrc,
   loading,
   filterQuality,
   type,
   itemProp,
   title,
+  placeholder: customPlaceholder,
   alt = '',
   style = {},
   className = '',
@@ -44,6 +44,7 @@ const Img = ({
   width = 640,
   height = 360,
 }) => {
+  const { arcSite, contextPath } = useAppContext()
   /**
    * Se espera el atributo `loading` para simular los
    * estandares actuales, asi el codigo esta preparado
@@ -52,34 +53,27 @@ const Img = ({
    */
   const lazy = loading === 'lazy'
   const presets = { image: { width, height } }
-  const { arcSite, contextPath } = useAppContext()
-
-  /**
-   * Acepta una imagen por defecto personalizada
-   * como `src` si la imagen es lazy y se recibe
-   * tambien el parametro `dataSrc`.
-   */
   const placeholder =
-    lazy && dataSrc && src ? src : defaultImage({ contextPath, arcSite })
+    customPlaceholder || defaultImage({ contextPath, arcSite })
 
   /**
    * Si tiene lazy activado acepta la imagen por
    * `dataSrc` o `src`, este ultimo caso para alinearse
    * a los estandares actuales.
    */
-  const { image } = createResizedParams({
-    url: lazy ? dataSrc || src : src,
+  const { image: resizedImage } = createResizedParams({
+    url: src,
     presets,
     arcSite,
     filterQuality,
   })
 
   /**
-   * srcSet puede fallar como id si el valor de ese
-   * parametro no viene de globalContent, sino de
-   * un fetch en el propio feature. VALIDAR
+   * `src` puede fallar como id, si hay un comportamiento
+   * inesperado renderizando la imagen, puedes probar
+   * agregando un `uid` (unique id)
    */
-  const idSuffix = uid || dataSrc || src || alt
+  const idSuffix = uid || src || alt
   return (
     <Static
       id={`image:${width}x${height}${idSuffix.substring(
@@ -87,8 +81,8 @@ const Img = ({
         idSuffix.length
       )}`}>
       <img
-        src={lazy ? placeholder : image}
-        data-src={lazy ? image : null}
+        src={lazy ? placeholder : resizedImage}
+        data-src={lazy ? resizedImage : null}
         alt={alt}
         // width={width}
         // height={height}
@@ -104,4 +98,4 @@ const Img = ({
   )
 }
 
-export default Img
+export default Image
