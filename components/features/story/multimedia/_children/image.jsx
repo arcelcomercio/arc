@@ -57,6 +57,7 @@ const StoryContentChildImage = ({
         src={extractImage(multimediaLarge || url).large}
         alt={caption}
         className={`${classImage}${classes.image} ${classImage}${classes.imageBig}`}
+        importance="high"
       />
     </>
   )
@@ -77,6 +78,7 @@ const StoryContentChildImage = ({
           src={extractImage(multimediaLarge || url).large}
           alt={caption}
           className={`${classImage}${classes.image}`}
+          importance="high"
         />
       </>
     ) : (
@@ -99,6 +101,7 @@ const StoryContentChildImage = ({
           data-src={extractImage(multimediaLarge || url).large}
           alt={caption}
           className={`lazy ${classImage}${classes.image}`}
+          importance="low"
         />
       </>
     )

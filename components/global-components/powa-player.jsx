@@ -79,7 +79,13 @@ const PowaPlayer = ({
         ) : (
           <picture>
             <source srcSet={mobile} media="(max-width: 480px)" />
-            <img src={desktop} alt={alt} loading="eager" style={styles.image} />
+            <img
+              src={desktop}
+              alt={alt}
+              loading="eager"
+              style={styles.image}
+              importance="high"
+            />
           </picture>
         )}
       </div>
