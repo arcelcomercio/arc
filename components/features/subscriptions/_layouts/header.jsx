@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import PropertiesSite from '../_dependencies/Properties'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isAuthenticated } from '../_dependencies/Session'
 import { checkUndefined } from '../_dependencies/Utils'
@@ -15,8 +15,9 @@ const styles = {
   button: 'header__content-button',
 }
 
-const HeaderSubs = ({ userProfile, arcSite, arcEnv }) => {
+const HeaderSubs = ({ userProfile, arcSite }) => {
   const { urls } = PropertiesSite[arcSite]
+  const { links } = PropertiesCommon
   const { userLoaded, activateAuth, updateStep } = useContext(AuthContext)
   const { firstName, lastName, secondLastName } = userProfile || {}
   const [showSignwall, setShowSignwall] = useState(false)
@@ -37,7 +38,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcEnv }) => {
         `web_link_ingresar_${userLoaded ? 'perfil' : 'cuenta'}`
       )
       if (userLoaded || isAuthenticated()) {
-        window.open(urls.profile[arcEnv], '_blank')
+        window.open(links.profile, '_blank')
       } else {
         setShowSignwall(!showSignwall)
         window.Identity.clearSession()
@@ -61,10 +62,11 @@ const HeaderSubs = ({ userProfile, arcSite, arcEnv }) => {
             <div className={styles.logo}></div>
           ) : (
             <a
-              href={urls.homeUrl[arcEnv]}
+              href={urls.homeUrl}
               className={styles.link}
               target="_blank"
-              rel="noreferrer">
+              rel="noreferrer"
+              aria-label={arcSite}>
               <div className={styles.logo}></div>
             </a>
           )}

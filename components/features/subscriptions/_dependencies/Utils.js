@@ -27,7 +27,7 @@ export const createExternalScript = (content, defer = false) => {
 export const checkUndefined = (name, alias) => {
   if (name && (name !== undefined || name !== null)) {
     const nameLowerCase = name.toLowerCase()
-    if (nameLowerCase === 'undefined') {
+    if (nameLowerCase === 'undefined' || nameLowerCase === 'null') {
       return alias || ''
     }
   }
@@ -43,10 +43,8 @@ export const Capitalize = string => {
 }
 
 export const checkFormatPhone = string => {
-  if (!string) {
-    return ''
-  }
-  return checkUndefined(string).replace(/\s|-/g, '')
+  if (!string) return ''
+  return checkUndefined(string).replace(/\+|\s|-|\(|\)/g, '')
 }
 
 export const clearUrlAPI = urlDefault => {
@@ -81,6 +79,34 @@ export const setLocaleStorage = (key, data) => {
   if (typeof window !== 'undefined') {
     if (process.browser) {
       return window.localStorage.setItem(key, encodeValue(data))
+    }
+    return false
+  }
+  return null
+}
+
+export const getFullNameFormat = (firstName, lastName, secondLastName) => {
+  const lowerSecLastName = secondLastName && secondLastName.toLowerCase()
+  const fullName = `${firstName} ${lastName} ${
+    lowerSecLastName === 'undefined' || lowerSecLastName === 'null'
+      ? ''
+      : secondLastName || ''
+  }`
+  return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
+}
+
+export const isFbBrowser = () => {
+  return (
+    typeof window !== 'undefined' &&
+    (window.navigator.userAgent.indexOf('FBAN') > -1 ||
+      window.navigator.userAgent.indexOf('FBAV') > -1)
+  )
+}
+
+export const getSessionStorage = key => {
+  if (typeof window !== 'undefined') {
+    if (process.browser) {
+      return window.sessionStorage.getItem(key)
     }
     return false
   }

@@ -5,12 +5,14 @@ import * as Sentry from '@sentry/browser'
 import useForm from '../../../_hooks/useForm'
 import { getEntitlements } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
-import PropertiesSite from '../../../_dependencies/Properties'
-import Modal from './children/modal'
 import { PixelActions, sendAction, Taggeo } from '../../../_dependencies/Taggeo'
-import PWA from '../../../_dependencies/Pwa'
 import { maskDocuments, docPatterns } from '../../../_dependencies/Regex'
-
+import Modal from './children/modal'
+import PWA from '../../../_dependencies/Pwa'
+import {
+  PropertiesSite,
+  PropertiesCommon,
+} from '../../../_dependencies/Properties'
 import {
   conformProfile,
   isLogged,
@@ -22,6 +24,7 @@ import {
   checkFbEmail,
   checkFormatPhone,
   setLocaleStorage,
+  getSessionStorage,
 } from '../../../_dependencies/Utils'
 import getCodeError, {
   formatEmail,
@@ -40,7 +43,7 @@ const styles = {
 
 const nameTagCategory = 'Web_Paywall_Landing'
 
-const Profile = ({ arcEnv }) => {
+const Profile = () => {
   const {
     arcSite,
     globalContent: { plans = [], error, printedSubscriber },
@@ -55,7 +58,7 @@ const Profile = ({ arcEnv }) => {
     userPlan,
   } = useContext(AuthContext)
   const { urls, emails } = PropertiesSite[arcSite]
-  const { texts } = PropertiesSite.common
+  const { texts, links } = PropertiesCommon
 
   const {
     uuid,
@@ -95,9 +98,8 @@ const Profile = ({ arcEnv }) => {
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
-      const origin =
-        window.sessionStorage.getItem('paywall_type_modal') || 'organico'
-      const referer = window.sessionStorage.getItem('paywall_last_url') || ''
+      const origin = getSessionStorage('paywall_type_modal') || 'organico'
+      const referer = getSessionStorage('paywall_last_url') || ''
 
       window.dataLayer.push({
         event: 'checkoutOption',
@@ -122,6 +124,8 @@ const Profile = ({ arcEnv }) => {
         scope.setTag('brand', arcSite)
         scope.setTag('document', documentNumber || 'none')
         scope.setTag('phone', phone || 'none')
+        scope.setTag('email', email || 'none')
+        scope.setTag('step', 'Perfil')
         scope.setUser({
           id: uuid,
           name: `${firstName} ${lastName} ${secondLastName || ''}`,
@@ -132,9 +136,7 @@ const Profile = ({ arcEnv }) => {
           emailVerified,
         })
       })
-      if (userErrorApi !== false) {
-        updateErrorApi(error)
-      }
+      if (userErrorApi !== false) updateErrorApi(error)
     }
   }, [])
 
@@ -164,15 +166,18 @@ const Profile = ({ arcEnv }) => {
     uFirstName: {
       required: true,
       validator: formatNames(),
-      mincaracts: true,
+      min2caracts: true,
+      invalidtext: true,
     },
     uLastName: {
       required: true,
       validator: formatNames(),
-      mincaracts: true,
+      min2caracts: true,
+      invalidtext: true,
     },
     uSecondLastName: {
       required: false,
+      invalidtext: true,
       validator: formatSecondLastName(),
     },
     uDocumentType: {
@@ -183,13 +188,14 @@ const Profile = ({ arcEnv }) => {
       validator: {
         func: value =>
           docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
-          value !== '00000000',
+          !value.match(/00000000|12345678/),
         error: 'Formato inválido.',
       },
     },
     uPhone: {
       required: true,
       validator: formatPhone(),
+      min6caracts: true,
     },
     uEmail: {
       required: true,
@@ -201,7 +207,7 @@ const Profile = ({ arcEnv }) => {
     if (typeof window !== 'undefined') {
       return window.Identity.heartbeat()
         .then(resHeart => {
-          return getEntitlements(urls.arcOrigin[arcEnv], resHeart.accessToken)
+          return getEntitlements(urls.arcOrigin, resHeart.accessToken)
             .then(resEntitlements => {
               return (
                 Array.isArray(resEntitlements.skus) &&
@@ -246,6 +252,7 @@ const Profile = ({ arcEnv }) => {
         },
       },
     })
+
     window.fbq('track', 'InitiateCheckout', {
       content_category: namePlanApi,
       content_ids: [priceCode],
@@ -382,7 +389,7 @@ const Profile = ({ arcEnv }) => {
 
   const restoreClearSession = () => {
     Sentry.captureEvent({
-      message: 'El Usuario ha perdido su sesión/perfil',
+      message: getCodeError('lostSession'),
       level: 'error',
     })
     setTimeout(() => {
@@ -482,7 +489,7 @@ const Profile = ({ arcEnv }) => {
   const handleProfile = () => {
     if (typeof window !== 'undefined') {
       Taggeo(nameTagCategory, 'web_paywall_profile_validation')
-      window.open(urls.profile[arcEnv], '_blank')
+      window.open(links.profile, '_blank')
     }
   }
 

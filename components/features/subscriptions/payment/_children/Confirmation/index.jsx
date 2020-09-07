@@ -1,16 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext } from '../../../_context/auth'
-import PropertiesSite from '../../../_dependencies/Properties'
 import { paymentTraker } from '../../../_dependencies/Services'
 import { getStorageInfo } from '../../../_dependencies/Session'
+import { SubscribeEventTag } from '../Singwall/_children/fb-account-linking'
+import PWA from '../../../_dependencies/Pwa'
+import {
+  PropertiesSite,
+  PropertiesCommon,
+} from '../../../_dependencies/Properties'
 import {
   pushCxense,
   PixelActions,
   sendAction,
 } from '../../../_dependencies/Taggeo'
-import PWA from '../../../_dependencies/Pwa'
-import { SubscribeEventTag } from '../Singwall/_children/fb-account-linking'
+import {
+  getFullNameFormat,
+  getSessionStorage,
+} from '../../../_dependencies/Utils'
 
 const styles = {
   step: 'step__left-progres',
@@ -22,7 +29,7 @@ const styles = {
   noteBenefist: 'step__left-note-benefist',
 }
 
-const Confirmation = ({ arcEnv }) => {
+const Confirmation = () => {
   const {
     arcSite,
     globalContent: {
@@ -42,26 +49,20 @@ const Confirmation = ({ arcEnv }) => {
     userProfile,
   } = useContext(AuthContext)
 
-  const { texts, urls } = PropertiesSite.common
+  const { texts, urls } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = useState(false)
 
-  const getCodeCxense = urlsSite.codeCxense[arcEnv]
-
   const {
-    // currency,
     email,
-    firstName,
-    // items,
-    lastName,
-    secondLastName,
-    // phone,
-    // status,
+    firstName = '',
+    lastName = '',
+    secondLastName = '',
     items = [],
     total,
     subscriptionIDs,
     orderNumber,
-  } = userPurchase
+  } = userPurchase || {}
 
   const { priceCode: priceCodePurchase, price: pricePurchase } = items[0] || {}
 
@@ -71,20 +72,15 @@ const Confirmation = ({ arcEnv }) => {
     OneTime: 'Mensual',
   }
 
-  const formatName = () => {
-    const fullName = `${firstName} ${lastName} ${secondLastName || ''}`
-    return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
-  }
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const divStep = window.document.getElementById('main-steps')
+      const divDetail = document.getElementById('div-detail')
+      const divFooter = document.getElementById('footer')
       const { uuid, accessToken } = getStorageInfo()
-      const origin =
-        window.sessionStorage.getItem('paywall_type_modal') || 'organico'
-      const referer = window.sessionStorage.getItem('paywall_last_url') || ''
-      const confirm =
-        window.sessionStorage.getItem('paywall_confirm_subs') || '3'
+      const origin = getSessionStorage('paywall_type_modal') || 'organico'
+      const referer = getSessionStorage('paywall_last_url') || ''
+      const confirm = getSessionStorage('paywall_confirm_subs') || '3'
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
       const getPLanSelected = plans.reduce((prev, plan) => {
@@ -93,14 +89,17 @@ const Confirmation = ({ arcEnv }) => {
 
       if (freeAccess || (userPurchase && userPurchase.status)) {
         if (divStep) divStep.classList.add('bg-white')
+        if (divDetail) divDetail.classList.remove('step__show-detail')
+        if (divFooter) divFooter.classList.remove('step__hidden')
+        document.body.classList.remove('no-scroll')
 
         const { sku, name, amount, billingFrequency, priceCode, productName } =
           getPLanSelected || {}
 
         PWA.finalize()
-        pushCxense(getCodeCxense)
+        pushCxense(urlsSite.codeCxense)
         paymentTraker(
-          urls.paymentTracker[arcEnv],
+          urls.paymentTracker,
           accessToken,
           arcSite,
           referer,
@@ -164,7 +163,7 @@ const Confirmation = ({ arcEnv }) => {
               ],
               dataUser: {
                 id: userProfile.uuid || uuid,
-                name: `${firstName} ${lastName} ${secondLastName || ''}`
+                name: `${firstName} ${lastName} ${secondLastName}`
                   .replace(/\s*/, ' ')
                   .trim(),
                 email,
@@ -196,13 +195,13 @@ const Confirmation = ({ arcEnv }) => {
         PWA.pwaCloseWebView()
         return
       }
-      const urlLocal = window.sessionStorage.getItem('paywall_last_url')
-      let urlRedirect = urlsSite.mainHome[arcEnv]
+      const urlLocal = getSessionStorage('paywall_last_url')
+      let urlRedirect = urlsSite.mainHome
       if (urlLocal) {
         urlRedirect =
           urlLocal !== '' && urlLocal !== '/suscripciones/'
             ? urlLocal
-            : urlsSite.mainHome[arcEnv]
+            : urlsSite.mainHome
       }
       window.localStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('paywall_confirm_subs')
@@ -236,9 +235,6 @@ const Confirmation = ({ arcEnv }) => {
 
       <div className="form-confirmation">
         <div className={styles.contConfirm}>
-          {/* <p className="title">Orden - Estado</p>
-          <p className="description">{`${orderNumber} - ${status}`}</p> */}
-
           <p className="title">Paquete</p>
           <p className="description">{`${
             freeAccess ? namePlanApi : userPeriod
@@ -248,7 +244,7 @@ const Confirmation = ({ arcEnv }) => {
           <p className="description">
             {freeAccess
               ? `${freeAccess.firstName} ${freeAccess.lastName}`
-              : formatName()}
+              : getFullNameFormat(firstName, lastName, secondLastName)}
           </p>
 
           <p className="title">Precio</p>
@@ -259,12 +255,6 @@ const Confirmation = ({ arcEnv }) => {
           {!freeAccess && (
             <p className="description">{texts.rememberRecurrency}</p>
           )}
-
-          {/* <p className="title">Email Suscriptor(a)</p>
-          <p className="description">{email}</p> */}
-
-          {/* <p className="title">Teléfono</p>
-          <p className="description">{phone}</p> */}
         </div>
       </div>
 

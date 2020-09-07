@@ -57,7 +57,7 @@ const getCodeError = (code, status) => {
     case '300037':
       return 'Correo electrónico y/o contraseña incorrecta.'
 
-    case '130051`':
+    case '130051':
       return 'El Correo electrónico no ha sido verificado.'
 
     case '100014':
@@ -125,6 +125,15 @@ const getCodeError = (code, status) => {
 
     case 'NoPaid':
       return `Se llegó a concluir el proceso de compra. Pero este tiene un Estado: ${status}. Comunícate con nosotros para verificar que sucedió.`
+
+    case 'lostSession':
+      return 'El Usuario ha perdido su sesión/perfil'
+
+    case 'transactionError':
+      return 'Ocurrió un error en la transacción con PayU'
+
+    case 'errorFinalize':
+      return 'Ocurrió un error al finalizar la compra con ARC'
 
     default:
       return 'Ocurrió un error inesperado.'

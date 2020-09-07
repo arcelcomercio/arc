@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { useState, useEffect } from 'react'
-import ENV from 'fusion:environment'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import stylesLanding from '../_styles/Landing'
-import PropertiesSite from '../_dependencies/Properties'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
 import Cards from './_children/Cards'
 import QueryString from '../../signwall/_dependencies/querystring'
@@ -24,23 +23,22 @@ const LandingSubscriptions = () => {
   } = useFusionContext() || {}
 
   const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
-  const { links } = PropertiesSite.common
+  const { links } = PropertiesCommon
   const isComercio = arcSite === 'elcomercio'
   const [showSignwall, setShowSignwall] = useState(false)
   const [showTypeLanding, setShowTypeLanding] = useState('landing')
   const [showProfile, setShowProfile] = useState(false)
-  const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
 
   useEffect(() => {
     addScriptAsync({
       name: 'IdentitySDK',
-      url: links.identity[arcEnv],
+      url: links.identity,
       includeNoScript: false,
     }).then(() => {
       if (typeof window !== 'undefined') {
-        window.Identity.options({ apiOrigin: urls.arcOrigin[arcEnv] })
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
       }
     })
 
@@ -71,7 +69,7 @@ const LandingSubscriptions = () => {
         `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
       )
       if (isLogged()) {
-        window.location.href = urls.profile[arcEnv]
+        window.location.href = links.profile
       } else {
         setShowSignwall(!showSignwall)
         document.getElementById('btn-signwall').innerHTML = 'Inicia sesión'
@@ -97,10 +95,11 @@ const LandingSubscriptions = () => {
         <div className="wrapper">
           <div className="header__content">
             <a
-              href={urls.mainHome[arcEnv]}
+              href={urls.mainHome}
               target="_blank"
               rel="noreferrer"
-              className="header__content-link">
+              className="header__content-link"
+              aria-label={arcSite}>
               <div className="header__content-logo"></div>
             </a>
             <button
@@ -197,7 +196,7 @@ const LandingSubscriptions = () => {
               role="presentation"
               onClick={() => {
                 if (typeof window !== 'undefined') {
-                  window.open(urls.bannerCorp[arcEnv], '_blank')
+                  window.open(links.bannerCorp, '_blank')
                 }
               }}>
               <div className="banners__content">
@@ -205,7 +204,7 @@ const LandingSubscriptions = () => {
                   {texts.corporativeTitle}
                 </h4>
                 <p className="banners__content-description">
-                  {texts.corporativeDescription}
+                  {texts.corporativeDescrip}
                 </p>
               </div>
             </article>
@@ -300,26 +299,22 @@ const LandingSubscriptions = () => {
             </h1>
             <p className="ayuda__content-description">
               {`${texts.helpDescription} `}
-              <a target="_blank" rel="noreferrer" href={urls.preguntas[arcEnv]}>
+              <a target="_blank" rel="noreferrer" href={links.preguntas}>
                 Preguntas Frecuentes
               </a>
-              {/* {' o '}
-              <a target="_blank" rel="noreferrer" href={urls.default}>
-                permítenos llamarte
-              </a> */}
             </p>
           </div>
         </div>
       </section>
 
-      <FooterLand {...{ arcSite, arcEnv, arcType }} />
+      <FooterLand {...{ arcType }} />
 
       {QueryString.getQuery('signLanding') ||
       QueryString.getQuery('signStudents') ||
       showSignwall ? (
         <Landing
-          typeDialog={showTypeLanding} // tipo de modal (students , landing)
-          nameDialog={showTypeLanding} // nombre de modal (students , landing)
+          typeDialog={showTypeLanding}
+          nameDialog={showTypeLanding}
           onLogged={handleAfterLogged}
           onLoggedFail={() => {}}
           onClose={() => {

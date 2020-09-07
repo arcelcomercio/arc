@@ -51,7 +51,6 @@ import {
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
 } from './constants/subtypes'
-import { SITE_ELCOMERCIO } from './constants/sitenames'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -842,17 +841,21 @@ class StoryData {
 
   get contentPosicionPublicidadAmp() {
     let i = 0
-    let renderedVideos = 0
-    const videosLimit = 1
+    // let renderedVideos = 0
+    // const videosLimit = 1
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-
-        // cambio temporal por comsumo de datos
-        if (
+        dataElements = dataContent
+        /**
+         * Si piden activar el renderizado de 1 solo video
+         * en el cuerpo de las notas, descomentar lo de abajo
+         * y las variables `renderedVideos` y `videosLimit`
+         */
+        /* if (
           typeElement === ELEMENT_VIDEO &&
           this.__website !== SITE_ELCOMERCIO
         ) {
@@ -862,7 +865,7 @@ class StoryData {
           }
         } else {
           dataElements = dataContent
-        }
+        } */
 
         if (i === 1) {
           dataElements.publicidadInline = true
@@ -924,17 +927,21 @@ class StoryData {
   get contentPosicionPublicidad() {
     let i = 0
     let v = 0
-    let renderedVideos = 0
-    const videosLimit = 1
+    // let renderedVideos = 0
+    // const videosLimit = 1
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-
-        // cambio temporal por comsumo de datos
-        if (
+        dataElements = dataContent
+        /**
+         * Si piden activar el renderizado de 1 solo video
+         * en el cuerpo de las notas, descomentar lo de abajo
+         * y las variables `renderedVideos` y `videosLimit`
+         */
+        /* if (
           typeElement === ELEMENT_VIDEO &&
           this.__website !== SITE_ELCOMERCIO
         ) {
@@ -944,7 +951,7 @@ class StoryData {
           }
         } else {
           dataElements = dataContent
-        }
+        } */
 
         if (i === 2) {
           dataElements.publicidad = true
