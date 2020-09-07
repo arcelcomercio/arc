@@ -3,6 +3,7 @@ import {
   formatDayMonthYearBasic,
   formatDateStory,
 } from '../../../../utilities/date-time/dates'
+import StoryContentChildAuthorDetailsTrust from './details-author-trust'
 
 const classes = {
   author:
@@ -28,47 +29,35 @@ const StoryContentChildAuthorTrust = ({
   locality,
   authorEmail,
   primarySection = '',
+  authorImageSecond,
+  authorLinkSecond,
+  authorSecond,
+  authorEmailSecond,
+  authorRoleSecond,
 }) => {
   const displayLoc = locality === '' ? 'Lima' : locality
+
+  const detailsAuthorParamet = {
+    author,
+    authorLink,
+    authorEmail,
+    authorImage,
+    authorRole,
+  }
+  const detailsAuthorParametSecound = {
+    author: authorSecond,
+    authorLink: authorLinkSecond,
+    authorEmail: authorEmailSecond,
+    authorImage: authorImageSecond,
+    authorRole: authorRoleSecond,
+  }
+
   return (
     <>
       <div className={classes.author}>
         {primarySection !== 'Columnistas' && (
-          <div className={classes.authorInfo}>
-            <div>
-              {authorImage && (
-                <img
-                  itemProp="image"
-                  alt={author}
-                  title={author}
-                  src={authorImage}
-                  className={classes.authorImage}
-                />
-              )}
-            </div>
-            <div>
-              {author && (
-                <a
-                  itemProp="url"
-                  href={authorLink}
-                  className={classes.authorNameLink}>
-                  {author}
-                </a>
-              )}
-              {authorRole && (
-                <p itemProp="name" className={classes.authorRole}>
-                  {' '}
-                  {authorRole}{' '}
-                </p>
-              )}
-              {authorEmail && (
-                <p itemProp="description" className={classes.authorEmail}>
-                  {' '}
-                  {authorEmail}{' '}
-                </p>
-              )}
-            </div>
-          </div>
+          <StoryContentChildAuthorDetailsTrust
+            {...detailsAuthorParamet}></StoryContentChildAuthorDetailsTrust>
         )}
         <div className={classes.authorDate}>
           <time className={classes.authorTime} dateTime={updatedDate}>
@@ -84,6 +73,10 @@ const StoryContentChildAuthorTrust = ({
           </time>
         </div>
       </div>
+      {primarySection !== 'Columnistas' && (
+        <StoryContentChildAuthorDetailsTrust
+          {...detailsAuthorParametSecound}></StoryContentChildAuthorDetailsTrust>
+      )}
     </>
   )
 }

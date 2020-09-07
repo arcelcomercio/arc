@@ -116,6 +116,12 @@ class StoryContents extends PureComponent {
       contentPosicionPublicidad,
       prerollDefault,
       contentElementsHtml,
+
+      authorImageSecond,
+      authorLinkSecond,
+      authorSecond,
+      authorEmailSecond,
+      roleSecond: authorRoleSecond,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -141,6 +147,11 @@ class StoryContents extends PureComponent {
       multimediaLarge,
       multimediaLazyDefault,
       primaryImage: true,
+      authorImageSecond,
+      authorLinkSecond,
+      authorSecond,
+      authorEmailSecond,
+      authorRoleSecond,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =

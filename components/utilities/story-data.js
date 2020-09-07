@@ -170,6 +170,26 @@ class StoryData {
     return StoryData.getDataAuthor(this._data).mailAuthor
   }
 
+  get authorLink() {
+    return addSlashToEnd(StoryData.getDataAuthor(this._data).urlAuthor)
+  }
+
+  get authorSecond() {
+    return StoryData.getDataAuthor(this._data, {}, 1).nameAuthor
+  }
+
+  get roleSecond() {
+    return StoryData.getDataAuthor(this._data, {}, 1).role
+  }
+
+  get authorEmailSecond() {
+    return StoryData.getDataAuthor(this._data, {}, 1).mailAuthor
+  }
+
+  get authorLinkSecond() {
+    return addSlashToEnd(StoryData.getDataAuthor(this._data, {}, 1).urlAuthor)
+  }
+
   get seoAuthor() {
     const defaultAuthor = 'Redacción '
     return (
@@ -178,10 +198,6 @@ class StoryData {
         this._website.charAt(0).toUpperCase() +
         this._website.slice(1)
     )
-  }
-
-  get authorLink() {
-    return addSlashToEnd(StoryData.getDataAuthor(this._data).urlAuthor)
   }
 
   get authorSlug() {
@@ -243,6 +259,20 @@ class StoryData {
         deployment: this._deployment,
         website: this._website,
       }).imageAuthor || this.defaultImg
+    )
+  }
+
+  get authorImageSecond() {
+    return (
+      StoryData.getDataAuthor(
+        this._data,
+        {
+          contextPath: this._contextPath,
+          deployment: this._deployment,
+          website: this._website,
+        },
+        1
+      ).imageAuthor || this.defaultImg
     )
   }
 
@@ -1494,7 +1524,11 @@ class StoryData {
     return squareXS
   }
 
-  static getDataAuthor(data, { contextPath = '', website = '' } = {}) {
+  static getDataAuthor(
+    data,
+    { contextPath = '', website = '' } = {},
+    id = null
+  ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = `${getAssetsPath(
       website,
@@ -1511,7 +1545,9 @@ class StoryData {
 
     let imageAuthor = authorImageDefault
     for (let i = 0; i < authorData.length; i++) {
-      const iterator = authorData[i]
+      const idAuthor = id != null ? id : i
+      const iterator = authorData[idAuthor]
+
       if (iterator.type === 'author') {
         nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : '#'
