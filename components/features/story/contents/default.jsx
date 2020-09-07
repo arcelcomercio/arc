@@ -326,12 +326,16 @@ class StoryContents extends PureComponent {
                     sub === STORY_CORRECTION
                   ) {
                     const {
-                      config: { content: contentCorrectionConfig = '' } = {},
+                      config: {
+                        content: contentCorrectionConfig = '',
+                        type: typeConfig = 'correction',
+                      } = {},
                     } = customEmbed || {}
                     return (
                       <StoryContentsChildCorrection
                         content={contentCorrectionConfig}
                         isAmp={false}
+                        type={typeConfig}
                       />
                     )
                   }

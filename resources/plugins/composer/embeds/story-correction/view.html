@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#212529" />
-    <title>Corrección de nota - View API plugin</title>
+    <title>Corrección o aclaración de nota - View API plugin</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -21,7 +21,10 @@
           id="content_card"
         >
           <div class="card-body">
-            <p class="card-text text-muted" style="font-weight: bold;">DATOS DE LA CORRECCIÓN</p>
+            <p class="card-text text-muted" style="font-weight: bold;">DATOS DE LA CORRECCIÓN O ACLARACIÓN</p>
+            <p class="card-text text-muted" style="font-weight: bold;">
+              Contenido: %type%
+            </p>
             <p class="card-text text-muted" style="font-weight: bold;">
               Contenido: %content%
             </p>
@@ -89,6 +92,7 @@
       const config = ansCustomEmbed.config
       const html = template
         .replace(/%item_id%/gi, 'row-' + ansCustomEmbed.id)
+        .replace(/%type%/gi, config.type || "")
         .replace(/%content%/gi, config.content || "")
         .replace(/%date%/gi, config.date || "")
 
