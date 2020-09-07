@@ -58,9 +58,9 @@ const StoryContentChildAuthorTrustLite = ({
         )}
         <div
           className={
-            authorSecond
-              ? `${classes.authorDate} ${classes.authortop}`
-              : classes.authorDate
+            authorEmailSecond
+              ? classes.authorDate
+              : `${classes.authorDate} ${classes.authortop}`
           }>
           <time className={classes.authorTime} dateTime={updatedDate}>
             {updatedDate &&
@@ -73,7 +73,7 @@ const StoryContentChildAuthorTrustLite = ({
           <time dateTime={date}>{date && formatDateStory(date)}</time>
         </div>
       </div>
-      {primarySection !== 'Columnistas' && (
+      {primarySection !== 'Columnistas' && authorEmailSecond && (
         <DetailsAuthor {...detailsAuthorParametSecound}></DetailsAuthor>
       )}
     </>

@@ -1545,10 +1545,10 @@ class StoryData {
 
     let imageAuthor = authorImageDefault
     for (let i = 0; i < authorData.length; i++) {
-      const idAuthor = id != null ? id : i
+      const idAuthor = id === 1 ? id : i
       const iterator = authorData[idAuthor]
 
-      if (iterator.type === 'author') {
+      if (iterator && iterator.type === 'author') {
         nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : '#'
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
