@@ -9,12 +9,6 @@
   &__frame {
     width: 100%;
     height: 220px;
-    @media (--tablet) {
-      height: 350px;
-    }
-    @media (--desktop) {
-      height: 500px;
-    }
     & .powa {
       height: 0;
       width: 100%;
