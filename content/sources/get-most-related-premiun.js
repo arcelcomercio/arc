@@ -64,10 +64,16 @@ const fetch = (key = {}) => {
     uri: flagDev ? uriPostDev(website) : uriPostProd(website),
     ...options,
   }).then(resp => {
-    const arrResponse = resp
-    arrResponse.filter(
-      (obj, pos) => pattern.test(obj.path) && arrResponse.indexOf(obj) === pos
-    )
+    const arrVerify = []
+    const arrResponse = resp.filter(obj => {
+      let ret = false
+      if (pattern.test(obj.path) && !arrVerify.includes(obj.path)) {
+        arrVerify.push(obj.path)
+        ret = true
+      }
+      return ret
+    })
+
     const arrURL = arrResponse.slice(0, amountStories)
 
     const promiseArray = arrURL.map(url =>
