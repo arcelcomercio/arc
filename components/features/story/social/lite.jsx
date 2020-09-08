@@ -29,7 +29,11 @@ const StorySocialLite = () => {
   const { name: auxName = '', path: auxPath = '/' } = sections[0] || {}
 
   const primarySection = name || auxName
-  const primarySectionLink = path || auxPath
+  let primarySectionLink = path || auxPath
+  primarySectionLink =
+    primarySectionLink.slice(-1) !== '/'
+      ? `${primarySectionLink}/`
+      : primarySectionLink
 
   const isArchivoElcomercio = requestUri.includes('/archivo-elcomercio')
 
