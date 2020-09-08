@@ -13,6 +13,7 @@ const classes = {
     'secondary-font font-bold story-content__author-link header__link text-lg text-gray-200 line-h-sm',
   authorDate:
     'story-content__date flex items-center secondary-font text-md text-gray-200 line-h-sm',
+  authorDateTop: 'story-content__date-top',
   authorTime: 'story-content__time',
   authorEmail:
     'story-content__author-email secondary-font text-md text-gray-200 line-h-sm',
@@ -59,7 +60,12 @@ const StoryContentChildAuthorTrust = ({
           <StoryContentChildAuthorDetailsTrust
             {...detailsAuthorParamet}></StoryContentChildAuthorDetailsTrust>
         )}
-        <div className={classes.authorDate}>
+        <div
+          className={
+            authorEmailSecond
+              ? classes.authorDate
+              : `${classes.authorDate} ${classes.authorDateTop}`
+          }>
           <time className={classes.authorTime} dateTime={updatedDate}>
             {updatedDate &&
               `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
@@ -73,7 +79,7 @@ const StoryContentChildAuthorTrust = ({
           </time>
         </div>
       </div>
-      {primarySection !== 'Columnistas' && (
+      {primarySection !== 'Columnistas' && authorEmailSecond && (
         <StoryContentChildAuthorDetailsTrust
           {...detailsAuthorParametSecound}></StoryContentChildAuthorDetailsTrust>
       )}
