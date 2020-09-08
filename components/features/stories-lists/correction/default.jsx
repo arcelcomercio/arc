@@ -126,13 +126,13 @@ const StoriesListCorrection = props => {
   return (
     <div className={classes.list}>
       {correctionToday.length > 0 && (
-        <span className={classes.label}>Correcciones del día</span>
+        <span className={classes.label}>Correcciones y aclaraciones del día</span>
       )}
       {correctionToday.map(el => {
         return contentCorrection(el)
       })}
       {corrections.length > 0 && (
-        <span className={classes.label}>Correcciones de días anteriores</span>
+        <span className={classes.label}>Correcciones y aclaraciones de días anteriores</span>
       )}
       {corrections.map(el => {
         return contentCorrection(el)
