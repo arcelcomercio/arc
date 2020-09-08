@@ -24,7 +24,7 @@ const StoriesListsCardChildItem = ({
             config: {
               content = '',
               date = '',
-              type_event: typeEvent = '',
+              type_event: typeEvent = CORRECTION_TYPE_CORRECTION,
             } = {},
           } = {},
           _id,
