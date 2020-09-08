@@ -8,6 +8,8 @@ const classes = {
   time: 'stories-list-correction__time block pb-15',
 }
 
+const CORRECTION_TYPE_CORRECTION = 'correction'
+
 const StoriesListsCardChildItem = ({
   websiteLink,
   title,
@@ -17,8 +19,21 @@ const StoriesListsCardChildItem = ({
   return (
     <>
       {contentElementsCorrectionList.map(
-        ({ embed: { config: { content = '', date = '' } = {} } = {}, _id }) => {
+        ({
+          embed: {
+            config: {
+              content = '',
+              date = '',
+              type_event: typeEvent = '',
+            } = {},
+          } = {},
+          _id,
+        }) => {
           const time = formatDateLocalTimeZone(date, '-', true, false)
+          const msgCorrection =
+            typeEvent === CORRECTION_TYPE_CORRECTION
+              ? 'Corrección del '
+              : 'Aclaración del '
           return (
             <div key={_id} className={classes.box}>
               <a itemProp="url" href={websiteLink}>
@@ -27,7 +42,7 @@ const StoriesListsCardChildItem = ({
                 </h3>
               </a>
               <div className={classes.content}>
-                <time className={classes.time}>{time}</time>
+                <span className={classes.time}>{msgCorrection}{time}</span>
                 {content}
               </div>
             </div>
