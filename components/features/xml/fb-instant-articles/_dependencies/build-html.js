@@ -14,7 +14,7 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
 } from '../../../../utilities/constants/subtypes'
-import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getResultVideo, stripTags } from '../../../../utilities/story/helpers'
 
 /**
  *
@@ -282,6 +282,18 @@ const analyzeParagraph = ({
           /width=(?:"|')100%(?:"|')/g,
           `width="520"`
         )}</figure>`
+      } else if (processedParagraph.includes('<mxm-event')) {
+        const liveBlog = processedParagraph
+          .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+          .replace(/(:<script.*)/, '')
+
+        const liveBlogTags = stripTags(liveBlog, '<p><a><img>')
+
+        const liveBlogResult = liveBlogTags.replace(
+          /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
+          '<figure><img src="$2" /></figure>'
+        )
+        result.processedParagraph = liveBlogResult
       } else if (processedParagraph.includes('<img')) {
         // obtiene el valor del src de la imagen y el alt
         const imageUrl = processedParagraph.match(
@@ -319,16 +331,19 @@ const analyzeParagraph = ({
       ) {
         const domainOriginIframeOpta = 'https://img.depor.com/opta/optawidget'
         const pattern = /^<opta-widget (.+)><\/opta-widget>$/
-        const attributesWOpta = processedParagraph.match(pattern)[1].split(' ')
+        const attributesWOpta =
+          processedParagraph.match(pattern)[1].split(' ') || []
 
         let urlIframe = `${domainOriginIframeOpta}?`
         attributesWOpta.forEach((item, index) => {
           const attr = item.match(/(.+)="(.+)"/)
-          const key = attr[1]
-          const value = attr[2]
-          urlIframe += `${key}=${value}${
-            index < attributesWOpta.length - 1 ? '&' : ''
-          }`
+          if (attr[1]) {
+            const key = attr[1]
+            const value = attr[2]
+            urlIframe += `${key}=${value}${
+              index < attributesWOpta.length - 1 ? '&' : ''
+            }`
+          }
         })
 
         result.processedParagraph = `<iframe src="${urlIframe}" width="100%" height="500" style="max-height:500px" frameborder=0></iframe>`
@@ -343,6 +358,7 @@ const analyzeParagraph = ({
         )[0]
         result.processedParagraph = `<figure class="op-interactive"><iframe id='jwplayer_container'><script src="${jwScript}"></script></iframe></figure>`
       }
+
       result.numberWords = processedParagraph !== '' ? numberWordMultimedia : 0
       break
 
