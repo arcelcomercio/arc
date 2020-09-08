@@ -42,6 +42,7 @@ const StoryHeaderChildPicture = (slide = {}) => {
                 src={extractImage(slide.url).large}
                 alt={slide.caption || slide.subtitle}
                 className={classes.image}
+                importance="high"
               />
             </>
           ) : (
@@ -63,6 +64,7 @@ const StoryHeaderChildPicture = (slide = {}) => {
                 data-src={extractImage(slide.url).large}
                 alt={slide.caption || slide.subtitle}
                 className={`lazy ${classes.image}`}
+                importance="low"
               />
             </>
           )}

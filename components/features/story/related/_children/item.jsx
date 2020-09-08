@@ -47,7 +47,7 @@ const RenderRelatedContentElement = (props, i) => {
     multimediaType: get.multimediaType,
     multimediaImg:
       createResizedParams({
-        url: get.multimediaLandscapeMD,
+        url: get.multimedia,
         presets: 'landscape_md:314x157',
         arcSite,
       }).landscape_md || {},

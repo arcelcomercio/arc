@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
@@ -21,7 +21,7 @@ const StoryRelatedAmp = () => {
     contextPath,
     deployment,
     isAdmin,
-  } = useFusionContext()
+  } = useAppContext()
 
   const { _id: storyId } = globalContent || {}
 
@@ -43,21 +43,16 @@ const StoryRelatedAmp = () => {
       defaultImgSize: 'sm',
     })
 
-  const presets = 'landscape_l:648x374,landscape_md:314x157'
-
   const getSize = () => {
     const dataStorys = relatedContent.map((story, i) => {
       if (story.type !== 'story') return false
 
       instance.__data = story
 
-      const {
-        landscape_md: multimediaLandscapeMD,
-        landscape_l: multimediaLandscapeL,
-      } =
+      const { landscape_md: multimediaLandscapeMD } =
         createResizedParams({
-          url: instance.multimediaLandscapeMD,
-          presets,
+          url: instance.multimedia,
+          presets: 'landscape_md:314x157',
           arcSite,
         }) || {}
 
@@ -69,8 +64,6 @@ const StoryRelatedAmp = () => {
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
-        multimediaLandscapeS: instance.multimediaLandscapeS,
-        multimediaLandscapeL,
         multimediaLandscapeMD,
         multimediaType: instance.multimediaType,
         isAdmin,
