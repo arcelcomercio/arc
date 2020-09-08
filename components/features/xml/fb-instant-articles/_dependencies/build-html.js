@@ -286,8 +286,16 @@ const analyzeParagraph = ({
         const liveBlog = processedParagraph
           .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
           .replace(/(:<script.*)/, '')
+          .replace(
+            /<div class="live-event-minute">([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/div>/gm,
+            '<xtrong>$1</xtrong>'
+          )
+        const liveBlogStrong = liveBlog.replace(
+          /<xtrong>([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/xtrong>(.+?)<p>/gm,
+          '<p><strong>$1</strong>'
+        )
 
-        const liveBlogTags = stripTags(liveBlog, '<p><a><img>')
+        const liveBlogTags = stripTags(liveBlogStrong, '<p><a><img><strong>')
 
         const liveBlogResult = liveBlogTags.replace(
           /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
