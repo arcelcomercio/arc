@@ -23,7 +23,7 @@
           <div class="card-body">
             <p class="card-text text-muted" style="font-weight: bold;">DATOS DE LA CORRECCIÓN O ACLARACIÓN</p>
             <p class="card-text text-muted" style="font-weight: bold;">
-              Contenido: %type%
+              Tipo de corrección: %type_event%
             </p>
             <p class="card-text text-muted" style="font-weight: bold;">
               Contenido: %content%
@@ -92,7 +92,7 @@
       const config = ansCustomEmbed.config
       const html = template
         .replace(/%item_id%/gi, 'row-' + ansCustomEmbed.id)
-        .replace(/%type%/gi, config.type || "")
+        .replace(/%type_event%/gi, config.type_event || "")
         .replace(/%content%/gi, config.content || "")
         .replace(/%date%/gi, config.date || "")
 

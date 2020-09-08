@@ -22,7 +22,7 @@
           <div class="card-body">
             <strong>Corregir o Aclarar Nota</strong> <br>
             <p class="card-text text-muted" style="font-weight: bold;">
-              Texto de la corrección: %type%
+              Tipo de corrección: %type_event%
             </p>
             <p class="card-text text-muted" style="font-weight: bold;">
               Texto de la corrección: %content%
@@ -49,8 +49,8 @@
           <!-- Edit Form -->
           <div class="row" id="config_edit">
             <div class="col-md-12">
-              <label class="w-100" for="type"><span>Tipo de corrección</span>
-                <select class="w-100" name="type" id="type">
+              <label class="w-100" for="type_event"><span>Tipo de corrección</span>
+                <select class="w-100" name="type_event" id="type_event">
                   <option value="correction">Corrección</option>
                   <option value="clarification">Clarificación</option>
                 </select>
@@ -139,7 +139,7 @@
       const template = document.getElementById('content_template').innerHTML
       const html = template
         .replace(/%item_id%/gi, 'row-' + config.id)
-        .replace(/%type%/gi, config.type)
+        .replace(/%type_event%/gi, config.type_event)
         .replace(/%content%/gi, config.content)
         .replace(/%date%/gi, config.date)
         .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
@@ -150,7 +150,7 @@
       element.outerHTML = html
 
       // Update form state
-      document.getElementById('type').value = (config.type || "")
+      document.getElementById('type_event').value = (config.type_event || "")
       document.getElementById('content').value = (config.content || "")
       // document.getElementById('date').value = (config.date || "")
     }
@@ -166,7 +166,7 @@
 
      // Update config based on form changes, submit back to Composer and re-render
     const applyChanges = () => {
-      data.config.type = document.getElementById('type').value
+      data.config.type_event = document.getElementById('type_event').value
       data.config.content = document.getElementById('content').value
       // data.config.date = document.getElementById('date').value
       data.config.date = getActualDate()

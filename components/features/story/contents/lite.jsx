@@ -345,7 +345,7 @@ const StoryContentsLite = () => {
                   const {
                     config: {
                       content: contentCorrectionConfig = '',
-                      type: typeConfig = 'correction',
+                      type_event: typeConfig = 'correction',
                     } = {},
                   } = customEmbed || {}
                   return (

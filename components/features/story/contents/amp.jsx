@@ -281,7 +281,7 @@ class StoryContentAmp extends PureComponent {
                     const {
                       config: {
                         content: contentCorrectionConfig = '',
-                        type: typeConfig = 'correction',
+                        type_event: typeConfig = 'correction',
                       } = {},
                     } = customEmbed || {}
                     return (

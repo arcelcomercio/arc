@@ -1751,7 +1751,7 @@ class StoryData {
             content: contentCorrection = '',
             customBlockContent: contentCustomblock = '',
             url: urlConfig = '',
-            type: typeConfig = '',
+            type_event: typeConfig = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
