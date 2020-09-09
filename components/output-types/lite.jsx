@@ -442,8 +442,15 @@ const LiteOutput = ({
         {contenidoVideo && (
           <>
             <script
+              dangerouslySetInnerHTML={{
+                __html: `window.preroll='${siteProperties.urlPreroll}'`,
+              }}
+            />
+            <script
               defer
-              src={deployment(`${contextPath}/resources/assets/js/powaSettings.min.js`)}
+              src={deployment(
+                `${contextPath}/resources/assets/js/powaSettings.min.js`
+              )}
             />
             <script
               src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
