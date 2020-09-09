@@ -52,6 +52,7 @@
     }
     a {
       color: #0e6dc1;
+      text-decoration: underline;
     }
   }
   & ul {
@@ -62,6 +63,7 @@
     & a {
       color: #0e6dc1;
       font-weight: 700;
+      text-decoration: underline;
     }
   }
   .powa-shot-play-icon::before {
