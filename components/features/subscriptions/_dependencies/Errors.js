@@ -57,8 +57,11 @@ const getCodeError = (code, status) => {
     case '300037':
       return 'Correo electrónico y/o contraseña incorrecta.'
 
+    // case '130051':
+    //   return 'El Correo electrónico no ha sido verificado.'
+
     case '130051':
-      return 'El Correo electrónico no ha sido verificado.'
+      return 'Activa tu cuenta para iniciar sesión'
 
     case '100014':
     case '300014':

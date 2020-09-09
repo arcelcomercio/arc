@@ -1,20 +1,24 @@
-import React, { useState, useContext } from 'react'
+import React, {
+  useState,
+  // useContext
+} from 'react'
 import PropTypes from 'prop-types'
 import { NavigateConsumer } from '../../../../_context/navigate'
 import useForm from '../../../../_hooks/useForm'
-import { AuthContext } from '../../../../_context/auth'
+// import { AuthContext } from '../../../../_context/auth'
 import getDevice from '../../../../_dependencies/GetDevice'
 import {
   PropertiesSite,
   PropertiesCommon,
 } from '../../../../_dependencies/Properties'
-import { sendNewsLettersUser } from '../../../../_dependencies/Services'
+// import { sendNewsLettersUser } from '../../../../_dependencies/Services'
 import ButtonSocial from './social'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 import getCodeError, {
   formatEmail,
   acceptCheckTerms,
 } from '../../../../_dependencies/Errors'
+import { MsgRegister } from '../../../../_dependencies/Icons'
 import { isFbBrowser } from '../../../../_dependencies/Utils'
 
 const styles = {
@@ -27,19 +31,27 @@ const styles = {
   btn: 'step__left-btn-next',
   link: 'step__btn-link',
   backLogin: 'step__left-link-register',
+  center: 'step__left-align-center',
+  subTitle: 'step__left-subtitle',
+  textBlock: 'step__left-textblock',
 }
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Register = ({ arcSite }) => {
-  const { activateAuth, updateStep } = useContext(AuthContext)
+  // const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
   const [msgError, setMsgError] = useState()
   const [checkedTerms, setCheckedTerms] = useState()
   const [forgotLink, setForgotLink] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
-  const { texts, urls } = PropertiesCommon
+  const [showConfirm, setShowConfirm] = useState(false)
+  const [showSendEmail, setShowSendEmail] = useState(false)
+  const {
+    texts,
+    // urls
+  } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
 
   const stateSchema = {
@@ -119,30 +131,31 @@ const Register = ({ arcSite }) => {
               type: 'String',
             },
           ],
-        },
-        { doLogin: true },
-        { rememberMe: true }
+        }
+        // { doLogin: true },
+        // { rememberMe: true }
       )
         .then(() => {
-          setLoadText('Cargando Perfil...')
-          window.Identity.getUserProfile().then(resProfile => {
-            setLoadText('Cargando Servicios...')
-            sendNewsLettersUser(
-              urls.newsLetters,
-              resProfile.uuid,
-              resProfile.email,
-              arcSite,
-              window.Identity.userIdentity.accessToken,
-              ['general']
-            )
-              .then(() => {
-                activateAuth(resProfile)
-                updateStep(2)
-              })
-              .finally(() => {
-                Taggeo(nameTagCategory, 'web_swl_registro_success_registrarme')
-              })
-          })
+          setShowConfirm(true)
+          // setLoadText('Cargando Perfil...')
+          // window.Identity.getUserProfile().then(resProfile => {
+          //   setLoadText('Cargando Servicios...')
+          //   sendNewsLettersUser(
+          //     urls.newsLetters,
+          //     resProfile.uuid,
+          //     resProfile.email,
+          //     arcSite,
+          //     window.Identity.userIdentity.accessToken,
+          //     ['general']
+          //   )
+          //     .then(() => {
+          //       activateAuth(resProfile)
+          //       updateStep(2)
+          //     })
+          //     .finally(() => {
+          //       Taggeo(nameTagCategory, 'web_swl_registro_success_registrarme')
+          //     })
+          // })
         })
         .catch(err => {
           setMsgError(getCodeError(err.code))
@@ -171,154 +184,214 @@ const Register = ({ arcSite }) => {
     else setShowHidePass('password')
   }
 
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(remail)
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
+
   return (
     <NavigateConsumer>
       {value => (
         <>
-          <h2 className={styles.title}>{texts.register}</h2>
-          <div
-            className={`${styles.blockMiddle} ${isFbBrowser() &&
-              styles.blockFull}`}>
-            <ButtonSocial
-              arcSocial="facebook"
-              arcSite={arcSite}
-              arcType="registro"
-            />
-            {!isFbBrowser() && (
-              <ButtonSocial
-                arcSocial="google"
-                arcSite={arcSite}
-                arcType="registro"
-              />
-            )}
-          </div>
+          {!showConfirm ? (
+            <>
+              <h2 className={styles.title}>{texts.register}</h2>
+              <div
+                className={`${styles.blockMiddle} ${isFbBrowser() &&
+                  styles.blockFull}`}>
+                <ButtonSocial
+                  arcSocial="facebook"
+                  arcSite={arcSite}
+                  arcType="registro"
+                />
+                {!isFbBrowser() && (
+                  <ButtonSocial
+                    arcSocial="google"
+                    arcSite={arcSite}
+                    arcType="registro"
+                  />
+                )}
+              </div>
 
-          <div className={styles.titleLine}>
-            <p className="large">{texts.orEnterDates}</p>
-          </div>
+              <div className={styles.titleLine}>
+                <p className="large">{texts.orEnterDates}</p>
+              </div>
 
-          {msgError && (
-            <div className={styles.block}>
-              <div className="msg-alert">
-                {` ${msgError} `}
-                {forgotLink && (
-                  <>
+              {msgError && (
+                <div className={styles.block}>
+                  <div className="msg-alert">
+                    {` ${msgError} `}
+                    {forgotLink && (
+                      <>
+                        <button
+                          className={styles.link}
+                          type="button"
+                          onClick={() => value.changeTemplate('forgot')}>
+                          Recuperar contraseña
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleOnSubmit} className="form-register">
+                <div className={styles.block}>
+                  <label htmlFor="remail">
+                    Correo electrónico
+                    <input
+                      className={remailError && 'input-error'}
+                      type="email"
+                      name="remail"
+                      value={remail}
+                      required
+                      onChange={handleChangeInput}
+                      onBlur={handleOnChange}
+                      disabled={loading}
+                    />
+                    {remailError && (
+                      <span className="msn-error">{remailError}</span>
+                    )}
+                  </label>
+                </div>
+
+                <div className={styles.block}>
+                  <label htmlFor="rpass">
+                    Contraseña
+                    <input
+                      className={rpassError && 'input-error'}
+                      type={showHidePass}
+                      name="rpass"
+                      value={rpass}
+                      required
+                      onChange={handleChangeInput}
+                      onBlur={handleOnChange}
+                      disabled={loading}
+                    />
+                    <button
+                      name="lshowpass"
+                      aria-label="lshowpass"
+                      className={`${styles.btnShow}-${showHidePass}`}
+                      type="button"
+                      onClick={toogleHidePass}></button>
+                    {rpassError && (
+                      <span className="msn-error">{rpassError}</span>
+                    )}
+                  </label>
+                </div>
+
+                <div className={styles.block}>
+                  <label htmlFor="rterms" className="terms">
+                    <input
+                      id="rterms"
+                      value={checkedTerms ? 'si' : 'no'}
+                      type="checkbox"
+                      name="rterms"
+                      disabled={loading}
+                      required
+                      onChange={e => {
+                        handleOnChange(e)
+                        setCheckedTerms(!checkedTerms)
+                      }}
+                    />
+                    {texts.accept}
                     <button
                       className={styles.link}
                       type="button"
-                      onClick={() => value.changeTemplate('forgot')}>
-                      Recuperar contraseña
+                      onClick={() => openNewTab('terminosSign')}>
+                      {texts.terms}
                     </button>
-                  </>
+                    {texts.and}
+                    <button
+                      className={styles.link}
+                      type="button"
+                      onClick={() => openNewTab('politicasSign')}>
+                      {texts.policies}
+                    </button>
+                    <span
+                      className={`checkmark ${rtermsError &&
+                        'input-error'}`}></span>
+                  </label>
+                </div>
+
+                {rtermsError && (
+                  <div className={styles.block}>
+                    <div className="msg-alert">{rtermsError}</div>
+                  </div>
                 )}
+
+                <div className={styles.block}>
+                  <button
+                    className={`${styles.btn} ${loading && 'btn-loading'}`}
+                    type="submit"
+                    disabled={disable || loading}>
+                    {loading ? loadText : 'Registrarme'}
+                  </button>
+                </div>
+              </form>
+              <p className={styles.backLogin}>
+                {texts.hasAccount}
+                <button
+                  className={styles.link}
+                  type="button"
+                  onClick={() => {
+                    value.changeTemplate('login')
+                    Taggeo(nameTagCategory, 'web_swl_registro_link_volver')
+                  }}>
+                  Iniciar Sesión
+                </button>
+              </p>
+            </>
+          ) : (
+            <div className={styles.center}>
+              <MsgRegister bgcolor="#fff" style={{ marginBottom: '20px' }} />
+              <h2 className={styles.title}>{texts.registerSuccess}</h2>
+
+              <span className={styles.textBlock}>{remail}</span>
+
+              <h3 className={styles.subTitle}>{texts.checkInbox}</h3>
+
+              <div className={styles.block}>
+                <button
+                  className={styles.btn}
+                  type="button"
+                  onClick={() => {
+                    value.changeTemplate('login', remail)
+                  }}>
+                  Continuar
+                </button>
               </div>
+
+              <p className={styles.backLogin}>
+                {texts.notReceiptEmail}
+                <br />
+                {!showSendEmail ? (
+                  <button
+                    className={styles.link}
+                    type="button"
+                    onClick={sendVerifyEmail}>
+                    {texts.reSendEmail}
+                  </button>
+                ) : (
+                  <span>
+                    {texts.youCanSendEmail}
+                    <strong id="countdown"> 10 </strong> segundos
+                  </span>
+                )}
+              </p>
             </div>
           )}
-
-          <form onSubmit={handleOnSubmit} className="form-register">
-            <div className={styles.block}>
-              <label htmlFor="remail">
-                Correo electrónico
-                <input
-                  className={remailError && 'input-error'}
-                  type="email"
-                  name="remail"
-                  value={remail}
-                  required
-                  onChange={handleChangeInput}
-                  onBlur={handleOnChange}
-                  disabled={loading}
-                />
-                {remailError && (
-                  <span className="msn-error">{remailError}</span>
-                )}
-              </label>
-            </div>
-
-            <div className={styles.block}>
-              <label htmlFor="rpass">
-                Contraseña
-                <input
-                  className={rpassError && 'input-error'}
-                  type={showHidePass}
-                  name="rpass"
-                  value={rpass}
-                  required
-                  onChange={handleChangeInput}
-                  onBlur={handleOnChange}
-                  disabled={loading}
-                />
-                <button
-                  name="lshowpass"
-                  aria-label="lshowpass"
-                  className={`${styles.btnShow}-${showHidePass}`}
-                  type="button"
-                  onClick={toogleHidePass}></button>
-                {rpassError && <span className="msn-error">{rpassError}</span>}
-              </label>
-            </div>
-
-            <div className={styles.block}>
-              <label htmlFor="rterms" className="terms">
-                <input
-                  id="rterms"
-                  value={checkedTerms ? 'si' : 'no'}
-                  type="checkbox"
-                  name="rterms"
-                  disabled={loading}
-                  required
-                  onChange={e => {
-                    handleOnChange(e)
-                    setCheckedTerms(!checkedTerms)
-                  }}
-                />
-                {texts.accept}
-                <button
-                  className={styles.link}
-                  type="button"
-                  onClick={() => openNewTab('terminosSign')}>
-                  {texts.terms}
-                </button>
-                {texts.and}
-                <button
-                  className={styles.link}
-                  type="button"
-                  onClick={() => openNewTab('politicasSign')}>
-                  {texts.policies}
-                </button>
-                <span
-                  className={`checkmark ${rtermsError &&
-                    'input-error'}`}></span>
-              </label>
-            </div>
-
-            {rtermsError && (
-              <div className={styles.block}>
-                <div className="msg-alert">{rtermsError}</div>
-              </div>
-            )}
-
-            <div className={styles.block}>
-              <button
-                className={`${styles.btn} ${loading && 'btn-loading'}`}
-                type="submit"
-                disabled={disable || loading}>
-                {loading ? loadText : 'Registrarme'}
-              </button>
-            </div>
-          </form>
-          <p className={styles.backLogin}>
-            {texts.hasAccount}
-            <button
-              className={styles.link}
-              type="button"
-              onClick={() => {
-                value.changeTemplate('login')
-                Taggeo(nameTagCategory, 'web_swl_registro_link_volver')
-              }}>
-              Iniciar Sesión
-            </button>
-          </p>
         </>
       )}
     </NavigateConsumer>

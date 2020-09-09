@@ -133,7 +133,7 @@ const Forgot = () => {
             </>
           ) : (
             <div className={styles.center}>
-              <MsgForgotPass bgcolor="#fff" />
+              <MsgForgotPass bgcolor="#fff" style={{ marginBottom: '20px' }} />
               <h2 className={styles.title}>Correo enviado</h2>
               <h3 className={styles.subTitle}>{texts.msgForgotOk}</h3>
               <div className={styles.block}>
@@ -141,7 +141,7 @@ const Forgot = () => {
                   className={styles.btn}
                   type="button"
                   onClick={() => {
-                    value.changeTemplate('login')
+                    value.changeTemplate('login', femail)
                     Taggeo(nameTagCategory, 'web_swl_contrasena_boton_aceptar')
                   }}>
                   Aceptar

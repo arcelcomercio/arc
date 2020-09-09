@@ -25,15 +25,17 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Login = ({ arcSite }) => {
+const Login = ({ contTempl, arcSite }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [msgError, setMsgError] = useState()
+  const [showVerify, setShowVerify] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
+  const [showSendEmail, setShowSendEmail] = useState(false)
   const { texts } = PropertiesCommon
 
   const stateSchema = {
-    lemail: { value: '', error: '' },
+    lemail: { value: contTempl || '', error: '' },
     lpass: { value: '', error: '' },
   }
 
@@ -69,6 +71,7 @@ const Login = ({ arcSite }) => {
         })
         .catch(err => {
           setMsgError(getCodeError(err.code))
+          setShowVerify(err.code === '130051')
           setLoading(false)
           Taggeo(nameTagCategory, 'web_swl_login_error_ingresar')
         })
@@ -91,6 +94,22 @@ const Login = ({ arcSite }) => {
   const toogleHidePass = () => {
     if (showHidePass === 'password') setShowHidePass('text')
     else setShowHidePass('password')
+  }
+
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(lemail)
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
   }
 
   return (
@@ -121,7 +140,27 @@ const Login = ({ arcSite }) => {
 
           {msgError && (
             <div className={styles.block}>
-              <div className="msg-alert">{msgError}</div>
+              <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
+                {` ${msgError} `}
+                {showVerify && (
+                  <>
+                    <br />
+                    {!showSendEmail ? (
+                      <button
+                        className="step__btn-link"
+                        type="button"
+                        onClick={sendVerifyEmail}>
+                        {texts.reSendEmail}
+                      </button>
+                    ) : (
+                      <span>
+                        {texts.youCanSendEmail}
+                        <strong id="countdown"> 10 </strong> segundos
+                      </span>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           )}
 

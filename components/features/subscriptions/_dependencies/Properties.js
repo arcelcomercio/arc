@@ -228,7 +228,12 @@ const PropertiesCommon = {
     successSubsPrint:'ACCEDE A ESTOS PRECIOS ESPECIALES POR SER SUSCRIPTOR IMPRESO',
     successSubsFree: 'Accede a contenido exclusivo y navega ilimitadamente a las noticias más relevantes del Perú y del mundo.',
     titleValidDni:   '¿Eres suscriptor de nuestra edición impresa?',
-    subTitleValidDni:'Inicia sesión o regístrate y descubre el precio'
+    subTitleValidDni:'Inicia sesión o regístrate y descubre el precio',
+    registerSuccess: 'Tu cuenta ha sido creada correctamente',
+    checkInbox:      'Revisa tu bandeja de correo para activar tu cuenta y sigue navegando',
+    notReceiptEmail: '¿No recibiste el correo?',
+    reSendEmail:     'Reenviar correo de activación',
+    youCanSendEmail: 'Podrás reenviar nuevamente dentro de'
   }
 }
 

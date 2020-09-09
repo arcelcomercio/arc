@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react'
 import * as Sentry from '@sentry/browser'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext, AuthProvider } from '../_context/auth'
-import { NavigateProvider } from '../_context/navigate'
+// import { NavigateProvider } from '../_context/navigate'
 import {
   PropertiesSite,
   PropertiesCommon,
@@ -88,41 +88,39 @@ const WrapperPaymentSubs = () => {
       {userLoading && <Loading arcSite={arcSite} />}
       <HeaderSubs {...{ userProfile, arcSite }} />
       <Container>
-        <NavigateProvider>
-          {userLoading === false &&
-            userLoaded &&
-            userProfile &&
-            userStep === 2 && (
-              <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
-            )}
-          <Wrapper>
-            {!userLoading && (
-              <PanelLeft>
-                {freeAccess ? (
-                  <Confirmation />
-                ) : (
-                  <>
-                    {(() => {
-                      switch (userStep) {
-                        case 2:
-                          return userLoaded ? <Profile /> : <Singwall />
-                        case 3:
-                          return userLoaded ? <Pay /> : <Singwall />
-                        case 4:
-                          return userLoaded ? <Confirmation /> : <Singwall />
-                        default:
-                          return <Singwall />
-                      }
-                    })()}
-                  </>
-                )}
-              </PanelLeft>
-            )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
-            </PanelRight>
-          </Wrapper>
-        </NavigateProvider>
+        {userLoading === false &&
+          userLoaded &&
+          userProfile &&
+          userStep === 2 && (
+            <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
+          )}
+        <Wrapper>
+          {!userLoading && (
+            <PanelLeft>
+              {freeAccess ? (
+                <Confirmation />
+              ) : (
+                <>
+                  {(() => {
+                    switch (userStep) {
+                      case 2:
+                        return userLoaded ? <Profile /> : <Singwall />
+                      case 3:
+                        return userLoaded ? <Pay /> : <Singwall />
+                      case 4:
+                        return userLoaded ? <Confirmation /> : <Singwall />
+                      default:
+                        return <Singwall />
+                    }
+                  })()}
+                </>
+              )}
+            </PanelLeft>
+          )}
+          <PanelRight>
+            {userStep !== 4 && !freeAccess && <Summary />}
+          </PanelRight>
+        </Wrapper>
       </Container>
       {!freeAccess && <FooterSubs />}
       <FooterLand {...{ arcType }} />
