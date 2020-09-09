@@ -25,7 +25,7 @@ const attrToObject = (attributes = [], getAttributes = []) => {
     const newAttrs = prev
     const attrs = (attributes || []).find(attr => attr.name === name)
     if (attrs && attrs.value !== 'undefined') {
-      newAttrs[name] = attrs.value
+      newAttrs[name] = attrs.value.toUpperCase()
     }
     return newAttrs
   }, {})
