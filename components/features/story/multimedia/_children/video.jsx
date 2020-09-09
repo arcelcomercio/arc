@@ -41,7 +41,6 @@ const StoryContentChildVideo = props => {
     promo_items: {
       basic_video: {
         _id: principalId,
-        additional_properties: video = {},
         promo_items: { basic: { url: urlImage = '' } = {} } = {},
         streams = [],
       } = {},
@@ -54,7 +53,6 @@ const StoryContentChildVideo = props => {
     description = '',
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
-    additional_properties: videoContent = {},
     url: imagenMigrate = '',
     contentElemtent = false,
     classImage = 'story-contents',
@@ -62,7 +60,6 @@ const StoryContentChildVideo = props => {
 
   const lazy = contentElemtent
   const imageUrl = contentElemtent ? urlImageContent : urlImage
-  const videoData = videoContent.advertising || video.advertising
 
   const urlVideo = data
     .replace(
@@ -144,12 +141,7 @@ const StoryContentChildVideo = props => {
         uuid={uuid}
         stream={stream}
         image={imageUrl || imagenMigrate}
-        preroll={
-          (videoData && videoData.playAds === true) ||
-          (videoArray && videoArray[1])
-            ? getParametroPublicidad()
-            : ''
-        }
+        preroll={getParametroPublicidad()}
         lazy={lazy}
       />
       {description && (
