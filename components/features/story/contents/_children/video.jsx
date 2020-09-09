@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAppContext } from 'fusion:context'
 import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getPreroll } from '../../../../utilities/ads/preroll'
 import PowaPlayer from '../../../../global-components/powa-player'
 
 /**
@@ -43,6 +44,7 @@ const StoryContentChildVideo = props => {
         streams = [],
       } = {},
     } = {},
+    taxonomy: { primary_section: { path: primarySection } = {} },
   } = globalContent || {}
 
   const {
@@ -79,47 +81,6 @@ const StoryContentChildVideo = props => {
 
   const videoUrlPrincipal = streams[1] ? getResultVideo(streams, arcSite) : ''
 
-  const getSectionSlug = (sectionId = '') => {
-    return sectionId.split('/')[1] || ''
-  }
-
-  const getParametroPublicidad = () => {
-    const {
-      taxonomy: { primary_section: { path: primarySection } = {} } = {},
-    } = globalContent || {}
-
-    if (arcSite) {
-      const arcSiteNew = arcSite === 'peru21g21' ? 'peru21' : arcSite
-      const domain =
-        arcSite === 'elcomerciomag' ? `mag.${siteDomain}` : siteDomain
-
-      let tipoplantilla = ''
-      switch (metaValue('id')) {
-        case 'meta_section':
-          tipoplantilla = 'sect'
-          break
-        case 'meta_story':
-          tipoplantilla = 'post'
-          break
-        default:
-          tipoplantilla = 'post'
-          break
-      }
-
-      const sectionSlug = getSectionSlug(primarySection)
-
-      return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSiteNew}/web/post/${sectionSlug
-        .split('-')
-        .join(
-          ''
-        )}/preroll&description_url=https%3A%2F%2F${domain}%2F&tfcd=0&npa=0&sz=640x480|640x360|400x300&cust_params=fuente%3Dweb%26publisher%3D${arcSiteNew}%26seccion%3D${sectionSlug
-        .split('-')
-        .join(
-          ''
-        )}%26tipoplantilla%3D${tipoplantilla}&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=`
-    }
-    return urlPreroll
-  }
   const uidArray = urlVideo.match(
     /data-uuid="(([0-9a-z-A-Z]*[0-9a-z-A-Z])\w+)"/
   )
@@ -138,7 +99,14 @@ const StoryContentChildVideo = props => {
         uuid={uuid}
         stream={stream}
         image={imageUrl || imagenMigrate}
-        preroll={getParametroPublicidad()}
+        preroll={
+          getPreroll({
+            section: primarySection,
+            arcSite,
+            siteDomain,
+            metaValue,
+          }) || urlPreroll
+        }
         lazy={lazy}
       />
       <figcaption className={classes.caption}>{description} </figcaption>

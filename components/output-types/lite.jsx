@@ -11,6 +11,7 @@ import {
   SITE_DEPOR,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
+import { getPreroll } from '../utilities/ads/preroll'
 import StoryData from '../utilities/story-data'
 
 import MetaSite from './_children/meta-site'
@@ -443,7 +444,12 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${siteProperties.urlPreroll}'`,
+                __html: `window.preroll='${getPreroll({
+                  section: nameSeccion,
+                  arcSite,
+                  siteDomain: siteProperties.siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll}'`,
               }}
             />
             <script

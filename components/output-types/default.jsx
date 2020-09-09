@@ -16,6 +16,7 @@ import { storyTagsBbc } from '../utilities/tags'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { getAssetsPath } from '../utilities/assets'
+import { getPreroll } from '../utilities/ads/preroll'
 import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
@@ -565,7 +566,12 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${siteProperties.urlPreroll}'`,
+                __html: `window.preroll='${getPreroll({
+                  section: nameSeccion,
+                  arcSite,
+                  siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll}'`,
               }}
             />
             <script
