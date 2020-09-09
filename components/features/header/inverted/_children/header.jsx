@@ -25,7 +25,7 @@ const classes = {
   wrapper: `w-full flex items-center justify-center position-relative wrapper`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
-  featured: 'header__featured flex w-full font-normal overflow-hidden mr-20',
+  featured: 'header__featured flex w-full font-normal overflow-hidden pr-20',
   item: 'header__item flex items-center justify-center h-inherit',
   link: 'header__link uppercase text-sm p-10',
   band: 'hidden md:block',
