@@ -110,6 +110,11 @@ const StoryContentsLite = () => {
     canonicalUrl,
     prerollDefault,
     contentElementsHtml,
+    authorImageSecond,
+    authorLinkSecond,
+    authorSecond,
+    authorEmailSecond,
+    roleSecond: authorRoleSecond,
   } = new StoryData({
     data: globalContent,
     contextPath,
@@ -148,6 +153,11 @@ const StoryContentsLite = () => {
     multimediaLarge,
     multimediaLazyDefault,
     primaryImage: true,
+    authorImageSecond,
+    authorLinkSecond,
+    authorSecond,
+    authorEmailSecond,
+    authorRoleSecond,
   }
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
