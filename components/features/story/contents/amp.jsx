@@ -290,11 +290,16 @@ class StoryContentAmp extends PureComponent {
                   }
 
                   if (sub === STAMP_TRUST) {
-                    const { config: { url: urlConfig = '' } = {} } =
-                      customEmbed || {}
+                    const {
+                      config: {
+                        url: urlConfig = '',
+                        url_img: urlImgConfig = '',
+                      } = {},
+                    } = customEmbed || {}
                     return (
                       <StoryContentsChildStampTrust
                         url={urlConfig}
+                        urlImg={urlImgConfig}
                         isAmp
                         siteUrl={siteUrl}
                       />

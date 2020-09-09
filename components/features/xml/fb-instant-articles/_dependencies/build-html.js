@@ -100,10 +100,12 @@ const buildCorrectionTexParagraph = (
 const buildStampTrustTexParagraph = (paragraph, url, siteUrl = '') => {
   const result = { numberWords: 0, processedParagraph: '' }
   const urlTrust = url || `${siteUrl}/buenas-practicas/`
-  result.numberWords = countWordsHelper(clearHtml(paragraph))
+  const urlImgTrust = paragraph || `${siteUrl}/buenas-practicas/#trust-project`
+  // result.numberWords = countWordsHelper(clearHtml(paragraph))
+
   result.processedParagraph = `
       <blockquote>
-        <h2>Conforme a los criterios de TRUST</h2>
+        <h2>Conforme a los criterios de <a href="${urlImgTrust}">TRUST</a></h2>
         <div>
           <h4><a href="${urlTrust}">Saber más</a></h4>
         </div>

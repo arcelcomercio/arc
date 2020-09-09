@@ -72,7 +72,8 @@ const classes = {
 }
 
 const StoryContentsLite = () => {
-  const DEFAULT_AUTHOR_IMG = 'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/author.png?d=1'
+  const DEFAULT_AUTHOR_IMG =
+    'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/author.png?d=1'
   const {
     globalContent,
     arcSite,
@@ -117,14 +118,15 @@ const StoryContentsLite = () => {
   })
 
   let authorImgSmall = authorImage
-  if(authorImage !== DEFAULT_AUTHOR_IMG){
-    ( { resized_urls: { authorImgSmall } = {} } = useContent({
-      source: 'photo-resizer',
-      query: {
-        url: authorImage,
-        presets: 'authorImgSmall:57x57',
-      },
-    }) || {} )
+  if (authorImage !== DEFAULT_AUTHOR_IMG) {
+    ;({ resized_urls: { authorImgSmall } = {} } =
+      useContent({
+        source: 'photo-resizer',
+        query: {
+          url: authorImage,
+          presets: 'authorImgSmall:57x57',
+        },
+      }) || {})
   }
 
   const params = {
@@ -352,11 +354,16 @@ const StoryContentsLite = () => {
                 }
 
                 if (type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST) {
-                  const { config: { url: urlConfig = '' } = {} } =
-                    customEmbed || {}
+                  const {
+                    config: {
+                      url: urlConfig = '',
+                      url_img: urlImgConfig = '',
+                    } = {},
+                  } = customEmbed || {}
                   return (
                     <StoryContentsChildStampTrust
                       url={urlConfig}
+                      urlImg={urlImgConfig}
                       isAmp={false}
                       siteUrl={siteUrl}
                     />
