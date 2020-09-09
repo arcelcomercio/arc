@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ url, isAmp = false, siteUrl }) => {
+export default ({ url, urlImg = '', isAmp = false, siteUrl }) => {
   const classes = {
     container: `${
       isAmp ? 'amp-story-content__stamp-trust' : 'story-content__stamp-trust'
@@ -15,32 +15,40 @@ export default ({ url, isAmp = false, siteUrl }) => {
         ? 'amp-story-content__stamp-trust__img'
         : 'story-content__stamp-trust__img'
     }`,
+    link: `${
+      isAmp
+        ? 'amp-story-content__stamp-trust__link'
+        : 'story-content__stamp-trust__link'
+    }`,
   }
 
   const urlTrust = url || `${siteUrl}/buenas-practicas/`
-  const urlImgTrust =
+  const urlImgTrust = urlImg || `${siteUrl}/buenas-practicas/#trust-project`
+  const urlPathImgTrust =
     'https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_prod/especiales/banner-trust-project/logo-trust.png'
 
   const imgTag = isAmp ? (
     <amp-img
       class={classes.img}
-      src={urlImgTrust}
+      src={urlPathImgTrust}
       alt="Trust Project"
       width="150"
       height="25"
       tabIndex="0"
     />
   ) : (
-    <img src={urlImgTrust} alt="Trust Project" width="100%" />
+    <img src={urlPathImgTrust} alt="Trust Project" width="100%" />
   )
 
   return (
     <div className={classes.container}>
       <div className={classes.box_left}>
         <p>Conforme a los criterios de</p>
-        {imgTag}
+        <a href={urlImgTrust} target="_blank" rel="noreferrer">
+          {imgTag}
+        </a>
       </div>
-      <a href={urlTrust} target="_blank" rel="noreferrer">
+      <a href={urlTrust} className={classes.link} target="_blank" rel="noreferrer">
         Saber más
       </a>
     </div>

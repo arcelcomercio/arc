@@ -260,6 +260,14 @@ const LiteOutput = ({
          *
          * https://web.dev/preconnect-and-dns-prefetch/
          */}
+        {arcSite === SITE_ELCOMERCIO && (
+          <link
+            rel="preload"
+            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
+            as="font"
+            type="font/woff2"
+          />
+        )}
         <link rel="preconnect" href={`//cdnc.${siteProperties.siteDomain}`} />
         <link rel="dns-prefetch" href={`//cdnc.${siteProperties.siteDomain}`} />
         <link
@@ -443,7 +451,9 @@ const LiteOutput = ({
           <>
             <script
               defer
-              src={deployment(`${contextPath}/resources/assets/js/powaSettings.min.js`)}
+              src={deployment(
+                `${contextPath}/resources/assets/js/powaSettings.min.js`
+              )}
             />
             <script
               src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}

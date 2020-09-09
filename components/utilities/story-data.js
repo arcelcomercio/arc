@@ -1752,6 +1752,7 @@ class StoryData {
             customBlockContent: contentCustomblock = '',
             url: urlConfig = '',
             type_event: typeConfig = '',
+            url_img: urlImgConfig = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1796,7 +1797,7 @@ class StoryData {
                 result.type_config = typeConfig
                 break
               case STAMP_TRUST:
-                result.payload = ''
+                result.payload = urlImgConfig
                 result.link = urlConfig
                 break
               case STORY_CUSTOMBLOCK:
