@@ -292,7 +292,7 @@ const analyzeParagraph = ({
           )
         const liveBlogStrong = liveBlog.replace(
           /<xtrong>([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/xtrong>(.+?)<p>/gm,
-          '<p><strong>$1</strong>'
+          '<p><strong>$1 </strong> '
         )
 
         const liveBlogTags = stripTags(liveBlogStrong, '<p><a><img><strong>')
