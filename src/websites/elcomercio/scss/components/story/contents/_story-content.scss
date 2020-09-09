@@ -13,16 +13,17 @@
     }
     a {
       color: #4a88b1;
+      text-decoration: underline;
       b {
         font-family: $tertiary-font;
       }
     }
   }
-
   li {
     font-family: $tertiary-font;
     & a {
       color: #4a88b1;
+      text-decoration: underline;
     }
   }
   .pquote__text {
@@ -106,6 +107,10 @@
   &__list-more {
     width: 110px;
   }
+}
+
+li.story-content__item a.story-content__link {
+  text-decoration: none;
 }
 
 .opinion .content-sidebar {

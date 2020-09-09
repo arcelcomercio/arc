@@ -105,6 +105,7 @@
     color: #343434;
     & a {
       color: #306d95;
+      text-decoration: underline;
     }
     @media (--desktop) {
       font-size: 20px;
@@ -338,6 +339,7 @@
       color: #306d95;
       font-size: 18px;
       font-weight: 700;
+      text-decoration: underline;
       @media (--desktop) {
         font-size: 20px;
       }
