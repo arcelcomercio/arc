@@ -225,7 +225,6 @@ export default ({
 
   const {
     videoSeo,
-    hasAdsVideo,
     embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
@@ -566,9 +565,7 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll=${
-                  hasAdsVideo ? siteProperties.urlPreroll : '""'
-                }`,
+                __html: `window.preroll='${siteProperties.urlPreroll}'`,
               }}
             />
             <script
@@ -581,13 +578,15 @@ export default ({
               src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
               async
             />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: videoScript,
-              }}
-            />
           </>
+        )}
+        {contenidoVideo && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: videoScript,
+            }}
+          />
         )}
         {embedTwitterAndInst[0] && (
           <>
