@@ -50,7 +50,6 @@ export default ({
 }) => {
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
-  const { urlPreroll } = siteProperties
 
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
@@ -152,20 +151,11 @@ export default ({
               {principalVideo.video &&
               principalVideo.promoItemsType === VIDEO ? (
                 <div className="section-video__frame">
-                  <div
-                    data-preroll={principalVideo.hasAdsVideo ? urlPreroll : ''}
-                    data-time={
-                      principalVideo.videoDuration
-                        ? principalVideo.videoDuration
-                        : ''
-                    }
-                    className="w-full h-full">
-                    <PowaPlayer
-                      uuid={uuid}
-                      stream={stream}
-                      image={principalVideo.image}
-                    />
-                  </div>
+                  <PowaPlayer
+                    uuid={uuid}
+                    stream={stream}
+                    image={principalVideo.image}
+                  />
                 </div>
               ) : (
                 <div className="section-video__frame">

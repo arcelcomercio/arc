@@ -16,6 +16,7 @@ import { storyTagsBbc } from '../utilities/tags'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { getAssetsPath } from '../utilities/assets'
+import { getPreroll } from '../utilities/ads/preroll'
 import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
@@ -233,7 +234,6 @@ export default ({
 
   const {
     videoSeo,
-    hasAdsVideo,
     embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
@@ -574,9 +574,12 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll=${
-                  hasAdsVideo ? siteProperties.urlPreroll : '""'
-                }`,
+                __html: `window.preroll='${getPreroll({
+                  section: nameSeccion,
+                  arcSite,
+                  siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll}'`,
               }}
             />
             <script
@@ -589,13 +592,15 @@ export default ({
               src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
               async
             />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: videoScript,
-              }}
-            />
           </>
+        )}
+        {contenidoVideo && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: videoScript,
+            }}
+          />
         )}
         {embedTwitterAndInst[0] && (
           <>
