@@ -1751,12 +1751,13 @@ class StoryData {
             content: contentCorrection = '',
             customBlockContent: contentCustomblock = '',
             url: urlConfig = '',
+            type_event: typeConfig = '',
             url_img: urlImgConfig = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
       }) => {
-        const result = { _id, type, subtype: '', level, payload: '', streams }
+        const result = { _id, type, subtype: '', level, payload: '', streams, type_config:'' }
 
         switch (type) {
           case ELEMENT_TEXT:
@@ -1793,6 +1794,7 @@ class StoryData {
             switch (subtype) {
               case STORY_CORRECTION:
                 result.payload = contentCorrection
+                result.type_config = typeConfig
                 break
               case STAMP_TRUST:
                 result.payload = urlImgConfig

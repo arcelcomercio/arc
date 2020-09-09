@@ -279,12 +279,16 @@ class StoryContentAmp extends PureComponent {
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === STORY_CORRECTION) {
                     const {
-                      config: { content: contentCorrectionConfig = '' } = {},
+                      config: {
+                        content: contentCorrectionConfig = '',
+                        type_event: typeConfig = 'correction',
+                      } = {},
                     } = customEmbed || {}
                     return (
                       <StoryContentsChildCorrection
                         content={contentCorrectionConfig}
                         isAmp
+                        type={typeConfig}
                       />
                     )
                   }

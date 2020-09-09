@@ -50,7 +50,7 @@ const resolve = (key = {}) => {
         includedFields,
         arcSite: website,
       })}`
-    : `&_sourceInclude=display_date,website_url,websites.${website}.website_url,headlines.basic,content_elements.type,content_elements.subtype,content_elements.text,content_elements.content,content_elements._id,content_elements.embed.id,content_elements.embed.config.content,content_elements.embed.config.date`
+    : `&_sourceInclude=display_date,website_url,websites.${website}.website_url,headlines.basic,content_elements.type,content_elements.subtype,content_elements.text,content_elements.content,content_elements._id,content_elements.embed.id,content_elements.embed.config.content,content_elements.embed.config.date,content_elements.embed.config.type_event`
 
   /* const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'

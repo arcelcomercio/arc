@@ -343,12 +343,16 @@ const StoryContentsLite = () => {
 
                 if (type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION) {
                   const {
-                    config: { content: contentCorrectionConfig = '' } = {},
+                    config: {
+                      content: contentCorrectionConfig = '',
+                      type_event: typeConfig = 'correction',
+                    } = {},
                   } = customEmbed || {}
                   return (
                     <StoryContentsChildCorrection
                       content={contentCorrectionConfig}
                       isAmp={false}
+                      type={typeConfig}
                     />
                   )
                 }

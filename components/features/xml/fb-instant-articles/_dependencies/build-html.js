@@ -176,6 +176,7 @@ const analyzeParagraph = ({
   defaultImage,
   streams = [],
   siteUrl = '',
+  typeConfig = '',
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -206,9 +207,10 @@ const analyzeParagraph = ({
       break
     case ELEMENT_CUSTOM_EMBED:
       if (subtype === STORY_CORRECTION) {
+        const typeCorrection = typeConfig || CORRECTION_TYPE_CORRECTION
         textProcess = buildCorrectionTexParagraph(
           processedParagraph,
-          CORRECTION_TYPE_CORRECTION
+          typeCorrection
         )
         result.numberWords = textProcess.numberWords
         result.processedParagraph = textProcess.processedParagraph
@@ -368,7 +370,13 @@ const buildListParagraph = ({
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
   newListParagraph.forEach(
-    ({ type = '', payload = '', link = '', streams = [] }) => {
+    ({
+      type = '',
+      payload = '',
+      link = '',
+      streams = [],
+      type_config: typeConfig = '',
+    }) => {
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph: payload,
         type,
@@ -379,6 +387,7 @@ const buildListParagraph = ({
         defaultImage,
         streams,
         siteUrl,
+        typeConfig,
       })
       objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
       objTextsProcess.numberWords += numberWords
@@ -415,6 +424,7 @@ const ParagraphshWithAdds = ({
         level,
         link = '',
         streams = [],
+        type_config: typeConfig = '',
       }) => {
         let paragraphwithAdd = ''
 
@@ -430,6 +440,7 @@ const ParagraphshWithAdds = ({
           defaultImage,
           streams,
           siteUrl,
+          typeConfig,
         })
 
         if (ConfigParams.ELEMENT_STORY === type) {
