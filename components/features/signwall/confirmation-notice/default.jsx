@@ -3,6 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import { getLocaleStorage } from '../_dependencies/Utils'
 import { requestVerifyEmail } from '../_dependencies/services'
+import Cookies from '../_dependencies/cookies'
 
 const classes = {
   wrapper:
@@ -18,6 +19,7 @@ const ConfirmationNotice = props => {
   const { arcSite } = useFusionContext() || {}
   const [showSendEmail, setShowSendEmail] = useState(false)
   const { email, emailVerified } = getLocaleStorage('ArcId.USER_PROFILE') || {}
+  const [showNotice, setShowNotice] = useState(true)
 
   const {
     customFields: {
@@ -27,7 +29,7 @@ const ConfirmationNotice = props => {
     } = {},
   } = props
 
-  const htmlScript = ''
+  // const htmlScript = ''
 
   const sendVerifyEmail = e => {
     e.preventDefault()
@@ -46,9 +48,18 @@ const ConfirmationNotice = props => {
     }, 1000)
   }
 
+  const closeConfirmNotice = () => {
+    Cookies.setCookie('show_confirm_notice', 'false', 1)
+    setShowNotice(false)
+  }
+
+  const isCookie = () => {
+    return Cookies.getCookie('show_confirm_notice')
+  }
+
   return (
     <>
-      {email && !emailVerified && (
+      {showNotice && email && !isCookie() && !emailVerified && (
         <div className={classes.wrapper}>
           <p>
             {customText}: <strong>{email}</strong>.
@@ -73,11 +84,12 @@ const ConfirmationNotice = props => {
           <button
             id="id-confirmation-notice"
             type="button"
+            onClick={closeConfirmNotice}
             className={classes.closed}>
             <i className={classes.btnIcon}></i>
           </button>
 
-          <script dangerouslySetInnerHTML={{ __html: htmlScript }}></script>
+          {/* <script dangerouslySetInnerHTML={{ __html: htmlScript }}></script> */}
         </div>
       )}
     </>
@@ -94,9 +106,9 @@ ConfirmationNotice.propTypes = {
     linkText: PropTypes.string.tag({
       name: 'Texto del enlace',
     }),
-    linkUrl: PropTypes.string.tag({
-      name: 'Url de enlace',
-    }),
+    // linkUrl: PropTypes.string.tag({
+    //   name: 'Url de enlace',
+    // }),
   }),
 }
 
