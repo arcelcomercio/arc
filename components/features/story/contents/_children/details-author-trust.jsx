@@ -1,6 +1,8 @@
 import React from 'react'
 import Image from '../../../../global-components/image'
 
+const DEFAULT_AUTHOR_IMG =
+  'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/author.png?d=1'
 const classes = {
   authorInfo: 'story-content__author-info flex',
   authorNameLink:
@@ -30,6 +32,7 @@ const StoryContentChildAuthorDetailsTrust = ({
               height={57}
               title={author}
               alt={author}
+              placeholder={DEFAULT_AUTHOR_IMG}
               className={classes.authorImage}
             />
           )}
