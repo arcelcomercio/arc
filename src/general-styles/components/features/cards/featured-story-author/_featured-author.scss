@@ -12,7 +12,11 @@
     transform: none;
     top: 0;
   }
-  &__author-img {
+  &__container-img {
+    margin: auto 0;
+  }
+  &__author-img,
+  &__author-picture {
     width: 47px;
     height: 47px;
   }
@@ -65,7 +69,7 @@
       }
       &__img-picture {
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           pointer-events: none;
           left: 0;

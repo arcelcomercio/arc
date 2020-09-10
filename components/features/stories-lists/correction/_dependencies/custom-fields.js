@@ -6,7 +6,7 @@ const customFields = PropTypes.shape({
   }), */
   storiesQty: PropTypes.number.tag({
     name: 'Número de noticias',
-    defaultValue: 5,
+    defaultValue: 100,
     // group: 'Configuración',
   }),
   includedFields: PropTypes.string.tag({

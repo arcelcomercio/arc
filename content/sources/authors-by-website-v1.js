@@ -1,4 +1,5 @@
 // const schemaName = 'author'
+const AUTHOR_TYPE = 'Personal'
 
 const params = [
   {
@@ -21,7 +22,11 @@ const transform = (data, { 'arc-site': website, size = 0, offset = 0 }) => {
   const { q_results: authors } = data
   const websiteAuthors =
     authors.filter(
-      author => author.affiliations && author.affiliations.includes(website)
+      author =>
+        author.affiliations &&
+        author.affiliations.includes(website) &&
+        author.author_type &&
+        author.author_type === AUTHOR_TYPE
       // author.website && author.website.includes(website)
     ) || []
 

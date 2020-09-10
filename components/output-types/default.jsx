@@ -16,12 +16,14 @@ import { storyTagsBbc } from '../utilities/tags'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { getAssetsPath } from '../utilities/assets'
+import { getPreroll } from '../utilities/ads/preroll'
 import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_DEPOR,
   SITE_PERU21G21,
   SITE_TROME,
+  SITE_OJO,
 } from '../utilities/constants/sitenames'
 import { META_HOME } from '../utilities/constants/meta'
 
@@ -86,7 +88,7 @@ export default ({
   } = globalContent || {}
 
   const isStory = getIsStory({ metaValue, requestUri })
-  const isBlogPost = requestUri.match(`^(/blogs?/.*.html)`)
+  const isBlogPost = /^\/blogs?\/.*.html/.test(requestUri)
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
@@ -97,20 +99,27 @@ export default ({
 
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
-    if (requestUri.match('^/depor-play')) classBody = `${classBody} depor-play`
-    if (requestUri.match('^/muchafoto')) classBody = `${classBody} muchafoto`
-    if (requestUri.match('^/usa')) lang = 'es-us'
+    if (/^\/depor-play/.test(requestUri)) {
+      classBody = `${classBody} depor-play`
+    } else if (/^\/muchafoto/.test(requestUri)) {
+      classBody = `${classBody} muchafoto`
+    } else if (/^\/usa/.test(requestUri)) {
+      lang = 'es-us'
+    }
   }
 
-  if (requestUri.match(`^(/play/.*)`))
-    classBody = `${isStory && 'story'} section-play`
-  if (requestUri.match(`^(/videos/.*)`))
-    classBody = `${isStory && 'story'} section-videos`
-  if (requestUri.match(`^(/peru21tv/.*)`))
-    classBody = `${isStory && 'story'} section-peru21tv`
+  if (/^\/play\//.test(requestUri)) {
+    classBody = `${isStory ? 'story' : ''} section-play`
+  } else if (/^\/peru21tv\//.test(requestUri)) {
+    classBody = `${isStory ? 'story' : ''} section-peru21tv`
+  } else if (/^\/videos\//.test(requestUri)) {
+    classBody = `${
+      isStory && !arcSite === SITE_OJO ? 'story' : ''
+    } section-videos`
+  }
 
   if (arcSite === SITE_ELCOMERCIO) {
-    if (requestUri.match('^/suscriptor-digital')) classBody = `section-premium`
+    if (/^\/suscriptor-digital/.test(requestUri)) classBody = `section-premium`
   }
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
@@ -225,7 +234,6 @@ export default ({
 
   const {
     videoSeo,
-    hasAdsVideo,
     embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
@@ -259,7 +267,7 @@ export default ({
   }
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
-
+  console.log('---->>>>', classBody)
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -566,9 +574,12 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll=${
-                  hasAdsVideo ? siteProperties.urlPreroll : '""'
-                }`,
+                __html: `window.preroll='${getPreroll({
+                  section: nameSeccion,
+                  arcSite,
+                  siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll}'`,
               }}
             />
             <script
@@ -581,13 +592,15 @@ export default ({
               src={`https://d1tqo5nrys2b20.cloudfront.net/${CURRENT_ENVIRONMENT}/powaBoot.js?org=elcomercio`}
               async
             />
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: videoScript,
-              }}
-            />
           </>
+        )}
+        {contenidoVideo && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: videoScript,
+            }}
+          />
         )}
         {embedTwitterAndInst[0] && (
           <>

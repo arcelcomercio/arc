@@ -285,6 +285,7 @@
     & a {
       color: $color-primary;
       font-weight: 700;
+      text-decoration: underline;
     }
 
     margin-bottom: 20px;
@@ -350,6 +351,10 @@
     }
   }
 
+  li.story-content__item a.story-content__link {
+    text-decoration: none;
+  }
+
   &__correction {
     // background-color: #f3f5f7;
     // border-radius: 5px;
@@ -398,13 +403,14 @@
       }
     }
 
-    & a {
+    &__link {
       background: #ededed;
       color: #2e6d9d;
       display: inline-block;
       font: 14px/15px "arial";
       padding: 20px;
       vertical-align: middle;
+      text-decoration: underline;
       @media (--only-mobile) {
         width: 100%;
       }
