@@ -132,7 +132,7 @@ export const Input = props => {
       <Field>
         <input
           id={name}
-          onFocus={onChange}
+          onBlur={onChange}
           className={`${clase || ''} ${error && 'error'}`}
           {...props}
         />

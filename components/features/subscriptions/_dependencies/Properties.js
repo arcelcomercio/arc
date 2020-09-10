@@ -230,7 +230,7 @@ const PropertiesCommon = {
     titleValidDni:   '¿Eres suscriptor de nuestra edición impresa?',
     subTitleValidDni:'Inicia sesión o regístrate y descubre el precio',
     registerSuccess: 'Tu cuenta ha sido creada correctamente',
-    checkInbox:      'Revisa tu bandeja de correo para activar tu cuenta y sigue navegando',
+    checkInbox:      'Revisa tu bandeja de correo para confirmar tu registro y sigue navegando',
     notReceiptEmail: '¿No recibiste el correo?',
     reSendEmail:     'Reenviar correo de activación',
     youCanSendEmail: 'Podrás reenviar nuevamente dentro de'

@@ -13,7 +13,7 @@ import Domains from '../../_dependencies/domains'
 import Cookies from '../../_dependencies/cookies'
 import Taggeo from '../../_dependencies/taggeo'
 
-export const FormLoginPaywall = props => {
+export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const {
     typeDialog,
     onClose,
@@ -24,11 +24,13 @@ export const FormLoginPaywall = props => {
       signwall: { mainColorLink, authProviders = [] },
       activeNewsletter = false,
     },
-  } = props
+  } = attributes
 
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
+  const [showVerify, setShowVerify] = useState()
+  const [showSendEmail, setShowSendEmail] = useState(false)
 
   const isFbBrowser =
     typeof window !== 'undefined' &&
@@ -36,7 +38,7 @@ export const FormLoginPaywall = props => {
       window.navigator.userAgent.indexOf('FBAV') > -1)
 
   const stateSchema = {
-    lemail: { value: '', error: '' },
+    lemail: { value: valTemplate || '', error: '' },
     lpass: { value: '', error: '' },
   }
 
@@ -94,8 +96,8 @@ export const FormLoginPaywall = props => {
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
+        setShowVerify(errLogin.code === '130051')
         onLoggedFail(errLogin) // para hendrul
-        Cookies.setCookie('lostEmail', lemail, 1)
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_login_error_ingresar`
@@ -109,21 +111,36 @@ export const FormLoginPaywall = props => {
   const isLogged = () => {
     if (typeof window !== 'undefined') {
       return (
-        // eslint-disable-next-line no-prototype-builtins
-        window.localStorage.hasOwnProperty('ArcId.USER_INFO') &&
+        window.localStorage.getItem('ArcId.USER_INFO') &&
         window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
       )
     }
     return false
   }
 
-  const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    stateValidatorSchema,
-    onSubmitForm
-  )
+  const {
+    values: { lemail, lpass },
+    errors: { lemail: lemailError, lpass: lpassError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
-  const { lemail, lpass } = values
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(lemail)
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
 
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
@@ -180,7 +197,25 @@ export const FormLoginPaywall = props => {
                 Ingresa con tu usuario
               </S.Text>
 
-              {showError && <S.Error>{showError}</S.Error>}
+              {showError && (
+                <S.Error type={showVerify ? 'warning' : ''}>
+                  {` ${showError} `}
+                  {showVerify && (
+                    <>
+                      {!showSendEmail ? (
+                        <button type="button" onClick={sendVerifyEmail}>
+                          Reenviar correo de activación
+                        </button>
+                      ) : (
+                        <span>
+                          Podrás reenviar nuevamente dentro de
+                          <strong id="countdown"> 10 </strong> segundos
+                        </span>
+                      )}
+                    </>
+                  )}
+                </S.Error>
+              )}
 
               <Input
                 type="email"
@@ -194,7 +229,7 @@ export const FormLoginPaywall = props => {
                   handleOnChange(e)
                   setShowError(false)
                 }}
-                error={errors.lemail}
+                error={lemailError}
               />
 
               <Input
@@ -208,7 +243,7 @@ export const FormLoginPaywall = props => {
                   handleOnChange(e)
                   setShowError(false)
                 }}
-                error={errors.lpass}
+                error={lpassError}
               />
 
               <S.Link
@@ -255,7 +290,7 @@ export const FormLoginPaywall = props => {
           )}
 
           {(showStudents || isLogged()) && typeDialog === 'students' && (
-            <FormStudents {...props} />
+            <FormStudents {...attributes} />
           )}
         </>
       )}

@@ -3,8 +3,11 @@ const getCodeError = code => {
     case '300040':
     case '300037':
       return 'Correo electrónico y/o contraseña incorrecta.'
+
     case '130051':
-      return 'El Correo electrónico no ha sido verificado.'
+      //   return 'El Correo electrónico no ha sido verificado.'
+      return 'Activa tu cuenta para iniciar sesión'
+
     case '100014':
     case '300014':
       return 'Tu cuenta ha sido bloqueada debido a demasiados intentos fallidos. Por favor inténtalo más tarde.'

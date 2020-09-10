@@ -1,13 +1,14 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { PureComponent, useEffect, useState } from 'react'
 import Consumer from 'fusion:consumer'
+import { useContent } from 'fusion:content'
 import { ModalProvider, ModalConsumer } from '../../../_children/context'
 import { FormLogin } from '../../../_children/forms/form_login'
-import { FormIntro } from '../../../_children/forms/form_intro'
+import FormIntro from '../../../_children/forms/form_intro'
 import { FormForgot } from '../../../_children/forms/form_forgot'
-import { FormRegister } from '../../../_children/forms/form_register'
+import FormRegister from '../../../_children/forms/form_register'
 import Taggeo from '../../../_dependencies/taggeo'
 import QueryString from '../../../_dependencies/querystring'
-import Cookies from '../../../_dependencies/cookies'
 
 import {
   ContMiddle,
@@ -20,10 +21,10 @@ import {
 import { Modal } from '../../../_children/modal/index'
 import { Close } from '../../../_children/iconos'
 
-const renderTemplate = (template, attributes) => {
+const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
     intro: <FormIntro {...attributes} />,
-    login: <FormLogin {...attributes} />,
+    login: <FormLogin {...{ valTemplate, attributes }} />,
     forgot: <FormForgot {...attributes} />,
     register: <FormRegister {...attributes} />,
   }
@@ -32,7 +33,6 @@ const renderTemplate = (template, attributes) => {
     setTimeout(() => {
       QueryString.deleteQuery('signPremium')
     }, 2000)
-
     return templates.login
   }
 
@@ -41,10 +41,8 @@ const renderTemplate = (template, attributes) => {
 
 export const PremiumInt = props => {
   const [resizeModal, setResizeModal] = useState('smallbottom')
-  const [resCampaing, setResCampaing] = useState([])
   const {
     onClose,
-    pathSourcePNG,
     arcSite,
     typeDialog,
     siteProperties: {
@@ -52,8 +50,12 @@ export const PremiumInt = props => {
     },
     addEventListener,
     removeEventListener,
-    getContent,
   } = props
+
+  const { name = '', summary: { feature = [] } = {} } =
+    useContent({
+      source: 'paywall-campaing',
+    }) || {}
 
   const checkModal = () => {
     if (typeDialog === 'premium') {
@@ -67,10 +69,6 @@ export const PremiumInt = props => {
   }
 
   useEffect(() => {
-    const { fetched } = getContent('paywall-campaing')
-    fetched.then(resCam => {
-      setResCampaing(resCam.summary.feature || [])
-    })
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)
     addEventListener('beforeunload', handleLeavePage)
     return () => {
@@ -96,7 +94,6 @@ export const PremiumInt = props => {
                 className="btn-close"
                 onClick={() => {
                   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
-                  Cookies.deleteCookie('lostEmail')
 
                   if (typeDialog === 'premium') {
                     if (document.getElementById('btn-premium-continue')) {
@@ -110,14 +107,16 @@ export const PremiumInt = props => {
                 }}>
                 <Close />
               </CloseBtn>
-              <FirstMiddle pathSourcePNG={pathSourcePNG} arcSite={arcSite}>
+              <FirstMiddle
+                pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342`}
+                arcSite={arcSite}>
                 <ContPaywall arcSite={arcSite}>
                   <p>
                     Para acceder a este contenido
                     <br />
                     exclusivo, adquiere tu
                   </p>
-                  <Title f={primaryFont}>Plan Digital</Title>
+                  <Title f={primaryFont}>{name}</Title>
                   <center>
                     <img
                       alt="Logo"
@@ -126,14 +125,14 @@ export const PremiumInt = props => {
                     />
                   </center>
                   <ul className="list-benefits mb-20">
-                    {resCampaing.map(item => {
+                    {feature.map(item => {
                       return <li key={item}>{item}</li>
                     })}
                   </ul>
                 </ContPaywall>
               </FirstMiddle>
               <SecondMiddle arcSite={arcSite}>
-                {renderTemplate(value.selectedTemplate, {
+                {renderTemplate(value.selectedTemplate, value.valTemplate, {
                   removeBefore,
                   checkModal,
                   ...props,
@@ -150,22 +149,14 @@ export const PremiumInt = props => {
 @Consumer
 class Premium extends PureComponent {
   render() {
-    const { contextPath, deployment, arcSite } = this.props
-
-    const pathSourcePNG =
-      deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.jpg`
-      ) || ''
-
     return (
       <PremiumInt
         {...this.props}
-        pathSourcePNG={pathSourcePNG}
-        getContent={this.getContent.bind(this)}
         addEventListener={this.addEventListener.bind(this)}
         removeEventListener={this.removeEventListener.bind(this)}
       />
     )
   }
 }
+
 export { Premium }

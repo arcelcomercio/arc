@@ -4,16 +4,16 @@ import styled from 'styled-components'
 import { ModalConsumer, ModalProvider } from '../_children/context'
 import { SecondMiddle } from '../mainpage/_children/generic/styled'
 import { FormLogin } from '../_children/forms/form_login'
-import { FormRegister } from '../_children/forms/form_register'
+import FormRegister from '../_children/forms/form_register'
 import { FormForgot } from '../_children/forms/form_forgot'
 import CallToActionFia from './_children/call_to_action'
 import { device } from '../_dependencies/breakpoints'
 import Domains from '../_dependencies/domains'
 import Cookies from '../_dependencies/cookies'
 
-const renderTemplate = (template, attributes) => {
+const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
-    login: <FormLogin {...attributes} />,
+    login: <FormLogin {...{ valTemplate, attributes }} />,
     register: <FormRegister {...attributes} />,
     forgot: <FormForgot {...attributes} />,
   }
@@ -21,7 +21,7 @@ const renderTemplate = (template, attributes) => {
   return templates[template] || templates.login
 }
 
-const _AuthWrapper = props => {
+const AuthContWrapper = props => {
   const {
     siteProperties: {
       signwall: { mainColorBr },
@@ -61,7 +61,7 @@ const _AuthWrapper = props => {
           {value => (
             <SecondMiddle>
               {!isLogged ? (
-                renderTemplate(value.selectedTemplate, {
+                renderTemplate(value.selectedTemplate, value.valTemplate, {
                   ...props,
                   isFia: true,
                   handleCallToAction,
@@ -94,13 +94,7 @@ const _AuthWrapper = props => {
 @Consumer
 class AuthWrapper extends React.PureComponent {
   render() {
-    return (
-      <_AuthWrapper
-        {...this.props}
-        typeDialog="authfia"
-        getContent={this.getContent.bind(this)}
-      />
-    )
+    return <AuthContWrapper {...this.props} typeDialog="authfia" />
   }
 }
 

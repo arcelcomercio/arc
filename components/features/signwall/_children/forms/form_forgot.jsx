@@ -8,9 +8,7 @@ import { Input } from './control_input_select'
 import getCodeError from '../../_dependencies/codes_error'
 import useForm from '../../_dependencies/useForm'
 import Domains from '../../_dependencies/domains'
-import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
-import Cookies from '../../_dependencies/cookies'
 
 export const FormForgot = ({
   arcSite,
@@ -23,9 +21,8 @@ export const FormForgot = ({
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
-  const defaultEmail = Cookies.getCookie('lostEmail') || ''
   const stateSchema = {
-    femail: { value: defaultEmail, error: '' },
+    femail: { value: '', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -53,45 +50,6 @@ export const FormForgot = ({
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_contrasena_success_boton`
     )
-    Cookies.deleteCookie('lostEmail')
-  }
-
-  const pushStatePass = email => {
-    setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.requestResetPassword(email)
-      .then(() => {
-        setShowConfirm(!showConfirm)
-        taggeoSuccess()
-      })
-      .catch(() => {
-        taggeoError()
-      })
-      .finally(() => {
-        setShowLoading(false)
-      })
-  }
-
-  const sendEmail = email => {
-    setShowLoading(true)
-    Services.reloginEcoID(email, '', 'forgotpass', arcSite, window)
-      .then(resEco => {
-        if (resEco.retry) {
-          setTimeout(() => {
-            pushStatePass(email)
-          }, 1000)
-        } else {
-          setShowError(getCodeError('300030'))
-          taggeoError()
-        }
-      })
-      .catch(() => {
-        setShowError(getCodeError('000000'))
-        taggeoError()
-      })
-      .finally(() => {
-        setShowLoading(false)
-      })
   }
 
   const onSubmitForm = state => {
@@ -104,25 +62,21 @@ export const FormForgot = ({
         taggeoSuccess()
       })
       .catch(errForgot => {
-        if (errForgot.code === '300030') {
-          sendEmail(femail)
-        } else {
-          setShowError(getCodeError(errForgot.code))
-          taggeoError()
-        }
+        setShowError(getCodeError(errForgot.code))
+        taggeoError()
       })
       .finally(() => {
         setShowLoading(false)
       })
   }
 
-  const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    stateValidatorSchema,
-    onSubmitForm
-  )
-
-  const { femail } = values
+  const {
+    values: { femail },
+    errors: { femail: femailError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
   return (
     <ModalConsumer>
@@ -181,38 +135,22 @@ export const FormForgot = ({
                     handleOnChange(e)
                     setShowError(false)
                   }}
-                  error={errors.femail}
+                  error={femailError}
                 />
 
-                {defaultEmail ? (
-                  <S.Button
-                    type="submit"
-                    color={mainColorBtn}
-                    className="mt-20 mb-10"
-                    disabled={showLoading}
-                    onClick={() =>
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
-                      )
-                    }>
-                    {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
-                  </S.Button>
-                ) : (
-                  <S.Button
-                    type="submit"
-                    color={mainColorBtn}
-                    className="mt-20 mb-10"
-                    disabled={disable || showLoading}
-                    onClick={() =>
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
-                      )
-                    }>
-                    {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
-                  </S.Button>
-                )}
+                <S.Button
+                  type="submit"
+                  color={mainColorBtn}
+                  className="mt-20 mb-10"
+                  disabled={disable || showLoading}
+                  onClick={() =>
+                    Taggeo(
+                      `Web_Sign_Wall_${typeDialog}`,
+                      `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
+                    )
+                  }>
+                  {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
+                </S.Button>
               </>
             ) : (
               <>
@@ -243,7 +181,7 @@ export const FormForgot = ({
                         value.changeTemplate('relogin')
                         break
                       default:
-                        value.changeTemplate('login')
+                        value.changeTemplate('login', '', femail)
                     }
                   }}>
                   ACEPTAR

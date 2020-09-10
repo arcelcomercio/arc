@@ -1,7 +1,6 @@
-/* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import { sha256 } from 'js-sha256'
+// import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial, AuthURL } from './control_social'
 import { ModalConsumer } from '../context'
@@ -13,12 +12,12 @@ import useForm from '../../_dependencies/useForm'
 import getDevice from '../../_dependencies/get-device'
 import { FormStudents } from './form_students'
 import Domains from '../../_dependencies/domains'
-import Cookies from '../../_dependencies/cookies'
+// import Cookies from '../../_dependencies/cookies'
 import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
 import Loading from '../loading'
 
-export const FormRegister = props => {
+const FormRegister = props => {
   const {
     typeDialog,
     onClose,
@@ -45,9 +44,9 @@ export const FormRegister = props => {
   const [showStudents, setShowStudents] = useState(false)
   const [showChecked, setShowChecked] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
-
   const [showCheckPremium, setShowCheckPremium] = useState(false)
   const [showUserWithSubs, setShowUserWithSubs] = useState(false)
+  const [showSendEmail, setShowSendEmail] = useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -69,7 +68,6 @@ export const FormRegister = props => {
     rpass: {
       required: true,
       validator: {
-        // func: value => value.length >= 8 || value.indexOf(' ') <= 0,
         func: value => {
           if (value.length >= 8) {
             return true
@@ -109,36 +107,37 @@ export const FormRegister = props => {
   }
 
   const handleGetProfile = () => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile()
-      .then(profile => {
-        Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+    setShowConfirm(true)
+    // window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    // window.Identity.getUserProfile()
+    //   .then(profile => {
+    //     Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
 
-        const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-        Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+    //     const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+    //     Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
-        if (activeNewsletter) {
-          Services.sendNewsLettersUser(
-            window.Identity.userIdentity.uuid,
-            profile.email,
-            arcSite,
-            window.Identity.userIdentity.accessToken,
-            ['general']
-          ).then(() => {
-            setShowConfirm(true)
-            onLogged(profile)
-          })
-        } else {
-          setShowConfirm(true)
-          onLogged(profile)
-        }
-      })
-      .catch(() => {
-        Taggeo(
-          `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
-        )
-      })
+    //     if (activeNewsletter) {
+    //       Services.sendNewsLettersUser(
+    //         window.Identity.userIdentity.uuid,
+    //         profile.email,
+    //         arcSite,
+    //         window.Identity.userIdentity.accessToken,
+    //         ['general']
+    //       ).then(() => {
+    //         setShowConfirm(true)
+    //         onLogged(profile)
+    //       })
+    //     } else {
+    //       setShowConfirm(true)
+    //       onLogged(profile)
+    //     }
+    //   })
+    //   .catch(() => {
+    //     Taggeo(
+    //       `Web_Sign_Wall_${typeDialog}`,
+    //       `web_sw${typeDialog[0]}_registro_error_registrarme`
+    //     )
+    //   })
   }
 
   const originAction = () => {
@@ -208,9 +207,9 @@ export const FormRegister = props => {
             type: 'String',
           },
         ],
-      },
-      { doLogin: true },
-      { rememberMe: true }
+      }
+      // { doLogin: true },
+      // { rememberMe: true }
     )
       .then(() => {
         handleGetProfile()
@@ -228,7 +227,6 @@ export const FormRegister = props => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_error_registrarme`
         )
-        Cookies.setCookie('lostEmail', remail, 1)
       })
   }
 
@@ -287,13 +285,30 @@ export const FormRegister = props => {
     }
   }
 
-  const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    stateValidatorSchema,
-    onSubmitForm
-  )
+  const {
+    values: { remail, rpass },
+    errors: { remail: remailError, rpass: rpassError, rterms: rtermsError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
-  const { remail, rpass } = values
+  const sendVerifyEmail = e => {
+    e.preventDefault()
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(remail)
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
 
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
@@ -395,7 +410,7 @@ export const FormRegister = props => {
                           handleOnChange(e)
                           setShowError(false)
                         }}
-                        error={errors.remail}
+                        error={remailError}
                       />
 
                       <Input
@@ -410,7 +425,7 @@ export const FormRegister = props => {
                           setShowError(false)
                           checkFormat(e)
                         }}
-                        error={errors.rpass || showFormatInvalid}
+                        error={rpassError || showFormatInvalid}
                       />
 
                       <CheckBox
@@ -423,7 +438,7 @@ export const FormRegister = props => {
                           setShowError(false)
                         }}
                         valid
-                        error={errors.rterms}>
+                        error={rtermsError}>
                         <S.Text c="gray" lh="18" s="12" className="mt-10">
                           Al crear la cuenta acepto los
                           <S.Link
@@ -445,10 +460,6 @@ export const FormRegister = props => {
                           </S.Link>
                         </S.Text>
                       </CheckBox>
-
-                      {/* <S.Text c="black" s="10" fw="bold" className="mt-10 mb-10">
-                    * TODOS LOS CAMPOS SON OBLIGATORIOS
-                  </S.Text> */}
 
                       <S.Button
                         color={mainColorBtn}
@@ -479,6 +490,10 @@ export const FormRegister = props => {
                           : 'Tu cuenta ha sido creada correctamente'}
                       </S.Title>
 
+                      <S.Title s="14" c="#6a6a6a" className="center">
+                        {remail}
+                      </S.Title>
+
                       {typeDialog === 'premium' || typeDialog === 'paywall' ? (
                         <>
                           <S.Text
@@ -502,7 +517,7 @@ export const FormRegister = props => {
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
                                 if (
-                                  window.sessionStorage.hasOwnProperty(
+                                  window.sessionStorage.getItem(
                                     'paywall_last_url'
                                   ) &&
                                   window.sessionStorage.getItem(
@@ -538,10 +553,10 @@ export const FormRegister = props => {
                           <S.Text
                             c="gray"
                             s="14"
-                            lh="28"
+                            lh="22"
                             className="mt-10 mb-20 center">
                             Revisa tu bandeja de correo para confirmar tu
-                            solicitud de registro
+                            registro y sigue navegando
                           </S.Text>
                           <S.Button
                             type="button"
@@ -552,7 +567,8 @@ export const FormRegister = props => {
                                 `web_sw${typeDialog[0]}_registro_continuar_navegando`
                               )
                               if (typeDialog === 'students') {
-                                setShowStudents(!showStudents)
+                                // setShowStudents(!showStudents)
+                                value.changeTemplate('login', '', remail)
                               } else {
                                 const btnSignwall = document.getElementById(
                                   'signwall-nav-btn'
@@ -563,11 +579,35 @@ export const FormRegister = props => {
                                 ) {
                                   btnSignwall.textContent = 'Bienvenido'
                                 }
-                                onClose()
+                                // onClose()
+                                value.changeTemplate('login', '', remail)
                               }
                             }}>
                             CONTINUAR
                           </S.Button>
+
+                          <S.Text
+                            c="black"
+                            s="12"
+                            className="mt-20 mb-10 center">
+                            ¿No recibiste el correo?
+                            <br />
+                            {!showSendEmail ? (
+                              <S.Link
+                                href="#"
+                                c={mainColorLink}
+                                fw="bold"
+                                className="ml-10"
+                                onClick={sendVerifyEmail}>
+                                Reenviar correo de activación
+                              </S.Link>
+                            ) : (
+                              <span>
+                                Podrás reenviar nuevamente dentro de
+                                <strong id="countdown"> 10 </strong> segundos
+                              </span>
+                            )}
+                          </S.Text>
                         </>
                       )}
                     </>
@@ -585,3 +625,5 @@ export const FormRegister = props => {
     </ModalConsumer>
   )
 }
+
+export default FormRegister
