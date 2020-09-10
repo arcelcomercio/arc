@@ -14,7 +14,7 @@ const { VIDEO } = ConfigParams
  * xmlBuilder, para construir sitemaps para Videos de peru21tv.
  */
 @Consumer
-class XmlVideosSitemap {
+class XmlPeru21TVSitemap {
   constructor(props) {
     this.props = props
     this.fetchContent({
@@ -114,4 +114,4 @@ class XmlVideosSitemap {
   }
 }
 
-export default XmlVideosSitemap
+export default XmlPeru21TVSitemap

@@ -80,3 +80,40 @@ export const formatDateStory = date => {
 
   return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatHours}:${formatMinutes} `
 }
+
+export const formattedTime = date => {
+  const hours =
+    date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
+
+  const minutes =
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+
+  return `${hours}:${minutes}`
+}
+
+export const formatDateLocalTimeZone = (
+  publishDateString,
+  delimiter = '-',
+  isClient = false,
+  todayHour = true
+) => {
+  const publishDate = new Date(publishDateString)
+  if (!isClient) publishDate.setHours(publishDate.getHours() - 5)
+
+  const today = new Date()
+  if (!isClient) today.setHours(today.getHours() - 5)
+
+  let formattedDate = ''
+
+  if (
+    getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today) &&
+    todayHour
+  )
+    formattedDate = formattedTime(publishDate)
+  else {
+    // eslint-disable-next-line prefer-destructuring
+    formattedDate = publishDate.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
+    formattedDate = formattedDate.replace(/-/g, delimiter)
+  }
+  return formattedDate
+}

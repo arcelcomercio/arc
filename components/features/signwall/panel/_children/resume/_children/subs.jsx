@@ -21,7 +21,6 @@ class Subs extends Component {
       isSubs: false,
       isLoad: true,
       userSubsDetail: [],
-      showFree: false,
       listBundle: Domains.getListBundle() || [],
     }
 
@@ -132,7 +131,6 @@ class Subs extends Component {
         this.setState({
           paywallName: resCam.name || 'Plan',
           paywallPrice: getPLanSelected.amount || '-',
-          showFree: getPLanSelected.amount === 0 || '-',
           paywallTitle:
             (getPLanSelected.description &&
               getPLanSelected.description.title) ||
@@ -166,7 +164,6 @@ class Subs extends Component {
       paywallDesc,
       userSubsDetail,
       listBundle,
-      showFree,
     } = this.state
     const {
       arcSite,
@@ -301,8 +298,10 @@ class Subs extends Component {
                             )
                             this.handlePageChange(e)
                           }}>
-                          <h3>SUSCRÍBETE {showFree && 'GRATIS'}</h3>
-                          {showFree ? (
+                          <h3>
+                            SUSCRÍBETE {paywallPrice === 0 ? 'GRATIS' : ''}
+                          </h3>
+                          {paywallPrice === 0 ? (
                             <>
                               <span> {paywallTitle} </span>
                               <br />

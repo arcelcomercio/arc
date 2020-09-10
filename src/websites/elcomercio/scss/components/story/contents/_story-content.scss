@@ -13,16 +13,17 @@
     }
     a {
       color: #4a88b1;
+      text-decoration: underline;
       b {
         font-family: $tertiary-font;
       }
     }
   }
-
   li {
     font-family: $tertiary-font;
     & a {
       color: #4a88b1;
+      text-decoration: underline;
     }
   }
   .pquote__text {
@@ -49,13 +50,15 @@
     color: #888;
     font-size: 12px;
     font-family: $secondary-font;
-    justify-content: flex-end;
     flex-direction: column;
     @media (--only-mobile) {
       text-align: right;
       width: 134px;
       order: 1;
     }
+  }
+  &__date-top {
+    justify-content: flex-end;
   }
   &__time {
     display: block;
@@ -104,6 +107,10 @@
   &__list-more {
     width: 110px;
   }
+}
+
+li.story-content__item a.story-content__link {
+  text-decoration: none;
 }
 
 .opinion .content-sidebar {

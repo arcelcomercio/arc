@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
 
   const [userLoaded, setUserLoaded] = useState(() => isAuthenticated())
   const [userPlan, setUserPlan] = useState({})
+  const [userDataPlan, setUserDataPlan] = useState({})
   const [userPeriod, setUserPeriod] = useState()
   const [userPurchase, setUserPurchase] = useState({})
   const [loadPage, setLoadPage] = useState(false)
@@ -27,6 +28,7 @@ const AuthProvider = ({ children }) => {
     userProfile,
     userStep,
     userPlan,
+    userDataPlan,
     userPeriod,
     userPurchase,
     loadPage,
@@ -50,6 +52,9 @@ const AuthProvider = ({ children }) => {
     },
     updatePlan: (priceCode, sku, quantity) => {
       setUserPlan({ priceCode, sku, quantity })
+    },
+    updateDataPlan: (amount, billingFrequency) => {
+      setUserDataPlan({ amount, billingFrequency })
     },
     updatePeriod: period => {
       setUserPeriod(period)
