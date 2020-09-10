@@ -1,7 +1,7 @@
 window.PoWaSettings = window.PoWaSettings || {}
 window.PoWaSettings.advertising = {
   adBar: false,
-  adTag: window.urlPreroll,
+  adTag: window.preroll,
 }
 window.PoWaSettings.promo = {
   style: {

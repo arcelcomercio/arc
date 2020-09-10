@@ -9,9 +9,9 @@ import schemaFilter from './_dependencies/schema-filter'
 import Item from './_children/item'
 import StoryData from '../../../utilities/story-data'
 
-import { formatDateLocalTimeZone } from '../../../utilities/helpers'
 import {
   getActualDate,
+  formatDateLocalTimeZone,
   // getYYYYMMDDfromISO,
 } from '../../../utilities/date-time/dates'
 import { ELEMENT_CUSTOM_EMBED } from '../../../utilities/constants/element-types'
@@ -65,45 +65,65 @@ const StoriesListCorrection = props => {
   let correctionToday = []
   dataList.forEach(ele => {
     const list = ele.content_elements || []
-    const dataToday = list.filter(
-      ({
+
+    const correctionCurrent = []
+    list.forEach(el => {
+      const {
         subtype = '',
         type = '',
         embed: { config: { date = '' } = {} } = {},
-      }) => {
-        return (
-          type === ELEMENT_CUSTOM_EMBED &&
-          subtype === STORY_CORRECTION &&
-          dateCurrent === formatDateLocalTimeZone(date, '-', true, false)
-        )
+      } = el
+      if (
+        type === ELEMENT_CUSTOM_EMBED &&
+        subtype === STORY_CORRECTION &&
+        dateCurrent === formatDateLocalTimeZone(date, '-', true, false)
+      ) {
+        correctionCurrent.push({ ...ele, content_elements: [el] })
       }
-    )
-    const correctionCurrent =
-      dataToday.length > 0 ? [{ ...ele, content_elements: dataToday }] : []
+    })
     correctionToday = [...correctionToday, ...correctionCurrent]
   })
 
   let corrections = []
   dataList.forEach(ele => {
     const list = ele.content_elements || []
-    const dataCorrection = list.filter(
-      ({
+
+    const correctionCurrent = []
+    list.forEach(el => {
+      const {
         subtype = '',
         type = '',
         embed: { config: { date = '' } = {} } = {},
-      }) => {
-        return (
-          type === ELEMENT_CUSTOM_EMBED &&
-          subtype === STORY_CORRECTION &&
-          dateCurrent !== formatDateLocalTimeZone(date, '-', true, false)
-        )
+      } = el
+      if (
+        type === ELEMENT_CUSTOM_EMBED &&
+        subtype === STORY_CORRECTION &&
+        dateCurrent !== formatDateLocalTimeZone(date, '-', true, false)
+      ) {
+        correctionCurrent.push({ ...ele, content_elements: [el] })
       }
-    )
-    const correctionCurrent =
-      dataCorrection.length > 0
-        ? [{ ...ele, content_elements: dataCorrection }]
-        : []
+    })
+
     corrections = [...corrections, ...correctionCurrent]
+  })
+
+  const timestamp = date => {
+    return Date.parse(date)
+  }
+
+  corrections = corrections.sort((a, b) => {
+    const { embed: { config: { date: dateA = '' } = {} } = {} } =
+      a.content_elements[0] || {}
+    const { embed: { config: { date: dateB = '' } = {} } = {} } =
+      b.content_elements[0] || {}
+    if (timestamp(dateA) > timestamp(dateB)) {
+      return -1
+    }
+    if (timestamp(dateA) < timestamp(dateB)) {
+      return 1
+    }
+
+    return 0
   })
 
   const contentCorrection = el => {
@@ -126,13 +146,13 @@ const StoriesListCorrection = props => {
   return (
     <div className={classes.list}>
       {correctionToday.length > 0 && (
-        <span className={classes.label}>Correcciones del día</span>
+        <span className={classes.label}>Correcciones y aclaraciones del día</span>
       )}
       {correctionToday.map(el => {
         return contentCorrection(el)
       })}
       {corrections.length > 0 && (
-        <span className={classes.label}>Correcciones de días anteriores</span>
+        <span className={classes.label}>Correcciones y aclaraciones de días anteriores</span>
       )}
       {corrections.map(el => {
         return contentCorrection(el)

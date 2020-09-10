@@ -47,6 +47,7 @@ content_elements {
       customBlockType
       customBlockContent
       url
+      url_img
     }
   }
   raw_oembed{
