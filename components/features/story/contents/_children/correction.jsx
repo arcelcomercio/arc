@@ -3,11 +3,7 @@ import { nlToBrTag } from '../../../../utilities/helpers'
 
 const CORRECTION_TYPE_CORRECTION = 'correction'
 
-export default ({
-  content = '',
-  isAmp,
-  correctionType = CORRECTION_TYPE_CORRECTION,
-}) => {
+export default ({ content = '', isAmp, type = CORRECTION_TYPE_CORRECTION }) => {
   const classes = {
     correction: `${
       isAmp ? 'amp-story-content__correction' : 'story-content__correction'
@@ -22,9 +18,7 @@ export default ({
   return (
     <div className={classes.correction}>
       <span className={classes.title}>
-        {correctionType === CORRECTION_TYPE_CORRECTION
-          ? 'Corrección: '
-          : 'Aclaración: '}
+        {type === CORRECTION_TYPE_CORRECTION ? 'Corrección: ' : 'Aclaración: '}
       </span>
       {nlToBrTag(content)}
     </div>
