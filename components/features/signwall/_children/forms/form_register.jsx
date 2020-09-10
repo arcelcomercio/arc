@@ -35,7 +35,7 @@ const FormRegister = props => {
       },
       activeNewsletter = false,
     },
-    removeBefore = i => i,
+    // removeBefore = i => i,
   } = props
 
   const [showError, setShowError] = useState(false)
@@ -87,24 +87,24 @@ const FormRegister = props => {
     },
   }
 
-  const handleSuscription = () => {
-    if (typeDialog === 'premium') {
-      window.sessionStorage.setItem(
-        'paywall_last_url',
-        window.location.pathname ? window.location.pathname : ''
-      )
-    } else {
-      window.sessionStorage.setItem(
-        'paywall_last_url',
-        window.document.referrer
-          ? window.document.referrer.split(window.location.origin)[1]
-          : ''
-      )
-    }
-    removeBefore() // dismount before
-    window.location.href = Domains.getUrlPaywall(arcSite)
-    window.sessionStorage.setItem('paywall_type_modal', typeDialog)
-  }
+  // const handleSuscription = () => {
+  //   if (typeDialog === 'premium') {
+  //     window.sessionStorage.setItem(
+  //       'paywall_last_url',
+  //       window.location.pathname ? window.location.pathname : ''
+  //     )
+  //   } else {
+  //     window.sessionStorage.setItem(
+  //       'paywall_last_url',
+  //       window.document.referrer
+  //         ? window.document.referrer.split(window.location.origin)[1]
+  //         : ''
+  //     )
+  //   }
+  //   removeBefore() // dismount before
+  //   window.location.href = Domains.getUrlPaywall(arcSite)
+  //   window.sessionStorage.setItem('paywall_type_modal', typeDialog)
+  // }
 
   const handleGetProfile = () => {
     setShowConfirm(true)
@@ -494,19 +494,17 @@ const FormRegister = props => {
                         {remail}
                       </S.Title>
 
-                      {typeDialog === 'premium' || typeDialog === 'paywall' ? (
-                        <>
-                          <S.Text
-                            c="gray"
-                            s="14"
-                            lh="28"
-                            className="mt-10 mb-20 center">
-                            {showUserWithSubs
-                              ? 'Sigue disfrutando del contenido exclusivo que tenemos para ti'
-                              : 'Ahora puedes continuar con tu compra'}
-                          </S.Text>
-
-                          {showUserWithSubs ? (
+                      {(typeDialog === 'premium' || typeDialog === 'paywall') &&
+                        showUserWithSubs && (
+                          <>
+                            <S.Text
+                              c="gray"
+                              s="14"
+                              lh="28"
+                              className="mt-10 mb-20 center">
+                              Sigue disfrutando del contenido exclusivo que
+                              tenemos para ti
+                            </S.Text>
                             <S.Button
                               id="btn-premium-continue"
                               type="button"
@@ -533,83 +531,61 @@ const FormRegister = props => {
                               }}>
                               SIGUE NAVEGANDO
                             </S.Button>
-                          ) : (
-                            <S.Button
-                              type="button"
-                              color={mainColorBtn}
-                              onClick={() => {
-                                Taggeo(
-                                  `Web_Sign_Wall_${typeDialog}`,
-                                  `web_sw${typeDialog[0]}_boton_ver_planes`
-                                )
-                                handleSuscription()
-                              }}>
-                              VER PLANES
-                            </S.Button>
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          <S.Text
-                            c="gray"
-                            s="14"
-                            lh="22"
-                            className="mt-10 mb-20 center">
-                            Revisa tu bandeja de correo para confirmar tu
-                            registro y sigue navegando
-                          </S.Text>
-                          <S.Button
-                            type="button"
-                            color={mainColorBtn}
-                            onClick={() => {
-                              Taggeo(
-                                `Web_Sign_Wall_${typeDialog}`,
-                                `web_sw${typeDialog[0]}_registro_continuar_navegando`
-                              )
-                              if (typeDialog === 'students') {
-                                // setShowStudents(!showStudents)
-                                value.changeTemplate('login', '', remail)
-                              } else {
-                                const btnSignwall = document.getElementById(
-                                  'signwall-nav-btn'
-                                )
-                                if (
-                                  typeDialog === 'newsletter' &&
-                                  btnSignwall
-                                ) {
-                                  btnSignwall.textContent = 'Bienvenido'
-                                }
-                                // onClose()
-                                value.changeTemplate('login', '', remail)
-                              }
-                            }}>
-                            CONTINUAR
-                          </S.Button>
+                          </>
+                        )}
 
-                          <S.Text
-                            c="black"
-                            s="12"
-                            className="mt-20 mb-10 center">
-                            ¿No recibiste el correo?
-                            <br />
-                            {!showSendEmail ? (
-                              <S.Link
-                                href="#"
-                                c={mainColorLink}
-                                fw="bold"
-                                className="ml-10"
-                                onClick={sendVerifyEmail}>
-                                Reenviar correo de activación
-                              </S.Link>
-                            ) : (
-                              <span>
-                                Podrás reenviar nuevamente dentro de
-                                <strong id="countdown"> 10 </strong> segundos
-                              </span>
-                            )}
-                          </S.Text>
-                        </>
-                      )}
+                      <S.Text
+                        c="gray"
+                        s="14"
+                        lh="22"
+                        className="mt-10 mb-20 center">
+                        Revisa tu bandeja de correo para confirmar tu registro y
+                        sigue navegando
+                      </S.Text>
+                      <S.Button
+                        type="button"
+                        color={mainColorBtn}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                          )
+                          if (typeDialog === 'students') {
+                            // setShowStudents(!showStudents)
+                            value.changeTemplate('login', '', remail)
+                          } else {
+                            const btnSignwall = document.getElementById(
+                              'signwall-nav-btn'
+                            )
+                            if (typeDialog === 'newsletter' && btnSignwall) {
+                              btnSignwall.textContent = 'Bienvenido'
+                            }
+                            // onClose()
+                            value.changeTemplate('login', '', remail)
+                          }
+                        }}>
+                        CONTINUAR
+                      </S.Button>
+
+                      <S.Text c="black" s="12" className="mt-20 mb-10 center">
+                        ¿No recibiste el correo?
+                        <br />
+                        {!showSendEmail ? (
+                          <S.Link
+                            href="#"
+                            c={mainColorLink}
+                            fw="bold"
+                            className="ml-10"
+                            onClick={sendVerifyEmail}>
+                            Reenviar correo de activación
+                          </S.Link>
+                        ) : (
+                          <span>
+                            Podrás reenviar nuevamente dentro de
+                            <strong id="countdown"> 10 </strong> segundos
+                          </span>
+                        )}
+                      </S.Text>
                     </>
                   )}
                 </S.Form>
