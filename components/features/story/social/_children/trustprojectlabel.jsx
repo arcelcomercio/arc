@@ -29,10 +29,11 @@ const TProLbl = ({ trustproject, plantilla }) => {
           'Pagado con por un anunciante, pero sin que este lo haya aprobado antes de su publicación.'
         break
       case 'elucidario':
-        txt = 'Clarificación acerca de una historia.'
+        txt = 'Provee contexto, definición y detalle de un tópico específico.'
         break
       case 'hechos':
-        txt = 'Provee contexto, definición y detalle de un tópico específico.'
+        txt =
+          'Verifica una declaración o grupo de declaraciones específicas dadas como un hecho, estableciendo un veredicto en torno a si dichas declaraciones son correctas o no.'
         break
       case 'ayu_inf':
         txt = 'Pedido de información a la audiencia.'
@@ -41,10 +42,12 @@ const TProLbl = ({ trustproject, plantilla }) => {
         txt = 'Crítica de un servicio, producto u obra creativa.'
         break
       case 'investigacion':
-        txt = 'Examen en profundidad de un hecho noticioso.'
+        txt =
+          'Examen en profundidad de un hecho noticioso que requiere investigación y recursos extensivos.'
         break
       case 'orbituario':
-        txt = 'Reporta el fallecimiento de un individuo, repasando su vida y sus logros, las controversias en las que hubiera estado envuelto y el recuerdo de las personas que lo conocieron.'
+        txt =
+          'Reporta el fallecimiento de un individuo, repasando su vida y sus logros, las controversias en las que hubiera estado envuelto y el recuerdo de las personas que lo conocieron.'
         break
       case 'det_hist':
         txt = 'Aclara a la audiencia como se reporteó una noticia.'
