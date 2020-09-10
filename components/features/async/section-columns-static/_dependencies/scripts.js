@@ -163,7 +163,7 @@
                           : ''
                       }<img class="sec-col__image w-full object-center object-cover" src="${i}" alt="${t}"/></a>`
                     : ''
-                }<article role="listitem" class="sec-col__story flex flex-col pb-10 mr-20 ml-20 mb-20 text-gray-300 border-b-1 border-dashed border-gray"><a href="${u}"><h3 class="sec-col__link mb-15 text-gray-300 line-h-sm font-bold overflow-hidden">${t}</h3></a><a class="sec-col__author text-gray-200" href="${a}">${n}</a></article>`
+                }<article role="listitem" class="sec-col__story flex flex-col pb-10 mr-20 ml-20 mb-20 text-gray-300 border-b-1 border-dashed border-gray"><a href="${u}"><h3 class="sec-col__link mb-15 text-gray-300 line-h-sm font-bold overflow-hidden">${t}</h3></a><a class="sec-col__author text-gray-200" href="${a||"/autores/"}">${n||""}</a></article>`
             )
             .join('')}</div></div>`
         })
