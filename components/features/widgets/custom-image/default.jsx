@@ -118,7 +118,7 @@ const CustomImageFeat = ({
 CustomImageFeat.propTypes = {
   customFields,
 }
-CustomImageFeat.label = 'Imagen con enlace - Nuevo'
+CustomImageFeat.label = 'Imagen con enlace - Beta'
 CustomImageFeat.static = true
 
 export default CustomImageFeat

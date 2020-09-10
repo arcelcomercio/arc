@@ -19,7 +19,7 @@
     a {
       color: #294bcc;
       font-weight: 400;
-      text-decoration: none;
+      text-decoration: underline;
     }
   }
   &__caption {
@@ -89,17 +89,17 @@
       @media (--only-mobile) {
         font-size: 11px;
       }
+      td {
+        font-family: $primary-font;
+        padding: 5px;
+        border-right: 1px solid #ccc;
+      }
       tr {
         &:nth-child(2n) {
           td {
             background-color: #ccc;
           }
         }
-      }
-      td {
-        font-family: $primary-font;
-        padding: 5px;
-        border-right: 1px solid #ccc;
       }
     }
   }

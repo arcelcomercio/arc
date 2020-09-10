@@ -104,7 +104,7 @@ BreakingNewsFeat.propTypes = {
   customFields,
 }
 
-BreakingNewsFeat.label = 'Cintillo Urgente - Nuevo'
+BreakingNewsFeat.label = 'Cintillo Urgente - Beta'
 BreakingNewsFeat.static = true
 
 export default BreakingNewsFeat

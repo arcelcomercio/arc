@@ -1,5 +1,5 @@
-import ENV from 'fusion:environment'
 import { titleCase } from './Utils'
+import { IsPROD } from './Properties'
 
 export const Taggeo = (cat, acc) => {
   const TRIGGER = 'tag_signwall'
@@ -11,12 +11,13 @@ export const Taggeo = (cat, acc) => {
       eventAction: acc,
     }
     window.dataLayer.push(dataPush)
-    if (ENV.ENVIRONMENT !== 'elcomercio') {
-      window.console.log(
-        `%c 🔔 Taggeo Detectado - Paywall:`,
+    if (!IsPROD) {
+      window.console.groupCollapsed(
+        `%c 🔔 Taggeo Detectado - Evento: ${dataPush.event}`,
         'color:  dodgerblue; font-size: 12px'
       )
       window.console.table(dataPush)
+      window.console.groupEnd()
     }
   }
 }

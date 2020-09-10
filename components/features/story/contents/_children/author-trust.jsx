@@ -3,7 +3,7 @@ import {
   formatDayMonthYearBasic,
   formatDateStory,
 } from '../../../../utilities/date-time/dates'
-import Image from '../../../../global-components/image'
+import StoryContentChildAuthorDetailsTrust from './details-author-trust'
 
 const classes = {
   author:
@@ -13,6 +13,7 @@ const classes = {
     'secondary-font font-bold story-content__author-link header__link text-lg text-gray-200 line-h-sm',
   authorDate:
     'story-content__date flex items-center secondary-font text-md text-gray-200 line-h-sm',
+  authorDateTop: 'story-content__date-top',
   authorTime: 'story-content__time',
   authorEmail:
     'story-content__author-email secondary-font text-md text-gray-200 line-h-sm',
@@ -29,51 +30,42 @@ const StoryContentChildAuthorTrust = ({
   locality,
   authorEmail,
   primarySection = '',
+  authorImageSecond,
+  authorLinkSecond,
+  authorSecond,
+  authorEmailSecond,
+  authorRoleSecond,
 }) => {
   const displayLoc = locality === '' ? 'Lima' : locality
+
+  const detailsAuthorParamet = {
+    author,
+    authorLink,
+    authorEmail,
+    authorImage,
+    authorRole,
+  }
+  const detailsAuthorParametSecound = {
+    author: authorSecond,
+    authorLink: authorLinkSecond,
+    authorEmail: authorEmailSecond,
+    authorImage: authorImageSecond,
+    authorRole: authorRoleSecond,
+  }
+
   return (
     <>
       <div className={classes.author}>
         {primarySection !== 'Columnistas' && (
-          <div className={classes.authorInfo}>
-            <div>
-              {authorImage && (
-                <Image
-                  itemProp="image"
-                  src={authorImage}
-                  width={57}
-                  height={57}
-                  title={author}
-                  alt={author}
-                  className={classes.authorImage}
-                />
-              )}
-            </div>
-            <div>
-              {author && (
-                <a
-                  itemProp="url"
-                  href={authorLink}
-                  className={classes.authorNameLink}>
-                  {author}
-                </a>
-              )}
-              {authorRole && (
-                <p itemProp="name" className={classes.authorRole}>
-                  {' '}
-                  {authorRole}{' '}
-                </p>
-              )}
-              {authorEmail && (
-                <p itemProp="description" className={classes.authorEmail}>
-                  {' '}
-                  {authorEmail}{' '}
-                </p>
-              )}
-            </div>
-          </div>
+          <StoryContentChildAuthorDetailsTrust
+            {...detailsAuthorParamet}></StoryContentChildAuthorDetailsTrust>
         )}
-        <div className={classes.authorDate}>
+        <div
+          className={
+            authorEmailSecond
+              ? classes.authorDate
+              : `${classes.authorDate} ${classes.authorDateTop}`
+          }>
           <time className={classes.authorTime} dateTime={updatedDate}>
             {updatedDate &&
               `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
@@ -87,6 +79,10 @@ const StoryContentChildAuthorTrust = ({
           </time>
         </div>
       </div>
+      {primarySection !== 'Columnistas' && authorEmailSecond && (
+        <StoryContentChildAuthorDetailsTrust
+          {...detailsAuthorParametSecound}></StoryContentChildAuthorDetailsTrust>
+      )}
     </>
   )
 }

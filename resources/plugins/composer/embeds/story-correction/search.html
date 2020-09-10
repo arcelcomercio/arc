@@ -24,19 +24,6 @@
     </style>
   </head>
   <body>
-    <template id="content_template">
-      <!-- Rendered Search Result Item -->
-      <div class="col-md-6 hoverable" id="%item_id%">
-        <div class="card mb-6 box-shadow">
-          <div class="card-body">
-            <p class="card-text text-muted">
-              <label style="display: block; font-weight: bold;"><span>%content%</span></label>
-              <label style="display: block;"><span>%date%</span></label>
-            </p>
-          </div>
-        </div>
-      </div>
-    </template>
     <header>
       <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
@@ -58,7 +45,7 @@
               ></path>
               <circle cx="12" cy="13" r="4"></circle>
             </svg>
-            <strong>Corregir Nota</strong>
+            <strong>Corregir o Clarificar Nota</strong>
           </a>
         </div>
       </div>
@@ -69,10 +56,17 @@
         <div class="container">
           <!-- Search Form -->
           <p class="lead text-muted">
-            Ingrese los datos para la corrección
+            Ingrese los datos para la corrección o aclaración
           </p>
           <p class="lead">
           </p>
+          <label class="w-100" for="type_event">Tipo de corrección:
+            <select class="w-100" name="type_event" id="type_event">
+              <option value="correction">Corrección</option>
+              <option value="clarification">Aclaración</option>
+            </select>
+            
+          </label>
           <label class="w-100" for="searchContentCorrection">Contenido:
             <input class="w-100" type="textfield" id="searchContentCorrection" name="searchContentCorrection" />
           </label>
@@ -141,6 +135,7 @@
 
 
     const idEl =  Date.now() + '-' + Math.floor(Math.random() * 1000000)
+    let type_event = ''
     let content = ''
     let date = ''
     let data = {}
@@ -155,11 +150,12 @@
     }
 
     const handleSearch = () => {
+      type_event = document.getElementById('type_event').value;
       content = document.getElementById('searchContentCorrection').value;
       // date = document.getElementById('searchDateCorrection').value;
       date = getActualDate()
 
-      if (content || date ) buildMessage()
+      if (type_event && content && date ) buildMessage()
     }
 
     const buildMessage = () => {
@@ -176,6 +172,7 @@
         id: idEl,
         url: '/pf/api/v3/content/fetch/photo-by-id',
         config: {
+          "type_event": type_event || '',
           "content": content || '',
           "date": date || '',
         }

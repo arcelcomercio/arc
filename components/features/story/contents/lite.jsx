@@ -107,6 +107,11 @@ const StoryContentsLite = () => {
     canonicalUrl,
     prerollDefault,
     contentElementsHtml,
+    authorImageSecond,
+    authorLinkSecond,
+    authorSecond,
+    authorEmailSecond,
+    roleSecond: authorRoleSecond,
   } = new StoryData({
     data: globalContent,
     contextPath,
@@ -132,6 +137,11 @@ const StoryContentsLite = () => {
     multimediaLarge,
     multimediaLazyDefault,
     primaryImage: true,
+    authorImageSecond,
+    authorLinkSecond,
+    authorSecond,
+    authorEmailSecond,
+    authorRoleSecond,
   }
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
@@ -327,22 +337,31 @@ const StoryContentsLite = () => {
 
                 if (type === ELEMENT_CUSTOM_EMBED && sub === STORY_CORRECTION) {
                   const {
-                    config: { content: contentCorrectionConfig = '' } = {},
+                    config: {
+                      content: contentCorrectionConfig = '',
+                      type_event: typeConfig = 'correction',
+                    } = {},
                   } = customEmbed || {}
                   return (
                     <StoryContentsChildCorrection
                       content={contentCorrectionConfig}
                       isAmp={false}
+                      type={typeConfig}
                     />
                   )
                 }
 
                 if (type === ELEMENT_CUSTOM_EMBED && sub === STAMP_TRUST) {
-                  const { config: { url: urlConfig = '' } = {} } =
-                    customEmbed || {}
+                  const {
+                    config: {
+                      url: urlConfig = '',
+                      url_img: urlImgConfig = '',
+                    } = {},
+                  } = customEmbed || {}
                   return (
                     <StoryContentsChildStampTrust
                       url={urlConfig}
+                      urlImg={urlImgConfig}
                       isAmp={false}
                       siteUrl={siteUrl}
                     />

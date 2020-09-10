@@ -128,6 +128,7 @@
     "test:coverage": "set CI=true && jest --verbose --color --coverage --watchAll=false ./components/ ./src/ || true",
     "test:watch": "jest --watch",
     "watch": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='index, dstory:css, story:css, story-video:css, dlite-story:css, lite-story:css, amp:css, paywall:css, subscriptions:css, signwall:css, basic:css, dbasic:css' ",
+    "watch:basic": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='basic:css, dbasic:css'",
     "watch:amp": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='amp:css'",
     "watch:lite": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='lite-story:css, dlite-story:css'",
     "watch:story": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='dstory:css,story:css, story-video:css'",

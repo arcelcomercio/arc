@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import getCodeError, { formatEmail } from '../../../../_dependencies/Errors'
 import useForm from '../../../../_hooks/useForm'
 import { NavigateConsumer } from '../../../../_context/navigate'
 import { AuthContext } from '../../../../_context/auth'
-import PropertiesSite from '../../../../_dependencies/Properties'
+import { PropertiesCommon } from '../../../../_dependencies/Properties'
 import ButtonSocial from './social'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
+import { isFbBrowser } from '../../../../_dependencies/Utils'
 
 const styles = {
   title: 'step__left-title',
@@ -23,17 +25,12 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Login = ({ arcSite, arcEnv }) => {
+const Login = ({ arcSite }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [msgError, setMsgError] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
-  const { texts } = PropertiesSite.common
-
-  const isFbBrowser =
-    typeof window !== 'undefined' &&
-    (window.navigator.userAgent.indexOf('FBAN') > -1 ||
-      window.navigator.userAgent.indexOf('FBAV') > -1)
+  const { texts } = PropertiesCommon
 
   const stateSchema = {
     lemail: { value: '', error: '' },
@@ -102,19 +99,17 @@ const Login = ({ arcSite, arcEnv }) => {
         <>
           <h2 className={styles.title}>{texts.login}</h2>
           <div
-            className={`${styles.blockMiddle} ${isFbBrowser &&
+            className={`${styles.blockMiddle} ${isFbBrowser() &&
               styles.blockFull}`}>
             <ButtonSocial
               arcSocial="facebook"
               arcSite={arcSite}
-              arcEnv={arcEnv}
               arcType="login"
             />
-            {!isFbBrowser && (
+            {!isFbBrowser() && (
               <ButtonSocial
                 arcSocial="google"
                 arcSite={arcSite}
-                arcEnv={arcEnv}
                 arcType="login"
               />
             )}
@@ -166,6 +161,8 @@ const Login = ({ arcSite, arcEnv }) => {
                   disabled={loading}
                 />
                 <button
+                  name="lshowpass"
+                  aria-label="lshowpass"
                   className={`${styles.btnShow}-${showHidePass}`}
                   type="button"
                   onClick={toogleHidePass}></button>
@@ -213,6 +210,10 @@ const Login = ({ arcSite, arcEnv }) => {
       )}
     </NavigateConsumer>
   )
+}
+
+Login.propTypes = {
+  arcSite: PropTypes.string.isRequired,
 }
 
 export default Login

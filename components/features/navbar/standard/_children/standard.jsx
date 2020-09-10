@@ -11,9 +11,12 @@ import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import Button from '../../../../global-components/button'
 import SignwallComponent from '../../../signwall/main/default'
 import Menu from '../../../../global-components/menu'
+import {
+  SITE_OJO,
+  SITE_PERU21,
+} from '../../../../utilities/constants/sitenames'
 
 const ELEMENT_STORY = 'story'
-const SITE_PERU21 = 'peru21'
 
 const popUpWindow = (url, title, w, h) => {
   const left = window.screen.width / 2 - w / 2
@@ -45,11 +48,11 @@ class NavBarDefault extends PureComponent {
     this.listContainer = null
     this.listWidth = 330
     this.layerBackground = null
-
-    this.isStory = false // TODO: temporal
     this.listSubs = null
 
     const {
+      requestUri,
+      arcSite,
       siteProperties: {
         social: {
           twitter: { user: siteNameRedSocial },
@@ -58,6 +61,8 @@ class NavBarDefault extends PureComponent {
       },
       globalContent,
     } = props
+
+    this.isOjoVideos = /^\/videos\//.test(requestUri) && arcSite === SITE_OJO
 
     const { website_url: postPermaLink, headlines: { basic: postTitle } = {} } =
       globalContent || {}
@@ -133,8 +138,6 @@ class NavBarDefault extends PureComponent {
         this._closeMenu()
       })
     }
-
-    this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
   }
 
   _initDrag = evt => {
@@ -483,7 +486,7 @@ class NavBarDefault extends PureComponent {
             <div className="nav__story-title position-relative overflow-hidden line-h-sm" />
 
             <div className="nav__story-social-network position-relative mr-5">
-              {type === ELEMENT_STORY && (
+              {type === ELEMENT_STORY && !this.isOjoVideos && (
                 <>
                   <div>
                     <a
@@ -559,7 +562,7 @@ class NavBarDefault extends PureComponent {
               </div>
             </div>
 
-            {this.isStory && (
+            {type === ELEMENT_STORY && !this.isOjoVideos && (
               <div className="nav__loader position-absolute w-full">
                 <div className="nav__loader-bar  w-full h-full" />
               </div>

@@ -16,6 +16,7 @@ import {
   SITE_DEPOR,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
+  SITE_GESTION,
 } from '../../utilities/constants/sitenames'
 import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
@@ -112,9 +113,9 @@ export default ({
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
 
   const redSocialVideo = contentElementsRedesSociales
-    .map(algo => {
+    .map(redesSociales => {
       const { youtube = '', facebook = '', twitter = '', user = '' } =
-        algo || {}
+        redesSociales || {}
       const thumbnailUrlYoutube =
         youtube && `https://img.youtube.com/vi/${youtube}/maxresdefault.jpg`
       const embedUrlYoutube =
@@ -265,9 +266,10 @@ export default ({
     ? `{  "@context":"https://schema.org", "@type":"ItemList", "itemListElement":[${relatedContentItem}]  }`
     : ''
 
-  const storyPremium = !isAmp
-    ? ` "isAccessibleForFree": "False", "hasPart": { "@type": "WebPageElement",  "isAccessibleForFree": "False",   "cssSelector" : ".paywall" },`
-    : ''
+  const accessibleForFree =
+    arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+      ? ` "isAccessibleForFree": "False", "hasPart": { "@type": "WebPageElement",  "isAccessibleForFree": "False",   "cssSelector" : ".paywall" },`
+      : ''
 
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
 
@@ -389,7 +391,7 @@ export default ({
   }, "width":${seo.width}
       }
     },    
-    ${(isPremium && storyPremium) || ''} 
+    ${accessibleForFree || ''} 
     "keywords":[${
       seoKeyWordsStructurada[0]
         ? seoKeyWordsStructurada.map(item => item)

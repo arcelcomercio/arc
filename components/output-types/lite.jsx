@@ -11,6 +11,7 @@ import {
   SITE_DEPOR,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
+import { getPreroll } from '../utilities/ads/preroll'
 import StoryData from '../utilities/story-data'
 
 import MetaSite from './_children/meta-site'
@@ -260,7 +261,7 @@ const LiteOutput = ({
          *
          * https://web.dev/preconnect-and-dns-prefetch/
          */}
-        {arcSite === !SITE_ELCOMERCIO && (
+        {arcSite === SITE_ELCOMERCIO && (
           <link
             rel="preload"
             href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
@@ -449,6 +450,16 @@ const LiteOutput = ({
         )}
         {contenidoVideo && (
           <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.preroll='${getPreroll({
+                  section: nameSeccion,
+                  arcSite,
+                  siteDomain: siteProperties.siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll}'`,
+              }}
+            />
             <script
               defer
               src={deployment(

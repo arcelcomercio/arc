@@ -36,7 +36,6 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
   return resultVideo[cantidadVideo - 1]
 } */
 
-let hasRenderedContentVideo = false
 const presets = 'resizedImage:840x0'
 
 const buildIframeAdvertising = urlAdvertising => {
@@ -101,10 +100,12 @@ const buildCorrectionTexParagraph = (
 const buildStampTrustTexParagraph = (paragraph, url, siteUrl = '') => {
   const result = { numberWords: 0, processedParagraph: '' }
   const urlTrust = url || `${siteUrl}/buenas-practicas/`
-  result.numberWords = countWordsHelper(clearHtml(paragraph))
+  const urlImgTrust = paragraph || `${siteUrl}/buenas-practicas/#trust-project`
+  // result.numberWords = countWordsHelper(clearHtml(paragraph))
+
   result.processedParagraph = `
       <blockquote>
-        <h2>Conforme a los criterios de TRUST</h2>
+        <h2>Conforme a los criterios de <a href="${urlImgTrust}">TRUST</a></h2>
         <div>
           <h4><a href="${urlTrust}">Saber más</a></h4>
         </div>
@@ -175,6 +176,7 @@ const analyzeParagraph = ({
   defaultImage,
   streams = [],
   siteUrl = '',
+  typeConfig = '',
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -205,9 +207,10 @@ const analyzeParagraph = ({
       break
     case ELEMENT_CUSTOM_EMBED:
       if (subtype === STORY_CORRECTION) {
+        const typeCorrection = typeConfig || CORRECTION_TYPE_CORRECTION
         textProcess = buildCorrectionTexParagraph(
           processedParagraph,
-          CORRECTION_TYPE_CORRECTION
+          typeCorrection
         )
         result.numberWords = textProcess.numberWords
         result.processedParagraph = textProcess.processedParagraph
@@ -259,12 +262,9 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
       break
     case ConfigParams.ELEMENT_VIDEO:
-      if (!hasRenderedContentVideo) {
-        const urlVideo = getResultVideo(streams, arcSite, 'mp4')
-        result.numberWords = numberWordMultimedia
-        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe></figure>`
-        hasRenderedContentVideo = true
-      }
+      const urlVideo = getResultVideo(streams, arcSite, 'mp4')
+      result.numberWords = numberWordMultimedia
+      result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe></figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
@@ -370,7 +370,13 @@ const buildListParagraph = ({
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
   newListParagraph.forEach(
-    ({ type = '', payload = '', link = '', streams = [] }) => {
+    ({
+      type = '',
+      payload = '',
+      link = '',
+      streams = [],
+      type_config: typeConfig = '',
+    }) => {
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph: payload,
         type,
@@ -381,6 +387,7 @@ const buildListParagraph = ({
         defaultImage,
         streams,
         siteUrl,
+        typeConfig,
       })
       objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
       objTextsProcess.numberWords += numberWords
@@ -417,6 +424,7 @@ const ParagraphshWithAdds = ({
         level,
         link = '',
         streams = [],
+        type_config: typeConfig = '',
       }) => {
         let paragraphwithAdd = ''
 
@@ -432,6 +440,7 @@ const ParagraphshWithAdds = ({
           defaultImage,
           streams,
           siteUrl,
+          typeConfig,
         })
 
         if (ConfigParams.ELEMENT_STORY === type) {

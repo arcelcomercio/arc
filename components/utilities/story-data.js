@@ -51,7 +51,6 @@ import {
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
 } from './constants/subtypes'
-import { SITE_ELCOMERCIO } from './constants/sitenames'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
 
@@ -171,6 +170,26 @@ class StoryData {
     return StoryData.getDataAuthor(this._data).mailAuthor
   }
 
+  get authorLink() {
+    return addSlashToEnd(StoryData.getDataAuthor(this._data).urlAuthor)
+  }
+
+  get authorSecond() {
+    return StoryData.getDataAuthor(this._data, {}, 1).nameAuthor
+  }
+
+  get roleSecond() {
+    return StoryData.getDataAuthor(this._data, {}, 1).role
+  }
+
+  get authorEmailSecond() {
+    return StoryData.getDataAuthor(this._data, {}, 1).mailAuthor
+  }
+
+  get authorLinkSecond() {
+    return addSlashToEnd(StoryData.getDataAuthor(this._data, {}, 1).urlAuthor)
+  }
+
   get seoAuthor() {
     const defaultAuthor = 'Redacción '
     return (
@@ -179,10 +198,6 @@ class StoryData {
         this._website.charAt(0).toUpperCase() +
         this._website.slice(1)
     )
-  }
-
-  get authorLink() {
-    return addSlashToEnd(StoryData.getDataAuthor(this._data).urlAuthor)
   }
 
   get authorSlug() {
@@ -244,6 +259,20 @@ class StoryData {
         deployment: this._deployment,
         website: this._website,
       }).imageAuthor || this.defaultImg
+    )
+  }
+
+  get authorImageSecond() {
+    return (
+      StoryData.getDataAuthor(
+        this._data,
+        {
+          contextPath: this._contextPath,
+          deployment: this._deployment,
+          website: this._website,
+        },
+        1
+      ).imageAuthor || this.defaultImg
     )
   }
 
@@ -842,17 +871,21 @@ class StoryData {
 
   get contentPosicionPublicidadAmp() {
     let i = 0
-    let renderedVideos = 0
-    const videosLimit = 1
+    // let renderedVideos = 0
+    // const videosLimit = 1
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-
-        // cambio temporal por comsumo de datos
-        if (
+        dataElements = dataContent
+        /**
+         * Si piden activar el renderizado de 1 solo video
+         * en el cuerpo de las notas, descomentar lo de abajo
+         * y las variables `renderedVideos` y `videosLimit`
+         */
+        /* if (
           typeElement === ELEMENT_VIDEO &&
           this.__website !== SITE_ELCOMERCIO
         ) {
@@ -862,7 +895,7 @@ class StoryData {
           }
         } else {
           dataElements = dataContent
-        }
+        } */
 
         if (i === 1) {
           dataElements.publicidadInline = true
@@ -924,17 +957,21 @@ class StoryData {
   get contentPosicionPublicidad() {
     let i = 0
     let v = 0
-    let renderedVideos = 0
-    const videosLimit = 1
+    // let renderedVideos = 0
+    // const videosLimit = 1
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
       contentElements.map(dataContent => {
         let dataElements = {}
         const { type: typeElement } = dataContent
-
-        // cambio temporal por comsumo de datos
-        if (
+        dataElements = dataContent
+        /**
+         * Si piden activar el renderizado de 1 solo video
+         * en el cuerpo de las notas, descomentar lo de abajo
+         * y las variables `renderedVideos` y `videosLimit`
+         */
+        /* if (
           typeElement === ELEMENT_VIDEO &&
           this.__website !== SITE_ELCOMERCIO
         ) {
@@ -944,7 +981,7 @@ class StoryData {
           }
         } else {
           dataElements = dataContent
-        }
+        } */
 
         if (i === 2) {
           dataElements.publicidad = true
@@ -1487,7 +1524,11 @@ class StoryData {
     return squareXS
   }
 
-  static getDataAuthor(data, { contextPath = '', website = '' } = {}) {
+  static getDataAuthor(
+    data,
+    { contextPath = '', website = '' } = {},
+    id = null
+  ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorImageDefault = `${getAssetsPath(
       website,
@@ -1504,8 +1545,10 @@ class StoryData {
 
     let imageAuthor = authorImageDefault
     for (let i = 0; i < authorData.length; i++) {
-      const iterator = authorData[i]
-      if (iterator.type === 'author') {
+      const idAuthor = id === 1 ? id : i
+      const iterator = authorData[idAuthor]
+
+      if (iterator && iterator.type === 'author') {
         nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
         urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : '#'
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
@@ -1744,11 +1787,13 @@ class StoryData {
             content: contentCorrection = '',
             customBlockContent: contentCustomblock = '',
             url: urlConfig = '',
+            type_event: typeConfig = '',
+            url_img: urlImgConfig = '',
             // date: dateCorrection = '',
           } = {},
         } = {},
       }) => {
-        const result = { _id, type, subtype: '', level, payload: '', streams }
+        const result = { _id, type, subtype: '', level, payload: '', streams, type_config:'' }
 
         switch (type) {
           case ELEMENT_TEXT:
@@ -1785,9 +1830,10 @@ class StoryData {
             switch (subtype) {
               case STORY_CORRECTION:
                 result.payload = contentCorrection
+                result.type_config = typeConfig
                 break
               case STAMP_TRUST:
-                result.payload = ''
+                result.payload = urlImgConfig
                 result.link = urlConfig
                 break
               case STORY_CUSTOMBLOCK:
