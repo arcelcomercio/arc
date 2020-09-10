@@ -60,7 +60,9 @@ const ConfirmationNotice = props => {
   return (
     <>
       {showNotice && email && !isCookie() && !emailVerified && (
-        <div className={classes.wrapper}>
+        <div
+          className={classes.wrapper}
+          style={{ fontSize: '12px', justifyContent: 'center' }}>
           <p>
             {customText}: <strong>{email}</strong>.
           </p>
