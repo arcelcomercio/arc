@@ -24,7 +24,7 @@ export const getPreroll = ({ section, arcSite, siteDomain, metaValue }) => {
 
     const sectionSlug = getSectionSlug(section)
 
-    return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSiteNew}/web/${tipoplantilla}/${sectionSlug
+    return `https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/${arcSiteNew}/web/post/${sectionSlug
       .split('-')
       .join(
         ''
