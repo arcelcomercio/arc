@@ -2,7 +2,7 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../../utilities/config-params'
 import StoryData from '../../../../utilities/story-data'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 import {
   countWords as countWordsHelper,
   nbspToSpace,
@@ -141,7 +141,7 @@ const buildListLinkParagraph = (items, defaultImage, arcSite) => {
                 image: { url: urlImg = '' } = {},
               } = data || {}
               result.numberWords += countWordsHelper(clearHtml(content))
-              const { resizedImage } = getResizedUrl({
+              const { resizedImage } = createResizedParams({
                 url: urlImg,
                 presets,
                 arcSite,
@@ -269,7 +269,7 @@ const analyzeParagraph = ({
 
     case ConfigParams.ELEMENT_IMAGE:
       result.numberWords = numberWordMultimedia
-      const { resizedImage } = getResizedUrl({
+      const { resizedImage } = createResizedParams({
         url: processedParagraph,
         presets,
         arcSite,
@@ -300,7 +300,7 @@ const analyzeParagraph = ({
 
         if (imageUrl !== '') {
           // eslint-disable-next-line no-shadow
-          const { resizedImage } = getResizedUrl({
+          const { resizedImage } = createResizedParams({
             url: imageUrl,
             presets,
             arcSite,
@@ -506,7 +506,7 @@ const multimediaHeader = (
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
   switch (type) {
     case ConfigParams.IMAGE:
-      const { resizedImage } = getResizedUrl({
+      const { resizedImage } = createResizedParams({
         url: payload,
         presets,
         arcSite,
@@ -523,7 +523,7 @@ const multimediaHeader = (
     case ConfigParams.GALLERY:
       result = `<figure class="op-slideshow">${payload.map(url => {
         // eslint-disable-next-line no-shadow
-        const { resizedImage } = getResizedUrl({
+        const { resizedImage } = createResizedParams({
           url,
           presets,
           arcSite,

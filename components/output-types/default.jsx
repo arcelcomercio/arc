@@ -270,8 +270,8 @@ export default ({
   }
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
-  console.log('---->>>>', classBody)
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
+  
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>

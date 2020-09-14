@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 
@@ -16,7 +16,7 @@ const classes = {
 }
 
 const MostReadHomologated = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
   const {
     customFields: {
       titleList,
@@ -52,7 +52,6 @@ const MostReadHomologated = props => {
     deployment,
     arcSite,
     contextPath,
-    isAdmin,
     listNews: contentElements || [],
   }
 

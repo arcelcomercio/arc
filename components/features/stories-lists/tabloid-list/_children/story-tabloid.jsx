@@ -1,6 +1,7 @@
 import React from 'react'
 
 import StoryData from '../../../../utilities/story-data'
+import Image from '../../../../global-components/image'
 
 export default ({
   data,
@@ -51,10 +52,13 @@ export default ({
                     itemProp="url"
                     className="stories-l-tabloid__image-link"
                     href={Story.websiteLink}>
-                    <img
-                      className="stories-l-tabloid__image"
-                      src={Story.multimediaImpresaS}
+                    <Image
+                      src={Story.multimedia}
+                      width={273}
+                      height={289}
                       alt={Story.primarySection}
+                      className="stories-l-tabloid__image"
+                      loading="lazy"
                     />
                   </a>
                   <a

@@ -1,7 +1,7 @@
 import React from 'react'
 import AmpImage from '@arc-core-components/element_image'
-import { useFusionContext } from 'fusion:context'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { useAppContext } from 'fusion:context'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   gallery: 'story-gallery pt-10 pr-20 pl-20 md:pr-0 md:pl-0',
@@ -21,11 +21,11 @@ const StoryHeaderChildAmpGallery = props => {
   const imgTag = 'amp-img'
   const numeroFoto = ' [text]="+selectedSlide + 1"'
 
-  const { arcSite } = useFusionContext()
+  const { arcSite } = useAppContext()
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
       return (
-        getResizedUrl({
+        createResizedParams({
           url: urlImg,
           presets: 'large:980x528',
           arcSite,

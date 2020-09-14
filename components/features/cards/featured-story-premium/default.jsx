@@ -12,8 +12,8 @@ import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import LiveStreaming from './_children/streaming-live'
 import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
-import { getAssetsPath } from '../../../utilities/constants'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { getAssetsPath } from '../../../utilities/assets'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const PHOTO_SOURCE = 'photo-resizer'
 
@@ -243,7 +243,7 @@ const FeaturedStoryPremium = props => {
       landscape_md: localLandscapeMDCustom,
       portrait_md: localPortraitMDCustom,
     } = imgField
-      ? getResizedUrl({
+      ? createResizedParams({
           url: imgField,
           presets:
             'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374',
@@ -258,7 +258,7 @@ const FeaturedStoryPremium = props => {
       landscape_md: localMultimediaLandscapeMD,
       portrait_md: localMultimediaPortraitMD,
     } =
-      getResizedUrl({
+      createResizedParams({
         url: multimedia,
         presets:
           'square_md:300x300,square_xl:900x900,landscape_l:648x374,landscape_md:314x157,portrait_md:314x374',
