@@ -3,6 +3,7 @@ import { useFusionContext } from 'fusion:context'
 
 import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from './_children/trustprojectlabel'
+import { addSlashToEnd } from '../../../utilities/parse/strings'
 
 const classes = {
   container: 'st-social f just-between',
@@ -30,10 +31,7 @@ const StorySocialLite = () => {
 
   const primarySection = name || auxName
   let primarySectionLink = path || auxPath
-  primarySectionLink =
-    primarySectionLink.slice(-1) !== '/'
-      ? `${primarySectionLink}/`
-      : primarySectionLink
+  primarySectionLink = addSlashToEnd(primarySectionLink)
 
   const isArchivoElcomercio = requestUri.includes('/archivo-elcomercio')
 
