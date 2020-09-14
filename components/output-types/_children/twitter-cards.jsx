@@ -19,22 +19,27 @@ export default ({
     title: seoTitle,
     authorImage,
     primarySectionLink,
+    idYoutube,
   } = new StoryData({
     data,
     arcSite,
   })
 
+  const imageYoutube = idYoutube
+    ? `https://i.ytimg.com/vi/${idYoutube}/hqdefault.jpg`
+    : `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo_twitter.jpg?d=1`
+
   let image =
-    story && multimediaLarge
+    story && multimediaLarge && !idYoutube
       ? createResizedParams({
           url: multimediaLarge,
           presets: 'large:980x528',
           arcSite,
         }).large
-      : `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/logo_twitter.jpg?d=1`
+      : `${imageYoutube}`
 
   if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage
