@@ -8,7 +8,7 @@ import customFields from './_dependencies/custom-fields'
 import Separator from './_children/separator'
 import SeparatorOpt from './_children/separator-opt'
 import { separatorStoriesFields } from '../../../utilities/included-fields'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const SeparatorStories = props => {
   const {
@@ -74,7 +74,7 @@ const SeparatorStories = props => {
       multimediaLandscapeS = multimediaLazyDefault,
     } = isAdmin
       ? storyData
-      : getResizedUrl({
+      : createResizedParams({
           url: imageUrl,
           arcSite,
           presets:

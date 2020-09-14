@@ -1,7 +1,7 @@
 import { BLOG_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
-import { getResizedUrl } from '../../components/utilities/resizer'
+import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
 const params = [
   {
@@ -77,7 +77,7 @@ const transform = (data, { 'arc-site': arcSite }) => {
   const { user: { user_avatarb: { guid } = {} } = {} } = data || {}
 
   if (guid) {
-    const resizedUrls = getResizedUrl({
+    const resizedUrls = createResizedParams({
       url: guid,
       presets: {
         author_sm: {

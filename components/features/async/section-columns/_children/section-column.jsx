@@ -1,6 +1,6 @@
 import React from 'react'
 import Content from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import { defaultImage } from '../../../../utilities/assets'
 import getMultimediaIcon from '../../../../utilities/multimedia-icon'
 import {
@@ -66,8 +66,8 @@ const ChildrenSectionColumn = ({
               <a
                 itemProp="url"
                 className="sec-col__author text-gray-200"
-                href={authorUrl}>
-                {authorName}
+                href={authorUrl || '/autores/'}>
+                {authorName || ''}
               </a>
             </article>
           </>
@@ -144,7 +144,7 @@ const formatContent = ({
 }
 
 export default ({ section = '' }) => {
-  const { arcSite, deployment, contextPath } = useFusionContext()
+  const { arcSite, deployment, contextPath } = useAppContext()
   return (
     <Content
       {...{

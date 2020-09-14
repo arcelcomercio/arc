@@ -2,7 +2,7 @@ import React from 'react'
 
 import UtilListKey from '../../../../utilities/list-keys'
 import { IMAGE } from '../../../../utilities/constants/multimedia-types'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 import StoryData from '../../../../utilities/story-data'
 
 // Basic flex stuff
@@ -46,13 +46,11 @@ const RenderRelatedContentElement = (props, i) => {
     urlTitle: get.link,
     multimediaType: get.multimediaType,
     multimediaImg:
-      typeof window === 'undefined'
-        ? getResizedUrl({
-            url: get.multimediaLandscapeMD,
-            presets: 'landscape_md:314x157',
-            arcSite,
-          }).landscape_md || {}
-        : '',
+      createResizedParams({
+        url: get.multimedia,
+        presets: 'landscape_md:314x157',
+        arcSite,
+      }).landscape_md || {},
     lazyImage: get.multimediaLazyDefault,
   }
 

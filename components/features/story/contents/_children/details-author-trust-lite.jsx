@@ -1,5 +1,8 @@
 import React from 'react'
+import Image from '../../../../global-components/image'
 
+const DEFAULT_AUTHOR_IMG =
+  'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/author.png?d=1'
 const classes = {
   authorInfo: 'story-contents__author-info flex',
   authorNameLink: 'story-contents__author-link ',
@@ -11,7 +14,7 @@ const classes = {
 const StoryContentChildDetailsAuthorTrustLite = ({
   author,
   authorLink,
-  authorImgSmall,
+  authorImage,
   authorRole,
   authorEmail,
 }) => {
@@ -19,12 +22,15 @@ const StoryContentChildDetailsAuthorTrustLite = ({
     <>
       <div className={classes.authorInfo}>
         <div>
-          {authorImgSmall && (
-            <img
+          {authorImage && (
+            <Image
               itemProp="image"
-              alt={author}
+              src={authorImage}
+              width={57}
+              height={57}
               title={author}
-              src={authorImgSmall}
+              alt={author}
+              placeholder={DEFAULT_AUTHOR_IMG}
               className={classes.authorImage}
             />
           )}

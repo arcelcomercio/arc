@@ -18,26 +18,12 @@ export default arcSite => {
         basic { 
           url 
           type 
-          resized_urls { 
-            landscape_l 
-            landscape_md 
-            portrait_md 
-            square_s
-            lazy_default 
-          } 
         }
         basic_video {
           promo_items {
             basic { 
               url 
               type 
-              resized_urls { 
-                landscape_l 
-                landscape_md 
-                portrait_md 
-                square_s
-                lazy_default 
-              } 
             }
           }
         }
@@ -46,13 +32,6 @@ export default arcSite => {
             basic { 
               url 
               type 
-              resized_urls { 
-                landscape_l 
-                landscape_md 
-                portrait_md 
-                square_s
-                lazy_default 
-              } 
             }
           }
         }

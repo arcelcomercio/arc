@@ -1,6 +1,4 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'story'
 
@@ -13,6 +11,11 @@ const params = [
   {
     name: 'published',
     displayName: 'Publicada (por defecto: true)',
+    type: 'text',
+  },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
     type: 'text',
   },
 ]
@@ -30,13 +33,8 @@ const resolve = (key = {}) => {
     'true'}`
 }
 
-const transform = (data, { 'arc-site': arcSite }) => {
-  const dataStory = data
-  const { resizerUrl } = getProperties(arcSite)
-  return (
-    addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret)[0] || null
-  )
-}
+const transform = (data, { 'arc-site': arcSite, presets }) =>
+  getResizedImageData(data, presets, arcSite)
 
 export default {
   resolve,

@@ -13,7 +13,7 @@ import { includePromoItems } from '../../../utilities/included-fields'
 
 import StoriesListLinkedBySiteChild from './_children/linked-by-site'
 
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const StoriesListLinkedBySite = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -63,7 +63,7 @@ const StoriesListLinkedBySite = props => {
 
     const { landscape_s: landscapeS, square_s: squareS } =
       typeof window === 'undefined'
-        ? getResizedUrl({
+        ? createResizedParams({
             url: multimedia,
             presets: 'landscape_s:234x161,square_s:150x150',
             arcSite: website || arcSite,

@@ -1,6 +1,4 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { createResizedUrl } from '../../components/utilities/resizer'
+import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'photo'
 
@@ -30,13 +28,10 @@ const transform = (data, { 'arc-site': website, presets }) => {
   if (data) {
     photoData = data
     const { url } = photoData
-    const { resizerUrl } = getProperties(website)
-
-    const resizedUrls = createResizedUrl({
+    const resizedUrls = createResizedParams({
       url,
       presets,
-      resizerUrl,
-      resizerSecret,
+      arcSite: website,
     })
     photoData.resized_urls = resizedUrls
   }

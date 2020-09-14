@@ -1,7 +1,6 @@
-import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { removeLastSlash } from '../../components/utilities/helpers'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { removeLastSlash } from '../../components/utilities/parse/strings'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const SCHEMA_NAME = 'stories-dev'
 
@@ -15,6 +14,11 @@ const params = [
     name: 'stories_qty',
     displayName: 'Cantidad de historias',
     type: 'number',
+  },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
   },
 ]
 
@@ -74,14 +78,9 @@ const resolve = (key = {}) => {
     50}&from=0&sort=display_date:desc${sourceExclude}`
 }
 
-const transform = (data, { 'arc-site': arcSite }) => {
-  const dataStory = data
-  const { resizerUrl, siteName } = getProperties(arcSite)
-  dataStory.content_elements = addResizedUrlsToStory(
-    dataStory.content_elements,
-    resizerUrl,
-    resizerSecret
-  )
+const transform = (data, { 'arc-site': arcSite, presets }) => {
+  const { siteName } = getProperties(arcSite)
+  const dataStory = getResizedImageData(data, presets, arcSite)
   dataStory.siteName = siteName
 
   return {
@@ -94,7 +93,6 @@ const source = {
   transform,
   schemaName: SCHEMA_NAME,
   params,
-  // cache: false,
   ttl: 120,
 }
 

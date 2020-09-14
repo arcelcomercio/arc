@@ -1,8 +1,7 @@
-import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
-import { addResizedUrlsToStories } from '../../components/utilities/resizer'
-import { removeLastSlash } from '../../components/utilities/helpers'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
+import { removeLastSlash } from '../../components/utilities/parse/strings'
 import { formatIncludedFields } from '../../components/utilities/included-fields'
 
 const SCHEMA_NAME = 'stories'
@@ -134,20 +133,6 @@ const getQueryFilter = (section, excludedSections, website) => {
   return queryFilter
 }
 
-/* const itemsToArray = (itemString = '') => {
-  return itemString.split(',').map(item => item.replace(/"/g, ''))
-} */
-
-const transformImg = ({ contentElements, website, presets }) => {
-  const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStories({
-    contentElements,
-    resizerUrl,
-    resizerSecret,
-    presets,
-  })
-}
-
 const resolve = (key = {}) => {
   const {
     section: rawSection,
@@ -185,12 +170,7 @@ const resolve = (key = {}) => {
 
 const transform = (
   data,
-  {
-    'arc-site': arcSite,
-    section: rawSection,
-    website: rawWebsite,
-    presets: customPresets,
-  }
+  { 'arc-site': arcSite, section: rawSection, website: rawWebsite, presets }
 ) => {
   if (
     !data ||
@@ -208,28 +188,7 @@ const transform = (
       : rawSection
   )
 
-  const presets =
-    customPresets === 'no-presets'
-      ? ''
-      : customPresets ||
-        'landscape_xl:980x528,landscape_l:648x374,landscape_md:314x157,landscape_s:234x161,landscape_xs:118x72,portrait_xl:528x900,portrait_l:374x648,portrait_md:314x374,portrait_s:161x220,portrait_xs:75x90,square_xl:900x900,square_l:600x600,square_md:300x300,square_s:150x150,square_xs:75x75,small:100x200,large:940x569,story_small:482x290,amp_new:1200x800,amp:900x600'
-
-  const stories = data
-
-  /**
-   * Si, por ahora siempre va a a existir presets por defecto pero
-   * se espera que esto cambie en el futuro porque todos los features
-   * deberian definir sus propios presets. Cuando eso suceda, esta validacion
-   * si tendra completo sentido.
-   */
-  if (presets) {
-    const { content_elements: contentElements } = data || {}
-    stories.content_elements = transformImg({
-      contentElements,
-      website,
-      presets, // i.e. 'mobile:314x157'
-    })
-  }
+  const stories = getResizedImageData(data, presets, website)
 
   const { siteName } = getProperties(website)
   stories.siteName = siteName

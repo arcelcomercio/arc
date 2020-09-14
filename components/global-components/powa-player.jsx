@@ -2,7 +2,7 @@ import React from 'react'
 import Static from 'fusion:static'
 import { ENVIRONMENT } from 'fusion:environment'
 import { useAppContext } from 'fusion:context'
-import { getResizedUrl } from '../utilities/resizer'
+import { createResizedParams } from '../utilities/resizer/resizer'
 
 const styles = {
   powa: {
@@ -42,7 +42,7 @@ const PowaPlayer = ({
       : 'mobile:426x240,desktop:560x315'
 
   const { mobile, desktop } =
-    getResizedUrl({
+    createResizedParams({
       url: image,
       presets,
       arcSite,
@@ -79,7 +79,13 @@ const PowaPlayer = ({
         ) : (
           <picture>
             <source srcSet={mobile} media="(max-width: 480px)" />
-            <img src={desktop} alt={alt} loading="eager" style={styles.image} />
+            <img
+              src={desktop}
+              alt={alt}
+              loading="eager"
+              style={styles.image}
+              importance="high"
+            />
           </picture>
         )}
       </div>
