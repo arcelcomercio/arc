@@ -67,7 +67,7 @@ const LiteOutput = ({
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: { basic_gallery: basicGallery = 0 } = {},
     taxonomy: {
-      primary_section: { path: nameSeccion = '' } = {},
+      primary_section: { path: storySectionPath = '' } = {},
       tags = [],
     } = {},
     subtype = '',
@@ -79,7 +79,7 @@ const LiteOutput = ({
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-        nameSeccion.split('/')[1]
+        storySectionPath.split('/')[1]
       } ${subtype} `
     : ''
 
@@ -453,7 +453,7 @@ const LiteOutput = ({
             <script
               dangerouslySetInnerHTML={{
                 __html: `window.preroll='${getPreroll({
-                  section: nameSeccion,
+                  section: storySectionPath,
                   arcSite,
                   siteDomain: siteProperties.siteDomain,
                   metaValue,

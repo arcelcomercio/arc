@@ -72,13 +72,15 @@ export default ({
   }
 
   const {
+    node_type: nodeType,
+    _id,
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: {
       basic_gallery: basicGallery = 0,
       uuid_match: idMatch = '',
     } = {},
     taxonomy: {
-      primary_section: { path: nameSeccion = '' } = {},
+      primary_section: { path: storySectionPath = '' } = {},
       tags = [],
     } = {},
     subtype = '',
@@ -87,12 +89,13 @@ export default ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
+  const sectionPath = nodeType === 'section' ? _id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
   const isBlogPost = /^\/blogs?\/.*.html/.test(requestUri)
 
   let classBody = isStory
     ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-        nameSeccion.split('/')[1]
+        storySectionPath.split('/')[1]
       } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
@@ -575,7 +578,7 @@ export default ({
             <script
               dangerouslySetInnerHTML={{
                 __html: `window.preroll='${getPreroll({
-                  section: nameSeccion,
+                  section: sectionPath,
                   arcSite,
                   siteDomain,
                   metaValue,
