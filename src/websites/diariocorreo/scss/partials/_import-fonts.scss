@@ -1,8 +1,11 @@
 /* Bitter regular */
 @font-face {
   font-family: "Bitter";
-  src: url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Regular.woff")
-    format("woff");
+  src: local("Bitter Regular"), local("Bitter-Regular"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Regular.woff2")
+      format("woff2"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Regular.woff")
+      format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -11,8 +14,11 @@
 /* Bitter bold */
 @font-face {
   font-family: "Bitter";
-  src: url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Bold.woff")
-    format("woff");
+  src: local("Bitter Bold"), local("Bitter-Bold"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Bold.woff2")
+      format("woff2"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Bold.woff")
+      format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -21,8 +27,11 @@
 /* Titillium Web bold */
 @font-face {
   font-family: "Titillium Web";
-  src: url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/TitilliumWeb-Bold.woff")
-    format("woff");
+  src: local("Titillium Web Bold"), local("TitilliumWeb-Bold"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/TitilliumWeb-Bold.woff2")
+      format("woff2"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/TitilliumWeb-Bold.woff")
+      format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -31,8 +40,11 @@
 /* Exo regular */
 @font-face {
   font-family: "Exo";
-  src: url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Regular.woff")
-    format("woff");
+  src: local("Exo Regular"), local("ExoRegular"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Regular.woff2")
+      format("woff2"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Regular.woff")
+      format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -41,8 +53,11 @@
 /* Exo bold */
 @font-face {
   font-family: "Exo";
-  src: url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Bold.woff")
-    format("woff");
+  src: local("Exo Bold"), local("ExoBold"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Bold.woff2")
+      format("woff2"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Bold.woff")
+      format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -51,8 +66,11 @@
 /* RobotoCondensed Regular */
 @font-face {
   font-family: "Roboto Condensed";
-  src: url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Regular.woff")
-    format("woff");
+  src: local("Roboto Condensed Regular"), local("RobotoCondensed-Regular"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Regular.woff2")
+      format("woff2"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Regular.woff")
+      format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -61,17 +79,12 @@
 /* RobotoCondensed Bold */
 @font-face {
   font-family: "Roboto Condensed";
-  src: url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Bold.woff")
-    format("woff");
+  src: local("Roboto Condensed Bold"), local("RobotoCondensed-Bold"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Bold.woff2")
+      format("woff2"),
+    url("https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Bold.woff")
+      format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
-
-/* @font-face {
-  font-family: 'Merriweather';
-  src: url('../../fonts/Merriweather-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-} */
