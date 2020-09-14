@@ -1,6 +1,5 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import Image from '@arc-core-components/element_image'
 import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
@@ -8,33 +7,41 @@ const classes = {
   description: 'story-content__news-media-description text-left pt-5',
 }
 
-const StoryContentChildAmpImage = ({ data, resizer = false }) => {
+const StoryContentChildAmpImage = ({ data }) => {
   const { arcSite } = useFusionContext()
-  const sizerImg = resizer ? 'original' : 'large'
+  const images =
+    createResizedParams({
+      url: data.url,
+      presets: 'small:330x178,large:1024x612,meddiun:620x280',
+      arcSite,
+    }) || {}
+
+  const parametersImages = {
+    original: images.original,
+    large: `${images.large} 1024w,${images.meddiun} 600w,${images.small} 360w`,
+  }
+
   const patameters = {
-    width: 800,
-    height: 429,
-    resized_urls:
-      createResizedParams({
-        url: data.url,
-        presets: 'large:980x528',
-        arcSite,
-      }) || {},
+    width: 600,
+    height: 360,
+    resized_urls: parametersImages || {},
     caption: data.caption,
     url: data.url,
     type: data.type,
     subtitle: data.subtitle,
   }
+
   return (
     <>
-      <Image
-        layout="responsive"
-        ImgTag="amp-img"
-        className={classes.image}
-        captionClassName={classes.description}
-        sizePreset={sizerImg}
-        {...patameters}
-      />
+      <figure className={classes.image}>
+        <amp-img
+          srcset={parametersImages && parametersImages.large}
+          alt={data.caption}
+          sizes="(max-width: 360px) 50vw,(max-width: 750px) 50vw"
+          height={patameters.height}
+          width={patameters.width}></amp-img>
+        <figcaption className={classes.description}>{data.subtitle}</figcaption>
+      </figure>
     </>
   )
 }

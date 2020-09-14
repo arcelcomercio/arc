@@ -24,13 +24,17 @@ const StoryHeaderChildAmpGallery = props => {
   const { arcSite } = useAppContext()
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
-      return (
+      const imageObject =
         createResizedParams({
           url: urlImg,
-          presets: 'large:980x528',
+          presets: 'large:1024x612,meddiun:620x280,small:330x178',
           arcSite,
         }) || {}
-      )
+      return {
+        original: imageObject.original,
+        large: imageObject.large,
+        images: `${imageObject.large} 1024w,${imageObject.meddiun} 600w,${imageObject.small} 360w`,
+      }
     }
     return urlImg
   }
@@ -56,7 +60,8 @@ const StoryHeaderChildAmpGallery = props => {
               <div className="slide">
                 <div className="inner">
                   <amp-img
-                    src={extractImage(url).large || url}
+                    sizes="(max-width: 360px) 50vw,(max-width: 750px) 50vw"
+                    srcset={extractImage(url).images || url}
                     alt={caption}
                     class={classes.image}
                     height="360"
