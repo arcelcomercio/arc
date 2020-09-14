@@ -31,6 +31,10 @@
   padding: 0 0 10px 65px;
   border-bottom: 1px solid #dcdcdc;
   margin-bottom: 10px;
+  a {
+    color: #4a88b1;
+    font-weight: bold;
+  }
 }
 .live-event .live-event-comment .live-event-minute {
   background: #e2e2e2;
@@ -43,7 +47,7 @@
 }
 .live-event .live-event-comment p {
   font-size: 18px;
-  font-family: Georgia;
+  font-family: "Georgia";
   line-height: 1.5;
 }
 .live-event .live-event-comment p a {
