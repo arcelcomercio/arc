@@ -31,7 +31,7 @@ const CardFeaturedStoryAuthor = props => {
   } = props
 
   const presets =
-    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150,square_xs:47x47'
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsRole},${includeCreditsEducation},${includeCreditsImage},credits.by.image.resized_urls.square_xs,${includePrimarySection},${includeSections},publish_date,display_date`
 
   const data =

@@ -5,7 +5,7 @@ import PlayList from './play-list'
 import VideoBar from './video-navbar'
 import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
-// import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 import PowaPlayer from '../../../../global-components/powa-player'
 
 /**
@@ -17,7 +17,7 @@ import PowaPlayer from '../../../../global-components/powa-player'
  *
  * y descomentar la siguiente funcion
  */
-const getResultVideo = (streams, arcSite, type = 'ts') => {
+/* const getResultVideo = (streams, arcSite, type = 'ts') => {
   const resultVideo = streams
     .map(({ url = '', stream_type: streamType = '' }) => {
       return streamType === type ? url : []
@@ -26,7 +26,7 @@ const getResultVideo = (streams, arcSite, type = 'ts') => {
   const cantidadVideo = resultVideo.length
 
   return resultVideo[cantidadVideo - 1]
-}
+} */
 
 const popUpWindow = (url, title, w, h) => {
   const left = window.screen.width / 2 - w / 2
@@ -50,7 +50,6 @@ export default ({
 }) => {
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
-  const { urlPreroll } = siteProperties
 
   useEffect(() => {
     const isDesktop = window.innerWidth >= 1024
@@ -152,20 +151,11 @@ export default ({
               {principalVideo.video &&
               principalVideo.promoItemsType === VIDEO ? (
                 <div className="section-video__frame">
-                  <div
-                    data-preroll={principalVideo.hasAdsVideo ? urlPreroll : ''}
-                    data-time={
-                      principalVideo.videoDuration
-                        ? principalVideo.videoDuration
-                        : ''
-                    }
-                    className="w-full h-full">
-                    <PowaPlayer
-                      uuid={uuid}
-                      stream={stream}
-                      image={principalVideo.image}
-                    />
-                  </div>
+                  <PowaPlayer
+                    uuid={uuid}
+                    stream={stream}
+                    image={principalVideo.image}
+                  />
                 </div>
               ) : (
                 <div className="section-video__frame">

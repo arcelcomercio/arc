@@ -1,9 +1,13 @@
 import React, { useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import { NavigateConsumer } from '../../../../_context/navigate'
 import useForm from '../../../../_hooks/useForm'
 import { AuthContext } from '../../../../_context/auth'
 import getDevice from '../../../../_dependencies/GetDevice'
-import PropertiesSite from '../../../../_dependencies/Properties'
+import {
+  PropertiesSite,
+  PropertiesCommon,
+} from '../../../../_dependencies/Properties'
 import { sendNewsLettersUser } from '../../../../_dependencies/Services'
 import ButtonSocial from './social'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
@@ -11,6 +15,7 @@ import getCodeError, {
   formatEmail,
   acceptCheckTerms,
 } from '../../../../_dependencies/Errors'
+import { isFbBrowser } from '../../../../_dependencies/Utils'
 
 const styles = {
   title: 'step__left-title',
@@ -18,6 +23,7 @@ const styles = {
   titleLine: 'step__left-title-line',
   block: 'step__left-block',
   blockFull: 'step__left-block-full',
+  btnShow: 'step__left-btn-show',
   btn: 'step__left-btn-next',
   link: 'step__btn-link',
   backLogin: 'step__left-link-register',
@@ -25,20 +31,16 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Register = ({ arcSite, arcEnv }) => {
+const Register = ({ arcSite }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
   const [msgError, setMsgError] = useState()
   const [checkedTerms, setCheckedTerms] = useState()
   const [forgotLink, setForgotLink] = useState()
-  const { texts, urls } = PropertiesSite.common
+  const [showHidePass, setShowHidePass] = useState('password')
+  const { texts, urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
-
-  const isFbBrowser =
-    typeof window !== 'undefined' &&
-    (window.navigator.userAgent.indexOf('FBAN') > -1 ||
-      window.navigator.userAgent.indexOf('FBAV') > -1)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -126,7 +128,7 @@ const Register = ({ arcSite, arcEnv }) => {
           window.Identity.getUserProfile().then(resProfile => {
             setLoadText('Cargando Servicios...')
             sendNewsLettersUser(
-              urls.newsLetters[arcEnv],
+              urls.newsLetters,
               resProfile.uuid,
               resProfile.email,
               arcSite,
@@ -164,25 +166,28 @@ const Register = ({ arcSite, arcEnv }) => {
     setMsgError(false)
   }
 
+  const toogleHidePass = () => {
+    if (showHidePass === 'password') setShowHidePass('text')
+    else setShowHidePass('password')
+  }
+
   return (
     <NavigateConsumer>
       {value => (
         <>
           <h2 className={styles.title}>{texts.register}</h2>
           <div
-            className={`${styles.blockMiddle} ${isFbBrowser &&
+            className={`${styles.blockMiddle} ${isFbBrowser() &&
               styles.blockFull}`}>
             <ButtonSocial
               arcSocial="facebook"
               arcSite={arcSite}
-              arcEnv={arcEnv}
               arcType="registro"
             />
-            {!isFbBrowser && (
+            {!isFbBrowser() && (
               <ButtonSocial
                 arcSocial="google"
                 arcSite={arcSite}
-                arcEnv={arcEnv}
                 arcType="registro"
               />
             )}
@@ -235,7 +240,7 @@ const Register = ({ arcSite, arcEnv }) => {
                 Contraseña
                 <input
                   className={rpassError && 'input-error'}
-                  type="password"
+                  type={showHidePass}
                   name="rpass"
                   value={rpass}
                   required
@@ -243,6 +248,12 @@ const Register = ({ arcSite, arcEnv }) => {
                   onBlur={handleOnChange}
                   disabled={loading}
                 />
+                <button
+                  name="lshowpass"
+                  aria-label="lshowpass"
+                  className={`${styles.btnShow}-${showHidePass}`}
+                  type="button"
+                  onClick={toogleHidePass}></button>
                 {rpassError && <span className="msn-error">{rpassError}</span>}
               </label>
             </div>
@@ -312,6 +323,10 @@ const Register = ({ arcSite, arcEnv }) => {
       )}
     </NavigateConsumer>
   )
+}
+
+Register.propTypes = {
+  arcSite: PropTypes.string.isRequired,
 }
 
 export default Register

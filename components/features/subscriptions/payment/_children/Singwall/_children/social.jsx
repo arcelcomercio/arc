@@ -1,7 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react'
-import PropertiesSite from '../../../../_dependencies/Properties'
+import PropTypes from 'prop-types'
+import {
+  PropertiesSite,
+  PropertiesCommon,
+} from '../../../../_dependencies/Properties'
 import getDevice from '../../../../_dependencies/GetDevice'
-import { Capitalize, setLocaleStorage } from '../../../../_dependencies/Utils'
+import {
+  Capitalize,
+  setLocaleStorage,
+  isFbBrowser,
+} from '../../../../_dependencies/Utils'
 import { AuthContext } from '../../../../_context/auth'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 import {
@@ -11,17 +19,17 @@ import {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
+const ButtonSocial = ({ arcSocial, arcSite, arcType }) => {
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
   const { activateAuth, updateStep } = useContext(AuthContext)
-  const { urls } = PropertiesSite.common
+  const { urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
 
   const setupUserProfile = () => {
     if (typeof window !== 'undefined') {
       setLoadText('Cargando Perfil...')
-      window.Identity.options({ apiOrigin: urlSite.arcOrigin[arcEnv] })
+      window.Identity.options({ apiOrigin: urlSite.arcOrigin })
       window.Identity.getUserProfile()
         .then(resProfile => {
           const userEmail =
@@ -30,8 +38,8 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
 
           if (!resProfile.displayName && !resProfile.attributes) {
             const newProfileFB = {
-              firstName: resProfile.firstName.replace(/\./g, ''), // aveces llegan nombres con .
-              lastName: resProfile.lastName.replace(/\./g, ''), // aveces llegan nombres con .
+              firstName: resProfile.firstName.replace(/\./g, ''),
+              lastName: resProfile.lastName.replace(/\./g, ''),
               displayName: userEmail,
               email: userEmail,
               attributes: [
@@ -76,7 +84,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
                 if (userEmail.indexOf('facebook.com') < 0) {
                   setLoadText('Cargando Servicios...')
                   sendNewsLettersUser(
-                    urls.newsLetters[arcEnv],
+                    urls.newsLetters,
                     resUpdateProfile.uuid,
                     userEmail,
                     arcSite,
@@ -124,14 +132,14 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
 
   const authSocialProvider = ({ data, origin }) => {
     if (typeof window !== 'undefined') {
-      if (origin !== urls.ecoID[arcEnv] || window.Identity.userIdentity.uuid) {
+      if (origin !== urls.ecoID || window.Identity.userIdentity.uuid) {
         setLoading(false)
         return
       }
       setLoading(true)
       setLoadText('Conectando...')
       loginSocialEco(
-        urlSite.arcOrigin[arcEnv],
+        urlSite.arcOrigin,
         '',
         data.accessToken,
         data.providerSource
@@ -191,15 +199,11 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
         eventMethod === 'attachEvent' ? 'onmessage' : 'message'
       eventer(messageEvent, authSocialProvider)
 
-      const isFbBrowser =
-        window.navigator.userAgent.indexOf('FBAN') > -1 ||
-        window.navigator.userAgent.indexOf('FBAV') > -1
-
       const width = 780
       const height = 640
       const left = window.screen.width / 2 - 800 / 2
       const top = window.screen.height / 2 - 600 / 2
-      const URL = `${urls.ecoID[arcEnv]}/mpp/${arcSocial}/login/`
+      const URL = `${urls.ecoID}/mpp/${arcSocial}/login/`
 
       const URLRedirect = () => {
         window.location.href = `${URL}?urlReference=${encodeURIComponent(
@@ -221,7 +225,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
       if (arcSocial === 'google') return URLWindow()
 
       // return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
-      return isFbBrowser ? URLRedirect() : URLWindow()
+      return isFbBrowser() ? URLRedirect() : URLWindow()
     }
     return ''
   }
@@ -249,6 +253,12 @@ const ButtonSocial = ({ arcSocial, arcSite, arcEnv, arcType }) => {
       </button>
     </>
   )
+}
+
+ButtonSocial.propTypes = {
+  arcSocial: PropTypes.string.isRequired,
+  arcSite: PropTypes.string.isRequired,
+  arcType: PropTypes.string.isRequired,
 }
 
 export default ButtonSocial
