@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDateLocalTimeZone } from '../../../../utilities/helpers'
+import { formatDateLocalTimeZone } from '../../../../utilities/date-time/dates'
 
 const classes = {
   box: 'stories-list-correction__box mb-20 bt-20 p-20',
@@ -29,7 +29,10 @@ const StoriesListsCardChildItem = ({
           } = {},
           _id,
         }) => {
-          const time = formatDateLocalTimeZone(date, '-', true, false)
+          const datetime = formatDateLocalTimeZone(date, '-', true, false)
+          const [fullYear = '', month = '', day = ''] =
+            datetime.split('-') || []
+          const time = `${day}-${month}-${fullYear}`
           const msgCorrection =
             typeEvent === CORRECTION_TYPE_CORRECTION
               ? 'Corrección del '
@@ -42,7 +45,10 @@ const StoriesListsCardChildItem = ({
                 </h3>
               </a>
               <div className={classes.content}>
-                <span className={classes.time}>{msgCorrection}{time}</span>
+                <span className={classes.time}>
+                  {msgCorrection}
+                  {time}
+                </span>
                 {content}
               </div>
             </div>
