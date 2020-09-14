@@ -1,14 +1,12 @@
 import React from 'react'
 import { useContent, useEditableContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 
-import { defaultImage } from '../../../utilities/assets'
 import getLatinDate from '../../../utilities/date-time/latin-date'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
 import {
   SITE_TROME,
   SITE_ELCOMERCIOMAG,
@@ -16,6 +14,8 @@ import {
   SITE_PERU21G21,
   SITE_ELCOMERCIO,
 } from '../../../utilities/constants/sitenames'
+
+import Image from '../../../global-components/image'
 
 const classes = {
   tabloid: 'tabloid row-1 flex flex-col',
@@ -29,9 +29,6 @@ const classes = {
   face: 'tabloid__face',
 }
 
-const CONTENT_SOURCE = 'story-by-section-printed'
-const PHOTO_SOURCE = 'photo-resizer'
-
 const CardTabloid = props => {
   const {
     customFields: {
@@ -43,7 +40,7 @@ const CardTabloid = props => {
     } = {},
   } = props
 
-  const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
+  const { arcSite } = useAppContext()
   const { editableField } = useEditableContent()
   const { linkTabloide = '' } = getProperties(arcSite)
 
@@ -51,7 +48,7 @@ const CardTabloid = props => {
     useContent(
       !urlImage
         ? {
-            source: CONTENT_SOURCE,
+            source: 'story-by-section-printed',
             query: {
               website: arcSite,
               feedOffset,
@@ -66,6 +63,7 @@ const CardTabloid = props => {
     created_date: createdDate = '',
     taxonomy: { primary_section: { path: primarySectionLink = '' } = {} } = {},
     promo_items: { basic: { url: sourceImage = '' } = {} } = {},
+    section_name: sourceSectionName = '',
   } = data || {}
 
   /**
@@ -75,65 +73,21 @@ const CardTabloid = props => {
   let sizes
   switch (arcSite) {
     case SITE_ELCOMERCIO:
-      sizes = '175x0'
+      sizes = { width: 175, height: 0 }
       break
     case SITE_TROME:
-      sizes = '293x0'
+      sizes = { width: 293, height: 0 }
       break
     case SITE_ELCOMERCIOMAG:
     case SITE_PERU21:
     case SITE_PERU21G21:
-      sizes = '215x0'
+      sizes = { width: 215, height: 0 }
       break
     default:
-      sizes = '255x0'
+      sizes = { width: 255, height: 0 }
   }
-  const presets = `printed_md:${sizes}`
 
-  const { resized_urls: adminResizer = {} } =
-    useContent(
-      isAdmin
-        ? {
-            source: PHOTO_SOURCE,
-            query: {
-              url: urlImage || sourceImage,
-              presets,
-            },
-          }
-        : {}
-    ) || {}
-
-  /**
-   * El admin de PB renderiza de nuevo en cliente y no funciona
-   * el createResizedParams() desde cliente, por eso en caso de
-   * estar en el admin, se solicita la imagen de la
-   * content source photo-resizer.
-   */
-  const { printed_md: resizedImage } = isAdmin
-    ? adminResizer
-    : createResizedParams({
-        url: urlImage || sourceImage,
-        presets,
-        arcSite,
-      })
-
-  const lazyImage = defaultImage({
-    deployment,
-    contextPath,
-    arcSite,
-    size: 'sm',
-  })
-
-  const {
-    section_name: sourceSectionName = '',
-    promo_items: {
-      basic: {
-        resized_urls: { printed_md: printedImage = lazyImage } = {},
-      } = {},
-    } = {},
-  } = data
-
-  const tabloidImage = resizedImage || urlImage || printedImage
+  const tabloidImage = urlImage || sourceImage
   const nameDate = getLatinDate(createdDate, ' del', true)
 
   return (
@@ -155,14 +109,14 @@ const CardTabloid = props => {
         target="_blank"
         rel="noopener noreferrer"
         title="Ver la versión impresa">
-        <picture>
-          <img
-            className={`${isAdmin ? '' : 'lazy'} ${classes.face}`}
-            src={isAdmin ? tabloidImage : lazyImage}
-            data-src={tabloidImage}
-            alt={title}
-          />
-        </picture>
+        <Image
+          src={tabloidImage}
+          width={sizes.width}
+          height={sizes.height}
+          alt={title}
+          className={classes.face}
+          loading="lazy"
+        />
         <time className={classes.date}>{dateField || nameDate}</time>
       </a>
     </div>
