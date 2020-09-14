@@ -2,7 +2,6 @@ export default {
   siteName: 'Mag.',
   sitemapNewsName: 'El Comercio Mag',
   siteTitle: 'Noticias Mag Perú',
-  googleFonts: 'Lato:400,700',
   colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://mag.elcomercio.pe',
