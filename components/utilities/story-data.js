@@ -461,6 +461,11 @@ class StoryData {
     return contentElements
   }
 
+  /**
+   * Reconoce si existe embed de twitter o instagram
+   * en el cuerpo de la noticia
+   * @returns {booleam} true || false
+   */
   get embedTwitterAndInst() {
     const embed = StoryData.getContentElements(
       this._data && this._data.content_elements,
@@ -468,16 +473,16 @@ class StoryData {
     )
 
     const data =
+      embed.length > 0 &&
+      embed.some(({ content = '' }) =>
+        /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+      )
+    /* const data =
       embed.length > 0
-        ? embed.map(item => {
-            const { content = '' } = item
-            return /twitter-(?:tweet|timeline)|instagram-media/.test(content)
-              ? item
-              : []
-          })
-        : []
+        ? embed.filter(({ content = ''}) => /twitter-(?:tweet|timeline)|instagram-media/.test(content))
+        : [] */
 
-    return data.filter(String)
+    return data
   }
 
   get videoSeo() {
@@ -1419,9 +1424,7 @@ class StoryData {
 
   static getContentElements(data = [], typeElement = '') {
     return data && data.length > 0
-      ? data.map(item => {
-          return item.type === typeElement ? item : []
-        })
+      ? data.filter(item => item.type === typeElement)
       : []
   }
 
@@ -1792,7 +1795,15 @@ class StoryData {
           } = {},
         } = {},
       }) => {
-        const result = { _id, type, subtype: '', level, payload: '', streams, type_config:'' }
+        const result = {
+          _id,
+          type,
+          subtype: '',
+          level,
+          payload: '',
+          streams,
+          type_config: '',
+        }
 
         switch (type) {
           case ELEMENT_TEXT:
