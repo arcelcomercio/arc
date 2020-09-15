@@ -6,6 +6,7 @@ import {
 } from '../../../../utilities/constants/multimedia-types'
 import { reduceWord } from '../../../../utilities/parse/strings'
 import formatTime from '../../../../utilities/date-time/format-time'
+import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
 
 const formatDateLocalTimeZone = rawDate => {
   const auxDate = new Date(rawDate)
@@ -57,7 +58,10 @@ export default React.memo(
     multimediaLandscapeS,
     format,
     isRender,
+    isPremium = '',
+    arcSite = ''
   }) => {
+    const isComercio = arcSite === SITE_ELCOMERCIO
     return (
       <div
         className={`${classes.storyItem} ${
@@ -66,12 +70,20 @@ export default React.memo(
         <div className={classes.bottom}>
           <div className={classes.left}>
             <div className={classes.top}>
+              {isPremium && !isComercio && (
+                <img
+                  className={classes.iconImagePremium}
+                  src={logo}
+                  alt="premium"
+                />
+              )}
               <a
                 itemProp="url"
                 href={primarySectionLink}
                 className={classes.section}>
                 {primarySection}
               </a>
+
               <p itemProp="description" className={classes.date}>
                 {date && isRender ? formatDateLocalTimeZone(date) : ''}
               </p>

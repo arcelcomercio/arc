@@ -172,6 +172,7 @@ class StoriesListInfiniteScroll extends PureComponent {
       contentElements.map(story => {
         storyData._data = story
         const {
+          isPremium,
           primarySectionLink,
           primarySection,
           date,
@@ -210,6 +211,8 @@ class StoriesListInfiniteScroll extends PureComponent {
           multimediaLandscapeXS: imgItemLandscapeXS,
           multimediaLandscapeS: imgItemLandscapeS,
           id,
+          isPremium,
+          arcSite,
         }
       }),
       'id'
