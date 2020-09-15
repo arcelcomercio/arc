@@ -7,8 +7,15 @@ import useForm from '../../../_hooks/useForm'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
 import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
-import PropertiesSite from '../../../_dependencies/Properties'
 import addScriptAsync from '../../../_dependencies/Async'
+import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
+import { getSessionStorage } from '../../../_dependencies/Utils'
+import PWA from '../../../_dependencies/Pwa'
+import {
+  PropertiesSite,
+  PropertiesCommon,
+  ArcEnv,
+} from '../../../_dependencies/Properties'
 import {
   patternCard,
   patternDate,
@@ -17,8 +24,6 @@ import {
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
-import PWA from '../../../_dependencies/Pwa'
-import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
 
 const styles = {
   step: 'step__left-progres',
@@ -32,7 +37,7 @@ const styles = {
   cvvAll: 'img-info-cvv',
 }
 
-const Pay = ({ arcEnv }) => {
+const Pay = () => {
   const {
     arcSite,
     globalContent: { plans = [], printedSubscriber },
@@ -45,7 +50,7 @@ const Pay = ({ arcEnv }) => {
     updatePurchase,
     updateLoadPage,
   } = useContext(AuthContext)
-  const { texts, links } = PropertiesSite.common
+  const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
   const {
@@ -54,7 +59,7 @@ const Pay = ({ arcEnv }) => {
     phone,
     firstName,
     lastName,
-    secondLastName,
+    secondLastName = '',
     documentType,
     documentNumber,
     emailVerified,
@@ -79,22 +84,20 @@ const Pay = ({ arcEnv }) => {
 
       addScriptAsync({
         name: 'SalesSDK',
-        url: links.sales[arcEnv],
+        url: links.sales,
         includeNoScript: false,
-      }).then(() => window.Sales.options({ apiOrigin: urls.arcOrigin[arcEnv] }))
+      }).then(() => window.Sales.options({ apiOrigin: urls.arcOrigin }))
 
       addScriptAsync({
         name: 'PayuSDK',
-        url: links.payu[arcEnv],
+        url: links.payu,
         includeNoScript: false,
       }).then(() => {
-        window.payU.setURL(
-          'https://sandbox.api.payulatam.com/payments-api/4.0/service'
-        )
+        window.payU.setURL(links.payuPayments)
         window.payU.setPublicKey('PKaC6H4cEDJD919n705L544kSU')
         window.payU.setAccountID('512321')
         window.payU.setListBoxID('mylistID')
-        window.payU.setLanguage('es') // optional
+        window.payU.setLanguage('es')
         window.payU.getPaymentMethods()
       })
 
@@ -102,9 +105,11 @@ const Pay = ({ arcEnv }) => {
         scope.setTag('brand', arcSite)
         scope.setTag('document', documentNumber || 'none')
         scope.setTag('phone', phone || 'none')
+        scope.setTag('email', email || 'none')
+        scope.setTag('step', 'Pago')
         scope.setUser({
           id: uuid,
-          name: `${firstName} ${lastName} ${secondLastName || ''}`,
+          name: `${firstName} ${lastName} ${secondLastName}`,
           email,
           phone,
           documentType,
@@ -117,9 +122,8 @@ const Pay = ({ arcEnv }) => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const origin =
-        window.sessionStorage.getItem('paywall_type_modal') || 'organico'
-      const referer = window.sessionStorage.getItem('paywall_last_url') || ''
+      const origin = getSessionStorage('paywall_type_modal') || 'organico'
+      const referer = getSessionStorage('paywall_last_url') || ''
 
       window.dataLayer.push({
         event: 'checkoutOption',
@@ -153,7 +157,9 @@ const Pay = ({ arcEnv }) => {
     cNumber: {
       required: true,
       validator: {
-        func: value => window.payU.validateCard(value.replace(/\s/g, '')),
+        func: value =>
+          typeof window.payU === 'object' &&
+          window.payU.validateCard(value.replace(/\s/g, '')),
         error: 'Número tarjeta inválido.',
       },
     },
@@ -202,7 +208,9 @@ const Pay = ({ arcEnv }) => {
 
         window.payU.validateNumber(cNumber.replace(/\s/g, ''))
 
-        const fullUserName = `${firstName} ${lastName} ${secondLastName || ''}`
+        const fullUserName = `${firstName} ${lastName} ${
+          secondLastName && secondLastName !== 'undefined' ? secondLastName : ''
+        }`
         const cExpireMonth = cExpire.split('/')[0]
         const cExpireYear = cExpire.split('/')[1]
 
@@ -245,20 +253,24 @@ const Pay = ({ arcEnv }) => {
                   parameter4: deviceSessionId,
                 } = resInitialize
 
+                Sentry.addBreadcrumb({
+                  category: 'pago',
+                  message: 'Iniciando proceso',
+                  data: resInitialize || {},
+                  level: 'info',
+                })
+
                 return addPayU(deviceSessionId)
                   .then(payU => {
                     setTxtLoading('Solicitando Autorización...')
                     payU.setURL(payuBaseUrl)
                     payU.setPublicKey(publicKey)
                     payU.setAccountID(accountId)
-                    // payU.setListBoxID('mylistID')
-                    // payU.setLanguage('es')
-                    // payU.getPaymentMethods()
                     payU.validateNumber(cNumber.replace(/\s/g, ''))
                     payU.setCardDetails({
                       number: cNumber.replace(/\s/g, ''),
                       name_card:
-                        arcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
+                        ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
                       payer_id: documentNumber,
                       exp_month: cExpireMonth,
                       exp_year: cExpireYear,
@@ -266,6 +278,13 @@ const Pay = ({ arcEnv }) => {
                       document: documentNumber,
                       cvv: cCvv,
                     })
+
+                    Sentry.addBreadcrumb({
+                      category: 'compra',
+                      message: 'solicitando autorización',
+                      level: 'info',
+                    })
+
                     return new Promise((resolve, reject) => {
                       setTxtLoading('Validando Solicitud...')
                       payU.createToken(response => {
@@ -282,6 +301,13 @@ const Pay = ({ arcEnv }) => {
                               },
                             },
                           })
+                          Sentry.captureEvent({
+                            message:
+                              response.error ||
+                              getCodeError('transactionError'),
+                            level: 'error',
+                            extra: response || {},
+                          })
                         } else {
                           resolve(response.token)
                         }
@@ -295,6 +321,14 @@ const Pay = ({ arcEnv }) => {
                     } = payUPaymentMethod
                     const tokenDinamic = `${tokenPayu}~${deviceSessionId}~${cCvv}`
                     setTxtLoading('Finalizando Proceso...')
+
+                    Sentry.addBreadcrumb({
+                      category: 'compra',
+                      message: 'Finalizando proceso',
+                      data: { tokenDinamic },
+                      level: 'info',
+                    })
+
                     return window.Sales.finalizePayment(
                       orderNumberDinamic,
                       paymentMethodID,
@@ -302,10 +336,15 @@ const Pay = ({ arcEnv }) => {
                     )
                       .then(resFinalize => {
                         const { status, total, subscriptionIDs } = resFinalize
-                        // if (status !== 'Paid') {
-                        //   setMsgError(getCodeError('NoPaid', status))
-                        // }
                         updatePurchase(resFinalize)
+
+                        Sentry.addBreadcrumb({
+                          category: 'compra',
+                          message: 'Compra confirmada',
+                          data: resFinalize,
+                          level: 'info',
+                        })
+
                         return {
                           publicKey,
                           accountId,
@@ -330,13 +369,20 @@ const Pay = ({ arcEnv }) => {
                             },
                           },
                         })
+                        Sentry.captureEvent({
+                          message:
+                            errFinalize.message ||
+                            getCodeError('errorFinalize'),
+                          level: 'error',
+                          extra: errFinalize || {},
+                        })
                       })
                   })
               })
           )
       } else {
         Sentry.captureEvent({
-          message: 'El Usuario ha perdido su sesión/perfil',
+          message: getCodeError('lostSession'),
           level: 'error',
         })
         setTimeout(() => {
@@ -514,12 +560,12 @@ const Pay = ({ arcEnv }) => {
                 setCheckedTerms(!checkedTerms)
               }}
             />
-            {texts.textTermsAccept}
+            {texts.termsAccept}
             <button
               className="step__btn-link"
               type="button"
               onClick={() => openNewTab('terminos')}>
-              {texts.textTermsConditions}
+              {texts.termsConditions}
             </button>
             {texts.textTermsThe}
             <button

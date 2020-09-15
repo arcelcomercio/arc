@@ -2,7 +2,7 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../../utilities/config-params'
 import StoryData from '../../../../utilities/story-data'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 import {
   countWords as countWordsHelper,
   nbspToSpace,
@@ -14,7 +14,7 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
 } from '../../../../utilities/constants/subtypes'
-import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getResultVideo, stripTags } from '../../../../utilities/story/helpers'
 
 /**
  *
@@ -36,7 +36,6 @@ import { getResultVideo } from '../../../../utilities/story/helpers'
   return resultVideo[cantidadVideo - 1]
 } */
 
-let hasRenderedContentVideo = false
 const presets = 'resizedImage:840x0'
 
 const buildIframeAdvertising = urlAdvertising => {
@@ -101,10 +100,12 @@ const buildCorrectionTexParagraph = (
 const buildStampTrustTexParagraph = (paragraph, url, siteUrl = '') => {
   const result = { numberWords: 0, processedParagraph: '' }
   const urlTrust = url || `${siteUrl}/buenas-practicas/`
-  result.numberWords = countWordsHelper(clearHtml(paragraph))
+  const urlImgTrust = paragraph || `${siteUrl}/buenas-practicas/#trust-project`
+  // result.numberWords = countWordsHelper(clearHtml(paragraph))
+
   result.processedParagraph = `
       <blockquote>
-        <h2>Conforme a los criterios de TRUST</h2>
+        <h2>Conforme a los criterios de <a href="${urlImgTrust}">TRUST</a></h2>
         <div>
           <h4><a href="${urlTrust}">Saber más</a></h4>
         </div>
@@ -140,7 +141,7 @@ const buildListLinkParagraph = (items, defaultImage, arcSite) => {
                 image: { url: urlImg = '' } = {},
               } = data || {}
               result.numberWords += countWordsHelper(clearHtml(content))
-              const { resizedImage } = getResizedUrl({
+              const { resizedImage } = createResizedParams({
                 url: urlImg,
                 presets,
                 arcSite,
@@ -175,6 +176,7 @@ const analyzeParagraph = ({
   defaultImage,
   streams = [],
   siteUrl = '',
+  typeConfig = '',
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
 
@@ -205,9 +207,10 @@ const analyzeParagraph = ({
       break
     case ELEMENT_CUSTOM_EMBED:
       if (subtype === STORY_CORRECTION) {
+        const typeCorrection = typeConfig || CORRECTION_TYPE_CORRECTION
         textProcess = buildCorrectionTexParagraph(
           processedParagraph,
-          CORRECTION_TYPE_CORRECTION
+          typeCorrection
         )
         result.numberWords = textProcess.numberWords
         result.processedParagraph = textProcess.processedParagraph
@@ -259,17 +262,14 @@ const analyzeParagraph = ({
       result.processedParagraph = textProcess.processedParagraph
       break
     case ConfigParams.ELEMENT_VIDEO:
-      if (!hasRenderedContentVideo) {
-        const urlVideo = getResultVideo(streams, arcSite, 'mp4')
-        result.numberWords = numberWordMultimedia
-        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe></figure>`
-        hasRenderedContentVideo = true
-      }
+      const urlVideo = getResultVideo(streams, arcSite, 'mp4')
+      result.numberWords = numberWordMultimedia
+      result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe></figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
       result.numberWords = numberWordMultimedia
-      const { resizedImage } = getResizedUrl({
+      const { resizedImage } = createResizedParams({
         url: processedParagraph,
         presets,
         arcSite,
@@ -286,6 +286,26 @@ const analyzeParagraph = ({
           /width=(?:"|')100%(?:"|')/g,
           `width="520"`
         )}</figure>`
+      } else if (processedParagraph.includes('<mxm-event')) {
+        const liveBlog = processedParagraph
+          .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+          .replace(/(:<script.*)/, '')
+          .replace(
+            /<div class="live-event-minute">([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/div>/gm,
+            '<xtrong>$1</xtrong>'
+          )
+        const liveBlogStrong = liveBlog.replace(
+          /<xtrong>([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/xtrong>(.+?)<p>/gm,
+          '<p><strong>$1 </strong> '
+        )
+
+        const liveBlogTags = stripTags(liveBlogStrong, '<p><a><img><strong>')
+
+        const liveBlogResult = liveBlogTags.replace(
+          /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
+          '<figure><img src="$2" /></figure>'
+        )
+        result.processedParagraph = liveBlogResult
       } else if (processedParagraph.includes('<img')) {
         // obtiene el valor del src de la imagen y el alt
         const imageUrl = processedParagraph.match(
@@ -300,7 +320,7 @@ const analyzeParagraph = ({
 
         if (imageUrl !== '') {
           // eslint-disable-next-line no-shadow
-          const { resizedImage } = getResizedUrl({
+          const { resizedImage } = createResizedParams({
             url: imageUrl,
             presets,
             arcSite,
@@ -323,16 +343,19 @@ const analyzeParagraph = ({
       ) {
         const domainOriginIframeOpta = 'https://img.depor.com/opta/optawidget'
         const pattern = /^<opta-widget (.+)><\/opta-widget>$/
-        const attributesWOpta = processedParagraph.match(pattern)[1].split(' ')
+        const attributesWOpta =
+          processedParagraph.match(pattern)[1].split(' ') || []
 
         let urlIframe = `${domainOriginIframeOpta}?`
         attributesWOpta.forEach((item, index) => {
           const attr = item.match(/(.+)="(.+)"/)
-          const key = attr[1]
-          const value = attr[2]
-          urlIframe += `${key}=${value}${
-            index < attributesWOpta.length - 1 ? '&' : ''
-          }`
+          if (attr[1]) {
+            const key = attr[1]
+            const value = attr[2]
+            urlIframe += `${key}=${value}${
+              index < attributesWOpta.length - 1 ? '&' : ''
+            }`
+          }
         })
 
         result.processedParagraph = `<iframe src="${urlIframe}" width="100%" height="500" style="max-height:500px" frameborder=0></iframe>`
@@ -347,6 +370,7 @@ const analyzeParagraph = ({
         )[0]
         result.processedParagraph = `<figure class="op-interactive"><iframe id='jwplayer_container'><script src="${jwScript}"></script></iframe></figure>`
       }
+
       result.numberWords = processedParagraph !== '' ? numberWordMultimedia : 0
       break
 
@@ -370,7 +394,13 @@ const buildListParagraph = ({
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
   newListParagraph.forEach(
-    ({ type = '', payload = '', link = '', streams = [] }) => {
+    ({
+      type = '',
+      payload = '',
+      link = '',
+      streams = [],
+      type_config: typeConfig = '',
+    }) => {
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph: payload,
         type,
@@ -381,6 +411,7 @@ const buildListParagraph = ({
         defaultImage,
         streams,
         siteUrl,
+        typeConfig,
       })
       objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
       objTextsProcess.numberWords += numberWords
@@ -417,6 +448,7 @@ const ParagraphshWithAdds = ({
         level,
         link = '',
         streams = [],
+        type_config: typeConfig = '',
       }) => {
         let paragraphwithAdd = ''
 
@@ -432,6 +464,7 @@ const ParagraphshWithAdds = ({
           defaultImage,
           streams,
           siteUrl,
+          typeConfig,
         })
 
         if (ConfigParams.ELEMENT_STORY === type) {
@@ -497,7 +530,7 @@ const multimediaHeader = (
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
   switch (type) {
     case ConfigParams.IMAGE:
-      const { resizedImage } = getResizedUrl({
+      const { resizedImage } = createResizedParams({
         url: payload,
         presets,
         arcSite,
@@ -514,7 +547,7 @@ const multimediaHeader = (
     case ConfigParams.GALLERY:
       result = `<figure class="op-slideshow">${payload.map(url => {
         // eslint-disable-next-line no-shadow
-        const { resizedImage } = getResizedUrl({
+        const { resizedImage } = createResizedParams({
           url,
           presets,
           arcSite,

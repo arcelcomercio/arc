@@ -48,14 +48,14 @@ import {
   SITE_ELBOCON,
   SITE_DIARIOCORREO,
 } from '../../../utilities/constants/sitenames'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 import {
   formatDateStoryAmp,
   publicidadAmp,
   publicidadAmpAd,
   ampHtml,
 } from '../../../utilities/story/helpers-amp'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 import {
   STORY_CORRECTION,
   STAMP_TRUST,
@@ -262,7 +262,7 @@ class StoryContentAmp extends PureComponent {
                     <AmpImage
                       {...element}
                       url={
-                        getResizedUrl({
+                        createResizedParams({
                           url: element.url,
                           presets: 'large:400x0',
                           arcSite,
@@ -279,22 +279,31 @@ class StoryContentAmp extends PureComponent {
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === STORY_CORRECTION) {
                     const {
-                      config: { content: contentCorrectionConfig = '' } = {},
+                      config: {
+                        content: contentCorrectionConfig = '',
+                        type_event: typeConfig = 'correction',
+                      } = {},
                     } = customEmbed || {}
                     return (
                       <StoryContentsChildCorrection
                         content={contentCorrectionConfig}
                         isAmp
+                        type={typeConfig}
                       />
                     )
                   }
 
                   if (sub === STAMP_TRUST) {
-                    const { config: { url: urlConfig = '' } = {} } =
-                      customEmbed || {}
+                    const {
+                      config: {
+                        url: urlConfig = '',
+                        url_img: urlImgConfig = '',
+                      } = {},
+                    } = customEmbed || {}
                     return (
                       <StoryContentsChildStampTrust
                         url={urlConfig}
+                        urlImg={urlImgConfig}
                         isAmp
                         siteUrl={siteUrl}
                       />
@@ -310,7 +319,7 @@ class StoryContentAmp extends PureComponent {
                         <AmpImage
                           {...element}
                           url={
-                            getResizedUrl({
+                            createResizedParams({
                               url: customEmbedConfig.photo,
                               presets: 'large:400x0',
                               arcSite,

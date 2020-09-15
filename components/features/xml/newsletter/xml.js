@@ -23,11 +23,8 @@ class XmlNewsletterFeed {
       arcSite,
       siteProperties: { siteUrl = '' } = {},
     } = this.props
-    const {
-      content_elements: stories,
-      websked = {},
-      stories: storiesContent = [],
-    } = globalContent || {}
+    const { content_elements: collectionData, websked = {}, stories = [] } =
+      globalContent || {}
 
     if (!stories) {
       return null
@@ -43,7 +40,7 @@ class XmlNewsletterFeed {
     const newsletterFeed = {
       rss: {
         '@version': '2.0',
-        channel: stories.map((story, index) => {
+        channel: collectionData.map((story, index) => {
           const {
             promo_items: {
               basic: {
@@ -62,7 +59,7 @@ class XmlNewsletterFeed {
             } = {},
           } = story || {}
 
-          storyData.__data = storiesContent[index]
+          storyData.__data = stories[index]
 
           // const description =
           //   storyData.__data &&

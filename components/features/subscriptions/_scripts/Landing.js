@@ -50,7 +50,7 @@
 //       ) {
 //         fullName = lastName
 //       }
-//       return fullName.length <= 20 ? fullName : `${fullName.slice(0, 17)}...`
+//       return fullName.length <= 20 ? fullName : `${fullName.slice(0, 20)}...`
 //     }
 
 //     function updateBtnSignwall() {

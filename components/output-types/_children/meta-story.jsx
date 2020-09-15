@@ -18,7 +18,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../utilities/constants/sitenames'
-import { getResizedUrl } from '../../utilities/resizer'
+import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 import workType, { revisionAttr } from '../_dependencies/work-type'
 
@@ -64,6 +64,7 @@ export default ({
     getPremiumValue,
     contentElementsRedesSociales,
     contentElementCustomBlock = [],
+    idYoutube,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -113,7 +114,9 @@ export default ({
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
 
   const redSocialVideo = contentElementsRedesSociales
-    .map(({ youtube = '', facebook = '', twitter = '', user = '' }) => {
+    .map(redesSociales => {
+      const { youtube = '', facebook = '', twitter = '', user = '' } =
+        redesSociales || {}
       const thumbnailUrlYoutube =
         youtube && `https://img.youtube.com/vi/${youtube}/maxresdefault.jpg`
       const embedUrlYoutube =
@@ -177,7 +180,7 @@ export default ({
         amp_image_4x3: ampVideo4x3 = urlImage,
         amp_image_16x9: ampVideo16x9 = urlImage,
       } =
-        getResizedUrl({
+        createResizedParams({
           url: urlImage || url,
           presets:
             'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
@@ -210,7 +213,7 @@ export default ({
       amp_image_4x3: ampImage4x3 = url,
       amp_image_16x9: ampImage16x9 = url,
     } =
-      getResizedUrl({
+      createResizedParams({
         url,
         presets:
           'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
@@ -225,7 +228,7 @@ export default ({
     const { subtitle = false, url = '' } = image || {}
 
     const { large } =
-      getResizedUrl({
+      createResizedParams({
         url,
         presets: 'large:1200x800',
         arcSite,
@@ -275,12 +278,16 @@ export default ({
     ? `"image": ${arrayImage[0]} ,`
     : `"image": ${arrayImage},`
 
-  const imagenDefoult = imagesSeoItems[0]
-    ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${`${getAssetsPath(
+  const imageYoutube = idYoutube
+    ? `https://i.ytimg.com/vi/${idYoutube}/hqdefault.jpg`
+    : `${getAssetsPath(
         arcSite,
         contextPath
-      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`}",  "description": "${formatHtmlToText(
+      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`
+
+  const imagenDefoult = imagesSeoItems[0]
+    ? imagenData
+    : `"image": {  "@type": "ImageObject", "url": "${imageYoutube}",  "description": "${formatHtmlToText(
         siteName
       )}", "height": 800, "width": 1200 },`
 

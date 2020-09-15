@@ -1,11 +1,9 @@
-/* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
-import ENV from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
-import PropertiesSite from '../../../../_dependencies/Properties'
+import { PropertiesSite } from '../../../../_dependencies/Properties'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
@@ -18,7 +16,9 @@ const FbEventTag = React.memo(({ event, onBeforeSend = i => i, ...props }) => {
     },
   })
   if (content && props.debug) {
-    console.log(`SignedUri: ${content.uri}`)
+    if (typeof window !== 'undefined') {
+      window.console.log(`SignedUri: ${content.uri}`)
+    }
   }
   if (content) onBeforeSend(content)
   return content && content.uri ? (
@@ -61,13 +61,12 @@ export const LogIntoAccountEventTag = ({
   onBeforeSend,
 }) => {
   const { arcSite } = useFusionContext() || {}
-  const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   const { urls } = PropertiesSite[arcSite]
   const [accessToken, setAccessToken] = React.useState()
 
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: urls.arcOrigin[arcEnv] })
+      window.Identity.options({ apiOrigin: urls.arcOrigin })
       window.Identity.extendSession().then(({ accessToken: token }) => {
         setAccessToken(token)
       })

@@ -24,6 +24,13 @@ export const defaultImage = ({ contextPath, arcSite }) => {
   )}/resources/dist/${arcSite}/images/default-md.png?d=2`
 }
 
+export const defaultAuthorImage = ({ contextPath, arcSite }) => {
+  return `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/assets/author-grid/author.png?d=1`
+}
+
 export const getAssetsPathVideo = (arcSite, urlVideo = '') => {
   let site = `${arcSite}.pe`
   if (arcSite === 'depor') site = `${arcSite}.com`

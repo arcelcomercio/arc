@@ -1,6 +1,4 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'story'
 
@@ -14,6 +12,11 @@ const params = [
     name: 'feedOffset',
     displayName: 'Número de la noticia', // Para este API la pos. inic. es 1
     type: 'number',
+  },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
   },
 ]
 
@@ -31,7 +34,7 @@ const resolve = (key = {}) => {
 
 const transform = (
   data,
-  { 'arc-site': arcSite, feedOffset: rawFeedOffset }
+  { 'arc-site': arcSite, feedOffset: rawFeedOffset, presets }
 ) => {
   if (data === null || data === undefined || data === '') {
     return {}
@@ -53,13 +56,7 @@ const transform = (
   }
 
   if (stories[feedOffset]) {
-    const { resizerUrl } = getProperties(arcSite)
-
-    return addResizedUrlsToStory(
-      [stories[feedOffset]],
-      resizerUrl,
-      resizerSecret
-    )[0]
+    return getResizedImageData(stories[feedOffset], presets, arcSite)
   }
   throw new Error(`No existe una historia en la posición ${feedOffset}`)
 }

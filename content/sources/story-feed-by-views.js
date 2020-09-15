@@ -5,9 +5,8 @@
  *  la que pregona su nombre "story-feed-by-views". La funcionalidad actual
  *  es temporal.
  */
-import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'stories-dev'
 
@@ -83,28 +82,20 @@ const pattern = key => {
 
 const resolve = key => pattern(key)
 
-const transform = (data, { 'arc-site': arcSite, presets: customPresets }) => {
-  const dataStories = data
-  const { resizerUrl, siteName } = getProperties(arcSite)
-
-  if (customPresets !== 'no-presets') {
-    dataStories.content_elements = addResizedUrlsToStory(
-      dataStories.content_elements,
-      resizerUrl,
-      resizerSecret
-    )
-  }
+const transform = (data, { 'arc-site': website, presets }) => {
+  const { siteName } = getProperties(website)
+  const dataStories = getResizedImageData(data, presets, website)
   dataStories.siteName = siteName
   return {
     ...dataStories,
   }
 }
+
 const source = {
   resolve,
   transform,
   schemaName,
   params,
-  // cache: false,
   ttl: 300,
 }
 
