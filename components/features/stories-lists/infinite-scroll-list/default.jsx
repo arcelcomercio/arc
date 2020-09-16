@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
 
+import { getAssetsPath } from '../../../utilities/assets'
 import { getActualDate } from '../../../utilities/date-time/dates'
 import StoryData from '../../../utilities/story-data'
 import schemaFilter from './_dependencies/schema-filter'
@@ -45,7 +46,7 @@ class StoriesListInfiniteScroll extends PureComponent {
 
     this.section = contentConfigValues.section || sectionField
     this.presets = 'landscape_s:234x161,landscape_xs:118x72'
-    this.includedFields = `&_sourceInclude=websites.${arcSite}.website_url,_id,headlines.basic,subheadlines.basic,display_date,${includeCredits},${includeCreditsImage},${includePrimarySection},${includeSections},${includePromoItems},promo_items.basic_html.content`
+    this.includedFields = `&_sourceInclude=websites.${arcSite}.website_url,_id,headlines.basic,subheadlines.basic,display_date,content_restrictions.content_code,${includeCredits},${includeCreditsImage},${includePrimarySection},${includeSections},${includePromoItems},promo_items.basic_html.content`
 
     this.fetchContent({
       data: {
@@ -156,7 +157,12 @@ class StoriesListInfiniteScroll extends PureComponent {
       contextPath,
       arcSite,
       customFields: customFieldsProps = {},
-      siteProperties: { isDfp = false },
+      siteProperties: {
+        isDfp = false,
+        assets: {
+          premium: { logo },
+        },
+      },
     } = this.props
 
     const { dateField } = customFieldsProps
@@ -213,6 +219,10 @@ class StoriesListInfiniteScroll extends PureComponent {
           id,
           isPremium,
           arcSite,
+          logo: `${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/${logo}?d=1`,
         }
       }),
       'id'
