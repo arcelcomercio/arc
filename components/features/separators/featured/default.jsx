@@ -6,7 +6,7 @@ import { useFusionContext } from 'fusion:context'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import { separatorFeaturedFields } from '../../../utilities/included-fields'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 // TODO: Subir clases a objeto
 
@@ -65,7 +65,7 @@ const SeparatorFeatured = props => {
     } = storyData
     const { multimediaPortraitS = multimediaLazyDefault } = isAdmin
       ? storyData
-      : getResizedUrl({
+      : createResizedParams({
           url: imageUrl,
           arcSite,
           presets: 'multimediaPortraitS:161x220',

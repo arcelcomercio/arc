@@ -1,8 +1,11 @@
 /* Roboto Regular */
 @font-face {
   font-family: "Roboto";
-  src: url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Regular.woff")
-    format("woff");
+  src: local("Roboto Regular"), local("Roboto-Regular"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Regular.woff2")
+      format("woff2"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Regular.woff")
+      format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -11,8 +14,11 @@
 /* Roboto Bold */
 @font-face {
   font-family: "Roboto";
-  src: url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Bold.woff")
-    format("woff");
+  src: local("Roboto Bold"), local("Roboto-Bold"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Bold.woff2")
+      format("woff2"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Bold.woff")
+      format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -21,24 +27,32 @@
 /* Roboto Black */
 @font-face {
   font-family: "Roboto";
-  src: url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Black.woff")
-    format("woff");
+  src: local("Roboto Black"), local("Roboto-Black"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Black.woff2")
+      format("woff2"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/Roboto-Black.woff")
+      format("woff");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Ultra";
-  src: url("https://cdna.trome.pe/resources/dist/trome/fonts/Ultra.woff")
-    format("woff");
+  src: url("https://cdna.trome.pe/resources/dist/trome/fonts/Ultra.woff2")
+      format("woff2"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/Ultra.woff")
+      format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "MorganBig-Bold";
-  src: url("https://cdna.trome.pe/resources/dist/trome/fonts/MorganBig-Italic.woff")
-    format("woff");
+  font-family: "MorganBig Italic";
+  src: local("Morgan Big Italic"), local("MorganBig-Italic"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/MorganBig-Italic.woff2")
+      format("woff2"),
+    url("https://cdna.trome.pe/resources/dist/trome/fonts/MorganBig-Italic.woff")
+      format("woff");
   font-weight: normal;
   font-style: italic;
   font-display: swap;

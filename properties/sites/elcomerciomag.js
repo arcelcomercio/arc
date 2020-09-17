@@ -91,20 +91,20 @@ export default {
   socialNetworks: [
     {
       name: 'facebook',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      url: 'https://www.facebook.com/magelcomercio',
     },
     {
       name: 'twitter',
-      url: 'https://twitter.com/elcomercio_peru',
+      url: 'https://twitter.com/Mag_ECpe',
     },
   ],
   social: {
     facebook: {
-      user: '@elcomercio.pe',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      user: '@magelcomercio',
+      url: 'https://www.facebook.com/magelcomercio',
     },
     twitter: {
-      user: '@elcomercio_peru',
+      user: '@Mag_ECpe',
     },
   },
   adsAmp: {

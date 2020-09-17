@@ -21,7 +21,7 @@ const classes = {
 const StoryContentChildAuthorTrustLite = ({
   author,
   authorLink,
-  authorImgSmall,
+  authorImage,
   authorRole,
   updatedDate,
   date,
@@ -39,7 +39,7 @@ const StoryContentChildAuthorTrustLite = ({
     author,
     authorLink,
     authorEmail,
-    authorImgSmall,
+    authorImage,
     authorRole,
   }
 

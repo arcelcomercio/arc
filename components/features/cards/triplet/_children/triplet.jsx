@@ -4,7 +4,7 @@ import { useEditableContent } from 'fusion:content'
 
 import Icon from '../../../../global-components/multimedia-icon'
 import { createMarkup } from '../../../../utilities/helpers'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const TripletChildTriplet = props => {
   const {
@@ -53,7 +53,7 @@ const TripletChildTriplet = props => {
       {data.map((story, index) => {
         const { square_s: squareS } =
           typeof window === 'undefined' && !isAdmin
-            ? getResizedUrl({
+            ? createResizedParams({
                 url: story.multimediaSquareS || story.multimedia,
                 presets: 'square_s:150x150',
                 arcSite,

@@ -15,7 +15,7 @@ import { includePromoItems } from '../../../utilities/included-fields'
 
 import StoriesListRecommenderBySiteChild from './_children/linked-by-site'
 
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const StoriesListRecommenderBySite = props => {
   const {
@@ -101,7 +101,7 @@ const StoriesListRecommenderBySite = props => {
 
           const { landscape_s: landscapeS, square_s: squareS } =
             typeof window === 'undefined'
-              ? getResizedUrl({
+              ? createResizedParams({
                   url: multimedia,
                   presets: 'landscape_s:234x161,square_s:150x150',
                   arcSite: websiteConf || arcSite,

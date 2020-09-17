@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import Static from 'fusion:static'
 
 import { sectionBlockAsyncScrip } from './_dependencies/scripts'
@@ -23,11 +23,13 @@ const GridSectionColumns = ({
     section13,
   } = {},
 }) => {
-  const { arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
 
   return (
     <Static id="GridSectionColumns">
-      <h2 itemProp="name" className="w-full mt-20 custom-title text-center col-3 custom-border large">
+      <h2
+        itemProp="name"
+        className="w-full mt-20 custom-title text-center col-3 custom-border large">
         SECCIONES
       </h2>
 

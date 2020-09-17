@@ -1,13 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE,
-  ARC_ACCESS_TOKEN,
-} from 'fusion:environment'
-import getProperties from 'fusion:properties'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import { addSlashToEnd } from '../../components/utilities/parse/strings'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const options = {
   gzip: true,
@@ -33,14 +28,6 @@ export const itemsToArray = (itemString = '') => {
   })
 }
 
-const transformImg = (data, { 'arc-site': arcSite }) => {
-  const dataStory = data
-  const { resizerUrl } = getProperties(arcSite)
-  return (
-    addResizedUrlsToStory([dataStory], resizerUrl, resizerSecret)[0] || null
-  )
-}
-
 const fetch = key => {
   const site = key['arc-site'] || 'Arc Site no está definido'
 
@@ -53,8 +40,7 @@ const fetch = key => {
     const dataStory = collectionResp
 
     if (dataStory.type === 'redirect') return dataStory
-
-    return transformImg(dataStory)
+    return getResizedImageData(dataStory, null, site)
   })
 }
 

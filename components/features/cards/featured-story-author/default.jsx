@@ -1,11 +1,8 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
-import FeaturedAuthor from './_children/featured-author'
 import {
   includeCredits,
   includePrimarySection,
@@ -16,9 +13,12 @@ import {
   includeCreditsEducation,
   includeCreditsImage,
 } from '../../../utilities/included-fields'
+import schemaFilter from './_dependencies/schema-filter'
+import customFields from './_dependencies/custom-fields'
+import FeaturedAuthor from './_children/featured-author'
 
 const CardFeaturedStoryAuthor = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useAppContext()
 
   const {
     customFields: {
@@ -31,8 +31,8 @@ const CardFeaturedStoryAuthor = props => {
   } = props
 
   const presets =
-    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150,square_xs:47x47'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsRole},${includeCreditsEducation},${includeCreditsImage},credits.by.image.resized_urls.square_xs,${includePrimarySection},${includeSections},publish_date,display_date`
+    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsRole},${includeCreditsEducation},${includeCreditsImage},${includePrimarySection},${includeSections},publish_date,display_date`
 
   const data =
     useContent({
@@ -49,7 +49,6 @@ const CardFeaturedStoryAuthor = props => {
     author,
     authorLink,
     authorImage,
-    authorImageSquareXS,
     multimediaLandscapeMD,
     multimediaPortraitMD,
     multimediaLandscapeL,
@@ -77,7 +76,6 @@ const CardFeaturedStoryAuthor = props => {
         author,
         authorLink,
         authorImage,
-        authorImageSquareXS,
         multimediaLandscapeMD,
         multimediaPortraitMD,
         multimediaLandscapeL,
