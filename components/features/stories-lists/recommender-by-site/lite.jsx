@@ -7,12 +7,19 @@ import getProperties from 'fusion:properties'
 
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
+import { getAssetsPath } from '../../../utilities/constants'
 import { includePromoItems } from '../../../utilities/included-fields'
 
 import StoriesListRecommenderBySiteChild from './_lite/_children/linked-by-site'
 
 const StoriesListRecommenderBySite = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    isAdmin,
+    siteProperties,
+  } = useFusionContext()
   const {
     customFields: {
       enabledContentManual,
@@ -32,7 +39,7 @@ const StoriesListRecommenderBySite = props => {
 
   const presets = 'landscape_s:234x161,square_s:150x150'
 
-  const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${website ||
+  const includedFields = `headlines.basic,promo_items.basic_html.content,content_restrictions.content_code,${includePromoItems},websites.${website ||
     arcSite}.website_url`
 
   const dataManual =
@@ -60,30 +67,34 @@ const StoriesListRecommenderBySite = props => {
   })
 
   const process = contentElements => {
-    const stories = contentElements ? contentElements.map(story => {
-      storyData._data = story
+    const stories = contentElements
+      ? contentElements.map(story => {
+          storyData._data = story
 
-      const { websites = {} } = story || {}
-      const site = websites[website] || {}
-      const websiteUrl = site.website_url || ''
+          const { websites = {} } = story || {}
+          const site = websites[website] || {}
+          const websiteUrl = site.website_url || ''
 
-      const {
-        title,
-        websiteLink,
-        multimediaLazyDefault,
-        multimediaSquareS,
-        multimediaLandscapeS,
-      } = storyData
+          const {
+            title,
+            websiteLink,
+            multimediaLazyDefault,
+            multimediaSquareS,
+            multimediaLandscapeS,
+            isPremium,
+          } = storyData
 
-      return {
-        title,
-        websiteLink: `${siteUrl}${websiteUrl ||
-          websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
-        multimediaLazyDefault,
-        multimediaSquareS,
-        multimediaLandscapeS,
-      }
-    }) : []
+          return {
+            title,
+            websiteLink: `${siteUrl}${websiteUrl ||
+              websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
+            multimediaLazyDefault,
+            multimediaSquareS,
+            multimediaLandscapeS,
+            isPremium,
+          }
+        })
+      : []
     return stories
   }
 
@@ -94,6 +105,12 @@ const StoriesListRecommenderBySite = props => {
   const { content_elements: resaizedContentElements = [] } = data || {}
   const stories = process(resaizedContentElements)
 
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = siteProperties || {}
+
   const params = {
     isAdmin,
     siteName,
@@ -101,6 +118,11 @@ const StoriesListRecommenderBySite = props => {
     isTargetBlank: isTargetBlank ? { target: '_blank', rel: 'noopener' } : {},
     titleField,
     subtitleField,
+    logo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
+    arcSite,
   }
 
   return <StoriesListRecommenderBySiteChild {...params} />
