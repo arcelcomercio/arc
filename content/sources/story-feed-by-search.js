@@ -66,13 +66,15 @@ const getQueryFilter = (query, section, website) => {
     if (query !== '') {
       // queryAll = query.replace(/ /g, '+AND+')
       queryAll = query.replace(/\+/g, ' ')
-      queryAll = query.replace(/%2B/g, ' ')
-      queryAll = `("${decodeURI(encodeURIComponent(queryAll))}")`
+      queryAll = decodeURIComponent(queryAll)
+      queryAll = queryAll.replace(/&/g, '%26').replace(/€/g, '%E2%82%AC')
+      // .replace(/\?/g, '%3F')
+      // .replace(/%/g, '%25')
+      queryAll = `("${queryAll}")`
     }
     queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${queryAll}`
   } else {
     let valueQuery = query.replace(/\+/g, ' ')
-    valueQuery = query.replace(/%2B/g, ' ')
     valueQuery = valueQuery.replace(/-/g, '+') || '*'
 
     const body = {
@@ -202,7 +204,7 @@ const transform = (
   return {
     ...dataStories,
     query,
-    decoded_query: decodeURIComponent(query).replace(/\+/g, ' ').replace(/%2B/g, ' '),
+    decoded_query: decodeURIComponent(query).replace(/\+/g, ' '),
     page_number: pageNumber,
   }
 }
