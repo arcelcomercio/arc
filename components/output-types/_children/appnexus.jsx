@@ -16,7 +16,7 @@ const getSite = site => {
   return sites[site] || sites.elcomercio
 }
 
-const getTypeStory = ({ promo_items: promoItems = {} }) => {
+const getTypeStory = ({ promo_items: promoItems = {} } = {}) => {
   const type = promoItems
   const arrType = Object.keys(type)
   return arrType[0] === 'basic_gallery'
