@@ -202,7 +202,8 @@ const elcomerciomag = {
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
+      'Central Telefónica: 311-6500',
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
@@ -213,7 +214,8 @@ const elcomerciomag = {
       },
       {
         position: 'Empresa Editora El Comercio',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+        name:
+          'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
       },
       {
         position: 'Copyright © mag.elcomercio.pe',

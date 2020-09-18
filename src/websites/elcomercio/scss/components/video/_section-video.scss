@@ -7,12 +7,16 @@
   }
   &__frame {
     height: auto;
-    @media (--desktop) {
-      height: 350px;
-    }
   }
   &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @media (--only-mobile) {
+      padding: 20px;
+    }
     @media (--desktop) {
+      width: 70%;
       padding: 0 20px;
     }
   }
@@ -42,21 +46,10 @@
     line-height: 23px;
     font-size: 16px;
     font-family: $tertiary-font;
-    color: #aaaaaa;
+    color: #aaa;
   }
   &__bottom {
     display: none;
-  }
-  &__right {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    @media (--only-mobile) {
-      padding: 20px;
-    }
-    @media (--desktop) {
-      width: 70%;
-    }
   }
   &__detail {
     padding: 0;
@@ -84,7 +77,7 @@
   }
   &__caption {
     font-size: 14px;
-    color: #666666;
+    color: #666;
     font-family: $secondary-font;
   }
 }

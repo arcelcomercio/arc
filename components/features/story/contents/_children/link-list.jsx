@@ -1,5 +1,5 @@
 import React from 'react'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const Item = ({ url, title, image, imageDefault, site, isAmp }) => {
   const classAmp = isAmp ? 'amp-' : ''
@@ -15,7 +15,7 @@ const Item = ({ url, title, image, imageDefault, site, isAmp }) => {
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
       return (
-        getResizedUrl({
+        createResizedParams({
           url: urlImg,
           presets,
           arcSite: site,

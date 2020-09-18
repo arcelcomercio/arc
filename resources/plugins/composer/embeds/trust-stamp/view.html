@@ -20,10 +20,16 @@
         <div class="card-body">
           <strong>SELLO TRUST</strong>
           <p class="card-text text-muted" style="font-weight: bold;">
-            Si se deja vacío el campo "URL", por defecto tomara este path <code>/buenas-practicas</code>
+            Si se deja vacío el campo "URL de la imagen", por defecto tomara este path <code>/buenas-practicas/#trust-project</code>
           </p>
           <p class="card-text text-muted" style="font-weight: bold;">
-            URL: %url%
+            URL de la imagen: %url_img%
+          </p>
+          <p class="card-text text-muted" style="font-weight: bold;">
+            Si se deja vacío el campo "URL saber más", por defecto tomara este path <code>/buenas-practicas</code>
+          </p>
+          <p class="card-text text-muted" style="font-weight: bold;">
+            URL saber más: %url%
           </p>
         </div>
       </div>
@@ -86,6 +92,7 @@
       const html = template
         .replace(/%item_id%/gi, 'row-' + ansCustomEmbed.id)
         .replace(/%url%/gi, config.url || "")
+        .replace(/%url_img%/gi, config.url_img || "")
 
       const element = document.createElement('div')
       document.getElementById('search_content').appendChild(element)

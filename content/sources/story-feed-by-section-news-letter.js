@@ -1,9 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 import { removeLastSlash } from '../../components/utilities/parse/strings'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const SCHEMA_NAME = 'stories-dev'
 
@@ -121,14 +120,8 @@ const transform = (data, { 'arc-site': arcSite, section: rawSection }) => {
   ) {
     throw new RedirectError('/404', 404)
   }
-  const dataStory = data
-  const { resizerUrl, siteName } = getProperties(arcSite)
-  dataStory.content_elements = addResizedUrlsToStory(
-    dataStory.content_elements,
-    resizerUrl,
-    resizerSecret,
-    'newsletter'
-  )
+  const { siteName } = getProperties(arcSite)
+  const dataStory = getResizedImageData(data, 'newsletter', arcSite)
   dataStory.siteName = siteName
 
   const { content_elements: [{ taxonomy: { sites = [] } = {} } = {}] = [] } =

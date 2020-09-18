@@ -57,3 +57,14 @@ export const getResultVideo = (streams, arcSite, type = 'ts') => {
 
   return getAssetsPathVideo(arcSite, resultVideo[cantidadVideo - 1])
 }
+export const stripTags = (inputs, allowed = '') => {
+  const allowedNew = (
+    allowed.toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []
+  ).join('')
+  const tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi
+  const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi
+  return inputs.replace(commentsAndPhpTags, '').replace(tags, function($0, $1) {
+    const input = `<${$1.toLowerCase()}>`
+    return allowedNew.indexOf(input) > -1 ? $0 : ''
+  })
+}

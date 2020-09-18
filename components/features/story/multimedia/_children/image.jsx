@@ -1,8 +1,8 @@
 import React from 'react'
 import Static from 'fusion:static'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   image: '__image w-full o-cover',
@@ -11,7 +11,7 @@ const classes = {
 }
 
 /**
- * Este componente es muy similar a 
+ * Este componente es muy similar a
  * components/features/story/contents/_children/image.jsx
  * utilizado exclusivamente para la version lite.
  * Solo cambia el objeto de classes y una validacion para SITE_TROME.
@@ -26,21 +26,17 @@ const StoryContentChildImage = ({
   primaryImage = false,
   completeImage = false,
   classImage = 'story-contents',
-  presets = `landscape_md:314x157,story_small:482x290,large:${completeImage ? '980x528' : '580x330'}`,
+  presets = `landscape_md:314x157,story_small:482x290,large:${
+    completeImage ? '980x528' : '580x330'
+  }`,
 }) => {
-  const { arcSite } = useFusionContext()
-  const extractImage = urlImg => {
-    if (typeof window === 'undefined') {
-      return (
-        getResizedUrl({
-          url: urlImg,
-          presets,
-          arcSite,
-        }) || {}
-      )
-    }
-    return urlImg
-  }
+  const { arcSite } = useAppContext()
+  const extractImage = urlImg =>
+    createResizedParams({
+      url: urlImg,
+      presets,
+      arcSite,
+    }) || {}
 
   const renderCompleteImage = () => (
     /**
@@ -61,11 +57,12 @@ const StoryContentChildImage = ({
         src={extractImage(multimediaLarge || url).large}
         alt={caption}
         className={`${classImage}${classes.image} ${classImage}${classes.imageBig}`}
+        importance="high"
       />
     </>
   )
 
-  const renderCommonImage = () => (
+  const renderCommonImage = () =>
     primaryImage ? (
       // Si es la imagen principal no necesita lazyload
       <>
@@ -81,6 +78,7 @@ const StoryContentChildImage = ({
           src={extractImage(multimediaLarge || url).large}
           alt={caption}
           className={`${classImage}${classes.image}`}
+          importance="high"
         />
       </>
     ) : (
@@ -103,10 +101,10 @@ const StoryContentChildImage = ({
           data-src={extractImage(multimediaLarge || url).large}
           alt={caption}
           className={`lazy ${classImage}${classes.image}`}
+          importance="low"
         />
       </>
     )
-  )
 
   return (
     <>

@@ -14,7 +14,7 @@ import { includePromoItems } from '../../../utilities/included-fields'
 
 import StoriesListRecommenderBySiteChild from './_children/linked-by-site'
 
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const StoriesListRecommenderBySite = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -76,38 +76,40 @@ const StoriesListRecommenderBySite = props => {
   })
 
   const process = (contentElements, websiteConf, siteUrlConf) => {
-    const stories = contentElements ? contentElements.map(story => {
-      storyData._data = story
+    const stories = contentElements
+      ? contentElements.map(story => {
+          storyData._data = story
 
-      const { websites = {} } = story || {}
-      const site = websites[websiteConf] || {}
-      const websiteUrl = site.website_url || ''
+          const { websites = {} } = story || {}
+          const site = websites[websiteConf] || {}
+          const websiteUrl = site.website_url || ''
 
-      const {
-        title,
-        websiteLink,
-        multimedia,
-        multimediaLazyDefault,
-      } = storyData
+          const {
+            title,
+            websiteLink,
+            multimedia,
+            multimediaLazyDefault,
+          } = storyData
 
-      const { landscape_s: landscapeS, square_s: squareS } =
-        typeof window === 'undefined'
-          ? getResizedUrl({
-              url: multimedia,
-              presets: 'landscape_s:234x161,square_s:150x150',
-              arcSite: websiteConf || arcSite,
-            }) || {}
-          : {}
+          const { landscape_s: landscapeS, square_s: squareS } =
+            typeof window === 'undefined'
+              ? createResizedParams({
+                  url: multimedia,
+                  presets: 'landscape_s:234x161,square_s:150x150',
+                  arcSite: websiteConf || arcSite,
+                }) || {}
+              : {}
 
-      return {
-        title,
-        websiteLink: `${siteUrlConf}${websiteUrl ||
-          websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
-        multimediaLazyDefault,
-        multimediaSquareS: squareS || multimedia,
-        multimediaLandscapeS: landscapeS || multimedia,
-      }
-    }) : []
+          return {
+            title,
+            websiteLink: `${siteUrlConf}${websiteUrl ||
+              websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
+            multimediaLazyDefault,
+            multimediaSquareS: squareS || multimedia,
+            multimediaLandscapeS: landscapeS || multimedia,
+          }
+        })
+      : []
     return stories
   }
 

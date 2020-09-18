@@ -1,4 +1,3 @@
-import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 import { formatSlugToText } from '../../components/utilities/parse/strings'
@@ -6,7 +5,7 @@ import {
   getYYYYMMDDfromISO,
   getActualDate,
 } from '../../components/utilities/date-time/dates'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 let globalParams = {}
 
@@ -23,6 +22,11 @@ const params = [
     displayName: 'Fecha',
     type: 'text',
   },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
+  },
 ]
 
 const getNextDate = date => {
@@ -31,14 +35,9 @@ const getNextDate = date => {
   return getYYYYMMDDfromISO(requestedDate)
 }
 
-const transform = (data, { 'arc-site': arcSite }) => {
-  const dataStories = data
-  const { resizerUrl, siteName } = getProperties(arcSite)
-  dataStories.content_elements = addResizedUrlsToStory(
-    dataStories.content_elements,
-    resizerUrl,
-    resizerSecret
-  )
+const transform = (data, { 'arc-site': website, presets }) => {
+  const { siteName } = getProperties(website)
+  const dataStories = getResizedImageData(data, presets, website)
   dataStories.siteName = siteName
 
   const aux = {

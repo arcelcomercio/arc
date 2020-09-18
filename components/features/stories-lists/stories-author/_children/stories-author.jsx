@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from '../../../../global-components/image'
 
 const classes = {
   container: 'stories-author__container flex flex-col',
@@ -12,13 +13,18 @@ const classes = {
   storyImg: 'stories-author__img',
   storyImgMain: 'stories-author__img stories-author__img--main',
   storyImgLink: 'stories-author__img-link',
-  storyPicture: '',
   occupation: 'stories-author__occupation uppercase position-relative pb-10',
   title: 'stories-author__title',
   titleMain:
     'stories-author__title stories-author__title--main text-center pt-10',
 }
-const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
+const StoriesAuthor = ({
+  data,
+  dataList,
+  section,
+  sectionLink,
+  defaultAuthorImage,
+}) => {
   return (
     <div className={classes.container}>
       <div className={classes.section}>
@@ -34,21 +40,15 @@ const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
           itemProp="url"
           className={classes.storyImgLink}
           href={data.authorLink}>
-          <picture className={classes.storyPicture}>
-            <source
-              className={isAdmin ? '' : 'lazy'}
-              media="(max-width: 639px)"
-              type="image/jpeg"
-              srcSet={isAdmin ? data.authorImage : data.multimediaLazyDefault}
-              data-srcset={data.authorImage}
-            />
-            <img
-              className={`${isAdmin ? '' : 'lazy'} ${classes.storyImgMain}`}
-              data-src={data.authorImage}
-              src={isAdmin ? data.authorImage : data.multimediaLazyDefault}
-              alt={data.title}
-            />
-          </picture>
+          <Image
+            src={data.authorImage}
+            placeholder={defaultAuthorImage}
+            width={100}
+            height={100}
+            alt={data.titleMain}
+            className={classes.storyImgMain}
+            loading="lazy"
+          />
         </a>
         <a itemProp="url" className={classes.authorMain} href={data.authorLink}>
           {data.author}
@@ -59,28 +59,23 @@ const StoriesAuthor = ({ data, dataList, isAdmin, section, sectionLink }) => {
         </a>
       </div>
       {dataList &&
-        dataList.map(el => {
+        dataList.map((el, i) => {
           return (
             <div className={classes.item}>
               <a
                 itemProp="url"
                 className={classes.storyImgLink}
                 href={el.authorLink}>
-                <picture className={classes.storyPicture}>
-                  <source
-                    className={isAdmin ? '' : 'lazy'}
-                    media="(max-width: 639px)"
-                    type="image/jpeg"
-                    srcSet={isAdmin ? el.authorImage : el.multimediaLazyDefault}
-                    data-srcset={el.authorImage}
-                  />
-                  <img
-                    className={`${isAdmin ? '' : 'lazy'} ${classes.storyImg}`}
-                    data-src={el.authorImage}
-                    src={isAdmin ? el.authorImage : el.multimediaLazyDefault}
-                    alt={el.title}
-                  />
-                </picture>
+                <Image
+                  uid={`${el.author}${i}`}
+                  src={el.authorImage}
+                  placeholder={defaultAuthorImage}
+                  width={65}
+                  height={65}
+                  alt={el.title}
+                  className={classes.storyImg}
+                  loading="lazy"
+                />
               </a>
               <div className={classes.itemBox}>
                 <a

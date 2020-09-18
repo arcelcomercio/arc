@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import StoryData from '../../../utilities/story-data'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 import AuthorCard from './_children/author-card'
 import EditorialCard from './_children/editorial-card'
@@ -57,7 +57,7 @@ const StaticOpinionGrid = () => {
           const { credits: { by = [] } = {} } = story || {}
           const { image: { url } = {} } = by[0] || {}
 
-          const { square_md: resizedAuthorImage } = getResizedUrl({
+          const { square_md: resizedAuthorImage } = createResizedParams({
             url,
             presets: 'square_md:100x100',
             arcSite,
@@ -165,7 +165,7 @@ const StaticOpinionGrid = () => {
           const { credits: { by = [] } = {} } = story || {}
           const { image: { url } = {} } = by[0] || {}
 
-          const { square_sm: resizedAuthorImageSmall } = getResizedUrl({
+          const { square_sm: resizedAuthorImageSmall } = createResizedParams({
             url,
             presets: 'square_sm:70x70',
             arcSite,

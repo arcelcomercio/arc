@@ -1,7 +1,7 @@
 import React from 'react'
 import StoriesListCardChildItem from './item'
 import StoryData from '../../../../utilities/story-data'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   list: 'sec-col__list bg-white h-full',
@@ -23,7 +23,7 @@ const StoriesListsCardChildList = ({
 
   const getMultimedia = () => {
     const { landscape_md: landscapeMd } =
-      getResizedUrl({
+      createResizedParams({
         url: Story.multimedia,
         presets: 'landscape_md:314x157',
         arcSite,

@@ -1,14 +1,13 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import StoriesAuthorChild from './_children/stories-author'
 import StoryData from '../../../utilities/story-data'
+import { defaultAuthorImage } from '../../../utilities/assets'
 import {
-  includePromoItems,
-  includePromoItemsCaptions,
   includePrimarySection,
   includeSections,
   includeCreditsRole,
@@ -17,11 +16,10 @@ import {
 } from '../../../utilities/included-fields'
 
 const StoriesListAuthor = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
 
-  const presets =
-    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
-  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,${includeCreditsEducation},${includeCreditsRole},${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},${includeSections}`
+  const presets = 'no-presets'
+  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,${includeCreditsEducation},${includeCreditsRole},websites.${arcSite}.website_url,${includePrimarySection},${includeSections}`
 
   const {
     customFields: {
@@ -57,10 +55,6 @@ const StoriesListAuthor = props => {
       author: storyObj.author,
       authorLink: storyObj.authorLink,
       authorImage: storyObj.authorImage,
-      multimediaLandscapeMD: storyObj.multimediaLandscapeMD,
-      multimediaPortraitMD: storyObj.multimediaPortraitMD,
-      multimediaLandscapeL: storyObj.multimediaLandscapeL,
-      multimediaLazyDefault: storyObj.multimediaLazyDefault,
       authorOccupation: storyObj.authorOccupation,
       subTitle: storyObj.subTitle,
       multimediaType: storyObj.multimediaType,
@@ -72,9 +66,9 @@ const StoriesListAuthor = props => {
     <StoriesAuthorChild
       data={storyFirst}
       dataList={storyList}
-      isAdmin={isAdmin}
       section={section}
       sectionLink={sectionLink}
+      defaultAuthorImage={defaultAuthorImage(arcSite, contextPath)}
     />
   )
 }
