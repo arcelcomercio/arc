@@ -11,12 +11,15 @@ const classes = {
 
 const StoryHeaderChildPicture = (slide = {}) => {
   const { arcSite } = useAppContext()
+  const imageHorizontal =
+    'landscape_md:314x157,story_small:482x290,large:980x528'
+  const imageVertical = 'landscape_md:314x,story_small:482x,large:980x'
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
       return (
         createResizedParams({
           url: slide.url,
-          presets: 'landscape_md:314x157,story_small:482x290,large:980x528',
+          presets: slide.itemv ? imageVertical : imageHorizontal,
           arcSite,
         }) || {}
       )

@@ -52,6 +52,7 @@ import {
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 
@@ -154,10 +155,14 @@ const StoryContentsLite = () => {
   return (
     <>
       <div className={classes.news}>
-        {SITE_ELCOMERCIO === arcSite ? (
-          <StoryContentsChildAuthorTrustLite {...params} />
-        ) : (
-          <StoryContentsChildAuthorLite {...params} />
+        {subtype !== GALLERY_VERTICAL && (
+          <>
+            {SITE_ELCOMERCIO === arcSite ? (
+              <StoryContentsChildAuthorTrustLite {...params} />
+            ) : (
+              <StoryContentsChildAuthorLite {...params} />
+            )}
+          </>
         )}
         <div
           id="gpt_caja3"

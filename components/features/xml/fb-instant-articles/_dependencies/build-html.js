@@ -13,6 +13,7 @@ import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-ty
 import {
   STORY_CORRECTION,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
 } from '../../../../utilities/constants/subtypes'
 import { getResultVideo, stripTags } from '../../../../utilities/story/helpers'
 
@@ -524,7 +525,9 @@ const multimediaHeader = (
   { type = '', payload = '' },
   title,
   videoPrincipal,
-  arcSite
+  arcSite,
+  subtype,
+  contentElementGallery
 ) => {
   let result = ''
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
@@ -545,16 +548,40 @@ const multimediaHeader = (
       }</figure>`
       break
     case ConfigParams.GALLERY:
-      result = `<figure class="op-slideshow">${payload.map(url => {
-        // eslint-disable-next-line no-shadow
-        const { resizedImage } = createResizedParams({
-          url,
-          presets,
-          arcSite,
-        })
-        return `<figure><img src="${resizedImage || url}" /></figure>`
-      })}${title ? `<figcaption>${title}</figcaption>` : ''}</figure>`
-      break
+      if (subtype === GALLERY_VERTICAL) {
+        const { content_elements: contentElements } = contentElementGallery
+        result = `${contentElements.map(
+          ({
+            caption = '',
+            additional_properties: { resizeUrl = '' } = {},
+            subtitle = '',
+          }) => {
+            // eslint-disable-next-line no-shadow
+            const { resizedImage } = createResizedParams({
+              url: resizeUrl,
+              presets,
+              arcSite,
+            })
+            return `<figure><img src="${resizedImage || resizeUrl}" /> ${
+              title
+                ? `<figcaption><strong>${subtitle}</strong>${caption}</figcaption>`
+                : ''
+            } </figure>`
+          }
+        )}`
+        break
+      } else {
+        result = `<figure class="op-slideshow">${payload.map(url => {
+          // eslint-disable-next-line no-shadow
+          const { resizedImage } = createResizedParams({
+            url,
+            presets,
+            arcSite,
+          })
+          return `<figure><img src="${resizedImage || url}" /></figure>`
+        })}${title ? `<figcaption>${title}</figcaption>` : ''}</figure>`
+        break
+      }
     case ConfigParams.ELEMENT_YOUTUBE_ID:
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe>${
         title ? `<figcaption>${title}</figcaption>` : ''
@@ -591,6 +618,8 @@ const BuildHtml = ({
   defaultImage,
   recommenderData,
   videoPrincipal = [],
+  subtype,
+  contentElementGallery,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -649,7 +678,14 @@ const BuildHtml = ({
         ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
         <time class="op-published" datetime="${oppublished}"> ${oppublished}</time>
       </header>
-      ${multimediaHeader(multimedia, title, videoPrincipal, arcSite)}
+      ${multimediaHeader(
+        multimedia,
+        title,
+        videoPrincipal,
+        arcSite,
+        subtype,
+        contentElementGallery
+      )}
       
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}

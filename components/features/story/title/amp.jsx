@@ -3,7 +3,6 @@ import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
-import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 import StoryData from '../../../utilities/story-data'
 import { storyTagsBbc } from '../../../utilities/tags'
 import { getAssetsPath } from '../../../utilities/assets'
@@ -22,14 +21,13 @@ const classes = {
 const StoryTitleAmp = () => {
   const { arcSite, contextPath, globalContent: data } = useFusionContext()
 
-  const { adsAmp, siteUrl } = getProperties(arcSite)
+  const { adsAmp } = getProperties(arcSite)
 
   const {
     title,
     subTitle,
     tags,
     primarySectionLink,
-    link,
     promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
   } = new StoryData({
     data,
@@ -85,16 +83,6 @@ const StoryTitleAmp = () => {
         />
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         <StorySocialChildAmpSocial />
-
-        {galleryItems && (
-          <StoryHeaderChildAmpGallery
-            data={galleryItems}
-            link={link}
-            siteUrl={siteUrl}
-            width="500"
-            height="300"
-          />
-        )}
       </div>
     </>
   )
