@@ -61,7 +61,11 @@ const getQueryFilter = (query, section, website) => {
   let queryAll = query
   queryAll = query.replace(/\+/g, ' ')
   queryAll = decodeURIComponent(queryAll)
-  queryAll = queryAll.replace(/&/g, '%26').replace(/€/g, '%E2%82%AC')
+  queryAll = queryAll
+    .replace(/%/g, '%25')
+    .replace(/&/g, '%26')
+    // .replace(/\|/g, '%7C')
+    .replace(/€/g, '%E2%82%AC')
 
   let queryFilter = ''
 
@@ -211,7 +215,10 @@ const transform = (
   return {
     ...dataStories,
     query,
-    decoded_query: decodeURIComponent(decodeURIComponent(query)).replace(/\+/g, ' '),
+    decoded_query: decodeURIComponent(decodeURIComponent(query)).replace(
+      /\+/g,
+      ' '
+    ),
     page_number: pageNumber,
   }
 }
