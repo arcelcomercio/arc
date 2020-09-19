@@ -71,7 +71,7 @@ const PropertiesSite = {
       },
       {
         title: 'Diario impreso',
-        image: `${cdnStaticEc}//images/landing/beneficios/beneficio3.png`,
+        image: `${cdnStaticEc}/images/landing/beneficios/beneficio3.png`,
         description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas.`,
       },
       {
