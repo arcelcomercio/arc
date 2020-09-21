@@ -623,59 +623,22 @@ export default ({
         )}
         {hasYoutubeVideo && (
           <>
-            <style
-              dangerouslySetInnerHTML={{
-                __html: `
-              .lyt-container {
-                cursor: pointer;
-              }
-              /* play button */
-              .lty-playbtn {
-                width: 70px;
-                height: 46px;
-                background-color: #212121;
-                z-index: 1;
-                opacity: 0.8;
-                border-radius: 14%; /* TODO: Consider replacing this with YT's actual svg. Eh. */
-                transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
-                border: 0;
-              }
-              .lyt-container:hover .lty-playbtn {
-                background-color: #f00;
-                opacity: 1;
-              }
-              /* play button triangle */
-              .lty-playbtn:before {
-                content: '';
-                border-style: solid;
-                border-width: 11px 0 11px 19px;
-                border-color: transparent transparent transparent #fff;
-              }
-              .lty-playbtn,
-              .lty-playbtn:before {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate3d(-50%, -50%, 0);
-              }
-
-              /* Post-click styles */
-              .lyt-activated {
-                cursor: unset;
-              }
-
-              .lyt-container.lyt-activated::before,
-              .lyt-activated .lty-playbtn {
-                display: none;
-              }`,
+            <Resource path='resources/assets/lite-youtube/styles.min.css'>
+              {({ data }) => {
+                return data ? (
+                  <style
+                    dangerouslySetInnerHTML={{
+                      __html: data
+                    }}
+                  />
+                ) : null
               }}
-            />
+            </Resource>
             <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                const lyt = Array.from(document.querySelectorAll('.lyt-container'))
-              `,
-              }}
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/lite-youtube/lite-youtube.js`
+              )}
             />
           </>
         )}

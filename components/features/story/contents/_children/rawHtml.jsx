@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import LiteYoutube from '../../../../global-components/lite-youtube'
 
 const classes = {
   newsEmbed: 'story-content__embed',
@@ -65,57 +66,63 @@ class rawHTML extends PureComponent {
   render() {
     const { content } = this.props
     const idVideo = storyVideoPlayerId(content)
-
     const idVideoEmbed =
       isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
         : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
-
     const isWidgets = this.URL && this.URL.includes('widgets.js')
-    const videosEmbed = content.includes('<iframe')
-
-    return (
-      <>
-        {this.URL_VIDEO || this.URL ? (
-          <>
+    if(this.URL_VIDEO || this.URL) {
+      return (
+        <>
             {this.URL_VIDEO && (
               <div id={idVideoEmbed} className={classes.newsEmbed}>
-                <script src={this.URL_VIDEO.replace('"', '')} defer></script>
+                <script src={this.URL_VIDEO.replace('"', '')} defer/>
               </div>
             )}
-            {this.URL && <script src={this.URL} defer></script>}
+            {this.URL && <script src={this.URL} defer/>}
 
             {isWidgets && (
               <div
-                className={classes.newsEmbed}
+              className={classes.newsEmbed}
                 dangerouslySetInnerHTML={{
                   __html: content,
                 }}
               />
-            )}
+              )}
+          </>
+      )
+    }
+    
+    // Return aqui en caso de que sea video de Youtube
+    const hasYoutubeVideo = /youtu\.be|youtube\.com/.test(content)
+    if(hasYoutubeVideo) {
+      const [, videoId] = content.match(/\/embed\/([\w-]+)/) || []
+      if(videoId) return <LiteYoutube videoId={videoId} loading='lazy'/>
+    }
+    
+    // Fallback para cualquier iframe y contenido en general
+    const iframeEmbed = content.includes('<iframe')
+    return (
+      <>
+        {iframeEmbed ? (
+          <>
+            <div
+              className="story-contents__lL-iframe story-contents__p-default"
+              data-type="iframe"
+              data-iframe={content}
+            />
           </>
         ) : (
-          <>
-            {videosEmbed ? (
-              <>
-                <div
-                  className="story-contents__lL-iframe story-contents__p-default"
-                  data-type="iframe"
-                  data-iframe={content}></div>
-              </>
-            ) : (
-              <div
-                className={classes.newsEmbed}
-                dangerouslySetInnerHTML={{
-                  __html: isDaznServicePlayer(content)
-                    ? content.trim().replace('performgroup', 'daznservices')
-                    : content
-                        .replace('</script>:', '</script>')
-                        .replace(':<script', '<script'),
-                }}
-              />
-            )}
-          </>
+          <div
+            className={classes.newsEmbed}
+            dangerouslySetInnerHTML={{
+              __html: isDaznServicePlayer(content)
+                ? content.trim().replace('performgroup', 'daznservices')
+                : content
+                    .replace('</script>:', '</script>')
+                    .replace(':<script', '<script'),
+            }}
+          />
         )}
       </>
     )
