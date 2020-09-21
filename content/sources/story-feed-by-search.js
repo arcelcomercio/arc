@@ -58,19 +58,35 @@ const params = [
 ]
 
 const getQueryFilter = (query, section, website) => {
+  let queryAll = query
+  queryAll = query.replace(/\+/g, ' ')
+  queryAll = decodeURIComponent(queryAll)
+  queryAll = queryAll
+    .replace(/%/g, '%25')
+    .replace(/&/g, '%26')
+    // .replace(/\|/g, '%7C')
+    .replace(/€/g, '%E2%82%AC')
+
   let queryFilter = ''
 
   // Si se filtra por seccion se usa ?body, sino, se usa ?q
   if (section === 'todas') {
-    let queryAll = query
+    // let queryAll = query
     if (query !== '') {
       // queryAll = query.replace(/ /g, '+AND+')
-      queryAll = `("${decodeURI(encodeURIComponent(queryAll))}")`
+      /* queryAll = query.replace(/\+/g, ' ')
+      queryAll = decodeURIComponent(queryAll)
+      queryAll = queryAll.replace(/&/g, '%26').replace(/€/g, '%E2%82%AC') */
+      // .replace(/\?/g, '%3F')
+      // .replace(/%/g, '%25')
+      queryAll = `("${queryAll}")`
     }
     queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${queryAll}`
   } else {
-    let valueQuery = query.replace(/\+/g, ' ')
-    valueQuery = valueQuery.replace(/-/g, '+') || '*'
+    /* let valueQuery = query.replace(/\+/g, ' ')
+    valueQuery = valueQuery.replace(/-/g, '+') || '*' */
+
+    queryAll = queryAll.replace(/-/g, '+') || '*'
 
     const body = {
       query: {
@@ -83,7 +99,7 @@ const getQueryFilter = (query, section, website) => {
             },
             {
               simple_query_string: {
-                query: `"${decodeURI(valueQuery)}"`, // El navegador encodea las tildes
+                query: `"${decodeURI(queryAll)}"`, // El navegador encodea las tildes
               },
             },
             {
@@ -199,7 +215,10 @@ const transform = (
   return {
     ...dataStories,
     query,
-    decoded_query: decodeURIComponent(query).replace(/\+/g, ' '),
+    decoded_query: decodeURIComponent(decodeURIComponent(query)).replace(
+      /\+/g,
+      ' '
+    ),
     page_number: pageNumber,
   }
 }

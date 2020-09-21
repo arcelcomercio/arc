@@ -6,8 +6,6 @@ export default {
   api: {
     blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php',
   },
-  googleFonts: '',
-
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://elcomercio.pe',
