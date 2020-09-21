@@ -138,7 +138,10 @@ const AmpOutputType = ({
   const hasTwitter = rawHtmlContent.includes('twitter.com')
   const hasSoundcloud = rawHtmlContent.includes('soundcloud.com/playlists/')
   const hasIframe =
-    rawHtmlContent.includes('<iframe') || content.includes('<iframe')
+    content.includes('<iframe') ||
+    /<iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
+      rawHtmlContent
+    )
   const hasJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
   /**
    * Se reemplaza los .mp4 de JWplayer para poder usar el fallback de
