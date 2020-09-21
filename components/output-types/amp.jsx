@@ -52,7 +52,7 @@ const AmpOutputType = ({
   if (isPremium)
     throw new RedirectError(`${siteProperties.siteUrl}${canonicalUrl}`, 301)
 
-  const isStory = requestUri.match(`^(/(.*)/.*-noticia)`)
+  const isStory = /^\/.*\/.*-noticia/.test(requestUri)
 
   const metaSiteData = {
     ...siteProperties,
@@ -68,7 +68,7 @@ const AmpOutputType = ({
 
   const seoTitle =
     metaValue('title') &&
-    !metaValue('title').match(/content/) &&
+    !metaValue('title').includes('content') &&
     metaValue('title')
 
   const title = `${seoTitle}: ${
@@ -76,7 +76,7 @@ const AmpOutputType = ({
   } | ${siteProperties.siteTitle.toUpperCase()}`
 
   const description =
-    metaValue('description') && !metaValue('description').match(/content/)
+    metaValue('description') && !metaValue('description').includes('content')
       ? `${metaValue('description')} `
       : 'Últimas noticias en Perú y el mundo'
 
@@ -117,6 +117,9 @@ const AmpOutputType = ({
     requestUri,
   }
   const {
+    mp3Path,
+    idYoutube,
+    quantityGalleryItem,
     videoSeo,
     promoItems: { basic_html: { content = '' } = {} } = {},
     contentElementsHtml,
@@ -128,18 +131,26 @@ const AmpOutputType = ({
 
   let rawHtmlContent = contentElementsHtml
 
-  const isJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
+  const hasGallery = quantityGalleryItem > 0
+  const hasYoutube = idYoutube || /youtu\.be|youtube\.com/.test(rawHtmlContent)
+  const hasFacebook = rawHtmlContent.includes('facebook.com/plugins/')
+  const hasInstagram = rawHtmlContent.includes('instagram-media')
+  const hasTwitter = rawHtmlContent.includes('twitter.com')
+  const hasSoundcloud = rawHtmlContent.includes('soundcloud.com/playlists/')
+  const hasIframe =
+    rawHtmlContent.includes('<iframe') || content.includes('<iframe')
+  const hasJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
   /**
    * Se reemplaza los .mp4 de JWplayer para poder usar el fallback de
-   * isPowaVideo `.includes('.mp4')
+   * hasPowaVideo `.includes('.mp4')
    */
-  if (isJwVideo)
+  if (hasJwVideo)
     rawHtmlContent = rawHtmlContent.replace(
       /content.jwplatform.com\/videos\/(.+).mp4/g,
       ''
     )
 
-  const isPowaVideo =
+  const hasPowaVideo =
     content.includes('id="powa-') ||
     videoSeo[0] ||
     rawHtmlContent.includes('.mp4')
@@ -162,7 +173,9 @@ const AmpOutputType = ({
         <title>{title}</title>
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
-        <meta name="amp-experiments-opt-in" content="amp-next-page" />
+        {arcSite === SITE_GESTION && (
+          <meta name="amp-experiments-opt-in" content="amp-next-page" />
+        )}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
         <MetaStory {...metaPageData} />
@@ -193,15 +206,38 @@ const AmpOutputType = ({
           custom-element="amp-analytics"
           src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
         />
+        {mp3Path && (
+          <script
+            async
+            custom-element="amp-audio"
+            src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"
+          />
+        )}
+        {hasGallery && (
+          <script
+            async
+            custom-element="amp-carousel"
+            src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
+          />
+        )}
+        {hasPowaVideo && (
+          <>
+            <script
+              async
+              custom-element="amp-ima-video"
+              src="https://cdn.ampproject.org/v0/amp-ima-video-0.1.js"
+            />
+            <script
+              async
+              custom-element="amp-video-docking"
+              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
+            />
+          </>
+        )}
         <script
           async
-          custom-element="amp-sidebar"
-          src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
-        />
-        <script
-          async
-          custom-element="amp-iframe"
-          src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
+          custom-element="amp-social-share"
+          src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"
         />
         <script
           async
@@ -213,6 +249,65 @@ const AmpOutputType = ({
           custom-element="amp-ad"
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
         />
+        {hasIframe && (
+          <script
+            async
+            custom-element="amp-iframe"
+            src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
+          />
+        )}
+        {hasYoutube && (
+          <script
+            async
+            custom-element="amp-youtube"
+            src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"
+          />
+        )}
+        <script
+          async
+          custom-element="amp-sidebar"
+          src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
+        />
+        {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && hasJwVideo && (
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
+        )}
+        {hasTwitter && (
+          <script
+            async
+            custom-element="amp-twitter"
+            src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"
+          />
+        )}
+        {hasInstagram && (
+          <script
+            async
+            custom-element="amp-instagram"
+            src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js"
+          />
+        )}
+        {hasFacebook && (
+          <script
+            async
+            custom-element="amp-facebook"
+            src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
+          />
+        )}
+        <script
+          async
+          custom-element="amp-fx-flying-carpet"
+          src="https://cdn.ampproject.org/v0/amp-fx-flying-carpet-0.1.js"
+        />
+        {arcSite === SITE_DEPOR && hasSoundcloud && (
+          <script
+            async
+            custom-element="amp-soundcloud"
+            src="https://cdn.ampproject.org/v0/amp-soundcloud-0.1.js"
+          />
+        )}
         <script
           async
           custom-element="amp-bind"
@@ -220,10 +315,9 @@ const AmpOutputType = ({
         />
         <script
           async
-          custom-element="amp-audio"
-          src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"
+          custom-element="amp-fit-text"
+          src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
         />
-
         {arcSite === SITE_GESTION && (
           <script
             async
@@ -231,72 +325,6 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
           />
         )}
-        <script
-          async
-          custom-element="amp-youtube"
-          src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"
-        />
-        <script
-          async
-          custom-element="amp-carousel"
-          src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
-        />
-        {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && isJwVideo && (
-          <script
-            async
-            custom-element="amp-jwplayer"
-            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-          />
-        )}
-        <script
-          async
-          custom-element="amp-twitter"
-          src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"
-        />
-        <script
-          async
-          custom-element="amp-instagram"
-          src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js"
-        />
-        <script
-          async
-          custom-element="amp-facebook"
-          src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
-        />
-        <script
-          async
-          custom-element="amp-fx-flying-carpet"
-          src="https://cdn.ampproject.org/v0/amp-fx-flying-carpet-0.1.js"
-        />
-        {arcSite === SITE_DEPOR && (
-          <script
-            async
-            custom-element="amp-soundcloud"
-            src="https://cdn.ampproject.org/v0/amp-soundcloud-0.1.js"></script>
-        )}
-        {isPowaVideo && (
-          <>
-            <script
-              async
-              custom-element="amp-ima-video"
-              src="https://cdn.ampproject.org/v0/amp-ima-video-0.1.js"></script>
-
-            <script
-              async
-              custom-element="amp-video-docking"
-              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
-            />
-          </>
-        )}
-        <script
-          async
-          custom-element="amp-fit-text"
-          src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
-        />
-        <script
-          async
-          custom-element="amp-social-share"
-          src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
       </head>
       <body className="">
