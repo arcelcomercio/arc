@@ -1,11 +1,11 @@
 import Consumer from 'fusion:consumer'
-import ConfigParams from '../../../utilities/config-params'
+import { VIDEO } from '../../../utilities/constants/multimedia-types'
 import { localISODate } from '../../../utilities/helpers'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 import schemaFilter from './_dependencies/schema-filter'
 
 const SOURCE = 'story-feed-by-section'
 const VIDEO_FORMAT = 'mp4'
-const { VIDEO } = ConfigParams
 
 /**
  * @description Sitemap para Videos.
@@ -70,6 +70,12 @@ class XmlVideosSitemap {
             } = {},
           } = promoItems[VIDEO] || {}
 
+          const { image } = createResizedParams({
+            url: thumbnailUrl,
+            presets: 'image:1280×720',
+            arcSite,
+          })
+
           const dataVideo =
             streams &&
             streams
@@ -85,7 +91,7 @@ class XmlVideosSitemap {
             url: {
               loc: `${siteUrl}${storyUrl}`,
               'video:video': [
-                { 'video:thumbnail_loc': thumbnailUrl },
+                { 'video:thumbnail_loc': image },
                 { 'video:title': title },
                 { 'video:description': description },
                 { 'video:content_loc': videoUrl },
