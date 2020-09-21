@@ -551,18 +551,23 @@ const multimediaHeader = (
       if (subtype === GALLERY_VERTICAL) {
         const { content_elements: contentElements } = contentElementGallery
         result = `${contentElements.map(
-          ({
-            caption = '',
-            additional_properties: { resizeUrl = '' } = {},
-            subtitle = '',
-          }) => {
+          (
+            {
+              caption = '',
+              additional_properties: { resizeUrl = '' } = {},
+              subtitle = '',
+            },
+            i
+          ) => {
             // eslint-disable-next-line no-shadow
             const { resizedImage } = createResizedParams({
               url: resizeUrl,
               presets,
               arcSite,
             })
-            return `<figure><img src="${resizedImage || resizeUrl}" /> ${
+            return `<p>Foto ${i + 1} de ${
+              contentElements.length
+            }</p><figure><img src="${resizedImage || resizeUrl}" /> ${
               title
                 ? `<figcaption><strong>${subtitle}</strong>${caption}</figcaption>`
                 : ''

@@ -67,7 +67,7 @@ const StoryHeaderChildAmpGallery = props => {
               <>
                 <div className={classes.pager}>
                   <div className={classes.count}>
-                    Foto <span>{i} </span> de {data.length}
+                    Foto <span>{i + 1} </span> de {data.length}
                   </div>
                 </div>
                 <div className="slide">
