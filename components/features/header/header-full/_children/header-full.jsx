@@ -16,6 +16,13 @@ const classes = {
   container:
     'header-full__container h-full flex justify-between position-relative',
   left: 'header-full__left flex items-center',
+  newsCin: 'header-full__newsletter flex',
+  newsCinDesk: 'header-full__newsletter-newsCinDesk',
+  newsCinMob: 'header-full__newsletter-newsCinMob',
+  newsCinText: 'header-full__newsletter-text',
+  newsCinTooltip: 'header-full__newsletter-tooltip',
+  newsCinModal: 'header-full__newsletter-modal',
+  newsCinModalClose: 'header-full__newsletter-modal-close',
   boxBtnMenu:
     'header-full__box-btnmenu h-full flex items-center justify-center',
   btnMenu: 'header-full__btn-menu  flex justify-center items-center',
@@ -117,6 +124,7 @@ export default ({
   siteDomain,
   legalLinks,
   hideMenu,
+  Newsle,
 }) => {
   const arcSiteTrome = 'trome'
 
@@ -168,6 +176,14 @@ export default ({
     )
   }
 
+  const [statusTooltip, setStatusTooltip] = React.useState(false)
+  const [statusModal, setStatusModal] = React.useState(false)
+  const BoletinNewsDeskt = () => {
+    setStatusTooltip(!statusTooltip)
+  }
+  const BoletinNewsMob = () => {
+    setStatusModal(!statusModal)
+  }
   return (
     <>
       <div data-story-header={`${isStory}`} className={classes.headerFull}>
@@ -395,14 +411,71 @@ export default ({
                 </a>
               </div>
             ) : (
-              <div className={classes.callImg}>
-                <a
-                  itemProp="url"
-                  href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
-                  title="Llamada Ganadora">
-                  <img src={winningCallLogo} alt="Llamada Ganadora" />
-                </a>
-              </div>
+              <>
+                <div
+                  className={`${classes.newsCin} ${classes.newsCinDesk} `}
+                  onClick={BoletinNewsDeskt}
+                  onKeyDown={BoletinNewsDeskt}
+                  role="presentation">
+                  <div className={classes.newsCinText}>Boletín</div>
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      viewBox="0 0 24 24">
+                      <path d="M0 0H24V24H0Z" fill="none" />
+                      <path
+                        d="M20 4H4A2 2 0 0 0 2 6V18a2 2 0 0 0 2 2H20a2 2 0 0 0 2-2V6A2 2 0 0 0 20 4Zm0 14H4V8l8 5 8-5Zm-8-7L4 6H20Z"
+                        fill="#943816"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  className={`${classes.newsCinTooltip} ${statusTooltip &&
+                    'active'}`}>
+                  {Newsle}
+                </div>
+
+                <div
+                  className={`${classes.newsCin} ${classes.newsCinMob} `}
+                  onClick={BoletinNewsMob}
+                  onKeyDown={BoletinNewsMob}
+                  role="presentation">
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      viewBox="0 0 24 24">
+                      <path d="M0 0H24V24H0Z" fill="none" />
+                      <path
+                        d="M20 4H4A2 2 0 0 0 2 6V18a2 2 0 0 0 2 2H20a2 2 0 0 0 2-2V6A2 2 0 0 0 20 4Zm0 14H4V8l8 5 8-5Zm-8-7L4 6H20Z"
+                        fill="#943816"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  className={`${classes.newsCinModal} ${statusModal &&
+                    'active'}`}>
+                  <div
+                    className={classes.newsCinModalClose}
+                    onClick={BoletinNewsMob}
+                    onKeyDown={BoletinNewsMob}
+                    role="presentation">
+                    X
+                  </div>
+                  {Newsle}
+                </div>
+                <div className={classes.callImg}>
+                  <a
+                    itemProp="url"
+                    href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
+                    title="Llamada Ganadora">
+                    <img src={winningCallLogo} alt="Llamada Ganadora" />
+                  </a>
+                </div>
+              </>
             )}
           </div>
           {isStory && <div className={classes.navLoader} />}

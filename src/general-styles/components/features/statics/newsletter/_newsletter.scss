@@ -6,6 +6,17 @@
     padding: 0 60px;
     align-items: inherit;
   }
+  &__custom {
+    @media (--desktop) {
+      background-color: #f4f4f4;
+      max-width: 1274px;
+      padding: 0 15px;
+      align-items: inherit;
+    }
+    @media (--only-mobile) {
+      background-color: #f4f4f4;
+    }
+  }
 
   //&__banner-image { }
 
