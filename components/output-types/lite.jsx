@@ -168,7 +168,7 @@ const LiteOutput = ({
 
   const {
     videoSeo,
-    embedTwitterAndInst = [],
+    embedTwitterAndInst,
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
@@ -440,7 +440,7 @@ const LiteOutput = ({
           </>
         )}
         <ChartbeatBody story={isStory} {...metaPageData} />
-        {embedTwitterAndInst[0] && (
+        {embedTwitterAndInst && (
           <>
             <script
               type="text/javascript"
