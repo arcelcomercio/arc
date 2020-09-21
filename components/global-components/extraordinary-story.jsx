@@ -108,6 +108,7 @@ const ExtraordinaryStory = props => {
               type={data.typeMultimediaGeneral}
               title={data.title}
               source={data.sourceMultimedia}
+              secondMultimedia={data.secondMultimedia}
               deployment={deployment}
               contextPath={contextPath}
               website={arcSite}
