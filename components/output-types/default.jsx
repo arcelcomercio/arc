@@ -237,6 +237,8 @@ export default ({
 
   const {
     videoSeo,
+    idYoutube,
+    contentElementsHtml,
     embedTwitterAndInst = [],
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
@@ -244,6 +246,8 @@ export default ({
     arcSite,
     contextPath,
   })
+  const hasYoutubeVideo =
+    idYoutube || /youtu\.be|youtube\.com/.test(contentElementsHtml)
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
@@ -271,7 +275,7 @@ export default ({
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
-  
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -399,9 +403,20 @@ export default ({
                     });
                   }, 1);
                 };
+
+                window.addPrefetch = function addPrefetch(kind, url, as) {
+                  const linkElem = document.createElement('link');
+                  linkElem.rel = kind;
+                  linkElem.href = url;
+                  if (as) {
+                      linkElem.as = as;
+                  }
+                  linkElem.crossOrigin = 'true';
+                  document.head.append(linkElem);
+                }
               }
             */
-            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
         <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
@@ -582,7 +597,8 @@ export default ({
                   arcSite,
                   siteDomain,
                   metaValue,
-                }) || siteProperties.urlPreroll}'`,
+                }) || siteProperties.urlPreroll}';
+                window.addPrefetch('preconnect', 'https://d1tqo5nrys2b20.cloudfront.net/')`,
               }}
             />
             <script
@@ -604,6 +620,64 @@ export default ({
               __html: videoScript,
             }}
           />
+        )}
+        {hasYoutubeVideo && (
+          <>
+            <style
+              dangerouslySetInnerHTML={{
+                __html: `
+              .lyt-container {
+                cursor: pointer;
+              }
+              /* play button */
+              .lty-playbtn {
+                width: 70px;
+                height: 46px;
+                background-color: #212121;
+                z-index: 1;
+                opacity: 0.8;
+                border-radius: 14%; /* TODO: Consider replacing this with YT's actual svg. Eh. */
+                transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+                border: 0;
+              }
+              .lyt-container:hover .lty-playbtn {
+                background-color: #f00;
+                opacity: 1;
+              }
+              /* play button triangle */
+              .lty-playbtn:before {
+                content: '';
+                border-style: solid;
+                border-width: 11px 0 11px 19px;
+                border-color: transparent transparent transparent #fff;
+              }
+              .lty-playbtn,
+              .lty-playbtn:before {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%, -50%, 0);
+              }
+
+              /* Post-click styles */
+              .lyt-activated {
+                cursor: unset;
+              }
+
+              .lyt-container.lyt-activated::before,
+              .lyt-activated .lty-playbtn {
+                display: none;
+              }`,
+              }}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                const lyt = Array.from(document.querySelectorAll('.lyt-container'))
+              `,
+              }}
+            />
+          </>
         )}
         {embedTwitterAndInst[0] && (
           <>

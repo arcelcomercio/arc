@@ -1,23 +1,7 @@
 import React from 'react'
 import Static from 'fusion:static'
 
-const styles = {
-  container: {
-    width: '100%',
-    height: 0,
-    paddingBottom: '56.2%',
-    backgroundColor: '#000',
-    overflow: 'hidden',
-  },
-  image: {
-    position: 'abslute',
-    objectFit: 'contain',
-    width: '100%',
-    height: 'auto',
-  },
-}
-
-const LiteYoutube = ({ videoId, className, preload, lazy, alt = '' }) => {
+const LiteYoutube = ({ videoId, className, lazy, alt = '' }) => {
   const posterUrlWebp = `https://i.ytimg.com/vi_webp/${videoId}/hqdefault.webp`
   const posterUrlJpeg = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
 
@@ -28,33 +12,27 @@ const LiteYoutube = ({ videoId, className, preload, lazy, alt = '' }) => {
    * Si en algun momento se quiere aplicar resizer, mirar la
    * forma en la que se aplica en ./powa-player.jsx
    */
-
   return (
     <Static id={`lyt-${videoId}`}>
-      <div
-        id={`lyt-${videoId}`}
-        className={className || ''}
-        data-preload={preload || 'none'}
-        style={styles.container}>
+      <div id={`lyt-${videoId}`} className={`lyt-container ${className || ''}`}>
         {lazy ? (
-          <picture>
+          <picture className="lyt-pic">
             <source data-srcset={posterUrlWebp} type="image/webp" />
             <img
               data-src={posterUrlJpeg}
               alt={alt}
-              className="lazy"
-              style={styles.image}
+              className="lyt-img lyt-lazy"
               type="image/jpeg"
             />
           </picture>
         ) : (
-          <picture>
+          <picture className="lyt-pic">
             <source srcSet={posterUrlWebp} type="image/webp" />
             <img
               src={posterUrlJpeg}
               alt={alt}
               loading="eager"
-              style={styles.image}
+              className="lyt-img"
               type="image/jpeg"
               importance="high"
             />
