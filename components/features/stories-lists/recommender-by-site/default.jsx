@@ -10,6 +10,7 @@ import getProperties from 'fusion:properties'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
+import { getAssetsPath } from '../../../utilities/constants'
 import { includePromoItems } from '../../../utilities/included-fields'
 
 import StoriesListRecommenderBySiteChild from './_children/linked-by-site'
@@ -17,7 +18,13 @@ import StoriesListRecommenderBySiteChild from './_children/linked-by-site'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const StoriesListRecommenderBySite = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    isAdmin,
+    siteProperties,
+  } = useFusionContext()
   const {
     customFields: {
       enabledContentManual,
@@ -44,9 +51,9 @@ const StoriesListRecommenderBySite = props => {
 
   // const presets = 'landscape_s:234x161,square_s:150x150'
   const presets = 'no-presets'
-  const includedFieldsManual = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteManual ||
+  const includedFieldsManual = `headlines.basic,promo_items.basic_html.content,content_restrictions.content_code,${includePromoItems},websites.${websiteManual ||
     arcSite}.website_url`
-  const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${website ||
+  const includedFields = `headlines.basic,promo_items.basic_html.content,content_restrictions.content_code,${includePromoItems},websites.${website ||
     arcSite}.website_url`
 
   const dataManual =
@@ -89,6 +96,7 @@ const StoriesListRecommenderBySite = props => {
             websiteLink,
             multimedia,
             multimediaLazyDefault,
+            isPremium,
           } = storyData
 
           const { landscape_s: landscapeS, square_s: squareS } =
@@ -107,6 +115,7 @@ const StoriesListRecommenderBySite = props => {
             multimediaLazyDefault,
             multimediaSquareS: squareS || multimedia,
             multimediaLandscapeS: landscapeS || multimedia,
+            isPremium,
           }
         })
       : []
@@ -124,6 +133,12 @@ const StoriesListRecommenderBySite = props => {
   const { content_elements: resaizedContentElements = [] } = data || {}
   const stories = process(resaizedContentElements, website, siteUrl)
 
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = siteProperties || {}
+
   const params = {
     isAdmin,
     siteName: siteNameManual || siteName,
@@ -131,6 +146,11 @@ const StoriesListRecommenderBySite = props => {
     isTargetBlank: isTargetBlank ? { target: '_blank', rel: 'noopener' } : {},
     titleField,
     subtitleField,
+    logo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
+    arcSite,
   }
 
   return (

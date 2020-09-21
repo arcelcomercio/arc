@@ -187,4 +187,20 @@ $tertiary-font: $secondary-font;
       height: 135px;
     }
   }
+  &__icon-container{
+    width: 65px;
+    height: 20px;
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    border-radius: 10px;
+    padding-top: 4px;
+    @media (--only-mobile) {
+      margin-right: 15px;
+    }
+  }
+  &__icon-premium{
+    width: 40px;
+  }
 }
