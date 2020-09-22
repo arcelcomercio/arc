@@ -135,12 +135,12 @@ export default {
   activeSignwall: false,
   activePaywall: false,
   activeNewsletter: false,
-  signwall:{
+  signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
     mainLogo: 'logo.png',
     mainColorBr: '#efdb96',
-    mainColorLink:'#008eff',
+    mainColorLink: '#008eff',
     authProviders: [],
   },
   gda: false, // Grupo Diarios de America
@@ -153,4 +153,5 @@ export default {
     logo: 'logo-stick.png',
   },
   isDfp: false,
+  archiveLimit: '2008-12-31',
 }

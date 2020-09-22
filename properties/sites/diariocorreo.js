@@ -160,4 +160,5 @@ export default {
     logo: 'logo-stick.png',
   },
   isDfp: true,
+  archiveLimit: '2008-12-31',
 }
