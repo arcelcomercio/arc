@@ -246,8 +246,11 @@ export default ({
     arcSite,
     contextPath,
   })
+  const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
-    idYoutube || /youtu\.be|youtube\.com/.test(contentElementsHtml)
+    idYoutube ||
+    regexYoutube.test(content) ||
+    regexYoutube.test(contentElementsHtml)
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
@@ -623,12 +626,12 @@ export default ({
         )}
         {hasYoutubeVideo && (
           <>
-            <Resource path='resources/assets/lite-youtube/styles.min.css'>
+            <Resource path="resources/assets/lite-youtube/styles.min.css">
               {({ data }) => {
                 return data ? (
                   <style
                     dangerouslySetInnerHTML={{
-                      __html: data
+                      __html: data,
                     }}
                   />
                 ) : null

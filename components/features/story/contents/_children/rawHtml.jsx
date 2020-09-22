@@ -71,35 +71,35 @@ class rawHTML extends PureComponent {
         ? `id_video_embed_${idVideo[2]}`
         : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
     const isWidgets = this.URL && this.URL.includes('widgets.js')
-    if(this.URL_VIDEO || this.URL) {
+    if (this.URL_VIDEO || this.URL) {
       return (
         <>
-            {this.URL_VIDEO && (
-              <div id={idVideoEmbed} className={classes.newsEmbed}>
-                <script src={this.URL_VIDEO.replace('"', '')} defer/>
-              </div>
-            )}
-            {this.URL && <script src={this.URL} defer/>}
+          {this.URL_VIDEO && (
+            <div id={idVideoEmbed} className={classes.newsEmbed}>
+              <script src={this.URL_VIDEO.replace('"', '')} defer />
+            </div>
+          )}
+          {this.URL && <script src={this.URL} defer />}
 
-            {isWidgets && (
-              <div
+          {isWidgets && (
+            <div
               className={classes.newsEmbed}
-                dangerouslySetInnerHTML={{
-                  __html: content,
-                }}
-              />
-              )}
-          </>
+              dangerouslySetInnerHTML={{
+                __html: content,
+              }}
+            />
+          )}
+        </>
       )
     }
-    
+
     // Return aqui en caso de que sea video de Youtube
-    const hasYoutubeVideo = /youtu\.be|youtube\.com/.test(content)
-    if(hasYoutubeVideo) {
+    const hasYoutubeVideo = /<iframe.+youtu\.be|youtube\.com/.test(content)
+    if (hasYoutubeVideo) {
       const [, videoId] = content.match(/\/embed\/([\w-]+)/) || []
-      if(videoId) return <LiteYoutube videoId={videoId} loading='lazy'/>
+      if (videoId) return <LiteYoutube videoId={videoId} loading="lazy" />
     }
-    
+
     // Fallback para cualquier iframe y contenido en general
     const iframeEmbed = content.includes('<iframe')
     return (
