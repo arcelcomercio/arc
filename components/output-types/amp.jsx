@@ -132,7 +132,10 @@ const AmpOutputType = ({
   let rawHtmlContent = contentElementsHtml
 
   const hasGallery = quantityGalleryItem > 0
-  const hasYoutube = idYoutube || /youtu\.be|youtube\.com/.test(rawHtmlContent)
+  const hasYoutube =
+    idYoutube ||
+    /<iframe.+(facebook.com\/plugins|youtu\.be|youtube\.com)/.test(content) ||
+    /youtu\.be|youtube\.com/.test(rawHtmlContent)
   const hasFacebook = rawHtmlContent.includes('facebook.com/plugins/')
   const hasInstagram = rawHtmlContent.includes('instagram-media')
   const hasTwitter = rawHtmlContent.includes('twitter.com')
