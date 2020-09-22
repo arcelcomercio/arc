@@ -130,10 +130,14 @@ const AmpOutputType = ({
   })
 
   let rawHtmlContent = contentElementsHtml
+  const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
 
   const hasGallery = quantityGalleryItem > 0
-  const hasYoutube = idYoutube || /youtu\.be|youtube\.com/.test(rawHtmlContent)
-  const hasFacebook = rawHtmlContent.includes('facebook.com/plugins/')
+  const hasYoutube =
+    idYoutube || regexYoutube.test(content) || regexYoutube.test(rawHtmlContent)
+  const hasFacebook =
+    /<iframe.+facebook.com\/plugins\//.test(content) ||
+    rawHtmlContent.includes('facebook.com/plugins/')
   const hasInstagram = rawHtmlContent.includes('instagram-media')
   const hasTwitter = rawHtmlContent.includes('twitter.com')
   const hasSoundcloud = rawHtmlContent.includes('soundcloud.com/playlists/')
