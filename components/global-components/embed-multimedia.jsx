@@ -4,6 +4,7 @@ import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
 } from '../utilities/constants/multimedia-types'
+
 import { defaultImage } from '../utilities/assets'
 
 const GOLDFISH = 'goldfish'
@@ -55,9 +56,9 @@ const EmbedMultimedia = props => {
 
   const videoGoldfish = (
     multimediaSource,
-    { deployment, contextPath, website, title = '' }
-  ) =>
-    multimediaSource ? (
+    { deployment, contextPath, website, title = '', secondMultimedia = '' }
+  ) => {
+    return multimediaSource ? (
       <>
         <div
           id={`powa-${multimediaSource}`}
@@ -66,7 +67,20 @@ const EmbedMultimedia = props => {
           data-org={ORG_ID}
           data-uuid={multimediaSource}
           data-aspect-ratio="0.562"
-          className="powa w-full"
+          className="powa w-full">
+          {secondMultimedia &&
+            image(secondMultimedia, {
+              deployment,
+              contextPath,
+              website,
+              title,
+            })}
+        </div>
+        <script
+          async
+          src={deployment(
+            `${contextPath}/resources/assets/js/powaSettings.min.js`
+          )}
         />
         <script
           async
@@ -76,6 +90,7 @@ const EmbedMultimedia = props => {
     ) : (
       image(multimediaSource, { deployment, contextPath, website, title })
     )
+  }
 
   const getMultimedia = type => {
     if (type === GOLDFISH || type === { VIDEO, ELEMENT_YOUTUBE_ID }.VIDEO) {
@@ -98,6 +113,7 @@ const EmbedMultimedia = props => {
     website,
     title = '',
     linkStory = '',
+    secondMultimedia = '',
     width = '100%',
     height = '100%',
   } = props
@@ -108,6 +124,7 @@ const EmbedMultimedia = props => {
     title,
     website,
     linkStory,
+    secondMultimedia,
     width,
     height,
   })

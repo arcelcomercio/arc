@@ -1,5 +1,6 @@
 import React from 'react'
 import ConfigParams from '../../../../utilities/config-params'
+import { SITE_GESTION } from '../../../../utilities/constants/sitenames'
 
 const classes = {
   item: 'story-interest__item w-full mb-40',
@@ -13,9 +14,10 @@ const classes = {
   link: '',
   itemImage: 'story-interest__img w-full h-full object-cover',
   figure: 'story-interest__figure hidden md:block',
+  iconImagePremium: 'story-interest__icon-premium mr-15 position-relative',
 }
 
-const StorySeparatorChildItem = ({ data, arcSite }) => {
+const StorySeparatorChildItem = ({ data, arcSite, logo = '' }) => {
   const {
     title,
     link,
@@ -26,8 +28,9 @@ const StorySeparatorChildItem = ({ data, arcSite }) => {
     multimediaLandscapeMD,
     multimediaType,
     isAdmin,
+    isPremium,
   } = data
-
+  const isGestion = arcSite === SITE_GESTION
   return (
     <li className={classes.item}>
       {multimediaType === 'video' && <span>&#8227;</span>}
@@ -53,14 +56,23 @@ const StorySeparatorChildItem = ({ data, arcSite }) => {
 
       <div className={classes.detail}>
         {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
-          <h2 itemProp="name" className={classes.separatorCategory}>
-            <a
-              itemProp="url"
-              href={sectionLink}
-              className={classes.separatorCategoryLink}>
-              {section}
-            </a>
-          </h2>
+          <>
+            <h2 itemProp="name" className={classes.separatorCategory}>
+              {isPremium && isGestion && (
+                <img
+                  className={classes.iconImagePremium}
+                  src={logo}
+                  alt="premium"
+                />
+              )}
+              <a
+                itemProp="url"
+                href={sectionLink}
+                className={classes.separatorCategoryLink}>
+                {section}
+              </a>
+            </h2>
+          </>
         )}
         <h3 itemProp="name" className={classes.separatorTitle}>
           <a itemProp="url" className={classes.titleLink} href={link}>

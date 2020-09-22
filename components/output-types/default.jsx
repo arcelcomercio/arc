@@ -237,7 +237,7 @@ export default ({
 
   const {
     videoSeo,
-    embedTwitterAndInst = [],
+    embedTwitterAndInst,
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
@@ -271,7 +271,7 @@ export default ({
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
-  
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -605,7 +605,7 @@ export default ({
             }}
           />
         )}
-        {embedTwitterAndInst[0] && (
+        {embedTwitterAndInst && (
           <>
             <script
               type="text/javascript"

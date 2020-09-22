@@ -8,10 +8,11 @@ const AuthorDescription = () => {
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
 
   const { author = {} } = globalContent || {}
+
+  if (typeof author.resized_urls === 'undefined') author.resized_urls = {}
   author.resized_urls.image_xs =
     (author.resized_urls && author.resized_urls.image_xs) ||
     deployment(logoAuthor)
-
   return <AuthorBiography {...author} />
 }
 

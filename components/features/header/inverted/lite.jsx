@@ -32,9 +32,11 @@ const HeaderBasic = props => {
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
+  const {siteTitle = ''} = siteProperties
+
   const title = `${seoTitle}: ${
     storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-  } | ${siteProperties.siteTitle.toUpperCase()}`
+  } | ${siteTitle.toUpperCase()}`
 
   const menuSections = useContent({
     source: 'navigation-by-hierarchy',
