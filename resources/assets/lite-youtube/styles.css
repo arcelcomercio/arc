@@ -7,6 +7,11 @@
   overflow: hidden;
   position: relative;
 }
+.lyt-lazy {
+  contain: auto;
+  content-visibility: auto;
+  contain-intrinsic-size: 180px; /* Estimado de alto minimo */
+}
 .lyt-pic {
   height: 100%;
   width: 100%;
