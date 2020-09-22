@@ -130,22 +130,41 @@ const AmpOutputType = ({
   })
 
   let rawHtmlContent = contentElementsHtml
-  const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
 
-  const hasGallery = quantityGalleryItem > 0
+  /** Youtube validation */
+  const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
+  const hasYoutubeIframePromo = regexYoutube.test(content)
   const hasYoutube =
-    idYoutube || regexYoutube.test(content) || regexYoutube.test(rawHtmlContent)
+    idYoutube || hasYoutubeIframePromo || regexYoutube.test(rawHtmlContent)
+
+  /** Facebook validation */
+  const hasFacebookIframePromo = /<iframe.+facebook.com\/plugins\//.test(
+    content
+  )
   const hasFacebook =
-    /<iframe.+facebook.com\/plugins\//.test(content) ||
-    rawHtmlContent.includes('facebook.com/plugins/')
+    hasFacebookIframePromo || rawHtmlContent.includes('facebook.com/plugins/')
+
+  /** Other validations */
+  const hasGallery = quantityGalleryItem > 0
   const hasInstagram = rawHtmlContent.includes('instagram-media')
   const hasTwitter = rawHtmlContent.includes('twitter.com')
   const hasSoundcloud = rawHtmlContent.includes('soundcloud.com/playlists/')
+
+  /** Iframe validation */
+  /** Si existe un iframe como promoItem principal pero este iframe es
+   * de youtube o facebook, se necesita el script de youtube o facebook
+   * respectivamente, no el de iframe, por eso se hace esta validacion.
+   */
+  const hasIframePromo =
+    !hasYoutubeIframePromo &&
+    !hasFacebookIframePromo &&
+    content.includes('<iframe')
   const hasIframe =
-    content.includes('<iframe') ||
+    hasIframePromo ||
     /<iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     )
+
   const hasJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
   /**
    * Se reemplaza los .mp4 de JWplayer para poder usar el fallback de
