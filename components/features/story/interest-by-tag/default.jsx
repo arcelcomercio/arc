@@ -10,6 +10,7 @@ import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
 import { separatorBasicFields } from '../../../utilities/included-fields'
+import { getAssetsPath } from '../../../utilities/constants'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const classes = {
@@ -32,6 +33,7 @@ const InterestByTag = props => {
     deployment,
     isAdmin,
     outputType: isAmp,
+    siteProperties,
   } = useFusionContext()
 
   const presets = 'no-presets'
@@ -75,6 +77,17 @@ const InterestByTag = props => {
     })
     .filter(String)
 
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = siteProperties || {}
+
+  const logoPremium = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${logo}?d=1`
+
   return (
     <>
       {isAmp !== 'amp' && isWeb && dataInterest && dataInterest[0] && (
@@ -106,12 +119,14 @@ const InterestByTag = props => {
                   multimediaLandscapeL: landscapeL,
                   multimediaType: instance.multimediaType,
                   isAdmin,
+                  isPremium: instance.isPremium,
                 }
                 return (
                   <StorySeparatorChildItem
                     data={data}
                     key={UtilListKey(i)}
                     arcSite={arcSite}
+                    logo={logoPremium}
                   />
                 )
               })}

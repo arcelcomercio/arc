@@ -7,6 +7,7 @@ export default arcSite => {
       headlines { basic }
       subheadlines { basic }
       display_date
+      content_restrictions { content_code }
       credits {
         by { 
           name url type 

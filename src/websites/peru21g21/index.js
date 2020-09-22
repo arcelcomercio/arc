@@ -29,7 +29,4 @@ import './images/logo-peru21g21.jpg'
 
 import './icons/fonts/default.woff'
 import './icons/fonts/default.svg'
-
-import './fonts/OpenSans-Regular-webfont.woff'
-
 /** Scripts */

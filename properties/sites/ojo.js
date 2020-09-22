@@ -2,9 +2,6 @@ export default {
   siteName: 'Ojo',
   sitemapNewsName: 'Diario Ojo',
   siteTitle: 'Noticias Ojo Perú',
-  googleFonts: 'Roboto|Alfa+Slab+One|Titillium+Web:400,700',
-
-  // colorPrimary: '#007d33',
   colorPrimary: '#5fbb46',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',

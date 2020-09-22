@@ -239,7 +239,7 @@ export default ({
     videoSeo,
     idYoutube,
     contentElementsHtml,
-    embedTwitterAndInst = [],
+    embedTwitterAndInst,
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
@@ -642,7 +642,7 @@ export default ({
             />
           </>
         )}
-        {embedTwitterAndInst[0] && (
+        {embedTwitterAndInst && (
           <>
             <script
               type="text/javascript"

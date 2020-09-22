@@ -500,22 +500,19 @@ class StoryContents extends PureComponent {
                       )
                     }
 
-                    if (
-                      content.includes('twitter-tweet') ||
-                      content.includes('instagram-media')
-                    ) {
+                    if (/twitter-(?:tweet|timeline)|instagram-media/.test(content)) {
                       return (
                         <>
                           <div
                             data-type={
-                              content.includes('twitter-tweet')
+                              /twitter-(?:tweet|timeline)/.test(content)
                                 ? 'twitter'
                                 : 'instagram'
                             }
                             className={classes.newsEmbed}
                             dangerouslySetInnerHTML={{
                               __html: content.replace(
-                                /(<script.*?>).*?(<\/script>)/,
+                                /<script.*?>.*?<\/script>/,
                                 ''
                               ),
                             }}

@@ -28,7 +28,4 @@ import './images/logo-elcomerciomag.jpg'
 /** Fonts & icons */
 import './icons/fonts/default.woff'
 import './icons/fonts/default.svg'
-
-import './fonts/OpenSans-Regular-webfont.woff'
-
 /** Scripts */

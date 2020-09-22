@@ -33,9 +33,6 @@ import './icons/fonts/default.woff'
 import './icons/fonts/gestion.woff'
 import './icons/fonts/default.svg'
 import './icons/fonts/gestion.svg'
-
-import './fonts/OpenSans-Regular-webfont.woff'
-
 /** Scripts */
 
 // Imagenes paywall
