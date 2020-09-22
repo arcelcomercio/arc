@@ -121,33 +121,42 @@ const AmpOutputType = ({
     idYoutube,
     quantityGalleryItem,
     videoSeo,
-    promoItems: { basic_html: { content = '' } = {} } = {},
+    hasBodyGallery,
     contentElementsHtml,
+    oembedSubtypes,
+    promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
     arcSite,
     contextPath,
   })
-
   let rawHtmlContent = contentElementsHtml
 
   /** Youtube validation */
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeIframePromo = regexYoutube.test(content)
   const hasYoutube =
-    idYoutube || hasYoutubeIframePromo || regexYoutube.test(rawHtmlContent)
+    idYoutube ||
+    hasYoutubeIframePromo ||
+    regexYoutube.test(rawHtmlContent) ||
+    oembedSubtypes.includes('youtube')
 
   /** Facebook validation */
   const hasFacebookIframePromo = /<iframe.+facebook.com\/plugins\//.test(
     content
   )
   const hasFacebook =
-    hasFacebookIframePromo || rawHtmlContent.includes('facebook.com/plugins/')
+    hasFacebookIframePromo ||
+    rawHtmlContent.includes('facebook.com/plugins/') ||
+    oembedSubtypes.includes('facebook')
 
   /** Other validations */
-  const hasGallery = quantityGalleryItem > 0
-  const hasInstagram = rawHtmlContent.includes('instagram-media')
-  const hasTwitter = rawHtmlContent.includes('twitter.com')
+  const hasGallery = quantityGalleryItem > 0 || hasBodyGallery
+  const hasInstagram =
+    rawHtmlContent.includes('instagram-media') ||
+    oembedSubtypes.includes('instagram')
+  const hasTwitter =
+    rawHtmlContent.includes('twitter.com') || oembedSubtypes.includes('twitter')
   const hasSoundcloud = rawHtmlContent.includes('soundcloud.com/playlists/')
 
   /** Iframe validation */
