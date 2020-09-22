@@ -10,11 +10,11 @@
     @media (--desktop) {
       background-color: #f4f4f4;
       max-width: 1274px;
-      padding: 0 15px;
       align-items: inherit;
     }
     @media (--only-mobile) {
-      background-color: #f4f4f4;
+      background-color: #fff;
+      padding: 25px;
     }
   }
 
@@ -22,7 +22,18 @@
 
   &__box-subscription {
     align-self: center;
-
+    @media (--only-mobile) {
+      background-color: #f4f4f4;
+      border-radius: 10px;
+      border: 1px solid #e4e4e4;
+      min-width: -webkit-fill-available;
+    }
+    @media (orientation: landscape) {
+      background-color: #f4f4f4;
+      border-radius: 10px;
+      border: 1px solid #e4e4e4;
+      min-width: -webkit-fill-available;
+    }
     @media (--desktop) {
       max-width: 450px;
     }
@@ -92,4 +103,7 @@
   &__input-checkbox {
     margin-top: 1px;
   }
+}
+.border-r-10 {
+  border-radius: 10px;
 }

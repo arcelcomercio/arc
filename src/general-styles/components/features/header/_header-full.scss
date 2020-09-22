@@ -83,13 +83,12 @@ $max-width: 1366px;
       right: 0;
       margin: auto;
       z-index: 3;
-      background-color: #f4f4f4;
-      max-width: max-content;
+      background-color: #fff;
+      max-width: inherit;
       @media (--desktop) {
         display: none;
       }
       @media (orientation: landscape) {
-        max-width: inherit;
         overflow: scroll;
         h4 {
           display: none;
@@ -102,13 +101,8 @@ $max-width: 1366px;
   }
   &__newsletter-modal-close {
     text-align: right;
-    background-color: #f4f4f4;
+    background-color: #fff;
     padding: 15px 20px 0 0;
-    font-size: x-large;
-    font-weight: 600;
-    @media (orientation: landscape) {
-      background-color: #f4f4f4;
-    }
   }
 
   &__container {
