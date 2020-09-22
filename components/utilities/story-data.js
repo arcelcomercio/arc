@@ -461,6 +461,15 @@ class StoryData {
     return contentElements
   }
 
+  get hasBodyGallery() {
+    const bodyGallery =
+      StoryData.getContentElements(
+        this._data && this._data.content_elements,
+        'gallery'
+      ) || []
+    return bodyGallery.length > 0
+  }
+
   /**
    * Reconoce si existe embed de twitter o instagram
    * en el cuerpo de la noticia
@@ -776,6 +785,12 @@ class StoryData {
     return attributesObject
   }
 
+  get oembedSubtypes() {
+    return this._data
+      ? StoryData.getOembedSubtypes(this._data.content_elements)
+      : []
+  }
+
   get contentElementsListOne() {
     const result =
       (this._data &&
@@ -792,6 +807,14 @@ class StoryData {
           this._data.content_elements,
           ELEMENT_RAW_HTML
         )) ||
+      ''
+    )
+  }
+
+  get contentElementsGallery() {
+    return (
+      (this._data &&
+        StoryData.getContentElements(this._data.content_elements, GALLERY)) ||
       ''
     )
   }
@@ -1412,6 +1435,14 @@ class StoryData {
           })
           .join(' ')
       : ''
+  }
+
+  static getOembedSubtypes(data = []) {
+    return data && data.length > 0
+      ? data
+          .map(({ type, subtype }) => (type === ELEMENT_OEMBED ? subtype : ''))
+          .filter(String)
+      : []
   }
 
   static getContentElementsImage(data = [], typeElement = '') {
