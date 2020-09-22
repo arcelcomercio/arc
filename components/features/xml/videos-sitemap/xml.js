@@ -72,7 +72,7 @@ class XmlVideosSitemap {
 
           const { image } = createResizedParams({
             url: thumbnailUrl,
-            presets: 'image:1280×720',
+            presets: 'image:1280x720',
             arcSite,
           })
 
