@@ -100,7 +100,7 @@ export default ({
   {
     "@context": "http://schema.org/",
     "@type": "Person",
-    "name": "${authorName}",
+    "name": "${authorName || arcSite}",
     "image": "${authorImage || logoAuthor}",
     "contactPoint"     : {
       "@type"        : "ContactPoint",
@@ -277,7 +277,7 @@ export default ({
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
 
   const imagenData = arrayImage[1]
-    ? `"image": ${arrayImage} ,`
+    ? `"image":[ ${arrayImage} ],`
     : `"image": ${arrayImage},`
 
   const imageYoutube = idYoutube
