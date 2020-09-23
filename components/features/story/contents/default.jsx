@@ -402,7 +402,8 @@ class StoryContents extends PureComponent {
                       const { html: youtubeIframe } = rawOembed || {}
                       const [, videoId] =
                         youtubeIframe.match(/\/embed\/([\w-]+)/) || []
-                      if (videoId) return <LiteYoutube videoId={videoId} />
+                      if (videoId)
+                        return <LiteYoutube videoId={videoId} loading="lazy" />
                     }
                     return (
                       <Oembed
