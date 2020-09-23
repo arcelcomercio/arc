@@ -1,6 +1,4 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { createResizedUrl } from '../../components/utilities/resizer'
+import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
 const params = [
   {
@@ -21,13 +19,10 @@ const fetch = ({ url, 'arc-site': website, presets }) => {
       'Esta fuente de contenido requiere la URL de una imagen y presets'
     )
 
-  const { resizerUrl } = getProperties(website)
-
-  const resizedUrls = createResizedUrl({
+  const resizedUrls = createResizedParams({
     url,
     presets,
-    resizerUrl,
-    resizerSecret,
+    arcSite: website,
   })
 
   return { resized_urls: resizedUrls }

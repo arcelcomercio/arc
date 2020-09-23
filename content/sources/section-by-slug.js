@@ -1,7 +1,5 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { createResizedUrl } from '../../components/utilities/resizer'
-import { removeLastSlash } from '../../components/utilities/helpers'
+import { createResizedParams } from '../../components/utilities/resizer/resizer'
+import { removeLastSlash } from '../../components/utilities/parse/strings'
 
 const schemaName = 'section'
 
@@ -13,10 +11,8 @@ const params = [
   },
 ]
 
-let website = ''
-
 const resolve = (key = {}) => {
-  website = key['arc-site'] || 'Arc Site no está definido'
+  const website = key['arc-site'] || 'Arc Site no está definido'
   const { _id: slug = '' } = key
 
   const clearSlug = removeLastSlash(slug)
@@ -28,17 +24,15 @@ const resolve = (key = {}) => {
   return requestUri
 }
 
-const transform = data => {
-  const { resizerUrl } = getProperties(website)
+const transform = (data, { 'arc-site': website }) => {
   const { site_topper: { site_logo_image: siteLogoImage = '' } = {} } =
     data || {}
   const sectionData = data
   if (siteLogoImage) {
-    const resizedUrls = createResizedUrl({
+    const resizedUrls = createResizedParams({
       url: siteLogoImage,
       presets: 'landscape_xl:1354x220,landscape_s:304x90',
-      resizerUrl,
-      resizerSecret,
+      arcSite: website,
     })
     sectionData.site_topper.resized_urls = resizedUrls
   }

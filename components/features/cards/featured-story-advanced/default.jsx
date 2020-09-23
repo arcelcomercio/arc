@@ -9,7 +9,7 @@ import customFields from './_dependencies/custom-fields'
 import FacebookLive from './_children/facebook-live'
 import { createMarkup } from '../../../utilities/helpers'
 import { featuredStoryFields } from '../../../utilities/included-fields'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const PHOTO_SOURCE = 'photo-resizer'
 
@@ -132,7 +132,7 @@ const CardFeaturedStoryAdvanced = props => {
       portrait_md: customPortraitMD,
       square_s: customSquareS,
     } = imgField
-      ? getResizedUrl({
+      ? createResizedParams({
           url: imgField,
           presets:
             'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150',
@@ -146,7 +146,7 @@ const CardFeaturedStoryAdvanced = props => {
       portrait_md: portraitMD,
       square_s: squareS,
     } =
-      getResizedUrl({
+      createResizedParams({
         url: multimedia,
         presets:
           'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150',

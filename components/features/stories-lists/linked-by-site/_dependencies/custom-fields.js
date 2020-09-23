@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-  storiesConfig: PropTypes.contentConfig('stories').isRequired.tag({
+  storiesConfig: PropTypes.contentConfig('stories').tag({
     name: 'Configuración del contenido',
   }),
   isTargetBlank: PropTypes.bool.tag({

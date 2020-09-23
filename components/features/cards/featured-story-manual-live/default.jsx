@@ -9,7 +9,7 @@ import StoryFormatter from '../../../utilities/featured-story-formatter'
 import customFields from './_dependencies/custom-fields'
 import LiveStreaming from './_children/streaming-live'
 import { featuredStoryFields } from '../../../utilities/included-fields'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const PHOTO_SOURCE = 'photo-resizer'
 
@@ -235,7 +235,7 @@ const CardFeaturedStoryManualLive = props => {
       portrait_md: customPortraitMD,
       square_s: customSquareS,
     } = imgField
-      ? getResizedUrl({
+      ? createResizedParams({
           url: imgField,
           presets: basePresets,
           arcSite,
@@ -248,7 +248,7 @@ const CardFeaturedStoryManualLive = props => {
       portrait_md: portraitMD,
       square_s: squareS,
     } =
-      getResizedUrl({
+      createResizedParams({
         url: multimedia,
         presets: basePresets,
         arcSite,

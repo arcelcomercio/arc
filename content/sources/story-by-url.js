@@ -1,6 +1,4 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { addResizedUrlsToStories } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'story'
 
@@ -22,16 +20,6 @@ const params = [
   },
 ]
 
-const transformImg = ({ contentElements, website, presets }) => {
-  const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStories({
-    contentElements,
-    resizerUrl,
-    resizerSecret,
-    presets,
-  })
-}
-
 const resolve = (key = {}) => {
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
@@ -47,25 +35,9 @@ const resolve = (key = {}) => {
   return requestUri
 }
 
-const transform = (data, { 'arc-site': website, presets }) => {
+const transform = (data, { 'arc-site': arcSite, presets }) => {
   if (data.type === 'redirect' || presets === 'no-presets') return data
-
-  const { promo_items: { basic_gallery: basicGallery } = {} } = data
-  let dataStory = data || {}
-
-  if (basicGallery && basicGallery.promo_items) {
-    const { content_elements: galleryContentElements } = basicGallery || {}
-    if (!galleryContentElements)
-      dataStory.promo_items.basic_gallery.content_elements = []
-  }
-
-  ;[dataStory] = transformImg({
-    contentElements: [dataStory],
-    website,
-    presets,
-  })
-
-  return { ...dataStory }
+  return getResizedImageData(data, presets, arcSite)
 }
 
 export default {

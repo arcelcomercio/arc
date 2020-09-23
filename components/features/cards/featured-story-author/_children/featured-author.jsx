@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Icon from '../../../../global-components/multimedia-icon'
+import Image from '../../../../global-components/image'
 
 export default ({
   title,
@@ -10,7 +11,6 @@ export default ({
   author,
   authorLink,
   authorImage,
-  authorImageSquareXS,
   multimediaLandscapeMD,
   multimediaPortraitMD,
   multimediaLandscapeL,
@@ -41,8 +41,9 @@ export default ({
       'featured-author__subtitle-link block text-center text-md line-h-sm overflow-hidden',
     authorContainer: 'flex justify-center',
     authorImgLink: 'rounded flex overflow-hidden bg-tertiary',
-    authorPicture: 'featured-author__author-picture',
-    authorContainerImg: 'featured-author__container-img',
+    // Eliminar tambien estos estilos si no son necesarios
+    // authorPicture: 'featured-author__author-picture',
+    // authorContainerImg: 'featured-author__container-img',
     authorImg: 'featured-author__author-img object-cover',
     authorNameContainer: 'flex flex-col justify-center ml-10',
     authorName: '',
@@ -145,25 +146,16 @@ export default ({
           </h3>
         )}
         <div className={classes.authorContainer}>
-          <div className={classes.authorContainerImg}>
-            <a
-              itemProp="url"
-              className={classes.authorImgLink}
-              href={authorLink}>
-              <picture className={classes.authorPicture}>
-                <img
-                  className={`${isAdmin ? '' : 'lazy'} ${classes.authorImg}`}
-                  data-src={authorImageSquareXS || authorImage}
-                  src={
-                    isAdmin
-                      ? authorImageSquareXS || authorImage
-                      : multimediaLazyDefault
-                  }
-                  alt={author}
-                />
-              </picture>
-            </a>
-          </div>
+          <a itemProp="url" className={classes.authorImgLink} href={authorLink}>
+            <Image
+              src={authorImage}
+              width={47}
+              height={47}
+              alt={author}
+              className={classes.authorImg}
+              loading="lazy"
+            />
+          </a>
           <div className={classes.authorNameContainer}>
             <h4 itemProp="name">
               <a

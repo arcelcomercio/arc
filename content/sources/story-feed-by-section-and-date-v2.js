@@ -1,7 +1,5 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 import RedirectError from '../../components/utilities/redirect-error'
-import { addResizedUrlsToStories } from '../../components/utilities/resizer'
 import {
   getYYYYMMDDfromISO,
   getActualDate,
@@ -141,16 +139,6 @@ const getQueryFilter = (section, excludedSections, website, date) => {
   return queryFilter
 }
 
-const transformImg = ({ contentElements, website, presets }) => {
-  const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStories({
-    contentElements,
-    resizerUrl,
-    resizerSecret,
-    presets,
-  })
-}
-
 const resolve = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const {
@@ -183,22 +171,8 @@ const resolve = (key = {}) => {
 }
 
 const transform = (data, { 'arc-site': website, presets: customPresets }) => {
-  const stories = data
-  const presets =
-    customPresets === 'no-presets'
-      ? ''
-      : customPresets || 'landscape_s:234x161,landscape_xs:118x72'
-
-  if (presets) {
-    const { content_elements: contentElements } = data || {}
-    stories.content_elements = transformImg({
-      contentElements,
-      website,
-      presets, // i.e. 'mobile:314x157'
-    })
-  }
-
-  return stories
+  const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
+  return getResizedImageData(data, presets, website)
 }
 
 const source = {

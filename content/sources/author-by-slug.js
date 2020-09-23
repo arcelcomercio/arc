@@ -1,4 +1,4 @@
-import { getResizedUrl } from '../../components/utilities/resizer'
+import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
 const params = [
   {
@@ -36,7 +36,7 @@ const transform = (data, { slug, from, size, 'arc-site': arcSite }) => {
   const author = data.authors[0]
   const { image = '' } = author
   if (image !== '') {
-    const resizedUrls = getResizedUrl({
+    const resizedUrls = createResizedParams({
       url: image,
       presets: {
         image_xs: {

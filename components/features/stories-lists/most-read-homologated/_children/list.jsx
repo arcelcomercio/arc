@@ -14,7 +14,6 @@ export default ({
   deployment,
   arcSite,
   contextPath,
-  isAdmin,
 }) => {
   const Story = new StoryData({
     arcSite,
@@ -36,10 +35,9 @@ export default ({
             seeImageNews,
             title: Story.title,
             urlNews: Story.websiteLink,
-            multimedia: Story.multimediaLandscapeMD,
-            lazyImage: Story.multimediaLazyDefault,
+            multimedia: Story.multimedia,
             multimediaType: Story.multimediaType,
-            isAdmin,
+            arcSite,
           }
 
           return <StoriesListCardChildItem {...params} />
