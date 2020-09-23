@@ -1,11 +1,14 @@
 import React from 'react'
 
 const classes = {
-  title: 'custom-title text-left uppercase medium w-full mt-20',
-  box: 'inline-block ml-10',
+  container: 'pr-20 pl-20 mt-20',
+  title: 'custom-title text-left uppercase medium w-full',
+  box: 'author-description__box inline-block ml-10',
+  boxImg: 'mt-20',
   subtitle: 'custom-title role',
   image: 'author-description__image',
   social: 'author-description__social custom-title twitter icon-twitter',
+  link: 'author-description__link',
   content: 'line-h-sm',
 }
 
@@ -23,8 +26,12 @@ const AuthorBiography = ({
 }) => {
   const twitterData = twitter && twitter.split(',')
   const expertiseData = expertise && expertise.replace(/{[^}]+}/g, '')
+  const urlTwitter = account => {
+    const user = account.replace(/@/, '')
+    return `https://twitter.com/${user}`
+  }
   return (
-    <>
+    <div className={classes.container}>
       <img className={classes.image} src={imageXS} alt={byline} />
       <div className={classes.box}>
         <h1
@@ -35,10 +42,11 @@ const AuthorBiography = ({
         </h1>
         {role && <h3 className={classes.subtitle}>{role}</h3>}
         {twitterData && twitterData[0] && (
-          <h4 className={classes.social}> {twitterData[0]}</h4>
+          <a className={classes.link} href={urlTwitter(twitterData[0])}>
+            <h4 className={classes.social}> {twitterData[0]}</h4>
+          </a>
         )}
       </div>
-
       {bio && (
         <>
           <br />
@@ -72,7 +80,9 @@ const AuthorBiography = ({
           <br />
           <p className={classes.content}>
             <strong>Contacto: </strong>
-            {email}
+            <a className={classes.link} href={`mailto:${email}`}>
+              {email}
+            </a>
           </p>
         </>
       )}
@@ -96,7 +106,7 @@ const AuthorBiography = ({
           </ul>
         </p>
       )}
-    </>
+    </div>
   )
 }
 
