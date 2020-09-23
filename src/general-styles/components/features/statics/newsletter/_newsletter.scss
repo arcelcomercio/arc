@@ -8,7 +8,6 @@
   }
   &__custom {
     @media (--desktop) {
-      background-color: #f4f4f4;
       max-width: 1274px;
       align-items: inherit;
     }
@@ -24,18 +23,19 @@
     align-self: center;
     @media (--only-mobile) {
       background-color: #f4f4f4;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid #e4e4e4;
       min-width: -webkit-fill-available;
     }
     @media (orientation: landscape) {
       background-color: #f4f4f4;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid #e4e4e4;
       min-width: -webkit-fill-available;
     }
     @media (--desktop) {
       max-width: 450px;
+      border-radius: 12px;
     }
   }
 
