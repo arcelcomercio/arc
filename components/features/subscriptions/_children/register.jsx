@@ -3,23 +3,20 @@ import React, {
   // useContext
 } from 'react'
 import PropTypes from 'prop-types'
-import { NavigateConsumer } from '../../../../_context/navigate'
-import useForm from '../../../../_hooks/useForm'
+import { NavigateConsumer } from '../_context/navigate'
+import useForm from '../_hooks/useForm'
 // import { AuthContext } from '../../../../_context/auth'
-import getDevice from '../../../../_dependencies/GetDevice'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-} from '../../../../_dependencies/Properties'
+import getDevice from '../_dependencies/GetDevice'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 // import { sendNewsLettersUser } from '../../../../_dependencies/Services'
 import ButtonSocial from './social'
-import { Taggeo } from '../../../../_dependencies/Taggeo'
+import { Taggeo } from '../_dependencies/Taggeo'
 import getCodeError, {
   formatEmail,
   acceptCheckTerms,
-} from '../../../../_dependencies/Errors'
-import { MsgRegister } from '../../../../_dependencies/Icons'
-import { isFbBrowser } from '../../../../_dependencies/Utils'
+} from '../_dependencies/Errors'
+import { MsgRegister } from '../_dependencies/Icons'
+import { isFbBrowser } from '../_dependencies/Utils'
 
 const styles = {
   title: 'step__left-title',

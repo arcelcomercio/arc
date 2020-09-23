@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import getCodeError, { formatEmail } from '../../../../_dependencies/Errors'
-import useForm from '../../../../_hooks/useForm'
-import { NavigateConsumer } from '../../../../_context/navigate'
-import { AuthContext } from '../../../../_context/auth'
-import { PropertiesCommon } from '../../../../_dependencies/Properties'
+import getCodeError, { formatEmail } from '../_dependencies/Errors'
+import useForm from '../_hooks/useForm'
+import { NavigateConsumer } from '../_context/navigate'
+import { AuthContext } from '../_context/auth'
+import { PropertiesCommon } from '../_dependencies/Properties'
 import ButtonSocial from './social'
-import { Taggeo } from '../../../../_dependencies/Taggeo'
-import { isFbBrowser } from '../../../../_dependencies/Utils'
+import { Taggeo } from '../_dependencies/Taggeo'
+import { isFbBrowser } from '../_dependencies/Utils'
 
 const styles = {
   title: 'step__left-title',
@@ -25,7 +25,7 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Login = ({ contTempl, arcSite }) => {
+const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [msgError, setMsgError] = useState()
@@ -66,6 +66,9 @@ const Login = ({ contTempl, arcSite }) => {
           window.Identity.getUserProfile().then(resProfile => {
             activateAuth(resProfile)
             updateStep(2)
+            if (isFia) {
+              handleCallToAction(true)
+            }
             Taggeo(nameTagCategory, 'web_swl_login_success_ingresar')
           })
         })

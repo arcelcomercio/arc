@@ -3,7 +3,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
-import { PropertiesSite } from '../../../../_dependencies/Properties'
+import { PropertiesSite } from '../_dependencies/Properties'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 

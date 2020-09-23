@@ -181,7 +181,8 @@ const PropertiesCommon = {
     payuPayments: 'https://sandbox.api.payulatam.com/payments-api/4.0/service',
     profile:      '/mi-perfil/?outputType=signwall',
     preguntas:    `/suscripcionesdigitales/faqs/${IsPROD ? '' : '?outputType=paywall'}`,
-    bannerCorp:   `/suscripcionesdigitales/empresa/${IsPROD ? '' : '?outputType=paywall'}`
+    bannerCorp:   `/suscripcionesdigitales/empresa/${IsPROD ? '' : '?outputType=paywall'}`,
+    landingFia:   `/suscripcionesdigitales/fia/${IsPROD ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`
   },
 
   // prettier-ignore

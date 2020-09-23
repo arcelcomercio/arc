@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
-import Login from './_children/login'
-import Register from './_children/register'
-import Forgot from './_children/forgot'
+import Login from '../../../_children/login'
+import Register from '../../../_children/register'
+import Forgot from '../../../_children/forgot'
 import { NavigateProvider, NavigateConsumer } from '../../../_context/navigate'
 import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
 import PWA from '../../../_dependencies/Pwa'
 import { isFbBrowser, getSessionStorage } from '../../../_dependencies/Utils'
 
-const renderTemplate = (template, contTempl, site) => {
+const renderTemplate = (template, contTempl, attributes) => {
   const templates = {
-    login: <Login contTempl={contTempl} arcSite={site} />,
-    register: <Register arcSite={site} />,
-    forgot: <Forgot />,
+    login: <Login {...{ contTempl, ...attributes }} />,
+    register: <Register {...{ ...attributes }} />,
+    forgot: <Forgot {...{ ...attributes }} />,
   }
   return templates[template] || templates.login
 }
@@ -64,7 +64,7 @@ const WrapperSingwall = () => {
   return (
     <NavigateConsumer>
       {({ selectedTemplate, valueTemplate }) => (
-        <>{renderTemplate(selectedTemplate, valueTemplate, arcSite)}</>
+        <>{renderTemplate(selectedTemplate, valueTemplate, { arcSite })}</>
       )}
     </NavigateConsumer>
   )

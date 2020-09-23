@@ -10,7 +10,7 @@ import {
 } from '../_dependencies/Properties'
 import { FooterSubs, FooterLand } from '../_layouts/footer'
 import { clearUrlAPI, createExternalScript } from '../_dependencies/Utils'
-import { LogIntoAccountEventTag } from './_children/Singwall/_children/fb-account-linking'
+import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import HeaderSubs from '../_layouts/header'
 import Singwall from './_children/Singwall'
 import Summary from './_children/Summary'
@@ -21,7 +21,7 @@ import addScriptAsync from '../_dependencies/Async'
 import stylesPayment from '../_styles/Payment'
 import scriptsPayment from '../_scripts/Payment'
 import PWA from '../_dependencies/Pwa'
-import Loading from './_children/Loading'
+import Loading from '../_layouts/loading'
 import {
   Container,
   Wrapper,

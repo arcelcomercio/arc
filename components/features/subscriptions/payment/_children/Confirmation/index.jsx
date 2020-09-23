@@ -3,7 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import { AuthContext } from '../../../_context/auth'
 import { paymentTraker } from '../../../_dependencies/Services'
 import { getStorageInfo } from '../../../_dependencies/Session'
-import { SubscribeEventTag } from '../Singwall/_children/fb-account-linking'
+import { SubscribeEventTag } from '../../../_children/fb-account-linking'
 import PWA from '../../../_dependencies/Pwa'
 import {
   PropertiesSite,

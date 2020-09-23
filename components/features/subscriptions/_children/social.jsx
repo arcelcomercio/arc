@@ -1,21 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-} from '../../../../_dependencies/Properties'
-import getDevice from '../../../../_dependencies/GetDevice'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
+import getDevice from '../_dependencies/GetDevice'
 import {
   Capitalize,
   setLocaleStorage,
   isFbBrowser,
-} from '../../../../_dependencies/Utils'
-import { AuthContext } from '../../../../_context/auth'
-import { Taggeo } from '../../../../_dependencies/Taggeo'
-import {
-  loginSocialEco,
-  sendNewsLettersUser,
-} from '../../../../_dependencies/Services'
+} from '../_dependencies/Utils'
+import { AuthContext } from '../_context/auth'
+import { Taggeo } from '../_dependencies/Taggeo'
+import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
