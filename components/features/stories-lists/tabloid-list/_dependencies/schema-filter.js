@@ -8,20 +8,12 @@ export default function(arcSite) {
         basic { 
           url 
           type 
-          resized_urls { 
-            impresa_s
-            lazy_default 
-          } 
         }
         basic_video {
           promo_items {
             basic { 
               url 
               type 
-              resized_urls { 
-                impresa_s
-                lazy_default 
-              } 
             }
           }
         }
@@ -30,10 +22,6 @@ export default function(arcSite) {
             basic { 
               url 
               type 
-              resized_urls { 
-                impresa_s
-                lazy_default 
-              } 
             }
           }
         }

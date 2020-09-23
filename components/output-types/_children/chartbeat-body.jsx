@@ -22,7 +22,11 @@ const getSectionList = (sections, type) => {
 }
 
 const infoStory = (
-  { credits: { by = [] } = {}, taxonomy = {}, promo_items: promoItems = {} },
+  {
+    credits: { by = [] } = {},
+    taxonomy = {},
+    promo_items: promoItems = {},
+  } = {},
   arcSite
 ) => {
   const getAuthor = () => {
@@ -109,7 +113,7 @@ const ChartbeatBody = props => {
       ? `_sf_async_config.authors = '${author}'; _sf_async_config.type = '${type}'; _sf_async_config.contentType = "${stringType}";`
       : ''
   } ${
-    page === 'meta_home' &&  arcSite === 'elcomercio'
+    page === 'meta_home' && arcSite === 'elcomercio'
       ? chartbeatLoaderScriptAsync
       : chartbeatLoaderScript
   }`

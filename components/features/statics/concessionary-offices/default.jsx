@@ -47,10 +47,6 @@ class StaticConcessionaryOffices extends PureComponent {
     }
   }
 
-  componentWillMount() {
-    this.getGoogleMaps()
-  }
-
   componentDidMount() {
     this.getGoogleMaps().then(() => {
       this.initMap()
@@ -58,18 +54,16 @@ class StaticConcessionaryOffices extends PureComponent {
   }
 
   getGoogleMaps() {
-    if (!this.googleMapsPromise) {
-      this.googleMapsPromise = new Promise(resolve => {
-        window.resolveGoogleMapsPromise = () => {
-          resolve('google')
-          delete window.resolveGoogleMapsPromise
-        }
-        const script = document.createElement('script')
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBbwx4nd6vinEmC5nvaRt2GvwuOcktW_1E&callback=resolveGoogleMapsPromise`
-        script.async = true
-        document.head.appendChild(script)
-      })
-    }
+    this.googleMapsPromise = new Promise(resolve => {
+      window.resolveGoogleMapsPromise = () => {
+        resolve('google')
+        delete window.resolveGoogleMapsPromise
+      }
+      const script = document.createElement('script')
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBbwx4nd6vinEmC5nvaRt2GvwuOcktW_1E&callback=resolveGoogleMapsPromise`
+      script.async = true
+      document.head.appendChild(script)
+    })
     return this.googleMapsPromise
   }
 

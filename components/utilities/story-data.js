@@ -461,6 +461,20 @@ class StoryData {
     return contentElements
   }
 
+  get hasBodyGallery() {
+    const bodyGallery =
+      StoryData.getContentElements(
+        this._data && this._data.content_elements,
+        'gallery'
+      ) || []
+    return bodyGallery.length > 0
+  }
+
+  /**
+   * Reconoce si existe embed de twitter o instagram
+   * en el cuerpo de la noticia
+   * @returns {booleam} true || false
+   */
   get embedTwitterAndInst() {
     const embed = StoryData.getContentElements(
       this._data && this._data.content_elements,
@@ -468,17 +482,16 @@ class StoryData {
     )
 
     const data =
+      embed.length > 0 &&
+      embed.some(({ content = '' }) =>
+        /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+      )
+    /* const data =
       embed.length > 0
-        ? embed.map(item => {
-            const { content = '' } = item
-            return content.includes('twitter-tweet') ||
-              content.includes('instagram-media')
-              ? item
-              : []
-          })
-        : []
+        ? embed.filter(({ content = ''}) => /twitter-(?:tweet|timeline)|instagram-media/.test(content))
+        : [] */
 
-    return data.filter(String)
+    return data
   }
 
   get videoSeo() {
@@ -772,6 +785,12 @@ class StoryData {
     return attributesObject
   }
 
+  get oembedSubtypes() {
+    return this._data
+      ? StoryData.getOembedSubtypes(this._data.content_elements)
+      : []
+  }
+
   get contentElementsListOne() {
     const result =
       (this._data &&
@@ -788,6 +807,14 @@ class StoryData {
           this._data.content_elements,
           ELEMENT_RAW_HTML
         )) ||
+      ''
+    )
+  }
+
+  get contentElementsGallery() {
+    return (
+      (this._data &&
+        StoryData.getContentElements(this._data.content_elements, GALLERY)) ||
       ''
     )
   }
@@ -1410,6 +1437,14 @@ class StoryData {
       : ''
   }
 
+  static getOembedSubtypes(data = []) {
+    return data && data.length > 0
+      ? data
+          .map(({ type, subtype }) => (type === ELEMENT_OEMBED ? subtype : ''))
+          .filter(String)
+      : []
+  }
+
   static getContentElementsImage(data = [], typeElement = '') {
     return data && data.length > 0
       ? data.filter((img = {}) => {
@@ -1420,9 +1455,7 @@ class StoryData {
 
   static getContentElements(data = [], typeElement = '') {
     return data && data.length > 0
-      ? data.map(item => {
-          return item.type === typeElement ? item : []
-        })
+      ? data.filter(item => item.type === typeElement)
       : []
   }
 
@@ -1793,7 +1826,15 @@ class StoryData {
           } = {},
         } = {},
       }) => {
-        const result = { _id, type, subtype: '', level, payload: '', streams, type_config:'' }
+        const result = {
+          _id,
+          type,
+          subtype: '',
+          level,
+          payload: '',
+          streams,
+          type_config: '',
+        }
 
         switch (type) {
           case ELEMENT_TEXT:

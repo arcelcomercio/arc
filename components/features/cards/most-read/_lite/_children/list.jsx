@@ -16,20 +16,19 @@ const CardMostReadChildList = props => {
     viewImage,
     stories,
     customTitle,
-    isAdmin,
     customLink,
     contextPath,
     arcSite,
   } = props
   const { editableField } = useEditableContent()
-  const urlImg = `${getAssetsPath(
+  const logoSidebar = `${getAssetsPath(
     arcSite,
     contextPath
   )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
   return (
     <div role="list" className={classes.mostRead}>
       <h4 itemProp="name" className={classes.title}>
-        <img className={classes.logo} alt="logo" src={urlImg}></img>
+        <img className={classes.logo} alt="logo" src={logoSidebar}></img>
 
         <span {...editableField('customTitle')}>
           <a
@@ -45,7 +44,7 @@ const CardMostReadChildList = props => {
       {stories &&
         stories.map((item, i) => {
           const key = `most-read-${i}-${item.id}`
-          const params = { item, viewImage, isAdmin }
+          const params = { item, viewImage, arcSite }
           return <CardMostReadItem key={key} {...params} />
         })}
     </div>

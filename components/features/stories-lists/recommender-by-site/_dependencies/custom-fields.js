@@ -6,11 +6,11 @@ const customFields = PropTypes.shape({
     defaultValue: false,
     group: 'Configuración Manual',
   }),
-  storiesManualConfig: PropTypes.contentConfig('stories').isRequired.tag({
+  storiesManualConfig: PropTypes.contentConfig('stories').tag({
     name: 'Seleccionar contenido manual',
     group: 'Configuración Manual',
   }),
-  storiesConfig: PropTypes.contentConfig('stories').isRequired.tag({
+  storiesConfig: PropTypes.contentConfig('stories').tag({
     name: 'Seleccionar contenido automático',
     group: 'Configuración automático',
   }),

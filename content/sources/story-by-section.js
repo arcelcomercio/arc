@@ -1,6 +1,5 @@
-import { resizerSecret } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { addResizedUrlsToStories } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
+import { removeLastSlash } from '../../components/utilities/parse/strings'
 import {
   includePromoItems,
   includePrimarySection,
@@ -8,17 +7,6 @@ import {
   includeCredits,
   formatIncludedFields,
 } from '../../components/utilities/included-fields'
-
-/**
- * Esta función se usa para controlar el slash final, ideada unicamente para
- * cuando la sección venga por un resolver.
- */
-const removeLastSlash = section => {
-  if (section === '/') return section
-  return section && section.endsWith('/')
-    ? section.slice(0, section.length - 1)
-    : section
-}
 
 const schemaName = 'story'
 
@@ -49,16 +37,6 @@ const params = [
     type: 'text',
   },
 ]
-
-const transformImg = ({ contentElements, website, presets }) => {
-  const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStories({
-    contentElements,
-    resizerUrl,
-    resizerSecret,
-    presets,
-  })
-}
 
 const getQueryFilter = (section, website) => {
   let queryFilter = ''
@@ -140,12 +118,7 @@ const resolve = (key = {}) => {
 
 const transform = (
   data,
-  {
-    'arc-site': arcSite,
-    section: rawSection,
-    website: rawWebsite,
-    presets: customPresets,
-  }
+  { 'arc-site': arcSite, section: rawSection, website: rawWebsite, presets }
 ) => {
   const websiteField = rawWebsite === null ? '' : rawWebsite
   const website = websiteField || arcSite
@@ -163,17 +136,7 @@ const transform = (
     if (_id === section) sectionName = name
   })
 
-  const presets = customPresets || ''
-
-  let story = data
-
-  if (presets) {
-    ;[story] = transformImg({
-      contentElements: [story],
-      website,
-      presets, // i.e. 'mobile:314x157'
-    })
-  }
+  const story = getResizedImageData(data, presets, website)
 
   return {
     ...story,

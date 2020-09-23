@@ -10,7 +10,8 @@ import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import customFields from './_dependencies/custom-fields'
 import { separatorBasicFields } from '../../../utilities/included-fields'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { getAssetsPath } from '../../../utilities/constants'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const classes = {
   storyInterest: 'story-interest w-full h-auto pr-20 pl-20',
@@ -32,6 +33,7 @@ const InterestByTag = props => {
     deployment,
     isAdmin,
     outputType: isAmp,
+    siteProperties,
   } = useFusionContext()
 
   const presets = 'no-presets'
@@ -75,6 +77,17 @@ const InterestByTag = props => {
     })
     .filter(String)
 
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = siteProperties || {}
+
+  const logoPremium = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${logo}?d=1`
+
   return (
     <>
       {isAmp !== 'amp' && isWeb && dataInterest && dataInterest[0] && (
@@ -89,7 +102,7 @@ const InterestByTag = props => {
 
                 const { landscape_l: landscapeL, landscape_md: landscapeMD } =
                   typeof window === 'undefined'
-                    ? getResizedUrl({
+                    ? createResizedParams({
                         url: instance.multimedia,
                         presets: 'landscape_l:648x374,landscape_md:314x157',
                         arcSite,
@@ -106,12 +119,14 @@ const InterestByTag = props => {
                   multimediaLandscapeL: landscapeL,
                   multimediaType: instance.multimediaType,
                   isAdmin,
+                  isPremium: instance.isPremium,
                 }
                 return (
                   <StorySeparatorChildItem
                     data={data}
                     key={UtilListKey(i)}
                     arcSite={arcSite}
+                    logo={logoPremium}
                   />
                 )
               })}

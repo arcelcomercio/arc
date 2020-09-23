@@ -152,6 +152,34 @@ class Data extends StoryData {
     )
   }
 
+  get secondMultimedia() {
+    const {
+      // Custom config values
+      multimediaService,
+      // Story Data values
+      promoItemsType,
+      multimedia,
+    } = this
+
+    const multimediaTypeFeature = Data.getTypeMultimediaGeneral(
+      multimediaService,
+      promoItemsType
+    )
+
+    let multimediaContent = ''
+    if (
+      (multimediaTypeFeature === VIDEO ||
+        multimediaTypeFeature === ELEMENT_YOUTUBE_ID ||
+        multimediaTypeFeature === Data.YOUTUBE ||
+        multimediaTypeFeature === Data.GOLDFISH) &&
+      multimedia !== ''
+    ) {
+      multimediaContent = multimedia
+    }
+
+    return multimediaContent
+  }
+
   static getSourceMultimedia(multimediaType, customMultimedia, multimedia) {
     let multimediaContent = ''
     if (
@@ -161,7 +189,7 @@ class Data extends StoryData {
         multimediaType === Data.GOLDFISH) &&
       multimedia !== ''
     ) {
-      multimediaContent = multimedia
+      multimediaContent = customMultimedia
     } else if (
       (multimediaType === GALLERY ||
         multimediaType === IMAGE ||

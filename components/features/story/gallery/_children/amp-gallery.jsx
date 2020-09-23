@@ -1,7 +1,7 @@
 import React from 'react'
 import AmpImage from '@arc-core-components/element_image'
-import { useFusionContext } from 'fusion:context'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { useAppContext } from 'fusion:context'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   gallery: 'story-gallery pt-10 pr-20 pl-20 md:pr-0 md:pl-0',
@@ -21,16 +21,20 @@ const StoryHeaderChildAmpGallery = props => {
   const imgTag = 'amp-img'
   const numeroFoto = ' [text]="+selectedSlide + 1"'
 
-  const { arcSite } = useFusionContext()
+  const { arcSite } = useAppContext()
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
-      return (
-        getResizedUrl({
+      const imageObject =
+        createResizedParams({
           url: urlImg,
-          presets: 'large:980x528',
+          presets: 'large:1024x612,meddiun:620x280,small:330x178',
           arcSite,
         }) || {}
-      )
+      return {
+        original: imageObject.original,
+        large: imageObject.large,
+        images: `${imageObject.large} 1024w,${imageObject.meddiun} 600w,${imageObject.small} 360w`,
+      }
     }
     return urlImg
   }
@@ -56,7 +60,8 @@ const StoryHeaderChildAmpGallery = props => {
               <div className="slide">
                 <div className="inner">
                   <amp-img
-                    src={extractImage(url).large || url}
+                    sizes="(max-width: 360px) 50vw,(max-width: 750px) 50vw"
+                    srcset={extractImage(url).images || url}
                     alt={caption}
                     class={classes.image}
                     height="360"

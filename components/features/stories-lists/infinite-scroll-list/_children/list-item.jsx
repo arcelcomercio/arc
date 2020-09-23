@@ -6,6 +6,7 @@ import {
 } from '../../../../utilities/constants/multimedia-types'
 import { reduceWord } from '../../../../utilities/parse/strings'
 import formatTime from '../../../../utilities/date-time/format-time'
+import { SITE_GESTION } from '../../../../utilities/constants/sitenames'
 
 const formatDateLocalTimeZone = rawDate => {
   const auxDate = new Date(rawDate)
@@ -40,6 +41,7 @@ const classes = {
   img: 'story-item__img object-cover object-center w-full h-full',
   /*   iconImg: `story-item__icon icon-img position-absolute flex items-center justify-center rounded text-black text-sm`, */
   wrapperTitle: 'story-item__information-box w-full',
+  iconImagePremium: 'story-item__icon-premium mr-15',
 }
 
 export default React.memo(
@@ -57,7 +59,11 @@ export default React.memo(
     multimediaLandscapeS,
     format,
     isRender,
+    isPremium = '',
+    arcSite = '',
+    logo = '',
   }) => {
+    const isGestion = arcSite === SITE_GESTION
     return (
       <div
         className={`${classes.storyItem} ${
@@ -66,12 +72,21 @@ export default React.memo(
         <div className={classes.bottom}>
           <div className={classes.left}>
             <div className={classes.top}>
-              <a
-                itemProp="url"
-                href={primarySectionLink}
-                className={classes.section}>
-                {primarySection}
-              </a>
+              <div>
+                {isPremium && isGestion && (
+                  <img
+                    className={classes.iconImagePremium}
+                    src={logo}
+                    alt="premium"
+                  />
+                )}
+                <a
+                  itemProp="url"
+                  href={primarySectionLink}
+                  className={classes.section}>
+                  {primarySection}
+                </a>
+              </div>
               <p itemProp="description" className={classes.date}>
                 {date && isRender ? formatDateLocalTimeZone(date) : ''}
               </p>

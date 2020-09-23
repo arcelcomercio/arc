@@ -1,12 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE,
-  ARC_ACCESS_TOKEN,
-} from 'fusion:environment'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { addResizedUrlsToStories } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 import {
   includePromoItems,
   includePrimarySection,
@@ -62,19 +58,35 @@ const params = [
 ]
 
 const getQueryFilter = (query, section, website) => {
+  let queryAll = query
+  queryAll = query.replace(/\+/g, ' ')
+  queryAll = decodeURIComponent(queryAll)
+  queryAll = queryAll
+    .replace(/%/g, '%25')
+    .replace(/&/g, '%26')
+    // .replace(/\|/g, '%7C')
+    .replace(/€/g, '%E2%82%AC')
+
   let queryFilter = ''
 
   // Si se filtra por seccion se usa ?body, sino, se usa ?q
   if (section === 'todas') {
-    let queryAll = query
+    // let queryAll = query
     if (query !== '') {
       // queryAll = query.replace(/ /g, '+AND+')
-      queryAll = `("${decodeURI(encodeURIComponent(queryAll))}")`
+      /* queryAll = query.replace(/\+/g, ' ')
+      queryAll = decodeURIComponent(queryAll)
+      queryAll = queryAll.replace(/&/g, '%26').replace(/€/g, '%E2%82%AC') */
+      // .replace(/\?/g, '%3F')
+      // .replace(/%/g, '%25')
+      queryAll = `("${queryAll}")`
     }
     queryFilter = `q=canonical_website:${website}+AND+type:story+AND+${queryAll}`
   } else {
-    let valueQuery = query.replace(/\+/g, ' ')
-    valueQuery = valueQuery.replace(/-/g, '+') || '*'
+    /* let valueQuery = query.replace(/\+/g, ' ')
+    valueQuery = valueQuery.replace(/-/g, '+') || '*' */
+
+    queryAll = queryAll.replace(/-/g, '+') || '*'
 
     const body = {
       query: {
@@ -87,7 +99,7 @@ const getQueryFilter = (query, section, website) => {
             },
             {
               simple_query_string: {
-                query: `"${decodeURI(valueQuery)}"`, // El navegador encodea las tildes
+                query: `"${decodeURI(queryAll)}"`, // El navegador encodea las tildes
               },
             },
             {
@@ -137,16 +149,6 @@ const validateFrom = (page, size) => {
     return (page - 1) * size
   }
   return '0'
-}
-
-const transformImg = ({ contentElements, website, presets }) => {
-  const { resizerUrl } = getProperties(website)
-  return addResizedUrlsToStories({
-    contentElements,
-    resizerUrl,
-    resizerSecret,
-    presets,
-  })
 }
 
 const fetch = ({
@@ -206,22 +208,17 @@ const transform = (
 ) => {
   const pageNumber = !page || page === 0 ? 1 : page
   const presets = customPresets || 'landscape_s:234x161,landscape_xs:118x72'
-
-  const dataStories = data
-  const { content_elements: contentElements } = data || {}
-  dataStories.content_elements = transformImg({
-    contentElements,
-    website,
-    presets, // i.e. 'mobile:314x157'
-  })
-
+  const dataStories = getResizedImageData(data, presets, website)
   const { siteName } = getProperties(website)
   dataStories.siteName = siteName
 
   return {
     ...dataStories,
     query,
-    decoded_query: decodeURIComponent(query).replace(/\+/g, ' '),
+    decoded_query: decodeURIComponent(decodeURIComponent(query)).replace(
+      /\+/g,
+      ' '
+    ),
     page_number: pageNumber,
   }
 }
