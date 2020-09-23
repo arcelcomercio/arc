@@ -239,6 +239,7 @@ export default ({
     videoSeo,
     idYoutube,
     contentElementsHtml,
+    oembedSubtypes,
     embedTwitterAndInst,
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
@@ -250,7 +251,8 @@ export default ({
   const hasYoutubeVideo =
     idYoutube ||
     regexYoutube.test(content) ||
-    regexYoutube.test(contentElementsHtml)
+    regexYoutube.test(contentElementsHtml) ||
+    oembedSubtypes.includes('youtube')
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
