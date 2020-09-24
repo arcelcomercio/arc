@@ -249,12 +249,12 @@ export const iframeHtml = (html, arcSite = '') => {
   } else if (arcSite === SITE_TROME) {
     result = result.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-      'https://img.trome.pe$1'
+      'https://opta.minoticia.pe $1'
     )
 
     result = result.replace(
       /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.trome.pe$1'
+      'https://opta.minoticia.pe $1'
     )
   } else if (arcSite === SITE_DIARIOCORREO) {
     result = result.replace(

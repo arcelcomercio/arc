@@ -20,7 +20,7 @@ const StoryContentChildHtml = ({
       .replace('http://', 'https://')
       .replace('peru21.pe', 'img.peru21.pe')
       .replace('elcomercio.pe', 'img.elcomercio.pe')
-      .replace('trome.pe', 'img.trome.pe')
+      .replace('trome.pe', 'opta.minoticia.pe ')
       .replace('depor.com', 'img.depor.com')
       .replace('gestion.pe', 'img.gestion.pe')
     return (
