@@ -642,7 +642,7 @@ export default ({
             <script
               defer
               src={deployment(
-                `${contextPath}/resources/assets/lite-youtube/lite-youtube.js`
+                `${contextPath}/resources/assets/lite-youtube/lite-youtube.min.js`
               )}
             />
           </>

@@ -40,32 +40,33 @@ const LiteYoutube = ({ videoId, className, loading, autoload, alt = '' }) => {
   return (
     // <Static id={`lyt-${videoId}`}>
       <div 
-        id={`lyt-${videoId}`} 
-        className={`lyt-container ${lazy ? 'lyt-lazy' : ''} ${autoload ? 'auto' : ''} ${className || ''}`}>
-        {lazy ? (
-          <picture className="lyt-pic">
-            <source data-srcset={posterUrlWebp} type="image/webp" />
-            <img
-              data-src={posterUrlJpeg}
-              alt={alt}
-              className="lyt-img lazy"
-              type="image/jpeg"
-            />
-          </picture>
-        ) : (
-          <picture className="lyt-pic">
-            <source srcSet={posterUrlWebp} type="image/webp" />
-            <img
-              src={posterUrlJpeg}
-              alt={alt}
-              loading="eager"
-              className="lyt-img"
-              type="image/jpeg"
-              importance="high"
-            />
-          </picture>
-        )}
-        <button type="button" className="lty-playbtn"></button>
+        className="lyt-container">
+        <div id={`lyt-${videoId}`} className={`lyt-player ${lazy ? 'lyt-lazy' : ''} ${autoload ? 'auto' : ''} ${className || ''}`}>
+          {lazy ? (
+            <picture className="lyt-pic">
+              <source data-srcset={posterUrlWebp} type="image/webp" />
+              <img
+                data-src={posterUrlJpeg}
+                alt={alt}
+                className="lyt-img lazy"
+                type="image/jpeg"
+              />
+            </picture>
+          ) : (
+            <picture className="lyt-pic">
+              <source srcSet={posterUrlWebp} type="image/webp" />
+              <img
+                src={posterUrlJpeg}
+                alt={alt}
+                loading="eager"
+                className="lyt-img"
+                type="image/jpeg"
+                importance="high"
+              />
+            </picture>
+          )}
+          <button type="button" className="lty-playbtn"></button>
+        </div>
       </div>
     // </Static>
   )
