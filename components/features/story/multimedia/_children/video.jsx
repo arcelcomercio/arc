@@ -73,7 +73,7 @@ const StoryContentChildVideo = props => {
     )
     .replace(
       /https:\/\/trome.pe(\/uploads\/.+?\/.+?\/.+?\/.+?(?:jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.trome.pe$1'
+      'https://opta.minoticia.pe$1'
     )
     .replace(
       /https:\/\/gestion.pe(\/uploads\/.+?\/.+?\/.+?\/.+?(?:jpeg|jpg|png|gif|mp4|mp3))/g,
