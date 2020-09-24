@@ -33,7 +33,13 @@ const renderTemplate = (template, valTemplate, attributes) => {
 }
 
 export const LandingInt = props => {
-  const { onClose, arcSite, onLogged, noBtnClose, typeDialog } = props
+  const {
+    onClose,
+    arcSite,
+    // onLogged,
+    noBtnClose,
+    typeDialog,
+  } = props
   const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
   return (
     <ModalProvider>
@@ -49,12 +55,13 @@ export const LandingInt = props => {
                       `Web_Sign_Wall_${typeDialog}`,
                       `web_sw${typeDialog[0]}_boton_cerrar`
                     )
-                    if (window.Identity.userProfile) {
-                      onLogged(window.Identity.userProfile)
-                      onClose()
-                    } else {
-                      onClose()
-                    }
+                    // if (window.Identity.userProfile) {
+                    //   onLogged(window.Identity.userProfile)
+                    //   onClose()
+                    // } else {
+                    //   onClose()
+                    // }
+                    onClose()
                   }}>
                   <Close />
                 </CloseBtn>
