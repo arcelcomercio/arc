@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import { NEWSLETTER_API, NEWSLETTER_COVID19_API } from 'fusion:environment'
+// import { NEWSLETTER_API, NEWSLETTER_COVID19_API } from 'fusion:environment'
 
 import customFieldsExtern from './_dependencies/custom-fields'
 import NewsletterChild from './_children/newsletter'
@@ -19,20 +19,20 @@ class Newsletter extends PureComponent {
       }
     },
     suscription: data => {
-      const dataRequest = params => {
-        const {
-          siteProperties: { newsletterBrand = '' },
-        } = this.props
-        const {
-          customFields: { isActiveApiCovid19 },
-        } = this.props
-        const dataBody = {
-          brand: newsletterBrand,
-        }
-        if (isActiveApiCovid19) dataBody.topics = ['coronavirus']
+      // const dataRequest = params => {
+      //   const {
+      //     siteProperties: { newsletterBrand = '' },
+      //   } = this.props
+      //   const {
+      //     customFields: { isActiveApiCovid19 },
+      //   } = this.props
+      //   const dataBody = {
+      //     brand: newsletterBrand,
+      //   }
+      //   if (isActiveApiCovid19) dataBody.topics = ['coronavirus']
 
-        return Object.assign(params, dataBody)
-      }
+      //   return Object.assign(params, dataBody)
+      // }
 
       const messageApi = response => {
         let msg = ''
@@ -50,14 +50,16 @@ class Newsletter extends PureComponent {
         return response && response.status !== false
       }
 
-      const {
-        customFields: { isActiveApiCovid19 },
-      } = this.props
-      const url = isActiveApiCovid19 ? NEWSLETTER_COVID19_API : NEWSLETTER_API
+      // const {
+      //   customFields: { isActiveApiCovid19 },
+      // } = this.props
+      // const url = isActiveApiCovid19 ? NEWSLETTER_COVID19_API : NEWSLETTER_API
+      const url = `http://pre.md.minoticia.pe/advertising/correo/${data.email}`
       fetch(url, {
-        method: 'POST',
+        // method: 'POST',
+        method: 'GET',
         mode: 'cors',
-        body: JSON.stringify(dataRequest(data)),
+        // body: JSON.stringify(dataRequest(data)),
         headers: {
           'Content-Type': 'application/json',
         },
