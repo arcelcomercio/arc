@@ -121,27 +121,59 @@ const AmpOutputType = ({
     idYoutube,
     quantityGalleryItem,
     videoSeo,
-    promoItems: { basic_html: { content = '' } = {} } = {},
+    hasBodyGallery,
     contentElementsHtml,
+    oembedSubtypes,
+    promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
     arcSite,
     contextPath,
   })
-
   let rawHtmlContent = contentElementsHtml
 
-  const hasGallery = quantityGalleryItem > 0
-  const hasYoutube = idYoutube || /youtu\.be|youtube\.com/.test(rawHtmlContent)
-  const hasFacebook = rawHtmlContent.includes('facebook.com/plugins/')
-  const hasInstagram = rawHtmlContent.includes('instagram-media')
-  const hasTwitter = rawHtmlContent.includes('twitter.com')
+  /** Youtube validation */
+  const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
+  const hasYoutubeIframePromo = regexYoutube.test(content)
+  const hasYoutube =
+    idYoutube ||
+    hasYoutubeIframePromo ||
+    regexYoutube.test(rawHtmlContent) ||
+    oembedSubtypes.includes('youtube')
+
+  /** Facebook validation */
+  const hasFacebookIframePromo = /<iframe.+facebook.com\/plugins\//.test(
+    content
+  )
+  const hasFacebook =
+    hasFacebookIframePromo ||
+    rawHtmlContent.includes('facebook.com/plugins/') ||
+    oembedSubtypes.includes('facebook')
+
+  /** Other validations */
+  const hasGallery = quantityGalleryItem > 0 || hasBodyGallery
+  const hasInstagram =
+    rawHtmlContent.includes('instagram-media') ||
+    oembedSubtypes.includes('instagram')
+  const hasTwitter =
+    rawHtmlContent.includes('twitter.com') || oembedSubtypes.includes('twitter')
   const hasSoundcloud = rawHtmlContent.includes('soundcloud.com/playlists/')
+
+  /** Iframe validation */
+  /** Si existe un iframe como promoItem principal pero este iframe es
+   * de youtube o facebook, se necesita el script de youtube o facebook
+   * respectivamente, no el de iframe, por eso se hace esta validacion.
+   */
+  const hasIframePromo =
+    !hasYoutubeIframePromo &&
+    !hasFacebookIframePromo &&
+    content.includes('<iframe')
   const hasIframe =
-    content.includes('<iframe') ||
+    hasIframePromo ||
     /<iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     )
+
   const hasJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
   /**
    * Se reemplaza los .mp4 de JWplayer para poder usar el fallback de
