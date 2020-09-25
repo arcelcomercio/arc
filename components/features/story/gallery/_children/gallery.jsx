@@ -5,7 +5,7 @@ import StoryGalleryChildPicture from './picture'
 
 const classes = {
   gallery: 'story-gallery pt-5 pr-20 pl-20 ',
-  galleryItem: 'story-gallery__item position-relative pt-20 mt-30 gvi',
+  galleryItem: 'story-gallery__item position-relative pt-20 gvi',
   galleryCredit: 'story-gallery__credit text-sm',
   galleryNumber:
     'story-gallery__number flex items-center ml-10 justify-center font-bold',
@@ -27,7 +27,7 @@ const StoryHeaderChildGallery = props => {
       <div className={classes.gallery}>
         {sliders.map((slide, i) => {
           const {
-            credits: { affiliation: [{ name = '' } = {}] } = {},
+            credits: { affiliation: [{ name = '' } = {}] = [] } = {},
             width,
             height,
           } = slide

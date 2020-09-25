@@ -1,5 +1,6 @@
 import React from 'react'
 import { formatDateStory } from '../../../../utilities/date-time/dates'
+import { GALLERY_VERTICAL } from '../../../../utilities/constants/subtypes'
 
 const classes = {
   author:
@@ -19,10 +20,12 @@ const StoryContentChildAuthor = ({
   updatedDate,
   authorEmail,
   primarySection = '',
+  subtype,
 }) => {
   return (
     <>
-      <div className={classes.author}>
+      <div
+        className={`${classes.author} ${subtype === GALLERY_VERTICAL && 'gv'}`}>
         {/* // TODO: Cambiar este div por <address> */}
         {primarySection !== 'Columnistas' && (
           <div>
