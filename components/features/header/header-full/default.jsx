@@ -10,6 +10,8 @@ import { socialMediaUrlShareList } from '../../../utilities/social-media'
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import { getAssetsPath } from '../../../utilities/assets'
 
+import Newsletter from '../../statics/newsletter-custom/default'
+
 import HeaderFullView from './_children/header-full'
 
 const HeaderFull = props => {
@@ -165,6 +167,7 @@ const HeaderFull = props => {
     siteDomain,
     legalLinks,
     hideMenu,
+    Newsle: <Newsletter></Newsletter>,
   }
   return <HeaderFullView {...params} />
 }
