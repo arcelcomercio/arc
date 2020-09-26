@@ -175,5 +175,5 @@ HeaderFull.propTypes = {
   customFields,
 }
 HeaderFull.label = 'Cabecera Full'
-HeaderFull.static = true
+// HeaderFull.static = true
 export default HeaderFull
