@@ -54,7 +54,7 @@ class Newsletter extends PureComponent {
       //   customFields: { isActiveApiCovid19 },
       // } = this.props
       // const url = isActiveApiCovid19 ? NEWSLETTER_COVID19_API : NEWSLETTER_API
-      const url = `http://md.minoticia.pe/advertising/correo/${data.email}`
+      const url = `https://md.minoticia.pe/advertising/correo/${data.email}`
       fetch(url, {
         // method: 'POST',
         method: 'GET',
