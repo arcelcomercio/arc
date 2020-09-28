@@ -10,7 +10,7 @@ import {
 import { defaultImage } from '../../../utilities/assets'
 
 import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
-import StoryGalleryChildGallery from './_children/gallery'
+import StoryGalleryChildGallery from './_children/gallery-lite'
 import Infografia from '../multimedia/_children/html'
 import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
 import PremiumTag from '../title/_children/premium'

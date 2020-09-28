@@ -53,9 +53,7 @@ const StoryContentChildAuthorTrustLite = ({
   return (
     <>
       <div className={classes.author}>
-        {primarySection !== 'Columnistas' && (
-          <DetailsAuthor {...detailsAuthorParamet}></DetailsAuthor>
-        )}
+        <DetailsAuthor {...detailsAuthorParamet}></DetailsAuthor>
         <div
           className={
             authorEmailSecond

@@ -203,7 +203,7 @@ const FeaturedStory = props => {
 
         {author && author.name && (
           <address className={classes.author}>
-            <a itemProp="url" className={classes.authorLink} href={author.url}>
+            <a itemProp="url" className={classes.authorLink} href={author.url || '/autores/'}>
               {author.name}
             </a>
           </address>

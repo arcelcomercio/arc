@@ -220,4 +220,5 @@ export default {
     logo: 'logo-gestion-stick.png',
   },
   isDfp: true,
+  archiveLimit: '2012-03-28',
 }
