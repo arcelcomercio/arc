@@ -4,6 +4,7 @@ import Video from './video'
 import Imagen from './image'
 import Html from './html'
 import VideoNativo from './video-nativo'
+import LiteYoutube from '../../../../global-components/lite-youtube'
 
 const classes = {
   audio: 'pt-10 w-full',
@@ -31,7 +32,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     multimediaLazyDefault,
     showCaption,
     primaryImage,
-    completeImage
+    completeImage,
   } = data
 
   const { type: typeImage, caption = '' } = basic || {}
@@ -44,7 +45,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     caption,
     showCaption,
     primaryImage,
-    completeImage
+    completeImage,
   }
 
   return (
@@ -59,16 +60,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
         <Html data={embedHtmlPromoItems} caption={caption} {...data} />
       )}
 
-      {youtubeId && (
-        <iframe
-          title={`Youtube - ${youtubeId}`}
-          width="100%"
-          height="373"
-          src={`https://www.youtube.com/embed/${youtubeId}?&autoplay=1`}
-          frameBorder="0"
-          allowFullScreen
-        />
-      )}
+      {youtubeId && <LiteYoutube videoId={youtubeId} />}
       {typoVideo === 'video' && embedHtml ? (
         <Video data={embedHtml} description={descriptionVideo} {...basic} />
       ) : (
