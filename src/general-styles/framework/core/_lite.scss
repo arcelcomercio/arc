@@ -162,8 +162,11 @@ $tertiary-font: $secondary-font;
   height: 0;
 }
 
-[id*="div-gpt-ad"] {
-  text-align: center;
+[id^="gpt_"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
   @media print {
     display: none;
   }
@@ -175,6 +178,10 @@ $tertiary-font: $secondary-font;
 .menu {
   width: 0;
   transform: translateX(-100vw);
+}
+
+#signwall-app > div {
+	content-visibility: auto;
 }
 
 .link-site {

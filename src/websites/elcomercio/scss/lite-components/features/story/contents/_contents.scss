@@ -195,6 +195,8 @@
 
   /* ----------------------------------------------------- */
   &__content {
+    content-visibility: auto;
+    contain-intrinsic-size: 2000px;
     padding-top: 5px;
   }
 
