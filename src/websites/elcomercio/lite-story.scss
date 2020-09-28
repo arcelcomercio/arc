@@ -11,6 +11,7 @@ $tertiary-font: $secondary-font;
 /******* Components *******/
 @import "./scss/lite-components/features/header/basic/menu";
 @import "./scss/lite-components/features/story/gallery/gallery";
+@import "./scss/lite-components/features/story/gallery/gallery-vertical";
 @import "./scss/lite-components/features/story/contents/contents";
 @import "./scss/lite-components/features/story/contents/table";
 @import "./scss/lite-components/features/story/related/st-rel";
