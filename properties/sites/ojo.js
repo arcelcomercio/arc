@@ -119,4 +119,5 @@ export default {
     mode: 'thumbnails-a',
   },
   isDfp: true,
+  archiveLimit: '2009-08-31',
 }
