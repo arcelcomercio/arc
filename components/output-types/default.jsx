@@ -237,13 +237,22 @@ export default ({
 
   const {
     videoSeo,
-    embedTwitterAndInst = [],
+    idYoutube,
+    contentElementsHtml,
+    oembedSubtypes,
+    embedTwitterAndInst,
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
     arcSite,
     contextPath,
   })
+  const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
+  const hasYoutubeVideo =
+    idYoutube ||
+    regexYoutube.test(content) ||
+    regexYoutube.test(contentElementsHtml) ||
+    oembedSubtypes.includes('youtube')
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
@@ -271,7 +280,7 @@ export default ({
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
-  
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -399,9 +408,20 @@ export default ({
                     });
                   }, 1);
                 };
+
+                window.addPrefetch = function addPrefetch(kind, url, as) {
+                  const linkElem = document.createElement('link');
+                  linkElem.rel = kind;
+                  linkElem.href = url;
+                  if (as) {
+                      linkElem.as = as;
+                  }
+                  linkElem.crossOrigin = 'true';
+                  document.head.append(linkElem);
+                }
               }
             */
-            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
         <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
@@ -582,7 +602,8 @@ export default ({
                   arcSite,
                   siteDomain,
                   metaValue,
-                }) || siteProperties.urlPreroll}'`,
+                }) || siteProperties.urlPreroll}';
+                window.addPrefetch('preconnect', 'https://d1tqo5nrys2b20.cloudfront.net/')`,
               }}
             />
             <script
@@ -605,7 +626,28 @@ export default ({
             }}
           />
         )}
-        {embedTwitterAndInst[0] && (
+        {hasYoutubeVideo && (
+          <>
+            <Resource path="resources/assets/lite-youtube/styles.min.css">
+              {({ data }) => {
+                return data ? (
+                  <style
+                    dangerouslySetInnerHTML={{
+                      __html: data,
+                    }}
+                  />
+                ) : null
+              }}
+            </Resource>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/lite-youtube/lite-youtube.min.js`
+              )}
+            />
+          </>
+        )}
+        {embedTwitterAndInst && (
           <>
             <script
               type="text/javascript"

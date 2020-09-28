@@ -58,6 +58,7 @@ import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import Ads from '../../../global-components/ads'
+import LiteYoutube from '../../../global-components/lite-youtube'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -401,6 +402,13 @@ class StoryContents extends PureComponent {
                     }
                   }
                   if (type === ELEMENT_OEMBED) {
+                    if (sub === 'youtube') {
+                      const { html: youtubeIframe } = rawOembed || {}
+                      const [, videoId] =
+                        youtubeIframe.match(/\/embed\/([\w-]+)/) || []
+                      if (videoId)
+                        return <LiteYoutube videoId={videoId} loading="lazy" />
+                    }
                     return (
                       <Oembed
                         rawOembed={rawOembed}
@@ -505,21 +513,20 @@ class StoryContents extends PureComponent {
                     }
 
                     if (
-                      content.includes('twitter-tweet') ||
-                      content.includes('instagram-media')
+                      /twitter-(?:tweet|timeline)|instagram-media/.test(content)
                     ) {
                       return (
                         <>
                           <div
                             data-type={
-                              content.includes('twitter-tweet')
+                              /twitter-(?:tweet|timeline)/.test(content)
                                 ? 'twitter'
                                 : 'instagram'
                             }
                             className={classes.newsEmbed}
                             dangerouslySetInnerHTML={{
                               __html: content.replace(
-                                /(<script.*?>).*?(<\/script>)/,
+                                /<script.*?>.*?<\/script>/,
                                 ''
                               ),
                             }}

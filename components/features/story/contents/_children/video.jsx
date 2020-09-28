@@ -3,6 +3,7 @@ import { useAppContext } from 'fusion:context'
 import { getResultVideo } from '../../../../utilities/story/helpers'
 import { getPreroll } from '../../../../utilities/ads/preroll'
 import PowaPlayer from '../../../../global-components/powa-player'
+import { msToTime } from '../../../../utilities/date-time/time'
 
 /**
  *
@@ -40,6 +41,7 @@ const StoryContentChildVideo = props => {
     promo_items: {
       basic_video: {
         _id: principalId,
+        duration: durationOne = '',
         promo_items: { basic: { url: urlImage = '' } = {} } = {},
         streams = [],
       } = {},
@@ -53,6 +55,7 @@ const StoryContentChildVideo = props => {
     description = '',
     promo_items: { basic: { url: urlImageContent = '' } = {} } = {},
     streams: streamsContent = [],
+    duration: durationTwo = '',
     url: imagenMigrate = '',
     contentElemtent = false,
   } = props
@@ -67,7 +70,7 @@ const StoryContentChildVideo = props => {
     )
     .replace(
       /https:\/\/trome.pe(\/uploads\/.+?\/.+?\/.+?\/.+?(?:jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.trome.pe$1'
+      'https://opta.minoticia.pe$1'
     )
     .replace(
       /https:\/\/gestion.pe(\/uploads\/.+?\/.+?\/.+?\/.+?(?:jpeg|jpg|png|gif|mp4|mp3))/g,
@@ -93,10 +96,14 @@ const StoryContentChildVideo = props => {
   const stream =
     videoUrlContent || videoUrlPrincipal || (videoArray && videoArray[1])
 
+  const dataTime =
+    durationOne || durationTwo ? msToTime(durationTwo || durationOne) : ''
+
   return (
     <>
       <PowaPlayer
         uuid={uuid}
+        time={videoArray && videoArray[1] ? '-1' : dataTime}
         stream={stream}
         image={imageUrl || imagenMigrate}
         preroll={

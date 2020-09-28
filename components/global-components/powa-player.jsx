@@ -28,6 +28,7 @@ const PowaPlayer = ({
   autoplay,
   sticky,
   preroll,
+  time = '-1',
   ratio,
   image,
   lazy,
@@ -65,6 +66,7 @@ const PowaPlayer = ({
         data-sticky={sticky || 'false'}
         data-autoplay={autoplay || 'false'}
         data-preroll={preroll}
+        data-time={time}
         style={styles.powa}>
         {lazy ? (
           <picture>

@@ -55,6 +55,7 @@ import {
   GALLERY_VERTICAL,
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
+import LiteYoutube from '../../../global-components/lite-youtube'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -301,6 +302,13 @@ const StoryContentsLite = () => {
                   }
                 }
                 if (type === ELEMENT_OEMBED) {
+                  if (sub === 'youtube') {
+                    const { html: youtubeIframe } = rawOembed || {}
+                    const [, videoId] =
+                      youtubeIframe.match(/\/embed\/([\w-]+)/) || []
+                    if (videoId)
+                      return <LiteYoutube videoId={videoId} loading="lazy" />
+                  }
                   return (
                     <Oembed
                       rawOembed={rawOembed}
@@ -462,21 +470,20 @@ const StoryContentsLite = () => {
                     )
                   }
                   if (
-                    content.includes('twitter-tweet') ||
-                    content.includes('instagram-media')
+                    /twitter-(?:tweet|timeline)|instagram-media/.test(content)
                   ) {
                     return (
                       <>
                         <div
                           data-type={
-                            content.includes('twitter-tweet')
+                            /twitter-(?:tweet|timeline)/.test(content)
                               ? 'twitter'
                               : 'instagram'
                           }
                           className={classes.newsEmbed}
                           dangerouslySetInnerHTML={{
                             __html: content.replace(
-                              /(<script.*?>).*?(<\/script>)/,
+                              /<script.*?>.*?<\/script>/,
                               ''
                             ),
                           }}
