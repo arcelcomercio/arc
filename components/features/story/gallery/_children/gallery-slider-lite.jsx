@@ -52,7 +52,7 @@ const StoryHeaderChildGallerySlider = props => {
           var limitDrag = 40;
           var listPositionPx = 0;
   
-          var $slider = document.querySelector('.story-gallery-slider__content')
+          var $slider = document.body.querySelector('.story-gallery-slider__content')
   
           function _getNewPosition() { return (currentSlide - 1) * -slideWidth; }
   

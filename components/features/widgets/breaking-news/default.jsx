@@ -18,7 +18,7 @@ const classes = {
 /* setTimeout(document.getElementById('close-breaking-news').addEventListener('click', () => {
   document.getElementById('breaking-news').remove()
 }), 0) */
-const handleClose = `"use strict";setTimeout(document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()}),0);`
+const handleClose = `"use strict";requestIdle(document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()}));`
 
 const BreakingNewsFeat = props => {
   const {
