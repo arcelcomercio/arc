@@ -17,5 +17,10 @@ basic_gallery {
     width
     height
     url
+    credits{
+      affiliation{
+        name
+      }
+    }
   }
 }`

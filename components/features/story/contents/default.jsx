@@ -19,6 +19,7 @@ import {
   BIG_IMAGE,
   STORY_CORRECTION,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -209,11 +210,14 @@ class StoryContents extends PureComponent {
               subtype !== SPECIAL && (
                 <StoryContentsChildMultimedia data={params} />
               )}
-
-          {SITE_ELCOMERCIO === arcSite ? (
-            <StoryContentsChildAuthorTrust {...params} />
-          ) : (
-            <StoryContentsChildAuthor {...params} />
+          {subtype !== GALLERY_VERTICAL && (
+            <>
+              {SITE_ELCOMERCIO === arcSite ? (
+                <StoryContentsChildAuthorTrust {...params} />
+              ) : (
+                <StoryContentsChildAuthor {...params} />
+              )}
+            </>
           )}
           <Ads
             adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
