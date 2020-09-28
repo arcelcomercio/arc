@@ -261,6 +261,8 @@ class XmlFacebookInstantArticles {
                 defaultImage: storyData.defaultImg,
                 recommenderData,
                 videoPrincipal: storyData.videoStreams,
+                subtype: storyData.subtype,
+                contentElementGallery: storyData.contentElementGallery,
               }
 
               const today = new Date()

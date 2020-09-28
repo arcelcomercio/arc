@@ -133,4 +133,5 @@ export default {
     authProviders: ['facebook'],
   },
   isDfp: true,
+  archiveLimit: '2015-12-29',
 }

@@ -1,6 +1,6 @@
 import { isEmpty } from '../../utilities/helpers'
 
-export default ({ text = '', url = '' }) => {
+export default ({ text = '', url = '' }, dataElement = [], getGallery = []) => {
   let type = 'NewsArticle'
   let isArray = false
   if (text !== '') {
@@ -50,6 +50,12 @@ export default ({ text = '', url = '' }) => {
         break
     }
   }
+
+  type =
+    getGallery.length > 1 && isEmpty(dataElement) && type === 'NewsArticle'
+      ? 'ImageGallery'
+      : type
+
   return isArray ? `[${type}]` : `"${type}"`
 }
 
