@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-// import { NEWSLETTER_API, NEWSLETTER_COVID19_API } from 'fusion:environment'
+import { NEWSLETTER_API, NEWSLETTER_COVID19_API } from 'fusion:environment'
 
 import customFieldsExtern from './_dependencies/custom-fields'
 import NewsletterChild from './_children/newsletter'
@@ -19,20 +19,20 @@ class Newsletter extends PureComponent {
       }
     },
     suscription: data => {
-      // const dataRequest = params => {
-      //   const {
-      //     siteProperties: { newsletterBrand = '' },
-      //   } = this.props
-      //   const {
-      //     customFields: { isActiveApiCovid19 },
-      //   } = this.props
-      //   const dataBody = {
-      //     brand: newsletterBrand,
-      //   }
-      //   if (isActiveApiCovid19) dataBody.topics = ['coronavirus']
+      const dataRequest = params => {
+        const {
+          siteProperties: { newsletterBrand = '' },
+        } = this.props
+        const {
+          customFields: { isActiveApiCovid19 },
+        } = this.props
+        const dataBody = {
+          brand: newsletterBrand,
+        }
+        if (isActiveApiCovid19) dataBody.topics = ['coronavirus']
 
-      //   return Object.assign(params, dataBody)
-      // }
+        return Object.assign(params, dataBody)
+      }
 
       const messageApi = response => {
         let msg = ''
@@ -50,16 +50,14 @@ class Newsletter extends PureComponent {
         return response && response.status !== false
       }
 
-      // const {
-      //   customFields: { isActiveApiCovid19 },
-      // } = this.props
-      // const url = isActiveApiCovid19 ? NEWSLETTER_COVID19_API : NEWSLETTER_API
-      const url = `https://md.minoticia.pe/advertising/correo/${data.email}`
+      const {
+        customFields: { isActiveApiCovid19 },
+      } = this.props
+      const url = isActiveApiCovid19 ? NEWSLETTER_COVID19_API : NEWSLETTER_API
       fetch(url, {
-        // method: 'POST',
-        method: 'GET',
+        method: 'POST',
         mode: 'cors',
-        // body: JSON.stringify(dataRequest(data)),
+        body: JSON.stringify(dataRequest(data)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -161,8 +159,12 @@ class Newsletter extends PureComponent {
       image: deployment(data.image),
       banner: data.banner,
       hasBanner: data.hasBanner,
-      urlTos: data.urlTos,
-      urlPrivacyPolicies: data.urlPrivacyPolicies,
+      urlTos: data.urlTos
+        ? data.urlTo
+        : 'https://trome.pe/terminos-y-condiciones/',
+      urlPrivacyPolicies: data.urlPrivacyPolicies
+        ? data.urlPrivacyPolicies
+        : 'https://trome.pe/politica-de-privacidad/',
       features: this.main,
       validation: this.validation,
       submitForm,
