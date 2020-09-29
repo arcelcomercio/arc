@@ -8,27 +8,17 @@ const classes = {
   authorEmail: 'story-contents__author-email  ',
 }
 
-const StoryContentChildAuthorLite = ({
-  author,
-  authorLink,
-  updatedDate,
-  primarySection = '',
-}) => {
+const StoryContentChildAuthorLite = ({ author, authorLink, updatedDate }) => {
   return (
     <>
       <div className={classes.author}>
-        {/* // TODO: Cambiar este div por <address> */}
-        {primarySection !== 'Columnistas' && (
-          <>
-            {author && (
-              <a
-                itemProp="url"
-                href={authorLink}
-                className={classes.authorNameLink}>
-                {author}
-              </a>
-            )}
-          </>
+        {author && (
+          <a
+            itemProp="url"
+            href={authorLink}
+            className={classes.authorNameLink}>
+            {author}
+          </a>
         )}
         <div className={classes.authorDate}>
           <time dateTime={updatedDate}>

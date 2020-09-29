@@ -11,6 +11,7 @@ const classes = {
     'story-content__author-email secondary-font text-md text-gray-200 line-h-sm',
   authorImage: 'story-content__author-image rounded',
   authorRole: 'story-content__author-role',
+  emailLink: 'story-contents__link',
 }
 
 const StoryContentChildAuthorDetailsTrust = ({
@@ -54,8 +55,9 @@ const StoryContentChildAuthorDetailsTrust = ({
           )}
           {authorEmail && (
             <p itemProp="description" className={classes.authorEmail}>
-              {' '}
-              {authorEmail}{' '}
+              <a className={classes.authorEmail} href={`mailto:${authorEmail}`}>
+                {authorEmail}
+              </a>
             </p>
           )}
         </div>

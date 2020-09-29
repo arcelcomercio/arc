@@ -52,8 +52,10 @@ import {
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
+import LiteYoutube from '../../../global-components/lite-youtube'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -154,10 +156,14 @@ const StoryContentsLite = () => {
   return (
     <>
       <div className={classes.news}>
-        {SITE_ELCOMERCIO === arcSite ? (
-          <StoryContentsChildAuthorTrustLite {...params} />
-        ) : (
-          <StoryContentsChildAuthorLite {...params} />
+        {subtype !== GALLERY_VERTICAL && (
+          <>
+            {SITE_ELCOMERCIO === arcSite ? (
+              <StoryContentsChildAuthorTrustLite {...params} />
+            ) : (
+              <StoryContentsChildAuthorLite {...params} />
+            )}
+          </>
         )}
         <div
           id="gpt_caja3"
@@ -296,6 +302,13 @@ const StoryContentsLite = () => {
                   }
                 }
                 if (type === ELEMENT_OEMBED) {
+                  if (sub === 'youtube') {
+                    const { html: youtubeIframe } = rawOembed || {}
+                    const [, videoId] =
+                      youtubeIframe.match(/\/embed\/([\w-]+)/) || []
+                    if (videoId)
+                      return <LiteYoutube videoId={videoId} loading="lazy" />
+                  }
                   return (
                     <Oembed
                       rawOembed={rawOembed}
@@ -456,7 +469,9 @@ const StoryContentsLite = () => {
                       </>
                     )
                   }
-                  if (/twitter-(?:tweet|timeline)|instagram-media/.test(content)) {
+                  if (
+                    /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+                  ) {
                     return (
                       <>
                         <div

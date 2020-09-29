@@ -68,7 +68,9 @@
     height: 57px;
     margin-right: 10px;
     border-radius: 50%;
-
+  }
+  &__link {
+    color: #747a84;
   }
   &__author-role {
     font-family: $secondary-font;

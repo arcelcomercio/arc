@@ -65,6 +65,7 @@ export default ({
     contentElementsRedesSociales,
     contentElementCustomBlock = [],
     idYoutube,
+    getGallery,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -99,7 +100,7 @@ export default ({
   {
     "@context": "http://schema.org/",
     "@type": "Person",
-    "name": "${authorName}",
+    "name": "${authorName || arcSite}",
     "image": "${authorImage || logoAuthor}",
     "contactPoint"     : {
       "@type"        : "ContactPoint",
@@ -237,6 +238,7 @@ export default ({
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
+
     return `{  "@type":"ImageObject", "url": "${large ||
       url}", ${description} "height":800, "width":1200 }`
   })
@@ -275,7 +277,7 @@ export default ({
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
 
   const imagenData = arrayImage[1]
-    ? `"image": ${arrayImage[0]} ,`
+    ? `"image":[ ${arrayImage} ],`
     : `"image": ${arrayImage},`
 
   const imageYoutube = idYoutube
@@ -355,7 +357,8 @@ export default ({
       : ''
 
   const { label: { trustproject = {} } = {} } = data || {}
-  const trustType = workType(trustproject) || '"NewsArticle"'
+  const trustType =
+    workType(trustproject, dataElement, getGallery) || '"NewsArticle"'
   const {
     embed: { config: configRevision = {} } = {},
   } = firstContentElementsRevision
