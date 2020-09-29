@@ -117,29 +117,33 @@ class LiveScoreMinuteToMinute extends Component {
   }
 
   handleMovileScroll = () => {
-    const scrollHeight = window.scrollY
-    const score = document.querySelector('.score-sticky')
-    const header =
-      document.querySelector('.header-full') &&
-      document.querySelector('.header-full').offsetHeight
-        ? document.querySelector('.header-full').offsetHeight
-        : 0
+    if (typeof window !== 'undefined') {
+      const scrollHeight = window.scrollY
+      const score = document.querySelector('.score-sticky')
+      const header =
+        document.querySelector('.header-full') &&
+        document.querySelector('.header-full').offsetHeight
+          ? document.querySelector('.header-full').offsetHeight
+          : 0
 
-    const heightTotal = score.offsetHeight + header
-    // const heightTotal = score.offsetHeight
+      const heightTotal = score.offsetHeight + header
+      // const heightTotal = score.offsetHeight
 
-    const socialHeader = document.querySelector('.story-header__header-social')
-      ? document.querySelector('.story-header__header-social')
-      : null
-    if (scrollHeight > heightTotal) {
-      score.classList.add('score-sticky__content')
-      if (socialHeader) {
-        socialHeader.classList.add('story-header__spacer')
-      }
-    } else {
-      score.classList.remove('score-sticky__content')
-      if (socialHeader) {
-        socialHeader.classList.remove('story-header__spacer')
+      const socialHeader = document.querySelector(
+        '.story-header__header-social'
+      )
+        ? document.querySelector('.story-header__header-social')
+        : null
+      if (scrollHeight > heightTotal) {
+        score.classList.add('score-sticky__content')
+        if (socialHeader) {
+          socialHeader.classList.add('story-header__spacer')
+        }
+      } else {
+        score.classList.remove('score-sticky__content')
+        if (socialHeader) {
+          socialHeader.classList.remove('story-header__spacer')
+        }
       }
     }
   }
@@ -183,11 +187,13 @@ class LiveScoreMinuteToMinute extends Component {
       golListItem.homeTeamGolList.length === 0 &&
       golListItem.awayTeamGolList.length === 0
 
-    const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-      window.navigator.userAgent
-    )
-    if (isMobile && !isAdmin) {
-      window.addEventListener('scroll', this.handleMovileScroll)
+    if (typeof window !== 'undefined') {
+      const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+        window.navigator.userAgent
+      )
+      if (isMobile && !isAdmin) {
+        window.addEventListener('scroll', this.handleMovileScroll)
+      }
     }
 
     const textStatusValidation = [FIXTURESTATE, POSTPONEDSTATE].includes(
