@@ -26,11 +26,11 @@ const StoryHeaderChildGallery = props => {
       <div className={classes.gallery}>
         {sliders.map((slide, i) => {
           const {
-            credits: { affiliation: [{ name = '' } = {}] } = {},
+            credits: { affiliation: [{ name = '' } = {}] = [] } = {},
             width,
             height,
           } = slide
-          const itemv = width < height ? true : false
+          const itemv = width < height && true
           return (
             <div
               className={`${classes.galleryItem} ${itemv &&
@@ -38,7 +38,7 @@ const StoryHeaderChildGallery = props => {
               key={UtilListKey(i)}>
               <span className={classes.galleryNumber}>
                 <strong> {i + 1} </strong>
-                {''} de {''} {sliders.length}
+                de {sliders.length}
               </span>
               <div className={classes.figure}>
                 <StoryGalleryChildPicture
