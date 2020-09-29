@@ -19,6 +19,7 @@ import {
   BIG_IMAGE,
   STORY_CORRECTION,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -57,6 +58,7 @@ import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import Ads from '../../../global-components/ads'
+import LiteYoutube from '../../../global-components/lite-youtube'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -208,11 +210,14 @@ class StoryContents extends PureComponent {
               subtype !== SPECIAL && (
                 <StoryContentsChildMultimedia data={params} />
               )}
-
-          {SITE_ELCOMERCIO === arcSite ? (
-            <StoryContentsChildAuthorTrust {...params} />
-          ) : (
-            <StoryContentsChildAuthor {...params} />
+          {subtype !== GALLERY_VERTICAL && (
+            <>
+              {SITE_ELCOMERCIO === arcSite ? (
+                <StoryContentsChildAuthorTrust {...params} />
+              ) : (
+                <StoryContentsChildAuthor {...params} />
+              )}
+            </>
           )}
           <Ads
             adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
@@ -397,6 +402,13 @@ class StoryContents extends PureComponent {
                     }
                   }
                   if (type === ELEMENT_OEMBED) {
+                    if (sub === 'youtube') {
+                      const { html: youtubeIframe } = rawOembed || {}
+                      const [, videoId] =
+                        youtubeIframe.match(/\/embed\/([\w-]+)/) || []
+                      if (videoId)
+                        return <LiteYoutube videoId={videoId} loading="lazy" />
+                    }
                     return (
                       <Oembed
                         rawOembed={rawOembed}

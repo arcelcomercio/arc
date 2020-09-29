@@ -169,7 +169,7 @@ const FeaturedStoryPremiumChild = ({
         </h2>
         <h6 itemProp="name" className={classes.author}>
           {author && (
-            <a itemProp="url" className={classes.authorLink} href={authorLink}>
+            <a itemProp="url" className={classes.authorLink} href={authorLink || '/autores/'}>
               {author}
             </a>
           )}

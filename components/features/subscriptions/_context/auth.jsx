@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'
 import { isAuthenticated } from '../_dependencies/Session'
-import { getLocaleStorage } from '../_dependencies/Utils'
+import { getLocaleStorage, getSessionStorage } from '../_dependencies/Utils'
 
 const AuthContext = createContext()
 
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
     getLocaleStorage(keyStorageProfile)
   )
   const [userStep, setUserStep] = useState(
-    getLocaleStorage(keyStorageStep) || 2
+    parseInt(getSessionStorage(keyStorageStep), 10) || 2
   )
 
   const value = {
@@ -42,12 +42,12 @@ const AuthProvider = ({ children }) => {
       setUser(authUser)
     },
     updateStep: currentStep => {
-      window.localStorage.setItem(keyStorageStep, currentStep)
+      window.sessionStorage.setItem(keyStorageStep, currentStep)
       setUserStep(currentStep)
     },
     userLogout: () => {
       setUserLoaded(false)
-      window.localStorage.setItem(keyStorageStep, 1)
+      window.sessionStorage.setItem(keyStorageStep, 1)
       setUserStep(1)
     },
     updatePlan: (priceCode, sku, quantity) => {
@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
     },
     updatePurchase: purchaseInfo => {
       setUserPurchase(purchaseInfo)
-      window.localStorage.setItem(keyStorageStep, 4)
+      window.sessionStorage.setItem(keyStorageStep, 4)
       setUserStep(4)
     },
     updateLoadPage: status => {

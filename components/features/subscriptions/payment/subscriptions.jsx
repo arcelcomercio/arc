@@ -49,6 +49,8 @@ const WrapperPaymentSubs = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
+
       Sentry.init({
         dsn: urlCommon.dsnSentry,
         debug: ArcEnv === 'sandbox',

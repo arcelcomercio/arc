@@ -164,7 +164,7 @@ const FeaturedStoryPremiumChild = ({
         </p>
         <div className={classes.description}>
           <h6 itemProp="name">
-            <a itemProp="url" className={classes.author} href={authorLink}>
+            <a itemProp="url" className={classes.author} href={authorLink || '/autores/'}>
               {author}
             </a>
           </h6>
