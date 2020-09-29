@@ -67,7 +67,7 @@ class MatchNav extends PureComponent {
               <li
                 className={
                   subtype === 'partido_previa'
-                    ? classes.navTabsItemAActive
+                    ? classes.navTabsItemActive
                     : classes.navTabsItem
                 }>
                 <a
