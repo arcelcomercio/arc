@@ -34,10 +34,18 @@ const StoryHeaderChildGallery = props => {
           const itemv = width < height && true
           return (
             <>
-              {i === 1 && <div id="gpt_caja2" className="justify-center"></div>}
-              {i === 3 && <div id="gpt_caja3" className="justify-center"></div>}
-              {i === 5 && <div id="gpt_caja4" className="justify-center"></div>}
-              {i === 7 && <div id="gpt_caja5" className="justify-center"></div>}
+              {i === 1 && (
+                <div id="gpt_caja2" className="flex justify-center"></div>
+              )}
+              {i === 3 && (
+                <div id="gpt_caja3" className="flex justify-center"></div>
+              )}
+              {i === 5 && (
+                <div id="gpt_caja4" className="flex justify-center"></div>
+              )}
+              {i === 7 && (
+                <div id="gpt_caja5" className="flex justify-center"></div>
+              )}
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
                 key={UtilListKey(i)}>
