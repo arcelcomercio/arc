@@ -14,6 +14,7 @@ class Newsletter extends PureComponent {
         email: '',
         tos: 0,
         submitForm: false,
+        disbutton: false,
         confirmRegister: false,
         formMessage: '',
       }
@@ -54,6 +55,7 @@ class Newsletter extends PureComponent {
         customFields: { isActiveApiCovid19 },
       } = this.props
       const url = isActiveApiCovid19 ? NEWSLETTER_COVID19_API : NEWSLETTER_API
+      this.setState({ disbutton: true })
       fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -151,7 +153,7 @@ class Newsletter extends PureComponent {
   }
 
   render() {
-    const { submitForm, confirmRegister, formMessage } = this.state
+    const { submitForm, confirmRegister, formMessage, disbutton } = this.state
     const { arcSite, contextPath, deployment, customFields } = this.props
     const data = new Data(customFields, arcSite, contextPath)
     const params = {
@@ -168,6 +170,7 @@ class Newsletter extends PureComponent {
       features: this.main,
       validation: this.validation,
       submitForm,
+      disbutton,
       confirmRegister,
       formMessage,
       isActiveApiCovid19: customFields.isActiveApiCovid19,
