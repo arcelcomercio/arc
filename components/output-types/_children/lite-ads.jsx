@@ -625,10 +625,10 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
   return (
     <>
       <script
-        async
+        defer
         src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
       <script
-        async
+        defer
         src="https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=2020-07-13"></script>
       <script
         type="text/javascript"
