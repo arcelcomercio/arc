@@ -16,7 +16,14 @@ const classes = {
 }
 
 const StaticsNewsletterChildForm = props => {
-  const { urlTos, urlPrivacyPolicies, features, validation, submitForm } = props
+  const {
+    urlTos,
+    urlPrivacyPolicies,
+    features,
+    validation,
+    submitForm,
+    disbutton,
+  } = props
 
   return (
     <>
@@ -75,6 +82,7 @@ const StaticsNewsletterChildForm = props => {
           <button
             className={classes.button}
             type="submit"
+            disabled={disbutton}
             onClick={features.save}>
             Recibir
           </button>
