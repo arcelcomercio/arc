@@ -27,13 +27,13 @@ const StoryHeaderChildAmpGallery = props => {
       const imageObject =
         createResizedParams({
           url: urlImg,
-          presets: 'large:1024x612,meddiun:620x280,small:330x178',
+          presets: 'large:1024x612,medium:560x315,small:330x178',
           arcSite,
         }) || {}
       return {
         original: imageObject.original,
         large: imageObject.large,
-        images: `${imageObject.large} 1024w,${imageObject.meddiun} 600w,${imageObject.small} 360w`,
+        images: `${imageObject.large} 1024w,${imageObject.medium} 560w,${imageObject.small} 360w`,
       }
     }
     return urlImg

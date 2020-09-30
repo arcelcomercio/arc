@@ -12,13 +12,13 @@ const StoryContentChildAmpImage = ({ data }) => {
   const images =
     createResizedParams({
       url: data.url,
-      presets: 'small:330x178,large:1024x612,meddiun:620x280',
+      presets: 'small:330x178,medium:560x315,large:1024x612',
       arcSite,
     }) || {}
 
   const parametersImages = {
     original: images.original,
-    large: `${images.large} 1024w,${images.meddiun} 600w,${images.small} 360w`,
+    large: `${images.large} 1024w,${images.medium} 600w,${images.small} 360w`,
   }
 
   const patameters = {
