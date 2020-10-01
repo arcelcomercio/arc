@@ -33,8 +33,7 @@ const StoryHeaderChildGallery = props => {
           const itemv = width < height && true
           return (
             <div
-              className={`${classes.galleryItem} ${itemv &&
-                'itemv'}  ${width} vvv ${height}`}
+              className={`${classes.galleryItem} ${itemv && 'itemv'}  `}
               key={UtilListKey(i)}>
               <span className={classes.galleryNumber}>
                 <strong> {i + 1} </strong>
