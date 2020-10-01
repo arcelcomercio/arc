@@ -43,9 +43,7 @@ const StoryHeaderChildGallery = props => {
               {i === 5 && (
                 <div id="gpt_caja4" className="flex justify-center"></div>
               )}
-              {i === 7 && (
-                <div id="gpt_caja5" className="flex justify-center"></div>
-              )}
+
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
                 key={UtilListKey(i)}>
@@ -78,6 +76,9 @@ const StoryHeaderChildGallery = props => {
                   />
                 </figcaption>
               </div>
+              {i === 6 && (
+                <div id="gpt_caja5" className="flex justify-center"></div>
+              )}
             </>
           )
         })}

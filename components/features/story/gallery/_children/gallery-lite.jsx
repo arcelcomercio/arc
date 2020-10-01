@@ -60,14 +60,7 @@ const StoryHeaderChildGallery = props => {
                   data-ads-dimensions="[[300,250]]"
                   data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
               )}
-              {i === 7 && (
-                <div
-                  id="gpt_caja5"
-                  className="f just-center"
-                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja5`}
-                  data-ads-dimensions="[[300,250]]"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
-              )}
+
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
                 key={UtilListKey(i)}>
@@ -100,6 +93,14 @@ const StoryHeaderChildGallery = props => {
                   />
                 </figcaption>
               </div>
+              {i === 6 && (
+                <div
+                  id="gpt_caja5"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja5`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
             </>
           )
         })}
