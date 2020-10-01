@@ -16,7 +16,7 @@ const classes = {
 }
 
 const StoryHeaderChildAmpGallery = props => {
-  const { data, link, siteUrl } = props
+  const { data = [], link, siteUrl } = props
   const slider = '[slide]="selectedSlide"'
   const imgTag = 'amp-img'
   const numeroFoto = ' [text]="+selectedSlide + 1"'
