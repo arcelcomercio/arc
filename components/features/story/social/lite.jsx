@@ -2,7 +2,7 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 import ShareButtons from '../../../global-components/lite/share'
-import TProLbl from './_children/trustprojectlabel'
+import TProLbl from '../../../global-components/trustprojectlabel'
 import { addSlashToEnd } from '../../../utilities/parse/strings'
 
 const classes = {
