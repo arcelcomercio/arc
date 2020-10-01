@@ -67,8 +67,12 @@ export const LogIntoAccountEventTag = ({
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       window.Identity.options({ apiOrigin: urls.arcOrigin })
-      window.Identity.extendSession().then(({ accessToken: token }) => {
-        setAccessToken(token)
+      window.Identity.isLoggedIn().then(resLog => {
+        if (resLog) {
+          window.Identity.extendSession().then(({ accessToken: token }) => {
+            setAccessToken(token)
+          })
+        }
       })
     }
   }, [])
