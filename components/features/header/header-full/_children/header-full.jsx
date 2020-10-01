@@ -20,8 +20,11 @@ const classes = {
   newsCinDesk: 'header-full__newsletter-newsCinDesk',
   newsCinMob: 'header-full__newsletter-newsCinMob',
   newsCinText: 'header-full__newsletter-text',
-  newsCinTooltip: 'header-full__newsletter-tooltip',
-  newsCinModal: 'header-full__newsletter-modal',
+  newsCinTooltip: 'header-full__newsletter-tooltip showTooltipDesk',
+  newsInputCheckDesk: 'checkNewsCinDesk hidden',
+  newsInputCheckMob: 'checkNewsCinMob hidden',
+  newsInputCheckMobClose: 'checkNewsCinMobClose hidden',
+  newsCinModal: 'header-full__newsletter-modal active showModalMob',
   newsCinModalClose: 'header-full__newsletter-modal-close',
   boxBtnMenu:
     'header-full__box-btnmenu h-full flex items-center justify-center',
@@ -176,14 +179,6 @@ export default ({
     )
   }
 
-  const [statusTooltip, setStatusTooltip] = React.useState(false)
-  const [statusModal, setStatusModal] = React.useState(false)
-  const BoletinNewsDeskt = () => {
-    setStatusTooltip(!statusTooltip)
-  }
-  const BoletinNewsMob = () => {
-    setStatusModal(!statusModal)
-  }
   return (
     <>
       <div data-story-header={`${isStory}`} className={classes.headerFull}>
@@ -412,11 +407,14 @@ export default ({
               </div>
             ) : (
               <>
-                <div
-                  className={`${classes.newsCin} ${classes.newsCinDesk} `}
-                  onClick={BoletinNewsDeskt}
-                  onKeyDown={BoletinNewsDeskt}
-                  role="presentation">
+                <input
+                  type="checkbox"
+                  id="stNewsCinDesk"
+                  className={classes.newsInputCheckDesk}
+                />
+                <label
+                  htmlFor="stNewsCinDesk"
+                  className={`${classes.newsCin} ${classes.newsCinDesk} `}>
                   <div className={classes.newsCinText}>Boletín</div>
                   <div>
                     <svg
@@ -430,18 +428,17 @@ export default ({
                       />
                     </svg>
                   </div>
-                </div>
-                <div
-                  className={`${classes.newsCinTooltip} ${statusTooltip &&
-                    'active'}`}>
-                  {Newsle}
-                </div>
+                </label>
+                <div className={`${classes.newsCinTooltip}`}>{Newsle}</div>
 
-                <div
-                  className={`${classes.newsCin} ${classes.newsCinMob} `}
-                  onClick={BoletinNewsMob}
-                  onKeyDown={BoletinNewsMob}
-                  role="presentation">
+                <input
+                  type="checkbox"
+                  id="stNewsCinMob"
+                  className={classes.newsInputCheckMob}
+                />
+                <label
+                  htmlFor="stNewsCinMob"
+                  className={`${classes.newsCin} ${classes.newsCinMob}`}>
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -454,25 +451,8 @@ export default ({
                       />
                     </svg>
                   </div>
-                </div>
-                <div
-                  className={`${classes.newsCinModal} ${statusModal &&
-                    'active'}`}>
-                  <div
-                    className={classes.newsCinModalClose}
-                    onClick={BoletinNewsMob}
-                    onKeyDown={BoletinNewsMob}
-                    role="presentation">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="15px"
-                      viewBox="0 0 329.3 329"
-                      width="15px">
-                      <path d="m194.8 164.8 128.2-128.2c8.3-8.3 8.3-21.8 0-30.2-8.3-8.3-21.8-8.3-30.2 0l-128.2 128.2-128.2-128.2c-8.3-8.3-21.8-8.3-30.2 0-8.3 8.3-8.3 21.8 0 30.2l128.2 128.2-128.2 128.2c-8.3 8.3-8.3 21.8 0 30.2 4.2 4.2 9.6 6.3 15.1 6.3 5.5 0 10.9-2.1 15.1-6.2l128.2-128.2 128.2 128.2c4.2 4.2 9.6 6.3 15.1 6.3 5.5 0 10.9-2.1 15.1-6.2 8.3-8.3 8.3-21.8 0-30.2zm0 0"></path>
-                    </svg>
-                  </div>
-                  {Newsle}
-                </div>
+                </label>
+                <div className={`${classes.newsCinModal}`}>{Newsle}</div>
                 <div className={classes.callImg}>
                   <a
                     itemProp="url"

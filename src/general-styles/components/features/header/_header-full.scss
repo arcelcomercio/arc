@@ -19,6 +19,28 @@ $max-width: 1366px;
       padding: 2px 10px 0 10px;
     }
   }
+  .checkNewsCinDesk:checked ~ .showTooltipDesk {
+    @media (--desktop) {
+      display: flex;
+    }
+    @media (--tablet) {
+      display: none;
+    }
+    @media (--only-mobile) {
+      display: none;
+    }
+  }
+  .checkNewsCinMob:checked ~ .showModalMob {
+    @media (--desktop) {
+      display: none;
+    }
+    @media (--tablet) {
+      display: block;
+    }
+    @media (--only-mobile) {
+      display: block;
+    }
+  }
   &__newsletter-text {
     color: #a2421a;
     margin-right: 10px;
@@ -58,12 +80,6 @@ $max-width: 1366px;
     right: 105px;
     max-width: 320px;
     display: none;
-    &.active {
-      display: block;
-      @media (--only-mobile) {
-        display: none;
-      }
-    }
     .newsletter__description {
       display: none;
     }
@@ -75,7 +91,6 @@ $max-width: 1366px;
     max-width: 320px;
     display: none;
     &.active {
-      display: block;
       position: fixed;
       bottom: 0;
       left: 0;
