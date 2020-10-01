@@ -128,12 +128,16 @@ const Register = ({ arcSite }) => {
               type: 'String',
             },
           ],
-        }
-        // { doLogin: true },
-        // { rememberMe: true }
+        },
+        { doLogin: false },
+        { rememberMe: false }
       )
         .then(() => {
           setShowConfirm(true)
+          window.localStorage.removeItem('ArcId.USER_INFO')
+          window.localStorage.removeItem('ArcId.USER_PROFILE')
+          window.Identity.userProfile = null
+          window.Identity.userIdentity = {}
           // setLoadText('Cargando Perfil...')
           // window.Identity.getUserProfile().then(resProfile => {
           //   setLoadText('Cargando Servicios...')

@@ -108,6 +108,10 @@ const FormRegister = props => {
 
   const handleGetProfile = () => {
     setShowConfirm(true)
+    window.localStorage.removeItem('ArcId.USER_INFO')
+    window.localStorage.removeItem('ArcId.USER_PROFILE')
+    window.Identity.userProfile = null
+    window.Identity.userIdentity = {}
     // window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     // window.Identity.getUserProfile()
     //   .then(profile => {
@@ -207,9 +211,9 @@ const FormRegister = props => {
             type: 'String',
           },
         ],
-      }
-      // { doLogin: true },
-      // { rememberMe: true }
+      },
+      { doLogin: false },
+      { rememberMe: false }
     )
       .then(() => {
         handleGetProfile()
