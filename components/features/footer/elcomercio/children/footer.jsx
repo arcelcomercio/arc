@@ -26,6 +26,7 @@ const classes = {
   contactItem: 'mb-20',
   contactTitle: 'text-sm line-h-sm',
   contactLink: 'text-sm line-h-md underline',
+  contactHorario: 'text-sm line-h-md',
   linksList: '',
   linksItem: 'text-sm line-h-md mb-5 text-left',
   linksLink: 'block',
@@ -137,7 +138,7 @@ const FooterChildElComercio = ({
           <ul className={classes.contactList}>
             {contacts &&
               contacts.map(
-                ({ position, name, link }) =>
+                ({ position, name, link, horario = '' }) =>
                   position &&
                   name && (
                     <li className={classes.contactItem} key={`contact-${name}`}>
@@ -146,12 +147,21 @@ const FooterChildElComercio = ({
                         className={`${classes.contactTitle} ${classes.contactPosition}`}>
                         {position}
                       </h5>
-                      <a
-                        itemProp="url"
-                        href={name.includes('@') ? `mailto:${name}` : name}
-                        className={classes.contactLink}>
-                        {name}
-                      </a>
+                      {horario ? (
+                        <>
+                          <div className={classes.contactHorario}>{name}</div>
+                          <div className={classes.contactHorario}>
+                            {horario}
+                          </div>
+                        </>
+                      ) : (
+                        <a
+                          itemProp="url"
+                          href={name.includes('@') ? `mailto:${name}` : name}
+                          className={classes.contactLink}>
+                          {name}
+                        </a>
+                      )}
                       {link && (
                         <>
                           <br />
