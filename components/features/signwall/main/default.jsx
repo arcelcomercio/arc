@@ -37,16 +37,20 @@ class SignwallComponent extends PureComponent {
       if (window.Sales !== undefined) {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       }
-      Fingerprint2.getV18({}, result => {
-        Cookies.setCookie('gecdigarc', result, 365)
+      window.requestIdle(() => {
+        Fingerprint2.getV18({}, result => {
+          Cookies.setCookie('gecdigarc', result, 365)
+        })
       })
     }
 
-    this.checkUserName()
+    window.requestIdle(() => {
+      this.checkUserName()
 
-    if (siteProperties.activePaywall) {
-      this.getPaywall()
-    }
+      if (siteProperties.activePaywall) {
+        this.getPaywall()
+      }
+    })
   }
 
   componentDidUpdate() {
@@ -85,9 +89,11 @@ class SignwallComponent extends PureComponent {
     const W = window || {}
 
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
-    const dataContTyp = W.document.querySelector('meta[name="content-type"]')
-    const dataContSec = W.document.querySelector('meta[name="section-id"]')
-    const contentTier = W.document.querySelector(
+    const dataContTyp = W.document.head.querySelector(
+      'meta[name="content-type"]'
+    )
+    const dataContSec = W.document.head.querySelector('meta[name="section-id"]')
+    const contentTier = W.document.head.querySelector(
       'meta[property="article:content_tier"]'
     )
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
@@ -209,7 +215,7 @@ class SignwallComponent extends PureComponent {
 
     if (typeof window !== 'undefined') {
       window.document.cookie = `ArcId.USER_INFO=;path=/;domain=.${arcSite}.pe; expires=Thu, 01 Jan 1970 00:00:01 GMT`
-      const dataContType = window.document.querySelector(
+      const dataContType = window.document.head.querySelector(
         'meta[name="content-type"]'
       )
       if (
