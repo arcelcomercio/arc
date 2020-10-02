@@ -21,6 +21,7 @@ import {
 import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 import workType, { revisionAttr } from '../_dependencies/work-type'
+import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
 export default ({
   globalContent: data,
@@ -66,6 +67,7 @@ export default ({
     contentElementCustomBlock = [],
     idYoutube,
     getGallery,
+    subtype,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -369,6 +371,11 @@ export default ({
     publishingPrinciples = `"publishingPrinciples": "${siteUrl}/buenas-practicas/",`
   }
 
+  const dateline =
+    subtype !== GALLERY_VERTICAL
+      ? `"dateline": "${`${getDateSeo(publishDate)} ${locality}`}",`
+      : ''
+
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === SITE_ELCOMERCIOMAG ||
@@ -379,7 +386,7 @@ export default ({
     }",
     ${backStoryStructured}
     ${locality && `"locationCreated": {"@type":"Place", "name":"${locality}"},`}
-    "dateline": "${`${getDateSeo(publishDate)} ${locality}`}",
+    ${dateline}
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",

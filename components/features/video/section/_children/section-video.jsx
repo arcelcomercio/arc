@@ -160,6 +160,7 @@ export default ({
                 <div className="section-video__frame">
                   <PowaPlayer
                     uuid={uuid}
+                    time={principalVideo.videoDuration}
                     stream={stream}
                     image={principalVideo.image}
                   />
