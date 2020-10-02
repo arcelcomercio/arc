@@ -180,7 +180,9 @@ const elcomercio = {
     contacts: [
       {
         position: 'Suscripciones',
-        name: 'atencionalcliente@comercio.com.pe',
+        name: 'Central telefónica 311-5100',
+        horario:
+          'Horario de atención: Lunes a viernes 7am – 7pm | Sábados, domingos y feriados 7am – 1pm ',
       },
       {
         position: 'Publicidad',
@@ -188,7 +190,9 @@ const elcomercio = {
       },
       {
         position: 'Club El Comercio',
-        name: 'atencionalcliente@comercio.com.pe',
+        name: 'Central telefónica 311-5100',
+        horario:
+          'Horario de atención: Lunes a viernes 7am – 7pm | Sábados, domingos y feriados 7am – 1pm ',
         link: {
           name: 'Compromiso de Autorregulación Comercial',
           url: 'https://elcomercio.pe/compromiso-autoregulacion-comercial.pdf',
