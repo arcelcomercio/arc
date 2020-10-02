@@ -1,5 +1,4 @@
-.section-videos,
-.section-play {
+.section-videos {
   background-color: #222;
 
   .section-video {
@@ -8,6 +7,32 @@
   .header__item::before {
     background-color: $color-white;
   }
+  @media (--desktop) {
+    .nav__wrapper {
+      background-color: $color-white;
+    }
+    .nav.active .nav__wrapper {
+      background-color: initial;
+    }
+  }
+
+  &.story {
+    & .nav.active {
+      & .nav__wrapper {
+        background-color: $color-black;
+      }
+      & .nav__mobile-logo {
+        display: block;
+      }
+      & .nav__container-menu {
+        border-right-color: $color-white;
+      }
+      & .btn {
+        color: $color-white;
+      }
+    }
+  }
+
   .section-video,
   .play-list,
   .video-list,
@@ -26,13 +51,6 @@
   .play-list__title a {
     color: #ddd;
   }
-  .video-list__new,
-  .header__link,
-  .header__tags,
-  .header__date {
-    color: $color-white;
-  }
-
   .play-list {
     @media (--tablet) {
       padding-left: 0;

@@ -7,6 +7,7 @@ import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { getResultVideo } from '../../../../utilities/story/helpers'
 import PowaPlayer from '../../../../global-components/powa-player'
+import LiteYoutube from '../../../../global-components/lite-youtube'
 
 /**
  *
@@ -148,28 +149,19 @@ export default ({
         <div className="section-video__wrapper">
           <div className="section-video__top">
             <div className="section-video__left">
-              {principalVideo.video &&
-              principalVideo.promoItemsType === VIDEO ? (
-                <div className="section-video__frame">
+              <div className="section-video__frame">
+                {principalVideo.video &&
+                principalVideo.promoItemsType === VIDEO ? (
                   <PowaPlayer
                     uuid={uuid}
                     time={principalVideo.videoDuration}
                     stream={stream}
                     image={principalVideo.image}
                   />
-                </div>
-              ) : (
-                <div className="section-video__frame">
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${principalVideo.video}`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title="Video"
-                  />
-                </div>
-              )}
+                ) : (
+                  <LiteYoutube videoId={principalVideo.video} />
+                )}
+              </div>
             </div>
             <div className="section-video__right">
               <div className="section-video__information">
