@@ -317,7 +317,11 @@ class StoryContentAmp extends PureComponent {
                         href={customEmbedConfig.link}
                         title={customEmbedConfig.title}>
                         <AmpImage
-                          {...element}
+                          width={customEmbedConfig.width || 560}
+                          height={customEmbedConfig.height || 315}
+                          caption={
+                            customEmbedConfig.alt || customEmbedConfig.title
+                          }
                           url={
                             createResizedParams({
                               url: customEmbedConfig.photo,
