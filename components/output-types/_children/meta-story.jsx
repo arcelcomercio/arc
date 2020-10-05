@@ -21,6 +21,7 @@ import {
 import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 import workType, { revisionAttr } from '../_dependencies/work-type'
+import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
 export default ({
   globalContent: data,
@@ -65,6 +66,8 @@ export default ({
     contentElementsRedesSociales,
     contentElementCustomBlock = [],
     idYoutube,
+    getGallery,
+    subtype,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -99,7 +102,7 @@ export default ({
   {
     "@context": "http://schema.org/",
     "@type": "Person",
-    "name": "${authorName}",
+    "name": "${authorName || arcSite}",
     "image": "${authorImage || logoAuthor}",
     "contactPoint"     : {
       "@type"        : "ContactPoint",
@@ -237,6 +240,7 @@ export default ({
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
+
     return `{  "@type":"ImageObject", "url": "${large ||
       url}", ${description} "height":800, "width":1200 }`
   })
@@ -275,7 +279,7 @@ export default ({
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
 
   const imagenData = arrayImage[1]
-    ? `"image": ${arrayImage[0]} ,`
+    ? `"image":[ ${arrayImage} ],`
     : `"image": ${arrayImage},`
 
   const imageYoutube = idYoutube
@@ -355,7 +359,8 @@ export default ({
       : ''
 
   const { label: { trustproject = {} } = {} } = data || {}
-  const trustType = workType(trustproject) || '"NewsArticle"'
+  const trustType =
+    workType(trustproject, dataElement, getGallery) || '"NewsArticle"'
   const {
     embed: { config: configRevision = {} } = {},
   } = firstContentElementsRevision
@@ -365,6 +370,11 @@ export default ({
   if (arcSite === SITE_ELCOMERCIO) {
     publishingPrinciples = `"publishingPrinciples": "${siteUrl}/buenas-practicas/",`
   }
+
+  const dateline =
+    subtype !== GALLERY_VERTICAL
+      ? `"dateline": "${`${getDateSeo(publishDate)} ${locality}`}",`
+      : ''
 
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
@@ -376,7 +386,7 @@ export default ({
     }",
     ${backStoryStructured}
     ${locality && `"locationCreated": {"@type":"Place", "name":"${locality}"},`}
-    "dateline": "${`${getDateSeo(publishDate)} ${locality}`}",
+    ${dateline}
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",

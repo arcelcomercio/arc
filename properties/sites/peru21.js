@@ -139,4 +139,5 @@ export default {
     logo: 'logo-peru21-stick.png',
   },
   isDfp: true,
+  archiveLimit: '2011-11-13',
 }

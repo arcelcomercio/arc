@@ -4,6 +4,7 @@ import Video from './video'
 import Imagen from './image'
 import Html from './html'
 import VideoNativo from './video-nativo'
+import LiteYoutube from '../../../../global-components/lite-youtube'
 
 const classes = {
   audio: 's-multimedia__audio w-full',
@@ -61,16 +62,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
         <Html data={embedHtmlPromoItems} caption={caption} {...data} />
       )}
 
-      {youtubeId && (
-        <iframe
-          title={`Youtube - ${youtubeId}`}
-          width="100%"
-          height="373"
-          src={`https://www.youtube.com/embed/${youtubeId}?&autoplay=1`}
-          frameBorder="0"
-          allowFullScreen
-        />
-      )}
+      {youtubeId && <LiteYoutube videoId={youtubeId} />}
       {typoVideo === 'video' && embedHtml ? (
         <Video
           data={embedHtml}

@@ -138,4 +138,5 @@ export default {
     mode: 'thumbnails-c',
   },
   isDfp: true,
+  archiveLimit: '2015-12-27',
 }
