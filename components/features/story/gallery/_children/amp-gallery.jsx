@@ -42,7 +42,7 @@ const StoryHeaderChildAmpGallery = props => {
             {
               url,
               caption,
-              credits: { affiliation: [{ name = '' } = {}] } = {},
+              credits: { affiliation: [{ name = '' } = {}] = [] } = {},
               width,
               height,
               subtitle,
