@@ -213,3 +213,8 @@ h6 {
     pointer-events: auto;
   }
 }
+
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 400px;
+}

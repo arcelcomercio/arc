@@ -12,10 +12,6 @@
 .lyt-player {
   position: absolute;
 }
-.lyt-lazy {
-  content-visibility: auto;
-  contain-intrinsic-size: 180px; /* Estimado de alto minimo */
-}
 .lyt-pic {
   height: 100%;
   width: 100%;
