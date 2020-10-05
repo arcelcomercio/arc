@@ -17,6 +17,9 @@
   }
 
   &.story {
+    & .nav__loader {
+      display: none;
+    }
     & .nav.active {
       & .nav__wrapper {
         background-color: $color-black;
