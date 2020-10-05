@@ -64,8 +64,9 @@ const LiteOutput = ({
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const {
+    credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    promo_items: { basic_gallery: basicGallery = 0 } = {},
+    promo_items: promoItems = {},
     taxonomy: {
       primary_section: { path: storySectionPath = '' } = {},
       tags = [],
@@ -78,7 +79,7 @@ const LiteOutput = ({
 
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
-    ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
         storySectionPath.split('/')[1]
       } ${subtype} `
     : ''
@@ -397,9 +398,16 @@ const LiteOutput = ({
             ) : null
           }}
         </Resource>
-
-        {/* Scripts de Chartbeat */}
-        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+        <ChartbeatBody
+          story={isStory}
+          hasVideo={contenidoVideo || hasYoutubeVideo}
+          requestUri={requestUri}
+          metaValue={metaValue}
+          tags={tags}
+          credits={credits}
+          promoItems={promoItems}
+          arcSite={arcSite}
+        />
         {isPremium && arcSite === SITE_ELCOMERCIO && (
           <>
             <Libs></Libs>
@@ -459,7 +467,6 @@ const LiteOutput = ({
             </noscript>
           </>
         )}
-        <ChartbeatBody story={isStory} {...metaPageData} />
         {embedTwitterAndInst && (
           <>
             <script

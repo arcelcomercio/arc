@@ -19,6 +19,8 @@ content_elements {
       photo
       title
       alt
+      width
+      height
       prepTime
       totalTime
       recipeCuisine

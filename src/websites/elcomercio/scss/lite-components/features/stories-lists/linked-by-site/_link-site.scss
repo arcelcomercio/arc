@@ -4,6 +4,8 @@ src/general-styles/framework/core/_lite.scss
 */
 
 .link-site {
+  content-visibility: auto;
+  contain-intrinsic-size: 512px;
   margin: 20px;
   border-top: 1px solid #888;
   padding-top: 20px;

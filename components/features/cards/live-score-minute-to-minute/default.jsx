@@ -119,21 +119,14 @@ class LiveScoreMinuteToMinute extends Component {
   handleMovileScroll = () => {
     if (typeof window !== 'undefined') {
       const scrollHeight = window.scrollY
-      const score = document.querySelector('.score-sticky')
-      const header =
-        document.querySelector('.header-full') &&
-        document.querySelector('.header-full').offsetHeight
-          ? document.querySelector('.header-full').offsetHeight
-          : 0
-
-      const heightTotal = score.offsetHeight + header
-      // const heightTotal = score.offsetHeight
-
-      const socialHeader = document.querySelector(
+      const score = document.body.querySelector('.score-sticky') || {}
+      const header = document.body.querySelector('.header-full') || {}
+      const headerHeight = header.offsetHeight || 0
+      const heightTotal = score.offsetHeight + headerHeight
+      const socialHeader = document.body.querySelector(
         '.story-header__header-social'
       )
-        ? document.querySelector('.story-header__header-social')
-        : null
+
       if (scrollHeight > heightTotal) {
         score.classList.add('score-sticky__content')
         if (socialHeader) {
@@ -187,6 +180,7 @@ class LiveScoreMinuteToMinute extends Component {
       golListItem.homeTeamGolList.length === 0 &&
       golListItem.awayTeamGolList.length === 0
 
+    // TODO: esto debe simplemente ocurrir dentro del ComponentDidMount() o useEffect()
     if (typeof window !== 'undefined') {
       const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
         window.navigator.userAgent

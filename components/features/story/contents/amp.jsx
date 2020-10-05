@@ -59,6 +59,7 @@ import { createResizedParams } from '../../../utilities/resizer/resizer'
 import {
   STORY_CORRECTION,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
 } from '../../../utilities/constants/subtypes'
 
 const classes = {
@@ -96,6 +97,7 @@ class StoryContentAmp extends PureComponent {
       primarySectionLink,
       author,
       multimediaLazyDefault,
+      subtype,
     } = new StoryData({
       data,
       arcSite,
@@ -176,12 +178,19 @@ class StoryContentAmp extends PureComponent {
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
           />
-          <p className={classes.author}>
-            <a href={authorLink}>{author}</a>
-          </p>
-          <time dateTime={getDateSeo(updatedDate)} className={classes.datetime}>
-            {formatDateStoryAmp(updatedDate)}
-          </time>
+
+          {subtype !== GALLERY_VERTICAL && (
+            <>
+              <p className={classes.author}>
+                <a href={authorLink}>{author}</a>
+              </p>
+              <time
+                dateTime={getDateSeo(updatedDate)}
+                className={classes.datetime}>
+                {formatDateStoryAmp(updatedDate)}
+              </time>
+            </>
+          )}
           {contentPosicionPublicidadAmp && (
             <StoryContent
               data={contentPosicionPublicidadAmp}
@@ -317,7 +326,11 @@ class StoryContentAmp extends PureComponent {
                         href={customEmbedConfig.link}
                         title={customEmbedConfig.title}>
                         <AmpImage
-                          {...element}
+                          width={customEmbedConfig.width || 560}
+                          height={customEmbedConfig.height || 315}
+                          caption={
+                            customEmbedConfig.alt || customEmbedConfig.title
+                          }
                           url={
                             createResizedParams({
                               url: customEmbedConfig.photo,
