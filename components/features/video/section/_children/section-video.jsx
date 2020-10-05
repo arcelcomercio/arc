@@ -76,7 +76,7 @@ export default ({
         )
         const playList = sectionVideo.querySelector('.play-list')
         const videoNavBar = sectionVideo.querySelector('.video-navbar')
-        const videoList = sectionVideo.querySelector('.video-list')
+        const videoList = document.body.querySelector('.video-list')
         const adsMiddle = document.getElementById('ads_d_middle1')
         const mTop = 450
 
