@@ -7,7 +7,7 @@ import Cookies from '../_dependencies/cookies'
 
 const classes = {
   wrapper:
-    'confirmation-notice p-15 flex flex-col md:flex-row w-full text-white bg-base-100 position-relative items-center line-h-xs secondary-font',
+    'confirmation-notice p-15 flex flex-col md:flex-row w-full text-white position-relative items-center line-h-xs secondary-font',
   link: 'confirmation-notice__link text-primary-color ml-5 mr-5',
   closed:
     'confirmation-notice__btn-closed text-white position-absolute mr-5 md:mr-15 right-0',
@@ -28,8 +28,6 @@ const ConfirmationNotice = props => {
       linkUrl = '/',
     } = {},
   } = props
-
-  // const htmlScript = ''
 
   const sendVerifyEmail = e => {
     e.preventDefault()
@@ -61,8 +59,9 @@ const ConfirmationNotice = props => {
     <>
       {showNotice && email && !isCookie() && !emailVerified && (
         <div
-          className={classes.wrapper}
-          style={{ fontSize: '12px', justifyContent: 'center' }}>
+          className={`${classes.wrapper} ${
+            arcSite === 'elcomercio' ? 'bg-base-100' : 'bg-base-300'
+          }`}>
           <p>
             {customText}: <strong>{email}</strong>.
           </p>
@@ -90,8 +89,6 @@ const ConfirmationNotice = props => {
             className={classes.closed}>
             <i className={classes.btnIcon}></i>
           </button>
-
-          {/* <script dangerouslySetInnerHTML={{ __html: htmlScript }}></script> */}
         </div>
       )}
     </>
@@ -108,9 +105,6 @@ ConfirmationNotice.propTypes = {
     linkText: PropTypes.string.tag({
       name: 'Texto del enlace',
     }),
-    // linkUrl: PropTypes.string.tag({
-    //   name: 'Url de enlace',
-    // }),
   }),
 }
 
