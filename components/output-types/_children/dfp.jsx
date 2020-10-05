@@ -3,6 +3,7 @@ import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
 const getSectionSlug = (sectionId = '') => {
   return sectionId.split('/')[1] || ''
@@ -27,11 +28,11 @@ const Dfp = ({ isFuature, adId }) => {
     _id,
     content_restrictions: { content_code: contentCode = '' } = {},
     taxonomy: {
-      primary_section: { path: primarySection } = {},
+      primary_section: { path: primarySection = '' } = {},
       tags = [],
     } = {},
+    subtype = '',
   } = globalContent
-
   let contentConfigValues = {}
   let page = ''
   let flagsub = false
@@ -54,7 +55,12 @@ const Dfp = ({ isFuature, adId }) => {
 
       break
     case 'meta_story':
-      if (primarySection) {
+      if (subtype === GALLERY_VERTICAL) {
+        contentConfigValues = {
+          page: 'galeria_v',
+          sectionSlug: getSectionSlug(primarySection),
+        }
+      } else if (primarySection) {
         contentConfigValues = {
           page: 'post',
           sectionSlug: getSectionSlug(primarySection),
@@ -65,6 +71,7 @@ const Dfp = ({ isFuature, adId }) => {
           sectionSlug: 'default',
         }
       }
+
       page = 'post'
       typeContent = contentCode === '' ? 'standar' : contentCode
       break
