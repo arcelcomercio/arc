@@ -77,7 +77,7 @@ const getVars = (
         dataStory = ` var tipo_nota = '${getMultimedia(
           multimediaType,
           true
-        )}';   var id_nota = '${id}';  var content_paywall = ${isPremium};`
+        )}';   var id_nota = '${id}';  var content_paywall = '${isPremium}';`
         dataNucleoOrigen = ` var nucleo_origen = '${nucleoOrigen}'; var format_origen = '${formatOrigen}';var content_origen = '${contentOrigen}'; var gender_origen = '${genderOrigen}';var audiencia_nicho = '${audienciaNicho}'`
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
