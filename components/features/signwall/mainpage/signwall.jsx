@@ -128,11 +128,17 @@ class MainPage extends PureComponent {
             {(this.getUrlParam('signOrganic') ||
               this.getUrlParam('signwallOrganic')) &&
               showOrganic && (
-                <Generic
-                  onClose={() => this.closePopUp('showOrganic')}
-                  arcSite={arcSite}
-                  typeDialog="organico"
-                />
+                <>
+                  {!this.checkSession() ? (
+                    <Generic
+                      onClose={() => this.closePopUp('showOrganic')}
+                      arcSite={arcSite}
+                      typeDialog="organico"
+                    />
+                  ) : (
+                    <>{this.closePopUp()}</>
+                  )}
+                </>
               )}
 
             {this.getUrlParam('tokenVerify') && showVerify && (
