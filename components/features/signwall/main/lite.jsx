@@ -89,9 +89,11 @@ class SignwallComponent extends PureComponent {
     const W = window || {}
 
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
-    const dataContTyp = W.document.querySelector('meta[name="content-type"]')
-    const dataContSec = W.document.querySelector('meta[name="section-id"]')
-    const contentTier = W.document.querySelector(
+    const dataContTyp = W.document.head.querySelector(
+      'meta[name="content-type"]'
+    )
+    const dataContSec = W.document.head.querySelector('meta[name="section-id"]')
+    const contentTier = W.document.head.querySelector(
       'meta[property="article:content_tier"]'
     )
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
@@ -210,7 +212,7 @@ class SignwallComponent extends PureComponent {
     const { siteProperties, arcSite } = this.props
 
     if (typeof window !== 'undefined') {
-      const dataContType = window.document.querySelector(
+      const dataContType = window.document.head.querySelector(
         'meta[name="content-type"]'
       )
       if (

@@ -42,6 +42,7 @@ const StoryGalleryLite = () => {
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
+    canonicalUrl,
   } = new StoryData({
     data,
     contextPath,
@@ -50,6 +51,9 @@ const StoryGalleryLite = () => {
     contextPath,
     arcSite,
   })
+
+  const sectionUrl = canonicalUrl.split('/')
+  const seccioPublicidad = sectionUrl[1].replace(/-/gm, '')
 
   const parameters = {
     contentElementGallery,
@@ -60,6 +64,7 @@ const StoryGalleryLite = () => {
     siteUrl,
     arcSite,
     defaultImageGallery,
+    seccioPublicidad,
   }
 
   const {

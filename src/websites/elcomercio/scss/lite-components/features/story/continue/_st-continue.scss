@@ -1,4 +1,6 @@
 .st-continue {
+  content-visibility: auto;
+  contain-intrinsic-size: 100px;
   &__progress-box {
     height: 30px;
     background-color: #f5f5f5;
