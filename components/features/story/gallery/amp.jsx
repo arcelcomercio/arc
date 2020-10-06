@@ -22,7 +22,9 @@ const StoryGalleryAmp = () => {
     displayDate,
     author,
     authorLink,
-    promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
+    promoItems: {
+      basic_gallery: { content_elements: galleryItems = [] } = {},
+    } = {},
   } = new StoryData({
     data,
     contextPath,
@@ -30,22 +32,24 @@ const StoryGalleryAmp = () => {
 
   return (
     <>
-      <div className={galleryItems ? classes.gallery : classes.stories}>
-        {galleryItems && subtype === GALLERY_VERTICAL ? (
-          <StoryHeaderChildAmpGallery
-            data={galleryItems}
-            displayDate={displayDate}
-            author={author}
-            authorLink={authorLink}
-          />
-        ) : (
-          <StoryHeaderChildAmpGallerySlider
-            data={galleryItems}
-            link={link}
-            siteUrl={siteUrl}
-          />
-        )}
-      </div>
+      {galleryItems && galleryItems[0] && (
+        <div className={galleryItems ? classes.gallery : classes.stories}>
+          {galleryItems && subtype === GALLERY_VERTICAL ? (
+            <StoryHeaderChildAmpGallery
+              data={galleryItems}
+              displayDate={displayDate}
+              author={author}
+              authorLink={authorLink}
+            />
+          ) : (
+            <StoryHeaderChildAmpGallerySlider
+              data={galleryItems}
+              link={link}
+              siteUrl={siteUrl}
+            />
+          )}
+        </div>
+      )}
     </>
   )
 }
