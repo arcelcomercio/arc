@@ -40,6 +40,7 @@ const AmpOutputType = ({
     deployment,
   }
   const {
+    content_elements: contentElements = [{}],
     canonical_url: canonicalUrl = '',
     taxonomy: { sections } = {},
     credits: { by: autors } = {},
@@ -139,7 +140,11 @@ const AmpOutputType = ({
     idYoutube ||
     hasYoutubeIframePromo ||
     regexYoutube.test(rawHtmlContent) ||
-    oembedSubtypes.includes('youtube')
+    oembedSubtypes.includes('youtube') ||
+    contentElements.some(
+      ({ content: textContent }) =>
+        textContent && regexYoutube.test(textContent)
+    )
 
   /** Facebook validation */
   const hasFacebookIframePromo = /<iframe.+facebook.com\/plugins\//.test(
