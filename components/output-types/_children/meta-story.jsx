@@ -68,6 +68,10 @@ export default ({
     idYoutube,
     getGallery,
     subtype,
+    authorImageSecond,
+    authorSecond,
+    authorEmailSecond,
+    roleSecond: authorRoleSecond,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -112,6 +116,27 @@ export default ({
     "email": "${authorEmail}",
     "jobTitle"	: "${authorRole}"
   }`
+
+  const structuredAutorSecond = authorEmailSecond
+    ? ` 
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${authorSecond || arcSite}",
+    "image": "${authorImageSecond || logoAuthor}",
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : "${authorEmailSecond}"
+    },
+    "email": "${authorEmailSecond}",
+    "jobTitle"	: "${authorRoleSecond}"
+  }`
+    : ``
+
+  const finalStructuredDataAuthor = structuredAutorSecond
+    ? `[${structuredAutor}, ${structuredAutorSecond}]`
+    : structuredAutor
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
@@ -397,7 +422,7 @@ export default ({
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }
-    "author": ${structuredAutor},
+    "author": ${finalStructuredDataAuthor},
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
     arcSite,
     contextPath
