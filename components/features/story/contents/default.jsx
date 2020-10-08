@@ -20,6 +20,7 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
   GALLERY_VERTICAL,
+  MINUTO_MINUTO,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -230,7 +231,9 @@ class StoryContents extends PureComponent {
               'story-content__nota-premium paywall no_copy'}`}
             style={isPremium ? { display: 'none' } : {}}
             id="contenedor">
-            {!requestUri.includes('/recetas/') && <StoryContentsChildIcon />}
+            {!requestUri.includes('/recetas/') && subtype !== MINUTO_MINUTO && (
+              <StoryContentsChildIcon />
+            )}
             {!isDfp && (
               <>
                 <div id="ads_d_inline" />

@@ -1,0 +1,28 @@
+.minuto_minuto {
+  &,
+  .bg-white {
+    background: #f4f4f4 0% 0% no-repeat padding-box;
+  }
+
+  & .live-event2-comment,
+  .amp-story-content__news-text {
+    background: #fff 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    font: normal normal normal 18px/24px $tertiary-font;
+    letter-spacing: 0;
+  }
+  & strong {
+    text-align: left;
+    font: normal normal bold 16px/30px $primary-font;
+    letter-spacing: 0.16px;
+    line-height: 0;
+    color: #333;
+  }
+  & .live-event-image {
+    width: 100%;
+  }
+}

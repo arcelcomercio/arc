@@ -53,6 +53,7 @@ import {
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
   GALLERY_VERTICAL,
+  MINUTO_MINUTO,
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import LiteYoutube from '../../../global-components/lite-youtube'
@@ -153,6 +154,13 @@ const StoryContentsLite = () => {
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
   const seccArary = canonicalUrl.split('/')
   const secc = seccArary[1].replace(/-/gm, '')
+
+  const publicidadHtml = (contentHtml, espacio, text) => {
+    const html = `<div id=${`gpt_${espacio}`} className="f just-center" data-ads-name=${`/28253241/${arcSite}/web/post/${secc}/${espacio}`}
+                  data-ads-dimensions="[[300,250]]" data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>`
+    return contentHtml.replace(text, html)
+  }
+
   return (
     <>
       <div className={classes.news}>
@@ -165,11 +173,13 @@ const StoryContentsLite = () => {
             )}
           </>
         )}
-        <div
-          id="gpt_caja3"
-          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-          data-prebid-enabled></div>
+        {subtype !== MINUTO_MINUTO && (
+          <div
+            id="gpt_caja3"
+            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+            data-prebid-enabled></div>
+        )}
         <div
           className={`${classes.content} ${isPremium &&
             'story-content__nota-premium paywall no_copy'}`}
@@ -491,7 +501,31 @@ const StoryContentsLite = () => {
                       </>
                     )
                   }
-                  return <StoryContentChildRawHTML content={content} />
+                  let contentHtml = content
+
+                  if (content.includes('<mxm')) {
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja2',
+                      '<div id="gpt_caja2" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja3',
+                      '<div id="gpt_caja3" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja4',
+                      '<div id="gpt_caja4" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja5',
+                      '<div id="gpt_caja5" class="flex justify-center"></div>'
+                    )
+                  }
+                  return <StoryContentChildRawHTML content={contentHtml} />
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === 'image_link') {

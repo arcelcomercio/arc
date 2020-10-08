@@ -120,7 +120,11 @@ class rawHTML extends PureComponent {
                 ? content.trim().replace('performgroup', 'daznservices')
                 : content
                     .replace('</script>:', '</script>')
-                    .replace(':<script', '<script'),
+                    .replace(':<script', '<script')
+                    .replace(
+                      '<icon></icon>',
+                      '<div  class="more-compartir"></div>'
+                    ),
             }}
           />
         )}

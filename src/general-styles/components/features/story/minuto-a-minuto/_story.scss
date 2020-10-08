@@ -1,0 +1,54 @@
+.minuto_minuto {
+  &,
+  .flex.flex-col.content-layout-container.w-full.position-relative.bg-container {
+    background: #f4f4f4 0% 0% no-repeat padding-box;
+  }
+  & .story-header__share {
+    margin-right: 40px;
+    border-top: 2px solid #e8e8e8;
+    border-bottom: 2px solid #e8e8e8;
+    padding-left: 10px;
+  }
+  & .story-header__header-social {
+    margin-left: 20px;
+    margin-right: 20px;
+    border-bottom-style: inset;
+  }
+  & .live-event2-comment {
+    background: #fff 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: left;
+    font: normal normal normal 18px/24px $tertiary-font;
+    letter-spacing: 0;
+  }
+  & strong {
+    text-align: left;
+    font: normal normal bold 16px/30px $primary-font;
+    letter-spacing: 0.16px;
+    line-height: 0;
+    color: #333;
+  }
+  & .live-event-image {
+    width: 100%;
+  }
+  & .icon-compartir {
+    position: absolute;
+    right: 14px;
+  }
+  & .story-content__list-more {
+    position: absolute;
+    right: 0;
+    width: 55px;
+    top: 65px;
+    background-color: #fff;
+    & .story-content__item {
+      margin-bottom: 12px;
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}
