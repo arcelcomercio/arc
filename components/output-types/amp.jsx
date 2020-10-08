@@ -11,6 +11,7 @@ import {
   SITE_DEPOR,
   SITE_ELBOCON,
   SITE_GESTION,
+  SITE_OJO,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
@@ -141,10 +142,11 @@ const AmpOutputType = ({
     hasYoutubeIframePromo ||
     regexYoutube.test(rawHtmlContent) ||
     oembedSubtypes.includes('youtube') ||
-    contentElements.some(
-      ({ content: textContent }) =>
-        textContent && regexYoutube.test(textContent)
-    )
+    (arcSite === SITE_OJO &&
+      contentElements.some(
+        ({ content: textContent }) =>
+          textContent && regexYoutube.test(textContent)
+      ))
 
   /** Facebook validation */
   const hasFacebookIframePromo = /<iframe.+facebook.com\/plugins\//.test(
