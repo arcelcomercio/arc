@@ -434,8 +434,8 @@ export const freeHtml = html => {
   return html
     .replace(strHtmlFree, '$1')
     .replace(/<html_free><\/html_free>/g, '')
-    .replace(/<icon><\/icon>/g, '')
-    .replace(/<fijado><\/fijado>/g, '')
+    .replace(/<icon\/>/g, '')
+    .replace(/<fijado\/>/g, '')
     .replace(/="&quot;http?(.*?)"/g, '="http$1"')
 }
 

@@ -446,6 +446,10 @@ class StoryContents extends PureComponent {
                   }
 
                   if (type === ELEMENT_RAW_HTML) {
+                    if (content.includes('<mxm')) {
+                      return <StoryContentChildRawHTML content={content} />
+                    }
+
                     if (
                       content.includes('opta-widget') &&
                       // eslint-disable-next-line camelcase

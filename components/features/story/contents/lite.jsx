@@ -411,6 +411,31 @@ const StoryContentsLite = () => {
                 }
 
                 if (type === ELEMENT_RAW_HTML) {
+                  if (content.includes('<mxm')) {
+                    let contentHtml = content
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja2',
+                      '<div id="gpt_caja2" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja3',
+                      '<div id="gpt_caja3" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja4',
+                      '<div id="gpt_caja4" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja5',
+                      '<div id="gpt_caja5" class="flex justify-center"></div>'
+                    )
+                    return <StoryContentChildRawHTML content={contentHtml} />
+                  }
+
                   if (
                     content.includes('opta-widget') &&
                     // eslint-disable-next-line camelcase
@@ -501,31 +526,8 @@ const StoryContentsLite = () => {
                       </>
                     )
                   }
-                  let contentHtml = content
 
-                  if (content.includes('<mxm')) {
-                    contentHtml = publicidadHtml(
-                      contentHtml,
-                      'caja2',
-                      '<div id="gpt_caja2" class="flex justify-center"></div>'
-                    )
-                    contentHtml = publicidadHtml(
-                      contentHtml,
-                      'caja3',
-                      '<div id="gpt_caja3" class="flex justify-center"></div>'
-                    )
-                    contentHtml = publicidadHtml(
-                      contentHtml,
-                      'caja4',
-                      '<div id="gpt_caja4" class="flex justify-center"></div>'
-                    )
-                    contentHtml = publicidadHtml(
-                      contentHtml,
-                      'caja5',
-                      '<div id="gpt_caja5" class="flex justify-center"></div>'
-                    )
-                  }
-                  return <StoryContentChildRawHTML content={contentHtml} />
+                  return <StoryContentChildRawHTML content={content} />
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === 'image_link') {
