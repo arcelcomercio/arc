@@ -122,7 +122,7 @@ class rawHTML extends PureComponent {
                     .replace('</script>:', '</script>')
                     .replace(':<script', '<script')
                     .replace(
-                      '<icon></icon>',
+                      /<icon><\/icon>/g,
                       '<div  class="more-compartir"></div>'
                     ),
             }}

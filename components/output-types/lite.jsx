@@ -25,7 +25,7 @@ import VallaHtml from './_children/valla-html'
 import MetaStory from './_children/meta-story'
 
 import videoScript from './_dependencies/video-script'
-import minutoMinutoScript from './_dependencies/minuto-minuto-script'
+import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
