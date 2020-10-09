@@ -13,6 +13,15 @@
           "return"
         ]
       }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": [
+          "content-visibility",
+          "contain-intrinsic-size"
+        ]
+      }
     ]
   },
   "extends": ["stylelint-config-standard", "stylelint-config-prettier"]
