@@ -22,8 +22,13 @@
     font: normal normal normal 18px/24px $tertiary-font;
     letter-spacing: 0;
     position: relative;
+    padding-right: 30px;
     p {
       padding-right: 12px;
+      padding-top: 15px;
+    }
+    & .share-btn {
+      margin-right: 0;
     }
   }
   & strong {
@@ -38,7 +43,7 @@
   }
   & .icon-compartir {
     position: absolute;
-    right: 14px;
+    right: 8px;
     cursor: pointer;
   }
   & .hidden {
@@ -54,10 +59,13 @@
     top: 27px;
     background-color: #fff;
   }
-  & .share-btn {
-    margin-right: 0;
-  }
+
   & .story-content__item {
     margin-bottom: 10px;
+  }
+  & .live-event-minute {
+    border-style: solid;
+    border-right-width: 2px;
+    padding-right: 7px;
   }
 }
