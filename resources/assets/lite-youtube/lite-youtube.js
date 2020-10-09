@@ -21,6 +21,9 @@ function onPlayerReady(event) {
   // Cuando isMobile, se debe mutear el video para poder reproducir automaticamente
   if(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent))
     event.target.mute();
+  // Registrado video para chartbeat_video
+  window._cbv = window._cbv || []
+  window._cbv.push(event.target);
   event.target.playVideo();
 }
 
@@ -36,7 +39,7 @@ const addIframe = (lytVideo) => {
       width: '100%',
       height: '100%',
       videoId,
-      playerVars: { 'autoplay': 1, 'playsinline': 1 },
+      playerVars: { 'autoplay': 1, 'playsinline': 1, 'enablejsapi': 1 },
       events: {
         'onReady': onPlayerReady
       }

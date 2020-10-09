@@ -53,9 +53,8 @@ $tertiary-font: $secondary-font;
 .st-sidebar__content {
   background: white;
 }
-#fusion-app > div.f.just-center {
-  overflow: hidden;
-}
+
+// #fusion-app > div.f.just-center {   overflow: hidden;} se elimina por sticky
 
 .story-gallery-slider {
   max-width: 100vw;
@@ -162,8 +161,11 @@ $tertiary-font: $secondary-font;
   height: 0;
 }
 
-[id*="div-gpt-ad"] {
-  text-align: center;
+[id^="gpt_"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
   @media print {
     display: none;
   }
@@ -177,6 +179,10 @@ $tertiary-font: $secondary-font;
   transform: translateX(-100vw);
 }
 
+#signwall-app > div {
+  content-visibility: auto;
+}
+
 .link-site {
   &__image {
     height: 100px;
@@ -187,7 +193,7 @@ $tertiary-font: $secondary-font;
       height: 135px;
     }
   }
-  &__icon-container{
+  &__icon-container {
     width: 65px;
     height: 20px;
     background-color: #fff;
@@ -200,7 +206,7 @@ $tertiary-font: $secondary-font;
       margin-right: 15px;
     }
   }
-  &__icon-premium{
+  &__icon-premium {
     width: 40px;
   }
 }

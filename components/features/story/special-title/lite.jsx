@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import TProLbl from '../../../global-components/trustprojectlabel'
 
 const classes = {
   story: 'st-special-t w-full',
@@ -15,6 +16,7 @@ const StorySpecialTitle = () => {
     taxonomy: {
       primary_section: { name: sectionName = '', path: sectionLink = '' } = {},
     } = {},
+    label: { trustproject = '' } = {},
   } = globalContent || {}
 
   return (
@@ -29,6 +31,9 @@ const StorySpecialTitle = () => {
             <a itemProp="url" href={sectionLink}>
               {sectionName}
             </a>
+          )}
+          {trustproject && (
+            <TProLbl trustproject={trustproject} plantilla="lite" />
           )}
         </div>
         <h1 itemProp="name" className={classes.title}>

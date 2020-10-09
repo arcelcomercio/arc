@@ -33,39 +33,53 @@ const StoryHeaderChildGallery = props => {
           } = slide
           const itemv = width < height && true
           return (
-            <div
-              className={`${classes.galleryItem} ${itemv &&
-                'itemv'}  ${width} vvv ${height}`}
-              key={UtilListKey(i)}>
-              <span className={classes.galleryNumber}>
-                <strong> {i + 1} </strong>
-                de {sliders.length}
-              </span>
-              <div className={classes.figure}>
-                <StoryGalleryChildPicture
-                  {...slide}
-                  defaultImageGallery={defaultImageGallery}
-                  itemv={itemv}
-                  i={i}
-                />
+            <>
+              {i === 1 && (
+                <div id="gpt_caja2" className="flex justify-center"></div>
+              )}
+              {i === 3 && (
+                <div id="gpt_caja3" className="flex justify-center"></div>
+              )}
+              {i === 5 && (
+                <div id="gpt_caja4" className="flex justify-center"></div>
+              )}
+
+              <div
+                className={`${classes.galleryItem} ${itemv && 'itemv'} `}
+                key={UtilListKey(i)}>
+                <span className={classes.galleryNumber}>
+                  <strong> {i + 1} </strong>
+                  de {sliders.length}
+                </span>
+                <div className={classes.figure}>
+                  <StoryGalleryChildPicture
+                    {...slide}
+                    defaultImageGallery={defaultImageGallery}
+                    itemv={itemv}
+                    i={i}
+                  />
+                </div>
+                {name && <span className={classes.galleryCredit}>{name}</span>}
+                <figcaption className={classes.caption}>
+                  <strong
+                    className={classes.title}
+                    dangerouslySetInnerHTML={{
+                      __html: slide.subtitle,
+                    }}
+                  />
+                  <p
+                    itemProp="description"
+                    className={classes.captionImage}
+                    dangerouslySetInnerHTML={{
+                      __html: slide.caption,
+                    }}
+                  />
+                </figcaption>
               </div>
-              {name && <span className={classes.galleryCredit}>{name}</span>}
-              <figcaption className={classes.caption}>
-                <strong
-                  className={classes.title}
-                  dangerouslySetInnerHTML={{
-                    __html: slide.subtitle,
-                  }}
-                />
-                <p
-                  itemProp="description"
-                  className={classes.captionImage}
-                  dangerouslySetInnerHTML={{
-                    __html: slide.caption,
-                  }}
-                />
-              </figcaption>
-            </div>
+              {i === 6 && (
+                <div id="gpt_caja5" className="flex justify-center"></div>
+              )}
+            </>
           )
         })}
       </div>

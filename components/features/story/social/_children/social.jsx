@@ -9,7 +9,7 @@ import {
   SPECIAL_BASIC,
 } from '../../../../utilities/constants/subtypes'
 import StorySocialChildAuthor from './author'
-import TProLbl from './trustprojectlabel'
+import TProLbl from '../../../../global-components/trustprojectlabel'
 
 const classes = {
   news:

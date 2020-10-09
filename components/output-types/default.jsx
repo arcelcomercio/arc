@@ -74,11 +74,9 @@ export default ({
   const {
     node_type: nodeType,
     _id,
+    credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    promo_items: {
-      basic_gallery: basicGallery = 0,
-      uuid_match: idMatch = '',
-    } = {},
+    promo_items: promoItems = {},
     taxonomy: {
       primary_section: { path: storySectionPath = '' } = {},
       tags = [],
@@ -94,7 +92,7 @@ export default ({
   const isBlogPost = /^\/blogs?\/.*.html/.test(requestUri)
 
   let classBody = isStory
-    ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
         storySectionPath.split('/')[1]
       } ${subtype} `
     : ''
@@ -128,6 +126,7 @@ export default ({
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const { uuid_match: idMatch = '' } = promoItems
 
   const metaSiteData = {
     ...siteProperties,
@@ -467,8 +466,16 @@ export default ({
           </>
         )}
         {/* Scripts de AdManager - Fin */}
-        {/* Scripts de Chartbeat */}
-        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+        <ChartbeatBody
+          story={isStory}
+          hasVideo={contenidoVideo || hasYoutubeVideo}
+          requestUri={requestUri}
+          metaValue={metaValue}
+          tags={tags}
+          credits={credits}
+          promoItems={promoItems}
+          arcSite={arcSite}
+        />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
@@ -551,7 +558,6 @@ export default ({
             </noscript>
           </>
         )}
-        <ChartbeatBody story={isStory} {...metaPageData} />
         <script
           defer
           src={`${getAssetsPath(
