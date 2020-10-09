@@ -1,4 +1,6 @@
 .video-list {
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
   margin-top: 50px;
   @media (--desktop) {
     &.fixedAds {

@@ -2,6 +2,8 @@ $offset: 187;
 $duration: 1.4s;
 
 .spinner {
+  content-visibility: auto;
+  contain-intrinsic-size: 100px;
   &__svg {
     animation: spinner__rotator $duration linear infinite;
     stroke: $color-gray-300;
