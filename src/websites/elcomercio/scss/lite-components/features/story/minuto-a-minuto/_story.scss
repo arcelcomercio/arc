@@ -45,6 +45,7 @@
     position: absolute;
     right: 8px;
     cursor: pointer;
+    top: 27px;
   }
   & .hidden {
     display: none;
@@ -57,6 +58,7 @@
     right: 0;
     width: 55px;
     top: 27px;
+    z-index: 9;
     background-color: #fff;
   }
 
