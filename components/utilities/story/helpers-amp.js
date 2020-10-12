@@ -122,6 +122,20 @@ export const optaWidgetHtml = html => {
   return result
 }
 
+export const imageHtmlMxm = html => {
+  let resHtml = html
+
+  const rplImageCde =
+    '<amp-img class="media 1" src="$2" layout="responsive" width="304" height="200"></amp-img>'
+
+  resHtml = resHtml.replace(
+    /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
+    rplImageCde
+  )
+
+  return resHtml
+}
+
 export const imageHtml = html => {
   let resHtml = ''
   resHtml = html.replace('<figure>', '').replace('</figure>', '')
@@ -483,6 +497,9 @@ export const ampHtml = (html = '', arcSite = '') => {
     resultData = playerHtml(resultData)
   }
 
+  if (resultData.includes('mxm-')) {
+    resultData = imageHtmlMxm(resultData, arcSite)
+  }
   // imagenes
   resultData = imageHtml(resultData)
 
@@ -506,7 +523,9 @@ export const ampHtml = (html = '', arcSite = '') => {
   // HTML Free
   resultData = freeHtml(resultData)
 
-  resultData = iframeHtml(resultData, arcSite)
+  if (!resultData.includes('mxm-')) {
+    resultData = iframeHtml(resultData, arcSite)
+  }
 
   // Mxm Iframe
   if (arcSite === SITE_ELCOMERCIO) {

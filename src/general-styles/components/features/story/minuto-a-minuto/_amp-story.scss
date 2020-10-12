@@ -3,7 +3,11 @@
   .bg-white {
     background: #f4f4f4 0% 0% no-repeat padding-box;
   }
-
+  & .live-event2-comment {
+    p {
+      padding-top: 15px;
+    }
+  }
   & .live-event2-comment,
   .amp-story-content__news-text {
     background: #fff 0% 0% no-repeat padding-box;
