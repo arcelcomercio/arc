@@ -39,7 +39,10 @@ import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import videoScript from './_dependencies/video-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
-import { MINUTO_MINUTO } from '../utilities/constants/subtypes'
+import {
+  MINUTO_MINUTO,
+  GALLERY_VERTICAL,
+} from '../utilities/constants/subtypes'
 
 export default ({
   children,
@@ -634,13 +637,15 @@ export default ({
             }}
           />
         )}
-        {subtype === MINUTO_MINUTO && (
+        {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
             }}
           />
+        ) : (
+          <></>
         )}
         {hasYoutubeVideo && (
           <>

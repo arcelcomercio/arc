@@ -64,6 +64,7 @@ const StoryHeaderChildGallery = props => {
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
                 key={UtilListKey(i)}>
+                <div className="more-compartir"></div>
                 <span className={classes.galleryNumber}>
                   <strong> {i + 1} </strong>
                   de {sliders.length}
