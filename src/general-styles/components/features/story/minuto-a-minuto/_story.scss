@@ -21,9 +21,9 @@
     margin-top: 16px;
     text-align: left;
     font: normal normal normal 18px/24px $tertiary-font;
-    padding-right: 30px;
+    padding-right: 20px;
     letter-spacing: 0;
-    position: relative;
+
     p {
       padding-right: 12px;
       padding-top: 15px;
@@ -39,11 +39,14 @@
   & .live-event-image {
     width: 100%;
   }
+  & .more-compartir {
+    position: relative;
+  }
   & .icon-compartir {
     position: absolute;
-    right: 8px;
+    right: 0;
     cursor: pointer;
-    top: 27px;
+    top: 5px;
   }
   & .live-event-minute {
     padding-right: 7px;
