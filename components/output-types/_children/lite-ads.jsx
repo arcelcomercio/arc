@@ -823,7 +823,7 @@ const adsEconomiaNext = `"use strict";window.addEventListener("load",function(){
 
 return (
     <>
-      {requestUri.includes('/economia/') ? (
+      {requestUri.includes('/mundo/') ? (
         <>
           <script
             async
