@@ -25,26 +25,29 @@ export default props => {
   const { list } = props
 
   /* document.addEventListener('DOMContentLoaded', () => {
-    document
-      .querySelector('.navbar-nm__icon-search')
-      .addEventListener('click', () => {
-        document
-          .querySelector('.navbar-nm__box-search')
-          .classList.toggle('hidden')
-      })
-    const searchInput = document.querySelector('.navbar-nm__input-search')
-    document
-      .querySelector(".navbar-nm__box-search").firstChild
-      .addEventListener('submit', (e) => {
-        e.preventDefault()
-        if (searchInput.value) {
-          const newQuery = encodeURIComponent(searchInput.value).replace(
-            /%20/g,
-            '+'
-          )
-          window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
-        }
-      })
+    requestIdle(() => {
+      document
+        .body
+        .querySelector('.navbar-nm__icon-search')
+        .addEventListener('click', () => {
+          document
+            .querySelector('.navbar-nm__box-search')
+            .classList.toggle('hidden')
+        })
+      const searchInput = document.body.querySelector('.navbar-nm__input-search')
+      document.body
+        .querySelector(".navbar-nm__box-search").firstChild
+        .addEventListener('submit', (e) => {
+          e.preventDefault()
+          if (searchInput.value) {
+            const newQuery = encodeURIComponent(searchInput.value).replace(
+              /%20/g,
+              '+'
+            )
+            window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
+          }
+        })
+    })
   }) */
 
   const { children: dataList = [] } = list
@@ -98,7 +101,7 @@ export default props => {
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: `"use strict";document.addEventListener("DOMContentLoaded",function(){document.querySelector(".navbar-nm__icon-search").addEventListener("click",function(){document.querySelector(".navbar-nm__box-search").classList.toggle("hidden")});var e=document.querySelector(".navbar-nm__input-search");document.querySelector(".navbar-nm__box-search").firstChild.addEventListener("submit",function(n){if(n.preventDefault(),e.value){var t=encodeURIComponent(e.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(t,"/todas/descendiente/?query=").concat(t)}})});`,
+          __html: `document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){document.body.querySelector(".navbar-nm__icon-search").addEventListener("click",function(){document.body.querySelector(".navbar-nm__box-search").classList.toggle("hidden")});var e=document.body.querySelector(".navbar-nm__input-search");document.body.querySelector(".navbar-nm__box-search").firstChild.addEventListener("submit",function(n){if(n.preventDefault(),e.value){var t=encodeURIComponent(e.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(t,"/todas/descendiente/?query=").concat(t)}})})});`,
         }}
       />
     </div>

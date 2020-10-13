@@ -82,7 +82,6 @@ const initIntersectionObserver = (element) => {
 }
 
 const initLiteYoutube = () => {
-  const lytVideos = Array.from(document.querySelectorAll('.lyt-player'))
   lytVideos.forEach(lyt => {
     lyt.className.includes('lyt-lazy') 
       ? initIntersectionObserver(lyt) 
@@ -104,5 +103,9 @@ const loadYoutubeIframeAPI = () => {
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
-window.requestIdle(() => loadYoutubeIframeAPI())
+let lytVideos = []
+window.requestIdle(() => {
+  lytVideos = Array.from(document.body.querySelectorAll('.lyt-player')) 
+  lytVideos.length > 0 && loadYoutubeIframeAPI()
+})
 
