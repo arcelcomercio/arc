@@ -169,6 +169,7 @@ const StoryContentsLite = () => {
           id="gpt_caja3"
           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+          data-bloque="3"
           data-prebid-enabled></div>
         <div
           className={`${classes.content} ${isPremium &&
@@ -250,6 +251,7 @@ const StoryContentsLite = () => {
                           id="gpt_inline"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
                           data-ads-dimensions="[[1,1]]"
+                          data-bloque="3"
                           data-ads-dimensions-m="[[1,1]]"></div>
                       )}
                       {nameAds === 'caja4' && (
@@ -257,6 +259,7 @@ const StoryContentsLite = () => {
                           id="gpt_caja4"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                          data-bloque="3"
                           data-prebid-enabled></div>
                       )}
                       {nameAds === 'caja5' && (
@@ -264,6 +267,7 @@ const StoryContentsLite = () => {
                           id="gpt_caja5"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                          data-bloque="4"
                           data-prebid-enabled></div>
                       )}
                       <p
