@@ -47,7 +47,7 @@ const StoryContentChildAuthorTrustLite = ({
     author: authorSecond,
     authorLink: authorLinkSecond,
     authorEmail: authorEmailSecond,
-    authorImgSmall: authorImageSecond,
+    authorImage: authorImageSecond,
     authorRole: authorRoleSecond,
   }
   return (
