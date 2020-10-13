@@ -15,10 +15,12 @@ const classes = {
   link: 'breaking-news__link mr-5 text-white font-bold',
 }
 
-/* setTimeout(document.getElementById('close-breaking-news').addEventListener('click', () => {
-  document.getElementById('breaking-news').remove()
-}), 0) */
-const handleClose = `"use strict";setTimeout(document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()}),0);`
+/* requestIdle(() => {
+  document.getElementById('close-breaking-news').addEventListener('click', () => {
+    document.getElementById('breaking-news').remove()
+  })
+}) */
+const handleClose = `"use strict";requestIdle(function(){document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()})});`
 
 const BreakingNewsFeat = props => {
   const {

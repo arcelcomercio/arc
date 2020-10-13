@@ -463,7 +463,7 @@ class StoryContents extends PureComponent {
                           <script
                             dangerouslySetInnerHTML={{
                               __html: `(function(){window.addEventListener('load', function(){
-                                setTimeout(function(){
+                                requestIdle(function(){
                                   if(!window.optaReady){
                                     var os=document.createElement('script')
                                     os.textContent=\`
@@ -484,7 +484,7 @@ class StoryContents extends PureComponent {
                                     document.head.append(n)
                                     window.optaReady=true
                                   }
-                                }, 0)
+                                })
                               })
                               })()`,
                             }}

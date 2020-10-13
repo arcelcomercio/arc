@@ -145,8 +145,8 @@ class NavBarDefault extends PureComponent {
     // const { arcSite } = this.props
 
     window.addEventListener('scroll', this._handleScroll)
-    this.listContainer = document.querySelector('.nav-sidebar')
-    this.layerBackground = document.querySelector('.layer')
+    this.listContainer = document.body.querySelector('.nav-sidebar')
+    this.layerBackground = document.body.querySelector('.layer')
     const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
     const { hideMenu } = this.props
 
@@ -178,7 +178,9 @@ class NavBarDefault extends PureComponent {
       })
     }
 
-    this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
+    this.isStory = !!window.document.head.querySelector(
+      'meta[name="section-id"]'
+    ) // TODO: temporal
   }
 
   _initDrag = evt => {
@@ -370,7 +372,7 @@ class NavBarDefault extends PureComponent {
   }
 
   moreList = () => {
-    const el = document.querySelector('.story-header__list')
+    const el = document.body.querySelector('.story-header__list')
     if (el.classList.contains('block')) {
       el.classList.remove('block')
       el.classList.add('hidden')
@@ -439,13 +441,13 @@ class NavBarDefault extends PureComponent {
 
     const queryReloginEmail = `"use strict";
     document.addEventListener('DOMContentLoaded', function () {
-      setTimeout(function () {
+      requestIdle(function () {
         if (window.location.href.match(/reloginEmail=/)) { window.location.href = '${
           _env === 'prod'
             ? `/signwall/?outputType=signwall&reloginEmail=1`
             : `/signwall/?_website=${arcSite}&outputType=signwall&reloginEmail=1`
         }';}
-      }, 0);
+      });
     })`
 
     return (
@@ -668,7 +670,7 @@ class NavBarDefault extends PureComponent {
                   type="text/javascript"
                   dangerouslySetInnerHTML={{
                     __html:
-                      '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName?e.firstName.toLowerCase():"",t=void 0===n||"undefined"===n?"":n,a=e.lastName?e.lastName.toLowerCase():"",c=void 0===a||"undefined"===a?"":a,o=document.getElementById("signwall-nav-user"),i=document.getElementById("signwall-nav-icon");if(t||c){var s="",d="";t&&c?(s="".concat(t," ").concat(c),d="".concat(t[0]||"").concat(c[0]||"")):t&&!c?d="".concat((s=t)[0]||"").concat(t[1]||""):!t&&c&&(d="".concat((s=c)[0]||"").concat(c[1]||"")),o.innerHTML=15<=s.length?"".concat(s.slice(0,15),"..."):s,i.innerHTML=d,i.className="uppercase"}else o.innerHTML=e.uuid?"Bienvenido Usuario":"Iniciar"},0)});',
+                      '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName?e.firstName.toLowerCase():"",t=void 0===n||"undefined"===n?"":n,a=e.lastName?e.lastName.toLowerCase():"",c=void 0===a||"undefined"===a?"":a,o=document.getElementById("signwall-nav-user"),i=document.getElementById("signwall-nav-icon");if(t||c){var s="",d="";t&&c?(s="".concat(t," ").concat(c),d="".concat(t[0]||"").concat(c[0]||"")):t&&!c?d="".concat((s=t)[0]||"").concat(t[1]||""):!t&&c&&(d="".concat((s=c)[0]||"").concat(c[1]||"")),o.innerHTML=15<=s.length?"".concat(s.slice(0,15),"..."):s,i.innerHTML=d,i.className="uppercase"}else o.innerHTML=e.uuid?"Bienvenido Usuario":"Iniciar"})});',
                   }}
                 />
 

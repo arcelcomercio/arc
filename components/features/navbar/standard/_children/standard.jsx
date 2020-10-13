@@ -107,8 +107,8 @@ class NavBarDefault extends PureComponent {
     // const { arcSite } = this.props
 
     window.addEventListener('scroll', this._handleScroll)
-    this.listContainer = document.querySelector('.nav-sidebar')
-    this.layerBackground = document.querySelector('.layer')
+    this.listContainer = document.body.querySelector('.nav-sidebar')
+    this.layerBackground = document.body.querySelector('.layer')
     const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
     const { hideMenu } = this.props
     if (
@@ -329,7 +329,7 @@ class NavBarDefault extends PureComponent {
   }
 
   moreList = () => {
-    const el = document.querySelector('.story-header__list')
+    const el = document.body.querySelector('.story-header__list')
     if (el.classList.contains('block')) {
       el.classList.remove('block')
       el.classList.add('hidden')

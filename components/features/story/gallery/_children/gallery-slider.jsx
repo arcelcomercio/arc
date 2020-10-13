@@ -40,7 +40,7 @@ const StoryHeaderChildGallerySlider = props => {
 
   const handleGallery = `(
       function(){window.addEventListener('DOMContentLoaded', function(){
-        setTimeout(function(){
+        requestIdle(function(){
           var currentSlide = 1;
           var slideWidth = 100 / ${totalSlides};
           var dragFlag = false;
@@ -50,7 +50,7 @@ const StoryHeaderChildGallerySlider = props => {
           var limitDrag = 40;
           var listPositionPx = 0;
   
-          var $slider = document.querySelector('.story-gallery-slider__content')
+          var $slider = document.body.querySelector('.story-gallery-slider__content')
   
           function _getNewPosition() { return (currentSlide - 1) * -slideWidth; }
   
@@ -164,7 +164,7 @@ const StoryHeaderChildGallerySlider = props => {
             $slider.addEventListener('touchend', _endDrag, { passive: true })
             $slider.addEventListener('touchmove', _moveDrag, { passive: true })
           }
-        }, 0)
+        })
       })}
     )()`
 
