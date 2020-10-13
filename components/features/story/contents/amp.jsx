@@ -47,6 +47,7 @@ import {
   SITE_PERU21,
   SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
@@ -110,6 +111,7 @@ class StoryContentAmp extends PureComponent {
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
+    const isMag = arcSite === SITE_ELCOMERCIOMAG
 
     const imgTag = 'amp-img'
     const width = '300'
@@ -174,10 +176,12 @@ class StoryContentAmp extends PureComponent {
       <>
         <div className={classes.content}>
           {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
-          />
+          {!isMag && (
+            <div
+              className={classes.adsAmp}
+              dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
+            />
+          )}
 
           {subtype !== GALLERY_VERTICAL && (
             <>
@@ -205,7 +209,9 @@ class StoryContentAmp extends PureComponent {
                   content,
                   level,
                   publicidadInline = false,
+                  publicidadCaja2 = false,
                   publicidadCaja3 = false,
+                  publicidadCaja4 = false,
                   url = '',
                   items = [],
                 } = element
@@ -361,7 +367,15 @@ class StoryContentAmp extends PureComponent {
                         }
                         className={classes.textClasses}
                       />
-                      {publicidadInline && (
+                      {isMag && publicidadCaja2 && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={publicidadAmp(
+                            parametersCaja2
+                          )}
+                        />
+                      )}
+                      {!isMag && publicidadInline && (
                         <div
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
@@ -374,6 +388,14 @@ class StoryContentAmp extends PureComponent {
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
                             parametersCaja3
+                          )}
+                        />
+                      )}
+                      {isMag && publicidadCaja4 && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={publicidadAmpAd(
+                            parametersCaja4
                           )}
                         />
                       )}
@@ -418,10 +440,12 @@ class StoryContentAmp extends PureComponent {
               }}
             />
           )}
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
-          />
+          {!isMag && (
+            <div
+              className={classes.adsAmp}
+              dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
+            />
+          )}
           {isComercio && <StoryGoogleNews />}
           <StoryContentChildTags data={tags} {...isAmp} />
           {storyTagsBbc(tags) && (
@@ -443,10 +467,12 @@ class StoryContentAmp extends PureComponent {
           )}
         </div>
 
-        <div
-          className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
-        />
+        {!isMag && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
+          />
+        )}
       </>
     )
   }
