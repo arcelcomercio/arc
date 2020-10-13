@@ -38,6 +38,8 @@ import { getPushud, getEnablePushud } from './_dependencies/pushud'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import videoScript from './_dependencies/video-script'
+import minutoMinutoScript from './_dependencies/minuto-minuto-script'
+import { MINUTO_MINUTO } from '../utilities/constants/subtypes'
 
 export default ({
   children,
@@ -631,6 +633,14 @@ export default ({
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: videoScript,
+            }}
+          />
+        )}
+        {subtype === MINUTO_MINUTO && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: minutoMinutoScript,
             }}
           />
         )}
