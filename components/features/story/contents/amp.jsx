@@ -51,7 +51,7 @@ import {
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
-  formatDateStoryAmp,
+  formatDateTime,
   publicidadAmp,
   publicidadAmpAd,
   ampHtml,
@@ -68,7 +68,10 @@ const classes = {
   textClasses: 'amp-story-content__news-text ',
   blockquoteClass:
     'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
-  author: 'amp-story-content__author mt-15 mb-15 secondary-font',
+  authorTimeContainer:
+    'pt-15 mt-15 pb-15 mb-15 border-t-1 border-b-1 border-solid border-gray',
+  author: 'amp-story-content__author mb-5 secondary-font',
+  datetime: 'secondary-font text-md',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
   relatedTitle:
@@ -95,6 +98,8 @@ class StoryContentAmp extends PureComponent {
       tags,
       authorLink,
       displayDate: updatedDate,
+      publishDate,
+      primarySection,
       primarySectionLink,
       author,
       multimediaLazyDefault,
@@ -184,16 +189,34 @@ class StoryContentAmp extends PureComponent {
           )}
 
           {subtype !== GALLERY_VERTICAL && (
-            <>
+            <div
+              className={isMag ? classes.authorTimeContainer : 'pt-15 pb-15'}>
               <p className={classes.author}>
-                <a href={authorLink}>{author}</a>
+                {isMag ? (
+                  <>
+                    Por{' '}
+                    <a href={authorLink} className="font-bold">
+                      {author}
+                    </a>{' '}
+                    en{' '}
+                    <a href={primarySectionLink} className="font-bold">
+                      {primarySection}
+                    </a>
+                  </>
+                ) : (
+                  <a href={authorLink}>{author}</a>
+                )}
               </p>
               <time
                 dateTime={getDateSeo(updatedDate)}
                 className={classes.datetime}>
-                {formatDateStoryAmp(updatedDate)}
+                {isMag
+                  ? `${formatDateTime(
+                      publishDate
+                    )} | Actualizado ${formatDateTime(updatedDate)}`
+                  : `Actualizado el ${formatDateTime(updatedDate)}`}
               </time>
-            </>
+            </div>
           )}
           {contentPosicionPublicidadAmp && (
             <StoryContent

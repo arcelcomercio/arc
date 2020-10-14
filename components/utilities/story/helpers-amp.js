@@ -9,24 +9,25 @@ import {
   SITE_ELCOMERCIOMAG,
 } from '../constants/sitenames'
 
-import formatTime from '../date-time/format-time'
-
 const createMarkup = html => {
   return {
     __html: html,
   }
 }
 
-export const formatDateStoryAmp = date => {
-  const fecha = new Date(date)
-  fecha.setHours(fecha.getHours() - 5)
-  const day = fecha.getDate()
-  const month = fecha.getMonth() + 1
-  const formatDay = day < 10 ? `0${day}` : day
-  const formatMonth = month < 10 ? `0${month}` : month
-  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatTime(
-    fecha
-  )}`
+// TODO: hacer que sea una sola funcion con la de helpers.js y dates.js
+export const formatDateTime = date => {
+  const newDate = new Date(date)
+  const dateTime = new Intl.DateTimeFormat('es', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'America/Lima',
+  })
+
+  return dateTime.format(newDate)
 }
 
 export const publicidadAmp = ({
