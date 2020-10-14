@@ -91,7 +91,7 @@ const getFeaturesIncludedFields = arcSite => ({
   featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`,
   sectionColumns: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems},${includeCredits}`,
   separatorFeatured: `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection}`,
-  separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,content_restrictions.content_code,${includePromoItems},${includePrimarySection}`,
+  separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePrimarySection}`,
   separatorStories: `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url`,
   featuredStoryPremium: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`,
   featuredStoryRecentImg: `headlines.basic,websites.${arcSite}.website_url,content_restrictions.content_code,_id,display_date,publish_date,${includePromoItems}`,
