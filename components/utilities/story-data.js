@@ -1583,7 +1583,8 @@ class StoryData {
 
       if (iterator && iterator.type === 'author') {
         nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
-        urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
+        urlAuthor =
+          iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
           iterator.image && iterator.image.url && iterator.image.url !== ''
@@ -1829,7 +1830,7 @@ class StoryData {
         const result = {
           _id,
           type,
-          subtype: '',
+          subtype,
           level,
           payload: '',
           streams,
@@ -1857,6 +1858,7 @@ class StoryData {
             break
           case ELEMENT_RAW_HTML:
             result.payload = content
+            result.subtype = subtype
             // && content
             break
           case ELEMENT_STORY:

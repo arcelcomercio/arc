@@ -14,6 +14,7 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
   GALLERY_VERTICAL,
+  MINUTO_MINUTO,
 } from '../../../../utilities/constants/subtypes'
 import { getResultVideo, stripTags } from '../../../../utilities/story/helpers'
 
@@ -178,9 +179,9 @@ const analyzeParagraph = ({
   streams = [],
   siteUrl = '',
   typeConfig = '',
+  subtypeTheme = '',
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
-
   const result = {
     originalParagraph,
     type,
@@ -287,6 +288,36 @@ const analyzeParagraph = ({
           /width=(?:"|')100%(?:"|')/g,
           `width="520"`
         )}</figure>`
+      } else if (subtypeTheme === MINUTO_MINUTO) {
+        const liveBlog = processedParagraph
+          .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+          .replace(/(:<script.*)/, '')
+          .replace(/:fijado:/gm, '')
+          .replace(/:icon:/gm, '')
+
+        const liveBlogTags = stripTags(liveBlog, '<div><p><a><img><strong>')
+
+        const liveBlogResult = liveBlogTags
+          .replace(
+            /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
+            '<figure><img src="$2" /></figure>'
+          )
+          .replace(
+            /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><div/gm,
+            '<blockquote>$1</blockquote><div'
+          )
+        result.processedParagraph = liveBlogResult.replace(
+          /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><div/gm,
+          '<blockquote>$1</blockquote><div'
+        )
+        result.processedParagraph = result.processedParagraph.replace(
+          /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><blockquote/gm,
+          '<blockquote>$1</blockquote><blockquote'
+        )
+        result.processedParagraph = result.processedParagraph.replace(
+          /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><\/div>/gm,
+          '<blockquote>$1</blockquote></div>'
+        )
       } else if (processedParagraph.includes('<mxm-event')) {
         const liveBlog = processedParagraph
           .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
@@ -391,6 +422,7 @@ const buildListParagraph = ({
   arcSite,
   defaultImage,
   siteUrl = '',
+  subtypeTheme,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
@@ -401,10 +433,12 @@ const buildListParagraph = ({
       link = '',
       streams = [],
       type_config: typeConfig = '',
+      subtype = '',
     }) => {
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph: payload,
         type,
+        subtype,
         numberWordMultimedia,
         opta,
         link,
@@ -413,6 +447,7 @@ const buildListParagraph = ({
         streams,
         siteUrl,
         typeConfig,
+        subtypeTheme,
       })
       objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
       objTextsProcess.numberWords += numberWords
@@ -433,6 +468,7 @@ const ParagraphshWithAdds = ({
   opta,
   siteUrl,
   arcSite,
+  subtypeTheme = '',
   defaultImage = '',
 }) => {
   let newsWithAdd = []
@@ -466,6 +502,7 @@ const ParagraphshWithAdds = ({
           streams,
           siteUrl,
           typeConfig,
+          subtypeTheme,
         })
 
         if (ConfigParams.ELEMENT_STORY === type) {
@@ -638,6 +675,7 @@ const BuildHtml = ({
     arrayadvertising: listUrlAdvertisings,
     opta,
     siteUrl,
+    subtypeTheme: subtype,
     arcSite,
     defaultImage,
   }
