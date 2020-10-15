@@ -289,14 +289,35 @@ const analyzeParagraph = ({
           `width="520"`
         )}</figure>`
       } else if (subtypeTheme === MINUTO_MINUTO) {
-        const liveBlog = processedParagraph
+        let liveBlog = processedParagraph
           .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
           .replace(/(:<script.*)/, '')
           .replace(/:fijado:/gm, '')
           .replace(/:icon:/gm, '')
 
-        const liveBlogTags = stripTags(liveBlog, '<div><p><a><img><strong>')
-
+        if (
+          processedParagraph.includes('<blockquote class="instagram-media"') ||
+          processedParagraph.includes('<blockquote class="twitter-tweet"')
+        ) {
+          // para twitter y para instagram
+          liveBlog = liveBlog.replace(
+            /<blockquote class="twitter-tweet">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/blockquote>/g,
+            '<xxfigure class="op-interactive"><xxiframe>$1</xxiframe></xxfigure>'
+          )
+        } else if (
+          processedParagraph.includes('https://www.facebook.com/plugins')
+        ) {
+          // para facebook
+          liveBlog = liveBlog.replace(
+            /(<iframe(.+?||(.+\n||(.+\n)+?.+?).+?)src="(.+?||(.+\n||(.+\n)+?.+?).+?)"(.+?||(.+\n||(.+\n)+?.+?).+?)><\/iframe>)/g,
+            '<xxfigure class="op-interactive"><xxiframe>$1</xxiframe></xxfigure>'
+          )
+          result.processedParagraph = `<xxfigure class="op-interactive"><iframe>${processedParagraph}</iframe></figure>`
+        }
+        const liveBlogTags = stripTags(
+          liveBlog,
+          '<xxfigure><xxiframe><div><p><a><img><strong>'
+        )
         const liveBlogResult = liveBlogTags
           .replace(
             /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
@@ -314,10 +335,13 @@ const analyzeParagraph = ({
           /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><blockquote/gm,
           '<blockquote>$1</blockquote><blockquote'
         )
-        result.processedParagraph = result.processedParagraph.replace(
-          /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><\/div>/gm,
-          '<blockquote>$1</blockquote></div>'
-        )
+        result.processedParagraph = result.processedParagraph
+          .replace(
+            /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><\/div>/gm,
+            '<blockquote>$1</blockquote></div>'
+          )
+          .replace(/xxfigure/g, 'figure')
+          .replace(/xxiframe/g, 'iframe')
       } else if (processedParagraph.includes('<mxm-event')) {
         const liveBlog = processedParagraph
           .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
@@ -330,12 +354,11 @@ const analyzeParagraph = ({
           /<xtrong>([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/xtrong>(.+?)<p>/gm,
           '<p><strong>$1 </strong> '
         )
-
         const liveBlogTags = stripTags(liveBlogStrong, '<p><a><img><strong>')
 
         const liveBlogResult = liveBlogTags.replace(
           /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
-          '<figure><img src="$2" /></figure>'
+          '<figure><img img width="560" height="315" src="$2" /></figure>'
         )
         result.processedParagraph = liveBlogResult
       } else if (processedParagraph.includes('<img')) {
