@@ -445,7 +445,7 @@ export default ({
         />
         <script
           async
-          src={`https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js?v=${new Date()
+          src={`https://api-gateway-1-serve-script-dpm1wlz8.uc.gateway.dev/serve_script?v=${new Date()
             .toISOString()
             .slice(0, 10)}`}
         />
