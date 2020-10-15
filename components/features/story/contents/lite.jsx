@@ -178,6 +178,7 @@ const StoryContentsLite = () => {
             id="gpt_caja3"
             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
             data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+            data-bloque="3"
             data-prebid-enabled></div>
         )}
         <div
