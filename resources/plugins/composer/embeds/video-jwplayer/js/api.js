@@ -3,7 +3,7 @@ import sha1 from './sha-1.js';
 const SECRET_KEY = 'eDk1GDQrbtGlVlvPmsVeb9zR';
 const API_KEY = 'wXNxS2NB';
 const PLAYER_ID = 'BHYH7DVh';
-const API_URL = 'http://api.jwplatform.com/v1'
+const API_URL = 'https://api.jwplatform.com/v1'
 
 export const getVideos = (text = '') => {
     const url = `${API_URL}/videos/list?${buildRequest({text})}`;
