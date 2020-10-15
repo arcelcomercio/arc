@@ -289,57 +289,80 @@ const analyzeParagraph = ({
           `width="520"`
         )}</figure>`
       } else if (subtypeTheme === MINUTO_MINUTO) {
-        let liveBlog = processedParagraph
-          .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
-          .replace(/(:<script.*)/, '')
-          .replace(/:fijado:/gm, '')
-          .replace(/:icon:/gm, '')
+        const res = processedParagraph.split(
+          '<div class="live-event2-comment">'
+        )
+        let i = 0
+        let bloqueHtml = ''
+        res.forEach(entry => {
+          let entryHtml = ''
+          if (i !== 0) {
+            entryHtml = `<div class="live-event2-comment">${entry.replace(
+              /<div id="(.+?)" class="flex justify-center"><\/div>/g,
+              ''
+            )}<div`
+            if (
+              entryHtml.includes('<blockquote class="instagram-media"') ||
+              entryHtml.includes('<blockquote class="twitter-tweet"')
+            ) {
+              // para twitter y para instagram
+              const arrayTwitter = entryHtml.match(
+                /<blockquote class="(twitter-tweet|instagram-media)">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/blockquote>/g
+              )
+              entryHtml = `<xxfigure class="op-interactive"><xxiframe>${
+                arrayTwitter[0]
+              }</xxiframe></xxfigure> ${entryHtml.replace(arrayTwitter[0], '')}`
+            } else if (entryHtml.includes('https://www.facebook.com/plugins')) {
+              // para facebook
+              const arrayFacebook = entryHtml.match(
+                /(<iframe(.+?||(.+\n||(.+\n)+?.+?).+?)src="(.+?||(.+\n||(.+\n)+?.+?).+?)"(.+?||(.+\n||(.+\n)+?.+?).+?)><\/iframe>)/g
+              )
+              entryHtml = `<xxfigure class="op-interactive"><xxiframe>${
+                arrayFacebook[0]
+              }</xxiframe></xxfigure> ${entryHtml.replace(
+                arrayFacebook[0],
+                ''
+              )}`
+            }
 
-        if (
-          processedParagraph.includes('<blockquote class="instagram-media"') ||
-          processedParagraph.includes('<blockquote class="twitter-tweet"')
-        ) {
-          // para twitter y para instagram
-          liveBlog = liveBlog.replace(
-            /<blockquote class="twitter-tweet">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/blockquote>/g,
-            '<xxfigure class="op-interactive"><xxiframe>$1</xxiframe></xxfigure>'
-          )
-        } else if (
-          processedParagraph.includes('https://www.facebook.com/plugins')
-        ) {
-          // para facebook
-          liveBlog = liveBlog.replace(
-            /(<iframe(.+?||(.+\n||(.+\n)+?.+?).+?)src="(.+?||(.+\n||(.+\n)+?.+?).+?)"(.+?||(.+\n||(.+\n)+?.+?).+?)><\/iframe>)/g,
-            '<xxfigure class="op-interactive"><xxiframe>$1</xxiframe></xxfigure>'
-          )
-          result.processedParagraph = `<xxfigure class="op-interactive"><iframe>${processedParagraph}</iframe></figure>`
-        }
-        const liveBlogTags = stripTags(
-          liveBlog,
-          '<xxfigure><xxiframe><div><p><a><img><strong>'
-        )
-        const liveBlogResult = liveBlogTags
-          .replace(
-            /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
-            '<figure><img src="$2" /></figure>'
-          )
-          .replace(
-            /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><div/gm,
-            '<blockquote>$1</blockquote><div'
-          )
-        result.processedParagraph = liveBlogResult.replace(
-          /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><div/gm,
-          '<blockquote>$1</blockquote><div'
-        )
-        result.processedParagraph = result.processedParagraph.replace(
-          /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><blockquote/gm,
-          '<blockquote>$1</blockquote><blockquote'
-        )
-        result.processedParagraph = result.processedParagraph
-          .replace(
-            /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><\/div>/gm,
-            '<blockquote>$1</blockquote></div>'
-          )
+            entryHtml = entryHtml
+              .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+              .replace(/(:<script.*)/, '')
+              .replace(/:fijado:/gm, '')
+              .replace(/:icon:/gm, '')
+
+            entryHtml = stripTags(
+              entryHtml,
+              '<xxfigure><xxiframe><div><p><a><img><strong><blockquote>'
+            )
+            if (entryHtml.includes('<img')) {
+              // para twitter y para instagram
+              const imageHtml = entryHtml.match(
+                /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/g
+              )
+
+              entryHtml = `${imageHtml[0]} ${entryHtml.replace(
+                imageHtml[0],
+                ''
+              )}`
+              entryHtml = entryHtml.replace(
+                /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/g,
+                '<figure><img width="560" height="315" src="$2" /></figure>'
+              )
+            }
+
+            entryHtml = entryHtml.replace(
+              /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><div/gm,
+              '<blockquote>$1</blockquote>'
+            )
+          }
+          bloqueHtml = `${bloqueHtml}${entryHtml.replace(
+            /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><\/div>/g,
+            '<blockquote>$1</blockquote>'
+          )}`
+          i += i
+        })
+        result.processedParagraph = bloqueHtml
           .replace(/xxfigure/g, 'figure')
           .replace(/xxiframe/g, 'iframe')
       } else if (processedParagraph.includes('<mxm-event')) {
@@ -360,6 +383,7 @@ const analyzeParagraph = ({
           /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
           '<figure><img img width="560" height="315" src="$2" /></figure>'
         )
+
         result.processedParagraph = liveBlogResult
       } else if (processedParagraph.includes('<img')) {
         // obtiene el valor del src de la imagen y el alt
