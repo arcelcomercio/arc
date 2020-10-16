@@ -281,14 +281,7 @@ const analyzeParagraph = ({
       break
 
     case ConfigParams.ELEMENT_RAW_HTML:
-      if (processedParagraph.includes('<iframe')) {
-        // valida si el parrafo contiene un iframe con video youtube o foto
-
-        result.processedParagraph = `<figure class="op-interactive">${processedParagraph.replace(
-          /width=(?:"|')100%(?:"|')/g,
-          `width="520"`
-        )}</figure>`
-      } else if (subtypeTheme === MINUTO_MINUTO) {
+      if (subtypeTheme === MINUTO_MINUTO) {
         const res = processedParagraph.split(
           '<div class="live-event2-comment">'
         )
@@ -301,11 +294,13 @@ const analyzeParagraph = ({
               /<div id="(.+?)" class="flex justify-center"><\/div>/g,
               ''
             )}<div`
+
             entryHtml = entryHtml
               .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
               .replace(/(:<script.*)/, '')
               .replace(/:fijado:/gm, '')
               .replace(/:icon:/gm, '')
+
             if (
               entryHtml.includes('<blockquote class="instagram-media"') ||
               entryHtml.includes('<blockquote class="twitter-tweet"')
@@ -314,25 +309,29 @@ const analyzeParagraph = ({
               const arrayTwitter = entryHtml.match(
                 /<blockquote .+?>(.+?||(.+\n||(.+\n)+?.+?).+?)<\/blockquote>(.+?||)<script.+?><\/script>/g
               )
-              entryHtml = `<xxfigure class="op-interactive"><xxiframe>${
+              entryHtml = `<xxfigure class="op-interactive"><iframe>${
                 arrayTwitter[0]
-              }</xxiframe></xxfigure> ${entryHtml.replace(arrayTwitter[0], '')}`
+              }</iframe></xxfigure> ${entryHtml.replace(arrayTwitter[0], '')}`
             } else if (entryHtml.includes('https://www.facebook.com/plugins')) {
               // para facebook
+
               const arrayFacebook = entryHtml.match(
                 /(<iframe(.+?||(.+\n||(.+\n)+?.+?).+?)src="(.+?||(.+\n||(.+\n)+?.+?).+?)"(.+?||(.+\n||(.+\n)+?.+?).+?)><\/iframe>)/g
               )
-              entryHtml = `<xxfigure class="op-interactive"><xxiframe>${
+              entryHtml = `<xxfigure class="op-interactive"><iframe>${
                 arrayFacebook[0]
-              }</xxiframe></xxfigure> ${entryHtml.replace(
-                arrayFacebook[0],
-                ''
-              )}`
+              }</iframe></xxfigure> ${entryHtml.replace(arrayFacebook[0], '')}`
+            } else if (entryHtml.includes('<iframe')) {
+              // valida si el parrafo contiene un iframe con video youtube o foto
+              entryHtml = `<figure class="op-interactive">${processedParagraph.replace(
+                /width=(?:"|')100%(?:"|')/g,
+                `width="520"`
+              )}</figure>`
             }
 
             entryHtml = stripTags(
               entryHtml,
-              '<xxfigure><xxiframe><div><p><a><img><strong><blockquote><script>'
+              '<xxfigure><iframe><div><p><a><img><strong><blockquote><script>'
             )
             if (entryHtml.includes('<img')) {
               // para twitter y para instagram
@@ -360,9 +359,14 @@ const analyzeParagraph = ({
             '<blockquote>$1</blockquote>'
           )}`
         })
-        result.processedParagraph = bloqueHtml
-          .replace(/xxfigure/g, 'figure')
-          .replace(/xxiframe/g, 'iframe')
+        result.processedParagraph = bloqueHtml.replace(/xxfigure/g, 'figure')
+      } else if (processedParagraph.includes('<iframe')) {
+        // valida si el parrafo contiene un iframe con video youtube o foto
+
+        result.processedParagraph = `<figure class="op-interactive">${processedParagraph.replace(
+          /width=(?:"|')100%(?:"|')/g,
+          `width="520"`
+        )}</figure>`
       } else if (processedParagraph.includes('<mxm-event')) {
         const liveBlog = processedParagraph
           .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
