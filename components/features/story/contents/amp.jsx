@@ -87,7 +87,6 @@ class StoryContentAmp extends PureComponent {
     const {
       contextPath,
       arcSite,
-      isAmp,
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
@@ -470,7 +469,7 @@ class StoryContentAmp extends PureComponent {
             />
           )}
           {isComercio && <StoryGoogleNews />}
-          <StoryContentChildTags data={tags} {...isAmp} />
+          <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
