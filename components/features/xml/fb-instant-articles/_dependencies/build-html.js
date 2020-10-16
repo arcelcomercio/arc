@@ -330,12 +330,6 @@ const analyzeParagraph = ({
               )}`
             }
 
-            entryHtml = entryHtml
-              //    .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
-              //  .replace(/(:<script.*)/, '')
-              .replace(/:fijado:/gm, '')
-              .replace(/:icon:/gm, '')
-
             entryHtml = stripTags(
               entryHtml,
               '<xxfigure><xxiframe><div><p><a><img><strong><blockquote><script>'
