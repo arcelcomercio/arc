@@ -292,15 +292,16 @@ const analyzeParagraph = ({
         const res = processedParagraph.split(
           '<div class="live-event2-comment">'
         )
-        let i = 0
         let bloqueHtml = ''
-        res.forEach(entry => {
+        res.forEach((entry, i) => {
           let entryHtml = ''
+
           if (i !== 0) {
             entryHtml = `<div class="live-event2-comment">${entry.replace(
               /<div id="(.+?)" class="flex justify-center"><\/div>/g,
               ''
             )}<div`
+
             if (
               entryHtml.includes('<blockquote class="instagram-media"') ||
               entryHtml.includes('<blockquote class="twitter-tweet"')
@@ -360,7 +361,6 @@ const analyzeParagraph = ({
             /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><\/div>/g,
             '<blockquote>$1</blockquote>'
           )}`
-          i += i
         })
         result.processedParagraph = bloqueHtml
           .replace(/xxfigure/g, 'figure')
