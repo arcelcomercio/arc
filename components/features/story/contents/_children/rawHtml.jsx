@@ -71,7 +71,7 @@ class rawHTML extends PureComponent {
         ? `id_video_embed_${idVideo[2]}`
         : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
     const isWidgets = this.URL && this.URL.includes('widgets.js')
-    if (this.URL_VIDEO || this.URL) {
+    if ((this.URL_VIDEO || this.URL) && !content.includes('<mxm')) {
       return (
         <>
           {this.URL_VIDEO && (
@@ -102,9 +102,10 @@ class rawHTML extends PureComponent {
 
     // Fallback para cualquier iframe y contenido en general
     const iframeEmbed = content.includes('<iframe')
+    const mxmEmbed = content.includes('<mxm')
     return (
       <>
-        {iframeEmbed ? (
+        {iframeEmbed && !mxmEmbed ? (
           <>
             <div
               className="story-contents__lL-iframe story-contents__p-default"
