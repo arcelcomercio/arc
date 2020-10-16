@@ -362,7 +362,11 @@ export const facebookHtml = html => {
     const replacePlugin =
       '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$1"></amp-facebook>'
     resultHtml = resultHtml.replace(regexVideo, replacePlugin)
-    return decodeURIComponent(resultHtml)
+
+    return decodeURIComponent(resultHtml).replace(
+      /<iframe(.+?)(https?:\/\/www\.facebook\.com\/(?:video\.php\?v=\d+|.*?href=))((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)"(.+?)><\/iframe>/g,
+      '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$3"></amp-facebook>'
+    )
   }
 
   if (resultHtml.indexOf('facebook.com/plugins/post.php') !== -1) {
