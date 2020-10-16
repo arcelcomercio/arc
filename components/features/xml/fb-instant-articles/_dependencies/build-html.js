@@ -301,14 +301,18 @@ const analyzeParagraph = ({
               /<div id="(.+?)" class="flex justify-center"><\/div>/g,
               ''
             )}<div`
-
+            entryHtml = entryHtml
+              .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+              .replace(/(:<script.*)/, '')
+              .replace(/:fijado:/gm, '')
+              .replace(/:icon:/gm, '')
             if (
               entryHtml.includes('<blockquote class="instagram-media"') ||
               entryHtml.includes('<blockquote class="twitter-tweet"')
             ) {
               // para twitter y para instagram
               const arrayTwitter = entryHtml.match(
-                /<blockquote class="(twitter-tweet|instagram-media)">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/blockquote>/g
+                /<blockquote .+?>(.+?||(.+\n||(.+\n)+?.+?).+?)<\/blockquote>(.+?||)<script.+?><\/script>/g
               )
               entryHtml = `<xxfigure class="op-interactive"><xxiframe>${
                 arrayTwitter[0]
@@ -327,14 +331,14 @@ const analyzeParagraph = ({
             }
 
             entryHtml = entryHtml
-              .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
-              .replace(/(:<script.*)/, '')
+              //    .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+              //  .replace(/(:<script.*)/, '')
               .replace(/:fijado:/gm, '')
               .replace(/:icon:/gm, '')
 
             entryHtml = stripTags(
               entryHtml,
-              '<xxfigure><xxiframe><div><p><a><img><strong><blockquote>'
+              '<xxfigure><xxiframe><div><p><a><img><strong><blockquote><script>'
             )
             if (entryHtml.includes('<img')) {
               // para twitter y para instagram
