@@ -50,6 +50,9 @@ export default website => `
         headlines{
           basic
         }
+        subheadlines{
+          basic
+        }
         taxonomy {
           primary_section {
               name 
