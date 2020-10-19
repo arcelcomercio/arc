@@ -28,9 +28,11 @@ export const getTitle = ({
   let title = `${seoTitle} | ${siteTitleSuffix}`
 
   if (isStory) {
-    title = `${seoTitle}: ${
-      storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-    } | ${siteTitleSuffix}`
+    // title = `${seoTitle}: ${
+    //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+    // } | ${siteTitleSuffix}`
+    const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS', '')
+    title = `${storyTitleRe} | ${siteTitleSuffixR}`
   } else if (
     pageNumber > 1 &&
     (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')

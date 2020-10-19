@@ -102,7 +102,7 @@ export default {
       url: 'https://www.facebook.com/magelcomercio',
     },
     twitter: {
-      user: '@Mag_ECpe',
+      user: 'Mag_ECpe',
     },
   },
   adsAmp: {
