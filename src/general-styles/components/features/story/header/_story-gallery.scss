@@ -43,6 +43,26 @@
       width: 100%;
     }
   }
+  & .story-content__list-more {
+    position: absolute;
+    right: 0;
+    top: 27px;
+    z-index: 9;
+    background-color: #fff;
+    width: 65px;
+    & .story-content__item {
+      margin-bottom: 12px;
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+  & .icon-compartir {
+    right: 0;
+    position: absolute;
+    top: 30px;
+    cursor: pointer;
+  }
 }
 .gv {
   border-bottom: 1px solid #d6d6d6;
