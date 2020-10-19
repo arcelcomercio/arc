@@ -50,6 +50,7 @@ import {
   WORK_TYPE_REVISION,
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
+  VIDEO_JWPLAYER,
 } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
@@ -492,6 +493,14 @@ class StoryData {
         : [] */
 
     return data
+  }
+
+  get jwplayerSeo() {
+    const videosContent = StoryData.getContentJwplayer(
+      this._data && this._data.content_elements
+    )
+    const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
+    return videosContent.concat(promoItemsVideo).filter(String)
   }
 
   get videoSeo() {
@@ -1193,6 +1202,10 @@ class StoryData {
     // )
   }
 
+  get promoItemJwplayer() {
+    return StoryData.promoItemJwplayer(this._data)
+  }
+
   get hasAdsVideo() {
     return StoryData.findHasAdsVideo(this._data)
   }
@@ -1498,6 +1511,25 @@ class StoryData {
     )
   }
 
+  static promoItemJwplayer(data) {
+    const {
+      promo_items: {
+        basic_jwplayer: { embed: { config: video = {} } = {} } = {},
+      } = {},
+    } = data || {}
+    return video
+  }
+
+  static getContentJwplayer(data = []) {
+    return data && data.length > 0
+      ? data.map(item => {
+          return item.type === 'custom_embed' && item.subtype === VIDEO_JWPLAYER
+            ? item.embed.config
+            : []
+        })
+      : []
+  }
+
   static findHasAdsVideo(data) {
     const {
       promo_items: {
@@ -1583,7 +1615,8 @@ class StoryData {
 
       if (iterator && iterator.type === 'author') {
         nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
-        urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
+        urlAuthor =
+          iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
           iterator.image && iterator.image.url && iterator.image.url !== ''

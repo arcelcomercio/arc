@@ -5,6 +5,7 @@ import Imagen from './image'
 import Html from './html'
 import VideoNativo from './video-nativo'
 import LiteYoutube from '../../../../global-components/lite-youtube'
+import VideoJwplayer from '../../../../global-components/video-jwplayer'
 
 const classes = {
   audio: 'pt-10 w-full',
@@ -33,6 +34,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     showCaption,
     primaryImage,
     completeImage,
+    promoItemJwplayer,
   } = data
 
   const { type: typeImage, caption = '' } = basic || {}
@@ -47,30 +49,38 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     primaryImage,
     completeImage,
   }
-
+  console.log('promoItemJwplayer:', promoItemJwplayer)
   return (
     <>
-      {typoVideo !== 'video' &&
-      !youtubeId &&
-      !typeInfo &&
-      !typeEmbed &&
-      typeImage ? (
-        <Imagen {...parameters} />
-      ) : (
-        <Html data={embedHtmlPromoItems} caption={caption} {...data} />
-      )}
-
-      {youtubeId && <LiteYoutube videoId={youtubeId} />}
-      {typoVideo === 'video' && embedHtml ? (
-        <Video data={embedHtml} description={descriptionVideo} {...basic} />
-      ) : (
-        <>{streams && <VideoNativo streams={streams} />}</>
-      )}
-      {mp3 && (
+      {promoItemJwplayer ? (
         <>
-          <audio className={classes.audio} controls>
-            <source src={mp3} type="audio/mpeg" />
-          </audio>
+          <VideoJwplayer data={promoItemJwplayer}></VideoJwplayer>
+        </>
+      ) : (
+        <>
+          {typoVideo !== 'video' &&
+          !youtubeId &&
+          !typeInfo &&
+          !typeEmbed &&
+          typeImage ? (
+            <Imagen {...parameters} />
+          ) : (
+            <Html data={embedHtmlPromoItems} caption={caption} {...data} />
+          )}
+
+          {youtubeId && <LiteYoutube videoId={youtubeId} />}
+          {typoVideo === 'video' && embedHtml ? (
+            <Video data={embedHtml} description={descriptionVideo} {...basic} />
+          ) : (
+            <>{streams && <VideoNativo streams={streams} />}</>
+          )}
+          {mp3 && (
+            <>
+              <audio className={classes.audio} controls>
+                <source src={mp3} type="audio/mpeg" />
+              </audio>
+            </>
+          )}
         </>
       )}
     </>

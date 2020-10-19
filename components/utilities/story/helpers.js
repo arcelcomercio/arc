@@ -68,3 +68,15 @@ export const stripTags = (inputs, allowed = '') => {
     return allowedNew.indexOf(input) > -1 ? $0 : ''
   })
 }
+
+export const getResultJwplayer = streams => {
+  console.log('resultVideoresultVideoresultVideoresultVideo', streams)
+  const resultVideo = streams
+    .map(({ mediatype = '', link: { address = '', path = '' } = {} }) => {
+      return mediatype === 'video' ? `https://${address}${path}` : []
+    })
+    .filter(String)
+  const cantidadVideo = resultVideo.length
+
+  return resultVideo[cantidadVideo - 1]
+}

@@ -128,6 +128,8 @@ const AmpOutputType = ({
     oembedSubtypes,
     promoItems: { basic_html: { content = '' } = {} } = {},
     subtype = '',
+    promoItemJwplayer = {},
+    jwplayerSeo = [],
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -204,7 +206,6 @@ const AmpOutputType = ({
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
   }
-
   return (
     <Html lang={lang}>
       <head>
@@ -311,13 +312,27 @@ const AmpOutputType = ({
           custom-element="amp-sidebar"
           src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
         />
+
         {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && hasJwVideo && (
           <script
             async
             custom-element="amp-jwplayer"
-            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-          />
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
         )}
+
+        {(promoItemJwplayer.key || jwplayerSeo[0].key) && (
+          <>
+            <script
+              async
+              custom-element="amp-jwplayer"
+              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
+            <script
+              async
+              custom-element="amp-video-docking"
+              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"></script>
+          </>
+        )}
+
         {hasTwitter && (
           <script
             async

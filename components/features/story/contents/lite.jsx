@@ -54,6 +54,7 @@ import {
   STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import LiteYoutube from '../../../global-components/lite-youtube'
@@ -240,6 +241,19 @@ const StoryContentsLite = () => {
                       )}
                     </>
                   )
+                }
+                if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (sub === VIDEO_JWPLAYER) {
+                    const {
+                      embed: { config: { key: videJplayer = '' } = {} } = {},
+                    } = element
+                    return (
+                      <div
+                        className="jwplayer-lazy"
+                        id={`mediaId-${videJplayer}`}
+                      />
+                    )
+                  }
                 }
                 if (type === ELEMENT_GALLERY) {
                   return (

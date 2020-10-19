@@ -25,6 +25,7 @@ import VallaHtml from './_children/valla-html'
 import MetaStory from './_children/meta-story'
 
 import videoScript from './_dependencies/video-script'
+import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
@@ -177,6 +178,8 @@ const LiteOutput = ({
     embedTwitterAndInst,
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
+    promoItemJwplayer,
+    jwplayerSeo,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -370,6 +373,10 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
         />
+        {(promoItemJwplayer.key || jwplayerSeo[0].key) && (
+          <script
+            src={`https://cdn.jwplayer.com/libraries/${siteProperties.jwplayerId}.js`}></script>
+        )}
         <MetaSite {...metaSiteData} />
         <meta name="description" lang="es" content={description} />
         {arcSite === SITE_ELCOMERCIOMAG && (
@@ -507,6 +514,16 @@ const LiteOutput = ({
             />
           </>
         )}
+
+        {jwplayerSeo[0].key && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: jwplayerScript,
+            }}
+          />
+        )}
+
         {subtype === MINUTO_MINUTO && (
           <script
             type="text/javascript"

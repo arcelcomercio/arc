@@ -22,6 +22,7 @@ import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 import workType, { revisionAttr } from '../_dependencies/work-type'
 import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
+import { getResultJwplayer } from '../../utilities/story/helpers'
 
 export default ({
   globalContent: data,
@@ -72,6 +73,7 @@ export default ({
     authorSecond,
     authorEmailSecond,
     roleSecond: authorRoleSecond,
+    jwplayerSeo,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -200,6 +202,48 @@ export default ({
       "height": ${seo.height}
     }
   },`
+
+  const jwplayerSeoItems = jwplayerSeo.map(
+    ({
+      conversions = [],
+      title: titleVideo = '',
+      thumbnail_url: urlImage,
+      date = '',
+      duration,
+    } = {}) => {
+      const {
+        large = '',
+        amp_image_1x1: ampVideo1x1 = urlImage,
+        amp_image_4x3: ampVideo4x3 = urlImage,
+        amp_image_16x9: ampVideo16x9 = urlImage,
+      } =
+        createResizedParams({
+          url: urlImage,
+          presets:
+            'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
+          arcSite,
+        }) || {}
+
+      const image =
+        isAmp === true
+          ? `"${large || urlImage}"`
+          : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
+
+      return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
+        titleVideo || arcSite
+      )}", ${
+        isAmp === true ? publishedVideoOrganization : ''
+      }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
+        titleVideo || arcSite
+      )}", "contentUrl": "${getResultJwplayer(
+        conversions
+      )}",  "uploadDate": "${date}", "duration": "${msToTime(
+        duration,
+        false
+      )}" }`
+    }
+  )
+
   const videoSeoItems = videoSeo.map(
     ({ url, caption, description, urlImage, date, duration } = {}) => {
       const {
@@ -321,7 +365,9 @@ export default ({
       )}", "height": 800, "width": 1200 },`
 
   const dataVideo =
-    `  "video":[ ${redSocialVideo.concat(videoSeoItems)} ],` || ''
+    `  "video":[ ${redSocialVideo
+      .concat(videoSeoItems)
+      .concat(jwplayerSeoItems)} ],` || ''
 
   let citationStructuredItems = ''
   if (arcSite === SITE_ELCOMERCIO) {
@@ -420,7 +466,7 @@ export default ({
   ${correctionStructured}
   ${citationStructured}
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
-    videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
+    videoSeoItems[0] || redSocialVideo[0] || jwplayerSeo[0] ? dataVideo : ''
   }
     "author": ${finalStructuredDataAuthor},
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(

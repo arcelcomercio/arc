@@ -8,6 +8,7 @@ import ArcStoryContent, {
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../utilities/assets'
+
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
@@ -21,6 +22,7 @@ import {
   STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -125,6 +127,7 @@ class StoryContents extends PureComponent {
       authorSecond,
       authorEmailSecond,
       roleSecond: authorRoleSecond,
+      promoItemJwplayer,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -155,6 +158,7 @@ class StoryContents extends PureComponent {
       authorSecond,
       authorEmailSecond,
       authorRoleSecond,
+      promoItemJwplayer,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -290,6 +294,19 @@ class StoryContents extends PureComponent {
                         )}
                       </>
                     )
+                  }
+                  if (type === ELEMENT_CUSTOM_EMBED) {
+                    if (sub === VIDEO_JWPLAYER) {
+                      const {
+                        embed: { config: { key: videJplayer = '' } = {} } = {},
+                      } = element
+                      return (
+                        <div
+                          className="jwplayer-lazy"
+                          id={`mediaId-${videJplayer}`}
+                        />
+                      )
+                    }
                   }
                   if (type === ELEMENT_GALLERY) {
                     return (
