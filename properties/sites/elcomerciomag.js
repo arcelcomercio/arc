@@ -1,7 +1,7 @@
 export default {
   siteName: 'Mag.',
   sitemapNewsName: 'El Comercio Mag',
-  siteTitle: 'Noticias Mag Perú',
+  siteTitle: 'Mag.',
   colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://mag.elcomercio.pe',
