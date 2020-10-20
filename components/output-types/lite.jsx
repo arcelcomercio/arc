@@ -35,7 +35,10 @@ import {
   getDescription,
   getKeywords,
 } from './_dependencies/utils'
-import { MINUTO_MINUTO } from '../utilities/constants/subtypes'
+import {
+  MINUTO_MINUTO,
+  GALLERY_VERTICAL,
+} from '../utilities/constants/subtypes'
 
 const LiteOutput = ({
   children,
@@ -507,13 +510,15 @@ const LiteOutput = ({
             />
           </>
         )}
-        {subtype === MINUTO_MINUTO && (
+        {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
             }}
           />
+        ) : (
+          <></>
         )}
         {hasYoutubeVideo && (
           <>
