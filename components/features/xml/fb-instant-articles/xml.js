@@ -263,6 +263,7 @@ class XmlFacebookInstantArticles {
                 videoPrincipal: storyData.videoStreams,
                 subtype: storyData.subtype,
                 contentElementGallery: storyData.contentElementGallery,
+                promoItemJwplayer: storyData.promoItemJwplayer,
               }
 
               const today = new Date()

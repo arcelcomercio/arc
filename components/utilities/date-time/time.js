@@ -16,6 +16,22 @@ export const msToTime = (duration = 5555, seo = true) => {
   }
   return resultSeo
 }
+export const msToTimestamp = (timestamp = 1575909015) => {
+  const date = new Date(timestamp * 1000)
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).slice(
+    -2
+  )}-${date.getDate().slice(-2)}T${date
+    .getHours()
+    .slice(-2)}:${date.getMinutes().slice(-2)}`
+
+  return formattedDate
+}
+export const msToTimeJplayer = (duration = '03.20') => {
+  const result = duration.split('.')
+  const minutes = result[0] >= 1 ? `${result[0]}M` : ''
+  const seconds = result[1] >= 1 ? `${result[1]}S` : ''
+  return `PT${minutes}${seconds}`
+}
 
 export const formatAMPM = _date => {
   const date = new Date(_date)

@@ -527,10 +527,15 @@ const multimediaHeader = (
   videoPrincipal,
   arcSite,
   subtype,
-  contentElementGallery
+  contentElementGallery,
+  promoItemJwplayer
 ) => {
   let result = ''
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
+  if (promoItemJwplayer && promoItemJwplayer.key) {
+    //  const ulrJwplayer = getResultJwplayer(promoItemJwplayer.conversions)
+  }
+
   switch (type) {
     case ConfigParams.IMAGE:
       const { resizedImage } = createResizedParams({
@@ -625,6 +630,7 @@ const BuildHtml = ({
   videoPrincipal = [],
   subtype,
   contentElementGallery,
+  promoItemJwplayer,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -689,7 +695,8 @@ const BuildHtml = ({
         videoPrincipal,
         arcSite,
         subtype,
-        contentElementGallery
+        contentElementGallery,
+        promoItemJwplayer
       )}
       
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}

@@ -70,7 +70,6 @@ export const stripTags = (inputs, allowed = '') => {
 }
 
 export const getResultJwplayer = streams => {
-  console.log('resultVideoresultVideoresultVideoresultVideo', streams)
   const resultVideo = streams
     .map(({ mediatype = '', link: { address = '', path = '' } = {} }) => {
       return mediatype === 'video' ? `https://${address}${path}` : []

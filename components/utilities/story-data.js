@@ -1,4 +1,10 @@
-import { VIDEO, GALLERY, HTML, IMAGE } from './constants/multimedia-types'
+import {
+  VIDEO,
+  GALLERY,
+  HTML,
+  IMAGE,
+  JWPLAYER,
+} from './constants/multimedia-types'
 import {
   ELEMENT_RAW_HTML,
   ELEMENT_IMAGE,
@@ -1720,6 +1726,8 @@ class StoryData {
         typeMultimedia = GALLERY
       } else if (items.includes(IMAGE)) {
         typeMultimedia = IMAGE
+      } else if (items.includes(JWPLAYER)) {
+        typeMultimedia = JWPLAYER
       }
     }
     return typeMultimedia

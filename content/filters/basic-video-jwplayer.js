@@ -7,6 +7,7 @@ basic_jwplayer {
     config{
       key
       title
+      date
       description
       duration
       thumbnail_url

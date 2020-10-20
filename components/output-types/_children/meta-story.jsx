@@ -9,7 +9,11 @@ import {
   formatHtmlToText,
   removeLastSlash,
 } from '../../utilities/parse/strings'
-import { msToTime } from '../../utilities/date-time/time'
+import {
+  msToTime,
+  msToTimeJplayer,
+  msToTimestamp,
+} from '../../utilities/date-time/time'
 import { getDateSeo } from '../../utilities/date-time/dates'
 import {
   SITE_ELCOMERCIOMAG,
@@ -203,46 +207,47 @@ export default ({
     }
   },`
 
-  const jwplayerSeoItems = jwplayerSeo.map(
-    ({
-      conversions = [],
-      title: titleVideo = '',
-      thumbnail_url: urlImage,
-      date = '',
-      duration,
-    } = {}) => {
-      const {
-        large = '',
-        amp_image_1x1: ampVideo1x1 = urlImage,
-        amp_image_4x3: ampVideo4x3 = urlImage,
-        amp_image_16x9: ampVideo16x9 = urlImage,
-      } =
-        createResizedParams({
-          url: urlImage,
-          presets:
-            'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
-          arcSite,
-        }) || {}
-
-      const image =
-        isAmp === true
-          ? `"${large || urlImage}"`
-          : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
-
-      return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
-        titleVideo || arcSite
-      )}", ${
-        isAmp === true ? publishedVideoOrganization : ''
-      }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
-        titleVideo || arcSite
-      )}", "contentUrl": "${getResultJwplayer(
-        conversions
-      )}",  "uploadDate": "${date}", "duration": "${msToTime(
+  const jwplayerSeoItems =
+    jwplayerSeo[0].conversions &&
+    jwplayerSeo.map(
+      ({
+        conversions = [],
+        title: titleVideo = '',
+        thumbnail_url: urlImage,
+        date = '',
         duration,
-        false
-      )}" }`
-    }
-  )
+      } = {}) => {
+        const {
+          large = '',
+          amp_image_1x1: ampVideo1x1 = urlImage,
+          amp_image_4x3: ampVideo4x3 = urlImage,
+          amp_image_16x9: ampVideo16x9 = urlImage,
+        } =
+          createResizedParams({
+            url: urlImage,
+            presets:
+              'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
+            arcSite,
+          }) || {}
+
+        const image =
+          isAmp === true
+            ? `"${large || urlImage}"`
+            : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
+
+        return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
+          titleVideo || arcSite
+        )}", ${
+          isAmp === true ? publishedVideoOrganization : ''
+        }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
+          titleVideo || arcSite
+        )}", "contentUrl": "${getResultJwplayer(
+          conversions
+        )}",  "uploadDate": "${msToTimestamp(
+          date
+        )}", "duration": "${msToTimeJplayer(duration)}" }`
+      }
+    )
 
   const videoSeoItems = videoSeo.map(
     ({ url, caption, description, urlImage, date, duration } = {}) => {
@@ -364,10 +369,13 @@ export default ({
         siteName
       )}", "height": 800, "width": 1200 },`
 
+  const dataVideoJplayer =
+    jwplayerSeo[0] && jwplayerSeo[0].conversions
+      ? videoSeoItems.concat(jwplayerSeoItems)
+      : videoSeoItems
+
   const dataVideo =
-    `  "video":[ ${redSocialVideo
-      .concat(videoSeoItems)
-      .concat(jwplayerSeoItems)} ],` || ''
+    `  "video":[ ${redSocialVideo.concat(dataVideoJplayer)} ],` || ''
 
   let citationStructuredItems = ''
   if (arcSite === SITE_ELCOMERCIO) {

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const StoryContentChildVideoAmp = ({ data = {} }) => {
-  const { key: mediaId = '' } = data
+  const { key: mediaId = '', duration = '' } = data
 
   const jscriptVideo = `
   jwplayer("mediaId-${mediaId}").setup({ 
@@ -12,7 +12,7 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
     <>
       {mediaId && (
         <>
-          <div id={`mediaId-${mediaId}`}></div>
+          <div data-time={duration} id={`mediaId-${mediaId}`}></div>
           <script
             type="text/JavaScript"
             dangerouslySetInnerHTML={{

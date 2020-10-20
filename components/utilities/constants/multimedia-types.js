@@ -1,7 +1,7 @@
 // Multimedia type
 export const VIDEO = 'basic_video'
 
-export const VIDEO_JWPLAYER = 'basic_video_jwplayer'
+export const JWPLAYER = 'basic_jwplayer'
 
 export const ELEMENT_YOUTUBE_ID = 'youtube_id'
 
