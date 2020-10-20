@@ -16,6 +16,8 @@ const classes = {
     'amp-story-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-sh',
   title:
     'amp-story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
+  title_full_imagen:
+    'amp-story-interest__titleListFullImagen block w-full h-auto font-bold mb-10 uppercase p-15 text-center text-left',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
@@ -77,12 +79,13 @@ const InterestByTagAmp = props => {
     })
     .filter(String)
   const getSize = cant => {
-    const dataStorys = dataInterest.map((story, i) => {
+    const dataStories = dataInterest.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
       key += 1
       const data = {
         title: instance.title,
+        subtitle: instance.subTitle,
         link: `${instance.websiteLink}?ref=amp&source=tepuedeinteresar${
           instance.isPremium === false ? '&outputType=amp' : ''
         }`,
@@ -93,6 +96,7 @@ const InterestByTagAmp = props => {
         multimediaLandscapeMD: instance.multimediaLandscapeMD,
         multimediaType: instance.multimediaType,
         isAdmin,
+        storyAmp,
       }
       return (
         <>
@@ -112,14 +116,19 @@ const InterestByTagAmp = props => {
         </>
       )
     })
-    return dataStorys
+    return dataStories
   }
 
   return (
     <>
       {isAmp === 'amp' && isWebAmp && dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
-          <div className={classes.title}>{titleAmp}</div>
+          {storyAmp === 'amp_full_imagen' ? (
+            <div className={classes.title_full_imagen}>{titleAmp}</div>
+          ) : (
+            <div className={classes.title}>{titleAmp}</div>
+          )}
+
           {storyAmp === 'slider' ? (
             <amp-carousel
               layout="fixed-height"

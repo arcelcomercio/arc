@@ -1,7 +1,7 @@
 export default {
   siteName: 'Ojo',
   sitemapNewsName: 'Diario Ojo',
-  siteTitle: 'Noticias Ojo Perú',
+  siteTitle: 'Ojo',
   colorPrimary: '#5fbb46',
   siteDomain: 'ojo.pe',
   siteUrl: 'https://ojo.pe',

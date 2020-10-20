@@ -42,7 +42,7 @@ const CardCinemaBillboard = () => {
   })
 
   const cinemaScript =
-    '"use strict";setTimeout(function(){document.getElementById("cinema-form").addEventListener("submit",function(){var e=document.getElementById("movie-select").value,t=document.getElementById("theater-select").value,n=t||"cines",c=e||t?"".concat(e||"peliculas","/").concat(n):"";window.location.href="".concat("/cartelera","/").concat(c,"/"),event.preventDefault()})},0);'
+    '"use strict";requestIdle(function(){document.getElementById("cinema-form").addEventListener("submit",function(){var e=document.getElementById("movie-select").value,t=document.getElementById("theater-select").value,n=t||"cines",c=e||t?"".concat(e||"peliculas","/").concat(n):"";window.location.href="".concat("/cartelera","/").concat(c,"/"),event.preventDefault()})});'
 
   return (
     <div className="cinema-card bg-white">

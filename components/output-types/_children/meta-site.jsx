@@ -57,8 +57,9 @@ export default ({
   let style = 'style'
 
   if (
-    isStory &&
-    (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) &&
+    (arcSite === SITE_ELCOMERCIO ||
+      arcSite === SITE_ELCOMERCIOMAG ||
+      arcSite === SITE_DEPOR) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'

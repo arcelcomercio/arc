@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import StoryData from '../../../utilities/story-data'
@@ -19,39 +19,45 @@ const StoryComentario = props => {
   const {
     customFields: { comment = '', spotId = 'sp_LX2WRR7S', excluir = '' } = {},
   } = props
-  const { contextPath, arcSite, globalContent: data } = useFusionContext()
+  const { contextPath, arcSite, globalContent: data } = useAppContext()
   const { siteUrl } = getProperties(arcSite)
 
   useEffect(() => {
-    if (
-      comment === 'spotim' &&
-      document.querySelector('.story-spotim-script')
-    ) {
-      const recirculation = `https://recirculation.spot.im/spot/${spotId}`
-      const launcher = `https://launcher.spot.im/spot/${spotId}`
-      const URL = 'https://statics.ecoid.pe/js/spotim.js?ver=2.06'
-      appendToBody(createScript({ src: URL, defer: true }))
+    window.requestIdle(() => {
+      if (
+        comment === 'spotim' &&
+        document.body.querySelector('.story-spotim-script')
+      ) {
+        const recirculation = `https://recirculation.spot.im/spot/${spotId}`
+        const launcher = `https://launcher.spot.im/spot/${spotId}`
+        const URL = 'https://statics.ecoid.pe/js/spotim.js?ver=2.06'
+        appendToBody(createScript({ src: URL, defer: true }))
 
-      if (document.querySelector('.comments-display')) {
-        const nodeRecirculation = createScript({
-          src: recirculation,
-          async: true,
-        })
-        document.querySelector('.story-spotim-script').before(nodeRecirculation)
-      }
+        if (document.body.querySelector('.comments-display')) {
+          const nodeRecirculation = createScript({
+            src: recirculation,
+            async: true,
+          })
+          document.body
+            .querySelector('.story-spotim-script')
+            .before(nodeRecirculation)
+        }
 
-      if (document.querySelector('.comments-allow')) {
-        const idnota = document.querySelector('meta[name="data-article-id"]')
-        const node = createScript({ src: launcher, async: true })
-        node.setAttribute('data-spotim-module', 'spotim-launcher')
-        node.setAttribute(
-          'data-post-url',
-          deleteQueryString(window.location.href)
-        )
-        node.setAttribute('data-post-id', idnota.content)
-        document.querySelector('.story-spotim-script').before(node)
+        if (document.body.querySelector('.comments-allow')) {
+          const idnota = document.head.querySelector(
+            'meta[name="data-article-id"]'
+          )
+          const node = createScript({ src: launcher, async: true })
+          node.setAttribute('data-spotim-module', 'spotim-launcher')
+          node.setAttribute(
+            'data-post-url',
+            deleteQueryString(window.location.href)
+          )
+          node.setAttribute('data-post-id', idnota.content)
+          document.body.querySelector('.story-spotim-script').before(node)
+        }
       }
-    }
+    })
   }, [])
 
   const {

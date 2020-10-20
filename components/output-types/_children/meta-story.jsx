@@ -68,6 +68,10 @@ export default ({
     idYoutube,
     getGallery,
     subtype,
+    authorImageSecond,
+    authorSecond,
+    authorEmailSecond,
+    roleSecond: authorRoleSecond,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -112,6 +116,27 @@ export default ({
     "email": "${authorEmail}",
     "jobTitle"	: "${authorRole}"
   }`
+
+  const structuredAutorSecond = authorEmailSecond
+    ? ` 
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${authorSecond || arcSite}",
+    "image": "${authorImageSecond || logoAuthor}",
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : "${authorEmailSecond}"
+    },
+    "email": "${authorEmailSecond}",
+    "jobTitle"	: "${authorRoleSecond}"
+  }`
+    : ``
+
+  const finalStructuredDataAuthor = structuredAutorSecond
+    ? `[${structuredAutor}, ${structuredAutorSecond}]`
+    : structuredAutor
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
@@ -397,7 +422,7 @@ export default ({
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }
-    "author": ${structuredAutor},
+    "author": ${finalStructuredDataAuthor},
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
     arcSite,
     contextPath
@@ -427,26 +452,28 @@ export default ({
   const taboolaScript = arcSite === SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
   const scriptTaboola = `
-  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
+  "use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function e(){document.removeEventListener("scroll",e),requestIdle(function(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}})})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
-        window._taboola = window._taboola || [];
+    window._taboola = window._taboola || [];
     _taboola.push({
-        article: 'auto'
+      article: 'auto'
     });
-    ! function(){
+    !function(){
       if (typeof window !== 'undefined') {
         function injectTaboola() {
           document.removeEventListener('scroll', injectTaboola)
-          const id = 'tb_loader_script'
-          if (!document.getElementById(id)) {
-            const n = document.createElement('script')
-            const f = document.getElementsByTagName('script')[0]
-            n.defer = 1;
-            n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js';
-            n.id = id;
-            f.parentNode.insertBefore(n, f);
-          }
+          requestIdle(() => {
+            const id = 'tb_loader_script'
+            if (!document.getElementById(id)) {
+              const n = document.createElement('script')
+              const f = document.getElementsByTagName('script')[0]
+              n.defer = 1;
+              n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js';
+              n.id = id;
+              f.parentNode.insertBefore(n, f);
+            }
+          })
         }
         window.onload = document.addEventListener('scroll', injectTaboola) 
       }

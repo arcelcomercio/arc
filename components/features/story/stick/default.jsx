@@ -51,7 +51,7 @@ const Stick = props => {
   }
 
   const activateStick = `
-    (function(){window.addEventListener('load', function(){setTimeout(function(){
+    (function(){window.addEventListener('load', function(){requestIdle(function(){
       var appStick = document.getElementById('appstick')
       var stickCookie = null
       var cookieValue = document.cookie.match('(^|;) ?idpoll_open_appstick_${arcSite}=([^;]*)(;|$)')
@@ -76,7 +76,7 @@ const Stick = props => {
               : '',
         })}'
       })
-    }, 0)})})()`
+    })})})()`
 
   const imgLogo = `${getAssetsPath(
     arcSite,

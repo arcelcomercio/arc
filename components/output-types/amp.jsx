@@ -127,6 +127,7 @@ const AmpOutputType = ({
     contentElementsHtml,
     oembedSubtypes,
     promoItems: { basic_html: { content = '' } = {} } = {},
+    subtype = '',
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -369,7 +370,7 @@ const AmpOutputType = ({
         )}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
       </head>
-      <body className="">
+      <body className={subtype}>
         <AmpTagManager {...parametros} />
         {children}
       </body>
