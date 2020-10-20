@@ -109,13 +109,13 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       siteUrl,
     })
-    const isLegacy =
-      source.source_id &&
-      (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
     const isMag = arcSite === SITE_ELCOMERCIOMAG
+    const isLegacy =
+      source.source_id &&
+      (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
 
     const imgTag = 'amp-img'
     const width = '300'
@@ -258,7 +258,7 @@ class StoryContentAmp extends PureComponent {
                     <p> - </p>
                   ) : (
                     <RawHtml
-                      content={ampHtml(content, arcSite)}
+                      content={ampHtml(content, arcSite, source.source_id)}
                       className={classes.rawHtmlClasses}
                     />
                   )
@@ -385,7 +385,11 @@ class StoryContentAmp extends PureComponent {
                             ? formatHtmlToText(
                                 replaceTags(cleanLegacyAnchor(content))
                               )
-                            : ampHtml(replaceTags(content), arcSite)
+                            : ampHtml(
+                                replaceTags(content),
+                                arcSite,
+                                !!source.source_id
+                              )
                         }
                         className={classes.textClasses}
                       />
