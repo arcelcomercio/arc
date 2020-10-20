@@ -1,22 +1,30 @@
-import {getVideos, getConversionsVideo} from './api.js';
+import {getVideos, getConversionsVideo, getVideo} from './api.js';
 
 const renderVideos = (search = '') => {
     const template = document.getElementById('template_video').innerHTML;
     const boxVideos = document.getElementById('box_videos');
     boxVideos.innerHTML = '';
+    const boxHide = document.getElementById('dont_videos_search');
     getVideos(search).then(response=>{
+      boxHide.classList.remove('d-block');
+      boxHide.classList.add('d-none');
+      if(response.videos.length > 0){
         response.videos.forEach(data => {
-            const {key, title, description, link, duration, custom: {thumbnail_url}} = data
-            const htmlVideo = template.replace(/%key%/gi, key)
-            .replace(/%title%/gi, title)
-            .replace(/%data%/gi, encodeURI(JSON.stringify(data)))
-            .replace(/%description%/gi, description)
-            .replace(/%duration%/gi, duration)
-            .replace(/%thumbnail_url%/gi, thumbnail_url);
-            const element = document.createElement('div')
-            boxVideos.appendChild(element);
-            element.outerHTML = htmlVideo;
+          const {key, title, description, link, duration, custom: {thumbnail_url}} = data
+          const htmlVideo = template.replace(/%key%/gi, key)
+          .replace(/%title%/gi, title)
+          .replace(/%data%/gi, encodeURI(JSON.stringify(data)))
+          .replace(/%description%/gi, description)
+          .replace(/%duration%/gi, duration)
+          .replace(/%thumbnail_url%/gi, thumbnail_url);
+          const element = document.createElement('div')
+          boxVideos.appendChild(element);
+          element.outerHTML = htmlVideo;
         });
+      }else{
+        boxHide.classList.remove('d-none');
+        boxHide.classList.add('d-block');
+      }
     });
 }
 
@@ -56,16 +64,27 @@ window.handleSearch = () => {
     renderVideos(search)
 }
 
-window.selectVideo = (videoId) => {
+window.selectVideo = (videoKey) => {
     const dataVideo = JSON.parse(decodeURI(event.currentTarget.getAttribute('data-data')));
     console.log('dataVideo', dataVideo);
     buildMessage(generateId(), buildDataAns(dataVideo));
 }
 
+window.selectVideoId = (videoKey) => {
+  videoKey && getVideo(videoKey).then(response => {
+    console.log('dataVideo', response.video);
+    if(response.video){
+      buildMessage(generateId(), buildDataAns(response.video));
+    }else{
+      alert('El ID del video no se encuentra')
+    }
+  })
+}
+
 const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000);
 
 const buildDataAns = (data) => {
-    const {key, title, description, size, duration, status, custom:{ thumbnail_url }} = data;
+    const {key, title, description, size, duration, status, updated, date, custom:{ thumbnail_url } = {}} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
     const conversions = getPathsVideos(key);
     return {
@@ -77,6 +96,8 @@ const buildDataAns = (data) => {
         status, 
         thumbnail_url,
         conversions,
+        date,
+        updated,
         // source_file_mp4
     }
 }
@@ -150,10 +171,15 @@ window.onload = function() {
         renderForEditAndView(data)
         // document.getElementById('btn_apply').onclick = applyChanges
         if(document.getElementById('btn_cancel') != null) {
-            console.log('btn')
             document.getElementById('btn_cancel').onclick = dismissEditor;
+            loadMain();
         }
     }
 }
+
+const loadMain = () => {
+  $('.collapse').collapse();
+}
+
 
 ////////////////////////

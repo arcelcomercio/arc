@@ -48,14 +48,33 @@
               <p class="lead text-muted">
                 Busquedas de videos
               </p>
-              <label class="w-100" for="search_video">Nombre de video:
-                <input class="w-100" type="textfield" id="search_video" name="search_video" />
-              </label>
-              <input type="button" name="Search" value="Buscar" onclick="handleSearch()" />
+              <p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#video_for_id" role="button" aria-expanded="false" aria-controls="video_for_id">
+                  Video por ID
+                </a>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#video_for_search" aria-expanded="false" aria-controls="video_for_search">
+                  Buscar videos
+                </button>
+              </p>
+              <div class="collapse show" id="video_for_id">
+                <label class="w-100" for="video_key">ID de video:
+                  <input class="w-100" type="textfield" id="video_key" name="video_key" />
+                </label>
+                <input type="button" name="send_video" value="Seleccionar" onclick="selectVideoId(document.getElementById('video_key').value);" />
+              </div>
+              <div class="collapse" id="video_for_search">
+                <label class="w-100" for="search_video">Nombre de video:
+                  <input class="w-100" type="textfield" id="search_video" name="search_video" />
+                </label>
+                <input type="button" name="search" value="Buscar" onclick="handleSearch()" />
+              </div>
             </form>
           </section>
           <div class="container">
             <div class="card-deck" id='box_videos'>
+            </div>
+            <div class="text-center m-5 d-none" id='dont_videos_search'>
+              No se encontraron videos
             </div>
           </div>
       </div>
@@ -98,5 +117,7 @@
     </template>
 
     <script type="module" src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -21,6 +21,13 @@ export const getConversionsVideo = (video_key) => {
     return data;
 }
 
+export const getVideo = (video_key) => {
+    const url = `${API_URL}/videos/show?${buildRequest({video_key})}`;
+    const data =  getData(url);
+    // console.log('url', url);
+    return data;
+}
+
 async function getData (url)  {
     const response = await fetch(url);
     const data = await response.json();
@@ -53,3 +60,4 @@ Date.prototype.addHours = function(h) {
 
 // console.log('getVideos', getVideos(), getTimestamp());
 // console.log('getConversionsVideo', getConversionsVideo('UAQ4nFfx'));
+// getVideo('UAQ4nFfx');
