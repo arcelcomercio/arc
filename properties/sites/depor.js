@@ -1,7 +1,7 @@
 export default {
   siteName: 'Depor',
   sitemapNewsName: 'Diario Depor',
-  siteTitle: 'Noticias Depor Perú',
+  siteTitle: 'Depor',
   newsletterBrand: 'depor',
   colorPrimary: '#007c31',
   siteDomain: 'depor.com',

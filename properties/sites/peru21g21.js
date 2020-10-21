@@ -1,7 +1,7 @@
 export default {
   siteName: 'Peru21 G21',
   sitemapNewsName: 'Perú21 G21',
-  siteTitle: 'Noticias Peru21 G21 Perú',
+  siteTitle: 'Peru21 G21',
   newsletterBrand: 'peru21',
   colorPrimary: '#005fa5',
   siteDomain: 'peru21.pe',

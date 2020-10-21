@@ -15,11 +15,11 @@ const classes = {
   iconTwitter: 'icon-twitter-circle',
 }
 
-/* window.addEventListener('load', () => {setTimeout(() => {
+/* window.addEventListener('load', () => {requestIdle(() => {
   if(!window.shareButtons){
     const windowW = 600
     const windowH = 400
-    const $shareButtons = document.querySelectorAll('a[data-share]')
+    const $shareButtons = document.body.querySelectorAll('a[data-share]')
     if ($shareButtons && $shareButtons.length > 0) {
       const wLeft = window.screen.width / 2 - windowW / 2
       const wTop = window.screen.height / 2 - windowH / 2
@@ -35,9 +35,9 @@ const classes = {
       })
     }
   }
-}, 0)}) */
+})}) */
 const popup =
-  '"use strict";window.addEventListener("load",function(){setTimeout(function(){var t=document.querySelectorAll("a[data-share]");if(t&&t.length>0){var n=window.screen.width/2-300,o=window.screen.height/2-200;t.forEach(function(t){t.addEventListener("click",function(e){e.preventDefault(),window.open(t.getAttribute("href"),"","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=".concat(600,", height=").concat(400,", top=").concat(o,", left=").concat(n))})})}},0)});'
+  '"use strict";window.addEventListener("load",function(){requestIdle(function(){var t=document.body.querySelectorAll("a[data-share]");if(t&&t.length>0){var n=window.screen.width/2-300,o=window.screen.height/2-200;t.forEach(function(t){t.addEventListener("click",function(e){e.preventDefault(),window.open(t.getAttribute("href"),"","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=".concat(600,", height=").concat(400,", top=").concat(o,", left=").concat(n))})})}})});'
 
 // Funcion extraida de Helpers
 const socialMediaUrlShareList = (

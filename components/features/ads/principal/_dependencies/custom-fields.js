@@ -89,6 +89,22 @@ const customFields = PropTypes.shape({
     defaultValue: false,
     group: 'Lite',
   }),
+  liteAdLoadBlock: PropTypes.oneOf([
+    '0', '1', '2', '3', '4'
+  ]).tag({
+    name: 'Seleccion de bloque de carga',
+    description:
+      'Carga por bloque',
+    defaultValue: false,
+    group: 'Lite',
+    labels: {
+      '0': 'Ninguno',
+      '1': 'Bloque 1',
+      '2': 'Bloque 2',
+      '3': 'Bloque 3',
+      '4': 'Bloque 4'
+    }
+  }),
   prebidAdEnabled: PropTypes.bool.tag({
     name: 'Activar prebid para este elemento',
     defaultValue: false,

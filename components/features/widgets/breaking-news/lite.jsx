@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
@@ -32,7 +32,7 @@ const BreakingNewsFeat = props => {
     },
   } = props
 
-  const { arcSite, outputType } = useFusionContext()
+  const { arcSite, outputType } = useAppContext()
 
   const article = useContent(
     storyLink

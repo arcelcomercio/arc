@@ -68,14 +68,18 @@ const AmpOutputType = ({
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
-  const seoTitle =
-    metaValue('title') &&
-    !metaValue('title').includes('content') &&
-    metaValue('title')
+  // const seoTitle =
+  //   metaValue('title') &&
+  //   !metaValue('title').includes('content') &&
+  //   metaValue('title')
 
-  const title = `${seoTitle}: ${
-    storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-  } | ${siteProperties.siteTitle.toUpperCase()}`
+  // const title = `${seoTitle}: ${
+  //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+  // } | ${siteProperties.siteTitle.toUpperCase()}`
+  const siteTitleSuffix = siteProperties.siteTitle.toUpperCase()
+  const sectionName = requestUri.split('/')[1].toUpperCase()
+  const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
+  const title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
 
   const description =
     metaValue('description') && !metaValue('description').includes('content')
@@ -127,6 +131,7 @@ const AmpOutputType = ({
     contentElementsHtml,
     oembedSubtypes,
     promoItems: { basic_html: { content = '' } = {} } = {},
+    subtype = '',
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -369,7 +374,7 @@ const AmpOutputType = ({
         )}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
       </head>
-      <body className="">
+      <body className={subtype}>
         <AmpTagManager {...parametros} />
         {children}
       </body>

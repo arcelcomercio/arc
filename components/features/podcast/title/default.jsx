@@ -10,7 +10,7 @@ const classes = {}
 const windowW = 600
 const windowH = 400
 
-const popup = `(function(){setTimeout(function() {
+const popup = `(function(){requestIdle(function() {
   var $podcastShare = document.querySelectorAll('a[data-podcast-share]')
   if ($podcastShare && $podcastShare.length > 0) {
     var windowLeft = window.screen.width / 2 - ${windowW} / 2
@@ -26,7 +26,7 @@ const popup = `(function(){setTimeout(function() {
       })
     })
   }
-}, 0)})()`
+})})()`
 
 const PodcastTitle = props => {
   const { arcSite } = useFusionContext()
