@@ -17,9 +17,7 @@ export const msToTime = (duration = 5555, seo = true) => {
   return resultSeo
 }
 export const msToTimestamp = (timestamp = 1575909015) => {
-  console.log('timestamptimestamp::', timestamp)
   const date = new Date(timestamp * 1000)
-  console.log('timestamptimestamp:ddddd:', date.getMonth())
   const formattedDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}`
 
   return formattedDate
