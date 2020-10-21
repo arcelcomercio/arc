@@ -1673,7 +1673,6 @@ class StoryData {
         break
       }
     }
-
     return typeMultimedia
   }
 
@@ -1731,6 +1730,18 @@ class StoryData {
       }
     }
     return typeMultimedia
+  }
+
+  static getThumbnailJwplayer(data) {
+    const thumb =
+      (data &&
+        data.promo_items &&
+        data.promo_items[JWPLAYER] &&
+        data.promo_items[JWPLAYER].embed &&
+        data.promo_items[JWPLAYER].embed.config &&
+        data.promo_items[JWPLAYER].embed.config.thumbnail_url) ||
+      ''
+    return thumb
   }
 
   static getThumbnailVideo(data, size = IMAGE_ORIGINAL) {
@@ -1801,6 +1812,8 @@ class StoryData {
       thumb = StoryData.getImageBySize(data, size)
     } else if (type === ELEMENT_YOUTUBE_ID) {
       thumb = StoryData.getImageBySize(data, size)
+    } else if (type === JWPLAYER) {
+      thumb = StoryData.getThumbnailJwplayer(data)
     }
     return thumb
   }
@@ -1863,6 +1876,7 @@ class StoryData {
             url: urlConfig = '',
             type_event: typeConfig = '',
             url_img: urlImgConfig = '',
+            conversions = [],
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1917,6 +1931,9 @@ class StoryData {
               case STAMP_TRUST:
                 result.payload = urlImgConfig
                 result.link = urlConfig
+                break
+              case VIDEO_JWPLAYER:
+                result.payload = conversions
                 break
               case STORY_CUSTOMBLOCK:
                 result.payload = contentCustomblock

@@ -265,7 +265,6 @@ class XmlFacebookInstantArticles {
                 contentElementGallery: storyData.contentElementGallery,
                 promoItemJwplayer: storyData.promoItemJwplayer,
               }
-
               const today = new Date()
               const localTime = new Date(today.setHours(today.getHours() - 5))
 

@@ -4,6 +4,7 @@ import {
   GALLERY,
   ELEMENT_YOUTUBE_ID,
   HTML,
+  JWPLAYER,
 } from './constants/multimedia-types'
 
 /** ----------------------------*
@@ -16,10 +17,11 @@ const galleryBase = `${promoItemsBase}.${GALLERY}`
 const videoBase = `${promoItemsBase}.${VIDEO}`
 const youtubeBase = `${promoItemsBase}.${ELEMENT_YOUTUBE_ID}`
 const htmlBase = `${promoItemsBase}.${HTML}`
+const videoJwplayer = `${promoItemsBase}.${JWPLAYER}`
 
 const galleryElements = `${galleryBase}.content_elements`
 
-export const includePromoItems = `${imageBase}.type,${imageBase}.url,${imageBase}.resized_urls,${videoBase}.${imageBase}.url,${videoBase}.${imageBase}.resized_urls,${galleryBase}.${imageBase}.url,${galleryBase}.${imageBase}.resized_urls,${youtubeBase}.content,${htmlBase}`
+export const includePromoItems = `${imageBase}.type,${imageBase}.url,${imageBase}.resized_urls,${videoBase}.${imageBase}.url,${videoBase}.${imageBase}.resized_urls,${galleryBase}.${imageBase}.url,${galleryBase}.${imageBase}.resized_urls,${youtubeBase}.content,${htmlBase},${videoJwplayer}.type,${videoJwplayer}.subtype,${videoJwplayer}.embed,${videoJwplayer}.embed.config,${videoJwplayer}.embed.config.thumbnail_url`
 
 export const includePromoItemsCaptions = `${imageBase}.subtitle,${imageBase}.caption,${videoBase}.${imageBase}.subtitle,${videoBase}.${imageBase}.caption,${galleryBase}.${imageBase}.subtitle,${galleryBase}.${imageBase}.caption`
 

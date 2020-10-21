@@ -14,8 +14,14 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
   GALLERY_VERTICAL,
+  VIDEO_JWPLAYER,
 } from '../../../../utilities/constants/subtypes'
-import { getResultVideo, stripTags } from '../../../../utilities/story/helpers'
+import {
+  getResultVideo,
+  stripTags,
+  getResultJwplayer,
+} from '../../../../utilities/story/helpers'
+import { JWPLAYER } from '../../../../utilities/constants/multimedia-types'
 
 /**
  *
@@ -190,6 +196,7 @@ const analyzeParagraph = ({
 
   const processedParagraph = originalParagraph
   let textProcess = {}
+
   switch (type) {
     case ConfigParams.ELEMENT_TEXT:
     case ConfigParams.ELEMENT_BLOCKQUOTE:
@@ -225,7 +232,13 @@ const analyzeParagraph = ({
         result.numberWords = textProcess.numberWords
         result.processedParagraph = textProcess.processedParagraph
       }
-
+      if (subtype === VIDEO_JWPLAYER) {
+        let ulrJwplayer = ''
+        if (originalParagraph) {
+          ulrJwplayer = getResultJwplayer(originalParagraph)
+        }
+        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe></figure>`
+      }
       break
     case ConfigParams.ELEMENT_LINK_LIST:
       textProcess = buildListLinkParagraph(
@@ -532,9 +545,6 @@ const multimediaHeader = (
 ) => {
   let result = ''
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
-  if (promoItemJwplayer && promoItemJwplayer.key) {
-    //  const ulrJwplayer = getResultJwplayer(promoItemJwplayer.conversions)
-  }
 
   switch (type) {
     case ConfigParams.IMAGE:
@@ -549,6 +559,15 @@ const multimediaHeader = (
       break
     case ConfigParams.VIDEO:
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe>${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
+      break
+    case JWPLAYER:
+      let ulrJwplayer = ''
+      if (promoItemJwplayer && promoItemJwplayer.key) {
+        ulrJwplayer = getResultJwplayer(promoItemJwplayer.conversions)
+      }
+      result = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe>${
         title ? `<figcaption>${title}</figcaption>` : ''
       }</figure>`
       break
