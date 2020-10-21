@@ -34,7 +34,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     showCaption,
     primaryImage,
     completeImage,
-    promoItemJwplayer,
+    promoItemJwplayer = {},
   } = data
 
   const { type: typeImage, caption = '' } = basic || {}
@@ -49,10 +49,9 @@ const StoryContentChildMultimedia = ({ data } = []) => {
     primaryImage,
     completeImage,
   }
-  console.log('promoItemJwplayer:', promoItemJwplayer)
   return (
     <>
-      {promoItemJwplayer ? (
+      {promoItemJwplayer.key ? (
         <>
           <VideoJwplayer data={promoItemJwplayer}></VideoJwplayer>
         </>

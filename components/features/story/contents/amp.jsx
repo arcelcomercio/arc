@@ -100,7 +100,7 @@ class StoryContentAmp extends PureComponent {
       author,
       multimediaLazyDefault,
       subtype,
-      promoItemJwplayer,
+      promoItemJwplayer = {},
     } = new StoryData({
       data,
       arcSite,
@@ -176,7 +176,7 @@ class StoryContentAmp extends PureComponent {
     return (
       <>
         <div className={classes.content}>
-          {promoItemJwplayer ? (
+          {promoItemJwplayer.key ? (
             <StoryContentChildVideoJwplayer
               data={promoItemJwplayer}></StoryContentChildVideoJwplayer>
           ) : (
