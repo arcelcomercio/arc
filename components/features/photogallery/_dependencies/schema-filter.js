@@ -12,6 +12,15 @@ export default arcSite => {
             basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default  } }
           }
         }
+        basic_jwplayer {
+          subtype
+          type
+          embed{
+            config{
+              thumbnail_url
+            }
+          }
+        }
         basic_gallery {
           content_elements
           promo_items {

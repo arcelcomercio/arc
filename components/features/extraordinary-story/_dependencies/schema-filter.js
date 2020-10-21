@@ -36,6 +36,15 @@ const schemaFilter = arcSite => `{
                 }
             }
         }
+        basic_jwplayer {
+            subtype
+            type
+            embed{
+              config{
+                thumbnail_url
+              }
+            }
+          }
         basic {
             type 
             url

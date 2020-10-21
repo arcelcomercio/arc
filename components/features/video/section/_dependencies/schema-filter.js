@@ -10,6 +10,15 @@ export const SchemaSingleStory = arcSite => {
     credits { by { name, url, id, type } }
     promo_items {
       basic { url type caption }
+      basic_jwplayer {
+        subtype
+        type
+        embed{
+          config{
+            thumbnail_url
+          }
+        }
+      }
       basic_video {
         _id
         additional_properties { 

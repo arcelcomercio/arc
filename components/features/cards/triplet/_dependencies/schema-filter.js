@@ -16,6 +16,15 @@ export default arcSite => `{
                 }
             }
         }
+        basic_jwplayer {
+            subtype
+            type
+            embed{
+              config{
+                thumbnail_url
+              }
+            }
+        }
         basic_gallery {
             type 
             promo_items {

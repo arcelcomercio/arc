@@ -17,6 +17,15 @@ export default arcSite => `{
             basic { url type subtitle caption resized_urls { landscape_xl } }
           }
         }
+        basic_jwplayer {
+          subtype
+          type
+          embed{
+            config{
+              thumbnail_url
+            }
+          }
+        }
         basic_gallery {
           promo_items {
             basic { url type subtitle caption resized_urls { landscape_xl } }
