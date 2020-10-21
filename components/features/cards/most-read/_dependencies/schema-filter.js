@@ -32,6 +32,15 @@ export default `
               }
             }
           }
+          basic_jwplayer {
+            subtype
+            type
+            embed{
+              config{
+                thumbnail_url
+              }
+            }
+          }
         }
       }
     }`

@@ -1,5 +1,6 @@
 import { opta, optaCommentaries } from './opta'
 import { basicVideo } from './basic-video'
+import { basicVideoJWplayer } from './basic-video-jwplayer'
 import { basicGallery } from './basic-gallery'
 
 const filter = params => {
@@ -227,6 +228,7 @@ const filter = params => {
         }
         ${basicVideoFilter === true ? basicVideo : ''}
         ${basicGalleryFilter === true ? basicGallery : ''}
+        ${basicVideoJWplayer}
       }
   
       credits{
@@ -297,6 +299,7 @@ const filter = params => {
               }
             }
             ${basicVideoFilter === true ? basicVideo : ''}
+            ${basicVideoJWplayer}
           }
         }
       }

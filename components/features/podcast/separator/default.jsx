@@ -64,6 +64,15 @@ const PodcastSeparator = props => {
                 }
               }
             }
+            basic_jwplayer {
+              subtype
+              type
+              embed{
+                config{
+                  thumbnail_url
+                }
+              }
+            }
             basic_gallery {
               promo_items {
                 basic { 

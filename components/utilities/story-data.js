@@ -1702,6 +1702,9 @@ class StoryData {
       } else if (items.includes(ELEMENT_YOUTUBE_ID)) {
         // typeMultimedia = ELEMENT_YOUTUBE_ID
         typeMultimedia = VIDEO
+      } else if (items.includes(JWPLAYER)) {
+        // typeMultimedia = ELEMENT_YOUTUBE_ID
+        typeMultimedia = VIDEO
       } else if (items.includes(GALLERY)) {
         typeMultimedia = GALLERY
       }

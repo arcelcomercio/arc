@@ -51,6 +51,15 @@ export const SchemaMultiStory = arcSite => {
             basic { url type resized_urls { landscape_md lazy_default  } }
           }
         }
+        basic_jwplayer {
+          subtype
+          type
+          embed{
+            config{
+              thumbnail_url
+            }
+          }
+        }
         youtube_id {
           content
         }

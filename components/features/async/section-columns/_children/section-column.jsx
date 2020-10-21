@@ -168,6 +168,15 @@ export default ({ section = '' }) => {
                   basic { resized_urls { mobile } }
                 }
               }
+              basic_jwplayer {
+                subtype
+                type
+                embed{
+                  config{
+                    thumbnail_url
+                  }
+                }
+              }
               basic_gallery {
                 promo_items {
                   basic { resized_urls { mobile } }
