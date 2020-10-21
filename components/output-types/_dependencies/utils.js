@@ -31,8 +31,9 @@ export const getTitle = ({
     // title = `${seoTitle}: ${
     //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
     // } | ${siteTitleSuffix}`
-    const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS', '')
-    title = `${storyTitleRe} | ${siteTitleSuffixR}`
+    const sectionName = requestUri.split('/')[1].toUpperCase()
+    const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
+    title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
   } else if (
     pageNumber > 1 &&
     (metaValue('id') === 'meta_tag' || metaValue('id') === 'meta_author')
