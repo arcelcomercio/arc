@@ -17,12 +17,10 @@ export const msToTime = (duration = 5555, seo = true) => {
   return resultSeo
 }
 export const msToTimestamp = (timestamp = 1575909015) => {
+  console.log('timestamptimestamp::', timestamp)
   const date = new Date(timestamp * 1000)
-  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).slice(
-    -2
-  )}-${date.getDate().slice(-2)}T${date
-    .getHours()
-    .slice(-2)}:${date.getMinutes().slice(-2)}`
+  console.log('timestamptimestamp:ddddd:', date.getMonth())
+  const formattedDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}`
 
   return formattedDate
 }
