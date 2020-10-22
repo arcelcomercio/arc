@@ -102,6 +102,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
     window.Identity.requestVerifyEmail(lemail)
+    Taggeo(nameTagCategory, 'web_swl_login_reenviar_correo')
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {

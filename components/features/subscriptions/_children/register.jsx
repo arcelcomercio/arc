@@ -188,6 +188,7 @@ const Register = ({ arcSite }) => {
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
     window.Identity.requestVerifyEmail(remail)
+    Taggeo(nameTagCategory, 'web_swl_registro_reenviar_correo')
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {

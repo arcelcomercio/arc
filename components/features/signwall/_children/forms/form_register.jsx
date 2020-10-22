@@ -301,6 +301,10 @@ const FormRegister = props => {
     e.preventDefault()
     setShowSendEmail(true)
     window.Identity.requestVerifyEmail(remail)
+    Taggeo(
+      `Web_Sign_Wall_${typeDialog}`,
+      `web_sw${typeDialog[0]}_registro_reenviar_correo`
+    )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
