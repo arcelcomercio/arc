@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { getLocaleStorage } from '../_dependencies/Utils'
 import { requestVerifyEmail } from '../_dependencies/services'
 import Cookies from '../_dependencies/cookies'
+import Taggeo from '../_dependencies/taggeo'
 
 const classes = {
   wrapper:
@@ -12,7 +13,7 @@ const classes = {
   closed:
     'confirmation-notice__btn-closed text-white position-absolute mr-5 md:mr-15 right-0',
   btnIcon: 'icon-close-circle rounded bg-black title-xs',
-  txtCount: 'confirmation-notice__counter',
+  txtCount: 'confirmation-notice__counter md:mr-25',
 }
 
 const ConfirmationNotice = props => {
@@ -33,6 +34,7 @@ const ConfirmationNotice = props => {
     e.preventDefault()
     setShowSendEmail(true)
     requestVerifyEmail(email, arcSite)
+    Taggeo('Web_Sign_Wall_Organico', 'web_swo_cintillo_reenviar_correo')
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
