@@ -4,9 +4,10 @@ import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
 } from '../utilities/constants/multimedia-types'
-
+import StoryContentChildVideoJwplayer from './video-jwplayer'
 import { defaultImage } from '../utilities/assets'
 
+const JWPLAYER = 'jwplayer'
 const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
 
@@ -92,7 +93,29 @@ const EmbedMultimedia = props => {
     )
   }
 
+  const videoJwplayer = (
+    multimediaSource,
+    { deployment, contextPath, website, title = '' }
+  ) => {
+    const params = {
+      key: multimediaSource,
+    }
+
+    return multimediaSource ? (
+      <>
+        <script src="https://cdn.jwplayer.com/libraries/BHYH7DVh.js"></script>
+        <StoryContentChildVideoJwplayer
+          data={params}></StoryContentChildVideoJwplayer>
+      </>
+    ) : (
+      image(multimediaSource, { deployment, contextPath, website, title })
+    )
+  }
+
   const getMultimedia = type => {
+    if (type === JWPLAYER) {
+      return videoJwplayer
+    }
     if (type === GOLDFISH || type === { VIDEO, ELEMENT_YOUTUBE_ID }.VIDEO) {
       return videoGoldfish
     }

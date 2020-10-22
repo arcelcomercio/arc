@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StoryContentChildVideoAmp = ({ data = {} }) => {
+const StoryContentChildVideoJwplayer = ({ data = {} }) => {
   const { key: mediaId = '', duration = '' } = data
 
   const jscriptVideo = `
@@ -12,7 +12,11 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
     <>
       {mediaId && (
         <>
-          <div data-time={duration} id={`mediaId-${mediaId}`}></div>
+          <div
+            data-time={duration}
+            data-mediaid={mediaId}
+            className="video-jwplayer"
+            id={`mediaId-${mediaId}`}></div>
           <script
             type="text/JavaScript"
             dangerouslySetInnerHTML={{
@@ -24,4 +28,4 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
     </>
   )
 }
-export default StoryContentChildVideoAmp
+export default StoryContentChildVideoJwplayer
