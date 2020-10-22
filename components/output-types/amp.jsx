@@ -11,6 +11,7 @@ import {
   SITE_DEPOR,
   SITE_ELBOCON,
   SITE_GESTION,
+  SITE_OJO,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
@@ -40,6 +41,7 @@ const AmpOutputType = ({
     deployment,
   }
   const {
+    content_elements: contentElements = [{}],
     canonical_url: canonicalUrl = '',
     taxonomy: { sections } = {},
     credits: { by: autors } = {},
@@ -66,14 +68,18 @@ const AmpOutputType = ({
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
-  const seoTitle =
-    metaValue('title') &&
-    !metaValue('title').includes('content') &&
-    metaValue('title')
+  // const seoTitle =
+  //   metaValue('title') &&
+  //   !metaValue('title').includes('content') &&
+  //   metaValue('title')
 
-  const title = `${seoTitle}: ${
-    storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-  } | ${siteProperties.siteTitle.toUpperCase()}`
+  // const title = `${seoTitle}: ${
+  //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+  // } | ${siteProperties.siteTitle.toUpperCase()}`
+  const siteTitleSuffix = siteProperties.siteTitle.toUpperCase()
+  const sectionName = requestUri.split('/')[1].toUpperCase()
+  const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
+  const title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
 
   const description =
     metaValue('description') && !metaValue('description').includes('content')
@@ -125,6 +131,7 @@ const AmpOutputType = ({
     contentElementsHtml,
     oembedSubtypes,
     promoItems: { basic_html: { content = '' } = {} } = {},
+    subtype = '',
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -139,7 +146,12 @@ const AmpOutputType = ({
     idYoutube ||
     hasYoutubeIframePromo ||
     regexYoutube.test(rawHtmlContent) ||
-    oembedSubtypes.includes('youtube')
+    oembedSubtypes.includes('youtube') ||
+    (arcSite === SITE_OJO &&
+      contentElements.some(
+        ({ content: textContent }) =>
+          textContent && regexYoutube.test(textContent)
+      ))
 
   /** Facebook validation */
   const hasFacebookIframePromo = /<iframe.+facebook.com\/plugins\//.test(
@@ -362,7 +374,7 @@ const AmpOutputType = ({
         )}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
       </head>
-      <body className="">
+      <body className={subtype}>
         <AmpTagManager {...parametros} />
         {children}
       </body>

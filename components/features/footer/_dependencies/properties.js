@@ -160,7 +160,6 @@ const elcomercio = {
       {
         position: 'Directores',
         names: [
-          'Francisco Miró Quesada Cantuarias',
           'Luis Carranza [1875-1898]',
           'José Antonio Miró Quesada [1875-1905]',
           'Antonio Miró Quesada de la Guerra [1905-1935]',
@@ -173,6 +172,7 @@ const elcomercio = {
           'Francisco Miró Quesada Rada [2008-2013]',
           'Fritz Du Bois Freund [2013-2014]',
           'Fernando Berckemeyer Olaechea [2014-2018]',
+          'Francisco Miró Quesada Cantuarias [2008-2019]',
         ],
       },
     ],
@@ -246,7 +246,6 @@ const elcomerciomag = {
       {
         position: 'Directores',
         names: [
-          'Francisco Miró Quesada Cantuarias',
           'Luis Carranza [1875-1898]',
           'José Antonio Miró Quesada [1875-1905]',
           'Antonio Miró Quesada de la Guerra [1905-1935]',
@@ -259,6 +258,7 @@ const elcomerciomag = {
           'Francisco Miró Quesada Rada [2008-2013]',
           'Fritz Du Bois Freund [2013-2014]',
           'Fernando Berckemeyer Olaechea [2014-2018]',
+          'Francisco Miró Quesada Cantuarias [2008-2019]',
         ],
       },
     ],

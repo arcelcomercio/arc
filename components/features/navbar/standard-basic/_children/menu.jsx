@@ -36,94 +36,94 @@ const NavbarChildMenu = ({ sections }) => {
    */
 
   /* document.addEventListener('DOMContentLoaded', () => {
-    if (
-      /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
-        window.navigator.userAgent
-      )
-    ) {
-      document.querySelector('.nav-sidebar__content').classList.add('w-full')
-    } else {
-      document.querySelector('.nav-sidebar__content').classList.add('w-desktop')
-    }
-    document
-      .querySelector('.nav__btn--section')
-      .addEventListener('click', () => {
-        if (
-          document.querySelector('.nav-sidebar').classList.contains('active')
-        ) {
-          document.querySelector('.nav-sidebar').classList.remove('active')
-          document
-            .querySelector('.nav-sidebar__content')
-            .classList.remove('active')
-        } else {
-          document.querySelector('.nav-sidebar').classList.add('active')
-          document
-            .querySelector('.nav-sidebar__content')
-            .classList.add('active')
-        }
-        if (document.querySelector(".nav-sidebar__item") === null) {
-          // Se reemplazará ["<<sections>>"]
-          ['<<sections>>'].forEach(
-            ({
-              children = [],
-              name = '',
-              _id: id = '',
-              display_name: displayName = '',
-              url = '',
-              styles = []
-            }) => {
-              const idElem = `root-${name || displayName}`.toLowerCase()
-              const li = document.createElement('li')
-              li.className =
-                'nav-sidebar__item position-relative flex justify-between items-center flex-wrap'
-              const aLink = document.createElement('a')
-              aLink.className = `nav-sidebar__link block p-15 pl-25 text-md text-white`
-              aLink.href = url || id || '/'
-              if(styles.length > 0 ) li.style = `background-color: ${styles[0]}; color: ${styles[1] || '#ffffff'};`
-              aLink.innerHTML = name || displayName
-              li.append(aLink)
-              if (children && children.length > 0) {
-                const checkBox = document.createElement('input')
-                checkBox.className = 'nav-sidebar__menu-arrow hidden'
-                checkBox.setAttribute('type', 'checkbox')
-                checkBox.setAttribute('id', idElem)
-                checkBox.setAttribute('name', 'checkbox-submenu')
-                const label = document.createElement('label')
-                label.htmlFor = idElem
-                label.className =
-                  'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0'
-                const ul = document.createElement('ul')
-                ul.className = `nav-sidebar__container-submenu w-full overflow-hidden deep-0${idElem}`
-                li.append(checkBox, label, ul)
-                children.forEach(
-                  ({
-                    name: nameChild = '',
-                    _id: idChild = '',
-                    display_name: displayNameChild = '',
-                    urlChild = '',
-                  }) => {
-                    const liChild = document.createElement('li')
-                    liChild.className =
-                      'nav-sidebar__item position-relative flex justify-between items-center flex-wrap'
-                    const aChild = document.createElement('a')
-                    aChild.className =
-                      'nav-sidebar__link block p-15 pl-25 text-md text-white'
-                    aChild.style = 'padding-left: 40px;'
-                    aChild.href = urlChild || idChild || '/'
-                    aChild.innerHTML = nameChild || displayNameChild
-                    liChild.append(aChild)
-                    ul.append(liChild)
-                  }
-                )
+    requestIdle(() => {
+      const $sidebarContent = document.body.querySelector('.nav-sidebar__content')
+      if (
+        /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
+          window.navigator.userAgent
+        )
+      ) {
+        $sidebarContent.classList.add('w-full')
+      } else {
+        $sidebarContent.classList.add('w-desktop')
+      }
+      document
+        .querySelector('.nav__btn--section')
+        .addEventListener('click', () => {
+          const $sidebar = document.body.querySelector('.nav-sidebar')
+          if (
+            $sidebar.classList.contains('active')
+          ) {
+            $sidebar.classList.remove('active')
+            $sidebarContent.classList.remove('active')
+          } else {
+            $sidebar.classList.add('active')
+            $sidebarContent.classList.add('active')
+          }
+          if (document.body.querySelector(".nav-sidebar__item") === null) {
+            // Se reemplazará ["<<sections>>"]
+            ['<<sections>>'].forEach(
+              ({
+                children = [],
+                name = '',
+                _id: id = '',
+                display_name: displayName = '',
+                url = '',
+                styles = []
+              }) => {
+                const idElem = `root-${name || displayName}`.toLowerCase()
+                const li = document.createElement('li')
+                li.className =
+                  'nav-sidebar__item position-relative flex justify-between items-center flex-wrap'
+                const aLink = document.createElement('a')
+                aLink.className = `nav-sidebar__link block p-15 pl-25 text-md text-white`
+                aLink.href = url || id || '/'
+                if(styles.length > 0 ) li.style = `background-color: ${styles[0]}; color: ${styles[1] || '#ffffff'};`
+                aLink.innerHTML = name || displayName
+                li.append(aLink)
+                if (children && children.length > 0) {
+                  const checkBox = document.createElement('input')
+                  checkBox.className = 'nav-sidebar__menu-arrow hidden'
+                  checkBox.setAttribute('type', 'checkbox')
+                  checkBox.setAttribute('id', idElem)
+                  checkBox.setAttribute('name', 'checkbox-submenu')
+                  const label = document.createElement('label')
+                  label.htmlFor = idElem
+                  label.className =
+                    'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0'
+                  const ul = document.createElement('ul')
+                  ul.className = `nav-sidebar__container-submenu w-full overflow-hidden deep-0${idElem}`
+                  li.append(checkBox, label, ul)
+                  children.forEach(
+                    ({
+                      name: nameChild = '',
+                      _id: idChild = '',
+                      display_name: displayNameChild = '',
+                      urlChild = '',
+                    }) => {
+                      const liChild = document.createElement('li')
+                      liChild.className =
+                        'nav-sidebar__item position-relative flex justify-between items-center flex-wrap'
+                      const aChild = document.createElement('a')
+                      aChild.className =
+                        'nav-sidebar__link block p-15 pl-25 text-md text-white'
+                      aChild.style = 'padding-left: 40px;'
+                      aChild.href = urlChild || idChild || '/'
+                      aChild.innerHTML = nameChild || displayNameChild
+                      liChild.append(aChild)
+                      ul.append(liChild)
+                    }
+                  )
+                }
+                document.body.querySelector('.nav-sidebar__list').append(li)
               }
-              document.querySelector('.nav-sidebar__list').append(li)
-            }
-          )
-        }
-      })
+            )
+          }
+        })
+    })
   }) */
 
-  const menuScript = '"use strict";document.addEventListener("DOMContentLoaded",function(){/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(window.navigator.userAgent)?document.querySelector(".nav-sidebar__content").classList.add("w-full"):document.querySelector(".nav-sidebar__content").classList.add("w-desktop"),document.querySelector(".nav__btn--section").addEventListener("click",function(){document.querySelector(".nav-sidebar").classList.contains("active")?(document.querySelector(".nav-sidebar").classList.remove("active"),document.querySelector(".nav-sidebar__content").classList.remove("active")):(document.querySelector(".nav-sidebar").classList.add("active"),document.querySelector(".nav-sidebar__content").classList.add("active")),null===document.querySelector(".nav-sidebar__item")&&["<<sections>>"].forEach(function(e){var t=e.children,n=void 0===t?[]:t,a=e.name,i=void 0===a?"":a,o=e._id,c=void 0===o?"":o,r=e.display_name,d=void 0===r?"":r,s=e.url,l=void 0===s?"":s,u=e.styles,m=void 0===u?[]:u,v="root-".concat(i||d).toLowerCase(),b=document.createElement("li");b.className="nav-sidebar__item position-relative flex justify-between items-center flex-wrap";var p=document.createElement("a");if(p.className="nav-sidebar__link block p-15 pl-25 text-md text-white",p.href=l||c||"/",m.length>0&&(b.style="background-color: ".concat(m[0],"; color: ").concat(m[1]||"#ffffff",";")),p.innerHTML=i||d,b.append(p),n&&n.length>0){var _=document.createElement("input");_.className="nav-sidebar__menu-arrow hidden",_.setAttribute("type","checkbox"),_.setAttribute("id",v),_.setAttribute("name","checkbox-submenu");var f=document.createElement("label");f.htmlFor=v,f.className="nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0";var h=document.createElement("ul");h.className="nav-sidebar__container-submenu w-full overflow-hidden deep-0".concat(v),b.append(_,f,h),n.forEach(function(e){var t=e.name,n=void 0===t?"":t,a=e._id,i=void 0===a?"":a,o=e.display_name,c=void 0===o?"":o,r=e.urlChild,d=void 0===r?"":r,s=document.createElement("li");s.className="nav-sidebar__item position-relative flex justify-between items-center flex-wrap";var l=document.createElement("a");l.className="nav-sidebar__link block p-15 pl-25 text-md text-white",l.style="padding-left: 40px;",l.href=d||i||"/",l.innerHTML=n||c,s.append(l),h.append(s)})}document.querySelector(".nav-sidebar__list").append(b)})})});'.replace(
+  const menuScript = '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.body.querySelector(".nav-sidebar__content");/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(window.navigator.userAgent)?e.classList.add("w-full"):e.classList.add("w-desktop"),document.querySelector(".nav__btn--section").addEventListener("click",function(){var t=document.body.querySelector(".nav-sidebar");t.classList.contains("active")?(t.classList.remove("active"),e.classList.remove("active")):(t.classList.add("active"),e.classList.add("active")),null===document.body.querySelector(".nav-sidebar__item")&&["<<sections>>"].forEach(function(e){var t=e.children,a=void 0===t?[]:t,n=e.name,i=void 0===n?"":n,d=e._id,o=void 0===d?"":d,s=e.display_name,r=void 0===s?"":s,c=e.url,l=void 0===c?"":c,m=e.styles,u=void 0===m?[]:m,v=("root-"+(i||r)).toLowerCase(),b=document.createElement("li");b.className="nav-sidebar__item position-relative flex justify-between items-center flex-wrap";var p=document.createElement("a");if(p.className="nav-sidebar__link block p-15 pl-25 text-md text-white",p.href=l||o||"/",u.length>0&&(b.style="background-color: "+u[0]+"; color: "+(u[1]||"#ffffff")+";"),p.innerHTML=i||r,b.append(p),a&&a.length>0){var f=document.createElement("input");f.className="nav-sidebar__menu-arrow hidden",f.setAttribute("type","checkbox"),f.setAttribute("id",v),f.setAttribute("name","checkbox-submenu");var _=document.createElement("label");_.htmlFor=v,_.className="nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0";var h=document.createElement("ul");h.className="nav-sidebar__container-submenu w-full overflow-hidden deep-0"+v,b.append(f,_,h),a.forEach(function(e){var t=e.name,a=void 0===t?"":t,n=e._id,i=void 0===n?"":n,d=e.display_name,o=void 0===d?"":d,s=e.urlChild,r=void 0===s?"":s,c=document.createElement("li");c.className="nav-sidebar__item position-relative flex justify-between items-center flex-wrap";var l=document.createElement("a");l.className="nav-sidebar__link block p-15 pl-25 text-md text-white",l.style="padding-left: 40px;",l.href=r||i||"/",l.innerHTML=a||o,c.append(l),h.append(c)})}document.body.querySelector(".nav-sidebar__list").append(b)})})})});'.replace(
     '["<<sections>>"]',
     JSON.stringify(sections)
   )

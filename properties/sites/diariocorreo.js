@@ -1,7 +1,7 @@
 export default {
   siteName: 'Correo',
   sitemapNewsName: 'Diario Correo',
-  siteTitle: 'Noticias Correo Perú',
+  siteTitle: 'Correo',
   newsletterBrand: 'correo',
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',

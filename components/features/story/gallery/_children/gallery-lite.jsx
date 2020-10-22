@@ -42,6 +42,7 @@ const StoryHeaderChildGallery = props => {
                   className="f just-center"
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja2`}
                   data-ads-dimensions="[[300,250]]"
+                  data-bloque="4"
                   data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
               )}
               {i === 3 && (
@@ -50,6 +51,7 @@ const StoryHeaderChildGallery = props => {
                   className="f just-center"
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja3`}
                   data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
                   data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
               )}
               {i === 5 && (
@@ -58,12 +60,14 @@ const StoryHeaderChildGallery = props => {
                   className="f just-center"
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja4`}
                   data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
                   data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
               )}
 
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
                 key={UtilListKey(i)}>
+                <div className="more-compartir"></div>
                 <span className={classes.galleryNumber}>
                   <strong> {i + 1} </strong>
                   de {sliders.length}
@@ -99,6 +103,7 @@ const StoryHeaderChildGallery = props => {
                   className="f just-center"
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja5`}
                   data-ads-dimensions="[[300,250]]"
+                  data-bloque="4"
                   data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
               )}
             </>

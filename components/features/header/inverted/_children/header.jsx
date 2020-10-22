@@ -148,20 +148,22 @@ const HeaderChildInverted = ({
   }
 
   const _setPosition = posX => {
-    document.querySelector('.nav-sidebar').style.transform = `scaleX(${posX})`
+    document.body.querySelector(
+      '.nav-sidebar'
+    ).style.transform = `scaleX(${posX})`
   }
 
   const _openMenu = () => {
     const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
     if (!isIOS) _setPosition(1)
-    document.querySelector('.layer').style.display = 'block'
+    document.body.querySelector('.layer').style.display = 'block'
     setStatusSidebar(true)
   }
 
   const _closeMenu = () => {
     const isIOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
     if (!isIOS) _setPosition(0)
-    document.querySelector('.layer').style.display = 'none'
+    document.body.querySelector('.layer').style.display = 'none'
     setStatusSidebar(false)
   }
 
@@ -234,7 +236,7 @@ const HeaderChildInverted = ({
   /** ------ // SIDEBAR ----- */
 
   const moreList = () => {
-    const el = document.querySelector('.story-header__list')
+    const el = document.body.querySelector('.story-header__list')
     if (el.classList.contains('block')) {
       el.classList.remove('block')
       el.classList.add('hidden')
@@ -271,8 +273,8 @@ const HeaderChildInverted = ({
     }
   }, [_handleScroll, isSlider])
   /*   useEffect(() => {
-    listContainer = document.querySelector('.nav-sidebar')
-    layerBackground = document.querySelector('.layer')
+    listContainer = document.body.querySelector('.nav-sidebar')
+    layerBackground = document.body.querySelector('.layer')
 
     if (listContainer !== null && listContainer !== 'undefined') {
       document.body.addEventListener('touchstart', _initDrag, {

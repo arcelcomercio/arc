@@ -38,6 +38,11 @@ import { getPushud, getEnablePushud } from './_dependencies/pushud'
 import iframeScript from './_dependencies/iframe-script'
 import widgets from './_dependencies/widgets'
 import videoScript from './_dependencies/video-script'
+import minutoMinutoScript from './_dependencies/minuto-minuto-script'
+import {
+  MINUTO_MINUTO,
+  GALLERY_VERTICAL,
+} from '../utilities/constants/subtypes'
 
 export default ({
   children,
@@ -89,6 +94,7 @@ export default ({
 
   const sectionPath = nodeType === 'section' ? _id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
+  const isVideosSection = /^\/videos\//.test(requestUri)
   const isBlogPost = /^\/blogs?\/.*.html/.test(requestUri)
 
   let classBody = isStory
@@ -113,9 +119,9 @@ export default ({
     classBody = `${isStory ? 'story' : ''} section-play`
   } else if (/^\/peru21tv\//.test(requestUri)) {
     classBody = `${isStory ? 'story' : ''} section-peru21tv`
-  } else if (/^\/videos\//.test(requestUri)) {
+  } else if (isVideosSection) {
     classBody = `${
-      isStory && !arcSite === SITE_OJO ? 'story' : ''
+      isStory && arcSite !== SITE_OJO ? 'story' : ''
     } section-videos`
   }
 
@@ -257,8 +263,9 @@ export default ({
 
   let style = 'style'
   if (
-    isStory &&
-    (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) &&
+    (arcSite === SITE_ELCOMERCIO ||
+      arcSite === SITE_ELCOMERCIOMAG ||
+      arcSite === SITE_DEPOR) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
@@ -441,7 +448,7 @@ export default ({
         />
         <script
           async
-          src={`https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js?v=${new Date()
+          src={`https://api-gateway-1-serve-script-dpm1wlz8.uc.gateway.dev/serve_script?v=${new Date()
             .toISOString()
             .slice(0, 10)}`}
         />
@@ -599,7 +606,7 @@ export default ({
             />
           </>
         )}
-        {(contenidoVideo || /^\/videos\//.test(requestUri)) && (
+        {(contenidoVideo || isVideosSection) && (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -632,7 +639,17 @@ export default ({
             }}
           />
         )}
-        {hasYoutubeVideo && (
+        {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: minutoMinutoScript,
+            }}
+          />
+        ) : (
+          <></>
+        )}
+        {(hasYoutubeVideo || isVideosSection) && (
           <>
             <Resource path="resources/assets/lite-youtube/styles.min.css">
               {({ data }) => {
@@ -668,7 +685,7 @@ export default ({
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `"use strict";(function(){setTimeout(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}},0)})()`,
+            __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
           }}
         />
 

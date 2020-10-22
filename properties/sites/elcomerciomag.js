@@ -1,7 +1,7 @@
 export default {
   siteName: 'Mag.',
   sitemapNewsName: 'El Comercio Mag',
-  siteTitle: 'Noticias Mag Perú',
+  siteTitle: 'Mag.',
   colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://mag.elcomercio.pe',
@@ -102,7 +102,7 @@ export default {
       url: 'https://www.facebook.com/magelcomercio',
     },
     twitter: {
-      user: '@Mag_ECpe',
+      user: 'Mag_ECpe',
     },
   },
   adsAmp: {
