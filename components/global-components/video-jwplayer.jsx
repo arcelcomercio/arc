@@ -5,7 +5,8 @@ const StoryContentChildVideoJwplayer = ({ data = {} }) => {
 
   const jscriptVideo = `
   jwplayer("mediaId-${mediaId}").setup({ 
-    "playlist": "https://cdn.jwplayer.com/v2/media/${mediaId}"
+    "playlist": "https://cdn.jwplayer.com/v2/media/${mediaId}",
+    "image":"https://cdn.jwplayer.com/v2/media/${mediaId}/poster.jpg?width=720"
   });
   `
   return (
