@@ -2,7 +2,8 @@ import React from 'react'
 
 const classes = {
   container: 'story-google-news__container mr-20 ml-20 mt-20 mb-20',
-  link: 'story-google-news__link flex justify-center items-center',
+  link:
+    'story-google-news__link flex justify-center items-center secondary-font',
   letterContainer: 'story-google-news__letter-container mr-5 ml-5',
   letter: 'story-google-news__letter',
 }
@@ -10,7 +11,13 @@ const classes = {
 const URL_GOOGLE_NEWS =
   'https://news.google.com/publications/CAAqBggKMJGkIDCp0wM?hl=es-419&gl=PE&ceid=PE%3Aes-419'
 
-export default ({ url, text }) => {
+export default ({ url, text, outputType }) => {
+  /** m-0 debe mantenerse antes de mt-20 y mb-20 */
+  classes.container =
+    outputType === 'amp'
+      ? classes.container.replace(/mr-20|ml-20/g, 'amp-story-content mx-auto')
+      : classes.container
+
   return (
     <div className={classes.container}>
       <a itemProp="url" className={classes.link} href={url || URL_GOOGLE_NEWS}>

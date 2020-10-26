@@ -923,19 +923,37 @@ class StoryData {
         } else {
           dataElements = dataContent
         } */
-
-        if (i === 1) {
-          dataElements.publicidadInline = true
-          i += 1
+        if (this._website === 'elcomerciomag') {
+          /**
+           * Si, para Mag, primero registra el parrafo
+           * y luego valida la publicidad
+           */
+          if (typeElement === ELEMENT_TEXT) {
+            i += 1
+          }
+          if (i === 1) {
+            dataElements.publicidadCaja2 = true
+          }
+          if (i === 3) {
+            dataElements.publicidadCaja3 = true
+          }
+          if (i === 5) {
+            dataElements.publicidadCaja4 = true
+          }
+        } else {
+          if (i === 1) {
+            dataElements.publicidadInline = true
+            i += 1
+          }
+          if (i === 4 && contentElements.length > 4) {
+            dataElements.publicidadCaja3 = true
+            i += 1
+          }
+          if (typeElement === ELEMENT_TEXT) {
+            i += 1
+          }
         }
 
-        if (i === 4 && contentElements.length > 4) {
-          dataElements.publicidadCaja3 = true
-          i += 1
-        }
-        if (typeElement === ELEMENT_TEXT) {
-          i += 1
-        }
         return dataElements
       })
     )
@@ -1583,7 +1601,8 @@ class StoryData {
 
       if (iterator && iterator.type === 'author') {
         nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
-        urlAuthor = iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
+        urlAuthor =
+          iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
         slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
         imageAuthor =
           iterator.image && iterator.image.url && iterator.image.url !== ''
