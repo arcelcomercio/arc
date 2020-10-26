@@ -1,7 +1,5 @@
 import ENV from 'fusion:environment'
 import React from 'react'
-import { useFusionContext } from 'fusion:context'
-
 import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
@@ -9,7 +7,6 @@ import {
 import StoryContentChildVideoJwplayer from './video-jwplayer'
 import { defaultImage } from '../utilities/assets'
 
-const { siteProperties: { jwplayerIdAds = '' } = {} } = useFusionContext()
 const JWPLAYER = 'jwplayer'
 const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
@@ -106,8 +103,7 @@ const EmbedMultimedia = props => {
 
     return multimediaSource ? (
       <>
-        <script
-          src={`https://cdn.jwplayer.com/libraries/${jwplayerIdAds}.js`}></script>
+        <script src="https://cdn.jwplayer.com/libraries/BHYH7DVh.js"></script>
         <StoryContentChildVideoJwplayer
           data={params}></StoryContentChildVideoJwplayer>
       </>
