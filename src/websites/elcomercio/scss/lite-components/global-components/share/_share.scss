@@ -3,7 +3,7 @@
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  margin-right: 15px;
+  margin-right: 10px;
   padding: 0;
   line-height: 0;
   fill: $color-gray-300;
@@ -15,5 +15,47 @@
 
   &--ws {
     border: none;
+  }
+  &--gn {
+    @media (--only-mobile) {
+      border: 1px solid $color-gray-300;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      padding: 0;
+      line-height: 0;
+      fill: $color-gray-300;
+    }
+    @media (--tablet) {
+      border: 1px solid $color-gray-300;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      padding: 0;
+      line-height: 0;
+      fill: $color-gray-300;
+    }
+    @media (--desktop) {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding-left: 3px;
+      padding-right: 3px;
+      margin-right: 5px;
+      width: auto;
+      height: auto;
+      svg {
+        height: 30px;
+      }
+    }
+    &--span {
+      display: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      @media (--desktop) {
+        display: block;
+      }
+    }
   }
 }
