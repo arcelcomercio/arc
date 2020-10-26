@@ -31,14 +31,15 @@ const renderVideos = (search = '') => {
 const renderForEditAndView = (dataParams) => {
     console.log('dataParams', dataParams);
     // Setup Element Preview
-    const {id, config:{key, title, description, thumbnail_url, has_ads}} = dataParams
+    const {id, config:{key, title, description, thumbnail_url, has_ads=0}} = dataParams
     const template = document.getElementById('content_template').innerHTML
+    const hasAds = has_ads ? 'Si': 'No'
     const html = template
       .replace(/%item_id%/gi, 'row-' + id)
       .replace(/%thumbnail_url%/gi, thumbnail_url)
       .replace(/%title%/gi, title)
       .replace(/%description%/gi, description)
-      .replace(/%has_ads%/gi, has_ads)
+      .replace(/%has_ads%/gi, hasAds)
       //.replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
 
     const element = document.createElement('div')
@@ -89,7 +90,7 @@ window.selectVideoId = (videoKey) => {
 const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000);
 
 const buildDataAns = (data) => {
-    const {key, title, description, size, duration, status, updated, date, custom:{ thumbnail_url } = {}, has_ads = 1} = data || {};
+    const {key, title, description, size, duration, status, updated, date, custom:{ thumbnail_url } = {}, has_ads = 0} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
     const conversions = getPathsVideos(key);
     return {
