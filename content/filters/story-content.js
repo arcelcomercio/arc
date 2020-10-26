@@ -20,6 +20,11 @@ content_elements {
       description
       duration
       thumbnail_url
+      resized_urls { 
+        landscape_xs
+        landscape_s
+        lazy_default 
+      }
       link
       photo
       title

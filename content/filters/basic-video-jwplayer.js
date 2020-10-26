@@ -11,6 +11,11 @@ basic_jwplayer {
       description
       duration
       thumbnail_url
+      resized_urls { 
+        landscape_xs
+        landscape_s
+        lazy_default 
+      }
       conversions{
         key
         mediatype

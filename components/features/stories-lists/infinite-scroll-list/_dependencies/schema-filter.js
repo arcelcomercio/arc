@@ -51,6 +51,11 @@ export default arcSite => {
           embed{
             config{
               thumbnail_url
+              resized_urls { 
+                landscape_xs
+                landscape_s
+                lazy_default 
+              }
             }
           }
         }

@@ -70,15 +70,11 @@ const PodcastSeparator = props => {
               embed{
                 config{
                   thumbnail_url
-                }
-              }
-            }
-            basic_jwplayer {
-              subtype
-              type
-              embed{
-                config{
-                  thumbnail_url
+                  resized_urls { 
+                    landscape_xs
+                    landscape_s
+                    lazy_default 
+                  }
                 }
               }
             }
