@@ -68,14 +68,18 @@ const AmpOutputType = ({
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
-  const seoTitle =
-    metaValue('title') &&
-    !metaValue('title').includes('content') &&
-    metaValue('title')
+  // const seoTitle =
+  //   metaValue('title') &&
+  //   !metaValue('title').includes('content') &&
+  //   metaValue('title')
 
-  const title = `${seoTitle}: ${
-    storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-  } | ${siteProperties.siteTitle.toUpperCase()}`
+  // const title = `${seoTitle}: ${
+  //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+  // } | ${siteProperties.siteTitle.toUpperCase()}`
+  const siteTitleSuffix = siteProperties.siteTitle.toUpperCase()
+  const sectionName = requestUri.split('/')[1].toUpperCase()
+  const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
+  const title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
 
   const description =
     metaValue('description') && !metaValue('description').includes('content')
