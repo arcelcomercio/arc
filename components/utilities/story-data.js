@@ -1848,7 +1848,7 @@ class StoryData {
         const result = {
           _id,
           type,
-          subtype: '',
+          subtype,
           level,
           payload: '',
           streams,
@@ -1876,6 +1876,7 @@ class StoryData {
             break
           case ELEMENT_RAW_HTML:
             result.payload = content
+            result.subtype = subtype
             // && content
             break
           case ELEMENT_STORY:
