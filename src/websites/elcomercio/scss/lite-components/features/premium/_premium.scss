@@ -1,19 +1,18 @@
 .premium {
   &__wrapper {
     margin-bottom: 10px;
-    width: 133px;
+    width: fit-content;
+    max-width: 160px;
     height: 22px;
-    padding-top: 5px;
+    padding: 5px;
     border-radius: 2px;
     background-color: #f7c603;
   }
   &__text {
     font-size: 10px;
     text-transform: uppercase;
-    align-items: center;
     padding-top: 2px;
     color: #000;
-    justify-content: center;
     font-weight: 700;
     font-family: $secondary-font !important;
   }
