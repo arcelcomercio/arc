@@ -57,7 +57,7 @@ export default arcSite => {
                 lazy_default 
               }
             }
-          }
+          } 
         }
         basic_gallery {
           promo_items {

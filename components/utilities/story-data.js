@@ -1735,14 +1735,16 @@ class StoryData {
     return typeMultimedia
   }
 
-  static getThumbnailJwplayer(data) {
+  static getThumbnailJwplayer(data, size = IMAGE_ORIGINAL) {
     const thumb =
       (data &&
         data.promo_items &&
         data.promo_items[JWPLAYER] &&
         data.promo_items[JWPLAYER].embed &&
         data.promo_items[JWPLAYER].embed.config &&
-        data.promo_items[JWPLAYER].embed.config.thumbnail_url) ||
+        ((data.promo_items[JWPLAYER].embed.config.resized_urls &&
+          data.promo_items[JWPLAYER].embed.config.resized_urls[size]) ||
+          data.promo_items[JWPLAYER].embed.config.thumbnail_url)) ||
       ''
     return thumb
   }
@@ -1816,7 +1818,7 @@ class StoryData {
     } else if (type === ELEMENT_YOUTUBE_ID) {
       thumb = StoryData.getImageBySize(data, size)
     } else if (type === JWPLAYER) {
-      thumb = StoryData.getThumbnailJwplayer(data)
+      thumb = StoryData.getThumbnailJwplayer(data, size)
     }
     return thumb
   }
