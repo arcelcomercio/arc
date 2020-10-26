@@ -1,6 +1,9 @@
 import React from 'react'
+import { useAppContext } from 'fusion:context'
+
 import StorySocialAmpChildSocial from './_children/amp-social'
 import NextStoryButton from '../next-story-button/amp'
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 
 const classes = {
   container:
@@ -10,15 +13,23 @@ const classes = {
   arrowClass: 'text-xl',
 }
 
+/**
+ * Por ahora este feature debe estar disponible
+ * solo para Mag.
+ */
 const StorySocialAmp = () => {
+  const { arcSite } = useAppContext()
+
   return (
-    <div className={classes.container}>
-      <StorySocialAmpChildSocial />
-      <NextStoryButton
-        buttonClass={classes.buttonClass}
-        arrowClass={classes.arrowClass}
-      />
-    </div>
+    arcSite === SITE_ELCOMERCIOMAG && (
+      <div className={classes.container}>
+        <StorySocialAmpChildSocial />
+        <NextStoryButton
+          buttonClass={classes.buttonClass}
+          arrowClass={classes.arrowClass}
+        />
+      </div>
+    )
   )
 }
 
