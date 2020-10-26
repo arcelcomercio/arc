@@ -154,5 +154,6 @@ export default {
   },
   isDfp: false,
   archiveLimit: '2008-12-31',
-  jwplayerId: 'BHYH7DVh',
+  jwplayerIdAds: 'BHYH7DVh',
+  jwplayerId: 'u1imBhXq',
 }

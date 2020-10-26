@@ -10,6 +10,7 @@ basic_jwplayer {
       date
       description
       duration
+      has_ads
       thumbnail_url
       resized_urls { 
         landscape_xs

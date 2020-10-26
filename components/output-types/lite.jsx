@@ -375,7 +375,7 @@ const LiteOutput = ({
         />
         {(promoItemJwplayer.key || jwplayerSeo[0].key) && (
           <script
-            src={`https://cdn.jwplayer.com/libraries/${siteProperties.jwplayerId}.js`}></script>
+            src={`https://cdn.jwplayer.com/libraries/${siteProperties.jwplayerIdAds}.js`}></script>
         )}
         <MetaSite {...metaSiteData} />
         <meta name="description" lang="es" content={description} />

@@ -20,6 +20,7 @@ content_elements {
       description
       duration
       thumbnail_url
+      has_ads
       resized_urls { 
         landscape_xs
         landscape_s
