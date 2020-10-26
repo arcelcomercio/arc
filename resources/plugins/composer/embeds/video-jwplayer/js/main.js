@@ -31,13 +31,14 @@ const renderVideos = (search = '') => {
 const renderForEditAndView = (dataParams) => {
     console.log('dataParams', dataParams);
     // Setup Element Preview
-    const {id, config:{key, title, description, thumbnail_url}} = dataParams
+    const {id, config:{key, title, description, thumbnail_url, has_ads}} = dataParams
     const template = document.getElementById('content_template').innerHTML
     const html = template
       .replace(/%item_id%/gi, 'row-' + id)
       .replace(/%thumbnail_url%/gi, thumbnail_url)
       .replace(/%title%/gi, title)
       .replace(/%description%/gi, description)
+      .replace(/%has_ads%/gi, has_ads)
       //.replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
 
     const element = document.createElement('div')
@@ -66,14 +67,18 @@ window.handleSearch = () => {
 
 window.selectVideo = (videoKey) => {
     const dataVideo = JSON.parse(decodeURI(event.currentTarget.getAttribute('data-data')));
-    console.log('dataVideo', dataVideo);
+    // console.log('dataVideo', dataVideo);
+    const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');
+    dataVideo.has_ads = (hasAds && hasAds.value) || 0;
     buildMessage(generateId(), buildDataAns(dataVideo));
 }
 
 window.selectVideoId = (videoKey) => {
   videoKey && getVideo(videoKey).then(response => {
-    console.log('dataVideo', response.video);
+    // console.log('dataVideo', response.video);
     if(response.video){
+      const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');      
+      response.video.has_ads = (hasAds && hasAds.value) || 0;
       buildMessage(generateId(), buildDataAns(response.video));
     }else{
       alert('El ID del video no se encuentra')
@@ -84,7 +89,7 @@ window.selectVideoId = (videoKey) => {
 const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000);
 
 const buildDataAns = (data) => {
-    const {key, title, description, size, duration, status, updated, date, custom:{ thumbnail_url } = {}} = data || {};
+    const {key, title, description, size, duration, status, updated, date, custom:{ thumbnail_url } = {}, has_ads = 1} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
     const conversions = getPathsVideos(key);
     return {
@@ -98,7 +103,7 @@ const buildDataAns = (data) => {
         conversions,
         date,
         updated,
-        // source_file_mp4
+        has_ads,
     }
 }
 
