@@ -40,6 +40,7 @@ const renderForEditAndView = (dataParams) => {
       .replace(/%title%/gi, title)
       .replace(/%description%/gi, description)
       .replace(/%has_ads%/gi, hasAds)
+      .replace(/%video_key%/gi, key)
       //.replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
 
     const element = document.createElement('div')
