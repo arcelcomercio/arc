@@ -84,6 +84,7 @@ const Image = ({
         src={lazy ? placeholder : resizedImage}
         data-src={lazy ? resizedImage : null}
         alt={alt}
+        decoding={lazy ? 'async' : 'auto'}
         // width={width}
         // height={height}
         id={id}
