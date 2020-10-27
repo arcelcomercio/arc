@@ -38,7 +38,7 @@ const StorySocialLite = () => {
   return isArchivoElcomercio ? (
     <div className={classes.center}>
       <div className={classes.special}>
-        <ShareButtons />
+        <ShareButtons activeGoogleNews />
       </div>
     </div>
   ) : (
@@ -57,7 +57,7 @@ const StorySocialLite = () => {
         )}
       </div>
       <div className={classes.buttons}>
-        <ShareButtons />
+        <ShareButtons activeGoogleNews />
       </div>
     </div>
   )

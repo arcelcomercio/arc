@@ -57,6 +57,7 @@ import {
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import LiteYoutube from '../../../global-components/lite-youtube'
+import ShareButtons from '../../../global-components/lite/share'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -558,11 +559,11 @@ const StoryContentsLite = () => {
           )}
         </div>
         {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
-        {/* <div className={classes.social}>
+        <div className={classes.social}>
           <div className="st-social__share">
-            <ShareButtons></ShareButtons>
+            <ShareButtons />
           </div>
-        </div> */}
+        </div>
         {storyTagsBbc(tags) && (
           <div className={classes.bbcHead}>
             <a
