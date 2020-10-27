@@ -94,6 +94,7 @@ class StoryContents extends PureComponent {
         ids: { opta },
         isDfp = false,
         siteUrl,
+        jwplayerId,
       },
       isAdmin,
     } = this.props
@@ -298,13 +299,26 @@ class StoryContents extends PureComponent {
                   if (type === ELEMENT_CUSTOM_EMBED) {
                     if (sub === VIDEO_JWPLAYER) {
                       const {
-                        embed: { config: { key: videJplayer = '' } = {} } = {},
+                        embed: {
+                          config: {
+                            key: videJplayer = '',
+                            has_ads: hasAds = 0,
+                          } = {},
+                        } = {},
                       } = element
                       return (
-                        <div
-                          className="jwplayer-lazy"
-                          id={`mediaId-${videJplayer}`}
-                        />
+                        <>
+                          {hasAds ? (
+                            <div
+                              className="jwplayer-lazy"
+                              id={`mediaId-${videJplayer}`}
+                            />
+                          ) : (
+                            <div
+                              className="jwplayer-lazy"
+                              id={`botr_${videJplayer}_${jwplayerId}_div`}></div>
+                          )}
+                        </>
                       )
                     }
                   }
