@@ -21,7 +21,7 @@ const StoryContentChildVideoJwplayer = ({ data = {} }) => {
               <div
                 data-time={duration}
                 data-mediaid={mediaId}
-                className="video-jwplayer"
+                className="jwplayer-lazy"
                 id={`mediaId-${mediaId}`}></div>
               <script
                 type="text/JavaScript"
