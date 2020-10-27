@@ -26,11 +26,12 @@ const customFields = PropTypes.shape({
     description: 'Colocar el Nombre ',
   }),
   storyAmp: PropTypes.oneOf(['normal', 'slider', 'amp_full_imagen']).tag({
-    name: 'Slider Amp',
+    name: 'Diseño',
     group: 'Configuración',
     labels: {
       normal: 'Normal',
-      live: 'Slider Amp',
+      live: 'Slider AMP',
+      amp_full_imagen: 'Imagen ancho completo',
     },
     defaultValue: 'normal',
   }),
