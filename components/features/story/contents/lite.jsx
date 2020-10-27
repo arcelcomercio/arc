@@ -84,6 +84,7 @@ const StoryContentsLite = () => {
       ids: { opta },
       isDfp = false,
       siteUrl,
+      jwplayerId,
     },
   } = useFusionContext()
 
@@ -245,13 +246,23 @@ const StoryContentsLite = () => {
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === VIDEO_JWPLAYER) {
                     const {
-                      embed: { config: { key: videJplayer = '' } = {} } = {},
+                      embed: {
+                        config: { key: mediaId = '', has_ads: hasAds = 0 } = {},
+                      } = {},
                     } = element
                     return (
-                      <div
-                        className="jwplayer-lazy"
-                        id={`mediaId-${videJplayer}`}
-                      />
+                      <>
+                        {hasAds ? (
+                          <div
+                            className="jwplayer-lazy"
+                            id={`mediaId-${mediaId}`}
+                          />
+                        ) : (
+                          <div
+                            className="jwplayer-lazy "
+                            id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                        )}
+                      </>
                     )
                   }
                 }
