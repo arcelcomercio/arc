@@ -2,7 +2,8 @@ import React from 'react'
 
 const classes = {
   item: 'amp-story-interest__item flex w-full mb-25',
-  item_full_imagen: 'amp-story-interest__item_full_imagen block w-full mb-25',
+  item_full_imagen:
+    'amp-story-interest__item_full_imagen block w-full mb-15 pb-15',
   detail: 'amp-story-interest__detail w-full pl-10 pr-10',
   detail_text: 'w-full pt-10 text-lg',
   detail_full_imagen: 'amp-story-interest__detail pt-10 pr-10',
@@ -30,11 +31,11 @@ const StorySeparatorChildItemAmp = ({ data }) => {
     storyAmp,
   } = data
 
+  const isFullImage = storyAmp === 'amp_full_imagen'
+
   return (
-    <div
-      className={` ${
-        storyAmp === 'amp_full_imagen' ? classes.item_full_imagen : classes.item
-      } `}>
+    <article
+      className={` ${isFullImage ? classes.item_full_imagen : classes.item} `}>
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
@@ -42,39 +43,33 @@ const StorySeparatorChildItemAmp = ({ data }) => {
           <amp-img
             src={multimediaLandscapeMD}
             layout="responsive"
-            width="304"
-            height="200"
+            width="16"
+            height="9"
             alt={title}
             class={` ${
-              storyAmp === 'amp_full_imagen'
-                ? classes.itemImage_full_imagen
-                : classes.itemImage
+              isFullImage ? classes.itemImage_full_imagen : classes.itemImage
             } `}
           />
         </a>
       )}
       <div
         className={`${
-          storyAmp === 'amp_full_imagen'
-            ? classes.detail_full_imagen
-            : classes.detail
+          isFullImage ? classes.detail_full_imagen : classes.detail
         } `}>
         <h3 className={classes.separatorTitle}>
           <a
             className={`${
-              storyAmp === 'amp_full_imagen'
-                ? classes.titleLink_full_imagen
-                : classes.titleLink
+              isFullImage ? classes.titleLink_full_imagen : classes.titleLink
             } `}
             href={link}>
             {title}
           </a>
         </h3>
-        {storyAmp === 'amp_full_imagen' && subtitle && (
+        {isFullImage && subtitle && (
           <p className={classes.detail_text}>{subtitle.substring(0, 105)}...</p>
         )}
       </div>
-    </div>
+    </article>
   )
 }
 

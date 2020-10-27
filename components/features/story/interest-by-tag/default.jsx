@@ -32,7 +32,6 @@ const InterestByTag = props => {
     contextPath,
     deployment,
     isAdmin,
-    outputType: isAmp,
     siteProperties,
   } = useFusionContext()
 
@@ -46,19 +45,17 @@ const InterestByTag = props => {
   const urlTag = `/${tag || slug}/`
 
   const { content_elements: storyData = [] } =
-    isAmp !== 'amp'
-      ? useContent({
-          source: CONTENT_SOURCE,
-          query: {
-            website: arcSite,
-            name: urlTag,
-            size: 5,
-            presets,
-            includedFields: separatorBasicFields,
-          },
-          filter: schemaFilter(arcSite),
-        }) || {}
-      : ''
+    useContent({
+      source: CONTENT_SOURCE,
+      query: {
+        website: arcSite,
+        name: urlTag,
+        size: 5,
+        presets,
+        includedFields: separatorBasicFields,
+      },
+      filter: schemaFilter(arcSite),
+    }) || {}
 
   const instance =
     storyData &&
@@ -90,7 +87,7 @@ const InterestByTag = props => {
 
   return (
     <>
-      {isAmp !== 'amp' && isWeb && dataInterest && dataInterest[0] && (
+      {isWeb && dataInterest && dataInterest[0] && (
         <div className={classes.storyInterest}>
           <div className={classes.container}>
             <div className={classes.title}>Te puede interesar:</div>
