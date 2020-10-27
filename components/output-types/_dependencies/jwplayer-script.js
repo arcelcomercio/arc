@@ -8,7 +8,7 @@ const jwplayerObserver = (entries, observer) => {
 
       const [nameAds = '', mediaIdAds = ''] = nameId.split('-')
       if (mediaIdAds) {
-        jwplayer(nameAds).setup({
+        jwplayer(nameId).setup({
           playlist: 'https://cdn.jwplayer.com/v2/media/' + mediaIdAds,
         })
       } else {
@@ -39,7 +39,8 @@ window.addEventListener('load', function() {
 })
 */
 
-const videoScript = `"use strict";var jwplayerObserver=function(t,e){t.forEach(function(t){var s=t.isIntersecting,r=t.target;if(s){const t=r.getAttribute("id"),[,s="",c=""]=t.split("_"),[a="",p=""]=t.split("-");if(p)jwplayer(t).setup({playlist:"https://cdn.jwplayer.com/v2/media/"+c});else{const t="https://cdn.jwplayer.com/players/"+s+"-"+c+".js",e=document.createElement("script");e.type="text/javascript",e.src=t,document.head.append(e)}e.unobserve(r)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".jwplayer-lazy")),r=new IntersectionObserver(jwplayerObserver,{rootMargin:"0px"});e.forEach(function(e){r.observe(e)})}})});
+const videoScript = `
+const jwplayerObserver=(e,t)=>{e.forEach(e=>{const{isIntersecting:r,target:n}=e;if(r){const e=n.getAttribute("id"),[,r="",s=""]=e.split("_"),[o="",c=""]=e.split("-");if(c)jwplayer(e).setup({playlist:"https://cdn.jwplayer.com/v2/media/"+c});else{const e="https://cdn.jwplayer.com/players/"+r+"-"+s+".js",t=document.createElement("script");t.type="text/javascript",t.src=e,document.head.append(t)}t.unobserve(n)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".jwplayer-lazy")),t=new IntersectionObserver(jwplayerObserver,{rootMargin:"0px"});e.forEach(function(e){t.observe(e)})}})});
 `
 
 export default videoScript
