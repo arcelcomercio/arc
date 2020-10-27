@@ -7,8 +7,8 @@ import { addSlashToEnd } from '../../../utilities/parse/strings'
 
 const classes = {
   container: 'st-social f just-between',
-  upsection: 'st-social__tooltdiv uppercase',
-  section: 'st-social__txt f f-center oflow-h uppercase',
+  upsection: 'st-social__tooltdiv f alg-center uppercase',
+  section: 'st-social__txt oflow-h uppercase',
   sectionLink: 'st-social__link oflow-h',
   buttons: 'st-social__share',
   special: 'st-social__special f',

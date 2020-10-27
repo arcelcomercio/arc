@@ -3,9 +3,11 @@
   padding: 20px 0;
   border-top: 1px solid $border-color-gray;
   border-bottom: 2px solid $border-color-gray;
+  flex-direction: column;
 
   @media (--tablet) {
     padding: 20px 10px;
+    flex-direction: initial;
   }
 
   &__txt {
@@ -20,9 +22,9 @@
   }
 
   &__tooltdiv {
-    display: flex;
-    @media (--only-mobile) {
-      display: block;
+    padding-bottom: 5px;
+    @media (--tablet) {
+      padding-bottom: 0;
     }
   }
 
@@ -33,9 +35,6 @@
     color: #6d6d66;
     display: inline;
     margin: 6px;
-    @media (--only-mobile) {
-      margin: 0;
-    }
     & span {
       display: none;
     }
