@@ -47,10 +47,11 @@ import {
   SITE_PERU21,
   SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
-  formatDateStoryAmp,
+  formatDateTime,
   publicidadAmp,
   publicidadAmpAd,
   ampHtml,
@@ -67,7 +68,10 @@ const classes = {
   textClasses: 'amp-story-content__news-text ',
   blockquoteClass:
     'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
-  author: 'amp-story-content__author mt-15 mb-15 secondary-font',
+  authorTimeContainer:
+    'pt-15 mt-15 pb-15 mb-15 border-t-1 border-b-1 border-solid border-gray',
+  author: 'amp-story-content__author mb-5 secondary-font',
+  datetime: 'secondary-font text-md',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
   relatedTitle:
@@ -83,7 +87,6 @@ class StoryContentAmp extends PureComponent {
     const {
       contextPath,
       arcSite,
-      isAmp,
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
@@ -94,6 +97,8 @@ class StoryContentAmp extends PureComponent {
       tags,
       authorLink,
       displayDate: updatedDate,
+      publishDate,
+      primarySection,
       primarySectionLink,
       author,
       multimediaLazyDefault,
@@ -104,12 +109,13 @@ class StoryContentAmp extends PureComponent {
       contextPath,
       siteUrl,
     })
-    const isLegacy =
-      source.source_id &&
-      (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
+    const isMag = arcSite === SITE_ELCOMERCIOMAG
+    const isLegacy =
+      source.source_id &&
+      (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
 
     const imgTag = 'amp-img'
     const width = '300'
@@ -174,22 +180,42 @@ class StoryContentAmp extends PureComponent {
       <>
         <div className={classes.content}>
           {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
-          />
+          {!isMag && (
+            <div
+              className={classes.adsAmp}
+              dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
+            />
+          )}
 
           {subtype !== GALLERY_VERTICAL && (
-            <>
+            <div
+              className={isMag ? classes.authorTimeContainer : 'pt-15 pb-15'}>
               <p className={classes.author}>
-                <a href={authorLink}>{author}</a>
+                {isMag ? (
+                  <>
+                    Por{' '}
+                    <a href={authorLink} className="font-bold">
+                      {author}
+                    </a>{' '}
+                    en{' '}
+                    <a href={primarySectionLink} className="font-bold">
+                      {primarySection}
+                    </a>
+                  </>
+                ) : (
+                  <a href={authorLink}>{author}</a>
+                )}
               </p>
               <time
                 dateTime={getDateSeo(updatedDate)}
                 className={classes.datetime}>
-                {formatDateStoryAmp(updatedDate)}
+                {isMag
+                  ? `${formatDateTime(
+                      publishDate
+                    )} | Actualizado ${formatDateTime(updatedDate)}`
+                  : `Actualizado el ${formatDateTime(updatedDate)}`}
               </time>
-            </>
+            </div>
           )}
           {contentPosicionPublicidadAmp && (
             <StoryContent
@@ -205,7 +231,9 @@ class StoryContentAmp extends PureComponent {
                   content,
                   level,
                   publicidadInline = false,
+                  publicidadCaja2 = false,
                   publicidadCaja3 = false,
+                  publicidadCaja4 = false,
                   url = '',
                   items = [],
                 } = element
@@ -230,7 +258,7 @@ class StoryContentAmp extends PureComponent {
                     <p> - </p>
                   ) : (
                     <RawHtml
-                      content={ampHtml(content, arcSite)}
+                      content={ampHtml(content, arcSite, source.source_id)}
                       className={classes.rawHtmlClasses}
                     />
                   )
@@ -357,11 +385,23 @@ class StoryContentAmp extends PureComponent {
                             ? formatHtmlToText(
                                 replaceTags(cleanLegacyAnchor(content))
                               )
-                            : ampHtml(replaceTags(content), arcSite)
+                            : ampHtml(
+                                replaceTags(content),
+                                arcSite,
+                                !!source.source_id
+                              )
                         }
                         className={classes.textClasses}
                       />
-                      {publicidadInline && (
+                      {isMag && publicidadCaja2 && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={publicidadAmp(
+                            parametersCaja2
+                          )}
+                        />
+                      )}
+                      {!isMag && publicidadInline && (
                         <div
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
@@ -374,6 +414,14 @@ class StoryContentAmp extends PureComponent {
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
                             parametersCaja3
+                          )}
+                        />
+                      )}
+                      {isMag && publicidadCaja4 && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={publicidadAmpAd(
+                            parametersCaja4
                           )}
                         />
                       )}
@@ -418,12 +466,14 @@ class StoryContentAmp extends PureComponent {
               }}
             />
           )}
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
-          />
+          {!isMag && (
+            <div
+              className={classes.adsAmp}
+              dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
+            />
+          )}
           {isComercio && <StoryGoogleNews />}
-          <StoryContentChildTags data={tags} {...isAmp} />
+          <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
@@ -443,10 +493,12 @@ class StoryContentAmp extends PureComponent {
           )}
         </div>
 
-        <div
-          className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
-        />
+        {!isMag && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
+          />
+        )}
       </>
     )
   }

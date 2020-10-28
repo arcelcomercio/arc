@@ -59,6 +59,7 @@ export default {
     },
     footer: {
       logo: 'logo.png',
+      logoAmp: 'white-logo.png',
     },
     seo: {
       logoAmp: 'logo-143x60.png',

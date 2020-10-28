@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import UtilListKey from '../../../../utilities/list-keys'
@@ -75,7 +75,7 @@ const socialMediaUrlShareList = (
 }
 
 const StoryHeaderChildSocial = () => {
-  const { globalContent, arcSite, contextPath } = useFusionContext()
+  const { globalContent, arcSite, contextPath } = useAppContext()
   const {
     website_url: postPermaLink,
     headlines: { basic: postTitle } = {},
