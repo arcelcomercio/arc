@@ -1,19 +1,20 @@
 import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import { removeLastSlash } from '../../../utilities/parse/strings'
-
-// Script
+import { GALLERY_SLIDER } from '../../../utilities/constants/subtypes'
+import { ELEMENT_GALLERY } from '../../../utilities/constants/element-types'
+import customFields from './_dependencies/custom-fields'
 
 /* 
 window.addEventListener('load', () => {requestIdle(() => {
-  const URLS_STORAGE = '_recents_articles_'
-
-  const localStories =
+  const URLS_STORAGE = "_recent_articles_"
+  const arcSite = "<<arcSite>>" 
+  const recentStories = "<<recentStoriesrecentStoriesrecentStories>>" || {}
+  const sessionStories =
     JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}
-  const recentStories = '<<recentStoriesrecentStoriesrecentStories>>' || {}
 
-  const setDataOnStorage = (dataTo = {}) => {
+  const setSessionStorageData = (dataTo = {}) => {
     const { section, data = [] } = dataTo
     window.sessionStorage.setItem(
       URLS_STORAGE,
@@ -24,134 +25,179 @@ window.addEventListener('load', () => {requestIdle(() => {
     )
   }
 
-  if (localStories.section) {
-    if (localStories.section !== recentStories.section) {
+  if (sessionStories.section) {
+    if (sessionStories.section !== recentStories.section) {
       window.sessionStorage.removeItem(URLS_STORAGE)
-      setDataOnStorage(recentStories)
+      setSessionStorageData(recentStories)
     } else {
-      const currentLocal = JSON.parse(
-        window.sessionStorage.getItem(URLS_STORAGE)
-      )
       window.sessionStorage.removeItem(URLS_STORAGE)
-      setDataOnStorage(currentLocal)
+      // dentro de setSessionStorageData() se filtra la URL actual
+      setSessionStorageData(sessionStories)
     }
   } else {
-    setDataOnStorage(recentStories)
+    setSessionStorageData(recentStories)
   }
 
-  const nextStoryObject =
-    ((JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}).data ||
-      [])[0] || {}
-  document.querySelector('.st-continue__title').innerHTML =
-    nextStoryObject.title || 'Portada'
-  document.querySelector('.st-continue').href = nextStoryObject.link
-
+  
   const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
     typeof window !== 'undefined' ? window.navigator.userAgent : ''
-  )
-
-  const storyLoadAmp = () =>
-    isMobile
-      ? '?ref=nota&ft=autoload&outputType=amp'
-      : '?ref=nota&ft=autoload'
-
-  let requestStory;
-
-  const loadNextUrlStorage = () => {
-    requestStory = setTimeout(() => {
-      window.location.href = nextStoryObject.link + storyLoadAmp() || '/'
-    }, 250)
+    )
     
-  }
+  const nextStoriesArray =
+    ((JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}).data) || []
+  let page = 0
+  
+  const loadNextUrlStorage = () => {
+    const nextStory = nextStoriesArray[page] || {}
 
-  const stContinueFunc = () => {
-    const progressBar = document.querySelector('.st-continue__progress')
-      if(progressBar.className.indexOf('loading') <= 0)
-        progressBar.className = progressBar.className.concat(' loading')
+    if(nextStory.link){
+      page =+ 1
 
-      if (
-        window.innerHeight + document.documentElement.scrollTop >=
-        document.body.scrollHeight - 5
-      )
-        loadNextUrlStorage()
-  }
+      // Se crea iframe y pushea nuevo registro al historial
+      requestIdle(() => {
+        const next = document.createElement('iframe')
+        let nextUrl = nextStory.link + "?ref=nota&ft=autoload&story=" + page
+        nextUrl = location.href.includes("/pf") 
+          ? "/pf" + nextUrl + "&outputType=lite&_website=" + arcSite 
+          : nextUrl
+        next.src = location.origin + nextUrl
+        next.width = "100%"
+        next.height = "8000"
+        next.id = "st-iframe-" + page
+        next.frameborder = "0"
+        next.scrolling = "no"
+        document.body.appendChild(next)
+        document.title = nextStory.title
+        history.pushState({story: page}, nextStory.title, nextStory.link)
+      })
+      
+      // Se crea nuevo div para observar
+      requestIdle(() => {
+        const pointer = document.createElement('div')
+        pointer.id = "st-continue-" + page
+        pointer.style.height = "10px"
+        document.body.appendChild(pointer)
 
-  if ('IntersectionObserver' in window) {
-    const sectionOneObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        const $close = document.querySelector('.st-continue__close')
-        if (entry.isIntersecting) {
-          window.addEventListener('scroll', stContinueFunc)
-          $close.addEventListener('click', () => {
-            clearTimeout(requestStory)
-            const progressBar = document.querySelector('.st-continue__progress')
-            if(progressBar.className.indexOf('loading') > 0)
-              progressBar.className = progressBar.className.replace(' loading', '')
+        // Se observa el siguiente div
+        iframeObserver(pointer)
+
+        const iframe = document.getElementById("st-iframe-" + page)
+        
+        function resetIframeHeight() {
+          iframe.height = iframe.contentWindow.document.documentElement.offsetHeight + "px"
+        }
+
+        iframe.onload = function(){
+          requestIdle(() => {
+            resetIframeHeight()
           })
-          sectionOneObserver.unobserve(entry.target)
         }
       })
-    })
-    sectionOneObserver.observe(document.querySelector('.st-continue'))
-  } else {
-    window.addEventListener('scroll', stContinueFunc)
+
+      // Agrega boton con ancla a top al cargar primera nota continua
+      function scrollToTop() {
+          if (document.body.scrollTop !== 0 || document.documentElement.scrollTop !== 0) {
+              window.scrollBy(0, -50);
+              requestAnimationFrame(scrollToTop);
+          }
+      }
+    }
   }
-})}) 
+
+  const iframeObserver = (elementToObserve) => {
+    // No soporte para Legacy Browsers
+    const legacyBrowserTrigger = () => {
+        if (
+          window.innerHeight + document.documentElement.scrollTop >=
+          document.body.scrollHeight - 500
+        )
+          window.removeEventListener('scroll', legacyBrowserTrigger)
+          loadNextUrlStorage()
+    }
+  
+    if ('IntersectionObserver' in window) {
+      const sectionOneObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            loadNextUrlStorage()
+            sectionOneObserver.unobserve(entry.target)
+          }
+        })
+      }, {rootMargin: '0px 0px 500px 0px'})
+      sectionOneObserver.observe(elementToObserve)
+    } else {
+      window.addEventListener('scroll', legacyBrowserTrigger)
+    }
+  } 
+
+  iframeObserver(document.getElementById('st-continue'))
+
+})})
 */
 
-const StoryContinueLite = () => {
-  const { globalContent, arcSite } = useFusionContext()
-  const { taxonomy: { primary_section: { path = '' } = {} } = {} } =
+const StoryContinueLite = (props) => {
+  const { customFields: { activeAnchor } = {} } = props
+  const { globalContent, arcSite } = useAppContext()
+  const { taxonomy: { primary_section: { path = '' } = {}, tags = [] } = {} } =
     globalContent || {}
+  const { slug: tag } = tags[0]
 
-  const recentStories =
+  const tagStories =
+    useContent({
+      source: 'story-feed-by-tag',
+      query: {
+        name: tag,
+        stories_qty: 10,
+        includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype`,
+      },
+    }) || {}
+
+  const sectionStories =
     useContent({
       source: 'story-feed-by-section',
       query: {
         section: removeLastSlash(path),
-        stories_qty: 6,
-        includedFields: `websites.${arcSite}.website_url,headlines.basic`,
+        stories_qty: tag ? 10 : 20,
+        includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype`,
       },
     }) || {}
 
-  const { content_elements: contentElements = [] } = recentStories
+  const { content_elements: tagElements = [] } = tagStories
+  const { content_elements: sectionElements = [] } = sectionStories
 
-  const stContinueScript = '"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recents_articles_",t=JSON.parse(window.sessionStorage.getItem(e))||{},n="<<recentStoriesrecentStoriesrecentStories>>",o=function(t){void 0===t&&(t={});var n=t,o=n.section,i=n.data,s=void 0===i?[]:i;window.sessionStorage.setItem(e,JSON.stringify({section:o,data:s.filter(function(e){return e.link!==window.location.pathname})}))};if(t.section)if(t.section!==n.section)window.sessionStorage.removeItem(e),o(n);else{var i=JSON.parse(window.sessionStorage.getItem(e));window.sessionStorage.removeItem(e),o(i)}else o(n);var s=((JSON.parse(window.sessionStorage.getItem(e))||{}).data||[])[0]||{};document.querySelector(".st-continue__title").innerHTML=s.title||"Portada",document.querySelector(".st-continue").href=s.link;var r,a=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),c=function(){r=setTimeout(function(){window.location.href=s.link+(a?"?ref=nota&ft=autoload&outputType=amp":"?ref=nota&ft=autoload")||"/"},250)},d=function(){var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")<=0&&(e.className=e.className.concat(" loading")),window.innerHeight+document.documentElement.scrollTop>=document.body.scrollHeight-5&&c()};if("IntersectionObserver"in window){var l=new IntersectionObserver(function(e){e.forEach(function(e){var t=document.querySelector(".st-continue__close");e.isIntersecting&&(window.addEventListener("scroll",d),t.addEventListener("click",function(){clearTimeout(r);var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")>0&&(e.className=e.className.replace(" loading",""))}),l.unobserve(e.target))})});l.observe(document.querySelector(".st-continue"))}else window.addEventListener("scroll",d)})});'.replace(
-    '"<<recentStoriesrecentStoriesrecentStories>>"',
-    JSON.stringify({
-      section: removeLastSlash(path),
-      data: contentElements.map(
-        ({
-          websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
-          headlines: { basic = '' } = {},
-        }) => ({ link: websiteUrl, title: basic })
-      ),
-    })
-  )
+  const filterStoriesCb = (story = {}) => {
+    const { promo_items: { basic_gallery: { type } = {} } = {} } = story
+    // Filtra las historias que no son Galeria horizontal
+    return (
+      (type === ELEMENT_GALLERY && story.subtype !== GALLERY_SLIDER) ||
+      (type !== ELEMENT_GALLERY && story.subtype === GALLERY_SLIDER)
+    )
+  }
+
+  // Determina cantidad de historias si hay o no tag
+  const filteredStories = [
+    ...(tag ? tagElements.filter(filterStoriesCb).slice(0, 5) : []),
+    ...sectionElements.filter(filterStoriesCb).slice(0, tag ? 5 : 10),
+  ]
+
+  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recent_articles_",t="<<recentStoriesrecentStoriesrecentStories>>",n=JSON.parse(window.sessionStorage.getItem(e))||{},o=function(t){void 0===t&&(t={});var n=t,o=n.section,i=n.data,r=void 0===i?[]:i;window.sessionStorage.setItem(e,JSON.stringify({section:o,data:r.filter(function(e){return e.link!==window.location.pathname})}))};n.section?n.section!==t.section?(window.sessionStorage.removeItem(e),o(t)):(window.sessionStorage.removeItem(e),o(n)):o(t);/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:"");var i=(JSON.parse(window.sessionStorage.getItem(e))||{}).data||[],r=0,s=function(){var e=i[r]||{};if(e.link){r=1,requestIdle(function(){var t=document.createElement("iframe"),n=e.link+"?ref=nota&ft=autoload&story="+r;n=location.href.includes("/pf")?"/pf"+n+"&outputType=lite&_website=<<arcSite>>":n,t.src=location.origin+n,t.width="100%",t.height="8000",t.id="st-iframe-"+r,t.frameborder="0",t.scrolling="no",document.body.appendChild(t),document.title=e.title,history.pushState({story:r},e.title,e.link)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+r,e.style.height="10px",document.body.appendChild(e),d(e);var t=document.getElementById("st-iframe-"+r);t.onload=function(){requestIdle(function(){t.height=t.contentWindow.document.documentElement.offsetHeight+"px"})}})}},d=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(s(),t.unobserve(e.target))})},{rootMargin:"0px 0px 500px 0px"});t.observe(e)}else window.addEventListener("scroll",function e(){window.innerHeight+document.documentElement.scrollTop>=document.body.scrollHeight-500&&window.removeEventListener("scroll",e),s()})};d(document.getElementById("st-continue"))})});`
+    .replace("<<arcSite>>", arcSite)
+    .replace(
+      '"<<recentStoriesrecentStoriesrecentStories>>"',
+      JSON.stringify({
+        section: removeLastSlash(path),
+        data: filteredStories.map(
+          ({
+            websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
+            headlines: { basic = '' } = {},
+          }) => ({ link: websiteUrl, title: basic })
+        ),
+      })
+    )
 
   return (
     <>
-      <div className="st-continue__progress-box f pos-rel">
-        <div className="st-continue__progress"></div>
-        <span className="st-continue__subtitle pos-abs">
-          CARGANDO SIGUIENTE...
-        </span>
-        <svg
-          role="button"
-          xmlns="http://www.w3.org/2000/svg"
-          className="st-continue__close pos-abs"
-          width="20"
-          height="20"
-          viewBox="0 0 46 46">
-          <title>Cancelar carga de siguiente noticia</title>
-          <path d="M23 3C11.9 3 2.9 12 2.9 23.1 2.9 34.2 11.9 43.2 23 43.2 34.1 43.2 43.1 34.2 43.1 23.1 43.1 12 34.1 3 23 3ZM32.7 29.9C32.9 30 32.9 30.2 32.9 30.4 32.9 30.6 32.9 30.8 32.7 30.9L30.8 32.8C30.6 33 30.5 33 30.3 33 30.1 33 29.9 33 29.8 32.8L23 26 16.2 32.8C16.1 33 15.9 33 15.7 33 15.5 33 15.4 33 15.2 32.8L13.3 30.9C13.1 30.8 13.1 30.6 13.1 30.4 13.1 30.2 13.1 30 13.3 29.9L20.1 23.1 13.3 16.3C13 16 13 15.6 13.3 15.3L15.2 13.4C15.3 13.2 15.5 13.1 15.7 13.1 15.9 13.1 16.1 13.2 16.2 13.4L23 20.1 29.8 13.4C29.9 13.2 30.1 13.1 30.3 13.1 30.5 13.1 30.7 13.2 30.8 13.4L32.8 15.3C33 15.6 33 16 32.8 16.3L25.9 23.1ZM32.7 29.9"></path>
-        </svg>
-      </div>
-      <a itemProp="url" href="/" className="st-continue">
-        <h3 itemProp="name" className="st-continue__title oflow-h">
-          Siguiente noticia
-        </h3>
-      </a>
+      <div id="st-continue" style={{ height: '10px' }} />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
@@ -162,4 +208,9 @@ const StoryContinueLite = () => {
   )
 }
 StoryContinueLite.static = true
+
+StoryContinueLite.propTypes = {
+  customFields,
+}
+
 export default StoryContinueLite
