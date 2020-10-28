@@ -42,9 +42,14 @@ const params = [
     displayName: 'Secciones excluidas',
     type: 'text',
   },
+  {
+    name: 'isType',
+    displayName: 'Tipo de contenido (Opcional)',
+    type: 'text',
+  },
 ]
 
-const getQueryFilter = (section, excludedSections, website) => {
+const getQueryFilter = (section, excludedSections, website, isType) => {
   let queryFilter = ''
   let body = { query: { bool: {} } }
 
@@ -56,7 +61,10 @@ const getQueryFilter = (section, excludedSections, website) => {
      * esto se hace por mejorar PERFORMANCE
      *
      */
-    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+publish_date:%7Bnow-15d%20TO%20*%7D`
+    const isTypeSearch = isType
+      ? `+AND+content_restrictions.content_code:${isType}`
+      : ''
+    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+publish_date:%7Bnow-15d%20TO%20*%7D${isTypeSearch}`
   } else {
     // Solo si hay una seccion definida o alguna seccion para excluir
     if (section !== '/') {
@@ -92,6 +100,16 @@ const getQueryFilter = (section, excludedSections, website) => {
                 },
               },
             ],
+          },
+        },
+      }
+    }
+    if (isType) {
+      body = {
+        ...body,
+        query: {
+          bool: {
+            must: [{ term: { 'content_restrictions.content_code': isType } }],
           },
         },
       }
@@ -141,6 +159,7 @@ const resolve = (key = {}) => {
     stories_qty: storiesQty,
     website: rawWebsite = '',
     includedFields,
+    isType,
   } = key
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
@@ -155,7 +174,7 @@ const resolve = (key = {}) => {
 
   const excSections = auxExcludedSec && auxExcludedSec.split(',')
 
-  const queryFilter = getQueryFilter(section, excSections, website)
+  const queryFilter = getQueryFilter(section, excSections, website, isType)
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${formatIncludedFields({
