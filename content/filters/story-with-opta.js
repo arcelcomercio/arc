@@ -20,6 +20,64 @@ const filter = params => {
         content
         caption
         subtitle
+        embed{
+          id
+          config{
+            key
+            description
+            duration
+            thumbnail_url
+            has_ads
+            resized_urls { 
+              landscape_xs
+              landscape_s
+              lazy_default 
+            }
+            link
+            photo
+            title
+            alt
+            width
+            height
+            prepTime
+            totalTime
+            recipeCuisine
+            recipeYield
+            puntuation
+            countReviews
+            content
+            date
+            type_event
+            name
+            location_name
+            location_address
+            start_date
+            category_software
+            so_software
+            author_book
+            isbn_book
+            url_book
+            image_local
+            sameas_movie
+            image_movie
+            description_movie
+            review_product
+            author_product
+            image_recipe
+            customBlockType
+            customBlockContent
+            url
+            url_img
+            conversions{
+              key
+              mediatype
+              link {
+                path
+                address
+              }
+            }
+          }
+        }
         raw_oembed{
           url
           html
