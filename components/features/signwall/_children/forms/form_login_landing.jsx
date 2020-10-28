@@ -98,10 +98,17 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
         setShowError(getCodeError(errLogin.code))
         setShowVerify(errLogin.code === '130051')
         onLoggedFail(errLogin) // para hendrul
-        Taggeo(
-          `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_login_error_ingresar`
-        )
+        if (errLogin.code === '130051') {
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+          )
+        } else {
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_login_error_ingresar`
+          )
+        }
       })
       .finally(() => {
         setShowLoading(false)

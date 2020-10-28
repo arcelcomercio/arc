@@ -76,7 +76,11 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
           setMsgError(getCodeError(err.code))
           setShowVerify(err.code === '130051')
           setLoading(false)
-          Taggeo(nameTagCategory, 'web_swl_login_error_ingresar')
+          if (err.code === '130051') {
+            Taggeo(nameTagCategory, 'web_swl_login_show_reenviar_correo')
+          } else {
+            Taggeo(nameTagCategory, 'web_swl_login_error_ingresar')
+          }
         })
     }
   }

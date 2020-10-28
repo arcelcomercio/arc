@@ -216,7 +216,14 @@ export const FormLogin = ({ valTemplate, attributes }) => {
         setShowLoading(false)
         setShowError(getCodeError(errLogin.code))
         setShowVerify(errLogin.code === '130051')
-        taggeoError()
+        if (errLogin.code === '130051') {
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+          )
+        } else {
+          taggeoError()
+        }
       })
   }
 

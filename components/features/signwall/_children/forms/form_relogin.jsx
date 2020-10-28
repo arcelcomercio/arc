@@ -84,7 +84,14 @@ export const FormRelogin = ({
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
         setShowVerify(errLogin.code === '130051')
-        taggeoError()
+        if (errLogin.code === '130051') {
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_email_login_show_reenviar_correo`
+          )
+        } else {
+          taggeoError()
+        }
       })
       .finally(() => {
         setShowLoading(false)
