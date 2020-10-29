@@ -57,7 +57,7 @@ import {
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import LiteYoutube from '../../../global-components/lite-youtube'
-import { processedPublividad } from '../../../utilities/story/helpers'
+import { processedAds } from '../../../utilities/story/helpers'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -413,12 +413,7 @@ const StoryContentsLite = () => {
                   if (content.includes('<mxm')) {
                     return (
                       <StoryContentChildRawHTML
-                        content={processedPublividad(
-                          content,
-                          'lite',
-                          arcSite,
-                          secc
-                        )}
+                        content={processedAds(content, 'lite', arcSite, secc)}
                       />
                     )
                   }
