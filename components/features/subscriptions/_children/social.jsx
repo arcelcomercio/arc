@@ -13,7 +13,7 @@ import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const ButtonSocial = ({ arcSocial, arcSite, arcType }) => {
+const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
   const { activateAuth, updateStep } = useContext(AuthContext)
@@ -144,6 +144,10 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType }) => {
             window.Identity.userIdentity = resloginSocialEco
             setupUserProfile()
           } else {
+            if (resloginSocialEco.code && resloginSocialEco.code === '130051') {
+              showMsgVerify()
+            }
+            setLoading(false)
             window.removeEventListener('message', authSocialProvider)
             window.removeEventListener('onmessage', authSocialProvider)
           }

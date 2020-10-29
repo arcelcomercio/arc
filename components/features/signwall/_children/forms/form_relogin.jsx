@@ -25,6 +25,7 @@ export const FormRelogin = ({
   const [showLoading, setShowLoading] = useState(false)
   const [showVerify, setShowVerify] = useState()
   const [showSendEmail, setShowSendEmail] = useState(false)
+  const [showMsgVerifyEmail, setShowMsgVerifyEmail] = useState()
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -126,6 +127,11 @@ export const FormRelogin = ({
     }, 1000)
   }
 
+  const triggerShowVerify = () => {
+    setShowError(getCodeError('130051'))
+    setShowMsgVerifyEmail(true)
+  }
+
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
   return (
@@ -151,6 +157,13 @@ export const FormRelogin = ({
                       <strong id="countdown"> 10 </strong> segundos
                     </span>
                   )}
+                </>
+              )}
+              {showMsgVerifyEmail && (
+                <>
+                  <br />
+                  El Correo Electrónico asociado a tu red social no está
+                  verificado.
                 </>
               )}
             </S.Error>
@@ -225,6 +238,7 @@ export const FormRelogin = ({
               arcSite={arcSite}
               typeForm="relogin"
               activeNewsletter={activeNewsletter}
+              showMsgVerify={() => triggerShowVerify()}
             />
           ))}
 
