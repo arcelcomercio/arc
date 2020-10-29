@@ -96,8 +96,8 @@ class StoryContentAmp extends PureComponent {
       promoItems,
       tags,
       authorLink,
-      displayDate: updatedDate,
-      publishDate,
+      displayDate,
+      publishDate: updateDate,
       primarySection,
       primarySectionLink,
       author,
@@ -207,13 +207,13 @@ class StoryContentAmp extends PureComponent {
                 )}
               </p>
               <time
-                dateTime={getDateSeo(updatedDate)}
+                dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
                 {isMag
                   ? `${formatDateTime(
-                      publishDate
-                    )} | Actualizado ${formatDateTime(updatedDate)}`
-                  : `Actualizado el ${formatDateTime(updatedDate)}`}
+                      displayDate
+                    )} | Actualizado ${formatDateTime(updateDate)}`
+                  : `Actualizado el ${formatDateTime(displayDate)}`}
               </time>
             </div>
           )}
