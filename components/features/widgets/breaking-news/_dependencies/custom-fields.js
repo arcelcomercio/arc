@@ -21,15 +21,20 @@ const customFields = PropTypes.shape({
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
   }),
-  backgroundColor: PropTypes.oneOf(['color-1', 'color-2']).tag({
+  backgroundColor: PropTypes.oneOf(['color-1', 'color-2', 'color-3']).tag({
     name: 'Color de fondo',
     labels: {
       'color-1': 'Principal',
       'color-2': 'Secundario',
+      'color-3': 'Terciario',
     },
     defaultValue: 'color-1',
   }),
-
+  showIcon: PropTypes.bool.tag({
+    name: 'Visualizar Icono',
+    description: 'Por Defecto es falso, no muestra el icono de en vivo',
+    defaultValue: false,
+  }),
   subTitle: PropTypes.string.tag({
     name: 'Descripción',
     hidden: true,

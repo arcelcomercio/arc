@@ -29,4 +29,11 @@
   & .live-event-image {
     width: 100%;
   }
+  & .fijado {
+    position: relative;
+  }
+  & .icon-compartir {
+    position: absolute;
+    right: 0;
+  }
 }
