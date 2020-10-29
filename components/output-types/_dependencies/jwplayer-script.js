@@ -3,17 +3,12 @@ const jwplayerObserver = (entries, observer) => {
   entries.forEach(entry => {
     const { isIntersecting, target } = entry
     if (isIntersecting) {
-      const nameId = target.getAttribute('id')
-      const [, name = '', mediaId = ''] = nameId.split('_')
-
-      const [nameAds = '', mediaIdAds = ''] = nameId.split('-')
-      if (mediaIdAds) {
-        jwplayer(nameId).setup({
-          playlist: 'https://cdn.jwplayer.com/v2/media/' + mediaIdAds,
-        })
-      } else {
+      console.log('target',target)
+      let nameId = target.getAttribute('id')
+      nameId = nameId.split('_')
+      if( nameId[1]){
         const linkElem =
-          'https://cdn.jwplayer.com/players/' + name + '-' + mediaId + '.js'
+          'https://cdn.jwplayer.com/players/' + nameId[1] + '-' + nameId[2] + '.js'
         const node = document.createElement('script')
         node.type = 'text/javascript'
         node.src = linkElem
@@ -39,8 +34,7 @@ window.addEventListener('load', function() {
 })
 */
 
-const videoScript = `
-const jwplayerObserver=(e,t)=>{e.forEach(e=>{const{isIntersecting:r,target:n}=e;if(r){const e=n.getAttribute("id"),[,r="",s=""]=e.split("_"),[o="",c=""]=e.split("-");if(c)jwplayer(e).setup({playlist:"https://cdn.jwplayer.com/v2/media/"+c});else{const e="https://cdn.jwplayer.com/players/"+r+"-"+s+".js",t=document.createElement("script");t.type="text/javascript",t.src=e,document.head.append(t)}t.unobserve(n)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".jwplayer-lazy")),t=new IntersectionObserver(jwplayerObserver,{rootMargin:"0px"});e.forEach(function(e){t.observe(e)})}})});
+const videoScript = `"use strict";var jwplayerObserver=function(e,r){e.forEach(function(e){var t=e.isIntersecting,n=e.target;if(t){console.log("target",n);var o=n.getAttribute("id");if((o=o.split("_"))[1]){var a="https://cdn.jwplayer.com/players/"+o[1]+"-"+o[2]+".js",i=document.createElement("script");i.type="text/javascript",i.src=a,document.head.append(i)}r.unobserve(n)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".jwplayer-lazy")),r=new IntersectionObserver(jwplayerObserver,{rootMargin:"0px"});e.forEach(function(e){r.observe(e)})}})});
 `
 
 export default videoScript

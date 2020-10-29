@@ -246,7 +246,6 @@ export default ({
     oembedSubtypes,
     embedTwitterAndInst,
     promoItems: { basic_html: { content = '' } = {} } = {},
-    promoItemJwplayer = {},
     jwplayerSeo = {},
   } = new StoryData({
     data: globalContent,
@@ -433,10 +432,7 @@ export default ({
           }}
         />
         <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
-        {(promoItemJwplayer.key || jwplayerSeo[0].key) && (
-          <script
-            src={`https://cdn.jwplayer.com/libraries/${siteProperties.jwplayerIdAds}.js`}></script>
-        )}
+
         <meta name="description" lang="es" content={description} />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />

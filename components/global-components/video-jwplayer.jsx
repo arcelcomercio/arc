@@ -2,41 +2,26 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 const StoryContentChildVideoJwplayer = ({ data = {} }) => {
-  const { siteProperties: { jwplayerId = '' } = {} } = useFusionContext()
+  const {
+    siteProperties: { jwplayerId = '', jwplayerIdAds = '' } = {},
+  } = useFusionContext()
 
   const { key: mediaId = '', duration = '', has_ads: hasAds = 0 } = data
 
-  const jscriptVideo = `
-  jwplayer("mediaId-${mediaId}").setup({ 
-    "playlist": "https://cdn.jwplayer.com/v2/media/${mediaId}",
-    "image":"https://cdn.jwplayer.com/v2/media/${mediaId}/poster.jpg?width=720"
-  });
-  `
+  const player = hasAds ? jwplayerIdAds : jwplayerId
+
   return (
     <>
       {mediaId && (
         <>
-          {hasAds ? (
-            <>
-              <div
-                data-time={duration}
-                data-mediaid={mediaId}
-                className="jwplayer-lazy"
-                id={`mediaId-${mediaId}`}></div>
-              <script
-                type="text/JavaScript"
-                dangerouslySetInnerHTML={{
-                  __html: jscriptVideo,
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <script
-                src={`https://cdn.jwplayer.com/players/${mediaId}-${jwplayerId}.js`}></script>
-              <div id={`botr_${mediaId}_${jwplayerId}_div`}></div>
-            </>
-          )}
+          <>
+            <script
+              src={`https://cdn.jwplayer.com/players/${mediaId}-${player}.js`}></script>
+            <div
+              data-time={duration}
+              className="jwplayer-lazy"
+              id={`botr_${mediaId}_${player}_div`}></div>
+          </>
         </>
       )}
     </>

@@ -85,6 +85,7 @@ const StoryContentsLite = () => {
       isDfp = false,
       siteUrl,
       jwplayerId,
+      jwplayerIdAds,
     },
   } = useFusionContext()
 
@@ -250,18 +251,12 @@ const StoryContentsLite = () => {
                         config: { key: mediaId = '', has_ads: hasAds = 0 } = {},
                       } = {},
                     } = element
+                    const player = hasAds ? jwplayerIdAds : jwplayerId
                     return (
                       <>
-                        {hasAds ? (
-                          <div
-                            className="jwplayer-lazy"
-                            id={`mediaId-${mediaId}`}
-                          />
-                        ) : (
-                          <div
-                            className="jwplayer-lazy "
-                            id={`botr_${mediaId}_${jwplayerId}_div`}></div>
-                        )}
+                        <div
+                          className="jwplayer-lazy "
+                          id={`botr_${mediaId}_${player}_div`}></div>
                       </>
                     )
                   }

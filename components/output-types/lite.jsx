@@ -178,7 +178,6 @@ const LiteOutput = ({
     embedTwitterAndInst,
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
-    promoItemJwplayer,
     jwplayerSeo,
   } = new StoryData({
     data: globalContent,
@@ -373,10 +372,7 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
         />
-        {(promoItemJwplayer.key || jwplayerSeo[0].key) && (
-          <script
-            src={`https://cdn.jwplayer.com/libraries/${siteProperties.jwplayerIdAds}.js`}></script>
-        )}
+
         <MetaSite {...metaSiteData} />
         <meta name="description" lang="es" content={description} />
         {arcSite === SITE_ELCOMERCIOMAG && (

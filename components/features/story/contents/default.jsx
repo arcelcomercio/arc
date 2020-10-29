@@ -95,6 +95,7 @@ class StoryContents extends PureComponent {
         isDfp = false,
         siteUrl,
         jwplayerId,
+        jwplayerIdAds,
       },
       isAdmin,
     } = this.props
@@ -306,18 +307,12 @@ class StoryContents extends PureComponent {
                           } = {},
                         } = {},
                       } = element
+                      const player = hasAds ? jwplayerIdAds : jwplayerId
                       return (
                         <>
-                          {hasAds ? (
-                            <div
-                              className="jwplayer-lazy"
-                              id={`mediaId-${videJplayer}`}
-                            />
-                          ) : (
-                            <div
-                              className="jwplayer-lazy"
-                              id={`botr_${videJplayer}_${jwplayerId}_div`}></div>
-                          )}
+                          <div
+                            className="jwplayer-lazy"
+                            id={`botr_${videJplayer}_${player}_div`}></div>
                         </>
                       )
                     }
