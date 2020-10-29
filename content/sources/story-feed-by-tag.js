@@ -42,10 +42,15 @@ const params = [
     displayName: 'Campos incluidos',
     type: 'text',
   },
+  {
+    name: 'isContentType',
+    displayName: 'Tipo de contenido [premium,free,metered](Opcional)',
+    type: 'text',
+  },
 ]
 
 const resolve = (key = {}) => {
-  const { name, website: rawWebsite = '', includedFields } = key
+  const { name, website: rawWebsite = '', includedFields, isContentType } = key
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
@@ -66,6 +71,10 @@ const resolve = (key = {}) => {
 
   const from = includedFields ? key.from || 0 : `${validateFrom()}`
 
+  const isTypeSearch = isContentType
+    ? `+AND+content_restrictions.content_code:${isContentType}`
+    : ''
+
   const sourceInclude = includedFields
     ? `&_sourceInclude=${formatIncludedFields({
         includedFields,
@@ -78,7 +87,7 @@ const resolve = (key = {}) => {
  */
   return `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
-  ).toLowerCase()}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
+  ).toLowerCase()}${isTypeSearch}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
 }
 
 const transform = (

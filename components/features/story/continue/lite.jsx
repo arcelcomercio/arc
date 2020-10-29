@@ -142,7 +142,8 @@ const StoryContinueLite = props => {
       query: {
         name: tag,
         stories_qty: 10,
-        includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype`,
+        includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
+        isContentType: 'free',
       },
     }) || {}
 
@@ -152,12 +153,27 @@ const StoryContinueLite = props => {
       query: {
         section: removeLastSlash(path),
         stories_qty: tag ? 10 : 20,
-        includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype`,
+        includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
+        isContentType: 'free',
+      },
+    }) || {}
+
+  const sectionStoriesPremium =
+    useContent({
+      source: 'story-feed-by-section',
+      query: {
+        section: removeLastSlash(path),
+        stories_qty: tag ? 10 : 20,
+        includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
+        isContentType: 'premium',
       },
     }) || {}
 
   const { content_elements: tagElements = [] } = tagStories
   const { content_elements: sectionElements = [] } = sectionStories
+  const {
+    content_elements: sectionElementsPremium = [],
+  } = sectionStoriesPremium
 
   const filterStoriesCb = (story = {}) => {
     const { promo_items: { basic_gallery: { type } = {} } = {} } = story
@@ -172,6 +188,7 @@ const StoryContinueLite = props => {
   const filteredStories = [
     ...(tag ? tagElements.filter(filterStoriesCb).slice(0, 5) : []),
     ...sectionElements.filter(filterStoriesCb).slice(0, tag ? 5 : 10),
+    ...sectionElementsPremium.filter(filterStoriesCb).slice(0, tag ? 5 : 10),
   ]
 
   const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recent_articles_",t="<<recentStoriesrecentStoriesrecentStories>>",n=JSON.parse(window.sessionStorage.getItem(e))||{},o=function(t){void 0===t&&(t={});var n=t,o=n.section,i=n.data,r=void 0===i?[]:i;window.sessionStorage.setItem(e,JSON.stringify({section:o,data:r.filter(function(e){return e.link!==window.location.pathname})}))};n.section?n.section!==t.section?(window.sessionStorage.removeItem(e),o(t)):(window.sessionStorage.removeItem(e),o(n)):o(t);/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:"");var i=(JSON.parse(window.sessionStorage.getItem(e))||{}).data||[],r=0,s=function(){var e=i[r]||{};e.link&&(r=1,requestIdle(function(){var t=location.href.includes("/pf"),n=e.link+"?ref=nota&ft=autoload&story="+r;n=t?n+"&outputType=lite&_website=<<arcSite>>":n;var o=document.createElement("iframe");o.src=location.origin+n,o.width="100%",o.height="8000",o.id="st-iframe-"+r,o.frameborder="0",o.scrolling="no",document.body.appendChild(o),document.title=e.title,history.pushState({story:r},e.title,t?"/pf"+e.link:e.link)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+r,e.style.height="10px",document.body.appendChild(e),d(e);var t=document.getElementById("st-iframe-"+r);t.onload=function(){requestIdle(function(){t.height=t.contentWindow.document.documentElement.offsetHeight+"px"})}}))},d=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(s(),t.unobserve(e.target))})},{rootMargin:"0px 0px 800px 0px"});t.observe(e)}else window.addEventListener("scroll",function e(){window.innerHeight+document.documentElement.scrollTop>=document.body.scrollHeight-500&&window.removeEventListener("scroll",e),s()})};d(document.getElementById("st-continue"))})});`
