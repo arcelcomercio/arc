@@ -108,7 +108,6 @@ export const processedPublividad = (
     if (i === 11) {
       publicidad = type !== 'lite' ? spaceDefault(4) : publicidadHtml('caja4')
     }
-    console.log('entryHtmlentryHtml=>>>', entry)
     entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad} `
   })
 
