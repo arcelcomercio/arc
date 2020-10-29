@@ -69,12 +69,7 @@ export const stripTags = (inputs, allowed = '') => {
   })
 }
 
-export const processedPublividad = (
-  content,
-  type = '',
-  arcSite = '',
-  secc = ''
-) => {
+export const processedAds = (content, type = '', arcSite = '', secc = '') => {
   const publicidadHtml = espacio => {
     return `<div id=${`gpt_${espacio}`} className="f just-center" data-ads-name=${`/28253241/${arcSite}/web/post/${secc}/${espacio}`}
                   data-ads-dimensions="[[300,250]]" data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>`

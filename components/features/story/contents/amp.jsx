@@ -177,7 +177,7 @@ class StoryContentAmp extends PureComponent {
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
-    const processedPublividadAmp = content => {
+    const processedAdsAmp = content => {
       const res = content.split('<div class="live-event2-comment">')
       let entryHtml = ''
 
@@ -283,7 +283,7 @@ class StoryContentAmp extends PureComponent {
                   ) : (
                     <RawHtml
                       content={ampHtml(
-                        processedPublividadAmp(content),
+                        processedAdsAmp(content),
                         arcSite,
                         source.source_id
                       )}

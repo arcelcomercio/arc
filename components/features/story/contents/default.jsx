@@ -60,7 +60,7 @@ import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import Ads from '../../../global-components/ads'
 import LiteYoutube from '../../../global-components/lite-youtube'
-import { processedPublividad } from '../../../utilities/story/helpers'
+import { processedAds } from '../../../utilities/story/helpers'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -450,7 +450,7 @@ class StoryContents extends PureComponent {
                     if (content.includes('<mxm')) {
                       return (
                         <StoryContentChildRawHTML
-                          content={processedPublividad(content)}
+                          content={processedAds(content)}
                         />
                       )
                     }
