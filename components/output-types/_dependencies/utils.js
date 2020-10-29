@@ -15,7 +15,7 @@ export const getIsStory = ({ metaValue, requestUri }) =>
 export const getTitle = ({
   metaValue,
   isStory,
-  siteTitle = '',
+  siteTitle,
   storyTitleRe,
   pageNumber,
   requestUri,
