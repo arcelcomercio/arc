@@ -11,7 +11,7 @@ const renderVideos = (search = '') => {
       if(response.videos.length > 0){
         response.videos.forEach(data => {
           const {key, title, description, link, duration, custom: {thumbnail_url = ''} = {}} = data
-          const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg?width=320`
+          const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=320`
           const htmlVideo = template.replace(/%key%/gi, key)
           .replace(/%title%/gi, title)
           .replace(/%data%/gi, encodeURI(JSON.stringify(data)))
@@ -94,7 +94,7 @@ const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000)
 const buildDataAns = (data) => {
     const {key, title, description, size, duration, status, updated, date, custom:{ thumbnail_url = '' } = {}, has_ads = 0} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
-    const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg?width=720`
+    const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`
     const conversions = getPathsVideos(key);
     return {
         key,
