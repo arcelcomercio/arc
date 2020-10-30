@@ -20,7 +20,7 @@ window.addEventListener('load', () => {requestIdle(() => {
       URLS_STORAGE,
       JSON.stringify({
         section,
-        data: data.filter(({ link }) => link !== window.location.pathname),
+        data: recentStories.data,
       })
     )
   }
@@ -42,9 +42,21 @@ window.addEventListener('load', () => {requestIdle(() => {
   const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
     typeof window !== 'undefined' ? window.navigator.userAgent : ''
     )
-    
-  const nextStoriesArray =
-    ((JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}).data) || []
+  
+  const isPremiumUser = () => {
+            let isPremium = false
+            if(window.localStorage && window.localStorage.hasOwnProperty('ArcId.USER_INFO') && window.localStorage.getItem('ArcId.USER_INFO') !== '{}'){
+              const UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')).uuid;
+              const COUNT_USER = JSON.parse(window.localStorage.getItem('ArcP') || '{}')[UUID_USER]
+              if(COUNT_USER && COUNT_USER.sub.p.length) { isPremium = true }
+            } else { isPremium = false }
+            return isPremium;
+          }
+  const sessionStoriesObject = ((JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}).data) || {storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]} 
+  const nextStoriesArray = isPremiumUser() 
+    ? [...sessionStoriesObject.storiesBySectionPremium, ...sessionStoriesObject.storiesByTag]
+    : [...sessionStoriesObject.storiesByTag, ...sessionStoriesObject.storiesBySection]
+
   let page = 0
   
   const loadNextUrlStorage = () => {
@@ -131,7 +143,7 @@ window.addEventListener('load', () => {requestIdle(() => {
 
 const StoryContinueLite = props => {
   const { customFields: { activeAnchor } = {} } = props
-  const { globalContent, arcSite } = useAppContext()
+  const { globalContent, arcSite, requestUri } = useAppContext()
   const { taxonomy: { primary_section: { path = '' } = {}, tags = [] } = {} } =
     globalContent || {}
   const { slug: tag } = tags[0]
@@ -176,33 +188,46 @@ const StoryContinueLite = props => {
   } = sectionStoriesPremium
 
   const filterStoriesCb = (story = {}) => {
-    const { promo_items: { basic_gallery: { type } = {} } = {} } = story
+    const {
+      websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
+      promo_items: { basic_gallery: { type } = {} } = {},
+    } = story
     // Filtra las historias que no son Galeria horizontal
     return (
-      (type === ELEMENT_GALLERY && story.subtype !== GALLERY_SLIDER) ||
-      (type !== ELEMENT_GALLERY && story.subtype === GALLERY_SLIDER)
+      requestUri !== websiteUrl &&
+      ((type === ELEMENT_GALLERY && story.subtype !== GALLERY_SLIDER) ||
+        (type !== ELEMENT_GALLERY && story.subtype === GALLERY_SLIDER))
     )
   }
 
-  // Determina cantidad de historias si hay o no tag
-  const filteredStories = [
-    ...(tag ? tagElements.filter(filterStoriesCb).slice(0, 5) : []),
-    ...sectionElements.filter(filterStoriesCb).slice(0, tag ? 5 : 10),
-    ...sectionElementsPremium.filter(filterStoriesCb).slice(0, tag ? 5 : 10),
-  ]
+  const filterStories = (stories = []) => {
+    return stories
+      .filter(filterStoriesCb)
+      .map(
+        ({
+          websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
+          headlines: { basic = '' } = {},
+        }) => ({ link: websiteUrl, title: basic })
+      )
+  }
 
-  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recent_articles_",t="<<recentStoriesrecentStoriesrecentStories>>",n=JSON.parse(window.sessionStorage.getItem(e))||{},o=function(t){void 0===t&&(t={});var n=t,o=n.section,i=n.data,r=void 0===i?[]:i;window.sessionStorage.setItem(e,JSON.stringify({section:o,data:r.filter(function(e){return e.link!==window.location.pathname})}))};n.section?n.section!==t.section?(window.sessionStorage.removeItem(e),o(t)):(window.sessionStorage.removeItem(e),o(n)):o(t);/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:"");var i=(JSON.parse(window.sessionStorage.getItem(e))||{}).data||[],r=0,s=function(){var e=i[r]||{};e.link&&(r=1,requestIdle(function(){var t=location.href.includes("/pf"),n=e.link+"?ref=nota&ft=autoload&story="+r;n=t?n+"&outputType=lite&_website=<<arcSite>>":n;var o=document.createElement("iframe");o.src=location.origin+n,o.width="100%",o.height="8000",o.id="st-iframe-"+r,o.frameborder="0",o.scrolling="no",document.body.appendChild(o),document.title=e.title,history.pushState({story:r},e.title,t?"/pf"+e.link:e.link)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+r,e.style.height="10px",document.body.appendChild(e),d(e);var t=document.getElementById("st-iframe-"+r);t.onload=function(){requestIdle(function(){t.height=t.contentWindow.document.documentElement.offsetHeight+"px"})}}))},d=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(s(),t.unobserve(e.target))})},{rootMargin:"0px 0px 800px 0px"});t.observe(e)}else window.addEventListener("scroll",function e(){window.innerHeight+document.documentElement.scrollTop>=document.body.scrollHeight-500&&window.removeEventListener("scroll",e),s()})};d(document.getElementById("st-continue"))})});`
+  // Determina cantidad de historias si hay o no tag
+  const filteredStories = {
+    storiesByTag: tag ? filterStories(tagElements).slice(0, 5) : [],
+    storiesBySection: filterStories(sectionElements).slice(0, tag ? 5 : 10),
+    storiesBySectionPremium: filterStories(sectionElementsPremium).slice(
+      0,
+      tag ? 5 : 10
+    ),
+  }
+
+  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recent_articles_",t="<<recentStoriesrecentStoriesrecentStories>>",o=JSON.parse(window.sessionStorage.getItem(e))||{},n=function(o){void 0===o&&(o={});var n=o,i=n.section;n.data;window.sessionStorage.setItem(e,JSON.stringify({section:i,data:t.data}))};o.section?o.section!==t.section?(window.sessionStorage.removeItem(e),n(t)):(window.sessionStorage.removeItem(e),n(o)):n(t);/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:"");var i=(JSON.parse(window.sessionStorage.getItem(e))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},r=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,o=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];o&&o.sub.p.length&&(e=!0)}else e=!1;return e}()?[].concat(i.storiesBySectionPremium,i.storiesByTag):[].concat(i.storiesByTag,i.storiesBySection),s=0,c=function(){var e=r[s]||{};e.link&&(s=1,requestIdle(function(){var t=location.href.includes("/pf"),o=e.link+"?ref=nota&ft=autoload&story="+s;o=t?o+"&outputType=lite&_website=<<arcSite>>":o;var n=document.createElement("iframe");n.src=location.origin+o,n.width="100%",n.height="8000",n.id="st-iframe-"+s,n.frameborder="0",n.scrolling="no",document.body.appendChild(n),document.title=e.title,history.pushState({story:s},e.title,t?"/pf"+e.link:e.link)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+s,e.style.height="10px",document.body.appendChild(e),d(e);var t=document.getElementById("st-iframe-"+s);t.onload=function(){requestIdle(function(){t.height=t.contentWindow.document.documentElement.offsetHeight+"px"})}}))},d=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(c(),t.unobserve(e.target))})},{rootMargin:"0px 0px 800px 0px"});t.observe(e)}else window.addEventListener("scroll",function e(){window.innerHeight+document.documentElement.scrollTop>=document.body.scrollHeight-500&&window.removeEventListener("scroll",e),c()})};d(document.getElementById("st-continue"))})});`
     .replace('<<arcSite>>', arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',
       JSON.stringify({
         section: removeLastSlash(path),
-        data: filteredStories.map(
-          ({
-            websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
-            headlines: { basic = '' } = {},
-          }) => ({ link: websiteUrl, title: basic })
-        ),
+        data: filteredStories,
       })
     )
 
