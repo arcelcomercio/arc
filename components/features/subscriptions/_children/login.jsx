@@ -32,7 +32,6 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   const [showVerify, setShowVerify] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
   const [showSendEmail, setShowSendEmail] = useState(false)
-  const [showMsgVerifyEmail, setShowMsgVerifyEmail] = useState()
   const { texts } = PropertiesCommon
 
   const stateSchema = {
@@ -122,8 +121,8 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   }
 
   const triggerShowVerify = () => {
-    setMsgError(getCodeError('130051'))
-    setShowMsgVerifyEmail(true)
+    setMsgError(getCodeError('verifySocial'))
+    setShowVerify(false)
   }
 
   return (
@@ -174,13 +173,6 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                         <strong id="countdown"> 10 </strong> segundos
                       </span>
                     )}
-                  </>
-                )}
-                {showMsgVerifyEmail && (
-                  <>
-                    <br />
-                    El Correo Electrónico asociado a tu red social no está
-                    verificado.
                   </>
                 )}
               </div>

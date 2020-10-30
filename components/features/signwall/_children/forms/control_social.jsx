@@ -160,12 +160,12 @@ const setupUserProfile = (
         resProfile.email ||
         `${resProfile.identities[0].userName}@${provider}.com`
 
-      if (!resProfile.displayName && !resProfile.attributes) {
+      if (!resProfile.attributes) {
         const newProfileFB = {
           firstName: resProfile.firstName.replace(/\./g, ''),
           lastName: resProfile.lastName.replace(/\./g, ''),
-          displayName: EMAIL_USER,
-          email: EMAIL_USER,
+          // displayName: EMAIL_USER,
+          // email: EMAIL_USER,
           attributes: [
             {
               name: 'originDomain',

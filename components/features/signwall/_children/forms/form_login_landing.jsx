@@ -31,7 +31,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const [showStudents, setShowStudents] = useState(false)
   const [showVerify, setShowVerify] = useState()
   const [showSendEmail, setShowSendEmail] = useState(false)
-  const [showMsgVerifyEmail, setShowMsgVerifyEmail] = useState()
 
   const isFbBrowser =
     typeof window !== 'undefined' &&
@@ -155,8 +154,8 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   }
 
   const triggerShowVerify = () => {
-    setShowError(getCodeError('130051'))
-    setShowMsgVerifyEmail(true)
+    setShowError(getCodeError('verifySocial'))
+    setShowVerify(false)
   }
 
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
@@ -231,13 +230,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                           <strong id="countdown"> 10 </strong> segundos
                         </span>
                       )}
-                    </>
-                  )}
-                  {showMsgVerifyEmail && (
-                    <>
-                      <br />
-                      El Correo Electrónico asociado a tu red social no está
-                      verificado.
                     </>
                   )}
                 </S.Error>

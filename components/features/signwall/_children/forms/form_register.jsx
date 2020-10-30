@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-// import { sha256 } from 'js-sha256'
+import { sha256 } from 'js-sha256'
 import * as S from './styles'
 import { ButtonSocial, AuthURL } from './control_social'
 import { ModalConsumer } from '../context'
@@ -12,7 +12,7 @@ import useForm from '../../_dependencies/useForm'
 import getDevice from '../../_dependencies/get-device'
 import { FormStudents } from './form_students'
 import Domains from '../../_dependencies/domains'
-// import Cookies from '../../_dependencies/cookies'
+import Cookies from '../../_dependencies/cookies'
 import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
 import Loading from '../loading'
@@ -35,7 +35,7 @@ const FormRegister = props => {
       },
       activeNewsletter = false,
     },
-    // removeBefore = i => i,
+    removeBefore = i => i,
   } = props
 
   const [showError, setShowError] = useState(false)
@@ -44,9 +44,11 @@ const FormRegister = props => {
   const [showStudents, setShowStudents] = useState(false)
   const [showChecked, setShowChecked] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
+
   const [showCheckPremium, setShowCheckPremium] = useState(false)
   const [showUserWithSubs, setShowUserWithSubs] = useState(false)
   const [showSendEmail, setShowSendEmail] = useState(false)
+  const [showContinueVerify, setShowContinueVerify] = useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -87,61 +89,64 @@ const FormRegister = props => {
     },
   }
 
-  // const handleSuscription = () => {
-  //   if (typeDialog === 'premium') {
-  //     window.sessionStorage.setItem(
-  //       'paywall_last_url',
-  //       window.location.pathname ? window.location.pathname : ''
-  //     )
-  //   } else {
-  //     window.sessionStorage.setItem(
-  //       'paywall_last_url',
-  //       window.document.referrer
-  //         ? window.document.referrer.split(window.location.origin)[1]
-  //         : ''
-  //     )
-  //   }
-  //   removeBefore() // dismount before
-  //   window.location.href = Domains.getUrlPaywall(arcSite)
-  //   window.sessionStorage.setItem('paywall_type_modal', typeDialog)
-  // }
+  const handleSuscription = () => {
+    if (typeDialog === 'premium') {
+      window.sessionStorage.setItem(
+        'paywall_last_url',
+        window.location.pathname ? window.location.pathname : ''
+      )
+    } else {
+      window.sessionStorage.setItem(
+        'paywall_last_url',
+        window.document.referrer
+          ? window.document.referrer.split(window.location.origin)[1]
+          : ''
+      )
+    }
+    removeBefore() // dismount before
+    window.location.href = Domains.getUrlPaywall(arcSite)
+    window.sessionStorage.setItem('paywall_type_modal', typeDialog)
+  }
 
-  const handleGetProfile = () => {
+  const handleStopProfile = () => {
     setShowConfirm(true)
     window.localStorage.removeItem('ArcId.USER_INFO')
     window.localStorage.removeItem('ArcId.USER_PROFILE')
     window.Identity.userProfile = null
     window.Identity.userIdentity = {}
-    // window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    // window.Identity.getUserProfile()
-    //   .then(profile => {
-    //     Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+  }
 
-    //     const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-    //     Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+  const handleGetProfile = () => {
+    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.getUserProfile()
+      .then(profile => {
+        Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
 
-    //     if (activeNewsletter) {
-    //       Services.sendNewsLettersUser(
-    //         window.Identity.userIdentity.uuid,
-    //         profile.email,
-    //         arcSite,
-    //         window.Identity.userIdentity.accessToken,
-    //         ['general']
-    //       ).then(() => {
-    //         setShowConfirm(true)
-    //         onLogged(profile)
-    //       })
-    //     } else {
-    //       setShowConfirm(true)
-    //       onLogged(profile)
-    //     }
-    //   })
-    //   .catch(() => {
-    //     Taggeo(
-    //       `Web_Sign_Wall_${typeDialog}`,
-    //       `web_sw${typeDialog[0]}_registro_error_registrarme`
-    //     )
-    //   })
+        const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+        Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+
+        if (activeNewsletter) {
+          Services.sendNewsLettersUser(
+            window.Identity.userIdentity.uuid,
+            profile.email,
+            arcSite,
+            window.Identity.userIdentity.accessToken,
+            ['general']
+          ).then(() => {
+            setShowConfirm(true)
+            onLogged(profile)
+          })
+        } else {
+          setShowConfirm(true)
+          onLogged(profile)
+        }
+      })
+      .catch(() => {
+        Taggeo(
+          `Web_Sign_Wall_${typeDialog}`,
+          `web_sw${typeDialog[0]}_registro_error_registrarme`
+        )
+      })
   }
 
   const originAction = () => {
@@ -215,8 +220,14 @@ const FormRegister = props => {
       { doLogin: false },
       { rememberMe: false }
     )
-      .then(() => {
-        handleGetProfile()
+      .then(resSignUp => {
+        console.log(resSignUp)
+        if (resSignUp.accessToken) {
+          handleGetProfile()
+        } else {
+          handleStopProfile()
+          setShowContinueVerify(true)
+        }
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_success_registrarme`
@@ -231,6 +242,7 @@ const FormRegister = props => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_error_registrarme`
         )
+        Cookies.setCookie('lostEmail', remail, 1)
       })
   }
 
@@ -498,57 +510,79 @@ const FormRegister = props => {
                           : 'Tu cuenta ha sido creada correctamente'}
                       </S.Title>
 
-                      <S.Title s="14" c="#6a6a6a" className="center">
-                        {remail}
-                      </S.Title>
+                      {showContinueVerify && (
+                        <S.Title s="14" c="#6a6a6a" className="center">
+                          {remail}
+                        </S.Title>
+                      )}
 
-                      {(typeDialog === 'premium' || typeDialog === 'paywall') &&
-                        showUserWithSubs && (
-                          <>
-                            <S.Text
-                              c="gray"
-                              s="14"
-                              lh="28"
-                              className="mt-10 mb-20 center">
-                              Sigue disfrutando del contenido exclusivo que
-                              tenemos para ti
-                            </S.Text>
+                      {(typeDialog === 'premium' ||
+                        typeDialog === 'paywall') && (
+                        <>
+                          {showUserWithSubs ? (
+                            <>
+                              <S.Text
+                                c="gray"
+                                s="14"
+                                lh="28"
+                                className="mt-10 mb-20 center">
+                                Sigue disfrutando del contenido exclusivo que
+                                tenemos para ti
+                              </S.Text>
+
+                              <S.Button
+                                id="btn-premium-continue"
+                                type="button"
+                                color={mainColorBtn}
+                                onClick={() => {
+                                  Taggeo(
+                                    `Web_${typeDialog}_Hard`,
+                                    `web_${typeDialog}_boton_sigue_navegando`
+                                  )
+                                  if (
+                                    window.sessionStorage.getItem(
+                                      'paywall_last_url'
+                                    ) &&
+                                    window.sessionStorage.getItem(
+                                      'paywall_last_url'
+                                    ) !== ''
+                                  ) {
+                                    window.location.href = window.sessionStorage.getItem(
+                                      'paywall_last_url'
+                                    )
+                                  } else {
+                                    onClose()
+                                  }
+                                }}>
+                                SIGUE NAVEGANDO
+                              </S.Button>
+                            </>
+                          ) : (
                             <S.Button
-                              id="btn-premium-continue"
                               type="button"
                               color={mainColorBtn}
                               onClick={() => {
                                 Taggeo(
-                                  `Web_${typeDialog}_Hard`,
-                                  `web_${typeDialog}_boton_sigue_navegando`
+                                  `Web_Sign_Wall_${typeDialog}`,
+                                  `web_sw${typeDialog[0]}_boton_ver_planes`
                                 )
-                                if (
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) &&
-                                  window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  ) !== ''
-                                ) {
-                                  window.location.href = window.sessionStorage.getItem(
-                                    'paywall_last_url'
-                                  )
-                                } else {
-                                  onClose()
-                                }
+                                handleSuscription()
                               }}>
-                              SIGUE NAVEGANDO
+                              VER PLANES
                             </S.Button>
-                          </>
-                        )}
+                          )}
+                        </>
+                      )}
 
                       <S.Text
                         c="gray"
                         s="14"
                         lh="22"
                         className="mt-10 mb-20 center">
-                        Revisa tu bandeja de correo para confirmar tu registro y
-                        sigue navegando
+                        Revisa tu bandeja de correo para confirmar tu
+                        {showContinueVerify
+                          ? ` registro y sigue navegando`
+                          : ` solicitud de registro`}
                       </S.Text>
                       <S.Button
                         type="button"
@@ -559,8 +593,11 @@ const FormRegister = props => {
                             `web_sw${typeDialog[0]}_registro_continuar_navegando`
                           )
                           if (typeDialog === 'students') {
-                            // setShowStudents(!showStudents)
-                            value.changeTemplate('login', '', remail)
+                            if (showContinueVerify) {
+                              value.changeTemplate('login', '', remail)
+                            } else {
+                              setShowStudents(!showStudents)
+                            }
                           } else {
                             const btnSignwall = document.getElementById(
                               'signwall-nav-btn'
@@ -568,32 +605,37 @@ const FormRegister = props => {
                             if (typeDialog === 'newsletter' && btnSignwall) {
                               btnSignwall.textContent = 'Bienvenido'
                             }
-                            // onClose()
-                            value.changeTemplate('login', '', remail)
+                            if (showContinueVerify) {
+                              value.changeTemplate('login', '', remail)
+                            } else {
+                              onClose()
+                            }
                           }
                         }}>
                         CONTINUAR
                       </S.Button>
 
-                      <S.Text c="black" s="12" className="mt-20 mb-10 center">
-                        ¿No recibiste el correo?
-                        <br />
-                        {!showSendEmail ? (
-                          <S.Link
-                            href="#"
-                            c={mainColorLink}
-                            fw="bold"
-                            className="ml-10"
-                            onClick={sendVerifyEmail}>
-                            Reenviar correo de activación
-                          </S.Link>
-                        ) : (
-                          <span>
-                            Podrás reenviar nuevamente dentro de
-                            <strong id="countdown"> 10 </strong> segundos
-                          </span>
-                        )}
-                      </S.Text>
+                      {showContinueVerify && (
+                        <S.Text c="black" s="12" className="mt-20 mb-10 center">
+                          ¿No recibiste el correo?
+                          <br />
+                          {!showSendEmail ? (
+                            <S.Link
+                              href="#"
+                              c={mainColorLink}
+                              fw="bold"
+                              className="ml-10"
+                              onClick={sendVerifyEmail}>
+                              Reenviar correo de activación
+                            </S.Link>
+                          ) : (
+                            <span>
+                              Podrás reenviar nuevamente dentro de
+                              <strong id="countdown"> 10 </strong> segundos
+                            </span>
+                          )}
+                        </S.Text>
+                      )}
                     </>
                   )}
                 </S.Form>

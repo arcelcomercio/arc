@@ -20,6 +20,9 @@ export const FormForgot = ({
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [registerLink, setRegisterLink] = useState()
+  const [showVerify, setShowVerify] = useState()
+  const [showSendEmail, setShowSendEmail] = useState(false)
 
   const stateSchema = {
     femail: { value: '', error: '' },
@@ -62,8 +65,18 @@ export const FormForgot = ({
         taggeoSuccess()
       })
       .catch(errForgot => {
-        setShowError(getCodeError(errForgot.code))
-        taggeoError()
+        setRegisterLink(errForgot.code === '300030')
+        setShowVerify(errForgot.code === '130051')
+        if (errForgot.code === '130051') {
+          setShowError(getCodeError('verifyReset'))
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_contrasena_show_reenviar_correo`
+          )
+        } else {
+          setShowError(getCodeError(errForgot.code))
+          taggeoError()
+        }
       })
       .finally(() => {
         setShowLoading(false)
@@ -77,6 +90,26 @@ export const FormForgot = ({
     handleOnSubmit,
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
+
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(femail)
+    Taggeo(
+      `Web_Sign_Wall_${typeDialog}`,
+      `web_sw${typeDialog[0]}_contrasena_reenviar_correo`
+    )
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
 
   return (
     <ModalConsumer>
@@ -122,7 +155,38 @@ export const FormForgot = ({
                   contraseña
                 </S.Text>
 
-                {showError && <S.Error>{showError}</S.Error>}
+                {showError && (
+                  <S.Error type={showVerify ? 'warning' : ''}>
+                    {` ${showError} `}
+                    {showVerify && (
+                      <>
+                        {!showSendEmail ? (
+                          <button type="button" onClick={sendVerifyEmail}>
+                            Reenviar correo de activación
+                          </button>
+                        ) : (
+                          <span>
+                            Podrás reenviar nuevamente dentro de
+                            <strong id="countdown"> 10 </strong> segundos
+                          </span>
+                        )}
+                      </>
+                    )}
+
+                    {registerLink && (
+                      <S.Link
+                        href="#"
+                        c="white"
+                        fw="bold"
+                        onClick={e => {
+                          e.preventDefault()
+                          value.changeTemplate('register')
+                        }}>
+                        Registrar
+                      </S.Link>
+                    )}
+                  </S.Error>
+                )}
 
                 <Input
                   type="email"

@@ -46,7 +46,6 @@ export const FormLogin = ({ valTemplate, attributes }) => {
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
   const [showVerify, setShowVerify] = useState()
   const [showSendEmail, setShowSendEmail] = useState(false)
-  const [showMsgVerifyEmail, setShowMsgVerifyEmail] = useState()
 
   const stateSchema = {
     lemail: { value: valTemplate || '', error: '' },
@@ -266,8 +265,8 @@ export const FormLogin = ({ valTemplate, attributes }) => {
 
   const triggerShowVerify = () => {
     setShowLoginEmail(true)
-    setShowError(getCodeError('130051'))
-    setShowMsgVerifyEmail(true)
+    setShowError(getCodeError('verifySocial'))
+    setShowVerify(false)
   }
 
   return (
@@ -346,13 +345,6 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                               <strong id="countdown"> 10 </strong> segundos
                             </span>
                           )}
-                        </>
-                      )}
-                      {showMsgVerifyEmail && (
-                        <>
-                          <br />
-                          El Correo Electrónico asociado a tu red social no está
-                          verificado.
                         </>
                       )}
                     </S.Error>

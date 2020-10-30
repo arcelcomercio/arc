@@ -30,12 +30,12 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
             resProfile.email ||
             `${resProfile.identities[0].userName}@${arcSocial}.com`
 
-          if (!resProfile.displayName && !resProfile.attributes) {
+          if (!resProfile.attributes) {
             const newProfileFB = {
               firstName: resProfile.firstName.replace(/\./g, ''),
               lastName: resProfile.lastName.replace(/\./g, ''),
-              displayName: userEmail,
-              email: userEmail,
+              // displayName: userEmail,
+              // email: userEmail,
               attributes: [
                 {
                   name: 'originDomain',

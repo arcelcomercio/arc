@@ -48,13 +48,14 @@ const Forgot = () => {
           Taggeo(nameTagCategory, 'web_swl_contrasena_success_boton')
         })
         .catch(err => {
-          setMsgError(getCodeError(err.code))
           setRegisterLink(err.code === '300030')
           setShowVerify(err.code === '130051')
           setLoading(false)
           if (err.code === '130051') {
+            setMsgError(getCodeError('verifyReset'))
             Taggeo(nameTagCategory, 'web_swl_contrasena_show_reenviar_correo')
           } else {
+            setMsgError(getCodeError(err.code))
             Taggeo(nameTagCategory, 'web_swl_contrasena_error_boton')
           }
         })
