@@ -11,10 +11,6 @@ export default arcSite => `
         basic {
           type 
           url
-          resized_urls { 
-            printed_md
-            lazy_default
-          }
         }
       }
       headlines{

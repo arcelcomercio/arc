@@ -19,6 +19,8 @@ import {
   BIG_IMAGE,
   STORY_CORRECTION,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
+  MINUTO_MINUTO,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -57,6 +59,7 @@ import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import Ads from '../../../global-components/ads'
+import LiteYoutube from '../../../global-components/lite-youtube'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -208,11 +211,14 @@ class StoryContents extends PureComponent {
               subtype !== SPECIAL && (
                 <StoryContentsChildMultimedia data={params} />
               )}
-
-          {SITE_ELCOMERCIO === arcSite ? (
-            <StoryContentsChildAuthorTrust {...params} />
-          ) : (
-            <StoryContentsChildAuthor {...params} />
+          {subtype !== GALLERY_VERTICAL && (
+            <>
+              {SITE_ELCOMERCIO === arcSite ? (
+                <StoryContentsChildAuthorTrust {...params} />
+              ) : (
+                <StoryContentsChildAuthor {...params} />
+              )}
+            </>
           )}
           <Ads
             adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
@@ -225,7 +231,9 @@ class StoryContents extends PureComponent {
               'story-content__nota-premium paywall no_copy'}`}
             style={isPremium ? { display: 'none' } : {}}
             id="contenedor">
-            {!requestUri.includes('/recetas/') && <StoryContentsChildIcon />}
+            {!requestUri.includes('/recetas/') && subtype !== MINUTO_MINUTO && (
+              <StoryContentsChildIcon />
+            )}
             {!isDfp && (
               <>
                 <div id="ads_d_inline" />
@@ -397,6 +405,13 @@ class StoryContents extends PureComponent {
                     }
                   }
                   if (type === ELEMENT_OEMBED) {
+                    if (sub === 'youtube') {
+                      const { html: youtubeIframe } = rawOembed || {}
+                      const [, videoId] =
+                        youtubeIframe.match(/\/embed\/([\w-]+)/) || []
+                      if (videoId)
+                        return <LiteYoutube videoId={videoId} loading="lazy" />
+                    }
                     return (
                       <Oembed
                         rawOembed={rawOembed}
@@ -431,6 +446,22 @@ class StoryContents extends PureComponent {
                   }
 
                   if (type === ELEMENT_RAW_HTML) {
+                    if (content.includes('<mxm')) {
+                      let contentHtml = content
+                      contentHtml = contentHtml
+                        .replace('</script>:', '</script>')
+                        .replace(':<script', '<script')
+                        .replace(
+                          /:icon:/gm,
+                          '<div  class="more-compartir"></div>'
+                        )
+                        .replace(
+                          /:fijado:/gm,
+                          '<svg xmlns="http://www.w3.org/2000/svg" class="icon-compartir" width="20" height="20" viewBox="0 0 475 475"><path d="M380 247c-15-19-32-28-51-28V73c10 0 19-4 26-11 7-7 11-16 11-26 0-10-4-18-11-26C347 4 339 0 329 0H146c-10 0-18 4-26 11-7 7-11 16-11 26 0 10 4 19 11 26 7 7 16 11 26 11v146c-19 0-36 9-51 28-15 19-22 40-22 63 0 5 2 9 5 13 4 4 8 5 13 5h115l22 139c1 5 4 8 9 8h0c2 0 4-1 6-2 2-2 3-4 3-6l15-138h123c5 0 9-2 13-5 4-4 5-8 5-13C402 287 395 266 380 247zM210 210c0 3-1 5-3 7-2 2-4 3-7 3-3 0-5-1-7-3-2-2-3-4-3-7V82c0-3 1-5 3-7 2-2 4-3 7-3 3 0 5 1 7 3 2 2 3 4 3 7V210z" data-original="#000000"/></svg>'
+                        )
+                      return <StoryContentChildRawHTML content={contentHtml} />
+                    }
+
                     if (
                       content.includes('opta-widget') &&
                       // eslint-disable-next-line camelcase
@@ -451,7 +482,7 @@ class StoryContents extends PureComponent {
                           <script
                             dangerouslySetInnerHTML={{
                               __html: `(function(){window.addEventListener('load', function(){
-                                setTimeout(function(){
+                                requestIdle(function(){
                                   if(!window.optaReady){
                                     var os=document.createElement('script')
                                     os.textContent=\`
@@ -472,7 +503,7 @@ class StoryContents extends PureComponent {
                                     document.head.append(n)
                                     window.optaReady=true
                                   }
-                                }, 0)
+                                })
                               })
                               })()`,
                             }}
@@ -501,21 +532,20 @@ class StoryContents extends PureComponent {
                     }
 
                     if (
-                      content.includes('twitter-tweet') ||
-                      content.includes('instagram-media')
+                      /twitter-(?:tweet|timeline)|instagram-media/.test(content)
                     ) {
                       return (
                         <>
                           <div
                             data-type={
-                              content.includes('twitter-tweet')
+                              /twitter-(?:tweet|timeline)/.test(content)
                                 ? 'twitter'
                                 : 'instagram'
                             }
                             className={classes.newsEmbed}
                             dangerouslySetInnerHTML={{
                               __html: content.replace(
-                                /(<script.*?>).*?(<\/script>)/,
+                                /<script.*?>.*?<\/script>/,
                                 ''
                               ),
                             }}

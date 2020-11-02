@@ -1,13 +1,11 @@
 export default {
   siteName: 'El Comercio Perú',
   sitemapNewsName: 'El Comercio',
-  siteTitle: 'Noticias El Comercio Perú',
+  siteTitle: 'El Comercio Perú',
   newsletterBrand: 'comercio',
   api: {
     blog: 'https://svc-blogs.elcomercio.pe/apiblogs.php',
   },
-  googleFonts: '',
-
   colorPrimary: '#f7c600',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://elcomercio.pe',
@@ -253,4 +251,5 @@ export default {
     mode: 'thumbnails-c',
   },
   isDfp: true,
+  archiveLimit: '2011-08-14',
 }

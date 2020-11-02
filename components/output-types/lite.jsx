@@ -25,7 +25,9 @@ import VallaHtml from './_children/valla-html'
 import MetaStory from './_children/meta-story'
 
 import videoScript from './_dependencies/video-script'
+import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import iframeScript from './_dependencies/iframe-script'
+import htmlScript from './_dependencies/html-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
 import {
@@ -34,6 +36,10 @@ import {
   getDescription,
   getKeywords,
 } from './_dependencies/utils'
+import {
+  MINUTO_MINUTO,
+  GALLERY_VERTICAL,
+} from '../utilities/constants/subtypes'
 
 const LiteOutput = ({
   children,
@@ -64,10 +70,11 @@ const LiteOutput = ({
     ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const {
+    credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    promo_items: { basic_gallery: basicGallery = 0 } = {},
+    promo_items: promoItems = {},
     taxonomy: {
-      primary_section: { path: nameSeccion = '' } = {},
+      primary_section: { path: storySectionPath = '' } = {},
       tags = [],
     } = {},
     subtype = '',
@@ -78,8 +85,8 @@ const LiteOutput = ({
 
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
-    ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-        nameSeccion.split('/')[1]
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
+        storySectionPath.split('/')[1]
       } ${subtype} `
     : ''
 
@@ -168,7 +175,10 @@ const LiteOutput = ({
 
   const {
     videoSeo,
-    embedTwitterAndInst = [],
+    idYoutube,
+    contentElementsHtml,
+    oembedSubtypes,
+    embedTwitterAndInst,
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
@@ -176,6 +186,12 @@ const LiteOutput = ({
     arcSite,
     contextPath,
   })
+  const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
+  const hasYoutubeVideo =
+    idYoutube ||
+    regexYoutube.test(content) ||
+    regexYoutube.test(contentElementsHtml) ||
+    oembedSubtypes.includes('youtube')
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
@@ -336,9 +352,20 @@ const LiteOutput = ({
                     });
                   }, 1);
                 };
+
+                window.addPrefetch = function addPrefetch(kind, url, as) {
+                  const linkElem = document.createElement('link');
+                  linkElem.rel = kind;
+                  linkElem.href = url;
+                  if (as) {
+                      linkElem.as = as;
+                  }
+                  linkElem.crossOrigin = 'true';
+                  document.head.append(linkElem);
+                }
               }
             */
-            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
         <LiteAds
@@ -377,9 +404,16 @@ const LiteOutput = ({
             ) : null
           }}
         </Resource>
-
-        {/* Scripts de Chartbeat */}
-        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+        <ChartbeatBody
+          story={isStory}
+          hasVideo={contenidoVideo || hasYoutubeVideo}
+          requestUri={requestUri}
+          metaValue={metaValue}
+          tags={tags}
+          credits={credits}
+          promoItems={promoItems}
+          arcSite={arcSite}
+        />
         {isPremium && arcSite === SITE_ELCOMERCIO && (
           <>
             <Libs></Libs>
@@ -439,8 +473,7 @@ const LiteOutput = ({
             </noscript>
           </>
         )}
-        <ChartbeatBody story={isStory} {...metaPageData} />
-        {embedTwitterAndInst[0] && (
+        {embedTwitterAndInst && (
           <>
             <script
               type="text/javascript"
@@ -453,7 +486,7 @@ const LiteOutput = ({
             <script
               dangerouslySetInnerHTML={{
                 __html: `window.preroll='${getPreroll({
-                  section: nameSeccion,
+                  section: storySectionPath,
                   arcSite,
                   siteDomain: siteProperties.siteDomain,
                   metaValue,
@@ -475,6 +508,37 @@ const LiteOutput = ({
               dangerouslySetInnerHTML={{
                 __html: videoScript,
               }}
+            />
+          </>
+        )}
+        {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: minutoMinutoScript,
+            }}
+          />
+        ) : (
+          <></>
+        )}
+        {hasYoutubeVideo && (
+          <>
+            <Resource path="resources/assets/lite-youtube/styles.min.css">
+              {({ data }) => {
+                return data ? (
+                  <style
+                    dangerouslySetInnerHTML={{
+                      __html: data,
+                    }}
+                  />
+                ) : null
+              }}
+            </Resource>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/lite-youtube/lite-youtube.min.js`
+              )}
             />
           </>
         )}
@@ -517,6 +581,12 @@ const LiteOutput = ({
             />
             <VallaHtml />
           </>
+        )}
+        {contentElementsHtml.includes('graphics.afpforum.com') && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: htmlScript }}
+          />
         )}
       </body>
     </html>

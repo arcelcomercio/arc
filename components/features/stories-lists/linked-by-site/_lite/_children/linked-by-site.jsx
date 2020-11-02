@@ -1,4 +1,5 @@
 import React from 'react'
+import { SITE_GESTION } from '../../../../../utilities/constants/sitenames'
 
 import { createMarkup } from '../../../../../utilities/helpers'
 
@@ -13,6 +14,9 @@ const classes = {
   picture: 'link-site__pic',
   listItemTitle: 'link-site__title-link oflow-h ',
   image: 'link-site__image',
+  imageContainer: 'link-site__image-container position-relative',
+  iconContainer: 'link-site__icon-container mr-5 mt-5',
+  iconImagePremium: 'link-site__icon-premium',
 }
 
 const StoriesListLinkedBySiteChild = ({
@@ -22,7 +26,10 @@ const StoriesListLinkedBySiteChild = ({
   isTargetBlank,
   titleField,
   subtitleField,
+  logo = '',
+  arcSite = '',
 }) => {
+  const isGestion = arcSite === SITE_GESTION
   return (
     <section className={classes.container}>
       <div className={classes.header}>
@@ -51,6 +58,7 @@ const StoriesListLinkedBySiteChild = ({
             multimediaLazyDefault,
             multimediaSquareS,
             multimediaLandscapeS,
+            isPremium = false,
           }) => (
             <a
               itemProp="url"
@@ -58,21 +66,32 @@ const StoriesListLinkedBySiteChild = ({
               key={websiteLink}
               href={websiteLink}
               {...isTargetBlank}>
-              <picture className={classes.picture}>
-                <source
-                  className={isAdmin ? '' : 'lazy'}
-                  media="(max-width: 639px)"
-                  type="image/jpeg"
-                  srcSet={isAdmin ? multimediaSquareS : multimediaLazyDefault}
-                  data-srcset={multimediaSquareS}
-                />
-                <img
-                  src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-                  data-src={multimediaLandscapeS}
-                  className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                  alt={title}
-                />
-              </picture>
+              <div className={classes.imageContainer}>
+                {isPremium && isGestion && (
+                  <div className={classes.iconContainer}>
+                    <img
+                      className={classes.iconImagePremium}
+                      src={logo}
+                      alt="premium"
+                    />
+                  </div>
+                )}
+                <picture className={classes.picture}>
+                  <source
+                    className={isAdmin ? '' : 'lazy'}
+                    media="(max-width: 639px)"
+                    type="image/jpeg"
+                    srcSet={isAdmin ? multimediaSquareS : multimediaLazyDefault}
+                    data-srcset={multimediaSquareS}
+                  />
+                  <img
+                    src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
+                    data-src={multimediaLandscapeS}
+                    className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
+                    alt={title}
+                  />
+                </picture>
+              </div>
 
               <h2 itemProp="name" className={classes.listItemTitle}>
                 {title}

@@ -1,11 +1,11 @@
 .story-google-news {
   &__container {
+    content-visibility: auto;
+    contain-intrinsic-size: 90px;
     background: #f5f5f5 0 0;
     border: 1px solid #ddd;
     border-radius: 5px;
     height: 90px;
-    margin-right: 0;
-    margin-left: 0;
   }
 
   &__link {

@@ -67,6 +67,10 @@
     width: 57px;
     height: 57px;
     margin-right: 10px;
+    border-radius: 50%;
+  }
+  &__link {
+    color: #747a84;
   }
   &__author-role {
     font-family: $secondary-font;
@@ -193,6 +197,8 @@
 
   /* ----------------------------------------------------- */
   &__content {
+    content-visibility: auto;
+    contain-intrinsic-size: 2000px;
     padding-top: 5px;
   }
 

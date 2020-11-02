@@ -1,11 +1,9 @@
 export default {
   siteName: 'El Bocón',
   sitemapNewsName: 'El Bocón',
-  siteTitle: 'Noticias El Bocón Perú',
-  // colorPrimary: '#8F071F',
+  siteTitle: 'El Bocón',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Titillium+Web:400,600,700,900|Roboto+Slab:400,700',
   siteDomain: 'elbocon.pe',
   siteUrl: 'https://elbocon.pe',
   resizerUrl: 'https://elbocon.pe/resizer',
@@ -155,4 +153,5 @@ export default {
     mode: 'thumbnails-c',
   },
   isDfp: true,
+  archiveLimit: '2008-12-31',
 }

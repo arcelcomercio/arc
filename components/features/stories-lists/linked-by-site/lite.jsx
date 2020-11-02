@@ -8,11 +8,18 @@ import getProperties from 'fusion:properties'
 import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
 import { includePromoItems } from '../../../utilities/included-fields'
+import { getAssetsPath } from '../../../utilities/constants'
 
 import StoriesListLinkedBySiteChild from './_lite/_children/linked-by-site'
 
 const StoriesListLinkedBySite = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    deployment,
+    isAdmin,
+    siteProperties,
+  } = useFusionContext()
   const {
     customFields: {
       storiesConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -56,6 +63,7 @@ const StoriesListLinkedBySite = props => {
       multimediaLazyDefault,
       multimediaSquareS,
       multimediaLandscapeS,
+      isPremium,
     } = storyData
 
     return {
@@ -65,8 +73,15 @@ const StoriesListLinkedBySite = props => {
       multimediaLazyDefault,
       multimediaSquareS,
       multimediaLandscapeS,
+      isPremium,
     }
   })
+
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = siteProperties || {}
 
   const params = {
     isAdmin,
@@ -75,6 +90,11 @@ const StoriesListLinkedBySite = props => {
     isTargetBlank: isTargetBlank ? { target: '_blank', rel: 'noopener' } : {},
     titleField,
     subtitleField,
+    logo: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
+    arcSite,
   }
 
   return <StoriesListLinkedBySiteChild {...params} />

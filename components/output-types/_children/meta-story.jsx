@@ -18,9 +18,10 @@ import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../utilities/constants/sitenames'
-import { getResizedUrl } from '../../utilities/resizer'
+import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 import workType, { revisionAttr } from '../_dependencies/work-type'
+import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
 export default ({
   globalContent: data,
@@ -64,6 +65,13 @@ export default ({
     getPremiumValue,
     contentElementsRedesSociales,
     contentElementCustomBlock = [],
+    idYoutube,
+    getGallery,
+    subtype,
+    authorImageSecond,
+    authorSecond,
+    authorEmailSecond,
+    roleSecond: authorRoleSecond,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -98,7 +106,7 @@ export default ({
   {
     "@context": "http://schema.org/",
     "@type": "Person",
-    "name": "${authorName}",
+    "name": "${authorName || arcSite}",
     "image": "${authorImage || logoAuthor}",
     "contactPoint"     : {
       "@type"        : "ContactPoint",
@@ -108,6 +116,27 @@ export default ({
     "email": "${authorEmail}",
     "jobTitle"	: "${authorRole}"
   }`
+
+  const structuredAutorSecond = authorEmailSecond
+    ? ` 
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${authorSecond || arcSite}",
+    "image": "${authorImageSecond || logoAuthor}",
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : "${authorEmailSecond}"
+    },
+    "email": "${authorEmailSecond}",
+    "jobTitle"	: "${authorRoleSecond}"
+  }`
+    : ``
+
+  const finalStructuredDataAuthor = structuredAutorSecond
+    ? `[${structuredAutor}, ${structuredAutorSecond}]`
+    : structuredAutor
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
@@ -179,7 +208,7 @@ export default ({
         amp_image_4x3: ampVideo4x3 = urlImage,
         amp_image_16x9: ampVideo16x9 = urlImage,
       } =
-        getResizedUrl({
+        createResizedParams({
           url: urlImage || url,
           presets:
             'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
@@ -212,7 +241,7 @@ export default ({
       amp_image_4x3: ampImage4x3 = url,
       amp_image_16x9: ampImage16x9 = url,
     } =
-      getResizedUrl({
+      createResizedParams({
         url,
         presets:
           'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
@@ -227,7 +256,7 @@ export default ({
     const { subtitle = false, url = '' } = image || {}
 
     const { large } =
-      getResizedUrl({
+      createResizedParams({
         url,
         presets: 'large:1200x800',
         arcSite,
@@ -236,6 +265,7 @@ export default ({
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
+
     return `{  "@type":"ImageObject", "url": "${large ||
       url}", ${description} "height":800, "width":1200 }`
   })
@@ -274,15 +304,19 @@ export default ({
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
 
   const imagenData = arrayImage[1]
-    ? `"image": ${arrayImage[0]} ,`
+    ? `"image":[ ${arrayImage} ],`
     : `"image": ${arrayImage},`
+
+  const imageYoutube = idYoutube
+    ? `https://i.ytimg.com/vi/${idYoutube}/hqdefault.jpg`
+    : `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData
-    : `"image": {  "@type": "ImageObject", "url": "${`${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`}",  "description": "${formatHtmlToText(
+    : `"image": {  "@type": "ImageObject", "url": "${imageYoutube}",  "description": "${formatHtmlToText(
         siteName
       )}", "height": 800, "width": 1200 },`
 
@@ -350,7 +384,8 @@ export default ({
       : ''
 
   const { label: { trustproject = {} } = {} } = data || {}
-  const trustType = workType(trustproject) || '"NewsArticle"'
+  const trustType =
+    workType(trustproject, dataElement, getGallery) || '"NewsArticle"'
   const {
     embed: { config: configRevision = {} } = {},
   } = firstContentElementsRevision
@@ -360,6 +395,11 @@ export default ({
   if (arcSite === SITE_ELCOMERCIO) {
     publishingPrinciples = `"publishingPrinciples": "${siteUrl}/buenas-practicas/",`
   }
+
+  const dateline =
+    subtype !== GALLERY_VERTICAL
+      ? `"dateline": "${`${getDateSeo(publishDate)} ${locality}`}",`
+      : ''
 
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
@@ -371,7 +411,7 @@ export default ({
     }",
     ${backStoryStructured}
     ${locality && `"locationCreated": {"@type":"Place", "name":"${locality}"},`}
-    "dateline": "${`${getDateSeo(publishDate)} ${locality}`}",
+    ${dateline}
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${formatHtmlToText(subTitle)}",
@@ -382,7 +422,7 @@ export default ({
     "mainEntityOfPage":{   "@type":"WebPage",  "@id":"${siteUrl}${link}"     },     ${imagenDefoult}    ${
     videoSeoItems[0] || redSocialVideo[0] ? dataVideo : ''
   }
-    "author": ${structuredAutor},
+    "author": ${finalStructuredDataAuthor},
     "publisher":{  "@type":"Organization", "name":"${siteName}",  "logo":{  "@type":"ImageObject", "url":"${`${getAssetsPath(
     arcSite,
     contextPath
@@ -412,26 +452,28 @@ export default ({
   const taboolaScript = arcSite === SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
 
   const scriptTaboola = `
-  window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function o(){document.removeEventListener("scroll",o);const e="tb_loader_script";if(!document.getElementById(e)){const o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
+  "use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function e(){document.removeEventListener("scroll",e),requestIdle(function(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}})})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
-        window._taboola = window._taboola || [];
+    window._taboola = window._taboola || [];
     _taboola.push({
-        article: 'auto'
+      article: 'auto'
     });
-    ! function(){
+    !function(){
       if (typeof window !== 'undefined') {
         function injectTaboola() {
           document.removeEventListener('scroll', injectTaboola)
-          const id = 'tb_loader_script'
-          if (!document.getElementById(id)) {
-            const n = document.createElement('script')
-            const f = document.getElementsByTagName('script')[0]
-            n.defer = 1;
-            n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js';
-            n.id = id;
-            f.parentNode.insertBefore(n, f);
-          }
+          requestIdle(() => {
+            const id = 'tb_loader_script'
+            if (!document.getElementById(id)) {
+              const n = document.createElement('script')
+              const f = document.getElementsByTagName('script')[0]
+              n.defer = 1;
+              n.src = '//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js';
+              n.id = id;
+              f.parentNode.insertBefore(n, f);
+            }
+          })
         }
         window.onload = document.addEventListener('scroll', injectTaboola) 
       }

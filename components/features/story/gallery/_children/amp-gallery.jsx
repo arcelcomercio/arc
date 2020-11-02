@@ -1,36 +1,35 @@
 import React from 'react'
-import AmpImage from '@arc-core-components/element_image'
-import { useFusionContext } from 'fusion:context'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { useAppContext } from 'fusion:context'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   gallery: 'story-gallery pt-10 pr-20 pl-20 md:pr-0 md:pl-0',
-  galleryItem: 'story-gallery__item position-relative mt-30',
+  galleryItem: 'story-gallery__item position-relative pt-20 gvi',
   galleryNumber:
-    'story-gallery__number bg-white flex items-center justify-center position-absolute rounded-lg',
-  image: 'story-gallery__img w-full h-full mb-10',
-  caption: 'story-gallery__caption text-gray-200 text-sm',
-  controlRight: 'story-gallery__control-right',
-  pager: 'story-gallery__pager pb-15 pt-15 mb-5',
-  count: 'story-gallery__count font-bold text-center mx-auto',
+    'story-gallery__number bg-white flex items-center justify-center rounded-lg',
+  image: 'story-gallery__img w-full h-full mb-5',
+  caption: 'story-gallery__caption-image text-gray-200 text-sm mb-15 mt-10',
+  title: 'story-gallery__title mb-15 mt-10',
+  figure: 'story-gallery__figure pt-10',
 }
 
 const StoryHeaderChildAmpGallery = props => {
-  const { data, link, siteUrl } = props
-  const slider = '[slide]="selectedSlide"'
-  const imgTag = 'amp-img'
-  const numeroFoto = ' [text]="+selectedSlide + 1"'
+  const { data } = props
 
-  const { arcSite } = useFusionContext()
-  const extractImage = urlImg => {
+  const { arcSite } = useAppContext()
+  const extractImage = (urlImg, presets) => {
     if (typeof window === 'undefined') {
-      return (
-        getResizedUrl({
+      const imageObject =
+        createResizedParams({
           url: urlImg,
-          presets: 'large:980x528',
+          presets,
           arcSite,
         }) || {}
-      )
+      return {
+        original: imageObject.original,
+        large: imageObject.large,
+        images: `${imageObject.large} 1024w,${imageObject.meddiun} 560w,${imageObject.small} 360w`,
+      }
     }
     return urlImg
   }
@@ -38,59 +37,57 @@ const StoryHeaderChildAmpGallery = props => {
   return (
     <>
       <div className={classes.gallery}>
-        <div className={classes.pager}>
-          <div className={classes.count}>
-            Foto <span {...numeroFoto}>1 </span> de {data.length}
-          </div>
-        </div>
-        <amp-carousel
-          width="600"
-          height="480"
-          layout="responsive"
-          type="slides"
-          {...slider}
-          on={`slideChange:AMP.setState({selectedSlide: event.index}),AMP.navigateTo(url='${siteUrl}${link}?foto=2&source=amp')`}
-          class="media gallery">
-          {data.map(({ url, caption }) => (
-            <>
-              <div className="slide">
-                <div className="inner">
-                  <amp-img
-                    src={extractImage(url).large || url}
-                    alt={caption}
-                    class={classes.image}
-                    height="360"
-                    width="600"
-                    layout="responsive"
+        {data.map(
+          (
+            {
+              url,
+              caption,
+              credits: { affiliation: [{ name = '' } = {}] = [] } = {},
+              width,
+              height,
+              subtitle,
+            },
+            i
+          ) => {
+            const presets = 'large:1024x,meddiun:560x,small:330x'
+
+            return (
+              <>
+                <div className={classes.galleryItem}>
+                  <div className={classes.galleryNumber}>
+                    <strong> {i + 1} </strong> de {data.length}
+                  </div>
+
+                  <div className={classes.figure}>
+                    <amp-img
+                      sizes="(max-width: 360px) 50vw,(max-width: 750px) 50vw"
+                      srcset={extractImage(url, presets).images || url}
+                      alt={caption}
+                      class={classes.image}
+                      height={width < height ? 800 : 360}
+                      width="600"
+                      layout="responsive"
+                    />
+                    <span className="credit mb-10">{name}</span>
+                  </div>
+                  <div className={classes.title}>
+                    <strong
+                      dangerouslySetInnerHTML={{
+                        __html: subtitle,
+                      }}
+                    />
+                  </div>
+                  <div
+                    className={classes.caption}
+                    dangerouslySetInnerHTML={{
+                      __html: caption,
+                    }}
                   />
-                  <a
-                    href={`${siteUrl}${link}?foto=2`}
-                    className={classes.controlRight}>
-                    {' '}
-                  </a>
                 </div>
-                <div className="legend">
-                  <div className="caption">{caption}</div>
-                </div>
-              </div>
-            </>
-          ))}
-        </amp-carousel>
-        <amp-carousel width="600" height="480" layout="nodisplay" type="slides">
-          {data.map(item => (
-            <>
-              <div className="slide">
-                <AmpImage
-                  {...item}
-                  url={extractImage(item.url).large}
-                  ImgTag={imgTag}
-                  imgClassName={classes.image}
-                  layout="responsive"
-                />
-              </div>
-            </>
-          ))}
-        </amp-carousel>
+              </>
+            )
+          }
+        )}
       </div>
     </>
   )

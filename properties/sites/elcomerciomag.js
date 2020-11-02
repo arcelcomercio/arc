@@ -1,9 +1,7 @@
 export default {
   siteName: 'Mag.',
-  sitemapNewsName: 'El Comercio Mag',
-  siteTitle: 'Noticias Mag Perú',
-  googleFonts: 'Lato:400,700',
-
+  sitemapNewsName: 'MAG.',
+  siteTitle: 'Mag.',
   colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
   siteUrl: 'https://mag.elcomercio.pe',
@@ -61,6 +59,7 @@ export default {
     },
     footer: {
       logo: 'logo.png',
+      logoAmp: 'white-logo.png',
     },
     seo: {
       logoAmp: 'logo-143x60.png',
@@ -91,20 +90,20 @@ export default {
   socialNetworks: [
     {
       name: 'facebook',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      url: 'https://www.facebook.com/magelcomercio',
     },
     {
       name: 'twitter',
-      url: 'https://twitter.com/elcomercio_peru',
+      url: 'https://twitter.com/Mag_ECpe',
     },
   ],
   social: {
     facebook: {
-      user: '@elcomercio.pe',
-      url: 'https://www.facebook.com/elcomercio.pe',
+      user: '@magelcomercio',
+      url: 'https://www.facebook.com/magelcomercio',
     },
     twitter: {
-      user: '@elcomercio_peru',
+      user: 'Mag_ECpe',
     },
   },
   adsAmp: {
@@ -136,4 +135,5 @@ export default {
     mode: 'thumbnails-c',
   },
   isDfp: true,
+  archiveLimit: '2018-09-18',
 }

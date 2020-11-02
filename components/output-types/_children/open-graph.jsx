@@ -2,7 +2,7 @@ import React from 'react'
 import StoryData from '../../utilities/story-data'
 import { deleteQueryString } from '../../utilities/parse/queries'
 import { SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
-import { getResizedUrl } from '../../utilities/resizer'
+import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 
 export default ({
@@ -25,22 +25,27 @@ export default ({
     title: seoTitle,
     authorImage,
     primarySectionLink,
+    idYoutube,
   } = new StoryData({
     data,
     arcSite,
   })
 
+  const imageYoutube = idYoutube
+    ? `https://i.ytimg.com/vi/${idYoutube}/hqdefault.jpg`
+    : `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo_fb.jpg?d=1`
+
   let image =
-    story && multimediaLarge
-      ? getResizedUrl({
+    story && multimediaLarge && !idYoutube
+      ? createResizedParams({
           url: multimediaLarge,
           presets: 'large:980x528',
           arcSite,
         }).large
-      : `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/logo_fb.jpg?d=1`
+      : `${imageYoutube}`
 
   if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage

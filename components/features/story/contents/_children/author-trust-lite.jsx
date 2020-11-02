@@ -21,7 +21,7 @@ const classes = {
 const StoryContentChildAuthorTrustLite = ({
   author,
   authorLink,
-  authorImgSmall,
+  authorImage,
   authorRole,
   updatedDate,
   date,
@@ -39,7 +39,7 @@ const StoryContentChildAuthorTrustLite = ({
     author,
     authorLink,
     authorEmail,
-    authorImgSmall,
+    authorImage,
     authorRole,
   }
 
@@ -47,15 +47,13 @@ const StoryContentChildAuthorTrustLite = ({
     author: authorSecond,
     authorLink: authorLinkSecond,
     authorEmail: authorEmailSecond,
-    authorImgSmall: authorImageSecond,
+    authorImage: authorImageSecond,
     authorRole: authorRoleSecond,
   }
   return (
     <>
       <div className={classes.author}>
-        {primarySection !== 'Columnistas' && (
-          <DetailsAuthor {...detailsAuthorParamet}></DetailsAuthor>
-        )}
+        <DetailsAuthor {...detailsAuthorParamet}></DetailsAuthor>
         <div
           className={
             authorEmailSecond

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import StorySocialChildSocial from './_children/social'
 
@@ -9,7 +9,7 @@ const classes = {
 }
 
 const StorySocial = () => {
-  const { arcSite, globalContent: data } = useFusionContext()
+  const { arcSite, globalContent: data } = useAppContext()
 
   const { website_url: websiteLink = '' } = () => {
     const { websites = {} } = data || {}

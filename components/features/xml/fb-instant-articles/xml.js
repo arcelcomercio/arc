@@ -98,7 +98,7 @@ class XmlFacebookInstantArticles {
     }
     // FIN recomendador por marca
 
-    if (siteUrl === 'https://elcomercio.pe') {
+    /* if (siteUrl === 'https://elcomercio.pe') {
       this.fetchContent({
         magStories: {
           source: SOURCE,
@@ -109,12 +109,12 @@ class XmlFacebookInstantArticles {
           },
         },
       })
-    }
+    } */
   }
 
   render() {
-    const { magStories } = this.state || {}
-    if (magStories) this.stories = [...this.stories, ...magStories]
+    // const { magStories } = this.state || {}
+    // if (magStories) this.stories = [...this.stories, ...magStories]
 
     const {
       deployment,
@@ -261,6 +261,8 @@ class XmlFacebookInstantArticles {
                 defaultImage: storyData.defaultImg,
                 recommenderData,
                 videoPrincipal: storyData.videoStreams,
+                subtype: storyData.subtype,
+                contentElementGallery: storyData.contentElementGallery,
               }
 
               const today = new Date()

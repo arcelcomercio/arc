@@ -16,3 +16,5 @@ export const IMAGE_LINK = 'image_link'
 export const STORY_CUSTOMBLOCK = 'story_custom_block'
 
 export const STAMP_TRUST = 'stamp_trust'
+
+export const MINUTO_MINUTO = 'minuto_minuto'

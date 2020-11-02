@@ -7,6 +7,7 @@ import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { getResultVideo } from '../../../../utilities/story/helpers'
 import PowaPlayer from '../../../../global-components/powa-player'
+import LiteYoutube from '../../../../global-components/lite-youtube'
 
 /**
  *
@@ -66,41 +67,48 @@ export default ({
       })
     }
     if (!isAdmin) {
-      const playList = document.querySelector('.play-list')
-      const sectionVideo = document.querySelector('.section-video__wrapper')
-      const videoNavBar = document.querySelector('.video-navbar')
-      const videoList = document.querySelector('.video-list')
-      const videoFrame = document.querySelector('.section-video__frame')
-      const adsMiddle = document.getElementById('ads_d_middle1')
-      const mTop = 450
+      window.requestIdle(() => {
+        const sectionVideo = document.body.querySelector('.section-video')
+        const sectionVideoWrapper = sectionVideo.querySelector(
+          '.section-video__wrapper'
+        )
+        const videoFrame = sectionVideoWrapper.querySelector(
+          '.section-video__frame'
+        )
+        const playList = sectionVideo.querySelector('.play-list')
+        const videoNavBar = sectionVideo.querySelector('.video-navbar')
+        const videoList = document.body.querySelector('.video-list')
+        const adsMiddle = document.getElementById('ads_d_middle1')
+        const mTop = 450
 
-      const playOff = playList.offsetTop
-      if (window.innerWidth >= 1024) {
-        window.addEventListener('scroll', () => {
-          const scrollHeight = window.scrollY
-          if (scrollHeight >= playOff && arcSite !== 'gestion') {
-            sectionVideo.classList.add('fixed')
-            // changeFixedSection(true)
-            videoNavBar.classList.add('fixed')
-            if (typeof adsMiddle !== 'undefined' && adsMiddle != null) {
-              adsMiddle.style.marginTop = `${mTop}px`
-            } else {
-              videoList.style.marginTop = `${mTop}px`
+        const playOff = playList.offsetTop
+        if (window.innerWidth >= 1024) {
+          window.addEventListener('scroll', () => {
+            const scrollHeight = window.scrollY
+            if (scrollHeight >= playOff && arcSite !== 'gestion') {
+              sectionVideoWrapper.classList.add('fixed')
+              // changeFixedSection(true)
+              videoNavBar.classList.add('fixed')
+              if (typeof adsMiddle !== 'undefined' && adsMiddle != null) {
+                adsMiddle.style.marginTop = `${mTop}px`
+              } else {
+                videoList.style.marginTop = `${mTop}px`
+              }
             }
-          }
-          if (scrollHeight < playOff) {
-            sectionVideo.classList.remove('fixed')
-            // changeFixedSection(false)
-            videoNavBar.classList.remove('fixed')
-            videoFrame.removeAttribute('style')
-            if (typeof adsMiddle !== 'undefined' && adsMiddle != null) {
-              adsMiddle.style.marginTop = `0px`
-            } else {
-              videoList.style.marginTop = `50px`
+            if (scrollHeight < playOff) {
+              sectionVideoWrapper.classList.remove('fixed')
+              // changeFixedSection(false)
+              videoNavBar.classList.remove('fixed')
+              videoFrame.removeAttribute('style')
+              if (typeof adsMiddle !== 'undefined' && adsMiddle != null) {
+                adsMiddle.style.marginTop = `0px`
+              } else {
+                videoList.style.marginTop = `50px`
+              }
             }
-          }
-        })
-      }
+          })
+        }
+      })
     }
   }, [arcSite, isAdmin])
 
@@ -148,27 +156,19 @@ export default ({
         <div className="section-video__wrapper">
           <div className="section-video__top">
             <div className="section-video__left">
-              {principalVideo.video &&
-              principalVideo.promoItemsType === VIDEO ? (
-                <div className="section-video__frame">
+              <div className="section-video__frame">
+                {principalVideo.video &&
+                principalVideo.promoItemsType === VIDEO ? (
                   <PowaPlayer
                     uuid={uuid}
+                    time={principalVideo.videoDuration}
                     stream={stream}
                     image={principalVideo.image}
                   />
-                </div>
-              ) : (
-                <div className="section-video__frame">
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${principalVideo.video}`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title="Video"
-                  />
-                </div>
-              )}
+                ) : (
+                  <LiteYoutube videoId={principalVideo.video} />
+                )}
+              </div>
             </div>
             <div className="section-video__right">
               <div className="section-video__information">

@@ -26,7 +26,7 @@ window.addEventListener("load", () => {
       const options = {
         rootMargin: '0px',
       }
-      const videos = Array.from(document.querySelectorAll('.powa-lazy'))
+      const videos = Array.from(document.body.querySelectorAll('.powa-lazy'))
       const observer = new IntersectionObserver(videoObserver, options)
       videos.forEach(video => {
           observer.observe(video)
@@ -36,6 +36,6 @@ window.addEventListener("load", () => {
   })
 })
 */
-const videoScript = `"use strict";var videoObserver=function(e,r){e.forEach(function(e){var o=e.isIntersecting,t=e.target;if(o){var n=t.getAttribute("data-preroll");t.classList.add("powa"),t.classList.remove("powa-lazy"),window.powaBoot&&(window.preroll=n||window.preroll,window.PoWaSettings.advertising={adBar:!1,adTag:n||""},requestIdle(function(){return window.powaBoot()})),r.unobserve(t)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.querySelectorAll(".powa-lazy")),r=new IntersectionObserver(videoObserver,{rootMargin:"0px"});e.forEach(function(e){r.observe(e)})}})});`
+const videoScript = `"use strict";var videoObserver=function(e,r){e.forEach(function(e){var o=e.isIntersecting,t=e.target;if(o){var n=t.getAttribute("data-preroll");t.classList.add("powa"),t.classList.remove("powa-lazy"),window.powaBoot&&(window.preroll=n||window.preroll,window.PoWaSettings.advertising={adBar:!1,adTag:n||""},requestIdle(function(){return window.powaBoot()})),r.unobserve(t)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".powa-lazy")),r=new IntersectionObserver(videoObserver,{rootMargin:"0px"});e.forEach(function(e){r.observe(e)})}})});`
 
 export default videoScript

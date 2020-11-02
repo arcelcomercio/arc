@@ -53,7 +53,7 @@ class NavbarChildMenu extends PureComponent {
               key={`navbar-menu-${url || id}`}>
               <a
                 itemProp="url"
-                href={url || id || '/'}
+                href={`${url || id || '/'}?ref=menu-amp`}
                 {...(styles.length > 0 && {
                   style: {
                     color: styles[1] || '#ffffff',
@@ -151,7 +151,7 @@ class NavbarChildMenu extends PureComponent {
                   <a
                     itemProp="url"
                     className={classes.listLink}
-                    href={el.url}
+                    href={`${el.url}?ref=menu-amp`}
                     aria-label={el.name}>
                     <svg width="32" height="32" viewBox="-2 -2 32 32">
                       <path d={icon[el.name]} />

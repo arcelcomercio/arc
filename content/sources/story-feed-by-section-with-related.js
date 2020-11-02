@@ -1,15 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import {
-  resizerSecret,
-  CONTENT_BASE,
-  ARC_ACCESS_TOKEN,
-} from 'fusion:environment'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 
 import { removeLastSlash } from '../../components/utilities/parse/strings'
-import { addResizedUrlsToStory } from '../../components/utilities/resizer'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const SCHEMA_NAME = 'stories-dev'
 
@@ -38,6 +34,11 @@ const params = [
     name: 'relatedSize',
     displayName: 'Número de historias con relacionadas',
     type: 'number',
+  },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
   },
 ]
 
@@ -87,6 +88,7 @@ const fetch = (key = {}) => {
     stories_qty: storiesQty,
     website: rawWebsite = '',
     relatedSize = 10,
+    presets,
   } = key
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
@@ -150,13 +152,8 @@ const fetch = (key = {}) => {
     ) {
       throw new RedirectError('/404', 404)
     }
-    const dataStory = data
-    const { resizerUrl, siteName } = getProperties(website)
-    dataStory.content_elements = addResizedUrlsToStory(
-      dataStory.content_elements,
-      resizerUrl,
-      resizerSecret
-    )
+    const { siteName } = getProperties(website)
+    const dataStory = getResizedImageData(data, presets, website)
     dataStory.siteName = siteName
 
     const {

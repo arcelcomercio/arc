@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import ColumnistPremium from './_childen/columnist-premium'
 import customFields from './_dependencies/custom-fields'
@@ -11,7 +11,7 @@ import {
   includePrimarySection,
   includeCreditsImage,
 } from '../../../utilities/included-fields'
-import { getAssetsPath } from '../../../utilities/assets'
+import { getAssetsPath, defaultAuthorImage } from '../../../utilities/assets'
 
 const FeaturedStoryColumnist = props => {
   const {
@@ -20,7 +20,7 @@ const FeaturedStoryColumnist = props => {
     deployment,
     isAdmin,
     siteProperties,
-  } = useFusionContext()
+  } = useAppContext()
   const {
     assets: {
       premium: { logo },
@@ -32,12 +32,13 @@ const FeaturedStoryColumnist = props => {
     } = {},
   } = props
 
+  const presets = 'no-presets'
   const includedFields = `content_restrictions.content_code,websites.${arcSite}.website_url,subheadlines.basic,${includeCredits},${includeCreditsImage},${includePrimarySection}`
 
   const data =
     useContent({
       source: contentService,
-      query: Object.assign(contentConfigValues, { includedFields }),
+      query: Object.assign(contentConfigValues, { presets, includedFields }),
       filter: schemaFilter(arcSite),
     }) || {}
 
@@ -58,10 +59,7 @@ const FeaturedStoryColumnist = props => {
     defaultImgSize: 'sm',
   })
 
-  const lazyImage = `${getAssetsPath(
-    arcSite,
-    contextPath
-  )}/resources/assets/author-grid/author.png?d=1`
+  const lazyImage = defaultAuthorImage(arcSite, contextPath)
 
   const params = {
     lazyImage,

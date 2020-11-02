@@ -7,7 +7,9 @@ import {
   includePromoItems,
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 
+const presets = 'landscape_l:648x374'
 /**
  * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
  * funciona mejor con la content-source "story-feed-by-section"
@@ -23,13 +25,12 @@ class XmlSitemapNews {
     const { globalContentConfig, arcSite } = props
     const { query: { _id: section } = {} } = globalContentConfig || {}
 
-    const presets = 'landscape_l:648x374'
     const includedFields = `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},content_elements.url,content_elements.type,content_elements.resized_urls,content_elements.caption`
 
-    this.fetchContent(this.getStates(section, presets, includedFields))
+    this.fetchContent(this.getStates(section, includedFields))
   }
 
-  getStates = (section, presets, includedFields) => {
+  getStates = (section, includedFields) => {
     const interval = 100
     const states = {}
 
@@ -160,19 +161,22 @@ class XmlSitemapNews {
                 },
             ...contentElements
               .filter(({ type }) => type === 'image')
-              .map(
-                ({
-                  caption = '',
-                  resized_urls: { landscape_l: landscapeL = '' } = {},
-                }) => ({
+              .map(({ caption = '', url = '' }) => {
+                const { landscape_l: bodyImageUrl = '' } = createResizedParams({
+                  url,
+                  presets,
+                  arcSite,
+                })
+                // Imagenes del cuerpo de la noticia
+                return {
                   'image:image': {
-                    'image:loc': landscapeL,
+                    'image:loc': bodyImageUrl,
                     'image:title': {
                       '#cdata': caption,
                     },
                   },
-                })
-              ),
+                }
+              }),
             arcSite === 'elcomercio'
               ? {
                   changefreq: 'hourly',

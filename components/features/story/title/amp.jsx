@@ -3,18 +3,19 @@ import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import StorySocialChildAmpSocial from '../social/_children/amp-social'
-import StoryHeaderChildAmpGallery from '../gallery/_children/amp-gallery'
 import StoryData from '../../../utilities/story-data'
 import { storyTagsBbc } from '../../../utilities/tags'
 import { getAssetsPath } from '../../../utilities/assets'
 import { publicidadAmp } from '../../../utilities/story/helpers-amp'
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
   titleAmp:
-    'amp-sh__title font-bold secondary-font title-md text-gray-300 line-h-xs',
+    'amp-sh__title font-bold secondary-font title-md text-gray-300 line-h-xs mt-20',
   datetime: 'amp-sh__datetime mt-15 mb-15 block secondary-font text-lg',
-  description: 'amp-sh__description mt-0 text-md text-gray-300 secondary-font',
+  description:
+    'amp-sh__description mt-0 text-md text-gray-300 secondary-font pt-10 pb-10',
   gallery: 'amp-sh bg-white w-full pr-20 pl-20 m-5 mx-auto',
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
@@ -22,14 +23,13 @@ const classes = {
 const StoryTitleAmp = () => {
   const { arcSite, contextPath, globalContent: data } = useFusionContext()
 
-  const { adsAmp, siteUrl } = getProperties(arcSite)
+  const { adsAmp } = getProperties(arcSite)
 
   const {
     title,
     subTitle,
     tags,
     primarySectionLink,
-    link,
     promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
   } = new StoryData({
     data,
@@ -79,22 +79,14 @@ const StoryTitleAmp = () => {
 
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
         </header>
-        <div
-          className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parameters)}
-        />
-        {subTitle && <div className={classes.description}> {subTitle}</div>}
-        <StorySocialChildAmpSocial />
-
-        {galleryItems && (
-          <StoryHeaderChildAmpGallery
-            data={galleryItems}
-            link={link}
-            siteUrl={siteUrl}
-            width="500"
-            height="300"
+        {arcSite !== SITE_ELCOMERCIOMAG && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parameters)}
           />
         )}
+        {subTitle && <div className={classes.description}> {subTitle}</div>}
+        {arcSite !== SITE_ELCOMERCIOMAG && <StorySocialChildAmpSocial />}
       </div>
     </>
   )

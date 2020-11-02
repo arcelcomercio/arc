@@ -160,7 +160,6 @@ const elcomercio = {
       {
         position: 'Directores',
         names: [
-          'Francisco Miró Quesada Cantuarias',
           'Luis Carranza [1875-1898]',
           'José Antonio Miró Quesada [1875-1905]',
           'Antonio Miró Quesada de la Guerra [1905-1935]',
@@ -173,6 +172,7 @@ const elcomercio = {
           'Francisco Miró Quesada Rada [2008-2013]',
           'Fritz Du Bois Freund [2013-2014]',
           'Fernando Berckemeyer Olaechea [2014-2018]',
+          'Francisco Miró Quesada Cantuarias [2008-2019]',
         ],
       },
     ],
@@ -180,7 +180,9 @@ const elcomercio = {
     contacts: [
       {
         position: 'Suscripciones',
-        name: 'atencionalcliente@comercio.com.pe',
+        name: 'Central telefónica 311-5100',
+        horario:
+          'Horario de atención: Lunes a viernes 7am – 7pm | Sábados, domingos y feriados 7am – 1pm ',
       },
       {
         position: 'Publicidad',
@@ -188,7 +190,9 @@ const elcomercio = {
       },
       {
         position: 'Club El Comercio',
-        name: 'atencionalcliente@comercio.com.pe',
+        name: 'Central telefónica 311-5100',
+        horario:
+          'Horario de atención: Lunes a viernes 7am – 7pm | Sábados, domingos y feriados 7am – 1pm ',
         link: {
           name: 'Compromiso de Autorregulación Comercial',
           url: 'https://elcomercio.pe/compromiso-autoregulacion-comercial.pdf',
@@ -202,7 +206,8 @@ const elcomerciomag = {
   footer: {
     siteLegal: [
       'Empresa Editora El Comercio',
-      'Jr. Santa Rosa #300 Lima 1 Perú',
+      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
+      'Central Telefónica: 311-6500',
       'Copyright © Elcomercio.pe',
       'Grupo El Comercio - Todos los derechos reservados',
     ],
@@ -213,7 +218,8 @@ const elcomerciomag = {
       },
       {
         position: 'Empresa Editora El Comercio',
-        name: 'Jr. Santa Rosa #300 Lima 1 Perú',
+        name:
+          'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
       },
       {
         position: 'Copyright © mag.elcomercio.pe',
@@ -240,7 +246,6 @@ const elcomerciomag = {
       {
         position: 'Directores',
         names: [
-          'Francisco Miró Quesada Cantuarias',
           'Luis Carranza [1875-1898]',
           'José Antonio Miró Quesada [1875-1905]',
           'Antonio Miró Quesada de la Guerra [1905-1935]',
@@ -253,6 +258,7 @@ const elcomerciomag = {
           'Francisco Miró Quesada Rada [2008-2013]',
           'Fritz Du Bois Freund [2013-2014]',
           'Fernando Berckemeyer Olaechea [2014-2018]',
+          'Francisco Miró Quesada Cantuarias [2008-2019]',
         ],
       },
     ],

@@ -4,7 +4,6 @@
   "main": "index.js",
   "dependencies": {
     "@arc-core-components/amp-document-boilerplate": "^0.2.6-beta.1",
-    "@arc-core-components/content-source_content-api-v4": "^4.0.1",
     "@arc-core-components/element_image": "^0.4.2-beta.1",
     "@arc-core-components/feature_article-body": "^1.0.1",
     "@arc-core-components/feature_global-amp-gallery": "^0.3.2-beta.1",
@@ -13,7 +12,7 @@
     "@sentry/browser": "^5.10.1",
     "create-hmac": "^1.1.7",
     "fingerprintjs2": "^2.1.0",
-    "formik": "^1.5.7",
+    "formik": "^2.1.5",
     "history": "^4.9.0",
     "html-to-react": "^1.4.2",
     "js-sha256": "^0.9.0",
@@ -28,6 +27,7 @@
     "react-text-mask": "^5.4.3",
     "styled-components": "^5.1.0",
     "templayed": "^0.2.3",
+    "thumbor-lite": "^0.1.8",
     "url-parse": "^1.4.7",
     "xmlbuilder": "^13.0.2"
   },
@@ -35,7 +35,7 @@
     "react": "^16.6.3"
   },
   "devDependencies": {
-    "@arc-fusion/cli": "^1.0.13",
+    "@arc-fusion/cli": "^1.1.0",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-decorators": "^7.7.4",
@@ -97,8 +97,8 @@
     "sass-loader": "^7.3.1",
     "semantic-release": "^15.13.31",
     "style-loader": "0.23.1",
-    "stylelint": "^13.0.0",
-    "stylelint-config-prettier": "^8.0.1",
+    "stylelint": "^13.7.2",
+    "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^19.0.0",
     "stylelint-prettier": "^1.1.2",
     "url-loader": "1.1.2",

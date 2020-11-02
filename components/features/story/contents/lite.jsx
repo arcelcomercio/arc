@@ -1,6 +1,5 @@
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import { useContent } from 'fusion:content'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -53,8 +52,11 @@ import {
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
+  MINUTO_MINUTO,
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
+import LiteYoutube from '../../../global-components/lite-youtube'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -72,8 +74,6 @@ const classes = {
 }
 
 const StoryContentsLite = () => {
-  const DEFAULT_AUTHOR_IMG =
-    'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/author.png?d=1'
   const {
     globalContent,
     arcSite,
@@ -122,21 +122,8 @@ const StoryContentsLite = () => {
     arcSite,
   })
 
-  let authorImgSmall = authorImage
-  if (authorImage !== DEFAULT_AUTHOR_IMG) {
-    ;({ resized_urls: { authorImgSmall } = {} } =
-      useContent({
-        source: 'photo-resizer',
-        query: {
-          url: authorImage,
-          presets: 'authorImgSmall:57x57',
-        },
-      }) || {})
-  }
-
   const params = {
     authorImage,
-    authorImgSmall,
     author,
     authorRole,
     authorLink,
@@ -167,19 +154,33 @@ const StoryContentsLite = () => {
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
   const seccArary = canonicalUrl.split('/')
   const secc = seccArary[1].replace(/-/gm, '')
+
+  const publicidadHtml = (contentHtml, espacio, text) => {
+    const html = `<div id=${`gpt_${espacio}`} className="f just-center" data-ads-name=${`/28253241/${arcSite}/web/post/${secc}/${espacio}`}
+                  data-ads-dimensions="[[300,250]]" data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>`
+    return contentHtml.replace(text, html)
+  }
+
   return (
     <>
       <div className={classes.news}>
-        {SITE_ELCOMERCIO === arcSite ? (
-          <StoryContentsChildAuthorTrustLite {...params} />
-        ) : (
-          <StoryContentsChildAuthorLite {...params} />
+        {subtype !== GALLERY_VERTICAL && (
+          <>
+            {SITE_ELCOMERCIO === arcSite ? (
+              <StoryContentsChildAuthorTrustLite {...params} />
+            ) : (
+              <StoryContentsChildAuthorLite {...params} />
+            )}
+          </>
         )}
-        <div
-          id="gpt_caja3"
-          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-          data-prebid-enabled></div>
+        {subtype !== MINUTO_MINUTO && (
+          <div
+            id="gpt_caja3"
+            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+            data-bloque="3"
+            data-prebid-enabled></div>
+        )}
         <div
           className={`${classes.content} ${isPremium &&
             'story-content__nota-premium paywall no_copy'}`}
@@ -260,6 +261,7 @@ const StoryContentsLite = () => {
                           id="gpt_inline"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
                           data-ads-dimensions="[[1,1]]"
+                          data-bloque="3"
                           data-ads-dimensions-m="[[1,1]]"></div>
                       )}
                       {nameAds === 'caja4' && (
@@ -267,6 +269,7 @@ const StoryContentsLite = () => {
                           id="gpt_caja4"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                          data-bloque="3"
                           data-prebid-enabled></div>
                       )}
                       {nameAds === 'caja5' && (
@@ -274,6 +277,7 @@ const StoryContentsLite = () => {
                           id="gpt_caja5"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                          data-bloque="4"
                           data-prebid-enabled></div>
                       )}
                       <p
@@ -312,6 +316,13 @@ const StoryContentsLite = () => {
                   }
                 }
                 if (type === ELEMENT_OEMBED) {
+                  if (sub === 'youtube') {
+                    const { html: youtubeIframe } = rawOembed || {}
+                    const [, videoId] =
+                      youtubeIframe.match(/\/embed\/([\w-]+)/) || []
+                    if (videoId)
+                      return <LiteYoutube videoId={videoId} loading="lazy" />
+                  }
                   return (
                     <Oembed
                       rawOembed={rawOembed}
@@ -404,6 +415,42 @@ const StoryContentsLite = () => {
                 }
 
                 if (type === ELEMENT_RAW_HTML) {
+                  if (content.includes('<mxm')) {
+                    let contentHtml = content
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja2',
+                      '<div id="gpt_caja2" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja3',
+                      '<div id="gpt_caja3" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja4',
+                      '<div id="gpt_caja4" class="flex justify-center"></div>'
+                    )
+                    contentHtml = publicidadHtml(
+                      contentHtml,
+                      'caja5',
+                      '<div id="gpt_caja5" class="flex justify-center"></div>'
+                    )
+                    contentHtml = contentHtml
+                      .replace('</script>:', '</script>')
+                      .replace(':<script', '<script')
+                      .replace(
+                        /:icon:/gm,
+                        '<div  class="more-compartir"></div>'
+                      )
+                      .replace(
+                        /:fijado:/gm,
+                        '<svg xmlns="http://www.w3.org/2000/svg" class="icon-compartir" width="20" height="20" viewBox="0 0 475 475"><path d="M380 247c-15-19-32-28-51-28V73c10 0 19-4 26-11 7-7 11-16 11-26 0-10-4-18-11-26C347 4 339 0 329 0H146c-10 0-18 4-26 11-7 7-11 16-11 26 0 10 4 19 11 26 7 7 16 11 26 11v146c-19 0-36 9-51 28-15 19-22 40-22 63 0 5 2 9 5 13 4 4 8 5 13 5h115l22 139c1 5 4 8 9 8h0c2 0 4-1 6-2 2-2 3-4 3-6l15-138h123c5 0 9-2 13-5 4-4 5-8 5-13C402 287 395 266 380 247zM210 210c0 3-1 5-3 7-2 2-4 3-7 3-3 0-5-1-7-3-2-2-3-4-3-7V82c0-3 1-5 3-7 2-2 4-3 7-3 3 0 5 1 7 3 2 2 3 4 3 7V210z" data-original="#000000"/></svg>'
+                      )
+                    return <StoryContentChildRawHTML content={contentHtml} />
+                  }
+
                   if (
                     content.includes('opta-widget') &&
                     // eslint-disable-next-line camelcase
@@ -473,21 +520,20 @@ const StoryContentsLite = () => {
                     )
                   }
                   if (
-                    content.includes('twitter-tweet') ||
-                    content.includes('instagram-media')
+                    /twitter-(?:tweet|timeline)|instagram-media/.test(content)
                   ) {
                     return (
                       <>
                         <div
                           data-type={
-                            content.includes('twitter-tweet')
+                            /twitter-(?:tweet|timeline)/.test(content)
                               ? 'twitter'
                               : 'instagram'
                           }
                           className={classes.newsEmbed}
                           dangerouslySetInnerHTML={{
                             __html: content.replace(
-                              /(<script.*?>).*?(<\/script>)/,
+                              /<script.*?>.*?<\/script>/,
                               ''
                             ),
                           }}
@@ -495,6 +541,7 @@ const StoryContentsLite = () => {
                       </>
                     )
                   }
+
                   return <StoryContentChildRawHTML content={content} />
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {

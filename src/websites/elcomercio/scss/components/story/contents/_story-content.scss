@@ -78,11 +78,10 @@
     }
   }
   &__author-link {
-    font-family: $secondary-font !important;
-    font-size: 16px !important;
-    font-weight: 700;
-    display: inline-block;
     margin-bottom: 5px;
+  }
+  &__link {
+    color: #747a84;
   }
   &__author-image {
     width: 57px;

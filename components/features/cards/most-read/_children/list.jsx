@@ -10,7 +10,7 @@ const classes = {
 }
 
 const CardMostReadChildList = props => {
-  const { viewImage, stories, customTitle, isAdmin, customLink } = props
+  const { viewImage, stories, customTitle, customLink, arcSite } = props
   const { editableField } = useEditableContent()
 
   return (
@@ -30,7 +30,7 @@ const CardMostReadChildList = props => {
       {stories &&
         stories.map((item, i) => {
           const key = `most-read-${i}-${item.id}`
-          const params = { item, viewImage, isAdmin }
+          const params = { item, viewImage, arcSite }
           return <CardMostReadItem key={key} {...params} />
         })}
     </div>

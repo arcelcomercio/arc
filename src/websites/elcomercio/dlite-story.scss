@@ -1,5 +1,6 @@
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
+
 @import "./scss/variables/index";
 @import "../../general-styles/framework/core/reset";
 @import "../../general-styles/framework/core/lite";
@@ -7,6 +8,7 @@
 /******* Components *******/
 @import "./scss/lite-components/global-components/ads/ad-lateral";
 @import "./scss/lite-components/features/story/title/title";
+@import "./scss/lite-components/features/story/author/story-author";
 @import "./scss/lite-components/features/story/special-title/st-special-t";
 @import "./scss/lite-components/features/premium/premium";
 @import "./scss/lite-components/features/story/multimedia/multimedia";
@@ -17,3 +19,4 @@
 @import "./scss/lite-components/features/header/links-band/links-band";
 @import "./scss/lite-components/features/story/social/st-social";
 @import "./scss/lite-components/features/story/gallery/gallery-img";
+@import "./scss/lite-components/features/story/minuto-a-minuto/story";

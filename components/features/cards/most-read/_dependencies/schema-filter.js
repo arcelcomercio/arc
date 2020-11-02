@@ -13,11 +13,6 @@ export default `
             url
             type
             caption
-            resized_urls { 
-              landscape_xs
-              landscape_md
-              lazy_default
-            }
           }
           basic_video {
             promo_items {
@@ -25,11 +20,6 @@ export default `
                 url
                 type
                 caption
-                resized_urls { 
-                  landscape_xs
-                  landscape_md
-                  lazy_default
-                }
               }
             }
           }
@@ -39,11 +29,6 @@ export default `
                 url
                 type
                 caption
-                resized_urls { 
-                  landscape_xs
-                  landscape_md
-                  lazy_default
-                }
               }
             }
           }

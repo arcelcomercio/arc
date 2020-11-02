@@ -55,9 +55,14 @@
     &::-webkit-scrollbar {
       display: none;
     }
+
     overflow: -moz-scrollbars-none;
     scrollbar-width: none;
     -ms-overflow-style: none;
+  }
+  &__icon-back {
+    background-color: #555;
+    font-size: 11px;
   }
   &__button {
     &:focus {
@@ -67,11 +72,12 @@
       transform: rotate(180deg);
       &::before {
         content: "";
-        transform: translatex(100%);
+        transform: translateX(100%);
         width: 20px;
         @media (--desktop) {
           width: 30px;
         }
+
         height: 100%;
         display: block;
         position: absolute;
@@ -87,11 +93,12 @@
     &.left {
       &::before {
         content: "";
-        transform: translatex(100%);
+        transform: translateX(100%);
         width: 20px;
         @media (--desktop) {
           width: 30px;
         }
+
         height: 100%;
         display: block;
         position: absolute;
@@ -113,9 +120,5 @@
         background-color: #8a8a8a;
       }
     }
-  }
-  &__icon-back {
-    background-color: #555555;
-    font-size: 11px;
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 import Static from 'fusion:static'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   image: 'story-content__gallery-img w-full ',
@@ -10,13 +10,14 @@ const classes = {
 }
 
 const StoryHeaderChildPicture = (slide = {}) => {
-  const { arcSite } = useFusionContext()
+  const { arcSite } = useAppContext()
+  const imageVertical = 'landscape_md:314x,story_small:482x,large:980x'
   const extractImage = urlImg => {
     if (typeof window === 'undefined') {
       return (
-        getResizedUrl({
+        createResizedParams({
           url: slide.url,
-          presets: 'landscape_md:314x157,story_small:482x290,large:980x528',
+          presets: slide.itemv ? imageVertical : imageVertical,
           arcSite,
         }) || {}
       )
@@ -42,6 +43,7 @@ const StoryHeaderChildPicture = (slide = {}) => {
                 src={extractImage(slide.url).large}
                 alt={slide.caption || slide.subtitle}
                 className={classes.image}
+                importance="high"
               />
             </>
           ) : (
@@ -63,6 +65,7 @@ const StoryHeaderChildPicture = (slide = {}) => {
                 data-src={extractImage(slide.url).large}
                 alt={slide.caption || slide.subtitle}
                 className={`lazy ${classes.image}`}
+                importance="low"
               />
             </>
           )}

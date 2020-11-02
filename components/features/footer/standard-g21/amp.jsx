@@ -2,9 +2,13 @@ import { useFusionContext } from 'fusion:context'
 import ENV from 'fusion:environment'
 import React from 'react'
 import StoryData from '../../../utilities/story-data'
-import StoriesRecent from '../../../global-components/stories-recent'
 import { formatHtmlToText } from '../../../utilities/helpers'
-import { SITE_GESTION } from '../../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
+} from '../../../utilities/constants/sitenames'
+import StoriesRecent from '../../../global-components/stories-recent'
+import FooterMagAmp from './_children/footer-mag-amp'
 
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
@@ -24,6 +28,10 @@ const FooterElComercioAmp = () => {
     deployment,
     siteProperties: { siteUrl },
   } = useFusionContext()
+
+  if (arcSite === SITE_ELCOMERCIOMAG) {
+    return <FooterMagAmp arcSite={arcSite} contextPath={contextPath} />
+  }
 
   const { primarySection, primarySectionLink, id } = new StoryData({
     data,

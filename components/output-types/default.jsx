@@ -36,8 +36,14 @@ import {
 } from './_dependencies/utils'
 import { getPushud, getEnablePushud } from './_dependencies/pushud'
 import iframeScript from './_dependencies/iframe-script'
+import htmlScript from './_dependencies/html-script'
 import widgets from './_dependencies/widgets'
 import videoScript from './_dependencies/video-script'
+import minutoMinutoScript from './_dependencies/minuto-minuto-script'
+import {
+  MINUTO_MINUTO,
+  GALLERY_VERTICAL,
+} from '../utilities/constants/subtypes'
 
 export default ({
   children,
@@ -72,13 +78,13 @@ export default ({
   }
 
   const {
+    node_type: nodeType,
+    _id,
+    credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    promo_items: {
-      basic_gallery: basicGallery = 0,
-      uuid_match: idMatch = '',
-    } = {},
+    promo_items: promoItems = {},
     taxonomy: {
-      primary_section: { path: nameSeccion = '' } = {},
+      primary_section: { path: storySectionPath = '' } = {},
       tags = [],
     } = {},
     subtype = '',
@@ -87,12 +93,14 @@ export default ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
+  const sectionPath = nodeType === 'section' ? _id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
+  const isVideosSection = /^\/videos\//.test(requestUri)
   const isBlogPost = /^\/blogs?\/.*.html/.test(requestUri)
 
   let classBody = isStory
-    ? `story ${basicGallery && 'basic_gallery'} ${arcSite} ${
-        nameSeccion.split('/')[1]
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
+        storySectionPath.split('/')[1]
       } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
@@ -112,9 +120,9 @@ export default ({
     classBody = `${isStory ? 'story' : ''} section-play`
   } else if (/^\/peru21tv\//.test(requestUri)) {
     classBody = `${isStory ? 'story' : ''} section-peru21tv`
-  } else if (/^\/videos\//.test(requestUri)) {
+  } else if (isVideosSection) {
     classBody = `${
-      isStory && !arcSite === SITE_OJO ? 'story' : ''
+      isStory && arcSite !== SITE_OJO ? 'story' : ''
     } section-videos`
   }
 
@@ -125,6 +133,7 @@ export default ({
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const { uuid_match: idMatch = '' } = promoItems
 
   const metaSiteData = {
     ...siteProperties,
@@ -234,20 +243,31 @@ export default ({
 
   const {
     videoSeo,
-    embedTwitterAndInst = [],
+    idYoutube,
+    contentElementsHtml,
+    oembedSubtypes,
+    embedTwitterAndInst,
     promoItems: { basic_html: { content = '' } = {} } = {},
   } = new StoryData({
     data: globalContent,
     arcSite,
     contextPath,
   })
+
+  const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
+  const hasYoutubeVideo =
+    idYoutube ||
+    regexYoutube.test(content) ||
+    regexYoutube.test(contentElementsHtml) ||
+    oembedSubtypes.includes('youtube')
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
   let style = 'style'
   if (
-    isStory &&
-    (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) &&
+    (arcSite === SITE_ELCOMERCIO ||
+      arcSite === SITE_ELCOMERCIOMAG ||
+      arcSite === SITE_DEPOR) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
@@ -267,8 +287,8 @@ export default ({
   }
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
-  console.log('---->>>>', classBody)
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -396,9 +416,20 @@ export default ({
                     });
                   }, 1);
                 };
+
+                window.addPrefetch = function addPrefetch(kind, url, as) {
+                  const linkElem = document.createElement('link');
+                  linkElem.rel = kind;
+                  linkElem.href = url;
+                  if (as) {
+                      linkElem.as = as;
+                  }
+                  linkElem.crossOrigin = 'true';
+                  document.head.append(linkElem);
+                }
               }
             */
-            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){const n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)});`,
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
         <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
@@ -409,6 +440,7 @@ export default ({
         {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
+
         {renderMetaPage(metaValue('id'), metaPageData)}
         <AppNexus
           arcSite={arcSite}
@@ -419,7 +451,7 @@ export default ({
         />
         <script
           async
-          src={`https://storage.googleapis.com/acn-comercio-peru-floor-prices-dev/comercioperu/web-script/ayos-pro-comercio.js?v=${new Date()
+          src={`https://api-gateway-1-serve-script-dpm1wlz8.uc.gateway.dev/serve_script?v=${new Date()
             .toISOString()
             .slice(0, 10)}`}
         />
@@ -435,6 +467,7 @@ export default ({
               />
             )}
             <script defer src={urlArcAds} />
+
             <script
               type="text/javascript"
               defer
@@ -444,8 +477,16 @@ export default ({
           </>
         )}
         {/* Scripts de AdManager - Fin */}
-        {/* Scripts de Chartbeat */}
-        <script async src="//static.chartbeat.com/js/chartbeat_mab.js" />
+        <ChartbeatBody
+          story={isStory}
+          hasVideo={contenidoVideo || hasYoutubeVideo}
+          requestUri={requestUri}
+          metaValue={metaValue}
+          tags={tags}
+          credits={credits}
+          promoItems={promoItems}
+          arcSite={arcSite}
+        />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
@@ -497,11 +538,9 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-
         <div id="fusion-app" role="application">
           {children}
         </div>
-
         {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
         {isStory && (
           <script
@@ -528,7 +567,6 @@ export default ({
             </noscript>
           </>
         )}
-        <ChartbeatBody story={isStory} {...metaPageData} />
         <script
           defer
           src={`${getAssetsPath(
@@ -570,16 +608,17 @@ export default ({
             />
           </>
         )}
-        {(contenidoVideo || /^\/videos\//.test(requestUri)) && (
+        {(contenidoVideo || isVideosSection) && (
           <>
             <script
               dangerouslySetInnerHTML={{
                 __html: `window.preroll='${getPreroll({
-                  section: nameSeccion,
+                  section: sectionPath,
                   arcSite,
                   siteDomain,
                   metaValue,
-                }) || siteProperties.urlPreroll}'`,
+                }) || siteProperties.urlPreroll}';
+                window.addPrefetch('preconnect', 'https://d1tqo5nrys2b20.cloudfront.net/')`,
               }}
             />
             <script
@@ -602,7 +641,38 @@ export default ({
             }}
           />
         )}
-        {embedTwitterAndInst[0] && (
+        {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: minutoMinutoScript,
+            }}
+          />
+        ) : (
+          <></>
+        )}
+        {(hasYoutubeVideo || isVideosSection) && (
+          <>
+            <Resource path="resources/assets/lite-youtube/styles.min.css">
+              {({ data }) => {
+                return data ? (
+                  <style
+                    dangerouslySetInnerHTML={{
+                      __html: data,
+                    }}
+                  />
+                ) : null
+              }}
+            </Resource>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/lite-youtube/lite-youtube.min.js`
+              )}
+            />
+          </>
+        )}
+        {embedTwitterAndInst && (
           <>
             <script
               type="text/javascript"
@@ -617,10 +687,9 @@ export default ({
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `"use strict";(function(){setTimeout(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}},0)})()`,
+            __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
           }}
         />
-
         {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
@@ -648,6 +717,12 @@ export default ({
               async
             />
           </>
+        )}
+        {contentElementsHtml.includes('graphics.afpforum.com') && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: htmlScript }}
+          />
         )}
       </body>
     </html>

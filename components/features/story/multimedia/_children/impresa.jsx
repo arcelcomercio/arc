@@ -1,8 +1,8 @@
 import React from 'react'
 import Static from 'fusion:static'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import Image from '@arc-core-components/element_image'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   paperNav: 'paper-nav position-relative vv',
@@ -11,19 +11,13 @@ const classes = {
 const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
   const ampClass = 'amp-'
 
-  const { arcSite } = useFusionContext()
-  const extractImage = urlImg => {
-    if (typeof window === 'undefined') {
-      return (
-        getResizedUrl({
-          url: basic.url,
-          presets: 'impresa:617x637',
-          arcSite,
-        }) || {}
-      )
-    }
-    return urlImg
-  }
+  const { arcSite } = useAppContext()
+  const extractImage = urlImg =>
+    createResizedParams({
+      url: urlImg,
+      presets: 'impresa:617x637',
+      arcSite,
+    }) || {}
 
   return (
     <>

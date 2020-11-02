@@ -29,7 +29,7 @@ class NavbarChildMenu extends PureComponent {
       sections.map(({ children, name = '', _id: id = '' }) => (
         <>
           <li className={classes.item} key={`navbar-menu-${id}`}>
-            <a href={id} className={classes.link}>
+            <a href={`${id}?ref=menu-amp`} className={classes.link}>
               {name}
             </a>
           </li>
@@ -82,7 +82,7 @@ class NavbarChildMenu extends PureComponent {
             <li className={classes.listItem} key={el.url}>
               <a
                 className={classes.listLink}
-                href={el.url}
+                href={`${el.url}?ref=menu-amp`}
                 aria-label={el.name}>
                 <svg width="32" height="32" viewBox="-2 -2 32 32">
                   <path d={icon[el.name]} />

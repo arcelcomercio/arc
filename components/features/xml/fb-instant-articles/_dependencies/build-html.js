@@ -2,7 +2,7 @@
 import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../../utilities/config-params'
 import StoryData from '../../../../utilities/story-data'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 import {
   countWords as countWordsHelper,
   nbspToSpace,
@@ -13,8 +13,10 @@ import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-ty
 import {
   STORY_CORRECTION,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
+  MINUTO_MINUTO,
 } from '../../../../utilities/constants/subtypes'
-import { getResultVideo } from '../../../../utilities/story/helpers'
+import { getResultVideo, stripTags } from '../../../../utilities/story/helpers'
 
 /**
  *
@@ -141,7 +143,7 @@ const buildListLinkParagraph = (items, defaultImage, arcSite) => {
                 image: { url: urlImg = '' } = {},
               } = data || {}
               result.numberWords += countWordsHelper(clearHtml(content))
-              const { resizedImage } = getResizedUrl({
+              const { resizedImage } = createResizedParams({
                 url: urlImg,
                 presets,
                 arcSite,
@@ -177,9 +179,9 @@ const analyzeParagraph = ({
   streams = [],
   siteUrl = '',
   typeConfig = '',
+  subtypeTheme = '',
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
-
   const result = {
     originalParagraph,
     type,
@@ -269,7 +271,7 @@ const analyzeParagraph = ({
 
     case ConfigParams.ELEMENT_IMAGE:
       result.numberWords = numberWordMultimedia
-      const { resizedImage } = getResizedUrl({
+      const { resizedImage } = createResizedParams({
         url: processedParagraph,
         presets,
         arcSite,
@@ -279,13 +281,112 @@ const analyzeParagraph = ({
       break
 
     case ConfigParams.ELEMENT_RAW_HTML:
-      if (processedParagraph.includes('<iframe')) {
+      if (subtypeTheme === MINUTO_MINUTO) {
+        const res = processedParagraph.split(
+          '<div class="live-event2-comment">'
+        )
+        let bloqueHtml = ''
+        res.forEach((entry, i) => {
+          let entryHtml = ''
+
+          if (i !== 0) {
+            entryHtml = `<div class="live-event2-comment">${entry.replace(
+              /<div id="(.+?)" class="flex justify-center"><\/div>/g,
+              ''
+            )}<div`
+
+            entryHtml = entryHtml
+              .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+              .replace(/(:<script.*)/, '')
+              .replace(/:fijado:/gm, '')
+              .replace(/:icon:/gm, '')
+
+            if (
+              entryHtml.includes('<blockquote class="instagram-media"') ||
+              entryHtml.includes('<blockquote class="twitter-tweet"')
+            ) {
+              // para twitter y para instagram
+              const arrayTwitter = entryHtml.match(
+                /<blockquote .+?>(.+?||(.+\n||(.+\n)+?.+?).+?)<\/blockquote>(.+?||)<script.+?><\/script>/g
+              )
+              entryHtml = `<xxfigure class="op-interactive"><iframe>${
+                arrayTwitter[0]
+              }</iframe></xxfigure> ${entryHtml.replace(arrayTwitter[0], '')}`
+            } else if (entryHtml.includes('https://www.facebook.com/plugins')) {
+              // para facebook
+
+              const arrayFacebook = entryHtml.match(
+                /(<iframe(.+?||(.+\n||(.+\n)+?.+?).+?)src="(.+?||(.+\n||(.+\n)+?.+?).+?)"(.+?||(.+\n||(.+\n)+?.+?).+?)><\/iframe>)/g
+              )
+              entryHtml = `<xxfigure class="op-interactive"><iframe>${
+                arrayFacebook[0]
+              }</iframe></xxfigure> ${entryHtml.replace(arrayFacebook[0], '')}`
+            } else if (entryHtml.includes('<iframe')) {
+              // valida si el parrafo contiene un iframe con video youtube o foto
+              entryHtml = `<figure class="op-interactive">${processedParagraph.replace(
+                /width=(?:"|')100%(?:"|')/g,
+                `width="520"`
+              )}</figure>`
+            }
+
+            entryHtml = stripTags(
+              entryHtml,
+              '<xxfigure><iframe><div><p><a><img><strong><blockquote><script>'
+            )
+            if (entryHtml.includes('<img')) {
+              // para twitter y para instagram
+              const imageHtml = entryHtml.match(
+                /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/g
+              )
+
+              entryHtml = `${imageHtml[0]} ${entryHtml.replace(
+                imageHtml[0],
+                ''
+              )}`
+              entryHtml = entryHtml.replace(
+                /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/g,
+                '<figure><img width="560" height="315" src="$2" /></figure>'
+              )
+            }
+
+            entryHtml = entryHtml.replace(
+              /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><div/gm,
+              '<blockquote>$1</blockquote>'
+            )
+          }
+          bloqueHtml = `${bloqueHtml}${entryHtml.replace(
+            /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><\/div>/g,
+            '<blockquote>$1</blockquote>'
+          )}`
+        })
+        result.processedParagraph = bloqueHtml.replace(/xxfigure/g, 'figure')
+      } else if (processedParagraph.includes('<iframe')) {
         // valida si el parrafo contiene un iframe con video youtube o foto
 
         result.processedParagraph = `<figure class="op-interactive">${processedParagraph.replace(
           /width=(?:"|')100%(?:"|')/g,
           `width="520"`
         )}</figure>`
+      } else if (processedParagraph.includes('<mxm-event')) {
+        const liveBlog = processedParagraph
+          .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+          .replace(/(:<script.*)/, '')
+          .replace(
+            /<div class="live-event-minute">([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/div>/gm,
+            '<xtrong>$1</xtrong>'
+          )
+        const liveBlogStrong = liveBlog.replace(
+          /<xtrong>([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/xtrong>(.+?)<p>/gm,
+          '<p><strong>$1 </strong> '
+        )
+        const liveBlogTags = stripTags(liveBlogStrong, '<p><a><img><strong>')
+
+        const liveBlogResult = liveBlogTags.replace(
+          /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
+          '<figure><img img width="560" height="315" src="$2" /></figure>'
+        )
+
+        result.processedParagraph = liveBlogResult
       } else if (processedParagraph.includes('<img')) {
         // obtiene el valor del src de la imagen y el alt
         const imageUrl = processedParagraph.match(
@@ -300,7 +401,7 @@ const analyzeParagraph = ({
 
         if (imageUrl !== '') {
           // eslint-disable-next-line no-shadow
-          const { resizedImage } = getResizedUrl({
+          const { resizedImage } = createResizedParams({
             url: imageUrl,
             presets,
             arcSite,
@@ -323,16 +424,19 @@ const analyzeParagraph = ({
       ) {
         const domainOriginIframeOpta = 'https://img.depor.com/opta/optawidget'
         const pattern = /^<opta-widget (.+)><\/opta-widget>$/
-        const attributesWOpta = processedParagraph.match(pattern)[1].split(' ')
+        const attributesWOpta =
+          processedParagraph.match(pattern)[1].split(' ') || []
 
         let urlIframe = `${domainOriginIframeOpta}?`
         attributesWOpta.forEach((item, index) => {
           const attr = item.match(/(.+)="(.+)"/)
-          const key = attr[1]
-          const value = attr[2]
-          urlIframe += `${key}=${value}${
-            index < attributesWOpta.length - 1 ? '&' : ''
-          }`
+          if (attr[1]) {
+            const key = attr[1]
+            const value = attr[2]
+            urlIframe += `${key}=${value}${
+              index < attributesWOpta.length - 1 ? '&' : ''
+            }`
+          }
         })
 
         result.processedParagraph = `<iframe src="${urlIframe}" width="100%" height="500" style="max-height:500px" frameborder=0></iframe>`
@@ -347,6 +451,7 @@ const analyzeParagraph = ({
         )[0]
         result.processedParagraph = `<figure class="op-interactive"><iframe id='jwplayer_container'><script src="${jwScript}"></script></iframe></figure>`
       }
+
       result.numberWords = processedParagraph !== '' ? numberWordMultimedia : 0
       break
 
@@ -366,6 +471,7 @@ const buildListParagraph = ({
   arcSite,
   defaultImage,
   siteUrl = '',
+  subtypeTheme,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
@@ -376,10 +482,12 @@ const buildListParagraph = ({
       link = '',
       streams = [],
       type_config: typeConfig = '',
+      subtype = '',
     }) => {
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph: payload,
         type,
+        subtype,
         numberWordMultimedia,
         opta,
         link,
@@ -388,6 +496,7 @@ const buildListParagraph = ({
         streams,
         siteUrl,
         typeConfig,
+        subtypeTheme,
       })
       objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
       objTextsProcess.numberWords += numberWords
@@ -408,6 +517,7 @@ const ParagraphshWithAdds = ({
   opta,
   siteUrl,
   arcSite,
+  subtypeTheme = '',
   defaultImage = '',
 }) => {
   let newsWithAdd = []
@@ -441,6 +551,7 @@ const ParagraphshWithAdds = ({
           streams,
           siteUrl,
           typeConfig,
+          subtypeTheme,
         })
 
         if (ConfigParams.ELEMENT_STORY === type) {
@@ -500,13 +611,15 @@ const multimediaHeader = (
   { type = '', payload = '' },
   title,
   videoPrincipal,
-  arcSite
+  arcSite,
+  subtype,
+  contentElementGallery
 ) => {
   let result = ''
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
   switch (type) {
     case ConfigParams.IMAGE:
-      const { resizedImage } = getResizedUrl({
+      const { resizedImage } = createResizedParams({
         url: payload,
         presets,
         arcSite,
@@ -521,16 +634,45 @@ const multimediaHeader = (
       }</figure>`
       break
     case ConfigParams.GALLERY:
-      result = `<figure class="op-slideshow">${payload.map(url => {
-        // eslint-disable-next-line no-shadow
-        const { resizedImage } = getResizedUrl({
-          url,
-          presets,
-          arcSite,
-        })
-        return `<figure><img src="${resizedImage || url}" /></figure>`
-      })}${title ? `<figcaption>${title}</figcaption>` : ''}</figure>`
-      break
+      if (subtype === GALLERY_VERTICAL) {
+        const { content_elements: contentElements } = contentElementGallery
+        result = `${contentElements.map(
+          (
+            {
+              caption = '',
+              additional_properties: { resizeUrl = '' } = {},
+              subtitle = '',
+            },
+            i
+          ) => {
+            // eslint-disable-next-line no-shadow
+            const { resizedImage } = createResizedParams({
+              url: resizeUrl,
+              presets,
+              arcSite,
+            })
+            return `<p>Foto ${i + 1} de ${
+              contentElements.length
+            }</p><figure><img src="${resizedImage || resizeUrl}" /> ${
+              title
+                ? `<figcaption><strong>${subtitle}</strong>${caption}</figcaption>`
+                : ''
+            } </figure>`
+          }
+        )}`
+        break
+      } else {
+        result = `<figure class="op-slideshow">${payload.map(url => {
+          // eslint-disable-next-line no-shadow
+          const { resizedImage } = createResizedParams({
+            url,
+            presets,
+            arcSite,
+          })
+          return `<figure><img src="${resizedImage || url}" /></figure>`
+        })}${title ? `<figcaption>${title}</figcaption>` : ''}</figure>`
+        break
+      }
     case ConfigParams.ELEMENT_YOUTUBE_ID:
       result = `<figure class="op-interactive"><iframe width="560" height="315" src="https://www.youtube.com/embed/${payload}"></iframe>${
         title ? `<figcaption>${title}</figcaption>` : ''
@@ -567,6 +709,8 @@ const BuildHtml = ({
   defaultImage,
   recommenderData,
   videoPrincipal = [],
+  subtype,
+  contentElementGallery,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -580,6 +724,7 @@ const BuildHtml = ({
     arrayadvertising: listUrlAdvertisings,
     opta,
     siteUrl,
+    subtypeTheme: subtype,
     arcSite,
     defaultImage,
   }
@@ -625,7 +770,14 @@ const BuildHtml = ({
         ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
         <time class="op-published" datetime="${oppublished}"> ${oppublished}</time>
       </header>
-      ${multimediaHeader(multimedia, title, videoPrincipal, arcSite)}
+      ${multimediaHeader(
+        multimedia,
+        title,
+        videoPrincipal,
+        arcSite,
+        subtype,
+        contentElementGallery
+      )}
       
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}

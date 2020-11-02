@@ -9,24 +9,25 @@ import {
   SITE_ELCOMERCIOMAG,
 } from '../constants/sitenames'
 
-import formatTime from '../date-time/format-time'
-
 const createMarkup = html => {
   return {
     __html: html,
   }
 }
 
-export const formatDateStoryAmp = date => {
-  const fecha = new Date(date)
-  fecha.setHours(fecha.getHours() - 5)
-  const day = fecha.getDate()
-  const month = fecha.getMonth() + 1
-  const formatDay = day < 10 ? `0${day}` : day
-  const formatMonth = month < 10 ? `0${month}` : month
-  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatTime(
-    fecha
-  )}`
+// TODO: hacer que sea una sola funcion con la de helpers.js y dates.js
+export const formatDateTime = date => {
+  const newDate = new Date(date)
+  const dateTime = new Intl.DateTimeFormat('es', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'America/Lima',
+  })
+
+  return dateTime.format(newDate)
 }
 
 export const publicidadAmp = ({
@@ -122,7 +123,40 @@ export const optaWidgetHtml = html => {
   return result
 }
 
+export const imageHtmlMxm = html => {
+  let resHtml = html
+
+  const rplImageCde =
+    '<amp-img class="media 1" src="$2" layout="responsive" width="304" height="200"></amp-img>'
+
+  resHtml = resHtml.replace(
+    /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
+    rplImageCde
+  )
+
+  return resHtml
+}
+
 export const imageHtml = html => {
+  if (html.indexOf('<img') === -1) return html
+
+  /**
+   * @TODO hacer que capture el atributo alt
+   * @see regexp example: https://regex101.com/r/k8a9iF/1
+   */
+  const regex = /(?:<figure(?:.*?)>)?<img(?:.*?)src="(.*?)"(?:.*?)\/?>(?:<\/figure>)?/gi
+  const ampTag =
+    '<amp-img class="media 1" src="$1" layout="responsive" width="304" height="200"></amp-img>'
+  const result = html.replace(regex, ampTag)
+
+  return result
+}
+
+/**
+ * @deprecated esta funcion ahora esta debidamente optimizada en
+ * imageHtml. Funciona para notas MIGRADAS y NUEVAS.
+ */
+export const imageHtmlLegacy = html => {
   let resHtml = ''
   resHtml = html.replace('<figure>', '').replace('</figure>', '')
 
@@ -169,25 +203,25 @@ export const imageHtml = html => {
 }
 
 export const playerHtml = html => {
-  const rplEplayer =
-    '<amp-iframe width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://player.performgroup.com/eplayer/eplayer.html#/$1"></amp-iframe>'
+  if (html.indexOf('player.performgroup.com/eplayer.js') === -1) return html
 
-  return html.replace(
-    /<script src="\/\/player.performgroup.com\/eplayer.js#(.*?)" async><\/script>/g,
-    rplEplayer
-  )
+  const regex = /<script src="\/\/player.performgroup.com\/eplayer.js#(.*?)" async><\/script>/g
+  const ampTag =
+    '<amp-iframe width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="https://player.performgroup.com/eplayer/eplayer.html#/$1"></amp-iframe>'
+  const result = html.replace(regex, ampTag)
+
+  return result
 }
 
 export const jwPlayerJS = html => {
-  const existJwPlayer = /cdn.jwplayer.com/.test(html)
-  if (!existJwPlayer) return html
-  const rplPlayer =
-    '<amp-jwplayer data-player-id="$2" data-media-id="$1" layout="responsive" width="16" height="9"></amp-jwplayer>'
+  if (html.indexOf('cdn.jwplayer.com') === -1) return html
 
-  return html.replace(
-    /^(?:.+)cdn.jwplayer.com\/players\/(.+)-(.+).js(?:.+)/,
-    rplPlayer
-  )
+  const regex = /^(?:.+)cdn.jwplayer.com\/players\/(.+)-(.+).js(?:.+)/
+  const ampTag =
+    '<amp-jwplayer data-player-id="$2" data-media-id="$1" layout="responsive" width="16" height="9"></amp-jwplayer>'
+  const result = html.replace(regex, ampTag)
+
+  return result
 }
 
 export const twitterHtml = html => {
@@ -207,6 +241,9 @@ export const twitterHtml = html => {
   return result.replace(regexEmpty, '')
 }
 
+/**
+ * @deprecated esta funcion por ahora no se esta usando
+ */
 export const deporPlay = html => {
   const rplDeporPlay =
     '<amp-iframe class="media" src="https://w.soundcloud.com/player/$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
@@ -218,7 +255,63 @@ export const deporPlay = html => {
   return htmlDataDeporPlay
 }
 
-export const iframeHtml = (html, arcSite = '') => {
+export const uploadsUrls = (html, arcSite) => {
+  let result = html
+  const regexMedia = /(\/media\/[\w-]+)/g
+  const regexUploads = /(\/uploads\/(?:.*)\/(?:.*)\/(?:.*)\/(?:.*)(?:jpeg|jpg|png|gif|mp4|mp3))/g
+
+  if (arcSite === SITE_ELCOMERCIO) {
+    const replaceUploads = 'https://img.elcomercio.pe$1'
+    result = result.replace(regexMedia, replaceUploads)
+    result = result.replace(regexUploads, replaceUploads)
+  } else if (arcSite === SITE_DEPOR) {
+    const replaceUploads = 'https://img.depor.com$1'
+    const regexSoundcould = /<iframe(?:.*) src="(?:.*)soundcloud.com\/playlists\/([0-9]*[0-9])(?:.+)">(?:.*)<\/iframe>/g
+    const ampTagSoundcloud = `<amp-soundcloud width="480" height="480" layout="responsive" data-playlistid="$1" data-visual="true" ></amp-soundcloud>`
+
+    result = result.replace(regexMedia, replaceUploads)
+    result = result
+      .replace(regexUploads, replaceUploads)
+      .replace(regexSoundcould, ampTagSoundcloud)
+  } else if (arcSite === SITE_TROME) {
+    const replaceUploads = 'https://opta.minoticia.pe$1'
+    result = result.replace(regexMedia, replaceUploads)
+    result = result.replace(regexUploads, replaceUploads)
+  } else if (arcSite === SITE_DIARIOCORREO) {
+    const replaceUploads = 'https://cdne.diariocorreo.pe$1'
+    result = result.replace(regexMedia, replaceUploads)
+    result = result.replace(regexUploads, replaceUploads)
+  } else if (arcSite === SITE_PERU21) {
+    const replaceUploads = 'https://img.peru21.pe$1'
+    result = result.replace(regexMedia, replaceUploads)
+    result = result.replace(regexUploads, replaceUploads)
+  }
+
+  return result
+}
+
+export const iframeHtml = html => {
+  let result = html
+
+  if (result.indexOf('<iframe') !== -1) {
+    const regexIframe = /<iframe.*?src=["|'](.*?)["|'].*?>.*?<\/iframe>/g
+    const replaceIframeBasic =
+      '<amp-iframe class="media" src="$1" height="400" width="600" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0"></amp-iframe>'
+    result = result.replace(regexIframe, replaceIframeBasic)
+  }
+
+  result = result
+    .replace(
+      /<(?:style|[:]?script|form|twitterwidget|twitter|iframe|mxm-partido|embed).*?>.*?<\/(?:style|script[:]?|form|twitterwidget|twitter|iframe|mxm-partido|embed).*?>/gs,
+      ''
+    )
+    .replace(/http:/g, 'https:')
+    .replace(/src="\/\//g, 'src="https://')
+    .replace(/target="blank"/g, 'target="_blank"')
+  return result
+}
+
+export const iframeHtmlLegacy = (html, arcSite = '') => {
   let result = html
 
   if (arcSite === SITE_ELCOMERCIO) {
@@ -249,12 +342,12 @@ export const iframeHtml = (html, arcSite = '') => {
   } else if (arcSite === SITE_TROME) {
     result = result.replace(
       /(\/media\/([0-9-a-z-A-Z])\w+)/g,
-      'https://img.trome.pe$1'
+      'https://opta.minoticia.pe$1'
     )
 
     result = result.replace(
       /https:\/\/trome.pe(\/uploads\/(.*)\/(.*)\/(.*)\/(.*)(jpeg|jpg|png|gif|mp4|mp3))/g,
-      'https://img.trome.pe$1'
+      'https://opta.minoticia.pe$1'
     )
   } else if (arcSite === SITE_DIARIOCORREO) {
     result = result.replace(
@@ -348,7 +441,11 @@ export const facebookHtml = html => {
     const replacePlugin =
       '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$1"></amp-facebook>'
     resultHtml = resultHtml.replace(regexVideo, replacePlugin)
-    return decodeURIComponent(resultHtml)
+
+    return decodeURIComponent(resultHtml).replace(
+      /<iframe(.+?)(https?:\/\/www\.facebook\.com\/(?:video\.php\?v=\d+|.*?href=))((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)"(.+?)><\/iframe>/g,
+      '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$3"></amp-facebook>'
+    )
   }
 
   if (resultHtml.indexOf('facebook.com/plugins/post.php') !== -1) {
@@ -383,6 +480,29 @@ export const facebookHtml = html => {
 }
 
 export const youtubeHtml = html => {
+  const youtubeExists = /<iframe.+youtu\.be|youtube\.com/.test(html)
+  if (!youtubeExists) return html
+
+  /**
+   * Si se quiere que el alto del video no sea 350 siempre,
+   * usar la expresion regular de ejemplo en el enlace y
+   * modificar ampTag para que reciba los parametros $1 y $2
+   * adecuadamente.
+   * @see regex example https://regex101.com/r/nQLJfq/1
+   */
+  const regex = /<iframe.*(?:youtu\.be|youtube\.com)(?:\/(?:embed|v)\/|\/(?:watch|ytscreeningroom)\?v=|\/user\/\S+)([\w-]{10,12})(?:.*?)><\/iframe>/
+  const ampTag =
+    '<amp-youtube class="media" data-videoid="$1" layout="responsive" width="550" height="350"></amp-youtube>'
+  const result = html.replace(regex, ampTag)
+
+  return result
+}
+
+/**
+ * @deprecated esta funcion ahora esta debidamente optimizada en
+ * youtubeHtml. Funciona para notas MIGRADAS y NUEVAS.
+ */
+export const youtubeHtmlLegacy = html => {
   const rplYoutube =
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
   const rplYoutube1 =
@@ -416,11 +536,29 @@ export const youtubeHtml = html => {
     .replace(/videoid="(.+?)\?list=(.+) layout/g, 'videoid="$1" layout')
 }
 
+/**
+ * @deprecated esta funcion por ahora no se esta usando
+ */
 export const replaceHtmlMigracion = html => {
-  return html.replace(/<figure(.*)http:\/\/cms.minoticia(.*)<\/figure>/g, '')
+  return html.replace(/<figure.*http:\/\/cms.minoticia.*<\/figure>/g, '')
 }
 
 export const instagramHtml = html => {
+  if (html.indexOf('instagram.com') === -1) return html
+
+  const regex = /<blockquote (?:.*)class="instagram-media(?:.*)="https:\/\/www.instagram.com\/(?:p|tv)\/(.*?)\/(?:.*?)<\/blockquote>/g
+  const ampTag =
+    '<amp-instagram data-shortcode="$1" width="1" height="1" layout="responsive"></amp-instagram>'
+  const result = html.replace(regex, ampTag)
+
+  return result
+}
+
+/**
+ * @deprecated esta funcion ahora esta debidamente optimizada en
+ * instagramHtml. Funciona para notas MIGRADAS y NUEVAS.
+ */
+export const instagramHtmlLegacy = html => {
   const rplInstagram =
     '<amp-instagram data-shortcode="$3" width="1" height="1" layout="responsive"></amp-instagram>'
 
@@ -429,12 +567,17 @@ export const instagramHtml = html => {
     rplInstagram
   )
 }
+
 export const freeHtml = html => {
-  const strHtmlFree = '/<html_free>(.*?)</html_free>/g'
-  return html
-    .replace(strHtmlFree, '$1')
-    .replace(/<html_free><\/html_free>/g, '')
+  if (html.indexOf('<html_free>') === -1) return html
+
+  const regex = /<html_free>(.*?)<\/html_free>/g
+  const result = html
+    .replace(regex, '$1')
+    .replace(/:icon:|:fijado:/g, '')
     .replace(/="&quot;http?(.*?)"/g, '="http$1"')
+
+  return result
 }
 
 export const iframeMxm = (html, arcSite) => {
@@ -464,8 +607,9 @@ export const iframeMxm = (html, arcSite) => {
   return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')
 }
 
-export const ampHtml = (html = '', arcSite = '') => {
+export const ampHtml = (html = '', arcSite = '', migrated = false) => {
   let resultData = html
+  const isModernMag = arcSite === SITE_ELCOMERCIOMAG && !migrated
   // Opta Widget
   // Esta asignacion se esta sobreescribiendo con la que sigue.
   // resultData = replaceHtmlMigracion(html)
@@ -481,8 +625,11 @@ export const ampHtml = (html = '', arcSite = '') => {
     resultData = playerHtml(resultData)
   }
 
+  if (resultData.includes('mxm-')) {
+    resultData = imageHtmlMxm(resultData, arcSite)
+  }
   // imagenes
-  resultData = imageHtml(resultData)
+  resultData = isModernMag ? imageHtml(resultData) : imageHtmlLegacy(resultData)
 
   // JWplayer JS version
   if (arcSite === SITE_ELBOCON || arcSite === SITE_DEPOR) {
@@ -493,18 +640,27 @@ export const ampHtml = (html = '', arcSite = '') => {
   resultData = twitterHtml(resultData)
 
   // instagram
-  resultData = instagramHtml(resultData)
+  resultData = isModernMag
+    ? instagramHtml(resultData)
+    : instagramHtmlLegacy(resultData)
 
   // facebook
   resultData = facebookHtml(resultData)
 
   // Youtube
-  resultData = youtubeHtml(resultData)
+  resultData = isModernMag
+    ? youtubeHtml(resultData)
+    : youtubeHtmlLegacy(resultData)
 
   // HTML Free
   resultData = freeHtml(resultData)
 
-  resultData = iframeHtml(resultData, arcSite)
+  if (isModernMag) {
+    resultData = uploadsUrls(resultData, arcSite)
+    resultData = iframeHtml(resultData)
+  } else if (!resultData.includes('mxm-')) {
+    resultData = iframeHtmlLegacy(resultData, arcSite)
+  }
 
   // Mxm Iframe
   if (arcSite === SITE_ELCOMERCIO) {

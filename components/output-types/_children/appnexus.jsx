@@ -16,7 +16,7 @@ const getSite = site => {
   return sites[site] || sites.elcomercio
 }
 
-const getTypeStory = ({ promo_items: promoItems = {} }) => {
+const getTypeStory = ({ promo_items: promoItems = {} } = {}) => {
   const type = promoItems
   const arrType = Object.keys(type)
   return arrType[0] === 'basic_gallery'
@@ -77,7 +77,7 @@ const getVars = (
         dataStory = ` var tipo_nota = '${getMultimedia(
           multimediaType,
           true
-        )}';   var id_nota = '${id}';  var content_paywall = ${isPremium};`
+        )}';   var id_nota = '${id}';  var content_paywall = '${isPremium}';`
         dataNucleoOrigen = ` var nucleo_origen = '${nucleoOrigen}'; var format_origen = '${formatOrigen}';var content_origen = '${contentOrigen}'; var gender_origen = '${genderOrigen}';var audiencia_nicho = '${audienciaNicho}'`
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')

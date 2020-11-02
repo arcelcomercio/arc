@@ -37,16 +37,19 @@ class SignwallComponent extends PureComponent {
       if (window.Sales !== undefined) {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       }
-      Fingerprint2.getV18({}, result => {
-        Cookies.setCookie('gecdigarc', result, 365)
+      window.requestIdle(() => {
+        Fingerprint2.getV18({}, (result) => {
+          Cookies.setCookie('gecdigarc', result, 365)
+        })
       })
     }
 
-    this.checkUserName()
-
-    if (siteProperties.activePaywall || siteProperties.activeRulesCounter) {
-      this.getPaywall()
-    }
+    window.requestIdle(() => {
+      this.checkUserName()
+      if (siteProperties.activePaywall || siteProperties.activeRulesCounter) {
+        this.getPaywall()
+      }
+    })
   }
 
   componentDidUpdate() {
@@ -63,7 +66,7 @@ class SignwallComponent extends PureComponent {
       if (!this.checkSession()) {
         this.setState({ showPremium: true })
       } else {
-        return this.getListSubs().then(p => {
+        return this.getListSubs().then((p) => {
           if (p && p.length === 0) {
             this.setState({ showPremium: true })
           } else {
@@ -85,9 +88,11 @@ class SignwallComponent extends PureComponent {
     const W = window || {}
 
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
-    const dataContTyp = W.document.querySelector('meta[name="content-type"]')
-    const dataContSec = W.document.querySelector('meta[name="section-id"]')
-    const contentTier = W.document.querySelector(
+    const dataContTyp = W.document.head.querySelector(
+      'meta[name="content-type"]'
+    )
+    const dataContSec = W.document.head.querySelector('meta[name="section-id"]')
+    const contentTier = W.document.head.querySelector(
       'meta[property="article:content_tier"]'
     )
     const URL_ORIGIN = Domains.getOriginAPI(arcSite)
@@ -107,7 +112,7 @@ class SignwallComponent extends PureComponent {
       this.getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({
-        paywallFunction: campaignURL => {
+        paywallFunction: (campaignURL) => {
           if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
             W.location.href = Domains.getUrlSignwall(
               arcSite,
@@ -137,7 +142,7 @@ class SignwallComponent extends PureComponent {
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
           if (W.Identity.userIdentity.accessToken) {
-            return this.getListSubs().then(p => {
+            return this.getListSubs().then((p) => {
               const isLoggedInSubs = this.checkSession()
               return {
                 s: isLoggedInSubs,
@@ -170,14 +175,14 @@ class SignwallComponent extends PureComponent {
   getListSubs() {
     const { arcSite } = this.props
     const W = window
-    return W.Identity.extendSession().then(resExt => {
+    return W.Identity.extendSession().then((resExt) => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
       )
-        .then(res => {
+        .then((res) => {
           if (res.skus) {
-            const result = Object.keys(res.skus).map(key => {
+            const result = Object.keys(res.skus).map((key) => {
               return res.skus[key].sku
             })
             this.listSubs = result
@@ -185,7 +190,7 @@ class SignwallComponent extends PureComponent {
           }
           return []
         })
-        .catch(err => W.console.error(err))
+        .catch((err) => W.console.error(err))
 
       return checkEntitlement
     })
@@ -209,7 +214,7 @@ class SignwallComponent extends PureComponent {
 
     if (typeof window !== 'undefined') {
       window.document.cookie = `ArcId.USER_INFO=;path=/;domain=.${arcSite}.pe; expires=Thu, 01 Jan 1970 00:00:01 GMT`
-      const dataContType = window.document.querySelector(
+      const dataContType = window.document.head.querySelector(
         'meta[name="content-type"]'
       )
       if (
@@ -232,7 +237,7 @@ class SignwallComponent extends PureComponent {
     window.location.href = Domains.getUrlSignwall(arcSite, typeDialog, hash)
   }
 
-  getUrlParam = name => {
+  getUrlParam = (name) => {
     const vars = {}
     if (typeof window !== 'undefined')
       window.location.href.replace(

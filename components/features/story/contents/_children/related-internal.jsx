@@ -1,7 +1,7 @@
 import React from 'react'
 import { IMAGE } from '../../../../utilities/constants/multimedia-types'
 import StoryData from '../../../../utilities/story-data'
-import { getResizedUrl } from '../../../../utilities/resizer'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 // Basic flex stuff
 const classes = {
@@ -36,7 +36,7 @@ const RelatedItem = ({ data, imageDefault, arcSite, isAdmin } /* , i */) => {
   })
 
   const { landscape_md: landscapeMD = {} } =
-    getResizedUrl({
+    createResizedParams({
       url: get.multimediaLandscapeMD,
       presets: 'landscape_md:314x157',
       arcSite,

@@ -1,13 +1,14 @@
 import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import ShareButtons from '../../../global-components/lite/share'
-import TProLbl from './_children/trustprojectlabel'
+import TProLbl from '../../../global-components/trustprojectlabel'
+import { addSlashToEnd } from '../../../utilities/parse/strings'
 
 const classes = {
   container: 'st-social f just-between',
   upsection: 'st-social__tooltdiv uppercase',
-  section: 'st-social__txt f f-center oflow-h uppercase',
+  section: 'st-social__txt f oflow-h uppercase',
   sectionLink: 'st-social__link oflow-h',
   buttons: 'st-social__share',
   special: 'st-social__special f',
@@ -15,7 +16,7 @@ const classes = {
 }
 
 const StorySocialLite = () => {
-  const { requestUri, globalContent } = useFusionContext()
+  const { requestUri, globalContent } = useAppContext()
 
   const {
     taxonomy: {
@@ -29,7 +30,8 @@ const StorySocialLite = () => {
   const { name: auxName = '', path: auxPath = '/' } = sections[0] || {}
 
   const primarySection = name || auxName
-  const primarySectionLink = path || auxPath
+  let primarySectionLink = path || auxPath
+  primarySectionLink = addSlashToEnd(primarySectionLink)
 
   const isArchivoElcomercio = requestUri.includes('/archivo-elcomercio')
 

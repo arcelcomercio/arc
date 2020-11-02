@@ -3,6 +3,7 @@ export default arcSite => {
   {
     content_elements {
       headlines { basic }
+      content_restrictions { content_code }
       websites {
         ${arcSite} {
           website_url

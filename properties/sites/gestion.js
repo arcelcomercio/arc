@@ -1,7 +1,7 @@
 export default {
   siteName: 'Gestión',
   sitemapNewsName: 'Diario Gestión',
-  siteTitle: 'Noticias Gestión Perú',
+  siteTitle: 'Gestión',
   newsletterBrand: 'gestion',
   api: {
     blog: 'https://svc-blogs.gestion.pe/apiblogs.php',
@@ -9,7 +9,6 @@ export default {
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Judson:400,700|Roboto|Libre+Franklin:500,700',
   siteDomain: 'gestion.pe',
   siteUrl: 'https://gestion.pe',
   resizerUrl: 'https://gestion.pe/resizer',
@@ -222,4 +221,5 @@ export default {
     logo: 'logo-gestion-stick.png',
   },
   isDfp: true,
+  archiveLimit: '2012-03-28',
 }

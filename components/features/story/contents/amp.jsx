@@ -47,18 +47,20 @@ import {
   SITE_PERU21,
   SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 import {
-  formatDateStoryAmp,
+  formatDateTime,
   publicidadAmp,
   publicidadAmpAd,
   ampHtml,
 } from '../../../utilities/story/helpers-amp'
-import { getResizedUrl } from '../../../utilities/resizer'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
 import {
   STORY_CORRECTION,
   STAMP_TRUST,
+  GALLERY_VERTICAL,
 } from '../../../utilities/constants/subtypes'
 
 const classes = {
@@ -66,7 +68,10 @@ const classes = {
   textClasses: 'amp-story-content__news-text ',
   blockquoteClass:
     'amp-story-content__blockquote text-lg secondary-font text-gray-300 text-xl line-h-md ml-15 mt-25 mb-25 pl-10 pr-30',
-  author: 'amp-story-content__author mt-15 mb-15 secondary-font',
+  authorTimeContainer:
+    'pt-15 mt-15 pb-15 mb-15 border-t-1 border-b-1 border-solid border-gray',
+  author: 'amp-story-content__author mb-5 secondary-font',
+  datetime: 'secondary-font text-md',
   image: 'amp-story-content__image mt-10 mb-10',
   // TODO: Revisar video y imgTag
   relatedTitle:
@@ -82,7 +87,6 @@ class StoryContentAmp extends PureComponent {
     const {
       contextPath,
       arcSite,
-      isAmp,
       siteProperties: { siteUrl, adsAmp },
       globalContent: data = {},
     } = this.props
@@ -92,22 +96,26 @@ class StoryContentAmp extends PureComponent {
       promoItems,
       tags,
       authorLink,
-      displayDate: updatedDate,
+      displayDate,
+      publishDate: updateDate,
+      primarySection,
       primarySectionLink,
       author,
       multimediaLazyDefault,
+      subtype,
     } = new StoryData({
       data,
       arcSite,
       contextPath,
       siteUrl,
     })
-    const isLegacy =
-      source.source_id &&
-      (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
+    const isMag = arcSite === SITE_ELCOMERCIOMAG
+    const isLegacy =
+      source.source_id &&
+      (arcSite === SITE_ELBOCON || arcSite === SITE_DIARIOCORREO)
 
     const imgTag = 'amp-img'
     const width = '300'
@@ -172,16 +180,43 @@ class StoryContentAmp extends PureComponent {
       <>
         <div className={classes.content}>
           {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
-          />
-          <p className={classes.author}>
-            <a href={authorLink}>{author}</a>
-          </p>
-          <time dateTime={getDateSeo(updatedDate)} className={classes.datetime}>
-            {formatDateStoryAmp(updatedDate)}
-          </time>
+          {!isMag && (
+            <div
+              className={classes.adsAmp}
+              dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
+            />
+          )}
+
+          {subtype !== GALLERY_VERTICAL && (
+            <div
+              className={isMag ? classes.authorTimeContainer : 'pt-15 pb-15'}>
+              <p className={classes.author}>
+                {isMag ? (
+                  <>
+                    Por{' '}
+                    <a href={authorLink} className="font-bold">
+                      {author}
+                    </a>{' '}
+                    en{' '}
+                    <a href={primarySectionLink} className="font-bold">
+                      {primarySection}
+                    </a>
+                  </>
+                ) : (
+                  <a href={authorLink}>{author}</a>
+                )}
+              </p>
+              <time
+                dateTime={getDateSeo(displayDate)}
+                className={classes.datetime}>
+                {isMag
+                  ? `${formatDateTime(
+                      displayDate
+                    )} | Actualizado ${formatDateTime(updateDate)}`
+                  : `Actualizado el ${formatDateTime(displayDate)}`}
+              </time>
+            </div>
+          )}
           {contentPosicionPublicidadAmp && (
             <StoryContent
               data={contentPosicionPublicidadAmp}
@@ -196,7 +231,9 @@ class StoryContentAmp extends PureComponent {
                   content,
                   level,
                   publicidadInline = false,
+                  publicidadCaja2 = false,
                   publicidadCaja3 = false,
+                  publicidadCaja4 = false,
                   url = '',
                   items = [],
                 } = element
@@ -221,7 +258,7 @@ class StoryContentAmp extends PureComponent {
                     <p> - </p>
                   ) : (
                     <RawHtml
-                      content={ampHtml(content, arcSite)}
+                      content={ampHtml(content, arcSite, source.source_id)}
                       className={classes.rawHtmlClasses}
                     />
                   )
@@ -262,7 +299,7 @@ class StoryContentAmp extends PureComponent {
                     <AmpImage
                       {...element}
                       url={
-                        getResizedUrl({
+                        createResizedParams({
                           url: element.url,
                           presets: 'large:400x0',
                           arcSite,
@@ -317,9 +354,13 @@ class StoryContentAmp extends PureComponent {
                         href={customEmbedConfig.link}
                         title={customEmbedConfig.title}>
                         <AmpImage
-                          {...element}
+                          width={customEmbedConfig.width || 560}
+                          height={customEmbedConfig.height || 315}
+                          caption={
+                            customEmbedConfig.alt || customEmbedConfig.title
+                          }
                           url={
-                            getResizedUrl({
+                            createResizedParams({
                               url: customEmbedConfig.photo,
                               presets: 'large:400x0',
                               arcSite,
@@ -344,11 +385,23 @@ class StoryContentAmp extends PureComponent {
                             ? formatHtmlToText(
                                 replaceTags(cleanLegacyAnchor(content))
                               )
-                            : ampHtml(replaceTags(content), arcSite)
+                            : ampHtml(
+                                replaceTags(content),
+                                arcSite,
+                                !!source.source_id
+                              )
                         }
                         className={classes.textClasses}
                       />
-                      {publicidadInline && (
+                      {isMag && publicidadCaja2 && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={publicidadAmp(
+                            parametersCaja2
+                          )}
+                        />
+                      )}
+                      {!isMag && publicidadInline && (
                         <div
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
@@ -361,6 +414,14 @@ class StoryContentAmp extends PureComponent {
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
                             parametersCaja3
+                          )}
+                        />
+                      )}
+                      {isMag && publicidadCaja4 && (
+                        <div
+                          className={classes.adsAmp}
+                          dangerouslySetInnerHTML={publicidadAmpAd(
+                            parametersCaja4
                           )}
                         />
                       )}
@@ -405,12 +466,14 @@ class StoryContentAmp extends PureComponent {
               }}
             />
           )}
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
-          />
+          {!isMag && (
+            <div
+              className={classes.adsAmp}
+              dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
+            />
+          )}
           {isComercio && <StoryGoogleNews />}
-          <StoryContentChildTags data={tags} {...isAmp} />
+          <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
@@ -430,10 +493,12 @@ class StoryContentAmp extends PureComponent {
           )}
         </div>
 
-        <div
-          className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
-        />
+        {!isMag && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
+          />
+        )}
       </>
     )
   }

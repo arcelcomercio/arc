@@ -1,12 +1,11 @@
 export default {
   siteName: 'Correo',
   sitemapNewsName: 'Diario Correo',
-  siteTitle: 'Noticias Correo Perú',
+  siteTitle: 'Correo',
   newsletterBrand: 'correo',
   // colorPrimary: '#8F071F',
   colorPrimary: '#444444',
   colorSecondary: '#F4E0D2',
-  googleFonts: 'Titillium+Web:400,600,700,900|Roboto+Slab:400,700',
   siteDomain: 'diariocorreo.pe',
   siteUrl: 'https://diariocorreo.pe',
   resizerUrl: 'https://diariocorreo.pe/resizer',
@@ -162,4 +161,5 @@ export default {
     logo: 'logo-stick.png',
   },
   isDfp: true,
+  archiveLimit: '2008-12-31',
 }

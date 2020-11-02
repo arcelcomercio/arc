@@ -18,7 +18,6 @@ export default ({
   siteUrl = '',
   colorPrimary = '',
   socialNetworks = [],
-  charbeatAccountNumber = '',
   siteDomain = '',
   requestUri = '',
   arcSite = '',
@@ -43,16 +42,6 @@ export default ({
 
   const structuredNavigation = `{"@context":"https://schema.org","@graph":[{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Opinión","url":"https://elcomercio.pe/opinion/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Política","url":"https://elcomercio.pe/politica/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Lima","url":"https://elcomercio.pe/lima/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Economía","url":"https://elcomercio.pe/economia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Mundo","url":"https://elcomercio.pe/mundo/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Deporte Total","url":"https://elcomercio.pe/deporte-total/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Perú","url":"https://elcomercio.pe/peru/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Videos","url":"https://elcomercio.pe/videos/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Luces","url":"https://elcomercio.pe/luces/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"TV+","url":"https://elcomercio.pe/tvmas/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Tecnología","url":"https://elcomercio.pe/tecnologia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Somos","url":"https://elcomercio.pe/somos/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Redes Sociales","url":"https://elcomercio.pe/redes-sociales/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Gastronomía","url":"https://elcomercio.pe/gastronomia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Viú","url":"https://elcomercio.pe/viu/"}]}`
 
-  const charbeatScript = `
-          var _sf_async_config = _sf_async_config || {}
-          /** CONFIGURATION START **/
-          _sf_async_config.uid = ${charbeatAccountNumber} // ACCOUNT NUMBER
-          _sf_async_config.domain = "${siteDomain}" // DOMAIN TRACKED
-          _sf_async_config.flickerControl = false
-          _sf_async_config.useCanonical = true
-          var _sf_startpt = new Date().getTime()
-          /** CONFIGURATION END **/`
-
   const urlCanonical = deleteQueryString(requestUri)
   const regxTag = /^(\/noticias\/[\wa-zA-ZÀ-ÿ\u00f1\u00d1\d-%]+)\/?(?:\d+)?\/?$/
   const auxUrlCanonicaMatch = urlCanonical.match(regxTag) || []
@@ -68,8 +57,9 @@ export default ({
   let style = 'style'
 
   if (
-    isStory &&
-    (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) &&
+    (arcSite === SITE_ELCOMERCIO ||
+      arcSite === SITE_ELCOMERCIOMAG ||
+      arcSite === SITE_DEPOR) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
@@ -218,12 +208,6 @@ export default ({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: structuredData }}
-        />
-      )}
-      {isAmp !== true && (
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: charbeatScript }}
         />
       )}
       <Trust arcSite={arcSite} siteUrl={siteUrl} siteName={siteName} />

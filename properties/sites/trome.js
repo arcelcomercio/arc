@@ -1,7 +1,7 @@
 export default {
   siteName: 'Trome',
   sitemapNewsName: 'Diario Trome',
-  siteTitle: 'Noticias Trome Perú',
+  siteTitle: 'Trome',
   newsletterBrand: 'trome',
   colorPrimary: '#E06437',
   siteDomain: 'trome.pe',
@@ -139,4 +139,5 @@ export default {
     mode: 'thumbnails-c',
   },
   isDfp: true,
+  archiveLimit: '2015-12-27',
 }
