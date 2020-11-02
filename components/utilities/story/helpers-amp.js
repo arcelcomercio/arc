@@ -129,10 +129,16 @@ export const imageHtmlMxm = html => {
   const rplImageCde =
     '<amp-img class="media 1" src="$2" layout="responsive" width="304" height="200"></amp-img>'
 
-  resHtml = resHtml.replace(
-    /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
-    rplImageCde
-  )
+  resHtml = resHtml
+    .replace(
+      /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
+      rplImageCde
+    )
+    .replace(/:icon:/g, '')
+    .replace(
+      /:fijado:/g,
+      '<div class="fijado"><div class="icon-compartir"><svg xmlns="http://www.w3.org/2000/svg" class="icon-compartir" width="20" height="20" viewBox="0 0 475 475"><path d="M380 247c-15-19-32-28-51-28V73c10 0 19-4 26-11 7-7 11-16 11-26 0-10-4-18-11-26C347 4 339 0 329 0H146c-10 0-18 4-26 11-7 7-11 16-11 26 0 10 4 19 11 26 7 7 16 11 26 11v146c-19 0-36 9-51 28-15 19-22 40-22 63 0 5 2 9 5 13 4 4 8 5 13 5h115l22 139c1 5 4 8 9 8h0c2 0 4-1 6-2 2-2 3-4 3-6l15-138h123c5 0 9-2 13-5 4-4 5-8 5-13C402 287 395 266 380 247zM210 210c0 3-1 5-3 7-2 2-4 3-7 3-3 0-5-1-7-3-2-2-3-4-3-7V82c0-3 1-5 3-7 2-2 4-3 7-3 3 0 5 1 7 3 2 2 3 4 3 7V210z" data-original="#000000"/></svg></div></div>'
+    )
 
   return resHtml
 }
@@ -574,7 +580,6 @@ export const freeHtml = html => {
   const regex = /<html_free>(.*?)<\/html_free>/g
   const result = html
     .replace(regex, '$1')
-    .replace(/:icon:|:fijado:/g, '')
     .replace(/="&quot;http?(.*?)"/g, '="http$1"')
 
   return result

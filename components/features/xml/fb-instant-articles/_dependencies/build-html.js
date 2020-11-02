@@ -298,8 +298,7 @@ const analyzeParagraph = ({
             entryHtml = entryHtml
               .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
               .replace(/(:<script.*)/, '')
-              .replace(/:fijado:/gm, '')
-              .replace(/:icon:/gm, '')
+              .replace(/(:fijado:|:icon:)/g, '')
 
             if (
               entryHtml.includes('<blockquote class="instagram-media"') ||
