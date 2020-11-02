@@ -2,7 +2,7 @@ import React from 'react'
 import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
 
 const classes = {
-  premiumWrapper: `premium__wrapper f`,
+  premiumWrapper: `premium__wrapper f f-center`,
   premiumText: 'premium__text icon-padlock',
 }
 

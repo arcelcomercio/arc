@@ -1,6 +1,6 @@
 export default {
   siteName: 'Mag.',
-  sitemapNewsName: 'El Comercio Mag',
+  sitemapNewsName: 'MAG.',
   siteTitle: 'Mag.',
   colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
@@ -59,6 +59,7 @@ export default {
     },
     footer: {
       logo: 'logo.png',
+      logoAmp: 'white-logo.png',
     },
     seo: {
       logoAmp: 'logo-143x60.png',

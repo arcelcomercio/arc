@@ -1,14 +1,15 @@
 import React from 'react'
 
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
+import customFields from './_dependencies/custom-fields'
 import StorySeparatorChildItemAmp from './_children/amp'
 import StorySeparatorChildItemSliderAmp from './_children/amp-item-slider'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
-import customFields from './_dependencies/custom-fields'
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
 
 const classes = {
@@ -17,7 +18,7 @@ const classes = {
   title:
     'amp-story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
   title_full_imagen:
-    'amp-story-interest__titleListFullImagen block w-full h-auto font-bold mb-10 uppercase p-15 text-center text-left',
+    'amp-story-interest__titleListFullImagen block position-relative w-full h-auto font-bold mb-15 p-10 text-center text-left',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
@@ -38,10 +39,11 @@ const InterestByTagAmp = props => {
     contextPath,
     deployment,
     isAdmin,
-    outputType: isAmp,
-  } = useFusionContext()
+    outputType,
+  } = useAppContext()
 
-  const presets = 'landscape_l:648x374,landscape_md:314x157'
+  const isFullImage = storyAmp === 'amp_full_imagen'
+  const isSlider = storyAmp === 'slider'
 
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
@@ -56,7 +58,10 @@ const InterestByTagAmp = props => {
         website: arcSite,
         name: urlTag,
         size: storiesQty,
-        presets,
+        presets:
+          isFullImage || isSlider
+            ? 'landscape_md:360x202'
+            : 'landscape_md:118x66',
         includedFields: separatorBasicFields,
       },
       filter: schemaFilter(arcSite),
@@ -78,17 +83,26 @@ const InterestByTagAmp = props => {
       return story && story._id !== excluir ? story : ''
     })
     .filter(String)
+
+  const isMag = arcSite === SITE_ELCOMERCIOMAG
+  const linkSource = `&source=${isMag ? 'notepierdas' : 'tepuedeinteresar'}`
+  const linkOutput = isMag ? '' : `&outputType=${outputType}`
+
   const getSize = cant => {
     const dataStories = dataInterest.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
       key += 1
+      const link = `${
+        instance.websiteLink
+      }?ref=${outputType}&pos=${key}${linkSource}${
+        instance.isPremium === false ? linkOutput : ''
+      }`
+
       const data = {
         title: instance.title,
-        subtitle: instance.subTitle,
-        link: `${instance.websiteLink}?ref=amp&source=tepuedeinteresar${
-          instance.isPremium === false ? '&outputType=amp' : ''
-        }`,
+        subtitle: isMag ? null : instance.subTitle,
+        link,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
         lazyImage: instance.multimediaLazyDefault,
@@ -100,7 +114,7 @@ const InterestByTagAmp = props => {
       }
       return (
         <>
-          {storyAmp === 'slider' ? (
+          {isSlider ? (
             <StorySeparatorChildItemSliderAmp
               data={data}
               key={UtilListKey(i)}
@@ -121,15 +135,13 @@ const InterestByTagAmp = props => {
 
   return (
     <>
-      {isAmp === 'amp' && isWebAmp && dataInterest && dataInterest[0] && (
-        <div className={classes.storyInterest}>
-          {storyAmp === 'amp_full_imagen' ? (
-            <div className={classes.title_full_imagen}>{titleAmp}</div>
-          ) : (
-            <div className={classes.title}>{titleAmp}</div>
-          )}
-
-          {storyAmp === 'slider' ? (
+      {isWebAmp && dataInterest && dataInterest[0] && (
+        <section className={classes.storyInterest}>
+          <h2
+            className={isFullImage ? classes.title_full_imagen : classes.title}>
+            {titleAmp}
+          </h2>
+          {isSlider ? (
             <amp-carousel
               layout="fixed-height"
               height="160"
@@ -140,7 +152,7 @@ const InterestByTagAmp = props => {
           ) : (
             <>{getSize(storiesQty)}</>
           )}
-        </div>
+        </section>
       )}
     </>
   )

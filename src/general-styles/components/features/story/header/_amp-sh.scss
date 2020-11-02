@@ -1,6 +1,19 @@
 .amp-sh {
   max-width: 600px;
-
+  &__fixed {
+    position: fixed;
+    top: 0;
+    z-index: 15;
+    width: 100%;
+    background-color: $color-white;
+  }
+  &__next-story {
+    border-radius: 4px;
+    margin: 9px 10px 6px 0;
+    padding: 0 8px;
+    background-color: #fff828;
+    flex: 1;
+  }
   &__list {
     margin: 20px -7px;
     height: 32px;
@@ -20,13 +33,18 @@
     line-height: 1.5;
     color: #323232;
   }
-
+  &__rect {
+    border-radius: 4px;
+    margin: 9px 10px 6px 0;
+    padding: 0 24px;
+  }
   &__rounded {
     border-radius: 50%;
     margin: 9px 10px 6px 0;
-    &.mesaje {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%231F8EEF'/%3E%3Cpath d='M18.6 20.9l-4-4.3 -7.8 4.3 8.6-9.1 4.1 4.3 7.7-4.3L18.6 20.9z' fill='%23fff'/%3E%3C/svg%3E%0A");
-    }
+  }
+  &__message {
+    background-color: #1f8eef;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' %3E%3Cpath d='M18.6 20.9l-4-4.3 -7.8 4.3 8.6-9.1 4.1 4.3 7.7-4.3L18.6 20.9z' fill='%23fff'/%3E%3C/svg%3E%0A");
   }
   .story-gallery {
     margin-left: -20px;
