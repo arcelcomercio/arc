@@ -27,6 +27,7 @@ import MetaStory from './_children/meta-story'
 import videoScript from './_dependencies/video-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
 import iframeScript from './_dependencies/iframe-script'
+import htmlScript from './_dependencies/html-script'
 import widgets from './_dependencies/widgets'
 import vallaScript from './_dependencies/valla'
 import {
@@ -580,6 +581,12 @@ const LiteOutput = ({
             />
             <VallaHtml />
           </>
+        )}
+        {contentElementsHtml.includes('graphics.afpforum.com') && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: htmlScript }}
+          />
         )}
       </body>
     </html>

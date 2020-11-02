@@ -36,6 +36,7 @@ import {
 } from './_dependencies/utils'
 import { getPushud, getEnablePushud } from './_dependencies/pushud'
 import iframeScript from './_dependencies/iframe-script'
+import htmlScript from './_dependencies/html-script'
 import widgets from './_dependencies/widgets'
 import videoScript from './_dependencies/video-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
@@ -252,6 +253,7 @@ export default ({
     arcSite,
     contextPath,
   })
+
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
     idYoutube ||
@@ -438,6 +440,7 @@ export default ({
         {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
+
         {renderMetaPage(metaValue('id'), metaPageData)}
         <AppNexus
           arcSite={arcSite}
@@ -464,6 +467,7 @@ export default ({
               />
             )}
             <script defer src={urlArcAds} />
+
             <script
               type="text/javascript"
               defer
@@ -497,7 +501,7 @@ export default ({
           )
         })()}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activePaywall) {
+          if (isElcomercioHome || !siteProperties.activeRulesCounter) {
             return null
           }
           return (
@@ -534,11 +538,9 @@ export default ({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-
         <div id="fusion-app" role="application">
           {children}
         </div>
-
         {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
         {isStory && (
           <script
@@ -688,7 +690,6 @@ export default ({
             __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
           }}
         />
-
         {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
@@ -716,6 +717,12 @@ export default ({
               async
             />
           </>
+        )}
+        {contentElementsHtml.includes('graphics.afpforum.com') && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html: htmlScript }}
+          />
         )}
       </body>
     </html>

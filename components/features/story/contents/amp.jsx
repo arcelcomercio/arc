@@ -61,6 +61,7 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
   GALLERY_VERTICAL,
+  MINUTO_MINUTO,
 } from '../../../utilities/constants/subtypes'
 
 const classes = {
@@ -96,8 +97,8 @@ class StoryContentAmp extends PureComponent {
       promoItems,
       tags,
       authorLink,
-      displayDate: updatedDate,
-      publishDate,
+      displayDate,
+      publishDate: updateDate,
       primarySection,
       primarySectionLink,
       author,
@@ -176,6 +177,29 @@ class StoryContentAmp extends PureComponent {
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
+    const processedAdsAmp = content => {
+      const res = content.split('<div class="live-event2-comment">')
+      let entryHtml = ''
+
+      res.forEach((entry, i) => {
+        let publicidad = ''
+        const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
+        if (i === 3) {
+          publicidad = publicidadAmp(parametersCaja2)
+        }
+        if (i === 7) {
+          publicidad = publicidadAmp(parametersCaja3)
+        }
+        if (i === 11) {
+          publicidad = publicidadAmp(parametersCaja3)
+        }
+        entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad &&
+          `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`}`
+      })
+
+      return entryHtml
+    }
+
     return (
       <>
         <div className={classes.content}>
@@ -207,13 +231,13 @@ class StoryContentAmp extends PureComponent {
                 )}
               </p>
               <time
-                dateTime={getDateSeo(updatedDate)}
+                dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
                 {isMag
                   ? `${formatDateTime(
-                      publishDate
-                    )} | Actualizado ${formatDateTime(updatedDate)}`
-                  : `Actualizado el ${formatDateTime(updatedDate)}`}
+                      displayDate
+                    )} | Actualizado ${formatDateTime(updateDate)}`
+                  : `Actualizado el ${formatDateTime(displayDate)}`}
               </time>
             </div>
           )}
@@ -258,7 +282,11 @@ class StoryContentAmp extends PureComponent {
                     <p> - </p>
                   ) : (
                     <RawHtml
-                      content={ampHtml(content, arcSite, source.source_id)}
+                      content={ampHtml(
+                        processedAdsAmp(content),
+                        arcSite,
+                        source.source_id
+                      )}
                       className={classes.rawHtmlClasses}
                     />
                   )
@@ -393,14 +421,16 @@ class StoryContentAmp extends PureComponent {
                         }
                         className={classes.textClasses}
                       />
-                      {isMag && publicidadCaja2 && (
-                        <div
-                          className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmp(
-                            parametersCaja2
-                          )}
-                        />
-                      )}
+                      {isMag &&
+                        publicidadCaja2 &&
+                        subtype !== MINUTO_MINUTO && (
+                          <div
+                            className={classes.adsAmp}
+                            dangerouslySetInnerHTML={publicidadAmp(
+                              parametersCaja2
+                            )}
+                          />
+                        )}
                       {!isMag && publicidadInline && (
                         <div
                           className={classes.adsAmp}
@@ -409,7 +439,7 @@ class StoryContentAmp extends PureComponent {
                           )}
                         />
                       )}
-                      {publicidadCaja3 && (
+                      {publicidadCaja3 && subtype !== MINUTO_MINUTO && (
                         <div
                           className={classes.adsAmp}
                           dangerouslySetInnerHTML={publicidadAmpAd(
@@ -417,14 +447,16 @@ class StoryContentAmp extends PureComponent {
                           )}
                         />
                       )}
-                      {isMag && publicidadCaja4 && (
-                        <div
-                          className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmpAd(
-                            parametersCaja4
-                          )}
-                        />
-                      )}
+                      {isMag &&
+                        publicidadCaja4 &&
+                        subtype !== MINUTO_MINUTO && (
+                          <div
+                            className={classes.adsAmp}
+                            dangerouslySetInnerHTML={publicidadAmpAd(
+                              parametersCaja4
+                            )}
+                          />
+                        )}
                     </>
                   )
                 }

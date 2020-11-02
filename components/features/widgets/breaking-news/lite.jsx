@@ -13,6 +13,8 @@ const classes = {
   link: 'b-news__link',
   tag: 'b-news__tag',
   title: 'b-news__title',
+  envivo: 'b-news__envivo',
+  envivoborder: 'b-news__envivo-border',
 }
 
 /* requestIdle(function() {document.getElementById('close-breaking-news').addEventListener('click', () => {
@@ -29,6 +31,7 @@ const BreakingNewsFeat = props => {
       storyLink = '',
       tags = 'Lo último:',
       backgroundColor = 'color-1',
+      showIcon = '',
     },
   } = props
 
@@ -73,6 +76,12 @@ const BreakingNewsFeat = props => {
                 className={classes.link}
                 href={objContent.link}
                 rel="noopener noreferrer">
+                {showIcon && (
+                  <>
+                    <span className={classes.envivoborder}></span>
+                    <span className={classes.envivo}></span>
+                  </>
+                )}
                 <span className={classes.tag}>{tags}</span>
                 <span className={classes.title}>{objContent.title}</span>
               </a>
