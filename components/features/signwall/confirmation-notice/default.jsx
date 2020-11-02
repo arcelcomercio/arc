@@ -57,9 +57,11 @@ const ConfirmationNotice = props => {
     return Cookies.getCookie('show_confirm_notice')
   }
 
+  const isFacebook = email && email.indexOf('@facebook.com') >= 0
+
   return (
     <>
-      {showNotice && email && !isCookie() && !emailVerified && (
+      {showNotice && email && !isCookie() && !emailVerified && !isFacebook && (
         <div
           className={`${classes.wrapper} ${
             arcSite === 'elcomercio' ? 'bg-base-100' : 'bg-base-300'
@@ -68,21 +70,19 @@ const ConfirmationNotice = props => {
             {customText}: <strong>{email}</strong>.
           </p>
 
-          <>
-            {!showSendEmail ? (
-              <a
-                href={linkUrl}
-                onClick={sendVerifyEmail}
-                className={classes.link}>
-                {linkText}
-              </a>
-            ) : (
-              <span className={classes.txtCount}>
-                Podrás reenviar nuevamente dentro de
-                <strong id="countdown"> 10 </strong> segundos
-              </span>
-            )}
-          </>
+          {!showSendEmail ? (
+            <a
+              href={linkUrl}
+              onClick={sendVerifyEmail}
+              className={classes.link}>
+              {linkText}
+            </a>
+          ) : (
+            <span className={classes.txtCount}>
+              Podrás reenviar nuevamente dentro de
+              <strong id="countdown"> 10 </strong> segundos
+            </span>
+          )}
 
           <button
             id="id-confirmation-notice"
