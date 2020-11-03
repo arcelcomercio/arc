@@ -153,4 +153,11 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2008-12-31',
+
+  jwplayers: {
+    gec: {
+      playerAds: 'VQbbwcRC',
+      player: 'w1O3H0eK',
+    },
+  },
 }

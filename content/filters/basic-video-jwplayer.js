@@ -11,6 +11,7 @@ basic_jwplayer {
       description
       duration
       has_ads
+      account
       thumbnail_url
       resized_urls { 
         landscape_xs

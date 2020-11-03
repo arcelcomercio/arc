@@ -94,8 +94,7 @@ class StoryContents extends PureComponent {
         ids: { opta },
         isDfp = false,
         siteUrl,
-        jwplayerId,
-        jwplayerIdAds,
+        jwplayers = {},
       },
       isAdmin,
     } = this.props
@@ -302,17 +301,21 @@ class StoryContents extends PureComponent {
                       const {
                         embed: {
                           config: {
-                            key: videJplayer = '',
+                            key: mediaId = '',
                             has_ads: hasAds = 0,
+                            account = 'gec',
                           } = {},
                         } = {},
                       } = element
-                      const player = hasAds ? jwplayerIdAds : jwplayerId
+                      const playerId = jwplayers[account] || jwplayers.gec
+                      const jwplayerId = hasAds
+                        ? playerId.playerAds
+                        : playerId.player
                       return (
                         <>
                           <div
                             className="jwplayer-lazy"
-                            id={`botr_${videJplayer}_${player}_div`}></div>
+                            id={`botr_${mediaId}_${jwplayerId}_div`}></div>
                         </>
                       )
                     }

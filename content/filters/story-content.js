@@ -21,6 +21,7 @@ content_elements {
       duration
       thumbnail_url
       has_ads
+      account
       resized_urls { 
         landscape_xs
         landscape_s

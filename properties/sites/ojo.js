@@ -120,4 +120,8 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2009-08-31',
+
+  jwplayers: {
+    gec: { playerAds: 'bjd1YwEF', player: 'wy0D08KD' },
+  },
 }

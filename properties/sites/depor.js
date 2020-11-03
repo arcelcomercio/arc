@@ -134,4 +134,10 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2015-12-29',
+  jwplayers: {
+    gec: {
+      playerAds: 'UQH16oLN',
+      player: 'pHa2K63V',
+    },
+  },
 }

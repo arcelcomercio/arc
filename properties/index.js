@@ -154,6 +154,7 @@ export default {
   },
   isDfp: false,
   archiveLimit: '2008-12-31',
-  jwplayerIdAds: 'BHYH7DVh',
-  jwplayerId: 'u1imBhXq',
+  jwplayers: {
+    gec: { playerAds: 'BHYH7DVh', player: 'BHYH7DVh' },
+  },
 }

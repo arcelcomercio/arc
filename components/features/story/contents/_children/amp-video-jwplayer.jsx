@@ -2,14 +2,15 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 const StoryContentChildVideoAmp = ({ data = {} }) => {
-  const { siteProperties: { jwplayerIdAds = '' } = {} } = useFusionContext()
-  const { key: mediaId = '' } = data
-
+  const { siteProperties: { jwplayers = '' } = {} } = useFusionContext()
+  const { key: mediaId = '', account = 'gec', has_ads: hasAds } = data
+  const playerId = jwplayers[account] || jwplayers.gec
+  const jwplayerId = hasAds ? playerId.playerAds : playerId.player
   return (
     <>
       {mediaId && (
         <amp-jwplayer
-          data-player-id={jwplayerIdAds}
+          data-player-id={jwplayerId}
           data-media-id={`${mediaId}`}
           layout="responsive"
           width="16"

@@ -128,4 +128,8 @@ export default {
     logoAlt: 'Perú21Tv',
   },
   isDfp: true,
+  jwplayers: {
+    gec: { playerAds: 'zbS8OgHn', player: 'zDBv4yUE' },
+    peru21: { playerAds: 'uTZV4zGu', player: 'UAwoVtxC' },
+  },
 }

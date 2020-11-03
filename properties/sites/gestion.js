@@ -221,4 +221,8 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2012-03-28',
+
+  jwplayers: {
+    gec: { playerAds: '239Bw0FV', player: 'J7KXWQ8Q' },
+  },
 }

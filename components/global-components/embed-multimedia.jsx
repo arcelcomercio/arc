@@ -103,7 +103,6 @@ const EmbedMultimedia = props => {
 
     return multimediaSource ? (
       <>
-        <script src="https://cdn.jwplayer.com/libraries/BHYH7DVh.js"></script>
         <StoryContentChildVideoJwplayer
           data={params}></StoryContentChildVideoJwplayer>
       </>

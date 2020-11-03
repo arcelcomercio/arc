@@ -2,13 +2,16 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 const StoryContentChildVideoJwplayer = ({ data = {} }) => {
+  const { siteProperties: { jwplayers = {} } = {} } = useFusionContext()
+
   const {
-    siteProperties: { jwplayerId = '', jwplayerIdAds = '' } = {},
-  } = useFusionContext()
-
-  const { key: mediaId = '', duration = '', has_ads: hasAds = 0 } = data
-
-  const player = hasAds ? jwplayerIdAds : jwplayerId
+    key: mediaId = '',
+    duration = '',
+    has_ads: hasAds = 0,
+    account = 'gec',
+  } = data
+  const playerId = jwplayers[account] || jwplayers.gec
+  const jwplayerId = hasAds ? playerId.playerAds : playerId.player
 
   return (
     <>
@@ -16,11 +19,11 @@ const StoryContentChildVideoJwplayer = ({ data = {} }) => {
         <>
           <>
             <script
-              src={`https://cdn.jwplayer.com/players/${mediaId}-${player}.js`}></script>
+              src={`https://cdn.jwplayer.com/players/${mediaId}-${jwplayerId}.js`}></script>
             <div
               data-time={duration}
               className="jwplayer-lazy"
-              id={`botr_${mediaId}_${player}_div`}></div>
+              id={`botr_${mediaId}_${jwplayerId}_div`}></div>
           </>
         </>
       )}

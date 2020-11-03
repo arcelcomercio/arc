@@ -161,4 +161,11 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2008-12-31',
+
+  jwplayers: {
+    gec: {
+      playerAds: 'uR4oallO',
+      player: '4p8sD5TM',
+    },
+  },
 }
