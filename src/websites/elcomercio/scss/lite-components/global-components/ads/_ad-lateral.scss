@@ -20,6 +20,9 @@
     &--l {
       transform: translateX(calc((-980px / 2) - (160px / 2)));
     }
+    &--wide {
+      top: $nav-height;
+    }
   }
 }
 
