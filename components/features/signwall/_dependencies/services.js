@@ -234,3 +234,18 @@ class Services {
 }
 
 export default new Services()
+
+export const requestVerifyEmail = (email, site) => {
+  const response = new Promise(resolve => {
+    fetch(`${Domains.getOriginAPI(site)}/identity/public/v1/email/verify`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(res => resolve(res.json()))
+  })
+  return response
+}
