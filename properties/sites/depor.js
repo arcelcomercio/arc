@@ -122,6 +122,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: false,
+  activeRulesCounter: false,
   activeNewsletter: false,
   signwall: {
     mainColorBg: '#007c31',

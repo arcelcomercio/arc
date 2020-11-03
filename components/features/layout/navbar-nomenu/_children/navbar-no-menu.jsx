@@ -66,12 +66,6 @@ export default props => {
         </div>
         <div className={classes.right}>
           <div className={classes.btns}>
-            {/* <a itemProp="url" className={classes.btn} href="/">
-              Ingresa
-            </a>
-            <a itemProp="url" className={classes.btn} href="/">
-              Registrate
-            </a> */}
             <SignwallComponent
               classButton={`${classes.btn} ${classes.btnLogin}`}
             />
