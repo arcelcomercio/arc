@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppContext } from 'fusion:context'
 import { createResizedParams } from '../../../../utilities/resizer/resizer'
-import { publicidadAmp } from '../../../../utilities/story/helpers-amp'
+import { publicidadAmp, ampHtml } from '../../../../utilities/story/helpers-amp'
 import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
 
 const classes = {
@@ -91,14 +91,14 @@ const StoryHeaderChildAmpGallery = props => {
                   <div className={classes.title}>
                     <strong
                       dangerouslySetInnerHTML={{
-                        __html: subtitle,
+                        __html: ampHtml(subtitle),
                       }}
                     />
                   </div>
                   <div
                     className={classes.caption}
                     dangerouslySetInnerHTML={{
-                      __html: caption,
+                      __html: ampHtml(caption),
                     }}
                   />
                 </div>
