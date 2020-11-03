@@ -27,14 +27,8 @@ window.addEventListener('load', () => {requestIdle(() => {
   }
 
   if (sessionStories.section) {
-    if (sessionStories.section !== recentStories.section) {
-      window.sessionStorage.removeItem(URLS_STORAGE)
-      setSessionStorageData(recentStories)
-    } else {
-      window.sessionStorage.removeItem(URLS_STORAGE)
-      // dentro de setSessionStorageData() se filtra la URL actual
-      setSessionStorageData(sessionStories)
-    }
+    window.sessionStorage.removeItem(URLS_STORAGE)
+    setSessionStorageData(recentStories)
   } else {
     setSessionStorageData(recentStories)
   }
@@ -43,15 +37,15 @@ window.addEventListener('load', () => {requestIdle(() => {
   let currentStoryIntersectionRatio = 1.0
   let storyCounter = 0
 
-    const isPremiumUser = () => {
-            let isPremium = false
-            if(window.localStorage && window.localStorage.hasOwnProperty('ArcId.USER_INFO') && window.localStorage.getItem('ArcId.USER_INFO') !== '{}'){
-              const UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')).uuid;
-              const COUNT_USER = JSON.parse(window.localStorage.getItem('ArcP') || '{}')[UUID_USER]
-              if(COUNT_USER && COUNT_USER.sub.p.length) { isPremium = true }
-            } else { isPremium = false }
-            return isPremium;
-          }
+  const isPremiumUser = () => {
+    let isPremium = false
+    if(window.localStorage && window.localStorage.hasOwnProperty('ArcId.USER_INFO') && window.localStorage.getItem('ArcId.USER_INFO') !== '{}'){
+      const UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')).uuid;
+      const COUNT_USER = JSON.parse(window.localStorage.getItem('ArcP') || '{}')[UUID_USER]
+      if(COUNT_USER && COUNT_USER.sub.p.length) { isPremium = true }
+    } else { isPremium = false }
+    return isPremium;
+  }
   const sessionStoriesObject = ((JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}).data) || {storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]} 
   let nextStoriesArray = isPremiumUser() 
     ? [...sessionStoriesObject.storiesBySectionPremium, ...sessionStoriesObject.storiesByTag]
@@ -293,7 +287,7 @@ const StoryContinueLite = props => {
     ),
   }
 
-  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recent_articles_",t="<<recentStoriesrecentStoriesrecentStories>>",n=JSON.parse(window.sessionStorage.getItem(e))||{},o=document.getElementById("st-continue-0"),i=function(n){void 0===n&&(n={});var o=n,i=o.section;o.data;window.sessionStorage.setItem(e,JSON.stringify({section:i,data:t.data}))};n.section?n.section!==t.section?(window.sessionStorage.removeItem(e),i(t)):(window.sessionStorage.removeItem(e),i(n)):i(t);var r=0,s=1,a=0,c=(JSON.parse(window.sessionStorage.getItem(e))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},d=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e=!0)}else e=!1;return e}()?[].concat(c.storiesBySectionPremium,c.storiesByTag):[].concat(c.storiesByTag,c.storiesBySection);d.unshift({title:document.title,link:location.pathname});var u=function(){return location.href.includes("/pf")},l=function(e){void 0===e&&(e=0),requestIdle(function(){if("IntersectionObserver"in window){var t=null;e<=0?(t=document.getElementById("contenedor")).setAttribute("data-index",0):e>0&&(t=document.getElementById("st-iframe-"+e));var n=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){var t=parseInt(e.target.dataset.index);r===t?s=e.intersectionRatio:s<.02&&e.intersectionRatio>.02&&(r=t,s=e.intersectionRatio,n=d[r],o=r,document.title=n.title,history.pushState({story:o},n.title,u()?"/pf"+n.link:n.link))}var n,o})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()});t&&n.observe(t)}})},f=(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),function(e){var t=d[a+=1]||{};t.link&&(requestIdle(function(){var n=t.link+"?ref=nota&ft=autoload&story="+a;n=u()?n+"&outputType=lite&_website=<<arcSite>>":n;var o=document.createElement("iframe");o.src=location.origin+n,o.width="100%",o.height="6000",o.id="st-iframe-"+a,o.frameborder="0",o.scrolling="no",o.setAttribute("data-index",a),e.insertAdjacentElement("afterEnd",o),l(a)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+a,e.style.height="10px";var t=document.getElementById("st-iframe-"+a);t.insertAdjacentElement("afterEnd",e),w(e),t.onload=function(){requestIdle(function(){t.height=t.contentWindow.document.documentElement.offsetHeight+"px"})}}))}),w=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(f(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 800px 0px"});t.observe(e)}else window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-800&&window.removeEventListener("scroll",function(){e(t)}),f(t)}(e)})};w(o),l(0)})});`
+  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="<<recentStoriesrecentStoriesrecentStories>>",t=JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{},n=document.getElementById("st-continue-0"),i=function(t){void 0===t&&(t={});var n=t,i=n.section;n.data;window.sessionStorage.setItem("_recent_articles_",JSON.stringify({section:i,data:e.data}))};t.section?(window.sessionStorage.removeItem("_recent_articles_"),i(e)):i(e);var o=0,r=1,s=0,a=(JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},c=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e=!0)}else e=!1;return e}()?[].concat(a.storiesBySectionPremium,a.storiesByTag):[].concat(a.storiesByTag,a.storiesBySection);c.unshift({title:document.title,link:location.pathname});var d=function(){return location.href.includes("/pf")},u=function(e){void 0===e&&(e=0),requestIdle(function(){if("IntersectionObserver"in window){var t=null;e<=0?(t=document.getElementById("contenedor")).setAttribute("data-index",0):e>0&&(t=document.getElementById("st-iframe-"+e));var n=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){var t=parseInt(e.target.dataset.index);o===t?r=e.intersectionRatio:r<.02&&e.intersectionRatio>.02&&(o=t,r=e.intersectionRatio,n=c[o],i=o,document.title=n.title,history.pushState({story:i},n.title,d()?"/pf"+n.link:n.link))}var n,i})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()});t&&n.observe(t)}})},l=(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),function(e){var t=c[s+=1]||{};t.link&&(requestIdle(function(){var n=t.link+"?ref=nota&ft=autoload&story="+s;n=d()?n+"&outputType=lite&_website=<<arcSite>>":n;var i=document.createElement("iframe");i.src=location.origin+n,i.width="100%",i.height="6000",i.id="st-iframe-"+s,i.frameborder="0",i.scrolling="no",i.setAttribute("data-index",s),e.insertAdjacentElement("afterEnd",i),u(s)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+s,e.style.height="10px";var t=document.getElementById("st-iframe-"+s);t.insertAdjacentElement("afterEnd",e),f(e),t.onload=function(){requestIdle(function(){t.height=t.contentWindow.document.documentElement.offsetHeight+"px"})}}))}),f=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(l(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 800px 0px"});t.observe(e)}else window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-800&&window.removeEventListener("scroll",function(){e(t)}),l(t)}(e)})};f(n),u(0)})});`
     .replace('<<arcSite>>', arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',
