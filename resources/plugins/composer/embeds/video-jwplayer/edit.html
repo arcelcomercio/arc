@@ -48,13 +48,20 @@
               <p class="lead text-muted">
                 Busquedas de videos
               </p>
+              <label class="w-100" for="brand">Cuenta:
+                <select class="w-100" name="brand" id="brand">
+                  <option value="elcomercio">El Comercio</option>
+                  <option value="peru21">Peru21</option>
+                  <option value="gec" selected>Videos Gec</option>
+                </select>
+              </label>
               <label class="w-100" for="has_ads">¿El video tiene publicidad?:
                 <input class="w-100" type="checkbox" value="1" id="has_ads" name="has_ads" checked />
               </label>
               <label class="w-100" for="search_video">Nombre o ID de video:
                 <input class="w-100" type="textfield" id="search_video" name="search_video" />
               </label>
-              <input class="btn btn-primary" type="button" name="send_video" value="Video por ID" onclick="selectVideoId(document.getElementById('search_video').value);" />
+              <input class="btn btn-primary" type="button" name="send_video" value="Video por ID" onclick="selectVideoId(document.getElementById('search_video').value, document.getElementById('brand').value);" />
               <input class="btn btn-primary" type="button" name="search" value="Buscar videos" onclick="handleSearch()" />
             </form>
           </section>
@@ -81,7 +88,7 @@
           <h5 class="card-title">%title%</h5>
           <p class="card-text">%description%</p>
           <p class="card-text"><small class="text-muted">Duración: %duration% seg.</small></p>
-          <a href="javascript:;" data-data='%data%' onclick="selectVideo('%key%')" class="btn btn-primary">Seleccionar</a>
+          <a href="javascript:;" data-brand='%brand%' data-data='%data%' onclick="selectVideo('%key%')" class="btn btn-primary">Seleccionar</a>
         </div>
       </div>
     </template>

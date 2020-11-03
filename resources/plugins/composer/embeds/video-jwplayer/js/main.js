@@ -1,11 +1,11 @@
 import {getVideos, getConversionsVideo, getVideo} from './api.js';
 
-const renderVideos = (search = '') => {
+const renderVideos = (search = '', brand) => {
     const template = document.getElementById('template_video').innerHTML;
     const boxVideos = document.getElementById('box_videos');
     boxVideos.innerHTML = '';
     const boxHide = document.getElementById('dont_videos_search');
-    getVideos(search).then(response=>{
+    getVideos(search, brand).then(response=>{
       boxHide.classList.remove('d-block');
       boxHide.classList.add('d-none');
       if(response.videos.length > 0){
@@ -13,6 +13,7 @@ const renderVideos = (search = '') => {
           const {key, title, description, link, duration, custom: {thumbnail_url = ''} = {}} = data
           const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=320`
           const htmlVideo = template.replace(/%key%/gi, key)
+          .replace(/%brand%/gi, brand)
           .replace(/%title%/gi, title)
           .replace(/%data%/gi, encodeURI(JSON.stringify(data)))
           .replace(/%description%/gi, description)
@@ -65,24 +66,26 @@ const applyChanges = () => {
 
 window.handleSearch = () => {
     const search = document.getElementById('search_video').value || "";
-    renderVideos(search)
+    const brand = document.getElementById('brand').value || "";
+    renderVideos(search, brand)
 }
 
 window.selectVideo = (videoKey) => {
+    const brand =event.currentTarget.getAttribute('data-brand');
     const dataVideo = JSON.parse(decodeURI(event.currentTarget.getAttribute('data-data')));
     // console.log('dataVideo', dataVideo);
     const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');
     dataVideo.has_ads = (hasAds && hasAds.value) || 0;
-    buildMessage(generateId(), buildDataAns(dataVideo));
+    buildMessage(generateId(), buildDataAns(dataVideo, brand));
 }
 
-window.selectVideoId = (videoKey) => {
-  videoKey && getVideo(videoKey).then(response => {
+window.selectVideoId = (videoKey, brand) => {
+  (videoKey && brand) && getVideo(videoKey, brand).then(response => {
     // console.log('dataVideo', response.video);
     if(response.video){
       const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');      
       response.video.has_ads = (hasAds && hasAds.value) || 0;
-      buildMessage(generateId(), buildDataAns(response.video));
+      buildMessage(generateId(), buildDataAns(response.video, brand));
     }else{
       alert('El ID del video no se encuentra')
     }
@@ -91,11 +94,11 @@ window.selectVideoId = (videoKey) => {
 
 const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000);
 
-const buildDataAns = (data) => {
+const buildDataAns = (data, brand) => {
     const {key, title, description, size, duration, status, updated, date, custom:{ thumbnail_url = '' } = {}, has_ads = 0} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
     const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`
-    const conversions = getPathsVideos(key);
+    const conversions = getPathsVideos(key, brand);
     return {
         key,
         title, 
@@ -108,11 +111,12 @@ const buildDataAns = (data) => {
         date,
         updated,
         has_ads,
+        account: brand
     }
 }
 
-async function getPathsVideos(videoKey) {
-    const response = await getConversionsVideo(videoKey);
+async function getPathsVideos(videoKey, brand) {
+    const response = await getConversionsVideo(videoKey, brand);
     return response.conversions;
 }
 
