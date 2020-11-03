@@ -185,14 +185,7 @@ window.onload = function() {
         // document.getElementById('btn_apply').onclick = applyChanges
         if(document.getElementById('btn_cancel') != null) {
             document.getElementById('btn_cancel').onclick = dismissEditor;
-            loadMain();
         }
     }
 }
-
-const loadMain = () => {
-  $('.collapse').collapse();
-}
-
-
 ////////////////////////
