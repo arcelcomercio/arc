@@ -204,7 +204,7 @@ class StoryContentAmp extends PureComponent {
       <>
         <div className={classes.content}>
           {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
-          {!isMag && (
+          {!isMag && subtype !== GALLERY_VERTICAL && (
             <div
               className={classes.adsAmp}
               dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
@@ -498,7 +498,7 @@ class StoryContentAmp extends PureComponent {
               }}
             />
           )}
-          {!isMag && (
+          {!isMag && subtype !== GALLERY_VERTICAL && (
             <div
               className={classes.adsAmp}
               dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
@@ -525,7 +525,7 @@ class StoryContentAmp extends PureComponent {
           )}
         </div>
 
-        {!isMag && (
+        {!isMag && subtype !== GALLERY_VERTICAL && (
           <div
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}

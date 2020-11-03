@@ -14,14 +14,12 @@ const classes = {
 const StoryGalleryAmp = () => {
   const { arcSite, contextPath, globalContent: data } = useFusionContext()
 
-  const { siteUrl } = getProperties(arcSite)
+  const { siteUrl, adsAmp } = getProperties(arcSite)
 
   const {
     subtype,
     link,
-    displayDate,
-    author,
-    authorLink,
+    primarySectionLink,
     promoItems: {
       basic_gallery: { content_elements: galleryItems = [] } = {},
     } = {},
@@ -37,9 +35,8 @@ const StoryGalleryAmp = () => {
           {galleryItems && subtype === GALLERY_VERTICAL ? (
             <StoryHeaderChildAmpGallery
               data={galleryItems}
-              displayDate={displayDate}
-              author={author}
-              authorLink={authorLink}
+              primarySectionLink={primarySectionLink}
+              adsAmp={adsAmp}
             />
           ) : (
             <StoryHeaderChildAmpGallerySlider
