@@ -129,7 +129,8 @@ const buildMessage = (id, data) => {
             url: '/pf/api/v3/content/fetch/photo-by-id',
             config: data
         }
-        console.log('ansCustomEmbed', ansCustomEmbed);
+        console.log('ansCustomEmbed');
+        console.dir(ansCustomEmbed);
         //console.log('string', JSON.stringify(ansCustomEmbed, null, 2));
         sendMessage('data', ansCustomEmbed)
     });
