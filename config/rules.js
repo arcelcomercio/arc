@@ -25,7 +25,7 @@ module.exports = (mode, type = 'index') => {
   }
 
   const styles = {
-    test: /\.(scss|css)$/,
+    test: /\.(sass|scss|css)$/,
     use: [
       {
         loader: MiniCssExtractPlugin.loader,

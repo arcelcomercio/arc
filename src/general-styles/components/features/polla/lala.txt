@@ -1,0 +1,868 @@
+/** match **/
+
+.flow-match {
+  position: relative;
+  overflow: hidden;
+  height: inherit;
+  .team-txt {
+    font: 400 14px $f-main;
+    text-transform: uppercase;
+  }
+  .share-link {
+    width: 45px;
+    height: 40px;
+    color: $white;
+    i {
+      font-size: 15px;
+      line-height: 41px;
+    }
+    &.link-fb {
+      background-color: $fb;
+    }
+    &.link-tw {
+      background-color: $tw;
+    }
+    &.link-wa {
+      background-color: $wa;
+      display: none;
+    }
+    &.link-gp {
+      background-color: $gp;
+    }
+    &.link-pin {
+      background-color: $pin;
+    }
+    &.link-mail {
+      background-color: $mail;
+      display: none !important;
+    }
+    &.link-print {
+      background-color: $print;
+    }
+  }
+  .share-flow {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .match-teams {
+    padding-top: 16px;
+    padding-bottom: 0;
+    position: relative;
+    height: 104px;
+    .team-txt {
+      width: 86px;
+      strong {
+        display: block;
+      }
+    }
+  }
+
+  &.flow-last {
+    background: #4b100a;
+    .match-header {
+      .group {
+        color: $white;
+      }
+      .stadium-name {
+        color: $white;
+      }
+      .match-date {
+        color: $white;
+      }
+      .match-hashtag {
+        color: $white;
+      }
+    }
+    .team-txt {
+      color: $white;
+    }
+    .team-goals {
+      color: $white;
+    }
+    .team-vs {
+      color: $white;
+    }
+    .ui-row {
+      &:nth-child(2) {
+        .team-txt {
+          position: absolute;
+          top: 38px;
+          left: 50%;
+          margin-left: -45px;
+          margin-right: 0;
+          font-size: 10px;
+          text-transform: inherit;
+          strong {
+            display: inline-block;
+            margin-left: 1px;
+          }
+        }
+      }
+    }
+
+    .match-counter p {
+      color: $white;
+    }
+    .match-counter .ui-countdown .ui-digit {
+      color: $white;
+    }
+
+    .frm-score.ui-validate .input_default {
+      background: transparent;
+      color: $white;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+
+.flow-1x1,
+.flow-1-5x1,
+.flow-3x1 {
+  float: left;
+  margin: 0 9px 18px;
+  .flow-match {
+    border-radius: 5px;
+    overflow: hidden;
+    background: #fff;
+  }
+}
+
+.flow-1x1 {
+  width: 300px;
+  height: 185px;
+} //- .flow-match
+
+.flow-1-5x1 {
+  width: 459px;
+  height: 185px;
+  //- .flow-match .match-teams .team-txt
+  ////- width: inherit
+  .frm-score {
+    display: inline-block;
+  }
+}
+
+.flow-3x1 {
+  width: 936px;
+  margin-bottom: 8px;
+  .flow-match {
+    height: 220px;
+    margin-top: 15px;
+    .group {
+      font-size: 18px;
+      top: -2px;
+      position: relative;
+    }
+    .team-txt {
+      font-size: 24px;
+      font-weight: 400;
+      text-transform: none;
+      img {
+        margin: 0 15px;
+        height: 35px;
+      }
+    }
+    .match-teams {
+      height: 145px;
+      .team-txt {
+        //- width: inherit
+        width: initial;
+        margin-top: 10px;
+        strong {
+          display: inline-block;
+          font-weight: 400;
+          position: relative;
+          top: -9px;
+        }
+      }
+    }
+  }
+  .frm-score {
+    //- display: inline-block
+    display: block;
+    max-width: 800px;
+    margin: 0 auto;
+    &.ui-validate {
+      .input_default {
+        height: 56px;
+        width: 56px;
+        font-size: 28px;
+        color: $black;
+      }
+      .team-vs {
+        margin-top: 20px;
+      }
+    }
+    .ui-row {
+      display: inline-block;
+      vertical-align: top;
+      width: 370px;
+      &:nth-child(1) {
+        .team-txt {
+          img {
+            float: right;
+          }
+          strong {
+            float: left;
+            margin-top: 11px;
+            width: 200px;
+            text-align: right;
+          }
+        }
+        .input_default {
+          float: right;
+        }
+      }
+      &:nth-child(2) {
+        width: 25px;
+      }
+    }
+  }
+  .match-counter {
+    display: block;
+    text-align: center;
+    p {
+      display: inline-block;
+      margin: 10px 10px 0 0;
+      font: 400 14px $f-main;
+      color: #888;
+    }
+    #tiempoCierre {
+      border-radius: 5px;
+      border: 1px solid #888;
+      display: inline-block;
+      padding: 2px 5px;
+      position: relative;
+      font: 700 16px $f-main;
+      color: #888;
+      margin-top: 10px;
+    }
+
+    .ui-caption {
+      display: none;
+    }
+  }
+}
+
+
+.match-tabs {
+  display: block;
+  width: 100%;
+  margin: 8px 0 20px 0;
+  text-align: center;
+  .flow-match-small {
+    margin: 0 5px;
+    width: 221px;
+    display: inline-block;
+    position: relative;
+  }
+}
+
+.match-header {
+  border-bottom: 1px solid #ccc;
+  height: 40px;
+  display: block;
+  .group {
+    color: $black;
+    font: 800 24px/40px $f-main;
+    text-align: center;
+    border-right: 1px solid #ccc;
+    display: inline-block;
+    padding: 0 11px;
+  }
+  .stadium-name {
+    color: $black;
+    font: 700 14px $f-main;
+    margin: 0 10px;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    max-width: 160px;
+    height: 29px;
+    line-height: 40px;
+    overflow: hidden;
+    i {
+      margin-right: 10px;
+      font-size: 16px;
+      &.icon-slash {
+        font-weight: 700;
+        margin-left: 10px;
+        margin-right: 5px;
+      }
+    }
+    span {
+      margin-left: 5px;
+    }
+    .st-name04 {
+      display: none;
+    }
+  }
+  .match-date {
+    border-left: 1px solid #ccc;
+    float: right;
+    display: inline-block;
+    color: $black;
+    font: 700 14px/40px $f-main;
+    padding: 0 10px;
+    max-width: 75px;
+    overflow: hidden;
+    max-height: 39px;
+  }
+
+  .match-hashtag {
+    display: inline-block;
+    border-left: 1px solid #ccc;
+    margin-right: 135px;
+    float: right;
+    height: 40px;
+    padding: 0 20px;
+    font: 800 14px/40px $f-main;
+    text-transform: uppercase;
+  }
+}
+
+.match-teams {
+  padding: 10px 5px;
+  text-align: center;
+  img {
+    height: 28px;
+    max-width: 100%;
+  }
+
+  .team-txt {
+    display: inline-block;
+    margin: 4px 5px 0 5px;
+    text-align: center;
+  }
+  .team-goals {
+    display: inline-block;
+    margin: 0 5px;
+  }
+  .team-vs {
+    display: inline-block;
+    margin: 0 5px;
+  }
+  .team-score {
+    color: #d3d622;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0 3px 0;
+    strong {
+      margin-left: 3px;
+    }
+  }
+}
+
+.game-link {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 11px 8px;
+  text-align: center;
+  background: #fae100;
+  font: 700 16px $f-main;
+  border-top: 1px solid $black;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+  outline: none;
+  &.edit {
+    background: #d3d622;
+  }
+  &.disable {
+    background: #fff;
+    color: #dbdbdb;
+    border-top: none;
+  }
+}
+
+.flow-match-small {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 5px;
+
+  .match-header {
+    border: 0;
+    height: 13px;
+    .group {
+      font: 400 10px/11px $f-main;
+      color: #949494;
+      width: 100%;
+      text-align: center;
+      float: left;
+      margin-right: 0;
+      border-right: 0;
+    }
+  }
+
+  .match-teams-small {
+    text-align: center;
+    margin-bottom: 7px;
+    .team-txt {
+      font-size: 16px;
+      margin: 0 6px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .team-vs {
+      font-size: 10px;
+      font-weight: 700;
+      margin: 0 7px;
+    }
+  }
+  img {
+    max-width: 28px;
+    height: 16px;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+/** form **/
+
+.input_default {
+  padding: 13px 15px;
+  font-family: $f-main;
+  font-size: 13px;
+  border-radius: 5px;
+  color: #9e9e9e;
+}
+
+.resultado {
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  display: none;
+  &.valido {
+    background: url(../img/polla-depor/sprite.png) -40px -3px no-repeat;
+    display: inline-block;
+  }
+  &.novalido {
+    background: url(../img/polla-depor/sprite.png) -65px -3px no-repeat;
+    display: inline-block;
+  }
+}
+
+.ui-error {
+  .resultado {
+    display: block;
+  }
+}
+
+.btn {
+  font: 900 14px $f-main;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  max-width: 406px;
+  width: 100%;
+  cursor: pointer;
+  padding: 10px 0;
+  &.btn_cancel {
+    background: #fff;
+    color: #444;
+    border: 1px solid #444;
+  }
+
+  &.btn_login {
+    color: $black;
+    background: $verde1;
+    border: 2px solid $black;
+  }
+  &.btn_registro {
+    color: $white;
+    background: transparent;
+    border: 2px solid $white;
+    float: right;
+  }
+}
+
+.btn_login-facebook {
+  font: 400 16px $f-main;
+  max-width: 406px;
+  width: 90%;
+  height: 40px;
+  line-height: 45px;
+  margin: 0 auto 15px auto;
+  display: block;
+  background: #3b5998;
+  color: #fff;
+  text-align: center;
+  padding-bottom: 44px;
+  border-radius: 3px;
+  -webkit-border-radius: 5px;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.link-form {
+  font-size: 14px;
+  color: $white;
+  text-align: right;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.ui-validate {
+  .ui-row {
+    position: relative;
+    min-height: 22px;
+    margin-bottom: 12px;
+    &.row-check {
+      min-height: 18px;
+      padding: 0;
+      text-align: left;
+      label {
+        color: $white;
+        font-size: 13px;
+        z-index: 1;
+        a {
+          color: $white;
+          font-weight: 700;
+          z-index: 2;
+          position: relative;
+          text-decoration: underline;
+        }
+      }
+      label[for="gender-m"],
+      label[for="gender-f"] {
+        &:last-child {
+          margin-left: 20px;
+        }
+      }
+      input[type="checkbox"],
+      input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+
+        & + label span {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          border: 2px solid $white;
+          margin: -1px 10px 0 0;
+          vertical-align: middle;
+          cursor: pointer;
+          background: url(../img/polla-depor/sprite.png) 0 0;
+        }
+        &:checked + label span {
+          background: url(../img/polla-depor/sprite.png) -19px 0;
+        }
+      }
+    }
+
+    &.row-submit {
+      max-width: 320px;
+      margin: 0 auto;
+      .terminos {
+        position: relative;
+        text-decoration: underline;
+      }
+    }
+
+    &::-webkit-input-placeholder {
+      color: #000;
+      font-size: 13px;
+    }
+    &:-moz-placeholder {
+      color: #000;
+      font-size: 13px;
+    }
+    &::-moz-placeholder {
+      color: #000;
+      font-size: 13px;
+    }
+    &:-ms-input-placeholder {
+      color: #000;
+      font-size: 13px;
+    }
+    &.ui-error {
+      .input_default,
+      select {
+        border: 2px solid $f-color;
+        &::-webkit-input-placeholder {
+          color: $f-color;
+        }
+        &:-moz-placeholder {
+          color: $f-color;
+        }
+        &::-moz-placeholder {
+          color: $f-color;
+        }
+        &:-ms-input-placeholder {
+          color: $f-color;
+        }
+      }
+    }
+    .ui-message-error,
+    .ui-message-success {
+      text-align: right;
+    }
+  }
+  label {
+    font-family: arial, regular;
+    font-size: 12px;
+    font-weight: normal !important;
+  }
+  input.input_default {
+    width: 100%;
+    border: none;
+  }
+  select.input_default {
+    width: 100%;
+    border: 1px solid #000;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  select.input_date {
+    padding: 12px 5px;
+    font-size: 13px;
+    border-radius: 5px;
+    color: #9e9e9e;
+  }
+
+  label.date {
+    width: 100%;
+    display: inline-block;
+    margin: 5px 0;
+    color: #444;
+  }
+  .txt-form {
+    color: $white;
+    font-size: 14px;
+  }
+}
+
+.frm-login {
+  width: 320px;
+}
+
+.frm-registro {
+  width: 420px;
+  margin-bottom: 50px !important;
+  select.input_date {
+    width: 100%;
+    border: 0;
+  }
+}
+.frm-score {
+  &.ui-validate {
+    .ui-row {
+      display: table-cell;
+      vertical-align: top;
+    }
+    .input_default {
+      width: 36px;
+      height: 36px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      float: left;
+      font-weight: 700;
+    }
+    .team-vs {
+      margin-top: 10px;
+      font: 700 12px $f-main;
+    }
+    .team-txt {
+      float: left;
+    }
+  }
+}
+.frm-partidos {
+  margin-bottom: 15px;
+  .ui-row {
+    text-align: center;
+  } //- margin-bottom: 20px
+  .btn_link {
+    font-size: 14px;
+    padding: 10px 10px 11px 10px;
+  }
+  select.input_date {
+    border: 1px solid #ccc;
+    margin: 0 10px;
+    color: #a9a9a9;
+    font: 400 14px $f-main;
+    padding: 9px 13px;
+    width: 176px;
+  }
+  .box-subtitle {
+    margin-bottom: 20px;
+  }
+  .ui-dropdown {
+    width: 176px;
+    border-radius: 5px;
+    background: $white;
+    text-align: left;
+    .ui-caption {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 9px;
+      padding-right: 9px;
+      color: #a9a9a9;
+      width: inherit;
+      i {
+        border-top-color: #a9a9a9;
+        float: right;
+        margin-left: 0;
+      }
+    }
+    > .ui-list {
+      min-width: 176px;
+      max-height: 378px;
+      text-align: left;
+      margin-top: -2px;
+      overflow-x: hidden;
+      overflow-y: inherit;
+      li {
+        border-bottom: 1px solid #e8e8e8;
+        a {
+          font: 15px/120% $f-main;
+          padding-top: 7px;
+          padding-bottom: 7px;
+        }
+      }
+      img {
+        max-width: 18px;
+        max-height: 18px;
+        float: left;
+        margin-right: 6px;
+        margin-top: 1px;
+      }
+      .list-grupos {
+        li a {
+          font-weight: 400;
+          &.active {
+            font-weight: 700;
+          }
+        }
+      }
+      .list-paises {
+        li a {
+          font-weight: 700;
+          padding-left: 6px;
+          padding-right: 6px;
+        }
+      }
+    }
+  }
+
+  .ui-list li > a {
+    &:hover {
+      //- , &:focus
+      background: transparent;
+      color: $black;
+    }
+  }
+}
+
+//- calendario
+.frm-partidos .ui-dropdown .ui-list {
+  .calendar-content {
+    border-top-left-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    .ui-tab {
+      li {
+        width: 49%;
+        float: left;
+        text-align: center;
+        a {
+          font-weight: 700;
+        }
+        &.ui-active a {
+          background: #d3d622;
+          color: $black;
+        }
+      }
+    }
+    .ui-panel {
+      padding: 5px;
+    }
+  }
+}
+
+.mxm-items {
+  height: 270px;
+}
+
+.ui-message-error,
+.ui-message-success {
+  //- width: 100%
+  font: 13px arial;
+  margin: 5px 0 10px 0;
+  background: transparent;
+  max-width: 850px;
+  position: relative;
+  //- :display block
+  text-align: center;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  &:empty {
+    display: none;
+  }
+}
+.ui-message-error {
+  color: $color-error;
+  text-transform: uppercase;
+}
+
+.ui-message-error a {
+  color: $color-error;
+  text-transform: uppercase;
+
+  font-weight: bold;
+}
+.ui-message-success {
+  color: #00c704;
+}
+
+.icon_fb {
+  display: inline-block;
+  width: 21px;
+  height: 20px;
+  margin-right: 5px;
+  position: relative;
+  bottom: -2px;
+  background: url(../img/polla-depor/sprite.png) no-repeat -2px -52px;
+}
+.btn_fb-bg {
+  display: block;
+  // background: url('../img/polla-depor/btn-fb-bg.jpg') no-repeat
+  width: 258px;
+  height: 45px;
+  margin: 0 auto;
+}
+
+.btn_display-pwd {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  i.icon-eye {
+    color: #9e9e9e;
+    font-size: 20px;
+  }
+  i.icon-eye-blocked {
+    color: #000;
+    font-size: 20px;
+  }
+}

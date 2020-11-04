@@ -1,0 +1,66 @@
+// ORBIT
+.ui-orbit
+  position: relative
+  .ui-inner
+    &:before
+      content: ""
+      display: table
+      line-height: 0
+    &:after
+      clear: both
+      content: ""
+      display: table
+      line-height: 0
+  .ui-content
+    overflow: hidden
+    position: relative
+  .ui-inner
+    -webkit-transition: left .4s ease
+    left: 0
+    position: relative
+    top: 0
+    transition: left .4s ease
+  .ui-item
+    float: left
+    position: relative
+    //display: none
+    //&:first-child
+      //display: block
+  &.orbit-ed .ui-item
+    display: block
+  .ui-arrows
+    list-style: none
+    margin: 0
+    padding: 0
+    a
+      &:hover
+        text-decoration: none
+      &.ui-prev, &.ui-next
+        -ms-border-radius: 50%
+        border-radius: 50%
+        display: block
+        outline: none
+        overflow: hidden
+        position: absolute
+        text-align: center
+        z-index: 2
+      &.ui-prev
+        left: 0
+      &.ui-next
+        right: 0
+      i
+        font-style: normal
+  .ui-pager
+    text-align: center
+    li
+      border-radius: 50%
+      cursor: pointer
+      display: inline-block
+      margin: 0 5px
+      overflow: hidden
+      text-indent: -999px
+  .ui-thumbs
+    ul
+      overflow: hidden
+      li
+        float: left

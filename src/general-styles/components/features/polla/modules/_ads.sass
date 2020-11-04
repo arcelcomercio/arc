@@ -1,0 +1,130 @@
+// =============================================================
+// $_PUBLICIDAD
+// =============================================================
+[class^="ads-"], [class*=" ads-"]
+  text-align: center
+  line-height: .7
+
+[id^="eplAd"], [id*=" eplAd"]
+  margin-bottom: 20px
+  display: inline-block
+  line-height: .7
+
+[id^="eplAd"]:empty, [id*=" eplAd"]:empty, [id*=" adsperured"]:empty
+  margin-bottom: 0
+  display: none
+
+
+
+[id^="ads-desktop-"], [id*=" ads-desktop-"], [id^="ads-movil-"], [id*=" ads-movil-"]
+  display: none
+
+.ads-top
+  [id^="eplAd"], [id*=" eplAd"]
+    margin-bottom: 10px
+  a
+    margin-bottom: 20px
+    :display inline-block
+  img
+    max-width: 100%
+
+.ads-perured
+
+  iframe, img
+    margin-bottom: 18px
+
+.ads-body
+  margin-left: auto
+  margin-right: auto
+  max-width: 1254px
+  img
+    width: 100%
+
+.zocalos
+  margin: 0 auto
+  position: relative
+  width: 1254px
+
+.ads-zocalo1, .ads-zocalo2
+  position: fixed
+  display: block
+  top: 20px
+  //- width: 170px
+  width: 195px
+  height: auto
+  //- height: 600px
+  z-index: 99999
+  [id^="eplAd"], [id*=" eplAd"]
+    margin-bottom: 0
+  a
+    display: block
+    width: 100%
+    height: 100%
+
+.ads-zocalo1
+  //- margin-left: -170px
+  margin-left: -56px
+  text-align: right
+
+.ads-zocalo2
+  //- margin-left: 1264px
+  margin-left: 1116px
+  text-align: left
+
+//- .ads-ticker
+  //- position: absolute
+  //- bottom: 25px
+  //- right: 90px
+  //- width: 195px
+.ads-ticker
+  position: relative
+  bottom: 0
+  right: 0
+  width: 100%
+  span
+    display: block
+    float: left
+    font: 12px/33px $f-other
+    margin-right: 10px
+    text-align: right
+    width: 94px
+  .logo-sponsor
+    float: right
+
+.ads-300x600, .ads-300x300
+  [id^="eplAd"], [id*=" eplAd"]
+    //background-color: $gray6
+    //background-image: url("../img/polla-depor/bg_ads.png")
+    //background-position: right bottom
+    //background-repeat: no-repeat
+    margin-bottom: 0
+
+.ads-300x600
+  [id^="eplAd"], [id*=" eplAd"]
+    margin-bottom: 10px
+  .banner
+    img
+      width: 300px
+      height: 112px
+
+.ads-300x300
+  overflow: hidden
+  [id^="eplAd"], [id*=" eplAd"]
+    height: 352px
+
+body
+  &.nota
+    .ads-300x600, .ads-300x300
+      [id^="eplAd"], [id*=" eplAd"]
+        height: inherit
+
+.content-columns
+  #adsperured-movil, #ads-movil-inferior, #ads-movil-middle1, #ads-movil-middle2 //- CUIDADO
+    :background #fff
+
+.ads_d_vslider
+  bottom: 0
+  position: fixed
+  right: 0
+  width: 400px
+  z-index: 999999999

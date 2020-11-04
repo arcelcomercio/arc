@@ -1,0 +1,136 @@
+#pid-user-info
+  float: left
+  &.pid-user-logued
+    line-height: 32px
+    background: $black
+    .pid-user-name, .pid-user-caption
+      top: 0
+  &.site-login
+    line-height: 32px
+    background: $black
+    padding: 0 7px
+    .u-links 
+      a
+        margin-top: 3px
+        margin-bottom: 3px
+  .pid-user-close
+    margin-top: 8px
+    background: url("../img/polla-depor/pid_cerrar.png") center center no-repeat
+
+.pid-cnt a, .u-links a
+  display: inline-block
+  line-height: 25px
+  padding: 0 8px
+  border: 1px solid #7f7f7f
+  margin-left: 3px
+  border-radius: 2px
+  font-size: 11px
+  color: white
+  background: none
+  margin: 0 3px
+  position: relative
+  top: 0
+  .icon-user
+    display: none
+
+#user-info
+  &.site-login
+    line-height: 32px
+    background: $black
+    padding: 0 7px
+    .u-links 
+      a
+        margin-top: 3px
+        margin-bottom: 3px
+
+#pid-user-info-movil .pid-cnt a
+  display: inline-block
+  line-height: 25px
+  padding: 0 8px
+  width: 45.5%
+  border: 1px solid #ffffff
+  margin: 5px
+  border-radius: 2px
+  font-size: 11px
+  color: white
+  background: none
+  text-align: center
+  position: relative
+  top: 3px
+  &:last-of-type
+    margin-right: 0
+
+.pid-user-name, .pid-user-caption
+  color: #d3d700 !important
+  font-style: italic
+  font-size: 13px
+  position: relative
+  top: 0
+  :padding 0 2px
+  //- top: 8px
+
+.pid-user-name
+  font-weight: bold
+
+.pid-user-close img
+  position: relative
+  top: 10px
+  padding-left: 5px
+
+//comments
+#app-comments
+  background-color: white
+  border-bottom: 1px solid #ccc
+  .appc-form
+    margin-right: 0
+  .appc-form-main
+    padding: 10px
+  .appc-form
+    button
+      background-color: #000
+    &.focus-in button
+      background-color: #00853F
+  .appc-comment
+    margin-bottom: 0
+  .appc-list
+    border: 0
+    margin: 0
+    & > ol > li:not(:last-of-type)
+      border-bottom: 1px solid #EEEEEE
+  .appc-avatar
+    display: none
+  .appc-comment
+    padding-left: 0
+  .appc-form .appc-area
+    margin-left: 0
+  .appc-form-main .appc-form-title, ul.appc-head-opts li, .appc-text h6
+    font-family: "Noticia Text", "prelobold", Arial
+  ul.appc-head-opts li.appc-active
+    color: black
+  .appc-form .app-compartir
+    display: none
+  textarea
+    color: #555
+    font-size: 13px
+  .appc-form .appc-seguir
+    margin: inherit
+    display: inline-block
+    width: inherit
+    label input
+      margin-left: 0
+  .appc-error
+    background: #f55656
+    border: 1px solid #e9c6c6
+    color: #f9f9f9
+    padding: 5px
+    margin: 0 0 10px
+    text-shadow: 0 1px 0 #dc2b2b
+    border-radius: 5px
+    font-size: 11px
+  textarea
+    font-size: initial!important
+@media (max-width: 480px)
+  #app-comments
+    //- margin: 0 -10px -10px -10px
+    .appc-item .appc-form
+      margin-left: 20px
