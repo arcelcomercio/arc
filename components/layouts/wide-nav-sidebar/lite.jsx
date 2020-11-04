@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 const classes = {
   container: 'f f-col w-full',
   layout: 'f just-center',
-  contentContainer:
-    'st-sidebar__container f f-col w-full pos-rel',
+  contentContainer: 'st-sidebar__container f f-col w-full pos-rel',
   content: 'st-sidebar__content f mt-20 mb-20',
   main: 'st-sidebar__main',
   sidebar: 'st-sidebar__side',
@@ -29,8 +28,8 @@ const WideNavGridSidebar = ({ children = [] }) => {
       {children[2] /* Barra de navegación */}
       {children[3] /* Cabecera de página */}
       <div className={classes.layout}>
-        <div className={`${classes.zocalo} ${classes.zocaloL}`}>
-          {children[0] /* Zocalo izquierda */}
+        <div className={`${classes.lateral} ${classes.lateralL}`}>
+          {children[0] /* lateral izquierda */}
         </div>
         <div className={classes.contentContainer}>
           {children[4] /* Encabezado */}
@@ -46,8 +45,8 @@ const WideNavGridSidebar = ({ children = [] }) => {
             <section className={classes.aditional}>{children[7]}</section>
           ) /* Contenido adicional */}
         </div>
-        <div className={`${classes.zocalo} ${classes.zocaloR}`}>
-          {children[9] /* Zocalo derecha */}
+        <div className={`${classes.lateral} ${classes.lateralR}`}>
+          {children[9] /* lateral derecha */}
         </div>
       </div>
       {children[8] /* Pie de página */}
