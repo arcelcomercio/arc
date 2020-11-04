@@ -87,7 +87,7 @@ const resolve = (key = {}) => {
  */
   return `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
-  ).toLowerCase()}${isTypeSearch}+AND+type:story+AND+revision.published:true&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
+  ).toLowerCase()}${isTypeSearch}+AND+type:story&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
 }
 
 const transform = (
