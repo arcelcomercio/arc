@@ -10,7 +10,7 @@ const renderVideos = (search = '', brand) => {
       boxHide.classList.add('d-none');
       if(response.videos.length > 0){
         response.videos.forEach(data => {
-          const {key, title, description, link, duration, custom: {thumbnail_url = ''} = {}} = data
+          const {key, title='', description='',  duration='', custom: {thumbnail_url = ''} = {}} = data
           const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=320`
           const htmlVideo = template.replace(/%key%/gi, key)
           .replace(/%brand%/gi, brand)
@@ -33,7 +33,7 @@ const renderVideos = (search = '', brand) => {
 const renderForEditAndView = (dataParams) => {
     //console.log('dataParams', dataParams);
     // Setup Element Preview
-    const {id, config:{key, title, description, thumbnail_url, has_ads=0}} = dataParams
+    const {id, config:{key, title='', description='', thumbnail_url='', has_ads=0}} = dataParams
     const template = document.getElementById('content_template').innerHTML
     const hasAds = has_ads ? 'Si': 'No'
     const html = template
@@ -95,7 +95,7 @@ window.selectVideoId = (videoKey, brand) => {
 const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000);
 
 const buildDataAns = (data, brand) => {
-    const {key, title, description, size, duration, status, updated, date, custom:{ thumbnail_url = '' } = {}, has_ads = 0} = data || {};
+    const {key, title, description='', size, duration, status, updated, date, custom:{ thumbnail_url = '' } = {}, has_ads = 0} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
     const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`
     const conversions = getPathsVideos(key, brand);
