@@ -4,12 +4,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 const ENV = require('fusion:environment')
 const getProperties = require('fusion:properties')
-const {
-  interpolateUrl,
-} = require('../../components/features/paywall/_dependencies/domains')
 const request = require('request-promise-native')
 const createHmac = require('create-hmac')
 const uuid = require('uuid')
+const {
+  interpolateUrl,
+} = require('../../components/features/paywall/_dependencies/domains')
 
 const hmac256 = (queryString, secret, encoding = 'base64') => {
   const hmac = createHmac('sha256', Buffer.from(secret))

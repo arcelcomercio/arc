@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
+import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext } from '../../../_context/auth'
-import { paymentTraker } from '../../../_dependencies/Services'
 import { getStorageInfo } from '../../../_dependencies/Session'
 import { SubscribeEventTag } from '../Singwall/_children/fb-account-linking'
 import PWA from '../../../_dependencies/Pwa'
@@ -29,6 +29,22 @@ const styles = {
   noteBenefist: 'step__left-note-benefist',
 }
 
+const PaywallTracking = ({ ...props }) => {
+  useContent({
+    source: 'paywall-tracking',
+    query: {
+      referrerUser: getSessionStorage('paywall_last_url') || '',
+      confirmUser: getSessionStorage('paywall_confirm_subs') || '3',
+      originUser: getSessionStorage('paywall_type_modal') || 'organico',
+      isPwaUser: PWA.isPWA() ? '1' : '2',
+      userAgentClient:
+        typeof window !== 'undefined' ? window.navigator.userAgent : '',
+      ...props,
+    },
+  })
+  return ''
+}
+
 const Confirmation = () => {
   const {
     arcSite,
@@ -49,7 +65,7 @@ const Confirmation = () => {
     userProfile,
   } = useContext(AuthContext)
 
-  const { texts, urls } = PropertiesCommon
+  const { texts } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = useState(false)
 
@@ -77,10 +93,9 @@ const Confirmation = () => {
       const divStep = window.document.getElementById('main-steps')
       const divDetail = document.getElementById('div-detail')
       const divFooter = document.getElementById('footer')
-      const { uuid, accessToken } = getStorageInfo()
+      const { uuid } = getStorageInfo()
       const origin = getSessionStorage('paywall_type_modal') || 'organico'
       const referer = getSessionStorage('paywall_last_url') || ''
-      const confirm = getSessionStorage('paywall_confirm_subs') || '3'
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
       const getPLanSelected = plans.reduce((prev, plan) => {
@@ -98,16 +113,6 @@ const Confirmation = () => {
 
         PWA.finalize()
         pushCxense(urlsSite.codeCxense)
-        paymentTraker(
-          urls.paymentTracker,
-          accessToken,
-          arcSite,
-          referer,
-          origin,
-          orderNumber,
-          confirm
-        )
-
         sendAction(PixelActions.PAYMENT_CONFIRMATION, {
           transactionId: orderNumber,
           transactionAffiliation: arcSite,
@@ -215,12 +220,18 @@ const Confirmation = () => {
   return (
     <>
       {userProfile && priceCodePurchase && pricePurchase && (
-        <SubscribeEventTag
-          subscriptionId={userProfile.uuid}
-          offerCode={priceCodePurchase}
-          currency="PEN"
-          value={pricePurchase}
-        />
+        <>
+          <SubscribeEventTag
+            subscriptionId={userProfile.uuid}
+            offerCode={priceCodePurchase}
+            currency="PEN"
+            value={pricePurchase}
+          />
+          <PaywallTracking
+            userId={userProfile.uuid}
+            orderNumber={orderNumber}
+          />
+        </>
       )}
 
       <ul className={styles.step}>
