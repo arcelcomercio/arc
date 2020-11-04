@@ -211,7 +211,7 @@ const StoryContinueLite = props => {
   const { globalContent, arcSite, requestUri } = useAppContext()
   const { taxonomy: { primary_section: { path = '' } = {}, tags = [] } = {} } =
     globalContent || {}
-  const { slug: tag } = tags[0]
+  const { slug: tag = '' } = tags[0] || {}
 
   const tagStories =
     useContent({
