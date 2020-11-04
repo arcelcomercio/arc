@@ -14,6 +14,7 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
   GALLERY_VERTICAL,
+  MINUTO_MINUTO,
 } from '../../../../utilities/constants/subtypes'
 import { getResultVideo, stripTags } from '../../../../utilities/story/helpers'
 
@@ -178,9 +179,9 @@ const analyzeParagraph = ({
   streams = [],
   siteUrl = '',
   typeConfig = '',
+  subtypeTheme = '',
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
-
   const result = {
     originalParagraph,
     type,
@@ -280,7 +281,85 @@ const analyzeParagraph = ({
       break
 
     case ConfigParams.ELEMENT_RAW_HTML:
-      if (processedParagraph.includes('<iframe')) {
+      if (subtypeTheme === MINUTO_MINUTO) {
+        const res = processedParagraph.split(
+          '<div class="live-event2-comment">'
+        )
+        let bloqueHtml = ''
+        res.forEach((entry, i) => {
+          let entryHtml = ''
+
+          if (i !== 0) {
+            entryHtml = `<div class="live-event2-comment">${entry.replace(
+              /<div id="(.+?)" class="flex justify-center"><\/div>/g,
+              ''
+            )}<div`
+
+            entryHtml = entryHtml
+              .replace(/(>{"@type":(.*)<\/script>:)/gm, '')
+              .replace(/(:<script.*)/, '')
+              .replace(/(:fijado:|:icon:)/g, '')
+
+            if (
+              entryHtml.includes('<blockquote class="instagram-media"') ||
+              entryHtml.includes('<blockquote class="twitter-tweet"')
+            ) {
+              // para twitter y para instagram
+              const arrayTwitter = entryHtml.match(
+                /<blockquote .+?>(.+?||(.+\n||(.+\n)+?.+?).+?)<\/blockquote>(.+?||)<script.+?><\/script>/g
+              )
+              entryHtml = `<xxfigure class="op-interactive"><iframe>${
+                arrayTwitter[0]
+              }</iframe></xxfigure> ${entryHtml.replace(arrayTwitter[0], '')}`
+            } else if (entryHtml.includes('https://www.facebook.com/plugins')) {
+              // para facebook
+
+              const arrayFacebook = entryHtml.match(
+                /(<iframe(.+?||(.+\n||(.+\n)+?.+?).+?)src="(.+?||(.+\n||(.+\n)+?.+?).+?)"(.+?||(.+\n||(.+\n)+?.+?).+?)><\/iframe>)/g
+              )
+              entryHtml = `<xxfigure class="op-interactive"><iframe>${
+                arrayFacebook[0]
+              }</iframe></xxfigure> ${entryHtml.replace(arrayFacebook[0], '')}`
+            } else if (entryHtml.includes('<iframe')) {
+              // valida si el parrafo contiene un iframe con video youtube o foto
+              entryHtml = `<figure class="op-interactive">${processedParagraph.replace(
+                /width=(?:"|')100%(?:"|')/g,
+                `width="520"`
+              )}</figure>`
+            }
+
+            entryHtml = stripTags(
+              entryHtml,
+              '<xxfigure><iframe><div><p><a><img><strong><blockquote><script>'
+            )
+            if (entryHtml.includes('<img')) {
+              // para twitter y para instagram
+              const imageHtml = entryHtml.match(
+                /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/g
+              )
+
+              entryHtml = `${imageHtml[0]} ${entryHtml.replace(
+                imageHtml[0],
+                ''
+              )}`
+              entryHtml = entryHtml.replace(
+                /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/g,
+                '<figure><img width="560" height="315" src="$2" /></figure>'
+              )
+            }
+
+            entryHtml = entryHtml.replace(
+              /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><div/gm,
+              '<blockquote>$1</blockquote>'
+            )
+          }
+          bloqueHtml = `${bloqueHtml}${entryHtml.replace(
+            /<div class="live-event2-comment">(.+?||(.+\n||(.+\n)+?.+?).+?)<\/div><\/div>/g,
+            '<blockquote>$1</blockquote>'
+          )}`
+        })
+        result.processedParagraph = bloqueHtml.replace(/xxfigure/g, 'figure')
+      } else if (processedParagraph.includes('<iframe')) {
         // valida si el parrafo contiene un iframe con video youtube o foto
 
         result.processedParagraph = `<figure class="op-interactive">${processedParagraph.replace(
@@ -299,13 +378,13 @@ const analyzeParagraph = ({
           /<xtrong>([A-Za-z0-9:-]*[A-Z:a-z0-9-])<\/xtrong>(.+?)<p>/gm,
           '<p><strong>$1 </strong> '
         )
-
         const liveBlogTags = stripTags(liveBlogStrong, '<p><a><img><strong>')
 
         const liveBlogResult = liveBlogTags.replace(
           /<img class="([A-Za-z0-9-]*[A-Za-z0-9-])" src="((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)">/gm,
-          '<figure><img src="$2" /></figure>'
+          '<figure><img img width="560" height="315" src="$2" /></figure>'
         )
+
         result.processedParagraph = liveBlogResult
       } else if (processedParagraph.includes('<img')) {
         // obtiene el valor del src de la imagen y el alt
@@ -391,6 +470,7 @@ const buildListParagraph = ({
   arcSite,
   defaultImage,
   siteUrl = '',
+  subtypeTheme,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
@@ -401,10 +481,12 @@ const buildListParagraph = ({
       link = '',
       streams = [],
       type_config: typeConfig = '',
+      subtype = '',
     }) => {
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph: payload,
         type,
+        subtype,
         numberWordMultimedia,
         opta,
         link,
@@ -413,6 +495,7 @@ const buildListParagraph = ({
         streams,
         siteUrl,
         typeConfig,
+        subtypeTheme,
       })
       objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
       objTextsProcess.numberWords += numberWords
@@ -433,6 +516,7 @@ const ParagraphshWithAdds = ({
   opta,
   siteUrl,
   arcSite,
+  subtypeTheme = '',
   defaultImage = '',
 }) => {
   let newsWithAdd = []
@@ -466,6 +550,7 @@ const ParagraphshWithAdds = ({
           streams,
           siteUrl,
           typeConfig,
+          subtypeTheme,
         })
 
         if (ConfigParams.ELEMENT_STORY === type) {
@@ -638,6 +723,7 @@ const BuildHtml = ({
     arrayadvertising: listUrlAdvertisings,
     opta,
     siteUrl,
+    subtypeTheme: subtype,
     arcSite,
     defaultImage,
   }

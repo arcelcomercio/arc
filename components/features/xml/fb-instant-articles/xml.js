@@ -26,17 +26,12 @@ import {
  */
 
 const DESCRIPTION = 'Todas las Noticias'
-const SOURCE = 'story-feed-by-section-mag'
 
 @Consumer
 class XmlFacebookInstantArticles {
   constructor(props) {
     this.props = props
-    const {
-      globalContent,
-      siteProperties: { siteUrl },
-      arcSite,
-    } = props
+    const { globalContent, arcSite } = props
     const { content_elements: stories = [] } = globalContent || {}
     this.stories = stories
 
@@ -98,10 +93,10 @@ class XmlFacebookInstantArticles {
     }
     // FIN recomendador por marca
 
-    if (siteUrl === 'https://elcomercio.pe') {
+    /* if (siteUrl === 'https://elcomercio.pe') {
       this.fetchContent({
         magStories: {
-          source: SOURCE,
+          source: 'story-feed-by-section-mag',
           transform: data => {
             if (!data) return []
             const { content_elements: magStories } = data
@@ -109,12 +104,12 @@ class XmlFacebookInstantArticles {
           },
         },
       })
-    }
+    } */
   }
 
   render() {
-    const { magStories } = this.state || {}
-    if (magStories) this.stories = [...this.stories, ...magStories]
+    // const { magStories } = this.state || {}
+    // if (magStories) this.stories = [...this.stories, ...magStories]
 
     const {
       deployment,

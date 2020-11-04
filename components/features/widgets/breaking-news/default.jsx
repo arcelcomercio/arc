@@ -13,6 +13,8 @@ const classes = {
   text: 'breaking-news__text m-0 title-xs line-h-xs items-center',
   tag: 'breaking-news__tag uppercase mr-5 font-bold',
   link: 'breaking-news__link mr-5 text-white font-bold',
+  envivo: 'breaking-news__envivo',
+  envivoborder: 'breaking-news__envivo-border',
 }
 
 /* requestIdle(() => {
@@ -31,6 +33,7 @@ const BreakingNewsFeat = props => {
       storyLink = '',
       tags = 'Lo último',
       backgroundColor = 'color-1',
+      showIcon = '',
     },
   } = props
 
@@ -71,6 +74,12 @@ const BreakingNewsFeat = props => {
           ${classes.breakingnews}
           `}>
             <h2 itemProp="name" className={classes.text}>
+              {showIcon && (
+                <>
+                  <span className={classes.envivoborder}></span>
+                  <span className={classes.envivo}></span>
+                </>
+              )}
               <span
                 className={classes.tag}
                 {...editableField('tags')}

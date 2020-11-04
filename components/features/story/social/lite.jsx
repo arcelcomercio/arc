@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from '../../../global-components/trustprojectlabel'
@@ -16,7 +16,7 @@ const classes = {
 }
 
 const StorySocialLite = () => {
-  const { requestUri, globalContent } = useFusionContext()
+  const { requestUri, globalContent } = useAppContext()
 
   const {
     taxonomy: {

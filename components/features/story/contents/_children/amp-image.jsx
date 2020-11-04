@@ -4,7 +4,7 @@ import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
   image: 'story-content__visual--image amp-img w-full h-full',
-  description: 'story-content__news-media-description text-left pt-5',
+  description: 'story-content__news-media-description text-left pt-5 line-h-xs',
 }
 
 const StoryContentChildAmpImage = ({ data }) => {
