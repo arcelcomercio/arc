@@ -31,7 +31,7 @@ const renderVideos = (search = '', brand) => {
 }
 
 const renderForEditAndView = (dataParams) => {
-    console.log('dataParams', dataParams);
+    //console.log('dataParams', dataParams);
     // Setup Element Preview
     const {id, config:{key, title, description, thumbnail_url, has_ads=0}} = dataParams
     const template = document.getElementById('content_template').innerHTML
