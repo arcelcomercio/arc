@@ -588,6 +588,10 @@ const LiteOutput = ({
             dangerouslySetInnerHTML={{ __html: htmlScript }}
           />
         )}
+        <script
+          defer
+          src={deployment(`${contextPath}/resources/assets/js/storyIframe.js`)}
+        />
       </body>
     </html>
   )

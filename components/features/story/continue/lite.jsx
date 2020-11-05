@@ -25,9 +25,23 @@ window.addEventListener('load', () => {requestIdle(() => {
       })
     )
   }
-  window.addEventListener( "message", function (e) {  
-    if(e.data.split('__')[0] === 'MessageContinue'){
-      window.location.href = e.data.split('__')[1]
+
+  window.addEventListener( "message", function (event) {  
+    const { origin, source, data = {} } = event
+    if(origin === window.location.origin) {
+      if(data.id === "story_iframe") {
+        const iframeSearchMatch = source.location.search.match(/story=([0-9]{1,2})/) || {}
+        const storyNumber = iframeSearchMatch && iframeSearchMatch[1]
+        if(storyNumber) {
+          const resizedIframe = document.getElementById("st-iframe-" + storyNumber) || {}
+          resizedIframe.height = data.storyHeight || resizedIframe.height
+        }
+      }
+      if(typeof data === 'string') {
+        if(data.split('__')[0] === 'MessageContinue'){
+          window.location.href = data.split('__')[1]
+        }
+      }
     }
   }, false);
 
@@ -142,6 +156,7 @@ window.addEventListener('load', () => {requestIdle(() => {
         next.width = "100%"
         next.height = "6000"
         next.id = "st-iframe-" + storyCounter
+        next.class = "st-iframe"
         next.frameborder = "0"
         next.scrolling = "no"
         next.setAttribute("data-index", storyCounter)
@@ -289,7 +304,7 @@ const StoryContinueLite = props => {
     ),
   }
 
-  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="<<recentStoriesrecentStoriesrecentStories>>",t=JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{},n=document.getElementById("st-continue-0");window.addEventListener("message",function(e){"MessageContinue"===e.data.split("__")[0]&&(window.location.href=e.data.split("__")[1])},!1),t.section&&window.sessionStorage.removeItem("_recent_articles_"),function(t){void 0===t&&(t={});var n=t,i=n.section;n.data;window.sessionStorage.setItem("_recent_articles_",JSON.stringify({section:i,data:e.data}))}(e);var i=0,o=1,r=0,s=(JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},a=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e=!0)}return e}()?[].concat(s.storiesBySectionPremium,s.storiesByTag):[].concat(s.storiesByTag,s.storiesBySection);a.unshift({title:document.title,link:location.pathname});var c=function(){return location.href.includes("/pf")},d=function(e){void 0===e&&(e=0),requestIdle(function(){if("IntersectionObserver"in window){var t=null;e<=0?(t=document.getElementById("contenedor")).setAttribute("data-index",0):e>0&&(t=document.getElementById("st-iframe-"+e));var n=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){var t=parseInt(e.target.dataset.index);i===t?o=e.intersectionRatio:e.intersectionRatio>o&&(i=t,o=e.intersectionRatio,n=a[i],r=i,document.title=n.title,history.pushState({story:r},n.title,c()?"/pf"+n.link:n.link))}var n,r})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()});t&&n.observe(t)}})},u=(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),function(e){var t=a[r+=1]||{};t.link&&(requestIdle(function(){var n=t.link+"?ref=nota&ft=autoload&story="+r;n=c()?n+"&outputType=lite&_website=<<arcSite>>":n;var i=document.createElement("iframe");i.src=location.origin+n,i.width="100%",i.height="6000",i.id="st-iframe-"+r,i.frameborder="0",i.scrolling="no",i.setAttribute("data-index",r),e.insertAdjacentElement("afterEnd",i),d(r)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+r,e.style.height="10px";var t=document.getElementById("st-iframe-"+r);t.insertAdjacentElement("afterEnd",e),l(e),t.onload=function(){requestIdle(function(){t.height=t.contentWindow.document.documentElement.offsetHeight+"px"})}}))}),l=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(u(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 800px 0px"});t.observe(e)}else window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-800&&window.removeEventListener("scroll",function(){e(t)}),u(t)}(e)})};l(n),d(0)})});`
+  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="<<recentStoriesrecentStoriesrecentStories>>",t=JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{},n=document.getElementById("st-continue-0");window.addEventListener("message",function(e){var t=e.origin,n=e.source,i=e.data,o=void 0===i?{}:i;if(t===window.location.origin){if("story_iframe"===o.id){var r=n.location.search.match(/story=([0-9]{1,2})/)||{},s=r&&r[1];if(s){var a=document.getElementById("st-iframe-"+s)||{};a.height=o.storyHeight||a.height}}"string"==typeof o&&"MessageContinue"===o.split("__")[0]&&(window.location.href=o.split("__")[1])}},!1),t.section&&window.sessionStorage.removeItem("_recent_articles_"),function(t){void 0===t&&(t={});var n=t,i=n.section;n.data;window.sessionStorage.setItem("_recent_articles_",JSON.stringify({section:i,data:e.data}))}(e);var i=0,o=1,r=0,s=(JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},a=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e=!0)}return e}()?[].concat(s.storiesBySectionPremium,s.storiesByTag):[].concat(s.storiesByTag,s.storiesBySection);a.unshift({title:document.title,link:location.pathname});var c=function(){return location.href.includes("/pf")},d=function(e){void 0===e&&(e=0),requestIdle(function(){if("IntersectionObserver"in window){var t=null;e<=0?(t=document.getElementById("contenedor")).setAttribute("data-index",0):e>0&&(t=document.getElementById("st-iframe-"+e));var n=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){var t=parseInt(e.target.dataset.index);i===t?o=e.intersectionRatio:e.intersectionRatio>o&&(i=t,o=e.intersectionRatio,n=a[i],r=i,document.title=n.title,history.pushState({story:r},n.title,c()?"/pf"+n.link:n.link))}var n,r})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()});t&&n.observe(t)}})},l=(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),function(e){var t=a[r+=1]||{};t.link&&(requestIdle(function(){var n=t.link+"?ref=nota&ft=autoload&story="+r;n=c()?n+"&outputType=lite&_website=<<arcSite>>":n;var i=document.createElement("iframe");i.src=location.origin+n,i.width="100%",i.height="6000",i.id="st-iframe-"+r,i.class="st-iframe",i.frameborder="0",i.scrolling="no",i.setAttribute("data-index",r),e.insertAdjacentElement("afterEnd",i),d(r)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+r,e.style.height="10px";var t=document.getElementById("st-iframe-"+r);t.insertAdjacentElement("afterEnd",e),u(e),t.onload=function(){requestIdle(function(){t.height=t.contentWindow.document.documentElement.offsetHeight+"px"})}}))}),u=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(l(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 800px 0px"});t.observe(e)}else window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-800&&window.removeEventListener("scroll",function(){e(t)}),l(t)}(e)})};u(n),d(0)})});`
     .replace('<<arcSite>>', arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',
