@@ -1,19 +1,34 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import React, { useState } from 'react'
 import LastMatch from './_children/last-match'
 import Ranking from './_children/ranking'
-import { getAssetsPath } from '../../../utilities/assets'
+
+const MEDIA_BASE = 'https://resultadosopta.minoticia.pe/'
+// const USUARIO = '6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c'
+const USUARIO = 'f7b1822e77b2091584248e377df3fe50f32082e3'
+// const API_BASE = 'http://localhost:8000/depor/'
+const API_BASE =
+  'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/'
 
 const Header = () => {
-  /* const { arcSite, contextPath, deployment } = useFusionContext()
-  const logo =
-    `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/assets/polla/logo-polla.png?d=1` || '' */
-  // const logo = deployment(`${contextPath}/resources/assets/polla/logo-polla.png`)
-  const logo = 'https://jab.pe/polla/logo-polla.png'
+  const confs = { API_BASE, USUARIO, MEDIA_BASE }
+  const logo = 'https://jab.pe/polla/logo-trome.png'
+
+  const [userData, setUserData] = useState('')
+
+  const getDataUsuario = () => {
+    fetch(
+      `${API_BASE}usuario/${USUARIO}/ultimopartido?v=${new Date().getTime()}`
+    )
+      .then(response => response.json())
+      .then(data => {
+        setUserData(data)
+      })
+  }
+
+  if (userData === '') {
+    getDataUsuario()
+  }
 
   return (
     <header className="site-header">
@@ -28,10 +43,7 @@ const Header = () => {
             <i className="icon-menu"></i>
           </a>
           <a href="/" className="logo">
-            <img
-              src={logo}
-              alt="Polla depor"
-            />
+            <img src={logo} alt="Polla depor" />
           </a>
         </div>
         <div id="site-menu" className="site-menu">
@@ -39,6 +51,7 @@ const Header = () => {
             <ul className="home-menu">
               <li className="link">
                 <a href="#">
+                  {' '}
                   <i className="icon-stadium"></i>Inicio
                 </a>
               </li>
@@ -87,7 +100,7 @@ const Header = () => {
             <li className="my-ranking ui-active">
               <a
                 href="#panel-ranking"
-                onclick="return lib.ui.tab(this, event);"
+                onClick="return lib.ui.tab(this, event);"
                 className="title-ranking">
                 <i className="icon-ranking"></i>Mi Ranking{' '}
               </a>
@@ -95,16 +108,17 @@ const Header = () => {
             <li className="my-last-game">
               <a
                 href="#panel-lastgame"
-                onclick="return lib.ui.tab(this, event);"
+                onClick="return lib.ui.tab(this, event);"
                 className="title-ranking">
+                {' '}
                 <i className="icon-last"></i>Historial de partidos / Ultimo
                 partido
               </a>
             </li>
           </ul>
           <div className="ui-tab-content">
-            <Ranking></Ranking>
-            <LastMatch></LastMatch>
+            <Ranking {...confs} {...userData}></Ranking>
+            <LastMatch {...confs} {...userData}></LastMatch>
           </div>
           <a href="#" className="btn-collapse">
             <i className="icon-angle-down"></i>

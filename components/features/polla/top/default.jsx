@@ -2,11 +2,13 @@
 import React from 'react'
 
 const TopHeader = () => {
+  const logoSmall = 'https://jab.pe/polla/logo-trome-small.png'
+
   return (
     <div className="site-options">
       <div className="box-content clearfix">
         <div className="site-edition">
-          <img src="https://jab.pe/polla/logo-depor-small.png" alt="" />
+          <img src={logoSmall} alt="" />
         </div>
         <div className="box-right clearfix">
           <div id="user-info" className="site-login">
