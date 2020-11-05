@@ -31,6 +31,7 @@ const Polla = () => {
   }
 
   const [matchs, setMatchs] = useState([])
+  const [validLoad, setValidLoad] = useState(false)
 
   let USUARIO = null
   if(typeof window !== "undefined"){
@@ -47,11 +48,23 @@ const Polla = () => {
     fetch(`${API_BASE}usuario/${USUARIO}/partidos?v=${new Date().getTime()}`)
       .then(response => response.json())
       .then(data => {
-        setMatchs(data.losPartidos)
+        if(typeof(data.mensaje) !== "undefined" && data.mensaje === "ok"){
+          setValidLoad(true)
+          setMatchs(data.losPartidos)
+        }else{
+          fetch(`${API_BASE}usuario/${ANONIMO}/partidos?v=${new Date().getTime()}`)
+          .then(response => response.json())
+          .then(data2 => {
+            if(typeof(data2.mensaje) !== "undefined" && data2.mensaje === "ok"){
+              setValidLoad(true)
+              setMatchs(data2.losPartidos)
+            }
+          })
+        }
       })
   }
 
-  if(matchs.length === 0 && USUARIO !== null){
+  if(validLoad === false && USUARIO !== null){
       getRemoteMatchs()
   }
 

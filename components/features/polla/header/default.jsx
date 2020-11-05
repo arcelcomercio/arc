@@ -13,7 +13,8 @@ const API_BASE =
 const Header = () => {
   let userSignwall = {}
   let USUARIO = null
-  const [userData, setUserData] = useState('')
+  const [userData, setUserData] = useState("")
+  const [loadExec, setLoadExec] = useState(false)
 
   const getLoggedUser = () => {
     let userId = null
@@ -28,28 +29,28 @@ const Header = () => {
     return userId;
   }
 
-  const getDataUsuario = () => {
-    let retData = {}
+  const loadDataUsuario = () => {
     fetch(
       `${API_BASE}usuario/${USUARIO}/ultimopartido?v=${new Date().getTime()}`
     )
       .then(response => response.json())
       .then(data => {
-        retData = data
+        setUserData(data)
       })
-    return retData
   }
 
   if(typeof window !== "undefined"){
     USUARIO = getLoggedUser()
+    // USUARIO = '3688b56c-fcad-48b4-8071-5da463c1a72e'
 
     if(USUARIO === null){
       window.location.href = SIGNWALL
-    }else{
-      // Verificamos si el usuario esta registrado en la polla, si no está lo registramos
-      const checkUsuario = getDataUsuario()
+    }else if(loadExec === false){
+      loadDataUsuario()
+      setLoadExec(true)
 
-      if(Object.keys(checkUsuario.usuario).length === 0){
+      if(typeof(userData.usuario) !== "undefined" && 
+        Object.keys(userData.usuario).length === 0){
         const registerUser = {
           "nombre": userSignwall.firstName, 
           "apellidos": userSignwall.lastName, 
@@ -82,8 +83,6 @@ const Header = () => {
             window.location.href = SIGNWALL
           }
         })
-      }else{
-        setUserData(checkUsuario)
       }
     }
   }
@@ -91,8 +90,8 @@ const Header = () => {
   const confs = { API_BASE, USUARIO, MEDIA_BASE }
   const logo = 'https://jab.pe/polla/logo-trome.png'
 
-  if (userData === '') {
-    setUserData(getDataUsuario())
+  if (loadExec === false) {
+    loadDataUsuario()
   }
 
   return (
