@@ -21,7 +21,7 @@
       transform: translateX(calc((-980px / 2) - (160px / 2)));
     }
     &--wide {
-      top: $nav-height;
+      top: calc(#{$header-height} + 10px);
     }
   }
 }
