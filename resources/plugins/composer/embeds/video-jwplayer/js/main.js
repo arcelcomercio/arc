@@ -118,7 +118,7 @@ const buildDataAns = (data, brand) => {
 
 async function getPathsVideos(videoKey, brand) {
     const response = await getConversionsVideo(videoKey, brand);
-    const conversions = response.conversions[response.conversions.length - 1];
+    const conversions = [response.conversions[response.conversions.length - 1]];
 
     return conversions;
 }
