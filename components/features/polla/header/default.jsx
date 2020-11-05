@@ -3,31 +3,96 @@ import React, { useState } from 'react'
 import LastMatch from './_children/last-match'
 import Ranking from './_children/ranking'
 
+// const SIGNWALL = 'https://trome.pe/signwall/?outputType=signwall&signwallOrganic=1'
+const SIGNWALL = 'https://elcomercio-trome-sandbox.cdn.arcpublishing.com/signwall/?outputType=signwall&signwallOrganic=1'
 const MEDIA_BASE = 'https://resultadosopta.minoticia.pe/'
-// const USUARIO = '6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c'
-const USUARIO = 'f7b1822e77b2091584248e377df3fe50f32082e3'
 // const API_BASE = 'http://localhost:8000/depor/'
 const API_BASE =
   'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/'
 
 const Header = () => {
-  const confs = { API_BASE, USUARIO, MEDIA_BASE }
-  const logo = 'https://jab.pe/polla/logo-trome.png'
-
+  let userSignwall = {}
+  let USUARIO = null
   const [userData, setUserData] = useState('')
 
+  const getLoggedUser = () => {
+    let userId = null
+    if(window.localStorage && window.localStorage.hasOwnProperty('ArcId.USER_INFO') && window.localStorage.getItem('ArcId.USER_INFO') !== '{}'){
+      const UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')).uuid;
+      
+      if(UUID_USER){ 
+          userId = UUID_USER
+          userSignwall = JSON.parse(window.localStorage.getItem('ArcId.USER_PROFILE'))
+      }
+    }
+    return userId;
+  }
+
   const getDataUsuario = () => {
+    let retData = {}
     fetch(
       `${API_BASE}usuario/${USUARIO}/ultimopartido?v=${new Date().getTime()}`
     )
       .then(response => response.json())
       .then(data => {
-        setUserData(data)
+        retData = data
       })
+    return retData
   }
 
+  if(typeof window !== "undefined"){
+    USUARIO = getLoggedUser()
+
+    if(USUARIO === null){
+      window.location.href = SIGNWALL
+    }else{
+      // Verificamos si el usuario esta registrado en la polla, si no está lo registramos
+      const checkUsuario = getDataUsuario()
+
+      if(checkUsuario === {}){
+        const registerUser = {
+          "nombre": userSignwall.firstName, 
+          "apellidos": userSignwall.lastName, 
+          "tipo_documento": "", 
+          "dni": "", 
+          "email": userSignwall.email, 
+          "fecha_nacimiento": `${userSignwall.birthDay}-${userSignwall.birthMonth}-${userSignwall.birthYear}`,
+          "genero": userSignwall.gender, 
+          "estado_civil": "", 
+          "ocupacion": "", 
+          "nivel_academico": "", 
+          "telefono": "", 
+          "distrito": "", 
+          "departamento": "", 
+          "provincia": "", 
+          "direccion": "",
+          "terminos": 1
+        }
+        // Ingresamos el usuario
+        fetch(`${API_BASE}usuario/${USUARIO}`, {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({registerUser})
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.resultado !== true){
+            window.location.href = SIGNWALL
+          }
+        })
+      }else{
+        setUserData(checkUsuario)
+      }
+    }
+  }
+
+  const confs = { API_BASE, USUARIO, MEDIA_BASE }
+  const logo = 'https://jab.pe/polla/logo-trome.png'
+
   if (userData === '') {
-    getDataUsuario()
+    setUserData(getDataUsuario())
   }
 
   return (
