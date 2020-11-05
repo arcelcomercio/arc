@@ -141,4 +141,8 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2011-11-13',
+  jwplayers: {
+    gec: { playerAds: 'zbS8OgHn', player: 'zDBv4yUE' },
+    peru21: { playerAds: 'uTZV4zGu', player: 'UAwoVtxC' },
+  },
 }

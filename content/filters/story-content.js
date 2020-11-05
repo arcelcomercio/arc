@@ -1,3 +1,4 @@
+import { basicVideoJWplayer } from './basic-video-jwplayer'
 import { basicVideo } from './basic-video'
 import { basicGallery } from './basic-gallery'
 
@@ -15,6 +16,17 @@ content_elements {
   embed{
     id
     config{
+      key
+      description
+      duration
+      thumbnail_url
+      has_ads
+      account
+      resized_urls { 
+        landscape_xs
+        landscape_s
+        lazy_default 
+      }
       link
       photo
       title
@@ -50,6 +62,14 @@ content_elements {
       customBlockContent
       url
       url_img
+      conversions{
+        key
+        mediatype
+        link {
+          path
+          address
+        }
+      }
     }
   }
   raw_oembed{
@@ -278,6 +298,7 @@ promo_items{
   ingredients {
     content
   }
+  ${basicVideoJWplayer}
   ${basicVideo}
   ${basicGallery}
 }

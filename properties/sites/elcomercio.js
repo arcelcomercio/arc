@@ -252,4 +252,8 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2011-08-14',
+  jwplayers: {
+    gec: { playerAds: 'fB2Mdnsl', player: 'aQVjnIkX' },
+    elcomercio: { playerAds: 'jqJgjiEA', player: 'CW5g4pdQ' },
+  },
 }

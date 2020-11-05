@@ -5,7 +5,7 @@ import getProperties from 'fusion:properties'
 
 /* Utilities */
 import { formatPresetsSizes } from './format-presets'
-import { VIDEO, GALLERY } from '../constants/multimedia-types'
+import { VIDEO, GALLERY, JWPLAYER } from '../constants/multimedia-types'
 
 /**
  * @description
@@ -283,6 +283,19 @@ export const getResizedImageParams = (data, option, filterQuality) => {
         option.presets,
         resizer
       )
+    }
+
+    if (
+      sourceData.promo_items &&
+      sourceData.promo_items[JWPLAYER] &&
+      sourceData.promo_items[JWPLAYER].embed &&
+      sourceData.promo_items[JWPLAYER].embed.config
+    ) {
+      const resizedUrls = resizer.getResizerParams(
+        sourceData.promo_items[JWPLAYER].embed.config.thumbnail_url,
+        option.presets
+      )
+      sourceData.promo_items[JWPLAYER].embed.config.resized_urls = resizedUrls
     }
     return sourceData
   }
