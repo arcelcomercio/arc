@@ -98,8 +98,7 @@ const buildDataAns = (data, brand) => {
     const {key, title, description='', size, duration, status, updated, date, custom:{ thumbnail_url = '' } = {}, has_ads = 0} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
     const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`
-    const resultVideo = getPathsVideos(key, brand);
-    const conversions = resultVideo[resultVideo.length - 1];
+    const conversions = getPathsVideos(key, brand);
 
     return {
         key,
@@ -119,7 +118,9 @@ const buildDataAns = (data, brand) => {
 
 async function getPathsVideos(videoKey, brand) {
     const response = await getConversionsVideo(videoKey, brand);
-    return response.conversions;
+    const conversions = response.conversions[response.conversions.length - 1];
+
+    return conversions;
 }
 
 
