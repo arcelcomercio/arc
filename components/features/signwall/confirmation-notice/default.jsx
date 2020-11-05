@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
-import { useFusionContext } from 'fusion:context'
-import PropTypes from 'prop-types'
-import { getLocaleStorage } from '../_dependencies/Utils'
-import { requestVerifyEmail } from '../_dependencies/services'
-import Cookies from '../_dependencies/cookies'
-import Taggeo from '../_dependencies/taggeo'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { PureComponent } from 'react'
+import Consumer from 'fusion:consumer'
+import ENV from 'fusion:environment'
+import { cintilloScript } from './scripts'
 
 const classes = {
   wrapper:
@@ -16,98 +14,56 @@ const classes = {
   txtCount: 'confirmation-notice__counter md:mr-25',
 }
 
-const ConfirmationNotice = props => {
-  const { arcSite } = useFusionContext() || {}
-  const [showSendEmail, setShowSendEmail] = useState(false)
-  const { email, emailVerified } = getLocaleStorage('ArcId.USER_PROFILE') || {}
-  const [showNotice, setShowNotice] = useState(true)
-
-  const {
-    customFields: {
-      customText = 'Estimado usuario le invitamos a que pueda verificar su correo',
-      linkText = 'Enviar correo de confirmación',
-      linkUrl = '/',
-    } = {},
-  } = props
-
-  const sendVerifyEmail = e => {
-    e.preventDefault()
-    setShowSendEmail(true)
-    requestVerifyEmail(email, arcSite)
-    Taggeo('Web_Sign_Wall_Organico', 'web_swo_cintillo_reenviar_correo')
-    let timeleft = 9
-    const downloadTimer = setInterval(() => {
-      if (timeleft <= 0) {
-        clearInterval(downloadTimer)
-        setShowSendEmail(false)
-      } else {
-        const divCount = document.getElementById('countdown')
-        if (divCount) divCount.innerHTML = ` ${timeleft} `
-      }
-      timeleft -= 1
-    }, 1000)
+@Consumer
+class ConfirmationNotice extends PureComponent {
+  // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+    super(props)
   }
 
-  const closeConfirmNotice = () => {
-    Cookies.setCookie('show_confirm_notice', 'false', 1)
-    setShowNotice(false)
-  }
-
-  const isCookie = () => {
-    return Cookies.getCookie('show_confirm_notice')
-  }
-
-  const isFacebook = email && email.indexOf('@facebook.com') >= 0
-
-  return (
-    <>
-      {showNotice && email && !isCookie() && !emailVerified && !isFacebook && (
+  render() {
+    const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    const { arcSite } = this.props
+    return (
+      <>
         <div
+          id="signwall-cintillo-verify"
+          style={{ display: 'none' }}
           className={`${classes.wrapper} ${
             arcSite === 'elcomercio' ? 'bg-base-100' : 'bg-base-300'
           }`}>
-          <p>
-            {customText}: <strong>{email}</strong>.
-          </p>
+          <p id="signwall-cintillo-texto"></p>
 
-          {!showSendEmail ? (
-            <a
-              href={linkUrl}
-              onClick={sendVerifyEmail}
-              className={classes.link}>
-              {linkText}
-            </a>
-          ) : (
-            <span className={classes.txtCount}>
-              Podrás reenviar nuevamente dentro de
-              <strong id="countdown"> 10 </strong> segundos
-            </span>
-          )}
+          <a href="#" id="signwall-cintillo-link" className={classes.link}>
+            Enviar correo de confirmación
+          </a>
+
+          <span
+            id="signwall-cintillo-counter"
+            style={{ display: 'none' }}
+            className={classes.txtCount}>
+            Podrás reenviar nuevamente dentro de
+            <strong id="signwall-cintillo-countdown"> 10 </strong> segundos
+          </span>
 
           <button
-            id="id-confirmation-notice"
+            id="signwall-cintillo-close"
             type="button"
-            onClick={closeConfirmNotice}
             className={classes.closed}>
             <i className={classes.btnIcon}></i>
           </button>
         </div>
-      )}
-    </>
-  )
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: cintilloScript({ arcEnv, arcSite }),
+          }}
+        />
+      </>
+    )
+  }
 }
 
-ConfirmationNotice.static = true
 ConfirmationNotice.label = 'Singwall - Cintillo de Confirmación'
-ConfirmationNotice.propTypes = {
-  customFields: PropTypes.shape({
-    customText: PropTypes.string.tag({
-      name: 'Texto del cintillo',
-    }),
-    linkText: PropTypes.string.tag({
-      name: 'Texto del enlace',
-    }),
-  }),
-}
 
 export default ConfirmationNotice
