@@ -1,4 +1,4 @@
-@import '../partials/_mixins.sass'
+//#@import '../partials/_mixins.sass'
 
 // =============================================================
 // $_LIMPIAR FLOATS
@@ -93,13 +93,14 @@
 
 .flows-grid
   margin: 0 auto
-  //#background: #e11a07 url(../img/polla-depor/bg_polla.jpg) fixed center top no-repeat
+  // url("#{$assets_url}/resources/assets/polla/bg_polla.jpg")
+  background: #e11a07 url("https://jab.pe/polla/bg_polla.jpg") fixed center top no-repeat
   //- width: $cnt-w
-  width: $cnt-w3c
+  //#width: $cnt-w3c
 
 body
   &.login
-    //#background: #e11a07 url(../img/polla-depor/bg_polla.jpg) fixed center top no-repeat
+    background: #e11a07 url("https://jab.pe/polla/bg_polla.jpg") fixed center top no-repeat
     .site-footer
       background: transparent
       .site-info p
@@ -115,7 +116,7 @@ body
     .wrapper
       min-height: calc(100vh - 66px)
   &.polla
-    //#background: #e11a07 url(../img/polla-depor/bg_polla.jpg) fixed center top no-repeat
+    background: #e11a07 url("https://jab.pe/polla/bg_polla.jpg") fixed center top no-repeat
     .wrapper
       min-height: calc(100vh - 33px)
 
@@ -414,7 +415,7 @@ html.pid-open-popup
   h3
     font-size: 16px !important
     color: $white
-      font-weight: 700
+    font-weight: 700
   ul
     margin-bottom: 25px
     li
@@ -425,6 +426,6 @@ html.pid-open-popup
       list-style-type: decimal
   li
     color: $white
-      list-style-type: disc
-      font: 12px/20px $f-main
-      margin: 0 0 0 25px
+    list-style-type: disc
+    font: 12px/20px $f-main
+    margin: 0 0 0 25px

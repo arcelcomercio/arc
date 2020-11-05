@@ -1,5 +1,5 @@
 // Este archivo contiene variables e importaciones de los archivos SASS que se trabajen en el site
-
+// $assets_url: "http://localhost/pf"
 //- VARIABLES
 @import "partials/_variables"
 
@@ -21,9 +21,9 @@
 @import 'modules/_ads'
 
 //- ESTRUCTURA
-//# @import 'partials/_base'
+@import 'partials/_base'
 
-//# @import 'modules/_site-options'
+//#@import 'modules/_site-options'
 
     //- FORMULARIO
 @import 'partials/_form'
@@ -32,7 +32,11 @@
 
 //- HEADER
 @import 'modules/_header'
-	
+
+//- ECO ID
+@import 'modules/_sign-wall-v1'
+@import 'modules/_pid'
+
 // TOMA DE CANAL
 @import 'partials/_toma-canal'
 

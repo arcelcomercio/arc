@@ -41,7 +41,7 @@ const Polla = () => {
     );
 }
 
-Polla.label = 'La Polla'
+Polla.label = 'La Polla - Listado'
 Polla.static = false
 
 export default Polla;
