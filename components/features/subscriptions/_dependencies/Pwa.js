@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-expressions */
 import { isLogged } from './Session'
+
+const APP_CONNECTION = window.ReactNativeWebview || window.nativeConnection
 
 export default {
   isPWA() {
-    return !!window.nativeConnection
+    return !!APP_CONNECTION
   },
   parse(string) {
     try {
@@ -24,16 +27,16 @@ export default {
   },
   mount(callback) {
     if (this.isPWA() && !isLogged()) {
-      window.nativeConnection.postMessage('paywall_ready')
+      APP_CONNECTION && APP_CONNECTION.postMessage('paywall_ready')
       window.addEventListener('message', e => this._onMessage(e, callback))
     }
   },
   finalize() {
     if (!this.isPWA()) return
-    window.nativeConnection.postMessage('successful_purchase')
+    APP_CONNECTION && APP_CONNECTION.postMessage('successful_purchase')
   },
   pwaCloseWebView() {
     if (!this.isPWA()) return
-    window.nativeConnection.pwaCloseWebView()
+    APP_CONNECTION.pwaCloseWebview && APP_CONNECTION.pwaCloseWebview()
   },
 }
