@@ -1,6 +1,6 @@
 export default {
   siteName: 'Mag.',
-  sitemapNewsName: 'El Comercio Mag',
+  sitemapNewsName: 'MAG.',
   siteTitle: 'Mag.',
   colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
@@ -118,6 +118,7 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeRulesCounter: false,
   activeNewsletter: false,
   signwall: {
     mainColorBg: '#000000',

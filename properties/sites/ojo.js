@@ -104,6 +104,7 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeRulesCounter: false,
   activeNewsletter: false,
   signwall: {
     mainColorBg: '#333333',
