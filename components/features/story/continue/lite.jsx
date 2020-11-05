@@ -162,7 +162,7 @@ window.addEventListener('load', () => {requestIdle(() => {
         next.width = "100%"
         next.height = "6000"
         next.id = "st-iframe-" + storyCounter
-        next.class = "st-iframe"
+        next.className = "st-iframe"
         next.frameborder = "0"
         next.scrolling = "no"
         next.setAttribute("data-index", storyCounter)
