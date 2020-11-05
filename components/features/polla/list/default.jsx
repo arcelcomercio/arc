@@ -10,7 +10,7 @@ const classes = {
 
 // const SIGNWALL = 'https://trome.pe/signwall/?outputType=signwall&signwallOrganic=1'
 const MEDIA_BASE = 'https://resultadosopta.minoticia.pe/'
-// const USUARIO = '6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c'
+const ANONIMO = '6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c'
 // const USUARIO = 'f7b1822e77b2091584248e377df3fe50f32082e3'
 // const API_BASE = 'http://localhost:8000/depor/'
 const API_BASE =
@@ -35,6 +35,10 @@ const Polla = () => {
   let USUARIO = null
   if(typeof window !== "undefined"){
     USUARIO = getLoggedUser()
+
+    if(USUARIO === null){
+      USUARIO = ANONIMO
+    }
   }
 
   const confs = { API_BASE, USUARIO, MEDIA_BASE }

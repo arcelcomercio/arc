@@ -49,7 +49,7 @@ const Header = () => {
       // Verificamos si el usuario esta registrado en la polla, si no está lo registramos
       const checkUsuario = getDataUsuario()
 
-      if(checkUsuario === {}){
+      if(Object.keys(checkUsuario.usuario).length === 0){
         const registerUser = {
           "nombre": userSignwall.firstName, 
           "apellidos": userSignwall.lastName, 
@@ -121,12 +121,12 @@ const Header = () => {
                 </a>
               </li>
               <li className="link">
-                <a href="#">
+                <a href="/polla-eliminatorias/como-jugar/">
                   <i className="icon-question"></i>¿Cómo Jugar?
                 </a>
               </li>
               <li className="link">
-                <a href="#">
+                <a href="/polla-eliminatorias/premios/">
                   <i className="icon-gift"></i>Premios
                 </a>
               </li>

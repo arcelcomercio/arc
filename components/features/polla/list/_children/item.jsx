@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 
 const classes = {
   box: 'flow-1x1',
@@ -40,8 +40,6 @@ const MatchBox = ({
   MEDIA_BASE,
   API_BASE,
 }) => {
-  const [match, setMatch] = useState(id)
-  setMatch(id)
 
   const localGoles = useRef('')
   const visitaGoles = useRef('')
@@ -58,7 +56,7 @@ const MatchBox = ({
   }
 
   const registroPronostico = event => {
-    const url = `${API_BASE}usuario/${USUARIO}/pronostico/${match}`
+    const url = `${API_BASE}usuario/${USUARIO}/pronostico/${id}`
     const pronostico = `${localGoles.current.value}-${visitaGoles.current.value}`
     fetch(url, {
       method: 'POST',
@@ -67,7 +65,6 @@ const MatchBox = ({
       },
       body: JSON.stringify({ pronostico }),
     }).then(response => {
-      console.log(response)
       refreshMatchs()
     })
     event.preventDefault()

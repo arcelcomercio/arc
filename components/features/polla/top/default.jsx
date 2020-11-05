@@ -11,17 +11,6 @@ const TopHeader = () => {
           <img src={logoSmall} alt="" />
         </div>
         <div className="box-right clearfix">
-          <div id="user-info" className="site-login">
-            <div className="u-links">
-              <a href="" className="go-peruid go_peruid go-login">
-                <i className="icon-user"></i>
-                <span>Ingresa</span>
-              </a>
-              <a href="" className="go-peruid go_peruid go-registrar">
-                Regístrate
-              </a>
-            </div>
-          </div>
           <div className="site-social">
             <ul className="social-items">
               <li className="social-item social-title">Sigue a Depor en:</li>
@@ -51,19 +40,6 @@ const TopHeader = () => {
               <i className="icon-close"></i>
             </a>
             <div id="search-content" className="search-content">
-              <form
-                action="//depor.com/buscar/"
-                className="search-form search-form-toggle">
-                <div className="search-controls">
-                  <input
-                    type="text"
-                    placeholder="Buscar"
-                    name="b"
-                    className="search-text"
-                  />
-                  <input type="submit" value="ok" className="search-button" />
-                </div>
-              </form>
             </div>
           </div>
         </div>
