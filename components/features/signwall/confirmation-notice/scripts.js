@@ -24,7 +24,8 @@
 //         window.sessionStorage.getItem('ArcId.USER_PROFILE')
 //     )
 
-//     const { email = '', emailVerified = '' } = localProfile || {}
+//     const { email = '', emailVerified = '', displayName = '' } =
+//       localProfile || {}
 
 //     const divCintillo = document.getElementById('signwall-cintillo-verify')
 //     const textCintillo = document.getElementById('signwall-cintillo-texto')
@@ -48,6 +49,10 @@
 
 //     const isCookie = () => {
 //       return getCookie('show_confirm_notice')
+//     }
+
+//     const isDisplayName = () => {
+//       return displayName && displayName === email
 //     }
 
 //     const requestVerifyEmail = mail => {
@@ -95,7 +100,8 @@
 //       divCintillo &&
 //       !emailVerified &&
 //       !isFacebook() &&
-//       !isCookie()
+//       !isCookie() &&
+//       isDisplayName()
 //     ) {
 //       divCintillo.style.display = 'flex'
 //     }
@@ -123,4 +129,4 @@
 // })
 
 export const cintilloScript = ({ arcEnv, arcSite }) =>
-  `"use strict";var arcEnv="${arcEnv}",arcSite="${arcSite}";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){function e(){var e,n,t,o;window.console.log("enviar correoa",a),e=a,new Promise(function(n){fetch("https://api".concat("sandbox"===arcEnv?"-sandbox":"",".").concat(arcSite,".pe/identity/public/v1/email/verify"),{method:"POST",body:JSON.stringify({email:e}),headers:{"Content-Type":"application/json"}}).then(function(e){return n(e.json())})}),n="Web_Sign_Wall_Organico",t="web_swo_cintillo_reenviar_correo","undefined"!=typeof window&&(window.dataLayer=window.dataLayer||[],o={event:"tag_signwall",eventCategory:n,eventAction:t},window.dataLayer.push(o),"sandbox"===arcEnv&&window.console.log(o));var i=9,c=setInterval(function(){var e;i<=0?(clearInterval(c),m.style.display="block",s.style.display="none"):(e=document.getElementById("signwall-cintillo-countdown"))&&(e.innerHTML=" ".concat(i," ")),--i},1e3)}var n,t,o=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},i=o.email,a=void 0===i?"":i,c=o.emailVerified,l=void 0===c?"":c,r=document.getElementById("signwall-cintillo-verify"),d=document.getElementById("signwall-cintillo-texto"),s=document.getElementById("signwall-cintillo-counter"),m=document.getElementById("signwall-cintillo-link");!a||!r||l||a&&0<=a.indexOf("@facebook.com")||(n="show_confirm_notice",(t=document.cookie.match("(^|;) ?".concat(n,"=([^;]*)(;|$)")))&&t[2])||(r.style.display="flex"),d&&(d.innerHTML="Estimado usuario le invitamos a que pueda verificar su correo: <strong>".concat(a,"</strong>.")),document.getElementById("signwall-cintillo-link").addEventListener("click",function(){e(),m.style.display="none",s.style.display="block"}),document.getElementById("signwall-cintillo-close").addEventListener("click",function(){var e,n,t,o;window.console.log("cerrar cintillo"),r.style.display="none",e="show_confirm_notice",n="false",t=1,(o=new Date).setTime(o.getTime()+864e5*t),document.cookie="".concat(e,"=").concat(n,";path=/;expires=").concat(o.toGMTString())})})});`
+  `"use strict";var arcEnv="${arcEnv}",arcSite="${arcSite}";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e,n,t=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},o=t.email,i=void 0===o?"":o,a=t.emailVerified,c=void 0===a?"":a,l=t.displayName,d=void 0===l?"":l,r=document.getElementById("signwall-cintillo-verify"),s=document.getElementById("signwall-cintillo-texto"),m=document.getElementById("signwall-cintillo-counter"),w=document.getElementById("signwall-cintillo-link"),u=function(){var e;window.console.log("enviar correoa",i),e=i,new Promise(function(n){fetch("https://api".concat("sandbox"===arcEnv?"-sandbox":"",".").concat(arcSite,".pe/identity/public/v1/email/verify"),{method:"POST",body:JSON.stringify({email:e}),headers:{"Content-Type":"application/json"}}).then(function(e){return n(e.json())})}),function(e,n){if("undefined"!=typeof window){window.dataLayer=window.dataLayer||[];var t={event:"tag_signwall",eventCategory:e,eventAction:n};window.dataLayer.push(t),"sandbox"===arcEnv&&window.console.log(t)}}("Web_Sign_Wall_Organico","web_swo_cintillo_reenviar_correo");var n=9,t=setInterval(function(){if(n<=0)clearInterval(t),w.style.display="block",m.style.display="none";else{var e=document.getElementById("signwall-cintillo-countdown");e&&(e.innerHTML=" ".concat(n," "))}n-=1},1e3)};!i||!r||c||i&&i.indexOf("@facebook.com")>=0||(e="show_confirm_notice",(n=document.cookie.match("(^|;) ?".concat(e,"=([^;]*)(;|$)")))&&n[2])||!d||d!==i||(r.style.display="flex"),s&&(s.innerHTML="Estimado usuario le invitamos a que pueda verificar su correo: <strong>".concat(i,"</strong>.")),document.getElementById("signwall-cintillo-link").addEventListener("click",function(){u(),w.style.display="none",m.style.display="block"}),document.getElementById("signwall-cintillo-close").addEventListener("click",function(){var e,n,t,o;window.console.log("cerrar cintillo"),r.style.display="none",e="show_confirm_notice",n="false",t=1,(o=new Date).setTime(o.getTime()+864e5*t),document.cookie="".concat(e,"=").concat(n,";path=/;expires=").concat(o.toGMTString())})})});`
