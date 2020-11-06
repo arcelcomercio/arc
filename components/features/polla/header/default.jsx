@@ -3,16 +3,31 @@ import React, { useState } from 'react'
 import LastMatch from './_children/last-match'
 import Ranking from './_children/ranking'
 
+import customFields from './_dependencies/custom-fields'
+
 // const SIGNWALL = 'https://trome.pe/signwall/?outputType=signwall&signwallOrganic=1'
 const SIGNWALL = 'https://elcomercio-trome-sandbox.cdn.arcpublishing.com/signwall/?outputType=signwall&signwallOrganic=1'
 const MEDIA_BASE = 'https://resultadosopta.minoticia.pe/'
+const ANONIMO = '6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c'
 // const API_BASE = 'http://localhost:8000/depor/'
 const API_BASE =
   'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/'
 
-const Header = () => {
+const Header = (props) => {
+  const {
+    customFields: { 
+      anonymous = 'false', 
+      logo = 'https://cdna.trome.pe/resources/dist/trome/polla/logo-polla-trome.png', 
+      home = '',
+      terms = '', 
+      howPlay = '', 
+      prizes = ''
+    } = {}
+  } = props
+
   let userSignwall = {}
-  let USUARIO = null
+  let USUARIO = ANONIMO
+
   const [userData, setUserData] = useState('')
 
   const getLoggedUser = () => {
@@ -41,7 +56,9 @@ const Header = () => {
   }
 
   if(typeof window !== "undefined"){
-    USUARIO = getLoggedUser()
+    if(anonymous !== true){
+      USUARIO = getLoggedUser()
+    }
 
     if(USUARIO === null){
       window.location.href = SIGNWALL
@@ -89,7 +106,6 @@ const Header = () => {
   }
 
   const confs = { API_BASE, USUARIO, MEDIA_BASE }
-  const logo = 'https://jab.pe/polla/logo-trome.png'
 
   if (userData === '') {
     setUserData(getDataUsuario())
@@ -115,18 +131,17 @@ const Header = () => {
           <nav className="main-menu clearfix">
             <ul className="home-menu">
               <li className="link">
-                <a href="#">
-                  {' '}
+                <a href={home}>
                   <i className="icon-stadium"></i>Inicio
                 </a>
               </li>
               <li className="link">
-                <a href="/polla-eliminatorias/como-jugar/">
+                <a href={howPlay}>
                   <i className="icon-question"></i>¿Cómo Jugar?
                 </a>
               </li>
               <li className="link">
-                <a href="/polla-eliminatorias/premios/">
+                <a href={prizes}>
                   <i className="icon-gift"></i>Premios
                 </a>
               </li>
@@ -194,6 +209,9 @@ const Header = () => {
   )
 }
 
+Header.propTypes = {
+  customFields,
+}
 Header.label = 'La Polla - Header'
 Header.static = false
 
