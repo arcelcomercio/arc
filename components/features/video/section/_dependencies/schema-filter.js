@@ -15,6 +15,7 @@ export const SchemaSingleStory = arcSite => {
         type
         embed{
           config{
+            key
             thumbnail_url
             resized_urls { 
               landscape_xs
@@ -70,6 +71,7 @@ export const SchemaMultiStory = arcSite => {
           type
           embed{
             config{
+              key
               thumbnail_url
               resized_urls { 
                 landscape_xs

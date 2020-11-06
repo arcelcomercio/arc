@@ -249,6 +249,7 @@ export default ({
     contentElementsHtml,
     oembedSubtypes,
     embedTwitterAndInst,
+    quantityGalleryItem,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo = {},
   } = new StoryData({
@@ -292,7 +293,8 @@ export default ({
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
-
+  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
+  `
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -664,6 +666,15 @@ export default ({
         ) : (
           <></>
         )}
+        {subtype === GALLERY_VERTICAL && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: dataLayer,
+            }}
+          />
+        )}
+
         {(hasYoutubeVideo || isVideosSection) && (
           <>
             <Resource path="resources/assets/lite-youtube/styles.min.css">
