@@ -222,6 +222,8 @@ const LiteOutput = ({
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
 
+  const isIframeStory = requestUri.includes('ft=cargacontinua')
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -429,7 +431,7 @@ const LiteOutput = ({
             />
           </>
         )}
-        <TagManager {...parameters} />
+        {!isIframeStory && <TagManager {...parameters} />}
       </head>
       <body
         className={classBody}
@@ -579,7 +581,7 @@ const LiteOutput = ({
                 __html: vallaScript(parametersValla),
               }}
             />
-            <VallaHtml />
+            {!isIframeStory && <VallaHtml />}
           </>
         )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
@@ -588,10 +590,12 @@ const LiteOutput = ({
             dangerouslySetInnerHTML={{ __html: htmlScript }}
           />
         )}
-        <script
-          defer
-          src={deployment(`${contextPath}/resources/assets/js/storyIframe.js`)}
-        />
+        {isIframeStory && (
+          <script
+            defer
+            src={deployment(`${contextPath}/resources/assets/js/storyIframe.min.js`)}
+          />
+        )}
       </body>
     </html>
   )
