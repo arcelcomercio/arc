@@ -506,7 +506,10 @@ class StoryData {
       this._data && this._data.content_elements
     )
     const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
-    return videosContent.concat(promoItemsVideo).filter(String)
+    const result = videosContent.concat(promoItemsVideo).filter(String)
+    return result.filter(el => {
+      return el && el.thumbnail_url ? el : ''
+    })
   }
 
   get videoSeo() {
@@ -520,7 +523,10 @@ class StoryData {
       this._data.promo_items &&
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
-    return videosContent.concat(promoItemsVideo).filter(String)
+    const result = videosContent.concat(promoItemsVideo).filter(String)
+    return result.filter(el => {
+      return el && el.thumbnail_url ? el : ''
+    })
   }
 
   get metaTitle() {

@@ -431,6 +431,7 @@ class StoryContentAmp extends PureComponent {
                       />
                       {isMag &&
                         publicidadCaja2 &&
+                        subtype !== MINUTO_MINUTO &&
                         subtype !== MINUTO_MINUTO && (
                           <div
                             className={classes.adsAmp}
@@ -447,16 +448,19 @@ class StoryContentAmp extends PureComponent {
                           )}
                         />
                       )}
-                      {publicidadCaja3 && subtype !== MINUTO_MINUTO && (
-                        <div
-                          className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmpAd(
-                            parametersCaja3
-                          )}
-                        />
-                      )}
+                      {publicidadCaja3 &&
+                        subtype !== MINUTO_MINUTO &&
+                        subtype !== MINUTO_MINUTO && (
+                          <div
+                            className={classes.adsAmp}
+                            dangerouslySetInnerHTML={publicidadAmpAd(
+                              parametersCaja3
+                            )}
+                          />
+                        )}
                       {isMag &&
                         publicidadCaja4 &&
+                        subtype !== MINUTO_MINUTO &&
                         subtype !== MINUTO_MINUTO && (
                           <div
                             className={classes.adsAmp}
@@ -512,7 +516,7 @@ class StoryContentAmp extends PureComponent {
               }}
             />
           )}
-          {!isMag && (
+          {!isMag && subtype !== MINUTO_MINUTO && (
             <div
               className={classes.adsAmp}
               dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}

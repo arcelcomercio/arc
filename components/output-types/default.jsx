@@ -251,7 +251,7 @@ export default ({
     embedTwitterAndInst,
     quantityGalleryItem = 0,
     promoItems: { basic_html: { content = '' } = {} } = {},
-    jwplayerSeo = {},
+    jwplayerSeo = [],
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -640,7 +640,7 @@ export default ({
             />
           </>
         )}
-        {jwplayerSeo[0].key && (
+        {jwplayerSeo[0] && (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{

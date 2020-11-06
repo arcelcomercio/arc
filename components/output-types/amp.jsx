@@ -324,7 +324,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
         )}
 
-        {(promoItemJwplayer.key || jwplayerSeo[0].key) && (
+        {(promoItemJwplayer.key || jwplayerSeo[0]) && (
           <>
             <script
               async

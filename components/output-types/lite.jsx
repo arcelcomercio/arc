@@ -518,7 +518,7 @@ const LiteOutput = ({
           </>
         )}
 
-        {jwplayerSeo[0].key && (
+        {jwplayerSeo[0] && (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
