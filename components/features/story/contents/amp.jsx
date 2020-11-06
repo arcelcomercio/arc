@@ -432,7 +432,7 @@ class StoryContentAmp extends PureComponent {
                       {isMag &&
                         publicidadCaja2 &&
                         subtype !== MINUTO_MINUTO &&
-                        subtype !== MINUTO_MINUTO && (
+                        subtype !== GALLERY_VERTICAL && (
                           <div
                             className={classes.adsAmp}
                             dangerouslySetInnerHTML={publicidadAmp(
@@ -450,7 +450,7 @@ class StoryContentAmp extends PureComponent {
                       )}
                       {publicidadCaja3 &&
                         subtype !== MINUTO_MINUTO &&
-                        subtype !== MINUTO_MINUTO && (
+                        subtype !== GALLERY_VERTICAL && (
                           <div
                             className={classes.adsAmp}
                             dangerouslySetInnerHTML={publicidadAmpAd(
@@ -461,7 +461,7 @@ class StoryContentAmp extends PureComponent {
                       {isMag &&
                         publicidadCaja4 &&
                         subtype !== MINUTO_MINUTO &&
-                        subtype !== MINUTO_MINUTO && (
+                        subtype !== GALLERY_VERTICAL && (
                           <div
                             className={classes.adsAmp}
                             dangerouslySetInnerHTML={publicidadAmpAd(
@@ -516,12 +516,14 @@ class StoryContentAmp extends PureComponent {
               }}
             />
           )}
-          {!isMag && subtype !== MINUTO_MINUTO && (
-            <div
-              className={classes.adsAmp}
-              dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
-            />
-          )}
+          {!isMag &&
+            subtype !== MINUTO_MINUTO &&
+            subtype !== GALLERY_VERTICAL && (
+              <div
+                className={classes.adsAmp}
+                dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
+              />
+            )}
           {isComercio && <StoryGoogleNews />}
           <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
           {storyTagsBbc(tags) && (
