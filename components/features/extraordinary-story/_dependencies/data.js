@@ -9,6 +9,8 @@ import {
 class Data extends StoryData {
   static GOLDFISH = 'goldfish'
 
+  static JWPLAYER = 'jwplayer'
+
   static YOUTUBE = 'youtube'
 
   static IMAGE = 'image'
@@ -171,6 +173,7 @@ class Data extends StoryData {
       (multimediaTypeFeature === VIDEO ||
         multimediaTypeFeature === ELEMENT_YOUTUBE_ID ||
         multimediaTypeFeature === Data.YOUTUBE ||
+        multimediaTypeFeature === Data.JWPLAYER ||
         multimediaTypeFeature === Data.GOLDFISH) &&
       multimedia !== ''
     ) {
@@ -186,6 +189,7 @@ class Data extends StoryData {
       (multimediaType === VIDEO ||
         multimediaType === ELEMENT_YOUTUBE_ID ||
         multimediaType === Data.YOUTUBE ||
+        multimediaType === Data.JWPLAYER ||
         multimediaType === Data.GOLDFISH) &&
       multimedia !== ''
     ) {

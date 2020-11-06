@@ -155,4 +155,7 @@ export default {
   },
   isDfp: false,
   archiveLimit: '2008-12-31',
+  jwplayers: {
+    gec: { playerAds: 'BHYH7DVh', player: 'BHYH7DVh' },
+  },
 }

@@ -140,4 +140,7 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2015-12-27',
+  jwplayers: {
+    gec: { playerAds: 'UQH16oLN', player: 'uDiKWFW0' },
+  },
 }

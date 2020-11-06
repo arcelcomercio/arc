@@ -26,17 +26,12 @@ import {
  */
 
 const DESCRIPTION = 'Todas las Noticias'
-const SOURCE = 'story-feed-by-section-mag'
 
 @Consumer
 class XmlFacebookInstantArticles {
   constructor(props) {
     this.props = props
-    const {
-      globalContent,
-      siteProperties: { siteUrl },
-      arcSite,
-    } = props
+    const { globalContent, arcSite } = props
     const { content_elements: stories = [] } = globalContent || {}
     this.stories = stories
 
@@ -263,8 +258,8 @@ class XmlFacebookInstantArticles {
                 videoPrincipal: storyData.videoStreams,
                 subtype: storyData.subtype,
                 contentElementGallery: storyData.contentElementGallery,
+                promoItemJwplayer: storyData.promoItemJwplayer,
               }
-
               const today = new Date()
               const localTime = new Date(today.setHours(today.getHours() - 5))
 
