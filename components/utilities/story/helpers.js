@@ -108,3 +108,14 @@ export const processedAds = (content, type = '', arcSite = '', secc = '') => {
 
   return entryHtml
 }
+
+export const getResultJwplayer = streams => {
+  const resultVideo = streams
+    .map(({ mediatype = '', link: { address = '', path = '' } = {} }) => {
+      return mediatype === 'video' ? `https://${address}${path}` : []
+    })
+    .filter(String)
+  const cantidadVideo = resultVideo.length
+
+  return resultVideo[cantidadVideo - 1]
+}

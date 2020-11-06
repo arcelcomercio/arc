@@ -8,6 +8,7 @@ import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { getResultVideo } from '../../../../utilities/story/helpers'
 import PowaPlayer from '../../../../global-components/powa-player'
 import LiteYoutube from '../../../../global-components/lite-youtube'
+import VideoJwplayer from '../../../../global-components/video-jwplayer'
 
 /**
  *
@@ -157,16 +158,25 @@ export default ({
           <div className="section-video__top">
             <div className="section-video__left">
               <div className="section-video__frame">
-                {principalVideo.video &&
-                principalVideo.promoItemsType === VIDEO ? (
-                  <PowaPlayer
-                    uuid={uuid}
-                    time={principalVideo.videoDuration}
-                    stream={stream}
-                    image={principalVideo.image}
-                  />
+                {principalVideo && principalVideo.promoItemJwplayer.key ? (
+                  <>
+                    <VideoJwplayer
+                      data={principalVideo.promoItemJwplayer}></VideoJwplayer>
+                  </>
                 ) : (
-                  <LiteYoutube videoId={principalVideo.video} />
+                  <>
+                    {principalVideo.video &&
+                    principalVideo.promoItemsType === VIDEO ? (
+                      <PowaPlayer
+                        uuid={uuid}
+                        time={principalVideo.videoDuration}
+                        stream={stream}
+                        image={principalVideo.image}
+                      />
+                    ) : (
+                      <LiteYoutube videoId={principalVideo.video} />
+                    )}
+                  </>
                 )}
               </div>
             </div>

@@ -1,4 +1,10 @@
-import { VIDEO, GALLERY, HTML, IMAGE } from './constants/multimedia-types'
+import {
+  VIDEO,
+  GALLERY,
+  HTML,
+  IMAGE,
+  JWPLAYER,
+} from './constants/multimedia-types'
 import {
   ELEMENT_RAW_HTML,
   ELEMENT_IMAGE,
@@ -50,6 +56,7 @@ import {
   WORK_TYPE_REVISION,
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
+  VIDEO_JWPLAYER,
 } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
@@ -492,6 +499,14 @@ class StoryData {
         : [] */
 
     return data
+  }
+
+  get jwplayerSeo() {
+    const videosContent = StoryData.getContentJwplayer(
+      this._data && this._data.content_elements
+    )
+    const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
+    return videosContent.concat(promoItemsVideo).filter(String)
   }
 
   get videoSeo() {
@@ -1211,6 +1226,10 @@ class StoryData {
     // )
   }
 
+  get promoItemJwplayer() {
+    return StoryData.promoItemJwplayer(this._data)
+  }
+
   get hasAdsVideo() {
     return StoryData.findHasAdsVideo(this._data)
   }
@@ -1516,6 +1535,25 @@ class StoryData {
     )
   }
 
+  static promoItemJwplayer(data) {
+    const {
+      promo_items: {
+        basic_jwplayer: { embed: { config: video = {} } = {} } = {},
+      } = {},
+    } = data || {}
+    return video
+  }
+
+  static getContentJwplayer(data = []) {
+    return data && data.length > 0
+      ? data.map(item => {
+          return item.type === 'custom_embed' && item.subtype === VIDEO_JWPLAYER
+            ? item.embed.config
+            : []
+        })
+      : []
+  }
+
   static findHasAdsVideo(data) {
     const {
       promo_items: {
@@ -1653,7 +1691,6 @@ class StoryData {
         break
       }
     }
-
     return typeMultimedia
   }
 
@@ -1683,6 +1720,9 @@ class StoryData {
       } else if (items.includes(ELEMENT_YOUTUBE_ID)) {
         // typeMultimedia = ELEMENT_YOUTUBE_ID
         typeMultimedia = VIDEO
+      } else if (items.includes(JWPLAYER)) {
+        // typeMultimedia = ELEMENT_YOUTUBE_ID
+        typeMultimedia = VIDEO
       } else if (items.includes(GALLERY)) {
         typeMultimedia = GALLERY
       }
@@ -1706,9 +1746,25 @@ class StoryData {
         typeMultimedia = GALLERY
       } else if (items.includes(IMAGE)) {
         typeMultimedia = IMAGE
+      } else if (items.includes(JWPLAYER)) {
+        typeMultimedia = JWPLAYER
       }
     }
     return typeMultimedia
+  }
+
+  static getThumbnailJwplayer(data, size = IMAGE_ORIGINAL) {
+    const thumb =
+      (data &&
+        data.promo_items &&
+        data.promo_items[JWPLAYER] &&
+        data.promo_items[JWPLAYER].embed &&
+        data.promo_items[JWPLAYER].embed.config &&
+        ((data.promo_items[JWPLAYER].embed.config.resized_urls &&
+          data.promo_items[JWPLAYER].embed.config.resized_urls[size]) ||
+          data.promo_items[JWPLAYER].embed.config.thumbnail_url)) ||
+      ''
+    return thumb
   }
 
   static getThumbnailVideo(data, size = IMAGE_ORIGINAL) {
@@ -1779,6 +1835,8 @@ class StoryData {
       thumb = StoryData.getImageBySize(data, size)
     } else if (type === ELEMENT_YOUTUBE_ID) {
       thumb = StoryData.getImageBySize(data, size)
+    } else if (type === JWPLAYER) {
+      thumb = StoryData.getThumbnailJwplayer(data, size)
     }
     return thumb
   }
@@ -1841,6 +1899,7 @@ class StoryData {
             url: urlConfig = '',
             type_event: typeConfig = '',
             url_img: urlImgConfig = '',
+            conversions = [],
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1896,6 +1955,9 @@ class StoryData {
               case STAMP_TRUST:
                 result.payload = urlImgConfig
                 result.link = urlConfig
+                break
+              case VIDEO_JWPLAYER:
+                result.payload = conversions
                 break
               case STORY_CUSTOMBLOCK:
                 result.payload = contentCustomblock
