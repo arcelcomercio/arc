@@ -4,6 +4,7 @@ import { deleteQueryString } from '../../utilities/parse/queries'
 import { SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
 import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
+import { getResultJwplayer } from '../../utilities/story/helpers'
 
 export default ({
   fbAppId,
@@ -26,6 +27,7 @@ export default ({
     authorImage,
     primarySectionLink,
     idYoutube,
+    jwplayerSeo: [{ conversions = [] } = {}] = [],
   } = new StoryData({
     data,
     arcSite,
@@ -51,6 +53,7 @@ export default ({
     image = authorImage
   }
   const urlVideo = getAssetsPathVideo(arcSite, url)
+  const ulrJwplayer = getResultJwplayer(conversions)
   return (
     <>
       {/* <!-- Facebook OG --> */}
@@ -70,10 +73,13 @@ export default ({
         </>
       )}
 
-      {urlVideo && (
+      {(urlVideo || ulrJwplayer) && (
         <>
-          <meta property="og:video" content={urlVideo} />
-          <meta property="og:video:secure_url" content={urlVideo} />
+          <meta property="og:video" content={urlVideo || ulrJwplayer} />
+          <meta
+            property="og:video:secure_url"
+            content={urlVideo || ulrJwplayer}
+          />
           <meta property="og:video:width" content="980" />
           <meta property="og:video:height" content="528" />
           <meta property="og:video:stream:content_type" content="video/mp4" />
