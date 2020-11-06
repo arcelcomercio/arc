@@ -249,7 +249,7 @@ export default ({
     contentElementsHtml,
     oembedSubtypes,
     embedTwitterAndInst,
-    quantityGalleryItem,
+    quantityGalleryItem = 0,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo = {},
   } = new StoryData({

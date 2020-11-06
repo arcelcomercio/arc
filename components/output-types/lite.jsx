@@ -183,6 +183,7 @@ const LiteOutput = ({
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo,
+    quantityGalleryItem = 0,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -224,6 +225,8 @@ const LiteOutput = ({
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
 
+  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
+  `
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -533,6 +536,14 @@ const LiteOutput = ({
           />
         ) : (
           <></>
+        )}
+        {subtype === GALLERY_VERTICAL && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: dataLayer,
+            }}
+          />
         )}
         {hasYoutubeVideo && (
           <>
