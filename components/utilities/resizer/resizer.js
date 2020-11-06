@@ -57,12 +57,14 @@ export const createResizer = (resizerKey, resizerUrl, filterQuality = 75) => {
       const thumbor = new Thumbor(resizerKey, resizerUrl)
       /* TODO: Refactor to use custom focusImage function */
       thumbor.smartCrop(true)
-      const thumborParam = thumbor
-        .setImagePath(originalUrl.replace(/(^\w+:|^)\/\//, ''))
-        .filter(`format(${format})`)
-        .filter(`quality(${filterQuality})`)
-        .resize(width, height)
-        .buildUrl()
+      const thumborParam =
+        originalUrl &&
+        thumbor
+          .setImagePath(originalUrl.replace(/(^\w+:|^)\/\//, ''))
+          .filter(`format(${format})`)
+          .filter(`quality(${filterQuality})`)
+          .resize(width, height)
+          .buildUrl()
       /**
        * Por ahora se retorna la URL con resizer completa,
        * no solamente el thumborParam, para evitar tener que hacer
