@@ -57,7 +57,7 @@ const MatchBox = ({
 
   const registroPronostico = event => {
     const url = `${API_BASE}usuario/${USUARIO}/pronostico/${id}`
-    const pronostico = `${localGoles.current.value}-${visitaGoles.current.value}`
+    const pronostico = `${localGoles.current.value || "0"}-${visitaGoles.current.value || "0"}`
     fetch(url, {
       method: 'POST',
       headers: {
@@ -65,7 +65,9 @@ const MatchBox = ({
       },
       body: JSON.stringify({ pronostico }),
     }).then(response => {
-      refreshMatchs()
+      if(response.json().resultado === true){
+        refreshMatchs()
+      }
     })
     event.preventDefault()
   }

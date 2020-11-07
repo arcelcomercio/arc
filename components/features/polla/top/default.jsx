@@ -1,8 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import customFields from './_dependencies/custom-fields'
 
-const TopHeader = () => {
-  const logoSmall = 'https://jab.pe/polla/logo-trome-small.png'
+const TopHeader = props => {
+  const {
+    customFields: { 
+      logoSmall = 'https://cdna.trome.pe/resources/dist/trome/polla/logo-trome.png', 
+    } = {}
+  } = props
 
   return (
     <div className="site-options">
@@ -13,7 +18,7 @@ const TopHeader = () => {
         <div className="box-right clearfix">
           <div className="site-social">
             <ul className="social-items">
-              <li className="social-item social-title">Sigue a Depor en:</li>
+              <li className="social-item social-title">Sigue a Trome en:</li>
               <li className="social-item">
                 <a href="" className="social-link link-fb">
                   <i className="icon-fb"></i>
@@ -46,6 +51,10 @@ const TopHeader = () => {
       </div>
     </div>
   )
+}
+
+TopHeader.propTypes = {
+  customFields,
 }
 
 TopHeader.label = 'La Polla - Top Header'

@@ -19,7 +19,7 @@ const Header = (props) => {
       anonymous = 'false', 
       logo = 'https://cdna.trome.pe/resources/dist/trome/polla/logo-polla-trome.png', 
       home = '',
-      terms = '', 
+      // terms = '', 
       howPlay = '', 
       prizes = ''
     } = {}
@@ -28,7 +28,8 @@ const Header = (props) => {
   let userSignwall = {}
   let USUARIO = ANONIMO
 
-  const [userData, setUserData] = useState('')
+  const [userData, setUserData] = useState("")
+  const [loadExec, setLoadExec] = useState(false)
 
   const getLoggedUser = () => {
     let userId = null
@@ -43,16 +44,14 @@ const Header = (props) => {
     return userId;
   }
 
-  const getDataUsuario = () => {
-    let retData = {}
+  const loadDataUsuario = () => {
     fetch(
       `${API_BASE}usuario/${USUARIO}/ultimopartido?v=${new Date().getTime()}`
     )
       .then(response => response.json())
       .then(data => {
-        retData = data
+        setUserData(data)
       })
-    return retData
   }
 
   if(typeof window !== "undefined"){
@@ -62,53 +61,55 @@ const Header = (props) => {
 
     if(USUARIO === null){
       window.location.href = SIGNWALL
-    }else{
-      // Verificamos si el usuario esta registrado en la polla, si no está lo registramos
-      const checkUsuario = getDataUsuario()
+    }else if(loadExec === false){
+      loadDataUsuario()
 
-      if(Object.keys(checkUsuario.usuario).length === 0){
-        const registerUser = {
-          "nombre": userSignwall.firstName, 
-          "apellidos": userSignwall.lastName, 
-          "tipo_documento": "", 
-          "dni": "", 
-          "email": userSignwall.email, 
-          "fecha_nacimiento": `${userSignwall.birthDay}-${userSignwall.birthMonth}-${userSignwall.birthYear}`,
-          "genero": userSignwall.gender, 
-          "estado_civil": "", 
-          "ocupacion": "", 
-          "nivel_academico": "", 
-          "telefono": "", 
-          "distrito": "", 
-          "departamento": "", 
-          "provincia": "", 
-          "direccion": "",
-          "terminos": 1
-        }
-        // Ingresamos el usuario
-        fetch(`${API_BASE}usuario/${USUARIO}`, {
-          method: 'POST', 
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({registerUser})
-        })
-        .then(response => response.json())
-        .then(data => {
-          if(data.resultado !== true){
-            window.location.href = SIGNWALL
+      if(userData !== ""){
+        if(typeof(userData.usuario) !== "undefined" && 
+          Object.keys(userData.usuario).length === 0){
+          const registerUser = {
+            "nombre": userSignwall.firstName || userSignwall.displayName, 
+            "apellidos": userSignwall.lastName, 
+            "tipo_documento": "", 
+            "dni": "", 
+            "email": userSignwall.email, 
+            "fecha_nacimiento": `${userSignwall.birthDay}-${userSignwall.birthMonth}-${userSignwall.birthYear}`,
+            "genero": userSignwall.gender, 
+            "estado_civil": "", 
+            "ocupacion": "", 
+            "nivel_academico": "", 
+            "telefono": "", 
+            "distrito": "", 
+            "departamento": "", 
+            "provincia": "", 
+            "direccion": "",
+            "terminos": 1
           }
-        })
-      }else{
-        setUserData(checkUsuario)
+          // Ingresamos el usuario
+          fetch(`${API_BASE}usuario/${USUARIO}`, {
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registerUser)
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.resultado !== true){
+              window.location.href = SIGNWALL
+            }
+          })
+        }else{
+          setLoadExec(true)
+        }
       }
     }
   }
 
   const confs = { API_BASE, USUARIO, MEDIA_BASE }
 
-  if (userData === '') {
-    setUserData(getDataUsuario())
+  if (loadExec === false) {
+    loadDataUsuario()
   }
 
   return (
