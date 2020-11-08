@@ -284,6 +284,8 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (arcSite === SITE_TROME && /^\/polla-eliminatorias/.test(requestUri))
+    style = 'polla'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {

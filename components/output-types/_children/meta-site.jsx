@@ -6,6 +6,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_DEPOR,
   SITE_PERU21G21,
+  SITE_TROME,
 } from '../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../utilities/assets'
 import Trust from './trust'
@@ -77,6 +78,8 @@ export default ({
     requestUri.includes('/especiales/')
   )
     style = 'specials'
+  else if (arcSite === SITE_TROME && /^\/polla-eliminatorias/.test(requestUri))
+    style = 'polla'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
 
