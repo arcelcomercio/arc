@@ -78,7 +78,7 @@ export default ({
     requestUri.includes('/especiales/')
   )
     style = 'specials'
-  else if (arcSite === SITE_TROME && /^\/polla-eliminatorias/.test(requestUri))
+  else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
