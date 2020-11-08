@@ -1,0 +1,523 @@
+// SITE-OPTIONS CSS
+  
+.site-options
+  color: $black
+  font-family: $f-header
+  font-size: 12px
+  position: relative
+  a
+    color: $black
+  .box-content
+    background-color: $white
+    width: $cnt-w3c
+    margin: 0 auto
+    height: 33px
+    position: inherit
+  .search-content
+    display: none
+    position: absolute
+    top: 34px
+    right: 0
+    width: 345px
+    background-color: #ced11f
+    padding: 15px
+    z-index: 10   //  ticket 21501
+    &.ui-active
+      display: block
+    .search-form
+      background-color: transparent
+      margin: 0 auto
+      height: 33px
+      padding: 0
+    .search-text, .search-button
+      height: 36px
+      color: $gray3
+      font: 14px $f-main
+      border: 0
+      float: left
+    .search-text
+      width: 275px
+      padding: 0 8px
+      font-size: 14px
+    .search-button
+      width: 40px
+      background-color: transparent
+      text-transform: uppercase
+      font-weight: bold
+      color: $green1
+      &:hover
+        cursor: pointer
+  .close-search
+    color: #b2b2b2
+    display: inline-block
+    margin-left: 10px
+    padding: 4px 4px 0
+    background-color: $black
+    &:hover
+      text-decoration: none
+    i
+      font-size: 15px
+
+.site-edition
+  float: left
+  padding-top: 8px
+  width: 64px
+  margin-left: 20px
+  img
+    width: 100%
+  i
+    font-size: 10px
+    color: $red
+    margin-right: 5px
+
+.site-login
+  float: left
+  //- padding-top: 3px
+
+.u-online
+  padding-top: 5px
+  position: relative
+  .u-config
+    margin-left: 5px
+    font-size: 11px
+    &.icon-arrow-down:before
+      content: "\e919"
+    &:hover
+      text-decoration: none
+
+.u-config-items
+  position: absolute
+  right: 0
+  top: 25px
+  text-align: center
+  width: 120px
+  z-index: 2
+  li
+    background-color: $white
+    border-bottom: 1px solid #ddd
+    &:last-child
+      border-bottom: 0
+    a
+      display: block
+      padding: 8px 0
+      color: $gray3
+      &:hover
+        text-decoration: none
+        background-color: #f7f7f7
+
+.go-peruid
+  display: inline-block
+  line-height: 25px
+  padding: 0 8px
+  border: 1px solid $gray3
+  margin-left: 3px
+  border-radius: 2px
+  font-size: 11px
+  &:hover
+    text-decoration: none
+  i
+    font-size: 11px
+    margin-right: 5px
+
+.site-social
+  float: left
+  margin-left: 20px
+
+.social-item
+  float: left
+
+.social-title
+  padding: 7px 15px 0px 0px
+
+.social-link
+  display: block
+  width: 33px
+  text-align: center
+  font-size: 14px
+  line-height: 33px
+  &:hover
+    text-decoration: none
+    color: $white
+  &.link-fb:hover
+    background-color: $fb
+  &.link-tw:hover
+    background-color: $tw
+  &.link-gp:hover
+    background-color: $gp
+
+.site-search
+  float: left
+  margin-left: 20px
+  position: relative
+  display: none
+
+.search-link
+  display: block
+  width: 33px
+  line-height: 33px
+  text-align: center
+  font-size: 16px
+  .icon-close
+    display: none
+  &:hover
+    background-color: $gray2
+    text-decoration: none
+    color: $white
+  &.ui-active
+    background-color: $gray2
+    .icon-close
+      display: block
+      line-height: 32px
+      font-size: 14px
+    .icon-search
+      display: none
+
+// Sign Wall
+.social-title
+  padding: 10px 15px 0px 10px
+
+// FORM CSS
+  
+.input_default
+  padding: 13px 15px
+  font-family: $f-main
+  font-size: 13px
+  border-radius: 5px
+  color: #9e9e9e
+
+.resultado
+  width: 12px
+  height: 12px
+  margin-right: 5px
+  display: none
+  &.valido
+    //#background: url(../img/polla-depor/sprite.png) -40px -3px no-repeat
+    display: inline-block
+  &.novalido
+    //#background: url(../img/polla-depor/sprite.png) -65px -3px no-repeat
+    display: inline-block
+
+.ui-error
+  .resultado
+    display: block
+
+.btn
+  font: 900 14px $f-main
+  border-radius: 5px
+  text-align: center
+  text-decoration: none
+  text-transform: uppercase
+  display: block
+  max-width: 406px
+  width: 100%
+  cursor: pointer
+  padding: 10px 0
+  &.btn_cancel
+    background: #fff
+    color: #444
+    border: 1px solid #444
+
+  &.btn_login
+    color: $black
+    background: $verde1
+    border: 2px solid $black
+  &.btn_registro
+    color: $white
+    background: transparent
+    border: 2px solid $white
+    float: right
+
+.btn_login-facebook
+  font: 400 16px $f-main
+  max-width: 406px
+  width: 90%
+  height: 40px
+  line-height: 45px
+  margin: 0 auto 15px auto
+  display: block
+  background: #3b5998
+  color: #fff
+  text-align: center
+  padding-bottom: 44px
+  border-radius: 3px
+  -webkit-border-radius: 5px
+  &:hover
+    opacity: 0.9
+
+.link-form
+  font-size: 14px
+  color: $white
+  text-align: right
+  margin-bottom: 15px
+  display: block
+
+.ui-message-error
+  color: $color-error
+  text-transform: uppercase
+
+.ui-message-error a
+  color: $color-error
+  text-transform: uppercase
+  font-weight: bold
+
+.ui-message-success
+  color: #00C704
+
+.ui-message-error, .ui-message-success
+  //- width: 100%
+  font: 13px arial
+  margin: 5px 0 10px 0
+  background: transparent
+  max-width: 850px
+  position: relative
+  //- :display block
+  //#:text-align center
+  text-align: center
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+  &:empty
+    display: none
+
+.ui-validate
+  label
+    font-family: arial, regular
+    font-size: 12px
+    font-weight: normal !important
+  .ui-row
+    position: relative
+    min-height: 22px
+    margin-bottom: 12px
+    &.row-check
+      min-height: 18px
+      padding: 0
+      text-align: left
+      label
+        color: $white
+        font-size: 13px
+        z-index: 1
+        a
+          color: $white
+          font-weight: 700
+          z-index: 2
+          position: relative
+          text-decoration: underline
+      label[for="gender-m"], label[for="gender-f"]
+        &:last-child
+          margin-left: 20px
+      input[type="checkbox"], input[type="radio"]
+        position: absolute
+        opacity: 0
+        width: 100%
+        height: 100%
+
+        & + label span
+          display: inline-block
+          width: 20px
+          height: 20px
+          border: 2px solid $white
+          margin: -1px 10px 0 0
+          vertical-align: middle
+          cursor: pointer
+          //#background: url(../img/polla-depor/sprite.png) 0 0
+        &:checked + label span
+          //#background: url(../img/polla-depor/sprite.png) -19px 0
+
+    &.row-submit
+      max-width: 320px
+      margin: 0 auto
+      .terminos
+        position: relative
+        text-decoration: underline
+
+    &::-webkit-input-placeholder
+      color: #000
+      font-size: 13px
+    &:-moz-placeholder
+      color: #000
+      font-size: 13px
+    &::-moz-placeholder
+      color:    #000
+      font-size: 13px
+    &:-ms-input-placeholder
+      color: #000
+      font-size: 13px
+    &.ui-error
+      .input_default, select
+        border: 2px solid $f-color
+        &::-webkit-input-placeholder
+          color: $f-color
+        &:-moz-placeholder
+          color: $f-color
+        &::-moz-placeholder
+          color: $f-color
+        &:-ms-input-placeholder
+          color: $f-color
+    .ui-message-error, .ui-message-success
+      text-align: right
+  input.input_default
+    width: 100%
+    border: none
+  select.input_default
+    width: 100%
+    border: 1px solid #000
+    padding-top: 8px
+    padding-bottom: 8px
+  select.input_date
+    padding: 12px 5px
+    font-size: 13px
+    border-radius: 5px
+    color: #9e9e9e
+
+  label.date
+    width: 100%
+    display: inline-block
+    margin: 5px 0
+    color: #444
+  .txt-form
+    color: $white
+    font-size: 14px
+
+.frm-login
+  width: 320px
+
+.frm-registro
+  width: 420px
+  margin-bottom: 50px !important
+  select.input_date
+    width: 100%
+    border: 0
+.frm-score
+  &.ui-validate
+    .ui-row
+      display: table-cell
+      vertical-align: top
+    .input_default
+      width: 36px
+      height: 36px
+      padding: 8px
+      border: 1px solid #ccc
+      border-radius: 5px
+      text-align: center
+      float: left
+      font-weight: 700
+    .team-vs
+      margin-top: 10px
+      font: 700 12px $f-main
+    .team-txt
+      float: left
+.frm-partidos
+  margin-bottom: 15px
+  .ui-row
+    text-align: center
+    //- margin-bottom: 20px
+  .btn_link
+    font-size: 14px
+    padding: 10px 10px 11px 10px
+  select.input_date
+    border: 1px solid #ccc
+    margin: 0 10px
+    color: #a9a9a9
+    padding: 9px 13px
+    width: 176px
+    font: 400 14px $f-main
+  .box-subtitle
+    margin-bottom: 20px
+  .ui-dropdown
+    width: 176px
+    border-radius: 5px
+    background: $white
+    text-align: left
+    .ui-caption
+      padding-top: 10px
+      padding-bottom: 10px
+      padding-left: 9px
+      padding-right: 9px
+      color: #a9a9a9
+      width: inherit
+      i
+        border-top-color: #a9a9a9
+        float: right
+        margin-left: 0
+    >.ui-list
+      min-width: 176px
+      max-height: 378px
+      text-align: left
+      margin-top: -2px
+      overflow-x: hidden
+      overflow-y: inherit
+      li
+        border-bottom: 1px solid #e8e8e8
+        a
+          padding-bottom: 7px
+          padding-top: 7px
+          font: 15px/120% $f-main
+      img
+        max-width: 18px
+        max-height: 18px
+        float: left
+        margin-right: 6px
+        margin-top: 1px
+      .list-grupos
+        li a
+          font-weight: 400
+          &.active
+            font-weight: 700
+      .list-paises
+        li a
+          font-weight: 700
+          padding-left: 6px
+          padding-right: 6px
+  .ui-list li > a
+    &:hover//- , &:focus
+      background: transparent
+      color: $black
+
+//- calendario
+.frm-partidos .ui-dropdown .ui-list
+  .calendar-content
+    border-top-left-radius: 0
+    border-top-right-radius: 10px
+    border-bottom-left-radius: 10px
+    border-bottom-right-radius: 10px
+    .ui-tab
+      li
+        width: 49%
+        float: left
+        text-align: center
+        a
+          font-weight: 700
+        &.ui-active a
+          background: #d3d622
+          color: $black
+    .ui-panel
+      padding: 5px
+
+.mxm-items
+  height: 270px
+
+.icon_fb
+  display: inline-block
+  width: 21px
+  height: 20px
+  margin-right: 5px
+  position: relative
+  bottom: -2px
+  //# background: url(../img/polla-depor/sprite.png) no-repeat -2px -52px
+.btn_fb-bg
+  display: block
+  //# background: url('../img/polla-depor/btn-fb-bg.jpg') no-repeat
+  width: 258px
+  height: 45px
+  margin: 0 auto
+
+.btn_display-pwd
+  position: absolute
+  right: 10px
+  top: 10px
+  i.icon-eye
+    color: #9e9e9e
+    font-size: 20px
+  i.icon-eye-blocked
+    color: #000
+    font-size: 20px

@@ -1,0 +1,77 @@
+=excerpt($font-size: $paragraph-font-size, $line-height: 1.4, $lines-to-show: 3)
+    display: block
+    display: -webkit-box
+    max-height: $font-size * $line-height * $lines-to-show
+    font-size: $font-size
+    line-height: $line-height
+    -webkit-line-clamp: $lines-to-show
+    -webkit-box-orient: vertical
+    overflow: hidden
+    @-moz-document url-prefix()
+        overflow: hidden
+        position: relative
+        &:before
+            bottom: 0
+            position: absolute
+            right: 0
+            float: right
+            content: ''
+            margin-left: -3rem
+            width: 3rem
+        &:after
+            content: ''
+            position: absolute
+            height: 50px
+            width: 100%
+            z-index: 1
+
+@mixin efectoHover($scale:2)
+    transform: scale($scale)
+    -moz-transform: scale($scale)
+    -webkit-transform: scale($scale)
+    -o-transform: scale($scale)
+    -ms-transform: scale($scale)
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=1.5, M12=0, M21=0, M22=1.5, SizingMethod='auto expand')"
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=1.5, M12=0, M21=0, M22=1.5, SizingMethod='auto expand')
+
+@mixin btn_hover
+    transition: all 0.4s
+    -moz-transition: all 0.4s
+    -webkit-transition: all 0.4s
+    -ms-transition: all 0.4s
+    -o-transition: all 0.4s
+
+@mixin clearfix
+    &::before, &::after
+        content: ""
+        display: table
+    &::after
+        clear: both
+
+@mixin trans($property, $value, $params: webkit moz ms o)
+    #{$property}: #{$value}
+    @each $param in $params
+        #{'-' + $param + '-' + $property}: #{$value}
+
+@mixin transform($value: 45deg)
+    @include trans(transform, rotate($value))
+
+
+@function fact($number)
+    $value: 1
+    @if $number > 0
+        @for $i from 1 through $number
+            $value: $value * $i
+    @return $value+px;
+
+$width: 5px
+$git: 10px
+@function fun($n)
+    @return $n * $width + ($n - 1) * $git
+
+@mixin transition($value: 0.5s)
+    @include trans(transition, $value)
+
+
+@mixin border-radius($value: 8px)
+    @include trans(border-radius, $value)

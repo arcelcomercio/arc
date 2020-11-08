@@ -1,0 +1,150 @@
+.stat-table-positions
+  //- margin-top: 40px
+  margin-bottom: 40px
+  display: inline-block
+  width: 100%
+
+.tbl-stats
+  margin-bottom: 25px
+  width: 100%
+
+  th
+    font: 700 18px $f-main
+    text-align: left
+    &:nth-child(3)
+      text-align: center
+    &:nth-child(4)
+      text-align: center
+    &:first-child
+      text-align: center
+  tr
+    height: 45px
+    padding: 4px 0
+    color: $white
+    &:last-child
+      td
+        &:first-child
+          border-bottom-left-radius: 8px
+          overflow: hidden
+          text-align: right
+        &:last-child
+          border-bottom-right-radius: 8px
+          overflow: hidden
+  td
+    font: 700 16px $f-main
+    &:last-child, &:first-child
+      border-right: 0
+
+  thead
+    color: $white
+    background: $black
+    tr
+      border-bottom: 1px solid $yellow2
+      th
+        &:first-child
+          border-top-left-radius: 8px
+          overflow: hidden
+        &:last-child
+          border-top-right-radius: 8px
+          overflow: hidden
+          text-align: center
+      &.th-mobile
+        display: none
+
+  tbody
+    tr
+      background: rgba($black, 0.65)
+      border-top: 1px solid #fe1d01
+      &:first-child
+        td
+          &:first-child
+            border-top-left-radius: 8px
+            overflow: hidden
+          &:last-child
+            border-top-right-radius: 8px
+            overflow: hidden
+
+  tfoot
+    background: $yellow2
+    tr
+      color: $black
+      td
+
+        &:first-child
+          border-bottom-left-radius: 8px
+          overflow: hidden
+          text-align: right
+        &:last-child
+          border-bottom-right-radius: 8px
+          overflow: hidden
+
+  &.tbl-historial
+    th
+      &:nth-child(3)
+        max-width: 170px
+      &:nth-child(4)
+        max-width: 170px
+      &:nth-child(5)
+        max-width: 170px
+    td
+      font: 400 14px $f-main
+    tfoot
+      td
+        font-weight: 700
+
+  .col-team
+    //- padding-left: 40px
+    width: 100px
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+    span
+      display: inline-block
+      vertical-align: middle
+    .team-name
+      //- width: 150px
+      text-overflow: ellipsis
+      overflow: hidden
+      white-space: nowrap
+      position: relative
+      span
+        font-weight: 400
+        width: 125px
+        &:first-child
+          text-align: right
+      img
+        max-width: 28px
+        max-height: 18px
+        margin: 0 5px -5px 5px
+
+  .col-result
+    text-align: center
+    .team-result
+
+  .col-lastmatch
+    width: 160px
+    padding-right: 10px
+    text-align: center
+
+  .ord
+    text-align: center
+    width: 100%
+    display: inline-block
+    span
+      margin: -3px 3px 0 0
+
+  .transparent
+    background: transparent
+    height: 15px
+
+  .active
+    background: $yellow2
+    color: $black
+
+.tbl-legal
+  margin: 10px 0
+  tr
+    td
+      border: 1px solid $white
+      color: $white
+      padding: 10px 15px

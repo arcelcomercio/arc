@@ -118,6 +118,12 @@ export default ({
     }
   }
 
+  if (arcSite === SITE_TROME) {
+    if (/^\/pollon-eliminatorias/.test(requestUri)) {
+      classBody = `${classBody} polla`
+    }
+  }
+
   if (/^\/play\//.test(requestUri)) {
     classBody = `${isStory ? 'story' : ''} section-play`
   } else if (/^\/peru21tv\//.test(requestUri)) {
@@ -278,6 +284,8 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
+    style = 'polla'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {

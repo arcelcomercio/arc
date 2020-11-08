@@ -1,0 +1,341 @@
+.flow-1x1, .flow-1-5x1, .flow-3x1
+  float: left
+  margin: 0 9px 18px
+  .flow-match
+    border-radius: 5px
+    overflow: hidden
+    background: #fff  
+
+.flow-1x1
+  width: 305px
+  height: 185px
+  //- .flow-match
+
+.flow-1-5x1
+  width: 459px
+  height: 185px
+  //- .flow-match .match-teams .team-txt
+    //- width: inherit
+  .frm-score
+    display: inline-block
+
+.flow-3x1
+  width: 936px
+  margin-bottom: 8px
+  .flow-match
+    height: 220px
+    margin-top: 15px
+    .group
+      font-size: 18px
+      top: -2px
+      position: relative
+    .team-txt
+      font-size: 24px
+      font-weight: 400
+      text-transform: none
+      img
+        margin: 0 15px
+        height: 35px
+    .match-teams
+      height: 145px
+      .team-txt
+        //- width: inherit
+        width: initial
+        margin-top: 10px
+        strong
+          display: inline-block
+          font-weight: 400
+          position: relative
+          top: -9px
+  .match-header .stadium-name
+    max-width: inherit
+  .frm-score
+    //- display: inline-block
+    display: block
+    max-width: 800px
+    margin: 0 auto
+    .ui-row
+      display: inline-block
+      vertical-align: top
+      width: 370px
+      &:nth-child(1)
+        .team-txt
+          img
+            float: right
+          strong
+            float: left
+            margin-top: 11px
+            width: 200px
+            text-align: right
+        .input_default
+          float: right
+      &:nth-child(2)
+        width: 25px
+    &.ui-validate
+      .input_default
+        height: 56px
+        width: 56px
+        font-size: 28px
+        color: $black
+      .team-vs
+        margin-top: 20px
+  .match-counter
+    display: block
+    text-align: center
+    p
+      display: inline-block
+      margin: 10px 10px 0 0
+      font: 400 14px $f-main
+      color: #888
+    #tiempoCierre
+      border-radius: 5px
+      border: 1px solid #888
+      display: inline-block
+      padding: 2px 5px
+      position: relative
+      font: 700 16px $f-main
+      color: #888888
+      margin-top: 10px
+      
+    
+    .ui-caption
+      display: none
+
+.flow-match
+  position: relative
+  overflow: hidden
+  height: inherit
+  .team-txt
+    font: 400 14px $f-main
+    text-transform: uppercase
+  .share-link
+    width: 45px
+    height: 40px
+    color: $white
+    i
+      font-size: 15px
+      line-height: 41px
+    &.link-fb
+      background-color: $fb
+    &.link-tw
+      background-color: $tw
+    &.link-wa
+      background-color: $wa
+      display: none
+    &.link-gp
+      background-color: $gp
+    &.link-pin
+      background-color: $pin
+    &.link-mail
+      background-color: $mail
+      display: none !important
+    &.link-print
+      background-color: $print
+  .share-flow
+    position: absolute
+    right: 0
+    top: 0
+  .match-teams
+    padding-top: 16px
+    padding-bottom: 0
+    position: relative
+    height: 104px
+    .team-txt
+      width: 86px
+      strong
+        display: block
+
+
+  &.flow-last
+    background: #4b100a
+    .match-header
+      .group
+        color: $white
+      .stadium-name
+        color: $white
+      .match-date
+        color: $white
+      .match-hashtag
+        color: $white
+    .team-txt
+      color: $white
+    .team-goals
+      color: $white
+    .team-vs
+      color: $white
+    .ui-row
+      &:nth-child(2)
+        .team-txt
+          position: absolute
+          top: 38px
+          left: 50%
+          margin-left: -45px
+          margin-right: 0
+          font-size: 10px
+          text-transform: inherit
+          strong
+            display: inline-block
+            margin-left: 1px
+
+    .match-counter p
+      color: $white
+    .match-counter .ui-countdown .ui-digit
+      color: $white
+
+    .frm-score.ui-validate .input_default
+      background: transparent
+      color: $white
+  a
+    text-decoration: none
+.match-tabs
+  display: block
+  width: 100%
+  margin: 8px 0 20px 0
+  text-align: center
+  .flow-match-small
+    margin: 0 5px
+    width: 221px
+    display: inline-block
+    position: relative
+
+.match-header
+  border-bottom: 1px solid #ccc
+  height: 40px
+  display: block
+  .group
+    color: $black
+    font: 800 24px/40px $f-main
+    text-align: center
+    border-right: 1px solid #ccc
+    display: inline-block
+    padding: 0 11px
+    position: relative
+    top: -2px
+  .stadium-name
+    color: $black
+    font: 700 14px $f-main   
+    margin: 0 10px
+    display: inline-block
+    position: relative
+    top: 2px
+    max-width: 160px
+    height: 29px
+    line-height: 40px
+    overflow: hidden
+    i
+      margin-right: 10px  
+      font-size: 16px
+      &.icon-slash
+        font-weight: 700
+        margin-left: 10px
+        margin-right: 5px
+    span
+      margin-left: 5px
+    .st-name04
+      display: none
+  .match-date
+    border-left: 1px solid #ccc
+    float: right
+    display: inline-block
+    color: $black
+    font: 700 14px/40px $f-main
+    padding: 0 10px
+    max-width: 75px
+    overflow: hidden
+    max-height: 39px
+
+  .match-hashtag
+    display: inline-block
+    border-left: 1px solid #ccc
+    margin-right: 135px
+    float: right
+    height: 40px
+    padding: 0 20px
+    font: 800 14px/40px $f-main
+    text-transform: uppercase
+
+.match-teams
+  padding: 10px 5px
+  text-align: center
+  img
+    height: 28px
+    max-width: 100%
+
+  .team-txt
+    display: inline-block
+    margin: 4px 5px 0 5px
+    text-align: center
+  .team-goals
+    display: inline-block
+    margin: 0 5px
+  .team-vs
+    display: inline-block
+    margin: 0 5px
+  .team-score
+    color: #d3d622
+    position: absolute
+    bottom: 0
+    left: 0
+    display: inline-block
+    width: 100%
+    text-align: center
+    margin: 10px 0 3px 0
+    strong
+      margin-left: 3px
+
+.game-link
+  position: absolute
+  bottom: 0
+  left: 0
+  width: 100%
+  padding: 11px 8px
+  text-align: center
+  background: #fae100
+  font: 700 16px $f-main
+  border-top: 1px solid $black
+  border-right: 0
+  border-bottom: 0
+  border-left: 0
+  outline: none
+  &.edit
+    background: #d3d622
+  &.disable
+    background: #fff
+    color: #dbdbdb
+    border-top: none
+
+.flow-match-small
+  position: relative
+  //#overflow: hidden
+  background: #fff
+  border-radius: 5px
+
+  .match-header
+    border: 0
+    height: 13px
+    .group
+      font: 400 10px/11px $f-main
+      color: #949494  
+      width: 100%
+      text-align: center
+      float: left
+      margin-right: 0
+      border-right: 0
+
+  .match-teams-small
+    text-align: center
+    margin-bottom: 7px
+    .team-txt
+      font-size: 16px
+      margin: 0 6px
+      text-transform: uppercase
+      font-weight: 700
+    .team-vs
+      font-size: 10px
+      font-weight: 700
+      margin: 0 7px
+  img
+    max-width: 28px
+    height: 16px
+  a
+    text-decoration: none
