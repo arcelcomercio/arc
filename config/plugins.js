@@ -50,7 +50,7 @@ module.exports = type => {
     ).concat(cssBase.globalComponent)
     const styleFeatures = getListStyleComponents('features').concat(
       cssBase.feature
-    ).concat('/features/polla/polla')
+    )
     const cssGlobalComponents = writeImportCss(styleGlobalComponent)
     const cssFeatures = writeImportCss(styleFeatures)
     const importListCss = `/******* Globals *******/\r\n${cssGlobalComponents}\r\n\r\n/******* Features *******/\r\n${cssFeatures}\r\n`
