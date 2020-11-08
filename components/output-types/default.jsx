@@ -118,6 +118,12 @@ export default ({
     }
   }
 
+  if (arcSite === SITE_TROME) {
+    if (/polla/.test(requestUri)) {
+      classBody = `${classBody} polla`
+    }
+  }
+
   if (/^\/play\//.test(requestUri)) {
     classBody = `${isStory ? 'story' : ''} section-play`
   } else if (/^\/peru21tv\//.test(requestUri)) {

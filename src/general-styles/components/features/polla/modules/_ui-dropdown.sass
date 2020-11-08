@@ -1,0 +1,42 @@
+//-* ui-dropdown
+
+.ui-dropdown
+  position: relative
+  border: 1px solid #ddd
+  cursor: pointer
+  display: inline-block
+  &:hover
+    background-color: #FBFBFB
+  > .ui-list
+    display: none
+    position: absolute
+    margin: 0 0 0 -1px
+  &.ui-open .ui-list
+    display: block
+  .ui-caption
+    cursor: pointer
+    padding: 6px 10px
+    display: inline-block
+    &:active
+      outline: 0
+
+.ui-open .ui-dropdown .ui-caption
+  outline: 0
+
+.ui-dropdown .ui-caption i
+  margin-top: 8px
+  margin-left: 6px
+  display: inline-block
+  width: 0
+  height: 0
+  vertical-align: top
+  border-top: 4px solid #000000
+  border-right: 4px solid transparent
+  border-left: 4px solid transparent
+  content: ""
+
+.ui-open
+  *z-index: 1000
+  background-color: #F8F8F8
+  > .ui-list
+    display: block
