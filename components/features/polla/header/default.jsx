@@ -16,11 +16,17 @@ const API_BASE =
 const Header = (props) => {
   const {
     customFields: { 
-      anonymous = 'false', 
+      anonymous = false, 
+      showUserStats = true, 
       logo = 'https://cdna.trome.pe/resources/dist/trome/polla/logo-polla-trome.png', 
+      linkLogo = '', 
+      textHome = 'Inicio',
       home = '',
+      // textTerms = 'Términos', 
       // terms = '', 
+      textHowPlay = '¿Cómo jugar?', 
       howPlay = '', 
+      textPrizes = 'Premios', 
       prizes = ''
     } = {}
   } = props
@@ -124,7 +130,7 @@ const Header = (props) => {
             className="button-mobile-menu ui-menuover">
             <i className="icon-menu"></i>
           </a>
-          <a href="/" className="logo">
+          <a href={linkLogo} className="logo">
             <img src={logo} alt="Polla depor" />
           </a>
         </div>
@@ -133,17 +139,17 @@ const Header = (props) => {
             <ul className="home-menu">
               <li className="link">
                 <a href={home}>
-                  <i className="icon-stadium"></i>Inicio
+                  <i className="icon-stadium"></i>{textHome}
                 </a>
               </li>
               <li className="link">
                 <a href={howPlay}>
-                  <i className="icon-question"></i>¿Cómo Jugar?
+                  <i className="icon-question"></i>{textHowPlay}
                 </a>
               </li>
               <li className="link">
                 <a href={prizes}>
-                  <i className="icon-gift"></i>Premios
+                  <i className="icon-gift"></i>{textPrizes}
                 </a>
               </li>
             </ul>
@@ -176,6 +182,7 @@ const Header = (props) => {
             </div>
           </div>
         </div>
+        { showUserStats && (
         <div className="mod-ranking">
           <ul className="ui-tab ranking-content">
             <li className="my-ranking ui-active">
@@ -205,6 +212,7 @@ const Header = (props) => {
             <i className="icon-angle-down"></i>
           </a>
         </div>
+        )}
       </div>
     </header>
   )
