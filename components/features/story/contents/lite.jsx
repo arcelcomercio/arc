@@ -54,6 +54,7 @@ import {
   STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import LiteYoutube from '../../../global-components/lite-youtube'
@@ -85,6 +86,7 @@ const StoryContentsLite = () => {
       ids: { opta },
       isDfp = false,
       siteUrl,
+      jwplayers,
     },
   } = useFusionContext()
 
@@ -237,6 +239,30 @@ const StoryContentsLite = () => {
                       )}
                     </>
                   )
+                }
+                if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (sub === VIDEO_JWPLAYER) {
+                    const {
+                      embed: {
+                        config: {
+                          key: mediaId = '',
+                          has_ads: hasAds = 0,
+                          account = 'gec',
+                        } = {},
+                      } = {},
+                    } = element
+                    const playerId = jwplayers[account] || jwplayers.gec
+                    const jwplayerId = hasAds
+                      ? playerId.playerAds
+                      : playerId.player
+                    return (
+                      <>
+                        <div
+                          className="jwplayer-lazy "
+                          id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                      </>
+                    )
+                  }
                 }
                 if (type === ELEMENT_GALLERY) {
                   return (

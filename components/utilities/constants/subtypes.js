@@ -20,3 +20,5 @@ export const STORY_CUSTOMBLOCK = 'story_custom_block'
 export const STAMP_TRUST = 'stamp_trust'
 
 export const MINUTO_MINUTO = 'minuto_minuto'
+
+export const VIDEO_JWPLAYER = 'video_jwplayer'

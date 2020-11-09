@@ -53,6 +53,7 @@ const customFields = {
     'image',
     'goldfish',
     'youtube',
+    'jwplayer',
   ]).tag({
     name: 'Servicio',
     group: 'Multimedia',
@@ -60,6 +61,7 @@ const customFields = {
       default: 'Automático',
       image: 'Imagen',
       goldfish: 'GoldFish',
+      jwplayer: 'JWplayer',
       youtube: 'Youtube',
     },
     defaultValue: 'default',
