@@ -24,7 +24,8 @@ const classes = {
 const MatchBox = ({
   id,
   estadio,
-  fecha,
+  // fecha,
+  timestamp, 
   equipo1,
   equipo1Bandera,
   equipo1Goles,
@@ -55,6 +56,11 @@ const MatchBox = ({
     textSend = 'Partido finalizado'
   }
 
+  const estadioName = estadio.replace("Estadio", "Est.")
+
+  const dateObj = new Date(timestamp * 1000)
+  const dateLabel = `${dateObj.getDate()}/${dateObj.getMonth()+1}`
+
   const registroPronostico = event => {
     const url = `${API_BASE}usuario/${USUARIO}/pronostico/${id}`
     const pronostico = `${localGoles.current.value || "0"}-${visitaGoles.current.value || "0"}`
@@ -79,9 +85,9 @@ const MatchBox = ({
           <span className={classes.group}>{jornada}</span>
           <span className={classes.stadium}>
             <i className={classes.icon_camp}></i>
-            {estadio}
+            {estadioName}
           </span>
-          <span className={classes.date}>{fecha}</span>
+          <span className={classes.date}>{dateLabel}</span>
         </div>
         <form className={classes.form} onSubmit={registroPronostico}>
           <div className={classes.teams}>
