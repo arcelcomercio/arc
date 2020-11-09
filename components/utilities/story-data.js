@@ -974,44 +974,42 @@ class StoryData {
     )
   }
 
-  get contentPosicionPublicidadLite() {
-    let i = 0
-    let items = 0
+  static liteContentWithAdsEvery(adsEvery = 2) {
+    let textElementsCounter = 0
+    let adsCounter = 0
+    const adsList = ['inline', 'caja4', 'caja5']
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
-      contentElements.map(dataContent => {
+      contentElements.map((dataContent, i) => {
         let dataElements = {}
         const { type: typeElement } = dataContent
 
         dataElements =
-          typeElement === ELEMENT_LIST && items === 0 ? [] : dataContent
-        /* 
-        if (i === 2) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja4`
-        }
-        */
-        if (i === 2) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `inline`
-        }
-        if (i === 4) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja4`
-        }
-        if (i === 6) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja5`
+          typeElement === ELEMENT_LIST && i === 0 ? [] : dataContent
+
+        if (textElementsCounter > 0 && textElementsCounter % adsEvery === 0) {
+          if (adsCounter < adsList.length) {
+            dataElements.publicidad = true
+            dataElements.nameAds = adsList[adsCounter]
+            adsCounter += 1
+          }
         }
 
         if (typeElement === ELEMENT_TEXT) {
-          i += 1
+          textElementsCounter += 1
         }
-        items += 1
         return dataElements
       })
     )
+  }
+
+  get liteContentWithAdsContinuous() {
+    return this.liteContentWithAdsEvery(4)
+  }
+
+  get liteContentWithAds() {
+    return this.liteContentWithAdsEvery(2)
   }
 
   get contentPosicionPublicidad() {

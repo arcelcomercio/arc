@@ -110,7 +110,7 @@ const StoryContentsLite = () => {
     multimediaLarge,
     multimediaLazyDefault,
     tags,
-    contentPosicionPublicidadLite,
+    liteContentWithAds,
     canonicalUrl,
     prerollDefault,
     contentElementsHtml,
@@ -191,9 +191,9 @@ const StoryContentsLite = () => {
               <div id="ads_m_movil3" />
             </>
           )}
-          {contentPosicionPublicidadLite && (
+          {liteContentWithAds && (
             <ArcStoryContent
-              data={contentPosicionPublicidadLite}
+              data={liteContentWithAds}
               elementClasses={classes}
               renderElement={element => {
                 const {
