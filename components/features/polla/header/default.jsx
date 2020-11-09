@@ -159,22 +159,17 @@ const Header = (props) => {
             <div className="share-flow">
               <ul className="share-items">
                 <li className="share-item">
-                  <a href="" className="share-link link-fb">
+                  <a target="_blank" rel="noreferrer" href="http://www.facebook.com/sharer.php?u=https://trome.pe/pollon-eliminatorias/" className="share-link link-fb">
                     <i className="icon-fb"></i>
                   </a>
                 </li>
                 <li className="share-item">
-                  <a href="" className="share-link link-tw">
+                  <a target="_blank" rel="noreferrer" href="https://twitter.com/intent/tweet?text=Pollón%20Eliminatorias&url=https://trome.pe/pollon-eliminatorias/&via=tuittrome" className="share-link link-tw">
                     <i className="icon-tw"></i>
                   </a>
                 </li>
                 <li className="share-item">
-                  <a href="" className="share-link link-gp">
-                    <i className="icon-gp"></i>
-                  </a>
-                </li>
-                <li className="share-item">
-                  <a href="" className="share-link link-wa">
+                  <a target="_blank" rel="noreferrer" href="whatsapp://send?text=https://trome.pe/pollon-eliminatorias/" className="share-link link-wa">
                     <i className="icon-wa"></i>
                   </a>
                 </li>
