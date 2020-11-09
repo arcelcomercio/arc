@@ -20,18 +20,13 @@ const TopHeader = props => {
             <ul className="social-items">
               <li className="social-item social-title">Sigue a Trome en:</li>
               <li className="social-item">
-                <a href="" className="social-link link-fb">
+                <a href="https://www.facebook.com/Tromepe" target="_blank" rel="noreferrer" className="social-link link-fb">
                   <i className="icon-fb"></i>
                 </a>
               </li>
               <li className="social-item">
-                <a href="" className="social-link link-tw">
+                <a href="https://twitter.com/tromepe" target="_blank" rel="noreferrer" className="social-link link-tw">
                   <i className="icon-tw"></i>
-                </a>
-              </li>
-              <li className="social-item">
-                <a href="" className="social-link link-gp">
-                  <i className="icon-gp"></i>
                 </a>
               </li>
             </ul>
