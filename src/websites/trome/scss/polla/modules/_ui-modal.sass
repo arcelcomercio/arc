@@ -1,0 +1,77 @@
+@import '_animation.shake'
+
+.ui-modal
+  position: fixed
+  display: table
+  height: 100% !important
+  table-layout: fixed
+  width: 100%
+  z-index: 20000
+  top: 0
+  left: 0
+  .close
+    z-index: 2
+
+.ui-modal-overlay
+  bottom: 0
+  left: 0
+  position: fixed
+  right: 0
+  top: 0
+  background-color: rgba(0, 0, 0, .7)
+
+.ui-modal-content
+  display: table-cell
+  text-align: center
+  vertical-align: middle
+  width: 100%
+
+.ui-modal-content-inside
+  text-align: left
+  display: inline-block
+  background: #FFF
+  min-width: 280px
+  max-width: 1100px
+  margin: .5em
+  *border: solid 1px #202020
+  transition: all .2s ease-in
+  transform: scale3d(1.15, 1.15, 1.15)
+  opacity: 0
+
+.ua-desktop .ui-modal-content-inside
+  box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.5)
+
+.ui-modal-document
+  position: relative
+  min-height: 46px
+  z-index: 1
+
+.ui-modal-title
+  font-weight: bold
+  margin: 1em 0
+  color: #D83300
+
+.ui-modal-body
+  margin: 1em
+
+.ui-modal-todo
+  color: #9A9A9A
+  font-size: .875em
+
+.ui-modal-buttons
+  display: block
+  margin: 1em 0
+  text-align: right
+  .ui-spinner
+    float: left
+    margin: .32em 0 0
+
+.ui-modal-show
+  .ui-modal-content-inside
+    transform: scale3d(1, 1, 1)
+    opacity: 1
+
+.ui-modal-change
+  .ui-modal-content-inside
+    transform: scale3d(.8, .8, .8)
+    opacity: 0

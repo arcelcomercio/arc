@@ -9,6 +9,7 @@ import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentChildVideo from './_children/amp-video'
+import StoryContentChildVideoJwplayer from './_children/amp-video-jwplayer'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryGoogleNews from '../../../global-components/google-news'
@@ -62,6 +63,7 @@ import {
   STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
 
 const classes = {
@@ -104,6 +106,7 @@ class StoryContentAmp extends PureComponent {
       author,
       multimediaLazyDefault,
       subtype,
+      promoItemJwplayer = {},
     } = new StoryData({
       data,
       arcSite,
@@ -203,7 +206,12 @@ class StoryContentAmp extends PureComponent {
     return (
       <>
         <div className={classes.content}>
-          {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
+          {promoItemJwplayer.key ? (
+            <StoryContentChildVideoJwplayer
+              data={promoItemJwplayer}></StoryContentChildVideoJwplayer>
+          ) : (
+            <>{promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}</>
+          )}
           {!isMag && (
             <div
               className={classes.adsAmp}
@@ -493,6 +501,12 @@ class StoryContentAmp extends PureComponent {
 
                 if (type === ELEMENT_VIDEO) {
                   return <StoryContentChildVideo data={element} />
+                }
+                if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (sub === VIDEO_JWPLAYER) {
+                    const { embed: { config: videJplayer = {} } = {} } = element
+                    return <StoryContentChildVideoJwplayer data={videJplayer} />
+                  }
                 }
                 return undefined
               }}
