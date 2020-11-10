@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 const classes = {
   box: 'flow-1x1',
@@ -18,6 +18,7 @@ const classes = {
   vs: 'team-vs',
   send: 'game-link',
   edit_send: 'game-link edit',
+  saveButton: 'game-link save',
   disable_send: 'game-link disable',
 }
 
@@ -25,7 +26,7 @@ const MatchBox = ({
   id,
   estadio,
   // fecha,
-  timestamp, 
+  timestamp,
   equipo1,
   equipo1Bandera,
   equipo1Goles,
@@ -41,40 +42,55 @@ const MatchBox = ({
   MEDIA_BASE,
   API_BASE,
 }) => {
-
   const localGoles = useRef('')
   const visitaGoles = useRef('')
+
+  const MSG_SAVE_PROGNOSTIC = 'Pronóstico guardado'
+  const MSG_EDIT_PROGNOSTIC = 'Editar mi pronóstico'
+  const [styleButton, setStyleButton] = useState('')
+  const [labelItem, setLabelItem] = useState('')
 
   let clasSend = classes.send
   let textSend = 'Pronosticar resultado'
   if (equipo1Goles !== '' && equipo2Goles !== '') {
     clasSend = classes.edit_send
-    textSend = 'Editar mi pronóstico'
+    textSend = MSG_EDIT_PROGNOSTIC
   }
   if (estado === 3) {
     clasSend = classes.disable_send
     textSend = 'Partido finalizado'
   }
 
-  const estadioName = estadio.replace("Estadio", "Est.")
+  const estadioName = estadio.replace('Estadio', 'Est.')
 
   const dateObj = new Date(timestamp * 1000)
-  const dateLabel = `${dateObj.getDate()}/${dateObj.getMonth()+1}`
+  const dateLabel = `${dateObj.getDate()}/${dateObj.getMonth() + 1}`
 
   const registroPronostico = event => {
     const url = `${API_BASE}usuario/${USUARIO}/pronostico/${id}`
-    const pronostico = `${localGoles.current.value || "0"}-${visitaGoles.current.value || "0"}`
+    const pronostico = `${localGoles.current.value || '0'}-${visitaGoles.current
+      .value || '0'}`
     fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ pronostico }),
-    }).then(response => {
-      if(response.json().resultado === true){
-        refreshMatchs()
-      }
     })
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        if (data.resultado === true) {
+          // refreshMatchs()
+          setLabelItem(MSG_SAVE_PROGNOSTIC)
+          setStyleButton(classes.saveButton)
+          setTimeout(() => {
+            setStyleButton(classes.edit_send)
+            setLabelItem(MSG_EDIT_PROGNOSTIC)
+          }, 2000)
+        }
+      })
     event.preventDefault()
   }
 
@@ -134,7 +150,11 @@ const MatchBox = ({
               </span>
             )}
           </div>
-          <input type="submit" value={textSend} className={clasSend} />
+          <input
+            type="submit"
+            value={labelItem || textSend}
+            className={styleButton || clasSend}
+          />
         </form>
       </div>
     </div>
