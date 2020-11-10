@@ -14,9 +14,9 @@ const Ranking = props => {
       <p>
         Puntaje<strong>{puntaje}</strong>
       </p>
-      <a href="#" className="btn_link">
+      {/* <a href="#" className="btn_link">
         Ver más
-      </a>
+      </a> */}
     </div>
   )
 }
