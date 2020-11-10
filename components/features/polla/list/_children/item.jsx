@@ -37,7 +37,7 @@ const MatchBox = ({
   jornada,
   resultadoFinal,
   puntos,
-  refreshMatchs,
+  // refreshMatchs,
   USUARIO,
   MEDIA_BASE,
   API_BASE,
@@ -113,7 +113,9 @@ const MatchBox = ({
                 <strong>{equipo1}</strong>
               </span>
               <input
-                type="text"
+                type="number"
+                max="99"
+                min="0"
                 placeholder=" - "
                 ref={localGoles}
                 className={classes.input}
@@ -131,7 +133,9 @@ const MatchBox = ({
             </div>
             <div className={classes.form_row}>
               <input
-                type="text"
+                type="number"
+                max="99"
+                min="0"
                 placeholder=" - "
                 ref={visitaGoles}
                 className={classes.input}
