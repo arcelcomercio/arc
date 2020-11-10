@@ -42,9 +42,9 @@ const LastMatch = props => {
       <p>
         Punto<strong>{estado === 3 ? puntos : '-'}</strong>
       </p>
-      <a href="#" className="btn_link">
+      {/* <a href="#" className="btn_link">
         Ver más
-      </a>
+      </a> */}
     </div>
   )
 }
