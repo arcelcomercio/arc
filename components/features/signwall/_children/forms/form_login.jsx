@@ -31,6 +31,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
         authProviders = [],
       },
       activeNewsletter = false,
+      activeVerifyEmail = false,
       activePaywall,
     },
     removeBefore = i => i,
@@ -150,45 +151,40 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     }
   }
 
-  const handleGetProfile = () => {
+  const handleGetProfile = profile => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile()
-      .then(profile => {
-        Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
 
-        const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-        Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+    Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
 
-        if (typeDialog === 'premium' || typeDialog === 'paywall') {
-          setShowCheckPremium(true) // no tengo subs
+    const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+    Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
-          getListSubs().then(p => {
-            if (p && p.length === 0) {
-              setShowUserWithSubs(false) // no tengo subs
-              setShowLoadingPremium(false)
-            } else {
-              setShowUserWithSubs(true) // tengo subs
-              setShowLoadingPremium(false)
-              const divPremium = document.getElementById('contenedor')
-              if (divPremium) {
-                divPremium.classList.remove('story-content__nota-premium')
-                divPremium.removeAttribute('style')
-              }
-            }
-          })
+    if (typeDialog === 'premium' || typeDialog === 'paywall') {
+      setShowCheckPremium(true) // no tengo subs
+
+      getListSubs().then(p => {
+        if (p && p.length === 0) {
+          setShowUserWithSubs(false) // no tengo subs
+          setShowLoadingPremium(false)
         } else {
-          const btnSignwall = document.getElementById('signwall-nav-btn')
-          if (typeDialog === 'newsletter' && btnSignwall) {
-            btnSignwall.textContent = `${profile.firstName ||
-              'Bienvenido'}  ${profile.lastName || ''}`
+          setShowUserWithSubs(true) // tengo subs
+          setShowLoadingPremium(false)
+          const divPremium = document.getElementById('contenedor')
+          if (divPremium) {
+            divPremium.classList.remove('story-content__nota-premium')
+            divPremium.removeAttribute('style')
           }
-          onClose()
         }
       })
-      .finally(() => {
-        setShowLoading(false)
-      })
+    } else {
+      const btnSignwall = document.getElementById('signwall-nav-btn')
+      if (typeDialog === 'newsletter' && btnSignwall) {
+        btnSignwall.textContent = `${profile.firstName ||
+          'Bienvenido'} ${profile.lastName || ''}`
+      }
+      onClose()
+    }
+    setShowLoading(false)
   }
 
   const handleFia = () => {
@@ -207,10 +203,27 @@ export const FormLogin = ({ valTemplate, attributes }) => {
       cookie: true,
     })
       .then(() => {
-        handleGetProfile()
-        taggeoSuccess()
-        onLogged()
-        handleFia()
+        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.getUserProfile().then(resProfile => {
+          if (activeVerifyEmail && !resProfile.emailVerified) {
+            setShowLoading(false)
+            setShowError(getCodeError('130051'))
+            setShowVerify(true)
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+            )
+            window.localStorage.removeItem('ArcId.USER_INFO')
+            window.localStorage.removeItem('ArcId.USER_PROFILE')
+            window.Identity.userProfile = null
+            window.Identity.userIdentity = {}
+          } else {
+            handleGetProfile(resProfile)
+            taggeoSuccess()
+            onLogged()
+            handleFia()
+          }
+        })
       })
       .catch(errLogin => {
         setShowLoading(false)

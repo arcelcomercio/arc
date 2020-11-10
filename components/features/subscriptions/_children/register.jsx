@@ -5,10 +5,10 @@ import React, {
 import PropTypes from 'prop-types'
 import { NavigateConsumer } from '../_context/navigate'
 import useForm from '../_hooks/useForm'
-// import { AuthContext } from '../../../../_context/auth'
+// import { AuthContext } from '../_context/auth'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
-// import { sendNewsLettersUser } from '../../../../_dependencies/Services'
+import { sendNewsLettersUser } from '../_dependencies/Services'
 import ButtonSocial from './social'
 import { Taggeo } from '../_dependencies/Taggeo'
 import getCodeError, {
@@ -45,10 +45,7 @@ const Register = ({ arcSite }) => {
   const [showHidePass, setShowHidePass] = useState('password')
   const [showConfirm, setShowConfirm] = useState(false)
   const [showSendEmail, setShowSendEmail] = useState(false)
-  const {
-    texts,
-    // urls
-  } = PropertiesCommon
+  const { texts, urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
 
   const stateSchema = {
@@ -129,34 +126,35 @@ const Register = ({ arcSite }) => {
             },
           ],
         },
-        { doLogin: false },
-        { rememberMe: false }
+        { doLogin: true },
+        { rememberMe: true }
       )
-        .then(() => {
+        .then(resSignUp => {
           setShowConfirm(true)
-          window.localStorage.removeItem('ArcId.USER_INFO')
-          window.localStorage.removeItem('ArcId.USER_PROFILE')
-          window.Identity.userProfile = null
-          window.Identity.userIdentity = {}
-          // setLoadText('Cargando Perfil...')
-          // window.Identity.getUserProfile().then(resProfile => {
-          //   setLoadText('Cargando Servicios...')
-          //   sendNewsLettersUser(
-          //     urls.newsLetters,
-          //     resProfile.uuid,
-          //     resProfile.email,
-          //     arcSite,
-          //     window.Identity.userIdentity.accessToken,
-          //     ['general']
-          //   )
-          //     .then(() => {
-          //       activateAuth(resProfile)
-          //       updateStep(2)
-          //     })
-          //     .finally(() => {
-          //       Taggeo(nameTagCategory, 'web_swl_registro_success_registrarme')
-          //     })
-          // })
+
+          setLoadText('Cargando Perfil...')
+          window.Identity.getUserProfile().then(resProfile => {
+            setLoadText('Cargando Servicios...')
+            sendNewsLettersUser(
+              urls.newsLetters,
+              resProfile.uuid,
+              resProfile.email,
+              arcSite,
+              resSignUp.accessToken || window.Identity.userIdentity.accessToken,
+              ['general']
+            )
+              .then(() => {
+                // activateAuth(resProfile)
+                // updateStep(2)
+                window.localStorage.removeItem('ArcId.USER_INFO')
+                window.localStorage.removeItem('ArcId.USER_PROFILE')
+                window.Identity.userProfile = null
+                window.Identity.userIdentity = {}
+              })
+              .finally(() => {
+                Taggeo(nameTagCategory, 'web_swl_registro_success_registrarme')
+              })
+          })
         })
         .catch(err => {
           setMsgError(getCodeError(err.code))

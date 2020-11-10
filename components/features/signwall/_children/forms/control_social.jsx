@@ -164,8 +164,8 @@ const setupUserProfile = (
         const newProfileFB = {
           firstName: resProfile.firstName.replace(/\./g, ''),
           lastName: resProfile.lastName.replace(/\./g, ''),
-          // displayName: EMAIL_USER,
-          // email: EMAIL_USER,
+          displayName: EMAIL_USER,
+          email: EMAIL_USER,
           attributes: [
             {
               name: 'originDomain',
@@ -416,9 +416,6 @@ export const ButtonSocial = ({
         window.removeEventListener('onmessage', authSocialProvider)
       }
     })
-    // .catch(() => {
-    //   window.console.error('oups ocurrio un error')
-    // })
   }
 
   const clickLoginSocialEcoID = brandCurrent => {

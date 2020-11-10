@@ -34,6 +34,7 @@ const FormRegister = props => {
         authProviders = [],
       },
       activeNewsletter = false,
+      activeVerifyEmail = false,
     },
     removeBefore = i => i,
   } = props
@@ -108,8 +109,22 @@ const FormRegister = props => {
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
 
-  const handleStopProfile = () => {
+  const handleNewsleters = profile => {
+    Services.sendNewsLettersUser(
+      profile.uuid,
+      profile.email,
+      arcSite,
+      profile.accessToken || window.Identity.userIdentity.accessToken,
+      ['general']
+    )
+  }
+
+  const handleStopProfile = profile => {
+    if (activeNewsletter && profile.accessToken) {
+      handleNewsleters(profile)
+    }
     setShowConfirm(true)
+    setShowContinueVerify(true)
     window.localStorage.removeItem('ArcId.USER_INFO')
     window.localStorage.removeItem('ArcId.USER_PROFILE')
     window.Identity.userProfile = null
@@ -126,20 +141,10 @@ const FormRegister = props => {
         Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
         if (activeNewsletter) {
-          Services.sendNewsLettersUser(
-            window.Identity.userIdentity.uuid,
-            profile.email,
-            arcSite,
-            window.Identity.userIdentity.accessToken,
-            ['general']
-          ).then(() => {
-            setShowConfirm(true)
-            onLogged(profile)
-          })
-        } else {
-          setShowConfirm(true)
-          onLogged(profile)
+          handleNewsleters(profile)
         }
+        setShowConfirm(true)
+        onLogged(profile)
       })
       .catch(() => {
         Taggeo(
@@ -217,16 +222,14 @@ const FormRegister = props => {
           },
         ],
       },
-      { doLogin: false },
-      { rememberMe: false }
+      { doLogin: true },
+      { rememberMe: true }
     )
       .then(resSignUp => {
-        console.log(resSignUp)
-        if (resSignUp.accessToken) {
-          handleGetProfile()
+        if (activeVerifyEmail) {
+          handleStopProfile(resSignUp)
         } else {
-          handleStopProfile()
-          setShowContinueVerify(true)
+          handleGetProfile()
         }
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,

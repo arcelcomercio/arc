@@ -3,7 +3,7 @@ import { isLogged } from './Session'
 
 export default {
   isPWA() {
-    return !!window.ReactNativeWebview || !!window.nativeConnection
+    return !!window.ReactNativeWebView || !!window.nativeConnection
   },
   parse(string) {
     try {
@@ -24,19 +24,19 @@ export default {
     }
   },
   mount(callback) {
-    const APP_CONNECTION = window.ReactNativeWebview || window.nativeConnection
+    const APP_CONNECTION = window.ReactNativeWebView || window.nativeConnection
     if (this.isPWA() && !isLogged()) {
       APP_CONNECTION && APP_CONNECTION.postMessage('paywall_ready')
       window.addEventListener('message', e => this._onMessage(e, callback))
     }
   },
   finalize() {
-    const APP_CONNECTION = window.ReactNativeWebview || window.nativeConnection
+    const APP_CONNECTION = window.ReactNativeWebView || window.nativeConnection
     if (!this.isPWA()) return
     APP_CONNECTION && APP_CONNECTION.postMessage('successful_purchase')
   },
   pwaCloseWebView() {
-    const APP_CONNECTION = window.ReactNativeWebview || window.nativeConnection
+    const APP_CONNECTION = window.ReactNativeWebView || window.nativeConnection
     if (!this.isPWA()) return
     APP_CONNECTION.pwaCloseWebview && APP_CONNECTION.pwaCloseWebview()
   },

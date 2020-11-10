@@ -17,6 +17,7 @@ export const FormRelogin = ({
   siteProperties: {
     signwall: { mainColorLink, mainColorBtn, authProviders = [] },
     activeNewsletter = false,
+    activeVerifyEmail = false,
   },
   onClose,
   typeDialog,
@@ -58,14 +59,6 @@ export const FormRelogin = ({
     )
   }
 
-  const handleGetProfile = () => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile().then(profile => {
-      Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
-      onClose()
-    })
-  }
-
   const onSubmitForm = state => {
     const { remail, rpass } = state
     setShowLoading(true)
@@ -75,11 +68,29 @@ export const FormRelogin = ({
       cookie: true,
     })
       .then(() => {
-        handleGetProfile()
-        Taggeo(
-          `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_email_login_success_ingresar`
-        )
+        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.getUserProfile().then(profile => {
+          if (activeVerifyEmail && !profile.emailVerified) {
+            setShowLoading(false)
+            setShowError(getCodeError('130051'))
+            setShowVerify(true)
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_email_login_show_reenviar_correo`
+            )
+            window.localStorage.removeItem('ArcId.USER_INFO')
+            window.localStorage.removeItem('ArcId.USER_PROFILE')
+            window.Identity.userProfile = null
+            window.Identity.userIdentity = {}
+          } else {
+            Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_email_login_success_ingresar`
+            )
+            onClose()
+          }
+        })
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))

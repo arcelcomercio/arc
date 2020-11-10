@@ -62,23 +62,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     },
   }
 
-  const handleGetProfile = () => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile().then(profile => {
-      Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
-      onLogged(profile) // para hendrul
-      Taggeo(
-        `Web_Sign_Wall_${typeDialog}`,
-        `web_sw${typeDialog[0]}_login_success_ingresar`
-      )
-      if (typeDialog === 'students') {
-        setShowStudents(!showStudents)
-      } else {
-        onClose()
-      }
-    })
-  }
-
   const onSubmitForm = state => {
     const { lemail, lpass } = state
     Taggeo(
@@ -92,7 +75,33 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
       cookie: true,
     })
       .then(() => {
-        handleGetProfile()
+        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.getUserProfile().then(profile => {
+          if (profile.emailVerified) {
+            Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+            onLogged(profile) // para hendrul
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_login_success_ingresar`
+            )
+            if (typeDialog === 'students') {
+              setShowStudents(!showStudents)
+            } else {
+              onClose()
+            }
+          } else {
+            setShowError(getCodeError('130051'))
+            setShowVerify(true)
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+            )
+            window.localStorage.removeItem('ArcId.USER_INFO')
+            window.localStorage.removeItem('ArcId.USER_PROFILE')
+            window.Identity.userProfile = null
+            window.Identity.userIdentity = {}
+          }
+        })
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
@@ -164,7 +173,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     <ModalConsumer>
       {value => (
         <>
-          {!isLogged() && (
+          {(!isLogged() || showVerify) && (
             <S.Form onSubmit={handleOnSubmit}>
               <S.Text c="gray" s="14" className="mb-10 mt-20 center">
                 Ingresa con tus redes sociales
@@ -246,6 +255,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 onChange={e => {
                   handleOnChange(e)
                   setShowError(false)
+                  setShowVerify(false)
                 }}
                 error={lemailError}
               />
@@ -260,6 +270,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 onChange={e => {
                   handleOnChange(e)
                   setShowError(false)
+                  setShowVerify(false)
                 }}
                 error={lpassError}
               />
@@ -307,9 +318,9 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
             </S.Form>
           )}
 
-          {(showStudents || isLogged()) && typeDialog === 'students' && (
-            <FormStudents {...attributes} />
-          )}
+          {(showStudents || isLogged()) &&
+            typeDialog === 'students' &&
+            !showVerify && <FormStudents {...attributes} />}
         </>
       )}
     </ModalConsumer>

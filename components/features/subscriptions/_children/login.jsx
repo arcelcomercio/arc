@@ -64,12 +64,23 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
       })
         .then(() => {
           window.Identity.getUserProfile().then(resProfile => {
-            activateAuth(resProfile)
-            updateStep(2)
-            if (isFia) {
-              handleCallToAction(true)
+            if (resProfile.emailVerified) {
+              activateAuth(resProfile)
+              updateStep(2)
+              if (isFia) {
+                handleCallToAction(true)
+              }
+              Taggeo(nameTagCategory, 'web_swl_login_success_ingresar')
+            } else {
+              setLoading(false)
+              setMsgError(getCodeError('130051'))
+              setShowVerify(true)
+              Taggeo(nameTagCategory, 'web_swl_login_show_reenviar_correo')
+              window.localStorage.removeItem('ArcId.USER_INFO')
+              window.localStorage.removeItem('ArcId.USER_PROFILE')
+              window.Identity.userProfile = null
+              window.Identity.userIdentity = {}
             }
-            Taggeo(nameTagCategory, 'web_swl_login_success_ingresar')
           })
         })
         .catch(err => {
