@@ -5,11 +5,6 @@ const customFields = PropTypes.shape({
     name: 'Blog',
     defaultValue: false,
   }),
-  activeAnchor: PropTypes.bool.tag({
-    name: 'Activar ancla al inicio',
-    defaultValue: true,
-    description: 'Disponible para lite, por ahora.'
-  }),
 })
 
 export default customFields
