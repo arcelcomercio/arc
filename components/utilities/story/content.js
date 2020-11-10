@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 import { ELEMENT_TEXT, ELEMENT_LIST } from '../constants/element-types'
-import { contentAdsList } from '../constants/ads'
 
 /**
  * Inyecta los ads disponibles entre en contenido de la noticia
@@ -14,6 +13,7 @@ import { contentAdsList } from '../constants/ads'
 export const contentWithAds = ({ contentElements, adsEvery = 2 }) => {
   let textElementsCounter = 0
   let adsCounter = 0
+  const contentAdsList = ['inline', 'caja4', 'caja5']
 
   return contentElements
     ? contentElements.map((dataContent, i) => {
