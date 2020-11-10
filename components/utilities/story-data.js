@@ -974,44 +974,6 @@ class StoryData {
     )
   }
 
-  static liteContentWithAdsEvery(adsEvery = 2) {
-    let textElementsCounter = 0
-    let adsCounter = 0
-    const adsList = ['inline', 'caja4', 'caja5']
-    const { content_elements: contentElements = null } = this._data || {}
-    return (
-      contentElements &&
-      contentElements.map((dataContent, i) => {
-        let dataElements = {}
-        const { type: typeElement } = dataContent
-
-        dataElements =
-          typeElement === ELEMENT_LIST && i === 0 ? [] : dataContent
-
-        if (textElementsCounter > 0 && textElementsCounter % adsEvery === 0) {
-          if (adsCounter < adsList.length) {
-            dataElements.publicidad = true
-            dataElements.nameAds = adsList[adsCounter]
-            adsCounter += 1
-          }
-        }
-
-        if (typeElement === ELEMENT_TEXT) {
-          textElementsCounter += 1
-        }
-        return dataElements
-      })
-    )
-  }
-
-  get liteContentWithAdsContinuous() {
-    return this.liteContentWithAdsEvery(4)
-  }
-
-  get liteContentWithAds() {
-    return this.liteContentWithAdsEvery(2)
-  }
-
   get contentPosicionPublicidad() {
     let i = 0
     let v = 0
