@@ -75,6 +75,11 @@ const Polla = (props) => {
 
   const confs = { API_BASE, USUARIO, MEDIA_BASE }
 
+  let jornadaActual = 0
+  let title = false
+  const styleTitle = {
+    clear: 'both'
+  }
   return (
     <div className={classes.grid}>
       <form className={classes.form}>
@@ -84,14 +89,24 @@ const Polla = (props) => {
       </form>
       {matchs &&
         matchs.map(match => {
+          title = false
+          if(jornadaActual < match.jornada){
+            title = true
+            jornadaActual = match.jornada
+          }
           return (
             (match.jornada >= firstWeek) && (
-            <MatchBox
-              key={match.id}
-              refreshMatchs={getRemoteMatchs}
-              {...confs}
-              {...match}
-            />
+              <>
+              {(title === true) && (
+                <><div style={styleTitle}></div><h2 className="journeyTitle">Fecha {match.jornada}</h2></>
+              )}
+              <MatchBox
+                key={match.id}
+                refreshMatchs={getRemoteMatchs}
+                {...confs}
+                {...match}
+              />
+              </>
             )
           )
       })}
