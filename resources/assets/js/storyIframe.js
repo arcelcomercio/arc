@@ -19,11 +19,10 @@ window.addEventListener('load', () => {
       let isCurrentStory = false
       const intersectionObserver = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && isCurrentStory === false) {
             isCurrentStory = true
-          } else {
+          } else if(isCurrentStory === true){
             isCurrentStory = false
-            sendMessage()
             resizerObserver.unobserve(entry.target)
             intersectionObserver.unobserve(entry.target)
           }
