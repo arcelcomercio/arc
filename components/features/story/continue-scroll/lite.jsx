@@ -285,7 +285,7 @@ const StoryContinueLite = props => {
     } = story
     // Filtra las historias que no son Galeria horizontal
     return (
-      !/^\/(somos|archivo-elcomercio)\//.test(requestUri) &&
+      !/^\/(somos|archivo-elcomercio)\//.test(websiteUrl) &&
       requestUri !== websiteUrl &&
       ((type === ELEMENT_GALLERY && story.subtype !== GALLERY_SLIDER) ||
         (type !== ELEMENT_GALLERY && story.subtype === GALLERY_SLIDER))
