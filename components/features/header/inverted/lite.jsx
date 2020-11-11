@@ -17,7 +17,7 @@ const HeaderBasic = props => {
     metaValue,
   } = useFusionContext()
   const {
-    customFields: { hideMenu },
+    customFields: { hideMenu, isContinuous },
   } = props
 
   const {
@@ -32,7 +32,7 @@ const HeaderBasic = props => {
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
-  const {siteTitle = ''} = siteProperties
+  const { siteTitle = '' } = siteProperties
 
   const title = `${seoTitle}: ${
     storyTitleRe ? storyTitleRe.substring(0, 70) : ''
@@ -61,6 +61,7 @@ const HeaderBasic = props => {
 
   const params = {
     hideMenu,
+    isContinuous,
     menuSections,
     arcSite,
     contextPath,

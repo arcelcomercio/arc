@@ -506,7 +506,10 @@ class StoryData {
       this._data && this._data.content_elements
     )
     const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
-    return videosContent.concat(promoItemsVideo).filter(String)
+    const result = videosContent.concat(promoItemsVideo).filter(String)
+    return result.filter(el => {
+      return el && el.thumbnail_url ? el : ''
+    })
   }
 
   get videoSeo() {
@@ -520,7 +523,10 @@ class StoryData {
       this._data.promo_items &&
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
-    return videosContent.concat(promoItemsVideo).filter(String)
+    const result = videosContent.concat(promoItemsVideo).filter(String)
+    return result.filter(el => {
+      return el && el.urlImage ? el : ''
+    })
   }
 
   get metaTitle() {
@@ -969,46 +975,6 @@ class StoryData {
           }
         }
 
-        return dataElements
-      })
-    )
-  }
-
-  get contentPosicionPublicidadLite() {
-    let i = 0
-    let items = 0
-    const { content_elements: contentElements = null } = this._data || {}
-    return (
-      contentElements &&
-      contentElements.map(dataContent => {
-        let dataElements = {}
-        const { type: typeElement } = dataContent
-
-        dataElements =
-          typeElement === ELEMENT_LIST && items === 0 ? [] : dataContent
-        /* 
-        if (i === 2) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja4`
-        }
-        */
-        if (i === 2) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `inline`
-        }
-        if (i === 4) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja4`
-        }
-        if (i === 6) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja5`
-        }
-
-        if (typeElement === ELEMENT_TEXT) {
-          i += 1
-        }
-        items += 1
         return dataElements
       })
     )
