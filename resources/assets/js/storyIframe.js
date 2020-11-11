@@ -23,6 +23,7 @@ window.addEventListener('load', () => {
             isCurrentStory = true
           } else {
             isCurrentStory = false
+            sendMessage()
             resizerObserver.unobserve(entry.target)
             intersectionObserver.unobserve(entry.target)
           }
