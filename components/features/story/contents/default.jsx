@@ -226,12 +226,14 @@ class StoryContents extends PureComponent {
               )}
             </>
           )}
-          <Ads
-            adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
-            isDesktop={false}
-            isMobile
-            isDfp={isDfp}
-          />
+          {subtype !== GALLERY_VERTICAL && (
+            <Ads
+              adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
+              isDesktop={false}
+              isMobile
+              isDfp={isDfp}
+            />
+          )}
           <div
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}

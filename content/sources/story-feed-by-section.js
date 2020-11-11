@@ -42,9 +42,14 @@ const params = [
     displayName: 'Secciones excluidas',
     type: 'text',
   },
+  {
+    name: 'isContentType',
+    displayName: 'Tipo de contenido [premium,free,metered](Opcional)',
+    type: 'text',
+  },
 ]
 
-const getQueryFilter = (section, excludedSections, website) => {
+const getQueryFilter = (section, excludedSections, website, isContentType) => {
   let queryFilter = ''
   let body = { query: { bool: {} } }
 
@@ -56,7 +61,10 @@ const getQueryFilter = (section, excludedSections, website) => {
      * esto se hace por mejorar PERFORMANCE
      *
      */
-    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+publish_date:%7Bnow-15d%20TO%20*%7D`
+    const isTypeSearch = isContentType
+      ? `+AND+content_restrictions.content_code:${isContentType}`
+      : ''
+    queryFilter = `q=canonical_website:${website}+AND+type:story+AND+publish_date:%7Bnow-15d%20TO%20*%7D${isTypeSearch}`
   } else {
     // Solo si hay una seccion definida o alguna seccion para excluir
     if (section !== '/') {
@@ -91,6 +99,18 @@ const getQueryFilter = (section, excludedSections, website) => {
                   },
                 },
               },
+            ],
+          },
+        },
+      }
+    }
+    if (isContentType) {
+      body = {
+        ...body,
+        query: {
+          bool: {
+            must: [
+              { term: { 'content_restrictions.content_code': isContentType } },
             ],
           },
         },
@@ -141,6 +161,7 @@ const resolve = (key = {}) => {
     stories_qty: storiesQty,
     website: rawWebsite = '',
     includedFields,
+    isContentType,
   } = key
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
@@ -155,7 +176,12 @@ const resolve = (key = {}) => {
 
   const excSections = auxExcludedSec && auxExcludedSec.split(',')
 
-  const queryFilter = getQueryFilter(section, excSections, website)
+  const queryFilter = getQueryFilter(
+    section,
+    excSections,
+    website,
+    isContentType
+  )
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${formatIncludedFields({

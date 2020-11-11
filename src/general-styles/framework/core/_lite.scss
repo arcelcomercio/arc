@@ -54,6 +54,11 @@ $tertiary-font: $secondary-font;
   background: white;
 }
 
+.st-iframe {
+  content-visibility: auto;
+  contain-intrinsic-size: 5000px;
+}
+
 // #fusion-app > div.f.just-center {   overflow: hidden;} se elimina por sticky
 
 .story-gallery-slider {

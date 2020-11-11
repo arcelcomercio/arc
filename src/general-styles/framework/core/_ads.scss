@@ -1,0 +1,21 @@
+.gpt {
+  &_top {
+    height: auto;
+    min-height: 50px;
+  }
+  &_caja1 {
+    @media (--desktop) {
+      position: sticky;
+      top: 0;
+      z-index: 9;
+      height: auto;
+      min-height: 250px;
+      margin-bottom: 20px;
+    }
+  }
+  &_caja2 {
+    @media (--desktop) {
+      height: 250px;
+    }
+  }
+}
