@@ -11,22 +11,19 @@
     width: 160px;
     flex-grow: 0;
     flex-shrink: 0;
-    position: sticky;
+    position: fixed;
     top: 0;
 
+    &--r {
+      transform: translateX(calc((980px / 2) + (160px / 2)));
+    }
+    &--l {
+      transform: translateX(calc((-980px / 2) - (160px / 2)));
+    }
     &--wide {
-      top: calc(#{$header-height} + 10px);
+      top: $header-height;
     }
-
-    @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      position: fixed;
-      &--r {
-        transform: translateX(calc((980px / 2) + (160px / 2)));
-      }
-      &--l {
-        transform: translateX(calc((-980px / 2) - (160px / 2)));
-      }
-    }
+    // validacion IE @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {}
   }
 }
 
