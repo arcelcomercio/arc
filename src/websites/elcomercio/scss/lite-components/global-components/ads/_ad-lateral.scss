@@ -11,14 +11,21 @@
     width: 160px;
     flex-grow: 0;
     flex-shrink: 0;
-    position: fixed;
+    position: sticky;
     top: 0;
 
-    &--r {
-      transform: translateX(calc((980px / 2) + (160px / 2)));
+    &--wide {
+      top: calc(#{$header-height} + 10px);
     }
-    &--l {
-      transform: translateX(calc((-980px / 2) - (160px / 2)));
+
+    @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      position: fixed;
+      &--r {
+        transform: translateX(calc((980px / 2) + (160px / 2)));
+      }
+      &--l {
+        transform: translateX(calc((-980px / 2) - (160px / 2)));
+      }
     }
   }
 }

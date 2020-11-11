@@ -224,7 +224,7 @@ const LiteOutput = ({
   const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
-
+  const isIframeStory = requestUri.includes('ft=cargacontinua')
   const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
   `
   return (
@@ -435,7 +435,7 @@ const LiteOutput = ({
             />
           </>
         )}
-        <TagManager {...parameters} />
+        {!isIframeStory && <TagManager {...parameters} />}
       </head>
       <body
         className={classBody}
@@ -603,13 +603,21 @@ const LiteOutput = ({
                 __html: vallaScript(parametersValla),
               }}
             />
-            <VallaHtml />
+            {!isIframeStory && <VallaHtml />}
           </>
         )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{ __html: htmlScript }}
+          />
+        )}
+        {isIframeStory && (
+          <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/assets/js/storyIframe.min.js`
+            )}
           />
         )}
       </body>

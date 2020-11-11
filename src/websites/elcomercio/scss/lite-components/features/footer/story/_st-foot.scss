@@ -1,54 +1,64 @@
-$color-gray-200: #888;
+$color-gray-100: #ddd;
 
 .st-foot {
   background-color: $color-white;
-  border-top: 1px solid $color-gray-200;
-  border-bottom: 1px solid $color-gray-200;
   font: 400 13px/20px $primary-font;
-  align-items: center;
-  padding: 8px 15px;
+  padding: 20px 30px;
+  flex-direction: column;
   @media (--desktop) {
+    flex-direction: initial;
+    align-items: flex-start;
     font: 400 11px/17px $primary-font;
   }
 
   &__img-box {
-    padding: 8px 10px 8px 0;
-    align-self: flex-start;
+    padding: 10px 0;
     @media (--desktop) {
-      align-self: initial;
+      padding: 10px 30px 10px 0;
     }
   }
 
   &__img {
-    width: 112px;
+    width: 180px;
+    @media (--desktop) {
+      width: 130px;
+    }
   }
 
-  &__text {
+  &__content {
     flex: 1;
     flex-direction: column;
-    border-left: 1px solid #ddd;
+    text-align: center;
 
     @media (--desktop) {
+      border-left: 1px solid $color-gray-100;
       flex: unset;
       flex-direction: initial;
-      align-items: center;
-      text-decoration: none;
-      border-left: 0;
-      line-height: 13px;
+      align-items: flex-start;
+      text-align: initial;
+    }
+  }
+
+  &__block {
+    color: $color-gray-300;
+    white-space: nowrap;
+    padding: 15px;
+    border-bottom: 1px solid $color-gray-100;
+    @media (--desktop) {
+      padding: 0 30px;
+      border-right: 1px solid $color-gray-100;
+      border-bottom: unset;
+    }
+    &:last-child {
+      border-right: unset;
+      border-bottom: unset;
     }
   }
 
   &__link {
-    color: $color-gray-200;
-    white-space: nowrap;
-    padding: 0 10px;
-
+    text-decoration: underline;
     @media (--desktop) {
-      border-right: 1px solid $color-gray-200;
-
-      &:last-child {
-        border-right: unset;
-      }
+      text-decoration: none;
     }
   }
 }

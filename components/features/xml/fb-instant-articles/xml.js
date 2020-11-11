@@ -96,7 +96,7 @@ class XmlFacebookInstantArticles {
     /* if (siteUrl === 'https://elcomercio.pe') {
       this.fetchContent({
         magStories: {
-          source: SOURCE,
+          source: 'story-feed-by-section-mag',
           transform: data => {
             if (!data) return []
             const { content_elements: magStories } = data

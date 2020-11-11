@@ -13,6 +13,10 @@ const customFields = PropTypes.shape({
     name: 'Navegación con slider',
     defaultValue: false,
   }),
+  isContinuous: PropTypes.bool.tag({
+    name: 'Cabecera nota continua',
+    defaultValue: false,
+  }),
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
     defaultValue: 'Hoy interesa',
