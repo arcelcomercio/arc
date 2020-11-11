@@ -178,7 +178,7 @@ const StoryContentsLite = props => {
             )}
           </>
         )}
-        {subtype !== MINUTO_MINUTO && (
+        {subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
           <div
             id="gpt_caja3"
             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
@@ -293,7 +293,7 @@ const StoryContentsLite = props => {
                           data-bloque="3"
                           data-ads-dimensions-m="[[1,1]]"></div>
                       )}
-                      {nameAds === 'caja4' && (
+                      {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
                         <div
                           id="gpt_caja4"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
@@ -301,7 +301,7 @@ const StoryContentsLite = props => {
                           data-bloque="3"
                           data-prebid-enabled></div>
                       )}
-                      {nameAds === 'caja5' && (
+                      {nameAds === 'caja5' && subtype !== GALLERY_VERTICAL && (
                         <div
                           id="gpt_caja5"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}

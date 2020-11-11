@@ -183,6 +183,7 @@ const LiteOutput = ({
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo,
+    quantityGalleryItem = 0,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -223,9 +224,9 @@ const LiteOutput = ({
   const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
-
   const isIframeStory = requestUri.includes('ft=cargacontinua')
-
+  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
+  `
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -517,7 +518,7 @@ const LiteOutput = ({
           </>
         )}
 
-        {jwplayerSeo[0].key && (
+        {jwplayerSeo[0] && (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
@@ -535,6 +536,14 @@ const LiteOutput = ({
           />
         ) : (
           <></>
+        )}
+        {subtype === GALLERY_VERTICAL && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: dataLayer,
+            }}
+          />
         )}
         {hasYoutubeVideo && (
           <>
@@ -606,7 +615,9 @@ const LiteOutput = ({
         {isIframeStory && (
           <script
             defer
-            src={deployment(`${contextPath}/resources/assets/js/storyIframe.min.js`)}
+            src={deployment(
+              `${contextPath}/resources/assets/js/storyIframe.min.js`
+            )}
           />
         )}
       </body>

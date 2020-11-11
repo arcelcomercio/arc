@@ -208,6 +208,7 @@ export default ({
   },`
 
   const jwplayerSeoItems =
+    jwplayerSeo[0] &&
     jwplayerSeo[0].conversions &&
     jwplayerSeo.map(
       ({
