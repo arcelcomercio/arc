@@ -13,7 +13,7 @@ import {
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
 import StoryData from '../utilities/story-data'
-
+import Styles from './_children/styles'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
@@ -234,113 +234,123 @@ const LiteOutput = ({
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="lang" content={lang} />
-        <meta name="resource-type" content="document" />
-        <meta content="global" name="distribution" />
-        <meta name="robots" content="index, follow" />
-        <meta name="GOOGLEBOT" content="index follow" />
-        <meta name="author" content={siteProperties.siteName} />
-        {isStory && (
+        {!isIframeStory && (
           <>
-            <meta name="DC.title" lang="es" content={title} />
-            <meta name="DC.description" lang="es" content={description} />
-            <meta name="DC.subject" lang="es" content={keywords} />
-            <meta
-              name="DC.creator"
-              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
-            />
-            <meta
-              name="DC.publisher"
-              content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
-            />
-            <meta name="DC.language" scheme="RFC1766" content="es" />
-          </>
-        )}
-        {isStory && htmlAmpIs && (
-          <link
-            rel="amphtml"
-            href={`${siteProperties.siteUrl}${addSlashToEnd(
-              url
-            )}?outputType=amp`}
-          />
-        )}
-        {arcSite === SITE_ELCOMERCIOMAG && (
-          <link
-            rel="alternate"
-            href={`${siteProperties.siteUrlAlternate}${link}`}
-            hrefLang="es"
-          />
-        )}
-        <title>{title}</title>
-        {/**
-         * dns-prefetch hace solo DNS lookup.
-         * preconnect hace DNS lookup, TLS negotiation, y TCP handshake.
-         * -----------------
-         * Si el la conexion se hace SIEMPRE, vale la pena usar preconnect
-         * (con dns-prefetch como fallback). Si la conexion no se hace siempre,
-         * sino algunas veces, es mejor usar solo dns-prefetch para evitar la
-         * TLS negotiation, y TCP handshake adicionales sin necesidad.
-         *
-         * https://web.dev/preconnect-and-dns-prefetch/
-         */}
-        {arcSite === SITE_ELCOMERCIO && (
-          <link
-            rel="preload"
-            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
-            as="font"
-            type="font/woff2"
-          />
-        )}
-        <link rel="preconnect" href={`//cdnc.${siteProperties.siteDomain}`} />
-        <link rel="dns-prefetch" href={`//cdnc.${siteProperties.siteDomain}`} />
-        <link
-          rel="preconnect"
-          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
-        />
-        <link
-          rel="dns-prefetch"
-          href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
-        />
-        {/* {isPremium && (
-          <>
+            <meta name="resource-type" content="document" />
+            <meta content="global" name="distribution" />
+            <meta name="robots" content="index, follow" />
+            <meta name="GOOGLEBOT" content="index follow" />
+            <meta name="author" content={siteProperties.siteName} />
+            {isStory && (
+              <>
+                <meta name="DC.title" lang="es" content={title} />
+                <meta name="DC.description" lang="es" content={description} />
+                <meta name="DC.subject" lang="es" content={keywords} />
+                <meta
+                  name="DC.creator"
+                  content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+                />
+                <meta
+                  name="DC.publisher"
+                  content={`NOTICIAS ${siteProperties.siteName.toUpperCase()}`}
+                />
+                <meta name="DC.language" scheme="RFC1766" content="es" />
+              </>
+            )}
+            {isStory && htmlAmpIs && (
+              <link
+                rel="amphtml"
+                href={`${siteProperties.siteUrl}${addSlashToEnd(
+                  url
+                )}?outputType=amp`}
+              />
+            )}
+            {arcSite === SITE_ELCOMERCIOMAG && (
+              <link
+                rel="alternate"
+                href={`${siteProperties.siteUrlAlternate}${link}`}
+                hrefLang="es"
+              />
+            )}
+            <title>{title}</title>
+            {/**
+             * dns-prefetch hace solo DNS lookup.
+             * preconnect hace DNS lookup, TLS negotiation, y TCP handshake.
+             * -----------------
+             * Si el la conexion se hace SIEMPRE, vale la pena usar preconnect
+             * (con dns-prefetch como fallback). Si la conexion no se hace siempre,
+             * sino algunas veces, es mejor usar solo dns-prefetch para evitar la
+             * TLS negotiation, y TCP handshake adicionales sin necesidad.
+             *
+             * https://web.dev/preconnect-and-dns-prefetch/
+             */}
+            {arcSite === SITE_ELCOMERCIO && (
+              <link
+                rel="preload"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
+                as="font"
+                type="font/woff2"
+              />
+            )}
             <link
               rel="preconnect"
-              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+              href={`//cdnc.${siteProperties.siteDomain}`}
             />
             <link
               rel="dns-prefetch"
-              href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+              href={`//cdnc.${siteProperties.siteDomain}`}
             />
-          </>
-        )} */}
-        <link rel="preconnect" href="//www.googletagmanager.com/" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
-        <link rel="preconnect" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="preconnect" href="//static.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//static.chartbeat.com/" />
-        <link rel="preconnect" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
-        <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-        <link rel="dns-prefetch" href="//tags.bluekai.com/" />
-        <link rel="preconnect" href="//cdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-        <link rel="preconnect" href="//scdn.cxense.com/" />
-        <link rel="dns-prefetch" href="//scdn.cxense.com/" />
-        <link rel="preconnect" href="//scomcluster.cxense.com/" />
-        <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
-        <link rel="preconnect" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        {isStory && (
-          <>
-            <link rel="dns-prefetch" href="//www.facebook.com/" />
-            <link rel="dns-prefetch" href="//connect.facebook.net/" />
-            <link rel="preconnect" href="//cds.taboola.com/" />
-            <link rel="dns-prefetch" href="//cds.taboola.com/" />
+            <link
+              rel="preconnect"
+              href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+            />
+            <link
+              rel="dns-prefetch"
+              href={getAssetsPath(arcSite, contextPath).replace('https:', '')}
+            />
+            {/* {isPremium && (
+              <>
+                <link
+                  rel="preconnect"
+                  href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+                />
+                <link
+                  rel="dns-prefetch"
+                  href={`//elcomercio-${arcSite}-prod.cdn.arcpublishing.com`}
+                />
+              </>
+            )} */}
+            <link rel="preconnect" href="//www.googletagmanager.com/" />
+            <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
+            <link rel="preconnect" href="//www.google-analytics.com" />
+            <link rel="dns-prefetch" href="//www.google-analytics.com" />
+            <link rel="preconnect" href="//static.chartbeat.com/" />
+            <link rel="dns-prefetch" href="//static.chartbeat.com/" />
+            <link rel="preconnect" href="//mab.chartbeat.com/" />
+            <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
+            <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
+            <link rel="dns-prefetch" href="//tags.bluekai.com/" />
+            <link rel="preconnect" href="//cdn.cxense.com/" />
+            <link rel="dns-prefetch" href="//cdn.cxense.com/" />
+            <link rel="preconnect" href="//scdn.cxense.com/" />
+            <link rel="dns-prefetch" href="//scdn.cxense.com/" />
+            <link rel="preconnect" href="//scomcluster.cxense.com/" />
+            <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
+            <link rel="preconnect" href="//sb.scorecardresearch.com/" />
+            <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
+            <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+            <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+            {isStory && (
+              <>
+                <link rel="dns-prefetch" href="//www.facebook.com/" />
+                <link rel="dns-prefetch" href="//connect.facebook.net/" />
+                <link rel="preconnect" href="//cds.taboola.com/" />
+                <link rel="dns-prefetch" href="//cds.taboola.com/" />
+              </>
+            )}
+            <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
           </>
         )}
-        <link rel="dns-prefetch" href="//acdn.adnxs.com/" />
         <script
           dangerouslySetInnerHTML={{
             /**
@@ -379,16 +389,24 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
         />
-
-        <MetaSite {...metaSiteData} />
-        <meta name="description" lang="es" content={description} />
+        <Styles {...metaSiteData} />
+        {!isIframeStory && (
+          <>
+            <MetaSite {...metaSiteData} />
+            <meta name="description" lang="es" content={description} />
+            {isStory ? (
+              ''
+            ) : (
+              <meta name="keywords" lang="es" content={keywords} />
+            )}
+            <TwitterCards {...twitterCardsData} />
+            <OpenGraph {...openGraphData} />
+          </>
+        )}
+        <MetaStory {...metaPageData} />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
         )}
-        {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
-        <MetaStory {...metaPageData} />
         {/* renderMetaPage(metaValue('id'), metaPageData) */}
         <AppNexus
           arcSite={arcSite}
