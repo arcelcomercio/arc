@@ -24,8 +24,8 @@ const FormRegister = props => {
     onLogged = i => i,
     onLoggedFail = i => i,
     arcSite,
-    isFia,
-    handleCallToAction,
+    // isFia,
+    // handleCallToAction,
     siteProperties: {
       signwall: {
         mainColorLink,
@@ -169,12 +169,12 @@ const FormRegister = props => {
     }
   }
 
-  const handleFia = () => {
-    if (typeof window !== 'undefined' && isFia) {
-      handleCallToAction(true)
-    }
-    return null
-  }
+  // const handleFia = () => {
+  //   if (typeof window !== 'undefined' && isFia) {
+  //     handleCallToAction(true)
+  //   }
+  //   return null
+  // }
 
   const onSubmitForm = state => {
     const { remail, rpass } = state
@@ -235,7 +235,7 @@ const FormRegister = props => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_success_registrarme`
         )
-        handleFia()
+        // handleFia()
       })
       .catch(errLogin => {
         setShowError(getCodeError(errLogin.code))
@@ -519,104 +519,111 @@ const FormRegister = props => {
                         </S.Title>
                       )}
 
-                      {(typeDialog === 'premium' ||
-                        typeDialog === 'paywall') && (
-                        <>
-                          {showUserWithSubs ? (
-                            <>
-                              <S.Text
-                                c="gray"
-                                s="14"
-                                lh="28"
-                                className="mt-10 mb-20 center">
-                                Sigue disfrutando del contenido exclusivo que
-                                tenemos para ti
-                              </S.Text>
+                      {(typeDialog === 'premium' || typeDialog === 'paywall') &&
+                        !showContinueVerify && (
+                          <>
+                            {showUserWithSubs ? (
+                              <>
+                                <S.Text
+                                  c="gray"
+                                  s="14"
+                                  lh="28"
+                                  className="mt-10 mb-20 center">
+                                  Sigue disfrutando del contenido exclusivo que
+                                  tenemos para ti
+                                </S.Text>
 
+                                <S.Button
+                                  id="btn-premium-continue"
+                                  type="button"
+                                  color={mainColorBtn}
+                                  onClick={() => {
+                                    Taggeo(
+                                      `Web_${typeDialog}_Hard`,
+                                      `web_${typeDialog}_boton_sigue_navegando`
+                                    )
+                                    if (
+                                      window.sessionStorage.getItem(
+                                        'paywall_last_url'
+                                      ) &&
+                                      window.sessionStorage.getItem(
+                                        'paywall_last_url'
+                                      ) !== ''
+                                    ) {
+                                      window.location.href = window.sessionStorage.getItem(
+                                        'paywall_last_url'
+                                      )
+                                    } else {
+                                      onClose()
+                                    }
+                                  }}>
+                                  SIGUE NAVEGANDO
+                                </S.Button>
+                              </>
+                            ) : (
                               <S.Button
-                                id="btn-premium-continue"
                                 type="button"
                                 color={mainColorBtn}
                                 onClick={() => {
                                   Taggeo(
-                                    `Web_${typeDialog}_Hard`,
-                                    `web_${typeDialog}_boton_sigue_navegando`
+                                    `Web_Sign_Wall_${typeDialog}`,
+                                    `web_sw${typeDialog[0]}_boton_ver_planes`
                                   )
-                                  if (
-                                    window.sessionStorage.getItem(
-                                      'paywall_last_url'
-                                    ) &&
-                                    window.sessionStorage.getItem(
-                                      'paywall_last_url'
-                                    ) !== ''
-                                  ) {
-                                    window.location.href = window.sessionStorage.getItem(
-                                      'paywall_last_url'
-                                    )
-                                  } else {
-                                    onClose()
-                                  }
+                                  handleSuscription()
                                 }}>
-                                SIGUE NAVEGANDO
+                                VER PLANES
                               </S.Button>
-                            </>
-                          ) : (
-                            <S.Button
-                              type="button"
-                              color={mainColorBtn}
-                              onClick={() => {
-                                Taggeo(
-                                  `Web_Sign_Wall_${typeDialog}`,
-                                  `web_sw${typeDialog[0]}_boton_ver_planes`
+                            )}
+                          </>
+                        )}
+
+                      {showContinueVerify && (
+                        <>
+                          <S.Text
+                            c="gray"
+                            s="14"
+                            lh="22"
+                            className="mt-10 mb-20 center">
+                            Revisa tu bandeja de correo para confirmar tu
+                            {showContinueVerify
+                              ? ` registro y sigue navegando`
+                              : ` solicitud de registro`}
+                          </S.Text>
+                          <S.Button
+                            type="button"
+                            color={mainColorBtn}
+                            onClick={() => {
+                              Taggeo(
+                                `Web_Sign_Wall_${typeDialog}`,
+                                `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                              )
+                              if (typeDialog === 'students') {
+                                if (showContinueVerify) {
+                                  value.changeTemplate('login', '', remail)
+                                } else {
+                                  setShowStudents(!showStudents)
+                                }
+                              } else {
+                                const btnSignwall = document.getElementById(
+                                  'signwall-nav-btn'
                                 )
-                                handleSuscription()
-                              }}>
-                              VER PLANES
-                            </S.Button>
-                          )}
+                                if (
+                                  typeDialog === 'newsletter' &&
+                                  btnSignwall
+                                ) {
+                                  btnSignwall.textContent = 'Bienvenido'
+                                }
+                                if (showContinueVerify) {
+                                  value.changeTemplate('login', '', remail)
+                                } else {
+                                  onClose()
+                                }
+                              }
+                            }}>
+                            CONTINUAR
+                          </S.Button>
                         </>
                       )}
-
-                      <S.Text
-                        c="gray"
-                        s="14"
-                        lh="22"
-                        className="mt-10 mb-20 center">
-                        Revisa tu bandeja de correo para confirmar tu
-                        {showContinueVerify
-                          ? ` registro y sigue navegando`
-                          : ` solicitud de registro`}
-                      </S.Text>
-                      <S.Button
-                        type="button"
-                        color={mainColorBtn}
-                        onClick={() => {
-                          Taggeo(
-                            `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`
-                          )
-                          if (typeDialog === 'students') {
-                            if (showContinueVerify) {
-                              value.changeTemplate('login', '', remail)
-                            } else {
-                              setShowStudents(!showStudents)
-                            }
-                          } else {
-                            const btnSignwall = document.getElementById(
-                              'signwall-nav-btn'
-                            )
-                            if (typeDialog === 'newsletter' && btnSignwall) {
-                              btnSignwall.textContent = 'Bienvenido'
-                            }
-                            if (showContinueVerify) {
-                              value.changeTemplate('login', '', remail)
-                            } else {
-                              onClose()
-                            }
-                          }
-                        }}>
-                        CONTINUAR
-                      </S.Button>
 
                       {showContinueVerify && (
                         <S.Text c="black" s="12" className="mt-20 mb-10 center">
