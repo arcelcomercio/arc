@@ -2,6 +2,7 @@ import React from 'react'
 import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import { removeLastSlash } from '../../../utilities/parse/strings'
+import { deleteQueryString } from '../../../utilities/parse/queries'
 import { GALLERY_SLIDER } from '../../../utilities/constants/subtypes'
 import { ELEMENT_GALLERY } from '../../../utilities/constants/element-types'
 import customFields from './_dependencies/custom-fields'
@@ -159,13 +160,13 @@ window.addEventListener('load', () => {requestIdle(() => {
     if(nextStory.link){
       // Se crea iframe y pushea nuevo registro al historial
       requestIdle(() => {
-        let nextUrl = nextStory.link + "?ref=nota&ft=cargacontinua&outputType=lite&story=" + storyCounter
+        let nextUrl = location.origin + "/carga-continua" + nextStory.link + "?ref=nota&ft=cargacontinua&outputType=lite&story=" + storyCounter
         nextUrl = context()
           ? nextUrl + "&_website=" + arcSite 
           : nextUrl
 
         const next = document.createElement('iframe')
-        next.src = location.origin + nextUrl
+        next.src = nextUrl
         next.width = "100%"
         next.height = "6000"
         next.id = "st-iframe-" + storyCounter
@@ -175,12 +176,6 @@ window.addEventListener('load', () => {requestIdle(() => {
         next.setAttribute("data-index", storyCounter)
 
         observedElement.insertAdjacentElement('afterEnd', next)
-        window.dataLayer.push({ 
-          'event': 'carga_continua',
-          'storyTitle': nextStory.title,
-          'storyLink': nextStory.link,
-          'storyNumber': storyCounter
-        });
 
         // Observa la noticia actual
         storiesListObserver(storyCounter)
@@ -238,6 +233,7 @@ const StoryContinueLite = props => {
   const { taxonomy: { primary_section: { path = '' } = {}, tags = [] } = {} } =
     globalContent || {}
   const { slug: tag = '' } = tags[0] || {}
+  const cleanRequestUri = deleteQueryString(requestUri)
 
   const tagStories =
     useContent({
@@ -286,7 +282,7 @@ const StoryContinueLite = props => {
     // Filtra las historias que no son Galeria horizontal
     return (
       !/^\/(somos|archivo-elcomercio)\//.test(websiteUrl) &&
-      requestUri !== websiteUrl &&
+      cleanRequestUri !== websiteUrl &&
       ((type === ELEMENT_GALLERY && story.subtype !== GALLERY_SLIDER) ||
         (type !== ELEMENT_GALLERY && story.subtype === GALLERY_SLIDER))
     )
@@ -314,7 +310,7 @@ const StoryContinueLite = props => {
     ),
   }
 
-  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="<<recentStoriesrecentStoriesrecentStories>>",t=JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{},n=document.getElementById("st-continue-0");window.dataLayer=window.dataLayer||[];window.addEventListener("message",function(e){var t=e.origin,n=e.source,i=e.data,o=void 0===i?{}:i;if(t===window.location.origin)if("story_iframe"===o.id)requestIdle(function(){var e=n.location.search.match(/story=([0-9]{1,2})/)||{},t=e&&e[1];if(t){var i=document.getElementById("st-iframe-"+t)||{};i.height!==o.storyHeight&&(i.height=o.storyHeight||i.height)}});else if("iframe_signwall"===o.id)window.location.href=o.redirectUrl;else if("iframe_paywall"===o.id){document.getElementById("signwall-app").className="active-signwall",document.getElementsByTagName("body")[0].style.overflow="hidden"}},!1),t.section&&window.sessionStorage.removeItem("_recent_articles_"),function(t){void 0===t&&(t={});var n=t,i=n.section;n.data;window.sessionStorage.setItem("_recent_articles_",JSON.stringify({section:i,data:e.data}))}(e);var i=0,o=1,r=0,a=(JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},s=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e=!0)}return e}()?[].concat(a.storiesBySectionPremium,a.storiesByTag):[].concat(a.storiesByTag,a.storiesBySection);s.unshift({title:document.title,link:location.pathname});var c=function(){return location.href.includes("/pf")},d=function(e){void 0===e&&(e=0),requestIdle(function(){if("IntersectionObserver"in window){var t=null;e<=0?(t=document.getElementById("contenedor")).setAttribute("data-index",0):e>0&&(t=document.getElementById("st-iframe-"+e));var n=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&setTimeout(function(){var t,n,r=parseInt(e.target.dataset.index);if(i===r){o=e.intersectionRatio;var a=e.target.contentWindow.document.documentElement.offsetHeight+"px";e.target.height!==a&&(e.target.height=a)}else e.intersectionRatio>o&&(i=r,o=e.intersectionRatio,t=s[i],n=i,document.title=t.title,history.pushState({story:n},t.title,c()?"/pf"+t.link:t.link))},1)})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()});t&&n.observe(t)}})},l=(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),function(e){var t=s[r+=1]||{};t.link&&(requestIdle(function(){var n=t.link+"?ref=nota&ft=cargacontinua&outputType=lite&story="+r;n=c()?n+"&_website=<<arcSite>>":n;var i=document.createElement("iframe");i.src=location.origin+n,i.width="100%",i.height="6000",i.id="st-iframe-"+r,i.className="st-iframe",i.frameborder="0",i.scrolling="no",i.setAttribute("data-index",r),e.insertAdjacentElement("afterEnd",i),window.dataLayer.push({event:"carga_continua",storyTitle:t.title,storyLink:t.link,storyNumber:r}),d(r)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+r,e.style.height="10px",document.getElementById("st-iframe-"+r).insertAdjacentElement("afterEnd",e),u(e)}))}),u=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(l(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 1000px 0px"});t.observe(e)}else window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-1e3&&window.removeEventListener("scroll",function(){e(t)}),l(t)}(e)})};u(n),d(0)})});`
+  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="<<recentStoriesrecentStoriesrecentStories>>",t=JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{},n=document.getElementById("st-continue-0");window.dataLayer=window.dataLayer||[];window.addEventListener("message",function(e){var t=e.origin,n=e.source,i=e.data,o=void 0===i?{}:i;if(t===window.location.origin)if("story_iframe"===o.id)requestIdle(function(){var e=n.location.search.match(/story=([0-9]{1,2})/)||{},t=e&&e[1];if(t){var i=document.getElementById("st-iframe-"+t)||{};i.height!==o.storyHeight&&(i.height=o.storyHeight||i.height)}});else if("iframe_signwall"===o.id)window.location.href=o.redirectUrl;else if("iframe_paywall"===o.id){document.getElementById("signwall-app").className="active-signwall",document.getElementsByTagName("body")[0].style.overflow="hidden"}},!1),t.section&&window.sessionStorage.removeItem("_recent_articles_"),function(t){void 0===t&&(t={});var n=t,i=n.section;n.data;window.sessionStorage.setItem("_recent_articles_",JSON.stringify({section:i,data:e.data}))}(e);var i=0,o=1,r=0,a=(JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},s=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e=!0)}return e}()?[].concat(a.storiesBySectionPremium,a.storiesByTag):[].concat(a.storiesByTag,a.storiesBySection);s.unshift({title:document.title,link:location.pathname});var c=function(){return location.href.includes("/pf")},d=function(e){void 0===e&&(e=0),requestIdle(function(){if("IntersectionObserver"in window){var t=null;e<=0?(t=document.getElementById("contenedor")).setAttribute("data-index",0):e>0&&(t=document.getElementById("st-iframe-"+e));var n=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&setTimeout(function(){var t,n,r=parseInt(e.target.dataset.index);if(i===r){o=e.intersectionRatio;var a=e.target.contentWindow.document.documentElement.offsetHeight+"px";e.target.height!==a&&(e.target.height=a)}else e.intersectionRatio>o&&(i=r,o=e.intersectionRatio,t=s[i],n=i,document.title=t.title,history.pushState({story:n},t.title,c()?"/pf"+t.link:t.link))},1)})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()});t&&n.observe(t)}})},l=(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),function(e){var t=s[r+=1]||{};t.link&&(requestIdle(function(){var n=location.origin+"/carga-continua"+t.link+"?ref=nota&ft=cargacontinua&outputType=lite&story="+r;n=c()?n+"&_website=<<arcSite>>":n;var i=document.createElement("iframe");i.src=n,i.width="100%",i.height="6000",i.id="st-iframe-"+r,i.className="st-iframe",i.frameborder="0",i.scrolling="no",i.setAttribute("data-index",r),e.insertAdjacentElement("afterEnd",i),d(r)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+r,e.style.height="10px",document.getElementById("st-iframe-"+r).insertAdjacentElement("afterEnd",e),u(e)}))}),u=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(l(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 1000px 0px"});t.observe(e)}else window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-1e3&&window.removeEventListener("scroll",function(){e(t)}),l(t)}(e)})};u(n),d(0)})});`
     .replace('<<arcSite>>', arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',
