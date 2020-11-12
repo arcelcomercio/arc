@@ -80,6 +80,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
           if (profile.emailVerified) {
             Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
             onLogged(profile) // para hendrul
+            setShowVerify(false)
             Taggeo(
               `Web_Sign_Wall_${typeDialog}`,
               `web_sw${typeDialog[0]}_login_success_ingresar`
