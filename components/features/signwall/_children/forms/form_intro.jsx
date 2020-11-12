@@ -1,15 +1,13 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
 import Markdown from 'react-markdown/with-html'
+import { useContent } from 'fusion:content'
 import * as S from './styles'
 import { ModalConsumer } from '../context'
 import Loading from '../loading'
 import Domains from '../../_dependencies/domains'
 import Taggeo from '../../_dependencies/taggeo'
 
-export const FormIntro = ({
-  getContent,
+const FormIntro = ({
   arcSite,
   typeDialog,
   removeBefore = i => i,
@@ -17,44 +15,33 @@ export const FormIntro = ({
 }) => {
   const [showLoading, setShowLoading] = useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = useState(false)
-  const [resCampaing, setResCampaing] = useState({})
-  const [showFree, setShowFree] = useState(null)
 
-  useEffect(() => {
-    const { fetched } = getContent('paywall-campaing')
-    fetched.then(resCam => {
-      const getPLanSelected = resCam.plans.reduce((prev, plan) => {
-        return plan.description.checked ? plan : prev
-      }, {})
-
-      setResCampaing({
-        paywallPrice: getPLanSelected.amount || '-',
-        paywallFrecuency: getPLanSelected.billingFrequency || '-',
-        paywallTitle:
-          (getPLanSelected.description && getPLanSelected.description.title) ||
-          '-',
-        paywallDescripcion:
-          (getPLanSelected.description &&
-            getPLanSelected.description.description) ||
-          '-',
-        featuresDescription: resCam.summary.feature || [],
-        printAttributes: resCam.printAttributes || [],
-      })
-      setShowFree(getPLanSelected.amount === 0)
-      setShowLoading(false)
-    })
-  }, [])
-
-  useEffect(() => {
-    if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
-      setShowPaywallBtn(true)
-    }
-  }, [])
+  const { summary: { feature = [] } = {}, plans = [], printAttributes = [] } =
+    useContent({
+      source: 'paywall-campaing',
+    }) || {}
 
   const frecuency = {
     Month: 'al mes',
     Year: 'al año',
   }
+
+  const getPLanSelected = plans.reduce((prev, plan) => {
+    return plan.description.checked ? plan : prev
+  }, null)
+
+  const {
+    amount = '',
+    billingFrequency = '',
+    description: { title = '', description = '' } = {},
+  } = getPLanSelected || {}
+
+  useEffect(() => {
+    setShowLoading(false)
+    if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
+      setShowPaywallBtn(true)
+    }
+  }, [])
 
   const handleSuscription = () => {
     switch (typeDialog) {
@@ -74,7 +61,7 @@ export const FormIntro = ({
         window.sessionStorage.setItem('paywall_last_url', '/')
     }
 
-    removeBefore() // dismount before
+    removeBefore()
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
     window.location.href = Domains.getUrlPaywall(arcSite)
   }
@@ -89,31 +76,29 @@ export const FormIntro = ({
             <>
               <S.ContPaywall>
                 <div className="cont-price-detail">
-                  {showFree ? (
+                  {amount === 0 ? (
                     <div className="price-middle">
                       <h3>Gratis</h3>
                     </div>
                   ) : (
                     <div className="price">
                       <i>s/</i>
-                      {resCampaing.paywallPrice}
+                      {amount}
                     </div>
                   )}
                   <div
                     className={
-                      showFree ? 'detail-price-middle' : 'detail-price'
+                      amount === 0 ? 'detail-price-middle' : 'detail-price'
                     }>
-                    {!showFree && (
+                    {amount !== 0 && (
                       <p>
-                        <strong>
-                          {frecuency[resCampaing.paywallFrecuency]}
-                        </strong>
+                        <strong>{frecuency[billingFrequency]}</strong>
                       </p>
                     )}
                     <p>
-                      <strong>{resCampaing.paywallTitle}</strong>
+                      <strong>{title}</strong>
                     </p>
-                    <p>{resCampaing.paywallDescripcion}</p>
+                    <p>{description}</p>
                   </div>
                 </div>
 
@@ -124,7 +109,7 @@ export const FormIntro = ({
                     </h3>
 
                     <ul className="list-benefits mb-20">
-                      {resCampaing.featuresDescription.map(item => {
+                      {feature.map(item => {
                         return <li key={item}>{item}</li>
                       })}
                     </ul>
@@ -181,7 +166,7 @@ export const FormIntro = ({
                 c="gray"
                 s={typeDialog === 'premium' ? '12' : '15'}
                 className="mt-20 mb-10 center">
-                {resCampaing.printAttributes.map(item => {
+                {printAttributes.map(item => {
                   if (item.name === 'subscriber_title_popup') {
                     return item.value
                   }
@@ -195,7 +180,7 @@ export const FormIntro = ({
                 className={`center note-premium ${
                   arcSite === 'elcomercio' ? 'mb-10' : ''
                 }`}>
-                {resCampaing.printAttributes.map(item => {
+                {printAttributes.map(item => {
                   if (item.name === 'subscriber_detail_popup') {
                     return (
                       <div className="sub-paragraph">
@@ -218,3 +203,5 @@ export const FormIntro = ({
     </ModalConsumer>
   )
 }
+
+export default FormIntro

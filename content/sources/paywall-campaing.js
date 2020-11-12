@@ -37,8 +37,9 @@ const fetch = (key = {}) => {
     uri: url,
     json: true,
   }).then(data => {
+    const validCampaing = data.campaign || data.campaigns[0]
+    const campaignCode = (validCampaing && validCampaing.name) || ''
     const {
-      campaign: { name: campaignCode },
       subscriber = {},
       error,
       attributes: printAttributes,
