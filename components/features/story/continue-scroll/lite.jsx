@@ -298,15 +298,20 @@ const StoryContinueLite = props => {
         }) => ({ link: websiteUrl, title: basic })
       )
   }
+
+  const existTagStories = tag && tagElements && tagElements[0]
   const filteredStories = {
     storiesByTag: tag ? filterStories(tagElements).slice(0, 5) : [],
     // storiesByTag: [{link:'/tecnologia/ciencias/un-entierro-en-los-andes-peruanos-muestra-que-las-mujeres-prehistoricas-tambien-cazaban-noticia/',title:'TECNOLOGIA'},
     // {link:'/politica/congreso/martin-vizcarra-manuel-merino-de-lama-congreso-no-adelanta-sesion-y-vacancia-se-vera-el-lunes-noticia/',title:'TITLO1'},
     // {link:'/economia/peru/ejecutivo-aprueba-norma-para-dar-garantias-a-majes-siguas-ii-cuando-podria-destrabarse-el-proyecto-en-el-sur-minagri-jorge-montenegro-noticia/',title:'TITLO2'}],
-    storiesBySection: filterStories(sectionElements).slice(0, tag ? 5 : 10),
+    storiesBySection: filterStories(sectionElements).slice(
+      0,
+      existTagStories ? 5 : 10
+    ),
     storiesBySectionPremium: filterStories(sectionElementsPremium).slice(
       0,
-      tag ? 5 : 10
+      existTagStories ? 5 : 10
     ),
   }
 
