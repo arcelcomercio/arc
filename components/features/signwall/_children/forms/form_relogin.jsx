@@ -10,7 +10,6 @@ import useForm from '../../_dependencies/useForm'
 import getCodeError from '../../_dependencies/codes_error'
 import Domains from '../../_dependencies/domains'
 import Cookies from '../../_dependencies/cookies'
-import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
 
 export const FormRelogin = ({
@@ -18,12 +17,15 @@ export const FormRelogin = ({
   siteProperties: {
     signwall: { mainColorLink, mainColorBtn, authProviders = [] },
     activeNewsletter = false,
+    activeVerifyEmail = false,
   },
   onClose,
   typeDialog,
 }) => {
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
+  const [showVerify, setShowVerify] = useState()
+  const [showSendEmail, setShowSendEmail] = useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -50,74 +52,11 @@ export const FormRelogin = ({
     },
   }
 
-  const taggeoSuccess = () => {
-    Taggeo(
-      `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_email_login_success`
-    )
-  }
-
   const taggeoError = () => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_email_login_error`
     )
-  }
-
-  const handleGetProfile = () => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile().then(profile => {
-      Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
-      onClose()
-    })
-  }
-
-  const pushStateRelogin = (email, password) => {
-    setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.login(email, password, {
-      rememberMe: true,
-      cookie: true,
-    })
-      .then(() => {
-        handleGetProfile()
-        taggeoSuccess()
-      })
-      .catch(errReLogin => {
-        setShowError(getCodeError(errReLogin.code))
-        taggeoError()
-      })
-      .finally(() => {
-        setShowLoading(false)
-      })
-  }
-
-  const sendEmailPass = (email, password) => {
-    setShowLoading(true)
-    Services.reloginEcoID(
-      email,
-      password,
-      typeDialog === 'relogin' ? 'relogin' : 'reloginemail',
-      arcSite,
-      window
-    )
-      .then(resEco => {
-        if (resEco.retry) {
-          setTimeout(() => {
-            pushStateRelogin(email, password)
-          }, 1000)
-        } else {
-          setShowError(getCodeError('300040'))
-          taggeoError()
-        }
-      })
-      .catch(() => {
-        setShowError(getCodeError('000000'))
-        taggeoError()
-      })
-      .finally(() => {
-        setShowLoading(false)
-      })
   }
 
   const onSubmitForm = state => {
@@ -129,33 +68,79 @@ export const FormRelogin = ({
       cookie: true,
     })
       .then(() => {
-        handleGetProfile()
-        Taggeo(
-          `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_email_login_success_ingresar`
-        )
+        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.getUserProfile().then(profile => {
+          if (activeVerifyEmail && !profile.emailVerified) {
+            setShowLoading(false)
+            setShowError(getCodeError('130051'))
+            setShowVerify(true)
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_email_login_show_reenviar_correo`
+            )
+            window.localStorage.removeItem('ArcId.USER_INFO')
+            window.localStorage.removeItem('ArcId.USER_PROFILE')
+            window.Identity.userProfile = null
+            window.Identity.userIdentity = {}
+          } else {
+            Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_email_login_success_ingresar`
+            )
+            onClose()
+          }
+        })
       })
       .catch(errLogin => {
-        if (errLogin.code === '300040' || errLogin.code === '300037') {
-          sendEmailPass(remail, rpass)
+        setShowError(getCodeError(errLogin.code))
+        setShowVerify(errLogin.code === '130051')
+        if (errLogin.code === '130051') {
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_email_login_show_reenviar_correo`
+          )
         } else {
-          setShowError(getCodeError(errLogin.code))
           taggeoError()
         }
-        Cookies.setCookie('lostEmail', remail, 1)
       })
       .finally(() => {
         setShowLoading(false)
       })
   }
 
-  const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    stateValidatorSchema,
-    onSubmitForm
-  )
+  const {
+    values: { remail, rpass },
+    errors: { remail: remailError, rpass: rpassError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
-  const { remail, rpass } = values
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(remail)
+    Taggeo(
+      `Web_Sign_Wall_${typeDialog}`,
+      `web_sw${typeDialog[0]}_email_login_reenviar_correo`
+    )
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
+
+  const triggerShowVerify = () => {
+    setShowError(getCodeError('verifySocial'))
+    setShowVerify(false)
+  }
 
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
@@ -167,7 +152,25 @@ export const FormRelogin = ({
             Ingresa con
           </S.Text>
 
-          {showError && <S.Error>{showError}</S.Error>}
+          {showError && (
+            <S.Error type={showVerify ? 'warning' : ''}>
+              {` ${showError} `}
+              {showVerify && (
+                <>
+                  {!showSendEmail ? (
+                    <button type="button" onClick={sendVerifyEmail}>
+                      Reenviar correo de activación
+                    </button>
+                  ) : (
+                    <span>
+                      Podrás reenviar nuevamente dentro de
+                      <strong id="countdown"> 10 </strong> segundos
+                    </span>
+                  )}
+                </>
+              )}
+            </S.Error>
+          )}
 
           <Input
             type="email"
@@ -180,7 +183,7 @@ export const FormRelogin = ({
               handleOnChange(e)
               setShowError(false)
             }}
-            error={errors.remail}
+            error={remailError}
           />
 
           <Input
@@ -194,7 +197,7 @@ export const FormRelogin = ({
               handleOnChange(e)
               setShowError(false)
             }}
-            error={errors.rpass}
+            error={rpassError}
           />
 
           <S.Link
@@ -238,6 +241,7 @@ export const FormRelogin = ({
               arcSite={arcSite}
               typeForm="relogin"
               activeNewsletter={activeNewsletter}
+              showMsgVerify={() => triggerShowVerify()}
             />
           ))}
 

@@ -124,6 +124,7 @@ export default {
   activePaywall: false,
   activeRulesCounter: false,
   activeNewsletter: false,
+  activeVerifyEmail: false,
   signwall: {
     mainColorBg: '#007c31',
     mainColorTxt: '#ffffff',

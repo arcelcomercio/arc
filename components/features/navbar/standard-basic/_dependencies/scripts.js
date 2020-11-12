@@ -2,8 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   requestIdle(() => {
     const localProfile = JSON.parse(
-      window.localStorage.getItem('ArcId.USER_PROFILE') ||
-        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      window.localStorage.getItem('ArcId.USER_PROFILE') 
     )
     const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
     document.getElementById("signwall-nav-btn").addEventListener("click", () => {
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 export const singwallScript =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName&&"undefined"!==e.firstName.toLowerCase()?e.firstName:"",t=void 0===n?"":n,a=e.lastName&&"undefined"!==e.lastName.toLowerCase()?e.lastName:"",c=void 0===a?"":a,o=document.getElementById("signwall-nav-user"),i=document.getElementById("signwall-nav-icon");if(t||c){var s="",d="";t&&c?(s="".concat(t," ").concat(c),d="".concat(t[0]||"").concat(c[0]||"")):t&&!c?d="".concat((s=t)[0]||"").concat(t[1]||""):!t&&c&&(d="".concat((s=c)[0]||"").concat(c[1]||"")),o.innerHTML=15<=s.length?"".concat(s.slice(0,15),"..."):s,i.innerHTML=d,i.className="uppercase"}else o.innerHTML=e.uuid?"Bienvenido Usuario":"Iniciar"})});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||{},n=e.firstName&&"undefined"!==e.firstName.toLowerCase()?e.firstName:"",t=void 0===n?"":n,a=e.lastName&&"undefined"!==e.lastName.toLowerCase()?e.lastName:"",c=void 0===a?"":a,o=document.getElementById("signwall-nav-user"),i=document.getElementById("signwall-nav-icon");if(t||c){var s="",d="";t&&c?(s="".concat(t," ").concat(c),d="".concat(t[0]||"").concat(c[0]||"")):t&&!c?d="".concat((s=t)[0]||"").concat(t[1]||""):!t&&c&&(d="".concat((s=c)[0]||"").concat(c[1]||"")),o.innerHTML=15<=s.length?"".concat(s.slice(0,15),"..."):s,i.innerHTML=d,i.className="uppercase"}else o.innerHTML=e.uuid?"Bienvenido Usuario":"Iniciar"})});'
 
 export const getQueryReloginEmailScript = (_env, arcSite) => `"use strict";
 document.addEventListener('DOMContentLoaded', function () {
@@ -180,8 +179,7 @@ export const getBtnSubsScript = (
     const checkSession = () => {
       if (typeof window !== 'undefined') {
         const profileStorage =
-          window.localStorage.getItem('ArcId.USER_PROFILE') ||
-          window.sessionStorage.getItem('ArcId.USER_PROFILE')
+          window.localStorage.getItem('ArcId.USER_PROFILE')
         const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
         if (profileStorage) {
           return !(profileStorage === 'null' || sesionStorage === '{}') || false
@@ -215,7 +213,7 @@ export const getBtnSignScript = (
   requestIdle(function(){
     var checkSession = function checkSession() {
       if (typeof window !== 'undefined') {
-        var profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE') || window.sessionStorage.getItem('ArcId.USER_PROFILE');
+        var profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE');
         var sesionStorage = window.localStorage.getItem('ArcId.USER_INFO');
         if (profileStorage) {
           return !(profileStorage === 'null' || sesionStorage === '{}') || false;

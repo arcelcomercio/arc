@@ -76,7 +76,6 @@
 //     }
 
 //     const sendVerifyEmail = () => {
-//       window.console.log('enviar correoa', email)
 //       requestVerifyEmail(email)
 //       Taggeo('Web_Sign_Wall_Organico', 'web_swo_cintillo_reenviar_correo')
 //       let timeleft = 9
@@ -121,7 +120,6 @@
 //     document
 //       .getElementById('signwall-cintillo-close')
 //       .addEventListener('click', () => {
-//         window.console.log('cerrar cintillo')
 //         divCintillo.style.display = 'none'
 //         setCookie('show_confirm_notice', 'false', 1)
 //       })

@@ -77,13 +77,13 @@ export const FormReset = ({
       })
   }
 
-  const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    stateValidatorSchema,
-    onSubmitForm
-  )
-
-  const { rpass, rconfirmpass } = values
+  const {
+    values: { rpass, rconfirmpass },
+    errors: { rpass: rpassError, rconfirmpass: rconfirmpassError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
   const checkFormatOne = e => {
     if (e.target.value.indexOf(' ') >= 0) {
@@ -139,7 +139,7 @@ export const FormReset = ({
                     setShowError(false)
                     checkFormatOne(e)
                   }}
-                  error={errors.rpass || showFormatInvalidOne}
+                  error={rpassError || showFormatInvalidOne}
                 />
 
                 <Input
@@ -154,7 +154,7 @@ export const FormReset = ({
                     setShowError(false)
                     checkFormatTwo(e)
                   }}
-                  error={errors.rconfirmpass || showFormatInvalidTwo}
+                  error={rconfirmpassError || showFormatInvalidTwo}
                 />
 
                 <S.Button

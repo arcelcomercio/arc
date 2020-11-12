@@ -6,7 +6,7 @@ import addScriptAsync from '../../../_dependencies/script-async'
 import Subs from '../resume/_children/subs'
 import { Wrapper, ResumeDates, Title } from '../../styled'
 import { ModalConsumer } from '../../../_children/context'
-import { FormIntro } from '../../../_children/forms/form_intro'
+import FormIntro from '../../../_children/forms/form_intro'
 
 @Consumer
 class Subscription extends Component {
@@ -84,11 +84,7 @@ class Subscription extends Component {
                       </div>
 
                       <div className="last-plan">
-                        <FormIntro
-                          getContent={this.getContent.bind(this)}
-                          arcSite={arcSite}
-                          typeDialog="organico"
-                        />
+                        <FormIntro arcSite={arcSite} typeDialog="organico" />
                       </div>
                     </div>
                   </ResumeDates>
