@@ -38,14 +38,13 @@ const MatchBox = ({
   resultadoFinal,
   puntos,
   // refreshMatchs,
-  matchStatus, 
+  matchStatus,
   USUARIO,
   MEDIA_BASE,
   API_BASE,
 }) => {
-
   const estado = matchStatus
-  
+
   const localGoles = useRef('')
   const visitaGoles = useRef('')
 
@@ -75,10 +74,10 @@ const MatchBox = ({
   const dateLabel = `${dateObj.getDate()}/${dateObj.getMonth() + 1}`
 
   const registroPronostico = event => {
-    if(estado === 1){
+    if (estado === 0 || estado === 1) {
       const url = `${API_BASE}usuario/${USUARIO}/pronostico/${id}`
-      const pronostico = `${localGoles.current.value || '0'}-${visitaGoles.current
-        .value || '0'}`
+      const pronostico = `${localGoles.current.value || '0'}-${visitaGoles
+        .current.value || '0'}`
       fetch(url, {
         method: 'POST',
         headers: {
@@ -106,7 +105,10 @@ const MatchBox = ({
 
   return (
     <div className={classes.box} uuid={id}>
-      <div className={(estado === 3 || estado === 2) ? classes.end_match : classes.match}>
+      <div
+        className={
+          estado === 3 || estado === 2 ? classes.end_match : classes.match
+        }>
         <div className={classes.header}>
           <span className={classes.group}>{jornada}</span>
           <span className={classes.stadium}>
@@ -130,7 +132,7 @@ const MatchBox = ({
                 ref={localGoles}
                 className={classes.input}
                 defaultValue={equipo1Goles}
-                readOnly={(estado === 2 || estado === 3)}
+                readOnly={estado === 2 || estado === 3}
               />
             </div>
             <div className={classes.form_row}>
@@ -150,7 +152,7 @@ const MatchBox = ({
                 ref={visitaGoles}
                 className={classes.input}
                 defaultValue={equipo2Goles}
-                readOnly={(estado === 2 || estado === 3)}
+                readOnly={estado === 2 || estado === 3}
               />
               <span className={classes.team_text}>
                 <img src={MEDIA_BASE + equipo2Bandera} alt={equipo2} />

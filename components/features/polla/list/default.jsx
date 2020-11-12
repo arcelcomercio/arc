@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ENV from 'fusion:environment'
 import MatchBox from './_children/item'
 import customFields from './_dependencies/custom-fields'
 
@@ -14,8 +15,11 @@ const MEDIA_BASE = 'https://resultadosopta.minoticia.pe/'
 const ANONIMO = '6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c'
 // const USUARIO = 'f7b1822e77b2091584248e377df3fe50f32082e3'
 // const API_BASE = 'http://localhost:8000/depor/'
-const API_BASE =
-  'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/'
+
+let API_BASE = 'https://dsnvo9xv4g.execute-api.us-east-1.amazonaws.com/dev/depor/'
+if(ENV.ENVIRONMENT === 'elcomercio'){
+  API_BASE = 'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/'
+}
 
 const Polla = (props) => {
 
