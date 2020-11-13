@@ -68,6 +68,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               !resProfile.emailVerified &&
               resProfile.displayName === resProfile.email
             ) {
+              // bloquea hasta verificar email
               setLoading(false)
               setMsgError(getCodeError('130051'))
               setShowVerify(true)
