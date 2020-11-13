@@ -1,0 +1,19 @@
+.premium {
+  &__wrapper {
+    margin-bottom: 10px;
+    width: fit-content;
+    max-width: 160px;
+    height: 22px;
+    padding: 5px;
+    border-radius: 2px;
+    background-color: #f7c603;
+  }
+  &__text {
+    font-size: 10px;
+    text-transform: uppercase;
+    padding-top: 2px;
+    color: #000;
+    font-weight: 700;
+    font-family: $secondary-font !important;
+  }
+}

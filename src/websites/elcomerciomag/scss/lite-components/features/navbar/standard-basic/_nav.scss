@@ -1,0 +1,50 @@
+.nav {
+  &__mobile-logo {
+    display: none;
+  }
+  &__search-box {
+    height: 20px;
+    border-right: 1px solid #000;
+    display: flex;
+  }
+  &__sl {
+    height: 0;
+    width: 0;
+  }
+  &__i-search {
+    height: 30px;
+    outline: none;
+    padding: 5px;
+    padding-right: 40px;
+    text-indent: 0;
+    border-radius: 4px;
+    transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
+    will-change: width;
+    width: 0;
+    &.active {
+      border: 1px solid #000;
+      padding-left: 8px;
+      width: 200px;
+    }
+  }
+  &__btn--search {
+    padding: 6px 10px;
+    outline: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  &__list {
+    padding-left: 15px;
+  }
+  &__list-container {
+    height: 46px;
+  }
+  &__list-item {
+    padding-right: 15px;
+  }
+  &__list-link {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,51 @@
+.most-read {
+  content-visibility: auto;
+  contain-intrinsic-size: 380px;
+
+  @media (--desktop) {
+    margin: 0;
+  }
+
+  &__title {
+    font: 700 15px/26px $primary-font;
+    background-color: #000;
+    text-transform: capitalize;
+    height: 35px;
+    align-items: center;
+    padding: 0 20px;
+  }
+  &__link {
+    color: #fff;
+  }
+  &__logo {
+    padding-right: 10px;
+  }
+  &__item {
+    border-bottom: 1px solid #000;
+    margin: 0 20px;
+    padding: 20px 0;
+    &:last-child {
+      border-width: 0;
+    }
+  }
+  &__multimedia {
+    height: 72px;
+    margin-right: 9px;
+  }
+  &__img {
+    width: 110px;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+  &__txt {
+    font: 400 13px/1.3333 $secondary-font;
+    letter-spacing: 0;
+    opacity: 1;
+    color: #333;
+    max-height: 69px;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

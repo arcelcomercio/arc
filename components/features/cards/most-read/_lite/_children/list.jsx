@@ -21,14 +21,21 @@ const CardMostReadChildList = props => {
     arcSite,
   } = props
   const { editableField } = useEditableContent()
-  const logoSidebar = `${getAssetsPath(
-    arcSite,
-    contextPath
-  )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
+
+  const logoSidebar =
+    arcSite === 'elcomercio'
+      ? `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
+      : ''
+
   return (
     <div role="list" className={classes.mostRead}>
       <h4 itemProp="name" className={classes.title}>
-        <img className={classes.logo} alt="logo" src={logoSidebar}></img>
+        {logoSidebar && (
+          <img className={classes.logo} alt="logo" src={logoSidebar}></img>
+        )}
 
         <span {...editableField('customTitle')}>
           <a

@@ -1,0 +1,105 @@
+.minuto_minuto {
+  &,
+  .st-sidebar__container,
+  .st-sidebar__content {
+    background: #f4f4f4 0% 0% no-repeat padding-box;
+  }
+  & .mundoactualidad {
+    padding-bottom: 20px;
+  }
+  & .sht__summary {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+  }
+
+  & .live-event2-comment {
+    background: #fff 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    text-align: left;
+    font: normal normal normal 18px/24px $tertiary-font;
+    letter-spacing: 0;
+    padding-right: 20px;
+    p {
+      padding-right: 12px;
+      padding-top: 15px;
+    }
+    & .share-btn {
+      margin-right: 0;
+    }
+  }
+  & strong {
+    text-align: left;
+    font: normal normal bold 16px/30px $primary-font;
+    letter-spacing: 0.16px;
+    line-height: 0;
+    color: #333;
+  }
+  & .live-event-image {
+    width: 100%;
+  }
+  & .icon-compartir {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    top: 5px;
+  }
+  & .more-compartir,
+  .fijado {
+    position: relative;
+  }
+  & .hidden {
+    display: none;
+  }
+  .block {
+    display: block;
+  }
+  & .story-content__list-more {
+    position: absolute;
+    right: 0;
+    width: 55px;
+    top: 27px;
+    z-index: 9;
+    background-color: #fff;
+    box-shadow: 2px 6px 7px rgba(25, 57, 22, 0.2);
+  }
+
+  & .story-content__item {
+    margin-bottom: 10px;
+  }
+  & .live-event-minute {
+    padding-right: 7px;
+  }
+  & .breaking-news {
+    border-left: 3px solid #000;
+  }
+
+  & .b-news__icon {
+    fill: #000;
+    display: none;
+  }
+  & .b-news__tag {
+    font-family: $primary-font;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    border-right: 1px solid #707070;
+    padding-right: 8px;
+    margin-right: 10px;
+    @media (--only-mobile) {
+      border-right: 0;
+    }
+  }
+  & .b-news__title {
+    font-family: $primary-font;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    @media (--only-mobile) {
+      float: left;
+      margin-top: 10px;
+    }
+  }
+}
