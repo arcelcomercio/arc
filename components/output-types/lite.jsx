@@ -403,7 +403,7 @@ const LiteOutput = ({
             <OpenGraph {...openGraphData} />
           </>
         )}
-        <MetaStory {...metaPageData} />
+        <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
         )}

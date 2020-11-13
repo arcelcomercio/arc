@@ -4,8 +4,10 @@ import getProperties from 'fusion:properties'
 
 import { getAssetsPath } from '../../../utilities/assets'
 import HeaderContinuousChild from './_lite/_children/header'
+import customFields from './_dependencies/custom-fields'
 
-const HeaderContinuous = () => {
+const HeaderContinuous = props => {
+  const { customFields: { hideAnchor } = {} } = props
   const {
     arcSite,
     requestUri,
@@ -43,11 +45,17 @@ const HeaderContinuous = () => {
       title={title}
       siteDomain={siteDomain}
       mainImage={mainImage}
+      hideAnchor={hideAnchor}
       isSomos={isSomos}
     />
   )
 }
 
 HeaderContinuous.label = 'Cabecera Continua'
+HeaderContinuous.static = true
+
+HeaderContinuous.propTypes = {
+  customFields,
+}
 
 export default HeaderContinuous
