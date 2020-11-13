@@ -13,8 +13,8 @@ const customFields = PropTypes.shape({
     name: 'Navegación con slider',
     defaultValue: false,
   }),
-  isContinuous: PropTypes.bool.tag({
-    name: 'Cabecera nota continua',
+  activeSticky: PropTypes.bool.tag({
+    name: 'Activar sticky a Ads laterales',
     defaultValue: false,
   }),
   tags: PropTypes.string.tag({

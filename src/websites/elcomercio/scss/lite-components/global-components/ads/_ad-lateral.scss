@@ -1,3 +1,6 @@
+$lateralRX: calc((980px / 2) + (160px / 2));
+$lateralLX: calc((-980px / 2) - (160px / 2));
+
 .ad-lateral {
   // NO TOCAR
   width: 0;
@@ -15,13 +18,20 @@
     top: 0;
 
     &--r {
-      transform: translateX(calc((980px / 2) + (160px / 2)));
+      transform: translateX($lateralRX);
+      &.scrolled {
+        transform: translate($lateralRX, -#{$header-height});
+      }
     }
     &--l {
-      transform: translateX(calc((-980px / 2) - (160px / 2)));
+      transform: translateX($lateralLX);
+      &.scrolled {
+        transform: translate($lateralLX, -#{$header-height});
+      }
     }
     &--wide {
       top: $header-height;
+      transition: transform 0.1s;
     }
     // validacion IE @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {}
   }

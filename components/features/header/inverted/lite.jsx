@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import { getAssetsPath } from '../../../utilities/assets'
 import customFields from './_dependencies/custom-fields'
@@ -15,9 +15,9 @@ const HeaderBasic = props => {
     siteProperties,
     requestUri,
     metaValue,
-  } = useFusionContext()
+  } = useAppContext()
   const {
-    customFields: { hideMenu, isContinuous },
+    customFields: { hideMenu, activeSticky },
   } = props
 
   const {
@@ -61,7 +61,6 @@ const HeaderBasic = props => {
 
   const params = {
     hideMenu,
-    isContinuous,
     menuSections,
     arcSite,
     contextPath,
@@ -69,6 +68,7 @@ const HeaderBasic = props => {
     mainImage,
     title,
     isSomos,
+    activeSticky,
   }
 
   return <HeaderBasicChildren {...params} />
