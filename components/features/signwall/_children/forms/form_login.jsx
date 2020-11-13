@@ -205,7 +205,11 @@ export const FormLogin = ({ valTemplate, attributes }) => {
       .then(() => {
         window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
         window.Identity.getUserProfile().then(resProfile => {
-          if (activeVerifyEmail && !resProfile.emailVerified) {
+          if (
+            activeVerifyEmail &&
+            !resProfile.emailVerified &&
+            resProfile.displayName === resProfile.email
+          ) {
             setShowLoading(false)
             setShowError(getCodeError('130051'))
             setShowVerify(true)

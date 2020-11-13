@@ -64,14 +64,10 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
       })
         .then(() => {
           window.Identity.getUserProfile().then(resProfile => {
-            if (resProfile.emailVerified) {
-              activateAuth(resProfile)
-              updateStep(2)
-              if (isFia) {
-                handleCallToAction(true)
-              }
-              Taggeo(nameTagCategory, 'web_swl_login_success_ingresar')
-            } else {
+            if (
+              !resProfile.emailVerified &&
+              resProfile.displayName === resProfile.email
+            ) {
               setLoading(false)
               setMsgError(getCodeError('130051'))
               setShowVerify(true)
@@ -80,6 +76,13 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               window.localStorage.removeItem('ArcId.USER_PROFILE')
               window.Identity.userProfile = null
               window.Identity.userIdentity = {}
+            } else {
+              activateAuth(resProfile)
+              updateStep(2)
+              if (isFia) {
+                handleCallToAction(true)
+              }
+              Taggeo(nameTagCategory, 'web_swl_login_success_ingresar')
             }
           })
         })
