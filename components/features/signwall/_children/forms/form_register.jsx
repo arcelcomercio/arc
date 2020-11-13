@@ -577,7 +577,7 @@ const FormRegister = props => {
                           </>
                         )}
 
-                      {showContinueVerify && (
+                      {(showContinueVerify || !activeVerifyEmail) && (
                         <>
                           <S.Text
                             c="gray"
