@@ -525,7 +525,7 @@ class StoryData {
 
     const result = videosContent.concat(promoItemsVideo).filter(String)
     return result.filter(el => {
-      return el && el.thumbnail_url ? el : ''
+      return el && el.urlImage ? el : ''
     })
   }
 

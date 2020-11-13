@@ -242,6 +242,16 @@ const FormRequest = ({ arcSite, showCode }) => {
     }
   }
 
+  const isLogged = () => {
+    if (typeof window !== 'undefined') {
+      return (
+        window.localStorage.getItem('ArcId.USER_INFO') &&
+        window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
+      )
+    }
+    return false
+  }
+
   const onSubmitForm = state => {
     setShowLoading(true)
     const { uemail, ugrade, uday, umonth, uyear } = state
@@ -257,38 +267,48 @@ const FormRequest = ({ arcSite, showCode }) => {
         umonth < 10 ? `0${umonth.toString()}` : umonth.toString()
       }-${uday < 10 ? `0${uday.toString()}` : uday.toString()}`
 
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      window.Identity.extendSession()
-        .then(resExtend => {
-          Services.checkStudents(
-            uemail,
-            udate,
-            ugrade,
-            arcSite,
-            resExtend.accessToken
-          )
-            .then(res => {
-              if (res.status) {
-                Cookies.setCookieSession(cookieStudents, {
-                  uemail,
-                  udate,
-                  ugrade,
-                })
-                showCode()
-              }
-              setShowError(res.message)
-            })
-            .catch(() => {
-              setShowError('Oops. Ocurrió un error inesperado.')
-            })
-            .finally(() => {
-              setShowLoading(false)
-            })
-        })
-        .catch(resErr => {
-          setShowLoading(false)
-          setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
-        })
+      if (isLogged()) {
+        const userCredentials = JSON.parse(
+          window.localStorage.getItem('ArcId.USER_INFO') || '{}'
+        )
+        window.Identity.userIdentity = userCredentials
+        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.extendSession()
+          .then(resExtend => {
+            Services.checkStudents(
+              uemail,
+              udate,
+              ugrade,
+              arcSite,
+              resExtend.accessToken
+            )
+              .then(res => {
+                if (res.status) {
+                  Cookies.setCookieSession(cookieStudents, {
+                    uemail,
+                    udate,
+                    ugrade,
+                  })
+                  showCode()
+                }
+                setShowError(res.message)
+              })
+              .catch(() => {
+                setShowError('Oops. Ocurrió un error inesperado.')
+              })
+              .finally(() => {
+                setShowLoading(false)
+              })
+          })
+          .catch(resErr => {
+            setShowLoading(false)
+            setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
+          })
+      } else {
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      }
     } else {
       setShowLoading(false)
       setShowError('La Fecha de Nacimiento no es válida')

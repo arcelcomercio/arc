@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import ENV from 'fusion:environment'
 import MatchBox from './_children/item'
 import customFields from './_dependencies/custom-fields'
 
@@ -14,15 +15,20 @@ const MEDIA_BASE = 'https://resultadosopta.minoticia.pe/'
 const ANONIMO = '6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c'
 // const USUARIO = 'f7b1822e77b2091584248e377df3fe50f32082e3'
 // const API_BASE = 'http://localhost:8000/depor/'
-const API_BASE =
-  'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/'
+
+let API_BASE = 'https://dsnvo9xv4g.execute-api.us-east-1.amazonaws.com/dev/depor/'
+if(ENV.ENVIRONMENT === 'elcomercio'){
+  API_BASE = 'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/'
+}
 
 const Polla = (props) => {
 
   const {
     customFields: { 
       anonymous = false, 
-      firstWeek = 1
+      firstWeek = 1, 
+      closeForecastMatchs = '', 
+      intervalTime = 30
     } = {}
   } = props
 
@@ -42,6 +48,7 @@ const Polla = (props) => {
 
   const [matchs, setMatchs] = useState([])
   const [validLoad, setValidLoad] = useState(false)
+  const [refreshInterval, setRefreshInterval] = useState(intervalTime)
 
   const getRemoteMatchs = () => {
     fetch(`${API_BASE}usuario/${USUARIO}/partidos?v=${new Date().getTime()}`)
@@ -73,10 +80,21 @@ const Polla = (props) => {
     }
   }
 
+  useEffect(() => {
+    let interval = null
+    if (refreshInterval && refreshInterval > 0) {
+      interval = setInterval(getRemoteMatchs, refreshInterval*1000);
+    }
+    return () => clearInterval(interval);
+  });
+
   const confs = { API_BASE, USUARIO, MEDIA_BASE }
 
   let jornadaActual = 0
+  const closeMatchs = closeForecastMatchs.split(',')
   let title = false
+  let weekView = false
+  // let iMatchView = 0
   const styleTitle = {
     clear: 'both'
   }
@@ -88,20 +106,36 @@ const Polla = (props) => {
         </div>
       </form>
       {matchs &&
-        matchs.map(match => {
+        matchs.map((match) => {
           title = false
+          weekView = false
+          let matchStatus = match.estado
           if(jornadaActual < match.jornada){
             title = true
             jornadaActual = match.jornada
           }
+
+          if(match.jornada >= firstWeek){
+            weekView = true
+            // iMatchView += 1
+          }
+
+          if((match.estado === 0 || match.estado === 1) && closeMatchs.includes(match.id)){
+            matchStatus = 2
+          }
+
+          // console.log(`======${match.jornada} - Match=====`)
+          // console.log(`${match.equipo1} / ${match.equipo2} -> Estado: ${match.estado} / matchStatus: ${matchStatus}`)
+          // console.log("=============================")
           return (
-            (match.jornada >= firstWeek) && (
+            (weekView) && (
               <>
               {(title === true) && (
                 <><div style={styleTitle}></div><h2 className="journeyTitle">Fecha {match.jornada}</h2></>
               )}
               <MatchBox
                 key={match.id}
+                matchStatus={matchStatus}
                 refreshMatchs={getRemoteMatchs}
                 {...confs}
                 {...match}

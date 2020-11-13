@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Portal from '../Profile/children/portal'
-import { LoadingGes, LoadingEco } from '../../../_dependencies/Icons'
+import Portal from '../payment/_children/Profile/children/portal'
+import { LoadingGes, LoadingEco } from '../_dependencies/Icons'
 
 function Loading({ arcSite }) {
   return (

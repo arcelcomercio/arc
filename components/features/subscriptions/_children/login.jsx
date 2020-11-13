@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import getCodeError, { formatEmail } from '../../../../_dependencies/Errors'
-import useForm from '../../../../_hooks/useForm'
-import { NavigateConsumer } from '../../../../_context/navigate'
-import { AuthContext } from '../../../../_context/auth'
-import { PropertiesCommon } from '../../../../_dependencies/Properties'
+import getCodeError, { formatEmail } from '../_dependencies/Errors'
+import useForm from '../_hooks/useForm'
+import { NavigateConsumer } from '../_context/navigate'
+import { AuthContext } from '../_context/auth'
+import { PropertiesCommon } from '../_dependencies/Properties'
 import ButtonSocial from './social'
-import { Taggeo } from '../../../../_dependencies/Taggeo'
-import { isFbBrowser } from '../../../../_dependencies/Utils'
+import { Taggeo } from '../_dependencies/Taggeo'
+import { isFbBrowser } from '../_dependencies/Utils'
 
 const styles = {
   title: 'step__left-title',
@@ -25,15 +25,17 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Login = ({ arcSite }) => {
+const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   const { activateAuth, updateStep } = useContext(AuthContext)
   const [loading, setLoading] = useState()
   const [msgError, setMsgError] = useState()
+  const [showVerify, setShowVerify] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
+  const [showSendEmail, setShowSendEmail] = useState(false)
   const { texts } = PropertiesCommon
 
   const stateSchema = {
-    lemail: { value: '', error: '' },
+    lemail: { value: contTempl || '', error: '' },
     lpass: { value: '', error: '' },
   }
 
@@ -62,15 +64,34 @@ const Login = ({ arcSite }) => {
       })
         .then(() => {
           window.Identity.getUserProfile().then(resProfile => {
-            activateAuth(resProfile)
-            updateStep(2)
-            Taggeo(nameTagCategory, 'web_swl_login_success_ingresar')
+            if (resProfile.emailVerified) {
+              activateAuth(resProfile)
+              updateStep(2)
+              if (isFia) {
+                handleCallToAction(true)
+              }
+              Taggeo(nameTagCategory, 'web_swl_login_success_ingresar')
+            } else {
+              setLoading(false)
+              setMsgError(getCodeError('130051'))
+              setShowVerify(true)
+              Taggeo(nameTagCategory, 'web_swl_login_show_reenviar_correo')
+              window.localStorage.removeItem('ArcId.USER_INFO')
+              window.localStorage.removeItem('ArcId.USER_PROFILE')
+              window.Identity.userProfile = null
+              window.Identity.userIdentity = {}
+            }
           })
         })
         .catch(err => {
           setMsgError(getCodeError(err.code))
+          setShowVerify(err.code === '130051')
           setLoading(false)
-          Taggeo(nameTagCategory, 'web_swl_login_error_ingresar')
+          if (err.code === '130051') {
+            Taggeo(nameTagCategory, 'web_swl_login_show_reenviar_correo')
+          } else {
+            Taggeo(nameTagCategory, 'web_swl_login_error_ingresar')
+          }
         })
     }
   }
@@ -93,6 +114,28 @@ const Login = ({ arcSite }) => {
     else setShowHidePass('password')
   }
 
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(lemail)
+    Taggeo(nameTagCategory, 'web_swl_login_reenviar_correo')
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
+
+  const triggerShowVerify = () => {
+    setMsgError(getCodeError('verifySocial'))
+    setShowVerify(false)
+  }
+
   return (
     <NavigateConsumer>
       {value => (
@@ -105,12 +148,14 @@ const Login = ({ arcSite }) => {
               arcSocial="facebook"
               arcSite={arcSite}
               arcType="login"
+              showMsgVerify={() => triggerShowVerify()}
             />
             {!isFbBrowser() && (
               <ButtonSocial
                 arcSocial="google"
                 arcSite={arcSite}
                 arcType="login"
+                showMsgVerify={() => triggerShowVerify()}
               />
             )}
           </div>
@@ -121,7 +166,27 @@ const Login = ({ arcSite }) => {
 
           {msgError && (
             <div className={styles.block}>
-              <div className="msg-alert">{msgError}</div>
+              <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
+                {` ${msgError} `}
+                {showVerify && (
+                  <>
+                    <br />
+                    {!showSendEmail ? (
+                      <button
+                        className="step__btn-link"
+                        type="button"
+                        onClick={sendVerifyEmail}>
+                        {texts.reSendEmail}
+                      </button>
+                    ) : (
+                      <span>
+                        {texts.youCanSendEmail}
+                        <strong id="countdown"> 10 </strong> segundos
+                      </span>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           )}
 

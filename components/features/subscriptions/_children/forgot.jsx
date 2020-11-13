@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import useForm from '../../../../_hooks/useForm'
-import getCodeError, { formatEmail } from '../../../../_dependencies/Errors'
-import { MsgForgotPass } from '../../../../_dependencies/Icons'
-import { NavigateConsumer } from '../../../../_context/navigate'
-import { PropertiesCommon } from '../../../../_dependencies/Properties'
-import { Taggeo } from '../../../../_dependencies/Taggeo'
+import useForm from '../_hooks/useForm'
+import getCodeError, { formatEmail } from '../_dependencies/Errors'
+import { MsgForgotPass } from '../_dependencies/Icons'
+import { NavigateConsumer } from '../_context/navigate'
+import { PropertiesCommon } from '../_dependencies/Properties'
+import { Taggeo } from '../_dependencies/Taggeo'
 
 const styles = {
   title: 'step__left-title',
@@ -23,6 +23,8 @@ const Forgot = () => {
   const [msgError, setMsgError] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [registerLink, setRegisterLink] = useState()
+  const [showVerify, setShowVerify] = useState()
+  const [showSendEmail, setShowSendEmail] = useState(false)
   const { texts } = PropertiesCommon
 
   const stateSchema = {
@@ -46,10 +48,16 @@ const Forgot = () => {
           Taggeo(nameTagCategory, 'web_swl_contrasena_success_boton')
         })
         .catch(err => {
-          setMsgError(getCodeError(err.code))
           setRegisterLink(err.code === '300030')
+          setShowVerify(err.code === '130051')
           setLoading(false)
-          Taggeo(nameTagCategory, 'web_swl_contrasena_error_boton')
+          if (err.code === '130051') {
+            setMsgError(getCodeError('verifyReset'))
+            Taggeo(nameTagCategory, 'web_swl_contrasena_show_reenviar_correo')
+          } else {
+            setMsgError(getCodeError(err.code))
+            Taggeo(nameTagCategory, 'web_swl_contrasena_error_boton')
+          }
         })
     }
   }
@@ -67,6 +75,23 @@ const Forgot = () => {
     setMsgError(false)
   }
 
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(femail)
+    Taggeo(nameTagCategory, 'web_swl_contrasena_reenviar_correo')
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
+
   return (
     <NavigateConsumer>
       {value => (
@@ -77,8 +102,9 @@ const Forgot = () => {
               <h3 className={styles.subTitle}>{texts.subtitleForgot}</h3>
               {msgError && (
                 <div className={styles.block}>
-                  <div className="msg-alert">
+                  <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
                     {` ${msgError} `}
+
                     {registerLink && (
                       <button
                         className={styles.link}
@@ -86,6 +112,25 @@ const Forgot = () => {
                         onClick={() => value.changeTemplate('register')}>
                         Registrar
                       </button>
+                    )}
+
+                    {showVerify && (
+                      <>
+                        <br />
+                        {!showSendEmail ? (
+                          <button
+                            className="step__btn-link"
+                            type="button"
+                            onClick={sendVerifyEmail}>
+                            {texts.reSendEmail}
+                          </button>
+                        ) : (
+                          <span>
+                            {texts.youCanSendEmail}
+                            <strong id="countdown"> 10 </strong> segundos
+                          </span>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
@@ -133,7 +178,7 @@ const Forgot = () => {
             </>
           ) : (
             <div className={styles.center}>
-              <MsgForgotPass bgcolor="#fff" />
+              <MsgForgotPass bgcolor="#fff" style={{ marginBottom: '20px' }} />
               <h2 className={styles.title}>Correo enviado</h2>
               <h3 className={styles.subTitle}>{texts.msgForgotOk}</h3>
               <div className={styles.block}>
@@ -141,7 +186,7 @@ const Forgot = () => {
                   className={styles.btn}
                   type="button"
                   onClick={() => {
-                    value.changeTemplate('login')
+                    value.changeTemplate('login', femail)
                     Taggeo(nameTagCategory, 'web_swl_contrasena_boton_aceptar')
                   }}>
                   Aceptar

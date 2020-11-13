@@ -1,10 +1,11 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { PureComponent, useEffect } from 'react'
 import Consumer from 'fusion:consumer'
 import { ModalProvider, ModalConsumer } from '../../../_children/context'
 import { FormLogin } from '../../../_children/forms/form_login'
-import { FormIntro } from '../../../_children/forms/form_intro'
+import FormIntro from '../../../_children/forms/form_intro'
 import { FormForgot } from '../../../_children/forms/form_forgot'
-import { FormRegister } from '../../../_children/forms/form_register'
+import FormRegister from '../../../_children/forms/form_register'
 import Taggeo from '../../../_dependencies/taggeo'
 import QueryString from '../../../_dependencies/querystring'
 
@@ -19,10 +20,10 @@ import {
 import { Modal } from '../../../_children/modal/index'
 import { Close } from '../../../_children/iconos'
 
-const renderTemplate = (template, attributes) => {
+const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
     intro: <FormIntro {...attributes} />,
-    login: <FormLogin {...attributes} />,
+    login: <FormLogin {...{ valTemplate, attributes }} />,
     forgot: <FormForgot {...attributes} />,
     register: <FormRegister {...attributes} />,
   }
@@ -31,7 +32,6 @@ const renderTemplate = (template, attributes) => {
     setTimeout(() => {
       QueryString.deleteQuery('signPaywall')
     }, 2000)
-
     return templates.login
   }
 
@@ -41,7 +41,6 @@ const renderTemplate = (template, attributes) => {
 export const PaywallInt = props => {
   const {
     onClose,
-    pathSourcePNG,
     arcSite,
     typeDialog,
     siteProperties: {
@@ -89,7 +88,9 @@ export const PaywallInt = props => {
                 }}>
                 <Close />
               </CloseBtn>
-              <FirstMiddle pathSourcePNG={pathSourcePNG} arcSite={arcSite}>
+              <FirstMiddle
+                pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342`}
+                arcSite={arcSite}>
                 <ContPaywall>
                   <p>
                     {typeDialog === 'paywall'
@@ -111,7 +112,7 @@ export const PaywallInt = props => {
                 </ContPaywall>
               </FirstMiddle>
               <SecondMiddle>
-                {renderTemplate(value.selectedTemplate, {
+                {renderTemplate(value.selectedTemplate, value.valTemplate, {
                   removeBefore,
                   ...props,
                 })}
@@ -127,18 +128,9 @@ export const PaywallInt = props => {
 @Consumer
 class Paywall extends PureComponent {
   render() {
-    const { contextPath, deployment, arcSite } = this.props
-
-    const pathSourcePNG =
-      deployment(
-        `${contextPath}/resources/dist/${arcSite}/images/paywall_bg.jpg`
-      ) || ''
-
     return (
       <PaywallInt
         {...this.props}
-        pathSourcePNG={pathSourcePNG}
-        getContent={this.getContent.bind(this)}
         addEventListener={this.addEventListener.bind(this)}
         removeEventListener={this.removeEventListener.bind(this)}
       />

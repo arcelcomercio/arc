@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react'
 import * as Sentry from '@sentry/browser'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext, AuthProvider } from '../_context/auth'
-import { NavigateProvider } from '../_context/navigate'
+// import { NavigateProvider } from '../_context/navigate'
 import {
   PropertiesSite,
   PropertiesCommon,
@@ -10,7 +10,7 @@ import {
 } from '../_dependencies/Properties'
 import { FooterSubs, FooterLand } from '../_layouts/footer'
 import { clearUrlAPI, createExternalScript } from '../_dependencies/Utils'
-import { LogIntoAccountEventTag } from './_children/Singwall/_children/fb-account-linking'
+import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import HeaderSubs from '../_layouts/header'
 import Singwall from './_children/Singwall'
 import Summary from './_children/Summary'
@@ -21,7 +21,7 @@ import addScriptAsync from '../_dependencies/Async'
 import stylesPayment from '../_styles/Payment'
 import scriptsPayment from '../_scripts/Payment'
 import PWA from '../_dependencies/Pwa'
-import Loading from './_children/Loading'
+import Loading from '../_layouts/loading'
 import {
   Container,
   Wrapper,
@@ -90,41 +90,39 @@ const WrapperPaymentSubs = () => {
       {userLoading && <Loading arcSite={arcSite} />}
       <HeaderSubs {...{ userProfile, arcSite }} />
       <Container>
-        <NavigateProvider>
-          {userLoading === false &&
-            userLoaded &&
-            userProfile &&
-            userStep === 2 && (
-              <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
-            )}
-          <Wrapper>
-            {!userLoading && (
-              <PanelLeft>
-                {freeAccess ? (
-                  <Confirmation />
-                ) : (
-                  <>
-                    {(() => {
-                      switch (userStep) {
-                        case 2:
-                          return userLoaded ? <Profile /> : <Singwall />
-                        case 3:
-                          return userLoaded ? <Pay /> : <Singwall />
-                        case 4:
-                          return userLoaded ? <Confirmation /> : <Singwall />
-                        default:
-                          return <Singwall />
-                      }
-                    })()}
-                  </>
-                )}
-              </PanelLeft>
-            )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
-            </PanelRight>
-          </Wrapper>
-        </NavigateProvider>
+        {userLoading === false &&
+          userLoaded &&
+          userProfile &&
+          userStep === 2 && (
+            <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
+          )}
+        <Wrapper>
+          {!userLoading && (
+            <PanelLeft>
+              {freeAccess ? (
+                <Confirmation />
+              ) : (
+                <>
+                  {(() => {
+                    switch (userStep) {
+                      case 2:
+                        return userLoaded ? <Profile /> : <Singwall />
+                      case 3:
+                        return userLoaded ? <Pay /> : <Singwall />
+                      case 4:
+                        return userLoaded ? <Confirmation /> : <Singwall />
+                      default:
+                        return <Singwall />
+                    }
+                  })()}
+                </>
+              )}
+            </PanelLeft>
+          )}
+          <PanelRight>
+            {userStep !== 4 && !freeAccess && <Summary />}
+          </PanelRight>
+        </Wrapper>
       </Container>
       {!freeAccess && <FooterSubs />}
       <FooterLand {...{ arcType }} />
