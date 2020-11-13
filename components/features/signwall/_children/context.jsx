@@ -8,24 +8,27 @@ class ModalProvider extends Component {
     this.state = {
       selectedTemplate: 'intro',
       idTemplate: '0',
+      valTemplate: '',
     }
   }
 
-  changeTemplate = (val, id) => {
+  changeTemplate = (val, id, valTeml) => {
     this.setState({
       selectedTemplate: val,
       idTemplate: id,
+      valTemplate: valTeml,
     })
   }
 
   render() {
     const { children } = this.props
-    const { selectedTemplate, idTemplate } = this.state
+    const { selectedTemplate, idTemplate, valTemplate } = this.state
     return (
       <Provider
         value={{
           selectedTemplate,
           idTemplate,
+          valTemplate,
           changeTemplate: this.changeTemplate,
         }}>
         {children}

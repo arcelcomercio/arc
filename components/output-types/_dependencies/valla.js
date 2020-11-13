@@ -75,10 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const checkSession = () => {
       if (typeof window !== 'undefined') {
-        const profileStorage =
-          window.localStorage.getItem('ArcId.USER_PROFILE') ||
-          window.sessionStorage.getItem('ArcId.USER_PROFILE')
-
+        const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
         const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
         if (profileStorage) {
           return !(profileStorage === 'null' || sesionStorage === '{}') || false

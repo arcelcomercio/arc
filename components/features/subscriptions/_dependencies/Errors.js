@@ -58,7 +58,7 @@ const getCodeError = (code, status) => {
       return 'Correo electrónico y/o contraseña incorrecta.'
 
     case '130051':
-      return 'El Correo electrónico no ha sido verificado.'
+      return 'Activa tu cuenta para iniciar sesión'
 
     case '100014':
     case '300014':
@@ -134,6 +134,12 @@ const getCodeError = (code, status) => {
 
     case 'errorFinalize':
       return 'Ocurrió un error al finalizar la compra con ARC'
+
+    case 'verifyReset':
+      return 'Activa tu cuenta para resetear la contraseña'
+
+    case 'verifySocial':
+      return 'El Correo Electrónico asociado a tu red social no está verificado. Contáctate al Call Center: 311-5100.'
 
     default:
       return 'Ocurrió un error inesperado.'

@@ -4,11 +4,14 @@ const { Provider, Consumer } = createContext()
 
 const NavigateProvider = ({ children }) => {
   const [selectedTemplate, setSelectedTemplate] = useState('login')
+  const [valueTemplate, setValueTemplate] = useState()
 
   const value = {
     selectedTemplate,
-    changeTemplate: val => {
-      setSelectedTemplate(val)
+    valueTemplate,
+    changeTemplate: (template, content) => {
+      setSelectedTemplate(template)
+      setValueTemplate(content)
     },
   }
 

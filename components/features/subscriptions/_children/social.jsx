@@ -1,25 +1,19 @@
 import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-} from '../../../../_dependencies/Properties'
-import getDevice from '../../../../_dependencies/GetDevice'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
+import getDevice from '../_dependencies/GetDevice'
 import {
   Capitalize,
   setLocaleStorage,
   isFbBrowser,
-} from '../../../../_dependencies/Utils'
-import { AuthContext } from '../../../../_context/auth'
-import { Taggeo } from '../../../../_dependencies/Taggeo'
-import {
-  loginSocialEco,
-  sendNewsLettersUser,
-} from '../../../../_dependencies/Services'
+} from '../_dependencies/Utils'
+import { AuthContext } from '../_context/auth'
+import { Taggeo } from '../_dependencies/Taggeo'
+import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const ButtonSocial = ({ arcSocial, arcSite, arcType }) => {
+const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
   const { activateAuth, updateStep } = useContext(AuthContext)
@@ -36,7 +30,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType }) => {
             resProfile.email ||
             `${resProfile.identities[0].userName}@${arcSocial}.com`
 
-          if (!resProfile.displayName && !resProfile.attributes) {
+          if (!resProfile.attributes) {
             const newProfileFB = {
               firstName: resProfile.firstName.replace(/\./g, ''),
               lastName: resProfile.lastName.replace(/\./g, ''),
@@ -150,6 +144,10 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType }) => {
             window.Identity.userIdentity = resloginSocialEco
             setupUserProfile()
           } else {
+            if (resloginSocialEco.code && resloginSocialEco.code === '130051') {
+              showMsgVerify()
+            }
+            setLoading(false)
             window.removeEventListener('message', authSocialProvider)
             window.removeEventListener('onmessage', authSocialProvider)
           }

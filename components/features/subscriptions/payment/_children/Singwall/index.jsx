@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
-import Login from './_children/login'
-import Register from './_children/register'
-import Forgot from './_children/forgot'
-import { NavigateConsumer } from '../../../_context/navigate'
+import Login from '../../../_children/login'
+import Register from '../../../_children/register'
+import Forgot from '../../../_children/forgot'
+import { NavigateProvider, NavigateConsumer } from '../../../_context/navigate'
 import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
 import PWA from '../../../_dependencies/Pwa'
 import { isFbBrowser, getSessionStorage } from '../../../_dependencies/Utils'
 
-const renderTemplate = (template, site, isfia) => {
+const renderTemplate = (template, contTempl, attributes) => {
   const templates = {
-    login: <Login arcSite={site} fromFia={isfia} />,
-    register: <Register arcSite={site} fromFia={isfia} />,
-    forgot: <Forgot />,
+    login: <Login {...{ contTempl, ...attributes }} />,
+    register: <Register {...{ ...attributes }} />,
+    forgot: <Forgot {...{ ...attributes }} />,
   }
   return templates[template] || templates.login
 }
 
-const Singwall = () => {
+const WrapperSingwall = () => {
   const {
     arcSite,
     globalContent: { plans = [], printedSubscriber, fromFia },
@@ -63,10 +63,18 @@ const Singwall = () => {
 
   return (
     <NavigateConsumer>
-      {({ selectedTemplate }) => (
-        <>{renderTemplate(selectedTemplate, arcSite, fromFia)}</>
+      {({ selectedTemplate, valueTemplate }) => (
+        <>{renderTemplate(selectedTemplate, valueTemplate, { arcSite })}</>
       )}
     </NavigateConsumer>
+  )
+}
+
+const Singwall = () => {
+  return (
+    <NavigateProvider>
+      <WrapperSingwall />
+    </NavigateProvider>
   )
 }
 

@@ -12,7 +12,6 @@ import {
 import Logo from './_children/logo'
 import Taggeo from '../_dependencies/taggeo'
 import Loading from '../_children/loading'
-import Cookies from '../_dependencies/cookies'
 
 const Head = ({
   arcSite,
@@ -77,7 +76,6 @@ const Head = ({
                     `Web_Sign_Wall_${typeDialog}`,
                     `web_sw${typeDialog[0]}_boton_cerrar`
                   )
-                  Cookies.deleteCookie('lostEmail')
 
                   if (typeDialog === 'hard') {
                     window.location.href = '/?ref=signwall'

@@ -1,13 +1,21 @@
 .h-basic {
   background-color: $color-primary;
-  justify-content: space-between;
-  align-items: center;
   height: $header-height-m;
-  padding: 0 16px;
 
   @media (--desktop) {
-    padding: 0 20px;
     height: $header-height;
+  }
+
+  &__wrapper {
+    width: 100%;
+    padding: 0 16px;
+    @media (--tablet) {
+      max-width: 640px;
+    }
+    @media (--desktop) {
+      max-width: 980px;
+      padding: 0 20px;
+    }
   }
 
   &__btn {

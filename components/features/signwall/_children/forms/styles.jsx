@@ -48,7 +48,7 @@ export const Text = styled.p`
 export const Form = styled.form`
   width: 100%;
   background-color: inherit;
-  padding: ${props => (props.npadding ? '0px' : '10px 30px')};
+  padding: ${props => (props.npadding ? '0px' : '10px 25px')};
   box-sizing: border-box;
   display: block;
   ${props =>
@@ -339,9 +339,10 @@ export const ContPaywall = styled.div`
     }
   }
 `
+
 export const Error = styled.div`
-  background: #ff2b2b;
-  color: #fff;
+  background: ${props => (props.type === 'warning' ? '#f9d8a7' : '#ff2b2b')};
+  color: ${props => (props.type === 'warning' ? '#925700' : '#fff')};
   font-family: Libre Franklin, sans-serif;
   font-size: 12px;
   padding: 10px 10px;
@@ -350,4 +351,21 @@ export const Error = styled.div`
   margin-top: 5px;
   margin-bottom: 5px;
   line-height: 16px;
+  & button {
+    display: block;
+    padding: 0;
+    height: auto;
+    width: auto;
+    border: 0px;
+    font-weight: bold;
+    font-size: 12px;
+    background: inherit;
+    color: #925700;
+    cursor: pointer;
+    text-decoration: underline;
+    margin: 0 auto;
+  }
+  & span {
+    display: block;
+  }
 `

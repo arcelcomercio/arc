@@ -1,3 +1,6 @@
+$lateralRX: calc((980px / 2) + (160px / 2));
+$lateralLX: calc((-980px / 2) - (160px / 2));
+
 .ad-lateral {
   // NO TOCAR
   width: 0;
@@ -11,22 +14,26 @@
     width: 160px;
     flex-grow: 0;
     flex-shrink: 0;
-    position: sticky;
+    position: fixed;
     top: 0;
 
+    &--r {
+      transform: translateX($lateralRX);
+      &.scrolled {
+        transform: translate($lateralRX, -#{$header-height});
+      }
+    }
+    &--l {
+      transform: translateX($lateralLX);
+      &.scrolled {
+        transform: translate($lateralLX, -#{$header-height});
+      }
+    }
     &--wide {
-      top: calc(#{$header-height} + 10px);
+      top: $header-height;
+      transition: transform 0.1s;
     }
-
-    @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-      position: fixed;
-      &--r {
-        transform: translateX(calc((980px / 2) + (160px / 2)));
-      }
-      &--l {
-        transform: translateX(calc((-980px / 2) - (160px / 2)));
-      }
-    }
+    // validacion IE @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {}
   }
 }
 
