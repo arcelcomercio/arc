@@ -66,6 +66,7 @@ const StoryMultimediaLte = () => {
     completeImage: false,
     promoItemJwplayer,
     classImage: 's-multimedia',
+    lite: true,
   }
 
   return (
