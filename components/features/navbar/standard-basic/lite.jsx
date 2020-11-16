@@ -4,30 +4,17 @@ import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 
 import NavbarStandardLite from './_children/standard-lite'
-import Formatter from './_dependencies/formatter'
+import schemaFilter from './_dependencies/schema-filter'
+import { getAssetsPath } from '../../../utilities/assets'
 
 const LayoutNavbar = props => {
-  const {
-    contextPath,
-    arcSite,
-    deployment,
-    siteProperties: {
-      assets: { nav },
-    },
-  } = useFusionContext()
-
-  const formatter = new Formatter({
-    deployment,
-    contextPath,
-    nav,
-    arcSite,
-  })
+  const { contextPath, arcSite, deployment } = useFusionContext()
 
   const navbarData =
     useContent({
       source: 'navigation-by-hierarchy',
       query: { hierarchy: 'navbar-default' },
-      filter: formatter.getSchema(),
+      filter: schemaFilter,
     }) || []
 
   const {
@@ -39,12 +26,32 @@ const LayoutNavbar = props => {
     } = {},
   } = props
 
+  const getReourceImgPath = img => {
+    return deployment(
+      `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${img}`
+    )
+  }
+
+  const primaryLogos = {}
+
+  const secondaryLogos = {
+    elcomerciomag: getReourceImgPath('logo-143x60.png'),
+  }
+
   return (
     <NavbarStandardLite
       deviceList={{ showInDesktop, showInTablet, showInMobile }}
       navbarData={navbarData}
       hideMenu={hideMenu}
-      {...formatter.main().initParams()}
+      primaryLogo={primaryLogos[arcSite] || getReourceImgPath('white-logo.png')}
+      secondaryLogo={secondaryLogos[arcSite] || getReourceImgPath('logo.png')}
+      logoLeft={{
+        src: getReourceImgPath('otorongo.png'),
+        alt: arcSite,
+      }}
     />
   )
 }

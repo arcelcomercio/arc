@@ -1,11 +1,52 @@
 .nav {
-  &__mobile-logo {
+  z-index: 20;
+  background-color: #000;
+  height: 46px;
+  padding: 0 15px;
+  @media (--desktop) {
+    background-color: transparent;
+  }
+  &__p-logo {
+    display: block;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &__s-logo {
+    display: none;
+  }
+  &__story-title {
+    display: none;
+    color: #444;
+    padding: 0 15px;
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: $secondary-font;
+    margin: auto;
+    width: 300px;
+    @media (--desktop) {
+      position: absolute;
+      margin: 0;
+      left: 30%;
+      width: 460px;
+    }
+  }
+  &__story-social-network {
     display: none;
   }
   &__search-box {
     height: 20px;
     border-right: 1px solid #000;
-    display: flex;
+    display: none;
+    @media (--desktop) {
+      display: flex;
+    }
   }
   &__sl {
     height: 0;
@@ -39,6 +80,10 @@
   }
   &__list-container {
     height: 46px;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
   }
   &__list-item {
     padding-right: 15px;
@@ -46,5 +91,97 @@
   &__list-link {
     text-transform: uppercase;
     font-size: 0.8rem;
+  }
+  &__logo {
+    height: 50px;
+    padding: 10px 0;
+  }
+
+  &.active {
+    max-width: 980px;
+    width: 100%;
+    height: 46px;
+    position: fixed;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+
+    .nav__list-container {
+      display: none;
+    }
+    .nav__search-box {
+      display: none;
+    }
+    .nav__story-title {
+      display: -webkit-box;
+    }
+    .nav__story-social-network {
+      display: block;
+    }
+    .nav__s-logo {
+      @media (--desktop) {
+        display: block;
+        left: 20%;
+        top: 0;
+        transform: translateX(-50%);
+      }
+    }
+    .nav__p-logo {
+      display: none;
+    }
+  }
+}
+
+.story-header__link,
+.story-content__more-link {
+  border: 1px solid #333;
+  border-radius: 50%;
+  fill: #333;
+  line-height: 0;
+  padding: 0;
+  height: 23px;
+  width: 23px;
+  margin-right: 15px;
+  @media (--only-mobile) {
+    margin: 0;
+  }
+}
+
+.story-header__item {
+  @media (--only-mobile) {
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.story-content__more-link {
+  @media (--tablet) {
+    display: none;
+  }
+}
+
+@media (--only-mobile) {
+  .story-header__list {
+    background-color: #fff;
+    box-shadow: -1px 7px 11px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    padding: 10px;
+    position: absolute;
+    right: -10px;
+    top: 30px;
+    width: auto;
+    z-index: 1;
+    display: none;
+    &.active {
+      display: flex;
+    }
+  }
+}
+
+#icon-whatsapp {
+  @media (--tablet) {
+    display: none;
   }
 }
