@@ -17,7 +17,7 @@ $tertiary-font: $secondary-font;
 // @import "../../general-styles/components/features/layout/header/header";
 // @import "./scss/components/layout/header/header";
 // @import "./scss/lite-components/features/header/basic/h-basic";
-// @import "./scss/lite-components/features/story/author/story-author";
+// @import "./scss/lite-components/features/story/author/story-author"; //utilizan en la plantilla elcomerciomag-noticia-fotogaleria, pero no tiene resolver
 
 // Completados - en curso
 
@@ -26,13 +26,13 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/header/standard/header";
 @import "./scss/lite-components/features/navbar/standard-basic/nav";
 @import "./scss/lite-components/features/widgets/breaking-news/b-news";
+@import "./scss/lite-components/features/story/multimedia/multimedia";
 
 // TODO
 
 @import "./scss/lite-components/global-components/ads/ad-lateral";
 @import "./scss/lite-components/features/story/special-title/st-special-t";
 @import "./scss/lite-components/features/premium/premium";
-@import "./scss/lite-components/features/story/multimedia/multimedia";
 @import "./scss/lite-components/global-components/share/share";
 @import "./scss/lite-components/features/header/links-band/links-band";
 @import "./scss/lite-components/features/story/social/st-social";
