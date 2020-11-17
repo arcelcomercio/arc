@@ -242,9 +242,11 @@ class StoryContentAmp extends PureComponent {
                 dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
                 {isMag
-                  ? `${formatDateTime(
-                      displayDate
-                    )} | Actualizado ${formatDateTime(updateDate)}`
+                  ? `${formatDateTime(displayDate)} ${
+                      displayDate !== updateDate
+                        ? `| Actualizado ${formatDateTime(updateDate)}`
+                        : ''
+                    }`
                   : `Actualizado el ${formatDateTime(displayDate)}`}
               </time>
             </div>
