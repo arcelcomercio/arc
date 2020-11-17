@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { PureComponent, useEffect, useRef } from 'react'
 import Consumer from 'fusion:consumer'
 import { ModalProvider, ModalConsumer } from '../../../_children/context'
 import { FormLogin } from '../../../_children/forms/form_login'
 import { FormForgot } from '../../../_children/forms/form_forgot'
-import { FormRegister } from '../../../_children/forms/form_register'
+import FormRegister from '../../../_children/forms/form_register'
 import { FormReset } from '../../../_children/forms/form_reset'
 import { FormVerify } from '../../../_children/forms/form_verify'
 import { FormRelogin } from '../../../_children/forms/form_relogin'
@@ -13,11 +14,11 @@ import { Benefits } from '../../../_children/benefist/index'
 import { Modal } from '../../../_children/modal/index'
 import Taggeo from '../../../_dependencies/taggeo'
 
-const renderTemplate = (template, attributes) => {
+const renderTemplate = (template, valTemplate, attributes) => {
   const { typeDialog } = attributes
 
   const templates = {
-    login: <FormLogin {...attributes} />,
+    login: <FormLogin {...{ valTemplate, attributes }} />,
     register: <FormRegister {...attributes} />,
     forgot: <FormForgot {...attributes} />,
     reset: <FormReset {...attributes} />,
@@ -90,7 +91,9 @@ export const ContGeneric = props => {
                 </FirstMiddle>
               )}
               <SecondMiddle full={!activePaywall}>
-                {renderTemplate(value.selectedTemplate, { ...props })}
+                {renderTemplate(value.selectedTemplate, value.valTemplate, {
+                  ...props,
+                })}
               </SecondMiddle>
             </ContMiddle>
           </Modal>

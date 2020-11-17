@@ -23,6 +23,20 @@ export default `
             }
           }
         }
+        basic_jwplayer {
+          subtype
+          type
+          embed{
+            config{
+              thumbnail_url
+              resized_urls { 
+                landscape_xs
+                landscape_s
+                lazy_default 
+              }
+            }
+          }
+        }
         youtube_id {
           content
         }

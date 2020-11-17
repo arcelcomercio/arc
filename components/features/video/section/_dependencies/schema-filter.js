@@ -10,6 +10,21 @@ export const SchemaSingleStory = arcSite => {
     credits { by { name, url, id, type } }
     promo_items {
       basic { url type caption }
+      basic_jwplayer {
+        subtype
+        type
+        embed{
+          config{
+            key
+            thumbnail_url
+            resized_urls { 
+              landscape_xs
+              landscape_s
+              lazy_default 
+            }
+          }
+        }
+      }
       basic_video {
         _id
         additional_properties { 
@@ -49,6 +64,21 @@ export const SchemaMultiStory = arcSite => {
           }
           promo_items {
             basic { url type resized_urls { landscape_md lazy_default  } }
+          }
+        }
+        basic_jwplayer {
+          subtype
+          type
+          embed{
+            config{
+              key
+              thumbnail_url
+              resized_urls { 
+                landscape_xs
+                landscape_s
+                lazy_default 
+              }
+            }
           }
         }
         youtube_id {

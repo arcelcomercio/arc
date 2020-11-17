@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Video from './amp-video'
 import Html from './amp-html'
 import Imagen from './amp-image'
@@ -16,7 +17,6 @@ export default props => {
   } = props
   const imgTag = 'amp-img'
   const parameters = { data, imgTag, basicVideo, basicHtml }
-
   return (
     <>
       {basicHtml && <Html {...parameters} />}

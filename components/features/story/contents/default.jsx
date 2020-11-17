@@ -8,6 +8,7 @@ import ArcStoryContent, {
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../utilities/assets'
+
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
@@ -21,6 +22,7 @@ import {
   STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -93,6 +95,7 @@ class StoryContents extends PureComponent {
         ids: { opta },
         isDfp = false,
         siteUrl,
+        jwplayers = {},
       },
       isAdmin,
     } = this.props
@@ -126,6 +129,7 @@ class StoryContents extends PureComponent {
       authorSecond,
       authorEmailSecond,
       roleSecond: authorRoleSecond,
+      promoItemJwplayer,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -156,6 +160,7 @@ class StoryContents extends PureComponent {
       authorSecond,
       authorEmailSecond,
       authorRoleSecond,
+      promoItemJwplayer,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -221,12 +226,14 @@ class StoryContents extends PureComponent {
               )}
             </>
           )}
-          <Ads
-            adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
-            isDesktop={false}
-            isMobile
-            isDfp={isDfp}
-          />
+          {subtype !== GALLERY_VERTICAL && (
+            <Ads
+              adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
+              isDesktop={false}
+              isMobile
+              isDfp={isDfp}
+            />
+          )}
           <div
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}
@@ -291,6 +298,34 @@ class StoryContents extends PureComponent {
                         )}
                       </>
                     )
+                  }
+                  if (type === ELEMENT_CUSTOM_EMBED) {
+                    if (sub === VIDEO_JWPLAYER) {
+                      const {
+                        embed: {
+                          config: {
+                            key: mediaId = '',
+                            has_ads: hasAds = 0,
+                            account = 'gec',
+                            description = '',
+                          } = {},
+                        } = {},
+                      } = element
+                      const playerId = jwplayers[account] || jwplayers.gec
+                      const jwplayerId = hasAds
+                        ? playerId.playerAds
+                        : playerId.player
+                      return (
+                        <>
+                          <div
+                            className="jwplayer-lazy"
+                            id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                          <figcaption className="story-content__caption ">
+                            {description}
+                          </figcaption>
+                        </>
+                      )
+                    }
                   }
                   if (type === ELEMENT_GALLERY) {
                     return (

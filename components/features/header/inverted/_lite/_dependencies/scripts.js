@@ -24,44 +24,53 @@ export const searchScript =
   'document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){var e=document.getElementById("h-basic_search-btn");e.addEventListener("click",function(){var t=document.getElementById("h-basic_search-input");if(t.value){var n=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/"+n+"/todas/descendiente/?query="+n}else"150px"===t.style.width?(t.style="",e.style=""):(t.style="width:150px;padding: 5px 8px;",e.style="background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;")})})});'
 
 /* document.addEventListener('DOMContentLoaded', () => {
-  if ('IntersectionObserver' in window) {
+  requestIdle(() => {
+    const laterales = [].slice.call(document.getElementsByClassName('ad-lateral'))
     const headerPointer = document.getElementById('h-basic-pointer')
-    const header = document.getElementById('h-basic')
-    const sectionOneObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) {
-          header.classList.add('scrolled')
-          headerPointer.classList.add('scrolled')
-        } else {
-          header.classList.remove('scrolled')
-          headerPointer.classList.remove('scrolled')
+  
+    function addScrolled() {
+      headerPointer.className = headerPointer.className.concat(' scrolled')
+      laterales.forEach(lateral => {
+        lateral.className = lateral.className.concat(' scrolled')
+      })
+    }
+    function removeScrolled() {
+      headerPointer.className = headerPointer.className.replace('scrolled', '')
+      laterales.forEach(lateral => {
+        lateral.className = lateral.className.replace('scrolled', '')
+      })
+    }
+    if ('IntersectionObserver' in window) {
+      const sectionOneObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            removeScrolled()
+          } else {
+            addScrolled()
+          }
+        })
+      })
+      sectionOneObserver.observe(headerPointer)
+    } else {
+      window.addEventListener('scroll', () => {
+        const { body = {}, documentElement = {} } = document
+        const { scrollTop: scrollBody = 0 } = body
+        const { scrollTop: scrollElement = 0 } = documentElement
+        const scroll = scrollBody || scrollElement
+    
+        const headerTop = 60
+        if (scroll > headerTop && !headerPointer.className.includes('scrolled')) {
+          addScrolled()
+        } else if (scroll <= headerTop && headerPointer.className.includes('scrolled')) {
+          removeScrolled()
         }
       })
-    })
-    sectionOneObserver.observe(headerPointer)
-  } else {
-    const header = document.getElementById('h-basic')
-    window.addEventListener('scroll', () => {
-      const { body = {}, documentElement = {} } = document
-      const { scrollTop: scrollBody = 0 } = body
-      const { scrollTop: scrollElement = 0 } = documentElement
-      const scroll = scrollBody || scrollElement
-  
-      const headerTop = 10
-      if (scroll > headerTop && !header.classList.contains('scrolled')) {
-        header.classList.add('scrolled')
-      } else if (scroll <= headerTop && header.classList.contains('scrolled')) {
-        header.classList.remove('scrolled')
-      }
-    })
-  }
+    }
+  })
 })   */
-/* 
-
-    PARA EL DISENO DEL SPRINT9 SE CONTEMPLA EL HEADER SIN STICKY
 
 export const stickyScript =
-  ';document.addEventListener("DOMContentLoaded",function(){if("IntersectionObserver"in window){var e=document.getElementById("h-basic-pointer"),s=document.getElementById("h-basic");new IntersectionObserver(function(o){o.forEach(function(o){o.isIntersecting?(s.classList.remove("scrolled"),e.classList.remove("scrolled")):(s.classList.add("scrolled"),e.classList.add("scrolled"))})}).observe(e)}else{var o=document.getElementById("h-basic");window.addEventListener("scroll",function(){var e=document,s=e.body,t=void 0===s?{}:s,c=e.documentElement,n=void 0===c?{}:c,d=t.scrollTop,l=void 0===d?0:d,i=n.scrollTop,r=l||(void 0===i?0:i);r>10&&!o.classList.contains("scrolled")?o.classList.add("scrolled"):r<=10&&o.classList.contains("scrolled")&&o.classList.remove("scrolled")})}});' */
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=[].slice.call(document.getElementsByClassName("ad-lateral")),c=document.getElementById("h-basic-pointer");function s(){c.className=c.className.concat(" scrolled"),e.forEach(function(e){e.className=e.className.concat(" scrolled")})}function n(){c.className=c.className.replace("scrolled",""),e.forEach(function(e){e.className=e.className.replace("scrolled","")})}"IntersectionObserver"in window?new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting?n():s()})}).observe(c):window.addEventListener("scroll",function(){var e=document,o=e.body,l=void 0===o?{}:o,a=e.documentElement,t=void 0===a?{}:a,r=l.scrollTop,d=void 0===r?0:r,i=t.scrollTop,m=d||(void 0===i?0:i);m>60&&!c.className.includes("scrolled")?s():m<=60&&c.className.includes("scrolled")&&n()})})});'
 
 /* ;window.addEventListener('load', () => {
     window.requestIdle(() => {
@@ -117,8 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.requestIdle(() => {
     const localProfile = JSON.parse(
-      window.localStorage.getItem('ArcId.USER_PROFILE') ||
-        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      window.localStorage.getItem('ArcId.USER_PROFILE')
     )
     const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
     document
@@ -172,4 +180,4 @@ document.addEventListener('DOMContentLoaded', function() {
 }) */
 
 export const singwallScript = ({ arcSite, arcEnv, locUrl }) =>
-  `"use strict";var arcSite="${arcSite}",arcEnv="${arcEnv}",locUrl="${locUrl}";document.addEventListener("DOMContentLoaded",function(){var e=function(e){window.dataLayer=window.dataLayer||[];var n={event:"tag_signwall",eventCategory:"Web_Sign_Wall_General",eventAction:e};window.dataLayer.push(n),"sandbox"===arcEnv&&window.console.log(n)};window.requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,t=void 0===i?"":i,a=n.lastName,o=void 0===a?"":a,c=n.uuid,r=void 0===c?"":c;if(document.body.querySelector(".h-basic__btn-user").addEventListener("click",function(){r?(e("web_swg_link_ingresaperfil"),window.location.href="prod"===arcEnv?"/mi-perfil/?outputType=signwall":"/mi-perfil/?_website=".concat(arcSite,"&outputType=signwall")):(e("web_swg_link_ingresacuenta"),window.location.href="prod"===arcEnv?"/signwall/?outputType=signwall&signwallOrganic=1":"/signwall/?_website=".concat(arcSite,"&outputType=signwall&signwallOrganic=1"))}),r){var l=document.body.querySelector(".h-basic__user-txt");if(!t&&!o||"undefined"===t&&"undefined"===o)l.innerHTML="Bienvenido Usuario";else{var d="";t&&o?d="".concat("undefined"!==t?t:""," ").concat("undefined"!==o?o:""):t&&!o?d=t:!t&&o&&(d=o),l.innerHTML=d.length>30?"".concat(d.slice(0,30),"..."):d}}document.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc=".concat(locUrl)})})});`
+  `var arcSite="${arcSite}",arcEnv="${arcEnv}",locUrl="${locUrl}";document.addEventListener("DOMContentLoaded",function(){var e=function(e){window.dataLayer=window.dataLayer||[];var n={event:"tag_signwall",eventCategory:"Web_Sign_Wall_General",eventAction:e};window.dataLayer.push(n),"sandbox"===arcEnv&&window.console.log(n)};window.requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,t=void 0===i?"":i,a=n.lastName,r=void 0===a?"":a,o=n.uuid,l=void 0===o?"":o;if(document.querySelector(".h-basic__btn-user").addEventListener("click",function(){l?(e("web_swg_link_ingresaperfil"),window.location.href="prod"===arcEnv?"/mi-perfil/?outputType=signwall":"/mi-perfil/?_website="+arcSite+"&outputType=signwall"):(e("web_swg_link_ingresacuenta"),window.location.href="prod"===arcEnv?"/signwall/?outputType=signwall&signwallOrganic=1":"/signwall/?_website="+arcSite+"&outputType=signwall&signwallOrganic=1")}),l){var c=document.body.querySelector(".h-basic__user-txt");if(!t&&!r||"undefined"===t&&"undefined"===r)c.innerHTML="Bienvenido Usuario";else{var d="";t&&r?d=("undefined"!==t?t:"")+" "+("undefined"!==r?r:""):t&&!r?d=t:!t&&r&&(d=r),c.innerHTML=d.length>30?d.slice(0,30)+"...":d}}document.body.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc="+locUrl})})});`

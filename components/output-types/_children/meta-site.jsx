@@ -1,33 +1,19 @@
 import React from 'react'
 import { addSlashToEnd } from '../../utilities/parse/strings'
 import { deleteQueryString } from '../../utilities/parse/queries'
-import {
-  SITE_ELCOMERCIO,
-  SITE_ELCOMERCIOMAG,
-  SITE_DEPOR,
-  SITE_PERU21G21,
-} from '../../utilities/constants/sitenames'
+import { SITE_ELCOMERCIO } from '../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../utilities/assets'
 import Trust from './trust'
 
 export default ({
-  deployment,
-  idMatch,
   isAmp,
   siteName = '',
   siteUrl = '',
   colorPrimary = '',
   socialNetworks = [],
-  siteDomain = '',
   requestUri = '',
   arcSite = '',
   contextPath = '',
-  isLite = false,
-  isStory = false,
-  CURRENT_ENVIRONMENT,
-  Resource,
-  isStyleBasic = false,
-  isHome,
 } = {}) => {
   const logoSite = `${getAssetsPath(
     arcSite,
@@ -53,74 +39,8 @@ export default ({
     ? removeAccents(auxUrlCanonicaMatch[1])
     : urlCanonical
 
-  const isStoryMatch = isStory !== '' && idMatch !== ''
-  let style = 'style'
-
-  if (
-    (arcSite === SITE_ELCOMERCIO ||
-      arcSite === SITE_ELCOMERCIOMAG ||
-      arcSite === SITE_DEPOR) &&
-    /^\/videos\/(.*)/.test(requestUri)
-  )
-    style = 'story-video'
-  else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
-  else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
-    style = 'story'
-  else if (
-    isStory &&
-    arcSite === SITE_ELCOMERCIOMAG &&
-    requestUri.includes('/recetas/')
-  )
-    style = 'story-recetas'
-  else if (
-    requestUri.includes('/mas-especiales/') ||
-    requestUri.includes('/especiales/')
-  )
-    style = 'specials'
-
-  style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
-
-  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
-  if (CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
-  }
-  if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
-  }
-  if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
-  }
-  let styleDefault = isStyleBasic ? 'basic' : ''
-  styleDefault =
-    style === 'dstory' && isAmp === false && isLite === false
-      ? style
-      : styleDefault
-
   return (
     <>
-      {isStyleBasic || styleDefault ? (
-        <>
-          <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
-            {({ data }) => {
-              return data ? (
-                <style
-                  dangerouslySetInnerHTML={{
-                    __html: data
-                      .replace('@charset "UTF-8";', '')
-                      .replace('-----------', ''),
-                  }}
-                />
-              ) : null
-            }}
-          </Resource>
-        </>
-      ) : (
-        <>
-          {isAmp === false && isLite === false && (
-            <link rel="stylesheet" href={deployment(styleUrl)} />
-          )}
-        </>
-      )}
       <link
         rel="shortcut icon"
         type="image/png"

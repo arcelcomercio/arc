@@ -8,6 +8,7 @@ import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { getResultVideo } from '../../../../utilities/story/helpers'
 import PowaPlayer from '../../../../global-components/powa-player'
 import LiteYoutube from '../../../../global-components/lite-youtube'
+import VideoJwplayer from '../../../../global-components/video-jwplayer'
 
 /**
  *
@@ -149,7 +150,8 @@ export default ({
       arcSite
     )
   }
-
+  const videoScript = `"use strict";var jwplayerObserver=function(e,r){e.forEach(function(e){var t=e.isIntersecting,n=e.target;if(t){console.log("target",n);var o=n.getAttribute("id");if((o=o.split("_"))[1]){var a="https://cdn.jwplayer.com/players/"+o[1]+"-"+o[2]+".js",i=document.createElement("script");i.type="text/javascript",i.src=a,document.head.append(i)}r.unobserve(n)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".jwplayer-lazy")),r=new IntersectionObserver(jwplayerObserver,{rootMargin:"0px"});e.forEach(function(e){r.observe(e)})}})});
+    `
   return (
     <div className="section-video">
       <div className="section-video__box">
@@ -157,16 +159,31 @@ export default ({
           <div className="section-video__top">
             <div className="section-video__left">
               <div className="section-video__frame">
-                {principalVideo.video &&
-                principalVideo.promoItemsType === VIDEO ? (
-                  <PowaPlayer
-                    uuid={uuid}
-                    time={principalVideo.videoDuration}
-                    stream={stream}
-                    image={principalVideo.image}
-                  />
+                {principalVideo && principalVideo.promoItemJwplayer.key ? (
+                  <>
+                    <VideoJwplayer
+                      data={principalVideo.promoItemJwplayer}></VideoJwplayer>
+                    <script
+                      type="text/javascript"
+                      dangerouslySetInnerHTML={{
+                        __html: videoScript,
+                      }}
+                    />
+                  </>
                 ) : (
-                  <LiteYoutube videoId={principalVideo.video} />
+                  <>
+                    {principalVideo.video &&
+                    principalVideo.promoItemsType === VIDEO ? (
+                      <PowaPlayer
+                        uuid={uuid}
+                        time={principalVideo.videoDuration}
+                        stream={stream}
+                        image={principalVideo.image}
+                      />
+                    ) : (
+                      <LiteYoutube videoId={principalVideo.video} />
+                    )}
+                  </>
                 )}
               </div>
             </div>

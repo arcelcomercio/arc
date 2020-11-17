@@ -74,6 +74,20 @@ const CardsFeaturedStoryList = props => {
                 }
               }
             }
+            basic_jwplayer {
+              subtype
+              type
+              embed{
+                config{
+                  thumbnail_url
+                  resized_urls { 
+                    landscape_xs
+                    landscape_s
+                    lazy_default 
+                  }
+                }
+              }
+            }
             basic_gallery {
               promo_items {
                 basic { 

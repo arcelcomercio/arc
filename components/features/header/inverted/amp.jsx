@@ -90,5 +90,5 @@ LayoutNavbar.propTypes = {
     }),
   }),
 }
-LayoutNavbar.label = 'Barra de Navegación'
+
 export default LayoutNavbar

@@ -38,7 +38,7 @@ class SignwallComponent extends PureComponent {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       }
       window.requestIdle(() => {
-        Fingerprint2.getV18({}, (result) => {
+        Fingerprint2.getV18({}, result => {
           Cookies.setCookie('gecdigarc', result, 365)
         })
       })
@@ -66,7 +66,7 @@ class SignwallComponent extends PureComponent {
       if (!this.checkSession()) {
         this.setState({ showPremium: true })
       } else {
-        return this.getListSubs().then((p) => {
+        return this.getListSubs().then(p => {
           if (p && p.length === 0) {
             this.setState({ showPremium: true })
           } else {
@@ -112,7 +112,7 @@ class SignwallComponent extends PureComponent {
       this.getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({
-        paywallFunction: (campaignURL) => {
+        paywallFunction: campaignURL => {
           if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
             W.location.href = Domains.getUrlSignwall(
               arcSite,
@@ -142,7 +142,7 @@ class SignwallComponent extends PureComponent {
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
           if (W.Identity.userIdentity.accessToken) {
-            return this.getListSubs().then((p) => {
+            return this.getListSubs().then(p => {
               const isLoggedInSubs = this.checkSession()
               return {
                 s: isLoggedInSubs,
@@ -175,14 +175,14 @@ class SignwallComponent extends PureComponent {
   getListSubs() {
     const { arcSite } = this.props
     const W = window
-    return W.Identity.extendSession().then((resExt) => {
+    return W.Identity.extendSession().then(resExt => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
       )
-        .then((res) => {
+        .then(res => {
           if (res.skus) {
-            const result = Object.keys(res.skus).map((key) => {
+            const result = Object.keys(res.skus).map(key => {
               return res.skus[key].sku
             })
             this.listSubs = result
@@ -190,7 +190,7 @@ class SignwallComponent extends PureComponent {
           }
           return []
         })
-        .catch((err) => W.console.error(err))
+        .catch(err => W.console.error(err))
 
       return checkEntitlement
     })
@@ -198,9 +198,7 @@ class SignwallComponent extends PureComponent {
 
   checkSession = () => {
     if (typeof window !== 'undefined') {
-      const profileStorage =
-        window.localStorage.getItem('ArcId.USER_PROFILE') ||
-        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
       const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
       if (profileStorage) {
         return !(profileStorage === 'null' || sesionStorage === '{}') || false
@@ -237,7 +235,7 @@ class SignwallComponent extends PureComponent {
     window.location.href = Domains.getUrlSignwall(arcSite, typeDialog, hash)
   }
 
-  getUrlParam = (name) => {
+  getUrlParam = name => {
     const vars = {}
     if (typeof window !== 'undefined')
       window.location.href.replace(

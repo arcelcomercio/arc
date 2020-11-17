@@ -95,7 +95,9 @@ const SectionVideo = props => {
       captionVideo,
       author,
       videoDuration,
+      promoItemJwplayer,
     } = Story
+
     dataVideo.principalVideo = {
       primarySection,
       primarySectionLink,
@@ -109,6 +111,7 @@ const SectionVideo = props => {
       captionVideo,
       author,
       videoDuration,
+      promoItemJwplayer,
     }
     if (promoItemsType === VIDEO) {
       const { video, promoItems } = Story

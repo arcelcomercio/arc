@@ -31,7 +31,8 @@ export const getTitle = ({
     // title = `${seoTitle}: ${
     //   storyTitleRe ? storyTitleRe.substring(0, 70) : ''
     // } | ${siteTitleSuffix}`
-    const sectionName = requestUri.split('/')[1].toUpperCase()
+    const urlTitle = requestUri.split('/')
+    const sectionName = urlTitle[1] && urlTitle[1].toUpperCase()
     const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
     title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
   } else if (
