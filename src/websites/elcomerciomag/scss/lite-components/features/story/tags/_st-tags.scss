@@ -2,19 +2,13 @@
   content-visibility: auto;
   contain-intrinsic-size: 80px;
   color: #333;
-  margin: 0 20px;
-  padding-bottom: 25px;
-  border-bottom: 1px solid $border-color-gray;
+  margin: 25px 0;
+  padding: 0 20px;
 
   &__title {
     display: inline-block;
-    font: 700 13px/18px $primary-font;
-    letter-spacing: 1px;
-    line-height: 18px;
+    font: 700 11px/18px $primary-font;
     padding-bottom: 10px;
-    @media (--desktop) {
-      font: 700 14px/18px $primary-font;
-    }
   }
 
   &__tag {
@@ -26,15 +20,13 @@
   }
 
   &__link {
-    font: 400 13px/20px $primary-font;
-    letter-spacing: 0;
-    text-transform: capitalize;
-    padding: 8px 0;
-    @media (--desktop) {
-      font: 400 16px/28px $primary-font;
-    }
+    font-size: 0.9rem;
+    background-color: #e8e8e8;
+    padding: 5px 10px;
+    margin: 0 5px 5px 0;
+    display: block;
     & span {
-      padding: 7px 7px;
+      display: none;
     }
   }
 }
