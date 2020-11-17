@@ -156,17 +156,17 @@ class Newsletter extends PureComponent {
     const { submitForm, confirmRegister, formMessage, disbutton } = this.state
     const { arcSite, contextPath, deployment, customFields } = this.props
     const data = new Data(customFields, arcSite, contextPath)
+    const descrip = `Te enviaremos lo mejor de ${arcSite}. Escribe tu correo electrónico y dale clic a "Recibir"`
     const params = {
-      description: data.description,
+      description: data.description ? data.description : descrip,
       image: deployment(data.image),
+      colorButton: data.colorButton ? data.colorButton : '#000000',
       banner: data.banner,
       hasBanner: data.hasBanner,
-      urlTos: data.urlTos
-        ? data.urlTo
-        : 'https://trome.pe/terminos-y-condiciones/',
+      urlTos: data.urlTos ? data.urlTos : '/terminos-y-condiciones/',
       urlPrivacyPolicies: data.urlPrivacyPolicies
         ? data.urlPrivacyPolicies
-        : 'https://trome.pe/politica-de-privacidad/',
+        : '/politica-de-privacidad/',
       features: this.main,
       validation: this.validation,
       submitForm,
