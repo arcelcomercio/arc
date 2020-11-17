@@ -1,7 +1,6 @@
-/* eslint-disable react/no-unused-state */
-import React from 'react'
+import * as React from 'react'
 import { useContent, useEditableContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
@@ -37,7 +36,7 @@ const BreakingNewsFeat = props => {
     },
   } = props
 
-  const { arcSite, outputType } = useFusionContext()
+  const { arcSite } = useAppContext()
   const { editableField } = useEditableContent()
 
   const article = useContent(
@@ -65,7 +64,7 @@ const BreakingNewsFeat = props => {
 
   return (
     <>
-      {showBreakingNews && outputType !== 'amp' && (
+      {showBreakingNews && (
         <>
           <div
             id="breaking-news"

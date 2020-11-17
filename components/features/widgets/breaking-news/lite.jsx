@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-state */
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 
@@ -35,7 +35,7 @@ const BreakingNewsFeat = props => {
     },
   } = props
 
-  const { arcSite, outputType } = useAppContext()
+  const { arcSite } = useAppContext()
 
   const article = useContent(
     storyLink
@@ -62,7 +62,7 @@ const BreakingNewsFeat = props => {
 
   return (
     <>
-      {showBreakingNews && outputType !== 'amp' && (
+      {showBreakingNews && (
         <>
           <div
             id="breaking-news"
