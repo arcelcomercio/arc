@@ -17,8 +17,17 @@ export const msToTime = (duration = 5555, seo = true) => {
   return resultSeo
 }
 export const msToTimestamp = (timestamp = 1575909015) => {
-  const date = new Date(timestamp * 1000)
-  const formattedDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}`
+  const date = new Date(timestamp.toString() * 1000)
+  date.setHours(date.getHours() - 5)
+
+  const hours =
+    date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
+
+  const minutes =
+    date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+
+  const formattedDate = `${date.getFullYear()}-${date.getMonth() +
+    1}-${date.getDate()}T${hours}:${minutes}`
 
   return formattedDate
 }
