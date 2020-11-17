@@ -27,14 +27,14 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/navbar/standard-basic/nav";
 @import "./scss/lite-components/features/widgets/breaking-news/b-news";
 @import "./scss/lite-components/features/story/multimedia/multimedia";
+@import "./scss/lite-components/features/story/social/st-social";
+@import "./scss/lite-components/global-components/share/share";
 
 // TODO
 
 @import "./scss/lite-components/global-components/ads/ad-lateral";
 @import "./scss/lite-components/features/story/special-title/st-special-t";
 @import "./scss/lite-components/features/premium/premium";
-@import "./scss/lite-components/global-components/share/share";
 @import "./scss/lite-components/features/header/links-band/links-band";
-@import "./scss/lite-components/features/story/social/st-social";
 @import "./scss/lite-components/features/story/gallery/gallery-img";
 @import "./scss/lite-components/features/story/minuto-a-minuto/story";

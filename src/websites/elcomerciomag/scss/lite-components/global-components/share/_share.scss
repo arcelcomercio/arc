@@ -1,19 +1,26 @@
 .share-btn {
   border: 1px solid $color-gray-300;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  height: 2.2rem;
+  width: 2.2rem;
   margin-right: 15px;
   padding: 0;
   line-height: 0;
   fill: $color-gray-300;
 
+  svg {
+    @media (--tablet) {
+      height: 17px;
+      width: 17px;
+    }
+  }
   &--stroke {
     fill: transparent;
-    stroke: $color-gray-300;
   }
 
   &--ws {
-    border: none;
+    @media (--tablet) {
+      display: none;
+    }
   }
 }
