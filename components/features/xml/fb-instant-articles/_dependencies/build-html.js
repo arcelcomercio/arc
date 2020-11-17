@@ -279,7 +279,7 @@ const analyzeParagraph = ({
     case ConfigParams.ELEMENT_VIDEO:
       const urlVideo = getResultVideo(streams, arcSite, 'mp4')
       result.numberWords = numberWordMultimedia
-      result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${urlVideo}"></iframe></figure>`
+      result.processedParagraph = `<figure><video data-fb-disable-autoplay ><source src="${urlVideo}" type="video/mp4" /></video></figure>`
       break
 
     case ConfigParams.ELEMENT_IMAGE:
