@@ -200,6 +200,12 @@ const elcomercio = {
       },
     ],
   },
+  lite: {
+    directors: {
+      'Director General': 'Francisco Miró Quesada Cantuarias',
+      'Director periodístico': 'Juan José Garrido Koechlin',
+    },
+  },
 }
 
 const elcomerciomag = {

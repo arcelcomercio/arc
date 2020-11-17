@@ -1,6 +1,7 @@
 import React from 'react'
 import ENV from 'fusion:environment'
 
+import Styles from './_children/styles'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
@@ -115,6 +116,12 @@ export default ({
       classBody = `${classBody} muchafoto`
     } else if (/^\/usa/.test(requestUri)) {
       lang = 'es-us'
+    }
+  }
+
+  if (arcSite === SITE_TROME) {
+    if (/^\/pollon-eliminatorias/.test(requestUri)) {
+      classBody = `${classBody} polla`
     }
   }
 
@@ -249,8 +256,9 @@ export default ({
     contentElementsHtml,
     oembedSubtypes,
     embedTwitterAndInst,
+    quantityGalleryItem = 0,
     promoItems: { basic_html: { content = '' } = {} } = {},
-    jwplayerSeo = {},
+    jwplayerSeo = [],
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -278,6 +286,8 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
+    style = 'polla'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
@@ -292,7 +302,8 @@ export default ({
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
-
+  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
+  `
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -436,7 +447,8 @@ export default ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
+        <Styles {...metaSiteData} isStyleBasic={isStyleBasic} />
+        <MetaSite {...metaSiteData} />
 
         <meta name="description" lang="es" content={description} />
         {arcSite === SITE_ELCOMERCIOMAG && (
@@ -638,7 +650,7 @@ export default ({
             />
           </>
         )}
-        {jwplayerSeo[0].key && (
+        {jwplayerSeo[0] && (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
@@ -664,6 +676,15 @@ export default ({
         ) : (
           <></>
         )}
+        {subtype === GALLERY_VERTICAL && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: dataLayer,
+            }}
+          />
+        )}
+
         {(hasYoutubeVideo || isVideosSection) && (
           <>
             <Resource path="resources/assets/lite-youtube/styles.min.css">

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { PureComponent, useState } from 'react'
 import Consumer from 'fusion:consumer'
@@ -37,10 +38,8 @@ const Menu = ({
     setShowLoading(true)
     Cookies.deleteCookie('arc_e_id')
     Cookies.deleteCookie('mpp_sess')
-    // Cookies.deleteCookie('ArcId.USER_INFO')
     Cookies.deleteCookieDomain('ArcId.USER_INFO', arcSite)
     Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
-    Cookies.deleteCookie('lostEmail')
     if (W) {
       const isSubs = W.location.pathname.indexOf('suscripciones') >= 0 || false
       W.localStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
@@ -62,9 +61,7 @@ const Menu = ({
 
   const checkSession = () => {
     if (typeof window !== 'undefined') {
-      const profileStorage =
-        window.localStorage.getItem('ArcId.USER_PROFILE') ||
-        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
       const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
       if (profileStorage) {
         return !(profileStorage === 'null' || sesionStorage === '{}') || false
@@ -180,7 +177,6 @@ const Menu = ({
 class MenuSignwall extends PureComponent {
   render() {
     return (
-      // eslint-disable-next-line react/jsx-no-bind
       <Menu {...this.props} dispatchEvent={this.dispatchEvent.bind(this)} />
     )
   }

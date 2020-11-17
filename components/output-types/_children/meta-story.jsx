@@ -34,6 +34,7 @@ export default ({
   contextPath,
   socialName,
   isAmp,
+  isIframeStory = false,
   siteAssets: { seo },
   siteName = '',
   siteUrl = '',
@@ -208,6 +209,7 @@ export default ({
   },`
 
   const jwplayerSeoItems =
+    jwplayerSeo[0] &&
     jwplayerSeo[0].conversions &&
     jwplayerSeo.map(
       ({
@@ -644,19 +646,23 @@ export default ({
       {listItems.map(item => {
         return <meta property="article:tag" content={item} />
       })}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: structuredData }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: relatedContentData }}
-      />
+      {!isIframeStory && (
+        <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: structuredData }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: relatedContentData }}
+          />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
-      />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: structuredBreadcrumb }}
+          />
+        </>
+      )}
       {isAmp !== true && (
         <script
           type="text/javascript"

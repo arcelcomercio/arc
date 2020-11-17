@@ -226,12 +226,14 @@ class StoryContents extends PureComponent {
               )}
             </>
           )}
-          <Ads
-            adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
-            isDesktop={false}
-            isMobile
-            isDfp={isDfp}
-          />
+          {subtype !== GALLERY_VERTICAL && (
+            <Ads
+              adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
+              isDesktop={false}
+              isMobile
+              isDfp={isDfp}
+            />
+          )}
           <div
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}
@@ -305,6 +307,7 @@ class StoryContents extends PureComponent {
                             key: mediaId = '',
                             has_ads: hasAds = 0,
                             account = 'gec',
+                            description = '',
                           } = {},
                         } = {},
                       } = element
@@ -317,6 +320,9 @@ class StoryContents extends PureComponent {
                           <div
                             className="jwplayer-lazy"
                             id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                          <figcaption className="story-content__caption ">
+                            {description}
+                          </figcaption>
                         </>
                       )
                     }

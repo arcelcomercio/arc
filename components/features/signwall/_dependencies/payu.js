@@ -2,8 +2,6 @@ import addScriptAsync from './script-async'
 import Domains from './domains'
 
 const addPayU = (site, deviceSessionId) => {
-  window.console.log(site, deviceSessionId)
-  
   const originPayuSdk = Domains.getPayuSDK()
   const originPayuTags = Domains.getPayuTags()
   return Promise.all([
@@ -17,7 +15,7 @@ const addPayU = (site, deviceSessionId) => {
       includeNoScript: true,
     }),
   ]).then(() => {
-    return payU
+    return window.payU
   })
 }
 

@@ -48,6 +48,8 @@ import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildCustomBlock from './_children/custom-block'
+import customFields from './_dependencies/custom-fields'
 import {
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
@@ -56,8 +58,9 @@ import {
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
-import StoryContentsChildCustomBlock from './_children/custom-block'
 import LiteYoutube from '../../../global-components/lite-youtube'
+import ShareButtons from '../../../global-components/lite/share'
+import { contentWithAds } from '../../../utilities/story/content'
 import { processedAds } from '../../../utilities/story/helpers'
 
 const classes = {
@@ -75,7 +78,8 @@ const classes = {
   bbcHead: 'bbc-head p-10',
 }
 
-const StoryContentsLite = () => {
+const StoryContentsLite = props => {
+  const { customFields: { liteAdsEvery = 2 } = {} } = props
   const {
     globalContent,
     arcSite,
@@ -109,7 +113,7 @@ const StoryContentsLite = () => {
     multimediaLarge,
     multimediaLazyDefault,
     tags,
-    contentPosicionPublicidadLite,
+    contentElements,
     canonicalUrl,
     prerollDefault,
     contentElementsHtml,
@@ -157,6 +161,10 @@ const StoryContentsLite = () => {
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
   const seccArary = canonicalUrl.split('/')
   const secc = seccArary[1].replace(/-/gm, '')
+  const storyContent = contentWithAds({
+    contentElements,
+    adsEvery: liteAdsEvery,
+  })
 
   return (
     <>
@@ -170,7 +178,7 @@ const StoryContentsLite = () => {
             )}
           </>
         )}
-        {subtype !== MINUTO_MINUTO && (
+        {subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
           <div
             id="gpt_caja3"
             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
@@ -190,9 +198,9 @@ const StoryContentsLite = () => {
               <div id="ads_m_movil3" />
             </>
           )}
-          {contentPosicionPublicidadLite && (
+          {storyContent && (
             <ArcStoryContent
-              data={contentPosicionPublicidadLite}
+              data={storyContent}
               elementClasses={classes}
               renderElement={element => {
                 const {
@@ -247,6 +255,7 @@ const StoryContentsLite = () => {
                           key: mediaId = '',
                           has_ads: hasAds = 0,
                           account = 'gec',
+                          description = '',
                         } = {},
                       } = {},
                     } = element
@@ -259,6 +268,9 @@ const StoryContentsLite = () => {
                         <div
                           className="jwplayer-lazy "
                           id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                        <figcaption className="s-multimedia__caption ">
+                          {description}
+                        </figcaption>
                       </>
                     )
                   }
@@ -285,7 +297,7 @@ const StoryContentsLite = () => {
                           data-bloque="3"
                           data-ads-dimensions-m="[[1,1]]"></div>
                       )}
-                      {nameAds === 'caja4' && (
+                      {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
                         <div
                           id="gpt_caja4"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
@@ -293,7 +305,7 @@ const StoryContentsLite = () => {
                           data-bloque="3"
                           data-prebid-enabled></div>
                       )}
-                      {nameAds === 'caja5' && (
+                      {nameAds === 'caja5' && subtype !== GALLERY_VERTICAL && (
                         <div
                           id="gpt_caja5"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
@@ -551,11 +563,11 @@ const StoryContentsLite = () => {
           )}
         </div>
         {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
-        {/* <div className={classes.social}>
+        <div className={classes.social}>
           <div className="st-social__share">
-            <ShareButtons></ShareButtons>
+            <ShareButtons />
           </div>
-        </div> */}
+        </div>
         {storyTagsBbc(tags) && (
           <div className={classes.bbcHead}>
             <a
@@ -579,5 +591,9 @@ const StoryContentsLite = () => {
 
 StoryContentsLite.label = 'Artículo - contenidos'
 StoryContentsLite.static = true
+
+StoryContentsLite.propTypes = {
+  customFields,
+}
 
 export default StoryContentsLite

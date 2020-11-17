@@ -10,7 +10,7 @@ import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
 import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
 import {
   singwallScript,
-  getQueryReloginEmailScript,
+  // getQueryReloginEmailScript,
   stickyScript,
   searchScript,
   getBtnSubsScript,
@@ -362,12 +362,12 @@ class NavBarDefault extends PureComponent {
           }}
         />
 
-        <script
+        {/* <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: getQueryReloginEmailScript(_env, arcSite),
           }}
-        />
+        /> */}
       </>
     )
   }
