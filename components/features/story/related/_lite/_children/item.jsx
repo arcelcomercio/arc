@@ -4,6 +4,7 @@ import UtilListKey from '../../../../../utilities/list-keys'
 import { createResizedParams } from '../../../../../utilities/resizer/resizer'
 import StoryData from '../../../../../utilities/story-data'
 import MultimediaIcon from '../../../../../global-components/lite/multimedia-icon'
+import { SITE_ELCOMERCIO } from '../../../../../utilities/constants/sitenames'
 
 // Basic flex stuff
 const classes = {
@@ -48,12 +49,14 @@ const RenderRelatedContentElement = (props, i) => {
             {filterData.title}
           </a>
         </h2>
-        <a
-          itemProp="url"
-          className={classes.author}
-          href={filterData.authorLink}>
-          {filterData.author}
-        </a>
+        {arcSite === SITE_ELCOMERCIO && (
+          <a
+            itemProp="url"
+            className={classes.author}
+            href={filterData.authorLink}>
+            {filterData.author}
+          </a>
+        )}
       </div>
       <figure className={classes.multimedia}>
         <a itemProp="url" href={filterData.link} className={classes.link}>
