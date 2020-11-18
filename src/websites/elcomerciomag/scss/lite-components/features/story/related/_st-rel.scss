@@ -66,4 +66,11 @@
       color: #000;
     }
   }
+
+  &__box {
+    width: 100%;
+    @media (--desktop) {
+      width: calc(100% - 200px);
+    }
+  }
 }
