@@ -1,6 +1,6 @@
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
-@import "../../general-styles/framework/core/lite"; // TODO: separar los estilos que no son necesarios para mag
+@import "./scss/lite-components/framework/core/lite";
 
 /******* Variables Lite *******/
 @import "./scss/variables/index";
@@ -18,6 +18,7 @@ $tertiary-font: $secondary-font;
 // @import "./scss/components/layout/header/header";
 // @import "./scss/lite-components/features/header/basic/h-basic";
 // @import "./scss/lite-components/features/story/author/story-author"; //utilizan en la plantilla elcomerciomag-noticia-fotogaleria, pero no tiene resolver
+// @import "./scss/lite-components/features/premium/premium";
 
 // Completados - en curso
 
@@ -29,12 +30,10 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/story/multimedia/multimedia";
 @import "./scss/lite-components/features/story/social/st-social";
 @import "./scss/lite-components/global-components/share/share";
-@import "./scss/lite-components/features/story/minuto-a-minuto/story";
 
 // TODO
 
 @import "./scss/lite-components/global-components/ads/ad-lateral";
 @import "./scss/lite-components/features/story/special-title/st-special-t";
-@import "./scss/lite-components/features/premium/premium";
 @import "./scss/lite-components/features/header/links-band/links-band";
 @import "./scss/lite-components/features/story/gallery/gallery-img";
