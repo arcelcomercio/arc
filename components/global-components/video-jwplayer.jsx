@@ -9,7 +9,7 @@ const StoryContentChildVideoJwplayer = ({ data = {}, lite = false }) => {
     duration = '',
     has_ads: hasAds = 0,
     account = 'gec',
-    description = '',
+    title = '',
   } = data
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
@@ -25,14 +25,14 @@ const StoryContentChildVideoJwplayer = ({ data = {}, lite = false }) => {
               data-time={duration}
               className="jwplayer-lazy"
               id={`botr_${mediaId}_${jwplayerId}_div`}></div>
-            {description && (
+            {title && (
               <figcaption
                 className={`${
                   lite === true
                     ? `s-multimedia__caption`
                     : `story-content__caption`
                 }`}>
-                {description}
+                {title}
               </figcaption>
             )}
           </>

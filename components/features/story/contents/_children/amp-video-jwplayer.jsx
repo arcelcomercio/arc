@@ -7,7 +7,7 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
     key: mediaId = '',
     account = 'gec',
     has_ads: hasAds,
-    description = '',
+    title = '',
   } = data
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
@@ -22,9 +22,9 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
             width="16"
             dock="#my-dock-slot"
             height="9"></amp-jwplayer>
-          {description && (
+          {title && (
             <>
-              <div className="pt-10"> {description}</div>
+              <div className="pt-10"> {title}</div>
             </>
           )}
         </>
