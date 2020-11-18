@@ -77,7 +77,18 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
       .then(() => {
         window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
         window.Identity.getUserProfile().then(profile => {
-          if (profile.emailVerified) {
+          if (!profile.emailVerified && profile.displayName === profile.email) {
+            setShowError(getCodeError('130051'))
+            setShowVerify(true)
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+            )
+            window.localStorage.removeItem('ArcId.USER_INFO')
+            window.localStorage.removeItem('ArcId.USER_PROFILE')
+            window.Identity.userProfile = null
+            window.Identity.userIdentity = {}
+          } else {
             Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
             onLogged(profile) // para hendrul
             setShowVerify(false)
@@ -90,17 +101,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
             } else {
               onClose()
             }
-          } else {
-            setShowError(getCodeError('130051'))
-            setShowVerify(true)
-            Taggeo(
-              `Web_Sign_Wall_${typeDialog}`,
-              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
-            )
-            window.localStorage.removeItem('ArcId.USER_INFO')
-            window.localStorage.removeItem('ArcId.USER_PROFILE')
-            window.Identity.userProfile = null
-            window.Identity.userIdentity = {}
           }
         })
       })

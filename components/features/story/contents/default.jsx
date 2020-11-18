@@ -307,6 +307,7 @@ class StoryContents extends PureComponent {
                             key: mediaId = '',
                             has_ads: hasAds = 0,
                             account = 'gec',
+                            description = '',
                           } = {},
                         } = {},
                       } = element
@@ -319,6 +320,9 @@ class StoryContents extends PureComponent {
                           <div
                             className="jwplayer-lazy"
                             id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                          <figcaption className="story-content__caption ">
+                            {description}
+                          </figcaption>
                         </>
                       )
                     }

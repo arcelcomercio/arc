@@ -23,6 +23,7 @@
 
   &__tooltdiv {
     padding-bottom: 5px;
+    flex-wrap: wrap;
     @media (--tablet) {
       padding-bottom: 0;
     }

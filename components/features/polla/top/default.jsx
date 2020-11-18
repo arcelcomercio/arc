@@ -4,28 +4,38 @@ import customFields from './_dependencies/custom-fields'
 
 const TopHeader = props => {
   const {
-    customFields: { 
-      logoSmall = 'https://cdna.trome.pe/resources/dist/trome/polla/logo-trome.png', 
-    } = {}
+    customFields: {
+      logoSmall = 'https://cdna.trome.pe/resources/dist/trome/polla/logo-trome.png',
+    } = {},
   } = props
 
   return (
     <div className="site-options">
       <div className="box-content clearfix">
         <div className="site-edition">
-          <img src={logoSmall} alt="" />
+          <a href="https://trome.pe">
+            <img src={logoSmall} alt="Trome" />
+          </a>
         </div>
         <div className="box-right clearfix">
           <div className="site-social">
             <ul className="social-items">
               <li className="social-item social-title">Sigue a Trome en:</li>
               <li className="social-item">
-                <a href="https://www.facebook.com/Tromepe" target="_blank" rel="noreferrer" className="social-link link-fb">
+                <a
+                  href="https://www.facebook.com/Tromepe"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="social-link link-fb">
                   <i className="icon-fb"></i>
                 </a>
               </li>
               <li className="social-item">
-                <a href="https://twitter.com/tromepe" target="_blank" rel="noreferrer" className="social-link link-tw">
+                <a
+                  href="https://twitter.com/tromepe"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="social-link link-tw">
                   <i className="icon-tw"></i>
                 </a>
               </li>
@@ -39,8 +49,7 @@ const TopHeader = props => {
               <i className="icon-search"></i>
               <i className="icon-close"></i>
             </a>
-            <div id="search-content" className="search-content">
-            </div>
+            <div id="search-content" className="search-content"></div>
           </div>
         </div>
       </div>

@@ -17,6 +17,8 @@ const classes = {
 
 const StaticsNewsletterChildForm = props => {
   const {
+    description,
+    colorButton,
     urlTos,
     urlPrivacyPolicies,
     features,
@@ -59,8 +61,7 @@ const StaticsNewsletterChildForm = props => {
       </h3>
       <p className={classes.subtitle}>Boletín</p>
       <p itemProp="description" className={classes.description}>
-        Te enviaremos lo mejor de Trome.pe. Escribe tu correo electrónico y dale
-        clic a Recibir
+        {description}
       </p>
       <form action="">
         <div className={classes.row}>
@@ -81,6 +82,7 @@ const StaticsNewsletterChildForm = props => {
         <div className={`${classes.row} ${classes.textCenter}`}>
           <button
             className={classes.button}
+            style={{ backgroundColor: colorButton }}
             type="submit"
             disabled={disbutton}
             onClick={features.save}>
