@@ -668,9 +668,8 @@ export const ampHtml = (html = '', arcSite = '', migrated = false) => {
   }
 
   // Mxm Iframe
-  if (arcSite === SITE_ELCOMERCIO) {
-    resultData = iframeMxm(resultData)
-  }
+
+  resultData = iframeMxm(resultData)
 
   return resultData
 }
