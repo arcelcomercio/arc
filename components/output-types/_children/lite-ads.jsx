@@ -3,6 +3,7 @@ import React from 'react'
 
 const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
   /* 
+  document.addEventListener('DOMContentLoaded', () => {
     requestIdle(function initLiteAdsConfig() {
       window.isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)
       
@@ -34,9 +35,10 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
         }
       }
     })
+  })
  */
 
-  const adsConfig = `"use strict";requestIdle(function(){window.isMobile=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);var e=[].slice.call(document.querySelectorAll(isMobile?"div[data-ads-name][data-ads-dimensions-m]":"div[data-ads-name][data-ads-dimensions]"));window.existAds=e.length>0,window.loadFirstAds=e.filter(function(e){return"true"===e.getAttribute("data-ads-load-first")})||[],window.loadLazilyAds=e.filter(function(e){return"true"!==e.getAttribute("data-ads-load-first")})||[],window.lazier=function(e,i,t){void 0===t&&(t="0px 0px 200px 0px");var n=function(e,t){e.forEach(function(e){var n=e.isIntersecting,a=e.target;n&&(i(a),t.unobserve(a))})};if("IntersectionObserver"in window){var a={rootMargin:t};e.forEach(function(e){new IntersectionObserver(n,a).observe(e)})}}});`
+  const adsConfig = `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){window.isMobile=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);var e=[].slice.call(document.querySelectorAll(isMobile?"div[data-ads-name][data-ads-dimensions-m]":"div[data-ads-name][data-ads-dimensions]"));window.existAds=e.length>0,window.loadFirstAds=e.filter(function(e){return"true"===e.getAttribute("data-ads-load-first")})||[],window.loadLazilyAds=e.filter(function(e){return"true"!==e.getAttribute("data-ads-load-first")})||[],window.lazier=function(e,t,n){void 0===n&&(n="0px 0px 200px 0px");var i=function(e,n){e.forEach(function(e){var i=e.isIntersecting,d=e.target;i&&(t(d),n.unobserve(d))})};if("IntersectionObserver"in window){var d={rootMargin:n};e.forEach(function(e){new IntersectionObserver(i,d).observe(e)})}}})});`
 
   /* 
   window.addEventListener('load', function prebidAds() {
@@ -808,6 +810,7 @@ window.addEventListener('load', function liteAds() {
             src={`https://d1r08wok4169a5.cloudfront.net/ads/elcomercio/arcads.js?${new Date()
               .toISOString()
               .slice(0, 10)}`}></script>
+
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{

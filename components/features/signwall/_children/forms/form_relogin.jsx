@@ -70,7 +70,11 @@ export const FormRelogin = ({
       .then(() => {
         window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
         window.Identity.getUserProfile().then(profile => {
-          if (activeVerifyEmail && !profile.emailVerified) {
+          if (
+            activeVerifyEmail &&
+            !profile.emailVerified &&
+            profile.displayName === profile.email
+          ) {
             setShowLoading(false)
             setShowError(getCodeError('130051'))
             setShowVerify(true)
