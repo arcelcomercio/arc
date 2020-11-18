@@ -8,7 +8,7 @@
   }
 
   @media (--desktop) {
-    grid-template: "info sections contact" auto "sites sites sites" auto / 1fr 1fr 1fr !important;
+    grid-template: "info sections contact" auto "sites sites sites" auto / 1fr 1fr 1fr;
   }
 
   &__logo-container {
