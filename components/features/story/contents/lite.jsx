@@ -255,7 +255,7 @@ const StoryContentsLite = props => {
                           key: mediaId = '',
                           has_ads: hasAds = 0,
                           account = 'gec',
-                          description = '',
+                          title = '',
                         } = {},
                       } = {},
                     } = element
@@ -269,7 +269,7 @@ const StoryContentsLite = props => {
                           className="jwplayer-lazy "
                           id={`botr_${mediaId}_${jwplayerId}_div`}></div>
                         <figcaption className="s-multimedia__caption ">
-                          {description}
+                          {title}
                         </figcaption>
                       </>
                     )
