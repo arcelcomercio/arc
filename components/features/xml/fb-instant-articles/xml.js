@@ -2,13 +2,9 @@ import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
 import md5 from 'md5'
 import StoryData from '../../../utilities/story-data'
-import {
-  localISODate,
-  getMultimedia,
-  nbspToSpace,
-  getActualDate,
-  formattedTime,
-} from '../../../utilities/helpers'
+import { getMultimedia, nbspToSpace } from '../../../utilities/helpers'
+import { localISODate, getActualDate } from '../../../utilities/date-time/dates'
+import formatTime from '../../../utilities/date-time/format-time'
 import buildHtml from './_dependencies/build-html'
 import customFields from './_dependencies/custom-fields'
 import { includePromoItems } from '../../../utilities/included-fields'
@@ -273,9 +269,7 @@ class XmlFacebookInstantArticles {
                   guid: md5(storyData.id),
                   author: nbspToSpace(storyData.author),
                   premium: storyData.isPremium,
-                  captureDate: `${getActualDate()}, ${formattedTime(
-                    localTime
-                  )}`,
+                  captureDate: `${getActualDate()}, ${formatTime(localTime)}`,
                   'content:encoded': {
                     '#cdata': buildHtml(buildHtmlProps),
                   },

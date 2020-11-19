@@ -1,9 +1,9 @@
 import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import { useEditableContent } from 'fusion:content'
 
 import PropTypes from 'prop-types'
-import { arrayMonths, arrayDays } from '../../../utilities/date-time/constants'
+import { getVerboseDate } from '../../../utilities/date-time/dates'
 import { formatSlugToText } from '../../../utilities/parse/strings'
 
 const classes = {
@@ -15,7 +15,7 @@ const classes = {
 }
 
 const CustomTitleFeat = props => {
-  const { globalContent, globalContentConfig } = useFusionContext()
+  const { globalContent, globalContentConfig } = useAppContext()
   const { editableField } = useEditableContent()
 
   const {
@@ -52,14 +52,7 @@ const CustomTitleFeat = props => {
       return 'ÚLTIMO MINUTO'
     }
 
-    // TODO: Usar librería como luxon"
-    const dateObj = new Date(date)
-
-    return `ARCHIVO, ${arrayDays[
-      dateObj.getUTCDay()
-    ].toUpperCase()} ${dateObj.getUTCDate()} DE ${arrayMonths[
-      dateObj.getUTCMonth()
-    ].toUpperCase()} DEL ${dateObj.getUTCFullYear()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
+    return `ARCHIVO, ${getVerboseDate({ date, showTime: false }).toUpperCase()}` // ARCHIVO, LUNES 03 DE FEBRERO DEL 2018
   }
 
   const getSearchTitle = () => {
