@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             window.dataLayer = window.dataLayer || []; 
-            window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [entry.target.dataset.slideNumber,TOTAL_GALLERY_SLIDES] });
+            window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [parseInt(entry.target.dataset.slideNumber,10),TOTAL_GALLERY_SLIDES] });
             galleryObserver.unobserve(entry.target)
           }
         })
