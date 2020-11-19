@@ -199,7 +199,6 @@ class StoryContentAmp extends PureComponent {
         entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad &&
           `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`}`
       })
-
       return entryHtml
     }
 
