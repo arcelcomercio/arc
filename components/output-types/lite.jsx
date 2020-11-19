@@ -224,7 +224,7 @@ const LiteOutput = ({
   const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
-  const isIframeStory = requestUri.includes('ft=cargacontinua')
+  const isIframeStory = requestUri.includes('/carga-continua')
   const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
   `
   return (
@@ -390,7 +390,7 @@ const LiteOutput = ({
           siteProperties={siteProperties}
         />
         <Styles {...metaSiteData} />
-        {!isIframeStory && (
+        {!isIframeStory ? (
           <>
             <MetaSite {...metaSiteData} />
             <meta name="description" lang="es" content={description} />
@@ -402,6 +402,15 @@ const LiteOutput = ({
             <TwitterCards {...twitterCardsData} />
             <OpenGraph {...openGraphData} />
           </>
+        ) : (
+          // Solo para iframes de notas continuas
+          <link
+            rel="canonical"
+            href={deleteQueryString(requestUri).replace(
+              /^\/carga-continua/,
+              ''
+            )}
+          />
         )}
         <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
         {arcSite === SITE_ELCOMERCIOMAG && (
@@ -598,13 +607,13 @@ const LiteOutput = ({
           )}/resources/assets/js/lazyload.js?d=1`}
         />
         {requestUri.match('^/mundo') && (
-        <script
-          type="module"
-          defer
-          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-            .toISOString()
-            .slice(0, 10)}`}
-        />
+          <script
+            type="module"
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+          />
         )}
         {isStory && (
           <>
