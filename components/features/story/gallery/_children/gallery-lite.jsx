@@ -3,6 +3,7 @@ import { useAppContext } from 'fusion:context'
 
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryGalleryChildPicture from './picture'
+import { processText } from '../../../../utilities/story/content'
 
 const classes = {
   gallery: 'story-gallery  ',
@@ -87,14 +88,14 @@ const StoryHeaderChildGallery = props => {
                   <strong
                     className={classes.title}
                     dangerouslySetInnerHTML={{
-                      __html: slide.subtitle,
+                      __html: processText(slide.subtitle),
                     }}
                   />
                   <p
                     itemProp="description"
                     className={classes.captionImage}
                     dangerouslySetInnerHTML={{
-                      __html: slide.caption,
+                      __html: processText(slide.caption),
                     }}
                   />
                 </figcaption>
