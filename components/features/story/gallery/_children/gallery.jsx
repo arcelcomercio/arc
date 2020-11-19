@@ -2,6 +2,7 @@ import React from 'react'
 
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryGalleryChildPicture from './picture'
+import { processText } from '../../../../utilities/story/content'
 
 const classes = {
   gallery: 'story-gallery pt-5 pr-20 pl-20 ',
@@ -65,14 +66,14 @@ const StoryHeaderChildGallery = props => {
                   <strong
                     className={classes.title}
                     dangerouslySetInnerHTML={{
-                      __html: slide.subtitle,
+                      __html: processText(slide.subtitle),
                     }}
                   />
                   <p
                     itemProp="description"
                     className={classes.captionImage}
                     dangerouslySetInnerHTML={{
-                      __html: slide.caption,
+                      __html: processText(slide.caption),
                     }}
                   />
                 </figcaption>
