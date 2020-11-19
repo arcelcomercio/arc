@@ -225,8 +225,10 @@ const LiteOutput = ({
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
   const isIframeStory = requestUri.includes('/carga-continua')
-  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
-  `
+  const canonicalIframe = `https://elcomercio.pe${deleteQueryString(
+    requestUri
+  ).replace(/^\/carga-continua/, '')}`
+  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });`
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -404,13 +406,9 @@ const LiteOutput = ({
           </>
         ) : (
           // Solo para iframes de notas continuas
-          <link
-            rel="canonical"
-            href={deleteQueryString(requestUri).replace(
-              /^\/carga-continua/,
-              ''
-            )}
-          />
+          <>
+            <link rel="canonical" href={canonicalIframe} />
+          </>
         )}
         <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
         {arcSite === SITE_ELCOMERCIOMAG && (
