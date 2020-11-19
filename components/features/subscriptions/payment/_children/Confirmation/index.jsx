@@ -30,11 +30,9 @@ const styles = {
 }
 
 const PaywallTracking = ({ ...props }) => {
-  const { refreshToken } = getStorageInfo()
   useContent({
     source: 'paywall-tracking',
     query: {
-      refreshTokenUser: refreshToken,
       referrerUser: getSessionStorage('paywall_last_url') || '',
       confirmUser: getSessionStorage('paywall_confirm_subs') || '3',
       originUser: getSessionStorage('paywall_type_modal') || 'organico',
@@ -70,6 +68,7 @@ const Confirmation = () => {
   const { texts } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = useState(false)
+  const [sendTracking, setSendTracking] = useState(false)
 
   const {
     email,
@@ -188,6 +187,10 @@ const Confirmation = () => {
           num_items: 1,
           value: amount,
         })
+
+        window.Identity.extendSession().then(() => {
+          setSendTracking(true)
+        })
       } else {
         updateStep(2)
         if (divStep) divStep.classList.remove('bg-white')
@@ -198,6 +201,7 @@ const Confirmation = () => {
   const goToHome = () => {
     if (typeof window !== 'undefined') {
       setLoading(true)
+      setSendTracking(false)
       if (PWA.isPWA()) {
         PWA.pwaCloseWebView()
         return
@@ -222,18 +226,16 @@ const Confirmation = () => {
   return (
     <>
       {userProfile && priceCodePurchase && pricePurchase && (
-        <>
-          <SubscribeEventTag
-            subscriptionId={userProfile.uuid}
-            offerCode={priceCodePurchase}
-            currency="PEN"
-            value={pricePurchase}
-          />
-          <PaywallTracking
-            userId={userProfile.uuid}
-            orderNumber={orderNumber}
-          />
-        </>
+        <SubscribeEventTag
+          subscriptionId={userProfile.uuid}
+          offerCode={priceCodePurchase}
+          currency="PEN"
+          value={pricePurchase}
+        />
+      )}
+
+      {sendTracking && (
+        <PaywallTracking userId={userProfile.uuid} orderNumber={orderNumber} />
       )}
 
       <ul className={styles.step}>
