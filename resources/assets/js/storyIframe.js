@@ -1,3 +1,23 @@
+document.addEventListener('DOMContentLoaded', () => {
+  /* function _handleLinkClick () {
+    const target = this.href
+    window.top.postMessage({
+      id: 'iframe_open_link',
+      redirectUrl: target
+    }, location.origin)
+  } */
+
+  requestIdle(() => {
+    let links = Array.from(document.links);
+    links = links.filter(link => !link.className.includes("share"))
+    console.log({links})
+    links.forEach(link => {
+      link.target = "_blank"
+      // link.onclick = _handleLinkClick
+    })
+  })
+})
+
 window.addEventListener('load', () => {
   function sendMessage() {
     window.top.postMessage({
