@@ -44,6 +44,39 @@ const StoryHeaderChildGallery = props => {
               {i === 5 && (
                 <div id="gpt_caja4" className="flex justify-center"></div>
               )}
+              {i === 7 && (
+                <div id="gpt_caja5" className="flex justify-center"></div>
+              )}
+              {i === 9 && (
+                <div id="gpt_caja6" className="flex justify-center"></div>
+              )}
+              {i === 11 && (
+                <div id="gpt_caja7" className="flex justify-center"></div>
+              )}
+              {i === 13 && (
+                <div id="gpt_caja8" className="flex justify-center"></div>
+              )}
+              {i === 15 && (
+                <div id="gpt_caja9" className="flex justify-center"></div>
+              )}
+              {i === 17 && (
+                <div id="gpt_caja10" className="flex justify-center"></div>
+              )}
+              {i === 19 && (
+                <div id="gpt_caja11" className="flex justify-center"></div>
+              )}
+              {i === 21 && (
+                <div id="gpt_caja12" className="flex justify-center"></div>
+              )}
+              {i === 23 && (
+                <div id="gpt_caja13" className="flex justify-center"></div>
+              )}
+              {i === 25 && (
+                <div id="gpt_caja14" className="flex justify-center"></div>
+              )}
+              {i === 27 && (
+                <div id="gpt_caja15" className="flex justify-center"></div>
+              )}
 
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
@@ -80,9 +113,6 @@ const StoryHeaderChildGallery = props => {
                   />
                 </figcaption>
               </div>
-              {i === 6 && (
-                <div id="gpt_caja5" className="flex justify-center"></div>
-              )}
             </>
           )
         })}
