@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-  imgUrlDesktop: PropTypes.string.tag({
-    name: 'Url imagen desktop',
+  imgUrl: PropTypes.string.tag({
+    name: 'URL de la imagen',
   }),
   imgLink: PropTypes.string.tag({
-    name: 'Link imagen',
+    name: 'Enlace de destino',
   }),
   cols: PropTypes.oneOf(['col-1', 'col-2', 'col-3']).tag({
     name: 'Columnas',
@@ -29,6 +29,7 @@ const customFields = PropTypes.shape({
     name: 'Alto (Pixeles)',
     description:
       'El valor tomará efecto cuando el campo "Filas" tenga el valor "Manual"',
+    defaultValue: 0,
   }),
   lazyload: PropTypes.bool.tag({
     name: 'Activar lazyload',
