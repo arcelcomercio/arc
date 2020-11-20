@@ -67,6 +67,8 @@ const StoryHeaderChildGallery = props => {
 
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
+                // data-slide-number importante para "resources/assets/js/vertical-gallery.js"
+                data-slide-number={i + 1}
                 key={UtilListKey(i)}>
                 <div className="more-compartir"></div>
                 <span className={classes.galleryNumber}>

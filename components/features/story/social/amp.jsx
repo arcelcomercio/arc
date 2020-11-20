@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 
 import StorySocialAmpChildSocial from './_children/amp-social'
@@ -27,6 +27,7 @@ const StorySocialAmp = () => {
         <NextStoryButton
           buttonClass={classes.buttonClass}
           arrowClass={classes.arrowClass}
+          source="header"
         />
       </div>
     )
