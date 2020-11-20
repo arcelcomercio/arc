@@ -16,7 +16,6 @@ window.addEventListener('load', () => {requestIdle(() => {
     JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}
   const initialPointer = document.getElementById('st-continue-0')
   window.dataLayer = window.dataLayer || [];
-
   const setSessionStorageData = (dataTo = {}) => {
     const { section, data = [] } = dataTo
     window.sessionStorage.setItem(
@@ -28,9 +27,12 @@ window.addEventListener('load', () => {requestIdle(() => {
     )
   }
 
+  let stopScrollContinuePaywall = 0
+  
   window.addEventListener( "message", function (event) {  
     const { origin, source, data = {} } = event
     // Solo entra si es el mismo origen
+    const pointerStop = document.getElementById("st-continue-" + storyCounter)
     if(origin === window.location.origin) {
       if(data.id === "story_iframe") {
         requestIdle(() => {
@@ -50,8 +52,8 @@ window.addEventListener('load', () => {requestIdle(() => {
         signwall.className = "active-signwall"
         const bodyTags = document.getElementsByTagName("body")
         bodyTags[0].style.overflow = "hidden"
-        const pointer = document.getElementById("st-continue-0")
-        pointer.remove()
+        stopScrollContinuePaywall = 1
+        pointerStop.remove()
       } else if(data.id === "anchor-top") {
         window.scrollTo(0,0)
       }
@@ -160,6 +162,11 @@ window.addEventListener('load', () => {requestIdle(() => {
     )
     
   const loadNextUrlStorage = (observedElement) => {
+    if(stopScrollContinuePaywall==1){
+      console.log("======165")
+      pointerStop.remove()
+      return false
+    }
     storyCounter = storyCounter + 1
     const nextStory = nextStoriesArray[storyCounter] || {}
 
@@ -321,7 +328,7 @@ const StoryContinueLite = props => {
     ),
   }
 
-  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var n="_recent_articles_",i="<<recentStoriesrecentStoriesrecentStories>>",e=JSON.parse(window.sessionStorage.getItem(n))||{},t=document.getElementById("st-continue-0");window.dataLayer=window.dataLayer||[];window.addEventListener("message",function(e){var t=e.origin,i=e.source,n=e.data,o=void 0===n?{}:n;t===window.location.origin&&("story_iframe"===o.id?requestIdle(function(){var e,t=i.location.search.match(/story=([0-9]{1,2})/)||{},n=t&&t[1];!n||(e=document.getElementById("st-iframe-"+n)||{}).height!==o.storyHeight&&(e.height=o.storyHeight||e.height)}):"iframe_signwall"===o.id||"iframe_relogin"===o.id?window.location.href=o.redirectUrl:"iframe_paywall"===o.id?(document.getElementById("signwall-app").className="active-signwall",document.getElementsByTagName("body")[0].style.overflow="hidden",document.getElementById("st-continue-0").remove()):"anchor-top"===o.id&&window.scrollTo(0,0))},!1),e.section&&window.sessionStorage.removeItem(n),function(e){void 0===e&&(e={});var t=e.section;e.data;window.sessionStorage.setItem(n,JSON.stringify({section:t,data:i.data}))}(i);var o,r,a,s=0,c=1,d=0,l=(JSON.parse(window.sessionStorage.getItem(n))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},u=(a=!1,window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")&&(o=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,(r=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[o])&&r.sub.p.length&&(a=!0)),a?[].concat(l.storiesBySectionPremium,l.storiesByTag):[].concat(l.storiesByTag,l.storiesBySection));u.unshift({title:document.title,link:location.pathname});function g(){return location.href.includes("/pf")}function m(n){void 0===n&&(n=0),requestIdle(function(){var e,t;"IntersectionObserver"in window&&(e=null,n<=0?(e=document.getElementById("contenedor")).setAttribute("data-index",0):0<n&&(e=document.getElementById("st-iframe-"+n)),t=new IntersectionObserver(function(e){e.forEach(function(o){o.isIntersecting&&setTimeout(function(){var e,t,n,i=parseInt(o.target.dataset.index);s===i?(c=o.intersectionRatio,o.target.contentWindow&&(e=o.target.contentWindow.document.documentElement.offsetHeight+"px",o.target.height!==e&&(o.target.height=e))):o.intersectionRatio>c&&(s=i,c=o.intersectionRatio,t=u[s],n=s,document.title=t.title,history.pushState({story:n},t.title,g()?"/pf"+t.link:t.link))},1)})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()}),e&&t.observe(e))})}function w(n){var i=u[d+=1]||{};i.link&&(requestIdle(function(){var e=location.origin+"/carga-continua"+i.link+"?ref=nota&ft=cargacontinua&outputType=lite&story="+d,e=g()?e+"&_website=<<arcSite>>":e,t=document.createElement("iframe");t.src=e,t.width="100%",t.height="6000",t.id="st-iframe-"+d,t.className="st-iframe",t.frameborder="0",t.scrolling="no",t.setAttribute("data-index",d),n.insertAdjacentElement("afterEnd",t),m(d)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+d,e.style.height="10px",document.getElementById("st-iframe-"+d).insertAdjacentElement("afterEnd",e),f(e)}))}/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:"");var f=function(e){var t;"IntersectionObserver"in window?(t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(w(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 1000px 0px"})).observe(e):window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-1e3&&window.removeEventListener("scroll",function(){e(t)}),w(t)}(e)})};f(t),m(0)})});`
+  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var n="_recent_articles_",o="<<recentStoriesrecentStoriesrecentStories>>",e=JSON.parse(window.sessionStorage.getItem(n))||{},t=document.getElementById("st-continue-0");window.dataLayer=window.dataLayer||[];var a=0;window.addEventListener("message",function(e){var t=e.origin,o=e.source,n=e.data,i=void 0===n?{}:n,r=document.getElementById("st-continue-"+l);t===window.location.origin&&("story_iframe"===i.id?requestIdle(function(){var e,t=o.location.search.match(/story=([0-9]{1,2})/)||{},n=t&&t[1];!n||(e=document.getElementById("st-iframe-"+n)||{}).height!==i.storyHeight&&(e.height=i.storyHeight||e.height)}):"iframe_signwall"===i.id||"iframe_relogin"===i.id?window.location.href=i.redirectUrl:"iframe_paywall"===i.id?(document.getElementById("signwall-app").className="active-signwall",document.getElementsByTagName("body")[0].style.overflow="hidden",a=1,r.remove()):"anchor-top"===i.id&&window.scrollTo(0,0))},!1),e.section&&window.sessionStorage.removeItem(n),function(e){void 0===e&&(e={});var t=e.section;e.data;window.sessionStorage.setItem(n,JSON.stringify({section:t,data:o.data}))}(o);var i,r,s,c=0,d=1,l=0,u=(JSON.parse(window.sessionStorage.getItem(n))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},g=(s=!1,window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")&&(i=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,(r=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[i])&&r.sub.p.length&&(s=!0)),s?[].concat(u.storiesBySectionPremium,u.storiesByTag):[].concat(u.storiesByTag,u.storiesBySection));g.unshift({title:document.title,link:location.pathname});function m(){return location.href.includes("/pf")}function w(n){void 0===n&&(n=0),requestIdle(function(){var e,t;"IntersectionObserver"in window&&(e=null,n<=0?(e=document.getElementById("contenedor")).setAttribute("data-index",0):0<n&&(e=document.getElementById("st-iframe-"+n)),t=new IntersectionObserver(function(e){e.forEach(function(i){i.isIntersecting&&setTimeout(function(){var e,t,n,o=parseInt(i.target.dataset.index);c===o?(d=i.intersectionRatio,i.target.contentWindow&&(e=i.target.contentWindow.document.documentElement.offsetHeight+"px",i.target.height!==e&&(i.target.height=e))):i.intersectionRatio>d&&(c=o,d=i.intersectionRatio,t=g[c],n=c,document.title=t.title,history.pushState({story:n},t.title,m()?"/pf"+t.link:t.link))},1)})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()}),e&&t.observe(e))})}function f(n){if(1==a)return console.log("======165"),pointerStop.remove(),0;var o=g[l+=1]||{};o.link&&(requestIdle(function(){var e=location.origin+"/carga-continua"+o.link+"?ref=nota&ft=cargacontinua&outputType=lite&story="+l,e=m()?e+"&_website=<<arcSite>>":e,t=document.createElement("iframe");t.src=e,t.width="100%",t.height="6000",t.id="st-iframe-"+l,t.className="st-iframe",t.frameborder="0",t.scrolling="no",t.setAttribute("data-index",l),n.insertAdjacentElement("afterEnd",t),w(l)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+l,e.style.height="10px",document.getElementById("st-iframe-"+l).insertAdjacentElement("afterEnd",e),h(e)}))}/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:"");var h=function(e){var t;"IntersectionObserver"in window?(t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(f(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 1000px 0px"})).observe(e):window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-1e3&&window.removeEventListener("scroll",function(){e(t)}),f(t)}(e)})};h(t),w(0)})});`
     .replace('<<arcSite>>', arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',
