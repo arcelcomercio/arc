@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 
@@ -9,7 +9,12 @@ const classes = {
   span: 'title-md',
 }
 
-const StoryNextStoryButton = ({ containerClass, buttonClass, arrowClass }) => {
+const StoryNextStoryButton = ({
+  containerClass,
+  buttonClass,
+  arrowClass,
+  source = 'footer',
+}) => {
   const { arcSite, globalContent } = useAppContext()
   const { primary_section: { path: section } = {} } = globalContent || {}
 
@@ -26,7 +31,7 @@ const StoryNextStoryButton = ({ containerClass, buttonClass, arrowClass }) => {
 
   const StoryNextStoryLink = () => (
     <a
-      href={`${websiteUrl}?outputType=amp`}
+      href={`${websiteUrl}?ref=amp&ref=nextarticle&source=${source}`}
       className={buttonClass || classes.link}>
       <b>
         Siguiente artículo{' '}
