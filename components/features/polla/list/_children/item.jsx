@@ -61,7 +61,7 @@ const MatchBox = ({
   }
   if (estado === 2) {
     clasSend = classes.disable_send
-    textSend = 'Prnóstico cerrado'
+    textSend = 'Pronóstico cerrado'
   }
   if (estado === 3) {
     clasSend = classes.disable_send
