@@ -256,7 +256,6 @@ export default ({
     contentElementsHtml,
     oembedSubtypes,
     embedTwitterAndInst,
-    quantityGalleryItem = 0,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo = [],
   } = new StoryData({
@@ -302,8 +301,7 @@ export default ({
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
-  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
-  `
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -652,7 +650,6 @@ export default ({
         )}
         {jwplayerSeo[0] && (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: jwplayerScript,
             }}
@@ -660,7 +657,6 @@ export default ({
         )}
         {contenidoVideo && (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: videoScript,
             }}
@@ -668,7 +664,6 @@ export default ({
         )}
         {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
             }}
@@ -677,12 +672,17 @@ export default ({
           <></>
         )}
         {subtype === GALLERY_VERTICAL && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: dataLayer,
+          <Resource path="resources/assets/js/vertical-gallery.min.js">
+            {({ data }) => {
+              return data ? (
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: data,
+                  }}
+                />
+              ) : null
             }}
-          />
+          </Resource>
         )}
 
         {(hasYoutubeVideo || isVideosSection) && (
@@ -708,16 +708,10 @@ export default ({
         )}
         {embedTwitterAndInst && (
           <>
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: widgets }}
-            />
+            <script dangerouslySetInnerHTML={{ __html: widgets }} />
           </>
         )}
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: iframeScript }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
@@ -753,10 +747,7 @@ export default ({
           </>
         )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: htmlScript }}
-          />
+          <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
       </body>
     </html>
