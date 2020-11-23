@@ -5,6 +5,7 @@ const classes = {
   logoContainer:
     'footer-secondary__logo-wrapper flex items-center justify-between lg:justify-start flex-col lg:flex-row pt-20 pb-20 lg:pt-0 lg:pb-0',
   logo: 'footer-secondary__logo-link mb-20 lg:mb-0',
+  spanTitle: 'footer-secondary__span-title text-xl',
   logoImg: 'footer-secondary__logo-img',
   body: 'flex w-full items-center justify-end',
   legalWrapper:
@@ -27,6 +28,11 @@ const SecondaryFooter = props => {
             alt={`Logo de ${arcSite}`}
           />
         </a>
+        {arcSite === 'elcomerciomag' && (
+          <span className={classes.spanTitle}>
+            Todos los derechos reservados
+          </span>
+        )}
         {/* Cuerpo */}
         <div className={classes.body}>
           {/* Información del sitio */}
