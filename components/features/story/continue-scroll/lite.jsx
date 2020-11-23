@@ -26,13 +26,10 @@ window.addEventListener('load', () => {requestIdle(() => {
       })
     )
   }
-
-  let stopScrollContinuePaywall = 0
   
   window.addEventListener( "message", function (event) {  
     const { origin, source, data = {} } = event
     // Solo entra si es el mismo origen
-    const pointerStop = document.getElementById("st-continue-" + storyCounter)
     if(origin === window.location.origin) {
       if(data.id === "story_iframe") {
         requestIdle(() => {
@@ -48,12 +45,12 @@ window.addEventListener('load', () => {requestIdle(() => {
       } else if(data.id === "iframe_signwall" || data.id === "iframe_relogin") {
         window.location.href = data.redirectUrl
       } else if(data.id === "iframe_paywall") {
+        const pointer = document.getElementById("st-continue-" + storyCounter)
+        pointer.remove()
         const signwall = document.getElementById("signwall-app")
         signwall.className = "active-signwall"
         const bodyTags = document.getElementsByTagName("body")
         bodyTags[0].style.overflow = "hidden"
-        stopScrollContinuePaywall = 1
-        pointerStop.remove()
       } else if(data.id === "anchor-top") {
         window.scrollTo(0,0)
       }
@@ -162,11 +159,6 @@ window.addEventListener('load', () => {requestIdle(() => {
     )
     
   const loadNextUrlStorage = (observedElement) => {
-    if(stopScrollContinuePaywall==1){
-      console.log("======165")
-      pointerStop.remove()
-      return false
-    }
     storyCounter = storyCounter + 1
     const nextStory = nextStoriesArray[storyCounter] || {}
 
