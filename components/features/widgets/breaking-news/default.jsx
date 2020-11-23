@@ -64,7 +64,7 @@ const BreakingNewsFeat = props => {
 
   return (
     <>
-      {showBreakingNews && (
+      {showBreakingNews ? (
         <>
           <div
             id="breaking-news"
@@ -73,12 +73,12 @@ const BreakingNewsFeat = props => {
           ${classes.breakingnews}
           `}>
             <h2 itemProp="name" className={classes.text}>
-              {showIcon && (
+              {showIcon ? (
                 <>
                   <span className={classes.envivoborder}></span>
                   <span className={classes.envivo}></span>
                 </>
-              )}
+              ) : null}
               <span
                 className={classes.tag}
                 {...editableField('tags')}
@@ -108,7 +108,7 @@ const BreakingNewsFeat = props => {
           </div>
           <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
         </>
-      )}
+      ) : null}
     </>
   )
 }

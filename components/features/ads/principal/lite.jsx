@@ -18,7 +18,7 @@ const AdsFeatLite = props => {
 
   return (
     <>
-      {(liteAdId || liteAdName || liteAdDimensions) && (
+      {liteAdId || liteAdName || liteAdDimensions ? (
         <div
           id={liteAdId}
           data-ads-name={liteAdName}
@@ -30,7 +30,7 @@ const AdsFeatLite = props => {
           data-prebid-dimensions={prebidAdDimensions}
           style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
         />
-      )}
+      ) : null}
     </>
   )
 }

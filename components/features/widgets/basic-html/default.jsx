@@ -107,7 +107,7 @@ const BasicHtmlFeat = props => {
         appendToBody(createScript({ src: url, async: true }))
       }
     }
-  }, [])
+  }, [URL_VIDEO, ID_VIDEO, freeHtml])
 
   const getAdsSpace = () => {
     const toDate = dateStr => {
@@ -172,13 +172,13 @@ const BasicHtmlFeat = props => {
   }
   return (
     <div className={` ${classes.htmlContainer} `}>
-      {freeHtml && <div dangerouslySetInnerHTML={{ __html: freeHtml }} />}
-      {!freeHtml && isAdmin && (
+      {freeHtml ? <div dangerouslySetInnerHTML={{ __html: freeHtml }} /> : null}
+      {!freeHtml && isAdmin ? (
         <div
           dangerouslySetInnerHTML={{ __html: freeHtml }}
           className={addEmptyBackground()}
         />
-      )}
+      ) : null}
     </div>
   )
 }

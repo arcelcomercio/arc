@@ -62,7 +62,7 @@ const BreakingNewsFeat = props => {
 
   return (
     <>
-      {showBreakingNews && (
+      {showBreakingNews ? (
         <>
           <div
             id="breaking-news"
@@ -76,12 +76,12 @@ const BreakingNewsFeat = props => {
                 className={classes.link}
                 href={objContent.link}
                 rel="noopener noreferrer">
-                {showIcon && (
+                {showIcon ? (
                   <>
                     <span className={classes.envivoborder}></span>
                     <span className={classes.envivo}></span>
                   </>
-                )}
+                ) : null}
                 <span className={classes.tag}>{tags}</span>
                 <span className={classes.title}>{objContent.title}</span>
               </a>
@@ -104,7 +104,7 @@ const BreakingNewsFeat = props => {
           </div>
           <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
         </>
-      )}
+      ) : null}
     </>
   )
 }
