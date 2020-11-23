@@ -96,7 +96,38 @@
     height: 50px;
     padding: 10px 0;
   }
-
+  &__btn--section {
+    border-right: 1px solid #fff;
+    padding-right: 10px;
+    position: relative;
+    &::after {
+      content: "";
+      width: 1px;
+      height: 20px;
+      background-color: #333;
+      right: 0;
+      position: absolute;
+    }
+    svg {
+      fill: #fff;
+      @media (--desktop) {
+        fill: #333;
+      }
+    }
+    span {
+      display: none;
+      @media (--tablet) {
+        display: block;
+        color: #fff;
+        margin-left: 8px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+      @media (--desktop) {
+        color: #333;
+      }
+    }
+  }
   &.active {
     max-width: 980px;
     width: 100%;
@@ -129,9 +160,17 @@
     .nav__p-logo {
       display: none;
     }
-  }
-  &__container-menu {
-    display: none;
+    .nav__btn--section {
+      svg {
+        fill: #333;
+      }
+      span {
+        color: #333;
+      }
+    }
+    .nav__wrapper {
+      justify-content: space-between;
+    }
   }
 }
 
@@ -187,4 +226,8 @@
   @media (--tablet) {
     display: none;
   }
+}
+
+.nav-sidebar {
+  display: none;
 }

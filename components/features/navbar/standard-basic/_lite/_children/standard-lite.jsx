@@ -4,10 +4,10 @@ import React from 'react'
 import ENV from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 
-import getResponsiveClasses from '../../../../utilities/responsive-classes'
-import { socialMediaUrlShareList } from '../../../../utilities/social-media'
-import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
-import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+import getResponsiveClasses from '../../../../../utilities/responsive-classes'
+import { socialMediaUrlShareList } from '../../../../../utilities/social-media'
+import { ELEMENT_STORY } from '../../../../../utilities/constants/element-types'
+import { SITE_PERU21 } from '../../../../../utilities/constants/sitenames'
 import {
   singwallScript,
   getQueryReloginEmailScript,
@@ -16,9 +16,10 @@ import {
   getBtnSubsScript,
   getBtnSignScript,
   navBarLoaderScript,
-} from '../_dependencies/scripts'
+} from '../../_dependencies/scripts'
 
-import Button from '../../../../global-components/button'
+import Button from '../../../../../global-components/button'
+import Menu from './menu'
 
 const classes = {
   nav: `nav w-full f alg-center`,
@@ -26,7 +27,7 @@ const classes = {
   form: 'f pos-rel alg-center',
   search: `nav__i-search`,
   navContainerRight: `nav__container-right pos-abs`,
-  navBtnContainer: `nav__container-menu f alg-center`,
+  navBtnContainer: `nav__btn--section f alg-center`,
   searchContainer: 'nav__search-box alg-center',
   btnSearch: `nav__btn--search nav__btn f alg-center`,
   btnSection: 'nav__btn--section nav__btn f alg-center',
@@ -109,6 +110,7 @@ const NavBarDefault = props => {
     logoLeft,
     deviceList,
     hideMenu,
+    data: { children: sections = [] } = {},
     navbarData: { children: navbarSections = [] } = {},
   } = props
 
@@ -149,13 +151,18 @@ const NavBarDefault = props => {
           </div>
 
           {!hideMenu && (
-            <div className={classes.navBtnContainer}>
-              <Button
-                iconClass={classes.iconMenu}
-                btnClass={classes.btnSection}
-                btnText="Menú"
-              />
-            </div>
+            <button type="button" className={classes.navBtnContainer}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="23"
+                viewBox="0 0 24 24">
+                <title>Menú</title>
+                <path d="M4 6h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4C3.5 8 3 7.6 3 7l0 0C3 6.5 3.5 6 4 6z" />
+                <path d="M4 11h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 11.5 3.5 11 4 11z" />
+                <path d="M4 16h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 16.5 3.5 16 4 16z" />
+              </svg>
+              <span aria-hidden="true">Menú</span>
+            </button>
           )}
 
           {/** ************* MIDDLE *************** */}
@@ -394,6 +401,7 @@ const NavBarDefault = props => {
             </div>
           </div>
         </div>
+        {!hideMenu && <Menu sections={sections} />}
       </nav>
       <div id="nav-pointer"></div>
       <script

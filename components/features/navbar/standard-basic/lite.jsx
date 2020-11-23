@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 
-import NavbarStandardLite from './_children/standard-lite'
+import NavbarStandardLite from './_lite/_children/standard-lite'
 import schemaFilter from './_dependencies/schema-filter'
 import { getAssetsPath } from '../../../utilities/assets'
 
@@ -26,6 +26,19 @@ const LayoutNavbar = props => {
     } = {},
   } = props
 
+  const data =
+    useContent(
+      hideMenu
+        ? {}
+        : {
+            source: 'navigation-by-hierarchy',
+            query: {
+              hierarchy: 'menu-default',
+            },
+            filter: schemaFilter,
+          }
+    ) || []
+
   const getReourceImgPath = img => {
     return deployment(
       `${getAssetsPath(
@@ -41,6 +54,38 @@ const LayoutNavbar = props => {
     elcomerciomag: getReourceImgPath('logo-143x60.png'),
   }
 
+  const formatData = (datas = {}) => {
+    const LINK = 'link'
+    const { children = [] } = datas || {}
+    return children.map(child => {
+      let name = child.node_type === LINK ? child.display_name : child.name
+      const rawMatch = name.match(/\[#.*\]/g)
+      const match =
+        rawMatch === null
+          ? []
+          : rawMatch[0]
+              .replace('[', '')
+              .replace(']', '')
+              .split(',')
+      if (match) {
+        name = name.replace(/\[#.*\]/g, '')
+      }
+      return {
+        name,
+        url: child.node_type === LINK ? child.url : child._id,
+        styles: match,
+
+        children: child.children,
+        _id: child._id,
+        display_name: child.display_name,
+      }
+    })
+  }
+
+  const dataFormat = {
+    children: formatData(data),
+  }
+
   return (
     <NavbarStandardLite
       deviceList={{ showInDesktop, showInTablet, showInMobile }}
@@ -52,6 +97,7 @@ const LayoutNavbar = props => {
         src: getReourceImgPath('otorongo.png'),
         alt: arcSite,
       }}
+      data={dataFormat}
     />
   )
 }
