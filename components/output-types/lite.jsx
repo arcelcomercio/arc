@@ -183,7 +183,6 @@ const LiteOutput = ({
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo,
-    quantityGalleryItem = 0,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -225,8 +224,7 @@ const LiteOutput = ({
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
   const isIframeStory = requestUri.includes('ft=cargacontinua')
-  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
-  `
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -528,7 +526,6 @@ const LiteOutput = ({
               defer
             />
             <script
-              type="text/javascript"
               dangerouslySetInnerHTML={{
                 __html: videoScript,
               }}
@@ -538,7 +535,6 @@ const LiteOutput = ({
 
         {jwplayerSeo[0] && (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: jwplayerScript,
             }}
@@ -547,7 +543,6 @@ const LiteOutput = ({
 
         {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
             }}
@@ -556,12 +551,17 @@ const LiteOutput = ({
           <></>
         )}
         {subtype === GALLERY_VERTICAL && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: dataLayer,
+          <Resource path="resources/assets/js/vertical-gallery.min.js">
+            {({ data }) => {
+              return data ? (
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: data,
+                  }}
+                />
+              ) : null
             }}
-          />
+          </Resource>
         )}
         {hasYoutubeVideo && (
           <>
@@ -585,7 +585,6 @@ const LiteOutput = ({
           </>
         )}
         <script
-          type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: iframeScript,
           }}
@@ -598,13 +597,13 @@ const LiteOutput = ({
           )}/resources/assets/js/lazyload.js?d=1`}
         />
         {requestUri.match('^/mundo') && (
-        <script
-          type="module"
-          defer
-          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-            .toISOString()
-            .slice(0, 10)}`}
-        />
+          <script
+            type="module"
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+          />
         )}
         {isStory && (
           <>
@@ -634,10 +633,7 @@ const LiteOutput = ({
           </>
         )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: htmlScript }}
-          />
+          <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
         {isIframeStory && (
           <script

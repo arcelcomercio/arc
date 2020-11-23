@@ -449,10 +449,15 @@ export const facebookHtml = html => {
       '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$1"></amp-facebook>'
     resultHtml = resultHtml.replace(regexVideo, replacePlugin)
 
-    return decodeURIComponent(resultHtml).replace(
-      /<iframe(.+?)(https?:\/\/www\.facebook\.com\/(?:video\.php\?v=\d+|.*?href=))((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)"(.+?)><\/iframe>/g,
-      '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$3"></amp-facebook>'
-    )
+    try {
+      resultHtml = decodeURIComponent(resultHtml).replace(
+        /<iframe(.+?)(https?:\/\/www\.facebook\.com\/(?:video\.php\?v=\d+|.*?href=))((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)"(.+?)><\/iframe>/g,
+        '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$3"></amp-facebook>'
+      )
+    } catch (error) {
+      //  console.log(error)
+    }
+    return resultHtml
   }
 
   if (resultHtml.indexOf('facebook.com/plugins/post.php') !== -1) {
@@ -460,7 +465,12 @@ export const facebookHtml = html => {
     const replacePlugin =
       '<amp-facebook width="500" height="310" layout="responsive" data-href="$1"></amp-facebook>'
     resultHtml = resultHtml.replace(regexPost, replacePlugin)
-    return decodeURIComponent(resultHtml)
+    try {
+      resultHtml = decodeURIComponent(resultHtml)
+    } catch (error) {
+      //  console.log(error)
+    }
+    return resultHtml
   }
 
   // fallback para iframes de facebook
