@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import AdsChild from '../../../global-components/ads'
@@ -24,39 +24,10 @@ const AdsFeat = props => {
       adsBorder,
       isDfp,
       rows,
-      liteAdId,
-      liteAdName,
-      liteAdDimensions,
-      liteAdMobileDimensions,
-      liteAdLoadFirst,
-      liteAdLoadBlock,
-      liteAdInlineStyles,
-      prebidAdEnabled,
-      prebidAdDimensions,
     } = {},
   } = props
 
-  const { isAdmin, outputType } = useFusionContext()
-
-  if (outputType === 'lite') {
-    return (
-      <>
-        {(liteAdId || liteAdName || liteAdDimensions) && (
-          <div
-            id={liteAdId}
-            data-ads-name={liteAdName}
-            data-ads-dimensions={liteAdDimensions}
-            data-ads-dimensions-m={liteAdMobileDimensions}
-            data-ads-load-first={liteAdLoadFirst}
-            data-bloque={liteAdLoadBlock}
-            data-prebid-enabled={prebidAdEnabled}
-            data-prebid-dimensions={prebidAdDimensions}
-            style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
-          />
-        )}
-      </>
-    )
-  }
+  const { isAdmin } = useAppContext()
 
   const adsSpaces =
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -143,7 +114,7 @@ const AdsFeat = props => {
             />
           )
 
-        if (outputType !== 'amp' && !neverShow())
+        if (!neverShow())
           return (
             <>
               <div
