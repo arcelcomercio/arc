@@ -5,6 +5,7 @@ import { useContent } from 'fusion:content'
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import StoryContentChildRelated from './_lite/_children/item'
 import { getAssetsPath } from '../../../utilities/constants'
+import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 
 const classes = {
   relatedList: 'st-rel f f-col',
@@ -51,14 +52,18 @@ const StoryRelated = () => {
     contextPath
   )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
 
+  const title = arcSite === SITE_ELCOMERCIO ? 'RELACIONADAS' : 'VEA TAMBIÉN'
+
   return (
     <>
       {relatedContent && relatedContent.length > 0 && (
         <div role="list" className={classes.relatedList}>
           <div className="f">
-            <img className={classes.logo} alt="logo" src={urlImg} />
+            {arcSite === SITE_ELCOMERCIO && (
+              <img className={classes.logo} alt="logo" src={urlImg} />
+            )}
             <h4 itemProp="name" className={classes.relatedTitle}>
-              RELACIONADAS{' '}
+              {title}
             </h4>
           </div>
           {relatedContent.map((item, i) => {

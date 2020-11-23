@@ -64,9 +64,109 @@ const StoryHeaderChildGallery = props => {
                   data-bloque="3"
                   data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
               )}
-
+              {i === 7 && (
+                <div
+                  id="gpt_caja5"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja5`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 9 && (
+                <div
+                  id="gpt_caja6"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja6`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 11 && (
+                <div
+                  id="gpt_caja7"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja7`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 13 && (
+                <div
+                  id="gpt_caja8"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja8`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 15 && (
+                <div
+                  id="gpt_caja9"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja9`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 17 && (
+                <div
+                  id="gpt_caja10"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja10`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 19 && (
+                <div
+                  id="gpt_caja11"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja11`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 21 && (
+                <div
+                  id="gpt_caja12"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja12`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 23 && (
+                <div
+                  id="gpt_caja13"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja13`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 25 && (
+                <div
+                  id="gpt_caja14"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja14`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
+              {i === 27 && (
+                <div
+                  id="gpt_caja15"
+                  className="f just-center"
+                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja15`}
+                  data-ads-dimensions="[[300,250]]"
+                  data-bloque="3"
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+              )}
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
+                // data-slide-number importante para "resources/assets/js/vertical-gallery.js"
+                data-slide-number={i + 1}
                 key={UtilListKey(i)}>
                 <div className="more-compartir"></div>
                 <span className={classes.galleryNumber}>
@@ -98,15 +198,6 @@ const StoryHeaderChildGallery = props => {
                   />
                 </figcaption>
               </div>
-              {i === 6 && (
-                <div
-                  id="gpt_caja5"
-                  className="f just-center"
-                  data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja5`}
-                  data-ads-dimensions="[[300,250]]"
-                  data-bloque="4"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
-              )}
             </>
           )
         })}

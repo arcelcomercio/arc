@@ -8,6 +8,7 @@ import StoryData from '../../../utilities/story-data'
 import { storyTagsBbc } from '../../../utilities/tags'
 import { getAssetsPath } from '../../../utilities/assets'
 import { publicidadAmp } from '../../../utilities/story/helpers-amp'
+import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
@@ -29,6 +30,7 @@ const StoryTitleAmp = () => {
     subTitle,
     tags,
     link,
+    subtype,
     promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
   } = new StoryData({
     data,
@@ -78,10 +80,12 @@ const StoryTitleAmp = () => {
           )}
           {title && <h1 className={classes.titleAmp}> {title} </h1>}
         </header>
-        <div
-          className={classes.adsAmp}
-          dangerouslySetInnerHTML={publicidadAmp(parameters)}
-        />
+        {subtype !== GALLERY_VERTICAL && (
+          <div
+            className={classes.adsAmp}
+            dangerouslySetInnerHTML={publicidadAmp(parameters)}
+          />
+        )}
         {subTitle && <div className={classes.description}> {subTitle}</div>}
         <StorySocialChildAmpSocial />
 

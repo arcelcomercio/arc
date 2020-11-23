@@ -39,7 +39,7 @@ export const contentWithAds = ({ contentElements, adsEvery = 2 }) => {
     : []
 }
 
-export const processText = content => {
+export const processText = (content = '') => {
   const res = content.split('<b>')
   let entryHtml = ''
   res.forEach((entry, i) => {
