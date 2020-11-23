@@ -8,6 +8,7 @@ import { storyTagsBbc } from '../../../utilities/tags'
 import { getAssetsPath } from '../../../utilities/assets'
 import { publicidadAmp } from '../../../utilities/story/helpers-amp'
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
@@ -29,6 +30,7 @@ const StoryTitleAmp = () => {
     title,
     subTitle,
     tags,
+    subtype,
     primarySectionLink,
     promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
   } = new StoryData({
@@ -79,7 +81,8 @@ const StoryTitleAmp = () => {
 
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
         </header>
-        {arcSite !== SITE_ELCOMERCIOMAG && (
+
+        {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
           <div
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmp(parameters)}

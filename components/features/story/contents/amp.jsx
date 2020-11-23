@@ -212,7 +212,7 @@ class StoryContentAmp extends PureComponent {
           ) : (
             <>{promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}</>
           )}
-          {!isMag && (
+          {!isMag && subtype !== GALLERY_VERTICAL && (
             <div
               className={classes.adsAmp}
               dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
@@ -526,6 +526,7 @@ class StoryContentAmp extends PureComponent {
                 dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
               />
             )}
+            
           {isComercio && <StoryGoogleNews />}
           <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
           {storyTagsBbc(tags) && (
@@ -547,7 +548,7 @@ class StoryContentAmp extends PureComponent {
           )}
         </div>
 
-        {!isMag && (
+        {!isMag && subtype !== GALLERY_VERTICAL && (
           <div
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}
