@@ -115,6 +115,7 @@ export default {
   activePaywall: false,
   activeRulesCounter: false,
   activeNewsletter: false,
+  activeVerifyEmail: false,
   signwall: {
     mainColorBg: '#0c70bf',
     mainColorTxt: '#ffffff',
@@ -129,4 +130,8 @@ export default {
     logoAlt: 'Perú21Tv',
   },
   isDfp: true,
+  jwplayers: {
+    gec: { playerAds: 'zbS8OgHn', player: 'zDBv4yUE' },
+    peru21: { playerAds: 'uTZV4zGu', player: 'UAwoVtxC' },
+  },
 }

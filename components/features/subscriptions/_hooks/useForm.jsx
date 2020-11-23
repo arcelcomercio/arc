@@ -25,7 +25,6 @@ function getPropValues(stateSchema, prop) {
 
   return Object.keys(stateSchema).reduce((accumulator, curr) => {
     accumulator[curr] = stateSchema[curr][prop]
-
     return accumulator
   }, {})
 }
@@ -36,30 +35,26 @@ function getPropValues(stateSchema, prop) {
  * @param {boolean} isRequired
  */
 function isRequiredField(value, isRequired) {
-  if (!value && isRequired) return REQUIRED_FIELD_ERROR
-  return ''
+  return !value && isRequired ? REQUIRED_FIELD_ERROR : ''
 }
 
 function notSpaces(value) {
-  if (value.indexOf(' ') >= 0) return EMPTY_FIELD_ERROR
-  return ''
+  return value.indexOf(' ') >= 0 ? EMPTY_FIELD_ERROR : ''
 }
 
 function min2Caracts(value) {
-  if (value.length < 2) return MIN_2_CARACTS_FIELD_ERROR
-  return ''
+  return value.length < 2 ? MIN_2_CARACTS_FIELD_ERROR : ''
 }
 
 function min6Caracts(value) {
-  if (value.length < 6) return MIN_6_CARACTS_FIELD_ERROR
-  return ''
+  return value.length < 6 ? MIN_6_CARACTS_FIELD_ERROR : ''
 }
 
 function invalidText(value) {
   const lowerValue = value.toLowerCase()
-  if (lowerValue.match(/undefined/) || lowerValue === 'null')
-    return TEXT_INVALID_ERROR
-  return ''
+  return lowerValue.match(/undefined/) || lowerValue === 'null'
+    ? TEXT_INVALID_ERROR
+    : ''
 }
 
 /**
@@ -75,10 +70,8 @@ function useForm(
   submitFormCallback
 ) {
   const [state, setStateSchema] = useState(stateSchema)
-
   const [values, setValues] = useState(getPropValues(state, VALUE))
   const [errors, setErrors] = useState(getPropValues(state, ERROR))
-
   const [disable, setDisable] = useState(true)
   const [isDirty, setIsDirty] = useState(false)
 
@@ -109,7 +102,6 @@ function useForm(
   const handleOnChange = useCallback(
     event => {
       setIsDirty(true)
-
       const { value, name } = event.target
       const _validator = stateValidatorSchema
 

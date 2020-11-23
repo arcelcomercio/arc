@@ -2,6 +2,7 @@ import React from 'react'
 
 import UtilListKey from '../../../../utilities/list-keys'
 import StoryGalleryChildPicture from './picture'
+import { processText } from '../../../../utilities/story/content'
 
 const classes = {
   gallery: 'story-gallery pt-5 pr-20 pl-20 ',
@@ -43,9 +44,44 @@ const StoryHeaderChildGallery = props => {
               {i === 5 && (
                 <div id="gpt_caja4" className="flex justify-center"></div>
               )}
+              {i === 7 && (
+                <div id="gpt_caja5" className="flex justify-center"></div>
+              )}
+              {i === 9 && (
+                <div id="gpt_caja6" className="flex justify-center"></div>
+              )}
+              {i === 11 && (
+                <div id="gpt_caja7" className="flex justify-center"></div>
+              )}
+              {i === 13 && (
+                <div id="gpt_caja8" className="flex justify-center"></div>
+              )}
+              {i === 15 && (
+                <div id="gpt_caja9" className="flex justify-center"></div>
+              )}
+              {i === 17 && (
+                <div id="gpt_caja10" className="flex justify-center"></div>
+              )}
+              {i === 19 && (
+                <div id="gpt_caja11" className="flex justify-center"></div>
+              )}
+              {i === 21 && (
+                <div id="gpt_caja12" className="flex justify-center"></div>
+              )}
+              {i === 23 && (
+                <div id="gpt_caja13" className="flex justify-center"></div>
+              )}
+              {i === 25 && (
+                <div id="gpt_caja14" className="flex justify-center"></div>
+              )}
+              {i === 27 && (
+                <div id="gpt_caja15" className="flex justify-center"></div>
+              )}
 
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
+                // data-slide-number importante para "resources/assets/js/vertical-gallery.js"
+                data-slide-number={i + 1}
                 key={UtilListKey(i)}>
                 <div className="more-compartir"></div>
                 <span className={classes.galleryNumber}>
@@ -65,21 +101,18 @@ const StoryHeaderChildGallery = props => {
                   <strong
                     className={classes.title}
                     dangerouslySetInnerHTML={{
-                      __html: slide.subtitle,
+                      __html: processText(slide.subtitle),
                     }}
                   />
                   <p
                     itemProp="description"
                     className={classes.captionImage}
                     dangerouslySetInnerHTML={{
-                      __html: slide.caption,
+                      __html: processText(slide.caption),
                     }}
                   />
                 </figcaption>
               </div>
-              {i === 6 && (
-                <div id="gpt_caja5" className="flex justify-center"></div>
-              )}
             </>
           )
         })}

@@ -37,7 +37,7 @@ module.exports = type => {
 
   const writeImportCss = contentArr => {
     const contentImportsCss = contentArr.map(element => {
-      const elementFormatter = element.replace(/_(.+).scss/g, '$1')
+      const elementFormatter = element.replace(/_(.+).s(c|a)ss/g, '$1')
       return `@import ".${elementFormatter}";`
     }, '')
     return contentImportsCss.join(`\r\n`)

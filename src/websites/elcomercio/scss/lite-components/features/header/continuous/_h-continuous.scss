@@ -1,0 +1,37 @@
+.h-continuous {
+  height: $header-height-m;
+  background-color: $color-primary;
+  @media (--desktop) {
+    height: $header-height;
+  }
+  &__img {
+    height: 20px;
+    @media (--desktop) {
+      height: 26px;
+    }
+  }
+  &__anchor {
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    transform: rotateZ(-90deg);
+    padding-bottom: 20px;
+  }
+
+  // ----- MODIFICADOR SOMOS LITE -----
+
+  /* &--somos {
+    background-color: $color-white;
+    height: $header-somos-height-m;
+    @media (--desktop) {
+      height: $header-somos-height;
+    }
+    .h-continuous__img {
+      height: 30px;
+      @media (--desktop) {
+        height: 42px;
+      }
+    }
+  } */
+}

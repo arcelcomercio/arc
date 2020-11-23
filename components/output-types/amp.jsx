@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
+import Styles from './_children/styles'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
@@ -132,6 +133,8 @@ const AmpOutputType = ({
     oembedSubtypes,
     promoItems: { basic_html: { content = '' } = {} } = {},
     subtype = '',
+    promoItemJwplayer = {},
+    jwplayerSeo = [],
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -208,7 +211,6 @@ const AmpOutputType = ({
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
   }
-
   return (
     <Html lang={lang}>
       <head>
@@ -218,6 +220,7 @@ const AmpOutputType = ({
           )}`}
         />
         <title>{title}</title>
+        <Styles {...metaSiteData} />
         <MetaSite {...metaSiteData} />
         <meta name="description" content={description} />
         {arcSite === SITE_GESTION && (
@@ -315,13 +318,27 @@ const AmpOutputType = ({
           custom-element="amp-sidebar"
           src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
         />
+
         {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && hasJwVideo && (
           <script
             async
             custom-element="amp-jwplayer"
-            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-          />
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
         )}
+
+        {(promoItemJwplayer.key || jwplayerSeo[0]) && (
+          <>
+            <script
+              async
+              custom-element="amp-jwplayer"
+              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
+            <script
+              async
+              custom-element="amp-video-docking"
+              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"></script>
+          </>
+        )}
+
         {hasTwitter && (
           <script
             async

@@ -27,6 +27,8 @@ export default {
   googleTagManagerMobile: 'GTM-NNX4LXF',
   siteDescription:
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsUrl:
+    'https://news.google.com/publications/CAAqBggKMJGkIDCp0wM?oc=3&ceid=US:es-419',
   googleNewsImage: 'https://elcomercio.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: 'FXTBX3HGGNBQXES37OMYK4WRIE',
@@ -233,6 +235,7 @@ export default {
   activePaywall: true,
   activeRulesCounter: true,
   activeNewsletter: true,
+  activeVerifyEmail: true,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',
@@ -252,4 +255,8 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2011-08-14',
+  jwplayers: {
+    gec: { playerAds: 'fB2Mdnsl', player: 'aQVjnIkX' },
+    elcomercio: { playerAds: 'jqJgjiEA', player: 'CW5g4pdQ' },
+  },
 }

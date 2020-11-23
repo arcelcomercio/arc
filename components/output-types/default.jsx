@@ -1,6 +1,7 @@
 import React from 'react'
 import ENV from 'fusion:environment'
 
+import Styles from './_children/styles'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
@@ -9,6 +10,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
+
 // import Preconnects from './_children/preconnects'
 
 import StoryData from '../utilities/story-data'
@@ -39,6 +41,7 @@ import iframeScript from './_dependencies/iframe-script'
 import htmlScript from './_dependencies/html-script'
 import widgets from './_dependencies/widgets'
 import videoScript from './_dependencies/video-script'
+import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
 import {
   MINUTO_MINUTO,
@@ -113,6 +116,12 @@ export default ({
       classBody = `${classBody} muchafoto`
     } else if (/^\/usa/.test(requestUri)) {
       lang = 'es-us'
+    }
+  }
+
+  if (arcSite === SITE_TROME) {
+    if (/^\/pollon-eliminatorias/.test(requestUri)) {
+      classBody = `${classBody} polla`
     }
   }
 
@@ -248,6 +257,7 @@ export default ({
     oembedSubtypes,
     embedTwitterAndInst,
     promoItems: { basic_html: { content = '' } = {} } = {},
+    jwplayerSeo = [],
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -260,6 +270,7 @@ export default ({
     regexYoutube.test(content) ||
     regexYoutube.test(contentElementsHtml) ||
     oembedSubtypes.includes('youtube')
+
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
@@ -274,6 +285,8 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
+    style = 'polla'
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
@@ -432,7 +445,9 @@ export default ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        <MetaSite {...metaSiteData} isStyleBasic={isStyleBasic} />
+        <Styles {...metaSiteData} isStyleBasic={isStyleBasic} />
+        <MetaSite {...metaSiteData} />
+
         <meta name="description" lang="es" content={description} />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
@@ -633,9 +648,15 @@ export default ({
             />
           </>
         )}
+        {jwplayerSeo[0] && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: jwplayerScript,
+            }}
+          />
+        )}
         {contenidoVideo && (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: videoScript,
             }}
@@ -643,7 +664,6 @@ export default ({
         )}
         {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
             }}
@@ -651,6 +671,20 @@ export default ({
         ) : (
           <></>
         )}
+        {subtype === GALLERY_VERTICAL && (
+          <Resource path="resources/assets/js/vertical-gallery.min.js">
+            {({ data }) => {
+              return data ? (
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: data,
+                  }}
+                />
+              ) : null
+            }}
+          </Resource>
+        )}
+
         {(hasYoutubeVideo || isVideosSection) && (
           <>
             <Resource path="resources/assets/lite-youtube/styles.min.css">
@@ -674,16 +708,10 @@ export default ({
         )}
         {embedTwitterAndInst && (
           <>
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: widgets }}
-            />
+            <script dangerouslySetInnerHTML={{ __html: widgets }} />
           </>
         )}
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: iframeScript }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
@@ -719,10 +747,7 @@ export default ({
           </>
         )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: htmlScript }}
-          />
+          <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
       </body>
     </html>

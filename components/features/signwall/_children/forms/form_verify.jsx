@@ -24,31 +24,41 @@ export const FormVerify = ({
   const [showBtnContinue, setShowBtnContinue] = useState(false)
 
   useEffect(() => {
-    if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
-      setShowBtnContinue(true)
+    if (typeof window !== 'undefined') {
+      if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
+        setShowBtnContinue(true)
+      }
     }
   }, [])
 
   useEffect(() => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.verifyEmail(tokenVerify)
-      .then(() => {
-        setShowConfirm(true)
-        Taggeo(
-          `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_aceptar_sucess`
-        )
-      })
-      .catch(errLogin => {
-        setShowError(getCodeError(errLogin.code))
-        Taggeo(
-          `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_aceptar_error`
-        )
-      })
-      .finally(() => {
-        setShowLoading(false)
-      })
+    if (typeof window !== 'undefined') {
+      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      window.Identity.verifyEmail(tokenVerify)
+        .then(() => {
+          setShowConfirm(true)
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_aceptar_sucess`
+          )
+          if (
+            window.Identity.userProfile ||
+            window.Identity.userIdentity.uuid
+          ) {
+            window.Identity.getUserProfile()
+          }
+        })
+        .catch(errLogin => {
+          setShowError(getCodeError(errLogin.code))
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_aceptar_error`
+          )
+        })
+        .finally(() => {
+          setShowLoading(false)
+        })
+    }
   }, [])
 
   return (

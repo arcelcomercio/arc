@@ -47,6 +47,10 @@ class Data {
   get urlPrivacyPolicies() {
     return this._customFields.urlPrivacyPolicies || ''
   }
+
+  get colorButton() {
+    return this._customFields.colorButton || ''
+  }
 }
 
 export default Data

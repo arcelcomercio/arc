@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import { getAssetsPath } from '../../../utilities/assets'
 import customFields from './_dependencies/custom-fields'
@@ -15,9 +15,9 @@ const HeaderBasic = props => {
     siteProperties,
     requestUri,
     metaValue,
-  } = useFusionContext()
+  } = useAppContext()
   const {
-    customFields: { hideMenu },
+    customFields: { hideMenu, activeSticky },
   } = props
 
   const {
@@ -32,7 +32,7 @@ const HeaderBasic = props => {
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
-  const {siteTitle = ''} = siteProperties
+  const { siteTitle = '' } = siteProperties
 
   const title = `${seoTitle}: ${
     storyTitleRe ? storyTitleRe.substring(0, 70) : ''
@@ -68,6 +68,7 @@ const HeaderBasic = props => {
     mainImage,
     title,
     isSomos,
+    activeSticky,
   }
 
   return <HeaderBasicChildren {...params} />

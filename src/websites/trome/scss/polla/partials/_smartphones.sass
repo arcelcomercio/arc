@@ -1,0 +1,492 @@
+
+@media screen and (max-width: 640px)
+
+  // =============================================================
+  // $_PUBLICIDAD
+  // =============================================================
+  .ads-top
+    [id^="eplAd"], [id*=" eplAd"]
+      width: 300px
+      :overflow hidden
+      img
+        width: 100%
+
+
+
+  .mod-ranking
+    padding: 0
+    .my-ranking, .my-last-game
+      width: 50%
+      height: 34px
+    .my-ranking
+      a
+        padding-top: 8px
+        padding-bottom: 8px
+    
+    .flow-match-small
+      display: none
+    
+    .my-last-game
+      padding-left: 0
+      margin: 0
+    .ranking-inner .btn_link
+      float: none
+      position: relative
+      bottom: 6px
+    .btn-collapse
+      z-index: -1
+    .ui-tab-content
+      width: 360px
+      margin: 0 auto
+
+  .login-top
+    width: 300px
+    display: inline
+
+  .site-options, .site-menu
+    display: none
+
+  .button-mobile-menu
+    display: block
+    background: $yellow2
+    position: absolute
+    line-height: 50px
+    height: 50px
+    width: 50px
+    border-radius: 50%
+    text-align: center
+    left: 15px
+    top: 20px
+    z-index: 1
+  
+  .ui-aside-menu
+    display: block
+
+  .ui-aside-menu-open
+    .ui-aside-menu-inside
+      -webkit-transform: translate(100%, 0)
+      -ms-transform: translate(100%, 0)
+      transform: translate(100%, 0)
+      -webkit-transform: translate3d(100%, 0, 0)
+      transform: translate3d(100%, 0, 0)
+
+
+  
+
+  .ui-aside-menu-content
+    min-height: 100%
+    .mob-site-sections
+      margin-top: 45px
+    .close-menu
+      color: #c01f0f
+      float: right
+      margin: 20px 20px 0 0
+      font-size: 20px
+
+  .site-header .box-content
+    width: 360px
+  .site-footer .box-content
+    width: 360px
+
+  .flows-grid
+    width: 360px
+  
+  .box-title, .box-subtitle
+    display: inline-block
+    width: 100%
+
+  .column-flows
+    max-width: 360px
+  .flow-3x1
+    width: 360px
+  .flow-1x1
+    width: 100%
+    //- height: inherit
+  .flow-1-5x1  
+    width: 100%
+    
+  .box-separator
+    width: 100%
+
+  .flow-3x1, .flow-1x1, .flow-1x2, .flow-1-5x1
+    width: 100%
+    float: none
+    margin-left: 0
+    margin-right: 0
+    margin-bottom: 10px
+
+  .flow-3x1
+    .flow-match
+      width: 100%
+      .match-teams 
+        .team-txt
+          width: 86px
+          position: relative
+          margin-top: 0
+          strong
+            font: 700 14px "Barlow", sans-serif
+            text-transform: uppercase
+            top: 0
+            height: inherit
+            max-width: 85px
+            text-align: center !important
+            //- position: absolute
+            //- top: 32px
+            //- left: 0
+          img
+            height: 28px
+            max-width: 100%
+            //- position: absolute
+            //- top: 0
+            //- left: 0
+      .frm-score
+        &.ui-validate .input_default
+          width: 35px
+          height: 35px
+          padding: 7px 8px
+          font-size: 13px
+          -webkit-appearance: none
+          -moz-appearance: textfield
+        &.ui-validate .input_default::-webkit-inner-spin-button,
+        &.ui-validate .input_default::-webkit-outer-spin-button
+          -webkit-appearance: none
+          margin: 0
+    .group
+      strong
+        display: none
+
+    .frm-score .ui-row:nth-child(1) .team-txt img
+      float: none
+
+    .match-header .stadium-name
+      //-max-width: inherit !important
+      width: calc(100% - 57px)
+      //- width: auto
+
+
+
+  .flow-1-5x1 .flow-match .match-teams .team-txt
+    max-width: 85px      
+          
+  .match-tabs
+    .flow-match-small
+      width: 62px
+      .team-txt
+        display: none
+      .team-vs
+        width: 100%
+        display: block
+        text-align: center
+        margin: 0
+
+  .flow-match .match-teams 
+    .frm-score
+      display: inline-block
+
+  .site-header
+    height: 140px
+    .box-content .site-logo
+      float: right
+      width: 130px
+      height: inherit
+
+  .share-flow
+    display: none
+
+  .match-header .stadium-name
+    //- max-width: 1600px !important
+    max-width: 225px
+    width: -webkit-fill-available
+    //- line-height: 40px
+    //- display: inline
+    .st-name02
+      display: none
+    .st-name03
+      display: none
+    .st-name04
+      border-left: 1px solid #ccc
+      display: inline-block
+      float: right
+      padding: 0 10px
+      top: -2px
+      position: relative
+
+  .frm-score.ui-validate .ui-row
+    width: 142px
+    display: inline-block
+    &:nth-child(2)
+      width: 25px
+  
+  .stat-table-positions
+    width: 90%
+    margin-left: 5%
+
+  .tbl-stats
+    thead tr
+      &.th-mobile
+        display: table-row
+      &.th-desktop
+        display: none
+      th
+        font-size: 16px
+        padding: 0 5px
+    .ord
+      span 
+        display: none
+    .col-team
+      width: inherit
+      .team-name
+        width: 160px
+        //- width: 210px
+        span
+          display: none
+    .col-result
+      span
+        width: inherit
+    .col-lastmatch
+      width: inherit
+    &.tbl-historial
+      .col-result:nth-child(4)
+        background: rgba(0,0,0,0.2)
+        padding: 0 4px
+
+  .frm-partidos
+    display: inline-block
+    width: 90%
+    width: 100%
+    text-align: center
+    .btn_link
+      height: 56px
+      padding-top: 9px
+      padding-bottom: 10px
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+      border: 0
+      top: 1px
+      .icon-camp
+        margin-top: 9px
+    select.input_date
+      width: 80px
+      margin-left: 0
+      margin-right: 0
+      float: left
+      border-radius: 0
+    .ui-dropdown
+      width: inherit
+      max-width: 75px
+      overflow: hidden
+      //- height: 54px
+      border-radius: 0
+      border-top: 0
+      border-right: 0
+      border-bottom: 0
+      display: inline-block
+      margin-right: -2px
+      margin-left: -2px
+      vertical-align: middle
+
+      &.miga
+        &:last-child
+          border-top-right-radius: 5px
+          border-bottom-right-radius: 5px
+      i
+        margin-left: 0
+      .ui-caption          
+        //- padding-left: 3px
+        //- padding-right: 3px
+        font-size: 13px
+        height: 36px
+        span
+          height: 17px
+          display: inherit 
+          overflow: hidden
+        //- display: initial
+    .ui-list
+      position: fixed
+      left: 0
+      top: 0
+      width: 100%
+      height: 100%
+      max-height: 100% !important
+      background:  rgba(0,0,0,0.2)
+      .calendar-content
+        position: absolute
+        left: 5%
+        top: 50px
+        background: $white
+        width: 90%
+      .btn_close
+        display: block !important
+      #calendar
+        width: 100%
+      .list-grupos
+        position: absolute
+        left: 5%
+        top: 50px
+        background: #fff
+        width: 90%
+      .list-paises
+        position: absolute
+        left: 5%
+        top: 50px
+        background: #fff
+        width: 90%
+    
+    .ui-form-row
+      min-height: 34px
+
+  .frm-registro
+    width: 90%
+    margin-left: 5%
+
+  .mod-ranking .ranking-content
+    width: 100%
+
+  #calendar
+    td
+      a
+        &.match01
+          background-position: 6px -6px
+          &.current
+            background-position: 6px -69px
+        &.match02
+          background-position: -52px -6px
+          &.current
+            background-position: -52px -69px
+        &.match03
+          background-position: -108px -6px
+          &.current
+            background-position: -108px -69px
+        &.match04
+          background-position: -166px -6px
+          &.current
+            background-position: -166px -69px
+
+  .site-paginator .page-item a
+    padding: 0 10px
+
+
+//- @media screen and (max-width: 375px)
+    
+@media screen and (max-width: 360px)
+  
+  .flow-3x1, .flow-1x1, .flow-1x2, .flow-1-5x1
+    width: 90%
+    margin-left: 5%
+
+  .frm-score.ui-validate .ui-row
+    width: 132px
+
+  .stat-table-positions
+    width: 94%
+    margin-left: 3%
+
+  //- .tbl-stats .col-team 
+    //- .team-name
+      //- width: 210px
+
+  .match-header .stadium-name
+    max-width: 189px
+    //- display: inline-block
+    //- line-height: inherit
+  .flow-3x1
+    .match-header
+      .stadium-name
+        .st-name01
+          max-width: 160px
+          display: inline-flex
+          .icon-slash
+            display: none
+
+
+@media screen and (max-width: 320px)
+
+  .site-header .box-content
+    width: 300px
+  .flows-grid
+    width: 300px
+
+  .tbl-stats .col-team 
+    //- .team-name
+      //- width: 160px
+    .mwin
+      width: 20px
+  .tbl-stats thead tr th
+    font-size: 14px
+  .tbl-stats td
+    font-size: 14px
+
+  .stat-table-positions
+    width: 100%
+    margin-left: 0
+
+  .site-footer .box-content
+    width: 300px
+  
+  .column-flows
+    max-width: 300px
+  .flow-3x1
+    width: 300px
+    
+
+  .box_login .btn_login-facebook
+    width: 300px
+  .frm-login
+    width: 300px
+    margin: 0 auto
+  .login-top
+    h2
+      font-size: 16px
+      margin-top: 10px
+    .logo
+      width: 140px
+      margin: 0 auto
+      img
+        width: 100%
+
+  .box_login
+    .btn.btn_login, .btn.btn_registro
+      width: 130px
+
+  .flow-3x1, .flow-1x1, .flow-1x2, .flow-1-5x1
+    width: 100%
+    margin-left: 0
+
+  .match-header .stadium-name
+    max-width: 155px
+    //- overflow: hidden
+    //- display: inline
+
+  .frm-partidos select.input_date
+    padding-left: 2px
+    padding-right: 2px
+    width: 60px
+
+  .frm-score.ui-validate .ui-row
+    width: 125px
+  .flow-match .match-teams .team-txt
+    width: 75px
+  
+  .flow-3x1
+    .flow-match .match-teams .team-txt
+      width: 75px
+    .match-header .stadium-name .st-name01
+      max-width: 135px
+
+
+  .frm-partidos .ui-dropdown  
+    width: 66px
+    .ui-caption
+      padding-left: 3px
+      padding-right: 3px
+
+  .mod-ranking .ui-tab-content
+    width: 300px
+
+  
+  
+
+//- @media screen and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio: 2) and (orientation : landscape)
+
+//- @media screen and (max-width: 740px) and (max-height: 420px)
+
