@@ -124,7 +124,7 @@ async function getPathsVideos(videoKey, brand) {
 }
 
 const hasAdsVideo = (tags) => {
-  const hasAds = !tags.includes('noads')
+  const hasAds = tags !==null && !(tags.toString().includes('noads'))
   return hasAds * 1 
 }
 
