@@ -182,7 +182,6 @@ const LiteOutput = ({
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo,
-    quantityGalleryItem = 0,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -227,8 +226,7 @@ const LiteOutput = ({
   const iframeStoryCanonical = `${siteProperties.siteUrl}${deleteQueryString(
     requestUri
   ).replace(/^\/carga-continua/, '')}`
-  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
-  `
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -532,7 +530,6 @@ const LiteOutput = ({
               defer
             />
             <script
-              type="text/javascript"
               dangerouslySetInnerHTML={{
                 __html: videoScript,
               }}
@@ -542,7 +539,6 @@ const LiteOutput = ({
 
         {jwplayerSeo[0] && (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: jwplayerScript,
             }}
@@ -551,7 +547,6 @@ const LiteOutput = ({
 
         {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
             }}
@@ -560,12 +555,17 @@ const LiteOutput = ({
           <></>
         )}
         {subtype === GALLERY_VERTICAL && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: dataLayer,
+          <Resource path="resources/assets/js/vertical-gallery.min.js">
+            {({ data }) => {
+              return data ? (
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: data,
+                  }}
+                />
+              ) : null
             }}
-          />
+          </Resource>
         )}
         {hasYoutubeVideo && (
           <>
@@ -589,7 +589,6 @@ const LiteOutput = ({
           </>
         )}
         <script
-          type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: iframeScript,
           }}
@@ -638,10 +637,7 @@ const LiteOutput = ({
           </>
         )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: htmlScript }}
-          />
+          <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
         {isIframeStory && (
           <script

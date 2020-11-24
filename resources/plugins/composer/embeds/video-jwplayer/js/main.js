@@ -74,8 +74,8 @@ window.selectVideo = (videoKey) => {
     const brand =event.currentTarget.getAttribute('data-brand');
     const dataVideo = JSON.parse(decodeURI(event.currentTarget.getAttribute('data-data')));
     // console.log('dataVideo', dataVideo);
-    const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');
-    dataVideo.has_ads = (hasAds && hasAds.value) || 0;
+    // const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');
+    // dataVideo.has_ads = (hasAds && hasAds.value) || 0;
     buildMessage(generateId(), buildDataAns(dataVideo, brand));
 }
 
@@ -83,8 +83,8 @@ window.selectVideoId = (videoKey, brand) => {
   (videoKey && brand) && getVideo(videoKey, brand).then(response => {
     // console.log('dataVideo', response.video);
     if(response.video){
-      const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');      
-      response.video.has_ads = (hasAds && hasAds.value) || 0;
+      // const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');      
+      // response.video.has_ads = (hasAds && hasAds.value) || 0;
       buildMessage(generateId(), buildDataAns(response.video, brand));
     }else{
       alert('El ID del video no se encuentra')
@@ -95,11 +95,11 @@ window.selectVideoId = (videoKey, brand) => {
 const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000);
 
 const buildDataAns = (data, brand) => {
-    const {key, title, description='', size, duration, status, updated, date, custom:{ thumbnail_url = '' } = {}, has_ads = 0} = data || {};
+    const {key, title, description='', size, duration, status, updated, date, tags = '', custom:{ thumbnail_url = '' } = {}} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
     const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`
     const conversions = getPathsVideos(key, brand);
-
+    const hasAds = hasAdsVideo(tags)
     return {
         key,
         title, 
@@ -111,7 +111,7 @@ const buildDataAns = (data, brand) => {
         conversions,
         date,
         updated,
-        has_ads,
+        has_ads: hasAds,
         account: brand
     }
 }
@@ -123,6 +123,11 @@ async function getPathsVideos(videoKey, brand) {
     return conversions;
 }
 
+const hasAdsVideo = (tags) => {
+  const hasAds = !tags.includes('noads')
+  return hasAds * 1 
+}
+
 
 const buildMessage = (id, data) => {
     data.conversions.then(conversions=> {
@@ -132,9 +137,9 @@ const buildMessage = (id, data) => {
             url: '/pf/api/v3/content/fetch/photo-by-id',
             config: data
         }
-        console.log('ansCustomEmbed');
-        console.dir(ansCustomEmbed);
-        //console.log('string', JSON.stringify(ansCustomEmbed, null, 2));
+        // console.log('ansCustomEmbed');
+        // console.dir(ansCustomEmbed);
+        // console.log('string', JSON.stringify(ansCustomEmbed, null, 2));
         sendMessage('data', ansCustomEmbed)
     });
 }
