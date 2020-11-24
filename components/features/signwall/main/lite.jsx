@@ -65,14 +65,15 @@ class SignwallComponent extends PureComponent {
     this._isMounted = true
     if (typeof window !== 'undefined' && this._isMounted) {
       if (!this.checkSession()) {
+        window.showArcP = true
         this.setState({ showPremium: true })
       } else {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
+            window.showArcP = true
             this.setState({ showPremium: true })
           } else {
             const divPremium = document.getElementById('contenedor')
-            window.isArcPUser = true
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
               divPremium.removeAttribute('style')
