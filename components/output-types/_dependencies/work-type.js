@@ -51,8 +51,7 @@ export default ({ text = '', url = '' }, dataElement = [], getGallery = []) => {
     }
   }
 
-  type =
-    getGallery.length > 1 && isEmpty(dataElement) ? 'ImageGallery': type
+  type = getGallery.length > 1 && isEmpty(dataElement) ? 'ImageGallery' : type
 
   return isArray ? `[${type}]` : `"${type}"`
 }

@@ -14,6 +14,7 @@ import LiveStreaming from './_children/streaming-live'
 import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/assets'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
+import { createMarkup } from '../../../utilities/helpers'
 
 const PHOTO_SOURCE = 'photo-resizer'
 
@@ -49,6 +50,7 @@ const FeaturedStoryPremium = props => {
       titleField,
       imgField,
       categoryField,
+      adsSpace,
     } = {},
   } = props
 
@@ -328,6 +330,47 @@ const FeaturedStoryPremium = props => {
     platformLive,
     urlVideo,
   }
+  const adsSpaces =
+    useContent(
+      adsSpace && adsSpace !== 'none'
+        ? {
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
+          }
+        : {}
+    ) || {}
+
+  const getAdsSpace = () => {
+    const toDate = dateStr => {
+      const [date, time] = dateStr.split(' ')
+      const [day, month, year] = date.split('/')
+      return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
+    }
+
+    if (adsSpaces[adsSpace]) {
+      const [currentSpace] = adsSpaces[adsSpace] || []
+      const {
+        fec_inicio: fecInicio,
+        fec_fin: fecFin,
+        des_html: desHtml,
+      } = currentSpace
+      const currentDate = new Date()
+      const initDate = toDate(fecInicio)
+      const endDate = toDate(fecFin)
+
+      return currentDate > initDate && endDate > currentDate ? desHtml : false
+    }
+
+    return false
+  }
+
+  if (getAdsSpace())
+    return (
+      <div
+        className="col-1 row-1"
+        dangerouslySetInnerHTML={createMarkup(getAdsSpace())}
+      />
+    )
 
   if (flagLive) {
     return <LiveStreaming {...paramsLive} />
