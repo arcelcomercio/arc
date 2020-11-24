@@ -1,8 +1,10 @@
 import React from 'react'
 import { useAppContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import { getAssetsPath } from '../../../utilities/assets'
 import customFields from './_dependencies/custom-fields'
 import getFooterProperties from '../_dependencies/properties'
+import StoryNavigationChild from './_children/navigation'
 
 const classes = {
   footer: 'st-foot f f-center',
@@ -11,6 +13,7 @@ const classes = {
   content: 'st-foot__content f oflow-h',
   block: 'st-foot__block f f-col',
   link: 'st-foot__link',
+  copyr: 'st-foot__copyr',
 }
 
 const FooterStory = props => {
@@ -24,6 +27,10 @@ const FooterStory = props => {
     lite: { directors: defaultDirectors = {} } = {},
   } = getFooterProperties(arcSite)
 
+  const {
+    assets: { header },
+  } = getProperties(arcSite)
+
   // Directores desde custom fields o directores por defecto
   const directorsObject = directors || defaultDirectors
 
@@ -35,14 +42,14 @@ const FooterStory = props => {
           src={`${getAssetsPath(
             arcSite,
             contextPath
-          )}/resources/dist/elcomercio/images/logo.png?d=1`}
+          )}/resources/dist/${arcSite}/images/${header.logo}?d=1`}
           loading="lazy"
           decoding="async"
           alt={`Logo de ${arcSite}`}
         />
       </a>
       <div className={classes.content}>
-        {directorsObject && (
+        {directorsObject && arcSite === 'elcomercio' && (
           <div className={classes.block}>
             {Object.keys(directorsObject).map(person => (
               <p>
@@ -52,6 +59,7 @@ const FooterStory = props => {
             ))}
           </div>
         )}
+        {arcSite === 'elcomerciomag' && <StoryNavigationChild />}
         <div className={classes.block}>
           <a
             itemProp="url"
@@ -78,6 +86,9 @@ const FooterStory = props => {
           ))}
         </div>
       </div>
+      {arcSite === 'elcomerciomag' && (
+        <div className={classes.copyr}>Todos los derechos reservados</div>
+      )}
     </footer>
   )
 }
