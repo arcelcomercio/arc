@@ -4,11 +4,12 @@
 
 /******* Variables Lite *******/
 @import "./scss/variables/index";
-@import "../../general-styles/framework/core/reset";
 
 $primary-font: "Roboto", sans-serif;
 $secondary-font: Arial, Helvetica, sans-serif;
 $tertiary-font: $secondary-font;
+
+@import "../../general-styles/framework/core/reset";
 
 /******* Components *******/
 
