@@ -1,13 +1,13 @@
 /******* Fonts *******/
-@import "./scss/partials/import-fonts";
+@import "./scss/partials/lite/import-fonts";
 
 /******* Variables Lite *******/
 @import "../../general-styles/framework/variables/index";
 @import "./scss/variables/index";
 
-// $primary-font: "Lato";
-// $secondary-font: "Exo", sans-serif;
-// $tertiary-font: $secondary-font;
+$primary-font: "Roboto", sans-serif;
+$secondary-font: Arial, Helvetica, sans-serif;
+$tertiary-font: $secondary-font;
 
 /******* Components *******/
 
@@ -29,7 +29,7 @@
 @import "./scss/lite-components/features/story/taboola/taboola";
 @import "./scss/lite-components/features/story/minuto-a-minuto/story";
 @import "./scss/lite-components/features/story/google-news/google-news";
-@import "./scss/lite-components/features/navbar/standard-basic/nav-sidebar";
+// @import "./scss/lite-components/features/navbar/standard-basic/nav-sidebar";
 
 // TODO
 
