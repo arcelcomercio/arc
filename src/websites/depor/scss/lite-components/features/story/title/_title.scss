@@ -1,25 +1,32 @@
 .sht {
-  padding-right: 20px;
-  padding-left: 20px;
   color: $color-black;
+  margin-right: 20px;
+  margin-left: 20px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
 
   &__title {
     font-weight: bold;
-    font-size: 24px;
+    font-size: 28px;
     line-height: 1.1667;
     padding-bottom: 20px;
+    font-family: $tertiary-font;
     @media (--tablet) {
-      font-size: 44px;
+      font-size: 34px;
     }
     @media (--desktop) {
-      font-size: 47px;
+      font-size: 36px;
     }
   }
 
   &__summary {
-    font-size: 22px;
+    font-size: 16px;
     padding-bottom: 20px;
     line-height: 1.333;
+    font-family: $secondary-font;
+    @media (--desktop) {
+      font-size: 18px;
+    }
   }
 
   // TODO: Este listado se usa en mag?
@@ -36,9 +43,7 @@
         text-decoration: underline;
         font-weight: 700;
       }
-      // & b {
-      //   color: #306d95;
-      // }
+
       @media (--desktop) {
         font-size: 20px;
         line-height: 1.5;
