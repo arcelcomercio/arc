@@ -73,6 +73,10 @@ class SignwallComponent extends PureComponent {
             window.showArcP = true
             this.setState({ showPremium: true })
           } else {
+            window.top.postMessage(
+              { id: 'iframe_paywall' },
+              window.location.origin
+            )
             const divPremium = document.getElementById('contenedor')
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
@@ -108,6 +112,13 @@ class SignwallComponent extends PureComponent {
         QueryString.getQuery('article_url') || ''
       )
       W.sessionStorage.setItem('paywall_last_url', artURL)
+      W.postMessage(
+        {
+          id: 'iframe_signwall',
+          redirectUrl: Domains.getUrlLandingAuth(arcSite),
+        },
+        W.location.origin
+      )
       W.location.href = Domains.getUrlLandingAuth(arcSite)
     }
 
@@ -222,11 +233,16 @@ class SignwallComponent extends PureComponent {
         dataContType &&
         siteProperties.activePaywall
       ) {
-        window.location.href = Domains.getUrlSignwall(
+        const urlSignwallRelogin = Domains.getUrlSignwall(
           arcSite,
           'reloginHash',
           '1'
         )
+        window.top.postMessage(
+          { id: 'iframe_relogin', redirectUrl: urlSignwallRelogin },
+          window.location.origin
+        )
+        window.location.href = urlSignwallRelogin
       }
     }
     return null
@@ -234,7 +250,12 @@ class SignwallComponent extends PureComponent {
 
   redirectURL = (typeDialog, hash) => {
     const { arcSite } = this.props
-    window.location.href = Domains.getUrlSignwall(arcSite, typeDialog, hash)
+    const urlSignwall = Domains.getUrlSignwall(arcSite, typeDialog, hash)
+    window.top.postMessage(
+      { id: 'iframe_signwall', redirectUrl: urlSignwall },
+      window.location.origin
+    )
+    window.location.href = urlSignwall
   }
 
   getUrlParam = name => {
