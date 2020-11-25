@@ -594,7 +594,6 @@ const LiteOutput = ({
           }}
         />
         <script
-          defer
           src={`${getAssetsPath(
             arcSite,
             contextPath
