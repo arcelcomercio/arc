@@ -4,7 +4,7 @@ import getProperties from 'fusion:properties'
 
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
 
-import { popup, copyLink } from './scripts'
+import { popup, copyLink } from './utils'
 
 const classes = {
   share: '',
@@ -24,11 +24,11 @@ const ShareButtons = ({ activeGoogleNews = false, activeCopyLink = false }) => {
     return websites[arcSite] || globalContent || {}
   }
 
-  const { headlines: { basic: postTitle } = {} } = globalContent || {}
+  const { headlines: { basic: postTitle = '' } = {} } = globalContent || {}
   const { website_url: postPermaLink = '' } = urlRoot()
 
   const {
-    social: { twitter: { user: siteNameRedSocial } = {} } = {},
+    social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
     siteUrl,
     googleNewsUrl,
   } = getProperties(arcSite)
@@ -102,15 +102,22 @@ const ShareButtons = ({ activeGoogleNews = false, activeCopyLink = false }) => {
         </svg>
       </a>
       {activeCopyLink ? (
-        <button type="button" className={classes.copy}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M4.2 19.8C4.7 20.2 5.2 20.6 5.8 20.9 6.5 21.1 7.1 21.2 7.8 21.2 8.4 21.2 9.1 21.1 9.7 20.9 10.3 20.6 10.8 20.2 11.3 19.8L14.1 16.9 12.7 15.5 9.9 18.4C9.3 18.9 8.6 19.2 7.8 19.2 7 19.2 6.2 18.9 5.6 18.4 5.1 17.8 4.8 17 4.8 16.2 4.8 15.4 5.1 14.7 5.6 14.1L8.5 11.3 7.1 9.9 4.2 12.7C3.3 13.6 2.8 14.9 2.8 16.2 2.8 17.6 3.3 18.8 4.2 19.8V19.8ZM19.8 11.3C20.7 10.4 21.2 9.1 21.2 7.8 21.2 6.4 20.7 5.2 19.8 4.2 18.8 3.3 17.6 2.8 16.2 2.8 14.9 2.8 13.6 3.3 12.7 4.2L9.9 7.1 11.3 8.5 14.1 5.6C14.7 5.1 15.4 4.8 16.2 4.8 17 4.8 17.8 5.1 18.4 5.6 18.9 6.2 19.2 7 19.2 7.8 19.2 8.6 18.9 9.3 18.4 9.9L15.5 12.7 16.9 14.1 19.8 11.3Z"/>
-            <path d="M8.5 17L7 15.5 15.5 7.1 17 8.5 8.5 17Z"/>
+        <button type="button" className={classes.copy} id="copy-link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24">
+            <path d="M4.2 19.8C4.7 20.2 5.2 20.6 5.8 20.9 6.5 21.1 7.1 21.2 7.8 21.2 8.4 21.2 9.1 21.1 9.7 20.9 10.3 20.6 10.8 20.2 11.3 19.8L14.1 16.9 12.7 15.5 9.9 18.4C9.3 18.9 8.6 19.2 7.8 19.2 7 19.2 6.2 18.9 5.6 18.4 5.1 17.8 4.8 17 4.8 16.2 4.8 15.4 5.1 14.7 5.6 14.1L8.5 11.3 7.1 9.9 4.2 12.7C3.3 13.6 2.8 14.9 2.8 16.2 2.8 17.6 3.3 18.8 4.2 19.8V19.8ZM19.8 11.3C20.7 10.4 21.2 9.1 21.2 7.8 21.2 6.4 20.7 5.2 19.8 4.2 18.8 3.3 17.6 2.8 16.2 2.8 14.9 2.8 13.6 3.3 12.7 4.2L9.9 7.1 11.3 8.5 14.1 5.6C14.7 5.1 15.4 4.8 16.2 4.8 17 4.8 17.8 5.1 18.4 5.6 18.9 6.2 19.2 7 19.2 7.8 19.2 8.6 18.9 9.3 18.4 9.9L15.5 12.7 16.9 14.1 19.8 11.3Z" />
+            <path d="M8.5 17L7 15.5 15.5 7.1 17 8.5 8.5 17Z" />
           </svg>
           Copiar enlace
         </button>
       ) : null}
-      <script dangerouslySetInnerHTML={{ __html: popup }}></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `${popup}${activeCopyLink ? copyLink : ''}`,
+        }}></script>
     </>
   )
 }
