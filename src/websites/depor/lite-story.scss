@@ -31,10 +31,11 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/story/taboola/taboola";
 @import "./scss/lite-components/features/story/minuto-a-minuto/story";
 @import "./scss/lite-components/features/story/google-news/google-news";
+@import "./scss/lite-components/features/stories-lists/linked-by-site/link-site";
+@import "./scss/lite-components/features/story/interest/story-interest";
 // @import "./scss/lite-components/features/navbar/standard-basic/nav-sidebar";
 
 // TODO
 
-@import "./scss/lite-components/features/stories-lists/linked-by-site/link-site";
 @import "./scss/lite-components/features/story/continue/st-continue";
 @import "./scss/lite-components/global-components/multimedia-icon/m-icon";
