@@ -71,12 +71,12 @@ class SignwallComponent extends PureComponent {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
             window.showArcP = true
-            this.setState({ showPremium: true })
-          } else {
             window.top.postMessage(
               { id: 'iframe_paywall' },
               window.location.origin
             )
+            this.setState({ showPremium: true })
+          } else {
             const divPremium = document.getElementById('contenedor')
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
