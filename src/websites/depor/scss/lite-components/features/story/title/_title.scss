@@ -4,7 +4,13 @@
   margin-left: 20px;
   border-bottom: 1px solid #ddd;
   margin-bottom: 10px;
-
+  &__category {
+    color: #42c64c;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
   &__title {
     font-weight: bold;
     font-size: 28px;
