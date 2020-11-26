@@ -94,6 +94,7 @@ const customFields = PropTypes.shape({
     'suplementos',
     'middle1',
     'middle2',
+    'middle3',
     'caja1',
     'caja2',
     'caja3',
