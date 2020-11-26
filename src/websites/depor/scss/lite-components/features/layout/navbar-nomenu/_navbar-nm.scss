@@ -1,7 +1,7 @@
 .navbar-nm {
   background-color: #000;
   padding: 0 20px;
-  height: 33px;
+  height: 36px;
   display: none;
   @media (--desktop) {
     display: block;
@@ -17,7 +17,7 @@
   }
   &__icon-search {
     svg {
-      fill: #fff;
+      fill: #999;
     }
   }
   &__box-search {
