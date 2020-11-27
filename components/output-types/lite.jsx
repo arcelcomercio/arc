@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import ENV from 'fusion:environment'
 
 import { deleteQueryString } from '../utilities/parse/queries'
@@ -13,6 +13,7 @@ import {
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
 import StoryData from '../utilities/story-data'
+import Styles from './_children/styles'
 import MetaSite from './_children/meta-site'
 import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
@@ -389,6 +390,7 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
         />
+        <Styles {...metaSiteData} />
         {!isIframeStory ? (
           <>
             <MetaSite {...metaSiteData} />
