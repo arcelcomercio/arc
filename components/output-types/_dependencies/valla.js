@@ -111,18 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const getBoottonclick = () => {
       const btnClosePaywall = document.getElementById('btn-close-paywall')
       const btnPlanesPaywall = document.getElementById('btn-ver-planes')
-      btnClosePaywall.onclick = () => {
-        Taggeo('web_paywall_cerrar')
-        window.location.href = `/?signwallPaywall=1&ref=${window.location.pathname}`
+      if(btnClosePaywall) {
+        btnClosePaywall.onclick = () => {
+          Taggeo('web_paywall_cerrar')
+          window.location.href = `/?signwallPaywall=1&ref=${window.location.pathname}`
+        }
       }
-      btnPlanesPaywall.onclick = () => {
-        Taggeo('web_paywall_boton_ver_planes')
-        window.sessionStorage.setItem('paywall_type_modal', 'paywall')
-        window.sessionStorage.setItem(
-          'paywall_last_url',
-          window.location.pathname
-        )
-        window.location.href = getUrlPaywall()
+      if(btnPlanesPaywall) {
+        btnPlanesPaywall.onclick = () => {
+          Taggeo('web_paywall_boton_ver_planes')
+          window.sessionStorage.setItem('paywall_type_modal', 'paywall')
+          window.sessionStorage.setItem(
+            'paywall_last_url',
+            window.location.pathname
+          )
+          window.location.href = getUrlPaywall()
+        }
       }
     }
 
@@ -151,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'meta[name="content-type"]'
         )
         if (getCookie('arc_e_id') && dataContType) {
+          top.postMessage({id: "iframe_relogin", redirectUrl: getUrlSignwallHash()}, location.origin);
           window.location.href = getUrlSignwallHash()
         }
       }
@@ -162,6 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (iOS && getQuery('surface') === 'meter_limit_reached') {
       const artURL = decodeURIComponent(getQuery('article_url') || '')
       window.sessionStorage.setItem('paywall_last_url', artURL)
+      // Mensaje para padre en notas continuas
+      top.postMessage({id: "iframe_signwall", redirectUrl: getUrlLandingAuth()}, location.origin);
       window.location.href = getUrlLandingAuth()
     } else {
       const dataContentPremium = window.content_paywall
@@ -179,12 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
               window.location.href = getUrlSignwall()
             } else if (campaign.match(/signwallPaywall/) && checkSession()) {
               const signwall = document.querySelector('#signwall-app')
-              signwall.className = 'active-signwall'
+              if(signwall) signwall.className = 'active-signwall'
               const elementosObtenidos = document.getElementsByTagName('body')
               elementosObtenidos[0].style.overflow = 'hidden'
               Taggeo('web_paywall_open')
               getBoottonclick()
-              // Mensaje para padre en notas continuas
+              // Eventos para notas continuas
               top.postMessage({id: "iframe_paywall"}, location.origin);
             }
           },
@@ -239,6 +246,13 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 */
 
-const vallaSignwall = ({ arcEnv, arcSite, getdata }) => `"use strict";var arcEnv="${arcEnv}",arcSite="${arcSite}",getdata="${getdata}";document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){var e=function(e){if("undefined"!=typeof window){window.dataLayer=window.dataLayer||[];var n={event:"tag_signwall",eventCategory:"Web_Paywall_Hard",eventAction:e};window.dataLayer.push(n),"sandbox"===arcEnv&&window.console.log(n)}},n=function(e){return(n=e,new Promise(function(e){fetch("https://api${arcEnv === 'sandbox' ? '-sandbox' : ''}.${arcSite}.pe/identity/public/v1/auth/token",{method:"POST",body:JSON.stringify({grantType:"refresh-token",token:n}),headers:{"Content-Type":"application/json"}}).then(function(n){return e(n.json())})})).then(function(e){var n;return(n=e.accessToken,new Promise(function(e){fetch("https://api${arcEnv === 'sandbox' ? '-sandbox' : ''}.${arcSite}.pe/sales/public/v1/entitlements",{method:"GET",headers:{Authorization:n}}).then(function(n){return e(n.json())})})).then(function(e){return e.skus?Object.keys(e.skus).map(function(n){return e.skus[n].sku}):[]}).catch(function(e){return window.console.error(e)})});var n},t=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"),n=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===n)||!1}return!1},a=function(e,n){return void 0===e&&(e="signwallHard"),void 0===n&&(n="1"),"prod"===arcEnv?"/signwall/?outputType=signwall&"+e+"="+n:"/signwall/?_website="+arcSite+"&outputType=signwall&"+e+"="+n},o=function(){var n=document.getElementById("btn-close-paywall"),t=document.getElementById("btn-ver-planes");n.onclick=function(){e("web_paywall_cerrar"),window.location.href="/?signwallPaywall=1&ref="+window.location.pathname},t.onclick=function(){e("web_paywall_boton_ver_planes"),window.sessionStorage.setItem("paywall_type_modal","paywall"),window.sessionStorage.setItem("paywall_last_url",window.location.pathname),window.location.href="prod"===arcEnv?"/suscripcionesdigitales/":"/pf/suscripcionesdigitales/?_website="+arcSite+"&outputType=subscriptions"}},i=function(e){var n={};return"undefined"!=typeof window&&window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(e,t,a){n[t]=a}),n[e]};if(/iPad|iPhone|iPod/.test(window.navigator.userAgent)&&!window.MSStream&&"meter_limit_reached"===i("surface")){var r=decodeURIComponent(i("article_url")||"");window.sessionStorage.setItem("paywall_last_url",r),window.location.href="prod"===arcEnv?"/auth-fia/?outputType=signwall":"/pf/auth-fia/?_website="+arcSite+"&outputType=signwall"}else{var c=window.content_paywall;if(2!==c&&!0!==c){var l=document.querySelector('meta[name="content-type"]'),s=document.querySelector('meta[name="section-id"]'),d=window.JSON.parse(window.localStorage.getItem("ArcId.USER_INFO"))||{};window.ArcPOptions={paywallFunction:function(n){if(n.match(/signwallHard/)&&!t())top.postMessage({id:"iframe_signwall",redirectUrl:a()},location.origin),window.location.href=a();else if(n.match(/signwallPaywall/)&&t()){document.querySelector("#signwall-app").className="active-signwall",document.getElementsByTagName("body")[0].style.overflow="hidden",e("web_paywall_open"),o(),top.postMessage({id:"iframe_paywall"},location.origin)}},contentType:l?l.getAttribute("content"):"none",section:s?s.getAttribute("content"):"none",userName:d.uuid||null,jwt:d.accessToken||null,apiOrigin:"https://api${arcEnv === 'sandbox' ? '-sandbox' : ''}.${arcSite}.pe",customSubCheck:function(){return d.accessToken?n(d.refreshToken).then(function(e){return{s:t(),p:e||null,timeTaken:100,updated:Date.now()}}):{s:!1,p:null,timeTaken:100,updated:Date.now()}},customRegCheck:function(){var e=Date.now(),n=t();return Promise.resolve({l:n,timeTaken:Date.now()-e,updated:Date.now()})}};var u=document.createElement("script");u.src="https://elcomercio-"+arcSite+"-"+arcEnv+".cdn.arcpublishing.com/arc/subs/p.js?v="+getdata,u.async="true",document.head.appendChild(u)}t()||function(){if("undefined"!=typeof window){window.document.cookie="ArcId.USER_INFO=;path=/;domain=."+arcSite+".pe; expires=Thu, 01 Jan 1970 00:00:01 GMT";var e=window.document.querySelector('meta[name="content-type"]');n="arc_e_id",(t=document.cookie.match("(^|;) ?"+n+"=([^;]*)(;|$)"))&&t[2]&&e&&(window.location.href="prod"===arcEnv?"/signwall/?outputType=signwall&reloginHash=1":"/signwall/?_website="+arcSite+"&outputType=signwall&reloginHash=1")}var n,t}()}})});`
+const vallaSignwall = ({ arcEnv, arcSite, getdata }) =>
+  `"use strict";var arcEnv="${arcEnv}",arcSite="${arcSite}",getdata="${getdata}";document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){var e=function(e){if("undefined"!=typeof window){window.dataLayer=window.dataLayer||[];var n={event:"tag_signwall",eventCategory:"Web_Paywall_Hard",eventAction:e};window.dataLayer.push(n),"sandbox"===arcEnv&&window.console.log(n)}},n=function(e){return(n=e,new Promise(function(e){fetch("https://api${
+    arcEnv === 'sandbox' ? '-sandbox' : ''
+  }.${arcSite}.pe/identity/public/v1/auth/token",{method:"POST",body:JSON.stringify({grantType:"refresh-token",token:n}),headers:{"Content-Type":"application/json"}}).then(function(n){return e(n.json())})})).then(function(e){var n;return(n=e.accessToken,new Promise(function(e){fetch("https://api${
+    arcEnv === 'sandbox' ? '-sandbox' : ''
+  }.${arcSite}.pe/sales/public/v1/entitlements",{method:"GET",headers:{Authorization:n}}).then(function(n){return e(n.json())})})).then(function(e){return e.skus?Object.keys(e.skus).map(function(n){return e.skus[n].sku}):[]}).catch(function(e){return window.console.error(e)})});var n},t=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE"),n=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===n)||!1}return!1},o=function(e,n){return void 0===e&&(e="signwallHard"),void 0===n&&(n="1"),"prod"===arcEnv?"/signwall/?outputType=signwall&"+e+"="+n:"/signwall/?_website="+arcSite+"&outputType=signwall&"+e+"="+n},a=function(){return"prod"===arcEnv?"/auth-fia/?outputType=signwall":"/pf/auth-fia/?_website="+arcSite+"&outputType=signwall"},i=function(){return"prod"===arcEnv?"/signwall/?outputType=signwall&reloginHash=1":"/signwall/?_website="+arcSite+"&outputType=signwall&reloginHash=1"},r=function(){var n=document.getElementById("btn-close-paywall"),t=document.getElementById("btn-ver-planes");n&&(n.onclick=function(){e("web_paywall_cerrar"),window.location.href="/?signwallPaywall=1&ref="+window.location.pathname}),t&&(t.onclick=function(){e("web_paywall_boton_ver_planes"),window.sessionStorage.setItem("paywall_type_modal","paywall"),window.sessionStorage.setItem("paywall_last_url",window.location.pathname),window.location.href="prod"===arcEnv?"/suscripcionesdigitales/":"/pf/suscripcionesdigitales/?_website="+arcSite+"&outputType=subscriptions"})},c=function(e){var n={};return"undefined"!=typeof window&&window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(e,t,o){n[t]=o}),n[e]};if(/iPad|iPhone|iPod/.test(window.navigator.userAgent)&&!window.MSStream&&"meter_limit_reached"===c("surface")){var l=decodeURIComponent(c("article_url")||"");window.sessionStorage.setItem("paywall_last_url",l),top.postMessage({id:"iframe_signwall",redirectUrl:a()},location.origin),window.location.href=a()}else{var s=window.content_paywall;if(2!==s&&!0!==s){var d=document.querySelector('meta[name="content-type"]'),u=document.querySelector('meta[name="section-id"]'),w=window.JSON.parse(window.localStorage.getItem("ArcId.USER_INFO"))||{};window.ArcPOptions={paywallFunction:function(n){if(n.match(/signwallHard/)&&!t())top.postMessage({id:"iframe_signwall",redirectUrl:o()},location.origin),window.location.href=o();else if(n.match(/signwallPaywall/)&&t()){var a=document.querySelector("#signwall-app");a&&(a.className="active-signwall"),document.getElementsByTagName("body")[0].style.overflow="hidden",e("web_paywall_open"),r(),top.postMessage({id:"iframe_paywall"},location.origin)}},contentType:d?d.getAttribute("content"):"none",section:u?u.getAttribute("content"):"none",userName:w.uuid||null,jwt:w.accessToken||null,apiOrigin:"https://api${
+    arcEnv === 'sandbox' ? '-sandbox' : ''
+  }.${arcSite}.pe",customSubCheck:function(){return w.accessToken?n(w.refreshToken).then(function(e){return{s:t(),p:e||null,timeTaken:100,updated:Date.now()}}):{s:!1,p:null,timeTaken:100,updated:Date.now()}},customRegCheck:function(){var e=Date.now(),n=t();return Promise.resolve({l:n,timeTaken:Date.now()-e,updated:Date.now()})}};var p=document.createElement("script");p.src="https://elcomercio-"+arcSite+"-"+arcEnv+".cdn.arcpublishing.com/arc/subs/p.js?v="+getdata,p.async="true",document.head.appendChild(p)}t()||function(){if("undefined"!=typeof window){window.document.cookie="ArcId.USER_INFO=;path=/;domain=."+arcSite+".pe; expires=Thu, 01 Jan 1970 00:00:01 GMT";var e=window.document.querySelector('meta[name="content-type"]');n="arc_e_id",(t=document.cookie.match("(^|;) ?"+n+"=([^;]*)(;|$)"))&&t[2]&&e&&(top.postMessage({id:"iframe_relogin",redirectUrl:i()},location.origin),window.location.href=i())}var n,t}()}})});`
 
 export default vallaSignwall

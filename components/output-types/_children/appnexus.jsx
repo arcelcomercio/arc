@@ -1,6 +1,7 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
 import { getMultimedia } from '../../utilities/multimedia'
+import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
 const getSite = site => {
   const sites = {
@@ -55,6 +56,7 @@ const getVars = (
           contentOrigen,
           genderOrigen,
           audienciaNicho,
+          subtype,
         } = new StoryData({
           data: globalContent,
           arcSite,
@@ -74,10 +76,11 @@ const getVars = (
               '-',
               ''
             ) /** /sección/esta-es-la-sub-seccion */
-        dataStory = ` var tipo_nota = '${getMultimedia(
-          multimediaType,
-          true
-        )}';   var id_nota = '${id}';  var content_paywall = '${isPremium}';`
+        dataStory = ` var tipo_nota = '${
+          subtype === GALLERY_VERTICAL
+            ? 'foto_galeria_vertical'
+            : getMultimedia(multimediaType, true)
+        }';   var id_nota = '${id}';  var content_paywall = '${isPremium}';`
         dataNucleoOrigen = ` var nucleo_origen = '${nucleoOrigen}'; var format_origen = '${formatOrigen}';var content_origen = '${contentOrigen}'; var gender_origen = '${genderOrigen}';var audiencia_nicho = '${audienciaNicho}'`
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
