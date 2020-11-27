@@ -31,9 +31,11 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/story/google-news/google-news";
 @import "./scss/lite-components/features/navbar/standard-basic/nav-sidebar";
 @import "./scss/lite-components/features/next-story-button/next-story-button";
+@import "./scss/lite-components/features/story/author/story-author";
 
 // TODO
 
 @import "./scss/lite-components/features/stories-lists/linked-by-site/link-site";
 @import "./scss/lite-components/features/story/continue/st-continue";
+@import "./scss/lite-components/features/story/continue-scroll/st-scroll";
 @import "./scss/lite-components/global-components/multimedia-icon/m-icon";
