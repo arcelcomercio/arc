@@ -52,11 +52,16 @@ export const addSlashToEnd = (url = '') => {
 
 export const ifblogType = (globalContent = {}) => {
   const { post: { tags = [] } = {} } = globalContent
-  let urls = tags.indexOf('metered') !== -1 ? 'metered' : 'free'
-  urls = tags.indexOf('locked') !== -1 ? 'locked' : urls
-  urls = tags.indexOf('free') !== -1 ? 'free' : urls
+  const slugArray = tags.map(el => {
+    return el.slug
+  })
+  let urls = slugArray.indexOf('metered') !== -1 ? 'metered' : 'free'
+  urls = slugArray.indexOf('locked') !== -1 ? 'locked' : urls
+  urls = slugArray.indexOf('free') !== -1 ? 'free' : urls
+
   return urls
 }
+
 export const addParamToEndPath = (path, param) => {
   const getPathAndString = (pathData, symbol = '?') => {
     const index = pathData.indexOf(symbol)
