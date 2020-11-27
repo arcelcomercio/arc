@@ -403,7 +403,10 @@ const LiteOutput = ({
           </>
         ) : (
           // Solo para iframes de notas continuas
-          <link rel="canonical" href={iframeStoryCanonical} />
+          <>
+            <link rel="canonical" href={iframeStoryCanonical} />
+            <meta name="twitter:site" content={twitterCardsData.twitterUser} />
+          </>
         )}
         <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
         {arcSite === SITE_ELCOMERCIOMAG && (
