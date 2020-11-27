@@ -14,6 +14,8 @@ const classes = {
   block: 'st-foot__block f f-col',
   link: 'st-foot__link',
   copyr: 'st-foot__copyr',
+  showMore: 'st-foot__showmore',
+  showMoreSvg: 'st-foot__showmore__svg',
 }
 
 const FooterStory = props => {
@@ -48,6 +50,12 @@ const FooterStory = props => {
           alt={`Logo de ${arcSite}`}
         />
       </a>
+      {arcSite === 'elcomerciomag' && (
+        <label htmlFor="toggle_showmore" className={classes.showMore}>
+          Ver más
+          <input type="checkbox" id="toggle_showmore"></input>
+        </label>
+      )}
       <div className={classes.content}>
         {directorsObject && arcSite === 'elcomercio' && (
           <div className={classes.block}>
