@@ -8,7 +8,8 @@ const classes = {
   item: 'navbar-nm__item',
   link: 'navbar-nm__link',
   btn: 'navbar-nm__btn f f-center',
-  search: 'navbar-nm__search h-full pos-rel',
+  search: 'navbar-nm__search f h-full pos-rel',
+  news: 'navbar-nm__n f alg-center',
   iconSearch: 'navbar-nm__icon-search f f-center h-full',
   boxSearch: 'navbar-nm__box-search pos-abs',
   formSearch: 'f f-center just-center',
@@ -70,6 +71,16 @@ export default props => {
         </div>
 
         <div className={classes.search}>
+          <a href="/suscripcion-newsletter/" className={classes.news}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="16"
+              viewBox="0 0 20 16">
+              <path d="M20,2a2.006,2.006,0,0,0-2-2H2A2.006,2.006,0,0,0,0,2V14a2.006,2.006,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2ZM18,2,10,6.99,2,2Zm0,12H2V4l8,5,8-5Z" />
+            </svg>
+            <span>Newsletter</span>
+          </a>
           <button type="button" className={classes.iconSearch}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

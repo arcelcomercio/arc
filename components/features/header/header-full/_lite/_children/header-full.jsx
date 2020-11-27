@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import React from 'react'
-import { popup, showMore, searchScript } from '../../_dependencies/scripts'
 
 import {
   menuScript,
@@ -418,9 +417,7 @@ export default ({
       <div id="nav-pointer"></div>
       <script
         dangerouslySetInnerHTML={{
-          __html: `${isStory ? showMore : ''}${popup}${
-            hideMenu ? '' : searchScript
-          }${isStory ? scrolled : ''}${hideMenu ? '' : menuScript}${
+          __html: `${isStory ? scrolled : ''}${hideMenu ? '' : menuScript}${
             isStory ? scrollProgresBar : ''
           }`,
         }}></script>

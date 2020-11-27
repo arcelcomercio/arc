@@ -28,6 +28,7 @@
     z-index: 100;
     padding: 15px;
     font-size: 14px;
+    top: 36px;
     &.active {
       display: block;
     }
@@ -44,5 +45,18 @@
     font-weight: 700;
     height: 36px;
     width: 36px;
+  }
+  &__n {
+    background-color: #333;
+    padding: 0 20px;
+    margin-right: 20px;
+    svg {
+      fill: #dddf45;
+    }
+    span {
+      color: #dddf45;
+      font-size: 12px;
+      margin-left: 10px;
+    }
   }
 }
