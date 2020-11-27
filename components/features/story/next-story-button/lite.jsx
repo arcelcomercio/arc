@@ -30,7 +30,7 @@ const StoryNextStoryButton = ({
 
   const StoryNextStoryLink = () => (
     <a
-      href={`${websiteUrl}?ref=amp&ref=nextarticle&source=${source}`}
+      href={`${websiteUrl}?ref=lite&ref=nextarticle&source=${source}`}
       className={buttonClass || classes.link}>
       <b>
         Siguiente artículo{' '}
