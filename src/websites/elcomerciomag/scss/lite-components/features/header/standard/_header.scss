@@ -1,0 +1,48 @@
+.header {
+  background-color: #000;
+  height: 58px;
+  display: none;
+  @media (--desktop) {
+    display: flex;
+  }
+
+  &__logo {
+    height: 34px;
+  }
+
+  &__nav {
+    padding: 0 15px;
+    display: none;
+    @media (--tablet) {
+      display: flex;
+    }
+  }
+  &__tags {
+    align-self: center;
+    font-size: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+    margin-right: 20px;
+  }
+  &__featured {
+    padding-right: 20px;
+  }
+  &__item {
+    white-space: nowrap;
+    &::after {
+      background-color: #ebebeb;
+      content: "";
+      display: block;
+      height: 80%;
+      margin: 0 20px;
+      width: 1px;
+    }
+  }
+  &__link {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+    letter-spacing: 0.02rem;
+  }
+}

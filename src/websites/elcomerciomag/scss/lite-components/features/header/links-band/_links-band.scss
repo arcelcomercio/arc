@@ -1,0 +1,20 @@
+.links-band {
+  justify-content: start;
+  padding: 0 10px;
+  border-top: 1px solid #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+  font-family: $primary-font;
+  font-size: 12px;
+
+  &__txt {
+    font-weight: 700;
+    padding: 10px 7px;
+    white-space: nowrap;
+  }
+
+  &__link {
+    color: $color-gray-300;
+    padding: 10px 7px;
+    white-space: nowrap;
+  }
+}
