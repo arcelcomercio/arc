@@ -1,3 +1,6 @@
+import * as React from 'react'
+import Consumer from 'fusion:consumer'
+
 import StoryContent, {
   AmpOembed,
   RawHtml,
@@ -5,8 +8,6 @@ import StoryContent, {
 } from '@arc-core-components/feature_article-body'
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
 import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentChildVideo from './_children/amp-video'
 import StoryContentChildVideoJwplayer from './_children/amp-video-jwplayer'
@@ -85,7 +86,7 @@ const classes = {
 }
 
 @Consumer
-class StoryContentAmp extends PureComponent {
+class StoryContentAmp extends React.PureComponent {
   render() {
     const {
       contextPath,
@@ -202,6 +203,17 @@ class StoryContentAmp extends PureComponent {
       return entryHtml
     }
 
+    const magStoryDatetime = () => {
+      const formattedDisplayDate = formatDateTime(displayDate)
+      const formattedUpdateDate = formatDateTime(updateDate)
+
+      return `${formattedDisplayDate} ${
+        formattedDisplayDate !== formattedUpdateDate
+          ? `| Actualizado ${formattedUpdateDate}`
+          : ''
+      }`
+    }
+
     return (
       <>
         <div className={classes.content}>
@@ -241,11 +253,7 @@ class StoryContentAmp extends PureComponent {
                 dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
                 {isMag
-                  ? `${formatDateTime(displayDate)} ${
-                      displayDate !== updateDate
-                        ? `| Actualizado ${formatDateTime(updateDate)}`
-                        : ''
-                    }`
+                  ? magStoryDatetime()
                   : `Actualizado el ${formatDateTime(displayDate)}`}
               </time>
             </div>
@@ -525,7 +533,7 @@ class StoryContentAmp extends PureComponent {
                 dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
               />
             )}
-            
+
           {isComercio && <StoryGoogleNews />}
           <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
           {storyTagsBbc(tags) && (
