@@ -50,6 +50,13 @@ export const addSlashToEnd = (url = '') => {
   return url && !urlString.endsWith('/') ? `${url}/` : url
 }
 
+export const ifblogType = (globalContent = {}) => {
+  const { post: { tags = [] } = {} } = globalContent
+  let urls = tags.indexOf('metered') !== -1 ? 'metered' : 'free'
+  urls = tags.indexOf('locked') !== -1 ? 'locked' : urls
+  urls = tags.indexOf('free') !== -1 ? 'free' : urls
+  return urls
+}
 export const addParamToEndPath = (path, param) => {
   const getPathAndString = (pathData, symbol = '?') => {
     const index = pathData.indexOf(symbol)

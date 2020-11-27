@@ -15,7 +15,7 @@ import ChartbeatBody from './_children/chartbeat-body'
 
 import StoryData from '../utilities/story-data'
 import { storyTagsBbc } from '../utilities/tags'
-import { addSlashToEnd } from '../utilities/parse/strings'
+import { addSlashToEnd, ifblogType } from '../utilities/parse/strings'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -99,7 +99,9 @@ export default ({
   const sectionPath = nodeType === 'section' ? _id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
   const isVideosSection = /^\/videos\//.test(requestUri)
-  const isBlogPost = /^\/blogs?\/.*.html/.test(requestUri)
+  const isBlogPost = /^\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\//.test(
+    requestUri
+  )
 
   let classBody = isStory
     ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
@@ -455,7 +457,16 @@ export default ({
         {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-
+        {isBlogPost && (
+          <>
+            <meta name="section-id" content="/blog" />
+            <meta name="content-type" content="story" />
+            <meta
+              property="article:content_tier"
+              content={ifblogType(globalContent)}
+            />
+          </>
+        )}
         {renderMetaPage(metaValue('id'), metaPageData)}
         <AppNexus
           arcSite={arcSite}
