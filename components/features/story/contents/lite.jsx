@@ -73,7 +73,13 @@ const classes = {
 }
 
 const StoryContentsLite = props => {
-  const { customFields: { shareAlign = 'right', copyLink = false, liteAdsEvery = 2 } = {} } = props
+  const {
+    customFields: {
+      shareAlign = 'right',
+      copyLink = false,
+      liteAdsEvery = 2,
+    } = {},
+  } = props
   const {
     globalContent,
     arcSite,
@@ -88,9 +94,9 @@ const StoryContentsLite = props => {
   } = useAppContext()
 
   const {
-    publishDate: date,
     promoItems,
-    displayDate: updatedDate,
+    displayDate,
+    publishDate: updateDate,
     createdDate,
     authorImage,
     authorLink,
@@ -128,8 +134,8 @@ const StoryContentsLite = props => {
     author,
     authorRole,
     authorLink,
-    updatedDate: getDateSeo(updatedDate || createdDate),
-    date: getDateSeo(date || createdDate),
+    displayDate: getDateSeo(displayDate || createdDate),
+    publishDate: getDateSeo(updateDate),
     locality,
     primarySectionLink,
     authorEmail,
@@ -557,9 +563,10 @@ const StoryContentsLite = props => {
           )}
         </div>
         {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
-        <div className={`${classes.social} ${shareAlign === "left" ? "f" : ""}`}>
+        <div
+          className={`${classes.social} ${shareAlign === 'left' ? 'f' : ''}`}>
           <div className="st-social__share">
-            <ShareButtons activeCopyLink={copyLink}/>
+            <ShareButtons activeCopyLink={copyLink} />
           </div>
         </div>
         {storyTagsBbc(tags) && (
