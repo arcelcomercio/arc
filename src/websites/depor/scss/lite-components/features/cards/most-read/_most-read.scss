@@ -8,6 +8,10 @@
   position: relative;
   max-height: 490px;
   transition: max-height 0.5s ease-in-out;
+  display: none;
+  @media (--desktop) {
+    display: flex;
+  }
 
   &::after {
     content: "";
