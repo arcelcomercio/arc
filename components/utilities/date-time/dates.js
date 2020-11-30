@@ -64,7 +64,7 @@ export const getDateSeo = data => {
   return fechaGenerada
 }
 
-export const formatDateStory = date => {
+export const formatDate = date => {
   const fechaZone = date.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
   const fecha = new Date(fechaZone)
   const day = fecha.getDate()
@@ -77,8 +77,36 @@ export const formatDateStory = date => {
 
   const formatHours = hours < 10 ? `0${hours}` : hours
   const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
+  return {
+    formatDay,
+    formatMonth,
+    fullYear: fecha.getFullYear(),
+    formatHours,
+    formatMinutes,
+  }
+}
 
-  return `Actualizado el ${formatDay}/${formatMonth}/${fecha.getFullYear()} a las ${formatHours}:${formatMinutes} `
+export const formatDateStory = date => {
+  const {
+    formatDay,
+    formatMonth,
+    fullYear,
+    formatHours,
+    formatMinutes,
+  } = formatDate(date)
+
+  return `Actualizado el ${formatDay}/${formatMonth}/${fullYear} a las ${formatHours}:${formatMinutes} `
+}
+
+export const getDMYHours = (date) => {
+  const {
+    formatDay,
+    formatMonth,
+    fullYear,
+    formatHours,
+    formatMinutes,
+  } = formatDate(date)
+  return `${formatDay}/${formatMonth}/${fullYear} - ${formatHours}:${formatMinutes} `
 }
 
 export const formattedTime = date => {
