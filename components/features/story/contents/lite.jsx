@@ -1,5 +1,5 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -91,7 +91,7 @@ const StoryContentsLite = props => {
       siteUrl,
       jwplayers,
     },
-  } = useFusionContext()
+  } = useAppContext()
 
   const {
     publishDate: date,
