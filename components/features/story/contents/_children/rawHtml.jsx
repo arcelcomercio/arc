@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react'
+import * as React from 'react'
+
 import LiteYoutube from '../../../../global-components/lite-youtube'
 
 const classes = {
@@ -13,19 +14,19 @@ const storyVideoPlayerId = (content = '') => {
   return content.match(pattern) || []
 }
 
-const clearUrlOrCode = (url = '') => {
+/* const clearUrlOrCode = (url = '') => {
   const clearUrl = url
     .trim()
     .replace('"', '')
     .replace('"', '')
   return { clearUrl, code: clearUrl.split('#')[1] }
-}
+} */
 
 const isDaznServicePlayer = content =>
   content.includes('player.daznservices.com/') ||
   content.includes('player.performgroup.com/')
 
-class rawHTML extends PureComponent {
+class RawHTML extends React.PureComponent {
   constructor(props) {
     super(props)
     const { content } = this.props
@@ -65,30 +66,32 @@ class rawHTML extends PureComponent {
 
   render() {
     const { content } = this.props
-    const idVideo = storyVideoPlayerId(content)
+    /* const idVideo = storyVideoPlayerId(content)
     const idVideoEmbed =
       isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
-        : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
+        : `_${clearUrlOrCode(idVideo[2] || '').code || ''}` */
     const isWidgets = this.URL && this.URL.includes('widgets.js')
     if ((this.URL_VIDEO || this.URL) && !content.includes('<mxm')) {
       return (
         <>
-          {this.URL_VIDEO && (
+          {/* por ahora no se renderiza video de daznservice
+          
+          {this.URL_VIDEO ? (
             <div id={idVideoEmbed} className={classes.newsEmbed}>
               <script src={this.URL_VIDEO.replace('"', '')} defer />
             </div>
-          )}
-          {this.URL && <script src={this.URL} defer />}
+          ) : null} */}
+          {this.URL ? <script src={this.URL} defer /> : null}
 
-          {isWidgets && (
+          {isWidgets ? (
             <div
               className={classes.newsEmbed}
               dangerouslySetInnerHTML={{
                 __html: content,
               }}
             />
-          )}
+          ) : null}
         </>
       )
     }
@@ -97,35 +100,34 @@ class rawHTML extends PureComponent {
     const hasYoutubeVideo = /<iframe.+youtu\.be|youtube\.com/.test(content)
     if (hasYoutubeVideo) {
       const [, videoId] = content.match(/\/embed\/([\w-]+)/) || []
-      if (videoId) return <LiteYoutube videoId={videoId} loading="lazy" />
+      return videoId ? <LiteYoutube videoId={videoId} loading="lazy" /> : null
     }
 
     // Fallback para cualquier iframe y contenido en general
     const iframeEmbed = content.includes('<iframe')
     const mxmEmbed = content.includes('<mxm')
-    return (
+    return iframeEmbed && !mxmEmbed ? (
       <>
-        {iframeEmbed && !mxmEmbed ? (
-          <>
-            <div
-              className="story-contents__lL-iframe story-contents__p-default"
-              data-type="iframe"
-              data-iframe={content}
-            />
-          </>
-        ) : (
-          <div
-            className={classes.newsEmbed}
-            dangerouslySetInnerHTML={{
-              __html: isDaznServicePlayer(content)
-                ? content.trim().replace('performgroup', 'daznservices')
-                : content,
-            }}
-          />
-        )}
+        <div
+          className="story-contents__lL-iframe story-contents__p-default"
+          data-type="iframe"
+          data-iframe={content}
+        />
       </>
+    ) : (
+      <div
+        className={classes.newsEmbed}
+        dangerouslySetInnerHTML={{
+          __html: content,
+          /*  por ahora no se renderiza video de daznservice
+
+            __html: isDaznServicePlayer(content)
+              ? content.trim().replace('performgroup', 'daznservices')
+              : content, */
+        }}
+      />
     )
   }
 }
 
-export default rawHTML
+export default RawHTML
