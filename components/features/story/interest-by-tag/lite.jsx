@@ -11,14 +11,13 @@ import UtilListKey from '../../../utilities/list-keys'
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
 
-// TODO: cambiar clases, puede ser .st-interest la clase principal
 const classes = {
   storyInterest:
-    'amp-story-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-sh',
+    'st-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-sh',
   title:
-    'amp-story-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
+    'st-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
   title_full_imagen:
-    'amp-story-interest__titleListFullImagen block position-relative w-full h-auto font-bold mb-15 p-10 text-center text-left',
+    'st-interest__title-list-full block position-relative w-full h-auto font-bold mb-15 p-10 text-center text-left',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
