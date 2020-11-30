@@ -1,5 +1,5 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -11,13 +11,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
-/* import {
-  SPECIAL,
-  SPECIAL_BASIC,
-  BIG_IMAGE,
-} from '../../../utilities/constants/subtypes' */
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
-// import ShareButtons from '../../../global-components/lite/share'
 import {
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
@@ -79,7 +73,13 @@ const classes = {
 }
 
 const StoryContentsLite = props => {
-  const { customFields: { liteAdsEvery = 2 } = {} } = props
+  const {
+    customFields: {
+      shareAlign = 'right',
+      copyLink = false,
+      liteAdsEvery = 2,
+    } = {},
+  } = props
   const {
     globalContent,
     arcSite,
@@ -91,12 +91,12 @@ const StoryContentsLite = props => {
       siteUrl,
       jwplayers,
     },
-  } = useFusionContext()
+  } = useAppContext()
 
   const {
-    publishDate: date,
     promoItems,
-    displayDate: updatedDate,
+    displayDate,
+    publishDate: updateDate,
     createdDate,
     authorImage,
     authorLink,
@@ -134,8 +134,8 @@ const StoryContentsLite = props => {
     author,
     authorRole,
     authorLink,
-    updatedDate: getDateSeo(updatedDate || createdDate),
-    date: getDateSeo(date || createdDate),
+    displayDate: getDateSeo(displayDate || createdDate),
+    publishDate: getDateSeo(updateDate),
     locality,
     primarySectionLink,
     authorEmail,
@@ -189,7 +189,7 @@ const StoryContentsLite = props => {
         <div
           className={`${classes.content} ${isPremium &&
             'story-content__nota-premium paywall no_copy'}`}
-          style={isPremium ? { display: 'none' } : {}}
+          style={isPremium ? { opacity: '0', userSelect: 'none' } : {}}
           id="contenedor">
           {!isDfp && (
             <>
@@ -563,9 +563,10 @@ const StoryContentsLite = props => {
           )}
         </div>
         {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
-        <div className={classes.social}>
+        <div
+          className={`${classes.social} ${shareAlign === 'left' ? 'f' : ''}`}>
           <div className="st-social__share">
-            <ShareButtons />
+            <ShareButtons activeCopyLink={copyLink} />
           </div>
         </div>
         {storyTagsBbc(tags) && (

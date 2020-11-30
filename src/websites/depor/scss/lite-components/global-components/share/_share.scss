@@ -19,8 +19,18 @@
   }
 
   &--ws {
-    @media (--tablet) {
-      display: none;
+    display: none;
+  }
+  &--copy {
+    height: 30px;
+    line-height: 0;
+    fill: $color-gray-300;
+    font-family: $primary-font;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0 5px 0 0;
+    svg {
+      margin-right: 5px;
     }
   }
 }
