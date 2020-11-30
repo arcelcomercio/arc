@@ -5,7 +5,7 @@ import { useAppContext } from 'fusion:context'
 // seguro hay que cambiar algunos children
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import StorySeparatorChildItemAmp from './_children/amp'
+import StoryItemChild from './_lite/_children/item'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
@@ -101,7 +101,7 @@ const InterestByTagAmp = props => {
         isAdmin,
       }
       return (
-        <StorySeparatorChildItemAmp
+        <StoryItemChild
           data={data}
           key={UtilListKey(i)}
           arcSite={arcSite}
