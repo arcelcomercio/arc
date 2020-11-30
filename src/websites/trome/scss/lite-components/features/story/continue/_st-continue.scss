@@ -1,48 +1,68 @@
 .st-continue {
   content-visibility: auto;
   contain-intrinsic-size: 100px;
-  &__progress-box {
-    height: 30px;
-    background-color: #f5f5f5;
-    align-items: center;
-  }
-
+  padding: 20px 0;
+  border-top: 1px solid #dadada;
   &__progress {
-    height: 100%;
-    width: 100%;
-    background-color: #e8e8e8;
-    transform-origin: left;
-
+    height: 88px;
+    width: 88px;
+    background: #999;
+    border-radius: 50%;
+    // position: relative;
+    transform: rotate(105deg);
+    &::after {
+      content: "";
+      height: 78px;
+      width: 78px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+    }
+    &::before {
+      content: "";
+      height: 100px;
+      width: 67px;
+      position: absolute;
+      background: transparent
+        linear-gradient(375deg, #fff 61%, rgba(255, 255, 255, 0) 90%) 0% 0%
+        no-repeat padding-box;
+      top: -9px;
+      left: -9px;
+    }
     &.loading {
-      animation: loading 2s ease-in-out infinite alternate;
+      animation: spin 1s ease infinite;
     }
   }
-
-  &__subtitle {
-    font: 700 11px/18px $primary-font;
-    color: $color-gray-300;
-    padding: 0 15px;
+  &__container {
+    margin-left: 22px;
+    flex-direction: column;
+    max-width: 212px;
+    @media (--tablet) {
+      max-width: 400px;
+    }
+    span {
+      font-size: 15px;
+      font-style: italic;
+    }
   }
-
-  &__close {
-    right: 15px;
-    fill: $color-white;
-    background-color: $color-gray-300;
-    border-radius: 50%;
-  }
-
   &__title {
-    padding: 10px 15px 60px 15px;
-    font: 400 20px/26px $secondary-font;
-    color: $color-gray-300;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 5px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
   }
 }
 
-@keyframes loading {
+@keyframes spin {
   0% {
-    transform: scaleX(0);
+    transform: rotate(0deg);
   }
   100% {
-    transform: scaleX(100%);
+    transform: rotate(360deg);
   }
 }

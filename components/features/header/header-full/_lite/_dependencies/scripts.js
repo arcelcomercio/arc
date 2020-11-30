@@ -55,3 +55,35 @@ export const scrollProgresBar =
 }); */
 export const menuScript =
   '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".header-full__btn-menu"),t=document.querySelector(".header-full__megamenu");e&&t&&e.addEventListener("click",function(){t.classList.toggle("active")})});'
+
+/* document.addEventListener("DOMContentLoaded", function () {
+  const headerSearchBtn = document.querySelector(".header-full__is");
+  const formContainer = document.querySelector(
+    ".navbar-nm__box-search.hf-search"
+  );
+  if (headerSearchBtn && formContainer) {
+    headerSearchBtn.addEventListener("click", () => {
+      formContainer.classList.toggle("active");
+    });
+  }
+  const searchInput = document.body.querySelector(
+    ".navbar-nm__input-search.hf-search"
+  );
+  const searchForm = document.body.querySelector(
+    ".navbar-nm__box-search.hf-search"
+  );
+  if (searchInput && searchForm) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (searchInput.value) {
+        const newQuery = encodeURIComponent(searchInput.value).replace(
+          /%20/g,
+          "+"
+        );
+        window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`;
+      }
+    });
+  }
+}); */
+export const searchScript =
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".header-full__is"),n=document.querySelector(".navbar-nm__box-search.hf-search");e&&n&&e.addEventListener("click",function(){n.classList.toggle("active")});var t=document.body.querySelector(".navbar-nm__input-search.hf-search"),c=document.body.querySelector(".navbar-nm__box-search.hf-search");t&&c&&c.addEventListener("submit",function(e){if(e.preventDefault(),t.value){var n=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n)}})});'

@@ -3,14 +3,15 @@
   background-color: #333;
   max-width: 330px;
   left: 0;
-  top: 50px;
+  top: 46px;
   transform: scaleX(0);
   transition: transform 0.5s ease, -webkit-transform 0.5s ease;
   transform-origin: left;
   will-change: transform;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 46px);
   @media (--desktop) {
-    height: calc(100vh - 50px - 36px);
+    top: 52px;
+    height: calc(100vh - 52px);
   }
 
   .nav-sidebar__wrapper {
@@ -36,7 +37,8 @@
 }
 .header-full.active {
   .header-full__megamenu {
-    height: calc(100vh - 50px);
+    height: calc(100vh - 46px);
+    top: 46px;
   }
 }
 .nav-sidebar__link {
@@ -94,4 +96,9 @@
 }
 .nav-sidebar__menu-arrow:checked ~ .nav-sidebar__container-submenu {
   max-height: 100vh;
+}
+
+.navbar-nm__box-search.hf-search {
+  right: 0;
+  top: 52px;
 }

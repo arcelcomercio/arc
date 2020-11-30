@@ -7,52 +7,17 @@ import {
   menuScript,
   scrolled,
   scrollProgresBar,
+  searchScript,
 } from '../_dependencies/scripts'
 
 const classes = {
   headerFull: 'header-full w-full pos-rel',
   container: 'header-full__container h-full f just-between pos-rel',
   left: 'header-full__left f alg-center',
-  newsCin: 'header-full__newsletter f',
-  newsCinDesk: 'header-full__newsletter-newsCinDesk',
-  newsCinMob: 'header-full__newsletter-newsCinMob',
-  newsCinText: 'header-full__newsletter-text',
-  newsCinTooltip: 'header-full__newsletter-tooltip showTooltipDesk',
-  newsInputCheckDesk: 'checkNewsCinDesk',
-  newsInputCheckMob: 'checkNewsCinMob',
-  newsInputCheckMobClose: 'checkNewsCinMobClose ',
-  newsCinModal: 'header-full__newsletter-modal active showModalMob',
-  newsCinModalClose: 'header-full__newsletter-modal-close',
-  boxBtnMenu: 'header-full__box-btnmenu h-full f alg-center just-center',
   btnMenu: 'header-full__btn-menu  f just-center alg-center',
-  wrapperMenu: 'header-full__wrapper-menu',
-  topMenu: 'header-full__top-menu f',
-  topLeft: 'header-full__top-left  f alg-center just-center',
-  topRight: 'header-full__top-right f alg-center',
-  btnClose: 'header-full__btn-close w-full h-full',
-  iconClose: 'header-full__icon-close icon-close',
-  imgMenu: 'header-full__img-menu',
-  boxSearch: 'header-full__box-search',
-  formSearch: 'header-full__form-search f just-center alg-center',
-  inputSearch: 'header-full__input-search',
-  btnSearch: 'header-full__btn-search',
-  iconSearch: 'header-full__icon-search icon-search',
-  headerList: 'header-full__list',
-  headerItem: 'header-full__item f',
-  headerLink: 'header-full__link',
-  angleRight: 'icon-right header-full__angle f just-center alg-center',
   right: 'header-full__right f alg-center',
-  callImg: 'header-full__call-img f alg-center ',
-  subMenuList: 'header-full__submenu-list',
-  subMenuItem: 'header-full__submenu-item f',
   btnContainer: 'header-full__btn-container',
   btnResult: 'header-full__btn-result',
-  footerMenu: 'header-full__footer-menu f f-col just-center alg-center',
-  follow: 'header-full__follow',
-  mediaList: 'header-full__media-list f',
-  mediaItem: 'header-full__media-item',
-  mediaLink: 'header-full__media-link',
-  mediaIcon: 'header-full__media-icon',
   boxLogo: 'header-full__box-logo h-full',
   linkLogo: 'header-full__link-logo f alg-center h-full',
   logo: 'header-full__logo',
@@ -62,22 +27,12 @@ const classes = {
   linkNav: 'header-full__link-nav',
 
   megaMenu: 'header-full__megamenu w-full pos-abs oflow-h f f-col just-between',
-  megaMenuContainer: 'megamenu__container',
-  megaMenuBox: 'megamenu__box f f-row just-center',
-  megaMenuRow: 'megamenu__row mr-25',
-  megaMenuTitle: 'megamenu__title',
-  megaMenuList: 'megamenu__list',
-  megaMenuItem: 'megamenu__item',
-  megaMenuLink: 'megamenu__link',
   navStoryTitle: 'nav__story-title oflow-h',
   navStorySocialNetwork: 'nav__story-social-network pos-rel ',
 
   listIcon: 'story-header__list f just-between',
-  moreLink: 'story-content__more-link',
   shareItem: 'story-header__item f alg-center',
   shareLink: 'story-header__link f alg-center just-center',
-  shareIcon: 'story-header__icon',
-  iconMore: 'story-header__share-icon icon-share',
   navLoaderBg: 'nav__load-bg pos-abs',
   navLoader: 'nav__loader-bar pos-abs h-full',
 
@@ -98,22 +53,18 @@ export default ({
   // socialNetworks,
   customLogoTitle,
   logo,
-  // whiteLogo,
+  whiteLogo,
   headerList,
   menuList,
   isStory,
   shareButtons,
   postTitle,
   arcSite,
-  winningCallLogo,
   // mobileHeaderFollowing,
   siteDomain,
   legalLinks,
   hideMenu,
-  Newsle,
 }) => {
-  const arcSiteTrome = 'trome'
-
   const renderSections = (sections, deep, nameId = 'root') => {
     const aux = deep
     return (
@@ -212,6 +163,20 @@ export default ({
                   title={customLogoTitle}
                 />
               </a>
+              {arcSite === 'trome' && (
+                <a
+                  itemProp="url"
+                  className={`${classes.linkLogo} header-full__l-w`}
+                  href="/"
+                  title={siteDomain}>
+                  <img
+                    src={whiteLogo}
+                    className={classes.logo}
+                    alt={customLogoTitle}
+                    title={customLogoTitle}
+                  />
+                </a>
+              )}
             </div>
             {isStory && (
               <div className={classes.navStoryTitle}>{postTitle}</div>
@@ -338,7 +303,7 @@ export default ({
                 </ul>
               </div>
             )}
-            {arcSite !== arcSiteTrome ? (
+            {arcSite === 'depor' && (
               <div className={classes.btnContainer}>
                 <a
                   itemProp="url"
@@ -347,62 +312,38 @@ export default ({
                   Resultados
                 </a>
               </div>
-            ) : (
+            )}
+            {arcSite === 'trome' && (
               <>
-                <input
-                  type="checkbox"
-                  id="stNewsCinDesk"
-                  className={classes.newsInputCheckDesk}
-                />
-                <label
-                  htmlFor="stNewsCinDesk"
-                  className={`${classes.newsCin} ${classes.newsCinDesk} `}>
-                  <div className={classes.newsCinText}>Boletín</div>
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="25"
-                      viewBox="0 0 24 24">
-                      <path d="M0 0H24V24H0Z" fill="none" />
-                      <path
-                        d="M20 4H4A2 2 0 0 0 2 6V18a2 2 0 0 0 2 2H20a2 2 0 0 0 2-2V6A2 2 0 0 0 20 4Zm0 14H4V8l8 5 8-5Zm-8-7L4 6H20Z"
-                        fill="#943816"
-                      />
-                    </svg>
-                  </div>
-                </label>
-                <div className={`${classes.newsCinTooltip}`}>{Newsle}</div>
-
-                <input
-                  type="checkbox"
-                  id="stNewsCinMob"
-                  className={classes.newsInputCheckMob}
-                />
-                <label
-                  htmlFor="stNewsCinMob"
-                  className={`${classes.newsCin} ${classes.newsCinMob}`}>
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="25"
-                      viewBox="0 0 24 24">
-                      <path d="M0 0H24V24H0Z" fill="none" />
-                      <path
-                        d="M20 4H4A2 2 0 0 0 2 6V18a2 2 0 0 0 2 2H20a2 2 0 0 0 2-2V6A2 2 0 0 0 20 4Zm0 14H4V8l8 5 8-5Zm-8-7L4 6H20Z"
-                        fill="#943816"
-                      />
-                    </svg>
-                  </div>
-                </label>
-                <div className={`${classes.newsCinModal}`}>{Newsle}</div>
-                <div className={classes.callImg}>
-                  <a
-                    itemProp="url"
-                    href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
-                    title="Llamada Ganadora">
-                    <img src={winningCallLogo} alt="Llamada Ganadora" />
-                  </a>
+                <button type="button" className="header-full__is">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-basic__search"
+                    width="19"
+                    height="19"
+                    viewBox="0 0 14 14">
+                    <title>abrir cuadro de búsqueda</title>
+                    <path d="M13.2 12.4L9.2 8.3C9.8 7.5 10.1 6.5 10.1 5.4 10.1 4.2 9.6 3 8.8 2.1 7.9 1.2 6.7 0.8 5.4 0.8 4.2 0.8 3 1.2 2.1 2.1 1.2 3 0.8 4.2 0.8 5.4 0.8 6.7 1.2 7.9 2.1 8.8 3 9.6 4.2 10.1 5.4 10.1 6.5 10.1 7.5 9.8 8.3 9.2L12.4 13.2C12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.3 12.4 13.3 12.5 13.3 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2L13.2 12.5C13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.3 12.5 13.3 12.4 13.3 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4V12.4ZM7.9 7.9C7.3 8.6 6.4 8.9 5.4 8.9 4.5 8.9 3.6 8.6 3 7.9 2.3 7.3 1.9 6.4 1.9 5.4 1.9 4.5 2.3 3.6 3 3 3.6 2.3 4.5 1.9 5.4 1.9 6.4 1.9 7.3 2.3 7.9 3 8.6 3.6 8.9 4.5 8.9 5.4 8.9 6.4 8.6 7.3 7.9 7.9Z" />
+                  </svg>
+                </button>
+                <div className="navbar-nm__box-search hf-search pos-abs">
+                  <form className="f f-center just-center hf-search" action="">
+                    <input
+                      type="search"
+                      className="navbar-nm__input-search hf-search"
+                      placeholder="Buscar"
+                    />
+                    <button className="navbar-nm__btn-search" type="submit">
+                      OK
+                    </button>
+                  </form>
                 </div>
+                <script
+                  type="text/javascript"
+                  dangerouslySetInnerHTML={{
+                    __html: searchScript,
+                  }}
+                />
               </>
             )}
           </div>
@@ -418,7 +359,7 @@ export default ({
       <script
         dangerouslySetInnerHTML={{
           __html: `${isStory ? scrolled : ''}${hideMenu ? '' : menuScript}${
-            isStory ? scrollProgresBar : ''
+            isStory && arcSite === 'depor' ? scrollProgresBar : ''
           }`,
         }}></script>
     </>

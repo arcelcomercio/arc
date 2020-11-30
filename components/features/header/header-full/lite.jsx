@@ -112,29 +112,47 @@ const HeaderFull = props => {
     siteNameRedSocial
   )
 
-  const shareButtons = [
-    {
-      name: 'facebook',
-      link: urlsShareList.facebook,
-    },
+  let shareButtons = []
 
-    {
-      name: 'fbmsg',
-      link: urlsShareList.fbmsg,
-    },
-    {
-      name: 'whatsapp',
-      link: urlsShareList.whatsapp,
-    },
-    {
-      name: 'twitter',
-      link: urlsShareList.twitter,
-    },
-  ]
-  const arcSiteTrome = 'trome'
+  if (arcSite === 'depor') {
+    shareButtons = [
+      {
+        name: 'facebook',
+        link: urlsShareList.facebook,
+      },
+
+      {
+        name: 'fbmsg',
+        link: urlsShareList.fbmsg,
+      },
+      {
+        name: 'whatsapp',
+        link: urlsShareList.whatsapp,
+      },
+      {
+        name: 'twitter',
+        link: urlsShareList.twitter,
+      },
+    ]
+  } else {
+    shareButtons = [
+      {
+        name: 'facebook',
+        link: urlsShareList.facebook,
+      },
+      {
+        name: 'whatsapp',
+        link: urlsShareList.whatsapp,
+      },
+      {
+        name: 'twitter',
+        link: urlsShareList.twitter,
+      },
+    ]
+  }
 
   const winningCallLogo =
-    arcSite === arcSiteTrome
+    arcSite === 'trome'
       ? `${getAssetsPath(
           arcSite,
           contextPath
@@ -155,7 +173,7 @@ const HeaderFull = props => {
     whiteLogo: `${getAssetsPath(
       arcSite,
       contextPath
-    )}/resources/dist/${arcSite}/images/alternate-logo-w.png?d=1`,
+    )}/resources/dist/${arcSite}/images/logo-white.png?d=1`,
     shareButtons,
     arcSite,
     winningCallLogo,
