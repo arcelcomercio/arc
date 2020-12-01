@@ -3,6 +3,7 @@ import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
+import { socialShare } from './utils'
 
 const classes = {
   share: '',
@@ -15,15 +16,15 @@ const classes = {
 }
 
 const DynamicShareButtons = () => {
-  const { globalContent, arcSite } = useAppContext()
+  const { arcSite } = useAppContext()
 
-  const urlRoot = () => {
-    const { websites = {} } = globalContent || {}
-    return websites[arcSite] || globalContent || {}
-  }
+  // const urlRoot = () => {
+  //   const { websites = {} } = globalContent || {}
+  //   return websites[arcSite] || globalContent || {}
+  // }
 
-  const { headlines: { basic: postTitle = '' } = {} } = globalContent || {}
-  const { website_url: postPermaLink = '' } = urlRoot()
+  // const { headlines: { basic: postTitle = '' } = {} } = globalContent || {}
+  // const { website_url: postPermaLink = '' } = urlRoot()
 
   const {
     social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
@@ -32,8 +33,8 @@ const DynamicShareButtons = () => {
 
   const urlsShareList = socialMediaUrlShareList(
     siteUrl,
-    postPermaLink,
-    postTitle,
+    'shareLink',
+    'shareTitle',
     siteNameRedSocial
   )
 
@@ -43,7 +44,7 @@ const DynamicShareButtons = () => {
         itemProp="url"
         href={urlsShareList.facebook}
         className={classes.btn}
-        data-share="">
+        data-dynamic-share="">
         <title>Compartir en facebook</title>
         <svg xmlns="http://www.w3.org/2000/svg" width="40" viewBox="0 0 40 40">
           <path
@@ -57,7 +58,7 @@ const DynamicShareButtons = () => {
         itemProp="url"
         href={urlsShareList.twitter}
         className={classes.btn}
-        data-share="">
+        data-dynamic-share="">
         <title>Compartir en twitter</title>
         <svg viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -71,7 +72,7 @@ const DynamicShareButtons = () => {
         itemProp="url"
         href={urlsShareList.linkedin}
         className={classes.btn}
-        data-share="">
+        data-dynamic-share="">
         <title>Compartir en LinkedIn</title>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +90,7 @@ const DynamicShareButtons = () => {
         itemProp="url"
         href={urlsShareList.whatsapp}
         className={`${classes.btn} ${classes.ws}`}
-        data-share="">
+        data-dynamic-share="">
         <title>Compartir en WhatsApp</title>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -103,9 +104,15 @@ const DynamicShareButtons = () => {
           />
         </svg>
       </a>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `${socialShare}`,
+        }}></script>
     </>
   )
 }
 
 DynamicShareButtons.label = 'Header - botones compartir historia continua'
+DynamicShareButtons.static = true
+
 export default DynamicShareButtons
