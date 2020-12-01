@@ -38,6 +38,7 @@ const StoryMultimediaLte = () => {
     multimediaStorySmall,
     multimediaLarge,
     multimediaLazyDefault,
+    promoItemJwplayer,
     tags,
   } = new StoryData({
     data,
@@ -63,7 +64,9 @@ const StoryMultimediaLte = () => {
     multimediaLazyDefault,
     primaryImage: true,
     completeImage: false,
+    promoItemJwplayer,
     classImage: 's-multimedia',
+    lite: true,
   }
 
   return (

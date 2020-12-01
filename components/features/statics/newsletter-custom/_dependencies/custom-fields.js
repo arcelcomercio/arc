@@ -12,13 +12,16 @@ const customFields = PropTypes.shape({
   description: PropTypes.string.tag({
     name: 'Descripción',
     defaultValue:
-      'Te enviaremos lo mejor de Trome.pe. Escribe tu correo electrónico y dale clic a  "Recibir"',
+      'Te enviaremos el mejor contenido. Escribe tu correo electrónico y dale clic a  "Recibir"',
   }),
   urlTos: PropTypes.string.isRequired.tag({
     name: 'URL de términos y condiciones',
   }),
   urlPrivacyPolicies: PropTypes.string.isRequired.tag({
     name: 'URL de políticas de privacidad',
+  }),
+  colorButton: PropTypes.string.tag({
+    name: 'Color del boton',
   }),
 })
 

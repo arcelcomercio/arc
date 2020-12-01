@@ -197,8 +197,7 @@
 
   /* ----------------------------------------------------- */
   &__content {
-    content-visibility: auto;
-    contain-intrinsic-size: 2000px;
+    // contain: content;
     padding-top: 5px;
   }
 

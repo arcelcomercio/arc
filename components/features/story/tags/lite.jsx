@@ -12,7 +12,7 @@ const classes = {
 }
 
 const StoryTags = () => {
-  const { globalContent } = useFusionContext()
+  const { globalContent, arcSite } = useFusionContext()
   const { taxonomy: { tags = [] } = {} } = globalContent || {}
 
   return (
@@ -35,7 +35,7 @@ const StoryTags = () => {
                       itemProp="url"
                       className={classes.link}
                       href={slug && `/noticias/${slug}/`}>
-                      {idx !== 0 && <span>|</span>}
+                      {idx !== 0 && arcSite === 'elcomercio' && <span>|</span>}
                       {text}
                     </a>
                   </h2>

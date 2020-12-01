@@ -65,10 +65,16 @@ class SignwallComponent extends PureComponent {
     this._isMounted = true
     if (typeof window !== 'undefined' && this._isMounted) {
       if (!this.checkSession()) {
+        window.showArcP = true
         this.setState({ showPremium: true })
       } else {
         return this.getListSubs().then(p => {
           if (p && p.length === 0) {
+            window.showArcP = true
+            window.top.postMessage(
+              { id: 'iframe_paywall' },
+              window.location.origin
+            )
             this.setState({ showPremium: true })
           } else {
             const divPremium = document.getElementById('contenedor')
@@ -106,6 +112,13 @@ class SignwallComponent extends PureComponent {
         QueryString.getQuery('article_url') || ''
       )
       W.sessionStorage.setItem('paywall_last_url', artURL)
+      W.postMessage(
+        {
+          id: 'iframe_signwall',
+          redirectUrl: Domains.getUrlLandingAuth(arcSite),
+        },
+        W.location.origin
+      )
       W.location.href = Domains.getUrlLandingAuth(arcSite)
     }
 
@@ -199,9 +212,7 @@ class SignwallComponent extends PureComponent {
 
   checkSession = () => {
     if (typeof window !== 'undefined') {
-      const profileStorage =
-        window.localStorage.getItem('ArcId.USER_PROFILE') ||
-        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
       const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
       if (profileStorage) {
         return !(profileStorage === 'null' || sesionStorage === '{}') || false
@@ -222,11 +233,16 @@ class SignwallComponent extends PureComponent {
         dataContType &&
         siteProperties.activePaywall
       ) {
-        window.location.href = Domains.getUrlSignwall(
+        const urlSignwallRelogin = Domains.getUrlSignwall(
           arcSite,
           'reloginHash',
           '1'
         )
+        window.top.postMessage(
+          { id: 'iframe_relogin', redirectUrl: urlSignwallRelogin },
+          window.location.origin
+        )
+        window.location.href = urlSignwallRelogin
       }
     }
     return null
@@ -234,7 +250,12 @@ class SignwallComponent extends PureComponent {
 
   redirectURL = (typeDialog, hash) => {
     const { arcSite } = this.props
-    window.location.href = Domains.getUrlSignwall(arcSite, typeDialog, hash)
+    const urlSignwall = Domains.getUrlSignwall(arcSite, typeDialog, hash)
+    window.top.postMessage(
+      { id: 'iframe_signwall', redirectUrl: urlSignwall },
+      window.location.origin
+    )
+    window.location.href = urlSignwall
   }
 
   getUrlParam = name => {

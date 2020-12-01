@@ -5,6 +5,7 @@ import { storyTagsBbc } from '../../../utilities/tags'
 
 import StorySocialChildAmpSocial from '../../story/social/_children/amp-social'
 import ElePrincipal from '../../story/contents/_children/amp-ele-principal'
+import StoryContentChildVideoJwplayer from '../../story/contents/_children/amp-video-jwplayer'
 import StoryData from '../../../utilities/story-data'
 import StoryContentChildTags from '../../story/contents/_children/tags'
 import StoryContentChildRelated from './_children/related'
@@ -44,6 +45,7 @@ const VideoSectionAmp = () => {
     promoItems,
     authorLink,
     author,
+    promoItemJwplayer,
   } = new StoryData({
     data,
     contextPath,
@@ -135,7 +137,12 @@ const VideoSectionAmp = () => {
         <StorySocialChildAmpSocial />
       </div>
       <div className={classes.content}>
-        <ElePrincipal data={promoItems} />
+        {promoItemJwplayer && promoItemJwplayer.key ? (
+          <StoryContentChildVideoJwplayer
+            data={promoItemJwplayer}></StoryContentChildVideoJwplayer>
+        ) : (
+          <>{promoItems && <ElePrincipal data={promoItems} />}</>
+        )}
 
         <p className={classes.author}>
           <a href={authorLink}>{author}</a>

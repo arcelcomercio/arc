@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import { removeLastSlash } from '../../../utilities/parse/strings'
 
@@ -100,7 +100,7 @@ window.addEventListener('load', () => {requestIdle(() => {
 */
 
 const StoryContinueLite = () => {
-  const { globalContent, arcSite } = useFusionContext()
+  const { globalContent, arcSite } = useAppContext()
   const { taxonomy: { primary_section: { path = '' } = {} } = {} } =
     globalContent || {}
 

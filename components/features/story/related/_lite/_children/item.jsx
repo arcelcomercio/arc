@@ -4,6 +4,7 @@ import UtilListKey from '../../../../../utilities/list-keys'
 import { createResizedParams } from '../../../../../utilities/resizer/resizer'
 import StoryData from '../../../../../utilities/story-data'
 import MultimediaIcon from '../../../../../global-components/lite/multimedia-icon'
+import { SITE_ELCOMERCIO } from '../../../../../utilities/constants/sitenames'
 
 // Basic flex stuff
 const classes = {
@@ -13,6 +14,7 @@ const classes = {
   image: 'st-rel__img',
   author: 'st-rel__author',
   text: 'st-rel__txt',
+  box: 'st-rel__box',
 }
 
 const RenderRelatedContentElement = (props, i) => {
@@ -42,18 +44,20 @@ const RenderRelatedContentElement = (props, i) => {
 
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
-      <div>
+      <div className={classes.box}>
         <h2 itemProp="name" className={classes.text}>
           <a itemProp="url" href={filterData.link} className={classes.link}>
             {filterData.title}
           </a>
         </h2>
-        <a
-          itemProp="url"
-          className={classes.author}
-          href={filterData.authorLink}>
-          {filterData.author}
-        </a>
+        {arcSite === SITE_ELCOMERCIO && (
+          <a
+            itemProp="url"
+            className={classes.author}
+            href={filterData.authorLink}>
+            {filterData.author}
+          </a>
+        )}
       </div>
       <figure className={classes.multimedia}>
         <a itemProp="url" href={filterData.link} className={classes.link}>

@@ -3,6 +3,7 @@ import React from 'react'
 
 const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
   /* 
+  document.addEventListener('DOMContentLoaded', () => {
     requestIdle(function initLiteAdsConfig() {
       window.isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)
       
@@ -34,9 +35,10 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
         }
       }
     })
+  })
  */
 
-  const adsConfig = `"use strict";requestIdle(function(){window.isMobile=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);var e=[].slice.call(document.querySelectorAll(isMobile?"div[data-ads-name][data-ads-dimensions-m]":"div[data-ads-name][data-ads-dimensions]"));window.existAds=e.length>0,window.loadFirstAds=e.filter(function(e){return"true"===e.getAttribute("data-ads-load-first")})||[],window.loadLazilyAds=e.filter(function(e){return"true"!==e.getAttribute("data-ads-load-first")})||[],window.lazier=function(e,i,t){void 0===t&&(t="0px 0px 200px 0px");var n=function(e,t){e.forEach(function(e){var n=e.isIntersecting,a=e.target;n&&(i(a),t.unobserve(a))})};if("IntersectionObserver"in window){var a={rootMargin:t};e.forEach(function(e){new IntersectionObserver(n,a).observe(e)})}}});`
+  const adsConfig = `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){window.isMobile=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);var e=[].slice.call(document.querySelectorAll(isMobile?"div[data-ads-name][data-ads-dimensions-m]":"div[data-ads-name][data-ads-dimensions]"));window.existAds=e.length>0,window.loadFirstAds=e.filter(function(e){return"true"===e.getAttribute("data-ads-load-first")})||[],window.loadLazilyAds=e.filter(function(e){return"true"!==e.getAttribute("data-ads-load-first")})||[],window.lazier=function(e,t,n){void 0===n&&(n="0px 0px 200px 0px");var i=function(e,n){e.forEach(function(e){var i=e.isIntersecting,d=e.target;i&&(t(d),n.unobserve(d))})};if("IntersectionObserver"in window){var d={rootMargin:n};e.forEach(function(e){new IntersectionObserver(i,d).observe(e)})}}})});`
 
   /* 
   window.addEventListener('load', function prebidAds() {
@@ -49,34 +51,6 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
       } = window
 
       window.adUnits = {
-        'gpt_inline': {
-          "code": `/28253241/elcomercio/web/post/${section}/inline`,
-          "dispositivo": "desktop, mobile",
-          "bids":[
-            {
-              "bidder":"appnexus","labels":["desktop", "phone"],
-              "params":{"placementId":"19732211"}
-            },
-            {
-              "bidder":"criteo","labels":["desktop", "phone"],
-              "params":{"networkId":"7890"}
-            },
-            {
-              "bidder":"pubmatic","labels":["desktop", "phone"],
-              "params":{"publisherId":"157414","adSlot":"3040991"}
-            }
-          ],
-          "mediaTypes":{
-            "banner":{
-              "sizes":[[1,1]]
-            },
-            "video":{
-              "context": "outstream",
-              "playerSize": [1, 1]
-            }
-          },
-          "sizes":[[1,1]]
-        },
         'gpt_caja1': {
           "code": `/28253241/elcomercio/web/post/${section}/caja1`,
           "dispositivo": "desktop",
@@ -397,11 +371,11 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
             pbjs.addAdUnits(adUnitsSet);
             pbjs.setConfig({
               userSync: {
-                filterSettings: {
-                  iframe: {
-                    bidders: "*",
-                    filter: "include"
-                  }
+                syncEnabled: true,
+                filterSettings:{
+                  image:{ bidders:"*",filter:"include" },
+                  iframe:{ bidders:"smartadserver",filter:"include" },
+                  syncsPerBidder:5,syncDelay:3000,auctionDelay:0
                 }
               },
               priceGranularity: "high",
@@ -466,7 +440,7 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
   })
  */
 
-  const initPrebid = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e=window,d=e.isMobile,s=e.section,a=e.existAds,i=e.loadFirstAds;if(window.adUnits={gpt_inline:{code:"/28253241/elcomercio/web/post/"+s+"/inline",dispositivo:"desktop, mobile",bids:[{bidder:"appnexus",labels:["desktop","phone"],params:{placementId:"19732211"}},{bidder:"criteo",labels:["desktop","phone"],params:{networkId:"7890"}},{bidder:"pubmatic",labels:["desktop","phone"],params:{publisherId:"157414",adSlot:"3040991"}}],mediaTypes:{banner:{sizes:[[1,1]]},video:{context:"outstream",playerSize:[1,1]}},sizes:[[1,1]]},gpt_caja1:{code:"/28253241/elcomercio/web/post/"+s+"/caja1",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop"],params:{zoneId:"1716978",siteId:"215748",accountId:"19186"}},{bidder:"appnexus",labels:["desktop"],params:{placementId:"19311824"}},{bidder:"criteo",labels:["desktop"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop"],params:{siteId:"316981",pageId:"1239539",formatId:"90175"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036440"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036448"}}],mediaTypes:{banner:{sizes:[[300,250],[300,600],[320,100]]}},sizes:[[300,250],[300,600],[320,100]]},gpt_caja2:{code:"/28253241/elcomercio/web/post/"+s+"/caja2",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop"],params:{zoneId:"1717492",siteId:"215748",accountId:"19186"}},{bidder:"appnexus",labels:["desktop"],params:{placementId:"19311825"}},{bidder:"criteo",labels:["desktop"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop"],params:{siteId:"316981",pageId:"1239539",formatId:"90176"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036443"}}],mediaTypes:{banner:{sizes:[[300,250],[300,600],[320,100]]}},sizes:[[300,250],[300,600],[320,100]]},gpt_laterall:{code:"/28253241/elcomercio/web/post/"+s+"/laterall",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop"],params:{zoneId:"1716980",siteId:"215748",accountId:"19186"}},{bidder:"appnexus",labels:["desktop"],params:{placementId:"19311820"}},{bidder:"criteo",labels:["desktop"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop"],params:{siteId:"316981",pageId:"1239539",formatId:"90173"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036437"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036445"}}],mediaTypes:{banner:{sizes:[[120,600],[160,600]]}},sizes:[[120,600],[160,600]]},gpt_lateralr:{code:"/28253241/elcomercio/web/post/"+s+"/lateralr",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop"],params:{zoneId:"1716982",siteId:"215748",accountId:"19186"}},{bidder:"appnexus",labels:["desktop"],params:{placementId:"19311821"}},{bidder:"criteo",labels:["desktop"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop"],params:{siteId:"316981",pageId:"1239539",formatId:"90174"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036439"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036447"}}],mediaTypes:{banner:{sizes:[[120,600],[160,600]]}},sizes:[[120,600],[160,600]]},gpt_top:{code:"/28253241/elcomercio/web/post/"+s+"/top",dispositivo:"desktop, mobile",bids:[{bidder:"rubicon",labels:["desktop","phone"],params:{accountId:"19186",siteId:d?"215750":"215748",zoneId:d?"1717102":"1716974"}},{bidder:"appnexus",labels:["desktop","phone"],params:{placementId:d?"19311836":"19311817"}},{bidder:"criteo",labels:["desktop","phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop","phone"],params:{siteId:"316981",pageId:d?"1239540":"1239539",formatId:"74156"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036436"}},{bidder:"pubmatic",labels:["desktop","phone"],params:{publisherId:"157414",adSlot:d?"3036435":"3036442"}}],mediaTypes:{banner:{sizes:[[320,50],[970,250],[728,90]]}},sizes:[[320,50],[970,250],[728,90]]},gpt_zocalo:{code:"/28253241/elcomercio/web/post/"+s+"/zocalo",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop","phone"],params:{accountId:"19186",siteId:d?"215750":"215748",zoneId:d?"1717104":"1716976"}},{bidder:"appnexus",labels:["desktop","phone"],params:{placementId:d?"19311837":"19311818"}},{bidder:"criteo",labels:["desktop","phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop","phone"],params:{siteId:"316981",pageId:d?"1239540":"1239539",formatId:"74162"}},{bidder:"pubmatic",labels:["desktop","phone"],params:{publisherId:"157414",adSlot:d?"3036434":"3036444"}}],mediaTypes:{banner:{sizes:[[320,50],[728,90]]}},sizes:[[320,50],[728,90]]},gpt_caja3:{code:"/28253241/elcomercio/web/post/"+s+"/caja3",dispositivo:"mobile",bids:[{bidder:"rubicon",labels:["phone"],params:{zoneId:"1717106",siteId:"215750",accountId:"19186"}},{bidder:"appnexus",labels:["phone"],params:{placementId:"19311838"}},{bidder:"criteo",labels:["phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["phone"],params:{siteId:"316981",pageId:"1239540",formatId:"90177"}},{bidder:"pubmatic",labels:["phone"],params:{publisherId:"157414",adSlot:"3036438"}}],mediaTypes:{banner:{sizes:[[300,250]]}},sizes:[[300,250]]},gpt_caja4:{code:"/28253241/elcomercio/web/post/"+s+"/caja4",dispositivo:"mobile",bids:[{bidder:"rubicon",labels:["phone"],params:{zoneId:"1717108",siteId:"215750",accountId:"19186"}},{bidder:"appnexus",labels:["phone"],params:{placementId:"19311839"}},{bidder:"criteo",labels:["phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["phone"],params:{siteId:"316981",pageId:"1239540",formatId:"90178"}},{bidder:"pubmatic",labels:["phone"],params:{publisherId:"157414",adSlot:"3036446"}}],mediaTypes:{banner:{sizes:[[300,250]]}},sizes:[[300,250]]},gpt_caja5:{code:"/28253241/elcomercio/web/post/"+s+"/caja5",dispositivo:"mobile",bids:[{bidder:"rubicon",labels:["phone"],params:{zoneId:"1717110",siteId:"215750",accountId:"19186"}},{bidder:"appnexus",labels:["phone"],params:{placementId:"19311840"}},{bidder:"criteo",labels:["phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["phone"],params:{siteId:"316981",pageId:"1239540",formatId:"90179"}},{bidder:"pubmatic",labels:["phone"],params:{publisherId:"157414",adSlot:"3036441"}}],mediaTypes:{banner:{sizes:[[300,250]]}},sizes:[[300,250]]}},a){var p=function(){pbjs.que.push(function(){pbjs.addAdUnits(adUnitsSet),pbjs.setConfig({userSync:{filterSettings:{iframe:{bidders:"*",filter:"include"}}},priceGranularity:"high",sizeConfig:[{mediaQuery:"(min-width: 1024px)",sizesSupported:[[970,250],[970,90],[728,90],[300,250],[300,600],[160,600],[120,600]],labels:["desktop"]},{mediaQuery:"(min-width: 300px) and (max-width: 768px)",sizesSupported:[[320,50],[300,250]],labels:["phone"]}]})})};window.googletag=window.googletag||{cmd:[]},window.pbjs=window.pbjs||{},window.adUnitsSet=[];var o=window.adUnits,r=i.filter(function(e){return e.getAttribute("data-prebid-enabled")})||[];r&&r.length>0&&(r.forEach(function(e){var d=o[e.id];d&&adUnitsSet.push(d)}),adUnitsSet.length>0&&p());var t=window.loadLazilyAds.filter(function(e){return o[e.id]})||[];t&&t.length>0&&window.lazier(t,function(e){var d=o[e.id];d&&(adUnitsSet=[d],p())})}})});`
+  const initPrebid = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e=window,d=e.isMobile,a=e.section,s=e.existAds,i=e.loadFirstAds;if(window.adUnits={gpt_caja1:{code:"/28253241/elcomercio/web/post/"+a+"/caja1",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop"],params:{zoneId:"1716978",siteId:"215748",accountId:"19186"}},{bidder:"appnexus",labels:["desktop"],params:{placementId:"19311824"}},{bidder:"criteo",labels:["desktop"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop"],params:{siteId:"316981",pageId:"1239539",formatId:"90175"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036440"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036448"}}],mediaTypes:{banner:{sizes:[[300,250],[300,600],[320,100]]}},sizes:[[300,250],[300,600],[320,100]]},gpt_caja2:{code:"/28253241/elcomercio/web/post/"+a+"/caja2",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop"],params:{zoneId:"1717492",siteId:"215748",accountId:"19186"}},{bidder:"appnexus",labels:["desktop"],params:{placementId:"19311825"}},{bidder:"criteo",labels:["desktop"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop"],params:{siteId:"316981",pageId:"1239539",formatId:"90176"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036443"}}],mediaTypes:{banner:{sizes:[[300,250],[300,600],[320,100]]}},sizes:[[300,250],[300,600],[320,100]]},gpt_laterall:{code:"/28253241/elcomercio/web/post/"+a+"/laterall",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop"],params:{zoneId:"1716980",siteId:"215748",accountId:"19186"}},{bidder:"appnexus",labels:["desktop"],params:{placementId:"19311820"}},{bidder:"criteo",labels:["desktop"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop"],params:{siteId:"316981",pageId:"1239539",formatId:"90173"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036437"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036445"}}],mediaTypes:{banner:{sizes:[[120,600],[160,600]]}},sizes:[[120,600],[160,600]]},gpt_lateralr:{code:"/28253241/elcomercio/web/post/"+a+"/lateralr",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop"],params:{zoneId:"1716982",siteId:"215748",accountId:"19186"}},{bidder:"appnexus",labels:["desktop"],params:{placementId:"19311821"}},{bidder:"criteo",labels:["desktop"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop"],params:{siteId:"316981",pageId:"1239539",formatId:"90174"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036439"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036447"}}],mediaTypes:{banner:{sizes:[[120,600],[160,600]]}},sizes:[[120,600],[160,600]]},gpt_top:{code:"/28253241/elcomercio/web/post/"+a+"/top",dispositivo:"desktop, mobile",bids:[{bidder:"rubicon",labels:["desktop","phone"],params:{accountId:"19186",siteId:d?"215750":"215748",zoneId:d?"1717102":"1716974"}},{bidder:"appnexus",labels:["desktop","phone"],params:{placementId:d?"19311836":"19311817"}},{bidder:"criteo",labels:["desktop","phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop","phone"],params:{siteId:"316981",pageId:d?"1239540":"1239539",formatId:"74156"}},{bidder:"pubmatic",labels:["desktop"],params:{publisherId:"157414",adSlot:"3036436"}},{bidder:"pubmatic",labels:["desktop","phone"],params:{publisherId:"157414",adSlot:d?"3036435":"3036442"}}],mediaTypes:{banner:{sizes:[[320,50],[970,250],[728,90]]}},sizes:[[320,50],[970,250],[728,90]]},gpt_zocalo:{code:"/28253241/elcomercio/web/post/"+a+"/zocalo",dispositivo:"desktop",bids:[{bidder:"rubicon",labels:["desktop","phone"],params:{accountId:"19186",siteId:d?"215750":"215748",zoneId:d?"1717104":"1716976"}},{bidder:"appnexus",labels:["desktop","phone"],params:{placementId:d?"19311837":"19311818"}},{bidder:"criteo",labels:["desktop","phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["desktop","phone"],params:{siteId:"316981",pageId:d?"1239540":"1239539",formatId:"74162"}},{bidder:"pubmatic",labels:["desktop","phone"],params:{publisherId:"157414",adSlot:d?"3036434":"3036444"}}],mediaTypes:{banner:{sizes:[[320,50],[728,90]]}},sizes:[[320,50],[728,90]]},gpt_caja3:{code:"/28253241/elcomercio/web/post/"+a+"/caja3",dispositivo:"mobile",bids:[{bidder:"rubicon",labels:["phone"],params:{zoneId:"1717106",siteId:"215750",accountId:"19186"}},{bidder:"appnexus",labels:["phone"],params:{placementId:"19311838"}},{bidder:"criteo",labels:["phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["phone"],params:{siteId:"316981",pageId:"1239540",formatId:"90177"}},{bidder:"pubmatic",labels:["phone"],params:{publisherId:"157414",adSlot:"3036438"}}],mediaTypes:{banner:{sizes:[[300,250]]}},sizes:[[300,250]]},gpt_caja4:{code:"/28253241/elcomercio/web/post/"+a+"/caja4",dispositivo:"mobile",bids:[{bidder:"rubicon",labels:["phone"],params:{zoneId:"1717108",siteId:"215750",accountId:"19186"}},{bidder:"appnexus",labels:["phone"],params:{placementId:"19311839"}},{bidder:"criteo",labels:["phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["phone"],params:{siteId:"316981",pageId:"1239540",formatId:"90178"}},{bidder:"pubmatic",labels:["phone"],params:{publisherId:"157414",adSlot:"3036446"}}],mediaTypes:{banner:{sizes:[[300,250]]}},sizes:[[300,250]]},gpt_caja5:{code:"/28253241/elcomercio/web/post/"+a+"/caja5",dispositivo:"mobile",bids:[{bidder:"rubicon",labels:["phone"],params:{zoneId:"1717110",siteId:"215750",accountId:"19186"}},{bidder:"appnexus",labels:["phone"],params:{placementId:"19311840"}},{bidder:"criteo",labels:["phone"],params:{networkId:"7890"}},{bidder:"smartadserver",labels:["phone"],params:{siteId:"316981",pageId:"1239540",formatId:"90179"}},{bidder:"pubmatic",labels:["phone"],params:{publisherId:"157414",adSlot:"3036441"}}],mediaTypes:{banner:{sizes:[[300,250]]}},sizes:[[300,250]]}},s){var r=function(){pbjs.que.push(function(){pbjs.addAdUnits(adUnitsSet),pbjs.setConfig({userSync:{syncEnabled:!0,filterSettings:{image:{bidders:"*",filter:"include"},iframe:{bidders:"smartadserver",filter:"include"},syncsPerBidder:5,syncDelay:3e3,auctionDelay:0}},priceGranularity:"high",sizeConfig:[{mediaQuery:"(min-width: 1024px)",sizesSupported:[[970,250],[970,90],[728,90],[300,250],[300,600],[160,600],[120,600]],labels:["desktop"]},{mediaQuery:"(min-width: 300px) and (max-width: 768px)",sizesSupported:[[320,50],[300,250]],labels:["phone"]}]})})};window.googletag=window.googletag||{cmd:[]},window.pbjs=window.pbjs||{},window.adUnitsSet=[];var o=window.adUnits,p=i.filter(function(e){return e.getAttribute("data-prebid-enabled")})||[];p&&p.length>0&&(p.forEach(function(e){var d=o[e.id];d&&adUnitsSet.push(d)}),adUnitsSet.length>0&&r());var t=window.loadLazilyAds.filter(function(e){return o[e.id]})||[];t&&t.length>0&&window.lazier(t,function(e){var d=o[e.id];d&&(adUnitsSet=[d],r())})}})});`
 
   /* 
     window.addEventListener('load', function liteAds() {
@@ -494,6 +468,7 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
             googletag.cmd.push(function() {
               googletag.pubads().disableInitialLoad()
               googletag.pubads().enableSingleRequest()
+              googletag.pubads().collapseEmptyDivs()
               googletag.enableServices()
             })
           })
@@ -617,12 +592,12 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
 
   const typeContent = contentCode === '' ? 'standar' : contentCode
   const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
-  const initDfp = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e=window,t=e.isMobile,n=e.existAds,a=e.loadFirstAds;if(n){var o=function(e,t){pbjs.que.push(function(){pbjs.requestBids({timeout:i,adUnitCodes:e,bidsBackHandler:function(){!function(e,t){googletag.cmd.push(function(){pbjs.que.push(function(){pbjs.setTargetingForGPTAsync(e),googletag.pubads().refresh(t)})})}(e,t)}})})},i=3e3;window.googletag=window.googletag||{cmd:[]},window.pbjs=window.pbjs||{};var s=[],g=window,d=g.section,r=g.arcSite,l=g.subsection;requestIdle(function(){googletag.cmd.push(function(){googletag.pubads().disableInitialLoad(),googletag.pubads().enableSingleRequest(),googletag.enableServices()})});var u=function(){var e="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e="si")}else e="no";return e}(),c=function(e){var n=e||{},a=n.getAttribute("data-ads-name").replace("snota",d),o=t?n.getAttribute("data-ads-dimensions-m"):n.getAttribute("data-ads-dimensions"),i=JSON.parse(o||"[]");return{id:n.id,name:a,dimensions:i}},f=function(e){var t=c(e);!function(e,t,n){n.length>0&&s.push(googletag.defineSlot(t,n,e).addService(googletag.pubads()).setTargeting("ab_test","").setTargeting("categoria",l).setTargeting("contenido","st_value3").setTargeting("fuente","WEB").setTargeting("paywall",u).setTargeting("phatname","st_value6").setTargeting("publisher",r).setTargeting("seccion",d).setTargeting("tags","st_value9").setTargeting("tipoplantilla","post").setTargeting("tmp_ad",""))}(t.id,t.name,t.dimensions)},p=function(e){googletag.cmd.push(function(){googletag.display(e.getSlotElementId())})};a.length>0&&requestIdle(function(){!function(){if(a.forEach(f),s.forEach(p),adUnitsSet.length>0){var e=adUnitsSet.map(function(e){return e.code});requestIdle(function(){return o(e,s)})}else requestIdle(function(){googletag.cmd.push(function(){googletag.pubads().refresh(s)})})}()});var w=window.loadLazilyAds;w&&w.length>0&&window.lazier(w,function(e){if(s=[],f(e),s.length>0){p(s[0]);var t=adUnits[e.id];if(t){var n=c(e);n.id,n.name,n.dimensions;o([t.code],s)}else googletag.cmd.push(function(){googletag.pubads().refresh(s)})}})}})});`
+  const initDfp = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e=window,t=e.isMobile,n=e.existAds,a=e.loadFirstAds;if(n){var o=function(e,t){pbjs.que.push(function(){pbjs.requestBids({timeout:i,adUnitCodes:e,bidsBackHandler:function(){!function(e,t){googletag.cmd.push(function(){pbjs.que.push(function(){pbjs.setTargetingForGPTAsync(e),googletag.pubads().refresh(t)})})}(e,t)}})})},i=3e3;window.googletag=window.googletag||{cmd:[]},window.pbjs=window.pbjs||{};var s=[],g=window,d=g.section,r=g.arcSite,l=g.subsection;requestIdle(function(){googletag.cmd.push(function(){googletag.pubads().disableInitialLoad(),googletag.pubads().enableSingleRequest(),googletag.pubads().collapseEmptyDivs(),googletag.enableServices()})});var u=function(){var e="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e="si")}else e="no";return e}(),c=function(e){var n=e||{},a=n.getAttribute("data-ads-name").replace("snota",d),o=t?n.getAttribute("data-ads-dimensions-m"):n.getAttribute("data-ads-dimensions"),i=JSON.parse(o||"[]");return{id:n.id,name:a,dimensions:i}},p=function(e){var t=c(e);!function(e,t,n){n.length>0&&s.push(googletag.defineSlot(t,n,e).addService(googletag.pubads()).setTargeting("ab_test","").setTargeting("categoria",l).setTargeting("contenido","st_value3").setTargeting("fuente","WEB").setTargeting("paywall",u).setTargeting("phatname","st_value6").setTargeting("publisher",r).setTargeting("seccion",d).setTargeting("tags","st_value9").setTargeting("tipoplantilla","post").setTargeting("tmp_ad",""))}(t.id,t.name,t.dimensions)},f=function(e){googletag.cmd.push(function(){googletag.display(e.getSlotElementId())})};a.length>0&&requestIdle(function(){!function(){if(a.forEach(p),s.forEach(f),adUnitsSet.length>0){var e=adUnitsSet.map(function(e){return e.code});requestIdle(function(){return o(e,s)})}else requestIdle(function(){googletag.cmd.push(function(){googletag.pubads().refresh(s)})})}()});var w=window.loadLazilyAds;w&&w.length>0&&window.lazier(w,function(e){if(s=[],p(e),s.length>0){f(s[0]);var t=adUnits[e.id];if(t){var n=c(e);n.id,n.name,n.dimensions;o([t.code],s)}else googletag.cmd.push(function(){googletag.pubads().refresh(s)})}})}})});`
     .replace(/st_value3/g, typeContent)
     .replace(/st_value6/g, `${siteProperties.siteUrl}${requestUri}`)
     .replace(/st_value9/g, targetingTags)
 
-  /* publicidad para seccion economia */
+  /* publicidad para seccion mundo */
   /* 
     document.addEventListener('DOMContentLoaded', () => {
       requestIdle(function initLiteAdsConfig() {
@@ -772,54 +747,12 @@ window.addEventListener('load', function liteAds() {
              window.adsBloque1 = adsBloque1
              arcAds.registerAdCollection(adsBloque1)
          }
-
-         setTimeout(
-             function(){
-                 let arcAds =new ArcAds({dfp:{id:"28253241"}});
-                 let adsBloqueVsliderBloque2 = window.adsCollection.filter(input => input.bloque === "2") || []
-                 window.adsBloque2 = adsBloqueVsliderBloque2;
-                 arcAds.registerAdCollection2(adsBloqueVsliderBloque2);
-             }, 
-         6000);
-
-         const elementBloque3 = document.querySelectorAll('#gpt_inline');
-         const elementBloque4 = document.querySelectorAll(isMobiles ? '#gpt_caja5' : '#gpt_inline + p');
-
-         if (elementBloque3 && elementBloque3.length > 0) {
-             window.lazier(elementBloque3, function(target) {
-                 let adsBloque3 = window.adsCollection.filter(input => input.bloque === "3") || []
-                 window.adsBloque3 = adsBloque3
-                 let arcAds = new ArcAds({
-                     dfp: {
-                         id: "28253241"
-                     }
-                 });
-                 if(adsBloque3.length > 0){
-                   arcAds.registerAdCollection2(adsBloque3);
-                 }
-             })
-         }
-
-         if (elementBloque4 && elementBloque4.length > 0) {
-             window.lazier(elementBloque4, function(target) {
-                 let adsBloque4 = window.adsCollection.filter(input => input.bloque === "4") || []
-                 window.adsBloque4 = adsBloque4
-                 let arcAds = new ArcAds({
-                     dfp: {
-                         id: "28253241"
-                     }
-                 });
-                 if(adsBloque4.length > 0){
-                   arcAds.registerAdCollection2(adsBloque4);
-                 }
-             })
-         }
      }
  })
 })
 */
 
-  const adsEconomiaNext = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e=window,o=e.isMobiles,n=e.existAds;e.adsCollection;if(n){window.googletag=window.googletag||{cmd:[]},googletag.cmd.push(function(){googletag.pubads().collapseEmptyDivs(),googletag.enableServices()}),window.adsCollection.length>0&&requestIdle(function(){i()});var i=function(){var e=new ArcAds({dfp:{id:"28253241"}}),o=window.adsCollection.filter(function(e){if("1"==e.bloque)return e});window.adsBloque1=o,e.registerAdCollection(o)};setTimeout(function(){var e=new ArcAds({dfp:{id:"28253241"}}),o=window.adsCollection.filter(function(e){return"2"===e.bloque})||[];window.adsBloque2=o,e.registerAdCollection2(o)},6e3);var t=document.querySelectorAll("#gpt_inline"),l=document.querySelectorAll(o?"#gpt_caja5":"#gpt_inline + p");t&&t.length>0&&window.lazier(t,function(e){var o=window.adsCollection.filter(function(e){return"3"===e.bloque})||[];window.adsBloque3=o;var n=new ArcAds({dfp:{id:"28253241"}});o.length>0&&n.registerAdCollection2(o)}),l&&l.length>0&&window.lazier(l,function(e){var o=window.adsCollection.filter(function(e){return"4"===e.bloque})||[];window.adsBloque4=o;var n=new ArcAds({dfp:{id:"28253241"}});o.length>0&&n.registerAdCollection2(o)})}})});`
+  const adsEconomiaNext = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var o=window,e=(o.isMobiles,o.existAds);o.adsCollection;if(e){window.googletag=window.googletag||{cmd:[]},googletag.cmd.push(function(){googletag.pubads().collapseEmptyDivs(),googletag.enableServices()}),window.adsCollection.length>0&&requestIdle(function(){i()});var i=function(){var o=new ArcAds({dfp:{id:"28253241"}}),e=window.adsCollection.filter(function(o){if("1"==o.bloque)return o});window.adsBloque1=e,o.registerAdCollection(e)}}})});`
 
   return (
     <>
@@ -835,6 +768,7 @@ window.addEventListener('load', function liteAds() {
             src={`https://d1r08wok4169a5.cloudfront.net/ads/elcomercio/arcads.js?${new Date()
               .toISOString()
               .slice(0, 10)}`}></script>
+
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{

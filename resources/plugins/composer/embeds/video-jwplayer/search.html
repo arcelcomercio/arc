@@ -1,0 +1,81 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Videos - JWPLAYER</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <strong>Videos - JWPLAYER</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <section class="jumbotron text-center my-0 pb-3 pt-3">
+        <form onsubmit="handleSearch(); return false;" class="container">
+          <!-- Search Form -->
+          <p class="lead text-muted">
+            Busquedas de videos
+          </p>
+          <label class="w-100" for="brand">Cuenta:
+            <select class="w-100" name="brand" id="brand">
+              <option value="elcomercio">El Comercio</option>
+              <option value="peru21">Peru21</option>
+              <option value="gec" selected>Videos Gec</option>
+            </select>
+          </label>
+          <!-- <label class="w-100" for="has_ads">¿El video tiene publicidad?:
+            <input class="w-100" type="checkbox" value="1" id="has_ads" name="has_ads" checked />
+          </label> -->
+          <label class="w-100" for="search_video">Nombre o ID de video:
+            <input class="w-100" type="textfield" id="search_video" name="search_video" />
+          </label>
+          <input class="btn btn-primary" type="button" name="send_video" value="Video por ID" onclick="selectVideoId(document.getElementById('search_video').value, document.getElementById('brand').value);" />
+          <input class="btn btn-primary" type="button" name="search" value="Buscar videos" onclick="handleSearch()" />
+        </form>
+      </section>
+      <div class="container">
+        <div class="card-deck" id='box_videos'>
+        </div>
+        <div class="text-center m-5 d-none" id='dont_videos_search'>
+          No se encontraron videos
+        </div>
+      </div>
+    </main>
+
+    <footer  class="navbar navbar-dark bg-dark box-shadow">
+      <div class="container text-center">
+          <a href="#">Hecho con <img src="https://d13xymm0hzzbsd.cloudfront.net/1/20200908/15996022549905.svg"> por GEC</a>
+      </div>
+    </footer>
+
+    <template id='template_video'>
+      <div class="card mb-2" style="max-width: 200px;min-width: 200px;">
+        <img src="%thumbnail_url%" class="card-img-top" alt="%title%">
+        <div class="card-body">
+          <h5 class="card-title">%title%</h5>
+          <p class="card-text">%description%</p>
+          <p class="card-text"><small class="text-muted">Duración: %duration% seg.</small></p>
+          <a href="javascript:;" data-brand='%brand%' data-data='%data%' onclick="selectVideo('%key%')" class="btn btn-primary">Seleccionar</a>
+        </div>
+      </div>
+    </template>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

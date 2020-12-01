@@ -260,9 +260,6 @@ class Subs extends Component {
                                 </p>
                               </>
                             )}
-                            {/* <p className="small">
-                              *POR 6 MESES LUEGO S/ 20 CADA MES
-                            </p> */}
                           </div>
                         </div>
                       </div>

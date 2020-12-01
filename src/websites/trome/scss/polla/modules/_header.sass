@@ -1,0 +1,263 @@
+
+.site-header
+  height: 178px
+  .box-content
+    position: relative
+    margin: 0 auto
+    width: 954px
+    height: 178px
+    //#background: #e11a07 url(../img/polla-depor/bg_polla.jpg) fixed center top no-repeat
+    .site-logo
+      float: left
+      width: 195px
+      height: 163px
+      margin-top: 15px
+      margin-left: 5px
+      img
+        width: 100%
+
+.site-menu
+  position: relative
+  display: inline-block
+  width: 750px
+  margin-top: 15px
+
+  .main-menu
+    margin-left: 130px
+  .home-menu
+    .link
+      display: inline-block
+      margin: 0 8px
+      a
+        background: $yellow2
+        display: block
+        padding: 7px 15px
+        border: 1px solid $black
+        color: $black
+        border-radius: 5px
+        font: 700 14px $f-main
+        i
+          margin-right: 10px
+          font-size: 18px
+            
+.box_share-page
+  position: absolute
+  right: 0
+  top: 5px
+  width: 188px
+  p 
+    color: $white
+    float: left
+    margin: 6px 0 0 0
+    font-size: 10px
+
+  .share-flow
+    position: relative
+  .share-link
+    width: 25px
+    height: 25px
+    line-height: 25px
+    margin-left: 10px
+    border-radius: 50%
+    cursor: pointer
+    &.link-fb
+      color: $fb
+      background-color: $white
+    &.link-tw
+      color: $tw
+      background-color: $white
+    &.link-wa
+      color: $wa
+      background-color: $white
+      display: none
+    &.link-gp
+      color: $gp
+      background-color: $white
+    &.link-pin
+      color: $pin
+      background-color: $white
+    &.link-mail
+      color: $mail
+      background-color: $white
+      display: none !important
+    &.link-print
+      color: $print
+      background-color: $white
+
+.mod-ranking
+  display: block
+  position: absolute
+  right: 0
+  top: 68px
+  width: 731px
+  .my-ranking
+    width: 277px
+    margin: 0
+    display: inline-block
+  .my-last-game
+    width: 437px
+    margin: 0 0 0 6px
+    display: inline-block
+    .flow-match-small .match-header .group
+      text-align: left
+
+  .title-ranking
+    color: $white
+    font: 400 10px $f-main 
+    margin: 0 0 4px 10px
+    display: block
+    padding: 0
+    i
+      margin-right: 10px  
+  .ranking-inner
+    border-radius: 5px
+    padding: 6px 10px
+    background: $white
+    display: block
+    p
+      display: inline-block
+      vertical-align: top
+      color: #949494
+      text-align: center
+      font: 400 10px/15px $f-main 
+      margin: 0 16px 2px 0
+      span
+        font-size: 14px
+        font-weight: 500
+        color: $black
+        display: block
+      strong
+        font-size: 14px
+        color: $black
+        display: block
+    .btn_link
+      float: right
+      margin-top: 5px
+      font: 700 12px $f-main
+
+  #panel-ranking
+    width: 277px
+    margin: 0
+    display: inline-block
+    p
+      text-align: left
+      &:nth-child(2)
+        span
+          width: 70px
+          overflow: hidden
+          height: 15px
+
+  #panel-lastgame
+    width: 437px
+    margin: 0 0 0 6px
+    display: inline-block
+    padding-left: 0
+
+  .flow-match-small
+    width: 160px
+    float: left
+    .match-teams-small
+      margin-bottom: 0
+      .team-txt
+        font-weight: 500
+        font-size: 14px
+    .match-header
+      .group
+        text-align: left
+        padding-left: 7px
+
+  .btn-collapse
+    display: none
+    background: $white
+    border-top-left-radius: 15px
+    border-top-right-radius: 15px
+    height: 15px
+    width: 30px
+    position: absolute
+    top: -20px
+    right: 15px
+    .icon-angle-down
+      margin-top: 4px
+      display: inline-block
+      color: #c12110
+
+.site-mobile-menu
+  .ui-aside-menu-body
+    // box-shadow: 0 0 20px rgba(0, 0, 0, .7)
+    width: 100%
+    background-color: #000
+    display: block
+    .site-social
+      padding: 10px 0
+      text-align: center
+      position: fixed
+      bottom: 0
+      left: 0
+      width: 100%
+      margin-left: 0
+      p
+        color: $white
+        margin-bottom: 20px
+      .social-items
+        margin: 0 auto
+        width: 219px
+
+    .social-item
+      float: none
+      display: inline-block
+      margin: 0 5px
+    .social-link
+      width: 30px
+      height: 30px
+      display: block
+      border-radius: 50%
+      &.link-fb
+        color: $fb
+        background-color: $white
+      &.link-tw
+        color: $tw
+        background-color: $white
+      &.link-wa
+        color: $wa
+        background-color: $white
+        display: none
+      &.link-gp
+        color: $gp
+        background-color: $white
+
+  .header-menu
+    display: block
+    text-align: center
+    margin-top: 50px
+    .site-login
+      float: none
+    #pid-user-info
+      float: none
+      
+.mob-site-sections
+  .link
+    border-top: 1px solid #007c31
+    height: 48px
+    color: $white
+    font: 700 17px $f-other
+    display: block
+    a
+      padding-top: 15px
+      padding-left: 6px
+      display: block
+      color: $white
+      text-transform: uppercase
+
+.mob-menu-item
+  height: 60px
+  font-family: $f-main
+  font-size: 23px
+  text-align: center
+  a
+    display: block
+    color: #fae100
+    margin: 0 13px
+    line-height: 60px
+    border-bottom: 1px solid #323232
+
+

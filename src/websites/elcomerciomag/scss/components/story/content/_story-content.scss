@@ -12,11 +12,6 @@
     @media (--desktop) {
       font-size: 22px;
     }
-    a {
-      color: #1c75c9;
-      font-weight: 700;
-      text-decoration: underline;
-    }
   }
   &__caption {
     color: $color-gray-300;
@@ -41,7 +36,15 @@
   &__date {
     font-family: $primary-font;
   }
+  &__author-email {
+    display: none;
+  }
   &__blockquote {
     font-family: $primary-font;
+  }
+  a {
+    color: #1c75c9;
+    font-weight: 700;
+    text-decoration: underline;
   }
 }

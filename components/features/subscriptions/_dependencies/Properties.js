@@ -71,7 +71,7 @@ const PropertiesSite = {
       },
       {
         title: 'Diario impreso',
-        image: `${cdnStaticEc}//images/landing/beneficios/beneficio3.png`,
+        image: `${cdnStaticEc}/images/landing/beneficios/beneficio3.png`,
         description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas.`,
       },
       {
@@ -181,7 +181,14 @@ const PropertiesCommon = {
     payuPayments: 'https://sandbox.api.payulatam.com/payments-api/4.0/service',
     profile:      '/mi-perfil/?outputType=signwall',
     preguntas:    `/suscripcionesdigitales/faqs/${IsPROD ? '' : '?outputType=paywall'}`,
-    bannerCorp:   `/suscripcionesdigitales/empresa/${IsPROD ? '' : '?outputType=paywall'}`
+    bannerCorp:   `/suscripcionesdigitales/empresa/${IsPROD ? '' : '?outputType=paywall'}`,
+    landingFia:   `/suscripcionesdigitales/fia/${IsPROD ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`
+  },
+
+  tokens: {
+    paymentTracker: IsPROD
+      ? '5088cbc5ceb807c702b4e3487173ef792eb50be4'
+      : 'deb904a03a4e31d420a014534514b8cc8ca4d111',
   },
 
   // prettier-ignore
@@ -228,7 +235,12 @@ const PropertiesCommon = {
     successSubsPrint:'ACCEDE A ESTOS PRECIOS ESPECIALES POR SER SUSCRIPTOR IMPRESO',
     successSubsFree: 'Accede a contenido exclusivo y navega ilimitadamente a las noticias más relevantes del Perú y del mundo.',
     titleValidDni:   '¿Eres suscriptor de nuestra edición impresa?',
-    subTitleValidDni:'Inicia sesión o regístrate y descubre el precio'
+    subTitleValidDni:'Inicia sesión o regístrate y descubre el precio',
+    registerSuccess: 'Tu cuenta ha sido creada correctamente',
+    checkInbox:      'Revisa tu bandeja de correo para confirmar tu registro y sigue navegando',
+    notReceiptEmail: '¿No recibiste el correo?',
+    reSendEmail:     'Reenviar correo de activación',
+    youCanSendEmail: 'Podrás reenviar nuevamente dentro de'
   }
 }
 

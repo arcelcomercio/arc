@@ -13,6 +13,10 @@ const customFields = PropTypes.shape({
     name: 'Navegación con slider',
     defaultValue: false,
   }),
+  activeSticky: PropTypes.bool.tag({
+    name: 'Activar sticky a Ads laterales',
+    defaultValue: false,
+  }),
   tags: PropTypes.string.tag({
     name: 'Etiqueta',
     defaultValue: 'Hoy interesa',

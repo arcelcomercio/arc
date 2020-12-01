@@ -1,3 +1,6 @@
+import * as React from 'react'
+import Consumer from 'fusion:consumer'
+
 import StoryContent, {
   AmpOembed,
   RawHtml,
@@ -5,10 +8,9 @@ import StoryContent, {
 } from '@arc-core-components/feature_article-body'
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
 import AmpImage from '@arc-core-components/element_image'
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
 import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentChildVideo from './_children/amp-video'
+import StoryContentChildVideoJwplayer from './_children/amp-video-jwplayer'
 import StoryContentChildTable from '../../../global-components/story-table'
 import StoryContentChildBlockQuote from './_children/blockquote'
 import StoryGoogleNews from '../../../global-components/google-news'
@@ -61,6 +63,8 @@ import {
   STORY_CORRECTION,
   STAMP_TRUST,
   GALLERY_VERTICAL,
+  MINUTO_MINUTO,
+  VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
 
 const classes = {
@@ -82,7 +86,7 @@ const classes = {
 }
 
 @Consumer
-class StoryContentAmp extends PureComponent {
+class StoryContentAmp extends React.PureComponent {
   render() {
     const {
       contextPath,
@@ -96,13 +100,14 @@ class StoryContentAmp extends PureComponent {
       promoItems,
       tags,
       authorLink,
-      displayDate: updatedDate,
-      publishDate,
+      displayDate,
+      publishDate: updateDate,
       primarySection,
       primarySectionLink,
       author,
       multimediaLazyDefault,
       subtype,
+      promoItemJwplayer = {},
     } = new StoryData({
       data,
       arcSite,
@@ -176,11 +181,49 @@ class StoryContentAmp extends PureComponent {
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
+    const processedAdsAmp = content => {
+      const res = content.split('<div class="live-event2-comment">')
+      let entryHtml = ''
+
+      res.forEach((entry, i) => {
+        let publicidad = ''
+        const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
+        if (i === 3) {
+          publicidad = publicidadAmp(parametersCaja2)
+        }
+        if (i === 7) {
+          publicidad = publicidadAmp(parametersCaja3)
+        }
+        if (i === 11) {
+          publicidad = publicidadAmp(parametersCaja3)
+        }
+        entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad &&
+          `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`}`
+      })
+      return entryHtml
+    }
+
+    const magStoryDatetime = () => {
+      const formattedDisplayDate = formatDateTime(displayDate)
+      const formattedUpdateDate = formatDateTime(updateDate)
+
+      return `${formattedDisplayDate} ${
+        formattedDisplayDate !== formattedUpdateDate
+          ? `| Actualizado ${formattedUpdateDate}`
+          : ''
+      }`
+    }
+
     return (
       <>
         <div className={classes.content}>
-          {promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}
-          {!isMag && (
+          {promoItemJwplayer.key ? (
+            <StoryContentChildVideoJwplayer
+              data={promoItemJwplayer}></StoryContentChildVideoJwplayer>
+          ) : (
+            <>{promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}</>
+          )}
+          {!isMag && subtype !== GALLERY_VERTICAL && (
             <div
               className={classes.adsAmp}
               dangerouslySetInnerHTML={publicidadAmp(parametersCaja2)}
@@ -207,13 +250,11 @@ class StoryContentAmp extends PureComponent {
                 )}
               </p>
               <time
-                dateTime={getDateSeo(updatedDate)}
+                dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
                 {isMag
-                  ? `${formatDateTime(
-                      publishDate
-                    )} | Actualizado ${formatDateTime(updatedDate)}`
-                  : `Actualizado el ${formatDateTime(updatedDate)}`}
+                  ? magStoryDatetime()
+                  : `Actualizado el ${formatDateTime(displayDate)}`}
               </time>
             </div>
           )}
@@ -258,7 +299,11 @@ class StoryContentAmp extends PureComponent {
                     <p> - </p>
                   ) : (
                     <RawHtml
-                      content={ampHtml(content, arcSite, source.source_id)}
+                      content={ampHtml(
+                        processedAdsAmp(content),
+                        arcSite,
+                        source.source_id
+                      )}
                       className={classes.rawHtmlClasses}
                     />
                   )
@@ -393,14 +438,17 @@ class StoryContentAmp extends PureComponent {
                         }
                         className={classes.textClasses}
                       />
-                      {isMag && publicidadCaja2 && (
-                        <div
-                          className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmp(
-                            parametersCaja2
-                          )}
-                        />
-                      )}
+                      {isMag &&
+                        publicidadCaja2 &&
+                        subtype !== MINUTO_MINUTO &&
+                        subtype !== GALLERY_VERTICAL && (
+                          <div
+                            className={classes.adsAmp}
+                            dangerouslySetInnerHTML={publicidadAmp(
+                              parametersCaja2
+                            )}
+                          />
+                        )}
                       {!isMag && publicidadInline && (
                         <div
                           className={classes.adsAmp}
@@ -409,22 +457,27 @@ class StoryContentAmp extends PureComponent {
                           )}
                         />
                       )}
-                      {publicidadCaja3 && (
-                        <div
-                          className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmpAd(
-                            parametersCaja3
-                          )}
-                        />
-                      )}
-                      {isMag && publicidadCaja4 && (
-                        <div
-                          className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmpAd(
-                            parametersCaja4
-                          )}
-                        />
-                      )}
+                      {publicidadCaja3 &&
+                        subtype !== MINUTO_MINUTO &&
+                        subtype !== GALLERY_VERTICAL && (
+                          <div
+                            className={classes.adsAmp}
+                            dangerouslySetInnerHTML={publicidadAmpAd(
+                              parametersCaja3
+                            )}
+                          />
+                        )}
+                      {isMag &&
+                        publicidadCaja4 &&
+                        subtype !== MINUTO_MINUTO &&
+                        subtype !== GALLERY_VERTICAL && (
+                          <div
+                            className={classes.adsAmp}
+                            dangerouslySetInnerHTML={publicidadAmpAd(
+                              parametersCaja4
+                            )}
+                          />
+                        )}
                     </>
                   )
                 }
@@ -462,16 +515,25 @@ class StoryContentAmp extends PureComponent {
                 if (type === ELEMENT_VIDEO) {
                   return <StoryContentChildVideo data={element} />
                 }
+                if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (sub === VIDEO_JWPLAYER) {
+                    const { embed: { config: videJplayer = {} } = {} } = element
+                    return <StoryContentChildVideoJwplayer data={videJplayer} />
+                  }
+                }
                 return undefined
               }}
             />
           )}
-          {!isMag && (
-            <div
-              className={classes.adsAmp}
-              dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
-            />
-          )}
+          {!isMag &&
+            subtype !== MINUTO_MINUTO &&
+            subtype !== GALLERY_VERTICAL && (
+              <div
+                className={classes.adsAmp}
+                dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja4)}
+              />
+            )}
+
           {isComercio && <StoryGoogleNews />}
           <StoryContentChildTags data={tags} arcSite={arcSite} isAmp />
           {storyTagsBbc(tags) && (
@@ -493,7 +555,7 @@ class StoryContentAmp extends PureComponent {
           )}
         </div>
 
-        {!isMag && (
+        {!isMag && subtype !== GALLERY_VERTICAL && (
           <div
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmpAd(parametersCaja5)}

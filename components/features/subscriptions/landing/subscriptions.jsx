@@ -11,6 +11,7 @@ import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
+import { createExternalScript } from '../_dependencies/Utils'
 import scriptsLanding from '../_scripts/Landing'
 import addScriptAsync from '../_dependencies/Async'
 
@@ -54,6 +55,8 @@ const LandingSubscriptions = () => {
         })),
       },
     })
+
+    createExternalScript(scriptsLanding, true)
   }, [])
 
   const handleUniversity = () => {
@@ -328,12 +331,12 @@ const LandingSubscriptions = () => {
         type="text/javascript"
         src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
 
-      <script
+      {/* <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: scriptsLanding,
         }}
-      />
+      /> */}
     </>
   )
 }

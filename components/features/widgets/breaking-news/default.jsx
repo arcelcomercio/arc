@@ -13,6 +13,8 @@ const classes = {
   text: 'breaking-news__text m-0 title-xs line-h-xs items-center',
   tag: 'breaking-news__tag uppercase mr-5 font-bold',
   link: 'breaking-news__link mr-5 text-white font-bold',
+  envivo: 'breaking-news__envivo',
+  envivoborder: 'breaking-news__envivo-border',
 }
 
 /* requestIdle(() => {
@@ -31,6 +33,7 @@ const BreakingNewsFeat = props => {
       storyLink = '',
       tags = 'Lo último',
       backgroundColor = 'color-1',
+      showIcon = '',
     },
   } = props
 
@@ -71,6 +74,12 @@ const BreakingNewsFeat = props => {
           ${classes.breakingnews}
           `}>
             <h2 itemProp="name" className={classes.text}>
+              {showIcon && (
+                <>
+                  <span className={classes.envivoborder}></span>
+                  <span className={classes.envivo}></span>
+                </>
+              )}
               <span
                 className={classes.tag}
                 {...editableField('tags')}
@@ -95,7 +104,18 @@ const BreakingNewsFeat = props => {
               className={classes.close}
               tabIndex={0}
               aria-label="Ocultar noticia urgente">
-              <i className={classes.icon} aria-hidden="true" />
+              {outputType === 'lite' ? (
+                <svg width="40.2" height="40.2" viewBox="0 0 40.2 40.2">
+                  <g transform="translate(-335 -854)">
+                    <path
+                      d="M23,3A20.1,20.1,0,1,0,43.1,23.1,20.1,20.1,0,0,0,23,3Zm9.7,26.9c.2.1.2.3.2.5s0,.4-.2.5l-1.9,1.9a.551.551,0,0,1-.5.2c-.2,0-.4,0-.5-.2L23,26l-6.8,6.8c-.1.2-.3.2-.5.2a.551.551,0,0,1-.5-.2l-1.9-1.9c-.2-.1-.2-.3-.2-.5s0-.4.2-.5l6.8-6.8-6.8-6.8a.668.668,0,0,1,0-1l1.9-1.9a.567.567,0,0,1,1,0L23,20.1l6.8-6.7a.567.567,0,0,1,1,0l2,1.9a.908.908,0,0,1,0,1l-6.9,6.8Zm0,0"
+                      transform="translate(332.1 851)"
+                    />
+                  </g>
+                </svg>
+              ) : (
+                <i className={classes.icon} aria-hidden="true" />
+              )}
             </button>
           </div>
           <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>

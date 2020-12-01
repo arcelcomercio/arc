@@ -8,6 +8,7 @@ const customFieldsSection = {
     'default',
     'image',
     'goldfish',
+    'jwplayer',
     'youtube',
   ]).tag({
     name: 'Servicio',
@@ -16,6 +17,7 @@ const customFieldsSection = {
       default: 'Automático',
       image: 'Imagen',
       goldfish: 'GoldFish',
+      jwplayer: 'JWplayer',
       youtube: 'Youtube',
     },
     defaultValue: 'default',

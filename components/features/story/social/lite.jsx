@@ -7,8 +7,8 @@ import { addSlashToEnd } from '../../../utilities/parse/strings'
 
 const classes = {
   container: 'st-social f just-between',
-  upsection: 'st-social__tooltdiv uppercase',
-  section: 'st-social__txt f oflow-h uppercase',
+  upsection: 'st-social__tooltdiv f alg-center uppercase',
+  section: 'st-social__txt oflow-h uppercase',
   sectionLink: 'st-social__link oflow-h',
   buttons: 'st-social__share',
   special: 'st-social__special f',
@@ -16,7 +16,7 @@ const classes = {
 }
 
 const StorySocialLite = () => {
-  const { requestUri, globalContent } = useAppContext()
+  const { requestUri, globalContent, arcSite } = useAppContext()
 
   const {
     taxonomy: {
@@ -38,7 +38,7 @@ const StorySocialLite = () => {
   return isArchivoElcomercio ? (
     <div className={classes.center}>
       <div className={classes.special}>
-        <ShareButtons />
+        <ShareButtons activeGoogleNews />
       </div>
     </div>
   ) : (
@@ -57,7 +57,7 @@ const StorySocialLite = () => {
         )}
       </div>
       <div className={classes.buttons}>
-        <ShareButtons />
+        <ShareButtons activeGoogleNews={arcSite === 'elcomercio'} />
       </div>
     </div>
   )

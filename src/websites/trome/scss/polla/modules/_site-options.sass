@@ -1,0 +1,176 @@
+.site-options
+  color: $black
+  font-family: $f-header
+  font-size: 12px
+  position: relative
+  a
+    color: $black
+  .box-content
+    background-color: $white
+    width: $cnt-w3c
+    margin: 0 auto
+    height: 33px
+    position: inherit
+  .search-content
+    display: none
+    position: absolute
+    top: 34px
+    right: 0
+    width: 345px
+    background-color: #ced11f
+    padding: 15px
+    z-index: 10   //  ticket 21501
+    &.ui-active
+      display: block
+    .search-form
+      background-color: transparent
+      margin: 0 auto
+      height: 33px
+      padding: 0
+    .search-text, .search-button
+      height: 36px
+      color: $gray3
+      font: 14px $f-main
+      border: 0
+      float: left
+    .search-text
+      width: 275px
+      padding: 0 8px
+      font-size: 14px
+    .search-button
+      width: 40px
+      background-color: transparent
+      text-transform: uppercase
+      font-weight: bold
+      color: $green1
+      &:hover
+        cursor: pointer
+  .close-search
+    color: #b2b2b2
+    display: inline-block
+    margin-left: 10px
+    padding: 4px 4px 0
+    background-color: $black
+    &:hover
+      text-decoration: none
+    i
+      font-size: 15px
+
+.site-edition
+  float: left
+  padding-top: 8px
+  width: 64px
+  margin-left: 20px
+  img
+    width: 100%
+    height: 20px
+  i
+    font-size: 10px
+    color: $red
+    margin-right: 5px
+
+.site-login
+  float: left
+  //- padding-top: 3px
+
+.u-online
+  padding-top: 5px
+  position: relative
+  .u-config
+    margin-left: 5px
+    font-size: 11px
+    &.icon-arrow-down:before
+      content: "\e919"
+    &:hover
+      text-decoration: none
+
+.u-config-items
+  position: absolute
+  right: 0
+  top: 25px
+  text-align: center
+  width: 120px
+  z-index: 2
+  li
+    background-color: $white
+    border-bottom: 1px solid #ddd
+    &:last-child
+      border-bottom: 0
+    a
+      display: block
+      padding: 8px 0
+      color: $gray3
+      &:hover
+        text-decoration: none
+        background-color: #f7f7f7
+
+.go-peruid
+  display: inline-block
+  line-height: 25px
+  padding: 0 8px
+  border: 1px solid $gray3
+  margin-left: 3px
+  border-radius: 2px
+  font-size: 11px
+  &:hover
+    text-decoration: none
+  i
+    font-size: 11px
+    margin-right: 5px
+
+.site-social
+  float: left
+  margin-left: 20px
+
+.social-item
+  float: left
+
+.social-title
+  padding: 7px 15px 0px 0px
+
+.social-link
+  display: block
+  width: 33px
+  text-align: center
+  font-size: 14px
+  line-height: 33px
+  &:hover
+    text-decoration: none
+    color: $white
+  &.link-fb:hover
+    background-color: $fb
+  &.link-tw:hover
+    background-color: $tw
+  &.link-gp:hover
+    background-color: $gp
+
+.site-search
+  float: left
+  margin-left: 20px
+  position: relative
+  display: none
+
+.search-link
+  display: block
+  width: 33px
+  line-height: 33px
+  text-align: center
+  font-size: 16px
+  .icon-close
+    display: none
+  &:hover
+    background-color: $gray2
+    text-decoration: none
+    color: $white
+  &.ui-active
+    background-color: $gray2
+    .icon-close
+      display: block
+      line-height: 32px
+      font-size: 14px
+    .icon-search
+      display: none
+
+// Sign Wall
+.social-title
+  padding: 10px 15px 0px 10px

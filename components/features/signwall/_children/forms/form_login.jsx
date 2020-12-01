@@ -15,36 +15,41 @@ import Taggeo from '../../_dependencies/taggeo'
 import Services from '../../_dependencies/services'
 import Loading from '../loading'
 
-export const FormLogin = ({
-  typeDialog,
-  onClose,
-  arcSite,
-  isFia,
-  handleCallToAction,
-  siteProperties: {
-    signwall: {
-      mainColorLink,
-      mainColorBtn,
-      primaryFont,
-      mainColorBr,
-      authProviders = [],
+export const FormLogin = ({ valTemplate, attributes }) => {
+  const {
+    typeDialog,
+    onClose,
+    arcSite,
+    isFia,
+    handleCallToAction,
+    siteProperties: {
+      signwall: {
+        mainColorLink,
+        mainColorBtn,
+        primaryFont,
+        mainColorBr,
+        authProviders = [],
+      },
+      activeNewsletter = false,
+      activeVerifyEmail = false,
+      activePaywall,
     },
-    activeNewsletter = false,
-    activePaywall,
-  },
-  removeBefore = i => i,
-  onLogged = i => i,
-}) => {
-  const [showLoginEmail, setShowLoginEmail] = useState(false)
+    removeBefore = i => i,
+    onLogged = i => i,
+  } = attributes
+
+  const [showLoginEmail, setShowLoginEmail] = useState(valTemplate)
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showUserWithSubs, setShowUserWithSubs] = useState(false)
   const [showCheckPremium, setShowCheckPremium] = useState(false)
   const [showLoadingPremium, setShowLoadingPremium] = useState(true)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
+  const [showVerify, setShowVerify] = useState()
+  const [showSendEmail, setShowSendEmail] = useState(false)
 
   const stateSchema = {
-    lemail: { value: '', error: '' },
+    lemail: { value: valTemplate || '', error: '' },
     lpass: { value: '', error: '' },
   }
 
@@ -146,89 +151,40 @@ export const FormLogin = ({
     }
   }
 
-  const handleGetProfile = () => {
+  const handleGetProfile = profile => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.getUserProfile().then(profile => {
-      Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
 
-      const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-      Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+    Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
 
-      if (typeDialog === 'premium' || typeDialog === 'paywall') {
-        setShowCheckPremium(true) // no tengo subs
+    const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+    Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
-        getListSubs().then(p => {
-          if (p && p.length === 0) {
-            setShowUserWithSubs(false) // no tengo subs
-            setShowLoadingPremium(false)
-          } else {
-            setShowUserWithSubs(true) // tengo subs
-            setShowLoadingPremium(false)
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
-          }
-        })
-      } else {
-        const btnSignwall = document.getElementById('signwall-nav-btn')
-        if (typeDialog === 'newsletter' && btnSignwall) {
-          btnSignwall.textContent = `${profile.firstName ||
-            'Bienvenido'}  ${profile.lastName || ''}`
-        }
-        onClose()
-      }
-    })
-  }
+    if (typeDialog === 'premium' || typeDialog === 'paywall') {
+      setShowCheckPremium(true) // no tengo subs
 
-  const pushStateRelogin = (email, password) => {
-    setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.login(email, password, {
-      rememberMe: true,
-      cookie: true,
-    })
-      .then(() => {
-        handleGetProfile()
-        taggeoSuccess()
-      })
-      .catch(errReLogin => {
-        setShowError(getCodeError(errReLogin.code))
-        taggeoError()
-      })
-      .finally(() => {
-        setShowLoading(false)
-      })
-  }
-
-  const sendEmailPass = (email, password) => {
-    setShowLoading(true)
-    Services.reloginEcoID(
-      email,
-      password,
-      typeDialog === 'organico' ? 'organico' : '1',
-      arcSite,
-      window
-    )
-      .then(resEco => {
-        if (resEco.retry) {
-          setTimeout(() => {
-            pushStateRelogin(email, password)
-          }, 1000)
+      getListSubs().then(p => {
+        if (p && p.length === 0) {
+          setShowUserWithSubs(false) // no tengo subs
+          setShowLoadingPremium(false)
         } else {
-          setShowError(getCodeError('300040'))
-          taggeoError()
+          setShowUserWithSubs(true) // tengo subs
+          setShowLoadingPremium(false)
+          const divPremium = document.getElementById('contenedor')
+          if (divPremium) {
+            divPremium.classList.remove('story-content__nota-premium')
+            divPremium.removeAttribute('style')
+          }
         }
       })
-      .catch(() => {
-        setShowError(getCodeError('000000'))
-        taggeoError()
-      })
-      .finally(() => {
-        setShowLoading(false)
-      })
+    } else {
+      const btnSignwall = document.getElementById('signwall-nav-btn')
+      if (typeDialog === 'newsletter' && btnSignwall) {
+        btnSignwall.textContent = `${profile.firstName ||
+          'Bienvenido'} ${profile.lastName || ''}`
+      }
+      onClose()
+    }
+    setShowLoading(false)
   }
 
   const handleFia = () => {
@@ -247,22 +203,44 @@ export const FormLogin = ({
       cookie: true,
     })
       .then(() => {
-        handleGetProfile()
-        taggeoSuccess()
-        onLogged()
-        handleFia()
+        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.getUserProfile().then(resProfile => {
+          if (
+            activeVerifyEmail &&
+            !resProfile.emailVerified &&
+            resProfile.displayName === resProfile.email
+          ) {
+            setShowLoading(false)
+            setShowError(getCodeError('130051'))
+            setShowVerify(true)
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+            )
+            window.localStorage.removeItem('ArcId.USER_INFO')
+            window.localStorage.removeItem('ArcId.USER_PROFILE')
+            window.Identity.userProfile = null
+            window.Identity.userIdentity = {}
+          } else {
+            handleGetProfile(resProfile)
+            taggeoSuccess()
+            onLogged()
+            handleFia()
+          }
+        })
       })
       .catch(errLogin => {
-        if (errLogin.code === '300040' || errLogin.code === '300037') {
-          sendEmailPass(lemail, lpass)
+        setShowLoading(false)
+        setShowError(getCodeError(errLogin.code))
+        setShowVerify(errLogin.code === '130051')
+        if (errLogin.code === '130051') {
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+          )
         } else {
-          setShowError(getCodeError(errLogin.code))
           taggeoError()
         }
-        Cookies.setCookie('lostEmail', lemail, 1)
-      })
-      .finally(() => {
-        setShowLoading(false)
       })
   }
 
@@ -274,13 +252,39 @@ export const FormLogin = ({
     }
   }
 
-  const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    stateValidatorSchema,
-    onSubmitForm
-  )
+  const {
+    values: { lemail, lpass },
+    errors: { lemail: lemailError, lpass: lpassError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
-  const { lemail, lpass } = values
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    window.Identity.requestVerifyEmail(lemail)
+    Taggeo(
+      `Web_Sign_Wall_${typeDialog}`,
+      `web_sw${typeDialog[0]}_login_reenviar_correo`
+    )
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
+
+  const triggerShowVerify = () => {
+    setShowLoginEmail(true)
+    setShowError(getCodeError('verifySocial'))
+    setShowVerify(false)
+  }
 
   return (
     <ModalConsumer>
@@ -305,7 +309,7 @@ export const FormLogin = ({
               {authProviders.map(item => (
                 <ButtonSocial
                   brand={item}
-                  size="full"
+                  size="middle"
                   c="mb-10"
                   onClose={onClose}
                   typeDialog={typeDialog}
@@ -314,6 +318,7 @@ export const FormLogin = ({
                   activeNewsletter={activeNewsletter}
                   checkUserSubs={checkUserSubs}
                   onLogged={onLogged}
+                  showMsgVerify={() => triggerShowVerify()}
                 />
               ))}
 
@@ -342,7 +347,25 @@ export const FormLogin = ({
 
               {showLoginEmail && (
                 <>
-                  {showError && <S.Error>{showError}</S.Error>}
+                  {showError && (
+                    <S.Error type={showVerify ? 'warning' : ''}>
+                      {` ${showError} `}
+                      {showVerify && (
+                        <>
+                          {!showSendEmail ? (
+                            <button type="button" onClick={sendVerifyEmail}>
+                              Reenviar correo de activación
+                            </button>
+                          ) : (
+                            <span>
+                              Podrás reenviar nuevamente dentro de
+                              <strong id="countdown"> 10 </strong> segundos
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </S.Error>
+                  )}
 
                   <Input
                     type="email"
@@ -355,7 +378,7 @@ export const FormLogin = ({
                       handleOnChange(e)
                       setShowError(false)
                     }}
-                    error={errors.lemail}
+                    error={lemailError}
                   />
 
                   <Input
@@ -370,7 +393,7 @@ export const FormLogin = ({
                       setShowError(false)
                       checkFormat(e)
                     }}
-                    error={errors.lpass || showFormatInvalid}
+                    error={lpassError || showFormatInvalid}
                   />
 
                   <S.Link
@@ -462,9 +485,7 @@ export const FormLogin = ({
                           `web_${typeDialog}_boton_sigue_navegando`
                         )
                         if (
-                          window.sessionStorage.hasOwnProperty(
-                            'paywall_last_url'
-                          ) &&
+                          window.sessionStorage.getItem('paywall_last_url') &&
                           window.sessionStorage.getItem('paywall_last_url') !==
                             ''
                         ) {

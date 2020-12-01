@@ -1,5 +1,5 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -48,15 +48,20 @@ import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
 import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildCustomBlock from './_children/custom-block'
+import customFields from './_dependencies/custom-fields'
 import {
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
-import StoryContentsChildCustomBlock from './_children/custom-block'
 import LiteYoutube from '../../../global-components/lite-youtube'
+import ShareButtons from '../../../global-components/lite/share'
+import { contentWithAds } from '../../../utilities/story/content'
+import { processedAds } from '../../../utilities/story/helpers'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -73,7 +78,8 @@ const classes = {
   bbcHead: 'bbc-head p-10',
 }
 
-const StoryContentsLite = () => {
+const StoryContentsLite = props => {
+  const { customFields: { liteAdsEvery = 2 } = {} } = props
   const {
     globalContent,
     arcSite,
@@ -83,8 +89,9 @@ const StoryContentsLite = () => {
       ids: { opta },
       isDfp = false,
       siteUrl,
+      jwplayers,
     },
-  } = useFusionContext()
+  } = useAppContext()
 
   const {
     publishDate: date,
@@ -106,7 +113,7 @@ const StoryContentsLite = () => {
     multimediaLarge,
     multimediaLazyDefault,
     tags,
-    contentPosicionPublicidadLite,
+    contentElements,
     canonicalUrl,
     prerollDefault,
     contentElementsHtml,
@@ -154,12 +161,10 @@ const StoryContentsLite = () => {
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
   const seccArary = canonicalUrl.split('/')
   const secc = seccArary[1].replace(/-/gm, '')
-
-  const publicidadHtml = (contentHtml, espacio, text) => {
-    const html = `<div id=${`gpt_${espacio}`} className="f just-center" data-ads-name=${`/28253241/${arcSite}/web/post/${secc}/${espacio}`}
-                  data-ads-dimensions="[[300,250]]" data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>`
-    return contentHtml.replace(text, html)
-  }
+  const storyContent = contentWithAds({
+    contentElements,
+    adsEvery: liteAdsEvery,
+  })
 
   return (
     <>
@@ -173,7 +178,7 @@ const StoryContentsLite = () => {
             )}
           </>
         )}
-        {subtype !== MINUTO_MINUTO && (
+        {subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
           <div
             id="gpt_caja3"
             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
@@ -184,7 +189,7 @@ const StoryContentsLite = () => {
         <div
           className={`${classes.content} ${isPremium &&
             'story-content__nota-premium paywall no_copy'}`}
-          style={isPremium ? { display: 'none' } : {}}
+          style={isPremium ? { opacity: '0', userSelect: 'none' } : {}}
           id="contenedor">
           {!isDfp && (
             <>
@@ -193,9 +198,9 @@ const StoryContentsLite = () => {
               <div id="ads_m_movil3" />
             </>
           )}
-          {contentPosicionPublicidadLite && (
+          {storyContent && (
             <ArcStoryContent
-              data={contentPosicionPublicidadLite}
+              data={storyContent}
               elementClasses={classes}
               renderElement={element => {
                 const {
@@ -242,6 +247,34 @@ const StoryContentsLite = () => {
                     </>
                   )
                 }
+                if (type === ELEMENT_CUSTOM_EMBED) {
+                  if (sub === VIDEO_JWPLAYER) {
+                    const {
+                      embed: {
+                        config: {
+                          key: mediaId = '',
+                          has_ads: hasAds = 0,
+                          account = 'gec',
+                          title = '',
+                        } = {},
+                      } = {},
+                    } = element
+                    const playerId = jwplayers[account] || jwplayers.gec
+                    const jwplayerId = hasAds
+                      ? playerId.playerAds
+                      : playerId.player
+                    return (
+                      <>
+                        <div
+                          className="jwplayer-lazy "
+                          id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                        <figcaption className="s-multimedia__caption ">
+                          {title}
+                        </figcaption>
+                      </>
+                    )
+                  }
+                }
                 if (type === ELEMENT_GALLERY) {
                   return (
                     <StoryHeaderChildGallery
@@ -264,7 +297,7 @@ const StoryContentsLite = () => {
                           data-bloque="3"
                           data-ads-dimensions-m="[[1,1]]"></div>
                       )}
-                      {nameAds === 'caja4' && (
+                      {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
                         <div
                           id="gpt_caja4"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
@@ -272,7 +305,7 @@ const StoryContentsLite = () => {
                           data-bloque="3"
                           data-prebid-enabled></div>
                       )}
-                      {nameAds === 'caja5' && (
+                      {nameAds === 'caja5' && subtype !== GALLERY_VERTICAL && (
                         <div
                           id="gpt_caja5"
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
@@ -416,39 +449,11 @@ const StoryContentsLite = () => {
 
                 if (type === ELEMENT_RAW_HTML) {
                   if (content.includes('<mxm')) {
-                    let contentHtml = content
-                    contentHtml = publicidadHtml(
-                      contentHtml,
-                      'caja2',
-                      '<div id="gpt_caja2" class="flex justify-center"></div>'
+                    return (
+                      <StoryContentChildRawHTML
+                        content={processedAds(content, 'lite', arcSite, secc)}
+                      />
                     )
-                    contentHtml = publicidadHtml(
-                      contentHtml,
-                      'caja3',
-                      '<div id="gpt_caja3" class="flex justify-center"></div>'
-                    )
-                    contentHtml = publicidadHtml(
-                      contentHtml,
-                      'caja4',
-                      '<div id="gpt_caja4" class="flex justify-center"></div>'
-                    )
-                    contentHtml = publicidadHtml(
-                      contentHtml,
-                      'caja5',
-                      '<div id="gpt_caja5" class="flex justify-center"></div>'
-                    )
-                    contentHtml = contentHtml
-                      .replace('</script>:', '</script>')
-                      .replace(':<script', '<script')
-                      .replace(
-                        /:icon:/gm,
-                        '<div  class="more-compartir"></div>'
-                      )
-                      .replace(
-                        /:fijado:/gm,
-                        '<svg xmlns="http://www.w3.org/2000/svg" class="icon-compartir" width="20" height="20" viewBox="0 0 475 475"><path d="M380 247c-15-19-32-28-51-28V73c10 0 19-4 26-11 7-7 11-16 11-26 0-10-4-18-11-26C347 4 339 0 329 0H146c-10 0-18 4-26 11-7 7-11 16-11 26 0 10 4 19 11 26 7 7 16 11 26 11v146c-19 0-36 9-51 28-15 19-22 40-22 63 0 5 2 9 5 13 4 4 8 5 13 5h115l22 139c1 5 4 8 9 8h0c2 0 4-1 6-2 2-2 3-4 3-6l15-138h123c5 0 9-2 13-5 4-4 5-8 5-13C402 287 395 266 380 247zM210 210c0 3-1 5-3 7-2 2-4 3-7 3-3 0-5-1-7-3-2-2-3-4-3-7V82c0-3 1-5 3-7 2-2 4-3 7-3 3 0 5 1 7 3 2 2 3 4 3 7V210z" data-original="#000000"/></svg>'
-                      )
-                    return <StoryContentChildRawHTML content={contentHtml} />
                   }
 
                   if (
@@ -542,7 +547,9 @@ const StoryContentsLite = () => {
                     )
                   }
 
-                  return <StoryContentChildRawHTML content={content} />
+                  return (
+                    <StoryContentChildRawHTML content={content} output="lite" />
+                  )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === 'image_link') {
@@ -558,11 +565,11 @@ const StoryContentsLite = () => {
           )}
         </div>
         {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
-        {/* <div className={classes.social}>
+        <div className={classes.social}>
           <div className="st-social__share">
-            <ShareButtons></ShareButtons>
+            <ShareButtons />
           </div>
-        </div> */}
+        </div>
         {storyTagsBbc(tags) && (
           <div className={classes.bbcHead}>
             <a
@@ -586,5 +593,9 @@ const StoryContentsLite = () => {
 
 StoryContentsLite.label = 'Artículo - contenidos'
 StoryContentsLite.static = true
+
+StoryContentsLite.propTypes = {
+  customFields,
+}
 
 export default StoryContentsLite

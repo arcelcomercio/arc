@@ -160,7 +160,7 @@ const setupUserProfile = (
         resProfile.email ||
         `${resProfile.identities[0].userName}@${provider}.com`
 
-      if (!resProfile.displayName && !resProfile.attributes) {
+      if (!resProfile.attributes) {
         const newProfileFB = {
           firstName: resProfile.firstName.replace(/\./g, ''),
           lastName: resProfile.lastName.replace(/\./g, ''),
@@ -333,6 +333,7 @@ export const ButtonSocial = ({
   typeForm,
   activeNewsletter,
   checkUserSubs,
+  showMsgVerify,
 }) => {
   const [showTextLoad, setShowTextLoad] = useState('')
 
@@ -382,38 +383,39 @@ export const ButtonSocial = ({
       '',
       data.accessToken,
       data.providerSource
-    )
-      .then(resLogSocial => {
-        if (resLogSocial.accessToken) {
-          window.localStorage.setItem(
-            'ArcId.USER_INFO',
-            JSON.stringify(resLogSocial)
-          )
-          window.Identity.userIdentity = resLogSocial
+    ).then(resLogSocial => {
+      if (resLogSocial.accessToken) {
+        window.localStorage.setItem(
+          'ArcId.USER_INFO',
+          JSON.stringify(resLogSocial)
+        )
+        window.Identity.userIdentity = resLogSocial
 
-          setShowTextLoad('Cargando...')
-          setupUserProfile(
-            resLogSocial.accessToken,
-            data.providerSource,
-            arcSite,
-            onClose,
-            activeNewsletter,
-            typeDialog,
-            typeForm,
-            onLogged,
-            checkUserSubs,
-            onStudents
-          )
+        setShowTextLoad('Cargando...')
+        setupUserProfile(
+          resLogSocial.accessToken,
+          data.providerSource,
+          arcSite,
+          onClose,
+          activeNewsletter,
+          typeDialog,
+          typeForm,
+          onLogged,
+          checkUserSubs,
+          onStudents
+        )
+      } else {
+        taggeoError(data.providerSource)
+        if (resLogSocial.code && resLogSocial.code === '130051') {
+          showMsgVerify()
+          setShowTextLoad('')
         } else {
-          taggeoError(data.providerSource)
           onClose()
-          window.removeEventListener('message', authSocialProvider)
-          window.removeEventListener('onmessage', authSocialProvider)
         }
-      })
-      .catch(() => {
-        window.console.error('oups ocurrio un error')
-      })
+        window.removeEventListener('message', authSocialProvider)
+        window.removeEventListener('onmessage', authSocialProvider)
+      }
+    })
   }
 
   const clickLoginSocialEcoID = brandCurrent => {

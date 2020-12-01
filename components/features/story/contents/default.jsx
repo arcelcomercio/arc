@@ -8,6 +8,7 @@ import ArcStoryContent, {
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../utilities/assets'
+
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
@@ -21,6 +22,7 @@ import {
   STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  VIDEO_JWPLAYER,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -60,6 +62,7 @@ import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import Ads from '../../../global-components/ads'
 import LiteYoutube from '../../../global-components/lite-youtube'
+import { processedAds } from '../../../utilities/story/helpers'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -92,6 +95,7 @@ class StoryContents extends PureComponent {
         ids: { opta },
         isDfp = false,
         siteUrl,
+        jwplayers = {},
       },
       isAdmin,
     } = this.props
@@ -125,6 +129,7 @@ class StoryContents extends PureComponent {
       authorSecond,
       authorEmailSecond,
       roleSecond: authorRoleSecond,
+      promoItemJwplayer,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -155,6 +160,7 @@ class StoryContents extends PureComponent {
       authorSecond,
       authorEmailSecond,
       authorRoleSecond,
+      promoItemJwplayer,
     }
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -220,12 +226,14 @@ class StoryContents extends PureComponent {
               )}
             </>
           )}
-          <Ads
-            adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
-            isDesktop={false}
-            isMobile
-            isDfp={isDfp}
-          />
+          {subtype !== GALLERY_VERTICAL && (
+            <Ads
+              adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
+              isDesktop={false}
+              isMobile
+              isDfp={isDfp}
+            />
+          )}
           <div
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}
@@ -290,6 +298,34 @@ class StoryContents extends PureComponent {
                         )}
                       </>
                     )
+                  }
+                  if (type === ELEMENT_CUSTOM_EMBED) {
+                    if (sub === VIDEO_JWPLAYER) {
+                      const {
+                        embed: {
+                          config: {
+                            key: mediaId = '',
+                            has_ads: hasAds = 0,
+                            account = 'gec',
+                            title = '',
+                          } = {},
+                        } = {},
+                      } = element
+                      const playerId = jwplayers[account] || jwplayers.gec
+                      const jwplayerId = hasAds
+                        ? playerId.playerAds
+                        : playerId.player
+                      return (
+                        <>
+                          <div
+                            className="jwplayer-lazy"
+                            id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                          <figcaption className="story-content__caption ">
+                            {title}
+                          </figcaption>
+                        </>
+                      )
+                    }
                   }
                   if (type === ELEMENT_GALLERY) {
                     return (
@@ -447,19 +483,11 @@ class StoryContents extends PureComponent {
 
                   if (type === ELEMENT_RAW_HTML) {
                     if (content.includes('<mxm')) {
-                      let contentHtml = content
-                      contentHtml = contentHtml
-                        .replace('</script>:', '</script>')
-                        .replace(':<script', '<script')
-                        .replace(
-                          /:icon:/gm,
-                          '<div  class="more-compartir"></div>'
-                        )
-                        .replace(
-                          /:fijado:/gm,
-                          '<svg xmlns="http://www.w3.org/2000/svg" class="icon-compartir" width="20" height="20" viewBox="0 0 475 475"><path d="M380 247c-15-19-32-28-51-28V73c10 0 19-4 26-11 7-7 11-16 11-26 0-10-4-18-11-26C347 4 339 0 329 0H146c-10 0-18 4-26 11-7 7-11 16-11 26 0 10 4 19 11 26 7 7 16 11 26 11v146c-19 0-36 9-51 28-15 19-22 40-22 63 0 5 2 9 5 13 4 4 8 5 13 5h115l22 139c1 5 4 8 9 8h0c2 0 4-1 6-2 2-2 3-4 3-6l15-138h123c5 0 9-2 13-5 4-4 5-8 5-13C402 287 395 266 380 247zM210 210c0 3-1 5-3 7-2 2-4 3-7 3-3 0-5-1-7-3-2-2-3-4-3-7V82c0-3 1-5 3-7 2-2 4-3 7-3 3 0 5 1 7 3 2 2 3 4 3 7V210z" data-original="#000000"/></svg>'
-                        )
-                      return <StoryContentChildRawHTML content={contentHtml} />
+                      return (
+                        <StoryContentChildRawHTML
+                          content={processedAds(content)}
+                        />
+                      )
                     }
 
                     if (

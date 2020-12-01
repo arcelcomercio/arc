@@ -14,9 +14,7 @@ class GetProfile {
   constructor() {
     this.profile = null
     if (typeof window !== 'undefined') {
-      const localProfile =
-        window.localStorage.getItem('ArcId.USER_PROFILE') ||
-        window.sessionStorage.getItem('ArcId.USER_PROFILE')
+      const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
       this.profile = JSON.parse(localProfile)
     }
     this.publicProfile = this._getComplete()
@@ -44,6 +42,7 @@ class GetProfile {
           case 'attributes':
             newPrev[attr] = (profile[attr] || []).map(item => {
               const { value } = item
+              // eslint-disable-next-line no-param-reassign
               item.value = this.cleanAttribute(value)
               return item
             })

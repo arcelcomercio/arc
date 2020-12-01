@@ -142,7 +142,9 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeRulesCounter: false,
   activeNewsletter: false,
+  activeVerifyEmail: false,
   signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
@@ -161,4 +163,11 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2008-12-31',
+
+  jwplayers: {
+    gec: {
+      playerAds: 'uR4oallO',
+      player: '4p8sD5TM',
+    },
+  },
 }

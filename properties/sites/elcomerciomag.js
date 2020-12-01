@@ -1,6 +1,6 @@
 export default {
   siteName: 'Mag.',
-  sitemapNewsName: 'El Comercio Mag',
+  sitemapNewsName: 'MAG.',
   siteTitle: 'Mag.',
   colorPrimary: '#262627',
   siteDomain: 'elcomercio.pe',
@@ -118,7 +118,9 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeRulesCounter: false,
   activeNewsletter: false,
+  activeVerifyEmail: false,
   signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
@@ -135,4 +137,9 @@ export default {
   },
   isDfp: true,
   archiveLimit: '2018-09-18',
+
+  jwplayers: {
+    gec: { playerAds: 'fB2Mdnsl', player: 'aQVjnIkX' },
+    elcomercio: { playerAds: 'jqJgjiEA', player: 'CW5g4pdQ' },
+  },
 }

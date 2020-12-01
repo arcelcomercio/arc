@@ -1,0 +1,67 @@
+.ui-countdown
+  .ui-caption
+    //- color: #999
+    font-family: $f-main
+    font-size: 16px
+    font-weight: bold
+    text-transform: uppercase
+  .ui-nosupport
+    .ui-back-1, .ui-back-2
+      display: none
+  .MSIE
+    .ui-front-1
+      height: 100%
+    .ui-front-2
+      bottom: 50%
+      height: 1px
+      line-height: 0
+  .ui-group
+    float: left
+    padding-right: 6px
+    background: url('../img/polla-depor/bg_counter.png') no-repeat right 8px
+    &:last-child
+      background: transparent
+
+  .ui-digit
+    color: #888888
+    float: left
+    font-size: 16px
+    font-weight: bold
+    height: 25px
+    line-height: 27px
+    margin-right: 1px
+    position: relative
+    text-align: center
+    width: 9px
+    span
+      left: 0
+      overflow: hidden
+      position: absolute
+      width: 100%
+      z-index: 1
+  .ui-inn .ui-front-1
+    -webkit-transform-origin: bottom center
+    -webkit-transform: perspective(500px) rotateX(-90deg)
+    -webkit-transition: -webkit-transform .5s ease-in
+    transform-origin: bottom center
+    transform: perspective(500px) rotateX(-90deg)
+    transition: transform .5s ease-in
+  .ui-out .ui-back-2
+    -webkit-transform-origin: top center
+    -webkit-transform: perspective(500px) rotateX(0deg) !important
+    -webkit-transition-delay: .5s
+    -webkit-transition: -webkit-transform .5s ease-out
+    transform-origin: top center
+    transform: perspective(500px) rotateX(0deg) !important
+    transition-delay: .5s
+    transition: transform .5s ease-out
+  .ui-digit .ui-back-2
+    -webkit-transform: perspective(500px) rotateX(90deg)
+    transform: perspective(500px) rotateX(90deg)
+    z-index: 2
+  .ui-front-1, .ui-back-1
+    height: 50%
+  .ui-front-2, .ui-back-2
+    bottom: 0
+    height: 50%
+    line-height: 1px
