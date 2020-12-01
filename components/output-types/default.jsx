@@ -99,7 +99,7 @@ export default ({
   const sectionPath = nodeType === 'section' ? _id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
   const isVideosSection = /^\/videos\//.test(requestUri)
-  const isBlogPost = /^\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?\//.test(
+  const isBlogPost = /^\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?/.test(
     requestUri
   )
 
