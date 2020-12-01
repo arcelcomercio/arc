@@ -12,12 +12,9 @@ import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
 
 const classes = {
-  storyInterest:
-    'st-interest flex flex-col w-full h-auto pr-20 pl-20 mx-auto amp-sh',
-  title:
-    'st-interest__titleList block w-full h-auto font-bold mb-10 uppercase p-15 text-center md:text-left',
-  title_full_imagen:
-    'st-interest__title-list-full block position-relative w-full h-auto font-bold mb-15 p-10 text-center text-left',
+  storyInterest: 'st-interest',
+  title: 'st-interest__title',
+  titleP: 'st-interest__title-p',
 }
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
@@ -46,7 +43,7 @@ const InterestByTagAmp = props => {
         website: arcSite,
         name: urlTag,
         size: storiesQty,
-        presets: 'landscape_md:118x66',
+        presets: 'landscape_md:360x202',
         /* isFullImage || isSlider
             ? 'landscape_md:360x202'
             : 'landscape_md:118x66', */
@@ -90,7 +87,7 @@ const InterestByTagAmp = props => {
 
       const data = {
         title: instance.title,
-        subtitle: isMag ? null : instance.subTitle,
+        subtitle: instance.subTitle,
         link,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
@@ -101,11 +98,7 @@ const InterestByTagAmp = props => {
         isAdmin,
       }
       return (
-        <StoryItemChild
-          data={data}
-          key={UtilListKey(i)}
-          arcSite={arcSite}
-        />
+        <StoryItemChild data={data} key={UtilListKey(i)} arcSite={arcSite} />
       )
     })
     return dataStories
@@ -115,6 +108,7 @@ const InterestByTagAmp = props => {
     dataInterest &&
     dataInterest[0] && (
       <section className={classes.storyInterest}>
+        <p className={classes.titleP}></p>
         <h2 className={classes.title}>{sectionTitle}</h2>
         <>{getSize(storiesQty)}</>
       </section>

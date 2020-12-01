@@ -2,63 +2,49 @@ import * as React from 'react'
 
 // seguro toca cambiar estilos
 const classes = {
-  item: 'amp-story-interest__item flex w-full mb-25',
-  item_full_imagen:
-    'amp-story-interest__item_full_imagen block w-full mb-15 pb-15',
-  detail: 'amp-story-interest__detail w-full pl-10 pr-10',
-  detail_text: 'w-full pt-10 text-lg',
-  detail_full_imagen: 'amp-story-interest__detail pt-10 pr-10',
-  separatorCategory:
-    'amp-story-interest__category mb-10 lg:text-center hidden md:block',
-  separatorCategoryLink: 'story-interest__category-link text-xl',
-  separatorTitle: 'amp-story-interest__title overflow-hidden lg:text-center',
-  titleLink: 'amp-story-interest__title-link text-lg line-h-sm font-bold',
-  titleLink_full_imagen: ' title-xs line-h-sm font-bold',
-  link: 'amp-story-interest__link text-xl',
-  itemImage:
-    'amp-story-interest__img justify-center items-center w-full h-full overflow-hidden position-relative mr-15 object-cover',
-  itemImage_full_imagen:
-    'amp-story-interest__img_full_imagen justify-center items-center w-full h-full overflow-hidden position-relative pt-15 mr-15 object-cover',
-  figure: 'amp-story-interest__figure hidden md:block',
+  item: 'st-interest__item',
+  itemArticle: 'st-interest__article',
+  linkImage: 'st-interest__link-img',
+  detail: 'st-interest__detail',
+  detailSec: 'st-interest__detail-section',
+  detailTitle: 'st-interest__detail-title',
+  detailSubtitle: 'st-interest__detail-subtitle',
 }
 
 const StorySeparatorChildItemAmp = ({ data }) => {
   const {
     title,
+    section,
     subtitle,
     link,
     multimediaLandscapeMD,
     multimediaType,
-    storyAmp,
   } = data
 
-  const isFullImage = storyAmp === 'amp_full_imagen'
-
   return (
-    <article
-      className={` ${isFullImage ? classes.item_full_imagen : classes.item} `}>
+    <article className={`${classes.item} `}>
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
-        <a href={link} className={classes.link}>
-          {/*<picture> o <img /> */}
+        <a href={link}>
+          <img
+            className={classes.linkImage}
+            src={multimediaLandscapeMD}
+            alt="imagen"
+          />
         </a>
       )}
-      <div
-        className={`${
-          isFullImage ? classes.detail_full_imagen : classes.detail
-        } `}>
-        <h3 className={classes.separatorTitle}>
-          <a
-            className={`${
-              isFullImage ? classes.titleLink_full_imagen : classes.titleLink
-            } `}
-            href={link}>
+      <div className={`${classes.detail}`}>
+        <div className={`${classes.detailSec}`}>{section}</div>
+        <h3 className={classes.detailTitle}>
+          <a className={`${classes.titleLink} `} href={link}>
             {title}
           </a>
         </h3>
-        {isFullImage && subtitle && (
-          <p className={classes.detail_text}>{subtitle.substring(0, 105)}...</p>
+        {subtitle && (
+          <div className={classes.detailSubtitle}>
+            {subtitle.substring(0, 105)}...
+          </div>
         )}
       </div>
     </article>
