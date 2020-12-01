@@ -37,7 +37,7 @@ const StoryAuthorLite = () => {
     author,
     authorRole,
     authorLink,
-    updatedDate: getDateSeo(updatedDate),
+    updatedDate: getDateSeo(updatedDate || createdDate),
     createdDate: getDateSeo(createdDate),
     locality,
     authorEmail,

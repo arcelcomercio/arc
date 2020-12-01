@@ -35,7 +35,7 @@ const StoryContentChildAuthorLite = ({
         )}
         <div className={classes.authorDate}>
           <time dateTime={updatedDate}>
-            {arcSite === SITE_DEPOR && createdDate && updatedDate && `${getDMYHours(createdDate)} | ${formatDateStory(updatedDate).replace('/', '.').replace(' a las', ',')}`}
+            {arcSite === SITE_DEPOR && createdDate && updatedDate && `${getDMYHours(createdDate)} | ${formatDateStory(updatedDate).replace(/\//g, '.').replace(' a las', ',')}`}
             {arcSite !== SITE_DEPOR &&updatedDate && formatDateStory(updatedDate)}
           </time>
         </div>
