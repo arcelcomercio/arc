@@ -20,7 +20,7 @@ const StoryNextStoryButton = ({
   const nextStory = useContent({
     source: 'story-by-section',
     query: {
-      section,
+      excludedSections: section,
       presets: 'no-presets',
       includedFields: 'websites,website_url',
     },
