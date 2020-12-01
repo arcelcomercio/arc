@@ -64,6 +64,7 @@ export default ({
   siteDomain,
   legalLinks,
   hideMenu,
+  winningCallLogo,
 }) => {
   const renderSections = (sections, deep, nameId = 'root') => {
     const aux = deep
@@ -315,6 +316,14 @@ export default ({
             )}
             {arcSite === 'trome' && (
               <>
+                <div className="header-full__ci">
+                  <a
+                    itemProp="url"
+                    href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
+                    title="Llamada Ganadora">
+                    <img src={winningCallLogo} alt="Llamada Ganadora" />
+                  </a>
+                </div>
                 <button type="button" className="header-full__is">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

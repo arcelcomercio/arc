@@ -107,7 +107,7 @@
   &__font-paragraph {
     font-size: 18px;
     padding: 10px 0;
-    line-height: 1.5;
+    line-height: 30px;
     color: #343434;
     & a {
       text-decoration: underline;
@@ -116,6 +116,13 @@
     & b {
       font-size: 20px;
       font-weight: bold;
+    }
+    &:first-child::first-letter {
+      float: left;
+      font-size: 64px;
+      line-height: 52px;
+      padding: 5px 10px 0 0;
+      font-weight: 700;
     }
   }
 

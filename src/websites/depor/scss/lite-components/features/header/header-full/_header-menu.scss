@@ -95,3 +95,7 @@
 .nav-sidebar__menu-arrow:checked ~ .nav-sidebar__container-submenu {
   max-height: 100vh;
 }
+
+.header-full {
+  z-index: 21;
+}

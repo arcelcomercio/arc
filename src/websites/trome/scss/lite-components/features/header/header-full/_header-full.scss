@@ -159,4 +159,10 @@
       }
     }
   }
+  &__ci {
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
 }
