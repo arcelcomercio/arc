@@ -152,6 +152,7 @@ const StoryContentsLite = props => {
     authorSecond,
     authorEmailSecond,
     authorRoleSecond,
+    arcSite,
   }
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
@@ -547,7 +548,9 @@ const StoryContentsLite = props => {
                     )
                   }
 
-                  return <StoryContentChildRawHTML content={content} />
+                  return (
+                    <StoryContentChildRawHTML content={content} output="lite" />
+                  )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === 'image_link') {

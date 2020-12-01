@@ -54,6 +54,47 @@ const CardMostReadChildList = props => {
           const params = { item, viewImage, arcSite }
           return <CardMostReadItem key={key} {...params} />
         })}
+
+      {arcSite === 'depor' && (
+        <>
+          <button type="button" className="most-read__sm f f-center">
+            <span id="mr-sm-txt">Ver más</span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="7.42"
+              viewBox="0 0 12 7.42">
+              <path
+                d="M1.41.58,6,5.17,10.59.58,12,2,6,8,0,2Z"
+                transform="translate(0 -0.58)"
+              />
+            </svg>
+          </button>
+          {/* document.addEventListener("DOMContentLoaded", function() {
+                const showMoreBtn = document.querySelector(".most-read__sm")
+                const showMoreContainer = document.querySelector(".most-read")
+                const showMoreTxt = document.getElementById("mr-sm-txt")
+                if (showMoreBtn && showMoreContainer && showMoreTxt) {
+                  showMoreBtn.addEventListener("click", () => {
+                    showMoreContainer.classList.toggle("active")
+                    if (showMoreTxt.textContent === "Ver menos") {
+                      showMoreTxt.textContent = "Ver más"
+                    } else {
+                      showMoreTxt.textContent = "Ver menos"
+                    }
+                  })
+                }
+              }); */}
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html:
+                '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".most-read__sm"),t=document.querySelector(".most-read"),n=document.getElementById("mr-sm-txt");e&&t&&n&&e.addEventListener("click",function(){t.classList.toggle("active"),"Ver menos"===n.textContent?n.textContent="Ver más":n.textContent="Ver menos"})});',
+            }}
+          />
+        </>
+      )}
     </div>
   )
 }

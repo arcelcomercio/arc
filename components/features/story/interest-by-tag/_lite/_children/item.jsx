@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-// seguro toca cambiar estilos
+import Image from '../../../../../global-components/image'
+
 const classes = {
   item: 'st-interest__item',
   itemArticle: 'st-interest__article',
@@ -12,14 +13,7 @@ const classes = {
 }
 
 const StorySeparatorChildItemAmp = ({ data }) => {
-  const {
-    title,
-    section,
-    subtitle,
-    link,
-    multimediaLandscapeMD,
-    multimediaType,
-  } = data
+  const { title, section, subtitle, link, image, multimediaType } = data
 
   return (
     <article className={`${classes.item} `}>
@@ -27,10 +21,13 @@ const StorySeparatorChildItemAmp = ({ data }) => {
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
         <a href={link}>
-          <img
+          <Image
             className={classes.linkImage}
-            src={multimediaLandscapeMD}
-            alt="imagen"
+            src={image}
+            alt={title}
+            width={360}
+            height={202}
+            loading="lazy"
           />
         </a>
       )}

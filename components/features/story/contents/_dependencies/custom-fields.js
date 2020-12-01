@@ -14,8 +14,8 @@ const customFields = PropTypes.shape({
   shareAlign: PropTypes.oneOf(['left', 'right']).tag({
     name: 'Alineación de botones para compartir',
     labels: {
-      'left': 'Izquierda',
-      'right': 'Derecha',
+      left: 'Izquierda',
+      right: 'Derecha',
     },
     description:
       'Define la alineación de los botones de compartir que aparecen al final del cuerpo de la nota',

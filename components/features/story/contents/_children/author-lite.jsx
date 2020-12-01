@@ -1,5 +1,7 @@
-import React from 'react'
-// import { formatDateTime } from '../../../../utilities/date-time/dates'
+import * as React from 'react'
+
+// TODO: import { formatDateTime } from '../../../../utilities/date-time/dates'
+import { SITE_DEPOR } from '../../../../utilities/constants/sitenames'
 
 const classes = {
   author: 'story-contents__author  ',
@@ -8,7 +10,6 @@ const classes = {
   authorEmail: 'story-contents__author-email  ',
 }
 
-// TODO: hacer que funcion venga de  '../../../../utilities/date-time/dates'
 export const formatDateTime = date => {
   const newDate = new Date(date)
   const dateTime = new Intl.DateTimeFormat('es', {
@@ -28,12 +29,13 @@ const StoryContentChildAuthorLite = ({
   authorLink,
   displayDate,
   publishDate: updateDate,
+  arcSite,
 }) => {
   const storyDatetime = () => {
     const formattedDisplayDate = formatDateTime(displayDate)
     const formattedUpdateDate = formatDateTime(updateDate)
 
-    return `Lima, ${formattedDisplayDate} ${
+    return `${arcSite === SITE_DEPOR ? '' : 'Lima,'} ${formattedDisplayDate} ${
       formattedDisplayDate !== formattedUpdateDate
         ? `| Actualizado ${formattedUpdateDate}`
         : ''

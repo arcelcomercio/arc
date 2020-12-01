@@ -43,10 +43,7 @@ const InterestByTagAmp = props => {
         website: arcSite,
         name: urlTag,
         size: storiesQty,
-        presets: 'landscape_md:360x202',
-        /* isFullImage || isSlider
-            ? 'landscape_md:360x202'
-            : 'landscape_md:118x66', */
+        presets: 'no-presets',
         includedFields: separatorBasicFields,
       },
       filter: schemaFilter(arcSite),
@@ -91,9 +88,7 @@ const InterestByTagAmp = props => {
         link,
         section: instance.primarySection,
         sectionLink: instance.primarySectionLink,
-        lazyImage: instance.multimediaLazyDefault,
-        multimediaLandscapeL: instance.multimediaLandscapeL,
-        multimediaLandscapeMD: instance.multimediaLandscapeMD,
+        image: instance.multimedia,
         multimediaType: instance.multimediaType,
         isAdmin,
       }

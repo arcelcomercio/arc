@@ -59,7 +59,7 @@ const ShareButtons = ({ activeGoogleNews = false, activeCopyLink = false }) => {
       <a
         itemProp="url"
         href={urlsShareList.facebook}
-        className={classes.btn}
+        className={`${classes.btn} s-fb`}
         data-share="">
         <title>Compartir en facebook</title>
         <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 10 21">
@@ -69,7 +69,7 @@ const ShareButtons = ({ activeGoogleNews = false, activeCopyLink = false }) => {
       <a
         itemProp="url"
         href={urlsShareList.twitter}
-        className={classes.btn}
+        className={`${classes.btn} s-tw`}
         data-share="">
         <title>Compartir en twitter</title>
         <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 14 12">
@@ -79,7 +79,7 @@ const ShareButtons = ({ activeGoogleNews = false, activeCopyLink = false }) => {
       <a
         itemProp="url"
         href={urlsShareList.linkedin}
-        className={classes.btn}
+        className={`${classes.btn} s-lk`}
         data-share="">
         <title>Compartir en LinkedIn</title>
         <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24">
