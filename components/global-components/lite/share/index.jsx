@@ -61,8 +61,8 @@ const ShareButtons = ({ activeGoogleNews = false, activeCopyLink = false }) => {
         href={urlsShareList.facebook}
         className={`${classes.btn} s-fb`}
         data-share="">
+        <title>Compartir en facebook</title>
         <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 10 21">
-          <title>Compartir en facebook</title>
           <path d="M2.6 21V11.1H0V7.6H2.6V4.6C2.6 2.2 4.1 0 7.5 0 8.9 0 10 0.1 10 0.1L9.9 3.5C9.9 3.5 8.8 3.4 7.7 3.4 6.4 3.4 6.2 4 6.2 5V7.6H10L9.8 11.1H6.2V21H2.6Z" />
         </svg>
       </a>
@@ -71,8 +71,8 @@ const ShareButtons = ({ activeGoogleNews = false, activeCopyLink = false }) => {
         href={urlsShareList.twitter}
         className={`${classes.btn} s-tw`}
         data-share="">
+        <title>Compartir en twitter</title>
         <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 14 12">
-          <title>Compartir en twitter</title>
           <path d="M13.5 2C13 2.2 12.5 2.3 12 2.4 12.5 2.1 12.9 1.5 13.1 0.9 12.6 1.2 12 1.4 11.4 1.6 11.2 1.3 10.9 1.1 10.6 0.9 10.2 0.8 9.9 0.7 9.5 0.7 8 0.7 6.8 1.9 6.8 3.4 6.8 3.6 6.9 3.8 6.9 4 4.7 3.9 2.7 2.8 1.4 1.2 1.2 1.6 1 2.1 1 2.6 1 3.5 1.5 4.3 2.2 4.8 1.8 4.8 1.4 4.6 1 4.4V4.5C1 5.8 1.9 6.8 3.2 7.1 2.9 7.1 2.7 7.2 2.5 7.2 2.3 7.2 2.1 7.2 2 7.1 2.3 8.2 3.3 9 4.5 9 3.5 9.7 2.4 10.1 1.1 10.1 0.9 10.1 0.7 10.1 0.5 10.1 1.7 10.8 3.1 11.3 4.6 11.3 9.5 11.3 12.2 7.2 12.2 3.7 12.2 3.6 12.2 3.5 12.2 3.4 12.7 3 13.1 2.5 13.5 2Z" />
         </svg>
       </a>
@@ -81,8 +81,8 @@ const ShareButtons = ({ activeGoogleNews = false, activeCopyLink = false }) => {
         href={urlsShareList.linkedin}
         className={`${classes.btn} s-lk`}
         data-share="">
+        <title>Compartir en LinkedIn</title>
         <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24">
-          <title>Compartir en LinkedIn</title>
           <path d="M5 7.2C6.2 7.2 7.2 6.2 7.2 5 7.2 3.8 6.2 2.8 5 2.8 3.8 2.8 2.8 3.8 2.8 5 2.8 6.2 3.8 7.2 5 7.2Z" />
           <path d="M9.2 8.9V21H13V15C13 13.4 13.3 11.9 15.3 11.9 17.2 11.9 17.2 13.7 17.2 15.1V21H21V14.3C21 11.1 20.3 8.6 16.5 8.6 14.6 8.6 13.4 9.6 12.9 10.5H12.9V8.9H9.2V8.9ZM3.1 8.9H6.9V21H3.1V8.9Z" />
         </svg>
