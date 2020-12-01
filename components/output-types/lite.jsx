@@ -444,6 +444,7 @@ const LiteOutput = ({
           credits={credits}
           promoItems={promoItems}
           arcSite={arcSite}
+          subtype={subtype}
         />
         {isPremium && arcSite === SITE_ELCOMERCIO && (
           <>
