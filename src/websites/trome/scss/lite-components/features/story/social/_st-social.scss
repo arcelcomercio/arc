@@ -1,16 +1,21 @@
 .st-social {
-  margin: 0 0 20px 0;
-  padding: 20px;
-  border-bottom: 1px solid #000;
+  margin: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
   align-items: center;
   &__txt {
-    font: 700 1.1rem/1 $primary-font;
+    font: 700 15px/1 $primary-font;
     text-transform: capitalize;
+    @media (--tablet) {
+      font: 700 16px/1 $primary-font;
+    }
   }
 
   &__link {
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #666;
+    text-transform: uppercase;
   }
 
   &__tooltdiv {
