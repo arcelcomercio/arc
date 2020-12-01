@@ -25,6 +25,7 @@ const WrapperSingwall = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         event: 'checkoutOption',
         ecommerce: {

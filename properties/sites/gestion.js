@@ -56,7 +56,7 @@ export default {
   paywall: {
     title: 'Suscripciones Digitales | Gestión',
     description:
-      'Suscríbete al Plan Digital y accede a contenido exclusivo ilimitadamente desde todos tus dispositivos.Gestión El diario de Economía y Negocios.',
+      'Suscríbete al Plan Digital y accede a contenido exclusivo ilimitadamente desde todos tus dispositivos. Gestión El diario de Economía y Negocios.',
     /**
      * Las rutas se definen como plantillas "mustachejs" y estas se resuelven utilizando
      * la libreria templayed que es una implementacion ligera de mustache. Recomiendo

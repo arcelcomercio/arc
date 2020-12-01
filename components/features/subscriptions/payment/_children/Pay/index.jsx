@@ -141,6 +141,7 @@ const Pay = () => {
       const origin = getSessionStorage('paywall_type_modal') || 'organico'
       const referer = getSessionStorage('paywall_last_url') || ''
 
+      window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         event: 'checkoutOption',
         ecommerce: {
@@ -301,10 +302,10 @@ const Pay = () => {
                       level: 'info',
                     })
 
-                    return new Promise((resolve, reject) => {
+                    const handleCreateToken = new Promise((resolve, reject) => {
                       setTxtLoading('Validando Solicitud...')
                       payU.createToken(response => {
-                        if (response.error) {
+                        if (response && response.error) {
                           reject(new Error(response.error))
                           setMsgError(response.error)
                           setLoading(false)
@@ -324,11 +325,22 @@ const Pay = () => {
                             level: 'error',
                             extra: response || {},
                           })
-                        } else {
+                        } else if (response && response.token) {
                           resolve(response.token)
+                        } else {
+                          reject(new Error(getCodeError('errorNoTokenPayU')))
+                          setMsgError(getCodeError('errorNoTokenPayU'))
+                          setLoading(false)
+                          Sentry.captureEvent({
+                            message: getCodeError('errorNoTokenPayU'),
+                            level: 'error',
+                            extra: {},
+                          })
                         }
                       })
                     })
+
+                    return handleCreateToken || 'NoToken'
                   })
                   .then(tokenPayu => {
                     const {

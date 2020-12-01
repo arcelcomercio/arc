@@ -1,5 +1,5 @@
 // document.addEventListener('DOMContentLoaded', () => {
-//   setTimeout(() => {
+//   requestIdle(() => {
 //     const isMobile = /iPhone|iPad|iPod|Android/i.test(
 //       window.navigator.userAgent
 //     )
@@ -61,6 +61,7 @@
 //         btnSignwall.innerHTML = cleanUserName(firstName, lastName)
 //       }
 //     }
+//     updateBtnSignwall()
 
 //     function activeButtonScroll() {
 //       const scrollCurrent =
@@ -127,8 +128,6 @@
 //       activeButtonScroll()
 //     }
 
-//     updateBtnSignwall()
-
 //     if (buttonTop) {
 //       buttonTop.addEventListener('click', () => {
 //         document.body.scrollTop = 0 // For Safari
@@ -166,9 +165,9 @@
 //         document.getElementById(`picture--${tabCurrent}`).classList.add('move')
 //       })
 //     }
-//   }, 0)
-// })
+//   })
+// });
 
 const scriptsLanding =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=/iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent),t=document.getElementById("btn-arrow-top"),n=document.getElementById("btn-help-call"),o=document.getElementById("btn-signwall"),c=document.querySelectorAll(".tab"),i=document.querySelectorAll(".picture"),d=document.getElementById("beneficios"),r=document.getElementById("video"),a=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE"),t=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===t)||!1}return!1},s=function(e,t){var n="Bienvenido Usuario",o=/undefined|null/;return e&&!e.match(o)&&t&&!t.match(o)&&(n="".concat(e," ").concat(t)),!e||e.match(o)||t&&!t.match(o)||(n=e),!t||t.match(o)||e&&!e.match(o)||(n=t),n.length<=20?n:"".concat(n.slice(0,20),"...")};if(window.onscroll=function(){var o;o=e?10:60,(document.body.scrollTop||document.documentElement.scrollTop)>o?document.getElementById("header").classList.add("active"):document.getElementById("header").classList.remove("active"),(document.body.scrollTop||document.documentElement.scrollTop)>150?(t&&t.classList.add("active"),n&&n.classList.add("active"),n&&n.classList.contains("ges")&&n.classList.remove("ges")):(t&&t.classList.remove("active"),n&&n.classList.remove("active"),n&&window.location.href.match(/gestion/)&&n.classList.add("ges"))},function(){if(a()){var e=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}||{},t=e.firstName,n=e.lastName;o.innerHTML=s(t,n)}}(),t&&t.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),r){new window.IntersectionObserver(function(e,t){e[0].isIntersecting?r.play():r.pause()},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(r)}if(d){new window.IntersectionObserver(function(e,t){if(e[0].isIntersecting)for(var n=0;n<c.length;n++){var o=c[n].getAttribute("id");c[n].checked&&document.getElementById("picture--".concat(o)).classList.add("move")}else for(var i=0;i<c.length;i++){var d=c[i].getAttribute("id");c[i].checked&&document.getElementById("picture--".concat(d)).classList.remove("move")}},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(d)}for(var l=0;l<c.length;l++)c[l].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),n=0;n<i.length;n++)i[n].classList.remove("move");document.getElementById("picture--".concat(t)).classList.add("move")})},0)});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=/iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent),t=document.getElementById("btn-arrow-top"),n=document.getElementById("btn-help-call"),o=document.getElementById("btn-signwall"),c=document.querySelectorAll(".tab"),i=document.querySelectorAll(".picture"),d=document.getElementById("beneficios"),r=document.getElementById("video"),a=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE"),t=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===t)||!1}return!1},s=function(e,t){var n="Bienvenido Usuario",o=/undefined|null/;return e&&!e.match(o)&&t&&!t.match(o)&&(n="".concat(e," ").concat(t)),!e||e.match(o)||t&&!t.match(o)||(n=e),!t||t.match(o)||e&&!e.match(o)||(n=t),n.length<=20?n:"".concat(n.slice(0,20),"...")};if(function(){if(a()){var e=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{}||{},t=e.firstName,n=e.lastName;o.innerHTML=s(t,n)}}(),window.onscroll=function(){var o;o=e?10:60,(document.body.scrollTop||document.documentElement.scrollTop)>o?document.getElementById("header").classList.add("active"):document.getElementById("header").classList.remove("active"),(document.body.scrollTop||document.documentElement.scrollTop)>150?(t&&t.classList.add("active"),n&&n.classList.add("active"),n&&n.classList.contains("ges")&&n.classList.remove("ges")):(t&&t.classList.remove("active"),n&&n.classList.remove("active"),n&&window.location.href.match(/gestion/)&&n.classList.add("ges"))},t&&t.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),r){new window.IntersectionObserver(function(e,t){e[0].isIntersecting?r.play():r.pause()},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(r)}if(d){new window.IntersectionObserver(function(e,t){if(e[0].isIntersecting)for(var n=0;n<c.length;n++){var o=c[n].getAttribute("id");c[n].checked&&document.getElementById("picture--".concat(o)).classList.add("move")}else for(var i=0;i<c.length;i++){var d=c[i].getAttribute("id");c[i].checked&&document.getElementById("picture--".concat(d)).classList.remove("move")}},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(d)}for(var l=0;l<c.length;l++)c[l].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),n=0;n<i.length;n++)i[n].classList.remove("move");document.getElementById("picture--".concat(t)).classList.add("move")})})});'
 export default scriptsLanding

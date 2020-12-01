@@ -3,7 +3,10 @@ import { isLogged } from './Session'
 
 export default {
   isPWA() {
-    return !!window.ReactNativeWebView || !!window.nativeConnection
+    if (typeof window !== 'undefined') {
+      return !!window.ReactNativeWebView || !!window.nativeConnection
+    }
+    return null
   },
   parse(string) {
     try {

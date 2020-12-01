@@ -9,6 +9,7 @@ const Subscriptions = props => {
 
   const {
     siteName,
+    colorPrimary,
     paywall: { urls, title, description },
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
@@ -29,8 +30,8 @@ const Subscriptions = props => {
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={urls.canonical} />
-        <meta name="theme-color" content="#444444" />
-        <meta name="msapplication-TileColor" content="#444444" />
+        <meta name="theme-color" content={colorPrimary} />
+        <meta name="msapplication-TileColor" content={colorPrimary} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content={twitterSite} />
         <meta name="twitter:title" content={title} />
@@ -50,16 +51,6 @@ const Subscriptions = props => {
 
         <props.Libs />
 
-        {/* <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
-        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
-        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
-        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
-        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
-        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
-        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" /> */}
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
@@ -76,6 +67,38 @@ const Subscriptions = props => {
         <script
           src={`https://arc-subs-sdk.s3.amazonaws.com/${arcEnv}/sdk-identity.min.js`}
           defer
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            /**
+             * if(typeof window !== "undefined"){
+                window.requestIdle = window.requestIdleCallback ||
+                function (cb) {
+                  const start = Date.now();
+                  return setTimeout(function () {
+                    cb({
+                      didTimeout: false,
+                      timeRemaining: function () {
+                        return Math.max(0, 50 - (Date.now() - start));
+                      },
+                    });
+                  }, 1);
+                };
+
+                window.addPrefetch = function addPrefetch(kind, url, as) {
+                  const linkElem = document.createElement('link');
+                  linkElem.rel = kind;
+                  linkElem.href = url;
+                  if (as) {
+                      linkElem.as = as;
+                  }
+                  linkElem.crossOrigin = 'true';
+                  document.head.append(linkElem);
+                }
+              }
+            */
+            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
+          }}
         />
       </head>
       <body>
