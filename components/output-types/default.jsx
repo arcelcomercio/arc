@@ -512,6 +512,7 @@ export default ({
           credits={credits}
           promoItems={promoItems}
           arcSite={arcSite}
+          subtype={subtype}
         />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
