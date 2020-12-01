@@ -54,7 +54,7 @@ const StoryContentChildAuthorLite = ({
           </a>
         )}
         <div className={classes.authorDate}>
-          <time dateTime={updateDate}>{storyDatetime()}</time>
+          <time dateTime={displayDate}>{storyDatetime()}</time>
         </div>
       </div>
     </>
