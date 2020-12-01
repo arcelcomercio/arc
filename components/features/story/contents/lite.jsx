@@ -1,5 +1,5 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -91,7 +91,7 @@ const StoryContentsLite = props => {
       siteUrl,
       jwplayers,
     },
-  } = useFusionContext()
+  } = useAppContext()
 
   const {
     publishDate: date,
@@ -189,7 +189,7 @@ const StoryContentsLite = props => {
         <div
           className={`${classes.content} ${isPremium &&
             'story-content__nota-premium paywall no_copy'}`}
-          style={isPremium ? { display: 'none' } : {}}
+          style={isPremium ? { opacity: '0', userSelect: 'none' } : {}}
           id="contenedor">
           {!isDfp && (
             <>
@@ -547,7 +547,9 @@ const StoryContentsLite = props => {
                     )
                   }
 
-                  return <StoryContentChildRawHTML content={content} />
+                  return (
+                    <StoryContentChildRawHTML content={content} output="lite" />
+                  )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === 'image_link') {

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import ENV from 'fusion:environment'
 
 import { deleteQueryString } from '../utilities/parse/queries'
@@ -223,7 +223,10 @@ const LiteOutput = ({
   const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
-  const isIframeStory = requestUri.includes('ft=cargacontinua')
+  const isIframeStory = requestUri.includes('/carga-continua')
+  const iframeStoryCanonical = `${siteProperties.siteUrl}${deleteQueryString(
+    requestUri
+  ).replace(/^\/carga-continua/, '')}`
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -388,7 +391,7 @@ const LiteOutput = ({
           siteProperties={siteProperties}
         />
         <Styles {...metaSiteData} />
-        {!isIframeStory && (
+        {!isIframeStory ? (
           <>
             <MetaSite {...metaSiteData} />
             <meta name="description" lang="es" content={description} />
@@ -399,6 +402,12 @@ const LiteOutput = ({
             )}
             <TwitterCards {...twitterCardsData} />
             <OpenGraph {...openGraphData} />
+          </>
+        ) : (
+          // Solo para iframes de notas continuas
+          <>
+            <link rel="canonical" href={iframeStoryCanonical} />
+            <meta name="twitter:site" content={twitterCardsData.twitterUser} />
           </>
         )}
         <MetaStory {...metaPageData} isIframeStory={isIframeStory} />

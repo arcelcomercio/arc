@@ -1,10 +1,12 @@
-import React from 'react'
+import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+
 import { removeLastSlash } from '../../../utilities/parse/strings'
 import { deleteQueryString } from '../../../utilities/parse/queries'
 import { GALLERY_SLIDER } from '../../../utilities/constants/subtypes'
 import { ELEMENT_GALLERY } from '../../../utilities/constants/element-types'
+
 import customFields from './_dependencies/custom-fields'
 
 /* 
@@ -16,7 +18,6 @@ window.addEventListener('load', () => {requestIdle(() => {
     JSON.parse(window.sessionStorage.getItem(URLS_STORAGE)) || {}
   const initialPointer = document.getElementById('st-continue-0')
   window.dataLayer = window.dataLayer || [];
-
   const setSessionStorageData = (dataTo = {}) => {
     const { section, data = [] } = dataTo
     window.sessionStorage.setItem(
@@ -28,6 +29,45 @@ window.addEventListener('load', () => {requestIdle(() => {
     )
   }
 
+  const Taggeo = acc => {
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || []
+      const dataPush = {
+        event: 'tag_signwall',
+        eventCategory: 'Web_Paywall_Hard',
+        eventAction: acc,
+      }
+      window.dataLayer.push(dataPush)
+      if (arcEnv === 'sandbox') {
+        window.console.log(dataPush)
+      }
+    }
+  }
+
+  const paywallClickHandlers = () => {
+    const btnClosePaywall = document.getElementById('btn-close-paywall')
+    const btnPlanesPaywall = document.getElementById('btn-ver-planes')
+    if(btnClosePaywall) {
+      btnClosePaywall.onclick = () => {
+        Taggeo('web_paywall_cerrar')
+        window.location.href = `/?signwallPaywall=1&ref=${window.location.pathname}`
+      }
+    }
+    if(btnPlanesPaywall) {
+      btnPlanesPaywall.onclick = () => {
+        Taggeo('web_paywall_boton_ver_planes')
+        window.sessionStorage.setItem('paywall_type_modal', 'paywall')
+        window.sessionStorage.setItem(
+          'paywall_last_url',
+          window.location.pathname
+        )
+        window.location.href = arcEnv === 'prod'
+          ? `/suscripcionesdigitales/`
+          : `/pf/suscripcionesdigitales/?_website=${arcSite}&outputType=subscriptions`
+      }
+    }
+  }
+  
   window.addEventListener( "message", function (event) {  
     const { origin, source, data = {} } = event
     // Solo entra si es el mismo origen
@@ -43,13 +83,16 @@ window.addEventListener('load', () => {requestIdle(() => {
             }
           }
         })
-      } else if(data.id === "iframe_signwall") {
+      } else if(data.id === "iframe_signwall" || data.id === "iframe_relogin") {
         window.location.href = data.redirectUrl
       } else if(data.id === "iframe_paywall") {
+        const pointer = document.getElementById("st-continue-" + storyCounter)
+        if(pointer) pointer.remove()
         const signwall = document.getElementById("signwall-app")
         signwall.className = "active-signwall"
         const bodyTags = document.getElementsByTagName("body")
         bodyTags[0].style.overflow = "hidden"
+        paywallClickHandlers()
       } else if(data.id === "anchor-top") {
         window.scrollTo(0,0)
       }
@@ -70,7 +113,7 @@ window.addEventListener('load', () => {requestIdle(() => {
     if(window.localStorage && window.localStorage.hasOwnProperty('ArcId.USER_INFO') && window.localStorage.getItem('ArcId.USER_INFO') !== '{}'){
       const UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')).uuid;
       const COUNT_USER = JSON.parse(window.localStorage.getItem('ArcP') || '{}')[UUID_USER]
-      if(COUNT_USER && COUNT_USER.sub.p.length) { isPremium = true }
+      if(COUNT_USER && COUNT_USER.sub.p.length)  { isPremium = true }
     }
     return isPremium;
   }
@@ -156,7 +199,7 @@ window.addEventListener('load', () => {requestIdle(() => {
   const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(
     typeof window !== 'undefined' ? window.navigator.userAgent : ''
     )
-    
+
   const loadNextUrlStorage = (observedElement) => {
     storyCounter = storyCounter + 1
     const nextStory = nextStoriesArray[storyCounter] || {}
@@ -226,8 +269,15 @@ window.addEventListener('load', () => {requestIdle(() => {
     }
   } 
 
-  iframeObserver(initialPointer)
-  storiesListObserver(0)
+  setTimeout(() => {
+    const contentTier = document.head.querySelector('meta[property="article:content_tier"]')
+    if(window.showArcP && contentTier && contentTier.getAttribute('content') === "locked") {
+      return;
+    } else {
+      iframeObserver(initialPointer)
+      storiesListObserver(0)
+    }
+  }, 1)
 })})
 */
 
@@ -246,7 +296,7 @@ const StoryContinueLite = props => {
         name: tag,
         stories_qty: 10,
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-        isContentType: 'free',
+        isContentType: 'metered',
       },
     }) || {}
 
@@ -257,7 +307,7 @@ const StoryContinueLite = props => {
         section: removeLastSlash(path),
         stories_qty: tag ? 10 : 20,
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-        isContentType: 'free',
+        isContentType: 'metered',
       },
     }) || {}
 
@@ -319,8 +369,8 @@ const StoryContinueLite = props => {
     ),
   }
 
-  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="<<recentStoriesrecentStoriesrecentStories>>",t=JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{},n=document.getElementById("st-continue-0");window.dataLayer=window.dataLayer||[];window.addEventListener("message",function(e){var t=e.origin,n=e.source,i=e.data,o=void 0===i?{}:i;if(t===window.location.origin)if("story_iframe"===o.id)requestIdle(function(){var e=n.location.search.match(/story=([0-9]{1,2})/)||{},t=e&&e[1];if(t){var i=document.getElementById("st-iframe-"+t)||{};i.height!==o.storyHeight&&(i.height=o.storyHeight||i.height)}});else if("iframe_signwall"===o.id)window.location.href=o.redirectUrl;else if("iframe_paywall"===o.id){document.getElementById("signwall-app").className="active-signwall",document.getElementsByTagName("body")[0].style.overflow="hidden"}else"anchor-top"===o.id&&window.scrollTo(0,0)},!1),t.section&&window.sessionStorage.removeItem("_recent_articles_"),function(t){void 0===t&&(t={});var n=t,i=n.section;n.data;window.sessionStorage.setItem("_recent_articles_",JSON.stringify({section:i,data:e.data}))}(e);var i=0,o=1,r=0,a=(JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},s=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e=!0)}return e}()?[].concat(a.storiesBySectionPremium,a.storiesByTag):[].concat(a.storiesByTag,a.storiesBySection);s.unshift({title:document.title,link:location.pathname});var c=function(){return location.href.includes("/pf")},d=function(e){void 0===e&&(e=0),requestIdle(function(){if("IntersectionObserver"in window){var t=null;e<=0?(t=document.getElementById("contenedor")).setAttribute("data-index",0):e>0&&(t=document.getElementById("st-iframe-"+e));var n=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&setTimeout(function(){var t,n,r=parseInt(e.target.dataset.index);if(i===r){if(o=e.intersectionRatio,e.target.contentWindow){var a=e.target.contentWindow.document.documentElement.offsetHeight+"px";e.target.height!==a&&(e.target.height=a)}}else e.intersectionRatio>o&&(i=r,o=e.intersectionRatio,t=s[i],n=i,document.title=t.title,history.pushState({story:n},t.title,c()?"/pf"+t.link:t.link))},1)})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()});t&&n.observe(t)}})},l=(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),function(e){var t=s[r+=1]||{};t.link&&(requestIdle(function(){var n=location.origin+"/carga-continua"+t.link+"?ref=nota&ft=cargacontinua&outputType=lite&story="+r;n=c()?n+"&_website=<<arcSite>>":n;var i=document.createElement("iframe");i.src=n,i.width="100%",i.height="6000",i.id="st-iframe-"+r,i.className="st-iframe",i.frameborder="0",i.scrolling="no",i.setAttribute("data-index",r),e.insertAdjacentElement("afterEnd",i),d(r)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+r,e.style.height="10px",document.getElementById("st-iframe-"+r).insertAdjacentElement("afterEnd",e),u(e)}))}),u=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(l(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 1000px 0px"});t.observe(e)}else window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-1e3&&window.removeEventListener("scroll",function(){e(t)}),l(t)}(e)})};u(n),d(0)})});`
-    .replace('<<arcSite>>', arcSite)
+  const stContinueScript = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="<<recentStoriesrecentStoriesrecentStories>>",t=JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{},n=document.getElementById("st-continue-0");window.dataLayer=window.dataLayer||[];var i=function(e){if("undefined"!=typeof window){window.dataLayer=window.dataLayer||[];var t={event:"tag_signwall",eventCategory:"Web_Paywall_Hard",eventAction:e};window.dataLayer.push(t),"sandbox"===arcEnv&&window.console.log(t)}};window.addEventListener("message",function(e){var t,n,o=e.origin,r=e.source,s=e.data,c=void 0===s?{}:s;if(o===window.location.origin)if("story_iframe"===c.id)requestIdle(function(){var e=r.location.search.match(/story=([0-9]{1,2})/)||{},t=e&&e[1];if(t){var n=document.getElementById("st-iframe-"+t)||{};n.height!==c.storyHeight&&(n.height=c.storyHeight||n.height)}});else if("iframe_signwall"===c.id||"iframe_relogin"===c.id)window.location.href=c.redirectUrl;else if("iframe_paywall"===c.id){var d=document.getElementById("st-continue-"+a);d&&d.remove(),document.getElementById("signwall-app").className="active-signwall",document.getElementsByTagName("body")[0].style.overflow="hidden",t=document.getElementById("btn-close-paywall"),n=document.getElementById("btn-ver-planes"),t&&(t.onclick=function(){i("web_paywall_cerrar"),window.location.href="/?signwallPaywall=1&ref="+window.location.pathname}),n&&(n.onclick=function(){i("web_paywall_boton_ver_planes"),window.sessionStorage.setItem("paywall_type_modal","paywall"),window.sessionStorage.setItem("paywall_last_url",window.location.pathname),window.location.href="prod"===arcEnv?"/suscripcionesdigitales/":"/pf/suscripcionesdigitales/?_website=<<arcSite>>&outputType=subscriptions"})}else"anchor-top"===c.id&&window.scrollTo(0,0)},!1),t.section&&window.sessionStorage.removeItem("_recent_articles_"),function(t){void 0===t&&(t={});var n=t,i=n.section;n.data;window.sessionStorage.setItem("_recent_articles_",JSON.stringify({section:i,data:e.data}))}(e);var o=0,r=1,a=0,s=(JSON.parse(window.sessionStorage.getItem("_recent_articles_"))||{}).data||{storiesByTag:[],storiesBySection:[],storiesBySectionPremium:[]},c=function(){var e=!1;if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e=!0)}return e}()?[].concat(s.storiesBySectionPremium,s.storiesByTag):[].concat(s.storiesByTag,s.storiesBySection);c.unshift({title:document.title,link:location.pathname});var d=function(){return location.href.includes("/pf")},l=function(e){void 0===e&&(e=0),requestIdle(function(){if("IntersectionObserver"in window){var t=null;e<=0?(t=document.getElementById("contenedor")).setAttribute("data-index",0):e>0&&(t=document.getElementById("st-iframe-"+e));var n=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&setTimeout(function(){var t,n,i=parseInt(e.target.dataset.index);if(o===i){if(r=e.intersectionRatio,e.target.contentWindow){var a=e.target.contentWindow.document.documentElement.offsetHeight+"px";e.target.height!==a&&(e.target.height=a)}}else e.intersectionRatio>r&&(o=i,r=e.intersectionRatio,t=c[o],n=o,document.title=t.title,history.pushState({story:n},t.title,d()?"/pf"+t.link:t.link))},1)})},{rootMargin:"0px",threshold:function(){for(var e=[],t=1;t<=50;t++){var n=t/50;e.push(n)}return e.push(0),e}()});t&&n.observe(t)}})},w=(/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),function(e){var t=c[a+=1]||{};t.link&&(requestIdle(function(){var n=location.origin+"/carga-continua"+t.link+"?ref=nota&ft=cargacontinua&outputType=lite&story="+a;n=d()?n+"&_website=<<arcSite>>":n;var i=document.createElement("iframe");i.src=n,i.width="100%",i.height="6000",i.id="st-iframe-"+a,i.className="st-iframe",i.frameborder="0",i.scrolling="no",i.setAttribute("data-index",a),e.insertAdjacentElement("afterEnd",i),l(a)}),requestIdle(function(){var e=document.createElement("div");e.id="st-continue-"+a,e.style.height="10px",document.getElementById("st-iframe-"+a).insertAdjacentElement("afterEnd",e),u(e)}))}),u=function(e){if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(w(e.target),t.unobserve(e.target))})},{rootMargin:"0px 0px 1000px 0px"});t.observe(e)}else window.addEventListener("scroll",function(){!function e(t){window.innerHeight+document.documentElement.scrollTop>=t.offsetTop-1e3&&window.removeEventListener("scroll",function(){e(t)}),w(t)}(e)})};setTimeout(function(){var e=document.head.querySelector('meta[property="article:content_tier"]');window.showArcP&&e&&"locked"===e.getAttribute("content")||(u(n),l(0))},1)})});`
+    .replace(/<<arcSite>>/g, arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',
       JSON.stringify({
@@ -391,10 +441,12 @@ const StoryContinueLite = props => {
     </>
   )
 }
-StoryContinueLite.static = true
 
 StoryContinueLite.propTypes = {
   customFields,
 }
+
+StoryContinueLite.label = 'Artículo - Notas continuas'
+StoryContinueLite.static = true
 
 export default StoryContinueLite

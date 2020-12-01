@@ -622,7 +622,14 @@ export default ({
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={primarySection} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
-      <meta name="content-type" content={getMultimedia(multimediaType)} />
+      <meta
+        name="content-type"
+        content={
+          subtype === GALLERY_VERTICAL
+            ? 'gallery_vertical'
+            : getMultimedia(multimediaType)
+        }
+      />
       <meta name="section-id" content={removeLastSlash(primarySectionLink)} />
       <meta
         name="keywords"
