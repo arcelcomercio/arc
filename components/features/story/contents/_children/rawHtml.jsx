@@ -14,13 +14,13 @@ const storyVideoPlayerId = (content = '') => {
   return content.match(pattern) || []
 }
 
-/* const clearUrlOrCode = (url = '') => {
+const clearUrlOrCode = (url = '') => {
   const clearUrl = url
     .trim()
     .replace('"', '')
     .replace('"', '')
   return { clearUrl, code: clearUrl.split('#')[1] }
-} */
+}
 
 const isDaznServicePlayer = content =>
   content.includes('player.daznservices.com/') ||
@@ -65,23 +65,21 @@ class RawHTML extends React.PureComponent {
   }
 
   render() {
-    const { content } = this.props
-    /* const idVideo = storyVideoPlayerId(content)
+    const { content, output } = this.props
+    const idVideo = storyVideoPlayerId(content)
     const idVideoEmbed =
       isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
         ? `id_video_embed_${idVideo[2]}`
-        : `_${clearUrlOrCode(idVideo[2] || '').code || ''}` */
+        : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
     const isWidgets = this.URL && this.URL.includes('widgets.js')
     if ((this.URL_VIDEO || this.URL) && !content.includes('<mxm')) {
       return (
         <>
-          {/* por ahora no se renderiza video de daznservice
-          
-          {this.URL_VIDEO ? (
+          {this.URL_VIDEO && output !== 'lite' ? (
             <div id={idVideoEmbed} className={classes.newsEmbed}>
               <script src={this.URL_VIDEO.replace('"', '')} defer />
             </div>
-          ) : null} */}
+          ) : null}
           {this.URL ? <script src={this.URL} defer /> : null}
 
           {isWidgets ? (
@@ -118,12 +116,10 @@ class RawHTML extends React.PureComponent {
       <div
         className={classes.newsEmbed}
         dangerouslySetInnerHTML={{
-          __html: content,
-          /*  por ahora no se renderiza video de daznservice
-
-            __html: isDaznServicePlayer(content)
+          __html:
+            isDaznServicePlayer(content) && output !== 'lite'
               ? content.trim().replace('performgroup', 'daznservices')
-              : content, */
+              : content,
         }}
       />
     )
