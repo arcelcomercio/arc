@@ -136,6 +136,8 @@ const StoryContentsLite = props => {
     authorLink,
     displayDate: getDateSeo(displayDate || createdDate),
     publishDate: getDateSeo(updateDate),
+    updatedDate: getDateSeo(updateDate || createdDate),
+    createdDate: getDateSeo(createdDate),
     locality,
     primarySectionLink,
     authorEmail,
@@ -152,6 +154,7 @@ const StoryContentsLite = props => {
     authorSecond,
     authorEmailSecond,
     authorRoleSecond,
+    arcSite,
   }
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
