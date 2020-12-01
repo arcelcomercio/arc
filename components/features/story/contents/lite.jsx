@@ -136,8 +136,6 @@ const StoryContentsLite = props => {
     authorLink,
     displayDate: getDateSeo(displayDate || createdDate),
     publishDate: getDateSeo(updateDate),
-    updatedDate: getDateSeo(updateDate || createdDate),
-    createdDate: getDateSeo(createdDate),
     locality,
     primarySectionLink,
     authorEmail,

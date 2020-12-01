@@ -400,8 +400,8 @@ const LiteOutput = ({
             ) : (
               <meta name="keywords" lang="es" content={keywords} />
             )}
-            <TwitterCards {...twitterCardsData} />
             <OpenGraph {...openGraphData} />
+            <TwitterCards {...twitterCardsData} />
           </>
         ) : (
           // Solo para iframes de notas continuas

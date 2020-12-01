@@ -1,6 +1,7 @@
-import React from 'react'
+import * as React from 'react'
+
+// TODO: import { formatDateTime } from '../../../../utilities/date-time/dates'
 import { SITE_DEPOR } from '../../../../utilities/constants/sitenames'
-import { formatDateStory, getDMYHours } from '../../../../utilities/date-time/dates'
 
 const classes = {
   author: 'story-contents__author  ',
@@ -9,7 +10,38 @@ const classes = {
   authorEmail: 'story-contents__author-email  ',
 }
 
-const StoryContentChildAuthorLite = ({ author, authorLink, updatedDate, createdDate, arcSite }) => {
+export const formatDateTime = date => {
+  const newDate = new Date(date)
+  const dateTime = new Intl.DateTimeFormat('es', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: 'numeric',
+    minute: 'numeric',
+    timeZone: 'America/Lima',
+  })
+
+  return dateTime.format(newDate)
+}
+
+const StoryContentChildAuthorLite = ({
+  author,
+  authorLink,
+  displayDate,
+  publishDate: updateDate,
+  arcSite,
+}) => {
+  const storyDatetime = () => {
+    const formattedDisplayDate = formatDateTime(displayDate)
+    const formattedUpdateDate = formatDateTime(updateDate)
+
+    return `${arcSite === SITE_DEPOR ? '' : 'Lima,'} ${formattedDisplayDate} ${
+      formattedDisplayDate !== formattedUpdateDate
+        ? `| Actualizado ${formattedUpdateDate}`
+        : ''
+    }`
+  }
+
   return (
     <>
       <div className={classes.author}>
@@ -22,10 +54,7 @@ const StoryContentChildAuthorLite = ({ author, authorLink, updatedDate, createdD
           </a>
         )}
         <div className={classes.authorDate}>
-          <time dateTime={updatedDate}>
-            {arcSite === SITE_DEPOR && createdDate && updatedDate && `${getDMYHours(createdDate)} | ${formatDateStory(updatedDate).replace(/\//g, '.').replace(' a las', ',')}`}
-            {arcSite !== SITE_DEPOR &&updatedDate && formatDateStory(updatedDate)}
-          </time>
+          <time dateTime={updateDate}>{storyDatetime()}</time>
         </div>
       </div>
     </>
