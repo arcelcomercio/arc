@@ -1,6 +1,10 @@
 import React from 'react'
-import { formatDateStory } from '../../../../utilities/date-time/dates'
 import { GALLERY_VERTICAL } from '../../../../utilities/constants/subtypes'
+import { SITE_DEPOR } from '../../../../utilities/constants/sitenames'
+import {
+  formatDateStory,
+  getDMYHours,
+} from '../../../../utilities/date-time/dates'
 
 const classes = {
   author: 'story-contents__author',
@@ -13,8 +17,10 @@ const StoryContentChildAuthorLite = ({
   author,
   authorLink,
   updatedDate,
+  createdDate,
   primarySection = '',
   subtype,
+  arcSite,
 }) => {
   return (
     <>
@@ -35,7 +41,15 @@ const StoryContentChildAuthorLite = ({
         )}
         <div className={classes.authorDate}>
           <time dateTime={updatedDate}>
-            {updatedDate && formatDateStory(updatedDate)}
+            {arcSite === SITE_DEPOR &&
+              createdDate &&
+              updatedDate &&
+              `${getDMYHours(createdDate)} | ${formatDateStory(updatedDate)
+                .replace(/\//g, '.')
+                .replace(' a las', ',')}`}
+            {arcSite !== SITE_DEPOR &&
+              updatedDate &&
+              formatDateStory(updatedDate)}
           </time>
         </div>
       </div>

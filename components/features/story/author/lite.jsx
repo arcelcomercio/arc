@@ -38,6 +38,7 @@ const StoryAuthorLite = () => {
     authorRole,
     authorLink,
     updatedDate: getDateSeo(updatedDate || createdDate),
+    createdDate: getDateSeo(createdDate),
     locality,
     authorEmail,
     primarySection,
@@ -48,6 +49,7 @@ const StoryAuthorLite = () => {
     authorEmailSecond,
     authorRoleSecond,
     galleryVertical: true,
+    arcSite,
   }
 
   return (

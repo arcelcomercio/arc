@@ -1,0 +1,129 @@
+.most-read {
+  content-visibility: auto;
+  contain-intrinsic-size: 380px;
+  padding: 20px;
+  padding-bottom: 45px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  position: relative;
+  max-height: 490px;
+  transition: max-height 0.5s ease-in-out;
+  display: none;
+  @media (--desktop) {
+    display: flex;
+  }
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 105px;
+    background: transparent
+      linear-gradient(360deg, #fff 50%, rgba(255, 255, 255, 0.1) 100%) 0% 0%
+      no-repeat padding-box;
+    border-radius: 0 0 5px 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  &__sm {
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    right: 0;
+    padding: 20px 0;
+    outline: none;
+    span {
+      color: #0072d8;
+      font: 700 12px/1 $primary-font;
+      text-transform: uppercase;
+    }
+    svg {
+      fill: #0072d8;
+      margin-left: 7px;
+      transition: transform 0.5s ease-in-out;
+    }
+  }
+
+  &.active {
+    max-height: 100%;
+    &::after {
+      background: #fff;
+      height: 52px;
+    }
+    .most-read__sm {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  @media (--desktop) {
+    margin: 0;
+  }
+
+  &__title {
+    font: 700 14px/1 $secondary-font;
+    text-transform: capitalize;
+    align-items: center;
+    position: relative;
+    margin-bottom: 10px;
+    &::after {
+      content: "";
+      width: 48px;
+      height: 3px;
+      background-color: #42c64c;
+      position: absolute;
+      bottom: -8px;
+    }
+  }
+  &__link {
+    flex-direction: column;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &__logo {
+    padding-right: 10px;
+  }
+  &__item {
+    padding: 10px 0;
+    &:last-child {
+      border-width: 0;
+    }
+  }
+  &__multimedia {
+    margin: 10px 0;
+  }
+  &__img {
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+  &__txt {
+    font: 700 14px/18px $primary-font;
+    letter-spacing: 0;
+    color: #222;
+    max-height: 72px;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding-left: 12px;
+    position: relative;
+    &::after {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: #aaa;
+      position: absolute;
+      left: 0;
+      top: 7px;
+    }
+    &:hover {
+      color: #0072d8;
+    }
+  }
+}
