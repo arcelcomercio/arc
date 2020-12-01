@@ -547,7 +547,9 @@ const StoryContentsLite = props => {
                     )
                   }
 
-                  return <StoryContentChildRawHTML content={content} />
+                  return (
+                    <StoryContentChildRawHTML content={content} output="lite" />
+                  )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
                   if (sub === 'image_link') {
