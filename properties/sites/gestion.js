@@ -57,6 +57,8 @@ export default {
     title: 'Suscripciones Digitales | Gestión',
     description:
       'Suscríbete al Plan Digital y accede a contenido exclusivo ilimitadamente desde todos tus dispositivos. Gestión El diario de Economía y Negocios.',
+    descriptionPayment:
+      'Suscríbete al Plan Digital y accede a CONTENIDO EXCLUSIVO ilimitadamente desde todos tus dispositivos digitales. Suscripción Anual y Mensual.',
     /**
      * Las rutas se definen como plantillas "mustachejs" y estas se resuelven utilizando
      * la libreria templayed que es una implementacion ligera de mustache. Recomiendo
