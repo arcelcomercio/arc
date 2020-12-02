@@ -19,6 +19,7 @@ export const formatDateTime = date => {
     hour: 'numeric',
     minute: 'numeric',
     timeZone: 'America/Lima',
+    hour12: true,
   })
 
   return dateTime.format(newDate)
