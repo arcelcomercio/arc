@@ -33,4 +33,41 @@
       margin-right: 5px;
     }
   }
+  &--gnews {
+    &-txt {
+      display: none;
+      font-family: $primary-font;
+      font-weight: bold;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      @media (--desktop) {
+        display: block;
+        padding-right: 3px;
+      }
+    }
+  }
+}
+
+.story-header__list {
+  .share-btn--gnews {
+    margin: 0 5px;
+    width: 32px;
+    height: 32px;
+    @media (--desktop) {
+      border-color: #bababa;
+      border-radius: 5px;
+      padding-left: 8px;
+      padding-right: 3px;
+      width: auto;
+      height: auto;
+    }
+    svg {
+      height: 28px;
+      width: 28px;
+      @media (--desktop) {
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }
 }
