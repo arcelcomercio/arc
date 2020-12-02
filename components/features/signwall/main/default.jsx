@@ -84,7 +84,7 @@ class SignwallComponent extends PureComponent {
   }
 
   getPaywall() {
-    const { arcSite } = this.props
+    const { countOnly, arcSite } = this.props
     const W = window || {}
 
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
@@ -113,7 +113,7 @@ class SignwallComponent extends PureComponent {
     } else if (W.ArcP) {
       W.ArcP.run({
         paywallFunction: campaignURL => {
-          if(countOnly) return
+          if (countOnly) return
           if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
             W.location.href = Domains.getUrlSignwall(
               arcSite,
