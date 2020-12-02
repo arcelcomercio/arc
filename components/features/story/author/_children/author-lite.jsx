@@ -2,7 +2,10 @@ import * as React from 'react'
 
 // TODO: import { formatDateTime } from '../../../../utilities/date-time/dates'
 import { GALLERY_VERTICAL } from '../../../../utilities/constants/subtypes'
-import { SITE_DEPOR } from '../../../../utilities/constants/sitenames'
+import {
+  SITE_DEPOR,
+  SITE_TROME,
+} from '../../../../utilities/constants/sitenames'
 
 const classes = {
   author: 'story-contents__author',
@@ -38,6 +41,9 @@ const StoryContentChildAuthorLite = ({
     const formattedDisplayDate = formatDateTime(displayDate)
     const formattedUpdateDate = formatDateTime(updateDate)
 
+    if (arcSite === SITE_TROME) {
+      return `Actualizado el ${formattedUpdateDate}`
+    }
     return `${arcSite === SITE_DEPOR ? '' : 'Lima,'} ${formattedDisplayDate} ${
       formattedDisplayDate !== formattedUpdateDate
         ? `| Actualizado ${formattedUpdateDate}`
