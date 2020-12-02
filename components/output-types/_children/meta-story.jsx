@@ -508,8 +508,7 @@ export default ({
   const taboolaScript =
     arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
 
-  const scriptTaboola = `
-  "use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function e(){document.removeEventListener("scroll",e),requestIdle(function(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}})})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
+  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;window.onload=document.addEventListener("scroll",function e(){document.removeEventListener("scroll",e),requestIdle(function(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}})}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
     window._taboola = window._taboola || [];
@@ -518,6 +517,9 @@ export default ({
     });
     !function(){
       if (typeof window !== 'undefined') {
+        if(window.location.search.includes('widgettaboola=none')) {
+          return;
+        }
         function injectTaboola() {
           document.removeEventListener('scroll', injectTaboola)
           requestIdle(() => {
@@ -533,9 +535,9 @@ export default ({
           })
         }
         window.onload = document.addEventListener('scroll', injectTaboola) 
-      }
-      if (window.performance && typeof window.performance.mark == 'function') {
-        window.performance.mark('tbl_ic');
+        if (window.performance && typeof window.performance.mark == 'function') {
+          window.performance.mark('tbl_ic');
+        }
       }
     }() */
 
