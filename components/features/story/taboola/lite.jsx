@@ -1,35 +1,37 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
+
+import { taboolaConfig } from './_dependencies/scripts'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   taboola: 'story-taboola ',
 }
 
-const StoryTaboolaLite = () => {
+const StoryTaboolaLite = props => {
+  const { customFields: { renderIfQueryParam } = {} } = props
+
   const {
+    requestUri,
     siteProperties: {
       taboola: { mode },
     },
-  } = useFusionContext()
+  } = useAppContext()
 
-  const structuredTaboola = `
-      window._taboola = window._taboola || [];
-      _taboola.push({
-      mode: '${mode}',
-      container: 'taboola-below-content-thumbnails',
-      placement: 'Below Content Thumbnails',
-      target_type: 'mix'
-      });`
+  const renderTaboola = renderIfQueryParam
+    ? requestUri.includes('widgettaboola=true')
+    : true
 
-  return (
+  return renderTaboola ? (
     <>
       <div className={classes.taboola} id="taboola-below-content-thumbnails" />
-      <script
-        type="text/javascript"
-        dangerouslySetInnerHTML={{ __html: structuredTaboola }}
-      />
+      <script dangerouslySetInnerHTML={{ __html: taboolaConfig(mode) }} />
     </>
-  )
+  ) : null
+}
+
+StoryTaboolaLite.propTypes = {
+  customFields,
 }
 
 StoryTaboolaLite.label = 'Artículo - Taboola'

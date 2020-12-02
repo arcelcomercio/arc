@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import ENV from 'fusion:environment'
 import { useContent } from 'fusion:content'
 import StoriesRecent from '../../global-components/stories-recent'
@@ -34,8 +34,8 @@ export default ({
   contextPath,
   socialName,
   isAmp,
-  isIframeStory = false,
   siteAssets: { seo },
+  isIframeStory = false,
   siteName = '',
   siteUrl = '',
 }) => {
@@ -45,8 +45,8 @@ export default ({
     metaTitle,
     tags,
     link,
-    displayDate: publishDate,
-    publishDate: publishDatedate,
+    displayDate,
+    publishDate: updateDate,
     subTitle = arcSite,
     authorImage,
     author: authorName,
@@ -101,11 +101,11 @@ export default ({
     arcSite === SITE_ELCOMERCIOMAG ||
     arcSite === SITE_DEPOR ||
     arcSite === SITE_ELBOCON
-      ? getDateSeo(publishDate)
-      : publishDate
+      ? getDateSeo(displayDate)
+      : displayDate
 
   publishDateZone =
-    arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDate) : publishDateZone
+    arcSite === SITE_ELCOMERCIO ? getDateSeo(displayDate) : publishDateZone
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
 
@@ -146,7 +146,7 @@ export default ({
     : structuredAutor
 
   const lastPublishDate =
-    arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
+    arcSite === SITE_ELCOMERCIO ? getDateSeo(updateDate) : updateDate
 
   const redSocialVideo = contentElementsRedesSociales
     .map(redesSociales => {
@@ -454,7 +454,7 @@ export default ({
 
   const dateline =
     subtype !== GALLERY_VERTICAL
-      ? `"dateline": "${`${getDateSeo(publishDate)} ${locality}`}",`
+      ? `"dateline": "${`${getDateSeo(displayDate)} ${locality}`}",`
       : ''
 
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
@@ -505,7 +505,8 @@ export default ({
 
   const structuredBreadcrumb = `{ "@context":"https://schema.org", "@type":"BreadcrumbList", "itemListElement":[${breadcrumbResult}] }`
 
-  const taboolaScript = arcSite === SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
+  const taboolaScript =
+    arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
 
   const scriptTaboola = `
   "use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function e(){document.removeEventListener("scroll",e),requestIdle(function(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}})})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
@@ -671,13 +672,8 @@ export default ({
         </>
       )}
       {isAmp !== true && (
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: scriptTaboola }}
-          async
-        />
+        <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
       )}
-
       {isAmp === true &&
         dataStructuraHtmlAmp.map(datas => {
           return (
