@@ -38,18 +38,16 @@
   }
   &__author {
     font-size: 16px;
-    font-family: $primary-font;
+    font-family: $secondary-font;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* padding-top: 20px;
-    padding-right: 20px;
-    padding-left: 20px; */
     padding-bottom: 8px;
 
-    /* @media (--only-mobile) {
-      flex-direction: column-reverse;
-    } */
+    &.gv {
+      border-bottom: none;
+      border-top: none;
+    }
   }
   &__author-info {
     align-items: center;
@@ -83,13 +81,11 @@
     color: #747a84;
   }
   &__author-role {
-    font-family: $secondary-font;
     font-size: 12px;
     margin-bottom: 6px;
     color: #444;
   }
   &__author-email {
-    font-family: $secondary-font;
     font-size: 12px;
     color: #747a84;
   }
