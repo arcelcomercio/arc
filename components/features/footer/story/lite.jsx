@@ -1,9 +1,16 @@
-import React from 'react'
+import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+
 import { getAssetsPath } from '../../../utilities/assets'
-import customFields from './_dependencies/custom-fields'
+import {
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+} from '../../../utilities/constants/sitenames'
+
 import getFooterProperties from '../_dependencies/properties'
+import customFields from './_dependencies/custom-fields'
+import { toggleFooterInfo } from './_dependencies/scripts'
 import StoryNavigationChild from './_children/navigation'
 
 const classes = {
@@ -35,29 +42,8 @@ const FooterStory = props => {
   // Directores desde custom fields o directores por defecto
   const directorsObject = directors || defaultDirectors
 
-  /* 
-    requestIdle(function() {
-      document.getElementById('toggle_showmore').addEventListener('click', () => {
-        const classContent = document.getElementsByClassName("st-foot__content")[0]
-        const classLabel = document.getElementsByClassName("st-foot__showmore")[0]
-        if (document.getElementById('toggle_showmore').checked){
-          classContent.style.display="inherit"
-          classLabel.style.margin="auto"
-          classLabel.style.marginRight ="30px"
-          classLabel.style.marginTop ="-25px"
-          classLabel.style.position = "inherit"
-        }else{
-          classContent.style.display="none"
-          classLabel.style.margin="inherit"
-          classLabel.style.marginRight ="15px"
-          classLabel.style.marginTop ="-10px"
-          classLabel.style.position = "absolute"
-        }
-      })
-    })
- */
-
-  const handleClose = `"use strict";requestIdle(function(){document.getElementById("toggle_showmore").addEventListener("click",function(){var e=document.getElementsByClassName("st-foot__content")[0],t=document.getElementsByClassName("st-foot__showmore")[0];document.getElementById("toggle_showmore").checked?(e.style.display="inherit",t.style.margin="auto",t.style.marginRight="30px",t.style.marginTop="-25px",t.style.position="inherit"):(e.style.display="none",t.style.margin="inherit",t.style.marginRight="15px",t.style.marginTop="-10px",t.style.position="absolute")})});`
+  const isMag = arcSite === SITE_ELCOMERCIOMAG
+  const isElcomercio = arcSite === SITE_ELCOMERCIO
 
   return (
     <>
@@ -74,7 +60,7 @@ const FooterStory = props => {
             alt={`Logo de ${arcSite}`}
           />
         </a>
-        {arcSite === 'elcomerciomag' && (
+        {isMag ? (
           <label htmlFor="toggle_showmore" className={classes.showMore}>
             Ver más
             <svg
@@ -86,9 +72,9 @@ const FooterStory = props => {
             </svg>
             <input type="checkbox" id="toggle_showmore"></input>
           </label>
-        )}
+        ) : null}
         <div className={classes.content}>
-          {directorsObject && arcSite === 'elcomercio' && (
+          {directorsObject && isElcomercio ? (
             <div className={classes.block}>
               {Object.keys(directorsObject).map(person => (
                 <p>
@@ -97,8 +83,8 @@ const FooterStory = props => {
                 </p>
               ))}
             </div>
-          )}
-          {arcSite === 'elcomerciomag' && <StoryNavigationChild />}
+          ) : null}
+          {isMag ? <StoryNavigationChild /> : null}
           <div className={classes.block}>
             <a
               itemProp="url"
@@ -125,11 +111,13 @@ const FooterStory = props => {
             ))}
           </div>
         </div>
-        {arcSite === 'elcomerciomag' && (
+        {isMag ? (
           <div className={classes.copyr}>Todos los derechos reservados</div>
-        )}
+        ) : null}
       </footer>
-      <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
+      {isMag ? (
+        <script dangerouslySetInnerHTML={{ __html: toggleFooterInfo }}></script>
+      ) : null}
     </>
   )
 }
