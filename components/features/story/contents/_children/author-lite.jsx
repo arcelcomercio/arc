@@ -12,13 +12,14 @@ const classes = {
 
 export const formatDateTime = date => {
   const newDate = new Date(date)
-  const dateTime = new Intl.DateTimeFormat('es', {
+  const dateTime = new Intl.DateTimeFormat('es-419-u-hc-h12', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
     hour: 'numeric',
     minute: 'numeric',
     timeZone: 'America/Lima',
+    hour12: true,
   })
 
   return dateTime.format(newDate)

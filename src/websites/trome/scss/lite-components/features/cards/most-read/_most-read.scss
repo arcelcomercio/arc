@@ -1,36 +1,38 @@
 .most-read {
   content-visibility: auto;
   contain-intrinsic-size: 380px;
+  display: none;
 
   @media (--desktop) {
+    display: flex;
     margin: 0;
   }
 
   &__title {
     font: 700 15px/26px $primary-font;
-    background-color: #000;
     text-transform: capitalize;
     height: 35px;
     align-items: center;
-    padding: 0 20px;
+    margin: 0 20px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ddd;
   }
   &__link {
-    color: #fff;
+    color: #111;
   }
   &__logo {
     padding-right: 10px;
   }
   &__item {
-    border-bottom: 1px solid #000;
     margin: 0 20px;
-    padding: 20px 0;
+    padding: 10px 0;
     &:last-child {
       border-width: 0;
     }
   }
   &__multimedia {
     height: 72px;
-    margin-right: 9px;
+    margin-right: 12px;
   }
   &__img {
     width: 110px;
@@ -38,11 +40,11 @@
     object-fit: cover;
   }
   &__txt {
-    font: 400 13px/1.3333 $secondary-font;
+    font: 500 15px/18px $primary-font;
     letter-spacing: 0;
     opacity: 1;
     color: #333;
-    max-height: 69px;
+    max-height: 72px;
     -webkit-line-clamp: 4;
     display: -webkit-box;
     -webkit-box-orient: vertical;
