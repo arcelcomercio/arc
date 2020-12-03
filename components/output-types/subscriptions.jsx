@@ -68,38 +68,6 @@ const Subscriptions = props => {
           src={`https://arc-subs-sdk.s3.amazonaws.com/${arcEnv}/sdk-identity.min.js`}
           defer
         />
-        <script
-          dangerouslySetInnerHTML={{
-            /**
-             * if(typeof window !== "undefined"){
-                window.requestIdle = window.requestIdleCallback ||
-                function (cb) {
-                  const start = Date.now();
-                  return setTimeout(function () {
-                    cb({
-                      didTimeout: false,
-                      timeRemaining: function () {
-                        return Math.max(0, 50 - (Date.now() - start));
-                      },
-                    });
-                  }, 1);
-                };
-
-                window.addPrefetch = function addPrefetch(kind, url, as) {
-                  const linkElem = document.createElement('link');
-                  linkElem.rel = kind;
-                  linkElem.href = url;
-                  if (as) {
-                      linkElem.as = as;
-                  }
-                  linkElem.crossOrigin = 'true';
-                  document.head.append(linkElem);
-                }
-              }
-            */
-            __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
-          }}
-        />
       </head>
       <body>
         <noscript>
