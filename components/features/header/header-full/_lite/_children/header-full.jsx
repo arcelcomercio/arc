@@ -236,7 +236,9 @@ export default ({
                     <a
                       itemProp="url"
                       href={googleNewsUrl}
-                      className="share-btn f f-center share-btn--gnews">
+                      className="share-btn f f-center share-btn--gnews"
+                      rel="noreferrer"
+                      target="_blank">
                       <span className="share-btn--gnews-txt">
                         Síguenos en Google News
                       </span>
