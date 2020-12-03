@@ -508,7 +508,7 @@ export default ({
   const taboolaScript =
     arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
 
-  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;window.onload=document.addEventListener("scroll",function e(){document.removeEventListener("scroll",e),requestIdle(function(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}})}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
+  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("taboola-below-content-thumbnails");function o(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}}if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e,n){e.forEach(function(e){e.isIntersecting&&(o(),t.unobserve(e.target))})},{rootMargin:"0px 0px 1200px 0px"});t.observe(e)}else o()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
     window._taboola = window._taboola || [];
@@ -547,9 +547,11 @@ export default ({
       _taboola.push({
           article: 'auto'
       });
-
-      ! function(){
+      !function(){
         if (typeof window !== 'undefined') {
+          if(window.location.search.includes('widgettaboola=none')) {
+            return;
+          }
           document.addEventListener('DOMContentLoaded', () => {
             const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
 
@@ -565,11 +567,7 @@ export default ({
               }
             }
       
-            if (
-              'IntersectionObserver' in window &&
-              'IntersectionObserverEntry' in window &&
-              'intersectionRatio' in window.IntersectionObserverEntry.prototype
-            ) {
+            if ('IntersectionObserver' in window) {
               const taboolaObserver = new IntersectionObserver(
                 (entries, observer) => {
                   entries.forEach(entry => {
@@ -578,7 +576,7 @@ export default ({
                       taboolaObserver.unobserve(entry.target)
                     }
                   })
-                },{rootMargin: "0px 0px 200px 0px"}
+                },{rootMargin: "0px 0px 1200px 0px"}
               )
 
               taboolaObserver.observe(taboolaDiv)
@@ -586,9 +584,9 @@ export default ({
               execTaboola()
             }
           })
-        }
-        if (window.performance && typeof window.performance.mark == 'function') {
-          window.performance.mark('tbl_ic');
+          if (window.performance && typeof window.performance.mark == 'function') {
+            window.performance.mark('tbl_ic');
+          }
         }
       }()
    */
