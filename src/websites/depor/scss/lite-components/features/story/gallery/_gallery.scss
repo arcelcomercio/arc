@@ -27,7 +27,7 @@
     &--left,
     &--right {
       svg {
-        width: 25px;
+        width: 18px;
         @media (--tablet) {
           width: 30px;
         }
@@ -42,6 +42,7 @@
     color: #fff;
     font-size: 13px;
     padding-top: 10px;
+    line-height: 1.333;
   }
 
   &__figure {
