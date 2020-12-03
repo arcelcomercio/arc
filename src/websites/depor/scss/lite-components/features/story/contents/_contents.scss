@@ -42,14 +42,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* padding-top: 20px;
-    padding-right: 20px;
-    padding-left: 20px; */
     padding-bottom: 8px;
 
-    /* @media (--only-mobile) {
-      flex-direction: column-reverse;
-    } */
+    &.gv {
+      border-bottom: none;
+      border-top: none;
+    }
+    
   }
   &__author-info {
     align-items: center;
