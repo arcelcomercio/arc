@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   requestIdle(() => {
     let links = Array.from(document.links);
     links.forEach(link => {
-      if(link.className.includes("share-btn--gnews") || !link.className.includes("share")) {
+      if(!link.className.includes("share")) {
         link.target = "_blank"
       }
       // link.onclick = _handleLinkClick
