@@ -1,10 +1,11 @@
 .nav {
-  z-index: 20;
+  z-index: 25;
   background-color: #000;
   height: 46px;
   padding: 0 15px;
   @media (--desktop) {
-    background-color: transparent;
+    // background-color: transparent;
+    background-color: #fff;
   }
   &__p-logo {
     display: block;

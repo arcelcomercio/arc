@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   requestIdle(() => {
     let links = Array.from(document.links);
-    links = links.filter(link => !link.className.includes("share"))
-    console.log({links})
     links.forEach(link => {
-      link.target = "_blank"
+      if(!link.className.includes("share")) {
+        link.target = "_blank"
+      }
       // link.onclick = _handleLinkClick
     })
   })

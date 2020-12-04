@@ -1,0 +1,52 @@
+.sh {
+  background-color: #f4f4f4;
+  width: 100%;
+  z-index: 4;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: space-between;
+  border-color: #e8e8e8;
+  border-style: solid;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 980px;
+  margin: 0 auto;
+  align-items: center;
+
+  .share-btn {
+    border: none;
+    margin: 9px 10px 6px 0;
+    // padding: 0 24px;
+    // display: inline-block;
+    // position: relative;
+  }
+  &__logo {
+    display: none;
+    @media (--tablet) {
+      // background-color: transparent;
+      display: block;
+    }
+  }
+  &__wrap-share {
+    display: flex;
+  }
+  &__next-story-button {
+    // -webkit-box-flex: 1;
+    background-color: #fff828;
+    border-radius: 4px;
+    margin: 9px 10px 6px 0;
+    padding: 8px;
+    display: flex;
+    &__arrow {
+      font-size: 1.1rem;
+    }
+  }
+}
+.wrap-sh {
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background-color: #fff;
+  z-index: 15;
+}

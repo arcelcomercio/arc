@@ -1,34 +1,25 @@
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
+
+@import "./scss/variables/index";
+@import "./scss/variables/lite/fonts";
+@import "../../general-styles/framework/core/reset";
 @import "./scss/lite-components/framework/core/lite";
 
-/******* Variables Lite *******/
-@import "./scss/variables/index";
-@import "../../general-styles/framework/core/reset";
-
-$primary-font: "Lato";
-$secondary-font: "Exo", sans-serif;
-$tertiary-font: $secondary-font;
-
 /******* Components *******/
-
-// No van en Mag
-
-// @import "../../general-styles/components/features/layout/header/header";
-// @import "./scss/components/layout/header/header";
-// @import "./scss/lite-components/features/header/basic/h-basic";
-// @import "./scss/lite-components/features/premium/premium";
 
 // Completados - en curso
 
 @import "./scss/lite-components/layouts/story-sidebar/st-sidebar";
-@import "./scss/lite-components/features/story/title/title";
-@import "./scss/lite-components/features/header/standard/header";
 @import "./scss/lite-components/features/navbar/standard-basic/nav";
+@import "./scss/lite-components/features/header/standard/header";
+@import "./scss/lite-components/features/social-header/social-header";
+@import "./scss/lite-components/features/header/continuous/h-continuous";
 @import "./scss/lite-components/features/widgets/breaking-news/b-news";
-@import "./scss/lite-components/features/story/multimedia/multimedia";
-@import "./scss/lite-components/features/story/social/st-social";
 @import "./scss/lite-components/global-components/share/share";
+@import "./scss/lite-components/features/story/social/st-social";
+@import "./scss/lite-components/features/story/title/title";
+@import "./scss/lite-components/features/story/multimedia/multimedia";
 
 // TODO
 
