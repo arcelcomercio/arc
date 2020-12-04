@@ -23,7 +23,7 @@ export default {
   siteDescription:
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsUrl:
-    'https://news.google.com/publications/CAAqBggKMJGkIDCp0wM?oc=3&ceid=US:es-419',
+    'https://news.google.com/publications/CAAqBwgKMPjjnQswie61Aw?hl=es-419&gl=PE&ceid=PE:es-419',
   googleNewsImage: 'https://elcomercio.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
