@@ -1,16 +1,16 @@
-import React from 'react'
-
+import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+
+import StoryData from '../../../utilities/story-data'
+import UtilListKey from '../../../utilities/list-keys'
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import { separatorBasicFields } from '../../../utilities/included-fields'
 
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import StorySeparatorChildItemAmp from './_children/amp'
 import StorySeparatorChildItemSliderAmp from './_children/amp-item-slider'
-import StoryData from '../../../utilities/story-data'
-import UtilListKey from '../../../utilities/list-keys'
-import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
-import { separatorBasicFields } from '../../../utilities/included-fields'
 
 const classes = {
   storyInterest:
@@ -26,11 +26,11 @@ const CONTENT_SOURCE = 'story-feed-by-tag'
 const InterestByTagAmp = props => {
   const {
     customFields: {
-      tag = '',
-      isWebAmp = '',
-      storyAmp = '',
-      titleAmp = 'Te puede interesar:',
-      storiesQty = 4,
+      tagToFetch = '',
+      renderAMP = true,
+      storyAMP = '',
+      titleAMP = 'Te puede interesar:',
+      storiesQtyAMP = 4,
     } = {},
   } = props
   const {
@@ -42,22 +42,22 @@ const InterestByTagAmp = props => {
     outputType,
   } = useAppContext()
 
-  const isFullImage = storyAmp === 'amp_full_imagen'
-  const isSlider = storyAmp === 'slider'
+  const isFullImage = storyAMP === 'amp_full_imagen'
+  const isSlider = storyAMP === 'slider'
 
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
     data: dataContent,
     contextPath,
   })
 
-  const urlTag = `/${tag || slug}/`
+  const urlTag = `/${tagToFetch || slug}/`
   const { content_elements: storyData = [] } =
     useContent({
       source: CONTENT_SOURCE,
       query: {
         website: arcSite,
         name: urlTag,
-        size: storiesQty,
+        size: storiesQtyAMP,
         presets:
           isFullImage || isSlider
             ? 'landscape_md:360x202'
@@ -110,7 +110,7 @@ const InterestByTagAmp = props => {
         multimediaLandscapeMD: instance.multimediaLandscapeMD,
         multimediaType: instance.multimediaType,
         isAdmin,
-        storyAmp,
+        storyAMP,
       }
       return (
         <>
@@ -135,11 +135,11 @@ const InterestByTagAmp = props => {
 
   return (
     <>
-      {isWebAmp && dataInterest && dataInterest[0] && (
+      {renderAMP && dataInterest && dataInterest[0] ? (
         <section className={classes.storyInterest}>
           <h2
             className={isFullImage ? classes.title_full_imagen : classes.title}>
-            {titleAmp}
+            {titleAMP}
           </h2>
           {isSlider ? (
             <amp-carousel
@@ -147,13 +147,13 @@ const InterestByTagAmp = props => {
               height="160"
               type="carousel"
               id="rel-noticias">
-              {getSize(storiesQty)}
+              {getSize(storiesQtyAMP)}
             </amp-carousel>
           ) : (
-            <>{getSize(storiesQty)}</>
+            <>{getSize(storiesQtyAMP)}</>
           )}
         </section>
-      )}
+      ) : null}
     </>
   )
 }

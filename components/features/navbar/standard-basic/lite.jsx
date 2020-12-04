@@ -7,6 +7,7 @@ import NavbarStandardLite from './_lite/_children/standard-lite'
 import schemaFilter from './_dependencies/schema-filter'
 import { getAssetsPath } from '../../../utilities/assets'
 
+// TODO: Agregar un customfield para activar o desactivar el stiky al hacer scroll (por defecto activado)
 const LayoutNavbar = props => {
   const { contextPath, arcSite, deployment } = useFusionContext()
 
@@ -23,6 +24,7 @@ const LayoutNavbar = props => {
       showInTablet = true,
       showInMobile = true,
       hideMenu,
+      disableSticky = false,
     } = {},
   } = props
 
@@ -91,6 +93,7 @@ const LayoutNavbar = props => {
       deviceList={{ showInDesktop, showInTablet, showInMobile }}
       navbarData={navbarData}
       hideMenu={hideMenu}
+      disableSticky={disableSticky}
       primaryLogo={primaryLogos[arcSite] || getReourceImgPath('white-logo.png')}
       secondaryLogo={secondaryLogos[arcSite] || getReourceImgPath('logo.png')}
       logoLeft={{
@@ -119,6 +122,10 @@ LayoutNavbar.propTypes = {
     showInMobile: PropTypes.bool.tag({
       name: 'Mostrar en móviles ',
       defaultValue: true,
+    }),
+    disableSticky: PropTypes.bool.tag({
+      name: 'Deshabilitar menú fijo',
+      defaultValue: false,
     }),
   }),
 }

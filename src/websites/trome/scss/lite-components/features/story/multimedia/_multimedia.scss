@@ -1,0 +1,52 @@
+.s-multimedia {
+  letter-spacing: 0;
+  font-family: $primary-font;
+  font-size: 13px;
+  padding: 0 20px 0;
+
+  &__caption {
+    font-size: 14px;
+    line-height: 1.3;
+    letter-spacing: 0;
+    font-family: $secondary-font;
+    font-weight: 400;
+    // border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    color: #888;
+    border-bottom: 1px solid #ddd;
+    @media (--desktop) {
+      font-family: $primary-font;
+      font-size: 13px;
+    }
+  }
+  &__audio {
+    padding-top: 10px;
+  }
+  &__embed {
+    @media (--desktop) {
+      padding: 0 20px 0 20px;
+    }
+  }
+  &__image {
+    min-height: 157px;
+
+    @media (--tablet) {
+      min-height: 330px;
+    }
+
+    &--big {
+      @media (--desktop) {
+        height: 528px;
+      }
+    }
+  }
+  &__lL-video,
+  &__p-default {
+    background-color: #000;
+    height: 157px;
+    @media (--desktop) {
+      height: 345px;
+    }
+  }
+}

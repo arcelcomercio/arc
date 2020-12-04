@@ -8,6 +8,7 @@ const classes = {
   title: 'st-tags__title',
   tag: 'st-tags__tag',
   box: 'st-tags__box',
+  line: 'st-tags__line',
   link: 'st-tags__link',
 }
 
@@ -21,6 +22,7 @@ const StoryTags = () => {
         <h4 itemProp="name" className={classes.title}>
           TAGS RELACIONADOS
         </h4>
+        <div className={classes.line}></div>
         <div className={classes.box}>
           {tags.map(
             ({ slug, text }, idx) =>
