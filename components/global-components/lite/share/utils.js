@@ -38,6 +38,7 @@ export const popup =
       copyLinkButton.addEventListener('click', () => {
         if(window.location !== window.parent.location){
           window.top.postMessage({id: "copy-link"}, window.location.origin);
+          copyLinkButton.textContent = "\u2713 Enlace copiado"
         } else {
           copyTextToClipboard(window.location.href)
         }
@@ -64,4 +65,4 @@ export const popup =
 })})
 */
 
-export const copyLink = `"use strict";window.addEventListener("load",function(){requestIdle(function(){function o(o){navigator.clipboard.writeText(o).then(function(){console.info("Async: Copying to clipboard was successful!"),n.textContent="✓ Enlace copiado"},function(o){console.error("Async: Could not copy text: ",o)})}var n=document.getElementById("copy-link");if(n){if(!("clipboard"in navigator))return n.style.opacity="0.2",n.style.cursor="initial",void n.setAttribute("disabled",!0);n.addEventListener("click",function(){window.location!==window.parent.location?window.top.postMessage({id:"copy-link"},window.location.origin):o(window.location.href)}),window.location===window.parent.location&&window.addEventListener("message",function(n){var i=n.origin,t=n.data,e=void 0===t?{}:t;i===window.location.origin&&"copy-link"===e.id&&o(window.location.href)},!1)}})});`
+export const copyLink = `"use strict";window.addEventListener("load",function(){requestIdle(function(){function o(o){navigator.clipboard.writeText(o).then(function(){console.info("Async: Copying to clipboard was successful!"),n.textContent="✓ Enlace copiado"},function(o){console.error("Async: Could not copy text: ",o)})}var n=document.getElementById("copy-link");if(n){if(!("clipboard"in navigator))return n.style.opacity="0.2",n.style.cursor="initial",void n.setAttribute("disabled",!0);n.addEventListener("click",function(){window.location!==window.parent.location?(window.top.postMessage({id:"copy-link"},window.location.origin),n.textContent="✓ Enlace copiado"):o(window.location.href)}),window.location===window.parent.location&&window.addEventListener("message",function(n){var i=n.origin,t=n.data,e=void 0===t?{}:t;i===window.location.origin&&"copy-link"===e.id&&o(window.location.href)},!1)}})});`
