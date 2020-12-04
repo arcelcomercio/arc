@@ -3,6 +3,10 @@
   padding-right: 20px;
   max-width: 980px;
   box-sizing: border-box;
+  @media (--tablet) {
+    // background-color: transparent;
+    display: none;
+  }
   &__link {
     width: 100%;
     display: flex;
@@ -17,5 +21,10 @@
     padding: 20px;
     color: #262627;
     text-decoration: none;
+    align-items: center;
+    font-weight: bold;
+  }
+  &__arrow {
+    margin-left: 10px;
   }
 }
