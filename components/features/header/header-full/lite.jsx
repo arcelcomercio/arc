@@ -20,7 +20,7 @@ const HeaderFull = props => {
     contextPath,
     requestUri,
     metaValue,
-    siteProperties,
+    siteProperties: { siteTitle } = {},
     globalContent: {
       type = '',
       website_url: postPermaLink,
@@ -102,7 +102,7 @@ const HeaderFull = props => {
 
     customLogoTitle = `${seoTitle}: ${
       storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-    } | ${siteProperties.siteTitle.toUpperCase()}`
+    } | ${siteTitle ? siteTitle.toUpperCase() : ''}`
   }
 
   const urlsShareList = socialMediaUrlShareList(
