@@ -20,13 +20,21 @@ const classes = {
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
 const InterestByTagAmp = props => {
-  const { customFields: { tag = '', storiesQty = 4 } = {} } = props
+  const {
+    customFields: {
+      tag = '',
+      renderLite = true,
+      titleLite = 'No te pierdas',
+      storiesQtyLite = 6,
+      showSubtitleLite = true,
+    } = {},
+  } = props
+
   const {
     arcSite,
     globalContent: dataContent,
     contextPath,
     deployment,
-    isAdmin,
     outputType,
   } = useAppContext()
 
@@ -42,7 +50,7 @@ const InterestByTagAmp = props => {
       query: {
         website: arcSite,
         name: urlTag,
-        size: storiesQty,
+        size: storiesQtyLite,
         presets: 'no-presets',
         includedFields: separatorBasicFields,
       },
@@ -68,19 +76,13 @@ const InterestByTagAmp = props => {
 
   const isMag = arcSite === SITE_ELCOMERCIOMAG
   const linkSource = `&source=${isMag ? 'notepierdas' : 'tepuedeinteresar'}`
-  const linkOutput = isMag ? '' : `&outputType=${outputType}`
-  const sectionTitle = 'No te pierdas'
 
   const getSize = cant => {
     const dataStories = dataInterest.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
       key += 1
-      const link = `${
-        instance.websiteLink
-      }?ref=${outputType}&pos=${key}${linkSource}${
-        instance.isPremium === false ? linkOutput : ''
-      }`
+      const link = `${instance.websiteLink}?ref=${outputType}&pos=${key}${linkSource}`
 
       const data = {
         title: instance.title,
@@ -90,25 +92,25 @@ const InterestByTagAmp = props => {
         sectionLink: instance.primarySectionLink,
         image: instance.multimedia,
         multimediaType: instance.multimediaType,
-        isAdmin,
       }
       return (
-        <StoryItemChild data={data} key={UtilListKey(i)} arcSite={arcSite} />
+        <StoryItemChild
+          data={data}
+          key={UtilListKey(i)}
+          showSubtitle={showSubtitleLite}
+        />
       )
     })
     return dataStories
   }
 
-  return (
-    dataInterest &&
-    dataInterest[0] && (
-      <section className={classes.storyInterest}>
-        <p className={classes.titleP}></p>
-        <h2 className={classes.title}>{sectionTitle}</h2>
-        <>{getSize(storiesQty)}</>
-      </section>
-    )
-  )
+  return renderLite && dataInterest && dataInterest[0] ? (
+    <section className={classes.storyInterest}>
+      <p className={classes.titleP}></p>
+      <h2 className={classes.title}>{titleLite}</h2>
+      <>{getSize(storiesQtyLite)}</>
+    </section>
+  ) : null
 }
 
 InterestByTagAmp.propTypes = {

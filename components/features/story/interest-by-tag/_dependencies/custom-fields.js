@@ -1,33 +1,35 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
+  // Config general
   tag: PropTypes.string.tag({
     name: 'Nombre del tag',
     description:
-      'Si no se coloca el tag, se renderiza la última historia publicada. Ejemplo (sin /): peru',
+      'Ejemplo (sin /): peru - Si no se coloca el tag, se renderiza la última historia publicada. ',
   }),
-  title: PropTypes.string.tag({
-    name: 'Titulo',
-    description: 'Colocar el Titulo ',
-  }),
-
-  isWeb: PropTypes.bool.tag({
-    name: 'Mostrar en "desktop" , "tablet" y "movile"',
+  // Config por defecto
+  renderDefault: PropTypes.bool.tag({
+    name: 'Mostrar en output por defecto',
     defaultValue: true,
+    group: 'Por defecto',
   }),
-  isWebAmp: PropTypes.bool.tag({
-    name: 'Mostrar en "Amp"',
+  titleDefault: PropTypes.string.tag({
+    name: 'Título por defecto',
+    group: 'Por defecto',
+  }),
+  // Config AMP
+  renderAMP: PropTypes.bool.tag({
+    name: 'Mostrar en output AMP',
     defaultValue: true,
+    group: 'AMP',
   }),
-
-  titleAmp: PropTypes.string.tag({
-    name: 'Titulo Amp',
-    group: 'Configuración',
-    description: 'Colocar el Nombre ',
+  titleAMP: PropTypes.string.tag({
+    name: 'Título en AMP',
+    group: 'AMP',
   }),
-  storyAmp: PropTypes.oneOf(['normal', 'slider', 'amp_full_imagen']).tag({
+  storyAMP: PropTypes.oneOf(['normal', 'slider', 'amp_full_imagen']).tag({
     name: 'Diseño',
-    group: 'Configuración',
+    group: 'AMP',
     labels: {
       normal: 'Normal',
       live: 'Slider AMP',
@@ -35,13 +37,36 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'normal',
   }),
-  storiesQty: PropTypes.number.tag({
-    name: 'Número de Noticias Amp',
-    group: 'Configuración',
+  storiesQtyAMP: PropTypes.number.tag({
+    name: 'Número de Noticias en AMP',
+    group: 'AMP',
     min: 4,
     max: 10,
     step: 1,
     defaultValue: 4,
+  }),
+  // Config Lite
+  renderLite: PropTypes.bool.tag({
+    name: 'Mostrar en output Lite',
+    defaultValue: true,
+    group: 'Lite',
+  }),
+  titleLite: PropTypes.string.tag({
+    name: 'Título en Lite',
+    group: 'Lite',
+  }),
+  storiesQtyLite: PropTypes.number.tag({
+    name: 'Número de Noticias Lite',
+    group: 'Lite',
+    min: 3,
+    max: 9,
+    step: 1,
+    defaultValue: 6,
+  }),
+  showSubtitleLite: PropTypes.bool.tag({
+    name: 'Mostrar subtítulo de noticias',
+    defaultValue: true,
+    group: 'Lite',
   }),
 })
 
