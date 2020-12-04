@@ -2,11 +2,7 @@
 @import "./scss/partials/lite/import-fonts";
 @import "../../general-styles/framework/variables/index";
 @import "./scss/variables/index";
-
-/******* Variables Lite *******/
-$primary-font: "Roboto", sans-serif;
-$secondary-font: "Georgia", serif;
-$tertiary-font: $secondary-font;
+@import "./scss/variables/lite/fonts";
 
 /******* Components *******/
 @import "./scss/lite-components/features/header/basic/menu";

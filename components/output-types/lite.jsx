@@ -286,9 +286,19 @@ const LiteOutput = ({
              * https://web.dev/preconnect-and-dns-prefetch/
              */}
             {arcSite === SITE_ELCOMERCIO && (
+              // Preload fuente de titulo de nota para mejor LCP
               <link
                 rel="preload"
                 href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
+                as="font"
+                type="font/woff2"
+              />
+            )}
+            {arcSite === SITE_ELCOMERCIOMAG && (
+              // Preload fuente de titulo de nota para mejor LCP
+              <link
+                rel="preload"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
                 as="font"
                 type="font/woff2"
               />
