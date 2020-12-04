@@ -1,24 +1,9 @@
 import React from 'react'
 // import { formatSlugToText } from '../../utilities/parse/strings'
 import { ELEMENT_TYPE_CHARBEAT } from '../../utilities/constants/element-types'
-import { VIDEO, GALLERY } from '../../utilities/constants/multimedia-types'
 import { COMSCORE_ID } from '../../utilities/constants/ids'
 import StoryData from '../../utilities/story-data'
-
-const getMultimedia = (multimediaType, amp = false) => {
-  let type = ''
-  switch (multimediaType) {
-    case VIDEO:
-      type = 'video'
-      break
-    case GALLERY:
-      type = amp ? 'foto_galeria' : 'gallery'
-      break
-    default:
-      type = amp ? 'imagen' : 'story'
-  }
-  return type
-}
+import { getMultimediaAnalitycs } from '../../utilities/helpers'
 
 export default ({
   autors,
@@ -35,6 +20,7 @@ export default ({
     link,
     videoSeo,
     nucleoOrigen,
+    subtype,
     title,
   } = new StoryData({
     data: globalContent,
@@ -116,8 +102,9 @@ export default ({
   const urlStory = `${siteProperties.siteUrl}${requestUri}`
   const urlPixel = `https://www.google-analytics.com/r/collect?v=1&_v=a1&ds=AMP&sr=SCREEN_WIDTHxSCREEN_HEIGHT&sd=SCREEN_COLOR_DEPTH&ul=BROWSER_LANGUAGE&de=DOCUMENT_CHARSET&dr=DOCUMENT_REFERRER&t=pageview&tid=${
     siteProperties.ampGoogleTagManagerId
-  }&cid=CLIENT_ID(_ga)&dl=${urlStory}&dt=${title}&cd4=noticias&cd5=&cd6=AMP&cd7=${getMultimedia(
+  }&cid=CLIENT_ID(_ga)&dl=${urlStory}&dt=${title}&cd4=noticias&cd5=&cd6=AMP&cd7=${getMultimediaAnalitycs(
     multimediaType,
+    subtype,
     true
   )}&cd8=${id}&cd11=nologin-v&cd15=${author}&cd16=${nucleoOrigen} `
 

@@ -1,8 +1,7 @@
-import React from 'react'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 
-import { useFusionContext } from 'fusion:context'
-
-import ConfigParams from '../../../utilities/config-params'
+import { SITE_GESTION } from '../../../utilities/constants/sitenames'
 
 const classes = {
   taboola: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto ',
@@ -14,13 +13,13 @@ const StoryTabolaAmp = () => {
     siteProperties: {
       taboola: { dataModeAmp },
     },
-  } = useFusionContext()
+  } = useAppContext()
 
   const codigoSite = arcSite === 'elcomerciomag' ? 'elcomercio' : arcSite
 
   return (
     <div className={classes.taboola}>
-      {arcSite !== ConfigParams.SITE_GESTION && (
+      {arcSite !== SITE_GESTION ? (
         <amp-embed // TODO: publicidad taboola x definir de parte del cliente // se Retira para gestion
           width="100"
           height="100"
@@ -34,7 +33,7 @@ const StoryTabolaAmp = () => {
           data-article="auto"
           data-url=""
         />
-      )}
+      ) : null}
     </div>
   )
 }
