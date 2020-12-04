@@ -13,7 +13,7 @@ const classes = {
   titleLink: 'st-interest__item-title',
 }
 
-const StorySeparatorChildItemAmp = ({ data, showSubtitle }) => {
+const InterestByTagChildItem = ({ data, showSubtitle }) => {
   const { title, section, subtitle, link, image, multimediaType } = data
 
   return link ? (
@@ -47,4 +47,4 @@ const StorySeparatorChildItemAmp = ({ data, showSubtitle }) => {
   ) : null
 }
 
-export default StorySeparatorChildItemAmp
+export default InterestByTagChildItem

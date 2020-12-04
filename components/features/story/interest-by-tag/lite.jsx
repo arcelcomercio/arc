@@ -1,15 +1,15 @@
 import * as React from 'react'
-
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
-// seguro hay que cambiar algunos children
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import StoryItemChild from './_lite/_children/item'
+
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
+
+import schemaFilter from './_dependencies/schema-filter'
+import customFields from './_dependencies/custom-fields'
+import StoryItemChild from './_lite/_children/item'
 
 const classes = {
   storyInterest: 'st-interest',
@@ -19,7 +19,7 @@ const classes = {
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
-const InterestByTagAmp = props => {
+const InterestByTagLite = props => {
   const {
     customFields: {
       tag = '',
@@ -113,11 +113,11 @@ const InterestByTagAmp = props => {
   ) : null
 }
 
-InterestByTagAmp.propTypes = {
+InterestByTagLite.propTypes = {
   customFields,
 }
 
-InterestByTagAmp.label = 'Artículo - Te puede interesar'
-InterestByTagAmp.static = true
+InterestByTagLite.label = 'Artículo - Te puede interesar'
+InterestByTagLite.static = true
 
-export default InterestByTagAmp
+export default InterestByTagLite
