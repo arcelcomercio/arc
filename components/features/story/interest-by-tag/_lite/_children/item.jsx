@@ -10,6 +10,7 @@ const classes = {
   detailSec: 'st-interest__detail-section',
   detailTitle: 'st-interest__detail-title',
   detailSubtitle: 'st-interest__detail-subtitle',
+  titleLink: 'st-interest__item-title'
 }
 
 const StorySeparatorChildItemAmp = ({ data }) => {

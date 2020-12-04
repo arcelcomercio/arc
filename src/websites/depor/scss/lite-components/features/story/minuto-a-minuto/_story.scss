@@ -72,12 +72,12 @@
     padding-right: 7px;
   }
   & .breaking-news {
-    border-left: 3px solid #000;
+    // border-left: 3px solid #000;
   }
 
   & .b-news__icon {
     fill: #000;
-    display: none;
+    // display: none;
   }
   & .b-news__tag {
     font-family: $primary-font;
@@ -99,6 +99,24 @@
     @media (--only-mobile) {
       float: left;
       margin-top: 10px;
+    }
+  }
+  .b-news {
+    &--color-1 {
+      .b-news {
+        &__tag {
+          color: #fff;
+          border-right: none;
+        }
+        &__title {
+          color: #ed1c26;
+          font-weight: 700;
+          font-size: 1.3rem;
+        }
+        &__envivo {
+          margin-top: 2px;
+        }
+      }
     }
   }
 }
