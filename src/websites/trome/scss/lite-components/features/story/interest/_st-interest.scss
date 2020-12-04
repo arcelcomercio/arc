@@ -1,5 +1,8 @@
 .st-interest {
   width: 100%;
+  @media (--desktop) {
+    padding: 0 20px;
+  }
 
   &__title {
     width: 112px;
