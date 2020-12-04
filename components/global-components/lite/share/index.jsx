@@ -50,7 +50,9 @@ const ShareButtons = ({
         <a
           itemProp="url"
           href={googleNewsUrl}
-          className={`${classes.btn} ${classes.gnews}`}>
+          className={`${classes.btn} ${classes.gnews}`}
+          rel="noreferrer"
+          target="_blank">
           <span className={classes.gnewsTxt}>Síguenos en Google News</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
