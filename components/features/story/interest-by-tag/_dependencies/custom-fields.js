@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
   // Config general
-  tag: PropTypes.string.tag({
+  tagToFetch: PropTypes.string.tag({
     name: 'Nombre del tag',
     description:
       'Ejemplo (sin /): peru - Si no se coloca el tag, se renderiza la última historia publicada. ',

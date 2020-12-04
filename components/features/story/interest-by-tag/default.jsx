@@ -27,7 +27,7 @@ const CONTENT_SOURCE = 'story-feed-by-tag'
 const InterestByTag = props => {
   const {
     customFields: {
-      tag = '',
+      tagToFetch = '',
       renderDefault = true,
       titleDefault = 'Te puede interesar:',
     } = {},
@@ -48,7 +48,7 @@ const InterestByTag = props => {
     contextPath,
   })
 
-  const urlTag = `/${tag || slug}/`
+  const urlTag = `/${tagToFetch || slug}/`
 
   const { content_elements: storyData = [] } =
     useContent({
