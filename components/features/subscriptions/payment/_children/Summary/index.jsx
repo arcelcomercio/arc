@@ -7,6 +7,7 @@ import { Taggeo } from '../../../_dependencies/Taggeo'
 import { getFullNameFormat } from '../../../_dependencies/Utils'
 
 const styles = {
+  boxResume: 'step__right-box-resume',
   resume: 'step__right-resume-top',
   adquire: 'step__right-adquire',
   plan: 'step__right-name-plan',
@@ -17,10 +18,12 @@ const styles = {
   toolTip: 'tooltiptext-rightarrow tooltip-inactive',
   boxEmail: 'step__right-verify-email',
   stepLink: 'step__btn-link',
+  benefits: 'step__right-benefits',
 }
 const nameTagCategory = 'Web_Paywall_Landing'
 const Summary = () => {
   const {
+    arcSite,
     globalContent: { plans = [], name },
   } = useFusionContext() || {}
 
@@ -100,18 +103,19 @@ const Summary = () => {
   }
 
   return (
-    <>
+    <div className={styles.boxResume}>
       <div className={styles.resume}>
         <h3>Resumen de pedido</h3>
         {/* <button type="button" onClick={callHelp}>
           ¿Necesitas ayuda? <span>Te llamamos</span>
         </button> */}
+        <div className="isotipo"></div>
         <button className="button-close" id="btn-detail-close" type="button">
-          <i className="icon-close"></i>
+          <span>Cerrar</span> <i className="icon-close"></i>
         </button>
       </div>
 
-      <p className={styles.adquire}>Estas adquiriendo:</p>
+      <p className={styles.adquire}>Estas adquiriendo</p>
       <h2 className={styles.plan}>{name}</h2>
 
       {userStep === 3 ? (
@@ -146,7 +150,11 @@ const Summary = () => {
           {orderPlans.map((item, i) => {
             return (
               <div className="tooltip" key={`item-${i + 1}`}>
-                <label className={styles.item} htmlFor={`plan-${i + 1}`}>
+                <label
+                  className={`${styles.item} ${
+                    checkPlan === item.priceCode ? 'selected' : ''
+                  }`}
+                  htmlFor={`plan-${i + 1}`}>
                   <input
                     type="radio"
                     name={`plan-${i + 1}`}
@@ -162,11 +170,11 @@ const Summary = () => {
                     value={item.priceCode}
                   />
                   {period[item.billingFrequency.toLowerCase()]}
-                  <div className="selected"></div>
-                  <span className="checkmark"></span>
                   <span>
                     {item.amount === 0 ? 'Gratis' : `S/ ${item.amount}.00`}
                   </span>
+                  <div className="selected"></div>
+                  <span className="checkmark"></span>
                   <p>
                     <strong>{item.description.title}. </strong>
                     {item.description.description}
@@ -175,7 +183,7 @@ const Summary = () => {
 
                 {item.description.recommended && (
                   <span className={styles.recommended}>
-                    <h4>{item.description.recommended}</h4>
+                    {item.description.recommended}
                   </span>
                 )}
 
@@ -196,10 +204,46 @@ const Summary = () => {
         </div>
       )}
 
-      <div className={styles.total}>
-        <p className="title">Total</p>
-        <p className="price-total">S/ {totalPlan}.00</p>
-      </div>
+      {userStep === 3 ? (
+        <div className={styles.total}>
+          <p className="title">Total</p>
+          <p className="price-total">S/ {totalPlan}.00</p>
+        </div>
+      ) : (
+        <div className={styles.benefits}>
+          <h3>Tu suscripción digital contiene:</h3>
+          <ul>
+            <li>
+              Acceso ilimitado a artículos premium:
+              {arcSite === 'elcomercio' ? (
+                <ul>
+                  <li>Contenido exclusivo.</li>
+                  <li>
+                    Reportajes, entrevistas, análisis y firmas exclusivas.
+                  </li>
+                  <li>Expertos en entender la actualidad.</li>
+                </ul>
+              ) : (
+                <ul>
+                  <li>
+                    Contenido elaborada exclusivamente por el equipo
+                    periodístico de Gestión.
+                  </li>
+                  <li>
+                    La mejor selección de artículos de The Economist y
+                    Bloomberg.
+                  </li>
+                </ul>
+              )}
+            </li>
+            <li>
+              Navegación ilimitada en <a href={`${arcSite}.pe`}>{arcSite}.pe</a>{' '}
+              desde cualquier dispositivo.
+            </li>
+            <li>Acceso a descuentos ilimitados en Club de beneficios.</li>
+          </ul>
+        </div>
+      )}
 
       {userStep === 3 && (
         <>
@@ -218,7 +262,7 @@ const Summary = () => {
           </div>
         </>
       )}
-    </>
+    </div>
   )
 }
 

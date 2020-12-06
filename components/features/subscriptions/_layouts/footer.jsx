@@ -213,9 +213,10 @@ export const FooterSubs = () => {
             <div>
               <span className="title-item">Resumen de pedido:</span>
               <h5 className="name-item">
-                {`
-                  ${planName} - ${period[userDataPlan.billingFrequency]}
-                  `}
+                {planName}
+                <span className="period-item">
+                  {' - '} {period[userDataPlan.billingFrequency]}
+                </span>
               </h5>
             </div>
             <span className="price-item">
