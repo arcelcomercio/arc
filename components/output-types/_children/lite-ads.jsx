@@ -483,13 +483,7 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
             return userType;
           }
 
-          const getTmpAd = () => {
-              let tmpAdTargeting = window.location.search.match(/tmp_ad=([^&]*)/) || [];
-              return tmpAdTargeting[1] || ''
-          };
-
           const userPaywallStat = userPaywall()
-          const tmpAd = getTmpAd()
           
           const pushAds = (id, name, dimensions) => {
             if (dimensions.length > 0) {
@@ -505,7 +499,7 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
                 .setTargeting("seccion", section)
                 .setTargeting("tags", "st_value9")
                 .setTargeting("tipoplantilla", "post")
-                .setTargeting("tmp_ad", tmpAd)
+                .setTargeting("tmp_ad", "")
               )
             }
           }
@@ -598,7 +592,7 @@ const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
 
   const typeContent = contentCode === '' ? 'standar' : contentCode
   const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
-  const initDfp = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e=window,t=e.isMobile,n=e.existAds,a=e.loadFirstAds;if(n){var o=function(e,t){pbjs.que.push(function(){pbjs.requestBids({timeout:i,adUnitCodes:e,bidsBackHandler:function(){!function(e,t){googletag.cmd.push(function(){pbjs.que.push(function(){pbjs.setTargetingForGPTAsync(e),googletag.pubads().refresh(t)})})}(e,t)}})})},i=3e3;window.googletag=window.googletag||{cmd:[]},window.pbjs=window.pbjs||{};var s=[],g=window,d=g.section,r=g.arcSite,l=g.subsection;requestIdle(function(){googletag.cmd.push(function(){googletag.pubads().disableInitialLoad(),googletag.pubads().enableSingleRequest(),googletag.pubads().collapseEmptyDivs(),googletag.enableServices()})});var u=function(){var e="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e="si")}else e="no";return e}(),c=(window.location.search.match(/tmp_ad=([^&]*)/)||[])[1]||"",p=function(e){var n=e||{},a=n.getAttribute("data-ads-name").replace("snota",d),o=t?n.getAttribute("data-ads-dimensions-m"):n.getAttribute("data-ads-dimensions"),i=JSON.parse(o||"[]");return{id:n.id,name:a,dimensions:i}},f=function(e){var t=p(e);!function(e,t,n){n.length>0&&s.push(googletag.defineSlot(t,n,e).addService(googletag.pubads()).setTargeting("ab_test","").setTargeting("categoria",l).setTargeting("contenido","st_value3").setTargeting("fuente","WEB").setTargeting("paywall",u).setTargeting("phatname","st_value6").setTargeting("publisher",r).setTargeting("seccion",d).setTargeting("tags","st_value9").setTargeting("tipoplantilla","post").setTargeting("tmp_ad",c))}(t.id,t.name,t.dimensions)},w=function(e){googletag.cmd.push(function(){googletag.display(e.getSlotElementId())})};a.length>0&&requestIdle(function(){!function(){if(a.forEach(f),s.forEach(w),adUnitsSet.length>0){var e=adUnitsSet.map(function(e){return e.code});requestIdle(function(){return o(e,s)})}else requestIdle(function(){googletag.cmd.push(function(){googletag.pubads().refresh(s)})})}()});var m=window.loadLazilyAds;m&&m.length>0&&window.lazier(m,function(e){if(s=[],f(e),s.length>0){w(s[0]);var t=adUnits[e.id];if(t){var n=p(e);n.id,n.name,n.dimensions;o([t.code],s)}else googletag.cmd.push(function(){googletag.pubads().refresh(s)})}})}})});`
+  const initDfp = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e=window,t=e.isMobile,n=e.existAds,a=e.loadFirstAds;if(n){var o=function(e,t){pbjs.que.push(function(){pbjs.requestBids({timeout:i,adUnitCodes:e,bidsBackHandler:function(){!function(e,t){googletag.cmd.push(function(){pbjs.que.push(function(){pbjs.setTargetingForGPTAsync(e),googletag.pubads().refresh(t)})})}(e,t)}})})},i=3e3;window.googletag=window.googletag||{cmd:[]},window.pbjs=window.pbjs||{};var s=[],g=window,d=g.section,r=g.arcSite,l=g.subsection;requestIdle(function(){googletag.cmd.push(function(){googletag.pubads().disableInitialLoad(),googletag.pubads().enableSingleRequest(),googletag.pubads().collapseEmptyDivs(),googletag.enableServices()})});var u=function(){var e="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,n=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];n&&n.sub.p.length&&(e="si")}else e="no";return e}(),c=function(e){var n=e||{},a=n.getAttribute("data-ads-name").replace("snota",d),o=t?n.getAttribute("data-ads-dimensions-m"):n.getAttribute("data-ads-dimensions"),i=JSON.parse(o||"[]");return{id:n.id,name:a,dimensions:i}},p=function(e){var t=c(e);!function(e,t,n){n.length>0&&s.push(googletag.defineSlot(t,n,e).addService(googletag.pubads()).setTargeting("ab_test","").setTargeting("categoria",l).setTargeting("contenido","st_value3").setTargeting("fuente","WEB").setTargeting("paywall",u).setTargeting("phatname","st_value6").setTargeting("publisher",r).setTargeting("seccion",d).setTargeting("tags","st_value9").setTargeting("tipoplantilla","post").setTargeting("tmp_ad",""))}(t.id,t.name,t.dimensions)},f=function(e){googletag.cmd.push(function(){googletag.display(e.getSlotElementId())})};a.length>0&&requestIdle(function(){!function(){if(a.forEach(p),s.forEach(f),adUnitsSet.length>0){var e=adUnitsSet.map(function(e){return e.code});requestIdle(function(){return o(e,s)})}else requestIdle(function(){googletag.cmd.push(function(){googletag.pubads().refresh(s)})})}()});var w=window.loadLazilyAds;w&&w.length>0&&window.lazier(w,function(e){if(s=[],p(e),s.length>0){f(s[0]);var t=adUnits[e.id];if(t){var n=c(e);n.id,n.name,n.dimensions;o([t.code],s)}else googletag.cmd.push(function(){googletag.pubads().refresh(s)})}})}})});`
     .replace(/st_value3/g, typeContent)
     .replace(/st_value6/g, `${siteProperties.siteUrl}${requestUri}`)
     .replace(/st_value9/g, targetingTags)
