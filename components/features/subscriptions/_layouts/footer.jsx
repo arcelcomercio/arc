@@ -175,7 +175,7 @@ export const FooterSubs = () => {
                         <button
                           className="btn-next"
                           type="submit"
-                          disabled={disable}>
+                          disabled={disable || loading}>
                           {loading ? 'Validando...' : 'Validar'}
                         </button>
                       </div>
