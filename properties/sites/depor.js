@@ -140,7 +140,7 @@ export default {
   archiveLimit: '2015-12-29',
   jwplayers: {
     gec: {
-      playerAds: 'UQH16oLN',
+      playerAds: 'C62GLELR',
       player: 'pHa2K63V',
     },
   },
