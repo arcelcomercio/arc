@@ -23,15 +23,15 @@ export const contentWithAds = ({ contentElements, adsEvery = 2 }) => {
         dataElements =
           typeElement === ELEMENT_LIST && i === 0 ? [] : dataContent
 
-        if (textElementsCounter > 0 && textElementsCounter % adsEvery === 0) {
-          if (adsCounter < contentAdsList.length) {
-            dataElements.publicidad = true
-            dataElements.nameAds = contentAdsList[adsCounter]
-            adsCounter += 1
-          }
-        }
-
         if (typeElement === ELEMENT_TEXT) {
+          if (textElementsCounter > 0 && textElementsCounter % adsEvery === 0) {
+            if (adsCounter < contentAdsList.length) {
+              dataElements.publicidad = true
+              dataElements.nameAds = contentAdsList[adsCounter]
+              adsCounter += 1
+            }
+          }
+
           textElementsCounter += 1
         }
         return dataElements

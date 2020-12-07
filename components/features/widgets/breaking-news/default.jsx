@@ -89,7 +89,7 @@ const BreakingNewsFeat = props => {
                 <a
                   itemProp="url"
                   className={classes.link}
-                  href={objContent.link}
+                  href={`${objContent.link}?ref=article&source=cintillo`}
                   rel="noopener noreferrer"
                   {...editableField('title')}
                   suppressContentEditableWarning>

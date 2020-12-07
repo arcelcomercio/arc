@@ -1,4 +1,14 @@
 // TODO: Agregar parámetro para que soporte links variables por marca, así cmo el twitter de la marca
+/* interface ShareList {
+  facebook: string;
+  twitter: string;
+  linkedin: string;
+  pinterest: string;
+  whatsapp: string;
+  fbmsg: string;
+}
+*/
+
 // eslint-disable-next-line import/prefer-default-export
 export const socialMediaUrlShareList = (
   siteUrl = '',

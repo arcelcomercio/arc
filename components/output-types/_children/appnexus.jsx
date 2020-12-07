@@ -1,6 +1,6 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
-import { getMultimedia } from '../../utilities/multimedia'
+import { getMultimediaAnalitycs } from '../../utilities/helpers'
 
 const getSite = site => {
   const sites = {
@@ -29,7 +29,7 @@ const getVars = (
   const site = arcSite
   const template = isStory ? 'nota' : 'portada'
   let typeSpace = port
-  let path = requestUri.split('?')[0]
+  let path = requestUri.replace('/carga-continua', '').split('?')[0]
   let section = ''
   let subsection = ''
   let dataStory = ''
@@ -55,6 +55,7 @@ const getVars = (
           contentOrigen,
           genderOrigen,
           audienciaNicho,
+          subtype,
         } = new StoryData({
           data: globalContent,
           arcSite,
@@ -74,8 +75,9 @@ const getVars = (
               '-',
               ''
             ) /** /sección/esta-es-la-sub-seccion */
-        dataStory = ` var tipo_nota = '${getMultimedia(
+        dataStory = ` var tipo_nota = '${getMultimediaAnalitycs(
           multimediaType,
+          subtype,
           true
         )}';   var id_nota = '${id}';  var content_paywall = '${isPremium}';`
         dataNucleoOrigen = ` var nucleo_origen = '${nucleoOrigen}'; var format_origen = '${formatOrigen}';var content_origen = '${contentOrigen}'; var gender_origen = '${genderOrigen}';var audiencia_nicho = '${audienciaNicho}'`

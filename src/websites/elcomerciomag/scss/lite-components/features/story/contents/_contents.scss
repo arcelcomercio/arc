@@ -44,7 +44,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     @media (--only-mobile) {
       flex-direction: column-reverse;
     }
@@ -57,12 +57,9 @@
     }
   }
   &__author-link {
-    text-transform: uppercase;
-    font-size: 14px !important;
-    letter-spacing: 0.02rem;
     font-weight: 700;
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
   }
   &__author-image {
     width: 57px;
@@ -86,10 +83,10 @@
   }
   &__author-date {
     line-height: 18px;
-    font-size: 0.9rem;
+    font-size: 13px;
     flex-direction: column;
     @media (--only-mobile) {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
   }
 
@@ -192,9 +189,8 @@
 
   /* ----------------------------------------------------- */
   &__content {
-    content-visibility: auto;
-    contain-intrinsic-size: 2000px;
-    padding-top: 5px;
+    // contain: content;
+    padding: 5px 0 40px 0;
   }
 
   &__font-paragraph,

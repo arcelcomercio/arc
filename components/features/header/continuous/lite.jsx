@@ -1,8 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import { getAssetsPath } from '../../../utilities/assets'
+
 import HeaderContinuousChild from './_lite/_children/header'
 import customFields from './_dependencies/custom-fields'
 
@@ -15,7 +16,11 @@ const HeaderContinuous = props => {
     globalContent,
     metaValue,
   } = useAppContext()
-  const { siteDomain, siteTitle } = getProperties(arcSite)
+  const {
+    siteDomain,
+    siteTitle,
+    assets: { header },
+  } = getProperties(arcSite)
 
   const isSomos = requestUri.includes('/somos/')
   const mainImage = isSomos
@@ -23,7 +28,7 @@ const HeaderContinuous = props => {
     : `${getAssetsPath(
         arcSite,
         contextPath
-      )}/resources/dist/elcomercio/images/logo.png?d=1`
+      )}/resources/dist/${arcSite}/images/${header.logo}?d=1`
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
@@ -51,11 +56,11 @@ const HeaderContinuous = props => {
   )
 }
 
-HeaderContinuous.label = 'Cabecera Continua'
-HeaderContinuous.static = true
-
 HeaderContinuous.propTypes = {
   customFields,
 }
+
+HeaderContinuous.label = 'Cabecera Continua'
+HeaderContinuous.static = true
 
 export default HeaderContinuous

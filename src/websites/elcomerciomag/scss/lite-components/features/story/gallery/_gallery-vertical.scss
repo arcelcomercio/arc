@@ -2,6 +2,10 @@
   padding-top: 5px;
   padding-right: 20px;
   padding-left: 20px;
+  a {
+    color: #306d95;
+    text-decoration: underline;
+  }
   &__number {
     width: 72px;
     height: 32px;
@@ -22,15 +26,14 @@
     padding-top: 10px;
   }
   &__caption {
-    margin-bottom: 20px;
-    margin-top: 5px;
+    padding-top: 20px;
   }
   &__caption-image {
     text-align: left;
     letter-spacing: 0;
     color: #333;
     opacity: 1;
-    margin-top: 5px;
+    margin: 5px 0 20px 0;
     font: normal normal normal 16px/24px $primary-font;
   }
   &-social__list {
@@ -97,10 +100,6 @@
       padding-right: 20px;
     }
   }
-}
-.gv {
-  border-bottom: 1px solid #d6d6d6;
-  border-top: 1px solid #d6d6d6;
 }
 
 .gvi {

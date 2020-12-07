@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import ENV from 'fusion:environment'
 
 import { deleteQueryString } from '../utilities/parse/queries'
@@ -223,7 +223,10 @@ const LiteOutput = ({
   const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
-  const isIframeStory = requestUri.includes('ft=cargacontinua')
+  const isIframeStory = requestUri.includes('/carga-continua')
+  const iframeStoryCanonical = `${siteProperties.siteUrl}${deleteQueryString(
+    requestUri
+  ).replace(/^\/carga-continua/, '')}`
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -283,9 +286,19 @@ const LiteOutput = ({
              * https://web.dev/preconnect-and-dns-prefetch/
              */}
             {arcSite === SITE_ELCOMERCIO && (
+              // Preload fuente de titulo de nota para mejor LCP
               <link
                 rel="preload"
                 href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
+                as="font"
+                type="font/woff2"
+              />
+            )}
+            {arcSite === SITE_ELCOMERCIOMAG && (
+              // Preload fuente de titulo de nota para mejor LCP
+              <link
+                rel="preload"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
                 as="font"
                 type="font/woff2"
               />
@@ -388,7 +401,7 @@ const LiteOutput = ({
           siteProperties={siteProperties}
         />
         <Styles {...metaSiteData} />
-        {!isIframeStory && (
+        {!isIframeStory ? (
           <>
             <MetaSite {...metaSiteData} />
             <meta name="description" lang="es" content={description} />
@@ -397,8 +410,14 @@ const LiteOutput = ({
             ) : (
               <meta name="keywords" lang="es" content={keywords} />
             )}
-            <TwitterCards {...twitterCardsData} />
             <OpenGraph {...openGraphData} />
+            <TwitterCards {...twitterCardsData} />
+          </>
+        ) : (
+          // Solo para iframes de notas continuas
+          <>
+            <link rel="canonical" href={iframeStoryCanonical} />
+            <meta name="twitter:site" content={twitterCardsData.twitterUser} />
           </>
         )}
         <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
@@ -435,6 +454,7 @@ const LiteOutput = ({
           credits={credits}
           promoItems={promoItems}
           arcSite={arcSite}
+          subtype={subtype}
         />
         {isPremium && arcSite === SITE_ELCOMERCIO && (
           <>
@@ -590,7 +610,6 @@ const LiteOutput = ({
           }}
         />
         <script
-          defer
           src={`${getAssetsPath(
             arcSite,
             contextPath
