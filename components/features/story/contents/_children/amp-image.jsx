@@ -12,34 +12,19 @@ const StoryContentChildAmpImage = ({ data }) => {
   const images =
     createResizedParams({
       url: data.url,
-      presets: 'small:330x178,medium:560x315,large:1024x612',
+      presets: 'medium:600x360',
       arcSite,
     }) || {}
-
-  const parametersImages = {
-    original: images.original,
-    large: `${images.large} 1024w,${images.medium} 600w,${images.small} 360w`,
-  }
-
-  const patameters = {
-    width: 600,
-    height: 360,
-    resized_urls: parametersImages || {},
-    caption: data.caption,
-    url: data.url,
-    type: data.type,
-    subtitle: data.subtitle,
-  }
 
   return (
     <>
       <figure className={classes.image}>
         <amp-img
-          srcset={parametersImages && parametersImages.large}
+          src={images && images.medium}
           alt={data.caption}
-          sizes="(max-width: 360px) 50vw,(max-width: 750px) 50vw"
-          height={patameters.height}
-          width={patameters.width}></amp-img>
+          height={360}
+          layout="responsive"
+          width={600}></amp-img>
         <figcaption className={classes.description}>{data.subtitle}</figcaption>
       </figure>
     </>
