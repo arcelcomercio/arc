@@ -1,15 +1,16 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+
+import { getAssetsPath } from '../../../utilities/assets'
 
 import NavbarStandardLite from './_lite/_children/standard-lite'
 import schemaFilter from './_dependencies/schema-filter'
-import { getAssetsPath } from '../../../utilities/assets'
 
 // TODO: Agregar un customfield para activar o desactivar el stiky al hacer scroll (por defecto activado)
 const LayoutNavbar = props => {
-  const { contextPath, arcSite, deployment } = useFusionContext()
+  const { contextPath, arcSite, deployment } = useAppContext()
 
   const navbarData =
     useContent({
