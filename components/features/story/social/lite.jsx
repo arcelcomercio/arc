@@ -16,7 +16,7 @@ const classes = {
 }
 
 const StorySocialLite = () => {
-  const { requestUri, globalContent } = useAppContext()
+  const { requestUri, globalContent, arcSite } = useAppContext()
 
   const {
     taxonomy: {
@@ -57,7 +57,16 @@ const StorySocialLite = () => {
         )}
       </div>
       <div className={classes.buttons}>
-        <ShareButtons activeGoogleNews />
+        <ShareButtons
+          activeGoogleNews={
+            arcSite === 'elcomercio' ||
+            arcSite === 'elcomerciomag' ||
+            arcSite === 'trome'
+          }
+          activeLinkedin={
+            arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+          }
+        />
       </div>
     </div>
   )

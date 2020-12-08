@@ -1,0 +1,49 @@
+.st-tags {
+  content-visibility: auto;
+  contain-intrinsic-size: 80px;
+  color: #333;
+  margin: 25px 0;
+  padding: 0 20px;
+
+  &__title {
+    display: inline-block;
+    font: normal normal bold 14px/24px $tertiary-font;
+  }
+
+  &__tag {
+    display: inline-block;
+    padding-bottom: 3px;
+  }
+
+  &__box {
+    flex: 1;
+  }
+  &__line {
+    padding-bottom: 10px;
+    border-top: 2px solid #42c64c;
+    width: 45px;
+  }
+
+  &__link {
+    background: #eaeaea 0% 0% no-repeat padding-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    opacity: 1;
+    padding: 5px 10px;
+    margin: 0 5px 5px 0;
+    display: block;
+    text-align: center;
+    font: normal normal normal 14px/21px $primary-font;
+    letter-spacing: 0;
+    color: #222;
+    &:hover {
+      background: #42c64c 0% 0% no-repeat padding-box;
+      border: 1px solid #ccc;
+      color: #fff;
+      text-decoration: none;
+    }
+    & span {
+      display: none;
+    }
+  }
+}

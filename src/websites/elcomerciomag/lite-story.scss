@@ -1,0 +1,37 @@
+/******* Base *******/
+@import "./scss/partials/lite/import-fonts";
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+@import "./scss/variables/lite/fonts";
+
+/******* Components *******/
+
+// No van en Mag
+
+// @import "./scss/lite-components/features/header/basic/menu";
+
+// Completados - en curso
+
+@import "./scss/lite-components/features/navbar/standard-basic/nav-sidebar";
+@import "./scss/lite-components/features/cards/most-read/most-read";
+@import "./scss/lite-components/features/story/gallery/gallery";
+@import "./scss/lite-components/features/story/gallery/gallery-vertical";
+@import "./scss/lite-components/features/story/contents/contents";
+@import "./scss/lite-components/features/story/author/story-author";
+@import "./scss/lite-components/features/story/minuto-a-minuto/story";
+@import "./scss/lite-components/features/story/tags/st-tags";
+@import "./scss/lite-components/features/story/contents/table";
+@import "./scss/lite-components/features/story/related/st-rel";
+@import "./scss/lite-components/features/story/taboola/taboola";
+@import "./scss/lite-components/features/story/interest/st-interest";
+@import "./scss/lite-components/features/next-story-button/next-story-button";
+@import "./scss/lite-components/features/story/google-news/google-news";
+@import "./scss/lite-components/features/footer/story/st-foot";
+@import "./scss/lite-components/features/footer/standard-g21/foot-g"; // Eliminar si nota continua reemplaza lite
+
+// TODO
+
+@import "./scss/lite-components/features/stories-lists/linked-by-site/link-site";
+@import "./scss/lite-components/features/story/continue/st-continue";
+@import "./scss/lite-components/features/story/continue-scroll/st-scroll";
+@import "./scss/lite-components/global-components/multimedia-icon/m-icon";

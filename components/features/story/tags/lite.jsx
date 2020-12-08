@@ -8,11 +8,12 @@ const classes = {
   title: 'st-tags__title',
   tag: 'st-tags__tag',
   box: 'st-tags__box',
+  line: 'st-tags__line',
   link: 'st-tags__link',
 }
 
 const StoryTags = () => {
-  const { globalContent } = useFusionContext()
+  const { globalContent, arcSite } = useFusionContext()
   const { taxonomy: { tags = [] } = {} } = globalContent || {}
 
   return (
@@ -21,6 +22,7 @@ const StoryTags = () => {
         <h4 itemProp="name" className={classes.title}>
           TAGS RELACIONADOS
         </h4>
+        <div className={classes.line}></div>
         <div className={classes.box}>
           {tags.map(
             ({ slug, text }, idx) =>
@@ -35,7 +37,7 @@ const StoryTags = () => {
                       itemProp="url"
                       className={classes.link}
                       href={slug && `/noticias/${slug}/`}>
-                      {idx !== 0 && <span>|</span>}
+                      {idx !== 0 && arcSite === 'elcomercio' && <span>|</span>}
                       {text}
                     </a>
                   </h2>

@@ -178,11 +178,19 @@ const PropertiesCommon = {
     sales:        `https://arc-subs-sdk.s3.amazonaws.com/${ArcEnv}/sdk-sales.min.js`,
     payu:         'https://gateway.payulatam.com/ppp-web-gateway/javascript/PayU.js',
     payuTags:     'https://maf.pagosonline.net/ws/fp/tags.js?id=',
-    payuPayments: 'https://sandbox.api.payulatam.com/payments-api/4.0/service',
+    payuPayments: `https://${IsPROD ? '' : 'sandbox.'}api.payulatam.com/payments-api/4.0/service`,
+    payuPublicKey: IsPROD ? 'PK63j8CtoTehN173BZ568SB6Bs' : 'PKaC6H4cEDJD919n705L544kSU',
+    payuAccountID: IsPROD ? '781124' : '512323',
     profile:      '/mi-perfil/?outputType=signwall',
     preguntas:    `/suscripcionesdigitales/faqs/${IsPROD ? '' : '?outputType=paywall'}`,
     bannerCorp:   `/suscripcionesdigitales/empresa/${IsPROD ? '' : '?outputType=paywall'}`,
     landingFia:   `/suscripcionesdigitales/fia/${IsPROD ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`
+  },
+
+  tokens: {
+    paymentTracker: IsPROD
+      ? '5088cbc5ceb807c702b4e3487173ef792eb50be4'
+      : 'deb904a03a4e31d420a014534514b8cc8ca4d111',
   },
 
   // prettier-ignore

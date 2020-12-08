@@ -1,0 +1,30 @@
+.nsb {
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 980px;
+  box-sizing: border-box;
+  @media (--tablet) {
+    // background-color: transparent;
+    display: none;
+  }
+  &__link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    text-align: center;
+    border: solid 1px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    color: #262627;
+    text-decoration: none;
+    align-items: center;
+    font-weight: bold;
+  }
+  &__arrow {
+    margin-left: 10px;
+  }
+}

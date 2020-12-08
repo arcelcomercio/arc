@@ -15,7 +15,7 @@ import ChartbeatBody from './_children/chartbeat-body'
 
 import StoryData from '../utilities/story-data'
 import { storyTagsBbc } from '../utilities/tags'
-import { addSlashToEnd } from '../utilities/parse/strings'
+import { addSlashToEnd, ifblogType } from '../utilities/parse/strings'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -99,7 +99,9 @@ export default ({
   const sectionPath = nodeType === 'section' ? _id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
   const isVideosSection = /^\/videos\//.test(requestUri)
-  const isBlogPost = /^\/blogs?\/.*.html/.test(requestUri)
+  const isBlogPost = /^\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?/.test(
+    requestUri
+  )
 
   let classBody = isStory
     ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
@@ -256,7 +258,6 @@ export default ({
     contentElementsHtml,
     oembedSubtypes,
     embedTwitterAndInst,
-    quantityGalleryItem = 0,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo = [],
   } = new StoryData({
@@ -302,8 +303,7 @@ export default ({
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
-  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
-  `
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -457,7 +457,16 @@ export default ({
         {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
         <TwitterCards {...twitterCardsData} />
         <OpenGraph {...openGraphData} />
-
+        {isBlogPost && (
+          <>
+            <meta name="section-id" content="/blog" />
+            <meta name="content-type" content="story" />
+            <meta
+              property="article:content_tier"
+              content={ifblogType(globalContent)}
+            />
+          </>
+        )}
         {renderMetaPage(metaValue('id'), metaPageData)}
         <AppNexus
           arcSite={arcSite}
@@ -503,6 +512,7 @@ export default ({
           credits={credits}
           promoItems={promoItems}
           arcSite={arcSite}
+          subtype={subtype}
         />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
@@ -652,7 +662,6 @@ export default ({
         )}
         {jwplayerSeo[0] && (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: jwplayerScript,
             }}
@@ -660,7 +669,6 @@ export default ({
         )}
         {contenidoVideo && (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: videoScript,
             }}
@@ -668,7 +676,6 @@ export default ({
         )}
         {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
             }}
@@ -677,12 +684,17 @@ export default ({
           <></>
         )}
         {subtype === GALLERY_VERTICAL && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: dataLayer,
+          <Resource path="resources/assets/js/vertical-gallery.min.js">
+            {({ data }) => {
+              return data ? (
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: data,
+                  }}
+                />
+              ) : null
             }}
-          />
+          </Resource>
         )}
 
         {(hasYoutubeVideo || isVideosSection) && (
@@ -708,16 +720,10 @@ export default ({
         )}
         {embedTwitterAndInst && (
           <>
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{ __html: widgets }}
-            />
+            <script dangerouslySetInnerHTML={{ __html: widgets }} />
           </>
         )}
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: iframeScript }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
@@ -753,10 +759,7 @@ export default ({
           </>
         )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: htmlScript }}
-          />
+          <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
       </body>
     </html>

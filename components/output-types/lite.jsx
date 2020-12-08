@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import ENV from 'fusion:environment'
 
 import { deleteQueryString } from '../utilities/parse/queries'
@@ -183,7 +183,6 @@ const LiteOutput = ({
     getPremiumValue,
     promoItems: { basic_html: { content = '' } = {} } = {},
     jwplayerSeo,
-    quantityGalleryItem = 0,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -224,9 +223,11 @@ const LiteOutput = ({
   const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
   const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
-  const isIframeStory = requestUri.includes('ft=cargacontinua')
-  const dataLayer = ` window.dataLayer = window.dataLayer || []; window.dataLayer.push({ 'event': 'vertical_gallery', 'foto': [1,${quantityGalleryItem}] });
-  `
+  const isIframeStory = requestUri.includes('/carga-continua')
+  const iframeStoryCanonical = `${siteProperties.siteUrl}${deleteQueryString(
+    requestUri
+  ).replace(/^\/carga-continua/, '')}`
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -285,9 +286,19 @@ const LiteOutput = ({
              * https://web.dev/preconnect-and-dns-prefetch/
              */}
             {arcSite === SITE_ELCOMERCIO && (
+              // Preload fuente de titulo de nota para mejor LCP
               <link
                 rel="preload"
                 href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
+                as="font"
+                type="font/woff2"
+              />
+            )}
+            {arcSite === SITE_ELCOMERCIOMAG && (
+              // Preload fuente de titulo de nota para mejor LCP
+              <link
+                rel="preload"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
                 as="font"
                 type="font/woff2"
               />
@@ -390,7 +401,7 @@ const LiteOutput = ({
           siteProperties={siteProperties}
         />
         <Styles {...metaSiteData} />
-        {!isIframeStory && (
+        {!isIframeStory ? (
           <>
             <MetaSite {...metaSiteData} />
             <meta name="description" lang="es" content={description} />
@@ -399,8 +410,14 @@ const LiteOutput = ({
             ) : (
               <meta name="keywords" lang="es" content={keywords} />
             )}
-            <TwitterCards {...twitterCardsData} />
             <OpenGraph {...openGraphData} />
+            <TwitterCards {...twitterCardsData} />
+          </>
+        ) : (
+          // Solo para iframes de notas continuas
+          <>
+            <link rel="canonical" href={iframeStoryCanonical} />
+            <meta name="twitter:site" content={twitterCardsData.twitterUser} />
           </>
         )}
         <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
@@ -437,6 +454,7 @@ const LiteOutput = ({
           credits={credits}
           promoItems={promoItems}
           arcSite={arcSite}
+          subtype={subtype}
         />
         {isPremium && arcSite === SITE_ELCOMERCIO && (
           <>
@@ -528,7 +546,6 @@ const LiteOutput = ({
               defer
             />
             <script
-              type="text/javascript"
               dangerouslySetInnerHTML={{
                 __html: videoScript,
               }}
@@ -538,7 +555,6 @@ const LiteOutput = ({
 
         {jwplayerSeo[0] && (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: jwplayerScript,
             }}
@@ -547,7 +563,6 @@ const LiteOutput = ({
 
         {subtype === MINUTO_MINUTO || subtype === GALLERY_VERTICAL ? (
           <script
-            type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: minutoMinutoScript,
             }}
@@ -556,12 +571,17 @@ const LiteOutput = ({
           <></>
         )}
         {subtype === GALLERY_VERTICAL && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: dataLayer,
+          <Resource path="resources/assets/js/vertical-gallery.min.js">
+            {({ data }) => {
+              return data ? (
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: data,
+                  }}
+                />
+              ) : null
             }}
-          />
+          </Resource>
         )}
         {hasYoutubeVideo && (
           <>
@@ -585,26 +605,24 @@ const LiteOutput = ({
           </>
         )}
         <script
-          type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: iframeScript,
           }}
         />
         <script
-          defer
           src={`${getAssetsPath(
             arcSite,
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
         {requestUri.match('^/mundo') && (
-        <script
-          type="module"
-          defer
-          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-            .toISOString()
-            .slice(0, 10)}`}
-        />
+          <script
+            type="module"
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+          />
         )}
         {isStory && (
           <>
@@ -634,10 +652,7 @@ const LiteOutput = ({
           </>
         )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{ __html: htmlScript }}
-          />
+          <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
         {isIframeStory && (
           <script

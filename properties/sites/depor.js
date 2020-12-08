@@ -24,6 +24,8 @@ export default {
   mobileHeaderFollowing: 'Siguenos en Depor',
   siteDescription:
     'Noticias de Perú y el mundo en Depor.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsUrl:
+    'https://news.google.com/publications/CAAqBwgKMOju9wow0fjXAg?oc=3&ceid=PE:es-419',
   googleNewsImage: 'https://depor.com/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',
@@ -138,7 +140,7 @@ export default {
   archiveLimit: '2015-12-29',
   jwplayers: {
     gec: {
-      playerAds: 'UQH16oLN',
+      playerAds: 'C62GLELR',
       player: 'pHa2K63V',
     },
   },

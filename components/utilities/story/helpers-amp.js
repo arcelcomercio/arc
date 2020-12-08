@@ -18,13 +18,14 @@ const createMarkup = html => {
 // TODO: hacer que sea una sola funcion con la de helpers.js y dates.js
 export const formatDateTime = date => {
   const newDate = new Date(date)
-  const dateTime = new Intl.DateTimeFormat('es', {
+  const dateTime = new Intl.DateTimeFormat('es-419-u-hc-h12', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
     hour: 'numeric',
     minute: 'numeric',
     timeZone: 'America/Lima',
+    hour12: true,
   })
 
   return dateTime.format(newDate)
@@ -139,7 +140,6 @@ export const imageHtmlMxm = html => {
       /:fijado:/g,
       '<div class="fijado"><div class="icon-compartir"><svg xmlns="http://www.w3.org/2000/svg" class="icon-compartir" width="20" height="20" viewBox="0 0 475 475"><path d="M380 247c-15-19-32-28-51-28V73c10 0 19-4 26-11 7-7 11-16 11-26 0-10-4-18-11-26C347 4 339 0 329 0H146c-10 0-18 4-26 11-7 7-11 16-11 26 0 10 4 19 11 26 7 7 16 11 26 11v146c-19 0-36 9-51 28-15 19-22 40-22 63 0 5 2 9 5 13 4 4 8 5 13 5h115l22 139c1 5 4 8 9 8h0c2 0 4-1 6-2 2-2 3-4 3-6l15-138h123c5 0 9-2 13-5 4-4 5-8 5-13C402 287 395 266 380 247zM210 210c0 3-1 5-3 7-2 2-4 3-7 3-3 0-5-1-7-3-2-2-3-4-3-7V82c0-3 1-5 3-7 2-2 4-3 7-3 3 0 5 1 7 3 2 2 3 4 3 7V210z" data-original="#000000"/></svg></div></div>'
     )
-    .replace(/<mxm-event (.*)><\/mxm-event>/gm, '')
 
   return resHtml
 }
@@ -449,10 +449,15 @@ export const facebookHtml = html => {
       '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$1"></amp-facebook>'
     resultHtml = resultHtml.replace(regexVideo, replacePlugin)
 
-    return decodeURIComponent(resultHtml).replace(
-      /<iframe(.+?)(https?:\/\/www\.facebook\.com\/(?:video\.php\?v=\d+|.*?href=))((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)"(.+?)><\/iframe>/g,
-      '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$3"></amp-facebook>'
-    )
+    try {
+      resultHtml = decodeURIComponent(resultHtml).replace(
+        /<iframe(.+?)(https?:\/\/www\.facebook\.com\/(?:video\.php\?v=\d+|.*?href=))((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\\/]))?)"(.+?)><\/iframe>/g,
+        '<amp-facebook width="500" height="310" layout="responsive" data-embed-as="video" data-href="$3"></amp-facebook>'
+      )
+    } catch (error) {
+      //  console.log(error)
+    }
+    return resultHtml
   }
 
   if (resultHtml.indexOf('facebook.com/plugins/post.php') !== -1) {
@@ -460,7 +465,12 @@ export const facebookHtml = html => {
     const replacePlugin =
       '<amp-facebook width="500" height="310" layout="responsive" data-href="$1"></amp-facebook>'
     resultHtml = resultHtml.replace(regexPost, replacePlugin)
-    return decodeURIComponent(resultHtml)
+    try {
+      resultHtml = decodeURIComponent(resultHtml)
+    } catch (error) {
+      //  console.log(error)
+    }
+    return resultHtml
   }
 
   // fallback para iframes de facebook
@@ -612,6 +622,11 @@ export const iframeMxm = (html, arcSite) => {
   return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')
 }
 
+export const mxmDelete = html => {
+  if (html.indexOf('<mxm-') === -1) return html
+  return html.replace(/<mxm-event (.*)><\/mxm-event>/gm, '')
+}
+
 export const ampHtml = (html = '', arcSite = '', migrated = false) => {
   let resultData = html
   const isModernMag = arcSite === SITE_ELCOMERCIOMAG && !migrated
@@ -629,7 +644,6 @@ export const ampHtml = (html = '', arcSite = '', migrated = false) => {
     // Player
     resultData = playerHtml(resultData)
   }
-
   if (resultData.includes('mxm-')) {
     resultData = imageHtmlMxm(resultData, arcSite)
   }
@@ -640,7 +654,6 @@ export const ampHtml = (html = '', arcSite = '', migrated = false) => {
   if (arcSite === SITE_ELBOCON || arcSite === SITE_DEPOR) {
     resultData = jwPlayerJS(resultData)
   }
-
   // twitter
   resultData = twitterHtml(resultData)
 
@@ -672,5 +685,6 @@ export const ampHtml = (html = '', arcSite = '', migrated = false) => {
     resultData = iframeMxm(resultData)
   }
 
+  resultData = mxmDelete(resultData)
   return resultData
 }

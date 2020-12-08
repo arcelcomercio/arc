@@ -1,6 +1,5 @@
-import React from 'react'
-
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
@@ -9,11 +8,13 @@ import StoryContentsChildAuthorTrust from './_children/author-trust-lite'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 
 const StoryAuthorLite = () => {
-  const { arcSite, contextPath, globalContent: data } = useFusionContext()
+  const { arcSite, contextPath, globalContent: data } = useAppContext()
 
   const {
     subtype,
-    displayDate: updatedDate,
+    displayDate,
+    publishDate: updateDate,
+    createdDate,
     authorImage,
     authorLink,
     author,
@@ -26,7 +27,6 @@ const StoryAuthorLite = () => {
     authorSecond,
     authorEmailSecond,
     roleSecond: authorRoleSecond,
-    createdDate,
   } = new StoryData({
     data,
     contextPath,
@@ -37,7 +37,8 @@ const StoryAuthorLite = () => {
     author,
     authorRole,
     authorLink,
-    updatedDate: getDateSeo(updatedDate || createdDate),
+    displayDate: getDateSeo(displayDate || createdDate),
+    publishDate: getDateSeo(updateDate),
     locality,
     authorEmail,
     primarySection,
@@ -48,6 +49,7 @@ const StoryAuthorLite = () => {
     authorEmailSecond,
     authorRoleSecond,
     galleryVertical: true,
+    arcSite,
   }
 
   return (

@@ -1,6 +1,7 @@
 import { SITE_ELCOMERCIO } from './constants/sitenames'
 import { VIDEO, GALLERY } from './constants/multimedia-types'
 import { getAssetsPath } from './assets'
+import { GALLERY_VERTICAL } from './constants/subtypes'
 
 export const reduceWord = (word, len = 145, finalText = '...') => {
   return word.length > len ? word.slice(0, len).concat(finalText) : word
@@ -505,6 +506,26 @@ export const getMultimedia = (multimediaType, amp = false) => {
       break
     case GALLERY:
       type = amp ? 'foto_galeria' : 'gallery'
+      break
+    default:
+      type = amp ? 'imagen' : 'story'
+  }
+  return type
+}
+
+export const getMultimediaAnalitycs = (
+  multimediaType,
+  subtype,
+  amp = false
+) => {
+  let type = ''
+  switch (multimediaType) {
+    case VIDEO:
+      type = 'video'
+      break
+    case GALLERY:
+      type =
+        subtype === GALLERY_VERTICAL ? 'foto_galeria_vertical' : 'foto_galeria'
       break
     default:
       type = amp ? 'imagen' : 'story'

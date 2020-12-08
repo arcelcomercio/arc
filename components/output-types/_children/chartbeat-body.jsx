@@ -10,6 +10,7 @@ import {
   META_STORY,
   META_TAG,
 } from '../../utilities/constants/meta'
+import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
 const getSectionList = (requestUri, type) => {
   // Toma la URI sin slash al inicio y final
@@ -38,13 +39,15 @@ const getAuthor = credits =>
 
 const getTagList = tags => tags.map(tag => tag.slug)
 
-const getStoryType = promoItems => {
+const getStoryType = (promoItems, subtype) => {
   const promoTypes = Object.keys(promoItems)
 
   if (promoTypes[0] === GALLERY) {
+    const typeGallery =
+      subtype === GALLERY_VERTICAL ? 'foto_galeria_vertical' : 'foto_galeria'
     return {
       stringType: 'Articulo Nota Fotogaleria',
-      type: 'foto_galeria',
+      type: typeGallery,
     }
   }
   if (promoTypes[0] === VIDEO) {
@@ -68,13 +71,14 @@ const ChartbeatBody = ({
   credits,
   promoItems,
   arcSite,
+  subtype = '',
 }) => {
   const { charbeatAccountNumber, siteDomain } = getProperties(arcSite)
   const page = metaValue('id')
   const sectionList = getSectionList(requestUri, page)
   const author = getAuthor(credits) || ''
   const tagsList = getTagList(tags) || arcSite
-  const { type, stringType } = getStoryType(promoItems) || {}
+  const { type, stringType } = getStoryType(promoItems, subtype) || {}
   const renderSections = story ? sectionList.concat(tagsList) : sectionList
 
   /* chartbeatVideoScript

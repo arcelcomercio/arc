@@ -2,7 +2,7 @@ import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
 import md5 from 'md5'
 import StoryData from '../../../utilities/story-data'
-import { getMultimedia, nbspToSpace } from '../../../utilities/helpers'
+import { getMultimediaAnalitycs, nbspToSpace } from '../../../utilities/helpers'
 import { localISODate, getActualDate } from '../../../utilities/date-time/dates'
 import formatTime from '../../../utilities/date-time/format-time'
 import buildHtml from './_dependencies/build-html'
@@ -221,7 +221,10 @@ class XmlFacebookInstantArticles {
                 subsection: storyData.sectionsFIA.subsection,
                 newsId: storyData.id,
                 author: nbspToSpace(storyData.author),
-                newsType: getMultimedia(storyData.multimediaType),
+                newsType: getMultimediaAnalitycs(
+                  storyData.multimediaType,
+                  storyData.subtype
+                ),
                 pageview,
                 newsTitle: nbspToSpace(storyData.title),
                 nucleoOrigen: storyData.nucleoOrigen,

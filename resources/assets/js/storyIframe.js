@@ -1,3 +1,23 @@
+document.addEventListener('DOMContentLoaded', () => {
+  /* function _handleLinkClick () {
+    const target = this.href
+    window.top.postMessage({
+      id: 'iframe_open_link',
+      redirectUrl: target
+    }, location.origin)
+  } */
+
+  requestIdle(() => {
+    let links = Array.from(document.links);
+    links.forEach(link => {
+      if(!link.className.includes("share")) {
+        link.target = "_blank"
+      }
+      // link.onclick = _handleLinkClick
+    })
+  })
+})
+
 window.addEventListener('load', () => {
   function sendMessage() {
     window.top.postMessage({

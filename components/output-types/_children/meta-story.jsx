@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import ENV from 'fusion:environment'
 import { useContent } from 'fusion:content'
 import StoriesRecent from '../../global-components/stories-recent'
@@ -34,8 +34,8 @@ export default ({
   contextPath,
   socialName,
   isAmp,
-  isIframeStory = false,
   siteAssets: { seo },
+  isIframeStory = false,
   siteName = '',
   siteUrl = '',
 }) => {
@@ -45,8 +45,8 @@ export default ({
     metaTitle,
     tags,
     link,
-    displayDate: publishDate,
-    publishDate: publishDatedate,
+    displayDate,
+    publishDate: updateDate,
     subTitle = arcSite,
     authorImage,
     author: authorName,
@@ -101,11 +101,11 @@ export default ({
     arcSite === SITE_ELCOMERCIOMAG ||
     arcSite === SITE_DEPOR ||
     arcSite === SITE_ELBOCON
-      ? getDateSeo(publishDate)
-      : publishDate
+      ? getDateSeo(displayDate)
+      : displayDate
 
   publishDateZone =
-    arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDate) : publishDateZone
+    arcSite === SITE_ELCOMERCIO ? getDateSeo(displayDate) : publishDateZone
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
 
@@ -146,7 +146,7 @@ export default ({
     : structuredAutor
 
   const lastPublishDate =
-    arcSite === SITE_ELCOMERCIO ? getDateSeo(publishDatedate) : publishDatedate
+    arcSite === SITE_ELCOMERCIO ? getDateSeo(updateDate) : updateDate
 
   const redSocialVideo = contentElementsRedesSociales
     .map(redesSociales => {
@@ -454,7 +454,7 @@ export default ({
 
   const dateline =
     subtype !== GALLERY_VERTICAL
-      ? `"dateline": "${`${getDateSeo(publishDate)} ${locality}`}",`
+      ? `"dateline": "${`${getDateSeo(displayDate)} ${locality}`}",`
       : ''
 
   const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
@@ -505,10 +505,10 @@ export default ({
 
   const structuredBreadcrumb = `{ "@context":"https://schema.org", "@type":"BreadcrumbList", "itemListElement":[${breadcrumbResult}] }`
 
-  const taboolaScript = arcSite === SITE_ELCOMERCIOMAG ? 'elcomercio' : arcSite
+  const taboolaScript =
+    arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
 
-  const scriptTaboola = `
-  "use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){window.onload=document.addEventListener("scroll",function e(){document.removeEventListener("scroll",e),requestIdle(function(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}})})}window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}();`
+  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("taboola-below-content-thumbnails");function o(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}}if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e,n){e.forEach(function(e){e.isIntersecting&&(o(),t.unobserve(e.target))})},{rootMargin:"0px 0px 1200px 0px"});t.observe(e)}else o()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
     window._taboola = window._taboola || [];
@@ -517,6 +517,9 @@ export default ({
     });
     !function(){
       if (typeof window !== 'undefined') {
+        if(window.location.search.includes('widgettaboola=none')) {
+          return;
+        }
         function injectTaboola() {
           document.removeEventListener('scroll', injectTaboola)
           requestIdle(() => {
@@ -532,9 +535,9 @@ export default ({
           })
         }
         window.onload = document.addEventListener('scroll', injectTaboola) 
-      }
-      if (window.performance && typeof window.performance.mark == 'function') {
-        window.performance.mark('tbl_ic');
+        if (window.performance && typeof window.performance.mark == 'function') {
+          window.performance.mark('tbl_ic');
+        }
       }
     }() */
 
@@ -544,9 +547,11 @@ export default ({
       _taboola.push({
           article: 'auto'
       });
-
-      ! function(){
+      !function(){
         if (typeof window !== 'undefined') {
+          if(window.location.search.includes('widgettaboola=none')) {
+            return;
+          }
           document.addEventListener('DOMContentLoaded', () => {
             const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
 
@@ -562,11 +567,7 @@ export default ({
               }
             }
       
-            if (
-              'IntersectionObserver' in window &&
-              'IntersectionObserverEntry' in window &&
-              'intersectionRatio' in window.IntersectionObserverEntry.prototype
-            ) {
+            if ('IntersectionObserver' in window) {
               const taboolaObserver = new IntersectionObserver(
                 (entries, observer) => {
                   entries.forEach(entry => {
@@ -575,7 +576,7 @@ export default ({
                       taboolaObserver.unobserve(entry.target)
                     }
                   })
-                },{rootMargin: "0px 0px 200px 0px"}
+                },{rootMargin: "0px 0px 1200px 0px"}
               )
 
               taboolaObserver.observe(taboolaDiv)
@@ -583,9 +584,9 @@ export default ({
               execTaboola()
             }
           })
-        }
-        if (window.performance && typeof window.performance.mark == 'function') {
-          window.performance.mark('tbl_ic');
+          if (window.performance && typeof window.performance.mark == 'function') {
+            window.performance.mark('tbl_ic');
+          }
         }
       }()
    */
@@ -622,7 +623,14 @@ export default ({
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={primarySection} />
       <meta name="etiquetas" content={listItems.map(item => item)} />
-      <meta name="content-type" content={getMultimedia(multimediaType)} />
+      <meta
+        name="content-type"
+        content={
+          subtype === GALLERY_VERTICAL
+            ? 'gallery_vertical'
+            : getMultimedia(multimediaType)
+        }
+      />
       <meta name="section-id" content={removeLastSlash(primarySectionLink)} />
       <meta
         name="keywords"
@@ -664,13 +672,8 @@ export default ({
         </>
       )}
       {isAmp !== true && (
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: scriptTaboola }}
-          async
-        />
+        <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
       )}
-
       {isAmp === true &&
         dataStructuraHtmlAmp.map(datas => {
           return (
