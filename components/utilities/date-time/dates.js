@@ -24,7 +24,7 @@ export const getActualDate = () => {
  * @param {Date} config.date
  * @param {boolean} [config.showTime=true]
  * @param {boolean} [config.showWeekday=true]
- * @returns {string} jueves, 19 de noviembre de 2020 09:30
+ * @returns {string} jueves, 19 de noviembre de 2020 09:30 a.m.
  */
 export const getVerboseDate = ({
   date,
@@ -36,6 +36,7 @@ export const getVerboseDate = ({
     month: 'long',
     day: 'numeric',
     timeZone: 'America/Lima',
+    hour12: true,
   }
   const weekday = showWeekday
     ? {
@@ -63,7 +64,7 @@ export const getVerboseDate = ({
  * @param {Date} date
  * @param {boolean} [showTime=true]
  * @param {boolean} [showWeekday=true]
- * @returns {string} jueves, 19 de noviembre de 2020 09:30
+ * @returns {string} jueves, 19 de noviembre de 2020 09:30 a.m.
  */
 export const formatDayMonthYear = (
   currentDate,
@@ -77,7 +78,7 @@ export const formatDayMonthYear = (
  * @param {Date} date
  * @param {boolean} [showTime=true]
  * @param {boolean} [showWeekday=true]
- * @returns {string} 19 de noviembre de 2020 09:30
+ * @returns {string} 19 de noviembre de 2020 09:30 a.m.
  */
 export const formatDayMonthYearBasic = (currentDate, showTime = true) =>
   getVerboseDate({ date: currentDate, showTime, showWeekday: false })
@@ -106,7 +107,7 @@ export const getDateSeo = date => localISODate(date)
 /**
  *
  * @param {string} date
- * @returns {string} Actualizado el 19/11/2020 a las 09:30
+ * @returns {string} Actualizado el 19/11/2020 a las 09:30 a.m.
  */
 export const formatDateStory = date => {
   const newDate = date ? new Date(date) : new Date()
@@ -115,6 +116,7 @@ export const formatDateStory = date => {
     month: '2-digit',
     day: '2-digit',
     timeZone: 'America/Lima',
+    hour12: true,
   })
 
   return `Actualizado el ${dateTime.format(newDate)} a las ${formatTime(
