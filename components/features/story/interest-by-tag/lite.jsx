@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
-import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import { SITE_ELCOMERCIOMAG, SITE_TROME } from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
 
 import schemaFilter from './_dependencies/schema-filter'
@@ -77,6 +77,14 @@ const InterestByTagLite = props => {
   const isMag = arcSite === SITE_ELCOMERCIOMAG
   const linkSource = `&source=${isMag ? 'notepierdas' : 'tepuedeinteresar'}`
 
+  const isTrome = arcSite === SITE_TROME
+  const titleItem = (title) => {
+    if(isTrome && title.length > 105) {
+      return `${title.substring(0, 105)}...`
+    }
+    return title
+  }
+
   const getSize = cant => {
     const dataStories = dataInterest.map((story, i) => {
       if (key === cant) return false
@@ -85,7 +93,7 @@ const InterestByTagLite = props => {
       const link = `${instance.websiteLink}?ref=${outputType}&pos=${key}${linkSource}`
 
       const data = {
-        title: instance.title,
+        title: titleItem(instance.title),
         subtitle: instance.subTitle,
         link,
         section: instance.primarySection,

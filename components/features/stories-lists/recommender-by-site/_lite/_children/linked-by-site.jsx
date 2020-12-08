@@ -4,6 +4,7 @@ import { createMarkup } from '../../../../../utilities/helpers'
 import {
   SITE_DEPOR,
   SITE_GESTION,
+  SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
 
 const classes = {
@@ -35,6 +36,12 @@ const StoriesListRecommenderBySiteChild = ({
 }) => {
   const isGestion = arcSite === SITE_GESTION
   const isDepor = arcSite === SITE_DEPOR
+  const isTrome = arcSite === SITE_TROME
+  const siteAllowed = () => {
+    if (isDepor) return true
+    if (isTrome) return true
+    return false
+  }
   return (
     <section className={classes.container}>
       <div className={classes.header}>
@@ -101,7 +108,7 @@ const StoriesListRecommenderBySiteChild = ({
               <h2 itemProp="name" className={classes.listItemTitle}>
                 {title}
               </h2>
-              {isDepor && <span className={classes.sitename}>{siteName}</span>}
+              {siteAllowed() && <span className={classes.sitename}>{siteName}</span>}
             </a>
           )
         )}

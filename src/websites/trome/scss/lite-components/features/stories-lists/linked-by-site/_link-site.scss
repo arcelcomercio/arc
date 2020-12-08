@@ -35,21 +35,22 @@ src/general-styles/framework/core/_lite.scss
     padding-bottom: 10px;
   }
   &__h-text {
-    color: #111;
+    color: #000;
     font-weight: 700;
     font-size: 18px;
     line-height: 18px;
     font-family: $primary-font;
     letter-spacing: 0;
     text-transform: none;
+    opacity: 1;
   }
   &__subtitle {
     font-family: $primary-font;
-    font-size: 10px;
+    font-size: 11px;
     line-height: 18px;
-    letter-spacing: -0.1px;
+    letter-spacing: 0.33px;
     color: #b2b2b2;
-    // color: #111;
+    opacity: 1;
   }
   &__site {
     font-weight: 700;
@@ -66,11 +67,11 @@ src/general-styles/framework/core/_lite.scss
     } */
   }
   &__title-link {
-    font-size: 16px;
-    color: #000;
+    font-size: 14px;
+    color: #333;
     font-family: $primary-font;
-    letter-spacing: 0.08px;
-    line-height: 1.3333;
+    letter-spacing: 0.14px;
+    line-height: 17px;
     font-weight: 700;
     display: block;
     display: -webkit-box;
@@ -78,6 +79,7 @@ src/general-styles/framework/core/_lite.scss
     -webkit-line-clamp: 4;
     max-height: calc(20px * 4);
     margin: 10px 0;
+    opacity: 1;
     @media (--tablet) {
       font-size: 1rem;
       -webkit-line-clamp: 3;
@@ -86,9 +88,6 @@ src/general-styles/framework/core/_lite.scss
   }
   &__item {
     margin-bottom: 15px;
-    // padding-bottom: 15px;
-    // border-bottom: 2px solid #e1e1e1;
-    // padding-top: 15px;
     max-width: calc((100% / 2) - 10px);
     flex-direction: column;
 
@@ -107,5 +106,6 @@ src/general-styles/framework/core/_lite.scss
     font-family: $primary-font;
     letter-spacing: 0.11px;
     color: #7c7c7c;
+    opacity: 1;
   }
 }
