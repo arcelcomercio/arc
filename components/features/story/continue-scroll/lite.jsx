@@ -131,7 +131,7 @@ const StoryContinueLite = props => {
     ),
   }
 
-  const filledStContinueScript = stContinueScript
+  const filledStContinueScript = stContinueScript()
     .replace(/<<arcSite>>/g, arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',
