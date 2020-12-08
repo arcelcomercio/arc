@@ -4,6 +4,7 @@
   display: none;
   @media (--desktop) {
     display: flex;
+    max-width: $max-width;
   }
 
   &__logo {
@@ -15,6 +16,7 @@
     display: none;
     @media (--tablet) {
       display: flex;
+      max-width: $max-width;
     }
   }
   &__tags {

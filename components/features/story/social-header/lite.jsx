@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+
 import { getAssetsPath } from '../../../utilities/assets'
 
 import DynamicShareButtons from '../../../global-components/lite/dynamic-share'

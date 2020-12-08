@@ -1,7 +1,7 @@
 .nsb {
   padding-left: 20px;
   padding-right: 20px;
-  max-width: 980px;
+  max-width: $max-width;
   box-sizing: border-box;
   @media (--tablet) {
     // background-color: transparent;

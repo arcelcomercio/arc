@@ -1,5 +1,5 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 
 import Button from '../../../../../global-components/button'
 
@@ -27,7 +27,7 @@ const classes = {
 const NavbarChildMenu = ({ sections }) => {
   const {
     siteProperties: { siteDomain = '', legalLinks = [] } = {},
-  } = useFusionContext()
+  } = useAppContext()
 
   /**
    * MENU SCRIPT
