@@ -1,7 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useFusionContext } from 'fusion:context'
 import { AuthContext } from '../../../_context/auth'
-import { PropertiesCommon } from '../../../_dependencies/Properties'
+import {
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
 import { isLogged } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 import { getFullNameFormat } from '../../../_dependencies/Utils'
@@ -40,6 +43,7 @@ const Summary = () => {
   const [checkPlan, setCheckPlan] = useState()
   const [totalPlan, setTotalPlan] = useState()
   const [orderPlans, setOrderPlans] = useState([])
+  const { urls } = PropertiesSite[arcSite]
   const { texts } = PropertiesCommon
   const { firstName = '', lastName = '', secondLastName = '' } =
     userProfile || {}
@@ -237,7 +241,10 @@ const Summary = () => {
               )}
             </li>
             <li>
-              Navegación ilimitada en <a href={`${arcSite}.pe`}>{arcSite}.pe</a>{' '}
+              Navegación ilimitada en{' '}
+              <a href={urls.mainHome} target="_blank" rel="noreferrer">
+                {arcSite}.pe
+              </a>{' '}
               desde cualquier dispositivo.
             </li>
             <li>Acceso a descuentos ilimitados en Club de beneficios.</li>
