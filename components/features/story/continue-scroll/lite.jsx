@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 
 import { removeLastSlash } from '../../../utilities/parse/strings'
 import { deleteQueryString } from '../../../utilities/parse/queries'
@@ -19,6 +20,7 @@ const StoryContinueLite = props => {
     globalContent || {}
   const { slug: tag = '' } = tags[0] || {}
   const cleanRequestUri = deleteQueryString(requestUri)
+  const { idGoogleAnalitics } = getProperties(arcSite)
 
   const isComercio = arcSite === SITE_ELCOMERCIO
 
@@ -131,7 +133,7 @@ const StoryContinueLite = props => {
     ),
   }
 
-  const filledStContinueScript = stContinueScript
+  const filledStContinueScript = stContinueScript(idGoogleAnalitics)
     .replace(/<<arcSite>>/g, arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',

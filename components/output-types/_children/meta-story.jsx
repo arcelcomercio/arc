@@ -508,7 +508,7 @@ export default ({
   const taboolaScript =
     arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
 
-  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("taboola-below-content-thumbnails");function o(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}}if("IntersectionObserver"in window){var t=new IntersectionObserver(function(e,n){e.forEach(function(e){e.isIntersecting&&(o(),t.unobserve(e.target))})},{rootMargin:"0px 0px 1200px 0px"});t.observe(e)}else o()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
+  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){function e(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}}if("IntersectionObserver"in window){var o=new IntersectionObserver(function(t,n){t.forEach(function(t){t.isIntersecting&&(e(),o.unobserve(t.target))})},{rootMargin:"0px 0px 1200px 0px"}),t=document.getElementById("taboola-below-content-thumbnails");t&&o.observe(t)}else e()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
     window._taboola = window._taboola || [];
@@ -553,8 +553,6 @@ export default ({
             return;
           }
           document.addEventListener('DOMContentLoaded', () => {
-            const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
-
             function execTaboola() {
               const id = 'tb_loader_script'
               if (!document.getElementById(id)) {
@@ -579,7 +577,8 @@ export default ({
                 },{rootMargin: "0px 0px 1200px 0px"}
               )
 
-              taboolaObserver.observe(taboolaDiv)
+              const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
+              if(taboolaDiv) taboolaObserver.observe(taboolaDiv)
             } else {
               execTaboola()
             }
