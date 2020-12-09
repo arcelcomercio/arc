@@ -13,7 +13,7 @@ import customFields from './_dependencies/custom-fields'
 import { stContinueScript } from './_dependencies/scripts'
 import TopAnchor from './_children/anchor'
 
-const StoryContinueLite = props => {
+const StoryContinueLite = (props) => {
   const { customFields: { activeAnchor } = {} } = props
   const { globalContent, arcSite, requestUri } = useAppContext()
   const { taxonomy: { primary_section: { path = '' } = {}, tags = [] } = {} } =
@@ -97,8 +97,8 @@ const StoryContinueLite = props => {
     )
   }
 
-  const filterStories = (stories = []) => {
-    return stories
+  const filterStories = (stories = []) =>
+    stories
       .filter(filterStoriesCb)
       .map(
         ({
@@ -106,7 +106,6 @@ const StoryContinueLite = props => {
           headlines: { basic = '' } = {},
         }) => ({ link: websiteUrl, title: basic })
       )
-  }
 
   const getTotalStoriesBySection = () => {
     if (isComercio) {
