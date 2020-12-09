@@ -27,7 +27,7 @@
     &--left,
     &--right {
       svg {
-        width: 25px;
+        width: 18px;
         @media (--tablet) {
           width: 30px;
         }
@@ -40,8 +40,9 @@
 
   &__caption-image {
     color: #fff;
-    font-size: 13px;
+    font-size: 14px;
     padding-top: 10px;
+    line-height: 1.333;
   }
 
   &__figure {
