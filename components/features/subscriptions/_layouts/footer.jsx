@@ -219,12 +219,14 @@ export const FooterSubs = () => {
                 </span>
               </h5>
             </div>
-            <span className="price-item">
-              {userDataPlan.amount === 0
-                ? 'Gratis'
-                : `S/ ${userDataPlan.amount}.00`}
-            </span>
-            <i className={styles.iconUp}></i>
+            <div>
+              <span className="price-item">
+                {userDataPlan.amount === 0
+                  ? 'Gratis'
+                  : `S/ ${userDataPlan.amount}.00`}
+              </span>
+              <i className={styles.iconUp}></i>
+            </div>
           </button>
         </section>
       )}
