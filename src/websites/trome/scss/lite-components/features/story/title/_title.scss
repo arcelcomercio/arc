@@ -1,0 +1,62 @@
+.sht {
+  color: $color-black;
+  margin-right: 20px;
+  margin-left: 20px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  &__category {
+    color: #42c64c;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  &__title {
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 1.1667;
+    padding-bottom: 20px;
+    font-family: $tertiary-font;
+    @media (--tablet) {
+      font-size: 38px;
+    }
+    @media (--desktop) {
+      font-size: 42px;
+    }
+  }
+
+  &__summary {
+    font-size: 17px;
+    padding-bottom: 20px;
+    line-height: 1.333;
+    font-family: $primary-font;
+    @media (--desktop) {
+      font-size: 20px;
+    }
+  }
+
+  // TODO: Este listado se usa en mag?
+  &__list {
+    list-style-type: disc;
+    padding: 0 0 30px 20px;
+    & li {
+      font-size: 19px;
+      line-height: 26px;
+      color: #000;
+      margin-bottom: 10px;
+
+      & a {
+        text-decoration: underline;
+        font-weight: 700;
+      }
+
+      @media (--desktop) {
+        font-size: 20px;
+        line-height: 1.5;
+      }
+    }
+  }
+  &__link:hover {
+    text-decoration: none;
+  }
+}

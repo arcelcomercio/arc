@@ -1,0 +1,50 @@
+.navbar-nm {
+  background-color: #fff;
+  padding: 0 20px;
+  height: 33px;
+  display: none;
+  @media (--desktop) {
+    display: block;
+  }
+  &__item {
+    margin-right: 15px;
+  }
+  &__link {
+    display: block;
+    padding: 5px 0;
+    font-size: 13px;
+  }
+  &__icon-search {
+    svg {
+      fill: #999;
+    }
+  }
+  &__box-search {
+    display: none;
+    background-color: #f78230;
+    right: -20px;
+    width: 345px;
+    z-index: 100;
+    padding: 15px;
+    font-size: 14px;
+    top: 33px;
+    &.active {
+      display: block;
+    }
+  }
+  &__input-search {
+    height: 36px;
+    width: 100%;
+    padding: 0 8px;
+  }
+  &__btn-search {
+    background-color: #f78230;
+    border: 1px solid #fff;
+    font-weight: 700;
+    height: 36px;
+    width: 36px;
+  }
+  &__n {
+    display: none;
+  }
+}
