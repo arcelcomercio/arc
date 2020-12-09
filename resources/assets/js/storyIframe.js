@@ -28,6 +28,9 @@ window.addEventListener('load', () => {
 
   function postHeightToParentDocument() {
     if('ResizeObserver' in window && 'IntersectionObserver' in window) {
+      // Set initial height on page load
+      sendMessage()
+
       const resizerObserver = new ResizeObserver(entries => {
         entries.forEach(entry => {
           sendMessage()
