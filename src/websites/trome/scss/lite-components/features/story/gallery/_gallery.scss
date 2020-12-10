@@ -44,32 +44,4 @@
     padding-top: 10px;
     line-height: 1.333;
   }
-
-  &__figure {
-    &::before,
-    &::after {
-      content: "";
-      display: block;
-      height: calc(100% - 2px);
-      position: absolute;
-      top: 0;
-      width: 50px;
-    }
-    &::before {
-      background: linear-gradient(
-        270deg,
-        rgba(14, 33, 13, 0),
-        rgba(14, 33, 13, 0.4)
-      );
-      left: 0;
-    }
-    &::after {
-      background: linear-gradient(
-        90deg,
-        rgba(14, 33, 13, 0),
-        rgba(14, 33, 13, 0.4)
-      );
-      right: 0;
-    }
-  }
 }
