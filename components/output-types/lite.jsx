@@ -625,10 +625,10 @@ const LiteOutput = ({
           />
         )}
         <script
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/refresh/gpt-refresh.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
+          defer
+          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/refresh/gpt-refresh.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
         />
         {isStory && (
           <>
@@ -647,7 +647,7 @@ const LiteOutput = ({
             />
           </>
         )}
-        {vallaSignwall === false && (
+        {vallaSignwall === false && arcSite === SITE_ELCOMERCIO && (
           <>
             <script
               dangerouslySetInnerHTML={{
