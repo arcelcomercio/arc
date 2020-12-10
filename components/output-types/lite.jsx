@@ -641,7 +641,7 @@ const LiteOutput = ({
             />
           </>
         )}
-        {vallaSignwall === false && (
+        {vallaSignwall === false && arcSite === SITE_ELCOMERCIO && (
           <>
             <script
               dangerouslySetInnerHTML={{

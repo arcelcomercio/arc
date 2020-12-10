@@ -159,6 +159,17 @@ const HeaderFull = props => {
         )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
       : ''
 
+  const whiteLogo =
+    arcSite === 'trome'
+      ? `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo-white-nobg.png?d=1`
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo-white.png?d=1`
+
   const params = {
     headerList,
     menuList,
@@ -170,10 +181,7 @@ const HeaderFull = props => {
       arcSite,
       contextPath
     )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`,
-    whiteLogo: `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/logo-white.png?d=1`,
+    whiteLogo,
     shareButtons,
     arcSite,
     winningCallLogo,
