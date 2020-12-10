@@ -124,6 +124,17 @@ export const optaWidgetHtml = html => {
   return result
 }
 
+export const tikTokHtml = html => {
+  if (html.indexOf('class="tiktok-embed"') === -1) return html
+  let result = html
+  const regexTiktok = /<blockquote.*?cite=["|'](.*?)["|'].*?>.*?<\/blockquote>/g
+  const replaceTikTok =
+    // '<amp-iframe class="media" src="$1" height="400" width="600" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0"></amp-iframe>'
+    '<amp-embedly-card class="media" data-url="$1" height="400" width="600" layout="responsive" data-card-theme="dark" data-card-controls="0"></amp-embedly-card>'
+  result = result.replace(regexTiktok, replaceTikTok)
+  return result
+}
+
 export const imageHtmlMxm = html => {
   let resHtml = html
 
@@ -664,6 +675,9 @@ export const ampHtml = (html = '', arcSite = '', migrated = false) => {
 
   // facebook
   resultData = facebookHtml(resultData)
+
+  // TikTok
+  resultData = tikTokHtml(resultData)
 
   // Youtube
   resultData = isModernMag
