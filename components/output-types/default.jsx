@@ -10,6 +10,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
+import WebVitals from './_children/web-vitals'
 
 // import Preconnects from './_children/preconnects'
 
@@ -730,6 +731,7 @@ export default ({
             __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
           }}
         />
+        <WebVitals report />
         {isFooterFinal && (
           <>
             <noscript id="deferred-styles">

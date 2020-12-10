@@ -23,6 +23,7 @@ import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
 import VallaHtml from './_children/valla-html'
 import MetaStory from './_children/meta-story'
+import WebVitals from './_children/web-vitals'
 
 import videoScript from './_dependencies/video-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
@@ -615,6 +616,7 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
+        <WebVitals report={!isIframeStory} />
         {requestUri.match('^/mundo') && (
           <script
             type="module"
@@ -625,10 +627,10 @@ const LiteOutput = ({
           />
         )}
         <script
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/refresh/gpt-refresh.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
+          defer
+          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/refresh/gpt-refresh.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
         />
         {isStory && (
           <>
