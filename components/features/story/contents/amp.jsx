@@ -20,7 +20,7 @@ import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import StoryData from '../../../utilities/story-data'
-import { getDateSeo } from '../../../utilities/date-time/dates'
+import { getDateSeo, formatDateTime } from '../../../utilities/date-time/dates'
 import { formatHtmlToText } from '../../../utilities/parse/strings'
 import {
   replaceTags,
@@ -53,7 +53,6 @@ import {
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
-  formatDateTime,
   publicidadAmp,
   publicidadAmpAd,
   ampHtml,

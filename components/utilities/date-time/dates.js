@@ -1,4 +1,4 @@
-import formatTime from './format-time'
+import { locale } from './constants'
 
 /**
  *
@@ -49,7 +49,7 @@ export const getVerboseDate = ({
         minute: '2-digit',
       }
     : {}
-  const dateTime = new Intl.DateTimeFormat('es', {
+  const dateTime = new Intl.DateTimeFormat(locale, {
     ...baseFormat,
     ...weekday,
     ...time,
@@ -107,22 +107,32 @@ export const getDateSeo = date => localISODate(date)
 /**
  *
  * @param {string} date
- * @returns {string} Actualizado el 19/11/2020 a las 09:30 a.m.
+ * @param {void} [cb] callback
+ * @returns {string | cb} 19/11/2020, 09:30 a.m. | callback
  */
-export const formatDateStory = date => {
+export const formatDateTime = (date, cb) => {
   const newDate = date ? new Date(date) : new Date()
-  const dateTime = new Intl.DateTimeFormat('es', {
+  const dateTime = new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
+    hour: 'numeric',
+    minute: 'numeric',
     timeZone: 'America/Lima',
     hour12: true,
   })
 
-  return `Actualizado el ${dateTime.format(newDate)} a las ${formatTime(
-    newDate
-  )} `
+  const formattedDateTime = dateTime.format(newDate)
+  return cb ? cb(formattedDateTime) : formattedDateTime
 }
+
+/**
+ *
+ * @param {string} date
+ * @returns {string} Actualizado el 19/11/2020, 09:30 a.m.
+ */
+export const formatDateStory = date =>
+  formatDateTime(date, formattedDate => `Actualizado el ${formattedDate}`)
 
 /**
  *
@@ -180,7 +190,7 @@ export const formatDateLocalTimeZone = (
  * @returns {Date}
  */
 export const loadDateFromYYYYMMDD = string => {
-  if (!string.match(/\d{4}-\d{2}-\d{2}/)) {
+  if (!/\d{4}-\d{2}-\d{2}/.test(string)) {
     return null
   }
   const year = parseInt(string.slice(0, 4), 10)
