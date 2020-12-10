@@ -116,8 +116,8 @@ export const formatDateTime = (date, cb) => {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-    hour: 'numeric',
-    minute: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
     timeZone: 'America/Lima',
     hour12: true,
   })
