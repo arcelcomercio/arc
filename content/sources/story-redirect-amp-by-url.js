@@ -2,6 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
+import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
 import { storyContent } from '../filters/story-content'
 
@@ -43,14 +44,16 @@ const fetch = ({
   if (!website) {
     throw new Error('Arc Site no está definido')
   }
+  const { siteUrl } = getProperties(website)
 
   return request({
     uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${section}${redirectUrls(websiteUrl)}&website=${website}${excludedFieldsStory}`,
     ...options,
   }).then(storyResp => {
-    if (storyResp.type === 'redirect' && storyResp.redirect_url)
-      throw new RedirectError(storyResp.redirect_url, 301)
-    return storyResp
+    // if (storyResp.type === 'redirect' && storyResp.redirect_url)
+      // throw new RedirectError(`${siteUrl}${storyResp.redirect_url}`, 301)
+    throw new RedirectError(redirectUrls(websiteUrl), 301)
+    // return storyResp
   })
 }
 
