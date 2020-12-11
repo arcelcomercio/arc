@@ -159,6 +159,9 @@ const HeaderFull = props => {
         )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
       : ''
 
+  const paramsNews = {
+    inclJS: 'FALSE',
+  }
   const params = {
     headerList,
     menuList,
@@ -181,7 +184,7 @@ const HeaderFull = props => {
     siteDomain,
     legalLinks,
     hideMenu,
-    Newsle: <Newsletter></Newsletter>,
+    Newsle: <Newsletter {...paramsNews}></Newsletter>,
   }
   return <HeaderFullView {...params} />
 }
