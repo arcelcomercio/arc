@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -7,7 +7,7 @@ import {
   customWidth,
   containerClass,
   containerCustomClass,
-} from '../utilities/custom-fields'
+} from '../../utilities/custom-fields'
 
 const classes = 'grid grid--content'
 
