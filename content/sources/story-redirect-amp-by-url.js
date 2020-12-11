@@ -52,7 +52,7 @@ const fetch = ({
   }).then(storyResp => {
     // if (storyResp.type === 'redirect' && storyResp.redirect_url)
       // throw new RedirectError(`${siteUrl}${storyResp.redirect_url}`, 301)
-    throw new RedirectError(`/lol/${redirectUrls(websiteUrl)}`, 301)
+    throw new RedirectError(`/lol${redirectUrls(websiteUrl)}`, 301)
     // return storyResp
   })
 }
