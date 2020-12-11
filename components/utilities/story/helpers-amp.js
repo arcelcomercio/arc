@@ -127,7 +127,7 @@ export const optaWidgetHtml = html => {
 export const tikTokHtml = html => {
   if (html.indexOf('class="tiktok-embed"') === -1) return html
   let result = html
-  const regexTiktok = /<blockquote.*?cite=["|'](.*?)["|'].*?>.*?<\/blockquote>/g
+  const regexTiktok = /<blockquote.*?cite=["|'](.*?)["|'].*?>.*?<\/blockquote>(.+?||)<script.+?><\/script>/g
   const replaceTikTok =
     // '<amp-iframe class="media" src="$1" height="400" width="600" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0"></amp-iframe>'
     '<amp-embedly-card class="media" data-url="$1" height="400" width="600" layout="responsive" data-card-theme="dark" data-card-controls="0"></amp-embedly-card>'
