@@ -45,7 +45,7 @@ const StoryContinueLite = props => {
               name: tag,
               stories_qty: 10,
               includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-              isContentType: 'metered,free',
+              isContentType: 'metered',
             },
           }
         : {}
@@ -58,7 +58,7 @@ const StoryContinueLite = props => {
         section: removeLastSlash(path),
         stories_qty: getStoriesBySectionQty(),
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-        isContentType: 'metered,free',
+        isContentType: 'metered',
       },
     }) || {}
 

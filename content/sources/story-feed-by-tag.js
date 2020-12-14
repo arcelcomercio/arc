@@ -73,10 +73,7 @@ const resolve = (key = {}) => {
 
   const contentTypeQuery = contentType
     ? // metered,free,premium -> (metered+free+premium)
-      `+AND+content_restrictions.content_code:(${contentType.replace(
-        /,/g,
-        '+'
-      )})`
+      `+AND+content_restrictions.content_code:${contentType}`
     : ''
 
   const sourceInclude = includedFields

@@ -63,10 +63,7 @@ const getQueryFilter = (section, excludedSections, website, contentType) => {
      */
     const contentTypeQuery = contentType
       ? // metered,free,premium -> (metered+free+premium)
-        `+AND+content_restrictions.content_code:(${contentType.replace(
-          /,/g,
-          '+'
-        )})`
+        `+AND+content_restrictions.content_code:${contentType}`
       : ''
 
     queryFilter = `q=canonical_website:${website}+AND+type:story+AND+publish_date:%7Bnow-15d%20TO%20*%7D${contentTypeQuery}`
@@ -113,8 +110,8 @@ const getQueryFilter = (section, excludedSections, website, contentType) => {
       body.query.bool.must = [
         ...body.query.bool.must,
         {
-          terms: {
-            'content_restrictions.content_code': contentType.split(','),
+          term: {
+            'content_restrictions.content_code': contentType,
           },
         },
       ]
