@@ -157,8 +157,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "sw"
+      "pre-commit": "lint-staged"
     }
   },
   "jest": {
