@@ -669,7 +669,7 @@ const LiteOutput = ({
             )}
           />
         )}
-        <RegisterServiceWorker register path={deployment(CURRENT_ENVIRONMENT === 'prod' ? '/sw.js' : '/pf/resources/sw.js')}/>
+        <RegisterServiceWorker register path={deployment("/sw.js")}/>
       </body>
     </html>
   )

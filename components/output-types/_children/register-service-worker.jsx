@@ -9,6 +9,17 @@ if ('serviceWorker' in navigator) {
 }
 */
 
+const RegisterServiceWorker = ({ register, path = '/sw.js?d=1' }) =>
+  register ? (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `"use strict";"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("${path}")});`,
+      }}
+    />
+  ) : null
+
+export default RegisterServiceWorker
+
 /* 
 async function addToCache(urls) {
   const myCache = await window.caches.open('my-cache');
@@ -21,18 +32,3 @@ window.addEventListener('load', () => {
   addToCache(['/static/relatedUrl1', '/static/relatedUrl2']);
 });
  */
-
-const RegisterServiceWorker = ({ register, path = "/sw.js?d=1" }) => register ? (
-  <script dangerouslySetInnerHTML={{
-    __html: `
-      if ('serviceWorker' in navigator) {
-        // Use the window load event to keep the page load performant
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('${path}');
-        });
-      }
-    `
-  }} />
-) : null
-
-export default RegisterServiceWorker
