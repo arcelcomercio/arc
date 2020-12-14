@@ -37,7 +37,7 @@ gulp.task('service-worker', () => {
     // clientsClaim: false,
     // cacheId: 'siteId',
     // babelPresetEnvTargets,
-    // sourcemap: true,
+    sourcemap: false,
     runtimeCaching: [
       {
         urlPattern: ({ request }) => request.destination === 'image',
