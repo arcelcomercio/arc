@@ -20,7 +20,7 @@
     }
   }
   &__author-link {
-    font-family: $secondary-font !important;
+    font-family: $primary-font !important;
     font-size: 16px !important;
     font-weight: 700;
     display: inline-block;
@@ -34,13 +34,13 @@
     border-radius: 50%;
   }
   &__author-role {
-    font-family: $secondary-font;
+    font-family: $primary-font;
     font-size: 12px;
     margin-bottom: 6px;
     color: #444;
   }
   &__author-email {
-    font-family: $secondary-font;
+    font-family: $primary-font;
     font-size: 12px;
     color: #747a84;
   }
@@ -48,7 +48,7 @@
     line-height: 18px;
     color: #888;
     font-size: 12px;
-    font-family: $secondary-font;
+    font-family: $primary-font;
     flex-direction: column;
     @media (--desktop) {
       font-size: 12px;
