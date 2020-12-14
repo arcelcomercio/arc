@@ -1,20 +1,20 @@
 const gulp = require('gulp')
 const babel = require('gulp-babel')
 const minify = require('gulp-minify')
-const workboxBuild = require('workbox-build')
 
 gulp.task('default', () =>
-  gulp
+gulp
     .src('./src/appnexus/*.js')
     .pipe(
       babel({
         presets: ['@babel/env'],
       })
-    )
-    .pipe(minify())
-    .pipe(gulp.dest('./resources/assets/js'))
-)
+      )
+      .pipe(minify())
+      .pipe(gulp.dest('./resources/assets/js'))
+      )
 
+      
 // TODO: esperar parametros para `mode` "production" o "development"
 /**
  * @see workbox-build https://developers.google.com/web/tools/workbox/guides/generate-service-worker/workbox-build
@@ -22,6 +22,8 @@ gulp.task('default', () =>
  * @see common-recipes https://developers.google.com/web/tools/workbox/guides/common-recipes
  */
 gulp.task('service-worker', () => {
+  // eslint-disable-next-line global-require
+  const workboxBuild = require('workbox-build')
   return workboxBuild.generateSW({
     // globDirectory: 'build',
     // globIgnores: [],
