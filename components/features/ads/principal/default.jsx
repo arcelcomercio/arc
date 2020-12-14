@@ -64,13 +64,6 @@ const AdsFeat = props => {
     return false
   }
 
-  const params = {
-    adElement,
-    isDesktop,
-    isMobile,
-    isDfp,
-  }
-
   const addEmptyBorder = () =>
     adsBorder === 'containerp' ? 'container-publicidad' : ''
 
@@ -121,7 +114,12 @@ const AdsFeat = props => {
                 className={`${classes.adsBox} ${
                   adElement === 'boton1' ? 'justify-start' : 'justify-center'
                 } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()} no-row-2-mobile`}>
-                <AdsChild {...params} />
+                <AdsChild
+                  adElement={adElement}
+                  isDesktop={isDesktop}
+                  isMobile={isMobile}
+                  isDfp={isDfp}
+                />
                 {freeHtml && (
                   <div dangerouslySetInnerHTML={{ __html: freeHtml }} />
                 )}
