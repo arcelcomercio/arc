@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 import Consumer from 'fusion:consumer'
+
 import SearchInput from '../../../../global-components/search-input'
 import schemaFilter from '../_dependencies/schema-filter'
 
@@ -32,7 +33,7 @@ const CONTENT_SOURCE = 'navigation-by-hierarchy'
 const HIERARCHY = 'search-filter-default'
 
 @Consumer
-class SearchFilterChildSearchFilter extends PureComponent {
+class SearchFilterChildSearchFilter extends React.PureComponent {
   constructor(props) {
     super(props)
     const { arcSite, isAdmin } = props
@@ -155,7 +156,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
                 Sección
               </button>
               {/* Si el filtro seleccionado es "sección", renderiza la lista de secciones */
-              selected === SECTION && sections !== [] && (
+              selected === SECTION && sections !== [] ? (
                 <ul className={classes.subList}>
                   {sections.map(section => (
                     <li key={section._id} className={classes.subItem}>
@@ -171,7 +172,7 @@ class SearchFilterChildSearchFilter extends PureComponent {
                     </li>
                   ))}
                 </ul>
-              )}
+              ) : null}
             </li>
             {/* <li
               className={`${classes.item} ${

@@ -1,5 +1,5 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import { useEditableContent } from 'fusion:content'
 
 import PropTypes from 'prop-types'
@@ -15,7 +15,7 @@ const classes = {
 }
 
 const CustomTitleFeat = props => {
-  const { globalContent, globalContentConfig } = useFusionContext()
+  const { globalContent, globalContentConfig } = useAppContext()
   const { editableField } = useEditableContent()
 
   const {
@@ -102,16 +102,16 @@ const CustomTitleFeat = props => {
           getArchivoTitle() ||
           formatSlugToText(section) ||
           'Título'}
-        {seeMoreButton && (
+        {seeMoreButton ? (
           <a
             itemProp="url"
             href={seeMoreButtonLink}
             className={isDarkBg ? classes.darkButton : classes.button}>
             VER MÁS
           </a>
-        )}
+        ) : null}
       </TextType>
-      {subtitleField && (
+      {subtitleField ? (
         <h2
           itemProp="name"
           className={`text-lg ${
@@ -119,7 +119,7 @@ const CustomTitleFeat = props => {
           } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
           dangerouslySetInnerHTML={{ __html: subtitleField }}
         />
-      )}
+      ) : null}
     </>
   )
 }

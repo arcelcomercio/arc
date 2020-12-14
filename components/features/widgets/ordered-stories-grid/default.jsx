@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import DataStory from '../../../utilities/story-data'
@@ -35,7 +35,7 @@ const OrderedStoriesGridFeat = props => {
     contextPath,
     arcSite,
     isAdmin,
-  } = useFusionContext()
+  } = useAppContext()
   const siteProperties = getProperties(arcSite)
   const { content_elements: contentElements = [] } = globalContent || {}
 
@@ -96,7 +96,7 @@ const OrderedStoriesGridFeat = props => {
           />
         )
       }
-      return {}
+      return null
     })
   }
 
@@ -114,9 +114,6 @@ OrderedStoriesGridFeat.propTypes = {
       description:
         'Indique el número de la historia desde la que quiere empezar a imprimir. La primera historia corresponde al número 1',
     }), */
-    /**
-     *      CustomFields de publicidad
-     */
     adElement: PropTypes.string.tag({
       name: 'Identificador de publicidad',
     }),
@@ -136,5 +133,6 @@ OrderedStoriesGridFeat.propTypes = {
 }
 
 OrderedStoriesGridFeat.label = 'Grilla de Historias Ordenadas - Beta'
+OrderedStoriesGridFeat.static = true
 
 export default OrderedStoriesGridFeat
