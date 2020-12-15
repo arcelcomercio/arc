@@ -58,7 +58,7 @@ class VideoList extends PureComponent {
   }
 
   includedFields = arcSite =>
-    `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content`
+    `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content,promo_items.basic_jwplayer.embed.config.thumbnail_url,promo_items.basic_jwplayer.embed.config.resized_urls`
 
   initialFetch = (section = '/') => {
     const { arcSite } = this.props
