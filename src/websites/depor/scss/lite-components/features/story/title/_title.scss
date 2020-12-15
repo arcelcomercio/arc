@@ -5,18 +5,17 @@
   border-bottom: 1px solid #ddd;
   margin-bottom: 10px;
   &__category {
+    font: 700 14px/1 $primary-font;
     color: #42c64c;
-    font-weight: bold;
-    font-size: 14px;
     text-transform: uppercase;
     margin-bottom: 10px;
+    padding-top: 30px;
+    letter-spacing: 0.28px;
   }
   &__title {
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 1.1667;
+    font: 700 28px/1.1667 $secondary-font;
+    letter-spacing: -0.58px;
     padding-bottom: 20px;
-    font-family: $tertiary-font;
     @media (--tablet) {
       font-size: 34px;
     }
@@ -26,12 +25,11 @@
   }
 
   &__summary {
-    font-size: 16px;
+    font: 400 16px/20px $primary-font;
     padding-bottom: 20px;
-    line-height: 1.333;
-    font-family: $primary-font;
+    letter-spacing: -0.29px;
     @media (--desktop) {
-      font-size: 18px;
+      font: 400 18px/24px $primary-font;
     }
   }
 
