@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react'
 
-const LiteAds = ({ requestUri, tags, contentCode, siteProperties }) => {
+const LiteAds = ({ requestUri, tags, contentCode, siteProperties, arcSite }) => {
   /* 
   document.addEventListener('DOMContentLoaded', () => {
     requestIdle(function initLiteAdsConfig() {
@@ -762,62 +762,29 @@ window.addEventListener('load', function liteAds() {
 
   return (
     <>
-      {requestUri.includes('/mundo/') ? (
-        <>
-          <script
-            async
-            src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
-              .toISOString()
-              .slice(0, 10)}`}></script>
-          <script
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/ads/elcomercio/arcads.js?${new Date()
-              .toISOString()
-              .slice(0, 10)}`}></script>
+      <script
+        async
+        src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
+          .toISOString()
+          .slice(0, 10)}`}></script>
+      <script
+        defer
+        src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
+          .toISOString()
+          .slice(0, 10)}`}></script>
 
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: adsEconomiaTop,
-            }}
-          />
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: adsEconomiaNext,
-            }}
-          />
-        </>
-      ) : (
-        <>
-          <script
-            defer
-            src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-          <script
-            defer
-            src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
-              .toISOString()
-              .slice(0, 10)}`}></script>
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: adsConfig,
-            }}
-          />
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: initPrebid,
-            }}
-          />
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: initDfp,
-            }}
-          />
-        </>
-      )}
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: adsEconomiaTop,
+        }}
+      />
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: adsEconomiaNext,
+        }}
+      />
     </>
   )
 }
