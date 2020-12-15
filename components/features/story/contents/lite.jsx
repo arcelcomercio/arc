@@ -526,13 +526,13 @@ const StoryContentsLite = props => {
                     )
                   }
                   if (
-                    /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+                    /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(content)
                   ) {
                     return (
                       <>
                         <div
                           data-type={
-                            /twitter-(?:tweet|timeline)/.test(content)
+                            /twitter-(?:tweet|timeline|follow-button)/.test(content)
                               ? 'twitter'
                               : 'instagram'
                           }

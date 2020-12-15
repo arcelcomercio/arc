@@ -42,7 +42,7 @@ window.addEventListener('load', ()=> {
   requestIdle(()=> {
     if ('IntersectionObserver' in window) {
       const options = {
-        rootMargin: '0px',
+        rootMargin: '0px 0px 500px 0px',
       }
       const embeds = Array.from(document.body.querySelectorAll('.embed-script'))
       const observer = new IntersectionObserver(widgetsObserver, options)
@@ -54,6 +54,6 @@ window.addEventListener('load', ()=> {
 })
 */
 
-const widgets = `"use strict";var isScriptLoaded=function(e){return!!document.querySelector('script[src="'+e+'"]')},createScript=function(e){var t=e.src,r=e.async,n=document.createElement("script");return!1===isScriptLoaded(t)&&(t&&(n.type="text/javascript",n.src=t),r&&(n.async=!0)),document.body.append(n)},widgetsObserver=function(e,t){e.forEach(function(e){var r=e.isIntersecting,n=e.target;if(r){var c=n.getAttribute("data-type");createScript("instagram"===c?{src:"https://www.instagram.com/embed.js",async:!0}:{src:"https://platform.twitter.com/widgets.js",async:!0}),t.unobserve(n)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".embed-script")),t=new IntersectionObserver(widgetsObserver,{rootMargin:"0px"});e.forEach(function(e){t.observe(e)})}})});`
+const widgets = `"use strict";var isScriptLoaded=function(e){return!!document.querySelector('script[src="'+e+'"]')},createScript=function(e){var t=e.src,r=e.async,n=document.createElement("script");return!1===isScriptLoaded(t)&&(t&&(n.type="text/javascript",n.src=t),r&&(n.async=!0)),document.body.append(n)},widgetsObserver=function(e,t){e.forEach(function(e){var r=e.isIntersecting,n=e.target;if(r){var c=n.getAttribute("data-type");createScript("instagram"===c?{src:"https://www.instagram.com/embed.js",async:!0}:{src:"https://platform.twitter.com/widgets.js",async:!0}),t.unobserve(n)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".embed-script")),t=new IntersectionObserver(widgetsObserver,{rootMargin:"0px 0px 500px 0px"});e.forEach(function(e){t.observe(e)})}})});`
 
 export default widgets
