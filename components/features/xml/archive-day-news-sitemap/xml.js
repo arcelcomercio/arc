@@ -6,6 +6,9 @@ import {
   includePromoItems,
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+
+let presets = 'landscape_l:648x374'
 
 /**
  * @description Muestra listado de historias para fecha especifica.
@@ -20,6 +23,7 @@ class XmlArchiveDayNewsSitemap {
     this.props = props
     const { globalContentConfig, arcSite } = props
     const { query: { year, month, day } = {} } = globalContentConfig || {}
+    if (arcSite === SITE_ELCOMERCIOMAG) presets = 'landscape_l:1200x800'
 
     this.fetchContent({
       data: {
@@ -28,7 +32,7 @@ class XmlArchiveDayNewsSitemap {
           section: '',
           date: `${year}-${month}-${day}`,
           size: 100,
-          presets: 'landscape_l:648x374',
+          presets,
           includedFields: `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
