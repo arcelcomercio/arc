@@ -400,6 +400,7 @@ const LiteOutput = ({
           tags={tags}
           contentCode={contentCode}
           siteProperties={siteProperties}
+          arcSite={arcSite}
         />
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
@@ -616,20 +617,12 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-        {requestUri.match('^/mundo') && (
-          <script
-            type="module"
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
-          />
-        )}
         <script
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/refresh/gpt-refresh.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
+          type="module"
+          defer
+          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
         />
         {isStory && (
           <>
@@ -648,7 +641,7 @@ const LiteOutput = ({
             />
           </>
         )}
-        {vallaSignwall === false && (
+        {vallaSignwall === false && arcSite === SITE_ELCOMERCIO && (
           <>
             <script
               dangerouslySetInnerHTML={{
