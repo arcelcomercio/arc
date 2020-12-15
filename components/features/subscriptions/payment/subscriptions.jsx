@@ -34,7 +34,7 @@ const WrapperPaymentSubs = () => {
   const {
     arcSite,
     deployment,
-    globalContent: { fromFia, freeAccess },
+    globalContent: { fromFia, freeAccess, event },
   } = useFusionContext() || {}
 
   const {
@@ -99,6 +99,11 @@ const WrapperPaymentSubs = () => {
         <Wrapper>
           {!userLoading && (
             <PanelLeft>
+              {event && userStep !== 4 && (
+                <h2 className={`step__left-title title-event-${arcSite}`}>
+                  ¡Tenemos un precio especial para ti!
+                </h2>
+              )}
               {freeAccess ? (
                 <Confirmation />
               ) : (
