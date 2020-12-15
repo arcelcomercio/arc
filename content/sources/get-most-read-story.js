@@ -52,12 +52,24 @@ const fetch = (key = {}) => {
   const website = key['arc-site'] || 'Arc Site no está definido'
   const { amountStories, isPremium = false } = key
 
+  const pattern = /((.*)-noticia(.*)\/)(.*)/
+
   return request({
     uri: getUriMostRead(website, !!+isPremium, flagDev),
     ...options,
   })
     .then(resp => {
-      const arrURL = resp.slice(0, amountStories)
+      const arrVerify = []
+      const arrResponse = resp.filter(obj => {
+        let ret = false
+        if (pattern.test(obj.path) && !arrVerify.includes(obj.path)) {
+          arrVerify.push(obj.path)
+          ret = true
+        }
+        return ret
+      })
+
+      const arrURL = arrResponse.slice(0, amountStories)
       // .filter(url => /((.*)-noticia(.*)\/)(.*)/.test(url.path))
 
       const promiseArray = arrURL.map(url =>
