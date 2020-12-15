@@ -134,7 +134,7 @@ export default {
     documentNumber: 'text',
     documentType: 'text',
     attemptToken: 'text',
-    // event: 'text',
+    event: 'text',
   },
   ttl: 20,
 }
