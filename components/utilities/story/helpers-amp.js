@@ -38,7 +38,7 @@ export const publicidadAmp = ({
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
-  size = '300x600,300x250,320x100,320x50,300x100,300x50',
+  size = '300x100',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -66,7 +66,7 @@ export const publicidadAmpAd = ({
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
-  size = '300x250,320x100,320x50,300x100,300x50',
+  size = '320x100, 320x50, 300x1',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -106,7 +106,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     height="50"
     type="doubleclick"
     data-slot="${dataSlot}"
-    data-multi-size="fluid,728x90,320x50"
+    data-multi-size="320x100"
     data-multi-size-validation="false"
     ${json}
   />`
