@@ -118,8 +118,17 @@ const buildDataAns = (data, brand) => {
 
 async function getPathsVideos(videoKey, brand) {
     const response = await getConversionsVideo(videoKey, brand);
-    const conversions = [response.conversions[response.conversions.length - 1]];
-
+    let video = response.conversions[0] || null
+    if(video.mediatype !== 'video') {
+      for (let i = 1; i < response.conversions.length; i++) {
+        const vid = response.conversions[i];
+        if(vid.mediatype === 'video') {
+          video = vid
+          break
+        }
+      }
+    }
+    const conversions = [video];
     return conversions;
 }
 
