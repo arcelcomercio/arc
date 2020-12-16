@@ -96,7 +96,9 @@
   max-height: 100vh;
 }
 
-.header-full,
-.navbar-nm {
+.header-full {
   z-index: 21;
+}
+.navbar-nm {
+  z-index: 22;
 }

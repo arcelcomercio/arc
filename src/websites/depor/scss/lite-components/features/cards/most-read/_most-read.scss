@@ -18,7 +18,7 @@
     width: 100%;
     height: 105px;
     background: transparent
-      linear-gradient(360deg, #fff 50%, rgba(255, 255, 255, 0.1) 100%) 0% 0%
+      linear-gradient(360deg, #fff 50%, rgba(255, 255, 255, 0) 100%) 0% 0%
       no-repeat padding-box;
     border-radius: 0 0 5px 5px;
     position: absolute;
@@ -65,10 +65,10 @@
 
   &__title {
     font: 700 14px/1 $secondary-font;
-    text-transform: capitalize;
     align-items: center;
     position: relative;
     margin-bottom: 10px;
+    letter-spacing: 0.14px;
     &::after {
       content: "";
       width: 48px;
@@ -103,7 +103,7 @@
   }
   &__txt {
     font: 700 14px/18px $primary-font;
-    letter-spacing: 0;
+    letter-spacing: 0.07px;
     color: #222;
     max-height: 72px;
     -webkit-line-clamp: 4;
