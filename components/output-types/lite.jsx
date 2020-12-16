@@ -9,6 +9,7 @@ import {
   SITE_PERU21G21,
   SITE_ELCOMERCIO,
   SITE_DEPOR,
+  SITE_ELBOCON,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -617,7 +618,7 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-        <WebVitals report={!isIframeStory} />
+        <WebVitals report={!isIframeStory && arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
         <script
           type="module"
           defer
