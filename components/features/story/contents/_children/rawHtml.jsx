@@ -71,8 +71,6 @@ class RawHTML extends React.PureComponent {
       output === 'lite' &&
       (arcSite === 'elcomercio' || arcSite === 'elcomerciomag')
 
-    console.log('////////', arcSite)
-
     const idVideo = storyVideoPlayerId(content)
     const idVideoEmbed =
       isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
