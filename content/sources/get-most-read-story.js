@@ -20,13 +20,18 @@ const options = {
 }
 
 const setPageViewsUrls = (arrUrl, arrUrlRes) => {
-  return arrUrlRes.map(row => {
-    const item = arrUrl.find(el => {
-      // return el.path === (row.website_url || row.canonical_url)
-      return el.dimension8 === row._id 
-    })
-    return { ...row, page_views: (item && item.pageviews) || 0 }
-  })
+  const respArray = []
+  arrUrlRes.forEach(row => {
+    if(row !== undefined){
+      const item = arrUrl.find(el => {
+        return el.dimension8 === row._id 
+      })
+
+      respArray.push({ ...row, page_views: (item && item.pageviews) || 0 })
+    }
+  });
+
+  return respArray
 }
 
 const params = [
