@@ -90,8 +90,6 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     height="50"
     type="doubleclick"
     data-slot="${dataSlot}"
-    data-multi-size="320x100"
-    data-multi-size-validation="false"
     ${json}
   />`
   return createMarkup(resultData)
