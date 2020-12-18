@@ -305,20 +305,34 @@ export default ({
 
   const imagesSeoItems = imagePrimarySeo.map(image => {
     const { subtitle = false, url = '' } = image || {}
+    let presets = ''
+    let img = ''
+    if (SITE_ELCOMERCIOMAG === arcSite)
+      presets =
+        'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675'
+    else presets = 'large:1200x800'
 
-    const { large } =
+    const {
+      amp_image_1x1: ampImage1x1 = url,
+      amp_image_4x3: ampImage4x3 = url,
+      amp_image_16x9: ampImage16x9 = url,
+      large,
+    } =
       createResizedParams({
         url,
-        presets: 'large:1200x800',
+        presets,
         arcSite,
       }) || {}
 
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
-
-    return `{  "@type":"ImageObject", "url": "${large ||
-      url}", ${description} "height":800, "width":1200 }`
+    if (SITE_ELCOMERCIOMAG === arcSite)
+      img = `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 ||
+        url}"]`
+    else img = `"${large}"`
+    return `{  "@type":"ImageObject", "url": ${img ||
+      url}, ${description} "height":800, "width":1200 }`
   })
 
   const listItems = tags.map(({ description }) => {

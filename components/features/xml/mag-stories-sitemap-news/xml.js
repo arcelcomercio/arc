@@ -6,10 +6,12 @@ import {
   includePromoItems,
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 
 const SOURCE = 'story-feed-by-section'
 const MAG_PATH = '/mag'
 
+let presets = 'landscape_l:648x374'
 /**
  * @description Sitemap para Google News de Mag.
  *
@@ -21,6 +23,8 @@ const MAG_PATH = '/mag'
 class XmlMagStoriesSitemapNews {
   constructor(props) {
     this.props = props
+    if (props && props.arcSite === SITE_ELCOMERCIOMAG)
+      presets = 'landscape_l:1200x800'
 
     this.fetchContent({
       data: {
@@ -28,7 +32,7 @@ class XmlMagStoriesSitemapNews {
         query: {
           website: 'elcomerciomag',
           stories_qty: 100,
-          presets: 'landscape_l:648x374',
+          presets,
           includedFields: `websites.elcomerciomag.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
