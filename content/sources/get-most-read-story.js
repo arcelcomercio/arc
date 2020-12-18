@@ -48,7 +48,7 @@ const params = [
 ]
 
 const uriAPI = (id, site) => {
-  const filter = `&included_fields=type,websites,website,website_url,headlines,promo_items,_id`
+  const filter = `&included_fields=type,websites,website,website_url,headlines,promo_items,_id,display_date`
   // return `${CONTENT_BASE}/content/v4/stories/?website_url=${url}&website=${site}&published=true${filter}`
   return `${CONTENT_BASE}/content/v4/stories/?_id=${id}&website=${site}&published=true${filter}`
 }
@@ -74,10 +74,10 @@ const fetch = (key = {}) => {
         return ret
       })
 
-      const arrURL = arrResponse.slice(0, amountStories)
+      // const arrURL = arrResponse.slice(0, amountStories)
       // .filter(url => /((.*)-noticia(.*)\/)(.*)/.test(url.path))
 
-      const promiseArray = arrURL.map(url =>
+      const promiseArray = arrResponse.map(url =>
         request({
           // uri: uriAPI(url.path, website),
           uri: uriAPI(url.dimension8, website),
@@ -87,7 +87,19 @@ const fetch = (key = {}) => {
 
       return Promise.all(promiseArray)
         .then(res => {
-          const newRes = setPageViewsUrls(arrURL, res) || res
+          const limit = new Date()
+          limit.setDate(limit.getDate()-2)
+
+          const arrValid = res.filter(obj => {
+            if(obj !== undefined){
+              const displayDate = new Date(Date.parse(obj.display_date))
+              return displayDate > limit
+            }
+            return false
+          })
+          const limitRes = arrValid.slice(0, amountStories)
+
+          const newRes = setPageViewsUrls(arrResponse, limitRes) || limitRes
           newRes.sort((a, b) => {
             return b.page_views - a.page_views
           })
