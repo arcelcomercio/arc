@@ -13,7 +13,7 @@ import customFields from './_dependencies/custom-fields'
 import { stContinueScript } from './_dependencies/scripts'
 import TopAnchor from './_children/anchor'
 
-const StoryContinueLite = (props) => {
+const StoryContinueLite = props => {
   const { customFields: { activeAnchor } = {} } = props
   const { globalContent, arcSite, requestUri } = useAppContext()
   const { taxonomy: { primary_section: { path = '' } = {}, tags = [] } = {} } =
@@ -45,7 +45,7 @@ const StoryContinueLite = (props) => {
               name: tag,
               stories_qty: 10,
               includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-              isContentType: 'metered',
+              contentType: 'metered,free',
             },
           }
         : {}
@@ -58,7 +58,7 @@ const StoryContinueLite = (props) => {
         section: removeLastSlash(path),
         stories_qty: getStoriesBySectionQty(),
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-        isContentType: 'metered',
+        contentType: 'metered,free',
       },
     }) || {}
 
@@ -71,7 +71,7 @@ const StoryContinueLite = (props) => {
               section: removeLastSlash(path),
               stories_qty: getStoriesBySectionQty(),
               includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-              isContentType: 'premium',
+              contentType: 'premium',
             },
           }
         : {}

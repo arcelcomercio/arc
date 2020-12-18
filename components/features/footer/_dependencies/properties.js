@@ -148,7 +148,7 @@ const elcomercio = {
     directors: [
       {
         position: 'Director Periodístico',
-        names: ['JUAN JOSÉ GARRIDO KOECHLIN'],
+        names: ['JUAN AURELIO ARÉVALO MIRÓ QUESADA'],
       },
       {
         position: 'Directores Fundadores',
@@ -172,6 +172,7 @@ const elcomercio = {
           'Francisco Miró Quesada Rada [2008-2013]',
           'Fritz Du Bois Freund [2013-2014]',
           'Fernando Berckemeyer Olaechea [2014-2018]',
+          'Juan José Garrido Koechlin [2018-2020]',
           'Francisco Miró Quesada Cantuarias [2008-2019]',
         ],
       },
