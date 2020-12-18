@@ -23,7 +23,7 @@ import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
 import VallaHtml from './_children/valla-html'
 import MetaStory from './_children/meta-story'
-import RegisterServiceWorker from './_children/register-service-worker'
+// import RegisterServiceWorker from './_children/register-service-worker'
 
 import videoScript from './_dependencies/video-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
@@ -662,7 +662,7 @@ const LiteOutput = ({
             )}
           />
         )}
-        <RegisterServiceWorker register path={deployment("/sw.js")}/>
+        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )
