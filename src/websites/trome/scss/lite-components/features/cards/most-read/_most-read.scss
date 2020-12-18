@@ -19,6 +19,7 @@
   }
   &__link {
     color: #111;
+    letter-spacing: 0.14px;
   }
   &__logo {
     padding-right: 10px;
@@ -41,7 +42,7 @@
   }
   &__txt {
     font: 500 15px/18px $primary-font;
-    letter-spacing: 0;
+    letter-spacing: -0.36px;
     opacity: 1;
     color: #333;
     max-height: 72px;
