@@ -577,7 +577,12 @@ const StoryContentsLite = props => {
         <div
           className={`${classes.social} ${shareAlign === 'left' ? 'f' : ''}`}>
           <div className="st-social__share">
-            <ShareButtons activeCopyLink={copyLink} />
+            <ShareButtons
+              activeCopyLink={copyLink}
+              activeLinkedin={
+                arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+              }
+            />
           </div>
         </div>
         {storyTagsBbc(tags) && (

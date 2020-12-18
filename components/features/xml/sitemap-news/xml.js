@@ -8,8 +8,9 @@ import {
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 
-const presets = 'landscape_l:648x374'
+let presets = 'landscape_l:648x374'
 /**
  * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
  * funciona mejor con la content-source "story-feed-by-section"
@@ -26,6 +27,7 @@ class XmlSitemapNews {
     const { query: { _id: section } = {} } = globalContentConfig || {}
 
     const includedFields = `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},content_elements.url,content_elements.type,content_elements.resized_urls,content_elements.caption`
+    if (arcSite === SITE_ELCOMERCIOMAG) presets = 'landscape_l:1200x800'
 
     this.fetchContent(this.getStates(section, includedFields))
   }

@@ -16,6 +16,7 @@ import {
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
+import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 
 const AmpOutputType = ({
   children,
@@ -211,6 +212,12 @@ const AmpOutputType = ({
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
   }
+  const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
+  const parameters = {
+    arcSite,
+    dataSlot,
+  }
   return (
     <Html lang={lang}>
       <head>
@@ -393,6 +400,11 @@ const AmpOutputType = ({
       </head>
       <body className={subtype}>
         <AmpTagManager {...parametros} />
+        <amp-sticky-ad
+          layout="nodisplay"
+          class="ad-amp-movil"
+          dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}       
+        />
         {children}
       </body>
     </Html>

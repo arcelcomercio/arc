@@ -58,6 +58,19 @@
   }
 }
 
+.minuto_minuto {
+  .st-continue__progress {
+    &::after {
+      background: #f4f4f4;
+    }
+    &::before {
+      background: transparent
+        linear-gradient(375deg, #f4f4f4 61%, rgba(255, 255, 255, 0) 90%) 0% 0%
+        no-repeat padding-box;
+    }
+  }
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
