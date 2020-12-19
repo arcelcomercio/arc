@@ -190,6 +190,8 @@ const AmpOutputType = ({
       rawHtmlContent
     )
 
+  const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
+
   const hasJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
   /**
    * Se reemplaza los .mp4 de JWplayer para poder usar el fallback de
@@ -312,6 +314,12 @@ const AmpOutputType = ({
             custom-element="amp-iframe"
             src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
           />
+        )}
+        {hasEmbedCard && (
+          <script
+            async
+            custom-element="amp-embedly-card"
+            src="https://cdn.ampproject.org/v0/amp-embedly-card-0.1.js"></script>
         )}
         {hasYoutube && (
           <script

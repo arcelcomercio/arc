@@ -315,7 +315,8 @@ const analyzeParagraph = ({
 
             if (
               entryHtml.includes('<blockquote class="instagram-media"') ||
-              entryHtml.includes('<blockquote class="twitter-tweet"')
+              entryHtml.includes('<blockquote class="twitter-tweet"') ||
+              entryHtml.includes('<blockquote class="tiktok-embed"')
             ) {
               // para twitter y para instagram
               const arrayTwitter = entryHtml.match(
@@ -425,7 +426,8 @@ const analyzeParagraph = ({
         }
       } else if (
         processedParagraph.includes('<blockquote class="instagram-media"') ||
-        processedParagraph.includes('<blockquote class="twitter-tweet"')
+        processedParagraph.includes('<blockquote class="twitter-tweet"') ||
+        processedParagraph.includes('<blockquote class="tiktok-embed"')
       ) {
         // para twitter y para instagram
         result.processedParagraph = `<figure class="op-interactive"><iframe>${processedParagraph}</iframe></figure>`
