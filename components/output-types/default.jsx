@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import ENV from 'fusion:environment'
 
 import Styles from './_children/styles'
@@ -10,6 +10,8 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
+// import RegisterServiceWorker from './_children/register-service-worker'
+import WebVitals from './_children/web-vitals'
 
 // import Preconnects from './_children/preconnects'
 
@@ -26,6 +28,7 @@ import {
   SITE_PERU21G21,
   SITE_TROME,
   SITE_OJO,
+  SITE_ELBOCON
 } from '../utilities/constants/sitenames'
 import { META_HOME } from '../utilities/constants/meta'
 
@@ -730,6 +733,7 @@ export default ({
             __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
           }}
         />
+        <WebVitals report={arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
         {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
@@ -761,6 +765,7 @@ export default ({
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
+        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )

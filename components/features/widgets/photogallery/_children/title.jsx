@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const classes = {
   showBox:
@@ -14,11 +14,11 @@ export default ({ titleCustom, textAlign, seeMoreShow, seeMoreLink }) => {
       <h2 itemProp="name" className={`${classes.showTitle} text-${textAlign}`}>
         {titleCustom || 'Fotogalerias'}
       </h2>
-      {seeMoreShow && (
+      {seeMoreShow ? (
         <a itemProp="url" href={seeMoreLink} className={classes.showMore}>
           Ver más
         </a>
-      )}
+      ) : null}
     </div>
   )
 }

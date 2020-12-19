@@ -6,7 +6,7 @@ import getProperties from 'fusion:properties'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 
-import getLatinDate from '../../../utilities/date-time/latin-date'
+import { getVerboseDate } from '../../../utilities/date-time/dates'
 import {
   SITE_TROME,
   SITE_ELCOMERCIOMAG,
@@ -88,7 +88,7 @@ const CardTabloid = props => {
   }
 
   const tabloidImage = urlImage || sourceImage
-  const nameDate = getLatinDate(createdDate, ' del', true)
+  const nameDate = getVerboseDate({ date: createdDate, showTime: false })
 
   return (
     <div className={classes.tabloid}>
