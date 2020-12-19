@@ -9,6 +9,7 @@ import {
   SITE_PERU21G21,
   SITE_ELCOMERCIO,
   SITE_DEPOR,
+  SITE_ELBOCON,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -24,6 +25,7 @@ import AppNexus from './_children/appnexus'
 import VallaHtml from './_children/valla-html'
 import MetaStory from './_children/meta-story'
 // import RegisterServiceWorker from './_children/register-service-worker'
+import WebVitals from './_children/web-vitals'
 
 import videoScript from './_dependencies/video-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
@@ -617,6 +619,7 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
+        <WebVitals report={!isIframeStory && arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
         <script
           type="module"
           defer

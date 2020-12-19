@@ -154,7 +154,13 @@ class Newsletter extends PureComponent {
 
   render() {
     const { submitForm, confirmRegister, formMessage, disbutton } = this.state
-    const { arcSite, contextPath, deployment, customFields } = this.props
+    const {
+      arcSite,
+      contextPath,
+      deployment,
+      customFields,
+      inclJS,
+    } = this.props
     const data = new Data(customFields, arcSite, contextPath)
     const descrip = `Te enviaremos lo mejor de ${arcSite}. Escribe tu correo electrónico y dale clic a "Recibir"`
     const params = {
@@ -174,6 +180,7 @@ class Newsletter extends PureComponent {
       confirmRegister,
       formMessage,
       isActiveApiCovid19: customFields.isActiveApiCovid19,
+      incluyejs: inclJS,
     }
     return <NewsletterChild {...params} />
   }
