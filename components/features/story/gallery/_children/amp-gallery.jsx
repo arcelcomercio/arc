@@ -28,11 +28,7 @@ const StoryHeaderChildAmpGallery = props => {
           presets,
           arcSite,
         }) || {}
-      return {
-        original: imageObject.original,
-        large: imageObject.large,
-        images: `${imageObject.large} 1024w,${imageObject.meddiun} 560w,${imageObject.small} 360w`,
-      }
+      return imageObject.meddiun
     }
     return urlImg
   }
@@ -78,8 +74,7 @@ const StoryHeaderChildAmpGallery = props => {
                   </div>
                   <div className={classes.figure}>
                     <amp-img
-                      sizes="(max-width: 360px) 50vw,(max-width: 750px) 50vw"
-                      srcset={extractImage(url, presets).images || url}
+                      src={extractImage(url, presets) || url}
                       alt={caption}
                       class={classes.image}
                       height={width < height ? 800 : 360}
