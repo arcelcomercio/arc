@@ -14,10 +14,10 @@ import StoriesList from './_children/stories-list'
 const StaticsResumen2020 = (props) => {
   const { customFields: {
     content = {},
-    heroTitle = "Resumen 2020",
-    heroSubtitle = "El año de la barbarie pandémica",
+    year = 2020,
+    heroTitle = "Resumen del año",
+    heroSubtitle = "Las noticias más impactantes del Perú y el Mundo",
     stickyBarText = "Las noticias más importantes de ",
-    stickyBarYear = 2020,
     stickyBarDisableAnchor = false
   } = {}} = props
 
@@ -29,6 +29,7 @@ const StaticsResumen2020 = (props) => {
       <Header />
       <Hero 
         title={heroTitle}
+        year={year}
         subtitle={heroSubtitle}
         >
           <div id="gpt_top"></div>
@@ -37,7 +38,7 @@ const StaticsResumen2020 = (props) => {
         <>
           <StickyBar
             text={stickyBarText}
-            year={stickyBarYear}
+            year={year}
             disableAnchor={stickyBarDisableAnchor}
             requestUri={requestUri}
             />
@@ -58,6 +59,13 @@ StaticsResumen2020.propTypes = {
     content: PropTypes.json.tag({
       name: 'Contenido en formato JSON'
     }),
+    year: PropTypes.number.tag({
+      name: 'Año a mostrar',
+      description: 'Por defecto: 2020',
+      max: 2021,
+      min: 2020,
+      step: 1
+    }),
     heroTitle: PropTypes.string.tag({
       name: 'Título de la portada',
       description: 'Por defecto: Resumen 2020',
@@ -71,14 +79,6 @@ StaticsResumen2020.propTypes = {
     stickyBarText: PropTypes.string.tag({
       name: 'Texto que precede al mes',
       description: 'Por defecto: Las noticias más importantes de - mes - año -',
-      group: 'Barra flotante'
-    }),
-    stickyBarYear: PropTypes.number.tag({
-      name: 'Año a mostrar',
-      description: 'Por defecto: 2020',
-      max: 2021,
-      min: 2020,
-      step: 1,
       group: 'Barra flotante'
     }),
     stickyBarDisableAnchor: PropTypes.bool.tag({

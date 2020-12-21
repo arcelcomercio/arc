@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
  * @todo Se espera que el boton correspondiente al mes activo tenga un "estado" (que quede de otro color o algo asi)
  * @see estilos src/websites/elcomercio/scss/components/statics/resumen-2020/_hero.scss
  */
-const StaticsResumen2020Hero = ({ title, subtitle, children }) => {
+const StaticsResumen2020Hero = ({ title, year, subtitle, children }) => {
   return (
     <section>
       {children /** dejar este children, es la publicidad */}
@@ -17,6 +17,7 @@ const StaticsResumen2020Hero = ({ title, subtitle, children }) => {
 StaticsResumen2020Hero.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
   children: PropTypes.node
 }
 
