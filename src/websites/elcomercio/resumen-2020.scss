@@ -20,7 +20,6 @@
     U+FEFF, U+FFFD;
 }
 
-
 /** ----------------------------*
 *           VARIABLES           *
 * ----------------------------- */
@@ -50,14 +49,128 @@ $secondary-font: "Arial", serif, system-ui;
 /* ---------------------------- */
 
 /** ----------------------------*
+*           NORMALIZE           *
+* ----------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color: $color-dark-text;
+  font-family: $primary-font;
+  font-size: 13px;
+
+  @media (--tablet) {
+    font-size: 14px;
+  }
+
+  @media (--desktop) {
+    font-size: 16px;
+  }
+}
+
+html,
+body,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+address,
+img,
+small,
+strong,
+b,
+u,
+i,
+ol,
+ul,
+li,
+form,
+label,
+article,
+aside,
+figure,
+figcaption,
+footer,
+menu,
+nav,
+section,
+summary,
+time,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+a,
+button,
+[type="button"],
+[type="submit"],
+[role="button"] {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  border-style: none;
+  color: $color-dark-text;
+  background-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+/** ----------------------------*
 *             STYLES            *
 * ----------------------------- */
-@import './scss/components/statics/resumen-2020/container';
-@import './scss/components/statics/resumen-2020/header';
-@import './scss/components/statics/resumen-2020/hero';
-@import './scss/components/statics/resumen-2020/sticky-bar';
-@import './scss/components/statics/resumen-2020/main-image';
-@import './scss/components/statics/resumen-2020/stories-list';
-@import './scss/components/statics/resumen-2020/story';
+@import "./scss/components/statics/resumen-2020/container";
+@import "./scss/components/statics/resumen-2020/header";
+@import "./scss/components/statics/resumen-2020/hero";
+@import "./scss/components/statics/resumen-2020/sticky-bar";
+@import "./scss/components/statics/resumen-2020/main-image";
+@import "./scss/components/statics/resumen-2020/stories-list";
+@import "./scss/components/statics/resumen-2020/story";
 
 /* ---------------------------- */

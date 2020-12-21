@@ -139,6 +139,7 @@
     "watch:lite": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='lite-story:css, dlite-story:css'",
     "watch:story": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='dstory:css,story:css, story-video:css'",
     "watch:polla": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='polla:sass'",
+    "watch:resumen": "npm run clean && webpack --config ./config/webpack.config.js --watch --env.dev --env.outputs='resumen-2020:css'",
     "eslint": "eslint . --ext=js,jsx",
     "eslint:fix": "eslint --ext=js,jsx --fix .",
     "stylelint": "stylelint 'src/**/*.scss'",

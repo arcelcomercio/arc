@@ -3,13 +3,21 @@ import PropTypes from 'prop-types'
 
 import { anchorScript } from '../_dependencies/scripts'
 
-const StaticsResumen2020StickyBar = ({ text, year, disableAnchor, requestUri }) => {
+const StaticsResumen2020StickyBar = ({
+  text,
+  year,
+  disableAnchor,
+  requestUri,
+}) => {
   const [, month = ''] = requestUri.match(/^\/resumen-2020\/(\w{4,10})\//) || []
   return (
-    <div>
-      <h2>
-        {text}<br/>
-        <span>{month} {year}</span>
+    <div className="bar">
+      <h2 className="bar__text">
+        {text}
+        <br />
+        <strong>
+          {month} {year}
+        </strong>
       </h2>
       {disableAnchor ? null : (
         <>
@@ -17,7 +25,7 @@ const StaticsResumen2020StickyBar = ({ text, year, disableAnchor, requestUri }) 
             type="button"
             aria-label="Ir al inicio de la página"
             id="anchor"
-            className="st-continue__anchor">
+            className="bar__btn">
             <svg
               aria-disabled="true"
               xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +41,7 @@ const StaticsResumen2020StickyBar = ({ text, year, disableAnchor, requestUri }) 
             }}
           />
         </>
-        )}
+      )}
     </div>
   )
 }
@@ -42,7 +50,7 @@ StaticsResumen2020StickyBar.propTypes = {
   text: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
   disableAnchor: PropTypes.bool,
-  requestUri: PropTypes.string.isRequired
+  requestUri: PropTypes.string.isRequired,
 }
 
 export default StaticsResumen2020StickyBar
