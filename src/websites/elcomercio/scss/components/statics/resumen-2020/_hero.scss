@@ -1,0 +1,102 @@
+.hero {
+  background-color: #080808;
+  color: #fff;
+  padding: 10px 0 10px;
+
+  @media (--desktop) {
+    padding: 114px 0 228px;
+  }
+
+  &__c {
+    grid-template-columns: repeat(2, minmax(170px, calc((100vw - 20px) / 2)));
+    gap: 0;
+    grid-gap: 0;
+    display: grid;
+    margin: auto;
+    @media (--desktop) {
+      grid-template-columns: repeat(4, minmax(175px, calc((100vw - 20px) / 2)));
+      width: 1160px;
+      padding: 0 70px;
+    }
+  }
+  &__header {
+    text-align: center;
+    width: 274px;
+    margin: auto;
+    @media (--desktop) {
+      width: 1160px;
+      margin: auto;
+    }
+  }
+
+  &__title {
+    color: #eed27e;
+    font: normal normal 300 13px/15px $primary-font;
+    letter-spacing: 5.33px;
+    @media (--desktop) {
+      font: normal normal 300 30px/32px $primary-font;
+      letter-spacing: 12.3px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 19px;
+    margin-bottom: 16px;
+    margin-top: 20px;
+
+    @media (--desktop) {
+      font-size: 43px;
+      margin-bottom: 76px;
+      margin-top: 60px;
+    }
+  }
+
+  &__year {
+    color: #eed27e;
+    font-size: 93px;
+    line-height: 50px;
+
+    @media (--desktop) {
+      font-size: 255px;
+      line-height: 146px;
+    }
+  }
+  &__select {
+    display: none;
+    @media (--desktop) {
+      display: block;
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+  }
+  &__month {
+    border: 0.5px solid #eed27e;
+    width: 152px;
+    height: 41px;
+    font: normal normal 300 21px/23px $primary-font;
+    padding: 9px 9px;
+    margin: 3px 19px;
+    @media (--desktop) {
+      width: 233px;
+      height: 63px;
+      font: normal normal 300 25px/32px $primary-font;
+      margin-bottom: 20px;
+      padding: 15px 9px;
+    }
+    &:hover {
+      background: #eed27e;
+      color: #000;
+    }
+    & a {
+      color: #fff;
+      cursor: pointer;
+      padding-right: 55%;
+      padding-top: 16px;
+      padding-bottom: 15px;
+      text-decoration: none;
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}
