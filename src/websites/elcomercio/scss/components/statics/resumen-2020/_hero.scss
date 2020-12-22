@@ -2,13 +2,14 @@
   background-color: #080808;
   color: #fff;
   padding: 10px 0 10px;
+  font-family: $primary-font;
 
   @media (--desktop) {
     padding: 114px 0 228px;
   }
 
   &__c {
-    grid-template-columns: repeat(2, minmax(170px, calc((100vw - 20px) / 2)));
+    grid-template-columns: repeat(2, minmax(150px, calc((100vw - 20px) / 2)));
     gap: 0;
     grid-gap: 0;
     display: grid;
@@ -42,23 +43,20 @@
   &__subtitle {
     font-size: 19px;
     margin-bottom: 16px;
-    margin-top: 20px;
 
     @media (--desktop) {
       font-size: 43px;
       margin-bottom: 76px;
-      margin-top: 60px;
     }
   }
 
   &__year {
     color: #eed27e;
     font-size: 93px;
-    line-height: 50px;
-
+    line-height: 91px;
     @media (--desktop) {
       font-size: 255px;
-      line-height: 146px;
+      line-height: 268px;
     }
   }
   &__select {
@@ -71,7 +69,7 @@
   }
   &__month {
     border: 0.5px solid #eed27e;
-    width: 152px;
+    width: 154px;
     height: 41px;
     font: normal normal 300 21px/23px $primary-font;
     padding: 9px 9px;
@@ -90,7 +88,7 @@
     & a {
       color: #fff;
       cursor: pointer;
-      padding-right: 55%;
+      padding-right: 40%;
       padding-top: 16px;
       padding-bottom: 15px;
       text-decoration: none;

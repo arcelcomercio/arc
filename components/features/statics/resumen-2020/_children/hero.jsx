@@ -21,6 +21,8 @@ const StaticsResumen2020Hero = ({ title, year, subtitle, children }) => {
   return (
     <>
       <section className={classes.hero}>
+        {children /** dejar este children, es la publicidad */}
+
         <div className={classes.header}>
           <div className={classes.title}>{title}</div>
           <div className={classes.year}>{year}</div>
@@ -41,7 +43,6 @@ const StaticsResumen2020Hero = ({ title, year, subtitle, children }) => {
           })}
         </div>
       </section>
-      {children /** dejar este children, es la publicidad */}
     </>
   )
 }

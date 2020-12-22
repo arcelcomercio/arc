@@ -41,7 +41,7 @@ const StaticsResumen2020 = props => {
             requestUri={requestUri}
           />
           <MainImage />
-          <StoriesList content={content} />
+          <StoriesList content={JSON.parse(content)} requestUri={requestUri} />
         </>
       ) : null}
       <div id="gpt_zocalo"></div>
