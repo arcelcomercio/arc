@@ -4,6 +4,7 @@ import {
   IMAGE,
   UUID_MATCH,
   ADS_MATCH,
+  VIDEO_JWPLAYER,
 } from './constants'
 
 export const getTitle = data => {
@@ -41,11 +42,90 @@ export const getVideoYoutube = data => {
   )
 }
 
+export const getVideoJWplayer = data => {
+  return data &&
+    data.promo_items &&
+    data.promo_items[VIDEO_JWPLAYER] &&
+    data.promo_items[VIDEO_JWPLAYER].subtype &&
+    data.promo_items[VIDEO_JWPLAYER].subtype === 'video_jwplayer'
+    ? 'basic_jwplayer'
+    : ''
+}
+
+export const getVideoJWplayerHasAds = data => {
+  return (
+    (data &&
+      data.promo_items &&
+      data.promo_items[VIDEO_JWPLAYER] &&
+      data.promo_items[VIDEO_JWPLAYER].embed &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config.has_ads) ||
+    ''
+  )
+}
+
+export const getVideoImageJWplayer = (data, ImageSize) => {
+  const result = { type: '', payload: '' }
+
+  result.payload =
+    (data &&
+      data.promo_items &&
+      data.promo_items[VIDEO_JWPLAYER] &&
+      data.promo_items[VIDEO_JWPLAYER].embed &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config.resized_urls &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config.resized_urls[ImageSize]) ||
+    ''
+
+  result.type = VIDEO_JWPLAYER
+  return result
+}
+
+export const getVideoJWplayerId = data => {
+  return (
+    (data &&
+      data.promo_items &&
+      data.promo_items[VIDEO_JWPLAYER] &&
+      data.promo_items[VIDEO_JWPLAYER].embed &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config.key) ||
+    ''
+  )
+}
+
+export const getVideoAccount = data => {
+  let result = 0
+
+  result =
+    (data &&
+      data.promo_items &&
+      data.promo_items[VIDEO_JWPLAYER] &&
+      data.promo_items[VIDEO_JWPLAYER].embed &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config.account) ||
+    0
+  return result
+}
+
+export const getVideoTimeJWplayer = data => {
+  let result = 0
+
+  result =
+    (data &&
+      data.promo_items &&
+      data.promo_items[VIDEO_JWPLAYER] &&
+      data.promo_items[VIDEO_JWPLAYER].embed &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config &&
+      data.promo_items[VIDEO_JWPLAYER].embed.config.duration) ||
+    0
+  return result
+}
+
 export const getType = data => {
   const powa = getVideoID(data) && VIDEO
   const youtube = getVideoYoutube(data) && ELEMENT_YOUTUBE_ID
-
-  return powa || youtube || undefined
+  const jwplayer = getVideoJWplayer(data) && VIDEO_JWPLAYER
+  return powa || youtube || jwplayer || undefined
 }
 
 export const getImage = (data, ImageSize) => {
