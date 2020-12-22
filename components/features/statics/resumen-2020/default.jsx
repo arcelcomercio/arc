@@ -28,7 +28,7 @@ const StaticsResumen2020 = props => {
 
   return (
     <>
-      <Header />
+      <Header requestUri={requestUri} />
       <Hero title={heroTitle} year={year} subtitle={heroSubtitle}>
         {/* <div id="gpt_top"></div> */}
       </Hero>
