@@ -164,15 +164,6 @@ class StoryContentAmp extends React.PureComponent {
       movil1: true,
       size: '320x100, 320x50',
     }
-    const parametersInline = {
-      // movil3 caja3 inline
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/inline`,
-      width,
-      height,
-      primarySectionLink,
-      arcSite,
-      movil1: false,
-    }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
@@ -449,14 +440,6 @@ class StoryContentAmp extends React.PureComponent {
                             )}
                           />
                         )}
-                      {!isMag && publicidadInline && (
-                        <div
-                          className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmpAd(
-                            parametersInline
-                          )}
-                        />
-                      )}
                       {publicidadCaja3 &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
