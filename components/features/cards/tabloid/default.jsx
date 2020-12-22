@@ -88,7 +88,8 @@ const CardTabloid = props => {
   }
 
   const tabloidImage = urlImage || sourceImage
-  const nameDate = getVerboseDate({ date: createdDate, showTime: false })
+  const nameDate =
+    createdDate && getVerboseDate({ date: createdDate, showTime: false })
 
   return (
     <div className={classes.tabloid}>
