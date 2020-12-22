@@ -28,10 +28,10 @@ const StorySeparatorChildItemAmp = ({ data }) => {
     link,
     multimediaLandscapeMD,
     multimediaType,
-    storyAmp,
+    storyAMP,
   } = data
 
-  const isFullImage = storyAmp === 'amp_full_imagen'
+  const isFullImage = storyAMP === 'amp_full_imagen'
 
   return (
     <article
