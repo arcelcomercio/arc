@@ -116,8 +116,8 @@ const StoryContinueLite = props => {
       const existTagStories = tag && tagElements && tagElements[0]
       return existTagStories ? 5 : 10
     }
-    // Por defecto, son 6 notas por seccion
-    return 6
+    // Por defecto, son 5 notas por seccion
+    return 5
   }
 
   const filteredStories = {
