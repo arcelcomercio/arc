@@ -20,7 +20,7 @@ const StaticsResumen2020MainImage = ({ image, caption, month }) => {
         height={0}
         sizes="(max-width: 360px) 360px, (max-width: 540px) 540px, (max-width: 768px) 768px, (max-width: 1366px) 1366px, 1920px"
         alt={`La imagen más destacada de ${month}`}
-        loading="lazy"
+        loading="eager"
         className={classes.image}
       />
       {caption ? (

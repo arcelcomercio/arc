@@ -16,7 +16,7 @@
   }
 
   @media (--desktop) {
-    min-height: 890px;
+    min-height: 886px;
     height: calc(100vh - 51px);
   }
 
@@ -133,5 +133,10 @@
       color: #000;
       text-decoration: none;
     }
+  }
+
+  &__ads {
+    position: absolute;
+    top: 0;
   }
 }

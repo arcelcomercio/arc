@@ -33,11 +33,18 @@ const StaticsResumen2020 = props => {
   return (
     <>
       <Header requestUri={requestUri} />
-      <Hero title={heroTitle} year={year} subtitle={heroSubtitle} month={month}>
-        <div id="gpt_top"></div>
-      </Hero>
+      {!isMonthPage && (
+        <Hero
+          title={heroTitle}
+          year={year}
+          subtitle={heroSubtitle}
+          month={month}>
+          <div id="gpt_top" className="hero__ads"></div>
+        </Hero>
+      )}
       {isMonthPage ? (
         <>
+          <div id="gpt_top"></div>
           <StickyBar
             text={stickyBarText}
             year={year}
