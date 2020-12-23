@@ -1,8 +1,6 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
 
-import { anchorScript } from '../_dependencies/scripts'
-
 /**
  * @see estilos src/websites/elcomercio/scss/components/statics/resumen-2020/_sticky-bar.scss
  */
@@ -18,8 +16,8 @@ const StaticsResumen2020StickyBar = ({ text, year, month, disableAnchor }) => {
       </h2>
       {disableAnchor ? null : (
         <>
-          <button
-            type="button"
+          <a
+            href="/resumen-2020/"
             aria-label="Ir al inicio de la página"
             id="anchor"
             className="bar__btn">
@@ -35,13 +33,7 @@ const StaticsResumen2020StickyBar = ({ text, year, month, disableAnchor }) => {
                 fill="#080808"
               />
             </svg>
-          </button>
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: anchorScript,
-            }}
-          />
+          </a>
         </>
       )}
     </div>
