@@ -37,7 +37,7 @@ const StaticsResumen2020Story = ({
             alt={title}
             className="st__img"
             loading="lazy"
-            sizes="(max-width: 640px) 640px, 809px"
+            sizes="(max-width: 360px) 360px, (max-width: 540px) 540px, 809px"
           />
           <figcaption className="st__cap">{caption}</figcaption>
         </>
@@ -47,4 +47,4 @@ const StaticsResumen2020Story = ({
   )
 }
 
-export default StaticsResumen2020Story
+export default React.memo(StaticsResumen2020Story)
