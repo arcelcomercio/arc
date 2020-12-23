@@ -8,6 +8,8 @@ div#gpt_zocalo {
 }
 
 div#gpt_top {
+  position: absolute;
+  top: 0;
   align-items: center;
   display: flex;
   height: auto;

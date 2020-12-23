@@ -1,18 +1,24 @@
 .bar {
-  display: flex;
-  position: sticky;
   background-color: $color-gold;
-  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  padding: 14px 20px;
+  max-width: 809px;
+  margin: 0 auto;
 
   &__text {
-    // font-weight: normal;
-    // margin: 0;
+    font-size: 1.4em;
+    line-height: 1.1;
+    @media (--desktop) {
+      font-size: 2.2em;
+      max-width: 450px;
+    }
   }
 
   &__btn {
-    // appearance: none;
-    // border: none;
-    // background: transparent;
-    padding-left: 40px;
+    padding: 0 0 0 40px;
   }
 }

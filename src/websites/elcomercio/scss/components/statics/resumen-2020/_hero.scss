@@ -1,60 +1,95 @@
 .hero {
-  background-color: #080808;
-  color: #fff;
-  padding: 10px 0 10px;
+  background-color: $color-dark;
+  color: $color-white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 95vh;
   font-family: $primary-font;
 
+  @media (--tablet) {
+    height: calc(95vh + 180px);
+  }
+
   @media (--desktop) {
-    padding: 114px 0 228px;
+    height: calc(95vh + 300px);
   }
 
   &__c {
-    grid-template-columns: repeat(2, minmax(150px, calc((100vw - 20px) / 2)));
-    gap: 0;
-    grid-gap: 0;
-    display: grid;
-    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 95vw;
+    @media (--tablet) {
+      width: 80vw;
+    }
     @media (--desktop) {
-      grid-template-columns: repeat(4, minmax(175px, calc((100vw - 20px) / 2)));
-      width: 1160px;
+      width: 100%;
+      max-width: 1160px;
       padding: 0 70px;
     }
   }
+
   &__header {
     text-align: center;
-    width: 274px;
-    margin: auto;
-    @media (--desktop) {
-      width: 1160px;
-      margin: auto;
+    width: 100%;
+    max-width: 70vw;
+    @media (--tv) {
+      max-width: 1160px;
     }
   }
 
   &__title {
-    color: #eed27e;
-    font: normal normal 300 13px/15px $primary-font;
+    color: $color-gold;
+    font: normal normal 300 3.6vw/4.2vw $primary-font;
     letter-spacing: 5.33px;
+    @media (--tablet) {
+      font-size: 3vw;
+      line-height: 3.2vw;
+    }
     @media (--desktop) {
-      font: normal normal 300 30px/32px $primary-font;
+      font-size: 2vw;
+      line-height: 2.2vw;
+    }
+    @media (--tv) {
+      font-size: 30px;
+      line-height: 35px;
       letter-spacing: 12.3px;
     }
   }
 
   &__subtitle {
-    font-size: 19px;
-    margin-bottom: 16px;
-
+    font-size: 5.23vw;
+    line-height: 6vw;
+    margin-bottom: 4.5vw;
+    @media (--tablet) {
+      font-size: 4.2vw;
+      line-height: 4.8vw;
+    }
     @media (--desktop) {
+      font-size: 2.6vw;
+      line-height: 3vw;
+      margin-bottom: 56px;
+    }
+    @media (--tv) {
       font-size: 43px;
+      line-height: 46px;
       margin-bottom: 76px;
     }
   }
 
   &__year {
-    color: #eed27e;
-    font-size: 93px;
-    line-height: 91px;
+    color: $color-gold;
+    font-weight: 300;
+    font-size: 24vw;
+    line-height: 25vw;
     @media (--desktop) {
+      font-size: 14vw;
+      line-height: 14vw;
+    }
+    @media (--tv) {
       font-size: 255px;
       line-height: 268px;
     }
@@ -68,33 +103,32 @@
     }
   }
   &__month {
-    border: 0.5px solid #eed27e;
-    width: 154px;
+    border: 0.5px solid $color-gold;
+    background-color: transparent;
+    color: $color-white;
+    display: block;
+    width: 136px; // para iphone5
     height: 41px;
     font: normal normal 300 21px/23px $primary-font;
+    margin: 0 7px 5px;
     padding: 9px 9px;
-    margin: 3px 19px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    will-change: background-color, color;
+    @media (--mobile) {
+      width: 154px;
+    }
     @media (--desktop) {
       width: 233px;
+      margin: 0 10px 10px;
       height: 63px;
       font: normal normal 300 25px/32px $primary-font;
-      margin-bottom: 20px;
       padding: 15px 9px;
     }
-    &:hover {
-      background: #eed27e;
+    &:hover,
+    &.active {
+      background-color: $color-gold;
       color: #000;
-    }
-    & a {
-      color: #fff;
-      cursor: pointer;
-      padding-right: 40%;
-      padding-top: 16px;
-      padding-bottom: 15px;
       text-decoration: none;
-      &:hover {
-        color: #000;
-      }
     }
   }
 }
