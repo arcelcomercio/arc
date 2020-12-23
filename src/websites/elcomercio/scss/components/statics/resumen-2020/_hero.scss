@@ -14,7 +14,8 @@
   }
 
   @media (--desktop) {
-    height: calc(100vh - 51px + 200px);
+    min-height: 890px;
+    height: calc(100vh - 51px);
   }
 
   &__c {
