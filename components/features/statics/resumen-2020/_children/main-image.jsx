@@ -30,4 +30,4 @@ const StaticsResumen2020MainImage = ({ image, caption, month }) => {
   )
 }
 
-export default StaticsResumen2020MainImage
+export default React.memo(StaticsResumen2020MainImage)
