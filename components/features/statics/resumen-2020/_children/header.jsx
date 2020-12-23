@@ -107,4 +107,4 @@ const StaticsResumen2020Header = ({ requestUri }) => {
   )
 }
 
-export default StaticsResumen2020Header
+export default React.memo(StaticsResumen2020Header)

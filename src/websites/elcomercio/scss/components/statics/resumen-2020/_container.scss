@@ -14,4 +14,7 @@ div#gpt_top {
   display: flex;
   height: auto;
   justify-content: center;
+  @media (--desktop) {
+    display: none;
+  }
 }

@@ -6,15 +6,15 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 95vh;
+  height: calc(100vh - 48px + 80px);
   font-family: $primary-font;
 
   @media (--tablet) {
-    height: calc(95vh + 180px);
+    height: calc(100vh - 48px + 180px);
   }
 
   @media (--desktop) {
-    height: calc(95vh + 200px);
+    height: calc(100vh - 51px + 200px);
   }
 
   &__c {

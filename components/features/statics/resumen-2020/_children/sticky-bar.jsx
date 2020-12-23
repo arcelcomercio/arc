@@ -60,4 +60,4 @@ StaticsResumen2020StickyBar.propTypes = {
   requestUri: PropTypes.string.isRequired,
 }
 
-export default StaticsResumen2020StickyBar
+export default React.memo(StaticsResumen2020StickyBar)
