@@ -6,11 +6,8 @@ import { loadNextPageScript } from '../_dependencies/scripts'
 /**
  * @see estilos src/websites/elcomercio/scss/components/statics/resumen-2020/_stories-list.scss
  */
-const StaticsResumen2020StoriesList = ({ requestUri, content }) => {
-  const [, month = ''] = requestUri.match(/^\/resumen-2020\/(\w{4,10})\//) || []
-
+const StaticsResumen2020StoriesList = ({ content, month }) => {
   const { historias: storiesList = [] } = content[month] || {}
-
   return (
     <main className="st-list">
       {storiesList.map(

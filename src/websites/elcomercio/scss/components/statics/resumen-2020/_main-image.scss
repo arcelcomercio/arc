@@ -1,0 +1,27 @@
+.main-img {
+  margin: -68px auto 0;
+  width: 100%;
+  max-width: 1920px;
+  top: 0;
+  @media (--desktop) {
+    margin-top: -104px;
+  }
+
+  &__img {
+    width: 100%;
+    margin-bottom: 14px;
+  }
+
+  &__caption {
+    width: 100%;
+    max-width: 809px;
+    margin: 0 auto;
+    padding: 0 20px;
+    margin-bottom: 34px;
+    font: 400 16px/20px $primary-font;
+    color: $color-gray;
+    @media (--desktop) {
+      padding: 0;
+    }
+  }
+}

@@ -7,10 +7,12 @@
   justify-content: center;
   position: relative;
   height: calc(100vh - 48px + 80px);
+  min-height: 640px;
   font-family: $primary-font;
 
   @media (--tablet) {
     height: calc(100vh - 48px + 180px);
+    min-height: 740px;
   }
 
   @media (--desktop) {

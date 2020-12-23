@@ -6,17 +6,12 @@ import { anchorScript } from '../_dependencies/scripts'
 /**
  * @see estilos src/websites/elcomercio/scss/components/statics/resumen-2020/_sticky-bar.scss
  */
-const StaticsResumen2020StickyBar = ({
-  text,
-  year,
-  disableAnchor,
-  requestUri,
-}) => {
-  const [, month = ''] = requestUri.match(/^\/resumen-2020\/(\w{4,10})\//) || []
+const StaticsResumen2020StickyBar = ({ text, year, month, disableAnchor }) => {
   return (
     <div className="bar">
       <h2 className="bar__text">
         {text}
+        <br />
         <strong>
           {month} {year}
         </strong>
@@ -56,8 +51,8 @@ const StaticsResumen2020StickyBar = ({
 StaticsResumen2020StickyBar.propTypes = {
   text: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
+  month: PropTypes.string.isRequired,
   disableAnchor: PropTypes.bool,
-  requestUri: PropTypes.string.isRequired,
 }
 
 export default React.memo(StaticsResumen2020StickyBar)

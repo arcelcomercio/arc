@@ -25,15 +25,15 @@ const StaticsResumen2020 = props => {
 
   const { requestUri } = useAppContext()
   const isMonthPage = /^\/resumen-2020\/\w{4,10}\/(?:\?.+)?$/.test(requestUri)
+  const [, month = ''] =
+    requestUri.match(/^\/resumen-2020\/(\w{4,10})\/?/) || []
+  const parsedContent = JSON.parse(content)
+  const monthImage = month ? parsedContent[month]?.imagen : {}
 
   return (
     <>
       <Header requestUri={requestUri} />
-      <Hero
-        title={heroTitle}
-        year={year}
-        subtitle={heroSubtitle}
-        requestUri={requestUri}>
+      <Hero title={heroTitle} year={year} subtitle={heroSubtitle} month={month}>
         <div id="gpt_top"></div>
       </Hero>
       {isMonthPage ? (
@@ -41,11 +41,15 @@ const StaticsResumen2020 = props => {
           <StickyBar
             text={stickyBarText}
             year={year}
+            month={month}
             disableAnchor={stickyBarDisableAnchor}
-            requestUri={requestUri}
           />
-          <MainImage />
-          <StoriesList content={JSON.parse(content)} requestUri={requestUri} />
+          <MainImage
+            image={monthImage.url}
+            caption={monthImage.caption}
+            month={month}
+          />
+          <StoriesList content={parsedContent} month={month} />
         </>
       ) : null}
       <div id="gpt_zocalo"></div>

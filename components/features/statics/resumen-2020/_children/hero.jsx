@@ -10,7 +10,7 @@ const arrayMonths = [
   'junio',
   'julio',
   'agosto',
-  'septiembre',
+  'setiembre',
   'octubre',
   'noviembre',
   'diciembre',
@@ -34,12 +34,9 @@ const StaticsResumen2020Hero = ({
   title,
   year,
   subtitle,
+  month: activeMonth,
   children,
-  requestUri,
 }) => {
-  const [, activeMonth = ''] =
-    requestUri.match(/^\/resumen-2020\/(\w{4,10})\//) || []
-
   return (
     <section className={classes.hero}>
       {children /** dejar este children, es la publicidad */}
@@ -75,8 +72,8 @@ StaticsResumen2020Hero.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
+  month: PropTypes.string,
   children: PropTypes.node,
-  requestUri: PropTypes.string,
 }
 
 export default React.memo(StaticsResumen2020Hero)
