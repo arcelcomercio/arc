@@ -25,6 +25,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_DEPOR,
+  SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
   SITE_OJO,
@@ -758,6 +759,28 @@ export default ({
               id="browsi-tag"
               data-pubKey="elcomercio"
               data-siteKey="trome"
+              async
+            />
+          </>
+        )}
+        {arcSite === SITE_ELBOCON && (
+          <>
+            <script
+              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
+              id="browsi-tag"
+              data-pubKey="elcomercio"
+              data-siteKey="elbocon"
+              async
+            />
+          </>
+        )}
+        {arcSite === SITE_PERU21 && (
+          <>
+            <script
+              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
+              id="browsi-tag"
+              data-pubKey="elcomercio"
+              data-siteKey="peru21"
               async
             />
           </>
