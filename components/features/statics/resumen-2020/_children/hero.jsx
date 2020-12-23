@@ -79,4 +79,4 @@ StaticsResumen2020Hero.propTypes = {
   requestUri: PropTypes.string,
 }
 
-export default StaticsResumen2020Hero
+export default React.memo(StaticsResumen2020Hero)

@@ -2,8 +2,11 @@
   background-color: #000;
   display: block;
   color: #fff;
-  height: 5vh;
+  height: 48px;
   border-bottom: 1px solid #eed27e;
+  @media (--desktop) {
+    height: 51px;
+  }
 
   &__container {
     margin: 0 auto;
