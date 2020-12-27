@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { addSlashToEnd } from '../../utilities/parse/strings'
 import { deleteQueryString } from '../../utilities/parse/queries'
 import { SITE_ELCOMERCIO } from '../../utilities/constants/sitenames'
