@@ -48,6 +48,8 @@ const Styles = ({
     style = 'specials'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
+  else if (arcSite === SITE_ELCOMERCIO && /^\/resumen-2020\//.test(requestUri))
+    style = 'resumen-2020'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
 
@@ -68,7 +70,6 @@ const Styles = ({
       : styleDefault
 
   return isStyleBasic || styleDefault ? (
-    <>
       <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
         {({ data }) => {
           return data ? (
@@ -82,13 +83,9 @@ const Styles = ({
           ) : null
         }}
       </Resource>
-    </>
-  ) : (
-    <>
-      {isAmp === false && isLite === false && (
+  ) : (isAmp === false && isLite === false && (
         <link rel="stylesheet" href={deployment(styleUrl)} />
-      )}
-    </>
+      )
   )
 }
 
