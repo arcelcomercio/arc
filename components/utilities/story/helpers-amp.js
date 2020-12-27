@@ -15,22 +15,6 @@ const createMarkup = html => {
   }
 }
 
-// TODO: hacer que sea una sola funcion con la de helpers.js y dates.js
-export const formatDateTime = date => {
-  const newDate = new Date(date)
-  const dateTime = new Intl.DateTimeFormat('es-419-u-hc-h12', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'America/Lima',
-    hour12: true,
-  })
-
-  return dateTime.format(newDate)
-}
-
 export const publicidadAmp = ({
   dataSlot,
   width,
@@ -38,7 +22,7 @@ export const publicidadAmp = ({
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
-  size = '300x600,300x250,320x100,320x50,300x100,300x50',
+  size = '320x100',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -66,7 +50,7 @@ export const publicidadAmpAd = ({
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
-  size = '300x250,320x100,320x50,300x100,300x50',
+  size = '320x100, 320x50, 300x1',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -106,8 +90,6 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
     height="50"
     type="doubleclick"
     data-slot="${dataSlot}"
-    data-multi-size="fluid,728x90,320x50"
-    data-multi-size-validation="false"
     ${json}
   />`
   return createMarkup(resultData)
@@ -121,6 +103,17 @@ export const optaWidgetHtml = html => {
     : ''
   const ampTag = `<amp-iframe class="media" width="1" height="1" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0" src="${OPTA_WIDGET}/optawidget?${matchesResult}" ></amp-iframe>`
   const result = html.replace(/<opta-widget (.*?)>(.*)<\/opta-widget>/g, ampTag)
+  return result
+}
+
+export const tikTokHtml = html => {
+  if (html.indexOf('class="tiktok-embed"') === -1) return html
+  let result = html
+  const regexTiktok = /<blockquote.*?cite=["|'](.*?)["|'].*?>.*?<\/blockquote>(.+?||)<script.+?><\/script>/g
+  const replaceTikTok =
+    // '<amp-iframe class="media" src="$1" height="400" width="600" layout="responsive" sandbox="allow-scripts allow-same-origin allow-popups" allowfullscreen frameborder="0"></amp-iframe>'
+    '<amp-embedly-card class="media" data-url="$1" height="400" width="600" layout="responsive" data-card-theme="dark" data-card-controls="0"></amp-embedly-card>'
+  result = result.replace(regexTiktok, replaceTikTok)
   return result
 }
 
@@ -664,6 +657,9 @@ export const ampHtml = (html = '', arcSite = '', migrated = false) => {
 
   // facebook
   resultData = facebookHtml(resultData)
+
+  // TikTok
+  resultData = tikTokHtml(resultData)
 
   // Youtube
   resultData = isModernMag

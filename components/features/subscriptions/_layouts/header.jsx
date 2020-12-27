@@ -28,7 +28,7 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
       lastName
     ) || ''} ${checkUndefined(secondLastName) || ''}`
 
-    return fullName.length >= 20 ? `${fullName.substring(0, 20)}...` : fullName
+    return fullName.length >= 15 ? `${fullName.substring(0, 15)}...` : fullName
   }
 
   const handleSignwall = () => {

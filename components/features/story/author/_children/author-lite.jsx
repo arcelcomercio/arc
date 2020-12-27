@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-// TODO: import { formatDateTime } from '../../../../utilities/date-time/dates'
+import { formatDateTime } from '../../../../utilities/date-time/dates'
 import { GALLERY_VERTICAL } from '../../../../utilities/constants/subtypes'
 import {
   SITE_DEPOR,
@@ -12,21 +12,6 @@ const classes = {
   authorNameLink: 'story-contents__author-link ',
   authorDate: 'story-contents__author-date f ',
   authorEmail: 'story-contents__author-email  ',
-}
-
-export const formatDateTime = date => {
-  const newDate = new Date(date)
-  const dateTime = new Intl.DateTimeFormat('es-419-u-hc-h12', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZone: 'America/Lima',
-    hour12: true,
-  })
-
-  return dateTime.format(newDate)
 }
 
 const StoryContentChildAuthorLite = ({

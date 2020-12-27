@@ -3,7 +3,6 @@
 import React, { PureComponent } from 'react'
 
 import { getAssetsPath } from '../../../../utilities/assets'
-import { publicidadAmpMovil0 } from '../../../../utilities/story/helpers-amp'
 
 const classes = {
   sidebar: 'amp-nav-sidebar w-full',
@@ -105,26 +104,13 @@ class NavbarChildMenu extends PureComponent {
     //   arcSite !== 'elcomercio' && arcSite !== 'elcomerciomag' ? adsId : 'eco'
     // }-amp-320x50-inferior2-movil0`
 
-    const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-    const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
-
     const logoAmp = `${getAssetsPath(
       arcSite,
       contextPath
     )}/resources/assets/amp/icon-cross.png?d=1`
 
-    const parameters = {
-      arcSite,
-      dataSlot,
-    }
     return (
       <>
-        <amp-sticky-ad
-          layout="nodisplay"
-          class={classes.mvil0}
-          dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
-        />
-
         <amp-sidebar
           class={classes.sidebar}
           id="sidebar"

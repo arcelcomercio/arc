@@ -1,10 +1,7 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
-import { useContent } from 'fusion:content'
+import * as React from 'react'
 
 import customFields from './_dependencies/custom-fields'
-import { defaultImage } from '../../../utilities/assets'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
+import Image from '../../../global-components/image'
 
 const classes = {
   image: 'w-full h-full object-contain',
@@ -12,7 +9,7 @@ const classes = {
 
 const CustomImageFeat = ({
   customFields: {
-    imgUrlDesktop,
+    imgUrl,
     imgTitle,
     imgAlt,
     imgLink,
@@ -22,84 +19,45 @@ const CustomImageFeat = ({
     rows,
   } = {},
 }) => {
-  const { isAdmin, arcSite, contextPath, deployment } = useFusionContext()
-  const lazyImg = defaultImage({ arcSite, contextPath, deployment, size: 'md' })
   const containerClass = cols && rows ? `block ${cols} md:${rows}` : 'block'
   const styleHeight = { height: imgHeight }
+  const W_COL1 = 307
+  const W_COL2 = 633
+  const W_COL3 = 960
+  const H_AUTO = 0
 
-  let width = '307'
-  if (cols === 'col-2') width = '633'
-  if (cols === 'col-3') width = '960'
+  let width = W_COL1
+  if (cols === 'col-2') width = W_COL2
+  if (cols === 'col-3') width = W_COL3
 
-  let height = '0'
-  if (rows === 'row-2') height = '0'
-  if (rows === 'w-full') height = imgHeight || '0'
+  let height = H_AUTO
+  if (rows === 'row-2') height = H_AUTO
+  if (rows === 'w-full') height = imgHeight || H_AUTO
 
-  const {
-    resized_urls: {
-      desktop: adminResizeImg = '',
-      mobile: adminMobileImg = '',
-    } = {},
-  } =
-    useContent(
-      isAdmin && imgUrlDesktop
-        ? {
-            source: 'photo-resizer',
-            query: {
-              url: imgUrlDesktop,
-              presets: `desktop:${width}x${height},mobile:450x0`,
-            },
-          }
-        : {}
-    ) || ''
-
-  const { desktop: publicResizeImg = '', mobile: publicMobileImg = '' } =
-    !isAdmin && imgUrlDesktop
-      ? createResizedParams({
-          url: imgUrlDesktop,
-          presets: `desktop:${width}x${height},mobile:450x0`,
-          arcSite,
-        }) || {}
-      : {}
-
-  const resizedImg = isAdmin ? adminResizeImg : publicResizeImg
-  const mobileResizedImg = isAdmin ? adminMobileImg : publicMobileImg
-
-  if (!imgUrlDesktop)
+  if (!imgUrl)
     return (
       <div className={containerClass}>
         Modulo imagen, clic en editar para configurar.
       </div>
     )
 
-  const picture = lazyload ? (
-    <picture>
-      <source
-        media="(max-width: 639px)"
-        srcSet={isAdmin ? mobileResizedImg : lazyImg}
-        data-srcset={mobileResizedImg}
-        className={isAdmin ? '' : 'lazy'}
-      />
-      <img
-        src={isAdmin ? resizedImg : lazyImg}
-        data-src={resizedImg}
-        alt={imgAlt || ''}
-        style={styleHeight}
-        {...(imgTitle ? { title: imgTitle } : {})}
-        className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-      />
-    </picture>
-  ) : (
-    <picture>
-      <source media="(max-width: 639px)" srcSet={mobileResizedImg} />
-      <img
-        src={resizedImg}
-        alt={imgAlt || ''}
-        style={styleHeight}
-        {...(imgTitle ? { title: imgTitle } : {})}
-        className={classes.image}
-      />
-    </picture>
+  const sizes =
+    width !== W_COL1
+      ? `(max-width: 360px) 320px, (max-width: 480px) 420px, ${width}px`
+      : ''
+  const loading = lazyload ? 'lazy' : 'auto'
+  const picture = (
+    <Image
+      src={imgUrl}
+      width={width}
+      height={height}
+      style={styleHeight}
+      alt={imgAlt}
+      title={imgTitle}
+      className={classes.image}
+      loading={loading}
+      sizes={sizes}
+    />
   )
 
   if (imgLink) {

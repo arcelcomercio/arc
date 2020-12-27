@@ -41,10 +41,9 @@
   }
   &--copy {
     height: 30px;
-    line-height: 0;
+    font: 700 12px/14px $primary-font;
+    letter-spacing: -0.12px;
     fill: $color-gray-300;
-    font-family: $primary-font;
-    font-weight: bold;
     text-transform: uppercase;
     padding: 0 5px 0 0;
     svg {
