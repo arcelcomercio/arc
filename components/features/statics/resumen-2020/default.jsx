@@ -26,7 +26,9 @@ const StaticsResumen2020 = props => {
   } = props
 
   const { requestUri, arcSite } = useAppContext()
-  const { siteUrl, social: { twitter } = {} } = getProperties(arcSite)
+  const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
+    arcSite
+  )
   const isMonthPage = /^\/resumen-2020\/\w{4,10}\/(?:\?.+)?$/.test(requestUri)
   const [, month = ''] =
     requestUri.match(/^\/resumen-2020\/(\w{4,10})\/?/) || []
@@ -40,7 +42,7 @@ const StaticsResumen2020 = props => {
         requestUri={requestUri}
         siteUrl={siteUrl}
         arcSite={arcSite}
-        twitter={twitter}
+        twitter={user}
         customLogo={customLogo}
       />
       {!isMonthPage && (
