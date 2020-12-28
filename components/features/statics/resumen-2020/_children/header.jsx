@@ -48,6 +48,7 @@ const StaticsResumen2020Header = ({
   siteUrl,
   arcSite,
   twitter,
+  customLogo,
 }) => {
   const links = {
     facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${requestUri}`,
@@ -57,6 +58,7 @@ const StaticsResumen2020Header = ({
     // instagram: ``,
   }
 
+  const logo = customLogo || properties(arcSite)?.logo
   const urlEspecial =
     arcSite === 'elcomercio'
       ? 'https://especiales.elcomercio.pe/?q=especiales/especiales-el-comercio/index.html'
@@ -68,7 +70,7 @@ const StaticsResumen2020Header = ({
         <div className={classes.container}>
           <div className={classes.containerLeft}>
             <a className={classes.logoComercio} href={siteUrl}>
-              <img src={properties(arcSite).logo} alt={`logo de ${arcSite}`} />
+              <img src={logo} alt={`logo de ${arcSite}`} />
             </a>
             <a className={classes.logoEspecial} href={urlEspecial}>
               <img
