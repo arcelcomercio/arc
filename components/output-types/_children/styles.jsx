@@ -67,7 +67,7 @@ const Styles = ({
       ? style
       : styleDefault
 
-  // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos
+  // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos para todas las marcas
   if (/^\/resumen-2020\//.test(requestUri)) {
     style = 'resumen-2020'
     styleUrl = `${contextPath}/resources/dist/elcomercio/css/${style}.css`
