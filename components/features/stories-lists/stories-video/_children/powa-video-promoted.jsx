@@ -19,7 +19,8 @@ const ItemVideoCenterDestacado = ({
   powaVideo,
   time,
 }) => {
-  const CURRENT_ENVIRONMENT = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'prod'
+  const CURRENT_ENVIRONMENT =
+    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   return (
     <>
