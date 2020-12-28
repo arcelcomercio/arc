@@ -1,6 +1,7 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import { useAppContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import Header from './_children/header'
 import Hero from './_children/hero'
@@ -23,7 +24,8 @@ const StaticsResumen2020 = props => {
     } = {},
   } = props
 
-  const { requestUri } = useAppContext()
+  const { requestUri, arcSite } = useAppContext()
+  const { siteUrl, social: { twitter } = {} } = getProperties(arcSite)
   const isMonthPage = /^\/resumen-2020\/\w{4,10}\/(?:\?.+)?$/.test(requestUri)
   const [, month = ''] =
     requestUri.match(/^\/resumen-2020\/(\w{4,10})\/?/) || []
@@ -32,7 +34,12 @@ const StaticsResumen2020 = props => {
 
   return (
     <>
-      <Header requestUri={requestUri} />
+      <Header
+        requestUri={requestUri}
+        siteUrl={siteUrl}
+        arcSite={arcSite}
+        twitter={twitter}
+      />
       {!isMonthPage && (
         <Hero
           title={heroTitle}
