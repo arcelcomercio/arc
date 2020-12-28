@@ -40,9 +40,18 @@
     font-size: 18px;
     line-height: 25px;
     font-weight: 300;
-    &.bold {
-      font-weight: 500;
-      padding-bottom: 22px;
-    }
+  }
+  &__footer-title {
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 500;
+    padding-bottom: 28px;
+    text-align: center;
+  }
+  &__footer-line {
+    background-color: #707070;
+    width: 36px;
+    height: 1px;
+    margin: 12px 0 15px 0;
   }
 }

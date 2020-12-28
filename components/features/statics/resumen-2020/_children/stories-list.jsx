@@ -81,7 +81,11 @@ const StaticsResumen2020StoriesList = ({ content, month }) => {
             </g>
           </svg>
           <div className="st-list__footer-text">Producción y realización:</div>
-          <div className="st-list__footer-text bold">Núcleo Editorial GEC</div>
+          <div className="st-list__footer-line"></div>
+          <div className="st-list__footer-title">
+            <div>Núcleo Editorial GEC</div>
+            <div>Archivo El Comercio</div>
+          </div>
         </div>
       )}
     </main>
