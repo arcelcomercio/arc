@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import ENV from 'fusion:environment'
+import { useFusionContext } from 'fusion:context'
 
 const classes = {
   listItemTitle: 'stories-video__item-title text-white mb-10',
@@ -20,11 +20,13 @@ const ItemVideoCenterNoDestacado = ({
   liveStory,
   image = '',
   videoID = '',
-  powaVideo = '',
   time,
+  account = 'gec',
+  hasAds = '',
 }) => {
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const { siteProperties: { jwplayers = {} } = {} } = useFusionContext()
+  const playerId = jwplayers[account] || jwplayers.gec
+  const jwplayerId = hasAds ? playerId.playerAds : playerId.player
 
   return (
     <>
@@ -33,9 +35,9 @@ const ItemVideoCenterNoDestacado = ({
         data-src={image}
         alt={title}
         className={`${classes.listItemImg} ${isAdmin ? '' : 'lazy'}`}
-        data-env={CURRENT_ENVIRONMENT}
-        data-stream={powaVideo}
+        data-stream={jwplayerId}
         data-uuid={videoID}
+        account={account}
       />
       <span className={classes.listItemTime}>{time}</span>
       <div className={classes.listItemInfo}>
@@ -58,7 +60,6 @@ ItemVideoCenterNoDestacado.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   videoID: PropTypes.string.isRequired,
-  powaVideo: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
 }
 

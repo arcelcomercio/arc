@@ -19,8 +19,7 @@ const ItemVideoCenterDestacado = ({
   powaVideo,
   time,
 }) => {
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const CURRENT_ENVIRONMENT = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'prod'
 
   return (
     <>
@@ -41,7 +40,9 @@ const ItemVideoCenterDestacado = ({
       />
       <div className={classes.listItemText}>
         <div className={classes.listBorder}>
-          <h2 itemProp="name" className={classes.listItemTitleDest}>{title}</h2>
+          <h2 itemProp="name" className={classes.listItemTitleDest}>
+            {title}
+          </h2>
         </div>
         <span role="button" tabIndex="0" className={classes.closeSticky}>
           X

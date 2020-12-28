@@ -1,4 +1,4 @@
-/* 
+/*
 const powaBoot = false;
 const removeSticky = () => {
   const $itemDest = document.body.querySelector('.stories-video__item-dest')
@@ -137,6 +137,7 @@ const executeVideoList = () => {
 
     const VIDEO = 'basic_video'
     const ELEMENT_YOUTUBE_ID = 'youtube_id'
+    const VIDEO_JWPLAYER = 'basic_jwplayer'
     const PROMOTED_ITEM_CLASSNAME = 'stories-video__item-dest w-full'
     const UNPROMOTED_ITEM_CLASSNAME =
       'stories-video__item w-full p-10 flex justify-between position-relative cursor-pointer'
@@ -229,7 +230,27 @@ const executeVideoList = () => {
       if (powaBoot) {
         setTimeout(() => powaBoot(), 200)
       }
-    } else {
+    } else if ($promotedItem.dataset.type === VIDEO_JWPLAYER){
+ // Recolecta todos los valores necesarios
+      const $promoItemImageTag = $promotedItem.querySelector('img')
+      const promoItemTitle = $promoItemImageTag.alt
+      const promoItemImage = $promoItemImageTag.src
+      const {
+        env: promoItemVideoEnv,
+        stream: promoItemVideoStream,
+        uuid: promoItemVideoUUID,
+      } = $promoItemImageTag.dataset
+      const promoItemLive = !!$promotedItem.querySelector(
+        '.stories-video__item-live'
+      )
+      const promoItemTime = $promotedItem.querySelector(
+        '.stories-video__item-time'
+      ).textContent
+      //
+      // Convierte el elemento en destacado
+      $promotedItem.className = PROMOTED_ITEM_CLASSNAME
+     // $promotedItem.innerHTML = jwplayerPromotedTemplate({})
+    }else {
       throw Error('Este elemento no tiene un tipo de video definido')
     }
 
@@ -288,7 +309,28 @@ const executeVideoList = () => {
         live: commonItemLive === 'true' ? LIVE : '',
         time: commonItemTime,
       })
-    } else {
+    } else if ($promotedItem.dataset.type === VIDEO_JWPLAYER){
+       // Recolecta todos los valores necesarios
+      const $commonItemTag = $unpromotedItem.querySelector('div[data-img]')
+      const commonItemTitle = $unpromotedItem.querySelector(
+        '.stories-video__item-dest-title'
+      ).textContent
+      const {
+        img: commonItemImage,
+        time: commonItemTime,
+        live: commonItemLive,
+      } = $commonItemTag.dataset
+      const $commonItemVideoTag = $commonItemTag.firstElementChild
+      const {
+        env: commonItemVideoEnv,
+        stream: commonItemVideoStream,
+        uuid: commonItemVideoUUID,
+      } = $commonItemVideoTag.dataset
+
+      // Convierte el elemento en destacado
+      $unpromotedItem.className = UNPROMOTED_ITEM_CLASSNAME
+      // $unpromotedItem.innerHTML = jwplayerUnpromotedTemplate({})
+    }else {
       throw Error('Este elemento no tiene un tipo de video definido')
     }
 
