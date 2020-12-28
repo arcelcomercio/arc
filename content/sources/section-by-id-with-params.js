@@ -1,11 +1,10 @@
 import getProperties from 'fusion:properties'
 import RedirectError from '../../components/utilities/redirect-error'
-import {
-  arrayDays,
-  arrayMonths,
-} from '../../components/utilities/date-time/constants'
 import { removeLastSlash } from '../../components/utilities/parse/strings'
-import { loadDateFromYYYYMMDD } from '../../components/utilities/date-time/dates'
+import {
+  getVerboseDate,
+  loadDateFromYYYYMMDD,
+} from '../../components/utilities/date-time/dates'
 
 const schemaName = 'section'
 
@@ -74,11 +73,10 @@ const transform = (data, key) => {
     archiveParams: {
       // eslint-disable-next-line no-nested-ternary
       date: date
-        ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ${arrayDays[
-            formatDate.getUTCDay()
-          ].toUpperCase()} ${formatDate.getUTCDate()} DE ${arrayMonths[
-            formatDate.getUTCMonth()
-          ].toUpperCase()} DEL ${formatDate.getUTCFullYear()}`
+        ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ${getVerboseDate({
+            date: formatDate,
+            showTime: false,
+          }).toUpperCase()}`
         : sections !== 'Todas'
         ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ÚLTIMO MINUTO`
         : 'ÚLTIMO MINUTO',

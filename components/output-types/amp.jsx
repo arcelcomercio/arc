@@ -16,6 +16,7 @@ import {
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
+import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 
 const AmpOutputType = ({
   children,
@@ -189,6 +190,8 @@ const AmpOutputType = ({
       rawHtmlContent
     )
 
+  const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
+
   const hasJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
   /**
    * Se reemplaza los .mp4 de JWplayer para poder usar el fallback de
@@ -210,6 +213,12 @@ const AmpOutputType = ({
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
+  }
+  const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
+  const parameters = {
+    arcSite,
+    dataSlot,
   }
   return (
     <Html lang={lang}>
@@ -306,6 +315,12 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
           />
         )}
+        {hasEmbedCard && (
+          <script
+            async
+            custom-element="amp-embedly-card"
+            src="https://cdn.ampproject.org/v0/amp-embedly-card-0.1.js"></script>
+        )}
         {hasYoutube && (
           <script
             async
@@ -393,6 +408,11 @@ const AmpOutputType = ({
       </head>
       <body className={subtype}>
         <AmpTagManager {...parametros} />
+        <amp-sticky-ad
+          layout="nodisplay"
+          class="ad-amp-movil"
+          dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}       
+        />
         {children}
       </body>
     </Html>

@@ -18,6 +18,7 @@ export default arcSite => {
                 landscape_xs
                 landscape_s
                 lazy_default 
+                landscape_md
               }
             }
           }

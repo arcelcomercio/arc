@@ -429,7 +429,10 @@ export default ({
                     </svg>
                   </div>
                 </label>
-                <div className={`${classes.newsCinTooltip}`}>{Newsle}</div>
+                <div id="HeaderNewsletter" style={{ display: 'none' }}>
+                  {Newsle}
+                </div>
+                {/* <div className={`${classes.newsCinTooltip}`}>{Newsle}</div> */}
 
                 <input
                   type="checkbox"
@@ -452,7 +455,7 @@ export default ({
                     </svg>
                   </div>
                 </label>
-                <div className={`${classes.newsCinModal}`}>{Newsle}</div>
+                {/* <div className={`${classes.newsCinModal}`}>{Newsle}</div> */}
                 <div className={classes.callImg}>
                   <a
                     itemProp="url"

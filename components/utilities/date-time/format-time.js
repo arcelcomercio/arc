@@ -1,11 +1,19 @@
+import { locale } from './constants'
+
+/**
+ *
+ * @param {Date} date
+ * @returns {string} 09:30 a.m.
+ */
 const formatTime = date => {
-  const hours =
-    date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
+  const dateTime = new Intl.DateTimeFormat(locale, {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'America/Lima',
+    hour12: true,
+  })
 
-  const minutes =
-    date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
-
-  return `${hours}:${minutes}`
+  return dateTime.format(date)
 }
 
 export default formatTime

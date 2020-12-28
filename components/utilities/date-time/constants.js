@@ -1,4 +1,7 @@
-export const arrayMonths = [
+// eslint-disable-next-line import/prefer-default-export
+export const locale = 'es-419-u-hc-h12'
+
+/* export const arrayMonths = [
   'enero',
   'febrero',
   'marzo',
@@ -21,4 +24,4 @@ export const arrayDays = [
   'Jueves',
   'Viernes',
   'Sábado',
-]
+] */

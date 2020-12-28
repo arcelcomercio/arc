@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react'
+import * as React from 'react'
+
 import searchQuery from '../utilities/client/search'
 
 const classes = {
@@ -8,7 +9,7 @@ const classes = {
   input: `search-input w-full pl-15 pr-30 text-xl lg:font-bold lg:pr-0`,
 }
 
-class SearchInput extends PureComponent {
+class SearchInput extends React.PureComponent {
   constructor(props) {
     super(props)
     this.inputSearch = React.createRef() /* React ref del input */

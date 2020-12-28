@@ -12,6 +12,11 @@ import {
   getImage,
   getVideoImage,
   getVideoTime,
+  getVideoJWplayerId,
+  getVideoJWplayerHasAds,
+  getVideoTimeJWplayer,
+  getVideoAccount,
+  getVideoImageJWplayer,
 } from '../../../../utilities/get-story-values'
 import {
   VIDEO,
@@ -21,6 +26,7 @@ import { LANDSCAPE_XXS } from '../../../../utilities/constants/image-sizes'
 import { defaultImage, getAssetsPathVideo } from '../../../../utilities/assets'
 import schemaFilter from '../_dependencies/schema-filters'
 import StoryItem from './story-video-item'
+import { VIDEO_JWPLAYER } from '../../../../utilities/constants'
 
 const CONTENT_SOURCE = 'story-by-url'
 
@@ -31,8 +37,11 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
     const videoType = getType(data)
 
     let videoID = ''
+    let hasAds = ''
     let videoStreams = []
     let image = {}
+    let duration = ''
+    let account = ''
 
     if (videoType === ELEMENT_YOUTUBE_ID) {
       videoID = getVideoYoutube(data)
@@ -52,6 +61,12 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
       videoID = getVideoID(data)
       videoStreams = getVideoStreams(data)
       image = getVideoImage(data, LANDSCAPE_XXS)
+    } else if (videoType === VIDEO_JWPLAYER) {
+      videoID = getVideoJWplayerId(data)
+      hasAds = getVideoJWplayerHasAds(data)
+      image = getVideoImageJWplayer(data, LANDSCAPE_XXS)
+      duration = getVideoTimeJWplayer(data, LANDSCAPE_XXS)
+      account = getVideoAccount(data, LANDSCAPE_XXS)
     }
 
     let story = {
@@ -60,7 +75,12 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
       liveStory: isLive,
     }
 
-    if (data && (videoType === ELEMENT_YOUTUBE_ID || videoType === VIDEO)) {
+    if (
+      data &&
+      (videoType === ELEMENT_YOUTUBE_ID ||
+        videoType === VIDEO ||
+        videoType === VIDEO_JWPLAYER)
+    ) {
       const title = getTitle(data)
       let powaVideo = ''
 
@@ -87,7 +107,9 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
         videoID,
         powaVideo,
         autoPlayVideo: false,
-        videoTime: getVideoTime(data),
+        videoTime: getVideoTime(data) || duration,
+        hasAds,
+        account,
       }
     }
     return story
