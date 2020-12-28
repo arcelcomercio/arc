@@ -48,8 +48,6 @@ const Styles = ({
     style = 'specials'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
-  else if (arcSite === SITE_ELCOMERCIO && /^\/resumen-2020\//.test(requestUri))
-    style = 'resumen-2020'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
 
@@ -69,23 +67,30 @@ const Styles = ({
       ? style
       : styleDefault
 
+  // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos
+  if (/^\/resumen-2020\//.test(requestUri)) {
+    style = 'resumen-2020'
+    styleUrl = `${contextPath}/resources/dist/elcomercio/css/${style}.css`
+  }
+
   return isStyleBasic || styleDefault ? (
-      <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
-        {({ data }) => {
-          return data ? (
-            <style
-              dangerouslySetInnerHTML={{
-                __html: data
-                  .replace('@charset "UTF-8";', '')
-                  .replace('-----------', ''),
-              }}
-            />
-          ) : null
-        }}
-      </Resource>
-  ) : (isAmp === false && isLite === false && (
-        <link rel="stylesheet" href={deployment(styleUrl)} />
-      )
+    <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
+      {({ data }) => {
+        return data ? (
+          <style
+            dangerouslySetInnerHTML={{
+              __html: data
+                .replace('@charset "UTF-8";', '')
+                .replace('-----------', ''),
+            }}
+          />
+        ) : null
+      }}
+    </Resource>
+  ) : (
+    isAmp === false && isLite === false && (
+      <link rel="stylesheet" href={deployment(styleUrl)} />
+    )
   )
 }
 

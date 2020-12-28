@@ -93,6 +93,7 @@ StaticsResumen2020.propTypes = {
       name: 'Logos personalizados por marca',
       description: `Presiona -new item- agregar una > marca < y la > url < del logo personalizado para esa marca.
         Ej: "depor" - "https://cdna.depor.com/resources/dist/depor/images/alternate-logo-w.png?d=1"`,
+      group: 'Logos',
     }),
     heroTitle: PropTypes.string.tag({
       name: 'Título de la portada',

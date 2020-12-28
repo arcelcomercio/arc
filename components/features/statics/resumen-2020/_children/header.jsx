@@ -71,17 +71,20 @@ const StaticsResumen2020Header = ({
       <header className={classes.header}>
         <div className={classes.container}>
           <div className={classes.containerLeft}>
-            <a className={classes.logoComercio} href={siteUrl}>
-              <img src={logo} alt={`logo de ${arcSite}`} />
-            </a>
             <a
-              className={classes.logoEspecial}
-              href={urlEspecial}
+              className={classes.logoComercio}
+              href={siteUrl}
               style={hasCustomLogoStyle ? { height: '80%' } : {}}>
+              <img
+                src={logo}
+                alt={`logo de ${arcSite}`}
+                style={hasCustomLogoStyle ? { height: '100%' } : {}}
+              />
+            </a>
+            <a className={classes.logoEspecial} href={urlEspecial}>
               <img
                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHYAAAAYCAYAAAFYXjmtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjUwNjY0RjJCMjNFMTFFOUI3NDY4MUJDMTgyMDFDMkIiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjUwNjY0RjFCMjNFMTFFOUI3NDY4MUJDMTgyMDFDMkIiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Nzk4OTBDQkMyRjIxMUU4QURDRDg2QzJFN0IxNTc2MyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Nzk4OTBDQ0MyRjIxMUU4QURDRDg2QzJFN0IxNTc2MyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrBaSaQAAAa0SURBVHjaYvz//z8DuYAJi1goEH8A4ntALAvEHECcgqaGE4jlGEA2o+FHQHwZiO9B+ceA+O1/CKgF4itQ/B8ggBip4+ybjP+RnMQDxFxQ9ikgBsl9A2IbII4D4o0ghSxYDDwNxKpAzA7EV4BYGyrOBQ0HViB+CBIACCCKnE0JwIwpkNdhGAJA9CUgDoKyQS4vAGJeKL8I6kOYWlck02yQxEH6qqDsgfMxQAANiMVMgyduEeAfNEkHQ1OiJBDnQcW/QuUOQ2lOaBzfAWJdWBwCwSeo3AaoGWjZAGYhiFb/zwhk/YbmHUZo0reDJhJGqMXfoDq/Q2l2aJ67hOZwmBm/gJgN1acQixA0JCSuAnEUEO8DYjUg3g81gBEq5w3No/JQMZDaPVD9IPE/UHW7gXjtgCUkgAAasGwzOBIwaeANNCF/Q0pX3dBq6CAQGwHxRSD+ApXPhap5hqTnGVRsApS/Cuquj0iFXj6UD0tuILYlkjseI9nxDap/JVTdVrgqLNUeJr4BpCDYBYiNkeT+AbELEt8YWj26IYmBqs9MpCrUGYi/otkBAjxYxNih4n+AOAmIFyHJ2SCp/QTEvkj8TiD+DnUP3EzSPIspB/KsAw59IAvXA/ENIJ4PxNFALAmVQ/fsFyCWweJZFqh+ZMCOw7OeONxxDsYezbPDFQAEYMfcXRoIgjh8kiBCjgixMKhI/gIbRSs7bQURRDG9iJWNDxAEA5rSRjSVhUSstBTRShArLX2gkFIRG4MgvogzyXcwnrkQsJJk4SN7dzN7s5nb299czWZ2tZYmG6uv2cotb/a2GSHOvqr73o7ZE/V6jsJhxJxT+oUu4Vp4pK7aFNLmPmo/TV/F6qUvDjveojAkPGCX8ozCVU2pJFwHRUMe+658Ca30PTHbx016OB+lxpsVzghGxUGLGeONP+FEmCKuJk/B0l8R1vF1fXGEzXgf0CiEUOhVZvamYYBet+lbpf0Kn6jtZaFDODV2en2LAved8sDzm0dt7aHIUmaiDn/OKE+FGxBlwReHtiUhQpFdxWRLGT3iKF3s/5xwjBsVyLCLfLwji46Re1nhgIlEjZ8GdFEhiiSfCzTrvQE2ETNep9BOmfRE/fxLLmYC1NNcgHpy+HoSpLy0hfhV9TTM+THh2dglUVDWNyusCRGfesoJcb7k+BVYuRgS+BWP//qCaqaGUyaEW2GbwvKF9eiQ1X3j5xq/c5bDvXDFGHnsFoRdU08mWIdx49/GO8E7HufJ2mApHZYTFRlhsr711OXi/2vfArRrNqFNBFEc35QKgooKMZWKUCMSBPHjVqiClFoFC7lUsCdR8aDowYvePJTqtfWDQv28KEUED3qNUK+1goIoESy1VFALAY1iNdj1Pfe3ZLrOblaCIM0O/MnuvJ03O5OZl/f/TxpqsI1UwrbsSDI1SSxOyqL+YoupCQ6HSoJsjBZuBM6Q9d8ns9dke8zxZPYfUKR9+JkJ8fHF4IR90CDbc2VBO9ToJb5Ne4V6TbhvUHfF0Hh9WnfHaKPHAKsN+zrqP5Cw28pcxHwoE+p2vHORClxZicc092N/zq49eR6JJa9WiULW0JU9bbl2O5VgS4J8iP2w4KdgVpCO8DNJon/cqMsJnlG/S7Af6fZziI88hKYi2BbR1218DiHnOpwY91E/LLjOda9/mixopW46IP86ASn4KyTJZh/HxyXBklrz21zHDlWK2xViVcpr3m90cu6kZceqkNDBp1/eCSbg+RsEJwWz2JQQjbI7gv7KxnULosUcu30l/el4DwTaPUHBUVo+iDL0NyUtOC+YQq/UvnsEF6HfH2P6cSFz7QZRdNjl47y3zskpp3qCpCRST4oeONWTp7pDsTLQAngasBUM3LN8qf5AtP8MDNVHhgFqOceE6yrZSWg+IXgjGDDUKwcG7YeuxyyCTvSPZcZ42wJYTkjzFmD8OZlnQfazAF8gG2ZZnK3oI01O9Xw6zk/jmsD7tTAfbxlPCsGrl+tRVIB/EorPLgjF8drNE/46Q+yrBBlL/U1C0i1C3WvuD0X0dZAw9ynEvkLwCj93BdsN225CbbPR9xD3OxhHUbBHsBccE7zn2S2c5GmZEmyNCMWqK/VEaEtNgTr1PWNqTvWH4oXl6m+J1UsYCjHbfCNBemSxnUY/OsLKz7HrymhJ3bRzDY14aY3d9Z3d6VqE9bxgM6rlUULbesKb/pfioRFlKkQJTZ6GaX/BUF/9shbt7DLKaIUk6rnl/dpI9tL0nQrY+2nfxTObeJei4BrRKpZAseg1t0alO6VkahJJMSn/YfkF2rf67ywdK18AAAAASUVORK5CYII="
                 alt="logo de especiales"
-                style={hasCustomLogoStyle ? { height: '100%' } : {}}
               />
             </a>
           </div>
