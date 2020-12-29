@@ -453,6 +453,7 @@ const StoryContentsLite = props => {
                     return (
                       <StoryContentChildRawHTML
                         content={processedAds(content, 'lite', arcSite, secc)}
+                        arcSite={arcSite}
                       />
                     )
                   }
@@ -473,7 +474,10 @@ const StoryContentsLite = props => {
                                 timezone: 'America/Lima'
                               };`,
                           }}></script> */}
-                        <StoryContentChildRawHTML content={content} />
+                        <StoryContentChildRawHTML
+                          content={content}
+                          arcSite={arcSite}
+                        />
                         <script
                           dangerouslySetInnerHTML={{
                             __html: `(function(){window.addEventListener('load', function(){
@@ -549,7 +553,11 @@ const StoryContentsLite = props => {
                   }
 
                   return (
-                    <StoryContentChildRawHTML content={content} output="lite" />
+                    <StoryContentChildRawHTML
+                      content={content}
+                      output="lite"
+                      arcSite={arcSite}
+                    />
                   )
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {
@@ -569,7 +577,12 @@ const StoryContentsLite = props => {
         <div
           className={`${classes.social} ${shareAlign === 'left' ? 'f' : ''}`}>
           <div className="st-social__share">
-            <ShareButtons activeCopyLink={copyLink} />
+            <ShareButtons
+              activeCopyLink={copyLink}
+              activeLinkedin={
+                arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+              }
+            />
           </div>
         </div>
         {storyTagsBbc(tags) && (

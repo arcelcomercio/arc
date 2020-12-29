@@ -1,114 +1,144 @@
-import { arrayDays, arrayMonths } from './constants'
-import formatTime from './format-time'
+import { locale } from './constants'
 
+/**
+ *
+ * @param {Date} date
+ * @returns {string} YYYY-MM-DD
+ */
 export const getYYYYMMDDfromISO = date =>
   date.toISOString().match(/\d{4}-\d{2}-\d{2}/)[0]
 
+/**
+ *
+ * @returns {string} YYYY-MM-DD
+ */
 export const getActualDate = () => {
   const today = new Date()
   today.setHours(today.getHours() - 5)
   return getYYYYMMDDfromISO(today)
 }
 
+/**
+ *
+ * @param {object} config
+ * @param {Date} config.date
+ * @param {boolean} [config.showTime=true]
+ * @param {boolean} [config.showWeekday=true]
+ * @returns {string} jueves, 19 de noviembre de 2020 09:30 a.m.
+ */
+export const getVerboseDate = ({
+  date,
+  showTime = true,
+  showWeekday = true,
+}) => {
+  const baseFormat = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'America/Lima',
+    hour12: true,
+  }
+  const weekday = showWeekday
+    ? {
+        weekday: 'long',
+      }
+    : {}
+  const time = showTime
+    ? {
+        hour: '2-digit',
+        minute: '2-digit',
+      }
+    : {}
+  const dateTime = new Intl.DateTimeFormat(locale, {
+    ...baseFormat,
+    ...weekday,
+    ...time,
+  })
+
+  return dateTime.format(new Date(date))
+}
+
+/**
+ *
+ * @deprecated usar getVerboseDate
+ * @param {Date} date
+ * @param {boolean} [showTime=true]
+ * @param {boolean} [showWeekday=true]
+ * @returns {string} jueves, 19 de noviembre de 2020 09:30 a.m.
+ */
 export const formatDayMonthYear = (
   currentDate,
   showTime = true,
-  isStatic = false
-) => {
-  const date = new Date(currentDate)
+  showWeekday = true
+) => getVerboseDate({ date: currentDate, showTime, showWeekday })
 
-  if (isStatic) date.setHours(date.getHours() - 5)
+/**
+ *
+ * @deprecated usar getVerboseDate
+ * @param {Date} date
+ * @param {boolean} [showTime=true]
+ * @param {boolean} [showWeekday=true]
+ * @returns {string} 19 de noviembre de 2020 09:30 a.m.
+ */
+export const formatDayMonthYearBasic = (currentDate, showTime = true) =>
+  getVerboseDate({ date: currentDate, showTime, showWeekday: false })
 
-  const formattedDate = `${arrayDays[date.getDay()]} ${date.getDate()} de ${
-    arrayMonths[date.getMonth()]
-  } del ${date.getFullYear()}`
-  return showTime ? `${formattedDate}, ${formatTime(date)}` : formattedDate
+/**
+ *
+ * Esta funcion reemplaza getDateSeo por + eficiencia
+ * @param {string} date
+ * @returns {string} 2020-11-19T09:30:00-05:00
+ */
+export const localISODate = date => {
+  let localDate = date ? new Date(date) : new Date()
+  localDate.setHours(localDate.getHours() - 5)
+  localDate = `${localDate.toISOString().split('.')[0]}-05:00`
+  return localDate
 }
 
-export const formatDayMonthYearBasic = (
-  currentDate,
-  showTime = true,
-  isStatic = false
-) => {
-  const date = new Date(currentDate)
+/**
+ *
+ * @deprecated usar localISODate
+ * @param {string} date
+ * @returns {string} 2020-11-19T09:30:00-05:00
+ */
+export const getDateSeo = date => localISODate(date)
 
-  if (isStatic) date.setHours(date.getHours() - 5)
+/**
+ *
+ * @param {string} date
+ * @param {void} [cb] callback
+ * @returns {string | cb} 19/11/2020, 09:30 a.m. | callback
+ */
+export const formatDateTime = (date, cb) => {
+  const newDate = date ? new Date(date) : new Date()
+  const dateTime = new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'America/Lima',
+    hour12: true,
+  })
 
-  const formattedDate = `${date.getDate()} de ${
-    arrayMonths[date.getMonth()]
-  } ${date.getFullYear()}`
-  return showTime ? `${formattedDate}, ${formatTime(date)}` : formattedDate
+  const formattedDateTime = dateTime.format(newDate)
+  return cb ? cb(formattedDateTime) : formattedDateTime
 }
 
-export const getDateSeo = data => {
-  const fechaZone = data
-    ? data.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
-    : new Date()
-  const fecha = new Date(fechaZone)
-  fecha.setHours(fecha.getHours() - 5)
-  const day = fecha.getDate()
-  const month = fecha.getMonth() + 1
-  const year = fecha.getFullYear()
-  const hours = fecha.getHours()
-  const minutes = fecha.getMinutes()
-  const seconds = fecha.getSeconds()
+/**
+ *
+ * @param {string} date
+ * @returns {string} Actualizado el 19/11/2020, 09:30 a.m.
+ */
+export const formatDateStory = date =>
+  formatDateTime(date, formattedDate => `Actualizado el ${formattedDate}`)
 
-  const formatDay = day < 10 ? `0${day}` : day
-  const formatMonth = month < 10 ? `0${month}` : month
-  const formatHours = hours < 10 ? `0${hours}` : hours
-  const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
-  const formatSeconds = seconds < 10 ? `0${seconds}` : seconds
-
-  const fechaGenerada = `${year}-${formatMonth}-${formatDay}T${formatHours}:${formatMinutes}:${formatSeconds}-05:00`
-
-  return fechaGenerada
-}
-
-export const formatDate = date => {
-  const fechaZone = date.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/)[0]
-  const fecha = new Date(fechaZone)
-  const day = fecha.getDate()
-  const month = fecha.getMonth() + 1
-  const formatDay = day < 10 ? `0${day}` : day
-  const formatMonth = month < 10 ? `0${month}` : month
-
-  const minutes = fecha.getMinutes()
-  const hours = fecha.getHours()
-
-  const formatHours = hours < 10 ? `0${hours}` : hours
-  const formatMinutes = minutes < 10 ? `0${minutes}` : minutes
-  return {
-    formatDay,
-    formatMonth,
-    fullYear: fecha.getFullYear(),
-    formatHours,
-    formatMinutes,
-  }
-}
-
-export const formatDateStory = date => {
-  const {
-    formatDay,
-    formatMonth,
-    fullYear,
-    formatHours,
-    formatMinutes,
-  } = formatDate(date)
-
-  return `Actualizado el ${formatDay}/${formatMonth}/${fullYear} a las ${formatHours}:${formatMinutes} `
-}
-
-export const getDMYHours = (date) => {
-  const {
-    formatDay,
-    formatMonth,
-    fullYear,
-    formatHours,
-    formatMinutes,
-  } = formatDate(date)
-  return `${formatDay}/${formatMonth}/${fullYear} - ${formatHours}:${formatMinutes} `
-}
-
+/**
+ *
+ * @param {Date} date
+ * @returns {string} 09:30
+ */
 export const formattedTime = date => {
   const hours =
     date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`
@@ -119,6 +149,14 @@ export const formattedTime = date => {
   return `${hours}:${minutes}`
 }
 
+/**
+ *
+ * @param {string} publishDateString
+ * @param {string} [delimiter=-]
+ * @param {boolean} [isClient=false]
+ * @param {boolean} [todayHour=true]
+ * @returns {string} 09:30 || 2020-11-19
+ */
 export const formatDateLocalTimeZone = (
   publishDateString,
   delimiter = '-',
@@ -146,8 +184,13 @@ export const formatDateLocalTimeZone = (
   return formattedDate
 }
 
+/**
+ *
+ * @param {string} string date
+ * @returns {Date}
+ */
 export const loadDateFromYYYYMMDD = string => {
-  if (!string.match(/\d{4}-\d{2}-\d{2}/)) {
+  if (!/\d{4}-\d{2}-\d{2}/.test(string)) {
     return null
   }
   const year = parseInt(string.slice(0, 4), 10)

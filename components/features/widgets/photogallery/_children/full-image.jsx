@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import Icon from '../../../../global-components/multimedia-icon'
 
@@ -68,13 +68,13 @@ const FullImage = ({
             {title}
           </a>
         </h2>
-        {quantityGalleryItem > 0 && (
+        {quantityGalleryItem > 0 ? (
           <div className={classes.lenghtBox}>
             <p itemProp="description" className={classes.lenghtText}>
               {quantityGalleryItem} Fotos
             </p>
           </div>
-        )}
+        ) : null}
       </div>
       <div className={classes.boxIcon}>
         <Icon type={multimediaType} iconClass={classes.icon} />

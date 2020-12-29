@@ -65,7 +65,12 @@ class RawHTML extends React.PureComponent {
   }
 
   render() {
-    const { content, output } = this.props
+    const { content, output, arcSite } = this.props
+
+    const isRenderDazn =
+      output === 'lite' &&
+      (arcSite === 'elcomercio' || arcSite === 'elcomerciomag')
+
     const idVideo = storyVideoPlayerId(content)
     const idVideoEmbed =
       isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
@@ -75,7 +80,7 @@ class RawHTML extends React.PureComponent {
     if ((this.URL_VIDEO || this.URL) && !content.includes('<mxm')) {
       return (
         <>
-          {this.URL_VIDEO && output !== 'lite' ? (
+          {this.URL_VIDEO && !isRenderDazn ? (
             <div id={idVideoEmbed} className={classes.newsEmbed}>
               <script src={this.URL_VIDEO.replace('"', '')} defer />
             </div>
