@@ -12,12 +12,14 @@ const fetch = (key = {}) => {
     attemptToken,
     event,
     fromFia,
+    winback,
   } = key
   const {
     paywall: { urls },
   } = getProperties(site)
 
   const isCheckingSubscriptor = !!attemptToken
+  const isDniEvent = !!winback
   const isEvent = !!event
   const params = {
     ...(isCheckingSubscriptor
@@ -26,6 +28,7 @@ const fetch = (key = {}) => {
           documentType,
           documentNumber,
           attemptToken,
+          isDniEvent,
         }
       : {}),
     ...(isEvent ? { isEvent, event } : {}),
@@ -135,6 +138,7 @@ export default {
     documentType: 'text',
     attemptToken: 'text',
     event: 'text',
+    winback: 'text',
   },
   ttl: 20,
 }
