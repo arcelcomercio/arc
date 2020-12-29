@@ -286,11 +286,6 @@ const AmpOutputType = ({
               custom-element="amp-ima-video"
               src="https://cdn.ampproject.org/v0/amp-ima-video-0.1.js"
             />
-            <script
-              async
-              custom-element="amp-video-docking"
-              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
-            />
           </>
         )}
         <script
@@ -340,17 +335,18 @@ const AmpOutputType = ({
             custom-element="amp-jwplayer"
             src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
         )}
-
+        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideo) && (
+          <script
+            async
+            custom-element="amp-video-docking"
+            src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"></script>
+        )}
         {(promoItemJwplayer.key || jwplayerSeo[0]) && (
           <>
             <script
               async
               custom-element="amp-jwplayer"
               src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
-            <script
-              async
-              custom-element="amp-video-docking"
-              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"></script>
           </>
         )}
 
@@ -411,7 +407,7 @@ const AmpOutputType = ({
         <amp-sticky-ad
           layout="nodisplay"
           class="ad-amp-movil"
-          dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}       
+          dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
         />
         {children}
       </body>
