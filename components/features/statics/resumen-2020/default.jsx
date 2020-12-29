@@ -1,6 +1,7 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import { useAppContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import Header from './_children/header'
 import Hero from './_children/hero'
@@ -16,6 +17,7 @@ const StaticsResumen2020 = props => {
     customFields: {
       content = {},
       year = 2020,
+      customLogos = {},
       heroTitle = 'Resumen del año',
       heroSubtitle = 'Las noticias más impactantes del Perú y el Mundo',
       stickyBarText = 'Las noticias más importantes de ',
@@ -23,16 +25,26 @@ const StaticsResumen2020 = props => {
     } = {},
   } = props
 
-  const { requestUri } = useAppContext()
+  const { requestUri, arcSite } = useAppContext()
+  const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
+    arcSite
+  )
   const isMonthPage = /^\/resumen-2020\/\w{4,10}\/(?:\?.+)?$/.test(requestUri)
   const [, month = ''] =
     requestUri.match(/^\/resumen-2020\/(\w{4,10})\/?/) || []
   const parsedContent = JSON.parse(content)
   const monthImage = month ? parsedContent[month]?.imagen : {}
+  const customLogo = customLogos[arcSite]
 
   return (
     <>
-      <Header requestUri={requestUri} />
+      <Header
+        requestUri={requestUri}
+        siteUrl={siteUrl}
+        arcSite={arcSite}
+        twitter={user}
+        customLogo={customLogo}
+      />
       {!isMonthPage && (
         <Hero
           title={heroTitle}
@@ -78,6 +90,12 @@ StaticsResumen2020.propTypes = {
       max: 2021,
       min: 2020,
       step: 1,
+    }),
+    customLogos: PropTypes.kvp.tag({
+      name: 'Logos personalizados por marca',
+      description: `Presiona -new item- agregar una > marca < y la > url < del logo personalizado para esa marca.
+        Ej: "depor" - "https://cdna.depor.com/resources/dist/depor/images/alternate-logo-w.png?d=1"`,
+      group: 'Logos',
     }),
     heroTitle: PropTypes.string.tag({
       name: 'Título de la portada',

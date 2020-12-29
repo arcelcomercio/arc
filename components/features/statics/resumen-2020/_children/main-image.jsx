@@ -22,6 +22,7 @@ const StaticsResumen2020MainImage = ({ image, caption, month }) => {
         alt={`La imagen más destacada de ${month}`}
         loading="eager"
         className={classes.image}
+        style={{ minHeight: 'calc((100vw * 9) / 16);' }}
       />
       {caption ? (
         <figcaption className={classes.caption}>{caption}</figcaption>
