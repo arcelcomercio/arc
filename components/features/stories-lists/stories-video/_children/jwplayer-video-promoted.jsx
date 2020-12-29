@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useFusionContext } from 'fusion:context'
 import VideoJwplayer from '../../../../global-components/video-jwplayer'
 
 const classes = {
@@ -24,13 +25,23 @@ const ItemVideoCenterDestacado = ({
   const promoItemJwplayer = {
     key: videoID,
     duration,
+    time,
     has_ads: hasAds,
     account,
     title,
   }
+  const { siteProperties: { jwplayers = {} } = {} } = useFusionContext()
+  const playerId = jwplayers[account] || jwplayers.gec
+  const jwplayerId = hasAds ? playerId.playerAds : playerId.player
   return (
     <>
-      <div data-img={image} data-time={time} data-live={liveStory}>
+      <div
+        data-img={image}
+        data-time={duration}
+        data-live={liveStory}
+        data-stream={jwplayerId}
+        data-uuid={videoID}
+        data-account={account}>
         <VideoJwplayer data={promoItemJwplayer}></VideoJwplayer>
       </div>
 

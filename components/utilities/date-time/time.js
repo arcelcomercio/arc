@@ -16,6 +16,27 @@ export const msToTime = (duration = 5555, seo = true) => {
   }
   return resultSeo
 }
+export const secToTime = (duration = 5555) => {
+  const secNum = parseInt(duration, 10)
+  // console.log('==================================')
+  // console.log(duration, secNum)
+  // console.log('==================================')
+  let hours = Math.floor(secNum / 3600)
+  let minutes = Math.floor((secNum - hours * 3600) / 60)
+  let seconds = secNum - hours * 3600 - minutes * 60
+
+  if (hours < 10) {
+    hours = `0${hours}`
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`
+  }
+  if (seconds < 10) {
+    seconds = `0${seconds}`
+  }
+  return `${hours}:${minutes}:${seconds}`
+}
+
 export const msToTimestamp = (timestamp = 1575909015) => {
   const date = new Date(timestamp.toString() * 1000)
   date.setHours(date.getHours() - 5)

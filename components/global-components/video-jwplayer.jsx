@@ -10,6 +10,7 @@ const StoryContentChildVideoJwplayer = ({ data = {}, lite = false }) => {
     has_ads: hasAds = 0,
     account = 'gec',
     title = '',
+    time = '',
   } = data
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
