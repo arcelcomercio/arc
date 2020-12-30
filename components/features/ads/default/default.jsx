@@ -1,9 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
-import AdsChild from '../../global-components/ads'
+import AdsChild from '../../../global-components/ads'
 
 const NO_DESKTOP = 'no-desktop'
 const NO_MOBILE = 'no-mobile'
@@ -12,7 +12,7 @@ const classes = {
   adsBox: 'flex items-center flex-col',
 }
 
-const Ads = props => {
+const AdsFeat = props => {
   const {
     customFields: {
       adsSpace,
@@ -24,39 +24,10 @@ const Ads = props => {
       adsBorder,
       isDfp,
       rows,
-      liteAdId,
-      liteAdName,
-      liteAdDimensions,
-      liteAdMobileDimensions,
-      liteAdLoadFirst,
-      liteAdLoadBlock,
-      liteAdInlineStyles,
-      prebidAdEnabled,
-      prebidAdDimensions,
     } = {},
   } = props
 
-  const { isAdmin, outputType } = useFusionContext()
-
-  if (outputType === 'lite') {
-    return (
-      <>
-        {(liteAdId || liteAdName || liteAdDimensions) && (
-          <div
-            id={liteAdId}
-            data-ads-name={liteAdName}
-            data-ads-dimensions={liteAdDimensions}
-            data-ads-dimensions-m={liteAdMobileDimensions}
-            data-ads-load-first={liteAdLoadFirst}
-            data-bloque={liteAdLoadBlock}
-            data-prebid-enabled={prebidAdEnabled}
-            data-prebid-dimensions={prebidAdDimensions}
-            style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
-          />
-        )}
-      </>
-    )
-  }
+  const { isAdmin } = useAppContext()
 
   const adsSpaces =
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -93,13 +64,6 @@ const Ads = props => {
     return false
   }
 
-  const params = {
-    adElement,
-    isDesktop,
-    isMobile,
-    isDfp,
-  }
-
   const addEmptyBorder = () =>
     adsBorder === 'containerp' ? 'container-publicidad' : ''
 
@@ -132,48 +96,49 @@ const Ads = props => {
     return deviceClass
   }
 
-  return (
-    <>
-      {(() => {
-        if (getAdsSpace())
-          return (
-            <div
-              className={addEmptyBorder()}
-              dangerouslySetInnerHTML={{ __html: getAdsSpace() }}
-            />
-          )
+  return (() => {
+    if (getAdsSpace())
+      return (
+        <div
+          className={addEmptyBorder()}
+          dangerouslySetInnerHTML={{ __html: getAdsSpace() }}
+        />
+      )
 
-        if (outputType !== 'amp' && !neverShow())
-          return (
-            <>
-              <div
-                className={`${classes.adsBox} ${
-                  adElement === 'boton1' ? 'justify-start' : 'justify-center'
-                } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()} no-row-2-mobile`}>
-                <AdsChild {...params} />
-                {freeHtml && (
-                  <div dangerouslySetInnerHTML={{ __html: freeHtml }} />
-                )}
-              </div>
-              {!alwaysShow() && freeHtml && (
-                <div
-                  className={showHtmlInDevice()}
-                  dangerouslySetInnerHTML={{ __html: freeHtml }}
-                />
-              )}
-            </>
-          )
-        return ''
-      })()}
-    </>
-  )
+    if (!neverShow())
+      return (
+        <>
+          <div
+            className={`${classes.adsBox} ${
+              adElement === 'boton1' ? 'justify-start' : 'justify-center'
+            } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()} no-row-2-mobile`}>
+            <AdsChild
+              adElement={adElement}
+              isDesktop={isDesktop}
+              isMobile={isMobile}
+              isDfp={isDfp}
+            />
+            {freeHtml && (
+              <div dangerouslySetInnerHTML={{ __html: freeHtml }} />
+            )}
+          </div>
+          {!alwaysShow() && freeHtml && (
+            <div
+              className={showHtmlInDevice()}
+              dangerouslySetInnerHTML={{ __html: freeHtml }}
+            />
+          )}
+        </>
+      )
+    return ''
+  })()
 }
 
-Ads.propTypes = {
+AdsFeat.propTypes = {
   customFields,
 }
 
-Ads.label = 'Publicidad AppNexus'
-Ads.static = true
+AdsFeat.label = 'Publicidad'
+AdsFeat.static = true
 
-export default Ads
+export default AdsFeat

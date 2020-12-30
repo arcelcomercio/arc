@@ -30,7 +30,7 @@ BasicHtmlFeatLite.propTypes = {
   customFields,
 }
 
-BasicHtmlFeatLite.label = 'HTML Básico - Beta'
+BasicHtmlFeatLite.label = 'HTML Básico'
 BasicHtmlFeatLite.static = true
 
 export default BasicHtmlFeatLite

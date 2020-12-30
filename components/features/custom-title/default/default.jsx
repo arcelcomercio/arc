@@ -1,10 +1,10 @@
-import React from 'react'
+import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import { useEditableContent } from 'fusion:content'
 
 import PropTypes from 'prop-types'
-import { getVerboseDate } from '../../utilities/date-time/dates'
-import { formatSlugToText } from '../../utilities/parse/strings'
+import { getVerboseDate } from '../../../utilities/date-time/dates'
+import { formatSlugToText } from '../../../utilities/parse/strings'
 
 const classes = {
   title: 'w-full pt-10 mt-20 custom-title',
@@ -14,7 +14,7 @@ const classes = {
     'custom-title__button position-absolute right-0 text-sm font-normal border-1 border-white border-solid p-10 text-white',
 }
 
-const CustomTitle = props => {
+const CustomTitleFeat = props => {
   const { globalContent, globalContentConfig } = useAppContext()
   const { editableField } = useEditableContent()
 
@@ -95,16 +95,16 @@ const CustomTitle = props => {
           getArchivoTitle() ||
           formatSlugToText(section) ||
           'Título'}
-        {seeMoreButton && (
+        {seeMoreButton ? (
           <a
             itemProp="url"
             href={seeMoreButtonLink}
             className={isDarkBg ? classes.darkButton : classes.button}>
             VER MÁS
           </a>
-        )}
+        ) : null}
       </TextType>
-      {subtitleField && (
+      {subtitleField ? (
         <h2
           itemProp="name"
           className={`text-lg ${
@@ -112,12 +112,12 @@ const CustomTitle = props => {
           } mb-20 line-h-xs pl-20 pr-20 md:pl-0 md:pr-0`}
           dangerouslySetInnerHTML={{ __html: subtitleField }}
         />
-      )}
+      ) : null}
     </>
   )
 }
 
-CustomTitle.propTypes = {
+CustomTitleFeat.propTypes = {
   customFields: PropTypes.shape({
     TextType: PropTypes.oneOf(['h1', 'h2']).tag({
       name: 'Tipo de texto',
@@ -177,7 +177,7 @@ CustomTitle.propTypes = {
   }),
 }
 
-CustomTitle.label = 'Título Personalizable'
-CustomTitle.static = true
+CustomTitleFeat.label = 'Título Personalizable'
+CustomTitleFeat.static = true
 
-export default CustomTitle
+export default CustomTitleFeat

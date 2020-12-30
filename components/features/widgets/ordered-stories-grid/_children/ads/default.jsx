@@ -10,7 +10,7 @@ const OrderedStoriesGridAds = props => {
     columns,
     rows,
     freeHtml,
-    siteProperties: { isDfp = false },
+    isDfp = false,
   } = props
 
   const getSize = () => {
