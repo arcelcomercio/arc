@@ -1,14 +1,15 @@
-import React, { Fragment } from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+
 import StoryData from '../../../utilities/story-data'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 import AuthorCard from './_children/author-card'
 import EditorialCard from './_children/editorial-card'
 import ListItem from './_children/list-item'
 import CustomTitle from '../../custom-title/default'
 import Ads from '../../../global-components/ads'
+
 // TODO: author-card y editorial-card pueden evitar código duplicado con un contenedor
 const classes = {
   container: 'opinion-grid grid w-full m-0 mx-auto',
@@ -22,20 +23,13 @@ const classes = {
 }
 
 const StaticOpinionGrid = () => {
-  const {
-    globalContent,
-    deployment,
-    contextPath,
-    arcSite,
-    isAdmin,
-  } = useFusionContext()
+  const { globalContent, deployment, contextPath, arcSite } = useAppContext()
   const { content_elements: contentElements } = globalContent || {}
   const stories = contentElements || []
   const data = new StoryData({
     deployment,
     contextPath,
     arcSite,
-    defaultImgSize: 'sm',
   })
   let countAdd = 0
   let countAddPrint = 0
@@ -57,13 +51,7 @@ const StaticOpinionGrid = () => {
           const { credits: { by = [] } = {} } = story || {}
           const { image: { url } = {} } = by[0] || {}
 
-          const { square_md: resizedAuthorImage } = createResizedParams({
-            url,
-            presets: 'square_md:100x100',
-            arcSite,
-          })
-
-          const authorImage = resizedAuthorImage || defaultAuthorImage
+          const authorImage = url || defaultAuthorImage
 
           data.__data = story
           const { taxonomy: { primary_section: { name } = '' } = {} } =
@@ -75,11 +63,15 @@ const StaticOpinionGrid = () => {
             if (countAdd === 4) {
               countAddPrint += 1
               result = (
-                <Fragment>
+                <>
                   <EditorialCard
                     key={`Editorial-card-${story._id}`}
-                    data={data.attributesRaw}
-                    authorImage
+                    primarySection={data.primarySection}
+                    websiteLink={data.websiteLink}
+                    title={data.title}
+                    author={data.author}
+                    subTitle={data.subTitle}
+                    authorImage={authorImage}
                   />
                   <Ads
                     adElement={`${typeSpace}${countAddPrint}`}
@@ -89,15 +81,19 @@ const StaticOpinionGrid = () => {
                     freeHtml=""
                     isDfp={isDfp}
                   />
-                </Fragment>
+                </>
               )
               countAdd = 0
             } else {
               result = (
                 <EditorialCard
                   key={`Editorial-card-${story._id}`}
-                  data={data.attributesRaw}
-                  authorImage
+                  primarySection={data.primarySection}
+                  websiteLink={data.websiteLink}
+                  title={data.title}
+                  author={data.author}
+                  subTitle={data.subTitle}
+                  authorImage={authorImage}
                 />
               )
             }
@@ -106,16 +102,15 @@ const StaticOpinionGrid = () => {
             if (countAdd === 4) {
               countAddPrint += 1
               result = (
-                <Fragment>
+                <>
                   <AuthorCard
-                    {...{
-                      key: `Author-card-${story._id}`,
-                      data: data.attributesRaw,
-                      deployment,
-                      contextPath,
-                      arcSite,
-                      authorImage,
-                    }}
+                    key={`Author-card-${story._id}`}
+                    author={data.author}
+                    authorLink={data.authorLink}
+                    authorOccupation={data.authorOccupation}
+                    websiteLink={data.websiteLink}
+                    title={data.title}
+                    authorImage={authorImage}
                   />
                   <Ads
                     adElement={`${typeSpace}${countAddPrint}`}
@@ -125,20 +120,19 @@ const StaticOpinionGrid = () => {
                     freeHtml=""
                     isDfp={isDfp}
                   />
-                </Fragment>
+                </>
               )
               countAdd = 0
             } else {
               result = (
                 <AuthorCard
-                  {...{
-                    key: `Author-card-${story._id}`,
-                    data: data.attributesRaw,
-                    deployment,
-                    contextPath,
-                    arcSite,
-                    authorImage,
-                  }}
+                  key={`Author-card-${story._id}`}
+                  author={data.author}
+                  authorLink={data.authorLink}
+                  authorOccupation={data.authorOccupation}
+                  websiteLink={data.websiteLink}
+                  title={data.title}
+                  authorImage={authorImage}
                 />
               )
             }
@@ -165,35 +159,33 @@ const StaticOpinionGrid = () => {
           const { credits: { by = [] } = {} } = story || {}
           const { image: { url } = {} } = by[0] || {}
 
-          const { square_sm: resizedAuthorImageSmall } = createResizedParams({
-            url,
-            presets: 'square_sm:70x70',
-            arcSite,
-          })
-
-          const authorImage = resizedAuthorImageSmall || defaultAuthorImage
+          const authorImage = url || defaultAuthorImage
 
           data.__data = story
           return index !== 3 ? (
             <ListItem
-              {...{
-                key: `List-item-${story._id}`,
-                data: data.attributesRaw,
-                isAdmin,
-                defaultAuthorImage,
-                authorImage,
-              }}
+              key={`List-item-${story._id}`}
+              date={data.date}
+              websiteLink={data.websiteLink}
+              author={data.author}
+              authorLink={data.authorLink}
+              title={data.title}
+              multimedia={data.multimedia}
+              defaultAuthorImage={defaultAuthorImage}
+              authorImage={authorImage}
             />
           ) : (
-            <Fragment>
+            <>
               <ListItem
-                {...{
-                  key: `List-item-${story._id}`,
-                  data: data.attributesRaw,
-                  isAdmin,
-                  defaultAuthorImage,
-                  authorImage,
-                }}
+                key={`List-item-${story._id}`}
+                date={data.date}
+                websiteLink={data.websiteLink}
+                author={data.author}
+                authorLink={data.authorLink}
+                title={data.title}
+                multimedia={data.multimedia}
+                defaultAuthorImage={defaultAuthorImage}
+                authorImage={authorImage}
               />
               <Ads
                 adElement={`${isDfp ? 'caja5' : 'movil5'}`}
@@ -203,7 +195,7 @@ const StaticOpinionGrid = () => {
                 freeHtml=""
                 isDfp={isDfp}
               />
-            </Fragment>
+            </>
           )
         })}
         <div className={classes.moreBox}>

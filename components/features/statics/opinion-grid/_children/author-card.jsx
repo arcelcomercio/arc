@@ -1,4 +1,6 @@
-import React from 'react'
+import * as React from 'react'
+
+import Image from '../../../../global-components/image'
 
 const classes = {
   card: 'author-card p-5 position-relative',
@@ -19,7 +21,14 @@ const classes = {
   iconImg: 'author-card__icon-img',
 }
 
-const OpinionGridAuthorCard = ({ data: story, authorImage }) => {
+const OpinionGridAuthorCard = ({
+  author,
+  authorLink,
+  authorOccupation,
+  websiteLink,
+  title,
+  authorImage,
+}) => {
   const existImageAuthor = authorImage.includes('author.png')
 
   return (
@@ -29,28 +38,27 @@ const OpinionGridAuthorCard = ({ data: story, authorImage }) => {
           {existImageAuthor ? (
             <i className={classes.defaultImage} />
           ) : (
-            <img
-              className={classes.image}
+            <Image
               src={authorImage}
-              alt={story.author}
+              width={100}
+              height={100}
+              alt={author}
+              className={classes.image}
             />
           )}
         </figure>
         <div className={classes.detailsBox}>
           <h3 itemProp="name">
-            <a itemProp="url" className={classes.name} href={story.authorLink}>
-              {story.author}
+            <a itemProp="url" className={classes.name} href={authorLink}>
+              {author}
             </a>
           </h3>
           <p itemProp="description" className={classes.group}>
-            {story.authorOccupation}
+            {authorOccupation}
           </p>
           <h2 itemProp="name">
-            <a
-              itemProp="url"
-              className={classes.title}
-              href={story.websiteLink}>
-              {story.title}
+            <a itemProp="url" className={classes.title} href={websiteLink}>
+              {title}
             </a>
           </h2>
         </div>
@@ -60,4 +68,4 @@ const OpinionGridAuthorCard = ({ data: story, authorImage }) => {
   )
 }
 
-export default OpinionGridAuthorCard
+export default React.memo(OpinionGridAuthorCard)

@@ -1,4 +1,6 @@
-import React from 'react'
+import * as React from 'react'
+
+import Image from '../../../../global-components/image'
 
 const classes = {
   card: 'editorial-card p-5',
@@ -13,32 +15,41 @@ const classes = {
   title: `editorial-card__title block font-normal primary-font text-lg text-gray-300 line-h-sm`,
 }
 
-const OpinionGridEditorialCard = ({ data: story, authorImage }) => {
+const OpinionGridEditorialCard = ({
+  primarySection,
+  websiteLink,
+  title,
+  author,
+  subTitle,
+  authorImage,
+}) => {
   return (
     <div role="listitem" className={classes.card}>
       <div className={classes.wrapper}>
         <h4 itemProp="name" className={classes.group}>
-          {story.primarySection}
+          {primarySection}
         </h4>
         <h2 itemProp="name">
-          <a itemProp="url" className={classes.name} href={story.websiteLink}>
-            {story.title}
+          <a itemProp="url" className={classes.name} href={websiteLink}>
+            {title}
           </a>
         </h2>
         <div className={classes.description}>
           <div className={classes.imageBox}>
-            <a itemProp="url" href={story.websiteLink}>
-              <img
-                className={classes.image}
+            <a itemProp="url" href={websiteLink}>
+              <Image
                 src={authorImage}
-                alt={story.author}
+                width={100}
+                height={100}
+                alt={author}
+                className={classes.image}
                 loading="lazy"
               />
             </a>
           </div>
           <div className={classes.detailsBox}>
             <p itemProp="description" className={classes.title}>
-              {story.subTitle}
+              {subTitle}
             </p>
           </div>
         </div>
@@ -47,4 +58,4 @@ const OpinionGridEditorialCard = ({ data: story, authorImage }) => {
   )
 }
 
-export default OpinionGridEditorialCard
+export default React.memo(OpinionGridEditorialCard)
