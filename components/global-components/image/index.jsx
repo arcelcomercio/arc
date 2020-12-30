@@ -19,13 +19,15 @@ import Image from './image'
  * @param {string} [config.layout] "fixed" | "responsive"
  * @param {string} [config.title]
  * @param {object} [config.style]
+ * @param {string} [config.className]
+ * @param {string} [config.pictureClassName]
  * @param {string} [config.id]
  * @param {string} [config.type]
  * @param {string} [config.importance] Priority hint for browsers
  * @param {string} [config.itemProp] Related to Structured Data
  * @param {number} [config.quality] 1 to 100. Default 75
  *
- * @returns {HTMLImageElement} Static resized <img/>
+ * @returns {HTMLImageElement | HTMLPictureElement} Static resized `<img/>` o `<picture/>`
  *
  * @see loading https://web.dev/native-lazy-loading/
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
@@ -46,6 +48,7 @@ const ArcImage = ({
   alt,
   style = {},
   className = '',
+  pictureClassName = '',
   width = 640,
   height = 360,
 }) => {
@@ -80,8 +83,8 @@ const ArcImage = ({
         idSuffix.length - 30,
         idSuffix.length
       )}`}>
-      {validSizes.length > 1 ? (
-        <picture>
+      {validSizes.length >= 1 ? (
+        <picture className={pictureClassName}>
           <Sources
             sizes={validSizes}
             srcset={src}

@@ -57,7 +57,7 @@ const Sources = ({
             data-srcset={lazy ? image : null}
             media={media}
             type={type}
-            className={lazy ? 'lazy' : ''}
+            className={lazy ? 'lazy' : null}
           />
         )
       })}
