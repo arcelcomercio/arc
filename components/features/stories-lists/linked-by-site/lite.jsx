@@ -1,25 +1,19 @@
 /* eslint-disable import/no-unresolved */
-import React from 'react'
-
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
-import customFields from './_dependencies/custom-fields'
 import StoryData from '../../../utilities/story-data'
 import { includePromoItems } from '../../../utilities/included-fields'
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 
+import customFields from './_dependencies/custom-fields'
 import StoriesListLinkedBySiteChild from './_lite/_children/linked-by-site'
 
 const StoriesListLinkedBySite = props => {
-  const {
-    arcSite,
-    contextPath,
-    deployment,
-    isAdmin,
-    siteProperties,
-  } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
+
   const {
     customFields: {
       storiesConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -32,8 +26,13 @@ const StoriesListLinkedBySite = props => {
   const { website } = contentConfigValues
   const { siteUrl, siteName } = getProperties(website || arcSite) || {}
 
-  const presets = 'landscape_s:234x161,square_s:150x150'
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = getProperties(arcSite)
 
+  const presets = 'no-presets'
   const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${website ||
     arcSite}.website_url`
 
@@ -47,57 +46,39 @@ const StoriesListLinkedBySite = props => {
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'sm',
   })
   const { content_elements: resaizedContentElements = [] } = data || {}
   const stories = resaizedContentElements.map(story => {
     storyData._data = story
 
     const { websites = {} } = story || {}
-    const site = websites[website] || {}
-    const websiteUrl = site.website_url || ''
+    const { website_url: websiteUrl = '' } = websites[website] || {}
 
-    const {
-      title,
-      websiteLink,
-      multimediaLazyDefault,
-      multimediaSquareS,
-      multimediaLandscapeS,
-      isPremium,
-    } = storyData
+    const { title, websiteLink, multimedia, isPremium } = storyData
 
     return {
       title,
       websiteLink: `${siteUrl}${websiteUrl ||
         websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
-      multimediaLazyDefault,
-      multimediaSquareS,
-      multimediaLandscapeS,
+      multimedia,
       isPremium,
     }
   })
 
-  const {
-    assets: {
-      premium: { logo },
-    },
-  } = siteProperties || {}
-
-  const params = {
-    isAdmin,
-    siteName,
-    stories,
-    isTargetBlank: isTargetBlank ? { target: '_blank', rel: 'noopener' } : {},
-    titleField,
-    subtitleField,
-    logo: `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
-    arcSite,
-  }
-
-  return <StoriesListLinkedBySiteChild {...params} />
+  return (
+    <StoriesListLinkedBySiteChild
+      siteName={siteName}
+      stories={stories}
+      isTargetBlank={isTargetBlank}
+      titleField={titleField}
+      subtitleField={subtitleField}
+      logo={`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}?d=1`}
+      arcSite={arcSite}
+    />
+  )
 }
 
 StoriesListLinkedBySite.propTypes = {

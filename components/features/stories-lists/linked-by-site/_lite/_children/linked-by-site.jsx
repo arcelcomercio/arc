@@ -1,7 +1,8 @@
-import React from 'react'
+import * as React from 'react'
+
 import { SITE_GESTION } from '../../../../../utilities/constants/sitenames'
 
-import { createMarkup } from '../../../../../utilities/helpers'
+import ListItem from './list-item'
 
 const classes = {
   container: 'link-site f f-col',
@@ -10,17 +11,9 @@ const classes = {
   headerSiteText: 'link-site__subtitle',
   headerSite: 'link-site__site',
   list: 'link-site__list f f-col',
-  listItem: 'link-site__item f mb-15',
-  picture: 'link-site__pic',
-  listItemTitle: 'link-site__title-link oflow-h ',
-  image: 'link-site__image',
-  imageContainer: 'link-site__image-container position-relative',
-  iconContainer: 'link-site__icon-container mr-5 mt-5',
-  iconImagePremium: 'link-site__icon-premium',
 }
 
 const StoriesListLinkedBySiteChild = ({
-  isAdmin,
   siteName,
   stories,
   isTargetBlank,
@@ -40,7 +33,7 @@ const StoriesListLinkedBySiteChild = ({
           {subtitleField ? (
             <div
               className={classes.headerSiteText}
-              dangerouslySetInnerHTML={createMarkup(subtitleField)}
+              dangerouslySetInnerHTML={{ __html: subtitleField }}
             />
           ) : (
             <h3 itemProp="name" className={classes.headerSiteText}>
@@ -52,51 +45,16 @@ const StoriesListLinkedBySiteChild = ({
       </div>
       <div role="navigation" className={classes.list}>
         {stories.map(
-          ({
-            title,
-            websiteLink,
-            multimediaLazyDefault,
-            multimediaSquareS,
-            multimediaLandscapeS,
-            isPremium = false,
-          }) => (
-            <a
-              itemProp="url"
-              className={classes.listItem}
-              key={websiteLink}
-              href={websiteLink}
-              {...isTargetBlank}>
-              <div className={classes.imageContainer}>
-                {isPremium && isGestion && (
-                  <div className={classes.iconContainer}>
-                    <img
-                      className={classes.iconImagePremium}
-                      src={logo}
-                      alt="premium"
-                    />
-                  </div>
-                )}
-                <picture className={classes.picture}>
-                  <source
-                    className={isAdmin ? '' : 'lazy'}
-                    media="(max-width: 639px)"
-                    type="image/jpeg"
-                    srcSet={isAdmin ? multimediaSquareS : multimediaLazyDefault}
-                    data-srcset={multimediaSquareS}
-                  />
-                  <img
-                    src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-                    data-src={multimediaLandscapeS}
-                    className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                    alt={title}
-                  />
-                </picture>
-              </div>
-
-              <h2 itemProp="name" className={classes.listItemTitle}>
-                {title}
-              </h2>
-            </a>
+          ({ title, websiteLink, multimedia, isPremium = false }) => (
+            <ListItem
+              title={title}
+              websiteLink={websiteLink}
+              multimedia={multimedia}
+              logo={logo}
+              isTargetBlank={isTargetBlank}
+              isPremium={isPremium}
+              isGestion={isGestion}
+            />
           )
         )}
       </div>
@@ -104,5 +62,4 @@ const StoriesListLinkedBySiteChild = ({
   )
 }
 
-// TODO: Verificar si ayuda React.memo
 export default StoriesListLinkedBySiteChild

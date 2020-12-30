@@ -1,29 +1,19 @@
 /* eslint-disable import/no-unresolved */
-import React from 'react'
-import Static from 'fusion:static'
-
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+
+import StoryData from '../../../utilities/story-data'
+import { getAssetsPath } from '../../../utilities/assets'
+import { includePromoItems } from '../../../utilities/included-fields'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../../utilities/story-data'
-import { getAssetsPath } from '../../../utilities/constants'
-import { includePromoItems } from '../../../utilities/included-fields'
-
 import StoriesListLinkedBySiteChild from './_children/linked-by-site'
 
-import { createResizedParams } from '../../../utilities/resizer/resizer'
-
 const StoriesListLinkedBySite = props => {
-  const {
-    arcSite,
-    contextPath,
-    deployment,
-    isAdmin,
-    siteProperties,
-  } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
   const {
     customFields: {
       storiesConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -40,7 +30,12 @@ const StoriesListLinkedBySite = props => {
   const { website } = contentConfigValues
   const { siteUrl, siteName } = getProperties(website || arcSite) || {}
 
-  // const presets = 'landscape_s:234x161,square_s:150x150'
+  const {
+    assets: {
+      premium: { logo },
+    },
+  } = getProperties(arcSite)
+
   const presets = 'no-presets'
   const includedFields = `headlines.basic,promo_items.basic_html.content,content_restrictions.content_code,${includePromoItems},websites.${website ||
     arcSite}.website_url`
@@ -56,68 +51,38 @@ const StoriesListLinkedBySite = props => {
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'sm',
   })
   const { content_elements: resaizedContentElements = [] } = data || {}
   const stories = resaizedContentElements.map(story => {
     storyData._data = story
 
     const { websites = {} } = story || {}
-    const site = websites[website] || {}
-    const websiteUrl = site.website_url || ''
+    const { website_url: websiteUrl = '' } = websites[website] || {}
 
-    const {
-      title,
-      websiteLink,
-      multimedia,
-      multimediaLazyDefault,
-      isPremium,
-    } = storyData
-
-    const { landscape_s: landscapeS, square_s: squareS } =
-      typeof window === 'undefined'
-        ? createResizedParams({
-            url: multimedia,
-            presets: 'landscape_s:234x161,square_s:150x150',
-            arcSite: website || arcSite,
-          }) || {}
-        : {}
+    const { title, websiteLink, multimedia, isPremium } = storyData
 
     return {
       title,
       websiteLink: `${siteUrl}${websiteUrl ||
         websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
-      multimediaLazyDefault,
-      multimediaSquareS: squareS || multimedia,
-      multimediaLandscapeS: landscapeS || multimedia,
+      multimedia,
       isPremium,
     }
   })
 
-  const {
-    assets: {
-      premium: { logo },
-    },
-  } = siteProperties || {}
-
-  const params = {
-    isAdmin,
-    siteName,
-    stories,
-    isTargetBlank: isTargetBlank ? { target: '_blank', rel: 'noopener' } : {},
-    titleField,
-    subtitleField,
-    logo: `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
-    arcSite,
-  }
-
   return (
-    <Static>
-      <StoriesListLinkedBySiteChild {...params} />
-    </Static>
+    <StoriesListLinkedBySiteChild
+      siteName={siteName}
+      stories={stories}
+      isTargetBlank={isTargetBlank}
+      titleField={titleField}
+      subtitleField={subtitleField}
+      logo={`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}?d=1`}
+      arcSite={arcSite}
+    />
   )
 }
 

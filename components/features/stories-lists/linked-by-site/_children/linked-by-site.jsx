@@ -1,7 +1,8 @@
-import React from 'react'
+import * as React from 'react'
+
 import { SITE_GESTION } from '../../../../utilities/constants/sitenames'
 
-import { createMarkup } from '../../../../utilities/helpers'
+import ListItem from './list-item'
 
 const classes = {
   container: 'flex flex-col justify-start p-20',
@@ -12,17 +13,9 @@ const classes = {
   headerSiteText: 'linked-site__subtitle secondary-font text-md',
   headerSite: 'font-bold',
   list: 'flex flex-col md:flex-row md:flex-wrap md:justify-between',
-  listItem: 'linked-site__item flex mb-15 md:flex-col',
-  listItemTitle:
-    'linked-site__title-link overflow-hidden block text-black font-bold secondary-font line-h-sm title-xs',
-  image: 'linked-site__image object-cover',
-  imageContainer: 'link-site__image-container position-relative',
-  iconContainer: 'linked-site__icon-container mr-5 mt-5',
-  iconImagePremium: 'linked-site__icon-premium',
 }
 
 const StoriesListLinkedBySiteChild = ({
-  isAdmin,
   siteName,
   stories,
   isTargetBlank,
@@ -42,7 +35,7 @@ const StoriesListLinkedBySiteChild = ({
           {subtitleField ? (
             <div
               className={classes.headerSiteText}
-              dangerouslySetInnerHTML={createMarkup(subtitleField)}
+              dangerouslySetInnerHTML={{ __html: subtitleField }}
             />
           ) : (
             <h3 itemProp="name" className={classes.headerSiteText}>
@@ -54,51 +47,16 @@ const StoriesListLinkedBySiteChild = ({
       </div>
       <div role="navigation" className={classes.list}>
         {stories.map(
-          ({
-            title,
-            websiteLink,
-            multimediaLazyDefault,
-            multimediaSquareS,
-            multimediaLandscapeS,
-            isPremium = false,
-          }) => (
-            <a
-              itemProp="url"
-              className={classes.listItem}
-              key={websiteLink}
-              href={websiteLink}
-              {...isTargetBlank}>
-              <div className={classes.imageContainer}>
-                {isPremium && isGestion && (
-                  <div className={classes.iconContainer}>
-                    <img
-                      className={classes.iconImagePremium}
-                      src={logo}
-                      alt="premium"
-                    />
-                  </div>
-                )}
-                <picture className="block mr-10 md:mr-0 md:mb-5">
-                  <source
-                    className={isAdmin ? '' : 'lazy'}
-                    media="(max-width: 639px)"
-                    type="image/jpeg"
-                    srcSet={isAdmin ? multimediaSquareS : multimediaLazyDefault}
-                    data-srcset={multimediaSquareS}
-                  />
-                  <img
-                    src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-                    data-src={multimediaLandscapeS}
-                    className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                    alt={title}
-                  />
-                </picture>
-              </div>
-
-              <h2 itemProp="name" className={classes.listItemTitle}>
-                {title}
-              </h2>
-            </a>
+          ({ title, websiteLink, multimedia, isPremium = false }) => (
+            <ListItem
+              title={title}
+              websiteLink={websiteLink}
+              multimedia={multimedia}
+              logo={logo}
+              isTargetBlank={isTargetBlank}
+              isPremium={isPremium}
+              isGestion={isGestion}
+            />
           )
         )}
       </div>
