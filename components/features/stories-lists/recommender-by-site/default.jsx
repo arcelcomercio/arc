@@ -1,30 +1,23 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable import/no-unresolved */
-import React from 'react'
-import Static from 'fusion:static'
-
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+
+import StoryData from '../../../utilities/story-data'
+import { getAssetsPath } from '../../../utilities/assets'
+import { includePromoItems } from '../../../utilities/included-fields'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../../utilities/story-data'
-import { getAssetsPath } from '../../../utilities/constants'
-import { includePromoItems } from '../../../utilities/included-fields'
-
 import StoriesListRecommenderBySiteChild from './_children/linked-by-site'
-
-import { createResizedParams } from '../../../utilities/resizer/resizer'
 
 const StoriesListRecommenderBySite = props => {
   const {
     arcSite,
     contextPath,
     deployment,
-    isAdmin,
-    siteProperties,
-  } = useFusionContext()
+  } = useAppContext()
+
   const {
     customFields: {
       enabledContentManual,
@@ -47,7 +40,16 @@ const StoriesListRecommenderBySite = props => {
   const { website } = contentConfigValues
   const { siteUrl: siteUrlManual, siteName: siteNameManual } =
     getProperties(websiteManual || arcSite) || {}
-  const { siteUrl, siteName } = getProperties(website || arcSite) || {}
+  const { 
+    siteUrl, 
+    siteName,
+  } = getProperties(website || arcSite) || {}
+
+  const {
+    assets: {
+      premium: { logo }
+    }
+  } = getProperties(arcSite)
 
   // const presets = 'landscape_s:234x161,square_s:150x150'
   const presets = 'no-presets'
@@ -79,7 +81,6 @@ const StoriesListRecommenderBySite = props => {
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'sm',
   })
 
   const process = (contentElements, websiteConf, siteUrlConf) => {
@@ -88,33 +89,20 @@ const StoriesListRecommenderBySite = props => {
           storyData._data = story
 
           const { websites = {} } = story || {}
-          const site = websites[websiteConf] || {}
-          const websiteUrl = site.website_url || ''
+          const { website_url: websiteUrl } = websites[websiteConf] || {}
 
           const {
             title,
             websiteLink,
             multimedia,
-            multimediaLazyDefault,
             isPremium,
           } = storyData
-
-          const { landscape_s: landscapeS, square_s: squareS } =
-            typeof window === 'undefined'
-              ? createResizedParams({
-                  url: multimedia,
-                  presets: 'landscape_s:234x161,square_s:150x150',
-                  arcSite: websiteConf || arcSite,
-                }) || {}
-              : {}
 
           return {
             title,
             websiteLink: `${siteUrlConf}${websiteUrl ||
               websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
-            multimediaLazyDefault,
-            multimediaSquareS: squareS || multimedia,
-            multimediaLandscapeS: landscapeS || multimedia,
+            multimedia,
             isPremium,
           }
         })
@@ -133,30 +121,19 @@ const StoriesListRecommenderBySite = props => {
   const { content_elements: resaizedContentElements = [] } = data || {}
   const stories = process(resaizedContentElements, website, siteUrl)
 
-  const {
-    assets: {
-      premium: { logo },
-    },
-  } = siteProperties || {}
-
-  const params = {
-    isAdmin,
-    siteName: siteNameManual || siteName,
-    stories: [...storiesManual, ...stories],
-    isTargetBlank: isTargetBlank ? { target: '_blank', rel: 'noopener' } : {},
-    titleField,
-    subtitleField,
-    logo: `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/${logo}?d=1`,
-    arcSite,
-  }
-
   return (
-    <Static>
-      <StoriesListRecommenderBySiteChild {...params} />
-    </Static>
+      <StoriesListRecommenderBySiteChild
+        siteName={siteNameManual || siteName}
+        stories={[...storiesManual, ...stories]}
+        isTargetBlank={isTargetBlank}
+        titleField={titleField}
+        subtitleField={subtitleField}
+        logo={`${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/${logo}?d=1`}
+        arcSite={arcSite}
+      />
   )
 }
 

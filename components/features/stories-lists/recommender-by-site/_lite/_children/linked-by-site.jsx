@@ -1,11 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 
-import { createMarkup } from '../../../../../utilities/helpers'
 import {
   SITE_DEPOR,
   SITE_GESTION,
   SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
+import ListItem from './list-item'
 
 const classes = {
   container: 'link-site f f-col',
@@ -13,19 +13,10 @@ const classes = {
   headerText: 'link-site__h-text uppercase',
   headerSiteText: 'link-site__subtitle',
   headerSite: 'link-site__site',
-  list: 'link-site__list f f-col',
-  listItem: 'link-site__item f mb-15',
-  picture: 'link-site__pic',
-  listItemTitle: 'link-site__title-link oflow-h ',
-  image: 'link-site__image',
-  sitename: 'link-site__sitename',
-  imageContainer: 'link-site__image-container position-relative',
-  iconContainer: 'link-site__icon-container mr-5 mt-5',
-  iconImagePremium: 'link-site__icon-premium',
+
 }
 
 const StoriesListRecommenderBySiteChild = ({
-  isAdmin,
   siteName,
   stories,
   isTargetBlank,
@@ -52,7 +43,7 @@ const StoriesListRecommenderBySiteChild = ({
           {subtitleField ? (
             <div
               className={classes.headerSiteText}
-              dangerouslySetInnerHTML={createMarkup(subtitleField)}
+              dangerouslySetInnerHTML={{ __html: subtitleField }}
             />
           ) : (
             <h3 itemProp="name" className={classes.headerSiteText}>
@@ -67,50 +58,19 @@ const StoriesListRecommenderBySiteChild = ({
           ({
             title,
             websiteLink,
-            multimediaLazyDefault,
-            multimediaSquareS,
-            multimediaLandscapeS,
+            multimedia,
             isPremium = false,
-          }) => (
-            <a
-              itemProp="url"
-              className={classes.listItem}
-              key={websiteLink}
-              href={websiteLink}
-              {...isTargetBlank}>
-              <div className={classes.imageContainer}>
-                {isPremium && isGestion && (
-                  <div className={classes.iconContainer}>
-                    <img
-                      className={classes.iconImagePremium}
-                      src={logo}
-                      alt="premium"
-                    />
-                  </div>
-                )}
-                <picture className={classes.picture}>
-                  <source
-                    className={isAdmin ? '' : 'lazy'}
-                    media="(max-width: 639px)"
-                    type="image/jpeg"
-                    srcSet={isAdmin ? multimediaSquareS : multimediaLazyDefault}
-                    data-srcset={multimediaSquareS}
-                  />
-                  <img
-                    src={isAdmin ? multimediaLandscapeS : multimediaLazyDefault}
-                    data-src={multimediaLandscapeS}
-                    className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                    alt={title}
-                  />
-                </picture>
-              </div>
-
-              <h2 itemProp="name" className={classes.listItemTitle}>
-                {title}
-              </h2>
-              {siteAllowed() && <span className={classes.sitename}>{siteName}</span>}
-            </a>
-          )
+          }) => <ListItem
+            title={title}
+            websiteLink={websiteLink}
+            multimedia={multimedia}
+            logo={logo}
+            siteName={siteName}
+            siteAllowed={siteAllowed()}
+            isTargetBlank={isTargetBlank}
+            isPremium={isPremium}
+            isGestion={isGestion}
+          />
         )}
       </div>
     </section>
