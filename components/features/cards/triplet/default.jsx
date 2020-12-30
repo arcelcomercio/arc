@@ -1,12 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import Data from './_dependencies/data'
 import TripletChildTriplet from './_children/triplet'
-import { getPhotoId } from '../../../utilities/helpers'
 
 const API_STORY_BY_URL = 'story-by-url'
 const API_FEED_BY_COLLECTION = 'story-feed-by-collection'
@@ -16,8 +15,8 @@ const CardTriplet = props => {
   const { webskedId, adsSpace, adsSpace2, adsSpace3, multimediaOrientation } =
     custom || {}
 
-  const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
-  const presets = isAdmin ? 'square_s:150x150' : 'no-presets'
+  const { deployment, contextPath, arcSite } = useAppContext()
+  const presets = 'no-presets'
 
   const adsSpaces =
     useContent(
@@ -67,9 +66,9 @@ const CardTriplet = props => {
     data1: url1,
     data2: url2,
     data3: url3,
-    image1: img1 = '',
-    image2: img2 = '',
-    image3: img3 = '',
+    image1 = '',
+    image2 = '',
+    image3 = '',
   } = custom || {}
 
   const fetchDataModel = url => {
@@ -79,35 +78,16 @@ const CardTriplet = props => {
       filter: schemaFilter(arcSite),
     }
   }
-  const fetchImageModel = image => {
-    return (
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useContent(
-        image
-          ? {
-              source: 'photo-resizer',
-              query: { url: getPhotoId(image) ? image : '', presets },
-            }
-          : {}
-      ) || {}
-    )
-  }
 
   const data1 = useContent(url1 ? fetchDataModel(url1) : {}) || {}
   const data2 = useContent(url2 ? fetchDataModel(url2) : {}) || {}
   const data3 = useContent(url3 ? fetchDataModel(url3) : {}) || {}
-
-  const image1 = isAdmin ? fetchImageModel(img1) : img1
-  const image2 = isAdmin ? fetchImageModel(img2) : img2
-  const image3 = isAdmin ? fetchImageModel(img3) : img3
 
   const data = new Data({
     deployment,
     contextPath,
     arcSite,
     customFields: custom,
-    defaultImgSize: 'sm',
-    isAdmin,
   })
 
   const toDate = dateStr => {
@@ -160,9 +140,16 @@ const CardTriplet = props => {
   const getInstanceSnap = (el, index, customImage) => {
     data.__data = el
     data.__index = index
-    data.__customImage = customImage
-    // TODO: Este feature no debería usar attributesRaw, consume muchos recursos
-    return data.attributesRaw
+
+    return {
+      id: data.id,
+      websiteLink: data.websiteLink,
+      title: data.title,
+      multimedia: customImage || data.multimedia,
+      multimediaType: data.multimediaType,
+      authorOrSection: data.authorOrSection,
+      authorOrSectionLink: data.authorOrSectionLink
+    }
   }
 
   const getFormatedData = (item1, item2, item3) => {
@@ -185,26 +172,54 @@ const CardTriplet = props => {
     return getFormatedData(item1, item2, item3)
   }
 
-  const {
-    getSpace = getAdsSpace(),
-    getSpace2 = getAdsSpace2(),
-    getSpace3 = getAdsSpace3(),
-  } = props
+  const spaces = {
+    getSpace0: getAdsSpace(),
+    getSpace1: getAdsSpace2(),
+    getSpace2: getAdsSpace3(),
+  }
 
   const dataFormatted = webskedId
     ? getFormatWebskedStories()
     : getFormatFieldsStories()
 
-  const params = {
-    arcSite,
-    isAdmin,
-    data: dataFormatted,
-    multimediaOrientation,
-    getSpace,
-    getSpace2,
-    getSpace3,
+  const classes = {
+    triplet: 'triplet bg-white border-solid border-1 border-gray p-20 row-1',
   }
-  return <TripletChildTriplet {...params} />
+
+  let lines = ''
+  switch (arcSite) {
+    case 'elcomercio':
+      lines = 'threelines'
+      break
+    case 'depor':
+      lines = 'twolines'
+      break
+    default:
+      lines = 'threelines'
+      break
+  }
+
+  return (
+    <div role="list" className={classes.triplet}>
+      {dataFormatted.map((story, i) => {
+        return (
+          <TripletChildTriplet
+            key={`triplet-${story.id}`}
+            index={i}
+            lines={lines}
+            websiteLink={story.websiteLink}
+            title={story.title}
+            authorOrSection={story.authorOrSection}
+            authorOrSectionLink={story.authorOrSectionLink}
+            multimedia={story.multimedia}
+            multimediaType={story.multimediaType}
+            multimediaOrientation={multimediaOrientation}
+            adSpace={spaces[`getSpace${i}`]}
+          />
+        )
+      })}
+    </div>
+  )
 }
 
 CardTriplet.label = 'Triplete'

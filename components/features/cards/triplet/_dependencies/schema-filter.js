@@ -1,4 +1,5 @@
 export default arcSite => `{
+    _id
     headlines {
         basic
     }
@@ -9,10 +10,6 @@ export default arcSite => `{
                 basic {
                     type 
                     url
-                    resized_urls { 
-                        square_s
-                        lazy_default
-                    }
                 }
             }
         }
@@ -20,14 +17,9 @@ export default arcSite => `{
             subtype
             type
             embed{
-              config{
-                thumbnail_url
-                resized_urls { 
-                    landscape_xs
-                    landscape_s
-                    lazy_default 
-                  }
-              }
+                config{
+                    thumbnail_url
+                }
             }
         }
         basic_gallery {
@@ -36,20 +28,12 @@ export default arcSite => `{
                 basic {
                     type 
                     url
-                    resized_urls { 
-                        square_s
-                        lazy_default
-                    }
                 }
             }
         }
         basic {
             type 
             url
-            resized_urls { 
-                square_s
-                lazy_default
-            }
         }
     }
     credits {
@@ -82,4 +66,3 @@ export default arcSite => `{
 }`
 
 // TODO: Verificar si esta bien que siga buscando websites { ${arcSite} { website_section {
-// TODO: improve the data of promo_items nodes
