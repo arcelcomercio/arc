@@ -1,12 +1,13 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { useContent, useEditableContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
-import schemaFilter from './_dependencies/schema-filter'
 import StoryData from '../../../utilities/story-data'
 import { separatorFeaturedFields } from '../../../utilities/included-fields'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
+
+import schemaFilter from './_dependencies/schema-filter'
+import SeparatorFeaturedStory from './_children/story'
 
 // TODO: Subir clases a objeto
 
@@ -25,10 +26,10 @@ const SeparatorFeatured = props => {
     } = {},
   } = props
 
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
   const { editableField } = useEditableContent()
 
-  const presets = isAdmin ? 'portrait_s:161x220' : 'no-presets'
+  const presets = 'no-presets'
   const includedFields = separatorFeaturedFields
 
   const { content_elements: contentElements = [] } =
@@ -47,39 +48,31 @@ const SeparatorFeatured = props => {
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'sm',
   })
 
+
+  /**
+   * @typedef FeaturedSeparatorStory
+   * @property {string} title
+   * @property {string} websiteLink
+   * @property {string} primarySection
+   * @property {string} primarySectionLink
+   * @property {string} multimediaCaption
+   * @property {string} imageUrl
+   */
+  /**
+   * @type {Array<FeaturedSeparatorStory>}
+   */
   const stories = contentElements.map(story => {
     storyData._data = story
-    const {
-      title,
-      websiteLink,
-      primarySection,
-      primarySectionLink,
-      multimediaType,
-      multimediaLazyDefault,
-      multimediaSubtitle,
-      multimediaCaption,
-      imageUrl,
-    } = storyData
-    const { multimediaPortraitS = multimediaLazyDefault } = isAdmin
-      ? storyData
-      : createResizedParams({
-          url: imageUrl,
-          arcSite,
-          presets: 'multimediaPortraitS:161x220',
-        }) || {}
+    
     return {
-      title,
-      websiteLink,
-      primarySection,
-      primarySectionLink,
-      multimediaPortraitS,
-      multimediaType,
-      multimediaLazyDefault,
-      multimediaSubtitle,
-      multimediaCaption,
+      title: storyData.title,
+      websiteLink: storyData.websiteLink,
+      primarySection: storyData.primarySection,
+      primarySectionLink: storyData.primarySectionLink,
+      multimediaCaption: storyData.multimediaCaption,
+      imageUrl: storyData.imageUrl,
     }
   })
 
@@ -104,14 +97,14 @@ const SeparatorFeatured = props => {
             suppressContentEditableWarning>
             {titleField || 'Lo último'}
           </a>
-          {subtitleField && (
+          {subtitleField ? (
             <span
               className="featured-separator__subtitle text-sm block"
               {...editableField('subtitleField')}
               suppressContentEditableWarning>
               {subtitleField}
             </span>
-          )}
+          ) : null}
         </h2>
         <i className="featured-separator__icon icon-marca bg-white p-5 rounded" />
       </div>
@@ -122,62 +115,23 @@ const SeparatorFeatured = props => {
             websiteLink,
             primarySection,
             primarySectionLink,
-            multimediaPortraitS,
-            multimediaLazyDefault,
-            // multimediaType,
             multimediaCaption,
+            imageUrl
           },
           i
         ) => {
-          return (
-            <div className="featured-separator__story flex flex-1 border-l-1 border-dashed pl-10 pr-10 justify-between">
-              <div className="featured-separator__story-content pr-5">
-                <h3
-                  itemProp="name"
-                  className="featured-separator__story-section font-bold text-lg mb-5 line-h-xs tertiary-font overflow-hidden">
-                  <a
-                    itemProp="url"
-                    className="featured-separator__section-link"
-                    href={primarySectionLink}
-                    {...editableField(`sectionField${i + 1}`)}
-                    suppressContentEditableWarning>
-                    {sectionFields[i] || primarySection}
-                  </a>
-                </h3>
-                <h2
-                  itemProp="name"
-                  className="featured-separator__story-title text-md line-h-xs tertiary-font overflow-hidden">
-                  <a
-                    itemProp="url"
-                    className="featured-separator__story-link"
-                    href={websiteLink}>
-                    {title}
-                  </a>
-                </h2>
-              </div>
-              <a
-                itemProp="url"
-                className="featured-separator__img-link block"
-                href={websiteLink}>
-                {!isLazyLoadActivate && i === 0 ? (
-                  <img
-                    src={multimediaPortraitS}
-                    alt={multimediaCaption || title}
-                    className="featured-separator__img w-full object-cover"
-                  />
-                ) : (
-                  <img
-                    src={isAdmin ? multimediaPortraitS : multimediaLazyDefault}
-                    data-src={multimediaPortraitS}
-                    alt={multimediaCaption || title}
-                    className={`${
-                      isAdmin ? '' : 'lazy'
-                    } featured-separator__img w-full object-cover`}
-                  />
-                )}
-              </a>
-            </div>
-          )
+          return <SeparatorFeaturedStory 
+            key={`separator-feat-${websiteLink}`}
+            title={title}
+            websiteLink={websiteLink}
+            primarySection={primarySection}
+            primarySectionLink={primarySectionLink}
+            multimediaCaption={multimediaCaption}
+            imageUrl={imageUrl}
+            sectionField={sectionFields[i]}
+            isLazyLoadActivate={isLazyLoadActivate}
+            index={i}
+          />
         }
       )}
     </div>
