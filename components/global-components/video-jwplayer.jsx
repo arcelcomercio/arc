@@ -6,7 +6,6 @@ const StoryContentChildVideoJwplayer = ({ data = {}, lite = false }) => {
 
   const {
     key: mediaId = '',
-    duration = '',
     has_ads: hasAds = 0,
     account = 'gec',
     title = '',
@@ -23,7 +22,7 @@ const StoryContentChildVideoJwplayer = ({ data = {}, lite = false }) => {
             <script
               src={`https://cdn.jwplayer.com/players/${mediaId}-${jwplayerId}.js`}></script>
             <div
-              data-time={duration}
+              data-time={time}
               className="jwplayer-lazy"
               id={`botr_${mediaId}_${jwplayerId}_div`}></div>
             {title && (

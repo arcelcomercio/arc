@@ -21,7 +21,6 @@ const ItemVideoCenterNoDestacado = ({
   image = '',
   videoID = '',
   time,
-  duration = '',
   account = 'gec',
   hasAds = '',
 }) => {
@@ -39,9 +38,9 @@ const ItemVideoCenterNoDestacado = ({
         data-stream={jwplayerId}
         data-uuid={videoID}
         data-account={account}
-        data-time={duration}
+        data-time={time}
       />
-      {/* <span className={classes.listItemTime}>{duration}</span> */}
+      <span className={classes.listItemTime}>{time}</span>
       <div className={classes.listItemInfo}>
         <h2 itemProp="name" className={classes.listItemTitle}>
           {title}

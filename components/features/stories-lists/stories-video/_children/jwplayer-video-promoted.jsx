@@ -20,11 +20,9 @@ const ItemVideoCenterDestacado = ({
   time,
   hasAds,
   account,
-  duration,
 }) => {
   const promoItemJwplayer = {
     key: videoID,
-    duration,
     time,
     has_ads: hasAds,
     account,
@@ -37,7 +35,7 @@ const ItemVideoCenterDestacado = ({
     <>
       <div
         data-img={image}
-        data-time={duration}
+        data-time={time}
         data-live={liveStory}
         data-stream={jwplayerId}
         data-uuid={videoID}

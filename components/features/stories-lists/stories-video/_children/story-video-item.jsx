@@ -57,9 +57,8 @@ const VideoJWplayer = ({
   videoTime,
   autoPlayVideo,
   account,
-  duration,
 }) => {
-  const time = secToTime(duration)
+  const time = secToTime(videoTime)
   const powaVideoProps = {
     isAdmin,
     title,
@@ -70,7 +69,6 @@ const VideoJWplayer = ({
     time,
     account,
     autoPlayVideo,
-    duration,
   }
 
   if (index === 0) {
