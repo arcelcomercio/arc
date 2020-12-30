@@ -1,6 +1,6 @@
-import React from 'react'
-import { createMarkup } from '../../../../utilities/helpers'
-import Icon from '../../../../global-components/multimedia-icon'
+import * as React from 'react'
+
+import SeparatorStory from './separator-story'
 
 const classes = {
   separator: `separator bg-white mt-20 w-full pt-0 pr-20 pb-15 pl-20 border-t-1 border-solid position-relative col-3 `,
@@ -10,14 +10,6 @@ const classes = {
   twoline: 'separator__twoline',
   threeline: 'separator__threeline',
   body: 'separator__body mt-0 mb-0 flex justify-between',
-
-  item: 'separator__item hidden w-full h-full p-0 position-relative',
-  detail: 'separator__detail position-absolute bottom-0 pr-15 pl-15 pb-15',
-  text: 'separator__title overflow-hidden text-white text-md line-h-sm',
-  imgBox: 'p-0 m-0 w-full h-full overflow-hidden block',
-  img: 'separator__img w-full h-full object-cover object-center',
-  icon: `separator__icon`,
-  article: `separator__article h-full`,
 }
 
 const SeparatorsBasicChildSeparator = ({
@@ -26,13 +18,13 @@ const SeparatorsBasicChildSeparator = ({
   titleSeparator,
   stories,
   isAuthorVisible,
-  isAdmin,
   design,
   bgColor,
   isSeeMoreVisible,
   isImageVisible,
   responsive,
   requestUri,
+  arcSite,
 }) => {
   const isRecetasSection = /^(\/recetas\/(.*))$/.test(requestUri)
   return (
@@ -43,7 +35,9 @@ const SeparatorsBasicChildSeparator = ({
       {htmlCode ? (
         <div
           className={classes.title}
-          dangerouslySetInnerHTML={createMarkup(htmlCode)}
+          dangerouslySetInnerHTML={{
+            __html: htmlCode
+          }}
         />
       ) : (
         titleSeparator && (
@@ -65,64 +59,26 @@ const SeparatorsBasicChildSeparator = ({
       <div role="list" className={classes.body}>
         {stories.map(
           ({
+            id,
             title,
             websiteLink,
-            multimediaLazyDefault,
             multimediaType,
             imageUrl,
             author,
             authorLink,
-            imageUrlMobile,
           }) => (
-            <div className={classes.item} key={titleLink}>
-              <article role="listitem" className={classes.article}>
-                <Icon type={multimediaType} iconClass={classes.icon} />
-                <div className={classes.detail}>
-                  <a
-                    itemProp="url"
-                    className="separator__title-link"
-                    href={websiteLink}>
-                    <h3 itemProp="name" className={classes.text}>
-                      {title}
-                    </h3>
-                  </a>
-                  {isAuthorVisible && (
-                    <h2 itemProp="name">
-                      <a
-                        itemProp="url"
-                        href={authorLink}
-                        className="block text-sm uppercase text-gray-200 mt-10 mb-20">
-                        {author}
-                      </a>
-                    </h2>
-                  )}
-                </div>
-                {isImageVisible && (
-                  <a
-                    itemProp="url"
-                    className="separator__img-link block h-full"
-                    href={websiteLink}>
-                    <picture className={classes.imgBox}>
-                      <source
-                        className={isAdmin ? '' : 'lazy'}
-                        media="(max-width: 639px)"
-                        type="image/jpeg"
-                        srcSet={
-                          isAdmin ? imageUrlMobile : multimediaLazyDefault
-                        }
-                        data-srcset={imageUrlMobile}
-                      />
-                      <img
-                        src={isAdmin ? imageUrl : multimediaLazyDefault}
-                        data-src={imageUrl}
-                        alt={title}
-                        className={`${isAdmin ? '' : 'lazy'} ${classes.img}`}
-                      />
-                    </picture>
-                  </a>
-                )}
-              </article>
-            </div>
+            <SeparatorStory
+              key={`separator-st-${id}`}
+              title={title}
+              websiteLink={websiteLink}
+              multimediaType={multimediaType}
+              imageUrl={imageUrl}
+              author={author}
+              authorLink={authorLink}
+              isAuthorVisible={isAuthorVisible}
+              isImageVisible={isImageVisible}
+              arcSite={arcSite}
+            />
           )
         )}
       </div>
