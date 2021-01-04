@@ -48,7 +48,7 @@ const ArcImage = ({
   alt,
   style = {},
   className = '',
-  pictureClassName = '',
+  pictureClassName = null,
   width = 640,
   height = 360,
 }) => {

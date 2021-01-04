@@ -8,11 +8,12 @@ import {
   SPECIAL_BASIC,
 } from '../../../utilities/constants/subtypes'
 
-import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
-import StoryGalleryChildGallery from './_children/gallery-lite'
 import Infografia from '../multimedia/_children/html'
 import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
 import PremiumTag from '../title/_children/premium'
+
+import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
+import StoryGalleryChildGallery from './_children/gallery-lite'
 
 const classes = {
   gallery: 'w-full',
@@ -33,9 +34,7 @@ const StoryGalleryLite = () => {
     subtype,
     promoItems,
     isPremium,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
+    multimedia,
     canonicalUrl,
   } = new StoryData({
     data,
@@ -52,9 +51,7 @@ const StoryGalleryLite = () => {
 
   const parametersPromoItems = {
     ...promoItems,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
+    multimedia,
     primaryImage: true,
     completeImage: true,
     classImage: 's-multimedia',

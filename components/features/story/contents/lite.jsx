@@ -108,10 +108,7 @@ const StoryContentsLite = props => {
     primarySectionLink,
     subtype,
     isPremium,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-    multimediaLazyDefault,
+    multimedia,
     tags,
     contentElements,
     canonicalUrl,
@@ -142,10 +139,7 @@ const StoryContentsLite = props => {
     primarySection,
     subtype,
     ...promoItems,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-    multimediaLazyDefault,
+    multimedia,
     primaryImage: true,
     authorImageSecond,
     authorLinkSecond,
@@ -219,13 +213,9 @@ const StoryContentsLite = props => {
                   list_type: listType = 'unordered',
                 } = element
                 if (type === ELEMENT_IMAGE) {
-                  const presets = 'landscape_md:314,story_small:482,large:640'
-
                   return (
                     <StoryContentsChildImage
                       {...element}
-                      multimediaLazyDefault={multimediaLazyDefault}
-                      presets={presets}
                     />
                   )
                 }
