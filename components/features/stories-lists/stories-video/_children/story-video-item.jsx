@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { msToTime } from '../../../../utilities/date-time/time'
+import { msToTime, secToTime } from '../../../../utilities/date-time/time'
 import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
@@ -57,9 +57,8 @@ const VideoJWplayer = ({
   videoTime,
   autoPlayVideo,
   account,
-  duration,
 }) => {
-  const time = msToTime(videoTime)
+  const time = secToTime(videoTime)
   const powaVideoProps = {
     isAdmin,
     title,
@@ -70,7 +69,6 @@ const VideoJWplayer = ({
     time,
     account,
     autoPlayVideo,
-    duration,
   }
 
   if (index === 0) {
