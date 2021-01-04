@@ -1,6 +1,5 @@
-import React from 'react'
-
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { usepAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import {
@@ -9,12 +8,12 @@ import {
   SPECIAL_BASIC,
 } from '../../../utilities/constants/subtypes'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
-import { defaultImage } from '../../../utilities/assets'
+
+import StoryContentsChildMultimedia from '../contents/_children/multimedia'
+import Infografia from '../contents/_children/html'
 
 import StoryGalleryChildGallerySlider from './_children/gallery-slider'
 import StoryGalleryChildGallery from './_children/gallery'
-import Infografia from '../contents/_children/html'
-import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 
 const classes = {
   gallery: 'w-full',
@@ -29,16 +28,11 @@ const StoryGallery = () => {
     arcSite,
     contextPath,
     globalContent: data,
-    isAdmin,
-    siteProperties: { siteUrl },
     requestUri,
-  } = useFusionContext()
+  } = usepAppContext()
 
   const {
     contentElementGallery,
-    title,
-    subTitle,
-    websiteLink: link,
     subtype,
     promoItems,
     isPremium,
@@ -50,22 +44,6 @@ const StoryGallery = () => {
     contextPath,
   })
 
-  const defaultImageGallery = defaultImage({
-    contextPath,
-    arcSite,
-  })
-
-  const parameters = {
-    contentElementGallery,
-    title,
-    subTitle,
-    link,
-    isAdmin,
-    siteUrl,
-    arcSite,
-    defaultImageGallery,
-  }
-
   const {
     basic: { caption = '' } = {},
     infografia: { content: embedHtmlPromoItems = '' } = {},
@@ -76,7 +54,6 @@ const StoryGallery = () => {
     multimediaLandscapeMD,
     multimediaStorySmall,
     multimediaLarge,
-    multimediaLazyDefault: defaultImageGallery,
     primaryImage: true,
     completeImage: true,
   }
@@ -84,20 +61,24 @@ const StoryGallery = () => {
   return (
     <>
       {isPremium &&
-        SITE_ELCOMERCIO === arcSite &&
-        requestUri.includes('/archivo-elcomercio/') && (
-          <div className={classes.premiumWrapper}>
-            <p itemProp="description" className={classes.premiumText}>
-              Suscriptor Digital
-            </p>
-          </div>
-        )}
+      SITE_ELCOMERCIO === arcSite &&
+      requestUri.includes('/archivo-elcomercio/') ? (
+        <div className={classes.premiumWrapper}>
+          <p itemProp="description" className={classes.premiumText}>
+            Suscriptor Digital
+          </p>
+        </div>
+      ) : null}
       {contentElementGallery ? (
         <div className={classes.gallery}>
           {subtype === GALLERY_VERTICAL ? (
-            <StoryGalleryChildGallery {...parameters} />
+            <StoryGalleryChildGallery
+              contentElementGallery={contentElementGallery}
+            />
           ) : (
-            <StoryGalleryChildGallerySlider {...parameters} />
+            <StoryGalleryChildGallerySlider
+              contentElementGallery={contentElementGallery}
+            />
           )}
         </div>
       ) : (
