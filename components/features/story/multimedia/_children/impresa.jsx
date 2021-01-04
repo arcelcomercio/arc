@@ -7,15 +7,20 @@ const classes = {
   image: 'w-full ',
 }
 
-const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
+const RenderRelatedContentImpresa = ({
+  url, 
+  subtitle, 
+  // width, 
+  // height
+}) => {
   return (
     <figure className={classes.paperNav}>
       <Image
-        src={basic.url}
+        src={url}
         width={617}
         height={637}
         sizes="(max-width: 360px) 320px, 617px"
-        alt={basic.subtitle}
+        alt={subtitle}
         className={classes.image}
       />
     </figure>

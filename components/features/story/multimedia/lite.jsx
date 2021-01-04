@@ -68,7 +68,10 @@ const StoryMultimediaLte = () => {
       {primarySectionLink === '/impresa/' ||
       primarySectionLink === '/malcriadas/' ||
       storyTagsBbc(tags, 'portada-trome')
-        ? promoItems && <StoryContentsChildImpresa data={promoItems} />
+        ? promoItems?.basic && <StoryContentsChildImpresa
+            url={promoItems.basic.url}
+            subtitle={promoItems.basic.subtitle}
+          />
         : promoItems &&
           subtype !== BIG_IMAGE &&
           subtype !== SPECIAL_BASIC &&
