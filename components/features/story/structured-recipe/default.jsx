@@ -1,35 +1,27 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useContent } from 'fusion:content'
+import { useAppContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import StoryData from '../../../utilities/story-data'
-import {
-  formatHtmlToText,
-  getDateSeo,
-  nbspToSpace,
-  msToTime,
-} from '../../../utilities/helpers'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
+import { formatHtmlToText, nbspToSpace } from '../../../utilities/parse/strings'
+import { localISODate } from '../../../utilities/date-time/dates'
 import {
   ELEMENT_TEXT,
   ELEMENT_LIST,
   ELEMENT_CUSTOM_EMBED,
 } from '../../../utilities/constants/element-types'
 
-import { getAssetsPathVideo } from '../../../utilities/assets'
+import VideoSeoItem from './_children/video-item'
 
 const StructuredRecipe = () => {
-  const {
-    globalContent: data,
-    arcSite,
-    contextPath,
-    siteProperties,
-  } = useFusionContext()
-  const { siteUrl = '' } = siteProperties
+  const { globalContent: data, arcSite, contextPath } = useAppContext()
+  const { siteUrl = '' } = getProperties(arcSite)
 
   const {
     title,
     tags,
-    displayDate: publishDate,
+    displayDate,
     subTitle = arcSite,
     imagePrimarySeo,
     primarySection,
@@ -38,19 +30,16 @@ const StructuredRecipe = () => {
     seoKeywords,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
-  const publishDateZone = getDateSeo(publishDate)
+  const displayDateZone = localISODate(displayDate)
 
-  const imagesSeoItems = imagePrimarySeo.map(({ url = '' } = {}) => {
-    const { large } =
-      createResizedParams({
-        url,
-        presets: 'large:1200x800',
-        arcSite,
-      }) || {}
-    return large || url
-  })
-
-  const imagenData = imagesSeoItems[1] ? imagesSeoItems[0] : imagesSeoItems
+  const { imagenData } =
+    useContent({
+      source: 'photo-resizer',
+      query: {
+        url: imagePrimarySeo[0]?.url,
+        presets: 'imagenData:1200x800',
+      },
+    }) || {}
 
   const seoKeyWordsStructurada = seoKeywords.map(
     item => `"${formatHtmlToText(item)}"`
@@ -163,29 +152,17 @@ const StructuredRecipe = () => {
   } = additionalData()[0] || {}
 
   const videoSeoItems = videoSeo.map(
-    ({ url, caption, description, urlImage, date, duration } = {}) => {
-      const {
-        amp_image_1x1: ampVideo1x1 = urlImage,
-        amp_image_4x3: ampVideo4x3 = urlImage,
-        amp_image_16x9: ampVideo16x9 = urlImage,
-      } =
-        createResizedParams({
-          url: urlImage || url,
-          presets:
-            'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675,large:980x528',
-          arcSite,
-        }) || {}
-      const image = `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
-
-      return `{ 
-        "@type":"VideoObject",  
-        "name":"${formatHtmlToText(caption || arcSite)}", 
-        "thumbnailUrl": ${image},  
-        "description":"${formatHtmlToText(description || caption || arcSite)}", 
-        "contentUrl": "${getAssetsPathVideo(arcSite, url)}",  
-        "uploadDate": "${date}", 
-        "duration": "${msToTime(duration, false)}" } `
-    }
+    ({ url, caption, description, urlImage, date, duration } = {}) => (
+      <VideoSeoItem
+        url={url}
+        caption={caption}
+        description={description}
+        urlImage={urlImage}
+        date={date}
+        duration={duration}
+        arcSite={arcSite}
+      />
+    )
   )
 
   const formatTime = string =>
@@ -206,7 +183,7 @@ const StructuredRecipe = () => {
       "name":"Mag"
     },
     "name":"${formatHtmlToText(title)}",
-    "datePublished":"${publishDateZone}",
+    "datePublished":"${displayDateZone}",
     "description":"${formatHtmlToText(subTitle)}",
     "image":"${imagenData}",
     "recipeIngredient": [${ingredientList()}],
