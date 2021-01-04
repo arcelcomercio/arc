@@ -36,9 +36,7 @@ const StoryGallery = () => {
     subtype,
     promoItems,
     isPremium,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
+    multimedia,
   } = new StoryData({
     data,
     contextPath,
@@ -51,9 +49,7 @@ const StoryGallery = () => {
 
   const parametersPromoItems = {
     ...promoItems,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
+    multimedia,
     primaryImage: true,
     completeImage: true,
   }
@@ -94,9 +90,7 @@ const StoryGallery = () => {
         <div className={classes.image}>
           <StoryContentsChildMultimedia data={parametersPromoItems} />
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
     </>
   )
 }

@@ -104,9 +104,7 @@ const StoryGalleryLite = () => {
         <div className={classes.image}>
           <StoryContentsChildMultimedia data={parametersPromoItems} />
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
     </>
   )
 }

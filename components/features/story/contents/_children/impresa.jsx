@@ -1,45 +1,23 @@
-import React from 'react'
-import Static from 'fusion:static'
-import { useAppContext } from 'fusion:context'
-import Image from '@arc-core-components/element_image'
-import { createResizedParams } from '../../../../utilities/resizer/resizer'
+import * as React from 'react'
+
+import Image from '../../../../global-components/image'
 
 const classes = {
   paperNav: 'paper-nav position-relative vv',
 }
 
 const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
-  const ampClass = 'amp-'
-
-  const { arcSite } = useAppContext()
-  const extractImage = urlImg => {
-    if (typeof window === 'undefined') {
-      return (
-        createResizedParams({
-          url: basic.url,
-          presets: 'impresa:617x637',
-          arcSite,
-        }) || {}
-      )
-    }
-    return urlImg
-  }
-
   return (
-    <>
-      <div className={classes.paperNav}>
-        <Static id="image">
-          <Image
-            width="100%"
-            layout="responsive"
-            imgClassName={classes.image}
-            captionClassName={`${ampClass}${classes.caption}`}
-            {...basic}
-            url={extractImage(basic.url).impresa}
-          />
-        </Static>
-      </div>
-    </>
+    <figure className={classes.paperNav}>
+      <Image
+        src={basic.url}
+        width={617}
+        height={637}
+        sizes="(max-width: 360px) 320px, 617px"
+        alt={basic.subtitle}
+        className={classes.image}
+      />
+    </figure>
   )
 }
 export default RenderRelatedContentImpresa

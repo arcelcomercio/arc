@@ -1,11 +1,12 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+
+import StoryData from '../../../utilities/story-data'
 
 import StoryContentsChildMultimedia from '../contents/_children/multimedia'
 import StoryTitleChildHeading from './_children/heading'
 import StoryTitleChildSocial from './_children/social'
-import StoryData from '../../../utilities/story-data'
 
 /** Este Feature esta construido para funcionar
  * correctamente junto al feature: /header/special
@@ -30,16 +31,8 @@ const gradientBg = {
 }
 
 const StorySpecialHeader = () => {
-  const { arcSite, contextPath, globalContent: data } = useFusionContext()
-  const {
-    title,
-    link,
-    editorNote,
-    promoItems,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-  } = new StoryData({
+  const { arcSite, contextPath, globalContent: data } = useAppContext()
+  const { title, link, editorNote, promoItems, multimedia } = new StoryData({
     data,
     contextPath,
   })
@@ -51,16 +44,12 @@ const StorySpecialHeader = () => {
     siteUrl,
   } = getProperties(arcSite)
 
-  const titleParams = { title, editorNote }
-  const socialParams = { title, link, siteUrl, siteNameRedSocial }
   const parameters = {
     ...promoItems,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
+    multimedia,
     showCaption: false,
     primaryImage: true,
-    completeImage: true
+    completeImage: true,
   }
   return (
     <div className={classes.image}>
@@ -72,8 +61,13 @@ const StorySpecialHeader = () => {
             className={classes.note}
             dangerouslySetInnerHTML={{ __html: editorNote }}></div>
         )}
-        <StoryTitleChildHeading {...titleParams} />
-        <StoryTitleChildSocial {...socialParams} />
+        <StoryTitleChildHeading title={title} editorNote={editorNote} />
+        <StoryTitleChildSocial
+          title={title}
+          link={link}
+          siteUrl={siteUrl}
+          siteNameRedSocial={siteNameRedSocial}
+        />
       </div>
     </div>
   )
