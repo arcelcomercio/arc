@@ -1,9 +1,11 @@
-import React from 'react'
-
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
+import StoryData from '../../../utilities/story-data'
+
 import StoryContentChildRelated from './_children/item'
 
 const classes = {
@@ -21,14 +23,9 @@ const getRelatedIds = data => {
 }
 
 const StoryRelated = () => {
-  const {
-    contextPath,
-    globalContent,
-    arcSite,
-    deployment,
-    isAdmin,
-    siteProperties: { nameStoryRelated },
-  } = useFusionContext()
+  const { contextPath, globalContent, arcSite, deployment } = useAppContext()
+
+  const { nameStoryRelated } = getProperties(arcSite)
 
   const { _id: storyId, content_elements: contentElements = [] } =
     globalContent || {}
@@ -46,34 +43,40 @@ const StoryRelated = () => {
     contentElements.length > 0 &&
     contentElements.filter(item => item.type === 'story')
 
-  return (
-    <>
-      {relatedContent && relatedContent.length > 0 && (
-        <div role="list" className={classes.relatedList}>
-          <h4 itemProp="name" className={classes.relatedTitle}>
-            {nameStoryRelated}{' '}
-          </h4>
-          {relatedContent.map((item, i) => {
-            const { type, _id: id } = item
-            const key = `related-content-${i}`
-            return type === ELEMENT_STORY &&
-              getRelatedIds(relatedInternal).indexOf(id) ? (
-              <StoryContentChildRelated
-                key={key}
-                {...item}
-                contextPath={contextPath}
-                arcSite={arcSite}
-                deployment={deployment}
-                isAdmin={isAdmin}
-              />
-            ) : (
-              ''
-            )
-          })}
-        </div>
-      )}
-    </>
-  )
+  const storyData = new StoryData({
+    contextPath,
+    deployment,
+    arcSite,
+  })
+
+  return relatedContent && relatedContent.length > 0 ? (
+    <div role="list" className={classes.relatedList}>
+      <h4 itemProp="name" className={classes.relatedTitle}>
+        {nameStoryRelated}{' '}
+      </h4>
+      {relatedContent.map(story => {
+        const { type, _id: id } = story
+        if (
+          type === ELEMENT_STORY &&
+          getRelatedIds(relatedInternal).indexOf(id)
+        ) {
+          storyData.__data = story
+          return (
+            <StoryContentChildRelated
+              key={`rel-content-${id}`}
+              title={storyData.title}
+              websiteLink={storyData.websiteLink}
+              multimediaType={storyData.multimediaType}
+              multimedia={storyData.multimedia}
+              author={storyData.author}
+              authorLink={storyData.authorLink}
+            />
+          )
+        }
+        return null
+      })}
+    </div>
+  ) : null
 }
 
 StoryRelated.label = 'Artículo - Relacionados'

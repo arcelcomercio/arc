@@ -1,9 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 
+import Image from '../../../../global-components/image'
 import UtilListKey from '../../../../utilities/list-keys'
 import { IMAGE } from '../../../../utilities/constants/multimedia-types'
-import { createResizedParams } from '../../../../utilities/resizer/resizer'
-import StoryData from '../../../../utilities/story-data'
 
 // Basic flex stuff
 const classes = {
@@ -32,27 +31,15 @@ const getIcon = type => {
 }
 
 const RenderRelatedContentElement = (props, i) => {
-  const { deployment, contextPath, arcSite, isAdmin, isAmp = '' } = props
-
-  const get = new StoryData({
-    data: props,
-    contextPath,
-    deployment,
-    arcSite,
-    defaultImgSize: 'sm',
-  })
-  const filterData = {
-    nameTitle: get.title,
-    urlTitle: get.link,
-    multimediaType: get.multimediaType,
-    multimediaImg:
-      createResizedParams({
-        url: get.multimedia,
-        presets: 'landscape_md:314x157',
-        arcSite,
-      }).landscape_md || {},
-    lazyImage: get.multimediaLazyDefault,
-  }
+  const {
+    title,
+    websiteLink,
+    multimediaType,
+    multimedia,
+    author,
+    authorLink,
+    isAmp = '',
+  } = props
 
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
@@ -60,47 +47,43 @@ const RenderRelatedContentElement = (props, i) => {
         <h2 itemProp="name" className={classes.itemTitle}>
           <a
             itemProp="url"
-            href={filterData.urlTitle}
+            href={websiteLink}
             className={classes.itemTitleLink}>
-            {filterData.nameTitle}
+            {title}
           </a>
         </h2>
-        <a
-          itemProp="url"
-          href={filterData.nameAuthorLink}
-          className={classes.author}>
-          {filterData.nameAuthor}
+        <a itemProp="url" href={authorLink} className={classes.author}>
+          {author}
         </a>
       </div>
       <figure className={classes.multimedia}>
-        <a itemProp="url" href={filterData.urlTitle} className={classes.link}>
+        <a itemProp="url" href={websiteLink} className={classes.link}>
           {isAmp ? (
             <amp-img
               // TODO: En amp se puede usar lazyload para las imagenes?
-              src={filterData.multimediaImg}
-              alt={filterData.nameTitle}
+              src={multimedia}
+              alt={title}
               class={classes.image}
               height="285"
               width="514"
               layout="responsive"
             />
           ) : (
-            <img
-              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              src={isAdmin ? filterData.multimediaImg : filterData.lazyImage}
-              data-src={filterData.multimediaImg}
-              alt={filterData.nameTitle}
+            <Image
+              src={multimedia}
+              width={314}
+              height={157}
+              alt={title}
+              className={classes.image}
+              loading="lazy"
             />
           )}
 
-          {filterData.multimediaType === IMAGE ||
-          filterData.multimediaType === '' ? (
+          {multimediaType === IMAGE || multimediaType === '' ? (
             ''
           ) : (
             <span
-              className={`${classes.icon} icon-${getIcon(
-                filterData.multimediaType
-              )}`}
+              className={`${classes.icon} icon-${getIcon(multimediaType)}`}
             />
           )}
         </a>
@@ -109,4 +92,4 @@ const RenderRelatedContentElement = (props, i) => {
   )
 }
 
-export default RenderRelatedContentElement
+export default React.memo(RenderRelatedContentElement)
