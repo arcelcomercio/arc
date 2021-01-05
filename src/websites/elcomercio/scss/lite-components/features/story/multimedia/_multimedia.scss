@@ -46,4 +46,20 @@
       height: 345px;
     }
   }
+  & .jwplayer-lazy {
+    align-items: center;
+    height: 347px;
+    background-color: black;
+    justify-content: center;
+    display: flex;
+    @media (--only-mobile) {
+      height: 180px;
+    }
+    & .jw-svg-icon {
+      width: 77px;
+      height: 77px;
+      line-height: 77px;
+      fill: white;
+    }
+  }
 }
