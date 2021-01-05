@@ -25,7 +25,7 @@ const StoryContentChildAmpImage = ({ data }) => {
           height={360}
           layout="responsive"
           width={600}></amp-img>
-        <figcaption className={classes.description}>{data.subtitle}</figcaption>
+        <figcaption className={classes.description}>{data.caption}</figcaption>
       </figure>
     </>
   )
