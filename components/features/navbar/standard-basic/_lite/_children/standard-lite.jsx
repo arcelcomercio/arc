@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import * as React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 
 import getResponsiveClasses from '../../../../../utilities/responsive-classes'
@@ -102,7 +102,7 @@ const NavBarDefault = props => {
     },
   ]
 
-  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   const {
     primaryLogo,
