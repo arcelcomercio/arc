@@ -10,6 +10,7 @@ import Image from './image'
  * @param {object} config
  * @param {string} config.src
  * @param {string} config.alt
+ * @param {JSX.Element} [config.children]
  * @param {string|number} [config.uid] Static unique id
  * @param {number} [config.width=640]
  * @param {number} [config.height=360]
@@ -37,6 +38,7 @@ import Image from './image'
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
  */
 const ArcImage = ({
+  children,
   id,
   uid,
   src,
@@ -120,9 +122,13 @@ const ArcImage = ({
             quality={quality}
           />
           <Img/>
+          {children}
         </picture>
       ) : (
-        <Img/>
+        <>
+          <Img/>
+          {children}
+        </>
       )}
     </Static>
   )

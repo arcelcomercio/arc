@@ -1,11 +1,12 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { useEditableContent } from 'fusion:content'
 
-import StoryData from '../utilities/story-data'
-import { formatAMPM } from '../utilities/date-time/time'
-import Icon from './multimedia-icon'
-import Notify from './notify'
+import StoryData from '../../utilities/story-data'
+import { SITE_TROME } from '../../utilities/constants/sitenames'
+
+import Icon from '../multimedia-icon'
+import Image from '../image'
 
 const SIZE_ONE_COL = 'oneCol'
 const SIZE_TWO_COL = 'twoCol'
@@ -47,25 +48,23 @@ const classes = {
 
 const FeaturedStory = props => {
   const {
-    category, // Se espera un objeto {name: '', url: ''}
-    title, // Se espera un objeto {name: '', url: ''}
-    author, // Se espera un objeto {name: '', url: ''}
-    multimediaLandscapeL,
-    multimediaLandscapeMD,
-    multimediaPortraitMD,
-    multimediaSquareS, // Url de la imágen
-    multimediaLazyDefault,
+    primarySection,
+    primarySectionLink,
+    title,
+    websiteLink,
+    author,
+    authorLink,
+    multimediaType,
+    multimediaCaption,
+    multimedia,
     imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
     headband, // OPCIONAL, otros valores: "live"
     size, // Se espera "oneCol" o "twoCol"
     hightlightOnMobile,
     titleField, // OPCIONAL, o pasar el customField de los props
     categoryField, // OPCIONAL, o pasar el customField de los props
-    multimediaType,
-    isAdmin,
+    arcSite,
     siteName,
-    errorList = [],
-    multimediaCaption,
     isLazyLoadActivate = true,
   } = props
   const { editableField } = useEditableContent()
@@ -103,58 +102,42 @@ const FeaturedStory = props => {
   if (headband === 'live') headbandText = 'En vivo'
   else if (headband === 'tv') headbandText = `${siteName} TV`
 
-  const getMobileImage = () => {
-    if (hightlightOnMobile) {
-      if (imageSize === IMAGE_COMPLETE) {
-        if (size === SIZE_ONE_COL) return multimediaPortraitMD
-        if (size === SIZE_TWO_COL) return multimediaLandscapeL
-      }
-      return multimediaLandscapeMD
+  // width y height para imagen dinámico
+  let imageWidth = 648
+  let imageHeight = 374
+  if (size === SIZE_ONE_COL) {
+    if (imageSize === IMAGE_COMPLETE) {
+      imageWidth = 314
+      imageHeight = 374
     }
-    return multimediaSquareS
+    imageWidth = 314
+    imageHeight = 157
   }
 
-  const getDesktopImage = () => {
-    if (size === SIZE_ONE_COL) {
-      if (imageSize === IMAGE_COMPLETE) return multimediaPortraitMD
-      return multimediaLandscapeMD
+  // width y height para imagen dinámico en mobile
+  let imageMobileWidth = arcSite === SITE_TROME ? 314 : 150
+  let imageMobileHeight = arcSite === SITE_TROME ? 157 : 150
+  if (hightlightOnMobile) {
+    if (imageSize === IMAGE_COMPLETE) {
+      if (size === SIZE_ONE_COL) {
+        imageMobileWidth = 314
+        imageMobileHeight = 374
+      }
+      if (size === SIZE_TWO_COL) {
+        imageMobileWidth = 648
+        imageMobileHeight = 347
+      }
     }
-    return multimediaLandscapeL
+    imageMobileWidth = 314
+    imageMobileHeight = 157
   }
 
   const getCategorySectionClass = () => {
-    const { url } = category
-    if (url[0] === '/' && url[url.length - 1] === '/') return url.slice(1, -1)
-    return url
+    if (primarySectionLink[0] === '/' && primarySectionLink[primarySectionLink.length - 1] === '/') return primarySectionLink.slice(1, -1)
+    return primarySectionLink
   }
 
-  const formaZeroDate = (numb = 0) => {
-    return numb < 10 ? `0${numb}` : numb
-  }
 
-  const formateDate = (fecha = '') => {
-    return () => {
-      const date = fecha.toString()
-      const _date = new Date(date.slice(0, date.indexOf('GMT') - 1))
-      const day = formaZeroDate(_date.getDate())
-      const month = formaZeroDate(_date.getMonth() + 1)
-      const year = _date.getFullYear()
-
-      return `${day}/${month}/${year} - ${formatAMPM(date)}`
-    }
-  }
-
-  let fechaProgramada = ''
-  let fechaPublicacion = ''
-  const renderMessage = () => {
-    return errorList.map(el => {
-      fechaProgramada = formateDate(new Date(el.programate_date))
-      fechaPublicacion = formateDate(el.publish_date)
-      return `Nota Programada: Error en ${
-        el.note
-      }. La fecha Programada (${fechaProgramada()}) es menor a la fecha de publicación de la nota (${fechaPublicacion()})`
-    })
-  }
 
   return (
     <article
@@ -165,7 +148,7 @@ const FeaturedStory = props => {
       } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
       <div
         className={`${classes.detail}${
-          author && author.name ? ' justify-between' : ''
+          author ? ' justify-between' : ''
         }`}>
         {headband === 'normal' || !headband ? (
           <h3
@@ -174,17 +157,17 @@ const FeaturedStory = props => {
             <a
               itemProp="url"
               className={classes.categoryLink}
-              href={category.url}
+              href={primarySectionLink}
               {...getEditableField('categoryField')}
               suppressContentEditableWarning>
-              {categoryField || category.name}
+              {categoryField || primarySection}
             </a>
           </h3>
         ) : (
           <div className={classes.headband}>
             <a
               itemProp="url"
-              href={category.url}
+              href={primarySectionLink}
               className={classes.headbandLink}>
               {headbandText}
             </a>
@@ -194,56 +177,36 @@ const FeaturedStory = props => {
           <a
             itemProp="url"
             className={classes.titleLink}
-            href={title.url}
+            href={websiteLink}
             {...getEditableField('titleField')}
             suppressContentEditableWarning>
-            {titleField || title.name}
+            {titleField || title}
           </a>
         </h2>
 
-        {author && author.name && (
+        {author ? (
           <address className={classes.author}>
-            <a itemProp="url" className={classes.authorLink} href={author.url || '/autores/'}>
-              {author.name}
+            <a itemProp="url" className={classes.authorLink} href={authorLink || '/autores/'}>
+              {author}
+            width={imageWidth}
+            alt={multimediaCaption || titleField || title}
             </a>
           </address>
-        )}
+        ) : null}
       </div>
-      <a itemProp="url" className={classes.imageLink} href={title.url}>
-        {isLazyLoadActivate ? (
-          <picture className={classes.imageBox}>
-            <source
-              className={isAdmin ? '' : 'lazy'}
-              media="(max-width: 639px)"
-              type="image/jpeg"
-              srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
-              data-srcset={getMobileImage()}
-            />
-            <img
-              src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
-              data-src={getDesktopImage()}
-              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              alt={multimediaCaption || titleField || title.name}
-            />
-            <Icon type={multimediaType} iconClass={classes.icon} />
-          </picture>
-        ) : (
-          <picture className={classes.imageBox}>
-            <source
-              media="(max-width: 639px)"
-              type="image/jpeg"
-              srcSet={getMobileImage()}
-            />
-            <img
-              src={getDesktopImage()}
-              className={classes.image}
-              alt={multimediaCaption || titleField || title.name}
-            />
-            <Icon type={multimediaType} iconClass={classes.icon} />
-          </picture>
-        )}
+      <a itemProp="url" className={classes.imageLink} href={websiteLink}>
+        <Image
+          src={multimedia}
+          height={imageHeight}
+          sizes={`(max-width: 639px) ${imageMobileWidth}px, ${imageWidth}px`}
+          sizesHeight={[imageMobileHeight]}
+          className={classes.image}
+          pictureClassName={classes.imageBox}
+          loading={isLazyLoadActivate ? "lazy" : "auto"}
+          >
+          <Icon type={multimediaType} iconClass={classes.icon} />
+        </Image>
       </a>
-      {isAdmin && errorList.length > 0 && <Notify message={renderMessage()} />}
     </article>
   )
 }
@@ -261,11 +224,7 @@ FeaturedStory.propTypes = {
     name: PropTypes.string,
     url: PropTypes.string,
   }),
-  multimediaLandscapeL: PropTypes.string,
-  multimediaLandscapeMD: PropTypes.string,
-  multimediaPortraitMD: PropTypes.string,
-  multimediaSquareS: PropTypes.string,
-  multimediaLazyDefault: PropTypes.string,
+  multimedia: PropTypes.string,
   imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
   headband: PropTypes.oneOf(['normal', 'live']),
   size: PropTypes.oneOf([SIZE_ONE_COL, SIZE_TWO_COL]),

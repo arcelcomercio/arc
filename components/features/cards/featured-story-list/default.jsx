@@ -1,7 +1,7 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import StoryData from '../../../utilities/story-data'
@@ -13,12 +13,6 @@ import {
   includeCredits,
 } from '../../../utilities/included-fields'
 
-/**
- * TODO:
- * Separar _dependencies
- *
- */
-
 const CardsFeaturedStoryList = props => {
   const {
     customFields: {
@@ -26,16 +20,14 @@ const CardsFeaturedStoryList = props => {
       imageSize = '',
     } = {},
   } = props
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
-  const presets =
-    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
+  const { arcSite, contextPath, deployment } = useAppContext()
   const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},publish_date,display_date`
 
   const { content_elements: contentElements = [] } =
     useContent({
       source: contentService,
-      query: Object.assign(contentConfigValues, { presets, includedFields }),
+      query: Object.assign(contentConfigValues, { presets: 'no-presets', includedFields }),
       filter: `
       {
         content_elements { 
@@ -49,13 +41,6 @@ const CardsFeaturedStoryList = props => {
               type
               subtitle
               caption
-              resized_urls { 
-                landscape_l 
-                landscape_md 
-                portrait_md 
-                square_s
-                lazy_default 
-              } 
             }
             basic_video {
               promo_items {
@@ -64,13 +49,6 @@ const CardsFeaturedStoryList = props => {
                   type
                   subtitle
                   caption
-                  resized_urls { 
-                    landscape_l 
-                    landscape_md 
-                    portrait_md 
-                    square_s
-                    lazy_default 
-                  } 
                 }
               }
             }
@@ -80,11 +58,6 @@ const CardsFeaturedStoryList = props => {
               embed{
                 config{
                   thumbnail_url
-                  resized_urls { 
-                    landscape_xs
-                    landscape_s
-                    lazy_default 
-                  }
                 }
               }
             }
@@ -95,13 +68,6 @@ const CardsFeaturedStoryList = props => {
                   type
                   subtitle
                   caption
-                  resized_urls { 
-                    landscape_l 
-                    landscape_md 
-                    portrait_md 
-                    square_s
-                    lazy_default 
-                  } 
                 }
               }
             }
@@ -128,70 +94,43 @@ const CardsFeaturedStoryList = props => {
       `,
     }) || {}
 
-  const formatData = data => {
-    const {
-      websiteLink, // { websites { ${arcsite} { website_url } } }
-      multimediaLandscapeMD,
-      multimediaLandscapeL,
-      multimediaPortraitMD,
-      multimediaSquareS,
-      multimediaLazyDefault,
-      title, // { headlines { basic } }
-      multimediaType, // { promo_items }
-      primarySectionLink, // { taxonomy { primary_section { path } } }
-      primarySection, // { taxonomy { primary_section { name } } }
-      author,
-      authorLink,
-      multimediaSubtitle,
-      multimediaCaption,
-    } = data
-
-    return {
-      category: {
-        name: primarySection,
-        url: primarySectionLink,
-      },
-      title: {
-        name: title,
-        url: websiteLink,
-      },
-      author: {
-        name: author,
-        url: authorLink,
-      },
-      multimediaLandscapeL,
-      multimediaLandscapeMD,
-      multimediaPortraitMD,
-      multimediaSquareS, // Url de la imágen
-      multimediaLazyDefault,
-      imageSize, // Se espera "parcialBot", "parcialTop" o "complete"
-      // headband, // OPCIONAL, otros valores: "live"
-      // size, // Se espera "oneCol" o "twoCol"
-      // hightlightOnMobile,
-      // editableField, // OPCIONAL, o pasar la función editableField de los props
-      // titleField, // OPCIONAL, o pasar el customField de los props
-      // categoryField, // OPCIONAL, o pasar el customField de los props
-      multimediaType,
-      isAdmin,
-      multimediaSubtitle,
-      multimediaCaption,
-    }
-  }
-
   const storyData = new StoryData({
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'md',
   })
 
   return (
     <>
       {contentElements.map(data => {
         storyData.__data = data
-        const formattedData = formatData(storyData)
+        const {
+          primarySection,
+          primarySectionLink,
+          title,
+          websiteLink,
+          author,
+          authorLink,
+          multimediaType,
+          multimediaSubtitle,
+          multimediaCaption,
+          multimedia,
+        } = storyData
         return (
-          <FeaturedStory key={formattedData.title.url} {...formattedData} />
+          <FeaturedStory 
+            key={`ft-list-${websiteLink}`}
+            primarySection={primarySection}
+            primarySectionLink={primarySectionLink}
+            title={title}
+            websiteLink={websiteLink}
+            author={author}
+            authorLink={authorLink}
+            multimediaType={multimediaType}
+            multimediaSubtitle={multimediaSubtitle}
+            multimediaCaption={multimediaCaption}
+            multimedia={multimedia}
+            imageSize={imageSize}
+            />
         )
       })}
     </>
