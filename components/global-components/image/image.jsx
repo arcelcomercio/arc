@@ -18,6 +18,8 @@ import { createResizedParams } from '../../utilities/resizer/resizer'
  * @param {string} [config.id]
  * @param {string} [config.type]
  * @param {string} [config.importance] Priority hint for browsers
+ * @param {string} [config.layout] - Atributo de AMP
+ * "responsive" | "intrinsic" | "fixed" | "fill" | "fixed_height" | "flex_item" | "nodisplay"
  * @param {string} [config.itemProp] Related to Structured Data
  * @param {number} [config.quality] 1 to 100. Default 75
  *
@@ -39,10 +41,11 @@ const Image = ({
   style,
   className,
   importance,
+  layout,
   width,
   height,
 }) => {
-  const { arcSite, contextPath } = useAppContext()
+  const { arcSite, contextPath, outputType } = useAppContext()
   /**
    * Se espera el atributo `loading` para simular los
    * estandares actuales, asi el codigo esta preparado
@@ -66,7 +69,16 @@ const Image = ({
     filterQuality: quality,
   })
 
-  return (
+  return outputType === 'amp' ? (
+    <amp-img
+      src={resizedImage}
+      width={width}
+      height={height}
+      alt={alt}
+      class={className}
+      layout={layout}
+    />
+  ) : (
     <img
       src={lazy ? placeholder : resizedImage}
       data-src={lazy ? resizedImage : null}
@@ -82,7 +94,7 @@ const Image = ({
       title={title}
       importance={importance}
     />
-  )
+  ) 
 }
 
 export default Image

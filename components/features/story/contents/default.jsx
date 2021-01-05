@@ -97,7 +97,6 @@ class StoryContents extends React.PureComponent {
         siteUrl,
         jwplayers = {},
       },
-      isAdmin,
     } = this.props
 
     const {
@@ -406,8 +405,6 @@ class StoryContents extends React.PureComponent {
                     return (
                       <StoryContentsChildLinkList
                         items={items}
-                        arcSite={arcSite}
-                        isAdmin={isAdmin}
                       />
                     )
                   }

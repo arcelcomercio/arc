@@ -104,7 +104,6 @@ class StoryContentAmp extends React.PureComponent {
       primarySection,
       primarySectionLink,
       author,
-      multimediaLazyDefault,
       subtype,
       promoItemJwplayer = {},
     } = new StoryData({
@@ -262,7 +261,7 @@ class StoryContentAmp extends React.PureComponent {
                   content_elements: innerContentElements,
                   content,
                   level,
-                  publicidadInline = false,
+                  // publicidadInline = false,
                   publicidadCaja2 = false,
                   publicidadCaja3 = false,
                   publicidadCaja4 = false,
@@ -488,8 +487,6 @@ class StoryContentAmp extends React.PureComponent {
                   return (
                     <StoryContentsChildLinkList
                       items={items}
-                      multimediaLazyDefault={multimediaLazyDefault}
-                      arcSite={arcSite}
                       isAmp
                     />
                   )

@@ -60,7 +60,7 @@ const classes = {
 const BodyContentSpecial = props => {
   const { customFields: { storyCode = '', hideAuthor = false } = {} } = props
 
-  const { isAdmin, arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useFusionContext()
 
   const story = useContent({
     source: CONTENT_SOURCE,
@@ -73,7 +73,6 @@ const BodyContentSpecial = props => {
 
   const {
     author,
-    multimediaLazyDefault,
     contentPosicionPublicidad,
   } = new StoryData({
     data: story,
@@ -256,9 +255,6 @@ const BodyContentSpecial = props => {
               return (
                 <StoryContentsChildLinkList
                   items={items}
-                  multimediaLazyDefault={multimediaLazyDefault}
-                  arcSite={arcSite}
-                  isAdmin={isAdmin}
                 />
               )
             }

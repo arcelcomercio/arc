@@ -46,23 +46,25 @@ const Sources = ({
       filterQuality: quality,
     }) || {}
 
-  return (
-    <>
-      {sizes.map(size => {
-        const { width, height, media } = size
-        const image = resizedImages[`${width}x${height}`] || placeholder
-        return (
-          <source
-            srcSet={lazy ? null : image}
-            data-srcset={lazy ? image : null}
-            media={media}
-            type={type}
-            className={lazy ? 'lazy' : null}
-          />
-        )
-      })}
-    </>
-  )
+  return <>
+    {sizes.map(size => {
+    const { width, height, media } = size
+    const image = resizedImages[`${width}x${height}`] || placeholder
+    const key = `source:${width}x${height}${image.substring(
+      image.length - 30,
+      image.length
+    )}`
+    return (
+      <source
+        key={key}
+        srcSet={lazy ? null : image}
+        data-srcset={lazy ? image : null}
+        media={media}
+        type={type}
+        className={lazy ? 'lazy' : null}
+      />
+    )
+  })}</>
 }
 
 export default Sources
