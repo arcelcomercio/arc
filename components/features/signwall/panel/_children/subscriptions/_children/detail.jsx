@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 import React, { PureComponent, useState, useEffect } from 'react'
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import * as S from '../styles'
 import { Button, Table, Wrapper } from '../../../styled'
 import { Notice, Cvv, CvvFront, Close } from '../../../../_children/iconos'
@@ -255,7 +255,7 @@ export const SubDetailInt = props => {
                     payU.setCardDetails({
                       number: numcard.replace(/\s/g, ''),
                       name_card:
-                        ENV.ENVIRONMENT === 'elcomercio'
+                        ENVIRONMENT === 'elcomercio'
                           ? `${profilePayu.name ||
                               'Usuario'} ${profilePayu.lastname || 'Usuario'}`
                           : 'APPROVED',
