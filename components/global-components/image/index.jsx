@@ -16,6 +16,7 @@ import Image from './image'
  * @param {string} [config.loading] "lazy" | "eager" | "auto"
  * @param {string} [config.placeholder]
  * @param {string} [config.sizes]
+ * @param {number[]} [config.sizesHeight]
  * @param {string} [config.layout] "fixed" | "responsive"
  * @param {string} [config.title]
  * @param {object} [config.style]
@@ -40,6 +41,7 @@ const ArcImage = ({
   quality,
   placeholder,
   sizes,
+  sizesHeight,
   // layout,
   importance,
   itemProp,
@@ -58,7 +60,7 @@ const ArcImage = ({
    * agregando un `uid` (unique id)
    */
   const idSuffix = uid || src || alt
-  const validSizes = validateSizes({ sizes, width, height })
+  const validSizes = validateSizes({ sizes, sizesHeight, width, height })
   const attributes = {
     id,
     src,
