@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import { useContent } from 'fusion:content'
 import StoriesRecent from '../../global-components/stories-recent'
 
@@ -352,7 +352,7 @@ export default ({
 
   const relatedContentItem = resultRelated.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
-    const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ''
+    const pathUrl = ENVIRONMENT === 'elcomercio' ? siteUrl : ''
     return `{  "@type":"ListItem",  "position":${i +
       1}, "url":"${pathUrl}${urlItem}" }`
   })

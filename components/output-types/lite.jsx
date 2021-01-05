@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import { deleteQueryString } from '../utilities/parse/queries'
 import { addSlashToEnd } from '../utilities/parse/strings'
@@ -70,8 +70,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const {
     credits = {},
@@ -619,7 +618,13 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-        <WebVitals report={!isIframeStory && arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
+        <WebVitals
+          report={
+            !isIframeStory &&
+            arcSite === SITE_ELBOCON &&
+            requestUri.includes('/wikibocon/')
+          }
+        />
         <script
           type="module"
           defer

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import Styles from './_children/styles'
 import MetaSite from './_children/meta-site'
@@ -29,7 +29,7 @@ import {
   SITE_PERU21G21,
   SITE_TROME,
   SITE_OJO,
-  SITE_ELBOCON
+  SITE_ELBOCON,
 } from '../utilities/constants/sitenames'
 import { META_HOME } from '../utilities/constants/meta'
 
@@ -68,8 +68,7 @@ export default ({
   Resource,
   isAdmin,
 }) => {
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const metaPageData = {
     globalContent,
@@ -734,7 +733,11 @@ export default ({
             __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
           }}
         />
-        <WebVitals report={arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
+        <WebVitals
+          report={
+            arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')
+          }
+        />
         {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
