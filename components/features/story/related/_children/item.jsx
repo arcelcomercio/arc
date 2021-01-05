@@ -58,27 +58,16 @@ const RenderRelatedContentElement = (props, i) => {
       </div>
       <figure className={classes.multimedia}>
         <a itemProp="url" href={websiteLink} className={classes.link}>
-          {isAmp ? (
-            <amp-img
-              // TODO: En amp se puede usar lazyload para las imagenes?
-              src={multimedia}
-              alt={title}
-              class={classes.image}
-              height="285"
-              width="514"
-              layout="responsive"
-            />
-          ) : (
-            <Image
-              src={multimedia}
-              width={314}
-              height={157}
-              alt={title}
-              className={classes.image}
-              loading="lazy"
-            />
-          )}
-
+          <Image
+            src={multimedia}
+            width={isAmp ? 514 : 314}
+            height={isAmp ? 285 : 157}
+            alt={title}
+            className={classes.image}
+            loading="lazy"
+            layout="responsive"
+            amp={isAmp}
+          />
           {multimediaType === IMAGE || multimediaType === '' ? (
             ''
           ) : (
