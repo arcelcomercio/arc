@@ -15,8 +15,9 @@ import Image from './image'
  * @param {number} [config.height=360]
  * @param {string} [config.loading] "lazy" | "eager" | "auto"
  * @param {string} [config.placeholder]
- * @param {string} [config.sizes]
- * @param {number[]} [config.sizesHeight]
+ * @param {string} [config.sizes] Ej. `(max-width: 360px) 320px, 640px`
+ * @param {number[]} [config.sizesHeight] - Arreglo numérico donde cada valor 
+ * representa el `height` del media breakpoint correspondiente en `sizes`.
  * @param {string} [config.layout] "fixed" | "responsive"
  * @param {string} [config.title]
  * @param {object} [config.style]
@@ -59,7 +60,7 @@ const ArcImage = ({
    * inesperado renderizando la imagen, puedes probar
    * agregando un `uid` (unique id)
    */
-  const idSuffix = uid || src || alt
+  const idSuffix = `${uid || src || alt}`
   const validSizes = validateSizes({ sizes, sizesHeight, width, height })
   const attributes = {
     id,

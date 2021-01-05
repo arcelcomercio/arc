@@ -1,11 +1,20 @@
 /**
- * @param {Object} obj
+ * @typedef {object} MediaSizeObject
+ * @property {string} media
+ * @property {number} width 
+ * @property {number} height 
+ */
+/**
+ * @param {object} obj
  * @param {string} obj.sizes
  * @param {number[]} [obj.sizesHeight]
  * @param {number} obj.width
  * @param {number} obj.height
+ * 
+ * @returns {MediaSizeObject[]}
  */
 export function validateSizes({ sizes, sizesHeight, width, height }) {
+  /** @type {MediaSizeObject[]} */
   let validSizes = []
   if (typeof sizes === 'string') {
     const sizesList = sizes.split(',')
@@ -28,6 +37,11 @@ export function validateSizes({ sizes, sizesHeight, width, height }) {
   return validSizes
 }
 
+/**
+ * @param {MediaSizeObject[]} sizes 
+ * 
+ * @returns {object} presets
+ */
 export function buildPresets(sizes) {
   const presets = {}
   sizes.forEach(size => {
