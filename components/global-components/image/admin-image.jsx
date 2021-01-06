@@ -1,7 +1,7 @@
 import * as React from 'react'
+import { useContent } from 'fusion:content'
 
 import { defaultImage } from '../../utilities/assets'
-import { createResizedParams } from '../../utilities/resizer/resizer'
 import { buildPresets } from './utils'
 
 /**
@@ -27,12 +27,12 @@ import { buildPresets } from './utils'
  * @param {string} contextPath
  * @param {string} outputType
  *
- * @returns {HTMLImageElement | HTMLPictureElement} Static resized `<img/>` o `<picture/>`
+ * @returns {HTMLImageElement | HTMLPictureElement} Resized `<img/>` o `<picture/>`
  *
  * @see loading https://web.dev/native-lazy-loading/
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
  */
-const CustomImage = ({
+const AdminImage = ({
   id,
   src,
   loading,
@@ -54,13 +54,6 @@ const CustomImage = ({
   contextPath,
   outputType,
 }) => {
-  /**
-   * Se espera el atributo `loading` para simular los
-   * estandares actuales, asi el codigo esta preparado
-   * para cuando este estandar sea mayormente aceptado.
-   * @see https://web.dev/native-lazy-loading/
-   */
-  const lazy = loading === 'lazy'
   const placeholder =
     customPlaceholder || defaultImage({ contextPath, arcSite })
 
@@ -74,12 +67,19 @@ const CustomImage = ({
       ? { ...buildPresets(sizes), ...mainImagePreset }
       : mainImagePreset
 
-  const resizedImages = createResizedParams({
-    url: src,
-    presets,
-    arcSite,
-    filterQuality: quality,
-  })
+  /**
+   * Menor calidad en las imagenes del Admin para
+   * mejorar velocidad de trabajo
+   */
+  const { resized_urls: resizedImages = {} } =
+    useContent({
+      source: 'photo-resizer',
+      query: {
+        url: src,
+        presets,
+        quality: quality || 65,
+      },
+    }) || {}
 
   const mainImage = resizedImages[`${width}x${height}`] || placeholder
 
@@ -98,14 +98,14 @@ const CustomImage = ({
 
   const Image = () => (
     <img
-      src={lazy ? placeholder : mainImage}
-      data-src={lazy ? mainImage : null}
+      src={mainImage}
       alt={alt}
-      decoding={lazy ? 'async' : 'auto'}
+      decoding="async"
       // width={width}
       // height={height}
       id={id}
-      className={`${lazy ? 'lazy' : ''} ${className}`}
+      className={className}
+      loading={loading}
       style={style}
       type={type}
       itemProp={itemProp}
@@ -125,14 +125,7 @@ const CustomImage = ({
           sourceImage.length
         )}`
         return (
-          <source
-            key={key}
-            srcSet={lazy ? null : sourceImage}
-            data-srcset={lazy ? sourceImage : null}
-            media={media}
-            type={type}
-            className={lazy ? 'lazy' : null}
-          />
+          <source key={key} srcSet={sourceImage} media={media} type={type} />
         )
       })}
       <Image />
@@ -142,4 +135,4 @@ const CustomImage = ({
   )
 }
 
-export default React.memo(CustomImage)
+export default React.memo(AdminImage)

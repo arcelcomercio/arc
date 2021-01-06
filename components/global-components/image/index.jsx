@@ -1,9 +1,10 @@
 import * as React from 'react'
 import Static from 'fusion:static'
+import { useAppContext } from 'fusion:context'
 
 import { validateSizes } from './utils'
-import Sources from './sources'
 import Image from './image'
+import AdminImage from './admin-image'
 
 /**
  *
@@ -17,7 +18,7 @@ import Image from './image'
  * @param {string} [config.loading] "lazy" | "eager" | "auto"
  * @param {string} [config.placeholder]
  * @param {string} [config.sizes] Ej. `(max-width: 360px) 320px, 640px`
- * @param {number[]} [config.sizesHeight] - Arreglo numérico donde cada valor 
+ * @param {number[]} [config.sizesHeight] - Arreglo numérico donde cada valor
  * representa el `height` del media breakpoint correspondiente en `sizes`.
  * @param {string} [config.layout] - Atributo de AMP
  * "responsive" | "intrinsic" | "fixed" | "fill" | "fixed_height" | "flex_item" | "nodisplay"
@@ -30,9 +31,8 @@ import Image from './image'
  * @param {string} [config.importance] Priority hint for browsers
  * @param {string} [config.itemProp] Related to Structured Data
  * @param {number} [config.quality] 1 to 100. Default 75
- * @param {boolean} [config.amp]
  *
- * @returns {HTMLImageElement | HTMLPictureElement} Static resized `<img/>` o `<picture/>`
+ * @returns {JSX.Element} Static resized `<img/>` o `<picture/>`
  *
  * @see loading https://web.dev/native-lazy-loading/
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
@@ -58,8 +58,8 @@ const ArcImage = ({
   pictureClassName = null,
   width = 640,
   height = 360,
-  amp = false,
 }) => {
+  const { arcSite, contextPath, outputType, isAdmin } = useAppContext()
   /**
    * `src` puede fallar como id, si hay un comportamiento
    * inesperado renderizando la imagen, puedes probar
@@ -71,8 +71,8 @@ const ArcImage = ({
     idSuffix.length
   )}`
   const validSizes = validateSizes({ sizes, sizesHeight, width, height })
-  
-  if(amp) {
+
+  if (outputType === 'amp') {
     return (
       <Static id={`amp-${staticId}`}>
         <Image
@@ -82,13 +82,13 @@ const ArcImage = ({
           alt={alt}
           class={className}
           layout={layout}
-          />
+        />
       </Static>
     )
   }
-  
-  const Img = () => (
-    <Image 
+
+  return isAdmin ? (
+    <AdminImage
       id={id}
       src={src}
       loading={loading}
@@ -96,40 +96,43 @@ const ArcImage = ({
       type={type}
       itemProp={itemProp}
       placeholder={placeholder}
-      sizes={sizes}
+      sizes={validSizes}
       title={title}
       alt={alt}
       style={style}
       className={className}
+      pictureClassName={pictureClassName}
       importance={importance}
       width={width}
       height={height}
+      arcSite={arcSite}
+      contextPath={contextPath}
+      outputType={outputType}
     />
-  )
-
-  return (
-    <Static
-      id={staticId}>
-      {validSizes.length >= 1 ? (
-        <picture className={pictureClassName}>
-          <Sources
-            sizes={validSizes}
-            srcset={src}
-            width={width}
-            height={height}
-            loading={loading}
-            type={type}
-            quality={quality}
-          />
-          <Img/>
-          {children}
-        </picture>
-      ) : (
-        <>
-          <Img/>
-          {children}
-        </>
-      )}
+  ) : (
+    <Static id={staticId}>
+      <Image
+        id={id}
+        src={src}
+        loading={loading}
+        quality={quality}
+        type={type}
+        itemProp={itemProp}
+        placeholder={placeholder}
+        sizes={validSizes}
+        title={title}
+        alt={alt}
+        style={style}
+        className={className}
+        pictureClassName={pictureClassName}
+        importance={importance}
+        width={width}
+        height={height}
+        arcSite={arcSite}
+        contextPath={contextPath}
+        outputType={outputType}
+      />
+      {children}
     </Static>
   )
 }
