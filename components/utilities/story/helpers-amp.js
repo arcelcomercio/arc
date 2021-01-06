@@ -188,7 +188,7 @@ export const imageHtmlLegacy = html => {
     /<img (.*)src="([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~;+#!-])">/g,
     rplImageCde
   )
-  resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*)>/g, rplImageCde)
+  resHtml = resHtml.replace(/<img (.*)src="(.*)" (.*?)>/g, rplImageCde)
   resHtml = resHtml.replace(/<img src="(.*?)">/g, rplImageCde1)
   resHtml = resHtml
     .replace(/<img src="(.*?)"\/>/g, rplImageCde1)
@@ -632,7 +632,6 @@ export const ampHtml = (html = '', arcSite = '', migrated = false) => {
 
   // Opta Widget
   resultData = optaWidgetHtml(resultData)
-
   if (arcSite !== SITE_ELCOMERCIOMAG) {
     // Player
     resultData = playerHtml(resultData)
