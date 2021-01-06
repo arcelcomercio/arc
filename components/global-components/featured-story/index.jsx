@@ -1,8 +1,6 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
 import { useEditableContent } from 'fusion:content'
 
-import StoryData from '../../utilities/story-data'
 import { SITE_TROME } from '../../utilities/constants/sitenames'
 
 import Icon from '../multimedia-icon'
@@ -109,9 +107,10 @@ const FeaturedStory = props => {
     if (imageSize === IMAGE_COMPLETE) {
       imageWidth = 314
       imageHeight = 374
+    } else {
+      imageWidth = 314
+      imageHeight = 157
     }
-    imageWidth = 314
-    imageHeight = 157
   }
 
   // width y height para imagen dinámico en mobile
@@ -122,22 +121,24 @@ const FeaturedStory = props => {
       if (size === SIZE_ONE_COL) {
         imageMobileWidth = 314
         imageMobileHeight = 374
-      }
-      if (size === SIZE_TWO_COL) {
+      } else if (size === SIZE_TWO_COL) {
         imageMobileWidth = 648
         imageMobileHeight = 347
       }
+    } else {
+      imageMobileWidth = 314
+      imageMobileHeight = 157
     }
-    imageMobileWidth = 314
-    imageMobileHeight = 157
   }
 
   const getCategorySectionClass = () => {
-    if (primarySectionLink[0] === '/' && primarySectionLink[primarySectionLink.length - 1] === '/') return primarySectionLink.slice(1, -1)
+    if (
+      primarySectionLink[0] === '/' &&
+      primarySectionLink[primarySectionLink.length - 1] === '/'
+    )
+      return primarySectionLink.slice(1, -1)
     return primarySectionLink
   }
-
-
 
   return (
     <article
@@ -146,10 +147,7 @@ const FeaturedStory = props => {
       } ${getImageSizeClass()} ${getHeadBandClass()} ${
         size === SIZE_TWO_COL ? classes.twoCol : ''
       } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
-      <div
-        className={`${classes.detail}${
-          author ? ' justify-between' : ''
-        }`}>
+      <div className={`${classes.detail}${author ? ' justify-between' : ''}`}>
         {headband === 'normal' || !headband ? (
           <h3
             itemProp="name"
@@ -186,10 +184,11 @@ const FeaturedStory = props => {
 
         {author ? (
           <address className={classes.author}>
-            <a itemProp="url" className={classes.authorLink} href={authorLink || '/autores/'}>
+            <a
+              itemProp="url"
+              className={classes.authorLink}
+              href={authorLink || '/autores/'}>
               {author}
-            width={imageWidth}
-            alt={multimediaCaption || titleField || title}
             </a>
           </address>
         ) : null}
@@ -197,47 +196,19 @@ const FeaturedStory = props => {
       <a itemProp="url" className={classes.imageLink} href={websiteLink}>
         <Image
           src={multimedia}
+          alt={multimediaCaption || titleField || title}
           height={imageHeight}
+          width={imageWidth}
           sizes={`(max-width: 639px) ${imageMobileWidth}px, ${imageWidth}px`}
           sizesHeight={[imageMobileHeight]}
           className={classes.image}
           pictureClassName={classes.imageBox}
-          loading={isLazyLoadActivate ? "lazy" : "auto"}
-          >
+          loading={isLazyLoadActivate ? 'lazy' : 'auto'}>
           <Icon type={multimediaType} iconClass={classes.icon} />
         </Image>
       </a>
     </article>
   )
-}
-
-FeaturedStory.propTypes = {
-  category: PropTypes.shape({
-    name: PropTypes.string,
-    url: PropTypes.string,
-  }),
-  title: PropTypes.shape({
-    name: PropTypes.string,
-    url: PropTypes.string,
-  }),
-  author: PropTypes.shape({
-    name: PropTypes.string,
-    url: PropTypes.string,
-  }),
-  multimedia: PropTypes.string,
-  imageSize: PropTypes.oneOf(['parcialTop', 'complete', 'parcialBot']),
-  headband: PropTypes.oneOf(['normal', 'live']),
-  size: PropTypes.oneOf([SIZE_ONE_COL, SIZE_TWO_COL]),
-  hightlightOnMobile: PropTypes.bool,
-  titleField: PropTypes.string,
-  categoryField: PropTypes.string,
-  multimediaType: PropTypes.oneOf([
-    StoryData.IMAGE,
-    StoryData.VIDEO,
-    StoryData.GALLERY,
-    StoryData.HTML,
-  ]),
-  isAdmin: PropTypes.bool,
 }
 
 export default React.memo(FeaturedStory)

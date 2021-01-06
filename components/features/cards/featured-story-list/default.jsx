@@ -27,7 +27,10 @@ const CardsFeaturedStoryList = props => {
   const { content_elements: contentElements = [] } =
     useContent({
       source: contentService,
-      query: Object.assign(contentConfigValues, { presets: 'no-presets', includedFields }),
+      query: Object.assign(contentConfigValues, {
+        presets: 'no-presets',
+        includedFields,
+      }),
       filter: `
       {
         content_elements { 
@@ -117,7 +120,7 @@ const CardsFeaturedStoryList = props => {
           multimedia,
         } = storyData
         return (
-          <FeaturedStory 
+          <FeaturedStory
             key={`ft-list-${websiteLink}`}
             primarySection={primarySection}
             primarySectionLink={primarySectionLink}
@@ -130,7 +133,8 @@ const CardsFeaturedStoryList = props => {
             multimediaCaption={multimediaCaption}
             multimedia={multimedia}
             imageSize={imageSize}
-            />
+            arcSite={arcSite}
+          />
         )
       })}
     </>
