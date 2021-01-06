@@ -242,7 +242,8 @@ const PropertiesCommon = {
     checkInbox:      'Revisa tu bandeja de correo para confirmar tu registro y sigue navegando',
     notReceiptEmail: '¿No recibiste el correo?',
     reSendEmail:     'Reenviar correo de activación',
-    youCanSendEmail: 'Podrás reenviar nuevamente dentro de'
+    youCanSendEmail: 'Podrás reenviar nuevamente dentro de',
+    textWinback:     '¡Tenemos un precio especial para ti!',
   }
 }
 

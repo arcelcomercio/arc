@@ -44,7 +44,7 @@ const WrapperPaymentSubs = () => {
     userLoading,
     updateLoading,
   } = useContext(AuthContext)
-  const { links, urls: urlCommon } = PropertiesCommon
+  const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
   useEffect(() => {
@@ -76,6 +76,8 @@ const WrapperPaymentSubs = () => {
         })
 
       if (fromFia) window.sessionStorage.setItem('paywall_type_modal', 'fia')
+      if (event === 'winback')
+        window.sessionStorage.setItem('paywall_type_modal', 'mailing')
 
       clearUrlAPI(urls.landingUrl)
       createExternalScript(scriptsPayment, true)
@@ -100,8 +102,8 @@ const WrapperPaymentSubs = () => {
           {!userLoading && (
             <PanelLeft>
               {event && userStep !== 4 && (
-                <h2 className={`step__left-title title-event-${arcSite}`}>
-                  ¡Tenemos un precio especial para ti!
+                <h2 className="step__left-title-campaign">
+                  {texts.textWinback}
                 </h2>
               )}
               {freeAccess ? (
