@@ -1,16 +1,19 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import FeaturedStory from '../../../global-components/featured-story'
-import customFields from './_dependencies/custom-fields'
-import StoryFormatter from '../../../utilities/featured-story-formatter'
+import schemaFilter from '../../../global-components/featured-story/schema-filter'
+import Notify from '../../../global-components/notify/notify'
+import buildDatesErrorMessage from '../../../global-components/notify/utils'
+
+import StoryData from '../../../utilities/story-data'
 import { featuredStoryFields } from '../../../utilities/included-fields'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
+
+import customFields from './_dependencies/custom-fields'
 
 const source = 'story-by-url'
-const PHOTO_SOURCE = 'photo-resizer'
 
 const CardFeaturedStoryManual = props => {
   const {
@@ -33,20 +36,12 @@ const CardFeaturedStoryManual = props => {
     } = {},
   } = props
 
-  const { arcSite, isAdmin, deployment, contextPath } = useFusionContext()
+  const { arcSite, isAdmin, deployment, contextPath } = useAppContext()
   const { siteName = '' } = getProperties(arcSite)
-
-  const storyFormatter = new StoryFormatter({
-    deployment,
-    contextPath,
-    arcSite,
-  })
 
   const regex = /^http/g
   const isExternalLink = regex.test(path)
-
-  const { schema } = storyFormatter
-
+  const schema = schemaFilter(arcSite)
   const actualDate = new Date().getTime()
 
   const scheduledNotes = [
@@ -156,23 +151,8 @@ const CardFeaturedStoryManual = props => {
   }
 
   const errorList = isAdmin ? validateScheduledNotes() : []
-  const presets = isAdmin
-    ? 'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
-    : 'no-presets'
+  const presets = 'no-presets'
   const includedFields = featuredStoryFields
-
-  const customPhoto =
-    useContent(
-      imgField && isAdmin
-        ? {
-            source: PHOTO_SOURCE,
-            query: {
-              url: imgField,
-              presets,
-            },
-          }
-        : {}
-    ) || {}
 
   const data =
     useContent(
@@ -208,98 +188,46 @@ const CardFeaturedStoryManual = props => {
   // Si la data no existe usar el estado defaultData
   const existingData = data._id ? data : defaultData
   // //////////////////////////////////////////////
-  const formattedData = storyFormatter.formatStory(
-    existingData,
-    imgField,
-    customPhoto
-  )
   const {
-    category,
+    primarySection,
+    primarySectionLink,
     title,
+    websiteLink,
     author,
-    multimediaLandscapeL,
-    multimediaLandscapeMD,
-    multimediaPortraitMD,
-    multimediaSquareS,
-    multimediaLazyDefault,
+    authorLink,
     multimediaType,
-    multimediaSubtitle,
     multimediaCaption,
     multimedia,
-  } = formattedData
-
-  if (isExternalLink) {
-    title.url = path
-    category.url = path
-  }
-
-  const getImageUrls = () => {
-    const {
-      landscape_l: customLandscapeL,
-      landscape_md: customLandscapeMD,
-      portrait_md: customPortraitMD,
-      square_s: customSquareS,
-    } = imgField
-      ? createResizedParams({
-          url: imgField,
-          presets:
-            'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150',
-          arcSite,
-        }) || {}
-      : {}
-
-    const {
-      landscape_l: landscapeL,
-      landscape_md: landscapeMD,
-      portrait_md: portraitMD,
-      square_s: squareS,
-    } =
-      createResizedParams({
-        url: multimedia,
-        presets:
-          'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150',
-        arcSite,
-      }) || {}
-
-    return {
-      multimediaLandscapeL: customLandscapeL || imgField || landscapeL,
-      multimediaLandscapeMD: customLandscapeMD || imgField || landscapeMD,
-      multimediaPortraitMD: customPortraitMD || imgField || portraitMD,
-      multimediaSquareS: customSquareS || imgField || squareS,
-    }
-  }
-
-  const imageUrls = isAdmin
-    ? {
-        multimediaLandscapeL,
-        multimediaLandscapeMD,
-        multimediaPortraitMD,
-        multimediaSquareS,
-      }
-    : getImageUrls()
-
-  const params = {
-    title,
-    category,
-    author,
-    ...imageUrls,
-    multimediaLazyDefault,
-    imageSize,
-    headband,
-    size,
-    hightlightOnMobile,
-    titleField,
-    categoryField,
+  } = new StoryData({
+    data: existingData,
+    deployment,
+    contextPath,
     arcSite,
-    multimediaType,
-    isAdmin,
-    siteName,
-    errorList,
-    multimediaSubtitle,
-    multimediaCaption,
-    isLazyLoadActivate,
-  }
-  return <FeaturedStory {...params} />
+  })
+
+  return <>
+    <FeaturedStory
+      primarySection={primarySection}
+      primarySectionLink={isExternalLink ? path : primarySectionLink}
+      title={title}
+      websiteLink={isExternalLink ? path : websiteLink}
+      author={author}
+      authorLink={authorLink}
+      multimediaType={multimediaType}
+      multimediaCaption={multimediaCaption}
+      multimedia={imgField || multimedia}
+      imageSize={imageSize}
+      headband={headband}
+      size={size}
+      hightlightOnMobile={hightlightOnMobile}
+      titleField={titleField}
+      categoryField={categoryField}
+      arcSite={arcSite}
+      siteName={siteName}
+      isLazyLoadActivate={isLazyLoadActivate}
+    />
+    {isAdmin && errorList.length > 0 ? <Notify message={buildDatesErrorMessage(errorList)} /> : null}
+  </>
 }
 
 CardFeaturedStoryManual.propTypes = {

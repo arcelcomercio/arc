@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react'
+import * as React from 'react'
 
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
@@ -15,6 +15,9 @@ import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/assets'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
 import { createMarkup } from '../../../utilities/helpers'
+
+import Notify from '../../../global-components/notify/notify'
+import buildDatesErrorMessage from '../../../global-components/notify/utils'
 
 const PHOTO_SOURCE = 'photo-resizer'
 
@@ -375,8 +378,26 @@ const FeaturedStoryPremium = props => {
   if (flagLive) {
     return <LiveStreaming {...paramsLive} />
   }
-  if (arcSite === 'elcomercio') return <FeaturedStoryPremiumOpt {...params} />
-  return <FeaturedStoryPremiumChild {...params} />
+
+  if (arcSite === 'elcomercio') {
+    return (
+      <>
+        <FeaturedStoryPremiumOpt {...params} />
+        {isAdmin && errorList.length > 0 ? (
+          <Notify message={buildDatesErrorMessage(errorList)} />
+        ) : null}
+      </>
+    )
+  }
+
+  return (
+    <>
+      <FeaturedStoryPremiumChild {...params} />
+      {isAdmin && errorList.length > 0 ? (
+        <Notify message={buildDatesErrorMessage(errorList)} />
+      ) : null}
+    </>
+  )
 }
 
 FeaturedStoryPremium.propTypes = {

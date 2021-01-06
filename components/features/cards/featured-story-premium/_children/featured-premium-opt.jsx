@@ -1,8 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 import { useEditableContent } from 'fusion:content'
 import Icon from '../../../../global-components/multimedia-icon'
-import Notify from '../../../../global-components/notify'
-import { formatAMPM } from '../../../../utilities/helpers'
 
 const FeaturedStoryPremiumChild = ({
   // arcSite,
@@ -26,7 +24,6 @@ const FeaturedStoryPremiumChild = ({
   primarySection,
   isAdmin,
   // logo,
-  errorList = [],
   multimediaSubtitle,
   titleField, // OPCIONAL, o pasar el customField de los props
   categoryField, // OPCIONAL, o pasar el customField de los props
@@ -55,38 +52,10 @@ const FeaturedStoryPremiumChild = ({
       'premium__text flex justify-center items-center text-black font-bold icon-padlock',
   }
 
-  const formaZeroDate = (numb = 0) => {
-    return numb < 10 ? `0${numb}` : numb
-  }
-
-  const formateDate = (fecha = '') => {
-    return () => {
-      const date = fecha.toString()
-      const _date = new Date(date.slice(0, date.indexOf('GMT') - 1))
-      const day = formaZeroDate(_date.getDate())
-      const month = formaZeroDate(_date.getMonth() + 1)
-      const year = _date.getFullYear()
-
-      return `${day}/${month}/${year} - ${formatAMPM(date)}`
-    }
-  }
-
   const { editableField } = useEditableContent()
 
   const getEditableField = element =>
     editableField ? editableField(element) : null
-
-  let fechaProgramada = ''
-  let fechaPublicacion = ''
-  const renderMessage = () => {
-    return errorList.map(el => {
-      fechaProgramada = formateDate(new Date(el.programate_date))
-      fechaPublicacion = formateDate(el.publish_date)
-      return `Nota Programada: Error en ${
-        el.note
-      }. La fecha Programada (${fechaProgramada()}) es menor a la fecha de publicación de la nota (${fechaPublicacion()})`
-    })
-  }
 
   if (model === 'basic' && imgType) {
     classes.featuredPremium =
@@ -169,7 +138,10 @@ const FeaturedStoryPremiumChild = ({
         </h2>
         <h6 itemProp="name" className={classes.author}>
           {author && (
-            <a itemProp="url" className={classes.authorLink} href={authorLink || '/autores/'}>
+            <a
+              itemProp="url"
+              className={classes.authorLink}
+              href={authorLink || '/autores/'}>
               {author}
             </a>
           )}
@@ -182,10 +154,8 @@ const FeaturedStoryPremiumChild = ({
           </div>
         )}
       </div>
-
-      {isAdmin && errorList.length > 0 && <Notify message={renderMessage()} />}
     </article>
   )
 }
 
-export default FeaturedStoryPremiumChild
+export default React.memo(FeaturedStoryPremiumChild)

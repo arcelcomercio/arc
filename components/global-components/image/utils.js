@@ -1,16 +1,10 @@
 /**
- * @typedef {object} MediaSizeObject
- * @property {string} media
- * @property {number} width 
- * @property {number} height 
- */
-/**
  * @param {object} obj
  * @param {string} obj.sizes
  * @param {number[]} [obj.sizesHeight]
  * @param {number} obj.width
  * @param {number} obj.height
- * 
+ *
  * @returns {MediaSizeObject[]}
  */
 export function validateSizes({ sizes, sizesHeight, width, height }) {
@@ -38,8 +32,8 @@ export function validateSizes({ sizes, sizesHeight, width, height }) {
 }
 
 /**
- * @param {MediaSizeObject[]} sizes 
- * 
+ * @param {MediaSizeObject[]} sizes
+ *
  * @returns {object} presets
  */
 export function buildPresets(sizes) {
