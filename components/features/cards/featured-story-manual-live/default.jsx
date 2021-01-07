@@ -173,7 +173,7 @@ const CardFeaturedStoryManualLive = props => {
     ) || {}
 
   const defaultData = useContent(
-    !data
+    !data._id
       ? {
           source,
           query: {
@@ -207,17 +207,17 @@ const CardFeaturedStoryManualLive = props => {
     arcSite,
   })
 
-  const paramsLive = {
-    arcSite,
-    contextPath,
-    deployment,
-    platformLive,
-    urlVideo,
-  }
-
   return (
     <>
-      {!flagLive && (
+      {flagLive ? (
+        <LiveStreaming
+          arcSite={arcSite}
+          contextPath={contextPath}
+          deployment={deployment}
+          platformLive={platformLive}
+          urlVideo={urlVideo}
+        />
+      ) : (
         <>
           <FeaturedStory
             primarySection={primarySection}
@@ -244,7 +244,6 @@ const CardFeaturedStoryManualLive = props => {
           ) : null}
         </>
       )}
-      {flagLive && <LiveStreaming {...paramsLive} />}
     </>
   )
 }

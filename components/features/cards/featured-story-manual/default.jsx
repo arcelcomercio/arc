@@ -172,7 +172,7 @@ const CardFeaturedStoryManual = props => {
     ) || {}
 
   const defaultData = useContent(
-    !data
+    !data._id
       ? {
           source,
           query: {
@@ -205,29 +205,33 @@ const CardFeaturedStoryManual = props => {
     arcSite,
   })
 
-  return <>
-    <FeaturedStory
-      primarySection={primarySection}
-      primarySectionLink={isExternalLink ? path : primarySectionLink}
-      title={title}
-      websiteLink={isExternalLink ? path : websiteLink}
-      author={author}
-      authorLink={authorLink}
-      multimediaType={multimediaType}
-      multimediaCaption={multimediaCaption}
-      multimedia={imgField || multimedia}
-      imageSize={imageSize}
-      headband={headband}
-      size={size}
-      hightlightOnMobile={hightlightOnMobile}
-      titleField={titleField}
-      categoryField={categoryField}
-      arcSite={arcSite}
-      siteName={siteName}
-      isLazyLoadActivate={isLazyLoadActivate}
-    />
-    {isAdmin && errorList.length > 0 ? <Notify message={buildDatesErrorMessage(errorList)} /> : null}
-  </>
+  return (
+    <>
+      <FeaturedStory
+        primarySection={primarySection}
+        primarySectionLink={isExternalLink ? path : primarySectionLink}
+        title={title}
+        websiteLink={isExternalLink ? path : websiteLink}
+        author={author}
+        authorLink={authorLink}
+        multimediaType={multimediaType}
+        multimediaCaption={multimediaCaption}
+        multimedia={imgField || multimedia}
+        imageSize={imageSize}
+        headband={headband}
+        size={size}
+        hightlightOnMobile={hightlightOnMobile}
+        titleField={titleField}
+        categoryField={categoryField}
+        arcSite={arcSite}
+        siteName={siteName}
+        isLazyLoadActivate={isLazyLoadActivate}
+      />
+      {isAdmin && errorList.length > 0 ? (
+        <Notify message={buildDatesErrorMessage(errorList)} />
+      ) : null}
+    </>
+  )
 }
 
 CardFeaturedStoryManual.propTypes = {
