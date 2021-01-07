@@ -20,11 +20,12 @@
   }
 
   &__link {
-    font-size: 0.9rem;
-    background-color: #e8e8e8;
-    padding: 5px 10px;
-    margin: 0 5px 5px 0;
+    border: 1px solid #333;
     display: block;
+    font-size: 1rem;
+    letter-spacing: 0.28px;
+    margin: 0 10px 10px 0;
+    padding: 8px 16px;
     & span {
       display: none;
     }

@@ -9,6 +9,7 @@ import {
   SITE_PERU21G21,
   SITE_ELCOMERCIO,
   SITE_DEPOR,
+  SITE_ELBOCON,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -23,6 +24,8 @@ import ChartbeatBody from './_children/chartbeat-body'
 import AppNexus from './_children/appnexus'
 import VallaHtml from './_children/valla-html'
 import MetaStory from './_children/meta-story'
+// import RegisterServiceWorker from './_children/register-service-worker'
+import WebVitals from './_children/web-vitals'
 
 import videoScript from './_dependencies/video-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
@@ -286,9 +289,19 @@ const LiteOutput = ({
              * https://web.dev/preconnect-and-dns-prefetch/
              */}
             {arcSite === SITE_ELCOMERCIO && (
+              // Preload fuente de titulo de nota para mejor LCP
               <link
                 rel="preload"
                 href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
+                as="font"
+                type="font/woff2"
+              />
+            )}
+            {arcSite === SITE_ELCOMERCIOMAG && (
+              // Preload fuente de titulo de nota para mejor LCP
+              <link
+                rel="preload"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
                 as="font"
                 type="font/woff2"
               />
@@ -389,6 +402,7 @@ const LiteOutput = ({
           tags={tags}
           contentCode={contentCode}
           siteProperties={siteProperties}
+          arcSite={arcSite}
         />
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
@@ -400,8 +414,8 @@ const LiteOutput = ({
             ) : (
               <meta name="keywords" lang="es" content={keywords} />
             )}
-            <TwitterCards {...twitterCardsData} />
             <OpenGraph {...openGraphData} />
+            <TwitterCards {...twitterCardsData} />
           </>
         ) : (
           // Solo para iframes de notas continuas
@@ -605,15 +619,14 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-        {requestUri.match('^/mundo') && (
-          <script
-            type="module"
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
-          />
-        )}
+        <WebVitals report={!isIframeStory && arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
+        <script
+          type="module"
+          defer
+          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
+        />
         {isStory && (
           <>
             <noscript id="deferred-styles">
@@ -631,7 +644,7 @@ const LiteOutput = ({
             />
           </>
         )}
-        {vallaSignwall === false && (
+        {vallaSignwall === false && arcSite === SITE_ELCOMERCIO && (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -652,6 +665,7 @@ const LiteOutput = ({
             )}
           />
         )}
+        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )

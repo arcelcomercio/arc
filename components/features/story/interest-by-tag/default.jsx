@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react'
-
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
-import schemaFilter from './_dependencies/schema-filter'
-import StorySeparatorChildItem from './_children/item'
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
-import customFields from './_dependencies/custom-fields'
 import { separatorBasicFields } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/constants'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
+
+import schemaFilter from './_dependencies/schema-filter'
+import customFields from './_dependencies/custom-fields'
+import StorySeparatorChildItem from './_children/item'
 
 const classes = {
   storyInterest: 'story-interest w-full h-auto pr-20 pl-20',
@@ -25,7 +25,13 @@ const classes = {
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
 const InterestByTag = props => {
-  const { customFields: { tag = '', isWeb = '' } = {} } = props
+  const {
+    customFields: {
+      tagToFetch = '',
+      renderDefault = true,
+      titleDefault = 'Te puede interesar:',
+    } = {},
+  } = props
   const {
     arcSite,
     globalContent: dataContent,
@@ -33,7 +39,7 @@ const InterestByTag = props => {
     deployment,
     isAdmin,
     siteProperties,
-  } = useFusionContext()
+  } = useAppContext()
 
   const presets = 'no-presets'
 
@@ -42,7 +48,7 @@ const InterestByTag = props => {
     contextPath,
   })
 
-  const urlTag = `/${tag || slug}/`
+  const urlTag = `/${tagToFetch || slug}/`
 
   const { content_elements: storyData = [] } =
     useContent({
@@ -87,10 +93,10 @@ const InterestByTag = props => {
 
   return (
     <>
-      {isWeb && dataInterest && dataInterest[0] && (
+      {renderDefault && dataInterest && dataInterest[0] ? (
         <div className={classes.storyInterest}>
           <div className={classes.container}>
-            <div className={classes.title}>Te puede interesar:</div>
+            <div className={classes.title}>{titleDefault}</div>
             <ul className={classes.list}>
               {dataInterest.map((story, i) => {
                 if (key === 4) return false
@@ -130,7 +136,7 @@ const InterestByTag = props => {
             </ul>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   )
 }

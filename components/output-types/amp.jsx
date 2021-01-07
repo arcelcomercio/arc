@@ -16,6 +16,7 @@ import {
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
+import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 
 const AmpOutputType = ({
   children,
@@ -189,6 +190,8 @@ const AmpOutputType = ({
       rawHtmlContent
     )
 
+  const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
+
   const hasJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
   /**
    * Se reemplaza los .mp4 de JWplayer para poder usar el fallback de
@@ -210,6 +213,12 @@ const AmpOutputType = ({
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
+  }
+  const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
+  const parameters = {
+    arcSite,
+    dataSlot,
   }
   return (
     <Html lang={lang}>
@@ -277,11 +286,6 @@ const AmpOutputType = ({
               custom-element="amp-ima-video"
               src="https://cdn.ampproject.org/v0/amp-ima-video-0.1.js"
             />
-            <script
-              async
-              custom-element="amp-video-docking"
-              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
-            />
           </>
         )}
         <script
@@ -306,6 +310,12 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
           />
         )}
+        {hasEmbedCard && (
+          <script
+            async
+            custom-element="amp-embedly-card"
+            src="https://cdn.ampproject.org/v0/amp-embedly-card-0.1.js"></script>
+        )}
         {hasYoutube && (
           <script
             async
@@ -325,17 +335,18 @@ const AmpOutputType = ({
             custom-element="amp-jwplayer"
             src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
         )}
-
+        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideo) && (
+          <script
+            async
+            custom-element="amp-video-docking"
+            src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"></script>
+        )}
         {(promoItemJwplayer.key || jwplayerSeo[0]) && (
           <>
             <script
               async
               custom-element="amp-jwplayer"
               src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
-            <script
-              async
-              custom-element="amp-video-docking"
-              src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"></script>
           </>
         )}
 
@@ -393,6 +404,11 @@ const AmpOutputType = ({
       </head>
       <body className={subtype}>
         <AmpTagManager {...parametros} />
+        <amp-sticky-ad
+          layout="nodisplay"
+          class="ad-amp-movil"
+          dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
+        />
         {children}
       </body>
     </Html>

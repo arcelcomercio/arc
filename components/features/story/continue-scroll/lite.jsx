@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 
 import { removeLastSlash } from '../../../utilities/parse/strings'
 import { deleteQueryString } from '../../../utilities/parse/queries'
@@ -19,6 +20,7 @@ const StoryContinueLite = props => {
     globalContent || {}
   const { slug: tag = '' } = tags[0] || {}
   const cleanRequestUri = deleteQueryString(requestUri)
+  const { idGoogleAnalitics } = getProperties(arcSite)
 
   const isComercio = arcSite === SITE_ELCOMERCIO
 
@@ -43,7 +45,7 @@ const StoryContinueLite = props => {
               name: tag,
               stories_qty: 10,
               includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-              isContentType: 'metered',
+              contentType: 'metered,free',
             },
           }
         : {}
@@ -56,7 +58,7 @@ const StoryContinueLite = props => {
         section: removeLastSlash(path),
         stories_qty: getStoriesBySectionQty(),
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-        isContentType: 'metered',
+        contentType: 'metered,free',
       },
     }) || {}
 
@@ -69,7 +71,7 @@ const StoryContinueLite = props => {
               section: removeLastSlash(path),
               stories_qty: getStoriesBySectionQty(),
               includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-              isContentType: 'premium',
+              contentType: 'premium',
             },
           }
         : {}
@@ -95,8 +97,8 @@ const StoryContinueLite = props => {
     )
   }
 
-  const filterStories = (stories = []) => {
-    return stories
+  const filterStories = (stories = []) =>
+    stories
       .filter(filterStoriesCb)
       .map(
         ({
@@ -104,7 +106,6 @@ const StoryContinueLite = props => {
           headlines: { basic = '' } = {},
         }) => ({ link: websiteUrl, title: basic })
       )
-  }
 
   const getTotalStoriesBySection = () => {
     if (isComercio) {
@@ -115,8 +116,8 @@ const StoryContinueLite = props => {
       const existTagStories = tag && tagElements && tagElements[0]
       return existTagStories ? 5 : 10
     }
-    // Por defecto, son 6 notas por seccion
-    return 6
+    // Por defecto, son 5 notas por seccion
+    return 5
   }
 
   const filteredStories = {
@@ -131,7 +132,7 @@ const StoryContinueLite = props => {
     ),
   }
 
-  const filledStContinueScript = stContinueScript
+  const filledStContinueScript = stContinueScript(idGoogleAnalitics)
     .replace(/<<arcSite>>/g, arcSite)
     .replace(
       '"<<recentStoriesrecentStoriesrecentStories>>"',

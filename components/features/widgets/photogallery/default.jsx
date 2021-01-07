@@ -1,7 +1,6 @@
-import React from 'react'
-
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
@@ -20,7 +19,7 @@ const classes = {
 }
 
 const PhotogalleryFeat = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite, contextPath, deployment, isAdmin } = useAppContext()
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},

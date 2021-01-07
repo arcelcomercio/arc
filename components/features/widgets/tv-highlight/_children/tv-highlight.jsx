@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { getMultimediaIcon } from '../../../../utilities/helpers'
 
 const classes = {
@@ -51,7 +51,7 @@ const TVHighlightChild = props => {
             src={multimediaImg}
             alt={multimediaCaption || nameTitle}
           />
-          {multimediaType !== 'basic' && (
+          {multimediaType !== 'basic' ? (
             <span className={classes.iconContainer}>
               <i
                 className={`${getMultimediaIcon(multimediaType)} ${
@@ -59,9 +59,9 @@ const TVHighlightChild = props => {
                 }`}
               />
             </span>
-          )}
+          ) : null}
         </a>
-        {tags && (
+        {tags ? (
           <div className={classes.tags}>
             <p itemProp="description" className={classes.related}>
               Tags Relacionados:
@@ -81,7 +81,7 @@ const TVHighlightChild = props => {
               })}
             </ul>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   )

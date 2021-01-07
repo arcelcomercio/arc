@@ -1,0 +1,150 @@
+.nav__story-title {
+  display: none;
+  font-family: $secondary-font;
+  font-weight: 700;
+  font-size: 15px;
+  max-height: 15px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+.nav__story-social-network {
+  display: none;
+}
+.nav__loader-bar {
+  display: none;
+}
+.nav__load-bg {
+  display: none;
+}
+.story-header__item {
+  margin-left: 10px;
+  svg {
+    width: 32px;
+  }
+  span {
+    color: #888;
+    font-size: 12px;
+    margin-right: 10px;
+    display: none;
+    @media (--tablet) {
+      display: block;
+    }
+  }
+}
+
+.header-full {
+  background-color: #007c31;
+  height: 50px;
+  z-index: 21;
+  &__left {
+    padding: 0 10px;
+  }
+  &__right {
+    padding-right: 20px;
+  }
+  &__btn-menu {
+    padding: 10px;
+    svg {
+      fill: #fff;
+    }
+  }
+  &__box-logo {
+    background-color: #d5d745;
+    transform: skew(-13deg);
+    padding: 5px;
+    margin: 0 20px;
+  }
+  &__logo {
+    transform: skew(13deg);
+    max-width: 150px;
+  }
+  &__item-nav {
+    margin-right: 24px;
+  }
+  &__link-nav {
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.39px;
+  }
+  &__btn-result {
+    display: block;
+    background-color: #8116d5;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.36px;
+    border: 1px solid #ffffffa3;
+    border-radius: 5px;
+    font-size: 11px;
+    padding: 9px 13px;
+    @media (--tablet) {
+      font-size: 12px;
+      padding: 9px 25px;
+    }
+  }
+  &__box-list {
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+  &__megamenu {
+    display: none;
+  }
+
+  &.active {
+    position: fixed;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    height: 46px;
+    .header-full {
+      &__btn-menu {
+        svg {
+          fill: #666;
+        }
+      }
+      &__box-logo {
+        display: none;
+        background-color: transparent;
+        @media (--tablet) {
+          display: block;
+        }
+      }
+      &__btn-container {
+        display: none;
+      }
+      &__box-list {
+        display: none;
+      }
+    }
+    .nav__story-social-network {
+      display: block;
+    }
+    .nav__story-title {
+      @media (--desktop) {
+        display: block;
+        display: -webkit-box;
+      }
+    }
+    .nav__loader-bar {
+      display: block;
+      background-color: #42c64c;
+      height: 5px;
+      width: 100%;
+      top: 46px;
+      transition: transform 0.3s ease 0s, -webkit-transform 0.3s ease 0s;
+      will-change: transform;
+      transform-origin: left center;
+    }
+    .nav__load-bg {
+      display: block;
+      height: 5px;
+      width: 100%;
+      top: 46px;
+      background-color: #eaeaea;
+    }
+  }
+}

@@ -5,11 +5,12 @@ import { useContent } from 'fusion:content'
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import StoryContentChildRelated from './_lite/_children/item'
 import { getAssetsPath } from '../../../utilities/constants'
-import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import { SITE_DEPOR, SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 
 const classes = {
   relatedList: 'st-rel f f-col',
   relatedTitle: 'st-rel__title',
+  container: 'st-rel__container f',
   logo: 'st-rel__logo',
 }
 
@@ -52,13 +53,13 @@ const StoryRelated = () => {
     contextPath
   )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
 
-  const title = arcSite === SITE_ELCOMERCIO ? 'RELACIONADAS' : 'VEA TAMBIÉN'
+  const title = (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) ? 'RELACIONADAS' : 'VEA TAMBIÉN'
 
   return (
     <>
       {relatedContent && relatedContent.length > 0 && (
         <div role="list" className={classes.relatedList}>
-          <div className="f">
+          <div className={classes.container}>
             {arcSite === SITE_ELCOMERCIO && (
               <img className={classes.logo} alt="logo" src={urlImg} />
             )}

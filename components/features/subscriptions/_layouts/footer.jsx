@@ -175,7 +175,7 @@ export const FooterSubs = () => {
                         <button
                           className="btn-next"
                           type="submit"
-                          disabled={disable}>
+                          disabled={disable || loading}>
                           {loading ? 'Validando...' : 'Validar'}
                         </button>
                       </div>
@@ -213,17 +213,20 @@ export const FooterSubs = () => {
             <div>
               <span className="title-item">Resumen de pedido:</span>
               <h5 className="name-item">
-                {`
-                  ${planName} - ${period[userDataPlan.billingFrequency]}
-                  `}
+                {planName}
+                <span className="period-item">
+                  {' - '} {period[userDataPlan.billingFrequency]}
+                </span>
               </h5>
             </div>
-            <span className="price-item">
-              {userDataPlan.amount === 0
-                ? 'Gratis'
-                : `S/ ${userDataPlan.amount}.00`}
-            </span>
-            <i className={styles.iconUp}></i>
+            <div>
+              <span className="price-item">
+                {userDataPlan.amount === 0
+                  ? 'Gratis'
+                  : `S/ ${userDataPlan.amount}.00`}
+              </span>
+              <i className={styles.iconUp}></i>
+            </div>
           </button>
         </section>
       )}

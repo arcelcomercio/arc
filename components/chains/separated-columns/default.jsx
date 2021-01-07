@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import customFields from './_dependencies/custom-fields'
 
 const SeparatedColumns = ({ children, customFields: { reverseDesktop } }) => (

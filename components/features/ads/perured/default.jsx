@@ -1,5 +1,6 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
+
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
@@ -16,15 +17,8 @@ const classes = {
 
 const Ads = props => {
   const { customFields: { isDesktop, isMobile } = {} } = props
-
-  const { isAdmin, outputType } = useFusionContext()
-
-  if (outputType === 'lite') {
-    return null
-  }
-
+  const { isAdmin } = useAppContext()
   const addEmptyBackground = () => (isAdmin ? 'bg-base-100' : '')
-
   const getHtml = device => {
     return (
       <div
@@ -57,8 +51,8 @@ const Ads = props => {
 
   return (
     <>
-      {outputType !== 'amp' && isDesktop && getHtml('d')}
-      {outputType !== 'amp' && isMobile && getHtml('m')}
+      {isDesktop ? getHtml('d') : null}
+      {isMobile ? getHtml('m') : null}
     </>
   )
 }
@@ -68,5 +62,6 @@ Ads.propTypes = {
 }
 
 Ads.label = 'Publicidad PeruRed - Beta'
+Ads.static = true
 
 export default Ads

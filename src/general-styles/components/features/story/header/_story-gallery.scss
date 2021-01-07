@@ -1,4 +1,8 @@
 .story-gallery {
+  a {
+    color: #306d95;
+    text-decoration: underline;
+  }
   &__number {
     width: 72px;
     height: 32px;

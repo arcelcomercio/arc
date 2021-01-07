@@ -20,7 +20,7 @@ import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import StoryData from '../../../utilities/story-data'
-import { getDateSeo } from '../../../utilities/date-time/dates'
+import { getDateSeo, formatDateTime } from '../../../utilities/date-time/dates'
 import { formatHtmlToText } from '../../../utilities/parse/strings'
 import {
   replaceTags,
@@ -53,7 +53,6 @@ import {
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
-  formatDateTime,
   publicidadAmp,
   publicidadAmpAd,
   ampHtml,
@@ -133,6 +132,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
+      size: '320x100, 320x50',
     }
     const parametersCaja3 = {
       // movil4 caja3 caja3
@@ -142,7 +142,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '300x250,320x100,320x50,300x100,300x50',
+      size: '320x100, 320x50, 300x1',
     }
     const parametersCaja4 = {
       // movil5 caja5 caja4
@@ -152,7 +152,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '300x250,320x100,320x50,300x100,300x50',
+      size: '320x100, 320x50',
     }
     const parametersCaja5 = {
       // movil5 caja5 caja4
@@ -162,16 +162,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '300x250,320x100,320x50,300x100,300x50',
-    }
-    const parametersInline = {
-      // movil3 caja3 inline
-      dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/inline`,
-      width,
-      height,
-      primarySectionLink,
-      arcSite,
-      movil1: false,
+      size: '320x100, 320x50',
     }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
@@ -449,14 +440,6 @@ class StoryContentAmp extends React.PureComponent {
                             )}
                           />
                         )}
-                      {!isMag && publicidadInline && (
-                        <div
-                          className={classes.adsAmp}
-                          dangerouslySetInnerHTML={publicidadAmpAd(
-                            parametersInline
-                          )}
-                        />
-                      )}
                       {publicidadCaja3 &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (

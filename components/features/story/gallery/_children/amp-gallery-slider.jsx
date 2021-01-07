@@ -30,11 +30,7 @@ const StoryHeaderChildAmpGallery = props => {
           presets: 'large:1024x612,medium:560x315,small:330x178',
           arcSite,
         }) || {}
-      return {
-        original: imageObject.original,
-        large: imageObject.large,
-        images: `${imageObject.large} 1024w,${imageObject.medium} 560w,${imageObject.small} 360w`,
-      }
+      return imageObject.medium
     }
     return urlImg
   }
@@ -60,8 +56,7 @@ const StoryHeaderChildAmpGallery = props => {
               <div className="slide">
                 <div className="inner">
                   <amp-img
-                    sizes="(max-width: 360px) 50vw,(max-width: 750px) 50vw"
-                    srcset={extractImage(url).images || url}
+                    src={extractImage(url) || url}
                     alt={caption}
                     class={classes.image}
                     height="360"
@@ -87,7 +82,7 @@ const StoryHeaderChildAmpGallery = props => {
               <div className="slide">
                 <AmpImage
                   {...item}
-                  url={extractImage(item.url).large}
+                  url={extractImage(item.url)}
                   ImgTag={imgTag}
                   imgClassName={classes.image}
                   layout="responsive"

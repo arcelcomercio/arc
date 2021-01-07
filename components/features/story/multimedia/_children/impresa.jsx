@@ -5,7 +5,9 @@ import Image from '@arc-core-components/element_image'
 import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
-  paperNav: 'paper-nav position-relative vv',
+  paperNav: 'paper-nav position-relative vv ',
+  image: 'w-full ',
+  caption: '',
 }
 
 const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
@@ -26,6 +28,7 @@ const RenderRelatedContentImpresa = ({ data: { basic = {} } = {} }) => {
           <Image
             width="100%"
             layout="responsive"
+            className={classes.image}
             imgClassName={classes.image}
             captionClassName={`${ampClass}${classes.caption}`}
             {...basic}

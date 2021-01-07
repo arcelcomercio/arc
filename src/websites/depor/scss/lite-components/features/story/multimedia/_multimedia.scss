@@ -1,0 +1,47 @@
+.s-multimedia {
+  letter-spacing: 0;
+  font-family: $primary-font;
+  font-size: 13px;
+  padding: 0 20px 0;
+
+  &__caption {
+    font: 400 14px/18px $secondary-font;
+    letter-spacing: -0.14px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    color: #888;
+    @media (--desktop) {
+      font: 400 13px/24px $secondary-font;
+      letter-spacing: -0.13px;
+    }
+  }
+  &__audio {
+    padding-top: 10px;
+  }
+  &__embed {
+    @media (--desktop) {
+      padding: 0 20px 0 20px;
+    }
+  }
+  &__image {
+    min-height: 157px;
+
+    @media (--tablet) {
+      min-height: 330px;
+    }
+
+    &--big {
+      @media (--desktop) {
+        height: 528px;
+      }
+    }
+  }
+  &__lL-video,
+  &__p-default {
+    background-color: #000;
+    height: 157px;
+    @media (--desktop) {
+      height: 345px;
+    }
+  }
+}

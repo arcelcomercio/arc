@@ -8,12 +8,12 @@ import { Taggeo } from '../_dependencies/Taggeo'
 
 const styles = {
   title: 'step__left-title',
-  subTitle: 'step__left-subtitle',
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   link: 'step__btn-link',
   center: 'step__left-align-center',
   backLogin: 'step__left-link-register',
+  textNotice: 'step__left-text-notice',
 }
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
@@ -99,7 +99,7 @@ const Forgot = () => {
           {!showConfirm ? (
             <>
               <h2 className={styles.title}> {texts.forgot}</h2>
-              <h3 className={styles.subTitle}>{texts.subtitleForgot}</h3>
+              <h3 className={styles.textNotice}>{texts.subtitleForgot}</h3>
               {msgError && (
                 <div className={styles.block}>
                   <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
@@ -180,7 +180,7 @@ const Forgot = () => {
             <div className={styles.center}>
               <MsgForgotPass bgcolor="#fff" style={{ marginBottom: '20px' }} />
               <h2 className={styles.title}>Correo enviado</h2>
-              <h3 className={styles.subTitle}>{texts.msgForgotOk}</h3>
+              <h3 className={styles.textNotice}>{texts.msgForgotOk}</h3>
               <div className={styles.block}>
                 <button
                   className={styles.btn}

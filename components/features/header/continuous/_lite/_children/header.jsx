@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 /*
   window.addEventListener('DOMContentLoaded', () => {requestIdle(() => {
@@ -15,6 +15,7 @@ const classes = {
   somos: 'h-continuous--somos',
   image: 'h-continuous__img',
   anchor: 'h-continuous__anchor pos-abs',
+  svg: 'h-continuous__svg',
 }
 
 const HeaderContinuousChild = ({
@@ -44,6 +45,7 @@ const HeaderContinuousChild = ({
             id="h-anchor"
             className={classes.anchor}>
             <svg
+              className={classes.svg}
               aria-disabled="true"
               xmlns="http://www.w3.org/2000/svg"
               width="25"

@@ -38,6 +38,11 @@
       border-radius: 12px;
     }
   }
+  &__divConfirmation {
+    min-height: 300px;
+    padding-top: 40px;
+    width: 270px;
+  }
 
   &__button {
     height: 50px;

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import Dfp from '../output-types/_children/dfp'
 
 export default props => {

@@ -120,8 +120,8 @@ const Pay = () => {
       })
         .then(() => {
           window.payU.setURL(links.payuPayments)
-          window.payU.setPublicKey('PKaC6H4cEDJD919n705L544kSU')
-          window.payU.setAccountID('512321')
+          window.payU.setPublicKey(links.payuPublicKey)
+          window.payU.setAccountID(links.payuAccountID)
           window.payU.setListBoxID('mylistID')
           window.payU.setLanguage('es')
           window.payU.getPaymentMethods()

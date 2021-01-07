@@ -1,7 +1,11 @@
 import React from 'react'
 
 import { createMarkup } from '../../../../../utilities/helpers'
-import { SITE_GESTION } from '../../../../../utilities/constants/sitenames'
+import {
+  SITE_DEPOR,
+  SITE_GESTION,
+  SITE_TROME,
+} from '../../../../../utilities/constants/sitenames'
 
 const classes = {
   container: 'link-site f f-col',
@@ -14,6 +18,7 @@ const classes = {
   picture: 'link-site__pic',
   listItemTitle: 'link-site__title-link oflow-h ',
   image: 'link-site__image',
+  sitename: 'link-site__sitename',
   imageContainer: 'link-site__image-container position-relative',
   iconContainer: 'link-site__icon-container mr-5 mt-5',
   iconImagePremium: 'link-site__icon-premium',
@@ -30,6 +35,13 @@ const StoriesListRecommenderBySiteChild = ({
   arcSite = '',
 }) => {
   const isGestion = arcSite === SITE_GESTION
+  const isDepor = arcSite === SITE_DEPOR
+  const isTrome = arcSite === SITE_TROME
+  const siteAllowed = () => {
+    if (isDepor) return true
+    if (isTrome) return true
+    return false
+  }
   return (
     <section className={classes.container}>
       <div className={classes.header}>
@@ -96,6 +108,7 @@ const StoriesListRecommenderBySiteChild = ({
               <h2 itemProp="name" className={classes.listItemTitle}>
                 {title}
               </h2>
+              {siteAllowed() && <span className={classes.sitename}>{siteName}</span>}
             </a>
           )
         )}

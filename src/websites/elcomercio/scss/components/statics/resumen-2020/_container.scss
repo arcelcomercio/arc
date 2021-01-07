@@ -1,0 +1,16 @@
+div#gpt_zocalo {
+  @media (--desktop) {
+    transform: translateX(-50%);
+    left: 50%;
+  }
+}
+
+div#gpt_top {
+  display: flex;
+  align-items: center;
+  height: auto;
+  justify-content: center;
+  @media (--desktop) {
+    display: none;
+  }
+}

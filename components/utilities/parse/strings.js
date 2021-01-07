@@ -55,7 +55,7 @@ export const ifblogType = (globalContent = {}) => {
   const slugArray = tags.map(el => {
     return el.slug
   })
-  let urls = slugArray.indexOf('metered') !== -1 ? 'metered' : 'free'
+  let urls = 'metered'
   urls = slugArray.indexOf('locked') !== -1 ? 'locked' : urls
   urls = slugArray.indexOf('free') !== -1 ? 'free' : urls
 

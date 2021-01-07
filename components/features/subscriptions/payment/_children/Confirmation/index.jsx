@@ -91,7 +91,7 @@ const Confirmation = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const divStep = window.document.getElementById('main-steps')
+      // const divStep = window.document.getElementById('main-steps')
       const divDetail = document.getElementById('div-detail')
       const divFooter = document.getElementById('footer')
       const { uuid } = getStorageInfo()
@@ -104,7 +104,7 @@ const Confirmation = () => {
       }, null)
 
       if (freeAccess || (userPurchase && userPurchase.status)) {
-        if (divStep) divStep.classList.add('bg-white')
+        // if (divStep) divStep.classList.add('bg-white')
         if (divDetail) divDetail.classList.remove('step__show-detail')
         if (divFooter) divFooter.classList.remove('step__hidden')
         document.body.classList.remove('no-scroll')
@@ -193,7 +193,7 @@ const Confirmation = () => {
         })
       } else {
         updateStep(2)
-        if (divStep) divStep.classList.remove('bg-white')
+        // if (divStep) divStep.classList.remove('bg-white')
       }
     }
   }, [])

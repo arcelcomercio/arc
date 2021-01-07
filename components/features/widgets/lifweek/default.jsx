@@ -1,7 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import ENV from 'fusion:environment'
+
+import Image from '../../../global-components/image'
 
 const classes = {
   lifweek: 'lifweek-designers p-0 pl-20 pr-20 md:p-0',
@@ -35,14 +37,12 @@ const classes = {
 const LIFWEEK_SOURCE = 'get-designers-lifweek'
 
 const LifweekFeat = () => {
+  const { arcSite, isAdmin, requestUri } = useAppContext()
+  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+
   const designersData = useContent({
     source: LIFWEEK_SOURCE,
   })
-
-  const { arcSite, isAdmin, requestUri } = useFusionContext()
-
-  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-
   const { participantes = [] } = designersData || {}
 
   const currentUrl = requestUri.split('?')[0]
@@ -102,10 +102,10 @@ const LifweekFeat = () => {
                     itemProp="url"
                     href={itemUrl}
                     className={classes.list_link}>
-                    <img
+                    <Image
                       src={participantes[key].imagen}
-                      width="276"
-                      height="354"
+                      width={276}
+                      height={354}
                       alt={itemName[0]}
                       loading="lazy"
                     />
@@ -128,4 +128,5 @@ const LifweekFeat = () => {
 
 LifweekFeat.label = 'Lifweek Diseñadores - Beta'
 LifweekFeat.static = true
+
 export default LifweekFeat

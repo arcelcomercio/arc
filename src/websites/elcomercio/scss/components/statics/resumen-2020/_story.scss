@@ -1,0 +1,51 @@
+.st {
+  color: $color-text;
+  &__time-container {
+    padding: 0 20px;
+    margin-bottom: 20px;
+    @media (--desktop) {
+      padding: 0;
+    }
+  }
+  &__time {
+    display: inline-block;
+    background-color: $color-gold;
+    font: 500 18px $primary-font;
+    padding: 5px 15px 5px;
+  }
+  &__title {
+    font: 500 30px/31px $primary-font;
+    padding: 0 20px;
+    margin-bottom: 15px;
+    @media (--desktop) {
+      padding: 0;
+      font: 500 35px/40px $primary-font;
+    }
+    a {
+      color: $color-text;
+    }
+  }
+  &__img {
+    width: 100%;
+    display: block;
+    margin-bottom: 14px;
+  }
+  &__cap {
+    padding: 0 20px;
+    margin-bottom: 34px;
+    font: 400 16px/20px $primary-font;
+    color: $color-gray;
+    @media (--desktop) {
+      padding: 0;
+    }
+  }
+  &__subtitle {
+    font: 400 21px/32px $primary-font;
+    padding: 0 20px;
+    margin-bottom: 40px;
+    @media (--desktop) {
+      padding: 0;
+      font: 400 21px/38px $primary-font;
+    }
+  }
+}

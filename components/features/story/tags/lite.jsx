@@ -2,25 +2,28 @@ import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
 import UtilListKey from '../../../utilities/list-keys'
+import { SITE_TROME } from '../../../utilities/constants/sitenames'
 
 const classes = {
   container: 'st-tags ',
   title: 'st-tags__title',
   tag: 'st-tags__tag',
   box: 'st-tags__box',
+  line: 'st-tags__line',
   link: 'st-tags__link',
 }
 
 const StoryTags = () => {
   const { globalContent, arcSite } = useFusionContext()
   const { taxonomy: { tags = [] } = {} } = globalContent || {}
-
+  const isTrome = arcSite === SITE_TROME
   return (
     tags.length > 0 && (
       <div className={classes.container}>
         <h4 itemProp="name" className={classes.title}>
-          TAGS RELACIONADOS
+            {isTrome ? 'Tags:':'TAGS RELACIONADOS'}
         </h4>
+        <div className={classes.line}></div>
         <div className={classes.box}>
           {tags.map(
             ({ slug, text }, idx) =>

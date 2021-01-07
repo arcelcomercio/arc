@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { msToTime } from '../../../../utilities/date-time/time'
+import { msToTime, secToTime } from '../../../../utilities/date-time/time'
 import {
   VIDEO,
   ELEMENT_YOUTUBE_ID,
@@ -12,6 +12,9 @@ import YoutubeVideoNoDestacado from './youtube-video-unpromoted'
 import YoutubeVideoDestacado from './youtube-video-promoted'
 import ItemVideoCenterNoDestacado from './powa-video-unpromoted'
 import ItemVideoCenterDestacado from './powa-video-promoted'
+import ItemVideoJWplayerNoDestacado from './jwplayer-video-unpromoted'
+import ItemVideoJWplayerDestacado from './jwplayer-video-promoted'
+import { VIDEO_JWPLAYER } from '../../../../utilities/constants'
 
 const classes = {
   listItemDest: 'stories-video__item-dest w-full',
@@ -42,6 +45,36 @@ const YoutubeVideo = ({
     return <YoutubeVideoDestacado {...youtubeVideoProps} />
   }
   return <YoutubeVideoNoDestacado {...youtubeVideoProps} />
+}
+const VideoJWplayer = ({
+  index,
+  isAdmin,
+  liveStory,
+  title = '',
+  image = {},
+  videoID = '',
+  powaVideo = '',
+  videoTime,
+  autoPlayVideo,
+  account,
+}) => {
+  const time = secToTime(videoTime)
+  const powaVideoProps = {
+    isAdmin,
+    title,
+    liveStory,
+    image: image.payload,
+    videoID,
+    powaVideo,
+    time,
+    account,
+    autoPlayVideo,
+  }
+
+  if (index === 0) {
+    return <ItemVideoJWplayerDestacado {...powaVideoProps} />
+  }
+  return <ItemVideoJWplayerNoDestacado {...powaVideoProps} />
 }
 
 const VideoCenter = ({
@@ -85,6 +118,9 @@ const StoriesListStoryVideoItem = ({
   powaVideo = '',
   autoPlayVideo = false,
   videoTime = 0,
+  hasAds = '',
+  duration,
+  account,
 }) => {
   const paramsItem = {
     index,
@@ -96,11 +132,18 @@ const StoriesListStoryVideoItem = ({
     powaVideo,
     autoPlayVideo,
     videoTime,
+    hasAds,
+    duration,
+    account,
   }
   let resultItemVideo = null
+
   switch (videoType) {
     case VIDEO:
       resultItemVideo = <VideoCenter {...paramsItem} />
+      break
+    case VIDEO_JWPLAYER:
+      resultItemVideo = <VideoJWplayer {...paramsItem} />
       break
     case ELEMENT_YOUTUBE_ID:
       resultItemVideo = <YoutubeVideo {...paramsItem} />

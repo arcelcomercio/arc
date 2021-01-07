@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import customFields from '../_dependencies/custom-fields'
 
 const AdsFeatLite = props => {
@@ -18,7 +18,7 @@ const AdsFeatLite = props => {
 
   return (
     <>
-      {(liteAdId || liteAdName || liteAdDimensions) && (
+      {liteAdId || liteAdName || liteAdDimensions ? (
         <div
           id={liteAdId}
           data-ads-name={liteAdName}
@@ -30,7 +30,7 @@ const AdsFeatLite = props => {
           data-prebid-dimensions={prebidAdDimensions}
           style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
         />
-      )}
+      ) : null}
     </>
   )
 }

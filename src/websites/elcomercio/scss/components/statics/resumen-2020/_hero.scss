@@ -1,0 +1,142 @@
+.hero {
+  background-color: $color-dark;
+  color: $color-white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: calc(100vh - 48px + 80px);
+  min-height: 640px;
+  font-family: $primary-font;
+
+  @media (--tablet) {
+    height: calc(100vh - 48px + 180px);
+    min-height: 740px;
+  }
+
+  @media (--desktop) {
+    min-height: 886px;
+    height: calc(100vh - 51px);
+  }
+
+  &__c {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 95vw;
+    @media (--tablet) {
+      width: 80vw;
+    }
+    @media (--desktop) {
+      width: 100%;
+      max-width: 1160px;
+      padding: 0 70px;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    width: 100%;
+    max-width: 70vw;
+    @media (--tv) {
+      max-width: 1160px;
+    }
+  }
+
+  &__title {
+    color: $color-gold;
+    font: normal normal 300 3.6vw/4.2vw $primary-font;
+    letter-spacing: 5.33px;
+    @media (--tablet) {
+      font-size: 3vw;
+      line-height: 3.2vw;
+    }
+    @media (--desktop) {
+      font-size: 2vw;
+      line-height: 2.2vw;
+    }
+    @media (--tv) {
+      font-size: 30px;
+      line-height: 35px;
+      letter-spacing: 12.3px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 5.23vw;
+    line-height: 6vw;
+    margin-bottom: 4.5vw;
+    @media (--tablet) {
+      font-size: 4.2vw;
+      line-height: 4.8vw;
+    }
+    @media (--desktop) {
+      font-size: 2.6vw;
+      line-height: 3vw;
+      margin-bottom: 56px;
+    }
+    @media (--tv) {
+      font-size: 43px;
+      line-height: 46px;
+      margin-bottom: 76px;
+    }
+  }
+
+  &__year {
+    color: $color-gold;
+    font-weight: 300;
+    font-size: 24vw;
+    line-height: 25vw;
+    @media (--desktop) {
+      font-size: 14vw;
+      line-height: 14vw;
+    }
+    @media (--tv) {
+      font-size: 255px;
+      line-height: 268px;
+    }
+  }
+  &__select {
+    display: none;
+    @media (--desktop) {
+      display: block;
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+  }
+  &__month {
+    border: 0.5px solid $color-gold;
+    background-color: transparent;
+    color: $color-white;
+    display: block;
+    width: 136px; // para iphone5
+    height: 41px;
+    font: normal normal 300 21px/23px $primary-font;
+    margin: 0 7px 5px;
+    padding: 9px 9px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    will-change: background-color, color;
+    @media (--mobile) {
+      width: 154px;
+    }
+    @media (--desktop) {
+      width: 233px;
+      margin: 0 10px 10px;
+      height: 63px;
+      font: normal normal 300 25px/32px $primary-font;
+      padding: 15px 9px;
+    }
+    &:hover,
+    &.active {
+      background-color: $color-gold;
+      color: #000;
+      text-decoration: none;
+    }
+  }
+
+  &__ads {
+    position: absolute;
+    top: 0;
+  }
+}

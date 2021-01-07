@@ -305,20 +305,34 @@ export default ({
 
   const imagesSeoItems = imagePrimarySeo.map(image => {
     const { subtitle = false, url = '' } = image || {}
+    let presets = ''
+    let img = ''
+    if (SITE_ELCOMERCIOMAG === arcSite)
+      presets =
+        'amp_image_1x1:1200x1200,amp_image_4x3:1200x900,amp_image_16x9:1200x675'
+    else presets = 'large:1200x800'
 
-    const { large } =
+    const {
+      amp_image_1x1: ampImage1x1 = url,
+      amp_image_4x3: ampImage4x3 = url,
+      amp_image_16x9: ampImage16x9 = url,
+      large,
+    } =
       createResizedParams({
         url,
-        presets: 'large:1200x800',
+        presets,
         arcSite,
       }) || {}
 
     const description = subtitle
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
-
-    return `{  "@type":"ImageObject", "url": "${large ||
-      url}", ${description} "height":800, "width":1200 }`
+    if (SITE_ELCOMERCIOMAG === arcSite)
+      img = `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 ||
+        url}"]`
+    else img = `"${large}"`
+    return `{  "@type":"ImageObject", "url": ${img ||
+      url}, ${description} "height":800, "width":1200 }`
   })
 
   const listItems = tags.map(({ description }) => {
@@ -508,7 +522,7 @@ export default ({
   const taboolaScript =
     arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
 
-  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;window.onload=document.addEventListener("scroll",function e(){document.removeEventListener("scroll",e),requestIdle(function(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}})}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
+  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){function e(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}}if("IntersectionObserver"in window){var o=new IntersectionObserver(function(t,n){t.forEach(function(t){t.isIntersecting&&(e(),o.unobserve(t.target))})},{rootMargin:"0px 0px 1200px 0px"}),t=document.getElementById("taboola-below-content-thumbnails");t&&o.observe(t)}else e()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
     window._taboola = window._taboola || [];
@@ -547,12 +561,12 @@ export default ({
       _taboola.push({
           article: 'auto'
       });
-
-      ! function(){
+      !function(){
         if (typeof window !== 'undefined') {
+          if(window.location.search.includes('widgettaboola=none')) {
+            return;
+          }
           document.addEventListener('DOMContentLoaded', () => {
-            const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
-
             function execTaboola() {
               const id = 'tb_loader_script'
               if (!document.getElementById(id)) {
@@ -565,11 +579,7 @@ export default ({
               }
             }
       
-            if (
-              'IntersectionObserver' in window &&
-              'IntersectionObserverEntry' in window &&
-              'intersectionRatio' in window.IntersectionObserverEntry.prototype
-            ) {
+            if ('IntersectionObserver' in window) {
               const taboolaObserver = new IntersectionObserver(
                 (entries, observer) => {
                   entries.forEach(entry => {
@@ -578,17 +588,18 @@ export default ({
                       taboolaObserver.unobserve(entry.target)
                     }
                   })
-                },{rootMargin: "0px 0px 200px 0px"}
+                },{rootMargin: "0px 0px 1200px 0px"}
               )
 
-              taboolaObserver.observe(taboolaDiv)
+              const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
+              if(taboolaDiv) taboolaObserver.observe(taboolaDiv)
             } else {
               execTaboola()
             }
           })
-        }
-        if (window.performance && typeof window.performance.mark == 'function') {
-          window.performance.mark('tbl_ic');
+          if (window.performance && typeof window.performance.mark == 'function') {
+            window.performance.mark('tbl_ic');
+          }
         }
       }()
    */

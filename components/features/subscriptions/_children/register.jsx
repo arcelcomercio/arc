@@ -29,7 +29,7 @@ const styles = {
   link: 'step__btn-link',
   backLogin: 'step__left-link-register',
   center: 'step__left-align-center',
-  subTitle: 'step__left-subtitle',
+  textNotice: 'step__left-text-notice',
   textBlock: 'step__left-textblock',
 }
 
@@ -360,7 +360,7 @@ const Register = ({ arcSite }) => {
 
               <span className={styles.textBlock}>{remail}</span>
 
-              <h3 className={styles.subTitle}>{texts.checkInbox}</h3>
+              <h3 className={styles.textNotice}>{texts.checkInbox}</h3>
 
               <div className={styles.block}>
                 <button

@@ -23,8 +23,8 @@ const StoryContentChildAuthorTrustLite = ({
   authorLink,
   authorImage,
   authorRole,
-  updatedDate,
-  date,
+  displayDate,
+  publishDate: updateDate,
   locality,
   authorEmail,
   primarySection = '',
@@ -60,15 +60,17 @@ const StoryContentChildAuthorTrustLite = ({
               ? classes.authorDate
               : `${classes.authorDate} ${classes.authortop}`
           }>
-          <time className={classes.authorTime} dateTime={updatedDate}>
-            {updatedDate &&
+          <time className={classes.authorTime} dateTime={displayDate}>
+            {displayDate &&
               `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
-                updatedDate,
+                displayDate,
                 false,
                 true
               )}`}
           </time>
-          <time dateTime={date}>{date && formatDateStory(date)}</time>
+          <time dateTime={updateDate}>
+            {updateDate && formatDateStory(updateDate)}
+          </time>
         </div>
       </div>
       {primarySection !== 'Columnistas' && authorEmailSecond && (

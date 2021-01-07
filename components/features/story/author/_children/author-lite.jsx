@@ -1,6 +1,11 @@
-import React from 'react'
-import { formatDateStory } from '../../../../utilities/date-time/dates'
+import * as React from 'react'
+
+import { formatDateTime } from '../../../../utilities/date-time/dates'
 import { GALLERY_VERTICAL } from '../../../../utilities/constants/subtypes'
+import {
+  SITE_DEPOR,
+  SITE_TROME,
+} from '../../../../utilities/constants/sitenames'
 
 const classes = {
   author: 'story-contents__author',
@@ -12,10 +17,26 @@ const classes = {
 const StoryContentChildAuthorLite = ({
   author,
   authorLink,
-  updatedDate,
-  primarySection = '',
+  displayDate,
+  publishDate: updateDate,
   subtype,
+  arcSite,
+  primarySection = '',
 }) => {
+  const storyDatetime = () => {
+    const formattedDisplayDate = formatDateTime(displayDate)
+    const formattedUpdateDate = formatDateTime(updateDate)
+
+    if (arcSite === SITE_TROME) {
+      return `Actualizado el ${formattedUpdateDate}`
+    }
+    return `${arcSite === SITE_DEPOR ? '' : 'Lima,'} ${formattedDisplayDate} ${
+      formattedDisplayDate !== formattedUpdateDate
+        ? `| Actualizado ${formattedUpdateDate}`
+        : ''
+    }`
+  }
+
   return (
     <>
       <div
@@ -34,9 +55,7 @@ const StoryContentChildAuthorLite = ({
           </>
         )}
         <div className={classes.authorDate}>
-          <time dateTime={updatedDate}>
-            {updatedDate && formatDateStory(updatedDate)}
-          </time>
+          <time dateTime={displayDate}>{storyDatetime()}</time>
         </div>
       </div>
     </>

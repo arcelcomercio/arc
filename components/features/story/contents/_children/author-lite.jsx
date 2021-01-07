@@ -1,5 +1,7 @@
-import React from 'react'
-import { formatDateStory } from '../../../../utilities/date-time/dates'
+import * as React from 'react'
+
+import { formatDateTime } from '../../../../utilities/date-time/dates'
+import { SITE_DEPOR, SITE_TROME } from '../../../../utilities/constants/sitenames'
 
 const classes = {
   author: 'story-contents__author  ',
@@ -8,7 +10,27 @@ const classes = {
   authorEmail: 'story-contents__author-email  ',
 }
 
-const StoryContentChildAuthorLite = ({ author, authorLink, updatedDate }) => {
+const StoryContentChildAuthorLite = ({
+  author,
+  authorLink,
+  displayDate,
+  publishDate: updateDate,
+  arcSite,
+}) => {
+  const storyDatetime = () => {
+    const formattedDisplayDate = formatDateTime(displayDate)
+    const formattedUpdateDate = formatDateTime(updateDate)
+
+    if (arcSite === SITE_TROME) {
+      return `Actualizado el ${formattedUpdateDate}`
+    }
+    return `${arcSite === SITE_DEPOR ? '' : 'Lima,'} ${formattedDisplayDate} ${
+      formattedDisplayDate !== formattedUpdateDate
+        ? `| Actualizado ${formattedUpdateDate}`
+        : ''
+    }`
+  }
+
   return (
     <>
       <div className={classes.author}>
@@ -21,9 +43,7 @@ const StoryContentChildAuthorLite = ({ author, authorLink, updatedDate }) => {
           </a>
         )}
         <div className={classes.authorDate}>
-          <time dateTime={updatedDate}>
-            {updatedDate && formatDateStory(updatedDate)}
-          </time>
+          <time dateTime={displayDate}>{storyDatetime()}</time>
         </div>
       </div>
     </>

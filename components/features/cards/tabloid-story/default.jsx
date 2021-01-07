@@ -4,7 +4,7 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
-import getLatinDate from '../../../utilities/date-time/latin-date'
+import { getVerboseDate } from '../../../utilities/date-time/dates'
 import {
   includePrimarySection,
   includePromoItems,
@@ -140,7 +140,7 @@ const CardsTabloidStory = props => {
           href={websiteLink}
           className="mb-40 flex justify-center">
           <time dateTime={date} className="text-xl text-gray-300 font-bold">
-            {date && getLatinDate(date, ' del', true)}
+            {date && getVerboseDate({ date, showTime: false })}
           </time>
         </a>
         <a itemProp="url" className="flex justify-center" href={websiteLink}>

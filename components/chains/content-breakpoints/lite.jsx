@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 
-const ContentBreakpoints = ({children}) => {
+const ContentBreakpoints = ({ children }) => {
   return (
-    <sectiion className='st-sidebar__container f f-col w-full pos-rel'>
+    <sectiion className="st-sidebar__container f f-col w-full pos-rel">
       {children}
     </sectiion>
   )

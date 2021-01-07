@@ -4,7 +4,10 @@ import UtilListKey from '../../../../../utilities/list-keys'
 import { createResizedParams } from '../../../../../utilities/resizer/resizer'
 import StoryData from '../../../../../utilities/story-data'
 import MultimediaIcon from '../../../../../global-components/lite/multimedia-icon'
-import { SITE_ELCOMERCIO } from '../../../../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIO,
+  SITE_TROME,
+} from '../../../../../utilities/constants/sitenames'
 
 // Basic flex stuff
 const classes = {
@@ -27,6 +30,10 @@ const RenderRelatedContentElement = (props, i) => {
     arcSite,
     defaultImgSize: 'sm',
   })
+  let presets = 'landscape_sm:200x116'
+  if (arcSite === SITE_TROME) {
+    presets = 'landscape_sm:304x147'
+  }
   const filterData = {
     title: storyData.title,
     link: storyData.link,
@@ -36,7 +43,7 @@ const RenderRelatedContentElement = (props, i) => {
     image:
       createResizedParams({
         url: storyData.imageUrl,
-        presets: 'landscape_sm:200x116',
+        presets,
         arcSite,
       }).landscape_sm || {},
     lazyImage: storyData.multimediaLazyDefault,

@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import schemaFilter from './_dependencies/schema-filter'
 import TVHighlightChild from './_children/tv-highlight'
@@ -19,7 +19,7 @@ const CONTENT_SOURCE = 'story-by-section'
 
 const TVHighlightFeat = props => {
   const { customFields: { section } = {} } = props
-  const { arcSite, deployment, contextPath } = useFusionContext()
+  const { arcSite, deployment, contextPath } = useAppContext()
 
   const story = useContent({
     source: CONTENT_SOURCE,
@@ -58,7 +58,7 @@ const TVHighlightFeat = props => {
     },
   })
 
-  return story && <TVHighlightChild {...story} />
+  return story ? <TVHighlightChild {...story} /> : null
 }
 
 TVHighlightFeat.propTypes = {

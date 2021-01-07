@@ -92,45 +92,55 @@ export const stickyScript =
 
 /* document.addEventListener('DOMContentLoaded', () => {
   requestIdle(() => {
-    const searchInput = document.getElementById('header-search-input')
-    const searchButton = document.body.querySelector('.nav__btn--search')
-    searchButton.addEventListener('click', () => {
-      if (searchInput.value) {
-        const newQuery = encodeURIComponent(searchInput.value).replace(
-          /%20/g,
-          '+'
-        )
-        window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
-      } else if (searchInput.classList.contains('active')) {
-        searchInput.classList.remove('active')
-        searchButton.classList.remove('active')
-      } else {
-        searchInput.classList.add('active')
-        searchButton.classList.add('active')
-      }
-    })
+    const searchForm = document.getElementById('header-search-form')
     const sidebarForm = document.body.querySelector('.nav-sidebar__box-search')
-    const sidebarInput = document.body.querySelector('.nav-sidebar__input')
+
     const callback = (e) => {
       e.preventDefault()
-      if (sidebarInput.value) {
-        const newQuery = encodeURIComponent(sidebarInput.value).replace(
-          /%20/g,
-          '+'
-        )
-        window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}` 
+
+      let elementInput = e.target.getElementsByTagName("input")
+      elementInput = elementInput ? elementInput[0] : null
+
+      let elementButton = e.target.getElementsByTagName("button")
+      elementButton = elementButton ? elementButton[0] : null
+      
+      if(elementInput) {
+        if (elementInput.value) {
+          const newQuery = encodeURIComponent(elementInput.value).replace(
+            /%20/g,
+            '+'
+          )
+          window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}` 
+        } else if(elementButton) {
+          if (elementInput.classList.contains('active')) {
+            elementInput.classList.remove('active')
+            elementButton.classList.remove('active')
+          } else {
+            elementInput.classList.add('active')
+            elementButton.classList.add('active')
+          }
+        }
+      }
+      
+    }
+
+    const addSubmitEvent = (element) => {
+      if(element) {
+        if (element.addEventListener) {
+          element.addEventListener('submit', callback, false) // Modern browsers
+        } else if (element.attachEvent) {
+          element.attachEvent('onsubmit', callback) // Old IE
+        }
       }
     }
-    if (sidebarForm.addEventListener) {
-      sidebarForm.addEventListener('submit', callback, false) // Modern browsers
-    } else if (sidebarForm.attachEvent) {
-      sidebarForm.attachEvent('onsubmit', callback) // Old IE
-    }
+
+    if(searchForm) addSubmitEvent(searchForm)
+    if(sidebarForm) addSubmitEvent(sidebarForm)
+    
   })
 }) */
 
-export const searchScript =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("header-search-input"),t=document.body.querySelector(".nav__btn--search");t.addEventListener("click",function(){if(e.value){var n=encodeURIComponent(e.value).replace(/%20/g,"+");window.location.href="/buscar/"+n+"/todas/descendiente/?query="+n}else e.classList.contains("active")?(e.classList.remove("active"),t.classList.remove("active")):(e.classList.add("active"),t.classList.add("active"))});var n=document.body.querySelector(".nav-sidebar__box-search"),a=document.body.querySelector(".nav-sidebar__input"),c=function(e){if(e.preventDefault(),a.value){var t=encodeURIComponent(a.value).replace(/%20/g,"+");window.location.href="/buscar/"+t+"/todas/descendiente/?query="+t}};n.addEventListener?n.addEventListener("submit",c,!1):n.attachEvent&&n.attachEvent("onsubmit",c)})});'
+export const searchScript = `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("header-search-form"),t=document.body.querySelector(".nav-sidebar__box-search"),a=function(e){e.preventDefault();var t=e.target.getElementsByTagName("input");t=t?t[0]:null;var a=e.target.getElementsByTagName("button");if(a=a?a[0]:null,t)if(t.value){var n=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/"+n+"/todas/descendiente/?query="+n}else a&&(t.classList.contains("active")?(t.classList.remove("active"),a.classList.remove("active")):(t.classList.add("active"),a.classList.add("active")))},n=function(e){e&&(e.addEventListener?e.addEventListener("submit",a,!1):e.attachEvent&&e.attachEvent("onsubmit",a))};e&&n(e),t&&n(t)})});`
 
 /* document.addEventListener('DOMContentLoaded', () => {
   requestIdle(() => {

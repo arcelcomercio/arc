@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   requestIdle(() => {
     let links = Array.from(document.links);
-    links = links.filter(link => !link.className.includes("share"))
-    console.log({links})
     links.forEach(link => {
-      link.target = "_blank"
+      if(!link.className.includes("share")) {
+        link.target = "_blank"
+      }
       // link.onclick = _handleLinkClick
     })
   })
@@ -26,6 +26,20 @@ window.addEventListener('load', () => {
     }, location.origin)
   }
 
+  function postHeightToParentDocumentFallback(each = 3000, times = 5) {
+    let timer = null
+    let messagesCounter = 0
+    function setTimer() {
+      sendMessage()
+      messagesCounter = messagesCounter + 1
+      if(messagesCounter = times) {
+        clearTimeout(timer)
+      }
+      timer = setTimeout(setTimer, each);
+    }
+    setTimer()
+  }
+
   function postHeightToParentDocument() {
     if('ResizeObserver' in window && 'IntersectionObserver' in window) {
       const resizerObserver = new ResizeObserver(entries => {
@@ -37,7 +51,7 @@ window.addEventListener('load', () => {
       resizerObserver.observe(document.body);
 
       let isCurrentStory = false
-      const intersectionObserver = new IntersectionObserver(function(entries) {
+      const intersectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting && isCurrentStory === false) {
             isCurrentStory = true
@@ -49,18 +63,9 @@ window.addEventListener('load', () => {
         })
       }, {rootMargin: '0px'})
       intersectionObserver.observe(document.body)
+      postHeightToParentDocumentFallback(3000, 2)
     } else {
-      let timer = null
-      let messagesCounter = 0
-      function setTimer() {
-        sendMessage()
-        messagesCounter = messagesCounter + 1
-        if(messagesCounter = 5) {
-          clearTimeout(timer)
-        }
-        timer = setTimeout(setTimer, 3000);
-      }
-      setTimer()
+      postHeightToParentDocumentFallback()
     }
   }
   

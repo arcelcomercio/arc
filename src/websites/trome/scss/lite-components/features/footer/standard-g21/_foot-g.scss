@@ -1,0 +1,120 @@
+.foot-g {
+  display: grid;
+  margin-bottom: 20px;
+  grid-template: "info" auto "contact" auto "sites" auto;
+
+  @media (--tablet) {
+    grid-template: "info contact" auto "sites sites " auto / 1fr 1fr;
+  }
+
+  @media (--desktop) {
+    grid-template: "info sections contact" auto "sites sites sites" auto / 1fr 1fr 1fr;
+  }
+
+  &__logo-container {
+    width: 104px;
+    display: block;
+    margin-bottom: 15px;
+  }
+  &__legal-list {
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.3333333333;
+  }
+  &__legal-item {
+    margin-bottom: 10px;
+  }
+  &__list {
+    padding: 0 20px 20px 30px;
+  }
+  &__list-title {
+    text-transform: uppercase;
+    padding: 10px 0;
+  }
+  &__list-link {
+    padding: 10px 0;
+  }
+  &__social-title {
+    text-transform: uppercase;
+    padding: 10px 0 20px 30px;
+  }
+
+  &__info {
+    grid-area: info;
+    padding: 20px;
+  }
+  &__sites {
+    grid-area: sites;
+    padding: 20px;
+    display: none;
+    @media (--tablet) {
+      display: block;
+    }
+  }
+  &__sections {
+    grid-area: sections;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+  &__contact {
+    grid-area: contact;
+    display: none;
+    @media (--tablet) {
+      display: block;
+    }
+  }
+
+  &__sites-list {
+    padding-top: 10px;
+    flex-wrap: wrap;
+  }
+  &__sites-item {
+    padding: 0 10px 5px 0;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    &::after {
+      content: "";
+      display: block;
+      width: 4px;
+      height: 4px;
+      background-color: #262627;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+  }
+  &__ec {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  &__social {
+    padding-left: 30px;
+  }
+  &__social-item {
+    padding-right: 15px;
+  }
+
+  &__sections,
+  &__contact {
+    font-size: 0.8rem;
+    padding: 10px 0;
+  }
+
+  &__sections,
+  &__info {
+    @media (--tablet) {
+      &::after {
+        background-color: #262627;
+        content: "";
+        display: block;
+        width: 1px;
+        height: 78%;
+        position: absolute;
+        right: 0;
+        top: 12%;
+      }
+    }
+  }
+}

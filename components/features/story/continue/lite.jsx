@@ -50,7 +50,8 @@ window.addEventListener('load', () => {requestIdle(() => {
     typeof window !== 'undefined' ? window.navigator.userAgent : ''
   )
 
-  const storyLoadAmp = () =>
+  const storyLoadAmp = arcSite =>
+  arcSite === 'elcomercio' &&
     isMobile
       ? '?ref=nota&ft=autoload&outputType=amp'
       : '?ref=nota&ft=autoload'
@@ -59,7 +60,7 @@ window.addEventListener('load', () => {requestIdle(() => {
 
   const loadNextUrlStorage = () => {
     requestStory = setTimeout(() => {
-      window.location.href = nextStoryObject.link + storyLoadAmp() || '/'
+      window.location.href = nextStoryObject.link + storyLoadAmp('<<arcSite>>') || '/'
     }, 250)
     
   }
@@ -116,42 +117,61 @@ const StoryContinueLite = () => {
 
   const { content_elements: contentElements = [] } = recentStories
 
-  const stContinueScript = '"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recents_articles_",t=JSON.parse(window.sessionStorage.getItem(e))||{},n="<<recentStoriesrecentStoriesrecentStories>>",o=function(t){void 0===t&&(t={});var n=t,o=n.section,i=n.data,s=void 0===i?[]:i;window.sessionStorage.setItem(e,JSON.stringify({section:o,data:s.filter(function(e){return e.link!==window.location.pathname})}))};if(t.section)if(t.section!==n.section)window.sessionStorage.removeItem(e),o(n);else{var i=JSON.parse(window.sessionStorage.getItem(e));window.sessionStorage.removeItem(e),o(i)}else o(n);var s=((JSON.parse(window.sessionStorage.getItem(e))||{}).data||[])[0]||{};document.querySelector(".st-continue__title").innerHTML=s.title||"Portada",document.querySelector(".st-continue").href=s.link;var r,a=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),c=function(){r=setTimeout(function(){window.location.href=s.link+(a?"?ref=nota&ft=autoload&outputType=amp":"?ref=nota&ft=autoload")||"/"},250)},d=function(){var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")<=0&&(e.className=e.className.concat(" loading")),window.innerHeight+document.documentElement.scrollTop>=document.body.scrollHeight-5&&c()};if("IntersectionObserver"in window){var l=new IntersectionObserver(function(e){e.forEach(function(e){var t=document.querySelector(".st-continue__close");e.isIntersecting&&(window.addEventListener("scroll",d),t.addEventListener("click",function(){clearTimeout(r);var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")>0&&(e.className=e.className.replace(" loading",""))}),l.unobserve(e.target))})});l.observe(document.querySelector(".st-continue"))}else window.addEventListener("scroll",d)})});'.replace(
-    '"<<recentStoriesrecentStoriesrecentStories>>"',
-    JSON.stringify({
-      section: removeLastSlash(path),
-      data: contentElements.map(
-        ({
-          websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
-          headlines: { basic = '' } = {},
-        }) => ({ link: websiteUrl, title: basic })
-      ),
-    })
-  )
+  const stContinueScript = '"use strict";window.addEventListener("load",function(){requestIdle(function(){var e="_recents_articles_",t=JSON.parse(window.sessionStorage.getItem(e))||{},n="<<recentStoriesrecentStoriesrecentStories>>",o=function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},n=t.section,o=t.data,i=void 0===o?[]:o;window.sessionStorage.setItem(e,JSON.stringify({section:n,data:i.filter(function(e){return e.link!==window.location.pathname})}))};if(t.section)if(t.section!==n.section)window.sessionStorage.removeItem(e),o(n);else{var i=JSON.parse(window.sessionStorage.getItem(e));window.sessionStorage.removeItem(e),o(i)}else o(n);var r=((JSON.parse(window.sessionStorage.getItem(e))||{}).data||[])[0]||{};document.querySelector(".st-continue__title").innerHTML=r.title||"Portada",document.querySelector(".st-continue").href=r.link;var s,a=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test("undefined"!=typeof window?window.navigator.userAgent:""),c=function(){s=setTimeout(function(){window.location.href=r.link+("elcomercio"==="<<arcSite>>"&&a?"?ref=nota&ft=autoload&outputType=amp":"?ref=nota&ft=autoload")||"/"},250)},d=function(){var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")<=0&&(e.className=e.className.concat(" loading")),window.innerHeight+document.documentElement.scrollTop>=document.body.scrollHeight-5&&c()};if("IntersectionObserver"in window){var l=new IntersectionObserver(function(e){e.forEach(function(e){var t=document.querySelector(".st-continue__close");e.isIntersecting&&(window.addEventListener("scroll",d),t.addEventListener("click",function(){clearTimeout(s);var e=document.querySelector(".st-continue__progress");e.className.indexOf("loading")>0&&(e.className=e.className.replace(" loading",""))}),l.unobserve(e.target))})});l.observe(document.querySelector(".st-continue"))}else window.addEventListener("scroll",d)})});'
+    .replace(
+      '"<<recentStoriesrecentStoriesrecentStories>>"',
+      JSON.stringify({
+        section: removeLastSlash(path),
+        data: contentElements.map(
+          ({
+            websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
+            headlines: { basic = '' } = {},
+          }) => ({ link: websiteUrl, title: basic })
+        ),
+      })
+    )
+    .replace('<<arcSite>>', arcSite)
 
   return (
     <>
-      <div className="st-continue__progress-box f pos-rel">
-        <div className="st-continue__progress"></div>
-        <span className="st-continue__subtitle pos-abs">
-          CARGANDO SIGUIENTE...
-        </span>
-        <svg
-          role="button"
-          xmlns="http://www.w3.org/2000/svg"
-          className="st-continue__close pos-abs"
-          width="20"
-          height="20"
-          viewBox="0 0 46 46">
-          <title>Cancelar carga de siguiente noticia</title>
-          <path d="M23 3C11.9 3 2.9 12 2.9 23.1 2.9 34.2 11.9 43.2 23 43.2 34.1 43.2 43.1 34.2 43.1 23.1 43.1 12 34.1 3 23 3ZM32.7 29.9C32.9 30 32.9 30.2 32.9 30.4 32.9 30.6 32.9 30.8 32.7 30.9L30.8 32.8C30.6 33 30.5 33 30.3 33 30.1 33 29.9 33 29.8 32.8L23 26 16.2 32.8C16.1 33 15.9 33 15.7 33 15.5 33 15.4 33 15.2 32.8L13.3 30.9C13.1 30.8 13.1 30.6 13.1 30.4 13.1 30.2 13.1 30 13.3 29.9L20.1 23.1 13.3 16.3C13 16 13 15.6 13.3 15.3L15.2 13.4C15.3 13.2 15.5 13.1 15.7 13.1 15.9 13.1 16.1 13.2 16.2 13.4L23 20.1 29.8 13.4C29.9 13.2 30.1 13.1 30.3 13.1 30.5 13.1 30.7 13.2 30.8 13.4L32.8 15.3C33 15.6 33 16 32.8 16.3L25.9 23.1ZM32.7 29.9"></path>
-        </svg>
-      </div>
-      <a itemProp="url" href="/" className="st-continue">
-        <h3 itemProp="name" className="st-continue__title oflow-h">
-          Siguiente noticia
-        </h3>
-      </a>
+      {arcSite === 'depor' || arcSite === 'trome' ? (
+        <div className="st-continue f just-center">
+          <div className="st-continue__progress"></div>
+          <div className="st-continue__container f just-center">
+            <div className="st-continue__close"></div>
+            <span>Cargando siguiente contenido</span>
+            <a itemProp="url" href="/">
+              <h3 itemProp="name" className="st-continue__title oflow-h">
+                Siguiente noticia
+              </h3>
+            </a>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="st-continue__progress-box f pos-rel">
+            <div className="st-continue__progress"></div>
+            <span className="st-continue__subtitle pos-abs">
+              CARGANDO SIGUIENTE...
+            </span>
+            <svg
+              role="button"
+              xmlns="http://www.w3.org/2000/svg"
+              className="st-continue__close pos-abs"
+              width="20"
+              height="20"
+              viewBox="0 0 46 46">
+              <title>Cancelar carga de siguiente noticia</title>
+              <path d="M23 3C11.9 3 2.9 12 2.9 23.1 2.9 34.2 11.9 43.2 23 43.2 34.1 43.2 43.1 34.2 43.1 23.1 43.1 12 34.1 3 23 3ZM32.7 29.9C32.9 30 32.9 30.2 32.9 30.4 32.9 30.6 32.9 30.8 32.7 30.9L30.8 32.8C30.6 33 30.5 33 30.3 33 30.1 33 29.9 33 29.8 32.8L23 26 16.2 32.8C16.1 33 15.9 33 15.7 33 15.5 33 15.4 33 15.2 32.8L13.3 30.9C13.1 30.8 13.1 30.6 13.1 30.4 13.1 30.2 13.1 30 13.3 29.9L20.1 23.1 13.3 16.3C13 16 13 15.6 13.3 15.3L15.2 13.4C15.3 13.2 15.5 13.1 15.7 13.1 15.9 13.1 16.1 13.2 16.2 13.4L23 20.1 29.8 13.4C29.9 13.2 30.1 13.1 30.3 13.1 30.5 13.1 30.7 13.2 30.8 13.4L32.8 15.3C33 15.6 33 16 32.8 16.3L25.9 23.1ZM32.7 29.9"></path>
+            </svg>
+          </div>
+          <a itemProp="url" href="/" className="st-continue">
+            <h3 itemProp="name" className="st-continue__title oflow-h">
+              Siguiente noticia
+            </h3>
+          </a>
+        </>
+      )}
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

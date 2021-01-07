@@ -57,7 +57,16 @@ const StorySocialLite = () => {
         )}
       </div>
       <div className={classes.buttons}>
-        <ShareButtons activeGoogleNews={arcSite === 'elcomercio'} />
+        <ShareButtons
+          activeGoogleNews={
+            arcSite === 'elcomercio' ||
+            arcSite === 'elcomerciomag' ||
+            arcSite === 'trome'
+          }
+          activeLinkedin={
+            arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+          }
+        />
       </div>
     </div>
   )

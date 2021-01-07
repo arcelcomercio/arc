@@ -25,6 +25,8 @@ export default {
   mobileHeaderFollowing: 'Siguenos en Trome',
   siteDescription:
     'Noticias de Perú y el mundo en Trome.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
+  googleNewsUrl:
+    'https://news.google.com/publications/CAAiECCiQIt3Kd998hQP1V3qDOIqFAgKIhAgokCLdynfffIUD9Vd6gzi?hl=es-419&gl=PE&ceid=PE%3Aes-419',
   googleNewsImage: 'https://trome.pe/f/i/pub_40.png',
   infoPagesDev: {
     termsAndConditions: '',

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import {
@@ -38,7 +38,7 @@ const BasicHtmlFeat = props => {
   const {
     customFields: { freeHtml = '', adsSpace, adsBorder = '' } = {},
   } = props
-  const { outputType, isAdmin } = useFusionContext()
+  const { isAdmin } = useAppContext()
   let ID_VIDEO = ''
   let URL_VIDEO = ''
 
@@ -70,7 +70,7 @@ const BasicHtmlFeat = props => {
     ID_VIDEO = freeHtml.includes('id') && `${idVideos[2]}`
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (URL_VIDEO) {
       appendToBody(createScript({ src: URL, async: true }))
     }
@@ -107,7 +107,7 @@ const BasicHtmlFeat = props => {
         appendToBody(createScript({ src: url, async: true }))
       }
     }
-  }, [])
+  }, [URL_VIDEO, ID_VIDEO, freeHtml])
 
   const getAdsSpace = () => {
     const toDate = dateStr => {
@@ -159,28 +159,26 @@ const BasicHtmlFeat = props => {
 
   const addEmptyBorder = () =>
     adsBorder === 'containerp' ? 'container-publicidad' : ''
-
   const addEmptyBackground = () => (!freeHtml && isAdmin ? 'bg-gray-200' : '')
+  const ads = getAdsSpace()
 
-  if (getAdsSpace()) {
+  if (ads) {
     return (
       <div
         className={addEmptyBorder()}
-        dangerouslySetInnerHTML={{ __html: getAdsSpace() }}
+        dangerouslySetInnerHTML={{ __html: ads }}
       />
     )
   }
   return (
     <div className={` ${classes.htmlContainer} `}>
-      {freeHtml && outputType !== 'amp' && (
-        <div dangerouslySetInnerHTML={{ __html: freeHtml }} />
-      )}
-      {!freeHtml && isAdmin && (
+      {freeHtml ? <div dangerouslySetInnerHTML={{ __html: freeHtml }} /> : null}
+      {!freeHtml && isAdmin ? (
         <div
           dangerouslySetInnerHTML={{ __html: freeHtml }}
           className={addEmptyBackground()}
         />
-      )}
+      ) : null}
     </div>
   )
 }

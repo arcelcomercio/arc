@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import * as React from 'react'
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
 import ENV from 'fusion:environment'
 
 import getResponsiveClasses from '../../../../utilities/responsive-classes'
@@ -67,7 +67,7 @@ const classes = {
 }
 
 @Consumer
-class NavBarDefault extends PureComponent {
+class NavBarDefault extends React.PureComponent {
   constructor(props) {
     super(props)
 
@@ -147,7 +147,7 @@ class NavBarDefault extends PureComponent {
             {/** ************* LEFT *************** */}
 
             <div className={classes.searchContainer}>
-              <div className={classes.form}>
+              <form className={classes.form} id="header-search-form">
                 <input
                   id="header-search-input"
                   type="search"
@@ -160,10 +160,10 @@ class NavBarDefault extends PureComponent {
                   className="overflow-hidden w-0 h-0">
                   Cuadro de búsqueda
                 </label>
-                <button className={classes.btnSearch} type="button">
+                <button className={classes.btnSearch} type="submit">
                   <i className={classes.iconSearch} />
                 </button>
-              </div>
+              </form>
             </div>
 
             {!hideMenu && (

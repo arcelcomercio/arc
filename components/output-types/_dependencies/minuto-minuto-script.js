@@ -3,9 +3,9 @@ const minutoObserver = (entries, observer) => {
   entries.forEach(entry => {
     const { isIntersecting, target } = entry
     if (isIntersecting) {
-      const URL_STORY = document.querySelector('meta[name=og:url]')
-      const title = document.querySelector('meta[name=og:title]')
-      const site = document.querySelector('meta[name=twitter:site]')
+      const URL_STORY = document.querySelector("link[rel='canonical']").href
+      const title = document.title
+      const site = document.querySelector('meta[name=twitter:site]').content
 
       target.innerHTML =
         '<a data-social="icon-compartir" class="icon-compartir"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 488 488"><path d="M483 216l-215-178c-4-3-10-4-14-2-5 2-8 7-8 12v94c-105 4-176 41-214 110-32 60-32 130-32 177 0 4 0 7 0 11 0 6 4 12 10 13 1 0 2 0 3 0 5 0 9-2 12-7 73-129 133-135 220-135v93c0 5 3 10 8 12s10 2 14-2l215-178c3-3 5-6 5-10S486 218 483 216zM273 376v-78c0-4-1-7-4-9-2-2-6-4-9-4-54 0-96 2-137 20-35 16-65 44-95 88 1-40 6-87 28-127 34-64 101-95 204-96 7 0 13-6 13-13v-78l181 149L273 376z" fill="#555"/></svg></a><ul class="story-content__list-more hidden"><li class=" story-content__item flex justify-center"><a itemprop="url" title="Compartir en facebook" data-social="share-social" class="story-content__more-link flex items-center" href="http://www.facebook.com/sharer.php?u=' +

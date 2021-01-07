@@ -28,11 +28,7 @@ const StoryHeaderChildAmpGallery = props => {
           presets,
           arcSite,
         }) || {}
-      return {
-        original: imageObject.original,
-        large: imageObject.large,
-        images: `${imageObject.large} 1024w,${imageObject.meddiun} 560w,${imageObject.small} 360w`,
-      }
+      return imageObject.meddiun
     }
     return urlImg
   }
@@ -78,8 +74,7 @@ const StoryHeaderChildAmpGallery = props => {
                   </div>
                   <div className={classes.figure}>
                     <amp-img
-                      sizes="(max-width: 360px) 50vw,(max-width: 750px) 50vw"
-                      srcset={extractImage(url, presets).images || url}
+                      src={extractImage(url, presets) || url}
                       alt={caption}
                       class={classes.image}
                       height={width < height ? 800 : 360}
@@ -107,7 +102,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja2')
+                      publicidadAmpAd('caja2', '320x100, 320x50')
                     )}
                   />
                 )}
@@ -115,7 +110,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja3')
+                      publicidadAmpAd('caja3', '320x100, 320x50, 300x1')
                     )}
                   />
                 )}
@@ -123,7 +118,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja4')
+                      publicidadAmpAd('caja4', '320x100, 320x50')
                     )}
                   />
                 )}
@@ -131,7 +126,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja5')
+                      publicidadAmpAd('caja5', '320x100, 320x50')
                     )}
                   />
                 )}

@@ -15,6 +15,21 @@ export default `{
             }
             duration
         }
+        basic_jwplayer {
+            subtype
+            embed {
+                id
+                config {
+                    key
+                    duration
+                    has_ads
+                    account
+                    resized_urls {
+                        landscape_xxs
+                    }
+                }
+            }
+        }
         youtube_id{
             content
         }

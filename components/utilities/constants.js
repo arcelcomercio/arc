@@ -3,6 +3,8 @@ export const VIDEO = 'basic_video'
 
 export const ELEMENT_YOUTUBE_ID = 'youtube_id'
 
+export const VIDEO_JWPLAYER = 'basic_jwplayer'
+
 export const HTML = 'basic_html'
 
 export const IMAGE = 'basic'
