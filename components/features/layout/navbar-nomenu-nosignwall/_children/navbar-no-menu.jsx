@@ -1,7 +1,7 @@
 import React from 'react'
 
 const classes = {
-  bar: 'navbar-nm w-full pr-5 pl-5 bg-black h-full',
+  bar: 'navbar-nm w-full pr-5 pl-5 h-full',
   container: 'navbar-nm__container flex justify-between h-full',
   left: 'navbar-nm__left flex items-center',
   list: 'navbar-nm__list flex',
@@ -9,6 +9,7 @@ const classes = {
   link: 'navbar-nm__link text-md text-gray-100 pt-5 pb-5 block secondary-font',
   right: 'navbar-nm__right flex items-center h-full',
   btns: 'navbar-nm__btns flex items-center',
+  news: 'navbar-nm__n flex alg-center',
   btn:
     'navbar-nm__btn flex items-center text-gray-100 pt-5 pb-5 pr-10 pl-10 mr-5 secondary-font text-md rounded-sm border-solid border-1 border-white',
   search: 'navbar-nm__search cursor-pointer h-full position-relative pr-5 pl-5',
@@ -71,6 +72,16 @@ export default props => {
               }
             )}
           </ul>
+          <a href="/suscripcion-newsletter/" className={classes.news}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="16"
+              viewBox="0 0 20 16">
+              <path d="M20,2a2.006,2.006,0,0,0-2-2H2A2.006,2.006,0,0,0,0,2V14a2.006,2.006,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2ZM18,2,10,6.99,2,2Zm0,12H2V4l8,5,8-5Z" />
+            </svg>
+            <span>Newsletter</span>
+          </a>
         </div>
         <div className={classes.right}>
           <div className={classes.btns}>
