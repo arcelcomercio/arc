@@ -108,6 +108,7 @@ const ArcImage = ({
       arcSite={arcSite}
       contextPath={contextPath}
       outputType={outputType}
+      icon={children}
     />
   ) : (
     <Static id={staticId}>
@@ -131,8 +132,8 @@ const ArcImage = ({
         arcSite={arcSite}
         contextPath={contextPath}
         outputType={outputType}
+        icon={children}
       />
-      {children}
     </Static>
   )
 }

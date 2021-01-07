@@ -23,9 +23,10 @@ import { buildPresets } from './utils'
  * "responsive" | "intrinsic" | "fixed" | "fill" | "fixed_height" | "flex_item" | "nodisplay"
  * @param {string} [config.itemProp] Related to Structured Data
  * @param {number} [config.quality] 1 to 100. Default 75
- * @param {string} arcSite
- * @param {string} contextPath
- * @param {string} outputType
+ * @param {string} config.arcSite
+ * @param {string} config.contextPath
+ * @param {string} config.outputType
+ * @param {JSX.Element} [config.icon]
  *
  * @returns {HTMLImageElement | HTMLPictureElement} Static resized `<img/>` o `<picture/>`
  *
@@ -53,6 +54,7 @@ const CustomImage = ({
   arcSite,
   contextPath,
   outputType,
+  icon,
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
@@ -136,9 +138,13 @@ const CustomImage = ({
         )
       })}
       <Image />
+      {icon || null}
     </picture>
   ) : (
-    <Image />
+    <>
+      <Image />
+      {icon || null}
+    </>
   )
 }
 
