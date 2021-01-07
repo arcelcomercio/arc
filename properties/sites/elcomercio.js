@@ -80,8 +80,9 @@ export default {
   paywall: {
     title: 'Suscripciones Digitales | El Comercio',
     description:
-      'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
-
+      'Suscripciones el Comercio. Accede sin límites desde la comodidad de tu casa a información exclusiva: reportajes, informes y la mejor selección de noticias e historias elaboradas por El Comercio.',
+    descriptionPayment:
+      'Suscríbete al Plan Digital y accede a CONTENIDO EXCLUSIVO ilimitadamente desde todos tus dispositivos digitales. Suscripción Anual y Mensual.',
     /**
      * Las rutas se definen como plantillas "mustachejs" y estas se resuelven utilizando
      * la libreria templayed que es una implementacion ligera de mustache. Recomiendo

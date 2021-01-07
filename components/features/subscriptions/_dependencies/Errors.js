@@ -135,6 +135,12 @@ const getCodeError = (code, status) => {
     case 'errorFinalize':
       return 'Ocurrió un error al finalizar la compra con ARC'
 
+    case 'errorNoTokenPayU':
+      return 'Ocurrió un error al momento re realizar la transacción. Por favor inténtelo nuevamente.'
+
+    case '300169':
+      return 'Ocurrió un error. No se pudo tokenizar la tarjeta'
+
     case 'verifyReset':
       return 'Activa tu cuenta para resetear la contraseña'
 

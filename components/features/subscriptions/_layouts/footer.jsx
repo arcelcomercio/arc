@@ -236,7 +236,11 @@ export const FooterSubs = () => {
 
 export const FooterLand = ({ arcType }) => {
   const { arcSite } = useFusionContext() || {}
-  const { urls, emails, texts } = PropertiesSite[arcSite]
+  const {
+    urls,
+    // emails,
+    texts,
+  } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   return (
     <>
@@ -257,11 +261,15 @@ export const FooterLand = ({ arcType }) => {
                     <div className="footer__content-logo"></div>
                   </a>
                   <p>
-                    Envíanos un correo a<br />
-                    <a
+                    Llámanos al
+                    <br />
+                    {/* <a
                       href={`mailto:${emails.atencion}`}
                       className="footer__content-link">
                       {emails.atencion}
+                    </a> */}
+                    <a href={links.callCenter} className="footer__content-link">
+                      Call Center: 311-5100
                     </a>
                   </p>
                 </div>
@@ -284,21 +292,26 @@ export const FooterLand = ({ arcType }) => {
                     <p>
                       Servicio al cliente y Ventas:
                       <br />
-                      <a
+                      {/* <a
                         href={`mailto:${emails.atencion}`}
                         className="footer__content-link">
                         {emails.atencion}
+                      </a> */}
+                      <a
+                        href={links.callCenter}
+                        className="footer__content-link">
+                        Call Center: 311-5100
                       </a>
                     </p>
                     {/* <p>
-                  Pagos pendientes y Facturación:
-                  <br />
-                  <a
-                    href={`mailto:${emails.cobranzas}`}
-                    className="footer__content-link">
-                    {emails.cobranzas}
-                  </a>
-                </p> */}
+                      Pagos pendientes y Facturación:
+                      <br />
+                      <a
+                        href={`mailto:${emails.cobranzas}`}
+                        className="footer__content-link">
+                        {emails.cobranzas}
+                      </a>
+                    </p> */}
                   </div>
                 </div>
               </div>

@@ -9,7 +9,10 @@ import {
   ArcEnv,
 } from '../_dependencies/Properties'
 import { FooterSubs, FooterLand } from '../_layouts/footer'
-import { clearUrlAPI, createExternalScript } from '../_dependencies/Utils'
+import {
+  clearUrlAPI,
+  // createExternalScript
+} from '../_dependencies/Utils'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import HeaderSubs from '../_layouts/header'
 import Singwall from './_children/Singwall'
@@ -78,7 +81,7 @@ const WrapperPaymentSubs = () => {
       if (fromFia) window.sessionStorage.setItem('paywall_type_modal', 'fia')
 
       clearUrlAPI(urls.landingUrl)
-      createExternalScript(scriptsPayment, true)
+      // createExternalScript(scriptsPayment, true)
     }
   }, [])
 
@@ -86,46 +89,53 @@ const WrapperPaymentSubs = () => {
     <>
       <style
         dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }}></style>
-
-      {userLoading && <Loading arcSite={arcSite} />}
-      <HeaderSubs {...{ userProfile, arcSite }} />
-      <Container>
-        {userLoading === false &&
-          userLoaded &&
-          userProfile &&
-          userStep === 2 && (
-            <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
-          )}
-        <Wrapper>
-          {!userLoading && (
-            <PanelLeft>
-              {freeAccess ? (
-                <Confirmation />
-              ) : (
-                <>
-                  {(() => {
-                    switch (userStep) {
-                      case 2:
-                        return userLoaded ? <Profile /> : <Singwall />
-                      case 3:
-                        return userLoaded ? <Pay /> : <Singwall />
-                      case 4:
-                        return userLoaded ? <Confirmation /> : <Singwall />
-                      default:
-                        return <Singwall />
-                    }
-                  })()}
-                </>
-              )}
-            </PanelLeft>
-          )}
-          <PanelRight>
-            {userStep !== 4 && !freeAccess && <Summary />}
-          </PanelRight>
-        </Wrapper>
-      </Container>
-      {!freeAccess && <FooterSubs />}
-      <FooterLand {...{ arcType }} />
+      <>
+        {userLoading && <Loading arcSite={arcSite} />}
+        <HeaderSubs {...{ userProfile, arcSite }} />
+        <Container>
+          {userLoading === false &&
+            userLoaded &&
+            userProfile &&
+            userStep === 2 && (
+              <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
+            )}
+          <Wrapper>
+            {!userLoading && (
+              <PanelLeft>
+                {freeAccess ? (
+                  <Confirmation />
+                ) : (
+                  <>
+                    {(() => {
+                      switch (userStep) {
+                        case 2:
+                          return userLoaded ? <Profile /> : <Singwall />
+                        case 3:
+                          return userLoaded ? <Pay /> : <Singwall />
+                        case 4:
+                          return userLoaded ? <Confirmation /> : <Singwall />
+                        default:
+                          return <Singwall />
+                      }
+                    })()}
+                  </>
+                )}
+              </PanelLeft>
+            )}
+            <PanelRight>
+              {userStep !== 4 && !freeAccess && <Summary />}
+            </PanelRight>
+          </Wrapper>
+        </Container>
+        {!freeAccess && <FooterSubs />}
+        <FooterLand {...{ arcType }} />
+      </>
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: scriptsPayment,
+        }}
+      />
     </>
   )
 }
