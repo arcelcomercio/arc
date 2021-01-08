@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { useEditableContent } from 'fusion:content'
+
+import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
 import {
   SITE_ELCOMERCIO,
@@ -38,50 +40,48 @@ const getModel = model => {
 }
 
 const FeaturedStoryPremiumChild = ({
-  arcSite,
-  isPremium,
-  model,
-  imgType,
-  lastMinute = false,
-  bgColor,
   websiteLink,
-  // multimediaSquareMD,
-  multimediaSquareXL,
-  multimediaLandscapeMD,
-  multimediaLandscapeL,
-  multimediaPortraitMD,
-  multimediaLazyDefault,
   title,
+  subTitle,
   author,
   authorLink,
-  subTitle,
-  multimediaType,
   primarySectionLink,
   primarySection,
-  isAdmin,
-  logo,
+  multimedia,
+  multimediaType,
   multimediaSubtitle,
-  titleField, // OPCIONAL, o pasar el customField de los props
-  categoryField, // OPCIONAL, o pasar el customField de los props
+  imgType,
+  isPremium,
+  model,
+  lastMinute,
+  bgColor,
+  logo,
+  titleField,
+  categoryField,
+  arcSite,
 }) => {
   const { editableField } = useEditableContent()
 
   const getEditableField = element =>
     editableField ? editableField(element) : null
 
-  const getMobileImage = () => {
-    const imgBasic = imgType ? multimediaPortraitMD : multimediaLandscapeMD
-    return model === 'basic' ? imgBasic : multimediaPortraitMD
+  // width y height para imagen dinámico en mobile
+  const imageMobileWidth = 314
+  let imageMobileHeight = 374
+  if (model === 'basic' && !imgType) {
+    imageMobileHeight = 157
   }
 
-  const getDesktopImage = () => {
-    let imageDesktop
-    if (model === 'basic')
-      imageDesktop = imgType ? multimediaPortraitMD : multimediaLandscapeMD
-    else if (model === 'twoCol') imageDesktop = multimediaLandscapeL
-    else if (model === 'full') imageDesktop = multimediaSquareXL
-    else imageDesktop = multimediaLandscapeL
-    return imageDesktop
+  // if (model === 'twoCol') 648x374
+  // width y height para imagen dinámico
+  let imageWidth = 648
+  let imageHeight = 374
+  if (model === 'basic') {
+    imageWidth = 314
+    imageHeight = imgType ? 374 : 157
+  } else if (model === 'full') {
+    imageWidth = 900
+    imageHeight = 900
   }
 
   const isComercio = arcSite === SITE_ELCOMERCIO
@@ -171,26 +171,16 @@ const FeaturedStoryPremiumChild = ({
       <div className={classes.right}>
         <Icon type={multimediaType} iconClass={classes.icon} />
         <a itemProp="url" href={websiteLink}>
-          <picture>
-            <source
-              className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
-              data-srcset={getMobileImage()}
-              media="(max-width: 480px)" // 367px
-            />
-            <source
-              className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? getDesktopImage() : multimediaLazyDefault}
-              data-srcset={getDesktopImage()}
-              media="(max-width: 620px)"
-            />
-            <img
-              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
-              data-src={getDesktopImage()}
-              alt={multimediaSubtitle || title}
-            />
-          </picture>
+          <Image
+            src={multimedia}
+            width={imageWidth}
+            height={imageHeight}
+            sizes={`(max-width: 480px) ${imageMobileWidth}px, ${imageWidth}px`}
+            sizesHeight={[imageMobileHeight]}
+            alt={multimediaSubtitle || title}
+            className={classes.image}
+            loading='lazy'
+          />
         </a>
       </div>
     </div>
