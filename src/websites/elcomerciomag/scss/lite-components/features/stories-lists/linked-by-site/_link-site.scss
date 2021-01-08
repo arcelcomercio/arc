@@ -70,6 +70,9 @@ src/general-styles/framework/core/_lite.scss
       -webkit-line-clamp: 3;
       max-height: calc(20px * 3);
     }
+    @media (--only-mobile) {
+      margin-left: 5px;
+    }
   }
   &__item {
     margin-bottom: 15px;
