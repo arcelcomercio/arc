@@ -251,8 +251,8 @@ const Summary = () => {
                 </a>{' '}
                 desde cualquier dispositivo.
               </li>
-              <li>Hasta 50% menos de publicidad.</li>
               <li>Acceso a descuentos ilimitados en Club de beneficios.</li>
+              <li>Hasta 50% menos de publicidad.</li>
             </ul>
           </div>
         )}
