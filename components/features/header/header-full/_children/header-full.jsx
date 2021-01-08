@@ -9,6 +9,7 @@ import {
   scrolled,
   showSubmenu,
   toggleMenu,
+  edicionMenu,
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -113,7 +114,7 @@ const classes = {
   title: 'header-full__e-title',
   eLink: 'header-full__e-link flex ',
   mx: 'header-full__e-mx',
-  eContent: 'header-full__e-content',
+  eContent: 'header-full__e-content hidden',
   eBody: 'header-full__e-body',
   ePais: 'header-full__e-pais  p-20',
   eName: 'header-full__e-name  p-10',
@@ -479,9 +480,11 @@ export default ({
             <div className={classes.edicion}>
               <div className={classes.title}>EDICIÓN</div>
               <a
+                id="edicionId"
                 itemProp="url"
-                href="/resultados/futbol/resultados/"
-                title="Llamada Ganadora"
+                role="button"
+                href
+                title="Edicion"
                 className={classes.eLink}>
                 <div className={classes.mx}>MX</div>
                 <svg
@@ -586,7 +589,11 @@ export default ({
             hideMenu ? '' : searchScript
           }${isStory ? scrolled : ''}${hideMenu ? '' : showSubmenu}${
             hideMenu ? '' : toggleMenu
-          }`,
+          } `,
+        }}></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: edicionMenu,
         }}></script>
     </>
   )
