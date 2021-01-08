@@ -1,4 +1,5 @@
 .header-full {
+  height: 52px;
   &.active {
     .nav__loader-bar {
       background-color: #42c64c;
@@ -57,5 +58,83 @@
     &:first-child {
       text-transform: lowercase;
     }
+  }
+  &__edicion {
+    background: #006328 0% 0% no-repeat padding-box;
+    border-color: #008a37;
+    border-left-width: 1px;
+    border-style: solid;
+    padding: 8px 3px 5px 14px;
+    width: 72px;
+    margin-left: 15px;
+  }
+  &__e-title {
+    color: #fff9;
+    font: normal normal normal 10px/17px $tertiary-font;
+  }
+  &__e-link {
+    font: normal normal normal 14px/17px $tertiary-font;
+    color: #fff;
+    display: flex;
+
+    & svg {
+      fill: #fff;
+      margin-top: -2px;
+    }
+  }
+  &__e-mx {
+    margin-top: 2px;
+  }
+  &__e-content {
+    position: absolute;
+    top: 70px;
+    right: 10px;
+  }
+  &__e-body {
+    background: #f8f8f8 0% 0% no-repeat padding-box;
+    box-shadow: 0 3px 6px #00000029;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: $secondary-font;
+    border: 1px solid #ccc;
+    width: 220px;
+  }
+  &__e-name {
+    font: normal normal bold 10px/17px $tertiary-font;
+    color: #333;
+    border: 1px solid #ededed;
+  }
+
+  &__e-pais {
+    border: 1px solid #ededed;
+    display: block;
+    & .cls-1 {
+      fill: #fff;
+    }
+    & .cls-2 {
+      fill: #006847;
+    }
+    & .cls-4 {
+      fill: #bfc2a3;
+    }
+    & .cls-3 {
+      fill: #db161d;
+    }
+    &:hover,
+    &.active {
+      background: #444 0% 0% no-repeat padding-box;
+      color: #ccc;
+      text-decoration: none;
+    }
+  }
+  &__e-arrow {
+    width: 18px;
+    height: 18px;
+    background: #f8f8f8;
+    top: -9px;
+    position: absolute;
+    transform: translate(182.47px) rotate(45deg);
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
   }
 }

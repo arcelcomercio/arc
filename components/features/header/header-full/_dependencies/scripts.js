@@ -137,3 +137,34 @@ window.addEventListener('load', () => {requestIdle(() => {
 */
 
 export const toggleMenu = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("btn-menu"),a=document.getElementById("btn-close-menu"),c=document.body.querySelector(".header-full"),l=c.querySelector(".header-full__box-btnmenu"),s=c.querySelector(".header-full__icon-menu"),t=c.querySelector(".header-full__wrapper-menu"),r=c.querySelector(".header-full__megamenu"),n=c.querySelector(".nav-sidebar__wrapper");[e,a].forEach(function(e){e.addEventListener("click",function(){s.className.indexOf("icon-hamburguer")>0?(l.className=l.className.concat(" bg-white"),s.className=s.className.replace("icon-hamburguer","icon-close active"),t.className=t.className.concat(" active"),r.className=r.className.concat(" active"),n.className=n.className.concat(" active")):(l.className=l.className.replace(" bg-white",""),s.className=s.className.replace("icon-close active","icon-hamburguer"),t.className=t.className.replace(" active",""),r.className=r.className.replace(" active",""),n.className=n.className.replace(" active",""))})})})});`
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+if(brandNL == 'trome'){
+
+    const checkDesk = document.getElementById('stNewsCinDesk')
+    const checkMob = document.getElementById('stNewsCinMob')
+
+    const HeaderNewsletter = document.getElementById('HeaderNewsletter')
+    HeaderNewsletter.className=''
+    HeaderNewsletter.style.display = 'none'
+    
+    checkDesk.addEventListener('change', function() {
+      if (checkDesk.checked) {
+        HeaderNewsletter.className='header-full__newsletter-tooltip showTooltipDesk'
+        HeaderNewsletter.style.display = 'flex'
+      }else{
+        HeaderNewsletter.style.display = 'none'
+      }
+    })
+
+    checkMob.addEventListener('change', function() {
+      if (checkMob.checked) {
+        HeaderNewsletter.className='header-full__newsletter-modal active showModalMob'
+        HeaderNewsletter.style.display = 'block'
+      }else{
+        HeaderNewsletter.style.display = 'none'
+      }
+    })
+}
+})})
+*/
