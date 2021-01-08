@@ -190,7 +190,11 @@ const StoryContentsLite = props => {
         <div
           className={`${classes.content} ${isPremium &&
             'story-content__nota-premium paywall no_copy'}`}
-          style={isPremium ? { opacity: '0', userSelect: 'none' } : {}}
+          style={
+            isPremium
+              ? { display: 'none', opacity: '0', userSelect: 'none' }
+              : {}
+          }
           id="contenedor">
           {!isDfp && (
             <>
