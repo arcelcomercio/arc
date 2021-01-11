@@ -45,6 +45,7 @@ const fetch = (key = {}) => {
     const {
       subscriber = {},
       error,
+      event: eventWinback,
       attributes: printAttributes,
       products: [
         {
@@ -112,7 +113,7 @@ const fetch = (key = {}) => {
     return Object.assign(
       {
         name,
-        event,
+        // event,
         fromFia: !!fromFia,
         summary,
         plans,
@@ -122,6 +123,8 @@ const fetch = (key = {}) => {
         printAttributes,
         msgs: printAttributes.reduce((prev, it) => ({...prev, [it.name]: it.value}), {})
       },
+      // eslint-disable-next-line no-nested-ternary
+      event ? {event} : eventWinback ? { "event": eventWinback} : {},
       error ? { error } : {}
     )
   })
