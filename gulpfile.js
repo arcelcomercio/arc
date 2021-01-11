@@ -24,6 +24,7 @@ gulp
 gulp.task('service-worker', () => {
   // eslint-disable-next-line global-require
   const workboxBuild = require('workbox-build')
+  // const mode = process.env.NODE_ENV
   return workboxBuild.generateSW({
     // globDirectory: 'build',
     // globIgnores: [],
@@ -47,7 +48,7 @@ gulp.task('service-worker', () => {
         options: {
           cacheName: 'images',
           expiration: {
-            maxEntries: 60,
+            maxEntries: 200,
             maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
           },
         },
@@ -74,19 +75,18 @@ gulp.task('service-worker', () => {
         },
       },
       {
-        urlPattern: ({ url }) =>
-          url.origin === 'https://cdna.elcomercio.pe' ||
-          url.origin === 'https://cdnc.elcomercio.pe',
-        handler: 'StaleWhileRevalidate',
-        options: {
-          cacheName: 'resources',
-        },
-      },
-      {
-        urlPattern: ({ request }) => request.destination === 'document',
+        urlPattern: ({ url, request }) => 
+          request.destination === 'document' && url.origin === self.location.origin,
         handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'routes',
+          expiration: {
+            maxEntries: 50,
+            maxAgeSeconds: 1 * 24 * 60 * 60, // 1 Day
+          },
+          cacheableResponse: {
+            statuses: [0,200]
+          }
         },
       },
     ],
