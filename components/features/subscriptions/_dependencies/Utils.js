@@ -49,13 +49,19 @@ export const checkFormatPhone = string => {
 
 export const clearUrlAPI = urlDefault => {
   if (typeof window !== 'undefined') {
-    // const rg = new RegExp(/((DNI|CDI|CEX)\/([\w-]+)\/([\w]+)\/)|((fia)\/)/g)
-    const rg = new RegExp(
-      /((DNI|CDI|CEX)\/([\w-]+)\/([\w]+)\/?(winback)?\/)|((fia)\/)/g
-    )
+    // const rg = new RegExp(
+    //   /((DNI|CDI|CEX)\/([\w-]+)\/([\w]+)\/?(winback)?\/)|((fia)\/)/g
+    // )
+
+    const rg = new RegExp(/((DNI|CDI|CEX)\/([\w-]+)\/([\w]+)\/)|((fia)\/)/g)
     const queryMatch = window.location.href.match(rg)
     const newUrl = window.location.href.split(queryMatch)
-    const UrlComplete = `${newUrl[0] || urlDefault}${newUrl[1] || ''}`
+    const isWinback = newUrl[1] && newUrl[1].match(/(winback\/)/g)
+
+    const UrlComplete = isWinback
+      ? `${newUrl[0] || urlDefault}${`eventos/${newUrl[1]}` || ''}`
+      : `${newUrl[0] || urlDefault}${newUrl[1] || ''}`
+
     window.history.pushState(null, null, UrlComplete)
   }
 }
