@@ -788,7 +788,7 @@ export default ({
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
-        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
+        {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )
