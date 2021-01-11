@@ -101,6 +101,7 @@ const Profile = () => {
       const origin = getSessionStorage('paywall_type_modal') || 'organico'
       const referer = getSessionStorage('paywall_last_url') || ''
 
+      window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         event: 'checkoutOption',
         ecommerce: {
@@ -588,6 +589,9 @@ const Profile = () => {
         <div className={styles.block}>
           <label htmlFor="uDocumentType">
             Documento de Identidad
+            <span className="note-label">
+              (Indispensable para el uso de tus descuentos)
+            </span>
             <div className="cont-select-input">
               <select
                 className={printedSubscriber && 'input-disabled'}

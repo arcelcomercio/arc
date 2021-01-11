@@ -9,6 +9,7 @@ const Subscriptions = props => {
 
   const {
     siteName,
+    colorPrimary,
     paywall: { urls, title, description },
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
@@ -29,8 +30,8 @@ const Subscriptions = props => {
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={urls.canonical} />
-        <meta name="theme-color" content="#444444" />
-        <meta name="msapplication-TileColor" content="#444444" />
+        <meta name="theme-color" content={colorPrimary} />
+        <meta name="msapplication-TileColor" content={colorPrimary} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content={twitterSite} />
         <meta name="twitter:title" content={title} />
@@ -50,16 +51,6 @@ const Subscriptions = props => {
 
         <props.Libs />
 
-        {/* <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="preconnect dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
-        <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
-        <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
-        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
-        <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
-        <link rel="preconnect dns-prefetch" href="//cdn.cxense.com" />
-        <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" /> */}
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
