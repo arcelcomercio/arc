@@ -32,7 +32,9 @@ const StructuredRecipe = () => {
 
   const displayDateZone = localISODate(displayDate)
 
-  const { imagenData } =
+  const {
+    resized_urls: { imagenData },
+  } =
     useContent({
       source: 'photo-resizer',
       query: {

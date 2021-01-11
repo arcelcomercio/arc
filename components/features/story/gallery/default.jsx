@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { usepAppContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import {
@@ -29,7 +29,7 @@ const StoryGallery = () => {
     contextPath,
     globalContent: data,
     requestUri,
-  } = usepAppContext()
+  } = useAppContext()
 
   const {
     contentElementGallery,
