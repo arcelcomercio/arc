@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
+import useForm from '../_hooks/useForm'
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import stylesLanding from '../_styles/Landing'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
@@ -14,6 +15,9 @@ import { FooterLand } from '../_layouts/footer'
 // import { createExternalScript } from '../_dependencies/Utils'
 import scriptsLanding from '../_scripts/Landing'
 import addScriptAsync from '../_dependencies/Async'
+
+import { formatNames, formatPhone } from '../_dependencies/Errors'
+import { pushCallOut } from '../_dependencies/Services'
 
 const arcType = 'landing'
 const LandingSubscriptions = () => {
@@ -31,6 +35,25 @@ const LandingSubscriptions = () => {
   const [showProfile, setShowProfile] = useState(false)
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
+
+  const [showCallin, setShowCallin] = useState(false)
+  const [showConfirmCall, setShowConfirmCall] = useState(false)
+
+  const stateSchema = {
+    namecall: { value: '', error: '' },
+    phonecall: { value: '', error: '' },
+  }
+
+  const stateValidatorSchema = {
+    namecall: {
+      required: true,
+      validator: formatNames(),
+    },
+    phonecall: {
+      required: true,
+      validator: formatPhone(),
+    },
+  }
 
   useEffect(() => {
     addScriptAsync({
@@ -89,6 +112,37 @@ const LandingSubscriptions = () => {
     }
   }
 
+  const handleCallIn = () => {
+    if (typeof window !== 'undefined') {
+      window.document.location.href = 'tel:013115100'
+    }
+  }
+
+  const onFomrCallOut = ({ namecall, phonecall }) => {
+    pushCallOut(namecall, phonecall)
+      .then(resCall => {
+        console.log(resCall)
+        if (resCall.resultado) {
+          setShowConfirmCall(true)
+        }
+      })
+      .catch(errCall => {
+        console.error(errCall)
+      })
+  }
+
+  const {
+    values: { namecall, phonecall },
+    errors: { namecall: namecallError, phonecall: phonecallError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onFomrCallOut)
+
+  const handleChangeInput = e => {
+    handleOnChange(e)
+  }
+
   return (
     <>
       <style
@@ -96,7 +150,7 @@ const LandingSubscriptions = () => {
       <>
         <header className="header" id="header">
           <div className="wrapper">
-            <div className="header__content">
+            <div className={`header__content ${!isComercio ? 'box-cont' : ''}`}>
               <a
                 href={urls.mainHome}
                 target="_blank"
@@ -105,6 +159,25 @@ const LandingSubscriptions = () => {
                 aria-label={arcSite}>
                 <div className="header__content-logo"></div>
               </a>
+
+              {isComercio && (
+                <div className="header__content-call">
+                  <span>Llama Gratis</span>
+                  <button
+                    type="button"
+                    className="icon-phone"
+                    onClick={handleCallIn}>
+                    01 311 5100
+                  </button>
+                  <button
+                    type="button"
+                    className="icon-support"
+                    onClick={() => setShowCallin(!showCallin)}>
+                    Te Llamamos
+                  </button>
+                </div>
+              )}
+
               <button
                 className="header__content-button"
                 type="button"
@@ -116,13 +189,62 @@ const LandingSubscriptions = () => {
           </div>
         </header>
 
+        {isComercio && showCallin && (
+          <section id="callin" className="callin">
+            <div className="wrapper">
+              {showConfirmCall ? (
+                <div className="msg-confirmation">
+                  <h3>Tus datos han sido enviados correctamente</h3>
+                  <p>
+                    En unos momentos uno de nuestros ejecutivos se pondrá en
+                    contacto contigo.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleOnSubmit}>
+                  <input
+                    className={namecallError && 'input-error'}
+                    type="text"
+                    placeholder="Nombre"
+                    name="namecall"
+                    maxLength="60"
+                    required
+                    value={namecall}
+                    onBlur={handleOnChange}
+                    onChange={handleChangeInput}
+                  />
+                  <input
+                    className={phonecallError && 'input-error'}
+                    type="text"
+                    placeholder="Celular"
+                    name="phonecall"
+                    maxLength="9"
+                    required
+                    value={phonecall}
+                    onBlur={handleOnChange}
+                    onChange={handleChangeInput}
+                  />
+                  <button
+                    type="submit"
+                    className="icon-send"
+                    disabled={disable}></button>
+                </form>
+              )}
+            </div>
+          </section>
+        )}
+
         <section className="planes">
           <div className={isComercio ? 'wrapper' : 'wrapper-full'}>
-            <h1 className="planes__title">{texts.mainTop}</h1>
-            <p className="planes__description">
-              {texts.parrafOne} <br />
-              {texts.parrafTwo}
-            </p>
+            {!isComercio && (
+              <>
+                <h1 className="planes__title">{texts.mainTop}</h1>
+                <p className="planes__description">
+                  {texts.parrafOne} <br />
+                  {texts.parrafTwo}
+                </p>
+              </>
+            )}
 
             {/* <button
             type="button"
