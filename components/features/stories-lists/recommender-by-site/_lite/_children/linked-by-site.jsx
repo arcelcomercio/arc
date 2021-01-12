@@ -13,6 +13,7 @@ const classes = {
   headerText: 'link-site__h-text uppercase',
   headerSiteText: 'link-site__subtitle',
   headerSite: 'link-site__site',
+  list: 'link-site__list f f-col',
 
 }
 
