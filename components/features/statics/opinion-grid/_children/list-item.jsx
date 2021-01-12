@@ -32,6 +32,7 @@ const OpinionGridListItem = ({
   multimedia,
   defaultAuthorImage,
   authorImage,
+  uid,
 }) => {
   const existImageAuthor = authorImage.includes('author.png')
 
@@ -57,6 +58,7 @@ const OpinionGridListItem = ({
                   alt={author}
                   className={classes.image}
                   loading="lazy"
+                  uid={uid}
                 />
               </a>
             </figure>
@@ -81,11 +83,12 @@ const OpinionGridListItem = ({
             <a itemProp="url" href={websiteLink}>
               <Image
                 src={multimedia}
-                width={118}
-                height={72}
+                width={225}
+                height={127}
                 alt={title}
                 className={classes.pictureNota}
                 loading="lazy"
+                uid={uid}
               />
             </a>
           </figure>

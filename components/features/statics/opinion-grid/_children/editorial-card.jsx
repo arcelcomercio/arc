@@ -22,6 +22,7 @@ const OpinionGridEditorialCard = ({
   author,
   subTitle,
   authorImage,
+  uid,
 }) => {
   return (
     <div role="listitem" className={classes.card}>
@@ -44,6 +45,7 @@ const OpinionGridEditorialCard = ({
                 alt={author}
                 className={classes.image}
                 loading="lazy"
+                uid={uid}
               />
             </a>
           </div>

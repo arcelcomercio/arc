@@ -72,6 +72,7 @@ const StaticOpinionGrid = () => {
                     author={data.author}
                     subTitle={data.subTitle}
                     authorImage={authorImage}
+                    uid={story._id}
                   />
                   <Ads
                     adElement={`${typeSpace}${countAddPrint}`}
@@ -94,6 +95,7 @@ const StaticOpinionGrid = () => {
                   author={data.author}
                   subTitle={data.subTitle}
                   authorImage={authorImage}
+                  uid={story._id}
                 />
               )
             }
@@ -111,6 +113,7 @@ const StaticOpinionGrid = () => {
                     websiteLink={data.websiteLink}
                     title={data.title}
                     authorImage={authorImage}
+                    uid={story._id}
                   />
                   <Ads
                     adElement={`${typeSpace}${countAddPrint}`}
@@ -133,6 +136,7 @@ const StaticOpinionGrid = () => {
                   websiteLink={data.websiteLink}
                   title={data.title}
                   authorImage={authorImage}
+                  uid={story._id}
                 />
               )
             }
@@ -173,6 +177,7 @@ const StaticOpinionGrid = () => {
               multimedia={data.multimedia}
               defaultAuthorImage={defaultAuthorImage}
               authorImage={authorImage}
+              uid={story._id}
             />
           ) : (
             <>
@@ -186,6 +191,7 @@ const StaticOpinionGrid = () => {
                 multimedia={data.multimedia}
                 defaultAuthorImage={defaultAuthorImage}
                 authorImage={authorImage}
+                uid={story._id}
               />
               <Ads
                 adElement={`${isDfp ? 'caja5' : 'movil5'}`}

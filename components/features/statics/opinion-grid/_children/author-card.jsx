@@ -28,6 +28,7 @@ const OpinionGridAuthorCard = ({
   websiteLink,
   title,
   authorImage,
+  uid,
 }) => {
   const existImageAuthor = authorImage.includes('author.png')
 
@@ -44,6 +45,7 @@ const OpinionGridAuthorCard = ({
               height={100}
               alt={author}
               className={classes.image}
+              uid={uid}
             />
           )}
         </figure>
