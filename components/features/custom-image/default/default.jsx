@@ -41,10 +41,7 @@ const CustomImageFeat = ({
       </div>
     )
 
-  const sizes =
-    width !== W_COL1
-      ? `(max-width: 360px) 320px, (max-width: 480px) 420px, ${width}px`
-      : ''
+  const sizes = `(max-width: 360px) 320px, (max-width: 480px) 420px, (max-width: 639px) 600px, ${width}px`
   const loading = lazyload ? 'lazy' : 'auto'
   const picture = (
     <Image
