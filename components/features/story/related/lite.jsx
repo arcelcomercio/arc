@@ -90,6 +90,7 @@ const StoryRelated = () => {
               multimedia={storyData.multimedia}
               author={storyData.author}
               authorLink={storyData.authorLink}
+              arcSite={arcSite}
             />
           )
         }
