@@ -115,10 +115,10 @@ const classes = {
   eLink: 'header-full__e-link flex ',
   mx: 'header-full__e-mx',
   eContent: 'header-full__e-content hidden',
-  eBody: 'header-full__e-body',
-  ePais: 'header-full__e-pais  p-20',
-  eName: 'header-full__e-name  p-10',
-  eArrow: 'header-full__e-arrow',
+  eBody: '__e-body',
+  ePais: '__e-pais  p-20',
+  eName: '__e-name  p-10',
+  eArrow: '__e-arrow',
 }
 
 export default ({
@@ -141,6 +141,91 @@ export default ({
 }) => {
   const arcSiteTrome = 'trome'
 
+  const edittion = (cName, opcion = '', has = true) => {
+    return (
+      <>
+        <div className={`${cName}${classes.eBody} ${opcion} jjjj`}>
+          <div className={`${cName}${classes.eName}`}>EDICIONES:</div>
+
+          <a className={`${cName}${classes.ePais}`} href="/?noredirect">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              data-name="Capa 1"
+              width="18"
+              height="12"
+              viewBox="0 0 96 96">
+              <g data-name="Grupo 2373">
+                <rect
+                  data-name="Rectángulo 1994"
+                  className="cls-1"
+                  y="16"
+                  width="96"
+                  height="64"
+                />
+                <rect
+                  data-name="Rectángulo 1995"
+                  className="cls-3"
+                  y="16"
+                  width="32"
+                  height="64"
+                />
+                <rect
+                  data-name="Rectángulo 1996"
+                  className="cls-3"
+                  x="64"
+                  y="16"
+                  width="32"
+                  height="64"
+                />
+              </g>
+            </svg>
+            {`${has ? 'PE (Perú)' : 'Perú'}`}
+          </a>
+          <a className={`${cName}${classes.ePais}`} href="/mexico/">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              data-name="Capa 1"
+              width="18"
+              height="12"
+              viewBox="0 0 96 96">
+              <g data-name="Grupo 2374">
+                <rect
+                  data-name="Rectángulo 1994"
+                  className="cls-1"
+                  y="16"
+                  width="96"
+                  height="64"
+                />
+                <rect
+                  data-name="Rectángulo 1995"
+                  className="cls-2"
+                  y="16"
+                  width="32"
+                  height="64"
+                />
+                <rect
+                  data-name="Rectángulo 1996"
+                  className="cls-3"
+                  x="64"
+                  y="16"
+                  width="32"
+                  height="64"
+                />
+                <circle
+                  data-name="Elipse 6"
+                  className="cls-4"
+                  cx="48"
+                  cy="48"
+                  r="11"
+                />
+              </g>
+            </svg>
+            {`${has ? 'MX (México)' : 'México'}`}
+          </a>
+        </div>
+      </>
+    )
+  }
   const renderSections = (sections, deep, nameId = 'root') => {
     const aux = deep
     return (
@@ -222,6 +307,7 @@ export default ({
                       />
                     </div>
                   </div>
+                  {edittion('nav-sidebar', 'flex paisBody', false)}
                   <div className={classes.boxSearch}>
                     <form
                       id="header-search-form"
@@ -351,6 +437,7 @@ export default ({
               <div className={classes.megaMenu}>
                 <div className={classes.wrapper}>
                   <div className={classes.body}>
+                    {edittion('nav-sidebar', 'flex paisBody', false)}
                     <ul className={classes.list}>
                       {menuList && renderSections(menuList, 0)}
                     </ul>
@@ -498,85 +585,7 @@ export default ({
               </a>
             </div>
             <div className={classes.eContent}>
-              <div className={classes.eBody}>
-                <div className={classes.eName}>EDICIONES:</div>
-
-                <a className={classes.ePais} href="/ddsss/">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    data-name="Capa 1"
-                    width="18"
-                    height="12"
-                    viewBox="0 0 96 96">
-                    <g data-name="Grupo 2373">
-                      <rect
-                        data-name="Rectángulo 1994"
-                        className="cls-1"
-                        y="16"
-                        width="96"
-                        height="64"
-                      />
-                      <rect
-                        data-name="Rectángulo 1995"
-                        className="cls-3"
-                        y="16"
-                        width="32"
-                        height="64"
-                      />
-                      <rect
-                        data-name="Rectángulo 1996"
-                        className="cls-3"
-                        x="64"
-                        y="16"
-                        width="32"
-                        height="64"
-                      />
-                    </g>
-                  </svg>
-                  PE (Perú)
-                </a>
-                <a className={classes.ePais} href="/dd/">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    data-name="Capa 1"
-                    width="18"
-                    height="12"
-                    viewBox="0 0 96 96">
-                    <g data-name="Grupo 2374">
-                      <rect
-                        data-name="Rectángulo 1994"
-                        className="cls-1"
-                        y="16"
-                        width="96"
-                        height="64"
-                      />
-                      <rect
-                        data-name="Rectángulo 1995"
-                        className="cls-2"
-                        y="16"
-                        width="32"
-                        height="64"
-                      />
-                      <rect
-                        data-name="Rectángulo 1996"
-                        className="cls-3"
-                        x="64"
-                        y="16"
-                        width="32"
-                        height="64"
-                      />
-                      <circle
-                        data-name="Elipse 6"
-                        className="cls-4"
-                        cx="48"
-                        cy="48"
-                        r="11"
-                      />
-                    </g>
-                  </svg>
-                  MX (México)
-                </a>
-              </div>
+              {edittion('header-full')}
               <div className={classes.eArrow}></div>
             </div>
           </div>

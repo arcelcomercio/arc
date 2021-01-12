@@ -141,7 +141,6 @@ export default {
   archiveLimit: '2018-09-18',
 
   jwplayers: {
-    gec: { playerAds: 'fB2Mdnsl', player: 'aQVjnIkX' },
-    elcomercio: { playerAds: 'jqJgjiEA', player: 'CW5g4pdQ' },
+    gec: { playerAds: '51OUP8bN', player: '14qtfOVT' },
   },
 }
