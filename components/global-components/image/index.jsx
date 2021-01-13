@@ -65,8 +65,8 @@ const ArcImage = ({
    * inesperado renderizando la imagen, puedes probar
    * agregando un `uid` (unique id)
    */
-  const idSuffix = `${uid || src || alt}`
-  const staticId = `image:${width}x${height}${idSuffix.substring(
+  const idSuffix = `${src || alt}`
+  const staticId = `image:${width}x${height}:${uid}:${idSuffix.substring(
     idSuffix.length - 30,
     idSuffix.length
   )}`
