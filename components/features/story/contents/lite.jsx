@@ -215,6 +215,8 @@ const StoryContentsLite = props => {
                 if (type === ELEMENT_IMAGE) {
                   return (
                     <StoryContentsChildImage
+                      customHeight={0}
+                      customWidth={640}
                       {...element}
                     />
                   )
