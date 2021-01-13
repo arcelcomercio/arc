@@ -7,6 +7,7 @@ import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import stylesLanding from '../_styles/Landing'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
+import { CallOut } from '../../signwall/_children/callout/index'
 import Cards from './_children/Cards'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
@@ -38,6 +39,7 @@ const LandingSubscriptions = () => {
 
   const [showCallin, setShowCallin] = useState(false)
   const [showConfirmCall, setShowConfirmCall] = useState(false)
+  const [showModalCall, setShowModalCall] = useState(false)
 
   const stateSchema = {
     namecall: { value: '', error: '' },
@@ -207,7 +209,7 @@ const LandingSubscriptions = () => {
                     type="text"
                     placeholder="Nombre"
                     name="namecall"
-                    maxLength="60"
+                    maxLength="80"
                     required
                     value={namecall}
                     onBlur={handleOnChange}
@@ -507,6 +509,32 @@ const LandingSubscriptions = () => {
             onClose={() => {
               setShowSignwall(false)
               setShowTypeLanding('landing')
+            }}
+          />
+        )}
+
+        {isComercio && (
+          <section className="callin-movil">
+            <button type="button" className="icon-phone" onClick={handleCallIn}>
+              01 311 5100
+            </button>
+            <button
+              type="button"
+              className="icon-support"
+              onClick={() => {
+                setShowModalCall(!showModalCall)
+              }}>
+              Te Llamamos
+            </button>
+          </section>
+        )}
+
+        {showModalCall && (
+          <CallOut
+            typeDialog={showTypeLanding}
+            nameDialog={showTypeLanding}
+            onClose={() => {
+              setShowModalCall(false)
             }}
           />
         )}
