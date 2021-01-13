@@ -12,12 +12,14 @@ const fetch = (key = {}) => {
     attemptToken,
     event,
     fromFia,
+    winback,
   } = key
   const {
     paywall: { urls },
   } = getProperties(site)
 
   const isCheckingSubscriptor = !!attemptToken
+  const isDniEvent = !!winback
   const isEvent = !!event
   const params = {
     ...(isCheckingSubscriptor
@@ -26,6 +28,7 @@ const fetch = (key = {}) => {
           documentType,
           documentNumber,
           attemptToken,
+          isDniEvent,
         }
       : {}),
     ...(isEvent ? { isEvent, event } : {}),
@@ -42,6 +45,7 @@ const fetch = (key = {}) => {
     const {
       subscriber = {},
       error,
+      event: eventWinback,
       attributes: printAttributes,
       products: [
         {
@@ -109,7 +113,7 @@ const fetch = (key = {}) => {
     return Object.assign(
       {
         name,
-        event,
+        // event,
         fromFia: !!fromFia,
         summary,
         plans,
@@ -119,6 +123,8 @@ const fetch = (key = {}) => {
         printAttributes,
         msgs: printAttributes.reduce((prev, it) => ({...prev, [it.name]: it.value}), {})
       },
+      // eslint-disable-next-line no-nested-ternary
+      event ? {event} : eventWinback ? { "event": eventWinback} : {},
       error ? { error } : {}
     )
   })
@@ -134,7 +140,8 @@ export default {
     documentNumber: 'text',
     documentType: 'text',
     attemptToken: 'text',
-    // event: 'text',
+    event: 'text',
+    winback: 'text',
   },
   ttl: 20,
 }

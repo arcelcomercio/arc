@@ -35,7 +35,12 @@ export const FooterSubs = () => {
   const [showDocOption, setShowDocOption] = useState('DNI')
   const { urls, texts } = PropertiesCommon
   const {
-    globalContent: { name: planName, printAttributes = [], printedSubscriber },
+    globalContent: {
+      name: planName,
+      printAttributes = [],
+      printedSubscriber,
+      event,
+    },
   } = useFusionContext() || {}
 
   const textsAttr = printAttributes.reduce(
@@ -82,11 +87,12 @@ export const FooterSubs = () => {
             .then(resDniToken => {
               if (resDniToken.token) {
                 updateLoading(true)
+                const isEvent = event ? `${event}/` : ''
                 setTimeout(() => {
                   window.location.href =
                     ArcEnv === 'prod'
-                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/`
-                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/?outputType=subscriptions`
+                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}`
+                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}?outputType=subscriptions`
                 }, 1000)
               } else {
                 window.console.error('Hubo un error con la respuesta') // Temporal hasta implementar Sentry
