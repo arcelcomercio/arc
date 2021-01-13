@@ -25,29 +25,31 @@ const StoryContentChildImage = ({
   // multimediaLarge,
   // presets
 }) => {
-  const width = completeImage ? 980 : 528
-  const height = completeImage ? 580 : 330
+  const width = completeImage ? 980 : 580
+  const height = completeImage ? 528 : 330
   /**
    * Si el contenido es tamano completo, la imagen es fluida,
    * no esta sujeta a la grilla normal de noticia,
    * por eso los breakpoints son diferentes.
    */
-  const sizes = completeImage 
+  const sizes = completeImage
     ? `(max-width: 360px) 314px, (max-width: 768px) 482px, ${width}px`
     : `(max-width: 360px) 314px, (max-width: 639px) 482px, ${width}px`
 
   return (
     <figure>
-      <Image 
+      <Image
         src={multimedia || url}
         width={width}
         height={height}
         sizes={sizes}
         alt={caption}
-        className={completeImage 
-          ? `${classImage}${classes.image} ${classImage}${classes.imageBig}` 
-          : `${classImage}${classes.image}`}
-        loading={primaryImage ? "auto" : "lazy"}
+        className={
+          completeImage
+            ? `${classImage}${classes.image} ${classImage}${classes.imageBig}`
+            : `${classImage}${classes.image}`
+        }
+        loading={primaryImage ? 'auto' : 'lazy'}
       />
       {showCaption ? (
         <figcaption className={`${classImage}${classes.caption}`}>
