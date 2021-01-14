@@ -216,7 +216,7 @@ const StoryContentsLite = props => {
                   return (
                     <StoryContentsChildImage
                       customHeight={0}
-                      customWidth={640}
+                      customWidth={620}
                       {...element}
                     />
                   )

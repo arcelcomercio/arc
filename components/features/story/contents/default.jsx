@@ -270,7 +270,7 @@ class StoryContents extends React.PureComponent {
                     return (
                       <StoryContentsChildImage
                         customHeight={0}
-                        customWidth={640}
+                        customWidth={620}
                         {...element}
                       />
                     )
