@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 
 import { validateSizes } from './utils'
 import Image from './image'
-import AdminImage from './admin-image'
+import ClientImage from './client-image'
 
 /**
  *
@@ -31,6 +31,8 @@ import AdminImage from './admin-image'
  * @param {string} [config.importance] Priority hint for browsers
  * @param {string} [config.itemProp] Related to Structured Data
  * @param {number} [config.quality] 1 to 100. Default 75
+ * @param {boolean} [config.clientResize=false] - Define si se hace resize por
+ * content source o solo en server
  *
  * @returns {JSX.Element} Static resized `<img/>` o `<picture/>`
  *
@@ -58,6 +60,7 @@ const ArcImage = ({
   pictureClassName = null,
   width = 640,
   height = 360,
+  clientResize = false,
 }) => {
   const { arcSite, contextPath, outputType, isAdmin } = useAppContext()
   /**
@@ -66,7 +69,7 @@ const ArcImage = ({
    * agregando un `uid` (unique id)
    */
   const idSuffix = `${src || alt}`
-  const staticId = `image:${width}x${height}:${uid}:${idSuffix.substring(
+  const staticId = `image:${width}x${height}:${uid || ''}:${idSuffix.substring(
     idSuffix.length - 30,
     idSuffix.length
   )}`
@@ -87,8 +90,8 @@ const ArcImage = ({
     )
   }
 
-  return isAdmin ? (
-    <AdminImage
+  return isAdmin || clientResize ? (
+    <ClientImage
       id={id}
       src={src}
       loading={loading}
@@ -109,6 +112,7 @@ const ArcImage = ({
       contextPath={contextPath}
       outputType={outputType}
       icon={children}
+      isAdmin={isAdmin}
     />
   ) : (
     <Static id={staticId}>
