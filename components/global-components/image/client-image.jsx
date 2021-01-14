@@ -27,13 +27,14 @@ import { buildPresets } from './utils'
  * @param {string} config.contextPath
  * @param {string} config.outputType
  * @param {JSX.Element} [config.icon]
+ * @param {boolean} [config.isAdmin=false]
  *
  * @returns {HTMLImageElement | HTMLPictureElement} Resized `<img/>` o `<picture/>`
  *
  * @see loading https://web.dev/native-lazy-loading/
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
  */
-const AdminImage = ({
+const ClientImage = ({
   id,
   src,
   loading,
@@ -55,7 +56,18 @@ const AdminImage = ({
   contextPath,
   outputType,
   icon,
+  isAdmin = false,
 }) => {
+  /**
+   * Se espera el atributo `loading` para simular los
+   * estandares actuales, asi el codigo esta preparado
+   * para cuando este estandar sea mayormente aceptado.
+   * @see https://web.dev/native-lazy-loading/
+   *
+   * Solo se habilita el lazyload de imagenes
+   * fuera del admin de PageBuilder.
+   */
+  const lazy = loading === 'lazy' && !isAdmin
   const placeholder =
     customPlaceholder || defaultImage({ contextPath, arcSite })
 
@@ -79,7 +91,7 @@ const AdminImage = ({
       query: {
         url: src,
         presets,
-        quality: quality || 65,
+        quality: isAdmin ? 65 : quality,
       },
     }) || {}
 
@@ -100,14 +112,14 @@ const AdminImage = ({
 
   const Image = () => (
     <img
-      src={mainImage}
+      src={lazy ? placeholder : mainImage}
+      data-src={lazy ? mainImage : null}
       alt={alt}
-      decoding="async"
+      decoding={lazy || isAdmin ? 'async' : 'auto'}
       // width={width}
       // height={height}
       id={id}
-      className={className}
-      loading={loading}
+      className={`${lazy ? 'lazy' : ''} ${className}`}
       style={style}
       type={type}
       itemProp={itemProp}
@@ -127,7 +139,14 @@ const AdminImage = ({
           sourceImage.length
         )}`
         return (
-          <source key={key} srcSet={sourceImage} media={media} type={type} />
+          <source
+            key={key}
+            srcSet={lazy ? null : sourceImage}
+            data-srcset={lazy ? sourceImage : null}
+            media={media}
+            type={type}
+            className={lazy ? 'lazy' : null}
+          />
         )
       })}
       <Image />
@@ -141,4 +160,4 @@ const AdminImage = ({
   )
 }
 
-export default React.memo(AdminImage)
+export default React.memo(ClientImage)

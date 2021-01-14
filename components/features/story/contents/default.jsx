@@ -202,10 +202,12 @@ class StoryContents extends React.PureComponent {
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
-            ? promoItems?.basic && <StoryContentsChildImpresa
-                url={promoItems.basic.url}
-                subtitle={promoItems.basic.subtitle}
-              />
+            ? promoItems?.basic && (
+                <StoryContentsChildImpresa
+                  url={promoItems.basic.url}
+                  subtitle={promoItems.basic.subtitle}
+                />
+              )
             : promoItems &&
               subtype !== BIG_IMAGE &&
               subtype !== SPECIAL_BASIC &&
@@ -267,6 +269,8 @@ class StoryContents extends React.PureComponent {
                   if (type === ELEMENT_IMAGE) {
                     return (
                       <StoryContentsChildImage
+                        customHeight={0}
+                        customWidth={620}
                         {...element}
                       />
                     )
@@ -402,11 +406,7 @@ class StoryContents extends React.PureComponent {
                     )
                   }
                   if (type === ELEMENT_LINK_LIST) {
-                    return (
-                      <StoryContentsChildLinkList
-                        items={items}
-                      />
-                    )
+                    return <StoryContentsChildLinkList items={items} />
                   }
                   if (type === ELEMENT_LIST) {
                     if (items && items.length > 0) {
