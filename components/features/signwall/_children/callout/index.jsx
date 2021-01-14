@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-no-bind */
-import React, { Component, useState } from 'react'
-import Consumer from 'fusion:consumer'
+import React, { useState } from 'react'
 import useForm from '../../_dependencies/useForm'
 import { Modal } from '../modal/index'
 import { ContMiddle, SecondMiddle, CloseBtn } from '../landing/styled'
@@ -17,15 +15,11 @@ import {
 } from '../../../subscriptions/_dependencies/Errors'
 import { pushCallOut } from '../../../subscriptions/_dependencies/Services'
 
-export const CallOutInt = props => {
-  const {
-    onClose,
-    // arcSite,
-    noBtnClose,
-    typeDialog,
-  } = props
+const CallOut = props => {
+  const { onClose, noBtnClose, typeDialog } = props
   const [showChecked, setShowChecked] = useState(false)
   const [showConfirmCall, setShowConfirmCall] = useState(false)
+  const [showErrorCall, setShowErrorCall] = useState(false)
 
   const stateSchema = {
     namecall: { value: '', error: '' },
@@ -54,13 +48,16 @@ export const CallOutInt = props => {
   const onFomrCallOut = ({ namecall, phonecall }) => {
     pushCallOut(namecall, phonecall)
       .then(resCall => {
-        console.log(resCall)
         if (resCall.resultado) {
           setShowConfirmCall(true)
+        } else {
+          setShowErrorCall(resCall.mensaje)
         }
       })
-      .catch(errCall => {
-        console.error(errCall)
+      .catch(() => {
+        setShowErrorCall(
+          'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
+        )
       })
   }
 
@@ -83,30 +80,42 @@ export const CallOutInt = props => {
           <CloseBtn
             type="button"
             onClick={() => {
-              Taggeo(
-                `Web_Sign_Wall_${typeDialog}`,
-                `web_sw${typeDialog[0]}_boton_cerrar`
-              )
               onClose()
             }}>
             <Close />
           </CloseBtn>
         )}
         <SecondMiddle>
-          {showConfirmCall ? (
+          {showConfirmCall || showErrorCall ? (
             <S.Form>
               <div className="center block mb-20 mt-20">
                 <MsgRegister bgcolor="#efdb96" />
               </div>
 
-              <S.Title s="22" className="center mb-10">
-                Tus datos han sido enviados correctamente
-              </S.Title>
+              {showConfirmCall && (
+                <S.Title s="22" className="center mb-10">
+                  Tus datos han sido enviados correctamente
+                </S.Title>
+              )}
 
-              <S.Title s="16" c="#6a6a6a" className="center">
-                en unos momentos uno de nuestros ejecutivos se pondrá en
-                contacto contigo
-              </S.Title>
+              {showErrorCall && (
+                <S.Title s="22" className="center mb-10">
+                  Ocurrió un error
+                </S.Title>
+              )}
+
+              {showConfirmCall && (
+                <S.Title s="16" c="#6a6a6a" className="center">
+                  en unos momentos uno de nuestros ejecutivos se pondrá en
+                  contacto contigo
+                </S.Title>
+              )}
+
+              {showErrorCall && (
+                <S.Title s="16" c="#6a6a6a" className="center">
+                  {showErrorCall}
+                </S.Title>
+              )}
             </S.Form>
           ) : (
             <S.Form onSubmit={handleOnSubmit}>
@@ -177,16 +186,4 @@ export const CallOutInt = props => {
   )
 }
 
-@Consumer
-class CallOut extends Component {
-  render() {
-    return (
-      <CallOutInt
-        {...this.props}
-        dispatchEvent={this.dispatchEvent.bind(this)}
-      />
-    )
-  }
-}
-
-export { CallOut }
+export default CallOut

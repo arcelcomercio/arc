@@ -100,16 +100,16 @@ export const subDniToken = (URL, jwt) => {
 
 export const pushCallOut = (name, phone) => {
   const response = new Promise(resolve => {
-    fetch('https://servicios.scc.pe/web_api_comercio/insertar_cliente', {
+    fetch('https://servicios.scc.pe/web_api_comercio/insertar_cliente/', {
       method: 'POST',
       // mode: 'cors',
       // credentials: 'same-origin',
       body: JSON.stringify({
-        nombre: name || '',
-        telefono: phone || '',
+        nombre: name,
+        telefono: phone,
       }),
       headers: {
-        // 'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
         Authorization:
           'Basic dXN1YXJpb19jb21lcmNpb19jMmM6YzBtM3JjMTAuQzJDLnczYi5AcGk=',
       },

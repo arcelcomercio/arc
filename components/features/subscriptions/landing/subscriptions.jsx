@@ -7,7 +7,7 @@ import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import stylesLanding from '../_styles/Landing'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
-import { CallOut } from '../../signwall/_children/callout/index'
+import CallOut from '../../signwall/_children/callout'
 import Cards from './_children/Cards'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
@@ -40,6 +40,7 @@ const LandingSubscriptions = () => {
   const [showCallin, setShowCallin] = useState(false)
   const [showConfirmCall, setShowConfirmCall] = useState(false)
   const [showModalCall, setShowModalCall] = useState(false)
+  const [showErrorCall, setShowErrorCall] = useState(false)
 
   const stateSchema = {
     namecall: { value: '', error: '' },
@@ -123,13 +124,16 @@ const LandingSubscriptions = () => {
   const onFomrCallOut = ({ namecall, phonecall }) => {
     pushCallOut(namecall, phonecall)
       .then(resCall => {
-        console.log(resCall)
         if (resCall.resultado) {
           setShowConfirmCall(true)
+        } else {
+          setShowErrorCall(resCall.mensaje)
         }
       })
-      .catch(errCall => {
-        console.error(errCall)
+      .catch(() => {
+        setShowErrorCall(
+          'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
+        )
       })
   }
 
@@ -194,13 +198,20 @@ const LandingSubscriptions = () => {
         {isComercio && showCallin && (
           <section id="callin" className="callin">
             <div className="wrapper">
-              {showConfirmCall ? (
+              {showConfirmCall || showErrorCall ? (
                 <div className="msg-confirmation">
-                  <h3>Tus datos han sido enviados correctamente</h3>
-                  <p>
-                    En unos momentos uno de nuestros ejecutivos se pondrá en
-                    contacto contigo.
-                  </p>
+                  {showConfirmCall && (
+                    <h3>Tus datos han sido enviados correctamente</h3>
+                  )}
+                  {showErrorCall && <h3>Ocurrió un error</h3>}
+
+                  {showConfirmCall && (
+                    <p>
+                      En unos momentos uno de nuestros ejecutivos se pondrá en
+                      contacto contigo.
+                    </p>
+                  )}
+                  {showErrorCall && <p>{showErrorCall}</p>}
                 </div>
               ) : (
                 <form onSubmit={handleOnSubmit}>
@@ -522,7 +533,7 @@ const LandingSubscriptions = () => {
               type="button"
               className="icon-support"
               onClick={() => {
-                setShowModalCall(!showModalCall)
+                setShowModalCall(true)
               }}>
               Te Llamamos
             </button>
