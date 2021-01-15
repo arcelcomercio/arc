@@ -84,9 +84,7 @@
   }
   &__edicion {
     background: #006328 0% 0% no-repeat padding-box;
-    border-color: #008a37;
-    border-left-width: 1px;
-    border-style: solid;
+    border-left: 1px solid #008a37;
     padding: 8px 3px 5px 14px;
     width: 72px;
     margin-left: 15px;
@@ -158,9 +156,19 @@
   .paisBody {
     .nav-sidebar__e-pais {
       color: #999;
-      padding: 10px 0 0 0;
+      padding: 10px 0 7px 0;
       margin-left: 10px;
       border: none;
+      &:hover,
+      & .active {
+        border-bottom: 2px solid #fff;
+        background: none;
+      }
+    }
+    .nav-sidebar__e-name {
+      padding: 10px 0 0 15px;
+      color: #ccc;
+      font: normal normal normal 10px/17px $tertiary-font;
     }
   }
 
@@ -195,10 +203,7 @@
     border: 1px solid #555 !important;
     border-left: none !important;
   }
-  .nav-sidebar__e-name {
-    color: #ccc;
-    font: normal normal normal 10px/17px $tertiary-font;
-  }
+
   .nav-sidebar__e-body {
     margin-top: 10px;
   }

@@ -118,7 +118,7 @@ const classes = {
   eBody: '__e-body',
   ePais: '__e-pais  p-20',
   eName: '__e-name  p-10',
-  eArrow: '__e-arrow',
+  eArrow: 'header-full__e-arrow',
 }
 
 export default ({
