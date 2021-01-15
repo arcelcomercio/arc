@@ -167,7 +167,7 @@
     font: normal normal normal 14px/17px $tertiary-font;
     color: $color-white;
     display: flex;
-    &svg {
+    &.svg {
       fill: $color-white;
       margin-top: -2px;
     }
