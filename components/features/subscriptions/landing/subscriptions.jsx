@@ -83,6 +83,7 @@ const LandingSubscriptions = () => {
     })
 
     // createExternalScript(scriptsLanding, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleUniversity = () => {
@@ -147,6 +148,10 @@ const LandingSubscriptions = () => {
 
   const handleChangeInput = e => {
     handleOnChange(e)
+  }
+
+  const handleShowCallOut = () => {
+    setShowModalCall(true)
   }
 
   return (
@@ -258,17 +263,6 @@ const LandingSubscriptions = () => {
                 </p>
               </>
             )}
-
-            {/* <button
-            type="button"
-            className={`button-call ${isComercio ? '' : 'ges'}`}
-            id="btn-help-call"
-            onClick={() => {
-              Taggeo('Web_Paywall_Landing', 'web_paywall_home_call')
-              window.open(urls.clickHelp, '_blank')
-            }}>
-            <i></i> {texts.help} {!isComercio && <span>Te llamamos</span>}
-          </button> */}
 
             <div className={isComercio ? 'planes__grid' : 'planes__grid-three'}>
               {items.map((item, order) => (
@@ -509,6 +503,20 @@ const LandingSubscriptions = () => {
 
         <FooterLand {...{ arcType }} />
 
+        {isComercio && (
+          <section className="callin-movil">
+            <button type="button" className="icon-phone" onClick={handleCallIn}>
+              01 311 5100
+            </button>
+            <button
+              type="button"
+              className="icon-support"
+              onClick={handleShowCallOut}>
+              Te Llamamos
+            </button>
+          </section>
+        )}
+
         {(QueryString.getQuery('signLanding') ||
           QueryString.getQuery('signStudents') ||
           showSignwall) && (
@@ -524,26 +532,11 @@ const LandingSubscriptions = () => {
           />
         )}
 
-        {isComercio && (
-          <section className="callin-movil">
-            <button type="button" className="icon-phone" onClick={handleCallIn}>
-              01 311 5100
-            </button>
-            <button
-              type="button"
-              className="icon-support"
-              onClick={() => {
-                setShowModalCall(true)
-              }}>
-              Te Llamamos
-            </button>
-          </section>
-        )}
-
         {showModalCall && (
           <CallOut
             typeDialog={showTypeLanding}
             nameDialog={showTypeLanding}
+            onLoggedFail={() => {}}
             onClose={() => {
               setShowModalCall(false)
             }}

@@ -5,9 +5,7 @@ import { ContMiddle, SecondMiddle, CloseBtn } from '../landing/styled'
 import * as S from '../forms/styles'
 import { CheckBox } from '../forms/control_checkbox'
 import { Input } from '../forms/control_input_select'
-
 import { Close, MsgRegister } from '../iconos'
-import Taggeo from '../../_dependencies/taggeo'
 
 import {
   formatNames,
@@ -16,7 +14,7 @@ import {
 import { pushCallOut } from '../../../subscriptions/_dependencies/Services'
 
 const CallOut = props => {
-  const { onClose, noBtnClose, typeDialog } = props
+  const { onClose, noBtnClose } = props
   const [showChecked, setShowChecked] = useState(false)
   const [showConfirmCall, setShowConfirmCall] = useState(false)
   const [showErrorCall, setShowErrorCall] = useState(false)
@@ -169,13 +167,7 @@ const CallOut = props => {
               <S.ButtonCall
                 type="submit"
                 className="mt-40 mb-10"
-                disabled={disable}
-                onClick={() =>
-                  Taggeo(
-                    `Web_Sign_Wall_${typeDialog}`,
-                    `web_sw${typeDialog[0]}_registro_boton_registrarme`
-                  )
-                }>
+                disabled={disable}>
                 Te llamamos
               </S.ButtonCall>
             </S.Form>
