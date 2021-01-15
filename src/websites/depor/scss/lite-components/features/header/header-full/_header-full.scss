@@ -94,60 +94,6 @@
     display: none;
   }
 
-  &.active {
-    position: fixed;
-    position: sticky;
-    top: 0;
-    background-color: #fff;
-    height: 46px;
-    .header-full {
-      &__btn-menu {
-        svg {
-          fill: #666;
-        }
-      }
-      &__box-logo {
-        display: none;
-        background-color: transparent;
-        @media (--tablet) {
-          display: block;
-        }
-      }
-      &__btn-container {
-        display: none;
-      }
-      &__box-list {
-        display: none;
-      }
-    }
-    .nav__story-social-network {
-      display: block;
-    }
-    .nav__story-title {
-      @media (--desktop) {
-        display: block;
-        display: -webkit-box;
-      }
-    }
-    .nav__loader-bar {
-      display: block;
-      background-color: #42c64c;
-      height: 5px;
-      width: 100%;
-      top: 46px;
-      transition: transform 0.3s ease 0s, -webkit-transform 0.3s ease 0s;
-      will-change: transform;
-      transform-origin: left center;
-    }
-    .nav__load-bg {
-      display: block;
-      height: 5px;
-      width: 100%;
-      top: 46px;
-      background-color: #eaeaea;
-    }
-  }
-
   &__edicion {
     background: #006328 0% 0% no-repeat padding-box;
     border-left: 1px solid #008a37;
@@ -280,5 +226,73 @@
 
   .nav-sidebar__e-body {
     margin-top: 10px;
+  }
+
+  &.active {
+    position: fixed;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    height: 46px;
+    .header-full {
+      &__btn-menu {
+        svg {
+          fill: #666;
+        }
+      }
+      &__box-logo {
+        display: none;
+        background-color: transparent;
+        @media (--tablet) {
+          display: block;
+        }
+      }
+      &__btn-container {
+        display: none;
+      }
+      &__box-list {
+        display: none;
+      }
+      &__edicion {
+        background: #fff 0% 0% no-repeat padding-box;
+        border-left: 1px solid #eaeaea;
+      }
+      &__e-title {
+        color: #000;
+      }
+
+      &__e-link {
+        color: #000;
+        .svg {
+          fill: #000;
+        }
+      }
+    }
+    .nav__story-social-network {
+      display: block;
+    }
+    .nav__story-title {
+      @media (--desktop) {
+        display: block;
+        display: -webkit-box;
+      }
+    }
+    .nav__loader-bar {
+      display: block;
+      background-color: #42c64c;
+      height: 5px;
+      width: 100%;
+      top: 46px;
+      transition: transform 0.3s ease 0s, -webkit-transform 0.3s ease 0s;
+      will-change: transform;
+      transform-origin: left center;
+    }
+    .nav__load-bg {
+      display: block;
+      height: 5px;
+      width: 100%;
+      top: 46px;
+      background-color: #eaeaea;
+    }
   }
 }
