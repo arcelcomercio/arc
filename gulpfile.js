@@ -71,17 +71,15 @@ gulp.task('service-worker', () => {
       },
       {
         // Estrategia para estilos estaticos en resources
-        // confirmar que los estilos vienen con ?d=
-        // para poner supercache
         urlPattern: ({ url, request }) =>
           /^(\/pf)?\/resources\/dist\//.test(url.pathname) &&
           request.destination === 'style',
-        handler: 'StaleWhileRevalidate',
+        handler: 'CacheFirst',
         options: {
           cacheName: 'resources-styles',
           expiration: {
             maxEntries: 10,
-            maxAgeSeconds: 60 * 60, // 1 hour
+            maxAgeSeconds: 365 * 24 * 60 * 60, // 1 hour
           },
         },
       },
