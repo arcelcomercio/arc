@@ -45,7 +45,7 @@ gulp.task('service-worker', () => {
       {
         // Estrategia para imagenes redimensionadas
         urlPattern: ({ url, request }) =>
-          /^\/resizer\//.test(url.pathname) && request.destination === 'image',
+          /\/resizer\//.test(url.pathname) && request.destination === 'image',
         handler: 'CacheFirst',
         options: {
           cacheName: 'resized-images',
@@ -58,7 +58,7 @@ gulp.task('service-worker', () => {
       {
         // Estrategia para imagenes estaticas en resources
         urlPattern: ({ url, request }) =>
-          /^(\/pf)?\/resources\/dist\//.test(url.pathname) &&
+          /(\/pf)?\/resources\/dist\//.test(url.pathname) &&
           request.destination === 'image',
         handler: 'CacheFirst',
         options: {
@@ -72,7 +72,7 @@ gulp.task('service-worker', () => {
       {
         // Estrategia para estilos estaticos en resources
         urlPattern: ({ url, request }) =>
-          /^(\/pf)?\/resources\/dist\//.test(url.pathname) &&
+          /(\/pf)?\/resources\/dist\//.test(url.pathname) &&
           request.destination === 'style',
         handler: 'CacheFirst',
         options: {
@@ -101,7 +101,7 @@ gulp.task('service-worker', () => {
         // Estrategia para assets estaticos en resources
         // cambiar por cacheFirst cuando se verifique
         // que los assets tengan ?d=
-        urlPattern: /^(\/pf)?\/resources\/assets\//,
+        urlPattern: /(\/pf)?\/resources\/assets\//,
         handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'resources-assets',
@@ -113,7 +113,7 @@ gulp.task('service-worker', () => {
       },
       {
         // Estrategia para pages y templates de ARC
-        urlPattern: /^(\/pf)?\/dist\/(template|page)\//,
+        urlPattern: /(\/pf)?\/dist\/(template|page)\//,
         handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'arc-templates',
@@ -125,7 +125,7 @@ gulp.task('service-worker', () => {
       },
       {
         // Estrategia para bundle de outputType y React de ARC
-        urlPattern: /^(\/pf)?\/dist\/(engine|components)\/?/,
+        urlPattern: /(\/pf)?\/dist\/(engine|components)\/?/,
         handler: 'CacheFirst',
         options: {
           cacheName: 'arc-bundles',
