@@ -80,7 +80,7 @@ export default ({
   const edittion = (cName, opcion = '', has = true) => {
     return (
       <>
-        <div className={`${cName}${classes.eBody} ${opcion} jjjj`}>
+        <div className={`${cName}${classes.eBody} ${opcion} `}>
           <div className={`${cName}${classes.eName}`}>EDICIONES:</div>
 
           <a className={`${cName}${classes.ePais}`} href="/?noredirect">
