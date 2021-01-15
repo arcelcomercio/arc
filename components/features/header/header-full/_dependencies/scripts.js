@@ -158,19 +158,5 @@ window.addEventListener('load', () => {requestIdle(() => {
 })})
 */
 export const edicionMenu = `
-window.addEventListener('load', () => {requestIdle(() => {
-  var more = document.getElementById('edicionId')
-  more.addEventListener('click', function(e) {
-      e.preventDefault()
-      var shareList = document.querySelector('.header-full__e-content')
-      if (shareList.classList.contains('block')) {
-        shareList.classList.remove('block')
-        shareList.classList.add('hidden')
-      } else {
-        shareList.classList.remove('hidden')
-        shareList.classList.add('block')
-      }
-    })
-
-})})
+window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("edicionId").addEventListener("click",function(e){e.preventDefault();var d=document.querySelector(".header-full__e-content");d.classList.contains("block")?(d.classList.remove("block"),d.classList.add("hidden")):(d.classList.remove("hidden"),d.classList.add("block"))})})});
 `
