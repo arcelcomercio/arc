@@ -307,7 +307,9 @@ export default ({
                       />
                     </div>
                   </div>
-                  {edittion('nav-sidebar', 'flex paisBody', false)}
+                  {arcSite === 'depor' && (
+                    <>{edittion('nav-sidebar', 'flex paisBody', false)}</>
+                  )}
                   <div className={classes.boxSearch}>
                     <form
                       id="header-search-form"
@@ -437,7 +439,9 @@ export default ({
               <div className={classes.megaMenu}>
                 <div className={classes.wrapper}>
                   <div className={classes.body}>
-                    {edittion('nav-sidebar', 'flex paisBody', false)}
+                    {arcSite === 'depor' && (
+                      <>{edittion('nav-sidebar', 'flex paisBody', false)}</>
+                    )}
                     <ul className={classes.list}>
                       {menuList && renderSections(menuList, 0)}
                     </ul>
@@ -564,30 +568,34 @@ export default ({
                 </div>
               </>
             )}
-            <div className={classes.edicion}>
-              <div className={classes.title}>EDICIÓN</div>
-              <a
-                id="edicionId"
-                itemProp="url"
-                role="button"
-                href
-                title="Edicion"
-                className={classes.eLink}>
-                <div className={classes.mx}>MX</div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24">
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path d="M7 10l5 5 5-5z" />
-                </svg>
-              </a>
-            </div>
-            <div className={classes.eContent}>
-              {edittion('header-full')}
-              <div className={classes.eArrow}></div>
-            </div>
+            {arcSite === 'depor' && (
+              <>
+                <div className={classes.edicion}>
+                  <div className={classes.title}>EDICIÓN</div>
+                  <a
+                    id="edicionId"
+                    itemProp="url"
+                    role="button"
+                    href
+                    title="Edicion"
+                    className={classes.eLink}>
+                    <div className={classes.mx}>MX</div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24">
+                      <path d="M0 0h24v24H0z" fill="none" />
+                      <path d="M7 10l5 5 5-5z" />
+                    </svg>
+                  </a>
+                </div>
+                <div className={classes.eContent}>
+                  {edittion('header-full')}
+                  <div className={classes.eArrow}></div>
+                </div>
+              </>
+            )}
           </div>
           {isStory && <div className={classes.navLoader} />}
         </div>
