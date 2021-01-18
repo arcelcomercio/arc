@@ -2,6 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import React from 'react'
+import { useAppContext } from 'fusion:context'
+
 import getProperties from 'fusion:properties'
 
 import {
@@ -77,6 +79,8 @@ export default ({
   hideMenu,
   winningCallLogo,
 }) => {
+  const { requestUri } = useAppContext()
+  const isMexico = /^\/mexico\//.test(requestUri)
   const edittion = (cName, opcion = '', has = true) => {
     return (
       <>
@@ -486,7 +490,7 @@ export default ({
                     href
                     title="Edicion"
                     className={classes.eLink}>
-                    <div className={classes.mx}>MX</div>
+                    <div className={classes.mx}>{isMexico ? 'MX' : 'PE'}</div>
                     <svg
                       className="svg"
                       xmlns="http://www.w3.org/2000/svg"
