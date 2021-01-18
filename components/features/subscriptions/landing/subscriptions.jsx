@@ -7,7 +7,7 @@ import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import stylesLanding from '../_styles/Landing'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
-import CallOut from '../../signwall/_children/callout'
+import { CallOut } from '../../signwall/_children/callout/index'
 import Cards from './_children/Cards'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
@@ -39,6 +39,7 @@ const LandingSubscriptions = () => {
 
   const [showCallin, setShowCallin] = useState(false)
   const [showConfirmCall, setShowConfirmCall] = useState(false)
+  const [showRepeatCall, setShowRepeatCall] = useState(false)
   const [showModalCall, setShowModalCall] = useState(false)
   const [showErrorCall, setShowErrorCall] = useState(false)
 
@@ -125,10 +126,21 @@ const LandingSubscriptions = () => {
   const onFomrCallOut = ({ namecall, phonecall }) => {
     pushCallOut(namecall, phonecall)
       .then(resCall => {
-        if (resCall.resultado) {
-          setShowConfirmCall(true)
+        if (
+          resCall.resultado ||
+          resCall.mensaje ===
+            'El numero de telefono ya ha sido registrado el dia de hoy'
+        ) {
+          if (
+            resCall.mensaje ===
+            'El numero de telefono ya ha sido registrado el dia de hoy'
+          ) {
+            setShowRepeatCall(resCall.mensaje)
+          } else {
+            setShowConfirmCall(true)
+          }
         } else {
-          setShowErrorCall(resCall.mensaje)
+          setShowErrorCall(resCall.mensaje || resCall.Message)
         }
       })
       .catch(() => {
@@ -203,18 +215,26 @@ const LandingSubscriptions = () => {
         {isComercio && showCallin && (
           <section id="callin" className="callin">
             <div className="wrapper">
-              {showConfirmCall || showErrorCall ? (
+              {showConfirmCall || showErrorCall || showRepeatCall ? (
                 <div className="msg-confirmation">
                   {showConfirmCall && (
                     <h3>Tus datos han sido enviados correctamente</h3>
                   )}
+
+                  {showRepeatCall && <h3>{showRepeatCall} </h3>}
+
                   {showErrorCall && <h3>Ocurrió un error</h3>}
 
-                  {showConfirmCall && (
-                    <p>
-                      En unos momentos uno de nuestros ejecutivos se pondrá en
-                      contacto contigo.
-                    </p>
+                  {(showConfirmCall || showRepeatCall) && (
+                    <>
+                      <p>
+                        Uno de nuestros ejecutivos se pondrá en contacto
+                        contigo.
+                      </p>
+                      <p className="note-schedule">
+                        Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM
+                      </p>
+                    </>
                   )}
                   {showErrorCall && <p>{showErrorCall}</p>}
                 </div>
@@ -245,7 +265,9 @@ const LandingSubscriptions = () => {
                   <button
                     type="submit"
                     className="icon-send"
-                    disabled={disable}></button>
+                    disabled={disable}>
+                    &nbsp;
+                  </button>
                 </form>
               )}
             </div>
@@ -450,9 +472,9 @@ const LandingSubscriptions = () => {
               <div className="button-club">
                 <button
                   type="button"
-                  onClick={() =>
+                  onClick={() => {
                     window.open(`${links.clubComercio}_${arcSite}`, '_blank')
-                  }>
+                  }}>
                   Ver más en <span>clubelcomercio.pe</span>
                 </button>
               </div>
