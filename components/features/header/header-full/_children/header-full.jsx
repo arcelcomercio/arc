@@ -2,6 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import React from 'react'
+import { useAppContext } from 'fusion:context'
+
 import {
   popup,
   showMore,
@@ -140,7 +142,8 @@ export default ({
   Newsle,
 }) => {
   const arcSiteTrome = 'trome'
-
+  const { requestUri } = useAppContext()
+  const isMexico = /^\/mexico\//.test(requestUri)
   const edittion = (cName, opcion = '', has = true) => {
     return (
       <>
@@ -579,7 +582,7 @@ export default ({
                     href
                     title="Edicion"
                     className={classes.eLink}>
-                    <div className={classes.mx}>MX</div>
+                    <div className={classes.mx}>{isMexico ? 'MX' : 'PE'}</div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       height="24"
