@@ -137,3 +137,26 @@ window.addEventListener('load', () => {requestIdle(() => {
 */
 
 export const toggleMenu = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("btn-menu"),a=document.getElementById("btn-close-menu"),c=document.body.querySelector(".header-full"),l=c.querySelector(".header-full__box-btnmenu"),s=c.querySelector(".header-full__icon-menu"),t=c.querySelector(".header-full__wrapper-menu"),r=c.querySelector(".header-full__megamenu"),n=c.querySelector(".nav-sidebar__wrapper");[e,a].forEach(function(e){e.addEventListener("click",function(){s.className.indexOf("icon-hamburguer")>0?(l.className=l.className.concat(" bg-white"),s.className=s.className.replace("icon-hamburguer","icon-close active"),t.className=t.className.concat(" active"),r.className=r.className.concat(" active"),n.className=n.className.concat(" active")):(l.className=l.className.replace(" bg-white",""),s.className=s.className.replace("icon-close active","icon-hamburguer"),t.className=t.className.replace(" active",""),r.className=r.className.replace(" active",""),n.className=n.className.replace(" active",""))})})})});`
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+  var more = target.querySelectorAll('div[id=edicionId]')
+  more.forEach(function(button) {
+    button.addEventListener('click', function(e) {
+      e.preventDefault()
+      var shareList = button.querySelector('.header-full__e-content')
+
+      if (shareList.classList.contains('block')) {
+        shareList.classList.remove('block')
+        shareList.classList.add('hidden')
+      } else {
+        shareList.classList.remove('hidden')
+        shareList.classList.add('block')
+      }
+    })
+  })
+
+})})
+*/
+export const edicionMenu = `
+window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("edicionId").addEventListener("click",function(e){e.preventDefault();var d=document.querySelector(".header-full__e-content");d.classList.contains("block")?(d.classList.remove("block"),d.classList.add("hidden")):(d.classList.remove("hidden"),d.classList.add("block"))})})});
+`

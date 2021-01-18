@@ -8,7 +8,7 @@ const classes = {
   item: 'navbar-nm__item',
   link: 'navbar-nm__link',
   btn: 'navbar-nm__btn f f-center',
-  search: 'navbar-nm__search f h-full pos-rel',
+  search: 'navbar-nm__search f h-full pos-rel sssssss',
   news: 'navbar-nm__n f alg-center',
   iconSearch: 'navbar-nm__icon-search f f-center h-full',
   boxSearch: 'navbar-nm__box-search pos-abs',
@@ -68,9 +68,6 @@ export default props => {
               }
             )}
           </ul>
-        </div>
-
-        <div className={classes.search}>
           <a href="/suscripcion-newsletter/" className={classes.news}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -81,6 +78,9 @@ export default props => {
             </svg>
             <span>Newsletter</span>
           </a>
+        </div>
+
+        <div className={classes.search}>
           <button type="button" className={classes.iconSearch}>
             <svg
               xmlns="http://www.w3.org/2000/svg"

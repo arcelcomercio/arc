@@ -1,6 +1,6 @@
 .header-full__megamenu {
   display: flex;
-  background-color: #333;
+  background-color: #222;
   max-width: 330px;
   left: 0;
   top: 50px;
@@ -41,12 +41,16 @@
 }
 .nav-sidebar__link {
   color: #fff;
-  font-size: 0.9rem;
+  font-size: 0.81rem;
   display: block;
   width: 100%;
   padding: 15px 25px;
   &:hover {
     background-color: rgba(0, 0, 0, 0.96);
+  }
+
+  @media (--only-mobile) {
+    padding: 18px 25px;
   }
 }
 .nav-sidebar__container-submenu {
@@ -58,6 +62,10 @@
 }
 .nav-sidebar__item {
   flex-wrap: wrap;
+  text-transform: uppercase;
+  @media (--only-mobile) {
+    border: 1px solid #333;
+  }
 }
 .nav-sidebar__list {
   padding: 15px 0;
