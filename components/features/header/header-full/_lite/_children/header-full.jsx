@@ -87,8 +87,8 @@ export default ({
             <svg
               xmlns="http://www.w3.org/2000/svg"
               data-name="Capa 1"
-              width="18"
-              height="12"
+              width="20"
+              height="14"
               viewBox="0 0 96 96">
               <g data-name="Grupo 2373">
                 <rect
