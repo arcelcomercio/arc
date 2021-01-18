@@ -106,6 +106,8 @@ const Summary = () => {
     }
   }
 
+  const linkClub = 'https://clubelcomercio.pe/?ref=suscripcionesdigitales'
+
   return (
     <>
       <div className={styles.boxResume}>
@@ -251,7 +253,12 @@ const Summary = () => {
                 </a>{' '}
                 desde cualquier dispositivo.
               </li>
-              <li>Acceso a descuentos ilimitados en Club de beneficios.</li>
+              <li>
+                Acceso a descuentos ilimitados en{' '}
+                <a href={linkClub} target="_blank" rel="noreferrer">
+                  Club de beneficios.
+                </a>
+              </li>
               <li>Hasta 50% menos de publicidad.</li>
             </ul>
           </div>

@@ -84,26 +84,26 @@
     * .separator__icon {
       background-color: $color-white;
       border-radius: 50%;
-      top: calc(100% - 141px);
+      top: calc(100% - 145px);
       color: $color-fourth;
       display: block;
       left: 10px;
       pointer-events: none;
-      width: 35px;
-      height: 35px;
-      line-height: 35px;
-      font-size: 36px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 40px;
       position: absolute;
       @media (--tablet) {
-        top: calc(100% - 133px);
-        width: 72px;
-        height: 72px;
-        font-size: 74px;
+        // top: calc(100% - 133px);
+        width: 48px;
+        height: 48px;
+        font-size: 48px;
         line-height: 75px;
         top: 33px;
       }
       @media (--desktop) {
-        top: 83px;
+        top: 105px;
       }
       &::before {
         position: absolute;
