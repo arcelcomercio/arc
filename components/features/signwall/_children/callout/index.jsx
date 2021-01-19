@@ -1,13 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react'
-import useForm from '../../_dependencies/useForm'
-// import { Modal } from '../modal/index'
+import useForm from '../../../subscriptions/_hooks/useForm'
 import Modal from '../../../subscriptions/payment/_children/Profile/children/modal'
-import {
-  ContMiddle,
-  // SecondMiddle,
-  CloseBtn,
-} from '../landing/styled'
+import { ContMiddle, CloseBtn } from '../landing/styled'
 import * as S from '../forms/styles'
 import { CheckBox } from '../forms/control_checkbox'
 import { Input } from '../forms/control_input_select'
@@ -15,7 +10,7 @@ import { Close, MsgRegister } from '../iconos'
 
 import {
   formatNames,
-  formatPhone,
+  formatCellphone,
 } from '../../../subscriptions/_dependencies/Errors'
 import { pushCallOut } from '../../../subscriptions/_dependencies/Services'
 
@@ -36,10 +31,12 @@ export const CallOut = props => {
     namecall: {
       required: true,
       validator: formatNames(),
+      min2caracts: true,
+      invalidtext: true,
     },
     phonecall: {
       required: true,
-      validator: formatPhone(),
+      validator: formatCellphone(),
     },
     rterms: {
       required: true,
@@ -108,7 +105,6 @@ export const CallOut = props => {
             </CloseBtn>
           )}
 
-          {/* <SecondMiddle> */}
           {showConfirmCall || showErrorCall || showRepeatCall ? (
             <S.Form>
               <div className="center block mb-20 mt-20">
@@ -208,7 +204,6 @@ export const CallOut = props => {
               </S.ButtonCall>
             </S.Form>
           )}
-          {/* </SecondMiddle> */}
         </ContMiddle>
       </div>
     </Modal>

@@ -13,11 +13,10 @@ import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
-// import { createExternalScript } from '../_dependencies/Utils'
 import scriptsLanding from '../_scripts/Landing'
 import addScriptAsync from '../_dependencies/Async'
 
-import { formatNames, formatPhone } from '../_dependencies/Errors'
+import { formatNames, formatCellphone } from '../_dependencies/Errors'
 import { pushCallOut } from '../_dependencies/Services'
 
 const arcType = 'landing'
@@ -55,7 +54,7 @@ const LandingSubscriptions = () => {
     },
     phonecall: {
       required: true,
-      validator: formatPhone(),
+      validator: formatCellphone(),
     },
   }
 
@@ -82,8 +81,6 @@ const LandingSubscriptions = () => {
         })),
       },
     })
-
-    // createExternalScript(scriptsLanding, true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -166,6 +163,13 @@ const LandingSubscriptions = () => {
     setShowModalCall(true)
   }
 
+  const handleShowHiddenCallOut = () => {
+    setShowCallin(!showCallin)
+    setShowRepeatCall(false)
+    setShowConfirmCall(false)
+    setShowErrorCall(false)
+  }
+
   return (
     <>
       <style
@@ -195,7 +199,7 @@ const LandingSubscriptions = () => {
                   <button
                     type="button"
                     className="icon-support"
-                    onClick={() => setShowCallin(!showCallin)}>
+                    onClick={handleShowHiddenCallOut}>
                     Te Llamamos
                   </button>
                 </div>
