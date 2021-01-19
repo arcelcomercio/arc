@@ -1,6 +1,6 @@
 .nav {
   z-index: 25;
-  background-color: #000;
+  background-color: #0c70bf;
   height: 46px;
   padding: 0 15px;
   max-width: $max-width;
@@ -41,10 +41,14 @@
   }
   &__story-social-network {
     display: none;
+    padding-right: 30px;
+    @media (--desktop) {
+      padding-right: 0;
+    }
   }
   &__search-box {
     height: 20px;
-    border-right: 1px solid #000;
+    border-right: 1px solid #0c70bf;
     display: none;
     @media (--desktop) {
       display: flex;
@@ -65,7 +69,7 @@
     will-change: width;
     width: 0;
     &.active {
-      border: 1px solid #000;
+      border: 1px solid #0c70bf;
       padding-left: 8px;
       width: 200px;
     }
@@ -76,6 +80,9 @@
     position: absolute;
     right: 0;
     top: 0;
+    svg {
+      fill: #0c70bf;
+    }
   }
   &__list {
     padding-left: 15px;
@@ -93,9 +100,10 @@
   &__list-link {
     text-transform: uppercase;
     font-size: 0.8rem;
+    color: #0c70bf;
   }
   &__logo {
-    height: 50px;
+    height: 46px;
     padding: 10px 0;
   }
   &__btn--section {
@@ -106,27 +114,63 @@
       content: "";
       width: 1px;
       height: 20px;
-      background-color: #333;
+      background-color: #0c70bf;
       right: 0;
       position: absolute;
     }
     svg {
       fill: #fff;
       @media (--desktop) {
-        fill: #333;
+        fill: #0c70bf;
       }
     }
     span {
       display: none;
+      color: #fff;
       @media (--tablet) {
         display: block;
-        color: #fff;
         margin-left: 8px;
         font-size: 0.8rem;
         font-weight: 700;
       }
       @media (--desktop) {
-        color: #333;
+        color: #0c70bf;
+      }
+    }
+  }
+  &__container-right {
+    right: 15px;
+    top: 5px;
+  }
+  &__btn-sign {
+    height: 34px;
+    width: 34px;
+    margin: 0 4px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    color: #0c70bf;
+    font: 700 14px/16px $primary-font;
+    background-color: #fff;
+    @media (--desktop) {
+      min-width: 80px;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: auto;
+      height: auto;
+      border: 1px solid #0c70bf;
+    }
+    svg {
+      fill: #0c70bf;
+      height: 18px;
+      @media (--desktop) {
+        display: none;
+      }
+    }
+    span {
+      display: none;
+      @media (--desktop) {
+        display: block;
       }
     }
   }
@@ -164,23 +208,27 @@
     }
     .nav__btn--section {
       svg {
-        fill: #333;
+        fill: #0c70bf;
       }
       span {
-        color: #333;
+        color: #0c70bf;
       }
     }
     .nav__wrapper {
       justify-content: space-between;
     }
+    .nav__btn-sign {
+      @media (--desktop) {
+        display: none;
+      }
+    }
   }
 }
 
-.story-header__link,
-.story-content__more-link {
-  border: 1px solid #333;
+.story-header__link {
+  border: 1px solid #8a8a8a;
   border-radius: 50%;
-  fill: #333;
+  fill: #8a8a8a;
   line-height: 0;
   padding: 0;
   height: 23px;
@@ -201,9 +249,7 @@
 }
 
 .story-content__more-link {
-  @media (--tablet) {
-    display: none;
-  }
+  display: none;
 }
 
 @media (--only-mobile) {
