@@ -2,12 +2,9 @@
   padding-right: 20px;
   padding-left: 20px;
   color: $color-black;
-  font-family: $secondary-font;
 
   &__title {
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 1.1667;
+    font: 900 24px/1.166 $primary-font;
     padding-bottom: 20px;
     @media (--tablet) {
       font-size: 44px;
@@ -18,12 +15,10 @@
   }
 
   &__summary {
-    font-size: 22px;
+    font: 300 22px/1.33 $primary-font;
     padding-bottom: 20px;
-    line-height: 1.333;
   }
 
-  // TODO: Este listado se usa en mag?
   &__list {
     list-style-type: disc;
     padding: 0 0 30px 20px;
@@ -32,14 +27,10 @@
       line-height: 26px;
       color: #000;
       margin-bottom: 10px;
-
       & a {
         text-decoration: underline;
         font-weight: 700;
       }
-      // & b {
-      //   color: #306d95;
-      // }
       @media (--desktop) {
         font-size: 20px;
         line-height: 1.5;
