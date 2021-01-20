@@ -5,15 +5,15 @@
     height: $header-height;
   }
   &__img {
-    height: 20px;
+    height: $header-height-m;
     @media (--desktop) {
-      height: 26px;
+      height: $header-height;
     }
   }
   &__anchor {
     right: 0;
     width: 50px;
-    height: 50px;
+    height: 60px;
     background-color: transparent;
     transform: rotateZ(-90deg);
     padding-bottom: 20px;
