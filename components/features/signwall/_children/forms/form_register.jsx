@@ -44,6 +44,7 @@ const FormRegister = props => {
   const [showConfirm, setShowConfirm] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
   const [showChecked, setShowChecked] = useState(false)
+  const [checkedPolits, setCheckedPolits] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
 
   const [showCheckPremium, setShowCheckPremium] = useState(false)
@@ -55,6 +56,7 @@ const FormRegister = props => {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
     rterms: { value: '', error: '' },
+    rpolit: { value: '', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -452,6 +454,19 @@ const FormRegister = props => {
                       />
 
                       <CheckBox
+                        checked={checkedPolits}
+                        value={checkedPolits ? '1' : '0'}
+                        name="rpolit"
+                        onChange={e => {
+                          handleOnChange(e)
+                          setCheckedPolits(!checkedPolits)
+                        }}>
+                        <S.Text c="gray" lh="18" s="12" className="mt-10">
+                          Autorizo el tratamiento de mis datos
+                        </S.Text>
+                      </CheckBox>
+
+                      <CheckBox
                         checked={showChecked}
                         value={showChecked ? '1' : '0'}
                         name="rterms"
@@ -489,12 +504,12 @@ const FormRegister = props => {
                         type="submit"
                         className="mt-20 mb-10"
                         disabled={disable || showLoading || showFormatInvalid}
-                        onClick={() =>
+                        onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
                             `web_sw${typeDialog[0]}_registro_boton_registrarme`
                           )
-                        }>
+                        }}>
                         {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
                       </S.Button>
                     </>

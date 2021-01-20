@@ -41,6 +41,7 @@ const Register = ({ arcSite }) => {
   const [loadText, setLoadText] = useState('Cargando...')
   const [msgError, setMsgError] = useState()
   const [checkedTerms, setCheckedTerms] = useState()
+  const [checkedPolits, setCheckedPolits] = useState()
   const [forgotLink, setForgotLink] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
   const [showConfirm, setShowConfirm] = useState(false)
@@ -52,6 +53,7 @@ const Register = ({ arcSite }) => {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
     rterms: { value: 'no', error: '' },
+    rpolit: { value: 'si', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -288,6 +290,26 @@ const Register = ({ arcSite }) => {
                     {rpassError && (
                       <span className="msn-error">{rpassError}</span>
                     )}
+                  </label>
+                </div>
+
+                <div className={styles.block}>
+                  <label htmlFor="rpolit" className="terms">
+                    <input
+                      id="rpolit"
+                      value={checkedPolits ? 'si' : 'no'}
+                      type="checkbox"
+                      checked={!checkedPolits}
+                      name="rpolit"
+                      disabled={loading}
+                      required
+                      onChange={e => {
+                        handleOnChange(e)
+                        setCheckedPolits(!checkedPolits)
+                      }}
+                    />
+                    Autorizo el tratamiento de mis datos
+                    <span className="checkmark"></span>
                   </label>
                 </div>
 
