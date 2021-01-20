@@ -110,12 +110,14 @@
     <script>
 let data = {}
 let question = '' 
+let searchResqueset =''
 let a = 0
 
 window. handleSearch = () => {
   question = opcion();
   const searchTerm = document.getElementById('searchID').value;
-  searchName = document.getElementById('searchName').value;
+  searchName = document.getElementById('searchName').value; 
+  searchResqueset = document.getElementById('searchResqueset').value; 
   
 
   if (searchTerm && searchName)
