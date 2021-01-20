@@ -136,7 +136,8 @@ export const CallOut = props => {
                   </S.Title>
                   <br />
                   <S.Text s="12" c="#242424" className="center">
-                    Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM
+                    Horario de atención es de <br />
+                    L-V: 9AM a 8PM y <br /> S: 9AM a 1PM
                   </S.Text>
                 </>
               )}

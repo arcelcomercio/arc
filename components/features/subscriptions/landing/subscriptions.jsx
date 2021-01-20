@@ -24,7 +24,11 @@ const LandingSubscriptions = () => {
   const {
     arcSite,
     globalContent: items = [],
-    customFields: { bannerUniComercio = false, bannerUniGestion = false } = {},
+    customFields: {
+      bannerUniComercio = false,
+      bannerUniGestion = false,
+      callInnCallOut = false,
+    } = {},
   } = useFusionContext() || {}
 
   const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
@@ -35,6 +39,7 @@ const LandingSubscriptions = () => {
   const [showProfile, setShowProfile] = useState(false)
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
+  const moduleCall = callInnCallOut && isComercio
 
   const [showCallin, setShowCallin] = useState(false)
   const [showConfirmCall, setShowConfirmCall] = useState(false)
@@ -177,7 +182,10 @@ const LandingSubscriptions = () => {
       <>
         <header className="header" id="header">
           <div className="wrapper">
-            <div className={`header__content ${!isComercio ? 'box-cont' : ''}`}>
+            <div
+              className={`header__content ${
+                !isComercio || !moduleCall ? 'box-cont' : ''
+              }`}>
               <a
                 href={urls.mainHome}
                 target="_blank"
@@ -187,7 +195,7 @@ const LandingSubscriptions = () => {
                 <div className="header__content-logo"></div>
               </a>
 
-              {isComercio && (
+              {moduleCall && (
                 <div className="header__content-call">
                   <span>Llama Gratis</span>
                   <button
@@ -216,7 +224,7 @@ const LandingSubscriptions = () => {
           </div>
         </header>
 
-        {isComercio && showCallin && (
+        {moduleCall && showCallin && (
           <section id="callin" className="callin">
             <div className="wrapper">
               {showConfirmCall || showErrorCall || showRepeatCall ? (
@@ -529,7 +537,7 @@ const LandingSubscriptions = () => {
 
         <FooterLand {...{ arcType }} />
 
-        {isComercio && (
+        {moduleCall && (
           <section className="callin-movil">
             <button type="button" className="icon-phone" onClick={handleCallIn}>
               01 311 5100
@@ -595,6 +603,11 @@ LandingSubscriptions.propTypes = {
       name: 'Banner Univ. Gestión',
       defaultValue: false,
       description: 'Mostrar/Ocultar Banner Universitario Gestíon.',
+    }),
+    callInnCallOut: PropTypes.bool.tag({
+      name: 'Módulo Call In Call Out',
+      defaultValue: false,
+      description: 'Mostrar/Ocultar Módulo Call In Call Out',
     }),
   }),
 }
