@@ -5,9 +5,6 @@ import getProperties from 'fusion:properties'
 
 import Header from './_children/header'
 
-/**
- * @see estilos `src/websites/elcomercio/scss/components/statics/resumen-2020/_container.scss`
- */
 const HeaderSimple = props => {
   const { customFields: { customLogos = {} } = {} } = props
 
