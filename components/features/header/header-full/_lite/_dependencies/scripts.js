@@ -87,3 +87,26 @@ export const menuScript =
 }); */
 export const searchScript =
   '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".header-full__is"),n=document.querySelector(".navbar-nm__box-search.hf-search");e&&n&&e.addEventListener("click",function(){n.classList.toggle("active")});var t=document.body.querySelector(".navbar-nm__input-search.hf-search"),c=document.body.querySelector(".navbar-nm__box-search.hf-search");t&&c&&c.addEventListener("submit",function(e){if(e.preventDefault(),t.value){var n=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n)}})});'
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+  var more = target.querySelectorAll('div[id=edicionId]')
+  more.forEach(function(button) {
+    button.addEventListener('click', function(e) {
+      e.preventDefault()
+      var shareList = button.querySelector('.header-full__e-content')
+
+      if (shareList.classList.contains('block')) {
+        shareList.classList.remove('block')
+        shareList.classList.add('hidden')
+      } else {
+        shareList.classList.remove('hidden')
+        shareList.classList.add('block')
+      }
+    })
+  })
+
+})})
+*/
+export const edicionMenu = `
+window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("edicionId").addEventListener("click",function(e){e.preventDefault();var d=document.querySelector(".header-full__e-content");d.classList.contains("block")?(d.classList.remove("block"),d.classList.add("hidden")):(d.classList.remove("hidden"),d.classList.add("block"))})})});
+`

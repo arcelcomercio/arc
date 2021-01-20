@@ -1,4 +1,5 @@
 import { createResizedParams } from '../../components/utilities/resizer/resizer'
+import RedirectError from '../../components/utilities/redirect-error'
 
 const params = [
   {
@@ -33,8 +34,13 @@ const resolve = ({ slug, id }) => {
 }
 
 const transform = (data, { slug, from, size, 'arc-site': arcSite }) => {
+  const { authors = [] } = data || {}
+  if (authors.length === 0) {
+    throw new RedirectError('/404', 404)
+  }
+
   const author = data.authors[0]
-  const { image = '' } = author
+  const { image = '' } = author || {}
   if (image !== '') {
     const resizedUrls = createResizedParams({
       url: image,
