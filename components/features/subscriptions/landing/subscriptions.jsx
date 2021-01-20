@@ -2,25 +2,33 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
+import useForm from '../_hooks/useForm'
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import stylesLanding from '../_styles/Landing'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
+import { CallOut } from '../../signwall/_children/callout/index'
 import Cards from './_children/Cards'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
-// import { createExternalScript } from '../_dependencies/Utils'
 import scriptsLanding from '../_scripts/Landing'
 import addScriptAsync from '../_dependencies/Async'
+
+import { formatNames, formatCellphone } from '../_dependencies/Errors'
+import { pushCallOut } from '../_dependencies/Services'
 
 const arcType = 'landing'
 const LandingSubscriptions = () => {
   const {
     arcSite,
     globalContent: items = [],
-    customFields: { bannerUniComercio = false, bannerUniGestion = false } = {},
+    customFields: {
+      bannerUniComercio = false,
+      bannerUniGestion = false,
+      callInnCallOut = false,
+    } = {},
   } = useFusionContext() || {}
 
   const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
@@ -31,6 +39,29 @@ const LandingSubscriptions = () => {
   const [showProfile, setShowProfile] = useState(false)
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
+  const moduleCall = callInnCallOut && isComercio
+
+  const [showCallin, setShowCallin] = useState(false)
+  const [showConfirmCall, setShowConfirmCall] = useState(false)
+  const [showRepeatCall, setShowRepeatCall] = useState(false)
+  const [showModalCall, setShowModalCall] = useState(false)
+  const [showErrorCall, setShowErrorCall] = useState(false)
+
+  const stateSchema = {
+    namecall: { value: '', error: '' },
+    phonecall: { value: '', error: '' },
+  }
+
+  const stateValidatorSchema = {
+    namecall: {
+      required: true,
+      validator: formatNames(),
+    },
+    phonecall: {
+      required: true,
+      validator: formatCellphone(),
+    },
+  }
 
   useEffect(() => {
     addScriptAsync({
@@ -55,8 +86,7 @@ const LandingSubscriptions = () => {
         })),
       },
     })
-
-    // createExternalScript(scriptsLanding, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleUniversity = () => {
@@ -89,6 +119,62 @@ const LandingSubscriptions = () => {
     }
   }
 
+  const handleCallIn = () => {
+    if (typeof window !== 'undefined') {
+      window.document.location.href = 'tel:013115100'
+    }
+  }
+
+  const onFomrCallOut = ({ namecall, phonecall }) => {
+    pushCallOut(namecall, phonecall)
+      .then(resCall => {
+        if (
+          resCall.resultado ||
+          resCall.mensaje ===
+            'El numero de telefono ya ha sido registrado el dia de hoy'
+        ) {
+          if (
+            resCall.mensaje ===
+            'El numero de telefono ya ha sido registrado el dia de hoy'
+          ) {
+            setShowRepeatCall(resCall.mensaje)
+          } else {
+            setShowConfirmCall(true)
+          }
+        } else {
+          setShowErrorCall(resCall.mensaje || resCall.Message)
+        }
+      })
+      .catch(() => {
+        setShowErrorCall(
+          'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
+        )
+      })
+  }
+
+  const {
+    values: { namecall, phonecall },
+    errors: { namecall: namecallError, phonecall: phonecallError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onFomrCallOut)
+
+  const handleChangeInput = e => {
+    handleOnChange(e)
+  }
+
+  const handleShowCallOut = () => {
+    setShowModalCall(true)
+  }
+
+  const handleShowHiddenCallOut = () => {
+    setShowCallin(!showCallin)
+    setShowRepeatCall(false)
+    setShowConfirmCall(false)
+    setShowErrorCall(false)
+  }
+
   return (
     <>
       <style
@@ -96,7 +182,10 @@ const LandingSubscriptions = () => {
       <>
         <header className="header" id="header">
           <div className="wrapper">
-            <div className="header__content">
+            <div
+              className={`header__content ${
+                !isComercio || !moduleCall ? 'box-cont' : ''
+              }`}>
               <a
                 href={urls.mainHome}
                 target="_blank"
@@ -105,6 +194,25 @@ const LandingSubscriptions = () => {
                 aria-label={arcSite}>
                 <div className="header__content-logo"></div>
               </a>
+
+              {moduleCall && (
+                <div className="header__content-call">
+                  <span>Llama Gratis</span>
+                  <button
+                    type="button"
+                    className="icon-phone"
+                    onClick={handleCallIn}>
+                    01 311 5100
+                  </button>
+                  <button
+                    type="button"
+                    className="icon-support"
+                    onClick={handleShowHiddenCallOut}>
+                    Te Llamamos
+                  </button>
+                </div>
+              )}
+
               <button
                 className="header__content-button"
                 type="button"
@@ -116,24 +224,79 @@ const LandingSubscriptions = () => {
           </div>
         </header>
 
+        {moduleCall && showCallin && (
+          <section id="callin" className="callin">
+            <div className="wrapper">
+              {showConfirmCall || showErrorCall || showRepeatCall ? (
+                <div className="msg-confirmation">
+                  {showConfirmCall && (
+                    <h3>Tus datos han sido enviados correctamente</h3>
+                  )}
+
+                  {showRepeatCall && <h3>{showRepeatCall} </h3>}
+
+                  {showErrorCall && <h3>Ocurrió un error</h3>}
+
+                  {(showConfirmCall || showRepeatCall) && (
+                    <>
+                      <p>
+                        Uno de nuestros ejecutivos se pondrá en contacto
+                        contigo.
+                      </p>
+                      <p className="note-schedule">
+                        Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM
+                      </p>
+                    </>
+                  )}
+                  {showErrorCall && <p>{showErrorCall}</p>}
+                </div>
+              ) : (
+                <form onSubmit={handleOnSubmit}>
+                  <input
+                    className={namecallError && 'input-error'}
+                    type="text"
+                    placeholder="Nombre"
+                    name="namecall"
+                    maxLength="80"
+                    required
+                    value={namecall}
+                    onBlur={handleOnChange}
+                    onChange={handleChangeInput}
+                  />
+                  <input
+                    className={phonecallError && 'input-error'}
+                    type="text"
+                    placeholder="Celular"
+                    name="phonecall"
+                    maxLength="9"
+                    required
+                    value={phonecall}
+                    onBlur={handleOnChange}
+                    onChange={handleChangeInput}
+                  />
+                  <button
+                    type="submit"
+                    className="icon-send"
+                    disabled={disable}>
+                    &nbsp;
+                  </button>
+                </form>
+              )}
+            </div>
+          </section>
+        )}
+
         <section className="planes">
           <div className={isComercio ? 'wrapper' : 'wrapper-full'}>
-            <h1 className="planes__title">{texts.mainTop}</h1>
-            <p className="planes__description">
-              {texts.parrafOne} <br />
-              {texts.parrafTwo}
-            </p>
-
-            {/* <button
-            type="button"
-            className={`button-call ${isComercio ? '' : 'ges'}`}
-            id="btn-help-call"
-            onClick={() => {
-              Taggeo('Web_Paywall_Landing', 'web_paywall_home_call')
-              window.open(urls.clickHelp, '_blank')
-            }}>
-            <i></i> {texts.help} {!isComercio && <span>Te llamamos</span>}
-          </button> */}
+            {!isComercio && (
+              <>
+                <h1 className="planes__title">{texts.mainTop}</h1>
+                <p className="planes__description">
+                  {texts.parrafOne} <br />
+                  {texts.parrafTwo}
+                </p>
+              </>
+            )}
 
             <div className={isComercio ? 'planes__grid' : 'planes__grid-three'}>
               {items.map((item, order) => (
@@ -321,9 +484,9 @@ const LandingSubscriptions = () => {
               <div className="button-club">
                 <button
                   type="button"
-                  onClick={() =>
+                  onClick={() => {
                     window.open(`${links.clubComercio}_${arcSite}`, '_blank')
-                  }>
+                  }}>
                   Ver más en <span>clubelcomercio.pe</span>
                 </button>
               </div>
@@ -374,6 +537,20 @@ const LandingSubscriptions = () => {
 
         <FooterLand {...{ arcType }} />
 
+        {moduleCall && (
+          <section className="callin-movil">
+            <button type="button" className="icon-phone" onClick={handleCallIn}>
+              01 311 5100
+            </button>
+            <button
+              type="button"
+              className="icon-support"
+              onClick={handleShowCallOut}>
+              Te Llamamos
+            </button>
+          </section>
+        )}
+
         {(QueryString.getQuery('signLanding') ||
           QueryString.getQuery('signStudents') ||
           showSignwall) && (
@@ -385,6 +562,17 @@ const LandingSubscriptions = () => {
             onClose={() => {
               setShowSignwall(false)
               setShowTypeLanding('landing')
+            }}
+          />
+        )}
+
+        {showModalCall && (
+          <CallOut
+            typeDialog={showTypeLanding}
+            nameDialog={showTypeLanding}
+            onLoggedFail={() => {}}
+            onClose={() => {
+              setShowModalCall(false)
             }}
           />
         )}
@@ -415,6 +603,11 @@ LandingSubscriptions.propTypes = {
       name: 'Banner Univ. Gestión',
       defaultValue: false,
       description: 'Mostrar/Ocultar Banner Universitario Gestíon.',
+    }),
+    callInnCallOut: PropTypes.bool.tag({
+      name: 'Módulo Call In Call Out',
+      defaultValue: false,
+      description: 'Mostrar/Ocultar Módulo Call In Call Out',
     }),
   }),
 }

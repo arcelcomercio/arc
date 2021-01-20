@@ -9,6 +9,7 @@ const mediumRegularExp = new RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.
 // prettier-ignore
 const namesRegex = new RegExp(/^([a-zA-ZÑñÁáÉéÍíÓóÚúüÜ\-'\s])+[a-zA-ZZÑñÁáÉéÍíÓóÚúüÜ]+$/)
 const numberRegex = new RegExp(/^([0-9])+$/)
+const cellphoneRegex = new RegExp(/^9\d{8}$/)
 const docRegex = new RegExp(/^([0-9a-zA-Z-])+$/)
 const phoneRegex = new RegExp(/^[0-9-]+$/)
 // prettier-ignore
@@ -45,4 +46,5 @@ export {
   patterCvv,
   maskDocuments,
   docPatterns,
+  cellphoneRegex,
 }
