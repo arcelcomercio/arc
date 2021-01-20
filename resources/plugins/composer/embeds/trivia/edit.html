@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#212529" />
-    <title>Imagen con enlace - Edit API plugin</title>
+    <title>Trivia- Edit API plugin</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -33,9 +33,6 @@
             <p class="card-text text-muted">
               alt: %alt%
             </p>
-            <p class="card-text text-muted">
-              enlace: "%link%"
-            </p>
           </div>
         </div>
       </div>
@@ -55,24 +52,20 @@
           <!-- Edit Form -->
           <div class="row" id="config_edit">
             <div class="col-md-12">
-              <label for="title" class="input-group"><span class="input-group-text">Título</span>
+              <label for="title" class="input-group"><span class="input-group-text">Título Imagen:</span>
                 <input id="title" class="form-control " name="title" type="textfield" value="" />
               </label>
             </div>
-            <div class="col-md-12">
-              <label class="input-group" for="alt"><span class="input-group-text">Texto alternativo para la foto</span>
-                <input id="alt" class="form-control " name="alt" type="textfield" value="" />
-              </label>
-            </div>
+        
             <div id="Book" class="container-el col-md-11">
               <label class="form-inline input-group" for="searchID">
                 <span class="input-group-text">Pregunta:</span>
-                <input class="form-control " type="textfield"  name="searchQuestion" id="searchQuestion" />
-                <input type="button" class="btn btn-success" id="add_cancion()" onClick="addCancion()" value="Agregar " />
-                <input type="button" class="btn btn-success" id="add_cancion()" onClick="removeCancion()" value="Eliminar" />
+                <input class="form-control " type="textfield"  name="searchName" id="searchName" />
+                <input type="button" class="btn btn-success" id="add_opcion()" onClick="addOpcion()" value="Agregar " />
+                <input type="button" class="btn btn-success" id="add_opcion()" onClick="removeOpcion()" value="Eliminar" />
               </label>
             </div>
-            <div class="" id="canciones">
+            <div class="" id="opciones">
             </div>
             <div id="Book" class="container-el col-md-11">
               <label class="form-inline input-group" for="searchID">
@@ -95,6 +88,11 @@
               </button>
             </div>
 
+        </div>
+      </div>
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="search_content"></div>
         </div>
       </div>
     </main>
@@ -120,6 +118,89 @@
       type="text/javascript"
       charset="utf-8"
     ></script>
-    
+    <script >
+
+
+
+    let data = {}      // ANS custom embed response
+    window.a=0
+     // -------------------------------------------------
+
+    // Render the content data and contextual configuration together
+    const render = (dataParams) => {
+      const {id, config:{image:{ alt= "",    title= "",  url= ""}={}, name ="",  question=[],  response=''}={}} = dataParams
+      var customBlockConfig = {
+        'backstory': {'title': 'Cómo se hizo esta historia'}
+      }
+
+      // Setup Element Preview
+      const config = dataParams.config || {}
+      const template = document.getElementById('content_template').innerHTML
+      const html = template
+      .replace(/%item_id%/gi, 'row-' + id)
+    .replace(/%image_url%/gi, url )
+    .replace(/%title%/gi, title)
+    .replace(/%alt%/gi, alt)
+        .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
+
+      const element = document.createElement('div')
+      document.getElementById('content_holder').innerHTML = ''
+      document.getElementById('content_holder').appendChild(element)
+      element.outerHTML = html
+      a=0
+      document.getElementById("opciones").innerHTML = '';
+      question.forEach(({name="",response= false}, index) => {
+        var check = response && 'checked'
+        addOpcion(name,check)
+    });
+
+      // Update form state
+      document.getElementById('searchResqueset').value = response
+      document.getElementById('searchName').value = name
+      document.getElementById('title').value = title
+      // document.getElementById('date').value = (config.date || "")
+    }
+
+     // Update config based on form changes, submit back to Composer and re-render
+    const applyChanges = () => {
+      data.config.response = document.getElementById('searchResqueset').value 
+      data.config.name = document.getElementById('searchName').value 
+      data.config.image.title = document.getElementById('title').value 
+      data.config.question = opcion();
+      // data.config.date = document.getElementById('date').value
+
+       // Update Composer and re-render form
+      sendMessage('data', data)
+      render(data)
+    }
+
+     // -------------------------------------------------
+
+    const dismissEditor = () => {
+      sendMessage('cancel')
+    }
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+      data = JSON.parse(decodeURIComponent(parameters.p))
+      render(data)
+      document.getElementById('btn_apply').onclick = applyChanges
+      document.getElementById('btn_cancel').onclick = dismissEditor
+    }
+
+    </script>
+    <script type="module" src="js/util.js"></script>
   </body>
 </html>

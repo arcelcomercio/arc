@@ -52,12 +52,12 @@
         <div id="Book" class="container-el col-md-11">
           <label class="form-inline input-group" for="searchID">
             <span class="input-group-text">Pregunta:</span>
-            <input class="form-control " type="textfield"  name="searchQuestion" id="searchQuestion" />
-            <input type="button" class="btn btn-success" id="add_cancion()" onClick="addCancion()" value="Agregar " />
-            <input type="button" class="btn btn-success" id="add_cancion()" onClick="removeCancion()" value="Eliminar" />
+            <input class="form-control " type="textfield"  name="searchName" id="searchName" />
+            <input type="button" class="btn btn-success" id="add_opcion()" onClick="addOpcion()" value="Agregar " />
+            <input type="button" class="btn btn-success" id="add_opcion()" onClick="removeOpcion()" value="Eliminar" />
           </label>
         </div>
-        <div class="" id="canciones">
+        <div class="" id="opciones">
         </div>
         <div id="Book" class="container-el col-md-11">
           <label class="form-inline input-group" for="searchID">
@@ -107,7 +107,89 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-    <script type="module" src="js/main.js"></script>
+    <script>
+let data = {}
+let question = '' 
+let a = 0
+
+window. handleSearch = () => {
+  question = opcion();
+  const searchTerm = document.getElementById('searchID').value;
+  searchName = document.getElementById('searchName').value;
+  
+
+  if (searchTerm && searchName)
+    superagent
+      .get('/pf/api/v3/content/fetch/photo-by-id')
+      .query({ query: JSON.stringify({ "_id": searchTerm }) })
+      .set('Accept', 'application/json')
+      .then(res => {
+        data = res.body // res.body.Search
+        render()
+      });
+}
+
+
+const render = () => {
+  // Show search results to user
+  const template = document.getElementById('content_template').innerHTML
+  document.getElementById('search_content').innerHTML = '';
+
+  const html = template
+    .replace(/%item_id%/gi, 'row-' + data._id)
+    .replace(/%image_url%/gi, data.url || '')
+    .replace(/%title%/gi, data.subtitle || '')
+    .replace(/%alt%/gi, data.caption || '')
+  const element = document.createElement('div')
+  document.getElementById('search_content').appendChild(element)
+  element.outerHTML = html
+  document
+    .getElementById('row-' + data._id)
+    .addEventListener('click', handleClick())
+}
+
+window. handleClick =  event => {
+    const ansCustomEmbed = {
+    id: data._id,
+    url: '/pf/api/v3/content/fetch/photo-by-id',
+    config: {
+      "name":searchName,
+      "response":searchResqueset,
+      "question":question,
+      "image": {
+      "url": data.url || "",
+      "title": data.subtitle || "",
+      "alt": data.caption || "",
+      "width": data.width,
+      "height": data.height
+    },
+    }
+  }
+
+  sendMessage('data', ansCustomEmbed)
+}
+
+  // ------------------------------------------------
+
+window.onload = function () {
+  const parameters = Object.assign(
+    {
+      wait: 0
+    },
+    parseQueryString()
+  )
+  // Emulate wait time
+  setTimeout(function () {
+    sendMessage('ready', {
+      height: document.documentElement.scrollHeight
+    })
+  }, Number.parseInt(parameters.wait))
+
+  render()
+}
+
+    </script>
+    <script type="module" src="js/util.js"></script>
 </body>
 
 </html>

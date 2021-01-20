@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#212529" />
-    <title>Imagen con enlace - View API plugin</title>
+    <title>Trivia - View API plugin</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -34,9 +34,6 @@
             <p class="card-text text-muted">
               alt: %alt%
             </p>
-            <p class="card-text text-muted">
-              enlace: %link%
-            </p>
           </div>
         </a>
 
@@ -44,10 +41,10 @@
         <div id="Book" class="container-el col-md-11">
           <label class="form-inline input-group" for="searchID">
             <span class="input-group-text">Pregunta:</span>
-            <input class="form-control " type="textfield"  name="searchQuestion" id="searchQuestion" disabled />
+            <input class="form-control " type="textfield"  name="searchName" id="searchName" disabled />
           </label>
         </div>
-        <div class="" id="canciones">
+        <div class="" id="opciones">
         </div>
         <div id="Book" class="container-el col-md-11">
           <label class="form-inline input-group" for="searchID">
@@ -81,6 +78,70 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script>
+ 
+      let data = {}
+      // Retrieve the content data based on parameters
+      const fetchData = (ansCustomEmbed) => {
+        superagent
+          .get('/pf/api/v3/content/fetch/photo-by-id')
+          .query({ query: JSON.stringify({"_id":ansCustomEmbed.id})})
+          .set('Accept', 'application/json')
+          .then(res => {
+            data = res.body
+            render(data, ansCustomEmbed.config)
+          });
+      }
   
+      // Render the content data and contextual configuration together
+      const render = (data, config) => {
+        const template = document.getElementById('content_template').innerHTML
+        const {image:{ alt= "",    title= "",  url= ""}={}, name ="",  question=[],  response=''}={} = config
+    
+        const html = template
+          .replace(/%item_id%/gi, 'row-' + data._id)
+          .replace(/%image_url%/gi, data.url)
+          .replace(/%title%/gi, title || "")
+          .replace(/%alt%/gi, alt || "")
+  
+        const element = document.createElement('div')
+        document.getElementById('search_content').appendChild(element)
+        element.outerHTML = html
+
+        a=0
+      question.forEach(({name="",response= false}, index) => {
+        var check = response && 'checked'
+        addOpcion(name,check, 'disabled')
+    });
+
+      // Update form state
+      document.getElementById('searchResqueset').value = response
+      document.getElementById('searchName').value = name
+      document.getElementById('title').value = title
+
+      }
+      // ------------------------------------------------
+  
+  
+      window.onload = function() {
+        const parameters = Object.assign(
+          {
+            wait: 0
+          },
+          parseQueryString()
+  
+        )
+        fetchData(JSON.parse(decodeURIComponent(parameters.p)))
+  
+        // Emulate wait time
+        setTimeout(function() {
+          sendMessage('ready', {
+            height: document.documentElement.scrollHeight
+          })
+        }, Number.parseInt(parameters.wait) + 10)
+  
+      }
+      </script>
+       <script type="module" src="js/util.js"></script>
   </body>
 </html>
