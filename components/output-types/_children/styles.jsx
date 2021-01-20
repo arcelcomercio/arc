@@ -48,19 +48,20 @@ const Styles = ({
     style = 'specials'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
+  else if (/^\/trivias\//.test(requestUri)) style = 'trivias'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
-  if (CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
-  }
+
   if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
-  }
-  if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
+  } else if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
+  } else if (CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
   }
+
   let styleDefault = isStyleBasic ? 'basic' : ''
   styleDefault =
     style === 'dstory' && isAmp === false && isLite === false
