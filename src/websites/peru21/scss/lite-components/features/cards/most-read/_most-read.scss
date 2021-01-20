@@ -8,20 +8,20 @@
 
   &__title {
     font: 700 15px/26px $primary-font;
-    background-color: #000;
+    background-color: #c5e2f7;
     text-transform: capitalize;
     height: 35px;
     align-items: center;
     padding: 0 20px;
   }
   &__link {
-    color: #fff;
+    color: #0c70bf;
   }
   &__logo {
     padding-right: 10px;
   }
   &__item {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #c5e2f7;
     margin: 0 20px;
     padding: 20px 0;
     &:last-child {
