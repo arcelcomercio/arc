@@ -20,12 +20,13 @@
   }
 
   &__link {
-    border: 1px solid #333;
     display: block;
-    font-size: 1rem;
+    font-size: 0.9rem;
     letter-spacing: 0.28px;
     margin: 0 10px 10px 0;
-    padding: 8px 16px;
+    padding: 5px 10px;
+    color: #0c70bf;
+    background-color: #e8e8e8;
     & span {
       display: none;
     }
