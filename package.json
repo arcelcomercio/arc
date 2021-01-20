@@ -160,14 +160,17 @@
     "browserlist:up": "npx browserslist@latest --update-db"
   },
   "lint-staged": {
-    "*.{js,jsx,json,css,scss,md,graphql}": [
-      "prettier --write"
+    "*.{js,jsx,ts,tsx,json,css,scss,md,graphql}": [
+      "prettier --write",
+      "git add ."
     ],
-    "*.{js,jsx}": [
-      "eslint"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add ."
     ],
     "*.{css,scss}": [
-      "stylelint"
+      "stylelint --fix",
+      "git add ."
     ]
   },
   "husky": {
