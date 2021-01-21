@@ -66,7 +66,7 @@ export const getUserName = (firstName, lastName) => {
   ) {
     fullName = lastName
   }
-  return fullName.length <= 20 ? fullName : `${fullName.slice(0, 20)}...`
+  return fullName.length <= 17 ? fullName : `${fullName.slice(0, 17)}...`
 }
 
 export const getStorageProfile = () => {

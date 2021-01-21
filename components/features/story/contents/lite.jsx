@@ -10,6 +10,7 @@ import { getAssetsPath } from '../../../utilities/assets'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
+  SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -44,6 +45,7 @@ import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import customFields from './_dependencies/custom-fields'
+import iframeScriptCounter from './_dependencies/counter-mag'
 import {
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
@@ -272,7 +274,17 @@ const StoryContentsLite = props => {
                       <>
                         <div
                           className="jwplayer-lazy "
-                          id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                          id={`botr_${mediaId}_${jwplayerId}_div`}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="jw-svg-icon jw-svg-icon-play"
+                            viewBox="0 0 240 240"
+                            width="77"
+                            height="77"
+                            focusable="false">
+                            <path d="M62.8,199.5c-1,0.8-2.4,0.6-3.3-0.4c-0.4-0.5-0.6-1.1-0.5-1.8V42.6c-0.2-1.3,0.7-2.4,1.9-2.6c0.7-0.1,1.3,0.1,1.9,0.4l154.7,77.7c2.1,1.1,2.1,2.8,0,3.8L62.8,199.5z"></path>
+                          </svg>
+                        </div>
                         <figcaption className="s-multimedia__caption ">
                           {title}
                         </figcaption>
@@ -534,13 +546,13 @@ const StoryContentsLite = props => {
                     )
                   }
                   if (
-                    /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+                    /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(content)
                   ) {
                     return (
                       <>
                         <div
                           data-type={
-                            /twitter-(?:tweet|timeline)/.test(content)
+                            /twitter-(?:tweet|timeline|follow-button)/.test(content)
                               ? 'twitter'
                               : 'instagram'
                           }
@@ -605,6 +617,14 @@ const StoryContentsLite = props => {
         <script
           src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
           defer></script>
+      )}
+      {arcSite === SITE_ELCOMERCIOMAG && (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: iframeScriptCounter(),
+          }}
+        />
       )}
     </>
   )
