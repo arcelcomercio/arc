@@ -70,6 +70,18 @@ content_elements {
           address
         }
       }
+      response
+      question{
+        name
+        response
+      }
+      image{
+        url
+        title
+        alt
+        width
+        height
+      }
     }
   }
   raw_oembed{
