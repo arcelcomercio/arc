@@ -7,7 +7,7 @@ import { createResizedParams } from '../../../utilities/resizer/resizer'
 import AuthorCard from './_children/author-card'
 import EditorialCard from './_children/editorial-card'
 import ListItem from './_children/list-item'
-import CustomTitle from '../../custom-title/default'
+import CustomTitle from '../../custom-title/default/default'
 import Ads from '../../../global-components/ads'
 // TODO: author-card y editorial-card pueden evitar código duplicado con un contenedor
 const classes = {
