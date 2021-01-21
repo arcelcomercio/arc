@@ -40,8 +40,8 @@ const Register = ({ arcSite }) => {
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
   const [msgError, setMsgError] = useState()
-  const [checkedTerms, setCheckedTerms] = useState()
-  const [checkedPolits, setCheckedPolits] = useState()
+  const [checkedTerms, setCheckedTerms] = useState(false)
+  const [checkedPolits, setCheckedPolits] = useState(true)
   const [forgotLink, setForgotLink] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
   const [showConfirm, setShowConfirm] = useState(false)
@@ -52,8 +52,8 @@ const Register = ({ arcSite }) => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
-    rterms: { value: 'no', error: '' },
-    rpolit: { value: 'si', error: '' },
+    rpolit: { value: '1', error: '' },
+    rterms: { value: '0', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -68,6 +68,9 @@ const Register = ({ arcSite }) => {
         error: 'Mínimo 8 caracteres',
       },
       nospaces: true,
+    },
+    rpolit: {
+      required: false,
     },
     rterms: {
       required: true,
@@ -123,7 +126,12 @@ const Register = ({ arcSite }) => {
             },
             {
               name: 'termsCondPrivaPoli',
-              value: '1',
+              value: checkedTerms ? '1' : '0',
+              type: 'String',
+            },
+            {
+              name: 'dataTreatment',
+              value: checkedPolits ? '1' : '0',
               type: 'String',
             },
           ],
@@ -297,12 +305,11 @@ const Register = ({ arcSite }) => {
                   <label htmlFor="rpolit" className="terms">
                     <input
                       id="rpolit"
-                      value={checkedPolits ? 'si' : 'no'}
                       type="checkbox"
-                      checked={!checkedPolits}
                       name="rpolit"
+                      value={checkedPolits ? '1' : '0'}
+                      checked={checkedPolits}
                       disabled={loading}
-                      required
                       onChange={e => {
                         handleOnChange(e)
                         setCheckedPolits(!checkedPolits)
@@ -317,9 +324,10 @@ const Register = ({ arcSite }) => {
                   <label htmlFor="rterms" className="terms">
                     <input
                       id="rterms"
-                      value={checkedTerms ? 'si' : 'no'}
                       type="checkbox"
                       name="rterms"
+                      value={checkedTerms ? '1' : '0'}
+                      checked={checkedTerms}
                       disabled={loading}
                       required
                       onChange={e => {

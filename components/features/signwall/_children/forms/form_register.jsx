@@ -43,8 +43,8 @@ const FormRegister = props => {
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
-  const [showChecked, setShowChecked] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(false)
+  const [checkedPolits, setCheckedPolits] = useState(true)
+  const [checkedTerms, setCheckedTerms] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
 
   const [showCheckPremium, setShowCheckPremium] = useState(false)
@@ -55,8 +55,8 @@ const FormRegister = props => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
-    rterms: { value: '', error: '' },
-    rpolit: { value: '', error: '' },
+    rpolit: { value: '1', error: '' },
+    rterms: { value: '0', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -81,6 +81,9 @@ const FormRegister = props => {
         },
         error: 'Mínimo 8 caracteres',
       },
+    },
+    rpolit: {
+      required: false,
     },
     rterms: {
       required: true,
@@ -219,7 +222,12 @@ const FormRegister = props => {
           },
           {
             name: 'termsCondPrivaPoli',
-            value: '1',
+            value: checkedTerms ? '1' : '0',
+            type: 'String',
+          },
+          {
+            name: 'dataTreatment',
+            value: checkedPolits ? '1' : '0',
             type: 'String',
           },
         ],
@@ -461,18 +469,18 @@ const FormRegister = props => {
                           handleOnChange(e)
                           setCheckedPolits(!checkedPolits)
                         }}>
-                        <S.Text c="gray" lh="18" s="12" className="mt-10">
+                        <S.Text c="gray" lh="22" s="12" className="mt-20">
                           Autorizo el tratamiento de mis datos
                         </S.Text>
                       </CheckBox>
 
                       <CheckBox
-                        checked={showChecked}
-                        value={showChecked ? '1' : '0'}
+                        checked={checkedTerms}
+                        value={checkedTerms ? '1' : '0'}
                         name="rterms"
                         onChange={e => {
                           handleOnChange(e)
-                          setShowChecked(!showChecked)
+                          setCheckedTerms(!checkedTerms)
                           setShowError(false)
                         }}
                         valid
@@ -669,6 +677,7 @@ const FormRegister = props => {
           )}
 
           {showStudents && typeDialog === 'students' && (
+            // eslint-disable-next-line react/jsx-props-no-spreading
             <FormStudents {...props} />
           )}
         </>
