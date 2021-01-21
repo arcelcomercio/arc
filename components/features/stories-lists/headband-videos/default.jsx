@@ -6,10 +6,10 @@ import ProcessItem from './_children/process-item'
 import FixedVideo from './_children/fixed-video'
 
 const classes = {
-  container: 'headband__container',
-  boxLogo: 'headband__box-logo',
+  container: 'headband__container flex p-10 flex-col',
+  boxLogo: 'headband__box-logo p-5 flex flex-row',
   logo: 'headband__logo',
-  title: 'headband__title',
+  title: 'headband__title bold uppercase ml-5 mr-5',
   boxItems: 'headband__box-items',
   swipe: 'headband__swipe',
   next: 'headband__next',
@@ -43,31 +43,38 @@ const HeadbandVideo = props => {
 
   return (
     <>
-    <div className={classes.container}>
-      <div className={classes.boxLogo}>
-        <div className={classes.title} >VIDEOS</div>
-        <img className={classes.logo} src={logoImg}  alt="Logo de Perú21TV"/>
-        <div className={classes.swipe}>
-          Desliza
+      <div className={classes.container}>
+        <div className={classes.boxLogo}>
+          <div className={classes.title}>VIDEOS</div>
+          <img className={classes.logo} src={logoImg} alt="Logo de Perú21TV" />
+          <div className={classes.swipe}>
+            Desliza{' '}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="8"
+              fill="#fff"
+              viewBox="0 0 8 14">
+              <path
+                d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z"
+                transform="translate(-0.293 -0.293)"></path>
+            </svg>
+          </div>
         </div>
+        <div className={classes.boxItems}>
+          {stories.map((url, index) => {
+            const randomKey = Math.floor(Math.random() * index)
+            return (
+              <ProcessItem
+                storyUrl={url}
+                storyLive={storiesLive[0]}
+                key={randomKey}
+              />
+            )
+          })}
+        </div>
+        <div className={classes.next}>&gt;</div>
       </div>
-      <div className={classes.boxItems}>
-        {stories.map((url, index) => {
-          const randomKey = Math.floor(Math.random() * index)
-          return (
-            <ProcessItem
-              storyUrl={url}
-              storyLive={storiesLive[0]}
-              key={randomKey}
-            />
-          )
-        })}
-      </div>
-      <div className={classes.next}>
-        &gt;
-      </div>
-    </div>
-    <FixedVideo></FixedVideo>
+      <FixedVideo></FixedVideo>
     </>
   )
 }

@@ -4,24 +4,83 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import { LANDSCAPE_XXS } from '../../../../utilities/constants/image-sizes'
 import schemaFilter from '../_dependencies/schema-filters'
-
-const classes = {
-  containerItem: 'headband__container-item',
-  boxVideo: 'headband__box-video',
-  titleStory: 'headband__title-story',
-  image: 'headband__image',
-  boxTimerLive: 'headband__box-timer-live',
-  timer: 'headband__timer',
-  live: 'headband__live',
-
-}
+import VideoItem from './item'
+import {
+  getType,
+  getTitle,
+  getVideoYoutube,
+  getImage,
+  getVideoImage,
+  getVideoTime,
+  getVideoJWplayerId,
+  getVideoJWplayerHasAds,
+  getVideoTimeJWplayer,
+  getVideoAccount,
+  getVideoImageJWplayer,
+} from '../../../../utilities/get-story-values'
+import {
+  ELEMENT_YOUTUBE_ID,
+  JWPLAYER,
+} from '../../../../utilities/constants/multimedia-types'
+import { defaultImage } from '../../../../utilities/assets'
 
 function HeadBandProcessItem({ storyUrl = '', storyLive = false }) {
   const CONTENT_SOURCE = 'story-by-url'
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
   const processData = data => {
-    return data
+    const videoType = getType(data)
+
+    let videoID = ''
+    let hasAds = ''
+    let image = {}
+    let duration = ''
+    let account = ''
+
+    if (videoType === ELEMENT_YOUTUBE_ID) {
+      videoID = getVideoYoutube(data)
+      image = getImage(data, LANDSCAPE_XXS)
+      image.default = false
+
+      if (image.payload === '') {
+        image.default = true
+        image.payload = defaultImage({
+          deployment,
+          contextPath,
+          arcSite,
+          size: 'sm',
+        })
+      }
+    } else if (videoType === JWPLAYER) {
+      videoID = getVideoJWplayerId(data)
+      hasAds = getVideoJWplayerHasAds(data)
+      image = getVideoImageJWplayer(data, LANDSCAPE_XXS)
+      duration = getVideoTimeJWplayer(data, LANDSCAPE_XXS)
+      account = getVideoAccount(data, LANDSCAPE_XXS)
+    }
+
+    let story = {
+      isAdmin,
+      liveStory: storyLive,
+    }
+
+    if (data && (videoType === ELEMENT_YOUTUBE_ID || videoType === JWPLAYER)) {
+      const title = getTitle(data)
+      story = {
+        isAdmin,
+        liveStory: storyLive,
+        valid: true,
+        title,
+        image,
+        videoType,
+        videoID,
+        autoPlayVideo: false,
+        videoTime: getVideoTime(data) || duration,
+        hasAds,
+        account,
+      }
+    }
+    return story
   }
 
   const story =
@@ -40,21 +99,7 @@ function HeadBandProcessItem({ storyUrl = '', storyLive = false }) {
         : {}
     ) || {}
 
-  return (
-    <div className={classes.containerItem}>
-      <div className={classes.boxVideo}>
-        <img className={classes.image} src="" alt="" />
-        <div className={classes.boxTimerLive}>
-          <span className={classes.timer}>12:00</span>
-          <div className={classes.live}>EN VIVO</div>
-        </div>
-        <i className="icon-play"></i>
-      </div>
-      <div className={classes.titleStory}>
-        Ministro Incháustegui: Esta semana se aprobaría cambio regulatorio
-      </div>
-    </div>
-  )
+  return storyUrl ? <VideoItem data={story} /> : <></>
 }
 
 HeadBandProcessItem.propTypes = {

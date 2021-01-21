@@ -1,8 +1,52 @@
 .headband {
-    &__fixedvideo {
-        &__container {
-            height: 200px;
-            background-color: #aa33ff;
-        }
+  &__fixedvideo {
+    &__container {
+      height: 200px;
+      background-color: #aa33ff;
     }
+  }
+
+  &__container {
+    height: 142px;
+    background-color: #222;
+    @media (--desktop) {
+      height: 110px;
+    }
+  }
+  &__title {
+    font: normal normal bold 16px/16px $tertiary-font;
+    letter-spacing: 0.48px;
+    color: #fff;
+    align-self: center;
+  }
+  &__logo {
+    height: 32px;
+    width: 47px;
+  }
+  &__swipe {
+    font: normal normal normal 14px/16px $tertiary-font;
+    letter-spacing: 0;
+    color: #666;
+    align-self: center;
+    margin-left: auto;
+    svg {
+      margin-left: 10px;
+    }
+  }
+  &__container-item {
+    height: 80px;
+  }
+  &__box-video {
+    width: 142px;
+  }
+  &__image {
+    border-radius: 5px;
+  }
+  &__title-story {
+    width: 120px;
+    font: normal normal bold 14px/15px $tertiary-font;
+    letter-spacing: 0.11px;
+    color: #eee;
+    margin-left: 10px;
+  }
 }
