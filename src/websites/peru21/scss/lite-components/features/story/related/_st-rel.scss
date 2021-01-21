@@ -6,11 +6,7 @@
   padding-top: 20px;
   color: #000;
   &__title {
-    // font: 700 14px/18px $primary-font;
-    font-weight: 700;
-    font-size: 16px;
-    font-family: $primary-font;
-    letter-spacing: 0;
+    font: 700 1rem/1 $primary-font;
     color: #222;
     text-transform: uppercase;
     padding-bottom: 20px;
@@ -18,7 +14,7 @@
 
   &__item {
     padding-bottom: 15px;
-    border-top: 1px solid #333;
+    border-top: 1px solid #8a8a8a;
     padding-top: 15px;
     @media (--only-mobile) {
       flex-direction: column;
@@ -42,28 +38,20 @@
     // height: 100%;
     object-fit: cover;
     @media (--desktop) {
-      width: 200px;
+      width: 180px;
     }
   }
 
   &__txt {
-    // font: 700 16px/22px $primary-font;
-    font-weight: 700;
-    font-size: 0.9rem;
-    font-family: $primary-font;
-    letter-spacing: 0;
-    line-height: 1.5;
+    font: 700 0.9rem/1.5 $primary-font;
     margin-bottom: 15px;
-
-    /* padding-right: 15px; */
     padding: 0 30px 5px 0;
     @media (--desktop) {
       margin-bottom: 0;
       padding-right: 30px;
-      // font: 700 19px/23px $primary-font;
     }
     a {
-      color: #000;
+      color: #0c70bf;
     }
   }
 
