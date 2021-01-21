@@ -3,6 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import { getAssetsPath } from '../../../utilities/assets'
 import customFieldsInput from './_dependencies/custom-fields'
 import ProcessItem from './_children/process-item'
+import FixedVideo from './_children/fixed-video'
 
 const classes = {
   container: 'headband__container',
@@ -41,6 +42,7 @@ const HeadbandVideo = props => {
   )}/resources/dist/${arcSite}/images/Logo_P21TV.png?d=1`
 
   return (
+    <>
     <div className={classes.container}>
       <div className={classes.boxLogo}>
         <div className={classes.title} >VIDEOS</div>
@@ -65,6 +67,8 @@ const HeadbandVideo = props => {
         &gt;
       </div>
     </div>
+    <FixedVideo></FixedVideo>
+    </>
   )
 }
 
