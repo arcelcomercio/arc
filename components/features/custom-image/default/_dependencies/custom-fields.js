@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
-  imgUrl: PropTypes.string.tag({
+  imgUrlDesktop: PropTypes.string.tag({
     name: 'URL de la imagen',
   }),
   imgLink: PropTypes.string.tag({
