@@ -665,7 +665,7 @@ const LiteOutput = ({
             )}
           />
         )}
-        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
+        {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )

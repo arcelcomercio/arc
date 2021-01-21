@@ -213,7 +213,21 @@ export const Button = styled.button`
     opacity: 0.7;
   }
 `
-
+export const ButtonCall = styled.button`
+  background: #f7c600
+    url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABZ0lEQVRIie3TP0scURQF8J+LEFRMFSFtQC1ECz9AYqOQtMk3EFKlE9PY2NtIFBIk+Q75AAqBiIUQBCWga5r4r9tooZa6KeauPHF2dtfdTg9cZu55554z780Mj+gApvAVZVxElYObbMd4COuoJnUelXI/Mdiq+QTOwmAX03iWrA8EtxeaU7xs1nw4Bqr4hB68x3dUcIktfMRTLIX2n2zXDbEWA9/wHJvRL2LO7ePZxQt8if5HI/OJEP5FP35Ff4VxdMdO0pA/suM7iP5VUcByiGbwITFZTjQlLERobX0es3G/VBSwE6IRbMT9KvpytGP4jH3ZUY2GfrsooBKiXtmLXsGTooEEfTFbqSeYxHWIxBOR7WQ9R5/HV8PjXY0oJYsr6Er633FNQ1PU47tkn/dNk6bn8a3gjkepjrBjSAOOO+h7kke+waH8c20Wtf/ibRseTQXcoPseBo1w1KLnnYCiOsTrdgIeIP4DEkVzjBCABR8AAAAASUVORK5CYII=');
+  background-repeat: no-repeat;
+  background-position: 60px center;
+  font-weight: bold;
+  color: #000000;
+  cursor: pointer;
+  border: 0px !important;
+  font-size: 18px;
+  font-weight: normal;
+  &:disabled {
+    opacity: 0.7;
+  }
+`
 export const ButtonBase = styled(Button)`
   width: auto !important;
   background: none;
