@@ -86,9 +86,12 @@
   }
   &__list {
     padding-left: 15px;
+    width: 1000px;
   }
   &__list-container {
     height: 46px;
+    max-width: 560px;
+    overflow: hidden;
     display: none;
     @media (--desktop) {
       display: block;
@@ -160,12 +163,15 @@
       height: auto;
       border: 1px solid #0c70bf;
     }
-    svg {
-      fill: #0c70bf;
-      height: 18px;
+    i {
+      font-style: normal;
       @media (--desktop) {
         display: none;
       }
+    }
+    svg {
+      fill: #0c70bf;
+      height: 18px;
     }
     span {
       display: none;
