@@ -8,7 +8,18 @@
     border-top: 1px solid #d6d6d6;
 
     .story-contents__author-link {
+      font: 700 14px/1.33 $primary-font;
+      text-transform: uppercase;
       margin: 0;
+    }
+    .story-contents__author-email,
+    .story-contents__author-date {
+      font: 400 0.9rem/1.33 $primary-font;
+      color: #8a8a8a;
+      margin: 0;
+    }
+    .story-contents__author-email {
+      margin-bottom: 5px;
     }
   }
 }
