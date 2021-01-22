@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 /**
  * espera
  * {
@@ -8,3 +10,6 @@
         options
       }
  */
+const TriviasMainQuestion = () => <div>question</div>
+
+export default TriviasMainQuestion
