@@ -2,7 +2,14 @@ export const ACTION_NEXT_QUESTION = 'trivia_next_question'
 export const ACTION_START = 'trivia_start'
 export const ACTION_RESTART = 'trivia_restart'
 
-export const action = (type, payload) => {
+/**
+ * 
+ * @param {string} type 
+ * @param {object} payload
+ * @param {string} payload.url
+ * @param {number[]} payload.question
+ */
+export const getActionPayload = (type, payload) => {
   const data = {}
   switch (type) {
     case ACTION_START:
@@ -11,8 +18,12 @@ export const action = (type, payload) => {
       break
     case ACTION_NEXT_QUESTION:
       data.event = ACTION_NEXT_QUESTION
+      data.url = payload.url
+      data.question = payload.question
       break
     case ACTION_RESTART:
+      data.event = ACTION_RESTART
+      data.url = payload.url
       break
     default:
       throw new Error(

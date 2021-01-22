@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
+import { ACTION_START, ACTION_RESTART, ACTION_NEXT_QUESTION, getActionPayload } from './_dependencies/actions'
 import TriviaStart from './_children/start'
 import TriviaQuestion from './_children/question'
 import TriviaResult from './_children/result'
@@ -31,8 +32,9 @@ const TriviasMain = ({
   // verificar cuantos custom_embeds de tipo trivia
   // vienen en content_elements, esa es la cantidad de preguntas.
   const {
-    content_elements: contentElements = '',
     headlines: { basic: title = '' } = {},
+    promo_items: { basic: { url: triviaImage ='', caption = '' } = {} } = {},
+    content_elements: contentElements = '',
   } = globalContent || {}
 
   const questions = contentElements
@@ -70,31 +72,58 @@ const TriviasMain = ({
     // envio de evento a tagManager
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
-      event: action,
-      ...payload,
+      ...getActionPayload(action, payload)
     })
   }
 
+  // refresh de publicidad
   const refreshAds = () => {
-    // refresh de publicidad
     window.googletag = window.googletag || { cmd: [] }
     window.googletag.cmd.push(() => {
       window.googletag.pubads().refresh()
     })
   }
 
-  // funcion que se ejecuta al pasar a siguiente pregunta
+  // se ejecuta al empezar de nuevo la trivia
+  const handleRestart = () => {
+    pushEvent(ACTION_RESTART, {
+      url: window.location.pathname,
+    })
+
+    setPoints(0)
+    setCurrentQuestion(0)
+    setStarted(false)
+  }
+
+  // se ejecuta al empezar la trivia
+  const handleStart = () => {
+    pushEvent(ACTION_START, {
+      url: window.location.pathname,
+    })
+
+    setStarted(true)
+  }
+
+  // se ejecuta al pasar a siguiente pregunta
   const handleAnswer = (rightAnswer = false) => {
+    pushEvent(ACTION_NEXT_QUESTION, {
+      url: window.location.pathname,
+      question: [currentQuestion, questions.length]
+    })
+    refreshAds()
+    
     if (rightAnswer) setPoints(points + 1)
     setCurrentQuestion(currentQuestion + 1)
-
-    pushEvent()
-    refreshAds()
   }
 
   return (
     <main style={{ margin: '0 auto' }}>
-      {!started && <TriviaStart title={title} start={() => setStarted(true)} />}
+      {!started && <TriviaStart 
+        title={title} 
+        image={triviaImage}
+        alt={caption}
+        start={handleStart} 
+      />}
       {started && currentQuestion < questions.length && (
         <TriviaQuestion
           title={title}
@@ -110,7 +139,7 @@ const TriviasMain = ({
           messageGood={messageGood}
           messagePerfect={messagePerfect}
           points={points}
-          restart={() => setStarted(false)}
+          restart={handleRestart}
         />
       )}
     </main>
