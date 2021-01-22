@@ -68,6 +68,7 @@
   }
   &__box-items {
     overflow-y: hidden;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
       height: 0;
@@ -150,8 +151,11 @@
     width: 42px;
     height: 110px;
     justify-content: center;
+    &:focus {
+      outline: none;
+    }
     @media (--desktop) {
-      display: flex;
+      display: block;
     }
   }
 }

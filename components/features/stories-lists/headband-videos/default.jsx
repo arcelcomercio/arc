@@ -42,6 +42,19 @@ const HeadbandVideo = props => {
     contextPath
   )}/resources/dist/${arcSite}/images/Logo_P21TV.png?d=1`
 
+  const sideScroll = () => {
+    if (window) {
+      const container = document.getElementsByClassName(
+        'headband__box-items'
+      )[0]
+      if (container.scrollLeft === 0 && container.scrollLeft < 500) {
+        container.scrollLeft = 500
+      } else {
+        container.scrollLeft = 0
+      }
+    }
+  }
+
   return (
     <>
       <div className={classes.main}>
@@ -79,7 +92,12 @@ const HeadbandVideo = props => {
             })}
           </div>
         </div>
-        <div className={classes.next}>
+        <button
+          className={classes.next}
+          type="button"
+          onClick={() => {
+            sideScroll()
+          }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="8"
@@ -89,7 +107,7 @@ const HeadbandVideo = props => {
               d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z"
               transform="translate(-0.293 -0.293)"></path>
           </svg>
-        </div>
+        </button>
       </div>
       <FixedVideo></FixedVideo>
     </>
