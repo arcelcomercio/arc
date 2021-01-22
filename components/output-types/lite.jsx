@@ -403,6 +403,8 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
           arcSite={arcSite}
+          section={storySectionPath.split('/')[1]}
+          subtype={subtype}
         />
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
