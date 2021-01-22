@@ -23,6 +23,7 @@ import {
   JWPLAYER,
 } from '../../../../utilities/constants/multimedia-types'
 import { defaultImage } from '../../../../utilities/assets'
+import { secToTime } from '../../../../utilities/date-time/time'
 
 function HeadBandProcessItem({ storyUrl = '', storyLive = false }) {
   const CONTENT_SOURCE = 'story-by-url'
@@ -54,7 +55,10 @@ function HeadBandProcessItem({ storyUrl = '', storyLive = false }) {
     } else if (videoType === JWPLAYER) {
       videoID = getVideoJWplayerId(data)
       hasAds = getVideoJWplayerHasAds(data)
-      image = getVideoImageJWplayer(data, LANDSCAPE_XXS)
+      image = getImage(data, LANDSCAPE_XXS)
+      if (image.payload === '') {
+        image = getVideoImageJWplayer(data, LANDSCAPE_XXS)
+      }
       duration = getVideoTimeJWplayer(data, LANDSCAPE_XXS)
       account = getVideoAccount(data, LANDSCAPE_XXS)
     }
@@ -75,7 +79,7 @@ function HeadBandProcessItem({ storyUrl = '', storyLive = false }) {
         videoType,
         videoID,
         autoPlayVideo: false,
-        videoTime: getVideoTime(data) || duration,
+        videoTime: videoType === JWPLAYER ? secToTime(duration || 0) : '',
         hasAds,
         account,
       }
