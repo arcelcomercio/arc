@@ -117,7 +117,7 @@ const TriviasMain = ({
   }
 
   return (
-    <main style={{ margin: '0 auto' }}>
+    <main style={{ width: '100%' }}>
       {!started && <TriviaStart 
         title={title} 
         image={triviaImage}

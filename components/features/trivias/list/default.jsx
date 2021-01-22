@@ -51,7 +51,7 @@ const TriviasList = ({
             title,
             multimedia: url,
             alt: caption,
-            link: websiteLink,
+            websiteLink,
           }
         })
         return data
@@ -63,6 +63,7 @@ const TriviasList = ({
       {trivias.map(({ multimedia, alt, title, websiteLink }) => {
         return (
           <TriviaListItem
+            key={`trivia-list-${title}`}
             title={title}
             image={multimedia}
             alt={alt}

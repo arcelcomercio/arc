@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { reduceWord } from '../../../../utilities/parse/strings'
 import Image from '../../../../global-components/image'
 
 /**
@@ -42,7 +43,7 @@ const TriviasListItem = ({
       </figure>
       <div className={classes.content}>
         <h3 className={classes.title}>
-          {title}
+          {reduceWord(title, 30)}
         </h3>
         <a href={link} className={classes.link}>
           Empezar
