@@ -10,7 +10,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
-// import RegisterServiceWorker from './_children/register-service-worker'
+import RegisterServiceWorker from './_children/register-service-worker'
 import WebVitals from './_children/web-vitals'
 
 // import Preconnects from './_children/preconnects'
@@ -788,7 +788,7 @@ export default ({
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
-        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
+        {arcSite === SITE_ELBOCON ? <RegisterServiceWorker path={deployment("/sw.js")}/> : null}
       </body>
     </html>
   )

@@ -10,6 +10,7 @@ import { getAssetsPath } from '../../../utilities/assets'
 import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
+  SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -44,6 +45,7 @@ import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import StoryContentsChildCustomBlock from './_children/custom-block'
 import customFields from './_dependencies/custom-fields'
+import iframeScriptCounter from './_dependencies/counter-mag'
 import {
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
@@ -544,13 +546,13 @@ const StoryContentsLite = props => {
                     )
                   }
                   if (
-                    /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+                    /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(content)
                   ) {
                     return (
                       <>
                         <div
                           data-type={
-                            /twitter-(?:tweet|timeline)/.test(content)
+                            /twitter-(?:tweet|timeline|follow-button)/.test(content)
                               ? 'twitter'
                               : 'instagram'
                           }
@@ -615,6 +617,14 @@ const StoryContentsLite = props => {
         <script
           src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
           defer></script>
+      )}
+      {arcSite === SITE_ELCOMERCIOMAG && (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: iframeScriptCounter(),
+          }}
+        />
       )}
     </>
   )
