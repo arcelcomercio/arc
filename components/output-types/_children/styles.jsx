@@ -33,6 +33,7 @@ const Styles = ({
   )
     style = 'story-video'
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
+  else if (/^\/trivias\/?/.test(requestUri)) style = 'trivias'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (
@@ -48,7 +49,6 @@ const Styles = ({
     style = 'specials'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
-  else if (/^\/trivias\//.test(requestUri)) style = 'trivias'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
 

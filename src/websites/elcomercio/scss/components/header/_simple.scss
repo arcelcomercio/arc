@@ -22,14 +22,12 @@
       display: flex;
       &__logo-brand {
         img {
-          max-width: 93px;
+          max-width: 114px;
         }
       }
       &__logo-trivia {
-        img {
-          max-width: 80px;
-          margin: 4px 0 0 4px;
-        }
+        max-width: 80px;
+        padding-left: 8px;
       }
     }
     &-rigth {
@@ -38,7 +36,7 @@
       ul li {
         display: inline-block;
         vertical-align: middle;
-        margin: 3px;
+        padding: 0 3px;
         img {
           filter: invert(1);
           max-width: 20px;

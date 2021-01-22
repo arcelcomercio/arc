@@ -6,18 +6,16 @@ import properties from '../_dependencies/properties'
  * @see estilos src/websites/elcomercio/scss/components/header/_simple.scss
  */
 const classes = {
-  header: 'navbar-rs',
-  container: 'navbar-rs__container',
-  containerLeft: 'navbar-rs__container-left',
-  logoBrand: 'navbar-rs__container-left__logo-brand',
-  logoTrivia: 'navbar-rs__container-left__logo-trivia',
-  containerRight: 'navbar-rs__container-rigth',
+  header: 'h-simple',
+  container: 'h-simple__container',
+  containerLeft: 'h-simple__container-left',
+  logoBrand: 'h-simple__container-left__logo-brand',
+  logoTrivia: 'h-simple__container-left__logo-trivia',
+  containerRight: 'h-simple__container-rigth',
 }
 
 const windowW = 600
 const windowH = 400
-const wLeft = window.screen.width / 2 - windowW / 2
-const wTop = window.screen.height / 2 - windowH / 2
 
 const defaultTitle = 'Las noticias más importantes del 2020'
 
@@ -53,6 +51,8 @@ const HeaderSimpleChild = ({
 
   const handleShare = (e, link) => {
     e.preventDefault()
+    const wLeft = window.screen.width / 2 - windowW / 2
+    const wTop = window.screen.height / 2 - windowH / 2
     window.open(
       link,
       '',
@@ -77,16 +77,16 @@ const HeaderSimpleChild = ({
           <a className={classes.logoTrivia} href="/trivias/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="121"
-              height="22"
-              viewBox="0 0 121 22">
+              width="55"
+              height="16"
+              viewBox="0 0 60 16">
               <text
                 style={{
                   fill: '#ffc900',
                   fontSize: '15px',
                   fontWeight: '700',
                 }}>
-                <tspan y="15" aria-hidden="true">
+                <tspan y="14" aria-hidden="true">
                   +
                 </tspan>
                 <tspan style={{ fill: '#fff' }} y="15">

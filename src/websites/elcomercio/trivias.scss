@@ -55,18 +55,20 @@
 $assets_url: "https://cdna.elcomercio.pe";
 
 /******* Color Variables *******/
-$color-black: hsl(0, 0%, 0%); // bg header
-$color-dark: hsl(0, 0%, 3%); // background hero y texto sticky
+$color-black: hsl(0, 0%, 0%);
+$color-dark: hsl(0, 0%, 3%);
 $color-dark-text: hsl(0, 0%, 10%);
-$color-text: $color-dark-text; // texto de noticias y fecha de noticia
+$color-text: $color-dark-text;
 $color-grey: hsl(0, 0%, 53%);
-$color-gray: $color-grey; // caption de fotos
-$color-silver: hsl(0, 0%, 77%); // barrita de carga
+$color-gray: $color-grey;
+
+$color-silver: hsla(0, 0%, 89%, 1);
+$color-soft: hsla(0, 0%, 96%, 1);
 $color-white: hsl(0, 0%, 100%);
 
-$color-gold-dark: hsl(46, 28%, 22%); // border botones
-$color-gold-mate: hsl(45, 30%, 44%); // border-bottom header
-$color-gold: hsl(45, 77%, 71%); // todo lo demas dorado
+$color-red: hsla(0, 72%, 49%, 1);
+$color-green: hsla(129, 69%, 49%, 1);
+$color-gold: hsla(48, 100%, 51%, 1);
 
 /******* Font Variables *******/
 $primary-font: "Prelo", serif, system-ui;
@@ -99,6 +101,7 @@ html {
 
 html,
 body,
+button,
 div,
 span,
 iframe,
@@ -192,5 +195,4 @@ h6 {
 *             STYLES            *
 * ----------------------------- */
 @import "./scss/components/header/simple";
-
-/* ---------------------------- */
+@import "./scss/components/trivias/trivias-list";

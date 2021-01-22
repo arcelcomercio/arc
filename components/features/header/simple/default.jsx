@@ -25,7 +25,6 @@ const HeaderSimple = props => {
   )
 }
 
-HeaderSimple.static = true
 HeaderSimple.label = 'Cabecera Simple'
 
 HeaderSimple.propTypes = {

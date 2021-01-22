@@ -252,6 +252,7 @@ export default ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
+  const isTrivia = /^\/trivias\//.test(requestUri)
   const isPremium = contentCode === 'premium' || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
@@ -359,10 +360,6 @@ export default ({
           rel="preconnect dns-prefetch"
           href="//elcomercio-elcomercio-prod.cdn.arcpublishing.com"
         />
-        <link
-          rel="preconnect dns-prefetch"
-          href="//arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com"
-        />
         <link rel="preconnect dns-prefetch" href="//s.go-mpulse.net" />
         <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="preconnect dns-prefetch" href="//ajax.googleapis.com" />
@@ -384,7 +381,32 @@ export default ({
           href="//arc-subs-sdk.s3.amazonaws.com"
         />
         <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
-        {arcSite === 'elcomercio' && (
+        {arcSite === 'elcomercio' && isTrivia && (
+          <>
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Prelo-Book.woff2"
+            />
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Prelo-Medium.woff2"
+            />
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Prelo-Bold.woff2"
+            />
+          </>
+        )}
+        {arcSite === 'elcomercio' && !isTrivia && (
           <>
             <link
               rel="preload"
@@ -521,7 +543,7 @@ export default ({
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeSignwall) {
+          if (isElcomercioHome || !siteProperties.activeSignwall || isTrivia) {
             return null
           }
           return (
@@ -532,7 +554,7 @@ export default ({
           )
         })()}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeRulesCounter) {
+          if (isElcomercioHome || !siteProperties.activeRulesCounter || isTrivia) {
             return null
           }
           return (
@@ -722,12 +744,8 @@ export default ({
             />
           </>
         )}
-        {embedTwitterAndInst && (
-          <>
-            <script dangerouslySetInnerHTML={{ __html: widgets }} />
-          </>
-        )}
-        <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
+        {embedTwitterAndInst ? <script dangerouslySetInnerHTML={{ __html: widgets }} /> : null}
+        {!isTrivia ? <script dangerouslySetInnerHTML={{ __html: iframeScript }} /> : null}
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
