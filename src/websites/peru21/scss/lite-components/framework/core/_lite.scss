@@ -97,10 +97,16 @@
   outline: 0;
   top: 0;
   width: auto;
-  height: calc(100% - 86px);
   align-items: center;
   justify-content: center;
   padding-left: 20px;
+  height: 200px;
+  @media (--tablet) {
+    height: 360px;
+  }
+  @media (--desktop) {
+    height: 528px;
+  }
 }
 .story-gallery-slider__arrows--left,
 .story-gallery-slider__arrows--right {

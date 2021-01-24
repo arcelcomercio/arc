@@ -1,7 +1,7 @@
 .story-gallery-slider {
   max-width: 100vw;
   padding: 20px;
-  background-color: #262627;
+  background-color: #333;
 
   @media (--desktop) {
     max-width: 1024px;
@@ -39,8 +39,8 @@
   }
 
   &__caption-image {
+    font: 400 13px/1.33 $primary-font;
     color: #fff;
-    font-size: 13px;
     padding-top: 10px;
   }
 
