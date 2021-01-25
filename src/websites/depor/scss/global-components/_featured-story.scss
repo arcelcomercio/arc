@@ -1,4 +1,9 @@
 .featured-story {
+  &__detail {
+    @media (--desktop) {
+      margin-top: 16px;
+    }
+  }
   &__category {
     @media (--tablet) {
       display: flex;
