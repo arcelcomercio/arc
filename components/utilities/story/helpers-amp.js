@@ -95,18 +95,6 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
   return createMarkup(resultData)
 }
 
-export const publicidadAmpCaja1 = ({ dataSlot }) => {
-  let resultData = ''
-
-  resultData = `<amp-ad
-    width="320"
-    height="100"
-    type="doubleclick"
-    data-slot="${dataSlot}"
-  />`
-  return createMarkup(resultData)
-}
-
 export const optaWidgetHtml = html => {
   if (html.indexOf('<opta-widget') === -1) return html
   const matches = html.match(/<opta-widget (.*?)>(.*)<\/opta-widget>/)
