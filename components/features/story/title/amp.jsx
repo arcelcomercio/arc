@@ -6,7 +6,7 @@ import StorySocialChildAmpSocial from '../social/_children/amp-social'
 import StoryData from '../../../utilities/story-data'
 import { storyTagsBbc } from '../../../utilities/tags'
 import { getAssetsPath } from '../../../utilities/assets'
-import { publicidadAmp, publicidadAmpCaja1 } from '../../../utilities/story/helpers-amp'
+import { publicidadAmp } from '../../../utilities/story/helpers-amp'
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 
@@ -51,10 +51,6 @@ const StoryTitleAmp = () => {
     size:'320x100'
   }
 
-  const parametersCaja1 = {
-    dataSlot
-  }
-
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
     `${getAssetsPath(
@@ -91,12 +87,6 @@ const StoryTitleAmp = () => {
           <div
             className={classes.adsAmp}
             dangerouslySetInnerHTML={publicidadAmp(parameters)}
-          />
-        )}
-        {arcSite === SITE_ELCOMERCIOMAG && (
-          <div
-            className={classes.adsAmp}
-            dangerouslySetInnerHTML={publicidadAmpCaja1(parametersCaja1)}
           />
         )}
         {subTitle && <div className={classes.description}> {subTitle}</div>}
