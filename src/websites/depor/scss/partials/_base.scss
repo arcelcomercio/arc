@@ -2,7 +2,11 @@ body {
   background: $color-gray-100;
   overflow-x: hidden;
 }
-
+.content-layout-container {
+  @media (--desktop) {
+    min-width: 976px;
+  }
+}
 .story {
   .content-layout-container {
     background: $color-white;
@@ -11,5 +15,10 @@ body {
 @media screen and(max-width: 1023px) {
   .no-row-2-mobile {
     height: auto;
+  }
+}
+.content-layout {
+  @media (--desktop) {
+    min-width: 976px;
   }
 }
