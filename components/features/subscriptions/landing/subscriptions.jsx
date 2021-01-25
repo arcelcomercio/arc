@@ -2,22 +2,19 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
-import useForm from '../_hooks/useForm'
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import stylesLanding from '../_styles/Landing'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
 import { CallOut } from '../../signwall/_children/callout/index'
 import Cards from './_children/Cards'
+import CallinCallOut from './_children/CallinCallout'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
 import addScriptAsync from '../_dependencies/Async'
-
-import { formatNames, formatCellphone } from '../_dependencies/Errors'
-import { pushCallOut } from '../_dependencies/Services'
 
 const arcType = 'landing'
 const LandingSubscriptions = () => {
@@ -40,28 +37,8 @@ const LandingSubscriptions = () => {
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
   const moduleCall = callInnCallOut && isComercio
-
   const [showCallin, setShowCallin] = useState(false)
-  const [showConfirmCall, setShowConfirmCall] = useState(false)
-  const [showRepeatCall, setShowRepeatCall] = useState(false)
   const [showModalCall, setShowModalCall] = useState(false)
-  const [showErrorCall, setShowErrorCall] = useState(false)
-
-  const stateSchema = {
-    namecall: { value: '', error: '' },
-    phonecall: { value: '', error: '' },
-  }
-
-  const stateValidatorSchema = {
-    namecall: {
-      required: true,
-      validator: formatNames(),
-    },
-    phonecall: {
-      required: true,
-      validator: formatCellphone(),
-    },
-  }
 
   useEffect(() => {
     addScriptAsync({
@@ -125,56 +102,6 @@ const LandingSubscriptions = () => {
     }
   }
 
-  const onFomrCallOut = ({ namecall, phonecall }) => {
-    pushCallOut(namecall, phonecall)
-      .then(resCall => {
-        if (
-          resCall.resultado ||
-          resCall.mensaje ===
-            'El numero de telefono ya ha sido registrado el dia de hoy'
-        ) {
-          if (
-            resCall.mensaje ===
-            'El numero de telefono ya ha sido registrado el dia de hoy'
-          ) {
-            setShowRepeatCall(resCall.mensaje)
-          } else {
-            setShowConfirmCall(true)
-          }
-        } else {
-          setShowErrorCall(resCall.mensaje || resCall.Message)
-        }
-      })
-      .catch(() => {
-        setShowErrorCall(
-          'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
-        )
-      })
-  }
-
-  const {
-    values: { namecall, phonecall },
-    errors: { namecall: namecallError, phonecall: phonecallError },
-    handleOnChange,
-    handleOnSubmit,
-    disable,
-  } = useForm(stateSchema, stateValidatorSchema, onFomrCallOut)
-
-  const handleChangeInput = e => {
-    handleOnChange(e)
-  }
-
-  const handleShowCallOut = () => {
-    setShowModalCall(true)
-  }
-
-  const handleShowHiddenCallOut = () => {
-    setShowCallin(!showCallin)
-    setShowRepeatCall(false)
-    setShowConfirmCall(false)
-    setShowErrorCall(false)
-  }
-
   return (
     <>
       <style
@@ -207,7 +134,7 @@ const LandingSubscriptions = () => {
                   <button
                     type="button"
                     className="icon-support"
-                    onClick={handleShowHiddenCallOut}>
+                    onClick={() => setShowCallin(!showCallin)}>
                     Te Llamamos
                   </button>
                 </div>
@@ -224,67 +151,7 @@ const LandingSubscriptions = () => {
           </div>
         </header>
 
-        {moduleCall && showCallin && (
-          <section id="callin" className="callin">
-            <div className="wrapper">
-              {showConfirmCall || showErrorCall || showRepeatCall ? (
-                <div className="msg-confirmation">
-                  {showConfirmCall && (
-                    <h3>Tus datos han sido enviados correctamente</h3>
-                  )}
-
-                  {showRepeatCall && <h3>{showRepeatCall} </h3>}
-
-                  {showErrorCall && <h3>Ocurrió un error</h3>}
-
-                  {(showConfirmCall || showRepeatCall) && (
-                    <>
-                      <p>
-                        Uno de nuestros ejecutivos se pondrá en contacto
-                        contigo.
-                      </p>
-                      <p className="note-schedule">
-                        Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM
-                      </p>
-                    </>
-                  )}
-                  {showErrorCall && <p>{showErrorCall}</p>}
-                </div>
-              ) : (
-                <form onSubmit={handleOnSubmit}>
-                  <input
-                    className={namecallError && 'input-error'}
-                    type="text"
-                    placeholder="Nombre"
-                    name="namecall"
-                    maxLength="80"
-                    required
-                    value={namecall}
-                    onBlur={handleOnChange}
-                    onChange={handleChangeInput}
-                  />
-                  <input
-                    className={phonecallError && 'input-error'}
-                    type="text"
-                    placeholder="Celular"
-                    name="phonecall"
-                    maxLength="9"
-                    required
-                    value={phonecall}
-                    onBlur={handleOnChange}
-                    onChange={handleChangeInput}
-                  />
-                  <button
-                    type="submit"
-                    className="icon-send"
-                    disabled={disable}>
-                    &nbsp;
-                  </button>
-                </form>
-              )}
-            </div>
-          </section>
-        )}
+        {moduleCall && showCallin && <CallinCallOut />}
 
         <section className="planes">
           <div className={isComercio ? 'wrapper' : 'wrapper-full'}>
@@ -545,7 +412,7 @@ const LandingSubscriptions = () => {
             <button
               type="button"
               className="icon-support"
-              onClick={handleShowCallOut}>
+              onClick={() => setShowModalCall(true)}>
               Te Llamamos
             </button>
           </section>
