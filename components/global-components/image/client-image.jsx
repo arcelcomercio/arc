@@ -1,7 +1,7 @@
 import * as React from 'react'
+import { useContent } from 'fusion:content'
 
 import { defaultImage } from '../../utilities/assets'
-import { createResizedParams } from '../../utilities/resizer/resizer'
 import { buildPresets } from './utils'
 
 /**
@@ -27,13 +27,14 @@ import { buildPresets } from './utils'
  * @param {string} config.contextPath
  * @param {string} config.outputType
  * @param {JSX.Element} [config.icon]
+ * @param {boolean} [config.isAdmin=false]
  *
- * @returns {HTMLImageElement | HTMLPictureElement} Static resized `<img/>` o `<picture/>`
+ * @returns {HTMLImageElement | HTMLPictureElement} Resized `<img/>` o `<picture/>`
  *
  * @see loading https://web.dev/native-lazy-loading/
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
  */
-const CustomImage = ({
+const ClientImage = ({
   id,
   src,
   loading,
@@ -55,14 +56,18 @@ const CustomImage = ({
   contextPath,
   outputType,
   icon,
+  isAdmin = false,
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
    * estandares actuales, asi el codigo esta preparado
    * para cuando este estandar sea mayormente aceptado.
    * @see https://web.dev/native-lazy-loading/
+   *
+   * Solo se habilita el lazyload de imagenes
+   * fuera del admin de PageBuilder.
    */
-  const lazy = loading === 'lazy'
+  const lazy = loading === 'lazy' && !isAdmin
   const placeholder =
     customPlaceholder || defaultImage({ contextPath, arcSite })
 
@@ -76,14 +81,21 @@ const CustomImage = ({
       ? { ...buildPresets(sizes), ...mainImagePreset }
       : mainImagePreset
 
-  const resizedImages = createResizedParams({
-    url: src,
-    presets,
-    arcSite,
-    filterQuality: quality,
-  })
+  /**
+   * Menor calidad en las imagenes del Admin para
+   * mejorar velocidad de trabajo
+   */
+  const { resized_urls: resizedImages = {} } =
+    useContent({
+      source: 'photo-resizer',
+      query: {
+        url: src,
+        presets,
+        quality: isAdmin ? 65 : quality,
+      },
+    }) || {}
 
-  const mainImage = resizedImages[`${width}x${height}`] || placeholder
+  const mainImage = resizedImages[`${width}x${height}`]
 
   if (outputType === 'amp') {
     return (
@@ -103,7 +115,7 @@ const CustomImage = ({
       src={lazy ? placeholder : mainImage}
       data-src={lazy ? mainImage : null}
       alt={alt}
-      decoding={lazy ? 'async' : 'auto'}
+      decoding={lazy || isAdmin ? 'async' : 'auto'}
       // width={width}
       // height={height}
       id={id}
@@ -116,36 +128,39 @@ const CustomImage = ({
     />
   )
 
-  return sizes.length >= 1 ? (
-    <picture className={pictureClassName}>
-      {sizes.map(size => {
-        const { width: sourceWidth, height: sourceHeight, media } = size
-        const sourceImage =
-          resizedImages[`${sourceWidth}x${sourceHeight}`] || placeholder
-        const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
-          sourceImage.length - 30,
-          sourceImage.length
-        )}`
-        return (
-          <source
-            key={key}
-            srcSet={lazy ? null : sourceImage}
-            data-srcset={lazy ? sourceImage : null}
-            media={media}
-            type={type}
-            className={lazy ? 'lazy' : null}
-          />
-        )
-      })}
-      <Image />
-      {icon || null}
-    </picture>
-  ) : (
-    <>
-      <Image />
-      {icon || null}
-    </>
+  return (
+    mainImage &&
+    (sizes.length >= 1 ? (
+      <picture className={pictureClassName}>
+        {sizes.map(size => {
+          const { width: sourceWidth, height: sourceHeight, media } = size
+          const sourceImage =
+            resizedImages[`${sourceWidth}x${sourceHeight}`] || placeholder
+          const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
+            sourceImage.length - 30,
+            sourceImage.length
+          )}`
+          return (
+            <source
+              key={key}
+              srcSet={lazy ? null : sourceImage}
+              data-srcset={lazy ? sourceImage : null}
+              media={media}
+              type={type}
+              className={lazy ? 'lazy' : null}
+            />
+          )
+        })}
+        <Image />
+        {icon || null}
+      </picture>
+    ) : (
+      <>
+        <Image />
+        {icon || null}
+      </>
+    ))
   )
 }
 
-export default React.memo(CustomImage)
+export default React.memo(ClientImage)

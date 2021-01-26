@@ -2,8 +2,14 @@ import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
-import { ACTION_START, ACTION_RESTART, ACTION_NEXT_QUESTION, getActionPayload } from './_dependencies/actions'
+import {
+  ACTION_START,
+  ACTION_RESTART,
+  ACTION_NEXT_QUESTION,
+  getActionPayload,
+} from './_dependencies/actions'
 import TriviaStart from './_children/start'
+import TriviaProgress from './_children/progress'
 import TriviaQuestion from './_children/question'
 import TriviaResult from './_children/result'
 
@@ -26,14 +32,14 @@ const TriviasMain = ({
   const { globalContent } = useAppContext()
 
   const [currentQuestion, setCurrentQuestion] = React.useState(0)
-  const [points, setPoints] = React.useState(0)
+  const [points, setPoints] = React.useState([])
   const [started, setStarted] = React.useState(false)
 
   // verificar cuantos custom_embeds de tipo trivia
   // vienen en content_elements, esa es la cantidad de preguntas.
   const {
     headlines: { basic: title = '' } = {},
-    promo_items: { basic: { url: triviaImage ='', caption = '' } = {} } = {},
+    promo_items: { basic: { url: triviaImage = '', caption = '' } = {} } = {},
     content_elements: contentElements = '',
   } = globalContent || {}
 
@@ -47,12 +53,7 @@ const TriviasMain = ({
           config: {
             name: question = '',
             response = '',
-            image: {
-              url: image = '',
-              alt = '',
-              // width,
-              // height
-            } = {},
+            image: { url: image = '', alt = '', width, height } = {},
             question: options = [],
           },
         } = {},
@@ -64,6 +65,8 @@ const TriviasMain = ({
         response,
         image,
         alt,
+        width,
+        height,
         options,
       }
     })
@@ -72,7 +75,7 @@ const TriviasMain = ({
     // envio de evento a tagManager
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
-      ...getActionPayload(action, payload)
+      ...getActionPayload(action, payload),
     })
   }
 
@@ -90,7 +93,7 @@ const TriviasMain = ({
       url: window.location.pathname,
     })
 
-    setPoints(0)
+    setPoints([])
     setCurrentQuestion(0)
     setStarted(false)
   }
@@ -104,32 +107,52 @@ const TriviasMain = ({
     setStarted(true)
   }
 
-  // se ejecuta al pasar a siguiente pregunta
+  // se ejecuta al responder una pregunta
   const handleAnswer = (rightAnswer = false) => {
+    setPoints([...points, rightAnswer ? 'yes' : 'no'])
+  }
+
+  // se ejecuta al pasar a siguiente pregunta
+  const handleNextQuestion = () => {
     pushEvent(ACTION_NEXT_QUESTION, {
       url: window.location.pathname,
-      question: [currentQuestion, questions.length]
+      question: [currentQuestion, questions.length],
     })
+
     refreshAds()
-    
-    if (rightAnswer) setPoints(points + 1)
     setCurrentQuestion(currentQuestion + 1)
   }
 
   return (
     <main style={{ width: '100%' }}>
-      {!started && <TriviaStart 
-        title={title} 
-        image={triviaImage}
-        alt={caption}
-        start={handleStart} 
-      />}
-      {started && currentQuestion < questions.length && (
-        <TriviaQuestion
+      {!started && (
+        <TriviaStart
           title={title}
-          question={questions[currentQuestion]}
-          setAnswer={handleAnswer}
+          image={triviaImage}
+          alt={caption}
+          start={handleStart}
         />
+      )}
+      {started && currentQuestion < questions.length && (
+        <div
+          style={{
+            margin: '0 auto',
+            width: '100%',
+            maxWidth: '540px',
+          }}>
+          <TriviaProgress
+            title={title}
+            points={points}
+            totalQuestions={questions.length}
+          />
+          <TriviaQuestion
+            question={questions[currentQuestion]}
+            rightAnswer={points[currentQuestion] === 'yes'}
+            number={currentQuestion + 1}
+            setAnswer={handleAnswer}
+            getNextQuestion={handleNextQuestion}
+          />
+        </div>
       )}
       {started && currentQuestion >= questions.length && (
         <TriviaResult

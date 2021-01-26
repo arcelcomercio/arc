@@ -19,8 +19,6 @@ const TriviasMainStart = ({ title, image, alt, start }) => {
         maxWidth: '1170px',
         height: '100%',
         minHeight: '660px',
-        // minHeight: '555px',
-        // maxHeight: '660px',
         position: 'relative',
       }}>
       <Image
@@ -28,7 +26,7 @@ const TriviasMainStart = ({ title, image, alt, start }) => {
         width={1170}
         height={660}
         sizes="(max-width: 360px) 360px, (max-width: 480px) 480px, (max-width: 768px) 768px, 1170px"
-        sizesHeight={[555, 555]}
+        sizesHeight={[660, 660, 660]}
         alt={alt}
         className={classes.image}
         style={{
@@ -64,4 +62,4 @@ const TriviasMainStart = ({ title, image, alt, start }) => {
   )
 }
 
-export default TriviasMainStart
+export default React.memo(TriviasMainStart)
