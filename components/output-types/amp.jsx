@@ -220,6 +220,7 @@ const AmpOutputType = ({
     arcSite,
     dataSlot,
   }
+  const isTrivia = /^\/trivias\//.test(requestUri)
   return (
     <Html lang={lang}>
       <head>
@@ -242,7 +243,10 @@ const AmpOutputType = ({
 
         {/* add additional head elements here */}
 
-        <Resource path={`resources/dist/${arcSite}/css/amp.css`}>
+        <Resource
+          path={`resources/dist/${arcSite}/css/${
+            isTrivia ? 'amp-trivias' : 'amp'
+          }.css`}>
           {({ data }) => {
             return data ? (
               <style
@@ -401,6 +405,27 @@ const AmpOutputType = ({
           />
         )}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        {isTrivia && (
+          <>
+            <link
+              rel="preload"
+              as="script"
+              href="https://cdn.ampproject.org/v0/amp-story-1.0.js"
+            />
+            <script
+              async
+              custom-element="amp-story"
+              src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
+            <script
+              async
+              custom-element="amp-story-interactive"
+              src="https://cdn.ampproject.org/v0/amp-story-interactive-0.1.js"></script>
+            <script
+              async
+              custom-element="amp-app-banner"
+              src="https://cdn.ampproject.org/v0/amp-app-banner-0.1.js"></script>
+          </>
+        )}
       </head>
       <body className={subtype}>
         <AmpTagManager {...parametros} />
