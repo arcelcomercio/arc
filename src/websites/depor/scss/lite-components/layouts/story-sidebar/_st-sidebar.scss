@@ -1,5 +1,6 @@
 .st-sidebar {
   &__container {
+    margin: 0 auto;
     background: $color-white;
     @media (--tablet) {
       width: 620px;
