@@ -4,8 +4,28 @@
   }
   &__fixedvideo {
     &__container {
-      height: 200px;
-      background-color: #aa33ff;
+      height: 100px;
+      background-color: #222;
+      @media (--desktop) {
+        width: 980px;
+      }
+      position: fixed;
+      top: 0;
+      z-index: 22;
+      display: none;
+    }
+    &__container.active {
+        display: block;
+    }
+    &__container.active.scrolled {
+        top: 46px;
+    }
+    &__container.active.expanded {
+        height: 150px;
+    }
+
+    &__resize{
+        background-color: #000;
     }
   }
 

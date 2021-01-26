@@ -23,7 +23,8 @@ export default function VideoItem(props) {
       account,
       time,
       liveStory,
-    },
+    }, 
+    loadFixedVideo
   } = props
   const { siteProperties: { jwplayers = {} } = {} } = useFusionContext()
   const playerId = jwplayers[account] || jwplayers.gec
@@ -62,7 +63,7 @@ export default function VideoItem(props) {
           </svg>
         </div>
       </div>
-      <div className={classes.titleStory}>{title}</div>
+      <div className={classes.titleStory}><a href="#" onClick={loadFixedVideo}>{title}</a></div>
     </div>
   )
 }
