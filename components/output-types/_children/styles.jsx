@@ -5,6 +5,7 @@ import {
   SITE_DEPOR,
   SITE_PERU21G21,
   SITE_TROME,
+  SITE_ELBOCON,
 } from '../../utilities/constants/sitenames'
 
 const Styles = ({
@@ -28,7 +29,8 @@ const Styles = ({
   if (
     (arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
-      arcSite === SITE_DEPOR) &&
+      arcSite === SITE_DEPOR ||
+      arcSite === SITE_ELBOCON) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
