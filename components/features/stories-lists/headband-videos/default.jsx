@@ -57,8 +57,7 @@ const HeadbandVideo = props => {
 
   const [showFixed, setShowFixed] = useState(false)
 
-  const loadFixedVideo = () => {
-    console.log("==========LFV=========")
+  const loadFixedVideo = (data) => {
     setShowFixed(true)
   }
 

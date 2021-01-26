@@ -15,10 +15,6 @@ const classes = {
 const FixedVideo = (props) => {
     const {active, setActive} = props
 
-    console.log("========ACT=========")
-    console.log(active)
-    console.log("====================")
-
     const [scrolled, setScrolled] = useState(false)
     const [expanded, setExpanded] = useState(false)
 
@@ -58,8 +54,8 @@ const FixedVideo = (props) => {
             <div className={classes.titleStory}>
                 Ministro Incháustegui: Esta semana se aprobaría cambio regulatorio
             </div>
-            <div className={classes.close}><a href="#" onClick={setActive(false)}>Close</a></div>
-            <div className={classes.resize}><a href="#" onClick={resizeVideo}>Resize</a></div>
+            <div className={classes.close}><button type="button" onClick={() => setActive(false)}>Close</button></div>
+            <div className={classes.resize}><button type="button" onClick={resizeVideo}>Resize</button></div>
         </div>
     );
 }

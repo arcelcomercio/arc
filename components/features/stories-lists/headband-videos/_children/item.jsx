@@ -63,7 +63,7 @@ export default function VideoItem(props) {
           </svg>
         </div>
       </div>
-      <div className={classes.titleStory}><a href="#" onClick={loadFixedVideo}>{title}</a></div>
+      <div className={classes.titleStory}><button type="button" onClick={loadFixedVideo}>{title}</button></div>
     </div>
   )
 }
