@@ -96,7 +96,7 @@ const TriviasMainQuestionAmp = ({
 
         <amp-story-grid-layer
           template="vertical"
-          style={{ 'margin-top': '286px' }}>
+          style={{ 'margin-top': '320px' }}>
           <div
             animate-in="scale-fade-up"
             dangerouslySetInnerHTML={{
