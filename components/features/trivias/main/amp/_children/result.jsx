@@ -9,7 +9,14 @@ const classes = {
   shareBox: 'trivias-result__share-box',
   share: 'trivias-result__share',
 }
-const TriviasMainResult = ({ title, messageGood = 'ssss', children = {} }) => {
+const TriviasMainResult = ({
+  title,
+  messageNull,
+  messagePoor,
+  messageGood,
+  messagePerfect,
+  children = {},
+}) => {
   return (
     <amp-story-page id="page-results">
       <amp-story-grid-layer template="vertical">
@@ -106,11 +113,19 @@ const TriviasMainResult = ({ title, messageGood = 'ssss', children = {} }) => {
           style={{ 'font-size': '17px', margin: '100px auto 0' }}
           id="results-1"
           theme="dark"
-          prompt-text={messageGood}
+          prompt-text={title}
           option-1-results-category=""
-          option-1-results-threshold="0"
-          option-2-results-category="Expert"
-          option-2-results-threshold="80"></amp-story-interactive-results>
+          option-1-text={messageNull}
+          option-1-results-threshold="10"
+          option-2-results-category=""
+          option-2-text={messagePoor}
+          option-2-results-threshold="40"
+          option-3-results-category=""
+          option-3-text={messageGood}
+          option-3-results-threshold="80"
+          option-4-results-category=""
+          option-4-text={messagePerfect}
+          option-4-results-threshold="100"></amp-story-interactive-results>
       </amp-story-grid-layer>
     </amp-story-page>
   )

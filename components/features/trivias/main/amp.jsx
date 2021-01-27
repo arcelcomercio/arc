@@ -8,6 +8,7 @@ import TriviaQuestion from './amp/_children/question'
 import TriviaResult from './amp/_children/result'
 
 import Header from '../../header/simple/_children/amp/header'
+import AmpTagManager from '../../../output-types/_children/amp-tag-manager'
 
 /**
  * @param {object} props
@@ -25,7 +26,7 @@ const TriviasMainAmp = ({
     messagePerfect = '¡Puntaje perfecto!  ',
   },
 }) => {
-  const { globalContent } = useFusionContext()
+  const { globalContent, siteProperties } = useFusionContext()
   const { requestUri, arcSite } = useAppContext()
   const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
     arcSite
@@ -74,6 +75,17 @@ const TriviasMainAmp = ({
   ],
   "components": []
 }`
+  const { taxonomy: { sections } = {}, credits: { by: autors } = {} } =
+    globalContent || {}
+
+  const parametros = {
+    sections,
+    autors,
+    siteProperties,
+    arcSite,
+    globalContent,
+    requestUri,
+  }
   return (
     <>
       <amp-story
@@ -84,6 +96,8 @@ const TriviasMainAmp = ({
         poster-portrait-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg"
         poster-square-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg"
         poster-landscape-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg">
+        <AmpTagManager {...parametros} />
+
         <TriviaStart title={title} image={triviaImage} alt={caption}>
           <Header
             requestUri={requestUri}
