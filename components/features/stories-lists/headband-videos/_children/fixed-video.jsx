@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
+import YoutubeVideo from './youtube-video';
+import JwPlayerVideo from './jwplayer-video';
 
 const classes = {
     container: 'headband__fixedvideo__container',
+    firstBox: 'headband__fixedvideo__firstBox',
     boxVideo: 'headband__fixedvideo__box-video',
     titleStory: 'headband__fixedvideo__title-story',
     image: 'headband__fixedvideo__image',
@@ -13,7 +16,19 @@ const classes = {
   }
 
 const FixedVideo = (props) => {
-    const {active, setActive} = props
+    const {active, 
+           setActive, 
+           dataVideo: {
+               videoID, 
+               videoTime, 
+               title, 
+               liveStory, 
+               isAdmin, 
+               account, 
+               videoType = '', 
+               image
+           } = {}
+        } = props
 
     const [scrolled, setScrolled] = useState(false)
     const [expanded, setExpanded] = useState(false)
@@ -43,19 +58,30 @@ const FixedVideo = (props) => {
         window.addEventListener('scroll', _handleScroll)
     }
 
+    const playerProps = {isAdmin, title, liveStory, videoID, account, videoTime, 'hasAds': false, image, 'imageDefault': image, 'autoPlayVideo': true}
+
     return (
-        <div className={`${classes.container} ${expanded ? 'expanded' : ''} ${active ? 'active' : ''} ${scrolled ? 'scrolled' : ''}`}>
-            <div className={classes.boxVideo}>
-                <img className={classes.image} src="" alt="" />
-                <div className={classes.boxTimerLive}>
-                    <div className={classes.live}>EN VIVO</div>
+        <div className={`${classes.container} ${active ? 'active' : ''} ${scrolled ? 'scrolled' : ''}`}>
+            { active && (
+            <>
+            <div className={`${classes.firstBox} ${expanded ? 'expanded' : ''}`}>
+                <div className={classes.boxVideo}>
+                    {active && (videoType === 'youtube_id') && (
+                    <YoutubeVideo {...playerProps}></YoutubeVideo>
+                    )}
+
+                    {active && (videoType === 'basic_jwplayer') && (
+                    <JwPlayerVideo {...playerProps}></JwPlayerVideo>
+                    )}
                 </div>
+                <div className={classes.titleStory}>
+                    {title}
+                </div>
+                <div className={classes.close}><button type="button" onClick={() => setActive(false)}>x</button></div>
             </div>
-            <div className={classes.titleStory}>
-                Ministro Incháustegui: Esta semana se aprobaría cambio regulatorio
-            </div>
-            <div className={classes.close}><button type="button" onClick={() => setActive(false)}>Close</button></div>
             <div className={classes.resize}><button type="button" onClick={resizeVideo}>Resize</button></div>
+            </>
+            )}
         </div>
     );
 }

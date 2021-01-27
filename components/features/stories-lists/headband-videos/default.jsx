@@ -56,9 +56,11 @@ const HeadbandVideo = props => {
   }
 
   const [showFixed, setShowFixed] = useState(false)
+  const [dataVideo, setDataVideo] = useState({})
 
   const loadFixedVideo = (data) => {
     setShowFixed(true)
+    setDataVideo(data)
   }
 
   return (
@@ -116,7 +118,7 @@ const HeadbandVideo = props => {
           </svg>
         </button>
       </div>
-      <FixedVideo active={showFixed} setActive={setShowFixed}></FixedVideo>
+      <FixedVideo active={showFixed} setActive={setShowFixed} dataVideo={dataVideo}></FixedVideo>
     </>
   )
 }

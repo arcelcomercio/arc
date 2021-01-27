@@ -4,7 +4,6 @@
   }
   &__fixedvideo {
     &__container {
-      height: 100px;
       background-color: #222;
       @media (--desktop) {
         width: 980px;
@@ -14,18 +13,31 @@
       z-index: 22;
       display: none;
     }
+    &__firstBox{
+      height: 110px;
+    }
+    &__firstBox.expanded {
+      height: 200px;
+    }
     &__container.active {
         display: block;
     }
     &__container.active.scrolled {
         top: 46px;
     }
-    &__container.active.expanded {
-        height: 150px;
+    &__close{
+      button{
+        color: #fff;
+        font-weight: 800;
+      }
     }
-
     &__resize{
         background-color: #000;
+        height: 24px;
+        border-radius: 0px 5px 5px 0px;
+        border-top: 1px solid #fff;
+        color: #fff;
+        font-weight: 800;
     }
   }
 
