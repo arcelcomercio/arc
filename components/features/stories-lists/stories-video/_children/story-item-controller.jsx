@@ -17,6 +17,7 @@ import {
   getVideoTimeJWplayer,
   getVideoAccount,
   getVideoImageJWplayer,
+  getPrimarySection,
 } from '../../../../utilities/get-story-values'
 import {
   VIDEO,
@@ -42,6 +43,7 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
     let image = {}
     let duration = ''
     let account = ''
+    const sectionData = getPrimarySection(data)
 
     if (videoType === ELEMENT_YOUTUBE_ID) {
       videoID = getVideoYoutube(data)
@@ -113,6 +115,7 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
         videoTime: getVideoTime(data) || duration,
         hasAds,
         account,
+        section: sectionData.name,
       }
     }
     return story

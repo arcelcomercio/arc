@@ -57,6 +57,7 @@ const VideoJWplayer = ({
   videoTime,
   autoPlayVideo,
   account,
+  section,
 }) => {
   const time = secToTime(videoTime)
   const powaVideoProps = {
@@ -69,6 +70,7 @@ const VideoJWplayer = ({
     time,
     account,
     autoPlayVideo,
+    section,
   }
 
   if (index === 0) {
@@ -121,6 +123,7 @@ const StoriesListStoryVideoItem = ({
   hasAds = '',
   duration,
   account,
+  section,
 }) => {
   const paramsItem = {
     index,
@@ -135,6 +138,7 @@ const StoriesListStoryVideoItem = ({
     hasAds,
     duration,
     account,
+    section,
   }
   let resultItemVideo = null
 
