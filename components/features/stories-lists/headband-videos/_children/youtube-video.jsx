@@ -12,7 +12,6 @@ const classes = {
 
 const YoutubeVideo = ({
   isAdmin,
-  title,
   liveStory,
   image,
   imageDefault,
@@ -50,13 +49,6 @@ const YoutubeVideo = ({
           </p>
         )}
       </div>
-      <div className={classes.listItemText}>
-        <div className={classes.listBorder}>
-          <h2 itemProp="name" className={classes.listItemTitleDest}>
-            {title}
-          </h2>
-        </div>
-      </div>
     </>
   )
 }
@@ -64,7 +56,6 @@ const YoutubeVideo = ({
 YoutubeVideo.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   liveStory: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
   videoID: PropTypes.string.isRequired,
   autoPlayVideo: PropTypes.bool.isRequired,
 }

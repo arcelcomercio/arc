@@ -5,19 +5,66 @@
   &__fixedvideo {
     &__container {
       background-color: #222;
+      width: 100%;
       @media (--desktop) {
         width: 980px;
+      }
+      @media (--tablet) {
+        width: 620px;
       }
       position: fixed;
       top: 0;
       z-index: 22;
       display: none;
+      border-radius: 0px 5px 5px 0px;
     }
     &__firstBox{
       height: 110px;
+      display: flex;
+      position: relative;
+    }
+    &__box-video{
+      width: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__box-video iframe{
+      height: 90px;
+      width: 160px;
+    }
+    &__title-story{
+      font-family: 'Roboto';
+      width: 136px;
+      @media (--desktop) {
+        width: 180px;
+        font-size: 16px;
+      }
+      color: #fff;
+      font-size: 14px;
+      padding-top: 10px;
     }
     &__firstBox.expanded {
       height: 200px;
+      .headband__fixedvideo__box-video{
+        width: 340px;
+        iframe{
+          width: 320px;
+          height: 180px;
+        }
+      }
+      .headband__fixedvideo__title-story{
+        font-size: 14px;
+        width: 100%;
+        @media (--tablet) {
+          width: 220px;
+          color: #fff;
+          font-size: 20px;
+        }
+        @media (--tablet) {
+          width: 240px;
+        }
+      }
     }
     &__container.active {
         display: block;
@@ -26,18 +73,34 @@
         top: 46px;
     }
     &__close{
+      position: absolute;
+      top: 10px;
+      right: 10px;
       button{
         color: #fff;
-        font-weight: 800;
+        font-size: 20px;
       }
     }
     &__resize{
-        background-color: #000;
-        height: 24px;
-        border-radius: 0px 5px 5px 0px;
-        border-top: 1px solid #fff;
+      background-color: #000;
+      height: 24px;
+      border-top: 1px solid #fff;
+      text-align: center;
+      button{
         color: #fff;
         font-weight: 800;
+        svg{
+          padding-top: 5px;
+          transform: rotate(90deg);
+        }
+      }
+    }
+    &__resize.expanded{
+      button{
+        svg{
+          transform: rotate(-90deg);
+        }
+      }
     }
   }
 

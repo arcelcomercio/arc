@@ -79,7 +79,11 @@ const FixedVideo = (props) => {
                 </div>
                 <div className={classes.close}><button type="button" onClick={() => setActive(false)}>x</button></div>
             </div>
-            <div className={classes.resize}><button type="button" onClick={resizeVideo}>Resize</button></div>
+            <div className={`${classes.resize} ${expanded ? 'expanded' : ''}`}>
+                <button type="button" onClick={resizeVideo}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="8" fill="#fff" viewBox="0 0 8 14"><path d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z" transform="translate(-0.293 -0.293)"></path></svg>
+                </button>
+            </div>
             </>
             )}
         </div>
