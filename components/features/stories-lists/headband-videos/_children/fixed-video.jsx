@@ -77,7 +77,7 @@ const FixedVideo = (props) => {
                 <div className={classes.titleStory}>
                     {title}
                 </div>
-                <div className={classes.close}><button type="button" onClick={() => setActive(false)}>x</button></div>
+                <button className={classes.close} type="button" onClick={() => setActive(false)}>x</button>
             </div>
             <div className={`${classes.resize} ${expanded ? 'expanded' : ''}`}>
                 <button type="button" onClick={resizeVideo}>
