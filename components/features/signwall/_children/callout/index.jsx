@@ -4,7 +4,7 @@ import useForm from '../../../subscriptions/_hooks/useForm'
 import Modal from '../../../subscriptions/payment/_children/Profile/children/modal'
 import { ContMiddle, CloseBtn } from '../landing/styled'
 import * as S from '../forms/styles'
-import { CheckBox } from '../forms/control_checkbox'
+// import { CheckBox } from '../forms/control_checkbox'
 import { Input } from '../forms/control_input_select'
 import { Close, MsgRegister } from '../iconos'
 
@@ -16,15 +16,16 @@ import { pushCallOut } from '../../../subscriptions/_dependencies/Services'
 
 export const CallOut = props => {
   const { onClose, noBtnClose } = props
-  const [showChecked, setShowChecked] = useState(false)
+  // const [showChecked, setShowChecked] = useState(false)
   const [showConfirmCall, setShowConfirmCall] = useState(false)
   const [showRepeatCall, setShowRepeatCall] = useState(false)
   const [showErrorCall, setShowErrorCall] = useState(false)
+  const [loading, setLoading] = useState()
 
   const stateSchema = {
     namecall: { value: '', error: '' },
     phonecall: { value: '', error: '' },
-    rterms: { value: '', error: '' },
+    // rterms: { value: '', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -38,16 +39,17 @@ export const CallOut = props => {
       required: true,
       validator: formatCellphone(),
     },
-    rterms: {
-      required: true,
-      validator: {
-        func: value => value !== '1',
-        error: 'Para usar este servicio es necesario marcar este campo',
-      },
-    },
+    // rterms: {
+    //   required: true,
+    //   validator: {
+    //     func: value => value !== '1',
+    //     error: 'Para usar este servicio es necesario marcar este campo',
+    //   },
+    // },
   }
 
   const onFomrCallOut = ({ namecall, phonecall }) => {
+    setLoading(true)
     pushCallOut(namecall, phonecall)
       .then(resCall => {
         if (
@@ -59,8 +61,10 @@ export const CallOut = props => {
             resCall.mensaje ===
             'El numero de telefono ya ha sido registrado el dia de hoy'
           ) {
+            setLoading(false)
             setShowRepeatCall(resCall.mensaje)
           } else {
+            setLoading(false)
             setShowConfirmCall(true)
           }
         } else {
@@ -68,6 +72,7 @@ export const CallOut = props => {
         }
       })
       .catch(() => {
+        setLoading(false)
         setShowErrorCall(
           'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
         )
@@ -79,7 +84,7 @@ export const CallOut = props => {
     errors: {
       namecall: namecallError,
       phonecall: phonecallError,
-      rterms: rtermsError,
+      // rterms: rtermsError,
     },
     handleOnChange,
     handleOnSubmit,
@@ -166,6 +171,7 @@ export const CallOut = props => {
                   handleOnChange(e)
                 }}
                 error={namecallError}
+                disabled={loading}
               />
 
               <Input
@@ -180,9 +186,10 @@ export const CallOut = props => {
                   handleOnChange(e)
                 }}
                 error={phonecallError}
+                disabled={loading}
               />
 
-              <CheckBox
+              {/* <CheckBox
                 checked={showChecked}
                 value={showChecked ? '1' : '0'}
                 name="rterms"
@@ -195,13 +202,13 @@ export const CallOut = props => {
                 <S.Text c="gray" lh="16" s="14" className="mt-20">
                   Autorizo el tratamiento de mis datos
                 </S.Text>
-              </CheckBox>
+              </CheckBox> */}
 
               <S.ButtonCall
                 type="submit"
                 className="mt-40 mb-10"
-                disabled={disable}>
-                Te llamamos
+                disabled={disable || loading}>
+                {loading ? 'Enviando...' : 'Te llamamos'}
               </S.ButtonCall>
             </S.Form>
           )}
