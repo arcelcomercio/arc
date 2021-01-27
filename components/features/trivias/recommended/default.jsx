@@ -6,24 +6,34 @@ import { includePromoItems } from '../../../utilities/included-fields'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import TriviaListItem from './_children/trivia-card'
+import TriviaReItem from './_children/trivia-card'
 
 const classes = {
-  container: 'trivias-list',
+  container: 'trivias-re',
+  title: 'trivias-re__title',
 }
 
 /**
  *
  * @param {object} props
+ * @param {boolean} props.clientResize
  * @param {object} props.customFields
  * @param {object} props.customFields.triviasConfig
  * @param {string} props.customFields.triviasConfig.contentService
  * @param {object} props.customFields.triviasConfig.contentConfigValues
  */
-const TriviasList = ({
+const TriviasRecommended = ({
+  clientResize = false,
   customFields: {
-    triviasConfig: { contentService = '', contentConfigValues = {} } = {},
-  },
+    triviasConfig: {
+      // default values
+      contentService = 'story-feed-by-section',
+      contentConfigValues = {
+        section: '/trivias',
+        stories_qty: 8,
+      },
+    } = {},
+  } = {},
 }) => {
   const { arcSite } = useAppContext()
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems}`
@@ -58,14 +68,18 @@ const TriviasList = ({
 
   return (
     <div className={classes.container}>
+      <h2 className={classes.title}>
+        <strong>+Trivias</strong> que te pueden interesar
+      </h2>
       {trivias.map(({ multimedia, alt, title, websiteLink }) => {
         return (
-          <TriviaListItem
+          <TriviaReItem
             key={`trivia-list-${title}`}
             title={title}
             image={multimedia}
             alt={alt}
             link={websiteLink}
+            clientResize={clientResize}
           />
         )
       })}
@@ -73,11 +87,11 @@ const TriviasList = ({
   )
 }
 
-TriviasList.propTypes = {
+TriviasRecommended.propTypes = {
   customFields,
 }
 
-TriviasList.label = 'Trivias Listado'
-TriviasList.static = true
+TriviasRecommended.label = 'Trivias Recomendadas'
+TriviasRecommended.static = true
 
-export default TriviasList
+export default TriviasRecommended

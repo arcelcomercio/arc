@@ -67,7 +67,9 @@ const HeaderSimpleChild = ({
           <a
             className={classes.logoBrand}
             href={siteUrl}
-            style={hasCustomLogoStyle ? { height: '80%' } : {}}>
+            style={
+              hasCustomLogoStyle ? { height: '80%' } : { minWidth: '114px' }
+            }>
             <img
               src={logo}
               alt={`logo de ${arcSite}`}

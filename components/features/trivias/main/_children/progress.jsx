@@ -25,7 +25,7 @@ const TriviasProgress = ({ title, points, totalQuestions = 0 }) => {
     <div
       className={classes.container}
       style={{
-        padding: '45px 20px 30px',
+        padding: '40px 20px 20px',
         width: '100%',
         minHeight: '87px',
       }}>

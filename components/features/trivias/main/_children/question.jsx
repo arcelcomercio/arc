@@ -1,11 +1,9 @@
 import * as React from 'react'
 
-import Image from '../../../../global-components/image'
+import QuestionImage from './question-image'
 
 const classes = {
   container: 'trivias-quiz',
-  picture: 'trivias-quiz__picture',
-  image: 'trivias-quiz__image',
   body: 'trivias-quiz__body',
   question: 'trivias-quiz__question',
   questionButton: 'trivias-quiz__question-btn',
@@ -65,32 +63,7 @@ const TriviasMainQuestion = ({
 
   return (
     <div>
-      <figure
-        style={{
-          margin: '0 auto',
-          width: '100%',
-          height: 'auto',
-          paddingTop: `${(height * 100) / width}%`,
-          position: 'relative',
-        }}>
-        <Image
-          src={image}
-          width={540}
-          height={Math.floor((height * 540) / width)}
-          sizes="(max-width: 360px) 360px, 540px"
-          alt={alt}
-          className={classes.image}
-          pictureClassName={classes.picture}
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center',
-            height: '100%',
-            width: '100%',
-          }}
-          loading="eager"
-          clientResize
-        />
-      </figure>
+      <QuestionImage image={image} alt={alt} height={height} width={width} />
       <section
         className={classes.body}
         style={{
@@ -121,7 +94,22 @@ const TriviasMainQuestion = ({
                     borderColor: select ? color : '#F5F5F5',
                   }}
                   key={`q-${name}`}>
-                  <li className={classes.questionText}>{name}</li>
+                  <li className={classes.questionText}>
+                    {name}
+                    {isRight && rightAnswer && select && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22.354"
+                        height="22.354"
+                        viewBox="0 0 22.354 22.354"
+                        fill="#26D340">
+                        <path
+                          d="M22.916,11.739A11.177,11.177,0,1,1,11.739.563,11.177,11.177,0,0,1,22.916,11.739Zm-12.47,5.918,8.292-8.292a.721.721,0,0,0,0-1.02l-1.02-1.02a.721.721,0,0,0-1.02,0L9.937,14.088,6.779,10.931a.721.721,0,0,0-1.02,0L4.74,11.95a.721.721,0,0,0,0,1.02l4.687,4.687A.721.721,0,0,0,10.446,17.657Z"
+                          transform="translate(-0.563 -0.563)"
+                        />
+                      </svg>
+                    )}
+                  </li>
                 </button>
               ) : null
             })}
@@ -131,6 +119,7 @@ const TriviasMainQuestion = ({
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className={classes.check}
+                    fill="#26D340"
                     width="22.354"
                     height="22.354"
                     viewBox="0 0 22.354 22.354">
@@ -190,7 +179,7 @@ const TriviasMainQuestion = ({
           disabled={!select}
           onClick={handleNextQuestion}
           style={{
-            transform: `scale(${select ? 1 : 0})`,
+            opacity: select ? 1 : 0.3,
           }}
           className={classes.nextButton}>
           Siguiente

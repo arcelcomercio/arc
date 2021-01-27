@@ -18,7 +18,7 @@ const TriviasMainStart = ({ title, image, alt, start }) => {
         width: '100%',
         maxWidth: '1170px',
         height: '100%',
-        minHeight: '660px',
+        minHeight: '550px',
         position: 'relative',
       }}>
       <Image
@@ -26,7 +26,7 @@ const TriviasMainStart = ({ title, image, alt, start }) => {
         width={1170}
         height={660}
         sizes="(max-width: 360px) 360px, (max-width: 480px) 480px, (max-width: 768px) 768px, 1170px"
-        sizesHeight={[660, 660, 660]}
+        sizesHeight={[550, 550, 550]}
         alt={alt}
         className={classes.image}
         style={{

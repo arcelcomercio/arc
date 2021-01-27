@@ -4,11 +4,10 @@
     top: 0;
   }
   &__body {
-    padding: 20px 15px 15px;
+    padding: 20px 15px 30px;
 
     @media (--desktop) {
-      padding: 0;
-      padding-top: 20px;
+      padding: 20px 0 30px;
     }
   }
   &__question {
@@ -38,6 +37,8 @@
   &__question-txt {
     padding-left: 4px;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
   }
   &__details {
     position: relative;
@@ -59,7 +60,6 @@
     max-height: 90px;
   }
   &__check {
-    fill: $color-green;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
