@@ -491,11 +491,11 @@ class StoryData {
     const data =
       embed.length > 0 &&
       embed.some(({ content = '' }) =>
-        /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(content)
+        /twitter-(?:tweet|timeline)|instagram-media/.test(content)
       )
     /* const data =
       embed.length > 0
-        ? embed.filter(({ content = ''}) => /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(content))
+        ? embed.filter(({ content = ''}) => /twitter-(?:tweet|timeline)|instagram-media/.test(content))
         : [] */
 
     return data
@@ -515,6 +515,7 @@ class StoryData {
   get videoSeo() {
     const videosContent = StoryData.getVideoContent(
       this._data && this._data.content_elements,
+      this._data && this._data.display_date,
       'video'
     )
 
@@ -1462,7 +1463,7 @@ class StoryData {
       : []
   }
 
-  static getVideoContent(data = []) {
+  static getVideoContent(data = [], dateDisplay) {
     const dataVideo =
       StoryData.getContentElements(data, 'video').filter(String) || []
 
@@ -1477,6 +1478,7 @@ class StoryData {
             publish_date: date,
             headlines: { basic: caption = '' } = {},
             description: { basic: description = '' } = {},
+            embed_html: embedHtml,
           }) => {
             const resultVideo = streams
               .map(({ url = '', stream_type: streamType = '' }) => {
@@ -1493,6 +1495,11 @@ class StoryData {
                   : []
               })
               .filter(String)
+
+            const dateVideo = dateDisplay.split('T')[0]
+            if (embedHtml.includes('id="powa-') && dateVideo >= '2021-01-22') {
+              return []
+            }
             const cantidadVideo = resultVideo.length
             return resultVideo[cantidadVideo - 1] || []
           }
