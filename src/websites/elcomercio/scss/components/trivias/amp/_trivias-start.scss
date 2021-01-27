@@ -23,8 +23,19 @@
     right: 0;
     bottom: 0;
   }
+  &__header {
+    top: 0;
+    color: $color-white;
+    font-size: 30px;
+    line-height: 32px;
+    font-weight: 900;
+    text-align: center;
+    width: 100%;
+    max-width: 430px;
+    z-index: 5;
+  }
   &__title {
-    top: 45px;
+    top: 80px;
     color: $color-white;
     font-size: 30px;
     line-height: 32px;
@@ -44,10 +55,6 @@
       width: 77px;
       height: 2px;
       background-color: $color-gold;
-    }
-
-    @media (--tablet) {
-      top: 60px;
     }
   }
   &__button {

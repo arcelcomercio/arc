@@ -1,5 +1,4 @@
 import * as React from 'react'
-import getProperties from 'fusion:properties'
 
 import properties from '../../_dependencies/properties'
 
@@ -27,8 +26,6 @@ const HeaderSimpleChildAmp = ({ siteUrl, arcSite, customLogo }) => {
   const logo = customLogo || properties(arcSite)?.logo
   const hasCustomLogoStyle =
     arcSite === 'diariocorreo' || arcSite === 'peru21g21' || arcSite === 'ojo'
-
-  const { fbAppId } = getProperties(arcSite)
 
   return (
     <header className={classes.header}>
@@ -68,7 +65,7 @@ const HeaderSimpleChildAmp = ({ siteUrl, arcSite, customLogo }) => {
             </svg>
           </a>
         </div>
-        <div className={classes.containerRight}>
+        {/* <div className={classes.containerRight}>
           <ul>
             <li>
               <amp-social-share
@@ -89,6 +86,7 @@ const HeaderSimpleChildAmp = ({ siteUrl, arcSite, customLogo }) => {
             </li>
           </ul>
         </div>
+              */}
       </div>
     </header>
   )

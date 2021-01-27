@@ -6,9 +6,15 @@ const classes = {
   container: 'trivias-start',
   image: 'trivias-start__image',
   title: 'trivias-start__title',
+  header: 'trivias-start__header',
   button: 'trivias-start__button',
 }
-const TriviasMainStart = ({ image = '', title = '', alt = '' } = {}) => {
+const TriviasMainStart = ({
+  image = '',
+  title = '',
+  alt = '',
+  children = {},
+} = {}) => {
   return (
     <amp-story-page id="ysjlrjtqex" class="ysjlrjtqex ms-st-pg">
       <amp-story-grid-layer
@@ -34,6 +40,15 @@ const TriviasMainStart = ({ image = '', title = '', alt = '' } = {}) => {
 
       <amp-story-grid-layer template="horizontal">
         <div
+          className={classes.header}
+          style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+          }}>
+          {children}
+        </div>
+        <div
           className={classes.container}
           style={{
             margin: '0 auto',
@@ -51,8 +66,7 @@ const TriviasMainStart = ({ image = '', title = '', alt = '' } = {}) => {
             }}>
             {title}
           </h1>
-          <button
-            type="button"
+          <div
             className={classes.button}
             style={{
               position: 'absolute',
@@ -60,7 +74,7 @@ const TriviasMainStart = ({ image = '', title = '', alt = '' } = {}) => {
               transform: 'translateX(-50%)',
             }}>
             Empezar
-          </button>
+          </div>
         </div>
       </amp-story-grid-layer>
     </amp-story-page>

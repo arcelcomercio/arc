@@ -1,28 +1,8 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
-import { useAppContext } from 'fusion:context'
-import getProperties from 'fusion:properties'
 
-import Header from './_children/amp/header'
-
-const HeaderSimpleAmp = props => {
-  const { customFields: { customLogos = {} } = {} } = props
-
-  const { requestUri, arcSite } = useAppContext()
-  const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
-    arcSite
-  )
-  const customLogo = customLogos[arcSite]
-
-  return (
-    <Header
-      requestUri={requestUri}
-      siteUrl={siteUrl}
-      arcSite={arcSite}
-      twitter={user}
-      customLogo={customLogo}
-    />
-  )
+const HeaderSimpleAmp = () => {
+  return <></>
 }
 
 HeaderSimpleAmp.label = 'Cabecera Simple'
@@ -30,7 +10,7 @@ HeaderSimpleAmp.label = 'Cabecera Simple'
 HeaderSimpleAmp.propTypes = {
   customFields: PropTypes.shape({
     customLogos: PropTypes.kvp.tag({
-      name: 'Logos personalizados por marca.',
+      name: 'Logos personalizados por marca.  ss',
       description: `Presiona -new item- agregar una > marca < y la > url < del logo personalizado para esa marca.
         Ej: "depor" - "https://cdna.depor.com/resources/dist/depor/images/alternate-logo-w.png?d=1"`,
       group: 'Logos',

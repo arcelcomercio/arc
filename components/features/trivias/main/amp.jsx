@@ -1,10 +1,13 @@
 import * as React from 'react'
-import { useFusionContext } from 'fusion:context'
+import { useFusionContext, useAppContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 
 import customFields from './_dependencies/custom-fields'
 import TriviaStart from './amp/_children/start'
 import TriviaQuestion from './amp/_children/question'
 import TriviaResult from './amp/_children/result'
+
+import Header from '../../header/simple/_children/amp/header'
 
 /**
  * @param {object} props
@@ -23,6 +26,10 @@ const TriviasMainAmp = ({
   },
 }) => {
   const { globalContent } = useFusionContext()
+  const { requestUri, arcSite } = useAppContext()
+  const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
+    arcSite
+  )
 
   const {
     content_elements: contentElements = '',
@@ -54,28 +61,73 @@ const TriviasMainAmp = ({
         options,
       }
     })
-
+  const bookend = `{
+  "bookendVersion": "v1.0",
+  "shareProviders": [
+    "twitter",
+    {
+      "provider": "facebook",
+      "app_id": "254325784911610"
+    },
+    "tumblr",
+    "email"
+  ],
+  "components": []
+}`
   return (
     <>
       <amp-story
-        standalone
-        publisher="Stories Format"
-        title="Soccer facts"
-        poster-portrait-src="./last_supper.jpg"
-        publisher-logo-src="https://amp.dev/static/img/icons/icon-512x512.png">
-        <TriviaStart title={title} image={triviaImage} alt={caption} />
+        standalone=""
+        title={title}
+        publisher="The AMP Team"
+        publisher-logo-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg"
+        poster-portrait-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg"
+        poster-square-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg"
+        poster-landscape-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg">
+        <TriviaStart title={title} image={triviaImage} alt={caption}>
+          <Header
+            requestUri={requestUri}
+            siteUrl={siteUrl}
+            arcSite={arcSite}
+            twitter={user}
+            customLogo=""></Header>
+        </TriviaStart>
         {questions &&
           questions.map(el => {
-            return <TriviaQuestion title={title} question={el} />
+            return (
+              <TriviaQuestion title={title} question={el}>
+                {' '}
+                <Header
+                  requestUri={requestUri}
+                  siteUrl={siteUrl}
+                  arcSite={arcSite}
+                  twitter={user}
+                  customLogo=""></Header>
+              </TriviaQuestion>
+            )
           })}
         <TriviaResult
           title={title}
+          requestUri={requestUri}
           messageNull={messageNull}
           messagePoor={messagePoor}
           messageGood={messageGood}
           messagePerfect={messagePerfect}
-          triviaImage={triviaImage}
-        />
+          triviaImage={triviaImage}>
+          <Header
+            requestUri={requestUri}
+            siteUrl={siteUrl}
+            arcSite={arcSite}
+            twitter={user}
+            customLogo=""></Header>
+        </TriviaResult>
+        <amp-story-bookend layout="nodisplay">
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{
+              __html: bookend,
+            }}></script>
+        </amp-story-bookend>
       </amp-story>
     </>
   )

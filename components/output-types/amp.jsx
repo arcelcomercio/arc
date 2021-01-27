@@ -420,20 +420,20 @@ const AmpOutputType = ({
               async
               custom-element="amp-story-interactive"
               src="https://cdn.ampproject.org/v0/amp-story-interactive-0.1.js"></script>
-            <script
-              async
-              custom-element="amp-app-banner"
-              src="https://cdn.ampproject.org/v0/amp-app-banner-0.1.js"></script>
           </>
         )}
       </head>
       <body className={subtype}>
-        <AmpTagManager {...parametros} />
-        <amp-sticky-ad
-          layout="nodisplay"
-          class="ad-amp-movil"
-          dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
-        />
+        {!isTrivia && (
+          <>
+            <AmpTagManager {...parametros} />
+            <amp-sticky-ad
+              layout="nodisplay"
+              class="ad-amp-movil"
+              dangerouslySetInnerHTML={publicidadAmpMovil0(parameters)}
+            />
+          </>
+        )}
         {children}
       </body>
     </Html>
