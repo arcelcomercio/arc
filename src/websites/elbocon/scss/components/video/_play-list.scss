@@ -7,4 +7,14 @@
   &__name {
     text-transform: capitalize;
   }
+  &__image {
+    object-fit: cover;
+    max-height: 250px;
+    @media (--tablet) {
+      height: 154px;
+    }
+    @media (--desktop) {
+      height: 127px;
+    }
+  }
 }
