@@ -6,6 +6,7 @@ const classes = {
     container: 'headband__fixedvideo__container',
     firstBox: 'headband__fixedvideo__firstBox',
     boxVideo: 'headband__fixedvideo__box-video',
+    boxStory: 'headband__fixedvideo__box-story',
     titleStory: 'headband__fixedvideo__title-story',
     image: 'headband__fixedvideo__image',
     boxTimerLive: 'headband__fixedvideo__box-timer-live',
@@ -74,10 +75,12 @@ const FixedVideo = (props) => {
                     <JwPlayerVideo {...playerProps}></JwPlayerVideo>
                     )}
                 </div>
-                <div className={classes.titleStory}>
-                    {title}
+                <div className={classes.boxStory}>
+                    <div className={classes.titleStory}>
+                        {title}
+                    </div>
+                    <button className={classes.close} type="button" onClick={() => setActive(false)}>x</button>
                 </div>
-                <button className={classes.close} type="button" onClick={() => setActive(false)}>x</button>
             </div>
             <div className={`${classes.resize} ${expanded ? 'expanded' : ''}`}>
                 <button type="button" onClick={resizeVideo}>
