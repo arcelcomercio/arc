@@ -6,12 +6,13 @@ import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import stylesLanding from '../_styles/Landing'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
+import { CallOut } from '../../signwall/_children/callout/index'
 import Cards from './_children/Cards'
+import CallinCallOut from './_children/CallinCallout'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
-// import { createExternalScript } from '../_dependencies/Utils'
 import scriptsLanding from '../_scripts/Landing'
 import addScriptAsync from '../_dependencies/Async'
 
@@ -20,7 +21,11 @@ const LandingSubscriptions = () => {
   const {
     arcSite,
     globalContent: items = [],
-    customFields: { bannerUniComercio = false, bannerUniGestion = false } = {},
+    customFields: {
+      bannerUniComercio = false,
+      bannerUniGestion = false,
+      callInnCallOut = false,
+    } = {},
   } = useFusionContext() || {}
 
   const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
@@ -31,6 +36,9 @@ const LandingSubscriptions = () => {
   const [showProfile, setShowProfile] = useState(false)
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
+  const moduleCall = callInnCallOut && isComercio
+  const [showCallin, setShowCallin] = useState(false)
+  const [showModalCall, setShowModalCall] = useState(false)
 
   useEffect(() => {
     addScriptAsync({
@@ -55,8 +63,7 @@ const LandingSubscriptions = () => {
         })),
       },
     })
-
-    // createExternalScript(scriptsLanding, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleUniversity = () => {
@@ -89,6 +96,12 @@ const LandingSubscriptions = () => {
     }
   }
 
+  const handleCallIn = () => {
+    if (typeof window !== 'undefined') {
+      window.document.location.href = 'tel:013115100'
+    }
+  }
+
   return (
     <>
       <style
@@ -96,7 +109,10 @@ const LandingSubscriptions = () => {
       <>
         <header className="header" id="header">
           <div className="wrapper">
-            <div className="header__content">
+            <div
+              className={`header__content ${
+                !isComercio || !moduleCall ? 'box-cont' : ''
+              }`}>
               <a
                 href={urls.mainHome}
                 target="_blank"
@@ -105,6 +121,25 @@ const LandingSubscriptions = () => {
                 aria-label={arcSite}>
                 <div className="header__content-logo"></div>
               </a>
+
+              {moduleCall && (
+                <div className="header__content-call">
+                  <span>Llama Gratis</span>
+                  <button
+                    type="button"
+                    className="icon-phone"
+                    onClick={handleCallIn}>
+                    01 311 5100
+                  </button>
+                  <button
+                    type="button"
+                    className="icon-support"
+                    onClick={() => setShowCallin(!showCallin)}>
+                    Te Llamamos
+                  </button>
+                </div>
+              )}
+
               <button
                 className="header__content-button"
                 type="button"
@@ -116,24 +151,19 @@ const LandingSubscriptions = () => {
           </div>
         </header>
 
+        {moduleCall && showCallin && <CallinCallOut />}
+
         <section className="planes">
           <div className={isComercio ? 'wrapper' : 'wrapper-full'}>
-            <h1 className="planes__title">{texts.mainTop}</h1>
-            <p className="planes__description">
-              {texts.parrafOne} <br />
-              {texts.parrafTwo}
-            </p>
-
-            {/* <button
-            type="button"
-            className={`button-call ${isComercio ? '' : 'ges'}`}
-            id="btn-help-call"
-            onClick={() => {
-              Taggeo('Web_Paywall_Landing', 'web_paywall_home_call')
-              window.open(urls.clickHelp, '_blank')
-            }}>
-            <i></i> {texts.help} {!isComercio && <span>Te llamamos</span>}
-          </button> */}
+            {!isComercio && (
+              <>
+                <h1 className="planes__title">{texts.mainTop}</h1>
+                <p className="planes__description">
+                  {texts.parrafOne} <br />
+                  {texts.parrafTwo}
+                </p>
+              </>
+            )}
 
             <div className={isComercio ? 'planes__grid' : 'planes__grid-three'}>
               {items.map((item, order) => (
@@ -321,9 +351,9 @@ const LandingSubscriptions = () => {
               <div className="button-club">
                 <button
                   type="button"
-                  onClick={() =>
+                  onClick={() => {
                     window.open(`${links.clubComercio}_${arcSite}`, '_blank')
-                  }>
+                  }}>
                   Ver más en <span>clubelcomercio.pe</span>
                 </button>
               </div>
@@ -374,6 +404,20 @@ const LandingSubscriptions = () => {
 
         <FooterLand {...{ arcType }} />
 
+        {moduleCall && (
+          <section className="callin-movil">
+            <button type="button" className="icon-phone" onClick={handleCallIn}>
+              01 311 5100
+            </button>
+            <button
+              type="button"
+              className="icon-support"
+              onClick={() => setShowModalCall(true)}>
+              Te Llamamos
+            </button>
+          </section>
+        )}
+
         {(QueryString.getQuery('signLanding') ||
           QueryString.getQuery('signStudents') ||
           showSignwall) && (
@@ -385,6 +429,17 @@ const LandingSubscriptions = () => {
             onClose={() => {
               setShowSignwall(false)
               setShowTypeLanding('landing')
+            }}
+          />
+        )}
+
+        {showModalCall && (
+          <CallOut
+            typeDialog={showTypeLanding}
+            nameDialog={showTypeLanding}
+            onLoggedFail={() => {}}
+            onClose={() => {
+              setShowModalCall(false)
             }}
           />
         )}
@@ -415,6 +470,11 @@ LandingSubscriptions.propTypes = {
       name: 'Banner Univ. Gestión',
       defaultValue: false,
       description: 'Mostrar/Ocultar Banner Universitario Gestíon.',
+    }),
+    callInnCallOut: PropTypes.bool.tag({
+      name: 'Módulo Call In Call Out',
+      defaultValue: false,
+      description: 'Mostrar/Ocultar Módulo Call In Call Out',
     }),
   }),
 }

@@ -403,6 +403,8 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
           arcSite={arcSite}
+          section={storySectionPath.split('/')[1]}
+          subtype={subtype}
         />
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
@@ -665,7 +667,7 @@ const LiteOutput = ({
             )}
           />
         )}
-        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
+        {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )

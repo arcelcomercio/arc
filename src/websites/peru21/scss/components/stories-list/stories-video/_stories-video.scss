@@ -15,8 +15,8 @@
   &__programs {
     color: #ffcb05;
     &:before {
-      content: '\ea3c';
-      font-family: 'icomoon';
+      content: "\ea3c";
+      font-family: "icomoon";
     }
     &:hover {
       text-decoration: none;
@@ -30,5 +30,10 @@
   &__youtube-live {
     font-family: $tertiary-font;
     font-weight: 700;
+  }
+  &__box-jwplayer {
+    .story-content__caption {
+      display: none;
+    }
   }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import Image from '../../../global-components/image'
 
@@ -38,7 +38,7 @@ const LIFWEEK_SOURCE = 'get-designers-lifweek'
 
 const LifweekFeat = () => {
   const { arcSite, isAdmin, requestUri } = useAppContext()
-  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   const designersData = useContent({
     source: LIFWEEK_SOURCE,

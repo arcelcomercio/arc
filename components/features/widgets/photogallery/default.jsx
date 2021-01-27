@@ -59,37 +59,33 @@ const PhotogalleryFeat = props => {
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'sm',
   })
 
-  const paramsTitle = {
-    titleCustom,
-    textAlign,
-    seeMoreShow,
-    seeMoreLink,
-  }
-
-  const paramsImage = {
-    isAdmin,
-    primarySection,
-    primarySectionLink,
-    title,
-    websiteLink,
-    quantityGalleryItem,
-    multimediaLandscapeL,
-    multimediaSquareXL,
-    multimediaLazyDefault,
-    multimediaType,
-    textAlign,
-    textPosition,
-    textOrientation,
-    multimediaCaption,
-    multimediaSubtitle,
-  }
   return (
     <div className={classes.boxContainer}>
-      <GalleryTitle {...paramsTitle} />
-      <FullImage {...paramsImage} />
+      <GalleryTitle
+        titleCustom={titleCustom}
+        textAlign={textAlign}
+        seeMoreShow={seeMoreShow}
+        seeMoreLink={seeMoreLink}
+      />
+      <FullImage
+        isAdmin={isAdmin}
+        primarySection={primarySection}
+        primarySectionLink={primarySectionLink}
+        title={title}
+        websiteLink={websiteLink}
+        quantityGalleryItem={quantityGalleryItem}
+        multimediaLandscapeL={multimediaLandscapeL}
+        multimediaSquareXL={multimediaSquareXL}
+        multimediaLazyDefault={multimediaLazyDefault}
+        multimediaType={multimediaType}
+        textAlign={textAlign}
+        textPosition={textPosition}
+        textOrientation={textOrientation}
+        multimediaCaption={multimediaCaption}
+        multimediaSubtitle={multimediaSubtitle}
+      />
     </div>
   )
 }

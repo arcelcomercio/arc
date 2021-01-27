@@ -281,6 +281,13 @@ class StoryContents extends PureComponent {
                     )
                   }
                   if (type === ELEMENT_VIDEO) {
+                    const dataVideo = updatedDate && updatedDate.split('T')[0]
+                    if (
+                      element.embed_html.includes('id="powa-') &&
+                      dataVideo >= '2021-01-22'
+                    ) {
+                      return ''
+                    }
                     return (
                       <>
                         {element && element.embed_html ? (
@@ -570,13 +577,17 @@ class StoryContents extends PureComponent {
                     }
 
                     if (
-                      /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+                      /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(
+                        content
+                      )
                     ) {
                       return (
                         <>
                           <div
                             data-type={
-                              /twitter-(?:tweet|timeline)/.test(content)
+                              /twitter-(?:tweet|timeline|follow-button)/.test(
+                                content
+                              )
                                 ? 'twitter'
                                 : 'instagram'
                             }
