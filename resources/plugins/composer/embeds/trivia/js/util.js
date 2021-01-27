@@ -2,7 +2,7 @@ window. addOpcion = (name='',check='', disabled='') => {
   a++;
   var div = document.createElement('div');
   div.setAttribute('class', 'form-inline col-md-11');
-      div.innerHTML = '<label class="form-inline input-group" ><span class="input-group-text">Opción '+a+':</span> <input class="form-control" id="cancion_'+a+'" name="array[]" type="text" value="'+name+'"  '+disabled+'/>   <input class="" type="checkbox" value="0" id="has_'+a+'" name="has_'+a+'"  '+check+' '+disabled+' /> </label>';
+      div.innerHTML = '<label class="form-inline input-group" ><span class="input-group-text">Opción '+a+':</span> <input class="form-control" id="cancion_'+a+'" name="array[]" type="text" value="'+name+'"  '+disabled+'/>   <input class="" type="radio" value="0" id="has_'+a+'" name="opcion"  '+check+' '+disabled+' /> </label>';
       document.getElementById('opciones').appendChild(div);document.getElementById('opciones').appendChild(div);
 }
 
