@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 import { getAssetsPath } from '../../../utilities/assets'
 import customFieldsInput from './_dependencies/custom-fields'
@@ -58,19 +58,28 @@ const HeadbandVideo = props => {
   const [showFixed, setShowFixed] = useState(false)
   const [dataVideo, setDataVideo] = useState({})
 
-  const loadFixedVideo = (data) => {
-    const jwpObj = document.querySelector(".stories-video__item-dest .jwplayer")
-    if(jwpObj !== null){
-      if(typeof(jwplayer) !== "undefined"){
+  const sendEventAnalitycs = number => {
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: 'peru21tv_player_cintillo',
+      position: number,
+    })
+  }
+
+  const loadFixedVideo = (data, number = 0) => {
+    const jwpObj = document.querySelector('.stories-video__item-dest .jwplayer')
+    if (jwpObj !== null) {
+      if (typeof jwplayer !== 'undefined') {
         jwplayer(jwpObj.id).stop()
       }
-    }else{
-      const listVideoPlayer = document.querySelector('.stories-video__item-dest');
-      const strHtml = listVideoPlayer.innerHTML;
-      listVideoPlayer.innerHTML = strHtml.replace("autoplay;", "");
+    } else {
+      const listVideoPlayer = document.querySelector(
+        '.stories-video__item-dest'
+      )
+      const strHtml = listVideoPlayer.innerHTML
+      listVideoPlayer.innerHTML = strHtml.replace('autoplay;', '')
     }
-    
-    
+    sendEventAnalitycs(number)
     setShowFixed(true)
     setDataVideo(data)
   }
@@ -101,11 +110,12 @@ const HeadbandVideo = props => {
           </div>
           <div className={classes.boxItems}>
             {stories.map((url, index) => {
-              const randomKey = Math.floor(Math.random()*100 * index)
+              const randomKey = Math.floor(Math.random() * 100 * index)
               return (
                 <ProcessItem
                   storyUrl={url}
                   storyLive={storiesLive[index]}
+                  position={(index+1)}
                   key={index}
                   loadFixedVideo={loadFixedVideo}
                 />
@@ -130,7 +140,10 @@ const HeadbandVideo = props => {
           </svg>
         </button>
       </div>
-      <FixedVideo active={showFixed} setActive={setShowFixed} dataVideo={dataVideo}></FixedVideo>
+      <FixedVideo
+        active={showFixed}
+        setActive={setShowFixed}
+        dataVideo={dataVideo}></FixedVideo>
     </>
   )
 }

@@ -25,7 +25,7 @@ import {
 import { defaultImage } from '../../../../utilities/assets'
 import { secToTime } from '../../../../utilities/date-time/time'
 
-function HeadBandProcessItem({ storyUrl = '', storyLive = false, loadFixedVideo }) {
+function HeadBandProcessItem({ storyUrl = '', storyLive = false, loadFixedVideo, position }) {
   const CONTENT_SOURCE = 'story-by-url'
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
@@ -103,7 +103,7 @@ function HeadBandProcessItem({ storyUrl = '', storyLive = false, loadFixedVideo 
         : {}
     ) || {}
 
-  return storyUrl ? <VideoItem data={story} loadFixedVideo={loadFixedVideo} /> : <></>
+  return storyUrl ? <VideoItem position={position} data={story} loadFixedVideo={loadFixedVideo} /> : <></>
 }
 
 HeadBandProcessItem.propTypes = {
