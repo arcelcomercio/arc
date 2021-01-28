@@ -51,14 +51,14 @@
       </div>
     </header>
     <main role="main">
-      <div class="album py-5 bg-light">
+      <section class="jumbotron text-center my-0 needs-validation">
         <div class="container">
           <div class="row" id="content_holder">
             Cargando...
           </div>
 
           <!-- Edit Form -->
-          <div class="row" id="config_edit">
+          <div class="" id="config_edit">
             <div class="col-md-12">
               <label for="title" class="input-group"><span class="input-group-text">Título Imagen:</span>
                 <input id="title" class="form-control " name="title" type="textfield" value="" />
@@ -68,9 +68,13 @@
             <div id="Book" class="container-el col-md-11">
               <label class="form-inline input-group" for="searchID">
                 <span class="input-group-text">Pregunta:</span>
-                <input class="form-control " type="textfield"  name="searchName" id="searchName" />
+                <input class="form-control " type="textfield"  name="searchName" id="searchName" placeholder="Ingresar la pregunta.." required/>
+
                 <input type="button" class="btn btn-success" id="add_opcion()" onClick="addOpcion()" value="Agregar " />
                 <input type="button" class="btn btn-success" id="add_opcion()" onClick="removeOpcion()" value="Eliminar" />
+                <div class="invalid-feedback" for="searchName">
+                  Por favor agregar la pregunta.
+                 </div>
               </label>
             </div>
             <div class="" id="opciones">
@@ -101,6 +105,7 @@
           <div class="row" id="search_content"></div>
         </div>
       </div>
+      </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
 
@@ -174,10 +179,18 @@
       data.config.image.title = document.getElementById('title').value 
       data.config.question = opcion();
       // data.config.date = document.getElementById('date').value
-
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+          form.classList.add('was-validated')
+      })
+      var forms = document.querySelectorAll('.needs-validation')
+      searchName = document.getElementById('searchName').value; 
+      if(document.querySelector('input[name="opcion"]:checked') && searchName) {
        // Update Composer and re-render form
-      sendMessage('data', data)
-      render(data)
+        sendMessage('data', data)
+        render(data)
+      }
     }
 
      // -------------------------------------------------

@@ -9,6 +9,7 @@ import TriviaResult from './amp/_children/result'
 
 import Header from '../../header/simple/_children/amp/header'
 import AmpTagManager from '../../../output-types/_children/amp-tag-manager'
+import { publicidadAmpMovil0 } from '../../../utilities/story/helpers-amp'
 
 /**
  * @param {object} props
@@ -86,17 +87,34 @@ const TriviasMainAmp = ({
     globalContent,
     requestUri,
   }
+  const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
+
   return (
     <>
       <amp-story
         standalone=""
         title={title}
-        publisher="The AMP Team"
-        publisher-logo-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg"
-        poster-portrait-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg"
-        poster-square-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg"
-        poster-landscape-src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/5BBQDK5IZVCTVMSINQADQ2YWRI.jpg">
+        publisher="AMP"
+        publisher-logo-src={triviaImage}
+        poster-portrait-src={triviaImage}
+        poster-square-src={triviaImage}
+        poster-landscape-src={triviaImage}>
         <AmpTagManager {...parametros} />
+
+        <amp-story-auto-ads>
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{
+              __html: `{
+                "ad-attributes": {
+                  "type": "doubleclick",
+                  "data-slot": "${dataSlot}"
+                }
+              }`,
+            }}
+          />
+        </amp-story-auto-ads>
 
         <TriviaStart title={title} image={triviaImage} alt={caption}>
           <Header

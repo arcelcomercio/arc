@@ -2,7 +2,7 @@ window. addOpcion = (name='',check='', disabled='') => {
   a++;
   var div = document.createElement('div');
   div.setAttribute('class', 'form-inline col-md-11');
-      div.innerHTML = '<label class="form-inline input-group" ><span class="input-group-text">Opción '+a+':</span> <input class="form-control" id="cancion_'+a+'" name="array[]" type="text" value="'+name+'"  '+disabled+'/>   <input class="" type="radio" value="0" id="has_'+a+'" name="opcion"  '+check+' '+disabled+' /> </label>';
+      div.innerHTML = '<label class="form-inline input-group" ><span class="input-group-text">Opción '+a+':</span> <input class="form-control" id="cancion_'+a+'" name="array[]" type="text" value="'+name+'"  '+disabled+' required/>   <div class="invalid-feedback">Por favor agregar la opcion. </div> </label><label class="form-inline input-group"><input class="form-check-input" type="radio" value="0" id="has_'+a+'" name="opcion"  '+check+' '+disabled+' required /><div class="invalid-feedback">Marca la opcion. </div></label>';
       document.getElementById('opciones').appendChild(div);document.getElementById('opciones').appendChild(div);
 }
 

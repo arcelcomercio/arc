@@ -47,19 +47,26 @@
 
 
   <main role="main">
-    <section class="jumbotron text-center my-0">
+    <section class="jumbotron text-center my-0 needs-validation">
       <div class="container">
         <div id="Book" class="container-el col-md-11">
           <label class="form-inline input-group" for="searchID">
             <span class="input-group-text">Pregunta:</span>
-            <input class="form-control " type="textfield"  name="searchName" id="searchName" />
+            <input class="form-control " type="textfield"  name="searchName" id="searchName" placeholder="Ingresar la pregunta.." required/>
+            
             <input type="button" class="btn btn-success" id="add_opcion()" onClick="addOpcion()" value="Agregar " />
             <input type="button" class="btn btn-success" id="add_opcion()" onClick="removeOpcion()" value="Eliminar" />
+            <div class="invalid-feedback">
+             Por favor agregar la pregunta.
+            </div>
           </label>
+          
+         
         </div>
         <div class="" id="opciones">
         </div>
         <div id="Book" class="container-el col-md-11">
+         
           <label class="form-inline input-group" for="searchID">
             <span class="input-group-text">Respuesta:</span>
             <input class="form-control" type="textfield"  name="searchResqueset" id="searchResqueset" />
@@ -118,9 +125,15 @@ window. handleSearch = () => {
   const searchTerm = document.getElementById('searchID').value;
   searchName = document.getElementById('searchName').value; 
   searchResqueset = document.getElementById('searchResqueset').value; 
-  
+  var forms = document.querySelectorAll('.needs-validation')
+  Array.prototype.slice.call(forms)
+  .forEach(function (form) {
+      form.classList.add('was-validated')
+  })
 
-  if (searchTerm && searchName)
+  var forms = document.querySelectorAll('.needs-validation')
+  if(document.querySelector('input[name="opcion"]:checked')) {
+  if ( searchName )
     superagent
       .get('/pf/api/v3/content/fetch/photo-by-id')
       .query({ query: JSON.stringify({ "_id": searchTerm }) })
@@ -129,6 +142,7 @@ window. handleSearch = () => {
         data = res.body // res.body.Search
         render()
       });
+    }
 }
 
 

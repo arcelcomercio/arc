@@ -420,6 +420,10 @@ const AmpOutputType = ({
               async
               custom-element="amp-story-interactive"
               src="https://cdn.ampproject.org/v0/amp-story-interactive-0.1.js"></script>
+            <script
+              async
+              custom-element="amp-story-auto-ads"
+              src="https://cdn.ampproject.org/v0/amp-story-auto-ads-0.1.js"></script>
           </>
         )}
       </head>
