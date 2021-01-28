@@ -67,7 +67,7 @@ const HeadbandVideo = props => {
     }else{
       const listVideoPlayer = document.querySelector('.stories-video__item-dest');
       const strHtml = listVideoPlayer.innerHTML;
-      listVideoPlayer.innerHTML = strHtml;
+      listVideoPlayer.innerHTML = strHtml.replace("autoplay;", "");
     }
     
     
