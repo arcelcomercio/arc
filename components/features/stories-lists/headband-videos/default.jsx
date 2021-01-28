@@ -59,6 +59,18 @@ const HeadbandVideo = props => {
   const [dataVideo, setDataVideo] = useState({})
 
   const loadFixedVideo = (data) => {
+    const jwpObj = document.querySelector(".stories-video__item-dest .jwplayer")
+    if(jwpObj !== null){
+      if(typeof(jwplayer) !== "undefined"){
+        jwplayer(jwpObj.id).stop()
+      }
+    }else{
+      const listVideoPlayer = document.querySelector('.stories-video__item-dest');
+      const strHtml = listVideoPlayer.innerHTML;
+      listVideoPlayer.innerHTML = strHtml;
+    }
+    
+    
     setShowFixed(true)
     setDataVideo(data)
   }
