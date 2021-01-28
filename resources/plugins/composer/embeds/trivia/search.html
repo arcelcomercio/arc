@@ -133,16 +133,21 @@ window. handleSearch = () => {
 
   var forms = document.querySelectorAll('.needs-validation')
   if(document.querySelector('input[name="opcion"]:checked')) {
-  if ( searchName )
-    superagent
-      .get('/pf/api/v3/content/fetch/photo-by-id')
-      .query({ query: JSON.stringify({ "_id": searchTerm }) })
-      .set('Accept', 'application/json')
-      .then(res => {
-        data = res.body // res.body.Search
+  if ( searchName ){
+    if(searchTerm){
+      superagent
+        .get('/pf/api/v3/content/fetch/photo-by-id')
+        .query({ query: JSON.stringify({ "_id": searchTerm }) })
+        .set('Accept', 'application/json')
+        .then(res => {
+          data = res.body // res.body.Search
+          render()
+        });
+      }else
         render()
-      });
+
     }
+  }
 }
 
 
