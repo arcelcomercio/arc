@@ -161,8 +161,23 @@ const StoriesListStoryVideoItem = ({
   })
 
   const classItem = index === 0 ? classes.listItemDest : classes.listItem
+
+  const removeStickyHeadband = (indexItem = 1) => {
+    const fixedHeadband = document.querySelector('.headband__fixedvideo__close')
+    if (fixedHeadband && indexItem === 0) {
+      fixedHeadband.click()
+    }
+  }
+
   return (
-    <div role="button" tabIndex="0" className={classItem} data-type={videoType}>
+    <div
+      role="button"
+      tabIndex="0"
+      className={classItem}
+      onClick={() => {
+        removeStickyHeadband(index)
+      }}
+      data-type={videoType}>
       {resultItemVideo}
     </div>
   )
