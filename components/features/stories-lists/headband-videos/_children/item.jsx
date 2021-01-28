@@ -22,7 +22,7 @@ export default function VideoItem(props) {
       hasAds,
       videoID,
       account,
-      time,
+      videoTime: time,
       liveStory,
     },
     loadFixedVideo,
