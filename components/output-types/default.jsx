@@ -752,18 +752,7 @@ export default ({
             />
           </>
         )}
-        {arcSite === SITE_TROME && (
-          <>
-            <script
-              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
-              id="browsi-tag"
-              data-pubKey="elcomercio"
-              data-siteKey="trome"
-              async
-            />
-          </>
-        )}
-        {arcSite === SITE_ELBOCON && (
+        {isStory && arcSite === SITE_ELBOCON && (
           <>
             <script
               src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
@@ -774,7 +763,7 @@ export default ({
             />
           </>
         )}
-        {arcSite === SITE_PERU21 && (
+        {isStory && arcSite === SITE_PERU21 && (
           <>
             <script
               src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
