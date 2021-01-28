@@ -61,6 +61,20 @@ const FixedVideo = (props) => {
 
     const playerProps = {isAdmin, title, liveStory, videoID, account, videoTime, 'hasAds': false, image, 'imageDefault': image, 'autoPlayVideo': true}
 
+    const handleClose = () => {
+        const boxVideo = document.body.querySelector(
+            '.headband__fixedvideo__container'
+          ).children
+          for (let i = 0; i < boxVideo.length; i++) {
+            if (boxVideo[i].tagName === 'SCRIPT') {
+                boxVideo[i].remove()
+              break
+            }
+          }
+
+          setActive(false)
+    }
+
     return (
         <div className={`${classes.container} ${active ? 'active' : ''} ${scrolled ? 'scrolled' : ''}`}>
             { active && (
@@ -79,7 +93,7 @@ const FixedVideo = (props) => {
                     <div className={classes.titleStory}>
                         {title}
                     </div>
-                    <button className={classes.close} type="button" onClick={() => setActive(false)}>x</button>
+                    <button className={classes.close} type="button" onClick={() => handleClose()}>x</button>
                 </div>
             </div>
             <div className={`${classes.resize} ${expanded ? 'expanded' : ''}`}>
