@@ -14,10 +14,10 @@
     />
   </head>
   <body>
-    <template id="content_template">
+    <template id="content_template" >
       <!-- Rendered Item -->
       <div class="col-md-12" id="%item_id%">
-        <a href="%link%" title='%title%' class="card mb-4 box-shadow" style="flex-direction: row;"
+        <a href="%link%" title='%title%' class="card mb-4 box-shadow" style="flex-direction: row; %display%"
           id="content_card"
         >
           <img
@@ -83,6 +83,7 @@
       let data = {}
       // Retrieve the content data based on parameters
       const fetchData = (ansCustomEmbed) => {
+        if(ansCustomEmbed && ansCustomEmbed.id){
         superagent
           .get('/pf/api/v3/content/fetch/photo-by-id')
           .query({ query: JSON.stringify({"_id":ansCustomEmbed.id})})
@@ -91,33 +92,36 @@
             data = res.body
             render(data, ansCustomEmbed.config)
           });
+        }else
+        render(data, ansCustomEmbed.config)
       }
   
       // Render the content data and contextual configuration together
       const render = (data, config) => {
+        const display = data && data.url?'':'display: none'
         const template = document.getElementById('content_template').innerHTML
         const {image:{ alt= "",    title= "",  url= ""}={}, name ="",  question=[],  response=''}={} = config
-    
         const html = template
           .replace(/%item_id%/gi, 'row-' + data._id)
           .replace(/%image_url%/gi, data.url)
           .replace(/%title%/gi, title || "")
           .replace(/%alt%/gi, alt || "")
+          .replace(/%display%/gi, display)
   
         const element = document.createElement('div')
         document.getElementById('search_content').appendChild(element)
         element.outerHTML = html
 
         a=0
-      question.forEach(({name="",response= false}, index) => {
-        var check = response && 'checked'
-        addOpcion(name,check, 'disabled')
-    });
+        question.forEach(({name="",response= false}, index) => {
+          var check = response && 'checked'
+          addOpcion(name,check, 'disabled')
+        });
 
-      // Update form state
-      document.getElementById('searchResqueset').value = response
-      document.getElementById('searchName').value = name
-      document.getElementById('title').value = title
+        // Update form state
+        document.getElementById('searchResqueset').value = response
+        document.getElementById('searchName').value = name
+        document.getElementById('title').value = title
 
       }
       // ------------------------------------------------

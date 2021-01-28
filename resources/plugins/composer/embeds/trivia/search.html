@@ -170,6 +170,13 @@ const render = () => {
 }
 
 window. handleClick =  event => {
+    const image =    {
+      "url": data.url || "",
+      "title": data.subtitle || "",
+      "alt": data.caption || "",
+      "width": data.width,
+      "height": data.height
+    }
     const ansCustomEmbed = {
     id: data._id,
     url: '/pf/api/v3/content/fetch/photo-by-id',
@@ -177,13 +184,7 @@ window. handleClick =  event => {
       "name":searchName,
       "response":searchResqueset,
       "question":question,
-      "image": {
-      "url": data.url || "",
-      "title": data.subtitle || "",
-      "alt": data.caption || "",
-      "width": data.width,
-      "height": data.height
-    },
+      "image": data && data.url ? image : {}
     }
   }
 
