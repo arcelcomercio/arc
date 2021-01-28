@@ -9,7 +9,6 @@ import TriviaResult from './amp/_children/result'
 
 import Header from '../../header/simple/_children/amp/header'
 import AmpTagManager from '../../../output-types/_children/amp-tag-manager'
-import { publicidadAmpMovil0 } from '../../../utilities/story/helpers-amp'
 
 /**
  * @param {object} props
@@ -127,7 +126,10 @@ const TriviasMainAmp = ({
         {questions &&
           questions.map(el => {
             return (
-              <TriviaQuestion title={title} question={el}>
+              <TriviaQuestion
+                title={title}
+                question={el}
+                triviaImage={triviaImage}>
                 {' '}
                 <Header
                   requestUri={requestUri}

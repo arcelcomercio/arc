@@ -83,7 +83,8 @@
       let data = {}
       // Retrieve the content data based on parameters
       const fetchData = (ansCustomEmbed) => {
-        if(ansCustomEmbed && ansCustomEmbed.id){
+        const {config:{image:{url=''}={}}={}}= ansCustomEmbed
+        if(ansCustomEmbed && url){
         superagent
           .get('/pf/api/v3/content/fetch/photo-by-id')
           .query({ query: JSON.stringify({"_id":ansCustomEmbed.id})})
@@ -121,7 +122,7 @@
         // Update form state
         document.getElementById('searchResqueset').value = response
         document.getElementById('searchName').value = name
-        document.getElementById('title').value = title
+        title ? document.getElementById('title').value = title:''
 
       }
       // ------------------------------------------------

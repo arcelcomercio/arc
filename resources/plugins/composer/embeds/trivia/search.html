@@ -143,8 +143,10 @@ window. handleSearch = () => {
           data = res.body // res.body.Search
           render()
         });
-      }else
+      }else{
+        
         render()
+      }
 
     }
   }
@@ -170,6 +172,7 @@ const render = () => {
 }
 
 window. handleClick =  event => {
+  const idEl =  Date.now() + '-' + Math.floor(Math.random() * 1000000)
     const image =    {
       "url": data.url || "",
       "title": data.subtitle || "",
@@ -178,7 +181,7 @@ window. handleClick =  event => {
       "height": data.height
     }
     const ansCustomEmbed = {
-    id: data._id,
+    id: data._id || idEl,
     url: '/pf/api/v3/content/fetch/photo-by-id',
     config: {
       "name":searchName,

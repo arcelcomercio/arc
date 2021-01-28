@@ -22,6 +22,7 @@ const classes = {
 
 const TriviasMainQuestionAmp = ({
   question: { question, image, alt, options } = {},
+  triviaImage = '',
   children = {},
 }) => {
   let optionsResul = ''
@@ -46,6 +47,7 @@ const TriviasMainQuestionAmp = ({
     ></amp-story-interactive-quiz>`
   }
 
+  const urlImage = image || triviaImage
   return (
     <>
       <amp-story-page
@@ -76,7 +78,7 @@ const TriviasMainQuestionAmp = ({
           template="horizontal"
           style={{ padding: '110px 1px 4px;' }}>
           <Image
-            src={image}
+            src={urlImage}
             width={460}
             height={340}
             sizes=""
