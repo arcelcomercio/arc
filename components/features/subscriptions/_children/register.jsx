@@ -84,6 +84,12 @@ const Register = ({ arcSite }) => {
     }
   }
 
+  const dataTreatment = () => {
+    if (typeof window !== 'undefined') {
+      window.open('/tratamiento-datos/', '_blank')
+    }
+  }
+
   const onFormRegister = ({ remail, rpass }) => {
     if (typeof window !== 'undefined') {
       Taggeo(nameTagCategory, 'web_swl_registro_boton_registrarme')
@@ -315,7 +321,13 @@ const Register = ({ arcSite }) => {
                         setCheckedPolits(!checkedPolits)
                       }}
                     />
-                    Autorizo el tratamiento de mis datos
+                    Autorizo el uso de mis datos para{' '}
+                    <button
+                      className={styles.link}
+                      type="button"
+                      onClick={dataTreatment}>
+                      fines adicionales
+                    </button>
                     <span className="checkmark"></span>
                   </label>
                 </div>

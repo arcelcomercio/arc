@@ -470,7 +470,15 @@ const FormRegister = props => {
                           setCheckedPolits(!checkedPolits)
                         }}>
                         <S.Text c="gray" lh="22" s="12" className="mt-20">
-                          Autorizo el tratamiento de mis datos
+                          Autorizo el uso de mis datos para
+                          <S.Link
+                            href="/tratamiento-datos/"
+                            target="_blank"
+                            c={mainColorLink}
+                            fw="bold"
+                            className="ml-5 inline">
+                            fines adicionales
+                          </S.Link>
                         </S.Text>
                       </CheckBox>
 
@@ -492,7 +500,7 @@ const FormRegister = props => {
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-10 mr-10 inline">
+                            className="ml-5 mr-5 inline">
                             Términos y Condiciones
                           </S.Link>
                           y
@@ -501,7 +509,7 @@ const FormRegister = props => {
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-10 inline">
+                            className="ml-5 inline">
                             Políticas de Privacidad
                           </S.Link>
                         </S.Text>
