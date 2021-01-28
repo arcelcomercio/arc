@@ -104,6 +104,7 @@ const TriviasMain = ({
     pushEvent(ACTION_RESTART, { url })
 
     window.history.pushState({ restart: true }, title, url)
+    window.title = title
     setPoints([])
     setCurrentQuestion(0)
     setStarted(false)
@@ -113,9 +114,11 @@ const TriviasMain = ({
   // se ejecuta al empezar la trivia
   const handleStart = () => {
     const url = window.location.pathname
+    const newTitle = `1 - ${title}`
     pushEvent(ACTION_START, { url })
 
-    window.history.pushState({ start: true }, `1 - ${title}`, `${url}#1`)
+    window.history.pushState({ start: true }, newTitle, `${url}#1`)
+    window.title = newTitle
     setStarted(true)
     setCurrentQuestion(1)
     window.scrollTo(0, 0)
@@ -136,6 +139,9 @@ const TriviasMain = ({
     const url = window.location.pathname
     const question = [currentQuestion, questions.length]
     const isTheLastQuestion = currentQuestion === questions.length
+    const newTitle = `${
+      isTheLastQuestion ? 'Resultado' : currentQuestion + 1
+    } - ${title}`
 
     pushEvent(ACTION_NEXT_QUESTION, {
       url,
@@ -145,9 +151,10 @@ const TriviasMain = ({
     refreshAds()
     window.history.pushState(
       { question },
-      `${isTheLastQuestion ? 'Resultado' : currentQuestion + 1} - ${title}`,
+      newTitle,
       `${url}#${isTheLastQuestion ? 'resultado' : currentQuestion + 1}`
     )
+    window.title = newTitle
     setCurrentQuestion(currentQuestion + 1)
     window.scrollTo(0, 0)
   }
