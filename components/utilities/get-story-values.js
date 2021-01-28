@@ -149,7 +149,6 @@ export const getPrimarySection = data => {
     } = {},
   } = data || {}
 
-  console.log('================', sections)
   // En caso de que el primary section no devuelva "path" ni "name"
   const { name: auxName, path: auxPath } = sections[0] || {}
   if (!name && !path) {
