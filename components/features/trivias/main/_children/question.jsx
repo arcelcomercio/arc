@@ -29,12 +29,14 @@ const classes = {
  * @param {number} props.question.width
  * @param {number} props.question.height
  * @param {Array} props.question.options
+ * @param {string} props.fallbackImage
  */
 const TriviasMainQuestion = ({
   number,
   rightAnswer,
   setAnswer,
   getNextQuestion,
+  fallbackImage,
   question: { question, response, image, alt, width, height, options } = {},
 }) => {
   const longDetails = response?.length > 150
@@ -63,7 +65,12 @@ const TriviasMainQuestion = ({
 
   return (
     <div>
-      <QuestionImage image={image} alt={alt} height={height} width={width} />
+      <QuestionImage
+        image={image || fallbackImage}
+        alt={alt}
+        height={height}
+        width={width}
+      />
       <section
         className={classes.body}
         style={{

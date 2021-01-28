@@ -23,6 +23,9 @@ import TriviasRecommended from '../recommended/default'
  * @param {string} [props.customFields.messagePoor]
  * @param {string} [props.customFields.messageGood]
  * @param {string} [props.customFields.messagePerfect]
+ *
+ * @todo creo que las funciones se pueden sacar en un archivo aparte
+ * para dejar este mas limpio
  */
 const TriviasMain = ({
   customFields: {
@@ -178,6 +181,7 @@ const TriviasMain = ({
               number={currentQuestion}
               setAnswer={handleAnswer}
               getNextQuestion={handleNextQuestion}
+              fallbackImage={triviaImage}
             />
           </div>
         )}

@@ -36,8 +36,9 @@ const TriviasRecommendedItem = ({
       <figure className={classes.figure}>
         <Image
           src={image}
-          width={247}
-          height={142}
+          width={211}
+          height={121}
+          sizes="(max-width: 480px) 166px, 211px"
           alt={alt}
           className={classes.image}
           loading="auto"
