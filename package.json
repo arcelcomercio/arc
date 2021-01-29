@@ -161,16 +161,13 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md,graphql}": [
-      "prettier --write",
-      "git add ."
+      "prettier --write"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add ."
+      "eslint --fix"
     ],
     "*.{css,scss}": [
-      "stylelint --fix",
-      "git add ."
+      "stylelint --fix"
     ]
   },
   "husky": {
