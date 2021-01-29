@@ -13,6 +13,7 @@ import { getAssetsPath } from '../../../utilities/assets'
 import Newsletter from '../../statics/newsletter-custom/default'
 
 import HeaderFullView from './_children/header-full'
+import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
 
 const HeaderFull = props => {
   const {
@@ -144,6 +145,15 @@ const HeaderFull = props => {
           contextPath
         )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
       : ''
+
+  const logo =
+    arcSite === SITE_DEPOR
+      ? 'https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg'
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
+
   const paramsNews = {
     inclJS: 'FALSE',
   }
@@ -154,10 +164,7 @@ const HeaderFull = props => {
     postTitle,
     isStory,
     customLogoTitle,
-    logo: `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`,
+    logo,
     whiteLogo: `${getAssetsPath(
       arcSite,
       contextPath
