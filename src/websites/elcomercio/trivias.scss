@@ -192,6 +192,71 @@ h6 {
 }
 
 /** ----------------------------*
+*              BASE             *
+* ----------------------------- */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.justify-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
+}
+.w-full {
+  width: 100%;
+}
+
+/** ----------------------------*
+*               ADS             *
+* ----------------------------- */
+#gpt_top {
+  z-index: 1;
+}
+#top_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  min-height: 50px;
+}
+@media (--tablet) {
+  #top_wrap {
+    min-height: 120px;
+  }
+}
+#top_wrap::before {
+  content: "PUBLICIDAD";
+  position: absolute;
+  font-size: x-small;
+  border: 1px solid #ccc;
+  color: #888;
+  padding: 4px 6px 2px;
+  border-radius: 4px;
+}
+
+.ads__zocalo {
+  display: none;
+  position: sticky;
+  width: 160px;
+  top: 0;
+}
+@media (--desktop) {
+  .ads__zocalo {
+    display: block;
+  }
+}
+.ads__zocalo--l {
+  left: 0;
+}
+.ads__zocalo--r {
+  right: 0;
+}
+
+/** ----------------------------*
 *             STYLES            *
 * ----------------------------- */
 @import "./scss/components/header/simple";
