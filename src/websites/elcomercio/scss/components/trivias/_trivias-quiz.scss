@@ -39,6 +39,11 @@
     text-align: left;
     display: flex;
     justify-content: space-between;
+    position: relative;
+  }
+  &__question-check {
+    position: absolute;
+    right: 0;
   }
   &__details {
     position: relative;

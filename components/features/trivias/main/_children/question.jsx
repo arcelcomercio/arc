@@ -8,6 +8,7 @@ const classes = {
   question: 'trivias-quiz__question',
   questionButton: 'trivias-quiz__question-btn',
   questionText: 'trivias-quiz__question-txt',
+  questionCheck: 'trivias-quiz__question-check',
   details: 'trivias-quiz__details',
   detailsBody: 'trivias-quiz__details-b',
   check: 'trivias-quiz__check',
@@ -78,6 +79,20 @@ const TriviasMainQuestion = ({
           flexDirection: 'column',
           alignItems: 'center',
         }}>
+        <svg
+          height="2"
+          width="15%"
+          aria-disabled="true"
+          style={{
+            alignSelf: 'baseline',
+            stroke: '#FFCB05',
+          }}>
+          <line
+            x2="100%"
+            style={{
+              strokeWidth: 2,
+            }}></line>
+        </svg>
         <h3 className={classes.question}>{`${number}. ${question}`}</h3>
         <ol
           type="A"
@@ -109,7 +124,7 @@ const TriviasMainQuestion = ({
                         width="22.354"
                         height="22.354"
                         viewBox="0 0 22.354 22.354"
-                        fill="#26D340">
+                        className={classes.questionCheck}>
                         <path
                           d="M22.916,11.739A11.177,11.177,0,1,1,11.739.563,11.177,11.177,0,0,1,22.916,11.739Zm-12.47,5.918,8.292-8.292a.721.721,0,0,0,0-1.02l-1.02-1.02a.721.721,0,0,0-1.02,0L9.937,14.088,6.779,10.931a.721.721,0,0,0-1.02,0L4.74,11.95a.721.721,0,0,0,0,1.02l4.687,4.687A.721.721,0,0,0,10.446,17.657Z"
                           transform="translate(-0.563 -0.563)"
