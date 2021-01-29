@@ -15,7 +15,7 @@ const classes = {
  * @param {string} props.image
  * @param {string} props.alt
  */
-const QuestionImage = ({ height, width, image, alt }) => {
+const QuestionImage = ({ image, alt, height = 9, width = 16 }) => {
   return (
     <figure
       style={{
