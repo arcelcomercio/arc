@@ -10,6 +10,9 @@
     width: 60px;
   }
   */
+  &__logo {
+    width: 80px;
+  }
   &__submenu-list {
     border-top: solid 1px #ccc;
   }
@@ -34,6 +37,7 @@
     background: #8116d5 0% 0% no-repeat padding-box;
     border: 1px solid #ffffffa3;
     color: #fff;
+    font-size: 12px;
     @media (--tablet) {
       background: #8116d5 0% 0% no-repeat padding-box;
       color: #fff;
@@ -138,18 +142,10 @@
   &__e-pais,
   .nav-sidebar__e-pais {
     border: 1px solid #ededed;
-    display: block;
-    & .cls-1 {
-      fill: $color-white;
-    }
-    & .cls-2 {
-      fill: #006847;
-    }
-    & .cls-4 {
-      fill: #bfc2a3;
-    }
-    & .cls-3 {
-      fill: #db161d;
+    display: flex;
+    align-items: center;
+    svg {
+      margin-right: 5px;
     }
     &:hover,
     &.active {

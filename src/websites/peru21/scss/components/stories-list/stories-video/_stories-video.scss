@@ -104,4 +104,9 @@
     font-family: $tertiary-font;
     font-weight: 700;
   }
+  &__box-jwplayer {
+    .story-content__caption {
+      display: none;
+    }
+  }
 }

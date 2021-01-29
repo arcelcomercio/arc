@@ -213,7 +213,11 @@ const LiteOutput = ({
 
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
-    if (requestUri.match('^/usa')) lang = 'es-us'
+    if (requestUri.match('^/usa')) {
+      lang = 'es-us'
+    } else if (/^\/mexico/.test(requestUri)) {
+      lang = 'es-mx'
+    }
   }
 
   const parametersValla = {
@@ -403,6 +407,8 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
           arcSite={arcSite}
+          section={storySectionPath.split('/')[1]}
+          subtype={subtype}
         />
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
@@ -619,7 +625,13 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-        <WebVitals report={!isIframeStory && arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
+        <WebVitals
+          report={
+            !isIframeStory &&
+            arcSite === SITE_ELBOCON &&
+            requestUri.includes('/wikibocon/')
+          }
+        />
         <script
           type="module"
           defer

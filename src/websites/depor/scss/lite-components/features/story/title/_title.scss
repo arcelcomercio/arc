@@ -6,11 +6,13 @@
   margin-bottom: 10px;
   &__category {
     font: 700 14px/1 $primary-font;
-    color: #42c64c;
     text-transform: uppercase;
     margin-bottom: 10px;
     padding-top: 30px;
     letter-spacing: 0.28px;
+    a {
+      color: #42c64c;
+    }
   }
   &__title {
     font: 700 28px/1.1667 $secondary-font;

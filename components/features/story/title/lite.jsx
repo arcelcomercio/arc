@@ -34,10 +34,11 @@ const StoryTitleLite = () => {
       <div
         className={`${classes.story} ${primarySectionLink.replace(/\//g, '')}`}>
         {arcSite === SITE_DEPOR && (
-          <div className={classes.category}>{primarySection}</div>
+          <h2 className={classes.category}>
+            <a href={primarySectionLink}>{primarySection}</a>
+          </h2>
         )}
         <h1 itemProp="name" className={classes.title}>
-          {' '}
           {title}
         </h1>
         {items && type === 'list' ? (

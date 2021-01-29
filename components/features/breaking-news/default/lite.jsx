@@ -74,7 +74,11 @@ const BreakingNewsFeat = props => {
               <a
                 itemProp="url"
                 className={classes.link}
-                href={`${objContent.link}?ref=article&source=cintillo`}
+                href={`${objContent.link}${
+                  objContent.link.includes('?')
+                    ? '&ref=article&source=cintillo'
+                    : '?ref=article&source=cintillo'
+                }`}
                 rel="noopener noreferrer">
                 {showIcon ? (
                   <>
