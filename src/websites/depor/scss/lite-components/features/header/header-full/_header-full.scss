@@ -55,6 +55,7 @@
     margin: 0 20px;
   }
   &__logo {
+    width: 80px;
     transform: skew(13deg);
     max-width: 150px;
   }
@@ -151,21 +152,12 @@
   &__e-pais,
   .nav-sidebar__e-pais {
     border: 1px solid #ededed;
-    display: block;
     padding: 20px;
     font-size: 0.81rem;
-
-    & .cls-1 {
-      fill: $color-white;
-    }
-    & .cls-2 {
-      fill: #006847;
-    }
-    & .cls-4 {
-      fill: #bfc2a3;
-    }
-    & .cls-3 {
-      fill: #db161d;
+    display: flex;
+    align-items: center;
+    svg {
+      margin-right: 5px;
     }
     &:hover,
     &.active {

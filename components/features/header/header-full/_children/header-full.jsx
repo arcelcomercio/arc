@@ -152,77 +152,34 @@ export default ({
 
           <a className={`${cName}${classes.ePais}`} href="/?noredirect">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              data-name="Capa 1"
               width="18"
               height="12"
-              viewBox="0 0 96 96">
-              <g data-name="Grupo 2373">
-                <rect
-                  data-name="Rectángulo 1994"
-                  className="cls-1"
-                  y="16"
-                  width="96"
-                  height="64"
-                />
-                <rect
-                  data-name="Rectángulo 1995"
-                  className="cls-3"
-                  y="16"
-                  width="32"
-                  height="64"
-                />
-                <rect
-                  data-name="Rectángulo 1996"
-                  className="cls-3"
-                  x="64"
-                  y="16"
-                  width="32"
-                  height="64"
-                />
-              </g>
+              viewBox="0 0 18 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 0H0V12H18V0Z" fill="white" />
+              <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
+              <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
             </svg>
+
             {`${has ? 'PE (Perú)' : 'Perú'}`}
           </a>
           <a className={`${cName}${classes.ePais}`} href="/mexico/">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              data-name="Capa 1"
               width="18"
               height="12"
-              viewBox="0 0 96 96">
-              <g data-name="Grupo 2374">
-                <rect
-                  data-name="Rectángulo 1994"
-                  className="cls-1"
-                  y="16"
-                  width="96"
-                  height="64"
-                />
-                <rect
-                  data-name="Rectángulo 1995"
-                  className="cls-2"
-                  y="16"
-                  width="32"
-                  height="64"
-                />
-                <rect
-                  data-name="Rectángulo 1996"
-                  className="cls-3"
-                  x="64"
-                  y="16"
-                  width="32"
-                  height="64"
-                />
-                <circle
-                  data-name="Elipse 6"
-                  className="cls-4"
-                  cx="48"
-                  cy="48"
-                  r="11"
-                />
-              </g>
+              viewBox="0 0 18 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 0H0V12H18V0Z" fill="white" />
+              <path d="M6 0H0V12H6V0Z" fill="#006847" />
+              <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
+              <path
+                d="M9 8.0625C10.1391 8.0625 11.0625 7.13909 11.0625 6C11.0625 4.86091 10.1391 3.9375 9 3.9375C7.86091 3.9375 6.9375 4.86091 6.9375 6C6.9375 7.13909 7.86091 8.0625 9 8.0625Z"
+                fill="#BFC2A3"
+              />
             </svg>
+
             {`${has ? 'MX (México)' : 'México'}`}
           </a>
         </div>
