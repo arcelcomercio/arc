@@ -35,15 +35,14 @@
     font-weight: 500;
   }
   &__question-txt {
-    padding: 0 4px 0 32px;
+    padding: 0 32px 0 4px;
     text-align: left;
-    display: flex;
-    justify-content: space-between;
     position: relative;
   }
   &__question-check {
     position: absolute;
     right: 0;
+    fill: $color-green;
   }
   &__details {
     position: relative;
