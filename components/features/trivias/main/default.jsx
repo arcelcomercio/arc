@@ -103,6 +103,7 @@ const TriviasMain = ({
     const url = window.location.pathname
     pushEvent(ACTION_RESTART, { url })
 
+    refreshAds()
     window.history.pushState({ restart: true }, title, url)
     window.title = title
     setPoints([])
