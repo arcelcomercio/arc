@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React from 'react'
+import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
 
 import { getAssetsPath } from '../../../utilities/assets'
@@ -14,12 +14,15 @@ const classes = {
   listTitle: 'stories-video__title text-white uppercase',
   listWrapper: 'stories-video__list-wrapper h-full flex flex-col justify-end',
   viewProgramsWrapper:
-    'stories-video__programs-wrapper flex justify-center pt-10 pb-10 pl-20 pr-20',
+    'stories-video__programs-wrapper flex justify-center pt-10 pb-10',
   viewPrograms:
     'stories-video__programs text-white flex items-center flex-row-reverse',
+  boxPlaylist: 'stories-video__box-playlist position-relative p-10',
+  textPlaylist: 'stories-video__text-playlist',
+  btnPlaylist: 'stories-video__btn-playlist position-absolute w-full',
 }
 
-const PERU21TV_URL = 'https://peru21.pe/peru21tv/'
+const PERU21TV_URL = 'javascript:;'
 
 const StoriesListVideo = props => {
   const { contextPath, arcSite } = useFusionContext()
@@ -54,18 +57,41 @@ const StoriesListVideo = props => {
     liveStory05,
   ]
 
+  const [textMore, setTextMore] = useState('Mostrar más')
+  const [classBtn, setClassBtn] = useState('stories-video__btn-playlist--show')
+  const [classWrapper, setClassWrapper] = useState(
+    'stories-video__list-wrapper--one-item'
+  )
+
+  const sideScroll = () => {
+    if (textMore === 'Mostrar más') {
+      setTextMore('Mostrar menos')
+      setClassBtn('stories-video__btn-playlist--hide')
+      setClassWrapper('')
+    } else {
+      setTextMore('Mostrar más')
+      setClassBtn('stories-video__btn-playlist--show')
+      setClassWrapper('stories-video__list-wrapper--one-item')
+    }
+  }
+
   return (
     <>
       <div className={classes.listComponent}>
         <div className={classes.listHeader}>
           <h3 itemProp="name" className={classes.listTitle}>
-            video
+            P21 TV
           </h3>
-          <a itemProp="url" href={PERU21TV_URL} title="Videos de Perú21TV">
-            <img src={logoImg} alt="Logo de Perú21TV" />
-          </a>
+          <div className={classes.viewProgramsWrapper}>
+            <a
+              itemProp="url"
+              className={classes.viewPrograms}
+              href={PERU21TV_URL}>
+              Ver programas
+            </a>
+          </div>
         </div>
-        <div className={classes.listWrapper}>
+        <div className={`${classes.listWrapper} ${classWrapper}`}>
           {stories &&
             stories.map(
               (story, index) =>
@@ -79,12 +105,24 @@ const StoriesListVideo = props => {
                 )
             )}
         </div>
-        <div className={classes.viewProgramsWrapper}>
+        <div className={classes.boxPlaylist}>
+          <span className={classes.textPlaylist}>{textMore}</span>
           <a
             itemProp="url"
-            className={classes.viewPrograms}
-            href={PERU21TV_URL}>
-            Ver programas
+            className={`${classes.btnPlaylist} ${classBtn}`}
+            href={PERU21TV_URL}
+            onClick={() => {
+              // sideScroll()
+            }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="8"
+              fill="#fff"
+              viewBox="0 0 8 14">
+              <path
+                d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z"
+                transform="translate(-0.293 -0.293)"></path>
+            </svg>
           </a>
         </div>
       </div>

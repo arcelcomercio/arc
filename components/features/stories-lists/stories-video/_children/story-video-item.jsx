@@ -57,6 +57,7 @@ const VideoJWplayer = ({
   videoTime,
   autoPlayVideo,
   account,
+  section,
 }) => {
   const time = secToTime(videoTime)
   const powaVideoProps = {
@@ -69,6 +70,7 @@ const VideoJWplayer = ({
     time,
     account,
     autoPlayVideo,
+    section,
   }
 
   if (index === 0) {
@@ -121,6 +123,7 @@ const StoriesListStoryVideoItem = ({
   hasAds = '',
   duration,
   account,
+  section,
 }) => {
   const paramsItem = {
     index,
@@ -135,6 +138,7 @@ const StoriesListStoryVideoItem = ({
     hasAds,
     duration,
     account,
+    section,
   }
   let resultItemVideo = null
 
@@ -161,8 +165,23 @@ const StoriesListStoryVideoItem = ({
   })
 
   const classItem = index === 0 ? classes.listItemDest : classes.listItem
+
+  const removeStickyHeadband = (indexItem = 1) => {
+    const fixedHeadband = document.querySelector('.headband__fixedvideo__close')
+    if (fixedHeadband && indexItem === 0) {
+      fixedHeadband.click()
+    }
+  }
+
   return (
-    <div role="button" tabIndex="0" className={classItem} data-type={videoType}>
+    <div
+      role="button"
+      tabIndex="0"
+      className={classItem}
+      onClick={() => {
+        removeStickyHeadband(index)
+      }}
+      data-type={videoType}>
       {resultItemVideo}
     </div>
   )

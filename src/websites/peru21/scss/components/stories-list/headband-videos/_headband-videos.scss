@@ -1,0 +1,325 @@
+.headband {
+  @media (--desktop) {
+    display: flex;
+  }
+  &__fixedvideo {
+    &__container {
+      .story-content__caption {
+        display: none;
+      }
+
+      background-color: #222;
+      width: 100%;
+      @media (--desktop) {
+        width: 980px;
+      }
+      @media (--tablet) {
+        width: 620px;
+      }
+
+      position: fixed;
+      // top: 0;
+      top: 46px;
+      z-index: 18;
+      display: none;
+      border-radius: 0 0 5px 5px;
+    }
+    &__firstBox {
+      height: 110px;
+      display: flex;
+    }
+    &__box-video {
+      width: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .stories-video__box-jwplayer {
+        width: 100%;
+      }
+      .jwplayer-lazy {
+        height: 100% !important;
+      }
+      iframe {
+        height: 90px;
+        width: 160px;
+      }
+    }
+    &__box-story {
+      position: relative;
+      width: calc(100% - 180px);
+      margin-left: 10px;
+    }
+    &__title-story {
+      font-family: $tertiary-font;
+      width: 136px;
+      line-height: 18px;
+      -webkit-line-clamp: 5;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      @media (--desktop) {
+        width: 180px;
+        line-height: 20px;
+        font-size: 16px;
+      }
+
+      color: #fff;
+      font-size: 14px;
+      padding-top: 10px;
+    }
+    &__firstBox.expanded {
+      height: 260px;
+      flex-direction: column;
+      @media (--tablet) {
+        flex-direction: row;
+        height: 200px;
+      }
+      @media (--desktop) {
+        flex-direction: row;
+        height: 200px;
+      }
+      .headband__fixedvideo__box-video {
+        width: 100%;
+        @media (--desktop) {
+          width: 340px;
+        }
+        @media (--tablet) {
+          width: 340px;
+        }
+        iframe {
+          width: 340px;
+          height: 192px;
+          padding-top: 10px;
+          @media (--desktop) {
+            width: 320px;
+            height: 180px;
+          }
+          @media (--tablet) {
+            width: 320px;
+            height: 180px;
+          }
+        }
+      }
+      .headband__fixedvideo__box-story {
+        width: 100%;
+        @media (--desktop) {
+          width: calc(100% - 340px);
+        }
+        @media (--tablet) {
+          width: calc(100% - 340px);
+        }
+      }
+      .headband__fixedvideo__title-story {
+        font-size: 14px;
+        width: 290px;
+        padding-left: 20px;
+        -webkit-line-clamp: 3;
+        @media (--tablet) {
+          width: 220px;
+          line-height: 24px;
+          color: #fff;
+          font-size: 20px;
+          padding-left: 0;
+          -webkit-line-clamp: 7;
+        }
+        @media (--desktop) {
+          line-height: 24px;
+          width: 240px;
+          padding-left: 0;
+          -webkit-line-clamp: 7;
+        }
+      }
+    }
+    &__container.active {
+      display: block;
+      top: 46px;
+    }
+    &__container.active.scrolled {
+      top: 46px;
+    }
+    &__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #fff;
+      font-size: 20px;
+    }
+    &__resize {
+      background-color: #000;
+      height: 24px;
+      border-top: 1px solid #fff;
+      text-align: center;
+      border-radius: 0 0 5px 5px;
+      button {
+        color: #fff;
+        font-weight: 800;
+        &:focus {
+          outline: none;
+        }
+        svg {
+          padding-top: 5px;
+          transform: rotate(90deg);
+        }
+      }
+    }
+    &__resize.expanded {
+      button {
+        svg {
+          transform: rotate(-90deg);
+        }
+      }
+    }
+  }
+
+  &__container {
+    height: 142px;
+    background-color: #222;
+    @media (--desktop) {
+      height: 110px;
+      flex-direction: row;
+      border-radius: 5px 0 0 5px;
+      width: calc(100% - 42px);
+    }
+  }
+  &__title {
+    font: normal normal bold 16px/16px $tertiary-font;
+    letter-spacing: 0.48px;
+    color: #fff;
+    align-self: center;
+  }
+  &__box-logo {
+    @media (--desktop) {
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+  &__logo {
+    height: 32px;
+    width: 47px;
+    @media (--desktop) {
+      width: 67px;
+      height: 46px;
+    }
+  }
+  &__swipe {
+    font: normal normal normal 14px/16px $tertiary-font;
+    letter-spacing: 0;
+    color: #666;
+    align-self: center;
+    margin-left: auto;
+    svg {
+      margin-left: 10px;
+    }
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &__container-item {
+    height: 80px;
+    margin-right: 15px;
+
+    &:first {
+      margin-right: 0;
+    }
+
+    @media (--desktop) {
+      height: 90px;
+    }
+  }
+  &__box-items {
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    overflow: hidden;
+
+    &::-webkit-scrollbar {
+      height: 0;
+    }
+  }
+  &__box-video {
+    width: 142px;
+    @media (--desktop) {
+      width: 160px;
+    }
+  }
+  &__image {
+    border-radius: 5px;
+  }
+  &__title-story {
+    width: 120px;
+    font: normal normal bold 14px/16px $tertiary-font;
+    letter-spacing: 0.11px;
+    color: #eee;
+    margin-left: 10px;
+    -webkit-line-clamp: 5;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    @media (--desktop) {
+      line-height: 15px;
+      -webkit-line-clamp: 6;
+    }
+  }
+  &__box-timer-live {
+    right: 0;
+    bottom: 5px;
+  }
+  &__timer {
+    background: #000 0% 0% no-repeat padding-box;
+    border-radius: 3px;
+    opacity: 0.8;
+    font: normal normal bold 12px/16px $tertiary-font;
+    letter-spacing: 0.48px;
+    color: #fff;
+    padding: 3px;
+    margin-right: 5px;
+  }
+  &__live {
+    background: #ed1d24 0% 0% no-repeat padding-box;
+    opacity: 1;
+    border-radius: 3px;
+    color: #fff;
+    font: normal normal bold 10px/16px $tertiary-font;
+    letter-spacing: 0.16px;
+    padding: 5px;
+    margin-right: 5px;
+    height: 22px;
+    line-height: 14px;
+
+    &::before {
+      content: "\2B24";
+      font-size: 6px;
+      margin-right: 5px;
+      top: -2px;
+      position: relative;
+      animation: blinker 2s linear infinite;
+    }
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+  }
+  &__icon-play {
+    bottom: 5px;
+    height: 20px;
+    margin-left: 5px;
+  }
+  &__next {
+    display: none;
+    background: #111 0% 0% no-repeat padding-box;
+    border-radius: 0 5px 5px 0;
+    opacity: 1;
+    width: 42px;
+    height: 110px;
+    justify-content: center;
+    &:focus {
+      outline: none;
+    }
+    @media (--desktop) {
+      display: block;
+    }
+  }
+}
