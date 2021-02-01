@@ -232,7 +232,8 @@
   &__box-items {
     overflow-y: hidden;
     scroll-behavior: smooth;
-    overflow: hidden;
+    // overflow: hidden;
+    scrollbar-width: none;
 
     &::-webkit-scrollbar {
       height: 0;
