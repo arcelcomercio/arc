@@ -287,7 +287,8 @@ export default ({
   if (
     (arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
-      arcSite === SITE_DEPOR) &&
+      arcSite === SITE_DEPOR ||
+      arcSite === SITE_ELBOCON) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
