@@ -29,7 +29,7 @@ import {
   SITE_PERU21G21,
   SITE_TROME,
   SITE_OJO,
-  SITE_ELBOCON
+  SITE_ELBOCON,
 } from '../utilities/constants/sitenames'
 import { META_HOME } from '../utilities/constants/meta'
 
@@ -122,6 +122,8 @@ export default ({
       classBody = `${classBody} muchafoto`
     } else if (/^\/usa/.test(requestUri)) {
       lang = 'es-us'
+    } else if (/^\/mexico/.test(requestUri)) {
+      lang = 'es-mx'
     }
   }
 
@@ -734,7 +736,11 @@ export default ({
             __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
           }}
         />
-        <WebVitals report={arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
+        <WebVitals
+          report={
+            arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')
+          }
+        />
         {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
@@ -788,7 +794,9 @@ export default ({
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
-        {arcSite === SITE_ELBOCON ? <RegisterServiceWorker path={deployment("/sw.js")}/> : null}
+        {arcSite === SITE_ELBOCON ? (
+          <RegisterServiceWorker path={deployment('/sw.js')} />
+        ) : null}
       </body>
     </html>
   )
