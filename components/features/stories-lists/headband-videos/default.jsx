@@ -47,8 +47,8 @@ const HeadbandVideo = props => {
       const container = document.getElementsByClassName(
         'headband__box-items'
       )[0]
-      if (container.scrollLeft === 0 && container.scrollLeft < 500) {
-        container.scrollLeft = 500
+      if (container.scrollLeft === 0 && container.scrollLeft < 800) {
+        container.scrollLeft = 800
       } else {
         container.scrollLeft = 0
       }
