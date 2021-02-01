@@ -37,6 +37,7 @@
     }
   }
   &__list-wrapper {
+    justify-content: flex-start;
     @media (--only-mobile) {
       &--one-item {
         overflow: hidden;
