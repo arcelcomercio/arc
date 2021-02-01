@@ -13,6 +13,7 @@ import { getAssetsPath } from '../../../utilities/assets'
 import Newsletter from '../../statics/newsletter-custom/default'
 
 import HeaderFullView from './_lite/_children/header-full'
+import { SITE_DEPOR, SITE_TROME } from '../../../utilities/constants/sitenames'
 
 const HeaderFull = props => {
   const {
@@ -163,7 +164,7 @@ const HeaderFull = props => {
     inclJS: 'FALSE',
   }
   const whiteLogo =
-    arcSite === 'trome'
+    arcSite === SITE_TROME
       ? `${getAssetsPath(
           arcSite,
           contextPath
@@ -173,6 +174,14 @@ const HeaderFull = props => {
           contextPath
         )}/resources/dist/${arcSite}/images/logo-white.png?d=1`
 
+  const logo =
+    arcSite === SITE_DEPOR
+      ? 'https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg'
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
+
   const params = {
     headerList,
     menuList,
@@ -180,10 +189,7 @@ const HeaderFull = props => {
     postTitle,
     isStory,
     customLogoTitle,
-    logo: `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`,
+    logo,
     whiteLogo,
     shareButtons,
     arcSite,
