@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-undef */
 import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
@@ -22,7 +23,7 @@ const classes = {
   btnPlaylist: 'stories-video__btn-playlist position-absolute w-full',
 }
 
-const PERU21TV_URL = 'javascript:;'
+const PERU21TV_URL = 'https://peru21.pe/peru21tv/'
 
 const StoriesListVideo = props => {
   const { contextPath, arcSite } = useFusionContext()
@@ -110,7 +111,7 @@ const StoriesListVideo = props => {
           <a
             itemProp="url"
             className={`${classes.btnPlaylist} ${classBtn}`}
-            href={PERU21TV_URL}
+            href="javascript:;"
             onClick={() => {
               // sideScroll()
             }}>
