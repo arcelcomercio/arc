@@ -261,7 +261,6 @@ class StoryContentAmp extends React.PureComponent {
                   content_elements: innerContentElements,
                   content,
                   level,
-                  // publicidadInline = false,
                   publicidadCaja2 = false,
                   publicidadCaja3 = false,
                   publicidadCaja4 = false,
@@ -484,15 +483,18 @@ class StoryContentAmp extends React.PureComponent {
                   )
                 }
                 if (type === ELEMENT_LINK_LIST) {
-                  return (
-                    <StoryContentsChildLinkList
-                      items={items}
-                      isAmp
-                    />
-                  )
+                  return <StoryContentsChildLinkList items={items} isAmp />
                 }
 
                 if (type === ELEMENT_VIDEO) {
+                  const dataVideo = updateDate && updateDate.split('T')[0]
+                  if (
+                    element.embed_html.includes('id="powa-') &&
+                    dataVideo >= '2021-01-22'
+                  ) {
+                    return ''
+                  }
+
                   return <StoryContentChildVideo data={element} />
                 }
                 if (type === ELEMENT_CUSTOM_EMBED) {

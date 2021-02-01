@@ -16,7 +16,7 @@ export const msToTime = (duration = 5555, seo = true) => {
   }
   return resultSeo
 }
-export const secToTime = (duration = 0) => {
+export const secToTime = (duration = 0, withHour = false) => {
   const secNum = parseInt(duration, 10)
   let hours = Math.floor(secNum / 3600)
   let minutes = Math.floor((secNum - hours * 3600) / 60)
@@ -31,7 +31,8 @@ export const secToTime = (duration = 0) => {
   if (seconds < 10) {
     seconds = `0${seconds}`
   }
-  return `${hours}:${minutes}:${seconds}`
+  const txtHours = withHour ? `${hours}:` : ''
+  return `${txtHours}${minutes}:${seconds}`
 }
 
 export const msToTimestamp = (timestamp = 1575909015) => {

@@ -1,16 +1,16 @@
 /* eslint-disable func-names */
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import { getAssetsPath } from '../../utilities/assets'
+import { getAssetsPath } from '../../../utilities/assets'
 import { fetchLive } from './_dependencies/scripts'
 
 // TODO: convertir en componente funcional con hooks
 
 @Consumer
-class MinuteByMinute extends PureComponent {
+class MinuteByMinute extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {}

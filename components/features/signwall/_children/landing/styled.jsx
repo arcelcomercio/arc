@@ -9,7 +9,7 @@ export const Base = styled.div`
 export const ContMiddle = styled.div`
   display: block;
   height: 100%;
-  min-height: 520px;
+  min-height: ${props => (props.hm ? props.hm : '520')}px;
   @media ${device.tablet} {
     display: table;
     width: 100%;

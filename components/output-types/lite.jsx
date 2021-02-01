@@ -212,7 +212,11 @@ const LiteOutput = ({
 
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
-    if (requestUri.match('^/usa')) lang = 'es-us'
+    if (requestUri.match('^/usa')) {
+      lang = 'es-us'
+    } else if (/^\/mexico/.test(requestUri)) {
+      lang = 'es-mx'
+    }
   }
 
   const parametersValla = {
@@ -402,6 +406,8 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
           arcSite={arcSite}
+          section={storySectionPath.split('/')[1]}
+          subtype={subtype}
         />
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
@@ -670,7 +676,7 @@ const LiteOutput = ({
             )}
           />
         )}
-        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
+        {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )

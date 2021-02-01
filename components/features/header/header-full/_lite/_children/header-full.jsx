@@ -2,6 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import React from 'react'
+import { useAppContext } from 'fusion:context'
+
 import getProperties from 'fusion:properties'
 
 import {
@@ -9,6 +11,7 @@ import {
   scrolled,
   scrollProgresBar,
   searchScript,
+  edicionMenu,
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -48,6 +51,15 @@ const classes = {
 
   footer: `nav-sidebar__footer`,
   text: `nav-sidebar__text`,
+  edicion: 'header-full__edicion',
+  title: 'header-full__e-title',
+  eLink: 'header-full__e-link f ',
+  mx: 'header-full__e-mx',
+  eContent: 'header-full__e-content hidden',
+  eBody: '__e-body',
+  ePais: '__e-pais ',
+  eName: '__e-name ',
+  eArrow: 'header-full__e-arrow',
 }
 
 export default ({
@@ -67,6 +79,50 @@ export default ({
   hideMenu,
   winningCallLogo,
 }) => {
+  const { requestUri } = useAppContext()
+  const isMexico = /^\/mexico\//.test(requestUri)
+  const edittion = (cName, opcion = '', has = true) => {
+    return (
+      <>
+        <div className={`${cName}${classes.eBody} ${opcion} `}>
+          <div className={`${cName}${classes.eName}`}>EDICIONES:</div>
+
+          <a className={`${cName}${classes.ePais}`} href="/?noredirect">
+            <svg
+              width="18"
+              height="12"
+              viewBox="0 0 18 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 0H0V12H18V0Z" fill="white" />
+              <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
+              <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
+            </svg>
+            {`${has ? 'PE (Perú)' : 'Perú'}`}
+          </a>
+
+          <a className={`${cName}${classes.ePais}`} href="/mexico/">
+            <svg
+              width="18"
+              height="12"
+              viewBox="0 0 18 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 0H0V12H18V0Z" fill="white" />
+              <path d="M6 0H0V12H6V0Z" fill="#006847" />
+              <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
+              <path
+                d="M9 8.0625C10.1391 8.0625 11.0625 7.13909 11.0625 6C11.0625 4.86091 10.1391 3.9375 9 3.9375C7.86091 3.9375 6.9375 4.86091 6.9375 6C6.9375 7.13909 7.86091 8.0625 9 8.0625Z"
+                fill="#BFC2A3"
+              />
+            </svg>
+            {`${has ? 'MX (México)' : 'México'}`}
+          </a>
+        </div>
+      </>
+    )
+  }
+
   const renderSections = (sections, deep, nameId = 'root') => {
     const aux = deep
     return (
@@ -205,6 +261,9 @@ export default ({
               <div className={classes.megaMenu}>
                 <div className={classes.wrapper}>
                   <div className={classes.body}>
+                    {arcSite === 'depor' && (
+                      <>{edittion('nav-sidebar', 'f paisBody', false)}</>
+                    )}
                     <ul className={classes.list}>
                       {menuList && renderSections(menuList, 0)}
                     </ul>
@@ -375,6 +434,35 @@ export default ({
                 />
               </>
             )}
+            {arcSite === 'depor' && (
+              <>
+                <div className={classes.edicion}>
+                  <div className={classes.title}>EDICIÓN</div>
+                  <a
+                    id="edicionId"
+                    itemProp="url"
+                    role="button"
+                    href
+                    title="Edicion"
+                    className={classes.eLink}>
+                    <div className={classes.mx}>{isMexico ? 'MX' : 'PE'}</div>
+                    <svg
+                      className="svg"
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24">
+                      <path d="M0 0h24v24H0z" fill="none" />
+                      <path d="M7 10l5 5 5-5z" />
+                    </svg>
+                  </a>
+                </div>
+                <div className={classes.eContent}>
+                  {edittion('header-full')}
+                  <div className={classes.eArrow}></div>
+                </div>
+              </>
+            )}
           </div>
           {isStory && (
             <>
@@ -390,6 +478,10 @@ export default ({
           __html: `${isStory ? scrolled : ''}${hideMenu ? '' : menuScript}${
             isStory && arcSite === 'depor' ? scrollProgresBar : ''
           }`,
+        }}></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: edicionMenu,
         }}></script>
     </>
   )

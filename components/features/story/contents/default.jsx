@@ -276,6 +276,13 @@ class StoryContents extends React.PureComponent {
                     )
                   }
                   if (type === ELEMENT_VIDEO) {
+                    const dataVideo = updatedDate && updatedDate.split('T')[0]
+                    if (
+                      element.embed_html.includes('id="powa-') &&
+                      dataVideo >= '2021-01-22'
+                    ) {
+                      return ''
+                    }
                     return (
                       <>
                         {element && element.embed_html ? (
@@ -314,7 +321,17 @@ class StoryContents extends React.PureComponent {
                         <>
                           <div
                             className="jwplayer-lazy"
-                            id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                            id={`botr_${mediaId}_${jwplayerId}_div`}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="jw-svg-icon jw-svg-icon-play"
+                              viewBox="0 0 240 240"
+                              width="77"
+                              height="77"
+                              focusable="false">
+                              <path d="M62.8,199.5c-1,0.8-2.4,0.6-3.3-0.4c-0.4-0.5-0.6-1.1-0.5-1.8V42.6c-0.2-1.3,0.7-2.4,1.9-2.6c0.7-0.1,1.3,0.1,1.9,0.4l154.7,77.7c2.1,1.1,2.1,2.8,0,3.8L62.8,199.5z"></path>
+                            </svg>
+                          </div>
                           <figcaption className="story-content__caption ">
                             {title}
                           </figcaption>
@@ -548,13 +565,17 @@ class StoryContents extends React.PureComponent {
                     }
 
                     if (
-                      /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+                      /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(
+                        content
+                      )
                     ) {
                       return (
                         <>
                           <div
                             data-type={
-                              /twitter-(?:tweet|timeline)/.test(content)
+                              /twitter-(?:tweet|timeline|follow-button)/.test(
+                                content
+                              )
                                 ? 'twitter'
                                 : 'instagram'
                             }

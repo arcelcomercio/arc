@@ -9,7 +9,7 @@ const classes = {
 
 const CustomImageFeat = ({
   customFields: {
-    imgUrl,
+    imgUrlDesktop,
     imgTitle,
     imgAlt,
     imgLink,
@@ -34,7 +34,7 @@ const CustomImageFeat = ({
   if (rows === 'row-2') height = H_AUTO
   if (rows === 'w-full') height = imgHeight || H_AUTO
 
-  if (!imgUrl)
+  if (!imgUrlDesktop)
     return (
       <div className={containerClass}>
         Modulo imagen, clic en editar para configurar.
@@ -45,7 +45,7 @@ const CustomImageFeat = ({
   const loading = lazyload ? 'lazy' : 'auto'
   const picture = (
     <Image
-      src={imgUrl}
+      src={imgUrlDesktop}
       width={width}
       height={height}
       style={styleHeight}

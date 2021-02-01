@@ -44,6 +44,15 @@ const fetch = ({
     uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${section}${websiteUrl}&website=${website}${excludedFieldsStory}`,
     ...options,
   }).then(storyResp => {
+    const {
+      related_content: {
+        redirect: [
+          { redirect_url: redirectUrl = '', type: typeRedirect = '' } = {},
+        ] = [],
+      } = {},
+    } = storyResp
+    if (typeRedirect === 'redirect' && redirectUrl)
+      throw new RedirectError(redirectUrl, 301)
     if (storyResp.type === 'redirect' && storyResp.redirect_url)
       throw new RedirectError(storyResp.redirect_url, 301)
     return storyResp

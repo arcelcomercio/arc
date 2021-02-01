@@ -79,6 +79,7 @@ export default ({
     authorEmailSecond,
     roleSecond: authorRoleSecond,
     jwplayerSeo,
+    promoItemJwplayer = {},
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -372,12 +373,25 @@ export default ({
     ? `"image":[ ${arrayImage} ],`
     : `"image": ${arrayImage},`
 
+  const imageJWplayer = ({ key = '' }) => {
+    const url = `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg`
+    const { large = url } =
+      createResizedParams({
+        url,
+        presets: 'large:1200x800',
+        arcSite,
+      }) || {}
+    return key
+      ? large
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`
+  }
+
   const imageYoutube = idYoutube
     ? `https://i.ytimg.com/vi/${idYoutube}/hqdefault.jpg`
-    : `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/${arcSite}/images/logo-story-default.jpg?d=1`
+    : imageJWplayer(promoItemJwplayer)
 
   const imagenDefoult = imagesSeoItems[0]
     ? imagenData

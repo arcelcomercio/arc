@@ -64,7 +64,10 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
     } else if (videoType === VIDEO_JWPLAYER) {
       videoID = getVideoJWplayerId(data)
       hasAds = getVideoJWplayerHasAds(data)
-      image = getVideoImageJWplayer(data, LANDSCAPE_XXS)
+      image = getImage(data, LANDSCAPE_XXS)
+      if (image.payload === '') {
+        image = getVideoImageJWplayer(data, LANDSCAPE_XXS)
+      }
       duration = getVideoTimeJWplayer(data, LANDSCAPE_XXS)
       account = getVideoAccount(data, LANDSCAPE_XXS)
     }

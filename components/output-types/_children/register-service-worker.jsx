@@ -9,16 +9,16 @@ if ('serviceWorker' in navigator) {
 }
 */
 
-const RegisterServiceWorker = ({ register, path = '/sw.js?d=1' }) =>
-  register ? (
+const RegisterServiceWorker = ({ disable, path = '/sw.js?d=1' }) =>
+  disable ? null : (
     <script
       dangerouslySetInnerHTML={{
         __html: `"use strict";"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("${path}")});`,
       }}
     />
-  ) : null
+  )
 
-export default RegisterServiceWorker
+export default React.memo(RegisterServiceWorker)
 
 /* 
 async function addToCache(urls) {

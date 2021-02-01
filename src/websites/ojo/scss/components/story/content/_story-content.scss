@@ -1,6 +1,6 @@
 .story-content {
   &__date,
-  &__font--secondary{
+  &__font--secondary {
     font-family: $primary-font;
   }
   &__font--secondary {
@@ -13,8 +13,8 @@
   &__caption {
     color: #333;
   }
-  &__icon{
-    color: #8A8A8A;
+  &__icon {
+    color: #8a8a8a;
   }
   &__taboola {
     .thumbnails-a {
@@ -23,6 +23,6 @@
     }
   }
 }
-.story-content li span a{
-  color:#2b7bb9;
+.story-content li span a {
+  color: #2b7bb9;
 }

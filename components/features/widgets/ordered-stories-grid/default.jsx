@@ -30,7 +30,7 @@ const classes = {
 const OrderedStoriesGridFeat = props => {
   const { customFields } = props
   const { globalContent, deployment, contextPath, arcSite } = useAppContext()
-  const siteProperties = getProperties(arcSite)
+  const { isDfp } = getProperties(arcSite)
   const { content_elements: contentElements = [] } = globalContent || {}
 
   const renderGrilla = () => {
@@ -38,7 +38,6 @@ const OrderedStoriesGridFeat = props => {
       deployment,
       contextPath,
       arcSite,
-      defaultImgSize: 'md',
     })
     let storyNumber = 0
 
@@ -90,7 +89,7 @@ const OrderedStoriesGridFeat = props => {
             columns={element.col === 2 ? 'twoCol' : 'oneCol'}
             rows={element.row === 2 ? 'twoRow' : 'oneRow'}
             freeHtml={freeHtml}
-            siteProperties={siteProperties}
+            isDfp={isDfp}
           />
         )
       }

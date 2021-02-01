@@ -82,7 +82,7 @@ const PropertiesSite = {
       {
         title: 'Beneficios Club',
         image: `${cdnStaticEc}/images/landing/beneficios/beneficio4.png`,
-        description: `Acceso a cientos de descuentos ilimitados en restaurantes, entretenimiento, educación, viajes y mucho más.`,
+        description: `Acceso a cientos de descuentos ilimitados en restaurantes, educación, hogar, entretenimiento y más.`,
       },
     ],
   },
@@ -156,7 +156,7 @@ const PropertiesSite = {
       {
         title: 'Beneficios Club',
         image: `${cdnStaticGe}/images/landing/beneficios/beneficio4.png`,
-        description: `Acceso a cientos de descuentos ilimitados en restaurantes, entretenimiento, educación, viajes y mucho más.`,
+        description: `Acceso a cientos de descuentos ilimitados en restaurantes, educación, hogar, entretenimiento y más.`,
       },
     ],
   },
@@ -184,7 +184,9 @@ const PropertiesCommon = {
     profile:      '/mi-perfil/?outputType=signwall',
     preguntas:    `/suscripcionesdigitales/faqs/${IsPROD ? '' : '?outputType=paywall'}`,
     bannerCorp:   `/suscripcionesdigitales/empresa/${IsPROD ? '' : '?outputType=paywall'}`,
-    landingFia:   `/suscripcionesdigitales/fia/${IsPROD ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`
+    landingFia:   `/suscripcionesdigitales/fia/${IsPROD ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,
+    clubComercio: 'https://clubelcomercio.pe/?home=suscripciones_digitales',
+    callCenter:   'tel:+5113115100'
   },
 
   tokens: {
@@ -242,7 +244,8 @@ const PropertiesCommon = {
     checkInbox:      'Revisa tu bandeja de correo para confirmar tu registro y sigue navegando',
     notReceiptEmail: '¿No recibiste el correo?',
     reSendEmail:     'Reenviar correo de activación',
-    youCanSendEmail: 'Podrás reenviar nuevamente dentro de'
+    youCanSendEmail: 'Podrás reenviar nuevamente dentro de',
+    textWinback:     '¡Tenemos un precio especial para ti!',
   }
 }
 

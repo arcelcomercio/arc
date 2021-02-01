@@ -35,7 +35,12 @@ export const FooterSubs = () => {
   const [showDocOption, setShowDocOption] = useState('DNI')
   const { urls, texts } = PropertiesCommon
   const {
-    globalContent: { name: planName, printAttributes = [], printedSubscriber },
+    globalContent: {
+      name: planName,
+      printAttributes = [],
+      printedSubscriber,
+      event,
+    },
   } = useFusionContext() || {}
 
   const textsAttr = printAttributes.reduce(
@@ -82,11 +87,12 @@ export const FooterSubs = () => {
             .then(resDniToken => {
               if (resDniToken.token) {
                 updateLoading(true)
+                const isEvent = event ? `${event}/` : ''
                 setTimeout(() => {
                   window.location.href =
                     ArcEnv === 'prod'
-                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/`
-                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/?outputType=subscriptions`
+                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}`
+                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}?outputType=subscriptions`
                 }, 1000)
               } else {
                 window.console.error('Hubo un error con la respuesta') // Temporal hasta implementar Sentry
@@ -236,7 +242,11 @@ export const FooterSubs = () => {
 
 export const FooterLand = ({ arcType }) => {
   const { arcSite } = useFusionContext() || {}
-  const { urls, emails, texts } = PropertiesSite[arcSite]
+  const {
+    urls,
+    // emails,
+    texts,
+  } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   return (
     <>
@@ -257,11 +267,15 @@ export const FooterLand = ({ arcType }) => {
                     <div className="footer__content-logo"></div>
                   </a>
                   <p>
-                    Envíanos un correo a<br />
-                    <a
+                    Llámanos al
+                    <br />
+                    {/* <a
                       href={`mailto:${emails.atencion}`}
                       className="footer__content-link">
                       {emails.atencion}
+                    </a> */}
+                    <a href={links.callCenter} className="footer__content-link">
+                      Call Center: 311-5100
                     </a>
                   </p>
                 </div>
@@ -284,21 +298,26 @@ export const FooterLand = ({ arcType }) => {
                     <p>
                       Servicio al cliente y Ventas:
                       <br />
-                      <a
+                      {/* <a
                         href={`mailto:${emails.atencion}`}
                         className="footer__content-link">
                         {emails.atencion}
+                      </a> */}
+                      <a
+                        href={links.callCenter}
+                        className="footer__content-link">
+                        Call Center: 311-5100
                       </a>
                     </p>
                     {/* <p>
-                  Pagos pendientes y Facturación:
-                  <br />
-                  <a
-                    href={`mailto:${emails.cobranzas}`}
-                    className="footer__content-link">
-                    {emails.cobranzas}
-                  </a>
-                </p> */}
+                      Pagos pendientes y Facturación:
+                      <br />
+                      <a
+                        href={`mailto:${emails.cobranzas}`}
+                        className="footer__content-link">
+                        {emails.cobranzas}
+                      </a>
+                    </p> */}
                   </div>
                 </div>
               </div>
