@@ -36,6 +36,9 @@
       .stories-video__box-jwplayer {
         width: 100%;
       }
+      .jwplayer-lazy {
+        height: 100% !important;
+      }
       iframe {
         height: 90px;
         width: 160px;
@@ -44,6 +47,7 @@
     &__box-story {
       position: relative;
       width: calc(100% - 180px);
+      margin-left: 10px;
     }
     &__title-story {
       font-family: $tertiary-font;
@@ -148,6 +152,9 @@
       button {
         color: #fff;
         font-weight: 800;
+        &:focus {
+          outline: none;
+        }
         svg {
           padding-top: 5px;
           transform: rotate(90deg);
