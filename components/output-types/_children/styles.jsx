@@ -33,6 +33,7 @@ const Styles = ({
   )
     style = 'story-video'
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
+  else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (
@@ -52,15 +53,15 @@ const Styles = ({
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
-  if (CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
-  }
+
   if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
-  }
-  if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
+  } else if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
+  } else if (CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.${siteDomain}/dist/${arcSite}/css/${style}.css`
   }
+
   let styleDefault = isStyleBasic ? 'basic' : ''
   styleDefault =
     style === 'dstory' && isAmp === false && isLite === false

@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { useAppContext } from 'fusion:context'
 
 import { defaultImage } from '../../utilities/assets'
 import { createResizedParams } from '../../utilities/resizer/resizer'
+import { buildPresets } from './utils'
 
 /**
  *
@@ -11,6 +11,7 @@ import { createResizedParams } from '../../utilities/resizer/resizer'
  * @param {string} config.alt
  * @param {number} [config.width=640]
  * @param {number} [config.height=360]
+ * @param {MediaSizeObject[]} [config.sizes]
  * @param {string} [config.loading] "lazy" | "eager" | "auto"
  * @param {string} [config.placeholder]
  * @param {string} [config.title]
@@ -18,15 +19,21 @@ import { createResizedParams } from '../../utilities/resizer/resizer'
  * @param {string} [config.id]
  * @param {string} [config.type]
  * @param {string} [config.importance] Priority hint for browsers
+ * @param {string} [config.layout] - Atributo de AMP
+ * "responsive" | "intrinsic" | "fixed" | "fill" | "fixed_height" | "flex_item" | "nodisplay"
  * @param {string} [config.itemProp] Related to Structured Data
  * @param {number} [config.quality] 1 to 100. Default 75
+ * @param {string} config.arcSite
+ * @param {string} config.contextPath
+ * @param {string} config.outputType
+ * @param {JSX.Element} [config.icon]
  *
- * @returns {HTMLImageElement} Static resized <img/>
+ * @returns {HTMLImageElement | HTMLPictureElement} Static resized `<img/>` o `<picture/>`
  *
  * @see loading https://web.dev/native-lazy-loading/
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
  */
-const Image = ({
+const CustomImage = ({
   id,
   src,
   loading,
@@ -38,11 +45,17 @@ const Image = ({
   alt,
   style,
   className,
+  pictureClassName,
   importance,
+  layout,
   width,
   height,
+  sizes,
+  arcSite,
+  contextPath,
+  outputType,
+  icon,
 }) => {
-  const { arcSite, contextPath } = useAppContext()
   /**
    * Se espera el atributo `loading` para simular los
    * estandares actuales, asi el codigo esta preparado
@@ -50,26 +63,44 @@ const Image = ({
    * @see https://web.dev/native-lazy-loading/
    */
   const lazy = loading === 'lazy'
-  const presets = { image: { width, height } }
   const placeholder =
     customPlaceholder || defaultImage({ contextPath, arcSite })
 
+  const mainImagePreset = { [`${width}x${height}`]: { width, height } }
   /**
-   * Si tiene lazy activado acepta la imagen por
-   * `dataSrc` o `src`, este ultimo caso para alinearse
-   * a los estandares actuales.
+   * Construye el objeto `presets` dependiendo de
+   * si hay o no `sizes`.
    */
-  const { image: resizedImage } = createResizedParams({
+  const presets =
+    sizes.length >= 1
+      ? { ...buildPresets(sizes), ...mainImagePreset }
+      : mainImagePreset
+
+  const resizedImages = createResizedParams({
     url: src,
     presets,
     arcSite,
     filterQuality: quality,
   })
 
-  return (
+  const mainImage = resizedImages[`${width}x${height}`] || placeholder
+  if (outputType === 'amp') {
+    return (
+      <amp-img
+        src={mainImage}
+        width={width}
+        height={height}
+        alt={alt}
+        class={className}
+        layout={layout}
+      />
+    )
+  }
+
+  const Image = () => (
     <img
-      src={lazy ? placeholder : resizedImage}
-      data-src={lazy ? resizedImage : null}
+      src={lazy ? placeholder : mainImage}
+      data-src={lazy ? mainImage : null}
       alt={alt}
       decoding={lazy ? 'async' : 'auto'}
       // width={width}
@@ -83,6 +114,37 @@ const Image = ({
       importance={importance}
     />
   )
+
+  return sizes.length >= 1 ? (
+    <picture className={pictureClassName}>
+      {sizes.map(size => {
+        const { width: sourceWidth, height: sourceHeight, media } = size
+        const sourceImage =
+          resizedImages[`${sourceWidth}x${sourceHeight}`] || placeholder
+        const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
+          sourceImage.length - 30,
+          sourceImage.length
+        )}`
+        return (
+          <source
+            key={key}
+            srcSet={lazy ? null : sourceImage}
+            data-srcset={lazy ? sourceImage : null}
+            media={media}
+            type={type}
+            className={lazy ? 'lazy' : null}
+          />
+        )
+      })}
+      <Image />
+      {icon || null}
+    </picture>
+  ) : (
+    <>
+      <Image />
+      {icon || null}
+    </>
+  )
 }
 
-export default Image
+export default React.memo(CustomImage)
