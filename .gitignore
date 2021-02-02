@@ -2,20 +2,25 @@
 **/.env
 **/node_modules
 
-/.vscode
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+### Fusion ###
 /.fusion
-/.idea
 /data/db/
 /data/dumps/**
 !/data/dumps/.gitkeep
 /data/restore/**
 !/data/restore/.gitkeep
-launch.json
 /resources/dist/
 dist/
-coverage/
 mocks/user
+coverage/
 
 components/features/paywall/bundle.js
 
+launch.json
+/.idea
 /.scannerwork
