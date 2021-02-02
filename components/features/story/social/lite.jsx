@@ -64,7 +64,9 @@ const StorySocialLite = () => {
             arcSite === 'trome'
           }
           activeLinkedin={
-            arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+            arcSite === 'elcomercio' ||
+            arcSite === 'elcomerciomag' ||
+            arcSite === 'peru21'
           }
         />
       </div>

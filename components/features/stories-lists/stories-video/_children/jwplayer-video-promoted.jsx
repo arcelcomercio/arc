@@ -20,6 +20,7 @@ const ItemVideoCenterDestacado = ({
   time,
   hasAds,
   account,
+  section,
 }) => {
   const promoItemJwplayer = {
     key: videoID,
@@ -27,6 +28,7 @@ const ItemVideoCenterDestacado = ({
     has_ads: hasAds,
     account,
     title,
+    section,
   }
   const { siteProperties: { jwplayers = {} } = {} } = useFusionContext()
   const playerId = jwplayers[account] || jwplayers.gec
@@ -42,6 +44,7 @@ const ItemVideoCenterDestacado = ({
         data-stream={jwplayerId}
         data-uuid={videoID}
         data-account={account}>
+
         <VideoJwplayer data={promoItemJwplayer}></VideoJwplayer>
         {/* <script
           dangerouslySetInnerHTML={{

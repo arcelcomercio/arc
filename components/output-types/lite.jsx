@@ -10,6 +10,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
+  SITE_TROME,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -639,6 +640,15 @@ const LiteOutput = ({
             .toISOString()
             .slice(0, 10)}`}
         />
+        {isStory && arcSite === SITE_TROME && (
+          <script
+            src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
+            id="browsi-tag"
+            data-pubKey="elcomercio"
+            data-siteKey="trome"
+            async
+          />
+        )}
         {isStory && (
           <>
             <noscript id="deferred-styles">

@@ -1,5 +1,44 @@
 /*
 const powaBoot = false;
+
+const togglePlaylist = () => {
+  const btn = document.body.querySelector('.stories-video__box-playlist')
+  btn.addEventListener("click", () => {
+    const wrapperList = document.body.querySelector('.stories-video__list-wrapper')
+    wrapperList.classList.toggle("stories-video__list-wrapper--one-item")
+    const textPlaylist = document.body.querySelector('.stories-video__text-playlist')
+    if (textPlaylist.textContent === 'Mostrar más') {
+      textPlaylist.textContent = 'Mostrar menos'
+    }else {
+      textPlaylist.textContent = 'Mostrar más'
+    }
+    const iconPlaylist = document.body.querySelector('.stories-video__btn-playlist')
+    if(iconPlaylist.classList.contains('stories-video__btn-playlist--show')){
+      iconPlaylist.classList.remove('stories-video__btn-playlist--show')
+      iconPlaylist.classList.add('stories-video__btn-playlist--hide')
+    }else{
+      iconPlaylist.classList.remove('stories-video__btn-playlist--hide')
+      iconPlaylist.classList.add('stories-video__btn-playlist--show')   
+    }
+  })
+}
+
+const removeStickyHeadband = () => {
+  const fixedHeadband = document.querySelector('.headband__fixedvideo__close')
+  // fixedHeadband.innerHTML = ''
+  if(fixedHeadband){
+     fixedHeadband.click()
+  }
+}
+
+const sendEventAnalitycs = number => {
+  window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({
+    event: 'peru21tv_player_lista',
+    position: number,
+  })
+}
+
 const removeSticky = () => {
   const $itemDest = document.body.querySelector('.stories-video__item-dest')
   $itemDest.className = $itemDest.className.replace('sticky', '')
@@ -41,20 +80,20 @@ const handleScrollVideoList = () => {
     // si esta fuera de foco por arriba en la parte superior (top 0)
     stickyTop = true
 
-    addSticky(stickyTop)
+    // addSticky(stickyTop)
   } else if (offsetButton || offSetTop) {
     // si esta fuera de foco por (abajo y arriba)
     stickyTop = false
-    removeSticky()
-    addSticky(stickyTop)
+    // removeSticky()
+    // addSticky(stickyTop)
   } else {
-    removeSticky()
+    // removeSticky()
   }
 }
 
 const handleCloseStickyClick = powaPlayer => {
   if (powaPlayer !== null) {
-    removeSticky()
+    // removeSticky()
     window.removeEventListener('scroll', handleScrollVideoList)
     powaPlayer.pause()
   }
@@ -91,7 +130,7 @@ const handleSticky = (autoPlayVideo = false) => {
     })
 
     powa.on(window.PoWa.EVENTS.END, () => {
-      removeSticky()
+      // removeSticky()
       window.removeEventListener('scroll', handleScrollVideoList)
     })
 
@@ -119,6 +158,7 @@ const executeVideoList = () => {
   // no funcionaria aqui.
 
   function handleVideoClick() {
+    removeStickyHeadband()
     // Se recolecta el listado de videos como nodos y array
     const $videosListAux = document.body.querySelector(
       '.stories-video__list-wrapper'
@@ -126,6 +166,9 @@ const executeVideoList = () => {
     const videoItemsListAux = $videosListAux
       ? [].slice.call($videosListAux.children)
       : []
+
+    const positionItem = videoItemsListAux.findIndex(video => video === this) || 0;
+    sendEventAnalitycs(positionItem)
 
     // Se reordena el array poniendo el clickeado primero
     videoItemsListAux.unshift(
@@ -376,6 +419,9 @@ const executeVideoList = () => {
       videoItem.addEventListener('click', handleVideoClick)
     })
 
+    // cierra el fixed de cintillo p21tv en el video destacado del listado de videos p21tv
+    $newVideosList.children[0].addEventListener('click', removeStickyHeadband)
+
     // Se reemplaza el listado viejo con el listado clonado
     $videosListAux.replaceWith($newVideosList)
   }
@@ -403,9 +449,10 @@ requestIdle(() => {
 window.addEventListener('load', () => {
   requestIdle(() => {
     executeVideoList()
+    togglePlaylist()
   })
 })
 */
 
 // eslint-disable-next-line import/prefer-default-export
-export const tvListScripts = `"use strict";var powaBoot=!1,removeSticky=function(){var e=document.body.querySelector(".stories-video__item-dest");e.className=e.className.replace("sticky",""),e.className=e.className.replace("sticky-top","")},addSticky=function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0],t=document.body.querySelector(".stories-video__item-dest");t.className=t.className.concat(" sticky"),e&&(t.className=t.className.concat(" sticky-top"))},handleScrollVideoList=function(){var e=document.body.querySelector(".stories-video__wrapper"),t=4*e.querySelector(".stories-video__item").offsetHeight,i=e.querySelector(".stories-video__content").offsetHeight,o=e.querySelector(".stories-video__programs-wrapper").offsetHeight,s=e.querySelector(".stories-video__header").offsetHeight,a=window.scrollY,r=a>=e.offsetTop+e.offsetHeight-(t+i+o),d=a+window.innerHeight-s<e.offsetTop,l=!1;(r||d)&&0===a?addSticky(l=!0):r||d?(l=!1,removeSticky(),addSticky(l)):removeSticky()},handleCloseStickyClick=function(e){null!==e&&(removeSticky(),window.removeEventListener("scroll",handleScrollVideoList),e.pause())},powaScript=function(e){var t=e.src,i=e.async,o=e.defer,s=e.textContent,a=void 0===s?"":s,r=document.createElement("script");return t&&(r.type="text/javascript",r.src=t),i&&(r.async=!0),o&&(r.defer=!0),r.textContent=a,document.body.append(r)},handleSticky=function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];window.addEventListener("powaRender",function(t){var i=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(window.navigator.userAgent),o=t.detail.powa;o.on(window.PoWa.EVENTS.PLAY,function(){window.addEventListener("scroll",handleScrollVideoList)}),o.on(window.PoWa.EVENTS.END,function(){removeSticky(),window.removeEventListener("scroll",handleScrollVideoList)}),!i&&e&&o&&o.play&&!o.isPlay&&(o.play(),o.isPlay=!0),document.body.querySelector(".stories-video__close").addEventListener("click",function(){return handleCloseStickyClick(o)})})},executeVideoList=function(){function e(){var t=this,i=document.body.querySelector(".stories-video__list-wrapper"),o=i?[].slice.call(i.children):[];o.unshift(o.splice(o.findIndex(function(e){return e===t}),1)[0]);var s,a,r,d,l="stories-video__item w-full p-10 flex justify-between position-relative cursor-pointer",c='<p itemprop="description" class="stories-video__item-live flex items-center uppercase">EN VIVO</p>',n=o[0];if("youtube_id"===n.dataset.type){var v=n.querySelector("img"),u=v.className.indexOf("stories-video__item-default")>0,m=v.alt,p=v.src,_=v.dataset.video,f=!!v.querySelector(".stories-video__item-live");n.className="stories-video__item-dest w-full",n.innerHTML=(s={title:m,image:p,imageDefault:u,video:_.indexOf(!1)?_:_.concat("?autoload=1"),live:f?'<p itemprop="description" class="stories-video__youtube-live flex items-center justify-center position-absolute">EN VIVO</p>':""},a=s.title,r=s.image,d=s.imageDefault,'<div class="stories-video__youtube position-relative"><iframe src="'+s.video+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" title="Video" data-img="'+r+'" data-img-default="'+d+'"></iframe>'+s.live+'</div><div class="pt-20 pl-20 pr-20 pb-10 w-full"><div class="stories-video__item-border border-b-1 border-solid pb-10"><h2 class="stories-video__item-dest-title text-white">'+a+"</h2></div></div>")}else if("basic_video"===n.dataset.type){var y=n.querySelector("img"),w=y.alt,h=y.src,g=y.dataset,b=g.env,S=g.stream,x=g.uuid,q=!!n.querySelector(".stories-video__item-live"),E=n.querySelector(".stories-video__item-time").textContent;n.className="stories-video__item-dest w-full",n.innerHTML=function(e){var t=e.title,i=e.image,o=e.video,s=e.live,a=e.time,r=e.script,d=void 0===r?"":r;return'<div data-img="'+i+'" data-time="'+a+'" data-live="'+s+'"><div class="powa" id="powa-'+o.uuid+'" data-org="elcomercio" data-env="'+o.env+'" data-stream="'+o.stream+'" data-uuid="'+o.uuid+'" data-aspect-ratio="0.562" data-api="'+o.env+'"></div></div><div class="stories-video__content pt-10 lg:pt-20 pl-10 lg:pl-20 pr-10 lg:pr-20 pb-10 w-full position-relative"><div class="stories-video__item-border border-b-1 border-solid pb-10"><h2 class="stories-video__item-dest-title text-white">'+t+'</h2></div><span role="button"tabIndex="0"class="stories-video__close text-white hidden position-absolute right-0 top-0 rounded items-center justify-center font-bold">X</span></div>'+d}({title:w,image:h,video:{env:b,stream:S,uuid:x},live:q,time:E,script:powaBoot?"":powaScript({src:"https://d1tqo5nrys2b20.cloudfront.net/"+b+"/powaBoot.js?org=elcomercio",async:!0})}),powaBoot&&setTimeout(function(){return powaBoot()},200)}else{if("basic_jwplayer"!==n.dataset.type)throw Error("Este elemento no tiene un tipo de video definido");var N=n.querySelector("img"),k=N.alt,L=N.src,j=N.dataset,V=j.stream,C=j.uuid,H=j.account,P=j.time,T=!!n.querySelector(".stories-video__item-live");n.className="stories-video__item-dest w-full",n.innerHTML=function(e){var t=e.title,i=e.image,o=e.video,s=e.live,a=e.time,r=e.script,d=void 0===r?"":r;return'<div data-img="'+i+'" data-time="'+a+'" data-live="'+s+'" data-stream="'+o.stream+'" data-uuid="'+o.uuid+'" data-account="'+o.account+'" class="stories-video__box-jwplayer">'+d+'<div data-time="'+a+'" class="jwplayer-lazy" id="botr_'+o.uuid+"_"+o.stream+'_div"></div><figcaption class="story-content__caption">'+t+'</figcaption></div><div class="stories-video__content pt-10 lg:pt-20 pl-10 lg:pl-20 pr-10 lg:pr-20 pb-10 w-full position-relative"><div class="stories-video__item-border border-b-1 border-solid pb-10"><h2 itemProp="name" class="stories-video__item-dest-title text-white">'+t+'</h2></div><span role="button" tabIndex="0" class="stories-video__close text-white hidden position-absolute right-0 top-0 rounded items-center justify-center font-bold">X</span></div>'}({title:k,image:L,video:{stream:V,uuid:C,account:H},live:T,time:P,script:powaScript({src:"https://cdn.jwplayer.com/players/"+C+"-"+V+".js",async:!0})})}var I=o[1];if("youtube_id"===I.dataset.type){var D=I.querySelector("iframe"),M=I.querySelector(".stories-video__item-dest-title").textContent,O=D.dataset.img,B=D.dataset.imgDefault,W=D.src,z=!!I.querySelector(".stories-video__youtube-live");I.className=l,I.innerHTML=function(e){var t=e.title;return'<img src="'+e.image+'" alt="'+t+'" class="stories-video__item-'+e.imageDefault+' w-full h-full object-cover object-center mr-15" data-video="'+e.video+'"><div class="stories-video__item-text text-white"><h2 class="stories-video__item-title text-white mb-10">'+t+"</h2>"+e.live+"</div>"}({title:M,image:O,imageDefault:B?"default":"img",video:W,live:z?c:""})}else if("basic_video"===I.dataset.type){var A=I.querySelector("div[data-img]"),X=I.querySelector(".stories-video__item-dest-title").textContent,Y=A.dataset,R=Y.img,F=Y.time,G=Y.live,J=A.firstElementChild.dataset,K=J.env,Q=J.stream,U=J.uuid;I.className=l,I.innerHTML=function(e){var t=e.title,i=e.image,o=e.video,s=e.live,a=e.time;return'<img src="'+i+'" alt="'+t+'" class="stories-video__item-img w-full h-full object-cover object-center mr-15" data-env="'+o.env+'" data-stream="'+o.stream+'" data-uuid="'+o.uuid+'"><span class="stories-video__item-time position-absolute icon-video text-white flex justify-center items-center">'+a+'</span><div class="stories-video__item-text text-white"><h2 class="stories-video__item-title text-white mb-10">'+t+"</h2>"+s+"</div>"}({title:X,image:R,video:{env:K,stream:Q,uuid:U},live:"true"===G?c:"",time:F})}else{if("basic_jwplayer"!==I.dataset.type)throw Error("Este elemento no tiene un tipo de video definido");var Z=I.querySelector("div[data-img]"),$=I.querySelector(".stories-video__item-dest-title").textContent,ee=Z.dataset,te=ee.img,ie=ee.time,oe=ee.live,se=ee.stream,ae=ee.uuid,re=ee.account;I.className=l,I.innerHTML=function(e){var t=e.title,i=e.image,o=e.video,s=e.live,a=e.time;return'<img src="'+i+'" alt="'+t+'" class="lazy" data-stream="'+o.stream+'" data-uuid="'+o.uuid+'" data-account="'+o.account+'" data-time="'+a+'"/><span class="stories-video__item-time position-absolute icon-video text-white flex justify-center items-center">'+a+'</span><div class="stories-video__item-text text-white"><h2 itemProp="name" class="stories-video__item-title text-white mb-10">'+t+"</h2>"+s+"</div>"}({title:$,image:te,video:{stream:se,uuid:ae,account:re},live:"true"===oe?'<p itemProp="description" class="stories-video__item-live flex items-center uppercase">EN VIVO</p>':"",time:ie})}var de=i.cloneNode();o.forEach(function(e){return de.appendChild(e.cloneNode(!0))}),[].slice.call(de.children,1).forEach(function(t){t.addEventListener("click",e)}),i.replaceWith(de)}var t=document.body.querySelector(".stories-video__list-wrapper"),i=t?[].slice.call(t.children,1):[];requestIdle(function(){i.forEach(function(t){t.addEventListener("click",e)})})};requestIdle(function(){handleSticky()}),window.addEventListener("load",function(){requestIdle(function(){executeVideoList()})});`
+export const tvListScripts = `"use strict";var powaBoot=!1,togglePlaylist=function(){document.body.querySelector(".stories-video__box-playlist").addEventListener("click",function(){document.body.querySelector(".stories-video__list-wrapper").classList.toggle("stories-video__list-wrapper--one-item");var e=document.body.querySelector(".stories-video__text-playlist");"Mostrar más"===e.textContent?e.textContent="Mostrar menos":e.textContent="Mostrar más";var t=document.body.querySelector(".stories-video__btn-playlist");t.classList.contains("stories-video__btn-playlist--show")?(t.classList.remove("stories-video__btn-playlist--show"),t.classList.add("stories-video__btn-playlist--hide")):(t.classList.remove("stories-video__btn-playlist--hide"),t.classList.add("stories-video__btn-playlist--show"))})},removeStickyHeadband=function(){var e=document.querySelector(".headband__fixedvideo__close");e&&e.click()},sendEventAnalitycs=function(e){window.dataLayer=window.dataLayer||[],window.dataLayer.push({event:"peru21tv_player_lista",position:e})},removeSticky=function(){var e=document.body.querySelector(".stories-video__item-dest");e.className=e.className.replace("sticky",""),e.className=e.className.replace("sticky-top","")},addSticky=function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0],t=document.body.querySelector(".stories-video__item-dest");t.className=t.className.concat(" sticky"),e&&(t.className=t.className.concat(" sticky-top"))},handleScrollVideoList=function(){var e=document.body.querySelector(".stories-video__wrapper"),t=4*e.querySelector(".stories-video__item").offsetHeight,i=e.querySelector(".stories-video__content").offsetHeight,o=e.querySelector(".stories-video__programs-wrapper").offsetHeight,s=e.querySelector(".stories-video__header").offsetHeight,a=window.scrollY,r=a>=e.offsetTop+e.offsetHeight-(t+i+o),d=a+window.innerHeight-s<e.offsetTop},handleCloseStickyClick=function(e){null!==e&&(window.removeEventListener("scroll",handleScrollVideoList),e.pause())},powaScript=function(e){var t=e.src,i=e.async,o=e.defer,s=e.textContent,a=void 0===s?"":s,r=document.createElement("script");return t&&(r.type="text/javascript",r.src=t),i&&(r.async=!0),o&&(r.defer=!0),r.textContent=a,document.body.append(r)},handleSticky=function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];window.addEventListener("powaRender",function(t){var i=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(window.navigator.userAgent),o=t.detail.powa;o.on(window.PoWa.EVENTS.PLAY,function(){window.addEventListener("scroll",handleScrollVideoList)}),o.on(window.PoWa.EVENTS.END,function(){window.removeEventListener("scroll",handleScrollVideoList)}),!i&&e&&o&&o.play&&!o.isPlay&&(o.play(),o.isPlay=!0),document.body.querySelector(".stories-video__close").addEventListener("click",function(){return handleCloseStickyClick(o)})})},executeVideoList=function(){function e(){var t=this;removeStickyHeadband();var i=document.body.querySelector(".stories-video__list-wrapper"),o=i?[].slice.call(i.children):[],s=o.findIndex(function(e){return e===t})||0;sendEventAnalitycs(s),o.unshift(o.splice(o.findIndex(function(e){return e===t}),1)[0]);var a,r,d,l,n="stories-video__item w-full p-10 flex justify-between position-relative cursor-pointer",c='<p itemprop="description" class="stories-video__item-live flex items-center uppercase">EN VIVO</p>',v=o[0];if("youtube_id"===v.dataset.type){var u=v.querySelector("img"),m=u.className.indexOf("stories-video__item-default")>0,p=u.alt,_=u.src,y=u.dataset.video,f=!!u.querySelector(".stories-video__item-live");v.className="stories-video__item-dest w-full",v.innerHTML=(a={title:p,image:_,imageDefault:m,video:y.indexOf(!1)?y:y.concat("?autoload=1"),live:f?'<p itemprop="description" class="stories-video__youtube-live flex items-center justify-center position-absolute">EN VIVO</p>':""},r=a.title,d=a.image,l=a.imageDefault,'<div class="stories-video__youtube position-relative"><iframe src="'+a.video+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" title="Video" data-img="'+d+'" data-img-default="'+l+'"></iframe>'+a.live+'</div><div class="pt-20 pl-20 pr-20 pb-10 w-full"><div class="stories-video__item-border border-b-1 border-solid pb-10"><h2 class="stories-video__item-dest-title text-white">'+r+"</h2></div></div>")}else if("basic_video"===v.dataset.type){var w=v.querySelector("img"),b=w.alt,h=w.src,g=w.dataset,S=g.env,x=g.stream,q=g.uuid,L=!!v.querySelector(".stories-video__item-live"),E=v.querySelector(".stories-video__item-time").textContent;v.className="stories-video__item-dest w-full",v.innerHTML=function(e){var t=e.title,i=e.image,o=e.video,s=e.live,a=e.time,r=e.script,d=void 0===r?"":r;return'<div data-img="'+i+'" data-time="'+a+'" data-live="'+s+'"><div class="powa" id="powa-'+o.uuid+'" data-org="elcomercio" data-env="'+o.env+'" data-stream="'+o.stream+'" data-uuid="'+o.uuid+'" data-aspect-ratio="0.562" data-api="'+o.env+'"></div></div><div class="stories-video__content pt-10 lg:pt-20 pl-10 lg:pl-20 pr-10 lg:pr-20 pb-10 w-full position-relative"><div class="stories-video__item-border border-b-1 border-solid pb-10"><h2 class="stories-video__item-dest-title text-white">'+t+'</h2></div><span role="button"tabIndex="0"class="stories-video__close text-white hidden position-absolute right-0 top-0 rounded items-center justify-center font-bold">X</span></div>'+d}({title:b,image:h,video:{env:S,stream:x,uuid:q},live:L,time:E,script:powaBoot?"":powaScript({src:"https://d1tqo5nrys2b20.cloudfront.net/"+S+"/powaBoot.js?org=elcomercio",async:!0})}),powaBoot&&setTimeout(function(){return powaBoot()},200)}else{if("basic_jwplayer"!==v.dataset.type)throw Error("Este elemento no tiene un tipo de video definido");var N=v.querySelector("img"),k=N.alt,j=N.src,C=N.dataset,H=C.stream,V=C.uuid,P=C.account,T=C.time,I=!!v.querySelector(".stories-video__item-live");v.className="stories-video__item-dest w-full",v.innerHTML=function(e){var t=e.title,i=e.image,o=e.video,s=e.live,a=e.time,r=e.script,d=void 0===r?"":r;return'<div data-img="'+i+'" data-time="'+a+'" data-live="'+s+'" data-stream="'+o.stream+'" data-uuid="'+o.uuid+'" data-account="'+o.account+'" class="stories-video__box-jwplayer">'+d+'<div data-time="'+a+'" class="jwplayer-lazy" id="botr_'+o.uuid+"_"+o.stream+'_div"></div><figcaption class="story-content__caption">'+t+'</figcaption></div><div class="stories-video__content pt-10 lg:pt-20 pl-10 lg:pl-20 pr-10 lg:pr-20 pb-10 w-full position-relative"><div class="stories-video__item-border border-b-1 border-solid pb-10"><h2 itemProp="name" class="stories-video__item-dest-title text-white">'+t+'</h2></div><span role="button" tabIndex="0" class="stories-video__close text-white hidden position-absolute right-0 top-0 rounded items-center justify-center font-bold">X</span></div>'}({title:k,image:j,video:{stream:H,uuid:V,account:P},live:I,time:T,script:powaScript({src:"https://cdn.jwplayer.com/players/"+V+"-"+H+".js",async:!0})})}var M=o[1];if("youtube_id"===M.dataset.type){var D=M.querySelector("iframe"),O=M.querySelector(".stories-video__item-dest-title").textContent,B=D.dataset.img,A=D.dataset.imgDefault,W=D.src,z=!!M.querySelector(".stories-video__youtube-live");M.className=n,M.innerHTML=function(e){var t=e.title;return'<img src="'+e.image+'" alt="'+t+'" class="stories-video__item-'+e.imageDefault+' w-full h-full object-cover object-center mr-15" data-video="'+e.video+'"><div class="stories-video__item-text text-white"><h2 class="stories-video__item-title text-white mb-10">'+t+"</h2>"+e.live+"</div>"}({title:O,image:B,imageDefault:A?"default":"img",video:W,live:z?c:""})}else if("basic_video"===M.dataset.type){var X=M.querySelector("div[data-img]"),Y=M.querySelector(".stories-video__item-dest-title").textContent,R=X.dataset,F=R.img,G=R.time,J=R.live,K=X.firstElementChild.dataset,Q=K.env,U=K.stream,Z=K.uuid;M.className=n,M.innerHTML=function(e){var t=e.title,i=e.image,o=e.video,s=e.live,a=e.time;return'<img src="'+i+'" alt="'+t+'" class="stories-video__item-img w-full h-full object-cover object-center mr-15" data-env="'+o.env+'" data-stream="'+o.stream+'" data-uuid="'+o.uuid+'"><span class="stories-video__item-time position-absolute icon-video text-white flex justify-center items-center">'+a+'</span><div class="stories-video__item-text text-white"><h2 class="stories-video__item-title text-white mb-10">'+t+"</h2>"+s+"</div>"}({title:Y,image:F,video:{env:Q,stream:U,uuid:Z},live:"true"===J?c:"",time:G})}else{if("basic_jwplayer"!==M.dataset.type)throw Error("Este elemento no tiene un tipo de video definido");var $=M.querySelector("div[data-img]"),ee=M.querySelector(".stories-video__item-dest-title").textContent,te=$.dataset,ie=te.img,oe=te.time,se=te.live,ae=te.stream,re=te.uuid,de=te.account;M.className=n,M.innerHTML=function(e){var t=e.title,i=e.image,o=e.video,s=e.live,a=e.time;return'<img src="'+i+'" alt="'+t+'" class="lazy" data-stream="'+o.stream+'" data-uuid="'+o.uuid+'" data-account="'+o.account+'" data-time="'+a+'"/><span class="stories-video__item-time position-absolute icon-video text-white flex justify-center items-center">'+a+'</span><div class="stories-video__item-text text-white"><h2 itemProp="name" class="stories-video__item-title text-white mb-10">'+t+"</h2>"+s+"</div>"}({title:ee,image:ie,video:{stream:ae,uuid:re,account:de},live:"true"===se?'<p itemProp="description" class="stories-video__item-live flex items-center uppercase">EN VIVO</p>':"",time:oe})}var le=i.cloneNode();o.forEach(function(e){return le.appendChild(e.cloneNode(!0))}),[].slice.call(le.children,1).forEach(function(t){t.addEventListener("click",e)}),le.children[0].addEventListener("click",removeStickyHeadband),i.replaceWith(le)}var t=document.body.querySelector(".stories-video__list-wrapper"),i=t?[].slice.call(t.children,1):[];requestIdle(function(){i.forEach(function(t){t.addEventListener("click",e)})})};requestIdle(function(){handleSticky()}),window.addEventListener("load",function(){requestIdle(function(){executeVideoList(),togglePlaylist()})});`
