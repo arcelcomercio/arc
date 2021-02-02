@@ -2,6 +2,7 @@ export default `{
     headlines {
         basic
     }
+    taxonomy { primary_section { name path } }
     promo_items{
         basic_video{
             _id

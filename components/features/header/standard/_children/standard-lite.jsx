@@ -2,17 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import getResponsiveClasses from '../../../../utilities/responsive-classes'
-import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+// import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
 
 const HeaderChildStandard = props => {
   const {
     logo,
-    logoLeft,
+    // logoLeft,
     sections,
     deviceList,
     tags,
     date,
-    arcSite,
+    // arcSite,
     isSlider,
   } = props
 
@@ -31,7 +31,7 @@ const HeaderChildStandard = props => {
             className="header__logo"
           />
         </a>
-        {arcSite === SITE_PERU21 && (
+        {/* {arcSite === SITE_PERU21 && (
           <a
             itemProp="url"
             className="header__logo-secondary"
@@ -39,7 +39,7 @@ const HeaderChildStandard = props => {
             title={logo.alt}>
             <img src={logoLeft.src} alt={logo.alt} className="w-full h-full" />
           </a>
-        )}
+        )} */}
       </header>
       <nav
         className={`${deviceList.showInDesktop &&

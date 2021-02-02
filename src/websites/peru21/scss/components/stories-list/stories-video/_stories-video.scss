@@ -4,6 +4,79 @@
     font-family: $tertiary-font;
     font-weight: 900;
   }
+  &__title::after {
+    display: none;
+  }
+  &__item-border {
+    @media (--only-mobile) {
+      border: none;
+    }
+  }
+  &__item-text {
+    width: calc(100% - 160px - 15px);
+    @media (--tablet) {
+      width: calc(100% - 140px - 15px);
+    }
+  }
+  &__item-img,
+  &__item img {
+    width: 160px;
+    @media (--tablet) {
+      width: 140px;
+    }
+  }
+  &__item-time {
+    left: 110px;
+    @media (--tablet) {
+      left: 90px;
+    }
+  }
+  &__wrapper {
+    @media (--only-mobile) {
+      border-radius: 0 0 5px 5px;
+    }
+  }
+  &__list-wrapper {
+    justify-content: flex-start;
+    @media (--only-mobile) {
+      &--one-item {
+        overflow: hidden;
+        height: 280px;
+        display: block;
+      }
+    }
+  }
+  &__box-playlist {
+    // height: 30px;
+    display: none;
+    text-align: center;
+    border-top: 1px solid #212121;
+    border-radius: 0 5px 5px 0;
+    @media (--only-mobile) {
+      display: flex;
+    }
+  }
+  &__txt-playlist {
+    color: #666;
+  }
+  &__btn-playlist {
+    margin-left: auto;
+    &--show {
+      svg {
+        transform: rotateY(0deg) rotate(90deg);
+      }
+    }
+    &--hide {
+      svg {
+        transform: rotateY(0deg) rotate(-90deg);
+      }
+    }
+  }
+  &__item-dest {
+    @media (--only-mobile) {
+      height: 300px;
+    }
+  }
   &__item-dest-title {
     font-family: $primary-font;
     font-weight: 900;
@@ -14,10 +87,11 @@
   }
   &__programs {
     color: #ffcb05;
-    &:before {
-      content: "\ea3c";
-      font-family: "icomoon";
-    }
+
+    /* &:before {
+      content: '\ea3c';
+      font-family: 'icomoon';
+    } */
     &:hover {
       text-decoration: none;
     }

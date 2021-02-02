@@ -491,11 +491,11 @@ class StoryData {
     const data =
       embed.length > 0 &&
       embed.some(({ content = '' }) =>
-        /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+        /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(content)
       )
     /* const data =
       embed.length > 0
-        ? embed.filter(({ content = ''}) => /twitter-(?:tweet|timeline)|instagram-media/.test(content))
+        ? embed.filter(({ content = ''}) => /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(content))
         : [] */
 
     return data
