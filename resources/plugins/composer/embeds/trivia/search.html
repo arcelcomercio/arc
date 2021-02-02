@@ -1,0 +1,220 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="#212529" />
+  <title>Trivia - Search API plugin</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <style>
+    .hoverable {
+      padding-top: 1em;
+      cursor: pointer;
+    }
+
+    .hoverable:hover {
+      background-color: #e2cdcd;
+    }
+  </style>
+</head>
+
+<body>
+  <template id="content_template">
+    <!-- Rendered Search Result Item -->
+    <div class="col-md-6 hoverable" id="%item_id%">
+      <div class="card mb-6 box-shadow">
+        <img class="card-img-top" src="%image_url%" alt='%alt%' />
+        <div class="card-body">
+          <p class="card-text text-muted">
+            <label style="display: block; font-weight: bold;"><span>%title%</span></label>
+            <label style="display: block;"><span>%alt%</span></label>
+          </p>
+        </div>
+      </div>
+    </div>
+  </template>
+  <header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+      <div class="container d-flex justify-content-between">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <strong>Agregar Pregunta</strong>
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <main role="main">
+    <section class="jumbotron text-center my-0 needs-validation">
+      <div class="container">
+        <div id="Book" class="container-el col-md-11">
+          <label class="form-inline input-group" for="searchID">
+            <span class="input-group-text">Pregunta:</span>
+            <input class="form-control " type="textfield"  name="searchName" id="searchName" placeholder="Ingresar la pregunta.." required/>
+            
+            <input type="button" class="btn btn-success" id="add_opcion()" onClick="addOpcion()" value="Agregar " />
+            <input type="button" class="btn btn-success" id="add_opcion()" onClick="removeOpcion()" value="Eliminar" />
+            <div class="invalid-feedback">
+             Por favor agregar la pregunta.
+            </div>
+          </label>
+          
+         
+        </div>
+        <div class="" id="opciones">
+        </div>
+        <div id="Book" class="container-el col-md-11">
+         
+          <label class="form-inline input-group" for="searchID">
+            <span class="input-group-text">Respuesta:</span>
+            <input class="form-control" type="textfield"  name="searchResqueset" id="searchResqueset" />
+          </label>
+        </div>
+        <!-- Search Form -->
+        <div id="Book" class="container-el col-md-11">
+        <p class="lead text-muted input-group">
+          Ingresa el <b>ID</b> de la imagen que deseas usar desde Photo Center.
+        </p>
+      </div>
+        <p class="lead">
+        </p>
+        <div id="Book" class="container-el col-md-11">
+          <label class="form-inline input-group" for="searchID">
+            <span class="input-group-text">ID: </span>
+          <input type="textfield" id="searchID" name="searchID" />
+        </label>
+
+        <input type="button" name="Search" value="Aceptar" onclick="handleSearch()" />
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="row" id="search_content"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Regresar a la parte superior</a>
+      </p>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+    <script>
+let data = {}
+let question = '' 
+let searchResqueset =''
+let a = 0
+
+window. handleSearch = () => {
+  question = opcion();
+  const searchTerm = document.getElementById('searchID').value;
+  searchName = document.getElementById('searchName').value; 
+  searchResqueset = document.getElementById('searchResqueset').value; 
+  var forms = document.querySelectorAll('.needs-validation')
+  Array.prototype.slice.call(forms)
+  .forEach(function (form) {
+      form.classList.add('was-validated')
+  })
+
+  var forms = document.querySelectorAll('.needs-validation')
+  if(document.querySelector('input[name="opcion"]:checked')) {
+  if ( searchName ){
+    if(searchTerm){
+      superagent
+        .get('/pf/api/v3/content/fetch/photo-by-id')
+        .query({ query: JSON.stringify({ "_id": searchTerm }) })
+        .set('Accept', 'application/json')
+        .then(res => {
+          data = res.body // res.body.Search
+          render()
+        });
+      }else{
+        
+        render()
+      }
+
+    }
+  }
+}
+
+
+const render = () => {
+  // Show search results to user
+  const template = document.getElementById('content_template').innerHTML
+  document.getElementById('search_content').innerHTML = '';
+
+  const html = template
+    .replace(/%item_id%/gi, 'row-' + data._id)
+    .replace(/%image_url%/gi, data.url || '')
+    .replace(/%title%/gi, data.subtitle || '')
+    .replace(/%alt%/gi, data.caption || '')
+  const element = document.createElement('div')
+  document.getElementById('search_content').appendChild(element)
+  element.outerHTML = html
+  document
+    .getElementById('row-' + data._id)
+    .addEventListener('click', handleClick())
+}
+
+window. handleClick =  event => {
+  const idEl =  Date.now() + '-' + Math.floor(Math.random() * 1000000)
+    const image =    {
+      "url": data.url || "",
+      "title": data.subtitle || "",
+      "alt": data.caption || "",
+      "width": data.width,
+      "height": data.height
+    }
+    const ansCustomEmbed = {
+    id: data._id || idEl,
+    url: '/pf/api/v3/content/fetch/photo-by-id',
+    config: {
+      "name":searchName,
+      "response":searchResqueset,
+      "question":question,
+      "image": data && data.url ? image : {}
+    }
+  }
+
+  sendMessage('data', ansCustomEmbed)
+}
+
+  // ------------------------------------------------
+
+window.onload = function () {
+  const parameters = Object.assign(
+    {
+      wait: 0
+    },
+    parseQueryString()
+  )
+  // Emulate wait time
+  setTimeout(function () {
+    sendMessage('ready', {
+      height: document.documentElement.scrollHeight
+    })
+  }, Number.parseInt(parameters.wait))
+
+  render()
+}
+
+    </script>
+    <script type="module" src="js/util.js"></script>
+</body>
+
+</html>

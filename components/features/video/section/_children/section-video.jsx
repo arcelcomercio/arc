@@ -131,7 +131,9 @@ export default ({
     popUpWindow(urlsShareList[origin], '', 600, 400)
   }
 
-  const fecha = formatDayMonthYear(principalVideo.displayDate, true, false)
+  const fecha = principalVideo.displayDate
+    ? formatDayMonthYear(principalVideo.displayDate, true, false)
+    : ''
 
   const playListParams = {
     ...playListVideo,
