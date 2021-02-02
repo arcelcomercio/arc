@@ -1,5 +1,4 @@
 import React from 'react'
-import Calendar from 'react-calendar/dist/entry.nostyle'
 
 const classes = {
   box: 'react-calendar__box flex flex-col',
@@ -19,24 +18,35 @@ const ArchiveCalendarChild = ({
   value,
   locale,
 }) => {
+  const Calendar = React.lazy(() =>
+    import(
+      /* webpackChunkName: "calendar" */
+      'react-calendar/dist/entry.nostyle'
+    )
+  )
+
   return (
     <div className={classes.box}>
       <div className={classes.header}>
-        <h3 itemProp="name" className={classes.title}>Archivo</h3>
+        <h3 itemProp="name" className={classes.title}>
+          Archivo
+        </h3>
         <div className={classes.brand}>
           <span className={classes.icon} />
         </div>
       </div>
       <div className={classes.content}>
         {typeof window !== 'undefined' && (
-          <Calendar
-            activeStartDate={activeStartDate}
-            maxDate={maxDate}
-            minDate={minDate}
-            onChange={onChange}
-            value={value}
-            locale={locale}
-          />
+          <React.Suspense fallback="Cargando...">
+            <Calendar
+              activeStartDate={activeStartDate}
+              maxDate={maxDate}
+              minDate={minDate}
+              onChange={onChange}
+              value={value}
+              locale={locale}
+            />
+          </React.Suspense>
         )}
       </div>
     </div>
