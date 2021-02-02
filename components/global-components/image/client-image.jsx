@@ -95,7 +95,7 @@ const ClientImage = ({
       },
     }) || {}
 
-  const mainImage = resizedImages[`${width}x${height}`] || placeholder
+  const mainImage = resizedImages[`${width}x${height}`]
 
   if (outputType === 'amp') {
     return (
@@ -128,35 +128,38 @@ const ClientImage = ({
     />
   )
 
-  return sizes.length >= 1 ? (
-    <picture className={pictureClassName}>
-      {sizes.map(size => {
-        const { width: sourceWidth, height: sourceHeight, media } = size
-        const sourceImage =
-          resizedImages[`${sourceWidth}x${sourceHeight}`] || placeholder
-        const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
-          sourceImage.length - 30,
-          sourceImage.length
-        )}`
-        return (
-          <source
-            key={key}
-            srcSet={lazy ? null : sourceImage}
-            data-srcset={lazy ? sourceImage : null}
-            media={media}
-            type={type}
-            className={lazy ? 'lazy' : null}
-          />
-        )
-      })}
-      <Image />
-      {icon || null}
-    </picture>
-  ) : (
-    <>
-      <Image />
-      {icon || null}
-    </>
+  return (
+    mainImage &&
+    (sizes.length >= 1 ? (
+      <picture className={pictureClassName}>
+        {sizes.map(size => {
+          const { width: sourceWidth, height: sourceHeight, media } = size
+          const sourceImage =
+            resizedImages[`${sourceWidth}x${sourceHeight}`] || placeholder
+          const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
+            sourceImage.length - 30,
+            sourceImage.length
+          )}`
+          return (
+            <source
+              key={key}
+              srcSet={lazy ? null : sourceImage}
+              data-srcset={lazy ? sourceImage : null}
+              media={media}
+              type={type}
+              className={lazy ? 'lazy' : null}
+            />
+          )
+        })}
+        <Image />
+        {icon || null}
+      </picture>
+    ) : (
+      <>
+        <Image />
+        {icon || null}
+      </>
+    ))
   )
 }
 

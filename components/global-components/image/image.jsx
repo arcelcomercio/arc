@@ -84,7 +84,6 @@ const CustomImage = ({
   })
 
   const mainImage = resizedImages[`${width}x${height}`] || placeholder
-
   if (outputType === 'amp') {
     return (
       <amp-img

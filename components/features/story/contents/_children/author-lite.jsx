@@ -4,6 +4,7 @@ import { formatDateTime } from '../../../../utilities/date-time/dates'
 import {
   SITE_DEPOR,
   SITE_TROME,
+  SITE_PERU21,
 } from '../../../../utilities/constants/sitenames'
 
 const classes = {
@@ -16,6 +17,7 @@ const classes = {
 const StoryContentChildAuthorLite = ({
   author,
   authorLink,
+  authorEmail,
   displayDate,
   publishDate: updateDate,
   arcSite,
@@ -24,7 +26,7 @@ const StoryContentChildAuthorLite = ({
     const formattedDisplayDate = formatDateTime(displayDate)
     const formattedUpdateDate = formatDateTime(updateDate)
 
-    if (arcSite === SITE_TROME) {
+    if (arcSite === SITE_TROME || arcSite === SITE_PERU21) {
       return `Actualizado el ${formattedUpdateDate}`
     }
     return `${arcSite === SITE_DEPOR ? '' : 'Lima,'} ${formattedDisplayDate} ${
@@ -63,19 +65,43 @@ window.addEventListener("load", function () {
 
   return (
     <>
-      <div className={classes.author}>
-        {author && (
-          <a
-            itemProp="url"
-            href={authorLink}
-            className={classes.authorNameLink}>
-            {author}
-          </a>
-        )}
-        <div className={classes.authorDate}>
-          <time dateTime={displayDate}>{storyDatetime()}</time>
+      {arcSite === SITE_PERU21 ? (
+        <div className={classes.author}>
+          <div>
+            {author && (
+              <a
+                itemProp="url"
+                href={authorLink}
+                className={classes.authorNameLink}>
+                {author}
+              </a>
+            )}
+            {authorEmail && (
+              <p itemProp="description" className={classes.authorEmail}>
+                <a href={`mailto:${authorEmail}`}>{authorEmail}</a>
+              </p>
+            )}
+          </div>
+
+          <div className={classes.authorDate}>
+            <time dateTime={displayDate}>{storyDatetime()}</time>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className={classes.author}>
+          {author && (
+            <a
+              itemProp="url"
+              href={authorLink}
+              className={classes.authorNameLink}>
+              {author}
+            </a>
+          )}
+          <div className={classes.authorDate}>
+            <time dateTime={displayDate}>{storyDatetime()}</time>
+          </div>
+        </div>
+      )}
       {arcSite === SITE_DEPOR && (
         <script
           type="text/javascript"
