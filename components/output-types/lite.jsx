@@ -339,6 +339,12 @@ const LiteOutput = ({
                 />
               </>
             )} */}
+            {isStory && arcSite === SITE_ELCOMERCIOMAG && (
+              <>
+                <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
+                <link rel="dns-prefetch" href="//d2dvq461rdwooi.cloudfront.net" />
+              </>
+            )}
             <link rel="preconnect" href="//www.googletagmanager.com/" />
             <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
             <link rel="preconnect" href="//www.google-analytics.com" />
