@@ -74,6 +74,7 @@ const StoryMultimediaLte = () => {
       <div className="s-multimedia">
         {primarySectionLink === '/impresa/' ||
         primarySectionLink === '/malcriadas/' ||
+        primarySectionLink === '/el-otorongo/' ||
         storyTagsBbc(tags, 'portada-trome')
           ? promoItems && <StoryContentsChildImpresa data={promoItems} />
           : promoItems &&
