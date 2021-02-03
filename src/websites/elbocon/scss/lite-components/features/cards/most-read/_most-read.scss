@@ -8,20 +8,31 @@
 
   &__title {
     font: 700 15px/26px $primary-font;
-    background-color: #c5e2f7;
+    background-color: #333;
     text-transform: capitalize;
     height: 35px;
     align-items: center;
     padding: 0 20px;
+    &::after {
+      background-image: url(https://cdna.elbocon.pe/resources/dist/elbocon/images/loader.png);
+      background-size: cover;
+      content: "";
+      display: block;
+      height: 20px;
+      position: absolute;
+      right: 20px;
+      width: 20px;
+    }
   }
   &__link {
-    color: #0c70bf;
+    color: #fff;
+    text-transform: uppercase;
   }
   &__logo {
     padding-right: 10px;
   }
   &__item {
-    border-bottom: 1px solid #c5e2f7;
+    border-bottom: 1px solid #e2d5c8;
     margin: 0 20px;
     padding: 15px 0;
     &:last-child {
