@@ -1,5 +1,6 @@
 .header {
-  background-color: #0c70bf;
+  background-color: #333;
+  background-image: url(https://cdna.elbocon.pe/resources/dist/elbocon/images/bc-tramado-nav.png);
   height: 58px;
   display: none;
   @media (--desktop) {
@@ -12,9 +13,8 @@
   }
 
   &__nav {
-    padding: 0 15px;
     display: none;
-    @media (--tablet) {
+    @media (--desktop) {
       display: flex;
       max-width: $max-width;
     }
@@ -32,21 +32,19 @@
   }
   &__item {
     white-space: nowrap;
-    &::after {
-      background-color: #ebebeb;
-      content: "";
-      display: block;
-      height: 80%;
-      margin: 0 20px;
-      width: 1px;
-    }
   }
   &__link {
     padding: 10px;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 0.8rem;
     text-transform: capitalize;
     letter-spacing: 0.02rem;
-    color: #555;
+    color: #333;
+  }
+  &__date {
+    font-size: 9px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    align-self: center;
+    margin-left: 5px;
   }
 }
