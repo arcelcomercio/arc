@@ -9,11 +9,12 @@
   }
 
   &__logo {
-    height: 34px;
+    height: 58px;
   }
 
   &__nav {
     display: none;
+    border-bottom: 1px dashed #8a8a8a;
     @media (--desktop) {
       display: flex;
       max-width: $max-width;

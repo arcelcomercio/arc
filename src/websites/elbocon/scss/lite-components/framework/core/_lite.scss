@@ -55,6 +55,13 @@
   contain-intrinsic-size: 5000px;
 }
 
+html {
+  font-size: 15px;
+  @media (--tablet) {
+    font-size: 15px;
+  }
+}
+
 // #fusion-app > div.f.just-center {   overflow: hidden;} se elimina por sticky
 
 .story-gallery-slider {
