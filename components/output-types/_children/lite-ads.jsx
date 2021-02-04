@@ -307,7 +307,7 @@ window.addEventListener('load', function liteAds() {
         <>
           <script
             defer
-            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section}/espacios.js?${new Date()
+            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section}/spaces.js?${new Date()
               .toISOString()
               .slice(0, 10)}`}></script>
           <script
