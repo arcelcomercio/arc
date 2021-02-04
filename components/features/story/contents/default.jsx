@@ -130,7 +130,7 @@ class StoryContents extends PureComponent {
       authorEmailSecond,
       roleSecond: authorRoleSecond,
       promoItemJwplayer,
-      authorsList
+      authorsList,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -166,12 +166,12 @@ class StoryContents extends PureComponent {
       authorEmailSecond,
       authorRoleSecond,
       promoItemJwplayer,
-      authorsList
+      authorsList,
     }
 
-    console.log("========params=======")
-    console.log(params)
-    console.log("======================")
+    // console.log("========params=======")
+    // console.log(params)
+    // console.log("======================")
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
