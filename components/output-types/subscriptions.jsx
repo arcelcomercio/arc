@@ -36,6 +36,12 @@ const Subscriptions = props => {
         <html lang="es">
           <head>
             <title>Contador Externo Paywall</title>
+            <script
+              src={`https://elcomercio-${arcSite}-${arcEnv}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
+              async
+            />
           </head>
           <body>
             <script
