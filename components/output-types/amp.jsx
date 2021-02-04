@@ -404,6 +404,11 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
           />
         )}
+        <script
+          async
+          custom-element="amp-script"
+          src="https://cdn.ampproject.org/v0/amp-script-0.1.js"
+        />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         {isTrivia && (
           <>

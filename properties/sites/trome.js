@@ -146,4 +146,8 @@ export default {
   jwplayers: {
     gec: { playerAds: 'UQH16oLN', player: 'uDiKWFW0' },
   },
+  jwplayersMatching: {
+    playerId: 'uR4oallO',
+    videoId: 'z0YAXqp2',
+  },
 }

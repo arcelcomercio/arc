@@ -162,4 +162,8 @@ export default {
       player: 'w1O3H0eK',
     },
   },
+  jwplayersMatching: {
+    playerId: 'uR4oallO',
+    videoId: 'IFXLCBmN',
+  },
 }
