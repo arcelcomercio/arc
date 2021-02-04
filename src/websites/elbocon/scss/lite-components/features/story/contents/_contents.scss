@@ -57,9 +57,8 @@
   }
   &__author-link {
     display: block;
-    font: 700 14px/1.33 $primary-font;
-    color: #000;
-    text-transform: uppercase;
+    font: 700 1rem/1.33 $secondary-font;
+    text-transform: capitalize;
   }
   &__author-image {
     width: 57px;
@@ -78,13 +77,13 @@
   }
   &__author-email {
     a {
-      font: 400 0.9rem/1.33 $primary-font;
+      font: 400 0.9rem/1.33 $secondary-font;
       color: #8a8a8a;
       display: block;
     }
   }
   &__author-date {
-    font: 400 0.9rem/1.33 $primary-font;
+    font: 400 0.9rem/1.33 $secondary-font;
     color: #8a8a8a;
   }
 
