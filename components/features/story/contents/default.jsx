@@ -130,12 +130,17 @@ class StoryContents extends PureComponent {
       authorEmailSecond,
       roleSecond: authorRoleSecond,
       promoItemJwplayer,
+      authorsList,
     } = new StoryData({
       data: globalContent,
       contextPath,
       deployment,
       arcSite,
     })
+
+    // console.log("====AuthorsList=======")
+    // console.log(authorsList)
+    // console.log("======================")
 
     const params = {
       authorImage,
@@ -161,7 +166,13 @@ class StoryContents extends PureComponent {
       authorEmailSecond,
       authorRoleSecond,
       promoItemJwplayer,
+      authorsList,
     }
+
+    // console.log("========params=======")
+    // console.log(params)
+    // console.log("======================")
+
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
       `${getAssetsPath(
