@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import * as React from 'react'
 import Consumer from 'fusion:consumer'
 
@@ -107,6 +108,7 @@ class StoryContentAmp extends React.PureComponent {
       multimediaLazyDefault,
       subtype,
       promoItemJwplayer = {},
+      authorsList,
     } = new StoryData({
       data,
       arcSite,
@@ -224,22 +226,31 @@ class StoryContentAmp extends React.PureComponent {
           {subtype !== GALLERY_VERTICAL && (
             <div
               className={isMag ? classes.authorTimeContainer : 'pt-15 pb-15'}>
-              <p className={classes.author}>
-                {isMag ? (
-                  <>
-                    Por{' '}
-                    <a href={authorLink} className="font-bold">
-                      {author}
-                    </a>{' '}
-                    en{' '}
-                    <a href={primarySectionLink} className="font-bold">
-                      {primarySection}
-                    </a>
-                  </>
-                ) : (
+              {isMag ? (
+                <p className={classes.author}>
+                  Por{' '}
+                  <a href={authorLink} className="font-bold">
+                    {author}
+                  </a>{' '}
+                  en{' '}
+                  <a href={primarySectionLink} className="font-bold">
+                    {primarySection}
+                  </a>
+                </p>
+              ) : // Validamos si es EC
+              isComercio ? (
+                authorsList.map(authorData => {
+                  return (
+                    <p className={classes.author}>
+                      <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
+                    </p>
+                  )
+                })
+              ) : (
+                <p className={classes.author}>
                   <a href={authorLink}>{author}</a>
-                )}
-              </p>
+                </p>
+              )}
               <time
                 dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
