@@ -23,6 +23,7 @@ import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -60,6 +61,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildJwplayerRecommender from './_children/jwplayer-recommender'
 import Ads from '../../../global-components/ads'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import { processedAds } from '../../../utilities/story/helpers'
@@ -96,6 +98,7 @@ class StoryContents extends PureComponent {
         isDfp = false,
         siteUrl,
         jwplayers = {},
+        jwplayersMatching = {},
       },
       isAdmin,
     } = this.props
@@ -352,6 +355,16 @@ class StoryContents extends PureComponent {
                             {title}
                           </figcaption>
                         </>
+                      )
+                    }
+                    if (sub === VIDEO_JWPLAYER_MATCHING) {
+                      const { videoId = '', playerId = '' } =
+                        jwplayersMatching || {}
+                      return (
+                        <StoryContentsChildJwplayerRecommender
+                          videoId={videoId}
+                          playerId={playerId}
+                        />
                       )
                     }
                   }
