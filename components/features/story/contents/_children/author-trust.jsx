@@ -7,7 +7,7 @@ import StoryContentChildAuthorDetailsTrust from './details-author-trust'
 
 const classes = {
   author:
-    'story-content__author flex justify-between pt-30 mb-20 flex-col md:flex-row',
+    'story-content__author flex justify-between pt-30 flex-col md:flex-row',
   authorInfo: 'story-content__author-info flex',
   authorNameLink:
     'secondary-font font-bold story-content__author-link header__link text-lg text-gray-200 line-h-sm',
@@ -30,11 +30,7 @@ const StoryContentChildAuthorTrust = ({
   locality,
   authorEmail,
   primarySection = '',
-  authorImageSecond,
-  authorLinkSecond,
-  authorSecond,
-  authorEmailSecond,
-  authorRoleSecond,
+  authorsList,
 }) => {
   const displayLoc = locality === '' ? 'Lima' : locality
 
@@ -45,14 +41,8 @@ const StoryContentChildAuthorTrust = ({
     authorImage,
     authorRole,
   }
-  const detailsAuthorParametSecound = {
-    author: authorSecond,
-    authorLink: authorLinkSecond,
-    authorEmail: authorEmailSecond,
-    authorImage: authorImageSecond,
-    authorRole: authorRoleSecond,
-  }
 
+  authorsList.shift()
   return (
     <>
       <div className={classes.author}>
@@ -62,7 +52,7 @@ const StoryContentChildAuthorTrust = ({
         )}
         <div
           className={
-            authorEmailSecond
+            authorsList.lenght > 0
               ? classes.authorDate
               : `${classes.authorDate} ${classes.authorDateTop}`
           }>
@@ -79,10 +69,21 @@ const StoryContentChildAuthorTrust = ({
           </time>
         </div>
       </div>
-      {primarySection !== 'Columnistas' && authorEmailSecond && (
-        <StoryContentChildAuthorDetailsTrust
-          {...detailsAuthorParametSecound}></StoryContentChildAuthorDetailsTrust>
-      )}
+      {primarySection !== 'Columnistas' &&
+        authorsList &&
+        authorsList.map(authorData => {
+          const detailsAuthorRenderer = {
+            author: authorData.nameAuthor,
+            authorLink: authorData.urlAuthor,
+            authorEmail: authorData.mailAuthor,
+            authorImage: authorData.imageAuthor,
+            authorRole: authorData.role,
+          }
+          return (
+            <StoryContentChildAuthorDetailsTrust
+              {...detailsAuthorRenderer}></StoryContentChildAuthorDetailsTrust>
+          )
+        })}
     </>
   )
 }

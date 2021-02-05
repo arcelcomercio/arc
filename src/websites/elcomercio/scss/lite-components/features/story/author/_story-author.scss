@@ -11,6 +11,9 @@
     @media (--only-mobile) {
       flex-direction: column-reverse;
     }
+    .story-contents__author{
+      padding-bottom: 0;
+    }
   }
   &__author-info {
     align-items: center;

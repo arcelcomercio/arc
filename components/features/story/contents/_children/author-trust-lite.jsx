@@ -28,11 +28,7 @@ const StoryContentChildAuthorTrustLite = ({
   locality,
   authorEmail,
   primarySection = '',
-  authorImageSecond,
-  authorLinkSecond,
-  authorSecond,
-  authorEmailSecond,
-  authorRoleSecond,
+  authorsList,
 }) => {
   const displayLoc = locality === '' ? 'Lima' : locality
   const detailsAuthorParamet = {
@@ -43,20 +39,15 @@ const StoryContentChildAuthorTrustLite = ({
     authorRole,
   }
 
-  const detailsAuthorParametSecound = {
-    author: authorSecond,
-    authorLink: authorLinkSecond,
-    authorEmail: authorEmailSecond,
-    authorImage: authorImageSecond,
-    authorRole: authorRoleSecond,
-  }
+  authorsList.shift()
+
   return (
     <>
       <div className={classes.author}>
         <DetailsAuthor {...detailsAuthorParamet}></DetailsAuthor>
         <div
           className={
-            authorEmailSecond
+            authorsList.lenght > 0
               ? classes.authorDate
               : `${classes.authorDate} ${classes.authortop}`
           }>
@@ -73,9 +64,18 @@ const StoryContentChildAuthorTrustLite = ({
           </time>
         </div>
       </div>
-      {primarySection !== 'Columnistas' && authorEmailSecond && (
-        <DetailsAuthor {...detailsAuthorParametSecound}></DetailsAuthor>
-      )}
+      {primarySection !== 'Columnistas' &&
+        authorsList &&
+        authorsList.map(authorData => {
+          const detailsAuthorRenderer = {
+            author: authorData.nameAuthor,
+            authorLink: authorData.urlAuthor,
+            authorEmail: authorData.mailAuthor,
+            authorImage: authorData.imageAuthor,
+            authorRole: authorData.role,
+          }
+          return <DetailsAuthor {...detailsAuthorRenderer}></DetailsAuthor>
+        })}
     </>
   )
 }

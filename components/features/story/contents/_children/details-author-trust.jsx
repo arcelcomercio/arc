@@ -4,7 +4,7 @@ import Image from '../../../../global-components/image'
 const DEFAULT_AUTHOR_IMG =
   'https://cdna.elcomercio.pe/resources/dist/elcomercio/images/author.png?d=1'
 const classes = {
-  authorInfo: 'story-content__author-info flex',
+  authorInfo: 'story-content__author-info flex mb-20',
   authorNameLink:
     'story-content__author-link inline-block secondary-font font-bold text-lg text-gray-300 line-h-sm',
   authorEmail:
@@ -35,6 +35,7 @@ const StoryContentChildAuthorDetailsTrust = ({
               alt={author}
               placeholder={DEFAULT_AUTHOR_IMG}
               className={classes.authorImage}
+              uid={authorLink}
             />
           )}
         </div>
