@@ -311,11 +311,6 @@ window.addEventListener('load', function liteAds() {
               .toISOString()
               .slice(0, 10)}`}></script>
           <script
-            async
-            src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
-              .toISOString()
-              .slice(0, 10)}`}></script>
-          <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
               .toISOString()
