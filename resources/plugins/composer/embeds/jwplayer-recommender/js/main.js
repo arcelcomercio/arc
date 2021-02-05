@@ -1,7 +1,3 @@
-window.accept = () => {
-  buildMessage(generateId(), buildDataAns());
-}
-
 const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000);
 
 const buildDataAns = () => {
@@ -9,20 +5,38 @@ const buildDataAns = () => {
     }
 }
 
+const renderForEditAndView = (dataParams) => {
+  //console.log('dataParams', dataParams);
+  // Setup Element Preview
+  const { id } = dataParams
+  const template = document.getElementById('content_template').innerHTML
+  const html = template
+    .replace(/%item_id%/gi, 'row-' + id)
+
+  const element = document.createElement('div')
+  document.getElementById('content_holder').innerHTML = ''
+  document.getElementById('content_holder').appendChild(element)
+  element.outerHTML = html
+
+  // Update form state
+  //document.getElementById('video_key').value = (key || "")
+}
 
 const buildMessage = (id, data) => {
-    data.conversions.then(conversions=> {
-        data.conversions = conversions;
-        const ansCustomEmbed = {
-            id,
-            url: '/pf/api/v3/content/fetch/photo-by-id',
-            config: data
-        }
-        // console.log('ansCustomEmbed');
-        // console.dir(ansCustomEmbed);
-        // console.log('string', JSON.stringify(ansCustomEmbed, null, 2));
-        sendMessage('data', ansCustomEmbed)
-    });
+  const ansCustomEmbed = {
+      id,
+      url: '/pf/api/v3/content/fetch/photo-by-id',
+      config: data
+  }
+  // console.log('ansCustomEmbed');
+  // console.dir(ansCustomEmbed);
+  // console.log('string', JSON.stringify(ansCustomEmbed, null, 2));
+  sendMessage('data', ansCustomEmbed)
+}
+
+window.submitData = () => {
+  console.log('accept')
+  buildMessage(generateId(), buildDataAns());
 }
 
 //////// don't touch
