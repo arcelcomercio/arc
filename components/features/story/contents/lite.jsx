@@ -44,6 +44,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import StoryContentsChildCustomBlock from './_children/custom-block'
+import StoryContentsChildJwplayerRecommender from './_children/jwplayer-recommender'
 import customFields from './_dependencies/custom-fields'
 import iframeScriptCounter from './_dependencies/counter-mag'
 import {
@@ -53,6 +54,7 @@ import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import ShareButtons from '../../../global-components/lite/share'
@@ -92,6 +94,7 @@ const StoryContentsLite = props => {
       isDfp = false,
       siteUrl,
       jwplayers,
+      jwplayersMatching,
     },
   } = useAppContext()
 
@@ -297,6 +300,16 @@ const StoryContentsLite = props => {
                           {title}
                         </figcaption>
                       </>
+                    )
+                  }
+                  if (sub === VIDEO_JWPLAYER_MATCHING) {
+                    const { videoId = '', playerId = '' } =
+                      jwplayersMatching || {}
+                    return (
+                      <StoryContentsChildJwplayerRecommender
+                        videoId={videoId}
+                        playerId={playerId}
+                      />
                     )
                   }
                 }
