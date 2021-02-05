@@ -4,7 +4,7 @@
   margin: 0 20px 14px 20px;
   // border-top: 1px solid #888;
   padding-top: 20px;
-  color: #000;
+  color: #333;
   &__title {
     font: 700 1rem/1 $primary-font;
     color: #222;
@@ -14,7 +14,7 @@
 
   &__item {
     padding-bottom: 15px;
-    border-top: 1px solid #8a8a8a;
+    border-top: 1px solid #e2d5c8;
     padding-top: 15px;
     @media (--only-mobile) {
       flex-direction: column;
@@ -49,9 +49,6 @@
     @media (--desktop) {
       margin-bottom: 0;
       padding-right: 30px;
-    }
-    a {
-      color: #0c70bf;
     }
   }
 

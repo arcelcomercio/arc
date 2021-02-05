@@ -9,7 +9,6 @@
   &__title {
     font: 700 15px/26px $primary-font;
     background-color: #333;
-    text-transform: capitalize;
     height: 35px;
     align-items: center;
     padding: 0 20px;
@@ -26,7 +25,6 @@
   }
   &__link {
     color: #fff;
-    text-transform: uppercase;
   }
   &__logo {
     padding-right: 10px;
@@ -49,7 +47,7 @@
     object-fit: cover;
   }
   &__txt {
-    font: 400 13px/1.3333 $secondary-font;
+    font: 400 13px/1.3333 $primary-font;
     letter-spacing: 0;
     opacity: 1;
     color: #333;
