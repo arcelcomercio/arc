@@ -35,7 +35,6 @@ const buildMessage = (id, data) => {
 }
 
 window.submitData = () => {
-  console.log('accept')
   buildMessage(generateId(), buildDataAns());
 }
 
