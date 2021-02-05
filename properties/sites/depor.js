@@ -144,4 +144,8 @@ export default {
       player: 'pHa2K63V',
     },
   },
+  jwplayersMatching: {
+    playerId: 'C62GLELR',
+    videoId: '2crAXVI7',
+  },
 }
