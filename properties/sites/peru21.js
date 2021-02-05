@@ -147,7 +147,7 @@ export default {
     peru21: { playerAds: 'uTZV4zGu', player: 'UAwoVtxC' },
   },
   jwplayersMatching: {
-    playerId: 'uR4oallO',
+    playerId: 'zbS8OgHn',
     videoId: 'rh1aMCPX',
   },
 }

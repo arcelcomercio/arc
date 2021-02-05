@@ -261,7 +261,7 @@ export default {
     elcomercio: { playerAds: 'jqJgjiEA', player: 'CW5g4pdQ' },
   },
   jwplayersMatching: {
-    playerId: 'uR4oallO',
+    playerId: 'fB2Mdnsl',
     videoId: '59FMFuA0',
   },
 }
