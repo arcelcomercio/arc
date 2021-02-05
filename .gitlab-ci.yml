@@ -2,7 +2,6 @@
 image: circleci/node:8.11-browsers
 variables:
   NAMEPROJECT: arc
-
 stages:
   - install
   - build
@@ -17,14 +16,12 @@ stages:
   - documentation
   - release
   - cleanup
-
 cache:
   key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
   paths:
     - .npm
     - cache/Cypress
     #- node_modules
-
 install_dependencies:
   stage: install
   script:
@@ -43,7 +40,6 @@ install_dependencies:
   tags:
     - aws
     - docker
-
 build-verify:
   stage: build
   dependencies:
@@ -67,7 +63,6 @@ build-verify:
   tags:
     - aws
     - docker
-
 deploy-sandbox:
   stage: deploy
   dependencies:
@@ -97,7 +92,6 @@ deploy-sandbox:
   tags:
     - aws
     - docker
-
 eslint-dev:
   stage: test
   dependencies:
@@ -117,7 +111,6 @@ eslint-dev:
   tags:
     - aws
     - docker
-
 coverage-dev:
   stage: test
   dependencies:
@@ -136,7 +129,6 @@ coverage-dev:
   tags:
     - aws
     - docker
-
 code-quality:
   stage: code-quality
   image: linux982079/codequality:v1
@@ -158,7 +150,6 @@ code-quality:
   tags:
     - aws
     - docker
-
 code-quality-reports:
   stage: code-quality
   image: linux982079/codequality:v1
@@ -180,7 +171,6 @@ code-quality-reports:
   tags:
     - aws
     - docker
-
 build-verify_master:
   stage: build
   dependencies:
@@ -205,7 +195,6 @@ build-verify_master:
   tags:
     - aws
     - docker
-
 deploy-master:
   stage: deploy
   dependencies:
@@ -237,39 +226,35 @@ deploy-master:
   tags:
     - aws
     - docker
-
 lighthouse:
-    image: markhobson/node-chrome
-    variables:
-        LIGHTHOUSE_TEST_URL_EC: https://elcomercio.pe
-        LIGHTHOUSE_TEST_URL_GESTION: https://gestion.pe
-    stage: deploy
-    environment: Production    
-    before_script: 
-        # Install Lighthouse
-        - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-        - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-        - export AWS_DEFAULT_REGION=AWS_DEFAULT_REGION
-        - apt-get update && apt-get install -y python-pip
-        - pip install awscli --ignore-installed six
-        - aws --version
-        - npm i -g lighthouse
-    script:
-        # Run Lighthouse test
-        - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_EC --output html --output-path ./elcomercio_report.html
-        - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_GESTION --output html --output-path ./gestion_report.html
-    only:        
-        - master
-        
-    after_script:
+  image: markhobson/node-chrome
+  variables:
+    LIGHTHOUSE_TEST_URL_EC: https://elcomercio.pe
+    LIGHTHOUSE_TEST_URL_GESTION: https://gestion.pe
+  stage: deploy
+  environment: Production
+  before_script:
+    # Install Lighthouse
+    - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+    - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+    - export AWS_DEFAULT_REGION=AWS_DEFAULT_REGION
+    - apt-get update && apt-get install -y python-pip
+    - pip install awscli --ignore-installed six
+    - aws --version
+    - npm i -g lighthouse
+  script:
+    # Run Lighthouse test
+    - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_EC --output html --output-path ./elcomercio_report.html
+    - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_GESTION --output html --output-path ./gestion_report.html
+  only:
+    - master
+  after_script:
     - aws s3 cp ./elcomercio_report.html  s3://lighthouse-ec/elcomercio/index.html  --metadata-directive REPLACE  --cache-control max-age=3000 --content-type text/html
     - aws s3 cp ./gestion_report.html  s3://lighthouse-ec/gestion/index.html --metadata-directive REPLACE  --cache-control max-age=3000 --content-type text/html
     - pwd
-    tags:
+  tags:
     - aws
     - docker
-
-
 publish:
   image: registry.gitlab.ec.pe/contenidos/arc
   stage: release
