@@ -7,7 +7,6 @@ export default function DatepickerVisualHelp({
   date1,
   date2,
   date3,
-  currentNote,
 }) {
   const containerStyle = {
     backgroundColor: '#5d7dfa',
@@ -21,6 +20,7 @@ export default function DatepickerVisualHelp({
 
   const itemStyle = {
     padding: '10px',
+    border: '1px solid #fff',
     margin: '10px',
   }
 
@@ -46,12 +46,7 @@ export default function DatepickerVisualHelp({
       ) : null}
 
       {note1 ? (
-        <div
-          style={{
-            ...itemStyle,
-            border:
-              currentNote === note1 ? '1px solid #00f900' : '1px solid #fff',
-          }}>
+        <div style={itemStyle}>
           Nota 1:{' '}
           <span style={itemSpanStyle}>
             {new Date(date1).toLocaleString('en-GB')}
@@ -62,12 +57,7 @@ export default function DatepickerVisualHelp({
         </div>
       ) : null}
       {note2 ? (
-        <div
-          style={{
-            ...itemStyle,
-            border:
-              currentNote === note2 ? '1px solid #00f900' : '1px solid #fff',
-          }}>
+        <div style={itemStyle}>
           Nota 2:{' '}
           <span style={itemSpanStyle}>
             {new Date(date2).toLocaleString('en-GB')}
@@ -78,12 +68,7 @@ export default function DatepickerVisualHelp({
         </div>
       ) : null}
       {note3 ? (
-        <div
-          style={{
-            ...itemStyle,
-            border:
-              currentNote === note3 ? '1px solid #00f900' : '1px solid #fff',
-          }}>
+        <div style={itemStyle}>
           Nota 3:{' '}
           <span style={itemSpanStyle}>
             {new Date(date3).toLocaleString('en-GB')}
