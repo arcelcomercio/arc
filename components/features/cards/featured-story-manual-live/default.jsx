@@ -319,6 +319,7 @@ const CardFeaturedStoryManualLive = props => {
           date1={date1}
           date2={date2}
           date3={date3}
+          currentNote={title.url}
         />
       ) : null}
       {!flagLive && <FeaturedStory {...params} />}
