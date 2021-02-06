@@ -8,6 +8,7 @@ import customFields from './_dependencies/custom-fields'
 import StoryFormatter from '../../../utilities/featured-story-formatter'
 import { featuredStoryFields } from '../../../utilities/included-fields'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
+import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
 
 const source = 'story-by-url'
 const PHOTO_SOURCE = 'photo-resizer'
@@ -30,6 +31,7 @@ const CardFeaturedStoryManual = props => {
       titleField,
       categoryField,
       isLazyLoadActivate = true,
+      dateInfo,
     } = {},
   } = props
 
@@ -299,7 +301,21 @@ const CardFeaturedStoryManual = props => {
     multimediaCaption,
     isLazyLoadActivate,
   }
-  return <FeaturedStory {...params} />
+  return (
+    <>
+      {dateInfo && isAdmin ? (
+        <DatepickerVisualHelp
+          note1={note1}
+          note2={note2}
+          note3={note3}
+          date1={date1}
+          date2={date2}
+          date3={date3}
+        />
+      ) : null}
+      <FeaturedStory {...params} />
+    </>
+  )
 }
 
 CardFeaturedStoryManual.propTypes = {
