@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 const classes = {
   listItemTitle: 'stories-video__item-title text-white mb-10',
@@ -24,7 +24,7 @@ const ItemVideoCenterNoDestacado = ({
   time,
 }) => {
   const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   return (
     <>

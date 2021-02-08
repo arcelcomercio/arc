@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import SignwallComponent from '../../../signwall/main/default'
 import getResponsiveClasses from '../../../../utilities/responsive-classes'
@@ -402,7 +402,7 @@ class NavBarDefault extends PureComponent {
   }
 
   render() {
-    const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { statusSidebar, scrolled } = this.state
     const {
       logo,

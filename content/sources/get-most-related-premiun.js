@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import ENV, { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN, ENVIRONMENT } from 'fusion:environment'
 
 // TODO: LIMPIAME POR FAVOR
 
-const flagDev = ENV.ENVIRONMENT !== 'elcomercio' // false
+const flagDev = ENVIRONMENT !== 'elcomercio' // false
 
 const uriPostProd = site =>
   site === 'gestion'
