@@ -11,6 +11,8 @@ import LiveStreaming from './_children/streaming-live'
 import { featuredStoryFields } from '../../../utilities/included-fields'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
 
+import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
+
 const PHOTO_SOURCE = 'photo-resizer'
 
 const CardFeaturedStoryManualLive = props => {
@@ -34,6 +36,7 @@ const CardFeaturedStoryManualLive = props => {
       platformLive,
       urlVideo,
       isLazyLoadActivate = true,
+      dateInfo,
     } = {},
   } = props
 
@@ -308,6 +311,16 @@ const CardFeaturedStoryManualLive = props => {
 
   return (
     <>
+      {dateInfo && isAdmin ? (
+        <DatepickerVisualHelp
+          note1={note1}
+          note2={note2}
+          note3={note3}
+          date1={date1}
+          date2={date2}
+          date3={date3}
+        />
+      ) : null}
       {!flagLive && <FeaturedStory {...params} />}
       {flagLive && <LiveStreaming {...paramsLive} />}
     </>

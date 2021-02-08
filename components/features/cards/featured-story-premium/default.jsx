@@ -6,6 +6,7 @@ import { useFusionContext } from 'fusion:context'
 
 import FeaturedStoryPremiumChild from './_children/feature-premium'
 import FeaturedStoryPremiumOpt from './_children/featured-premium-opt'
+import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
@@ -51,6 +52,7 @@ const FeaturedStoryPremium = props => {
       imgField,
       categoryField,
       adsSpace,
+      dateInfo,
     } = {},
   } = props
 
@@ -372,11 +374,28 @@ const FeaturedStoryPremium = props => {
       />
     )
 
-  if (flagLive) {
-    return <LiveStreaming {...paramsLive} />
-  }
-  if (arcSite === 'elcomercio') return <FeaturedStoryPremiumOpt {...params} />
-  return <FeaturedStoryPremiumChild {...params} />
+  return (
+    <>
+      {dateInfo && isAdmin ? (
+        <DatepickerVisualHelp
+          note1={note1}
+          note2={note2}
+          note3={note3}
+          date1={date1}
+          date2={date2}
+          date3={date3}
+        />
+      ) : null}
+      {(() => {
+        if (flagLive) {
+          return <LiveStreaming {...paramsLive} />
+        }
+        if (arcSite === 'elcomercio')
+          return <FeaturedStoryPremiumOpt {...params} />
+        return <FeaturedStoryPremiumChild {...params} />
+      })()}
+    </>
+  )
 }
 
 FeaturedStoryPremium.propTypes = {
