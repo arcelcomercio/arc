@@ -5,8 +5,7 @@ import getProperties from 'fusion:properties'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import schemaFilter from '../../../global-components/featured-story/schema-filter'
-import Notify from '../../../global-components/notify/notify'
-import buildDatesErrorMessage from '../../../global-components/notify/utils'
+import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
 
 import StoryData from '../../../utilities/story-data'
 import { featuredStoryFields } from '../../../utilities/included-fields'
@@ -33,6 +32,7 @@ const CardFeaturedStoryManual = props => {
       titleField,
       categoryField,
       isLazyLoadActivate = true,
+      dateInfo,
     } = {},
   } = props
 
@@ -64,93 +64,6 @@ const CardFeaturedStoryManual = props => {
 
   const currentNotePath =
     scheduledNotes.length > 0 ? scheduledNotes[0].path : path
-
-  const validateScheduledNotes = () => {
-    const filter = '{ publish_date }'
-    const includedFields = 'publish_date'
-    const presets = 'no-presets'
-
-    const auxNote1 =
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useContent(
-        note1 !== undefined && note1 !== ''
-          ? {
-              source,
-              query: {
-                website_url: note1,
-                published: 'false',
-                presets,
-                includedFields,
-              },
-              filter,
-            }
-          : {}
-      ) || {}
-
-    const auxNote2 =
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useContent(
-        note2 !== undefined && note2 !== ''
-          ? {
-              source,
-              query: {
-                website_url: note2,
-                published: 'false',
-                presets,
-                includedFields,
-              },
-              filter,
-            }
-          : {}
-      ) || {}
-
-    const auxNote3 =
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useContent(
-        note3 !== undefined && note3 !== ''
-          ? {
-              source,
-              query: {
-                website_url: note3,
-                published: 'false',
-                presets,
-                includedFields,
-              },
-              filter,
-            }
-          : {}
-      ) || {}
-
-    const dateNote1 = auxNote1.publish_date && new Date(auxNote1.publish_date)
-    const dateNote2 = auxNote2.publish_date && new Date(auxNote2.publish_date)
-    const dateNote3 = auxNote3.publish_date && new Date(auxNote3.publish_date)
-
-    const arrError = []
-    if (note1 !== '' && date1 < dateNote1) {
-      arrError.push({
-        note: 'Nota 1',
-        publish_date: dateNote1,
-        programate_date: date1,
-      })
-    }
-    if (note2 !== '' && date2 < dateNote2) {
-      arrError.push({
-        note: 'Nota 2',
-        publish_date: dateNote2,
-        programate_date: date2,
-      })
-    }
-    if (note3 !== '' && date3 < dateNote3) {
-      arrError.push({
-        note: 'Nota 3',
-        publish_date: dateNote3,
-        programate_date: date3,
-      })
-    }
-    return arrError
-  }
-
-  const errorList = isAdmin ? validateScheduledNotes() : []
   const presets = 'no-presets'
   const includedFields = featuredStoryFields
 
@@ -207,6 +120,16 @@ const CardFeaturedStoryManual = props => {
 
   return (
     <>
+      {dateInfo && isAdmin ? (
+        <DatepickerVisualHelp
+          note1={note1}
+          note2={note2}
+          note3={note3}
+          date1={date1}
+          date2={date2}
+          date3={date3}
+        />
+      ) : null}
       <FeaturedStory
         primarySection={primarySection}
         primarySectionLink={isExternalLink ? path : primarySectionLink}
@@ -227,9 +150,6 @@ const CardFeaturedStoryManual = props => {
         siteName={siteName}
         isLazyLoadActivate={isLazyLoadActivate}
       />
-      {isAdmin && errorList.length > 0 ? (
-        <Notify message={buildDatesErrorMessage(errorList)} />
-      ) : null}
     </>
   )
 }
