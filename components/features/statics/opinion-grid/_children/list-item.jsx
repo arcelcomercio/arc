@@ -1,5 +1,7 @@
-import React from 'react'
-import { formatDateLocalTimeZone } from '../../../../utilities/helpers'
+import * as React from 'react'
+
+import Image from '../../../../global-components/image'
+import { formatDateLocalTimeZone } from '../../../../utilities/date-time/dates'
 
 const classes = {
   authorItem: 'author-item',
@@ -22,10 +24,15 @@ const classes = {
 }
 
 const OpinionGridListItem = ({
-  data: story,
-  isAdmin,
+  date,
+  websiteLink,
+  author,
+  authorLink,
+  title,
+  multimedia,
   defaultAuthorImage,
   authorImage,
+  uid,
 }) => {
   const existImageAuthor = authorImage.includes('author.png')
 
@@ -33,8 +40,8 @@ const OpinionGridListItem = ({
     <div role="listitem" className={classes.authorItem}>
       <div className={classes.wrapper}>
         <div className={classes.social}>
-          <time className={classes.date} dateTime={story.date}>
-            {formatDateLocalTimeZone(story.date)}
+          <time className={classes.date} dateTime={date}>
+            {formatDateLocalTimeZone(date)}
           </time>
         </div>
         <div className={classes.content}>
@@ -42,52 +49,47 @@ const OpinionGridListItem = ({
             <i className={classes.defaultImage} />
           ) : (
             <figure className={classes.imageBox}>
-              <a itemProp="url" href={story.websiteLink}>
-                <img
-                  src={isAdmin ? authorImage : defaultAuthorImage}
-                  data-src={authorImage}
-                  className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-                  alt={story.author}
+              <a itemProp="url" href={websiteLink}>
+                <Image
+                  src={authorImage}
+                  width={70}
+                  height={70}
+                  placeholder={defaultAuthorImage}
+                  alt={author}
+                  className={classes.image}
+                  loading="lazy"
+                  uid={uid}
                 />
               </a>
             </figure>
           )}
 
           <div className={classes.descBox}>
-            <time className={classes.date} dateTime={story.date}>
-              {formatDateLocalTimeZone(story.date)}
+            <time className={classes.date} dateTime={date}>
+              {formatDateLocalTimeZone(date)}
             </time>
             <h2 itemProp="name">
-              <a
-                itemProp="url"
-                href={story.authorLink}
-                className={classes.name}>
-                {story.author}
+              <a itemProp="url" href={authorLink} className={classes.name}>
+                {author}
               </a>
             </h2>
             <p itemProp="description">
-              <a
-                itemProp="url"
-                href={story.websiteLink}
-                className={classes.subtitle}>
-                {story.title}
+              <a itemProp="url" href={websiteLink} className={classes.subtitle}>
+                {title}
               </a>
             </p>
           </div>
           <figure className={classes.pictureWrapper}>
-            <a itemProp="url" href={story.websiteLink}>
-              <picture>
-                <img
-                  className={`${isAdmin ? '' : 'lazy'} ${classes.pictureNota}`}
-                  alt={story.title}
-                  src={
-                    isAdmin
-                      ? story.multimediaLandscapeXS
-                      : story.multimediaLazyDefault
-                  }
-                  data-src={story.multimediaLandscapeXS}
-                />
-              </picture>
+            <a itemProp="url" href={websiteLink}>
+              <Image
+                src={multimedia}
+                width={225}
+                height={127}
+                alt={title}
+                className={classes.pictureNota}
+                loading="lazy"
+                uid={uid}
+              />
             </a>
           </figure>
         </div>
@@ -96,4 +98,4 @@ const OpinionGridListItem = ({
   )
 }
 
-export default OpinionGridListItem
+export default React.memo(OpinionGridListItem)

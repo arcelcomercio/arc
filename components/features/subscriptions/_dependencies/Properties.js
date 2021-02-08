@@ -1,6 +1,6 @@
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
-const ArcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+const ArcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const IsPROD = ArcEnv === 'prod'
 
 const cdnStaticEc = 'https://cdna.elcomercio.pe/resources/dist/elcomercio'

@@ -44,6 +44,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
 import StoryContentsChildCustomBlock from './_children/custom-block'
+import StoryContentsChildJwplayerRecommender from './_children/jwplayer-recommender'
 import customFields from './_dependencies/custom-fields'
 import iframeScriptCounter from './_dependencies/counter-mag'
 import {
@@ -53,6 +54,7 @@ import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import ShareButtons from '../../../global-components/lite/share'
@@ -92,6 +94,7 @@ const StoryContentsLite = props => {
       isDfp = false,
       siteUrl,
       jwplayers,
+      jwplayersMatching,
     },
   } = useAppContext()
 
@@ -110,10 +113,7 @@ const StoryContentsLite = props => {
     primarySectionLink,
     subtype,
     isPremium,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-    multimediaLazyDefault,
+    multimedia,
     tags,
     contentElements,
     canonicalUrl,
@@ -144,10 +144,7 @@ const StoryContentsLite = props => {
     primarySection,
     subtype,
     ...promoItems,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-    multimediaLazyDefault,
+    multimedia,
     primaryImage: true,
     authorImageSecond,
     authorLinkSecond,
@@ -225,13 +222,11 @@ const StoryContentsLite = props => {
                   list_type: listType = 'unordered',
                 } = element
                 if (type === ELEMENT_IMAGE) {
-                  const presets = 'landscape_md:314,story_small:482,large:640'
-
                   return (
                     <StoryContentsChildImage
+                      customHeight={0}
+                      customWidth={620}
                       {...element}
-                      multimediaLazyDefault={multimediaLazyDefault}
-                      presets={presets}
                     />
                   )
                 }
@@ -297,6 +292,16 @@ const StoryContentsLite = props => {
                           {title}
                         </figcaption>
                       </>
+                    )
+                  }
+                  if (sub === VIDEO_JWPLAYER_MATCHING) {
+                    const { videoId = '', playerId = '' } =
+                      jwplayersMatching || {}
+                    return (
+                      <StoryContentsChildJwplayerRecommender
+                        videoId={videoId}
+                        playerId={playerId}
+                      />
                     )
                   }
                 }

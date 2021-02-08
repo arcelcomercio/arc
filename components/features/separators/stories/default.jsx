@@ -1,15 +1,21 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
+import { separatorStoriesFields } from '../../../utilities/included-fields'
+import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+
 import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import Separator from './_children/separator'
 import SeparatorOpt from './_children/separator-opt'
-import { separatorStoriesFields } from '../../../utilities/included-fields'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
 
+/**
+ * 
+ * @param {*} props 
+ * @todo analizar bien los tamanos de las imagenes para los children
+ */
 const SeparatorStories = props => {
   const {
     customFields: {
@@ -32,11 +38,9 @@ const SeparatorStories = props => {
     contextPath,
     deployment,
     requestUri,
-  } = useFusionContext()
+  } = useAppContext()
 
-  const presets = isAdmin
-    ? 'landscape_l:648x374,landscape_s:234x161,portrait_md:314x374'
-    : 'no-presets'
+  const presets = 'no-presets' // 'landscape_l:648x374,landscape_s:234x161,portrait_md:314x374'
   const includedFields = separatorStoriesFields
 
   const { content_elements: contentElements = [] } =
@@ -56,39 +60,36 @@ const SeparatorStories = props => {
     defaultImgSize: 'sm',
   })
 
+  /**
+   * @typedef StoriesSeparatorStory
+   * @property {string} id
+   * @property {string} title
+   * @property {string} websiteLink
+   * @property {string} multimediaType
+   * @property {string} author
+   * @property {string} authorLink
+   * @property {string} imageUrl
+   */
+  /**
+   * @type {Array<StoriesSeparatorStory>}
+   */
   const stories = contentElements.map(story => {
     storyData._data = story
     const {
+      id,
       title,
       websiteLink,
-      multimediaLazyDefault,
       multimediaType,
       author,
       authorLink,
       imageUrl,
     } = storyData
 
-    const {
-      multimediaPortraitMD = multimediaLazyDefault,
-      multimediaLandscapeL = multimediaLazyDefault,
-      multimediaLandscapeS = multimediaLazyDefault,
-    } = isAdmin
-      ? storyData
-      : createResizedParams({
-          url: imageUrl,
-          arcSite,
-          presets:
-            'multimediaLandscapeL:648x374,multimediaLandscapeS:234x161,multimediaPortraitMD:314x374',
-        }) || {}
-
     return {
+      id,
       title,
       websiteLink,
-      multimediaLazyDefault,
-      imageUrl:
-        arcSite === 'peru21' ? multimediaPortraitMD : multimediaLandscapeS,
-      imageUrlMobile:
-        arcSite === 'peru21' ? multimediaPortraitMD : multimediaLandscapeL,
+      imageUrl,
       multimediaType,
       author,
       authorLink,
@@ -108,9 +109,10 @@ const SeparatorStories = props => {
     isImageVisible,
     responsive,
     requestUri,
+    arcSite
   }
 
-  return arcSite === 'elcomercio' ? (
+  return arcSite === SITE_ELCOMERCIO ? (
     <SeparatorOpt {...separatorParams} />
   ) : (
     <Separator {...separatorParams} />
