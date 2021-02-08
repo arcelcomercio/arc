@@ -11,9 +11,14 @@ const params = [
     displayName: 'Tamaño de las imágenes (opcional)',
     type: 'text',
   },
+  {
+    name: 'quality',
+    displayName: 'Calidad de las imágenes (0 - 100)',
+    type: 'number',
+  },
 ]
 
-const fetch = ({ url, 'arc-site': website, presets }) => {
+const fetch = ({ url, 'arc-site': website, presets, quality }) => {
   if (!url && !presets)
     throw new Error(
       'Esta fuente de contenido requiere la URL de una imagen y presets'
@@ -23,6 +28,7 @@ const fetch = ({ url, 'arc-site': website, presets }) => {
     url,
     presets,
     arcSite: website,
+    filterQuality: quality,
   })
 
   return { resized_urls: resizedUrls }

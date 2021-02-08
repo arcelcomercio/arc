@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import * as React from 'react'
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import getResponsiveClasses from '../../../../utilities/responsive-classes'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
@@ -121,7 +121,7 @@ class NavBarDefault extends React.PureComponent {
   // this.isStory = !!window.document.querySelector('meta[name="section-id"]') // TODO: temporal
 
   render() {
-    const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const {
       logo,
       logoLeft,

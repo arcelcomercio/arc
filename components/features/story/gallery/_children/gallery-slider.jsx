@@ -1,9 +1,11 @@
-import React from 'react'
+import * as React from 'react'
+
 import {
   SITE_ELCOMERCIOMAG,
   SITE_DEPOR,
 } from '../../../../utilities/constants/sitenames'
 import AdsFotogaleria from '../../../../global-components/ads'
+
 import StoryHeaderChildPicture from './picture'
 
 const classes = {
@@ -23,11 +25,10 @@ const classes = {
 const StoryHeaderChildGallerySlider = props => {
   const {
     contentElementGallery: { content_elements: contentElements = [] },
-    defaultImageGallery,
   } = props || {}
 
   const totalSlides = contentElements.length
-  const sliders = contentElements
+  const slides = contentElements
   const sliderWidth = totalSlides * 100
   const slideWidth = 100 / totalSlides
 
@@ -168,60 +169,59 @@ const StoryHeaderChildGallerySlider = props => {
       })}
     )()`
 
-  return (
-    <>
-      {sliders.length > 0 && (
-        <section className={classes.elementsSlider} id="story-galery">
-          <div
-            role="slider"
-            aria-valuenow={sliders.length}
-            aria-valuemin="1"
-            aria-valuemax="10"
-            className={classes.body}>
-            <ul id="galery-ul" style={sliderStyle} className={classes.content}>
-              {sliders.map((slide, i) => (
-                <li
-                  key={slide._id}
-                  style={slideStyle}
-                  className={classes.slide}>
-                  <div className={classes.figure}>
-                    <StoryHeaderChildPicture
-                      {...slide}
-                      defaultImageGallery={defaultImageGallery}
-                      i={i}
-                    />
-                  </div>
-                  <figcaption className={classes.caption}>
-                    <span className={classes.quantity}>
-                      {i + 1}/{sliders.length}
-                    </span>
-                    <p itemProp="description" className={classes.captionImage}>
-                      {' '}
-                      {slide.caption || slide.subtitle}
-                    </p>
-                  </figcaption>
-                </li>
-              ))}
-            </ul>
-            <i
-              role="button"
-              tabIndex="0"
-              id="icon-left"
-              className={classes.leftArrow}
-            />
-            <i
-              role="button"
-              tabIndex="0"
-              id="icon-right"
-              className={classes.rightArrow}
-            />
-          </div>
-          <AdsFotogaleria adElement="fotogaleria1" isDesktop isMobile={false} />
-          <script dangerouslySetInnerHTML={{ __html: handleGallery }}></script>
-        </section>
-      )}
-    </>
-  )
+  return slides.length > 0 ? (
+    <section className={classes.elementsSlider} id="story-galery">
+      <div
+        role="slider"
+        aria-valuenow={slides.length}
+        aria-valuemin="1"
+        aria-valuemax="10"
+        className={classes.body}>
+        <ul id="galery-ul" style={sliderStyle} className={classes.content}>
+          {slides.map(({ _id: id, url, caption, subtitle }, i) => (
+            <li
+              key={`gallery-s-${id}`}
+              style={slideStyle}
+              className={classes.slide}>
+              <div className={classes.figure}>
+                <StoryHeaderChildPicture
+                  url={url}
+                  caption={caption}
+                  subtitle={subtitle}
+                  i={i}
+                />
+              </div>
+              <figcaption className={classes.caption}>
+                <span className={classes.quantity}>
+                  {i + 1}/{slides.length}
+                </span>
+                <p itemProp="description" className={classes.captionImage}>
+                  {' '}
+                  {caption || subtitle}
+                </p>
+              </figcaption>
+            </li>
+          ))}
+        </ul>
+        <i
+          role="button"
+          aria-label="Foto anterior"
+          tabIndex="0"
+          id="icon-left"
+          className={classes.leftArrow}
+        />
+        <i
+          role="button"
+          aria-label="Foto siguiente"
+          tabIndex="0"
+          id="icon-right"
+          className={classes.rightArrow}
+        />
+      </div>
+      <AdsFotogaleria adElement="fotogaleria1" isDesktop isMobile={false} />
+      <script dangerouslySetInnerHTML={{ __html: handleGallery }}></script>
+    </section>
+  ) : null
 }
 
 export default StoryHeaderChildGallerySlider

@@ -1,9 +1,9 @@
-import React from 'react'
-import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import UtilListKey from '../../../../utilities/list-keys'
-import StoryGalleryChildPicture from './picture'
 import { processText } from '../../../../utilities/story/content'
+
+import StoryGalleryChildPicture from './picture'
 
 const classes = {
   gallery: 'story-gallery  ',
@@ -19,20 +19,22 @@ const classes = {
 
 const StoryHeaderChildGallery = props => {
   const {
-    defaultImageGallery,
+    arcSite,
     seccioPublicidad,
-    contentElementGallery: { content_elements: sliders = [] } = {},
+    contentElementGallery: { content_elements: slides = [] } = {},
   } = props
-  const { arcSite } = useAppContext()
 
   return (
     <>
       <div className={classes.gallery}>
-        {sliders.map((slide, i) => {
+        {slides.map((slide, i) => {
           const {
             credits: { affiliation: [{ name = '' } = {}] = [] } = {},
             width,
             height,
+            url,
+            caption,
+            subtitle,
           } = slide
           const itemv = width < height && true
           return (
@@ -171,29 +173,32 @@ const StoryHeaderChildGallery = props => {
                 <div className="more-compartir"></div>
                 <span className={classes.galleryNumber}>
                   <strong> {i + 1} </strong>
-                  de {sliders.length}
+                  de {slides.length}
                 </span>
                 <div className={classes.figure}>
                   <StoryGalleryChildPicture
-                    {...slide}
-                    defaultImageGallery={defaultImageGallery}
+                    url={url}
+                    caption={caption}
+                    subtitle={subtitle}
                     itemv={itemv}
                     i={i}
                   />
                 </div>
-                {name && <span className={classes.galleryCredit}>{name}</span>}
+                {name ? (
+                  <span className={classes.galleryCredit}>{name}</span>
+                ) : null}
                 <figcaption className={classes.caption}>
                   <strong
                     className={classes.title}
                     dangerouslySetInnerHTML={{
-                      __html: processText(slide.subtitle),
+                      __html: processText(subtitle),
                     }}
                   />
                   <p
                     itemProp="description"
                     className={classes.captionImage}
                     dangerouslySetInnerHTML={{
-                      __html: processText(slide.caption),
+                      __html: processText(caption),
                     }}
                   />
                 </figcaption>

@@ -1,23 +1,24 @@
-import React from 'react'
-
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
+
+import { sectionColumnsFields } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-
 import Header from './_children/header'
-import List from './_children/list'
-import { sectionColumnsFields } from '../../../utilities/included-fields'
+import ListItem from './_children/item'
 
 const classes = {
-  lista: 'sec-col bg-white flex flex-col',
+  container: 'sec-col bg-white flex flex-col',
+  list: 'sec-col__list bg-white h-full',
 }
 
 const newsNumber = 4
 
 const SectionColumnListCard = props => {
-  const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
   const {
     customFields: { section, titleList, urlTitle, background },
   } = props
@@ -26,7 +27,7 @@ const SectionColumnListCard = props => {
     section,
     excludeSections: '/impresa',
     stories_qty: newsNumber,
-    presets: isAdmin ? 'landscape_md:314x157' : 'no-presets',
+    presets: 'no-presets',
     includedFields: sectionColumnsFields,
   }
   const data =
@@ -36,24 +37,39 @@ const SectionColumnListCard = props => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  const paramsHeader = {
-    titleList,
-    urlTitle,
-    background,
-  }
-
-  const paramsList = {
-    deployment,
+  const storyData = new StoryData({
     arcSite,
     contextPath,
-    isAdmin,
-    listNews: data.content_elements || [],
-  }
+    deployment,
+  })
 
   return (
-    <div className={classes.lista}>
-      <Header {...paramsHeader} />
-      <List {...paramsList} />
+    <div className={classes.container}>
+      <Header
+        titleList={titleList}
+        urlTitle={urlTitle}
+        background={background}
+      />
+      <div role="list" className={classes.list}>
+        {data.content_elements
+          ? data.content_elements.map((story, index) => {
+              storyData.__data = story
+
+              return (
+                <ListItem
+                  key={`section-col-${storyData.id}`}
+                  seeImageNews={index === 0}
+                  title={storyData.title}
+                  urlNews={storyData.websiteLink}
+                  multimedia={storyData.multimedia}
+                  multimediaType={storyData.multimediaType}
+                  author={storyData.author}
+                  urlAutor={storyData.authorLink}
+                />
+              )
+            })
+          : null}
+      </div>
     </div>
   )
 }

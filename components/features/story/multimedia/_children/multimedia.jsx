@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React from 'react'
+import * as React from 'react'
+
+import LiteYoutube from '../../../../global-components/lite-youtube'
+import VideoJwplayer from '../../../../global-components/video-jwplayer'
+
 import Video from './video'
 import Imagen from './image'
 import Html from './html'
 import VideoNativo from './video-nativo'
-import LiteYoutube from '../../../../global-components/lite-youtube'
-import VideoJwplayer from '../../../../global-components/video-jwplayer'
 
 const classes = {
   audio: 's-multimedia__audio w-full',
@@ -27,10 +29,7 @@ const StoryContentChildMultimedia = ({ data } = []) => {
       content: embedHtmlPromoItems = '',
     } = {},
     path_mp3: { content: mp3 = '' } = {},
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-    multimediaLazyDefault,
+    multimedia,
     showCaption,
     primaryImage,
     completeImage,
@@ -40,18 +39,6 @@ const StoryContentChildMultimedia = ({ data } = []) => {
   } = data
 
   const { type: typeImage, caption = '' } = basic || {}
-
-  const parameters = {
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLazyDefault,
-    multimediaLarge,
-    caption,
-    showCaption,
-    primaryImage,
-    completeImage,
-    classImage,
-  }
 
   return (
     <>
@@ -66,7 +53,14 @@ const StoryContentChildMultimedia = ({ data } = []) => {
           !typeInfo &&
           !typeEmbed &&
           typeImage ? (
-            <Imagen {...parameters} />
+            <Imagen
+              multimedia={multimedia}
+              caption={caption}
+              showCaption={showCaption}
+              primaryImage={primaryImage}
+              completeImage={completeImage}
+              classImage={classImage}
+            />
           ) : (
             <Html data={embedHtmlPromoItems} caption={caption} {...data} />
           )}

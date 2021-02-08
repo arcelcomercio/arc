@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 const classes = {
   listItemText:
@@ -20,7 +20,7 @@ const ItemVideoCenterDestacado = ({
   time,
 }) => {
   const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   return (
     <>
