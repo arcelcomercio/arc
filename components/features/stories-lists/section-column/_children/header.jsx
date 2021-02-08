@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const classes = {
   header: `sec-col__header flex items-center w-auto pr-20 pl-20 mb-5`,
@@ -27,4 +27,4 @@ const StoriesListsCardChildHeader = ({
   )
 }
 
-export default StoriesListsCardChildHeader
+export default React.memo(StoriesListsCardChildHeader)

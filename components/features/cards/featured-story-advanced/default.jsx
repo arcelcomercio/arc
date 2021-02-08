@@ -1,17 +1,16 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import FeaturedStory from '../../../global-components/featured-story'
-import StoryFormatter from '../../../utilities/featured-story-formatter'
+import schemaFilter from '../../../global-components/featured-story/schema-filter'
+
+import StoryData from '../../../utilities/story-data'
+import { featuredStoryFields } from '../../../utilities/included-fields'
+
 import customFields from './_dependencies/custom-fields'
 import FacebookLive from './_children/facebook-live'
-import { createMarkup } from '../../../utilities/helpers'
-import { featuredStoryFields } from '../../../utilities/included-fields'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
-
-const PHOTO_SOURCE = 'photo-resizer'
 
 const CardFeaturedStoryAdvanced = props => {
   const {
@@ -32,35 +31,40 @@ const CardFeaturedStoryAdvanced = props => {
   } = props
 
   const {
-    editableField,
     arcSite,
-    isAdmin,
     contextPath,
     deployment,
-  } = useFusionContext()
+  } = useAppContext()
 
   const { siteName } = getProperties(arcSite)
-
-  const storyFormatter = new StoryFormatter({
-    deployment,
-    contextPath,
-    arcSite,
-  })
-  const { schema } = storyFormatter
-  const presets = isAdmin
-    ? 'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
-    : 'no-presets'
   const includedFields = featuredStoryFields
 
   const data =
     useContent({
       source: contentService,
       query: Object.assign(contentConfigValues, {
-        presets,
+        presets: 'no-presets',
         includedFields,
       }),
-      filter: schema,
+      filter: schemaFilter(arcSite),
     }) || {}
+
+  const {
+    primarySection,
+    primarySectionLink,
+    title,
+    websiteLink,
+    author,
+    authorLink,
+    multimediaType,
+    multimediaCaption,
+    multimedia,
+  } = new StoryData({
+    data,
+    deployment,
+    contextPath,
+    arcSite,
+  })
 
   const adsSpaces =
     useContent(
@@ -68,19 +72,6 @@ const CardFeaturedStoryAdvanced = props => {
         ? {
             source: 'get-ads-spaces',
             query: { space: adsSpace },
-          }
-        : {}
-    ) || {}
-
-  const customPhoto =
-    useContent(
-      imgField && isAdmin
-        ? {
-            source: PHOTO_SOURCE,
-            query: {
-              url: imgField,
-              presets,
-            },
           }
         : {}
     ) || {}
@@ -109,108 +100,43 @@ const CardFeaturedStoryAdvanced = props => {
     return false
   }
 
-  const formattedData = storyFormatter.formatStory(data, imgField, customPhoto)
-  const {
-    category,
-    title,
-    author,
-    multimediaLandscapeL,
-    multimediaLandscapeMD,
-    multimediaPortraitMD,
-    multimediaSquareS,
-    multimediaLazyDefault,
-    multimediaType,
-    multimediaSubtitle,
-    multimediaCaption,
-    multimedia,
-  } = formattedData
-
-  const getImageUrls = () => {
-    const {
-      landscape_l: customLandscapeL,
-      landscape_md: customLandscapeMD,
-      portrait_md: customPortraitMD,
-      square_s: customSquareS,
-    } = imgField
-      ? createResizedParams({
-          url: imgField,
-          presets:
-            'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150',
-          arcSite,
-        }) || {}
-      : {}
-
-    const {
-      landscape_l: landscapeL,
-      landscape_md: landscapeMD,
-      portrait_md: portraitMD,
-      square_s: squareS,
-    } =
-      createResizedParams({
-        url: multimedia,
-        presets:
-          'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150',
-        arcSite,
-      }) || {}
-
-    return {
-      multimediaLandscapeL: customLandscapeL || imgField || landscapeL,
-      multimediaLandscapeMD: customLandscapeMD || imgField || landscapeMD,
-      multimediaPortraitMD: customPortraitMD || imgField || portraitMD,
-      multimediaSquareS: customSquareS || imgField || squareS,
-    }
-  }
-
-  const imageUrls = isAdmin
-    ? {
-        multimediaLandscapeL,
-        multimediaLandscapeMD,
-        multimediaPortraitMD,
-        multimediaSquareS,
-      }
-    : getImageUrls()
-
-  const paramsFeaturedStory = {
-    title,
-    category,
-    author,
-    ...imageUrls,
-    multimediaLazyDefault,
-    imageSize,
-    headband,
-    size,
-    hightlightOnMobile,
-    editableField,
-    titleField,
-    categoryField,
-    arcSite,
-    multimediaType,
-    isAdmin,
-    siteName,
-    multimediaSubtitle,
-    multimediaCaption,
-    isLazyLoadActivate,
-  }
-
-  const paramsFacebook = {
-    arcSite,
-    contextPath,
-    deployment,
-    urlVideoFacebook,
-  }
-
+  const adSpace = getAdsSpace()
   return (
     <>
       {(() => {
-        if (getAdsSpace())
+        if (adSpace)
           return (
             <div
               className={size === 'twoCol' ? 'col-2 row-1' : 'col-1 row-1'}
-              dangerouslySetInnerHTML={createMarkup(getAdsSpace())}
+              dangerouslySetInnerHTML={{ __html: adSpace }}
             />
           )
-        if (flagLive) return <FacebookLive {...paramsFacebook} />
-        return <FeaturedStory {...paramsFeaturedStory} />
+        if (flagLive) return <FacebookLive
+          arcSite={arcSite}
+          contextPath={contextPath}
+          deployment={deployment}
+          urlVideoFacebook={urlVideoFacebook}
+        />
+        return <FeaturedStory
+          primarySection={primarySection}
+          primarySectionLink={primarySectionLink}
+          title={title}
+          websiteLink={websiteLink}
+          author={author}
+          authorLink={authorLink}
+          multimediaType={multimediaType}
+          multimediaCaption={multimediaCaption}
+          multimedia={imgField || multimedia}
+          imageSize={imageSize}
+          headband={headband}
+          size={size}
+          hightlightOnMobile={hightlightOnMobile}
+          titleField={titleField}
+          categoryField={categoryField}
+          arcSite={arcSite}
+          siteName={siteName}
+          isLazyLoadActivate={isLazyLoadActivate}
+        />
       })()}
     </>
   )

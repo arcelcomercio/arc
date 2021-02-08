@@ -1,6 +1,6 @@
 // file path: StoryContentContent.js
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -85,7 +85,7 @@ const classes = {
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 @Consumer
-class StoryContents extends PureComponent {
+class StoryContents extends React.PureComponent {
   render() {
     const {
       globalContent,
@@ -100,7 +100,6 @@ class StoryContents extends PureComponent {
         jwplayers = {},
         jwplayersMatching = {},
       },
-      isAdmin,
     } = this.props
 
     const {
@@ -118,15 +117,11 @@ class StoryContents extends PureComponent {
       primarySectionLink,
       subtype,
       isPremium,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
+      multimedia,
       tags,
       contentPosicionPublicidad,
       prerollDefault,
       contentElementsHtml,
-
       authorImageSecond,
       authorLinkSecond,
       authorSecond,
@@ -158,10 +153,7 @@ class StoryContents extends PureComponent {
       primarySection,
       subtype,
       ...promoItems,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
+      multimedia,
       primaryImage: true,
       authorImageSecond,
       authorLinkSecond,
@@ -224,7 +216,12 @@ class StoryContents extends PureComponent {
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
-            ? promoItems && <StoryContentsChildImpresa data={promoItems} />
+            ? promoItems?.basic && (
+                <StoryContentsChildImpresa
+                  url={promoItems.basic.url}
+                  subtitle={promoItems.basic.subtitle}
+                />
+              )
             : promoItems &&
               subtype !== BIG_IMAGE &&
               subtype !== SPECIAL_BASIC &&
@@ -284,13 +281,11 @@ class StoryContents extends PureComponent {
                     list_type: listType = 'unordered',
                   } = element
                   if (type === ELEMENT_IMAGE) {
-                    const presets = 'landscape_md:314,story_small:482,large:640'
-
                     return (
                       <StoryContentsChildImage
+                        customHeight={0}
+                        customWidth={620}
                         {...element}
-                        multimediaLazyDefault={multimediaLazyDefault}
-                        presets={presets}
                       />
                     )
                   }
@@ -452,14 +447,7 @@ class StoryContents extends PureComponent {
                     )
                   }
                   if (type === ELEMENT_LINK_LIST) {
-                    return (
-                      <StoryContentsChildLinkList
-                        items={items}
-                        multimediaLazyDefault={multimediaLazyDefault}
-                        arcSite={arcSite}
-                        isAdmin={isAdmin}
-                      />
-                    )
+                    return <StoryContentsChildLinkList items={items} />
                   }
                   if (type === ELEMENT_LIST) {
                     if (items && items.length > 0) {

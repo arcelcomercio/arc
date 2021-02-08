@@ -4,7 +4,10 @@ import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import UtilListKey from '../../../utilities/list-keys'
-import { SITE_ELCOMERCIOMAG, SITE_TROME } from '../../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_TROME,
+} from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
 
 import schemaFilter from './_dependencies/schema-filter'
@@ -63,7 +66,6 @@ const InterestByTagLite = props => {
       deployment,
       contextPath,
       arcSite,
-      defaultImgSize: 'sm',
     })
 
   let key = 0
@@ -78,8 +80,8 @@ const InterestByTagLite = props => {
   const linkSource = `&source=${isMag ? 'notepierdas' : 'tepuedeinteresar'}`
 
   const isTrome = arcSite === SITE_TROME
-  const titleItem = (title) => {
-    if(isTrome && title.length > 105) {
+  const titleItem = title => {
+    if (isTrome && title.length > 105) {
       return `${title.substring(0, 105)}...`
     }
     return title
@@ -92,19 +94,16 @@ const InterestByTagLite = props => {
       key += 1
       const link = `${instance.websiteLink}?ref=${outputType}&pos=${key}${linkSource}`
 
-      const data = {
-        title: titleItem(instance.title),
-        subtitle: instance.subTitle,
-        link,
-        section: instance.primarySection,
-        sectionLink: instance.primarySectionLink,
-        image: instance.multimedia,
-        multimediaType: instance.multimediaType,
-      }
       return (
         <StoryItemChild
-          data={data}
           key={UtilListKey(i)}
+          title={titleItem(instance.title)}
+          subtitle={instance.subTitle}
+          link={link}
+          section={instance.primarySection}
+          sectionLink={instance.primarySectionLink}
+          image={instance.multimedia}
+          multimediaType={instance.multimediaType}
           showSubtitle={showSubtitleLite}
         />
       )

@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import { useEditableContent } from 'fusion:content'
+
+import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
-import Notify from '../../../../global-components/notify'
-import { formatAMPM } from '../../../../utilities/date-time/time'
 import {
   SITE_ELCOMERCIO,
   SITE_GESTION,
@@ -40,79 +40,48 @@ const getModel = model => {
 }
 
 const FeaturedStoryPremiumChild = ({
-  arcSite,
-  isPremium,
-  model,
-  imgType,
-  lastMinute = false,
-  bgColor,
   websiteLink,
-  // multimediaSquareMD,
-  multimediaSquareXL,
-  multimediaLandscapeMD,
-  multimediaLandscapeL,
-  multimediaPortraitMD,
-  multimediaLazyDefault,
   title,
+  subTitle,
   author,
   authorLink,
-  subTitle,
-  multimediaType,
   primarySectionLink,
   primarySection,
-  isAdmin,
-  logo,
-  errorList = [],
+  multimedia,
+  multimediaType,
   multimediaSubtitle,
-  titleField, // OPCIONAL, o pasar el customField de los props
-  categoryField, // OPCIONAL, o pasar el customField de los props
+  imgType,
+  isPremium,
+  model,
+  lastMinute,
+  bgColor,
+  logo,
+  titleField,
+  categoryField,
+  arcSite,
 }) => {
-  const formaZeroDate = (numb = 0) => {
-    return numb < 10 ? `0${numb}` : numb
-  }
-
-  const formateDate = (fecha = '') => {
-    return () => {
-      const date = fecha.toString()
-      const _date = new Date(date.slice(0, date.indexOf('GMT') - 1))
-      const day = formaZeroDate(_date.getDate())
-      const month = formaZeroDate(_date.getMonth() + 1)
-      const year = _date.getFullYear()
-
-      return `${day}/${month}/${year} - ${formatAMPM(date)}`
-    }
-  }
-
   const { editableField } = useEditableContent()
 
   const getEditableField = element =>
     editableField ? editableField(element) : null
 
-  let fechaProgramada = ''
-  let fechaPublicacion = ''
-  const renderMessage = () => {
-    return errorList.map(el => {
-      fechaProgramada = formateDate(new Date(el.programate_date))
-      fechaPublicacion = formateDate(el.publish_date)
-      return `Nota Programada: Error en ${
-        el.note
-      }. La fecha Programada (${fechaProgramada()}) es menor a la fecha de publicación de la nota (${fechaPublicacion()})`
-    })
+  // width y height para imagen dinámico en mobile
+  const imageMobileWidth = 314
+  let imageMobileHeight = 374
+  if (model === 'basic' && !imgType) {
+    imageMobileHeight = 157
   }
 
-  const getMobileImage = () => {
-    const imgBasic = imgType ? multimediaPortraitMD : multimediaLandscapeMD
-    return model === 'basic' ? imgBasic : multimediaPortraitMD
-  }
-
-  const getDesktopImage = () => {
-    let imageDesktop
-    if (model === 'basic')
-      imageDesktop = imgType ? multimediaPortraitMD : multimediaLandscapeMD
-    else if (model === 'twoCol') imageDesktop = multimediaLandscapeL
-    else if (model === 'full') imageDesktop = multimediaSquareXL
-    else imageDesktop = multimediaLandscapeL
-    return imageDesktop
+  // if (model === 'twoCol') 648x374
+  // width y height para imagen dinámico
+  let imageWidth = 648
+  let imageHeight = 374
+  if (model === 'basic') {
+    imageWidth = 314
+    imageHeight = imgType ? 374 : 157
+  } else if (model === 'full') {
+    imageWidth = 900
+    imageHeight = 900
   }
 
   const isComercio = arcSite === SITE_ELCOMERCIO
@@ -164,7 +133,10 @@ const FeaturedStoryPremiumChild = ({
         </p>
         <div className={classes.description}>
           <h6 itemProp="name">
-            <a itemProp="url" className={classes.author} href={authorLink || '/autores/'}>
+            <a
+              itemProp="url"
+              className={classes.author}
+              href={authorLink || '/autores/'}>
               {author}
             </a>
           </h6>
@@ -199,31 +171,20 @@ const FeaturedStoryPremiumChild = ({
       <div className={classes.right}>
         <Icon type={multimediaType} iconClass={classes.icon} />
         <a itemProp="url" href={websiteLink}>
-          <picture>
-            <source
-              className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? getMobileImage() : multimediaLazyDefault}
-              data-srcset={getMobileImage()}
-              media="(max-width: 480px)" // 367px
-            />
-            <source
-              className={isAdmin ? '' : 'lazy'}
-              srcSet={isAdmin ? getDesktopImage() : multimediaLazyDefault}
-              data-srcset={getDesktopImage()}
-              media="(max-width: 620px)"
-            />
-            <img
-              className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-              src={isAdmin ? getDesktopImage() : multimediaLazyDefault}
-              data-src={getDesktopImage()}
-              alt={multimediaSubtitle || title}
-            />
-          </picture>
+          <Image
+            src={multimedia}
+            width={imageWidth}
+            height={imageHeight}
+            sizes={`(max-width: 480px) ${imageMobileWidth}px, ${imageWidth}px`}
+            sizesHeight={[imageMobileHeight]}
+            alt={multimediaSubtitle || title}
+            className={classes.image}
+            loading='lazy'
+          />
         </a>
       </div>
-      {isAdmin && errorList.length > 0 && <Notify message={renderMessage()} />}
     </div>
   )
 }
 
-export default FeaturedStoryPremiumChild
+export default React.memo(FeaturedStoryPremiumChild)

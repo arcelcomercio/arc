@@ -2,7 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/alt-text */
-const ENV = require('fusion:environment')
+const { FB_APP_SECRET } = require('fusion:environment')
 const getProperties = require('fusion:properties')
 const request = require('request-promise-native')
 const createHmac = require('create-hmac')
@@ -56,7 +56,7 @@ function generateSignedFbEventUri(pixelId, event, data) {
     cd: data,
     noscript: 1,
   }
-  return buildBrowserTag(payload, ENV.FB_APP_SECRET)
+  return buildBrowserTag(payload, FB_APP_SECRET)
 }
 
 const fetch = (key = {}) => {

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import { cintilloScript } from './scripts'
 
 const classes = {
@@ -22,7 +22,7 @@ class ConfirmationNotice extends PureComponent {
   }
 
   render() {
-    const arcEnv = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { arcSite } = this.props
     return (
       <>

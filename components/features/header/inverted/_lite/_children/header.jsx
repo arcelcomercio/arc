@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import {
   searchScript,
@@ -29,7 +29,7 @@ export default props => {
   const { siteDomain, legalLinks } = getProperties(arcSite)
 
   const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+    ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const paramSignwall = {
     arcSite,

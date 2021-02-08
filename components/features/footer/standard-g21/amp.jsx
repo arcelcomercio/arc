@@ -1,5 +1,5 @@
 import { useFusionContext } from 'fusion:context'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import React from 'react'
 import StoryData from '../../../utilities/story-data'
 import { formatHtmlToText } from '../../../utilities/helpers'
@@ -46,7 +46,7 @@ const FooterElComercioAmp = () => {
     cant: 3,
   }
   const resultStoryRecent = StoriesRecent(parameters)
-  const pathUrl = ENV.ENVIRONMENT === 'elcomercio' ? siteUrl : ``
+  const pathUrl = ENVIRONMENT === 'elcomercio' ? siteUrl : ``
 
   const instance =
     resultStoryRecent &&

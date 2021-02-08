@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const Notify = ({ message }) => {
   return (
@@ -9,7 +9,8 @@ const Notify = ({ message }) => {
         })}
       <button
         type="button"
-        onClick={e => (e.target.parentNode.style.display = 'none')}
+        aria-label="cerrar notificación"
+        onClick={e => {e.target.parentNode.style.display = 'none'}}
         className="notify__icon icon-close"
       />
     </div>
