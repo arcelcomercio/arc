@@ -1,9 +1,9 @@
-import React from 'react'
+import * as React from 'react'
+
+import Image from '../../../../../global-components/image'
+import MultimediaIcon from '../../../../../global-components/lite/multimedia-icon'
 
 import UtilListKey from '../../../../../utilities/list-keys'
-import { createResizedParams } from '../../../../../utilities/resizer/resizer'
-import StoryData from '../../../../../utilities/story-data'
-import MultimediaIcon from '../../../../../global-components/lite/multimedia-icon'
 import {
   SITE_ELCOMERCIO,
   SITE_TROME,
@@ -21,65 +21,48 @@ const classes = {
 }
 
 const RenderRelatedContentElement = (props, i) => {
-  const { deployment, contextPath, arcSite, isAdmin } = props
-
-  const storyData = new StoryData({
-    data: props,
-    contextPath,
-    deployment,
+  const {
+    title,
+    websiteLink,
+    author,
+    authorLink,
+    multimedia,
+    multimediaType,
     arcSite,
-    defaultImgSize: 'sm',
-  })
-  let presets = 'landscape_sm:200x116'
-  if (arcSite === SITE_TROME) {
-    presets = 'landscape_sm:304x147'
-  }
-  const filterData = {
-    title: storyData.title,
-    link: storyData.link,
-    author: storyData.author,
-    authorLink: storyData.authorLink,
-    type: storyData.multimediaType,
-    image:
-      createResizedParams({
-        url: storyData.imageUrl,
-        presets,
-        arcSite,
-      }).landscape_sm || {},
-    lazyImage: storyData.multimediaLazyDefault,
-  }
+  } = props
+
+  const width = arcSite === SITE_TROME ? 304 : 200
+  const height = arcSite === SITE_TROME ? 147 : 116
 
   return (
     <article role="listitem" className={classes.item} key={UtilListKey(i + 12)}>
       <div className={classes.box}>
         <h2 itemProp="name" className={classes.text}>
-          <a itemProp="url" href={filterData.link} className={classes.link}>
-            {filterData.title}
+          <a itemProp="url" href={websiteLink} className={classes.link}>
+            {title}
           </a>
         </h2>
         {arcSite === SITE_ELCOMERCIO && (
-          <a
-            itemProp="url"
-            className={classes.author}
-            href={filterData.authorLink}>
-            {filterData.author}
+          <a itemProp="url" className={classes.author} href={authorLink}>
+            {author}
           </a>
         )}
       </div>
       <figure className={classes.multimedia}>
-        <a itemProp="url" href={filterData.link} className={classes.link}>
-          <img
-            className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-            src={isAdmin ? filterData.image : filterData.lazyImage}
-            data-src={filterData.image}
-            alt={filterData.title}
+        <a itemProp="url" href={websiteLink} className={classes.link}>
+          <Image
+            src={multimedia}
+            width={width}
+            height={height}
+            alt={title}
+            className={classes.image}
+            loading="lazy"
           />
-
-          <MultimediaIcon type={filterData.type} />
+          <MultimediaIcon type={multimediaType} />
         </a>
       </figure>
     </article>
   )
 }
 
-export default RenderRelatedContentElement
+export default React.memo(RenderRelatedContentElement)

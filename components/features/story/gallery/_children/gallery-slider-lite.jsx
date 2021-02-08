@@ -1,9 +1,11 @@
-import React from 'react'
+import * as React from 'react'
+
 import {
   SITE_ELCOMERCIOMAG,
   SITE_DEPOR,
 } from '../../../../utilities/constants/sitenames'
 import AdsFotogaleria from '../../../../global-components/ads'
+
 import StoryHeaderChildPicture from './picture'
 
 const classes = {
@@ -25,11 +27,10 @@ const classes = {
 const StoryHeaderChildGallerySlider = props => {
   const {
     contentElementGallery: { content_elements: contentElements = [] },
-    defaultImageGallery,
   } = props || {}
 
   const totalSlides = contentElements.length
-  const sliders = contentElements
+  const slides = contentElements
   const sliderWidth = totalSlides * 100
   const slideWidth = 100 / totalSlides
 
@@ -170,70 +171,65 @@ const StoryHeaderChildGallerySlider = props => {
       })}
     )()`
 
-  return (
-    <>
-      {sliders.length > 0 && (
-        <section className={classes.elementsSlider} id="story-galery">
-          <div
-            role="slider"
-            aria-valuenow={sliders.length}
-            aria-valuemin="1"
-            aria-valuemax="10"
-            className={classes.body}>
-            <ul id="galery-ul" style={sliderStyle} className={classes.content}>
-              {sliders.map((slide, i) => (
-                <li
-                  key={slide._id}
-                  style={slideStyle}
-                  className={classes.slide}>
-                  <div className={classes.figure}>
-                    <StoryHeaderChildPicture
-                      {...slide}
-                      defaultImageGallery={defaultImageGallery}
-                      i={i}
-                    />
-                  </div>
-                  <figcaption className={classes.caption}>
-                    <span className={classes.quantity}>
-                      {i + 1}/{sliders.length}
-                    </span>
-                    <p itemProp="description" className={classes.captionImage}>
-                      {' '}
-                      {slide.caption || slide.subtitle}
-                    </p>
-                  </figcaption>
-                </li>
-              ))}
-            </ul>
-            <div className={`${classes.arrow} icon-left`} id="icon-left">
-              <div className={classes.leftArrow}>
-                <svg
-                  width="25"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 492 492">
-                  <path d="M198.6 246.1L382.7 62c5.1-5.1 7.9-11.8 7.9-19 0-7.2-2.8-14-7.9-19l-16.1-16.1C361.5 2.8 354.7 0 347.5 0s-14 2.8-19 7.9L109.3 227c-5.1 5.1-7.9 11.9-7.8 19.1 0 7.2 2.8 14 7.8 19.1l218.9 218.9c5.1 5.1 11.8 7.9 19 7.9 7.2 0 14-2.8 19-7.9l16.1-16.1c10.5-10.5 10.5-27.6 0-38.1L198.6 246.1z" />
-                </svg>
+  return slides.length > 0 ? (
+    <section className={classes.elementsSlider} id="story-galery">
+      <div
+        role="slider"
+        aria-valuenow={slides.length}
+        aria-valuemin="1"
+        aria-valuemax="10"
+        className={classes.body}>
+        <ul id="galery-ul" style={sliderStyle} className={classes.content}>
+          {slides.map(({ _id: id, url, caption, subtitle }, i) => (
+            <li
+              key={`gallery-s-${id}`}
+              style={slideStyle}
+              className={classes.slide}>
+              <div className={classes.figure}>
+                <StoryHeaderChildPicture
+                  url={url}
+                  caption={caption}
+                  subtitle={subtitle}
+                  i={i}
+                />
               </div>
-            </div>
-            <div
-              className={`${classes.arrow} ${classes.right}`}
-              id="icon-right">
-              <div className={classes.rightArrow}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  viewBox="0 0 451.8 451.8">
-                  <path d="M345.4 248.3L151.2 442.6c-12.4 12.4-32.4 12.4-44.7 0 -12.4-12.4-12.4-32.4 0-44.7L278.3 225.9 106.4 54c-12.4-12.4-12.4-32.4 0-44.7 12.4-12.4 32.4-12.4 44.8 0l194.3 194.3c6.2 6.2 9.3 14.3 9.3 22.4C354.7 234 351.6 242.1 345.4 248.3z" />
-                </svg>
-              </div>
-            </div>
+              <figcaption className={classes.caption}>
+                <span className={classes.quantity}>
+                  {i + 1}/{slides.length}
+                </span>
+                <p itemProp="description" className={classes.captionImage}>
+                  {' '}
+                  {caption || subtitle}
+                </p>
+              </figcaption>
+            </li>
+          ))}
+        </ul>
+        <div className={`${classes.arrow} icon-left`} id="icon-left">
+          <div className={classes.leftArrow}>
+            <svg
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 492 492">
+              <path d="M198.6 246.1L382.7 62c5.1-5.1 7.9-11.8 7.9-19 0-7.2-2.8-14-7.9-19l-16.1-16.1C361.5 2.8 354.7 0 347.5 0s-14 2.8-19 7.9L109.3 227c-5.1 5.1-7.9 11.9-7.8 19.1 0 7.2 2.8 14 7.8 19.1l218.9 218.9c5.1 5.1 11.8 7.9 19 7.9 7.2 0 14-2.8 19-7.9l16.1-16.1c10.5-10.5 10.5-27.6 0-38.1L198.6 246.1z" />
+            </svg>
           </div>
-          <AdsFotogaleria adElement="fotogaleria1" isDesktop isMobile={false} />
-          <script dangerouslySetInnerHTML={{ __html: handleGallery }}></script>
-        </section>
-      )}
-    </>
-  )
+        </div>
+        <div className={`${classes.arrow} ${classes.right}`} id="icon-right">
+          <div className={classes.rightArrow}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              viewBox="0 0 451.8 451.8">
+              <path d="M345.4 248.3L151.2 442.6c-12.4 12.4-32.4 12.4-44.7 0 -12.4-12.4-12.4-32.4 0-44.7L278.3 225.9 106.4 54c-12.4-12.4-12.4-32.4 0-44.7 12.4-12.4 32.4-12.4 44.8 0l194.3 194.3c6.2 6.2 9.3 14.3 9.3 22.4C354.7 234 351.6 242.1 345.4 248.3z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <AdsFotogaleria adElement="fotogaleria1" isDesktop isMobile={false} />
+      <script dangerouslySetInnerHTML={{ __html: handleGallery }}></script>
+    </section>
+  ) : null
 }
 
 export default StoryHeaderChildGallerySlider

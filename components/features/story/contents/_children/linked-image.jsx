@@ -1,21 +1,21 @@
-import React from 'react'
+import * as React from 'react'
 import StoryContentsChildImage from './image'
 
 const StoryContentsChildLinkedImage = ({ link, title, alt, photo }) => {
   return (
-    photo && (
+    photo ? (
       <a
         itemProp="url"
         href={link || '/'}
         title={title || ''}
         className="block w-full">
-        <StoryContentsChildImage caption={alt || ''} multimediaLarge={photo} />
+        <StoryContentsChildImage caption={alt || ''} multimedia={photo} />
       </a>
-    )
+    ) : null
   )
 }
 
-export default StoryContentsChildLinkedImage
+export default React.memo(StoryContentsChildLinkedImage)
 
 /**
  * Elemento en ANS

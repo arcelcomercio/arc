@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import {
@@ -9,7 +9,7 @@ import {
   SPECIAL,
 } from '../../../utilities/constants/subtypes'
 import { storyTagsBbc } from '../../../utilities/tags'
-import { getDateSeo } from '../../../utilities/date-time/dates'
+import { localISODate } from '../../../utilities/date-time/dates'
 
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildMultimedia from './_children/multimedia'
@@ -20,7 +20,7 @@ const StoryMultimediaLte = () => {
     contextPath,
     deployment,
     globalContent: data,
-  } = useFusionContext()
+  } = useAppContext()
 
   const {
     publishDate: date,
@@ -34,10 +34,7 @@ const StoryMultimediaLte = () => {
     authorEmail,
     primarySectionLink,
     subtype,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-    multimediaLazyDefault,
+    multimedia,
     promoItemJwplayer,
     tags,
   } = new StoryData({
@@ -51,17 +48,14 @@ const StoryMultimediaLte = () => {
     authorImage,
     author,
     authorLink,
-    updatedDate: getDateSeo(updatedDate || createdDate),
+    updatedDate: localISODate(updatedDate || createdDate),
     date,
     primarySectionLink,
     authorEmail,
     primarySection,
     subtype,
     ...promoItems,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-    multimediaLazyDefault,
+    multimedia,
     primaryImage: true,
     completeImage: false,
     promoItemJwplayer,
@@ -70,21 +64,22 @@ const StoryMultimediaLte = () => {
   }
 
   return (
-    <>
-      <div className="s-multimedia">
-        {primarySectionLink === '/impresa/' ||
-        primarySectionLink === '/malcriadas/' ||
-        primarySectionLink === '/el-otorongo/' ||
-        storyTagsBbc(tags, 'portada-trome')
-          ? promoItems && <StoryContentsChildImpresa data={promoItems} />
-          : promoItems &&
-            subtype !== BIG_IMAGE &&
-            subtype !== SPECIAL_BASIC &&
-            subtype !== SPECIAL && (
-              <StoryContentsChildMultimedia data={params} />
-            )}
-      </div>
-    </>
+    <div className="s-multimedia">
+      {primarySectionLink === '/impresa/' ||
+      primarySectionLink === '/malcriadas/' ||
+      primarySectionLink === '/el-otorongo/' ||
+      storyTagsBbc(tags, 'portada-trome')
+        ? promoItems?.basic && (
+            <StoryContentsChildImpresa
+              url={promoItems.basic.url}
+              subtitle={promoItems.basic.subtitle}
+            />
+          )
+        : promoItems &&
+          subtype !== BIG_IMAGE &&
+          subtype !== SPECIAL_BASIC &&
+          subtype !== SPECIAL && <StoryContentsChildMultimedia data={params} />}
+    </div>
   )
 }
 

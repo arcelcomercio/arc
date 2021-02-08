@@ -18,10 +18,6 @@ export default website => `
               basic {
                 type 
                 url
-                resized_urls { 
-                  landscape_md
-                  landscape_l
-                }
               }
             }
           }
@@ -31,11 +27,6 @@ export default website => `
             embed{
               config{
                 thumbnail_url
-                resized_urls { 
-                  landscape_xs
-                  landscape_s
-                  lazy_default 
-                }
               }
             }
           }
@@ -45,20 +36,12 @@ export default website => `
               basic {
                 type 
                 url
-                resized_urls { 
-                  landscape_md
-                  landscape_l
-                }
               }
             }
           }
           basic {
             type 
             url
-            resized_urls { 
-              landscape_md
-              landscape_l
-            }
           }
         }
         headlines{

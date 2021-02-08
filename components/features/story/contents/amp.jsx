@@ -106,7 +106,6 @@ class StoryContentAmp extends React.PureComponent {
       primarySection,
       primarySectionLink,
       author,
-      multimediaLazyDefault,
       subtype,
       promoItemJwplayer = {},
     } = new StoryData({
@@ -486,14 +485,7 @@ class StoryContentAmp extends React.PureComponent {
                   )
                 }
                 if (type === ELEMENT_LINK_LIST) {
-                  return (
-                    <StoryContentsChildLinkList
-                      items={items}
-                      multimediaLazyDefault={multimediaLazyDefault}
-                      arcSite={arcSite}
-                      isAmp
-                    />
-                  )
+                  return <StoryContentsChildLinkList items={items} isAmp />
                 }
 
                 if (type === ELEMENT_VIDEO) {

@@ -1,5 +1,7 @@
-import React from 'react'
-import { getMultimediaIcon } from '../../../../utilities/helpers'
+import * as React from 'react'
+
+import Image from '../../../../global-components/image'
+import getMultimediaIcon from '../../../../utilities/multimedia-icon'
 
 const classes = {
   figure: 'position-relative mb-10 overflow-hidden block',
@@ -11,24 +13,22 @@ const classes = {
 const StoriesListsCardChildMultimedia = ({
   urlNews,
   multimedia,
-  lazyImage,
   multimediaType,
-  isAdmin,
 }) => {
+  const icon = getMultimediaIcon(multimediaType)
   return (
     <a itemProp="url" href={urlNews} className={classes.figure}>
-      {getMultimediaIcon(multimediaType) && (
-        <i className={`${getMultimediaIcon(multimediaType)} ${classes.icon}`} />
-      )}
-
-      <img
-        className={`${isAdmin ? '' : 'lazy'} ${classes.image}`}
-        src={isAdmin ? multimedia : lazyImage}
-        data-src={multimedia}
+      {icon ? <i className={`${icon} ${classes.icon}`} /> : null}
+      <Image
+        src={multimedia}
+        width={314}
+        height={157}
         alt=""
+        className={classes.image}
+        loading="lazy"
       />
     </a>
   )
 }
 
-export default StoriesListsCardChildMultimedia
+export default React.memo(StoriesListsCardChildMultimedia)

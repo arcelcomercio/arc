@@ -1,11 +1,16 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 
+import StoryData from '../../../utilities/story-data'
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
-import StoryContentChildRelated from './_lite/_children/item'
 import { getAssetsPath } from '../../../utilities/constants'
-import { SITE_DEPOR, SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import {
+  SITE_DEPOR,
+  SITE_ELCOMERCIO,
+} from '../../../utilities/constants/sitenames'
+
+import StoryContentChildRelated from './_lite/_children/item'
 
 const classes = {
   relatedList: 'st-rel f f-col',
@@ -24,13 +29,7 @@ const getRelatedIds = data => {
 }
 
 const StoryRelated = () => {
-  const {
-    contextPath,
-    globalContent,
-    arcSite,
-    deployment,
-    isAdmin,
-  } = useFusionContext()
+  const { contextPath, deployment, globalContent, arcSite } = useAppContext()
 
   const { _id: storyId, content_elements: contentElements = [] } =
     globalContent || {}
@@ -53,41 +52,52 @@ const StoryRelated = () => {
     contextPath
   )}/resources/dist/elcomercio/images/logo-sidebar.png?d=1`
 
-  const title = (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR) ? 'RELACIONADAS' : 'VEA TAMBIÉN'
+  const title =
+    arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR
+      ? 'RELACIONADAS'
+      : 'VEA TAMBIÉN'
 
-  return (
-    <>
-      {relatedContent && relatedContent.length > 0 && (
-        <div role="list" className={classes.relatedList}>
-          <div className={classes.container}>
-            {arcSite === SITE_ELCOMERCIO && (
-              <img className={classes.logo} alt="logo" src={urlImg} />
-            )}
-            <h4 itemProp="name" className={classes.relatedTitle}>
-              {title}
-            </h4>
-          </div>
-          {relatedContent.map((item, i) => {
-            const { type, _id: id } = item
-            const key = `st-rel-${i}`
-            return type === ELEMENT_STORY &&
-              getRelatedIds(relatedInternal).indexOf(id) ? (
-              <StoryContentChildRelated
-                key={key}
-                {...item}
-                contextPath={contextPath}
-                arcSite={arcSite}
-                deployment={deployment}
-                isAdmin={isAdmin}
-              />
-            ) : (
-              ''
-            )
-          })}
-        </div>
-      )}
-    </>
-  )
+  const storyData = new StoryData({
+    contextPath,
+    deployment,
+    arcSite,
+  })
+
+  return relatedContent && relatedContent.length > 0 ? (
+    <div role="list" className={classes.relatedList}>
+      <div className={classes.container}>
+        {arcSite === SITE_ELCOMERCIO && (
+          <img className={classes.logo} alt="logo" src={urlImg} />
+        )}
+        <h4 itemProp="name" className={classes.relatedTitle}>
+          {title}
+        </h4>
+      </div>
+      {relatedContent.map(story => {
+        const { type, _id: id } = story
+        if (
+          type === ELEMENT_STORY &&
+          getRelatedIds(relatedInternal).indexOf(id)
+        ) {
+          storyData.__data = story
+
+          return (
+            <StoryContentChildRelated
+              key={`st-rel-${id}`}
+              title={storyData.title}
+              websiteLink={storyData.websiteLink}
+              multimediaType={storyData.multimediaType}
+              multimedia={storyData.multimedia}
+              author={storyData.author}
+              authorLink={storyData.authorLink}
+              arcSite={arcSite}
+            />
+          )
+        }
+        return null
+      })}
+    </div>
+  ) : null
 }
 
 StoryRelated.label = 'Artículo - Relacionados'
