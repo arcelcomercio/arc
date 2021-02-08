@@ -42,12 +42,16 @@ const Subscriptions = props => {
                 .slice(0, 10)}`}
               async
             />
+            <script
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${arcEnv}/sdk-identity.min.js`}
+              defer
+            />
           </head>
           <body>
             <script
               type="text/javascript"
               dangerouslySetInnerHTML={{
-                __html: listenCounterMag(arcEnv),
+                __html: listenCounterMag(arcEnv, arcSite),
               }}
             />
           </body>
