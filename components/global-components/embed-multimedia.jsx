@@ -1,4 +1,4 @@
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import React from 'react'
 import {
   VIDEO,
@@ -11,7 +11,7 @@ const JWPLAYER = 'jwplayer'
 const GOLDFISH = 'goldfish'
 const YOUTUBE = 'youtube'
 
-const GOLDFISH_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+const GOLDFISH_ENV = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
 
 const EmbedMultimedia = props => {

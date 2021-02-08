@@ -1,4 +1,4 @@
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 const titleCase = string => {
   const wordsArray = string.toLowerCase().split(/_/)
@@ -18,7 +18,7 @@ const Taggeo = (cat, acc) => {
     eventAction: acc,
   })
 
-  if (ENV.ENVIRONMENT !== 'elcomercio') {
+  if (ENVIRONMENT !== 'elcomercio') {
     // Only sandbox ;)
     window.console.log({
       event: TRIGGER,
