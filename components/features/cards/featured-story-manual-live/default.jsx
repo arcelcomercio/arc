@@ -1,19 +1,16 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 import FeaturedStory from '../../../global-components/featured-story'
-import StoryFormatter from '../../../utilities/featured-story-formatter'
+import schemaFilter from '../../../global-components/featured-story/schema-filter'
+import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
+import StoryData from '../../../utilities/story-data'
+import { featuredStoryFields } from '../../../utilities/included-fields'
+
 import customFields from './_dependencies/custom-fields'
 import LiveStreaming from './_children/streaming-live'
-import { featuredStoryFields } from '../../../utilities/included-fields'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
-
-import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
-
-const PHOTO_SOURCE = 'photo-resizer'
 
 const CardFeaturedStoryManualLive = props => {
   const {
@@ -40,21 +37,13 @@ const CardFeaturedStoryManualLive = props => {
     } = {},
   } = props
 
-  const { arcSite, isAdmin, deployment, contextPath } = useFusionContext()
+  const { arcSite, isAdmin, deployment, contextPath } = useAppContext()
   const { siteName = '' } = getProperties(arcSite)
-
-  const storyFormatter = new StoryFormatter({
-    deployment,
-    contextPath,
-    arcSite,
-  })
 
   const regex = /^http/g
   const isExternalLink = regex.test(path)
-  const { schema } = storyFormatter
+  const schema = schemaFilter(arcSite)
   const source = 'story-by-url'
-  const basePresets =
-    'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
   const actualDate = new Date().getTime()
 
   const scheduledNotes = [
@@ -78,104 +67,8 @@ const CardFeaturedStoryManualLive = props => {
   const currentNotePath =
     scheduledNotes.length > 0 ? scheduledNotes[0].path : path
 
-  const validateScheduledNotes = () => {
-    const filter = '{ publish_date }'
-    const includedFields = 'publish_date'
-    const presets = 'no-presets'
-
-    const auxNote1 =
-      useContent(
-        note1 !== undefined && note1 !== ''
-          ? {
-              source,
-              query: {
-                website_url: note1,
-                published: 'false',
-                presets,
-                includedFields,
-              },
-              filter,
-            }
-          : {}
-      ) || {}
-
-    const auxNote2 =
-      useContent(
-        note2 !== undefined && note2 !== ''
-          ? {
-              source,
-              query: {
-                website_url: note2,
-                published: 'false',
-                presets,
-                includedFields,
-              },
-              filter,
-            }
-          : {}
-      ) || {}
-
-    const auxNote3 =
-      useContent(
-        note3 !== undefined && note3 !== ''
-          ? {
-              source,
-              query: {
-                website_url: note3,
-                published: 'false',
-                presets,
-                includedFields,
-              },
-              filter,
-            }
-          : {}
-      ) || {}
-
-    const dateNote1 = auxNote1.publish_date && new Date(auxNote1.publish_date)
-    const dateNote2 = auxNote2.publish_date && new Date(auxNote2.publish_date)
-    const dateNote3 = auxNote3.publish_date && new Date(auxNote3.publish_date)
-
-    const arrError = []
-    if (note1 !== '' && date1 < dateNote1) {
-      arrError.push({
-        note: 'Nota 1',
-        publish_date: dateNote1,
-        programate_date: date1,
-      })
-    }
-    if (note2 !== '' && date2 < dateNote2) {
-      arrError.push({
-        note: 'Nota 2',
-        publish_date: dateNote2,
-        programate_date: date2,
-      })
-    }
-    if (note3 !== '' && date3 < dateNote3) {
-      arrError.push({
-        note: 'Nota 3',
-        publish_date: dateNote3,
-        programate_date: date3,
-      })
-    }
-    return arrError
-  }
-
-  const errorList = isAdmin ? validateScheduledNotes() : []
-  const presets = isAdmin ? basePresets : 'no-presets'
+  const presets = 'no-presets'
   const includedFields = featuredStoryFields
-
-  const customPhoto =
-    useContent(
-      imgField && isAdmin
-        ? {
-            source: PHOTO_SOURCE,
-            query: {
-              url: imgField,
-              presets,
-            },
-          }
-        : {}
-    ) || {}
 
   const data =
     useContent(
@@ -195,7 +88,7 @@ const CardFeaturedStoryManualLive = props => {
     ) || {}
 
   const defaultData = useContent(
-    !data
+    !data._id
       ? {
           source,
           query: {
@@ -211,103 +104,23 @@ const CardFeaturedStoryManualLive = props => {
   // Si la data no existe usar el estado defaultData
   const existingData = data._id ? data : defaultData
   // //////////////////////////////////////////////
-  const formattedData = storyFormatter.formatStory(
-    existingData,
-    imgField,
-    customPhoto
-  )
+
   const {
-    category,
+    primarySection,
+    primarySectionLink,
     title,
+    websiteLink,
     author,
-    multimediaLandscapeL,
-    multimediaLandscapeMD,
-    multimediaPortraitMD,
-    multimediaSquareS,
-    multimediaLazyDefault,
+    authorLink,
     multimediaType,
-    multimediaSubtitle,
     multimediaCaption,
     multimedia,
-  } = formattedData
-
-  const getImageUrls = () => {
-    const {
-      landscape_l: customLandscapeL,
-      landscape_md: customLandscapeMD,
-      portrait_md: customPortraitMD,
-      square_s: customSquareS,
-    } = imgField
-      ? createResizedParams({
-          url: imgField,
-          presets: basePresets,
-          arcSite,
-        }) || {}
-      : {}
-
-    const {
-      landscape_l: landscapeL,
-      landscape_md: landscapeMD,
-      portrait_md: portraitMD,
-      square_s: squareS,
-    } =
-      createResizedParams({
-        url: multimedia,
-        presets: basePresets,
-        arcSite,
-      }) || {}
-
-    return {
-      multimediaLandscapeL: customLandscapeL || imgField || landscapeL,
-      multimediaLandscapeMD: customLandscapeMD || imgField || landscapeMD,
-      multimediaPortraitMD: customPortraitMD || imgField || portraitMD,
-      multimediaSquareS: customSquareS || imgField || squareS,
-    }
-  }
-
-  const imageUrls = isAdmin
-    ? {
-        multimediaLandscapeL,
-        multimediaLandscapeMD,
-        multimediaPortraitMD,
-        multimediaSquareS,
-      }
-    : getImageUrls()
-
-  if (isExternalLink) {
-    title.url = path
-    category.url = path
-  }
-
-  const params = {
-    title,
-    category,
-    author,
-    ...imageUrls,
-    multimediaLazyDefault,
-    imageSize,
-    headband,
-    size,
-    hightlightOnMobile,
-    titleField,
-    categoryField,
-    arcSite,
-    multimediaType,
-    isAdmin,
-    siteName,
-    errorList,
-    multimediaSubtitle,
-    multimediaCaption,
-    isLazyLoadActivate,
-  }
-
-  const paramsLive = {
-    arcSite,
-    contextPath,
+  } = new StoryData({
+    data: existingData,
     deployment,
-    platformLive,
-    urlVideo,
-  }
+    contextPath,
+    arcSite,
+  })
 
   return (
     <>
@@ -321,8 +134,38 @@ const CardFeaturedStoryManualLive = props => {
           date3={date3}
         />
       ) : null}
-      {!flagLive && <FeaturedStory {...params} />}
-      {flagLive && <LiveStreaming {...paramsLive} />}
+      {flagLive ? (
+        <LiveStreaming
+          arcSite={arcSite}
+          contextPath={contextPath}
+          deployment={deployment}
+          platformLive={platformLive}
+          urlVideo={urlVideo}
+        />
+      ) : (
+        <>
+          <FeaturedStory
+            primarySection={primarySection}
+            primarySectionLink={isExternalLink ? path : primarySectionLink}
+            title={title}
+            websiteLink={isExternalLink ? path : websiteLink}
+            author={author}
+            authorLink={authorLink}
+            multimediaType={multimediaType}
+            multimediaCaption={multimediaCaption}
+            multimedia={imgField || multimedia}
+            imageSize={imageSize}
+            headband={headband}
+            size={size}
+            hightlightOnMobile={hightlightOnMobile}
+            titleField={titleField}
+            categoryField={categoryField}
+            arcSite={arcSite}
+            siteName={siteName}
+            isLazyLoadActivate={isLazyLoadActivate}
+          />
+        </>
+      )}
     </>
   )
 }

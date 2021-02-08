@@ -14,12 +14,6 @@ export default arcSite => `
           basic {
             type 
             url
-            resized_urls { 
-              landscape_s
-              lazy_default
-              portrait_md
-              landscape_l
-            }
           }
         }
       }
@@ -29,11 +23,6 @@ export default arcSite => `
         embed{
           config{
             thumbnail_url
-            resized_urls { 
-              landscape_xs
-              landscape_s
-              lazy_default 
-            }
           }
         }
       }
@@ -43,24 +32,12 @@ export default arcSite => `
           basic {
             type 
             url
-            resized_urls { 
-              landscape_s
-              lazy_default
-              portrait_md
-              landscape_l
-            }
           }
         }
       }
       basic {
         type 
         url
-        resized_urls { 
-          landscape_s
-          lazy_default
-          portrait_md
-          landscape_l
-        }
       }
     }
     headlines{

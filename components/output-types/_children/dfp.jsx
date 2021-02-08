@@ -1,15 +1,15 @@
-/* eslint-disable react/no-danger */
 import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+
 import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
 const getSectionSlug = (sectionId = '') => {
   return sectionId.split('/')[1] || ''
 }
 
-const Dfp = ({ isFuature, adId }) => {
+const Dfp = () => {
   const {
     siteProperties = {},
     globalContent = {},
@@ -168,41 +168,22 @@ const Dfp = ({ isFuature, adId }) => {
       arcAds.registerAdCollection(window.adsCollection);});`
   }
 
-  return (
-    <>
-      {(arcSite === 'depor' ||
-        arcSite === 'elcomercio' ||
-        arcSite === 'elcomerciomag' ||
-        arcSite === 'peru21' ||
-        arcSite === 'gestion' ||
-        arcSite === 'peru21g21' ||
-        arcSite === 'diariocorreo' ||
-        arcSite === 'ojo' ||
-        arcSite === 'elbocon' ||
-        arcSite === 'trome') && (
-        <Content
-          {...{
-            contentService: 'get-dfp-spaces',
-            contentConfigValues,
-          }}>
-          {content =>
-            isFuature ? (
-              <div id={`gpt_${adId}`} className="flex justify-center"></div>
-            ) : (
-              <>
-                <script
-                  type="text/javascript"
-                  dangerouslySetInnerHTML={{
-                    __html: formatAdsCollection(content, requestUri),
-                  }}
-                />
-              </>
-            )
-          }
-        </Content>
+  return arcSite ? (
+    <Content
+      {...{
+        contentService: 'get-dfp-spaces',
+        contentConfigValues,
+      }}>
+      {content => (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: formatAdsCollection(content, requestUri),
+          }}
+        />
       )}
-    </>
-  )
+    </Content>
+  ) : null
 }
 
 export default Dfp

@@ -13,9 +13,15 @@ const classes = {
   titleLink: 'st-interest__item-title',
 }
 
-const InterestByTagChildItem = ({ data, showSubtitle }) => {
-  const { title, section, subtitle, link, image, multimediaType } = data
-
+const InterestByTagChildItem = ({
+  title,
+  section,
+  subtitle,
+  link,
+  image,
+  multimediaType,
+  showSubtitle,
+}) => {
   return link ? (
     <article className={`${classes.item} `}>
       {multimediaType === 'video' && <span>&#8227;</span>}
@@ -47,4 +53,4 @@ const InterestByTagChildItem = ({ data, showSubtitle }) => {
   ) : null
 }
 
-export default InterestByTagChildItem
+export default React.memo(InterestByTagChildItem)

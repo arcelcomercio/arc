@@ -1,5 +1,5 @@
 import React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
@@ -68,10 +68,10 @@ const Stick = props => {
       aOpenApp.addEventListener('click', function(e){
         e.preventDefault()    
         window.location.href = '${getUrlApp({
-          urlApp: ENV.ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev,
+          urlApp: ENVIRONMENT === 'elcomercio' ? urlpwd : urlDev,
           currentLink: `${removeLastSlash(siteUrl)}${websiteLink}`,
           urlSource:
-            ENV.ENVIRONMENT === 'elcomercio'
+            ENVIRONMENT === 'elcomercio'
               ? '&utm_source=btn_openapp_note&mt=8&ct=btn_openapp_note'
               : '',
         })}'

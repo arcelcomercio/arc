@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import getResponsiveClasses from '../../../../utilities/responsive-classes'
 import searchQuery from '../../../../utilities/client/search'
@@ -380,7 +380,7 @@ class NavBarDefault extends PureComponent {
   }
 
   render() {
-    const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { statusSidebar, scrolled } = this.state
     const {
       logo,

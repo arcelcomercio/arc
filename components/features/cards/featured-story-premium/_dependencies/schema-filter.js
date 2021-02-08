@@ -8,10 +8,10 @@ export default function(arcSite) {
     }
     websites { ${arcSite} { website_url } }
     promo_items {
-        basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default portrait_md square_xl } }
+        basic { url type subtitle caption }
         basic_video {
           promo_items {
-            basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default portrait_md  } }
+            basic { url type subtitle caption }
           }
         }
         basic_jwplayer {
@@ -20,17 +20,12 @@ export default function(arcSite) {
           embed{
             config{
               thumbnail_url
-              resized_urls { 
-                landscape_xs
-                landscape_s
-                lazy_default 
-              }
             }
           }
         }
         basic_gallery {
           promo_items {
-            basic { url type subtitle caption resized_urls { landscape_md landscape_l square_md lazy_default portrait_md  } }
+            basic { url type subtitle caption }
           }
         }
       }

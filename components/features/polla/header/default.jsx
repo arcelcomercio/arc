@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import LastMatch from './_children/last-match'
 import Ranking from './_children/ranking'
 
@@ -12,7 +12,7 @@ const MEDIA_BASE = 'https://resultadosopta.minoticia.pe/'
 const ANONIMO = '6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c'
 // const API_BASE = 'http://localhost:8000/depor/'
 let API_BASE = 'https://dsnvo9xv4g.execute-api.us-east-1.amazonaws.com/dev/depor/'
-if(ENV.ENVIRONMENT === 'elcomercio'){
+if(ENVIRONMENT === 'elcomercio'){
   API_BASE = 'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/'
 }
 

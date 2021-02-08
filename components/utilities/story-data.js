@@ -93,14 +93,12 @@ class StoryData {
     deployment = () => {},
     contextPath = '',
     arcSite = '',
-    defaultImgSize = 'md',
     siteUrl = '',
   }) {
     this._data = data
     this._deployment = deployment
     this._contextPath = contextPath
     this._website = arcSite
-    this._defaultImgSize = defaultImgSize
     this._siteUrl = siteUrl
   }
 
@@ -118,14 +116,6 @@ class StoryData {
 
   set __website(val) {
     this._website = val
-  }
-
-  get __defaultImgSize() {
-    return this._defaultImgSize
-  }
-
-  set __defaultImgSize(val) {
-    this._defaultImgSize = val
   }
 
   get id() {
@@ -248,10 +238,8 @@ class StoryData {
 
   get defaultImg() {
     return defaultImage({
-      deployment: this._deployment,
       contextPath: this._contextPath,
       arcSite: this._website,
-      size: this._defaultImgSize,
     })
   }
 
