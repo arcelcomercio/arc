@@ -136,10 +136,6 @@ class StoryContents extends React.PureComponent {
       arcSite,
     })
 
-    // console.log("====AuthorsList=======")
-    // console.log(authorsList)
-    // console.log("======================")
-
     const params = {
       authorImage,
       author,
@@ -163,10 +159,6 @@ class StoryContents extends React.PureComponent {
       promoItemJwplayer,
       authorsList,
     }
-
-    // console.log("========params=======")
-    // console.log(params)
-    // console.log("======================")
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =

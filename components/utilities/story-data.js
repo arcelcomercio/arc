@@ -237,8 +237,18 @@ class StoryData {
     return role
   }
 
-  get authorsList(){
-    return StoryData.getAuthors(this._data)
+  get authorsList() {
+    let authors = StoryData.getAuthors(this._data, {
+      contextPath: this._contextPath,
+      deployment: this._deployment,
+      website: this._website,
+    })
+    authors = authors.map(author => {
+      const newAuthor = author
+      newAuthor.imageAuthor = author.imageAuthor || this.defaultImg
+      return newAuthor
+    })
+    return authors
   }
 
   get defaultImg() {
@@ -1599,17 +1609,24 @@ class StoryData {
   }
 
   static getAuthors(
-    data
+    data,
+    { contextPath = '', deployment = '', website = '' } = {}
   ) {
     const authorData = (data && data.credits && data.credits.by) || []
     const authorsList = []
 
     for (let i = 0; i < authorData.length; i++) {
-      authorsList.push(this.getDataAuthor(data, {
-        contextPath: this._contextPath,
-        deployment: this._deployment,
-        website: this._website,
-      }, i))
+      authorsList.push(
+        this.getDataAuthor(
+          data,
+          {
+            contextPath,
+            deployment,
+            website,
+          },
+          i
+        )
+      )
     }
 
     return authorsList
@@ -1636,7 +1653,7 @@ class StoryData {
 
     let imageAuthor = authorImageDefault
     // for (let i = 0; i < authorData.length; i++) {
-      // const idAuthor = id === 1 ? id : i
+    // const idAuthor = id === 1 ? id : i
     const idAuthor = id === null ? 0 : id
     const iterator = authorData[idAuthor]
 
@@ -1649,7 +1666,7 @@ class StoryData {
         iterator.image && iterator.image.url && iterator.image.url !== ''
           ? iterator.image.url
           : authorImageDefault
-          // : this.defaultImg
+      // : this.defaultImg
       socialLinks = iterator.social_links ? iterator.social_links : []
       mailAuthor =
         (iterator.additional_properties &&
