@@ -264,6 +264,7 @@ class XmlFacebookInstantArticles {
 
               let authorData = nbspToSpace(storyData.author)
               if (
+                siteUrl === 'https://elcomercio.pe' &&
                 typeof storyData.authorsList !== 'undefined' &&
                 storyData.authorsList !== null
               ) {
