@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import { deleteQueryString } from '../utilities/parse/queries'
 import { addSlashToEnd } from '../utilities/parse/strings'
@@ -71,8 +71,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const {
     credits = {},
@@ -339,6 +338,12 @@ const LiteOutput = ({
                 />
               </>
             )} */}
+            {isStory && arcSite === SITE_ELCOMERCIOMAG && (
+              <>
+                <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
+                <link rel="dns-prefetch" href="//d2dvq461rdwooi.cloudfront.net" />
+              </>
+            )}
             <link rel="preconnect" href="//www.googletagmanager.com/" />
             <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
             <link rel="preconnect" href="//www.google-analytics.com" />

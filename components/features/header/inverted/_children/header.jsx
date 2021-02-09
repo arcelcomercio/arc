@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, memo } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import {
   sideScroll,
@@ -296,7 +296,7 @@ const HeaderChildInverted = ({
     }
   }, []) */
 
-  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   return (
     <>
       <nav className={classes.band}>

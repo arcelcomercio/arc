@@ -11,8 +11,12 @@ const classes = {
 }
 const StoryContentChildTags = ({ data, isAmp, arcSite }) => {
   const isMag = arcSite === SITE_ELCOMERCIOMAG
-  classes.title = isMag ? `${classes.title} inline-block` : classes.title
-  classes.link = isMag
+  // classes.title = isMag ? `${classes.title} inline-block` : classes.title
+  const classTitle = isMag ? `${classes.title} inline-block` : classes.title
+  /* classes.link = isMag
+    ? classes.link.replace(/bg-gray-100|pr-10/g, '')
+    : classes.link */
+  const classLink = isMag
     ? classes.link.replace(/bg-gray-100|pr-10/g, '')
     : classes.link
 
@@ -21,7 +25,8 @@ const StoryContentChildTags = ({ data, isAmp, arcSite }) => {
       <div className={classes.container}>
         <h4
           itemProp="name"
-          className={isAmp ? `amp-${classes.title}` : classes.title}>
+          // className={isAmp ? `amp-${classes.title}` : classes.title}>
+          className={isAmp ? `amp-${classTitle}` : classTitle}>
           {isAmp && isMag ? 'Archivado en:' : 'Tags Relacionados:'}
         </h4>
         {data.map(
@@ -34,7 +39,7 @@ const StoryContentChildTags = ({ data, isAmp, arcSite }) => {
                 className={classes.tag}>
                 <a
                   itemProp="url"
-                  className={isAmp ? `amp-${classes.link}` : classes.link}
+                  className={isAmp ? `amp-${classLink}` : classLink}
                   href={slug && `/noticias/${slug}/`}>
                   {text}
                 </a>

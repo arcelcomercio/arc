@@ -1,113 +1,7 @@
-import React from 'react'
-import { createMarkup } from '../../../../utilities/helpers'
-import Icon from '../../../../global-components/multimedia-icon'
+import * as React from 'react'
 
-const SeparatorItemComplete = ({
-  websiteLink,
-  multimediaType,
-  title,
-  imageUrlMobile,
-  imageUrl,
-  multimediaLazyDefault,
-  isAdmin,
-  index,
-  isImageVisible,
-}) => (
-  <a
-    itemProp="url"
-    href={websiteLink}
-    className={`sep-opt__item gradient block position-relative mb-20 md:mb-10 ${
-      index === 0 ? '' : 'md:ml-5'
-    }`}>
-    <Icon type={multimediaType} iconClass="sep-opt__icon" />
-
-    <h3
-      itemProp="name"
-      className="sep-opt__title position-absolute overflow-hidden font-bold text-white line-h-sm bottom-0 m-15">
-      {title}
-    </h3>
-    {isImageVisible && (
-      <picture className="">
-        <source
-          className={isAdmin ? '' : 'lazy'}
-          media="(max-width: 639px)"
-          type="image/jpeg"
-          srcSet={isAdmin ? imageUrlMobile : multimediaLazyDefault}
-          data-srcset={imageUrlMobile}
-        />
-        <img
-          src={isAdmin ? imageUrl : multimediaLazyDefault}
-          data-src={imageUrl}
-          alt={title}
-          className={`${
-            isAdmin ? '' : 'lazy'
-          } sep-opt__img w-full md:h-full object-cover`}
-        />
-      </picture>
-    )}
-  </a>
-)
-
-const SeparatorItemPartial = ({
-  websiteLink,
-  multimediaType,
-  title,
-  imageUrlMobile,
-  imageUrl,
-  multimediaLazyDefault,
-  isAuthorVisible,
-  authorLink,
-  author,
-  isAdmin,
-  index,
-  isImageVisible,
-}) => (
-  <div
-    role="listitem"
-    className={`sep-opt__item block position-relative mb-20 md:mb-10 bg-base-300 ${
-      index === 0 ? '' : 'md:ml-5'
-    }`}>
-    <Icon type={multimediaType} iconClass="sep-opt__icon" />
-    {isImageVisible && (
-      <picture className="block">
-        <source
-          className={isAdmin ? '' : 'lazy'}
-          media="(max-width: 639px)"
-          type="image/jpeg"
-          srcSet={isAdmin ? imageUrlMobile : multimediaLazyDefault}
-          data-srcset={imageUrlMobile}
-        />
-        <img
-          src={isAdmin ? imageUrl : multimediaLazyDefault}
-          data-src={imageUrl}
-          alt={title}
-          className={`${
-            isAdmin ? '' : 'lazy'
-          } sep-opt__img w-full object-cover`}
-        />
-      </picture>
-    )}
-    <h3
-      itemProp="name"
-      className="sep-opt__title overflow-hidden font-bold line-h-sm bottom-0 m-10">
-      {title}
-    </h3>
-    {isAuthorVisible && author && (
-      <a
-        itemProp="url"
-        href={authorLink}
-        className="z-10 position-relative block text-sm uppercase text-gray-200 ml-15 br-15 mt-0 mb-20">
-        {author}
-      </a>
-    )}
-    <a
-      itemProp="url"
-      className="font-0 position-absolute h-full w-full top-0"
-      href={websiteLink}>
-      {title}
-    </a>
-  </div>
-)
+import SeparatorOptPartial from './separator-opt-partial'
+import SeparatorOptComplete from './separator-opt-complete'
 
 const SeparatorsBasicChildSeparator = ({
   htmlCode,
@@ -115,17 +9,18 @@ const SeparatorsBasicChildSeparator = ({
   titleSeparator,
   stories,
   isAuthorVisible,
-  isAdmin,
   design,
-  // bgColor,
   isSeeMoreVisible,
   isImageVisible,
   responsive,
+  arcSite
 }) => {
   return (
     <div className={`sep-opt col-3 position-relative ${responsive} ${design}`}>
       {htmlCode ? (
-        <div className="" dangerouslySetInnerHTML={createMarkup(htmlCode)} />
+        <div className="" dangerouslySetInnerHTML={{
+          __html: htmlCode
+        }} />
       ) : (
         titleSeparator && (
           <h2
@@ -151,28 +46,31 @@ const SeparatorsBasicChildSeparator = ({
         {stories.map((story, index) => {
           if (design === 'custom') {
             return (
-              <SeparatorItemComplete
-                {...{
-                  ...story,
-                  index,
-                  isAuthorVisible,
-                  isImageVisible,
-                  isAdmin,
-                  design,
-                }}
+              <SeparatorOptComplete
+                key={`separator-opt-c-${story.id}`}
+                websiteLink={story.websiteLink}
+                multimediaType={story.multimediaType}
+                title={story.title}
+                imageUrl={story.imageUrl}
+                index={index}
+                isImageVisible={isImageVisible}
+                arcSite={arcSite}
               />
             )
           }
           return (
-            <SeparatorItemPartial
-              {...{
-                ...story,
-                index,
-                isAuthorVisible,
-                isImageVisible,
-                isAdmin,
-                design,
-              }}
+            <SeparatorOptPartial
+              key={`separator-opt-p-${story.id}`}
+              websiteLink={story.websiteLink}
+              multimediaType={story.multimediaType}
+              title={story.title}
+              imageUrl={story.imageUrl}
+              authorLink={story.authorLink}
+              author={story.author}
+              index={index}
+              isAuthorVisible={isAuthorVisible}
+              isImageVisible={isImageVisible}
+              arcSite={arcSite}
             />
           )
         })}

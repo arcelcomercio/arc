@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
-const VIDEO_CENTER_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+const VIDEO_CENTER_ENV = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 const ORG_ID = 'elcomercio'
 
 export default ({ close, youtubeId, multimediaSource, multimediaEmbed }) => {

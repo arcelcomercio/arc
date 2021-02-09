@@ -1,5 +1,5 @@
 import React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import PropTypes from 'prop-types'
 import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
@@ -10,7 +10,7 @@ const Signwall = props => {
 
   const { siteName, siteDescription } = siteProperties
 
-  const C_ENVIRONMENT = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const C_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   return (
     <html lang="es">

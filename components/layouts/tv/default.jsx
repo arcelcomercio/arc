@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
-const GOLDFISH_ENV = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+const GOLDFISH_ENV = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
 const classes = {
   layout: 'tv-layout',

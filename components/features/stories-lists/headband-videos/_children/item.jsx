@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { useFusionContext } from 'fusion:context'
 
@@ -32,7 +31,10 @@ export default function VideoItem(props) {
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
   return (
-    <div className={classes.containerItem}>
+    <a
+      href="javascript:;"
+      onClick={() => loadFixedVideo(props.data, position)}
+      className={classes.containerItem}>
       <div className={classes.boxVideo}>
         <img
           src={isAdmin ? urlImg : ''}
@@ -65,12 +67,7 @@ export default function VideoItem(props) {
           </svg>
         </div>
       </div>
-      <a
-        href="javascript:;"
-        className={classes.titleStory}
-        onClick={() => loadFixedVideo(props.data, position)}>
-        {title}
-      </a>
-    </div>
+      <div className={classes.titleStory}>{title}</div>
+    </a>
   )
 }
