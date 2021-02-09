@@ -87,10 +87,11 @@
 
         const isMag = /mag.elcomercio.pe/.test(story)
         const isSpecial = /especiales.elcomercio.pe/.test(story)
+        const isPaywallSite = /elcomercio.pe|gestion.pe/.test(story)
+        
+        if(story && env && site && (isPaywallSite || isMag || isSpecial)) {
+          const userInfo = window.JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')) || {}
 
-        const userInfo = window.JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')) || {}
-
-        if(isMag || isSpecial) {
           window.console.log('entro URL => ', story)
           window.ArcP.run({
             paywallFunction: function() {},
