@@ -632,6 +632,7 @@ const StoryContentsLite = props => {
           </div>
         )}
       </div>
+      <div id="bottom-content-observed"></div>
       {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
         <script
           src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
