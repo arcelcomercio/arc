@@ -5,8 +5,16 @@ function StoryContentChildJwplayerRecommenderAmp({
   playerId = 'uR4oallO',
 }) {
   return (
-    <amp-script
-      src={`https://cdn.jwplayer.com/players/${videoId}-${playerId}.js?search=__CONTEXTUAL__`}></amp-script>
+    <amp-jwplayer
+      data-media-id={`${videoId}`}
+      data-player-id={playerId}
+      layout="responsive"
+      width="16"
+      height="9"
+      data-content-search="__CONTEXTUAL__"
+      data-content-backfill="true"
+      // dock="#my-dock-slot"
+    />
   )
 }
 
