@@ -260,4 +260,8 @@ export default {
     gec: { playerAds: 'fB2Mdnsl', player: 'aQVjnIkX' },
     elcomercio: { playerAds: 'jqJgjiEA', player: 'CW5g4pdQ' },
   },
+  jwplayersMatching: {
+    playerId: 'fB2Mdnsl',
+    videoId: '59FMFuA0',
+  },
 }

@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState, useEffect } from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import * as S from './styles'
 import { Input, Select } from './control_input_select'
 import useForm from '../../_dependencies/useForm'
@@ -77,7 +77,7 @@ const FormCode = ({ arcSite, showRequest }) => {
               Cookies.deleteCookie(cookieStudents)
               setTimeout(() => {
                 window.location.href =
-                  ENV.ENVIRONMENT === 'elcomercio'
+                  ENVIRONMENT === 'elcomercio'
                     ? `/suscripcionesdigitales/DNI/00000000/${resCode.token}/`
                     : `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=subscriptions`
               }, 1000)

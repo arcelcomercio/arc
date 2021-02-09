@@ -60,7 +60,7 @@ const classes = {
 const BodyContentSpecial = props => {
   const { customFields: { storyCode = '', hideAuthor = false } = {} } = props
 
-  const { isAdmin, arcSite, contextPath, deployment } = useFusionContext()
+  const { arcSite, contextPath, deployment } = useFusionContext()
 
   const story = useContent({
     source: CONTENT_SOURCE,
@@ -73,7 +73,6 @@ const BodyContentSpecial = props => {
 
   const {
     author,
-    multimediaLazyDefault,
     contentPosicionPublicidad,
   } = new StoryData({
     data: story,
@@ -201,14 +200,11 @@ const BodyContentSpecial = props => {
               items = [],
             } = element
             if (type === ELEMENT_IMAGE) {
-              const presets = 'landscape_md:314,story_small:482,large:980'
-
               return (
                 <div className="body-content__animated">
                   <StoryContentsChildImage
                     {...element}
-                    multimediaLazyDefault={multimediaLazyDefault}
-                    presets={presets}
+                    completeImage
                   />
                 </div>
               )
@@ -259,9 +255,6 @@ const BodyContentSpecial = props => {
               return (
                 <StoryContentsChildLinkList
                   items={items}
-                  multimediaLazyDefault={multimediaLazyDefault}
-                  arcSite={arcSite}
-                  isAdmin={isAdmin}
                 />
               )
             }

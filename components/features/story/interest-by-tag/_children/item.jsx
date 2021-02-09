@@ -1,6 +1,10 @@
-import React from 'react'
-import ConfigParams from '../../../../utilities/config-params'
-import { SITE_GESTION } from '../../../../utilities/constants/sitenames'
+import * as React from 'react'
+
+import Image from '../../../../global-components/image'
+import {
+  SITE_GESTION,
+  SITE_ELCOMERCIO,
+} from '../../../../utilities/constants/sitenames'
 
 const classes = {
   item: 'story-interest__item w-full mb-40',
@@ -17,19 +21,17 @@ const classes = {
   iconImagePremium: 'story-interest__icon-premium mr-15 position-relative',
 }
 
-const StorySeparatorChildItem = ({ data, arcSite, logo = '' }) => {
-  const {
-    title,
-    link,
-    section,
-    sectionLink,
-    lazyImage,
-    // multimediaLandscapeS,
-    multimediaLandscapeMD,
-    multimediaType,
-    isAdmin,
-    isPremium,
-  } = data
+const StorySeparatorChildItem = ({
+  title,
+  link,
+  section,
+  sectionLink,
+  multimedia,
+  multimediaType,
+  isPremium,
+  arcSite,
+  logo = '',
+}) => {
   const isGestion = arcSite === SITE_GESTION
   return (
     <li className={classes.item}>
@@ -37,25 +39,21 @@ const StorySeparatorChildItem = ({ data, arcSite, logo = '' }) => {
       {multimediaType === 'gallery' && <span>G</span>}
       {link && (
         <a itemProp="url" href={link}>
-          <picture className={classes.figure}>
-            {/* <source
-              className={isAdmin ? '' : 'lazy'}
-              media="(max-width: 1023px)"
-              srcSet={isAdmin ? multimediaLandscapeL : lazyImage}
-              data-srcset={multimediaLandscapeL}
-            /> */}
-            <img
-              className={`${isAdmin ? '' : 'lazy'} ${classes.itemImage}`}
-              src={isAdmin ? multimediaLandscapeMD : lazyImage}
-              data-src={multimediaLandscapeMD}
+          <figure className={classes.figure}>
+            <Image
+              src={multimedia}
+              width={314}
+              height={157}
               alt={title}
+              className={classes.itemImage}
+              loading="lazy"
             />
-          </picture>
+          </figure>
         </a>
       )}
 
       <div className={classes.detail}>
-        {arcSite !== ConfigParams.SITE_ELCOMERCIO && (
+        {arcSite !== SITE_ELCOMERCIO ? (
           <>
             <h2 itemProp="name" className={classes.separatorCategory}>
               {isPremium && isGestion && (
@@ -73,7 +71,7 @@ const StorySeparatorChildItem = ({ data, arcSite, logo = '' }) => {
               </a>
             </h2>
           </>
-        )}
+        ) : null}
         <h3 itemProp="name" className={classes.separatorTitle}>
           <a itemProp="url" className={classes.titleLink} href={link}>
             {title}
@@ -84,4 +82,4 @@ const StorySeparatorChildItem = ({ data, arcSite, logo = '' }) => {
   )
 }
 
-export default StorySeparatorChildItem
+export default React.memo(StorySeparatorChildItem)

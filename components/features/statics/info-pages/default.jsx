@@ -1,5 +1,5 @@
 import React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
@@ -35,7 +35,7 @@ const InfoPages = props => {
 
   const getPolicyId = () => {
     const infoPagesEnv =
-      ENV.ENVIRONMENT === 'elcomercio' ? infoPagesProd : infoPagesDev
+      ENVIRONMENT === 'elcomercio' ? infoPagesProd : infoPagesDev
 
     const infoPageId = typeOfPolicy
       ? infoPagesEnv[typeOfPolicy]

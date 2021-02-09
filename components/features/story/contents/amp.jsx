@@ -19,6 +19,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo, formatDateTime } from '../../../utilities/date-time/dates'
 import { formatHtmlToText } from '../../../utilities/parse/strings'
@@ -64,6 +65,7 @@ import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
 
 const classes = {
@@ -90,7 +92,7 @@ class StoryContentAmp extends React.PureComponent {
     const {
       contextPath,
       arcSite,
-      siteProperties: { siteUrl, adsAmp },
+      siteProperties: { siteUrl, adsAmp, jwplayersMatching },
       globalContent: data = {},
     } = this.props
     const { source } = data
@@ -104,7 +106,6 @@ class StoryContentAmp extends React.PureComponent {
       primarySection,
       primarySectionLink,
       author,
-      multimediaLazyDefault,
       subtype,
       promoItemJwplayer = {},
     } = new StoryData({
@@ -484,14 +485,7 @@ class StoryContentAmp extends React.PureComponent {
                   )
                 }
                 if (type === ELEMENT_LINK_LIST) {
-                  return (
-                    <StoryContentsChildLinkList
-                      items={items}
-                      multimediaLazyDefault={multimediaLazyDefault}
-                      arcSite={arcSite}
-                      isAmp
-                    />
-                  )
+                  return <StoryContentsChildLinkList items={items} isAmp />
                 }
 
                 if (type === ELEMENT_VIDEO) {
@@ -510,6 +504,16 @@ class StoryContentAmp extends React.PureComponent {
                     const { embed: { config: videJplayer = {} } = {} } = element
                     return <StoryContentChildVideoJwplayer data={videJplayer} />
                   }
+                  // if (sub === VIDEO_JWPLAYER_MATCHING) {
+                  //   const { videoId = '', playerId = '' } =
+                  //     jwplayersMatching || {}
+                  //   return (
+                  //     <StoryContentsChildJwplayerRecommender
+                  //       videoId={videoId}
+                  //       playerId={playerId}
+                  //     />
+                  //   )
+                  // }
                 }
                 return undefined
               }}

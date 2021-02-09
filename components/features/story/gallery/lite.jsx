@@ -1,5 +1,5 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 
 import StoryData from '../../../utilities/story-data'
 import {
@@ -7,13 +7,13 @@ import {
   BIG_IMAGE,
   SPECIAL_BASIC,
 } from '../../../utilities/constants/subtypes'
-import { defaultImage } from '../../../utilities/assets'
 
-import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
-import StoryGalleryChildGallery from './_children/gallery-lite'
 import Infografia from '../multimedia/_children/html'
 import StoryContentsChildMultimedia from '../multimedia/_children/multimedia'
 import PremiumTag from '../title/_children/premium'
+
+import StoryGalleryChildGallerySlider from './_children/gallery-slider-lite'
+import StoryGalleryChildGallery from './_children/gallery-lite'
 
 const classes = {
   gallery: 'w-full',
@@ -26,46 +26,23 @@ const StoryGalleryLite = () => {
     arcSite,
     contextPath,
     globalContent: data,
-    isAdmin,
-    siteProperties: { siteUrl },
     requestUri,
-  } = useFusionContext()
+  } = useAppContext()
 
   const {
     contentElementGallery,
-    title,
-    subTitle,
-    link,
     subtype,
     promoItems,
     isPremium,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
+    multimedia,
     canonicalUrl,
   } = new StoryData({
     data,
     contextPath,
   })
-  const defaultImageGallery = defaultImage({
-    contextPath,
-    arcSite,
-  })
 
   const sectionUrl = canonicalUrl.split('/')
   const seccioPublicidad = sectionUrl[1].replace(/-/gm, '')
-
-  const parameters = {
-    contentElementGallery,
-    title,
-    subTitle,
-    link,
-    isAdmin,
-    siteUrl,
-    arcSite,
-    defaultImageGallery,
-    seccioPublicidad,
-  }
 
   const {
     basic: { caption = '' } = {},
@@ -74,10 +51,7 @@ const StoryGalleryLite = () => {
 
   const parametersPromoItems = {
     ...promoItems,
-    multimediaLandscapeMD,
-    multimediaStorySmall,
-    multimediaLarge,
-    multimediaLazyDefault: defaultImageGallery,
+    multimedia,
     primaryImage: true,
     completeImage: true,
     classImage: 's-multimedia',
@@ -93,10 +67,16 @@ const StoryGalleryLite = () => {
       {contentElementGallery ? (
         <div className={classes.gallery}>
           {subtype === GALLERY_VERTICAL ? (
-            <StoryGalleryChildGallery {...parameters} />
+            <StoryGalleryChildGallery
+              arcSite={arcSite}
+              contentElementGallery={contentElementGallery}
+              seccioPublicidad={seccioPublicidad}
+            />
           ) : (
             <>
-              <StoryGalleryChildGallerySlider {...parameters} />
+              <StoryGalleryChildGallerySlider
+                contentElementGallery={contentElementGallery}
+              />
               <div
                 id="state"
                 data-currentslider="1"
@@ -124,9 +104,7 @@ const StoryGalleryLite = () => {
         <div className={classes.image}>
           <StoryContentsChildMultimedia data={parametersPromoItems} />
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
     </>
   )
 }

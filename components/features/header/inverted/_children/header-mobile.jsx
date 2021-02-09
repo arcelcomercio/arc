@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import { checkDisabledIcons } from '../../../../utilities/slidernav-helpers'
 import Button from '../../../../global-components/button'
@@ -149,7 +149,7 @@ const HeaderChildInverted = ({
     }
   }, [_handleScroll, isSlider])
 
-  const _env = ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
   return (
     <>
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
