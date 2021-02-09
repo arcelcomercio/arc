@@ -76,7 +76,8 @@ const Summary = () => {
     setTotalPlan(amount)
     updatePeriod(period[frecuencyPlan])
     updateDataPlan(amount, frecuencyPlan)
-  }, [period, plans, updateDataPlan, updatePeriod, updatePlan])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleChangeDates = () => {
     if (typeof window !== 'undefined') {
