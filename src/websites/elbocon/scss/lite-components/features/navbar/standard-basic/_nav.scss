@@ -1,0 +1,296 @@
+.nav {
+  z-index: 25;
+  background-color: #333;
+  background-image: url(https://cdna.elbocon.pe/resources/dist/elbocon/images/bc-tramado-nav.png);
+  height: 46px;
+  padding: 0 15px;
+  max-width: $max-width;
+  @media (--desktop) {
+    background-image: none;
+  }
+  &__p-logo {
+    display: block;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &__s-logo {
+    display: none;
+  }
+  &__story-title {
+    display: none;
+    color: #fff;
+    padding: 0 15px;
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: $secondary-font;
+    margin: auto;
+    width: 300px;
+    @media (--desktop) {
+      position: absolute;
+      margin: 0;
+      left: 30%;
+      width: 460px;
+    }
+  }
+  &__story-social-network {
+    display: none;
+    @media (--desktop) {
+      padding-right: 0;
+    }
+  }
+  &__search-box {
+    height: 20px;
+    border-right: 1px solid #fff;
+    display: none;
+    @media (--desktop) {
+      display: flex;
+    }
+  }
+  &__sl {
+    height: 0;
+    width: 0;
+  }
+  &__i-search {
+    background-color: #333;
+    color: #fff;
+    height: 30px;
+    outline: none;
+    padding: 5px;
+    padding-right: 40px;
+    text-indent: 0;
+    border-radius: 4px;
+    transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
+    will-change: width;
+    width: 0;
+    &.active {
+      border: 1px solid #fff;
+      padding-left: 8px;
+      width: 200px;
+    }
+  }
+  &__btn--search {
+    padding: 6px 10px;
+    outline: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    svg {
+      fill: #fff;
+    }
+  }
+  &__list {
+    padding-left: 15px;
+    width: 1000px;
+    font-family: $secondary-font;
+  }
+  &__list-container {
+    height: 46px;
+    max-width: 560px;
+    overflow: hidden;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+  &__list-item {
+    padding-right: 15px;
+  }
+  &__list-link {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #fff;
+  }
+  &__logo {
+    height: 46px;
+  }
+  &__btn--section {
+    padding-right: 10px;
+    position: relative;
+    &::after {
+      content: "";
+      width: 1px;
+      height: 20px;
+      background-color: #fff;
+      right: 0;
+      position: absolute;
+    }
+    svg {
+      fill: #fff;
+      @media (--desktop) {
+        fill: #fff;
+      }
+    }
+    span {
+      display: none;
+      color: #fff;
+      font: 700 0.8rem/1 $secondary-font;
+      @media (--tablet) {
+        display: block;
+        margin-left: 8px;
+      }
+      @media (--desktop) {
+        color: #fff;
+      }
+    }
+  }
+  &__container-right {
+    right: 15px;
+    top: 5px;
+  }
+  &__btn-sign {
+    height: 34px;
+    width: 34px;
+    margin: 0 4px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    font: 700 14px/16px $primary-font;
+    background-color: #fff;
+    @media (--desktop) {
+      min-width: 80px;
+      border-radius: 4px;
+      padding: 8px 12px;
+      width: auto;
+      height: auto;
+      border: 1px solid #fff;
+    }
+    i {
+      font-style: normal;
+      @media (--desktop) {
+        display: none;
+      }
+    }
+    svg {
+      fill: #fff;
+      height: 18px;
+    }
+    span {
+      display: none;
+      @media (--desktop) {
+        display: block;
+      }
+    }
+  }
+  &.active {
+    max-width: $max-width;
+    width: 100%;
+    height: 46px;
+    position: fixed;
+    position: sticky;
+    top: 0;
+    background-image: none;
+
+    .nav__list-container {
+      display: none;
+    }
+    .nav__search-box {
+      display: none;
+    }
+    .nav__story-title {
+      display: -webkit-box;
+    }
+    .nav__story-social-network {
+      display: block;
+    }
+    .nav__s-logo {
+      @media (--desktop) {
+        display: block;
+        left: 20%;
+        top: 0;
+        transform: translateX(-50%);
+      }
+    }
+    .nav__p-logo {
+      display: none;
+    }
+    .nav__btn--section {
+      svg {
+        fill: #fff;
+      }
+      span {
+        color: #fff;
+      }
+    }
+    .nav__wrapper {
+      justify-content: space-between;
+    }
+    .nav__btn-sign {
+      @media (--desktop) {
+        display: none;
+      }
+    }
+  }
+}
+
+.story-header__link {
+  border: 1px solid #fff;
+  border-radius: 50%;
+  fill: #fff;
+  line-height: 0;
+  padding: 0;
+  height: 23px;
+  width: 23px;
+  margin-right: 15px;
+  @media (--only-mobile) {
+    margin: 0;
+  }
+}
+
+.story-header__item {
+  @media (--only-mobile) {
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.story-content__more-link {
+  border: 1px solid #fff;
+  border-radius: 50%;
+  padding: 5px;
+  fill: #fff;
+  @media (--tablet) {
+    display: none;
+  }
+}
+
+@media (--only-mobile) {
+  .story-header__list {
+    background-color: #fff;
+    box-shadow: -1px 7px 11px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    padding: 10px;
+    position: absolute;
+    right: -10px;
+    top: 30px;
+    width: auto;
+    z-index: 1;
+    display: none;
+    &.active {
+      display: flex;
+      .story-header__link {
+        fill: #333;
+        border: 1px solid #333;
+      }
+    }
+  }
+}
+
+#icon-whatsapp {
+  @media (--tablet) {
+    display: none;
+  }
+}
+
+.nav-sidebar {
+  display: none;
+}
