@@ -455,7 +455,6 @@ const AmpOutputType = ({
             />
           </>
         )}
-        {children}
         {isMetered && activeRulesCounter && activePaywall ? (
           <amp-iframe
             width="1"
@@ -471,6 +470,7 @@ const AmpOutputType = ({
             )}
           />
         ) : null}
+        {children}
       </body>
     </Html>
   )

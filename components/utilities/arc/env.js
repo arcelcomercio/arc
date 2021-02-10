@@ -6,7 +6,7 @@ import ORGANIZATION from '../constants/organization'
  * @type {('prod' | 'sandbox')} Env
  * @returns {Env}
  */
-export const env = ENVIRONMENT === ORGANIZATION ? 'prod' : ENVIRONMENT
+export const env = ENVIRONMENT === ORGANIZATION ? 'prod' : 'sandbox'
 
 /**
  * @param {string} arcSite
