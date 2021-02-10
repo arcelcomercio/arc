@@ -1,10 +1,9 @@
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import { SITE_DEPOR } from '../../utilities/constants/sitenames'
 
-const { requestUri, arcSite } = useFusionContext()
-
 export const getLang = (): string => {
+  const { requestUri, arcSite } = useAppContext()
   let lang = 'es'
 
   if (arcSite === SITE_DEPOR) {
@@ -18,5 +17,7 @@ export const getLang = (): string => {
   return lang
 }
 
-export const getIframeStory = (): boolean =>
-  requestUri.includes('/carga-continua')
+export const getIframeStory = (): boolean => {
+  const { requestUri } = useAppContext()
+  return requestUri.includes('/carga-continua')
+}

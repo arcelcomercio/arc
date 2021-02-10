@@ -19,6 +19,7 @@ const MonorepoOutput: OutputComponent<OutputProps> = ({
   Fusion,
   Libs,
 }) => {
+  const { googleTagManagerId } = siteProperties
   const lang = getLang()
   const isIframeStory = getIframeStory()
 
@@ -34,7 +35,7 @@ const MonorepoOutput: OutputComponent<OutputProps> = ({
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -43,7 +44,7 @@ const MonorepoOutput: OutputComponent<OutputProps> = ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        <Fusion />
+        <Fusion hydrateOnly />
         <Libs />
         <WebVitals
           report={
