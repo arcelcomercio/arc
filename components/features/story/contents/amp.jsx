@@ -20,7 +20,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
-import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
+// import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo, formatDateTime } from '../../../utilities/date-time/dates'
 import { formatHtmlToText } from '../../../utilities/parse/strings'
@@ -29,7 +29,7 @@ import {
   cleanLegacyAnchor,
   storyTagsBbc,
 } from '../../../utilities/tags'
-
+import { originByEnv, env } from '../../../utilities/arc/env'
 import {
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
@@ -66,8 +66,9 @@ import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
-  VIDEO_JWPLAYER_MATCHING,
+  // VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
+import { METERED } from '../../../utilities/constants/content-tiers'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -93,10 +94,15 @@ class StoryContentAmp extends React.PureComponent {
     const {
       contextPath,
       arcSite,
-      siteProperties: { siteUrl, adsAmp, jwplayersMatching },
+      deployment,
+      siteProperties: { siteUrl, adsAmp, activePaywall, activeRulesCounter },
       globalContent: data = {},
     } = this.props
-    const { source } = data
+
+    const {
+      source,
+      content_restrictions: { content_code: contentCode = '' } = {},
+    } = data
     const {
       contentPosicionPublicidadAmp,
       promoItems,
@@ -108,6 +114,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       author,
       subtype,
+      canonicalUrl,
       promoItemJwplayer = {},
       authorsList,
     } = new StoryData({
@@ -116,6 +123,10 @@ class StoryContentAmp extends React.PureComponent {
       contextPath,
       siteUrl,
     })
+
+    const isMetered = contentCode === METERED
+    const envOrigin = originByEnv(arcSite)
+    const encodedStoryUrl = encodeURIComponent(`${envOrigin}${canonicalUrl}`)
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
@@ -212,10 +223,13 @@ class StoryContentAmp extends React.PureComponent {
       <>
         <div className={classes.content}>
           {promoItemJwplayer.key ? (
-            <StoryContentChildVideoJwplayer
-              data={promoItemJwplayer}></StoryContentChildVideoJwplayer>
+            <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
           ) : (
-            <>{promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}</>
+            <>
+              {promoItems && (
+                <ElePrincipal data={promoItems} siteUrl={siteUrl} />
+              )}
+            </>
           )}
           {!isMag && subtype !== GALLERY_VERTICAL && (
             <div
@@ -261,6 +275,19 @@ class StoryContentAmp extends React.PureComponent {
               </time>
             </div>
           )}
+          {isMetered && activeRulesCounter && activePaywall ? (
+            // Contador de paywall para AMP
+            <amp-iframe
+              width="1"
+              height="1"
+              sandbox="allow-scripts"
+              layout="fixed"
+              frameborder="0"
+              src={deployment(
+                `${envOrigin}${contextPath}/resources/pages/paywall-counter-external.html?env=${env}&site=${arcSite}&story=${encodedStoryUrl}`
+              )}
+            />
+          ) : null}
           {contentPosicionPublicidadAmp && (
             <StoryContent
               data={contentPosicionPublicidadAmp}
@@ -317,13 +344,12 @@ class StoryContentAmp extends React.PureComponent {
                         <RawHtml
                           content={
                             isLegacy ? cleanLegacyAnchor(content) : content
-                          }></RawHtml>
+                          }
+                        />
                       </h2>
                     )
                   if (isLegacy)
-                    return (
-                      <RawHtml content={cleanLegacyAnchor(content)}></RawHtml>
-                    )
+                    return <RawHtml content={cleanLegacyAnchor(content)} />
                 }
                 if (type === ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
