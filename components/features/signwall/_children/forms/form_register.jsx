@@ -472,7 +472,7 @@ const FormRegister = props => {
                         <S.Text c="gray" lh="22" s="12" className="mt-20">
                           Autorizo el uso de mis datos para
                           <S.Link
-                            href="/tratamiento-datos/"
+                            href="/tratamiento-de-datos/"
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
