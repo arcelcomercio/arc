@@ -18,7 +18,7 @@ import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 import { PREMIUM, METERED } from '../utilities/constants/content-tiers'
-import { urlByEnv, env } from '../utilities/arc/env'
+import { originByEnv } from '../utilities/arc/env'
 
 const AmpOutputType = ({
   children,
@@ -31,8 +31,6 @@ const AmpOutputType = ({
   metaValue,
   Resource,
 }) => {
-  const { activePaywall, activeRulesCounter } = siteProperties
-
   const metaPageData = {
     globalContent,
     requestUri,
@@ -228,14 +226,12 @@ const AmpOutputType = ({
     dataSlot,
   }
   const isTrivia = /^\/trivias\//.test(requestUri)
-  const encodedStoryUrl = encodeURIComponent(
-    `${urlByEnv(arcSite)}${canonicalUrl}`
-  )
+
   return (
     <Html lang={lang}>
       <head>
         <BaseMarkup
-          canonicalUrl={`${urlByEnv(arcSite)}${addSlashToEnd(canonicalUrl)}`}
+          canonicalUrl={`${originByEnv(arcSite)}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
         <Styles {...metaSiteData} />
@@ -451,21 +447,6 @@ const AmpOutputType = ({
             />
           </>
         )}
-        {isMetered && activeRulesCounter && activePaywall ? (
-          <amp-iframe
-            width="1"
-            height="1"
-            sandbox="allow-scripts"
-            layout="fixed"
-            frameborder="0"
-            // src={`${urlByEnv(arcSite)}/paywall-counter-external/?outputType=subscriptions&from=amp`}
-            src={deployment(
-              `${urlByEnv(
-                arcSite
-              )}${contextPath}/resources/pages/paywall-counter-external.html?env=${env}&site=${arcSite}&story=${encodedStoryUrl}`
-            )}
-          />
-        ) : null}
         {children}
       </body>
     </Html>

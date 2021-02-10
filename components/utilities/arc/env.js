@@ -12,7 +12,7 @@ export const env = ENVIRONMENT === ORGANIZATION ? 'prod' : 'sandbox'
  * @param {string} arcSite
  * @returns {string} URL del sitio según entorno
  */
-export const urlByEnv = arcSite => {
+export const originByEnv = arcSite => {
   const { siteUrl } = getProperties(arcSite)
   return env === 'prod'
     ? siteUrl
