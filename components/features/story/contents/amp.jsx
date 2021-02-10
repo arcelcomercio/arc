@@ -269,7 +269,7 @@ class StoryContentAmp extends React.PureComponent {
             <amp-iframe
               width="1"
               height="1"
-              sandbox="allow-scripts"
+              sandbox="allow-scripts allow-same-origin"
               layout="fixed"
               frameborder="0"
               src={deployment(
