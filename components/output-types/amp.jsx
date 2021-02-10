@@ -464,9 +464,11 @@ const AmpOutputType = ({
             layout="fixed"
             frameborder="0"
             // src={`${urlByEnv(arcSite)}/paywall-counter-external/?outputType=subscriptions&from=amp`}
-            src={`${urlByEnv(
-              arcSite
-            )}${contextPath}/resources/pages/paywall-counter-external.html?env=${env}&site=${arcSite}&story=${encodedStoryUrl}&d=1`}
+            src={deployment(
+              `${urlByEnv(
+                arcSite
+              )}${contextPath}/resources/pages/paywall-counter-external.html?env=${env}&site=${arcSite}&story=${encodedStoryUrl}`
+            )}
           />
         ) : null}
       </body>
