@@ -10,4 +10,10 @@
   &__social {
     padding-bottom: 17px !important;
   }
+
+  &__box {
+    @media (--only-mobile) {
+      width: calc(100% - 75px);
+    }
+  }
 }
