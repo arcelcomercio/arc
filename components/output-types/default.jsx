@@ -169,8 +169,7 @@ export default ({
     let prebid = true
     if (
       arcSite === SITE_ELCOMERCIO ||
-      (arcSite === SITE_ELCOMERCIOMAG && requestUri.match(`^/virales`)) ||
-      requestUri.match(`^/respuestas`) ||
+      arcSite === SITE_ELCOMERCIOMAG ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
@@ -178,13 +177,19 @@ export default ({
     return prebid
   }
   const indPrebid = getPrebid()
-  const urlArcAds = indPrebid
-    ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
-        .toISOString()
-        .slice(0, 10)}`
-    : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
-        .toISOString()
-        .slice(0, 10)}`
+  const urlArcAds = (arcSite === SITE_ELCOMERCIOMAG ? 
+    `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
+    .toISOString()
+    .slice(0, 10)}`
+  : (
+    indPrebid
+      ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+          .toISOString()
+          .slice(0, 10)}`
+      : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
+          .toISOString()
+          .slice(0, 10)}`
+  ))
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
