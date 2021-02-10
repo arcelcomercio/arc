@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import { deleteQueryString } from '../utilities/parse/queries'
 import { addSlashToEnd } from '../utilities/parse/strings'
@@ -10,6 +10,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
+  SITE_TROME,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -70,8 +71,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const {
     credits = {},
@@ -213,7 +213,11 @@ const LiteOutput = ({
 
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
-    if (requestUri.match('^/usa')) lang = 'es-us'
+    if (requestUri.match('^/usa')) {
+      lang = 'es-us'
+    } else if (/^\/mexico/.test(requestUri)) {
+      lang = 'es-mx'
+    }
   }
 
   const parametersValla = {
@@ -334,6 +338,12 @@ const LiteOutput = ({
                 />
               </>
             )} */}
+            {isStory && arcSite === SITE_ELCOMERCIOMAG && (
+              <>
+                <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
+                <link rel="dns-prefetch" href="//d2dvq461rdwooi.cloudfront.net" />
+              </>
+            )}
             <link rel="preconnect" href="//www.googletagmanager.com/" />
             <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
             <link rel="preconnect" href="//www.google-analytics.com" />
@@ -403,6 +413,8 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
           arcSite={arcSite}
+          section={storySectionPath.split('/')[1]}
+          subtype={subtype}
         />
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
@@ -619,7 +631,13 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
-        <WebVitals report={!isIframeStory && arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
+        <WebVitals
+          report={
+            !isIframeStory &&
+            arcSite === SITE_ELBOCON &&
+            requestUri.includes('/wikibocon/')
+          }
+        />
         <script
           type="module"
           defer
@@ -627,6 +645,15 @@ const LiteOutput = ({
             .toISOString()
             .slice(0, 10)}`}
         />
+        {isStory && arcSite === SITE_TROME && (
+          <script
+            src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
+            id="browsi-tag"
+            data-pubKey="elcomercio"
+            data-siteKey="trome"
+            async
+          />
+        )}
         {isStory && (
           <>
             <noscript id="deferred-styles">
@@ -665,7 +692,7 @@ const LiteOutput = ({
             )}
           />
         )}
-        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
+        {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
       </body>
     </html>
   )

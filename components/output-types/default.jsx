@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 
 import Styles from './_children/styles'
 import MetaSite from './_children/meta-site'
@@ -10,7 +10,7 @@ import renderMetaPage from './_children/render-meta-page'
 import AppNexus from './_children/appnexus'
 import Dfp from './_children/dfp'
 import ChartbeatBody from './_children/chartbeat-body'
-// import RegisterServiceWorker from './_children/register-service-worker'
+import RegisterServiceWorker from './_children/register-service-worker'
 import WebVitals from './_children/web-vitals'
 
 // import Preconnects from './_children/preconnects'
@@ -29,7 +29,7 @@ import {
   SITE_PERU21G21,
   SITE_TROME,
   SITE_OJO,
-  SITE_ELBOCON
+  SITE_ELBOCON,
 } from '../utilities/constants/sitenames'
 import { META_HOME } from '../utilities/constants/meta'
 
@@ -68,8 +68,7 @@ export default ({
   Resource,
   isAdmin,
 }) => {
-  const CURRENT_ENVIRONMENT =
-    ENV.ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
 
   const metaPageData = {
     globalContent,
@@ -122,6 +121,8 @@ export default ({
       classBody = `${classBody} muchafoto`
     } else if (/^\/usa/.test(requestUri)) {
       lang = 'es-us'
+    } else if (/^\/mexico/.test(requestUri)) {
+      lang = 'es-mx'
     }
   }
 
@@ -168,8 +169,7 @@ export default ({
     let prebid = true
     if (
       arcSite === SITE_ELCOMERCIO ||
-      (arcSite === SITE_ELCOMERCIOMAG && requestUri.match(`^/virales`)) ||
-      requestUri.match(`^/respuestas`) ||
+      arcSite === SITE_ELCOMERCIOMAG ||
       (arcSite === 'peru21' && requestUri.match(`^/cheka`))
     ) {
       prebid = false
@@ -177,13 +177,19 @@ export default ({
     return prebid
   }
   const indPrebid = getPrebid()
-  const urlArcAds = indPrebid
-    ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
-        .toISOString()
-        .slice(0, 10)}`
-    : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
-        .toISOString()
-        .slice(0, 10)}`
+  const urlArcAds = (arcSite === SITE_ELCOMERCIOMAG ? 
+    `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
+    .toISOString()
+    .slice(0, 10)}`
+  : (
+    indPrebid
+      ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+          .toISOString()
+          .slice(0, 10)}`
+      : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
+          .toISOString()
+          .slice(0, 10)}`
+  ))
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -252,6 +258,7 @@ export default ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
+  const isTrivia = /^\/trivias\//.test(requestUri)
   const isPremium = contentCode === 'premium' || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
@@ -284,7 +291,8 @@ export default ({
   if (
     (arcSite === SITE_ELCOMERCIO ||
       arcSite === SITE_ELCOMERCIOMAG ||
-      arcSite === SITE_DEPOR) &&
+      arcSite === SITE_DEPOR ||
+      arcSite === SITE_ELBOCON) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
     style = 'story-video'
@@ -359,10 +367,6 @@ export default ({
           rel="preconnect dns-prefetch"
           href="//elcomercio-elcomercio-prod.cdn.arcpublishing.com"
         />
-        <link
-          rel="preconnect dns-prefetch"
-          href="//arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com"
-        />
         <link rel="preconnect dns-prefetch" href="//s.go-mpulse.net" />
         <link rel="preconnect dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="preconnect dns-prefetch" href="//ajax.googleapis.com" />
@@ -384,7 +388,32 @@ export default ({
           href="//arc-subs-sdk.s3.amazonaws.com"
         />
         <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
-        {arcSite === 'elcomercio' && (
+        {arcSite === 'elcomercio' && isTrivia && (
+          <>
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Prelo-Book.woff2"
+            />
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Prelo-Medium.woff2"
+            />
+            <link
+              rel="preload"
+              as="font"
+              crossOrigin="crossorigin"
+              type="font/woff2"
+              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Prelo-Bold.woff2"
+            />
+          </>
+        )}
+        {arcSite === 'elcomercio' && !isTrivia && (
           <>
             <link
               rel="preload"
@@ -521,7 +550,7 @@ export default ({
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeSignwall) {
+          if (isElcomercioHome || !siteProperties.activeSignwall || isTrivia) {
             return null
           }
           return (
@@ -532,7 +561,7 @@ export default ({
           )
         })()}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeRulesCounter) {
+          if (isElcomercioHome || !siteProperties.activeRulesCounter || isTrivia) {
             return null
           }
           return (
@@ -722,19 +751,19 @@ export default ({
             />
           </>
         )}
-        {embedTwitterAndInst && (
-          <>
-            <script dangerouslySetInnerHTML={{ __html: widgets }} />
-          </>
-        )}
-        <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
+        {embedTwitterAndInst ? <script dangerouslySetInnerHTML={{ __html: widgets }} /> : null}
+        {!isTrivia ? <script dangerouslySetInnerHTML={{ __html: iframeScript }} /> : null}
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
             __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
           }}
         />
-        <WebVitals report={arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')} />
+        <WebVitals
+          report={
+            arcSite === SITE_ELBOCON && requestUri.includes('/wikibocon/')
+          }
+        />
         {isFooterFinal && (
           <>
             <noscript id="deferred-styles">
@@ -752,18 +781,7 @@ export default ({
             />
           </>
         )}
-        {arcSite === SITE_TROME && (
-          <>
-            <script
-              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
-              id="browsi-tag"
-              data-pubKey="elcomercio"
-              data-siteKey="trome"
-              async
-            />
-          </>
-        )}
-        {arcSite === SITE_ELBOCON && (
+        {isStory && arcSite === SITE_ELBOCON && (
           <>
             <script
               src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
@@ -774,7 +792,7 @@ export default ({
             />
           </>
         )}
-        {arcSite === SITE_PERU21 && (
+        {isStory && arcSite === SITE_PERU21 && (
           <>
             <script
               src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
@@ -788,7 +806,9 @@ export default ({
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
-        {/* <RegisterServiceWorker register path={deployment("/sw.js")}/> */}
+        {arcSite === SITE_ELBOCON ? (
+          <RegisterServiceWorker path={deployment('/sw.js')} />
+        ) : null}
       </body>
     </html>
   )

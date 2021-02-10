@@ -133,7 +133,7 @@ const elcomercio = {
     story: [
       {
         position: 'DIRECTOR PERIODÍSTICO:',
-        name: 'Juan José Garrido Koechlin',
+        name: 'Juan Aurelio Arévalo Miró Quesada',
       },
       {
         position: 'Empresa Editora El Comercio',
@@ -204,7 +204,7 @@ const elcomercio = {
   lite: {
     directors: {
       'Director General': 'Francisco Miró Quesada Cantuarias',
-      'Director periodístico': 'Juan José Garrido Koechlin',
+      'Director periodístico': 'Juan Aurelio Arévalo Miró Quesada',
     },
   },
 }

@@ -93,3 +93,12 @@ export const addParamToEndPath = (path, param) => {
     return addParam(data.onlyPath, param, data.queryString)
   return addParam(path, param)
 }
+
+/**
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+export const nbspToSpace = text => {
+  return text.replace(/&nbsp;/gi, ' ')
+}

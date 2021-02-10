@@ -70,6 +70,18 @@ content_elements {
           address
         }
       }
+      response
+      question{
+        name
+        response
+      }
+      image{
+        url
+        title
+        alt
+        width
+        height
+      }
     }
   }
   raw_oembed{
@@ -333,4 +345,10 @@ publish_date
 website
 editor_note
 website_url
+related_content{
+  redirect{
+    type
+    redirect_url
+  }
+}
 `

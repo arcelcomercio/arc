@@ -4,6 +4,7 @@ import {
   // docRegex,
   emailRegex,
   // phoneRegex,
+  cellphoneRegex,
 } from './Regex'
 
 export const formatEmail = () => {
@@ -32,6 +33,13 @@ export const formatPhone = () => {
   return {
     func: value => numberRegex.test(value),
     error: 'Formato inválido. Solo números',
+  }
+}
+
+export const formatCellphone = () => {
+  return {
+    func: value => cellphoneRegex.test(value),
+    error: 'Formato inválido.',
   }
 }
 

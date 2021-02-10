@@ -1,6 +1,6 @@
 // file path: StoryContentContent.js
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -23,6 +23,7 @@ import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -60,6 +61,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildJwplayerRecommender from './_children/jwplayer-recommender'
 import Ads from '../../../global-components/ads'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import { processedAds } from '../../../utilities/story/helpers'
@@ -83,7 +85,7 @@ const classes = {
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 @Consumer
-class StoryContents extends PureComponent {
+class StoryContents extends React.PureComponent {
   render() {
     const {
       globalContent,
@@ -96,8 +98,8 @@ class StoryContents extends PureComponent {
         isDfp = false,
         siteUrl,
         jwplayers = {},
+        jwplayersMatching = {},
       },
-      isAdmin,
     } = this.props
 
     const {
@@ -115,15 +117,11 @@ class StoryContents extends PureComponent {
       primarySectionLink,
       subtype,
       isPremium,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
+      multimedia,
       tags,
       contentPosicionPublicidad,
       prerollDefault,
       contentElementsHtml,
-
       authorImageSecond,
       authorLinkSecond,
       authorSecond,
@@ -150,10 +148,7 @@ class StoryContents extends PureComponent {
       primarySection,
       subtype,
       ...promoItems,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
+      multimedia,
       primaryImage: true,
       authorImageSecond,
       authorLinkSecond,
@@ -210,7 +205,12 @@ class StoryContents extends PureComponent {
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
-            ? promoItems && <StoryContentsChildImpresa data={promoItems} />
+            ? promoItems?.basic && (
+                <StoryContentsChildImpresa
+                  url={promoItems.basic.url}
+                  subtitle={promoItems.basic.subtitle}
+                />
+              )
             : promoItems &&
               subtype !== BIG_IMAGE &&
               subtype !== SPECIAL_BASIC &&
@@ -270,17 +270,22 @@ class StoryContents extends PureComponent {
                     list_type: listType = 'unordered',
                   } = element
                   if (type === ELEMENT_IMAGE) {
-                    const presets = 'landscape_md:314,story_small:482,large:640'
-
                     return (
                       <StoryContentsChildImage
+                        customHeight={0}
+                        customWidth={620}
                         {...element}
-                        multimediaLazyDefault={multimediaLazyDefault}
-                        presets={presets}
                       />
                     )
                   }
                   if (type === ELEMENT_VIDEO) {
+                    const dataVideo = updatedDate && updatedDate.split('T')[0]
+                    if (
+                      element.embed_html.includes('id="powa-') &&
+                      dataVideo >= '2021-01-22'
+                    ) {
+                      return ''
+                    }
                     return (
                       <>
                         {element && element.embed_html ? (
@@ -319,11 +324,31 @@ class StoryContents extends PureComponent {
                         <>
                           <div
                             className="jwplayer-lazy"
-                            id={`botr_${mediaId}_${jwplayerId}_div`}></div>
+                            id={`botr_${mediaId}_${jwplayerId}_div`}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="jw-svg-icon jw-svg-icon-play"
+                              viewBox="0 0 240 240"
+                              width="77"
+                              height="77"
+                              focusable="false">
+                              <path d="M62.8,199.5c-1,0.8-2.4,0.6-3.3-0.4c-0.4-0.5-0.6-1.1-0.5-1.8V42.6c-0.2-1.3,0.7-2.4,1.9-2.6c0.7-0.1,1.3,0.1,1.9,0.4l154.7,77.7c2.1,1.1,2.1,2.8,0,3.8L62.8,199.5z"></path>
+                            </svg>
+                          </div>
                           <figcaption className="story-content__caption ">
                             {title}
                           </figcaption>
                         </>
+                      )
+                    }
+                    if (sub === VIDEO_JWPLAYER_MATCHING) {
+                      const { videoId = '', playerId = '' } =
+                        jwplayersMatching || {}
+                      return (
+                        <StoryContentsChildJwplayerRecommender
+                          videoId={videoId}
+                          playerId={playerId}
+                        />
                       )
                     }
                   }
@@ -411,14 +436,7 @@ class StoryContents extends PureComponent {
                     )
                   }
                   if (type === ELEMENT_LINK_LIST) {
-                    return (
-                      <StoryContentsChildLinkList
-                        items={items}
-                        multimediaLazyDefault={multimediaLazyDefault}
-                        arcSite={arcSite}
-                        isAdmin={isAdmin}
-                      />
-                    )
+                    return <StoryContentsChildLinkList items={items} />
                   }
                   if (type === ELEMENT_LIST) {
                     if (items && items.length > 0) {
@@ -560,13 +578,17 @@ class StoryContents extends PureComponent {
                     }
 
                     if (
-                      /twitter-(?:tweet|timeline)|instagram-media/.test(content)
+                      /twitter-(?:tweet|timeline|follow-button)|instagram-media/.test(
+                        content
+                      )
                     ) {
                       return (
                         <>
                           <div
                             data-type={
-                              /twitter-(?:tweet|timeline)/.test(content)
+                              /twitter-(?:tweet|timeline|follow-button)/.test(
+                                content
+                              )
                                 ? 'twitter'
                                 : 'instagram'
                             }

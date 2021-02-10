@@ -29,14 +29,8 @@ const classes = {
 
 const OrderedStoriesGridFeat = props => {
   const { customFields } = props
-  const {
-    globalContent,
-    deployment,
-    contextPath,
-    arcSite,
-    isAdmin,
-  } = useAppContext()
-  const siteProperties = getProperties(arcSite)
+  const { globalContent, deployment, contextPath, arcSite } = useAppContext()
+  const { isDfp } = getProperties(arcSite)
   const { content_elements: contentElements = [] } = globalContent || {}
 
   const renderGrilla = () => {
@@ -44,43 +38,46 @@ const OrderedStoriesGridFeat = props => {
       deployment,
       contextPath,
       arcSite,
-      defaultImgSize: 'md',
     })
     let storyNumber = 0
 
     return elements.map(element => {
       if (element.type === STORY) {
         dataStory.__data = contentElements[storyNumber]
-        const params = {
-          title: {
-            name: dataStory.title,
-            url: dataStory.websiteLink,
-          },
-          category: {
-            name: dataStory.primarySection,
-            url: dataStory.primarySectionLink,
-          },
-          author: {
-            name: dataStory.author,
-            url: dataStory.authorLink,
-          },
-          multimediaLandscapeL: dataStory.multimediaLandscapeL,
-          multimediaLandscapeMD: dataStory.multimediaLandscapeMD,
-          multimediaPortraitMD: dataStory.multimediaPortraitMD,
-          multimediaSquareS: dataStory.multimediaSquareS,
-          multimediaLazyDefault: dataStory.multimediaLazyDefault,
-          imageSize: 'complete',
-          headband: 'normal',
-          size: element.col === 1 ? 'oneCol' : 'twoCol',
-          hightlightOnMobile: true,
-          arcSite,
-          multimediaType: dataStory.multimediaType,
-          isAdmin,
-          multimediaSubtitle: dataStory.multimediaSubtitle,
-          multimediaCaption: dataStory.multimediaCaption,
-        }
+
+        const {
+          primarySection,
+          primarySectionLink,
+          title,
+          websiteLink,
+          author,
+          authorLink,
+          multimediaType,
+          multimediaSubtitle,
+          multimediaCaption,
+          multimedia,
+        } = dataStory
         storyNumber += 1
-        return <FeaturedStory key={dataStory.id} {...params} />
+        return (
+          <FeaturedStory
+            key={`ft-list-${websiteLink}`}
+            primarySection={primarySection}
+            primarySectionLink={primarySectionLink}
+            title={title}
+            websiteLink={websiteLink}
+            author={author}
+            authorLink={authorLink}
+            multimediaType={multimediaType}
+            multimediaSubtitle={multimediaSubtitle}
+            multimediaCaption={multimediaCaption}
+            multimedia={multimedia}
+            arcSite={arcSite}
+            imageSize="complete"
+            headband="normal"
+            size={element.col === 1 ? 'oneCol' : 'twoCol'}
+            hightlightOnMobile="true"
+          />
+        )
       }
       if (element.type === ADS) {
         const { adElement, isDesktop, isMobile, freeHtml } = customFields || {}
@@ -92,7 +89,7 @@ const OrderedStoriesGridFeat = props => {
             columns={element.col === 2 ? 'twoCol' : 'oneCol'}
             rows={element.row === 2 ? 'twoRow' : 'oneRow'}
             freeHtml={freeHtml}
-            siteProperties={siteProperties}
+            isDfp={isDfp}
           />
         )
       }

@@ -141,6 +141,28 @@ export const getImage = (data, ImageSize) => {
   return result
 }
 
+export const getPrimarySection = data => {
+  const {
+    taxonomy: {
+      primary_section: { name = '', path = '' } = {},
+      sections = [],
+    } = {},
+  } = data || {}
+
+  // En caso de que el primary section no devuelva "path" ni "name"
+  const { name: auxName, path: auxPath } = sections[0] || {}
+  if (!name && !path) {
+    return {
+      name: auxName,
+      path: auxPath,
+    }
+  }
+  return {
+    name,
+    path,
+  }
+}
+
 export const getVideoImage = (data, ImageSize) => {
   const result = { type: '', payload: '' }
 

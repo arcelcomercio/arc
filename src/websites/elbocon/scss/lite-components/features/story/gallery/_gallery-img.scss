@@ -1,0 +1,14 @@
+.story-content__gallery-img {
+  object-fit: cover;
+  height: 200px;
+
+  @media (--tablet) {
+    height: 360px;
+  }
+  @media (--desktop) {
+    height: 528px;
+  }
+  @media print {
+    width: 815px;
+  }
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Trivia- Edit API plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <template id="content_template">
+      <!-- Rendered Item -->
+      <div class="col-md-12" id="%item_id%" style="%display%">
+        <div class="card mb-4 box-shadow" style="flex-direction: row;"
+          id="content_card">
+          <img
+            id="content_image"
+            class="card-img-top"
+            style="max-height: 220px; width: auto;"
+            src="%image_url%"
+            alt="%alt%"
+          />
+          <div class="card-body">
+            <p class="card-text text-muted" style="font-weight: bold;">
+              título: %title%
+            </p>
+            <p class="card-text text-muted">
+              alt: %alt%
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12" hidden>
+        <div style="font-weight: bold">Respuesta JSON</div>
+        <pre>%data%</pre>
+      </div>
+    </template>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <strong>Editar Pregunta</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+    <main role="main">
+      <section class="jumbotron text-center my-0 needs-validation">
+        <div class="container">
+          <div class="row" id="content_holder">
+            Cargando...
+          </div>
+
+          <!-- Edit Form -->
+          <div class="" id="config_edit">
+            <div class="col-md-12" id="col-md-12-img" >
+              <label for="title" class="input-group"><span class="input-group-text">Título Imagen:</span>
+                <input id="title" class="form-control " name="title" type="textfield" value="" />
+              </label>
+            </div>
+        
+            <div id="Book" class="container-el col-md-11">
+              <label class="form-inline input-group" for="searchID">
+                <span class="input-group-text">Pregunta:</span>
+                <input class="form-control " type="textfield"  name="searchName" id="searchName" placeholder="Ingresar la pregunta.." required/>
+
+                <input type="button" class="btn btn-success" id="add_opcion()" onClick="addOpcion()" value="Agregar Opción" /> |
+                <input type="button" class="btn btn-success" id="add_opcion()" onClick="removeOpcion()" value="Eliminar Opción" />
+                <div class="invalid-feedback" for="searchName">
+                  Por favor agregar la pregunta.
+                 </div>
+              </label>
+            </div>
+            <div class="" id="opciones">
+            </div>
+            <div id="Book" class="container-el col-md-11">
+              <label class="form-inline input-group" for="searchID">
+                <span class="input-group-text">Detalle de la respuesta:</span>
+                <textarea class="form-control" cols="25" id="searchResqueset" name="searchResqueset" required></textarea>
+                <div class="invalid-feedback">
+                  Por favor agregar detalle de la pregunta.
+                 </div>
+              </label>
+            </div>
+            <!-- Search Form -->
+            <div id="Book" class="container-el col-md-11">
+            
+          </div>
+            <div class="col-md-12 p-3">
+              <button type="button" class="btn btn-primary" id="btn_apply">
+                Aceptar
+              </button>
+              <button type="button" class="btn btn-light mx-1" id="btn_cancel">
+                Cerrar
+              </button>
+            </div>
+
+        </div>
+      </div>
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="search_content"></div>
+        </div>
+      </div>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script >
+
+
+
+    let data = {}      // ANS custom embed response
+    window.a=0
+     // -------------------------------------------------
+
+    // Render the content data and contextual configuration together
+    const render = (dataParams) => {
+      const {id, config:{image:{ alt= "",    title= "",  url= ""}={}, name ="",  question=[],  response=''}={}} = dataParams
+      var customBlockConfig = {
+        'backstory': {'title': 'Cómo se hizo esta historia'}
+      }
+      const image = ` <img id="content_image"  class="card-img-top"  style="max-height: 220px; width: auto;" src="${url}" alt="${alt}"/>`
+      // Setup Element Preview
+      const config = dataParams.config || {}
+      const template = document.getElementById('content_template').innerHTML
+      const display = url?'':'display: none'
+      var div = document.getElementById("col-md-12-img");
+      url?'':div.style.display = "none";
+
+      const html = template
+      .replace(/%item_id%/gi, 'row-' + id)
+      .replace(/%image_url%/gi, url )
+      .replace(/%title%/gi, title)
+      .replace(/%alt%/gi, alt)
+      .replace(/%display%/gi, display)
+      .replace(/%data%/gi, JSON.stringify(dataParams, null, 2))
+
+      const element = document.createElement('div')
+      document.getElementById('content_holder').innerHTML = ''
+      document.getElementById('content_holder').appendChild(element)
+      element.outerHTML = html
+      a=0
+      document.getElementById("opciones").innerHTML = '';
+      question.forEach(({name="",response= false}, index) => {
+        var check = response && 'checked'
+        addOpcion(name,check)
+    });
+
+      // Update form state
+      document.getElementById('searchResqueset').value = response
+      document.getElementById('searchName').value = name
+      title ? document.getElementById('title').value = title:''
+      // document.getElementById('date').value = (config.date || "")
+    }
+
+     // Update config based on form changes, submit back to Composer and re-render
+    const applyChanges = () => {
+      data.config.response = document.getElementById('searchResqueset').value 
+      data.config.name = document.getElementById('searchName').value 
+      data.config.image.title = document.getElementById('title').value 
+      data.config.question = opcion();
+      // data.config.date = document.getElementById('date').value
+      var forms = document.querySelectorAll('.needs-validation')
+      Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+          form.classList.add('was-validated')
+      })
+      var forms = document.querySelectorAll('.needs-validation')
+      searchName = document.getElementById('searchName').value; 
+      if(document.querySelector('input[name="opcion"]:checked') && searchName) {
+       // Update Composer and re-render form
+        sendMessage('data', data)
+        render(data)
+      }
+    }
+
+     // -------------------------------------------------
+
+    const dismissEditor = () => {
+      sendMessage('cancel')
+    }
+
+    window.onload = function() {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      )
+      // Emulate wait time
+      setTimeout(function() {
+        sendMessage('ready', {
+          height: document.documentElement.scrollHeight
+        })
+      }, Number.parseInt(parameters.wait))
+
+      data = JSON.parse(decodeURIComponent(parameters.p))
+      render(data)
+      document.getElementById('btn_apply').onclick = applyChanges
+      document.getElementById('btn_cancel').onclick = dismissEditor
+    }
+
+    </script>
+    <script type="module" src="js/util.js"></script>
+  </body>
+</html>

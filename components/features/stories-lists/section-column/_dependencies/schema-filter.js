@@ -6,10 +6,10 @@ export default arcSite => {
         display_date
         publish_date
         promo_items {
-          basic { url type resized_urls { landscape_md lazy_default  } }
+          basic { url type }
           basic_video {
             promo_items {
-              basic { url type resized_urls { landscape_md lazy_default  } }
+              basic { url type }
             }
           }
           basic_jwplayer {
@@ -18,17 +18,12 @@ export default arcSite => {
             embed{
               config{
                 thumbnail_url
-                resized_urls { 
-                  landscape_xs
-                  landscape_s
-                  lazy_default 
-                }
               }
             }
           }
           basic_gallery {
             promo_items {
-              basic { url type resized_urls { landscape_md lazy_default  } }
+              basic { url type }
             }
           }
           youtube_id {

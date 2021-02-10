@@ -89,7 +89,7 @@ export default {
   socialNetworks: [
     {
       name: 'Twitter',
-      url: 'https://twitter.com/tuittrome',
+      url: 'https://twitter.com/tromepe',
     },
     {
       name: 'Facebook',
@@ -110,7 +110,7 @@ export default {
       url: 'https://www.facebook.com/trome.pe',
     },
     twitter: {
-      user: 'tuittrome',
+      user: 'tromepe',
     },
   },
   adsAmp: {
@@ -145,5 +145,9 @@ export default {
   archiveLimit: '2015-12-27',
   jwplayers: {
     gec: { playerAds: 'UQH16oLN', player: 'uDiKWFW0' },
+  },
+  jwplayersMatching: {
+    playerId: 'UQH16oLN',
+    videoId: 'z0YAXqp2',
   },
 }
