@@ -86,7 +86,7 @@ const Register = ({ arcSite }) => {
 
   const dataTreatment = () => {
     if (typeof window !== 'undefined') {
-      window.open('/tratamiento-datos/', '_blank')
+      window.open('/tratamiento-de-datos/', '_blank')
     }
   }
 
