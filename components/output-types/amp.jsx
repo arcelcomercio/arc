@@ -460,7 +460,7 @@ const AmpOutputType = ({
           <amp-iframe
             width="1"
             height="1"
-            sandbox="allow-scripts allow-same-origin"
+            sandbox="allow-scripts"
             layout="fixed"
             frameborder="0"
             // src={`${urlByEnv(arcSite)}/paywall-counter-external/?outputType=subscriptions&from=amp`}
