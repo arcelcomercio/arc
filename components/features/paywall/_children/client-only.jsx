@@ -1,3 +1,4 @@
 import React from 'react'
 
-export default ({ children }) => window && <>{children}</>
+export default ({ children }) =>
+  typeof window !== 'undefined' && <>{children}</>
