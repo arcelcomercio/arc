@@ -87,7 +87,7 @@
             const userInfo = window.JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')) || {}
   
             window.console.log('entro URL => ', story)
-            window.ArcPOptions({
+            window.ArcPOptions = {
               paywallFunction: function() {},
               customPageData: function() {
                 return { c: 'story', s: '/counter/external', ci: story }
@@ -123,7 +123,7 @@
                   updated: Date.now(),
                 })
               },
-            })
+            }
 
             window.setTimeout(function() {
               // Build arc subs script that will use the ArcPOptions
