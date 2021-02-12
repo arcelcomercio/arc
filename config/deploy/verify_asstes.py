@@ -7,6 +7,7 @@ import sys,os,json
 # signwall && paywall
 time.sleep(5)
 token_sandbox= os.getenv('TOKEN_SANDBOX')
+print(token_sandbox)
 
 urls_pro = ["https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/pf/dist/page/pqrR8t1ciiXPTr/signwall.js?d="]
 urls_pro.append (
@@ -20,8 +21,9 @@ s = requests.Session()
 req=s.get('https://api.sandbox.elcomercio.arcpublishing.com/deployments/fusion/services',
     headers={'Content-Type': 'application/json; charset=utf-8', 'Authorization': 'Bearer '+ str(token_sandbox) }
 )
-
+print(req)
 response=req.json()
+print(req.json())
 version="xxx"
 for item in response['lambdas']:
     if item.get('Aliases',None) is None:
