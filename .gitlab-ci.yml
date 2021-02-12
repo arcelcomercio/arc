@@ -1,7 +1,4 @@
-#image: registry.gitlab.ec.pe/contenidos/arc
-# please, actualizar la imagen para usar una version de node mas reciente > 10
-# python 2.7 ya dejo de tener soporte, seria bueno pasar a python 3
-image: circleci/node:8.11-browsers
+image: circleci/node:12.13-browsers
 variables:
   NAMEPROJECT: arc
 
@@ -139,6 +136,7 @@ promote-sandbox:
 
 test-bundle-sandbox:
   stage: test
+  image: python:3.5
   dependencies:
     - promote-sandbox
   cache:
@@ -153,10 +151,8 @@ test-bundle-sandbox:
     BUNDLE_FILE: bundle.zip
   script:
     - python --version
-    - curl https://bootstrap.pypa.io/get-pip.py | python
-    - sudo apt install python-pip
     - pip --version
-    - python -m pip install colored
+    - python -m pip install colored requests
     - python config/deploy/verify_asstes.py
   only:
     - sandbox
@@ -338,7 +334,7 @@ lighthouse:
     LIGHTHOUSE_TEST_URL_EC: https://elcomercio.pe
     LIGHTHOUSE_TEST_URL_GESTION: https://gestion.pe
   stage: deploy
-  environment: Production
+  # environment: production
   before_script:
     # Install Lighthouse
     - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID

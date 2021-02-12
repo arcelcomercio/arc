@@ -5,7 +5,7 @@ import requests
 import sys,os,json
 
 # signwall && paywall
-time.sleep(200)
+time.sleep(5)
 token_sandbox= os.getenv('TOKEN_SANDBOX')
 
 urls_pro = ["https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/pf/dist/page/pqrR8t1ciiXPTr/signwall.js?d="]
