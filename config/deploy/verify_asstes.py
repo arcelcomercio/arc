@@ -26,7 +26,7 @@ response=req.json()
 print(req.json())
 version="xxx"
 for item in response['lambdas']:
-    if item.get('Aliases',None) is None:
+    if item.get('Aliases',None):
         version =item['Version']
 
 count = 0
