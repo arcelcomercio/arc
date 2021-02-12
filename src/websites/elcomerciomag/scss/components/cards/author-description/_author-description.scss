@@ -2,12 +2,18 @@
   &__container {
     font-family: $tertiary-font;
     margin-bottom: 20px;
+    @media (--only-mobile) {
+      font-size: 16px;
+    }
   }
   &__title {
     font-weight: 700;
     font-family: $primary-font;
     font-size: 1.7rem !important;
     margin-bottom: 20px;
+    @media (--only-mobile) {
+      margin-bottom: 15px;
+    }
   }
   &__subtitle {
     margin-bottom: 20px;
