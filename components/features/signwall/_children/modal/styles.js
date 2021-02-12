@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { device } from '../../_dependencies/breakpoints'
 
-// eslint-disable-next-line import/prefer-default-export
 export const WrapperModal = styled.div`
   display: flex;
   justify-content: center;
