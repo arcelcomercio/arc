@@ -34,18 +34,15 @@ class Modal extends Component {
     document.getElementsByTagName('head')[0].appendChild(meta)
   }
 
-  isSafari = () => {
-    return (
-      window.navigator.vendor &&
-      window.navigator.vendor.indexOf('Apple') > -1 &&
-      window.navigator.userAgent &&
-      window.navigator.userAgent.indexOf('CriOS') === -1 &&
-      window.navigator.userAgent.indexOf('FxiOS') === -1
-    )
-  }
+  isSafari = () =>
+    window.navigator.vendor &&
+    window.navigator.vendor.indexOf('Apple') > -1 &&
+    window.navigator.userAgent &&
+    window.navigator.userAgent.indexOf('CriOS') === -1 &&
+    window.navigator.userAgent.indexOf('FxiOS') === -1
 
-  handleScroll = (e) => {
-    e.preventDefault();
+  handleScroll = e => {
+    e.preventDefault()
   }
 
   componentDidMount = () => {
@@ -56,7 +53,9 @@ class Modal extends Component {
         'width=device-width, initial-scale=1, user-scalable=0, shrink-to-fit=no'
       )
     }
-    document.body.addEventListener('touchmove', this.handleScroll, { passive: false})
+    document.body.addEventListener('touchmove', this.handleScroll, {
+      passive: false,
+    })
     document.querySelector('html').classList.add('overflow-hidden')
     document.querySelector('body').classList.add('overflow-hidden')
   }
@@ -73,45 +72,44 @@ class Modal extends Component {
   }
 
   turnOffFormScroll = () => {
-    if((typeof window) !== 'undefined'){
-      document.body.removeEventListener('touchmove', this.handleScroll);
+    if (typeof window !== 'undefined') {
+      document.body.removeEventListener('touchmove', this.handleScroll)
     }
   }
 
   turnOnFormScroll = () => {
-    if((typeof window) !== 'undefined'){
-      document.body.removeEventListener('touchmove', this.handleScroll);
+    if (typeof window !== 'undefined') {
+      document.body.removeEventListener('touchmove', this.handleScroll)
     }
   }
 
   turnOffFormScroll = () => {
-    if((typeof window) !== 'undefined'){
-      document.body.removeEventListener('touchmove', this.handleScroll);
+    if (typeof window !== 'undefined') {
+      document.body.removeEventListener('touchmove', this.handleScroll)
     }
   }
 
   turnOnFormScroll = () => {
-    if((typeof window) !== 'undefined'){
-      document.body.removeEventListener('touchmove', this.handleScroll);
+    if (typeof window !== 'undefined') {
+      document.body.removeEventListener('touchmove', this.handleScroll)
     }
   }
 
   turnOffFormScroll = () => {
-    if((typeof window) !== 'undefined'){
-      document.body.removeEventListener('touchmove', this.handleScroll);
+    if (typeof window !== 'undefined') {
+      document.body.removeEventListener('touchmove', this.handleScroll)
     }
   }
 
   turnOnFormScroll = () => {
-    if((typeof window) !== 'undefined'){
-      document.body.removeEventListener('touchmove', this.handleScroll);
+    if (typeof window !== 'undefined') {
+      document.body.removeEventListener('touchmove', this.handleScroll)
     }
   }
 
   render() {
     const { bgColor, position, size, name, color, id, children } = this.props
     return (
-      // eslint-disable-next-line react/jsx-filename-extension
       <BodyEnd>
         <WrapperModal className="open" bgColor={bgColor}>
           <DialogModal
@@ -123,8 +121,7 @@ class Modal extends Component {
             id={id}
             name={name}
             onTouchStart={this.turnOffFormScroll}
-            onTouchEnd={this.turnOnFormScroll}
-            >
+            onTouchEnd={this.turnOnFormScroll}>
             {children}
           </DialogModal>
         </WrapperModal>
@@ -133,4 +130,5 @@ class Modal extends Component {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { Modal }
