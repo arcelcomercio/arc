@@ -1,5 +1,7 @@
 import { FusionContext } from 'fusion:context'
 
+import { AnyObject } from './utils'
+
 type FusionProps = { hydrateOnly: boolean }
 type ResourceProps = {
   children: ({ data }: { data: string }) => Element | null
@@ -13,7 +15,9 @@ export interface OutputProps extends FusionContext {
   Libs: React.FC
 }
 
-export interface OutputComponent<P> extends React.FC<P> {
+export interface OutputComponent<P = AnyObject> extends React.FC<P> {
   fallback?: boolean
   contentType?: string
 }
+
+export type OT<P = AnyObject> = OutputComponent<P>

@@ -1,11 +1,6 @@
-import {
-  useAppContext,
-  useComponentContext,
-  useFusionContext,
-} from 'fusion:context'
 import * as React from 'react'
 
-import { FeatureComponent } from '../../../../types/features'
+import { FC } from '../../../../types/features'
 import customFields from './_dependencies/custom-fields'
 
 interface AdsFeatMonoProps {
@@ -22,7 +17,7 @@ interface AdsFeatMonoProps {
   }
 }
 
-const AdsFeatMono: FeatureComponent<AdsFeatMonoProps> = props => {
+const AdsFeatMono: FC<AdsFeatMonoProps> = props => {
   const {
     customFields: {
       liteAdId,
@@ -36,12 +31,6 @@ const AdsFeatMono: FeatureComponent<AdsFeatMonoProps> = props => {
       prebidAdDimensions,
     } = {},
   } = props
-
-  console.log({
-    app: useAppContext(),
-    comp: useComponentContext(),
-    fusion: useFusionContext(),
-  })
 
   return liteAdId || liteAdName || liteAdDimensions ? (
     <div

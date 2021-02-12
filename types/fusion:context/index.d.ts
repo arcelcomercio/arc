@@ -1,5 +1,6 @@
+import { AnyObject } from '../utils'
+
 declare module 'fusion:context' {
-  type AnyObject = Record<string, unknown>
   export interface ContentConfig<Values = AnyObject> {
     contentService: string
     contentConfigValues?: Values
@@ -58,9 +59,48 @@ declare module 'fusion:context' {
     tree?: AnyObject
     renderables?: AnyObject[]
   }
-  export interface FusionContext extends ComponentContext, AppContext {}
+  export interface FusionContext<
+    GlobalContent = AnyObject,
+    CustomFields = AnyObject,
+    ContentConfigValues = AnyObject,
+    DisplayProperties = AnyObject,
+    GlobalContentConfigQuery = AnyObject
+  >
+    extends ComponentContext<
+        GlobalContent,
+        CustomFields,
+        ContentConfigValues,
+        DisplayProperties
+      >,
+      AppContext<GlobalContent, GlobalContentConfigQuery> {}
 
-  export function useComponentContext(): ComponentContext
-  export function useAppContext(): AppContext
-  export function useFusionContext(): FusionContext
+  export function useComponentContext<
+    GlobalContent = AnyObject,
+    CustomFields = AnyObject,
+    ContentConfigValues = AnyObject,
+    DisplayProperties = AnyObject
+  >(): ComponentContext<
+    GlobalContent,
+    CustomFields,
+    ContentConfigValues,
+    DisplayProperties
+  >
+  export function useAppContext<
+    GlobalContent = AnyObject,
+    GlobalContentConfigQuery = AnyObject
+  >(): AppContext<GlobalContent, GlobalContentConfigQuery>
+
+  export function useFusionContext<
+    GlobalContent = AnyObject,
+    CustomFields = AnyObject,
+    ContentConfigValues = AnyObject,
+    DisplayProperties = AnyObject,
+    GlobalContentConfigQuery = AnyObject
+  >(): FusionContext<
+    GlobalContent,
+    CustomFields,
+    ContentConfigValues,
+    DisplayProperties,
+    GlobalContentConfigQuery
+  >
 }

@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import { OutputComponent, OutputProps } from '../../types/output-types'
+import { OT, OutputProps } from '../../types/output-types'
 import { SITE_ELBOCON } from '../utilities/constants/sitenames'
 import RegisterServiceWorker from './_children/register-service-worker'
 import WebVitals from './_children/web-vitals'
 import { getIframeStory, getLang } from './_dependencies/utils'
 
-const MonorepoOutput: OutputComponent<OutputProps> = ({
+const MonorepoOutput: OT<OutputProps> = ({
   children,
   contextPath,
   deployment,
