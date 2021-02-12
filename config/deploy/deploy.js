@@ -31,7 +31,7 @@ const notifySideEffect = (logMessage, slackMessage) => () => {
 const deploy = () =>
   fetch(`${newBaseURL}services?bundle=${bundleName}&version=${pbVersion}`, {
     method: 'post',
-    headers: { 'Content-Type': 'text/plain', 'Authorization': `Bearer ${token_sandbox}` },
+    headers: { 'Content-Type': 'text/plain', 'Authorization': `Bearer ${tokenSandbox}` },
 
   })
     .catch(err => {
@@ -59,7 +59,7 @@ const handleError = (error, stepName) => {
 };
 
 const headers = form.getHeaders();
-headers["Authorization"] = `Bearer ${token_sandbox}`;
+headers["Authorization"] = `Bearer ${tokenSandbox}`;
 console.log(headers);
 fetch(`${newBaseURL}bundles`, {
   method: 'post',
