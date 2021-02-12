@@ -5,7 +5,8 @@ import requests
 import sys,os,json
 
 # signwall && paywall
-time.sleep(5)
+print("waiting for validation package in arc")
+time.sleep(200)
 token_sandbox= os.getenv('TOKEN_SANDBOX')
 print(token_sandbox)
 
@@ -21,12 +22,12 @@ s = requests.Session()
 req=s.get('https://api.sandbox.elcomercio.arcpublishing.com/deployments/fusion/services',
     headers={'Content-Type': 'application/json; charset=utf-8', 'Authorization': 'Bearer '+ str(token_sandbox) }
 )
-print(req)
+print("response", req)
 response=req.json()
-print(req.json())
+print("json response", req.json())
 version="xxx"
 for item in response['lambdas']:
-    if item.get('Aliases',None):
+    if item.get('Aliases',None) is None:
         version =item['Version']
 
 count = 0
