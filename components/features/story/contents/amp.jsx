@@ -548,16 +548,16 @@ class StoryContentAmp extends React.PureComponent {
                     const { embed: { config: videJplayer = {} } = {} } = element
                     return <StoryContentChildVideoJwplayer data={videJplayer} />
                   }
-                  // if (sub === VIDEO_JWPLAYER_MATCHING) {
-                  //   const { videoId = '', playerId = '' } =
-                  //     jwplayersMatching || {}
-                  //   return (
-                  //     <StoryContentsChildJwplayerRecommender
-                  //       videoId={videoId}
-                  //       playerId={playerId}
-                  //     />
-                  //   )
-                  // }
+                  if (sub === VIDEO_JWPLAYER_MATCHING) {
+                    const { videoId = '', playerId = '' } =
+                      jwplayersMatching || {}
+                    return (
+                      <StoryContentsChildJwplayerRecommender
+                        videoId={videoId}
+                        playerId={playerId}
+                      />
+                    )
+                  }
                 }
                 return undefined
               }}

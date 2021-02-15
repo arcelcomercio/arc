@@ -57,6 +57,7 @@ import {
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
   VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
 } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
@@ -512,6 +513,14 @@ class StoryData {
     return result.filter(el => {
       return el && el.thumbnail_url ? el : ''
     })
+  }
+
+  get haveJwplayerMatching() {
+    const videosContent = StoryData.getContentJwplayerMatching(
+      this._data && this._data.content_elements
+    )
+    const filterData = videosContent.filter(el => el !== null)
+    return filterData.length > 0
   }
 
   get videoSeo() {
@@ -1525,6 +1534,17 @@ class StoryData {
           return item.type === 'custom_embed' && item.subtype === VIDEO_JWPLAYER
             ? item.embed.config
             : []
+        })
+      : []
+  }
+
+  static getContentJwplayerMatching(data = []) {
+    return data && data.length > 0
+      ? data.map(item => {
+          return item.type === 'custom_embed' &&
+            item.subtype === VIDEO_JWPLAYER_MATCHING
+            ? item.embed.config
+            : null
         })
       : []
   }

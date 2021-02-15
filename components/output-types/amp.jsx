@@ -139,6 +139,7 @@ const AmpOutputType = ({
     subtype = '',
     promoItemJwplayer = {},
     jwplayerSeo = [],
+    haveJwplayerMatching = false,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -351,12 +352,13 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
           />
         )}
-        {(promoItemJwplayer.key || jwplayerSeo[0]) && (
-          <script
-            async
-            custom-element="amp-jwplayer"
-            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-          />
+        {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
+          <>
+            <script
+              async
+              custom-element="amp-jwplayer"
+              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
+          </>
         )}
 
         {hasTwitter && (
@@ -409,11 +411,6 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"
           />
         )}
-        {/* <script
-          async
-          custom-element="amp-script"
-          src="https://cdn.ampproject.org/v0/amp-script-0.1.js"
-        /> */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         {isTrivia && (
           <>
