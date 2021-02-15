@@ -136,7 +136,6 @@ promote-sandbox:
 
 test-bundle-sandbox:
   stage: test
-  image: python:3.5
   dependencies:
     - promote-sandbox
   cache:
@@ -148,12 +147,10 @@ test-bundle-sandbox:
     ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
     BUNDLE_NAME: $CI_COMMIT_REF_SLUG
     PB_VERSION: latest
+    RETRIES: 4
     BUNDLE_FILE: bundle.zip
   script:
-    - python --version
-    - pip --version
-    - python -m pip install colored requests
-    - python config/deploy/verify_asstes.py
+    - node config/deploy/assets.js
   only:
     - sandbox
   tags:
