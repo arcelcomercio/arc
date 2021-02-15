@@ -51,6 +51,7 @@ const Summary = () => {
   const period = {
     month: 'Plan Mensual',
     year: 'Plan Anual',
+    semester: 'Plan Semestral',
   }
 
   useEffect(() => {
@@ -58,21 +59,25 @@ const Summary = () => {
       return plan.description.checked ? plan : prev
     }, null)
     const OrderForce = plans.sort((a, b) => b.amount - a.amount)
-    const { priceCode, sku, amount, billingFrequency } = getPLanSelected
+    const {
+      priceCode,
+      sku,
+      amount,
+      billingFrequency,
+      description,
+    } = getPLanSelected
+
+    const frecuencyPlan =
+      description.frecuencia_plan || billingFrequency.toLowerCase()
 
     setOrderPlans(OrderForce)
     updatePlan(priceCode, sku, 1)
     setCheckPlan(priceCode)
     setTotalPlan(amount)
-    updatePeriod(period[billingFrequency.toLowerCase()])
-    updateDataPlan(amount, billingFrequency)
+    updatePeriod(period[frecuencyPlan])
+    updateDataPlan(amount, frecuencyPlan)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // const callHelp = () => {
-  //   if (typeof window !== 'undefined') {
-  //     window.open(urls.clickHelp, '_blank')
-  //   }
-  // }
 
   const handleChangeDates = () => {
     if (typeof window !== 'undefined') {
@@ -117,9 +122,6 @@ const Summary = () => {
 
         <div className={styles.resume}>
           <h3>Resumen de pedido</h3>
-          {/* <button type="button" onClick={callHelp}>
-          ¿Necesitas ayuda? <span>Te llamamos</span>
-        </button> */}
           <div className="isotipo"></div>
         </div>
 
@@ -139,7 +141,14 @@ const Summary = () => {
                       onClick={handleChangePlan}>
                       Cambiar Plan
                     </button>
-                    <h4>{period[item.billingFrequency.toLowerCase()]}</h4>
+                    <h4>
+                      {
+                        period[
+                          item.description.frecuencia_plan ||
+                            item.billingFrequency.toLowerCase()
+                        ]
+                      }
+                    </h4>
                     <span>
                       {item.amount === 0 ? 'Gratis' : `S/ ${item.amount}.00`}
                     </span>
@@ -173,13 +182,25 @@ const Summary = () => {
                         setTotalPlan(item.amount)
                         updatePlan(item.priceCode, item.sku, 1)
                         updatePeriod(
-                          period[item.billingFrequency.toLowerCase()]
+                          period[
+                            item.description.frecuencia_plan ||
+                              item.billingFrequency.toLowerCase()
+                          ]
                         )
-                        updateDataPlan(item.amount, item.billingFrequency)
+                        updateDataPlan(
+                          item.amount,
+                          item.description.frecuencia_plan ||
+                            item.billingFrequency.toLowerCase()
+                        )
                       }}
                       value={item.priceCode}
                     />
-                    {period[item.billingFrequency.toLowerCase()]}
+                    {
+                      period[
+                        item.description.frecuencia_plan ||
+                          item.billingFrequency.toLowerCase()
+                      ]
+                    }
                     <span>
                       {item.amount === 0 ? 'Gratis' : `S/ ${item.amount}.00`}
                     </span>
@@ -196,18 +217,6 @@ const Summary = () => {
                       {item.description.recommended}
                     </span>
                   )}
-
-                  {/* {i === 0 && (
-                  <span className={styles.toolTip} id="div-remember">
-                    {texts.RememberChose}
-                    <button
-                      type="button"
-                      className="btn-link"
-                      id="btn-close-remember">
-                      Entendido
-                    </button>
-                  </span>
-                )} */}
                 </div>
               )
             })}
