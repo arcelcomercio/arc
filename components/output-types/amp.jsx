@@ -53,6 +53,8 @@ const AmpOutputType = ({
     content_restrictions: { content_code: contentCode = '' } = {},
   } = globalContent || {}
 
+  const { activePaywall, activeRulesCounter } = siteProperties
+
   const isMetered = contentCode === METERED
   const isPremium = contentCode === PREMIUM
   // Redirecciona a la version original si noticia es premium
@@ -193,7 +195,11 @@ const AmpOutputType = ({
     /<iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
-    isMetered
+    (isMetered &&
+      activeRulesCounter &&
+      activePaywall &&
+      arcSite === SITE_GESTION &&
+      /^\/podcast\//.test(requestUri))
 
   const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
 
