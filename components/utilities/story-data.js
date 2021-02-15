@@ -237,6 +237,20 @@ class StoryData {
     return role
   }
 
+  get authorsList() {
+    let authors = StoryData.getAuthors(this._data, {
+      contextPath: this._contextPath,
+      deployment: this._deployment,
+      website: this._website,
+    })
+    authors = authors.map(author => {
+      const newAuthor = author
+      newAuthor.imageAuthor = author.imageAuthor || this.defaultImg
+      return newAuthor
+    })
+    return authors
+  }
+
   get defaultImg() {
     return defaultImage({
       contextPath: this._contextPath,
@@ -1594,6 +1608,30 @@ class StoryData {
     return squareXS
   }
 
+  static getAuthors(
+    data,
+    { contextPath = '', deployment = '', website = '' } = {}
+  ) {
+    const authorData = (data && data.credits && data.credits.by) || []
+    const authorsList = []
+
+    for (let i = 0; i < authorData.length; i++) {
+      authorsList.push(
+        this.getDataAuthor(
+          data,
+          {
+            contextPath,
+            deployment,
+            website,
+          },
+          i
+        )
+      )
+    }
+
+    return authorsList
+  }
+
   static getDataAuthor(
     data,
     { contextPath = '', website = '' } = {},
@@ -1614,39 +1652,41 @@ class StoryData {
     let sortBiography = ''
 
     let imageAuthor = authorImageDefault
-    for (let i = 0; i < authorData.length; i++) {
-      const idAuthor = id === 1 ? id : i
-      const iterator = authorData[idAuthor]
+    // for (let i = 0; i < authorData.length; i++) {
+    // const idAuthor = id === 1 ? id : i
+    const idAuthor = id === null ? 0 : id
+    const iterator = authorData[idAuthor]
 
-      if (iterator && iterator.type === 'author') {
-        nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
-        urlAuthor =
-          iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
-        slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
-        imageAuthor =
-          iterator.image && iterator.image.url && iterator.image.url !== ''
-            ? iterator.image.url
-            : authorImageDefault
-        socialLinks = iterator.social_links ? iterator.social_links : []
-        mailAuthor =
-          (iterator.additional_properties &&
-            iterator.additional_properties.original &&
-            iterator.additional_properties.original.email) ||
-          ''
+    if (iterator && iterator.type === 'author') {
+      nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
+      urlAuthor =
+        iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
+      slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
+      imageAuthor =
+        iterator.image && iterator.image.url && iterator.image.url !== ''
+          ? iterator.image.url
+          : authorImageDefault
+      // : this.defaultImg
+      socialLinks = iterator.social_links ? iterator.social_links : []
+      mailAuthor =
+        (iterator.additional_properties &&
+          iterator.additional_properties.original &&
+          iterator.additional_properties.original.email) ||
+        ''
 
-        role =
-          (iterator.additional_properties &&
-            iterator.additional_properties.original &&
-            iterator.additional_properties.original.role) ||
-          ''
-        sortBiography =
-          (iterator.additional_properties &&
-            iterator.additional_properties.original &&
-            iterator.additional_properties.original.bio) ||
-          null
-        break
-      }
+      role =
+        (iterator.additional_properties &&
+          iterator.additional_properties.original &&
+          iterator.additional_properties.original.role) ||
+        ''
+      sortBiography =
+        (iterator.additional_properties &&
+          iterator.additional_properties.original &&
+          iterator.additional_properties.original.bio) ||
+        null
+      // break
     }
+    // }
 
     return {
       nameAuthor,

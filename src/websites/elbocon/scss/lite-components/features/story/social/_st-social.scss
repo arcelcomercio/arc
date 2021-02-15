@@ -1,0 +1,34 @@
+.st-social {
+  margin: 0 0 20px 0;
+  padding: 20px;
+  border-bottom: 1px solid #e2d5c8;
+  border-top: 1px solid #e2d5c8;
+  align-items: center;
+  &__txt {
+    font: 400 1.1rem/1 $tertiary-font;
+    color: #333;
+    text-transform: uppercase;
+  }
+
+  &__link {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__tooltdiv {
+    display: flex;
+    @media (--only-mobile) {
+      display: block;
+    }
+  }
+
+  &__share {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .st-social__share {
+    @media (--only-mobile) {
+      display: none;
+    }
+  }
+}
