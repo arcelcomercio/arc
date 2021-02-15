@@ -124,6 +124,7 @@ const StoryContentsLite = props => {
     authorSecond,
     authorEmailSecond,
     roleSecond: authorRoleSecond,
+    authorsList,
   } = new StoryData({
     data: globalContent,
     contextPath,
@@ -152,6 +153,7 @@ const StoryContentsLite = props => {
     authorEmailSecond,
     authorRoleSecond,
     arcSite,
+    authorsList,
   }
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
