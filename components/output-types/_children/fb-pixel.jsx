@@ -1,9 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-export default props => {
-  const {
-    siteProperties: { fbPixelId },
-  } = props
+export default ({ fbPixelId }) => {
   const fbPixelScript = `
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -17,9 +14,5 @@ export default props => {
     fbq('track', 'PageView');
   `
 
-  return (
-    <>
-      <script dangerouslySetInnerHTML={{ __html: fbPixelScript }} />
-    </>
-  )
+  return <script dangerouslySetInnerHTML={{ __html: fbPixelScript }} />
 }

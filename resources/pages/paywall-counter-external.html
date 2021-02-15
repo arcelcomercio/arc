@@ -1,0 +1,145 @@
+<html lang="es">
+  <head>
+    <meta charSet="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <title>Contador Externo Paywall</title>
+    <script>
+        function runExternalCounter() {
+          const search = window.location.search.substring(1);
+          const params = window.JSON.parse('{"' + window.decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}') || {}
+          const site = params.site; const story = params.story; const env = params.env;
+          // the API domain is gonna be different in some sites
+          const api = `https://api${env === 'sandbox' ? '-sandbox' : ''}.${site}.pe`
+          const isMag = /mag.elcomercio.pe|elcomerciomag-sandbox/.test(story)
+          const isSpecial = /especiales.elcomercio.pe/.test(story)
+          const isPaywallSite = /elcomercio.pe|gestion.pe|(?:elcomercio|gestion)-sandbox/.test(story)
+          
+          if(story && env && site && (isPaywallSite || isMag || isSpecial)) {
+            // Build arc sdk script
+            const sdk = document.createElement('script')
+            sdk.src = `https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`
+            sdk.async = true
+            document.body.appendChild(sdk)
+          
+            function checkSession() {
+              if (typeof window !== 'undefined') {
+                const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
+                const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
+                if (profileStorage) {
+                  return !(profileStorage === 'null' || sesionStorage === '{}') || false
+                }
+              }
+              return false
+            }
+    
+            function postExtendSession(oldToken) {
+              const response = new Promise(function (resolve) {
+                return fetch(
+                  `${api}/identity/public/v1/auth/token`,
+                  {
+                    method: 'POST',
+                    body: JSON.stringify({
+                      grantType: 'refresh-token',
+                      token: oldToken,
+                    }),
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  }
+                ).then(function (res) { return resolve(res.json()); })
+              })
+              return response
+            }
+    
+            function getEntitlement(newToken) {
+              const response = new Promise(function (resolve) {
+                return fetch(
+                  `${api}/sales/public/v1/entitlements`,
+                  {
+                    method: 'GET',
+                    headers: {
+                      Authorization: newToken,
+                    },
+                  }
+                ).then(function (res) { return resolve(res.json()); })
+              })
+              return response
+            }
+    
+            function getListSubs(oldRefreshToken) {
+              return postExtendSession(oldRefreshToken).then(function(resExt) {
+                const checkEntitlement = getEntitlement(resExt.accessToken)
+                  .then(function (res) {
+                    if (res.skus) {
+                      const result = Object.keys(res.skus).map(key => {
+                        return res.skus[key].sku
+                      })
+                      return result
+                    }
+                    return []
+                  })
+                  .catch(function(err) {window.console.error(err)})
+    
+                return checkEntitlement
+              })
+            }
+
+            const userInfo = window.JSON.parse(window.localStorage.getItem('ArcId.USER_INFO')) || {}
+  
+            window.console.log('entro URL => ', story)
+            window.ArcPOptions = {
+              paywallFunction: function() {},
+              customPageData: function() {
+                return { c: 'story', s: '/counter/external', ci: story }
+              },
+              userName: userInfo.uuid || null,
+              jwt: userInfo.accessToken || null,
+              apiOrigin: api,
+              customSubCheck: function() {
+                if (userInfo.accessToken) {
+                  return getListSubs(userInfo.refreshToken).then(p => {
+                    const isLoggedInSubs = checkSession()
+                    return {
+                      s: isLoggedInSubs,
+                      p: p || null,
+                      timeTaken: 100,
+                      updated: Date.now(),
+                    }
+                  })
+                }
+                return {
+                  s: false,
+                  p: null,
+                  timeTaken: 100,
+                  updated: Date.now(),
+                }
+              },
+              customRegCheck: function() {
+                const start = Date.now()
+                const isLoggedIn = checkSession()
+                return Promise.resolve({
+                  l: isLoggedIn,
+                  timeTaken: Date.now() - start,
+                  updated: Date.now(),
+                })
+              },
+            }
+
+            window.setTimeout(function() {
+              // Build arc subs script that will use the ArcPOptions
+              const subs = document.createElement('script')
+              subs.src = `https://elcomercio-${site}-${env}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`
+              subs.async = true
+              document.body.appendChild(subs)
+            }, 1)
+          }
+        }
+        window.addEventListener('load', function() {
+          window.setTimeout(runExternalCounter, 1)
+        })
+    </script>
+  </head>
+  <body></body>
+</html>
