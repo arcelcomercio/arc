@@ -20,7 +20,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
-// import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
+import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
 import StoryData from '../../../utilities/story-data'
 import { getDateSeo, formatDateTime } from '../../../utilities/date-time/dates'
 import { formatHtmlToText } from '../../../utilities/parse/strings'
@@ -67,7 +67,7 @@ import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
-  // VIDEO_JWPLAYER_MATCHING,
+  VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
 import { METERED } from '../../../utilities/constants/content-tiers'
 
@@ -97,7 +97,13 @@ class StoryContentAmp extends React.PureComponent {
       arcSite,
       deployment,
       requestUri,
-      siteProperties: { siteUrl, adsAmp, activePaywall, activeRulesCounter },
+      siteProperties: {
+        siteUrl,
+        adsAmp,
+        activePaywall,
+        activeRulesCounter,
+        jwplayersMatching,
+      },
       globalContent: data = {},
     } = this.props
 
