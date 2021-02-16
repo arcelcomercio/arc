@@ -118,7 +118,10 @@ export default ({
     "jobTitle"	: "${author.role}"
   }`
   )
-  const structuredAutor = `
+  const structuredAutor =
+    structuredAuthors.length > 0
+      ? structuredAuthors
+      : `
   {
     "@context": "http://schema.org/",
     "@type": "Person",
