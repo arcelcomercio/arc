@@ -1,49 +1,49 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
-import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 import PropTypes from 'prop-types'
+
+import { env } from '../utilities/arc/env'
+import ORGANIZATION from '../utilities/constants/organization'
+
 import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
 import listenCounterMag from './_dependencies/counter-mag'
 
-const Subscriptions = props => {
-  const {
-    children,
-    arcSite,
-    siteProperties,
-    deployment,
-    contextPath,
-    requestUri,
-  } = props
-
+const Subscriptions = ({
+  children,
+  arcSite,
+  siteProperties,
+  deployment,
+  contextPath,
+  requestUri,
+  Libs,
+  Fusion,
+}) => {
   const {
     siteName,
     colorPrimary,
+    googleTagManagerId,
+    fbPixelId,
     paywall: { urls, title, description },
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
 
-  const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-
-  const checkURI = () => {
-    const isPath = /\/paywall-counter-external\//.test(requestUri)
-    return isPath
-  }
+  const isExternalCounter = () =>
+    /\/paywall-counter-external\//.test(requestUri)
 
   return (
     <>
-      {checkURI() ? (
+      {isExternalCounter() ? (
         <html lang="es">
           <head>
             <title>Contador Externo Paywall</title>
             <script
-              src={`https://elcomercio-${arcSite}-${arcEnv}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              src={`https://${ORGANIZATION}-${arcSite}-${env}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
                 .toISOString()
                 .slice(0, 10)}`}
               async
             />
             <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${arcEnv}/sdk-identity.min.js`}
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
               defer
             />
           </head>
@@ -51,7 +51,7 @@ const Subscriptions = props => {
             <script
               type="text/javascript"
               dangerouslySetInnerHTML={{
-                __html: listenCounterMag(arcEnv, arcSite),
+                __html: listenCounterMag(env, arcSite),
               }}
             />
           </body>
@@ -59,8 +59,8 @@ const Subscriptions = props => {
       ) : (
         <html lang="es">
           <head>
-            <TagManager {...siteProperties} />
-            <FbPixel {...props} />
+            <TagManager googleTagManagerId={googleTagManagerId} />
+            <FbPixel fbPixelId={fbPixelId} />
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta
@@ -89,7 +89,7 @@ const Subscriptions = props => {
               href={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/favicon.png?d=1038`}
             />
 
-            <props.Libs />
+            <Libs />
 
             <link rel="dns-prefetch" href="//fonts.gstatic.com" />
             <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -105,7 +105,7 @@ const Subscriptions = props => {
               )}
             />
             <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${arcEnv}/sdk-identity.min.js`}
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
               defer
             />
           </head>
@@ -113,7 +113,7 @@ const Subscriptions = props => {
             <noscript>
               <iframe
                 title="Google Tag Manager - No Script"
-                src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+                src={`https://www.googletagmanager.com/ns.html?id=${googleTagManagerId}`}
                 height="0"
                 width="0"
                 style={{ display: 'none', visibility: 'hidden' }}
@@ -122,7 +122,7 @@ const Subscriptions = props => {
             <div id="fusion-app" role="application">
               {children}
             </div>
-            <props.Fusion />
+            <Fusion />
           </body>
         </html>
       )}

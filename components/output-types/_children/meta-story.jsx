@@ -48,11 +48,7 @@ export default ({
     displayDate,
     publishDate: updateDate,
     subTitle = arcSite,
-    authorImage,
-    author: authorName,
-    role: authorRole,
     locality,
-    authorEmail,
     imagePrimarySeo,
     primarySection,
     primarySectionLink,
@@ -74,12 +70,9 @@ export default ({
     idYoutube,
     getGallery,
     subtype,
-    authorImageSecond,
-    authorSecond,
-    authorEmailSecond,
-    roleSecond: authorRoleSecond,
     jwplayerSeo,
     promoItemJwplayer = {},
+    authorsList,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -110,41 +103,27 @@ export default ({
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
 
-  const structuredAutor = `
+  const structuredAuthors = authorsList.map(
+    author => `
   {
     "@context": "http://schema.org/",
     "@type": "Person",
-    "name": "${authorName || arcSite}",
-    "image": "${authorImage || logoAuthor}",
+    "name": "${author.nameAuthor || arcSite}",
+    "image": "${author.imageAuthor || logoAuthor}",
     "contactPoint"     : {
       "@type"        : "ContactPoint",
       "contactType"  : "Journalist",
-      "email"        : "${authorEmail}"
+      "email"        : "${author.mailAuthor}"
     },
-    "email": "${authorEmail}",
-    "jobTitle"	: "${authorRole}"
+    "email": "${author.mailAuthor}",
+    "jobTitle"	: "${author.role}"
   }`
+  )
 
-  const structuredAutorSecond = authorEmailSecond
-    ? ` 
-  {
-    "@context": "http://schema.org/",
-    "@type": "Person",
-    "name": "${authorSecond || arcSite}",
-    "image": "${authorImageSecond || logoAuthor}",
-    "contactPoint"     : {
-      "@type"        : "ContactPoint",
-      "contactType"  : "Journalist",
-      "email"        : "${authorEmailSecond}"
-    },
-    "email": "${authorEmailSecond}",
-    "jobTitle"	: "${authorRoleSecond}"
-  }`
-    : ``
-
-  const finalStructuredDataAuthor = structuredAutorSecond
-    ? `[${structuredAutor}, ${structuredAutorSecond}]`
-    : structuredAutor
+  const finalStructuredDataAuthor =
+    structuredAuthors.length > 1
+      ? `[${structuredAuthors.join()}]`
+      : structuredAuthors
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(updateDate) : updateDate
