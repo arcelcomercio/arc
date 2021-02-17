@@ -1,5 +1,6 @@
 import { GS_EMAIL_CLIENT, GS_PRIVATE_KEY } from 'fusion:environment'
 import { GoogleSpreadsheet } from 'google-spreadsheet'
+import { slugify } from '../../components/utilities/parse/slugify'
 
 const clientEmail = GS_EMAIL_CLIENT
 const privateKey = GS_PRIVATE_KEY
@@ -22,6 +23,12 @@ const getInfectedData = sheet => {
           x,
           currentCols - 1
         ).value
+      }
+
+      if (x === 1) {
+        data.dit_prov_slug = slugify(
+          sheetData.getCell(x, currentCols - 1).value
+        )
       }
     }
     return data
