@@ -142,6 +142,7 @@ const AmpOutputType = ({
     promoItemJwplayer = {},
     jwplayerSeo = [],
     haveJwplayerMatching = false,
+    publishDate,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -221,6 +222,9 @@ const AmpOutputType = ({
       ? 1
       : false
 
+  const dataVideo = publishDate && publishDate.split('T')[0]
+  const hasPowaVideoDate = dataVideo <= '2021-01-22' && hasPowaVideo
+
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
@@ -293,7 +297,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
           />
         )}
-        {hasPowaVideo && (
+        {hasPowaVideoDate && (
           <>
             <script
               async
@@ -351,7 +355,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
           />
         )}
-        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideo) && (
+        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideoDate) && (
           <script
             async
             custom-element="amp-video-docking"
