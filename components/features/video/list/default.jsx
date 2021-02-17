@@ -126,7 +126,7 @@ class VideoList extends PureComponent {
       <>
         <div className="flex video-list justify-center md:justify-between mt-50 flex-wrap">
           {contentElements &&
-            contentElements.map(video => {
+            contentElements.map((video, i) => {
               Story.__data = video
               const {
                 websiteLink,
@@ -143,6 +143,7 @@ class VideoList extends PureComponent {
                 primarySection,
                 primarySectionLink,
                 videoDuration,
+                index: i,
               }
               return <VideoListItem {...params} />
             })}
