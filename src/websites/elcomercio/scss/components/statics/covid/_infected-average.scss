@@ -1,0 +1,122 @@
+.average {
+  &__grafico-barras {
+    padding: 15px 25px 25px;
+    text-align: center;
+    margin: auto;
+    max-width: 360px;
+  }
+  &__title {
+    font-size: 25px;
+    font-weight: 400;
+    padding-bottom: 5px;
+    color: black;
+  }
+  &__sub-title {
+    font-size: 16px;
+    font-weight: 400;
+    padding-bottom: 10px;
+  }
+  &__number {
+    margin-top: 2px;
+    color: #000;
+    font-size: 14px;
+    margin-right: 2px;
+    font-weight: 500;
+  }
+  &__average {
+    margin: 3em;
+    margin-bottom: 1em;
+    position: relative;
+    width: 80%;
+    height: auto;
+  }
+  &__bar-background {
+    border-radius: 2px;
+    background: rgba(162, 162, 162, 0.37);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    height: 15px;
+  }
+  &__bars {
+    -webkit-transition: all 2s ease-out;
+    -moz-transition: all 2s ease-out;
+    -ms-transition: all 2s ease-out;
+    -o-transition: all 2s ease-out;
+    transition: all 2s ease-out;
+    border-radius: 2px;
+    padding: 2px;
+    cursor: pointer;
+    padding-left: 0.5em;
+    position: relative;
+    z-index: 9999;
+    display: block;
+    width: 0%;
+    color: #fff;
+    font-size: 12px;
+    text-align: left;
+    &::after {
+      position: absolute;
+      content: attr(data-value);
+      display: none;
+      font-size: 12px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 0 10px;
+      margin-left: 5px;
+      left: 100%;
+      top: 0;
+    }
+    &:hover {
+      transition: all 0.5s ease;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &:hover::after {
+      display: block;
+    }
+  }
+  &__buttons {
+    padding-bottom: 10px;
+  }
+  &__ver-bar {
+    border-bottom: 1px solid #000;
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: -0.22px;
+  }
+  &__date {
+    font-size: 14px;
+    font-weight: 400;
+    border-bottom: 1px solid #707070;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+  }
+  &__grup-count {
+    display: flex;
+    font-size: 34px;
+    font-weight: bold;
+    & div {
+      width: 50%;
+      padding: 10px;
+    }
+    & div:first-child {
+      border-right: 1px solid #707070;
+    }
+    & p {
+      font-size: 17px;
+      font-weight: 400;
+      width: 76%;
+      margin: auto;
+    }
+  }
+  &__close {
+    fill: #fff;
+    stroke: #707070;
+  }
+}
