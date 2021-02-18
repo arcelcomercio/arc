@@ -227,7 +227,7 @@ window.addEventListener('load', () => {requestIdle(() => {
             const callback = (entries, observer) => {
               entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                  // console.log('CARGAR DE NUEVOOOOOOOOOO >>>>', next.contentDocument.documentElement.offsetHeight + "px")
+                  // Calcular el alto del iframe nuevamente
                   next.height = next.contentDocument.documentElement.offsetHeight + "px"
                   observer.unobserve(entry.target)
                 }
