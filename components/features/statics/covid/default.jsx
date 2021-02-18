@@ -11,7 +11,7 @@ import InfectedAverage from './_children/infected-average'
 const StaticsCovid = () => {
   const { globalContent: data, requestUri } = useAppContext()
   const uri = requestUri.split('/')[2]
-  const distrito = data.filter(el => el.dis_prov_slug === uri)[0]
+  const distrito = data.filter(el => el.dist_prov_slug === uri)[0]
   return (
     <>
       <InfectedAverage {...distrito}></InfectedAverage>
