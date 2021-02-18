@@ -1,18 +1,16 @@
-import React, { useEffect, useContext } from 'react'
+import * as React from 'react'
 import * as Sentry from '@sentry/browser'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
+
 import { AuthContext, AuthProvider } from '../_context/auth'
-// import { NavigateProvider } from '../_context/navigate'
+import useRoute from '../_hooks/useRoute'
 import {
   PropertiesSite,
   PropertiesCommon,
   ArcEnv,
 } from '../_dependencies/Properties'
 import { FooterSubs, FooterLand } from '../_layouts/footer'
-import {
-  clearUrlAPI,
-  // createExternalScript
-} from '../_dependencies/Utils'
+import { clearUrlAPI } from '../_dependencies/Utils'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import HeaderSubs from '../_layouts/header'
 import Singwall from './_children/Singwall'
@@ -38,7 +36,7 @@ const WrapperPaymentSubs = () => {
     arcSite,
     deployment,
     globalContent: { fromFia, freeAccess, event },
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
   const {
     userLoaded,
@@ -46,54 +44,53 @@ const WrapperPaymentSubs = () => {
     userProfile,
     userLoading,
     updateLoading,
-  } = useContext(AuthContext)
+  } = React.useContext(AuthContext)
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
+  useRoute()
 
-      Sentry.init({
-        dsn: urlCommon.dsnSentry,
-        debug: ArcEnv === 'sandbox',
-        release: `arc-deployment@${deployment}`,
-        environment: ArcEnv,
-      })
+  React.useEffect(() => {
+    window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
 
-      addScriptAsync({
-        name: 'IdentitySDK',
-        url: links.identity,
-        includeNoScript: false,
-      })
-        .then(() => {
-          window.Identity.options({ apiOrigin: urls.arcOrigin })
-          PWA.mount(() => {
-            window.Identity.getUserProfile().then(() => {
-              window.location.reload()
-            })
+    Sentry.init({
+      dsn: urlCommon.dsnSentry,
+      debug: ArcEnv === 'sandbox',
+      release: `arc-deployment@${deployment}`,
+      environment: ArcEnv,
+    })
+
+    addScriptAsync({
+      name: 'IdentitySDK',
+      url: links.identity,
+      includeNoScript: false,
+    })
+      .then(() => {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+        PWA.mount(() => {
+          window.Identity.getUserProfile().then(() => {
+            window.location.reload()
           })
         })
-        .finally(() => {
-          updateLoading(false)
-        })
+      })
+      .finally(() => {
+        updateLoading(false)
+      })
 
-      if (fromFia) window.sessionStorage.setItem('paywall_type_modal', 'fia')
-      if (event === 'winback')
-        window.sessionStorage.setItem('paywall_type_modal', 'mailing')
+    if (fromFia) window.sessionStorage.setItem('paywall_type_modal', 'fia')
+    if (event === 'winback')
+      window.sessionStorage.setItem('paywall_type_modal', 'mailing')
 
-      clearUrlAPI(urls.landingUrl)
-      // createExternalScript(scriptsPayment, true)
-    }
+    clearUrlAPI(urls.landingUrl)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <>
-      <style
-        dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }}></style>
+      <style dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }} />
       <>
         {userLoading && <Loading arcSite={arcSite} />}
-        <HeaderSubs {...{ userProfile, arcSite }} />
+        <HeaderSubs userProfile={userProfile} arcSite={arcSite} />
         <Container>
           {userLoading === false &&
             userLoaded &&
@@ -109,11 +106,9 @@ const WrapperPaymentSubs = () => {
                     {texts.textWinback}
                   </h2>
                 )}
-                {freeAccess ? (
-                  <Confirmation />
-                ) : (
-                  <>
-                    {(() => {
+                {freeAccess
+                  ? () => <Confirmation />
+                  : (() => {
                       switch (userStep) {
                         case 2:
                           return userLoaded ? <Profile /> : <Singwall />
@@ -125,8 +120,6 @@ const WrapperPaymentSubs = () => {
                           return <Singwall />
                       }
                     })()}
-                  </>
-                )}
               </PanelLeft>
             )}
             <PanelRight>
@@ -135,10 +128,9 @@ const WrapperPaymentSubs = () => {
           </Wrapper>
         </Container>
         {!freeAccess && <FooterSubs />}
-        <FooterLand {...{ arcType }} />
+        <FooterLand arcType={arcType} />
       </>
       <script
-        type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: scriptsPayment,
         }}
@@ -147,12 +139,10 @@ const WrapperPaymentSubs = () => {
   )
 }
 
-const PaymentSubscriptions = () => {
-  return (
-    <AuthProvider>
-      <WrapperPaymentSubs />
-    </AuthProvider>
-  )
-}
+const PaymentSubscriptions = () => (
+  <AuthProvider>
+    <WrapperPaymentSubs />
+  </AuthProvider>
+)
 
 export default PaymentSubscriptions
