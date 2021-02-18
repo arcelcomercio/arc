@@ -48,7 +48,7 @@ const WrapperPaymentSubs = () => {
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
-  useRoute()
+  useRoute(event)
 
   React.useEffect(() => {
     window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
@@ -106,20 +106,22 @@ const WrapperPaymentSubs = () => {
                     {texts.textWinback}
                   </h2>
                 )}
-                {freeAccess
-                  ? () => <Confirmation />
-                  : (() => {
-                      switch (userStep) {
-                        case 2:
-                          return userLoaded ? <Profile /> : <Singwall />
-                        case 3:
-                          return userLoaded ? <Pay /> : <Singwall />
-                        case 4:
-                          return userLoaded ? <Confirmation /> : <Singwall />
-                        default:
-                          return <Singwall />
-                      }
-                    })()}
+                {freeAccess ? (
+                  <Confirmation />
+                ) : (
+                  (() => {
+                    switch (userStep) {
+                      case 2:
+                        return userLoaded ? <Profile /> : <Singwall />
+                      case 3:
+                        return userLoaded ? <Pay /> : <Singwall />
+                      case 4:
+                        return userLoaded ? <Confirmation /> : <Singwall />
+                      default:
+                        return <Singwall />
+                    }
+                  })()
+                )}
               </PanelLeft>
             )}
             <PanelRight>
