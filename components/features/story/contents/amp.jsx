@@ -52,6 +52,7 @@ import {
   SITE_ELBOCON,
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
@@ -95,12 +96,13 @@ class StoryContentAmp extends React.PureComponent {
       contextPath,
       arcSite,
       deployment,
+      requestUri,
       siteProperties: {
         siteUrl,
         adsAmp,
-        jwplayersMatching,
         activePaywall,
         activeRulesCounter,
+        jwplayersMatching,
       },
       globalContent: data = {},
     } = this.props
@@ -279,7 +281,13 @@ class StoryContentAmp extends React.PureComponent {
               </time>
             </div>
           )}
-          {isMetered && activeRulesCounter && activePaywall ? (
+          {isMetered &&
+          activeRulesCounter &&
+          activePaywall &&
+          ((arcSite === SITE_GESTION &&
+            /^\/(podcast|mundo)\//.test(requestUri)) ||
+            (arcSite === SITE_ELCOMERCIO &&
+              /^\/(tecnologia)\//.test(requestUri))) ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"
