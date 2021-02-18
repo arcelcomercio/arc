@@ -286,10 +286,11 @@ class StoryContentAmp extends React.PureComponent {
           {isMetered &&
           activeRulesCounter &&
           activePaywall &&
-          arcSite === SITE_GESTION &&
-          /^\/podcast\//.test(requestUri) ? (
+          ((arcSite === SITE_GESTION &&
+            /^\/(podcast|mundo)\//.test(requestUri)) ||
+            (arcSite === SITE_ELCOMERCIO &&
+              /^\/(tecnologia)\//.test(requestUri))) ? (
             // Contador de paywall para AMP
-            // pruebas en seccion Podcast de Gestion
             <amp-iframe
               width="1"
               height="1"
