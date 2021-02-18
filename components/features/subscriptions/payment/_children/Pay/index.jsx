@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useState, useContext, useEffect } from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import TextMask from 'react-text-mask'
 import * as Sentry from '@sentry/browser'
+
 import useForm from '../../../_hooks/useForm'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
 import addPayU from '../../../_dependencies/Payu'
@@ -41,7 +42,7 @@ const Pay = () => {
   const {
     arcSite,
     globalContent: { plans = [], printedSubscriber },
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
   const {
     userProfile,
@@ -49,7 +50,7 @@ const Pay = () => {
     updateStep,
     updatePurchase,
     updateLoadPage,
-  } = useContext(AuthContext)
+  } = React.useContext(AuthContext)
   const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
@@ -65,11 +66,11 @@ const Pay = () => {
     emailVerified,
   } = conformProfile(userProfile || {})
 
-  const [msgError, setMsgError] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [txtLoading, setTxtLoading] = useState('Cargando...')
-  const [methodCard, setMethodCard] = useState()
-  const [checkedTerms, setCheckedTerms] = useState()
+  const [msgError, setMsgError] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [txtLoading, setTxtLoading] = React.useState('Cargando...')
+  const [methodCard, setMethodCard] = React.useState()
+  const [checkedTerms, setCheckedTerms] = React.useState()
 
   const getPLanSelected = plans.reduce((prev, plan) => {
     return plan.priceCode === userPlan.priceCode ? plan : prev
@@ -78,89 +79,87 @@ const Pay = () => {
   const { amount, sku, billingFrequency, priceCode, name } =
     getPLanSelected || {}
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 
-      Sentry.configureScope(scope => {
-        scope.setTag('brand', arcSite)
-        scope.setTag('document', documentNumber || 'none')
-        scope.setTag('phone', phone || 'none')
-        scope.setTag('email', email || 'none')
-        scope.setTag('step', 'Pago')
-        scope.setUser({
-          id: uuid,
-          name: `${firstName} ${lastName} ${secondLastName}`,
-          email,
-          phone,
-          documentType,
-          documentNumber,
-          emailVerified,
+    Sentry.configureScope(scope => {
+      scope.setTag('brand', arcSite)
+      scope.setTag('document', documentNumber || 'none')
+      scope.setTag('phone', phone || 'none')
+      scope.setTag('email', email || 'none')
+      scope.setTag('step', 'Pago')
+      scope.setUser({
+        id: uuid,
+        name: `${firstName} ${lastName} ${secondLastName}`,
+        email,
+        phone,
+        documentType,
+        documentNumber,
+        emailVerified,
+      })
+    })
+
+    addScriptAsync({
+      name: 'SalesSDK',
+      url: links.sales,
+      includeNoScript: false,
+    })
+      .then(() => window.Sales.options({ apiOrigin: urls.arcOrigin }))
+      .catch(errSalesSDK => {
+        Sentry.captureEvent({
+          message: 'SDK Sales no ha cargado correctamente',
+          level: 'error',
+          extra: errSalesSDK || {},
         })
       })
 
-      addScriptAsync({
-        name: 'SalesSDK',
-        url: links.sales,
-        includeNoScript: false,
+    addScriptAsync({
+      name: 'PayuSDK',
+      url: links.payu,
+      includeNoScript: false,
+    })
+      .then(() => {
+        window.payU.setURL(links.payuPayments)
+        window.payU.setPublicKey(links.payuPublicKey)
+        window.payU.setAccountID(links.payuAccountID)
+        window.payU.setListBoxID('mylistID')
+        window.payU.setLanguage('es')
+        window.payU.getPaymentMethods()
       })
-        .then(() => window.Sales.options({ apiOrigin: urls.arcOrigin }))
-        .catch(errSalesSDK => {
-          Sentry.captureEvent({
-            message: 'SDK Sales no ha cargado correctamente',
-            level: 'error',
-            extra: errSalesSDK || {},
-          })
+      .catch(errPayuSDK => {
+        Sentry.captureEvent({
+          message: 'El SDK PayU no ha cargado correctamente',
+          level: 'error',
+          extra: errPayuSDK || {},
         })
-
-      addScriptAsync({
-        name: 'PayuSDK',
-        url: links.payu,
-        includeNoScript: false,
       })
-        .then(() => {
-          window.payU.setURL(links.payuPayments)
-          window.payU.setPublicKey(links.payuPublicKey)
-          window.payU.setAccountID(links.payuAccountID)
-          window.payU.setListBoxID('mylistID')
-          window.payU.setLanguage('es')
-          window.payU.getPaymentMethods()
-        })
-        .catch(errPayuSDK => {
-          Sentry.captureEvent({
-            message: 'El SDK PayU no ha cargado correctamente',
-            level: 'error',
-            extra: errPayuSDK || {},
-          })
-        })
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const origin = getSessionStorage('paywall_type_modal') || 'organico'
-      const referer = getSessionStorage('paywall_last_url') || ''
+  React.useEffect(() => {
+    const origin = getSessionStorage('paywall_type_modal') || 'organico'
+    const referer = getSessionStorage('paywall_last_url') || ''
 
-      window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({
-        event: 'checkoutOption',
-        ecommerce: {
-          checkout_option: {
-            actionField: { step: 3 },
-          },
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 3 },
         },
-      })
+      },
+    })
 
-      sendAction(PixelActions.PAYMENT_CARD_INFO, {
-        sku: `${sku}`,
-        referer,
-        medioCompra: origin,
-        periodo: billingFrequency,
-        priceCode,
-        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
-        pwa: PWA.isPWA() ? 'si' : 'no',
-      })
-    }
+    sendAction(PixelActions.PAYMENT_CARD_INFO, {
+      sku: `${sku}`,
+      referer,
+      medioCompra: origin,
+      periodo: billingFrequency,
+      priceCode,
+      suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -501,6 +500,8 @@ const Pay = () => {
               guide={false}
               className={cNumberError && 'input-error'}
               type="text"
+              inputMode="numeric"
+              autoComplete="cc-number"
               name="cNumber"
               maxLength="19"
               value={cNumber}
@@ -525,6 +526,8 @@ const Pay = () => {
                 guide={false}
                 className={cExpireError && 'input-error'}
                 type="text"
+                inputMode="numeric"
+                autoComplete="cc-exp"
                 name="cExpire"
                 maxLength="7"
                 value={cExpire}
@@ -559,6 +562,8 @@ const Pay = () => {
                 guide={false}
                 className={cCvvError && 'input-error'}
                 type="text"
+                inputMode="numeric"
+                autoComplete="cc-csc"
                 name="cCvv"
                 maxLength={methodCard === 'AMEX' ? '4' : '3'}
                 value={cCvv}

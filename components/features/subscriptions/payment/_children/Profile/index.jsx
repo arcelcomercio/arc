@@ -1,7 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react'
+import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
+
 import useForm from '../../../_hooks/useForm'
 import { getEntitlements } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
@@ -47,7 +48,7 @@ const Profile = () => {
   const {
     arcSite,
     globalContent: { plans = [], error, printedSubscriber },
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
   const {
     updateStep,
@@ -56,7 +57,7 @@ const Profile = () => {
     userErrorApi,
     updateErrorApi,
     userPlan,
-  } = useContext(AuthContext)
+  } = React.useContext(AuthContext)
   const { urls, emails } = PropertiesSite[arcSite]
   const { texts, links } = PropertiesCommon
 
@@ -72,12 +73,14 @@ const Profile = () => {
     emailVerified,
   } = conformProfile(getStorageProfile())
 
-  const [msgError, setMsgError] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [loadText, setLoadText] = useState('Cargando...')
-  const [linkLogin, setLinkLogin] = useState()
-  const [showModal, setShowModal] = useState()
-  const [showDocOption, setShowDocOption] = useState(documentType || 'DNI')
+  const [msgError, setMsgError] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [loadText, setLoadText] = React.useState('Cargando...')
+  const [linkLogin, setLinkLogin] = React.useState()
+  const [showModal, setShowModal] = React.useState()
+  const [showDocOption, setShowDocOption] = React.useState(
+    documentType || 'DNI'
+  )
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
@@ -94,51 +97,50 @@ const Profile = () => {
     productName,
   } = getPLanSelected || {}
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 
-      const origin = getSessionStorage('paywall_type_modal') || 'organico'
-      const referer = getSessionStorage('paywall_last_url') || ''
+    const origin = getSessionStorage('paywall_type_modal') || 'organico'
+    const referer = getSessionStorage('paywall_last_url') || ''
 
-      window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({
-        event: 'checkoutOption',
-        ecommerce: {
-          checkout_option: {
-            actionField: { step: 2 },
-          },
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 2 },
         },
-      })
+      },
+    })
 
-      sendAction(PixelActions.PAYMENT_PROFILE, {
-        sku: `${sku}`,
-        periodo: billingFrequency,
-        referer,
-        medioCompra: origin,
-        priceCode,
-        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
-        pwa: PWA.isPWA() ? 'si' : 'no',
-      })
+    sendAction(PixelActions.PAYMENT_PROFILE, {
+      sku: `${sku}`,
+      periodo: billingFrequency,
+      referer,
+      medioCompra: origin,
+      priceCode,
+      suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
+    })
 
-      Sentry.configureScope(scope => {
-        scope.setTag('brand', arcSite)
-        scope.setTag('document', documentNumber || 'none')
-        scope.setTag('phone', phone || 'none')
-        scope.setTag('email', email || 'none')
-        scope.setTag('step', 'Perfil')
-        scope.setUser({
-          id: uuid,
-          name: `${firstName} ${lastName} ${secondLastName || ''}`,
-          email,
-          phone,
-          documentType,
-          documentNumber,
-          emailVerified,
-        })
+    Sentry.configureScope(scope => {
+      scope.setTag('brand', arcSite)
+      scope.setTag('document', documentNumber || 'none')
+      scope.setTag('phone', phone || 'none')
+      scope.setTag('email', email || 'none')
+      scope.setTag('step', 'Perfil')
+      scope.setUser({
+        id: uuid,
+        name: `${firstName} ${lastName} ${secondLastName || ''}`,
+        email,
+        phone,
+        documentType,
+        documentNumber,
+        emailVerified,
       })
-      if (userErrorApi !== false) updateErrorApi(error)
-    }
+    })
+    if (userErrorApi !== false) updateErrorApi(error)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -534,6 +536,7 @@ const Profile = () => {
             <input
               className={uFirstNameError && 'input-error'}
               type="text"
+              autoComplete="given-name"
               name="uFirstName"
               value={uFirstName}
               required
@@ -554,6 +557,7 @@ const Profile = () => {
             <input
               className={uLastNameError && 'input-error'}
               type="text"
+              autoComplete="family-name"
               name="uLastName"
               value={uLastName}
               required
@@ -633,6 +637,8 @@ const Profile = () => {
             <input
               className={uPhoneError && 'input-error'}
               type="text"
+              inputMode="tel"
+              autoComplete="tel"
               name="uPhone"
               value={uPhone}
               maxLength="12"
@@ -653,6 +659,8 @@ const Profile = () => {
               ${!emailVerified && !isFacebook ? 'email-noverify' : ''} 
               ${uEmailError && 'input-error'}`}
               type="text"
+              inputMode="email"
+              autoComplete="email"
               name="uEmail"
               value={uEmail}
               required
