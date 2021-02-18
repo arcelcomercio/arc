@@ -38,7 +38,7 @@ module.exports = {
     'mocks',
     'properties',
   ],
-  setupFilesAfterEnv: ['./setupTests.ts'],
+  setupFilesAfterEnv: ['./config/setupTests.ts'],
   moduleNameMapper: {
     // "fusion:properties": require.resolve('./jest/fusionProperties.js'),
   },

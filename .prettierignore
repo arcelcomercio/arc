@@ -1,1 +1,9 @@
-resources/
+.fusion
+node_modules
+resources
+coverage
+dist
+data
+src/appnexus
+src/lite
+**/icons/**
