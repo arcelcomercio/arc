@@ -26,7 +26,7 @@ const getInfectedData = sheet => {
       }
 
       if (x === 1) {
-        data.dit_prov_slug = slugify(
+        data.dist_prov_slug = slugify(
           sheetData.getCell(x, currentCols - 1).value
         )
       }
