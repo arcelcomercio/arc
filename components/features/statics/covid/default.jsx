@@ -12,6 +12,7 @@ const StaticsCovid = () => {
   const { globalContent: data, requestUri } = useAppContext()
   const uri = requestUri.split('/')[2]
   const distrito = data.filter(el => el.dist_prov_slug === uri)[0]
+  console.log(distrito)
   return (
     <>
       <InfectedAverage {...distrito}></InfectedAverage>

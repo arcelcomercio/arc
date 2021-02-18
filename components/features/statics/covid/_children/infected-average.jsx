@@ -17,14 +17,26 @@ const classes = {
   clese: 'average__close',
 }
 
-const StaticsCovidInfectedAverage = (distrito = {}) => {
+/**
+ * @param {object} props
+ * @param {object} props.infected_by_date
+ * @param {string} props.dist_prov
+ * @param {string} props.desde_marzo
+ * @param {string} props.customFields
+ * @param {string} props.embed_chart
+ *
+ * @todo creo que las funciones se pueden sacar en un archivo aparte
+ * para dejar este mas limpio
+ */
+const StaticsCovidInfectedAverage = ({
+  infected_by_date: infectedDate = [],
+  dist_prov: distProv = '',
+  desde_marzo: desdeMarzo,
+  embed_chart: embedChart,
+}) => {
   const [barra, setSelectBarra] = React.useState(true)
   const [fiebre, setSelectFiebre] = React.useState(false)
-  const {
-    dist_prov: distProv = '',
-    infected_by_date: infectedDate = [],
-    desde_marzo: desdeMarzo,
-  } = distrito
+
   let maxValue = 0
   for (let i = 0; i < infectedDate.length; i++) {
     if (maxValue < infectedDate[i].infected) {
@@ -36,12 +48,10 @@ const StaticsCovidInfectedAverage = (distrito = {}) => {
   }
 
   const handleAnswerBarra = () => {
-    // check if the selected handleAnswerBarra is the right one
     setSelectBarra(true)
     setSelectFiebre(false)
   }
   const handleAnswerFiebre = () => {
-    // check if the selected handleAnswerBarra is the right one
     setSelectFiebre(true)
     setSelectBarra(false)
   }
@@ -50,8 +60,27 @@ const StaticsCovidInfectedAverage = (distrito = {}) => {
     const color = value <= 0 ? 'transparent' : '#F70000D6'
     return {
       'background-color': color,
-      width: `${value - 4}%`,
+      width: `${value}%`,
     }
+  }
+  const handleDate = date => {
+    const ListMonth = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ]
+    const mes = date.split('-')
+    const nameMonth = ListMonth[parseInt(mes[1], 10) - 1]
+    return `${nameMonth} ${mes[0]}`
   }
   return (
     <>
@@ -91,7 +120,7 @@ const StaticsCovidInfectedAverage = (distrito = {}) => {
         <div className={classes.buttons}>
           <button
             type="button"
-            className={classes.verBar}
+            className={`${classes.verBar} ${barra ? 'active' : ''}`}
             value="barra"
             onClick={handleAnswerBarra}>
             Ver barras
@@ -99,7 +128,7 @@ const StaticsCovidInfectedAverage = (distrito = {}) => {
           <button
             type="button"
             value="fiebre"
-            className={classes.verBar}
+            className={`${classes.verBar} ${fiebre ? 'active' : ''}`}
             onClick={handleAnswerFiebre}>
             Ver fiebre
           </button>
@@ -107,19 +136,25 @@ const StaticsCovidInfectedAverage = (distrito = {}) => {
         {barra && (
           <ul>
             {infectedDate.map(({ date = '', infected = '' }) => (
-              <span className={classes.barBackground}>
-                <li
-                  className={classes.bars}
-                  data-value={dataValue(infected)}
-                  style={handleBarra(dataValue(infected))}>
-                  <div style={{ width: '100px' }}>{date}</div>
-                </li>
+              <div
+                style={{
+                  display: 'flex',
+                  'justify-content': 'space-between',
+                }}>
+                <span className={classes.barBackground}>
+                  <li
+                    className={classes.bars}
+                    data-value={dataValue(infected)}
+                    style={handleBarra(dataValue(infected))}>
+                    <div style={{ width: '100px' }}>{handleDate(date)}</div>
+                  </li>
+                </span>
                 <span className={classes.number}>{infected}</span>
-              </span>
+              </div>
             ))}
           </ul>
         )}
-        {fiebre && <div className="div"> Embed</div>}
+        {fiebre && <div className="div"> {embedChart} Embed</div>}
         <div className={classes.date}>4 de febrero</div>
         <div className={classes.grupCount}>
           <div>
