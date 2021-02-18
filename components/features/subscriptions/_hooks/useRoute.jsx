@@ -3,21 +3,41 @@ import { createBrowserHistory } from 'history'
 
 import { AuthContext } from '../_context/auth'
 
-const ROOT = '/suscripcionesdigitales/'
-const PROFILE = `${ROOT}perfil/`
-const PAYMENT = `${ROOT}pago/`
-const CONFIRMATION = `${ROOT}confirmacion/`
+/**
+ * @typedef {'winback'} Source
+ */
 
 let history = {}
 
 /**
  * Esta funcion se encarga de ejecutar lo necesario
  * para que GA reciba el evento de pagina vista (page_view)
- * @param {string} path
+ * @param {string} path URL de pagina a registrar como page_view
+ *
  * @see [medicion de aplicaciones SPA](https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications)
  */
 const setPageView = path => {
   console.log('registra nueva pagina vista ->', path)
+}
+
+/**
+ * Esta funcion se encarga de agregar el sufijo que se agregara
+ * a la ruta ROOT dependiendo del origen o evento de la suscripcion,
+ * ej. Si el evento es winback, se espera que la ruta ROOT
+ * sea `/suscripcionesdigitales/eventos/winback/`
+ * @param {Source} source Origen o evento de suscripcion
+ * @returns {string} Sufijo para agregar a la ruta ROOT
+ */
+const getPathSuffix = source => {
+  let suffix = ''
+  switch (source) {
+    case 'winback':
+      suffix = 'eventos/winback/'
+      break
+    default:
+      break
+  }
+  return suffix
 }
 
 /**
@@ -27,10 +47,17 @@ const setPageView = path => {
  * porque este hook usa el `AuthContext` para determinar
  * el paso en el que se encuentra el usuario y asi manejar la
  * ruta adecuada.
+ * @param {Source} source Origen o evento de suscripcion
  * @returns {object} [history](https://github.com/ReactTraining/history/)
+ *
  * @see [documentacion de **history**](https://github.com/ReactTraining/history/blob/master/docs/getting-started.md)
  */
-const useRoute = () => {
+const useRoute = source => {
+  const ROOT = `/suscripcionesdigitales/${getPathSuffix(source)}`
+  const PROFILE = `${ROOT}perfil/`
+  const PAYMENT = `${ROOT}pago/`
+  const CONFIRMATION = `${ROOT}confirmacion/`
+
   const { userLoaded, userStep, updateStep } = React.useContext(AuthContext)
 
   React.useEffect(() => {
@@ -101,7 +128,7 @@ const useRoute = () => {
         pushPath(ROOT)
         break
     }
-  }, [userStep, userLoaded])
+  }, [userStep, userLoaded, ROOT, PROFILE, PAYMENT, CONFIRMATION])
 
   return {
     history,
