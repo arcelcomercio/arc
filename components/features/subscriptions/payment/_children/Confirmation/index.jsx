@@ -1,6 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
+
 import { AuthContext } from '../../../_context/auth'
 import { getStorageInfo } from '../../../_dependencies/Session'
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
@@ -55,7 +56,7 @@ const Confirmation = () => {
       fromFia,
       printedSubscriber,
     },
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
   const {
     userPurchase,
@@ -63,12 +64,12 @@ const Confirmation = () => {
     userPeriod,
     userPlan,
     userProfile,
-  } = useContext(AuthContext)
+  } = React.useContext(AuthContext)
 
   const { texts } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
-  const [loading, setLoading] = useState(false)
-  const [sendTracking, setSendTracking] = useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [sendTracking, setSendTracking] = React.useState(false)
 
   const {
     email,
@@ -89,7 +90,7 @@ const Confirmation = () => {
     OneTime: 'Mensual',
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== 'undefined') {
       // const divStep = window.document.getElementById('main-steps')
       const divDetail = document.getElementById('div-detail')
@@ -99,9 +100,10 @@ const Confirmation = () => {
       const referer = getSessionStorage('paywall_last_url') || ''
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
-      const getPLanSelected = plans.reduce((prev, plan) => {
-        return plan.priceCode === userPlan.priceCode ? plan : prev
-      }, null)
+      const getPLanSelected = plans.reduce(
+        (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+        null
+      )
 
       if (freeAccess || (userPurchase && userPurchase.status)) {
         // if (divStep) divStep.classList.add('bg-white')
