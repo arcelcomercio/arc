@@ -5,6 +5,7 @@ import * as React from 'react'
  */
 
 const Home = ({
+  fecha = '',
   contagiados = 0,
   recuperados = 0,
   fallecidos = 0,
@@ -28,13 +29,13 @@ const Home = ({
             const urlCamasUCI = document.querySelector(".cls_camas_uci")
             const urlPlus = document.querySelector(".cls_plus")
             urlContagiados.addEventListener("click", () => {
-                window.location = '/covid/'
+                window.location = '/covid/contagiados/'
             })
             urlCamasUCI.addEventListener("click", () => {
-                window.location = '/covid/'
+                window.location = '/covid/camas-uci/'
             })
             urlPlus.addEventListener("click", () => {
-                window.location = '/covid/'
+                window.location = '/covid/mas-informacion/'
             })
 
             const myts = document.getElementsByClassName("tick");
@@ -49,7 +50,7 @@ const Home = ({
             }
         })})
     */
-  const NewsCustomJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){Tick.DOM.parse(document.body);var e=document.querySelector(".cls_contagiados"),n=document.querySelector(".cls_camas_uci"),c=document.querySelector(".cls_plus");e.addEventListener("click",function(){window.location="/covid/"}),n.addEventListener("click",function(){window.location="/covid/"}),c.addEventListener("click",function(){window.location="/covid/"});for(var i=document.getElementsByClassName("tick"),t=0;t<i.length;t++){var d=i[t].children[0].children.length;i[t].children[0].children[d-3]&&(i[t].children[0].children[d-3].style.marginLeft="10px"),i[t].children[0].children[d-6]&&(i[t].children[0].children[d-6].style.marginLeft="10px")}})});`
+  const NewsCustomJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){Tick.DOM.parse(document.body);var e=document.querySelector(".cls_contagiados"),n=document.querySelector(".cls_camas_uci"),c=document.querySelector(".cls_plus");e.addEventListener("click",function(){window.location="/covid/contagiados/"}),n.addEventListener("click",function(){window.location="/covid/camas-uci/"}),c.addEventListener("click",function(){window.location="/covid/mas-informacion/"});for(var i=document.getElementsByClassName("tick"),t=0;t<i.length;t++){var d=i[t].children[0].children.length;i[t].children[0].children[d-3]&&(i[t].children[0].children[d-3].style.marginLeft="10px"),i[t].children[0].children[d-6]&&(i[t].children[0].children[d-6].style.marginLeft="10px")}})});`
 
   return (
     <>
@@ -60,9 +61,7 @@ const Home = ({
       <div className={classes.Home}>
         <div className={classes.Block}>
           <span className={classes.Title}>El Coronavirus en Perú</span>
-          <span className={classes.SubTitle}>
-            (Actualizado el 2 de octubre a las 10:30 am)
-          </span>
+          <span className={classes.SubTitle}>{fecha}</span>
         </div>
         <div className={classes.BlockBtnRed}>
           <button type="button" className={`${classes.BtnRed} cls_contagiados`}>
