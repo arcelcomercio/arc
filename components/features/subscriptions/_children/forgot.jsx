@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import * as React from 'react'
+
 import useForm from '../_hooks/useForm'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import { MsgForgotPass } from '../_dependencies/Icons'
@@ -19,12 +20,12 @@ const styles = {
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Forgot = () => {
-  const [loading, setLoading] = useState(false)
-  const [msgError, setMsgError] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [registerLink, setRegisterLink] = useState()
-  const [showVerify, setShowVerify] = useState()
-  const [showSendEmail, setShowSendEmail] = useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [msgError, setMsgError] = React.useState(false)
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [registerLink, setRegisterLink] = React.useState()
+  const [showVerify, setShowVerify] = React.useState()
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts } = PropertiesCommon
 
   const stateSchema = {
@@ -142,6 +143,8 @@ const Forgot = () => {
                     <input
                       className={femailError && 'input-error'}
                       type="text"
+                      inputMode="email"
+                      autoComplete="email"
                       name="femail"
                       required
                       value={femail}
