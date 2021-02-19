@@ -1,7 +1,7 @@
 import * as React from 'react'
 // import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
-// import Home from './_children/home'
+// <import Home from './_children/home'
 import QuestionList from './_children/question-list'
 // import InfectedAverage from './_children/infected-average'
 
