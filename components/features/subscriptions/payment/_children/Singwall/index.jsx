@@ -71,12 +71,10 @@ const WrapperSingwall = () => {
   )
 }
 
-const Singwall = () => {
-  return (
-    <NavigateProvider>
-      <WrapperSingwall />
-    </NavigateProvider>
-  )
-}
+const Singwall = () => (
+  <NavigateProvider>
+    <WrapperSingwall />
+  </NavigateProvider>
+)
 
 export default Singwall

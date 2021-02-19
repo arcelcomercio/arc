@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import * as React from 'react'
+
 import Portal from './portal'
 
 const MODAL = 'fix-modal'
@@ -15,34 +16,28 @@ function Modal({
   function close() {
     onClose()
   }
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (open) {
-        window.document.body.classList.add(MODAL)
-      } else {
-        window.document.body.classList.remove(MODAL)
-      }
-
-      return () => {
-        window.document.body.classList.remove(MODAL)
-      }
+  React.useEffect(() => {
+    if (open) {
+      window.document.body.classList.add(MODAL)
+    } else {
+      window.document.body.classList.remove(MODAL)
     }
-    return ''
+
+    return () => {
+      window.document.body.classList.remove(MODAL)
+    }
   }, [open])
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const _onClose = ({ key }) => {
-        if (allowEsc && key === 'Escape') {
-          close()
-        }
-      }
-      window.addEventListener('keydown', _onClose)
-      return () => {
-        window.removeEventListener('keydown', _onClose)
+  React.useEffect(() => {
+    const _onClose = ({ key }) => {
+      if (allowEsc && key === 'Escape') {
+        close()
       }
     }
-    return ''
+    window.addEventListener('keydown', _onClose)
+    return () => {
+      window.removeEventListener('keydown', _onClose)
+    }
   }, [])
 
   return (
