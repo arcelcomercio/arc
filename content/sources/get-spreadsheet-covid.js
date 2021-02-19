@@ -38,7 +38,10 @@ const getInfectedData = sheet => {
   for (let col = initCol; col <= sheet.columnCount; col++) {
     result.push(processDataByColumn(sheet, col))
   }
-  return result
+  return {
+    sheet_title: sheet.title,
+    data: result,
+  }
 }
 
 /**
@@ -79,7 +82,10 @@ const getRowsWithColsAsKeys = sheet => {
     }
     result.push(item)
   }
-  return result
+  return {
+    sheet_title: sheet.title,
+    data: result,
+  }
 }
 
 /**
