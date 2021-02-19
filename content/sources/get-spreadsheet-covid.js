@@ -38,7 +38,35 @@ const getInfectedData = sheet => {
   for (let col = initCol; col <= sheet.columnCount; col++) {
     result.push(processDataByColumn(sheet, col))
   }
-  return result
+  return {
+    sheet_title: sheet.title,
+    data: result,
+  }
+}
+
+/**
+ * @param  {import('google-spreadsheet').GoogleSpreadsheetWorksheet} sheet
+ * @description Obtiene un Array de Objetos, siendo las columnas keys del objeto
+ */
+const getUciBeds = sheet => {
+  const data = []
+  for (let row = 1; row < sheet.rowCount; row++) {
+    const item = {}
+    for (let col = 0; col < sheet.columnCount; col++) {
+      item[sheet.getCell(0, col).value] = sheet.getCell(row, col).value
+      if (col === 0) {
+        item.territorio_slug = slugify(sheet.getCell(row, col).value)
+      }
+      if (col === 1) {
+        item.grupo_slug = slugify(sheet.getCell(row, col).value)
+      }
+    }
+    data.push(item)
+  }
+  return {
+    sheet_title: sheet.title,
+    data,
+  }
 }
 
 /**
@@ -54,7 +82,10 @@ const getRowsWithColsAsKeys = sheet => {
     }
     result.push(item)
   }
-  return result
+  return {
+    sheet_title: sheet.title,
+    data: result,
+  }
 }
 
 /**
@@ -118,6 +149,9 @@ const fetch = async ({ id, title }) => {
       break
 
     case 'Camas UCI':
+      result = getUciBeds(sheet)
+      break
+
     case 'Mas Informacion':
       result = getRowsWithColsAsKeys(sheet)
       break
