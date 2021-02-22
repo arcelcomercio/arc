@@ -1,6 +1,5 @@
 declare module 'fusion:content' {
-  import { ContentConfig } from '../fusion:context'
-  import { AnyObject } from '../utils'
+  type AnyObject = Record<string, unknown>
 
   export interface UseContentConfig<Query = AnyObject> {
     source: string
@@ -13,5 +12,20 @@ declare module 'fusion:content' {
     config: UseContentConfig<Query>
   ): any
 
-  // export function Content(props: ContentConfig): void
+  // `Content` default export en progreso
+  // pero parece que es mejor, por establecer
+  // un estandar, usar `useContent` en lugar de `Content`
+
+  // export interface ContentConfig<Values = AnyObject> {
+  //   contentService: string
+  //   contentConfigValues?: Values
+  //   inherit?: boolean
+  // }
+
+  // interface ContentProps<V = AnyObject> extends ContentConfig<V> {
+  //   children: (response: AnyObject) => React.FC<AnyObject>
+  // }
+
+  // function Content(props: ContentProps): JSX.Element
+  // export default Content
 }

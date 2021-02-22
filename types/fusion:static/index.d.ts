@@ -1,14 +1,12 @@
-// declare module 'fusion:static' {
-//   import { AnyObject } from '../utils'
+declare module 'fusion:static' {
+  type AnyObject = Record<string, unknown>
 
-//   export interface UseContentConfig<Query = AnyObject> {
-//     source: string
-//     query: Query
-//     filter?: string
-//     transform?: (data: AnyObject) => any
-//   }
+  type StaticProps = {
+    children: React.ReactNode
+    id?: string
+    htmlOnly?: boolean
+  }
 
-//   export function useContent<Query = AnyObject>(
-//     config: UseContentConfig<Query>
-//   ): any
-// }
+  function Static(props: StaticProps): JSX.Element
+  export default Static
+}

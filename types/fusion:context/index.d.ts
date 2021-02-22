@@ -1,10 +1,9 @@
 declare module 'fusion:context' {
-  import { AnyObject } from '../utils'
-
+  type AnyObject = Record<string, unknown>
   export interface ContentConfig<Values = AnyObject> {
     contentService: string
     contentConfigValues?: Values
-    inherit: boolean
+    inherit?: boolean
   }
 
   export interface GlobalContentConfig<Query = AnyObject> {
