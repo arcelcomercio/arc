@@ -1,0 +1,123 @@
+.infected {
+  background-color: white;
+  &__wrapper {
+    font-family: Guardian Egyp, Regular, sans-serif;
+    width: 100%;
+    color: #000;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__title {
+    font-size: 25px;
+    text-align: center;
+    width: 100%;
+    padding-top: 20px;
+  }
+  &__close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  &__subtitle {
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    padding-top: 8px;
+  }
+  &__btn-wrapper {
+    display: flex;
+    width: 304px;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  &__button {
+    background-color: #f00;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 20px;
+    width: 149px;
+    height: 32px;
+    &:hover{
+      background-color: #C33434;
+    }
+  }
+  &__sections_wrapper{
+    margin-top: 30px;
+  }
+  &__rgn_wrapper {
+    width: 304px;
+    columns: .149px 2;
+    li{
+      border-radius: 7px;
+      color: #fff;
+      font-size: 16px;
+      padding: 4px;
+      margin: 2px;
+      margin-left: 0px;
+      position: relative;
+      padding-left: 30px;
+      background-color: #000000;
+      font-family: Guardian Egyp, medium, sans-serif;
+      line-height: 24px;
+      width: 149px;
+      list-style: none;
+      &:before{
+        position: absolute;
+        display: block;
+        content: "";
+        top: 8px;
+        left: 7px;
+        width: 17px;
+        height: 17px;
+        background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/SFAMJJCS6ZHZJJTEIO6X7F3A3E.png");
+      }
+    }
+    .infected__rgn_title{
+      padding-left: 7px;
+      background-color: #fff;
+      color: #000;
+      &:before{
+        display: none;
+      }
+    }
+  }
+  &__item.up {
+    background-color: #b10000;
+    &::before {
+      background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/S3GFAKBL3ZANTDLCXKXWFGQXTQ.png");
+    }
+    &:hover{
+      background-color: #741919;
+    }
+  }
+  &__item.down {
+    background-color: #55ac0a;
+    &::before {
+      background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/GK2AYDXXMNGDPJTX3VVUVWDAFE.png");
+    }
+    &:hover{
+      background-color: #336508;
+    }
+  }
+  &__item.equals{
+    background-color: #000000;
+    &:hover{
+      background-color: #696969;
+    }
+  }
+  &__home-button{
+    margin-top: 30px;
+    margin-bottom: 50px;
+    width: 84px;
+    height: 32px;
+    border-radius: 6px;
+    background-color: #7C7C7C;
+    font-size: 20px;
+    color: #fff;
+    &:hover{
+      background-color: #000;
+    }
+  }
+}
