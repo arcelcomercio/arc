@@ -42,6 +42,7 @@ const Newsletter = props => {
     urlTos,
     urlPrivacyPolicies,
     incluyejs,
+    activateJS,
   } = props
   const { arcSite } = useFusionContext()
   const { newsletterBrand } = getProperties(arcSite)
@@ -54,33 +55,41 @@ const Newsletter = props => {
       const formButton = document.getElementsByClassName('newsletter__button')
       const first_div = document.getElementsByClassName("newsletter__formInputs")
       const second_div = document.getElementsByClassName("newsletter__divConfirmation")
-      formsInPage[0].addEventListener("submit", (event) => {
-        event.preventDefault()
-        formButton[0].disabled = true
-        const IEmailNC = document.getElementsByClassName("newsletter__email")[0]
-        const EmailMessageNC = document.getElementsByClassName("newsletter__error-message")[0]
-        const re = new RegExp(/[\\w\\.-]+@[\\w\\.-]+/, 'i')
-        const validEmail  = re.test(IEmailNC.value)
-        if(validEmail) {
-          EmailMessageNC.textContent = ""
-          first_div[0].style.display = "none";
-          second_div[0].style.display = 'block'
-        }else{
-          formButton[0].disabled = false
-          EmailMessageNC.textContent = "Ingrese un correo valido"
-          return false
-        }
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", URL_NEWSLETTER_API, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            email: IEmailNC.value,
-            brand: brandNL
-        }))
-      })
+
+      let estadoNL = false
+      if(formsInPage[0]){
+        estadoNL = true
+      }
+
+      if(estadoNL){
+        formsInPage[0].addEventListener("submit", (event) => {
+          event.preventDefault()
+          formButton[0].disabled = true
+          const IEmailNC = document.getElementsByClassName("newsletter__email")[0]
+          const EmailMessageNC = document.getElementsByClassName("newsletter__error-message")[0]
+          const re = new RegExp(/[\\w\\.-]+@[\\w\\.-]+/, 'i')
+          const validEmail  = re.test(IEmailNC.value)
+          if(validEmail) {
+            EmailMessageNC.textContent = ""
+            first_div[0].style.display = "none";
+            second_div[0].style.display = 'block'
+          }else{
+            formButton[0].disabled = false
+            EmailMessageNC.textContent = "Ingrese un correo valido"
+            return false
+          }
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", URL_NEWSLETTER_API, true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.send(JSON.stringify({
+              email: IEmailNC.value,
+              brand: brandNL
+          }))
+        })
+      }
 
       //solo para trome
-      if(brandNL == 'trome'){
+      if(brandNL == 'trome' && estadoNL){
         const checkDesk = document.getElementById('stNewsCinDesk')
         const checkMob = document.getElementById('stNewsCinMob')
 
@@ -136,8 +145,11 @@ const Newsletter = props => {
     })})
   */
   let NewsCustomJs = ''
-  NewsCustomJs = `"use strict";var URL_NEWSLETTER_API="${NEWSLETTER_API}",brandNL="${newsletterBrand}";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementsByClassName("class-news-custom-form"),t=document.getElementsByClassName("newsletter__button"),n=document.getElementsByClassName("newsletter__formInputs"),s=document.getElementsByClassName("newsletter__divConfirmation");if(e[0].addEventListener("submit",function(e){e.preventDefault(),t[0].disabled=!0;var a=document.getElementsByClassName("newsletter__email")[0],l=document.getElementsByClassName("newsletter__error-message")[0];if(!new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(a.value))return t[0].disabled=!1,l.textContent="Ingrese un correo valido",!1;l.textContent="",n[0].style.display="none",s[0].style.display="block";var d=new XMLHttpRequest;d.open("POST",URL_NEWSLETTER_API,!0),d.setRequestHeader("Content-Type","application/json"),d.send(JSON.stringify({email:a.value,brand:brandNL}))}),"trome"==brandNL){var a=document.getElementById("stNewsCinDesk"),l=document.getElementById("stNewsCinMob"),d=document.getElementById("HeaderNewsletter");d.className="",d.style.display="none",a.addEventListener("change",function(){a.checked?(d.className="header-full__newsletter-tooltip showTooltipDesk",d.style.display="flex"):d.style.display="none"}),l.addEventListener("change",function(){l.checked?(d.className="header-full__newsletter-modal active showModalMob",d.style.display="block"):d.style.display="none"})}e.length>1&&e[1].addEventListener("submit",function(e){e.preventDefault(),t[1].disabled=!0;var a=document.getElementsByClassName("newsletter__email")[1],l=document.getElementsByClassName("newsletter__error-message")[1];if(!new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(a.value))return t[1].disabled=!1,l.textContent="Ingrese un correo valido",!1;l.textContent="",n[1].style.display="none",s[1].style.display="block";var d=new XMLHttpRequest;d.open("POST",URL_NEWSLETTER_API,!0),d.setRequestHeader("Content-Type","application/json"),d.send(JSON.stringify({email:a.value,brand:brandNL}))})})});`
+  NewsCustomJs = `"use strict";var URL_NEWSLETTER_API="${NEWSLETTER_API}",brandNL="${newsletterBrand}";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementsByClassName("class-news-custom-form"),t=document.getElementsByClassName("newsletter__button"),n=document.getElementsByClassName("newsletter__formInputs"),s=document.getElementsByClassName("newsletter__divConfirmation"),a=!1;if(e[0]&&(a=!0),a&&e[0].addEventListener("submit",function(e){e.preventDefault(),t[0].disabled=!0;var a=document.getElementsByClassName("newsletter__email")[0],l=document.getElementsByClassName("newsletter__error-message")[0];if(!new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(a.value))return t[0].disabled=!1,l.textContent="Ingrese un correo valido",!1;l.textContent="",n[0].style.display="none",s[0].style.display="block";var d=new XMLHttpRequest;d.open("POST",URL_NEWSLETTER_API,!0),d.setRequestHeader("Content-Type","application/json"),d.send(JSON.stringify({email:a.value,brand:brandNL}))}),"trome"==brandNL&&a){var l=document.getElementById("stNewsCinDesk"),d=document.getElementById("stNewsCinMob"),o=document.getElementById("HeaderNewsletter");o.className="",o.style.display="none",l.addEventListener("change",function(){l.checked?(o.className="header-full__newsletter-tooltip showTooltipDesk",o.style.display="flex"):o.style.display="none"}),d.addEventListener("change",function(){d.checked?(o.className="header-full__newsletter-modal active showModalMob",o.style.display="block"):o.style.display="none"})}e.length>1&&e[1].addEventListener("submit",function(e){e.preventDefault(),t[1].disabled=!0;var a=document.getElementsByClassName("newsletter__email")[1],l=document.getElementsByClassName("newsletter__error-message")[1];if(!new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(a.value))return t[1].disabled=!1,l.textContent="Ingrese un correo valido",!1;l.textContent="",n[1].style.display="none",s[1].style.display="block";var d=new XMLHttpRequest;d.open("POST",URL_NEWSLETTER_API,!0),d.setRequestHeader("Content-Type","application/json"),d.send(JSON.stringify({email:a.value,brand:brandNL}))})})});`
   if (incluyejs === 'FALSE') {
+    // NewsCustomJs = '' era para solo la cabecera
+  }
+  if (activateJS === 'DESACTIVAR') {
     NewsCustomJs = ''
   }
   return (
