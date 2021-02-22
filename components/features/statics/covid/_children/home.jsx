@@ -23,13 +23,13 @@ const Home = () => {
             const urlCamasUCI = document.querySelector(".cls_camas_uci")
             const urlPlus = document.querySelector(".cls_plus")
             urlContagiados.addEventListener("click", () => {
-                window.location = '/covid/contagiados/'
+                window.location = '/covid-19/contagiados/'
             })
             urlCamasUCI.addEventListener("click", () => {
-                window.location = '/covid/camas-uci/'
+                window.location = '/covid-19/camas-uci/'
             })
             urlPlus.addEventListener("click", () => {
-                window.location = '/covid/mas-informacion/'
+                window.location = '/covid-19/mas-informacion/'
             })
 
             const myts = document.getElementsByClassName("tick");
