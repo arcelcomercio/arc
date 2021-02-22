@@ -35,4 +35,74 @@
     width: 100%;
     height: 100%;
   }
+  &__btn-container {
+    padding: 35px 0 50px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    button {
+      color: #fff;
+      border: 1px solid #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      overflow: hidden;
+      width: 100%;
+      @media (--tablet) {
+        width: 225px;
+      }
+      &:hover {
+        background-color: #4e4e4e;
+      }
+    }
+  }
+}
+
+$offset: 187;
+$duration: 1.4s;
+
+.spinner {
+  content-visibility: auto;
+  contain-intrinsic-size: 100px;
+  padding: 0;
+  &__svg {
+    animation: spinner__rotator $duration linear infinite;
+    stroke: #fff;
+    height: 19px;
+  }
+
+  &__circle {
+    stroke-dasharray: $offset;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: spinner__dash $duration ease-in-out infinite,
+      colors ($duration * 4) ease-in-out infinite;
+  }
+}
+
+@keyframes spinner__rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes spinner__dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
+  50% {
+    stroke-dashoffset: $offset/4;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform: rotate(450deg);
+  }
+}
+.section-videos {
+  .flex.flex-col.content-layout-container.w-full.position-relative.bg-container {
+    background-color: transparent;
+  }
 }
