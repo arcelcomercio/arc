@@ -35,74 +35,59 @@ const StaticsCovidInfected = () => {
     </div>
     <div className={classes.sectionsWrapper}>
       <ul className={classes.regionsWrapper}>
-        <li className={classes.regionTitle}>Lima Norte
-          <ul className={classes.itemsList}>
-            <li className={classes.itemDown}>S.M. de Porres</li>
-            <li className={classes.itemEquals}>Independencia</li>
-            <li className={classes.itemUp}>Comas</li>
-            <li>Los Olivos</li>
-            <li>Puente Piedra</li>
-            <li>Carabayllo</li>
-            <li>Ancón</li>
-            <li>Santa Rosa</li>
-          </ul>
-        </li>
-        <li className={classes.regionTitle}>Lima Centro
-          <ul className={classes.itemsList}>
-            <li>Cercado de Lima</li>
-            <li>Rímac</li>
-            <li>Breña</li>
-            <li>La Victoria</li>
-            <li>San Miguel</li>
-            <li>Lince</li>
-            <li>Magdalena</li>
-            <li>San Isidro</li>
-            <li>San Borja</li>
-            <li>Surquillo</li>
-            <li>Miraflores</li>
-            <li>Barranco</li>
-            <li>Santiago de Surco</li>
-          </ul>
-        </li>
-        <li className={classes.regionTitle}>Lima Este
-          <ul className={classes.itemsList}>
-            <li>S.J. de Lurigancho</li>
-            <li>El Agustino</li>
-            <li>Santa Anita</li>
-            <li>San Luis</li>
-            <li>Ate</li>
-            <li>La Molina</li>
-            <li>Cieneguilla</li>
-            <li>Chaclacayo</li>
-            <li>Lurigancho</li>
-          </ul>
-        </li>
-        <li className={classes.regionTitle}>Lima Sur
-          <ul className={classes.itemsList}>
-            <li>Chorrillos</li>
-            <li>S.J. de Miraflores</li>
-            <li>V.M. del Triunfo</li>
-            <li>Villa el Salvador</li>
-            <li>Pachacamac</li>
-            <li>Lurín</li>
-            <li>Punta Hermosa</li>
-            <li>Punta Negra</li>
-            <li>San Bartolo</li>
-            <li>Santa María</li>
-            <li>Pucusana</li>
-          </ul>
-        </li>
-        <li className={classes.regionTitle}>Callao
-          <ul className={classes.itemsList}>
-            <li>Callao Cercado</li>
-            <li>LA Perla</li>
-            <li>Carmen de la Legua</li>
-            <li>La Punta</li>
-            <li>Bellavista</li>
-            <li>Ventanilla</li>
-            <li>Mi Perú</li>
-          </ul>
-        </li>
+        <li className={classes.regionTitle}>Lima Norte</li>
+        <li className={classes.itemDown}>S.M. de Porres</li>
+        <li className={classes.itemEquals}>Independencia</li>
+        <li className={classes.itemUp}>Comas</li>
+        <li>Los Olivos</li>
+        <li>Puente Piedra</li>
+        <li>Carabayllo</li>
+        <li>Ancón</li>
+        <li>Santa Rosa</li>
+        <li className={classes.regionTitle}>Lima Centro</li>
+        <li>Cercado de Lima</li>
+        <li>Rímac</li>
+        <li>Breña</li>
+        <li>La Victoria</li>
+        <li>San Miguel</li>
+        <li>Lince</li>
+        <li>Magdalena</li>
+        <li>San Isidro</li>
+        <li>San Borja</li>
+        <li>Surquillo</li>
+        <li>Miraflores</li>
+        <li>Barranco</li>
+        <li>Santiago de Surco</li>
+        <li className={classes.regionTitle}>Lima Este</li>
+        <li>S.J. de Lurigancho</li>
+        <li>El Agustino</li>
+        <li>Santa Anita</li>
+        <li>San Luis</li>
+        <li>Ate</li>
+        <li>La Molina</li>
+        <li>Cieneguilla</li>
+        <li>Chaclacayo</li>
+        <li>Lurigancho</li>
+        <li className={classes.regionTitle}>Lima Sur</li>
+        <li>Chorrillos</li>
+        <li>S.J. de Miraflores</li>
+        <li>V.M. del Triunfo</li>
+        <li>Villa el Salvador</li>
+        <li>Pachacamac</li>
+        <li>Lurín</li>
+        <li>Punta Hermosa</li>
+        <li>Punta Negra</li>
+        <li>San Bartolo</li>
+        <li>Santa María</li>
+        <li>Pucusana</li>
+        <li className={classes.regionTitle}>Callao</li>
+        <li>Callao Cercado</li>
+        <li>LA Perla</li>
+        <li>Carmen de la Legua</li>
+        <li>La Punta</li>
+        <li>Bellavista</li>
+        <li>Ventanilla</li>
+        <li>Mi Perú</li>
       </ul>
     </div>
     <button type="button" className={classes.homeButton}>Inicio</button>
