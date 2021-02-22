@@ -10,16 +10,17 @@ import Home from './_children/home'
  */
 
 const StaticsCovid = () => {
-  /* 
+  /*
   const { globalContent: { data = {} } = {}, requestUri } = useAppContext()
-  const uri = requestUri.split('/')[2]
+  const uri = requestUri.split('/')[3]
   const distrito = data.filter(el => el.dist_prov_slug === uri)[0]
   const {
     infected_by_date: infectedDate = [],
     dist_prov: distProv = '',
     desde_marzo: desdeMarzo = '',
     embed_chart: embedChart = '',
-  } = distrito */
+  } = distrito
+  */
 
   return (
     <>
