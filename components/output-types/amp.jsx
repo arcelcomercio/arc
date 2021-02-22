@@ -11,7 +11,6 @@ import { addSlashToEnd } from '../utilities/parse/strings'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
-  SITE_ELCOMERCIO,
   SITE_GESTION,
   SITE_OJO,
 } from '../utilities/constants/sitenames'
@@ -185,11 +184,7 @@ const AmpOutputType = ({
 
   /** ---------------------------- */
   const hasExternalCounterPaywall =
-    isMetered &&
-    activeRulesCounter &&
-    activePaywall &&
-    ((arcSite === SITE_GESTION && /^\/(podcast|mundo)\//.test(requestUri)) ||
-      (arcSite === SITE_ELCOMERCIO && /^\/(tecnologia)\//.test(requestUri)))
+    isMetered && activeRulesCounter && activePaywall
 
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
