@@ -1,6 +1,6 @@
-// import { AnyObject } from '../utils'
-
 // declare module 'fusion:static' {
+//   import { AnyObject } from '../utils'
+
 //   export interface UseContentConfig<Query = AnyObject> {
 //     source: string
 //     query: Query

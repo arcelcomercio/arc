@@ -8,14 +8,10 @@ import { getIframeStory, getLang } from './_dependencies/utils'
 
 const MonorepoOutput: OT<OutputProps> = ({
   children,
-  contextPath,
   deployment,
   arcSite,
-  globalContent,
-  Resource,
   siteProperties,
   requestUri,
-  metaValue,
   Fusion,
   Libs,
 }) => {

@@ -1,6 +1,6 @@
-import { AnyObject } from '../utils'
-
 declare module 'fusion:context' {
+  import { AnyObject } from '../utils'
+
   export interface ContentConfig<Values = AnyObject> {
     contentService: string
     contentConfigValues?: Values
