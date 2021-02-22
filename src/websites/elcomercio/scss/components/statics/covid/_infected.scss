@@ -1,39 +1,39 @@
 .infected {
   background-color: white;
-  &__wrapper{
-    font-family: 'Guardian Egyp, regular';
+  &__wrapper {
+    font-family: Guardian Egyp, Regular, sans-serif;
     width: 100%;
-    color: #000000;
+    color: #000;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  &__title{
+  &__title {
     font-size: 25px;
     text-align: center;
     width: 100%;
     padding-top: 20px;
   }
-  &__close-button{
+  &__close-button {
     position: absolute;
     top: 10px;
     right: 10px;
   }
-  &__subtitle{
+  &__subtitle {
     font-size: 16px;
     text-align: center;
     width: 100%;
     padding-top: 8px;
   }
-  &__btn-wrapper{
+  &__btn-wrapper {
     display: flex;
     width: 304px;
     justify-content: space-between;
     margin-top: 20px;
   }
-  &__button{
-    background-color: #FF0000;
+  &__button {
+    background-color: #f00;
     border-radius: 7px;
     color: #fff;
     font-size: 20px;
@@ -46,7 +46,7 @@
   &__sections_wrapper{
     margin-top: 30px;
   }
-  &__rgn_wrapper{
+  &__rgn_wrapper {
     width: 304px;
     columns: .149px 2;
     li{
@@ -83,18 +83,18 @@
       }
     }
   }
-  &__item.up{
-    background-color: #B10000;
-    &:before{
+  &__item.up {
+    background-color: #b10000;
+    &::before {
       background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/S3GFAKBL3ZANTDLCXKXWFGQXTQ.png");
     }
     &:hover{
       background-color: #741919;
     }
   }
-  &__item.down{
-    background-color: #55AC0A;
-    &:before{
+  &__item.down {
+    background-color: #55ac0a;
+    &::before {
       background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/GK2AYDXXMNGDPJTX3VVUVWDAFE.png");
     }
     &:hover{
