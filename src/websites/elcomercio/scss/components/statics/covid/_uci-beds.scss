@@ -1,10 +1,25 @@
 .uci-home {
+  width: 100%;
+  max-width: 304px;
+  margin: 0 auto;
+  position: relative;
+  @media (--tablet) {
+    max-width: 322px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
   &__title {
     font: 400 25px/20px $primary-font;
     letter-spacing: -0.5px;
     color: #000;
     text-align: center;
     margin-top: 20px;
+    @media (--tablet) {
+      margin-top: 24px;
+    }
   }
 
   &__subtitle {
@@ -16,7 +31,7 @@
 
   &__link-d-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 26px;
   }
   &__link-d {
@@ -30,12 +45,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    &:nth-child(odd) {
-      margin-right: 3px;
-    }
-    &:nth-child(even) {
-      margin-left: 3px;
-    }
   }
   &__list {
     margin-top: 32px;
@@ -48,12 +57,10 @@
     font: 500 15px/24px $primary-font;
     color: #000;
     letter-spacing: -0.3px;
-    width: 304px;
     height: 27px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 auto;
     border: 0.5px solid #707071;
     border-radius: 4px;
     padding: 0 8px;
@@ -72,21 +79,117 @@
     margin: 0 auto;
   }
   &__group {
-    width: 304px;
-    margin: auto;
+    margin-top: 44px;
+    border: 0.5px solid #707071;
+    border-radius: 4px;
+    overflow: hidden;
+    .uci-home__item {
+      padding: 0;
+      margin-bottom: 11px;
+    }
+    .uci-home__item-link {
+      border: none;
+      border-bottom: 0.5px solid #707071;
+    }
   }
-  &__header {
+  &__row {
     display: flex;
-  }
-  &__header-i {
-    font: 700 9px/16px $primary-font;
-    color: #000;
-    letter-spacing: -0.45px;
-    &:first-child {
+    margin: 0 8px;
+    padding: 2px 0;
+    font: 500 12px/16px $primary-font;
+    letter-spacing: -0.3px;
+    border-bottom: 1px solid #d4d4d4;
+    div {
       flex: 1;
+      text-align: right;
+      &:first-child {
+        width: 200px;
+        flex: 0 1 auto;
+        text-align: left;
+      }
+      &:last-child {
+        margin-left: 6px;
+      }
     }
-    &:last-child {
-      margin-left: 6px;
+    &.header {
+      font: 700 9px/16px $primary-font;
+      color: #000;
+      letter-spacing: -0.45px;
+      border-bottom: none;
     }
+  }
+  &__close-link {
+    display: block;
+    position: absolute;
+    top: -5px;
+    right: 0;
+  }
+}
+
+.uci-hospital {
+  width: 100%;
+  max-width: 346px;
+  margin: 0 auto;
+  color: #000;
+  position: relative;
+  margin-top: 52px;
+
+  &__bg {
+    background: rgb(252, 252, 252);
+    background: radial-gradient(
+      circle,
+      rgba(252, 252, 252, 1) 0%,
+      rgba(218, 218, 218, 1) 90%,
+      rgba(182, 182, 182, 1) 100%
+    );
+    box-shadow: 0 7px 7px #000000b4;
+    opacity: 0.27;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+  }
+  &__body {
+    position: relative;
+    padding: 55px 40px;
+    z-index: 1;
+    text-align: center;
+  }
+  &__title {
+    font: 400 25px/1 $primary-font;
+    letter-spacing: -0.5px;
+    border-bottom: 2px solid #b7b7b7;
+    padding-bottom: 8px;
+  }
+  &__dir {
+    font: 400 17px/22px $primary-font;
+    letter-spacing: -0.34px;
+    padding: 8px 30px;
+    border-bottom: 2px solid #b7b7b7;
+  }
+  &__at {
+    border-bottom: 2px solid #b7b7b7;
+  }
+  &__at,
+  &__nu {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+
+    span {
+      margin-bottom: 3px;
+      &:first-child {
+        font: 400 14px/1 $primary-font;
+        letter-spacing: -0.28px;
+      }
+      &:last-child {
+        font: 400 21px/1 $primary-font;
+        letter-spacing: -0.42px;
+      }
+    }
+  }
+  .uci-home__close-link {
+    top: 20px;
+    right: 22px;
   }
 }

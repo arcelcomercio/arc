@@ -15,6 +15,7 @@ const classes = {
   date: 'average__date',
   grupCount: 'average__grup-count',
   clese: 'average__close',
+  embed: 'average__embed',
 }
 
 /**
@@ -38,11 +39,14 @@ const StaticsCovidInfectedAverage = ({
   const [fiebre, setSelectFiebre] = React.useState(false)
 
   let maxValue = 0
+  const data = []
   for (let i = 0; i < infectedDate.length; i++) {
     if (maxValue < infectedDate[i].value) {
       maxValue = infectedDate[i].value
     }
+    if (infectedDate[i].date !== null) data[i] = infectedDate[i]
   }
+
   const dataValue = infected => {
     return Math.round((infected * 100) / maxValue)
   }
@@ -82,6 +86,7 @@ const StaticsCovidInfectedAverage = ({
     const nameMonth = ListMonth[parseInt(mes[1], 10) - 1]
     return `${nameMonth} ${mes[0]}`
   }
+
   return (
     <>
       <section className={classes.average}>
@@ -135,7 +140,7 @@ const StaticsCovidInfectedAverage = ({
         </div>
         {barra && (
           <ul>
-            {infectedDate.map(({ date = '', value = '' }) => (
+            {data.map(({ date = '', value = '' }) => (
               <div
                 style={{
                   display: 'flex',
@@ -154,7 +159,21 @@ const StaticsCovidInfectedAverage = ({
             ))}
           </ul>
         )}
-        {fiebre && <div className="div"> {embedChart} Embed</div>}
+        {fiebre && (
+          <div className={classes.embed}>
+            <embed
+              title="Embed"
+              src={embedChart}
+              frameBorder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen="true"
+              id="embed"
+              height="320"
+              style={{ width: '100%' }}
+              className={classes.iframeVideo}
+            />
+          </div>
+        )}
         <div className={classes.date}>4 de febrero</div>
         <div className={classes.grupCount}>
           <div>
