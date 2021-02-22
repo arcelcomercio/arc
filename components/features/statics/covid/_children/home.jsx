@@ -1,17 +1,11 @@
 import * as React from 'react'
+import { useContent } from 'fusion:content'
 
 /**
  * @see estilos `src/websites/elcomercio/scss/components/statics/covid/_home.scss`
  */
 
-const Home = ({
-  fecha = '',
-  contagiados = 0,
-  recuperados = 0,
-  fallecidos = 0,
-  uci = 0,
-  vacunados = 0,
-}) => {
+const Home = () => {
   const classes = {
     Home: 'home',
     Block: 'home__block',
@@ -52,6 +46,14 @@ const Home = ({
     */
   const NewsCustomJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){Tick.DOM.parse(document.body);var e=document.querySelector(".cls_contagiados"),n=document.querySelector(".cls_camas_uci"),c=document.querySelector(".cls_plus");e.addEventListener("click",function(){window.location="/covid/contagiados/"}),n.addEventListener("click",function(){window.location="/covid/camas-uci/"}),c.addEventListener("click",function(){window.location="/covid/mas-informacion/"});for(var i=document.getElementsByClassName("tick"),t=0;t<i.length;t++){var d=i[t].children[0].children.length;i[t].children[0].children[d-3]&&(i[t].children[0].children[d-3].style.marginLeft="10px"),i[t].children[0].children[d-6]&&(i[t].children[0].children[d-6].style.marginLeft="10px")}})});`
 
+  const data =
+    useContent({
+      source: 'get-spreadsheet-covid',
+      query: {
+        title: 'Home',
+      },
+    }) || {}
+
   return (
     <>
       <link
@@ -61,7 +63,9 @@ const Home = ({
       <div className={classes.Home}>
         <div className={classes.Block}>
           <span className={classes.Title}>El Coronavirus en Perú</span>
-          <span className={classes.SubTitle}>{fecha}</span>
+          <span className={classes.SubTitle}>
+            (Actualizado el {data.ultima_fecha_con_data})
+          </span>
         </div>
         <div className={classes.BlockBtnRed}>
           <button type="button" className={`${classes.BtnRed} cls_contagiados`}>
@@ -75,35 +79,35 @@ const Home = ({
           </button>
         </div>
         <div className={classes.Block}>
-          <div className={classes.Tick} data-value={contagiados}>
+          <div className={classes.Tick} data-value={data.total_contagiados}>
             <div data-repeat="true" aria-hidden="true">
               <span data-view="flip"></span>
             </div>
           </div>
           <span className={classes.SubTitleN}>Total de contagiados</span>
 
-          <div className={classes.Tick} data-value={recuperados}>
+          <div className={classes.Tick} data-value={data.total_recuperados}>
             <div data-repeat="true" aria-hidden="true">
               <span data-view="flip"></span>
             </div>
           </div>
           <span className={classes.SubTitleN}>Total de recuperados</span>
 
-          <div className={classes.Tick} data-value={fallecidos}>
+          <div className={classes.Tick} data-value={data.fallecidos}>
             <div data-repeat="true" aria-hidden="true">
               <span data-view="flip"></span>
             </div>
           </div>
           <span className={classes.SubTitleN}>Fallecidos</span>
 
-          <div className={classes.Tick} data-value={uci}>
+          <div className={classes.Tick} data-value={data.camas_UCI_disponibles}>
             <div data-repeat="true" aria-hidden="true">
               <span data-view="flip"></span>
             </div>
           </div>
           <span className={classes.SubTitleN}>Camas UCI disponibles</span>
 
-          <div className={classes.Tick} data-value={vacunados}>
+          <div className={classes.Tick} data-value={data.total_vacunados}>
             <div data-repeat="true" aria-hidden="true">
               <span data-view="flip"></span>
             </div>
