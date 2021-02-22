@@ -258,7 +258,7 @@ export default ({
   s_bbcws('track', 'pageView');`
 
   const isTrivia = /^\/trivias\//.test(requestUri)
-  const isCovid = /^\/covid\//.test(requestUri)
+  const isCovid = /^\/covid-19\//.test(requestUri)
   const isPremium = contentCode === 'premium' || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
