@@ -2,7 +2,7 @@ import * as React from 'react'
 // import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 // <import Home from './_children/home'
-import QuestionList from './_children/question-list'
+// import QuestionList from './_children/question-list'
 // import InfectedAverage from './_children/infected-average'
 import StaticsCovidInfected from './_children/infected'
 
@@ -11,12 +11,17 @@ import StaticsCovidInfected from './_children/infected'
  */
 
 const StaticsCovid = () => {
-  /*
-  const { globalContent: data, requestUri } = useAppContext()
+  /* 
+  const { globalContent: { data = {} } = {}, requestUri } = useAppContext()
   const uri = requestUri.split('/')[2]
   const distrito = data.filter(el => el.dist_prov_slug === uri)[0]
-  console.log(distrito)
-  */
+  const {
+    infected_by_date: infectedDate = [],
+    dist_prov: distProv = '',
+    desde_marzo: desdeMarzo = '',
+    embed_chart: embedChart = '',
+  } = distrito */
+
   return (
     <>
       {/*       
@@ -30,6 +35,14 @@ const StaticsCovid = () => {
       />
       <QuestionList />
       */}
+
+      {/*
+      <InfectedAverage
+        infectedDate={infectedDate}
+        distProv={distProv}
+        desdeMarzo={desdeMarzo}
+        embedChart={embedChart}
+      /> */}
       <StaticsCovidInfected></StaticsCovidInfected>
     </>
   )
