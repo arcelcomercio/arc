@@ -19,7 +19,7 @@ const classes = {
 
 /**
  * @param {object} props
- * @param {object} props.infected_by_date
+ * @param {object} props.data_process
  * @param {string} props.dist_prov
  * @param {string} props.desde_marzo
  * @param {string} props.customFields
@@ -29,7 +29,7 @@ const classes = {
  * para dejar este mas limpio
  */
 const StaticsCovidInfectedAverage = ({
-  infected_by_date: infectedDate = [],
+  data_process: infectedDate = [],
   dist_prov: distProv = '',
   desde_marzo: desdeMarzo,
   embed_chart: embedChart,
@@ -39,8 +39,8 @@ const StaticsCovidInfectedAverage = ({
 
   let maxValue = 0
   for (let i = 0; i < infectedDate.length; i++) {
-    if (maxValue < infectedDate[i].infected) {
-      maxValue = infectedDate[i].infected
+    if (maxValue < infectedDate[i].value) {
+      maxValue = infectedDate[i].value
     }
   }
   const dataValue = infected => {
@@ -135,7 +135,7 @@ const StaticsCovidInfectedAverage = ({
         </div>
         {barra && (
           <ul>
-            {infectedDate.map(({ date = '', infected = '' }) => (
+            {infectedDate.map(({ date = '', value = '' }) => (
               <div
                 style={{
                   display: 'flex',
@@ -144,12 +144,12 @@ const StaticsCovidInfectedAverage = ({
                 <span className={classes.barBackground}>
                   <li
                     className={classes.bars}
-                    data-value={dataValue(infected)}
-                    style={handleBarra(dataValue(infected))}>
+                    data-value={dataValue(value)}
+                    style={handleBarra(dataValue(value))}>
                     <div style={{ width: '100px' }}>{handleDate(date)}</div>
                   </li>
                 </span>
-                <span className={classes.number}>{infected}</span>
+                <span className={classes.number}>{value}</span>
               </div>
             ))}
           </ul>

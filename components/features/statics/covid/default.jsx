@@ -1,5 +1,5 @@
 import * as React from 'react'
-// import { useAppContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 // <import Home from './_children/home'
 import QuestionList from './_children/question-list'
@@ -10,10 +10,10 @@ import QuestionList from './_children/question-list'
  */
 
 const StaticsCovid = () => {
-  /*
   const { globalContent: data, requestUri } = useAppContext()
+  /* 
   const uri = requestUri.split('/')[2]
-  const distrito = data.filter(el => el.dist_prov_slug === uri)[0]
+  const distrito = data.filter(el => el.slug === uri)[0]
   console.log(distrito)
   */
   return (
@@ -28,7 +28,7 @@ const StaticsCovid = () => {
         vacunados="43927"
       />
       */}
-      <QuestionList />
+      <QuestionList data={data.data} requestUri={requestUri} />
     </>
   )
 }
