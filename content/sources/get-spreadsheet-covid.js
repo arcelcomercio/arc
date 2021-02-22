@@ -27,7 +27,7 @@ const getInfectedData = sheet => {
 
       if (x === 1) {
         data.dist_prov_slug = slugify(
-          sheetData.getCell(x, currentCols - 1).value
+          sheetData.getCell(x, currentCols - 1).value || ''
         )
       }
     }
@@ -55,10 +55,13 @@ const getUciBeds = sheet => {
     for (let col = 0; col < sheet.columnCount; col++) {
       item[sheet.getCell(0, col).value] = sheet.getCell(row, col).value
       if (col === 0) {
-        item.territorio_slug = slugify(sheet.getCell(row, col).value)
+        item.territorio_slug = slugify(sheet.getCell(row, col).value || '')
       }
       if (col === 1) {
-        item.grupo_slug = slugify(sheet.getCell(row, col).value)
+        item.grupo_slug = slugify(sheet.getCell(row, col).value || '')
+      }
+      if (col === 2) {
+        item.nombre_slug = slugify(sheet.getCell(row, col).value || '')
       }
     }
     data.push(item)
