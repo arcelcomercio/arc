@@ -4,7 +4,7 @@ import StaticsCovidInfectedList from './infected-list'
 
 
 
-const StaticsCovidInfected = ({path}) => {
+const Infected = ({path}) => {
   const params = path.split('/')
   if(params[0] === ""){
     params[0] = "lima"
@@ -24,4 +24,4 @@ const StaticsCovidInfected = ({path}) => {
   )
 }
 
-export default StaticsCovidInfected
+export default Infected

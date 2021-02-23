@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Home from './_children/home'
 import QuestionList from './_children/question-list'
 import UciBeds from './_children/uci_beds/home'
-import Infected from './_children/infected'
+import Infected from './_children/infected/infected'
 
 /**
  * @see estilos `src/websites/elcomercio/covid.scss`
