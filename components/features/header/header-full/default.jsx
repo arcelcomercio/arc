@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
 
 import { useContent } from 'fusion:content'
@@ -153,10 +154,6 @@ const HeaderFull = props => {
           arcSite,
           contextPath
         )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
-
-  const paramsNews = {
-    inclJS: 'FALSE',
-  }
   const params = {
     headerList,
     menuList,
@@ -176,7 +173,7 @@ const HeaderFull = props => {
     siteDomain,
     legalLinks,
     hideMenu,
-    Newsle: <Newsletter {...paramsNews}></Newsletter>,
+    Newsle: <Newsletter />,
   }
   return <HeaderFullView {...params} />
 }
