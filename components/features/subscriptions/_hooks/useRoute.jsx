@@ -66,29 +66,31 @@ const useRoute = source => {
     // Escucha los cambios en la URL
     // y actualiza el `userStep` si se hace
     // POP con las flechas de navegacion del navegador
-    const unlisten = history.listen(({ location, action }) => {
-      const { pathname: newPathname } = location
-      if (action === 'PUSH') {
-        setPageView(newPathname)
-      }
-      if (action === 'POP') {
-        switch (newPathname) {
-          case PROFILE:
-            setPageView(newPathname)
-            updateStep(2)
-            break
-          case PAYMENT:
-            setPageView(newPathname)
-            updateStep(3)
-            break
-          case CONFIRMATION:
-            setPageView(newPathname)
-            updateStep(4)
-            break
-          default: {
-            if (newPathname === ROOT) history.replace(PROFILE)
-            updateStep(2)
-            break
+    const unlisten = history.listen(({ location: loc, action }) => {
+      const { pathname: newPathname, search } = loc || {}
+      if (newPathname && action) {
+        if (action === 'PUSH') {
+          setPageView(newPathname)
+        }
+        if (action === 'POP') {
+          switch (newPathname) {
+            case PROFILE:
+              setPageView(newPathname)
+              updateStep(2)
+              break
+            case PAYMENT:
+              setPageView(newPathname)
+              updateStep(3)
+              break
+            case CONFIRMATION:
+              setPageView(newPathname)
+              updateStep(4)
+              break
+            default: {
+              if (newPathname === ROOT) history.replace(PROFILE + search)
+              updateStep(2)
+              break
+            }
           }
         }
       }
@@ -100,14 +102,17 @@ const useRoute = source => {
   }, [])
 
   React.useEffect(() => {
-    const { location } = history
+    const { location: loc } = history
 
     const pushPath = path => {
-      if (location.pathname !== path) {
-        if (userLoaded) {
-          history.push(path)
-        } else {
-          history.replace(ROOT)
+      const { pathname, search = '' } = loc || {}
+      if (pathname) {
+        if (pathname !== path) {
+          if (userLoaded) {
+            history.push(path + search)
+          } else {
+            history.replace(ROOT + search)
+          }
         }
       }
     }
@@ -128,7 +133,8 @@ const useRoute = source => {
         pushPath(ROOT)
         break
     }
-  }, [userStep, userLoaded, ROOT, PROFILE, PAYMENT, CONFIRMATION])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userStep, userLoaded])
 
   return {
     history,
