@@ -13,7 +13,6 @@ import Infected from './_children/infected'
 const StaticsCovid = () => {
   const { requestUri } = useAppContext()
   const fullPath = requestUri.split('?')[0]
-  console.log('==============requestUri', requestUri)
   const pathArr = fullPath.split('/').filter(el => el !== '')
   const [
     paramOne = '',
@@ -22,7 +21,6 @@ const StaticsCovid = () => {
     paramFour = '',
     // paramFive = '',
   ] = pathArr || []
-  console.dir(pathArr)
   let html = ''
   if (paramOne === 'covid-19' && pathArr.length === 1) {
     html = <Home />
