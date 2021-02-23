@@ -51,6 +51,10 @@ class Data {
   get colorButton() {
     return this._customFields.colorButton || ''
   }
+
+  get activateJS() {
+    return this._customFields.activateJS || ''
+  }
 }
 
 export default Data
