@@ -23,74 +23,47 @@ const classes = {
     'infected__home-button',
 }
 
-const StaticsCovidInfected = () => {
+const StaticsCovidInfected = ({data}) => {
+  const grupos = []
+
+  data.map((element) => {
+    if(typeof(grupos[element.grupo]) === 'undefined'){
+      grupos[element.grupo] = [];
+    }
+    grupos[element.grupo].push({"nombre": element.dist_prov, "slug": element.dist_slug, "estado": element.estado})
+  })
+
+  let lista = [];
+   
+  for(let clave in grupos){
+    let grupo = grupos[clave]
+    let distritos = []
+    
+    grupo.map((dist) => {
+      let infClass = classes.itemEquals
+      if(dist.estado === "(+)") infClass = classes.itemUp
+      if(dist.estado === "(-)") infClass = classes.itemDown
+      
+      distritos.push(<li className={infClass}><a href="/covid-19/contagiados/{dist.slug}/">{dist.nombre}</a></li>)
+    })
+    lista.push(<><li className={classes.regionTitle}>{clave}</li>{distritos}</>)
+  }
+
   return (
   <div className={classes.wrapper}>
-    <button type="button" className={classes.closeButton}>X</button>
+    <a className={classes.closeButton} href="/covid-19/">X</a>
     <h1 className={classes.title}>Contagiados</h1>
     <h2 className={classes.subtitle}>Elige tu departamento</h2>
     <div className={classes.buttonWrapper}>
-      <button type="button" className={classes.button}>Lima</button>
-      <button type="button" className={classes.button}>Nacional</button>
+      <a className={classes.button} href="/covid-19/contagiados/lima/">Lima</a>
+      <a className={classes.button} href="/covid-19/contagiados/nacional/">Nacional</a>
     </div>
     <div className={classes.sectionsWrapper}>
       <ul className={classes.regionsWrapper}>
-        <li className={classes.regionTitle}>Lima Norte</li>
-        <li className={classes.itemDown}>S.M. de Porres</li>
-        <li className={classes.itemEquals}>Independencia</li>
-        <li className={classes.itemUp}>Comas</li>
-        <li>Los Olivos</li>
-        <li>Puente Piedra</li>
-        <li>Carabayllo</li>
-        <li>Ancón</li>
-        <li>Santa Rosa</li>
-        <li className={classes.regionTitle}>Lima Centro</li>
-        <li>Cercado de Lima</li>
-        <li>Rímac</li>
-        <li>Breña</li>
-        <li>La Victoria</li>
-        <li>San Miguel</li>
-        <li>Lince</li>
-        <li>Magdalena</li>
-        <li>San Isidro</li>
-        <li>San Borja</li>
-        <li>Surquillo</li>
-        <li>Miraflores</li>
-        <li>Barranco</li>
-        <li>Santiago de Surco</li>
-        <li className={classes.regionTitle}>Lima Este</li>
-        <li>S.J. de Lurigancho</li>
-        <li>El Agustino</li>
-        <li>Santa Anita</li>
-        <li>San Luis</li>
-        <li>Ate</li>
-        <li>La Molina</li>
-        <li>Cieneguilla</li>
-        <li>Chaclacayo</li>
-        <li>Lurigancho</li>
-        <li className={classes.regionTitle}>Lima Sur</li>
-        <li>Chorrillos</li>
-        <li>S.J. de Miraflores</li>
-        <li>V.M. del Triunfo</li>
-        <li>Villa el Salvador</li>
-        <li>Pachacamac</li>
-        <li>Lurín</li>
-        <li>Punta Hermosa</li>
-        <li>Punta Negra</li>
-        <li>San Bartolo</li>
-        <li>Santa María</li>
-        <li>Pucusana</li>
-        <li className={classes.regionTitle}>Callao</li>
-        <li>Callao Cercado</li>
-        <li>LA Perla</li>
-        <li>Carmen de la Legua</li>
-        <li>La Punta</li>
-        <li>Bellavista</li>
-        <li>Ventanilla</li>
-        <li>Mi Perú</li>
+        {lista}
       </ul>
     </div>
-    <button type="button" className={classes.homeButton}>Inicio</button>
+    <a className={classes.homeButton} href="/covid-19/">Inicio</a>
   </div>
   )
 }
