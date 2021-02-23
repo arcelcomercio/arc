@@ -6,7 +6,9 @@ import getProperties from 'fusion:properties'
 import Header from './_children/header'
 
 const HeaderSimple = props => {
-  const { customFields: { customLogos = {} } = {} } = props
+  const {
+    customFields: { customLogos = {}, titleField = '', urlField = '' } = {},
+  } = props
 
   const { requestUri, arcSite } = useAppContext()
   const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
@@ -21,6 +23,8 @@ const HeaderSimple = props => {
       arcSite={arcSite}
       twitter={user}
       customLogo={customLogo}
+      titleField={titleField}
+      urlField={urlField}
     />
   )
 }
@@ -29,6 +33,14 @@ HeaderSimple.label = 'Cabecera Simple'
 
 HeaderSimple.propTypes = {
   customFields: PropTypes.shape({
+    titleField: PropTypes.string.tag({
+      name: 'Título',
+      description: 'El valor por defecto del campo "Título" es "Trivias"',
+    }),
+    urlField: PropTypes.string.tag({
+      name: 'Url',
+      description: 'El valor por defecto del campo "Url" es "/trivias/"',
+    }),
     customLogos: PropTypes.kvp.tag({
       name: 'Logos personalizados por marca',
       description: `Presiona -new item- agregar una > marca < y la > url < del logo personalizado para esa marca.

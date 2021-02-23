@@ -177,19 +177,18 @@ export default ({
     return prebid
   }
   const indPrebid = getPrebid()
-  const urlArcAds = (arcSite === SITE_ELCOMERCIOMAG ? 
-    `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
-    .toISOString()
-    .slice(0, 10)}`
-  : (
-    indPrebid
+  const urlArcAds =
+    arcSite === SITE_ELCOMERCIOMAG
+      ? `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
+          .toISOString()
+          .slice(0, 10)}`
+      : indPrebid
       ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
-  ))
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -259,6 +258,7 @@ export default ({
   s_bbcws('track', 'pageView');`
 
   const isTrivia = /^\/trivias\//.test(requestUri)
+  const isCovid = /^\/covid-19\//.test(requestUri)
   const isPremium = contentCode === 'premium' || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
@@ -388,7 +388,7 @@ export default ({
           href="//arc-subs-sdk.s3.amazonaws.com"
         />
         <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
-        {arcSite === 'elcomercio' && isTrivia && (
+        {arcSite === 'elcomercio' && isTrivia && isCovid && (
           <>
             <link
               rel="preload"
@@ -413,7 +413,7 @@ export default ({
             />
           </>
         )}
-        {arcSite === 'elcomercio' && !isTrivia && (
+        {arcSite === 'elcomercio' && !isTrivia && !isCovid && (
           <>
             <link
               rel="preload"
@@ -561,7 +561,11 @@ export default ({
           )
         })()}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeRulesCounter || isTrivia) {
+          if (
+            isElcomercioHome ||
+            !siteProperties.activeRulesCounter ||
+            isTrivia
+          ) {
             return null
           }
           return (
@@ -751,8 +755,12 @@ export default ({
             />
           </>
         )}
-        {embedTwitterAndInst ? <script dangerouslySetInnerHTML={{ __html: widgets }} /> : null}
-        {!isTrivia ? <script dangerouslySetInnerHTML={{ __html: iframeScript }} /> : null}
+        {embedTwitterAndInst ? (
+          <script dangerouslySetInnerHTML={{ __html: widgets }} />
+        ) : null}
+        {!isTrivia ? (
+          <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
+        ) : null}
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{

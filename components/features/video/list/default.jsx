@@ -33,30 +33,6 @@ class VideoList extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    window.addEventListener('scroll', () => {
-      const { isAdmin } = this.props
-      const { dataList } = this.state
-      const { content_elements: contentElements, next = 0 } = dataList
-
-      if (!isAdmin) {
-        const { isLoading } = this.state
-        if (
-          window.innerHeight + document.documentElement.scrollTop >=
-            document.documentElement.offsetHeight - 1200 &&
-          !isLoading &&
-          next > 0 &&
-          contentElements.length <= 160 &&
-          window.innerHeight + document.documentElement.scrollTop !==
-            document.documentElement.offsetHeight
-        ) {
-          this.infinityScrollFetch(this.section)
-          this.setState({ isLoading: true })
-        }
-      }
-    })
-  }
-
   includedFields = arcSite =>
     `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content,promo_items.basic_jwplayer.embed.config.thumbnail_url,promo_items.basic_jwplayer.embed.config.resized_urls`
 
@@ -81,7 +57,7 @@ class VideoList extends PureComponent {
   }
 
   infinityScrollFetch = (section = '/') => {
-    const { arcSite } = this.props
+    const { arcSite, customFields: { quantyStory = 16 } = {} } = this.props
     const {
       dataList: { next = 0, content_elements: contentElements = [] } = {},
     } = this.state
@@ -92,7 +68,7 @@ class VideoList extends PureComponent {
         query: {
           section,
           feedOffset: next,
-          stories_qty: 16,
+          stories_qty: quantyStory,
           presets,
           includedFields: this.includedFields(arcSite),
         },
@@ -102,16 +78,32 @@ class VideoList extends PureComponent {
           const { content_elements: stories = [] } = res || {}
           if (contentElements && res) {
             res.content_elements = [...contentElements, ...stories]
+            return res
           }
-          return res
+          const { dataList } = this.state
+          return dataList
         },
       },
     })
   }
 
+  buttonHandler = () => {
+    const { isAdmin } = this.props
+    const { dataList } = this.state
+    const { content_elements: contentElements, next = 0 } = dataList
+    if (!isAdmin) {
+      const { isLoading } = this.state
+      if (!isLoading && next > 0 && contentElements.length <= 160) {
+        this.infinityScrollFetch(this.section)
+        this.setState({ isLoading: true })
+      }
+    }
+  }
+
   render() {
     const {
       dataList: { content_elements: contentElements = [], next = 0 } = {},
+      isLoading,
     } = this.state
     const { arcSite, contextPath, deployment } = this.props
     const Story = new StoryData({
@@ -125,30 +117,38 @@ class VideoList extends PureComponent {
     return (
       <>
         <div className="flex video-list justify-center md:justify-between mt-50 flex-wrap">
-          {contentElements &&
-            contentElements.map((video, i) => {
-              Story.__data = video
-              const {
-                websiteLink,
-                title,
-                multimediaLandscapeMD,
-                primarySection,
-                primarySectionLink,
-                videoDuration,
-              } = Story
-              const params = {
-                websiteLink,
-                title,
-                multimediaLandscapeMD,
-                primarySection,
-                primarySectionLink,
-                videoDuration,
-                index: i,
-              }
-              return <VideoListItem {...params} />
-            })}
+          {contentElements.map((video, i) => {
+            Story.__data = video
+            const {
+              websiteLink,
+              title,
+              multimediaLandscapeMD,
+              primarySection,
+              primarySectionLink,
+              videoDuration,
+            } = Story
+            const params = {
+              websiteLink,
+              title,
+              multimediaLandscapeMD,
+              primarySection,
+              primarySectionLink,
+              videoDuration,
+              index: i,
+            }
+            return <VideoListItem {...params} />
+          })}
+          <div className="video-list__btn-container">
+            {next > 0 && contentElements.length <= 160 ? (
+              <button
+                type="button"
+                onClick={this.buttonHandler}
+                disabled={isLoading}>
+                {isLoading ? <Spinner /> : <span>Cargar más</span>}
+              </button>
+            ) : null}
+          </div>
         </div>
-        {next > 0 && contentElements.length <= 160 && <Spinner />}
       </>
     )
   }
