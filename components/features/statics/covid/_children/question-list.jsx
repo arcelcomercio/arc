@@ -64,6 +64,7 @@ const CovidChildQuestionList = ({ requestUri }) => {
       titulo: title,
       vacunados_hoy: vaccineToday,
       vacunados_desde: vaccineFrom,
+      embed_chart: urlEmbed,
     } = (dataSlug && dataSlug[0]) || {}
 
     const dataFiler = []
@@ -90,6 +91,7 @@ const CovidChildQuestionList = ({ requestUri }) => {
           showWeekday: false,
           showYear: false,
         })}
+        embedChart={urlEmbed}
       />
     )
   }
