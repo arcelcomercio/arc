@@ -30,22 +30,20 @@ const classes = {
  * para dejar este mas limpio
  */
 const StaticsCovidInfectedAverage = ({
-  data_process: infectedDate = [],
-  dist_prov: distProv = '',
-  desde_marzo: desdeMarzo,
-  embed_chart: embedChart,
+  dataProcess = [],
+  title = '',
+  subtitle = '',
+  valOne = 0,
+  valTwo = 0,
+  titleOne = '',
+  titleTwo = '',
+  date = '',
+  maxValue = 0,
+  embedChart,
+  colorBar = '#F70000D6',
 }) => {
   const [barra, setSelectBarra] = React.useState(true)
   const [fiebre, setSelectFiebre] = React.useState(false)
-
-  let maxValue = 0
-  const data = []
-  for (let i = 0; i < infectedDate.length; i++) {
-    if (maxValue < infectedDate[i].value) {
-      maxValue = infectedDate[i].value
-    }
-    if (infectedDate[i].date !== null) data[i] = infectedDate[i]
-  }
 
   const dataValue = infected => {
     return Math.round((infected * 100) / maxValue)
@@ -61,30 +59,11 @@ const StaticsCovidInfectedAverage = ({
   }
 
   const handleBarra = value => {
-    const color = value <= 0 ? 'transparent' : '#F70000D6'
+    const color = value <= 0 ? 'transparent' : colorBar
     return {
       'background-color': color,
       width: `${value}%`,
     }
-  }
-  const handleDate = date => {
-    const ListMonth = [
-      'Enero',
-      'Febrero',
-      'Marzo',
-      'Abril',
-      'Mayo',
-      'Junio',
-      'Julio',
-      'Agosto',
-      'Septiembre',
-      'Octubre',
-      'Noviembre',
-      'Diciembre',
-    ]
-    const mes = date.split('-')
-    const nameMonth = ListMonth[parseInt(mes[1], 10) - 1]
-    return `${nameMonth} ${mes[0]}`
   }
 
   return (
@@ -120,8 +99,8 @@ const StaticsCovidInfectedAverage = ({
             </svg>
           </a>
         </div>
-        <h1 className={classes.title}>{distProv}</h1>
-        <h2 className={classes.subTitle}>Promedio de contagios</h2>
+        <h1 className={classes.title}>{title}</h1>
+        {subtitle && <h2 className={classes.subTitle}>{subtitle}</h2>}
         <div className={classes.buttons}>
           <button
             type="button"
@@ -140,23 +119,27 @@ const StaticsCovidInfectedAverage = ({
         </div>
         {barra && (
           <ul>
-            {data.map(({ date = '', value = '' }) => (
-              <div
-                style={{
-                  display: 'flex',
-                  'justify-content': 'space-between',
-                }}>
-                <span className={classes.barBackground}>
-                  <li
-                    className={classes.bars}
-                    data-value={dataValue(value)}
-                    style={handleBarra(dataValue(value))}>
-                    <div style={{ width: '100px' }}>{handleDate(date)}</div>
-                  </li>
-                </span>
-                <span className={classes.number}>{value}</span>
-              </div>
-            ))}
+            {dataProcess.map(({ title: itemTitle = '', value = '' }, index) => {
+              const randomKey = Math.floor(Math.random() * 100 * index)
+              return (
+                <div
+                  key={randomKey}
+                  style={{
+                    display: 'flex',
+                    'justify-content': 'space-between',
+                  }}>
+                  <span className={classes.barBackground}>
+                    <li
+                      className={classes.bars}
+                      data-value={`${dataValue(value)}%`}
+                      style={handleBarra(dataValue(value))}>
+                      <div style={{ width: '100px' }}>{itemTitle}</div>
+                    </li>
+                  </span>
+                  <span className={classes.number}>{value}</span>
+                </div>
+              )
+            })}
           </ul>
         )}
         {fiebre && (
@@ -174,15 +157,15 @@ const StaticsCovidInfectedAverage = ({
             />
           </div>
         )}
-        <div className={classes.date}>4 de febrero</div>
+        <div className={classes.date}>{date}</div>
         <div className={classes.grupCount}>
           <div>
-            <strong>457</strong>
-            <p>contagiados el dia de hoy</p>
+            <strong>{valOne}</strong>
+            <p>{titleOne}</p>
           </div>
           <div>
-            <strong>{desdeMarzo}</strong>
-            <p>desde marzo Del 2020</p>
+            <strong>{valTwo}</strong>
+            <p>{titleTwo}</p>
           </div>
         </div>
       </section>
