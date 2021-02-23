@@ -367,6 +367,8 @@
   }
   .play-list__image,
   .video-list__image {
+    object-fit: cover;
+    min-height: 0;
     @media (--only-mobile) {
       height: 72px;
       width: 118px;
@@ -396,8 +398,5 @@
     @media (--only-mobile) {
       bottom: 0;
     }
-  }
-  .video-list__btn-container {
-    padding: 70px 0 50px;
   }
 }
