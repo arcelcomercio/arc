@@ -1,5 +1,7 @@
 import React from 'react'
-import InfectedAverage from './infected-average'
+import { useContent } from 'fusion:content'
+import Graph from './graph'
+import { getVerboseDate } from '../../../../utilities/date-time/dates'
 
 const classes = {
   container: 'covid-question-list__container flex flex-col',
@@ -11,10 +13,17 @@ const classes = {
   btnHome: 'covid-question-list__btn--home',
 }
 
-const CovidChildQuestionList = ({ data, requestUri }) => {
-  // console.log('===================', data)
-  const param = requestUri.match(/\/covid\/mas-informacion\/(.*)+\//i)[0] || ''
-  // console.log('==============', param)
+const CovidChildQuestionList = ({ requestUri }) => {
+  const { data = [] } =
+    useContent({
+      source: 'get-spreadsheet-covid',
+      query: {
+        title: 'Mas Informacion API',
+      },
+    }) || {}
+  const urlMatch = requestUri.match(/\/covid-19\/mas-informacion\/(.*)+\//i)
+  const param = (urlMatch && urlMatch[1]) || null
+
   const questionList = questionData => {
     const dataArr = Array.from(questionData) || []
     return (
@@ -42,17 +51,49 @@ const CovidChildQuestionList = ({ data, requestUri }) => {
             )
           })}
         </div>
-        <a className={classes.btnHome} href="/covid">
+        <a className={classes.btnHome} href="/covid-19/">
           Inicio
         </a>
       </div>
     )
   }
-  const graphBar = questionData => {
-      
-    return <InfectedAverage />
+  const graph = (questionData, slug) => {
+    const dataSlug = questionData.filter(el => el.slug === slug)
+    const {
+      data_process: dataProcess = [],
+      titulo: title,
+      vacunados_hoy: vaccineToday,
+      vacunados_desde: vaccineFrom,
+    } = (dataSlug && dataSlug[0]) || {}
+
+    const dataFiler = []
+    let maxValue = 0
+    for (let i = 0; i < dataProcess.length; i++) {
+      if (maxValue < dataProcess[i].value) {
+        maxValue = dataProcess[i].value
+      }
+      if (dataProcess[i].title !== null) dataFiler[i] = dataProcess[i]
+    }
+    return (
+      <Graph
+        maxValue={maxValue}
+        dataProcess={dataProcess}
+        title={title}
+        titleOne="Vacunas llegaron hoy"
+        titleTwo="personas se vacunaron hoy"
+        valOne={vaccineToday}
+        valTwo={vaccineFrom}
+        colorBar="#55AC0A"
+        date={getVerboseDate({
+          date: new Date(),
+          showTime: false,
+          showWeekday: false,
+          showYear: false,
+        })}
+      />
+    )
   }
-  return param === '' ? questionList(data) : graphBar(data)
+  return param === null ? questionList(data) : graph(data, param)
 }
 
 export default CovidChildQuestionList

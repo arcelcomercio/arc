@@ -25,7 +25,7 @@ const processDataByColumn = (
   for (let x = 0; x < sheetData.rowCount; x++) {
     if (x >= rowProcess) {
       data.data_process.push({
-        date: sheetData.getCell(x, 0).value,
+        title: sheetData.getCell(x, 0).value,
         value: sheetData.getCell(x, currentCols - 1).value,
       })
     } else {
@@ -111,7 +111,7 @@ const getRowsWithColsAsKeys = sheet => {
     for (let col = 0; col < sheet.columnCount; col++) {
       item[sheet.getCell(0, col).value] = sheet.getCell(row, col).value
       if (col === 1) {
-        item.titulo_slug = slugify(sheet.getCell(row, col).value)
+        item.titulo_slug = slugify(sheet.getCell(row, col).value || '')
       }
     }
     result.push(item)

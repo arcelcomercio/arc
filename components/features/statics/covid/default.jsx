@@ -10,8 +10,9 @@ import QuestionList from './_children/question-list'
  */
 
 const StaticsCovid = () => {
-  
-  // const { globalContent: { data = {} } = {}, requestUri } = useAppContext()
+  const {
+    /* globalContent: { data = {} } = {}, */ requestUri,
+  } = useAppContext()
   /* const uri = requestUri.split('/')[3]
   const distrito = data.filter(el => el.dist_prov_slug === uri)[0]
   const {
@@ -24,8 +25,8 @@ const StaticsCovid = () => {
 
   return (
     <>
-      <Home />
-      {/* <QuestionList data={data.data} requestUri={requestUri} /> */}
+      {/* <Home /> */}
+      <QuestionList requestUri={requestUri} />
     </>
   )
 }
