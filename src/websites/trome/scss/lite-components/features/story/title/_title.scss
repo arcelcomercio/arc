@@ -1,20 +1,16 @@
 .sht {
-  color: $color-black;
-  margin-right: 20px;
-  margin-left: 20px;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
   &__category {
     color: #42c64c;
     font-weight: bold;
     font-size: 14px;
     text-transform: uppercase;
     margin-bottom: 10px;
+    padding: 0 20px 20px 20px;
   }
   &__title {
     font: 700 26px/30px $primary-font;
     letter-spacing: -0.26px;
-    padding-bottom: 20px;
+    margin: 0 20px 20px 20px;
     @media (--tablet) {
       font: 700 38px/42px $primary-font;
     }
@@ -27,7 +23,9 @@
   &__summary {
     font: 400 17px/24px $primary-font;
     letter-spacing: -0.17px;
-    padding-bottom: 20px;
+    color: $color-black;
+    border-bottom: 1px solid #ddd;
+    margin: 0 20px 30px 20px;
     @media (--tablet) {
       font: 400 20px/24px $primary-font;
       letter-spacing: -0.2px;
@@ -37,7 +35,7 @@
   // TODO: Este listado se usa en mag?
   &__list {
     list-style-type: disc;
-    padding: 0 0 30px 20px;
+    padding: 0 40px 30px 20px;
     & li {
       font-size: 19px;
       line-height: 26px;
