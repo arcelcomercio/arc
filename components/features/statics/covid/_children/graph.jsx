@@ -29,7 +29,7 @@ const classes = {
  * @todo creo que las funciones se pueden sacar en un archivo aparte
  * para dejar este mas limpio
  */
-const StaticsCovidInfectedAverage = ({
+const CovidChildGraph = ({
   dataProcess = [],
   title = '',
   subtitle = '',
@@ -40,6 +40,7 @@ const StaticsCovidInfectedAverage = ({
   date = '',
   maxValue = 0,
   embedChart,
+  closeUrl = '/covid-19/mas-informacion/',
   colorBar = '#F70000D6',
 }) => {
   const [barra, setSelectBarra] = React.useState(true)
@@ -76,7 +77,7 @@ const StaticsCovidInfectedAverage = ({
             position: 'relative',
             top: '5px',
           }}>
-          <a href="/covid/contagiados/">
+          <a href={closeUrl}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13.979"
@@ -173,4 +174,4 @@ const StaticsCovidInfectedAverage = ({
   )
 }
 
-export default StaticsCovidInfectedAverage
+export default CovidChildGraph
