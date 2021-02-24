@@ -11,6 +11,7 @@ import { addSlashToEnd } from '../utilities/parse/strings'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
+  SITE_ELCOMERCIO,
   SITE_GESTION,
   SITE_OJO,
 } from '../utilities/constants/sitenames'
@@ -142,6 +143,7 @@ const AmpOutputType = ({
     promoItemJwplayer = {},
     jwplayerSeo = [],
     haveJwplayerMatching = false,
+    publishDate,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -181,6 +183,14 @@ const AmpOutputType = ({
     rawHtmlContent.includes('twitter.com') || oembedSubtypes.includes('twitter')
   const hasSoundcloud = rawHtmlContent.includes('soundcloud.com/playlists/')
 
+  /** ---------------------------- */
+  const hasExternalCounterPaywall =
+    isMetered &&
+    activeRulesCounter &&
+    activePaywall &&
+    ((arcSite === SITE_GESTION && /^\/(podcast|mundo)\//.test(requestUri)) ||
+      (arcSite === SITE_ELCOMERCIO && /^\/(tecnologia)\//.test(requestUri)))
+
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
    * de youtube o facebook, se necesita el script de youtube o facebook
@@ -195,11 +205,7 @@ const AmpOutputType = ({
     /<iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
-    (isMetered &&
-      activeRulesCounter &&
-      activePaywall &&
-      arcSite === SITE_GESTION &&
-      /^\/podcast\//.test(requestUri))
+    hasExternalCounterPaywall
 
   const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
 
@@ -220,6 +226,9 @@ const AmpOutputType = ({
     rawHtmlContent.includes('.mp4')
       ? 1
       : false
+
+  const dataVideo = publishDate && publishDate.split('T')[0]
+  const hasPowaVideoDate = dataVideo <= '2021-01-22' && hasPowaVideo
 
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
@@ -293,7 +302,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
           />
         )}
-        {hasPowaVideo && (
+        {hasPowaVideoDate && (
           <>
             <script
               async
@@ -351,7 +360,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
           />
         )}
-        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideo) && (
+        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideoDate) && (
           <script
             async
             custom-element="amp-video-docking"

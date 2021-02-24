@@ -102,7 +102,6 @@ export default ({
     arcSite === SITE_ELCOMERCIO ? getDateSeo(displayDate) : publishDateZone
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
-
   const structuredAuthors = authorsList.map(
     author => `
   {
@@ -119,11 +118,28 @@ export default ({
     "jobTitle"	: "${author.role}"
   }`
   )
+  const structuredAutor =
+    structuredAuthors.length > 0
+      ? structuredAuthors
+      : `
+  {
+    "@context": "http://schema.org/",
+    "@type": "Person",
+    "name": "${arcSite}",
+    "image": "${logoAuthor}",
+    "contactPoint"     : {
+      "@type"        : "ContactPoint",
+      "contactType"  : "Journalist",
+      "email"        : ""
+    },
+    "email": "",
+    "jobTitle"	: ""
+  }`
 
   const finalStructuredDataAuthor =
     structuredAuthors.length > 1
       ? `[${structuredAuthors.join()}]`
-      : structuredAuthors
+      : structuredAutor
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(updateDate) : updateDate
