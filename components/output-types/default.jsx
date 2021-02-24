@@ -177,19 +177,18 @@ export default ({
     return prebid
   }
   const indPrebid = getPrebid()
-  const urlArcAds = (arcSite === SITE_ELCOMERCIOMAG ? 
-    `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
-    .toISOString()
-    .slice(0, 10)}`
-  : (
-    indPrebid
+  const urlArcAds =
+    arcSite === SITE_ELCOMERCIOMAG
+      ? `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
+          .toISOString()
+          .slice(0, 10)}`
+      : indPrebid
       ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
-  ))
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -561,12 +560,16 @@ export default ({
           )
         })()}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeRulesCounter || isTrivia) {
+          if (
+            isElcomercioHome ||
+            !siteProperties.activeRulesCounter ||
+            isTrivia
+          ) {
             return null
           }
           return (
             <script
-              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
                 .slice(0, 10)}`}
               async
@@ -751,8 +754,12 @@ export default ({
             />
           </>
         )}
-        {embedTwitterAndInst ? <script dangerouslySetInnerHTML={{ __html: widgets }} /> : null}
-        {!isTrivia ? <script dangerouslySetInnerHTML={{ __html: iframeScript }} /> : null}
+        {embedTwitterAndInst ? (
+          <script dangerouslySetInnerHTML={{ __html: widgets }} />
+        ) : null}
+        {!isTrivia ? (
+          <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
+        ) : null}
         {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{

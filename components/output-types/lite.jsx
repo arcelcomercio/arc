@@ -341,7 +341,10 @@ const LiteOutput = ({
             {isStory && arcSite === SITE_ELCOMERCIOMAG && (
               <>
                 <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
-                <link rel="dns-prefetch" href="//d2dvq461rdwooi.cloudfront.net" />
+                <link
+                  rel="dns-prefetch"
+                  href="//d2dvq461rdwooi.cloudfront.net"
+                />
               </>
             )}
             <link rel="preconnect" href="//www.googletagmanager.com/" />
@@ -476,7 +479,7 @@ const LiteOutput = ({
           <>
             <Libs></Libs>
             <script
-              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
                 .slice(0, 10)}`}
               async
