@@ -1,5 +1,5 @@
 declare module 'fusion:properties' {
-  export function getProperties(
+  export default function getProperties(
     arcSite: string
   ): { siteProperties: SiteProperties }
 

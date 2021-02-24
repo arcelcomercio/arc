@@ -1,4 +1,5 @@
 declare module 'fusion:context' {
+  import type { SiteProperties } from 'fusion:properties'
   type AnyObject = Record<string, unknown>
   export interface ContentConfig<Values = AnyObject> {
     contentService: string
@@ -10,6 +11,16 @@ declare module 'fusion:context' {
     source?: string
     query?: Query
   }
+
+  export type OutputType =
+    | 'default'
+    | 'lite'
+    | 'amp'
+    | 'paywall'
+    | 'signwall'
+    | 'subscriptions'
+    | 'text'
+    | 'xml'
 
   export type ArcSite =
     | 'elcomercio'
@@ -47,14 +58,14 @@ declare module 'fusion:context' {
     contextPath: string
     requestUri: string
     isAdmin: boolean
-    outputType: string
+    outputType: OutputType
     template: string
     layout?: string | null
     deployment: (resource: string) => string
     metaValue: (key: string) => string
     globalContent?: GlobalContent
     globalContentConfig?: GlobalContentConfigQuery
-    siteProperties: AnyObject
+    siteProperties: SiteProperties
     tree?: AnyObject
     renderables?: AnyObject[]
   }

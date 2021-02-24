@@ -16,11 +16,11 @@ declare module 'fusion:content' {
   // pero parece que es mejor, por establecer
   // un estandar, usar `useContent` en lugar de `Content`
 
-  // export interface ContentConfig<Values = AnyObject> {
-  //   contentService: string
-  //   contentConfigValues?: Values
-  //   inherit?: boolean
-  // }
+  export interface ContentConfig<Values = AnyObject> {
+    contentService: string
+    contentConfigValues?: Values
+    inherit?: boolean
+  }
 
   // interface ContentProps<V = AnyObject> extends ContentConfig<V> {
   //   children: (response: AnyObject) => React.FC<AnyObject>
