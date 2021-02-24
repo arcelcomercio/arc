@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useContent } from 'fusion:content'
 
 /**
  * @see estilos `src/websites/elcomercio/scss/components/statics/covid/_infected-average.scss`
@@ -29,14 +30,36 @@ const classes = {
  * @todo creo que las funciones se pueden sacar en un archivo aparte
  * para dejar este mas limpio
  */
-const StaticsCovidInfectedAverage = ({
-  data_process: infectedDate = [],
-  dist_prov: distProv = '',
-  desde_marzo: desdeMarzo,
-  embed_chart: embedChart,
-}) => {
+// const StaticsCovidInfectedAverage = ({
+//   data_process: infectedDate = [],
+//   dist_prov: distProv = '',
+//   desde_marzo: desdeMarzo,
+//   embed_chart: embedChart,
+// }) => {
+  const StaticsCovidInfectedAverage = ({region, distrito}) => { 
   const [barra, setSelectBarra] = React.useState(true)
   const [fiebre, setSelectFiebre] = React.useState(false)
+
+  const { data: dataSheet = [] } =
+    useContent({
+        source: 'get-spreadsheet-covid',
+        query: {
+        title: 'Contagiados ' + region.charAt(0).toUpperCase() + region.slice(1) + ' API',
+        },
+    }) || {}
+
+  let dataEl
+  dataSheet.map(el => {
+    if(el.slug === distrito) dataEl = el
+    return el.slug
+  })
+
+  const {
+    data_process: infectedDate = [],
+    dist_prov: distProv = '',
+    desde_marzo: desdeMarzo,
+    embed_chart: embedChart,
+  } = dataEl
 
   let maxValue = 0
   const data = []
