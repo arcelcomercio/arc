@@ -6,37 +6,65 @@ const clientEmail = GS_EMAIL_CLIENT
 const privateKey = GS_PRIVATE_KEY
 
 /**
+ *
+ * @param {import('google-spreadsheet').GoogleSpreadsheetWorksheet} sheet
+ * @param {Int} currentCols
+ * @param {String} attrArr
+ * @param {Int} rowProcess
+ * @param {Int} rowSlug
+ */
+
+const processDataByColumn = (
+  sheetData,
+  currentCols = 2,
+  rowProcess = 6,
+  rowSlug = 1
+) => {
+  const data = {}
+  data.data_process = []
+  for (let x = 0; x < sheetData.rowCount; x++) {
+    if (x >= rowProcess) {
+      data.data_process.push({
+        title: sheetData.getCell(x, 0).value,
+        value: sheetData.getCell(x, currentCols - 1).value,
+      })
+    } else {
+      data[sheetData.getCell(x, 0).value] = sheetData.getCell(
+        x,
+        currentCols - 1
+      ).value
+    }
+
+    if (x === rowSlug) {
+      data.slug = slugify(sheetData.getCell(x, currentCols - 1).value || '')
+    }
+  }
+  return data
+}
+
+/**
  * @param  {import('google-spreadsheet').GoogleSpreadsheetWorksheet} sheet
  */
 const getInfectedData = sheet => {
-  const processDataByColumn = (sheetData, currentCols = 2) => {
-    const data = {}
-    data.infected_by_date = []
-    for (let x = 0; x < sheetData.rowCount; x++) {
-      if (x >= 6) {
-        data.infected_by_date.push({
-          date: sheetData.getCell(x, 0).value,
-          infected: sheetData.getCell(x, currentCols - 1).value,
-        })
-      } else {
-        data[sheetData.getCell(x, 0).value] = sheetData.getCell(
-          x,
-          currentCols - 1
-        ).value
-      }
-
-      if (x === 1) {
-        data.dist_prov_slug = slugify(
-          sheetData.getCell(x, currentCols - 1).value || ''
-        )
-      }
-    }
-    return data
-  }
   const result = []
   const initCol = 2 // Posición de la 1ra columna que tiene los valores a obtener
   for (let col = initCol; col <= sheet.columnCount; col++) {
     result.push(processDataByColumn(sheet, col))
+  }
+  return {
+    sheet_title: sheet.title,
+    data: result,
+  }
+}
+
+/**
+ * @param  {import('google-spreadsheet').GoogleSpreadsheetWorksheet} sheet
+ */
+const getVaccineData = sheet => {
+  const result = []
+  const initCol = 2 // Posición de la 1ra columna que tiene los valores a obtener
+  for (let col = initCol; col <= sheet.columnCount; col++) {
+    result.push(processDataByColumn(sheet, col, 5))
   }
   return {
     sheet_title: sheet.title,
@@ -82,6 +110,9 @@ const getRowsWithColsAsKeys = sheet => {
     const item = {}
     for (let col = 0; col < sheet.columnCount; col++) {
       item[sheet.getCell(0, col).value] = sheet.getCell(row, col).value
+      if (col === 1) {
+        item.titulo_slug = slugify(sheet.getCell(row, col).value || '')
+      }
     }
     result.push(item)
   }
@@ -149,6 +180,10 @@ const fetch = async ({ id, title }) => {
     case 'Contagiados Lima API':
     case 'Contagiados Nacional API':
       result = getInfectedData(sheet)
+      break
+
+    case 'Mas Informacion API':
+      result = getVaccineData(sheet)
       break
 
     case 'Camas UCI':
