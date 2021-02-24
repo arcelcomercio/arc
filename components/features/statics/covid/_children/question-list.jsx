@@ -73,6 +73,11 @@ const CovidChildQuestionList = ({ path }) => {
       }
       if (dataProcess[i].title !== null) dataFiler[i] = dataProcess[i]
     }
+    const date =
+      (dataProcess &&
+        dataProcess[dataProcess.length - 1] &&
+        dataProcess[dataProcess.length - 1]?.title) ||
+      ''
     return (
       <Graph
         maxValue={maxValue}
@@ -83,12 +88,7 @@ const CovidChildQuestionList = ({ path }) => {
         valOne={vaccineToday}
         valTwo={vaccineFrom}
         colorBar="#55AC0A"
-        date={getVerboseDate({
-          date: new Date(),
-          showTime: false,
-          showWeekday: false,
-          showYear: false,
-        })}
+        date={date}
         embedChart={urlEmbed}
       />
     )

@@ -64,7 +64,7 @@ const Home = () => {
         <div className={classes.Block}>
           <span className={classes.Title}>El Coronavirus en Perú</span>
           <span className={classes.SubTitle}>
-            (Actualizado el {data.ultima_fecha_con_data})
+            (Actualizado el {data.fecha_hora_actualizacion})
           </span>
         </div>
         <div className={classes.BlockBtnRed}>
