@@ -1,0 +1,74 @@
+.story-contents {
+  padding: 25px 20px 20px 20px;
+  margin-bottom: 25px;
+  font-family: $tertiary-font;
+
+  &__blockquote {
+    font: 400 18px/22px $tertiary-font;
+    padding: 20px 20px 20px 36px;
+    margin: 20px 0 40px 15px;
+  }
+  &__font-paragraph {
+    font: 400 18px/30px $tertiary-font;
+    padding: 0 0 20px 0;
+  }
+  &__caption {
+    font: 400 13px/16px $primary-font;
+    padding: 15px 0;
+    margin-bottom: 20px;
+  }
+  &__paragraph-list {
+    padding-left: 30px;
+    & li a {
+      font: 700 18px/1.5 $primary-font;
+      @media (--desktop) {
+        font-size: 20px;
+      }
+    }
+  }
+  & li {
+    font: 400 16.9px/1.5 $secondary-font;
+    margin-bottom: 20px;
+  }
+}
+
+.story-content {
+  &__stamp-trust {
+    margin: 20px auto;
+    width: 100%;
+    text-align: right;
+
+    &__box-left {
+      float: left;
+      height: 55px;
+      vertical-align: middle;
+      @media (--only-mobile) {
+        float: none;
+        height: auto;
+        margin-bottom: 10px;
+      }
+
+      & p {
+        display: inline-block;
+        margin: 20px 5px;
+        vertical-align: middle;
+      }
+
+      & img {
+        display: inline-block;
+        margin: 0 5px;
+        max-width: 150px;
+        vertical-align: middle;
+      }
+    }
+
+    &__link {
+      display: inline-block;
+      font: 400 14px/15px Arial, sans-serif;
+      padding: 20px;
+      @media (--only-mobile) {
+        width: 100%;
+      }
+    }
+  }
+}
