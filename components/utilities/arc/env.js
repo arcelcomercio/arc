@@ -1,6 +1,6 @@
 import { ENVIRONMENT } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import ORGANIZATION from '../constants/organization'
+import { ORGANIZATION } from '../constants/environment'
 
 /**
  * @type {('prod' | 'sandbox')} Env
