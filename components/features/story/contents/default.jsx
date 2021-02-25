@@ -11,6 +11,7 @@ import { getAssetsPath } from '../../../utilities/assets'
 
 import {
   SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_ELBOCON,
 } from '../../../utilities/constants/sitenames'
@@ -229,7 +230,7 @@ class StoryContents extends React.PureComponent {
               )}
             </>
           )}
-          {subtype !== GALLERY_VERTICAL && (
+          {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
             <Ads
               adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
               isDesktop={false}
