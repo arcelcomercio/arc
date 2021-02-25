@@ -1,14 +1,5 @@
 .st-interest {
-  padding: 20px;
-  &__title {
-    font: 700 15px/1 $primary-font;
-    border-bottom: 1px solid #ccc;
-    padding: 20px 0 10px;
-    margin-bottom: 10px;
-  }
   &__item {
-    display: flex;
-    flex-direction: row-reverse;
     margin-bottom: 40px;
     @media (--tablet) {
       width: 50%;
@@ -21,26 +12,16 @@
       }
     }
   }
-  &__detail {
-    padding-right: 10px;
-  }
   &__detail-section {
-    font: 400 10px/1 $primary-font;
     color: #aaa;
     text-transform: uppercase;
-    margin-bottom: 5px;
   }
   &__item-title {
-    font: 400 18px/20px $primary-font;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     display: -webkit-box;
-    max-height: 40px;
-    overflow: hidden;
   }
   &__link-img {
-    height: 87px;
-    width: 116px;
     object-fit: cover;
   }
 }

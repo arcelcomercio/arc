@@ -1,0 +1,24 @@
+.story-contents {
+  padding: 25px 20px 20px 20px;
+  margin-bottom: 25px;
+  &__blockquote {
+    padding: 20px 20px 20px 36px;
+    margin: 40px 0 40px 15px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.16px;
+  }
+  &__author {
+    font-size: 16px;
+    font-family: $primary-font;
+    padding-bottom: 8px;
+  }
+  &__font-paragraph {
+    font-size: 18px;
+    padding: 10px 0;
+    line-height: 28px;
+  }
+  &__content {
+    padding-top: 5px;
+  }
+}
