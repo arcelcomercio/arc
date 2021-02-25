@@ -12,6 +12,7 @@ const Home = () => {
     Title: 'home__title',
     SubTitle: 'home__subtitle',
     SubTitleN: 'home__subtitleNumber',
+    SubTitleMinsa: 'home__subtitleEnd',
     Tick: 'tick',
     BlockBtnRed: 'home__BlockbuttonRed',
     BtnRed: 'home__buttonRed',
@@ -113,6 +114,9 @@ const Home = () => {
             </div>
           </div>
           <span className={classes.SubTitleN}>Total de vacunados</span>
+        </div>
+        <div className={classes.Block}>
+          <span className={classes.SubTitleMinsa}>Fuente: Minsa y Sinadef</span>
         </div>
       </div>
       <script src="https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_prod/especiales/elementos-comunes/js/countflip.min.js"></script>
