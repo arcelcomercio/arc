@@ -2,30 +2,8 @@
   content-visibility: auto;
   contain-intrinsic-size: 80px;
   color: #333;
-  margin: 25px 0;
-  padding: 0 20px;
-
-  &__title {
-    display: inline-block;
-    font: 700 11px/18px $primary-font;
-    padding-bottom: 10px;
-    font-size: 0.9rem;
-  }
-
-  &__tag {
-    display: inline-block;
-  }
-
-  &__box {
-    flex: 1;
-  }
 
   &__link {
-    display: block;
-    font-size: 0.9rem;
-    letter-spacing: 0.28px;
-    margin: 0 10px 10px 0;
-    padding: 5px 10px;
     color: #8a8a8a;
     background-color: #e8e8e8;
     & span {
