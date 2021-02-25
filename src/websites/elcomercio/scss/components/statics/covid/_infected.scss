@@ -39,8 +39,12 @@
     font-size: 20px;
     width: 149px;
     height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &:hover{
       background-color: #C33434;
+      text-decoration: none;
     }
   }
   &__sections_wrapper{
@@ -72,6 +76,16 @@
         width: 17px;
         height: 17px;
         background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/SFAMJJCS6ZHZJJTEIO6X7F3A3E.png");
+      }
+      a{
+        color: #fff;
+        width: 100%;
+        display: block;
+        text-overflow: ellipsis;
+        height: 27px;
+        &:hover{
+          text-decoration: none;
+        }
       }
     }
     .infected__rgn_title{
@@ -116,8 +130,12 @@
     background-color: #7C7C7C;
     font-size: 20px;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &:hover{
       background-color: #000;
+      text-decoration: none;
     }
   }
 }

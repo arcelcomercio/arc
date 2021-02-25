@@ -235,6 +235,8 @@ const LiteOutput = ({
     requestUri
   ).replace(/^\/carga-continua/, '')}`
 
+  const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -634,6 +636,13 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: fontFace,
+          }}
+        />
+
         <WebVitals
           report={
             !isIframeStory &&
