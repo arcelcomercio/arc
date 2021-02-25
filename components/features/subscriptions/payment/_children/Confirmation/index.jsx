@@ -91,7 +91,6 @@ const Confirmation = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // const divStep = window.document.getElementById('main-steps')
       const divDetail = document.getElementById('div-detail')
       const divFooter = document.getElementById('footer')
       const { uuid } = getStorageInfo()
@@ -104,7 +103,6 @@ const Confirmation = () => {
       }, null)
 
       if (freeAccess || (userPurchase && userPurchase.status)) {
-        // if (divStep) divStep.classList.add('bg-white')
         if (divDetail) divDetail.classList.remove('step__show-detail')
         if (divFooter) divFooter.classList.remove('step__hidden')
         document.body.classList.remove('no-scroll')
@@ -188,14 +186,23 @@ const Confirmation = () => {
           value: amount,
         })
 
+        // Datalayer solicitados por Joao
+        window.dataLayer.push({
+          event: 'Pasarela Suscripciones Digitales',
+          category: `P3_${name.replace(' ', '_')}`,
+          action: userPeriod,
+          label: uuid,
+          value: `${amount}`,
+        })
+
         window.Identity.extendSession().then(() => {
           setSendTracking(true)
         })
       } else {
         updateStep(2)
-        // if (divStep) divStep.classList.remove('bg-white')
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const goToHome = () => {
@@ -253,7 +260,7 @@ const Confirmation = () => {
         <div className={styles.contConfirm}>
           <p className="title">Paquete</p>
           <p className="description">{`${
-            freeAccess ? namePlanApi : userPeriod
+            freeAccess ? namePlanApi : `Plan ${userPeriod}`
           }`}</p>
 
           <p className="title">Nombre</p>
