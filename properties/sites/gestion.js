@@ -20,6 +20,7 @@ export default {
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/gestion/amp/post/default/preroll&description_url=https%3A%2F%2Fgestion.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Dgestion%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
   googleTagManagerId: 'GTM-KFQK83S',
+  googleTagManagerIdSandbox: 'GTM-KFQK83S', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-3055636-3',
   ampGoogleTagManagerName: 'gestion',
   charbeatAccountNumber: 57773,
@@ -34,14 +35,15 @@ export default {
     color: '#8F071F',
   },
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'LE7X7PCZPRCM7ASXLIHWS7DKYQ',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'RXAYTOUIXNEI5N3MBETUNR7TCI',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'UF4RYI7XLNH4NGDN2FONQJ7HHU',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
+    dataTreatment: 'RPHBHLSJA5AFLCV5QUC3E6A7SY',
   },
   infoPagesProd: {
     termsAndConditions: 'VD45IRL65ZGCDBGLHL4O6WVCJE',
@@ -52,6 +54,7 @@ export default {
     cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
     aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
+    dataTreatment: 'RPHBHLSJA5AFLCV5QUC3E6A7SY',
   },
   paywall: {
     title: 'Suscripciones Digitales | Gestión',

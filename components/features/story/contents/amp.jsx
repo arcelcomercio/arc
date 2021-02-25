@@ -52,7 +52,6 @@ import {
   SITE_ELBOCON,
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIOMAG,
-  SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
@@ -96,7 +95,6 @@ class StoryContentAmp extends React.PureComponent {
       contextPath,
       arcSite,
       deployment,
-      requestUri,
       siteProperties: {
         siteUrl,
         adsAmp,
@@ -262,13 +260,11 @@ class StoryContentAmp extends React.PureComponent {
                 </p>
               ) : // Validamos si es EC
               isComercio ? (
-                authorsList.map(authorData => {
-                  return (
-                    <p className={classes.author}>
-                      <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
-                    </p>
-                  )
-                })
+                authorsList.map(authorData => (
+                  <p className={classes.author}>
+                    <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
+                  </p>
+                ))
               ) : (
                 <p className={classes.author}>
                   <a href={authorLink}>{author}</a>
@@ -283,13 +279,7 @@ class StoryContentAmp extends React.PureComponent {
               </time>
             </div>
           )}
-          {isMetered &&
-          activeRulesCounter &&
-          activePaywall &&
-          ((arcSite === SITE_GESTION &&
-            /^\/(podcast|mundo)\//.test(requestUri)) ||
-            (arcSite === SITE_ELCOMERCIO &&
-              /^\/(tecnologia)\//.test(requestUri))) ? (
+          {isMetered && activeRulesCounter && activePaywall ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"

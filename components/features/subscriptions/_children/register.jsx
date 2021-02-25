@@ -1,15 +1,11 @@
-import React, {
-  useState,
-  // useContext
-} from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
+
 import { NavigateConsumer } from '../_context/navigate'
 import useForm from '../_hooks/useForm'
-// import { AuthContext } from '../_context/auth'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
-import ButtonSocial from './social'
 import { Taggeo } from '../_dependencies/Taggeo'
 import getCodeError, {
   formatEmail,
@@ -17,6 +13,7 @@ import getCodeError, {
 } from '../_dependencies/Errors'
 import { MsgRegister } from '../_dependencies/Icons'
 import { isFbBrowser } from '../_dependencies/Utils'
+import ButtonSocial from './social'
 
 const styles = {
   title: 'step__left-title',
@@ -36,22 +33,23 @@ const styles = {
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Register = ({ arcSite }) => {
-  // const { activateAuth, updateStep } = useContext(AuthContext)
-  const [loading, setLoading] = useState()
-  const [loadText, setLoadText] = useState('Cargando...')
-  const [msgError, setMsgError] = useState()
-  const [checkedTerms, setCheckedTerms] = useState()
-  const [forgotLink, setForgotLink] = useState()
-  const [showHidePass, setShowHidePass] = useState('password')
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [showSendEmail, setShowSendEmail] = useState(false)
+  const [loading, setLoading] = React.useState()
+  const [loadText, setLoadText] = React.useState('Cargando...')
+  const [msgError, setMsgError] = React.useState()
+  const [checkedTerms, setCheckedTerms] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [forgotLink, setForgotLink] = React.useState()
+  const [showHidePass, setShowHidePass] = React.useState('password')
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts, urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
 
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
-    rterms: { value: 'no', error: '' },
+    rpolit: { value: '1', error: '' },
+    rterms: { value: '0', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -67,6 +65,9 @@ const Register = ({ arcSite }) => {
       },
       nospaces: true,
     },
+    rpolit: {
+      required: false,
+    },
     rterms: {
       required: true,
       validator: acceptCheckTerms(),
@@ -76,6 +77,12 @@ const Register = ({ arcSite }) => {
   const openNewTab = typeLink => {
     if (typeof window !== 'undefined') {
       window.open(urlSite[typeLink], '_blank')
+    }
+  }
+
+  const dataTreatment = () => {
+    if (typeof window !== 'undefined') {
+      window.open('/tratamiento-de-datos/', '_blank')
     }
   }
 
@@ -121,7 +128,12 @@ const Register = ({ arcSite }) => {
             },
             {
               name: 'termsCondPrivaPoli',
-              value: '1',
+              value: checkedTerms ? '1' : '0',
+              type: 'String',
+            },
+            {
+              name: 'dataTreatment',
+              value: checkedPolits ? '1' : '0',
               type: 'String',
             },
           ],
@@ -253,6 +265,8 @@ const Register = ({ arcSite }) => {
                     <input
                       className={remailError && 'input-error'}
                       type="email"
+                      inputMode="email"
+                      autoComplete="email"
                       name="remail"
                       value={remail}
                       required
@@ -272,6 +286,7 @@ const Register = ({ arcSite }) => {
                     <input
                       className={rpassError && 'input-error'}
                       type={showHidePass}
+                      autoComplete="new-password"
                       name="rpass"
                       value={rpass}
                       required
@@ -284,7 +299,8 @@ const Register = ({ arcSite }) => {
                       aria-label="lshowpass"
                       className={`${styles.btnShow}-${showHidePass}`}
                       type="button"
-                      onClick={toogleHidePass}></button>
+                      onClick={toogleHidePass}
+                    />
                     {rpassError && (
                       <span className="msn-error">{rpassError}</span>
                     )}
@@ -292,12 +308,38 @@ const Register = ({ arcSite }) => {
                 </div>
 
                 <div className={styles.block}>
+                  <label htmlFor="rpolit" className="terms">
+                    <input
+                      id="rpolit"
+                      type="checkbox"
+                      name="rpolit"
+                      value={checkedPolits ? '1' : '0'}
+                      checked={checkedPolits}
+                      disabled={loading}
+                      onChange={e => {
+                        handleOnChange(e)
+                        setCheckedPolits(!checkedPolits)
+                      }}
+                    />
+                    Autorizo el uso de mis datos para{' '}
+                    <button
+                      className={styles.link}
+                      type="button"
+                      onClick={dataTreatment}>
+                      fines adicionales
+                    </button>
+                    <span className="checkmark" />
+                  </label>
+                </div>
+
+                <div className={styles.block}>
                   <label htmlFor="rterms" className="terms">
                     <input
                       id="rterms"
-                      value={checkedTerms ? 'si' : 'no'}
                       type="checkbox"
                       name="rterms"
+                      value={checkedTerms ? '1' : '0'}
+                      checked={checkedTerms}
                       disabled={loading}
                       required
                       onChange={e => {
@@ -320,8 +362,8 @@ const Register = ({ arcSite }) => {
                       {texts.policies}
                     </button>
                     <span
-                      className={`checkmark ${rtermsError &&
-                        'input-error'}`}></span>
+                      className={`checkmark ${rtermsError && 'input-error'}`}
+                    />
                   </label>
                 </div>
 

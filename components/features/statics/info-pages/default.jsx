@@ -17,6 +17,7 @@ const infoPages = {
   cookiesPolicy: 'Políticas de cookies',
   aboutUs: 'Quienes Somos',
   frequentQuestions: 'Preguntas frecuentes',
+  dataTreatment: 'Tratamiento de Datos',
 }
 const DEFAULT_POLICY = 'termsAndConditions'
 const CONTENT_SOURCE = 'story-by-id'
@@ -71,7 +72,9 @@ const InfoPages = props => {
 
   return (
     <div className={classes.staticPolicy}>
-      <h1 itemProp="name" className={classes.title}>{headlines}</h1>
+      <h1 itemProp="name" className={classes.title}>
+        {headlines}
+      </h1>
       <ArcArticleBody
         data={contentElements}
         renderElement={element => {

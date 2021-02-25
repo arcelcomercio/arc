@@ -19,7 +19,7 @@ export default ({ arcSite, arcEnv }) => {
       }
       var script = d.createElement('script')
       script.src =
-        'https://elcomercio-${arcSite}-${arcEnv}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+        'https://elcomercio-${arcSite}-${arcEnv}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
     .toISOString()
     .slice(0, 10)}'
       script.async = 'true'

@@ -13,7 +13,7 @@ const classes = {
   btnHome: 'covid-question-list__btn--home',
 }
 
-const CovidChildQuestionList = ({ requestUri }) => {
+const CovidChildQuestionList = ({ path }) => {
   const { data = [] } =
     useContent({
       source: 'get-spreadsheet-covid',
@@ -21,8 +21,6 @@ const CovidChildQuestionList = ({ requestUri }) => {
         title: 'Mas Informacion API',
       },
     }) || {}
-  const urlMatch = requestUri.match(/\/covid-19\/mas-informacion\/(.*)+\//i)
-  const param = (urlMatch && urlMatch[1]) || null
 
   const questionList = questionData => {
     const dataArr = Array.from(questionData) || []
@@ -33,7 +31,7 @@ const CovidChildQuestionList = ({ requestUri }) => {
           {dataArr.map(({ pregunta = '', slug = '' }) => {
             return (
               <a
-                href={`/covid/mas-informacion/${slug}`}
+                href={`/covid-19/mas-informacion/${slug}`}
                 className={classes.item}>
                 <span className={classes.question}>{pregunta}</span>
                 <svg
@@ -64,6 +62,7 @@ const CovidChildQuestionList = ({ requestUri }) => {
       titulo: title,
       vacunados_hoy: vaccineToday,
       vacunados_desde: vaccineFrom,
+      embed_chart: urlEmbed,
     } = (dataSlug && dataSlug[0]) || {}
 
     const dataFiler = []
@@ -74,6 +73,11 @@ const CovidChildQuestionList = ({ requestUri }) => {
       }
       if (dataProcess[i].title !== null) dataFiler[i] = dataProcess[i]
     }
+    const date =
+      (dataProcess &&
+        dataProcess[dataProcess.length - 1] &&
+        dataProcess[dataProcess.length - 1]?.title) ||
+      ''
     return (
       <Graph
         maxValue={maxValue}
@@ -84,16 +88,12 @@ const CovidChildQuestionList = ({ requestUri }) => {
         valOne={vaccineToday}
         valTwo={vaccineFrom}
         colorBar="#55AC0A"
-        date={getVerboseDate({
-          date: new Date(),
-          showTime: false,
-          showWeekday: false,
-          showYear: false,
-        })}
+        date={date}
+        embedChart={urlEmbed}
       />
     )
   }
-  return param === null ? questionList(data) : graph(data, param)
+  return path !== '' ? graph(data, path) : questionList(data)
 }
 
 export default CovidChildQuestionList

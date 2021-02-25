@@ -3,32 +3,52 @@ import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import Home from './_children/home'
 import QuestionList from './_children/question-list'
-// import InfectedAverage from './_children/infected-average'
+import UciBeds from './_children/uci_beds/home'
+import Infected from './_children/infected/infected'
 
 /**
  * @see estilos `src/websites/elcomercio/covid.scss`
  */
 
 const StaticsCovid = () => {
-  const {
-    /* globalContent: { data = {} } = {}, */ requestUri,
-  } = useAppContext()
-  /* const uri = requestUri.split('/')[3]
-  const distrito = data.filter(el => el.dist_prov_slug === uri)[0]
-  const {
-    infected_by_date: infectedDate = [],
-    dist_prov: distProv = '',
-    desde_marzo: desdeMarzo = '',
-    embed_chart: embedChart = '',
-  } = distrito
-  */
+  const { requestUri } = useAppContext()
+  const fullPath = requestUri.split('?')[0]
+  const pathArr = fullPath.split('/').filter(el => el !== '')
+  const [
+    paramOne = '',
+    paramTwo = '',
+    paramThree = '',
+    paramFour = '',
+    // paramFive = '',
+  ] = pathArr || []
+  let html = ''
+  if (paramOne === 'covid-19' && pathArr.length === 1) {
+    html = <Home />
+  } else if (
+    paramOne === 'covid-19' &&
+    paramTwo === 'camas-uci' &&
+    pathArr.length >= 2 &&
+    pathArr.length <= 5
+  ) {
+    html = <UciBeds />
+  } else if (
+    paramOne === 'covid-19' &&
+    paramTwo === 'contagiados' &&
+    pathArr.length >= 2 &&
+    pathArr.length <= 4
+  ) {
+    let paramPath = paramThree
+    if (paramFour !== '') paramPath += `/${paramFour}`
+    html = <Infected path={paramPath} />
+  } else if (
+    paramOne === 'covid-19' &&
+    paramTwo === 'mas-informacion' &&
+    (pathArr.length === 2 || pathArr.length === 3)
+  ) {
+    html = <QuestionList path={paramThree} />
+  }
 
-  return (
-    <>
-      {/* <Home /> */}
-      <QuestionList requestUri={requestUri} />
-    </>
-  )
+  return html
 }
 
 StaticsCovid.static = true

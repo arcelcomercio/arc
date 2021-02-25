@@ -1,6 +1,10 @@
 .navbar-nm {
   max-height: 33px;
   background-color: $color-white;
+  &__left {
+    opacity: 0;
+    visibility: hidden;
+  }
   &__link {
     font-family: $primary-font;
     color: rgb(170, 170, 170);

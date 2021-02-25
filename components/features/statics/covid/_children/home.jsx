@@ -12,6 +12,7 @@ const Home = () => {
     Title: 'home__title',
     SubTitle: 'home__subtitle',
     SubTitleN: 'home__subtitleNumber',
+    SubTitleMinsa: 'home__subtitleEnd',
     Tick: 'tick',
     BlockBtnRed: 'home__BlockbuttonRed',
     BtnRed: 'home__buttonRed',
@@ -44,7 +45,7 @@ const Home = () => {
             }
         })})
     */
-  const NewsCustomJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){Tick.DOM.parse(document.body);var e=document.querySelector(".cls_contagiados"),n=document.querySelector(".cls_camas_uci"),c=document.querySelector(".cls_plus");e.addEventListener("click",function(){window.location="/covid/contagiados/"}),n.addEventListener("click",function(){window.location="/covid/camas-uci/"}),c.addEventListener("click",function(){window.location="/covid/mas-informacion/"});for(var i=document.getElementsByClassName("tick"),t=0;t<i.length;t++){var d=i[t].children[0].children.length;i[t].children[0].children[d-3]&&(i[t].children[0].children[d-3].style.marginLeft="10px"),i[t].children[0].children[d-6]&&(i[t].children[0].children[d-6].style.marginLeft="10px")}})});`
+  const NewsCustomJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){Tick.DOM.parse(document.body);var e=document.querySelector(".cls_contagiados"),n=document.querySelector(".cls_camas_uci"),c=document.querySelector(".cls_plus");e.addEventListener("click",function(){window.location="/covid-19/contagiados/"}),n.addEventListener("click",function(){window.location="/covid-19/camas-uci/"}),c.addEventListener("click",function(){window.location="/covid-19/mas-informacion/"});for(var i=document.getElementsByClassName("tick"),t=0;t<i.length;t++){var d=i[t].children[0].children.length;i[t].children[0].children[d-3]&&(i[t].children[0].children[d-3].style.marginLeft="10px"),i[t].children[0].children[d-6]&&(i[t].children[0].children[d-6].style.marginLeft="10px")}})});`
 
   const data =
     useContent({
@@ -64,7 +65,7 @@ const Home = () => {
         <div className={classes.Block}>
           <span className={classes.Title}>El Coronavirus en Perú</span>
           <span className={classes.SubTitle}>
-            (Actualizado el {data.ultima_fecha_con_data})
+            (Actualizado el {data.fecha_hora_actualizacion})
           </span>
         </div>
         <div className={classes.BlockBtnRed}>
@@ -113,6 +114,9 @@ const Home = () => {
             </div>
           </div>
           <span className={classes.SubTitleN}>Total de vacunados</span>
+        </div>
+        <div className={classes.Block}>
+          <span className={classes.SubTitleMinsa}>Fuente: Minsa y Sinadef</span>
         </div>
       </div>
       <script src="https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_prod/especiales/elementos-comunes/js/countflip.min.js"></script>
