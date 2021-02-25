@@ -39,3 +39,8 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/story/special-title/st-special-t";
 @import "./scss/lite-components/features/header/links-band/links-band";
 @import "./scss/lite-components/features/story/gallery/gallery-img";
+
+@import "./scss/lite-components/features/story/contents/contents-inline";
+@import "./scss/lite-components/features/story/tags/st-tags-inline";
+@import "./scss/lite-components/features/cards/most-read/most-read-inline";
+@import "./scss/lite-components/features/story/interest/st-interest-inline";
