@@ -57,7 +57,9 @@ const Profile = () => {
     userErrorApi,
     updateErrorApi,
     userPlan,
+    userPeriod,
   } = React.useContext(AuthContext)
+
   const { urls, emails } = PropertiesSite[arcSite]
   const { texts, links } = PropertiesCommon
 
@@ -99,48 +101,61 @@ const Profile = () => {
   } = getPLanSelected || {}
 
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
 
-    const origin = getSessionStorage('paywall_type_modal') || 'organico'
-    const referer = getSessionStorage('paywall_last_url') || ''
+      const origin = getSessionStorage('paywall_type_modal') || 'organico'
+      const referer = getSessionStorage('paywall_last_url') || ''
 
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push({
-      event: 'checkoutOption',
-      ecommerce: {
-        checkout_option: {
-          actionField: { step: 2 },
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({
+        event: 'checkoutOption',
+        ecommerce: {
+          checkout_option: {
+            actionField: { step: 2 },
+          },
         },
-      },
-    })
-
-    sendAction(PixelActions.PAYMENT_PROFILE, {
-      sku: `${sku}`,
-      periodo: billingFrequency,
-      referer,
-      medioCompra: origin,
-      priceCode,
-      suscriptorImpreso: printedSubscriber ? 'si' : 'no',
-      pwa: PWA.isPWA() ? 'si' : 'no',
-    })
-
-    Sentry.configureScope(scope => {
-      scope.setTag('brand', arcSite)
-      scope.setTag('document', documentNumber || 'none')
-      scope.setTag('phone', phone || 'none')
-      scope.setTag('email', email || 'none')
-      scope.setTag('step', 'Perfil')
-      scope.setUser({
-        id: uuid,
-        name: `${firstName} ${lastName} ${secondLastName || ''}`,
-        email,
-        phone,
-        documentType,
-        documentNumber,
-        emailVerified,
       })
-    })
-    if (userErrorApi !== false) updateErrorApi(error)
+
+      sendAction(PixelActions.PAYMENT_PROFILE, {
+        sku: `${sku}`,
+        periodo: billingFrequency,
+        referer,
+        medioCompra: origin,
+        priceCode,
+        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+        pwa: PWA.isPWA() ? 'si' : 'no',
+      })
+
+      Sentry.configureScope(scope => {
+        scope.setTag('brand', arcSite)
+        scope.setTag('document', documentNumber || 'none')
+        scope.setTag('phone', phone || 'none')
+        scope.setTag('email', email || 'none')
+        scope.setTag('step', 'Perfil')
+        scope.setUser({
+          id: uuid,
+          name: `${firstName} ${lastName} ${secondLastName || ''}`,
+          email,
+          phone,
+          documentType,
+          documentNumber,
+          emailVerified,
+        })
+      })
+
+      if (printedSubscriber || error) {
+        // Datalayer solicitados por Joao
+        window.dataLayer.push({
+          event: 'Pasarela Suscripciones Digitales',
+          category: 'P0_Plan Suscriptor',
+          action: printedSubscriber ? 'Aceptado' : `Denegado - ${error}`,
+          label: uuid,
+        })
+      }
+
+      if (userErrorApi !== false) updateErrorApi(error)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -342,6 +357,14 @@ const Profile = () => {
         level: 'info',
       })
 
+      // Datalayer solicitados por Joao
+      window.dataLayer.push({
+        event: 'Pasarela Suscripciones Digitales',
+        category: `P1_${namePlanApi.replace(' ', '_')}`,
+        action: userPeriod,
+        label: uuid,
+      })
+
       if (
         (getStorageEmailProfile() !== uEmail && isFacebook) ||
         getStorageEmailProfile() === uEmail
@@ -448,6 +471,14 @@ const Profile = () => {
       setShowModal(false)
       window.sessionStorage.setItem('paywall_confirm_subs', '2')
       Taggeo(nameTagCategory, 'web_paywall_close_validation')
+
+      // Datalayer solicitados por Joao
+      window.dataLayer.push({
+        event: 'Pasarela Suscripciones Digitales',
+        category: `P1_${namePlanApi.replace(' ', '_')}_Cancelado`,
+        action: userPeriod,
+        label: uuid,
+      })
     }
   }
 

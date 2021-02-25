@@ -47,6 +47,7 @@ const Pay = () => {
   const {
     userProfile,
     userPlan,
+    userPeriod,
     updateStep,
     updatePurchase,
     updateLoadPage,
@@ -317,6 +318,16 @@ const Pay = () => {
                               },
                             },
                           })
+
+                          // Datalayer solicitados por Joao
+                          window.dataLayer.push({
+                            event: 'Pasarela Suscripciones Digitales',
+                            category: `P2_${name.replace(' ', '_')}_Cancelado`,
+                            action: `${userPeriod} - ${response.error ||
+                              getCodeError('errorFinalize')}`,
+                            label: uuid,
+                          })
+
                           Sentry.captureEvent({
                             message:
                               response.error ||
@@ -372,6 +383,14 @@ const Pay = () => {
                           level: 'info',
                         })
 
+                        // Datalayer solicitados por Joao
+                        window.dataLayer.push({
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: `P2_${name.replace(' ', '_')}`,
+                          action: userPeriod,
+                          label: uuid,
+                        })
+
                         return {
                           publicKey,
                           accountId,
@@ -396,6 +415,16 @@ const Pay = () => {
                             },
                           },
                         })
+
+                        // Datalayer solicitados por Joao
+                        window.dataLayer.push({
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: `P2_${name.replace(' ', '_')}_Cancelado`,
+                          action: `${userPeriod} - ${errFinalize.message ||
+                            getCodeError('errorFinalize')}`,
+                          label: uuid,
+                        })
+
                         Sentry.captureEvent({
                           message:
                             errFinalize.message ||
