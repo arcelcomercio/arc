@@ -142,7 +142,7 @@ test-bundle-sandbox:
     key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
     paths:
       - node_modules/
-    policy: pull
+    policy: pull-push
   variables:
     ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
     BUNDLE_NAME: $CI_COMMIT_REF_SLUG
