@@ -49,9 +49,9 @@ const Summary = () => {
     userProfile || {}
 
   const period = {
-    month: 'Plan Mensual',
-    year: 'Plan Anual',
-    semester: 'Plan Semestral',
+    month: 'Mensual',
+    year: 'Anual',
+    semester: 'Semestral',
   }
 
   useEffect(() => {
