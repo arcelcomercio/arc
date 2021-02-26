@@ -1,14 +1,11 @@
 .sht {
-  padding-right: 20px;
-  padding-left: 20px;
-  color: $color-black;
-  font-family: $secondary-font;
-
   &__title {
     font-weight: bold;
     font-size: 24px;
     line-height: 1.1667;
-    padding-bottom: 20px;
+    padding: 0 20px 20px 20px;
+    color: $color-black;
+    font-family: $secondary-font;
     @media (--tablet) {
       font-size: 44px;
     }
@@ -19,14 +16,16 @@
 
   &__summary {
     font-size: 22px;
-    padding-bottom: 20px;
+    padding: 0 20px 20px 20px;
+    color: $color-black;
+    font-family: $secondary-font;
     line-height: 1.333;
   }
 
   // TODO: Este listado se usa en mag?
   &__list {
     list-style-type: disc;
-    padding: 0 0 30px 20px;
+    padding: 0 40px 30px 20px;
     & li {
       font-size: 19px;
       line-height: 26px;
