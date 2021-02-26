@@ -28,19 +28,19 @@ const groupBy = (list, key) =>
  */
 const getPageInfo = paths => {
   let type = ''
-  let title = ''
+  let title = 'Ubica tu zona y elige tu centro médico'
   if (paths.length === 4) {
     type = 'group'
-    title = 'Elige tu centro médico'
+    // title = 'Elige tu centro médico'
   } else if (paths.length === 5) {
     type = 'hospital'
-    title = 'Elige tu centro médico'
+    title = ''
   } else {
     type = 'home'
-    title =
+    /* title =
       paths[2] === 'nacional'
         ? 'Ubica tu región y elige tu distrito'
-        : 'Ubica tu zona y elige tu distrito'
+        : 'Ubica tu zona y elige tu distrito' */
   }
   return {
     type,
