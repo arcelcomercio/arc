@@ -147,7 +147,7 @@ export default {
   },
   gda: false, // Grupo Diarios de America
   googleTagManagerId: 'GTM-PFFL5R9', // Google Tag Manager Prod
-  googleTagManagerIdSandbox: '', // Google Tag Manager Sandbox
+  googleTagManagerIdSandbox: 'GTM-WMKQ2BN', // Google Tag Manager Sandbox
   googleTagManagerMobile: 'GTM-NNX4LXF',
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
