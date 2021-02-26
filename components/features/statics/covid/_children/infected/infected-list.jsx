@@ -41,7 +41,9 @@ const StaticsCovidInfectedList = ({region}) => {
     if(typeof(grupos[element.grupo]) === 'undefined'){
       grupos[element.grupo] = [];
     }
-    grupos[element.grupo].push({"nombre": element.dist_prov, "slug": element.slug, "estado": element.estado})
+    if(element.dist_prov !== null && element.dist_prov !== ""){
+      grupos[element.grupo].push({"nombre": element.dist_prov, "slug": element.slug, "estado": element.estado})
+    }
     return 
   })
 
@@ -49,23 +51,21 @@ const StaticsCovidInfectedList = ({region}) => {
    
   for(let clave in grupos){
     let grupo = grupos[clave]
-    let distritos = []
     
-    grupo.map((dist) => {
+    const distritos = grupo.map((dist) => {
       let infClass = classes.itemEquals
       if(dist.estado === "(+)") infClass = classes.itemUp
       if(dist.estado === "(-)") infClass = classes.itemDown
 
       const link = `/covid-19/contagiados/${region}/${dist.slug}`
       
-      distritos.push(<li className={infClass}><a href={link}>{dist.nombre}</a></li>)
+      return <li className={infClass}><a href={link} alt={dist.nombre} title={dist.nombre}>{dist.nombre}</a></li>
     })
     lista.push(<><li className={classes.regionTitle}>{clave}</li>{distritos}</>)
   }
 
   return (
   <div className={classes.wrapper}>
-    <a className={classes.closeButton} href="/covid-19/">X</a>
     <h1 className={classes.title}>Contagiados</h1>
     <h2 className={classes.subtitle}>Elige tu departamento</h2>
     <div className={classes.buttonWrapper}>
@@ -73,6 +73,7 @@ const StaticsCovidInfectedList = ({region}) => {
       <a className={classes.button} href="/covid-19/contagiados/nacional/">Nacional</a>
     </div>
     <div className={classes.sectionsWrapper}>
+      <a className={classes.closeButton} href="/covid-19/"></a>
       <ul className={classes.regionsWrapper}>
         {lista}
       </ul>
