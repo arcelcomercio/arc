@@ -25,7 +25,8 @@
     letter-spacing: -0.17px;
     color: $color-black;
     border-bottom: 1px solid #ddd;
-    margin: 0 20px 30px 20px;
+    margin: 0 20px 10px 20px;
+    padding-bottom: 20px;
     @media (--tablet) {
       font: 400 20px/24px $primary-font;
       letter-spacing: -0.2px;
