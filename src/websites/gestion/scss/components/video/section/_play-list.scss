@@ -4,3 +4,20 @@
     font-size: 1.12rem;
   }
 }
+
+.video-list__btn-container {
+  button {
+    color: #222;
+    border: 1px solid #222;
+    svg {
+      stroke: #222;
+    }
+    &:hover {
+      background-color: #8f071f;
+      color: #fff;
+      svg {
+        stroke: #fff;
+      }
+    }
+  }
+}

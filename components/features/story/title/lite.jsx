@@ -7,7 +7,6 @@ import StoryData from '../../../utilities/story-data'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
 
 const classes = {
-  story: 'sht ',
   description: 'sht__summary',
   listClasses: 'sht__list',
   title: 'sht__title',
@@ -31,17 +30,16 @@ const StoryTitleLite = () => {
 
   return (
     <>
-      <div
-        className={`${classes.story} ${primarySectionLink.replace(/\//g, '')}`}>
-        {arcSite === SITE_DEPOR && (
-          <h2 className={classes.category}>
-            <a href={primarySectionLink}>{primarySection}</a>
-          </h2>
-        )}
-        <h1 itemProp="name" className={classes.title}>
-          {title}
-        </h1>
-        {items && type === 'list' ? (
+      {arcSite === SITE_DEPOR && (
+        <h2 className={classes.category}>
+          <a href={primarySectionLink}>{primarySection}</a>
+        </h2>
+      )}
+      <h1 itemProp="name" className={classes.title}>
+        {title}
+      </h1>
+      {items && type === 'list' ? (
+        <div style={{ ' margin-right': '20px;', 'margin-left': '20px;' }}>
           <ul className={classes.listClasses}>
             {items.map(({ content }) => {
               return (
@@ -51,15 +49,15 @@ const StoryTitleLite = () => {
               )
             })}
           </ul>
-        ) : (
-          <>
-            <h2 itemProp="name" className={classes.description}>
-              {subTitle}
-            </h2>
-            <PremiumTag isPremium={isPremium} arcSite={arcSite} />
-          </>
-        )}
-      </div>
+        </div>
+      ) : (
+        <>
+          <h2 itemProp="name" className={classes.description}>
+            {subTitle}
+          </h2>
+          <PremiumTag isPremium={isPremium} arcSite={arcSite} />
+        </>
+      )}
     </>
   )
 }
