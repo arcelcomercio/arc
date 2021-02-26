@@ -40,6 +40,6 @@ module.exports = {
   ],
   setupFilesAfterEnv: ['./config/setupTests.ts'],
   moduleNameMapper: {
-    // "fusion:properties": require.resolve('./jest/fusionProperties.js'),
+    // "fusion:properties": require.resolve('./jest/example.js'),
   },
 }
