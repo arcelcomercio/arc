@@ -1,0 +1,24 @@
+.h-continuous {
+  height: $header-height-m;
+  background-color: $color-primary;
+  @media (--desktop) {
+    height: $header-height;
+  }
+  &__img {
+    height: 34px;
+    @media (--desktop) {
+      height: 40px;
+    }
+  }
+  &__anchor {
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    transform: rotateZ(-90deg);
+    padding-bottom: 20px;
+  }
+  &__svg {
+    fill: $color-white;
+  }
+}
