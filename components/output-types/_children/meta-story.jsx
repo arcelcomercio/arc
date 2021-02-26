@@ -476,11 +476,12 @@ export default ({
   }
 
   const dateline =
-    subtype !== GALLERY_VERTICAL
+    subtype !== GALLERY_VERTICAL && primarySection !== 'Trivias'
       ? `"dateline": "${`${getDateSeo(displayDate)} ${locality}`}",`
       : ''
+  const typeStory = primarySection !== 'Trivias' ? trustType : '"Quiz"'
 
-  const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
+  const structuredData = `{  "@context":"http://schema.org", "@type":${typeStory}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
       arcSite === SITE_ELCOMERCIOMAG ||
       arcSite === SITE_DEPOR ||
