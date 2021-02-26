@@ -95,7 +95,9 @@ const getUciBeds = sheet => {
         item.nombre_slug = slugify(sheet.getCell(row, col).value || '')
       }
     }
-    data.push(item)
+    if (item.territorio && item.grupo && item.nombre) {
+      data.push(item)
+    }
   }
   return {
     sheet_title: sheet.title,

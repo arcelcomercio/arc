@@ -67,7 +67,7 @@ const StaticsCovidInfectedList = ({region}) => {
   return (
   <div className={classes.wrapper}>
     <h1 className={classes.title}>Contagiados</h1>
-    <h2 className={classes.subtitle}>Elige tu departamento</h2>
+    <h2 className={classes.subtitle}>{region === 'lima' ? 'Elige tu distrito' : 'Elige tu departamento'}</h2>
     <div className={classes.buttonWrapper}>
       <a className={classes.button} href="/covid-19/contagiados/lima/">Lima</a>
       <a className={classes.button} href="/covid-19/contagiados/nacional/">Nacional</a>
