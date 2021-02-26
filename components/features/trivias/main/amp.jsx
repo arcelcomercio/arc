@@ -34,10 +34,14 @@ const TriviasMainAmp = ({
 
   const {
     content_elements: contentElements = '',
-    promo_items: { basic: { url: triviaImage = '', caption = '' } = {} } = {},
+    promo_items: {
+      basic: { url: triviaImageDefault = '', caption = '' } = {},
+      basic_movil: { url: triviaImageMovil = '' } = {},
+    } = {},
     headlines: { basic: title = '' } = {},
   } = globalContent || {}
 
+  const triviaImage = triviaImageMovil || triviaImageDefault
   const questions = contentElements
     .filter(
       element => element.subtype === 'trivia' && element.type === 'custom_embed'
@@ -78,14 +82,6 @@ const TriviasMainAmp = ({
   const { taxonomy: { sections } = {}, credits: { by: autors } = {} } =
     globalContent || {}
 
-  const parametros = {
-    sections,
-    autors,
-    siteProperties,
-    arcSite,
-    globalContent,
-    requestUri,
-  }
   const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
   const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
 
@@ -99,7 +95,14 @@ const TriviasMainAmp = ({
         poster-portrait-src={triviaImage}
         poster-square-src={triviaImage}
         poster-landscape-src={triviaImage}>
-        <AmpTagManager {...parametros} />
+        <AmpTagManager
+          requestUri={requestUri}
+          arcSite={arcSite}
+          globalContent={globalContent}
+          sections={sections}
+          autors={autors}
+          siteProperties={siteProperties}
+        />
 
         <amp-story-auto-ads>
           <script
