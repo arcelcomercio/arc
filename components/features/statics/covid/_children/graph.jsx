@@ -68,6 +68,26 @@ const CovidChildGraph = ({
     }
   }
 
+  const handleDate = dateTitle => {
+    const ListMonth = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ]
+    const mes = dateTitle.split('-')
+    const nameMonth = ListMonth[parseInt(mes[1], 10) - 1]
+    return `${nameMonth} ${mes[0]}`
+  }
+
   return (
     <>
       <section className={classes.average}>
@@ -138,7 +158,9 @@ const CovidChildGraph = ({
                       className={classBar}
                       data-value={`${percentValue}%`}
                       style={handleBarra(percentValue)}>
-                      <div style={{ width: '100px' }}>{itemTitle}</div>
+                      <div style={{ width: '100px' }}>
+                        {itemTitle ? handleDate(itemTitle) : itemTitle}
+                      </div>
                     </li>
                   </span>
                   <span className={classes.number}>{value}</span>

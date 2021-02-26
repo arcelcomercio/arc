@@ -19,12 +19,12 @@
     position: absolute;
     top: -130px;
     right: 15px;
-    &:before{
+    &::before{
       position: absolute;
       display: block;
       content: "";
-      top: 0px;
-      left: 0px;
+      top: 0;
+      left: 0;
       width: 14px;
       height: 14px;
       background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/RUEI37MKSZCSVKHXCIIAJMEJQ4.png");
@@ -84,16 +84,16 @@
       font-size: 16px;
       padding: 4px;
       margin: 2px;
-      margin-left: 0px;
+      margin-left: 0;
       position: relative;
       padding-left: 30px;
-      background-color: #000000;
+      background-color: #000;
       font-family: $primary-font;
       font-weight: 500;
       line-height: 24px;
       width: 149px;
       list-style: none;
-      &:before{
+      &::before{
         position: absolute;
         display: block;
         content: "";
@@ -109,6 +109,8 @@
         height: 27px;
         text-overflow: ellipsis;
         width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
         &:hover{
           text-decoration: none;
         }
@@ -119,7 +121,7 @@
       background-color: #fff;
       color: #000;
       font-size: 15px;
-      &:before{
+      &::before{
         display: none;
       }
     }
@@ -143,7 +145,7 @@
     }
   }
   &__item.equals{
-    background-color: #000000;
+    background-color: #000;
     &:hover{
       background-color: #696969;
     }
