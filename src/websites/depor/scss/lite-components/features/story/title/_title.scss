@@ -3,7 +3,7 @@
     font: 700 14px/1 $primary-font;
     text-transform: uppercase;
     margin-bottom: 10px;
-    padding: 0 20px 20px 20px;
+    padding: 30px 20px 20px 20px;
     letter-spacing: 0.28px;
     color: $color-black;
     a {
@@ -26,7 +26,8 @@
   &__summary {
     font: 400 16px/20px $primary-font;
     border-bottom: 1px solid #ddd;
-    padding: 0 20px 10px 20px;
+    margin: 0 20px 10px 20px;
+    padding-bottom: 20px;
     color: $color-black;
     letter-spacing: -0.29px;
     @media (--desktop) {
