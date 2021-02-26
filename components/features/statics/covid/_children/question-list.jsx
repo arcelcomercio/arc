@@ -1,7 +1,5 @@
 import React from 'react'
 import { useContent } from 'fusion:content'
-import Graph from './graph'
-import { getVerboseDate } from '../../../../utilities/date-time/dates'
 
 const classes = {
   container: 'covid-question-list__container flex flex-col',
@@ -11,6 +9,9 @@ const classes = {
   question: 'covid-question-list__question',
   iconRight: 'covid-question-list__icon--right',
   btnHome: 'covid-question-list__btn--home',
+  average: 'covid-question-list__graph average__grafico-barras',
+  embed: 'average__embed',
+  titleGraph: 'average__title',
 }
 
 const CovidChildQuestionList = ({ path }) => {
@@ -55,42 +56,58 @@ const CovidChildQuestionList = ({ path }) => {
       </div>
     )
   }
+
   const graph = (questionData, slug) => {
     const dataSlug = questionData.filter(el => el.slug === slug)
-    const {
-      data_process: dataProcess = [],
-      titulo: title,
-      vacunados_hoy: vaccineToday,
-      vacunados_desde: vaccineFrom,
-      embed_chart: urlEmbed,
-    } = (dataSlug && dataSlug[0]) || {}
+    const { titulo: title, embed_chart: urlEmbed } =
+      (dataSlug && dataSlug[0]) || {}
 
-    const dataFiler = []
-    let maxValue = 0
-    for (let i = 0; i < dataProcess.length; i++) {
-      if (maxValue < dataProcess[i].value) {
-        maxValue = dataProcess[i].value
-      }
-      if (dataProcess[i].title !== null) dataFiler[i] = dataProcess[i]
-    }
-    const date =
-      (dataProcess &&
-        dataProcess[dataProcess.length - 1] &&
-        dataProcess[dataProcess.length - 1]?.title) ||
-      ''
     return (
-      <Graph
-        maxValue={maxValue}
-        dataProcess={dataProcess}
-        title={title}
-        titleOne="Vacunas llegaron hoy"
-        titleTwo="personas se vacunaron hoy"
-        valOne={vaccineToday}
-        valTwo={vaccineFrom}
-        colorBar="#55AC0A"
-        date={date}
-        embedChart={urlEmbed}
-      />
+      <section className={classes.average}>
+        <div
+          style={{
+            right: '2px',
+            'text-align': 'end',
+            position: 'relative',
+            top: '5px',
+          }}>
+          <a href="/covid-19/mas-informacion/">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.979"
+              height="13.979"
+              viewBox="0 0 13.979 13.979">
+              <g transform="translate(-314.287 -136.011)">
+                <line
+                  style={{ fill: '#fff', stroke: '#707070' }}
+                  x2="13.272"
+                  y2="13.272"
+                  transform="translate(314.64 136.364)"
+                />
+                <line
+                  style={{ fill: '#fff', stroke: '#707070' }}
+                  x1="13.272"
+                  y2="13.272"
+                  transform="translate(314.64 136.364)"
+                />
+              </g>
+            </svg>
+          </a>
+        </div>
+        <h1 className={classes.titleGraph}>{title}</h1>
+        <div className={classes.embed}>
+          <embed
+            title="Embed"
+            src={urlEmbed}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen="true"
+            id="embed"
+            height="320"
+            style={{ width: '100%' }}
+          />
+        </div>
+      </section>
     )
   }
   return path !== '' ? graph(data, path) : questionList(data)
