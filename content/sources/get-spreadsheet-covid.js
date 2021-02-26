@@ -63,15 +63,23 @@ const getInfectedData = sheet => {
 /**
  * @param  {import('google-spreadsheet').GoogleSpreadsheetWorksheet} sheet
  */
-const getVaccineData = sheet => {
-  const result = []
-  const initCol = 2 // Posición de la 1ra columna que tiene los valores a obtener
-  for (let col = initCol; col <= sheet.columnCount; col++) {
-    result.push(processDataByColumn(sheet, col, 5))
+const getMoreInfo = sheet => {
+  const data = []
+  for (let row = 1; row < sheet.rowCount; row++) {
+    const item = {}
+    for (let col = 0; col < sheet.columnCount; col++) {
+      item[sheet.getCell(0, col).value] = sheet.getCell(row, col).value
+      if (col === 1) {
+        item.slug = slugify(sheet.getCell(row, col).value || '')
+      }
+    }
+    if (item.pregunta && item.titulo && item.embed_chart) {
+      data.push(item)
+    }
   }
   return {
     sheet_title: sheet.title,
-    data: result,
+    data,
   }
 }
 
@@ -188,7 +196,7 @@ const fetch = async ({ id, title }) => {
       break
 
     case 'Mas Informacion API':
-      result = getVaccineData(sheet)
+      result = getMoreInfo(sheet)
       break
 
     case 'Camas UCI':
