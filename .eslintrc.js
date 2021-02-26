@@ -85,11 +85,17 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['*.ts', '*.tsx'], // Your TypeScript files extension
+      parserOptions: {
+        project: ['./tsconfig.json'], // Specify it only for TypeScript files
+      },
+    },
+    {
       files: ['**/__tests__/**', '**/*.{test,spec}.{js,jsx,ts,tsx}'],
       settings: {
         'import/resolver': {
           jest: {
-            jestConfigFile: path.join(__dirname, './jest.config.js'),
+            jestConfigFile: path.join(__dirname, './jest.config.ts'),
           },
         },
       },
