@@ -1,5 +1,6 @@
 declare module 'fusion:context' {
   import type { SiteProperties } from 'fusion:properties'
+
   type AnyObject = Record<string, unknown>
   export interface ContentConfig<Values = AnyObject> {
     contentService: string
@@ -75,8 +76,7 @@ declare module 'fusion:context' {
     ContentConfigValues = AnyObject,
     DisplayProperties = AnyObject,
     GlobalContentConfigQuery = AnyObject
-  >
-    extends ComponentContext<
+  > extends ComponentContext<
         GlobalContent,
         CustomFields,
         ContentConfigValues,
