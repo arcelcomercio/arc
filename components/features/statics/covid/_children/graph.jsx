@@ -7,6 +7,7 @@ const classes = {
   average: 'average__grafico-barras',
   number: 'average__number',
   bars: 'average__bars',
+  barsPercentLeft: 'average__bars average__bars--percent-left',
   title: 'average__title',
   subTitle: 'average__sub-title',
   buttons: 'average__buttons',
@@ -122,6 +123,9 @@ const CovidChildGraph = ({
           <ul>
             {dataProcess.map(({ title: itemTitle = '', value = '' }, index) => {
               const randomKey = Math.floor(Math.random() * 100 * index)
+              const percentValue = dataValue(value)
+              const classBar =
+                percentValue >= 85 ? classes.barsPercentLeft : classes.bars
               return (
                 <div
                   key={randomKey}
@@ -131,9 +135,9 @@ const CovidChildGraph = ({
                   }}>
                   <span className={classes.barBackground}>
                     <li
-                      className={classes.bars}
-                      data-value={`${dataValue(value)}%`}
-                      style={handleBarra(dataValue(value))}>
+                      className={classBar}
+                      data-value={`${percentValue}%`}
+                      style={handleBarra(percentValue)}>
                       <div style={{ width: '100px' }}>{itemTitle}</div>
                     </li>
                   </span>
