@@ -9,56 +9,42 @@
  * and then in your test file the prop-types will be auto-mocked with
  * with the .tag() functionality so you don't get unit test errors
  * */
-const PropTypes = require("../node_modules/prop-types");
+const PropTypes = require('../node_modules/prop-types')
 
-const { taggable } = require("./fusion:taggables");
+const { taggable } = require('./fusion:taggables')
 
-const isPropTypeSelfRef = key => {
-  return ["PropTypes", "checkPropTypes"].includes(key);
-};
-const isPropTypeMethod = key => {
-  return ["isRequired", "tag"].includes(key);
-};
+const isPropTypeSelfRef = (key) => ['PropTypes', 'checkPropTypes'].includes(key)
+const isPropTypeMethod = (key) => ['isRequired', 'tag'].includes(key)
 
-const ignorePropTypeSelfRefs = key => {
-  return !isPropTypeSelfRef(key);
-};
-const ignorePropTypeMethods = key => {
-  return !isPropTypeMethod(key);
-};
+const ignorePropTypeSelfRefs = (key) => !isPropTypeSelfRef(key)
+const ignorePropTypeMethods = (key) => !isPropTypeMethod(key)
 
 const FusionPropTypes = Object.assign(
   ...Object.keys(PropTypes)
     .filter(ignorePropTypeSelfRefs)
-    .map(key => {
-      return { [key]: taggable(PropTypes[key], key) };
-    }),
-  require("./fusion:custom-types")
-);
+    .map((key) => ({ [key]: taggable(PropTypes[key], key) })),
+  require('./fusion:custom-types')
+)
 
 // The basic JSON.stringify function ignores functions
 // but functions can have properties, just like any other object
 // this implementation exposes the properties of functions (while still ignoring their source)
 function _stringify(value) {
-  const exists = key => {
-    return value[key] !== undefined;
-  };
+  const exists = (key) => value[key] !== undefined
 
   return Array.isArray(value)
-    ? `[${value.map(_stringify).join(",")}]`
+    ? `[${value.map(_stringify).join(',')}]`
     : value instanceof Object
     ? `{${Object.keys(value)
         .filter(ignorePropTypeMethods)
         .filter(exists)
-        .map(key => {
-          return `"${key}":${_stringify(value[key])}`;
-        })
-        .join(",")}}`
-    : JSON.stringify(value);
+        .map((key) => `"${key}":${_stringify(value[key])}`)
+        .join(',')}}`
+    : JSON.stringify(value)
 }
 FusionPropTypes.stringify = function stringify(value, replacer, space) {
-  const str = _stringify(value);
-  return str ? JSON.stringify(JSON.parse(str), replacer, space) : str;
-};
+  const str = _stringify(value)
+  return str ? JSON.stringify(JSON.parse(str), replacer, space) : str
+}
 
-module.exports = FusionPropTypes;
+module.exports = FusionPropTypes

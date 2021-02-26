@@ -1,6 +1,6 @@
 import type {
-  ComponentContext,
   AppContext,
+  ComponentContext,
   FusionContext,
 } from 'fusion:context'
 /**
@@ -20,10 +20,13 @@ const appContextProps: Partial<AppContext> = {
   outputType: 'default',
   isAdmin: false,
   contextPath: '/pf',
-  arcSite: 'elcomercio'
+  arcSite: 'elcomercio',
 }
 
-const fusionContextProps: Partial<FusionContext> = {...componentContextProps, ...appContextProps}
+const fusionContextProps: Partial<FusionContext> = {
+  ...componentContextProps,
+  ...appContextProps,
+}
 
 export const useComponentContext = jest.fn(() => componentContextProps)
 

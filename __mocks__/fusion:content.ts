@@ -1,4 +1,5 @@
 import type { UseContentConfig } from 'fusion:content'
+
 import type { AnyObject } from '../types/utils'
 /**
  * In order to use this mock you must do
@@ -7,5 +8,6 @@ import type { AnyObject } from '../types/utils'
  * trigger jest to mock the Content import below
  * */
 
-
-export const useContent = jest.fn(<Query = AnyObject>(config: UseContentConfig<Query>): AnyObject => ({}))
+export const useContent = jest.fn(
+  <Query = AnyObject>(config: UseContentConfig<Query>): AnyObject => ({})
+)
