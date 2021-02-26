@@ -69,7 +69,7 @@
       padding: 0 10px;
       margin-left: 5px;
       left: 100%;
-      top: 0;
+      top: 2px;
     }
     &:hover {
       transition: all 0.5s ease;
@@ -80,6 +80,10 @@
     }
     &:hover::after {
       display: block;
+    }
+    &--percent-left::after {
+      left: unset;
+      right: 5px;
     }
   }
   &__buttons {

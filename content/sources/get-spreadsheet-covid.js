@@ -24,10 +24,13 @@ const processDataByColumn = (
   data.data_process = []
   for (let x = 0; x < sheetData.rowCount; x++) {
     if (x >= rowProcess) {
-      data.data_process.push({
-        title: sheetData.getCell(x, 0).value,
-        value: sheetData.getCell(x, currentCols - 1).value,
-      })
+      const title = sheetData.getCell(x, 0).value
+      if (title !== null && title !== '') {
+        data.data_process.push({
+          title,
+          value: sheetData.getCell(x, currentCols - 1).value,
+        })
+      }
     } else {
       data[sheetData.getCell(x, 0).value] = sheetData.getCell(
         x,
