@@ -37,7 +37,7 @@ const TriviasListItem = ({ alt = '', image = '', title = '', link = '/' }) => {
         />
       </figure>
       <div className={classes.content}>
-        <h3 className={classes.title}>{reduceWord(title, 50)}</h3>
+        <h3 className={classes.title}>{reduceWord(title, 70)}</h3>
         <a href={link} className={classes.link}>
           Empezar
         </a>
