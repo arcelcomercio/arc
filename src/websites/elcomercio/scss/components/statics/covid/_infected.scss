@@ -1,7 +1,7 @@
 .infected {
   background-color: white;
   &__wrapper {
-    font-family: Guardian Egyp, Regular, sans-serif;
+    font-family: $primary-font;
     width: 100%;
     color: #000;
     position: relative;
@@ -17,8 +17,18 @@
   }
   &__close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: -130px;
+    right: 15px;
+    &:before{
+      position: absolute;
+      display: block;
+      content: "";
+      top: 0px;
+      left: 0px;
+      width: 14px;
+      height: 14px;
+      background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/RUEI37MKSZCSVKHXCIIAJMEJQ4.png");
+    }
   }
   &__subtitle {
     font-size: 16px;
@@ -31,6 +41,9 @@
     width: 304px;
     justify-content: space-between;
     margin-top: 20px;
+    @media (--desktop) {
+      width: 314px;
+    }
   }
   &__button {
     background-color: #f00;
@@ -49,10 +62,22 @@
   }
   &__sections_wrapper{
     margin-top: 30px;
+    position: relative;
   }
   &__rgn_wrapper {
     width: 304px;
-    columns: .149px 2;
+    -moz-column-count: 2;
+    -moz-column-gap: 6px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 6px;
+    column-count: 2;
+    column-gap: 6px;
+    @media (--desktop) {
+      width: 314px;
+      column-gap: 16px;
+      -webkit-column-gap: 16px;
+      -moz-column-gap: 16px;
+    }
     li{
       border-radius: 7px;
       color: #fff;
@@ -63,7 +88,8 @@
       position: relative;
       padding-left: 30px;
       background-color: #000000;
-      font-family: 'Guardian Egyp, medium';
+      font-family: $primary-font;
+      font-weight: 500;
       line-height: 24px;
       width: 149px;
       list-style: none;
@@ -79,10 +105,10 @@
       }
       a{
         color: #fff;
-        width: 100%;
         display: block;
-        text-overflow: ellipsis;
         height: 27px;
+        text-overflow: ellipsis;
+        width: 100%;
         &:hover{
           text-decoration: none;
         }
@@ -92,6 +118,7 @@
       padding-left: 7px;
       background-color: #fff;
       color: #000;
+      font-size: 15px;
       &:before{
         display: none;
       }
