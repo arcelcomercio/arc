@@ -1,10 +1,9 @@
 const path = require('path')
 
 module.exports = {
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2019,
-    project: './tsconfig.json',
+    project: './tsconfig.eslint.json',
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
@@ -84,12 +83,12 @@ module.exports = {
     fetch: true,
   },
   overrides: [
-    {
-      files: ['*.ts', '*.tsx'], // Your TypeScript files extension
-      parserOptions: {
-        project: ['./tsconfig.json'], // Specify it only for TypeScript files
-      },
-    },
+    // {
+    //   files: ['**/*.ts', '**/*.tsx'],
+    //   parserOptions: {
+    //     project: './tsconfig.json',
+    //   },
+    // },
     {
       files: ['**/__tests__/**', '**/*.{test,spec}.{js,jsx,ts,tsx}'],
       settings: {
@@ -108,4 +107,5 @@ module.exports = {
       },
     },
   ],
+  parser: '@typescript-eslint/parser',
 }
