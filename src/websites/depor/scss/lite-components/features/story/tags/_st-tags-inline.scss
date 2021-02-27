@@ -1,0 +1,36 @@
+.st-tags {
+  margin: 25px 0;
+  padding: 0 20px;
+
+  &__title {
+    display: inline-block;
+    font: normal normal bold 14px/24px $tertiary-font;
+  }
+
+  &__tag {
+    display: inline-block;
+    padding-bottom: 3px;
+  }
+
+  &__box {
+    flex: 1;
+  }
+  &__line {
+    padding-bottom: 10px;
+    width: 45px;
+  }
+
+  &__link {
+    border: 1px solid #ccc;
+    opacity: 1;
+    padding: 5px 10px;
+    margin: 0 5px 5px 0;
+    display: block;
+    text-align: center;
+    font: normal normal normal 14px/21px $primary-font;
+    letter-spacing: 0;
+    & span {
+      display: none;
+    }
+  }
+}
