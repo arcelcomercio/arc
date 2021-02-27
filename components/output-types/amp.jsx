@@ -9,9 +9,9 @@ import MetaStory from './_children/meta-story'
 import AmpTagManager from './_children/amp-tag-manager'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import {
+  SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
-  SITE_ELCOMERCIO,
   SITE_GESTION,
   SITE_OJO,
 } from '../utilities/constants/sitenames'
@@ -188,8 +188,10 @@ const AmpOutputType = ({
     isMetered &&
     activeRulesCounter &&
     activePaywall &&
-    ((arcSite === SITE_GESTION && /^\/(podcast|mundo)\//.test(requestUri)) ||
-      (arcSite === SITE_ELCOMERCIO && /^\/(tecnologia)\//.test(requestUri)))
+    ((arcSite === SITE_GESTION &&
+      /^\/(podcast|mundo|tecnologia|tendencias)\//.test(requestUri)) ||
+      (arcSite === SITE_ELCOMERCIO &&
+        /^\/(tecnologia|somos|opinion)\//.test(requestUri)))
 
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
@@ -372,7 +374,8 @@ const AmpOutputType = ({
             <script
               async
               custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
+              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+            />
           </>
         )}
 
