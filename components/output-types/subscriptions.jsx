@@ -37,7 +37,7 @@ const Subscriptions = ({
           <head>
             <title>Contador Externo Paywall</title>
             <script
-              src={`https://${ORGANIZATION}-${arcSite}-${env}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              src={`https://${ORGANIZATION}-${arcSite}-${env}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
                 .slice(0, 10)}`}
               async
