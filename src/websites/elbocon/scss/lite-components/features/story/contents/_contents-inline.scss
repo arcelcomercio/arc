@@ -1,0 +1,34 @@
+.story-contents {
+  padding: 25px 20px 20px 20px;
+  margin-bottom: 25px;
+  &__blockquote {
+    font: 400 18px/1.33 system-ui, sans-serif, serif;
+    padding: 20px 20px 20px 36px;
+    margin: 40px 0 40px 15px;
+  }
+  &__author {
+    font-size: 16px;
+    font-family: $primary-font;
+    padding-bottom: 10px;
+  }
+  &__font-paragraph {
+    font-size: 16px;
+    padding: 10px 0;
+    line-height: 1.5;
+  }
+  &__content {
+    padding: 5px 0 40px 0;
+  }
+  & li {
+    margin-bottom: 20px;
+    font-family: $primary-font;
+    line-height: 1.5;
+    font-size: 16.9px;
+  }
+  &__caption {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+}

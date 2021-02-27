@@ -1,7 +1,6 @@
 .most-read {
   content-visibility: auto;
   contain-intrinsic-size: 380px;
-  display: none;
 
   @media (--desktop) {
     display: flex;
