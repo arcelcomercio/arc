@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import { NEWSLETTER_API, NEWSLETTER_COVID19_API } from 'fusion:environment'
@@ -154,19 +155,14 @@ class Newsletter extends PureComponent {
 
   render() {
     const { submitForm, confirmRegister, formMessage, disbutton } = this.state
-    const {
-      arcSite,
-      contextPath,
-      deployment,
-      customFields,
-      inclJS,
-    } = this.props
+    const { arcSite, contextPath, deployment, customFields } = this.props
     const data = new Data(customFields, arcSite, contextPath)
     const descrip = `Te enviaremos lo mejor de ${arcSite}. Escribe tu correo electrónico y dale clic a "Recibir"`
     const params = {
       description: data.description ? data.description : descrip,
       image: deployment(data.image),
       colorButton: data.colorButton ? data.colorButton : '#000000',
+      activateJS: data.activateJS ? data.activateJS : 'ACTIVADO',
       banner: data.banner,
       hasBanner: data.hasBanner,
       urlTos: data.urlTos ? data.urlTos : '/terminos-y-condiciones/',
@@ -180,7 +176,6 @@ class Newsletter extends PureComponent {
       confirmRegister,
       formMessage,
       isActiveApiCovid19: customFields.isActiveApiCovid19,
-      incluyejs: inclJS,
     }
     return <NewsletterChild {...params} />
   }
