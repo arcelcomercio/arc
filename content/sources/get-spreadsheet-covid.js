@@ -24,10 +24,13 @@ const processDataByColumn = (
   data.data_process = []
   for (let x = 0; x < sheetData.rowCount; x++) {
     if (x >= rowProcess) {
-      data.data_process.push({
-        title: sheetData.getCell(x, 0).value,
-        value: sheetData.getCell(x, currentCols - 1).value,
-      })
+      const title = sheetData.getCell(x, 0).value
+      if (title !== null && title !== '') {
+        data.data_process.push({
+          title,
+          value: sheetData.getCell(x, currentCols - 1).value,
+        })
+      }
     } else {
       data[sheetData.getCell(x, 0).value] = sheetData.getCell(
         x,
@@ -60,15 +63,23 @@ const getInfectedData = sheet => {
 /**
  * @param  {import('google-spreadsheet').GoogleSpreadsheetWorksheet} sheet
  */
-const getVaccineData = sheet => {
-  const result = []
-  const initCol = 2 // Posición de la 1ra columna que tiene los valores a obtener
-  for (let col = initCol; col <= sheet.columnCount; col++) {
-    result.push(processDataByColumn(sheet, col, 5))
+const getMoreInfo = sheet => {
+  const data = []
+  for (let row = 1; row < sheet.rowCount; row++) {
+    const item = {}
+    for (let col = 0; col < sheet.columnCount; col++) {
+      item[sheet.getCell(0, col).value] = sheet.getCell(row, col).value
+      if (col === 1) {
+        item.slug = slugify(sheet.getCell(row, col).value || '')
+      }
+    }
+    if (item.pregunta && item.titulo && item.embed_chart) {
+      data.push(item)
+    }
   }
   return {
     sheet_title: sheet.title,
-    data: result,
+    data,
   }
 }
 
@@ -92,7 +103,9 @@ const getUciBeds = sheet => {
         item.nombre_slug = slugify(sheet.getCell(row, col).value || '')
       }
     }
-    data.push(item)
+    if (item.territorio && item.grupo && item.nombre) {
+      data.push(item)
+    }
   }
   return {
     sheet_title: sheet.title,
@@ -183,7 +196,7 @@ const fetch = async ({ id, title }) => {
       break
 
     case 'Mas Informacion API':
-      result = getVaccineData(sheet)
+      result = getMoreInfo(sheet)
       break
 
     case 'Camas UCI':

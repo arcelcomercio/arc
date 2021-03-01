@@ -29,23 +29,25 @@ export default function GroupList({ list = [] }) {
           <div>Total UCI</div>
           <div>Disponible</div>
         </div>
-        {list.map(
-          ({
-            nombre = '',
-            total_UCI: totalUci = 0,
-            disponible = 0,
-            nombre_slug: nombreSlug = '',
-          }) => (
-            <a
-              href={`${nombreSlug}/`}
-              className="uci-home__row"
-              style={{ color: disponible === 0 ? '#F00' : '#55AC0A' }}>
-              <div>{nombre}</div>
-              <div>{totalUci}</div>
-              <div>{disponible}</div>
-            </a>
-          )
-        )}
+        <div className="uci-home__body-list">
+          {list.map(
+            ({
+              nombre = '',
+              total_UCI: totalUci = 0,
+              disponible = 0,
+              nombre_slug: nombreSlug = '',
+            }) => (
+              <a
+                href={`${nombreSlug}/`}
+                className="uci-home__row"
+                style={{ color: disponible === 0 ? '#F00' : '#55AC0A' }}>
+                <div>{nombre}</div>
+                <div>{totalUci}</div>
+                <div>{disponible}</div>
+              </a>
+            )
+          )}
+        </div>
       </div>
     </div>
   )
