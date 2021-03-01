@@ -81,7 +81,7 @@ const HeaderSimpleChild = ({
           <a className={classes.logoTrivia} href={urlField || `/trivias/`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="55"
+              width="80"
               height="16"
               viewBox="0 0 60 16">
               <text
