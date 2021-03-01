@@ -26,7 +26,6 @@ const StoryContentChildAuthorLite = ({
   const storyDatetime = () => {
     const formattedDisplayDate = formatDateTime(displayDate)
     const formattedUpdateDate = formatDateTime(updateDate)
-
     if (
       arcSite === SITE_TROME ||
       arcSite === SITE_PERU21 ||
