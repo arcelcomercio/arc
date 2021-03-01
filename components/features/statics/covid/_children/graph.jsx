@@ -7,6 +7,7 @@ const classes = {
   average: 'average__grafico-barras',
   number: 'average__number',
   bars: 'average__bars',
+  barsPercentLeft: 'average__bars average__bars--percent-left',
   title: 'average__title',
   subTitle: 'average__sub-title',
   buttons: 'average__buttons',
@@ -29,7 +30,7 @@ const classes = {
  * @todo creo que las funciones se pueden sacar en un archivo aparte
  * para dejar este mas limpio
  */
-const StaticsCovidInfectedAverage = ({
+const CovidChildGraph = ({
   dataProcess = [],
   title = '',
   subtitle = '',
@@ -40,6 +41,7 @@ const StaticsCovidInfectedAverage = ({
   date = '',
   maxValue = 0,
   embedChart,
+  closeUrl = '/covid-19/mas-informacion/',
   colorBar = '#F70000D6',
 }) => {
   const [barra, setSelectBarra] = React.useState(true)
@@ -66,6 +68,26 @@ const StaticsCovidInfectedAverage = ({
     }
   }
 
+  const handleDate = dateTitle => {
+    const ListMonth = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ]
+    const mes = dateTitle.split('-')
+    const nameMonth = ListMonth[parseInt(mes[1], 10) - 1]
+    return `${nameMonth} ${mes[0]}`
+  }
+
   return (
     <>
       <section className={classes.average}>
@@ -76,7 +98,7 @@ const StaticsCovidInfectedAverage = ({
             position: 'relative',
             top: '5px',
           }}>
-          <a href="/covid/contagiados/">
+          <a href={closeUrl}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13.979"
@@ -121,6 +143,9 @@ const StaticsCovidInfectedAverage = ({
           <ul>
             {dataProcess.map(({ title: itemTitle = '', value = '' }, index) => {
               const randomKey = Math.floor(Math.random() * 100 * index)
+              const percentValue = dataValue(value)
+              const classBar =
+                percentValue >= 85 ? classes.barsPercentLeft : classes.bars
               return (
                 <div
                   key={randomKey}
@@ -130,10 +155,12 @@ const StaticsCovidInfectedAverage = ({
                   }}>
                   <span className={classes.barBackground}>
                     <li
-                      className={classes.bars}
-                      data-value={`${dataValue(value)}%`}
-                      style={handleBarra(dataValue(value))}>
-                      <div style={{ width: '100px' }}>{itemTitle}</div>
+                      className={classBar}
+                      data-value={`${percentValue}%`}
+                      style={handleBarra(percentValue)}>
+                      <div style={{ width: '100px' }}>
+                        {itemTitle ? handleDate(itemTitle) : itemTitle}
+                      </div>
                     </li>
                   </span>
                   <span className={classes.number}>{value}</span>
@@ -173,4 +200,4 @@ const StaticsCovidInfectedAverage = ({
   )
 }
 
-export default StaticsCovidInfectedAverage
+export default CovidChildGraph
