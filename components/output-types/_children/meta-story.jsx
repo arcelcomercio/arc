@@ -483,9 +483,7 @@ export default ({
 
   const structuredData = `{  "@context":"http://schema.org", "@type":${typeStory}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
-      arcSite === SITE_ELCOMERCIOMAG ||
-      arcSite === SITE_DEPOR ||
-      arcSite === SITE_ELBOCON
+      arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON
         ? publishDateZone
         : lastPublishDate
     }",
