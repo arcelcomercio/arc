@@ -13,6 +13,8 @@ import {
 import {
   SITE_ELCOMERCIOMAG,
   SITE_OJO,
+  SITE_PERU21,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 
@@ -102,9 +104,40 @@ const StoryTitleAmp = () => {
               height="150"
               layout="fixed-height"
               sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
+              src="https://stories.ojo.pe/spc/load/ZECO_453_877_194/200/amp/stories-amp"
+              noloading="">
+              <amp-img
+                layout="fill"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                placeholder></amp-img>
+            </amp-iframe>
+          )}
+
+          {arcSite === SITE_PERU21 && (
+            <amp-iframe
+              height="150"
+              layout="fixed-height"
+              sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
               src="https://stories.peru21.pe/spc/load/ZECO_453_877_194/188/amp/stories-amp"
-              noloading>
-              <div placeholder></div>
+              noloading="">
+              <amp-img
+                layout="fill"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                placeholder></amp-img>
+            </amp-iframe>
+          )}
+
+          {arcSite === SITE_TROME && (
+            <amp-iframe
+              height="150"
+              layout="fixed-height"
+              sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
+              src="https://stories.trome.pe/spc/load/ZECO_453_877_194/132/amp/stories-amp"
+              noloading="">
+              <amp-img
+                layout="fill"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                placeholder></amp-img>
             </amp-iframe>
           )}
 
