@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
@@ -14,6 +15,8 @@ import {
   SITE_ELBOCON,
   SITE_GESTION,
   SITE_OJO,
+  SITE_TROME,
+  SITE_PERU21,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
@@ -278,8 +281,7 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null
-          }
+            ) : null}
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -328,13 +330,16 @@ const AmpOutputType = ({
           custom-element="amp-ad"
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
         />
-        {hasIframe && (
-          <script
-            async
-            custom-element="amp-iframe"
-            src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
-          />
-        )}
+        {hasIframe ||
+          ((arcSite === SITE_TROME ||
+            arcSite === SITE_PERU21 ||
+            arcSite === SITE_OJO) && (
+            <script
+              async
+              custom-element="amp-iframe"
+              src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
+            />
+          ))}
         {hasEmbedCard && (
           <script
             async
