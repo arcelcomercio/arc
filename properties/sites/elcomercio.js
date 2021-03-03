@@ -50,7 +50,7 @@ export default {
     cookiesPolicy: 'IBXQQAQRGVAURMCAIB7MRN34WE',
     aboutUs: '',
     frequentQuestions: '',
-    dataTreatment: '2PQFBPZDNBAUDBEFXC6UAJM55A',
+    dataTreatment: 'AL4JFHDL4BGIRCF7A3FH7AR6HI',
   },
 
   assets: {
