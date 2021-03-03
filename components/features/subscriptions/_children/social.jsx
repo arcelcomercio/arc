@@ -70,6 +70,11 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
                   value: '1',
                   type: 'String',
                 },
+                {
+                  name: 'dataTreatment',
+                  value: 'NULL',
+                  type: 'String',
+                },
               ],
             }
             setLoadText('Actualizando Perfil...')
