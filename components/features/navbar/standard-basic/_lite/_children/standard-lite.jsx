@@ -63,6 +63,7 @@ const NavBarDefault = props => {
   const {
     globalContent,
     arcSite,
+    requestUri,
     siteProperties: {
       activePaywall, 
       activeSignwall, 

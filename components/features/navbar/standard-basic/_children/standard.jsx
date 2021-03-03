@@ -129,6 +129,7 @@ class NavBarDefault extends React.PureComponent {
       // contextPath,
       deviceList,
       hideMenu,
+      requestUri,
       siteProperties = {},
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
