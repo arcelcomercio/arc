@@ -496,7 +496,11 @@ const FormRegister = props => {
                         <S.Text c="gray" lh="18" s="12" className="mt-10">
                           Al crear la cuenta acepto los
                           <S.Link
-                            href={Domains.getPoliticsTerms('terms', arcSite)}
+                            href={`${
+                              arcSite === 'depor'
+                                ? '/terminos-servicio/'
+                                : '/terminos-y-condiciones/'
+                            }`}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
@@ -505,7 +509,27 @@ const FormRegister = props => {
                           </S.Link>
                           y
                           <S.Link
-                            href={Domains.getPoliticsTerms('politics', arcSite)}
+                            href={
+                              // {
+                              //   'elcomercio': '/politicas-privacidad/',
+                              //   'gestion': '/politica-de-privacidad/',
+                              //   'peru21': '/politicas-de-privacidad/',
+                              //   'depor': '/politicas-privacidad/',
+                              //   'trome': '/politica-de-privacidad/'
+                              // }[arcSite]
+                              (() => {
+                                switch (arcSite) {
+                                  case 'elcomercio':
+                                  case 'depor':
+                                    return '/politicas-privacidad/'
+                                  case 'gestion':
+                                  case 'trome':
+                                    return '/politica-de-privacidad/'
+                                  default:
+                                    return '/politicas-de-privacidad/'
+                                }
+                              })()
+                            }
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"

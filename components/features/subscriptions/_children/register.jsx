@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { NavigateConsumer } from '../_context/navigate'
 import useForm from '../_hooks/useForm'
 import getDevice from '../_dependencies/GetDevice'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
+import { PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import getCodeError, {
@@ -43,7 +43,6 @@ const Register = ({ arcSite }) => {
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts, urls } = PropertiesCommon
-  const { urls: urlSite } = PropertiesSite[arcSite]
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -74,9 +73,36 @@ const Register = ({ arcSite }) => {
     },
   }
 
-  const openNewTab = typeLink => {
+  const openTerminos = () => {
     if (typeof window !== 'undefined') {
-      window.open(urlSite[typeLink], '_blank')
+      window.open(
+        `${
+          arcSite === 'depor'
+            ? '/terminos-servicio/'
+            : '/terminos-y-condiciones/'
+        }`,
+        '_blank'
+      )
+    }
+  }
+
+  const openPoliticas = () => {
+    if (typeof window !== 'undefined') {
+      window.open(
+        (() => {
+          switch (arcSite) {
+            case 'elcomercio':
+            case 'depor':
+              return '/politicas-privacidad/'
+            case 'gestion':
+            case 'trome':
+              return '/politica-de-privacidad/'
+            default:
+              return '/politicas-de-privacidad/'
+          }
+        })(),
+        '_blank'
+      )
     }
   }
 
@@ -351,14 +377,14 @@ const Register = ({ arcSite }) => {
                     <button
                       className={styles.link}
                       type="button"
-                      onClick={() => openNewTab('terminosSign')}>
+                      onClick={() => openTerminos()}>
                       {texts.terms}
                     </button>
                     {texts.and}
                     <button
                       className={styles.link}
                       type="button"
-                      onClick={() => openNewTab('politicasSign')}>
+                      onClick={() => openPoliticas()}>
                       {texts.policies}
                     </button>
                     <span

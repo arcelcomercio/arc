@@ -53,7 +53,7 @@ export default {
     cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
     aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
-    dataTreatment: 'RPHBHLSJA5AFLCV5QUC3E6A7SY',
+    dataTreatment: 'XSSMX46E2BDWHMZB2I7ZHQ6F6E',
   },
   paywall: {
     title: 'Suscripciones Digitales | Gestión',
