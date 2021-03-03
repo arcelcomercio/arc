@@ -331,9 +331,9 @@ const AmpOutputType = ({
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
         />
         {hasIframe ||
-          ((arcSite === SITE_TROME ||
-            arcSite === SITE_PERU21 ||
-            arcSite === SITE_OJO) && (
+          arcSite === SITE_TROME ||
+          arcSite === SITE_PERU21 ||
+          (arcSite === SITE_OJO && (
             <script
               async
               custom-element="amp-iframe"
