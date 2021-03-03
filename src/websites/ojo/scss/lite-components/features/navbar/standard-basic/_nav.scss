@@ -41,10 +41,6 @@
   }
   &__story-social-network {
     display: none;
-    padding-right: 30px;
-    @media (--desktop) {
-      padding-right: 0;
-    }
   }
   &__search-box {
     height: 20px;
@@ -254,7 +250,13 @@
 }
 
 .story-content__more-link {
-  display: none;
+  padding: 5px;
+  border: 1px solid #8a8a8a;
+  border-radius: 50%;
+  fill: #8a8a8a;
+  @media (--tablet) {
+    display: none;
+  }
 }
 
 @media (--only-mobile) {

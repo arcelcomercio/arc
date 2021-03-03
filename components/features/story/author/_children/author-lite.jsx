@@ -7,6 +7,7 @@ import {
   SITE_TROME,
   SITE_PERU21,
   SITE_ELBOCON,
+  SITE_OJO,
 } from '../../../../utilities/constants/sitenames'
 
 const classes = {
@@ -33,7 +34,8 @@ const StoryContentChildAuthorLite = ({
     if (
       arcSite === SITE_TROME ||
       arcSite === SITE_PERU21 ||
-      arcSite === SITE_ELBOCON
+      arcSite === SITE_ELBOCON ||
+      arcSite === SITE_OJO
     ) {
       return `Actualizado el ${formattedUpdateDate}`
     }
@@ -44,7 +46,9 @@ const StoryContentChildAuthorLite = ({
     }`
   }
 
-  return arcSite === SITE_PERU21 || arcSite === SITE_ELBOCON ? (
+  return arcSite === SITE_PERU21 ||
+    arcSite === SITE_ELBOCON ||
+    arcSite === SITE_OJO ? (
     <div
       className={`${classes.author} ${subtype === GALLERY_VERTICAL && 'gv'} f`}>
       <div>
