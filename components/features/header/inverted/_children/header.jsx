@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef, memo } from 'react'
+import  * as React from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
@@ -88,13 +88,15 @@ const HeaderChildInverted = ({
   isSlider,
   hideMenu,
 }) => {
-  const [scrolled, setScrolled] = useState(false)
-  const [statusSidebar, setStatusSidebar] = useState(false)
-  const [statusSearch, setStatusSearch] = useState(false)
+  const [scrolled, setScrolled] = React.useState(false)
+  const [statusSidebar, setStatusSidebar] = React.useState(false)
+  const [statusSearch, setStatusSearch] = React.useState(false)
 
-  const { contextPath, siteProperties, arcSite } = useFusionContext()
+  const { contextPath, siteProperties, arcSite, requestUri } = useFusionContext()
 
-  const inputSearch = useRef()
+  const inputSearch = React.useRef()
+
+  const isPreview = /^\/preview\//.test(requestUri)
 
   /* let dragFlag = false
   let initPointDrag = 0
@@ -265,7 +267,7 @@ const HeaderChildInverted = ({
     else if (scrolled && scroll <= headerTop) setScrolled(false)
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.addEventListener('scroll', _handleScroll)
     if (isSlider) checkDisabledIcons()
     return () => {
@@ -481,11 +483,11 @@ const HeaderChildInverted = ({
                   }}
                 />
               )}
-              {siteProperties.activeSignwall && (
+              {siteProperties.activeSignwall && !isPreview ? (
                 <SignwallComponent
                   classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
                 />
-              )}
+              ) : null}
             </div>
           </div>
           {/** ************* // RIGHT *************** */}
@@ -518,4 +520,4 @@ HeaderChildInverted.propTypes = {
   ),
 }
 
-export default memo(HeaderChildInverted)
+export default React.memo(HeaderChildInverted)
