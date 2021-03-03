@@ -1,15 +1,16 @@
 import React from 'react'
 
 const classes = {
-  container: 'pr-20 pl-20 mt-20',
-  title: 'custom-title text-left uppercase medium w-full',
+  container: 'author-description__container pr-20 pl-20 mt-20',
+  title:
+    'author-description__title custom-title text-left uppercase medium w-full',
   box: 'author-description__box inline-block ml-10',
-  boxImg: 'mt-20',
-  subtitle: 'custom-title role',
+  boxImg: 'author-description__content-img mt-20',
+  subtitle: 'author-description__subtitle custom-title role',
   image: 'author-description__image',
   social: 'author-description__social custom-title twitter icon-twitter',
   link: 'author-description__link',
-  content: 'line-h-sm',
+  content: 'author-description__content line-h-sm',
 }
 
 const AuthorBiography = ({

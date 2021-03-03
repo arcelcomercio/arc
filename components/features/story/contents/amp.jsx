@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import * as React from 'react'
 import Consumer from 'fusion:consumer'
 
@@ -28,7 +29,7 @@ import {
   cleanLegacyAnchor,
   storyTagsBbc,
 } from '../../../utilities/tags'
-
+import { originByEnv, env } from '../../../utilities/arc/env'
 import {
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
@@ -51,6 +52,7 @@ import {
   SITE_ELBOCON,
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
@@ -67,6 +69,7 @@ import {
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
+import { METERED } from '../../../utilities/constants/content-tiers'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -92,10 +95,22 @@ class StoryContentAmp extends React.PureComponent {
     const {
       contextPath,
       arcSite,
-      siteProperties: { siteUrl, adsAmp, jwplayersMatching },
+      deployment,
+      requestUri,
+      siteProperties: {
+        siteUrl,
+        adsAmp,
+        activePaywall,
+        activeRulesCounter,
+        jwplayersMatching,
+      },
       globalContent: data = {},
     } = this.props
-    const { source } = data
+
+    const {
+      source,
+      content_restrictions: { content_code: contentCode = '' } = {},
+    } = data
     const {
       contentPosicionPublicidadAmp,
       promoItems,
@@ -107,13 +122,19 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       author,
       subtype,
+      canonicalUrl,
       promoItemJwplayer = {},
+      authorsList,
     } = new StoryData({
       data,
       arcSite,
       contextPath,
       siteUrl,
     })
+
+    const isMetered = contentCode === METERED
+    const envOrigin = originByEnv(arcSite)
+    const encodedStoryUrl = encodeURIComponent(`${envOrigin}${canonicalUrl}`)
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`
     const isComercio = arcSite === SITE_ELCOMERCIO
@@ -210,10 +231,13 @@ class StoryContentAmp extends React.PureComponent {
       <>
         <div className={classes.content}>
           {promoItemJwplayer.key ? (
-            <StoryContentChildVideoJwplayer
-              data={promoItemJwplayer}></StoryContentChildVideoJwplayer>
+            <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
           ) : (
-            <>{promoItems && <ElePrincipal data={promoItems} {...siteUrl} />}</>
+            <>
+              {promoItems && (
+                <ElePrincipal data={promoItems} siteUrl={siteUrl} />
+              )}
+            </>
           )}
           {!isMag && subtype !== GALLERY_VERTICAL && (
             <div
@@ -225,22 +249,29 @@ class StoryContentAmp extends React.PureComponent {
           {subtype !== GALLERY_VERTICAL && (
             <div
               className={isMag ? classes.authorTimeContainer : 'pt-15 pb-15'}>
-              <p className={classes.author}>
-                {isMag ? (
-                  <>
-                    Por{' '}
-                    <a href={authorLink} className="font-bold">
-                      {author}
-                    </a>{' '}
-                    en{' '}
-                    <a href={primarySectionLink} className="font-bold">
-                      {primarySection}
-                    </a>
-                  </>
-                ) : (
+              {isMag ? (
+                <p className={classes.author}>
+                  Por{' '}
+                  <a href={authorLink} className="font-bold">
+                    {author}
+                  </a>{' '}
+                  en{' '}
+                  <a href={primarySectionLink} className="font-bold">
+                    {primarySection}
+                  </a>
+                </p>
+              ) : // Validamos si es EC
+              isComercio ? (
+                authorsList.map(authorData => (
+                  <p className={classes.author}>
+                    <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
+                  </p>
+                ))
+              ) : (
+                <p className={classes.author}>
                   <a href={authorLink}>{author}</a>
-                )}
-              </p>
+                </p>
+              )}
               <time
                 dateTime={getDateSeo(displayDate)}
                 className={classes.datetime}>
@@ -250,6 +281,25 @@ class StoryContentAmp extends React.PureComponent {
               </time>
             </div>
           )}
+          {isMetered &&
+          activeRulesCounter &&
+          activePaywall &&
+          ((arcSite === SITE_GESTION &&
+            /^\/(podcast|mundo|tecnologia|tendencias)\//.test(requestUri)) ||
+            (arcSite === SITE_ELCOMERCIO &&
+              /^\/(tecnologia|somos|opinion)\//.test(requestUri))) ? (
+            // Contador de paywall para AMP
+            <amp-iframe
+              width="1"
+              height="1"
+              sandbox="allow-scripts allow-same-origin"
+              layout="fixed"
+              frameborder="0"
+              src={deployment(
+                `${envOrigin}${contextPath}/resources/pages/paywall-counter-external.html?env=${env}&site=${arcSite}&story=${encodedStoryUrl}`
+              )}
+            />
+          ) : null}
           {contentPosicionPublicidadAmp && (
             <StoryContent
               data={contentPosicionPublicidadAmp}
@@ -306,13 +356,12 @@ class StoryContentAmp extends React.PureComponent {
                         <RawHtml
                           content={
                             isLegacy ? cleanLegacyAnchor(content) : content
-                          }></RawHtml>
+                          }
+                        />
                       </h2>
                     )
                   if (isLegacy)
-                    return (
-                      <RawHtml content={cleanLegacyAnchor(content)}></RawHtml>
-                    )
+                    return <RawHtml content={cleanLegacyAnchor(content)} />
                 }
                 if (type === ELEMENT_QUOTE) {
                   return <StoryContentChildBlockQuote data={element} />
@@ -504,16 +553,16 @@ class StoryContentAmp extends React.PureComponent {
                     const { embed: { config: videJplayer = {} } = {} } = element
                     return <StoryContentChildVideoJwplayer data={videJplayer} />
                   }
-                  // if (sub === VIDEO_JWPLAYER_MATCHING) {
-                  //   const { videoId = '', playerId = '' } =
-                  //     jwplayersMatching || {}
-                  //   return (
-                  //     <StoryContentsChildJwplayerRecommender
-                  //       videoId={videoId}
-                  //       playerId={playerId}
-                  //     />
-                  //   )
-                  // }
+                  if (sub === VIDEO_JWPLAYER_MATCHING) {
+                    const { videoId = '', playerId = '' } =
+                      jwplayersMatching || {}
+                    return (
+                      <StoryContentsChildJwplayerRecommender
+                        videoId={videoId}
+                        playerId={playerId}
+                      />
+                    )
+                  }
                 }
                 return undefined
               }}

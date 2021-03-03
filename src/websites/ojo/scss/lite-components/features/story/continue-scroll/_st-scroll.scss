@@ -1,0 +1,21 @@
+.st-continue {
+  &__anchor {
+    content-visibility: auto;
+    contain-intrinsic-size: 50px;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    background-color: $color-primary;
+    fill: $color-white;
+    border-radius: 0;
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateY(50px) rotate(90deg);
+    will-change: transform;
+
+    &.active {
+      transform: translateY(0) rotate(-90deg);
+    }
+  }
+}

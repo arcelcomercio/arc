@@ -48,11 +48,7 @@ export default ({
     displayDate,
     publishDate: updateDate,
     subTitle = arcSite,
-    authorImage,
-    author: authorName,
-    role: authorRole,
     locality,
-    authorEmail,
     imagePrimarySeo,
     primarySection,
     primarySectionLink,
@@ -74,12 +70,9 @@ export default ({
     idYoutube,
     getGallery,
     subtype,
-    authorImageSecond,
-    authorSecond,
-    authorEmailSecond,
-    roleSecond: authorRoleSecond,
     jwplayerSeo,
     promoItemJwplayer = {},
+    authorsList,
   } = new StoryData({ data, arcSite, contextPath, siteUrl })
 
   const parameters = {
@@ -109,42 +102,44 @@ export default ({
     arcSite === SITE_ELCOMERCIO ? getDateSeo(displayDate) : publishDateZone
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
-
-  const structuredAutor = `
+  const structuredAuthors = authorsList.map(
+    author => `
   {
     "@context": "http://schema.org/",
     "@type": "Person",
-    "name": "${authorName || arcSite}",
-    "image": "${authorImage || logoAuthor}",
+    "name": "${author.nameAuthor || arcSite}",
+    "image": "${author.imageAuthor || logoAuthor}",
     "contactPoint"     : {
       "@type"        : "ContactPoint",
       "contactType"  : "Journalist",
-      "email"        : "${authorEmail}"
+      "email"        : "${author.mailAuthor}"
     },
-    "email": "${authorEmail}",
-    "jobTitle"	: "${authorRole}"
+    "email": "${author.mailAuthor}",
+    "jobTitle"	: "${author.role}"
   }`
-
-  const structuredAutorSecond = authorEmailSecond
-    ? ` 
+  )
+  const structuredAutor =
+    structuredAuthors.length > 0
+      ? structuredAuthors
+      : `
   {
     "@context": "http://schema.org/",
     "@type": "Person",
-    "name": "${authorSecond || arcSite}",
-    "image": "${authorImageSecond || logoAuthor}",
+    "name": "${arcSite}",
+    "image": "${logoAuthor}",
     "contactPoint"     : {
       "@type"        : "ContactPoint",
       "contactType"  : "Journalist",
-      "email"        : "${authorEmailSecond}"
+      "email"        : ""
     },
-    "email": "${authorEmailSecond}",
-    "jobTitle"	: "${authorRoleSecond}"
+    "email": "",
+    "jobTitle"	: ""
   }`
-    : ``
 
-  const finalStructuredDataAuthor = structuredAutorSecond
-    ? `[${structuredAutor}, ${structuredAutorSecond}]`
-    : structuredAutor
+  const finalStructuredDataAuthor =
+    structuredAuthors.length > 1
+      ? `[${structuredAuthors.join()}]`
+      : structuredAutor
 
   const lastPublishDate =
     arcSite === SITE_ELCOMERCIO ? getDateSeo(updateDate) : updateDate
@@ -481,15 +476,14 @@ export default ({
   }
 
   const dateline =
-    subtype !== GALLERY_VERTICAL
+    subtype !== GALLERY_VERTICAL && primarySection !== 'Trivias'
       ? `"dateline": "${`${getDateSeo(displayDate)} ${locality}`}",`
       : ''
+  const typeStory = primarySection !== 'Trivias' ? trustType : '"Quiz"'
 
-  const structuredData = `{  "@context":"http://schema.org", "@type":${trustType}, ${revisionWorkType} "datePublished":"${publishDateZone}",
+  const structuredData = `{  "@context":"http://schema.org", "@type":${typeStory}, ${revisionWorkType} "datePublished":"${publishDateZone}",
     "dateModified":"${
-      arcSite === SITE_ELCOMERCIOMAG ||
-      arcSite === SITE_DEPOR ||
-      arcSite === SITE_ELBOCON
+      arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON
         ? publishDateZone
         : lastPublishDate
     }",

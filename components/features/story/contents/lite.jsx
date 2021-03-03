@@ -124,6 +124,7 @@ const StoryContentsLite = props => {
     authorSecond,
     authorEmailSecond,
     roleSecond: authorRoleSecond,
+    authorsList,
   } = new StoryData({
     data: globalContent,
     contextPath,
@@ -152,6 +153,7 @@ const StoryContentsLite = props => {
     authorEmailSecond,
     authorRoleSecond,
     arcSite,
+    authorsList,
   }
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
@@ -164,6 +166,7 @@ const StoryContentsLite = props => {
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
+    arcSite
   })
 
   return (
@@ -178,7 +181,7 @@ const StoryContentsLite = props => {
             )}
           </>
         )}
-        {subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
+        {arcSite !== SITE_ELCOMERCIOMAG && subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
           <div
             id="gpt_caja3"
             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
@@ -319,6 +322,14 @@ const StoryContentsLite = props => {
                     : classes.textClasses
                   return (
                     <>
+                      {nameAds === 'caja3' && arcSite === SITE_ELCOMERCIOMAG && subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
+                        <div
+                          id="gpt_caja3"
+                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                          data-bloque="3"
+                          data-prebid-enabled></div>
+                      )}
                       {nameAds === 'inline' && (
                         <div
                           id="gpt_inline"
@@ -630,6 +641,7 @@ const StoryContentsLite = props => {
           </div>
         )}
       </div>
+      <div id="bottom-content-observed"></div>
       {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
         <script
           src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"

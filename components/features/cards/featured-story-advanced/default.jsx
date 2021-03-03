@@ -30,11 +30,7 @@ const CardFeaturedStoryAdvanced = props => {
     } = {},
   } = props
 
-  const {
-    arcSite,
-    contextPath,
-    deployment,
-  } = useAppContext()
+  const { arcSite, contextPath, deployment } = useAppContext()
 
   const { siteName } = getProperties(arcSite)
   const includedFields = featuredStoryFields
@@ -111,32 +107,37 @@ const CardFeaturedStoryAdvanced = props => {
               dangerouslySetInnerHTML={{ __html: adSpace }}
             />
           )
-        if (flagLive) return <FacebookLive
-          arcSite={arcSite}
-          contextPath={contextPath}
-          deployment={deployment}
-          urlVideoFacebook={urlVideoFacebook}
-        />
-        return <FeaturedStory
-          primarySection={primarySection}
-          primarySectionLink={primarySectionLink}
-          title={title}
-          websiteLink={websiteLink}
-          author={author}
-          authorLink={authorLink}
-          multimediaType={multimediaType}
-          multimediaCaption={multimediaCaption}
-          multimedia={imgField || multimedia}
-          imageSize={imageSize}
-          headband={headband}
-          size={size}
-          hightlightOnMobile={hightlightOnMobile}
-          titleField={titleField}
-          categoryField={categoryField}
-          arcSite={arcSite}
-          siteName={siteName}
-          isLazyLoadActivate={isLazyLoadActivate}
-        />
+        if (flagLive)
+          return (
+            <FacebookLive
+              arcSite={arcSite}
+              contextPath={contextPath}
+              deployment={deployment}
+              urlVideoFacebook={urlVideoFacebook}
+            />
+          )
+        return (
+          <FeaturedStory
+            primarySection={primarySection}
+            primarySectionLink={primarySectionLink}
+            title={title}
+            websiteLink={websiteLink}
+            author={author}
+            authorLink={authorLink}
+            multimediaType={multimediaType}
+            multimediaCaption={multimediaCaption}
+            multimedia={imgField || multimedia}
+            imageSize={imageSize}
+            headband={headband}
+            size={size}
+            hightlightOnMobile={hightlightOnMobile}
+            titleField={titleField}
+            categoryField={categoryField}
+            arcSite={arcSite}
+            siteName={siteName}
+            isLazyLoadActivate={isLazyLoadActivate}
+          />
+        )
       })()}
     </>
   )

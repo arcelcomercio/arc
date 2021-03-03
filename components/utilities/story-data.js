@@ -57,6 +57,7 @@ import {
   STORY_CUSTOMBLOCK,
   STAMP_TRUST,
   VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
 } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
@@ -234,6 +235,20 @@ class StoryData {
     const { additional_properties: { original: { role = '' } = {} } = {} } =
       by[0] || {}
     return role
+  }
+
+  get authorsList() {
+    let authors = StoryData.getAuthors(this._data, {
+      contextPath: this._contextPath,
+      deployment: this._deployment,
+      website: this._website,
+    })
+    authors = authors.map(author => {
+      const newAuthor = author
+      newAuthor.imageAuthor = author.imageAuthor || this.defaultImg
+      return newAuthor
+    })
+    return authors
   }
 
   get defaultImg() {
@@ -498,6 +513,14 @@ class StoryData {
     return result.filter(el => {
       return el && el.thumbnail_url ? el : ''
     })
+  }
+
+  get haveJwplayerMatching() {
+    const videosContent = StoryData.getContentJwplayerMatching(
+      this._data && this._data.content_elements
+    )
+    const filterData = videosContent.filter(el => el !== null)
+    return filterData.length > 0
   }
 
   get videoSeo() {
@@ -998,17 +1021,36 @@ class StoryData {
           dataElements = dataContent
         } */
 
-        if (i === 2) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `inline`
-        }
-        if (i === 4) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja4`
-        }
-        if (i === 6) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja5`
+        if (this.__website === 'elcomerciomag') {
+          if (i === 1) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja3`
+          }
+          if (i === 3) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `inline`
+          }
+          if (i === 5) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja4`
+          }
+          if (i === 7) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja5`
+          }
+        } else {
+          if (i === 2) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `inline`
+          }
+          if (i === 4) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja4`
+          }
+          if (i === 6) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja5`
+          }
         }
         if (typeElement === ELEMENT_TEXT) {
           i += 1
@@ -1515,6 +1557,17 @@ class StoryData {
       : []
   }
 
+  static getContentJwplayerMatching(data = []) {
+    return data && data.length > 0
+      ? data.map(item => {
+          return item.type === 'custom_embed' &&
+            item.subtype === VIDEO_JWPLAYER_MATCHING
+            ? item.embed.config
+            : null
+        })
+      : []
+  }
+
   static findHasAdsVideo(data) {
     const {
       promo_items: {
@@ -1574,6 +1627,30 @@ class StoryData {
     return squareXS
   }
 
+  static getAuthors(
+    data,
+    { contextPath = '', deployment = '', website = '' } = {}
+  ) {
+    const authorData = (data && data.credits && data.credits.by) || []
+    const authorsList = []
+
+    for (let i = 0; i < authorData.length; i++) {
+      authorsList.push(
+        this.getDataAuthor(
+          data,
+          {
+            contextPath,
+            deployment,
+            website,
+          },
+          i
+        )
+      )
+    }
+
+    return authorsList
+  }
+
   static getDataAuthor(
     data,
     { contextPath = '', website = '' } = {},
@@ -1594,39 +1671,41 @@ class StoryData {
     let sortBiography = ''
 
     let imageAuthor = authorImageDefault
-    for (let i = 0; i < authorData.length; i++) {
-      const idAuthor = id === 1 ? id : i
-      const iterator = authorData[idAuthor]
+    // for (let i = 0; i < authorData.length; i++) {
+    // const idAuthor = id === 1 ? id : i
+    const idAuthor = id === null ? 0 : id
+    const iterator = authorData[idAuthor]
 
-      if (iterator && iterator.type === 'author') {
-        nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
-        urlAuthor =
-          iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
-        slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
-        imageAuthor =
-          iterator.image && iterator.image.url && iterator.image.url !== ''
-            ? iterator.image.url
-            : authorImageDefault
-        socialLinks = iterator.social_links ? iterator.social_links : []
-        mailAuthor =
-          (iterator.additional_properties &&
-            iterator.additional_properties.original &&
-            iterator.additional_properties.original.email) ||
-          ''
+    if (iterator && iterator.type === 'author') {
+      nameAuthor = iterator.name && iterator.name !== '' ? iterator.name : ''
+      urlAuthor =
+        iterator.url && iterator.url !== '' ? iterator.url : '/autores/'
+      slugAuthor = iterator.slug && iterator.slug !== '' ? iterator.slug : ''
+      imageAuthor =
+        iterator.image && iterator.image.url && iterator.image.url !== ''
+          ? iterator.image.url
+          : authorImageDefault
+      // : this.defaultImg
+      socialLinks = iterator.social_links ? iterator.social_links : []
+      mailAuthor =
+        (iterator.additional_properties &&
+          iterator.additional_properties.original &&
+          iterator.additional_properties.original.email) ||
+        ''
 
-        role =
-          (iterator.additional_properties &&
-            iterator.additional_properties.original &&
-            iterator.additional_properties.original.role) ||
-          ''
-        sortBiography =
-          (iterator.additional_properties &&
-            iterator.additional_properties.original &&
-            iterator.additional_properties.original.bio) ||
-          null
-        break
-      }
+      role =
+        (iterator.additional_properties &&
+          iterator.additional_properties.original &&
+          iterator.additional_properties.original.role) ||
+        ''
+      sortBiography =
+        (iterator.additional_properties &&
+          iterator.additional_properties.original &&
+          iterator.additional_properties.original.bio) ||
+        null
+      // break
     }
+    // }
 
     return {
       nameAuthor,

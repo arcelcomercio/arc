@@ -235,6 +235,8 @@ const LiteOutput = ({
     requestUri
   ).replace(/^\/carga-continua/, '')}`
 
+  const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -341,7 +343,10 @@ const LiteOutput = ({
             {isStory && arcSite === SITE_ELCOMERCIOMAG && (
               <>
                 <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
-                <link rel="dns-prefetch" href="//d2dvq461rdwooi.cloudfront.net" />
+                <link
+                  rel="dns-prefetch"
+                  href="//d2dvq461rdwooi.cloudfront.net"
+                />
               </>
             )}
             <link rel="preconnect" href="//www.googletagmanager.com/" />
@@ -476,7 +481,7 @@ const LiteOutput = ({
           <>
             <Libs></Libs>
             <script
-              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
                 .slice(0, 10)}`}
               async
@@ -631,6 +636,13 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: fontFace,
+          }}
+        />
+
         <WebVitals
           report={
             !isIframeStory &&
