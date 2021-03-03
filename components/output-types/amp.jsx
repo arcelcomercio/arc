@@ -15,8 +15,6 @@ import {
   SITE_ELBOCON,
   SITE_GESTION,
   SITE_OJO,
-  SITE_TROME,
-  SITE_PERU21,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
@@ -207,7 +205,7 @@ const AmpOutputType = ({
     content.includes('<iframe')
   const hasIframe =
     hasIframePromo ||
-    /<iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
+    /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
     hasExternalCounterPaywall
@@ -330,16 +328,13 @@ const AmpOutputType = ({
           custom-element="amp-ad"
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
         />
-        {hasIframe ||
-          arcSite === SITE_PERU21 ||
-          arcSite === SITE_TROME ||
-          (arcSite === SITE_OJO && (
-            <script
-              async
-              custom-element="amp-iframe"
-              src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
-            />
-          ))}
+        {hasIframe && (
+          <script
+            async
+            custom-element="amp-iframe"
+            src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"
+          />
+        )}
         {hasEmbedCard && (
           <script
             async
