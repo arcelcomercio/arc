@@ -789,28 +789,6 @@ export default ({
             />
           </>
         )}
-        {isStory && arcSite === SITE_ELBOCON && (
-          <>
-            <script
-              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
-              id="browsi-tag"
-              data-pubKey="elcomercio"
-              data-siteKey="elbocon"
-              async
-            />
-          </>
-        )}
-        {isStory && arcSite === SITE_PERU21 && (
-          <>
-            <script
-              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
-              id="browsi-tag"
-              data-pubKey="elcomercio"
-              data-siteKey="peru21"
-              async
-            />
-          </>
-        )}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
