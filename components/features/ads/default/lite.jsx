@@ -34,11 +34,9 @@ const AdsFeatLite = props => {
 
   if (isContainer === true && liteAdId) {
     return <div className={`content_${liteAdId}_ads`}>{getDiv()}</div>
-  }
-  if (liteAdId || liteAdName || liteAdDimensions) {
+  } if (liteAdId || liteAdName || liteAdDimensions) {
     return getDiv()
-  }
-  return null
+  } return null
 }
 
 AdsFeatLite.propTypes = {
