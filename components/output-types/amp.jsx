@@ -15,6 +15,8 @@ import {
   SITE_ELBOCON,
   SITE_GESTION,
   SITE_OJO,
+  SITE_TROME,
+  SITE_PERU21,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
@@ -206,6 +208,9 @@ const AmpOutputType = ({
   // SCRIPT AMP IFRAME
   const hasIframe =
     hasIframePromo ||
+    arcSite === SITE_OJO ||
+    arcSite === SITE_TROME ||
+    arcSite === SITE_PERU21 ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
