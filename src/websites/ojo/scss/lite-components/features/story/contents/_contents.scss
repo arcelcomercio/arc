@@ -1,12 +1,6 @@
 .story-contents {
   border-bottom: 1px solid $border-color-gray;
 
-  // a {
-  //   color: #1c75c9;
-  //   font-weight: 700;
-  //   text-decoration: underline;
-  // }
-
   &__blockquote {
     position: relative;
     background-color: #f5f5f5;
@@ -50,9 +44,10 @@
   }
   &__author-link {
     display: block;
-    font: 700 14px/1.33 $primary-font;
+    font: 500 1rem/1.33 $primary-font;
+    letter-spacing: 0.02rem;
     color: #000;
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
   &__author-image {
     width: 57px;
@@ -89,13 +84,7 @@
     color: #343434;
     & a {
       text-decoration: underline;
-      color: #0e6dc1;
-    }
-    @media (--tablet) {
-      font-size: 20px;
-    }
-    @media (--desktop) {
-      font-size: 22px;
+      color: #2b7bb9;
     }
     & b {
       font-weight: bold;
@@ -313,7 +302,7 @@
     padding-left: 30px;
     & li a {
       font-family: $primary-font;
-      color: #000;
+      color: #007d33;
       font-size: 18px;
       font-weight: 700;
       text-decoration: underline;
@@ -475,6 +464,48 @@
       vertical-align: middle;
       @media (--only-mobile) {
         width: 100%;
+      }
+    }
+  }
+  &__link-list {
+    background-color: #f8f8f8;
+    border: 1px solid #f0f0f0;
+    position: relative;
+    padding: 20px;
+    margin: 20px 20px 20px 0;
+
+    &-item {
+      display: flex;
+      margin-top: 20px;
+    }
+    &-figure {
+      width: 96px;
+      height: 64px;
+    }
+    &-title {
+      font-family: $secondary-font;
+      font-size: 16px;
+      margin-bottom: 20px;
+      &-link {
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: underline;
+        overflow: hidden;
+        @media (--desktop) {
+          font-size: 17px;
+        }
+
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        line-height: 20px;
+        height: 62px;
+      }
+    }
+    &-information {
+      padding: 0 0 0 20px;
+      @media (--tablet) {
+        padding: 0 10px 0 20px;
       }
     }
   }
