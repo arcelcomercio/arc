@@ -80,9 +80,9 @@ const StoriesListVideo = props => {
     <>
       <div className={classes.listComponent}>
         <div className={classes.listHeader}>
-          <h3 itemProp="name" className={classes.listTitle}>
-            P21 TV
-          </h3>
+          <a itemProp="url" href={PERU21TV_URL} title="Videos de Perú21TV">
+            <img src={logoImg} alt="Logo de Perú21TV" />
+          </a>
           <div className={classes.viewProgramsWrapper}>
             <a
               itemProp="url"
