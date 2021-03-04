@@ -203,6 +203,7 @@ const AmpOutputType = ({
     !hasYoutubeIframePromo &&
     !hasFacebookIframePromo &&
     content.includes('<iframe')
+  // SCRIPT AMP IFRAME
   const hasIframe =
     hasIframePromo ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
