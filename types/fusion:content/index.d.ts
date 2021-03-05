@@ -8,9 +8,9 @@ declare module 'fusion:content' {
     transform?: (data: AnyObject) => any
   }
 
-  export function useContent<Query = AnyObject>(
+  export function useContent<Query = AnyObject, Response = any>(
     config: UseContentConfig<Query>
-  ): any
+  ): Response
 
   // `Content` default export en progreso
   // pero parece que es mejor, por establecer
