@@ -227,7 +227,12 @@ const FormRegister = props => {
           },
           {
             name: 'dataTreatment',
-            value: checkedPolits ? '1' : '0',
+            value:
+              arcSite === 'elcomercio' || arcSite === 'gestion'
+                ? checkedPolits
+                  ? '1'
+                  : '0'
+                : 'NULL',
             type: 'String',
           },
         ],
@@ -461,26 +466,28 @@ const FormRegister = props => {
                         error={rpassError || showFormatInvalid}
                       />
 
-                      <CheckBox
-                        checked={checkedPolits}
-                        value={checkedPolits ? '1' : '0'}
-                        name="rpolit"
-                        onChange={e => {
-                          handleOnChange(e)
-                          setCheckedPolits(!checkedPolits)
-                        }}>
-                        <S.Text c="gray" lh="22" s="12" className="mt-20">
-                          Autorizo el uso de mis datos para
-                          <S.Link
-                            href="/tratamiento-de-datos/"
-                            target="_blank"
-                            c={mainColorLink}
-                            fw="bold"
-                            className="ml-5 inline">
-                            fines adicionales
-                          </S.Link>
-                        </S.Text>
-                      </CheckBox>
+                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                        <CheckBox
+                          checked={checkedPolits}
+                          value={checkedPolits ? '1' : '0'}
+                          name="rpolit"
+                          onChange={e => {
+                            handleOnChange(e)
+                            setCheckedPolits(!checkedPolits)
+                          }}>
+                          <S.Text c="gray" lh="22" s="12" className="mt-20">
+                            Autorizo el uso de mis datos para
+                            <S.Link
+                              href="/tratamiento-de-datos/"
+                              target="_blank"
+                              c={mainColorLink}
+                              fw="bold"
+                              className="ml-5 inline">
+                              fines adicionales
+                            </S.Link>
+                          </S.Text>
+                        </CheckBox>
+                      )}
 
                       <CheckBox
                         checked={checkedTerms}
