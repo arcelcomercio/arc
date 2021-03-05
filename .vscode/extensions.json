@@ -9,6 +9,10 @@
     // Stylelint support.
     "stylelint.vscode-stylelint",
     // Git with superpowers.
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    // Auto rename paired HTML/XML tag
+    "formulahendry.auto-rename-tag",
+    // AI-assisted development
+    "visualstudioexptteam.vscodeintellicode"
   ]
 }
