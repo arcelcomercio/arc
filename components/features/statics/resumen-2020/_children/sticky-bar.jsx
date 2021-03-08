@@ -4,7 +4,13 @@ import PropTypes from 'prop-types'
 /**
  * @see estilos src/websites/elcomercio/scss/components/statics/resumen-2020/_sticky-bar.scss
  */
-const StaticsResumen2020StickyBar = ({ text, year, month, disableAnchor }) => {
+const StaticsResumen2020StickyBar = ({
+  text,
+  year,
+  month,
+  disableAnchor,
+  mainPath,
+}) => {
   return (
     <div className="bar">
       <h2 className="bar__text">
@@ -17,7 +23,7 @@ const StaticsResumen2020StickyBar = ({ text, year, month, disableAnchor }) => {
       {disableAnchor ? null : (
         <>
           <a
-            href="/resumen-2020/"
+            href={`/${mainPath}/`}
             aria-label="Ir al inicio de la página"
             id="anchor"
             className="bar__btn">

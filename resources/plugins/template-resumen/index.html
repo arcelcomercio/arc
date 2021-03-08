@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Plugin</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <style>
+      code {
+        overflow: auto;
+      }
+      p {
+        margin: 0;
+      }
+      #save {
+        background-color: #28a745;
+        color: #fff;
+      }
+      #close {
+        background-color: #dc3545;
+        color: #fff;
+      }
+      .btn-add {
+        font-size: 20px;
+        border-radius: 50%;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .btn-link {
+        color: #dc3545;
+        cursor: pointer;
+      }
+      .btn-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container" x-data="data()" x-init="init">
+      <div x-show="tab === 1">
+        <div>
+          <button id="save">Guardar</button>
+          <button id="close">Cerrar</button>
+        </div>
+        <h5>Secciones:</h5>
+        <template x-for="(item, index) in list" :key="index">
+          <div>
+            <button x-text="item.seccion"></button>
+          </div>
+        </template>
+        <button class="button-primary" x-on:click="tab = 2">
+          Agregar nueva seccion
+        </button>
+
+        <p style="margin-top: 50px;">Codigo generado</p>
+        <pre><code id="formatedJson" x-text="JSON.stringify(list)"></code></pre>
+
+        <p
+          class="btn-link"
+          x-text="!isAddingNewJson ? 'Si tiene la data en formato json, agréguelo aquí' : 'Agregar'"
+          x-on:click="{if(isAddingNewJson) list = JSON.parse(newJson)}; isAddingNewJson = !isAddingNewJson;"
+        ></p>
+        <textarea
+          x-model="newJson"
+          x-show="isAddingNewJson"
+          name="json data"
+          id="jsonData"
+          cols="30"
+          rows="10"
+        ></textarea>
+      </div>
+      <div x-show="tab === 2">
+        <h4>Nueva sección</h4>
+        <button class="button-primary" x-on:click="addNewData">
+          Agregar seccion
+        </button>
+
+        <div class="row">
+          <label class="two columns" for="section">Sección:</label>
+          <input class="ten columns" type="text" x-model="newData.seccion" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="url">Imagen URL:</label>
+          <input class="ten columns" type="text" x-model="newData.imagen.url" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="Caption">Imagen caption:</label>
+          <input
+            class="ten columns"
+            type="text"
+            x-model="newData.imagen.caption"
+          />
+        </div>
+
+        <h5>Historias:</h5>
+
+        <template x-for="(item, index) in newData.historias" :key="index">
+          <div>
+            <button x-text="item.titulo"></button>
+          </div>
+        </template>
+
+        <div x-show="isHistoryEditor">
+          <div class="row">
+            <label class="two columns" for="section">Titulo:</label>
+            <input
+              class="ten columns"
+              type="text"
+              x-model="newHistory.titulo"
+            />
+          </div>
+          <div class="row">
+            <label class="two columns" for="section">URL:</label>
+            <input class="ten columns" type="text" x-model="newHistory.url" />
+          </div>
+          <div class="row">
+            <label class="two columns" for="section">Fecha:</label>
+            <input class="ten columns" type="text" x-model="newHistory.fecha" />
+          </div>
+          <div class="row">
+            <label class="two columns" for="section">descripcion:</label>
+            <input
+              class="ten columns"
+              type="text"
+              x-model="newHistory.descripcion"
+            />
+          </div>
+          <div class="row">
+            <label class="two columns" for="section">Imagen URL:</label>
+            <input
+              class="ten columns"
+              type="text"
+              x-model="newHistory.imagen.url"
+            />
+          </div>
+          <div class="row">
+            <label class="two columns" for="section">Imagen Caption:</label>
+            <input
+              class="ten columns"
+              type="text"
+              x-model="newHistory.imagen.caption"
+            />
+          </div>
+        </div>
+        <button class="btn-add button-primary" x-on:click="addNewHistory">
+          +
+        </button>
+
+        <pre><code x-text="JSON.stringify(newData)"></code></pre>
+      </div>
+    </div>
+
+    <script>
+      window.pluginOptions = {
+        height: "700px",
+        width: "400px"
+      };
+      window.initializePlugin = function ({ field, initVal, onClose, onSave }) {
+        window.initVal = initVal;
+
+        document.getElementById("save").addEventListener("click", () => {
+          const data = document.getElementById("formatedJson");
+          onSave(data.textContent);
+        });
+
+        document.getElementById("close").addEventListener("click", onClose);
+      };
+
+      /////////////////////////////////////////////////////////////////
+
+      function data() {
+        return {
+          init() {
+            setTimeout(() => {
+              console.log(JSON.parse(window.initVal));
+              this.list = JSON.parse(window.initVal);
+            }, 500);
+          },
+          list: window.initVal || [],
+          tab: 1,
+          newData: {
+            seccion: "",
+            imagen: {
+              url: "",
+              caption: ""
+            },
+            historias: []
+          },
+          addNewData() {
+            this.list.push({ ...this.newData });
+            this.tab = 1;
+          },
+          isHistoryEditor: false,
+          newHistory: {
+            titulo: "",
+            fecha: "",
+            descripcion: "",
+            imagen: {
+              url: "",
+              caption: ""
+            },
+            url: ""
+          },
+          addNewHistory() {
+            if (this.isHistoryEditor) {
+              this.newData.historias.push({ ...this.newHistory });
+              this.isHistoryEditor = false;
+            } else {
+              this.isHistoryEditor = true;
+            }
+          },
+          isAddingNewJson: false,
+          newJson: ""
+        };
+      }
+    </script>
+  </body>
+</html>

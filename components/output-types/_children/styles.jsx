@@ -22,6 +22,7 @@ const Styles = ({
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
+  metaValue,
 }) => {
   const isStoryMatch = isStory !== '' && idMatch !== ''
   let style = 'style'
@@ -72,7 +73,7 @@ const Styles = ({
       : styleDefault
 
   // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos para todas las marcas
-  if (/^\/resumen-2020\//.test(requestUri)) {
+  if (metaValue('section_style') === 'resumen_2020') {
     style = 'resumen-2020'
     styleUrl = `${contextPath}/resources/dist/elcomercio/css/${style}.css`
   }

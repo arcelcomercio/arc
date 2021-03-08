@@ -8,6 +8,7 @@ import Hero from './_children/hero'
 import StickyBar from './_children/sticky-bar'
 import MainImage from './_children/main-image'
 import StoriesList from './_children/stories-list'
+import { slugify } from '../../../utilities/parse/slugify'
 
 /**
  * @see estilos `src/websites/elcomercio/scss/components/statics/resumen-2020/_container.scss`
@@ -25,15 +26,34 @@ const StaticsResumen2020 = props => {
     } = {},
   } = props
 
-  const { requestUri, arcSite } = useAppContext()
+  const { requestUri = '', arcSite = '' } = useAppContext()
   const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
     arcSite
   )
-  const isMonthPage = /^\/resumen-2020\/\w{4,10}\/(?:\?.+)?$/.test(requestUri)
-  const [, month = ''] =
-    requestUri.match(/^\/resumen-2020\/(\w{4,10})\/?/) || []
-  const parsedContent = JSON.parse(content)
-  const monthImage = month ? parsedContent[month]?.imagen : {}
+
+  /**
+   * @type {string[]}
+   * @description Ejemplo de paths: ['resumen-2020', 'enero']
+   */
+  const paths = requestUri
+    .split('?')[0]
+    .split('/')
+    .filter(el => el !== '')
+  const section = paths[1] || ''
+  const mainPath = paths[0] || ''
+
+  const parsedContent = JSON.parse(content) || []
+
+  const sectionData =
+    parsedContent.filter(({ seccion }) => slugify(seccion) === section)[0] || {}
+
+  const nextSection =
+    parsedContent[
+      parsedContent.findIndex(({ seccion }) => slugify(seccion) === section) + 1
+    ]?.seccion || ''
+
+  const sectionImage = sectionData?.imagen || {}
+
   const customLogo = customLogos[arcSite]
 
   return (
@@ -45,30 +65,36 @@ const StaticsResumen2020 = props => {
         twitter={user}
         customLogo={customLogo}
       />
-      {!isMonthPage && (
+      {paths.length === 1 && (
         <Hero
           title={heroTitle}
           year={year}
           subtitle={heroSubtitle}
-          month={month}>
+          content={parsedContent}
+          mainPath={mainPath}>
           <div id="gpt_top" className="hero__ads"></div>
         </Hero>
       )}
-      {isMonthPage ? (
+      {paths.length > 1 ? (
         <>
           <div id="gpt_top"></div>
           <StickyBar
             text={stickyBarText}
             year={year}
-            month={month}
+            month={section}
             disableAnchor={stickyBarDisableAnchor}
+            mainPath={mainPath}
           />
           <MainImage
-            image={monthImage.url}
-            caption={monthImage.caption}
-            month={month}
+            image={sectionImage.url}
+            caption={sectionImage.caption}
+            month={sectionData?.seccion || {}}
           />
-          <StoriesList content={parsedContent} month={month} />
+          <StoriesList
+            list={sectionData?.historias}
+            nextSectionPath={slugify(nextSection)}
+            mainPath={mainPath}
+          />
         </>
       ) : null}
       <div id="gpt_zocalo"></div>
@@ -81,6 +107,10 @@ StaticsResumen2020.label = 'Resumen 2020 Especial'
 
 StaticsResumen2020.propTypes = {
   customFields: PropTypes.shape({
+    editor: PropTypes.string.tag({
+      name: 'Editor de contenido',
+      formPlugin: 'template-resumen',
+    }),
     content: PropTypes.json.tag({
       name: 'Contenido en formato JSON',
     }),
