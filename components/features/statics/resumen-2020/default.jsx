@@ -16,7 +16,7 @@ import { slugify } from '../../../utilities/parse/slugify'
 const StaticsResumen2020 = props => {
   const {
     customFields: {
-      editor = {},
+      editor = '',
       year = 2020,
       customLogos = {},
       heroTitle = 'Resumen del año',
@@ -43,7 +43,7 @@ const StaticsResumen2020 = props => {
   const section = paths[1] || ''
   const mainPath = paths[0] || ''
 
-  const parsedContent = JSON.parse(editor) || []
+  const parsedContent = editor ? JSON.parse(editor) : []
 
   const sectionData =
     parsedContent.filter(({ seccion }) => slugify(seccion) === section)[0] || {}
