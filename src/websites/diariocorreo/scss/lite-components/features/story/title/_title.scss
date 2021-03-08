@@ -3,6 +3,12 @@
     font: 800 2.2rem/1.166 $primary-font;
     padding: 0 20px 20px 20px;
     color: $color-black;
+    font-weight: 700;
+    font-size: 24px;
+    @media (--tablet) {
+      font-weight: 400;
+      font-size: 44px;
+    }
   }
 
   &__summary {
