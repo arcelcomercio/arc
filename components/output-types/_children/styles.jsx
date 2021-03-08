@@ -22,7 +22,7 @@ const Styles = ({
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
-  metaValue,
+  metaValue = () => {},
 }) => {
   const isStoryMatch = isStory !== '' && idMatch !== ''
   let style = 'style'
