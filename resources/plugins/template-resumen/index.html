@@ -15,15 +15,21 @@
       code {
         overflow: auto;
       }
+
       p {
         margin: 0;
       }
-      #save {
+
+      .save {
         background-color: #28a745;
         color: #fff;
       }
-      #close {
+      .danger {
         background-color: #dc3545;
+        color: #fff;
+      }
+      .close {
+        background-color: #6c757d;
         color: #fff;
       }
       .btn-add {
@@ -43,6 +49,9 @@
       .btn-link:hover {
         text-decoration: underline;
       }
+      .row {
+        padding: 5px 0;
+      }
     </style>
   </head>
 
@@ -50,13 +59,16 @@
     <div class="container" x-data="data()" x-init="init">
       <div x-show="tab === 1">
         <div>
-          <button id="save">Guardar</button>
-          <button id="close">Cerrar</button>
+          <button class="save" id="save">Guardar</button>
+          <button class="danger" id="close">Cerrar</button>
         </div>
         <h5>Secciones:</h5>
         <template x-for="(item, index) in list" :key="index">
           <div>
-            <button x-text="item.seccion"></button>
+            <button
+              x-text="item.seccion"
+              x-on:click="setNewData(item, index)"
+            ></button>
           </div>
         </template>
         <button class="button-primary" x-on:click="tab = 2">
@@ -81,10 +93,19 @@
         ></textarea>
       </div>
       <div x-show="tab === 2">
-        <h4>Nueva sección</h4>
-        <button class="button-primary" x-on:click="addNewData">
-          Agregar seccion
-        </button>
+        <div style="display: flex;">
+          <h4
+            x-text="tabData.isNewDataEdit ? 'Editar sección' : 'Nueva sección'"
+          ></h4>
+          <button
+            x-show="tabData.isNewDataEdit"
+            x-on:click="{list.splice(tabData.currentSectionIndex, 1); tab = 1; resetNewData()}"
+            style="margin: 10px 0 25px 30px;"
+            class="danger"
+          >
+            Eliminar sección
+          </button>
+        </div>
 
         <div class="row">
           <label class="two columns" for="section">Sección:</label>
@@ -103,61 +124,96 @@
           />
         </div>
 
-        <h5>Historias:</h5>
+        <h5 style="margin-top: 10px;">Historias:</h5>
 
         <template x-for="(item, index) in newData.historias" :key="index">
           <div>
-            <button x-text="item.titulo"></button>
+            <button
+              x-on:click="setNewHistory(item, index)"
+              x-text="item.titulo"
+            ></button>
           </div>
         </template>
 
-        <div x-show="isHistoryEditor">
-          <div class="row">
-            <label class="two columns" for="section">Titulo:</label>
-            <input
-              class="ten columns"
-              type="text"
-              x-model="newHistory.titulo"
-            />
-          </div>
-          <div class="row">
-            <label class="two columns" for="section">URL:</label>
-            <input class="ten columns" type="text" x-model="newHistory.url" />
-          </div>
-          <div class="row">
-            <label class="two columns" for="section">Fecha:</label>
-            <input class="ten columns" type="text" x-model="newHistory.fecha" />
-          </div>
-          <div class="row">
-            <label class="two columns" for="section">descripcion:</label>
-            <input
-              class="ten columns"
-              type="text"
-              x-model="newHistory.descripcion"
-            />
-          </div>
-          <div class="row">
-            <label class="two columns" for="section">Imagen URL:</label>
-            <input
-              class="ten columns"
-              type="text"
-              x-model="newHistory.imagen.url"
-            />
-          </div>
-          <div class="row">
-            <label class="two columns" for="section">Imagen Caption:</label>
-            <input
-              class="ten columns"
-              type="text"
-              x-model="newHistory.imagen.caption"
-            />
-          </div>
-        </div>
-        <button class="btn-add button-primary" x-on:click="addNewHistory">
+        <button class="btn-add button-primary" x-on:click="tab = 3">
           +
         </button>
 
-        <pre><code x-text="JSON.stringify(newData)"></code></pre>
+        <div style="margin-top: 35px;">
+          <button
+            class="button-primary"
+            x-text="tabData.isNewDataEdit ? 'Editar' : 'Agregar'"
+            x-on:click="addNewData"
+          ></button>
+          <button class="close" x-on:click="{tab = 1; resetNewData()}">
+            Cancelar
+          </button>
+        </div>
+      </div>
+
+      <div x-show="tab === 3">
+        <div style="display: flex;">
+          <h4
+            x-text="tabData.isNewHistoryEdit ? 'Editar Historia' : 'Nueva Historia'"
+          ></h4>
+          <button
+            x-show="tabData.isNewHistoryEdit"
+            x-on:click="{newData.historias.splice(tabData.currentHistoryIndex, 1); tab = 2; resetNewHistoryData()}"
+            style="margin: 10px 0 25px 30px;"
+            class="danger"
+          >
+            Eliminar sección
+          </button>
+        </div>
+
+        <div class="row">
+          <label class="two columns" for="section">Titulo:</label>
+          <input class="ten columns" type="text" x-model="newHistory.titulo" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section">URL (opcional):</label>
+          <input class="ten columns" type="text" x-model="newHistory.url" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section">Fecha:</label>
+          <input class="ten columns" type="text" x-model="newHistory.fecha" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section">Descripcion:</label>
+          <input
+            class="ten columns"
+            type="text"
+            x-model="newHistory.descripcion"
+          />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section"
+            >Imagen URL (opcional):</label
+          >
+          <input
+            class="ten columns"
+            type="text"
+            x-model="newHistory.imagen.url"
+          />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section"
+            >Imagen Caption (opcional):</label
+          >
+          <input
+            class="ten columns"
+            type="text"
+            x-model="newHistory.imagen.caption"
+          />
+        </div>
+        <div>
+          <button class="button-primary" x-on:click="addNewHistory()">
+            Agregar
+          </button>
+          <button class="close" x-on:click="resetNewHistoryData()">
+            Cancelar
+          </button>
+        </div>
       </div>
     </div>
 
@@ -166,26 +222,26 @@
         height: "700px",
         width: "400px"
       };
-      window.initializePlugin = function ({ field, initVal, onClose, onSave }) {
-        window.initVal = initVal;
-
-        document.getElementById("save").addEventListener("click", () => {
-          const data = document.getElementById("formatedJson");
-          onSave(data.textContent);
-        });
-
-        document.getElementById("close").addEventListener("click", onClose);
-      };
 
       /////////////////////////////////////////////////////////////////
 
       function data() {
         return {
           init() {
-            setTimeout(() => {
-              console.log(JSON.parse(window.initVal));
-              this.list = JSON.parse(window.initVal);
-            }, 500);
+            window.initializePlugin = ({ field, initVal, onClose, onSave }) => {
+              if (initVal) {
+                this.list = JSON.parse(initVal);
+              }
+
+              document.getElementById("save").addEventListener("click", () => {
+                const data = document.getElementById("formatedJson");
+                onSave(data.textContent);
+              });
+
+              document
+                .getElementById("close")
+                .addEventListener("click", onClose);
+            };
           },
           list: window.initVal || [],
           tab: 1,
@@ -197,11 +253,38 @@
             },
             historias: []
           },
-          addNewData() {
-            this.list.push({ ...this.newData });
-            this.tab = 1;
+          tabData: {
+            isNewDataEdit: false,
+            currentSectionIndex: 0,
+            isNewHistoryEdit: false,
+            currentHistoryIndex: 0
           },
-          isHistoryEditor: false,
+          setNewData(item, index) {
+            this.newData = item;
+            this.tab = 2;
+            this.tabData.isNewDataEdit = true;
+            this.tabData.currentSectionIndex = index;
+          },
+          addNewData() {
+            if (this.tabData.isNewDataEdit) {
+              this.list[this.tabData.currentSectionIndex] = { ...this.newData };
+            } else {
+              this.list.push({ ...this.newData });
+            }
+            this.resetNewData();
+          },
+          resetNewData() {
+            this.tab = 1;
+            this.tabData = {};
+            this.newData = {
+              seccion: "",
+              imagen: {
+                url: "",
+                caption: ""
+              },
+              historias: []
+            };
+          },
           newHistory: {
             titulo: "",
             fecha: "",
@@ -212,13 +295,35 @@
             },
             url: ""
           },
+          setNewHistory(item, index) {
+            this.newHistory = item;
+            this.tab = 3;
+            this.tabData.isNewHistoryEdit = true;
+            this.tabData.currentHistoryIndex = index;
+          },
           addNewHistory() {
-            if (this.isHistoryEditor) {
-              this.newData.historias.push({ ...this.newHistory });
-              this.isHistoryEditor = false;
+            if (this.tabData.isNewHistoryEdit) {
+              this.newData.historias[this.tabData.currentHistoryIndex] = {
+                ...this.newHistory
+              };
             } else {
-              this.isHistoryEditor = true;
+              this.newData.historias.push({ ...this.newHistory });
             }
+            this.resetNewHistoryData();
+          },
+          resetNewHistoryData() {
+            this.tab = 2;
+            this.tabData.isNewHistoryEdit = false;
+            this.newHistory = {
+              titulo: "",
+              fecha: "",
+              descripcion: "",
+              imagen: {
+                url: "",
+                caption: ""
+              },
+              url: ""
+            };
           },
           isAddingNewJson: false,
           newJson: ""

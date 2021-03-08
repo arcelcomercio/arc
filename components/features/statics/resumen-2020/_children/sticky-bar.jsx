@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
  */
 const StaticsResumen2020StickyBar = ({
   text,
-  year,
   month,
   disableAnchor,
   mainPath,
@@ -16,9 +15,7 @@ const StaticsResumen2020StickyBar = ({
       <h2 className="bar__text">
         {text}
         <br />
-        <strong>
-          {month} {year}
-        </strong>
+        <strong>{month}</strong>
       </h2>
       {disableAnchor ? null : (
         <>
@@ -48,7 +45,6 @@ const StaticsResumen2020StickyBar = ({
 
 StaticsResumen2020StickyBar.propTypes = {
   text: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
   month: PropTypes.string.isRequired,
   disableAnchor: PropTypes.bool,
 }

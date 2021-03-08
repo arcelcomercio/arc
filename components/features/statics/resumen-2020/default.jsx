@@ -16,13 +16,14 @@ import { slugify } from '../../../utilities/parse/slugify'
 const StaticsResumen2020 = props => {
   const {
     customFields: {
-      content = {},
+      editor = {},
       year = 2020,
       customLogos = {},
       heroTitle = 'Resumen del año',
       heroSubtitle = 'Las noticias más impactantes del Perú y el Mundo',
       stickyBarText = 'Las noticias más importantes de ',
       stickyBarDisableAnchor = false,
+      listDesc = 'Selecciona un mes:',
     } = {},
   } = props
 
@@ -42,7 +43,7 @@ const StaticsResumen2020 = props => {
   const section = paths[1] || ''
   const mainPath = paths[0] || ''
 
-  const parsedContent = JSON.parse(content) || []
+  const parsedContent = JSON.parse(editor) || []
 
   const sectionData =
     parsedContent.filter(({ seccion }) => slugify(seccion) === section)[0] || {}
@@ -71,7 +72,8 @@ const StaticsResumen2020 = props => {
           year={year}
           subtitle={heroSubtitle}
           content={parsedContent}
-          mainPath={mainPath}>
+          mainPath={mainPath}
+          listDesc={listDesc}>
           <div id="gpt_top" className="hero__ads"></div>
         </Hero>
       )}
@@ -80,7 +82,6 @@ const StaticsResumen2020 = props => {
           <div id="gpt_top"></div>
           <StickyBar
             text={stickyBarText}
-            year={year}
             month={section}
             disableAnchor={stickyBarDisableAnchor}
             mainPath={mainPath}
@@ -110,16 +111,7 @@ StaticsResumen2020.propTypes = {
     editor: PropTypes.string.tag({
       name: 'Editor de contenido',
       formPlugin: 'template-resumen',
-    }),
-    content: PropTypes.json.tag({
-      name: 'Contenido en formato JSON',
-    }),
-    year: PropTypes.number.tag({
-      name: 'Año a mostrar',
-      description: 'Por defecto: 2020',
-      max: 2021,
-      min: 2020,
-      step: 1,
+      defaultValue: '[]',
     }),
     customLogos: PropTypes.kvp.tag({
       name: 'Logos personalizados por marca',
@@ -128,13 +120,24 @@ StaticsResumen2020.propTypes = {
       group: 'Logos',
     }),
     heroTitle: PropTypes.string.tag({
-      name: 'Título de la portada',
-      description: 'Por defecto: Resumen 2020',
+      name: 'Título superior',
+      description: 'Por defecto: RESUMEN DEL AÑO',
+      group: 'Portada',
+    }),
+    year: PropTypes.string.tag({
+      name: 'Título principal',
+      description: 'Por defecto: 2020',
       group: 'Portada',
     }),
     heroSubtitle: PropTypes.string.tag({
       name: 'Subtítulo de la portada',
-      description: 'Por defecto: El año de la barbarie pandémica',
+      description:
+        'Por defecto: Las noticias más impactantes del Perú y el Mundo',
+      group: 'Portada',
+    }),
+    listDesc: PropTypes.string.tag({
+      name: 'Descripción del listado',
+      description: 'Por defecto: Selecciona un mes:',
       group: 'Portada',
     }),
     stickyBarText: PropTypes.string.tag({

@@ -22,6 +22,7 @@ const StaticsResumen2020Hero = ({
   children,
   content,
   mainPath,
+  listDesc,
 }) => {
   return (
     <section className={classes.hero}>
@@ -37,7 +38,7 @@ const StaticsResumen2020Hero = ({
         <span className={classes.year}>{year}</span>
         <span className={classes.subtitle}>{subtitle}</span>
       </h1>
-      <p className={classes.select}>Selecciona un mes:</p>
+      <p className={classes.select}>{listDesc}</p>
       <nav className={classes.heroContent}>
         {content.map(({ seccion }) => {
           return (
