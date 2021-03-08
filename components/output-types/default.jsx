@@ -165,6 +165,7 @@ export default ({
     CURRENT_ENVIRONMENT,
     Resource,
     isHome,
+    metaValue
   }
 
   const getPrebid = () => {
