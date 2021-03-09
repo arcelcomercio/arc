@@ -10,7 +10,6 @@ import {
   SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
-  SITE_TROME,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -45,11 +44,7 @@ import {
   MINUTO_MINUTO,
   GALLERY_VERTICAL,
 } from '../utilities/constants/subtypes'
-import {
-  PREMIUM,
-  METERED,
-  FREE
-} from '../utilities/constants/content-tiers'
+import { PREMIUM, METERED, FREE } from '../utilities/constants/content-tiers'
 
 const LiteOutput = ({
   children,
@@ -239,8 +234,8 @@ const LiteOutput = ({
   const isIframeStory = requestUri.includes('/carga-continua')
   const iframeStoryCanonical = `${siteProperties.siteUrl}${deleteQueryString(
     requestUri
-    ).replace(/^\/carga-continua/, '')}`
-    
+  ).replace(/^\/carga-continua/, '')}`
+
   const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
 
   return (
@@ -680,7 +675,9 @@ const LiteOutput = ({
             />
           </>
         )}
-        {vallaSignwall === false && arcSite === SITE_ELCOMERCIO && (
+        {vallaSignwall === false &&
+        arcSite === SITE_ELCOMERCIO &&
+        !isPreview ? (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -689,7 +686,7 @@ const LiteOutput = ({
             />
             {!isIframeStory && <VallaHtml />}
           </>
-        )}
+        ) : null}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}
