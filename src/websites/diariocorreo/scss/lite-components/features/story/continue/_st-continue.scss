@@ -2,10 +2,19 @@
   content-visibility: auto;
   contain-intrinsic-size: 100px;
   padding: 20px 0 50px 0;
+  bottom: 262px;
+  position: absolute;
+  align-self: center;
+  margin-left: 165px;
+  @media (--desktop) {
+    bottom: 80px;
+    margin-left: 190px;
+    width: 220px;
+  }
   &__progress {
     height: 88px;
     width: 88px;
-    background: #007d33;
+    background: $color-primary;
     border-radius: 50%;
     // position: relative;
     transform: rotate(105deg);
@@ -35,6 +44,18 @@
       animation: spin 1s ease infinite;
     }
   }
+  &__progress-box {
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    margin-bottom: 48px;
+    @media (--desktop) {
+      margin-bottom: 0;
+    }
+    & svg {
+      display: none;
+    }
+  }
   &__container {
     margin-left: 25px;
     flex-direction: column;
@@ -53,6 +74,10 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     display: -webkit-box;
+  }
+  &__subtitle {
+    position: relative;
+    margin-left: 45px;
   }
 }
 
