@@ -13,22 +13,30 @@ const AdsFeatLite = props => {
       liteAdInlineStyles,
       prebidAdEnabled,
       prebidAdDimensions,
+      isContainer,
     } = {},
   } = props
+  const getDiv = () => {
+    return (
+      <div
+        id={liteAdId}
+        data-ads-name={liteAdName}
+        data-ads-dimensions={liteAdDimensions}
+        data-ads-dimensions-m={liteAdMobileDimensions}
+        data-ads-load-first={liteAdLoadFirst}
+        data-bloque={liteAdLoadBlock}
+        data-prebid-enabled={prebidAdEnabled}
+        data-prebid-dimensions={prebidAdDimensions}
+        style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
+      />
+    )
+  }
 
-  return liteAdId || liteAdName || liteAdDimensions ? (
-    <div
-      id={liteAdId}
-      data-ads-name={liteAdName}
-      data-ads-dimensions={liteAdDimensions}
-      data-ads-dimensions-m={liteAdMobileDimensions}
-      data-ads-load-first={liteAdLoadFirst}
-      data-bloque={liteAdLoadBlock}
-      data-prebid-enabled={prebidAdEnabled}
-      data-prebid-dimensions={prebidAdDimensions}
-      style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
-    />
-  ) : null
+  if (isContainer === true && liteAdId) {
+    return <div className={`content_${liteAdId}_ads`}>{getDiv()}</div>
+  } if (liteAdId || liteAdName || liteAdDimensions) {
+    return getDiv()
+  } return null
 }
 
 AdsFeatLite.propTypes = {

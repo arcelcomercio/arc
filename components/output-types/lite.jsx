@@ -663,15 +663,6 @@ const LiteOutput = ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {isStory && arcSite === SITE_TROME && (
-          <script
-            src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
-            id="browsi-tag"
-            data-pubKey="elcomercio"
-            data-siteKey="trome"
-            async
-          />
-        )}
         {isStory && (
           <>
             <noscript id="deferred-styles">
