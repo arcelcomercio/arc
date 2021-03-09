@@ -16,6 +16,7 @@ import Cookies from '../../_dependencies/cookies'
 import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
 import Loading from '../loading'
+import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
 
 const FormRegister = props => {
   const {
@@ -85,15 +86,8 @@ const FormRegister = props => {
     },
     rphone: {
       required: false,
-      validator: {
-        func: value => {
-          if (value.length >= 6) {
-            return true
-          }
-          return false
-        },
-        error: 'Mínimo 6 caracteres',
-      },
+      validator: formatPhone(),
+      min6caracts: true,
     },
     rpolit: {
       required: false,
@@ -482,6 +476,7 @@ const FormRegister = props => {
                         name="rphone"
                         placeholder="Teléfono"
                         autoComplete="off"
+                        maxLength="12"
                         value={rphone}
                         onChange={e => {
                           handleOnChange(e)

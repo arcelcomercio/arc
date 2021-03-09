@@ -73,6 +73,7 @@ const Register = ({ arcSite }) => {
     rphone: {
       required: false,
       validator: formatPhone(),
+      min6caracts: true,
     },
     rpolit: {
       required: false,
