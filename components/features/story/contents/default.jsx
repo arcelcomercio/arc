@@ -242,7 +242,7 @@ class StoryContents extends React.PureComponent {
             className={`${classes.content} ${isPremium &&
               'story-content__nota-premium paywall no_copy'}`}
             style={isPremium ? { display: 'none' } : {}}
-            id="contenedor">
+            id="container">
             {!requestUri.includes('/recetas/') && subtype !== MINUTO_MINUTO && (
               <StoryContentsChildIcon />
             )}

@@ -166,7 +166,7 @@ const StoryContentsLite = props => {
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
-    arcSite
+    arcSite,
   })
 
   return (
@@ -181,14 +181,16 @@ const StoryContentsLite = props => {
             )}
           </>
         )}
-        {arcSite !== SITE_ELCOMERCIOMAG && subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
-          <div
-            id="gpt_caja3"
-            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-            data-bloque="3"
-            data-prebid-enabled></div>
-        )}
+        {arcSite !== SITE_ELCOMERCIOMAG &&
+          subtype !== MINUTO_MINUTO &&
+          subtype !== GALLERY_VERTICAL && (
+            <div
+              id="gpt_caja3"
+              data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+              data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+              data-bloque="3"
+              data-prebid-enabled></div>
+          )}
         <div
           className={`${classes.content} ${isPremium &&
             'story-content__nota-premium paywall no_copy'}`}
@@ -197,7 +199,7 @@ const StoryContentsLite = props => {
               ? { display: 'none', opacity: '0', userSelect: 'none' }
               : {}
           }
-          id="contenedor">
+          id="container">
           {!isDfp && (
             <>
               <div id="ads_d_inline" />
@@ -322,14 +324,17 @@ const StoryContentsLite = props => {
                     : classes.textClasses
                   return (
                     <>
-                      {nameAds === 'caja3' && arcSite === SITE_ELCOMERCIOMAG && subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
-                        <div
-                          id="gpt_caja3"
-                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-                          data-bloque="3"
-                          data-prebid-enabled></div>
-                      )}
+                      {nameAds === 'caja3' &&
+                        arcSite === SITE_ELCOMERCIOMAG &&
+                        subtype !== MINUTO_MINUTO &&
+                        subtype !== GALLERY_VERTICAL && (
+                          <div
+                            id="gpt_caja3"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-bloque="3"
+                            data-prebid-enabled></div>
+                        )}
                       {nameAds === 'inline' && (
                         <div
                           id="gpt_inline"
