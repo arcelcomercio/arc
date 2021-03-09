@@ -59,6 +59,15 @@ const StaticsResumen2020 = props => {
 
   return (
     <>
+      {paths.length > 1 && !sectionData?.seccion ? (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: 'window.location.replace("/404/");',
+          }}
+        />
+      ) : null}
+
       <Header
         requestUri={requestUri}
         siteUrl={siteUrl}
@@ -141,7 +150,7 @@ StaticsResumen2020.propTypes = {
       group: 'Portada',
     }),
     stickyBarText: PropTypes.string.tag({
-      name: 'Texto que precede al mes',
+      name: 'Texto que precede a la sección',
       description: 'Por defecto: Las noticias más importantes de - mes - año -',
       group: 'Barra flotante',
     }),
