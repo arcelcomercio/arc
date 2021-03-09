@@ -203,7 +203,7 @@ const StoryContentsLite = props => {
               ? { display: 'none', opacity: '0', userSelect: 'none' }
               : {}
           }
-          id="contenedor">
+          id="container">
           {!isDfp && (
             <>
               <div id="ads_d_inline" />

@@ -71,10 +71,7 @@ const BodyContentSpecial = props => {
     filter: schemaFilter,
   })
 
-  const {
-    author,
-    contentPosicionPublicidad,
-  } = new StoryData({
+  const { author, contentPosicionPublicidad } = new StoryData({
     data: story,
     contextPath,
     deployment,
@@ -173,7 +170,7 @@ const BodyContentSpecial = props => {
 */
 
   return (
-    <div className={classes.content} id="contenedor">
+    <div className={classes.content} id="container">
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
@@ -202,10 +199,7 @@ const BodyContentSpecial = props => {
             if (type === ELEMENT_IMAGE) {
               return (
                 <div className="body-content__animated">
-                  <StoryContentsChildImage
-                    {...element}
-                    completeImage
-                  />
+                  <StoryContentsChildImage {...element} completeImage />
                 </div>
               )
             }
@@ -252,11 +246,7 @@ const BodyContentSpecial = props => {
               )
             }
             if (type === ELEMENT_LINK_LIST) {
-              return (
-                <StoryContentsChildLinkList
-                  items={items}
-                />
-              )
+              return <StoryContentsChildLinkList items={items} />
             }
             if (type === ELEMENT_OEMBED) {
               return (
