@@ -16,6 +16,7 @@ import Cookies from '../../_dependencies/cookies'
 import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
 import Loading from '../loading'
+import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
 
 const FormRegister = props => {
   const {
@@ -55,6 +56,7 @@ const FormRegister = props => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
+    rphone: { value: '', error: '' },
     rpolit: { value: '1', error: '' },
     rterms: { value: '0', error: '' },
   }
@@ -81,6 +83,11 @@ const FormRegister = props => {
         },
         error: 'Mínimo 8 caracteres',
       },
+    },
+    rphone: {
+      required: false,
+      validator: formatPhone(),
+      min6caracts: true,
     },
     rpolit: {
       required: false,
@@ -173,13 +180,6 @@ const FormRegister = props => {
         return typeDialog
     }
   }
-
-  // const handleFia = () => {
-  //   if (typeof window !== 'undefined' && isFia) {
-  //     handleCallToAction(true)
-  //   }
-  //   return null
-  // }
 
   const onSubmitForm = state => {
     const { remail, rpass } = state
@@ -320,8 +320,13 @@ const FormRegister = props => {
   }
 
   const {
-    values: { remail, rpass },
-    errors: { remail: remailError, rpass: rpassError, rterms: rtermsError },
+    values: { remail, rpass, rphone },
+    errors: {
+      remail: remailError,
+      rpass: rpassError,
+      rphone: rphoneError,
+      rterms: rtermsError,
+    },
     handleOnChange,
     handleOnSubmit,
     disable,
@@ -464,6 +469,20 @@ const FormRegister = props => {
                           checkFormat(e)
                         }}
                         error={rpassError || showFormatInvalid}
+                      />
+
+                      <Input
+                        type="tel"
+                        name="rphone"
+                        placeholder="Teléfono"
+                        autoComplete="off"
+                        maxLength="12"
+                        value={rphone}
+                        onChange={e => {
+                          handleOnChange(e)
+                          checkFormat(e)
+                        }}
+                        error={rphoneError || showFormatInvalid}
                       />
 
                       {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
