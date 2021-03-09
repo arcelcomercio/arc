@@ -200,6 +200,11 @@ const setupUserProfile = (
               value: '1',
               type: 'String',
             },
+            {
+              name: 'dataTreatment',
+              value: 'NULL',
+              type: 'String',
+            },
           ],
         }
 

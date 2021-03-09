@@ -43,7 +43,8 @@ const FormRegister = props => {
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
-  const [showChecked, setShowChecked] = useState(false)
+  const [checkedPolits, setCheckedPolits] = useState(true)
+  const [checkedTerms, setCheckedTerms] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
 
   const [showCheckPremium, setShowCheckPremium] = useState(false)
@@ -55,7 +56,8 @@ const FormRegister = props => {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
     rphone: { value: '', error: '' },
-    rterms: { value: '', error: '' },
+    rpolit: { value: '1', error: '' },
+    rterms: { value: '0', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -92,6 +94,9 @@ const FormRegister = props => {
         },
         error: 'Mínimo 6 caracteres',
       },
+    },
+    rpolit: {
+      required: false,
     },
     rterms: {
       required: true,
@@ -223,7 +228,17 @@ const FormRegister = props => {
           },
           {
             name: 'termsCondPrivaPoli',
-            value: '1',
+            value: checkedTerms ? '1' : '0',
+            type: 'String',
+          },
+          {
+            name: 'dataTreatment',
+            value:
+              arcSite === 'elcomercio' || arcSite === 'gestion'
+                ? checkedPolits
+                  ? '1'
+                  : '0'
+                : 'NULL',
             type: 'String',
           },
         ],
@@ -475,13 +490,36 @@ const FormRegister = props => {
                         error={rphoneError || showFormatInvalid}
                       />
 
+                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                        <CheckBox
+                          checked={checkedPolits}
+                          value={checkedPolits ? '1' : '0'}
+                          name="rpolit"
+                          onChange={e => {
+                            handleOnChange(e)
+                            setCheckedPolits(!checkedPolits)
+                          }}>
+                          <S.Text c="gray" lh="22" s="12" className="mt-20">
+                            Autorizo el uso de mis datos para
+                            <S.Link
+                              href="/tratamiento-de-datos/"
+                              target="_blank"
+                              c={mainColorLink}
+                              fw="bold"
+                              className="ml-5 inline">
+                              fines adicionales
+                            </S.Link>
+                          </S.Text>
+                        </CheckBox>
+                      )}
+
                       <CheckBox
-                        checked={showChecked}
-                        value={showChecked ? '1' : '0'}
+                        checked={checkedTerms}
+                        value={checkedTerms ? '1' : '0'}
                         name="rterms"
                         onChange={e => {
                           handleOnChange(e)
-                          setShowChecked(!showChecked)
+                          setCheckedTerms(!checkedTerms)
                           setShowError(false)
                         }}
                         valid
@@ -489,20 +527,44 @@ const FormRegister = props => {
                         <S.Text c="gray" lh="18" s="12" className="mt-10">
                           Al crear la cuenta acepto los
                           <S.Link
-                            href={Domains.getPoliticsTerms('terms', arcSite)}
+                            href={`${
+                              arcSite === 'depor'
+                                ? '/terminos-servicio/'
+                                : '/terminos-y-condiciones/'
+                            }`}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-10 mr-10 inline">
+                            className="ml-5 mr-5 inline">
                             Términos y Condiciones
                           </S.Link>
                           y
                           <S.Link
-                            href={Domains.getPoliticsTerms('politics', arcSite)}
+                            href={
+                              // {
+                              //   'elcomercio': '/politicas-privacidad/',
+                              //   'gestion': '/politica-de-privacidad/',
+                              //   'peru21': '/politicas-de-privacidad/',
+                              //   'depor': '/politicas-privacidad/',
+                              //   'trome': '/politica-de-privacidad/'
+                              // }[arcSite]
+                              (() => {
+                                switch (arcSite) {
+                                  case 'elcomercio':
+                                  case 'depor':
+                                    return '/politicas-privacidad/'
+                                  case 'gestion':
+                                  case 'trome':
+                                    return '/politica-de-privacidad/'
+                                  default:
+                                    return '/politicas-de-privacidad/'
+                                }
+                              })()
+                            }
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-10 inline">
+                            className="ml-5 inline">
                             Políticas de Privacidad
                           </S.Link>
                         </S.Text>
@@ -513,12 +575,12 @@ const FormRegister = props => {
                         type="submit"
                         className="mt-20 mb-10"
                         disabled={disable || showLoading || showFormatInvalid}
-                        onClick={() =>
+                        onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
                             `web_sw${typeDialog[0]}_registro_boton_registrarme`
                           )
-                        }>
+                        }}>
                         {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
                       </S.Button>
                     </>
@@ -678,6 +740,7 @@ const FormRegister = props => {
           )}
 
           {showStudents && typeDialog === 'students' && (
+            // eslint-disable-next-line react/jsx-props-no-spreading
             <FormStudents {...props} />
           )}
         </>

@@ -45,7 +45,7 @@ export const formatCellphone = () => {
 
 export const acceptCheckTerms = () => {
   return {
-    func: value => value === 'no',
+    func: value => value !== '1',
     error:
       'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones',
   }
