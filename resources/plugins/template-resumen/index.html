@@ -78,7 +78,7 @@
         <p style="margin-top: 50px;">Codigo generado</p>
         <pre><code id="formatedJson" x-text="JSON.stringify(list)"></code></pre>
 
-        <p
+        <!-- <p
           class="btn-link"
           x-text="!isAddingNewJson ? 'Si tiene la data en formato json, agréguelo aquí' : 'Agregar'"
           x-on:click="{if(isAddingNewJson) list = JSON.parse(newJson)}; isAddingNewJson = !isAddingNewJson;"
@@ -90,7 +90,7 @@
           id="jsonData"
           cols="30"
           rows="10"
-        ></textarea>
+        ></textarea> -->
       </div>
       <div x-show="tab === 2">
         <div style="display: flex;">
@@ -162,7 +162,7 @@
             style="margin: 10px 0 25px 30px;"
             class="danger"
           >
-            Eliminar sección
+            Eliminar Historia
           </button>
         </div>
 
@@ -229,9 +229,7 @@
         return {
           init() {
             window.initializePlugin = ({ field, initVal, onClose, onSave }) => {
-              if (initVal) {
-                this.list = JSON.parse(initVal);
-              }
+              this.list = JSON.parse(initVal);
 
               document.getElementById("save").addEventListener("click", () => {
                 const data = document.getElementById("formatedJson");
