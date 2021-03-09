@@ -498,7 +498,7 @@ const AmpOutputType = ({
                       "contentType": "${getMultimedia(multimediaType)}",
                       "section": "${primarySection}",
                       "contentRestriction": "${contentCode}",
-                      "contentId": "${storyId}"
+                      "contentId": "${storyId}",
                       "apiOrigin": "https://api${
                         env === 'sandbox' ? '-sandbox' : ''
                       }.${arcSite}.pe"
@@ -528,6 +528,16 @@ const AmpOutputType = ({
             />
           </>
         )}
+        <template type="amp-mustache" subscriptions-dialog subscriptions-display="data.loggedIn">
+          Dialog for Subscribers
+        </template>
+        <template type="amp-mustache" subscriptions-dialog subscriptions-display="NOT data.loggedIn">
+          <div>Dialog for non logged in users</div>
+          <div subscriptions-display="NOT data.loggedIn"
+            subscriptions-action="subscribe"
+            subscriptions-decorate>Login</div>
+          <div subscriptions-display="NOT data.subscribed">You are not a subscriber!</div>
+        </template>
         {children}
       </body>
     </Html>
