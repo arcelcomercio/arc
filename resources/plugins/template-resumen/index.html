@@ -142,7 +142,7 @@
         <div style="margin-top: 35px;">
           <button
             class="button-primary"
-            x-text="tabData.isNewDataEdit ? 'Editar' : 'Agregar'"
+            x-text="tabData.isNewDataEdit ? 'Guardar' : 'Agregar'"
             x-on:click="addNewData"
           ></button>
           <button class="close" x-on:click="{tab = 1; resetNewData()}">
@@ -208,7 +208,7 @@
         </div>
         <div>
           <button class="button-primary" x-on:click="addNewHistory()">
-            Agregar
+            Guardar
           </button>
           <button class="close" x-on:click="resetNewHistoryData()">
             Cancelar

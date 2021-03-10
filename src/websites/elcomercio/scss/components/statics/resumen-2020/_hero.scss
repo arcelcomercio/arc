@@ -4,20 +4,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
-  height: calc(100vh - 48px + 80px);
-  min-height: 640px;
+  min-height: calc(100vh - 48px);
   font-family: $primary-font;
-
-  @media (--tablet) {
-    height: calc(100vh - 48px + 180px);
-    min-height: 740px;
-  }
+  padding-bottom: 50px;
 
   @media (--desktop) {
-    min-height: 886px;
-    height: calc(100vh - 51px);
+    justify-content: center;
+    min-height: calc(100vh - 51px);
   }
 
   &__c {
@@ -39,6 +33,7 @@
     text-align: center;
     width: 100%;
     max-width: 70vw;
+    margin-top: 50px;
     @media (--tv) {
       max-width: 1160px;
     }
@@ -117,6 +112,9 @@
     padding: 9px 9px;
     transition: background-color 0.3s ease, color 0.3s ease;
     will-change: background-color, color;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     @media (--mobile) {
       width: 154px;
     }
@@ -133,10 +131,5 @@
       color: #000;
       text-decoration: none;
     }
-  }
-
-  &__ads {
-    position: absolute;
-    top: 0;
   }
 }
