@@ -5,7 +5,7 @@
   top: 46px;
   z-index: 999;
   background-color: #333;
-  font-family: $secondary-font;
+  font-family: $primary-font;
   font-size: 0.9rem;
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
@@ -50,7 +50,8 @@
   &__link {
     padding: 15px 15px 15px 11px;
     width: 100%;
-    color: #e0e0e0;
+    color: #fff;
+    font-size: 20px;
   }
   &__footer {
     padding: 30px;

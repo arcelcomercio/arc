@@ -20,7 +20,7 @@
     position: relative;
     margin-right: 23px;
     margin-bottom: 5px;
-    font-family: $cuartiary-font;
+    font-family: $primary-font;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,7 +40,7 @@
 
   &__link {
     font-size: 12px;
-    font-family: $cuartiary-font;
+    font-family: $primary-font;
     color: $color-gray-300;
     font-weight: 700;
     background-color: transparent;
