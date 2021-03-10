@@ -112,6 +112,10 @@ const customFields = PropTypes.shape({
     name: 'Dimensiones',
     group: 'Prebid lite',
   }),
+  isContainer: PropTypes.bool.tag({
+    name: 'Habilitar Contenedor',
+    defaultValue: false,
+  }),
 })
 
 export default customFields
