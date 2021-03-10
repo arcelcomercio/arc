@@ -695,7 +695,7 @@ export default ({
             />
           </>
         )}
-        {jwplayerSeo[0] && (
+        {jwplayerSeo[0] && isVideosSection && (
           <script
             dangerouslySetInnerHTML={{
               __html: jwplayerScript,
