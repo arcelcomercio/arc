@@ -196,11 +196,19 @@ const StoryContentsLite = props => {
               data-prebid-enabled></div>
           )}
         <div
-          className={`${classes.content} ${isPremium && !isPreview ?
-            'story-content__nota-premium paywall no_copy' : ''}`}
+          className={`${classes.content} ${
+            isPremium && !isPreview
+              ? 'story-content__nota-premium paywall no_copy'
+              : ''
+          }`}
           style={
             isPremium && !isPreview
-              ? { display: 'none', opacity: '0', userSelect: 'none' }
+              ? {
+                  display: 'none',
+                  opacity: '0',
+                  userSelect: 'none',
+                  visibility: 'hidden',
+                }
               : {}
           }
           id="container">
