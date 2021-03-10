@@ -44,6 +44,7 @@ const StaticsResumen2020Hero = ({
           return (
             <a
               href={`/${mainPath}/${slugify(seccion)}/`}
+              title={seccion}
               className={classes.month}>
               {seccion}
             </a>
