@@ -528,16 +528,18 @@ const AmpOutputType = ({
             />
           </>
         )}
-        <template type="amp-mustache" subscriptions-dialog subscriptions-display="data.loggedIn">
-          Dialog for Subscribers
-        </template>
-        <template type="amp-mustache" subscriptions-dialog subscriptions-display="NOT data.loggedIn">
-          <div>Dialog for non logged in users</div>
-          <div subscriptions-display="NOT data.loggedIn"
-            subscriptions-action="subscribe"
-            subscriptions-decorate>Login</div>
-          <div subscriptions-display="NOT data.subscribed">You are not a subscriber!</div>
-        </template>
+        {hasAmpSubscriptions ? (
+          <>
+            <div
+              subscriptions-action="login"
+              subscriptions-display="NOT data.loggedIn">
+              Login
+            </div>
+            <section subscriptions-section="content-not-granted">
+              Login or subscribe to read more.
+            </section>
+          </>
+        ) : null}
         {children}
       </body>
     </Html>
