@@ -33,12 +33,12 @@ const StoryContentChildVideoJwplayerList = ({
               src={image}
               width={580}
               height={326}
-              sizes="(max-width: 360px) 360px, (max-width: 540px) 540px"
+              //sizes="(max-width: 360px) 360px, (max-width: 540px) 540px"
               alt={titleTxt}
               style={{
                 width: '100%',
               }}
-              loading="eager"
+              loading="lazy"
             />
           </div>
           {titleTxt && (
