@@ -8,22 +8,22 @@
 
   &__title {
     font: 400 15px/1 $primary-font;
-    background-color: #d0e7d9;
+    background-color: $color-gray-300;
     text-transform: capitalize;
     height: 35px;
     align-items: center;
     padding: 0 20px;
-    border: 1px solid #007d33;
     justify-content: space-between;
+    font-weight: 700;
   }
   &__link {
-    color: #007d33;
+    color: $color-white;
   }
   &__icon {
-    background-image: url(https://cdna.ojo.pe/resources/dist/ojo/images/loader.png);
-    height: 18px;
-    width: 25px;
-    background-size: contain;
+    background-image: url($assets_url+"/resources/dist/diariocorreo/images/logo.png");
+    height: 20px;
+    width: 20px;
+    background-size: cover;
     background-repeat: no-repeat;
   }
   &__item {
