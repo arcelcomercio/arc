@@ -277,8 +277,6 @@ export default ({
     contextPath,
   })
 
-  const iscriptJwplayer = jwplayerSeo || isVideosSection
-
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
     idYoutube ||
@@ -314,6 +312,7 @@ export default ({
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+  const iscriptJwplayer = jwplayerSeo || isVideosSection
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
@@ -668,7 +667,7 @@ export default ({
             />
           </>
         )}
-        {iscriptJwplayer && (
+        {(contenidoVideo || isVideosSection) && (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -693,14 +692,13 @@ export default ({
             />
           </>
         )}
-        {jwplayerSeo[0] ||
-          (isVideosSection && (
-            <script
-              dangerouslySetInnerHTML={{
-                __html: jwplayerScript,
-              }}
-            />
-          ))}
+        {iscriptJwplayer && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: jwplayerScript,
+            }}
+          />
+        )}
         {contenidoVideo && (
           <script
             dangerouslySetInnerHTML={{
