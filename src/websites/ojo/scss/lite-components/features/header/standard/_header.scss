@@ -8,7 +8,9 @@
   }
 
   &__logo {
-    height: 34px;
+    height: 66px;
+    z-index: 25;
+    position: relative;
   }
 
   &__nav {
@@ -32,21 +34,10 @@
   }
   &__item {
     white-space: nowrap;
-    &::after {
-      background-color: #ebebeb;
-      content: "";
-      display: block;
-      height: 80%;
-      margin: 0 20px;
-      width: 1px;
-    }
   }
   &__link {
+    font: 400 0.8rem/1 $primary-font;
     padding: 10px;
-    font-size: 14px;
-    font-weight: 700;
     text-transform: capitalize;
-    letter-spacing: 0.02rem;
-    color: #555;
   }
 }

@@ -6,11 +6,14 @@ import { loadNextPageScript } from '../_dependencies/scripts'
 /**
  * @see estilos src/websites/elcomercio/scss/components/statics/resumen-2020/_stories-list.scss
  */
-const StaticsResumen2020StoriesList = ({ content, month }) => {
-  const { historias: storiesList = [] } = content[month] || {}
+const StaticsResumen2020StoriesList = ({
+  mainPath,
+  nextSectionPath,
+  list = [],
+}) => {
   return (
     <main className="st-list">
-      {storiesList.map(
+      {list.map(
         ({
           url = '',
           fecha = '',
@@ -30,7 +33,7 @@ const StaticsResumen2020StoriesList = ({ content, month }) => {
         )
       )}
 
-      {month !== 'diciembre' && (
+      {nextSectionPath && (
         <>
           <div className="st-list__bar-cont">
             <div className="st-list__bar">
@@ -41,13 +44,13 @@ const StaticsResumen2020StoriesList = ({ content, month }) => {
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
-              __html: loadNextPageScript(month),
+              __html: loadNextPageScript(nextSectionPath, mainPath),
             }}
           />
         </>
       )}
 
-      {month === 'diciembre' && (
+      {!nextSectionPath && (
         <div className="st-list__footer">
           <svg
             className="st-list__footer-gec"

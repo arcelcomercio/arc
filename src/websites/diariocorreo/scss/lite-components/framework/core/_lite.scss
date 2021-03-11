@@ -54,13 +54,18 @@
   content-visibility: auto;
   contain-intrinsic-size: 5000px;
 }
+html {
+  font-size: 15px;
+
+  @media (--desktop) {
+    font-size: 16px;
+  }
+}
 
 // #fusion-app > div.f.just-center {   overflow: hidden;} se elimina por sticky
 
 .story-gallery-slider {
   max-width: 100vw;
-  padding: 20px;
-  background-color: #262627;
 }
 .story-gallery-slider__content {
   -webkit-transition: -webkit-transform 0.4s ease;
@@ -82,11 +87,9 @@
   overflow: hidden;
 }
 .story-gallery-slider__quantity {
-  background-color: #ebc12f;
-  width: 102px;
-  height: 30px;
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 12px;
+  line-height: 15px;
   letter-spacing: 3px;
   margin-right: 10px;
   align-items: center;
@@ -115,10 +118,14 @@
   }
 }
 .story-gallery-slider__caption {
-  padding: 20px 20px 20px 0;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: #efefec;
 }
 .story-gallery-slider__figure {
   position: relative;
+  background-color: #efefec;
 }
 .story-gallery-slider__right {
   right: 0;
@@ -158,36 +165,4 @@
 .menu {
   width: 0;
   transform: translateX(-100vw);
-}
-
-// #signwall-app > div {
-//   content-visibility: auto;
-// }
-
-.link-site {
-  &__image {
-    height: 100px;
-    width: 130px;
-    object-fit: cover;
-    @media (--tablet) {
-      width: 100%;
-      height: 135px;
-    }
-  }
-  &__icon-container {
-    width: 65px;
-    height: 20px;
-    background-color: #fff;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    border-radius: 10px;
-    padding-top: 4px;
-    @media (--only-mobile) {
-      margin-right: 15px;
-    }
-  }
-  &__icon-premium {
-    width: 40px;
-  }
 }

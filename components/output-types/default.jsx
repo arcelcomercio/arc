@@ -163,6 +163,7 @@ export default ({
     CURRENT_ENVIRONMENT,
     Resource,
     isHome,
+    metaValue
   }
 
   const getPrebid = () => {
@@ -376,7 +377,6 @@ export default ({
         <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
         <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
-        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
         <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
         <link rel="preconnect dns-prefetch" href="//static.chartbeat.com" />
         <link rel="preconnect dns-prefetch" href="//scomcluster.cxense.com" />
@@ -639,34 +639,6 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {/* Rubicon BlueKai - Inicio */}
-        {isElcomercioHome ? (
-          <>
-            <script
-              type="text/javascript"
-              defer
-              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-            />
-            <script
-              type="text/javascript"
-              defer
-              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-            />
-          </>
-        ) : (
-          <>
-            <script
-              type="text/javascript"
-              async
-              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-            />
-            <script
-              type="text/javascript"
-              async
-              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-            />
-          </>
-        )}
         {(contenidoVideo || isVideosSection) && (
           <>
             <script
@@ -756,7 +728,6 @@ export default ({
         {!isTrivia ? (
           <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
         ) : null}
-        {/* Rubicon BlueKai - Fin */}
         <script
           dangerouslySetInnerHTML={{
             __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
