@@ -7,6 +7,7 @@ import {
   SITE_PERU21,
   SITE_ELBOCON,
   SITE_OJO,
+  SITE_DIARIOCORREO,
 } from '../../../../utilities/constants/sitenames'
 
 const classes = {
@@ -32,7 +33,8 @@ const StoryContentChildAuthorLite = ({
       arcSite === SITE_TROME ||
       arcSite === SITE_PERU21 ||
       arcSite === SITE_ELBOCON ||
-      arcSite === SITE_OJO
+      arcSite === SITE_OJO ||
+      arcSite === SITE_DIARIOCORREO
     ) {
       return `Actualizado el ${formattedUpdateDate}`
     }

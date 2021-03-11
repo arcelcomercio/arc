@@ -1,8 +1,8 @@
 .st-social {
   margin: 0 0 20px 0;
   padding: 20px 10px 20px 20px;
-  border-bottom: 1px solid #4ca675;
-  border-top: 1px solid #4ca675;
+  border-bottom: 1px solid #7f7f7f;
+  border-top: 1px solid #7f7f7f;
   align-items: center;
   &__txt {
     font: 400 1.1rem/1 $primary-font;
@@ -12,7 +12,8 @@
   &__link {
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #8a8a8a;
+    color: #333;
+    text-transform: uppercase;
   }
 
   &__tooltdiv {
