@@ -277,6 +277,8 @@ export default ({
     contextPath,
   })
 
+  const iscriptJwplayer = jwplayerSeo || isVideosSection
+
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
     idYoutube ||
@@ -666,7 +668,7 @@ export default ({
             />
           </>
         )}
-        {(contenidoVideo || isVideosSection) && (
+        {iscriptJwplayer && (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -691,13 +693,14 @@ export default ({
             />
           </>
         )}
-        { jwplayerSeo[0] || isVideosSection && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: jwplayerScript,
-            }}
-          />
-        )}
+        {jwplayerSeo[0] ||
+          (isVideosSection && (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: jwplayerScript,
+              }}
+            />
+          ))}
         {contenidoVideo && (
           <script
             dangerouslySetInnerHTML={{
