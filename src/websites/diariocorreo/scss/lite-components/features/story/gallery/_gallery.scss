@@ -1,6 +1,5 @@
 .story-gallery-slider {
   max-width: 100vw;
-  padding: 20px;
 
   @media (--desktop) {
     max-width: 1024px;
@@ -12,12 +11,6 @@
     }
     @media (--desktop) {
       height: 510px;
-    }
-  }
-
-  &__quantity {
-    @media (--desktop) {
-      height: 40px;
     }
   }
 
@@ -39,8 +32,8 @@
 
   &__caption-image {
     font: 400 13px/1.33 $primary-font;
-    color: #fff;
-    padding-top: 10px;
+    color: #000;
+    flex: 1;
   }
 
   &__figure {

@@ -306,7 +306,7 @@
     padding-left: 30px;
     & li a {
       font-family: $primary-font;
-      color: #007d33;
+      color: #c00000;
       font-size: 18px;
       font-weight: 700;
       text-decoration: underline;
@@ -358,6 +358,9 @@
         margin-bottom: 20px;
       }
     }
+  }
+  .s-multimedia__caption {
+    padding: 10px 0;
   }
 }
 
@@ -512,6 +515,13 @@
         padding: 0 10px 0 20px;
       }
     }
+  }
+  &__caption {
+    color: #000;
+    font-family: $fourth-font;
+    font-size: 12px;
+    font-weight: 400;
+    padding-top: 10px;
   }
 }
 .overflow-hidden {
