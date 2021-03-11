@@ -1,5 +1,5 @@
 .share-btn {
-  border: 1px solid #8a8a8a;
+  border: 1px solid #333;
   border-radius: 50%;
   height: 29px;
   width: 29px;
@@ -14,7 +14,7 @@
     width: 35px;
   }
   svg {
-    fill: #8a8a8a;
+    fill: #333;
     height: 15px;
     @media (--desktop) {
       height: 17px;
@@ -34,8 +34,8 @@
   &--copy {
     height: 30px;
     line-height: 0;
-    fill: #8a8a8a;
-    color: #8a8a8a;
+    fill: #333;
+    color: #333;
     font-family: $primary-font;
     font-weight: bold;
     text-transform: uppercase;
