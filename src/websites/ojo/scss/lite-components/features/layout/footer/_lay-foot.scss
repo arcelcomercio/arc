@@ -1,10 +1,8 @@
 .lay-foot {
   contain-intrinsic-size: 400px;
   content-visibility: auto;
-  background-color: #333;
   padding: 20px;
-  color: #fff;
-  font: 400 11px/1.5 $primary-font;
+  font: 400 12px/1.5 $primary-font;
   flex-direction: column;
   @media (--desktop) {
     flex-direction: row;
@@ -30,7 +28,7 @@
     margin-bottom: 10px;
     @media (--desktop) {
       width: calc(100% / 3);
-      border-right: 1px solid #fff;
+      border-right: 1px solid #333;
       text-align: left;
       margin-bottom: 0;
       &:last-child {
