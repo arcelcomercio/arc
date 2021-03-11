@@ -52,6 +52,29 @@
       .row {
         padding: 5px 0;
       }
+      .item-cont {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .item-cont button {
+        margin: 0;
+      }
+      .arrows-cont {
+        display: flex;
+        flex-direction: column;
+        margin-right: 5px;
+      }
+      .arrows-cont svg {
+        height: 10px;
+        fill: #555;
+      }
+      .arrows-cont svg:first-child {
+        margin-bottom: 3px;
+      }
+      .arrows-cont svg:hover {
+        fill: #33c3f0;
+      }
     </style>
   </head>
 
@@ -64,14 +87,44 @@
         </div>
         <h5>Secciones:</h5>
         <template x-for="(item, index) in list" :key="index">
-          <div>
+          <div class="item-cont">
+            <div class="arrows-cont">
+              <svg
+                x-on:click="if(index !== 0) arrayMove(list, index, index - 1)"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19.999"
+                height="14.973"
+                viewBox="0 0 19.999 14.973"
+              >
+                <path
+                  d="M1,14.973H19a1,1,0,0,0,.823-1.569l-9-13A1.039,1.039,0,0,0,9.179.4l-9,13A1,1,0,0,0,1,14.973ZM10,2.73l7.092,10.243H2.909Z"
+                />
+              </svg>
+
+              <svg
+                x-on:click="if(index !== (list.length - 1)) arrayMove(list, index, index + 1)"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19.998"
+                height="15.001"
+                viewBox="0 0 19.998 15.001"
+              >
+                <path
+                  d="M19.884.536A1,1,0,0,0,19,0H1A1,1,0,0,0,.176,1.569l9,13a1,1,0,0,0,1.644,0l9-13A1,1,0,0,0,19.884.536ZM10,12.243,2.906,2H17.09Z"
+                />
+              </svg>
+            </div>
+
             <button
               x-text="item.seccion"
               x-on:click="setNewData(item, index)"
             ></button>
           </div>
         </template>
-        <button class="button-primary" x-on:click="tab = 2">
+        <button
+          style="margin-top: 20px;"
+          class="button-primary"
+          x-on:click="tab = 2"
+        >
           Agregar nueva seccion
         </button>
 
@@ -91,6 +144,7 @@
           cols="30"
           rows="10"
         ></textarea> -->
+
       </div>
       <div x-show="tab === 2">
         <div style="display: flex;">
@@ -127,7 +181,32 @@
         <h5 style="margin-top: 10px;">Historias:</h5>
 
         <template x-for="(item, index) in newData.historias" :key="index">
-          <div>
+          <div class="item-cont">
+            <div class="arrows-cont">
+              <svg
+                x-on:click="if(index !== 0) arrayMove(newData.historias, index, index - 1)"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19.999"
+                height="14.973"
+                viewBox="0 0 19.999 14.973"
+              >
+                <path
+                  d="M1,14.973H19a1,1,0,0,0,.823-1.569l-9-13A1.039,1.039,0,0,0,9.179.4l-9,13A1,1,0,0,0,1,14.973ZM10,2.73l7.092,10.243H2.909Z"
+                />
+              </svg>
+
+              <svg
+                x-on:click="if(index !== (newData.historias.length - 1)) arrayMove(newData.historias, index, index + 1)"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19.998"
+                height="15.001"
+                viewBox="0 0 19.998 15.001"
+              >
+                <path
+                  d="M19.884.536A1,1,0,0,0,19,0H1A1,1,0,0,0,.176,1.569l9,13a1,1,0,0,0,1.644,0l9-13A1,1,0,0,0,19.884.536ZM10,12.243,2.906,2H17.09Z"
+                />
+              </svg>
+            </div>
             <button
               x-on:click="setNewHistory(item, index)"
               x-text="item.titulo"
@@ -324,7 +403,17 @@
             };
           },
           isAddingNewJson: false,
-          newJson: ""
+          newJson: "",
+          arrayMove: function (arr, old_index, new_index) {
+            if (new_index >= arr.length) {
+              var k = new_index - arr.length + 1;
+              while (k--) {
+                arr.push(undefined);
+              }
+            }
+            arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+            return arr; // for testing
+          }
         };
       }
     </script>
