@@ -78,8 +78,6 @@ const Preconnects = ({
       )}
       <link rel="dns-prefetch" href="//www.facebook.com" />
       <link rel="dns-prefetch" href="//connect.facebook.net" />
-      <link rel="preconnect" href="//tags.bluekai.com" />
-      <link rel="dns-prefetch" href="//tags.bluekai.com" />
       <link rel="preconnect" href="//tags.bkrtx.com" />
       <link rel="dns-prefetch" href="//tags.bkrtx.com" />
       <link rel="preconnect" href="//static.chartbeat.com/" />
