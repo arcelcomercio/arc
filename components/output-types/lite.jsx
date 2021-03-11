@@ -358,7 +358,6 @@ const LiteOutput = ({
             <link rel="preconnect" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-            <link rel="dns-prefetch" href="//tags.bluekai.com/" />
             <link rel="preconnect" href="//cdn.cxense.com/" />
             <link rel="dns-prefetch" href="//cdn.cxense.com/" />
             <link rel="preconnect" href="//scdn.cxense.com/" />
