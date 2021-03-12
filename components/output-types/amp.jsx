@@ -505,6 +505,9 @@ const AmpOutputType = ({
                       "contentId": "${storyId}",
                       "apiOrigin": "https://api${
                         env === 'sandbox' ? '-sandbox' : ''
+                      }.${arcSite}.pe",
+                      "identityApiOrigin": "https://api${
+                        env === 'sandbox' ? '-sandbox' : ''
                       }.${arcSite}.pe"
                     }
                   }
