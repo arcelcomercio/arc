@@ -39,3 +39,14 @@
     padding: 0 0 8px 0;
   }
 }
+
+.story-content {
+  &__link-list {
+    &-figure {
+      img {
+        width: 96px;
+        height: 64px;
+      }
+    }
+  }
+}

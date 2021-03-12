@@ -53,6 +53,8 @@ const LayoutNavbar = props => {
 
   const primaryLogos = {
     elbocon: getReourceImgPath('logo.png'),
+    ojo: getReourceImgPath('logo.png'),
+    diariocorreo: getReourceImgPath('logo.png'),
   }
 
   const secondaryLogos = {

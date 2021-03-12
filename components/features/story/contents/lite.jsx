@@ -27,6 +27,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LIST,
+  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -60,6 +61,7 @@ import LiteYoutube from '../../../global-components/lite-youtube'
 import ShareButtons from '../../../global-components/lite/share'
 import { contentWithAds } from '../../../utilities/story/content'
 import { processedAds } from '../../../utilities/story/helpers'
+import StoryContentsChildLinkList from './_children/link-list'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -477,6 +479,10 @@ const StoryContentsLite = props => {
                       siteUrl={siteUrl}
                     />
                   )
+                }
+
+                if (type === ELEMENT_LINK_LIST) {
+                  return <StoryContentsChildLinkList items={items} />
                 }
 
                 if (
