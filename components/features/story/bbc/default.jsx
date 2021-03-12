@@ -34,7 +34,7 @@ const StoryBbc = () => {
             rel="nofollow noopener noreferrer"
             target="_blank">
             <picture>
-              <source media="(max-width: 639px)" data-srcset={imgBbcSource} />
+              <source media="(max-width: 639px)" srcSet={imgBbcSource} />
               <img alt="BBC" src={imgBbc} data-src={imgBbc} />
             </picture>
           </a>
