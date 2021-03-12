@@ -34,12 +34,12 @@ export default {
     color: '#8F071F',
   },
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'LE7X7PCZPRCM7ASXLIHWS7DKYQ',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'RXAYTOUIXNEI5N3MBETUNR7TCI',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'UF4RYI7XLNH4NGDN2FONQJ7HHU',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
     dataTreatment: 'RPHBHLSJA5AFLCV5QUC3E6A7SY',
@@ -133,7 +133,7 @@ export default {
       support:                           `{{contextPath}}/resources/dist/gestion/images/img_soporte.{{ext}}`,
       backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`,
       mainLogo:                          `{{contextPath}}/resources/dist/gestion/images/logo_gestion_30.png`,
-    }
+    },
   },
   assets: {
     nav: {

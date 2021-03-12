@@ -1,10 +1,10 @@
-import React, { createContext, useState } from 'react'
+import * as React from 'react'
 
-const { Provider, Consumer } = createContext()
+const { Provider, Consumer } = React.createContext()
 
 const NavigateProvider = ({ children }) => {
-  const [selectedTemplate, setSelectedTemplate] = useState('login')
-  const [valueTemplate, setValueTemplate] = useState()
+  const [selectedTemplate, setSelectedTemplate] = React.useState('login')
+  const [valueTemplate, setValueTemplate] = React.useState()
 
   const value = {
     selectedTemplate,

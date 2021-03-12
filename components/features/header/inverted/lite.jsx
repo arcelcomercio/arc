@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 
@@ -7,7 +7,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_lite/_dependencies/schema-filter'
 import HeaderBasicChildren from './_lite/_children/header'
 
-const HeaderBasic = props => {
+const HeaderBasic = (props) => {
   const {
     arcSite,
     contextPath,
@@ -45,7 +45,7 @@ const HeaderBasic = props => {
       hierarchy: 'menu-default',
     },
     filter: schemaFilter,
-    transform: data => {
+    transform: (data) => {
       const { children: sections = [] } = data || {}
       return sections
     },
@@ -58,20 +58,22 @@ const HeaderBasic = props => {
         arcSite,
         contextPath
       )}/resources/dist/elcomercio/images/logo.png?d=1`
+  const isPreview = /^\/preview\//.test(requestUri)
 
-  const params = {
-    hideMenu,
-    menuSections,
-    arcSite,
-    contextPath,
-    sectionPath,
-    mainImage,
-    title,
-    isSomos,
-    activeSticky,
-  }
-
-  return <HeaderBasicChildren {...params} />
+  return (
+    <HeaderBasicChildren
+      hideMenu={hideMenu}
+      menuSections={menuSections}
+      arcSite={arcSite}
+      contextPath={contextPath}
+      sectionPath={sectionPath}
+      mainImage={mainImage}
+      title={title}
+      isSomos={isSomos}
+      activeSticky={activeSticky}
+      disableSignwall={isPreview}
+    />
+  )
 }
 
 HeaderBasic.static = true

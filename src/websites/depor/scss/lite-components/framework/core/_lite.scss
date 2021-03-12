@@ -212,11 +212,25 @@ $tertiary-font: $secondary-font;
   @media (--only-mobile) {
     height: 180px;
   }
-  & .jw-svg-icon {
-    width: 77px;
-    height: 77px;
-    line-height: 77px;
-    fill: white;
+
+  &-icon-play {
+    width: 70px;
+    position: absolute;
+    height: 70px;
+    border: 10px solid #eee;
+    border-top: 10px solid #666;
+    border-radius: 50%;
+    animation-name: girar;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes girar {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
 iframe {

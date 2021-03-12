@@ -1,7 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react'
+import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
+
 import useForm from '../../../_hooks/useForm'
 import { getEntitlements } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
@@ -47,7 +48,7 @@ const Profile = () => {
   const {
     arcSite,
     globalContent: { plans = [], error, printedSubscriber },
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
   const {
     updateStep,
@@ -56,7 +57,9 @@ const Profile = () => {
     userErrorApi,
     updateErrorApi,
     userPlan,
-  } = useContext(AuthContext)
+    userPeriod,
+  } = React.useContext(AuthContext)
+
   const { urls, emails } = PropertiesSite[arcSite]
   const { texts, links } = PropertiesCommon
 
@@ -72,18 +75,21 @@ const Profile = () => {
     emailVerified,
   } = conformProfile(getStorageProfile())
 
-  const [msgError, setMsgError] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [loadText, setLoadText] = useState('Cargando...')
-  const [linkLogin, setLinkLogin] = useState()
-  const [showModal, setShowModal] = useState()
-  const [showDocOption, setShowDocOption] = useState(documentType || 'DNI')
+  const [msgError, setMsgError] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [loadText, setLoadText] = React.useState('Cargando...')
+  const [linkLogin, setLinkLogin] = React.useState()
+  const [showModal, setShowModal] = React.useState()
+  const [showDocOption, setShowDocOption] = React.useState(
+    documentType || 'DNI'
+  )
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.priceCode === userPlan.priceCode ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+    null
+  )
 
   const {
     amount,
@@ -94,7 +100,7 @@ const Profile = () => {
     productName,
   } = getPLanSelected || {}
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
@@ -137,8 +143,20 @@ const Profile = () => {
           emailVerified,
         })
       })
+
+      if (printedSubscriber || error) {
+        // Datalayer solicitados por Joao
+        window.dataLayer.push({
+          event: 'Pasarela Suscripciones Digitales',
+          category: 'P0_Plan Suscriptor',
+          action: printedSubscriber ? 'Aceptado' : `Denegado - ${error}`,
+          label: uuid,
+        })
+      }
+
       if (userErrorApi !== false) updateErrorApi(error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -207,14 +225,13 @@ const Profile = () => {
   const checkSubscriptions = () => {
     if (typeof window !== 'undefined') {
       return window.Identity.heartbeat()
-        .then(resHeart => {
-          return getEntitlements(urls.arcOrigin, resHeart.accessToken)
-            .then(resEntitlements => {
-              return (
+        .then(resHeart =>
+          getEntitlements(urls.arcOrigin, resHeart.accessToken)
+            .then(
+              resEntitlements =>
                 Array.isArray(resEntitlements.skus) &&
                 resEntitlements.skus.length > 0
-              )
-            })
+            )
             .catch(errEntitlements => {
               Sentry.captureEvent({
                 message: 'Error al verificar Suscripciones',
@@ -222,7 +239,7 @@ const Profile = () => {
                 extra: errEntitlements,
               })
             })
-        })
+        )
         .catch(errHeart => {
           Sentry.captureEvent({
             message: 'Error al extender la sessión',
@@ -295,13 +312,12 @@ const Profile = () => {
     if (typeof window !== 'undefined') {
       let { attributes: uAttributes = [] } = window.Identity.userProfile || {}
       if (!uAttributes) uAttributes = []
-      const addAttributes = (name, value) => {
-        return uAttributes.push({
+      const addAttributes = (name, value) =>
+        uAttributes.push({
           name,
           value: value.trim(),
           type: 'String',
         })
-      }
       addAttributes('documentType', uDocumentType)
       addAttributes('documentNumber', uDocumentNumber)
       const getUniqueListBy = (arr, key) => [
@@ -339,6 +355,14 @@ const Profile = () => {
         category: 'perfil',
         message: 'El Usuario completa sus datos',
         level: 'info',
+      })
+
+      // Datalayer solicitados por Joao
+      window.dataLayer.push({
+        event: 'Pasarela Suscripciones Digitales',
+        category: `P1_${namePlanApi.replace(' ', '_')}`,
+        action: userPeriod,
+        label: uuid,
       })
 
       if (
@@ -447,6 +471,14 @@ const Profile = () => {
       setShowModal(false)
       window.sessionStorage.setItem('paywall_confirm_subs', '2')
       Taggeo(nameTagCategory, 'web_paywall_close_validation')
+
+      // Datalayer solicitados por Joao
+      window.dataLayer.push({
+        event: 'Pasarela Suscripciones Digitales',
+        category: `P1_${namePlanApi.replace(' ', '_')}_Cancelado`,
+        action: userPeriod,
+        label: uuid,
+      })
     }
   }
 
@@ -534,6 +566,7 @@ const Profile = () => {
             <input
               className={uFirstNameError && 'input-error'}
               type="text"
+              autoComplete="given-name"
               name="uFirstName"
               value={uFirstName}
               required
@@ -554,6 +587,7 @@ const Profile = () => {
             <input
               className={uLastNameError && 'input-error'}
               type="text"
+              autoComplete="family-name"
               name="uLastName"
               value={uLastName}
               required
@@ -633,6 +667,8 @@ const Profile = () => {
             <input
               className={uPhoneError && 'input-error'}
               type="text"
+              inputMode="tel"
+              autoComplete="tel"
               name="uPhone"
               value={uPhone}
               maxLength="12"
@@ -653,6 +689,8 @@ const Profile = () => {
               ${!emailVerified && !isFacebook ? 'email-noverify' : ''} 
               ${uEmailError && 'input-error'}`}
               type="text"
+              inputMode="email"
+              autoComplete="email"
               name="uEmail"
               value={uEmail}
               required

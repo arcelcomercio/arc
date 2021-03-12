@@ -9,6 +9,7 @@ import OpenGraph from './_children/open-graph'
 import MetaStory from './_children/meta-story'
 import AmpTagManager from './_children/amp-tag-manager'
 import { addSlashToEnd } from '../utilities/parse/strings'
+import { getMultimedia } from '../utilities/multimedia'
 import {
   SITE_ELCOMERCIO,
   SITE_DEPOR,
@@ -22,7 +23,7 @@ import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 import { PREMIUM, METERED } from '../utilities/constants/content-tiers'
-import { originByEnv } from '../utilities/arc/env'
+import { originByEnv, env } from '../utilities/arc/env'
 
 const AmpOutputType = ({
   children,
@@ -55,15 +56,16 @@ const AmpOutputType = ({
     credits: { by: autors } = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     content_restrictions: { content_code: contentCode = '' } = {},
+    _id: storyId,
   } = globalContent || {}
 
+  const envOrigin = originByEnv(arcSite)
   const { activePaywall, activeRulesCounter } = siteProperties
 
   const isMetered = contentCode === METERED
   const isPremium = contentCode === PREMIUM
   // Redirecciona a la version original si noticia es premium
-  if (isPremium)
-    throw new RedirectError(`${siteProperties.siteUrl}${canonicalUrl}`, 301)
+  if (isPremium) throw new RedirectError(`${envOrigin}${canonicalUrl}`, 301)
 
   const isStory = /^\/.*\/.*-noticia/.test(requestUri)
 
@@ -147,6 +149,8 @@ const AmpOutputType = ({
     jwplayerSeo = [],
     haveJwplayerMatching = false,
     publishDate,
+    multimediaType,
+    primarySection,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -196,6 +200,13 @@ const AmpOutputType = ({
       (arcSite === SITE_ELCOMERCIO &&
         /^\/(tecnologia|somos|opinion)\//.test(requestUri)))
 
+  const hasAmpSubscriptions =
+    isMetered &&
+    activeRulesCounter &&
+    activePaywall &&
+    ((arcSite === SITE_GESTION && /^\/(opinion)\//.test(requestUri)) ||
+      (arcSite === SITE_ELCOMERCIO && /^\/(respuestas)\//.test(requestUri)))
+
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
    * de youtube o facebook, se necesita el script de youtube o facebook
@@ -214,7 +225,8 @@ const AmpOutputType = ({
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
-    hasExternalCounterPaywall
+    hasExternalCounterPaywall ||
+    hasAmpSubscriptions
 
   const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
 
@@ -255,7 +267,7 @@ const AmpOutputType = ({
     <Html lang={lang}>
       <head>
         <BaseMarkup
-          canonicalUrl={`${originByEnv(arcSite)}${addSlashToEnd(canonicalUrl)}`}
+          canonicalUrl={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
         <Styles {...metaSiteData} />
@@ -376,13 +388,11 @@ const AmpOutputType = ({
           />
         )}
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
-          <>
-            <script
-              async
-              custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-            />
-          </>
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
         )}
 
         {hasTwitter && (
@@ -460,6 +470,56 @@ const AmpOutputType = ({
             />
           </>
         )}
+        {hasAmpSubscriptions && (
+          <>
+            <script
+              async
+              custom-element="amp-subscriptions"
+              src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"
+            />
+            <script
+              type="application/json"
+              id="amp-subscriptions"
+              dangerouslySetInnerHTML={{
+                __html: `
+              {
+                "services": [
+                  {
+                    "type": "iframe",
+                    "iframeSrc": "${envOrigin}/arc/subs/p.html",
+                    "iframeVars": [
+                      "READER_ID",
+                      "CANONICAL_URL",
+                      "AMPDOC_URL",
+                      "SOURCE_URL",
+                      "DOCUMENT_REFERRER"
+                    ],
+                    "actions":{
+                      "login": "${envOrigin}/signwall/?outputType=signwall&signwallHard=1",
+                      "subscribe": "${envOrigin}/suscripcionesdigitales/?outputType=subscriptions"
+                    },
+                    "data": {
+                      "contentType": "${getMultimedia(multimediaType)}",
+                      "section": "${primarySection}",
+                      "contentRestriction": "${contentCode}",
+                      "contentId": "${storyId}",
+                      "apiOrigin": "https://api${
+                        env === 'sandbox' ? '-sandbox' : ''
+                      }.${arcSite}.pe"
+                    }
+                  }
+                ],
+                "fallbackEntitlement": {
+                  "source": "fallback",
+                  "granted": false,
+                  "grantReason": "METERING"
+                }
+              }
+              `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body className={subtype}>
         {!isTrivia && (
@@ -472,6 +532,18 @@ const AmpOutputType = ({
             />
           </>
         )}
+        {hasAmpSubscriptions ? (
+          <>
+            <div
+              subscriptions-action="login"
+              subscriptions-display="NOT data.loggedIn">
+              Login
+            </div>
+            <section subscriptions-section="content-not-granted">
+              Login or subscribe to read more.
+            </section>
+          </>
+        ) : null}
         {children}
       </body>
     </Html>

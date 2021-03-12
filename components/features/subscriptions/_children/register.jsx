@@ -3,20 +3,21 @@ import React, {
   // useContext
 } from 'react'
 import PropTypes from 'prop-types'
+
 import { NavigateConsumer } from '../_context/navigate'
 import useForm from '../_hooks/useForm'
-// import { AuthContext } from '../_context/auth'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
-import ButtonSocial from './social'
 import { Taggeo } from '../_dependencies/Taggeo'
 import getCodeError, {
   formatEmail,
+  formatPhone,
   acceptCheckTerms,
 } from '../_dependencies/Errors'
 import { MsgRegister } from '../_dependencies/Icons'
 import { isFbBrowser } from '../_dependencies/Utils'
+import ButtonSocial from './social'
 
 const styles = {
   title: 'step__left-title',
@@ -52,6 +53,7 @@ const Register = ({ arcSite }) => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
+    rphone: { value: '', error: '' },
     // rpolit: { value: '1', error: '' },
     rterms: { value: '0', error: '' },
   }
@@ -68,6 +70,11 @@ const Register = ({ arcSite }) => {
         error: 'Mínimo 8 caracteres',
       },
       nospaces: true,
+    },
+    rphone: {
+      required: false,
+      validator: formatPhone(),
+      min6caracts: true,
     },
     // rpolit: {
     //   required: false,
@@ -215,8 +222,13 @@ const Register = ({ arcSite }) => {
   }
 
   const {
-    values: { remail, rpass },
-    errors: { remail: remailError, rpass: rpassError, rterms: rtermsError },
+    values: { remail, rphone, rpass },
+    errors: {
+      remail: remailError,
+      rphone: rphoneError,
+      rpass: rpassError,
+      rterms: rtermsError,
+    },
     handleOnChange,
     handleOnSubmit,
     disable,
@@ -302,6 +314,8 @@ const Register = ({ arcSite }) => {
                     <input
                       className={remailError && 'input-error'}
                       type="email"
+                      inputMode="email"
+                      autoComplete="email"
                       name="remail"
                       value={remail}
                       required
@@ -321,6 +335,7 @@ const Register = ({ arcSite }) => {
                     <input
                       className={rpassError && 'input-error'}
                       type={showHidePass}
+                      autoComplete="new-password"
                       name="rpass"
                       value={rpass}
                       required
@@ -333,9 +348,29 @@ const Register = ({ arcSite }) => {
                       aria-label="lshowpass"
                       className={`${styles.btnShow}-${showHidePass}`}
                       type="button"
-                      onClick={toogleHidePass}></button>
+                      onClick={toogleHidePass}
+                    />
                     {rpassError && (
                       <span className="msn-error">{rpassError}</span>
+                    )}
+                  </label>
+                </div>
+
+                <div className={styles.block}>
+                  <label htmlFor="rphone">
+                    Teléfono
+                    <input
+                      className={rphoneError && 'input-error'}
+                      type="text"
+                      name="rphone"
+                      value={rphone}
+                      maxLength="12"
+                      onChange={handleChangeInput}
+                      onBlur={handleOnChange}
+                      disabled={loading}
+                    />
+                    {rphoneError && (
+                      <span className="msn-error">{rphoneError}</span>
                     )}
                   </label>
                 </div>
@@ -361,7 +396,7 @@ const Register = ({ arcSite }) => {
                       onClick={dataTreatment}>
                       fines adicionales
                     </button>
-                    <span className="checkmark"></span>
+                    <span className="checkmark" />
                   </label>
                 </div> */}
 
@@ -395,8 +430,8 @@ const Register = ({ arcSite }) => {
                       {texts.policies}
                     </button>
                     <span
-                      className={`checkmark ${rtermsError &&
-                        'input-error'}`}></span>
+                      className={`checkmark ${rtermsError && 'input-error'}`}
+                    />
                   </label>
                 </div>
 
