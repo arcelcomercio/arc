@@ -95,3 +95,116 @@
     height: 35px;
   }
 }
+
+.header {
+  display: none;
+  &__featured {
+    list-style-type: disc;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    @media (--desktop) {
+      max-width: 1100px;
+    }
+  }
+  &__item {
+    white-space: nowrap;
+    padding: 0 20px;
+    font-size: 12px;
+    color: #000;
+    &::before {
+      background-color: #333;
+      border-radius: 50px;
+      content: "";
+      display: block;
+      height: 3px;
+      width: 3px;
+      margin-right: 5px;
+    }
+  }
+  &__link {
+    color: #333 !important;
+    font-family: "Bitter,SemiBold", serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: transparent !important;
+  }
+}
+nav.nav__wrapper {
+  height: 36px;
+  background-color: #e3e3e3;
+  display: flex;
+}
+
+.header-section {
+  padding: 15px;
+  justify-content: center;
+  &__icon-wrapper {
+    display: none;
+  }
+  &__img-wrapper {
+    display: flex;
+  }
+  &__logo-wrapper {
+    display: none;
+  }
+}
+.section-menu {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  position: relative;
+  transition: all 5ms;
+  &__search {
+    display: none;
+  }
+  &__content {
+    width: 100%;
+    text-align: center;
+    background-color: transparent;
+    margin: auto;
+    overflow-y: hidden;
+    transform: translateZ(0);
+    transition: all 10ms;
+  }
+  &__close {
+    display: none;
+  }
+  &__list {
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    list-style: none;
+    border-top: 1px solid;
+    padding: 0 50px;
+  }
+  &__item {
+    display: flex;
+    height: 44px;
+    border-left: 1px solid;
+    align-items: center;
+    width: 100%;
+    & a {
+      font-family: "Bitter,Medium", serif;
+      color: #000;
+      font-size: 16px;
+    }
+    &:nth-child(9) {
+      border-right: 1px solid;
+    }
+    //ES TEMPORAL, DEBE CAMBIARSE POR JS
+    &:nth-child(3) {
+      border-bottom: 5px solid;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 0;
+    }
+  }
+  &__item-link {
+    display: flex;
+    align-items: center;
+    &:first-child {
+      display: none;
+    }
+  }
+}
