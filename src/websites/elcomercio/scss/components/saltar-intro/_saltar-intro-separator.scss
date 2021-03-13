@@ -1,0 +1,109 @@
+.saltar-intro-separator {
+  &__container {
+    margin-bottom: 30px;
+  }
+  &__box-title {
+    text-align: center;
+  }
+  &__title {
+    // font: normal normal 600 17px/18px Bitter;
+    font-size: 17px;
+    line-height: 18px;
+    font-weight: 600;
+    letter-spacing: 0.24px;
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    top: 13px;
+    background-color: #000;
+    -webkit-transform: skew(-10deg);
+    -moz-transform: skew(-10deg);
+    -ms-transform: skew(-10deg);
+    -o-transform: skew(-10deg);
+    transform: skew(-10deg);
+    display: inline-block;
+    padding: 3px 10px;
+    padding-top: 6px;
+    &--reversing {
+      -webkit-transform: skew(10deg);
+      -moz-transform: skew(10deg);
+      -ms-transform: skew(10deg);
+      -o-transform: skew(10deg);
+      transform: skew(10deg);
+    }
+  }
+  &__box-see-more {
+    border-top: 1px solid #b7b7b7;
+    @media (--desktop) {
+      text-align: right;
+    }
+  }
+  &__see-more {
+    // font: normal normal medium 10px/17px Bitter;
+    font-size: 10px;
+    line-height: 17px;
+    font-weight: medium;
+    letter-spacing: -0.2px;
+    color: #000;
+    text-transform: uppercase;
+  }
+  &__list {
+    @media (--desktop) {
+      justify-content: space-between;
+    }
+  }
+  &__section {
+    border: 1px solid #a7a7a7;
+    padding: 3px 7px;
+    padding-top: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    // font: normal normal 600 12px/18px Bitter;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.17px;
+    color: #000;
+    text-transform: uppercase;
+  }
+  &__box-item {
+    max-width: 330px;
+    @media (--desktop) {
+      &:nth-child(2) {
+        margin-left: 33px;
+        margin-right: 33px;
+      }
+    }
+  }
+  &__content {
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 24px;
+    // font: normal normal bold 19px/24px Bitter;
+    letter-spacing: -0.19px;
+    color: #000;
+    opacity: 1;
+    margin-bottom: 10px;
+    height: 75px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  &__image {
+    width: 100%;
+    // remove extra space bottom
+    // display: block;
+    vertical-align: middle;
+  }
+  &__author {
+    // font: normal normal medium 10px/24px Bitter;
+    font-size: 10px;
+    line-height: 24px;
+    font-weight: medium;
+    letter-spacing: 0.14px;
+    color: #000;
+    text-transform: uppercase;
+  }
+}
