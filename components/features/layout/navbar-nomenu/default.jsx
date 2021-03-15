@@ -1,14 +1,14 @@
-import React from 'react'
-
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-// import { useFusionContext } from 'fusion:context'
+import { useFusionContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import NavBarChild from './_children/navbar-no-menu'
 
-const navBarNoMenu = props => {
+const NavBarNoMenu = props => {
   const { customFields: { hierarchyConfig } = {} } = props
+  const { requestUri } = useFusionContext()
 
   const { contentService = '', contentConfigValues = {} } =
     hierarchyConfig || {}
@@ -28,11 +28,11 @@ const navBarNoMenu = props => {
       filter: schemaFilter,
     }) || {}
 
-  return <NavBarChild list={data} />
+  return <NavBarChild list={data} requestUri={requestUri} />
 }
 
-navBarNoMenu.propTypes = {
+NavBarNoMenu.propTypes = {
   customFields,
 }
-navBarNoMenu.label = 'Barra de Navegacion sin menu'
-export default navBarNoMenu
+NavBarNoMenu.label = 'Barra de Navegacion sin menu'
+export default NavBarNoMenu

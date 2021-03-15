@@ -51,6 +51,7 @@ import {
   MINUTO_MINUTO,
   GALLERY_VERTICAL,
 } from '../utilities/constants/subtypes'
+import { PREMIUM } from '../utilities/constants/content-tiers'
 
 export default ({
   children,
@@ -149,6 +150,7 @@ export default ({
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
 
   const metaSiteData = {
@@ -260,7 +262,7 @@ export default ({
 
   const isTrivia = /^\/trivias\//.test(requestUri)
   const isCovid = /^\/covid-19\//.test(requestUri)
-  const isPremium = contentCode === 'premium' || false
+  const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
@@ -544,7 +546,7 @@ export default ({
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeSignwall || isTrivia) {
+          if (isElcomercioHome || !siteProperties.activeSignwall || isTrivia || isPreview) {
             return null
           }
           return (
@@ -558,7 +560,8 @@ export default ({
           if (
             isElcomercioHome ||
             !siteProperties.activeRulesCounter ||
-            isTrivia
+            isTrivia || 
+            isPreview
           ) {
             return null
           }

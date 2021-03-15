@@ -91,6 +91,7 @@ const StoryContentsLite = props => {
     arcSite,
     contextPath,
     deployment,
+    requestUri,
     siteProperties: {
       ids: { opta },
       isDfp = false,
@@ -170,6 +171,7 @@ const StoryContentsLite = props => {
     adsEvery: liteAdsEvery,
     arcSite,
   })
+  const isPreview = /^\/preview\//.test(requestUri)
 
   return (
     <>
@@ -194,10 +196,13 @@ const StoryContentsLite = props => {
               data-prebid-enabled></div>
           )}
         <div
-          className={`${classes.content} ${isPremium &&
-            'story-content__nota-premium paywall no_copy'}`}
+          className={`${classes.content} ${
+            isPremium && !isPreview
+              ? 'story-content__nota-premium paywall no_copy'
+              : ''
+          }`}
           style={
-            isPremium
+            isPremium && !isPreview
               ? {
                   display: 'none',
                   opacity: '0',

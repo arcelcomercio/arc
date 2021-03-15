@@ -192,6 +192,7 @@ class StoryContents extends React.PureComponent {
 
     const rawHtmlContent = contentElementsHtml
     const isJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
+    const isPreview = /^\/preview\//.test(requestUri)
 
     return (
       <>
@@ -239,9 +240,9 @@ class StoryContents extends React.PureComponent {
             />
           )}
           <div
-            className={`${classes.content} ${isPremium &&
-              'story-content__nota-premium paywall no_copy'}`}
-            style={isPremium ? { display: 'none' } : {}}
+            className={`${classes.content} ${isPremium && !isPreview ?
+              'story-content__nota-premium paywall no_copy' : ''}`}
+            style={isPremium && !isPreview ? { display: 'none' } : {}}
             id="contenedor">
             {!requestUri.includes('/recetas/') && subtype !== MINUTO_MINUTO && (
               <StoryContentsChildIcon />
