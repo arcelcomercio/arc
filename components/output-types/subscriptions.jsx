@@ -126,7 +126,7 @@ const Subscriptions = ({
             <div id="fusion-app" role="application">
               {children}
             </div>
-            <Fusion />
+            <Fusion hydrateOnly />
           </body>
         </html>
       )}

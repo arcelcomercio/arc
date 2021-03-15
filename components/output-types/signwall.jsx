@@ -1,22 +1,28 @@
-import React from 'react'
-import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 import PropTypes from 'prop-types'
+
+import { env } from '../utilities/arc/env'
+import { getAssetsPath } from '../utilities/constants'
 import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
-import { getAssetsPath } from '../utilities/constants'
 
 const Signwall = props => {
   const { children, contextPath, siteProperties, deployment, arcSite } = props
 
-  const { siteName, siteDescription } = siteProperties
-
-  const C_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const {
+    activePaywall,
+    activeSignwall,
+    fbPixelId,
+    googleTagManagerId,
+    siteName,
+    siteDescription,
+  } = siteProperties
 
   return (
     <html lang="es">
       <head>
-        <TagManager {...siteProperties} />
-        <FbPixel {...props} />
+        <TagManager googleTagManagerId={googleTagManagerId} />
+        <FbPixel fbPixelId={fbPixelId} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
@@ -50,16 +56,16 @@ const Signwall = props => {
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
 
-        {siteProperties.activeSignwall && (
+        {activeSignwall && (
           <script
-            src={`https://arc-subs-sdk.s3.amazonaws.com/${C_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+            src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js?v=07112019`}
             defer
           />
         )}
-        {siteProperties.activePaywall && (
+        {activePaywall && (
           <>
             <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${C_ENVIRONMENT}/sdk-sales.min.js?v=07112019`}
+              src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js?v=07112019`}
               defer
             />
           </>
@@ -69,7 +75,7 @@ const Signwall = props => {
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -79,7 +85,7 @@ const Signwall = props => {
             height="1"
             width="1"
             style={{ display: 'none' }}
-            src={`https://www.facebook.com/tr?id=${siteProperties.fbPixelId}&ev=PageView&noscript=1`}
+            src={`https://www.facebook.com/tr?id=${fbPixelId}&ev=PageView&noscript=1`}
           />
         </noscript>
 
@@ -87,7 +93,7 @@ const Signwall = props => {
           {children}
         </div>
 
-        <props.Fusion />
+        <props.Fusion hydrateOnly />
       </body>
     </html>
   )
