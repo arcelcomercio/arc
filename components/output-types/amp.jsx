@@ -150,7 +150,7 @@ const AmpOutputType = ({
     haveJwplayerMatching = false,
     publishDate,
     multimediaType,
-    primarySection,
+    primarySectionLink,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -297,7 +297,8 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null}
+            ) : null
+          }
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -500,9 +501,7 @@ const AmpOutputType = ({
                     },
                     "data": {
                       "contentType": "${getMultimedia(multimediaType)}",
-                      "section": "${primarySection}",
-                      "contentRestriction": "${contentCode}",
-                      "contentId": "${storyId}",
+                      "section": "${primarySectionLink}",
                       "apiOrigin": "https://api${
                         env === 'sandbox' ? '-sandbox' : ''
                       }.${arcSite}.pe",
