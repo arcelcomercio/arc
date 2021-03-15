@@ -278,6 +278,9 @@ h6 {
 
 /******* Framework Variables *******/
 @import "../../general-styles/framework/variables/index";
+
+@import "./scss/partials/import-icons";
+
 /******* Site Variables *******/
 @import "../../general-styles/framework/core/index";
 @import "../../general-styles/framework/generators/index";
