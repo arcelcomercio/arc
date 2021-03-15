@@ -313,7 +313,7 @@ class SignwallComponent extends React.PureComponent {
 
   render() {
     const { userName, initialUser, showPaywall, showPremium } = this.state
-    const { countOnly, arcSite, siteProperties, classButton } = this.props
+    const { countOnly, arcSite, siteProperties, classButton = '' } = this.props
     return (
       <>
         <button

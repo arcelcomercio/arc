@@ -631,10 +631,8 @@ class NavBarDefault extends PureComponent {
                 )}
 
                 {siteProperties.activeSignwall && (
-                  <SignwallComponent 
-                    countOnly 
-                    arcSite={arcSite} 
-                    siteProperties={siteProperties}  
+                  <SignwallComponent
+                    countOnly
                     classButton="flex items-center btn capitalize text-md nav__btn-sign"
                   />
                 )}
