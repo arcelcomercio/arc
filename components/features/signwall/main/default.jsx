@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default () => {
+export default ({ classButton, countOnly }) => {
   const SignwallComponent = React.lazy(() =>
     import(
       /* webpackChunkName: "main-signwall" */
@@ -10,7 +10,7 @@ export default () => {
 
   return (
     <React.Suspense fallback="Cargando...">
-      <SignwallComponent />
+      <SignwallComponent classButton={classButton} countOnly={countOnly} />
     </React.Suspense>
   )
 }
