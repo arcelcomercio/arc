@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const classes = {
   box: 'react-calendar__box flex flex-col',

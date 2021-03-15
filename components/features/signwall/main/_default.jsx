@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 import Fingerprint2 from 'fingerprintjs2'
 
 import { Paywall } from './_children/paywall'
@@ -17,7 +17,7 @@ const classes = {
 }
 
 @Consumer
-class SignwallComponent extends PureComponent {
+class SignwallComponent extends React.PureComponent {
   _isMounted = false
 
   constructor(props) {
