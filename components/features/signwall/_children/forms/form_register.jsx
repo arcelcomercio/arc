@@ -44,7 +44,7 @@ const FormRegister = props => {
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(true)
+  // const [checkedPolits, setCheckedPolits] = useState(true)
   const [checkedTerms, setCheckedTerms] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
 
@@ -57,7 +57,7 @@ const FormRegister = props => {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
     rphone: { value: '', error: '' },
-    rpolit: { value: '1', error: '' },
+    // rpolit: { value: '1', error: '' },
     rterms: { value: '0', error: '' },
   }
 
@@ -89,9 +89,9 @@ const FormRegister = props => {
       validator: formatPhone(),
       min6caracts: true,
     },
-    rpolit: {
-      required: false,
-    },
+    // rpolit: {
+    //   required: false,
+    // },
     rterms: {
       required: true,
       validator: {
@@ -225,16 +225,16 @@ const FormRegister = props => {
             value: checkedTerms ? '1' : '0',
             type: 'String',
           },
-          {
-            name: 'dataTreatment',
-            value:
-              arcSite === 'elcomercio' || arcSite === 'gestion'
-                ? checkedPolits
-                  ? '1'
-                  : '0'
-                : 'NULL',
-            type: 'String',
-          },
+          // {
+          //   name: 'dataTreatment',
+          //   value:
+          //     arcSite === 'elcomercio' || arcSite === 'gestion'
+          //       ? checkedPolits
+          //         ? '1'
+          //         : '0'
+          //       : 'NULL',
+          //   type: 'String',
+          // },
         ],
       },
       { doLogin: true },
@@ -485,7 +485,7 @@ const FormRegister = props => {
                         error={rphoneError || showFormatInvalid}
                       />
 
-                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                      {/* {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
                         <CheckBox
                           checked={checkedPolits}
                           value={checkedPolits ? '1' : '0'}
@@ -506,7 +506,7 @@ const FormRegister = props => {
                             </S.Link>
                           </S.Text>
                         </CheckBox>
-                      )}
+                      )} */}
 
                       <CheckBox
                         checked={checkedTerms}
@@ -522,44 +522,20 @@ const FormRegister = props => {
                         <S.Text c="gray" lh="18" s="12" className="mt-10">
                           Al crear la cuenta acepto los
                           <S.Link
-                            href={`${
-                              arcSite === 'depor'
-                                ? '/terminos-servicio/'
-                                : '/terminos-y-condiciones/'
-                            }`}
+                            href={Domains.getPoliticsTerms('terms', arcSite)}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-5 mr-5 inline">
+                            className="ml-10 mr-10 inline">
                             Términos y Condiciones
                           </S.Link>
                           y
                           <S.Link
-                            href={
-                              // {
-                              //   'elcomercio': '/politicas-privacidad/',
-                              //   'gestion': '/politica-de-privacidad/',
-                              //   'peru21': '/politicas-de-privacidad/',
-                              //   'depor': '/politicas-privacidad/',
-                              //   'trome': '/politica-de-privacidad/'
-                              // }[arcSite]
-                              (() => {
-                                switch (arcSite) {
-                                  case 'elcomercio':
-                                  case 'depor':
-                                    return '/politicas-privacidad/'
-                                  case 'gestion':
-                                  case 'trome':
-                                    return '/politica-de-privacidad/'
-                                  default:
-                                    return '/politicas-de-privacidad/'
-                                }
-                              })()
-                            }
+                            href={Domains.getPoliticsTerms('politics', arcSite)}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-5 inline">
+                            className="ml-10 inline">
                             Políticas de Privacidad
                           </S.Link>
                         </S.Text>

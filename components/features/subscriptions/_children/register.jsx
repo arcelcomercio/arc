@@ -7,7 +7,7 @@ import { NavigateConsumer } from '../_context/navigate'
 import useForm from '../_hooks/useForm'
 // import { AuthContext } from '../_context/auth'
 import getDevice from '../_dependencies/GetDevice'
-import { PropertiesCommon } from '../_dependencies/Properties'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import ButtonSocial from './social'
 import { Taggeo } from '../_dependencies/Taggeo'
@@ -42,18 +42,19 @@ const Register = ({ arcSite }) => {
   const [loadText, setLoadText] = useState('Cargando...')
   const [msgError, setMsgError] = useState()
   const [checkedTerms, setCheckedTerms] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(true)
+  // const [checkedPolits, setCheckedPolits] = useState(true)
   const [forgotLink, setForgotLink] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
   const [showConfirm, setShowConfirm] = useState(false)
   const [showSendEmail, setShowSendEmail] = useState(false)
   const { texts, urls } = PropertiesCommon
+  const { urls: urlSite } = PropertiesSite[arcSite]
 
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
     rphone: { value: '', error: '' },
-    rpolit: { value: '1', error: '' },
+    // rpolit: { value: '1', error: '' },
     rterms: { value: '0', error: '' },
   }
 
@@ -75,53 +76,59 @@ const Register = ({ arcSite }) => {
       validator: formatPhone(),
       min6caracts: true,
     },
-    rpolit: {
-      required: false,
-    },
+    // rpolit: {
+    //   required: false,
+    // },
     rterms: {
       required: true,
       validator: acceptCheckTerms(),
     },
   }
 
-  const openTerminos = () => {
+  const openNewTab = typeLink => {
     if (typeof window !== 'undefined') {
-      window.open(
-        `${
-          arcSite === 'depor'
-            ? '/terminos-servicio/'
-            : '/terminos-y-condiciones/'
-        }`,
-        '_blank'
-      )
+      window.open(urlSite[typeLink], '_blank')
     }
   }
 
-  const openPoliticas = () => {
-    if (typeof window !== 'undefined') {
-      window.open(
-        (() => {
-          switch (arcSite) {
-            case 'elcomercio':
-            case 'depor':
-              return '/politicas-privacidad/'
-            case 'gestion':
-            case 'trome':
-              return '/politica-de-privacidad/'
-            default:
-              return '/politicas-de-privacidad/'
-          }
-        })(),
-        '_blank'
-      )
-    }
-  }
+  // const openTerminos = () => {
+  //   if (typeof window !== 'undefined') {
+  //     window.open(
+  //       `${
+  //         arcSite === 'depor'
+  //           ? '/terminos-servicio/'
+  //           : '/terminos-y-condiciones/'
+  //       }`,
+  //       '_blank'
+  //     )
+  //   }
+  // }
 
-  const dataTreatment = () => {
-    if (typeof window !== 'undefined') {
-      window.open('/tratamiento-de-datos/', '_blank')
-    }
-  }
+  // const openPoliticas = () => {
+  //   if (typeof window !== 'undefined') {
+  //     window.open(
+  //       (() => {
+  //         switch (arcSite) {
+  //           case 'elcomercio':
+  //           case 'depor':
+  //             return '/politicas-privacidad/'
+  //           case 'gestion':
+  //           case 'trome':
+  //             return '/politica-de-privacidad/'
+  //           default:
+  //             return '/politicas-de-privacidad/'
+  //         }
+  //       })(),
+  //       '_blank'
+  //     )
+  //   }
+  // }
+
+  // const dataTreatment = () => {
+  //   if (typeof window !== 'undefined') {
+  //     window.open('/tratamiento-de-datos/', '_blank')
+  //   }
+  // }
 
   const onFormRegister = ({ remail, rpass }) => {
     if (typeof window !== 'undefined') {
@@ -168,11 +175,11 @@ const Register = ({ arcSite }) => {
               value: checkedTerms ? '1' : '0',
               type: 'String',
             },
-            {
-              name: 'dataTreatment',
-              value: checkedPolits ? '1' : '0',
-              type: 'String',
-            },
+            // {
+            //   name: 'dataTreatment',
+            //   value: checkedPolits ? '1' : '0',
+            //   type: 'String',
+            // },
           ],
         },
         { doLogin: true },
@@ -364,7 +371,7 @@ const Register = ({ arcSite }) => {
                   </label>
                 </div>
 
-                <div className={styles.block}>
+                {/* <div className={styles.block}>
                   <label htmlFor="rpolit" className="terms">
                     <input
                       id="rpolit"
@@ -387,7 +394,7 @@ const Register = ({ arcSite }) => {
                     </button>
                     <span className="checkmark"></span>
                   </label>
-                </div>
+                </div> */}
 
                 <div className={styles.block}>
                   <label htmlFor="rterms" className="terms">
@@ -408,14 +415,14 @@ const Register = ({ arcSite }) => {
                     <button
                       className={styles.link}
                       type="button"
-                      onClick={() => openTerminos()}>
+                      onClick={() => openNewTab('terminosSign')}>
                       {texts.terms}
                     </button>
                     {texts.and}
                     <button
                       className={styles.link}
                       type="button"
-                      onClick={() => openPoliticas()}>
+                      onClick={() => openNewTab('politicasSign')}>
                       {texts.policies}
                     </button>
                     <span

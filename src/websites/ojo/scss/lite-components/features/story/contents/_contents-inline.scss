@@ -2,24 +2,28 @@
   padding: 25px 20px 20px 20px;
   margin-bottom: 25px;
   &__blockquote {
+    font: 400 18px/1.33 $primary-font;
     padding: 20px 20px 20px 36px;
     margin: 40px 0 40px 15px;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.16px;
   }
   &__author {
     font-size: 16px;
-    font-family: $primary-font;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
   }
   &__font-paragraph {
-    font-size: 18px;
+    font: 400 1.3rem/1.5 $primary-font;
     padding: 10px 0;
-    line-height: 28px;
   }
-  &__content {
-    padding-top: 5px;
+  & li {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    font-size: 16.9px;
+  }
+  &__caption {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.3;
   }
 }
 

@@ -27,6 +27,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LIST,
+  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -60,6 +61,7 @@ import LiteYoutube from '../../../global-components/lite-youtube'
 import ShareButtons from '../../../global-components/lite/share'
 import { contentWithAds } from '../../../utilities/story/content'
 import { processedAds } from '../../../utilities/story/helpers'
+import StoryContentsChildLinkList from './_children/link-list'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -166,7 +168,7 @@ const StoryContentsLite = props => {
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
-    arcSite
+    arcSite,
   })
 
   return (
@@ -181,20 +183,27 @@ const StoryContentsLite = props => {
             )}
           </>
         )}
-        {arcSite !== SITE_ELCOMERCIOMAG && subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
-          <div
-            id="gpt_caja3"
-            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-            data-bloque="3"
-            data-prebid-enabled></div>
-        )}
+        {arcSite !== SITE_ELCOMERCIOMAG &&
+          subtype !== MINUTO_MINUTO &&
+          subtype !== GALLERY_VERTICAL && (
+            <div
+              id="gpt_caja3"
+              data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+              data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+              data-bloque="3"
+              data-prebid-enabled></div>
+          )}
         <div
           className={`${classes.content} ${isPremium &&
             'story-content__nota-premium paywall no_copy'}`}
           style={
             isPremium
-              ? { display: 'none', opacity: '0', userSelect: 'none' }
+              ? {
+                  display: 'none',
+                  opacity: '0',
+                  userSelect: 'none',
+                  visibility: 'hidden',
+                }
               : {}
           }
           id="contenedor">
@@ -322,14 +331,17 @@ const StoryContentsLite = props => {
                     : classes.textClasses
                   return (
                     <>
-                      {nameAds === 'caja3' && arcSite === SITE_ELCOMERCIOMAG && subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
-                        <div
-                          id="gpt_caja3"
-                          data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-                          data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-                          data-bloque="3"
-                          data-prebid-enabled></div>
-                      )}
+                      {nameAds === 'caja3' &&
+                        arcSite === SITE_ELCOMERCIOMAG &&
+                        subtype !== MINUTO_MINUTO &&
+                        subtype !== GALLERY_VERTICAL && (
+                          <div
+                            id="gpt_caja3"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-bloque="3"
+                            data-prebid-enabled></div>
+                        )}
                       {nameAds === 'inline' && (
                         <div
                           id="gpt_inline"
@@ -467,6 +479,10 @@ const StoryContentsLite = props => {
                       siteUrl={siteUrl}
                     />
                   )
+                }
+
+                if (type === ELEMENT_LINK_LIST) {
+                  return <StoryContentsChildLinkList items={items} />
                 }
 
                 if (

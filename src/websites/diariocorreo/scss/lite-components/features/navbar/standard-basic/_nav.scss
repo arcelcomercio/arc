@@ -1,13 +1,10 @@
 .nav {
   z-index: 25;
-  background-color: #0c70bf;
+  background-color: #000;
   height: 46px;
   padding: 0 15px;
   max-width: $max-width;
-  @media (--desktop) {
-    // background-color: transparent;
-    background-color: #fff;
-  }
+
   &__p-logo {
     display: block;
     left: 50%;
@@ -22,7 +19,7 @@
   }
   &__story-title {
     display: none;
-    color: #444;
+    color: #fff;
     padding: 0 15px;
     line-height: 1.4;
     -webkit-box-orient: vertical;
@@ -33,23 +30,18 @@
     margin: auto;
     width: 300px;
     @media (--desktop) {
-      position: absolute;
       margin: 0;
-      left: 30%;
       width: 460px;
     }
   }
   &__story-social-network {
     display: none;
-    padding-right: 30px;
-    @media (--desktop) {
-      padding-right: 0;
-    }
   }
   &__search-box {
     height: 20px;
-    border-right: 1px solid #0c70bf;
     display: none;
+    right: 20px;
+    position: absolute;
     @media (--desktop) {
       display: flex;
     }
@@ -59,6 +51,8 @@
     width: 0;
   }
   &__i-search {
+    background-color: #000;
+    color: #fff;
     height: 30px;
     outline: none;
     padding: 5px;
@@ -69,7 +63,7 @@
     will-change: width;
     width: 0;
     &.active {
-      border: 1px solid #0c70bf;
+      border: 1px solid #fff;
       padding-left: 8px;
       width: 200px;
     }
@@ -81,7 +75,7 @@
     right: 0;
     top: 0;
     svg {
-      fill: #0c70bf;
+      fill: #fff;
     }
   }
   &__list {
@@ -89,8 +83,9 @@
     width: 1000px;
   }
   &__list-container {
+    margin-left: 120px;
     height: 46px;
-    max-width: 560px;
+    max-width: 780px;
     overflow: hidden;
     display: none;
     @media (--desktop) {
@@ -101,30 +96,32 @@
     padding-right: 15px;
   }
   &__list-link {
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    color: #0c70bf;
+    text-transform: capitalize;
+    font-size: 15px;
+    color: #fff;
   }
   &__logo {
     height: 46px;
-    padding: 10px 0;
   }
   &__btn--section {
     border-right: 1px solid #fff;
     padding-right: 10px;
     position: relative;
+    @media (--desktop) {
+      display: none;
+    }
     &::after {
       content: "";
       width: 1px;
       height: 20px;
-      background-color: #0c70bf;
+      background-color: #8a8a8a;
       right: 0;
       position: absolute;
     }
     svg {
       fill: #fff;
       @media (--desktop) {
-        fill: #0c70bf;
+        fill: #fff;
       }
     }
     span {
@@ -134,10 +131,9 @@
         display: block;
         margin-left: 8px;
         font-size: 0.8rem;
-        font-weight: 700;
       }
       @media (--desktop) {
-        color: #0c70bf;
+        color: #fff;
       }
     }
   }
@@ -152,7 +148,7 @@
     display: flex;
     justify-content: center;
     border-radius: 50%;
-    color: #0c70bf;
+    color: #fff;
     font: 700 14px/16px $primary-font;
     background-color: #fff;
     @media (--desktop) {
@@ -161,7 +157,7 @@
       padding: 8px 12px;
       width: auto;
       height: auto;
-      border: 1px solid #0c70bf;
+      border: 1px solid #fff;
     }
     i {
       font-style: normal;
@@ -170,7 +166,7 @@
       }
     }
     svg {
-      fill: #0c70bf;
+      fill: #fff;
       height: 18px;
     }
     span {
@@ -187,13 +183,15 @@
     position: fixed;
     position: sticky;
     top: 0;
-    background-color: #fff;
+    background-color: #333;
+    z-index: 26;
 
     .nav__list-container {
       display: none;
     }
     .nav__search-box {
-      display: none;
+      position: relative;
+      right: 0;
     }
     .nav__story-title {
       display: -webkit-box;
@@ -204,9 +202,7 @@
     .nav__s-logo {
       @media (--desktop) {
         display: block;
-        left: 20%;
-        top: 0;
-        transform: translateX(-50%);
+        position: relative;
       }
     }
     .nav__p-logo {
@@ -214,10 +210,10 @@
     }
     .nav__btn--section {
       svg {
-        fill: #0c70bf;
+        fill: #fff;
       }
       span {
-        color: #0c70bf;
+        color: #fff;
       }
     }
     .nav__wrapper {
@@ -228,13 +224,19 @@
         display: none;
       }
     }
+    .nav__i-search {
+      background-color: transparent;
+      &.active {
+        background-color: #000;
+      }
+    }
   }
 }
 
 .story-header__link {
-  border: 1px solid #8a8a8a;
+  border: 1px solid #fff;
   border-radius: 50%;
-  fill: #8a8a8a;
+  fill: #fff;
   line-height: 0;
   padding: 0;
   height: 23px;
@@ -242,20 +244,36 @@
   margin-right: 15px;
   @media (--only-mobile) {
     margin: 0;
+    border: 1px solid #000;
+    fill: #000;
   }
 }
 
 .story-header__item {
   @media (--only-mobile) {
-    margin-bottom: 10px;
-    &:last-child {
-      margin-bottom: 0;
+    .story-header__link {
+      margin-bottom: 10px;
     }
+    &:last-child {
+      .story-header__link {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  #icon-linkedin {
+    display: none;
   }
 }
 
 .story-content__more-link {
-  display: none;
+  padding: 5px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  fill: #fff;
+  @media (--tablet) {
+    display: none;
+  }
 }
 
 @media (--only-mobile) {
