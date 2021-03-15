@@ -52,12 +52,12 @@ export const TitleContainer = styled.div`
   width: 72%;
   text-align: center;
   & .title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     line-height: 30px;
     font-weight: bold;
     margin-bottom: 5px;
   }
   & .title-elcomercio {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 `

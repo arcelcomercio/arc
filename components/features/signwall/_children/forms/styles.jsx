@@ -66,7 +66,7 @@ export const Form = styled.form`
   }
 
   @media ${device.desktop} {
-    padding: ${props => (props.npadding ? '0px' : '20px 50px')};
+    padding: ${props => (props.npadding ? '0px' : '12px 50px')};
 
     ${props =>
       props.typeDialog === 'premium' &&
