@@ -5,6 +5,9 @@ import {
   SITE_DEPOR,
   SITE_TROME,
   SITE_PERU21,
+  SITE_ELBOCON,
+  SITE_OJO,
+  SITE_DIARIOCORREO,
 } from '../../../../utilities/constants/sitenames'
 
 const classes = {
@@ -25,8 +28,13 @@ const StoryContentChildAuthorLite = ({
   const storyDatetime = () => {
     const formattedDisplayDate = formatDateTime(displayDate)
     const formattedUpdateDate = formatDateTime(updateDate)
-
-    if (arcSite === SITE_TROME || arcSite === SITE_PERU21) {
+    if (
+      arcSite === SITE_TROME ||
+      arcSite === SITE_PERU21 ||
+      arcSite === SITE_ELBOCON ||
+      arcSite === SITE_OJO ||
+      arcSite === SITE_DIARIOCORREO
+    ) {
       return `Actualizado el ${formattedUpdateDate}`
     }
     return `${arcSite === SITE_DEPOR ? '' : 'Lima,'} ${formattedDisplayDate} ${
@@ -65,7 +73,9 @@ window.addEventListener("load", function () {
 
   return (
     <>
-      {arcSite === SITE_PERU21 ? (
+      {arcSite === SITE_PERU21 ||
+      arcSite === SITE_ELBOCON ||
+      arcSite === SITE_OJO ? (
         <div className={classes.author}>
           <div>
             {author && (

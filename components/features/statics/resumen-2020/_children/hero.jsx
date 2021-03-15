@@ -1,20 +1,5 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
-
-const arrayMonths = [
-  'enero',
-  'febrero',
-  'marzo',
-  'abril',
-  'mayo',
-  'junio',
-  'julio',
-  'agosto',
-  'setiembre',
-  'octubre',
-  'noviembre',
-  'diciembre',
-]
+import { slugify } from '../../../../utilities/parse/slugify'
 
 const classes = {
   hero: 'hero',
@@ -34,8 +19,10 @@ const StaticsResumen2020Hero = ({
   title,
   year,
   subtitle,
-  month: activeMonth,
   children,
+  content,
+  mainPath,
+  listDesc,
 }) => {
   return (
     <section className={classes.hero}>
@@ -51,29 +38,21 @@ const StaticsResumen2020Hero = ({
         <span className={classes.year}>{year}</span>
         <span className={classes.subtitle}>{subtitle}</span>
       </h1>
-      <p className={classes.select}>Selecciona un mes:</p>
+      <p className={classes.select}>{listDesc}</p>
       <nav className={classes.heroContent}>
-        {arrayMonths.map(element => {
-          const isActiveMonth = element === activeMonth.toLowerCase()
+        {content.map(({ seccion }) => {
           return (
             <a
-              href={`/resumen-2020/${element}/`}
-              className={`${classes.month} ${isActiveMonth ? 'active' : ''}`}>
-              {element.charAt(0).toUpperCase() + element.substr(1)}
+              href={`/${mainPath}/${slugify(seccion)}/`}
+              title={seccion}
+              className={classes.month}>
+              {seccion}
             </a>
           )
         })}
       </nav>
     </section>
   )
-}
-
-StaticsResumen2020Hero.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
-  month: PropTypes.string,
-  children: PropTypes.node,
 }
 
 export default React.memo(StaticsResumen2020Hero)

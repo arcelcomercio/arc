@@ -27,6 +27,7 @@ import { buildPresets } from './utils'
  * @param {string} config.contextPath
  * @param {string} config.outputType
  * @param {JSX.Element} [config.icon]
+ * @param {string} [config.movilImage]
  *
  * @returns {HTMLImageElement | HTMLPictureElement} Static resized `<img/>` o `<picture/>`
  *
@@ -55,6 +56,7 @@ const CustomImage = ({
   contextPath,
   outputType,
   icon,
+  movilImage,
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
@@ -76,14 +78,25 @@ const CustomImage = ({
       ? { ...buildPresets(sizes), ...mainImagePreset }
       : mainImagePreset
 
-  const resizedImages = createResizedParams({
+  const resizedImagesDefault = createResizedParams({
     url: src,
     presets,
     arcSite,
     filterQuality: quality,
   })
 
-  const mainImage = resizedImages[`${width}x${height}`] || placeholder
+  const mainImage = resizedImagesDefault[`${width}x${height}`] || placeholder
+  const resizedImagesMovile =
+    movilImage &&
+    createResizedParams({
+      url: movilImage,
+      presets,
+      arcSite,
+      filterQuality: quality,
+    })
+
+  const resizedImages = movilImage ? resizedImagesMovile : resizedImagesDefault
+
   if (outputType === 'amp') {
     return (
       <amp-img

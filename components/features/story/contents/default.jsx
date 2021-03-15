@@ -1,6 +1,6 @@
 // file path: StoryContentContent.js
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
@@ -11,6 +11,7 @@ import { getAssetsPath } from '../../../utilities/assets'
 
 import {
   SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_ELBOCON,
 } from '../../../utilities/constants/sitenames'
@@ -23,6 +24,7 @@ import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -60,6 +62,7 @@ import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildLinkList from './_children/link-list'
 import StoryContentsChildCorrection from './_children/correction'
 import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildJwplayerRecommender from './_children/jwplayer-recommender'
 import Ads from '../../../global-components/ads'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import { processedAds } from '../../../utilities/story/helpers'
@@ -83,7 +86,7 @@ const classes = {
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
 @Consumer
-class StoryContents extends PureComponent {
+class StoryContents extends React.PureComponent {
   render() {
     const {
       globalContent,
@@ -96,8 +99,8 @@ class StoryContents extends PureComponent {
         isDfp = false,
         siteUrl,
         jwplayers = {},
+        jwplayersMatching = {},
       },
-      isAdmin,
     } = this.props
 
     const {
@@ -115,21 +118,18 @@ class StoryContents extends PureComponent {
       primarySectionLink,
       subtype,
       isPremium,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
+      multimedia,
       tags,
       contentPosicionPublicidad,
       prerollDefault,
       contentElementsHtml,
-
       authorImageSecond,
       authorLinkSecond,
       authorSecond,
       authorEmailSecond,
       roleSecond: authorRoleSecond,
       promoItemJwplayer,
+      authorsList,
     } = new StoryData({
       data: globalContent,
       contextPath,
@@ -150,10 +150,7 @@ class StoryContents extends PureComponent {
       primarySection,
       subtype,
       ...promoItems,
-      multimediaLandscapeMD,
-      multimediaStorySmall,
-      multimediaLarge,
-      multimediaLazyDefault,
+      multimedia,
       primaryImage: true,
       authorImageSecond,
       authorLinkSecond,
@@ -161,7 +158,9 @@ class StoryContents extends PureComponent {
       authorEmailSecond,
       authorRoleSecond,
       promoItemJwplayer,
+      authorsList,
     }
+
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
     const imgBbc =
       `${getAssetsPath(
@@ -210,7 +209,12 @@ class StoryContents extends PureComponent {
           {primarySectionLink === '/impresa/' ||
           primarySectionLink === '/malcriadas/' ||
           storyTagsBbc(tags, 'portada-trome')
-            ? promoItems && <StoryContentsChildImpresa data={promoItems} />
+            ? promoItems?.basic && (
+                <StoryContentsChildImpresa
+                  url={promoItems.basic.url}
+                  subtitle={promoItems.basic.subtitle}
+                />
+              )
             : promoItems &&
               subtype !== BIG_IMAGE &&
               subtype !== SPECIAL_BASIC &&
@@ -226,7 +230,7 @@ class StoryContents extends PureComponent {
               )}
             </>
           )}
-          {subtype !== GALLERY_VERTICAL && (
+          {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
             <Ads
               adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
               isDesktop={false}
@@ -270,13 +274,11 @@ class StoryContents extends PureComponent {
                     list_type: listType = 'unordered',
                   } = element
                   if (type === ELEMENT_IMAGE) {
-                    const presets = 'landscape_md:314,story_small:482,large:640'
-
                     return (
                       <StoryContentsChildImage
+                        customHeight={0}
+                        customWidth={620}
                         {...element}
-                        multimediaLazyDefault={multimediaLazyDefault}
-                        presets={presets}
                       />
                     )
                   }
@@ -341,6 +343,16 @@ class StoryContents extends PureComponent {
                             {title}
                           </figcaption>
                         </>
+                      )
+                    }
+                    if (sub === VIDEO_JWPLAYER_MATCHING) {
+                      const { videoId = '', playerId = '' } =
+                        jwplayersMatching || {}
+                      return (
+                        <StoryContentsChildJwplayerRecommender
+                          videoId={videoId}
+                          playerId={playerId}
+                        />
                       )
                     }
                   }
@@ -428,14 +440,7 @@ class StoryContents extends PureComponent {
                     )
                   }
                   if (type === ELEMENT_LINK_LIST) {
-                    return (
-                      <StoryContentsChildLinkList
-                        items={items}
-                        multimediaLazyDefault={multimediaLazyDefault}
-                        arcSite={arcSite}
-                        isAdmin={isAdmin}
-                      />
-                    )
+                    return <StoryContentsChildLinkList items={items} />
                   }
                   if (type === ELEMENT_LIST) {
                     if (items && items.length > 0) {

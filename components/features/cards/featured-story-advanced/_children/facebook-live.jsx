@@ -1,5 +1,5 @@
 import React from 'react'
-import { defaultImage } from '../../../../utilities/helpers'
+import { defaultImage } from '../../../../utilities/assets'
 
 const classes = {
   containerLive: `facebook-live col-2 position-relative flex justify-center`,

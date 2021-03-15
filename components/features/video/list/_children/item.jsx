@@ -7,11 +7,13 @@ const videoListChild = ({
   primarySection,
   primarySectionLink,
   videoDuration,
+  index,
 }) => {
+  const link = `${websiteLink}?ref=landingvideos&pos=${index + 1}`
   return (
     <div className="video-list__item">
       <picture className="block mb-10 video-list__image-box">
-        <a itemProp="url" className="video-list__link" href={websiteLink}>
+        <a itemProp="url" className="video-list__link" href={link}>
           <img
             className="video-list__image object-contain w-full"
             src={multimediaLandscapeMD}
@@ -31,10 +33,7 @@ const videoListChild = ({
           {primarySection}
         </a>
       </div>
-      <a
-        itemProp="url"
-        href={websiteLink}
-        className="block mb-10 video-list__title">
+      <a itemProp="url" href={link} className="block mb-10 video-list__title">
         <h3
           itemProp="name"
           className="line-h-xs text-xl font-bold video-list__new">

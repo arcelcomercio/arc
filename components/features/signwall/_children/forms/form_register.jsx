@@ -43,7 +43,8 @@ const FormRegister = props => {
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
-  const [showChecked, setShowChecked] = useState(false)
+  // const [checkedPolits, setCheckedPolits] = useState(true)
+  const [checkedTerms, setCheckedTerms] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
 
   const [showCheckPremium, setShowCheckPremium] = useState(false)
@@ -54,7 +55,8 @@ const FormRegister = props => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
-    rterms: { value: '', error: '' },
+    // rpolit: { value: '1', error: '' },
+    rterms: { value: '0', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -80,6 +82,9 @@ const FormRegister = props => {
         error: 'Mínimo 8 caracteres',
       },
     },
+    // rpolit: {
+    //   required: false,
+    // },
     rterms: {
       required: true,
       validator: {
@@ -217,9 +222,19 @@ const FormRegister = props => {
           },
           {
             name: 'termsCondPrivaPoli',
-            value: '1',
+            value: checkedTerms ? '1' : '0',
             type: 'String',
           },
+          // {
+          //   name: 'dataTreatment',
+          //   value:
+          //     arcSite === 'elcomercio' || arcSite === 'gestion'
+          //       ? checkedPolits
+          //         ? '1'
+          //         : '0'
+          //       : 'NULL',
+          //   type: 'String',
+          // },
         ],
       },
       { doLogin: true },
@@ -451,13 +466,36 @@ const FormRegister = props => {
                         error={rpassError || showFormatInvalid}
                       />
 
+                      {/* {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                        <CheckBox
+                          checked={checkedPolits}
+                          value={checkedPolits ? '1' : '0'}
+                          name="rpolit"
+                          onChange={e => {
+                            handleOnChange(e)
+                            setCheckedPolits(!checkedPolits)
+                          }}>
+                          <S.Text c="gray" lh="22" s="12" className="mt-20">
+                            Autorizo el uso de mis datos para
+                            <S.Link
+                              href="/tratamiento-de-datos/"
+                              target="_blank"
+                              c={mainColorLink}
+                              fw="bold"
+                              className="ml-5 inline">
+                              fines adicionales
+                            </S.Link>
+                          </S.Text>
+                        </CheckBox>
+                      )} */}
+
                       <CheckBox
-                        checked={showChecked}
-                        value={showChecked ? '1' : '0'}
+                        checked={checkedTerms}
+                        value={checkedTerms ? '1' : '0'}
                         name="rterms"
                         onChange={e => {
                           handleOnChange(e)
-                          setShowChecked(!showChecked)
+                          setCheckedTerms(!checkedTerms)
                           setShowError(false)
                         }}
                         valid
@@ -489,12 +527,12 @@ const FormRegister = props => {
                         type="submit"
                         className="mt-20 mb-10"
                         disabled={disable || showLoading || showFormatInvalid}
-                        onClick={() =>
+                        onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
                             `web_sw${typeDialog[0]}_registro_boton_registrarme`
                           )
-                        }>
+                        }}>
                         {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
                       </S.Button>
                     </>
@@ -654,6 +692,7 @@ const FormRegister = props => {
           )}
 
           {showStudents && typeDialog === 'students' && (
+            // eslint-disable-next-line react/jsx-props-no-spreading
             <FormStudents {...props} />
           )}
         </>

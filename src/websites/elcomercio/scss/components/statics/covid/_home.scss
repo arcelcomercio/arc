@@ -1,0 +1,61 @@
+.home {
+  text-align: center;
+  height: 100%;
+  @media (--desktop) {
+    margin-top: 30px;
+  }
+  &__block {
+    margin-top: 25px;
+    display: grid;
+    &:last-child {
+      margin-top: 15px;
+    }
+  }
+  &__title {
+    font-size: 32px;
+    color: #000;
+    font-family: Guardian Egyp, Regular, sans-serif;
+    @media (--desktop) {
+      font-size: 42px;
+    }
+  }
+  &__subtitle {
+    margin-top: 13px;
+    font-size: 13px;
+    color: #868686;
+    font-family: Guardian Egyp, Regular, sans-serif;
+  }
+  &__subtitleNumber {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #000;
+    font-family: Guardian Egyp, Regular, sans-serif;
+  }
+  &__subtitleEnd {
+    font-size: 13px;
+    color: #868686;
+    font-family: Guardian Egyp, Regular, sans-serif;
+  }
+  &__BlockbuttonRed {
+    display: flex;
+    justify-content: center;
+  }
+  &__buttonRed {
+    background-color: #f00;
+    color: #fff;
+    padding: 6px;
+    margin: 15px 1px 0;
+    font-size: 20px;
+    font-family: Guardian Egyp, Regular, sans-serif;
+    border-radius: 6px;
+    height: 32px;
+    &:last-child {
+      width: 65px;
+      font-size: 30px;
+      padding: 0;
+    }
+  }
+}
+.tick {
+  font-size: 1.8rem;
+}

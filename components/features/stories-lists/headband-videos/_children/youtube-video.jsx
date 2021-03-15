@@ -25,6 +25,19 @@ const YoutubeVideo = ({
       window.navigator.userAgent
     )
 
+  if (typeof window !== 'undefined') {
+    const boxVideo = document.body.querySelector(
+      '.headband__fixedvideo__container'
+    )
+    for (let i = 0; i < boxVideo.children.length; i++) {
+      const element = boxVideo.children[i]
+      if (element.tagName === 'SCRIPT') {
+        element.remove()
+        break;
+      }
+    }
+  }
+
   const urlVideo =
     autoPlayVideo && !isAdmin && !isMobile
       ? `https://www.youtube.com/embed/${videoID}?autoplay=1`

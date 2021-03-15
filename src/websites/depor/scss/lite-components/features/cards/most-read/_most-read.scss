@@ -8,7 +8,6 @@
   position: relative;
   max-height: 490px;
   transition: max-height 0.5s ease-in-out;
-  display: none;
   overflow: hidden;
   @media (--desktop) {
     display: flex;

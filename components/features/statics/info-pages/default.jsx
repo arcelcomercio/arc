@@ -1,5 +1,5 @@
 import React from 'react'
-import ENV from 'fusion:environment'
+import { ENVIRONMENT } from 'fusion:environment'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
@@ -17,6 +17,7 @@ const infoPages = {
   cookiesPolicy: 'Políticas de cookies',
   aboutUs: 'Quienes Somos',
   frequentQuestions: 'Preguntas frecuentes',
+  dataTreatment: 'Tratamiento de Datos',
 }
 const DEFAULT_POLICY = 'termsAndConditions'
 const CONTENT_SOURCE = 'story-by-id'
@@ -35,7 +36,7 @@ const InfoPages = props => {
 
   const getPolicyId = () => {
     const infoPagesEnv =
-      ENV.ENVIRONMENT === 'elcomercio' ? infoPagesProd : infoPagesDev
+      ENVIRONMENT === 'elcomercio' ? infoPagesProd : infoPagesDev
 
     const infoPageId = typeOfPolicy
       ? infoPagesEnv[typeOfPolicy]
@@ -71,7 +72,9 @@ const InfoPages = props => {
 
   return (
     <div className={classes.staticPolicy}>
-      <h1 itemProp="name" className={classes.title}>{headlines}</h1>
+      <h1 itemProp="name" className={classes.title}>
+        {headlines}
+      </h1>
       <ArcArticleBody
         data={contentElements}
         renderElement={element => {

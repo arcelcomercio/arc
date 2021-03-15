@@ -70,8 +70,8 @@
                 <span class="input-group-text">Pregunta:</span>
                 <input class="form-control " type="textfield"  name="searchName" id="searchName" placeholder="Ingresar la pregunta.." required/>
 
-                <input type="button" class="btn btn-success" id="add_opcion()" onClick="addOpcion()" value="Agregar " />
-                <input type="button" class="btn btn-success" id="add_opcion()" onClick="removeOpcion()" value="Eliminar" />
+                <input type="button" class="btn btn-success" id="add_opcion()" onClick="addOpcion()" value="Agregar Opción" /> |
+                <input type="button" class="btn btn-success" id="add_opcion()" onClick="removeOpcion()" value="Eliminar Opción" />
                 <div class="invalid-feedback" for="searchName">
                   Por favor agregar la pregunta.
                  </div>
@@ -81,8 +81,11 @@
             </div>
             <div id="Book" class="container-el col-md-11">
               <label class="form-inline input-group" for="searchID">
-                <span class="input-group-text">Respuesta:</span>
-                <input class="form-control" type="textfield"  name="searchResqueset" id="searchResqueset" />
+                <span class="input-group-text">Detalle de la respuesta:</span>
+                <textarea class="form-control" cols="25" id="searchResqueset" name="searchResqueset" required></textarea>
+                <div class="invalid-feedback">
+                  Por favor agregar detalle de la pregunta.
+                 </div>
               </label>
             </div>
             <!-- Search Form -->

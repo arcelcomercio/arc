@@ -39,6 +39,7 @@ export default {
     cookiesPolicy: 'SB5QBFQPGBBDZBRR27WHIGKQOQ',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: '2PQFBPZDNBAUDBEFXC6UAJM55A',
   },
   infoPagesProd: {
     termsAndConditions: 'SYLZ4HYTXRHATFNSHG2ZJQTNQI',
@@ -49,6 +50,7 @@ export default {
     cookiesPolicy: 'IBXQQAQRGVAURMCAIB7MRN34WE',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'AL4JFHDL4BGIRCF7A3FH7AR6HI',
   },
 
   assets: {
@@ -259,5 +261,9 @@ export default {
   jwplayers: {
     gec: { playerAds: 'fB2Mdnsl', player: 'aQVjnIkX' },
     elcomercio: { playerAds: 'jqJgjiEA', player: 'CW5g4pdQ' },
+  },
+  jwplayersMatching: {
+    playerId: 'fB2Mdnsl',
+    videoId: '59FMFuA0',
   },
 }

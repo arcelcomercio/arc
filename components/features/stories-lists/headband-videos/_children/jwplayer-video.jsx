@@ -24,11 +24,10 @@ const JwPlayerVideo = ({
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
   const { payload: imgUrl = '' } = image
-  // const scr = `"use strict";var jwplayerObserver=function(e,r){e.forEach(function(e){var t=e.isIntersecting,n=e.target;if(t){console.log("target",n);var o=n.getAttribute("id");if((o=o.split("_"))[1]){var a="https://cdn.jwplayer.com/players/"+o[1]+"-"+o[2]+".js",i=document.createElement("script");i.type="text/javascript",i.src=a,document.head.append(i)}r.unobserve(n)}})};window.addEventListener("load",function(){requestIdle(function(){if("IntersectionObserver"in window){var e=Array.from(document.body.querySelectorAll(".jwplayer-lazy")),r=new IntersectionObserver(jwplayerObserver,{rootMargin:"0px"});e.forEach(function(e){r.observe(e)})}})});`
-  // const scr = 'console.log(999);'
 
+  const uriScript = `https://cdn.jwplayer.com/players/${videoID}-${jwplayerId}.js`
   const scriptTag = createScript({
-    src: `https://cdn.jwplayer.com/players/${videoID}-${jwplayerId}.js`,
+    src: uriScript,
     // defer: true,
   })
 
@@ -38,18 +37,39 @@ const JwPlayerVideo = ({
       .querySelector('.headband__fixedvideo__container')
       .append(scriptTag)
   }) */
-  const boxVideo = document.body.querySelector(
-    '.headband__fixedvideo__container'
-  )
-  let hasScript = false
-  for (let i = 0; i < boxVideo.children.length; i++) {
-    if (boxVideo.children[i].tagName === 'SCRIPT') {
-      hasScript = true
-      break
-    }
+
+  const buildVideoId = (url) => {
+    const [,,,,dataIds] = url.split('/')
+    const [ids,] = dataIds.split('.')
+    const [videoId, playerJwId] = ids.split('-')
+    return `botr_${videoId}_${playerJwId}_div`
   }
-  if (!hasScript) {
-    boxVideo.appendChild(scriptTag)
+
+  if (typeof window !== 'undefined') {
+    const boxVideo = document.body.querySelector(
+      '.headband__fixedvideo__container'
+    )
+    const idDiv = `botr_${videoID}_${jwplayerId}_div`
+    let hasScript = false
+    for (let i = 0; i < boxVideo.children.length; i++) {
+      const element = boxVideo.children[i]
+      if (element.tagName === 'SCRIPT') {
+        const urlCurrentScript = element.getAttribute('src')
+        hasScript = true
+        if(urlCurrentScript !== uriScript){
+          const videoContainer = document.body.querySelector(`#${buildVideoId(urlCurrentScript)}`)
+          if(videoContainer){
+            videoContainer.setAttribute('id', idDiv)
+          }
+          element.remove()
+          hasScript = false
+        }
+        break
+      }
+    }
+    if (!hasScript) {
+      boxVideo.appendChild(scriptTag)
+    }
   }
   return (
     <>
@@ -68,9 +88,6 @@ const JwPlayerVideo = ({
           }}
         /> */}
 
-        {/* <script
-          type="text/javascript"
-          src={`https://cdn.jwplayer.com/players/${videoID}-${jwplayerId}.js`}></script> */}
       </div>
     </>
   )

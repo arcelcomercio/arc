@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react/jsx-props-no-spreading */
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
 import Styles from './_children/styles'
@@ -9,14 +10,19 @@ import MetaStory from './_children/meta-story'
 import AmpTagManager from './_children/amp-tag-manager'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import {
+  SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
   SITE_GESTION,
   SITE_OJO,
+  SITE_TROME,
+  SITE_PERU21,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
+import { PREMIUM, METERED } from '../utilities/constants/content-tiers'
+import { originByEnv } from '../utilities/arc/env'
 
 const AmpOutputType = ({
   children,
@@ -51,8 +57,11 @@ const AmpOutputType = ({
     content_restrictions: { content_code: contentCode = '' } = {},
   } = globalContent || {}
 
+  const { activePaywall, activeRulesCounter } = siteProperties
+
+  const isMetered = contentCode === METERED
+  const isPremium = contentCode === PREMIUM
   // Redirecciona a la version original si noticia es premium
-  const isPremium = contentCode === 'premium'
   if (isPremium)
     throw new RedirectError(`${siteProperties.siteUrl}${canonicalUrl}`, 301)
 
@@ -136,6 +145,8 @@ const AmpOutputType = ({
     subtype = '',
     promoItemJwplayer = {},
     jwplayerSeo = [],
+    haveJwplayerMatching = false,
+    publishDate,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -175,6 +186,16 @@ const AmpOutputType = ({
     rawHtmlContent.includes('twitter.com') || oembedSubtypes.includes('twitter')
   const hasSoundcloud = rawHtmlContent.includes('soundcloud.com/playlists/')
 
+  /** ---------------------------- */
+  const hasExternalCounterPaywall =
+    isMetered &&
+    activeRulesCounter &&
+    activePaywall &&
+    ((arcSite === SITE_GESTION &&
+      /^\/(podcast|mundo|tecnologia|tendencias)\//.test(requestUri)) ||
+      (arcSite === SITE_ELCOMERCIO &&
+        /^\/(tecnologia|somos|opinion)\//.test(requestUri)))
+
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
    * de youtube o facebook, se necesita el script de youtube o facebook
@@ -184,11 +205,16 @@ const AmpOutputType = ({
     !hasYoutubeIframePromo &&
     !hasFacebookIframePromo &&
     content.includes('<iframe')
+  // SCRIPT AMP IFRAME
   const hasIframe =
     hasIframePromo ||
-    /<iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
+    arcSite === SITE_OJO ||
+    arcSite === SITE_TROME ||
+    arcSite === SITE_PERU21 ||
+    /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
-    )
+    ) ||
+    hasExternalCounterPaywall
 
   const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
 
@@ -210,6 +236,9 @@ const AmpOutputType = ({
       ? 1
       : false
 
+  const dataVideo = publishDate && publishDate.split('T')[0]
+  const hasPowaVideoDate = dataVideo <= '2021-01-22' && hasPowaVideo
+
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
@@ -221,13 +250,12 @@ const AmpOutputType = ({
     dataSlot,
   }
   const isTrivia = /^\/trivias\//.test(requestUri)
+
   return (
     <Html lang={lang}>
       <head>
         <BaseMarkup
-          canonicalUrl={`${siteProperties.siteUrl}${addSlashToEnd(
-            canonicalUrl
-          )}`}
+          canonicalUrl={`${originByEnv(arcSite)}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
         <Styles {...metaSiteData} />
@@ -247,8 +275,8 @@ const AmpOutputType = ({
           path={`resources/dist/${arcSite}/css/${
             isTrivia ? 'amp-trivias' : 'amp'
           }.css`}>
-          {({ data }) => {
-            return data ? (
+          {({ data }) =>
+            data ? (
               <style
                 amp-custom="amp-custom"
                 dangerouslySetInnerHTML={{
@@ -257,8 +285,7 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null
-          }}
+            ) : null}
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -283,7 +310,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-carousel-0.2.js"
           />
         )}
-        {hasPowaVideo && (
+        {hasPowaVideoDate && (
           <>
             <script
               async
@@ -318,7 +345,8 @@ const AmpOutputType = ({
           <script
             async
             custom-element="amp-embedly-card"
-            src="https://cdn.ampproject.org/v0/amp-embedly-card-0.1.js"></script>
+            src="https://cdn.ampproject.org/v0/amp-embedly-card-0.1.js"
+          />
         )}
         {hasYoutube && (
           <script
@@ -337,20 +365,23 @@ const AmpOutputType = ({
           <script
             async
             custom-element="amp-jwplayer"
-            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
         )}
-        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideo) && (
+        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideoDate) && (
           <script
             async
             custom-element="amp-video-docking"
-            src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"></script>
+            src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
+          />
         )}
-        {(promoItemJwplayer.key || jwplayerSeo[0]) && (
+        {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
           <>
             <script
               async
               custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
+              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+            />
           </>
         )}
 
@@ -415,15 +446,18 @@ const AmpOutputType = ({
             <script
               async
               custom-element="amp-story"
-              src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
+              src="https://cdn.ampproject.org/v0/amp-story-1.0.js"
+            />
             <script
               async
               custom-element="amp-story-interactive"
-              src="https://cdn.ampproject.org/v0/amp-story-interactive-0.1.js"></script>
+              src="https://cdn.ampproject.org/v0/amp-story-interactive-0.1.js"
+            />
             <script
               async
               custom-element="amp-story-auto-ads"
-              src="https://cdn.ampproject.org/v0/amp-story-auto-ads-0.1.js"></script>
+              src="https://cdn.ampproject.org/v0/amp-story-auto-ads-0.1.js"
+            />
           </>
         )}
       </head>

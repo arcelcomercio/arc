@@ -34,6 +34,7 @@ const StoryContentChildDetailsAuthorTrustLite = ({
               alt={author}
               placeholder={DEFAULT_AUTHOR_IMG}
               className={classes.authorImage}
+              uid={authorLink}
             />
           )}
         </div>

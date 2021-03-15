@@ -49,8 +49,9 @@ export const FooterSubs = () => {
   )
 
   const period = {
-    Month: 'Mensual',
-    Year: 'Anual',
+    month: 'Mensual',
+    year: 'Anual',
+    semester: 'Semestral',
   }
 
   const stateSchema = {

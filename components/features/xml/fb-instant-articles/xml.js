@@ -262,6 +262,18 @@ class XmlFacebookInstantArticles {
               const today = new Date()
               const localTime = new Date(today.setHours(today.getHours() - 5))
 
+              let authorData = nbspToSpace(storyData.author)
+              if (
+                siteUrl === 'https://elcomercio.pe' &&
+                typeof storyData.authorsList !== 'undefined' &&
+                storyData.authorsList !== null
+              ) {
+                authorData = storyData.authorsList.map(authorStory =>
+                  nbspToSpace(authorStory.nameAuthor)
+                )
+                authorData = authorData.join(', ')
+              }
+
               return {
                 item: {
                   title: {
@@ -270,7 +282,7 @@ class XmlFacebookInstantArticles {
                   pubDate: localISODate(storyData.date || ''),
                   link: storyLink,
                   guid: md5(storyData.id),
-                  author: nbspToSpace(storyData.author),
+                  author: authorData,
                   premium: storyData.isPremium,
                   captureDate: `${getActualDate()}, ${formatTime(localTime)}`,
                   'content:encoded': {

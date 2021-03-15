@@ -51,7 +51,11 @@ const LayoutNavbar = props => {
     )
   }
 
-  const primaryLogos = {}
+  const primaryLogos = {
+    elbocon: getReourceImgPath('logo.png'),
+    ojo: getReourceImgPath('logo.png'),
+    diariocorreo: getReourceImgPath('logo.png'),
+  }
 
   const secondaryLogos = {
     elcomerciomag: getReourceImgPath('logo-143x60.png'),

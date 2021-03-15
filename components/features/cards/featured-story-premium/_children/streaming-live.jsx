@@ -1,5 +1,6 @@
-import React from 'react'
-import { defaultImage } from '../../../../utilities/helpers'
+import * as React from 'react'
+
+import { defaultImage } from '../../../../utilities/assets'
 
 const classes = {
   containerLive: `featured-story-manual-live col-2 position-relative flex justify-center`,
@@ -34,7 +35,6 @@ const LiveStreaming = props => {
     deployment,
     contextPath,
     arcSite,
-    size: 'md',
   })
 
   const showVideo = urlVideo && isValidUrl
@@ -49,13 +49,13 @@ const LiveStreaming = props => {
     textError = 'Por favor ingrese un id de youtube válido.'
   return (
     <div className={`${classes.containerLive}${!showVideo ? '' : ' hasVideo'}`}>
-      {!showVideo && (
+      {!showVideo ? (
         <div className={classes.containerMask}>
           <img src={urlImageDefault} alt={arcSite} />
           {!showVideo && <span className={classes.label}>{textError}</span>}
         </div>
-      )}
-      {isFacebook && (
+      ) : null}
+      {isFacebook ? (
         <iframe
           title="Facebook Live"
           src={formatURL}
@@ -64,8 +64,8 @@ const LiveStreaming = props => {
           allowFullScreen="true"
           className={classes.iframeVideo}
         />
-      )}
-      {isYoutube && (
+      ) : null}
+      {isYoutube ? (
         <iframe
           title="Youtube Live"
           src={formatURL}
@@ -74,9 +74,9 @@ const LiveStreaming = props => {
           allowFullScreen="true"
           className={classes.iframeVideo}
         />
-      )}
+      ) : null}
     </div>
   )
 }
 
-export default LiveStreaming
+export default React.memo(LiveStreaming)
