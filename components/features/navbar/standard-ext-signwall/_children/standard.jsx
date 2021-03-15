@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 import { ENVIRONMENT } from 'fusion:environment'
 
 import SignwallComponent from '../../../signwall/main/default'
@@ -70,7 +70,7 @@ const popUpWindow = (url, title, w, h) => {
 }
 
 @Consumer
-class NavBarDefault extends PureComponent {
+class NavBarDefault extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -412,12 +412,14 @@ class NavBarDefault extends PureComponent {
       contextPath,
       deviceList,
       hideMenu,
+      requestUri,
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
       navbarData: { children: navbarSections = [] } = {},
     } = this.props
 
+    const isPreview = /^\/preview\//.test(requestUri)
     const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
 
     const responsiveClass = getResponsiveClasses(deviceList)
@@ -630,14 +632,14 @@ class NavBarDefault extends PureComponent {
                   />
                 )}
 
-                {siteProperties.activeSignwall && (
+                {siteProperties.activeSignwall && !isPreview ? (
                   <SignwallComponent 
                     countOnly 
                     arcSite={arcSite} 
                     siteProperties={siteProperties}  
                     classButton="flex items-center btn capitalize text-md nav__btn-sign"
                   />
-                )}
+                ) : null}
 
                 <script
                   type="text/javascript"
