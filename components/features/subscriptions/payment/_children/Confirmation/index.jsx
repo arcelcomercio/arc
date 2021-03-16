@@ -14,6 +14,7 @@ import {
   pushCxense,
   PixelActions,
   sendAction,
+  TaggeoJoao,
 } from '../../../_dependencies/Taggeo'
 import {
   getFullNameFormat,
@@ -55,6 +56,7 @@ const Confirmation = () => {
       freeAccess,
       fromFia,
       printedSubscriber,
+      event,
     },
   } = useAppContext() || {}
 
@@ -188,18 +190,29 @@ const Confirmation = () => {
           value: amount,
         })
 
-        // Datalayer solicitados por Joao
-        window.dataLayer.push({
-          event: 'Pasarela Suscripciones Digitales',
-          category: `P3_${name.replace(' ', '_')}`,
-          action: userPeriod,
-          label: uuid,
-          value: `${amount}`,
-        })
-
         window.Identity.extendSession().then(() => {
           setSendTracking(true)
         })
+
+        // Datalayer solicitados por Joao
+        setTimeout(() => {
+          TaggeoJoao(
+            {
+              event: 'Pasarela Suscripciones Digitales',
+              category: `P3_${
+                event && event === 'winback'
+                  ? 'Plan_Winback'
+                  : printedSubscriber
+                  ? 'Plan_Suscriptor'
+                  : name.replace(' ', '_')
+              }`,
+              action: userPeriod,
+              label: uuid,
+              value: `${amount}`,
+            },
+            window.location.pathname
+          )
+        }, 1000)
       } else {
         updateStep(2)
       }
