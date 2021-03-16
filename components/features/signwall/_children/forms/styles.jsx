@@ -145,6 +145,12 @@ export const Form = styled.form`
   & .mb-20 {
     margin-bottom: 20px;
   }
+  & .ml-5 {
+    margin-left: 5px;
+  }
+  & .mr-5 {
+    margin-right: 5px;
+  }
   & .ml-10 {
     margin-left: 10px;
   }

@@ -43,6 +43,7 @@ export default {
     cookiesPolicy: '',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
+    dataTreatment: 'RPHBHLSJA5AFLCV5QUC3E6A7SY',
   },
   infoPagesProd: {
     termsAndConditions: 'VD45IRL65ZGCDBGLHL4O6WVCJE',
@@ -53,6 +54,7 @@ export default {
     cookiesPolicy: 'QCNTLMKRZJGJTO2ZB5AQAO4ODE',
     aboutUs: '5LTW3MZOP5AA5NTJ4GHA7NDK4A',
     frequentQuestions: 'TGDG422JBNHYFMU563BFRZDDDI',
+    dataTreatment: 'XSSMX46E2BDWHMZB2I7ZHQ6F6E',
   },
   paywall: {
     title: 'Suscripciones Digitales | Gestión',

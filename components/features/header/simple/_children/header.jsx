@@ -35,6 +35,8 @@ const HeaderSimpleChild = ({
   arcSite,
   twitter,
   customLogo,
+  titleField = '',
+  urlField = '',
   title: titleProp = '',
 }) => {
   const title = titleProp || defaultTitle
@@ -76,10 +78,10 @@ const HeaderSimpleChild = ({
               style={hasCustomLogoStyle ? { height: '100%' } : {}}
             />
           </a>
-          <a className={classes.logoTrivia} href="/trivias/">
+          <a className={classes.logoTrivia} href={urlField || `/trivias/`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="55"
+              width="80"
               height="16"
               viewBox="0 0 60 16">
               <text
@@ -91,8 +93,9 @@ const HeaderSimpleChild = ({
                 <tspan y="14" aria-hidden="true">
                   +
                 </tspan>
+                <tspan> </tspan>
                 <tspan style={{ fill: '#fff' }} y="15">
-                  TRIVIAS
+                  {titleField || `TRIVIAS`}
                 </tspan>
               </text>
             </svg>

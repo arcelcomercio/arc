@@ -1,12 +1,12 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 
 import NavBarComercio from './_children/standard'
 import Formatter from './_dependencies/formatter'
 
 @Consumer
-class LayoutNavbar extends PureComponent {
+class LayoutNavbar extends React.PureComponent {
   constructor(props) {
     super(props)
     const {

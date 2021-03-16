@@ -24,15 +24,16 @@ export const getActualDate = () => {
  * @param {Date} config.date
  * @param {boolean} [config.showTime=true]
  * @param {boolean} [config.showWeekday=true]
+ * @param {boolean} [config.showYear=true]
  * @returns {string} jueves, 19 de noviembre de 2020 09:30 a.m.
  */
 export const getVerboseDate = ({
   date,
   showTime = true,
   showWeekday = true,
+  showYear = true,
 }) => {
   const baseFormat = {
-    year: 'numeric',
     month: 'long',
     day: 'numeric',
     timeZone: 'America/Lima',
@@ -49,10 +50,16 @@ export const getVerboseDate = ({
         minute: '2-digit',
       }
     : {}
+  const year = showYear
+    ? {
+        year: 'numeric',
+      }
+    : {}
   const dateTime = new Intl.DateTimeFormat(locale, {
     ...baseFormat,
     ...weekday,
     ...time,
+    ...year,
   })
 
   return dateTime.format(new Date(date))

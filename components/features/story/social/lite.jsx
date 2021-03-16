@@ -67,7 +67,8 @@ const StorySocialLite = () => {
             arcSite === 'elcomercio' ||
             arcSite === 'elcomerciomag' ||
             arcSite === 'peru21' ||
-            arcSite === 'elbocon'
+            arcSite === 'elbocon' ||
+            arcSite === 'ojo'
           }
         />
       </div>

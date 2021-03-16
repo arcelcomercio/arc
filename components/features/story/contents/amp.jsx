@@ -262,13 +262,11 @@ class StoryContentAmp extends React.PureComponent {
                 </p>
               ) : // Validamos si es EC
               isComercio ? (
-                authorsList.map(authorData => {
-                  return (
-                    <p className={classes.author}>
-                      <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
-                    </p>
-                  )
-                })
+                authorsList.map(authorData => (
+                  <p className={classes.author}>
+                    <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
+                  </p>
+                ))
               ) : (
                 <p className={classes.author}>
                   <a href={authorLink}>{author}</a>
@@ -286,10 +284,11 @@ class StoryContentAmp extends React.PureComponent {
           {isMetered &&
           activeRulesCounter &&
           activePaywall &&
-          arcSite === SITE_GESTION &&
-          /^\/podcast\//.test(requestUri) ? (
+          ((arcSite === SITE_GESTION &&
+            /^\/(podcast|mundo|tecnologia|tendencias)\//.test(requestUri)) ||
+            (arcSite === SITE_ELCOMERCIO &&
+              /^\/(tecnologia|somos|opinion)\//.test(requestUri))) ? (
             // Contador de paywall para AMP
-            // pruebas en seccion Podcast de Gestion
             <amp-iframe
               width="1"
               height="1"
