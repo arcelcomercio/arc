@@ -38,7 +38,7 @@ function isRequiredField(value, isRequired) {
 }
 
 function min6Caracts(value) {
-  return value.length < 6 ? MIN_6_CARACTS_FIELD_ERROR : ''
+  return value.length >= 1 && value.length < 6 ? MIN_6_CARACTS_FIELD_ERROR : ''
 }
 
 /**
