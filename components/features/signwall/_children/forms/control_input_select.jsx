@@ -69,11 +69,11 @@ export const Cont = styled.div`
     input:placeholder-shown + label {
       cursor: text;
       transform-origin: 0 0;
-      transform: translate(1rem, 2rem) scale(1.1);
+      transform: translate(1rem, 1.8rem) scale(1.1);
     }
     label {
       font-size: 12px;
-      margin-top: 4px;
+      margin-top: 0px;
     }
   }
 

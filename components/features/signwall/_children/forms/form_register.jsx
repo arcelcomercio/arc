@@ -484,7 +484,6 @@ const FormRegister = props => {
                           value={rphone}
                           onChange={e => {
                             handleOnChange(e)
-                            checkFormat(e)
                           }}
                           error={rphoneError}
                         />
@@ -549,7 +548,7 @@ const FormRegister = props => {
                       <S.Button
                         color={mainColorBtn}
                         type="submit"
-                        className="mt-20 mb-10"
+                        className="mt-15 mb-5"
                         disabled={disable || showLoading || showFormatInvalid}
                         onClick={() => {
                           Taggeo(
