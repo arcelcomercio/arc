@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
@@ -9,11 +10,13 @@ import MetaStory from './_children/meta-story'
 import AmpTagManager from './_children/amp-tag-manager'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import {
+  SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
-  SITE_ELCOMERCIO,
   SITE_GESTION,
   SITE_OJO,
+  SITE_TROME,
+  SITE_PERU21,
 } from '../utilities/constants/sitenames'
 import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
@@ -188,8 +191,10 @@ const AmpOutputType = ({
     isMetered &&
     activeRulesCounter &&
     activePaywall &&
-    ((arcSite === SITE_GESTION && /^\/(podcast|mundo)\//.test(requestUri)) ||
-      (arcSite === SITE_ELCOMERCIO && /^\/(tecnologia)\//.test(requestUri)))
+    ((arcSite === SITE_GESTION &&
+      /^\/(podcast|mundo|tecnologia|tendencias)\//.test(requestUri)) ||
+      (arcSite === SITE_ELCOMERCIO &&
+        /^\/(tecnologia|somos|opinion)\//.test(requestUri)))
 
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
@@ -200,9 +205,13 @@ const AmpOutputType = ({
     !hasYoutubeIframePromo &&
     !hasFacebookIframePromo &&
     content.includes('<iframe')
+  // SCRIPT AMP IFRAME
   const hasIframe =
     hasIframePromo ||
-    /<iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
+    arcSite === SITE_OJO ||
+    arcSite === SITE_TROME ||
+    arcSite === SITE_PERU21 ||
+    /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
     hasExternalCounterPaywall
@@ -276,8 +285,7 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null
-          }
+            ) : null}
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -372,7 +380,8 @@ const AmpOutputType = ({
             <script
               async
               custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"></script>
+              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+            />
           </>
         )}
 

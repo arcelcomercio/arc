@@ -302,6 +302,15 @@ promo_items{
     height
 
   }
+  basic_movil { 
+    url 
+    type
+    subtitle
+    caption
+    width
+    height
+
+  }
   path_mp3 {
     content
     _id

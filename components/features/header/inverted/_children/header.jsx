@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect, useRef, memo } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
@@ -87,14 +87,15 @@ const HeaderChildInverted = ({
   shareButtons,
   isSlider,
   hideMenu,
+  disableSignwall,
 }) => {
-  const [scrolled, setScrolled] = useState(false)
-  const [statusSidebar, setStatusSidebar] = useState(false)
-  const [statusSearch, setStatusSearch] = useState(false)
+  const [scrolled, setScrolled] = React.useState(false)
+  const [statusSidebar, setStatusSidebar] = React.useState(false)
+  const [statusSearch, setStatusSearch] = React.useState(false)
 
   const { contextPath, siteProperties, arcSite } = useFusionContext()
 
-  const inputSearch = useRef()
+  const inputSearch = React.useRef()
 
   /* let dragFlag = false
   let initPointDrag = 0
@@ -109,7 +110,7 @@ const HeaderChildInverted = ({
     searchQuery(value)
   }
 
-  const _handleKeyDown = e => {
+  const _handleKeyDown = (e) => {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
@@ -147,7 +148,7 @@ const HeaderChildInverted = ({
     }
   }
 
-  const _setPosition = posX => {
+  const _setPosition = (posX) => {
     document.body.querySelector(
       '.nav-sidebar'
     ).style.transform = `scaleX(${posX})`
@@ -265,7 +266,7 @@ const HeaderChildInverted = ({
     else if (scrolled && scroll <= headerTop) setScrolled(false)
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.addEventListener('scroll', _handleScroll)
     if (isSlider) checkDisabledIcons()
     return () => {
@@ -315,7 +316,7 @@ const HeaderChildInverted = ({
           {bandLinks && bandLinks[0] && (
             <ul
               className={`${classes.featured}${isSlider ? ' slider' : ''}`}
-              onScroll={e => {
+              onScroll={(e) => {
                 if (isSlider) handleNavScroll(e)
               }}>
               {bandLinks.map(({ url, name, styles = [] }) => (
@@ -363,7 +364,7 @@ const HeaderChildInverted = ({
           {/** ************* LEFT *************** */}
           <div
             className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
-            <form className={classes.form} onSubmit={e => e.preventDefault()}>
+            <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
               <input
                 id="header-search-input"
                 ref={inputSearch}
@@ -400,10 +401,9 @@ const HeaderChildInverted = ({
           <a
             itemProp="url"
             href={logo.link}
-            className={`${classes.logoContainer} ${isStory &&
-              scrolled &&
-              statusSearch &&
-              'opacity-0'}`}
+            className={`${classes.logoContainer} ${
+              isStory && scrolled && statusSearch && 'opacity-0'
+            }`}
             title={logo.alt}>
             <img
               src={
@@ -426,7 +426,7 @@ const HeaderChildInverted = ({
                       itemProp="url"
                       className={classes.moreLink}
                       href="/"
-                      onClick={event => {
+                      onClick={(event) => {
                         openLink(event, 3)
                       }}>
                       <i className={`${classes.iconMore}`} />
@@ -441,7 +441,7 @@ const HeaderChildInverted = ({
                           title={`Compartir en ${item.name}`}
                           className={classes.shareLink}
                           href={item.link}
-                          onClick={event => {
+                          onClick={(event) => {
                             openLink(event, item)
                           }}>
                           <i
@@ -473,19 +473,18 @@ const HeaderChildInverted = ({
                       siteProperties.urlSubsOnline +
                       connector +
                       outputType
-                    const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                      'undefined' &&
-                      window.section) ||
-                      ''}`
+                    const ref = `ref=btn-suscribete-${arcSite}&loc=${
+                      (typeof window !== 'undefined' && window.section) || ''
+                    }`
                     window.location.href = link + ref
                   }}
                 />
               )}
-              {siteProperties.activeSignwall && (
+              {siteProperties.activeSignwall && !disableSignwall ? (
                 <SignwallComponent
                   classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
                 />
-              )}
+              ) : null}
             </div>
           </div>
           {/** ************* // RIGHT *************** */}
@@ -518,4 +517,4 @@ HeaderChildInverted.propTypes = {
   ),
 }
 
-export default memo(HeaderChildInverted)
+export default React.memo(HeaderChildInverted)

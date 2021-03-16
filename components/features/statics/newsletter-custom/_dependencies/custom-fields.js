@@ -23,6 +23,9 @@ const customFields = PropTypes.shape({
   colorButton: PropTypes.string.tag({
     name: 'Color del boton',
   }),
+  activateJS: PropTypes.string.tag({
+    name: 'Desactivar JS "DESACTIVAR"',
+  }),
 })
 
 export default customFields

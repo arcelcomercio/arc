@@ -9,7 +9,7 @@ const classes = {
   button: 'trivias-start__button',
 }
 
-const TriviasMainStart = ({ title, image, alt, start }) => {
+const TriviasMainStart = ({ title, image, alt, start, movilImage }) => {
   return (
     <div
       className={classes.container}
@@ -27,6 +27,7 @@ const TriviasMainStart = ({ title, image, alt, start }) => {
         height={660}
         sizes="(max-width: 360px) 360px, (max-width: 480px) 480px, (max-width: 768px) 768px, 1170px"
         sizesHeight={[550, 550, 550]}
+        movilImage={movilImage}
         alt={alt}
         className={classes.image}
         style={{

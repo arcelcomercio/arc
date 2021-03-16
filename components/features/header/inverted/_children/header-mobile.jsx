@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
@@ -70,11 +70,13 @@ const HeaderChildInverted = ({
   shareButtons,
   isSlider,
 }) => {
-  const [scrolled, setScrolled] = useState(false)
-  const [statusSidebar, setStatusSidebar] = useState(false)
-  const [statusSearch] = useState(false)
+  const [scrolled, setScrolled] = React.useState(false)
+  const [statusSidebar, setStatusSidebar] = React.useState(false)
+  const [statusSearch] = React.useState(false)
 
-  const { contextPath, siteProperties, arcSite } = useFusionContext()
+  const { contextPath, siteProperties, arcSite, requestUri } = useFusionContext()
+  
+  const isPreview = /^\/preview\//.test(requestUri)
 
   const toggleBodyOverflow = () => {
     if (typeof window !== 'undefined') {
@@ -141,7 +143,7 @@ const HeaderChildInverted = ({
     else if (scrolled && scroll <= headerTop) setScrolled(false)
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.addEventListener('scroll', _handleScroll)
     if (isSlider) checkDisabledIcons()
     return () => {
@@ -246,11 +248,11 @@ const HeaderChildInverted = ({
                     }}
                   />
                 )}
-                {siteProperties.activeSignwall && (
+                {siteProperties.activeSignwall && !isPreview ? (
                   <SignwallComponent
                     classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
                   />
-                )}
+                ) : null}
               </div>
             )}
           </div>

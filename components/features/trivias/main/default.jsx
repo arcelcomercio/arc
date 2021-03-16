@@ -50,7 +50,10 @@ const TriviasMain = ({
   // vienen en content_elements, esa es la cantidad de preguntas.
   const {
     headlines: { basic: title = '' } = {},
-    promo_items: { basic: { url: triviaImage = '', caption = '' } = {} } = {},
+    promo_items: {
+      basic: { url: triviaImage = '', caption = '' } = {},
+      basic_movil: { url: movilImage = '' } = {},
+    } = {},
     content_elements: contentElements = '',
   } = globalContent || {}
 
@@ -168,6 +171,7 @@ const TriviasMain = ({
             title={title}
             image={triviaImage}
             alt={caption}
+            movilImage={movilImage}
             start={handleStart}
           />
         )}

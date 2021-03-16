@@ -126,18 +126,21 @@ class NavBarDefault extends React.PureComponent {
       logo,
       logoLeft,
       arcSite,
-      siteProperties,
       // contextPath,
       deviceList,
       hideMenu,
+      requestUri,
+      siteProperties = {},
       globalContentConfig: { query = {} } = {},
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
       navbarData: { children: navbarSections = [] } = {},
     } = this.props
 
-    const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
+    const { activePaywall, activeSignwall, urlSubsOnline } = siteProperties
 
+    const isPreview = /^\/preview\//.test(requestUri)
+    const search = decodeURIComponent(query.query || '').replace(/\+/g, ' ')
     const responsiveClass = getResponsiveClasses(deviceList)
 
     return (
@@ -314,14 +317,14 @@ class NavBarDefault extends React.PureComponent {
 
             <div className={`${classes.navContainerRight} ${responsiveClass}`}>
               <div className={`${classes.btnContainer}`}>
-                {siteProperties.activePaywall && (
+                {activePaywall && (
                   <Button
                     btnText="Suscríbete"
                     btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
                   />
                 )}
 
-                {siteProperties.activeSignwall && (
+                {activeSignwall && (
                   <button
                     aria-label="Iniciar"
                     id="signwall-nav-btn"
@@ -349,13 +352,13 @@ class NavBarDefault extends React.PureComponent {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `${
-              siteProperties.activeSignwall ? singwallScript : ''
+              activeSignwall && !isPreview ? singwallScript : ''
             }${stickyScript}${searchScript}${
-              siteProperties.activePaywall
-                ? getBtnSubsScript(_env, arcSite, siteProperties.urlSubsOnline)
+              activePaywall && !isPreview
+                ? getBtnSubsScript(_env, arcSite, urlSubsOnline)
                 : ''
             }${
-              siteProperties.activeSignwall
+              activeSignwall && !isPreview
                 ? getBtnSignScript(_env, arcSite)
                 : ''
             }${hideMenu ? '' : navBarLoaderScript}`,

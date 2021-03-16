@@ -137,7 +137,9 @@ const StoryContinueLite = () => {
       {arcSite === 'depor' ||
       arcSite === 'trome' ||
       arcSite === 'peru21' ||
-      arcSite === 'elbocon' ? (
+      arcSite === 'elbocon' ||
+      arcSite === 'ojo' ||
+      arcSite === 'diariocorreo' ? (
         <div className="st-continue f just-center">
           <div className="st-continue__progress"></div>
           <div className="st-continue__container f just-center">

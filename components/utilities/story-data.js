@@ -47,7 +47,7 @@ import {
   addSlashToEnd,
   getUrlFromHtml,
 } from './parse/strings'
-import { msToTime } from './date-time/time'
+import { msToTime, secToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
 import {
@@ -661,13 +661,25 @@ class StoryData {
   }
 
   get videoDuration() {
-    return msToTime(
-      (this.__data &&
-        this.__data.promo_items &&
-        this.__data.promo_items[VIDEO] &&
-        this.__data.promo_items[VIDEO].duration) ||
-        ''
-    )
+    const basicVideo =
+      this.__data &&
+      this.__data.promo_items &&
+      this.__data.promo_items[VIDEO] &&
+      this.__data.promo_items[VIDEO].duration
+
+    const basicJwplayer =
+      this.__data &&
+      this.__data.promo_items &&
+      this.__data.promo_items[JWPLAYER] &&
+      this.__data.promo_items[JWPLAYER].embed &&
+      this.__data.promo_items[JWPLAYER].embed.config &&
+      this.__data.promo_items[JWPLAYER].embed.config.duration
+
+    if (basicJwplayer) {
+      return secToTime(basicJwplayer)
+    }
+
+    return msToTime(basicVideo || '')
   }
 
   get videoStreams() {
@@ -1021,17 +1033,36 @@ class StoryData {
           dataElements = dataContent
         } */
 
-        if (i === 2) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `inline`
-        }
-        if (i === 4) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja4`
-        }
-        if (i === 6) {
-          dataElements.publicidad = true
-          dataElements.nameAds = `caja5`
+        if (this.__website === 'elcomerciomag') {
+          if (i === 1) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja3`
+          }
+          if (i === 3) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `inline`
+          }
+          if (i === 5) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja4`
+          }
+          if (i === 7) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja5`
+          }
+        } else {
+          if (i === 2) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `inline`
+          }
+          if (i === 4) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja4`
+          }
+          if (i === 6) {
+            dataElements.publicidad = true
+            dataElements.nameAds = `caja5`
+          }
         }
         if (typeElement === ELEMENT_TEXT) {
           i += 1

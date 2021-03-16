@@ -1,4 +1,4 @@
 /******* Variables Lite *******/
-$primary-font: "Roboto", sans-serif;
-$secondary-font: "Georgia", serif;
+$primary-font: "Roboto", fallback-local, sans-serif;
+$secondary-font: "Georgia", fallback-local, serif;
 $tertiary-font: $secondary-font;

@@ -303,13 +303,22 @@ window.addEventListener('load', function liteAds() {
 
   return (
     <>
-      {arcSite == 'elcomerciomag' ? (
+      {arcSite === 'elcomerciomag' || arcSite === 'trome' || arcSite === 'elbocon' || arcSite === 'peru21' ? (
         <>
+          {arcSite !== 'elcomerciomag' ? (
+            <>
+              <script
+                async
+                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
+                .toISOString()
+                .slice(0, 10)}`}></script>
+            </>
+          ) : null}
           <script
             defer
-            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section}/spaces.js?${new Date()
-              .toISOString()
-              .slice(0, 10)}`}></script>
+            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section.replace(/-/gm, '')}/spaces.js?${new Date()
+            .toISOString()
+            .slice(0, 10)}`}></script>
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
