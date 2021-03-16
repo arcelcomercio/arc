@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react'
+import * as React from 'react'
+
 import searchQuery from '../../../../utilities/client/search'
 import SignwallComponent from '../../../signwall/main/default'
 import Button from '../../../../global-components/button'
 
-class HeaderChildSomos extends PureComponent {
+class HeaderChildSomos extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -13,24 +14,27 @@ class HeaderChildSomos extends PureComponent {
     this.searchInput = React.createRef()
   }
 
-  toggleSearchInputs() {
-    const { isSearchActive } = this.state
-    this.setState({ isSearchActive: !isSearchActive })
-  }
-
+  
   handleSearchInput(e) {
     this.setState({ searchInputText: e.target.value })
   }
-
+  
   handleSubmit(e) {
     const { searchInputText } = this.state
     searchQuery(searchInputText)
     e.preventDefault()
   }
+  
+  toggleSearchInputs() {
+    const { isSearchActive } = this.state
+    this.setState({ isSearchActive: !isSearchActive })
+  }
+
 
   render() {
     const { isSearchActive, searchInputText } = this.state
-    const { back: { logo, link, alt } = {}, device, deviceList } = this.props
+    const { back: { logo, link, alt } = {}, device, deviceList, requestUri } = this.props
+    const isPreview = /^\/preview\//.test(requestUri)
 
     const initInputs = (
       <>
@@ -45,7 +49,7 @@ class HeaderChildSomos extends PureComponent {
           btnLink="https://elcomercio.pe/suscripciones/?ref=btn-suscribete-elcomercio&loc=somos"
         />
 
-        <SignwallComponent classButton="navbar-somos__btn-sign flex items-center btn capitalize text-md" />
+        {!isPreview ? <SignwallComponent classButton="navbar-somos__btn-sign flex items-center btn capitalize text-md" /> : null}
 
         <button
           className="hidden md:block"

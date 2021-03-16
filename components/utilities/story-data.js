@@ -47,7 +47,7 @@ import {
   addSlashToEnd,
   getUrlFromHtml,
 } from './parse/strings'
-import { msToTime } from './date-time/time'
+import { msToTime, secToTime } from './date-time/time'
 import { getVideoIdRedSocial } from './story/helpers'
 import { getAssetsPath, defaultImage } from './assets'
 import {
@@ -661,13 +661,25 @@ class StoryData {
   }
 
   get videoDuration() {
-    return msToTime(
-      (this.__data &&
-        this.__data.promo_items &&
-        this.__data.promo_items[VIDEO] &&
-        this.__data.promo_items[VIDEO].duration) ||
-        ''
-    )
+    const basicVideo =
+      this.__data &&
+      this.__data.promo_items &&
+      this.__data.promo_items[VIDEO] &&
+      this.__data.promo_items[VIDEO].duration
+
+    const basicJwplayer =
+      this.__data &&
+      this.__data.promo_items &&
+      this.__data.promo_items[JWPLAYER] &&
+      this.__data.promo_items[JWPLAYER].embed &&
+      this.__data.promo_items[JWPLAYER].embed.config &&
+      this.__data.promo_items[JWPLAYER].embed.config.duration
+
+    if (basicJwplayer) {
+      return secToTime(basicJwplayer)
+    }
+
+    return msToTime(basicVideo || '')
   }
 
   get videoStreams() {
