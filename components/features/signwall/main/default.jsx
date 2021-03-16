@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default ({ classButton, countOnly }) => {
+export default React.memo(({ classButton, countOnly }) => {
   const SignwallComponent = React.lazy(() =>
     import(
       /* webpackChunkName: "main-signwall" */
@@ -13,4 +13,4 @@ export default ({ classButton, countOnly }) => {
       <SignwallComponent classButton={classButton} countOnly={countOnly} />
     </React.Suspense>
   )
-}
+})
