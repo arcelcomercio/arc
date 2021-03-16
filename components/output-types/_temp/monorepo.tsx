@@ -1,11 +1,10 @@
 import * as React from 'react'
 
-import { SITE_ELBOCON } from '../utilities/constants/sitenames'
-import RegisterServiceWorker from './_children/register-service-worker'
-import WebVitals from './_children/web-vitals'
-import { getIframeStory, getLang } from './_dependencies/utils'
-
-import type { OT, OutputProps } from '../../types/output-types'
+import type { OT, OutputProps } from '../../../types/output-types'
+import { SITE_ELBOCON } from '../../utilities/constants/sitenames'
+import RegisterServiceWorker from '../_children/register-service-worker'
+import WebVitals from '../_children/web-vitals'
+import { getIframeStory, getLang } from '../_dependencies/utils'
 
 const MonorepoOutput: OT<OutputProps> = ({
   children,

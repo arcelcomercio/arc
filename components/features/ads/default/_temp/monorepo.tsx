@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { FC } from '../../../../types/features'
-import customFields from './_dependencies/custom-fields'
+import { FC } from '../../../../../types/features'
+import customFields from '../_dependencies/custom-fields'
 
 interface AdsFeatMonoProps {
   customFields?: {
@@ -17,7 +17,7 @@ interface AdsFeatMonoProps {
   }
 }
 
-const AdsFeatMono: FC<AdsFeatMonoProps> = props => {
+const AdsFeatMono: FC<AdsFeatMonoProps> = (props) => {
   const {
     customFields: {
       liteAdId,
