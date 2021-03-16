@@ -130,7 +130,7 @@ const Register = ({ arcSite }) => {
   //   }
   // }
 
-  const onFormRegister = ({ remail, rpass }) => {
+  const onFormRegister = ({ remail, rpass, rphone }) => {
     if (typeof window !== 'undefined') {
       Taggeo(nameTagCategory, 'web_swl_registro_boton_registrarme')
       setLoading(true)
@@ -144,6 +144,9 @@ const Register = ({ arcSite }) => {
         {
           displayName: remail,
           email: remail,
+          contacts: [
+            { phone: rphone ? rphone.trim() : 'undefined', type: 'PRIMARY' },
+          ],
           attributes: [
             {
               name: 'originDomain',
@@ -310,7 +313,7 @@ const Register = ({ arcSite }) => {
               <form onSubmit={handleOnSubmit} className="form-register">
                 <div className={styles.block}>
                   <label htmlFor="remail">
-                    Correo electrónico
+                    Correo electrónico*
                     <input
                       className={remailError && 'input-error'}
                       type="email"
@@ -331,7 +334,7 @@ const Register = ({ arcSite }) => {
 
                 <div className={styles.block}>
                   <label htmlFor="rpass">
-                    Contraseña
+                    Contraseña*
                     <input
                       className={rpassError && 'input-error'}
                       type={showHidePass}

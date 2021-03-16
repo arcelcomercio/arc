@@ -73,7 +73,7 @@ export const Cont = styled.div`
     }
     label {
       font-size: 12px;
-      margin-top: 8px;
+      margin-top: 4px;
     }
   }
 

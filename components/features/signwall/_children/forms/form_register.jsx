@@ -182,7 +182,7 @@ const FormRegister = props => {
   }
 
   const onSubmitForm = state => {
-    const { remail, rpass } = state
+    const { remail, rpass, rphone } = state
     setShowLoading(true)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.signUp(
@@ -194,6 +194,9 @@ const FormRegister = props => {
       {
         displayName: remail,
         email: remail,
+        contacts: [
+          { phone: rphone ? rphone.trim() : 'undefined', type: 'PRIMARY' },
+        ],
         attributes: [
           {
             name: 'originDomain',
@@ -471,19 +474,21 @@ const FormRegister = props => {
                         error={rpassError || showFormatInvalid}
                       />
 
-                      <Input
-                        type="tel"
-                        name="rphone"
-                        placeholder="Teléfono"
-                        autoComplete="off"
-                        maxLength="12"
-                        value={rphone}
-                        onChange={e => {
-                          handleOnChange(e)
-                          checkFormat(e)
-                        }}
-                        error={rphoneError || showFormatInvalid}
-                      />
+                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                        <Input
+                          type="tel"
+                          name="rphone"
+                          placeholder="Teléfono"
+                          autoComplete="off"
+                          maxLength="12"
+                          value={rphone}
+                          onChange={e => {
+                            handleOnChange(e)
+                            checkFormat(e)
+                          }}
+                          error={rphoneError}
+                        />
+                      )}
 
                       {/* {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
                         <CheckBox
