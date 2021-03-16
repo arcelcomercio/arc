@@ -74,7 +74,7 @@ SeparatorSaltarIntro.propTypes = {
   customFields,
 }
 
-SeparatorSaltarIntro.label = 'Separador Saltar - Intro'
+SeparatorSaltarIntro.label = 'Separador - Saltar Intro'
 SeparatorSaltarIntro.static = true
 
 export default SeparatorSaltarIntro

@@ -13,6 +13,7 @@
         &__section {
           background-color: #000;
           color: #fff;
+          border: 0;
         }
       }
     }
@@ -45,6 +46,7 @@
       -ms-transform: skew(10deg);
       -o-transform: skew(10deg);
       transform: skew(10deg);
+      display: block;
     }
   }
   &__box-see-more {
@@ -73,6 +75,7 @@
     @media (--desktop) {
       flex-direction: row;
       justify-content: space-between;
+      align-items: unset;
     }
   }
   &__section {
