@@ -4,9 +4,10 @@
  * SVG optimizados con https://petercollingridge.appspot.com/svg-optimiser
  */
 
-import React from 'react'
-import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 import getProperties from 'fusion:properties'
+
+import { env } from '../../../../../utilities/arc/env'
 import {
   searchScript,
   menuScript,
@@ -15,7 +16,7 @@ import {
 } from '../_dependencies/scripts'
 import Menu from './menu'
 
-export default props => {
+export default (props) => {
   const {
     hideMenu,
     menuSections,
@@ -25,15 +26,13 @@ export default props => {
     title,
     isSomos,
     activeSticky,
+    disableSignwall,
   } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
 
-  const CURRENT_ENVIRONMENT =
-    ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
-
   const paramSignwall = {
     arcSite,
-    arcEnv: CURRENT_ENVIRONMENT,
+    arcEnv: env,
     locUrl: (sectionPath.split('/')[1] || '').replace('-', ''),
   }
 
@@ -144,9 +143,9 @@ export default props => {
           dangerouslySetInnerHTML={{
             __html: `"use strict";${
               activeSticky ? stickyScript : ''
-            }${searchScript}${hideMenu ? '' : menuScript}${singwallScript(
-              paramSignwall
-            )}`,
+            }${searchScript}${hideMenu ? '' : menuScript}${
+              disableSignwall ? '' : singwallScript(paramSignwall)
+            }`,
           }}
         />
       </header>

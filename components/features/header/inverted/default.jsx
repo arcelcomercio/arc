@@ -1,8 +1,8 @@
-import React from 'react'
-
+import * as React from 'react'
 import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
 import getProperties from 'fusion:properties'
+
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
 import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 
@@ -34,6 +34,7 @@ const HeaderInverted = props => {
     arcSite,
     contextPath,
     deployment,
+    requestUri,
     metaValue,
     siteProperties,
     globalContent: {
@@ -149,15 +150,19 @@ const HeaderInverted = props => {
   formatter.setBandData(bandData)
   formatter.setMenuData(menuData)
 
-  const params = {
-    search,
-    isStory,
-    shareButtons,
-    isSlider,
-    hideMenu,
-  }
+  const isPreview = /^\/preview\//.test(requestUri)
 
-  return <HeaderChildInverted {...formatter.getParams()} {...params} />
+  return (
+    <HeaderChildInverted
+      {...formatter.getParams()}
+      search={search}
+      isStory={isStory}
+      shareButtons={shareButtons}
+      isSlider={isSlider}
+      hideMenu={hideMenu}
+      disableSignwall={isPreview}
+    />
+  )
 }
 
 HeaderInverted.label = 'Cabecera - Banda superior'
