@@ -1,0 +1,36 @@
+.saltar-intro-title {
+  &__container {
+    justify-content: center;
+    border-top: 2px solid #646464;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    padding-top: 10px;
+  }
+  &__title {
+    max-width: 280px;
+    width: 100%;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 23px;
+    line-height: 23px;
+    font-weight: 800;
+    letter-spacing: 0;
+    color: #575757;
+    &::before {
+      border-left: 1px solid #646464;
+      height: 20px;
+    }
+    &::after {
+      border-right: 1px solid #646464;
+      height: 20px;
+    }
+  }
+  &__box-line {
+    width: 100%;
+    max-width: calc(50% - 110px);
+  }
+  &__line {
+    border-top: 1px dashed #646464;
+    margin-bottom: 5px;
+  }
+}
