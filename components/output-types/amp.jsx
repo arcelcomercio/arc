@@ -56,7 +56,7 @@ const AmpOutputType = ({
     credits: { by: autors } = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     content_restrictions: { content_code: contentCode = '' } = {},
-    _id: storyId,
+    // _id: storyId,
   } = globalContent || {}
 
   const envOrigin = originByEnv(arcSite)
@@ -297,8 +297,7 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null
-          }
+            ) : null}
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -547,6 +546,7 @@ const AmpOutputType = ({
           </>
         ) : null}
         {children}
+        {hasAmpSubscriptions ? <amp-subscriptions></amp-subscriptions> : null}
       </body>
     </Html>
   )
