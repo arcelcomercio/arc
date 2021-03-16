@@ -6,7 +6,12 @@ import * as Sentry from '@sentry/browser'
 import useForm from '../../../_hooks/useForm'
 import { getEntitlements } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
-import { PixelActions, sendAction, Taggeo } from '../../../_dependencies/Taggeo'
+import {
+  PixelActions,
+  sendAction,
+  Taggeo,
+  TaggeoJoao,
+} from '../../../_dependencies/Taggeo'
 import { maskDocuments, docPatterns } from '../../../_dependencies/Regex'
 import Modal from './children/modal'
 import PWA from '../../../_dependencies/Pwa'
@@ -47,7 +52,7 @@ const nameTagCategory = 'Web_Paywall_Landing'
 const Profile = () => {
   const {
     arcSite,
-    globalContent: { plans = [], error, printedSubscriber },
+    globalContent: { plans = [], error, printedSubscriber, event },
   } = useAppContext() || {}
 
   const {
@@ -146,12 +151,15 @@ const Profile = () => {
 
       if (printedSubscriber || error) {
         // Datalayer solicitados por Joao
-        window.dataLayer.push({
-          event: 'Pasarela Suscripciones Digitales',
-          category: 'P0_Plan Suscriptor',
-          action: printedSubscriber ? 'Aceptado' : `Denegado - ${error}`,
-          label: uuid,
-        })
+        TaggeoJoao(
+          {
+            event: 'Pasarela Suscripciones Digitales',
+            category: 'P0_Plan_Suscriptor',
+            action: printedSubscriber ? 'Aceptado' : `Denegado - ${error}`,
+            label: uuid,
+          },
+          window.location.pathname
+        )
       }
 
       if (userErrorApi !== false) updateErrorApi(error)
@@ -358,12 +366,21 @@ const Profile = () => {
       })
 
       // Datalayer solicitados por Joao
-      window.dataLayer.push({
-        event: 'Pasarela Suscripciones Digitales',
-        category: `P1_${namePlanApi.replace(' ', '_')}`,
-        action: userPeriod,
-        label: uuid,
-      })
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: `P1_${
+            event && event === 'winback'
+              ? 'Plan_Winback'
+              : printedSubscriber
+              ? 'Plan_Suscriptor'
+              : namePlanApi.replace(' ', '_')
+          }`,
+          action: userPeriod,
+          label: uuid,
+        },
+        window.location.pathname
+      )
 
       if (
         (getStorageEmailProfile() !== uEmail && isFacebook) ||
@@ -473,12 +490,21 @@ const Profile = () => {
       Taggeo(nameTagCategory, 'web_paywall_close_validation')
 
       // Datalayer solicitados por Joao
-      window.dataLayer.push({
-        event: 'Pasarela Suscripciones Digitales',
-        category: `P1_${namePlanApi.replace(' ', '_')}_Cancelado`,
-        action: userPeriod,
-        label: uuid,
-      })
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: `P1_${
+            event && event === 'winback'
+              ? 'Plan_Winback'
+              : printedSubscriber
+              ? 'Plan_Suscriptor'
+              : namePlanApi.replace(' ', '_')
+          }_Cancelado`,
+          action: userPeriod,
+          label: uuid,
+        },
+        window.location.pathname
+      )
     }
   }
 
