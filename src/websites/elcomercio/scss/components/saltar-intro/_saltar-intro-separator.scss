@@ -1,6 +1,7 @@
 .saltar-intro-separator {
   &__container {
     margin-bottom: 30px;
+    font-family: $primary-font;
   }
   &__box-title {
     text-align: center;
@@ -42,7 +43,7 @@
     // font: normal normal medium 10px/17px Bitter;
     font-size: 10px;
     line-height: 17px;
-    font-weight: medium;
+    font-weight: 500;
     letter-spacing: -0.2px;
     color: #000;
     text-transform: uppercase;
@@ -67,7 +68,7 @@
     text-transform: uppercase;
   }
   &__box-item {
-    max-width: 330px;
+    width: 330px;
     @media (--desktop) {
       &:nth-child(2) {
         margin-left: 33px;
@@ -101,7 +102,7 @@
     // font: normal normal medium 10px/24px Bitter;
     font-size: 10px;
     line-height: 24px;
-    font-weight: medium;
+    font-weight: 500;
     letter-spacing: 0.14px;
     color: #000;
     text-transform: uppercase;
