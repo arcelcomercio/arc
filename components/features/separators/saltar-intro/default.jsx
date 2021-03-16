@@ -14,7 +14,7 @@ const DEFAULT_TITLE = ''
 
 const SeparatorSaltarIntro = props => {
   const {
-    customFields: { section, titleSeparator, titleLink, seeMoreLink },
+    customFields: { section, titleSeparator, titleLink, seeMoreLink, modeStreaming = false },
   } = props
 
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
@@ -66,7 +66,7 @@ const SeparatorSaltarIntro = props => {
   }
 
   return (
-    <SeparatorList data={getDataComponent()} {...{ isAdmin, seeMoreLink }} />
+    <SeparatorList data={getDataComponent()} {...{ isAdmin, seeMoreLink, modeStreaming }} />
   )
 }
 

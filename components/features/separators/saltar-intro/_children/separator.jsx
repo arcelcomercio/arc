@@ -19,30 +19,34 @@ const classes = {
 export default ({
   isAdmin,
   seeMoreLink,
-  data /* : {
+  modeStreaming = false,
+  data: {
     items,
-    arcSite,
+    // arcSite,
     titleSeparator = '',
     titleLink = '/',
-    htmlCode = '',
-  } */ = {},
+  } = {},
 }) => {
-  console.log('============Data', data)
+  // console.log('============Data', data)
   return (
-    <div className={classes.container}>
-      <h2 itemProp="name" className={classes.title}>
-        <a itemProp="url" href={data.titleLink} className={classes.titleLink}>
-          <span className={classes.titleReversing}>{data.titleSeparator}</span>
-        </a>
-      </h2>
+    <div
+      className={`${classes.container} ${modeStreaming &&
+        `${classes.container}--streaming`}`}>
+      {!modeStreaming && (
+        <h2 itemProp="name" className={classes.title}>
+          <a itemProp="url" href={titleLink} className={classes.titleLink}>
+            <span className={classes.titleReversing}>{titleSeparator}</span>
+          </a>
+        </h2>
+      )}
       <div className={classes.boxSeeMore}>
         <a itemProp="url" href={seeMoreLink} className={classes.seeMore}>
           Ver más {`->`}
         </a>
       </div>
       <div role="list" className={classes.list}>
-        {data.items &&
-          data.items.map(el => {
+        {items &&
+          items.map(el => {
             const params = {
               title: el.title,
               link: el.websiteLink,
