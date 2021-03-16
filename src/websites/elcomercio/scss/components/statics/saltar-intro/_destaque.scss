@@ -1,15 +1,26 @@
 @import "../../../../../../general-styles/components/features/cards/featured-story-full-img/feature-fullimage";
 
 .feature-fullimage {
-  height: 518px;
+  height: 568px;
   &__box-image {
+    &::before {
+      background: transparent !important;
+    }
     & img {
+      height: 258px;
+      @media (--desktop) {
+        height: 518px;
+      }
+
       object-fit: fill;
     }
   }
   &__box-detail {
+    margin: 0 25px;
     @media (--desktop) {
       width: 60% !important;
+      height: 185px;
+      margin: inherit;
     }
 
     background: #f4f2f2;
@@ -25,6 +36,10 @@
         width: 10px;
         height: 23px;
         margin-bottom: 3px;
+        @media (--desktop) {
+          margin-bottom: 4px;
+        }
+
         margin-left: -4px;
         transform: skew(-15deg);
         background: #000;
@@ -33,12 +48,15 @@
         content: "";
         position: absolute;
         width: 10px;
-        height: 23px;
+        height: 24px;
         background-color: #000;
         transform: skew(-15deg);
         top: 0;
         left: auto;
         right: -7px;
+        @media (--desktop) {
+          height: 23px;
+        }
       }
     }
     & h2 a {

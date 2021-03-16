@@ -105,6 +105,9 @@
 
 .header {
   display: none !important;
+  &__icon-back {
+    background-color: #7e7e7e !important;
+  }
   &__item {
     white-space: nowrap;
     padding: 0 10px;
@@ -123,10 +126,11 @@
   &__link {
     color: #333 !important;
     font-family: "Bitter,SemiBold", serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     background-color: transparent !important;
+    letter-spacing: -0.14px;
   }
 }
 nav.nav__wrapper {
@@ -146,6 +150,17 @@ nav.nav__wrapper {
   }
   &__logo-wrapper {
     display: none;
+  }
+  &__icon {
+    &::before {
+      content: "\e909";
+      color: #707070;
+    }
+  }
+  &__btn {
+    color: #707070;
+    border-right: 2px solid;
+    padding: 8px 8px 8px 0;
   }
 }
 .section-menu {
