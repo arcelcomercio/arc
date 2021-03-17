@@ -103,10 +103,10 @@
     width: 330px;
     margin-bottom: 30px;
     @media (--desktop) {
+      margin-bottom: 0;
       &:nth-child(2) {
         margin-left: 33px;
         margin-right: 33px;
-        margin-bottom: 0;
       }
     }
   }
