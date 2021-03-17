@@ -68,6 +68,9 @@ export default arcSite => `
               name
               path
           }
+        }
+        credits {
+          by { name url type }
         } 
       } 
       section_name
