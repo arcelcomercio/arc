@@ -6,7 +6,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import SeparatorList from './_children/separator'
 import StoryData from '../../../utilities/story-data'
-import { separatorBasicFields } from '../../../utilities/included-fields'
+import { includeCredits, separatorBasicFields } from '../../../utilities/included-fields'
 
 const STORIES_QTY_DEFAULT = 3
 const CONTENT_SOURCE = 'story-feed-by-section'
@@ -14,7 +14,7 @@ const DEFAULT_TITLE = ''
 
 const SeparatorSaltarIntro = props => {
   const {
-    customFields: { section, titleSeparator, titleLink, seeMoreLink },
+    customFields: { section, titleSeparator, titleLink, seeMoreLink, modeStreaming = false },
   } = props
 
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
@@ -48,7 +48,7 @@ const SeparatorSaltarIntro = props => {
       section,
       stories_qty: STORIES_QTY_DEFAULT,
       presets: 'landscape_s:298x156',
-      includedFields: separatorBasicFields,
+      includedFields: `${separatorBasicFields},${includeCredits}`,
     },
     filter: schemaFilter(arcSite),
     transform: dataTransform,
@@ -66,7 +66,7 @@ const SeparatorSaltarIntro = props => {
   }
 
   return (
-    <SeparatorList data={getDataComponent()} {...{ isAdmin, seeMoreLink }} />
+    <SeparatorList data={getDataComponent()} {...{ isAdmin, seeMoreLink, modeStreaming }} />
   )
 }
 
@@ -74,7 +74,7 @@ SeparatorSaltarIntro.propTypes = {
   customFields,
 }
 
-SeparatorSaltarIntro.label = 'Separador Saltar - Intro'
+SeparatorSaltarIntro.label = 'Separador - Saltar Intro'
 SeparatorSaltarIntro.static = true
 
 export default SeparatorSaltarIntro

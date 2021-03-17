@@ -1,7 +1,23 @@
 .saltar-intro-separator {
   &__container {
-    margin-bottom: 30px;
+    margin-bottom: 0;
     font-family: $primary-font;
+    @media (--desktop) {
+      margin-bottom: 30px;
+    }
+    &--streaming {
+      .saltar-intro-separator {
+        &__box-see-more {
+          padding-top: 0;
+          border: 0;
+        }
+        &__section {
+          background-color: #000;
+          color: #fff;
+          border: 0;
+        }
+      }
+    }
   }
   &__box-title {
     text-align: center;
@@ -31,12 +47,18 @@
       -ms-transform: skew(10deg);
       -o-transform: skew(10deg);
       transform: skew(10deg);
+      display: block;
     }
   }
   &__box-see-more {
     border-top: 1px solid #b7b7b7;
+    text-align: center;
+    padding-top: 20px;
+    margin-bottom: 10px;
     @media (--desktop) {
       text-align: right;
+      padding-top: 0;
+      margin-bottom: 0;
     }
   }
   &__see-more {
@@ -47,10 +69,20 @@
     letter-spacing: -0.2px;
     color: #000;
     text-transform: uppercase;
+
+    svg {
+      width: 15px;
+      top: 2px;
+      position: relative;
+    }
   }
   &__list {
+    flex-direction: column;
+    align-items: center;
     @media (--desktop) {
+      flex-direction: row;
       justify-content: space-between;
+      align-items: unset;
     }
   }
   &__section {
@@ -69,10 +101,12 @@
   }
   &__box-item {
     width: 330px;
+    margin-bottom: 30px;
     @media (--desktop) {
       &:nth-child(2) {
         margin-left: 33px;
         margin-right: 33px;
+        margin-bottom: 0;
       }
     }
   }
@@ -84,19 +118,25 @@
     letter-spacing: -0.19px;
     color: #000;
     opacity: 1;
-    margin-bottom: 10px;
-    height: 75px;
+    margin-bottom: 0;
+    height: 73px;
     text-overflow: ellipsis;
     overflow: hidden;
     -webkit-line-clamp: 3;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    @media (--desktop) {
+      margin-bottom: 10px;
+    }
   }
   &__image {
     width: 100%;
     // remove extra space bottom
     // display: block;
     vertical-align: middle;
+    @media (--desktop) {
+      max-height: 160px;
+    }
   }
   &__author {
     // font: normal normal medium 10px/24px Bitter;
