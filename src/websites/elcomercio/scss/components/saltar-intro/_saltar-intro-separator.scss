@@ -8,7 +8,8 @@
     &--streaming {
       .saltar-intro-separator {
         &__box-see-more {
-          padding-top: 10px;
+          padding-top: 0;
+          border: 0;
         }
         &__section {
           background-color: #000;
@@ -68,6 +69,12 @@
     letter-spacing: -0.2px;
     color: #000;
     text-transform: uppercase;
+
+    svg {
+      width: 15px;
+      top: 2px;
+      position: relative;
+    }
   }
   &__list {
     flex-direction: column;
@@ -112,7 +119,7 @@
     color: #000;
     opacity: 1;
     margin-bottom: 0;
-    height: 75px;
+    height: 73px;
     text-overflow: ellipsis;
     overflow: hidden;
     -webkit-line-clamp: 3;
@@ -127,6 +134,9 @@
     // remove extra space bottom
     // display: block;
     vertical-align: middle;
+    @media (--desktop) {
+      max-height: 160px;
+    }
   }
   &__author {
     // font: normal normal medium 10px/24px Bitter;
