@@ -56,7 +56,7 @@ const AmpOutputType = ({
     credits: { by: autors } = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     content_restrictions: { content_code: contentCode = '' } = {},
-    // _id: storyId,
+    _id: storyId,
   } = globalContent || {}
 
   const envOrigin = originByEnv(arcSite)
@@ -502,7 +502,13 @@ const AmpOutputType = ({
                     },
                     "data": {
                       "contentType": "${getMultimedia(multimediaType)}",
-                      "section": "${primarySectionLink}",
+                      "section": "${
+                        primarySectionLink
+                          ? primarySectionLink.split('/')[1]
+                          : ''
+                      }",
+                      "contentRestriction": "${contentCode}",
+                      "contentId": "${storyId}",
                       "apiOrigin": "https://api${
                         env === 'sandbox' ? '-sandbox' : ''
                       }.${arcSite}.pe",
