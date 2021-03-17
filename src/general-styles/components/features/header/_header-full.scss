@@ -8,12 +8,18 @@ $max-width: 1366px;
   z-index: 21;
   &__newsletter {
     cursor: pointer;
-    padding-left: 6px;
-    padding-right: 6px;
     align-items: center;
-    background-color: #f07a33;
-    border: 1px solid #c45629;
-    border-radius: 5px;
+    // padding-left: 6px;
+    // padding-right: 6px;
+    // background-color: #f07a33;
+    // border: 1px solid #c45629;
+    svg {
+      border-radius: 5px;
+      height: 30px;
+      background: linear-gradient(to right, #e74e0f, #e63338);
+      padding-left: 6px;
+      padding-right: 6px;
+    }
     @media (--only-mobile) {
       margin-right: 15px;
       padding: 2px 10px 0 10px;
