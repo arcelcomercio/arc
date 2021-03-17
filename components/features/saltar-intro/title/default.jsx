@@ -26,13 +26,6 @@ const SaltarIntroTitle = props => {
       <h2 className={classes.title} style={{ color }}>
         {title}
       </h2>
-      {/* <div className={classes.boxLine}>
-        <div className={classes.line}></div>
-        <div className={classes.line}></div>
-        <div className={classes.line}></div>
-        <div className={classes.line}></div>
-        <div className={classes.line}></div>
-      </div> */}
     </div>
   )
 }
