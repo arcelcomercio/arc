@@ -184,6 +184,10 @@ const FormRegister = props => {
   const onSubmitForm = state => {
     const { remail, rpass, rphone } = state
     setShowLoading(true)
+
+    const contacts =
+      rphone.length >= 6 ? [{ phone: rphone.trim(), type: 'PRIMARY' }] : []
+
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.signUp(
       {
@@ -194,9 +198,7 @@ const FormRegister = props => {
       {
         displayName: remail,
         email: remail,
-        contacts: [
-          { phone: rphone ? rphone.trim() : 'undefined', type: 'PRIMARY' },
-        ],
+        contacts,
         attributes: [
           {
             name: 'originDomain',
@@ -419,7 +421,7 @@ const FormRegister = props => {
                         onStudents={() => setShowStudents(!showStudents)}
                       />
 
-                      <S.Text c="gray" s="14" className="mt-20 center">
+                      <S.Text c="gray" s="14" className="mt-15 center">
                         o completa tus datos para registrarte
                       </S.Text>
 
