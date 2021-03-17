@@ -372,11 +372,11 @@ export const Error = styled.div`
   color: ${props => (props.type === 'warning' ? '#925700' : '#fff')};
   font-family: Libre Franklin, sans-serif;
   font-size: 12px;
-  padding: 10px 10px;
+  padding: 5px 10px;
   border-radius: 4px;
   text-align: center;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   line-height: 16px;
   & button {
     display: block;
