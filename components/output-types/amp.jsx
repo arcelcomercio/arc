@@ -546,7 +546,6 @@ const AmpOutputType = ({
           </>
         ) : null}
         {children}
-        {hasAmpSubscriptions ? <amp-subscriptions></amp-subscriptions> : null}
       </body>
     </Html>
   )
