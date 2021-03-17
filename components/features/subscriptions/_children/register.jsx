@@ -135,6 +135,10 @@ const Register = ({ arcSite }) => {
       Taggeo(nameTagCategory, 'web_swl_registro_boton_registrarme')
       setLoading(true)
       setLoadText('Registrando...')
+
+      const contacts =
+        rphone.length >= 6 ? [{ phone: rphone.trim(), type: 'PRIMARY' }] : []
+
       window.Identity.signUp(
         {
           userName: remail,
@@ -144,9 +148,7 @@ const Register = ({ arcSite }) => {
         {
           displayName: remail,
           email: remail,
-          contacts: [
-            { phone: rphone ? rphone.trim() : 'undefined', type: 'PRIMARY' },
-          ],
+          contacts,
           attributes: [
             {
               name: 'originDomain',
