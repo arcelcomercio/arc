@@ -297,7 +297,8 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null}
+            ) : null
+          }
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -544,12 +545,19 @@ const AmpOutputType = ({
         {hasAmpSubscriptions ? (
           <>
             <div
+              subscriptions-action="subscribe"
+              subscriptions-display="NOT data.subscribed">
+              Not a subscriber!
+            </div>
+            <div subscriptions-display="data.subscribed">Subscribed</div>
+            <div
               subscriptions-action="login"
               subscriptions-display="NOT data.loggedIn">
-              Login
+              Not logged in
             </div>
+            <div subscriptions-display="data.loggedIn">Logged in</div>
             <section subscriptions-section="content-not-granted">
-              Login or subscribe to read more.
+              Content not granted :C
             </section>
           </>
         ) : null}
