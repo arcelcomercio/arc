@@ -1,0 +1,113 @@
+@import "../../../../../../general-styles/components/features/layout/footer/footer";
+.footer {
+  & > div {
+    background-color: #fff;
+  }
+  &__logo-container {
+    display: none;
+  }
+  &__info {
+    &::after {
+      @media (--tablet) {
+        height: 90%;
+        top: 20px;
+      }
+    }
+  }
+  &__sections {
+    &::after {
+      @media (--tablet) {
+        height: 90%;
+        top: 20px;
+      }
+    }
+  }
+  &__legal-item {
+    color: #000 !important;
+    font-family: $primary-font;
+    font-weight: 500;
+    font-size: 12px;
+    margin-bottom: 20px;
+    &:first-child {
+      font-weight: 800;
+    }
+  }
+  &__list-title {
+    font-family: $primary-font;
+    font-weight: 800;
+    font-size: 13px;
+    padding-top: 0 !important;
+    color: #000 !important;
+  }
+  &__list-link {
+    color: #000 !important;
+    font-family: $primary-font;
+    font-weight: 500;
+    font-size: 13px;
+  }
+  &__contact {
+    & > ul li a {
+      text-transform: lowercase;
+      display: block;
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+    & ul:first-child {
+      & li:nth-child(2) {
+        display: none;
+      }
+      & li:nth-child(3) {
+        display: none;
+      }
+      & li:nth-child(4) {
+        display: none;
+      }
+      & li:nth-child(6) {
+        display: none;
+      }
+      & li:nth-child(7) {
+        display: none;
+      }
+    }
+  }
+  &__social-title {
+    font-size: 13px;
+    font-family: $primary-font;
+    font-weight: 800;
+    &::after {
+      height: 0;
+    }
+  }
+  &__social-item {
+    &:first-child {
+      border: 1px solid;
+      border-radius: 50%;
+      padding: 8px 10px;
+      margin-right: 12px;
+      & a {
+        & i {
+          font-size: 12px;
+          padding: 0;
+        }
+      }
+    }
+    &:nth-child(2) {
+      border: 1px solid;
+      border-radius: 50%;
+      padding: 8px 10px;
+      & a {
+        & i {
+          font-size: 12px;
+          padding: 0;
+        }
+      }
+    }
+  }
+  &__sites {
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+}
