@@ -230,7 +230,7 @@ class StoryContentAmp extends React.PureComponent {
 
     return (
       <>
-        <div className={classes.content}>
+        <div className={classes.content} subscriptions-section="content">
           {promoItemJwplayer.key ? (
             <StoryContentChildVideoJwplayer data={promoItemJwplayer} />
           ) : (
