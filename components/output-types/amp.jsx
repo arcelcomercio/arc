@@ -559,9 +559,11 @@ const AmpOutputType = ({
             <section subscriptions-section="content-not-granted">
               Content not granted :C
             </section>
+            <div subscriptions-section="content">{children}</div>
           </>
-        ) : null}
-        {children}
+        ) : (
+          children
+        )}
       </body>
     </Html>
   )
