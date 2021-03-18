@@ -31,7 +31,7 @@ export const formatSecondLastName = () => {
 
 export const formatPhone = () => {
   return {
-    func: value => numberRegex.test(value),
+    func: value => value === '' ||  (value.length >= 2 && numberRegex.test(value)),
     error: 'Formato inválido. Solo números',
   }
 }
