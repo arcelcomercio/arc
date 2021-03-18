@@ -91,14 +91,14 @@ const StaticsResumen2020 = props => {
           <div id="gpt_top"></div>
           <StickyBar
             text={stickyBarText}
-            month={section}
+            month={sectionData?.seccion || ''}
             disableAnchor={stickyBarDisableAnchor}
             mainPath={mainPath}
           />
           <MainImage
             image={sectionImage.url}
             caption={sectionImage.caption}
-            month={sectionData?.seccion || {}}
+            month={sectionData?.seccion || ''}
           />
           <StoriesList
             list={sectionData?.historias}
