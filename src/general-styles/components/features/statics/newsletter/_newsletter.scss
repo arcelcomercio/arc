@@ -7,13 +7,16 @@
     align-items: inherit;
   }
   &__custom {
+    background-color: #fff;
+    padding: 25px;
+    min-height: 1200px;
+    min-height: 100vh;
     @media (--desktop) {
       max-width: 1274px;
+      background-color: transparent;
       align-items: inherit;
-    }
-    @media (--only-mobile) {
-      background-color: #fff;
-      padding: 25px;
+      min-height: auto;
+      padding: 0;
     }
   }
 
