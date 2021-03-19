@@ -7,13 +7,16 @@
     align-items: inherit;
   }
   &__custom {
+    background-color: #fff;
+    padding: 25px;
+    min-height: 1200px;
+    min-height: 100vh;
     @media (--desktop) {
       max-width: 1274px;
+      background-color: transparent;
       align-items: inherit;
-    }
-    @media (--only-mobile) {
-      background-color: #fff;
-      padding: 25px;
+      min-height: auto;
+      padding: 0;
     }
   }
 
@@ -46,6 +49,8 @@
 
   &__button {
     height: 50px;
+    font-size: 15px;
+    background: linear-gradient(to bottom, #e74e0f, #e63338);
   }
 
   &__description {
@@ -56,6 +61,7 @@
 
   &__email {
     height: 50px;
+    font-size: 16px;
   }
 
   &__error-message {
@@ -93,6 +99,10 @@
     }
   }
 
+  &__subtitle {
+    font-size: 16px;
+  }
+
   &__strong {
     font-size: 55px;
 
@@ -102,11 +112,26 @@
   }
 
   &__page-link {
-    text-decoration: underline;
+    // text-decoration: underline;
   }
 
   &__input-checkbox {
     margin-top: 1px;
+  }
+
+  &__tos {
+    max-width: 83%;
+    margin: 0 auto;
+    font-size: 13px;
+  }
+
+  &__cafe {
+    max-width: 160px;
+    margin-bottom: 16px;
+  }
+
+  &__icon {
+    height: 28px;
   }
 }
 .border-r-10 {
