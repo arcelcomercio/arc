@@ -128,9 +128,9 @@
   }
   &__link {
     color: #333 !important;
-    font-family: "Bitter,SemiBold", serif;
-    font-size: 12px;
+    font-family: $primary-font;
     font-weight: 600;
+    font-size: 12px;
     text-transform: uppercase;
     background-color: transparent !important;
     letter-spacing: -0.14px;
@@ -217,8 +217,9 @@ nav.nav__wrapper {
     }
     & a {
       letter-spacing: 0.22px;
+      font-family: $primary-font;
+      font-weight: 500;
       @media (--desktop) {
-        font-family: "Bitter,Medium", serif;
         color: #000;
         font-size: 16px;
         justify-content: center;
