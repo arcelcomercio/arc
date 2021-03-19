@@ -4,7 +4,7 @@ import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 
 const classes = {
-  newsletter: `newsletter__custom flex flex-col-reverse items-center lg:justify-between lg:justify-center`,
+  newsletter: `newsletter__custom`,
   boxSubscription: `newsletter__box-subscription pr-40 pl-40 primary-font p-15`,
   errorMessage: 'newsletter__error-message block pt-5 text-xs',
   errorMessageMedium: 'text-lg mb-20',
