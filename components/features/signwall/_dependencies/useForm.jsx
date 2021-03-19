@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react'
 
-const VALUE = 'value';
-const ERROR = 'error';
+const VALUE = 'value'
+const ERROR = 'error'
 
-const REQUIRED_FIELD_ERROR = 'Este campo es requerido';
+const REQUIRED_FIELD_ERROR = 'Este campo es requerido'
+const MIN_6_CARACTS_FIELD_ERROR = 'Se requiere mínimo 6 caracteres'
 
 /**
  * Determines a value if it's an object
@@ -11,19 +12,19 @@ const REQUIRED_FIELD_ERROR = 'Este campo es requerido';
  * @param {object} value
  */
 function isObject(value) {
-  return value !== null && typeof value === 'object';
+  return value !== null && typeof value === 'object'
 }
 
 function getPropValues(stateSchema, prop) {
   if (!isObject(stateSchema) || !prop) {
-    throw new Error('Invalid Parameter passed.');
+    throw new Error('Invalid Parameter passed.')
   }
 
   return Object.keys(stateSchema).reduce((accumulator, curr) => {
-    accumulator[curr] = stateSchema[curr][prop];
+    accumulator[curr] = stateSchema[curr][prop]
 
-    return accumulator;
-  }, {});
+    return accumulator
+  }, {})
 }
 
 /**
@@ -32,8 +33,12 @@ function getPropValues(stateSchema, prop) {
  * @param {boolean} isRequired
  */
 function isRequiredField(value, isRequired) {
-  if (!value && isRequired) return REQUIRED_FIELD_ERROR;
-  return '';
+  if (!value && isRequired) return REQUIRED_FIELD_ERROR
+  return ''
+}
+
+function min6Caracts(value) {
+  return value.length >= 1 && value.length < 6 ? MIN_6_CARACTS_FIELD_ERROR : ''
 }
 
 /**
@@ -48,27 +53,19 @@ function useForm(
   stateValidatorSchema = {},
   submitFormCallback
 ) {
-  const [state, setStateSchema] = useState(stateSchema);
+  const [state, setStateSchema] = useState(stateSchema)
 
-  const [values, setValues] = useState(getPropValues(state, VALUE));
-  const [errors, setErrors] = useState(getPropValues(state, ERROR));
+  const [values, setValues] = useState(getPropValues(state, VALUE))
+  const [errors, setErrors] = useState(getPropValues(state, ERROR))
 
-  const [disable, setDisable] = useState(true);
-  const [isDirty, setIsDirty] = useState(false);
+  const [disable, setDisable] = useState(true)
+  const [isDirty, setIsDirty] = useState(false)
 
   // Get a local copy of stateSchema
   useEffect(() => {
-    setStateSchema(stateSchema);
-    setDisable(true); // Disable button in initial render.
-  }, []); // eslint-disable-line
-
-  // For every changed in our state this will be fired
-  // To be able to disable the button
-  useEffect(() => {
-    if (isDirty) {
-      setDisable(validateErrorState());
-    }
-  }, [errors, isDirty]); // eslint-disable-line
+    setStateSchema(stateSchema)
+    setDisable(true) // Disable button in initial render.
+  }, []) // eslint-disable-line
 
   // Used to disable submit button if there's a value in errors
   // or the required field in state has no value.
@@ -77,56 +74,67 @@ function useForm(
   const validateErrorState = useCallback(
     () => Object.values(errors).some(error => error),
     [errors]
-  );
+  )
+
+  // For every changed in our state this will be fired
+  // To be able to disable the button
+  useEffect(() => {
+    if (isDirty) {
+      setDisable(validateErrorState())
+    }
+  }, [errors, isDirty]) // eslint-disable-line
 
   // Event handler for handling changes in input.
   const handleOnChange = useCallback(
     event => {
-      setIsDirty(true);
+      setIsDirty(true)
 
-      const name = event.target.name;
-      const value = event.target.value;
+      const name = event.target.name
+      const value = event.target.value
+      const _validator = stateValidatorSchema
 
-      const _validator = stateValidatorSchema;
-
-      // Making sure that stateValidatorSchema name is same in 
+      // Making sure that stateValidatorSchema name is same in
       // stateSchema
-      if (!_validator[name]) return;
+      if (!_validator[name]) return
 
-      const _field = _validator[name];
+      const _field = _validator[name]
 
-      let error = '';
-      error = isRequiredField(value, _field.required);
+      let errorObj = ''
+      errorObj = isRequiredField(value, _field.required)
+
+      if (_field.min6caracts && errorObj === '') {
+        errorObj = min6Caracts(value)
+      }
 
       // Prevent running this function if the value is required field
-      if (error === '' && isObject(_field['validator'])) {
-        const _fieldValidator = _field['validator'];
+      if (errorObj === '' && isObject(_field['validator'])) {
+        const _fieldValidator = _field['validator']
 
         // Test the function callback if the value is meet the criteria
-        const testFunc = _fieldValidator['func'];
+        const testFunc = _fieldValidator['func']
         if (!testFunc(value, values)) {
-          error = _fieldValidator['error'];
+          errorObj = _fieldValidator['error']
         }
       }
 
-      setValues(prevState => ({ ...prevState, [name]: value }));
-      setErrors(prevState => ({ ...prevState, [name]: error }));
+      setValues(prevState => ({ ...prevState, [name]: value }))
+      setErrors(prevState => ({ ...prevState, [name]: errorObj }))
     },
     [stateValidatorSchema, values]
-  );
+  )
 
   const handleOnSubmit = useCallback(
     event => {
-      event.preventDefault();
+      event.preventDefault()
 
       // Making sure that there's no error in the state
       // before calling the submit callback function
       if (!validateErrorState()) {
-        submitFormCallback(values);
+        submitFormCallback(values)
       }
     },
     [validateErrorState, submitFormCallback, values]
-  );
+  )
 
   return {
     handleOnChange,
@@ -136,7 +144,7 @@ function useForm(
     disable,
     setValues,
     setErrors,
-  };
+  }
 }
 
-export default useForm;
+export default useForm
