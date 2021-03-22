@@ -625,9 +625,7 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && (
-          <Fusion hydrateOnly />
-        )}
+        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
         {isStory && (
           <script
             type="text/javascript"
