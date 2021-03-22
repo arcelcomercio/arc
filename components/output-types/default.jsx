@@ -103,6 +103,7 @@ export default ({
   const sectionPath = nodeType === 'section' ? _id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
   const isVideosSection = /^\/videos\//.test(requestUri)
+  const isSearchSection = /^\/buscar\//.test(requestUri)
   const isBlogPost = /^\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?/.test(
     requestUri
   )
@@ -511,6 +512,21 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
+        {arcSite === SITE_DEPOR && isSearchSection && (
+          <>
+            <script 
+              async="async" 
+              src="https://www.google.com/adsense/search/ads.js"
+            />
+            <script 
+              type="text/javascript" 
+              charset="utf-8"
+              dangerouslySetInnerHTML={{
+                __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`
+              }}
+            />
+          </>
+        )}
         {/* Scripts de AdManager */}
         {!noAds && !isLivePage && (
           <>
