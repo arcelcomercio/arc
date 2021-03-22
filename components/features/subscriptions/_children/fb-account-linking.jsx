@@ -33,19 +33,17 @@ export const SubscribeEventTag = ({
   offerCode,
   value,
   currency,
-}) => {
-  return (
-    <FbEventTag
-      debug={debug}
-      onBeforeSend={onBeforeSend}
-      event="Subscribe"
-      subscription_id={subscriptionId}
-      offer_code={offerCode}
-      value={value}
-      currency={currency}
-    />
-  )
-}
+}) => (
+  <FbEventTag
+    debug={debug}
+    onBeforeSend={onBeforeSend}
+    event="Subscribe"
+    subscription_id={subscriptionId}
+    offer_code={offerCode}
+    value={value}
+    currency={currency}
+  />
+)
 
 SubscribeEventTag.propTypes = {
   debug: PropTypes.bool,

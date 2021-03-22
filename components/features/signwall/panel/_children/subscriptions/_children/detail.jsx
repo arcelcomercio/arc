@@ -630,7 +630,8 @@ export const SubDetailInt = props => {
                       mask={Mask.CARD_NUMBER}
                       required
                       placeholder="Número de tarjeta"
-                      autoComplete="on"
+                      inputMode="numeric"
+                      autoComplete="cc-number"
                       value={numcard}
                       maxLength="19"
                       tabIndex="1"
@@ -656,7 +657,8 @@ export const SubDetailInt = props => {
                       mask={Mask.EXPIRY_DATE}
                       required
                       placeholder="F. de Vencimiento"
-                      autoComplete="on"
+                      inputMode="numeric"
+                      autoComplete="cc-exp"
                       value={dateexpire}
                       maxLength="7"
                       tabIndex="2"
@@ -682,7 +684,8 @@ export const SubDetailInt = props => {
                       mask={Mask.CARD_CVV}
                       required
                       placeholder="CVV"
-                      autoComplete="on"
+                      inputMode="numeric"
+                      autoComplete="cc-csc"
                       value={codecvv}
                       maxLength="4"
                       tabIndex="3"

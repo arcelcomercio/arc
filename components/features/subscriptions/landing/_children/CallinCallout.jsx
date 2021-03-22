@@ -96,6 +96,7 @@ function CallinCallout() {
             <input
               className={namecallError && 'input-error'}
               type="text"
+              autoComplete="name"
               placeholder="Nombre"
               name="namecall"
               maxLength="80"
@@ -108,6 +109,8 @@ function CallinCallout() {
             <input
               className={phonecallError && 'input-error'}
               type="text"
+              inputMode="tel"
+              autoComplete="tel"
               placeholder="Celular"
               name="phonecall"
               maxLength="9"

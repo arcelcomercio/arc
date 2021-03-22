@@ -81,9 +81,10 @@ const Profile = () => {
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.priceCode === userPlan.priceCode ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+    null
+  )
 
   const {
     amount,
@@ -207,14 +208,13 @@ const Profile = () => {
   const checkSubscriptions = () => {
     if (typeof window !== 'undefined') {
       return window.Identity.heartbeat()
-        .then(resHeart => {
-          return getEntitlements(urls.arcOrigin, resHeart.accessToken)
-            .then(resEntitlements => {
-              return (
+        .then(resHeart =>
+          getEntitlements(urls.arcOrigin, resHeart.accessToken)
+            .then(
+              resEntitlements =>
                 Array.isArray(resEntitlements.skus) &&
                 resEntitlements.skus.length > 0
-              )
-            })
+            )
             .catch(errEntitlements => {
               Sentry.captureEvent({
                 message: 'Error al verificar Suscripciones',
@@ -222,7 +222,7 @@ const Profile = () => {
                 extra: errEntitlements,
               })
             })
-        })
+        )
         .catch(errHeart => {
           Sentry.captureEvent({
             message: 'Error al extender la sessión',
@@ -295,13 +295,12 @@ const Profile = () => {
     if (typeof window !== 'undefined') {
       let { attributes: uAttributes = [] } = window.Identity.userProfile || {}
       if (!uAttributes) uAttributes = []
-      const addAttributes = (name, value) => {
-        return uAttributes.push({
+      const addAttributes = (name, value) =>
+        uAttributes.push({
           name,
           value: value.trim(),
           type: 'String',
         })
-      }
       addAttributes('documentType', uDocumentType)
       addAttributes('documentNumber', uDocumentNumber)
       const getUniqueListBy = (arr, key) => [
@@ -534,6 +533,7 @@ const Profile = () => {
             <input
               className={uFirstNameError && 'input-error'}
               type="text"
+              autoComplete="given-name"
               name="uFirstName"
               value={uFirstName}
               required
@@ -554,6 +554,7 @@ const Profile = () => {
             <input
               className={uLastNameError && 'input-error'}
               type="text"
+              autoComplete="family-name"
               name="uLastName"
               value={uLastName}
               required
@@ -633,6 +634,8 @@ const Profile = () => {
             <input
               className={uPhoneError && 'input-error'}
               type="text"
+              inputMode="tel"
+              autoComplete="tel"
               name="uPhone"
               value={uPhone}
               maxLength="12"
@@ -653,6 +656,8 @@ const Profile = () => {
               ${!emailVerified && !isFacebook ? 'email-noverify' : ''} 
               ${uEmailError && 'input-error'}`}
               type="text"
+              inputMode="email"
+              autoComplete="email"
               name="uEmail"
               value={uEmail}
               required

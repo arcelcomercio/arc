@@ -201,6 +201,8 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                 <input
                   className={lemailError && 'input-error'}
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
                   name="lemail"
                   value={lemail}
                   required
@@ -221,6 +223,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                 <input
                   className={lpassError && 'input-error'}
                   type={showHidePass}
+                  autoComplete="current-password"
                   name="lpass"
                   value={lpass}
                   required
@@ -234,7 +237,8 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                   aria-label="lshowpass"
                   className={`${styles.btnShow}-${showHidePass}`}
                   type="button"
-                  onClick={toogleHidePass}></button>
+                  onClick={toogleHidePass}
+                />
                 {lpassError && <span className="msn-error">{lpassError}</span>}
               </label>
             </div>
