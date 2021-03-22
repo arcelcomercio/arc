@@ -165,7 +165,7 @@ export default ({
     CURRENT_ENVIRONMENT,
     Resource,
     isHome,
-    metaValue
+    metaValue,
   }
 
   const getPrebid = () => {
@@ -547,7 +547,12 @@ export default ({
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeSignwall || isTrivia || isPreview) {
+          if (
+            isElcomercioHome ||
+            !siteProperties.activeSignwall ||
+            isTrivia ||
+            isPreview
+          ) {
             return null
           }
           return (
@@ -561,7 +566,7 @@ export default ({
           if (
             isElcomercioHome ||
             !siteProperties.activeRulesCounter ||
-            isTrivia || 
+            isTrivia ||
             isPreview
           ) {
             return null
@@ -603,7 +608,9 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
+        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && (
+          <Fusion hydrateOnly />
+        )}
         {isStory && (
           <script
             type="text/javascript"
