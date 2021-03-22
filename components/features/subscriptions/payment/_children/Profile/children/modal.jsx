@@ -13,9 +13,6 @@ function Modal({
   open = true,
   ...props
 }) {
-  function close() {
-    onClose()
-  }
   React.useEffect(() => {
     if (open) {
       window.document.body.classList.add(MODAL)
@@ -29,6 +26,10 @@ function Modal({
   }, [open])
 
   React.useEffect(() => {
+    function close() {
+      onClose()
+    }
+
     const _onClose = ({ key }) => {
       if (allowEsc && key === 'Escape') {
         close()
@@ -43,7 +44,7 @@ function Modal({
   return (
     <Portal id="modal">
       <div className={`modal ${open && 'open-modal'}`} {...props}>
-        <div role="button" className="modal-background" />
+        <div className="modal-background" />
         <div className="modal-content" scrollable={scrollable}>
           {children}
         </div>

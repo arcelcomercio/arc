@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  // useContext
-} from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
 
 import { NavigateConsumer } from '../_context/navigate'
@@ -37,16 +34,16 @@ const styles = {
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Register = ({ arcSite }) => {
-  // const { activateAuth, updateStep } = useContext(AuthContext)
-  const [loading, setLoading] = useState()
-  const [loadText, setLoadText] = useState('Cargando...')
-  const [msgError, setMsgError] = useState()
-  const [checkedTerms, setCheckedTerms] = useState(false)
-  // const [checkedPolits, setCheckedPolits] = useState(true)
-  const [forgotLink, setForgotLink] = useState()
-  const [showHidePass, setShowHidePass] = useState('password')
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [showSendEmail, setShowSendEmail] = useState(false)
+  // const { activateAuth, updateStep } = React.useContext(AuthContext)
+  const [loading, setLoading] = React.useState()
+  const [loadText, setLoadText] = React.useState('Cargando...')
+  const [msgError, setMsgError] = React.useState()
+  const [checkedTerms, setCheckedTerms] = React.useState(false)
+  // const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [forgotLink, setForgotLink] = React.useState()
+  const [showHidePass, setShowHidePass] = React.useState('password')
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts, urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
 
@@ -367,6 +364,8 @@ const Register = ({ arcSite }) => {
                     <input
                       className={rphoneError && 'input-error'}
                       type="text"
+                      inputMode="tel"
+                      autoComplete="tel"
                       name="rphone"
                       value={rphone}
                       maxLength="12"
