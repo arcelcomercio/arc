@@ -247,9 +247,10 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
               <Input
                 type="email"
+                inputMode="email"
+                autoComplete="email"
                 name="lemail"
                 placeholder="Correo electrónico"
-                autoComplete="on"
                 clase="mb-10"
                 required
                 value={lemail}
@@ -263,9 +264,9 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
               <Input
                 type="password"
+                autoComplete="current-password"
                 name="lpass"
                 placeholder="Contraseña"
-                autoComplete="off"
                 required
                 value={lpass}
                 onChange={e => {

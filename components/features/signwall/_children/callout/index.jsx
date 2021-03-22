@@ -161,9 +161,9 @@ export const CallOut = props => {
 
               <Input
                 type="text"
+                autoComplete="name"
                 name="namecall"
                 placeholder="Nombre*"
-                autoComplete="on"
                 maxLength="80"
                 required
                 value={namecall}
@@ -176,9 +176,10 @@ export const CallOut = props => {
 
               <Input
                 type="text"
+                inputMode="tel"
+                autoComplete="tel"
                 name="phonecall"
                 placeholder="Celular*"
-                autoComplete="on"
                 maxLength="9"
                 required
                 value={phonecall}
