@@ -6,15 +6,15 @@
     padding: 0 60px;
     align-items: inherit;
   }
+
   &__custom {
-    background-color: #fff;
     @media (--only-mobile) {
       padding-left: 25px;
       padding-right: 25px;
     }
+
     @media (--desktop) {
       max-width: 1274px;
-      background-color: transparent;
       align-items: inherit;
       min-height: auto;
       padding: 0;
@@ -29,11 +29,13 @@
     border-radius: 12px;
     border: 1px solid #e4e4e4;
     min-width: -webkit-fill-available;
+
     @media (--desktop) {
       max-width: 450px;
       border-radius: 12px;
     }
   }
+
   &__divConfirmation {
     min-height: 300px;
     padding-top: 40px;
@@ -42,8 +44,6 @@
 
   &__button {
     height: 50px;
-    font-size: 15px;
-    background: linear-gradient(to bottom, #e74e0f, #e63338);
   }
 
   &__description {
@@ -54,7 +54,6 @@
 
   &__email {
     height: 50px;
-    font-size: 16px;
   }
 
   &__error-message {
@@ -92,10 +91,6 @@
     }
   }
 
-  &__subtitle {
-    font-size: 16px;
-  }
-
   &__strong {
     font-size: 55px;
 
@@ -105,11 +100,7 @@
   }
 
   &__page-link {
-    // text-decoration: underline;
-  }
-
-  &__input-checkbox {
-    margin-top: 1px;
+    text-decoration: underline;
   }
 
   &__tos {
@@ -126,7 +117,34 @@
   &__icon {
     height: 28px;
   }
+
+  &__checkmark {
+    width: 60px;
+    height: 60px;
+  }
+
+  &__input-checkbox {
+    margin-top: 1px;
+  }
+
+  &__button.trome {
+    font-size: 15px;
+    background: linear-gradient(to bottom, #e74e0f, #e63338);
+  }
+
+  &__email.trome {
+    font-size: 16px;
+  }
+
+  &__subtitle.trome {
+    font-size: 16px;
+  }
+
+  &__page-link.trome {
+    text-decoration: none;
+  }
 }
+
 .border-r-10 {
   border-radius: 10px;
 }
