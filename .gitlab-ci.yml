@@ -34,7 +34,9 @@ install_dependencies:
     paths:
       - node_modules/
     policy: push
-  when: always
+  only:
+    - master
+  # when: always
   tags:
     - aws
     - docker
@@ -193,9 +195,11 @@ eslint-dev:
     # Run eslint
     - npm run lint
   allow_failure: True
-  except:
-    - sandbox
+  only:
     - master
+  # except:
+  #   - sandbox
+  #   - master
   tags:
     - aws
     - docker
@@ -212,9 +216,11 @@ coverage-dev:
     - npm run test:coverage
   allow_failure: True
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
-  except:
-    - sandbox
+  only:
     - master
+  # except:
+  #   - sandbox
+  #   - master
   tags:
     - aws
     - docker
