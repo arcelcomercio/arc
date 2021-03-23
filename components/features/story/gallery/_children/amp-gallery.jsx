@@ -39,8 +39,10 @@ const StoryHeaderChildAmpGallery = props => {
   ) => {
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/${caja}`
+    const prebidSlot = `19186-${namePublicidad}-amp-${caja}`
     return {
       dataSlot,
+      prebidSlot,
       width: '300',
       height: '250',
       primarySectionLink,

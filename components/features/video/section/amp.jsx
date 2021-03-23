@@ -60,38 +60,46 @@ const VideoSectionAmp = () => {
       },
     }) || {}
 
-  const dataSlotNa = `/${adsAmp.dataSlot}/${
-    arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  }/amp/post/default/caja1`
+  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+
   const width = '320'
   const height = '50'
   const parametersCaja1 = {
     // top
-    dataSlot: dataSlotNa,
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`,
+    prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width,
     height,
     movil1: true,
+    arcSite,
   }
 
-  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-
-  const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2` // movil2
-
-  const parametersCaja2 = { dataSlot, width, height, movil1: true }
+  const parametersCaja2 = { 
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`, 
+    prebidSlot: `19186-${namePublicidad}-amp-caja2`,
+    width, 
+    height, 
+    movil1: true,
+    arcSite,
+  }
 
   const parametersCaja3 = {
     // movil4 caja4 caja3
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
+    prebidSlot: `19186-${namePublicidad}-amp-caja3`,
     width,
     height,
     movil1: true,
+    arcSite,
   }
   const parametersCaja4 = {
     // movil5 caja5 caja4
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
+    prebidSlot: `19186-${namePublicidad}-amp-caja4`,
     width,
     height,
     movil1: true,
+    arcSite,
   }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
