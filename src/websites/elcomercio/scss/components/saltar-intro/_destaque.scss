@@ -1,7 +1,15 @@
-@import "../../../../../../general-styles/components/features/cards/featured-story-full-img/feature-fullimage";
+@import "../../../../../general-styles/components/features/cards/featured-story-full-img/feature-fullimage";
 
 .feature-fullimage {
-  height: 568px;
+  @media (--desktop) {
+    height: 568px;
+  }
+  @media (--tablet) {
+    height: 370px;
+  }
+  @media (--only-mobile) {
+    height: 370px;
+  }
   &__box-image {
     &::before {
       background: transparent !important;
