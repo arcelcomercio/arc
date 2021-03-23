@@ -45,7 +45,7 @@ const WrapperSingwall = () => {
         pwa: PWA.isPWA() ? 'si' : 'no',
       })
 
-      window.fbq('track', 'ViewPaywall', {
+      window.fbq('trackCustom', 'ViewPaywall', {
         // eslint-disable-next-line no-nested-ternary
         surface: fromFia ? 'fia' : isFbBrowser() ? 'mWeb' : 'nonApp',
       })
