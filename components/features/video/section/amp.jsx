@@ -75,7 +75,7 @@ const VideoSectionAmp = () => {
   }
 
   const parametersCaja2 = { 
-    dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`, 
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`, 
     prebidSlot: `19186-${namePublicidad}-amp-caja2`,
     width, 
     height, 
