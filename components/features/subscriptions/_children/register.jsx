@@ -34,16 +34,16 @@ const styles = {
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Register = ({ arcSite }) => {
-  // const { activateAuth, updateStep } = useContext(AuthContext)
-  const [loading, setLoading] = useState()
-  const [loadText, setLoadText] = useState('Cargando...')
-  const [msgError, setMsgError] = useState()
-  const [checkedTerms, setCheckedTerms] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(true)
-  const [forgotLink, setForgotLink] = useState()
-  const [showHidePass, setShowHidePass] = useState('password')
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [showSendEmail, setShowSendEmail] = useState(false)
+  // const { activateAuth, updateStep } = React.useContext(AuthContext)
+  const [loading, setLoading] = React.useState()
+  const [loadText, setLoadText] = React.useState('Cargando...')
+  const [msgError, setMsgError] = React.useState()
+  const [checkedTerms, setCheckedTerms] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [forgotLink, setForgotLink] = React.useState()
+  const [showHidePass, setShowHidePass] = React.useState('password')
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts, urls } = PropertiesCommon
 
   const stateSchema = {
