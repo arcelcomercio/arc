@@ -8,6 +8,7 @@ import StoryItem from '../../../global-components/story-item'
 import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
 import StructuredData from './_children/structured-data'
+import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -27,6 +28,7 @@ const StoriesListPaginatedList = props => {
   } = useFusionContext()
   const { customFields: customFieldsProps = {} } = props
   const { isDfp = false } = getProperties(arcSite)
+  const isSearchSection = /^\/buscar\//.test(requestUri)
 
   let { content_elements: stories = [], count = 0, author: { url: authorPath = '' } = {} } = globalContent || {}
   const { author = {}, slug: slugAuthor = '', from: fromAuthor = 1, size:sizeAuthor = 30 } = globalContent || {}
@@ -94,6 +96,9 @@ const StoriesListPaginatedList = props => {
           )
         })}
       </div>
+      {arcSite == SITE_DEPOR && isSearchSection && (
+        <div id="afscontainer1"></div>
+      )}
       {count !== 0 && (
         <Pagination
           totalElements={count}

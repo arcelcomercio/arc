@@ -303,7 +303,7 @@ window.addEventListener('load', function liteAds() {
 
   return (
     <>
-      {arcSite === 'elcomerciomag' || arcSite === 'trome' || arcSite === 'elbocon' || arcSite === 'peru21' ? (
+      {arcSite === 'elcomerciomag' || arcSite === 'trome' || arcSite === 'elbocon' || arcSite === 'peru21' || arcSite === 'elcomercio' ? (
         <>
           {arcSite !== 'elcomerciomag' ? (
             <>
