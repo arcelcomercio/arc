@@ -3,12 +3,20 @@ import PropTypes from 'prop-types'
 
 import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/constants'
+
 import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
+import FinallyPolyfill from './_children/finallyPolyfill'
 
-const Signwall = props => {
-  const { children, contextPath, siteProperties, deployment, arcSite } = props
-
+const Signwall = ({
+  Libs,
+  Fusion,
+  children,
+  contextPath,
+  siteProperties,
+  deployment,
+  arcSite,
+}) => {
   const {
     activePaywall,
     activeSignwall,
@@ -44,7 +52,7 @@ const Signwall = props => {
             )}/resources/dist/${arcSite}/images/favicon.png`
           )}
         />
-        <props.Libs />
+        <Libs />
         <link
           rel="stylesheet"
           href={deployment(
@@ -63,13 +71,12 @@ const Signwall = props => {
           />
         )}
         {activePaywall && (
-          <>
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js?v=07112019`}
-              defer
-            />
-          </>
+          <script
+            src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js?v=07112019`}
+            defer
+          />
         )}
+        <FinallyPolyfill />
       </head>
       <body>
         <noscript>
@@ -93,7 +100,7 @@ const Signwall = props => {
           {children}
         </div>
 
-        <props.Fusion hydrateOnly />
+        <Fusion hydrateOnly />
       </body>
     </html>
   )

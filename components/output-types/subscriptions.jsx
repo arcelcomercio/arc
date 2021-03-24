@@ -6,6 +6,7 @@ import { ORGANIZATION, PROD } from '../utilities/constants/environment'
 
 import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
+import FinallyPolyfill from './_children/finallyPolyfill'
 import listenCounterMag from './_dependencies/counter-mag'
 
 const Subscriptions = ({
@@ -50,6 +51,7 @@ const Subscriptions = ({
               src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
               defer
             />
+            <FinallyPolyfill />
           </head>
           <body>
             <script
