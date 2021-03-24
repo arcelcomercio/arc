@@ -228,6 +228,7 @@ sonar:
     - sonar-scanner
   only:
     - merge_requests
+  allow_failure: true
   tags:
     - aws
     - docker
