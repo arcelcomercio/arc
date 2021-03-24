@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
+
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import useForm from '../_hooks/useForm'
 import { NavigateConsumer } from '../_context/navigate'
@@ -26,12 +27,12 @@ const styles = {
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
-  const { activateAuth, updateStep } = useContext(AuthContext)
-  const [loading, setLoading] = useState()
-  const [msgError, setMsgError] = useState()
-  const [showVerify, setShowVerify] = useState()
-  const [showHidePass, setShowHidePass] = useState('password')
-  const [showSendEmail, setShowSendEmail] = useState(false)
+  const { activateAuth, updateStep } = React.useContext(AuthContext)
+  const [loading, setLoading] = React.useState()
+  const [msgError, setMsgError] = React.useState()
+  const [showVerify, setShowVerify] = React.useState()
+  const [showHidePass, setShowHidePass] = React.useState('password')
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts } = PropertiesCommon
 
   const stateSchema = {
@@ -201,6 +202,8 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                 <input
                   className={lemailError && 'input-error'}
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
                   name="lemail"
                   value={lemail}
                   required
@@ -221,6 +224,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                 <input
                   className={lpassError && 'input-error'}
                   type={showHidePass}
+                  autoComplete="current-password"
                   name="lpass"
                   value={lpass}
                   required
