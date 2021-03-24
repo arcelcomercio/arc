@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/constants'
 
-import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
 import FinallyPolyfill from './_children/finallyPolyfill'
+import TagManager from './_children/tag-manager'
 
 const Signwall = ({
   Libs,
@@ -18,12 +18,12 @@ const Signwall = ({
   arcSite,
 }) => {
   const {
-    googleTagManagerId,
+    activePaywall,
+    activeSignwall,
     fbPixelId,
+    googleTagManagerId,
     siteName,
     siteDescription,
-    activeSignwall,
-    activePaywall,
   } = siteProperties
 
   return (
