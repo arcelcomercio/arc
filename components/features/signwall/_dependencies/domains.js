@@ -108,8 +108,8 @@ class Domains {
 
   getUrlPaywallFia = arcSite => {
     return ENVIRONMENT === 'elcomercio'
-      ? `/suscripcionesdigitales/fia/planes/?ref=auth-fia`
-      : `/suscripcionesdigitales/fia/planes/?_website=${arcSite}&outputType=subscriptions`
+      ? `/suscripcionesdigitales/fia/?ref=auth-fia`
+      : `/suscripcionesdigitales/fia/?_website=${arcSite}&outputType=subscriptions`
   }
 
   getUrlSignwall = (arcSite, typeDialog, hash) => {

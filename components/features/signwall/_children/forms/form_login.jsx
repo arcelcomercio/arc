@@ -369,9 +369,10 @@ export const FormLogin = ({ valTemplate, attributes }) => {
 
                   <Input
                     type="email"
+                    inputMode="email"
+                    autoComplete="email"
                     name="lemail"
                     placeholder="Correo electrónico"
-                    autoComplete="on"
                     required
                     value={lemail}
                     onChange={e => {
@@ -383,9 +384,9 @@ export const FormLogin = ({ valTemplate, attributes }) => {
 
                   <Input
                     type="password"
+                    autoComplete="current-password"
                     name="lpass"
                     placeholder="Contraseña"
-                    autoComplete="off"
                     required
                     value={lpass}
                     onChange={e => {
