@@ -31,7 +31,7 @@ export const formatSecondLastName = () => {
 
 export const formatPhone = () => {
   return {
-    func: value => numberRegex.test(value),
+    func: value => value === '' ||  (value.length >= 2 && numberRegex.test(value)),
     error: 'Formato inválido. Solo números',
   }
 }
@@ -45,7 +45,7 @@ export const formatCellphone = () => {
 
 export const acceptCheckTerms = () => {
   return {
-    func: value => value === 'no',
+    func: value => value !== '1',
     error:
       'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones',
   }

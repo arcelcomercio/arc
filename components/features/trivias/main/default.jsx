@@ -38,9 +38,8 @@ const TriviasMain = ({
   const { globalContent, requestUri, arcSite } = useAppContext()
   const {
     siteUrl,
-    social: { twitter: { twitterUser } = {} } = {},
+    social: { twitter: { user: twitterUser } = {} } = {},
   } = getProperties(arcSite)
-
   const [currentQuestion, setCurrentQuestion] = React.useState(0)
   const [points, setPoints] = React.useState([])
   // TODO: este estado no hace falta, puede usarse `points` cuando esta vacio
@@ -50,7 +49,10 @@ const TriviasMain = ({
   // vienen en content_elements, esa es la cantidad de preguntas.
   const {
     headlines: { basic: title = '' } = {},
-    promo_items: { basic: { url: triviaImage = '', caption = '' } = {} } = {},
+    promo_items: {
+      basic: { url: triviaImage = '', caption = '' } = {},
+      basic_movil: { url: movilImage = '' } = {},
+    } = {},
     content_elements: contentElements = '',
   } = globalContent || {}
 
@@ -168,6 +170,7 @@ const TriviasMain = ({
             title={title}
             image={triviaImage}
             alt={caption}
+            movilImage={movilImage}
             start={handleStart}
           />
         )}

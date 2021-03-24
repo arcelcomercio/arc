@@ -51,6 +51,7 @@ import {
   MINUTO_MINUTO,
   GALLERY_VERTICAL,
 } from '../utilities/constants/subtypes'
+import { PREMIUM } from '../utilities/constants/content-tiers'
 
 export default ({
   children,
@@ -102,6 +103,7 @@ export default ({
   const sectionPath = nodeType === 'section' ? _id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
   const isVideosSection = /^\/videos\//.test(requestUri)
+  const isSearchSection = /^\/buscar\//.test(requestUri)
   const isBlogPost = /^\/blog[s]?\/([\w\d-]+)\/([0-9]{4})\/([0-9]{2})\/([\w\d-]+)(?:\.html)?/.test(
     requestUri
   )
@@ -149,6 +151,7 @@ export default ({
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
 
   const metaSiteData = {
@@ -163,6 +166,7 @@ export default ({
     CURRENT_ENVIRONMENT,
     Resource,
     isHome,
+    metaValue
   }
 
   const getPrebid = () => {
@@ -177,19 +181,18 @@ export default ({
     return prebid
   }
   const indPrebid = getPrebid()
-  const urlArcAds = (arcSite === SITE_ELCOMERCIOMAG ? 
-    `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
-    .toISOString()
-    .slice(0, 10)}`
-  : (
-    indPrebid
+  const urlArcAds =
+    arcSite === SITE_ELCOMERCIOMAG
+      ? `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
+          .toISOString()
+          .slice(0, 10)}`
+      : indPrebid
       ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
-  ))
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -259,7 +262,8 @@ export default ({
   s_bbcws('track', 'pageView');`
 
   const isTrivia = /^\/trivias\//.test(requestUri)
-  const isPremium = contentCode === 'premium' || false
+  const isCovid = /^\/covid-19\//.test(requestUri)
+  const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
@@ -312,6 +316,7 @@ export default ({
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+  const iscriptJwplayer = jwplayerSeo || isVideosSection
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
   const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
@@ -375,7 +380,6 @@ export default ({
         <link rel="preconnect dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="preconnect dns-prefetch" href="//www.facebook.com" />
         <link rel="preconnect dns-prefetch" href="//connect.facebook.net" />
-        <link rel="preconnect dns-prefetch" href="//tags.bluekai.com" />
         <link rel="preconnect dns-prefetch" href="//tags.bkrtx.com" />
         <link rel="preconnect dns-prefetch" href="//static.chartbeat.com" />
         <link rel="preconnect dns-prefetch" href="//scomcluster.cxense.com" />
@@ -388,7 +392,7 @@ export default ({
           href="//arc-subs-sdk.s3.amazonaws.com"
         />
         <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
-        {arcSite === 'elcomercio' && isTrivia && (
+        {arcSite === 'elcomercio' && isTrivia && isCovid && (
           <>
             <link
               rel="preload"
@@ -413,7 +417,7 @@ export default ({
             />
           </>
         )}
-        {arcSite === 'elcomercio' && !isTrivia && (
+        {arcSite === 'elcomercio' && !isTrivia && !isCovid && (
           <>
             <link
               rel="preload"
@@ -508,12 +512,21 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        <script
-          async
-          src={`https://api-gateway-1-serve-script-dpm1wlz8.uc.gateway.dev/serve_script?v=${new Date()
-            .toISOString()
-            .slice(0, 10)}`}
-        />
+        {arcSite === SITE_DEPOR && isSearchSection && (
+          <>
+            <script 
+              async="async" 
+              src="https://www.google.com/adsense/search/ads.js"
+            />
+            <script 
+              type="text/javascript" 
+              charset="utf-8"
+              dangerouslySetInnerHTML={{
+                __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`
+              }}
+            />
+          </>
+        )}
         {/* Scripts de AdManager */}
         {!noAds && !isLivePage && (
           <>
@@ -550,7 +563,7 @@ export default ({
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeSignwall || isTrivia) {
+          if (isElcomercioHome || !siteProperties.activeSignwall || isTrivia || isPreview) {
             return null
           }
           return (
@@ -561,12 +574,17 @@ export default ({
           )
         })()}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeRulesCounter || isTrivia) {
+          if (
+            isElcomercioHome ||
+            !siteProperties.activeRulesCounter ||
+            isTrivia || 
+            isPreview
+          ) {
             return null
           }
           return (
             <script
-              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
                 .slice(0, 10)}`}
               async
@@ -640,34 +658,6 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {/* Rubicon BlueKai - Inicio */}
-        {isElcomercioHome ? (
-          <>
-            <script
-              type="text/javascript"
-              defer
-              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-            />
-            <script
-              type="text/javascript"
-              defer
-              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-            />
-          </>
-        ) : (
-          <>
-            <script
-              type="text/javascript"
-              async
-              src="https://tags.bluekai.com/site/42540?ret=js&limit=1"
-            />
-            <script
-              type="text/javascript"
-              async
-              src="https://tags.bluekai.com/site/56584?ret=js&limit=1"
-            />
-          </>
-        )}
         {(contenidoVideo || isVideosSection) && (
           <>
             <script
@@ -693,7 +683,7 @@ export default ({
             />
           </>
         )}
-        {jwplayerSeo[0] && (
+        {iscriptJwplayer && (
           <script
             dangerouslySetInnerHTML={{
               __html: jwplayerScript,
@@ -751,9 +741,12 @@ export default ({
             />
           </>
         )}
-        {embedTwitterAndInst ? <script dangerouslySetInnerHTML={{ __html: widgets }} /> : null}
-        {!isTrivia ? <script dangerouslySetInnerHTML={{ __html: iframeScript }} /> : null}
-        {/* Rubicon BlueKai - Fin */}
+        {embedTwitterAndInst ? (
+          <script dangerouslySetInnerHTML={{ __html: widgets }} />
+        ) : null}
+        {!isTrivia ? (
+          <script dangerouslySetInnerHTML={{ __html: iframeScript }} />
+        ) : null}
         <script
           dangerouslySetInnerHTML={{
             __html: `"use strict";(function(){requestIdle(function(){var ua=window.navigator.userAgent;var msie=ua.indexOf('MSIE ');var trident=ua.indexOf('Trident/');if(msie>0||trident>0){;[].slice.call(document.getElementsByClassName('grid')).forEach(function(grid){grid.className=grid.className.replace('grid','ie-flex')})}})})()`,
@@ -778,28 +771,6 @@ export default ({
               dangerouslySetInnerHTML={{
                 __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.setTimeout(loadDeferredStyles,0)});else window.addEventListener("load",loadDeferredStyles)`,
               }}
-            />
-          </>
-        )}
-        {isStory && arcSite === SITE_ELBOCON && (
-          <>
-            <script
-              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
-              id="browsi-tag"
-              data-pubKey="elcomercio"
-              data-siteKey="elbocon"
-              async
-            />
-          </>
-        )}
-        {isStory && arcSite === SITE_PERU21 && (
-          <>
-            <script
-              src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
-              id="browsi-tag"
-              data-pubKey="elcomercio"
-              data-siteKey="peru21"
-              async
             />
           </>
         )}

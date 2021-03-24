@@ -12,27 +12,22 @@ const classes = {
   image: 'trivias-item__img',
   content: 'trivias-item__content',
   title: 'trivias-item__title',
-  link: 'trivias-item__link'
+  link: 'trivias-item__link',
 }
 
 /**
- * 
+ *
  * @param {object} props
  * @param {string} props.image
  * @param {string} props.title
  * @param {string} props.link
  * @param {string} props.alt
  */
-const TriviasListItem = ({
-  alt = '',
-  image = '',
-  title = '',
-  link = '/'
-}) => {
+const TriviasListItem = ({ alt = '', image = '', title = '', link = '/' }) => {
   return (
     <div className={classes.container}>
       <figure className={classes.figure}>
-        <Image 
+        <Image
           src={image}
           width={247}
           height={142}
@@ -42,9 +37,7 @@ const TriviasListItem = ({
         />
       </figure>
       <div className={classes.content}>
-        <h3 className={classes.title}>
-          {reduceWord(title, 30)}
-        </h3>
+        <h3 className={classes.title}>{reduceWord(title, 70)}</h3>
         <a href={link} className={classes.link}>
           Empezar
         </a>

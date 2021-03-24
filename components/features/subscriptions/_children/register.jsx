@@ -13,6 +13,7 @@ import ButtonSocial from './social'
 import { Taggeo } from '../_dependencies/Taggeo'
 import getCodeError, {
   formatEmail,
+  formatPhone,
   acceptCheckTerms,
 } from '../_dependencies/Errors'
 import { MsgRegister } from '../_dependencies/Icons'
@@ -40,7 +41,8 @@ const Register = ({ arcSite }) => {
   const [loading, setLoading] = useState()
   const [loadText, setLoadText] = useState('Cargando...')
   const [msgError, setMsgError] = useState()
-  const [checkedTerms, setCheckedTerms] = useState()
+  const [checkedTerms, setCheckedTerms] = useState(false)
+  // const [checkedPolits, setCheckedPolits] = useState(true)
   const [forgotLink, setForgotLink] = useState()
   const [showHidePass, setShowHidePass] = useState('password')
   const [showConfirm, setShowConfirm] = useState(false)
@@ -51,7 +53,9 @@ const Register = ({ arcSite }) => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
-    rterms: { value: 'no', error: '' },
+    rphone: { value: '', error: '' },
+    // rpolit: { value: '1', error: '' },
+    rterms: { value: '0', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -67,6 +71,14 @@ const Register = ({ arcSite }) => {
       },
       nospaces: true,
     },
+    rphone: {
+      required: false,
+      validator: formatPhone(),
+      min6caracts: true,
+    },
+    // rpolit: {
+    //   required: false,
+    // },
     rterms: {
       required: true,
       validator: acceptCheckTerms(),
@@ -79,11 +91,54 @@ const Register = ({ arcSite }) => {
     }
   }
 
-  const onFormRegister = ({ remail, rpass }) => {
+  // const openTerminos = () => {
+  //   if (typeof window !== 'undefined') {
+  //     window.open(
+  //       `${
+  //         arcSite === 'depor'
+  //           ? '/terminos-servicio/'
+  //           : '/terminos-y-condiciones/'
+  //       }`,
+  //       '_blank'
+  //     )
+  //   }
+  // }
+
+  // const openPoliticas = () => {
+  //   if (typeof window !== 'undefined') {
+  //     window.open(
+  //       (() => {
+  //         switch (arcSite) {
+  //           case 'elcomercio':
+  //           case 'depor':
+  //             return '/politicas-privacidad/'
+  //           case 'gestion':
+  //           case 'trome':
+  //             return '/politica-de-privacidad/'
+  //           default:
+  //             return '/politicas-de-privacidad/'
+  //         }
+  //       })(),
+  //       '_blank'
+  //     )
+  //   }
+  // }
+
+  // const dataTreatment = () => {
+  //   if (typeof window !== 'undefined') {
+  //     window.open('/tratamiento-de-datos/', '_blank')
+  //   }
+  // }
+
+  const onFormRegister = ({ remail, rpass, rphone }) => {
     if (typeof window !== 'undefined') {
       Taggeo(nameTagCategory, 'web_swl_registro_boton_registrarme')
       setLoading(true)
       setLoadText('Registrando...')
+
+      const contacts =
+        rphone.length >= 6 ? [{ phone: rphone.trim(), type: 'PRIMARY' }] : []
+
       window.Identity.signUp(
         {
           userName: remail,
@@ -93,6 +148,7 @@ const Register = ({ arcSite }) => {
         {
           displayName: remail,
           email: remail,
+          contacts,
           attributes: [
             {
               name: 'originDomain',
@@ -121,9 +177,14 @@ const Register = ({ arcSite }) => {
             },
             {
               name: 'termsCondPrivaPoli',
-              value: '1',
+              value: checkedTerms ? '1' : '0',
               type: 'String',
             },
+            // {
+            //   name: 'dataTreatment',
+            //   value: checkedPolits ? '1' : '0',
+            //   type: 'String',
+            // },
           ],
         },
         { doLogin: true },
@@ -166,8 +227,13 @@ const Register = ({ arcSite }) => {
   }
 
   const {
-    values: { remail, rpass },
-    errors: { remail: remailError, rpass: rpassError, rterms: rtermsError },
+    values: { remail, rphone, rpass },
+    errors: {
+      remail: remailError,
+      rphone: rphoneError,
+      rpass: rpassError,
+      rterms: rtermsError,
+    },
     handleOnChange,
     handleOnSubmit,
     disable,
@@ -249,7 +315,7 @@ const Register = ({ arcSite }) => {
               <form onSubmit={handleOnSubmit} className="form-register">
                 <div className={styles.block}>
                   <label htmlFor="remail">
-                    Correo electrónico
+                    Correo electrónico*
                     <input
                       className={remailError && 'input-error'}
                       type="email"
@@ -268,7 +334,7 @@ const Register = ({ arcSite }) => {
 
                 <div className={styles.block}>
                   <label htmlFor="rpass">
-                    Contraseña
+                    Contraseña*
                     <input
                       className={rpassError && 'input-error'}
                       type={showHidePass}
@@ -292,12 +358,57 @@ const Register = ({ arcSite }) => {
                 </div>
 
                 <div className={styles.block}>
+                  <label htmlFor="rphone">
+                    Teléfono
+                    <input
+                      className={rphoneError && 'input-error'}
+                      type="text"
+                      name="rphone"
+                      value={rphone}
+                      maxLength="12"
+                      onChange={handleChangeInput}
+                      onBlur={handleOnChange}
+                      disabled={loading}
+                    />
+                    {rphoneError && (
+                      <span className="msn-error">{rphoneError}</span>
+                    )}
+                  </label>
+                </div>
+
+                {/* <div className={styles.block}>
+                  <label htmlFor="rpolit" className="terms">
+                    <input
+                      id="rpolit"
+                      type="checkbox"
+                      name="rpolit"
+                      value={checkedPolits ? '1' : '0'}
+                      checked={checkedPolits}
+                      disabled={loading}
+                      onChange={e => {
+                        handleOnChange(e)
+                        setCheckedPolits(!checkedPolits)
+                      }}
+                    />
+                    Autorizo el uso de mis datos para{' '}
+                    <button
+                      className={styles.link}
+                      type="button"
+                      onClick={dataTreatment}>
+                      fines adicionales
+                    </button>
+                    <span className="checkmark"></span>
+                  </label>
+                </div> */}
+
+                <div className={styles.block}>
                   <label htmlFor="rterms" className="terms">
                     <input
                       id="rterms"
-                      value={checkedTerms ? 'si' : 'no'}
                       type="checkbox"
                       name="rterms"
+                      value={checkedTerms ? '1' : '0'}
+                      checked={checkedTerms}
                       disabled={loading}
                       required
                       onChange={e => {

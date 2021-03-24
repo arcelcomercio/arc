@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react'
+import * as React from 'react'
+
 import searchQuery from '../../../../utilities/client/search'
 import SignwallComponent from '../../../signwall/main/default'
 
@@ -24,9 +25,10 @@ const classes = {
 }
 
 export default props => {
-  const inputSearch = useRef(null)
-  const [toggleSearch, changeSearch] = useState(false)
-  const { list } = props
+  const inputSearch = React.useRef(null)
+  const [toggleSearch, changeSearch] = React.useState(false)
+  const { list, requestUri } = props
+  const isPreview = /^\/preview\//.test(requestUri)
 
   const _handleSearch = e => {
     e.preventDefault()
@@ -43,6 +45,7 @@ export default props => {
   }
 
   const { children: dataList = [] } = list
+
   return (
     <div className={classes.bar}>
       <div className={classes.container}>
@@ -66,13 +69,17 @@ export default props => {
         </div>
         <div className={classes.right}>
           <div className={classes.btns}>
-            <SignwallComponent
-              classButton={`${classes.btn} ${classes.btnLogin}`}
-            />
+            {!isPreview 
+              ? 
+                <SignwallComponent
+                  classButton={`${classes.btn} ${classes.btnLogin}`}
+                />
+              : null}
           </div>
           <div className={classes.search}>
             <button
               type="button"
+              aria-label="Abrir cuadro de búsqueda"
               className={classes.iconSearch}
               onClick={() => changeSearch(!toggleSearch)}
             />

@@ -9,7 +9,11 @@ import { conformProfile, isLogged } from '../../../_dependencies/Session'
 import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
-import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
+import {
+  PixelActions,
+  sendAction,
+  TaggeoJoao,
+} from '../../../_dependencies/Taggeo'
 import { getSessionStorage } from '../../../_dependencies/Utils'
 import PWA from '../../../_dependencies/Pwa'
 import {
@@ -41,7 +45,7 @@ const styles = {
 const Pay = () => {
   const {
     arcSite,
-    globalContent: { plans = [], printedSubscriber },
+    globalContent: { plans = [], printedSubscriber, event },
   } = useAppContext() || {}
 
   const {
@@ -320,13 +324,22 @@ const Pay = () => {
                           })
 
                           // Datalayer solicitados por Joao
-                          window.dataLayer.push({
-                            event: 'Pasarela Suscripciones Digitales',
-                            category: `P2_${name.replace(' ', '_')}_Cancelado`,
-                            action: `${userPeriod} - ${response.error ||
-                              getCodeError('errorFinalize')}`,
-                            label: uuid,
-                          })
+                          TaggeoJoao(
+                            {
+                              event: 'Pasarela Suscripciones Digitales',
+                              category: `P2_${
+                                event && event === 'winback'
+                                  ? 'Plan_Winback'
+                                  : printedSubscriber
+                                  ? 'Plan_Suscriptor'
+                                  : name.replace(' ', '_')
+                              }_Cancelado`,
+                              action: `${userPeriod} - ${response.error ||
+                                getCodeError('errorFinalize')}`,
+                              label: uuid,
+                            },
+                            window.location.pathname
+                          )
 
                           Sentry.captureEvent({
                             message:
@@ -384,12 +397,21 @@ const Pay = () => {
                         })
 
                         // Datalayer solicitados por Joao
-                        window.dataLayer.push({
-                          event: 'Pasarela Suscripciones Digitales',
-                          category: `P2_${name.replace(' ', '_')}`,
-                          action: userPeriod,
-                          label: uuid,
-                        })
+                        TaggeoJoao(
+                          {
+                            event: 'Pasarela Suscripciones Digitales',
+                            category: `P2_${
+                              event && event === 'winback'
+                                ? 'Plan_Winback'
+                                : printedSubscriber
+                                ? 'Plan_Suscriptor'
+                                : name.replace(' ', '_')
+                            }`,
+                            action: userPeriod,
+                            label: uuid,
+                          },
+                          window.location.pathname
+                        )
 
                         return {
                           publicKey,
@@ -417,13 +439,22 @@ const Pay = () => {
                         })
 
                         // Datalayer solicitados por Joao
-                        window.dataLayer.push({
-                          event: 'Pasarela Suscripciones Digitales',
-                          category: `P2_${name.replace(' ', '_')}_Cancelado`,
-                          action: `${userPeriod} - ${errFinalize.message ||
-                            getCodeError('errorFinalize')}`,
-                          label: uuid,
-                        })
+                        TaggeoJoao(
+                          {
+                            event: 'Pasarela Suscripciones Digitales',
+                            category: `P2_${
+                              event && event === 'winback'
+                                ? 'Plan_Winback'
+                                : printedSubscriber
+                                ? 'Plan_Suscriptor'
+                                : name.replace(' ', '_')
+                            }_Cancelado`,
+                            action: `${userPeriod} - ${errFinalize.message ||
+                              getCodeError('errorFinalize')}`,
+                            label: uuid,
+                          },
+                          window.location.pathname
+                        )
 
                         Sentry.captureEvent({
                           message:

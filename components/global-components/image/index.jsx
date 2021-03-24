@@ -32,6 +32,7 @@ import ClientImage from './client-image'
  * @param {string} [config.itemProp] Related to Structured Data
  * @param {number} [config.quality] 1 to 100. Default 75
  * @param {boolean} [config.clientResize=false] - Define si se hace resize por
+ * @param {string} [config.movilImage] - Define si se movilImage
  * content source o solo en server
  *
  * @returns {JSX.Element} Static resized `<img/>` o `<picture/>`
@@ -61,6 +62,7 @@ const ArcImage = ({
   width = 640,
   height = 360,
   clientResize = false,
+  movilImage = '',
 }) => {
   const { arcSite, contextPath, outputType, isAdmin } = useAppContext()
   /**
@@ -89,6 +91,7 @@ const ArcImage = ({
           alt={alt}
           class={className}
           layout={layout}
+          movilImage={movilImage}
         />
       </Static>
     )
@@ -117,6 +120,7 @@ const ArcImage = ({
       outputType={outputType}
       icon={children}
       isAdmin={isAdmin}
+      movilImage={movilImage}
     />
   ) : (
     <Static id={staticId}>
@@ -141,6 +145,7 @@ const ArcImage = ({
         contextPath={contextPath}
         outputType={outputType}
         icon={children}
+        movilImage={movilImage}
       />
     </Static>
   )

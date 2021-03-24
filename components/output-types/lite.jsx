@@ -10,7 +10,6 @@ import {
   SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
-  SITE_TROME,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -45,6 +44,7 @@ import {
   MINUTO_MINUTO,
   GALLERY_VERTICAL,
 } from '../utilities/constants/subtypes'
+import { PREMIUM, METERED, FREE } from '../utilities/constants/content-tiers'
 
 const LiteOutput = ({
   children,
@@ -87,6 +87,7 @@ const LiteOutput = ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
+  const isPreview = /^\/preview\//.test(requestUri)
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
     ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
@@ -168,7 +169,7 @@ const LiteOutput = ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-  const isPremium = contentCode === 'premium' || false
+  const isPremium = contentCode === PREMIUM
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
@@ -226,14 +227,16 @@ const LiteOutput = ({
     getdata: new Date().toISOString().slice(0, 10),
   }
 
-  const premiumValue = getPremiumValue === 'premium' ? true : getPremiumValue
-  const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
-  const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
+  const premiumValue = getPremiumValue === PREMIUM ? true : getPremiumValue
+  const isPremiumFree = premiumValue === FREE ? 2 : premiumValue
+  const isPremiumMete = isPremiumFree === METERED ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
   const isIframeStory = requestUri.includes('/carga-continua')
   const iframeStoryCanonical = `${siteProperties.siteUrl}${deleteQueryString(
     requestUri
   ).replace(/^\/carga-continua/, '')}`
+
+  const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -341,7 +344,10 @@ const LiteOutput = ({
             {isStory && arcSite === SITE_ELCOMERCIOMAG && (
               <>
                 <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
-                <link rel="dns-prefetch" href="//d2dvq461rdwooi.cloudfront.net" />
+                <link
+                  rel="dns-prefetch"
+                  href="//d2dvq461rdwooi.cloudfront.net"
+                />
               </>
             )}
             <link rel="preconnect" href="//www.googletagmanager.com/" />
@@ -353,7 +359,6 @@ const LiteOutput = ({
             <link rel="preconnect" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-            <link rel="dns-prefetch" href="//tags.bluekai.com/" />
             <link rel="preconnect" href="//cdn.cxense.com/" />
             <link rel="dns-prefetch" href="//cdn.cxense.com/" />
             <link rel="preconnect" href="//scdn.cxense.com/" />
@@ -472,11 +477,11 @@ const LiteOutput = ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {isPremium && arcSite === SITE_ELCOMERCIO && (
+        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
           <>
             <Libs></Libs>
             <script
-              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.js?v=${new Date()
+              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
                 .slice(0, 10)}`}
               async
@@ -486,7 +491,7 @@ const LiteOutput = ({
               defer
             />
           </>
-        )}
+        ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
       </head>
       <body
@@ -631,6 +636,13 @@ const LiteOutput = ({
             contextPath
           )}/resources/assets/js/lazyload.js?d=1`}
         />
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: fontFace,
+          }}
+        />
+
         <WebVitals
           report={
             !isIframeStory &&
@@ -645,15 +657,6 @@ const LiteOutput = ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {isStory && arcSite === SITE_TROME && (
-          <script
-            src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js"
-            id="browsi-tag"
-            data-pubKey="elcomercio"
-            data-siteKey="trome"
-            async
-          />
-        )}
         {isStory && (
           <>
             <noscript id="deferred-styles">
@@ -671,7 +674,9 @@ const LiteOutput = ({
             />
           </>
         )}
-        {vallaSignwall === false && arcSite === SITE_ELCOMERCIO && (
+        {vallaSignwall === false &&
+        arcSite === SITE_ELCOMERCIO &&
+        !isPreview ? (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -680,7 +685,7 @@ const LiteOutput = ({
             />
             {!isIframeStory && <VallaHtml />}
           </>
-        )}
+        ) : null}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}

@@ -3,6 +3,8 @@ import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
+import Image from '../../../global-components/image'
+
 
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
@@ -27,6 +29,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LIST,
+  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -60,6 +63,7 @@ import LiteYoutube from '../../../global-components/lite-youtube'
 import ShareButtons from '../../../global-components/lite/share'
 import { contentWithAds } from '../../../utilities/story/content'
 import { processedAds } from '../../../utilities/story/helpers'
+import StoryContentsChildLinkList from './_children/link-list'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -89,6 +93,7 @@ const StoryContentsLite = props => {
     arcSite,
     contextPath,
     deployment,
+    requestUri,
     siteProperties: {
       ids: { opta },
       isDfp = false,
@@ -166,7 +171,9 @@ const StoryContentsLite = props => {
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
+    arcSite,
   })
+  const isPreview = /^\/preview\//.test(requestUri)
 
   return (
     <>
@@ -180,20 +187,30 @@ const StoryContentsLite = props => {
             )}
           </>
         )}
-        {subtype !== MINUTO_MINUTO && subtype !== GALLERY_VERTICAL && (
-          <div
-            id="gpt_caja3"
-            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-            data-bloque="3"
-            data-prebid-enabled></div>
-        )}
+        {arcSite !== SITE_ELCOMERCIOMAG &&
+          subtype !== MINUTO_MINUTO &&
+          subtype !== GALLERY_VERTICAL && (
+            <div
+              id="gpt_caja3"
+              data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+              data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+              data-bloque="3"
+              data-prebid-enabled></div>
+          )}
         <div
-          className={`${classes.content} ${isPremium &&
-            'story-content__nota-premium paywall no_copy'}`}
+          className={`${classes.content} ${
+            isPremium && !isPreview
+              ? 'story-content__nota-premium paywall no_copy'
+              : ''
+          }`}
           style={
-            isPremium
-              ? { display: 'none', opacity: '0', userSelect: 'none' }
+            isPremium && !isPreview
+              ? {
+                  display: 'none',
+                  opacity: '0',
+                  userSelect: 'none',
+                  visibility: 'hidden',
+                }
               : {}
           }
           id="contenedor">
@@ -268,6 +285,7 @@ const StoryContentsLite = props => {
                           has_ads: hasAds = 0,
                           account = 'gec',
                           title = '',
+                          thumbnail_url: image = '',
                         } = {},
                       } = {},
                     } = element
@@ -280,15 +298,18 @@ const StoryContentsLite = props => {
                         <div
                           className="jwplayer-lazy "
                           id={`botr_${mediaId}_${jwplayerId}_div`}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="jw-svg-icon jw-svg-icon-play"
-                            viewBox="0 0 240 240"
-                            width="77"
-                            height="77"
-                            focusable="false">
-                            <path d="M62.8,199.5c-1,0.8-2.4,0.6-3.3-0.4c-0.4-0.5-0.6-1.1-0.5-1.8V42.6c-0.2-1.3,0.7-2.4,1.9-2.6c0.7-0.1,1.3,0.1,1.9,0.4l154.7,77.7c2.1,1.1,2.1,2.8,0,3.8L62.8,199.5z"></path>
-                          </svg>
+                          <div class="jwplayer-lazy-icon-play"></div>
+                          <Image
+                            src={image}
+                            width={580}
+                            height={326}
+                            //sizes="(max-width: 360px) 360px, (max-width: 540px) 540px"
+                            alt={title}
+                            style={{
+                              width: '100%',
+                            }}
+                            loading="lazy"
+                          />
                         </div>
                         <figcaption className="s-multimedia__caption ">
                           {title}
@@ -321,6 +342,17 @@ const StoryContentsLite = props => {
                     : classes.textClasses
                   return (
                     <>
+                      {nameAds === 'caja3' &&
+                        arcSite === SITE_ELCOMERCIOMAG &&
+                        subtype !== MINUTO_MINUTO &&
+                        subtype !== GALLERY_VERTICAL && (
+                          <div
+                            id="gpt_caja3"
+                            data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
+                            data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
+                            data-bloque="3"
+                            data-prebid-enabled></div>
+                        )}
                       {nameAds === 'inline' && (
                         <div
                           id="gpt_inline"
@@ -458,6 +490,10 @@ const StoryContentsLite = props => {
                       siteUrl={siteUrl}
                     />
                   )
+                }
+
+                if (type === ELEMENT_LINK_LIST) {
+                  return <StoryContentsChildLinkList items={items} />
                 }
 
                 if (

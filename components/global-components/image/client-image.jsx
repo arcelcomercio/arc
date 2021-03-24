@@ -57,6 +57,7 @@ const ClientImage = ({
   outputType,
   icon,
   isAdmin = false,
+  movilImage,
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
@@ -85,7 +86,8 @@ const ClientImage = ({
    * Menor calidad en las imagenes del Admin para
    * mejorar velocidad de trabajo
    */
-  const { resized_urls: resizedImages = {} } =
+
+  const { resized_urls: resizedImagesDefault = {} } =
     useContent({
       source: 'photo-resizer',
       query: {
@@ -95,7 +97,23 @@ const ClientImage = ({
       },
     }) || {}
 
-  const mainImage = resizedImages[`${width}x${height}`]
+  const mainImage = resizedImagesDefault[`${width}x${height}`]
+
+  const { resized_urls: resizedImagesMovile = {} } =
+    useContent(
+      movilImage
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: movilImage,
+              presets,
+              quality: isAdmin ? 65 : quality,
+            },
+          }
+        : {}
+    ) || {}
+
+  const resizedImages = movilImage ? resizedImagesMovile : resizedImagesDefault
 
   if (outputType === 'amp') {
     return (
