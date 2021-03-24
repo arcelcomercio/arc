@@ -11,11 +11,11 @@ const classes = {
 }
 const SaltarIntroTitle = props => {
   const {
-    customFields: { title, color = '#575757' },
+    customFields: { title, color = '#575757', modeSection },
   } = props
-  // lo que hay para ver
+  const classModeSection = modeSection ? 'saltar-intro-title__container--section': ''
   return (
-    <div className={classes.container}>
+    <div className={`${classes.container} ${classModeSection}`}>
       <div className={classes.boxLine}>
         <div className={classes.line}></div>
         <div className={classes.line}></div>
@@ -38,6 +38,10 @@ SaltarIntroTitle.propTypes = {
     color: PropTypes.string.tag({
       name: 'Color',
       description: 'Ejm: red, blue, #ffffff, #000',
+    }),
+    modeSection: PropTypes.bool.tag({
+      name: 'Título para secciones',
+      defaultValue: false,
     }),
   }),
 }
