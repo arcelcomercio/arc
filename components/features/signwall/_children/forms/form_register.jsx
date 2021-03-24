@@ -16,6 +16,7 @@ import Cookies from '../../_dependencies/cookies'
 import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
 import Loading from '../loading'
+import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
 
 const FormRegister = props => {
   const {
@@ -55,6 +56,7 @@ const FormRegister = props => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
+    rphone: { value: '', error: '' },
     // rpolit: { value: '1', error: '' },
     rterms: { value: '0', error: '' },
   }
@@ -81,6 +83,11 @@ const FormRegister = props => {
         },
         error: 'Mínimo 8 caracteres',
       },
+    },
+    rphone: {
+      required: false,
+      validator: formatPhone(),
+      min6caracts: true,
     },
     // rpolit: {
     //   required: false,
@@ -174,16 +181,13 @@ const FormRegister = props => {
     }
   }
 
-  // const handleFia = () => {
-  //   if (typeof window !== 'undefined' && isFia) {
-  //     handleCallToAction(true)
-  //   }
-  //   return null
-  // }
-
   const onSubmitForm = state => {
-    const { remail, rpass } = state
+    const { remail, rpass, rphone } = state
     setShowLoading(true)
+
+    const contacts =
+      rphone.length >= 6 ? [{ phone: rphone.trim(), type: 'PRIMARY' }] : []
+
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.signUp(
       {
@@ -194,6 +198,7 @@ const FormRegister = props => {
       {
         displayName: remail,
         email: remail,
+        contacts,
         attributes: [
           {
             name: 'originDomain',
@@ -320,8 +325,13 @@ const FormRegister = props => {
   }
 
   const {
-    values: { remail, rpass },
-    errors: { remail: remailError, rpass: rpassError, rterms: rtermsError },
+    values: { remail, rpass, rphone },
+    errors: {
+      remail: remailError,
+      rpass: rpassError,
+      rphone: rphoneError,
+      rterms: rtermsError,
+    },
     handleOnChange,
     handleOnSubmit,
     disable,
@@ -411,7 +421,7 @@ const FormRegister = props => {
                         onStudents={() => setShowStudents(!showStudents)}
                       />
 
-                      <S.Text c="gray" s="14" className="mt-20 center">
+                      <S.Text c="gray" s="14" className="mt-15 center">
                         o completa tus datos para registrarte
                       </S.Text>
 
@@ -465,6 +475,21 @@ const FormRegister = props => {
                         }}
                         error={rpassError || showFormatInvalid}
                       />
+
+                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                        <Input
+                          type="tel"
+                          name="rphone"
+                          placeholder="Teléfono"
+                          autoComplete="off"
+                          maxLength="12"
+                          value={rphone}
+                          onChange={e => {
+                            handleOnChange(e)
+                          }}
+                          error={rphoneError}
+                        />
+                      )}
 
                       {/* {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
                         <CheckBox
@@ -525,7 +550,7 @@ const FormRegister = props => {
                       <S.Button
                         color={mainColorBtn}
                         type="submit"
-                        className="mt-20 mb-10"
+                        className="mt-15 mb-5"
                         disabled={disable || showLoading || showFormatInvalid}
                         onClick={() => {
                           Taggeo(

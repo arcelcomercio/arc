@@ -58,7 +58,7 @@ export const Form = styled.form`
     `}
 
   @media ${device.tablet} {
-    padding: ${props => (props.npadding ? '0px' : '50px 35px')};
+    padding: ${props => (props.npadding ? '0px' : '40px 35px')};
   }
 
   @media screen and (min-width: 768px) {
@@ -66,7 +66,7 @@ export const Form = styled.form`
   }
 
   @media ${device.desktop} {
-    padding: ${props => (props.npadding ? '0px' : '20px 50px')};
+    padding: ${props => (props.npadding ? '0px' : '10px 50px')};
 
     ${props =>
       props.typeDialog === 'premium' &&
@@ -87,7 +87,7 @@ export const Form = styled.form`
   textarea {
     border: 1px solid #bbbbbb;
     width: 100%;
-    height: 45px;
+    height: 42px;
     padding: 5px 10px;
     font-size: 14px;
     appearance: none;
@@ -130,20 +130,27 @@ export const Form = styled.form`
       padding: 5px 15px;
     }
   }
-  & .mt-10 {
-    margin-top: 10px;
+ 
+  & .mb-5 {
+    margin-bottom: 5px;
   }
   & .mb-10 {
     margin-bottom: 10px;
+  }
+  & .mb-20 {
+    margin-bottom: 20px;
+  }
+  & .mt-10 {
+    margin-top: 10px;
+  }
+  & .mt-15 {
+    margin-top: 15px;
   }
   & .mt-20 {
     margin-top: 20px;
   }
   & .mt-40 {
     margin-top: 40px;
-  }
-  & .mb-20 {
-    margin-bottom: 20px;
   }
   & .ml-5 {
     margin-left: 5px;
@@ -365,11 +372,11 @@ export const Error = styled.div`
   color: ${props => (props.type === 'warning' ? '#925700' : '#fff')};
   font-family: Libre Franklin, sans-serif;
   font-size: 12px;
-  padding: 10px 10px;
+  padding: 5px 10px;
   border-radius: 4px;
   text-align: center;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   line-height: 16px;
   & button {
     display: block;
