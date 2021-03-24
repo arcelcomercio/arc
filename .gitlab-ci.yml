@@ -34,7 +34,11 @@ install_dependencies:
     paths:
       - node_modules/
     policy: push
-  when: always
+  only:
+    - master
+    - master-deploy
+    - sandbox
+    - merge_requests
   tags:
     - aws
     - docker
