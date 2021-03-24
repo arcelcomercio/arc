@@ -224,9 +224,10 @@ sonar:
   image: sonarsource/sonar-scanner-cli:4.5
   script:
     - sonar-scanner
-  except:
-    - sandbox
+  only:
+    - merge_requests
     - master
+    - master-deploy
   tags:
     - aws
     - docker
