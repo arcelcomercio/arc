@@ -12,7 +12,7 @@ const classes = {
   image: 'newsletter__image lg:w-full',
 
   title:
-    'newsletter__subtitle text-center position-relative line-h-xs mt-15 mb-5',
+    'newsletter__subtitle text-center position-relative line-h-xs mt-15 mb-20',
   subtitle: 'text-center text-black font-bold  title-lg line-h-xs',
   titleConfirmation: 'newsletter__title--confirmation',
   description: 'newsletter__description text-center line-h-xs',
@@ -30,6 +30,8 @@ const classes = {
   tos: 'newsletter__tos',
   cafe: 'block mx-auto newsletter__cafe',
   icon: 'block mx-auto newsletter__icon',
+  checkmark: 'block mx-auto mb-30 mt-30 newsletter__checkmark',
+  trome: 'trome',
 }
 const Newsletter = props => {
   // const { confirmRegister, formMessage } = props
@@ -41,7 +43,7 @@ const Newsletter = props => {
   // )
 
   const {
-    // description,
+    description,
     colorButton,
     urlTos,
     urlPrivacyPolicies,
@@ -154,135 +156,284 @@ const Newsletter = props => {
   }
   return (
     <>
-      <div className={classes.newsletter}>
-        <div className={`${classes.boxSubscription} ${classes.divFormInputs}`}>
-          <h4
-            className={`${classes.errorMessage} ${classes.errorMessageMedium}`}>
-            {' '}
-          </h4>
-          <img
-            className={classes.icon}
-            src="https://cdna.trome.pe/resources/dist/trome/images/email.svg?d=1"
-            alt="icono newsletter"
-          />
+      {arcSite === 'trome' ? (
+        <div className={classes.newsletter}>
+          <div
+            className={`${classes.boxSubscription} ${classes.divFormInputs}`}>
+            <h4
+              className={`${classes.errorMessage} ${classes.errorMessageMedium}`}>
+              {' '}
+            </h4>
+            <img
+              className={classes.icon}
+              src="https://cdna.trome.pe/resources/dist/trome/images/email.svg?d=1"
+              alt="icono newsletter"
+            />
 
-          <h3 itemProp="name" className={`${classes.title}`}>
-            Recibe nuestro
-          </h3>
-          <img
-            className={classes.cafe}
-            src="https://cdna.trome.pe/resources/dist/trome/images/cafe_final.svg?d=1"
-            alt="cafe de noticias"
-          />
-          {/* <p className={`${classes.subtitle}`}>Boletín</p>
-          <p itemProp="description" className={`${classes.description}`}>
-            {description}
-          </p> */}
-          <form
-            action="submit"
-            method="post"
-            className={`${classes.divFormCustom}`}>
-            <div className={classes.row}>
-              <input
-                className={classes.email}
-                type="text"
-                name="email"
-                placeholder="Ingresa tu Email"
-                required="required"
+            <h3 itemProp="name" className={`${classes.title} ${classes.trome}`}>
+              Recibe nuestro
+            </h3>
+            <img
+              className={classes.cafe}
+              src="https://cdna.trome.pe/resources/dist/trome/images/cafe_final.svg?d=1"
+              alt="cafe de noticias"
+            />
+            <form
+              action="submit"
+              method="post"
+              className={`${classes.divFormCustom}`}>
+              <div className={classes.row}>
+                <input
+                  className={`${classes.email} ${classes.trome}`}
+                  type="text"
+                  name="email"
+                  placeholder="Ingresa tu Email"
+                  required="required"
+                />
+              </div>
+              <div className={`${classes.row} ${classes.textCenter}`}>
+                <button
+                  className={`${classes.button} ${classes.trome}`}
+                  style={{ backgroundColor: colorButton }}
+                  type="submit">
+                  Recibir
+                </button>
+              </div>
+              <div className={`${classes.tos} ${classes.row}`}>
+                <input
+                  type="checkbox"
+                  name="tos"
+                  required="required"
+                  value="1"
+                  className={classes.inputCheckbox}
+                />
+                <label className={classes.policies} htmlFor="tos">
+                  Acepto los
+                  <a
+                    itemProp="url"
+                    className={`${classes.pageLink} ${classes.trome}`}
+                    href={urlTos}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {' '}
+                    Términos y condiciones{' '}
+                  </a>
+                  y
+                  <a
+                    itemProp="url"
+                    className={`${classes.pageLink} ${classes.trome}`}
+                    href={urlPrivacyPolicies}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {' '}
+                    Políticas de privacidad
+                  </a>
+                </label>
+                <p className={classes.errorMessage} id="CheckMessageNC"></p>
+              </div>
+            </form>
+          </div>
+          <div
+            className={`${classes.boxSubscription} ${classes.divConfirmation}`}
+            style={{ display: 'none' }}>
+            <p className={classes.textCenter}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="45"
+                viewBox="0 0 48 24.33">
+                <path
+                  id="Trazado_79132"
+                  data-name="Trazado 79132"
+                  d="M47.16,24.31h.1l.05,0,0,0,0,0,.05,0,0,0,0,0,0,0,0,0,.06-.06h0l0-.07,0,0,0,0,0-.05,0,0a.17.17,0,0,1,0-.05l0,0,0-.05a.17.17,0,0,1,0-.05.11.11,0,0,1,0-.05s0,0,0,0,0,0,0-.06v-.05s0-.06,0-.1V1a1,1,0,0,0-1-1h-33l0,0h0l-.05,0,0,0-.05,0,0,0,0,0,0,0-.05,0,0,0,0,0s0,0,0,0l0,0h0l0,0,0,0,0,0,0,0,0,0a.08.08,0,0,0,0,0l0,.05a.08.08,0,0,0,0,0,.06.06,0,0,0,0,0s0,0,0,.05a.07.07,0,0,1,0,0v6.6a1,1,0,0,0,2.08,0h0V3.35l9.25,8.2-.14.11-9.11,9.12V13.94a1,1,0,0,0-2.08,0v1.27H7.76a1,1,0,0,0,0,2.08h5.38v6a1,1,0,0,0,1,1H47.11Zm-1.24-3.53L36.8,11.67l0,0,6.86-5.82a1,1,0,1,0-1.35-1.58h0L30.58,14.18,16.91,2.08h29v18.7ZM25.8,13.13a1.08,1.08,0,0,0,.18-.24l3.9,3.45a1,1,0,0,0,1.36,0l4-3.37a.44.44,0,0,0,.12.15l9.12,9.12H16.68Z"
+                />
+                <path
+                  id="Trazado_79133"
+                  data-name="Trazado 79133"
+                  d="M1,11.86H18.62a1,1,0,0,0,0-2.09H1a1,1,0,0,0,0,2.09Z"
+                />
+                <path
+                  id="Trazado_79134"
+                  data-name="Trazado 79134"
+                  d="M2.86,6.12h7.9a1,1,0,0,0,0-2.08H2.86a1,1,0,0,0,0,2.08Z"
+                />
+                <path
+                  id="Trazado_79135"
+                  data-name="Trazado 79135"
+                  d="M8.68,19.61H1a1,1,0,0,0,0,2.08H8.68a1,1,0,1,0,0-2.08Z"
+                />
+              </svg>
+            </p>
+            <h3
+              itemProp="name"
+              className={`${classes.title} ${classes.trome} ${classes.titleConfirmation}`}>
+              Estás suscrito a nuestro
+            </h3>
+            <img
+              className={classes.cafe}
+              src="https://cdna.trome.pe/resources/dist/trome/images/cafe_final.svg?d=1"
+              alt="cafe de noticias"
+            />
+            {/* <p className={classes.subtitle}>Boletín</p> */}
+            <p className={classes.textCenter}>
+              <img
+                className={classes.checkmark}
+                src="https://cdna.trome.pe/resources/dist/trome/images/checkgrad.svg?d=1"
+                alt="icono check"
               />
-            </div>
-            <div className={`${classes.row} ${classes.textCenter}`}>
-              <button
-                className={classes.button}
-                style={{ backgroundColor: colorButton }}
-                type="submit">
-                Recibir
-              </button>
-            </div>
-            <div className={`${classes.tos} ${classes.row}`}>
-              <input
-                type="checkbox"
-                name="tos"
-                required="required"
-                value="1"
-                className={classes.inputCheckbox}
-              />
-              <label className={classes.policies} htmlFor="tos">
-                Acepto los
-                <a
-                  itemProp="url"
-                  className={classes.pageLink}
-                  href={urlTos}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {' '}
-                  Términos y condiciones{' '}
-                </a>
-                y
-                <a
-                  itemProp="url"
-                  className={classes.pageLink}
-                  href={urlPrivacyPolicies}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  {' '}
-                  Políticas de privacidad
-                </a>
-              </label>
-              <p className={classes.errorMessage} id="CheckMessageNC"></p>
-            </div>
-          </form>
+            </p>
+            <p className={`${classes.title} ${classes.trome}`}>
+              ¡Recepción exitosa!
+            </p>
+          </div>
         </div>
-        <div
-          className={`${classes.boxSubscription} ${classes.divConfirmation}`}
-          style={{ display: 'none' }}>
-          <p className={classes.textCenter}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="45"
-              viewBox="0 0 48 24.33">
-              <path
-                id="Trazado_79132"
-                data-name="Trazado 79132"
-                d="M47.16,24.31h.1l.05,0,0,0,0,0,.05,0,0,0,0,0,0,0,0,0,.06-.06h0l0-.07,0,0,0,0,0-.05,0,0a.17.17,0,0,1,0-.05l0,0,0-.05a.17.17,0,0,1,0-.05.11.11,0,0,1,0-.05s0,0,0,0,0,0,0-.06v-.05s0-.06,0-.1V1a1,1,0,0,0-1-1h-33l0,0h0l-.05,0,0,0-.05,0,0,0,0,0,0,0-.05,0,0,0,0,0s0,0,0,0l0,0h0l0,0,0,0,0,0,0,0,0,0a.08.08,0,0,0,0,0l0,.05a.08.08,0,0,0,0,0,.06.06,0,0,0,0,0s0,0,0,.05a.07.07,0,0,1,0,0v6.6a1,1,0,0,0,2.08,0h0V3.35l9.25,8.2-.14.11-9.11,9.12V13.94a1,1,0,0,0-2.08,0v1.27H7.76a1,1,0,0,0,0,2.08h5.38v6a1,1,0,0,0,1,1H47.11Zm-1.24-3.53L36.8,11.67l0,0,6.86-5.82a1,1,0,1,0-1.35-1.58h0L30.58,14.18,16.91,2.08h29v18.7ZM25.8,13.13a1.08,1.08,0,0,0,.18-.24l3.9,3.45a1,1,0,0,0,1.36,0l4-3.37a.44.44,0,0,0,.12.15l9.12,9.12H16.68Z"
-              />
-              <path
-                id="Trazado_79133"
-                data-name="Trazado 79133"
-                d="M1,11.86H18.62a1,1,0,0,0,0-2.09H1a1,1,0,0,0,0,2.09Z"
-              />
-              <path
-                id="Trazado_79134"
-                data-name="Trazado 79134"
-                d="M2.86,6.12h7.9a1,1,0,0,0,0-2.08H2.86a1,1,0,0,0,0,2.08Z"
-              />
-              <path
-                id="Trazado_79135"
-                data-name="Trazado 79135"
-                d="M8.68,19.61H1a1,1,0,0,0,0,2.08H8.68a1,1,0,1,0,0-2.08Z"
-              />
-            </svg>
-          </p>
-          <h3
-            itemProp="name"
-            className={`${classes.title} ${classes.titleConfirmation}`}>
-            Estás suscrito a nuestro
-          </h3>
-          <p className={classes.subtitle}>Boletín</p>
-          <p className={classes.textCenter}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="60"
-              viewBox="0 0 64 64">
-              <path
-                fill="#e06438"
-                d="M32 0A32 32 0 1 0 64 32 32 32 0 0 0 32 0ZM48.2 25.2 30.9 42.6a2.7 2.7 0 0 1-3.8 0h0l-8.7-8.7a2.7 2.7 0 0 1 3.8-3.8L29 36.9 44.5 21.5a2.7 2.7 0 0 1 3.8 3.8Z"
-              />
-            </svg>
-          </p>
-          <p className={`${classes.title}`}>¡Recepción exitosa!</p>
+      ) : (
+        <div className={classes.newsletter}>
+          <div
+            className={`${classes.boxSubscription} ${classes.divFormInputs}`}>
+            <h4
+              className={`${classes.errorMessage} ${classes.errorMessageMedium}`}>
+              {' '}
+            </h4>
+            <p className={`${classes.textCenter}`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="45"
+                viewBox="0 0 48 24.33">
+                <path
+                  id="Trazado_79132"
+                  data-name="Trazado 79132"
+                  d="M47.16,24.31h.1l.05,0,0,0,0,0,.05,0,0,0,0,0,0,0,0,0,.06-.06h0l0-.07,0,0,0,0,0-.05,0,0a.17.17,0,0,1,0-.05l0,0,0-.05a.17.17,0,0,1,0-.05.11.11,0,0,1,0-.05s0,0,0,0,0,0,0-.06v-.05s0-.06,0-.1V1a1,1,0,0,0-1-1h-33l0,0h0l-.05,0,0,0-.05,0,0,0,0,0,0,0-.05,0,0,0,0,0s0,0,0,0l0,0h0l0,0,0,0,0,0,0,0,0,0a.08.08,0,0,0,0,0l0,.05a.08.08,0,0,0,0,0,.06.06,0,0,0,0,0s0,0,0,.05a.07.07,0,0,1,0,0v6.6a1,1,0,0,0,2.08,0h0V3.35l9.25,8.2-.14.11-9.11,9.12V13.94a1,1,0,0,0-2.08,0v1.27H7.76a1,1,0,0,0,0,2.08h5.38v6a1,1,0,0,0,1,1H47.11Zm-1.24-3.53L36.8,11.67l0,0,6.86-5.82a1,1,0,1,0-1.35-1.58h0L30.58,14.18,16.91,2.08h29v18.7ZM25.8,13.13a1.08,1.08,0,0,0,.18-.24l3.9,3.45a1,1,0,0,0,1.36,0l4-3.37a.44.44,0,0,0,.12.15l9.12,9.12H16.68Z"
+                />
+                <path
+                  id="Trazado_79133"
+                  data-name="Trazado 79133"
+                  d="M1,11.86H18.62a1,1,0,0,0,0-2.09H1a1,1,0,0,0,0,2.09Z"
+                />
+                <path
+                  id="Trazado_79134"
+                  data-name="Trazado 79134"
+                  d="M2.86,6.12h7.9a1,1,0,0,0,0-2.08H2.86a1,1,0,0,0,0,2.08Z"
+                />
+                <path
+                  id="Trazado_79135"
+                  data-name="Trazado 79135"
+                  d="M8.68,19.61H1a1,1,0,0,0,0,2.08H8.68a1,1,0,1,0,0-2.08Z"
+                />
+              </svg>
+            </p>
+            <h3 itemProp="name" className={`${classes.title}`}>
+              Recibe nuestro
+            </h3>
+            <p className={`${classes.subtitle}`}>Boletín</p>
+            <p itemProp="description" className={`${classes.description}`}>
+              {description}
+            </p>
+            <form
+              action="submit"
+              method="post"
+              className={`${classes.divFormCustom}`}>
+              <div className={classes.row}>
+                <input
+                  className={classes.email}
+                  type="text"
+                  name="email"
+                  placeholder="Ingresa tu Email"
+                  required="required"
+                />
+              </div>
+              <div className={`${classes.row} ${classes.textCenter}`}>
+                <button
+                  className={classes.button}
+                  style={{ backgroundColor: colorButton }}
+                  type="submit">
+                  Recibir
+                </button>
+              </div>
+              <div className={classes.row}>
+                <label className={classes.policies} htmlFor="tos">
+                  <input
+                    type="checkbox"
+                    name="tos"
+                    required="required"
+                    value="1"
+                    className={classes.inputCheckbox}
+                  />
+                  Acepto los
+                  <a
+                    itemProp="url"
+                    className={classes.pageLink}
+                    href={urlTos}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {' '}
+                    Términos y condiciones{' '}
+                  </a>
+                  y
+                  <a
+                    itemProp="url"
+                    className={classes.pageLink}
+                    href={urlPrivacyPolicies}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {' '}
+                    Políticas de privacidad
+                  </a>
+                </label>
+                <p className={classes.errorMessage} id="CheckMessageNC"></p>
+              </div>
+            </form>
+          </div>
+          <div
+            className={`${classes.boxSubscription} ${classes.divConfirmation}`}
+            style={{ display: 'none' }}>
+            <p className={classes.textCenter}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="45"
+                viewBox="0 0 48 24.33">
+                <path
+                  id="Trazado_79132"
+                  data-name="Trazado 79132"
+                  d="M47.16,24.31h.1l.05,0,0,0,0,0,.05,0,0,0,0,0,0,0,0,0,.06-.06h0l0-.07,0,0,0,0,0-.05,0,0a.17.17,0,0,1,0-.05l0,0,0-.05a.17.17,0,0,1,0-.05.11.11,0,0,1,0-.05s0,0,0,0,0,0,0-.06v-.05s0-.06,0-.1V1a1,1,0,0,0-1-1h-33l0,0h0l-.05,0,0,0-.05,0,0,0,0,0,0,0-.05,0,0,0,0,0s0,0,0,0l0,0h0l0,0,0,0,0,0,0,0,0,0a.08.08,0,0,0,0,0l0,.05a.08.08,0,0,0,0,0,.06.06,0,0,0,0,0s0,0,0,.05a.07.07,0,0,1,0,0v6.6a1,1,0,0,0,2.08,0h0V3.35l9.25,8.2-.14.11-9.11,9.12V13.94a1,1,0,0,0-2.08,0v1.27H7.76a1,1,0,0,0,0,2.08h5.38v6a1,1,0,0,0,1,1H47.11Zm-1.24-3.53L36.8,11.67l0,0,6.86-5.82a1,1,0,1,0-1.35-1.58h0L30.58,14.18,16.91,2.08h29v18.7ZM25.8,13.13a1.08,1.08,0,0,0,.18-.24l3.9,3.45a1,1,0,0,0,1.36,0l4-3.37a.44.44,0,0,0,.12.15l9.12,9.12H16.68Z"
+                />
+                <path
+                  id="Trazado_79133"
+                  data-name="Trazado 79133"
+                  d="M1,11.86H18.62a1,1,0,0,0,0-2.09H1a1,1,0,0,0,0,2.09Z"
+                />
+                <path
+                  id="Trazado_79134"
+                  data-name="Trazado 79134"
+                  d="M2.86,6.12h7.9a1,1,0,0,0,0-2.08H2.86a1,1,0,0,0,0,2.08Z"
+                />
+                <path
+                  id="Trazado_79135"
+                  data-name="Trazado 79135"
+                  d="M8.68,19.61H1a1,1,0,0,0,0,2.08H8.68a1,1,0,1,0,0-2.08Z"
+                />
+              </svg>
+            </p>
+            <h3
+              itemProp="name"
+              className={`${classes.title} ${classes.titleConfirmation}`}>
+              Estás suscrito a nuestro
+            </h3>
+            <p className={classes.subtitle}>Boletín</p>
+            <p className={classes.textCenter}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="60"
+                viewBox="0 0 64 64">
+                <path
+                  fill="#e06438"
+                  d="M32 0A32 32 0 1 0 64 32 32 32 0 0 0 32 0ZM48.2 25.2 30.9 42.6a2.7 2.7 0 0 1-3.8 0h0l-8.7-8.7a2.7 2.7 0 0 1 3.8-3.8L29 36.9 44.5 21.5a2.7 2.7 0 0 1 3.8 3.8Z"
+                />
+              </svg>
+            </p>
+            <p className={`${classes.title}`}>¡Recepción exitosa!</p>
+          </div>
         </div>
-      </div>
+      )}
 
       <script
         type="text/javascript"
