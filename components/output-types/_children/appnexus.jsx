@@ -22,8 +22,18 @@ const getTypeStory = ({ promo_items: promoItems = {} } = {}) => {
   const arrType = Object.keys(type)
   return arrType[0] === 'basic_gallery'
 }
-const dataLayer = (multimediaType, subtype,id,getPremiumValue,nucleoOrigen,formatOrigen,contentOrigen,genderOrigen,author) => {
-  const premium = getPremiumValue ==='premium' && true 
+const dataLayer = (
+  multimediaType,
+  subtype,
+  id,
+  getPremiumValue,
+  nucleoOrigen,
+  formatOrigen,
+  contentOrigen,
+  genderOrigen,
+  author
+) => {
+  const premium = getPremiumValue === 'premium' && true
   const type = getMultimediaAnalitycs(multimediaType, subtype, true)
 
   return `
@@ -32,7 +42,7 @@ const dataLayer = (multimediaType, subtype,id,getPremiumValue,nucleoOrigen,forma
     'tipo_nota' : '${type}', 
     'id_nota' : '${id}',
     'premium' : '${premium}',
-    'autor' : '${author}',
+    'autor' : '${author || `Redacción`}',
     'nucleo_ID' : '${nucleoOrigen}',
     'tipo_formato' : '${formatOrigen}',
     'tipo_contenido' : '${contentOrigen}',
@@ -100,7 +110,17 @@ const getVars = (
           true
         )}';   var id_nota = '${id}';  var content_paywall = '${isPremium}';`
         dataNucleoOrigen = ` var nucleo_origen = '${nucleoOrigen}'; var format_origen = '${formatOrigen}';var content_origen = '${contentOrigen}'; var gender_origen = '${genderOrigen}';var audiencia_nicho = '${audienciaNicho}'`
-        scriptLayer = dataLayer(multimediaType, subtype,id,getPremiumValue,nucleoOrigen,formatOrigen,contentOrigen,genderOrigen,author)
+        scriptLayer = dataLayer(
+          multimediaType,
+          subtype,
+          id,
+          getPremiumValue,
+          nucleoOrigen,
+          formatOrigen,
+          contentOrigen,
+          genderOrigen,
+          author
+        )
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
       }
@@ -110,13 +130,13 @@ const getVars = (
   if (isGallery) typeSpace = 'nota2'
   if (section.match(/publirreportaje|publireportaje/) !== null && isStory)
     typeSpace = 'nota5'
-
+  const scriptLayerType = arcSite === SITE_OJO ? scriptLayer : ''
   return `
     var type_space = '${typeSpace}'; var site = '${getSite(
     site
   )}'; var type_template = '${template}'; var section = '${section}'; var subsection = '${subsection}'; var path_name = '${path}';
     ${dataStory} 
-    ${dataNucleoOrigen}; ${arcSite === SITE_OJO && scriptLayer}`
+    ${dataNucleoOrigen}; ${scriptLayerType}`
 }
 
 const AppNexus = props => {
