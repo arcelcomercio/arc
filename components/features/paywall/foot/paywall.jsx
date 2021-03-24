@@ -41,16 +41,21 @@ const Foot = ({ theme }) => {
               {msgs.contactPhoneNumber}
             </a>{' '}
             o{' '} */}
-            Contáctanos enviando un correo a{' '}
-            <a href={interpolateUrl(urls.contactEmailRef)}>
+            Llámanos al
+            <br />
+            {/* <a href={interpolateUrl(urls.contactEmailRef)}>
               {msgs.contactEmail}
-            </a>
+            </a> */}
+            <a href="tel:+5113115100">Call Center: 311-5100</a>
           </S.Text>
-          <S.Text>{msgs.footerAd}</S.Text>
+          <S.Text>
+            Paquetes que incluyen diario impreso, disponibles sólo para{' '}
+            {arcSite === 'elcomercio' ? 'Lima y Callao' : 'Lima'}
+          </S.Text>
         </div>
         <div>
           <S.List>
-            <li id={msgs.supportLink}>
+            {/* <li id={msgs.supportLink}>
               <S.Link
                 href="/"
                 onClick={e => {
@@ -59,16 +64,8 @@ const Foot = ({ theme }) => {
                 }}>
                 {msgs.supportLink}
               </S.Link>
-            </li>
-            <li id={msgs.privacyPolicyLink}>
-              <S.Link
-                href={interpolateUrl(urls.privacyPolicy)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="list_link">
-                {msgs.privacyPolicyLink}
-              </S.Link>
-            </li>
+            </li> */}
+
             <li id={msgs.faqsLink}>
               <S.Link
                 href={interpolateUrl(urls.faqs)}
@@ -79,15 +76,6 @@ const Foot = ({ theme }) => {
               </S.Link>
             </li>
 
-            <li id={msgs.disclaimerLink}>
-              <S.Link
-                href={interpolateUrl(urls.disclaimer)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="list_link">
-                {msgs.disclaimerLink}
-              </S.Link>
-            </li>
             <li id={msgs.termsLink}>
               <S.Link
                 href={interpolateUrl(urls.terms)}
@@ -95,6 +83,41 @@ const Foot = ({ theme }) => {
                 rel="noopener noreferrer"
                 className="list_link">
                 {msgs.termsLink}
+              </S.Link>
+            </li>
+
+            <li id={msgs.faqsLink}>
+              Servicio al cliente y Ventas:
+              <br />
+              <S.Link
+                href="tel:+5113115100"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="list_link"
+                style={{ margin: '0px', padding: '0px' }}>
+                Call Center: 311-5100
+              </S.Link>
+            </li>
+
+            <li id={msgs.privacyPolicyLink}>
+              <S.Link
+                href={interpolateUrl(urls.privacyPolicy)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="list_link">
+                {msgs.privacyPolicyLink}
+              </S.Link>
+            </li>
+
+            <li id={msgs.privacyPolicyLink}>&nbsp; &nbsp; &nbsp;</li>
+
+            <li id={msgs.disclaimerLink}>
+              <S.Link
+                href={interpolateUrl(urls.disclaimer)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="list_link">
+                {msgs.disclaimerLink}
               </S.Link>
             </li>
           </S.List>
