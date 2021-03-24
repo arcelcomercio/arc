@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { env } from '../utilities/arc/env'
 import { ORGANIZATION, PROD } from '../utilities/constants/environment'
 
-import TagManager from './_children/tag-manager'
 import FbPixel from './_children/fb-pixel'
 import FinallyPolyfill from './_children/finallyPolyfill'
+import TagManager from './_children/tag-manager'
 import listenCounterMag from './_dependencies/counter-mag'
 
 const Subscriptions = ({
