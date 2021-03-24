@@ -2,9 +2,9 @@ import { ENVIRONMENT } from 'fusion:environment'
 
 const titleCase = string => {
   const wordsArray = string.toLowerCase().split(/_/)
-  const upperCased = wordsArray.map(word => {
-    return word.charAt(0).toUpperCase() + word.substr(1)
-  })
+  const upperCased = wordsArray.map(
+    word => word.charAt(0).toUpperCase() + word.substr(1)
+  )
   return upperCased.join('_')
 }
 

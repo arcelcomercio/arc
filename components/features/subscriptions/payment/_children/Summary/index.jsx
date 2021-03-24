@@ -1,5 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
+
 import { AuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
@@ -28,7 +29,7 @@ const Summary = () => {
   const {
     arcSite,
     globalContent: { plans = [], name },
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
   const {
     loadPage,
@@ -38,11 +39,11 @@ const Summary = () => {
     updatePlan,
     updatePeriod,
     updateDataPlan,
-  } = useContext(AuthContext)
+  } = React.useContext(AuthContext)
 
-  const [checkPlan, setCheckPlan] = useState()
-  const [totalPlan, setTotalPlan] = useState()
-  const [orderPlans, setOrderPlans] = useState([])
+  const [checkPlan, setCheckPlan] = React.useState()
+  const [totalPlan, setTotalPlan] = React.useState()
+  const [orderPlans, setOrderPlans] = React.useState([])
   const { urls } = PropertiesSite[arcSite]
   const { texts } = PropertiesCommon
   const { firstName = '', lastName = '', secondLastName = '' } =
@@ -54,10 +55,11 @@ const Summary = () => {
     semester: 'Semestral',
   }
 
-  useEffect(() => {
-    const getPLanSelected = plans.reduce((prev, plan) => {
-      return plan.description.checked ? plan : prev
-    }, null)
+  React.useEffect(() => {
+    const getPLanSelected = plans.reduce(
+      (prev, plan) => (plan.description.checked ? plan : prev),
+      null
+    )
     const OrderForce = plans.sort((a, b) => b.amount - a.amount)
     const {
       priceCode,
@@ -117,12 +119,12 @@ const Summary = () => {
     <>
       <div className={styles.boxResume}>
         <button className="button-close" id="btn-detail-close" type="button">
-          <span>Cerrar</span> <i className="icon-close"></i>
+          <span>Cerrar</span> <i className="icon-close" />
         </button>
 
         <div className={styles.resume}>
           <h3>Resumen de pedido</h3>
-          <div className="isotipo"></div>
+          <div className="isotipo" />
         </div>
 
         <p className={styles.adquire}>Estas adquiriendo</p>
@@ -164,62 +166,60 @@ const Summary = () => {
           </div>
         ) : (
           <div className="form-planes">
-            {orderPlans.map((item, i) => {
-              return (
-                <div className="tooltip" key={`item-${i + 1}`}>
-                  <label
-                    className={`${styles.item} ${
-                      checkPlan === item.priceCode ? 'selected' : ''
-                    }`}
-                    htmlFor={`plan-${i + 1}`}>
-                    <input
-                      type="radio"
-                      name={`plan-${i + 1}`}
-                      id={`plan-${i + 1}`}
-                      checked={checkPlan === item.priceCode}
-                      onChange={() => {
-                        setCheckPlan(item.priceCode)
-                        setTotalPlan(item.amount)
-                        updatePlan(item.priceCode, item.sku, 1)
-                        updatePeriod(
-                          period[
-                            item.description.frecuencia_plan ||
-                              item.billingFrequency.toLowerCase()
-                          ]
-                        )
-                        updateDataPlan(
-                          item.amount,
+            {orderPlans.map((item, i) => (
+              <div className="tooltip" key={`item-${i + 1}`}>
+                <label
+                  className={`${styles.item} ${
+                    checkPlan === item.priceCode ? 'selected' : ''
+                  }`}
+                  htmlFor={`plan-${i + 1}`}>
+                  <input
+                    type="radio"
+                    name={`plan-${i + 1}`}
+                    id={`plan-${i + 1}`}
+                    checked={checkPlan === item.priceCode}
+                    onChange={() => {
+                      setCheckPlan(item.priceCode)
+                      setTotalPlan(item.amount)
+                      updatePlan(item.priceCode, item.sku, 1)
+                      updatePeriod(
+                        period[
                           item.description.frecuencia_plan ||
                             item.billingFrequency.toLowerCase()
-                        )
-                      }}
-                      value={item.priceCode}
-                    />
-                    {
-                      period[
+                        ]
+                      )
+                      updateDataPlan(
+                        item.amount,
                         item.description.frecuencia_plan ||
                           item.billingFrequency.toLowerCase()
-                      ]
-                    }
-                    <span>
-                      {item.amount === 0 ? 'Gratis' : `S/ ${item.amount}.00`}
-                    </span>
-                    <div className="selected"></div>
-                    <span className="checkmark"></span>
-                    <p>
-                      <strong>{item.description.title}. </strong>
-                      {item.description.description}
-                    </p>
-                  </label>
+                      )
+                    }}
+                    value={item.priceCode}
+                  />
+                  {
+                    period[
+                      item.description.frecuencia_plan ||
+                        item.billingFrequency.toLowerCase()
+                    ]
+                  }
+                  <span>
+                    {item.amount === 0 ? 'Gratis' : `S/ ${item.amount}.00`}
+                  </span>
+                  <div className="selected" />
+                  <span className="checkmark" />
+                  <p>
+                    <strong>{item.description.title}. </strong>
+                    {item.description.description}
+                  </p>
+                </label>
 
-                  {item.description.recommended && (
-                    <span className={styles.recommended}>
-                      {item.description.recommended}
-                    </span>
-                  )}
-                </div>
-              )
-            })}
+                {item.description.recommended && (
+                  <span className={styles.recommended}>
+                    {item.description.recommended}
+                  </span>
+                )}
+              </div>
+            ))}
           </div>
         )}
 

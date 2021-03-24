@@ -449,9 +449,10 @@ const FormRegister = props => {
 
                       <Input
                         type="email"
+                        inputMode="email"
+                        autoComplete="email"
                         name="remail"
                         placeholder="Correo electrónico*"
-                        autoComplete="on"
                         required
                         value={remail}
                         onChange={e => {
@@ -463,9 +464,9 @@ const FormRegister = props => {
 
                       <Input
                         type="password"
+                        autoComplete="new-password"
                         name="rpass"
                         placeholder="Contraseña*"
-                        autoComplete="off"
                         required
                         value={rpass}
                         onChange={e => {
@@ -479,9 +480,10 @@ const FormRegister = props => {
                       {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
                         <Input
                           type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
                           name="rphone"
                           placeholder="Teléfono"
-                          autoComplete="off"
                           maxLength="12"
                           value={rphone}
                           onChange={e => {

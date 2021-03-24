@@ -1,25 +1,25 @@
-import React, { createContext, useState } from 'react'
+import * as React from 'react'
 import { isAuthenticated } from '../_dependencies/Session'
 import { getLocaleStorage, getSessionStorage } from '../_dependencies/Utils'
 
-const AuthContext = createContext()
+const AuthContext = React.createContext()
 
 const AuthProvider = ({ children }) => {
   const keyStorageStep = 'ArcId.USER_STEP'
   const keyStorageProfile = 'ArcId.USER_PROFILE'
 
-  const [userLoaded, setUserLoaded] = useState(() => isAuthenticated())
-  const [userPlan, setUserPlan] = useState({})
-  const [userDataPlan, setUserDataPlan] = useState({})
-  const [userPeriod, setUserPeriod] = useState()
-  const [userPurchase, setUserPurchase] = useState({})
-  const [loadPage, setLoadPage] = useState(false)
-  const [userLoading, setUserLoading] = useState(true)
-  const [userErrorApi, setUserErrorApi] = useState(null)
-  const [userProfile, setUser] = useState(() =>
+  const [userLoaded, setUserLoaded] = React.useState(() => isAuthenticated())
+  const [userPlan, setUserPlan] = React.useState({})
+  const [userDataPlan, setUserDataPlan] = React.useState({})
+  const [userPeriod, setUserPeriod] = React.useState()
+  const [userPurchase, setUserPurchase] = React.useState({})
+  const [loadPage, setLoadPage] = React.useState(false)
+  const [userLoading, setUserLoading] = React.useState(true)
+  const [userErrorApi, setUserErrorApi] = React.useState(null)
+  const [userProfile, setUser] = React.useState(() =>
     getLocaleStorage(keyStorageProfile)
   )
-  const [userStep, setUserStep] = useState(
+  const [userStep, setUserStep] = React.useState(
     parseInt(getSessionStorage(keyStorageStep), 10) || 2
   )
 
