@@ -193,9 +193,8 @@ eslint-dev:
     # Run eslint
     - npm run lint
   allow_failure: True
-  except:
-    - sandbox
-    - master
+  only:
+    - merge_requests
   tags:
     - aws
     - docker
@@ -212,9 +211,8 @@ coverage-dev:
     - npm run test:coverage
   allow_failure: True
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
-  except:
-    - sandbox
-    - master
+  only:
+    - merge_requests
   tags:
     - aws
     - docker
@@ -226,8 +224,6 @@ sonar:
     - sonar-scanner
   only:
     - merge_requests
-    - master
-    - master-deploy
   tags:
     - aws
     - docker
