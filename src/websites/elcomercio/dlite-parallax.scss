@@ -1,0 +1,83 @@
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+
+@import "./scss/variables/lite/fonts";
+
+@import "../../general-styles/framework/core/reset";
+@import "./scss/parallax/core.scss";
+@import "../../general-styles/framework/core/ads";
+
+.l-parallax {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 0;
+  &__p {
+    padding-top: calc(100vh - 60px);
+    z-index: 0;
+  }
+  &__content {
+    background-color: #fff;
+    z-index: 1;
+    position: relative;
+  }
+  &__g {
+    height: 163px;
+    position: relative;
+    background: transparent linear-gradient(180deg, #fff0 0%, #fff 100%) 0% 0%
+      no-repeat padding-box;
+    opacity: 1;
+  }
+}
+
+// Estilos heredados
+@import "./scss/lite-components/features/header/basic/h-basic";
+@import "./scss/lite-components/features/header/basic/menu";
+@import "./scss/lite-components/features/story/contents/contents-inline";
+
+// Custom styles
+@import "./scss/parallax/features/header/h-basic.scss";
+@import "./scss/parallax/features/story/featured-image/featured-img.scss";
+@import "./scss/parallax/features/story/contents/story-contents.scss";
+
+.parallax-image {
+  height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding: 128px 0;
+
+  h3 {
+    font: 700 24px/32px $primary-font;
+    padding: 0 20px;
+    letter-spacing: 0.77px;
+    text-align: center;
+    color: #fff;
+    @media (--desktop) {
+      font: 700 24px/52px $primary-font;
+    }
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    height: 128px;
+    display: block;
+    width: 100%;
+    opacity: 1;
+    position: absolute;
+  }
+  &::after {
+    top: 0;
+    background: transparent linear-gradient(0deg, #fff0 0%, #fff 100%) 0% 0%
+      no-repeat padding-box;
+  }
+  &::before {
+    bottom: 0;
+    background: transparent linear-gradient(180deg, #fff0 0%, #fff 100%) 0% 0%
+      no-repeat padding-box;
+  }
+}

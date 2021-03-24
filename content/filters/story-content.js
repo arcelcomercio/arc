@@ -82,6 +82,8 @@ content_elements {
         width
         height
       }
+      block
+      data { bg_color color html type title url url_logo url_mobile }
     }
   }
   raw_oembed{
@@ -322,6 +324,7 @@ promo_items{
   ${basicVideoJWplayer}
   ${basicVideo}
   ${basicGallery}
+  basic_parallax { embed { config { block data { bg_color color html type url url_logo url_mobile } } } }
 }
 
 credits{

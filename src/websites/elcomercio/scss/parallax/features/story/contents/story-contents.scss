@@ -1,0 +1,42 @@
+.story-contents {
+  padding: 25px 0 20px 0;
+
+  .story-contents__content > section > figure {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  &__font-paragraph,
+  &__paragraph-list {
+    max-width: 620px;
+    margin: 0 20px;
+    @media (--tablet) {
+      margin: 0 auto;
+    }
+  }
+
+  .pquote {
+    background: none;
+
+    &__text {
+      font: 500 24px/34px $primary-font;
+      text-align: center;
+      letter-spacing: 0.77px;
+      padding: 80px 0;
+      margin: 0 auto;
+      color: #777;
+      font-style: normal;
+      max-width: 640px;
+      @media (--desktop) {
+        font: 500 24px/36px $primary-font;
+        padding: 174px 0;
+      }
+    }
+  }
+  &__social {
+    display: none;
+  }
+  &__author {
+    display: none;
+  }
+}

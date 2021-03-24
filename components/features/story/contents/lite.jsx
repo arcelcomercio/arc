@@ -5,7 +5,6 @@ import ArcStoryContent, {
 } from '@arc-core-components/feature_article-body'
 import Image from '../../../global-components/image'
 
-
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../utilities/assets'
@@ -64,6 +63,7 @@ import ShareButtons from '../../../global-components/lite/share'
 import { contentWithAds } from '../../../utilities/story/content'
 import { processedAds } from '../../../utilities/story/helpers'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildParallaxElements from './_children/parallax-elements'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -227,6 +227,7 @@ const StoryContentsLite = props => {
               elementClasses={classes}
               renderElement={element => {
                 const {
+                  _id,
                   type,
                   subtype: sub,
                   embed: customEmbed,
@@ -636,6 +637,15 @@ const StoryContentsLite = props => {
                     const { config: customEmbedConfig } = customEmbed || {}
                     return (
                       <StoryContentsChildLinkedImage {...customEmbedConfig} />
+                    )
+                  }
+                  if (sub === 'parallax_blocks') {
+                    const { config: customEmbedConfig } = customEmbed || {}
+                    return (
+                      <StoryContentsChildParallaxElements
+                        config={customEmbedConfig}
+                        id={_id}
+                      />
                     )
                   }
                 }
