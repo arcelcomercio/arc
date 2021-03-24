@@ -190,9 +190,10 @@ export const FormForgot = ({
 
                 <Input
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
                   name="femail"
                   placeholder="Correo electrónico"
-                  autoComplete="on"
                   required
                   value={femail}
                   onChange={e => {

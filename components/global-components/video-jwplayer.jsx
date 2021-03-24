@@ -28,12 +28,11 @@ const StoryContentChildVideoJwplayerList = ({
             data-time={time}
             className="jwplayer-lazy"
             id={`botr_${mediaId}_${jwplayerId}_div`}>
-            <div class="jwplayer-lazy-icon-play"></div>
+            <div className="jwplayer-lazy-icon-play"></div>
             <Image
               src={image}
               width={580}
               height={326}
-              //sizes="(max-width: 360px) 360px, (max-width: 540px) 540px"
               alt={titleTxt}
               style={{
                 width: '100%',

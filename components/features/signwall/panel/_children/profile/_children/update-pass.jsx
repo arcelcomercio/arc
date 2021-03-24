@@ -70,6 +70,55 @@ class updatePassword extends Component {
     }
   }
 
+  handleChangeValidation = e => {
+    e.preventDefault()
+    this.setState({ messageError: false })
+    const { name, value } = e.target
+    const { formErrors, newPassword } = this.state
+    if (name === 'newPassword') {
+      const space =
+        value.indexOf(' ') >= 0
+          ? 'Contraseña inválida, no se permite espacios'
+          : ''
+      const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
+      formErrors.newPassword =
+        value.length === 0 ? 'Este campo es requerido' : min
+    } else if (name === 'repeatPassword') {
+      const same = newPassword === value ? '' : 'Tu contraseña no coincide'
+      formErrors.repeatPassword =
+        value.length === 0 ? 'Este campo es requerido' : same
+    }
+
+    this.setState({ formErrors, [name]: value })
+  }
+
+  handleForcePassword(e) {
+    const { value } = e.target
+
+    if (strongRegularExp.test(value)) {
+      this.setState({ checkpwdStrength: '40px' })
+    } else if (mediumRegularExp.test(value)) {
+      this.setState({ checkpwdStrength: '20px' })
+    } else if (value.length >= '3') {
+      this.setState({ checkpwdStrength: '10px' })
+    } else {
+      this.setState({ checkpwdStrength: '0px' })
+    }
+  }
+
+  changeValidationConfirm = e => {
+    const { name, value } = e.target
+    const { formErrorsConfirm } = this.state
+    const space =
+      value.indexOf(' ') >= 0
+        ? 'Contraseña inválida, no se permite espacios'
+        : ''
+    const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
+    formErrorsConfirm.oldPassword =
+      value.length === 0 ? 'Este campo es requerido' : min
+    this.setState({ formErrorsConfirm, [name]: value })
+  }
+
   submitConfirmPassword = e => {
     const { formErrorsConfirm, oldPassword, newPassword } = this.state
     e.preventDefault()
@@ -122,55 +171,6 @@ class updatePassword extends Component {
         document.getElementById('profile-signwall').parentNode ||
         document.getElementById('profile-signwall').parentElement
       ModalProfile.style.overflow = 'auto'
-    }
-  }
-
-  changeValidationConfirm = e => {
-    const { name, value } = e.target
-    const { formErrorsConfirm } = this.state
-    const space =
-      value.indexOf(' ') >= 0
-        ? 'Contraseña inválida, no se permite espacios'
-        : ''
-    const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
-    formErrorsConfirm.oldPassword =
-      value.length === 0 ? 'Este campo es requerido' : min
-    this.setState({ formErrorsConfirm, [name]: value })
-  }
-
-  handleChangeValidation = e => {
-    e.preventDefault()
-    this.setState({ messageError: false })
-    const { name, value } = e.target
-    const { formErrors, newPassword } = this.state
-    if (name === 'newPassword') {
-      const space =
-        value.indexOf(' ') >= 0
-          ? 'Contraseña inválida, no se permite espacios'
-          : ''
-      const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
-      formErrors.newPassword =
-        value.length === 0 ? 'Este campo es requerido' : min
-    } else if (name === 'repeatPassword') {
-      const same = newPassword === value ? '' : 'Tu contraseña no coincide'
-      formErrors.repeatPassword =
-        value.length === 0 ? 'Este campo es requerido' : same
-    }
-
-    this.setState({ formErrors, [name]: value })
-  }
-
-  handleForcePassword(e) {
-    const { value } = e.target
-
-    if (strongRegularExp.test(value)) {
-      this.setState({ checkpwdStrength: '40px' })
-    } else if (mediumRegularExp.test(value)) {
-      this.setState({ checkpwdStrength: '20px' })
-    } else if (value.length >= '3') {
-      this.setState({ checkpwdStrength: '10px' })
-    } else {
-      this.setState({ checkpwdStrength: '0px' })
     }
   }
 
@@ -229,6 +229,7 @@ class updatePassword extends Component {
               </div>
               <input
                 type="password"
+                autoComplete="new-password"
                 name="newPassword"
                 ref="newPassword"
                 className={
@@ -237,7 +238,6 @@ class updatePassword extends Component {
                 placeholder="Nueva contraseña"
                 noValidate
                 maxLength="50"
-                autoComplete="off"
                 onChange={e => {
                   this.handleChangeValidation(e)
                   this.handleForcePassword(e)
