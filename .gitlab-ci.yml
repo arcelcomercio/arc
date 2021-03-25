@@ -9,14 +9,9 @@ stages:
   - promote
   - test
   - deploy
-  - code-quality
-  - test-intsall-e2e
-  - test-e2e
+  - analize
   - package
-  - monitoring
-  - documentation
   - release
-  - cleanup
 
 cache:
   key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
@@ -39,7 +34,11 @@ install_dependencies:
     paths:
       - node_modules/
     policy: push
-  when: always
+  only:
+    - master
+    - master-deploy
+    - sandbox
+    - merge_requests
   tags:
     - aws
     - docker
@@ -198,9 +197,8 @@ eslint-dev:
     # Run eslint
     - npm run lint
   allow_failure: True
-  except:
-    - sandbox
-    - master
+  only:
+    - merge_requests
   tags:
     - aws
     - docker
@@ -217,53 +215,20 @@ coverage-dev:
     - npm run test:coverage
   allow_failure: True
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
-  except:
-    - sandbox
-    - master
+  only:
+    - merge_requests
   tags:
     - aws
     - docker
 
-code-quality:
-  stage: code-quality
-  image: linux982079/codequality:v1
-  variables:
-    SONAR_URL: http://34.219.160.206:9000
-    SONAR_ANALYSIS_MODE: issues
+sonar:
+  stage: analize
+  image: sonarsource/sonar-scanner-cli:4.5
   script:
-    - touch sonar-project.properties
-    - echo sonar.projectKey=arc >> sonar-project.properties
-    - echo sonar.sources=. >> sonar-project.properties
-    - echo sonar.gitlab.project_id=git@gitlab.ec.pe:contenidos/arc.git >> sonar-project.properties
-    - echo sonar.login=$TOKEN_SONAR >> sonar-project.properties
-    - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
-    - cat sonar-project.properties
-    - gitlab-sonar-scanner
-  except:
-    - sandbox
-    - master
-  tags:
-    - aws
-    - docker
-
-code-quality-reports:
-  stage: code-quality
-  image: linux982079/codequality:v1
-  variables:
-    SONAR_URL: http://34.219.160.206:9000
-    SONAR_ANALYSIS_MODE: publish
-  script:
-    - touch sonar-project.properties
-    - echo sonar.projectKey=arc >> sonar-project.properties
-    - echo sonar.sources=. >> sonar-project.properties
-    - echo sonar.gitlab.project_id=git@gitlab.ec.pe:contenidos/arc.git >> sonar-project.properties
-    - echo sonar.login=$TOKEN_SONAR >> sonar-project.properties
-    - echo sonar.sourceEncoding=UTF-8 >> sonar-project.properties
-    - cat sonar-project.properties
-    - gitlab-sonar-scanner
-  except:
-    - sandbox
-    - master
+    - sonar-scanner
+  only:
+    - merge_requests
+  allow_failure: true
   tags:
     - aws
     - docker
