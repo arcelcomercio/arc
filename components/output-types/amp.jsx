@@ -8,8 +8,8 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import MetaStory from './_children/meta-story'
 import AmpTagManager from './_children/amp-tag-manager'
+import subscriptionsConfig from './_dependencies/amp-subscriptions-config'
 import { addSlashToEnd } from '../utilities/parse/strings'
-import { getMultimedia } from '../utilities/multimedia'
 import {
   SITE_ELCOMERCIO,
   SITE_DEPOR,
@@ -24,6 +24,7 @@ import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 import { PREMIUM, METERED } from '../utilities/constants/content-tiers'
 import { originByEnv, env } from '../utilities/arc/env'
+import { getMultimedia } from '../utilities/multimedia'
 
 const AmpOutputType = ({
   children,
@@ -483,47 +484,15 @@ const AmpOutputType = ({
               type="application/json"
               id="amp-subscriptions"
               dangerouslySetInnerHTML={{
-                __html: `
-              {
-                "services": [
-                  {
-                    "type": "iframe",
-                    "iframeSrc": "${envOrigin}/arc/subs/p.html",
-                    "iframeVars": [
-                      "READER_ID",
-                      "CANONICAL_URL",
-                      "AMPDOC_URL",
-                      "SOURCE_URL",
-                      "DOCUMENT_REFERRER"
-                    ],
-                    "actions":{
-                      "login": "${envOrigin}/signwall/?outputType=signwall&signwallHard=1",
-                      "subscribe": "${envOrigin}/suscripcionesdigitales/?outputType=subscriptions"
-                    },
-                    "data": {
-                      "contentType": "${getMultimedia(multimediaType)}",
-                      "section": "${
-                        primarySectionLink
-                          ? primarySectionLink.split('/')[1]
-                          : ''
-                      }",
-                      "contentRestriction": "${contentCode}",
-                      "apiOrigin": "https://api${
-                        env === 'sandbox' ? '-sandbox' : ''
-                      }.${arcSite}.pe",
-                      "identityApiOrigin": "https://api${
-                        env === 'sandbox' ? '-sandbox' : ''
-                      }.${arcSite}.pe"
-                    }
-                  }
-                ],
-                "fallbackEntitlement": {
-                  "source": "fallback",
-                  "granted": false,
-                  "grantReason": "METERING"
-                }
-              }
-              `,
+                __html: subscriptionsConfig({
+                  origin: envOrigin,
+                  section: primarySectionLink,
+                  api: `https://api${
+                    env === 'sandbox' ? '-sandbox' : ''
+                  }.${arcSite}.pe`,
+                  contentCode,
+                  contentType: getMultimedia(multimediaType),
+                }),
               }}
             />
           </>
@@ -541,24 +510,7 @@ const AmpOutputType = ({
           </>
         )}
         {hasAmpSubscriptions ? (
-          <>
-            <div
-              subscriptions-action="subscribe"
-              subscriptions-display="NOT data.subscribed">
-              You are not a subscriber, click to subscribe
-            </div>
-            <div subscriptions-display="data.subscribed">Subscribed</div>
-            <div
-              subscriptions-action="login"
-              subscriptions-display="NOT data.loggedIn">
-              You are not logged in, click to login
-            </div>
-            <div subscriptions-display="data.loggedIn">Logged in</div>
-            <section subscriptions-section="content-not-granted">
-              The content is not granted :C
-            </section>
-            <div subscriptions-section="content">{children}</div>
-          </>
+          <div subscriptions-section="content">{children}</div>
         ) : (
           children
         )}
