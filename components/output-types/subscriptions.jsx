@@ -2,7 +2,7 @@ import * as React from 'react'
 import PropTypes from 'prop-types'
 
 import { env } from '../utilities/arc/env'
-import ORGANIZATION from '../utilities/constants/organization'
+import { ORGANIZATION, PROD } from '../utilities/constants/environment'
 
 import FbPixel from './_children/fb-pixel'
 import FinallyPolyfill from './_children/finallyPolyfill'
@@ -23,10 +23,14 @@ const Subscriptions = ({
     siteName,
     colorPrimary,
     googleTagManagerId,
+    googleTagManagerIdSandbox,
     fbPixelId,
     paywall: { urls, title, description },
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
+
+  const GTMContainer =
+    env === PROD ? googleTagManagerId : googleTagManagerIdSandbox
 
   const isExternalCounter = () =>
     /\/paywall-counter-external\//.test(requestUri)
@@ -60,7 +64,7 @@ const Subscriptions = ({
       ) : (
         <html lang="es">
           <head>
-            <TagManager googleTagManagerId={googleTagManagerId} />
+            <TagManager googleTagManagerId={GTMContainer} />
             <FbPixel fbPixelId={fbPixelId} />
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -115,7 +119,7 @@ const Subscriptions = ({
             <noscript>
               <iframe
                 title="Google Tag Manager - No Script"
-                src={`https://www.googletagmanager.com/ns.html?id=${googleTagManagerId}`}
+                src={`https://www.googletagmanager.com/ns.html?id=${GTMContainer}`}
                 height="0"
                 width="0"
                 style={{ display: 'none', visibility: 'hidden' }}

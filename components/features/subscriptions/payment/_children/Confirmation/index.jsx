@@ -1,6 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
+
 import { AuthContext } from '../../../_context/auth'
 import { getStorageInfo } from '../../../_dependencies/Session'
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
@@ -13,6 +14,7 @@ import {
   pushCxense,
   PixelActions,
   sendAction,
+  TaggeoJoao,
 } from '../../../_dependencies/Taggeo'
 import {
   getFullNameFormat,
@@ -54,8 +56,9 @@ const Confirmation = () => {
       freeAccess,
       fromFia,
       printedSubscriber,
+      event,
     },
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
   const {
     userPurchase,
@@ -63,12 +66,12 @@ const Confirmation = () => {
     userPeriod,
     userPlan,
     userProfile,
-  } = useContext(AuthContext)
+  } = React.useContext(AuthContext)
 
   const { texts } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
-  const [loading, setLoading] = useState(false)
-  const [sendTracking, setSendTracking] = useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [sendTracking, setSendTracking] = React.useState(false)
 
   const {
     email,
@@ -89,9 +92,8 @@ const Confirmation = () => {
     OneTime: 'Mensual',
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      // const divStep = window.document.getElementById('main-steps')
       const divDetail = document.getElementById('div-detail')
       const divFooter = document.getElementById('footer')
       const { uuid } = getStorageInfo()
@@ -99,12 +101,12 @@ const Confirmation = () => {
       const referer = getSessionStorage('paywall_last_url') || ''
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
-      const getPLanSelected = plans.reduce((prev, plan) => {
-        return plan.priceCode === userPlan.priceCode ? plan : prev
-      }, null)
+      const getPLanSelected = plans.reduce(
+        (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+        null
+      )
 
       if (freeAccess || (userPurchase && userPurchase.status)) {
-        // if (divStep) divStep.classList.add('bg-white')
         if (divDetail) divDetail.classList.remove('step__show-detail')
         if (divFooter) divFooter.classList.remove('step__hidden')
         document.body.classList.remove('no-scroll')
@@ -191,11 +193,31 @@ const Confirmation = () => {
         window.Identity.extendSession().then(() => {
           setSendTracking(true)
         })
+
+        // Datalayer solicitados por Joao
+        setTimeout(() => {
+          TaggeoJoao(
+            {
+              event: 'Pasarela Suscripciones Digitales',
+              category: `P3_${
+                event && event === 'winback'
+                  ? 'Plan_Winback'
+                  : printedSubscriber
+                  ? 'Plan_Suscriptor'
+                  : name.replace(' ', '_')
+              }`,
+              action: userPeriod,
+              label: uuid,
+              value: `${amount}`,
+            },
+            window.location.pathname
+          )
+        }, 1000)
       } else {
         updateStep(2)
-        // if (divStep) divStep.classList.remove('bg-white')
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const goToHome = () => {
@@ -253,7 +275,7 @@ const Confirmation = () => {
         <div className={styles.contConfirm}>
           <p className="title">Paquete</p>
           <p className="description">{`${
-            freeAccess ? namePlanApi : userPeriod
+            freeAccess ? namePlanApi : `Plan ${userPeriod}`
           }`}</p>
 
           <p className="title">Nombre</p>

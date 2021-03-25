@@ -180,7 +180,7 @@ export const DialogModal = styled.div`
 
     @media screen and (min-width: 1025px) {
       max-width: 1000px;
-      height: 555px;
+      height: 600px;
     }
   }
 

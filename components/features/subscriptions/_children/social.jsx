@@ -1,5 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
+
+import { AuthContext } from '../_context/auth'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import getDevice from '../_dependencies/GetDevice'
 import {
@@ -7,16 +9,15 @@ import {
   setLocaleStorage,
   isFbBrowser,
 } from '../_dependencies/Utils'
-import { AuthContext } from '../_context/auth'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
-  const [loading, setLoading] = useState()
-  const [loadText, setLoadText] = useState('Cargando...')
-  const { activateAuth, updateStep } = useContext(AuthContext)
+  const [loading, setLoading] = React.useState()
+  const [loadText, setLoadText] = React.useState('Cargando...')
+  const { activateAuth, updateStep } = React.useContext(AuthContext)
   const { urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
 
@@ -70,11 +71,11 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
                   value: '1',
                   type: 'String',
                 },
-                // {
-                //   name: 'dataTreatment',
-                //   value: 'NULL',
-                //   type: 'String',
-                // },
+                {
+                  name: 'dataTreatment',
+                  value: 'NULL',
+                  type: 'String',
+                },
               ],
             }
             setLoadText('Actualizando Perfil...')
@@ -233,28 +234,28 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
     return ''
   }
 
-  useEffect(() => {
-    // window.addEventListener('click', clickLoginSocialEcoID)
-    return () => {
-      // window.removeEventListener('click', clickLoginSocialEcoID)
-      window.removeEventListener('message', authSocialProvider)
-      window.removeEventListener('onmessage', authSocialProvider)
-    }
-  }, [])
+  React.useEffect(
+    () =>
+      // window.addEventListener('click', clickLoginSocialEcoID)
+      () => {
+        // window.removeEventListener('click', clickLoginSocialEcoID)
+        window.removeEventListener('message', authSocialProvider)
+        window.removeEventListener('onmessage', authSocialProvider)
+      },
+    []
+  )
 
   return (
-    <>
-      <button
-        className={`btn-${arcSocial}`}
-        onClick={() => {
-          clickLoginSocialEcoID()
-          Taggeo(nameTagCategory, `web_swl_${arcType}_boton_${arcSocial}`)
-        }}
-        disabled={loading}
-        type="button">
-        {loading ? loadText : `Continua con ${Capitalize(arcSocial)}`}
-      </button>
-    </>
+    <button
+      className={`btn-${arcSocial}`}
+      onClick={() => {
+        clickLoginSocialEcoID()
+        Taggeo(nameTagCategory, `web_swl_${arcType}_boton_${arcSocial}`)
+      }}
+      disabled={loading}
+      type="button">
+      {loading ? loadText : `Continua con ${Capitalize(arcSocial)}`}
+    </button>
   )
 }
 
