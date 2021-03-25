@@ -56,7 +56,7 @@ const AmpOutputType = ({
     credits: { by: autors } = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     content_restrictions: { content_code: contentCode = '' } = {},
-    _id: storyId,
+    // _id: storyId,
   } = globalContent || {}
 
   const envOrigin = originByEnv(arcSite)
@@ -297,8 +297,7 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null
-          }
+            ) : null}
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -509,7 +508,6 @@ const AmpOutputType = ({
                           : ''
                       }",
                       "contentRestriction": "${contentCode}",
-                      "contentId": "${storyId}",
                       "apiOrigin": "https://api${
                         env === 'sandbox' ? '-sandbox' : ''
                       }.${arcSite}.pe",
@@ -547,17 +545,17 @@ const AmpOutputType = ({
             <div
               subscriptions-action="subscribe"
               subscriptions-display="NOT data.subscribed">
-              Not a subscriber!
+              You are not a subscriber, click to subscribe
             </div>
             <div subscriptions-display="data.subscribed">Subscribed</div>
             <div
               subscriptions-action="login"
               subscriptions-display="NOT data.loggedIn">
-              Not logged in
+              You are not logged in, click to login
             </div>
             <div subscriptions-display="data.loggedIn">Logged in</div>
             <section subscriptions-section="content-not-granted">
-              Content not granted :C
+              The content is not granted :C
             </section>
             <div subscriptions-section="content">{children}</div>
           </>
