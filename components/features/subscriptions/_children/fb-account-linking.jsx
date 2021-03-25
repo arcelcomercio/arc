@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
-import PropTypes from 'prop-types'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import PropTypes from 'prop-types'
+
 import { PropertiesSite } from '../_dependencies/Properties'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
@@ -33,19 +34,17 @@ export const SubscribeEventTag = ({
   offerCode,
   value,
   currency,
-}) => {
-  return (
-    <FbEventTag
-      debug={debug}
-      onBeforeSend={onBeforeSend}
-      event="Subscribe"
-      subscription_id={subscriptionId}
-      offer_code={offerCode}
-      value={value}
-      currency={currency}
-    />
-  )
-}
+}) => (
+  <FbEventTag
+    debug={debug}
+    onBeforeSend={onBeforeSend}
+    event="Subscribe"
+    subscription_id={subscriptionId}
+    offer_code={offerCode}
+    value={value}
+    currency={currency}
+  />
+)
 
 SubscribeEventTag.propTypes = {
   debug: PropTypes.bool,
@@ -60,21 +59,20 @@ export const LogIntoAccountEventTag = ({
   debug,
   onBeforeSend,
 }) => {
-  const { arcSite } = useFusionContext() || {}
+  const { arcSite } = useAppContext() || {}
   const { urls } = PropertiesSite[arcSite]
   const [accessToken, setAccessToken] = React.useState()
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: urls.arcOrigin })
-      window.Identity.isLoggedIn().then(resLog => {
-        if (resLog) {
-          window.Identity.extendSession().then(({ accessToken: token }) => {
-            setAccessToken(token)
-          })
-        }
-      })
-    }
+    window.Identity.options({ apiOrigin: urls.arcOrigin })
+    window.Identity.isLoggedIn().then(resLog => {
+      if (resLog) {
+        window.Identity.extendSession().then(({ accessToken: token }) => {
+          setAccessToken(token)
+        })
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return accessToken ? (

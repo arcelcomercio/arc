@@ -16,6 +16,7 @@ import Cookies from '../../_dependencies/cookies'
 import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
 import Loading from '../loading'
+import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
 
 const FormRegister = props => {
   const {
@@ -43,7 +44,7 @@ const FormRegister = props => {
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
-  // const [checkedPolits, setCheckedPolits] = useState(true)
+  const [checkedPolits, setCheckedPolits] = useState(true)
   const [checkedTerms, setCheckedTerms] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
 
@@ -55,7 +56,8 @@ const FormRegister = props => {
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
-    // rpolit: { value: '1', error: '' },
+    rphone: { value: '', error: '' },
+    rpolit: { value: '1', error: '' },
     rterms: { value: '0', error: '' },
   }
 
@@ -82,9 +84,14 @@ const FormRegister = props => {
         error: 'Mínimo 8 caracteres',
       },
     },
-    // rpolit: {
-    //   required: false,
-    // },
+    rphone: {
+      required: false,
+      validator: formatPhone(),
+      min6caracts: true,
+    },
+    rpolit: {
+      required: false,
+    },
     rterms: {
       required: true,
       validator: {
@@ -174,16 +181,13 @@ const FormRegister = props => {
     }
   }
 
-  // const handleFia = () => {
-  //   if (typeof window !== 'undefined' && isFia) {
-  //     handleCallToAction(true)
-  //   }
-  //   return null
-  // }
-
   const onSubmitForm = state => {
-    const { remail, rpass } = state
+    const { remail, rpass, rphone } = state
     setShowLoading(true)
+
+    const contacts =
+      rphone.length >= 6 ? [{ phone: rphone.trim(), type: 'PRIMARY' }] : []
+
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.signUp(
       {
@@ -194,6 +198,7 @@ const FormRegister = props => {
       {
         displayName: remail,
         email: remail,
+        contacts,
         attributes: [
           {
             name: 'originDomain',
@@ -225,16 +230,16 @@ const FormRegister = props => {
             value: checkedTerms ? '1' : '0',
             type: 'String',
           },
-          // {
-          //   name: 'dataTreatment',
-          //   value:
-          //     arcSite === 'elcomercio' || arcSite === 'gestion'
-          //       ? checkedPolits
-          //         ? '1'
-          //         : '0'
-          //       : 'NULL',
-          //   type: 'String',
-          // },
+          {
+            name: 'dataTreatment',
+            value:
+              arcSite === 'elcomercio' || arcSite === 'gestion'
+                ? checkedPolits
+                  ? '1'
+                  : '0'
+                : 'NULL',
+            type: 'String',
+          },
         ],
       },
       { doLogin: true },
@@ -320,8 +325,13 @@ const FormRegister = props => {
   }
 
   const {
-    values: { remail, rpass },
-    errors: { remail: remailError, rpass: rpassError, rterms: rtermsError },
+    values: { remail, rpass, rphone },
+    errors: {
+      remail: remailError,
+      rpass: rpassError,
+      rphone: rphoneError,
+      rterms: rtermsError,
+    },
     handleOnChange,
     handleOnSubmit,
     disable,
@@ -411,7 +421,7 @@ const FormRegister = props => {
                         onStudents={() => setShowStudents(!showStudents)}
                       />
 
-                      <S.Text c="gray" s="14" className="mt-20 center">
+                      <S.Text c="gray" s="14" className="mt-15 center">
                         o completa tus datos para registrarte
                       </S.Text>
 
@@ -439,9 +449,10 @@ const FormRegister = props => {
 
                       <Input
                         type="email"
+                        inputMode="email"
+                        autoComplete="email"
                         name="remail"
                         placeholder="Correo electrónico*"
-                        autoComplete="on"
                         required
                         value={remail}
                         onChange={e => {
@@ -453,9 +464,9 @@ const FormRegister = props => {
 
                       <Input
                         type="password"
+                        autoComplete="new-password"
                         name="rpass"
                         placeholder="Contraseña*"
-                        autoComplete="off"
                         required
                         value={rpass}
                         onChange={e => {
@@ -466,7 +477,23 @@ const FormRegister = props => {
                         error={rpassError || showFormatInvalid}
                       />
 
-                      {/* {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                        <Input
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
+                          name="rphone"
+                          placeholder="Teléfono"
+                          maxLength="12"
+                          value={rphone}
+                          onChange={e => {
+                            handleOnChange(e)
+                          }}
+                          error={rphoneError}
+                        />
+                      )}
+
+                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
                         <CheckBox
                           checked={checkedPolits}
                           value={checkedPolits ? '1' : '0'}
@@ -475,7 +502,7 @@ const FormRegister = props => {
                             handleOnChange(e)
                             setCheckedPolits(!checkedPolits)
                           }}>
-                          <S.Text c="gray" lh="22" s="12" className="mt-20">
+                          <S.Text c="gray" lh="18" s="12" className="mt-10">
                             Autorizo el uso de mis datos para
                             <S.Link
                               href="/tratamiento-de-datos/"
@@ -487,7 +514,7 @@ const FormRegister = props => {
                             </S.Link>
                           </S.Text>
                         </CheckBox>
-                      )} */}
+                      )}
 
                       <CheckBox
                         checked={checkedTerms}
@@ -503,20 +530,44 @@ const FormRegister = props => {
                         <S.Text c="gray" lh="18" s="12" className="mt-10">
                           Al crear la cuenta acepto los
                           <S.Link
-                            href={Domains.getPoliticsTerms('terms', arcSite)}
+                            href={`${
+                              arcSite === 'depor'
+                                ? '/terminos-servicio/'
+                                : '/terminos-y-condiciones/'
+                            }`}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-10 mr-10 inline">
+                            className="ml-5 mr-5 inline">
                             Términos y Condiciones
                           </S.Link>
                           y
                           <S.Link
-                            href={Domains.getPoliticsTerms('politics', arcSite)}
+                            href={
+                              // {
+                              //   'elcomercio': '/politicas-privacidad/',
+                              //   'gestion': '/politica-de-privacidad/',
+                              //   'peru21': '/politicas-de-privacidad/',
+                              //   'depor': '/politicas-privacidad/',
+                              //   'trome': '/politica-de-privacidad/'
+                              // }[arcSite]
+                              (() => {
+                                switch (arcSite) {
+                                  case 'elcomercio':
+                                  case 'depor':
+                                    return '/politicas-privacidad/'
+                                  case 'gestion':
+                                  case 'trome':
+                                    return '/politica-de-privacidad/'
+                                  default:
+                                    return '/politicas-de-privacidad/'
+                                }
+                              })()
+                            }
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-10 inline">
+                            className="ml-5 inline">
                             Políticas de Privacidad
                           </S.Link>
                         </S.Text>
@@ -525,7 +576,7 @@ const FormRegister = props => {
                       <S.Button
                         color={mainColorBtn}
                         type="submit"
-                        className="mt-20 mb-10"
+                        className="mt-15 mb-5"
                         disabled={disable || showLoading || showFormatInvalid}
                         onClick={() => {
                           Taggeo(

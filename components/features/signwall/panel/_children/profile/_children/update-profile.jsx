@@ -4,8 +4,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 
-import React, { Component } from 'react'
+import * as React from 'react'
 import Consumer from 'fusion:consumer'
+
 import Services from '../../../../_dependencies/services'
 import {
   namesRegex,
@@ -35,10 +36,10 @@ const SET_ATTRIBUTES_PROFILE = [
 const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
 
 @Consumer
-class UpdateProfile extends Component {
+class UpdateProfile extends React.Component {
   constructor(props) {
     super(props)
-    const sociales = ['facebook', 'google']
+    // const sociales = ['facebook', 'google']
     const { publicProfile } = new GetProfile()
     const { attributes = [] } = publicProfile
     const _attrib = this.attributeToObject(attributes)
@@ -47,8 +48,8 @@ class UpdateProfile extends Component {
       ? attributes.filter(({ name }) => !GET_ATTRIBUTES_PROFILE.includes(name))
       : []
 
-    const { identities = [] } = publicProfile
-    const [identitie = { type: 'Password' }] = identities || []
+    // const { identities = [] } = publicProfile
+    // const [identitie = { type: 'Password' }] = identities || []
 
     const customVars = {
       showMsgSuccess: false,
@@ -64,33 +65,30 @@ class UpdateProfile extends Component {
       messageErrorDelete: '',
     }
 
-    this.state = Object.assign(
-      {},
-      {
-        dataDepartments: [],
-        dataProvinces: [],
-        dataDistricts: [],
-        disableNames: sociales.includes(identitie.type.toLowerCase()),
-        formErrors: {
-          firstName: '',
-          lastName: '',
-          secondLastName: '',
-          mobilePhone: '',
-          documentNumber: '',
-          typeDocument: '',
-          userEmail: '',
-        },
-        loading: false,
-        hasChange: false,
-        textSubmit: 'GUARDAR CAMBIOS',
-        typeDocLenghtMax: _attrib.documentType !== 'dni' ? '15' : '8',
-        typeDocLenghtMin: _attrib.documentType !== 'dni' ? '5' : '8',
-        typeDoc: _attrib.documentType !== 'dni' ? 'text' : 'numeric',
+    this.state = {
+      dataDepartments: [],
+      dataProvinces: [],
+      dataDistricts: [],
+      // disableNames: sociales.includes(identitie.type.toLowerCase()),
+      formErrors: {
+        firstName: '',
+        lastName: '',
+        secondLastName: '',
+        mobilePhone: '',
+        documentNumber: '',
+        typeDocument: '',
+        userEmail: '',
       },
-      publicProfile,
-      _attrib,
-      customVars
-    )
+      loading: false,
+      hasChange: false,
+      textSubmit: 'GUARDAR CAMBIOS',
+      typeDocLenghtMax: _attrib.documentType !== 'dni' ? '15' : '8',
+      typeDocLenghtMin: _attrib.documentType !== 'dni' ? '5' : '8',
+      typeDoc: _attrib.documentType !== 'dni' ? 'text' : 'numeric',
+      ...publicProfile,
+      ..._attrib,
+      ...customVars,
+    }
   }
 
   attributeToObject = (attributes = []) => {
@@ -688,6 +686,7 @@ class UpdateProfile extends Component {
             <FormGroup>
               <input
                 type="text"
+                autoComplete="given-name"
                 name="firstName"
                 className={
                   formErrors.firstName.length > 0
@@ -715,6 +714,7 @@ class UpdateProfile extends Component {
             <FormGroup>
               <input
                 type="text"
+                autoComplete="family-name"
                 name="lastName"
                 className={
                   formErrors.lastName.length > 0
@@ -855,6 +855,8 @@ class UpdateProfile extends Component {
             <FormGroup>
               <input
                 type="text"
+                inputMode="tel"
+                autoComplete="tel"
                 name="mobilePhone"
                 className={
                   formErrors.mobilePhone.length > 0 ? 'input error' : 'input'
@@ -869,7 +871,6 @@ class UpdateProfile extends Component {
                 defaultValue={phone}
                 tabIndex="7"
                 disabled={!email}
-                autoComplete="off"
               />
               <label htmlFor="mobilePhone" className="label">
                 Número de Celular
@@ -983,6 +984,8 @@ class UpdateProfile extends Component {
             <FormGroup>
               <input
                 type="text"
+                inputMode="email"
+                autoComplete="email"
                 name="email"
                 className={
                   formErrors.userEmail.length > 0 ? 'input error' : 'input'

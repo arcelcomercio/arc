@@ -337,6 +337,8 @@ const FormRequest = ({ arcSite, showCode }) => {
 
       <Input
         type="email"
+        inputMode="email"
+        autoComplete="email"
         name="uemail"
         required
         placeholder="Correo Universitario*"

@@ -24,7 +24,7 @@ export default {
   fbPixelId: '1252229265121278',
   fbArticleStyle: 'LogoElcomercio',
   nameStoryRelated: 'VEA TAMBIÉN',
-  googleTagManagerMobile: 'GTM-NNX4LXF',
+  googleTagManagerMobile: 'GTM-NNX4LXF', // Parece que esto no se usa
   siteDescription:
     'Noticias de Perú y el mundo en Elcomercio.pe. Noticias de actualidad, política, deportes, gastronomía, economía y espectáculos.',
   googleNewsUrl:
@@ -158,7 +158,7 @@ export default {
       backgroundReview:                  `{{contextPath}}/resources/dist/elcomercio/images/bg_video.jpg`,
       reviewPoster:                      `{{contextPath}}/resources/dist/elcomercio/images/review_poster.jpg`,
       mainLogo:                          `{{contextPath}}/resources/dist/elcomercio/images/white-logo.png`, 
-    }
+    },
   },
 
   legalLinks: [
