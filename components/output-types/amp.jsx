@@ -56,7 +56,7 @@ const AmpOutputType = ({
     credits: { by: autors } = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     content_restrictions: { content_code: contentCode = '' } = {},
-    _id: storyId,
+    // _id: storyId,
   } = globalContent || {}
 
   const envOrigin = originByEnv(arcSite)
@@ -298,8 +298,7 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null
-          }
+            ) : null}
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -508,7 +507,6 @@ const AmpOutputType = ({
                           : ''
                       }",
                       "contentRestriction": "${contentCode}",
-                      "contentId": "${storyId}",
                       "apiOrigin": "https://api${
                         env === 'sandbox' ? '-sandbox' : ''
                       }.${arcSite}.pe",
@@ -532,17 +530,17 @@ const AmpOutputType = ({
       </head>
       <body className={subtype}>
         {arcSite === SITE_PERU21 && (
-          <amp-iframe 
-            width="1" 
+          <amp-iframe
+            width="1"
             title="User Sync"
             height="1"
             sandbox="allow-scripts"
             frameborder="0"
             src="https://ads.rubiconproject.com/prebid/load-cookie.html?endpoint=rubicon&max_sync_count=5&args=account:19186">
-            <amp-img 
-              layout="fill" 
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" 
-              placeholder 
+            <amp-img
+              layout="fill"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+              placeholder
             />
           </amp-iframe>
         )}
@@ -561,17 +559,17 @@ const AmpOutputType = ({
             <div
               subscriptions-action="subscribe"
               subscriptions-display="NOT data.subscribed">
-              Not a subscriber!
+              You are not a subscriber, click to subscribe
             </div>
             <div subscriptions-display="data.subscribed">Subscribed</div>
             <div
               subscriptions-action="login"
               subscriptions-display="NOT data.loggedIn">
-              Not logged in
+              You are not logged in, click to login
             </div>
             <div subscriptions-display="data.loggedIn">Logged in</div>
             <section subscriptions-section="content-not-granted">
-              Content not granted :C
+              The content is not granted :C
             </section>
             <div subscriptions-section="content">{children}</div>
           </>
