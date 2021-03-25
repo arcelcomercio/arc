@@ -114,39 +114,39 @@ const FeaturedStory = props => {
           <div className={classes.starFieldClass}>
             <span
               className={`${classes.starFieldClassIcon} ${
-                starField === 1 ? classes.strf : ''
-              } ${starField === 2 ? classes.strf : ''} ${
-                starField === 3 ? classes.strf : ''
-              } ${starField === 4 ? classes.strf : ''} ${
-                starField === 5 ? classes.strf : ''
+                starField === '1' ? classes.strf : ''
+              } ${starField === '2' ? classes.strf : ''} ${
+                starField === '3' ? classes.strf : ''
+              } ${starField === '4' ? classes.strf : ''} ${
+                starField === '5' ? classes.strf : ''
               } `}>
               ☆
             </span>
             <span
               className={`${classes.starFieldClassIcon} ${
-                starField === 2 ? classes.strf : ''
-              } ${starField === 3 ? classes.strf : ''} ${
-                starField === 4 ? classes.strf : ''
-              } ${starField === 5 ? classes.strf : ''}`}>
+                starField === '2' ? classes.strf : ''
+              } ${starField === '3' ? classes.strf : ''} ${
+                starField === '4' ? classes.strf : ''
+              } ${starField === '5' ? classes.strf : ''}`}>
               ☆
             </span>
             <span
               className={`${classes.starFieldClassIcon} ${
-                starField === 3 ? classes.strf : ''
-              } ${starField === 4 ? classes.strf : ''} ${
-                starField === 5 ? classes.strf : ''
+                starField === '3' ? classes.strf : ''
+              } ${starField === '4' ? classes.strf : ''} ${
+                starField === '5' ? classes.strf : ''
               }`}>
               ☆
             </span>
             <span
               className={`${classes.starFieldClassIcon} ${
-                starField === 4 ? classes.strf : ''
-              } ${starField === 5 ? classes.strf : ''}`}>
+                starField === '4' ? classes.strf : ''
+              } ${starField === '5' ? classes.strf : ''}`}>
               ☆
             </span>
             <span
               className={`${classes.starFieldClassIcon} ${
-                starField === 5 ? classes.strf : ''
+                starField === '5' ? classes.strf : ''
               }`}>
               ☆
             </span>
