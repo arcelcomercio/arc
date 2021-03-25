@@ -1,6 +1,11 @@
 import React from 'react'
+import { useAppContext } from 'fusion:context'
+
+import { defaultImage } from '../../../../utilities/assets'
 
 export default ({ url, urlImg = '', isAmp = false, siteUrl }) => {
+  const { arcSite, contextPath } = useAppContext()
+
   const classes = {
     container: `${
       isAmp ? 'amp-story-content__stamp-trust' : 'story-content__stamp-trust'
@@ -26,7 +31,7 @@ export default ({ url, urlImg = '', isAmp = false, siteUrl }) => {
   const urlImgTrust = urlImg || `${siteUrl}/buenas-practicas/#trust-project`
   const urlPathImgTrust =
     'https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_prod/especiales/banner-trust-project/logo-trust.png'
-
+  const imageDefault = defaultImage({ contextPath, arcSite })
   const imgTag = isAmp ? (
     <amp-img
       class={classes.img}
@@ -37,7 +42,13 @@ export default ({ url, urlImg = '', isAmp = false, siteUrl }) => {
       tabIndex="0"
     />
   ) : (
-    <img src={urlPathImgTrust} alt="Trust Project" width="100%" />
+    <img
+      src={imageDefault}
+      data-src={urlPathImgTrust}
+      alt="Trust Project"
+      width="100%"
+      className="lazy "
+    />
   )
 
   return (
@@ -48,7 +59,11 @@ export default ({ url, urlImg = '', isAmp = false, siteUrl }) => {
           {imgTag}
         </a>
       </div>
-      <a href={urlTrust} className={classes.link} target="_blank" rel="noreferrer">
+      <a
+        href={urlTrust}
+        className={classes.link}
+        target="_blank"
+        rel="noreferrer">
         Saber más
       </a>
     </div>
