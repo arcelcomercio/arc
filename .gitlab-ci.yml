@@ -33,7 +33,6 @@ install_dependencies:
     policy: push
   only:
     - master
-    - master-deploy
     - sandbox
     - merge_requests
   tags:
