@@ -47,6 +47,7 @@ export default ({ url, urlImg = '', isAmp = false, siteUrl }) => {
       data-src={urlPathImgTrust}
       alt="Trust Project"
       width="100%"
+      height="26"
       className="lazy "
     />
   )
