@@ -16,6 +16,7 @@ const CardFeaturedStoryAdvanced = props => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      starField,
     } = {},
   } = props
 
@@ -67,6 +68,7 @@ const CardFeaturedStoryAdvanced = props => {
             multimedia={multimedia}
             arcSite={arcSite}
             siteName={siteName}
+            starField={starField}
           />
         )
       })()}
