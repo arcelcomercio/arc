@@ -47,7 +47,6 @@ const Subscriptions = ({
               src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
               defer
             />
-            <FinallyPolyfill />
           </head>
           <body>
             <script
@@ -110,6 +109,7 @@ const Subscriptions = ({
               src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
               defer
             />
+            <FinallyPolyfill />
           </head>
           <body>
             <noscript>
