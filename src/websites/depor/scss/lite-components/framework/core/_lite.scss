@@ -233,7 +233,7 @@ $tertiary-font: $secondary-font;
     }
   }
 }
-iframe {
+iframe:not(div[id^=gpt_] iframe) {
   width: 100%;
 }
 
