@@ -7,8 +7,7 @@ import Image from '../../../../global-components/image'
 
 const classes = {
   featuredStory: `featured-story-si  pt-10 pb-10 flex md:p-0`,
-  detail: `featured-story-si__detail flex flex-col position relative md:p-20`,
-
+  detail: `flex flex-col position relative md:p-20`,
   category:
     'featured-story-si__category pb-15 hidden md:inline-block position-relative',
   categoryLink: 'featured-story-si__category-link text-md',
@@ -22,6 +21,10 @@ const classes = {
   imageLink: 'featured-story-si__img-link block h-full ml-10 md:ml-0',
   imageBox: `featured-story-si__img-box block position-relative overflow-hidden w-full h-full`,
   image: 'featured-story-si__img w-full h-full object-cover',
+
+  starFieldClass: 'featured-story-si__star',
+  starFieldClassIcon: 'featured-story-si__star-icon',
+  strf: 'featured-story-si__star-icon-full',
 
   // imgComplete: 'img-complete justify-end',
   // parcialTop: 'featured-story-si--reverse',
@@ -51,6 +54,7 @@ const FeaturedStory = props => {
     // arcSite,
     // siteName,
     isLazyLoadActivate = true,
+    starField,
   } = props
 
   // width y height para imagen dinámico
@@ -78,11 +82,21 @@ const FeaturedStory = props => {
   }
 
   return (
-    <article className={`${classes.featuredStory} `}>
-      <div className={`${classes.detail}${author ? ' justify-between' : ''}`}>
+    <article
+      className={`${starField ? 'featured-story-si-star' : ''} ${
+        classes.featuredStory
+      } `}>
+      <div
+        className={`${
+          starField
+            ? 'featured-story-si__detail-star'
+            : 'featured-story-si__detail'
+        } ${classes.detail}${author ? ' justify-between' : ''}`}>
         <h3
           itemProp="name"
-          className={`${classes.category} ${getCategorySectionClass()}`}>
+          className={`${starField ? 'featured-story-si__category-star' : ''} ${
+            classes.category
+          } ${getCategorySectionClass()}`}>
           <a
             itemProp="url"
             className={classes.categoryLink}
@@ -95,6 +109,49 @@ const FeaturedStory = props => {
             {title}
           </a>
         </h2>
+
+        {starField ? (
+          <div className={classes.starFieldClass}>
+            <span
+              className={`${classes.starFieldClassIcon} ${
+                starField === '1' ? classes.strf : ''
+              } ${starField === '2' ? classes.strf : ''} ${
+                starField === '3' ? classes.strf : ''
+              } ${starField === '4' ? classes.strf : ''} ${
+                starField === '5' ? classes.strf : ''
+              } `}>
+              ☆
+            </span>
+            <span
+              className={`${classes.starFieldClassIcon} ${
+                starField === '2' ? classes.strf : ''
+              } ${starField === '3' ? classes.strf : ''} ${
+                starField === '4' ? classes.strf : ''
+              } ${starField === '5' ? classes.strf : ''}`}>
+              ☆
+            </span>
+            <span
+              className={`${classes.starFieldClassIcon} ${
+                starField === '3' ? classes.strf : ''
+              } ${starField === '4' ? classes.strf : ''} ${
+                starField === '5' ? classes.strf : ''
+              }`}>
+              ☆
+            </span>
+            <span
+              className={`${classes.starFieldClassIcon} ${
+                starField === '4' ? classes.strf : ''
+              } ${starField === '5' ? classes.strf : ''}`}>
+              ☆
+            </span>
+            <span
+              className={`${classes.starFieldClassIcon} ${
+                starField === '5' ? classes.strf : ''
+              }`}>
+              ☆
+            </span>
+          </div>
+        ) : null}
 
         {author ? (
           <address className={classes.author}>
