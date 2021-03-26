@@ -6,7 +6,7 @@ import * as Sentry from '@sentry/browser'
 
 import useForm from '../../../_hooks/useForm'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
-import addPayU from '../../../_dependencies/Payu'
+// import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
 import {
@@ -281,190 +281,183 @@ const Pay = () => {
                   level: 'info',
                 })
 
-                return addPayU(deviceSessionId)
-                  .then(payU => {
-                    setTxtLoading('Solicitando Autorización...')
-                    payU.setURL(payuBaseUrl)
-                    payU.setPublicKey(publicKey)
-                    payU.setAccountID(accountId)
-                    payU.validateNumber(cNumber.replace(/\s/g, ''))
-                    payU.setCardDetails({
-                      number: cNumber.replace(/\s/g, ''),
-                      name_card:
-                        ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
-                      payer_id: documentNumber,
-                      exp_month: cExpireMonth,
-                      exp_year: cExpireYear,
-                      method: methodCard || payU.card.method,
-                      document: documentNumber,
-                      cvv: cCvv,
-                    })
+                setTxtLoading('Solicitando Autorización...')
+                window.payU.setURL(payuBaseUrl)
+                window.payU.setPublicKey(publicKey)
+                window.payU.setAccountID(accountId)
+                window.payU.validateNumber(cNumber.replace(/\s/g, ''))
+                window.payU.setCardDetails({
+                  number: cNumber.replace(/\s/g, ''),
+                  name_card: ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
+                  payer_id: documentNumber,
+                  exp_month: cExpireMonth,
+                  exp_year: cExpireYear,
+                  method: methodCard || window.payU.card.method,
+                  document: documentNumber,
+                  cvv: cCvv,
+                })
 
-                    Sentry.addBreadcrumb({
-                      category: 'compra',
-                      message: 'solicitando autorización',
-                      level: 'info',
-                    })
+                Sentry.addBreadcrumb({
+                  category: 'compra',
+                  message: 'solicitando autorización',
+                  level: 'info',
+                })
 
-                    const handleCreateToken = new Promise((resolve, reject) => {
-                      setTxtLoading('Validando Solicitud...')
-                      payU.createToken(response => {
-                        if (response && response.error) {
-                          reject(new Error(response.error))
-                          setMsgError(response.error)
-                          setLoading(false)
-                          updateLoadPage(false)
-                          window.dataLayer.push({
-                            event: 'failedTransaction',
-                            ecommerce: {
-                              failedTransaction: {
-                                actionField: { id: orderNumberDinamic },
-                              },
-                            },
-                          })
-
-                          // Datalayer solicitados por Joao
-                          TaggeoJoao(
-                            {
-                              event: 'Pasarela Suscripciones Digitales',
-                              category: `P2_${
-                                event && event === 'winback'
-                                  ? 'Plan_Winback'
-                                  : printedSubscriber
-                                  ? 'Plan_Suscriptor'
-                                  : name.replace(' ', '_')
-                              }_Cancelado`,
-                              action: `${userPeriod} - ${response.error ||
-                                getCodeError('errorFinalize')}`,
-                              label: uuid,
-                            },
-                            window.location.pathname
-                          )
-
-                          Sentry.captureEvent({
-                            message:
-                              response.error ||
-                              getCodeError('transactionError'),
-                            level: 'error',
-                            extra: response || {},
-                          })
-                        } else if (response && response.token) {
-                          resolve(response.token)
-                        } else {
-                          reject(new Error(getCodeError('errorNoTokenPayU')))
-                          setMsgError(getCodeError('errorNoTokenPayU'))
-                          setLoading(false)
-                          Sentry.captureEvent({
-                            message: getCodeError('errorNoTokenPayU'),
-                            level: 'error',
-                            extra: {},
-                          })
-                        }
+                const handleCreateToken = new Promise((resolve, reject) => {
+                  setTxtLoading('Validando Solicitud...')
+                  window.payU.createToken(response => {
+                    if (response && response.error) {
+                      reject(new Error(response.error))
+                      setMsgError(response.error)
+                      setLoading(false)
+                      updateLoadPage(false)
+                      window.dataLayer.push({
+                        event: 'failedTransaction',
+                        ecommerce: {
+                          failedTransaction: {
+                            actionField: { id: orderNumberDinamic },
+                          },
+                        },
                       })
-                    })
 
-                    return handleCreateToken || 'NoToken'
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: `P2_${
+                            event && event === 'winback'
+                              ? 'Plan_Winback'
+                              : printedSubscriber
+                              ? 'Plan_Suscriptor'
+                              : name.replace(' ', '_')
+                          }_Cancelado`,
+                          action: `${userPeriod} - ${response.error ||
+                            getCodeError('errorFinalize')}`,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
+
+                      Sentry.captureEvent({
+                        message:
+                          response.error || getCodeError('transactionError'),
+                        level: 'error',
+                        extra: response || {},
+                      })
+                    } else if (response && response.token) {
+                      resolve(response.token)
+                    } else {
+                      reject(new Error(getCodeError('errorNoTokenPayU')))
+                      setMsgError(getCodeError('errorNoTokenPayU'))
+                      setLoading(false)
+                      Sentry.captureEvent({
+                        message: getCodeError('errorNoTokenPayU'),
+                        level: 'error',
+                        extra: {},
+                      })
+                    }
                   })
-                  .then(tokenPayu => {
-                    const {
-                      paymentMethodID,
-                      paymentMethodType,
-                    } = payUPaymentMethod
-                    const tokenDinamic = `${tokenPayu}~${deviceSessionId}~${cCvv}`
-                    setTxtLoading('Finalizando Proceso...')
+                })
 
-                    Sentry.addBreadcrumb({
-                      category: 'compra',
-                      message: 'Finalizando proceso',
-                      data: { tokenDinamic },
-                      level: 'info',
-                    })
+                return handleCreateToken.then(resToken => {
+                  const {
+                    paymentMethodID,
+                    paymentMethodType,
+                  } = payUPaymentMethod
+                  const tokenDinamic = `${resToken}~${deviceSessionId}~${cCvv}`
+                  setTxtLoading('Finalizando Proceso...')
 
-                    return window.Sales.finalizePayment(
-                      orderNumberDinamic,
-                      paymentMethodID,
-                      tokenDinamic
-                    )
-                      .then(resFinalize => {
-                        const { status, total, subscriptionIDs } = resFinalize
-                        updatePurchase(resFinalize)
-
-                        Sentry.addBreadcrumb({
-                          category: 'compra',
-                          message: 'Compra confirmada',
-                          data: resFinalize,
-                          level: 'info',
-                        })
-
-                        // Datalayer solicitados por Joao
-                        TaggeoJoao(
-                          {
-                            event: 'Pasarela Suscripciones Digitales',
-                            category: `P2_${
-                              event && event === 'winback'
-                                ? 'Plan_Winback'
-                                : printedSubscriber
-                                ? 'Plan_Suscriptor'
-                                : name.replace(' ', '_')
-                            }`,
-                            action: userPeriod,
-                            label: uuid,
-                          },
-                          window.location.pathname
-                        )
-
-                        return {
-                          publicKey,
-                          accountId,
-                          payuBaseUrl,
-                          deviceSessionId,
-                          paymentMethodID,
-                          paymentMethodType,
-                          subscriptionIDs,
-                          status,
-                          total,
-                        }
-                      })
-                      .catch(errFinalize => {
-                        setMsgError(getCodeError(errFinalize.code))
-                        setLoading(false)
-                        updateLoadPage(false)
-                        window.dataLayer.push({
-                          event: 'failedTransaction',
-                          ecommerce: {
-                            failedTransaction: {
-                              actionField: { id: orderNumberDinamic },
-                            },
-                          },
-                        })
-
-                        // Datalayer solicitados por Joao
-                        TaggeoJoao(
-                          {
-                            event: 'Pasarela Suscripciones Digitales',
-                            category: `P2_${
-                              event && event === 'winback'
-                                ? 'Plan_Winback'
-                                : printedSubscriber
-                                ? 'Plan_Suscriptor'
-                                : name.replace(' ', '_')
-                            }_Cancelado`,
-                            action: `${userPeriod} - ${errFinalize.message ||
-                              getCodeError('errorFinalize')}`,
-                            label: uuid,
-                          },
-                          window.location.pathname
-                        )
-
-                        Sentry.captureEvent({
-                          message:
-                            errFinalize.message ||
-                            getCodeError('errorFinalize'),
-                          level: 'error',
-                          extra: errFinalize || {},
-                        })
-                      })
+                  Sentry.addBreadcrumb({
+                    category: 'compra',
+                    message: 'Finalizando proceso',
+                    data: { tokenDinamic },
+                    level: 'info',
                   })
+
+                  return window.Sales.finalizePayment(
+                    orderNumberDinamic,
+                    paymentMethodID,
+                    tokenDinamic
+                  )
+                    .then(resFinalize => {
+                      const { status, total, subscriptionIDs } = resFinalize
+                      updatePurchase(resFinalize)
+
+                      Sentry.addBreadcrumb({
+                        category: 'compra',
+                        message: 'Compra confirmada',
+                        data: resFinalize,
+                        level: 'info',
+                      })
+
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: `P2_${
+                            event && event === 'winback'
+                              ? 'Plan_Winback'
+                              : printedSubscriber
+                              ? 'Plan_Suscriptor'
+                              : name.replace(' ', '_')
+                          }`,
+                          action: userPeriod,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
+
+                      return {
+                        publicKey,
+                        accountId,
+                        payuBaseUrl,
+                        deviceSessionId,
+                        paymentMethodID,
+                        paymentMethodType,
+                        subscriptionIDs,
+                        status,
+                        total,
+                      }
+                    })
+                    .catch(errFinalize => {
+                      setMsgError(getCodeError(errFinalize.code))
+                      setLoading(false)
+                      updateLoadPage(false)
+                      window.dataLayer.push({
+                        event: 'failedTransaction',
+                        ecommerce: {
+                          failedTransaction: {
+                            actionField: { id: orderNumberDinamic },
+                          },
+                        },
+                      })
+
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: `P2_${
+                            event && event === 'winback'
+                              ? 'Plan_Winback'
+                              : printedSubscriber
+                              ? 'Plan_Suscriptor'
+                              : name.replace(' ', '_')
+                          }_Cancelado`,
+                          action: `${userPeriod} - ${errFinalize.message ||
+                            getCodeError('errorFinalize')}`,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
+
+                      Sentry.captureEvent({
+                        message:
+                          errFinalize.message || getCodeError('errorFinalize'),
+                        level: 'error',
+                        extra: errFinalize || {},
+                      })
+                    })
+                })
               })
           )
       } else {
