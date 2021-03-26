@@ -1,15 +1,11 @@
-import React, {
-  useState,
-  // useContext
-} from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
+
 import { NavigateConsumer } from '../_context/navigate'
 import useForm from '../_hooks/useForm'
-// import { AuthContext } from '../_context/auth'
 import getDevice from '../_dependencies/GetDevice'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
+import { PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
-import ButtonSocial from './social'
 import { Taggeo } from '../_dependencies/Taggeo'
 import getCodeError, {
   formatEmail,
@@ -18,6 +14,7 @@ import getCodeError, {
 } from '../_dependencies/Errors'
 import { MsgRegister } from '../_dependencies/Icons'
 import { isFbBrowser } from '../_dependencies/Utils'
+import ButtonSocial from './social'
 
 const styles = {
   title: 'step__left-title',
@@ -38,23 +35,22 @@ const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Register = ({ arcSite }) => {
   // const { activateAuth, updateStep } = useContext(AuthContext)
-  const [loading, setLoading] = useState()
-  const [loadText, setLoadText] = useState('Cargando...')
-  const [msgError, setMsgError] = useState()
-  const [checkedTerms, setCheckedTerms] = useState(false)
-  // const [checkedPolits, setCheckedPolits] = useState(true)
-  const [forgotLink, setForgotLink] = useState()
-  const [showHidePass, setShowHidePass] = useState('password')
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [showSendEmail, setShowSendEmail] = useState(false)
+  const [loading, setLoading] = React.useState()
+  const [loadText, setLoadText] = React.useState('Cargando...')
+  const [msgError, setMsgError] = React.useState()
+  const [checkedTerms, setCheckedTerms] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [forgotLink, setForgotLink] = React.useState()
+  const [showHidePass, setShowHidePass] = React.useState('password')
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
   const { texts, urls } = PropertiesCommon
-  const { urls: urlSite } = PropertiesSite[arcSite]
 
   const stateSchema = {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
     rphone: { value: '', error: '' },
-    // rpolit: { value: '1', error: '' },
+    rpolit: { value: '1', error: '' },
     rterms: { value: '0', error: '' },
   }
 
@@ -76,59 +72,59 @@ const Register = ({ arcSite }) => {
       validator: formatPhone(),
       min6caracts: true,
     },
-    // rpolit: {
-    //   required: false,
-    // },
+    rpolit: {
+      required: false,
+    },
     rterms: {
       required: true,
       validator: acceptCheckTerms(),
     },
   }
 
-  const openNewTab = typeLink => {
+  // const openNewTab = typeLink => {
+  //   if (typeof window !== 'undefined') {
+  //     window.open(urlSite[typeLink], '_blank')
+  //   }
+  // }
+
+  const openTerminos = () => {
     if (typeof window !== 'undefined') {
-      window.open(urlSite[typeLink], '_blank')
+      window.open(
+        `${
+          arcSite === 'depor'
+            ? '/terminos-servicio/'
+            : '/terminos-y-condiciones/'
+        }`,
+        '_blank'
+      )
     }
   }
 
-  // const openTerminos = () => {
-  //   if (typeof window !== 'undefined') {
-  //     window.open(
-  //       `${
-  //         arcSite === 'depor'
-  //           ? '/terminos-servicio/'
-  //           : '/terminos-y-condiciones/'
-  //       }`,
-  //       '_blank'
-  //     )
-  //   }
-  // }
+  const openPoliticas = () => {
+    if (typeof window !== 'undefined') {
+      window.open(
+        (() => {
+          switch (arcSite) {
+            case 'elcomercio':
+            case 'depor':
+              return '/politicas-privacidad/'
+            case 'gestion':
+            case 'trome':
+              return '/politica-de-privacidad/'
+            default:
+              return '/politicas-de-privacidad/'
+          }
+        })(),
+        '_blank'
+      )
+    }
+  }
 
-  // const openPoliticas = () => {
-  //   if (typeof window !== 'undefined') {
-  //     window.open(
-  //       (() => {
-  //         switch (arcSite) {
-  //           case 'elcomercio':
-  //           case 'depor':
-  //             return '/politicas-privacidad/'
-  //           case 'gestion':
-  //           case 'trome':
-  //             return '/politica-de-privacidad/'
-  //           default:
-  //             return '/politicas-de-privacidad/'
-  //         }
-  //       })(),
-  //       '_blank'
-  //     )
-  //   }
-  // }
-
-  // const dataTreatment = () => {
-  //   if (typeof window !== 'undefined') {
-  //     window.open('/tratamiento-de-datos/', '_blank')
-  //   }
-  // }
+  const dataTreatment = () => {
+    if (typeof window !== 'undefined') {
+      window.open('/tratamiento-de-datos/', '_blank')
+    }
+  }
 
   const onFormRegister = ({ remail, rpass, rphone }) => {
     if (typeof window !== 'undefined') {
@@ -180,11 +176,11 @@ const Register = ({ arcSite }) => {
               value: checkedTerms ? '1' : '0',
               type: 'String',
             },
-            // {
-            //   name: 'dataTreatment',
-            //   value: checkedPolits ? '1' : '0',
-            //   type: 'String',
-            // },
+            {
+              name: 'dataTreatment',
+              value: checkedPolits ? '1' : '0',
+              type: 'String',
+            },
           ],
         },
         { doLogin: true },
@@ -319,6 +315,8 @@ const Register = ({ arcSite }) => {
                     <input
                       className={remailError && 'input-error'}
                       type="email"
+                      inputMode="email"
+                      autoComplete="email"
                       name="remail"
                       value={remail}
                       required
@@ -338,6 +336,7 @@ const Register = ({ arcSite }) => {
                     <input
                       className={rpassError && 'input-error'}
                       type={showHidePass}
+                      autoComplete="new-password"
                       name="rpass"
                       value={rpass}
                       required
@@ -350,7 +349,8 @@ const Register = ({ arcSite }) => {
                       aria-label="lshowpass"
                       className={`${styles.btnShow}-${showHidePass}`}
                       type="button"
-                      onClick={toogleHidePass}></button>
+                      onClick={toogleHidePass}
+                    />
                     {rpassError && (
                       <span className="msn-error">{rpassError}</span>
                     )}
@@ -363,6 +363,8 @@ const Register = ({ arcSite }) => {
                     <input
                       className={rphoneError && 'input-error'}
                       type="text"
+                      inputMode="tel"
+                      autoComplete="tel"
                       name="rphone"
                       value={rphone}
                       maxLength="12"
@@ -376,7 +378,7 @@ const Register = ({ arcSite }) => {
                   </label>
                 </div>
 
-                {/* <div className={styles.block}>
+                <div className={styles.block}>
                   <label htmlFor="rpolit" className="terms">
                     <input
                       id="rpolit"
@@ -399,7 +401,7 @@ const Register = ({ arcSite }) => {
                     </button>
                     <span className="checkmark"></span>
                   </label>
-                </div> */}
+                </div>
 
                 <div className={styles.block}>
                   <label htmlFor="rterms" className="terms">
@@ -420,19 +422,19 @@ const Register = ({ arcSite }) => {
                     <button
                       className={styles.link}
                       type="button"
-                      onClick={() => openNewTab('terminosSign')}>
+                      onClick={() => openTerminos()}>
                       {texts.terms}
                     </button>
                     {texts.and}
                     <button
                       className={styles.link}
                       type="button"
-                      onClick={() => openNewTab('politicasSign')}>
+                      onClick={() => openPoliticas()}>
                       {texts.policies}
                     </button>
                     <span
-                      className={`checkmark ${rtermsError &&
-                        'input-error'}`}></span>
+                      className={`checkmark ${rtermsError && 'input-error'}`}
+                    />
                   </label>
                 </div>
 

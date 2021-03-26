@@ -129,9 +129,9 @@ export const FormReset = ({
 
                 <Input
                   type="password"
+                  autoComplete="new-password"
                   name="rpass"
                   placeholder="Nueva contraseña"
-                  autoComplete="off"
                   required
                   value={rpass}
                   onChange={e => {
@@ -144,9 +144,9 @@ export const FormReset = ({
 
                 <Input
                   type="password"
+                  autoComplete="off"
                   name="rconfirmpass"
                   placeholder="Confirmar contraseña"
-                  autoComplete="off"
                   required
                   value={rconfirmpass}
                   onChange={e => {

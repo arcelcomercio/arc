@@ -178,9 +178,10 @@ export const FormRelogin = ({
 
           <Input
             type="email"
+            inputMode="email"
+            autoComplete="email"
             name="remail"
             placeholder="Correo electrónico"
-            autoComplete="on"
             required
             value={remail}
             onChange={e => {
@@ -192,9 +193,9 @@ export const FormRelogin = ({
 
           <Input
             type="password"
+            autoComplete="current-password"
             name="rpass"
             placeholder="Contraseña"
-            autoComplete="off"
             required
             value={rpass}
             onChange={e => {

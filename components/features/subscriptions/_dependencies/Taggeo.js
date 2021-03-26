@@ -22,6 +22,18 @@ export const Taggeo = (cat, acc) => {
   }
 }
 
+export const TaggeoJoao = (obj, path) => {
+  window.dataLayer.push(obj)
+  if (!IsPROD) {
+    window.console.groupCollapsed(
+      `%c 🔔 Taggeo Joao - Categoria: ${obj.category} | Ruta: ${path}`,
+      'color:  purple; font-size: 12px'
+    )
+    window.console.table(obj)
+    window.console.groupEnd()
+  }
+}
+
 export const PixelActions = {
   PAYMENT_PLAN: 'paywall_planes',
   PAYMENT_PROFILE: 'paywall_datos',

@@ -44,7 +44,7 @@ const FormRegister = props => {
   const [showLoading, setShowLoading] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [showStudents, setShowStudents] = useState(false)
-  // const [checkedPolits, setCheckedPolits] = useState(true)
+  const [checkedPolits, setCheckedPolits] = useState(true)
   const [checkedTerms, setCheckedTerms] = useState(false)
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
 
@@ -57,7 +57,7 @@ const FormRegister = props => {
     remail: { value: '', error: '' },
     rpass: { value: '', error: '' },
     rphone: { value: '', error: '' },
-    // rpolit: { value: '1', error: '' },
+    rpolit: { value: '1', error: '' },
     rterms: { value: '0', error: '' },
   }
 
@@ -89,9 +89,9 @@ const FormRegister = props => {
       validator: formatPhone(),
       min6caracts: true,
     },
-    // rpolit: {
-    //   required: false,
-    // },
+    rpolit: {
+      required: false,
+    },
     rterms: {
       required: true,
       validator: {
@@ -230,16 +230,16 @@ const FormRegister = props => {
             value: checkedTerms ? '1' : '0',
             type: 'String',
           },
-          // {
-          //   name: 'dataTreatment',
-          //   value:
-          //     arcSite === 'elcomercio' || arcSite === 'gestion'
-          //       ? checkedPolits
-          //         ? '1'
-          //         : '0'
-          //       : 'NULL',
-          //   type: 'String',
-          // },
+          {
+            name: 'dataTreatment',
+            value:
+              arcSite === 'elcomercio' || arcSite === 'gestion'
+                ? checkedPolits
+                  ? '1'
+                  : '0'
+                : 'NULL',
+            type: 'String',
+          },
         ],
       },
       { doLogin: true },
@@ -449,9 +449,10 @@ const FormRegister = props => {
 
                       <Input
                         type="email"
+                        inputMode="email"
+                        autoComplete="email"
                         name="remail"
                         placeholder="Correo electrónico*"
-                        autoComplete="on"
                         required
                         value={remail}
                         onChange={e => {
@@ -463,9 +464,9 @@ const FormRegister = props => {
 
                       <Input
                         type="password"
+                        autoComplete="new-password"
                         name="rpass"
                         placeholder="Contraseña*"
-                        autoComplete="off"
                         required
                         value={rpass}
                         onChange={e => {
@@ -479,9 +480,10 @@ const FormRegister = props => {
                       {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
                         <Input
                           type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
                           name="rphone"
                           placeholder="Teléfono"
-                          autoComplete="off"
                           maxLength="12"
                           value={rphone}
                           onChange={e => {
@@ -491,7 +493,7 @@ const FormRegister = props => {
                         />
                       )}
 
-                      {/* {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
                         <CheckBox
                           checked={checkedPolits}
                           value={checkedPolits ? '1' : '0'}
@@ -500,7 +502,7 @@ const FormRegister = props => {
                             handleOnChange(e)
                             setCheckedPolits(!checkedPolits)
                           }}>
-                          <S.Text c="gray" lh="22" s="12" className="mt-20">
+                          <S.Text c="gray" lh="18" s="12" className="mt-10">
                             Autorizo el uso de mis datos para
                             <S.Link
                               href="/tratamiento-de-datos/"
@@ -512,7 +514,7 @@ const FormRegister = props => {
                             </S.Link>
                           </S.Text>
                         </CheckBox>
-                      )} */}
+                      )}
 
                       <CheckBox
                         checked={checkedTerms}
@@ -528,20 +530,44 @@ const FormRegister = props => {
                         <S.Text c="gray" lh="18" s="12" className="mt-10">
                           Al crear la cuenta acepto los
                           <S.Link
-                            href={Domains.getPoliticsTerms('terms', arcSite)}
+                            href={`${
+                              arcSite === 'depor'
+                                ? '/terminos-servicio/'
+                                : '/terminos-y-condiciones/'
+                            }`}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-10 mr-10 inline">
+                            className="ml-5 mr-5 inline">
                             Términos y Condiciones
                           </S.Link>
                           y
                           <S.Link
-                            href={Domains.getPoliticsTerms('politics', arcSite)}
+                            href={
+                              // {
+                              //   'elcomercio': '/politicas-privacidad/',
+                              //   'gestion': '/politica-de-privacidad/',
+                              //   'peru21': '/politicas-de-privacidad/',
+                              //   'depor': '/politicas-privacidad/',
+                              //   'trome': '/politica-de-privacidad/'
+                              // }[arcSite]
+                              (() => {
+                                switch (arcSite) {
+                                  case 'elcomercio':
+                                  case 'depor':
+                                    return '/politicas-privacidad/'
+                                  case 'gestion':
+                                  case 'trome':
+                                    return '/politica-de-privacidad/'
+                                  default:
+                                    return '/politicas-de-privacidad/'
+                                }
+                              })()
+                            }
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
-                            className="ml-10 inline">
+                            className="ml-5 inline">
                             Políticas de Privacidad
                           </S.Link>
                         </S.Text>
