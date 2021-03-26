@@ -208,7 +208,7 @@ export default {
     },
     {
       name: 'instagram',
-      url: 'https://www.instagram.com/elcomercio/?hl=es',
+      url: 'https://www.instagram.com/elcomercio/',
     },
     {
       name: 'youtube',
