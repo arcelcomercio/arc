@@ -124,6 +124,8 @@ const TriviasMainAmp = ({
             siteUrl={siteUrl}
             arcSite={arcSite}
             twitter={user}
+            width={90}
+            height={35}
             customLogo=""></Header>
         </TriviaStart>
         {questions &&
@@ -138,6 +140,8 @@ const TriviasMainAmp = ({
                   requestUri={requestUri}
                   siteUrl={siteUrl}
                   arcSite={arcSite}
+                  width={90}
+                  height={35}
                   twitter={user}
                   customLogo=""></Header>
               </TriviaQuestion>
@@ -155,6 +159,8 @@ const TriviasMainAmp = ({
             requestUri={requestUri}
             siteUrl={siteUrl}
             arcSite={arcSite}
+            width={90}
+            height={35}
             twitter={user}
             customLogo=""></Header>
         </TriviaResult>
