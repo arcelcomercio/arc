@@ -83,7 +83,7 @@ content_elements {
         height
       }
       block
-      data { bg_color color html type title url url_logo url_mobile author_type text_type text name id ratio}
+      data { bg_color color html type title url url_logo url_mobile author_type text_type text name list { id ratio }}
     }
   }
   raw_oembed{

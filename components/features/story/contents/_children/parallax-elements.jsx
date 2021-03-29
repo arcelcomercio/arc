@@ -139,7 +139,7 @@ export default function StoryContentsChildParallaxElements({ config, id }) {
         </div>
       ) : null}
 
-      {block === 'image_ratio' ? <ImageRatioElement list={data} /> : null}
+      {block === 'image_ratio' ? <ImageRatioElement list={data?.list} /> : null}
     </>
   )
 }

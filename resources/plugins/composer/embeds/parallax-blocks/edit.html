@@ -203,7 +203,7 @@
           <h3 :style="`color: ${image.color}`" x-text="image.title"></h3>
         </div>
         <style
-          x-text="`.parallax-image{background-image:url('${image.url_mobile}')}@media screen and (min-width:640px){.parallax-image{background-image:url('${image.url}')}}`"
+          x-text="getParallaxImgBg()"
         >
           /* Auto generated block */
         </style>
@@ -438,11 +438,6 @@
       function data() {
         return {
           init() {
-            this.$watch('page', value => {
-              if (value === 'image_ratio') {
-                this.fetchPhotoInfo()
-              }
-            })
             const parameters = Object.assign(
               {
                 wait: 0,
@@ -456,11 +451,15 @@
               })
             }, Number.parseInt(parameters.wait))
 
-            jsonData = JSON.parse(
+            const jsonData = JSON.parse(
               decodeURIComponent(parameters.p).replace(/\+/g, " ")
             );
             this.page = jsonData.config.block;
             this[this.page] = jsonData.config.data;
+
+            if (this.page === 'image_ratio') {
+                this.fetchPhotoInfo()
+            }
           },
 
           fetchPhotoInfo() {
@@ -577,10 +576,12 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
               url: '/',
               config: {
                 block: this.page,
-                data: this.image_ratio.list.map(({ id, ratio }) => ({
-                  id,
-                  ratio,
-                })),
+                data: {
+                  list: this.image_ratio.list.map(({ id, ratio }) => ({
+                    id,
+                    ratio,
+                  })),
+                }
               },
             })
           },
@@ -620,6 +621,9 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
             arr.splice(new_index, 0, arr.splice(old_index, 1)[0])
             return arr // for testing
           },
+          getParallaxImgBg() {
+            return `.parallax-image{background-image:url('${this.image.url_mobile}')}@media screen and (min-width:640px){.parallax-image{background-image:url('${this.image.url}')}}`
+          }
         }
       }
     </script>
