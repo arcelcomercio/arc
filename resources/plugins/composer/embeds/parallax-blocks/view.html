@@ -1,0 +1,356 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Notas Parallax Plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js"
+      defer
+    ></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/superagent"></script> -->
+  </head>
+  <body>
+    <div role="main" x-data="data()" x-init="init">
+      <div x-show="page === ''">
+        <h4 style="text-align: center; padding: 20px 0">
+          Selecciona el elemento que deseas incertar
+        </h4>
+        <div style="text-align: center; margin-top: 10px">
+          ELEMENTOS PARA MEDIOS DESTACADOS:
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+          <button style="margin: 15px" x-on:click="page = 'featured'">
+            Parallax
+          </button>
+        </div>
+        <div style="text-align: center; margin-top: 20px">
+          ELEMENTOS PARA EL CONTENIDO:
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+          <button style="margin: 15px" x-on:click="page = 'image'">
+            Imagen parallax
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'author'">
+            Autor
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'credits'">
+            Créditos
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'image_ratio'">
+            Imágenes con proporciones
+          </button>
+        </div>
+      </div>
+
+      <div x-show="page === 'featured'">
+        <div class="l-parallax">
+          <div x-show="featured.type === 'image'" class="featured-img">
+            <img
+              style="z-index: 1"
+              class="featured-img__logo"
+              x-show="featured.url_logo"
+              x-bind:src="featured.url_logo"
+              alt="Noticia - logo"
+            />
+            <h2
+              :style="`z-index: 1; color: ${featured.color}`"
+              class="featured-img__subtitle"
+            >
+              Aquí va la bajada
+            </h2>
+            <h1
+              :style="`z-index: 1; color: ${featured.color}`"
+              class="featured-img__title"
+            >
+              Aquí va el titular
+            </h1>
+
+            <picture>
+              <source
+                x-bind:srcset="featured.url_mobile"
+                media="(max-width: 639px)"
+              />
+              <img
+                :style="`background-color: ${featured.bg_color}`"
+                class="featured-img__img"
+                x-bind:src="featured.url"
+                alt="test"
+              />
+            </picture>
+          </div>
+          <div
+            x-show="featured.type === 'html'"
+            style="width: 100%; height: 100%"
+            x-html="featured.html"
+          ></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'image'">
+        <div class="parallax-image">
+          <h3 :style="`color: ${image.color}`" x-text="image.title"></h3>
+        </div>
+        <style
+          x-text="`.parallax-image{background-image:url('${image.url_mobile}')}@media screen and (min-width:640px){.parallax-image{background-image:url('${image.url}')}}`"
+        >
+          /* Auto generated block */
+        </style>
+      </div>
+
+      <div x-show="page === 'author'">
+        <div style="padding-left: 20px">
+          <div
+            style="
+              font: 400 13px/24px Roboto, sans-serif;
+              letter-spacing: 0.21px;
+              color: #777;
+            "
+            x-text="author.text_type === 'custom' ? author.text : 'Lima, 25 de marzo de 2021 (ejemplo)'"
+          ></div>
+          <div
+            style="
+              font: 700 18px/24px Roboto, sans-serif;
+              letter-spacing: 0.29px;
+              color: #444;
+            "
+            x-text="author.author_type === 'custom' ? author.name : 'Autor colocado en Planificación'"
+          ></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'credits'">
+        <div class="credits">
+          <h5 class="credits__title">Créditos</h5>
+          <div class="credits__text" x-html="credits.html"></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'image_ratio'">
+        <div class="gal-cont">
+          <template x-for="(item, index) in image_ratio.list" :key="index">
+            <div>
+              <img
+                :style="`height: ${getSizesByRatio(item.ratio).height}; width: ${getSizesByRatio(item.ratio).width};`"
+                :src="item.url"
+                alt=""
+              />
+              <figcaption
+                :style="`max-width: ${getSizesByRatio(item.ratio).width};`"
+                x-text="item.caption"
+              ></figcaption>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function data() {
+        return {
+          init() {
+            this.$watch('page', value => {
+              if (value === 'image_ratio') {
+                this.fetchPhotoInfo()
+              }
+            })
+            const parameters = Object.assign(
+              {
+                wait: 0,
+              },
+              this.parseQueryString()
+            )
+            // Emulate wait time
+            setTimeout(() => {
+              this.sendMessage('ready', {
+                height: document.documentElement.scrollHeight,
+              })
+            }, Number.parseInt(parameters.wait))
+
+            jsonData = JSON.parse(
+              decodeURIComponent(parameters.p).replace(/\+/g, ' ')
+            )
+            this.page = jsonData.config.block
+            this[this.page] = jsonData.config.data
+          },
+
+          fetchPhotoInfo() {
+            this.image_ratio.list.forEach((item, i) => {
+              fetch(
+                `/pf/api/v3/content/fetch/photo-by-id?query={%22_id%22:%22${item.id}%22,%22presets%22:%22d:0x0%22}`
+              )
+                .then(response => response.json())
+                .then(data => {
+                  this.image_ratio.list[i] = {
+                    ...this.image_ratio.list[i],
+                    caption: data.caption,
+                    url: data.url,
+                  }
+                })
+            })
+          },
+          oldPhotoId: '',
+          fetchNewPhoto(item) {
+            if (item.edit) {
+              if (this.oldPhotoId !== item.id) {
+                fetch(
+                  `/pf/api/v3/content/fetch/photo-by-id?query={%22_id%22:%22${item.id}%22,%22presets%22:%22d:0x0%22}`
+                )
+                  .then(response => response.json())
+                  .then(data => {
+                    item.caption = data.caption
+                    item.url = data.url
+                  })
+              }
+            } else {
+              this.oldPhotoId = item.id
+            }
+
+            item.edit = !item.edit
+          },
+          sendMessage(action, data) {
+            window.parent.postMessage(
+              JSON.stringify({
+                source: 'custom_embed',
+                action,
+                data,
+                key: this.parseQueryString()['k'],
+              }),
+              '*'
+            )
+          },
+          parseQueryString() {
+            const params = location.search.split('?')[1] || ''
+            const kv = params.split('&')
+            return kv.reduce((result, item) => {
+              const [key, value] = item.split('=')
+              return Object.assign(result, {
+                [key]: value,
+              })
+            }, {})
+          },
+          page: '',
+          image: {
+            title: 'LOS GOBIERNOS AYUDARON A LA CREACIÓN DE LAS VACUNAS',
+            url:
+              'https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/AYTOJWDJZ5DC5GRFZ45WRCU2WI.jpg',
+            url_mobile:
+              'https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/AYTOJWDJZ5DC5GRFZ45WRCU2WI.jpg',
+            color: '#FFFFFF',
+          },
+          featured: {
+            type: 'image',
+            html:
+              '<div style="height:100%;width:100%;background-color: #000"><h1 style="color:#fff">Hola mundo</h1></div>',
+            url:
+              'https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/JMQ47A4R6FCXPOYJVOXQTTY4SQ.jpg',
+            url_mobile:
+              'https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/JMQ47A4R6FCXPOYJVOXQTTY4SQ.jpg',
+            url_logo:
+              'https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/66WDMGHJJRHTBJGEGGL7K6HN24.png',
+            color: '#777777',
+            bg_color: '#000000',
+          },
+          author: {
+            name: '',
+            url: '',
+            text: 'TEXTO',
+            author_type: 'default', // default | custom
+            text_type: 'date', // date | custom
+          },
+          credits: {
+            html: `TEXTOS / <b>Dormilón.</b> PRODUCCIÓN / <b>Feliz.</b> EDITOR / <b>Tímido.</b>
+<br> 
+DESARROLLO / <b>Gruñón.</b> EDICIÓN DE FOTOGRAFÍA / <b>Estornudo.</b> 
+<br> 
+INFOGRAFÍA / <b>Sabio.</b> ILUSTRACION / <b>Tontín.</b> 
+<br> 
+EDITOR DE PROYECTOS VISUALES / <b>Blanca Nieves</b> 
+<br>
+EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
+          },
+          image_ratio: {
+            list: [
+              {
+                id: '7ZWOXRASCNFIFAJRL236RA7YCY',
+                ratio: '16:9',
+                edit: false,
+              },
+              {
+                id: '7ZWOXRASCNFIFAJRL236RA7YCY',
+                ratio: '4:3',
+                edit: false,
+              },
+              {
+                id: '7ZWOXRASCNFIFAJRL236RA7YCY',
+                ratio: '2:3',
+                edit: false,
+              },
+              {
+                id: '7ZWOXRASCNFIFAJRL236RA7YCY',
+                ratio: '1:1',
+                edit: false,
+              },
+            ],
+          },
+          sendData() {
+            this.sendMessage('data', {
+              id: 'no-fetch',
+              url: '/',
+              config: {
+                block: this.page,
+                data: this[this.page],
+              },
+            })
+          },
+          getSizesByRatio(ratio) {
+            let sizes = {
+              width: '860px',
+              height: '484px',
+            }
+            switch (ratio) {
+              case '1:1':
+                sizes.width = '580px'
+                sizes.height = '580px'
+                break
+
+              case '4:3':
+                sizes.width = '640px'
+                sizes.height = '360px'
+                break
+
+              case '2:3':
+                sizes.width = '320px'
+                sizes.height = '480px'
+                break
+
+              default:
+                break
+            }
+            return sizes
+          },
+          arrayMove: function(arr, old_index, new_index) {
+            if (new_index >= arr.length) {
+              var k = new_index - arr.length + 1
+              while (k--) {
+                arr.push(undefined)
+              }
+            }
+            arr.splice(new_index, 0, arr.splice(old_index, 1)[0])
+            return arr // for testing
+          },
+        }
+      }
+    </script>
+  </body>
+</html>

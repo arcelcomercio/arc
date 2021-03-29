@@ -201,16 +201,28 @@ const LiteOutput = ({
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
-  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/lite-story.css`
+  /**
+   * Lógica para las hojas de estilos
+   */
+  let style = 'lite-story'
+  let dstyle = 'dlite-story'
+
+  if (metaValue('section_style') === 'parallax') {
+    style = 'lite-parallax'
+    dstyle = 'dlite-parallax'
+  }
+
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/${style}.css`
   }
   if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
   }
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+  /** */
 
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
@@ -453,7 +465,7 @@ const LiteOutput = ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
+        <Resource path={`resources/dist/${arcSite}/css/${dstyle}.css`}>
           {({ data }) => {
             return data ? (
               <style

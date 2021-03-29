@@ -1,0 +1,67 @@
+.h-basic {
+  background-color: #161616;
+  &__wrapper {
+    max-width: none;
+    @media (--tablet) {
+      max-width: none;
+    }
+    @media (--desktop) {
+      max-width: none;
+    }
+  }
+  &__sub {
+    background-color: #0c51e8;
+    width: 90px;
+    height: 30px;
+    font: 700 12px/14px $primary-font;
+    @media (--desktop) {
+      width: 128px;
+      height: 32px;
+      font: 700 13px/15px $primary-font;
+    }
+  }
+  &__btn-search {
+    border-right: 1px solid #fff;
+  }
+
+  &__search {
+    path {
+      fill: #fff;
+    }
+  }
+  &__menu {
+    path {
+      fill: #fff;
+    }
+  }
+  &__menu-txt {
+    color: #fff;
+  }
+  &__user {
+    path {
+      fill: #fff;
+    }
+  }
+  &__btn-user {
+    @media (--desktop) {
+      padding: 0 6px 0 15px;
+      height: 32px;
+      border: 1px solid #888;
+    }
+    span {
+      color: #fff;
+      font: 700 13px/1 $primary-font;
+      @media (--desktop) {
+        padding-bottom: 2px;
+      }
+    }
+  }
+  &__img-link {
+    @media (--desktop) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
