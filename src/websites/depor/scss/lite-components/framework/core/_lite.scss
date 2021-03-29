@@ -233,6 +233,23 @@ $tertiary-font: $secondary-font;
     }
   }
 }
-iframe {
+iframe:not(div[id^=gpt_] iframe) {
   width: 100%;
+}
+
+.depor-play {
+  .s-multimedia {
+    picture {
+      display: block;
+    }
+    img {
+      display: block;
+    }
+  }
+  .s-multimedia__caption {
+    background-color: #252256;
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

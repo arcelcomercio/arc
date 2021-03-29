@@ -69,6 +69,7 @@ export const Link = styled.a`
     display: inline-block;
     padding: 5px 0;
     margin: 5px 0;
+    font-weight: bold;
   `}
 `
 

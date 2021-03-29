@@ -6,7 +6,7 @@ import React from 'react'
 import Icon from './multimedia-icon'
 import StoryData from '../utilities/story-data'
 
-import { reduceWord, formatDateLocalTimeZone } from '../utilities/helpers'
+import { reduceWord, formatDateLocalTimeZoneTemp } from '../utilities/helpers'
 import ConfigParams from '../utilities/config-params'
 
 const classes = {
@@ -70,10 +70,9 @@ const StoriesList = ({
               {element.primarySection}
             </a>
             <p itemProp="description" className={classes.date}>
-              {// Con esto se comprueba si se renderiza en cliente o servidor
-              typeof window === 'undefined'
-                ? formatDateLocalTimeZone(element.date)
-                : formatDateLocalTimeZone(element.date, '-', true)}
+              {typeof window === 'undefined'
+                ? formatDateLocalTimeZoneTemp(element.date)
+                : formatDateLocalTimeZoneTemp(element.date, '-', true)}
             </p>
           </div>
           <div className={classes.wrapperTitle}>

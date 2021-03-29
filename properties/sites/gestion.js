@@ -133,7 +133,7 @@ export default {
       support:                           `{{contextPath}}/resources/dist/gestion/images/img_soporte.{{ext}}`,
       backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`,
       mainLogo:                          `{{contextPath}}/resources/dist/gestion/images/logo_gestion_30.png`,
-    }
+    },
   },
   assets: {
     nav: {
