@@ -35,11 +35,13 @@
 @import "./scss/lite-components/features/header/basic/h-basic";
 @import "./scss/lite-components/features/header/basic/menu";
 @import "./scss/lite-components/features/story/contents/contents-inline";
+@import "./scss/lite-components/features/footer/story/st-foot";
 
 // Custom styles
 @import "./scss/parallax/features/header/h-basic.scss";
 @import "./scss/parallax/features/story/featured-image/featured-img.scss";
 @import "./scss/parallax/features/story/contents/story-contents.scss";
+@import "./scss/parallax/features/story/subscription-call/story-subs-call.scss";
 
 .parallax-image {
   height: 100vh;
@@ -79,5 +81,17 @@
     bottom: 0;
     background: transparent linear-gradient(180deg, #fff0 0%, #fff 100%) 0% 0%
       no-repeat padding-box;
+  }
+}
+
+.st-foot {
+  background-color: #161616;
+  &__block,
+  &__link {
+    color: #777;
+  }
+  &__content,
+  &__block {
+    border-color: #333 !important;
   }
 }

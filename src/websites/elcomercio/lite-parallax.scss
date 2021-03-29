@@ -8,6 +8,9 @@
 
 .story-contents {
   border-bottom: none;
+  &__font-paragraph {
+    font: 400 19px/32px $secondary-font;
+  }
   .pquote {
     background: none;
 

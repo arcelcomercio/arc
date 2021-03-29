@@ -57,6 +57,7 @@ import {
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
+  PARALLAX,
 } from '../../../utilities/constants/subtypes'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import ShareButtons from '../../../global-components/lite/share'
@@ -689,6 +690,16 @@ const StoryContentsLite = props => {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: iframeScriptCounter(),
+          }}
+        />
+      )}
+      {subtype === PARALLAX && (
+        // https://web.dev/lazy-loading-images/#images-css
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html:
+              'document.addEventListener("DOMContentLoaded",function(){var e=[].slice.call(document.querySelectorAll(".lazy-background"));if("IntersectionObserver"in window){let n=new IntersectionObserver(function(e,t){e.forEach(function(e){e.isIntersecting&&(e.target.classList.add("visible"),n.unobserve(e.target))})});e.forEach(function(e){n.observe(e)})}});',
           }}
         />
       )}

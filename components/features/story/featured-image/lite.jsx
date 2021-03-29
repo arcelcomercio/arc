@@ -24,9 +24,9 @@ const StoryTitleLite = () => {
   const blockType = data?.promo_items?.basic_parallax?.embed?.config?.block
   const blockData = data?.promo_items?.basic_parallax?.embed?.config?.data
 
-  return (
+  return blockType === 'featured' ? (
     <>
-      {blockType === 'featured' ? (
+      {blockData?.type === 'image' ? (
         <div className="featured-img">
           <img
             className="featured-img__logo"
@@ -50,12 +50,12 @@ const StoryTitleLite = () => {
               className="featured-img__img"
               style={{ backgroundColor: blockData?.bg_color || 'transparent' }}
               src={blockData?.url}
-              alt="test"
+              alt={title}
             />
           </picture>
         </div>
       ) : null}
-      {blockData === 'html' ? (
+      {blockData?.type === 'html' ? (
         <div
           style={{ height: '100%', width: '100%' }}
           dangerouslySetInnerHTML={{
@@ -63,7 +63,7 @@ const StoryTitleLite = () => {
           }}></div>
       ) : null}
     </>
-  )
+  ) : null
 }
 
 /* 
