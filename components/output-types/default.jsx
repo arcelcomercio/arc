@@ -166,7 +166,7 @@ export default ({
     CURRENT_ENVIRONMENT,
     Resource,
     isHome,
-    metaValue
+    metaValue,
   }
 
   const getPrebid = () => {
@@ -263,6 +263,7 @@ export default ({
 
   const isTrivia = /^\/trivias\//.test(requestUri)
   const isCovid = /^\/covid-19\//.test(requestUri)
+  // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
@@ -563,7 +564,12 @@ export default ({
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
         {/* <!-- Identity & Paywall - Inicio --> */}
         {(() => {
-          if (isElcomercioHome || !siteProperties.activeSignwall || isTrivia || isPreview) {
+          if (
+            isElcomercioHome ||
+            !siteProperties.activeSignwall ||
+            isTrivia ||
+            isPreview
+          ) {
             return null
           }
           return (
@@ -577,7 +583,7 @@ export default ({
           if (
             isElcomercioHome ||
             !siteProperties.activeRulesCounter ||
-            isTrivia || 
+            isTrivia ||
             isPreview
           ) {
             return null

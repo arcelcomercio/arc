@@ -633,10 +633,8 @@ class NavBarDefault extends React.PureComponent {
                 )}
 
                 {siteProperties.activeSignwall && !isPreview ? (
-                  <SignwallComponent 
-                    countOnly 
-                    arcSite={arcSite} 
-                    siteProperties={siteProperties}  
+                  <SignwallComponent
+                    countOnly
                     classButton="flex items-center btn capitalize text-md nav__btn-sign"
                   />
                 ) : null}

@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react'
 import Consumer from 'fusion:consumer'
 
@@ -149,6 +150,7 @@ class StoryContentAmp extends React.PureComponent {
     const parametersCaja2 = {
       // movil2 caja2
       dataSlot,
+      prebidSlot: `19186-${namePublicidad}-amp-caja2`,
       width,
       height,
       primarySectionLink,
@@ -159,6 +161,7 @@ class StoryContentAmp extends React.PureComponent {
     const parametersCaja3 = {
       // movil4 caja3 caja3
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
+      prebidSlot: `19186-${namePublicidad}-amp-caja3`,
       width,
       height,
       primarySectionLink,
@@ -169,6 +172,7 @@ class StoryContentAmp extends React.PureComponent {
     const parametersCaja4 = {
       // movil5 caja5 caja4
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
+      prebidSlot: `19186-${namePublicidad}-amp-caja4`,
       width,
       height,
       primarySectionLink,
@@ -179,6 +183,7 @@ class StoryContentAmp extends React.PureComponent {
     const parametersCaja5 = {
       // movil5 caja5 caja4
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
+      prebidSlot: `19186-${namePublicidad}-amp-caja5`,
       width,
       height,
       primarySectionLink,

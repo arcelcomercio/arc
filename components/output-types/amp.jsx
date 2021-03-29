@@ -8,6 +8,7 @@ import TwitterCards from './_children/twitter-cards'
 import OpenGraph from './_children/open-graph'
 import MetaStory from './_children/meta-story'
 import AmpTagManager from './_children/amp-tag-manager'
+import subscriptionsConfig from './_dependencies/amp-subscriptions-config'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import {
   SITE_ELCOMERCIO,
@@ -22,7 +23,8 @@ import StoryData from '../utilities/story-data'
 import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
 import { PREMIUM, METERED } from '../utilities/constants/content-tiers'
-import { originByEnv } from '../utilities/arc/env'
+import { originByEnv, env } from '../utilities/arc/env'
+import { getMultimedia } from '../utilities/multimedia'
 
 const AmpOutputType = ({
   children,
@@ -55,15 +57,16 @@ const AmpOutputType = ({
     credits: { by: autors } = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     content_restrictions: { content_code: contentCode = '' } = {},
+    // _id: storyId,
   } = globalContent || {}
 
+  const envOrigin = originByEnv(arcSite)
   const { activePaywall, activeRulesCounter } = siteProperties
 
   const isMetered = contentCode === METERED
   const isPremium = contentCode === PREMIUM
   // Redirecciona a la version original si noticia es premium
-  if (isPremium)
-    throw new RedirectError(`${siteProperties.siteUrl}${canonicalUrl}`, 301)
+  if (isPremium) throw new RedirectError(`${envOrigin}${canonicalUrl}`, 301)
 
   const isStory = /^\/.*\/.*-noticia/.test(requestUri)
 
@@ -147,6 +150,8 @@ const AmpOutputType = ({
     jwplayerSeo = [],
     haveJwplayerMatching = false,
     publishDate,
+    multimediaType,
+    primarySectionLink,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -196,6 +201,13 @@ const AmpOutputType = ({
       (arcSite === SITE_ELCOMERCIO &&
         /^\/(tecnologia|somos|opinion)\//.test(requestUri)))
 
+  const hasAmpSubscriptions =
+    isMetered &&
+    activeRulesCounter &&
+    activePaywall &&
+    ((arcSite === SITE_GESTION && /^\/(opinion)\//.test(requestUri)) ||
+      (arcSite === SITE_ELCOMERCIO && /^\/(respuestas)\//.test(requestUri)))
+
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
    * de youtube o facebook, se necesita el script de youtube o facebook
@@ -214,7 +226,8 @@ const AmpOutputType = ({
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
-    hasExternalCounterPaywall
+    hasExternalCounterPaywall ||
+    hasAmpSubscriptions
 
   const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
 
@@ -243,11 +256,12 @@ const AmpOutputType = ({
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
   }
-  const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
+  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  const dataSlot = `/28253241/${namePublicidad}/amp/post/default/zocalo`
   const parameters = {
     arcSite,
     dataSlot,
+    prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
   }
   const isTrivia = /^\/trivias\//.test(requestUri)
 
@@ -255,7 +269,7 @@ const AmpOutputType = ({
     <Html lang={lang}>
       <head>
         <BaseMarkup
-          canonicalUrl={`${originByEnv(arcSite)}${addSlashToEnd(canonicalUrl)}`}
+          canonicalUrl={`${envOrigin}${addSlashToEnd(canonicalUrl)}`}
         />
         <title>{title}</title>
         <Styles {...metaSiteData} />
@@ -376,13 +390,11 @@ const AmpOutputType = ({
           />
         )}
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
-          <>
-            <script
-              async
-              custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-            />
-          </>
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
         )}
 
         {hasTwitter && (
@@ -460,8 +472,47 @@ const AmpOutputType = ({
             />
           </>
         )}
+        {hasAmpSubscriptions && (
+          <>
+            <script
+              async
+              custom-element="amp-subscriptions"
+              src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"
+            />
+            <script
+              type="application/json"
+              id="amp-subscriptions"
+              dangerouslySetInnerHTML={{
+                __html: subscriptionsConfig({
+                  origin: envOrigin,
+                  section: primarySectionLink,
+                  api: `https://api${
+                    env === 'sandbox' ? '-sandbox' : ''
+                  }.${arcSite}.pe`,
+                  contentCode,
+                  contentType: getMultimedia(multimediaType),
+                }),
+              }}
+            />
+          </>
+        )}
       </head>
       <body className={subtype}>
+        {arcSite === SITE_PERU21 && (
+          <amp-iframe
+            width="1"
+            title="User Sync"
+            height="1"
+            sandbox="allow-scripts"
+            frameborder="0"
+            src="https://ads.rubiconproject.com/prebid/load-cookie.html?endpoint=rubicon&max_sync_count=5&args=account:19186">
+            <amp-img
+              layout="fill"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+              placeholder
+            />
+          </amp-iframe>
+        )}
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
@@ -472,7 +523,11 @@ const AmpOutputType = ({
             />
           </>
         )}
-        {children}
+        {hasAmpSubscriptions ? (
+          <div subscriptions-section="content">{children}</div>
+        ) : (
+          children
+        )}
       </body>
     </Html>
   )
