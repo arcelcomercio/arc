@@ -60,6 +60,10 @@ const WrapperPaymentSubs = () => {
       environment: ArcEnv,
     })
 
+    Sentry.configureScope((scope) => {
+      scope.setTag('brand', arcSite)
+    })
+
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
@@ -71,6 +75,13 @@ const WrapperPaymentSubs = () => {
           window.Identity.getUserProfile().then(() => {
             window.location.reload()
           })
+        })
+      })
+      .catch((errIdentitySDK) => {
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: errIdentitySDK || {},
         })
       })
       .finally(() => {
