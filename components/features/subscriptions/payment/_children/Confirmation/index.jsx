@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as Sentry from '@sentry/browser'
 
 import { AuthContext } from '../../../_context/auth'
 import { getStorageInfo } from '../../../_dependencies/Session'
@@ -94,6 +95,16 @@ const Confirmation = () => {
 
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
+      Sentry.configureScope(scope => {
+        scope.setTag('step', 'Confirmación')
+      })
+      Sentry.addBreadcrumb({
+        type: 'info',
+        category: 'confirmación',
+        message: 'Compra confirmada',
+        level: 'info',
+      })
+
       const divDetail = document.getElementById('div-detail')
       const divFooter = document.getElementById('footer')
       const { uuid } = getStorageInfo()
@@ -190,9 +201,25 @@ const Confirmation = () => {
           value: amount,
         })
 
-        window.Identity.extendSession().then(() => {
-          setSendTracking(true)
-        })
+        if ('Identity' in window) {
+          window.Identity.extendSession()
+            .then(() => {
+              setSendTracking(true)
+            })
+            .catch(extendErr => {
+              Sentry.captureEvent({
+                message: 'Error al extender la sesión',
+                level: 'error',
+                extra: extendErr || {},
+              })
+            })
+        } else {
+          Sentry.captureEvent({
+            message: 'SDK Identity no ha cargado correctamente',
+            level: 'error',
+            extra: {},
+          })
+        }
 
         // Datalayer solicitados por Joao
         setTimeout(() => {

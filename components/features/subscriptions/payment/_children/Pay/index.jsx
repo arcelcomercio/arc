@@ -276,7 +276,7 @@ const Pay = () => {
               data: { 'Sales.addItemToCart': [userPlan] },
               level: 'info',
             })
-            window.Sales.addItemToCart([userPlan])
+            return window.Sales.addItemToCart([userPlan])
           })
           .then(() => {
             Sentry.addBreadcrumb({
@@ -295,7 +295,7 @@ const Pay = () => {
               },
               level: 'info',
             })
-            window.Sales.createNewOrder(
+            return window.Sales.createNewOrder(
               { country: 'PE', line2: `${documentType}_${documentNumber}` },
               email,
               phone,
@@ -315,28 +315,30 @@ const Pay = () => {
               },
               level: 'info',
             })
-            window.Sales.getPaymentOptions()
+            return window.Sales.getPaymentOptions()
               .then(resPayOptions => {
                 setTxtLoading('Iniciando Proceso...')
-                Sentry.addBreadcrumb({
-                  type: 'info',
-                  category: 'pago',
-                  message: 'Iniciando proceso de pago',
-                  data: {
-                    options: resPayOptions,
-                    'Sales.initializePayment': [
-                      'orderNumberDinamic',
-                      'paymentMethodID',
-                    ],
-                  },
-                  level: 'info',
-                })
 
                 payUPaymentMethod = resPayOptions?.find(
                   m => m?.paymentMethodType === 8
                 )
                 orderNumberDinamic = resOrder?.orderNumber
                 const { paymentMethodID } = payUPaymentMethod || {}
+
+                Sentry.addBreadcrumb({
+                  type: 'info',
+                  category: 'pago',
+                  message: 'Iniciando proceso de pago',
+                  data: {
+                    options: resPayOptions,
+                    'Sales.initializePayment': {
+                      orderNumberDinamic,
+                      paymentMethodID,
+                    },
+                  },
+                  level: 'info',
+                })
+
                 return window.Sales.initializePayment(
                   orderNumberDinamic,
                   paymentMethodID

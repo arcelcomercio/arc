@@ -468,15 +468,24 @@ const Profile = () => {
       setLoading(true)
       if (isLogged()) {
         setLoadText('Verificando Suscripciones...')
-        checkSubscriptions().then(resSubs => {
-          if (resSubs) {
-            setShowModal(true)
-            setLoading(false)
-            Taggeo(nameTagCategory, 'web_paywall_open_validation')
-          } else {
-            updateProfile(...props)
-          }
-        })
+        if ('Identity' in window) {
+          checkSubscriptions().then(resSubs => {
+            if (resSubs) {
+              setShowModal(true)
+              setLoading(false)
+              Taggeo(nameTagCategory, 'web_paywall_open_validation')
+            } else {
+              updateProfile(...props)
+            }
+          })
+        } else {
+          Sentry.captureEvent({
+            message:
+              'No se puede verificar suscripciones - SDK Identity no ha cargado correctamente',
+            level: 'error',
+            extra: {},
+          })
+        }
       } else {
         restoreClearSession()
       }
@@ -561,17 +570,26 @@ const Profile = () => {
 
   const logoutUser = () => {
     if (typeof window !== 'undefined') {
-      window.Identity.logout()
-        .catch(err =>
-          Sentry.captureEvent({
-            message: 'Error al cerrar sesión con Identity',
-            level: 'error',
-            extra: err,
+      if ('Identity' in window) {
+        window.Identity.logout()
+          .catch(err =>
+            Sentry.captureEvent({
+              message: 'Error al cerrar sesión con Identity',
+              level: 'error',
+              extra: err,
+            })
+          )
+          .finally(() => {
+            userLogout()
           })
-        )
-        .finally(() => {
-          userLogout()
+      } else {
+        Sentry.captureEvent({
+          message:
+            'No se puede cerrar sesión - SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: {},
         })
+      }
     }
   }
 
