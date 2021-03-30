@@ -127,7 +127,9 @@
           </div>
         </div>
         <button x-on:click="sendData()" class="button-primary">Guardar</button>
-        <div style="margin: 20px 0">
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
           PREVISUALIZACIÓN (es referencial, puede variar en la versión
           publicada):
         </div>
@@ -195,16 +197,16 @@
           <input x-model="image.color" type="color" />
         </div>
         <button x-on:click="sendData()" class="button-primary">Guardar</button>
-        <div style="margin: 20px 0">
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
           PREVISUALIZACIÓN (es referencial, puede variar en la versión
           publicada):
         </div>
         <div class="parallax-image">
           <h3 :style="`color: ${image.color}`" x-text="image.title"></h3>
         </div>
-        <style
-          x-text="getParallaxImgBg()"
-        >
+        <style x-text="getParallaxImgBg()">
           /* Auto generated block */
         </style>
       </div>
@@ -273,7 +275,9 @@
           <input x-model="author.text" class="u-full-width" type="text" />
         </div>
         <button x-on:click="sendData()" class="button-primary">Guardar</button>
-        <div style="margin: 20px 0">
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
           PREVISUALIZACIÓN (es referencial, puede variar en la versión
           publicada):
         </div>
@@ -310,7 +314,9 @@
           </textarea>
         </div>
         <button x-on:click="sendData()" class="button-primary">Guardar</button>
-        <div style="margin: 20px 0">
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
           PREVISUALIZACIÓN (es referencial, puede variar en la versión
           publicada):
         </div>
@@ -325,99 +331,52 @@
           Imágenes con proporciones
         </h4>
         <div>
-          <table class="u-full-width">
-            <thead>
-              <tr>
-                <th style="width: 20px;"></th>
-                <th>ID de la imagen en photo center</th>
-                <th>Proporciones</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <template x-for="(item, index) in image_ratio.list" :key="index">
-                <tr>
-                  <td>
-                    <div class="arrows-cont">
-                      <svg
-                        x-on:click="if(index !== 0) arrayMove(image_ratio.list, index, index - 1)"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="19.999"
-                        height="14.973"
-                        viewBox="0 0 19.999 14.973"
-                      >
-                        <path
-                          d="M1,14.973H19a1,1,0,0,0,.823-1.569l-9-13A1.039,1.039,0,0,0,9.179.4l-9,13A1,1,0,0,0,1,14.973ZM10,2.73l7.092,10.243H2.909Z"
-                        />
-                      </svg>
-
-                      <svg
-                        x-on:click="if(index !== (image_ratio.list.length - 1)) arrayMove(image_ratio.list, index, index + 1)"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="19.998"
-                        height="15.001"
-                        viewBox="0 0 19.998 15.001"
-                      >
-                        <path
-                          d="M19.884.536A1,1,0,0,0,19,0H1A1,1,0,0,0,.176,1.569l9,13a1,1,0,0,0,1.644,0l9-13A1,1,0,0,0,19.884.536ZM10,12.243,2.906,2H17.09Z"
-                        />
-                      </svg>
-                    </div>
-                  </td>
-                  <td>
-                    <input
-                      x-show="item.edit"
-                      style="margin: 0;"
-                      type="text"
-                      x-model="item.id"
-                    />
-                    <div x-show="!item.edit" x-text="item.id"></div>
-                  </td>
-                  <td>
-                    <select
-                      style="margin: 0;"
-                      name="proportions"
-                      id="proportions"
-                      x-model="item.ratio"
-                    >
-                      <option value="1:1">1:1</option>
-                      <option value="2:3">2:3</option>
-                      <option value="4:3">4:3</option>
-                      <option value="16:9">16:9</option>
-                    </select>
-                  </td>
-                  <td>
-                    <button
-                      x-on:click="fetchNewPhoto(item)"
-                      x-text="item.edit ? 'Guardar' : 'Editar'"
-                    ></button>
-                    <button
-                      x-on:click="image_ratio.list.splice(index, 1)"
-                      style="background-color: #dc3545;color: white;"
-                    >
-                      Elimiar
-                    </button>
-                  </td>
-                </tr>
-              </template>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><button class="button-primary" x-on:click="image_ratio.list.push({edit: true, ratio: '16:9'})">Agregar</button></td>
-              </tr>
-            </tbody>
-          </table>
+          <div>
+            <label>ID de la galería</label>
+            <div>
+              <input type="text" x-model="image_ratio.gallery_id" />
+              <button x-on:click="fetchGallery()">
+                Cargar previsualización
+              </button>
+            </div>
+          </div>
         </div>
-        <button x-on:click="sendImageRatioData()" class="button-primary">
+        <button x-on:click="sendData()" class="button-primary">
           Guardar
         </button>
-        <div style="margin: 20px 0">
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
           PREVISUALIZACIÓN (es referencial, puede variar en la versión
           publicada):
         </div>
+        <ul style="font-size: 13px;">
+          <li>
+            Si el alto es mayor al ancho se va a considerar como ratio 2:3
+          </li>
+          <li>
+            Si la imagen no tiene un ratio estándar (auto) va a ocupar todo el
+            ancho permitido (860px)
+          </li>
+        </ul>
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th>Url de la imagen</th>
+              <th>Proporción de la imagen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(item, index) in image_ratio_prev" :key="index">
+              <tr>
+                <td x-text="item.url"></td>
+                <td x-text="item.ratio"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
         <div class="gal-cont">
-          <template x-for="(item, index) in image_ratio.list" :key="index">
+          <template x-for="(item, index) in image_ratio_prev" :key="index">
             <div>
               <img
                 :style="`height: ${getSizesByRatio(item.ratio).height}; width: ${getSizesByRatio(item.ratio).width};`"
@@ -458,43 +417,46 @@
             // this[this.page] = jsonData.config.data;
 
             // if (this.page === 'image_ratio') {
-            //     this.fetchPhotoInfo()
+            //     this.fetchGallery()
             // }
           },
-
-          fetchPhotoInfo() {
-            this.image_ratio.list.forEach((item, i) => {
-              fetch(
-                `/pf/api/v3/content/fetch/photo-by-id?query={%22_id%22:%22${item.id}%22,%22presets%22:%22d:0x0%22}`
-              )
-                .then(response => response.json())
-                .then(data => {
-                  this.image_ratio.list[i] = {
-                    ...this.image_ratio.list[i],
-                    caption: data.caption,
-                    url: data.url,
-                  }
-                })
-            })
-          },
-          oldPhotoId: '',
-          fetchNewPhoto(item) {
-            if (item.edit) {
-              if (this.oldPhotoId !== item.id) {
-                fetch(
-                  `/pf/api/v3/content/fetch/photo-by-id?query={%22_id%22:%22${item.id}%22,%22presets%22:%22d:0x0%22}`
-                )
-                  .then(response => response.json())
-                  .then(data => {
-                    item.caption = data.caption
-                    item.url = data.url
-                  })
-              }
-            } else {
-              this.oldPhotoId = item.id
+          calcRatio(w, h) {
+            let ratio = 'auto'
+            if (
+              Math.round((w / h) * 100) / 100 ===
+              Math.round((16 / 9) * 100) / 100
+            ) {
+              ratio = '16:9'
             }
-
-            item.edit = !item.edit
+            if (
+              Math.round((w / h) * 100) / 100 ===
+              Math.round((4 / 3) * 100) / 100
+            ) {
+              ratio = '4:3'
+            }
+            if (h > w) {
+              ratio = '2:3'
+            }
+            if (w / h === 1 / 1) {
+              ratio = '1:1'
+            }
+            return ratio
+          },
+          fetchGallery() {
+            fetch(
+              `http://localhost/pf/api/v3/content/fetch/gallery-by-id?query={%22_id%22:%22${this.image_ratio.gallery_id}%22}&_website=elcomercio`
+            )
+              .then(response => response.json())
+              .then(data => {
+                const content = data.content_elements || []
+                this.image_ratio_prev = content.map(
+                  ({ url, caption, height, width }) => ({
+                    url,
+                    caption,
+                    ratio: this.calcRatio(width, height),
+                  })
+                )
+              })
           },
           sendMessage(action, data) {
             window.parent.postMessage(
@@ -558,8 +520,9 @@ EDITOR DE PROYECTOS VISUALES / <b>Blanca Nieves</b>
 EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
           },
           image_ratio: {
-            list: [],
+            gallery_id: '',
           },
+          image_ratio_prev: [],
           sendData() {
             this.sendMessage('data', {
               id: 'no-fetch',
@@ -570,25 +533,10 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
               },
             })
           },
-          sendImageRatioData() {
-            this.sendMessage('data', {
-              id: 'no-fetch',
-              url: '/',
-              config: {
-                block: this.page,
-                data: {
-                  list: this.image_ratio.list.map(({ id, ratio }) => ({
-                    id,
-                    ratio,
-                  })),
-                }
-              },
-            })
-          },
           getSizesByRatio(ratio) {
             let sizes = {
               width: '860px',
-              height: '484px',
+              height: 'auto',
             }
             switch (ratio) {
               case '1:1':
@@ -605,7 +553,9 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
                 sizes.width = '320px'
                 sizes.height = '480px'
                 break
-
+              case '16:9':
+                sizes.width = '860px'
+                sizes.height = '484px'
               default:
                 break
             }
@@ -622,8 +572,14 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
             return arr // for testing
           },
           getParallaxImgBg() {
-            return `.parallax-image{background-image:url('${this.image.url_mobile}')}@media screen and (min-width:640px){.parallax-image{background-image:url('${this.image.url}')}}`
-          }
+            return (
+              ".parallax-image{background-image:url('" +
+              this.image.url_mobile +
+              "')}@media screen and (min-width:640px){.parallax-image{background-image:url('" +
+              this.image.url +
+              "')}}"
+            )
+          },
         }
       }
     </script>

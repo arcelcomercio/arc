@@ -101,9 +101,7 @@
         <div class="parallax-image">
           <h3 :style="`color: ${image.color}`" x-text="image.title"></h3>
         </div>
-        <style
-          x-text="getParallaxImgBg()"
-        >
+        <style x-text="getParallaxImgBg()">
           /* Auto generated block */
         </style>
       </div>
@@ -138,7 +136,7 @@
 
       <div x-show="page === 'image_ratio'">
         <div class="gal-cont">
-          <template x-for="(item, index) in image_ratio.list" :key="index">
+          <template x-for="(item, index) in image_ratio_prev" :key="index">
             <div>
               <img
                 :style="`height: ${getSizesByRatio(item.ratio).height}; width: ${getSizesByRatio(item.ratio).width};`"
@@ -179,43 +177,46 @@
             this[this.page] = jsonData.config.data;
 
             if (this.page === 'image_ratio') {
-                this.fetchPhotoInfo()
+                this.fetchGallery()
             }
           },
-
-          fetchPhotoInfo() {
-            this.image_ratio.list.forEach((item, i) => {
-              fetch(
-                `/pf/api/v3/content/fetch/photo-by-id?query={%22_id%22:%22${item.id}%22,%22presets%22:%22d:0x0%22}`
-              )
-                .then(response => response.json())
-                .then(data => {
-                  this.image_ratio.list[i] = {
-                    ...this.image_ratio.list[i],
-                    caption: data.caption,
-                    url: data.url,
-                  }
-                })
-            })
+          calcRatio(w, h) {
+            let ratio = 'auto'
+            if (
+              Math.round((w / h) * 100) / 100 ===
+              Math.round((16 / 9) * 100) / 100
+            ) {
+              ratio = '16:9'
+            }
+            if (
+              Math.round((w / h) * 100) / 100 ===
+              Math.round((4 / 3) * 100) / 100
+            ) {
+              ratio = '4:3'
+            }
+            if (h > w) {
+              ratio = '2:3'
+            }
+            if (w / h === 1 / 1) {
+              ratio = '1:1'
+            }
+            return ratio
           },
-          oldPhotoId: '',
-          fetchNewPhoto(item) {
-            if (item.edit) {
-              if (this.oldPhotoId !== item.id) {
-                fetch(
-                  `/pf/api/v3/content/fetch/photo-by-id?query={%22_id%22:%22${item.id}%22,%22presets%22:%22d:0x0%22}`
-                )
-                  .then(response => response.json())
-                  .then(data => {
-                    item.caption = data.caption
-                    item.url = data.url
+          fetchGallery() {
+            fetch(
+              `http://localhost/pf/api/v3/content/fetch/gallery-by-id?query={%22_id%22:%22${this.image_ratio.gallery_id}%22}&_website=elcomercio`
+            )
+              .then(response => response.json())
+              .then(data => {
+                const content = data.content_elements || []
+                this.image_ratio_prev = content.map(
+                  ({ url, caption, height, width }) => ({
+                    url,
+                    caption,
+                    ratio: this.calcRatio(width, height),
                   })
-              }
-            } else {
-              this.oldPhotoId = item.id
-            }
-
-            item.edit = !item.edit
+                )
+              })
           },
           sendMessage(action, data) {
             window.parent.postMessage(
@@ -279,8 +280,9 @@ EDITOR DE PROYECTOS VISUALES / <b>Blanca Nieves</b>
 EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
           },
           image_ratio: {
-            list: [],
+            gallery_id: '',
           },
+          image_ratio_prev: [],
           sendData() {
             this.sendMessage('data', {
               id: 'no-fetch',
@@ -291,25 +293,10 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
               },
             })
           },
-          sendImageRatioData() {
-            this.sendMessage('data', {
-              id: 'no-fetch',
-              url: '/',
-              config: {
-                block: this.page,
-                data: {
-                  list: this.image_ratio.list.map(({ id, ratio }) => ({
-                    id,
-                    ratio,
-                  })),
-                }
-              },
-            })
-          },
           getSizesByRatio(ratio) {
             let sizes = {
               width: '860px',
-              height: '484px',
+              height: 'auto',
             }
             switch (ratio) {
               case '1:1':
@@ -326,7 +313,9 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
                 sizes.width = '320px'
                 sizes.height = '480px'
                 break
-
+              case '16:9':
+                sizes.width = '860px'
+                sizes.height = '484px'
               default:
                 break
             }
@@ -343,8 +332,14 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
             return arr // for testing
           },
           getParallaxImgBg() {
-            return `.parallax-image{background-image:url('${this.image.url_mobile}')}@media screen and (min-width:640px){.parallax-image{background-image:url('${this.image.url}')}}`
-          }
+            return (
+              ".parallax-image{background-image:url('" +
+              this.image.url_mobile +
+              "')}@media screen and (min-width:640px){.parallax-image{background-image:url('" +
+              this.image.url +
+              "')}}"
+            )
+          },
         }
       }
     </script>
