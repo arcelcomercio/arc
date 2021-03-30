@@ -41,6 +41,7 @@ export default {
   pwaCloseWebView() {
     const APP_CONNECTION = window.ReactNativeWebView || window.nativeConnection
     if (!this.isPWA()) return
-    APP_CONNECTION.pwaCloseWebview && APP_CONNECTION.pwaCloseWebview()
+    APP_CONNECTION.pwaCloseWebview && APP_CONNECTION.pwaCloseWebview() // for Android
+    APP_CONNECTION.pwaCloseWebView && APP_CONNECTION.pwaCloseWebView() // for iOS
   },
 }
