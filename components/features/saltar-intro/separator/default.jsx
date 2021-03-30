@@ -8,13 +8,11 @@ import SeparatorList from './_children/separator'
 import StoryData from '../../../utilities/story-data'
 import { includeCredits, separatorBasicFields } from '../../../utilities/included-fields'
 
-// const STORIES_QTY_DEFAULT = 3
-// const CONTENT_SOURCE = 'story-feed-by-section'
 const DEFAULT_TITLE = ''
 
 const SeparatorSaltarIntro = props => {
   const {
-    customFields: { /* section, */ titleSeparator, titleLink, seeMoreLink, modeStreaming = false, storyConfig: { contentService = '', contentConfigValues = {} } = {} },
+    customFields: { titleSeparator, titleLink, seeMoreLink, modeStreaming = false, storyConfig: { contentService = '', contentConfigValues = {} } = {} },
   } = props
 
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
@@ -41,18 +39,6 @@ const SeparatorSaltarIntro = props => {
 
     return { data: newData, sectionName }
   }
-
-  /* const dataApi = useContent({
-    source: CONTENT_SOURCE,
-    query: {
-      section,
-      stories_qty: STORIES_QTY_DEFAULT,
-      presets: 'landscape_s:298x156',
-      includedFields: `${separatorBasicFields},${includeCredits}`,
-    },
-    filter: schemaFilter(arcSite),
-    transform: dataTransform,
-  }) */
 
   const dataApi =
     useContent({

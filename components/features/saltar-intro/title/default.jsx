@@ -1,7 +1,5 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
-// import { useAppContext } from 'fusion:context'
-// import { useEditableContent } from 'fusion:content'
 
 const classes = {
   container: 'saltar-intro-title__container flex',
