@@ -202,7 +202,7 @@ const Pay = () => {
       required: true,
       validator: {
         func: value =>
-          typeof window.payU === 'object' &&
+          'payU' in window &&
           window.payU.validateCard(value.replace(/\s/g, '')),
         error: 'Número tarjeta inválido.',
       },
@@ -332,15 +332,23 @@ const Pay = () => {
                   level: 'info',
                 })
 
-                payUPaymentMethod = resPayOptions.find(
-                  m => m.paymentMethodType === 8
+                payUPaymentMethod = resPayOptions?.find(
+                  m => m?.paymentMethodType === 8
                 )
-                orderNumberDinamic = resOrder.orderNumber
-                const { paymentMethodID } = payUPaymentMethod
+                orderNumberDinamic = resOrder?.orderNumber
+                const { paymentMethodID } = payUPaymentMethod || {}
                 return window.Sales.initializePayment(
                   orderNumberDinamic,
                   paymentMethodID
                 )
+              })
+              .catch(paymentError => {
+                Sentry.captureEvent({
+                  message:
+                    paymentError?.error || getCodeError(paymentError?.code),
+                  level: 'error',
+                  extra: paymentError || {},
+                })
               })
               .then(resInitialize => {
                 const {
@@ -349,7 +357,7 @@ const Pay = () => {
                   parameter2: accountId,
                   parameter3: payuBaseUrl,
                   parameter4: deviceSessionId,
-                } = resInitialize
+                } = resInitialize || {}
 
                 Sentry.addBreadcrumb({
                   type: 'info',
@@ -396,7 +404,7 @@ const Pay = () => {
                     level: 'info',
                   })
                   window.payU.createToken(response => {
-                    if (response && response.error) {
+                    if (response?.error) {
                       reject(new Error(response.error))
                       setMsgError(response.error)
                       setLoading(false)
@@ -434,7 +442,7 @@ const Pay = () => {
                         level: 'error',
                         extra: response || {},
                       })
-                    } else if (response && response.token) {
+                    } else if (response?.token) {
                       resolve(response.token)
                     } else {
                       reject(new Error(getCodeError('errorNoTokenPayU')))
@@ -450,10 +458,8 @@ const Pay = () => {
                 })
 
                 return handleCreateToken.then(resToken => {
-                  const {
-                    paymentMethodID,
-                    paymentMethodType,
-                  } = payUPaymentMethod
+                  const { paymentMethodID, paymentMethodType } =
+                    payUPaymentMethod || {}
                   const tokenDinamic = `${resToken}~${deviceSessionId}~${cCvv}`
                   setTxtLoading('Finalizando Proceso...')
 
@@ -485,7 +491,8 @@ const Pay = () => {
                         level: 'info',
                       })
 
-                      const { status, total, subscriptionIDs } = resFinalize
+                      const { status, total, subscriptionIDs } =
+                        resFinalize || {}
                       updatePurchase(resFinalize)
 
                       // Datalayer solicitados por Joao
@@ -517,7 +524,7 @@ const Pay = () => {
                         total,
                       }
                     })
-                    .catch(errFinalize => {
+                    .catch((errFinalize = {}) => {
                       setMsgError(getCodeError(errFinalize.code))
                       setLoading(false)
                       updateLoadPage(false)
@@ -572,7 +579,7 @@ const Pay = () => {
   }
 
   const validateCardNumber = e => {
-    if (typeof window !== 'undefined' && typeof window.payU === 'object') {
+    if (typeof window !== 'undefined' && 'payU' in window) {
       window.payU.validateCard(e.target.value)
       setMethodCard(window.payU.card.method)
     }
@@ -610,7 +617,7 @@ const Pay = () => {
   }
 
   const getCardNumber = () => {
-    if (typeof window !== 'undefined' && typeof window.payU === 'object') {
+    if (typeof window !== 'undefined' && 'payU' in window) {
       if (cNumber.length >= 1) {
         window.payU.validateNumber(cNumber.replace(/\s/g, ''))
         setMethodCard(window.payU.card.method)
