@@ -106,64 +106,61 @@ const Profile = () => {
   } = getPLanSelected || {}
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 
-      const origin = getSessionStorage('paywall_type_modal') || 'organico'
-      const referer = getSessionStorage('paywall_last_url') || ''
+    const origin = getSessionStorage('paywall_type_modal') || 'organico'
+    const referer = getSessionStorage('paywall_last_url') || ''
 
-      window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({
-        event: 'checkoutOption',
-        ecommerce: {
-          checkout_option: {
-            actionField: { step: 2 },
-          },
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 2 },
         },
+      },
+    })
+
+    sendAction(PixelActions.PAYMENT_PROFILE, {
+      sku: `${sku}`,
+      periodo: billingFrequency,
+      referer,
+      medioCompra: origin,
+      priceCode,
+      suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
+    })
+
+    Sentry.configureScope(scope => {
+      scope.setTag('document', documentNumber || 'none')
+      scope.setTag('phone', phone || 'none')
+      scope.setTag('email', email || 'none')
+      scope.setTag('step', 'Perfil')
+      scope.setUser({
+        id: uuid,
+        name: `${firstName} ${lastName} ${secondLastName || ''}`,
+        email,
+        phone,
+        documentType,
+        documentNumber,
+        emailVerified,
       })
+    })
 
-      sendAction(PixelActions.PAYMENT_PROFILE, {
-        sku: `${sku}`,
-        periodo: billingFrequency,
-        referer,
-        medioCompra: origin,
-        priceCode,
-        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
-        pwa: PWA.isPWA() ? 'si' : 'no',
-      })
-
-      Sentry.configureScope(scope => {
-        scope.setTag('brand', arcSite)
-        scope.setTag('document', documentNumber || 'none')
-        scope.setTag('phone', phone || 'none')
-        scope.setTag('email', email || 'none')
-        scope.setTag('step', 'Perfil')
-        scope.setUser({
-          id: uuid,
-          name: `${firstName} ${lastName} ${secondLastName || ''}`,
-          email,
-          phone,
-          documentType,
-          documentNumber,
-          emailVerified,
-        })
-      })
-
-      if (printedSubscriber || error) {
-        // Datalayer solicitados por Joao
-        TaggeoJoao(
-          {
-            event: 'Pasarela Suscripciones Digitales',
-            category: 'P0_Plan_Suscriptor',
-            action: printedSubscriber ? 'Aceptado' : `Denegado - ${error}`,
-            label: uuid,
-          },
-          window.location.pathname
-        )
-      }
-
-      if (userErrorApi !== false) updateErrorApi(error)
+    if (printedSubscriber || error) {
+      // Datalayer solicitados por Joao
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: 'P0_Plan_Suscriptor',
+          action: printedSubscriber ? 'Aceptado' : `Denegado - ${error}`,
+          label: uuid,
+        },
+        window.location.pathname
+      )
     }
+
+    if (userErrorApi !== false) updateErrorApi(error)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -232,6 +229,13 @@ const Profile = () => {
 
   const checkSubscriptions = () => {
     if (typeof window !== 'undefined') {
+      Sentry.addBreadcrumb({
+        type: 'info',
+        category: 'perfil',
+        message: 'Verificando suscripciones para extender sesión',
+        data: { 'Identity.heartbeat': 'function' },
+        level: 'info',
+      })
       return window.Identity.heartbeat()
         .then(resHeart =>
           getEntitlements(urls.arcOrigin, resHeart.accessToken)
@@ -250,7 +254,7 @@ const Profile = () => {
         )
         .catch(errHeart => {
           Sentry.captureEvent({
-            message: 'Error al extender la sessión',
+            message: 'Error al extender la sesión',
             level: 'error',
             extra: errHeart,
           })
@@ -318,6 +322,22 @@ const Profile = () => {
     uDocumentNumber,
   }) => {
     if (typeof window !== 'undefined') {
+      Sentry.addBreadcrumb({
+        type: 'info',
+        category: 'perfil',
+        message: 'Usuario inicia actualización de datos de perfil',
+        data: {
+          uFirstName,
+          uLastName,
+          uSecondLastName,
+          uEmail,
+          uPhone,
+          uDocumentType,
+          uDocumentNumber,
+        },
+        level: 'info',
+      })
+
       let { attributes: uAttributes = [] } = window.Identity.userProfile || {}
       if (!uAttributes) uAttributes = []
       const addAttributes = (name, value) =>
@@ -359,12 +379,6 @@ const Profile = () => {
         })
       }
 
-      Sentry.addBreadcrumb({
-        category: 'perfil',
-        message: 'El Usuario completa sus datos',
-        level: 'info',
-      })
-
       // Datalayer solicitados por Joao
       TaggeoJoao(
         {
@@ -387,6 +401,14 @@ const Profile = () => {
         getStorageEmailProfile() === uEmail
       ) {
         setLoadText('Actualizando Perfil...')
+        Sentry.addBreadcrumb({
+          type: 'info',
+          category: 'perfil',
+          message: 'Actualizando datos de perfil',
+          data: { 'Identity.updateUserProfile': profile },
+          level: 'info',
+        })
+
         window.Identity.updateUserProfile(profile)
           .then(resProfile => {
             updateUser(resProfile)
@@ -539,9 +561,17 @@ const Profile = () => {
 
   const logoutUser = () => {
     if (typeof window !== 'undefined') {
-      window.Identity.logout().finally(() => {
-        userLogout()
-      })
+      window.Identity.logout()
+        .catch(err =>
+          Sentry.captureEvent({
+            message: 'Error al cerrar sesión con Identity',
+            level: 'error',
+            extra: err,
+          })
+        )
+        .finally(() => {
+          userLogout()
+        })
     }
   }
 

@@ -15,7 +15,7 @@ class GetProfile {
     this.profile = null
     if (typeof window !== 'undefined') {
       const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
-      this.profile = JSON.parse(localProfile)
+      this.profile = JSON.parse(localProfile || '{}')
     }
     this.publicProfile = this._getComplete()
     this.username = this._getUserName().userName
@@ -26,7 +26,7 @@ class GetProfile {
     return this.cleanProfile(this.profile)
   }
 
-  cleanAttribute = attrValue => {
+  cleanAttribute = (attrValue) => {
     const newAttrValue =
       typeof attrValue === 'string' ? attrValue.toLowerCase() : attrValue
     return skipValues.includes(newAttrValue) ? null : attrValue
@@ -40,7 +40,7 @@ class GetProfile {
       if (fieldsWhite.includes(attr)) {
         switch (attr) {
           case 'attributes':
-            newPrev[attr] = (profile[attr] || []).map(item => {
+            newPrev[attr] = (profile[attr] || []).map((item) => {
               const { value } = item
               // eslint-disable-next-line no-param-reassign
               item.value = this.cleanAttribute(value)
