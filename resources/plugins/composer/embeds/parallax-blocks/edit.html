@@ -203,12 +203,9 @@
           PREVISUALIZACIÓN (es referencial, puede variar en la versión
           publicada):
         </div>
-        <div class="parallax-image">
+        <div class="parallax-image" :style="`background-image:url(${this.image.url})`">
           <h3 :style="`color: ${image.color}`" x-text="image.title"></h3>
         </div>
-        <style x-text="getParallaxImgBg()">
-          /* Auto generated block */
-        </style>
       </div>
 
       <div x-show="page === 'author'">
@@ -444,7 +441,7 @@
           },
           fetchGallery() {
             fetch(
-              `http://localhost/pf/api/v3/content/fetch/gallery-by-id?query={%22_id%22:%22${this.image_ratio.gallery_id}%22}&_website=elcomercio`
+              `/pf/api/v3/content/fetch/gallery-by-id?query={%22_id%22:%22${this.image_ratio.gallery_id}%22}&_website=elcomercio`
             )
               .then(response => response.json())
               .then(data => {
@@ -570,15 +567,6 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
             }
             arr.splice(new_index, 0, arr.splice(old_index, 1)[0])
             return arr // for testing
-          },
-          getParallaxImgBg() {
-            return (
-              ".parallax-image{background-image:url('" +
-              this.image.url_mobile +
-              "')}@media screen and (min-width:640px){.parallax-image{background-image:url('" +
-              this.image.url +
-              "')}}"
-            )
           },
         }
       }
