@@ -56,4 +56,14 @@
       margin-left: 10px;
     }
   }
+  &__lt {
+    svg {
+      fill: #dddf45;
+    }
+    span {
+      color: #dddf45;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+  }
 }
