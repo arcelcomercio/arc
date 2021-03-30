@@ -9,67 +9,76 @@ import { formatDayMonthYearBasic } from '../../../../utilities/date-time/dates'
 const placeholderSrc = (width, height) =>
   `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
 
-const ImageRatioElement = ({ list = [] }) => {
+const ImageRatioElement = ({ galleryId = '' }) => {
   const data =
     useContent({
-      source: 'photos-by-id-list',
+      source: 'gallery-by-id',
       query: {
-        idList: list.map(({ id }) => id).join(','),
+        _id: galleryId,
       },
     }) || []
 
-  const getSizesByRatio = ratio => {
+  const getSizesByRatio = (w, h) => {
     const sizes = {
       width: '860px',
-      height: '484px',
+      height: 'auto',
     }
-    switch (ratio) {
-      case '1:1':
-        sizes.width = '580px'
-        sizes.height = '580px'
-        break
 
-      case '4:3':
-        sizes.width = '640px'
-        sizes.height = '360px'
-        break
-
-      case '2:3':
-        sizes.width = '320px'
-        sizes.height = '480px'
-        break
-
-      default:
-        break
+    // 16:9
+    if (Math.round((w / h) * 100) / 100 === Math.round((16 / 9) * 100) / 100) {
+      sizes.width = '860px'
+      sizes.height = '484px'
     }
+    // 4:3
+    else if (
+      Math.round((w / h) * 100) / 100 ===
+      Math.round((4 / 3) * 100) / 100
+    ) {
+      sizes.width = '640px'
+      sizes.height = '360px'
+    }
+    // 2:3
+    else if (h > w) {
+      sizes.width = '320px'
+      sizes.height = '480px'
+    }
+    // 1:1
+    else if (w / h === 1 / 1) {
+      sizes.width = '580px'
+      sizes.height = '580px'
+    }
+
     return sizes
   }
   return (
     <div
       className="parallax-el__ratio-cont"
-      style={{ maxWidth: 'none', margin: 0 }}>
-      {data.map((item, i) => (
-        <div>
-          <img
-            style={{
-              height: getSizesByRatio(list[i]?.ratio).height,
-              width: getSizesByRatio(list[i]?.ratio).width,
-              maxWidth: getSizesByRatio(list[i]?.ratio).width,
-            }}
-            className="lazy"
-            data-src={item?.url}
-            src={placeholderSrc(item?.width, item?.height)}
-            alt={item?.caption}
-          />
-          <figcaption
-            style={{
-              maxWidth: getSizesByRatio(list[i]?.ratio).width,
-              textAlign: list[i]?.ratio === '2:3' ? 'right' : 'left',
-            }}>
-            {item?.caption}
-          </figcaption>
-        </div>
-      ))}
+      style={{ maxWidth: '1070px', margin: '0 auto' }}>
+      {(data?.content_elements || []).map(item => {
+        const sizesRatios = getSizesByRatio(item?.width, item?.height)
+        return (
+          <div>
+            <img
+              style={{
+                height: sizesRatios.height,
+                width: sizesRatios.width,
+                maxWidth: sizesRatios.width,
+              }}
+              className="lazy"
+              data-src={item?.url}
+              src={placeholderSrc(item?.width, item?.height)}
+              alt={item?.caption}
+            />
+            <figcaption
+              style={{
+                maxWidth: sizesRatios.width,
+                textAlign: item?.width < item?.height ? 'right' : 'left',
+              }}>
+              {item?.caption}
+            </figcaption>
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -139,7 +148,9 @@ export default function StoryContentsChildParallaxElements({ config, id }) {
         </div>
       ) : null}
 
-      {block === 'image_ratio' ? <ImageRatioElement list={data?.list} /> : null}
+      {block === 'image_ratio' ? (
+        <ImageRatioElement galleryId={data?.gallery_id} />
+      ) : null}
     </>
   )
 }
