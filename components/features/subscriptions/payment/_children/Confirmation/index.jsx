@@ -16,6 +16,7 @@ import {
   PixelActions,
   sendAction,
   TaggeoJoao,
+  eventCategory,
 } from '../../../_dependencies/Taggeo'
 import {
   getFullNameFormat,
@@ -226,13 +227,12 @@ const Confirmation = () => {
           TaggeoJoao(
             {
               event: 'Pasarela Suscripciones Digitales',
-              category: `P3_${
-                event && event === 'winback'
-                  ? 'Plan_Winback'
-                  : printedSubscriber
-                  ? 'Plan_Suscriptor'
-                  : name.replace(' ', '_')
-              }`,
+              category: eventCategory({
+                step: 3,
+                event,
+                hasPrint: printedSubscriber,
+                plan: name,
+              }),
               action: userPeriod,
               label: uuid,
               value: `${amount}`,
