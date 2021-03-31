@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const styles = {
   // wrapper: 'step__grid wrapper-buy',
@@ -7,26 +7,51 @@ const styles = {
   right: 'step__right grid-two-two-buy',
 }
 
+/**
+ * @param {object} props
+ * @param {React.ReactNode} props.children
+ * @returns
+ */
 export const Container = ({ children }) => {
   return (
-    <section className="step" id="main-steps">
+    <div className="step" id="main-steps">
       {children}
-    </section>
+    </div>
   )
 }
 
-export const Wrapper = ({ children }) => {
-  return <div className={styles.wrapper}>{children}</div>
+/**
+ * @param {object} props
+ * @param {React.ReactNode} props.children
+ * @param {React.CSSProperties} props.style
+ * @returns
+ */
+export const Wrapper = ({ children, style = {} }) => {
+  return (
+    <div className={styles.wrapper} style={style}>
+      {children}
+    </div>
+  )
 }
 
+/**
+ * @param {object} props
+ * @param {React.ReactNode} props.children
+ * @returns
+ */
 export const PanelLeft = ({ children }) => {
-  return <article className={styles.left}>{children}</article>
+  return <section className={styles.left}>{children}</section>
 }
 
+/**
+ * @param {object} props
+ * @param {React.ReactNode} props.children
+ * @returns
+ */
 export const PanelRight = ({ children }) => {
   return (
-    <article className={styles.right} id="div-detail">
+    <section className={styles.right} id="div-detail">
       <div className="wrapper-buy">{children}</div>
-    </article>
+    </section>
   )
 }

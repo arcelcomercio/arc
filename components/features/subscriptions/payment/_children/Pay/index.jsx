@@ -707,7 +707,10 @@ const Pay = () => {
           <div className="block">
             <label htmlFor="cCvv">
               {texts.labelcCvv}
-              <button type="button" className="tooltip step__btn-link">
+              <button
+                type="button"
+                className="tooltip step__btn-link"
+                tabIndex={-1}>
                 <i className="icon-info"> </i>
                 <span className="tooltiptext-leftarrow">
                   {texts.whereCvv}
