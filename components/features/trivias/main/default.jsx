@@ -38,9 +38,8 @@ const TriviasMain = ({
   const { globalContent, requestUri, arcSite } = useAppContext()
   const {
     siteUrl,
-    social: { twitter: { twitterUser } = {} } = {},
+    social: { twitter: { user: twitterUser } = {} } = {},
   } = getProperties(arcSite)
-
   const [currentQuestion, setCurrentQuestion] = React.useState(0)
   const [points, setPoints] = React.useState([])
   // TODO: este estado no hace falta, puede usarse `points` cuando esta vacio

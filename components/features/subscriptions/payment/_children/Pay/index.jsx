@@ -1,14 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useState, useContext, useEffect } from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import TextMask from 'react-text-mask'
 import * as Sentry from '@sentry/browser'
+
 import useForm from '../../../_hooks/useForm'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
-import addPayU from '../../../_dependencies/Payu'
+// import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
-import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
+import {
+  PixelActions,
+  sendAction,
+  TaggeoJoao,
+} from '../../../_dependencies/Taggeo'
 import { getSessionStorage } from '../../../_dependencies/Utils'
 import PWA from '../../../_dependencies/Pwa'
 import {
@@ -40,16 +45,17 @@ const styles = {
 const Pay = () => {
   const {
     arcSite,
-    globalContent: { plans = [], printedSubscriber },
-  } = useFusionContext() || {}
+    globalContent: { plans = [], printedSubscriber, event },
+  } = useAppContext() || {}
 
   const {
     userProfile,
     userPlan,
+    userPeriod,
     updateStep,
     updatePurchase,
     updateLoadPage,
-  } = useContext(AuthContext)
+  } = React.useContext(AuthContext)
   const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
@@ -65,11 +71,11 @@ const Pay = () => {
     emailVerified,
   } = conformProfile(userProfile || {})
 
-  const [msgError, setMsgError] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [txtLoading, setTxtLoading] = useState('Cargando...')
-  const [methodCard, setMethodCard] = useState()
-  const [checkedTerms, setCheckedTerms] = useState()
+  const [msgError, setMsgError] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [txtLoading, setTxtLoading] = React.useState('Cargando...')
+  const [methodCard, setMethodCard] = React.useState()
+  const [checkedTerms, setCheckedTerms] = React.useState()
 
   const getPLanSelected = plans.reduce((prev, plan) => {
     return plan.priceCode === userPlan.priceCode ? plan : prev
@@ -78,89 +84,87 @@ const Pay = () => {
   const { amount, sku, billingFrequency, priceCode, name } =
     getPLanSelected || {}
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 
-      Sentry.configureScope(scope => {
-        scope.setTag('brand', arcSite)
-        scope.setTag('document', documentNumber || 'none')
-        scope.setTag('phone', phone || 'none')
-        scope.setTag('email', email || 'none')
-        scope.setTag('step', 'Pago')
-        scope.setUser({
-          id: uuid,
-          name: `${firstName} ${lastName} ${secondLastName}`,
-          email,
-          phone,
-          documentType,
-          documentNumber,
-          emailVerified,
+    Sentry.configureScope(scope => {
+      scope.setTag('brand', arcSite)
+      scope.setTag('document', documentNumber || 'none')
+      scope.setTag('phone', phone || 'none')
+      scope.setTag('email', email || 'none')
+      scope.setTag('step', 'Pago')
+      scope.setUser({
+        id: uuid,
+        name: `${firstName} ${lastName} ${secondLastName}`,
+        email,
+        phone,
+        documentType,
+        documentNumber,
+        emailVerified,
+      })
+    })
+
+    addScriptAsync({
+      name: 'SalesSDK',
+      url: links.sales,
+      includeNoScript: false,
+    })
+      .then(() => window.Sales.options({ apiOrigin: urls.arcOrigin }))
+      .catch(errSalesSDK => {
+        Sentry.captureEvent({
+          message: 'SDK Sales no ha cargado correctamente',
+          level: 'error',
+          extra: errSalesSDK || {},
         })
       })
 
-      addScriptAsync({
-        name: 'SalesSDK',
-        url: links.sales,
-        includeNoScript: false,
+    addScriptAsync({
+      name: 'PayuSDK',
+      url: links.payu,
+      includeNoScript: false,
+    })
+      .then(() => {
+        window.payU.setURL(links.payuPayments)
+        window.payU.setPublicKey(links.payuPublicKey)
+        window.payU.setAccountID(links.payuAccountID)
+        window.payU.setListBoxID('mylistID')
+        window.payU.setLanguage('es')
+        window.payU.getPaymentMethods()
       })
-        .then(() => window.Sales.options({ apiOrigin: urls.arcOrigin }))
-        .catch(errSalesSDK => {
-          Sentry.captureEvent({
-            message: 'SDK Sales no ha cargado correctamente',
-            level: 'error',
-            extra: errSalesSDK || {},
-          })
+      .catch(errPayuSDK => {
+        Sentry.captureEvent({
+          message: 'El SDK PayU no ha cargado correctamente',
+          level: 'error',
+          extra: errPayuSDK || {},
         })
-
-      addScriptAsync({
-        name: 'PayuSDK',
-        url: links.payu,
-        includeNoScript: false,
       })
-        .then(() => {
-          window.payU.setURL(links.payuPayments)
-          window.payU.setPublicKey(links.payuPublicKey)
-          window.payU.setAccountID(links.payuAccountID)
-          window.payU.setListBoxID('mylistID')
-          window.payU.setLanguage('es')
-          window.payU.getPaymentMethods()
-        })
-        .catch(errPayuSDK => {
-          Sentry.captureEvent({
-            message: 'El SDK PayU no ha cargado correctamente',
-            level: 'error',
-            extra: errPayuSDK || {},
-          })
-        })
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const origin = getSessionStorage('paywall_type_modal') || 'organico'
-      const referer = getSessionStorage('paywall_last_url') || ''
+  React.useEffect(() => {
+    const origin = getSessionStorage('paywall_type_modal') || 'organico'
+    const referer = getSessionStorage('paywall_last_url') || ''
 
-      window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({
-        event: 'checkoutOption',
-        ecommerce: {
-          checkout_option: {
-            actionField: { step: 3 },
-          },
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 3 },
         },
-      })
+      },
+    })
 
-      sendAction(PixelActions.PAYMENT_CARD_INFO, {
-        sku: `${sku}`,
-        referer,
-        medioCompra: origin,
-        periodo: billingFrequency,
-        priceCode,
-        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
-        pwa: PWA.isPWA() ? 'si' : 'no',
-      })
-    }
+    sendAction(PixelActions.PAYMENT_CARD_INFO, {
+      sku: `${sku}`,
+      referer,
+      medioCompra: origin,
+      periodo: billingFrequency,
+      priceCode,
+      suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -277,135 +281,183 @@ const Pay = () => {
                   level: 'info',
                 })
 
-                return addPayU(deviceSessionId)
-                  .then(payU => {
-                    setTxtLoading('Solicitando Autorización...')
-                    payU.setURL(payuBaseUrl)
-                    payU.setPublicKey(publicKey)
-                    payU.setAccountID(accountId)
-                    payU.validateNumber(cNumber.replace(/\s/g, ''))
-                    payU.setCardDetails({
-                      number: cNumber.replace(/\s/g, ''),
-                      name_card:
-                        ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
-                      payer_id: documentNumber,
-                      exp_month: cExpireMonth,
-                      exp_year: cExpireYear,
-                      method: methodCard || payU.card.method,
-                      document: documentNumber,
-                      cvv: cCvv,
-                    })
+                setTxtLoading('Solicitando Autorización...')
+                window.payU.setURL(payuBaseUrl)
+                window.payU.setPublicKey(publicKey)
+                window.payU.setAccountID(accountId)
+                window.payU.validateNumber(cNumber.replace(/\s/g, ''))
+                window.payU.setCardDetails({
+                  number: cNumber.replace(/\s/g, ''),
+                  name_card: ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
+                  payer_id: documentNumber,
+                  exp_month: cExpireMonth,
+                  exp_year: cExpireYear,
+                  method: methodCard || window.payU.card.method,
+                  document: documentNumber,
+                  cvv: cCvv,
+                })
 
-                    Sentry.addBreadcrumb({
-                      category: 'compra',
-                      message: 'solicitando autorización',
-                      level: 'info',
-                    })
+                Sentry.addBreadcrumb({
+                  category: 'compra',
+                  message: 'solicitando autorización',
+                  level: 'info',
+                })
 
-                    const handleCreateToken = new Promise((resolve, reject) => {
-                      setTxtLoading('Validando Solicitud...')
-                      payU.createToken(response => {
-                        if (response && response.error) {
-                          reject(new Error(response.error))
-                          setMsgError(response.error)
-                          setLoading(false)
-                          updateLoadPage(false)
-                          window.dataLayer.push({
-                            event: 'failedTransaction',
-                            ecommerce: {
-                              failedTransaction: {
-                                actionField: { id: orderNumberDinamic },
-                              },
-                            },
-                          })
-                          Sentry.captureEvent({
-                            message:
-                              response.error ||
-                              getCodeError('transactionError'),
-                            level: 'error',
-                            extra: response || {},
-                          })
-                        } else if (response && response.token) {
-                          resolve(response.token)
-                        } else {
-                          reject(new Error(getCodeError('errorNoTokenPayU')))
-                          setMsgError(getCodeError('errorNoTokenPayU'))
-                          setLoading(false)
-                          Sentry.captureEvent({
-                            message: getCodeError('errorNoTokenPayU'),
-                            level: 'error',
-                            extra: {},
-                          })
-                        }
-                      })
-                    })
-
-                    return handleCreateToken || 'NoToken'
-                  })
-                  .then(tokenPayu => {
-                    const {
-                      paymentMethodID,
-                      paymentMethodType,
-                    } = payUPaymentMethod
-                    const tokenDinamic = `${tokenPayu}~${deviceSessionId}~${cCvv}`
-                    setTxtLoading('Finalizando Proceso...')
-
-                    Sentry.addBreadcrumb({
-                      category: 'compra',
-                      message: 'Finalizando proceso',
-                      data: { tokenDinamic },
-                      level: 'info',
-                    })
-
-                    return window.Sales.finalizePayment(
-                      orderNumberDinamic,
-                      paymentMethodID,
-                      tokenDinamic
-                    )
-                      .then(resFinalize => {
-                        const { status, total, subscriptionIDs } = resFinalize
-                        updatePurchase(resFinalize)
-
-                        Sentry.addBreadcrumb({
-                          category: 'compra',
-                          message: 'Compra confirmada',
-                          data: resFinalize,
-                          level: 'info',
-                        })
-
-                        return {
-                          publicKey,
-                          accountId,
-                          payuBaseUrl,
-                          deviceSessionId,
-                          paymentMethodID,
-                          paymentMethodType,
-                          subscriptionIDs,
-                          status,
-                          total,
-                        }
-                      })
-                      .catch(errFinalize => {
-                        setMsgError(getCodeError(errFinalize.code))
-                        setLoading(false)
-                        updateLoadPage(false)
-                        window.dataLayer.push({
-                          event: 'failedTransaction',
-                          ecommerce: {
-                            failedTransaction: {
-                              actionField: { id: orderNumberDinamic },
-                            },
+                const handleCreateToken = new Promise((resolve, reject) => {
+                  setTxtLoading('Validando Solicitud...')
+                  window.payU.createToken(response => {
+                    if (response && response.error) {
+                      reject(new Error(response.error))
+                      setMsgError(response.error)
+                      setLoading(false)
+                      updateLoadPage(false)
+                      window.dataLayer.push({
+                        event: 'failedTransaction',
+                        ecommerce: {
+                          failedTransaction: {
+                            actionField: { id: orderNumberDinamic },
                           },
-                        })
-                        Sentry.captureEvent({
-                          message:
-                            errFinalize.message ||
-                            getCodeError('errorFinalize'),
-                          level: 'error',
-                          extra: errFinalize || {},
-                        })
+                        },
                       })
+
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: `P2_${
+                            event && event === 'winback'
+                              ? 'Plan_Winback'
+                              : printedSubscriber
+                              ? 'Plan_Suscriptor'
+                              : name.replace(' ', '_')
+                          }_Cancelado`,
+                          action: `${userPeriod} - ${response.error ||
+                            getCodeError('errorFinalize')}`,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
+
+                      Sentry.captureEvent({
+                        message:
+                          response.error || getCodeError('transactionError'),
+                        level: 'error',
+                        extra: response || {},
+                      })
+                    } else if (response && response.token) {
+                      resolve(response.token)
+                    } else {
+                      reject(new Error(getCodeError('errorNoTokenPayU')))
+                      setMsgError(getCodeError('errorNoTokenPayU'))
+                      setLoading(false)
+                      Sentry.captureEvent({
+                        message: getCodeError('errorNoTokenPayU'),
+                        level: 'error',
+                        extra: {},
+                      })
+                    }
                   })
+                })
+
+                return handleCreateToken.then(resToken => {
+                  const {
+                    paymentMethodID,
+                    paymentMethodType,
+                  } = payUPaymentMethod
+                  const tokenDinamic = `${resToken}~${deviceSessionId}~${cCvv}`
+                  setTxtLoading('Finalizando Proceso...')
+
+                  Sentry.addBreadcrumb({
+                    category: 'compra',
+                    message: 'Finalizando proceso',
+                    data: { tokenDinamic },
+                    level: 'info',
+                  })
+
+                  return window.Sales.finalizePayment(
+                    orderNumberDinamic,
+                    paymentMethodID,
+                    tokenDinamic
+                  )
+                    .then(resFinalize => {
+                      const { status, total, subscriptionIDs } = resFinalize
+                      updatePurchase(resFinalize)
+
+                      Sentry.addBreadcrumb({
+                        category: 'compra',
+                        message: 'Compra confirmada',
+                        data: resFinalize,
+                        level: 'info',
+                      })
+
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: `P2_${
+                            event && event === 'winback'
+                              ? 'Plan_Winback'
+                              : printedSubscriber
+                              ? 'Plan_Suscriptor'
+                              : name.replace(' ', '_')
+                          }`,
+                          action: userPeriod,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
+
+                      return {
+                        publicKey,
+                        accountId,
+                        payuBaseUrl,
+                        deviceSessionId,
+                        paymentMethodID,
+                        paymentMethodType,
+                        subscriptionIDs,
+                        status,
+                        total,
+                      }
+                    })
+                    .catch(errFinalize => {
+                      setMsgError(getCodeError(errFinalize.code))
+                      setLoading(false)
+                      updateLoadPage(false)
+                      window.dataLayer.push({
+                        event: 'failedTransaction',
+                        ecommerce: {
+                          failedTransaction: {
+                            actionField: { id: orderNumberDinamic },
+                          },
+                        },
+                      })
+
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: `P2_${
+                            event && event === 'winback'
+                              ? 'Plan_Winback'
+                              : printedSubscriber
+                              ? 'Plan_Suscriptor'
+                              : name.replace(' ', '_')
+                          }_Cancelado`,
+                          action: `${userPeriod} - ${errFinalize.message ||
+                            getCodeError('errorFinalize')}`,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
+
+                      Sentry.captureEvent({
+                        message:
+                          errFinalize.message || getCodeError('errorFinalize'),
+                        level: 'error',
+                        extra: errFinalize || {},
+                      })
+                    })
+                })
               })
           )
       } else {
@@ -501,6 +553,8 @@ const Pay = () => {
               guide={false}
               className={cNumberError && 'input-error'}
               type="text"
+              inputMode="numeric"
+              autoComplete="cc-number"
               name="cNumber"
               maxLength="19"
               value={cNumber}
@@ -525,6 +579,8 @@ const Pay = () => {
                 guide={false}
                 className={cExpireError && 'input-error'}
                 type="text"
+                inputMode="numeric"
+                autoComplete="cc-exp"
                 name="cExpire"
                 maxLength="7"
                 value={cExpire}
@@ -559,6 +615,8 @@ const Pay = () => {
                 guide={false}
                 className={cCvvError && 'input-error'}
                 type="text"
+                inputMode="numeric"
+                autoComplete="cc-csc"
                 name="cCvv"
                 maxLength={methodCard === 'AMEX' ? '4' : '3'}
                 value={cCvv}
