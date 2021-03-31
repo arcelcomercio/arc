@@ -61,13 +61,8 @@ const Summary = () => {
       null
     )
     const OrderForce = plans.sort((a, b) => b.amount - a.amount)
-    const {
-      priceCode,
-      sku,
-      amount,
-      billingFrequency,
-      description,
-    } = getPLanSelected
+    const { priceCode, sku, amount, billingFrequency, description } =
+      getPLanSelected || {}
 
     const frecuencyPlan =
       description.frecuencia_plan || billingFrequency.toLowerCase()

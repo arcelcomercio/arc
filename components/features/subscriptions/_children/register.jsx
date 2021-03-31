@@ -349,6 +349,7 @@ const Register = ({ arcSite }) => {
                       aria-label="lshowpass"
                       className={`${styles.btnShow}-${showHidePass}`}
                       type="button"
+                      tabIndex={-1}
                       onClick={toogleHidePass}
                     />
                     {rpassError && (
