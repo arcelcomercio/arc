@@ -22,6 +22,7 @@ const Styles = ({
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
+  isFooterFinal = false,
   metaValue = () => {},
 }) => {
   const isStoryMatch = isStory !== '' && idMatch !== ''
@@ -34,7 +35,7 @@ const Styles = ({
       arcSite === SITE_ELBOCON) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
-    style = 'story-video'
+    style = 'dstory-video'
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
@@ -72,13 +73,14 @@ const Styles = ({
       ? style
       : styleDefault
 
+  styleDefault = isFooterFinal ? 'dstory-video' : styleDefault
   // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos para todas las marcas
   if (metaValue('section_style') === 'resumen_2020') {
     style = 'resumen-2020'
     styleUrl = `${contextPath}/resources/dist/elcomercio/css/${style}.css`
   }
 
-  return isStyleBasic || styleDefault ? (
+  return isStyleBasic || styleDefault  ? (
     <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
       {({ data }) => {
         return data ? (
