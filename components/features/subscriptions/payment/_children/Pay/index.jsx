@@ -13,6 +13,7 @@ import {
   PixelActions,
   sendAction,
   TaggeoJoao,
+  eventCategory,
 } from '../../../_dependencies/Taggeo'
 import { getSessionStorage } from '../../../_dependencies/Utils'
 import PWA from '../../../_dependencies/Pwa'
@@ -424,13 +425,13 @@ const Pay = () => {
                       TaggeoJoao(
                         {
                           event: 'Pasarela Suscripciones Digitales',
-                          category: `P2_${
-                            event && event === 'winback'
-                              ? 'Plan_Winback'
-                              : printedSubscriber
-                              ? 'Plan_Suscriptor'
-                              : name.replace(' ', '_')
-                          }_Cancelado`,
+                          category: eventCategory({
+                            step: 2,
+                            event,
+                            hasPrint: printedSubscriber,
+                            plan: name,
+                            cancel: true,
+                          }),
                           action: `${userPeriod} - ${response.error ||
                             getCodeError('errorFinalize')}`,
                           label: uuid,
@@ -501,13 +502,12 @@ const Pay = () => {
                       TaggeoJoao(
                         {
                           event: 'Pasarela Suscripciones Digitales',
-                          category: `P2_${
-                            event && event === 'winback'
-                              ? 'Plan_Winback'
-                              : printedSubscriber
-                              ? 'Plan_Suscriptor'
-                              : name.replace(' ', '_')
-                          }`,
+                          category: eventCategory({
+                            step: 2,
+                            event,
+                            hasPrint: printedSubscriber,
+                            plan: name,
+                          }),
                           action: userPeriod,
                           label: uuid,
                         },
@@ -543,13 +543,13 @@ const Pay = () => {
                       TaggeoJoao(
                         {
                           event: 'Pasarela Suscripciones Digitales',
-                          category: `P2_${
-                            event && event === 'winback'
-                              ? 'Plan_Winback'
-                              : printedSubscriber
-                              ? 'Plan_Suscriptor'
-                              : name.replace(' ', '_')
-                          }_Cancelado`,
+                          category: eventCategory({
+                            step: 2,
+                            event,
+                            hasPrint: printedSubscriber,
+                            plan: name,
+                            cancel: true,
+                          }),
                           action: `${userPeriod} - ${errFinalize.message ||
                             getCodeError('errorFinalize')}`,
                           label: uuid,
@@ -707,7 +707,10 @@ const Pay = () => {
           <div className="block">
             <label htmlFor="cCvv">
               {texts.labelcCvv}
-              <button type="button" className="tooltip step__btn-link">
+              <button
+                type="button"
+                className="tooltip step__btn-link"
+                tabIndex={-1}>
                 <i className="icon-info"> </i>
                 <span className="tooltiptext-leftarrow">
                   {texts.whereCvv}

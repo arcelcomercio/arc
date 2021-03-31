@@ -11,6 +11,7 @@ import {
   sendAction,
   Taggeo,
   TaggeoJoao,
+  eventCategory,
 } from '../../../_dependencies/Taggeo'
 import { maskDocuments, docPatterns } from '../../../_dependencies/Regex'
 import Modal from './children/modal'
@@ -383,13 +384,12 @@ const Profile = () => {
       TaggeoJoao(
         {
           event: 'Pasarela Suscripciones Digitales',
-          category: `P1_${
-            event && event === 'winback'
-              ? 'Plan_Winback'
-              : printedSubscriber
-              ? 'Plan_Suscriptor'
-              : namePlanApi.replace(' ', '_')
-          }`,
+          category: eventCategory({
+            step: 1,
+            event,
+            hasPrint: printedSubscriber,
+            plan: namePlanApi,
+          }),
           action: userPeriod,
           label: uuid,
         },
@@ -524,13 +524,13 @@ const Profile = () => {
       TaggeoJoao(
         {
           event: 'Pasarela Suscripciones Digitales',
-          category: `P1_${
-            event && event === 'winback'
-              ? 'Plan_Winback'
-              : printedSubscriber
-              ? 'Plan_Suscriptor'
-              : namePlanApi.replace(' ', '_')
-          }_Cancelado`,
+          category: eventCategory({
+            step: 1,
+            event,
+            hasPrint: printedSubscriber,
+            plan: namePlanApi,
+            cancel: true,
+          }),
           action: userPeriod,
           label: uuid,
         },
