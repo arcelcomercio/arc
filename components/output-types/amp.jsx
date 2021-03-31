@@ -205,8 +205,8 @@ const AmpOutputType = ({
     isMetered &&
     activeRulesCounter &&
     activePaywall &&
-    ((arcSite === SITE_GESTION && /^\/(opinion)\//.test(requestUri)) ||
-      (arcSite === SITE_ELCOMERCIO && /^\/(respuestas)\//.test(requestUri)))
+    ((arcSite === SITE_GESTION && /^\/(tu-dinero)\//.test(requestUri)) ||
+      (arcSite === SITE_ELCOMERCIO && /^\/(tu-dinero)\//.test(requestUri)))
 
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
