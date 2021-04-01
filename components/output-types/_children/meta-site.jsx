@@ -1,4 +1,6 @@
 import * as React from 'react'
+
+import { originByEnv } from '../../utilities/arc/env'
 import { addSlashToEnd } from '../../utilities/parse/strings'
 import { deleteQueryString } from '../../utilities/parse/queries'
 import { SITE_ELCOMERCIO } from '../../utilities/constants/sitenames'
@@ -8,23 +10,23 @@ import Trust from './trust'
 export default ({
   isAmp,
   siteName = '',
-  siteUrl = '',
   colorPrimary = '',
   socialNetworks = [],
   requestUri = '',
   arcSite = '',
   contextPath = '',
 } = {}) => {
+  const envOrigin = originByEnv(arcSite)
   const logoSite = `${getAssetsPath(
     arcSite,
     contextPath
   )}/resources/dist/${arcSite}/images/logo-${arcSite}.jpg?d=1`
 
-  const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${logoSite}",  "sameAs" : [ ${socialNetworks.map(
+  const structuredData = `{"@context" : "http://schema.org", "@type" : "Organization", "name" : "${siteName}", "url" : "${envOrigin}/", "logo": "${logoSite}",  "sameAs" : [ ${socialNetworks.map(
     social => `"${social.url}"`
   )} ] }`
 
-  const structuredDataEco = `{"@context" : "http://schema.org", "@type" : "Organization", "legalName":"Empresa Editora El Comercio", "name" : "${siteName}", "url" : "${siteUrl}/", "logo": "${logoSite}", "foundingDate":"1839", "founders":[ { "@type":"Person", "name":"Manuel Amunátegui"}, { "@type":"Person", "name":"Alejandro Villota"  } ],  "address":{ "@type":"PostalAddress","streetAddress":"Jr. Santa Rosa #300 Lima 1 Perú","addressLocality":"Lima Cercado","addressRegion":"LIMA",  "postalCode":"15001", "addressCountry":"PERU" } }`
+  const structuredDataEco = `{"@context" : "http://schema.org", "@type" : "Organization", "legalName":"Empresa Editora El Comercio", "name" : "${siteName}", "url" : "${envOrigin}/", "logo": "${logoSite}", "foundingDate":"1839", "founders":[ { "@type":"Person", "name":"Manuel Amunátegui"}, { "@type":"Person", "name":"Alejandro Villota"  } ],  "address":{ "@type":"PostalAddress","streetAddress":"Jr. Santa Rosa #300 Lima 1 Perú","addressLocality":"Lima Cercado","addressRegion":"LIMA",  "postalCode":"15001", "addressCountry":"PERU" } }`
 
   const structuredNavigation = `{"@context":"https://schema.org","@graph":[{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Opinión","url":"https://elcomercio.pe/opinion/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Política","url":"https://elcomercio.pe/politica/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Lima","url":"https://elcomercio.pe/lima/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Economía","url":"https://elcomercio.pe/economia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Mundo","url":"https://elcomercio.pe/mundo/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Deporte Total","url":"https://elcomercio.pe/deporte-total/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Perú","url":"https://elcomercio.pe/peru/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Videos","url":"https://elcomercio.pe/videos/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Luces","url":"https://elcomercio.pe/luces/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"TV+","url":"https://elcomercio.pe/tvmas/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Tecnología","url":"https://elcomercio.pe/tecnologia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Somos","url":"https://elcomercio.pe/somos/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Redes Sociales","url":"https://elcomercio.pe/redes-sociales/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Gastronomía","url":"https://elcomercio.pe/gastronomia/"},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Viú","url":"https://elcomercio.pe/viu/"}]}`
 
@@ -103,7 +105,7 @@ export default ({
       {isAmp !== true && (
         <link
           rel="canonical"
-          href={`${siteUrl}${(newURLCanonical !== '/homepage' &&
+          href={`${envOrigin}${(newURLCanonical !== '/homepage' &&
             addSlashToEnd(newURLCanonical)) ||
             '/'}`}
         />
@@ -130,7 +132,7 @@ export default ({
           dangerouslySetInnerHTML={{ __html: structuredData }}
         />
       )}
-      <Trust arcSite={arcSite} siteUrl={siteUrl} siteName={siteName} />
+      <Trust arcSite={arcSite} siteUrl={envOrigin} siteName={siteName} />
     </>
   )
 }

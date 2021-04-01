@@ -9,15 +9,11 @@ import {
   PropertiesCommon,
   ArcEnv,
 } from '../_dependencies/Properties'
-import { FooterSubs, FooterLand } from '../_layouts/footer'
+import { FooterLand, FooterSubs } from '../_layouts/footer'
 import { clearUrlAPI } from '../_dependencies/Utils'
-import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import HeaderSubs from '../_layouts/header'
-import Singwall from './_children/Singwall'
 import Summary from './_children/Summary'
-import Profile from './_children/Profile'
-import Pay from './_children/Pay'
-import Confirmation from './_children/Confirmation'
+import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import addScriptAsync from '../_dependencies/Async'
 import stylesPayment from '../_styles/Payment'
 import scriptsPayment from '../_scripts/Payment'
@@ -29,6 +25,7 @@ import {
   PanelLeft,
   PanelRight,
 } from '../_layouts/containers'
+import PaymentSteps from './_children/Steps'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {
@@ -48,6 +45,10 @@ const WrapperPaymentSubs = () => {
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
+  const Confirmation = React.lazy(() =>
+    import(/* webpackChunkName: 'Confirmation' */ './_children/Confirmation')
+  )
+
   useRoute(event)
 
   React.useEffect(() => {
@@ -58,6 +59,10 @@ const WrapperPaymentSubs = () => {
       debug: ArcEnv === 'sandbox',
       release: `arc-deployment@${deployment}`,
       environment: ArcEnv,
+    })
+
+    Sentry.configureScope(scope => {
+      scope.setTag('brand', arcSite)
     })
 
     addScriptAsync({
@@ -71,6 +76,13 @@ const WrapperPaymentSubs = () => {
           window.Identity.getUserProfile().then(() => {
             window.location.reload()
           })
+        })
+      })
+      .catch(errIdentitySDK => {
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: errIdentitySDK || {},
         })
       })
       .finally(() => {
@@ -98,7 +110,10 @@ const WrapperPaymentSubs = () => {
             userStep === 2 && (
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
-          <Wrapper>
+          <Wrapper
+            style={{
+              minHeight: '530px',
+            }}>
             {!userLoading && (
               <PanelLeft>
                 {event && userStep !== 4 && (
@@ -107,20 +122,13 @@ const WrapperPaymentSubs = () => {
                   </h2>
                 )}
                 {freeAccess ? (
-                  <Confirmation />
+                  typeof window !== 'undefined' && (
+                    <React.Suspense fallback={<div>Cargando...</div>}>
+                      <Confirmation />
+                    </React.Suspense>
+                  )
                 ) : (
-                  (() => {
-                    switch (userStep) {
-                      case 2:
-                        return userLoaded ? <Profile /> : <Singwall />
-                      case 3:
-                        return userLoaded ? <Pay /> : <Singwall />
-                      case 4:
-                        return userLoaded ? <Confirmation /> : <Singwall />
-                      default:
-                        return <Singwall />
-                    }
-                  })()
+                  <PaymentSteps step={userStep} userLoaded={userLoaded} />
                 )}
               </PanelLeft>
             )}

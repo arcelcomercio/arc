@@ -27,6 +27,7 @@ import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 import workType, { revisionAttr } from '../_dependencies/work-type'
 import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 import { getResultJwplayer } from '../../utilities/story/helpers'
+import { FREE } from '../../utilities/constants/content-tiers'
 
 export default ({
   globalContent: data,
@@ -357,9 +358,29 @@ export default ({
     ? `{  "@context":"https://schema.org", "@type":"ItemList", "itemListElement":[${relatedContentItem}]  }`
     : ''
 
+  /**
+   * @returns {"free" | "metered" | "locked"}
+   */
+  const getContentType = () => {
+    const premiumValue =
+      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
+
+    let contenType = isPremium ? 'locked' : premiumValue
+    const section = primarySectionLink && primarySectionLink.split('/')[1]
+    contenType = section.match(/publirreportaje|publireportaje/)
+      ? 'free'
+      : contenType
+
+    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
+    return contenType
+  }
+
   const accessibleForFree =
     arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
-      ? ` "isAccessibleForFree": "False", "hasPart": { "@type": "WebPageElement",  "isAccessibleForFree": "False",   "cssSelector" : ".paywall" },`
+      ? `"isAccessibleForFree": ${
+          getContentType() === FREE ? 'true' : 'false'
+        }, 
+        "isPartOf": { "@type": ["CreativeWork", "Product"],  "name" : "${siteName}",   "productID": "${arcSite}:${getContentType()}" },`
       : ''
 
   const arrayImage = isAmp ? imagesSeoItemsAmp : imagesSeoItems
@@ -509,7 +530,7 @@ export default ({
   }, "width":${seo.width}
       }
     },    
-    ${accessibleForFree || ''} 
+    ${accessibleForFree} 
     "keywords":[${
       seoKeyWordsStructurada[0]
         ? seoKeyWordsStructurada.map(item => item)
@@ -611,19 +632,7 @@ export default ({
         }
       }()
    */
-  const getContentType = () => {
-    const premiumValue =
-      getPremiumValue === 'vacio' ? 'metered' : getPremiumValue
 
-    let contenType = isPremium ? 'locked' : premiumValue
-    const section = primarySectionLink && primarySectionLink.split('/')[1]
-    contenType = section.match(/publirreportaje|publireportaje/)
-      ? 'free'
-      : contenType
-
-    contenType = arcSite === 'elcomerciomag' ? 'free' : contenType
-    return contenType
-  }
   const dataStructuraHtmlAmp =
     contentElementsHtml.match(/:<script(.*?)>(.*?)<\/script>:/gm) || []
   return (

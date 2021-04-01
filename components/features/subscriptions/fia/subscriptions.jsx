@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useFusionContext } from 'fusion:context'
+import * as Sentry from '@sentry/browser'
 
 import Login from '../_children/login'
 import Register from '../_children/register'
@@ -43,11 +44,20 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   const logoutSession = () => {
     if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: urls.arcOrigin })
-      window.Identity.logout()
-      deleteCookie('arc_e_id')
-      window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
-      setLogged(false)
+      if ('Identity' in window) {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+        window.Identity.logout()
+        deleteCookie('arc_e_id')
+        window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
+        setLogged(false)
+      } else {
+        Sentry.captureEvent({
+          message:
+            'No se puede cerrar sesión - SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: {},
+        })
+      }
     }
   }
 
@@ -58,7 +68,11 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   }
 
   React.useEffect(() => {
-    if (window.Identity.userProfile && window.Identity.userIdentity.uuid) {
+    if (
+      'Identity' in window &&
+      window.Identity.userProfile &&
+      window.Identity.userIdentity.uuid
+    ) {
       setLogged(true)
     }
 
@@ -66,10 +80,18 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
       name: 'IdentitySDK',
       url: links.identity,
       includeNoScript: false,
-    }).then(() => {
-      window.Identity.options({ apiOrigin: urls.arcOrigin })
     })
-  }, [])
+      .then(() => {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+      })
+      .catch(errIdentitySDK => {
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: errIdentitySDK || {},
+        })
+      })
+  }, [links.identity, urls.arcOrigin])
 
   return (
     <>
@@ -89,6 +111,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                       handleCallToAction,
                       onClose: () => {
                         if (
+                          'Identity' in window &&
                           window.Identity.userProfile &&
                           window.Identity.userIdentity.uuid
                         ) {
