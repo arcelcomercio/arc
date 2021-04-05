@@ -1,5 +1,5 @@
 .h-simple {
-  background-color: #000;
+  background-color: #e06437;
   display: block;
   color: #fff;
   height: 48px;
@@ -22,7 +22,10 @@
       display: flex;
       &__logo-brand {
         img {
-          max-width: 114px;
+          max-width: 180px;
+          @media (--desktop) {
+            max-width: 195px;
+          }
         }
       }
       &__logo-trivia {
