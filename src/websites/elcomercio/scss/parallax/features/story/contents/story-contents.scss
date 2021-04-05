@@ -1,0 +1,141 @@
+.story-contents {
+  padding: 25px 0 20px 0;
+
+  // &__font-paragraph,
+  // &__paragraph-list
+
+  &__font-paragraph {
+    font: 400 19px/32px $secondary-font;
+  }
+
+  .story-contents__content > section > * {
+    max-width: 620px;
+    margin: 0 20px;
+    @media (--tablet) {
+      margin: 0 auto;
+    }
+  }
+
+  .story-contents__content > section > figure {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  &__embed {
+    max-width: none !important;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    blockquote.twitter-tweet {
+      max-width: 620px;
+    }
+  }
+
+  .pquote {
+    background: none;
+
+    &__text {
+      font: 500 24px/34px $primary-font;
+      text-align: center;
+      letter-spacing: 0.77px;
+      padding: 80px 0;
+      margin: 0 auto;
+      color: #777;
+      font-style: normal;
+      max-width: 640px;
+      @media (--desktop) {
+        font: 500 24px/36px $primary-font;
+        padding: 174px 0;
+      }
+    }
+  }
+  &__social {
+    display: none;
+  }
+  &__author {
+    display: none;
+  }
+}
+
+.parallax-el {
+  &__cont {
+    padding: 20px 0;
+  }
+  &__author-desc {
+    font: 400 13px/24px $primary-font;
+    color: #777;
+    letter-spacing: 0.21px;
+  }
+  &__author {
+    font: 700 18px/24px $primary-font;
+    color: #444;
+    letter-spacing: 0.29px;
+  }
+  &__credits {
+    background-color: #f8f8f8;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    display: block;
+    padding: 20px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  &__credits-text {
+    font: 400 12px/30px $primary-font;
+    color: #888;
+    letter-spacing: 0.1px;
+    text-align: center;
+  }
+  &__credits-text b {
+    font: 400 16px/16px $primary-font;
+    color: #444;
+    letter-spacing: 0.13px;
+    padding-right: 10px;
+  }
+  &__credits-title {
+    font: 700 16px/52px $primary-font;
+    color: #666;
+    letter-spacing: 0.51px;
+    margin: 0;
+    text-align: center;
+  }
+  &__ratio-cont {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 1070px;
+    margin: 0 auto;
+    padding: 10px 0;
+    @media (--desktop) {
+      padding: 40px 0;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 25px;
+      max-width: 100%;
+      overflow: hidden;
+      @media (--only-mobile) {
+        padding: 30px 0;
+      }
+    }
+    img {
+      object-fit: cover;
+
+      @media (--only-mobile) {
+        width: 100% !important;
+        height: auto !important;
+      }
+    }
+    figcaption {
+      font: 400 15px/21px $primary-font;
+      color: #888;
+      letter-spacing: 0.24px;
+      margin-top: 12px;
+      @media (--desktop) {
+        font: 400 16px/24px $primary-font;
+      }
+    }
+  }
+}

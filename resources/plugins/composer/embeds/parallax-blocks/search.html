@@ -1,0 +1,395 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Notas Parallax Plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js"
+      defer
+    ></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/superagent"></script> -->
+  </head>
+  <body>
+    <div role="main" x-data="data()" x-init="init">
+      <div x-on:click="page = ''" class="back" x-show="page !== ''">
+        <svg
+          style="margin: 10px"
+          width="10"
+          height="16"
+          viewBox="0 0 10 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.13238 1.90245L7.79738 0.574951L0.379883 7.99995L7.80488 15.4249L9.13238 14.0974L3.03488 7.99995L9.13238 1.90245V1.90245Z"
+            fill="#33C3F0"
+          />
+        </svg>
+        <span style="color: #33c3f0; font-size: 12px; font-weight: bold"
+          >REGRESAR</span
+        >
+      </div>
+
+      <div x-show="page === ''">
+        <h4 style="text-align: center; padding: 20px 0">
+          Selecciona el elemento que deseas incertar
+        </h4>
+        <div style="text-align: center; margin-top: 10px">
+          ELEMENTOS PARA MEDIOS DESTACADOS:
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+          <button style="margin: 15px" x-on:click="page = 'featured'">
+            Parallax
+          </button>
+        </div>
+        <div style="text-align: center; margin-top: 20px">
+          ELEMENTOS PARA EL CONTENIDO:
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+          <button style="margin: 15px" x-on:click="page = 'image'">
+            Imagen parallax
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'author'">
+            Autor
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'credits'">
+            Créditos
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'image_ratio'">
+            Imágenes con proporciones
+          </button>
+        </div>
+      </div>
+
+      <div x-show="page === 'featured'">
+        <h4 style="text-align: center; padding: 20px 0">
+          Imagen parallax destacada
+        </h4>
+        <div>
+          <label>Tipo de contenido</label>
+          <select x-model="featured.type" name="select-type" id="select-type">
+            <option value="image">Imagen con titular</option>
+            <option value="html">Html</option>
+          </select>
+        </div>
+        <div x-show="featured.type === 'image'">
+          <div>
+            <label>Url de la imagen (tablet y desktop)</label>
+            <input x-model="featured.url" class="u-full-width" type="text" />
+          </div>
+          <div>
+            <label>Url de la imagen (móviles)</label>
+            <input
+              x-model="featured.url_mobile"
+              class="u-full-width"
+              type="text"
+            />
+          </div>
+          <div>
+            <label>Url del logo</label>
+            <input
+              x-model="featured.url_logo"
+              class="u-full-width"
+              type="text"
+            />
+          </div>
+          <div>
+            <label
+              >Color del fondo (se muestra cuando la imagen está
+              cargando):</label
+            >
+            <input x-model="featured.bg_color" type="color" />
+          </div>
+          <div>
+            <label>Color del texto:</label>
+            <input x-model="featured.color" type="color" />
+          </div>
+        </div>
+        <div x-show="featured.type === 'html'">
+          <div>
+            <label>Contenido HTML</label>
+            <textarea
+              x-model="featured.html"
+              rows="10"
+              style="width: 100%"
+            ></textarea>
+          </div>
+        </div>
+        <button x-on:click="sendData()" class="button-primary">Guardar</button>
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
+          PREVISUALIZACIÓN (es referencial, puede variar en la versión
+          publicada):
+        </div>
+        <div class="l-parallax">
+          <div x-show="featured.type === 'image'" class="featured-img">
+            <img
+              style="z-index: 1"
+              class="featured-img__logo"
+              x-show="featured.url_logo"
+              x-bind:src="featured.url_logo"
+              alt="Noticia - logo"
+            />
+            <h2
+              :style="`z-index: 1; color: ${featured.color}`"
+              class="featured-img__subtitle"
+            >
+              Aquí va la bajada
+            </h2>
+            <h1
+              :style="`z-index: 1; color: ${featured.color}`"
+              class="featured-img__title"
+            >
+              Aquí va el titular
+            </h1>
+
+            <picture>
+              <source
+                x-bind:srcset="featured.url_mobile"
+                media="(max-width: 639px)"
+              />
+              <img
+                :style="`background-color: ${featured.bg_color}`"
+                class="featured-img__img"
+                x-bind:src="featured.url"
+                alt="test"
+              />
+            </picture>
+          </div>
+          <div
+            x-show="featured.type === 'html'"
+            style="width: 100%; height: 100%"
+            x-html="featured.html"
+          ></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'image'">
+        <h4 style="text-align: center; padding: 20px 0">
+          Imagen parallax para el contenido
+        </h4>
+        <div>
+          <label>Url de la imagen (tablet y desktop)</label>
+          <input x-model="image.url" class="u-full-width" type="text" />
+        </div>
+        <div>
+          <label>Url de la imagen (móviles)</label>
+          <input x-model="image.url_mobile" class="u-full-width" type="text" />
+        </div>
+        <div>
+          <label>Titular</label>
+          <input x-model="image.title" class="u-full-width" type="text" />
+        </div>
+        <div>
+          <label>Color del texto:</label>
+          <input x-model="image.color" type="color" />
+        </div>
+        <button x-on:click="sendData()" class="button-primary">Guardar</button>
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
+          PREVISUALIZACIÓN (es referencial, puede variar en la versión
+          publicada):
+        </div>
+        <div class="parallax-image" :style="getImageBg()">
+          <h3 :style="`color: ${image.color}`" x-text="image.title"></h3>
+        </div>
+      </div>
+
+      <div x-show="page === 'author'">
+        <h4 style="text-align: center; padding: 20px 0">Autor</h4>
+        <div style="display: flex">
+          <div style="border: 1px solid gray; margin: 20px; padding: 10px">
+            <label for="autor-type1"
+              >Usar el autor colocado en "Planificación"</label
+            >
+            <input
+              type="radio"
+              name="autor-type"
+              id="autor-type1"
+              checked
+              x-on:click="author.author_type = 'default'"
+            />
+          </div>
+          <div style="border: 1px solid gray; margin: 20px; padding: 10px">
+            <label for="autor-type2">Personalizar autor</label>
+            <input
+              type="radio"
+              name="autor-type"
+              id="autor-type2"
+              x-on:click="author.author_type = 'custom'"
+            />
+          </div>
+        </div>
+        <div x-show="author.author_type === 'custom'">
+          <div>
+            <label>Nombre del autor</label>
+            <input x-model="author.name" class="u-full-width" type="text" />
+          </div>
+          <div>
+            <label>Url del autor (Ej: /autor/nombre-autor)</label>
+            <input x-model="author.url" class="u-full-width" type="text" />
+          </div>
+        </div>
+        <div style="display: flex">
+          <div style="border: 1px solid gray; margin: 20px; padding: 10px">
+            <label for="autor-date-type1"
+              >Usar la fecha colocada en "Planificación" en el texto
+              superior</label
+            >
+            <input
+              type="radio"
+              name="autor-date-type"
+              id="autor-date-type1"
+              checked
+              x-on:click="author.text_type = 'date'"
+            />
+          </div>
+          <div style="border: 1px solid gray; margin: 20px; padding: 10px">
+            <label for="autor-type2">Personalizar texto superior</label>
+            <input
+              type="radio"
+              name="autor-date-type"
+              id="autor-date-type2"
+              x-on:click="author.text_type = 'custom'"
+            />
+          </div>
+        </div>
+        <div x-show="author.text_type === 'custom'">
+          <label>Texto superior</label>
+          <input x-model="author.text" class="u-full-width" type="text" />
+        </div>
+        <button x-on:click="sendData()" class="button-primary">Guardar</button>
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
+          PREVISUALIZACIÓN (es referencial, puede variar en la versión
+          publicada):
+        </div>
+        <div style="padding-left: 20px">
+          <div
+            style="
+              font: 400 13px/24px Roboto, sans-serif;
+              letter-spacing: 0.21px;
+              color: #777;
+            "
+            x-text="author.text_type === 'custom' ? author.text : 'Lima, 25 de marzo de 2021 (ejemplo)'"
+          ></div>
+          <div
+            style="
+              font: 700 18px/24px Roboto, sans-serif;
+              letter-spacing: 0.29px;
+              color: #444;
+            "
+            x-text="author.author_type === 'custom' ? author.name : 'Autor colocado en Planificación'"
+          ></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'credits'">
+        <h4 style="text-align: center; padding: 20px 0">Créditos</h4>
+        <div>
+          <label>Este campo soporta código HTML</label>
+          <textarea
+            x-model="credits.html"
+            class="u-full-width"
+            rows="10"
+            style="height: 150px"
+          >
+          </textarea>
+        </div>
+        <button x-on:click="sendData()" class="button-primary">Guardar</button>
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
+          PREVISUALIZACIÓN (es referencial, puede variar en la versión
+          publicada):
+        </div>
+        <div class="credits">
+          <h5 class="credits__title">Créditos</h5>
+          <div class="credits__text" x-html="credits.html"></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'image_ratio'">
+        <h4 style="text-align: center; padding: 20px 0">
+          Imágenes con proporciones
+        </h4>
+        <div>
+          <div>
+            <label>ID de la galería</label>
+            <div>
+              <input type="text" x-model="image_ratio.gallery_id" />
+              <button x-on:click="fetchGallery()">
+                Cargar previsualización
+              </button>
+            </div>
+          </div>
+        </div>
+        <button x-on:click="sendData()" class="button-primary">
+          Guardar
+        </button>
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
+          PREVISUALIZACIÓN (es referencial, puede variar en la versión
+          publicada):
+        </div>
+        <ul style="font-size: 13px;">
+          <li>
+            Si el alto es mayor al ancho se va a considerar como ratio 2:3
+          </li>
+          <li>
+            Si la imagen no tiene un ratio estándar (auto) va a ocupar todo el
+            ancho permitido (860px)
+          </li>
+        </ul>
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th>Url de la imagen</th>
+              <th>Proporción de la imagen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(item, index) in image_ratio_prev" :key="index">
+              <tr>
+                <td x-text="item.url"></td>
+                <td x-text="item.ratio"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+        <div class="gal-cont">
+          <template x-for="(item, index) in image_ratio_prev" :key="index">
+            <div>
+              <img
+                :style="`height: ${getSizesByRatio(item.ratio).height}; width: ${getSizesByRatio(item.ratio).width};`"
+                :src="item.url"
+                alt=""
+              />
+              <figcaption
+                :style="`max-width: ${getSizesByRatio(item.ratio).width};`"
+                x-text="item.caption"
+              ></figcaption>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/search.js"></script>
+  </body>
+</html>
