@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from '../../../../global-components/image'
 
 import StoryData from '../../../../utilities/story-data'
 
@@ -31,12 +32,16 @@ export default props => {
                   itemProp="url"
                   className="play-list__image-box"
                   href={Story.websiteLink}>
-                  <img
+                  <Image
                     src={Story.multimediaLandscapeMD}
-                    className="play-list__image"
+                    width={225}
+                    height={0}
                     alt={Story.title}
+                    className="play-list__image"
                     loading="lazy"
+                    sizes="(max-width: 360px) 360px"
                   />
+
                   {!(
                     Story.videoDuration === '00:00' ||
                     Story.videoDuration === '00:00:00'
