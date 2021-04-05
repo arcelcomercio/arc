@@ -18,6 +18,7 @@ const Subscriptions = ({
   requestUri,
   Libs,
   Fusion,
+  metaValue,
 }) => {
   const {
     siteName,
@@ -25,7 +26,7 @@ const Subscriptions = ({
     googleTagManagerId,
     googleTagManagerIdSandbox,
     fbPixelId,
-    paywall: { urls, title, description },
+    paywall: { urls, title: defaultTitle, description: defaultDescription },
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
 
@@ -34,6 +35,16 @@ const Subscriptions = ({
 
   const isExternalCounter = () =>
     /\/paywall-counter-external\//.test(requestUri)
+
+  /**
+   * @param {string} key
+   * @returns {string|undefined}
+   */
+  const getMetaValue = key =>
+    metaValue(key) && !/content/.test(metaValue(key)) && metaValue(key)
+
+  const title = getMetaValue('title') || defaultTitle
+  const description = getMetaValue('description') || defaultDescription
 
   return (
     <>
