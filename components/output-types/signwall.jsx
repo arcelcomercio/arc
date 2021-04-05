@@ -16,6 +16,7 @@ const Signwall = ({
   siteProperties,
   deployment,
   arcSite,
+  metaValue,
 }) => {
   const {
     activePaywall,
@@ -25,6 +26,16 @@ const Signwall = ({
     siteName,
     siteDescription,
   } = siteProperties
+
+  /**
+   * @param {string} key
+   * @returns {string|undefined}
+   */
+  const getMetaValue = key =>
+    metaValue(key) && !/content/.test(metaValue(key)) && metaValue(key)
+
+  const title = getMetaValue('title') || `Signwall ${siteName}`
+  const description = getMetaValue('description') || siteDescription
 
   return (
     <html lang="es">
@@ -37,8 +48,8 @@ const Signwall = ({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <title>Signwall {siteName}</title>
-        <meta name="description" content={siteDescription} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
         <meta name="robots" content="noindex,follow" />
