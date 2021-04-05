@@ -37,6 +37,8 @@ const Styles = ({
     style = 'story-video'
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
   else if (requestUri.includes('/trivias/')) style = 'trivias'
+  else if (/^\/resultados-elecciones-2021\//.test(requestUri))
+    style = 'elecciones-2021'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
