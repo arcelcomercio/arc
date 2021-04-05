@@ -22,9 +22,13 @@
   }
 
   &__embed {
-    max-width: none;
+    max-width: none !important;
     display: flex;
     justify-content: center;
+    width: 100%;
+    blockquote.twitter-tweet {
+      max-width: 620px;
+    }
   }
 
   .pquote {

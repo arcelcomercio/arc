@@ -43,6 +43,7 @@ import {
 import {
   MINUTO_MINUTO,
   GALLERY_VERTICAL,
+  PARALLAX,
 } from '../utilities/constants/subtypes'
 import { PREMIUM, METERED, FREE } from '../utilities/constants/content-tiers'
 
@@ -280,7 +281,7 @@ const LiteOutput = ({
                 <meta name="DC.language" scheme="RFC1766" content="es" />
               </>
             )}
-            {isStory && htmlAmpIs && (
+            {isStory && htmlAmpIs && subtype !== PARALLAX && (
               <link
                 rel="amphtml"
                 href={`${siteProperties.siteUrl}${addSlashToEnd(
