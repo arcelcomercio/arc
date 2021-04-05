@@ -80,7 +80,7 @@ CardFeaturedStoryAdvanced.propTypes = {
   customFields,
 }
 
-CardFeaturedStoryAdvanced.label = 'Destaque Template - SI'
+CardFeaturedStoryAdvanced.label = 'Destaque - Saltar Intro'
 CardFeaturedStoryAdvanced.static = true
 
 export default CardFeaturedStoryAdvanced
