@@ -391,7 +391,7 @@ const LiteAds = ({
               .toISOString()
               .slice(0, 10)}`}></script>
 
-          {arcSite === 'elcomerciomag' ? (
+          {(arcSite === 'elcomerciomag' || arcSite === 'peru21') ? (
             <>
               <script
                 type="text/javascript"
@@ -401,7 +401,7 @@ const LiteAds = ({
               />
               <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
             </>
-          ): (
+          ) : (
             <>
               <script
                 type="text/javascript"
