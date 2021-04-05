@@ -389,7 +389,7 @@ window.addEventListener('load', function liteAds() {
             src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
               .toISOString()
               .slice(0, 10)}`}></script>
-          {(arcSite === 'elcomerciomag' || arcSite === 'peru21') ? (
+          {arcSite === 'elcomerciomag' ? (
             <>
               <script
                 type="text/javascript"
