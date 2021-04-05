@@ -10,7 +10,7 @@ Sentry.init({
   debug: !isProd,
   release: process.env.REACT_APP_VERSION,
   enabled: ENABLED || hasEnableCookie,
-  environment: isProd ? 'production' : 'sandbox',
+  environment: isProd ? 'prod' : 'sandbox',
   integrations: [
     // new Sentry.Integrations.Breadcrumbs({
     //   console: !(process.env.REACT_APP_ENV === 'localhost'),
@@ -45,7 +45,7 @@ Sentry.init({
   },
 })
 
-Sentry.configureScope(scope => {
+Sentry.configureScope((scope) => {
   scope.setTag('brand', 'GESTION')
 })
 

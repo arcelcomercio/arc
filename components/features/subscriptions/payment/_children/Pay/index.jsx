@@ -6,13 +6,14 @@ import * as Sentry from '@sentry/browser'
 
 import useForm from '../../../_hooks/useForm'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
-import addPayU from '../../../_dependencies/Payu'
+// import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
 import {
   PixelActions,
   sendAction,
   TaggeoJoao,
+  eventCategory,
 } from '../../../_dependencies/Taggeo'
 import { getSessionStorage } from '../../../_dependencies/Utils'
 import PWA from '../../../_dependencies/Pwa'
@@ -88,7 +89,6 @@ const Pay = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
 
     Sentry.configureScope(scope => {
-      scope.setTag('brand', arcSite)
       scope.setTag('document', documentNumber || 'none')
       scope.setTag('phone', phone || 'none')
       scope.setTag('email', email || 'none')
@@ -109,7 +109,16 @@ const Pay = () => {
       url: links.sales,
       includeNoScript: false,
     })
-      .then(() => window.Sales.options({ apiOrigin: urls.arcOrigin }))
+      .then(() => {
+        Sentry.addBreadcrumb({
+          type: 'info',
+          category: 'pago',
+          message: 'Definiendo apiOrigin para proceso de pago',
+          data: { 'Sales.options': { apiOrigin: urls.arcOrigin } },
+          level: 'info',
+        })
+        window.Sales.options({ apiOrigin: urls.arcOrigin })
+      })
       .catch(errSalesSDK => {
         Sentry.captureEvent({
           message: 'SDK Sales no ha cargado correctamente',
@@ -124,6 +133,21 @@ const Pay = () => {
       includeNoScript: false,
     })
       .then(() => {
+        Sentry.addBreadcrumb({
+          type: 'info',
+          category: 'pago',
+          message:
+            'Definiendo configuración y obteniendo métodos de pago disponibles',
+          data: {
+            'payU.setUrl': links.payuPayments,
+            'payU.setPublicKey': links.payuPublicKey,
+            'payU.setAccountID': links.payuAccountID,
+            'payU.setListBoxID': 'mylistID',
+            'payU.setLanguage': 'es',
+            'payU.getPaymentMethods': 'function',
+          },
+          level: 'info',
+        })
         window.payU.setURL(links.payuPayments)
         window.payU.setPublicKey(links.payuPublicKey)
         window.payU.setAccountID(links.payuAccountID)
@@ -179,7 +203,7 @@ const Pay = () => {
       required: true,
       validator: {
         func: value =>
-          typeof window.payU === 'object' &&
+          'payU' in window &&
           window.payU.validateCard(value.replace(/\s/g, '')),
         error: 'Número tarjeta inválido.',
       },
@@ -222,8 +246,13 @@ const Pay = () => {
         })
 
         Sentry.addBreadcrumb({
+          type: 'info',
           category: 'pago',
-          message: 'El Usuario realiza el pago',
+          message: 'El usuario ha iniciado el proceso de pago',
+          data: {
+            'payU.validateNumber': 'private',
+            'Sales.clearCart': 'function',
+          },
           level: 'info',
         })
 
@@ -240,9 +269,34 @@ const Pay = () => {
         setTxtLoading('Preparando Orden...')
 
         window.Sales.clearCart()
-          .then(() => window.Sales.addItemToCart([userPlan]))
-          .then(() =>
-            window.Sales.createNewOrder(
+          .then(() => {
+            Sentry.addBreadcrumb({
+              type: 'info',
+              category: 'pago',
+              message: 'Agregando elemento al carrito',
+              data: { 'Sales.addItemToCart': [userPlan] },
+              level: 'info',
+            })
+            return window.Sales.addItemToCart([userPlan])
+          })
+          .then(() => {
+            Sentry.addBreadcrumb({
+              type: 'info',
+              category: 'pago',
+              message: 'Creando nuevo pedido',
+              data: {
+                'Sales.createNewOrder': {
+                  document: `${documentType}_${documentNumber}`,
+                  email,
+                  phone,
+                  firstName,
+                  lastName,
+                  secondLastName,
+                },
+              },
+              level: 'info',
+            })
+            return window.Sales.createNewOrder(
               { country: 'PE', line2: `${documentType}_${documentNumber}` },
               email,
               phone,
@@ -251,222 +305,268 @@ const Pay = () => {
               secondLastName,
               { country: 'PE' }
             )
-          )
-          .then(resOrder =>
-            window.Sales.getPaymentOptions()
+          })
+          .then(resOrder => {
+            Sentry.addBreadcrumb({
+              type: 'info',
+              category: 'pago',
+              message: 'Obteniendo opciones de pago',
+              data: {
+                'Sales.getPaymentOptions': 'function',
+              },
+              level: 'info',
+            })
+            return window.Sales.getPaymentOptions()
               .then(resPayOptions => {
                 setTxtLoading('Iniciando Proceso...')
-                payUPaymentMethod = resPayOptions.find(
-                  m => m.paymentMethodType === 8
+
+                payUPaymentMethod = resPayOptions?.find(
+                  m => m?.paymentMethodType === 8
                 )
-                orderNumberDinamic = resOrder.orderNumber
-                const { paymentMethodID } = payUPaymentMethod
+                orderNumberDinamic = resOrder?.orderNumber
+                const { paymentMethodID } = payUPaymentMethod || {}
+
+                Sentry.addBreadcrumb({
+                  type: 'info',
+                  category: 'pago',
+                  message: 'Iniciando proceso de pago',
+                  data: {
+                    options: resPayOptions,
+                    'Sales.initializePayment': {
+                      orderNumberDinamic,
+                      paymentMethodID,
+                    },
+                  },
+                  level: 'info',
+                })
+
                 return window.Sales.initializePayment(
                   orderNumberDinamic,
                   paymentMethodID
                 )
               })
+              .catch(paymentError => {
+                Sentry.captureEvent({
+                  message:
+                    paymentError?.error || getCodeError(paymentError?.code),
+                  level: 'error',
+                  extra: paymentError || {},
+                })
+              })
               .then(resInitialize => {
                 const {
+                  orderNumber,
                   parameter1: publicKey,
                   parameter2: accountId,
                   parameter3: payuBaseUrl,
                   parameter4: deviceSessionId,
-                } = resInitialize
+                } = resInitialize || {}
 
                 Sentry.addBreadcrumb({
-                  category: 'pago',
-                  message: 'Iniciando proceso',
-                  data: resInitialize || {},
+                  type: 'info',
+                  category: 'compra',
+                  message: 'Solicitando autorización',
+                  data:
+                    {
+                      orderNumber,
+                      deviceSessionId,
+                      'payU.setURL': payuBaseUrl,
+                      'payU.setPublicKey': publicKey,
+                      'payU.setAccountID': accountId,
+                      'payU.validateNumber': 'private',
+                      'payU.setCardDetails': 'private',
+                    } || {},
                   level: 'info',
                 })
 
-                return addPayU(deviceSessionId)
-                  .then(payU => {
-                    setTxtLoading('Solicitando Autorización...')
-                    payU.setURL(payuBaseUrl)
-                    payU.setPublicKey(publicKey)
-                    payU.setAccountID(accountId)
-                    payU.validateNumber(cNumber.replace(/\s/g, ''))
-                    payU.setCardDetails({
-                      number: cNumber.replace(/\s/g, ''),
-                      name_card:
-                        ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
-                      payer_id: documentNumber,
-                      exp_month: cExpireMonth,
-                      exp_year: cExpireYear,
-                      method: methodCard || payU.card.method,
-                      document: documentNumber,
-                      cvv: cCvv,
-                    })
+                setTxtLoading('Solicitando Autorización...')
+                window.payU.setURL(payuBaseUrl)
+                window.payU.setPublicKey(publicKey)
+                window.payU.setAccountID(accountId)
+                window.payU.validateNumber(cNumber.replace(/\s/g, ''))
+                window.payU.setCardDetails({
+                  number: cNumber.replace(/\s/g, ''),
+                  name_card: ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
+                  payer_id: documentNumber,
+                  exp_month: cExpireMonth,
+                  exp_year: cExpireYear,
+                  method: methodCard || window.payU.card.method,
+                  document: documentNumber,
+                  cvv: cCvv,
+                })
 
-                    Sentry.addBreadcrumb({
-                      category: 'compra',
-                      message: 'solicitando autorización',
-                      level: 'info',
-                    })
-
-                    const handleCreateToken = new Promise((resolve, reject) => {
-                      setTxtLoading('Validando Solicitud...')
-                      payU.createToken(response => {
-                        if (response && response.error) {
-                          reject(new Error(response.error))
-                          setMsgError(response.error)
-                          setLoading(false)
-                          updateLoadPage(false)
-                          window.dataLayer.push({
-                            event: 'failedTransaction',
-                            ecommerce: {
-                              failedTransaction: {
-                                actionField: { id: orderNumberDinamic },
-                              },
-                            },
-                          })
-
-                          // Datalayer solicitados por Joao
-                          TaggeoJoao(
-                            {
-                              event: 'Pasarela Suscripciones Digitales',
-                              category: `P2_${
-                                event && event === 'winback'
-                                  ? 'Plan_Winback'
-                                  : printedSubscriber
-                                  ? 'Plan_Suscriptor'
-                                  : name.replace(' ', '_')
-                              }_Cancelado`,
-                              action: `${userPeriod} - ${response.error ||
-                                getCodeError('errorFinalize')}`,
-                              label: uuid,
-                            },
-                            window.location.pathname
-                          )
-
-                          Sentry.captureEvent({
-                            message:
-                              response.error ||
-                              getCodeError('transactionError'),
-                            level: 'error',
-                            extra: response || {},
-                          })
-                        } else if (response && response.token) {
-                          resolve(response.token)
-                        } else {
-                          reject(new Error(getCodeError('errorNoTokenPayU')))
-                          setMsgError(getCodeError('errorNoTokenPayU'))
-                          setLoading(false)
-                          Sentry.captureEvent({
-                            message: getCodeError('errorNoTokenPayU'),
-                            level: 'error',
-                            extra: {},
-                          })
-                        }
-                      })
-                    })
-
-                    return handleCreateToken || 'NoToken'
+                const handleCreateToken = new Promise((resolve, reject) => {
+                  setTxtLoading('Validando Solicitud...')
+                  Sentry.addBreadcrumb({
+                    type: 'info',
+                    category: 'compra',
+                    message: 'Creando token de compra',
+                    data: {
+                      'payU.createToken': 'callback',
+                    },
+                    level: 'info',
                   })
-                  .then(tokenPayu => {
-                    const {
-                      paymentMethodID,
-                      paymentMethodType,
-                    } = payUPaymentMethod
-                    const tokenDinamic = `${tokenPayu}~${deviceSessionId}~${cCvv}`
-                    setTxtLoading('Finalizando Proceso...')
-
-                    Sentry.addBreadcrumb({
-                      category: 'compra',
-                      message: 'Finalizando proceso',
-                      data: { tokenDinamic },
-                      level: 'info',
-                    })
-
-                    return window.Sales.finalizePayment(
-                      orderNumberDinamic,
-                      paymentMethodID,
-                      tokenDinamic
-                    )
-                      .then(resFinalize => {
-                        const { status, total, subscriptionIDs } = resFinalize
-                        updatePurchase(resFinalize)
-
-                        Sentry.addBreadcrumb({
-                          category: 'compra',
-                          message: 'Compra confirmada',
-                          data: resFinalize,
-                          level: 'info',
-                        })
-
-                        // Datalayer solicitados por Joao
-                        TaggeoJoao(
-                          {
-                            event: 'Pasarela Suscripciones Digitales',
-                            category: `P2_${
-                              event && event === 'winback'
-                                ? 'Plan_Winback'
-                                : printedSubscriber
-                                ? 'Plan_Suscriptor'
-                                : name.replace(' ', '_')
-                            }`,
-                            action: userPeriod,
-                            label: uuid,
+                  window.payU.createToken(response => {
+                    if (response?.error) {
+                      reject(new Error(response.error))
+                      setMsgError(response.error)
+                      setLoading(false)
+                      updateLoadPage(false)
+                      window.dataLayer.push({
+                        event: 'failedTransaction',
+                        ecommerce: {
+                          failedTransaction: {
+                            actionField: { id: orderNumberDinamic },
                           },
-                          window.location.pathname
-                        )
-
-                        return {
-                          publicKey,
-                          accountId,
-                          payuBaseUrl,
-                          deviceSessionId,
-                          paymentMethodID,
-                          paymentMethodType,
-                          subscriptionIDs,
-                          status,
-                          total,
-                        }
+                        },
                       })
-                      .catch(errFinalize => {
-                        setMsgError(getCodeError(errFinalize.code))
-                        setLoading(false)
-                        updateLoadPage(false)
-                        window.dataLayer.push({
-                          event: 'failedTransaction',
-                          ecommerce: {
-                            failedTransaction: {
-                              actionField: { id: orderNumberDinamic },
-                            },
-                          },
-                        })
 
-                        // Datalayer solicitados por Joao
-                        TaggeoJoao(
-                          {
-                            event: 'Pasarela Suscripciones Digitales',
-                            category: `P2_${
-                              event && event === 'winback'
-                                ? 'Plan_Winback'
-                                : printedSubscriber
-                                ? 'Plan_Suscriptor'
-                                : name.replace(' ', '_')
-                            }_Cancelado`,
-                            action: `${userPeriod} - ${errFinalize.message ||
-                              getCodeError('errorFinalize')}`,
-                            label: uuid,
-                          },
-                          window.location.pathname
-                        )
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: eventCategory({
+                            step: 2,
+                            event,
+                            hasPrint: printedSubscriber,
+                            plan: name,
+                            cancel: true,
+                          }),
+                          action: `${userPeriod} - ${response.error ||
+                            getCodeError('errorFinalize')}`,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
 
-                        Sentry.captureEvent({
-                          message:
-                            errFinalize.message ||
-                            getCodeError('errorFinalize'),
-                          level: 'error',
-                          extra: errFinalize || {},
-                        })
+                      Sentry.captureEvent({
+                        message:
+                          response.error || getCodeError('transactionError'),
+                        level: 'error',
+                        extra: response || {},
                       })
+                    } else if (response?.token) {
+                      resolve(response.token)
+                    } else {
+                      reject(new Error(getCodeError('errorNoTokenPayU')))
+                      setMsgError(getCodeError('errorNoTokenPayU'))
+                      setLoading(false)
+                      Sentry.captureEvent({
+                        message: getCodeError('errorNoTokenPayU'),
+                        level: 'error',
+                        extra: {},
+                      })
+                    }
                   })
+                })
+
+                return handleCreateToken.then(resToken => {
+                  const { paymentMethodID, paymentMethodType } =
+                    payUPaymentMethod || {}
+                  const tokenDinamic = `${resToken}~${deviceSessionId}~${cCvv}`
+                  setTxtLoading('Finalizando Proceso...')
+
+                  Sentry.addBreadcrumb({
+                    type: 'info',
+                    category: 'compra',
+                    message: 'Finalizando proceso de compra',
+                    data: {
+                      'Sales.finalizePayment': {
+                        orderNumberDinamic,
+                        paymentMethodID,
+                        tokenDinamic: 'private',
+                      },
+                    },
+                    level: 'info',
+                  })
+
+                  return window.Sales.finalizePayment(
+                    orderNumberDinamic,
+                    paymentMethodID,
+                    tokenDinamic
+                  )
+                    .then(resFinalize => {
+                      Sentry.addBreadcrumb({
+                        type: 'info',
+                        category: 'compra',
+                        message: 'Compra confirmada',
+                        data: resFinalize,
+                        level: 'info',
+                      })
+
+                      const { status, total, subscriptionIDs } =
+                        resFinalize || {}
+                      updatePurchase(resFinalize)
+
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: eventCategory({
+                            step: 2,
+                            event,
+                            hasPrint: printedSubscriber,
+                            plan: name,
+                          }),
+                          action: userPeriod,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
+
+                      return {
+                        publicKey,
+                        accountId,
+                        payuBaseUrl,
+                        deviceSessionId,
+                        paymentMethodID,
+                        paymentMethodType,
+                        subscriptionIDs,
+                        status,
+                        total,
+                      }
+                    })
+                    .catch((errFinalize = {}) => {
+                      setMsgError(getCodeError(errFinalize.code))
+                      setLoading(false)
+                      updateLoadPage(false)
+                      window.dataLayer.push({
+                        event: 'failedTransaction',
+                        ecommerce: {
+                          failedTransaction: {
+                            actionField: { id: orderNumberDinamic },
+                          },
+                        },
+                      })
+
+                      // Datalayer solicitados por Joao
+                      TaggeoJoao(
+                        {
+                          event: 'Pasarela Suscripciones Digitales',
+                          category: eventCategory({
+                            step: 2,
+                            event,
+                            hasPrint: printedSubscriber,
+                            plan: name,
+                            cancel: true,
+                          }),
+                          action: `${userPeriod} - ${errFinalize.message ||
+                            getCodeError('errorFinalize')}`,
+                          label: uuid,
+                        },
+                        window.location.pathname
+                      )
+
+                      Sentry.captureEvent({
+                        message:
+                          errFinalize.message || getCodeError('errorFinalize'),
+                        level: 'error',
+                        extra: errFinalize || {},
+                      })
+                    })
+                })
               })
-          )
+          })
       } else {
         Sentry.captureEvent({
           message: getCodeError('lostSession'),
@@ -481,7 +581,7 @@ const Pay = () => {
   }
 
   const validateCardNumber = e => {
-    if (typeof window !== 'undefined' && typeof window.payU === 'object') {
+    if (typeof window !== 'undefined' && 'payU' in window) {
       window.payU.validateCard(e.target.value)
       setMethodCard(window.payU.card.method)
     }
@@ -519,7 +619,7 @@ const Pay = () => {
   }
 
   const getCardNumber = () => {
-    if (typeof window !== 'undefined' && typeof window.payU === 'object') {
+    if (typeof window !== 'undefined' && 'payU' in window) {
       if (cNumber.length >= 1) {
         window.payU.validateNumber(cNumber.replace(/\s/g, ''))
         setMethodCard(window.payU.card.method)
@@ -607,7 +707,10 @@ const Pay = () => {
           <div className="block">
             <label htmlFor="cCvv">
               {texts.labelcCvv}
-              <button type="button" className="tooltip step__btn-link">
+              <button
+                type="button"
+                className="tooltip step__btn-link"
+                tabIndex={-1}>
                 <i className="icon-info"> </i>
                 <span className="tooltiptext-leftarrow">
                   {texts.whereCvv}

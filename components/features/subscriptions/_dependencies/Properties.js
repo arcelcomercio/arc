@@ -169,7 +169,7 @@ const PropertiesCommon = {
     newsLetters:    `https://${IsPROD ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/userprofile/public/v1`,
     paymentTracker: `https://${IsPROD ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/v1`,
     subsDniToken:   `https://${IsPROD ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-    dsnSentry:      `https://${IsPROD ? '81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82' : '59b299c8444f4b8e9ac7abaa19f719cc@o271396.ingest.sentry.io/1483012'}`,
+    dsnSentry:      'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
   },
 
   // prettier-ignore
@@ -246,7 +246,7 @@ const PropertiesCommon = {
     reSendEmail:     'Reenviar correo de activación',
     youCanSendEmail: 'Podrás reenviar nuevamente dentro de',
     textWinback:     '¡Tenemos un precio especial para ti!',
-  }
+  },
 }
 
 export { PropertiesSite, PropertiesCommon, ArcEnv, IsPROD }

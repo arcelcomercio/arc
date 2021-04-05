@@ -4,9 +4,10 @@
  * @FooterLand
  */
 
-import React, { useContext, useState } from 'react'
+import * as React from 'react'
 import TextMask from 'react-text-mask'
 import { useFusionContext } from 'fusion:context'
+
 import {
   PropertiesSite,
   PropertiesCommon,
@@ -28,11 +29,14 @@ const styles = {
 }
 
 export const FooterSubs = () => {
-  const { userLoaded, userStep, updateLoading, userDataPlan } = useContext(
-    AuthContext
-  )
-  const [loading, setLoading] = useState(false)
-  const [showDocOption, setShowDocOption] = useState('DNI')
+  const {
+    userLoaded,
+    userStep,
+    updateLoading,
+    userDataPlan,
+  } = React.useContext(AuthContext)
+  const [loading, setLoading] = React.useState(false)
+  const [showDocOption, setShowDocOption] = React.useState('DNI')
   const { urls, texts } = PropertiesCommon
   const {
     globalContent: {
@@ -111,6 +115,22 @@ export const FooterSubs = () => {
         })
     }
     return ''
+  }
+
+  /**
+   * Esta function se hizo para manejar mas
+   * casos de precios sin tener que anidar ternarios.
+   *
+   * Se espera que el caso por defecto sea '' en lugar de undefined
+   *
+   * @param {number} amount
+   * @returns {string} Monto del plan
+   */
+  const getPlanAmount = amount => {
+    let planAmount = ''
+    if (amount) planAmount = `S/ ${amount}.00`
+    else if (amount === 0) planAmount = 'Gratis'
+    return planAmount
   }
 
   const {
@@ -228,9 +248,7 @@ export const FooterSubs = () => {
             </div>
             <div>
               <span className="price-item">
-                {userDataPlan.amount === 0
-                  ? 'Gratis'
-                  : `S/ ${userDataPlan.amount}.00`}
+                {getPlanAmount(userDataPlan.amount)}
               </span>
               <i className={styles.iconUp}></i>
             </div>

@@ -22,7 +22,13 @@ const classes = {
  * @param {string} props.arcSite
  * @param {string} props.customLogo
  */
-const HeaderSimpleChildAmp = ({ siteUrl, arcSite, customLogo }) => {
+const HeaderSimpleChildAmp = ({
+  siteUrl,
+  arcSite,
+  customLogo,
+  width = 114,
+  height = 18,
+}) => {
   const logo = customLogo || properties(arcSite)?.logo
   const hasCustomLogoStyle =
     arcSite === 'diariocorreo' || arcSite === 'peru21g21' || arcSite === 'ojo'
@@ -37,8 +43,8 @@ const HeaderSimpleChildAmp = ({ siteUrl, arcSite, customLogo }) => {
             style={hasCustomLogoStyle ? { height: '80%' } : {}}>
             <amp-img
               src={logo}
-              width={114}
-              height={18}
+              width={width}
+              height={height}
               alt={arcSite}
               tabIndex="0"
             />

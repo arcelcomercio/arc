@@ -45,10 +45,12 @@ const WrapperSingwall = () => {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
 
-    window.fbq('track', 'ViewPaywall', {
-      // eslint-disable-next-line no-nested-ternary
-      surface: fromFia ? 'fia' : isFbBrowser() ? 'mWeb' : 'nonApp',
-    })
+    if (fromFia || isFbBrowser()) {
+      window.fbq('track', 'ViewPaywall', {
+        // eslint-disable-next-line no-nested-ternary
+        surface: fromFia ? 'fia' : isFbBrowser() ? 'mWeb' : 'nonApp',
+      })
+    }
 
     window.fbq('track', 'ViewContent', {
       content_category: plans[0].productName,

@@ -238,6 +238,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                   aria-label="lshowpass"
                   className={`${styles.btnShow}-${showHidePass}`}
                   type="button"
+                  tabIndex={-1}
                   onClick={toogleHidePass}
                 />
                 {lpassError && <span className="msn-error">{lpassError}</span>}
