@@ -639,7 +639,7 @@ const StoryContentsLite = props => {
                       <StoryContentsChildLinkedImage {...customEmbedConfig} />
                     )
                   }
-                  if (sub === 'parallax_blocks') {
+                  if (sub === 'parallax_blocks' && subtype === PARALLAX) {
                     const { config: customEmbedConfig } = customEmbed || {}
                     return (
                       <StoryContentsChildParallaxElements

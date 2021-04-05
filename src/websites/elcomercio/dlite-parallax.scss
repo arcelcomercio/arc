@@ -94,4 +94,9 @@
   &__block {
     border-color: #333 !important;
   }
+  @media (--desktop) {
+    &__block {
+      height: 68px;
+    }
+  }
 }

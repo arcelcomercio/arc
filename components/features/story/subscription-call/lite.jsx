@@ -28,7 +28,9 @@ function StorySubsriptionCall() {
             Suscríbete desde S/ 5 por el primer mes
           </div>
           <div className="story-subs-call__t3">Plan Digital</div>
-          <a className="story-subs-call__link f f-center" href="/">
+          <a
+            className="story-subs-call__link f f-center"
+            href="/suscripciones/">
             VER OFERTAS
           </a>
         </div>
