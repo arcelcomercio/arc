@@ -1,0 +1,155 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Notas Parallax Plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js"
+      defer
+    ></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/superagent"></script> -->
+  </head>
+  <body>
+    <div role="main" x-data="data()" x-init="init">
+      <div x-show="page === ''">
+        <h4 style="text-align: center; padding: 20px 0">
+          Selecciona el elemento que deseas incertar
+        </h4>
+        <div style="text-align: center; margin-top: 10px">
+          ELEMENTOS PARA MEDIOS DESTACADOS:
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+          <button style="margin: 15px" x-on:click="page = 'featured'">
+            Parallax
+          </button>
+        </div>
+        <div style="text-align: center; margin-top: 20px">
+          ELEMENTOS PARA EL CONTENIDO:
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+          <button style="margin: 15px" x-on:click="page = 'image'">
+            Imagen parallax
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'author'">
+            Autor
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'credits'">
+            Créditos
+          </button>
+          <button style="margin: 15px" x-on:click="page = 'image_ratio'">
+            Imágenes con proporciones
+          </button>
+        </div>
+      </div>
+
+      <div x-show="page === 'featured'">
+        <div class="l-parallax">
+          <div x-show="featured.type === 'image'" class="featured-img">
+            <img
+              style="z-index: 1"
+              class="featured-img__logo"
+              x-show="featured.url_logo"
+              x-bind:src="featured.url_logo"
+              alt="Noticia - logo"
+            />
+            <h2
+              :style="`z-index: 1; color: ${featured.color}`"
+              class="featured-img__subtitle"
+            >
+              Aquí va la bajada
+            </h2>
+            <h1
+              :style="`z-index: 1; color: ${featured.color}`"
+              class="featured-img__title"
+            >
+              Aquí va el titular
+            </h1>
+
+            <picture>
+              <source
+                x-bind:srcset="featured.url_mobile"
+                media="(max-width: 639px)"
+              />
+              <img
+                :style="`background-color: ${featured.bg_color}`"
+                class="featured-img__img"
+                x-bind:src="featured.url"
+                alt="test"
+              />
+            </picture>
+          </div>
+          <div
+            x-show="featured.type === 'html'"
+            style="width: 100%; height: 100%"
+            x-html="featured.html"
+          ></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'image'">
+        <div class="parallax-image" :style="getImageBg()">
+          <h3 :style="`color: ${image.color}`" x-text="image.title"></h3>
+        </div>
+      </div>
+
+      <div x-show="page === 'author'">
+        <div style="padding-left: 20px">
+          <div
+            style="
+              font: 400 13px/24px Roboto, sans-serif;
+              letter-spacing: 0.21px;
+              color: #777;
+            "
+            x-text="author.text_type === 'custom' ? author.text : 'Lima, 25 de marzo de 2021 (ejemplo)'"
+          ></div>
+          <div
+            style="
+              font: 700 18px/24px Roboto, sans-serif;
+              letter-spacing: 0.29px;
+              color: #444;
+            "
+            x-text="author.author_type === 'custom' ? author.name : 'Autor colocado en Planificación'"
+          ></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'credits'">
+        <div class="credits">
+          <h5 class="credits__title">Créditos</h5>
+          <div class="credits__text" x-html="credits.html"></div>
+        </div>
+      </div>
+
+      <div x-show="page === 'image_ratio'">
+        <div class="gal-cont">
+          <template x-for="(item, index) in image_ratio_prev" :key="index">
+            <div>
+              <img
+                :style="`height: ${getSizesByRatio(item.ratio).height}; width: ${getSizesByRatio(item.ratio).width};`"
+                :src="item.url"
+                alt=""
+              />
+              <figcaption
+                :style="`max-width: ${getSizesByRatio(item.ratio).width};`"
+                x-text="item.caption"
+              ></figcaption>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/edit.js"></script>
+  </body>
+</html>

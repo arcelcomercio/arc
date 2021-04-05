@@ -1,6 +1,7 @@
 .h-basic {
   background-color: $color-primary;
   height: $header-height-m;
+  z-index: 1;
 
   @media (--desktop) {
     height: $header-height;

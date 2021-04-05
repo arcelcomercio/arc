@@ -43,6 +43,7 @@ import {
 import {
   MINUTO_MINUTO,
   GALLERY_VERTICAL,
+  PARALLAX,
 } from '../utilities/constants/subtypes'
 import { PREMIUM, METERED, FREE } from '../utilities/constants/content-tiers'
 
@@ -201,16 +202,41 @@ const LiteOutput = ({
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
-  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/lite-story.css`
+  /**
+   * Lógica para las hojas de estilos
+   */
+  const style = 'lite-story'
+  const dstyle = 'dlite-story'
+
+  let inlineStyleUrl = `resources/dist/${arcSite}/css/${dstyle}.css`
+
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/${style}.css`
   }
   if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
   }
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+
+  if (metaValue('section_style') === 'parallax') {
+    inlineStyleUrl = `resources/dist/elcomercio/css/dlite-parallax.css`
+    styleUrl = `${contextPath}/resources/dist/elcomercio/css/lite-parallax.css`
+    if (CURRENT_ENVIRONMENT === 'prod') {
+      if (CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/elcomercio/css/lite-parallax.css`
+      }
+      if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.mag.elcomercio.pe/dist/elcomercio/css/lite-parallax.css`
+      }
+      if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.g21.peru21.pe/dist/elcomercio/css/lite-parallax.css`
+      }
+    }
+  }
+  /** */
 
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
@@ -268,7 +294,7 @@ const LiteOutput = ({
                 <meta name="DC.language" scheme="RFC1766" content="es" />
               </>
             )}
-            {isStory && htmlAmpIs && (
+            {isStory && htmlAmpIs && subtype !== PARALLAX && (
               <link
                 rel="amphtml"
                 href={`${siteProperties.siteUrl}${addSlashToEnd(
@@ -453,7 +479,7 @@ const LiteOutput = ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
+        <Resource path={inlineStyleUrl}>
           {({ data }) => {
             return data ? (
               <style
