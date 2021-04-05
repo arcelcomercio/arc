@@ -107,7 +107,7 @@ const Profile = () => {
   } = getPLanSelected || {}
 
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo(0, 0)
 
     const origin = getSessionStorage('paywall_type_modal') || 'organico'
     const referer = getSessionStorage('paywall_last_url') || ''
