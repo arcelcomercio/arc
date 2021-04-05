@@ -104,7 +104,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja2', '320x100, 320x50')
+                      publicidadAmpAd('caja2', '320x100,320x50')
                     )}
                   />
                 )}
@@ -112,7 +112,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja3', '320x100, 320x50, 300x1')
+                      publicidadAmpAd('caja3', '320x100,320x50,300x1')
                     )}
                   />
                 )}
@@ -120,7 +120,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja4', '320x100, 320x50')
+                      publicidadAmpAd('caja4', '320x100,320x50')
                     )}
                   />
                 )}
@@ -128,7 +128,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja5', '320x100, 320x50')
+                      publicidadAmpAd('caja5', '320x100,320x50')
                     )}
                   />
                 )}
