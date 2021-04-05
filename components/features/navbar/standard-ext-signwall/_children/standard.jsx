@@ -184,7 +184,7 @@ class NavBarDefault extends React.PureComponent {
     ) // TODO: temporal
   }
 
-  _initDrag = evt => {
+  _initDrag = (evt) => {
     const { statusSidebar } = this.state
     this.initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
     if (statusSidebar) {
@@ -207,7 +207,7 @@ class NavBarDefault extends React.PureComponent {
     this.distDrag = 0
   }
 
-  _moveDrag = evt => {
+  _moveDrag = (evt) => {
     if (this.dragFlag) {
       const { offsetX, movementX, changedTouches } = evt
 
@@ -246,7 +246,7 @@ class NavBarDefault extends React.PureComponent {
     }
   }
 
-  _setPosition = posX => {
+  _setPosition = (posX) => {
     this.listContainer.style.transform = `scaleX(${posX})`
   }
 
@@ -294,7 +294,7 @@ class NavBarDefault extends React.PureComponent {
   }
 
   // Active find with enter key
-  _handleKeyDown = e => {
+  _handleKeyDown = (e) => {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
@@ -471,7 +471,9 @@ class NavBarDefault extends React.PureComponent {
                   isDesktop
                   classes={{ desktop: classes.ads }}
                 /> */}
-              <form className={classes.form} onSubmit={e => e.preventDefault()}>
+              <form
+                className={classes.form}
+                onSubmit={(e) => e.preventDefault()}>
                 <input
                   id="header-search-input"
                   ref={this.inputSearch}
@@ -571,7 +573,7 @@ class NavBarDefault extends React.PureComponent {
                       title="Mostrar enlaces para compartir"
                       className={classes.moreLink}
                       href="/"
-                      onClick={event => {
+                      onClick={(event) => {
                         this.openLink(event, 3)
                       }}>
                       <i className={`${classes.iconMore}`} />
@@ -588,7 +590,7 @@ class NavBarDefault extends React.PureComponent {
                           title={`Compartir en ${item.name}`}
                           className={classes.link}
                           href={item.link}
-                          onClick={event => {
+                          onClick={(event) => {
                             this.openLink(event, item)
                           }}>
                           <i
@@ -623,16 +625,17 @@ class NavBarDefault extends React.PureComponent {
                         siteProperties.urlSubsOnline +
                         connector +
                         outputType
-                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                        'undefined' &&
-                        window.section) ||
-                        ''}`
+                      const ref = `ref=btn-suscribete-${arcSite}&loc=${
+                        (typeof window !== 'undefined' && window.section) || ''
+                      }`
                       window.location.href = link + ref
                     }}
                   />
                 )}
 
-                {siteProperties.activeSignwall && !isPreview ? (
+                {siteProperties.activeSignwall &&
+                !isPreview &&
+                typeof window !== 'undefined' ? (
                   <SignwallComponent
                     countOnly
                     classButton="flex items-center btn capitalize text-md nav__btn-sign"
@@ -656,11 +659,13 @@ class NavBarDefault extends React.PureComponent {
               </div>
             </div>
 
-            {this.isStory && (
-              <div className={classes.navLoaderWrapper}>
-                <div className={classes.navLoader} />
-              </div>
-            ) /** TODO: temporal */}
+            {
+              this.isStory && (
+                <div className={classes.navLoaderWrapper}>
+                  <div className={classes.navLoader} />
+                </div>
+              ) /** TODO: temporal */
+            }
           </div>
           {!hideMenu && (
             <>

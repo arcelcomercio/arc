@@ -9,7 +9,7 @@ export default React.memo(({ classButton, countOnly }) => {
   )
 
   return (
-    <React.Suspense fallback="Cargando...">
+    <React.Suspense fallback="...">
       <SignwallComponent classButton={classButton} countOnly={countOnly} />
     </React.Suspense>
   )
