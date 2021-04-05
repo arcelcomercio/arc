@@ -480,7 +480,9 @@ const HeaderChildInverted = ({
                   }}
                 />
               )}
-              {siteProperties.activeSignwall && !disableSignwall ? (
+              {siteProperties.activeSignwall &&
+              !disableSignwall &&
+              typeof window !== 'undefined' ? (
                 <SignwallComponent
                   classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
                 />
