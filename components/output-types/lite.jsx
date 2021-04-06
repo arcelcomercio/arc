@@ -368,15 +368,19 @@ const LiteOutput = ({
                 />
               </>
             )} */}
-            {isStory && (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) && (
-              <>
-                <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
-                <link
-                  rel="dns-prefetch"
-                  href="//d2dvq461rdwooi.cloudfront.net"
-                />
-              </>
-            )}
+            {isStory &&
+              (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) && (
+                <>
+                  <link
+                    rel="preconnect"
+                    href="//d2dvq461rdwooi.cloudfront.net"
+                  />
+                  <link
+                    rel="dns-prefetch"
+                    href="//d2dvq461rdwooi.cloudfront.net"
+                  />
+                </>
+              )}
             <link rel="preconnect" href="//www.googletagmanager.com/" />
             <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
             <link rel="preconnect" href="//www.google-analytics.com" />
@@ -677,7 +681,7 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {(arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) ? (
+        {arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21 ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()

@@ -1,4 +1,5 @@
-import { ENVIRONMENT } from 'fusion:environment'
+import { env } from '../../../utilities/arc/env'
+import { PROD } from '../../../utilities/constants/environment'
 
 const titleCase = string => {
   const wordsArray = string.toLowerCase().split(/_/)
@@ -18,7 +19,7 @@ const Taggeo = (cat, acc) => {
       eventAction: acc,
     }
     window.dataLayer.push(dataPush)
-    if (ENVIRONMENT !== 'elcomercio') {
+    if (env !== PROD) {
       // Only sandbox ;)
       window.console.log(
         `%c 🔔 Taggeo Detectado - Signwall:`,
