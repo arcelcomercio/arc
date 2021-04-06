@@ -30,7 +30,7 @@ $max-width: 1366px;
     }
   }
 
-  .checkNewsCinDesk:checked ~ .showTooltipDesk {
+  .checkNewsCinDesk:checked~.showTooltipDesk {
     @media (--desktop) {
       display: flex;
     }
@@ -44,7 +44,7 @@ $max-width: 1366px;
     }
   }
 
-  .checkNewsCinMob:checked ~ .showModalMob {
+  .checkNewsCinMob:checked~.showModalMob {
     @media (--desktop) {
       display: none;
     }
@@ -139,7 +139,7 @@ $max-width: 1366px;
       }
 
       @media (orientation: landscape) {
-        overflow: scroll;
+        // overflow: scroll;
 
         h4 {
           display: none;
