@@ -1,0 +1,52 @@
+.header {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  position: relative;
+  padding: 25px 25px 25px 23px;
+  @media (--tablet) {
+    max-width: 322px;
+  }
+  @media (--desktop) {
+    max-width: 400px;
+  }
+  &__menu-icon {
+    margin-right: 25px;
+    &.true {
+      transform: matrix(0, 1, -1, 0, 0, 0);
+      fill: #ff000f;
+    }
+    &:hover {
+      @media (--desktop) {
+        transform: matrix(0, 1, -1, 0, 0, 0);
+        fill: #ff000f;
+      }
+    }
+  }
+
+  &__svga {
+    fill: #fff;
+  }
+
+  &__svgc {
+    fill: #d9000f;
+  }
+  &__menu-list {
+    background-color: #333;
+    padding: 15px 0;
+    list-style: none;
+  }
+  &__menu-link {
+    color: #fff;
+    font-size: 14px;
+    padding: 3px 15px 15px 25px;
+    width: 100%;
+    display: flex;
+  }
+  &__sub-menu {
+    list-style: none;
+  }
+  &__svgb {
+    fill: #121212;
+  }
+}
