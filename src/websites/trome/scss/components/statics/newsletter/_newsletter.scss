@@ -1,23 +1,26 @@
-$newsletter-main-font: 'Encode Sans Condensed';
-$newsletter-alt-font: 'Helvetica';
+$newsletter-main-font: "Encode Sans Condensed";
+$newsletter-alt-font: "Helvetica";
 
 // Newsletter
 .newsletter {
   background-color: transparent !important;
   padding: 0 !important;
 
-
-
   //&__banner-image { }
 
   &__box-subscription {
     align-self: center;
-    background-color: #FED853;
+    background-color: #fed853;
     border-radius: 0 0 47px 47px !important;
     min-width: -webkit-fill-available;
     padding-bottom: 28px !important;
     padding-left: 28px !important;
     padding-right: 28px !important;
+    flex-wrap: wrap;
+
+    @media (--desktop) {
+      flex-wrap: nowrap;
+    }
   }
 
   &__wrapper {
@@ -33,7 +36,7 @@ $newsletter-alt-font: 'Helvetica';
   &__button {
     height: 48px;
     background-color: #762929;
-    color: #FED853;
+    color: #fed853;
     font-size: 18px;
     max-width: 276px;
     font-family: $newsletter-main-font;
@@ -41,15 +44,21 @@ $newsletter-alt-font: 'Helvetica';
 
   &__customDesc {
     color: #000;
-    font-size: 33px;
+    font-size: 22px;
     font-weight: 700;
     font-family: $newsletter-main-font;
+    text-align: center;
+
+    @media (--desktop) {
+      font-size: 33px;
+      text-align: left;
+    }
   }
 
   &__email {
     height: 56px;
-    border: 1px solid #B2B0B0;
-    color: #B2B0B0;
+    border: 1px solid #b2b0b0;
+    color: #b2b0b0;
     font-size: 18px;
     font-weight: 700;
     font-family: $newsletter-main-font;
@@ -66,9 +75,16 @@ $newsletter-alt-font: 'Helvetica';
 
   &__title {
     color: #762929;
-    font-size: 110px;
-    line-height: 90px;
     font-family: $newsletter-alt-font;
+    font-size: 76px;
+    line-height: 1;
+    text-align: center;
+
+    @media (--desktop) {
+      font-size: 110px;
+      line-height: 90px;
+      text-align: left;
+    }
 
     &::after {
       display: none;
@@ -77,25 +93,38 @@ $newsletter-alt-font: 'Helvetica';
 
   &__subtitle {
     color: #000;
-    font-size: 36px;
     font-weight: 800;
     margin-bottom: 26px;
+    font-size: 26px;
+    text-align: center;
+
+    @media (--desktop) {
+      font-size: 36px;
+      text-align: left;
+    }
   }
 
   &__subImage {
-    margin-left: 45px;
-    margin-right: 20px;
+    // width: 50px;
+    // margin: -25px auto 20px auto;
+    display: none;
+
+    @media (--desktop) {
+      display: inline;
+      margin: -25px 20px 0 45px;
+      width: initial;
+    }
   }
 
   &__policies {
-    color: #7A7777;
+    color: #7a7777;
     font-size: 18px;
     font-family: $newsletter-main-font;
   }
 
   &__page-link {
     text-decoration: none;
-    color: #7A7777;
+    color: #7a7777;
     font-size: 18px;
   }
 
@@ -105,36 +134,61 @@ $newsletter-alt-font: 'Helvetica';
   }
 
   &__confirmationTextWrapper {
-    width: 50%;
+    @media (--desktop) {
+      width: 50%;
+    }
   }
 
   &__confirmationTitle {
-    margin-top: 50px;
-    margin-bottom: 32px;
-    font-family: $newsletter-alt-font;
+    @media (--desktop) {
+      margin-top: 50px;
+      margin-bottom: 10px;
+    }
   }
 
   &__confirmationSubtitle {
-    font-size: 36px;
+    font-family: $newsletter-main-font;
     color: #996709;
     font-weight: 600px;
+    font-size: 26px;
+    text-align: center;
     margin-bottom: 50px;
-    font-family: $newsletter-main-font;
+
+    @media (--desktop) {
+      font-size: 36px;
+      text-align: left;
+    }
   }
 
   &__confirmationDesc {
     font-size: 22px;
     color: #996709;
     font-weight: 700px;
-    margin-bottom: 30px;
     font-family: $newsletter-main-font;
+    margin-bottom: 30px;
+    text-align: center;
+
+    @media (--desktop) {
+      text-align: left;
+    }
+  }
+
+  &__confirmationImage {
+    display: none;
+
+    @media (--desktop) {
+      display: inline;
+      position: absolute;
+      top: -25px;
+      right: 0;
+      height: 437px;
+    }
   }
 
   &__confirmationButton {
     text-align: right;
     padding: 0 17px;
     max-width: 100%;
-    margin-bottom: 27px;
   }
 
   &__custom {
@@ -166,11 +220,11 @@ $newsletter-alt-font: 'Helvetica';
         max-width: 100%;
       }
 
-
       &__subtitle {
         font-size: 16px;
         font-family: $primary-font;
         font-weight: normal;
+        text-align: center;
       }
 
       &__tos {
@@ -200,6 +254,7 @@ $newsletter-alt-font: 'Helvetica';
         border: 1px solid #e4e4e4;
         min-width: -webkit-fill-available;
         padding: 15px !important;
+        position: relative;
 
         @media (--desktop) {
           max-width: 450px;
@@ -259,10 +314,8 @@ $newsletter-alt-font: 'Helvetica';
       &__input-checkbox {
         margin-top: 1px;
       }
-
     }
   }
-
 }
 
 .border-r-10 {

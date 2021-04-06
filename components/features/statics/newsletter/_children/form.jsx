@@ -1,5 +1,6 @@
 import React from 'react'
 import Fonts from './fonts'
+
 const classes = {
   title: `newsletter__title position-relative font-bold pb-15 title-lg line-h-xs`,
   subtitle: `newsletter__subtitle`,
@@ -15,10 +16,10 @@ const classes = {
   pageLink: 'newsletter__page-link text-gray-300',
   inputCheckbox: 'newsletter__input-checkbox mr-10',
   covid19: 'newsletter__covid19 mb-50',
-  cafeWrapper: 'newsletter__wrapper flex items-end',
+  cafeWrapper: 'newsletter__wrapper lg:flex items-end',
   customDesc: 'newsletter__customDesc',
   buttonWrapper: 'flex justify-between items-center',
-  subImage: 'newsletter__subImage'
+  subImage: 'newsletter__subImage block',
 }
 
 const StaticsNewsletterChildForm = props => {
@@ -40,17 +41,18 @@ const StaticsNewsletterChildForm = props => {
           <Fonts />
           <div className={`${classes.cafeWrapper}`}>
             <div>
-              <h3
-                itemProp="subtitle"
-                className={`${classes.subtitle}`}>
+              <h3 itemProp="subtitle" className={`${classes.subtitle}`}>
                 Regístrate en nuestro
               </h3>
-              <h1 itemProp="title"
-                className={`${classes.title}`}>
+              <h1 itemProp="title" className={`${classes.title}`}>
                 Café de noticias
               </h1>
             </div>
-            <img className={`${classes.subImage}`} src="https://cdna.trome.pe/resources/dist/trome/images/cup_1.svg?d=1" alt="cafe de noticias taza" />
+            <img
+              className={`${classes.subImage}`}
+              src="https://cdna.trome.pe/resources/dist/trome/images/cup_confirmation.svg"
+              alt="cafe de noticias taza"
+            />
             <p itemProp="description" className={classes.customDesc}>
               Para que te mantengas informado con lo más relevante del día.
             </p>
@@ -84,7 +86,7 @@ const StaticsNewsletterChildForm = props => {
                     className={classes.inputCheckbox}
                     onChange={features.tos}
                   />
-            Acepto los{' '}
+                  Acepto los{' '}
                   <a
                     itemProp="url"
                     className={classes.pageLink}
@@ -92,8 +94,8 @@ const StaticsNewsletterChildForm = props => {
                     target="_blank"
                     rel="noopener noreferrer">
                     Términos y condiciones
-            </a>{' '}
-            y{' '}
+                  </a>{' '}
+                  y{' '}
                   <a
                     itemProp="url"
                     className={classes.pageLink}
@@ -101,7 +103,7 @@ const StaticsNewsletterChildForm = props => {
                     target="_blank"
                     rel="noopener noreferrer">
                     Políticas de privacidad
-            </a>
+                  </a>
                 </label>
                 {validation.tos.hasError() && submitForm && (
                   <div className={classes.errorMessage}>
@@ -117,7 +119,8 @@ const StaticsNewsletterChildForm = props => {
               </button>
             </div>
           </form>
-        </>) : (
+        </>
+      ) : (
         <>
           <h3
             itemProp="name"
@@ -155,7 +158,7 @@ const StaticsNewsletterChildForm = props => {
                 type="submit"
                 onClick={features.save}>
                 Enviar
-          </button>
+              </button>
             </div>
             <div className={classes.row}>
               <label className={classes.policies} htmlFor="tos">
@@ -168,7 +171,7 @@ const StaticsNewsletterChildForm = props => {
                   className={classes.inputCheckbox}
                   onChange={features.tos}
                 />
-            Acepto los{' '}
+                Acepto los{' '}
                 <a
                   itemProp="url"
                   className={classes.pageLink}
@@ -176,8 +179,8 @@ const StaticsNewsletterChildForm = props => {
                   target="_blank"
                   rel="noopener noreferrer">
                   Términos y condiciones
-            </a>{' '}
-            y{' '}
+                </a>{' '}
+                y{' '}
                 <a
                   itemProp="url"
                   className={classes.pageLink}
@@ -185,7 +188,7 @@ const StaticsNewsletterChildForm = props => {
                   target="_blank"
                   rel="noopener noreferrer">
                   Políticas de privacidad
-            </a>
+                </a>
               </label>
               {validation.tos.hasError() && submitForm && (
                 <div className={classes.errorMessage}>
@@ -194,7 +197,8 @@ const StaticsNewsletterChildForm = props => {
               )}
             </div>
           </form>
-        </>)}
+        </>
+      )}
     </>
   )
 }
