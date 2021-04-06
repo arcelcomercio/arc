@@ -234,11 +234,12 @@ nav.nav__wrapper {
       border-right: 1px solid;
     }
     //ES TEMPORAL, DEBE CAMBIARSE POR JS
-    &:nth-child(3) {
+
+    /* &:nth-child(3) {
       border-bottom: 5px solid;
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 0;
-    }
+    } */
   }
   &__item-link {
     display: flex;
