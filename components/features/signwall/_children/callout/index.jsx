@@ -218,3 +218,5 @@ export const CallOut = props => {
     </Modal>
   )
 }
+
+export default CallOut
