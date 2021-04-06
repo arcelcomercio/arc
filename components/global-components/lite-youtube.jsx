@@ -3,24 +3,24 @@ import React from 'react'
 
 /**
  * Este componente no puede vivir solo, esta dividido en dos partes.
- * Esta primera parte solo renderiza el contenedor y la imagen previa 
+ * Esta primera parte solo renderiza el contenedor y la imagen previa
  * del video para mejorar drasticamente el LCP y scripting.
- * 
+ *
  * Los estilos y la funcionalidad estan en:
  * /resources/assets/lite-youtube/
  * y se implementan en los output-types default y lite.
- * 
- * @param {object} config 
+ *
+ * @param {object} config
  * @param {string} config.videoId ID del video de Youtube, lo encuentas en su URL
  * @param {string} [config.className] Clases personalizadas para el contenedor
  * @param {string} [config.loading] "lazy" | "eager" | "auto"
  * @param {boolean} [config.autoload] Solo cuando loading='lazy'. Si es true, renderiza el iframe completo. Si es false, renderiza solo el contenedor y la vista previa del video.
  * @param {string} [config.alt] Texto alternativo para la imagen por defecto
- * 
+ *
  * @example ```
  * <LiteYoutube videoId="8RvAKRoIDqU" lazy alt={title} />
  * ```
- * 
+ *
  * @see https://github.com/paulirish/lite-youtube-embed
  */
 
@@ -39,9 +39,13 @@ const LiteYoutube = ({ videoId, className, loading, autoload, alt = '' }) => {
 
   return (
     // <Static id={`lyt-${videoId}`}>
-      <div 
-        className="lyt-container">
-        <div id={`lyt-${videoId}`} className={`lyt-player ${lazy ? 'lyt-lazy' : ''} ${autoload ? 'auto' : ''} ${className || ''}`}>
+    <div className="lyt-container-wrapper">
+      <div className="lyt-container">
+        <div
+          id={`lyt-${videoId}`}
+          className={`lyt-player ${lazy ? 'lyt-lazy' : ''} ${
+            autoload ? 'auto' : ''
+          } ${className || ''}`}>
           {lazy ? (
             <picture className="lyt-pic">
               <source data-srcset={posterUrlWebp} type="image/webp" />
@@ -68,6 +72,8 @@ const LiteYoutube = ({ videoId, className, loading, autoload, alt = '' }) => {
           <button type="button" className="lty-playbtn"></button>
         </div>
       </div>
+    </div>
+
     // </Static>
   )
 }
