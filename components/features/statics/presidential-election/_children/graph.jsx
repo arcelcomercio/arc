@@ -13,7 +13,7 @@ const classes = {
   votes: 'presidential-election-graph__votes',
   description: 'presidential-election-graph__description',
 }
-const Graph = ({
+const PresidentialElectionChildGraph = ({
   data = [],
   showTitle = true,
   description = '',
@@ -64,4 +64,4 @@ const Graph = ({
   )
 }
 
-export default Graph
+export default PresidentialElectionChildGraph

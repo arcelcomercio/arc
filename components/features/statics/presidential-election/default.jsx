@@ -1,5 +1,6 @@
 import React from 'react'
 import ResultGraph from './_children/graph'
+import ResultPaginator from './_children/paginator'
 
 const PresidentialElection = props => {
   const params = {
@@ -49,9 +50,11 @@ const PresidentialElection = props => {
     description:
       'ante ac ultrices dignissim, arcu libero pretium quam, vit libero pretium quam, vitae placerat',
     maxVote: 50,
+    showTitle: true,
   }
   return (
     <div>
+      <ResultPaginator urlPrev="1/" urlNext="2/" title="Acción Popular" />
       <ResultGraph {...params} />
     </div>
   )
