@@ -2,7 +2,7 @@ import * as React from 'react'
 
 const SignwallCallout = React.lazy(() =>
   import(
-    /* webpackChunkName: 'signwall-callout' */ '../../signwall/_children/callout/index'
+    /* webpackChunkName: 'signwall-callout' */ '../../../signwall/_children/callout/index'
   )
 )
 
