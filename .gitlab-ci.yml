@@ -5,10 +5,18 @@ variables:
 stages:
   - install
   - build
+  - deploy
   - test
   - analize
+  - code-quality
+  - test-intsall-e2e
+  - test-e2e
+  - package
   - deploy
+  - monitoring
+  - documentation
   - release
+  - cleanup
   
 cache:
   key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
