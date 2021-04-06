@@ -11,6 +11,7 @@
   .story-contents__content > section > * {
     max-width: 620px;
     margin: 0 20px;
+    width: auto;
     @media (--tablet) {
       margin: 0 auto;
     }
@@ -30,17 +31,17 @@
     }
   }
 
-  .jwplayer {
-    max-width: 860px !important;
-    margin-top: 20px !important;
+  .story-contents__content > section > .jwplayer {
+    max-width: 860px;
+    margin-top: 20px;
     @media (--only-mobile) {
-      margin: 0 !important;
+      margin: 0;
     }
   }
 
-  .s-multimedia__caption {
-    margin-top: 10px !important;
-    margin-bottom: 30px !important;
+  .story-contents__content > section > .s-multimedia__caption {
+    margin-top: 10px;
+    margin-bottom: 30px;
   }
 
   .pquote {
