@@ -18,16 +18,15 @@ import Callout from './_children/Callout'
 import Cards from './_children/Cards'
 
 const arcType = 'landing'
-const LandingSubscriptions = () => {
+const LandingSubscriptions = props => {
   const {
-    arcSite,
-    globalContent: items = [],
     customFields: {
       bannerUniComercio = false,
       bannerUniGestion = false,
       callInnCallOut = false,
     } = {},
-  } = useAppContext() || {}
+  } = props
+  const { arcSite, globalContent: items = [] } = useAppContext() || {}
 
   const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
