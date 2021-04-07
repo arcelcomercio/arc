@@ -39,9 +39,11 @@ const Newsletter = props => {
         )}
         {formHtml}
       </div>
-      <div className={classes.imageContainer}>
-        <img className={classes.image} src={image} alt="newsletter" />
-      </div>
+      {arcSite !== 'trome' && (
+        <div className={classes.imageContainer}>
+          <img className={classes.image} src={image} alt="newsletter" />
+        </div>
+      )}
     </div>
   )
 }
