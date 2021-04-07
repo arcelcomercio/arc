@@ -1,0 +1,105 @@
+@import "../../../../../general-styles/components/features/cards/featured-story-full-img/feature-fullimage";
+
+.feature-fullimage {
+  @media (--desktop) {
+    height: 568px;
+  }
+  @media (--tablet) {
+    height: 370px;
+  }
+  @media (--only-mobile) {
+    height: 370px;
+  }
+  &__box-image {
+    &::before {
+      background: transparent !important;
+    }
+    & img {
+      height: 258px;
+      @media (--desktop) {
+        height: 518px;
+      }
+
+      object-fit: fill;
+    }
+  }
+  &__box-detail {
+    margin: 0 25px;
+    @media (--desktop) {
+      width: 60% !important;
+      height: 185px;
+      margin: inherit;
+    }
+
+    background: #f4f2f2;
+    & h3 {
+      background-color: #000;
+      color: #fff;
+      display: inline-block;
+      letter-spacing: 0.24px;
+      line-height: 18px;
+      padding: 3px 8px 3px;
+      position: relative;
+      text-transform: uppercase;
+      transform: skew(-10deg);
+    }
+    & h3 a {
+      font-family: $primary-font;
+      font-weight: 600;
+      font-size: 12px;
+      background-color: #000;
+      padding: 5px;
+      // &::after {
+      //   width: 10px;
+      //   height: 23px;
+      //   margin-bottom: 3px;
+      //   @media (--desktop) {
+      //     margin-bottom: 4px;
+      //   }
+
+      //   margin-left: -4px;
+      //   transform: skew(-15deg);
+      //   background: #000;
+      // }
+      &::before {
+        //   content: "";
+        //   position: absolute;
+        //   width: 10px;
+        //   height: 24px;
+        //   background-color: #000;
+        //   transform: skew(-15deg);
+        //   top: 0;
+        //   left: auto;
+        //   right: -7px;
+        //   @media (--desktop) {
+        //     height: 23px;
+        //   }
+        position: initial;
+      }
+    }
+    & h2 a {
+      color: #000;
+      font-size: 28px;
+      font-family: $primary-font;
+      font-weight: 800;
+      @media (--desktop) {
+        font-size: 30px;
+      }
+    }
+    & p a {
+      font-family: $primary-font;
+      font-weight: 500;
+      color: #000;
+      font-size: 10px;
+      &::before {
+        position: absolute;
+        font-size: 25px;
+        content: "__";
+        color: #000;
+        @media (--desktop) {
+          height: 35px;
+        }
+      }
+    }
+  }
+}
