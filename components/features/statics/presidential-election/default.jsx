@@ -1,6 +1,7 @@
 import React from 'react'
 import ResultGraph from './_children/graph'
 import ResultPaginator from './_children/paginator'
+import NavigationMenu from './_children/navigation'
 
 const PresidentialElection = props => {
   const params = {
@@ -54,6 +55,7 @@ const PresidentialElection = props => {
   }
   return (
     <div>
+      <NavigationMenu />
       <ResultPaginator urlPrev="1/" urlNext="2/" title="Acción Popular" />
       <ResultGraph {...params} />
     </div>
