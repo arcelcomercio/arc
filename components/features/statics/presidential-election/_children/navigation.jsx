@@ -6,58 +6,54 @@ const NavigationMenu = () => {
   return (
     <>
       <div className="box-ul">
-        <ul class="main-navigation">
-          <li><a href="#">General</a>
-            <ul>
-              <li><a href="/">HTML</a></li>
-              <li><a href="/">CSS</a>
-              </li>
-              <li><a href="/">JavaScript</a>
+        <ul className="main-navigation box-ul__ul">
+          <li className="box-ul__ul-li"><span className="box-ul__ul-li-a">General</span>
+            <ul className="box-ul__ul-li__ul">
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">HTML</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">CSS</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">JavaScript</a></li>
+            </ul>
+          </li>
+          <li className="box-ul__ul-li"><span className="box-ul__ul-li-a">Regiones</span>
+            <ul className="box-ul__ul-li__ul">
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+            </ul>
+          </li>
+          <li className="box-ul__ul-li"><span className="box-ul__ul-li-a">Lima</span>
+            <ul className="box-ul__ul-li__ul">
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">HTML</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">CSS</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">JavaScript</a>
               </li>
             </ul>
           </li>
-          <li><a href="#">Regiones</a>
-            <ul>
-              <li><a href="/">Themes</a></li>
-              <li><a href="/">Plugins</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-              <li><a href="/">Themes</a></li>
-              <li><a href="/">Plugins</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-              <li><a href="/">Themes</a></li>
-              <li><a href="/">Plugins</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-              <li><a href="/">Themes</a></li>
-              <li><a href="/">Plugins</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-              <li><a href="/">Themes</a></li>
-              <li><a href="/">Plugins</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-              <li><a href="/">Themes</a></li>
-              <li><a href="/">Plugins</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-              <li><a href="/">Themes</a></li>
-              <li><a href="/">Plugins</a></li>
-              <li><a href="/">Custom Post Types</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Lima</a>
-            <ul>
-              <li><a href="/">HTML</a></li>
-              <li><a href="/">CSS</a>
-              </li>
-              <li><a href="/">JavaScript</a>
-              </li>
-            </ul>
-          </li>
-          <li><a href="#">Resto del Mundo</a>
-            <ul>
-              <li><a href="/">Themes</a></li>
-              <li><a href="/">Plugins</a></li>
-              <li><a href="/">Custom Post Types</a>
-              </li>
+          <li className="box-ul__ul-li"><span className="box-ul__ul-li-a">Resto del Mundo</span>
+            <ul className="box-ul__ul-li__ul">
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
+              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
             </ul>
           </li>
         </ul>
