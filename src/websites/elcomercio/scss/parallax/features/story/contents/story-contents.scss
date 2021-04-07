@@ -11,6 +11,7 @@
   .story-contents__content > section > * {
     max-width: 620px;
     margin: 0 20px;
+    width: auto;
     @media (--tablet) {
       margin: 0 auto;
     }
@@ -25,10 +26,22 @@
     max-width: none !important;
     display: flex;
     justify-content: center;
-    width: 100%;
     blockquote.twitter-tweet {
       max-width: 620px;
     }
+  }
+
+  .story-contents__content > section > .jwplayer {
+    max-width: 860px;
+    margin-top: 20px;
+    @media (--only-mobile) {
+      margin: 0;
+    }
+  }
+
+  .story-contents__content > section > .s-multimedia__caption {
+    margin-top: 10px;
+    margin-bottom: 30px;
   }
 
   .pquote {
@@ -54,6 +67,11 @@
   }
   &__author {
     display: none;
+  }
+  .lyt-container-wrapper {
+    max-width: 860px !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
   }
 }
 
