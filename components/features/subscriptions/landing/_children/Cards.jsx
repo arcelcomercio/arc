@@ -70,6 +70,7 @@ function Cards({ item, arcSite, order, textOffer }) {
         <div className="cont-left">
           <img
             className="planes__content-picture"
+            importance="high"
             src={`https://cdna.${arcSite}.pe/resources/dist/${arcSite}/images/landing/plan_${itemGrid[order]}.png`}
             alt={title}
           />

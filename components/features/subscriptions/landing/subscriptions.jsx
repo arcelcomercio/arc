@@ -275,7 +275,14 @@ const LandingSubscriptions = () => {
                         </label>
                         <div className="display" id={`display--${i + 1}`}>
                           <div className="picture-mobile">
-                            <img src={item.image} alt={item.title} />
+                            <img
+                              type="image/png"
+                              src={item.image}
+                              alt={item.title}
+                              loading="lazy"
+                              importance="low"
+                              decoding="async"
+                            />
                           </div>
                           <h2 className="title-mobile">{item.title}</h2>
                           <p>{item.description}</p>
@@ -291,10 +298,14 @@ const LandingSubscriptions = () => {
                   return (
                     <img
                       key={`image-${i + 1}`}
+                      type="image/png"
                       className="picture"
                       id={`picture--tab--${i + 1}`}
                       src={item.image}
                       alt={item.title}
+                      loading="lazy"
+                      importance="low"
+                      decoding="async"
                     />
                   )
                 })}
@@ -310,6 +321,9 @@ const LandingSubscriptions = () => {
                 className="logo-club"
                 src="https://suscripciones.elcomercio.pe/static/partners/comercio/img/logo_club.png?v137"
                 alt="Logo Club"
+                loading="lazy"
+                importance="low"
+                decoding="async"
               />
 
               <h3 className="title-club">
