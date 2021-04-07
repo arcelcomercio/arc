@@ -13,7 +13,7 @@ const classes = {
   votes: 'presidential-election-graph__votes',
   description: 'presidential-election-graph__description',
 }
-const Graph = ({
+const PresidentialElectionChildGraph = ({
   data = [],
   showTitle = true,
   description = '',
@@ -25,7 +25,7 @@ const Graph = ({
   const printBar = (value, color) => {
     const colorBar = value <= 0 ? 'transparent' : color
     return {
-      'background-color': colorBar,
+      backgroundColor: colorBar,
       width: `${value}%`,
     }
   }
@@ -41,7 +41,9 @@ const Graph = ({
             percentValue >= 85 ? classes.barsPercentLeft : classes.bars */
             return (
               <li key={randomKey} className={classes.item}>
-                {urlImg && <img src={urlImg} alt="" className={classes.avatar} />}
+                {urlImg && (
+                  <img src={urlImg} alt="" className={classes.avatar} />
+                )}
                 <div className={classes.boxInfo}>
                   <div className={classes.boxBar}>
                     <span
@@ -64,4 +66,4 @@ const Graph = ({
   )
 }
 
-export default Graph
+export default PresidentialElectionChildGraph
