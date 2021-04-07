@@ -79,6 +79,7 @@ $newsletter-alt-font: "Helvetica";
     font-size: 76px;
     line-height: 1;
     text-align: center;
+    letter-spacing: -5px;
 
     @media (--desktop) {
       font-size: 110px;
@@ -179,9 +180,9 @@ $newsletter-alt-font: "Helvetica";
     @media (--desktop) {
       display: inline;
       position: absolute;
-      top: -25px;
+      top: 0;
       right: 0;
-      height: 437px;
+      width: 315px;
     }
   }
 
