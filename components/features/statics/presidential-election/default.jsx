@@ -1,3 +1,5 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable camelcase */
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import { useAppContext } from 'fusion:context'
@@ -8,6 +10,12 @@ import ResultPaginator from './_children/paginator'
 import NavigationMenu from './_children/navigation'
 
 const PresidentialElection = props => {
+  const [filters, setFilters] = React.useState({
+    group: 'general',
+    filter: null,
+    subFilter: null,
+  })
+
   const { requestUri } = useAppContext()
 
   const { customFields } = props
@@ -44,7 +52,30 @@ const PresidentialElection = props => {
         : {}
     ) || {}
 
-  console.log(pageData, partidos)
+  const changeFilters = newFilters => {
+    setFilters(newFilters)
+  }
+
+  const getFilterData = () => {
+    let filterData = []
+    if (filters.group && !filters.filter && !filters.subFilter) {
+      filterData = pageData?.[filters.group] || []
+    } else if (filters.group && filters.filter && !filters.subFilter) {
+      const dataByGroup = pageData?.[filters.group] || []
+
+      filterData = dataByGroup.filter(
+        ({ filtro_nombre }) => filtro_nombre === filters.filter
+      )[0]?.filtro_listado
+    }
+    return filterData
+  }
+  console.log(
+    pageData,
+    partidos,
+    filters,
+    'currentData>>>>>>..>',
+    getFilterData()
+  )
 
   const params = {
     data: [
@@ -97,7 +128,7 @@ const PresidentialElection = props => {
   }
   return (
     <div>
-      <NavigationMenu />
+      <NavigationMenu pageData={pageData} changeFilters={changeFilters} />
       <ResultPaginator urlPrev="1/" urlNext="2/" title="Acción Popular" />
       <ResultGraph {...params} />
     </div>

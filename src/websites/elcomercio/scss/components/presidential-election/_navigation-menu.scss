@@ -1,109 +1,109 @@
 .box-ul {
-    font-family: $primary-font;
-    text-align: center;
-    &__ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      width: 100%;
-      &-li {
-        background-color: #d6d6d6;
-        width: 153px;
-        height: 27px;
-        margin: 5px;
-        border-radius: 4px;
-        display: inline-block;
-      }
-      &:before {
-        content: " ";
-        display: table;
-      }
-      &:after {
-        content: " ";
-        display: table;
-        clear: both;
-      }
+  font-family: $primary-font;
+  text-align: center;
+  &__ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    &-li {
+      background-color: #d6d6d6;
+      width: 153px;
+      height: 27px;
+      margin: 5px;
+      border-radius: 4px;
+      display: inline-block;
     }
-
-    &__ul-li__ul {
-      display: none;
+    &::before {
+      content: " ";
+      display: table;
     }
-  
-    &__ul-li-a {
-      display: block;
-      text-decoration: none;
-      white-space: nowrap;
-      color: #000;
-      text-align: center;
-      padding-top: 8px;
-      height: 100%;
-      font-size:12px;
-  
-      &:hover {
-        background-color: #8b8b8b;
-        width: 153px;
-        height: 100%;
-        color: #fff;
-        margin: 0;
-        padding-top: 8px;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-      }
-    }
-    &__ul-li__ul-li{
-        border-top: 0;
-        z-index: 2;
-        margin: 0;
-        border-radius: 0;
-        padding-left: 10px;
-        min-height: 27px;
-    }
-    &__ul-li__ul-li-a{
-        display: block;
-        text-decoration: none;
-        white-space: nowrap;
-        color: #000;
-        text-align: center;
-        padding-top: 8px;
-        height: 100%;
-        font-size:12px;
-  
-      &:hover {
-        background-color: #8b8b8b;
-        width: 153px;
-        height: 100%;
-        color: #fff;
-        margin: 0;
-        padding-top: 8px;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-      }
-    }
-  
-    &__ul-li:hover {
-      > ul {
-        display: block;
-        position: absolute;
-        max-height: 212px;
-        background-color: #d6d6d6;
-        overflow-x: hidden;
-        overflow-y: auto;
-        text-align-last: left;
-        width: 153px;
-        z-index: 3;
-      }
-    }
-    &__divbutton{
-      & a{
-        width: 312px;
-        height: 27px;
-        color: #000;
-        display: inline-block;
-        padding-top: 7px;
-        background: #F8F8F8 0% 0% no-repeat padding-box;
-        border: 0.5px solid #707071;
-        border-radius: 4px;
-        font-size:12px;
-      }
+    &::after {
+      content: " ";
+      display: table;
+      clear: both;
     }
   }
+
+  &__ul-li__ul {
+    display: none;
+  }
+
+  &__ul-li-a {
+    display: block;
+    text-decoration: none;
+    white-space: nowrap;
+    color: #000;
+    text-align: center;
+    padding-top: 8px;
+    height: 100%;
+    font-size: 12px;
+
+    &:hover {
+      background-color: #8b8b8b;
+      width: 153px;
+      height: 100%;
+      color: #fff;
+      margin: 0;
+      padding-top: 8px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+  }
+  &__ul-li__ul-li {
+    border-top: 0;
+    z-index: 2;
+    margin: 0;
+    border-radius: 0;
+    padding-left: 10px;
+    min-height: 27px;
+  }
+  &__ul-li__ul-li-a {
+    display: block;
+    text-decoration: none;
+    white-space: nowrap;
+    color: #000;
+    text-align: center;
+    padding-top: 8px;
+    height: 100%;
+    font-size: 12px;
+
+    &:hover {
+      background-color: #8b8b8b;
+      width: 153px;
+      height: 100%;
+      color: #fff;
+      margin: 0;
+      padding-top: 8px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+  }
+
+  &__ul-li:hover {
+    > ul {
+      display: block;
+      position: absolute;
+      max-height: 212px;
+      background-color: #d6d6d6;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align-last: left;
+      width: 153px;
+      z-index: 3;
+    }
+  }
+  &__divbutton {
+    & span {
+      width: 312px;
+      height: 27px;
+      color: #000;
+      display: inline-block;
+      padding-top: 7px;
+      background: #f8f8f8 0% 0% no-repeat padding-box;
+      border: 0.5px solid #707071;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  }
+}
