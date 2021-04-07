@@ -1,0 +1,122 @@
+.saltar-intro-listado-criticas {
+  &__container {
+    font-family: $primary-font;
+    margin-top: 40px;
+  }
+  &__list {
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    @media (--desktop) {
+      justify-content: space-between;
+      align-items: unset;
+      flex-direction: unset;
+    }
+  }
+  &__line {
+    border-bottom: 1px solid #b7b7b7;
+    width: 100%;
+    margin-bottom: 25px;
+    margin-top: 5px;
+    display: none;
+    @media (--only-mobile) {
+      &:last-child {
+        display: block;
+      }
+    }
+    @media (--desktop) {
+      display: block;
+    }
+  }
+  &__item {
+    margin: 0 20px;
+    margin-bottom: 25px;
+    @media (--desktop) {
+      max-width: 298px;
+      flex: 0 0 33.333333%;
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+  &__image {
+    width: 100%;
+    vertical-align: middle;
+  }
+  &__section {
+    // font: normal normal 600 12px/18px $primary-font;
+    // font-family: $primary-font;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 600;
+    letter-spacing: 0.17px;
+    color: #000;
+    text-transform: uppercase;
+    opacity: 1;
+    min-width: 89px;
+    border: 1px solid #a7a7a7;
+    display: inline-block;
+    text-align: center;
+    padding: 1px 5px;
+    // padding-top: 2px
+  }
+  &__stars {
+    display: none;
+    // display: inline-block;
+    float: right;
+    width: 50%;
+    padding: 3px 0;
+    text-align: right;
+    border-bottom: 1px solid #0000004d;
+  }
+  &__title {
+    // font: normal normal bold 19px/24px $primary-font;
+    // font-family: $primary-font;
+    font-size: 19px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: #000;
+    opacity: 1;
+    height: 73px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    margin: 15px 0;
+  }
+  &__author {
+    // font: normal normal medium 10px/24px $primary-font;
+    // font-family: $primary-font;
+    font-size: 10px;
+    line-height: 24px;
+    font-weight: 500;
+    letter-spacing: 0.14px;
+    color: #000;
+    text-transform: uppercase;
+    opacity: 1;
+    margin-bottom: 10px;
+  }
+  &__see-more {
+    // font: normal normal 800 13px/17px Bitter;
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.26px;
+    color: #808080;
+    opacity: 1;
+    border-bottom: 1px solid #b7b7b7;
+    padding-bottom: 5px;
+    svg {
+      width: 15px;
+      top: 2px;
+      position: relative;
+      fill: #808080;
+      transform: rotate(90deg);
+    }
+  }
+  &__box-see-more {
+    text-align: center;
+  }
+}

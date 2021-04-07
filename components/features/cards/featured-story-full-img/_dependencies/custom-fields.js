@@ -30,6 +30,10 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'start',
   }),
+  imgFieldCustom: PropTypes.string.tag({
+    name: 'Imagen',
+    description: 'tamaño de la imagen [ej:] 647x767',
+  }),
   categoryField: PropTypes.string.tag({
     name: 'Sección',
     group: 'Editar campos',
