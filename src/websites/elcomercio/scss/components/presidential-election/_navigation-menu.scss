@@ -1,4 +1,5 @@
 .box-ul {
+    font-family: $primary-font;
     text-align: center;
     ul {
       list-style: none;
@@ -38,6 +39,7 @@
       text-align: center;
       padding-top: 8px;
       height: 100%;
+      font-size:12px;
   
       &:hover {
         // background: #2c3e50;
@@ -108,6 +110,7 @@
         background: #F8F8F8 0% 0% no-repeat padding-box;
         border: 0.5px solid #707071;
         border-radius: 4px;
+        font-size:12px;
       }
     }
   }
