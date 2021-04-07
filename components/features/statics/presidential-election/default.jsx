@@ -1,9 +1,51 @@
-import React from 'react'
+import * as React from 'react'
+import PropTypes from 'prop-types'
+import { useAppContext } from 'fusion:context'
+import { useContent } from 'fusion:content'
+
 import ResultGraph from './_children/graph'
 import ResultPaginator from './_children/paginator'
 import NavigationMenu from './_children/navigation'
 
 const PresidentialElection = props => {
+  const { requestUri } = useAppContext()
+
+  const { customFields } = props
+
+  const fullPath = requestUri.split('?')[0]
+  const pathArr = fullPath.split('/').filter(el => el !== '')
+
+  /**
+   * @type {'presidencial' | 'congresal' | 'parlamento_andino'}
+   */
+  const page = !pathArr[1] ? 'presidencial' : pathArr[1]
+
+  const pageData =
+    useContent(
+      customFields[page]
+        ? {
+            source: 'get-data-from-json-file',
+            query: {
+              json_file: customFields[page],
+            },
+          }
+        : {}
+    ) || {}
+
+  const { partidos = [] } =
+    useContent(
+      customFields.partidosJson
+        ? {
+            source: 'get-data-from-json-file',
+            query: {
+              json_file: customFields.partidosJson,
+            },
+          }
+        : {}
+    ) || {}
+
+  console.log(pageData, partidos)
+
   const params = {
     data: [
       {
@@ -63,6 +105,22 @@ const PresidentialElection = props => {
 }
 
 PresidentialElection.label = 'Elecciones presidenciales y congresales'
-PresidentialElection.static = true
+
+PresidentialElection.propTypes = {
+  customFields: PropTypes.shape({
+    partidosJson: PropTypes.string.tag({
+      name: 'Url del JSON de partidos políticos',
+    }),
+    presidencial: PropTypes.string.tag({
+      name: 'Url del JSON para resultados presidenciales',
+    }),
+    congresal: PropTypes.string.tag({
+      name: 'Url del JSON para resultados congresales',
+    }),
+    parlamento_andino: PropTypes.string.tag({
+      name: 'Url del JSON para resultados del parlamento andino',
+    }),
+  }),
+}
 
 export default PresidentialElection

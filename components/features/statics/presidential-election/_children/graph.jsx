@@ -25,7 +25,7 @@ const PresidentialElectionChildGraph = ({
   const printBar = (value, color) => {
     const colorBar = value <= 0 ? 'transparent' : color
     return {
-      'background-color': colorBar,
+      backgroundColor: colorBar,
       width: `${value}%`,
     }
   }
@@ -41,7 +41,9 @@ const PresidentialElectionChildGraph = ({
             percentValue >= 85 ? classes.barsPercentLeft : classes.bars */
             return (
               <li key={randomKey} className={classes.item}>
-                {urlImg && <img src={urlImg} alt="" className={classes.avatar} />}
+                {urlImg && (
+                  <img src={urlImg} alt="" className={classes.avatar} />
+                )}
                 <div className={classes.boxInfo}>
                   <div className={classes.boxBar}>
                     <span
