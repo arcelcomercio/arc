@@ -256,11 +256,12 @@ const AmpOutputType = ({
   if (arcSite === SITE_DEPOR) {
     if (requestUri.match('^/usa')) lang = 'es-us'
   }
-  const adsId = arcSite !== 'peru21g21' ? arcSite : 'peru21'
-  const dataSlot = `/28253241/${adsId}/amp/post/default/zocalo`
+  const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
+  const dataSlot = `/28253241/${namePublicidad}/amp/post/default/zocalo`
   const parameters = {
     arcSite,
     dataSlot,
+    prebidSlot: `19186-${namePublicidad}-amp-zocalo`,
   }
   const isTrivia = /^\/trivias\//.test(requestUri)
 
@@ -499,6 +500,21 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
+      {arcSite === SITE_PERU21 && (
+          <amp-iframe 
+            width="1" 
+            title="User Sync"
+            height="1"
+            sandbox="allow-scripts"
+            frameborder="0"
+            src="https://ads.rubiconproject.com/prebid/load-cookie.html?endpoint=rubicon&max_sync_count=5&args=account:19186">
+            <amp-img 
+              layout="fill" 
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" 
+              placeholder 
+            />
+          </amp-iframe>
+        )}
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />

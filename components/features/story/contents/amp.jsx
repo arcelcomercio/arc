@@ -149,42 +149,46 @@ class StoryContentAmp extends React.PureComponent {
     const parametersCaja2 = {
       // movil2 caja2
       dataSlot,
+      prebidSlot: `19186-${namePublicidad}-amp-caja2`,
       width,
       height,
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100, 320x50',
+      size: '320x100,320x50',
     }
     const parametersCaja3 = {
       // movil4 caja3 caja3
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja3`,
+      prebidSlot: `19186-${namePublicidad}-amp-caja3`,
       width,
       height,
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100, 320x50, 300x1',
+      size: '320x100,320x50,300x1',
     }
     const parametersCaja4 = {
       // movil5 caja5 caja4
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja4`,
+      prebidSlot: `19186-${namePublicidad}-amp-caja4`,
       width,
       height,
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100, 320x50',
+      size: '320x100,320x50',
     }
     const parametersCaja5 = {
       // movil5 caja5 caja4
       dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja5`,
+      prebidSlot: `19186-${namePublicidad}-amp-caja5`,
       width,
       height,
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100, 320x50',
+      size: '320x100,320x50',
     }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
