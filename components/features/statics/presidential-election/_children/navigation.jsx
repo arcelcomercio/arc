@@ -7,7 +7,7 @@ const NavigationMenu = () => {
     <>
       <div className="box-ul">
         <ul class="main-navigation">
-          <li><a href="/">General</a>
+          <li><a href="#">General</a>
             <ul>
               <li><a href="/">HTML</a></li>
               <li><a href="/">CSS</a>
@@ -16,7 +16,7 @@ const NavigationMenu = () => {
               </li>
             </ul>
           </li>
-          <li><a href="/">Regiones</a>
+          <li><a href="#">Regiones</a>
             <ul>
               <li><a href="/">Themes</a></li>
               <li><a href="/">Plugins</a></li>
@@ -43,7 +43,7 @@ const NavigationMenu = () => {
               <li><a href="/">Custom Post Types</a></li>
             </ul>
           </li>
-          <li><a href="/">Lima</a>
+          <li><a href="#">Lima</a>
             <ul>
               <li><a href="/">HTML</a></li>
               <li><a href="/">CSS</a>
@@ -52,7 +52,7 @@ const NavigationMenu = () => {
               </li>
             </ul>
           </li>
-          <li><a href="/">Resto del Mundo</a>
+          <li><a href="#">Resto del Mundo</a>
             <ul>
               <li><a href="/">Themes</a></li>
               <li><a href="/">Plugins</a></li>
