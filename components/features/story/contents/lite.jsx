@@ -346,8 +346,8 @@ const StoryContentsLite = props => {
                   return (
                     <>
                       {nameAds === 'caja3' &&
-                        arcSite === SITE_ELCOMERCIOMAG &&
-                        arcSite === SITE_DEPOR &&
+                        (arcSite === SITE_ELCOMERCIOMAG || 
+                          arcSite === SITE_DEPOR ) &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
                           <div
