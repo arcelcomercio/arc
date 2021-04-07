@@ -93,5 +93,4 @@ class Landing extends Component {
   }
 }
 
-export { Landing }
 export default Landing
