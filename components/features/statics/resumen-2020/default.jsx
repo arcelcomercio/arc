@@ -8,6 +8,7 @@ import Hero from './_children/hero'
 import StickyBar from './_children/sticky-bar'
 import MainImage from './_children/main-image'
 import StoriesList from './_children/stories-list'
+import { slugify } from '../../../utilities/parse/slugify'
 
 /**
  * @see estilos `src/websites/elcomercio/scss/components/statics/resumen-2020/_container.scss`
@@ -15,29 +16,58 @@ import StoriesList from './_children/stories-list'
 const StaticsResumen2020 = props => {
   const {
     customFields: {
-      content = {},
+      editor = '',
       year = 2020,
       customLogos = {},
       heroTitle = 'Resumen del año',
       heroSubtitle = 'Las noticias más impactantes del Perú y el Mundo',
       stickyBarText = 'Las noticias más importantes de ',
       stickyBarDisableAnchor = false,
+      listDesc = 'Selecciona un mes:',
     } = {},
   } = props
 
-  const { requestUri, arcSite } = useAppContext()
+  const { requestUri = '', arcSite = '' } = useAppContext()
   const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
     arcSite
   )
-  const isMonthPage = /^\/resumen-2020\/\w{4,10}\/(?:\?.+)?$/.test(requestUri)
-  const [, month = ''] =
-    requestUri.match(/^\/resumen-2020\/(\w{4,10})\/?/) || []
-  const parsedContent = JSON.parse(content)
-  const monthImage = month ? parsedContent[month]?.imagen : {}
+
+  /**
+   * @type {string[]}
+   * @description Ejemplo de paths: ['resumen-2020', 'enero']
+   */
+  const paths = requestUri
+    .split('?')[0]
+    .split('/')
+    .filter(el => el !== '')
+  const section = paths[1] || ''
+  const mainPath = paths[0] || ''
+
+  const parsedContent = editor ? JSON.parse(editor) : []
+
+  const sectionData =
+    parsedContent.filter(({ seccion }) => slugify(seccion) === section)[0] || {}
+
+  const nextSection =
+    parsedContent[
+      parsedContent.findIndex(({ seccion }) => slugify(seccion) === section) + 1
+    ]?.seccion || ''
+
+  const sectionImage = sectionData?.imagen || {}
+
   const customLogo = customLogos[arcSite]
 
   return (
     <>
+      {paths.length > 1 && !sectionData?.seccion ? (
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: 'window.location.replace("/404/");',
+          }}
+        />
+      ) : null}
+
       <Header
         requestUri={requestUri}
         siteUrl={siteUrl}
@@ -45,30 +75,36 @@ const StaticsResumen2020 = props => {
         twitter={user}
         customLogo={customLogo}
       />
-      {!isMonthPage && (
+      {paths.length === 1 && (
         <Hero
           title={heroTitle}
           year={year}
           subtitle={heroSubtitle}
-          month={month}>
+          content={parsedContent}
+          mainPath={mainPath}
+          listDesc={listDesc}>
           <div id="gpt_top" className="hero__ads"></div>
         </Hero>
       )}
-      {isMonthPage ? (
+      {paths.length > 1 ? (
         <>
           <div id="gpt_top"></div>
           <StickyBar
             text={stickyBarText}
-            year={year}
-            month={month}
+            month={sectionData?.seccion || ''}
             disableAnchor={stickyBarDisableAnchor}
+            mainPath={mainPath}
           />
           <MainImage
-            image={monthImage.url}
-            caption={monthImage.caption}
-            month={month}
+            image={sectionImage.url}
+            caption={sectionImage.caption}
+            month={sectionData?.seccion || ''}
           />
-          <StoriesList content={parsedContent} month={month} />
+          <StoriesList
+            list={sectionData?.historias}
+            nextSectionPath={slugify(nextSection)}
+            mainPath={mainPath}
+          />
         </>
       ) : null}
       <div id="gpt_zocalo"></div>
@@ -81,15 +117,10 @@ StaticsResumen2020.label = 'Resumen 2020 Especial'
 
 StaticsResumen2020.propTypes = {
   customFields: PropTypes.shape({
-    content: PropTypes.json.tag({
-      name: 'Contenido en formato JSON',
-    }),
-    year: PropTypes.number.tag({
-      name: 'Año a mostrar',
-      description: 'Por defecto: 2020',
-      max: 2021,
-      min: 2020,
-      step: 1,
+    editor: PropTypes.string.tag({
+      name: 'Editor de contenido',
+      formPlugin: 'template-resumen',
+      defaultValue: '[]',
     }),
     customLogos: PropTypes.kvp.tag({
       name: 'Logos personalizados por marca',
@@ -98,17 +129,28 @@ StaticsResumen2020.propTypes = {
       group: 'Logos',
     }),
     heroTitle: PropTypes.string.tag({
-      name: 'Título de la portada',
-      description: 'Por defecto: Resumen 2020',
+      name: 'Título superior',
+      description: 'Por defecto: RESUMEN DEL AÑO',
+      group: 'Portada',
+    }),
+    year: PropTypes.string.tag({
+      name: 'Título principal',
+      description: 'Por defecto: 2020',
       group: 'Portada',
     }),
     heroSubtitle: PropTypes.string.tag({
       name: 'Subtítulo de la portada',
-      description: 'Por defecto: El año de la barbarie pandémica',
+      description:
+        'Por defecto: Las noticias más impactantes del Perú y el Mundo',
+      group: 'Portada',
+    }),
+    listDesc: PropTypes.string.tag({
+      name: 'Descripción del listado',
+      description: 'Por defecto: Selecciona un mes:',
       group: 'Portada',
     }),
     stickyBarText: PropTypes.string.tag({
-      name: 'Texto que precede al mes',
+      name: 'Texto que precede a la sección',
       description: 'Por defecto: Las noticias más importantes de - mes - año -',
       group: 'Barra flotante',
     }),

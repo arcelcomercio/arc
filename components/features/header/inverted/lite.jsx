@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 
@@ -17,7 +17,7 @@ const HeaderBasic = props => {
     metaValue,
   } = useAppContext()
   const {
-    customFields: { hideMenu, activeSticky },
+    customFields: { hideMenu, activeSticky, customLogo },
   } = props
 
   const {
@@ -52,26 +52,30 @@ const HeaderBasic = props => {
   })
 
   const isSomos = requestUri.includes('/somos/')
-  const mainImage = isSomos
-    ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
-    : `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/elcomercio/images/logo.png?d=1`
+  const mainImage =
+    customLogo ||
+    (isSomos
+      ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/elcomercio/images/logo.png?d=1`)
+  const isPreview = /^\/preview\//.test(requestUri)
 
-  const params = {
-    hideMenu,
-    menuSections,
-    arcSite,
-    contextPath,
-    sectionPath,
-    mainImage,
-    title,
-    isSomos,
-    activeSticky,
-  }
-
-  return <HeaderBasicChildren {...params} />
+  return (
+    <HeaderBasicChildren
+      hideMenu={hideMenu}
+      menuSections={menuSections}
+      arcSite={arcSite}
+      contextPath={contextPath}
+      sectionPath={sectionPath}
+      mainImage={mainImage}
+      title={title}
+      isSomos={isSomos}
+      activeSticky={activeSticky}
+      disableSignwall={isPreview}
+    />
+  )
 }
 
 HeaderBasic.static = true

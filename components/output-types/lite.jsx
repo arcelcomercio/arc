@@ -10,7 +10,6 @@ import {
   SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
-  SITE_TROME,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -44,7 +43,9 @@ import {
 import {
   MINUTO_MINUTO,
   GALLERY_VERTICAL,
+  PARALLAX,
 } from '../utilities/constants/subtypes'
+import { PREMIUM, METERED, FREE } from '../utilities/constants/content-tiers'
 
 const LiteOutput = ({
   children,
@@ -87,6 +88,7 @@ const LiteOutput = ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
+  const isPreview = /^\/preview\//.test(requestUri)
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
     ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
@@ -168,7 +170,7 @@ const LiteOutput = ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-  const isPremium = contentCode === 'premium' || false
+  const isPremium = contentCode === PREMIUM
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
 
@@ -200,16 +202,41 @@ const LiteOutput = ({
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
 
-  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/lite-story.css`
+  /**
+   * Lógica para las hojas de estilos
+   */
+  const style = 'lite-story'
+  const dstyle = 'dlite-story'
+
+  let inlineStyleUrl = `resources/dist/${arcSite}/css/${dstyle}.css`
+
+  let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/${style}.css`
   }
   if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
   }
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
-    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/lite-story.css`
+    styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+
+  if (metaValue('section_style') === 'parallax') {
+    inlineStyleUrl = `resources/dist/elcomercio/css/dlite-parallax.css`
+    styleUrl = `${contextPath}/resources/dist/elcomercio/css/lite-parallax.css`
+    if (CURRENT_ENVIRONMENT === 'prod') {
+      if (CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/elcomercio/css/lite-parallax.css`
+      }
+      if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.mag.elcomercio.pe/dist/elcomercio/css/lite-parallax.css`
+      }
+      if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.g21.peru21.pe/dist/elcomercio/css/lite-parallax.css`
+      }
+    }
+  }
+  /** */
 
   let lang = 'es'
   if (arcSite === SITE_DEPOR) {
@@ -226,9 +253,9 @@ const LiteOutput = ({
     getdata: new Date().toISOString().slice(0, 10),
   }
 
-  const premiumValue = getPremiumValue === 'premium' ? true : getPremiumValue
-  const isPremiumFree = premiumValue === 'free' ? 2 : premiumValue
-  const isPremiumMete = isPremiumFree === 'metered' ? false : isPremiumFree
+  const premiumValue = getPremiumValue === PREMIUM ? true : getPremiumValue
+  const isPremiumFree = premiumValue === FREE ? 2 : premiumValue
+  const isPremiumMete = isPremiumFree === METERED ? false : isPremiumFree
   const vallaSignwall = isPremiumMete === 'vacio' ? false : isPremiumMete
   const isIframeStory = requestUri.includes('/carga-continua')
   const iframeStoryCanonical = `${siteProperties.siteUrl}${deleteQueryString(
@@ -267,7 +294,7 @@ const LiteOutput = ({
                 <meta name="DC.language" scheme="RFC1766" content="es" />
               </>
             )}
-            {isStory && htmlAmpIs && (
+            {isStory && htmlAmpIs && subtype !== PARALLAX && (
               <link
                 rel="amphtml"
                 href={`${siteProperties.siteUrl}${addSlashToEnd(
@@ -358,7 +385,6 @@ const LiteOutput = ({
             <link rel="preconnect" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-            <link rel="dns-prefetch" href="//tags.bluekai.com/" />
             <link rel="preconnect" href="//cdn.cxense.com/" />
             <link rel="dns-prefetch" href="//cdn.cxense.com/" />
             <link rel="preconnect" href="//scdn.cxense.com/" />
@@ -453,7 +479,7 @@ const LiteOutput = ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        <Resource path={`resources/dist/${arcSite}/css/dlite-story.css`}>
+        <Resource path={inlineStyleUrl}>
           {({ data }) => {
             return data ? (
               <style
@@ -477,7 +503,7 @@ const LiteOutput = ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {isPremium && arcSite === SITE_ELCOMERCIO && (
+        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
           <>
             <Libs></Libs>
             <script
@@ -491,7 +517,7 @@ const LiteOutput = ({
               defer
             />
           </>
-        )}
+        ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
       </head>
       <body
@@ -650,13 +676,22 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        <script
-          type="module"
-          defer
-          src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-            .toISOString()
-            .slice(0, 10)}`}
-        />
+        {arcSite === SITE_ELCOMERCIOMAG ? (
+          <script
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+          />
+        ) : (
+          <script
+            type="module"
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+          />
+        )}
         {isStory && (
           <>
             <noscript id="deferred-styles">
@@ -674,7 +709,9 @@ const LiteOutput = ({
             />
           </>
         )}
-        {vallaSignwall === false && arcSite === SITE_ELCOMERCIO && (
+        {vallaSignwall === false &&
+        arcSite === SITE_ELCOMERCIO &&
+        !isPreview ? (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -683,7 +720,7 @@ const LiteOutput = ({
             />
             {!isIframeStory && <VallaHtml />}
           </>
-        )}
+        ) : null}
         {contentElementsHtml.includes('graphics.afpforum.com') && (
           <script dangerouslySetInnerHTML={{ __html: htmlScript }} />
         )}

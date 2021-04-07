@@ -14,7 +14,7 @@
 
   &__item {
     padding-bottom: 15px;
-    border-top: 1px solid #8a8a8a;
+    border-top: 1px solid #7f7f7f;
     padding-top: 15px;
     @media (--only-mobile) {
       flex-direction: column;
@@ -51,7 +51,7 @@
       padding-right: 30px;
     }
     a {
-      color: #0c70bf;
+      color: #333;
     }
   }
 

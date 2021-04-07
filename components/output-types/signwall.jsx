@@ -1,30 +1,55 @@
-import React from 'react'
-import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 import PropTypes from 'prop-types'
-import TagManager from './_children/tag-manager'
-import FbPixel from './_children/fb-pixel'
+
+import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/constants'
 
-const Signwall = props => {
-  const { children, contextPath, siteProperties, deployment, arcSite } = props
+import FbPixel from './_children/fb-pixel'
+import FinallyPolyfill from './_children/finallyPolyfill'
+import TagManager from './_children/tag-manager'
 
-  const { siteName, siteDescription } = siteProperties
+const Signwall = ({
+  Libs,
+  Fusion,
+  children,
+  contextPath,
+  siteProperties,
+  deployment,
+  arcSite,
+  metaValue,
+}) => {
+  const {
+    activePaywall,
+    activeSignwall,
+    fbPixelId,
+    googleTagManagerId,
+    siteName,
+    siteDescription,
+  } = siteProperties
 
-  const C_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  /**
+   * @param {string} key
+   * @returns {string|undefined}
+   */
+  const getMetaValue = key =>
+    metaValue(key) && !/content/.test(metaValue(key)) && metaValue(key)
+
+  const title = getMetaValue('title') || `Signwall ${siteName}`
+  const description = getMetaValue('description') || siteDescription
 
   return (
     <html lang="es">
       <head>
-        <TagManager {...siteProperties} />
-        <FbPixel {...props} />
+        <TagManager googleTagManagerId={googleTagManagerId} />
+        <FbPixel fbPixelId={fbPixelId} />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <title>Signwall {siteName}</title>
-        <meta name="description" content={siteDescription} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
         <meta name="theme-color" content="#444444" />
         <meta name="msapplication-TileColor" content="#444444" />
         <meta name="robots" content="noindex,follow" />
@@ -38,7 +63,7 @@ const Signwall = props => {
             )}/resources/dist/${arcSite}/images/favicon.png`
           )}
         />
-        <props.Libs />
+        <Libs />
         <link
           rel="stylesheet"
           href={deployment(
@@ -50,26 +75,25 @@ const Signwall = props => {
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
 
-        {siteProperties.activeSignwall && (
+        {activeSignwall && (
           <script
-            src={`https://arc-subs-sdk.s3.amazonaws.com/${C_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
+            src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js?v=07112019`}
             defer
           />
         )}
-        {siteProperties.activePaywall && (
-          <>
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${C_ENVIRONMENT}/sdk-sales.min.js?v=07112019`}
-              defer
-            />
-          </>
+        {activePaywall && (
+          <script
+            src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js?v=07112019`}
+            defer
+          />
         )}
+        <FinallyPolyfill />
       </head>
       <body>
         <noscript>
           <iframe
             title="Google Tag Manager - No Script"
-            src={`https://www.googletagmanager.com/ns.html?id=${siteProperties.googleTagManagerId}`}
+            src={`https://www.googletagmanager.com/ns.html?id=${googleTagManagerId}`}
             height="0"
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
@@ -79,7 +103,7 @@ const Signwall = props => {
             height="1"
             width="1"
             style={{ display: 'none' }}
-            src={`https://www.facebook.com/tr?id=${siteProperties.fbPixelId}&ev=PageView&noscript=1`}
+            src={`https://www.facebook.com/tr?id=${fbPixelId}&ev=PageView&noscript=1`}
           />
         </noscript>
 
@@ -87,7 +111,7 @@ const Signwall = props => {
           {children}
         </div>
 
-        <props.Fusion />
+        <Fusion />
       </body>
     </html>
   )

@@ -1,11 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react'
+import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
+
 import useForm from '../../../_hooks/useForm'
 import { getEntitlements } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
-import { PixelActions, sendAction, Taggeo } from '../../../_dependencies/Taggeo'
+import {
+  PixelActions,
+  sendAction,
+  Taggeo,
+  TaggeoJoao,
+  eventCategory,
+} from '../../../_dependencies/Taggeo'
 import { maskDocuments, docPatterns } from '../../../_dependencies/Regex'
 import Modal from './children/modal'
 import PWA from '../../../_dependencies/Pwa'
@@ -46,8 +53,8 @@ const nameTagCategory = 'Web_Paywall_Landing'
 const Profile = () => {
   const {
     arcSite,
-    globalContent: { plans = [], error, printedSubscriber },
-  } = useFusionContext() || {}
+    globalContent: { plans = [], error, printedSubscriber, event },
+  } = useAppContext() || {}
 
   const {
     updateStep,
@@ -56,7 +63,9 @@ const Profile = () => {
     userErrorApi,
     updateErrorApi,
     userPlan,
-  } = useContext(AuthContext)
+    userPeriod,
+  } = React.useContext(AuthContext)
+
   const { urls, emails } = PropertiesSite[arcSite]
   const { texts, links } = PropertiesCommon
 
@@ -72,18 +81,21 @@ const Profile = () => {
     emailVerified,
   } = conformProfile(getStorageProfile())
 
-  const [msgError, setMsgError] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [loadText, setLoadText] = useState('Cargando...')
-  const [linkLogin, setLinkLogin] = useState()
-  const [showModal, setShowModal] = useState()
-  const [showDocOption, setShowDocOption] = useState(documentType || 'DNI')
+  const [msgError, setMsgError] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [loadText, setLoadText] = React.useState('Cargando...')
+  const [linkLogin, setLinkLogin] = React.useState()
+  const [showModal, setShowModal] = React.useState()
+  const [showDocOption, setShowDocOption] = React.useState(
+    documentType || 'DNI'
+  )
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.priceCode === userPlan.priceCode ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+    null
+  )
 
   const {
     amount,
@@ -94,51 +106,63 @@ const Profile = () => {
     productName,
   } = getPLanSelected || {}
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
 
-      const origin = getSessionStorage('paywall_type_modal') || 'organico'
-      const referer = getSessionStorage('paywall_last_url') || ''
+    const origin = getSessionStorage('paywall_type_modal') || 'organico'
+    const referer = getSessionStorage('paywall_last_url') || ''
 
-      window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({
-        event: 'checkoutOption',
-        ecommerce: {
-          checkout_option: {
-            actionField: { step: 2 },
-          },
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: 'checkoutOption',
+      ecommerce: {
+        checkout_option: {
+          actionField: { step: 2 },
         },
-      })
+      },
+    })
 
-      sendAction(PixelActions.PAYMENT_PROFILE, {
-        sku: `${sku}`,
-        periodo: billingFrequency,
-        referer,
-        medioCompra: origin,
-        priceCode,
-        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
-        pwa: PWA.isPWA() ? 'si' : 'no',
-      })
+    sendAction(PixelActions.PAYMENT_PROFILE, {
+      sku: `${sku}`,
+      periodo: billingFrequency,
+      referer,
+      medioCompra: origin,
+      priceCode,
+      suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+      pwa: PWA.isPWA() ? 'si' : 'no',
+    })
 
-      Sentry.configureScope(scope => {
-        scope.setTag('brand', arcSite)
-        scope.setTag('document', documentNumber || 'none')
-        scope.setTag('phone', phone || 'none')
-        scope.setTag('email', email || 'none')
-        scope.setTag('step', 'Perfil')
-        scope.setUser({
-          id: uuid,
-          name: `${firstName} ${lastName} ${secondLastName || ''}`,
-          email,
-          phone,
-          documentType,
-          documentNumber,
-          emailVerified,
-        })
+    Sentry.configureScope(scope => {
+      scope.setTag('document', documentNumber || 'none')
+      scope.setTag('phone', phone || 'none')
+      scope.setTag('email', email || 'none')
+      scope.setTag('step', 'Perfil')
+      scope.setUser({
+        id: uuid,
+        name: `${firstName} ${lastName} ${secondLastName || ''}`,
+        email,
+        phone,
+        documentType,
+        documentNumber,
+        emailVerified,
       })
-      if (userErrorApi !== false) updateErrorApi(error)
+    })
+
+    if (printedSubscriber || error) {
+      // Datalayer solicitados por Joao
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: 'P0_Plan_Suscriptor',
+          action: printedSubscriber ? 'Aceptado' : `Denegado - ${error}`,
+          label: uuid,
+        },
+        window.location.pathname
+      )
     }
+
+    if (userErrorApi !== false) updateErrorApi(error)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -206,15 +230,21 @@ const Profile = () => {
 
   const checkSubscriptions = () => {
     if (typeof window !== 'undefined') {
+      Sentry.addBreadcrumb({
+        type: 'info',
+        category: 'perfil',
+        message: 'Verificando suscripciones para extender sesión',
+        data: { 'Identity.heartbeat': 'function' },
+        level: 'info',
+      })
       return window.Identity.heartbeat()
-        .then(resHeart => {
-          return getEntitlements(urls.arcOrigin, resHeart.accessToken)
-            .then(resEntitlements => {
-              return (
+        .then(resHeart =>
+          getEntitlements(urls.arcOrigin, resHeart.accessToken)
+            .then(
+              resEntitlements =>
                 Array.isArray(resEntitlements.skus) &&
                 resEntitlements.skus.length > 0
-              )
-            })
+            )
             .catch(errEntitlements => {
               Sentry.captureEvent({
                 message: 'Error al verificar Suscripciones',
@@ -222,10 +252,10 @@ const Profile = () => {
                 extra: errEntitlements,
               })
             })
-        })
+        )
         .catch(errHeart => {
           Sentry.captureEvent({
-            message: 'Error al extender la sessión',
+            message: 'Error al extender la sesión',
             level: 'error',
             extra: errHeart,
           })
@@ -293,15 +323,30 @@ const Profile = () => {
     uDocumentNumber,
   }) => {
     if (typeof window !== 'undefined') {
+      Sentry.addBreadcrumb({
+        type: 'info',
+        category: 'perfil',
+        message: 'Usuario inicia actualización de datos de perfil',
+        data: {
+          uFirstName,
+          uLastName,
+          uSecondLastName,
+          uEmail,
+          uPhone,
+          uDocumentType,
+          uDocumentNumber,
+        },
+        level: 'info',
+      })
+
       let { attributes: uAttributes = [] } = window.Identity.userProfile || {}
       if (!uAttributes) uAttributes = []
-      const addAttributes = (name, value) => {
-        return uAttributes.push({
+      const addAttributes = (name, value) =>
+        uAttributes.push({
           name,
           value: value.trim(),
           type: 'String',
         })
-      }
       addAttributes('documentType', uDocumentType)
       addAttributes('documentNumber', uDocumentNumber)
       const getUniqueListBy = (arr, key) => [
@@ -335,17 +380,35 @@ const Profile = () => {
         })
       }
 
-      Sentry.addBreadcrumb({
-        category: 'perfil',
-        message: 'El Usuario completa sus datos',
-        level: 'info',
-      })
+      // Datalayer solicitados por Joao
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: eventCategory({
+            step: 1,
+            event,
+            hasPrint: printedSubscriber,
+            plan: namePlanApi,
+          }),
+          action: userPeriod,
+          label: uuid,
+        },
+        window.location.pathname
+      )
 
       if (
         (getStorageEmailProfile() !== uEmail && isFacebook) ||
         getStorageEmailProfile() === uEmail
       ) {
         setLoadText('Actualizando Perfil...')
+        Sentry.addBreadcrumb({
+          type: 'info',
+          category: 'perfil',
+          message: 'Actualizando datos de perfil',
+          data: { 'Identity.updateUserProfile': profile },
+          level: 'info',
+        })
+
         window.Identity.updateUserProfile(profile)
           .then(resProfile => {
             updateUser(resProfile)
@@ -405,15 +468,24 @@ const Profile = () => {
       setLoading(true)
       if (isLogged()) {
         setLoadText('Verificando Suscripciones...')
-        checkSubscriptions().then(resSubs => {
-          if (resSubs) {
-            setShowModal(true)
-            setLoading(false)
-            Taggeo(nameTagCategory, 'web_paywall_open_validation')
-          } else {
-            updateProfile(...props)
-          }
-        })
+        if ('Identity' in window) {
+          checkSubscriptions().then(resSubs => {
+            if (resSubs) {
+              setShowModal(true)
+              setLoading(false)
+              Taggeo(nameTagCategory, 'web_paywall_open_validation')
+            } else {
+              updateProfile(...props)
+            }
+          })
+        } else {
+          Sentry.captureEvent({
+            message:
+              'No se puede verificar suscripciones - SDK Identity no ha cargado correctamente',
+            level: 'error',
+            extra: {},
+          })
+        }
       } else {
         restoreClearSession()
       }
@@ -447,6 +519,23 @@ const Profile = () => {
       setShowModal(false)
       window.sessionStorage.setItem('paywall_confirm_subs', '2')
       Taggeo(nameTagCategory, 'web_paywall_close_validation')
+
+      // Datalayer solicitados por Joao
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: eventCategory({
+            step: 1,
+            event,
+            hasPrint: printedSubscriber,
+            plan: namePlanApi,
+            cancel: true,
+          }),
+          action: userPeriod,
+          label: uuid,
+        },
+        window.location.pathname
+      )
     }
   }
 
@@ -481,9 +570,26 @@ const Profile = () => {
 
   const logoutUser = () => {
     if (typeof window !== 'undefined') {
-      window.Identity.logout().finally(() => {
-        userLogout()
-      })
+      if ('Identity' in window) {
+        window.Identity.logout()
+          .catch(err =>
+            Sentry.captureEvent({
+              message: 'Error al cerrar sesión con Identity',
+              level: 'error',
+              extra: err,
+            })
+          )
+          .finally(() => {
+            userLogout()
+          })
+      } else {
+        Sentry.captureEvent({
+          message:
+            'No se puede cerrar sesión - SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: {},
+        })
+      }
     }
   }
 
@@ -534,6 +640,7 @@ const Profile = () => {
             <input
               className={uFirstNameError && 'input-error'}
               type="text"
+              autoComplete="given-name"
               name="uFirstName"
               value={uFirstName}
               required
@@ -554,6 +661,7 @@ const Profile = () => {
             <input
               className={uLastNameError && 'input-error'}
               type="text"
+              autoComplete="family-name"
               name="uLastName"
               value={uLastName}
               required
@@ -633,6 +741,8 @@ const Profile = () => {
             <input
               className={uPhoneError && 'input-error'}
               type="text"
+              inputMode="tel"
+              autoComplete="tel"
               name="uPhone"
               value={uPhone}
               maxLength="12"
@@ -653,6 +763,8 @@ const Profile = () => {
               ${!emailVerified && !isFacebook ? 'email-noverify' : ''} 
               ${uEmailError && 'input-error'}`}
               type="text"
+              inputMode="email"
+              autoComplete="email"
               name="uEmail"
               value={uEmail}
               required

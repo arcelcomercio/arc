@@ -3,6 +3,7 @@ import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
+import Image from '../../../global-components/image'
 
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
@@ -27,6 +28,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LIST,
+  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
 import StoryData from '../../../utilities/story-data'
 
@@ -55,11 +57,14 @@ import {
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
+  PARALLAX,
 } from '../../../utilities/constants/subtypes'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import ShareButtons from '../../../global-components/lite/share'
 import { contentWithAds } from '../../../utilities/story/content'
 import { processedAds } from '../../../utilities/story/helpers'
+import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildParallaxElements from './_children/parallax-elements'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -89,6 +94,7 @@ const StoryContentsLite = props => {
     arcSite,
     contextPath,
     deployment,
+    requestUri,
     siteProperties: {
       ids: { opta },
       isDfp = false,
@@ -168,6 +174,7 @@ const StoryContentsLite = props => {
     adsEvery: liteAdsEvery,
     arcSite,
   })
+  const isPreview = /^\/preview\//.test(requestUri)
 
   return (
     <>
@@ -192,10 +199,13 @@ const StoryContentsLite = props => {
               data-prebid-enabled></div>
           )}
         <div
-          className={`${classes.content} ${isPremium &&
-            'story-content__nota-premium paywall no_copy'}`}
+          className={`${classes.content} ${
+            isPremium && !isPreview
+              ? 'story-content__nota-premium paywall no_copy'
+              : ''
+          }`}
           style={
-            isPremium
+            isPremium && !isPreview
               ? {
                   display: 'none',
                   opacity: '0',
@@ -218,6 +228,7 @@ const StoryContentsLite = props => {
               elementClasses={classes}
               renderElement={element => {
                 const {
+                  _id,
                   type,
                   subtype: sub,
                   embed: customEmbed,
@@ -276,6 +287,7 @@ const StoryContentsLite = props => {
                           has_ads: hasAds = 0,
                           account = 'gec',
                           title = '',
+                          thumbnail_url: image = '',
                         } = {},
                       } = {},
                     } = element
@@ -288,15 +300,17 @@ const StoryContentsLite = props => {
                         <div
                           className="jwplayer-lazy "
                           id={`botr_${mediaId}_${jwplayerId}_div`}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="jw-svg-icon jw-svg-icon-play"
-                            viewBox="0 0 240 240"
-                            width="77"
-                            height="77"
-                            focusable="false">
-                            <path d="M62.8,199.5c-1,0.8-2.4,0.6-3.3-0.4c-0.4-0.5-0.6-1.1-0.5-1.8V42.6c-0.2-1.3,0.7-2.4,1.9-2.6c0.7-0.1,1.3,0.1,1.9,0.4l154.7,77.7c2.1,1.1,2.1,2.8,0,3.8L62.8,199.5z"></path>
-                          </svg>
+                          <div className="jwplayer-lazy-icon-play"></div>
+                          <Image
+                            src={image}
+                            width={580}
+                            height={326}
+                            alt={title}
+                            style={{
+                              width: '100%',
+                            }}
+                            loading="lazy"
+                          />
                         </div>
                         <figcaption className="s-multimedia__caption ">
                           {title}
@@ -479,6 +493,10 @@ const StoryContentsLite = props => {
                   )
                 }
 
+                if (type === ELEMENT_LINK_LIST) {
+                  return <StoryContentsChildLinkList items={items} />
+                }
+
                 if (
                   type === ELEMENT_CUSTOM_EMBED &&
                   sub === STORY_CUSTOMBLOCK
@@ -621,6 +639,15 @@ const StoryContentsLite = props => {
                       <StoryContentsChildLinkedImage {...customEmbedConfig} />
                     )
                   }
+                  if (sub === 'parallax_blocks' && subtype === PARALLAX) {
+                    const { config: customEmbedConfig } = customEmbed || {}
+                    return (
+                      <StoryContentsChildParallaxElements
+                        config={customEmbedConfig}
+                        id={_id}
+                      />
+                    )
+                  }
                 }
                 return ''
               }}
@@ -662,6 +689,16 @@ const StoryContentsLite = props => {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: iframeScriptCounter(),
+          }}
+        />
+      )}
+      {subtype === PARALLAX && (
+        // https://web.dev/lazy-loading-images/#images-css
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html:
+              'document.addEventListener("DOMContentLoaded",function(){var e=[].slice.call(document.querySelectorAll(".lazy-background"));if("IntersectionObserver"in window){let n=new IntersectionObserver(function(e,t){e.forEach(function(e){e.isIntersecting&&(e.target.classList.add("visible"),n.unobserve(e.target))})});e.forEach(function(e){n.observe(e)})}});',
           }}
         />
       )}

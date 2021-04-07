@@ -31,7 +31,8 @@ export const formatSecondLastName = () => {
 
 export const formatPhone = () => {
   return {
-    func: value => numberRegex.test(value),
+    func: value =>
+      value === '' || (value.length >= 2 && numberRegex.test(value)),
     error: 'Formato inválido. Solo números',
   }
 }
@@ -71,7 +72,8 @@ const getCodeError = (code, status) => {
     case '100014':
     case '300014':
       return 'Tu cuenta ha sido bloqueada debido a demasiados intentos fallidos. Por favor inténtalo más tarde.'
-
+    case '300015':
+      return 'Pedido no encontrado.'
     case '300030':
       return 'Tu correo electrónico no está registrado.'
 

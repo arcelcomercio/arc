@@ -22,3 +22,14 @@
     padding-top: 5px;
   }
 }
+
+.story-content {
+  &__link-list {
+    &-figure {
+      img {
+        width: 96px;
+        height: 64px;
+      }
+    }
+  }
+}

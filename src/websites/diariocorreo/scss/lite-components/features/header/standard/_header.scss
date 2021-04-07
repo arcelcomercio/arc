@@ -1,52 +1,53 @@
 .header {
-  background-color: #000;
-  height: 58px;
   display: none;
   @media (--desktop) {
     display: flex;
-    max-width: $max-width;
+    height: 0;
+    top: -46px;
+    z-index: 25;
   }
 
   &__logo {
-    height: 34px;
+    height: 121px;
+    left: 13px;
+    position: absolute;
+    width: 105px;
   }
 
   &__nav {
-    padding: 0 15px;
     display: none;
-    @media (--tablet) {
+    background-color: #a8a89b;
+    @media (--desktop) {
       display: flex;
-      max-width: $max-width;
+      justify-content: flex-end;
     }
   }
   &__tags {
-    align-self: center;
-    font-size: 9px;
-    font-weight: 700;
-    white-space: nowrap;
-    margin-right: 20px;
-    color: #555;
+    display: none;
   }
   &__featured {
     padding-right: 20px;
+    flex-wrap: wrap;
+    max-width: 826px;
   }
   &__item {
     white-space: nowrap;
     &::after {
-      background-color: #ebebeb;
+      background-color: #fff;
       content: "";
       display: block;
-      height: 80%;
-      margin: 0 20px;
+      height: 10px;
       width: 1px;
     }
   }
   &__link {
+    font: 700 10px/1 $tertiary-font;
+    color: #444;
     padding: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: capitalize;
+    text-transform: uppercase;
     letter-spacing: 0.02rem;
-    color: #555;
+  }
+  &__date {
+    display: none;
   }
 }

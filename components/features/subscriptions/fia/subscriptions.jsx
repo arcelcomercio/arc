@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
 import { useFusionContext } from 'fusion:context'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
-import { NavigateProvider, NavigateConsumer } from '../_context/navigate'
-import { AuthProvider } from '../_context/auth'
+import * as Sentry from '@sentry/browser'
 
 import Login from '../_children/login'
 import Register from '../_children/register'
 import Forgot from '../_children/forgot'
+import { NavigateProvider, NavigateConsumer } from '../_context/navigate'
+import { AuthProvider } from '../_context/auth'
+import addScriptAsync from '../_dependencies/Async'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
+import { deleteCookie } from '../_dependencies/Cookies'
+import { Container, Wrapper, PanelLeft } from '../_layouts/containers'
+import stylesPayment from '../_styles/Payment'
 
 import Header from './_children/header'
 import CallToActionFia from './_children/call_to_action'
-import { deleteCookie } from '../_dependencies/Cookies'
-import stylesPayment from '../_styles/Payment'
-
-import { Container, Wrapper, PanelLeft } from '../_layouts/containers'
-import addScriptAsync from '../_dependencies/Async'
 
 const renderTemplate = (template, contTempl, attributes) => {
   const templates = {
@@ -36,7 +36,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
-  const [isLogged, setLogged] = useState(false)
+  const [isLogged, setLogged] = React.useState(false)
 
   const handleCallToAction = status => {
     setLogged(status)
@@ -44,11 +44,20 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   const logoutSession = () => {
     if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: urls.arcOrigin })
-      window.Identity.logout()
-      deleteCookie('arc_e_id')
-      window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
-      setLogged(false)
+      if ('Identity' in window) {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+        window.Identity.logout()
+        deleteCookie('arc_e_id')
+        window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
+        setLogged(false)
+      } else {
+        Sentry.captureEvent({
+          message:
+            'No se puede cerrar sesión - SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: {},
+        })
+      }
     }
   }
 
@@ -58,8 +67,12 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
     }
   }
 
-  useEffect(() => {
-    if (window.Identity.userProfile && window.Identity.userIdentity.uuid) {
+  React.useEffect(() => {
+    if (
+      'Identity' in window &&
+      window.Identity.userProfile &&
+      window.Identity.userIdentity.uuid
+    ) {
       setLogged(true)
     }
 
@@ -67,15 +80,22 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
       name: 'IdentitySDK',
       url: links.identity,
       includeNoScript: false,
-    }).then(() => {
-      window.Identity.options({ apiOrigin: urls.arcOrigin })
     })
-  }, [])
+      .then(() => {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+      })
+      .catch(errIdentitySDK => {
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: errIdentitySDK || {},
+        })
+      })
+  }, [links.identity, urls.arcOrigin])
 
   return (
     <>
-      <style
-        dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }}></style>
+      <style dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }} />
 
       <Header {...{ arcSite, mainColorBg, buttonBack }} />
       <Container>
@@ -91,6 +111,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                       handleCallToAction,
                       onClose: () => {
                         if (
+                          'Identity' in window &&
                           window.Identity.userProfile &&
                           window.Identity.userIdentity.uuid
                         ) {
@@ -117,12 +138,10 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   )
 }
 
-const FiaSubscriptions = () => {
-  return (
-    <AuthProvider>
-      <FiaSubscriptionsWrapper typeDialog="authfia" />
-    </AuthProvider>
-  )
-}
+const FiaSubscriptions = () => (
+  <AuthProvider>
+    <FiaSubscriptionsWrapper typeDialog="authfia" />
+  </AuthProvider>
+)
 
 export default FiaSubscriptions

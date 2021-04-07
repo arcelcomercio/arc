@@ -29,6 +29,7 @@ class LayoutNavbar extends PureComponent {
 
   render() {
     const {
+      requestUri,
       customFields: {
         showInDesktop = true,
         showInTablet = true,
@@ -40,6 +41,7 @@ class LayoutNavbar extends PureComponent {
       <NavbarChildSomos
         {...{ showInDesktop, showInTablet, showInMobile }}
         {...this.formatter.initParams()}
+        requestUri={requestUri}
       />
     )
   }

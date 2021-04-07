@@ -22,6 +22,41 @@ export const Taggeo = (cat, acc) => {
   }
 }
 
+export const TaggeoJoao = (obj, path) => {
+  window.dataLayer.push(obj)
+  if (!IsPROD) {
+    window.console.groupCollapsed(
+      `%c 🔔 Taggeo Joao - Categoria: ${obj.category} | Ruta: ${path}`,
+      'color:  purple; font-size: 12px'
+    )
+    window.console.table(obj)
+    window.console.groupEnd()
+  }
+}
+
+/**
+ * @typedef {object} EventCategoryOpts
+ * @property {(1|2|3)} step
+ * @property {"winback"} [event]
+ * @property {boolean} [hasPrint] - Indica si el usuario tiene suscripción impresa
+ * @property {string} plan - Plan por defecto
+ * @property {boolean} [cancel] - Plan por defecto
+ */
+
+/**
+ * @param {EventCategoryOpts}
+ * @returns {string}
+ */
+export const eventCategory = ({ step, event, hasPrint, plan, cancel }) => {
+  let planName = plan ? plan.replace(' ', '_') : ''
+  if (event && event === 'winback') {
+    planName = 'Plan_Winback'
+  } else if (hasPrint) {
+    planName = 'Plan_Suscriptor'
+  }
+  return `P${step}_${planName}${cancel ? '_Cancelado' : ''}`
+}
+
 export const PixelActions = {
   PAYMENT_PLAN: 'paywall_planes',
   PAYMENT_PROFILE: 'paywall_datos',

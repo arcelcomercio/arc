@@ -42,4 +42,16 @@
       margin-left: 10px;
     }
   }
+  &__lt {
+    padding: 0 5px;
+    align-items: center;
+    svg {
+      fill: #dddf45;
+    }
+    span {
+      color: #dddf45;
+      font: normal normal normal 13px/15px $secondary-font;
+      margin-left: 5px;
+    }
+  }
 }

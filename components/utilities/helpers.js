@@ -111,6 +111,35 @@ export const formatDateLocalTimeZone = (
   return formattedDate
 }
 
+// Se agrega una copia de la funcion formatDateLocalTimeZone para limitar el impacto de un cambio ya que esa funcion se usa en varios componentes
+export const formatDateLocalTimeZoneTemp = (
+  publishDateString,
+  delimiter = '-',
+  isClient = false,
+  todayHour = true
+) => {
+  const publishDate = new Date(publishDateString)
+  if (!isClient) publishDate.setHours(publishDate.getHours() - 5)
+
+  const today = new Date()
+  if (!isClient) today.setHours(today.getHours() - 5)
+
+  let formattedDate = ''
+
+  if (
+    getYYYYMMDDfromISO(publishDate) === getYYYYMMDDfromISO(today) &&
+    todayHour
+  )
+    formattedDate = formattedTime(publishDate)
+  else {
+    // eslint-disable-next-line prefer-destructuring
+    formattedDate = `${publishDate.getFullYear()}-${publishDate.getMonth() +
+      1}-${publishDate.getDate()}`
+    formattedDate = formattedDate.replace(/-/g, delimiter)
+  }
+  return formattedDate
+}
+
 export const arrayMonths = [
   'enero',
   'febrero',

@@ -6,8 +6,9 @@
     border-top: 1px solid #d6d6d6;
 
     .story-contents__author-link {
-      font: 700 14px/1.33 $primary-font;
-      text-transform: uppercase;
+      font: 400 1rem/1.33 $primary-font;
+      letter-spacing: 0.02rem;
+      text-transform: capitalize;
       margin: 0;
     }
     .story-contents__author-email,
