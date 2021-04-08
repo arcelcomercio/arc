@@ -34,7 +34,10 @@ const Benefits = ({ arcSite }) => {
                     </label>
                     <div className="display" id={`display--${i + 1}`}>
                       <picture className="picture-mobile">
-                        <source type="image/webp" src={`${item.image}.webp`} />
+                        <source
+                          type="image/webp"
+                          srcSet={`${item.image}.webp`}
+                        />
                         <img
                           type="image/png"
                           src={`${item.image}.png`}
@@ -57,7 +60,7 @@ const Benefits = ({ arcSite }) => {
             {benefits.map((item, i) => {
               return (
                 <picture key={`image-${i + 1}`}>
-                  <source type="image/webp" src={`${item.image}.webp`} />
+                  <source type="image/webp" srcSet={`${item.image}.webp`} />
                   <img
                     id={`picture--tab--${i + 1}`}
                     className="picture"
