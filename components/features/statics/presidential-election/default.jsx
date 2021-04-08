@@ -8,6 +8,7 @@ import { useContent } from 'fusion:content'
 import ResultGraph from './_children/graph'
 import ResultPaginator from './_children/paginator'
 import NavigationMenu from './_children/navigation'
+import ResultPages from './_children/pages'
 
 const PresidentialElection = props => {
   const [filters, setFilters] = React.useState({
@@ -126,8 +127,10 @@ const PresidentialElection = props => {
     maxVote: 50,
     showTitle: true,
   }
+  console.log('pages=>', page);
   return (
     <div>
+      <ResultPages path={page} />
       <NavigationMenu pageData={pageData} changeFilters={changeFilters} />
       <ResultPaginator urlPrev="1/" urlNext="2/" title="Acción Popular" />
       <ResultGraph {...params} />
