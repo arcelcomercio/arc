@@ -39,7 +39,7 @@ export default ({
       <div className={classes.boxUrl} onChange={handleChangeRadio}>
         <input
           className={addClassActive(urlPath, PATH_PRESIDENCIAL)}
-          value={`${pathBase}/${PATH_PRESIDENCIAL}`}
+          value={`${pathBase}/${PATH_PRESIDENCIAL}/`}
           type="radio"
           name="url"
           id={PATH_PRESIDENCIAL}
@@ -50,7 +50,7 @@ export default ({
         </label>
         <input
           className={addClassActive(urlPath, PATH_CONGRESAL)}
-          value={`${pathBase}/${PATH_CONGRESAL}`}
+          value={`${pathBase}/${PATH_CONGRESAL}/`}
           type="radio"
           name="url"
           id={PATH_CONGRESAL}
@@ -61,7 +61,7 @@ export default ({
         </label>
         <input
           className={addClassActive(urlPath, PATH_PARLAMENTO_ANDINO)}
-          value={`${pathBase}/${PATH_PARLAMENTO_ANDINO}`}
+          value={`${pathBase}/${PATH_PARLAMENTO_ANDINO}/`}
           type="radio"
           name="url"
           id={PATH_PARLAMENTO_ANDINO}
