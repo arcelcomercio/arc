@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react'
 
 const classes = {
@@ -13,15 +14,17 @@ const classes = {
   votes: 'presidential-election-graph__votes',
   description: 'presidential-election-graph__description',
 }
+
+const getPartidoDataFromId = (id = '', partidos = []) => {
+  return partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
+}
+
 const PresidentialElectionChildGraph = ({
-  data = [],
+  filterData,
+  partidos,
   showTitle = true,
   description = '',
-  maxVote = 0,
 }) => {
-  const dataValue = (value, limitValue) => {
-    return Math.round((value * 100) / limitValue)
-  }
   const printBar = (value, color) => {
     const colorBar = value <= 0 ? 'transparent' : color
     return {
@@ -33,31 +36,33 @@ const PresidentialElectionChildGraph = ({
     <section className={classes.container}>
       {showTitle && <div className={classes.title}>Cantidad de votos</div>}
       <ul className={classes.list}>
-        {data.map(
-          ({ votes = 0, color = '', urlImg = null, name = '' }, index) => {
-            const randomKey = Math.floor(Math.random() * 100 * index)
-            const percentValue = dataValue(votes, maxVote)
-            /* const classBar =
-            percentValue >= 85 ? classes.barsPercentLeft : classes.bars */
-            return (
-              <li key={randomKey} className={classes.item}>
-                {urlImg && (
-                  <img src={urlImg} alt="" className={classes.avatar} />
-                )}
-                <div className={classes.boxInfo}>
-                  <div className={classes.boxBar}>
-                    <span
-                      className={classes.bar}
-                      data-value={`${percentValue}%`}
-                      style={printBar(percentValue, color)}></span>
-                    <span className={classes.votes}>{votes}</span>
-                  </div>
-                  <div className={classes.name}>{name}</div>
+        {filterData.map(({ id_partido, cantidad_votos, porcentaje_votos }) => {
+          const { candidato_pres, color, logo, nombre } = getPartidoDataFromId(
+            id_partido,
+            partidos
+          )
+          return (
+            <li key={id_partido} className={classes.item}>
+              {logo && (
+                <img
+                  src={logo}
+                  alt="Logo del partido"
+                  className={classes.avatar}
+                />
+              )}
+              <div className={classes.boxInfo}>
+                <div className={classes.boxBar}>
+                  <span
+                    className={classes.bar}
+                    data-value={`${porcentaje_votos * 100}%`}
+                    style={printBar(porcentaje_votos * 100, color)}></span>
+                  <span className={classes.votes}>{cantidad_votos}</span>
                 </div>
-              </li>
-            )
-          }
-        )}
+                <div className={classes.name}>{candidato_pres || nombre}</div>
+              </div>
+            </li>
+          )
+        })}
       </ul>
       {description !== '' && (
         <div className={classes.description}>{description}</div>

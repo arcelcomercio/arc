@@ -281,3 +281,10 @@ h6 {
 @import "./scss/components/presidential-election/presidential-election-paginator";
 @import "./scss/components/presidential-election/presidential-election-pages";
 @import "./scss/components/presidential-election/navigation-menu";
+@import "./scss/components/presidential-election/option-congresal";
+
+.updated-date {
+  font: 400 11px/1 $primary-font;
+  text-align: center;
+  padding: 8px 0 15px;
+}
