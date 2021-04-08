@@ -1,0 +1,231 @@
+* {
+  box-sizing: border-box;
+}
+body,
+h1,
+h2 {
+  margin: 0;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Roboto"), local("Roboto-Regular"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff")
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Roboto Medium"), local("Roboto-Medium"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-500.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-500.woff")
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Roboto Bold"), local("Roboto-Bold"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff")
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+.back {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+}
+.parallax-image {
+  height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding: 128px 0;
+}
+.parallax-image h3 {
+  font: 700 24px/32px Roboto, sans-serif;
+  padding: 0 20px;
+  letter-spacing: 0.77px;
+  text-align: center;
+  color: #fff;
+}
+@media screen and (min-width: 1024px) {
+  .parallax-image h3 {
+    font: 700 24px/52px Roboto, sans-serif;
+  }
+}
+.parallax-image::after,
+.parallax-image::before {
+  content: "";
+  height: 128px;
+  display: block;
+  width: 100%;
+  opacity: 1;
+  position: absolute;
+}
+.parallax-image::before {
+  top: 0;
+  background: transparent linear-gradient(0deg, #fff0 0%, #fff 100%) 0% 0%
+    no-repeat padding-box;
+}
+.parallax-image::after {
+  bottom: 0;
+  background: transparent linear-gradient(180deg, #fff0 0%, #fff 100%) 0% 0%
+    no-repeat padding-box;
+}
+.featured-img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.featured-img__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.featured-img__subtitle {
+  font: 500 18px/52px Roboto, sans-serif;
+  letter-spacing: 0.58px;
+  color: #777;
+  padding: 0 20px;
+  max-width: 660px;
+  text-align: center;
+}
+@media screen and (min-width: 1024px) {
+  .featured-img__subtitle {
+    letter-spacing: 0.77px;
+    font: 700 24px/52px Roboto, sans-serif;
+  }
+}
+.featured-img__title {
+  font: 700 30px/36px Roboto, sans-serif;
+  color: #777;
+  max-width: 660px;
+  padding: 0 20px;
+  text-align: center;
+}
+@media screen and (min-width: 1024px) {
+  .featured-img__title {
+    font: 700 42px/52px Roboto, sans-serif;
+  }
+}
+.featured-img__logo {
+  height: 52px;
+  margin-bottom: 15px;
+}
+@media screen and (min-width: 1024px) {
+  .featured-img__logo {
+    height: 86px;
+    margin-bottom: 20px;
+  }
+}
+.l-parallax {
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+}
+
+.credits {
+  background-color: #f8f8f8;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  display: block;
+  padding: 20px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.credits__text {
+  font: 400 12px/30px Roboto, sans-serif;
+  color: #888;
+  letter-spacing: 0.1px;
+  text-align: center;
+}
+.credits__text b {
+  font: 400 16px/16px Roboto, sans-serif;
+  color: #444;
+  letter-spacing: 0.13px;
+  padding-right: 10px;
+}
+.credits__title {
+  font: 700 16px/52px Roboto, sans-serif;
+  color: #666;
+  letter-spacing: 0.51px;
+  margin: 0;
+  text-align: center;
+}
+
+.gal-cont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 1070px;
+  margin: 0 auto;
+}
+.gal-cont div {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 25px;
+}
+.gal-cont img {
+  object-fit: cover;
+}
+.gal-cont figcaption {
+  font: 400 16px/24px Roboto, sans-serif;
+  color: #888;
+  letter-spacing: 0.24px;
+  margin-top: 12px;
+}
+.item-cont {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.item-cont button {
+  margin: 0;
+}
+.arrows-cont {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+.arrows-cont svg {
+  height: 10px;
+  fill: #555;
+}
+.arrows-cont svg:first-child {
+  margin-bottom: 3px;
+}
+.arrows-cont svg:hover {
+  fill: #33c3f0;
+}

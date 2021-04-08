@@ -5,7 +5,6 @@ import ArcStoryContent, {
 } from '@arc-core-components/feature_article-body'
 import Image from '../../../global-components/image'
 
-
 import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import { getDateSeo } from '../../../utilities/date-time/dates'
 import { getAssetsPath } from '../../../utilities/assets'
@@ -58,12 +57,14 @@ import {
   MINUTO_MINUTO,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
+  PARALLAX,
 } from '../../../utilities/constants/subtypes'
 import LiteYoutube from '../../../global-components/lite-youtube'
 import ShareButtons from '../../../global-components/lite/share'
 import { contentWithAds } from '../../../utilities/story/content'
 import { processedAds } from '../../../utilities/story/helpers'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildParallaxElements from './_children/parallax-elements'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -227,6 +228,7 @@ const StoryContentsLite = props => {
               elementClasses={classes}
               renderElement={element => {
                 const {
+                  _id,
                   type,
                   subtype: sub,
                   embed: customEmbed,
@@ -637,6 +639,15 @@ const StoryContentsLite = props => {
                       <StoryContentsChildLinkedImage {...customEmbedConfig} />
                     )
                   }
+                  if (sub === 'parallax_blocks' && subtype === PARALLAX) {
+                    const { config: customEmbedConfig } = customEmbed || {}
+                    return (
+                      <StoryContentsChildParallaxElements
+                        config={customEmbedConfig}
+                        id={_id}
+                      />
+                    )
+                  }
                 }
                 return ''
               }}
@@ -678,6 +689,16 @@ const StoryContentsLite = props => {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: iframeScriptCounter(),
+          }}
+        />
+      )}
+      {subtype === PARALLAX && (
+        // https://web.dev/lazy-loading-images/#images-css
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html:
+              'document.addEventListener("DOMContentLoaded",function(){var e=[].slice.call(document.querySelectorAll(".lazy-background"));if("IntersectionObserver"in window){let n=new IntersectionObserver(function(e,t){e.forEach(function(e){e.isIntersecting&&(e.target.classList.add("visible"),n.unobserve(e.target))})});e.forEach(function(e){n.observe(e)})}});',
           }}
         />
       )}

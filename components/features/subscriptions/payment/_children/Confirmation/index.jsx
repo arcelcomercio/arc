@@ -95,155 +95,154 @@ const Confirmation = () => {
   }
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      Sentry.configureScope(scope => {
-        scope.setTag('step', 'Confirmación')
+    Sentry.configureScope(scope => {
+      scope.setTag('step', 'Confirmación')
+    })
+    Sentry.addBreadcrumb({
+      type: 'info',
+      category: 'confirmación',
+      message: 'Compra confirmada',
+      level: 'info',
+    })
+
+    const divDetail = document.getElementById('div-detail')
+    const divFooter = document.getElementById('footer')
+    const { uuid } = getStorageInfo()
+    const origin = getSessionStorage('paywall_type_modal') || 'organico'
+    const referer = getSessionStorage('paywall_last_url') || ''
+    window.scrollTo(0, 0)
+
+    const getPLanSelected = plans.reduce(
+      (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+      null
+    )
+
+    if (freeAccess || (userPurchase && userPurchase.status)) {
+      if (divDetail) divDetail.classList.remove('step__show-detail')
+      if (divFooter) divFooter.classList.remove('step__hidden')
+      document.body.classList.remove('no-scroll')
+
+      const { sku, name, amount, billingFrequency, priceCode, productName } =
+        getPLanSelected || {}
+
+      PWA.finalize()
+      pushCxense(urlsSite.codeCxense)
+      sendAction(PixelActions.PAYMENT_CONFIRMATION, {
+        transactionId: orderNumber,
+        transactionAffiliation: arcSite,
+        transactionTotal: total,
+        transactionTax: 0,
+        transactionShipping: 0,
+        transactionProducts: [
+          {
+            sku,
+            name,
+            category: 'Planes',
+            price: amount,
+            quantity: 1,
+          },
+        ],
+        confirmacionID: (subscriptionIDs && subscriptionIDs[0]) || '', // Por ahora solo un producto
+        periodo: billingFrequency,
+        priceCode,
+        suscriptorImpreso: printedSubscriber ? 'si' : 'no',
+        medioCompra: origin,
+        accesoGratis: freeAccess ? 'si' : 'no',
+        referer,
+        pwa: PWA.isPWA() ? 'si' : 'no',
       })
-      Sentry.addBreadcrumb({
-        type: 'info',
-        category: 'confirmación',
-        message: 'Compra confirmada',
-        level: 'info',
+
+      window.dataLayer.push({
+        event: 'checkoutOption',
+        ecommerce: {
+          checkout_option: {
+            actionField: { step: 4 },
+          },
+        },
       })
 
-      const divDetail = document.getElementById('div-detail')
-      const divFooter = document.getElementById('footer')
-      const { uuid } = getStorageInfo()
-      const origin = getSessionStorage('paywall_type_modal') || 'organico'
-      const referer = getSessionStorage('paywall_last_url') || ''
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-
-      const getPLanSelected = plans.reduce(
-        (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
-        null
-      )
-
-      if (freeAccess || (userPurchase && userPurchase.status)) {
-        if (divDetail) divDetail.classList.remove('step__show-detail')
-        if (divFooter) divFooter.classList.remove('step__hidden')
-        document.body.classList.remove('no-scroll')
-
-        const { sku, name, amount, billingFrequency, priceCode, productName } =
-          getPLanSelected || {}
-
-        PWA.finalize()
-        pushCxense(urlsSite.codeCxense)
-        sendAction(PixelActions.PAYMENT_CONFIRMATION, {
-          transactionId: orderNumber,
-          transactionAffiliation: arcSite,
-          transactionTotal: total,
-          transactionTax: 0,
-          transactionShipping: 0,
-          transactionProducts: [
-            {
-              sku,
-              name,
-              category: 'Planes',
-              price: amount,
-              quantity: 1,
+      window.dataLayer.push({
+        event: 'buy',
+        ecommerce: {
+          purchase: {
+            actionField: {
+              id: orderNumber,
+              affiliation: 'Online Store',
+              revenue: amount,
             },
-          ],
-          confirmacionID: (subscriptionIDs && subscriptionIDs[0]) || '', // Por ahora solo un producto
-          periodo: billingFrequency,
-          priceCode,
-          suscriptorImpreso: printedSubscriber ? 'si' : 'no',
-          medioCompra: origin,
-          accesoGratis: freeAccess ? 'si' : 'no',
-          referer,
-          pwa: PWA.isPWA() ? 'si' : 'no',
-        })
-
-        window.dataLayer.push({
-          event: 'checkoutOption',
-          ecommerce: {
-            checkout_option: {
-              actionField: { step: 4 },
+            products: [
+              {
+                id: sku,
+                name: productName,
+                price: amount,
+                brand: arcSite,
+                category: name,
+                subCategory: Frecuency[billingFrequency],
+              },
+            ],
+            dataUser: {
+              id: userProfile.uuid || uuid,
+              name: `${firstName} ${lastName} ${secondLastName}`
+                .replace(/\s*/, ' ')
+                .trim(),
+              email,
             },
           },
-        })
+        },
+      })
 
-        window.dataLayer.push({
-          event: 'buy',
-          ecommerce: {
-            purchase: {
-              actionField: {
-                id: orderNumber,
-                affiliation: 'Online Store',
-                revenue: amount,
-              },
-              products: [
-                {
-                  id: sku,
-                  name: productName,
-                  price: amount,
-                  brand: arcSite,
-                  category: name,
-                  subCategory: Frecuency[billingFrequency],
-                },
-              ],
-              dataUser: {
-                id: userProfile.uuid || uuid,
-                name: `${firstName} ${lastName} ${secondLastName}`
-                  .replace(/\s*/, ' ')
-                  .trim(),
-                email,
-              },
-            },
-          },
-        })
+      window.fbq('track', 'Purchase', {
+        content_name: productName,
+        content_ids: [sku],
+        content_type: productName,
+        contents: [{ id: sku, quantity: 1 }],
+        currency: 'PEN',
+        num_items: 1,
+        value: amount,
+      })
 
-        window.fbq('track', 'Purchase', {
-          content_name: productName,
-          content_ids: [sku],
-          content_type: productName,
-          contents: [{ id: sku, quantity: 1 }],
-          currency: 'PEN',
-          num_items: 1,
-          value: amount,
-        })
-
-        if ('Identity' in window) {
-          window.Identity.extendSession()
-            .then(() => {
-              setSendTracking(true)
-            })
-            .catch(extendErr => {
-              Sentry.captureEvent({
-                message: 'Error al extender la sesión',
-                level: 'error',
-                extra: extendErr || {},
-              })
-            })
-        } else {
-          Sentry.captureEvent({
-            message: 'SDK Identity no ha cargado correctamente',
-            level: 'error',
-            extra: {},
+      if ('Identity' in window) {
+        window.Identity.extendSession()
+          .then(() => {
+            setSendTracking(true)
           })
-        }
-
-        // Datalayer solicitados por Joao
-        setTimeout(() => {
-          TaggeoJoao(
-            {
-              event: 'Pasarela Suscripciones Digitales',
-              category: eventCategory({
-                step: 3,
-                event,
-                hasPrint: printedSubscriber,
-                plan: name,
-              }),
-              action: userPeriod,
-              label: uuid,
-              value: `${amount}`,
-            },
-            window.location.pathname
-          )
-        }, 1000)
+          .catch(extendErr => {
+            Sentry.captureEvent({
+              message: 'Error al extender la sesión',
+              level: 'error',
+              extra: extendErr || {},
+            })
+          })
       } else {
-        updateStep(2)
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: {},
+        })
       }
+
+      // Datalayer solicitados por Joao
+      setTimeout(() => {
+        TaggeoJoao(
+          {
+            event: 'Pasarela Suscripciones Digitales',
+            category: eventCategory({
+              step: 3,
+              event,
+              hasPrint: printedSubscriber,
+              plan: name,
+            }),
+            action: userPeriod,
+            label: uuid,
+            value: `${amount}`,
+          },
+          window.location.pathname
+        )
+      }, 1000)
+    } else {
+      updateStep(2)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
