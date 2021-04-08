@@ -1,6 +1,6 @@
 .presidential-election-graph {
   font-family: $primary-font;
-  max-width: 360px;
+  max-width: 312px;
   margin: 0 auto;
   color: #000;
   &__box-bar {
@@ -46,9 +46,10 @@
     &::before {
       content: " ";
       border-top: 1px solid #707070;
-      width: 75%;
       position: relative;
       top: 9px;
+      margin-right: 5px;
+      flex: 1;
     }
   }
   &__description {

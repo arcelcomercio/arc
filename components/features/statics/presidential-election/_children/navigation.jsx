@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 import * as React from 'react'
 
-const NavigationMenu = ({ pageData, changeFilters }) => {
+const NavigationMenu = ({ page, pageData, changeFilters }) => {
   return (
     <>
       <div className="box-ul">
@@ -89,20 +89,22 @@ const NavigationMenu = ({ pageData, changeFilters }) => {
             </ul>
           </li>
         </ul>
-        <div className="box-ul__divbutton">
-          <span
-            role="button"
-            tabIndex="0"
-            aria-pressed="false"
-            onClick={() =>
-              changeFilters({
-                group: 'todos_los_partidos',
-                filter: null,
-                subFilter: null,
-              })}>
-            Ordenar por partido politico
-          </span>
-        </div>
+        {page === 'congresal' ? (
+          <div className="box-ul__divbutton">
+            <span
+              role="button"
+              tabIndex="0"
+              aria-pressed="false"
+              onClick={() =>
+                changeFilters({
+                  group: 'todos_los_partidos',
+                  filter: null,
+                  subFilter: null,
+                })}>
+              Ordenar por partido politico
+            </span>
+          </div>
+        ) : null}
       </div>
     </>
   )
