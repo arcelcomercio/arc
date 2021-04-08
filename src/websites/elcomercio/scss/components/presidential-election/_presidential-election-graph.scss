@@ -1,0 +1,67 @@
+.presidential-election-graph {
+  font-family: $primary-font;
+  max-width: 312px;
+  margin: 0 auto;
+  color: #000;
+  &__box-bar {
+    background-color: #e0dfdf;
+    display: flex;
+    justify-content: space-between;
+    height: 15px;
+  }
+  &__box-info {
+    width: 100%;
+  }
+  &__avatar {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  &__votes {
+    width: 100px;
+    text-align: right;
+    font-weight: 500;
+    line-height: 24px;
+    font-size: 14px;
+    margin-right: 10px;
+    position: relative;
+    top: -3px;
+  }
+  &__name {
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 400;
+    height: 20px;
+    position: relative;
+    top: -4px;
+  }
+  &__title {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 19px;
+    margin: 15px 0;
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    &::before {
+      content: " ";
+      border-top: 1px solid #707070;
+      position: relative;
+      top: 9px;
+      margin-right: 5px;
+      flex: 1;
+    }
+  }
+  &__description {
+    font-size: 11px;
+    line-height: 14px;
+    font-weight: 400;
+    margin-top: 20px;
+    text-align: center;
+    padding: 0 40px;
+  }
+  &__item {
+    list-style: none;
+    display: flex;
+  }
+}
