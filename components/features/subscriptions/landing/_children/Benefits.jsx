@@ -69,7 +69,6 @@ const Benefits = ({ arcSite }) => {
                     type="image/png"
                     src={`${item.image}.png`}
                     alt={item.title}
-                    loading="lazy"
                     importance="low"
                     decoding="async"
                   />
