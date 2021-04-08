@@ -78,7 +78,7 @@ const PresidentialElection = props => {
     pageData,
     partidos,
     filters,
-    'currentData>>>>>>..>',
+    'currentData>>>>>>>',
     getFilterData()
   )
 

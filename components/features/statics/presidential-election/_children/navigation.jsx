@@ -26,7 +26,7 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
             <span className="election-nav__text">Regiones</span>
             <ul className="election-nav__list">
               {pageData?.regiones?.map(({ filtro_nombre: name }) => (
-                <li className="election-nav__list-item">
+                <li className="election-nav__list-item" key={name}>
                   <span
                     className="election-nav__list-text"
                     role="button"
@@ -48,7 +48,7 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
             <span className="election-nav__text">Lima</span>
             <ul className="election-nav__list">
               {pageData?.lima?.map(({ filtro_nombre: name }) => (
-                <li className="election-nav__list-item">
+                <li className="election-nav__list-item" key={name}>
                   <span
                     className="election-nav__list-text"
                     role="button"
@@ -70,7 +70,7 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
             <span className="election-nav__text">Resto del Mundo</span>
             <ul className="election-nav__list">
               {pageData?.resto_del_mundo?.map(({ filtro_nombre: name }) => (
-                <li className="election-nav__list-item">
+                <li className="election-nav__list-item" key={name}>
                   <span
                     className="election-nav__list-text"
                     role="button"

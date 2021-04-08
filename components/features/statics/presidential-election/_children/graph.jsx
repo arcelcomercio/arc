@@ -15,6 +15,10 @@ const classes = {
   description: 'presidential-election-graph__description',
 }
 
+const getFormatedNumberResult = x => {
+  return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : ''
+}
+
 const getPartidoDataFromId = (id = '', partidos = []) => {
   return partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
 }
@@ -56,7 +60,9 @@ const PresidentialElectionChildGraph = ({
                     className={classes.bar}
                     data-value={`${porcentaje_votos * 100}%`}
                     style={printBar(porcentaje_votos * 100, color)}></span>
-                  <span className={classes.votes}>{cantidad_votos}</span>
+                  <span className={classes.votes}>
+                    {getFormatedNumberResult(cantidad_votos)}
+                  </span>
                 </div>
                 <div className={classes.name}>{candidato_pres || nombre}</div>
               </div>
