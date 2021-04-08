@@ -26,7 +26,7 @@ const PresidentialElection = props => {
   const pathArr = fullPath.split('/').filter(el => el !== '')
 
   /**
-   * @type {'presidencial' | 'congresal' | 'parlamento_andino'}
+   * @type {'presidencial' | 'congresal' | 'parlamento-andino'}
    */
   const page = !pathArr[1] ? 'presidencial' : pathArr[1]
 
@@ -135,7 +135,7 @@ PresidentialElection.propTypes = {
     congresal: PropTypes.string.tag({
       name: 'Url del JSON para resultados congresales',
     }),
-    parlamento_andino: PropTypes.string.tag({
+    'parlamento-andino': PropTypes.string.tag({
       name: 'Url del JSON para resultados del parlamento andino',
     }),
   }),

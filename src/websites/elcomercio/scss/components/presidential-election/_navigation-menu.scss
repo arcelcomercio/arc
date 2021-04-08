@@ -42,6 +42,11 @@
     border-radius: 4px;
     display: inline-block;
 
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
     &:hover {
       background-color: #8b8b8b;
       box-shadow: 1px 1px 3px #6b768682;

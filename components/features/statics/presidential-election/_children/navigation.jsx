@@ -22,7 +22,10 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
               General
             </span>
           </li>
-          <li className="election-nav__item">
+          <li
+            className={`election-nav__item ${
+              !pageData?.regiones ? 'disabled' : ''
+            }`}>
             <span className="election-nav__text">Regiones</span>
             <ul className="election-nav__list">
               {pageData?.regiones?.map(({ filtro_nombre: name }) => (
@@ -44,7 +47,10 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
               ))}
             </ul>
           </li>
-          <li className="election-nav__item">
+          <li
+            className={`election-nav__item ${
+              !pageData?.regiones ? 'disabled' : ''
+            }`}>
             <span className="election-nav__text">Lima</span>
             <ul className="election-nav__list">
               {pageData?.lima?.map(({ filtro_nombre: name }) => (
@@ -66,7 +72,10 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
               ))}
             </ul>
           </li>
-          <li className="election-nav__item">
+          <li
+            className={`election-nav__item ${
+              !pageData?.regiones ? 'disabled' : ''
+            }`}>
             <span className="election-nav__text">Resto del Mundo</span>
             <ul className="election-nav__list">
               {pageData?.resto_del_mundo?.map(({ filtro_nombre: name }) => (

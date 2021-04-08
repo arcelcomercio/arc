@@ -24,8 +24,8 @@ const getPartidoDataFromId = (id = '', partidos = []) => {
 }
 
 const PresidentialElectionChildGraph = ({
-  filterData,
   partidos,
+  filterData = [],
   showTitle = true,
   description = '',
 }) => {
@@ -40,13 +40,15 @@ const PresidentialElectionChildGraph = ({
     <section className={classes.container}>
       {showTitle && <div className={classes.title}>Cantidad de votos</div>}
       <ul className={classes.list}>
-        {filterData.map(({ id_partido, cantidad_votos, porcentaje_votos }) => {
+        {filterData?.map(({ id_partido, cantidad_votos, porcentaje_votos }) => {
           const { candidato_pres, color, logo, nombre } = getPartidoDataFromId(
             id_partido,
             partidos
           )
           return (
-            <li key={id_partido} className={classes.item}>
+            <li
+              key={`${id_partido}-${cantidad_votos}`}
+              className={classes.item}>
               {logo && (
                 <img
                   src={logo}
