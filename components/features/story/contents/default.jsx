@@ -15,6 +15,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_ELBOCON,
+  SITE_DEPOR,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -232,7 +233,7 @@ class StoryContents extends React.PureComponent {
               )}
             </>
           )}
-          {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
+          {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_DEPOR && subtype !== GALLERY_VERTICAL && (
             <Ads
               adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
               isDesktop={false}
