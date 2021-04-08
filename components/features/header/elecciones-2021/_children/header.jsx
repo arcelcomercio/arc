@@ -8,6 +8,8 @@ const classes = {
   menuIcon: 'header__menu-icon',
   menuList: 'header__menu-list',
   menuLink: 'header__menu-link',
+  menuItem: 'header__menu-item',
+  menuDes: 'header__menu-des',
   subMenu: 'header__sub-menu',
 }
 
@@ -33,12 +35,11 @@ export default ({ menuList }) => {
         }) => {
           const idElem = `${nameId}-${name || displayName}`.toLowerCase()
           return (
-            <li className={classes.item} key={`navbar-menu-${url || id}`}>
+            <li className={classes.menuItem} key={`navbar-menu-${url || id}`}>
               <a
                 itemProp="url"
                 href={url || id || '/'}
-                className={classes.menuLink}
-                style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
+                className={classes.menuLink}>
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -65,29 +66,45 @@ export default ({ menuList }) => {
             className={`${classes.menuIcon} ${isActive}`}
             viewBox="0 0 25 25">
             <circle cx="12.5" cy="12.5" r="12.5" />
-            <g transform="translate(-23 -133)">
-              <rect
-                style={{ fill: '#fff' }}
-                width="17"
-                height="3"
-                rx="1"
-                transform="translate(27 140)"
-              />
-              <rect
-                style={{ fill: '#fff' }}
-                width="17"
-                height="3"
-                rx="1"
-                transform="translate(27 144)"
-              />
-              <rect
-                style={{ fill: '#fff' }}
-                width="17"
-                height="3"
-                rx="1"
-                transform="translate(27 148)"
-              />
-            </g>
+            {!isActive ? (
+              <g transform="translate(-23 -133)">
+                <rect
+                  style={{ fill: '#fff' }}
+                  width="17"
+                  height="3"
+                  rx="1"
+                  transform="translate(27 140)"
+                />
+                <rect
+                  style={{ fill: '#fff' }}
+                  width="17"
+                  height="3"
+                  rx="1"
+                  transform="translate(27 144)"
+                />
+                <rect
+                  style={{ fill: '#fff' }}
+                  width="17"
+                  height="3"
+                  rx="1"
+                  transform="translate(27 148)"
+                />
+              </g>
+            ) : (
+              <g transform="translate(-21 -140)">
+                <text
+                  transform="translate(27 144)"
+                  style={{
+                    fill: '#fff',
+                    'font-size': '17px',
+                    'font-weight': '700',
+                  }}>
+                  <tspan y="14" aria-hidden="true">
+                    X
+                  </tspan>
+                </text>
+              </g>
+            )}
           </svg>
         </a>
         <svg
@@ -163,9 +180,12 @@ export default ({ menuList }) => {
           </g>
         </svg>
         {isActive && (
-          <ul className={classes.menuList}>
-            {menuList && renderSections(menuList, 0)}
-          </ul>
+          <>
+            <div className={classes.menuDes}></div>
+            <ul className={classes.menuList}>
+              {menuList && renderSections(menuList, 0)}
+            </ul>
+          </>
         )}
       </div>
     </>

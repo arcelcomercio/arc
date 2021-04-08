@@ -5,7 +5,7 @@ import { useContent } from 'fusion:content'
 import customFields from './_dependencies/custom-fields'
 import { filterMenu } from './_dependencies/schema-filter'
 
-import HeaderView from './_children/header-full'
+import HeaderView from './_children/header'
 
 const Elecciones2021Menu = props => {
   const { customFields: { hierarchyMenu } = {} } = props

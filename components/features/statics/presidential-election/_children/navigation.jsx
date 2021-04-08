@@ -1,65 +1,110 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable camelcase */
 import * as React from 'react'
 
-
-const NavigationMenu = () => {
-  
+const NavigationMenu = ({ page, pageData, changeFilters }) => {
   return (
     <>
-      <div className="box-ul">
-        <ul className="main-navigation box-ul__ul">
-          <li className="box-ul__ul-li"><span className="box-ul__ul-li-a">General</span>
-            <ul className="box-ul__ul-li__ul">
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">HTML</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">CSS</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">JavaScript</a></li>
+      <div className="election-nav">
+        <ul className="election-nav__buttons">
+          <li className="election-nav__item">
+            <span
+              className="election-nav__text"
+              role="button"
+              tabIndex="0"
+              aria-pressed="false"
+              onClick={() =>
+                changeFilters({
+                  group: 'general',
+                  filter: null,
+                  subFilter: null,
+                })}>
+              General
+            </span>
+          </li>
+          <li className="election-nav__item">
+            <span className="election-nav__text">Regiones</span>
+            <ul className="election-nav__list">
+              {pageData?.regiones?.map(({ filtro_nombre: name }) => (
+                <li className="election-nav__list-item" key={name}>
+                  <span
+                    className="election-nav__list-text"
+                    role="button"
+                    tabIndex="0"
+                    aria-pressed="false"
+                    onClick={() =>
+                      changeFilters({
+                        group: 'regiones',
+                        filter: name,
+                        subFilter: null,
+                      })}>
+                    {name}
+                  </span>
+                </li>
+              ))}
             </ul>
           </li>
-          <li className="box-ul__ul-li"><span className="box-ul__ul-li-a">Regiones</span>
-            <ul className="box-ul__ul-li__ul">
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+          <li className="election-nav__item">
+            <span className="election-nav__text">Lima</span>
+            <ul className="election-nav__list">
+              {pageData?.lima?.map(({ filtro_nombre: name }) => (
+                <li className="election-nav__list-item" key={name}>
+                  <span
+                    className="election-nav__list-text"
+                    role="button"
+                    tabIndex="0"
+                    aria-pressed="false"
+                    onClick={() =>
+                      changeFilters({
+                        group: 'lima',
+                        filter: name,
+                        subFilter: null,
+                      })}>
+                    {name}
+                  </span>
+                </li>
+              ))}
             </ul>
           </li>
-          <li className="box-ul__ul-li"><span className="box-ul__ul-li-a">Lima</span>
-            <ul className="box-ul__ul-li__ul">
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">HTML</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">CSS</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">JavaScript</a>
-              </li>
-            </ul>
-          </li>
-          <li className="box-ul__ul-li"><span className="box-ul__ul-li-a">Resto del Mundo</span>
-            <ul className="box-ul__ul-li__ul">
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Themes</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Plugins</a></li>
-              <li className="box-ul__ul-li__ul-li"><a className="box-ul__ul-li__ul-li-a" href="/">Custom Post Types</a></li>
+          <li className="election-nav__item">
+            <span className="election-nav__text">Resto del Mundo</span>
+            <ul className="election-nav__list">
+              {pageData?.resto_del_mundo?.map(({ filtro_nombre: name }) => (
+                <li className="election-nav__list-item" key={name}>
+                  <span
+                    className="election-nav__list-text"
+                    role="button"
+                    tabIndex="0"
+                    aria-pressed="false"
+                    onClick={() =>
+                      changeFilters({
+                        group: 'resto_del_mundo',
+                        filter: name,
+                        subFilter: null,
+                      })}>
+                    {name}
+                  </span>
+                </li>
+              ))}
             </ul>
           </li>
         </ul>
-        <div className="box-ul__divbutton">
-          <a href="/">Ordenar por partido politico</a>
-        </div>
+        {page === 'congresal' ? (
+          <div className="election-nav__divbutton">
+            <span
+              role="button"
+              tabIndex="0"
+              aria-pressed="false"
+              onClick={() =>
+                changeFilters({
+                  group: 'todos_los_partidos',
+                  filter: null,
+                  subFilter: null,
+                })}>
+              Ordenar por partido politico
+            </span>
+          </div>
+        ) : null}
       </div>
     </>
   )

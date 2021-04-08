@@ -1,28 +1,29 @@
 .presidential-election-paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: $primary-font;
   max-width: 360px;
   margin: 0 auto;
   color: #000;
-  text-align: center;
+  padding-bottom: 11px;
   &__prev,
   &__next {
-    color: #fff;
     width: 18px;
-    display: inline-block;
-    background-color: #000;
     height: 18px;
-    font-size: 20px;
     border-radius: 50%;
     margin: 0 8px;
+    outline: 0;
     &:hover {
-      text-decoration: none;
+      path {
+        fill: #8b8b8b;
+      }
     }
   }
   &__title {
     font-weight: 500;
-    line-height: 53px;
     font-size: 22px;
     min-width: 230px;
-    display: inline-block;
+    text-align: center;
   }
 }
