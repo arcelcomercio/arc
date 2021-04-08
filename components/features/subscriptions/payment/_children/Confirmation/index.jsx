@@ -30,7 +30,7 @@ const styles = {
   noteConfirm: 'step__left-note-confirm',
   contButton: 'step__left-note-button',
   btn: 'step__left-btn-next',
-  noteBenefist: 'step__left-note-benefist',
+  // noteBenefits: 'step__left-note-benefist',
 }
 
 const PaywallTracking = ({ ...props }) => {

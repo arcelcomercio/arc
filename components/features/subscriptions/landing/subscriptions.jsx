@@ -7,6 +7,7 @@ import stylesLanding from '../_styles/Landing'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Landing } from '../../signwall/_children/landing/index'
 import { CallOut } from '../../signwall/_children/callout/index'
+import Benefits from './_children/Benefits'
 import Cards from './_children/Cards'
 import CallinCallOut from './_children/CallinCallout'
 import QueryString from '../../signwall/_dependencies/querystring'
@@ -28,7 +29,7 @@ const LandingSubscriptions = () => {
     } = {},
   } = useFusionContext() || {}
 
-  const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
+  const { urls, texts } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const isComercio = arcSite === 'elcomercio'
   const [showSignwall, setShowSignwall] = useState(false)
@@ -247,72 +248,7 @@ const LandingSubscriptions = () => {
           </div>
         </section>
 
-        <section className="beneficios" id="beneficios">
-          <div className="wrapper">
-            <div className="beneficios__content">
-              <h1 className="beneficios__content-title">
-                Beneficios
-                <div className="beneficios__content-logo"></div>
-              </h1>
-              <div className="beneficios__content-wrap">
-                <div className="tabs">
-                  {benefist.map((item, i) => {
-                    return (
-                      <div key={`benfist-${i + 1}`}>
-                        <input
-                          type="radio"
-                          name="tabs"
-                          defaultChecked={i + 1 === 1}
-                          className="tab"
-                          id={`tab--${i + 1}`}
-                          onChange={() => {}}
-                        />
-                        <label
-                          className="button"
-                          htmlFor={`tab--${i + 1}`}
-                          id={`button--${i + 1}`}>
-                          {item.title}
-                        </label>
-                        <div className="display" id={`display--${i + 1}`}>
-                          <div className="picture-mobile">
-                            <img
-                              type="image/png"
-                              src={item.image}
-                              alt={item.title}
-                              loading="lazy"
-                              importance="low"
-                              decoding="async"
-                            />
-                          </div>
-                          <h2 className="title-mobile">{item.title}</h2>
-                          <p>{item.description}</p>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              <div className="beneficios__content-slides">
-                {benefist.map((item, i) => {
-                  return (
-                    <img
-                      key={`image-${i + 1}`}
-                      type="image/png"
-                      className="picture"
-                      id={`picture--tab--${i + 1}`}
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      importance="low"
-                      decoding="async"
-                    />
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
+        <Benefits arcSite={arcSite} />
 
         <section className="club" id="club">
           <div className="wrapper">
