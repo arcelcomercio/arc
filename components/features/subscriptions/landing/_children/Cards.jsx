@@ -70,7 +70,7 @@ function Cards({ item, arcSite, order, textOffer }) {
           </strong>
         </h3>
         <picture className="cont-left">
-          <source type="image/webp" src={`${image}.webp`} />
+          <source type="image/webp" srcSet={`${image}.webp`} />
           <img
             className="planes__content-picture"
             importance="high"
