@@ -100,7 +100,7 @@ const PresidentialElection = props => {
 
   return (
     <div>
-      <ResultPages path={page} />
+      <ResultPages page={page} />
       <NavigationMenu
         page={page}
         pageData={pageData}
