@@ -58,30 +58,30 @@ const PropertiesSite = {
       videoDescription:   'Con testimonios de Juan José Garrido (Director Periodístico), Mario Ghibellini (Opinión), Graciela Villasís (Investigación) y más',
     },
 
-    benefist: [
+    benefits: [
       {
         title: 'Contenido Premium',
-        image: `${cdnStaticEc}/images/landing/beneficios/beneficio1.png`,
+        image: `${cdnStaticEc}/images/landing/beneficios/beneficio1`,
         description: `Acceso sin límites a información exclusiva: reportajes, informes y la mejor selección de historias elaboradas por El Comercio.`,
       },
       {
         title: 'Navegación ilimitada',
-        image: `${cdnStaticEc}/images/landing/beneficios/beneficio2.png`,
+        image: `${cdnStaticEc}/images/landing/beneficios/beneficio2`,
         description: `Navega sin límites en elcomercio.pe desde todos tus dispositivos: celular, laptop, desktop, tablet o app.`,
       },
       {
         title: 'Diario impreso',
-        image: `${cdnStaticEc}/images/landing/beneficios/beneficio3.png`,
+        image: `${cdnStaticEc}/images/landing/beneficios/beneficio3`,
         description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas.`,
       },
       {
         title: 'Versión digital del impreso',
-        image: `${cdnStaticEc}/images/landing/beneficios/beneficio5.png`,
+        image: `${cdnStaticEc}/images/landing/beneficios/beneficio5`,
         description: `Acceso a la versión digital del diario de lunes a domingo desde tu smartphone, tablet o computadora.`,
       },
       {
         title: 'Beneficios Club',
-        image: `${cdnStaticEc}/images/landing/beneficios/beneficio4.png`,
+        image: `${cdnStaticEc}/images/landing/beneficios/beneficio4`,
         description: `Acceso a cientos de descuentos ilimitados en restaurantes, educación, hogar, entretenimiento y más.`,
       },
     ],
@@ -132,30 +132,30 @@ const PropertiesSite = {
       helpDescription:    'Consulta nuestra sección de',
     },
 
-    benefist: [
+    benefits: [
       {
         title: 'Contenido premium',
-        image: `${cdnStaticGe}/images/landing/beneficios/beneficio1.png`,
+        image: `${cdnStaticGe}/images/landing/beneficios/beneficio1`,
         description: `Acceso sin límites a información exclusiva: Análisis e informes exclusivamente desarrollados para gestion.pe, así como la mejor selección de artículos e informes elaborados por The Economist, Diario Gestión y la agencia Bloomberg.`,
       },
       {
         title: 'Navegación ilimitada',
-        image: `${cdnStaticGe}/images/landing/beneficios/beneficio2.png`,
+        image: `${cdnStaticGe}/images/landing/beneficios/beneficio2`,
         description: `Acceso ilimitado a todo el contenido de gestion.pe desde todos tus dispositivos: celular, laptop, desktop, tablet o app.`,
       },
       {
         title: 'Diario impreso',
-        image: `${cdnStaticGe}/images/landing/beneficios/beneficio3.png`,
+        image: `${cdnStaticGe}/images/landing/beneficios/beneficio3`,
         description: `Recibe el diario impreso desde la comodidad de tu casa todas las semanas. Válido solo para Lima.`,
       },
       {
         title: 'Versión digital del impreso',
-        image: `${cdnStaticGe}/images/landing/beneficios/beneficio5.png`,
+        image: `${cdnStaticGe}/images/landing/beneficios/beneficio5`,
         description: `Acceso a la versión digital del diario de lunes a domingo desde tu smartphone, tablet o computadora.`,
       },
       {
         title: 'Beneficios Club',
-        image: `${cdnStaticGe}/images/landing/beneficios/beneficio4.png`,
+        image: `${cdnStaticGe}/images/landing/beneficios/beneficio4`,
         description: `Acceso a cientos de descuentos ilimitados en restaurantes, educación, hogar, entretenimiento y más.`,
       },
     ],
@@ -227,9 +227,9 @@ const PropertiesCommon = {
     textTermsThe:    `, las `,
     textTermsPolices:'políticas de privacidad',
     textTermsAccord: `, y estoy de acuerdo con la información.`,
-    knownBenefist:   'Conoce los beneficios del Club y descarga la aplicación en Google Play o App Store',
+    knowBenefits:   'Conoce los beneficios del Club y descarga la aplicación en Google Play o App Store',
     downloadApps:    'Descarga la aplicación en Google Play o App Store',
-    rememberBenefist:` con los accesos para Club El Comercio. No olvides que tu servicio de suscripción se renueva automáticamente.`,
+    rememberBenefits:` con los accesos para Club El Comercio. No olvides que tu servicio de suscripción se renueva automáticamente.`,
     sendEmailTo:     `Te enviaremos un mail a `,
     sendEmailReciept:`Enviaremos la boleta de compra de la suscripción al correo: `,
     haveSuscription: `Estimado suscriptor ya cuentas con una suscripción activa. Ver los detalles en: `,
@@ -246,7 +246,7 @@ const PropertiesCommon = {
     reSendEmail:     'Reenviar correo de activación',
     youCanSendEmail: 'Podrás reenviar nuevamente dentro de',
     textWinback:     '¡Tenemos un precio especial para ti!',
-  },
+  }
 }
 
 export { PropertiesSite, PropertiesCommon, ArcEnv, IsPROD }
