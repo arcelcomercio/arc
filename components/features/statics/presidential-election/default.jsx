@@ -107,7 +107,9 @@ const PresidentialElection = props => {
         changeFilters={changeFilters}
       />
       {/* <OptionCongresal /> */}
-      <div className="updated-date">{pageData?.fecha_actualizacion}</div>
+      <div className="election__updated-date">
+        {pageData?.fecha_actualizacion}
+      </div>
       {filters.filter ? (
         <ResultPaginator
           setNewFilterPosition={setNewFilterPosition}
@@ -115,6 +117,7 @@ const PresidentialElection = props => {
         />
       ) : null}
       <ResultGraph filterData={getFilterData()} partidos={partidos} />
+      <div className="election__bottom-text">{pageData?.texto_inferior}</div>
     </div>
   )
 }

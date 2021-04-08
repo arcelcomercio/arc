@@ -5,11 +5,11 @@ import * as React from 'react'
 const NavigationMenu = ({ page, pageData, changeFilters }) => {
   return (
     <>
-      <div className="box-ul">
-        <ul className="main-navigation box-ul__ul">
-          <li className="box-ul__ul-li">
+      <div className="election-nav">
+        <ul className="election-nav__buttons">
+          <li className="election-nav__item">
             <span
-              className="box-ul__ul-li-a"
+              className="election-nav__text"
               role="button"
               tabIndex="0"
               aria-pressed="false"
@@ -22,13 +22,13 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
               General
             </span>
           </li>
-          <li className="box-ul__ul-li">
-            <span className="box-ul__ul-li-a">Regiones</span>
-            <ul className="box-ul__ul-li__ul">
+          <li className="election-nav__item">
+            <span className="election-nav__text">Regiones</span>
+            <ul className="election-nav__list">
               {pageData?.regiones?.map(({ filtro_nombre: name }) => (
-                <li className="box-ul__ul-li__ul-li">
+                <li className="election-nav__list-item">
                   <span
-                    className="box-ul__ul-li__ul-li-a"
+                    className="election-nav__list-text"
                     role="button"
                     tabIndex="0"
                     aria-pressed="false"
@@ -44,13 +44,13 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
               ))}
             </ul>
           </li>
-          <li className="box-ul__ul-li">
-            <span className="box-ul__ul-li-a">Lima</span>
-            <ul className="box-ul__ul-li__ul">
+          <li className="election-nav__item">
+            <span className="election-nav__text">Lima</span>
+            <ul className="election-nav__list">
               {pageData?.lima?.map(({ filtro_nombre: name }) => (
-                <li className="box-ul__ul-li__ul-li">
+                <li className="election-nav__list-item">
                   <span
-                    className="box-ul__ul-li__ul-li-a"
+                    className="election-nav__list-text"
                     role="button"
                     tabIndex="0"
                     aria-pressed="false"
@@ -66,13 +66,13 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
               ))}
             </ul>
           </li>
-          <li className="box-ul__ul-li">
-            <span className="box-ul__ul-li-a">Resto del Mundo</span>
-            <ul className="box-ul__ul-li__ul">
+          <li className="election-nav__item">
+            <span className="election-nav__text">Resto del Mundo</span>
+            <ul className="election-nav__list">
               {pageData?.resto_del_mundo?.map(({ filtro_nombre: name }) => (
-                <li className="box-ul__ul-li__ul-li">
+                <li className="election-nav__list-item">
                   <span
-                    className="box-ul__ul-li__ul-li-a"
+                    className="election-nav__list-text"
                     role="button"
                     tabIndex="0"
                     aria-pressed="false"
@@ -90,7 +90,7 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
           </li>
         </ul>
         {page === 'congresal' ? (
-          <div className="box-ul__divbutton">
+          <div className="election-nav__divbutton">
             <span
               role="button"
               tabIndex="0"

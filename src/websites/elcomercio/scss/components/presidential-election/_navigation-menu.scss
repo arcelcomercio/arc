@@ -1,19 +1,13 @@
-.box-ul {
+.election-nav {
   font-family: $primary-font;
   text-align: center;
-  &__ul {
+  &__buttons {
     list-style: none;
+    padding-bottom: 4px;
     width: 100%;
     max-width: 327px;
     margin: 0 auto;
-    &-li {
-      background-color: #d6d6d6;
-      width: 153px;
-      height: 27px;
-      margin: 3px;
-      border-radius: 4px;
-      display: inline-block;
-    }
+
     &::before {
       content: " ";
       display: table;
@@ -25,11 +19,11 @@
     }
   }
 
-  &__ul-li__ul {
+  &__list {
     display: none;
   }
 
-  &__ul-li-a {
+  &__text {
     display: block;
     text-decoration: none;
     white-space: nowrap;
@@ -38,19 +32,38 @@
     padding-top: 8px;
     height: 100%;
     font-size: 12px;
+  }
+
+  &__item {
+    background-color: #d6d6d6;
+    width: 153px;
+    height: 27px;
+    margin: 3px;
+    border-radius: 4px;
+    display: inline-block;
 
     &:hover {
       background-color: #8b8b8b;
-      width: 153px;
-      height: 100%;
-      color: #fff;
-      margin: 0;
-      padding-top: 8px;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
+      box-shadow: 1px 1px 3px #6b768682;
+      .election-nav__text {
+        color: #fff;
+      }
+      .election-nav__list {
+        display: block;
+        position: absolute;
+        max-height: 212px;
+        width: 153px;
+        background-color: #ededed;
+        box-shadow: 3px 0 6px #6b768627;
+        border-radius: 4px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        z-index: 1;
+      }
     }
   }
-  &__ul-li__ul-li {
+
+  &__list-item {
     border-top: 0;
     z-index: 2;
     margin: 0;
@@ -58,41 +71,22 @@
     padding-left: 10px;
     min-height: 27px;
   }
-  &__ul-li__ul-li-a {
+  &__list-text {
     display: block;
     text-decoration: none;
     white-space: nowrap;
     color: #000;
-    text-align: center;
+    text-align: left;
     padding-top: 8px;
     height: 100%;
     font-size: 12px;
+    outline: 0;
 
     &:hover {
-      background-color: #8b8b8b;
-      width: 153px;
-      height: 100%;
-      color: #fff;
-      margin: 0;
-      padding-top: 8px;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
+      font-weight: 700;
     }
   }
 
-  &__ul-li:hover {
-    > ul {
-      display: block;
-      position: absolute;
-      max-height: 212px;
-      background-color: #d6d6d6;
-      overflow-x: hidden;
-      overflow-y: auto;
-      text-align-last: left;
-      width: 153px;
-      z-index: 3;
-    }
-  }
   &__divbutton {
     & span {
       width: 312px;
