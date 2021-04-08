@@ -16,8 +16,11 @@ const PATH_PARLAMENTO_ANDINO = 'parlamento-andino'
 /**
  * @type {'presidencial' | 'congresal' | 'parlamento-andino'}
  */
-export default ({ path = PATH_PRESIDENCIAL }) => {
-  const urlPath = path.replaceAll('_', '-')
+export default ({
+  page = PATH_PRESIDENCIAL,
+  pathBase = '/resultados-elecciones-2021',
+}) => {
+  const urlPath = page.replaceAll('_', '-')
   const selectedInput = (pathVal, pathCurrent) => {
     return pathVal === pathCurrent
   }
@@ -28,8 +31,7 @@ export default ({ path = PATH_PRESIDENCIAL }) => {
     return `${classes.inputRadio} ${classActive}`
   }
   const handleChangeRadio = e => {
-    // console.log(e.target.value)
-    document.href = e.target.value
+    window.location.href = e.target.value
   }
   return (
     <div className={classes.container}>
@@ -37,7 +39,7 @@ export default ({ path = PATH_PRESIDENCIAL }) => {
       <div className={classes.boxUrl} onChange={handleChangeRadio}>
         <input
           className={addClassActive(urlPath, PATH_PRESIDENCIAL)}
-          value={`/${PATH_PRESIDENCIAL}`}
+          value={`${pathBase}/${PATH_PRESIDENCIAL}`}
           type="radio"
           name="url"
           id={PATH_PRESIDENCIAL}
@@ -48,7 +50,7 @@ export default ({ path = PATH_PRESIDENCIAL }) => {
         </label>
         <input
           className={addClassActive(urlPath, PATH_CONGRESAL)}
-          value={`/${PATH_CONGRESAL}`}
+          value={`${pathBase}/${PATH_CONGRESAL}`}
           type="radio"
           name="url"
           id={PATH_CONGRESAL}
@@ -59,7 +61,7 @@ export default ({ path = PATH_PRESIDENCIAL }) => {
         </label>
         <input
           className={addClassActive(urlPath, PATH_PARLAMENTO_ANDINO)}
-          value={`/${PATH_PARLAMENTO_ANDINO}`}
+          value={`${pathBase}/${PATH_PARLAMENTO_ANDINO}`}
           type="radio"
           name="url"
           id={PATH_PARLAMENTO_ANDINO}
