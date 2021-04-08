@@ -33,20 +33,22 @@ const Benefits = ({ arcSite }) => {
                       {item.title}
                     </label>
                     <div className="display" id={`display--${i + 1}`}>
-                      <picture className="picture-mobile">
-                        <source
-                          type="image/webp"
-                          srcSet={`${item.image}.webp`}
-                        />
-                        <img
-                          type="image/png"
-                          src={`${item.image}.png`}
-                          alt={item.title}
-                          loading="lazy"
-                          importance="low"
-                          decoding="async"
-                        />
-                      </picture>
+                      <div className="picture-mobile">
+                        <picture>
+                          <source
+                            type="image/webp"
+                            srcSet={`${item.image}.webp`}
+                          />
+                          <img
+                            type="image/png"
+                            src={`${item.image}.png`}
+                            alt={item.title}
+                            loading="lazy"
+                            importance="low"
+                            decoding="async"
+                          />
+                        </picture>
+                      </div>
                       <h2 className="title-mobile">{item.title}</h2>
                       <p>{item.description}</p>
                     </div>
