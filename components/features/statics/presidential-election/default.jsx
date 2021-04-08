@@ -9,6 +9,8 @@ import ResultGraph from './_children/graph'
 import ResultPaginator from './_children/paginator'
 import NavigationMenu from './_children/navigation'
 import ResultPages from './_children/pages'
+import { slugify } from '../../../utilities/parse/slugify'
+import Projection from './_children/projection'
 // import OptionCongresal from './_children/option-congresal'
 
 const PresidentialElection = props => {
@@ -26,7 +28,7 @@ const PresidentialElection = props => {
   const pathArr = fullPath.split('/').filter(el => el !== '')
 
   /**
-   * @type {'presidencial' | 'congresal' | 'parlamento_andino'}
+   * @type {'presidencial' | 'congresal' | 'parlamento-andino'}
    */
   const page = !pathArr[1] ? 'presidencial' : pathArr[1]
 
@@ -54,8 +56,18 @@ const PresidentialElection = props => {
         : {}
     ) || {}
 
+  const changeUrl = (filter, group) => {
+    window.history.pushState(
+      {},
+      null,
+      `${requestUri}/${slugify(group)}/${slugify(filter)}/`
+    )
+  }
+
   const changeFilters = newFilters => {
+    const { filter, group } = newFilters
     setFilters(newFilters)
+    changeUrl(filter, group)
   }
 
   const getFilterData = () => {
@@ -84,6 +96,8 @@ const PresidentialElection = props => {
 
   const setNewFilterPosition = direction => {
     const filterByGroup = pageData?.[filters.group] || []
+    const { group } = filters
+
     const cirrentFilterIndex = filterByGroup.findIndex(
       ({ filtro_nombre }) => filtro_nombre === filters.filter
     )
@@ -95,6 +109,7 @@ const PresidentialElection = props => {
     }
     if (newData) {
       setFilters({ ...filters, filter: newData.filtro_nombre })
+      changeUrl(newData.filtro_nombre, group)
     }
   }
 
@@ -110,6 +125,7 @@ const PresidentialElection = props => {
       <div className="election__updated-date">
         {pageData?.fecha_actualizacion}
       </div>
+      <Projection />
       {filters.filter ? (
         <ResultPaginator
           setNewFilterPosition={setNewFilterPosition}
@@ -135,7 +151,7 @@ PresidentialElection.propTypes = {
     congresal: PropTypes.string.tag({
       name: 'Url del JSON para resultados congresales',
     }),
-    parlamento_andino: PropTypes.string.tag({
+    'parlamento-andino': PropTypes.string.tag({
       name: 'Url del JSON para resultados del parlamento andino',
     }),
   }),
