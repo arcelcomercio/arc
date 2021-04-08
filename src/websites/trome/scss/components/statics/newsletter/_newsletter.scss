@@ -51,6 +51,7 @@ $newsletter-alt-font: "Helvetica";
 
     @media (--desktop) {
       font-size: 33px;
+      line-height: 36px;
       text-align: left;
     }
   }
@@ -135,7 +136,10 @@ $newsletter-alt-font: "Helvetica";
   }
 
   &__confirmationTextWrapper {
+    padding-top: 28px;
+
     @media (--desktop) {
+      padding-top: 0;
       width: 50%;
     }
   }

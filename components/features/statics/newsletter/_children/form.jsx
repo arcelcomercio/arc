@@ -54,7 +54,9 @@ const StaticsNewsletterChildForm = props => {
               alt="cafe de noticias taza"
             />
             <p itemProp="description" className={classes.customDesc}>
-              Para que te mantengas informado con lo más relevante del día.
+              Para que te mantengas informado
+              <br /> con lo más
+              <br /> relevante del día.
             </p>
           </div>
 
@@ -93,7 +95,7 @@ const StaticsNewsletterChildForm = props => {
                     href={urlTos}
                     target="_blank"
                     rel="noopener noreferrer">
-                    Términos y condiciones
+                    términos, condiciones
                   </a>{' '}
                   y{' '}
                   <a
@@ -102,7 +104,7 @@ const StaticsNewsletterChildForm = props => {
                     href={urlPrivacyPolicies}
                     target="_blank"
                     rel="noopener noreferrer">
-                    Políticas de privacidad
+                    políticas de privacidad
                   </a>
                 </label>
                 {validation.tos.hasError() && submitForm && (
