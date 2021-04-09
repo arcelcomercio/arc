@@ -218,7 +218,7 @@ const PropertiesCommon = {
     showSecure:      'Compra seguro. Esta web está protegida',
     textTerms:       'Acepto las condiciones de servicio, las políticas de privacidad, y estoy de acuerdo con la información.',
     whereCvv:        '¿Dónde está el CVV?',
-    titlePay:        'Ingresa tu información de pago',
+    titlePay:        'Ingresa tus datos de pago',
     labelcNumber:    'Número de tarjeta',
     labelcExpire:    'Fecha de vencimiento',
     labelcCvv:       `CVV `,
@@ -246,6 +246,9 @@ const PropertiesCommon = {
     reSendEmail:     'Reenviar correo de activación',
     youCanSendEmail: 'Podrás reenviar nuevamente dentro de',
     textWinback:     '¡Tenemos un precio especial para ti!',
+    howItWork:       '¿Cómo funciona?',
+    textBanca:       'Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Caja Arequipa Y Banco Pichincha, a travéz de la banca por internet o banca móvil en la opción pago de servicios.',
+    textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.'
   }
 }
 
