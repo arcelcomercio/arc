@@ -39,8 +39,8 @@ export const Wrapper = ({ children, style = {} }) => {
  * @param {React.ReactNode} props.children
  * @returns
  */
-export const PanelLeft = ({ children }) => {
-  return <section className={styles.left}>{children}</section>
+export const PanelLeft = ({ children, step }) => {
+  return <section className={`${styles.left} ${step === 3 ? 'step-pay' : ''}`}>{children}</section>
 }
 
 /**

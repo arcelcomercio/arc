@@ -115,7 +115,7 @@ const WrapperPaymentSubs = () => {
               minHeight: '530px',
             }}>
             {!userLoading && (
-              <PanelLeft>
+              <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
                   <h2 className="step__left-title-campaign">
                     {texts.textWinback}
