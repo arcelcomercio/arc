@@ -42,7 +42,7 @@ const PresidentialElectionChildGraph = ({
     <section className={classes.container}>
       {showTitle && (
         <div className={classes.title}>
-          Votos |<span>Porcentaje</span>
+          Votos | <span>Porcentaje</span>
         </div>
       )}
       <ul className={classes.list}>
@@ -69,11 +69,11 @@ const PresidentialElectionChildGraph = ({
             let itemData = {
               result: getFormatedNumberResult(cantidad_votos),
               percentage: porcentaje_votos,
-              name: candidato_pres,
+              name: candidato_pres || nombre,
             }
 
             if (page === 'congresal' || page === 'parlamento-andino') {
-              itemData.name = candidato
+              itemData.name = candidato || nombre
             }
             if (filters?.subFilter === 'porcentaje') {
               itemData = {

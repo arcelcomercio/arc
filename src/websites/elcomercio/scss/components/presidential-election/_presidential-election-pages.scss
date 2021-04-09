@@ -57,4 +57,19 @@
       }
     }
   }
+  &__ec-data svg {
+    height: 20px;
+  }
+  &__cls-1 {
+    fill: #0a0a0b;
+  }
+  &__cls-2 {
+    fill: #fff;
+  }
+  &__cls-3 {
+    fill: none;
+    stroke: #1d1d1b;
+    stroke-miterlimit: 10;
+    stroke-width: 0.5px;
+  }
 }
