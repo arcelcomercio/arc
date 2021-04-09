@@ -23,6 +23,8 @@ function Cards({ item, arcSite, order, textOffer }) {
   const showFree = amount === 0
   const isComercio = arcSite === SITE_ELCOMERCIO
 
+  const image = `https://cdna.${arcSite}.pe/resources/dist/${arcSite}/images/landing/plan_${itemGrid[order]}`
+
   const handleSuscribirme = (paramUrl, paramSku) => {
     setLoading(true)
 
@@ -81,13 +83,16 @@ function Cards({ item, arcSite, order, textOffer }) {
             {subtitle}
           </strong>
         </h3>
-        <div className="cont-left">
+        <picture className="cont-left">
+          <source type="image/webp" srcSet={`${image}.webp`} />
           <img
             className="planes__content-picture"
-            src={`https://cdna.${arcSite}.pe/resources/dist/${arcSite}/images/landing/plan_${itemGrid[order]}.png`}
+            importance="high"
+            type="image/png"
+            src={`${image}.png`}
             alt={title}
           />
-        </div>
+        </picture>
         <div className="cont-right">
           {recommended && (
             <div className="planes__content-discount-mobile">{textOffer}</div>
