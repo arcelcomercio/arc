@@ -1,8 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import * as React from 'react'
+import * as Sentry from '@sentry/browser'
 import PropTypes from 'prop-types'
 import { useAppContext } from 'fusion:context'
 
+import { env } from '../../../utilities/arc/env'
+import { PROD } from '../../../utilities/constants/environment'
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
@@ -27,30 +30,49 @@ const LandingSubscriptions = props => {
       callInnCallOut = false,
     } = {},
   } = props
-  const { arcSite, globalContent: items = [] } = useAppContext() || {}
+  const { arcSite, deployment, globalContent: items = [] } =
+    useAppContext() || {}
 
-  const { urls, texts } = PropertiesSite[arcSite]
-  const { links } = PropertiesCommon
-  const isComercio = arcSite === 'elcomercio'
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
   const [showProfile, setShowProfile] = React.useState(false)
-  const bannerUniv =
-    (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
-  const moduleCall = callInnCallOut && isComercio
   const [showCallin, setShowCallin] = React.useState(false)
   const [showModalCall, setShowModalCall] = React.useState(false)
 
+  const { urls, texts } = PropertiesSite[arcSite]
+  const { links, urls: urlCommon } = PropertiesCommon
+  const isComercio = arcSite === 'elcomercio'
+  const bannerUniv =
+    (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
+  const moduleCall = callInnCallOut && isComercio
+
   React.useEffect(() => {
+    Sentry.init({
+      dsn: urlCommon.dsnSentry,
+      debug: env !== PROD,
+      release: `arc-deployment@${deployment}`,
+      environment: env,
+    })
+
+    Sentry.configureScope(scope => {
+      scope.setTag('brand', arcSite)
+    })
+
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
       includeNoScript: false,
-    }).then(() => {
-      if (typeof window !== 'undefined') {
-        window.Identity.options({ apiOrigin: urls.arcOrigin })
-      }
     })
+      .then(() => {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+      })
+      .catch(errIdentitySDK => {
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: errIdentitySDK || {},
+        })
+      })
 
     sendAction(PixelActions.PRODUCT_IMPRESSION, {
       ecommerce: {
@@ -74,33 +96,52 @@ const LandingSubscriptions = props => {
   }
 
   const handleSignwall = () => {
-    if (typeof window !== 'undefined') {
-      Taggeo(
-        'Web_Sign_Wall_Suscripciones',
-        `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
-      )
-      if (isLogged()) {
-        window.location.href = links.profile
-      } else {
-        setShowSignwall(!showSignwall)
-        document.getElementById('btn-signwall').innerHTML = 'Inicia sesión'
+    Taggeo(
+      'Web_Sign_Wall_Suscripciones',
+      `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
+    )
+    if (isLogged()) {
+      window.location.href = links.profile
+    } else {
+      setShowSignwall(!showSignwall)
+      const signwallButton = document.getElementById('btn-signwall')
+      if (signwallButton) signwallButton.innerHTML = 'Inicia sesión'
+      try {
         window.Identity.clearSession()
+      } catch (e) {
+        Sentry.captureEvent({
+          message:
+            'Ocurrió un error al limpiar la sesión con Identity.clearSession()',
+          level: 'error',
+          extra: e || {},
+        })
       }
     }
   }
 
   const handleAfterLogged = () => {
     if (typeof window !== 'undefined') {
-      const { firstName, lastName } = window.Identity.userProfile || {}
-      const newName = getUserName(firstName, lastName)
-      setShowProfile(newName)
+      let userfirstName = ''
+      let userlastName = ''
+      try {
+        const { firstName, lastName } = window.Identity.userProfile || {}
+        userfirstName = firstName
+        userlastName = lastName
+      } catch (e) {
+        Sentry.captureEvent({
+          message:
+            'Ha ocurrido un error intentar al obtener firstName y lastName desde Identity.userProfile',
+          level: 'error',
+          extra: e || {},
+        })
+      }
+
+      setShowProfile(getUserName(userfirstName, userlastName))
     }
   }
 
   const handleCallIn = () => {
-    if (typeof window !== 'undefined') {
-      window.document.location.href = 'tel:013115100'
-    }
+    window.document.location.href = 'tel:013115100'
   }
 
   return (
