@@ -42,7 +42,7 @@ const PresidentialElectionChildGraph = ({
     <section className={classes.container}>
       {showTitle && (
         <div className={classes.title}>
-          Votos |<span>Porcentaje</span>
+          Votos | <span>Porcentaje</span>
         </div>
       )}
       <ul className={classes.list}>
