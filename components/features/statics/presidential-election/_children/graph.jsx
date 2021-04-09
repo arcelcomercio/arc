@@ -25,8 +25,10 @@ const getPartidoDataFromId = (id = '', partidos = []) => {
 
 const PresidentialElectionChildGraph = ({
   partidos,
+  page,
   filterData = [],
   showTitle = true,
+  filters,
   description = '',
 }) => {
   const printBar = (value, color) => {
@@ -40,37 +42,68 @@ const PresidentialElectionChildGraph = ({
     <section className={classes.container}>
       {showTitle && <div className={classes.title}>Cantidad de votos</div>}
       <ul className={classes.list}>
-        {filterData?.map(({ id_partido, cantidad_votos, porcentaje_votos }) => {
-          const { candidato_pres, color, logo, nombre } = getPartidoDataFromId(
+        {filterData?.map(
+          ({
             id_partido,
-            partidos
-          )
-          return (
-            <li
-              key={`${id_partido}-${cantidad_votos}`}
-              className={classes.item}>
-              {logo && (
-                <img
-                  src={logo}
-                  alt="Logo del partido"
-                  className={classes.avatar}
-                />
-              )}
-              <div className={classes.boxInfo}>
-                <div className={classes.boxBar}>
-                  <span
-                    className={classes.bar}
-                    data-value={`${porcentaje_votos * 100}%`}
-                    style={printBar(porcentaje_votos * 100, color)}></span>
-                  <span className={classes.votes}>
-                    {getFormatedNumberResult(cantidad_votos)}
-                  </span>
+            cantidad_votos,
+            porcentaje_votos,
+            candidato,
+            porcentaje,
+          }) => {
+            const idPartido =
+              filters?.group === 'todos_los_partidos'
+                ? filters?.filter
+                : id_partido
+
+            const {
+              candidato_pres,
+              color,
+              logo,
+              nombre,
+            } = getPartidoDataFromId(idPartido, partidos)
+
+            let itemData = {
+              result: getFormatedNumberResult(cantidad_votos),
+              percentage: porcentaje_votos,
+              name: candidato_pres,
+            }
+
+            if (page === 'congresal' || page === 'parlamento-andino') {
+              itemData.name = candidato
+            }
+            if (filters?.subFilter === 'porcentaje') {
+              itemData = {
+                result: `${porcentaje * 100}%`,
+                percentage: porcentaje,
+                name: nombre,
+              }
+            }
+
+            return (
+              <li
+                key={`${id_partido}-${cantidad_votos}`}
+                className={classes.item}>
+                {logo && filters?.group !== 'todos_los_partidos' && (
+                  <img
+                    src={logo}
+                    alt="Logo del partido"
+                    className={classes.avatar}
+                  />
+                )}
+                <div className={classes.boxInfo}>
+                  <div className={classes.boxBar}>
+                    <span
+                      className={classes.bar}
+                      data-value={`${itemData.percentage * 100}%`}
+                      style={printBar(itemData.percentage * 100, color)}></span>
+                    <span className={classes.votes}>{itemData.result}</span>
+                  </div>
+                  <div className={classes.name}>{itemData.name}</div>
                 </div>
-                <div className={classes.name}>{candidato_pres || nombre}</div>
-              </div>
-            </li>
-          )
-        })}
+              </li>
+            )
+          }
+        )}
       </ul>
       {description !== '' && (
         <div className={classes.description}>{description}</div>

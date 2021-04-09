@@ -303,4 +303,10 @@ h6 {
     text-align: center;
     padding: 16px 20px 25px;
   }
+  &__subtitle {
+    font: 500 22px/1 $primary-font;
+    color: #000;
+    text-align: center;
+    padding: 5px 20px 10px;
+  }
 }

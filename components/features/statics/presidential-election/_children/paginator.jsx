@@ -6,7 +6,12 @@ const classes = {
   next: 'presidential-election-paginator__next',
   title: 'presidential-election-paginator__title',
 }
-export default ({ setNewFilterPosition, title = '' }) => {
+
+const getPartidoDataFromId = (id = '', partidos = []) => {
+  return partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
+}
+
+export default ({ setNewFilterPosition, filters, partidos }) => {
   return (
     <div className={classes.container}>
       <button
@@ -37,7 +42,11 @@ export default ({ setNewFilterPosition, title = '' }) => {
           </defs>
         </svg>
       </button>
-      <span className={classes.title}>{title}</span>
+      <span className={classes.title}>
+        {filters?.group === 'todos_los_partidos'
+          ? getPartidoDataFromId(filters?.filter, partidos)?.nombre
+          : filters?.filter}
+      </span>
       <button
         type="button"
         className={classes.next}
