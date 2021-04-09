@@ -40,7 +40,11 @@ const PresidentialElectionChildGraph = ({
   }
   return (
     <section className={classes.container}>
-      {showTitle && <div className={classes.title}>Cantidad de votos</div>}
+      {showTitle && (
+        <div className={classes.title}>
+          Votos |<span>Porcentaje</span>
+        </div>
+      )}
       <ul className={classes.list}>
         {filterData?.map(
           ({
@@ -96,7 +100,10 @@ const PresidentialElectionChildGraph = ({
                       className={classes.bar}
                       data-value={`${itemData.percentage * 100}%`}
                       style={printBar(itemData.percentage * 100, color)}></span>
-                    <span className={classes.votes}>{itemData.result}</span>
+                    <span className={classes.votes}>
+                      {itemData.result} |{' '}
+                      <span>{`${itemData.percentage * 100}%`}</span>
+                    </span>
                   </div>
                   <div className={classes.name}>{itemData.name}</div>
                 </div>
