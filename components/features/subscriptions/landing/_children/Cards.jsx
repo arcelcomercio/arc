@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import * as React from 'react'
+import * as Sentry from '@sentry/browser'
 import Markdown from 'react-markdown/with-html'
+
+import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
+import { isStorageAvailable } from '../../../../utilities/client/storage'
 import { Taggeo, sendAction, PixelActions } from '../../_dependencies/Taggeo'
 
 function Cards({ item, arcSite, order, textOffer }) {
   const itemGrid = ['one', 'two', 'three']
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = React.useState(false)
 
   const {
     title,
@@ -17,35 +21,45 @@ function Cards({ item, arcSite, order, textOffer }) {
     detail: { frequency, duration, aditional },
   } = item
   const showFree = amount === 0
-  const isComercio = arcSite === 'elcomercio'
+  const isComercio = arcSite === SITE_ELCOMERCIO
 
   const handleSuscribirme = (paramUrl, paramSku) => {
     setLoading(true)
-    if (typeof window !== 'undefined') {
-      const { pathname } = new URL(window.location.href)
-      window.sessionStorage.setItem('paywall_last_url', pathname)
-      window.sessionStorage.setItem('paywall_type_modal', 'landing')
 
-      sendAction(PixelActions.PRODUCT_CLICK, {
-        ecommerce: {
-          currencyCode: item.price.currencyCode,
-          click: {
-            products: [
-              {
-                name: item.title,
-                id: item.sku,
-                price: item.price.amount,
-                brand: arcSite,
-                category: 'Suscripcion',
-              },
-            ],
-          },
-        },
-      })
-
-      Taggeo('Web_Paywall_Home', `web_paywall_home_button_${paramSku}`)
-      window.location.href = paramUrl
+    if (isStorageAvailable('sessionStorage')) {
+      try {
+        const { pathname } = new URL(window.location.href)
+        window.sessionStorage.setItem('paywall_last_url', pathname)
+        window.sessionStorage.setItem('paywall_type_modal', 'landing')
+      } catch (err) {
+        Sentry.captureEvent({
+          message:
+            'Ha ocurrido un error al almacenar la última URL visitada en sessionStorage',
+          level: 'error',
+          extra: err || {},
+        })
+      }
     }
+
+    sendAction(PixelActions.PRODUCT_CLICK, {
+      ecommerce: {
+        currencyCode: item.price.currencyCode,
+        click: {
+          products: [
+            {
+              name: item.title,
+              id: item.sku,
+              price: item.price.amount,
+              brand: arcSite,
+              category: 'Suscripcion',
+            },
+          ],
+        },
+      },
+    })
+
+    Taggeo('Web_Paywall_Home', `web_paywall_home_button_${paramSku}`)
+    window.location.href = paramUrl
   }
 
   return (
