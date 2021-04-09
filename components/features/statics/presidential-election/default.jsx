@@ -143,7 +143,7 @@ const PresidentialElection = props => {
 
   return (
     <div>
-      <ResultPages page={page} />
+      <ResultPages page={page} customFields={customFields} />
 
       {page !== 'parlamento-andino' ? (
         <NavigationMenu

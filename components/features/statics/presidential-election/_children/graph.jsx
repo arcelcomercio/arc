@@ -42,7 +42,8 @@ const PresidentialElectionChildGraph = ({
     <section className={classes.container}>
       {showTitle && (
         <div className={classes.title}>
-          Votos | <span>Porcentaje</span>
+          {filters?.subFilter !== 'porcentaje' && <>Votos {' | '}</>}{' '}
+          <span>Porcentaje</span>
         </div>
       )}
       <ul className={classes.list}>
@@ -101,8 +102,13 @@ const PresidentialElectionChildGraph = ({
                       data-value={`${itemData.percentage * 100}%`}
                       style={printBar(itemData.percentage * 100, color)}></span>
                     <span className={classes.votes}>
-                      {itemData.result} |{' '}
-                      <span>{`${itemData.percentage * 100}%`}</span>
+                      {itemData.result}
+                      {filters?.subFilter !== 'porcentaje' && (
+                        <>
+                          {' | '}
+                          <span>{`${itemData.percentage * 100}%`}</span>
+                        </>
+                      )}
                     </span>
                   </div>
                   <div className={classes.name}>{itemData.name}</div>
