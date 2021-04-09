@@ -60,7 +60,7 @@ const PresidentialElection = props => {
     window.history.pushState(
       {},
       null,
-      `${requestUri}${!pathArr[1] ? `${page}/` : ''}${slugify(group)}/${slugify(
+      `/resultados-elecciones-2021/${page}/${slugify(group)}/${slugify(
         filter
       )}/`
     )
