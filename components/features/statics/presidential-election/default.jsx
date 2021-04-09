@@ -10,8 +10,8 @@ import ResultPaginator from './_children/paginator'
 import NavigationMenu from './_children/navigation'
 import ResultPages from './_children/pages'
 import { slugify } from '../../../utilities/parse/slugify'
-// import Projection from './_children/projection'
-// import OptionCongresal from './_children/option-congresal'
+import Projection from './_children/projection'
+import OptionCongresal from './_children/option-congresal'
 
 const PresidentialElection = props => {
   const [filters, setFilters] = React.useState({
@@ -74,27 +74,53 @@ const PresidentialElection = props => {
 
   const getFilterData = () => {
     let filterData = []
-    if (page === 'congresal') {
-      filterData = [] // TODO
-    } else if (filters.group && !filters.filter && !filters.subFilter) {
-      filterData = pageData?.[filters.group] || []
-    } else if (filters.group && filters.filter && !filters.subFilter) {
-      const dataByGroup = pageData?.[filters.group] || []
 
-      filterData = dataByGroup.filter(
-        ({ filtro_nombre }) => filtro_nombre === filters.filter
-      )[0]?.filtro_listado
+    if (page === 'presidencial' || page === 'parlamento-andino') {
+      const { group, filter, subFilter } = filters
+      if (group && !filter && !subFilter) {
+        filterData = pageData?.[group] || []
+      } else if (group && filter && !subFilter) {
+        const dataByGroup = pageData?.[group] || []
+
+        filterData = dataByGroup.filter(
+          ({ filtro_nombre }) => filtro_nombre === filter
+        )[0]?.filtro_listado
+      }
+    } else if (page === 'congresal') {
+      const { group } = filters
+      if (group === 'general') {
+        const { filter = 'valla_electoral' } = filters
+        const filterWithDefault = filter || 'valla_electoral'
+        filterData = pageData?.[group]?.[filterWithDefault]
+      } else if (group === 'todos_los_partidos') {
+        const { filter } = filters
+        const dataByGroup = pageData?.[group] || []
+        if (!filter) {
+          changeFilters({ ...filters, filter: dataByGroup[0]?.filtro_nombre })
+        }
+        filterData = dataByGroup.filter(
+          ({ filtro_nombre }) => filtro_nombre === filter
+        )[0]?.filtro_listado
+      } else {
+        const { filter, subFilter = 'congresistas' } = filters
+        const subFilterWithDefault = subFilter || 'congresistas'
+        const dataByGroup = pageData?.[group] || []
+        filterData = dataByGroup.filter(
+          ({ filtro_nombre }) => filtro_nombre === filter
+        )[0]?.[subFilterWithDefault]
+      }
     }
-    return filterData
+
+    return filterData || []
   }
 
-  console.log(
-    pageData,
-    partidos,
-    filters,
-    'currentData>>>>>>>',
-    getFilterData()
-  )
+  // console.log(
+  //   pageData,
+  //   partidos,
+  //   filters,
+  //   'currentData>>>>>>>',
+  //   getFilterData()
+  // )
 
   const setNewFilterPosition = direction => {
     const filterByGroup = pageData?.[filters.group] || []
@@ -118,23 +144,48 @@ const PresidentialElection = props => {
   return (
     <div>
       <ResultPages page={page} />
-      <NavigationMenu
-        page={page}
-        pageData={pageData}
-        changeFilters={changeFilters}
-      />
-      {/* <OptionCongresal /> */}
+
+      {page !== 'parlamento-andino' ? (
+        <NavigationMenu
+          page={page}
+          pageData={pageData}
+          changeFilters={changeFilters}
+        />
+      ) : null}
+
       <div className="election__updated-date">
         {pageData?.fecha_actualizacion}
       </div>
-      {/* <Projection /> */}
-      {filters.filter ? (
+
+      {page === 'parlamento-andino' ? (
+        <h3 className="election__subtitle">Distrito único</h3>
+      ) : null}
+
+      {filters.filter && filters.group !== 'general' ? (
         <ResultPaginator
           setNewFilterPosition={setNewFilterPosition}
-          title={filters.filter}
+          filters={filters}
+          partidos={partidos}
         />
       ) : null}
-      <ResultGraph filterData={getFilterData()} partidos={partidos} />
+
+      {page === 'congresal' && filters.group !== 'todos_los_partidos' ? (
+        <OptionCongresal filters={filters} changeFilters={changeFilters} />
+      ) : null}
+
+      {page === 'congresal' &&
+      filters.group === 'general' &&
+      (filters.filter === 'valla_electoral' || !filters.filter) ? (
+        <Projection filterData={getFilterData()} partidos={partidos} />
+      ) : (
+        <ResultGraph
+          filterData={getFilterData()}
+          partidos={partidos}
+          filters={filters}
+          page={page}
+        />
+      )}
+
       <div className="election__bottom-text">{pageData?.texto_inferior}</div>
     </div>
   )
