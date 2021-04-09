@@ -10,6 +10,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
+  SITE_PERU21,
 } from '../utilities/constants/sitenames'
 import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
@@ -367,7 +368,7 @@ const LiteOutput = ({
                 />
               </>
             )} */}
-            {isStory && arcSite === SITE_ELCOMERCIOMAG && (
+            {isStory && (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) && (
               <>
                 <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
                 <link
@@ -676,7 +677,7 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {arcSite === SITE_ELCOMERCIOMAG ? (
+        {(arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()

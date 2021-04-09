@@ -1033,7 +1033,7 @@ class StoryData {
           dataElements = dataContent
         } */
 
-        if (this.__website === 'elcomerciomag') {
+        if (this.__website === 'elcomerciomag' || this.__website === 'depor') {
           if (i === 1) {
             dataElements.publicidad = true
             dataElements.nameAds = `caja3`
