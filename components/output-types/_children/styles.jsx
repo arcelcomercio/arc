@@ -38,7 +38,6 @@ const Styles = ({
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
-  else if (requestUri.includes('/saltar-intro/')) style = 'saltar-intro'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
@@ -48,6 +47,7 @@ const Styles = ({
     requestUri.includes('/recetas/')
   )
     style = 'story-recetas'
+  else if (requestUri.includes('/saltar-intro/')) style = 'saltar-intro'
   else if (
     requestUri.includes('/mas-especiales/') ||
     requestUri.includes('/especiales/')
