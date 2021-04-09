@@ -1,47 +1,47 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
 import PropTypes from 'prop-types'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
+
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
-import stylesLanding from '../_styles/Landing'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
-import { Landing } from '../../signwall/_children/landing/index'
-import { CallOut } from '../../signwall/_children/callout/index'
-import Benefits from './_children/Benefits'
-import Cards from './_children/Cards'
-import CallinCallOut from './_children/CallinCallout'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
+import stylesLanding from '../_styles/Landing'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
 import addScriptAsync from '../_dependencies/Async'
+import Signwall from '../_children/Signwall'
+import Benefits from './_children/Benefits'
+import CallinCallOut from './_children/CallinCallout'
+import Callout from './_children/Callout'
+import Cards from './_children/Cards'
 
 const arcType = 'landing'
-const LandingSubscriptions = () => {
+const LandingSubscriptions = props => {
   const {
-    arcSite,
-    globalContent: items = [],
     customFields: {
       bannerUniComercio = false,
       bannerUniGestion = false,
       callInnCallOut = false,
     } = {},
-  } = useFusionContext() || {}
+  } = props
+  const { arcSite, globalContent: items = [] } = useAppContext() || {}
 
   const { urls, texts } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const isComercio = arcSite === 'elcomercio'
-  const [showSignwall, setShowSignwall] = useState(false)
-  const [showTypeLanding, setShowTypeLanding] = useState('landing')
-  const [showProfile, setShowProfile] = useState(false)
+  const [showSignwall, setShowSignwall] = React.useState(false)
+  const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
+  const [showProfile, setShowProfile] = React.useState(false)
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
   const moduleCall = callInnCallOut && isComercio
-  const [showCallin, setShowCallin] = useState(false)
-  const [showModalCall, setShowModalCall] = useState(false)
+  const [showCallin, setShowCallin] = React.useState(false)
+  const [showModalCall, setShowModalCall] = React.useState(false)
 
-  useEffect(() => {
+  React.useEffect(() => {
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
@@ -352,7 +352,7 @@ const LandingSubscriptions = () => {
           </div>
         </section>
 
-        <FooterLand {...{ arcType }} />
+        <FooterLand arcType={arcType} />
 
         {moduleCall && (
           <section className="callin-movil">
@@ -368,10 +368,11 @@ const LandingSubscriptions = () => {
           </section>
         )}
 
-        {(QueryString.getQuery('signLanding') ||
-          QueryString.getQuery('signStudents') ||
-          showSignwall) && (
-          <Landing
+        {QueryString.getQuery('signLanding') ||
+        QueryString.getQuery('signStudents') ||
+        showSignwall ? (
+          <Signwall
+            fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
             nameDialog={showTypeLanding}
             onLogged={handleAfterLogged}
@@ -381,10 +382,11 @@ const LandingSubscriptions = () => {
               setShowTypeLanding('landing')
             }}
           />
-        )}
+        ) : null}
 
-        {showModalCall && (
-          <CallOut
+        {showModalCall ? (
+          <Callout
+            fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
             nameDialog={showTypeLanding}
             onLoggedFail={() => {}}
@@ -392,7 +394,7 @@ const LandingSubscriptions = () => {
               setShowModalCall(false)
             }}
           />
-        )}
+        ) : null}
       </>
 
       <script
