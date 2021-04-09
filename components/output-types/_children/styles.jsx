@@ -42,7 +42,6 @@ const Styles = ({
     style = 'elecciones-2021'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
-  else if (requestUri.includes('/saltar-intro/')) style = 'saltar-intro'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (
@@ -51,6 +50,7 @@ const Styles = ({
     requestUri.includes('/recetas/')
   )
     style = 'story-recetas'
+  else if (requestUri.includes('/saltar-intro/')) style = 'saltar-intro'
   else if (
     requestUri.includes('/mas-especiales/') ||
     requestUri.includes('/especiales/')
