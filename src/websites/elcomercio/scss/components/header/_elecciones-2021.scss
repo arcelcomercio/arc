@@ -1,25 +1,31 @@
 .header {
   width: 100%;
-  max-width: 360px;
+  max-width: 352px;
   margin: 0 auto;
   position: relative;
-  padding: 25px 25px 10px 23px;
-  @media (--tablet) {
-    max-width: 322px;
+  padding: 25px 10px 10px 10px;
+  display: flex;
+  align-items: center;
+
+  &__svg-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
-  @media (--desktop) {
-    max-width: 400px;
-  }
+
   &__menu-icon {
     margin-right: 25px;
+    transition: 0.2s ease-out;
     &.true {
       fill: #ff000f;
+      transition: none;
+      &:hover {
+        transform: none;
+      }
     }
     &:hover {
-      @media (--desktop) {
-        transform: matrix(0, 1, -1, 0, 0, 0);
-        fill: #ff000f;
-      }
+      transform: matrix(0, 1, -1, 0, 0, 0);
+      fill: #ff000f;
     }
   }
 
@@ -37,12 +43,13 @@
     box-shadow: 10px 20px 10px #00000034;
     border-radius: 9px;
     position: absolute;
-    top: 10px;
+    top: 12px;
     left: 79px;
     width: 251px;
     z-index: 1;
   }
   &__menu-des {
+    top: 52px;
     left: 56px;
     position: absolute;
     width: 74px;
