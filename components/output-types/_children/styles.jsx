@@ -84,7 +84,7 @@ const Styles = ({
     styleUrl = `${contextPath}/resources/dist/elcomercio/css/${style}.css`
   }
 
-  return isStyleBasic || styleDefault  ? (
+  return isStyleBasic || styleDefault ? (
     <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
       {({ data }) => {
         return data ? (
