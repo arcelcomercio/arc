@@ -60,7 +60,9 @@ const PresidentialElection = props => {
     window.history.pushState(
       {},
       null,
-      `${requestUri}/${page}/${slugify(group)}/${slugify(filter)}/`
+      `${requestUri}${!pathArr[1] ? page : ''}/${slugify(group)}/${slugify(
+        filter
+      )}/`
     )
   }
 
