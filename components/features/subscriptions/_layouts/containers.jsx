@@ -26,9 +26,15 @@ export const Container = ({ children }) => {
  * @param {React.CSSProperties} props.style
  * @returns
  */
-export const Wrapper = ({ children, style = {} }) => {
+export const Wrapper = ({ children, step }) => {
   return (
-    <div className={styles.wrapper} style={style}>
+    <div
+      className={` ${
+        step !== 5 ? styles.wrapper : 'wrapper-steps wrapper-full'
+      }`}
+      style={{
+        minHeight: '530px',
+      }}>
       {children}
     </div>
   )
@@ -40,7 +46,14 @@ export const Wrapper = ({ children, style = {} }) => {
  * @returns
  */
 export const PanelLeft = ({ children, step }) => {
-  return <section className={`${styles.left} ${step === 3 ? 'step-pay' : ''}`}>{children}</section>
+  return (
+    <section
+      className={`${styles.left} ${step === 3 ? 'step-pay' : ''} ${
+        step === 5 ? 'step-efectivo' : ''
+      }`}>
+      {children}
+    </section>
+  )
 }
 
 /**
