@@ -22,10 +22,13 @@
     text-align: right;
     font-weight: 500;
     line-height: 24px;
-    font-size: 14px;
-    margin-right: 10px;
+    font-size: 12px;
+    margin-right: 5px;
     position: relative;
     top: -3px;
+    & span {
+      font-weight: bold;
+    }
   }
   &__name {
     font-size: 12px;
@@ -50,6 +53,10 @@
       top: 9px;
       margin-right: 5px;
       flex: 1;
+    }
+    & span {
+      font-weight: bold;
+      margin-left: 4px;
     }
   }
   &__description {

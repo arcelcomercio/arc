@@ -59,14 +59,14 @@ export default ({ menuList }) => {
     <>
       <div className={classes.header}>
         <a href onClick={handleAnswerMenu}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            className={`${classes.menuIcon} ${isActive}`}
-            viewBox="0 0 25 25">
-            <circle cx="12.5" cy="12.5" r="12.5" />
-            {!isActive ? (
+          {!isActive ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              className={`${classes.menuIcon}`}
+              viewBox="0 0 25 25">
+              <circle cx="12.5" cy="12.5" r="12.5" />
               <g transform="translate(-23 -133)">
                 <rect
                   style={{ fill: '#fff' }}
@@ -90,22 +90,21 @@ export default ({ menuList }) => {
                   transform="translate(27 148)"
                 />
               </g>
-            ) : (
-              <g transform="translate(-21 -140)">
-                <text
-                  transform="translate(27 144)"
-                  style={{
-                    fill: '#fff',
-                    'font-size': '17px',
-                    'font-weight': '700',
-                  }}>
-                  <tspan y="14" aria-hidden="true">
-                    X
-                  </tspan>
-                </text>
-              </g>
-            )}
-          </svg>
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 25 25"
+              width="25"
+              className={`${classes.menuIcon} ${isActive}`}
+              height="25"
+              fill="none">
+              <path
+                d="m14.3 12.5l3.5-3.5c0.1-0.1 0.2-0.3 0.3-0.4 0.1-0.2 0.1-0.3 0.1-0.5 0-0.2 0-0.3-0.1-0.5-0.1-0.2-0.2-0.3-0.3-0.4-0.1-0.1-0.3-0.2-0.4-0.3-0.2-0.1-0.3-0.1-0.5-0.1-0.2 0-0.3 0-0.5 0.1-0.2 0.1-0.3 0.2-0.4 0.3l-3.5 3.5-3.5-3.5c-0.2-0.2-0.6-0.4-0.9-0.4-0.3 0-0.6 0.1-0.9 0.4s-0.4 0.6-0.4 0.9c0 0.2 0 0.3 0.1 0.5 0.1 0.2 0.2 0.3 0.3 0.4l3.5 3.5-3.5 3.5c-0.2 0.2-0.4 0.6-0.4 0.9s0.1 0.6 0.4 0.9c0.2 0.2 0.6 0.4 0.9 0.4 0.3 0 0.6-0.1 0.9-0.4l3.5-3.5 3.5 3.5c0.2 0.2 0.6 0.4 0.9 0.4s0.6-0.1 0.9-0.4c0.2-0.2 0.4-0.6 0.4-0.9s-0.1-0.6-0.4-0.9l-3.5-3.5zm-1.8 12.5c-6.9 0-12.5-5.6-12.5-12.5 0-6.9 5.6-12.5 12.5-12.5 6.9 0 12.5 5.6 12.5 12.5 0 6.9-5.6 12.5-12.5 12.5z"
+                fill="#f00"
+              />
+            </svg>
+          )}
         </a>
         <svg
           xmlns="http://www.w3.org/2000/svg"
