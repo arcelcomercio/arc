@@ -10,7 +10,7 @@ import ResultPaginator from './_children/paginator'
 import NavigationMenu from './_children/navigation'
 import ResultPages from './_children/pages'
 import { slugify } from '../../../utilities/parse/slugify'
-import Projection from './_children/projection'
+// import Projection from './_children/projection'
 // import OptionCongresal from './_children/option-congresal'
 
 const PresidentialElection = props => {
@@ -125,7 +125,7 @@ const PresidentialElection = props => {
       <div className="election__updated-date">
         {pageData?.fecha_actualizacion}
       </div>
-      <Projection />
+      {/* <Projection /> */}
       {filters.filter ? (
         <ResultPaginator
           setNewFilterPosition={setNewFilterPosition}
