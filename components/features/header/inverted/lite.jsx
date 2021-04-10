@@ -7,7 +7,7 @@ import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_lite/_dependencies/schema-filter'
 import HeaderBasicChildren from './_lite/_children/header'
 
-const HeaderBasic = (props) => {
+const HeaderBasic = props => {
   const {
     arcSite,
     contextPath,
@@ -17,7 +17,7 @@ const HeaderBasic = (props) => {
     metaValue,
   } = useAppContext()
   const {
-    customFields: { hideMenu, activeSticky },
+    customFields: { hideMenu, activeSticky, customLogo },
   } = props
 
   const {
@@ -45,19 +45,21 @@ const HeaderBasic = (props) => {
       hierarchy: 'menu-default',
     },
     filter: schemaFilter,
-    transform: (data) => {
+    transform: data => {
       const { children: sections = [] } = data || {}
       return sections
     },
   })
 
   const isSomos = requestUri.includes('/somos/')
-  const mainImage = isSomos
-    ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
-    : `${getAssetsPath(
-        arcSite,
-        contextPath
-      )}/resources/dist/elcomercio/images/logo.png?d=1`
+  const mainImage =
+    customLogo ||
+    (isSomos
+      ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/elcomercio/images/logo.png?d=1`)
   const isPreview = /^\/preview\//.test(requestUri)
 
   return (
