@@ -1,5 +1,6 @@
 .h-simple {
-  background-color: #000;
+  background-color: #333;
+  background-image: url(https://cdna.elbocon.pe/resources/dist/elbocon/images/bc-tramado-nav.png);
   display: block;
   color: #fff;
   height: 48px;
@@ -22,7 +23,7 @@
       display: flex;
       &__logo-brand {
         img {
-          max-width: 100px;
+          max-width: 154px;
         }
       }
       &__logo-trivia {
