@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 
 import ArchiveCalendarChild from './_children/calendar'
@@ -14,7 +14,7 @@ import ArchiveCalendarChild from './_children/calendar'
 const ArchiveCalendar = (/* { customFields: { sectionField } = {} } */) => {
   const {
     globalContentConfig: { query },
-  } = useFusionContext()
+  } = useAppContext()
   const { date: urlDate } = query || {}
 
   const getCalendarDate = (date = new Date()) => {
@@ -42,22 +42,22 @@ const ArchiveCalendar = (/* { customFields: { sectionField } = {} } */) => {
     return `/archivo/todas/${newDateFormat}/`
   }
 
-  const [calendarDate, setStateDate] = useState(getCalendarDate(urlDate))
+  const [calendarDate, setStateDate] = React.useState(getCalendarDate(urlDate))
   const setNewDate = data => {
     setStateDate(data)
     window.location.href = renderNewURL(data)
   }
 
-  const params = {
-    activeStartDate: getCalendarDate(urlDate),
-    maxDate: new Date(),
-    minDate: new Date(2014, 0, 1),
-    onChange: newDate => setNewDate(newDate),
-    value: calendarDate,
-    locale: 'es-419',
-  }
-
-  return <ArchiveCalendarChild {...params} />
+  return (
+    <ArchiveCalendarChild
+      activeStartDate={getCalendarDate(urlDate)}
+      maxDate={new Date()}
+      minDate={new Date(2014, 0, 1)}
+      onChange={newDate => setNewDate(newDate)}
+      value={calendarDate}
+      locale="es-419"
+    />
+  )
 }
 
 ArchiveCalendar.label = 'Calendario Archivo'

@@ -5,19 +5,14 @@ variables:
 stages:
   - install
   - build
-  - deploy
+  - prepare
+  - promote
   - test
-  - analize
-  - code-quality
-  - test-intsall-e2e
-  - test-e2e
-  - package
   - deploy
-  - monitoring
-  - documentation
+  - analize
+  - package
   - release
-  - cleanup
-  
+
 cache:
   key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
   paths:
@@ -41,6 +36,7 @@ install_dependencies:
     policy: push
   only:
     - master
+    - master-deploy
     - sandbox
     - merge_requests
   tags:
@@ -55,7 +51,7 @@ build-verify:
     - ls
     - npm run zip || true
     - mkdir artifacts
-    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/
+    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json setupTests.js -t artifacts/
   artifacts:
     when: on_success
     paths:
@@ -71,8 +67,8 @@ build-verify:
     - aws
     - docker
 
-deploy-sandbox:
-  stage: deploy
+deploy-sandbox-prepare:
+  stage: prepare
   dependencies:
     - build-verify
   cache:
@@ -86,15 +82,102 @@ deploy-sandbox:
     PB_VERSION: latest
     BUNDLE_FILE: bundle.zip
   script:
+    - npm install node-fetch --save
     - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+    - echo $BUNDLE_NAME
+    - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
+    - export TOKEN_ARC=$TOKEN_SANDBOX
+    - export ENV="$CI_JOB_STAGE"
+    - node config/deploy/clean.js
+  artifacts:
+    when: on_success
+    paths:
+      - artifacts/
+      - node_modules/
+    expire_in: 1 day
+  only:
+    - sandbox
+  tags:
+    - aws
+    - docker
+
+promote-sandbox:
+  stage: promote
+  dependencies:
+    - deploy-sandbox-prepare
+  cache:
+    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    paths:
+      - node_modules/
+    policy: pull
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    PB_VERSION: '2.7.3'
+    BUNDLE_FILE: bundle.zip
+  script:
+    - npm install node-fetch --save
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+    - echo $BUNDLE_NAME
     - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
     - export TOKEN_ARC=$TOKEN_SANDBOX
     - export ENV="$CI_JOB_STAGE"
     - cd artifacts/
-    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
+    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc .prettierrc  gulpfile.js  package.json setupTests.js
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
+  artifacts:
+    when: on_success
+    paths:
+      - artifacts/
+      - node_modules/
+    expire_in: 1 hour
+  only:
+    - sandbox
+  tags:
+    - aws
+    - docker
+
+test-bundle-sandbox:
+  stage: test
+  dependencies:
+    - promote-sandbox
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    PB_VERSION: latest
+    RETRIES: 4
+    BUNDLE_FILE: bundle.zip
+  script:
+    - node config/deploy/assets.js
+  only:
+    - sandbox
+  tags:
+    - aws
+    - docker
+
+deploy-sandbox_live:
+  stage: deploy
+  dependencies:
+    - test-bundle-sandbox
+  cache:
+    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    paths:
+      - node_modules/
+    policy: pull
+  variables:
+    ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
+    BUNDLE_NAME: $CI_COMMIT_REF_SLUG
+    BUNDLE_FILE: bundle.zip
+  script:
+    - npm install node-fetch --save
+    - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+    - echo $BUNDLE_NAME
+    - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
+    - export TOKEN_ARC=$TOKEN_SANDBOX
+    - export ENV="$CI_JOB_STAGE"
+    - node config/deploy/deploy_live.js
   only:
     - sandbox
   tags:
@@ -158,7 +241,7 @@ build-verify_master:
     - ls
     - npm run zip || true
     - mkdir artifacts
-    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js -t artifacts/
+    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json setupTests.js -t artifacts/
   artifacts:
     when: on_success
     paths:
@@ -197,7 +280,7 @@ deploy-master:
     - export TOKEN_ARC=$TOKEN_MASTER
     - cd artifacts/
     - ls
-    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json  setupTests.js
+    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json setupTests.js
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
@@ -208,32 +291,33 @@ deploy-master:
     - docker
 
 lighthouse:
-    image: markhobson/node-chrome
-    variables:
-        LIGHTHOUSE_TEST_URL_EC: https://elcomercio.pe
-        LIGHTHOUSE_TEST_URL_GESTION: https://gestion.pe
-    stage: deploy
-    environment: Production    
-    before_script: 
-        # Install Lighthouse
-        - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-        - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-        - export AWS_DEFAULT_REGION=AWS_DEFAULT_REGION
-        - apt-get update && apt-get install -y python-pip
-        - pip install awscli --ignore-installed six
-        - aws --version
-        - npm i -g lighthouse
-    script:
-        # Run Lighthouse test
-        - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_EC --output html --output-path ./elcomercio_report.html
-        - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_GESTION --output html --output-path ./gestion_report.html
-    only:        
-        - master
-    after_script:
+  image: markhobson/node-chrome
+  variables:
+    LIGHTHOUSE_TEST_URL_EC: https://elcomercio.pe
+    LIGHTHOUSE_TEST_URL_GESTION: https://gestion.pe
+  stage: deploy
+  environment: Production
+  before_script:
+    # Install Lighthouse
+    - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+    - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+    - export AWS_DEFAULT_REGION=AWS_DEFAULT_REGION
+    - apt-get update && apt-get install -y python-pip
+    - pip install awscli --ignore-installed six
+    - aws --version
+    - npm i -g lighthouse
+  script:
+    # Run Lighthouse test
+    - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_EC --output html --output-path ./elcomercio_report.html
+    - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_GESTION --output html --output-path ./gestion_report.html
+  only:
+    - master
+
+  after_script:
     - aws s3 cp ./elcomercio_report.html  s3://lighthouse-ec/elcomercio/index.html  --metadata-directive REPLACE  --cache-control max-age=3000 --content-type text/html
     - aws s3 cp ./gestion_report.html  s3://lighthouse-ec/gestion/index.html --metadata-directive REPLACE  --cache-control max-age=3000 --content-type text/html
     - pwd
-    tags:
+  tags:
     - aws
     - docker
 

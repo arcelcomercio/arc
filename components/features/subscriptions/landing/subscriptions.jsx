@@ -1,55 +1,78 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
+import * as Sentry from '@sentry/browser'
 import PropTypes from 'prop-types'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
+
+import { env } from '../../../utilities/arc/env'
+import { PROD } from '../../../utilities/constants/environment'
 import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
-import stylesLanding from '../_styles/Landing'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
-import { Landing } from '../../signwall/_children/landing/index'
-import { CallOut } from '../../signwall/_children/callout/index'
-import Cards from './_children/Cards'
-import CallinCallOut from './_children/CallinCallout'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
+import stylesLanding from '../_styles/Landing'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
 import addScriptAsync from '../_dependencies/Async'
+import Signwall from '../_children/Signwall'
+import Benefits from './_children/Benefits'
+import CallinCallOut from './_children/CallinCallout'
+import Callout from './_children/Callout'
+import Cards from './_children/Cards'
 
 const arcType = 'landing'
-const LandingSubscriptions = () => {
+const LandingSubscriptions = props => {
   const {
-    arcSite,
-    globalContent: items = [],
     customFields: {
       bannerUniComercio = false,
       bannerUniGestion = false,
       callInnCallOut = false,
     } = {},
-  } = useFusionContext() || {}
+  } = props
+  const { arcSite, deployment, globalContent: items = [] } =
+    useAppContext() || {}
 
-  const { urls, texts, benefist = [] } = PropertiesSite[arcSite]
-  const { links } = PropertiesCommon
+  const [showSignwall, setShowSignwall] = React.useState(false)
+  const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
+  const [showProfile, setShowProfile] = React.useState(false)
+  const [showCallin, setShowCallin] = React.useState(false)
+  const [showModalCall, setShowModalCall] = React.useState(false)
+
+  const { urls, texts } = PropertiesSite[arcSite]
+  const { links, urls: urlCommon } = PropertiesCommon
   const isComercio = arcSite === 'elcomercio'
-  const [showSignwall, setShowSignwall] = useState(false)
-  const [showTypeLanding, setShowTypeLanding] = useState('landing')
-  const [showProfile, setShowProfile] = useState(false)
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
   const moduleCall = callInnCallOut && isComercio
-  const [showCallin, setShowCallin] = useState(false)
-  const [showModalCall, setShowModalCall] = useState(false)
 
-  useEffect(() => {
+  React.useEffect(() => {
+    Sentry.init({
+      dsn: urlCommon.dsnSentry,
+      debug: env !== PROD,
+      release: `arc-deployment@${deployment}`,
+      environment: env,
+    })
+
+    Sentry.configureScope(scope => {
+      scope.setTag('brand', arcSite)
+    })
+
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
       includeNoScript: false,
-    }).then(() => {
-      if (typeof window !== 'undefined') {
-        window.Identity.options({ apiOrigin: urls.arcOrigin })
-      }
     })
+      .then(() => {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+      })
+      .catch(errIdentitySDK => {
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: errIdentitySDK || {},
+        })
+      })
 
     sendAction(PixelActions.PRODUCT_IMPRESSION, {
       ecommerce: {
@@ -73,33 +96,52 @@ const LandingSubscriptions = () => {
   }
 
   const handleSignwall = () => {
-    if (typeof window !== 'undefined') {
-      Taggeo(
-        'Web_Sign_Wall_Suscripciones',
-        `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
-      )
-      if (isLogged()) {
-        window.location.href = links.profile
-      } else {
-        setShowSignwall(!showSignwall)
-        document.getElementById('btn-signwall').innerHTML = 'Inicia sesión'
+    Taggeo(
+      'Web_Sign_Wall_Suscripciones',
+      `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
+    )
+    if (isLogged()) {
+      window.location.href = links.profile
+    } else {
+      setShowSignwall(!showSignwall)
+      const signwallButton = document.getElementById('btn-signwall')
+      if (signwallButton) signwallButton.innerHTML = 'Inicia sesión'
+      try {
         window.Identity.clearSession()
+      } catch (e) {
+        Sentry.captureEvent({
+          message:
+            'Ocurrió un error al limpiar la sesión con Identity.clearSession()',
+          level: 'error',
+          extra: e || {},
+        })
       }
     }
   }
 
   const handleAfterLogged = () => {
     if (typeof window !== 'undefined') {
-      const { firstName, lastName } = window.Identity.userProfile || {}
-      const newName = getUserName(firstName, lastName)
-      setShowProfile(newName)
+      let userfirstName = ''
+      let userlastName = ''
+      try {
+        const { firstName, lastName } = window.Identity.userProfile || {}
+        userfirstName = firstName
+        userlastName = lastName
+      } catch (e) {
+        Sentry.captureEvent({
+          message:
+            'Ha ocurrido un error intentar al obtener firstName y lastName desde Identity.userProfile',
+          level: 'error',
+          extra: e || {},
+        })
+      }
+
+      setShowProfile(getUserName(userfirstName, userlastName))
     }
   }
 
   const handleCallIn = () => {
-    if (typeof window !== 'undefined') {
-      window.document.location.href = 'tel:013115100'
-    }
+    window.document.location.href = 'tel:013115100'
   }
 
   return (
@@ -247,61 +289,7 @@ const LandingSubscriptions = () => {
           </div>
         </section>
 
-        <section className="beneficios" id="beneficios">
-          <div className="wrapper">
-            <div className="beneficios__content">
-              <h1 className="beneficios__content-title">
-                Beneficios
-                <div className="beneficios__content-logo"></div>
-              </h1>
-              <div className="beneficios__content-wrap">
-                <div className="tabs">
-                  {benefist.map((item, i) => {
-                    return (
-                      <div key={`benfist-${i + 1}`}>
-                        <input
-                          type="radio"
-                          name="tabs"
-                          defaultChecked={i + 1 === 1}
-                          className="tab"
-                          id={`tab--${i + 1}`}
-                          onChange={() => {}}
-                        />
-                        <label
-                          className="button"
-                          htmlFor={`tab--${i + 1}`}
-                          id={`button--${i + 1}`}>
-                          {item.title}
-                        </label>
-                        <div className="display" id={`display--${i + 1}`}>
-                          <div className="picture-mobile">
-                            <img src={item.image} alt={item.title} />
-                          </div>
-                          <h2 className="title-mobile">{item.title}</h2>
-                          <p>{item.description}</p>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              <div className="beneficios__content-slides">
-                {benefist.map((item, i) => {
-                  return (
-                    <img
-                      key={`image-${i + 1}`}
-                      className="picture"
-                      id={`picture--tab--${i + 1}`}
-                      src={item.image}
-                      alt={item.title}
-                    />
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
+        <Benefits arcSite={arcSite} />
 
         <section className="club" id="club">
           <div className="wrapper">
@@ -310,6 +298,9 @@ const LandingSubscriptions = () => {
                 className="logo-club"
                 src="https://suscripciones.elcomercio.pe/static/partners/comercio/img/logo_club.png?v137"
                 alt="Logo Club"
+                loading="lazy"
+                importance="low"
+                decoding="async"
               />
 
               <h3 className="title-club">
@@ -402,7 +393,7 @@ const LandingSubscriptions = () => {
           </div>
         </section>
 
-        <FooterLand {...{ arcType }} />
+        <FooterLand arcType={arcType} />
 
         {moduleCall && (
           <section className="callin-movil">
@@ -418,10 +409,11 @@ const LandingSubscriptions = () => {
           </section>
         )}
 
-        {(QueryString.getQuery('signLanding') ||
-          QueryString.getQuery('signStudents') ||
-          showSignwall) && (
-          <Landing
+        {QueryString.getQuery('signLanding') ||
+        QueryString.getQuery('signStudents') ||
+        showSignwall ? (
+          <Signwall
+            fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
             nameDialog={showTypeLanding}
             onLogged={handleAfterLogged}
@@ -431,10 +423,11 @@ const LandingSubscriptions = () => {
               setShowTypeLanding('landing')
             }}
           />
-        )}
+        ) : null}
 
-        {showModalCall && (
-          <CallOut
+        {showModalCall ? (
+          <Callout
+            fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
             nameDialog={showTypeLanding}
             onLoggedFail={() => {}}
@@ -442,7 +435,7 @@ const LandingSubscriptions = () => {
               setShowModalCall(false)
             }}
           />
-        )}
+        ) : null}
       </>
 
       <script

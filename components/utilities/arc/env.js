@@ -1,12 +1,12 @@
 import { ENVIRONMENT } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { ORGANIZATION } from '../constants/environment'
+import { ORGANIZATION, PROD, SANDBOX } from '../constants/environment'
 
 /**
- * @type {('prod' | 'sandbox')} Env
+ * @type {(PROD | SANDBOX)} Env
  * @returns {Env}
  */
-export const env = ENVIRONMENT === ORGANIZATION ? 'prod' : 'sandbox'
+export const env = ENVIRONMENT === ORGANIZATION ? PROD : SANDBOX
 
 /**
  * @param {string} arcSite
@@ -14,7 +14,7 @@ export const env = ENVIRONMENT === ORGANIZATION ? 'prod' : 'sandbox'
  */
 export const originByEnv = arcSite => {
   const { siteUrl } = getProperties(arcSite)
-  return env === 'prod'
+  return env === PROD
     ? siteUrl
     : `https://${ORGANIZATION}-${arcSite}-sandbox.cdn.arcpublishing.com`
 }

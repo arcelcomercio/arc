@@ -1,24 +1,23 @@
-//const { IncomingWebhook } = require("@slack/client");
-const axios = require("axios");
+const fetch = require('node-fetch');
 const FormData = require("form-data");
 const fs = require("fs");
 
-//const webhook = new IncomingWebhook(process.env.SLACK_NOTIFY_WEBHOOK);
-
-const pbVersion = "latest";
-const environment = process.env.ENV;
-const endpoint = process.env.ARC_DOMAIN;
-const bundleName = process.env.BUNDLE_NAME;
-const username = process.env.USERNAME;
-const password = process.env.PASSWORD;
-const token_sandbox=process.env.TOKEN_ARC;
+const {
+  PB_VERSION: pbVersion,
+  ENV: environment,
+  ARC_DOMAIN: endpoint,
+  BUNDLE_NAME: bundleName,
+  USERNAME: username,
+  PASSWORD: password,
+  TOKEN_ARC: tokenSandbox,
+} = process.env
 
 const baseURL = `https://${username}:${password}@${endpoint}/deployments/fusion/`;
 const newBaseURL = `https://${endpoint}/deployments/fusion/`
 
-console.log("Logging environment variables:");
 console.log("Environment:", environment);
 console.log("PageBuilder Version:", pbVersion);
+console.log('bundleName', bundleName)
 
 const form = new FormData();
 form.append("name", bundleName);
@@ -30,13 +29,18 @@ const notifySideEffect = (logMessage, slackMessage) => () => {
 };
 
 const deploy = () =>
-  axios.post(`${baseURL}services?bundle=${bundleName}&version=${pbVersion}`,{
-    headers: {        
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${token_sandbox}`
-    }});
+  fetch(`${newBaseURL}services?bundle=${bundleName}&version=${pbVersion}`, {
+    method: 'post',
+    headers: { 'Content-Type': 'text/plain', 'Authorization': `Bearer ${tokenSandbox}` },
 
-const handleError = error => {
+  })
+    .catch(err => {
+      console.log("error-->", err.response);
+      throw { err, message: 'deploy bundle' }
+    });
+
+
+const handleError = (error, stepName) => {
   console.log("Error encountered during deployment");
   if (error.response) {
     console.log("An Error in the response.");
@@ -50,42 +54,34 @@ const handleError = error => {
     console.log("An unknown error occured");
     error && console.log(error);
   }
-  /*
-  webhook
-    .send(
-      `Deployment of PageBuilder bundle \`${bundleName}\` to \`${environment}\` \
-has had a *failure*. Please see the CircleCI logs for more details. :angryparrot: :facepalm:`
-    )
-    .then(() => {
-      console.log("Slack channel notified of failure.");
-      process.exitCode = 1;
-    })
-    .catch(() => {
-      console.log("Error in sending a slack message");
-      process.exitCode = 1;
-    });
-    */
+
+  throw new Error('Errors during deployment', stepName)
 };
 
-
 const headers = form.getHeaders();
-headers["Authorization"] =`Bearer ${token_sandbox}`;
+headers["Authorization"] = `Bearer ${tokenSandbox}`;
 console.log(headers);
-axios
-  .post(`${newBaseURL}bundles`, form, {
-    headers,
-    maxContentLength: Infinity
+fetch(`${newBaseURL}bundles`, {
+  method: 'post',
+  body: form,
+  headers,
+  maxContentLength: Infinity
+})
+  .catch(err => {
+    throw { err, message: 'upload bundle' }
   })
-  .then(
-    notifySideEffect(
-      `Bundle ${bundleName} has successfully been uploaded. Deployment beginning.`
-    )
-  )
+  .then(res => res.json())
+  .then(response => {
+    console.log(response);
+  })
   .then(deploy)
+  .then((response) => { console.log("response deploy-->", response) })
   .then(
     notifySideEffect(
       "Notifying Slack channel of promotion.",
       `PageBuilder bundle \`${bundleName}\` has been promoted in the \`${environment}\` environment! :partyparrot: :philosoraptor:`
     )
   )
-  .catch(console.error);
+  .catch((err, message = 'end to process') => {
+    handleError(err, message)
+  });

@@ -22,6 +22,7 @@ const Styles = ({
   CURRENT_ENVIRONMENT,
   Resource,
   isStyleBasic = false,
+  isFooterFinal = false,
   metaValue = () => {},
 }) => {
   const isStoryMatch = isStory !== '' && idMatch !== ''
@@ -34,13 +35,14 @@ const Styles = ({
       arcSite === SITE_ELBOCON) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
-    style = 'story-video'
+    style = 'dstory-video'
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (/^\/resultados-elecciones-2021\//.test(requestUri))
     style = 'elecciones-2021'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
+  // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (
@@ -76,6 +78,7 @@ const Styles = ({
       ? style
       : styleDefault
 
+  styleDefault = isFooterFinal ? 'dstory-video' : styleDefault
   // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos para todas las marcas
   if (metaValue('section_style') === 'resumen_2020') {
     style = 'resumen-2020'
