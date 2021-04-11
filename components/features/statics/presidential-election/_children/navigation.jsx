@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-newline */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable camelcase */
 import * as React from 'react'
@@ -18,7 +19,8 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
                   group: 'general',
                   filter: null,
                   subFilter: null,
-                })}>
+                })
+              }>
               General
             </span>
           </li>
@@ -40,7 +42,8 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
                         group: 'regiones',
                         filter: name,
                         subFilter: null,
-                      })}>
+                      })
+                    }>
                     {name}
                   </span>
                 </li>
@@ -49,7 +52,7 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
           </li>
           <li
             className={`election-nav__item ${
-              !pageData?.regiones ? 'disabled' : ''
+              !pageData?.lima ? 'disabled' : ''
             }`}>
             <span className="election-nav__text">Lima</span>
             <ul className="election-nav__list">
@@ -65,7 +68,8 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
                         group: 'lima',
                         filter: name,
                         subFilter: null,
-                      })}>
+                      })
+                    }>
                     {name}
                   </span>
                 </li>
@@ -74,7 +78,7 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
           </li>
           <li
             className={`election-nav__item ${
-              !pageData?.regiones ? 'disabled' : ''
+              !pageData?.resto_del_mundo ? 'disabled' : ''
             }`}>
             <span className="election-nav__text">Resto del Mundo</span>
             <ul className="election-nav__list">
@@ -90,7 +94,8 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
                         group: 'resto_del_mundo',
                         filter: name,
                         subFilter: null,
-                      })}>
+                      })
+                    }>
                     {name}
                   </span>
                 </li>
@@ -109,7 +114,8 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
                   group: 'todos_los_partidos',
                   filter: null,
                   subFilter: null,
-                })}>
+                })
+              }>
               Ordenar por partido politico
             </span>
           </div>
