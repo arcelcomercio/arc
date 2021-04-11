@@ -7,7 +7,8 @@ const getPartidoDataFromId = (id = '', partidos = []) => {
 
 const Projection = ({ filterData = [], partidos = [] }) => {
   const resizeHeight = num => {
-    return `${(5 / num + num) * 2 + 25}px`
+    const auxNum = num === 0 ? 1 : num
+    return `${(5 / auxNum + auxNum) * 2 + 25}px`
   }
 
   return (
