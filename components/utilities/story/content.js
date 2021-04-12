@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { ELEMENT_TEXT, ELEMENT_LIST } from '../constants/element-types'
 import {
+  SITE_DEPOR,
   SITE_ELCOMERCIOMAG,
 } from '../constants/sitenames'
 
@@ -27,7 +28,7 @@ export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
           typeElement === ELEMENT_LIST && i === 0 ? [] : dataContent
 
         if (typeElement === ELEMENT_TEXT) {
-          if (arcSite === SITE_ELCOMERCIOMAG) {
+          if (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_DEPOR) {
             if (textElementsCounter === 1) {
               dataElements.publicidad = true
               dataElements.nameAds = 'caja3'

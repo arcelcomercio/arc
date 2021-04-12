@@ -1,6 +1,7 @@
 import React from 'react'
 import Form from './form'
 import Confirmation from './confirmation'
+import { useFusionContext } from 'fusion:context'
 
 const classes = {
   newsletter: `newsletter flex flex-col-reverse items-center lg:justify-between lg:flex-row lg:justify-center`,
@@ -13,15 +14,17 @@ const classes = {
 }
 const Newsletter = props => {
   const { image, banner, hasBanner, confirmRegister, formMessage } = props
+  const { arcSite } = useFusionContext()
 
   const formHtml = confirmRegister ? (
-    <Confirmation {...props} />
+    <Confirmation {...props} arcSite={arcSite} />
   ) : (
-    <Form {...props} />
+    <Form {...props} arcSite={arcSite} />
   )
 
   return (
     <div className={classes.newsletter}>
+
       <div className={classes.boxSubscription}>
         {!confirmRegister && (
           <h4 itemProp="name"
@@ -36,9 +39,11 @@ const Newsletter = props => {
         )}
         {formHtml}
       </div>
-      <div className={classes.imageContainer}>
-        <img className={classes.image} src={image} alt="newsletter" />
-      </div>
+      {arcSite !== 'trome' && (
+        <div className={classes.imageContainer}>
+          <img className={classes.image} src={image} alt="newsletter" />
+        </div>
+      )}
     </div>
   )
 }
