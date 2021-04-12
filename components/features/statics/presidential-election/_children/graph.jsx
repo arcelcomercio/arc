@@ -23,6 +23,8 @@ const getPartidoDataFromId = (id = '', partidos = []) => {
   return partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
 }
 
+const roundTwoDecimals = num => Math.round(num * 100) / 100
+
 const PresidentialElectionChildGraph = ({
   partidos,
   page,
@@ -42,18 +44,13 @@ const PresidentialElectionChildGraph = ({
     <section className={classes.container}>
       {showTitle && (
         <div className={classes.title}>
-          Votos | <span>Porcentaje</span>
+          {filters?.subFilter !== 'porcentaje' && <>Votos {' | '}</>}{' '}
+          <span>Porcentaje</span>
         </div>
       )}
       <ul className={classes.list}>
         {filterData?.map(
-          ({
-            id_partido,
-            cantidad_votos,
-            porcentaje_votos,
-            candidato,
-            porcentaje,
-          }) => {
+          ({ id_partido, cantidad_votos, porcentaje_votos, candidato }, i) => {
             const idPartido =
               filters?.group === 'todos_los_partidos'
                 ? filters?.filter
@@ -77,15 +74,15 @@ const PresidentialElectionChildGraph = ({
             }
             if (filters?.subFilter === 'porcentaje') {
               itemData = {
-                result: `${porcentaje * 100}%`,
-                percentage: porcentaje,
+                result: `${roundTwoDecimals(porcentaje_votos * 100)}%`,
+                percentage: porcentaje_votos,
                 name: nombre,
               }
             }
 
             return (
               <li
-                key={`${id_partido}-${cantidad_votos}`}
+                key={`${id_partido}-${cantidad_votos}-${i}`}
                 className={classes.item}>
                 {logo && filters?.group !== 'todos_los_partidos' && (
                   <img
@@ -98,11 +95,23 @@ const PresidentialElectionChildGraph = ({
                   <div className={classes.boxBar}>
                     <span
                       className={classes.bar}
-                      data-value={`${itemData.percentage * 100}%`}
-                      style={printBar(itemData.percentage * 100, color)}></span>
+                      data-value={`${roundTwoDecimals(
+                        itemData.percentage * 100
+                      )}%`}
+                      style={printBar(
+                        roundTwoDecimals(itemData.percentage * 100),
+                        color
+                      )}></span>
                     <span className={classes.votes}>
-                      {itemData.result} |{' '}
-                      <span>{`${itemData.percentage * 100}%`}</span>
+                      {itemData.result}
+                      {filters?.subFilter !== 'porcentaje' && (
+                        <>
+                          {' | '}
+                          <span>{`${roundTwoDecimals(
+                            itemData.percentage * 100
+                          )}%`}</span>
+                        </>
+                      )}
                     </span>
                   </div>
                   <div className={classes.name}>{itemData.name}</div>
