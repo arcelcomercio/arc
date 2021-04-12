@@ -1,0 +1,39 @@
+.box-projection{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    display: grid;
+    font-family: $primary-font;
+    &__title{
+        font-size: 11px;
+        color: #000;
+        margin-bottom: 30px;
+        font-weight: 500;
+    }
+    &__figure{
+        width: 312px;
+        height: 117px;
+        display: inline-block;
+        margin-top: -17px;
+        justify-self: center;
+        border-radius: 12px;
+        // border-bottom-left-radius: 5px;
+        // border-bottom-right-radius: 5px;
+        // border-top-left-radius: 12px;
+        // border-top-right-radius: 12px;
+    }
+    &__figure-name{
+        color: #fff;
+        font-size: 12px;
+        float: left;
+        padding-top: 22px;
+        padding-left: 15px;
+    }
+    &__figure-number{
+        color: #fff;
+        font-size: 14px;
+        float: right;
+        padding-right: 15px;
+        padding-top: 22px;
+    }
+}

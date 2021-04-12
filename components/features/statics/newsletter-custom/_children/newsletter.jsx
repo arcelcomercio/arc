@@ -31,7 +31,6 @@ const classes = {
   cafe: 'block mx-auto newsletter__cafe',
   icon: 'block mx-auto newsletter__icon',
   checkmark: 'block mx-auto mb-30 mt-30 newsletter__checkmark',
-  trome: 'trome',
 }
 const Newsletter = props => {
   // const { confirmRegister, formMessage } = props
@@ -170,7 +169,7 @@ const Newsletter = props => {
               alt="icono newsletter"
             />
 
-            <h3 itemProp="name" className={`${classes.title} ${classes.trome}`}>
+            <h3 itemProp="name" className={`${classes.title}`}>
               Recibe nuestro
             </h3>
             <img
@@ -184,7 +183,7 @@ const Newsletter = props => {
               className={`${classes.divFormCustom}`}>
               <div className={classes.row}>
                 <input
-                  className={`${classes.email} ${classes.trome}`}
+                  className={`${classes.email}`}
                   type="text"
                   name="email"
                   placeholder="Ingresa tu Email"
@@ -193,7 +192,7 @@ const Newsletter = props => {
               </div>
               <div className={`${classes.row} ${classes.textCenter}`}>
                 <button
-                  className={`${classes.button} ${classes.trome}`}
+                  className={`${classes.button}`}
                   style={{ backgroundColor: colorButton }}
                   type="submit">
                   Recibir
@@ -211,7 +210,7 @@ const Newsletter = props => {
                   Acepto los
                   <a
                     itemProp="url"
-                    className={`${classes.pageLink} ${classes.trome}`}
+                    className={`${classes.pageLink}`}
                     href={urlTos}
                     target="_blank"
                     rel="noopener noreferrer">
@@ -221,7 +220,7 @@ const Newsletter = props => {
                   y
                   <a
                     itemProp="url"
-                    className={`${classes.pageLink} ${classes.trome}`}
+                    className={`${classes.pageLink}`}
                     href={urlPrivacyPolicies}
                     target="_blank"
                     rel="noopener noreferrer">
@@ -265,7 +264,7 @@ const Newsletter = props => {
             </p>
             <h3
               itemProp="name"
-              className={`${classes.title} ${classes.trome} ${classes.titleConfirmation}`}>
+              className={`${classes.title} ${classes.titleConfirmation}`}>
               Estás suscrito a nuestro
             </h3>
             <img
@@ -281,7 +280,7 @@ const Newsletter = props => {
                 alt="icono check"
               />
             </p>
-            <p className={`${classes.title} ${classes.trome}`}>
+            <p className={`${classes.title}`}>
               ¡Recepción exitosa!
             </p>
           </div>

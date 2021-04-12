@@ -12,6 +12,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_PERU21,
   SITE_ELCOMERCIOMAG,
+  SITE_DEPOR,
 } from '../../../utilities/constants/sitenames'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
@@ -189,6 +190,7 @@ const StoryContentsLite = props => {
           </>
         )}
         {arcSite !== SITE_ELCOMERCIOMAG &&
+          arcSite !== SITE_DEPOR &&
           subtype !== MINUTO_MINUTO &&
           subtype !== GALLERY_VERTICAL && (
             <div
@@ -344,7 +346,8 @@ const StoryContentsLite = props => {
                   return (
                     <>
                       {nameAds === 'caja3' &&
-                        arcSite === SITE_ELCOMERCIOMAG &&
+                        (arcSite === SITE_ELCOMERCIOMAG || 
+                          arcSite === SITE_DEPOR) &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
                           <div
