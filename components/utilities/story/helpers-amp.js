@@ -22,6 +22,7 @@ export const publicidadAmp = ({
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
+  prebidSlot = '',
   size = '320x100',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
@@ -30,6 +31,8 @@ export const publicidadAmp = ({
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
+  const prebidAmp = ( SITE_PERU21 === arcSite && 
+    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
   const nuevoScript =
     (movil1 &&
       `data-multi-size="${size}"
@@ -39,7 +42,7 @@ export const publicidadAmp = ({
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>`
+  data-slot="${dataSlot}" ${nuevoScript} ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -50,7 +53,8 @@ export const publicidadAmpAd = ({
   primarySectionLink = '/peru',
   movil1 = '',
   arcSite = '',
-  size = '320x100, 320x50, 300x1',
+  prebidSlot = '',
+  size = '320x100,320x50,300x1',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -58,7 +62,8 @@ export const publicidadAmpAd = ({
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-
+  const prebidAmp = ( SITE_PERU21 === arcSite && 
+    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
   const flying1 =
     (movil1 === false && `<amp-fx-flying-carpet height="600px">`) || ''
   const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
@@ -75,34 +80,40 @@ export const publicidadAmpAd = ({
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `${flying1}
   <amp-ad width="${width}" height="${height2}" type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript}  ${json}></amp-ad>${flying2}`
+  data-slot="${dataSlot}" ${nuevoScript} ${json} ${prebidAmp}></amp-ad>${flying2}`
   }
   return createMarkup(resultData)
 }
-export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
+export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '', prebidSlot = '' }) => {
   let resultData = ''
   const json =
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
+  const prebidAmp = ( SITE_PERU21 === arcSite && 
+    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
   resultData = `<amp-ad
     width="320"
     height="50"
     type="doubleclick"
     data-slot="${dataSlot}"
     ${json}
+    ${prebidAmp}
   />`
   return createMarkup(resultData)
 }
 
-export const publicidadAmpCaja1 = ({ dataSlot }) => {
+export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '', prebidSlot = '' }) => {
   let resultData = ''
+  const prebidAmp = ( SITE_PERU21 === arcSite && 
+    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
 
   resultData = `<amp-ad
     width="320"
     height="100"
     type="doubleclick"
     data-slot="${dataSlot}"
+    ${prebidAmp}
   />`
   return createMarkup(resultData)
 }

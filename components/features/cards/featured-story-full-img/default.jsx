@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
@@ -21,6 +22,7 @@ const FeatureStoryFullImage = props => {
   const {
     customFields: {
       imgField,
+      imgFieldCustom,
       crossY,
       crossX,
       model,
@@ -32,7 +34,14 @@ const FeatureStoryFullImage = props => {
 
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
-  const presets = 'landscape_l:648x374,portrait_md:314x374,square_xl:647x767'
+  let presets = ''
+
+  if (imgFieldCustom) {
+    presets = `landscape_l:375x258,portrait_md:314x374,square_xl:${imgFieldCustom}`
+  } else {
+    presets = 'landscape_l:648x374,portrait_md:314x374,square_xl:647x767'
+  }
+
   const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsImage},${includePrimarySection}`
 
   const data =
