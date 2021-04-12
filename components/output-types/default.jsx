@@ -25,7 +25,6 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_DEPOR,
-  SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
   SITE_OJO,
@@ -263,6 +262,7 @@ export default ({
 
   const isTrivia = /^\/trivias\//.test(requestUri)
   const isCovid = /^\/covid-19\//.test(requestUri)
+  const isElecciones = /^\/resultados-elecciones-2021\//.test(requestUri)
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
@@ -418,7 +418,7 @@ export default ({
             />
           </>
         )}
-        {arcSite === 'elcomercio' && !isTrivia && !isCovid && (
+        {arcSite === 'elcomercio' && !isTrivia && !isCovid && !isElecciones && (
           <>
             <link
               rel="preload"
