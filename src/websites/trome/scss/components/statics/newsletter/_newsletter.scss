@@ -17,6 +17,7 @@ $newsletter-alt-font: "Helvetica";
     padding-left: 28px !important;
     padding-right: 28px !important;
     flex-wrap: wrap;
+    margin-top: -21px;
 
     @media (--desktop) {
       flex-wrap: nowrap;
@@ -99,6 +100,7 @@ $newsletter-alt-font: "Helvetica";
     margin-bottom: 26px;
     font-size: 26px;
     text-align: center;
+    font-family: $newsletter-main-font;
 
     @media (--desktop) {
       font-size: 36px;
