@@ -69,9 +69,7 @@ const HeaderSimpleChild = ({
           <a
             className={classes.logoBrand}
             href={siteUrl}
-            style={
-              hasCustomLogoStyle ? { height: '80%' } : { minWidth: '114px' }
-            }>
+            style={hasCustomLogoStyle ? { height: '80%' } : { width: '100%' }}>
             <img
               src={logo}
               alt={`logo de ${arcSite}`}
@@ -79,11 +77,7 @@ const HeaderSimpleChild = ({
             />
           </a>
           <a className={classes.logoTrivia} href={urlField || `/trivias/`}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="80"
-              height="16"
-              viewBox="0 0 60 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="16">
               <text
                 style={{
                   fill: '#ffc900',
