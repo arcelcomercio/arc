@@ -5,10 +5,11 @@ const getPartidoDataFromId = (id = '', partidos = []) => {
   return partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
 }
 
+const roundTwoDecimals = num => Math.round(num * 100) / 100
+
 const Projection = ({ filterData = [], partidos = [] }) => {
   const resizeHeight = num => {
-    const auxNum = num === 0 ? 1 : num
-    return `${(5 / auxNum + auxNum) * 2 + 25}px`
+    return `${num * 7 + 45}px`
   }
 
   return (
@@ -30,7 +31,7 @@ const Projection = ({ filterData = [], partidos = [] }) => {
               }}>
               <span className="box-projection__figure-name">{nombre}</span>
               <span className="box-projection__figure-number">
-                {`${porcentaje * 100}%`}
+                {`${roundTwoDecimals(porcentaje * 100)}%`}
               </span>
             </div>
           )
