@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
@@ -346,7 +347,7 @@ const StoryContentsLite = props => {
                   return (
                     <>
                       {nameAds === 'caja3' &&
-                        (arcSite === SITE_ELCOMERCIOMAG || 
+                        (arcSite === SITE_ELCOMERCIOMAG ||
                           arcSite === SITE_DEPOR) &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
@@ -705,6 +706,13 @@ const StoryContentsLite = props => {
           }}
         />
       )}
+
+      {/* <script
+        defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+      <script
+        defer
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script> */}
     </>
   )
 }

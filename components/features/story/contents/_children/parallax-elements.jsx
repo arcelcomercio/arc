@@ -51,35 +51,115 @@ const ImageRatioElement = ({ galleryId = '' }) => {
     return sizes
   }
   return (
-    <div
-      className="parallax-el__ratio-cont"
-      style={{ maxWidth: '1070px', margin: '0 auto' }}>
-      {(data?.content_elements || []).map(item => {
-        const sizesRatios = getSizesByRatio(item?.width, item?.height)
-        return (
-          <div>
-            <img
-              style={{
-                height: sizesRatios.height,
-                width: sizesRatios.width,
-                maxWidth: sizesRatios.width,
-              }}
-              className="lazy"
-              data-src={item?.url}
-              src={placeholderSrc(item?.width, item?.height)}
-              alt={item?.caption}
-            />
-            <figcaption
-              style={{
-                maxWidth: sizesRatios.width,
-                textAlign: item?.width < item?.height ? 'right' : 'left',
-              }}>
-              {item?.caption}
-            </figcaption>
-          </div>
-        )
-      })}
-    </div>
+    <>
+      <div
+        className="parallax-el__ratio-cont"
+        style={{ maxWidth: '1070px', margin: '0 auto' }}>
+        {(data?.content_elements || []).map(item => {
+          const sizesRatios = getSizesByRatio(item?.width, item?.height)
+          return (
+            <div>
+              <img
+                style={{
+                  height: sizesRatios.height,
+                  width: sizesRatios.width,
+                  maxWidth: sizesRatios.width,
+                }}
+                className="lazy"
+                data-src={item?.url}
+                src={placeholderSrc(item?.width, item?.height)}
+                alt={item?.caption}
+              />
+              <figcaption
+                style={{
+                  maxWidth: sizesRatios.width,
+                  textAlign: item?.width < item?.height ? 'right' : 'left',
+                }}>
+                {item?.caption}
+              </figcaption>
+            </div>
+          )
+        })}
+      </div>
+      {/* 
+      <div style={{ maxWidth: 'none', margin: '0 auto' }} className="par-gal">
+        <div
+          style={{ overflow: 'hidden', position: 'relative' }}
+          className="wrapper d-flex flex-nowrap">
+          <h3
+            style={{
+              position: 'absolute',
+              top: 0,
+              textAlign: 'center',
+              width: '100%',
+              margin: '50px 0',
+            }}>
+            H3 Este es el titulo de la galeria
+          </h3>
+          <section className="par-gal-item flex-shrink-0 vh-100 d-flex justify-content-center align-items-center">
+            <div className="section-container">
+              <figure>
+                <img
+                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
+                  alt=""
+                />
+                <figcaption>galley of type and scrambled</figcaption>
+              </figure>
+            </div>
+            <div className="section-container">
+              <figure>
+                <img
+                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
+                  alt=""
+                />
+                <figcaption>galley of type and scrambled</figcaption>
+              </figure>
+            </div>
+            <div className="section-container">
+              <figure>
+                <img
+                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
+                  alt=""
+                />
+                <figcaption>galley of type and scrambled</figcaption>
+              </figure>
+            </div>
+            <div className="section-container">
+              <figure>
+                <img
+                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/L4HYTHGMENGKLOADGX74QOMIX4.jpg"
+                  alt=""
+                />
+                <figcaption>galley of type and scrambled</figcaption>
+              </figure>
+            </div>
+            <div className="section-container">
+              <figure>
+                <img
+                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
+                  alt=""
+                />
+                <figcaption>galley of type and scrambled</figcaption>
+              </figure>
+            </div>
+            <div className="section-container">
+              <figure>
+                <img
+                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
+                  alt=""
+                />
+                <figcaption>galley of type and scrambled</figcaption>
+              </figure>
+            </div>
+          </section>
+        </div>
+      </div>
+      <script
+        dangerouslySetInnerHTML={{
+          __html:
+            '"use strict";var setScrollTrigger=function(){window.gsap.registerPlugin(window.ScrollTrigger);var e=gsap.utils.toArray(".par-gal-item"),r=0,n=function(){r=0,e.forEach(function(e){r+=e.offsetWidth})};n(),window.ScrollTrigger.addEventListener("refreshInit",n),window.gsap.to(e,{x:function(){return"-"+(r-window.innerWidth)},ease:"none",scrollTrigger:{trigger:".wrapper",pin:!0,scrub:!0,end:function(){return"+="+r},invalidateOnRefresh:!0}})},target=document.querySelector(".wrapper");window.addEventListener("DOMContentLoaded",function(){var e=new IntersectionObserver(function(r){r.forEach(function(r){r.isIntersecting&&(setScrollTrigger(),e.unobserve(target))})});e.observe(target)});',
+        }}></script> */}
+    </>
   )
 }
 

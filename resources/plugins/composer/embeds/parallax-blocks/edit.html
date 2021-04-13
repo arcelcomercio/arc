@@ -69,6 +69,9 @@
           <button style="margin: 15px" x-on:click="page = 'image_ratio'">
             Imágenes con proporciones
           </button>
+          <button style="margin: 15px" x-on:click="page = 'scroll_gallery'">
+            Galerías con scroll horizontal
+          </button>
         </div>
       </div>
 
@@ -388,6 +391,37 @@
           </template>
         </div>
       </div>
+
+      <div x-show="page === 'scroll_gallery'">
+        <h4 style="text-align: center; padding: 20px 0">
+          Galerías con scroll horizontal
+        </h4>
+        <div>
+          <div>
+            <label>ID de la galería</label>
+            <div>
+              <input type="text" x-model="scroll_gallery.gallery_id" />
+              <button x-on:click="console.log('TODO')">
+                Cargar previsualización
+              </button>
+            </div>
+          </div>
+        </div>
+        <button x-on:click="sendData()" class="button-primary">
+          Guardar
+        </button>
+        <div
+          style="margin: 20px 0;font-weight: bold;border-bottom: 1px solid #000;"
+        >
+          PREVISUALIZACIÓN (es referencial, puede variar en la versión
+          publicada):
+        </div>
+        <div>
+          <span>ID: </span>
+          <span x-text="scroll_gallery.gallery_id"></span>
+        </div>
+      </div>
+
     </div>
 
     <script src="js/edit.js"></script>

@@ -126,6 +126,9 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
     image_ratio: {
       gallery_id: '',
     },
+    scroll_gallery: {
+      gallery_id: '',
+    },
     image_ratio_prev: [],
     sendData() {
       this.sendMessage('data', {
