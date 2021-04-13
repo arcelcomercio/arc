@@ -80,7 +80,9 @@ const NavigationMenu = ({ page, pageData, changeFilters }) => {
             className={`election-nav__item ${
               !pageData?.resto_del_mundo ? 'disabled' : ''
             }`}>
-            <span className="election-nav__text">Resto del Mundo</span>
+            <span className="election-nav__text">
+              Peruanos en el Extranjero
+            </span>
             <ul className="election-nav__list">
               {pageData?.resto_del_mundo?.map(({ filtro_nombre: name }) => (
                 <li className="election-nav__list-item" key={name}>
