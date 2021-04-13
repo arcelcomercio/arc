@@ -320,7 +320,7 @@ export default ({
   const iscriptJwplayer = jwplayerSeo || isVideosSection
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
-  const isFooterFinal = false // isStyleBasic || (style === 'story' && true)
+  const isFooterFinal = arcSite === 'elcomercio' && style === 'story-video' // isStyleBasic || (style === 'story' && true)
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -485,7 +485,7 @@ export default ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        <Styles {...metaSiteData} isStyleBasic={isStyleBasic} />
+        <Styles {...metaSiteData} isStyleBasic={isStyleBasic} isFooterFinal={isFooterFinal} />
         <MetaSite {...metaSiteData} />
 
         <meta name="description" lang="es" content={description} />
@@ -515,15 +515,15 @@ export default ({
         />
         {arcSite === SITE_DEPOR && isSearchSection && (
           <>
-            <script 
-              async="async" 
+            <script
+              async="async"
               src="https://www.google.com/adsense/search/ads.js"
             />
-            <script 
-              type="text/javascript" 
+            <script
+              type="text/javascript"
               charset="utf-8"
               dangerouslySetInnerHTML={{
-                __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`
+                __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`,
               }}
             />
           </>
