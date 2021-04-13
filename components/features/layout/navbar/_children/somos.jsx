@@ -14,26 +14,29 @@ class HeaderChildSomos extends React.PureComponent {
     this.searchInput = React.createRef()
   }
 
-  
   handleSearchInput(e) {
     this.setState({ searchInputText: e.target.value })
   }
-  
+
   handleSubmit(e) {
     const { searchInputText } = this.state
     searchQuery(searchInputText)
     e.preventDefault()
   }
-  
+
   toggleSearchInputs() {
     const { isSearchActive } = this.state
     this.setState({ isSearchActive: !isSearchActive })
   }
 
-
   render() {
     const { isSearchActive, searchInputText } = this.state
-    const { back: { logo, link, alt } = {}, device, deviceList, requestUri } = this.props
+    const {
+      back: { logo, link, alt } = {},
+      device,
+      deviceList,
+      requestUri,
+    } = this.props
     const isPreview = /^\/preview\//.test(requestUri)
 
     const initInputs = (
@@ -49,7 +52,9 @@ class HeaderChildSomos extends React.PureComponent {
           btnLink="https://elcomercio.pe/suscripciones/?ref=btn-suscribete-elcomercio&loc=somos"
         />
 
-        {!isPreview ? <SignwallComponent classButton="navbar-somos__btn-sign flex items-center btn capitalize text-md" /> : null}
+        {!isPreview && typeof window !== 'undefined' ? (
+          <SignwallComponent classButton="navbar-somos__btn-sign flex items-center btn capitalize text-md" />
+        ) : null}
 
         <button
           className="hidden md:block"
@@ -64,13 +69,13 @@ class HeaderChildSomos extends React.PureComponent {
     )
     const searchInputs = (
       <>
-        <form className="hidden md:flex" onSubmit={e => this.handleSubmit(e)}>
+        <form className="hidden md:flex" onSubmit={(e) => this.handleSubmit(e)}>
           <input
             type="search"
             placeholder="¿QUÉ BUSCAS?"
             className="navbar-somos__search-input primary-font font-bold text-md pt-0 pb-0 pr-10 pl-10 border-0"
             value={searchInputText}
-            onChange={e => this.handleSearchInput(e)}
+            onChange={(e) => this.handleSearchInput(e)}
             ref={this.searchInput}
           />
           <button
