@@ -1,21 +1,9 @@
 import React from 'react'
 
 const Fonts = () => {
-
-  return <style>
-    {`@font-face {
-      font-family: "MorganBig Italic";
-      font-weight: normal;
-      font-style: italic;
-      font-display: swap;
-      src: local("Morgan Big Italic"), local("MorganBig-Italic"),
-        url("https://cdna.trome.pe/resources/dist/trome/fonts/MorganBig-Italic.woff2") format("woff2"),
-        url("https://cdna.trome.pe/resources/dist/trome/fonts/MorganBig-Italic.woff") format("woff");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-        U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-        U+FEFF, U+FFFD;
-    }
-    
+  return (
+    <style>
+      {`
     @font-face {
       font-family: "Encode Sans Condensed";
       font-weight: 600;
@@ -66,7 +54,10 @@ const Fonts = () => {
       unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
         U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
         U+FEFF, U+FFFD;
-    `}</style>
+    }
+    `}
+    </style>
+  )
 }
 
 export default Fonts
