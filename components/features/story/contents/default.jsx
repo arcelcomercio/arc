@@ -16,6 +16,7 @@ import {
   SITE_PERU21,
   SITE_ELBOCON,
   SITE_DEPOR,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -153,7 +154,7 @@ class StoryContents extends React.PureComponent {
       subtype,
       ...promoItems,
       multimedia,
-      primaryImage: false,
+      primaryImage: SITE_TROME !== arcSite&& true,
       authorImageSecond,
       authorLinkSecond,
       authorSecond,
