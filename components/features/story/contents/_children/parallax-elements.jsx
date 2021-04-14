@@ -51,116 +51,86 @@ const ImageRatioElement = ({ galleryId = '' }) => {
     return sizes
   }
   return (
+    <div
+      className="parallax-el__ratio-cont"
+      style={{ maxWidth: '1070px', margin: '0 auto' }}>
+      {(data?.content_elements || []).map(item => {
+        const sizesRatios = getSizesByRatio(item?.width, item?.height)
+        return (
+          <div>
+            <img
+              style={{
+                height: sizesRatios.height,
+                width: sizesRatios.width,
+                maxWidth: sizesRatios.width,
+              }}
+              className="lazy"
+              data-src={item?.url}
+              src={placeholderSrc(item?.width, item?.height)}
+              alt={item?.caption}
+            />
+            <figcaption
+              style={{
+                maxWidth: sizesRatios.width,
+                textAlign: item?.width < item?.height ? 'right' : 'left',
+              }}>
+              {item?.caption}
+            </figcaption>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+const GalleryWithScroll = ({ galleryId }) => {
+  const data =
+    useContent({
+      source: 'gallery-by-id',
+      query: {
+        _id: galleryId,
+      },
+    }) || []
+  return galleryId ? (
     <>
       <div
-        className="parallax-el__ratio-cont"
-        style={{ maxWidth: '1070px', margin: '0 auto' }}>
-        {(data?.content_elements || []).map(item => {
-          const sizesRatios = getSizesByRatio(item?.width, item?.height)
-          return (
-            <div>
-              <img
-                style={{
-                  height: sizesRatios.height,
-                  width: sizesRatios.width,
-                  maxWidth: sizesRatios.width,
-                }}
-                className="lazy"
-                data-src={item?.url}
-                src={placeholderSrc(item?.width, item?.height)}
-                alt={item?.caption}
-              />
-              <figcaption
-                style={{
-                  maxWidth: sizesRatios.width,
-                  textAlign: item?.width < item?.height ? 'right' : 'left',
-                }}>
-                {item?.caption}
-              </figcaption>
-            </div>
-          )
-        })}
-      </div>
-      {/* 
-      <div style={{ maxWidth: 'none', margin: '0 auto' }} className="par-gal">
-        <div
-          style={{ overflow: 'hidden', position: 'relative' }}
-          className="wrapper d-flex flex-nowrap">
-          <h3
-            style={{
-              position: 'absolute',
-              top: 0,
-              textAlign: 'center',
-              width: '100%',
-              margin: '50px 0',
-            }}>
-            H3 Este es el titulo de la galeria
+        style={{ maxWidth: 'none', margin: '0 auto' }}
+        className="scrolling-gallery">
+        <div className="scrolling-gallery__wrapper" id={`wrapper${galleryId}`}>
+          <h3 className="scrolling-gallery__title">
+            <span>{data?.headlines?.basic || ''}</span>
           </h3>
-          <section className="par-gal-item flex-shrink-0 vh-100 d-flex justify-content-center align-items-center">
-            <div className="section-container">
-              <figure>
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
-                  alt=""
-                />
-                <figcaption>galley of type and scrambled</figcaption>
-              </figure>
-            </div>
-            <div className="section-container">
-              <figure>
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
-                  alt=""
-                />
-                <figcaption>galley of type and scrambled</figcaption>
-              </figure>
-            </div>
-            <div className="section-container">
-              <figure>
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
-                  alt=""
-                />
-                <figcaption>galley of type and scrambled</figcaption>
-              </figure>
-            </div>
-            <div className="section-container">
-              <figure>
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/L4HYTHGMENGKLOADGX74QOMIX4.jpg"
-                  alt=""
-                />
-                <figcaption>galley of type and scrambled</figcaption>
-              </figure>
-            </div>
-            <div className="section-container">
-              <figure>
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
-                  alt=""
-                />
-                <figcaption>galley of type and scrambled</figcaption>
-              </figure>
-            </div>
-            <div className="section-container">
-              <figure>
-                <img
-                  src="https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/YIDYX63WYNCUTCLN2GR2GXYA6E.jpg"
-                  alt=""
-                />
-                <figcaption>galley of type and scrambled</figcaption>
-              </figure>
-            </div>
+          <section
+            className="scrolling-gallery__container"
+            id={`container${galleryId}`}>
+            {(data?.content_elements || []).map(
+              ({ url, caption, width, height }) => (
+                <div className="scrolling-gallery__item">
+                  <figure>
+                    <img
+                      className="lazy"
+                      data-src={url}
+                      src={placeholderSrc(width, height)}
+                      alt={caption}
+                    />
+                    <figcaption>
+                      <span>{caption}</span>
+                    </figcaption>
+                  </figure>
+                </div>
+              )
+            )}
           </section>
         </div>
       </div>
       <script
         dangerouslySetInnerHTML={{
-          __html:
-            '"use strict";var setScrollTrigger=function(){window.gsap.registerPlugin(window.ScrollTrigger);var e=gsap.utils.toArray(".par-gal-item"),r=0,n=function(){r=0,e.forEach(function(e){r+=e.offsetWidth})};n(),window.ScrollTrigger.addEventListener("refreshInit",n),window.gsap.to(e,{x:function(){return"-"+(r-window.innerWidth)},ease:"none",scrollTrigger:{trigger:".wrapper",pin:!0,scrub:!0,end:function(){return"+="+r},invalidateOnRefresh:!0}})},target=document.querySelector(".wrapper");window.addEventListener("DOMContentLoaded",function(){var e=new IntersectionObserver(function(r){r.forEach(function(r){r.isIntersecting&&(setScrollTrigger(),e.unobserve(target))})});e.observe(target)});',
-        }}></script> */}
+          __html: '"use strict";window.addEventListener("DOMContentLoaded",function(){var e=new IntersectionObserver(function(n){n.forEach(function(n){n.isIntersecting&&function(){window.gsap.registerPlugin(window.ScrollTrigger);var n=document.getElementById("scrolling-gallery__container");new ResizeObserver(function(){return window.ScrollTrigger.refresh()}).observe(document.body),window.gsap.to(n,{x:function(){return"-"+(n.clientWidth-window.innerWidth)},ease:"none",scrollTrigger:{trigger:"#scrolling-gallery__wrapper",pin:!0,scrub:!0,end:function(){return"+="+n.clientWidth},invalidateOnRefresh:!0}}),e.unobserve(document.getElementById("scrolling-gallery__wrapper"))}()})});e.observe(document.getElementById("scrolling-gallery__wrapper"))});'
+            .replace(/scrolling-gallery__container/g, `container${galleryId}`)
+            .replace(/scrolling-gallery__wrapper/g, `wrapper${galleryId}`),
+        }}></script>
     </>
-  )
+  ) : null
 }
 
 export default function StoryContentsChildParallaxElements({ config, id }) {
@@ -230,6 +200,10 @@ export default function StoryContentsChildParallaxElements({ config, id }) {
 
       {block === 'image_ratio' ? (
         <ImageRatioElement galleryId={data?.gallery_id} />
+      ) : null}
+
+      {block === 'scroll_gallery' ? (
+        <GalleryWithScroll galleryId={data?.gallery_id} id={id} />
       ) : null}
     </>
   )
