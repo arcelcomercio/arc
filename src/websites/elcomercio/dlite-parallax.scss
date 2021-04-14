@@ -102,79 +102,72 @@
 }
 
 // TODO: Eliminar clases no usadas
-.par-gal {
-  .section--large {
-    width: 100vw;
-    background-color: #e4002b;
-    color: white;
-  }
-  .section--small {
-    width: 46rem;
-  }
-  .section--dark {
-    color: white;
-    background-color: black;
-  }
-
-  .center-marker {
-    position: fixed;
-    width: 2px;
-    height: 100vh;
-    background: tomato;
-    top: 0;
-    left: calc(50vw - 1px);
-  }
-
-  section {
-    font-weight: 900;
-    transition: color 0.3s;
-  }
-
-  section.active {
-    color: orange;
-  }
-
-  .d-flex {
+.scrolling-gallery {
+  &__container {
     display: flex;
-  }
-  .flex-nowrap {
-    flex-wrap: nowrap;
-  }
-  .flex-shrink-0 {
     flex-shrink: 0;
-  }
-  .vw-100 {
-    width: 100vw;
-  }
-  .vh-100 {
     height: 100vh;
-  }
-  .justify-content-center {
     justify-content: center;
-  }
-  .align-items-center {
     align-items: center;
+    @media (--only-mobile) {
+      padding-top: 40px;
+    }
   }
-  .section-container {
+  &__wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+  }
+  &__title {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    font: 700 24px/1 $primary-font;
+    color: #888;
+    letter-spacing: 0.77px;
+    padding: 40px 10px;
+    @media (--tablet) {
+      padding: 50px 70px;
+    }
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    @media screen and (max-height: 450px) {
+      display: none;
+    }
+  }
+  &__item {
     margin: 50px;
-    // img {
-    //   width: 320px;
-    //   height: 428px;
-    // }
     figure {
       display: table;
       margin: 0;
     }
 
     figure img {
-      max-width: 100%;
       height: 50vh;
     }
 
     figcaption {
       display: table-caption;
       caption-side: bottom;
-      padding: 10px;
+      padding-top: 10px;
+      font: 400 16px/24px $primary-font;
+      color: #777;
+      letter-spacing: 0.26px;
+      text-align: center;
+    }
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
     }
     &:first-child {
       margin-left: 50vw;
