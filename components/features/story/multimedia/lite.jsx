@@ -56,7 +56,7 @@ const StoryMultimediaLte = () => {
     subtype,
     ...promoItems,
     multimedia,
-    primaryImage: true,
+    primaryImage: false,
     completeImage: false,
     promoItemJwplayer,
     classImage: 's-multimedia',

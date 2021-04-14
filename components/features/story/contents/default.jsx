@@ -153,7 +153,7 @@ class StoryContents extends React.PureComponent {
       subtype,
       ...promoItems,
       multimedia,
-      primaryImage: true,
+      primaryImage: false,
       authorImageSecond,
       authorLinkSecond,
       authorSecond,
