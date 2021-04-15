@@ -83,6 +83,56 @@ const ImageRatioElement = ({ galleryId = '' }) => {
   )
 }
 
+const GalleryWithScroll = ({ galleryId }) => {
+  const data =
+    useContent({
+      source: 'gallery-by-id',
+      query: {
+        _id: galleryId,
+      },
+    }) || []
+  return galleryId ? (
+    <>
+      <div
+        style={{ maxWidth: 'none', margin: '0 auto' }}
+        className="scrolling-gallery">
+        <div className="scrolling-gallery__wrapper" id={`wrapper${galleryId}`}>
+          <h3 className="scrolling-gallery__title">
+            <span>{data?.headlines?.basic || ''}</span>
+          </h3>
+          <section
+            className="scrolling-gallery__container"
+            id={`container${galleryId}`}>
+            {(data?.content_elements || []).map(
+              ({ url, caption, width, height }) => (
+                <div className="scrolling-gallery__item">
+                  <figure>
+                    <img
+                      className="lazy"
+                      data-src={url}
+                      src={placeholderSrc(width, height)}
+                      alt={caption}
+                    />
+                    <figcaption>
+                      <span>{caption}</span>
+                    </figcaption>
+                  </figure>
+                </div>
+              )
+            )}
+          </section>
+        </div>
+      </div>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: '"use strict";window.addEventListener("DOMContentLoaded",function(){var e=new IntersectionObserver(function(n){n.forEach(function(n){n.isIntersecting&&function(){window.gsap.registerPlugin(window.ScrollTrigger);var n=document.getElementById("scrolling-gallery__container");new ResizeObserver(function(){return window.ScrollTrigger.refresh()}).observe(document.body),window.gsap.to(n,{x:function(){return"-"+(n.clientWidth-window.innerWidth)},ease:"none",scrollTrigger:{trigger:"#scrolling-gallery__wrapper",pin:!0,scrub:!0,end:function(){return"+="+n.clientWidth},invalidateOnRefresh:!0}}),e.unobserve(document.getElementById("scrolling-gallery__wrapper"))}()})});e.observe(document.getElementById("scrolling-gallery__wrapper"))});'
+            .replace(/scrolling-gallery__container/g, `container${galleryId}`)
+            .replace(/scrolling-gallery__wrapper/g, `wrapper${galleryId}`),
+        }}></script>
+    </>
+  ) : null
+}
+
 export default function StoryContentsChildParallaxElements({ config, id }) {
   const { block, data } = config || {}
 
@@ -150,6 +200,10 @@ export default function StoryContentsChildParallaxElements({ config, id }) {
 
       {block === 'image_ratio' ? (
         <ImageRatioElement galleryId={data?.gallery_id} />
+      ) : null}
+
+      {block === 'scroll_gallery' ? (
+        <GalleryWithScroll galleryId={data?.gallery_id} id={id} />
       ) : null}
     </>
   )

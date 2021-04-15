@@ -100,3 +100,80 @@
     }
   }
 }
+
+// TODO: Eliminar clases no usadas
+.scrolling-gallery {
+  &__container {
+    display: flex;
+    flex-shrink: 0;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    @media (--only-mobile) {
+      padding-top: 40px;
+    }
+  }
+  &__wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+  }
+  &__title {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    font: 700 24px/1 $primary-font;
+    color: #888;
+    letter-spacing: 0.77px;
+    padding: 40px 10px;
+    @media (--tablet) {
+      padding: 50px 70px;
+    }
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    @media screen and (max-height: 450px) {
+      display: none;
+    }
+  }
+  &__item {
+    margin: 50px;
+    figure {
+      display: table;
+      margin: 0;
+    }
+
+    figure img {
+      height: 50vh;
+    }
+
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      padding-top: 10px;
+      font: 400 16px/24px $primary-font;
+      color: #777;
+      letter-spacing: 0.26px;
+      text-align: center;
+    }
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    &:first-child {
+      margin-left: 50vw;
+    }
+    &:last-child {
+      margin-right: 50vw;
+    }
+  }
+}
