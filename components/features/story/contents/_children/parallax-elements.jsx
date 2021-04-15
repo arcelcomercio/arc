@@ -95,7 +95,8 @@ const GalleryWithScroll = ({ galleryId }) => {
     <>
       <div
         style={{ maxWidth: 'none', margin: '0 auto' }}
-        className="scrolling-gallery">
+        className="scrolling-gallery"
+        id={`scrolling-gallery${galleryId}`}>
         <div className="scrolling-gallery__wrapper" id={`wrapper${galleryId}`}>
           <h3 className="scrolling-gallery__title">
             <span>{data?.headlines?.basic || ''}</span>
@@ -125,9 +126,13 @@ const GalleryWithScroll = ({ galleryId }) => {
       </div>
       <script
         dangerouslySetInnerHTML={{
-          __html: '"use strict";window.addEventListener("DOMContentLoaded",function(){var e=new IntersectionObserver(function(n){n.forEach(function(n){n.isIntersecting&&function(){window.gsap.registerPlugin(window.ScrollTrigger);var n=document.getElementById("scrolling-gallery__container");new ResizeObserver(function(){return window.ScrollTrigger.refresh()}).observe(document.body),window.gsap.to(n,{x:function(){return"-"+(n.clientWidth-window.innerWidth)},ease:"none",scrollTrigger:{trigger:"#scrolling-gallery__wrapper",pin:!0,scrub:!0,end:function(){return"+="+n.clientWidth},invalidateOnRefresh:!0}}),e.unobserve(document.getElementById("scrolling-gallery__wrapper"))}()})});e.observe(document.getElementById("scrolling-gallery__wrapper"))});'
+          __html: '"use strict";window.addEventListener("DOMContentLoaded",function(){window.gsap.registerPlugin(window.ScrollTrigger);var e=document.getElementById("scrolling-gallery__container");window.gsap.to(e,{x:function(){return"-"+(e.clientWidth-window.innerWidth)},ease:"none",scrollTrigger:{trigger:"#scrolling-gallery__wrapper",pin:!0,scrub:!0,end:function(){return"+="+e.clientWidth},invalidateOnRefresh:!0}});var n=document.getElementById("scrolling-gallery__observer");new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(console.log("trigger refresh"),window.ScrollTrigger.refresh())})},{rootMargin:"500px 0px 500px 0px"}).observe(n)});'
             .replace(/scrolling-gallery__container/g, `container${galleryId}`)
-            .replace(/scrolling-gallery__wrapper/g, `wrapper${galleryId}`),
+            .replace(/scrolling-gallery__wrapper/g, `wrapper${galleryId}`)
+            .replace(
+              /scrolling-gallery__observer/g,
+              `scrolling-gallery${galleryId}`
+            ),
         }}></script>
     </>
   ) : null
