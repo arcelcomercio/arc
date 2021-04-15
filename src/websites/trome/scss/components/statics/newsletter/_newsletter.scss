@@ -262,6 +262,7 @@ $newsletter-alt-font: "Helvetica";
         min-width: -webkit-fill-available;
         padding: 15px !important;
         position: relative;
+        margin-top: 0;
 
         @media (--desktop) {
           max-width: 450px;
