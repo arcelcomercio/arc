@@ -1,25 +1,61 @@
-// eslint-disable-next-line import/prefer-default-export
-export const skipAdvertising = (data = []) => {
-  return data
-    .map(({ slug }) => {
-      return slug === 'noads' ? true : ''
-    })
-    .filter(String)[0]
+import { useAppContext } from 'fusion:context'
+
+import { SITE_DEPOR } from '../../utilities/constants/sitenames'
+
+export const getLang = (): string => {
+  const { requestUri, arcSite } = useAppContext()
+  let lang = 'es'
+
+  if (arcSite === SITE_DEPOR) {
+    if (requestUri.match('^/usa')) {
+      lang = 'es-us'
+    } else if (/^\/mexico/.test(requestUri)) {
+      lang = 'es-mx'
+    }
+  }
+
+  return lang
 }
 
-export const getIsStory = ({ metaValue, requestUri }) =>
-  metaValue('id') === 'meta_story' ||
-  requestUri.match(`^/preview/([A-Z0-9]{26})/?`) ||
-  ''
+export const getIframeStory = (): boolean => {
+  const { requestUri } = useAppContext()
+  return requestUri.includes('/carga-continua')
+}
+
+export const getIsStory = (): boolean => {
+  const { requestUri, metaValue } = useAppContext()
+  return (
+    metaValue('id') === 'meta_story' ||
+    /^\/preview\/([A-Z0-9]{26})\/?/.test(requestUri)
+  )
+}
+
+export const skipAdvertising = (data: { slug: string }[] = []): boolean =>
+  data.some(({ slug }) => slug === 'noads')
+
+type GetKeywordsProps = { siteName: string }
+
+export const getKeywords = ({ siteName }: GetKeywordsProps): string => {
+  const { metaValue } = useAppContext()
+  return metaValue('keywords') && !metaValue('keywords').match(/content/)
+    ? metaValue('keywords')
+    : `Noticias, ${siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`
+}
+
+type GetTitleProps = {
+  siteTitle: string
+  storyTitleRe: string
+  pageNumber: number
+}
 
 export const getTitle = ({
-  metaValue,
-  isStory,
   siteTitle,
   storyTitleRe,
   pageNumber,
-  requestUri,
-}) => {
+}: GetTitleProps): string => {
+  const { requestUri, metaValue } = useAppContext()
+  const isStory = getIsStory()
+
   const seoTitle =
     metaValue('title') &&
     !metaValue('title').match(/content/) &&
@@ -53,12 +89,16 @@ export const getTitle = ({
   return title
 }
 
+type GetDescriptionProps = {
+  siteName: string
+  pageNumber: number
+}
+
 export const getDescription = ({
-  metaValue,
   siteName,
   pageNumber,
-  requestUri,
-}) => {
+}: GetDescriptionProps): string => {
+  const { requestUri, metaValue } = useAppContext()
   let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteName}.`
   if (metaValue('description') && !metaValue('description').match(/content/)) {
     description = `${metaValue('description')}`
@@ -80,8 +120,3 @@ export const getDescription = ({
   }
   return description
 }
-
-export const getKeywords = ({ metaValue, siteName }) =>
-  metaValue('keywords') && !metaValue('keywords').match(/content/)
-    ? metaValue('keywords')
-    : `Noticias, ${siteName}, Peru, Mundo, Deportes, Internacional, Tecnologia, Diario, Cultura, Ciencias, Economía, Opinión`

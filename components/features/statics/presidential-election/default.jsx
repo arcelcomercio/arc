@@ -9,17 +9,11 @@ import ResultGraph from './_children/graph'
 import ResultPaginator from './_children/paginator'
 import NavigationMenu from './_children/navigation'
 import ResultPages from './_children/pages'
-import { slugify } from '../../../utilities/parse/slugify'
+// import { slugify } from '../../../utilities/parse/slugify'
 import Projection from './_children/projection'
 import OptionCongresal from './_children/option-congresal'
 
 const PresidentialElection = props => {
-  const [filters, setFilters] = React.useState({
-    group: 'general',
-    filter: null,
-    subFilter: null,
-  })
-
   const { requestUri } = useAppContext()
 
   const { customFields } = props
@@ -31,6 +25,12 @@ const PresidentialElection = props => {
    * @type {'presidencial' | 'congresal' | 'parlamento-andino'}
    */
   const page = !pathArr[1] ? 'presidencial' : pathArr[1]
+
+  const [filters, setFilters] = React.useState({
+    group: decodeURI(pathArr[2] || '') || 'general',
+    filter: decodeURI(pathArr[3] || '') || null,
+    subFilter: decodeURI(pathArr[4] || '') || null,
+  })
 
   const pageData =
     useContent(
@@ -56,20 +56,21 @@ const PresidentialElection = props => {
         : {}
     ) || {}
 
-  const changeUrl = (filter, group) => {
+  const changeUrl = (newFilters = {}) => {
+    const { group, filter, subFilter } = newFilters
+    const filterPathArray = [group, filter, subFilter]
+      .filter(item => !!item)
+      .map(item => encodeURI(item))
     window.history.pushState(
       {},
       null,
-      `/resultados-elecciones-2021/${page}/${slugify(group)}/${slugify(
-        filter
-      )}/`
+      `/resultados-elecciones-2021/${page}/${filterPathArray.join('/')}/`
     )
   }
 
   const changeFilters = newFilters => {
-    const { filter, group } = newFilters
     setFilters(newFilters)
-    changeUrl(filter, group)
+    changeUrl(newFilters)
   }
 
   const getFilterData = () => {
@@ -124,7 +125,6 @@ const PresidentialElection = props => {
 
   const setNewFilterPosition = direction => {
     const filterByGroup = pageData?.[filters.group] || []
-    const { group } = filters
 
     const cirrentFilterIndex = filterByGroup.findIndex(
       ({ filtro_nombre }) => filtro_nombre === filters.filter
@@ -136,8 +136,7 @@ const PresidentialElection = props => {
       newData = filterByGroup[cirrentFilterIndex + 1]
     }
     if (newData) {
-      setFilters({ ...filters, filter: newData.filtro_nombre })
-      changeUrl(newData.filtro_nombre, group)
+      changeFilters({ ...filters, filter: newData.filtro_nombre })
     }
   }
 

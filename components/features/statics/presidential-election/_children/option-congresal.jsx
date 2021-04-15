@@ -14,11 +14,11 @@ export default ({ filters, changeFilters }) => {
   let isRightActive = filters?.filter === keyRight
 
   if (filters?.group !== 'general') {
-    titleLeft = 'Congresistas'
+    titleLeft = 'Candidatos'
     keyLeft = 'congresistas'
     isLeftActive = filters?.subFilter === keyLeft || !filters?.subFilter
 
-    titleRight = 'Porcentaje'
+    titleRight = 'Partidos'
     keyRight = 'porcentaje'
     isRightActive = filters?.subFilter === keyRight
   }
