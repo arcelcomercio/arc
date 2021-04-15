@@ -718,10 +718,10 @@ const StoryContentsLite = props => {
         <>
           <script
             defer
-            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+            src="https://cdna.elcomercio.pe/resources/assets/js/gsap.min.js"></script>
           <script
             defer
-            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+            src="https://cdna.elcomercio.pe/resources/assets/js/ScrollTrigger.min.js"></script>
         </>
       )}
     </>

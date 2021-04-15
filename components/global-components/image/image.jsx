@@ -28,6 +28,7 @@ import { buildPresets } from './utils'
  * @param {string} config.outputType
  * @param {JSX.Element} [config.icon]
  * @param {string} [config.movilImage]
+ * @param {object} [config.defaultImg]
  *
  * @returns {HTMLImageElement | HTMLPictureElement} Static resized `<img/>` o `<picture/>`
  *
@@ -57,6 +58,7 @@ const CustomImage = ({
   outputType,
   icon,
   movilImage,
+  defaultImg,
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
@@ -84,7 +86,6 @@ const CustomImage = ({
     arcSite,
     filterQuality: quality,
   })
-
   const mainImage = resizedImagesDefault[`${width}x${height}`] || placeholder
   const resizedImagesMovile =
     movilImage &&
@@ -94,6 +95,18 @@ const CustomImage = ({
       arcSite,
       filterQuality: quality,
     })
+
+  const placeholderImg =
+    lazy &&
+    defaultImg &&
+    createResizedParams({
+      url: src,
+      presets: defaultImg,
+      arcSite,
+      filterQuality: quality,
+    })
+
+  const mainImageplaceholder = placeholderImg.placeholder || placeholder
 
   const resizedImages = movilImage ? resizedImagesMovile : resizedImagesDefault
 
@@ -112,7 +125,7 @@ const CustomImage = ({
 
   const Image = () => (
     <img
-      src={lazy ? placeholder : mainImage}
+      src={lazy ? mainImageplaceholder : mainImage}
       data-src={lazy ? mainImage : null}
       alt={alt}
       decoding={lazy ? 'async' : 'auto'}
@@ -133,7 +146,8 @@ const CustomImage = ({
       {sizes.map(size => {
         const { width: sourceWidth, height: sourceHeight, media } = size
         const sourceImage =
-          resizedImages[`${sourceWidth}x${sourceHeight}`] || placeholder
+          resizedImages[`${sourceWidth}x${sourceHeight}`] ||
+          mainImageplaceholder
         const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
           sourceImage.length - 30,
           sourceImage.length

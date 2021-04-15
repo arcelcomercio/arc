@@ -12,6 +12,7 @@ stages:
   - analize
   - package
   - release
+  - cleanup
 
 cache:
   key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
@@ -312,7 +313,6 @@ lighthouse:
     - lighthouse --chrome-flags="--headless --no-sandbox" $LIGHTHOUSE_TEST_URL_GESTION --output html --output-path ./gestion_report.html
   only:
     - master
-
   after_script:
     - aws s3 cp ./elcomercio_report.html  s3://lighthouse-ec/elcomercio/index.html  --metadata-directive REPLACE  --cache-control max-age=3000 --content-type text/html
     - aws s3 cp ./gestion_report.html  s3://lighthouse-ec/gestion/index.html --metadata-directive REPLACE  --cache-control max-age=3000 --content-type text/html
