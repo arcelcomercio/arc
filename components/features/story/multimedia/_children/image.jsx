@@ -35,7 +35,7 @@ const StoryContentChildImage = ({
   const sizes = completeImage
     ? `(max-width: 360px) 314px, (max-width: 768px) 482px, ${customWidth}px`
     : `(max-width: 360px) 314px, (max-width: 639px) 482px, ${customWidth}px`
-  const resizer = { placeholder: { width: 100, height: 56 } }
+  const resizer = { placeholder: { width: 40, height: 22 } }
   return (
     <figure>
       <Image
