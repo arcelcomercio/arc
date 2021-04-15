@@ -390,13 +390,11 @@ const AmpOutputType = ({
           />
         )}
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
-          <>
-            <script
-              async
-              custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-            />
-          </>
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
         )}
 
         {hasTwitter && (
@@ -500,18 +498,18 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-      {arcSite === SITE_PERU21 && (
-          <amp-iframe 
-            width="1" 
+        {arcSite === SITE_PERU21 && (
+          <amp-iframe
+            width="1"
             title="User Sync"
             height="1"
             sandbox="allow-scripts"
             frameborder="0"
             src="https://ads.rubiconproject.com/prebid/load-cookie.html?endpoint=rubicon&max_sync_count=5&args=account:19186">
-            <amp-img 
-              layout="fill" 
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" 
-              placeholder 
+            <amp-img
+              layout="fill"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+              placeholder
             />
           </amp-iframe>
         )}

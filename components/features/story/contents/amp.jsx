@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react'
 import Consumer from 'fusion:consumer'
 

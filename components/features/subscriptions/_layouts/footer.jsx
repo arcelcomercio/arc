@@ -234,8 +234,11 @@ export const FooterSubs = () => {
         </footer>
       )}
 
+      {console.log('okkkkkkkk doc', userStep)}
       {userStep !== 4 && (
-        <section className="step__bottom">
+        <section
+          className="step__bottom" 
+          style={userStep === 5 ? { display: 'none' } : {}}>
           <button className={styles.btnDetail} type="button" id="btn-detail">
             <div>
               <span className="title-item">Resumen de pedido:</span>
