@@ -49,9 +49,9 @@ build-verify:
     - install_dependencies
   script:
     - ls
-    - npm run zip || true
+    - npm run pw:clean && npm run prod:all || true
     - mkdir artifacts
-    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json setupTests.js -t artifacts/
+    - mv __mocks__/ components/ config/ content/ environment/ properties/ resources/ types/  .babelrc .eslintrc  .prettierrc .stylelint.json  gulpfile.js jest.config.ts package.json tsconfig.eslint.json tsconfig.json -t artifacts/
   artifacts:
     when: on_success
     paths:
@@ -123,7 +123,7 @@ promote-sandbox:
     - export TOKEN_ARC=$TOKEN_SANDBOX
     - export ENV="$CI_JOB_STAGE"
     - cd artifacts/
-    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc .prettierrc  gulpfile.js  package.json setupTests.js
+    - zip -r bundle.zip components/ content/ environment/ properties/ resources/ package.json tsconfig.json
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
@@ -239,9 +239,9 @@ build-verify_master:
     - install_dependencies
   script:
     - ls
-    - npm run zip || true
+    - npm run pw:clean && npm run prod:all || true
     - mkdir artifacts
-    - mv components/ config/ content/ environment/ jest/ properties/ resources/  .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json setupTests.js -t artifacts/
+    - mv __mocks__/ components/ config/ content/ environment/ properties/ resources/ types/  .babelrc .eslintrc  .prettierrc .stylelint.json  gulpfile.js jest.config.ts package.json tsconfig.eslint.json tsconfig.json -t artifacts/
   artifacts:
     when: on_success
     paths:
@@ -280,7 +280,7 @@ deploy-master:
     - export TOKEN_ARC=$TOKEN_MASTER
     - cd artifacts/
     - ls
-    - zip -r bundle.zip components/ config/ content/ environment/ jest/ properties/ resources/ .babelrc .eslintrc  .prettierrc  gulpfile.js  package.json setupTests.js
+    - zip -r bundle.zip components/ content/ environment/ properties/ resources/ package.json tsconfig.json
     - ls -l bundle.zip
     - cp bundle.zip  ../bundle.zip
     - node config/deploy/deploy.js
