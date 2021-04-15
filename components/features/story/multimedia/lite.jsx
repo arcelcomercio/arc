@@ -13,6 +13,7 @@ import { localISODate } from '../../../utilities/date-time/dates'
 
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildMultimedia from './_children/multimedia'
+import { SITE_TROME } from '../../../utilities/constants/sitenames'
 
 const StoryMultimediaLte = () => {
   const {
@@ -56,7 +57,7 @@ const StoryMultimediaLte = () => {
     subtype,
     ...promoItems,
     multimedia,
-    primaryImage: true,
+    primaryImage: SITE_TROME !== arcSite && true,
     completeImage: false,
     promoItemJwplayer,
     classImage: 's-multimedia',

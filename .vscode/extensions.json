@@ -1,0 +1,18 @@
+{
+  // See http://go.microsoft.com/fwlink/?LinkId=827846
+  // for the documentation about the extensions.json format
+  "recommendations": [
+    // ESLint support.
+    "dbaeumer.vscode-eslint",
+    // Prettier support.
+    "esbenp.prettier-vscode",
+    // Stylelint support.
+    "stylelint.vscode-stylelint",
+    // Git with superpowers.
+    "eamodio.gitlens",
+    // Auto rename paired HTML/XML tag
+    "formulahendry.auto-rename-tag",
+    // AI-assisted development
+    "visualstudioexptteam.vscodeintellicode"
+  ]
+}
