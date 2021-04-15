@@ -51,7 +51,7 @@ build-verify:
     - ls
     - npm run pw:clean && npm run prod:all || true
     - mkdir artifacts
-    - mv __mocks__/ components/ config/ content/ environment/ properties/ resources/ types/  .babelrc .eslintrc  .prettierrc .stylelint.json  gulpfile.js jest.config.ts package.json tsconfig.eslint.json tsconfig.json -t artifacts/
+    - mv __mocks__/ components/ config/ content/ environment/ properties/ resources/ types/  .babelrc .eslintrc.js  .prettierrc .stylelintrc.json  gulpfile.js jest.config.ts package.json tsconfig.eslint.json tsconfig.json -t artifacts/
   artifacts:
     when: on_success
     paths:
@@ -241,7 +241,7 @@ build-verify_master:
     - ls
     - npm run pw:clean && npm run prod:all || true
     - mkdir artifacts
-    - mv __mocks__/ components/ config/ content/ environment/ properties/ resources/ types/  .babelrc .eslintrc  .prettierrc .stylelint.json  gulpfile.js jest.config.ts package.json tsconfig.eslint.json tsconfig.json -t artifacts/
+    - mv __mocks__/ components/ config/ content/ environment/ properties/ resources/ types/  .babelrc .eslintrc.js  .prettierrc .stylelintrc.json  gulpfile.js jest.config.ts package.json tsconfig.eslint.json tsconfig.json -t artifacts/
   artifacts:
     when: on_success
     paths:
