@@ -111,7 +111,7 @@ const Signwall = ({
           {children}
         </div>
 
-        <Fusion />
+        <Fusion hydrateOnly />
       </body>
     </html>
   )

@@ -74,8 +74,13 @@ const HeaderChildInverted = ({
   const [statusSidebar, setStatusSidebar] = React.useState(false)
   const [statusSearch] = React.useState(false)
 
-  const { contextPath, siteProperties, arcSite, requestUri } = useFusionContext()
-  
+  const {
+    contextPath,
+    siteProperties,
+    arcSite,
+    requestUri,
+  } = useFusionContext()
+
   const isPreview = /^\/preview\//.test(requestUri)
 
   const toggleBodyOverflow = () => {
@@ -87,7 +92,7 @@ const HeaderChildInverted = ({
     }
   }
 
-  const _setPosition = posX => {
+  const _setPosition = (posX) => {
     document.body.querySelector(
       '.nav-sidebar'
     ).style.transform = `scaleX(${posX})`
@@ -173,10 +178,9 @@ const HeaderChildInverted = ({
           <a
             itemProp="url"
             href={logo.link}
-            className={`${classes.logoContainer} ${isStory &&
-              scrolled &&
-              statusSearch &&
-              'opacity-0'}`}>
+            className={`${classes.logoContainer} ${
+              isStory && scrolled && statusSearch && 'opacity-0'
+            }`}>
             <img
               src={
                 scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
@@ -197,7 +201,7 @@ const HeaderChildInverted = ({
                       itemProp="url"
                       className={classes.moreLink}
                       href="/"
-                      onClick={event => {
+                      onClick={(event) => {
                         openLink(event, 3)
                       }}>
                       <i className={`${classes.iconMore}`} />
@@ -211,7 +215,7 @@ const HeaderChildInverted = ({
                           itemProp="url"
                           className={classes.shareLink}
                           href={item.link}
-                          onClick={event => {
+                          onClick={(event) => {
                             openLink(event, item)
                           }}>
                           <i className={`${item.icon} ${classes.shareIcon}`} />
@@ -240,15 +244,16 @@ const HeaderChildInverted = ({
                         siteProperties.urlSubsOnline +
                         connector +
                         outputType
-                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                        'undefined' &&
-                        window.section) ||
-                        ''}`
+                      const ref = `ref=btn-suscribete-${arcSite}&loc=${
+                        (typeof window !== 'undefined' && window.section) || ''
+                      }`
                       window.location.href = link + ref
                     }}
                   />
                 )}
-                {siteProperties.activeSignwall && !isPreview ? (
+                {siteProperties.activeSignwall &&
+                !isPreview &&
+                typeof window !== 'undefined' ? (
                   <SignwallComponent
                     classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
                   />

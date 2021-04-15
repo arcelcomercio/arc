@@ -1,11 +1,12 @@
-import React, { useState, useContext } from 'react'
+import * as React from 'react'
+
+import QueryString from '../../signwall/_dependencies/querystring'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isAuthenticated } from '../_dependencies/Session'
 import { checkUndefined } from '../_dependencies/Utils'
 import { AuthContext } from '../_context/auth'
-import { Landing } from '../../signwall/_children/landing/index'
-import QueryString from '../../signwall/_dependencies/querystring'
+import Signwall from '../_children/Signwall'
 import PWA from '../_dependencies/Pwa'
 
 const styles = {
@@ -18,10 +19,10 @@ const styles = {
 const HeaderSubs = ({ userProfile, arcSite }) => {
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
-  const { userLoaded, activateAuth, updateStep } = useContext(AuthContext)
+  const { userLoaded, activateAuth, updateStep } = React.useContext(AuthContext)
   const { firstName, lastName, secondLastName } = userProfile || {}
-  const [showSignwall, setShowSignwall] = useState(false)
-  const [showTypeLanding, setShowTypeLanding] = useState('landing')
+  const [showSignwall, setShowSignwall] = React.useState(false)
+  const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
 
   const formatName = () => {
     const fullName = `${checkUndefined(firstName, 'Usuario')} ${checkUndefined(
@@ -86,7 +87,8 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
       {QueryString.getQuery('signLanding') ||
       QueryString.getQuery('signStudents') ||
       showSignwall ? (
-        <Landing
+        <Signwall
+          fallback={<div>Cargando...</div>}
           typeDialog={showTypeLanding} // tipo de modal (students , landing)
           nameDialog={showTypeLanding} // nombre de modal
           onLogged={handleAfterLogged}
