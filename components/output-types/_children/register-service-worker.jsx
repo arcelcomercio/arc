@@ -9,7 +9,7 @@ if ('serviceWorker' in navigator) {
 }
 */
 
-const RegisterServiceWorker = ({ disable, path = '/sw.js?d=1' }) =>
+const RegisterServiceWorker = ({ disable = false, path = '/sw.js?d=1' }) =>
   disable ? null : (
     <script
       dangerouslySetInnerHTML={{

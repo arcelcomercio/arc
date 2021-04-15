@@ -7,6 +7,7 @@ node_modules/
 src/
 config/
 jest/
+coverage/
 gulpfile.js
 setupTests.js
 .eslintrc
@@ -15,6 +16,8 @@ setupTests.js
 .prettierrc
 .stylelintrc.json
 commitlinterrc.json
+__mocks__/
+**/__tests__/
 *.md
 *.test*
 **/*.md

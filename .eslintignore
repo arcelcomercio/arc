@@ -1,5 +1,8 @@
-.fusion/
-node_modules/
-resources/
-dist/
-data/
+.fusion
+node_modules
+resources
+coverage
+dist
+data
+src
+config/deploy
