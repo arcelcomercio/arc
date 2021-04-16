@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
@@ -177,6 +178,14 @@ const StoryContentsLite = props => {
   })
   const isPreview = /^\/preview\//.test(requestUri)
 
+  let isGsapRequired = false
+  if (subtype === PARALLAX) {
+    const elementsWithScrollGallery = contentElements.filter(
+      ({ embed: { config: { block } = {} } = {} }) => block === 'scroll_gallery'
+    )
+    isGsapRequired = elementsWithScrollGallery.length > 0
+  }
+
   return (
     <>
       <div className={classes.news}>
@@ -346,7 +355,7 @@ const StoryContentsLite = props => {
                   return (
                     <>
                       {nameAds === 'caja3' &&
-                        (arcSite === SITE_ELCOMERCIOMAG || 
+                        (arcSite === SITE_ELCOMERCIOMAG ||
                           arcSite === SITE_DEPOR) &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
@@ -704,6 +713,16 @@ const StoryContentsLite = props => {
               'document.addEventListener("DOMContentLoaded",function(){var e=[].slice.call(document.querySelectorAll(".lazy-background"));if("IntersectionObserver"in window){let n=new IntersectionObserver(function(e,t){e.forEach(function(e){e.isIntersecting&&(e.target.classList.add("visible"),n.unobserve(e.target))})});e.forEach(function(e){n.observe(e)})}});',
           }}
         />
+      )}
+      {subtype === PARALLAX && isGsapRequired && (
+        <>
+          <script
+            defer
+            src="https://cdna.elcomercio.pe/resources/assets/js/gsap.min.js"></script>
+          <script
+            defer
+            src="https://cdna.elcomercio.pe/resources/assets/js/ScrollTrigger.min.js"></script>
+        </>
       )}
     </>
   )
