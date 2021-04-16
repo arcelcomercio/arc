@@ -396,7 +396,7 @@ const LiteAds = ({
               .toISOString()
               .slice(0, 10)}`}></script>
 
-          {arcSite === 'elcomerciomag' || arcSite === 'peru21' ? (
+          {arcSite === 'elcomerciomag' || arcSite === 'peru21' || arcSite === 'depor' ? (
             <>
               <script
                 type="text/javascript"

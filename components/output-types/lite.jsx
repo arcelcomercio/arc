@@ -369,7 +369,7 @@ const LiteOutput = ({
               </>
             )} */}
             {isStory &&
-              (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) && (
+              (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21 || arcSite === SITE_DEPOR) && (
                 <>
                   <link
                     rel="preconnect"
@@ -681,7 +681,7 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21 ? (
+        {arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21 || arcSite === SITE_DEPOR ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
