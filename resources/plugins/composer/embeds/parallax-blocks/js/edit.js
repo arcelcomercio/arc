@@ -23,6 +23,9 @@ function data() {
       if (this.page === 'image_ratio') {
           this.fetchGallery()
       }
+      if (this.page === 'scroll_gallery') {
+        this.fetchScrollGallery()
+      }
     },
     calcRatio(w, h) {
       let ratio = 'auto'
@@ -58,6 +61,21 @@ function data() {
               url,
               caption,
               ratio: this.calcRatio(width, height),
+            })
+          )
+        })
+    },
+    fetchScrollGallery() {
+      fetch(
+        `/pf/api/v3/content/fetch/gallery-by-id?query={%22_id%22:%22${this.scroll_gallery.gallery_id}%22}&_website=elcomercio`
+      )
+        .then(response => response.json())
+        .then(({content_elements = [], headlines: {basic = ''} = {}}) => {
+          this.scroll_gallery_title_prev = basic
+          this.scroll_gallery_prev = content_elements.map(
+            ({ url, caption}) => ({
+              url,
+              caption,
             })
           )
         })
@@ -126,7 +144,12 @@ EDITOR DE CONTENIDOS ORIGINALES / <b>Leñador</b>`,
     image_ratio: {
       gallery_id: '',
     },
+    scroll_gallery: {
+      gallery_id: '',
+    },
     image_ratio_prev: [],
+    scroll_gallery_prev: [],
+    scroll_gallery_title_prev: '',
     sendData() {
       this.sendMessage('data', {
         id: 'no-fetch',

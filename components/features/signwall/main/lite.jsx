@@ -82,6 +82,10 @@ class SignwallComponent extends PureComponent {
               divPremium.classList.remove('story-content__nota-premium')
               divPremium.removeAttribute('style')
             }
+            const parallaxBannerDiv = document.querySelector('.story-subs-call')
+            if (parallaxBannerDiv) {
+              parallaxBannerDiv.style = 'display:none;'
+            }
           }
           return false // tengo subs :D
         })
