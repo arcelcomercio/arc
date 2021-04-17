@@ -7,7 +7,7 @@ import { ENVIRONMENT } from 'fusion:environment'
 import getResponsiveClasses from '../../../../utilities/responsive-classes'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
-import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+import { SITE_PERU21, SITE_DIARIOCORREO } from '../../../../utilities/constants/sitenames'
 import {
   singwallScript,
   // getQueryReloginEmailScript,
@@ -64,6 +64,7 @@ const classes = {
   iconTwitter: 'icon-twitter-circle',
   iconWhatsapp: 'icon-whatsapp',
   iconMore: 'story-header__share-icon icon-share text-gray-200',
+  newsletterButton: 'nav__newsletter-button'
 }
 
 @Consumer
@@ -203,6 +204,17 @@ class NavBarDefault extends React.PureComponent {
                         </li>
                       )
                     }
+                  )}
+                  { arcSite === SITE_DIARIOCORREO && (
+                    <li>
+                      <a href="/suscripcion-newsletter/">
+                        <img
+                          className={classes.newsletterButton}
+                          src="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/images/boton_correo.svg?d=1"
+                          alt="icono newsletter"
+                        />
+                      </a>
+                    </li>
                   )}
               </ul>
             </div>
