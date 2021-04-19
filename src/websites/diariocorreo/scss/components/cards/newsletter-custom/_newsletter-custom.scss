@@ -21,8 +21,8 @@
     .newsletter {
       &__button {
         font-size: 15px;
-        background: #E52322;
-        border: 3px solid #B72D2B;
+        background: #e52322;
+        border: 3px solid #b72d2b;
         color: white;
         font-family: $fourth-font;
         height: 50px;
@@ -30,13 +30,14 @@
       }
 
       &__subtitle {
+        color: #000;
         font-size: 16px;
         font-family: $fourth-font;
         font-weight: normal;
         text-align: center;
       }
 
-      &__wrapper-logo{
+      &__wrapper-logo {
         height: 40px;
         margin-bottom: 10px;
         position: relative;
@@ -47,6 +48,7 @@
         max-width: 83%;
         margin: 0 auto;
         font-size: 13px;
+        color: #000;
       }
 
       &__logo {
