@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import NavBarComercio from './_children/standard'
 import Formatter from './_dependencies/formatter'
+import Newsletter from '../../statics/newsletter-custom/default'
 
 @Consumer
 class LayoutNavbar extends React.PureComponent {
@@ -84,12 +85,14 @@ class LayoutNavbar extends React.PureComponent {
     const dataFormat = {
       children: formatData(data),
     }
+    const headerNewsletter = <Newsletter />
     return (
       <NavBarComercio
         deviceList={{ showInDesktop, showInTablet, showInMobile }}
         data={dataFormat}
         navbarData={navbarData}
         hideMenu={hideMenu}
+        headerNewsletter={headerNewsletter}
         {...this.formatter.main().initParams()}
       />
     )
