@@ -13,7 +13,6 @@ import { localISODate } from '../../../utilities/date-time/dates'
 
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildMultimedia from './_children/multimedia'
-import { SITE_TROME } from '../../../utilities/constants/sitenames'
 
 const StoryMultimediaLte = () => {
   const {
@@ -57,7 +56,7 @@ const StoryMultimediaLte = () => {
     subtype,
     ...promoItems,
     multimedia,
-    primaryImage: SITE_TROME !== arcSite && true,
+    primaryImage: true,
     completeImage: false,
     promoItemJwplayer,
     classImage: 's-multimedia',
@@ -84,7 +83,7 @@ const StoryMultimediaLte = () => {
   )
 }
 
-StoryMultimediaLte.label = 'Artículo - multimedia'
+StoryMultimediaLte.label = 'Artículo - multimedia '
 StoryMultimediaLte.static = true
 
 export default StoryMultimediaLte
