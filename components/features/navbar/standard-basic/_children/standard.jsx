@@ -213,19 +213,46 @@ class NavBarDefault extends React.PureComponent {
                       )
                     }
                   )}
-                  { arcSite === SITE_DIARIOCORREO && (
-                    <li>
-                      <a href="/suscripcion-newsletter/">
-                        <img
-                          className={classes.newsletterButton}
-                          src="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/images/boton_correo.svg?d=1"
-                          alt="icono newsletter"
-                        />
-                      </a>
-                    </li>
-                  )}
               </ul>
             </div>
+
+            { arcSite === SITE_DIARIOCORREO && (
+              <>
+                <input
+                  type="checkbox"
+                  id="stNewsCinDesk"
+                  className={classes.newsInputCheckDesk}
+                />
+                <label
+                  htmlFor="stNewsCinDesk"
+                  className={`${classes.newsCin} ${classes.newsCinDesk} `}>
+                  <img
+                    className={classes.newsletterButton}
+                    src="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/images/boton_correo.svg?d=1"
+                    alt="icono newsletter"
+                  />
+                </label>
+                <div id="HeaderNewsletter" style={{ display: 'none' }}>
+                  {headerNewsletter}
+                </div>
+                {/* <div className={`${classes.newsCinTooltip}`}>{headerNewsletter}</div> */}
+
+                <input
+                  type="checkbox"
+                  id="stNewsCinMob"
+                  className={classes.newsInputCheckMob}
+                />
+                <label
+                  htmlFor="stNewsCinMob"
+                  className={`${classes.newsCin} ${classes.newsCinMob}`}>
+                  <img
+                    className={classes.newsletterButton}
+                    src="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/images/boton_correo.svg?d=1"
+                    alt="icono newsletter"
+                  />
+                </label>
+              </>
+            )}
             <a
               itemProp="url"
               href="/"
