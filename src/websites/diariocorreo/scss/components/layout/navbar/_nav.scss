@@ -5,7 +5,7 @@
       padding-left: 0;
     }
   }
-  &__btn-sign{
+  &__btn-sign {
     @media (--desktop) {
       font-size: 10px;
       padding: 8px 8px !important;
@@ -71,7 +71,7 @@
     z-index: 21;
     @media (--desktop) {
       background-color: $color-gray-300;
-      .nav__container-right{
+      .nav__container-right {
         display: block;
       }
     }
@@ -88,11 +88,11 @@
       form {
         right: 0;
       }
-    } 
+    }
   }
-  &__newsletter-button{
+  &__newsletter-button {
     height: 30px;
- }
+  }
 
   &__input-search {
     color: $color-white;
