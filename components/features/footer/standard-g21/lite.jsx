@@ -1,12 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
-import { useFusionContext } from 'fusion:context'
+import { useFusionContext, useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
-
+import customFields from './_dependencies/custom-fields'
 import getFooterProperties from '../_dependencies/properties'
 import FooterChildStandardG21 from './_lite/_children/footer-g21'
 import { getAssetsPath } from '../../../utilities/assets'
+import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 
 const DEFAULT_HIERARCHY = 'footer-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -27,6 +27,9 @@ const FooterStandardG21 = props => {
       sectionsHierarchyConfig: {
         contentConfigValues: { hierarchy: sectionsHierarchy = '' } = {},
       } = {},
+      customLogoTitle = 'Ir a la portada',
+      customLogoLink = '/',
+      customLogo = null,
     } = {},
   } = props
 
@@ -69,15 +72,34 @@ const FooterStandardG21 = props => {
   }
 
   const logoUrl =
+    customLogo ||
     `${getAssetsPath(
       arcSite,
       contextPath
-    )}/resources/dist/${arcSite}/images/${logo}?d=1` || ''
+    )}/resources/dist/${arcSite}/images/${logo}?d=1` ||
+    ''
 
   const formattedSections = sections && formatData(sections)
 
+  const { requestUri } = useAppContext()
+  const socialNetworksSaltarIntro = [
+    {
+      name: 'facebook',
+      url: 'https://www.facebook.com/SaltarIntroPe',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/SaltarIntroPe',
+    },
+  ]
+
+  const dataSocialNetwork =
+    arcSite === SITE_ELCOMERCIO && requestUri.includes('/saltar-intro/')
+      ? socialNetworksSaltarIntro
+      : socialNetworks
+
   const params = {
-    socialNetworks,
+    socialNetworks: dataSocialNetwork,
     gecSites,
     legalLinks,
     siteLegal,
@@ -85,6 +107,8 @@ const FooterStandardG21 = props => {
     sections: formattedSections,
     arcSite,
     story,
+    customLogoTitle,
+    customLogoLink,
   }
 
   return <FooterChildStandardG21 {...params} />
@@ -94,12 +118,7 @@ FooterStandardG21.label = 'Pie de Página - G21'
 FooterStandardG21.static = true
 
 FooterStandardG21.propTypes = {
-  customFields: PropTypes.shape({
-    sectionsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
-      name: 'Editar navegación de "secciones"',
-      group: 'Configuración del contenido',
-    }),
-  }),
+  customFields,
 }
 
 export default FooterStandardG21
