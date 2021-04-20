@@ -114,6 +114,7 @@
     text-align: center;
   }
   &__image {
+    max-width: 280px;
     @media (--only-mobile) {
       max-width: 230px;
     }
