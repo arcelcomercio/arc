@@ -703,14 +703,14 @@ const LiteOutput = ({
           <>
             {arcSite === SITE_ELBOCON ? (
               <>
-                <noscript id="deferred-styles">
+                <noscript id="deferred-styles-m">
                   <link
                     rel="stylesheet"
                     type="text/css"
                     href={`${deployment(mStyleUrl)}`}
                   />
                 </noscript>
-                <noscript id="m-deferred-styles">
+                <noscript id="deferred-styles">
                   <link
                     rel="stylesheet"
                     type="text/css"
