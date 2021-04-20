@@ -1,18 +1,12 @@
+import type { ArcSite } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+
 import { ORGANIZATION, PROD, SANDBOX } from '../constants/environment'
 
-/**
- * @type {(PROD | SANDBOX)} Env
- * @returns {Env}
- */
 export const env = ENVIRONMENT === ORGANIZATION ? PROD : SANDBOX
 
-/**
- * @param {string} arcSite
- * @returns {string} URL del sitio según entorno
- */
-export const originByEnv = arcSite => {
+export const originByEnv = (arcSite: ArcSite): string => {
   const { siteUrl } = getProperties(arcSite)
   return env === PROD
     ? siteUrl
