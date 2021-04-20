@@ -1,4 +1,4 @@
-import type { ArcSite } from 'fusion:context'
+import { ArcSite } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 
