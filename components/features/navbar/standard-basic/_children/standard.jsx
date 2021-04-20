@@ -7,7 +7,7 @@ import { ENVIRONMENT } from 'fusion:environment'
 import getResponsiveClasses from '../../../../utilities/responsive-classes'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
-import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+import { SITE_PERU21, SITE_DIARIOCORREO } from '../../../../utilities/constants/sitenames'
 import {
   singwallScript,
   // getQueryReloginEmailScript,
@@ -64,6 +64,14 @@ const classes = {
   iconTwitter: 'icon-twitter-circle',
   iconWhatsapp: 'icon-whatsapp',
   iconMore: 'story-header__share-icon icon-share text-gray-200',
+  newsletterButton: 'nav__newsletter-button',
+
+  newsInputCheckDesk: 'checkNewsCinDesk hidden',
+  newsInputCheckMob: 'checkNewsCinMob hidden',
+  newsCin: 'header-full__newsletter flex',
+  newsCinDesk: 'header-full__newsletter-newsCinDesk',
+  newsCinMob: 'header-full__newsletter-newsCinMob',
+  newsCinTooltip: 'header-full__newsletter-tooltip showTooltipDesk',
 }
 
 @Consumer
@@ -135,6 +143,7 @@ class NavBarDefault extends React.PureComponent {
       globalContent: { type = {} } = {},
       data: { children: sections = [] } = {},
       navbarData: { children: navbarSections = [] } = {},
+      headerNewsletter
     } = this.props
 
     const { activePaywall, activeSignwall, urlSubsOnline } = siteProperties
@@ -206,6 +215,44 @@ class NavBarDefault extends React.PureComponent {
                   )}
               </ul>
             </div>
+
+            { arcSite === SITE_DIARIOCORREO && (
+              <>
+                <input
+                  type="checkbox"
+                  id="stNewsCinDesk"
+                  className={classes.newsInputCheckDesk}
+                />
+                <label
+                  htmlFor="stNewsCinDesk"
+                  className={`${classes.newsCin} ${classes.newsCinDesk} `}>
+                  <img
+                    className={classes.newsletterButton}
+                    src="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/images/boton_correo.svg?d=1"
+                    alt="icono newsletter"
+                  />
+                </label>
+                <div id="HeaderNewsletter" style={{ display: 'none' }}>
+                  {headerNewsletter}
+                </div>
+                {/* <div className={`${classes.newsCinTooltip}`}>{headerNewsletter}</div> */}
+
+                <input
+                  type="checkbox"
+                  id="stNewsCinMob"
+                  className={classes.newsInputCheckMob}
+                />
+                <label
+                  htmlFor="stNewsCinMob"
+                  className={`${classes.newsCin} ${classes.newsCinMob}`}>
+                  <img
+                    className={classes.newsletterButton}
+                    src="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/images/boton_correo.svg?d=1"
+                    alt="icono newsletter"
+                  />
+                </label>
+              </>
+            )}
             <a
               itemProp="url"
               href="/"
@@ -217,7 +264,6 @@ class NavBarDefault extends React.PureComponent {
                 className={classes.logo}
               />
             </a>
-
             {type !== ELEMENT_STORY && arcSite === SITE_PERU21 && (
               <a
                 itemProp="url"
