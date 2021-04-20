@@ -230,6 +230,7 @@ export default ({
     story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
+    requestUri,
   }
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
