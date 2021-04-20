@@ -16,7 +16,6 @@ import {
   SITE_PERU21,
   SITE_ELBOCON,
   SITE_DEPOR,
-  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   SPECIAL,
@@ -154,7 +153,7 @@ class StoryContents extends React.PureComponent {
       subtype,
       ...promoItems,
       multimedia,
-      primaryImage: SITE_TROME !== arcSite && true,
+      primaryImage: true,
       authorImageSecond,
       authorLinkSecond,
       authorSecond,
@@ -234,14 +233,16 @@ class StoryContents extends React.PureComponent {
               )}
             </>
           )}
-          {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_DEPOR && subtype !== GALLERY_VERTICAL && (
-            <Ads
-              adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
-              isDesktop={false}
-              isMobile
-              isDfp={isDfp}
-            />
-          )}
+          {arcSite !== SITE_ELCOMERCIOMAG &&
+            arcSite !== SITE_DEPOR &&
+            subtype !== GALLERY_VERTICAL && (
+              <Ads
+                adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
+                isDesktop={false}
+                isMobile
+                isDfp={isDfp}
+              />
+            )}
           <div
             className={`${classes.content} ${
               isPremium && !isPreview
