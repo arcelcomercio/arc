@@ -31,9 +31,8 @@ const StoryContentChildImage = ({
    * por eso los breakpoints son diferentes.
    */
   const sizes = completeImage
-    ? `(max-width: 360px) 314px, (max-width: 768px) 482px, ${customWidth}px`
-    : `(max-width: 360px) 314px, (max-width: 639px) 482px, ${customWidth}px`
-
+    ? `(max-width: 360px) 280px, (max-width: 768px) 482px, ${customWidth}px`
+    : `(max-width: 360px) 280px, (max-width: 639px) 482px, ${customWidth}px`
   return (
     <figure>
       <Image
