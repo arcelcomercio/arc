@@ -35,7 +35,8 @@ const Styles = ({
       arcSite === SITE_ELBOCON) &&
     /^\/videos\/(.*)/.test(requestUri)
   )
-    style = 'dstory-video'
+    style = 'story-video'
+  else if (isStoryMatch && arcSite === SITE_ELCOMERCIO) style = 'dstory-video'
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (/^\/resultados-elecciones-2021\//.test(requestUri))

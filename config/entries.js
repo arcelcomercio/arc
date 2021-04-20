@@ -8,8 +8,8 @@ module.exports = (type = 'index', _ext = 'js') => {
   const entries = {}
   const buildSites = fs
     .readdirSync(paths.src)
-    .filter(file => file !== 'postcss.config.js')
-  buildSites.forEach(site => {
+    .filter((file) => file !== 'postcss.config.js')
+  buildSites.forEach((site) => {
     if (fs.existsSync(`${path.resolve(paths.src, site, `${type}.${ext}`)}`))
       entries[site] = `./src/websites/${site}/${type}.${ext}`
   })

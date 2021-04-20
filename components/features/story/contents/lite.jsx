@@ -178,6 +178,14 @@ const StoryContentsLite = props => {
   })
   const isPreview = /^\/preview\//.test(requestUri)
 
+  let isGsapRequired = false
+  if (subtype === PARALLAX) {
+    const elementsWithScrollGallery = contentElements.filter(
+      ({ embed: { config: { block } = {} } = {} }) => block === 'scroll_gallery'
+    )
+    isGsapRequired = elementsWithScrollGallery.length > 0
+  }
+
   return (
     <>
       <div className={classes.news}>
@@ -706,13 +714,16 @@ const StoryContentsLite = props => {
           }}
         />
       )}
-
-      <script
-        defer
-        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-      <script
-        defer
-        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+      {subtype === PARALLAX && isGsapRequired && (
+        <>
+          <script
+            defer
+            src="https://cdna.elcomercio.pe/resources/assets/js/gsap.min.js"></script>
+          <script
+            defer
+            src="https://cdna.elcomercio.pe/resources/assets/js/ScrollTrigger.min.js"></script>
+        </>
+      )}
     </>
   )
 }

@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    ".eslintrc.js",
+    "__mocks__",
+    "types",
+    "gulpfile.js",
+    "jest.config.ts",
+    "components",
+    "config",
+    "content",
+    "environment",
+    "mocks",
+    "properties"
+  ],
+  "exclude": [
+    ".fusion",
+    "node_modules",
+    "resources",
+    "coverage",
+    "dist",
+    "data",
+    "src",
+    "config/deploy"
+  ]
+}

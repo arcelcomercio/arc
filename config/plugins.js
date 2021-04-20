@@ -9,7 +9,7 @@ const APP_DEFAULT = 'index'
 const APP_AMP = 'amp'
 const generalStylesPath = `${paths.generalStyles}/components`
 
-module.exports = type => {
+module.exports = (type) => {
   const addCssBase = () => {
     let cssBaseFeature = []
     let cssBaseGlobalComponent = []
@@ -22,28 +22,26 @@ module.exports = type => {
     }
     return { feature: cssBaseFeature, globalComponent: cssBaseGlobalComponent }
   }
-  const getListStyleComponents = dir => {
+  const getListStyleComponents = (dir) => {
     let pathStyle = `${generalStylesPath}/*(${dir})/**/**/_!(amp-)*.scss`
     if (type === APP_AMP) {
       pathStyle = `${generalStylesPath}/*(${dir})/**/**/_amp-*.scss`
     }
 
     let entryStyles = glob.sync(pathStyle)
-    entryStyles = entryStyles.map(el => {
-      return el.split(generalStylesPath).join('')
-    })
+    entryStyles = entryStyles.map((el) => el.split(generalStylesPath).join(''))
     return entryStyles
   }
 
-  const writeImportCss = contentArr => {
-    const contentImportsCss = contentArr.map(element => {
+  const writeImportCss = (contentArr) => {
+    const contentImportsCss = contentArr.map((element) => {
       const elementFormatter = element.replace(/_(.+).s(c|a)ss/g, '$1')
       return `@import ".${elementFormatter}";`
     }, '')
     return contentImportsCss.join(`\r\n`)
   }
 
-  const getOptionsIndexStyleWebpack = nameFile => {
+  const getOptionsIndexStyleWebpack = (nameFile) => {
     const cssBase = addCssBase()
     const styleGlobalComponent = getListStyleComponents(
       'global-components'
@@ -68,9 +66,8 @@ module.exports = type => {
     // Aquí se reemplaza ;[path]; por el nombre del sitio web
     new webpack.LoaderOptionsPlugin({
       options: {
-        customInterpolateName: url => {
-          return url.replace(/;.+;/, url.match(/;.+websites\/(\w+).*;/)[1])
-        },
+        customInterpolateName: (url) =>
+          url.replace(/;.+;/, url.match(/;.+websites\/(\w+).*;/)[1]),
       },
     }),
   ]

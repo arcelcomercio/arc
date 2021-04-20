@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import React from 'react'
-import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useAppContext } from 'fusion:context'
+import React from 'react'
 
-import StoryData from '../../../../utilities/story-data'
 import { formatDayMonthYearBasic } from '../../../../utilities/date-time/dates'
+import StoryData from '../../../../utilities/story-data'
 
 const placeholderSrc = (width, height) =>
   `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
@@ -54,7 +54,7 @@ const ImageRatioElement = ({ galleryId = '' }) => {
     <div
       className="parallax-el__ratio-cont"
       style={{ maxWidth: '1070px', margin: '0 auto' }}>
-      {(data?.content_elements || []).map(item => {
+      {(data?.content_elements || []).map((item) => {
         const sizesRatios = getSizesByRatio(item?.width, item?.height)
         return (
           <div>
@@ -95,7 +95,8 @@ const GalleryWithScroll = ({ galleryId }) => {
     <>
       <div
         style={{ maxWidth: 'none', margin: '0 auto' }}
-        className="scrolling-gallery">
+        className="scrolling-gallery"
+        id={`scrolling-gallery${galleryId}`}>
         <div className="scrolling-gallery__wrapper" id={`wrapper${galleryId}`}>
           <h3 className="scrolling-gallery__title">
             <span>{data?.headlines?.basic || ''}</span>
@@ -125,10 +126,15 @@ const GalleryWithScroll = ({ galleryId }) => {
       </div>
       <script
         dangerouslySetInnerHTML={{
-          __html: '"use strict";window.addEventListener("DOMContentLoaded",function(){var e=new IntersectionObserver(function(n){n.forEach(function(n){n.isIntersecting&&function(){window.gsap.registerPlugin(window.ScrollTrigger);var n=document.getElementById("scrolling-gallery__container");new ResizeObserver(function(){return window.ScrollTrigger.refresh()}).observe(document.body),window.gsap.to(n,{x:function(){return"-"+(n.clientWidth-window.innerWidth)},ease:"none",scrollTrigger:{trigger:"#scrolling-gallery__wrapper",pin:!0,scrub:!0,end:function(){return"+="+n.clientWidth},invalidateOnRefresh:!0}}),e.unobserve(document.getElementById("scrolling-gallery__wrapper"))}()})});e.observe(document.getElementById("scrolling-gallery__wrapper"))});'
+          __html: '"use strict";window.addEventListener("DOMContentLoaded",function(){window.gsap.registerPlugin(window.ScrollTrigger);var e=document.getElementById("scrolling-gallery__container");window.gsap.to(e,{x:function(){return"-"+(e.clientWidth-window.innerWidth)},ease:"none",scrollTrigger:{trigger:"#scrolling-gallery__wrapper",pin:!0,scrub:!0,end:function(){return"+="+e.clientWidth},invalidateOnRefresh:!0}});var n=document.getElementById("scrolling-gallery__observer");new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting&&(console.log("trigger refresh"),window.ScrollTrigger.refresh())})},{rootMargin:"500px 0px 500px 0px"}).observe(n)});'
             .replace(/scrolling-gallery__container/g, `container${galleryId}`)
-            .replace(/scrolling-gallery__wrapper/g, `wrapper${galleryId}`),
-        }}></script>
+            .replace(/scrolling-gallery__wrapper/g, `wrapper${galleryId}`)
+            .replace(
+              /scrolling-gallery__observer/g,
+              `scrolling-gallery${galleryId}`
+            ),
+        }}
+      />
     </>
   ) : null
 }
@@ -152,12 +158,13 @@ export default function StoryContentsChildParallaxElements({ config, id }) {
       {block === 'image' ? (
         <div style={{ padding: '64px 0', margin: 0, maxWidth: 'none' }}>
           <div id={id} className="parallax-image lazy-background">
-            <h3>{data?.title}</h3>
+            <h3 style={{ color: data?.color || '#fff' }}>{data?.title}</h3>
           </div>
           <style
             dangerouslySetInnerHTML={{
               __html: `[id="${id}"].visible{background-image:url("${data?.url_mobile}")}@media screen and (min-width:640px){[id="${id}"].visible{background-image:url("${data?.url}")}}`,
-            }}></style>
+            }}
+          />
         </div>
       ) : null}
 
@@ -193,7 +200,8 @@ export default function StoryContentsChildParallaxElements({ config, id }) {
               className="parallax-el__credits-text"
               dangerouslySetInnerHTML={{
                 __html: data?.html,
-              }}></div>
+              }}
+            />
           </div>
         </div>
       ) : null}
