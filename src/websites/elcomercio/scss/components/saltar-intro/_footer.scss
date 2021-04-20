@@ -4,7 +4,12 @@
     background-color: #fff;
   }
   &__logo-container {
-    display: none;
+    // display: none;
+    max-width: 165px;
+    @media (--desktop) {
+      margin-bottom: 25px;
+      max-width: 150px;
+    }
   }
   &__info {
     &::after {

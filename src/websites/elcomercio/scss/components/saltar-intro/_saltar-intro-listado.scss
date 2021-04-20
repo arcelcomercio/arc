@@ -1,0 +1,121 @@
+.saltar-intro-listado {
+  &__container {
+    font-family: $primary-font;
+    @media (--only-mobile) {
+      padding: 0 20px;
+    }
+  }
+  &__box {
+    border-right: 1px solid #707070;
+    @media (--only-mobile) {
+      flex-direction: row-reverse;
+      margin-bottom: 10px;
+    }
+  }
+  &__list {
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  &__date {
+    padding: 0 10px;
+    // font: normal normal medium 12px/24px Bitter;
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 500;
+    letter-spacing: 0.17px;
+    color: #000;
+    opacity: 1;
+  }
+  &__title {
+    // font: normal normal bold 21px/25px Bitter;
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 25px;
+    letter-spacing: 0;
+    color: #000;
+    opacity: 1;
+    margin-bottom: 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+  }
+  &__subtitle {
+    // font: normal normal medium 14px/17px Bitter;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0;
+    color: #000;
+    opacity: 1;
+    margin-bottom: 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    @media (--only-mobile) {
+      font-size: 15px;
+      line-height: 19px;
+    }
+  }
+  &__author {
+    // font: normal normal medium 10px/24px Bitter;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 24px;
+    letter-spacing: 0.14px;
+    color: #000;
+    text-transform: uppercase;
+    opacity: 1;
+  }
+  &__detail {
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 320px;
+  }
+  &__item {
+    border-bottom: 1px solid #00000080;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    justify-content: center;
+    &:first-child {
+      border-top: 1px solid #00000080;
+    }
+    @media (--only-mobile) {
+      flex-direction: column;
+      padding-bottom: 30px;
+      padding-top: 10px;
+    }
+  }
+  &__see-more {
+    // font: normal normal 800 13px/17px Bitter;
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.26px;
+    color: #808080;
+    opacity: 1;
+    border-bottom: 1px solid #b7b7b7;
+    padding-bottom: 5px;
+    svg {
+      width: 15px;
+      top: 2px;
+      position: relative;
+      fill: #808080;
+      transform: rotate(90deg);
+    }
+  }
+  &__box-see-more {
+    text-align: center;
+  }
+  &__image {
+    @media (--only-mobile) {
+      max-width: 230px;
+    }
+  }
+}
