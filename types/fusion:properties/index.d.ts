@@ -1,10 +1,86 @@
 declare module 'fusion:properties' {
-  export default function getProperties(
-    arcSite: string
-  ): { siteProperties: SiteProperties }
+  import type { ArcSite } from 'fusion:context'
 
-  /** ********************************************** */
+  export default function getProperties(arcSite: ArcSite): SiteProperties
 
+  interface Urls {
+    eventsRegexp: string
+    corporateSuscription: string
+    faqs: string
+    digitalSubscriptions: string
+    digitalSubscriptionsHome: string
+    arcEntitlements: string
+    canonical: string
+    image: string
+    reviewVideo: string
+    clickToCall: string
+    pwaDomain: string
+    originApi: string
+    originIdentitySdk: string
+    originSalesSdk: string
+    originPayuSdk: string
+    originPayuTags: string
+    originPaymentTraker: string
+    originSubscriptionCorpApi: string
+    originSubscriptionOnlineToken: string
+    originSubscriptions: string
+    originSubscriptionsBundles: string
+    originSubsPrinted: string
+    originSubsDigitalPrinted: string
+    privacyPolicy: string
+    disclaimer: string
+    terms: string
+    originSubsOnline: string
+    contactEmailRef: string
+    contactPhoneRef: string
+    androidAppDownload: string
+    iosAppDownload: string
+    facebook: string
+    twitter: string
+    instagram: string
+    codeCxense: string
+    profileSignwall: string
+  }
+
+  interface Images {
+    pixel: string
+    icon: string
+    apple_icon: string
+    apple_icon_76: string
+    apple_icon_120: string
+    apple_icon_144: string
+    apple_icon_152: string
+    apple_icon_180: string
+    lector: string
+    corporativo: string
+    confirmation: string
+    support: string
+    backgroundx1: string
+    backgroundReview: string
+    reviewPoster: string
+    mainLogo: string
+  }
+  export interface Paywall {
+    title: string
+    description: string
+    descriptionPayment: string
+    urls: Urls
+    images: Images
+  }
+
+  interface Facebook {
+    user: string
+    url: string
+  }
+
+  interface Twitter {
+    user: string
+  }
+
+  export interface Social {
+    facebook: Facebook
+    twitter: Twitter
+  }
   export interface Api {
     blog: string
   }
@@ -105,8 +181,41 @@ declare module 'fusion:properties' {
   }
 
   export interface SiteProperties {
+    siteName: string
+    sitemapNewsName: string
+    siteTitle: string
+    newsletterBrand: string
+    colorPrimary: string
+    siteDomain: string
+    siteUrl: string
+    resizerUrl: string
+    resizerSecretKeyEnvVar: string
+    urlPreroll: string
+    urlPrerollAmp: string
+    fbAppId: string
+    googleTagManagerId: string
+    googleTagManagerIdSandbox: string
+    ampGoogleTagManagerId: string
+    ampGoogleTagManagerName: string
+    charbeatAccountNumber: number
+    idGoogleAnalitics: string
+    fbPixelId: string
+    fbArticleStyle: string
+    nameStoryRelated: string
+    siteDescription: string
+    googleNewsUrl: string
+    googleNewsImage: string
+    paywall: Paywall
+    social: Social
     linkTabloide: string
     newsletterBrand: string
+    activeSignwall: boolean
+    activePaywall: boolean
+    activeRulesCounter: boolean
+    activeNewsletter: boolean
+    activeVerifyEmail: boolean
+    gda: boolean
+    isDfp: boolean
     api: Api
     assets: Assets
     messages: Messages

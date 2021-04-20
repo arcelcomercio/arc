@@ -485,7 +485,11 @@ export default ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        <Styles {...metaSiteData} isStyleBasic={isStyleBasic} isFooterFinal={isFooterFinal} />
+        <Styles
+          {...metaSiteData}
+          isStyleBasic={isStyleBasic}
+          isFooterFinal={isFooterFinal}
+        />
         <MetaSite {...metaSiteData} />
 
         <meta name="description" lang="es" content={description} />
@@ -668,12 +672,14 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${getPreroll({
-                  section: sectionPath,
-                  arcSite,
-                  siteDomain,
-                  metaValue,
-                }) || siteProperties.urlPreroll}';
+                __html: `window.preroll='${
+                  getPreroll({
+                    section: sectionPath,
+                    arcSite,
+                    siteDomain,
+                    metaValue,
+                  }) || siteProperties.urlPreroll
+                }';
                 window.addPrefetch('preconnect', 'https://d1tqo5nrys2b20.cloudfront.net/')`,
               }}
             />
