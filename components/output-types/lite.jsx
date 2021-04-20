@@ -208,10 +208,12 @@ const LiteOutput = ({
    */
   const style = 'lite-story'
   const dstyle = 'dlite-story'
+  const mstyle = 'mlite-story'
 
   let inlineStyleUrl = `resources/dist/${arcSite}/css/${dstyle}.css`
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
+  const mStyleUrl = `${contextPath}/resources/dist/${arcSite}/css/${mstyle}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/${style}.css`
   }
@@ -368,15 +370,19 @@ const LiteOutput = ({
                 />
               </>
             )} */}
-            {isStory && (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) && (
-              <>
-                <link rel="preconnect" href="//d2dvq461rdwooi.cloudfront.net" />
-                <link
-                  rel="dns-prefetch"
-                  href="//d2dvq461rdwooi.cloudfront.net"
-                />
-              </>
-            )}
+            {isStory &&
+              (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) && (
+                <>
+                  <link
+                    rel="preconnect"
+                    href="//d2dvq461rdwooi.cloudfront.net"
+                  />
+                  <link
+                    rel="dns-prefetch"
+                    href="//d2dvq461rdwooi.cloudfront.net"
+                  />
+                </>
+              )}
             <link rel="preconnect" href="//www.googletagmanager.com/" />
             <link rel="dns-prefetch" href="//www.googletagmanager.com/" />
             <link rel="preconnect" href="//www.google-analytics.com" />
@@ -677,7 +683,7 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {(arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21) ? (
+        {arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_PERU21 ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
@@ -695,19 +701,45 @@ const LiteOutput = ({
         )}
         {isStory && (
           <>
-            <noscript id="deferred-styles">
-              <link
-                rel="stylesheet"
-                type="text/css"
-                href={`${deployment(styleUrl)}`}
-              />
-            </noscript>
+            {arcSite === SITE_ELBOCON ? (
+              <>
+                <noscript id="deferred-styles">
+                  <link
+                    rel="stylesheet"
+                    type="text/css"
+                    href={`${deployment(mStyleUrl)}`}
+                  />
+                </noscript>
+                <noscript id="m-deferred-styles">
+                  <link
+                    rel="stylesheet"
+                    type="text/css"
+                    href={`${deployment(styleUrl)}`}
+                  />
+                </noscript>
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.requestIdle(loadDeferredStyles)});else window.addEventListener("load",loadDeferredStyles)`,
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <noscript id="deferred-styles">
+                  <link
+                    rel="stylesheet"
+                    type="text/css"
+                    href={`${deployment(styleUrl)}`}
+                  />
+                </noscript>
 
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.requestIdle(loadDeferredStyles)});else window.addEventListener("load",loadDeferredStyles)`,
-              }}
-            />
+                <script
+                  dangerouslySetInnerHTML={{
+                    __html: `"use strict";var loadDeferredStyles=function loadDeferredStyles(){var addStylesNode=document.getElementById("deferred-styles");var replacement=document.createElement("div");replacement.innerHTML=addStylesNode.textContent;document.body.appendChild(replacement);addStylesNode.parentElement.removeChild(addStylesNode)};var raf=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame;if(raf)raf(function(){window.requestIdle(loadDeferredStyles)});else window.addEventListener("load",loadDeferredStyles)`,
+                  }}
+                />
+              </>
+            )}
           </>
         )}
         {vallaSignwall === false &&

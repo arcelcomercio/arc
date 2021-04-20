@@ -1,0 +1,25 @@
+.ad-lateral {
+  // NO TOCAR
+  width: 0;
+  overflow: hidden;
+  display: none;
+
+  @media (--desktop) {
+    display: flex;
+    overflow: initial;
+    height: fit-content;
+    width: 160px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+
+    &--r {
+      transform: translateX(calc((980px / 2) + (160px / 2)));
+    }
+    &--l {
+      transform: translateX(calc((-980px / 2) - (160px / 2)));
+    }
+  }
+}
+
