@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
+import { OT, OutputProps } from 'types/output-types'
 
-import type { OT, OutputProps } from '../../types/output-types'
 import { env } from '../utilities/arc/env'
 import { ORGANIZATION, PROD } from '../utilities/constants/environment'
 import FbPixel from './_children/fb-pixel'
