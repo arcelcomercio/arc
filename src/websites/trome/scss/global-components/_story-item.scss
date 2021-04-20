@@ -93,8 +93,9 @@
     font-size: 16px;
     line-height: 1.2;
     font-weight: 900;
-    max-height: 58px;
+    max-height: 80px;
     -webkit-line-clamp: 4;
+    margin-top: 0;
 
     @media (--tablet) {
       max-height: 125px;
