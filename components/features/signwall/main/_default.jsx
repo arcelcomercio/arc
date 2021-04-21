@@ -1,16 +1,15 @@
+import Fingerprint2 from 'fingerprintjs2'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
-import Fingerprint2 from 'fingerprintjs2'
 
+import Cookies from '../_dependencies/cookies'
+import Domains from '../_dependencies/domains'
+import GetProfile from '../_dependencies/get-profile'
+import QueryString from '../_dependencies/querystring'
+import Services from '../_dependencies/services'
+import Taggeo from '../_dependencies/taggeo'
 import { Paywall } from './_children/paywall'
 import { Premium } from './_children/premium'
-
-import Services from '../_dependencies/services'
-import GetProfile from '../_dependencies/get-profile'
-import Domains from '../_dependencies/domains'
-import Cookies from '../_dependencies/cookies'
-import Taggeo from '../_dependencies/taggeo'
-import QueryString from '../_dependencies/querystring'
 
 const classes = {
   iconLogin: 'nav__icon icon-user  title-sm text-primary-color',
@@ -38,7 +37,7 @@ class SignwallComponent extends React.PureComponent {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       }
       window.requestIdle(() => {
-        Fingerprint2.getV18({}, result => {
+        Fingerprint2.getV18({}, (result) => {
           Cookies.setCookie('gecdigarc', result, 365)
         })
       })
@@ -66,7 +65,7 @@ class SignwallComponent extends React.PureComponent {
       if (!this.checkSession()) {
         this.setState({ showPremium: true })
       } else {
-        return this.getListSubs().then(p => {
+        return this.getListSubs().then((p) => {
           if (p && p.length === 0) {
             this.setState({ showPremium: true })
           } else {
@@ -112,7 +111,7 @@ class SignwallComponent extends React.PureComponent {
       this.getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({
-        paywallFunction: campaignURL => {
+        paywallFunction: (campaignURL) => {
           if (countOnly) return
           if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
             W.location.href = Domains.getUrlSignwall(
@@ -143,7 +142,7 @@ class SignwallComponent extends React.PureComponent {
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
           if (W.Identity.userIdentity.accessToken) {
-            return this.getListSubs().then(p => {
+            return this.getListSubs().then((p) => {
               const isLoggedInSubs = this.checkSession()
               return {
                 s: isLoggedInSubs,
@@ -176,22 +175,20 @@ class SignwallComponent extends React.PureComponent {
   getListSubs() {
     const { arcSite } = this.props
     const W = window
-    return W.Identity.extendSession().then(resExt => {
+    return W.Identity.extendSession().then((resExt) => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
       )
-        .then(res => {
+        .then((res) => {
           if (res.skus) {
-            const result = Object.keys(res.skus).map(key => {
-              return res.skus[key].sku
-            })
+            const result = Object.keys(res.skus).map((key) => res.skus[key].sku)
             this.listSubs = result
             return result
           }
           return []
         })
-        .catch(err => W.console.error(err))
+        .catch((err) => W.console.error(err))
 
       return checkEntitlement
     })
@@ -236,7 +233,7 @@ class SignwallComponent extends React.PureComponent {
     window.location.href = Domains.getUrlSignwall(arcSite, typeDialog, hash)
   }
 
-  getUrlParam = name => {
+  getUrlParam = (name) => {
     const vars = {}
     if (typeof window !== 'undefined')
       window.location.href.replace(
@@ -313,7 +310,13 @@ class SignwallComponent extends React.PureComponent {
 
   render() {
     const { userName, initialUser, showPaywall, showPremium } = this.state
-    const { countOnly, arcSite, siteProperties, classButton = '' } = this.props
+    const {
+      countOnly,
+      arcSite,
+      requestUri,
+      siteProperties,
+      classButton = '',
+    } = this.props
     return (
       <>
         <button
@@ -360,25 +363,27 @@ class SignwallComponent extends React.PureComponent {
           </>
         )}
 
-        {!countOnly && siteProperties.activePaywall && (
-          <>
-            {(this.getUrlParam('signPaywall') || showPaywall) && (
-              <Paywall
-                onClose={() => this.closePopUp('showPaywall')}
-                arcSite={arcSite}
-                typeDialog="paywall"
-              />
-            )}
+        {!countOnly &&
+          !/^\/videos\//.test(requestUri) &&
+          siteProperties.activePaywall && (
+            <>
+              {(this.getUrlParam('signPaywall') || showPaywall) && (
+                <Paywall
+                  onClose={() => this.closePopUp('showPaywall')}
+                  arcSite={arcSite}
+                  typeDialog="paywall"
+                />
+              )}
 
-            {(this.getUrlParam('signPremium') || showPremium) && (
-              <Premium
-                onClose={() => this.closePopUp('showPremium')}
-                arcSite={arcSite}
-                typeDialog="premium"
-              />
-            )}
-          </>
-        )}
+              {(this.getUrlParam('signPremium') || showPremium) && (
+                <Premium
+                  onClose={() => this.closePopUp('showPremium')}
+                  arcSite={arcSite}
+                  typeDialog="premium"
+                />
+              )}
+            </>
+          )}
       </>
     )
   }
