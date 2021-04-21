@@ -5,7 +5,11 @@ import getProperties from 'fusion:properties'
 
 import { removeLastSlash } from '../../../utilities/parse/strings'
 import { deleteQueryString } from '../../../utilities/parse/queries'
-import { GALLERY_SLIDER, PARALLAX } from '../../../utilities/constants/subtypes'
+import {
+  GALLERY_SLIDER,
+  PARALLAX,
+  MINUTO_MINUTO,
+} from '../../../utilities/constants/subtypes'
 import { ELEMENT_GALLERY } from '../../../utilities/constants/element-types'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 
@@ -94,7 +98,8 @@ const StoryContinueLite = props => {
       cleanRequestUri !== websiteUrl &&
       ((type === ELEMENT_GALLERY && story.subtype !== GALLERY_SLIDER) ||
         (type !== ELEMENT_GALLERY && story.subtype === GALLERY_SLIDER)) &&
-      story.subtype !== PARALLAX
+      story.subtype !== PARALLAX &&
+      story.subtype !== MINUTO_MINUTO
     )
   }
 
