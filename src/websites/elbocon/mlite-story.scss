@@ -1,6 +1,13 @@
 /******* Base *******/
-@import "./scss/partials/lite/import-fonts";
-@import "../../general-styles/framework/variables/index";
+@import "./scss/partials/lite/mimport-fonts";
+
+@import "../../general-styles/framework/variables/declare-sizes";
+@import "../../general-styles/framework/variables/declare-icons";
+//@import "../../general-styles/framework/variables/breakpoints";
+@import "../../general-styles/framework/variables/colors";
+//@import "../../general-styles/framework/variables/dimensions";
+//@import "../../general-styles/framework/variables/fonts";
+
 @import "./scss/variables/index";
 @import "./scss/variables/lite/fonts";
 @import "./scss/variables/lite/dimensions";
@@ -12,16 +19,18 @@
 // @import "./scss/lite-components/features/header/basic/menu";
 
 // Completados - en curso
-@import "./scss/lite-components/features/cards/most-read/most-read";
+
 @import "./scss/lite-components/features/navbar/standard-basic/nav-sidebar";
+@import "./scss/lite-components/features/cards/most-read/most-read";
+
 @import "./scss/lite-components/features/story/tags/st-tags";
-@import "./scss/lite-components/features/story/interest/st-interest";
-@import "./scss/lite-components/features/story/related/st-rel";
+//@import "./scss/lite-components/features/story/interest/st-interest";
+@import "./scss/lite-components/features/story/related/mst-rel";
 @import "./scss/lite-components/features/story/continue/st-continue";
 @import "./scss/lite-components/features/story/author/story-author";
-@import "./scss/lite-components/features/story/contents/contents";
+@import "./scss/lite-components/features/story/contents/mcontents";
 
-@import "./scss/lite-components/features/story/gallery/gallery";
+@import "./scss/lite-components/features/story/gallery/mgallery";
 @import "./scss/lite-components/features/story/gallery/gallery-vertical";
 @import "./scss/lite-components/features/story/minuto-a-minuto/story";
 @import "./scss/lite-components/features/story/contents/table";
@@ -31,6 +40,6 @@
 
 // TODO
 
-@import "./scss/lite-components/features/stories-lists/linked-by-site/link-site";
+@import "./scss/lite-components/features/stories-lists/linked-by-site/mlink-site";
 @import "./scss/lite-components/features/story/continue-scroll/st-scroll";
 @import "./scss/lite-components/global-components/multimedia-icon/m-icon";

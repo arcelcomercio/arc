@@ -217,6 +217,7 @@ export interface Author {
 export interface Credits {
   by: Author[]
 }
+
 export type Websites = {
   [key in ArcSite]?: {
     website_section: Section
