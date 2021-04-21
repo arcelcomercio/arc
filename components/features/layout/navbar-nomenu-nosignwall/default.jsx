@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useContent } from 'fusion:content'
-// import { useFusionContext } from 'fusion:context'
+import { useFusionContext } from 'fusion:context'
 
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
@@ -9,6 +9,7 @@ import NavBarChild from './_children/navbar-no-menu'
 
 const navBarNoMenuNoSignwall = props => {
   const { customFields: { hierarchyConfig } = {} } = props
+  const { arcSite } = useFusionContext()
 
   const { contentService = '', contentConfigValues = {} } =
     hierarchyConfig || {}
@@ -18,8 +19,8 @@ const navBarNoMenuNoSignwall = props => {
   const queryValue = isReadyNav
     ? contentConfigValues
     : {
-        hierarchy: 'navbar-default',
-      }
+      hierarchy: 'navbar-default',
+    }
 
   const data =
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -29,7 +30,7 @@ const navBarNoMenuNoSignwall = props => {
       filter: schemaFilter,
     }) || {}
 
-  return <NavBarChild list={data} />
+  return <NavBarChild list={data} arcSite={arcSite} />
 }
 
 navBarNoMenuNoSignwall.propTypes = {
