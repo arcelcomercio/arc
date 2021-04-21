@@ -1,3 +1,5 @@
-export const PREMIUM = 'premium'
-export const FREE = 'free'
-export const METERED = 'metered'
+import { ContentCode } from 'types/story'
+
+export const PREMIUM: ContentCode = 'premium'
+export const FREE: ContentCode = 'free'
+export const METERED: ContentCode = 'metered'
