@@ -1,20 +1,12 @@
-// Nombre de los Sitios
-export const SITE_GESTION = 'gestion'
+import { ArcSite } from 'fusion:context'
 
-export const SITE_DEPOR = 'depor'
-
-export const SITE_ELBOCON = 'elbocon'
-
-export const SITE_ELCOMERCIO = 'elcomercio'
-
-export const SITE_ELCOMERCIOMAG = 'elcomerciomag'
-
-export const SITE_PERU21 = 'peru21'
-
-export const SITE_PERU21G21 = 'peru21g21'
-
-export const SITE_OJO = 'ojo'
-
-export const SITE_DIARIOCORREO = 'diariocorreo'
-
-export const SITE_TROME = 'trome'
+export const SITE_GESTION: ArcSite = 'gestion'
+export const SITE_DEPOR: ArcSite = 'depor'
+export const SITE_ELBOCON: ArcSite = 'elbocon'
+export const SITE_ELCOMERCIO: ArcSite = 'elcomercio'
+export const SITE_ELCOMERCIOMAG: ArcSite = 'elcomerciomag'
+export const SITE_PERU21: ArcSite = 'peru21'
+export const SITE_PERU21G21: ArcSite = 'peru21g21'
+export const SITE_OJO: ArcSite = 'ojo'
+export const SITE_DIARIOCORREO: ArcSite = 'diariocorreo'
+export const SITE_TROME: ArcSite = 'trome'

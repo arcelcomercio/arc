@@ -1,39 +1,22 @@
-export const ELEMENT_IMAGE = 'image'
+import { ContentElementType } from 'types/story'
 
-export const ELEMENT_VIDEO = 'video'
-
-export const ELEMENT_GALLERY = 'gallery'
-
-export const ELEMENT_TABLE = 'table'
-
-export const ELEMENT_QUOTE = 'quote'
-
-export const ELEMENT_CUSTOM_EMBED = 'custom_embed'
-
-export const ELEMENT_OEMBED = 'oembed_response'
-
-export const ELEMENT_STORY = 'story'
-
-export const ELEMENT_RAW_HTML = 'raw_html'
-
-export const ELEMENT_INFOGRAFIA = 'infografia'
-
-export const ELEMENT_TEXT = 'text'
-
-export const ELEMENT_LIST = 'list'
-
-export const ELEMENT_HEADER = 'header'
-
-export const ELEMENT_BLOCKQUOTE = 'blockquote'
-
-export const ELEMENT_TYPE_CHARBEAT = 'Articulo Nota Simple'
-
-export const ELEMENT_YOUTUBE_ID = 'youtube_id'
-
-export const ELEMENT_PODCAST = 'path_mp3'
-
-export const ELEMENT_INTERSTITIAL_LINK = 'interstitial_link'
-
-export const ELEMENT_LINK_LIST = 'link_list'
-
-export const ELEMENT_CORRECTION = 'correction'
+export const ELEMENT_IMAGE: ContentElementType = 'image'
+export const ELEMENT_VIDEO: ContentElementType = 'video'
+export const ELEMENT_GALLERY: ContentElementType = 'gallery'
+export const ELEMENT_TABLE: ContentElementType = 'table'
+export const ELEMENT_QUOTE: ContentElementType = 'quote'
+export const ELEMENT_CUSTOM_EMBED: ContentElementType = 'custom_embed'
+export const ELEMENT_OEMBED: ContentElementType = 'oembed_response'
+export const ELEMENT_STORY: ContentElementType = 'story'
+export const ELEMENT_RAW_HTML: ContentElementType = 'raw_html'
+export const ELEMENT_INFOGRAFIA: ContentElementType = 'infografia'
+export const ELEMENT_TEXT: ContentElementType = 'text'
+export const ELEMENT_LIST: ContentElementType = 'list'
+export const ELEMENT_HEADER: ContentElementType = 'header'
+export const ELEMENT_BLOCKQUOTE: ContentElementType = 'blockquote'
+export const ELEMENT_TYPE_CHARBEAT: ContentElementType = 'Articulo Nota Simple'
+export const ELEMENT_YOUTUBE_ID: ContentElementType = 'youtube_id'
+export const ELEMENT_PODCAST: ContentElementType = 'path_mp3'
+export const ELEMENT_INTERSTITIAL_LINK: ContentElementType = 'interstitial_link'
+export const ELEMENT_LINK_LIST: ContentElementType = 'link_list'
+export const ELEMENT_CORRECTION: ContentElementType = 'correction'
