@@ -1,30 +1,32 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from 'react'
+import { BaseMarkup,Html } from '@arc-core-components/amp-document-boilerplate'
 import PropTypes from 'prop-types'
-import { Html, BaseMarkup } from '@arc-core-components/amp-document-boilerplate'
-import Styles from './_children/styles'
-import MetaSite from './_children/meta-site'
-import TwitterCards from './_children/twitter-cards'
-import OpenGraph from './_children/open-graph'
-import MetaStory from './_children/meta-story'
-import AmpTagManager from './_children/amp-tag-manager'
-import subscriptionsConfig from './_dependencies/amp-subscriptions-config'
-import { addSlashToEnd } from '../utilities/parse/strings'
+import * as React from 'react'
+
+import { env,originByEnv } from '../utilities/arc/env'
+import { METERED,PREMIUM } from '../utilities/constants/content-tiers'
 import {
-  SITE_ELCOMERCIO,
   SITE_DEPOR,
+  SITE_DIARIOCORREO,
   SITE_ELBOCON,
+  SITE_ELCOMERCIO,
   SITE_GESTION,
   SITE_OJO,
-  SITE_TROME,
   SITE_PERU21,
+  SITE_TROME,
 } from '../utilities/constants/sitenames'
-import StoryData from '../utilities/story-data'
+import { getMultimedia } from '../utilities/multimedia'
+import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
-import { PREMIUM, METERED } from '../utilities/constants/content-tiers'
-import { originByEnv, env } from '../utilities/arc/env'
-import { getMultimedia } from '../utilities/multimedia'
+import StoryData from '../utilities/story-data'
+import AmpTagManager from './_children/amp-tag-manager'
+import MetaSite from './_children/meta-site'
+import MetaStory from './_children/meta-story'
+import OpenGraph from './_children/open-graph'
+import Styles from './_children/styles'
+import TwitterCards from './_children/twitter-cards'
+import subscriptionsConfig from './_dependencies/amp-subscriptions-config'
 
 const AmpOutputType = ({
   children,
@@ -223,6 +225,9 @@ const AmpOutputType = ({
     arcSite === SITE_OJO ||
     arcSite === SITE_TROME ||
     arcSite === SITE_PERU21 ||
+    arcSite === SITE_ELBOCON ||
+    arcSite === SITE_DIARIOCORREO ||
+    arcSite === SITE_DEPOR ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
@@ -299,7 +304,8 @@ const AmpOutputType = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null}
+            ) : null
+          }
         </Resource>
         {
           //* TODO habilitar subscriptions en AMP
@@ -390,13 +396,11 @@ const AmpOutputType = ({
           />
         )}
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
-          <>
-            <script
-              async
-              custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-            />
-          </>
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
         )}
 
         {hasTwitter && (
@@ -500,18 +504,18 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-      {arcSite === SITE_PERU21 && (
-          <amp-iframe 
-            width="1" 
+        {arcSite === SITE_PERU21 && (
+          <amp-iframe
+            width="1"
             title="User Sync"
             height="1"
             sandbox="allow-scripts"
             frameborder="0"
             src="https://ads.rubiconproject.com/prebid/load-cookie.html?endpoint=rubicon&max_sync_count=5&args=account:19186">
-            <amp-img 
-              layout="fill" 
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" 
-              placeholder 
+            <amp-img
+              layout="fill"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+              placeholder
             />
           </amp-iframe>
         )}

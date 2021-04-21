@@ -1,6 +1,9 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
-import { SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+} from '../../utilities/constants/sitenames'
 import { getAssetsPath } from '../../utilities/assets'
 import { createResizedParams } from '../../utilities/resizer/resizer'
 
@@ -13,6 +16,7 @@ export default ({
   twitterCreator,
   story,
   globalContent: data,
+  requestUri = ''
 }) => {
   const {
     multimediaLarge,
@@ -43,6 +47,13 @@ export default ({
 
   if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage
+  }
+  const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
+  if (arcSite === SITE_ELCOMERCIO && isSaltarIntro) {
+    image = `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo_saltar-intro.jpg?d=1`
   }
   return (
     <>

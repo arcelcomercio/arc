@@ -1,29 +1,29 @@
-import * as React from 'react'
 import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
-import { AuthContext, AuthProvider } from '../_context/auth'
-import useRoute from '../_hooks/useRoute'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
-import { FooterLand, FooterSubs } from '../_layouts/footer'
-import { clearUrlAPI } from '../_dependencies/Utils'
-import HeaderSubs from '../_layouts/header'
-import Summary from './_children/Summary'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
+import { AuthContext, AuthProvider } from '../_context/auth'
 import addScriptAsync from '../_dependencies/Async'
-import stylesPayment from '../_styles/Payment'
-import scriptsPayment from '../_scripts/Payment'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
-import Loading from '../_layouts/loading'
+import { clearUrlAPI } from '../_dependencies/Utils'
+import useRoute from '../_hooks/useRoute'
 import {
   Container,
-  Wrapper,
   PanelLeft,
   PanelRight,
+  Wrapper,
 } from '../_layouts/containers'
+import { FooterLand, FooterSubs } from '../_layouts/footer'
+import HeaderSubs from '../_layouts/header'
+import Loading from '../_layouts/loading'
+import scriptsPayment from '../_scripts/Payment'
+import stylesPayment from '../_styles/Payment'
 import PaymentSteps from './_children/Steps'
+import Summary from './_children/Summary'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {
@@ -57,9 +57,15 @@ const WrapperPaymentSubs = () => {
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
+      ignoreErrors: [
+        'Unexpected end of JSON input',
+        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
+        'JSON Parse error: Unexpected EOF',
+      ],
+      denyUrls: [],
     })
 
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('brand', arcSite)
     })
 
@@ -76,7 +82,7 @@ const WrapperPaymentSubs = () => {
           })
         })
       })
-      .catch(errIdentitySDK => {
+      .catch((errIdentitySDK) => {
         Sentry.captureEvent({
           message: 'SDK Identity no ha cargado correctamente',
           level: 'error',
@@ -92,7 +98,6 @@ const WrapperPaymentSubs = () => {
       window.sessionStorage.setItem('paywall_type_modal', 'mailing')
 
     clearUrlAPI(urls.landingUrl)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -109,11 +114,12 @@ const WrapperPaymentSubs = () => {
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
           <Wrapper
+            step={userStep}
             style={{
               minHeight: '530px',
             }}>
             {!userLoading && (
-              <PanelLeft>
+              <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
                   <h2 className="step__left-title-campaign">
                     {texts.textWinback}
@@ -130,9 +136,11 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
-            </PanelRight>
+            {userStep !== 5 && (
+              <PanelRight>
+                {userStep !== 4 && !freeAccess && <Summary />}
+              </PanelRight>
+            )}
           </Wrapper>
         </Container>
         {!freeAccess && <FooterSubs />}

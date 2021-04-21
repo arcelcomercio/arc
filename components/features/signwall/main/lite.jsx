@@ -77,7 +77,7 @@ class SignwallComponent extends PureComponent {
             )
             this.setState({ showPremium: true })
           } else {
-            const divPremium = document.getElementById('contenedor')
+            const divPremium = document.getElementById('container')
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
               divPremium.removeAttribute('style')

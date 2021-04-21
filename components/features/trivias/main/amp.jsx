@@ -107,7 +107,7 @@ const TriviasMainAmp = ({
         />
 
         <amp-story-auto-ads>
-        {arcSite == SITE_PERU21 ? (
+          {arcSite == SITE_PERU21 ? (
             <script
               type="application/json"
               dangerouslySetInnerHTML={{

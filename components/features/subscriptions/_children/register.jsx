@@ -34,7 +34,7 @@ const styles = {
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Register = ({ arcSite }) => {
-  // const { activateAuth, updateStep } = useContext(AuthContext)
+  // const { activateAuth, updateStep } = React.useContext(AuthContext)
   const [loading, setLoading] = React.useState()
   const [loadText, setLoadText] = React.useState('Cargando...')
   const [msgError, setMsgError] = React.useState()
@@ -400,7 +400,7 @@ const Register = ({ arcSite }) => {
                       onClick={dataTreatment}>
                       fines adicionales
                     </button>
-                    <span className="checkmark"></span>
+                    <span className="checkmark" />
                   </label>
                 </div>
 

@@ -23,6 +23,7 @@ const styles = {
   boxEmail: 'step__right-verify-email',
   stepLink: 'step__btn-link',
   benefits: 'step__right-benefits',
+  notes: 'step__right-notes-footer',
 }
 const nameTagCategory = 'Web_Paywall_Landing'
 const Summary = () => {
@@ -286,6 +287,9 @@ const Summary = () => {
           </>
         )}
       </div>
+      {userStep === 3 && (
+        <p className={styles.notes}>{texts.rememberRecurrency}</p>
+      )}
       <br />
       <br />
     </>
