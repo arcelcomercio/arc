@@ -363,27 +363,25 @@ class SignwallComponent extends React.PureComponent {
           </>
         )}
 
-        {!countOnly &&
-          !/^\/videos\//.test(requestUri) &&
-          siteProperties.activePaywall && (
-            <>
-              {(this.getUrlParam('signPaywall') || showPaywall) && (
-                <Paywall
-                  onClose={() => this.closePopUp('showPaywall')}
-                  arcSite={arcSite}
-                  typeDialog="paywall"
-                />
-              )}
+        {!countOnly && siteProperties.activePaywall && (
+          <>
+            {(this.getUrlParam('signPaywall') || showPaywall) && (
+              <Paywall
+                onClose={() => this.closePopUp('showPaywall')}
+                arcSite={arcSite}
+                typeDialog="paywall"
+              />
+            )}
 
-              {(this.getUrlParam('signPremium') || showPremium) && (
-                <Premium
-                  onClose={() => this.closePopUp('showPremium')}
-                  arcSite={arcSite}
-                  typeDialog="premium"
-                />
-              )}
-            </>
-          )}
+            {(this.getUrlParam('signPremium') || showPremium) && (
+              <Premium
+                onClose={() => this.closePopUp('showPremium')}
+                arcSite={arcSite}
+                typeDialog="premium"
+              />
+            )}
+          </>
+        )}
       </>
     )
   }

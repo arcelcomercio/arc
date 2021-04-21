@@ -93,7 +93,12 @@ const HeaderChildInverted = ({
   const [statusSidebar, setStatusSidebar] = React.useState(false)
   const [statusSearch, setStatusSearch] = React.useState(false)
 
-  const { contextPath, siteProperties, arcSite } = useFusionContext()
+  const {
+    contextPath,
+    siteProperties,
+    arcSite,
+    requestUri,
+  } = useFusionContext()
 
   const inputSearch = React.useRef()
 
@@ -484,6 +489,7 @@ const HeaderChildInverted = ({
               !disableSignwall &&
               typeof window !== 'undefined' ? (
                 <SignwallComponent
+                  countOnly={/^\/videos\//.test(requestUri)}
                   classButton={`${classes.btnSubscribe} ${classes.btnSign}`}
                 />
               ) : null}
