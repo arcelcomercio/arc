@@ -1,15 +1,16 @@
-import * as React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
+import { OT, OutputProps } from 'types/output-types'
 
 import { env } from '../utilities/arc/env'
 import { ORGANIZATION, PROD } from '../utilities/constants/environment'
-
 import FbPixel from './_children/fb-pixel'
 import FinallyPolyfill from './_children/finallyPolyfill'
 import TagManager from './_children/tag-manager'
 import listenCounterMag from './_dependencies/counter-mag'
+import { getMetaValue } from './_dependencies/utils'
 
-const Subscriptions = ({
+const Subscriptions: OT<OutputProps> = ({
   children,
   arcSite,
   siteProperties,
@@ -18,7 +19,6 @@ const Subscriptions = ({
   requestUri,
   Libs,
   Fusion,
-  metaValue,
 }) => {
   const {
     siteName,
@@ -35,13 +35,6 @@ const Subscriptions = ({
 
   const isExternalCounter = () =>
     /\/paywall-counter-external\//.test(requestUri)
-
-  /**
-   * @param {string} key
-   * @returns {string|undefined}
-   */
-  const getMetaValue = key =>
-    metaValue(key) && !/content/.test(metaValue(key)) && metaValue(key)
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
