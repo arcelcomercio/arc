@@ -1,14 +1,12 @@
 /******* Base *******/
 @import "./scss/partials/lite/mimport-fonts";
 
-
 @import "../../general-styles/framework/variables/declare-sizes";
 @import "../../general-styles/framework/variables/declare-icons";
 //@import "../../general-styles/framework/variables/breakpoints";
 @import "../../general-styles/framework/variables/colors";
 //@import "../../general-styles/framework/variables/dimensions";
 //@import "../../general-styles/framework/variables/fonts";
-
 
 @import "./scss/variables/index";
 @import "./scss/variables/lite/fonts";
@@ -42,8 +40,6 @@
 
 // TODO
 
-@import "./scss/lite-components/features/stories-lists/linked-by-site/link-site";
+@import "./scss/lite-components/features/stories-lists/linked-by-site/mlink-site";
 @import "./scss/lite-components/features/story/continue-scroll/st-scroll";
 @import "./scss/lite-components/global-components/multimedia-icon/m-icon";
-
-
