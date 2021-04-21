@@ -62,7 +62,7 @@ declare module 'fusion:context' {
     outputType: OutputType
     template: string
     layout?: string | null
-    deployment: (resource: string) => string
+    deployment: ((resource: string) => string) | string
     metaValue: (key: string) => string
     globalContent?: GlobalContent
     globalContentConfig?: GlobalContentConfigQuery
