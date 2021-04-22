@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const getCookie = cookieName => {
+export const getCookie = (cookieName: string): string | null => {
   const cookieValue =
     typeof document !== 'undefined' &&
     document.cookie.match(`(^|;) ?${cookieName}=([^;]*)(;|$)`)
