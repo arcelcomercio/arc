@@ -255,6 +255,7 @@
 .glider-next,
 .glider-prev {
   display: none;
+  top: 40% !important;
   @media (--tablet) {
     display: block;
   }
