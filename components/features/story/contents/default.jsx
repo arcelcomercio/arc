@@ -233,17 +233,22 @@ class StoryContents extends React.PureComponent {
               )}
             </>
           )}
-          {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_DEPOR && subtype !== GALLERY_VERTICAL && (
-            <Ads
-              adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
-              isDesktop={false}
-              isMobile
-              isDfp={isDfp}
-            />
-          )}
+          {arcSite !== SITE_ELCOMERCIOMAG &&
+            arcSite !== SITE_DEPOR &&
+            subtype !== GALLERY_VERTICAL && (
+              <Ads
+                adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
+                isDesktop={false}
+                isMobile
+                isDfp={isDfp}
+              />
+            )}
           <div
-            className={`${classes.content} ${isPremium && !isPreview ?
-              'story-content__nota-premium paywall no_copy' : ''}`}
+            className={`${classes.content} ${
+              isPremium && !isPreview
+                ? 'story-content__nota-premium paywall no_copy'
+                : ''
+            }`}
             style={isPremium && !isPreview ? { display: 'none' } : {}}
             id="contenedor">
             {!requestUri.includes('/recetas/') && subtype !== MINUTO_MINUTO && (

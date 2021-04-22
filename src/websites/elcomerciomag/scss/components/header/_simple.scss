@@ -22,7 +22,7 @@
       display: flex;
       &__logo-brand {
         img {
-          max-width: 114px;
+          max-width: 100px;
         }
       }
       &__logo-trivia {
@@ -40,6 +40,18 @@
         img {
           filter: invert(1);
           max-width: 20px;
+        }
+      }
+      ul {
+        @media (--only-mobile) {
+          display: flex;
+        }
+      }
+      svg {
+        @media (--only-mobile) {
+          width: 23px;
+          height: 23px;
+          vertical-align: middle;
         }
       }
     }

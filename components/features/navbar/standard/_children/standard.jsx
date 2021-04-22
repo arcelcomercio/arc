@@ -140,7 +140,7 @@ class NavBarDefault extends React.PureComponent {
     }
   }
 
-  _initDrag = evt => {
+  _initDrag = (evt) => {
     const { statusSidebar } = this.state
     this.initPointDrag = evt.offsetX || evt.changedTouches[0].clientX
     if (statusSidebar) {
@@ -163,7 +163,7 @@ class NavBarDefault extends React.PureComponent {
     this.distDrag = 0
   }
 
-  _moveDrag = evt => {
+  _moveDrag = (evt) => {
     if (this.dragFlag) {
       const { offsetX, movementX, changedTouches } = evt
 
@@ -202,7 +202,7 @@ class NavBarDefault extends React.PureComponent {
     }
   }
 
-  _setPosition = posX => {
+  _setPosition = (posX) => {
     this.listContainer.style.transform = `scaleX(${posX})`
   }
 
@@ -250,7 +250,7 @@ class NavBarDefault extends React.PureComponent {
   }
 
   // Active find with enter key
-  _handleKeyDown = e => {
+  _handleKeyDown = (e) => {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
@@ -399,7 +399,7 @@ class NavBarDefault extends React.PureComponent {
                 /> */}
               <form
                 className="flex position-relative items-center"
-                onSubmit={e => e.preventDefault()}>
+                onSubmit={(e) => e.preventDefault()}>
                 <input
                   id="header-search-input"
                   ref={this.inputSearch}
@@ -496,7 +496,7 @@ class NavBarDefault extends React.PureComponent {
                       title="Mostrar enlaces para compartir"
                       className="story-content__more-link"
                       href="/"
-                      onClick={event => {
+                      onClick={(event) => {
                         this.openLink(event, 3)
                       }}>
                       <i className="story-header__share-icon icon-share text-gray-200" />
@@ -513,7 +513,7 @@ class NavBarDefault extends React.PureComponent {
                           title={`Compartir en ${item.name}`}
                           className="story-header__link flex items-center justify-center text-gray-200"
                           href={item.link}
-                          onClick={event => {
+                          onClick={(event) => {
                             this.openLink(event, item)
                           }}>
                           <i
@@ -549,26 +549,29 @@ class NavBarDefault extends React.PureComponent {
                         siteProperties.urlSubsOnline +
                         connector +
                         outputType
-                      const ref = `ref=btn-suscribete-${arcSite}&loc=${(typeof window !==
-                        'undefined' &&
-                        window.section) ||
-                        ''}`
+                      const ref = `ref=btn-suscribete-${arcSite}&loc=${
+                        (typeof window !== 'undefined' && window.section) || ''
+                      }`
                       window.location.href = link + ref
                     }}
                   />
                 )}
 
-                {siteProperties.activeSignwall && !isPreview ? (
+                {siteProperties.activeSignwall &&
+                !isPreview &&
+                typeof window !== 'undefined' ? (
                   <SignwallComponent classButton="flex items-center btn capitalize text-md nav__btn-sign" />
                 ) : null}
               </div>
             </div>
 
-            {type === ELEMENT_STORY && !this.isOjoVideos && (
-              <div className="nav__loader position-absolute w-full">
-                <div className="nav__loader-bar  w-full h-full" />
-              </div>
-            ) /** TODO: temporal */}
+            {
+              type === ELEMENT_STORY && !this.isOjoVideos && (
+                <div className="nav__loader position-absolute w-full">
+                  <div className="nav__loader-bar  w-full h-full" />
+                </div>
+              ) /** TODO: temporal */
+            }
           </div>
           {!hideMenu && (
             <>

@@ -83,7 +83,7 @@ const StoryMultimediaLte = () => {
   )
 }
 
-StoryMultimediaLte.label = 'Artículo - multimedia'
+StoryMultimediaLte.label = 'Artículo - multimedia '
 StoryMultimediaLte.static = true
 
 export default StoryMultimediaLte

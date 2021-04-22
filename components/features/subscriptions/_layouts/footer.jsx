@@ -6,7 +6,7 @@
 
 import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { useFusionContext } from 'fusion:context'
+import { useAppContext } from 'fusion:context'
 
 import {
   PropertiesSite,
@@ -45,7 +45,7 @@ export const FooterSubs = () => {
       printedSubscriber,
       event,
     },
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
   const textsAttr = printAttributes.reduce(
     (prev, item) => ({ ...prev, [item.name]: item.value }),
@@ -263,7 +263,7 @@ export const FooterSubs = () => {
 }
 
 export const FooterLand = ({ arcType }) => {
-  const { arcSite } = useFusionContext() || {}
+  const { arcSite } = useAppContext() || {}
   const {
     urls,
     // emails,

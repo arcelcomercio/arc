@@ -2,13 +2,11 @@ import * as React from 'react'
 import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 
+import { env } from '../../../utilities/arc/env'
+import { PROD } from '../../../utilities/constants/environment'
 import { AuthContext, AuthProvider } from '../_context/auth'
 import useRoute from '../_hooks/useRoute'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-  ArcEnv,
-} from '../_dependencies/Properties'
+import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { FooterLand, FooterSubs } from '../_layouts/footer'
 import { clearUrlAPI } from '../_dependencies/Utils'
 import HeaderSubs from '../_layouts/header'
@@ -56,9 +54,9 @@ const WrapperPaymentSubs = () => {
 
     Sentry.init({
       dsn: urlCommon.dsnSentry,
-      debug: ArcEnv === 'sandbox',
+      debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
-      environment: ArcEnv,
+      environment: env,
     })
 
     Sentry.configureScope(scope => {

@@ -14,7 +14,7 @@ import {
 } from '../../../subscriptions/_dependencies/Errors'
 import { pushCallOut } from '../../../subscriptions/_dependencies/Services'
 
-export const CallOut = props => {
+const CallOut = props => {
   const { onClose, noBtnClose } = props
   // const [showChecked, setShowChecked] = useState(false)
   const [showConfirmCall, setShowConfirmCall] = useState(false)
@@ -218,3 +218,5 @@ export const CallOut = props => {
     </Modal>
   )
 }
+
+export default CallOut

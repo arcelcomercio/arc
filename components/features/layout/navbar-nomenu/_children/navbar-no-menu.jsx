@@ -24,19 +24,19 @@ const classes = {
   btnLogin: 'navbar-nm__btn-sign',
 }
 
-export default props => {
+export default (props) => {
   const inputSearch = React.useRef(null)
   const [toggleSearch, changeSearch] = React.useState(false)
   const { list, requestUri } = props
   const isPreview = /^\/preview\//.test(requestUri)
 
-  const _handleSearch = e => {
+  const _handleSearch = (e) => {
     e.preventDefault()
     const { value } = inputSearch.current
     if (value !== '') searchQuery(value)
   }
 
-  const _handleKeyDown = e => {
+  const _handleKeyDown = (e) => {
     e.preventDefault()
     const { value } = e.target
     if (value !== '' && e.which === 13) {
@@ -69,12 +69,11 @@ export default props => {
         </div>
         <div className={classes.right}>
           <div className={classes.btns}>
-            {!isPreview 
-              ? 
-                <SignwallComponent
-                  classButton={`${classes.btn} ${classes.btnLogin}`}
-                />
-              : null}
+            {!isPreview && typeof window !== 'undefined' ? (
+              <SignwallComponent
+                classButton={`${classes.btn} ${classes.btnLogin}`}
+              />
+            ) : null}
           </div>
           <div className={classes.search}>
             <button
@@ -90,13 +89,13 @@ export default props => {
               <form className={classes.formSearch} action="">
                 <input
                   type="search"
-                  onKeyUp={e => _handleKeyDown(e)}
+                  onKeyUp={(e) => _handleKeyDown(e)}
                   className={classes.inputSearch}
                   placeholder="Buscar"
                   ref={inputSearch}
                 />
                 <button
-                  onClick={e => _handleSearch(e)}
+                  onClick={(e) => _handleSearch(e)}
                   className={classes.btnSearch}
                   type="button">
                   OK
