@@ -57,7 +57,17 @@ const LandingSubscriptions = (props) => {
         'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
         'JSON Parse error: Unexpected EOF',
       ],
-      denyUrls: [],
+      // allowUrls: [
+      //   // API + origin
+      //   /https:\/\/.+(elcomercio|gestion).pe/,
+      //   // Sandbox CDN
+      //   /https:\/\/elcomercio-(elcomercio|gestion)-sandbox\.cdn\.arcpublishing.com/,
+      //   // Identity & Sales SDKs
+      //   /https:\/\/arc-subs-sdk\.s3\.amazonaws\.com/,
+      //   // PayU
+      //   /https?:\/\/.+payulatam\.com/,
+      // ],
+      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
     })
 
     Sentry.configureScope((scope) => {
