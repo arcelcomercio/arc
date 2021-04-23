@@ -102,8 +102,6 @@ export const pushCallOut = (name, phone) => {
   const response = new Promise((resolve) => {
     fetch('https://servicios.scc.pe/web_api_comercio/insertar_cliente/', {
       method: 'POST',
-      // mode: 'cors',
-      // credentials: 'same-origin',
       body: JSON.stringify({
         nombre: name,
         telefono: phone,
@@ -119,19 +117,15 @@ export const pushCallOut = (name, phone) => {
   return response
 }
 
-export const cipPayEfectivo = (url, token, data) => {
+export const cipPayEfectivo = (url, data) => {
   const response = new Promise((resolve) => {
     fetch(url, {
       method: 'POST',
-      cache: 'no-cache',
-      // mode: 'cors',
-      // credentials: 'same-origin',
       body: JSON.stringify(data),
-      headers: {
+      headers: new Headers({
         'Content-Type': 'application/json',
         Authorization: 'Token deb904a03a4e31d420a014534514b8cc8ca4d111',
-        token,
-      },
+      }),
     }).then((res) => resolve(res.json()))
   })
 

@@ -1,16 +1,17 @@
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
+import * as Sentry from '@sentry/browser'
 import { useContent } from 'fusion:content'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import {
-  PropertiesSite,
-  PropertiesCommon,
-} from '../../../_dependencies/Properties'
-import { getSessionStorage } from '../../../_dependencies/Utils'
-import { cipPayEfectivo } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
-import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import {
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
 import PWA from '../../../_dependencies/Pwa'
+import { cipPayEfectivo } from '../../../_dependencies/Services'
+import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import { getSessionStorage } from '../../../_dependencies/Utils'
 
 const { urls: urlCommon } = PropertiesCommon
 
@@ -35,13 +36,9 @@ const Confirmation = () => {
       source: 'paywall-pago-efectivo',
     }) || {}
 
-  const {
-    updateStep,
-    // userStep,
-    userPeriod,
-    userPlan,
-    userProfile,
-  } = React.useContext(AuthContext)
+  const { updateStep, userPeriod, userPlan, userProfile } = React.useContext(
+    AuthContext
+  )
 
   const {
     uuid,
@@ -57,15 +54,6 @@ const Confirmation = () => {
   const [loading, setLoading] = React.useState(false)
   const [showIframe, setShowIframe] = React.useState(false)
 
-  React.useEffect(() => {
-    if (!isLogged()) {
-      setTimeout(() => {
-        updateStep(1)
-        window.location.reload()
-      }, 1000)
-    }
-  })
-
   const getCipPayEfectivo = () => {
     const getPLanSelected = plans.reduce(
       (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
@@ -74,29 +62,61 @@ const Confirmation = () => {
 
     const { amount, productName } = getPLanSelected || {}
 
-    const dataCIP = {
-      currency: 'PEN',
-      amount: amount,
-      payment_concept: productName + ' - ' + userPeriod,
-      user_email: email,
-      user_id: userProfile.uuid || uuid,
-      user_name: firstName,
-      user_last_name: lastName + ' ' + secondLastName,
-      user_document_type: documentType,
-      user_document_number: documentNumber,
-      date_expiry: '',
-      user_code_country: '+51',
+    if (amount) {
+      const dataCIP = {
+        currency: 'PEN',
+        amount,
+        payment_concept: `${productName  } - ${  userPeriod}`,
+        user_email: email,
+        user_id: userProfile.uuid || uuid,
+        user_name: firstName,
+        user_last_name: `${lastName  } ${  secondLastName}`,
+        user_document_type: documentType,
+        user_document_number: documentNumber,
+        date_expiry: '',
+        user_code_country: '+51',
+        token,
+      }
+
+      cipPayEfectivo(urlCommon.cipPayEfectivo, dataCIP)
+        .then((resCIP) => {
+          const { response: { data: { cipUrl = '' } = {} } = {} } = resCIP || {}
+          setShowIframe(cipUrl)
+        })
+        .catch((errCIP) => {
+          Sentry.captureEvent({
+            message: 'Error al generar CIP',
+            level: 'error',
+            extra: errCIP || {},
+          })
+        })
+    } else {
+      updateStep(2)
+    }
+  }
+
+  React.useEffect(() => {
+    Sentry.configureScope((scope) => {
+      scope.setTag('step', 'cip')
+    })
+    Sentry.addBreadcrumb({
+      type: 'info',
+      category: 'confirmación CIP',
+      message: 'Confirmacion Pago Efectivo',
+      level: 'info',
+    })
+
+    if (!isLogged()) {
+      setTimeout(() => {
+        updateStep(1)
+        window.location.reload()
+      }, 1000)
     }
 
-    cipPayEfectivo(urlCommon.cipPayEfectivo, token, dataCIP)
-      .then((resCIP) => {
-        const { response: { data: { cipUrl = '' } = {} } = {} } = resCIP || {}
-        setShowIframe(cipUrl)
-      })
-      .catch((errCIP) => {
-        console.log('Hubo un error ', errCIP)
-      })
-  }
+    if (token && !showIframe) {
+      getCipPayEfectivo()
+    }
+  })
 
   const goToHome = () => {
     if (typeof window !== 'undefined') {
@@ -113,7 +133,6 @@ const Confirmation = () => {
             ? urlLocal
             : urlsSite.mainHome
       }
-      window.localStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('paywall_confirm_subs')
       window.sessionStorage.removeItem('paywall_type_modal')
@@ -124,7 +143,6 @@ const Confirmation = () => {
 
   return (
     <>
-      {token && getCipPayEfectivo()}
       <ul className={styles.step}>
         <li className="active">Perfil</li>
         <li className="active">Pago</li>
@@ -139,11 +157,10 @@ const Confirmation = () => {
         {showIframe && (
           <iframe
             title="pago-efectivo"
-            // src="https://signwall-test.e3.pe/pago_efectivo_confirmacion.html"
             src={showIframe}
             width="100%"
             height="450"
-            framborder="0"></iframe>
+            framborder="0" />
         )}
       </div>
 

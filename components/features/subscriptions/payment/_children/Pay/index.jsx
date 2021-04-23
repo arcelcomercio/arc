@@ -1,35 +1,36 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
-import TextMask from 'react-text-mask'
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import * as Sentry from '@sentry/browser'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
+import TextMask from 'react-text-mask'
 
-import useForm from '../../../_hooks/useForm'
-import { conformProfile, isLogged } from '../../../_dependencies/Session'
 // import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
-import {
-  PixelActions,
-  sendAction,
-  TaggeoJoao,
-  eventCategory,
-} from '../../../_dependencies/Taggeo'
-import { getSessionStorage } from '../../../_dependencies/Utils'
-import PWA from '../../../_dependencies/Pwa'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-  ArcEnv,
-} from '../../../_dependencies/Properties'
-import {
-  patternCard,
-  patternDate,
-  patterCvv,
-} from '../../../_dependencies/Regex'
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
+import {
+  ArcEnv,
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
+import PWA from '../../../_dependencies/Pwa'
+import {
+  patterCvv,
+  patternCard,
+  patternDate,
+} from '../../../_dependencies/Regex'
+import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import {
+  eventCategory,
+  PixelActions,
+  sendAction,
+  TaggeoJoao,
+} from '../../../_dependencies/Taggeo'
+import { getSessionStorage } from '../../../_dependencies/Utils'
+import useForm from '../../../_hooks/useForm'
 
 const styles = {
   step: 'step__left-progres',
@@ -39,7 +40,6 @@ const styles = {
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   secure: 'step__left-text-security',
-  notes: 'step__left-notes-footer',
   cvvAmex: 'img-info-cvvamex',
   cvvAll: 'img-info-cvv',
   tabCard1: 'step__left-tab-cards tab1',
@@ -82,9 +82,7 @@ const Pay = () => {
   const [methodCard, setMethodCard] = React.useState()
   const [checkedTerms, setCheckedTerms] = React.useState()
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.priceCode === userPlan.priceCode ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce((prev, plan) => plan.priceCode === userPlan.priceCode ? plan : prev, null)
 
   const { amount, sku, billingFrequency, priceCode, name } =
     getPLanSelected || {}
@@ -166,7 +164,6 @@ const Pay = () => {
           extra: errPayuSDK || {},
         })
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   React.useEffect(() => {
@@ -192,7 +189,6 @@ const Pay = () => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -667,29 +663,31 @@ const Pay = () => {
           onChange={() => updateMethodPay('payEfectivo')}
         />
 
-        <nav>
-          <ul className={styles.tabpay}>
-            <li className="cards tab1">
-              <label htmlFor="tab1">
-                Tarjeta de <br /> crédito / Débito <i></i>
-              </label>
-            </li>
-            <li className="efectivo tab2">
-              <label htmlFor="tab2">
-                <i></i> Transferencias /Depósitos en efectivo
-              </label>
-            </li>
-          </ul>
-        </nav>
+        {userPeriod !== 'Mensual' && (
+          <nav>
+            <ul className={styles.tabpay}>
+              <li className="cards tab1">
+                <label htmlFor="tab1">
+                  Tarjeta de <br /> crédito / Débito <i />
+                </label>
+              </li>
+              <li className="efectivo tab2">
+                <label htmlFor="tab2">
+                  <i /> Transferencias /Depósitos en efectivo
+                </label>
+              </li>
+            </ul>
+          </nav>
+        )}
 
         <section>
           <div className={styles.tabCard1}>
             <div className={styles.card}>
               <p>Aceptamos:</p>
-              <i className="icon-visa"></i>
-              <i className="icon-mc"></i>
-              <i className="icon-amex"></i>
-              <i className="icon-dinners"></i>
+              <i className="icon-visa" />
+              <i className="icon-mc" />
+              <i className="icon-amex" />
+              <i className="icon-dinners" />
             </div>
 
             {msgError && (
@@ -722,7 +720,7 @@ const Pay = () => {
                   {cNumberError && (
                     <span className="msn-error">{cNumberError}</span>
                   )}
-                  <div id="mylistID" className="img-input-card"></div>
+                  <div id="mylistID" className="img-input-card" />
                 </label>
               </div>
 
@@ -768,7 +766,7 @@ const Pay = () => {
                             methodCard === 'AMEX'
                               ? styles.cvvAmex
                               : styles.cvvAll
-                          }></i>
+                          } />
                       </span>
                     </button>
                     <TextMask
@@ -827,7 +825,7 @@ const Pay = () => {
                   <span
                     className={`checkmark ${
                       cTermsError && 'input-error'
-                    }`}></span>
+                    }`} />
                 </label>
               </div>
 
@@ -848,7 +846,7 @@ const Pay = () => {
             </form>
 
             <p className={styles.secure}>
-              <i className="icon-security"></i>
+              <i className="icon-security" />
               {texts.showSecure}
             </p>
           </div>
@@ -863,13 +861,13 @@ const Pay = () => {
                   <li className="tab3">
                     <label htmlFor="tab3">
                       Banca Móvil
-                      <span className="checkmark"></span>
+                      <span className="checkmark" />
                     </label>
                   </li>
                   <li className="tab4">
                     <label htmlFor="tab4">
                       Agentes y Bodegas
-                      <span className="checkmark"></span>
+                      <span className="checkmark" />
                     </label>
                   </li>
                 </ul>
@@ -884,7 +882,7 @@ const Pay = () => {
                     onClick={() => openNewTab(links.howItWork)}>
                     {texts.howItWork}
                   </button>
-                  <div className="img-movil"></div>
+                  <div className="img-movil" />
                   <form onSubmit={handlePayEfective} className="form-pay">
                     <div className={styles.block}>
                       <button
@@ -904,7 +902,7 @@ const Pay = () => {
                     onClick={() => openNewTab(links.howItWork)}>
                     {texts.howItWork}
                   </button>
-                  <div className="img-agentes"></div>
+                  <div className="img-agentes" />
                   <form onSubmit={handlePayEfective} className="form-pay">
                     <div className={styles.block}>
                       <button
@@ -917,7 +915,7 @@ const Pay = () => {
                   </form>
                 </div>
                 <p className={styles.secure}>
-                  <i className="icon-security"></i>
+                  <i className="icon-security" />
                   {texts.showSecure}
                 </p>
               </section>

@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import { AuthContext } from '../../../_context/auth'
 import {
@@ -23,7 +23,7 @@ const styles = {
   boxEmail: 'step__right-verify-email',
   stepLink: 'step__btn-link',
   benefits: 'step__right-benefits',
-  notes: 'step__right-notes-footer',
+  notes: 'step__notes-footer',
 }
 const nameTagCategory = 'Web_Paywall_Landing'
 const Summary = () => {
@@ -75,7 +75,6 @@ const Summary = () => {
     setTotalPlan(amount)
     updatePeriod(period[frecuencyPlan])
     updateDataPlan(amount, frecuencyPlan)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleChangeDates = () => {
