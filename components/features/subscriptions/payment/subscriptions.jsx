@@ -39,6 +39,7 @@ const WrapperPaymentSubs = () => {
     userProfile,
     userLoading,
     updateLoading,
+    updateStep,
   } = React.useContext(AuthContext)
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -47,11 +48,15 @@ const WrapperPaymentSubs = () => {
     import(/* webpackChunkName: 'Confirmation' */ './_children/Confirmation')
   )
 
+  React.useEffect(() => {
+    if (!userLoaded) {
+      updateStep(1)
+    }
+  })
+
   useRoute(event)
 
   React.useEffect(() => {
-    window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
-
     Sentry.init({
       dsn: urlCommon.dsnSentry,
       debug: env !== PROD,

@@ -70,7 +70,7 @@ export const FooterSubs = () => {
     vDocumentNumber: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
           value !== '00000000',
         error: 'Formato inválido.',
@@ -87,9 +87,9 @@ export const FooterSubs = () => {
         eventAction: 'submit',
       })
       window.Identity.heartbeat()
-        .then(resHeart => {
+        .then((resHeart) => {
           subDniToken(urls.subsDniToken, resHeart.accessToken)
-            .then(resDniToken => {
+            .then((resDniToken) => {
               if (resDniToken.token) {
                 updateLoading(true)
                 const isEvent = event ? `${event}/` : ''
@@ -104,12 +104,12 @@ export const FooterSubs = () => {
                 setLoading(false)
               }
             })
-            .catch(errDniToken => {
+            .catch((errDniToken) => {
               window.console.error(errDniToken) // Temporal hasta implementar Sentry
               setLoading(false)
             })
         })
-        .catch(errHeart => {
+        .catch((errHeart) => {
           window.console.error(errHeart) // Temporal hasta implementar Sentry
           setLoading(false)
         })
@@ -126,7 +126,7 @@ export const FooterSubs = () => {
    * @param {number} amount
    * @returns {string} Monto del plan
    */
-  const getPlanAmount = amount => {
+  const getPlanAmount = (amount) => {
     let planAmount = ''
     if (amount) planAmount = `S/ ${amount}.00`
     else if (amount === 0) planAmount = 'Gratis'
@@ -176,7 +176,7 @@ export const FooterSubs = () => {
                         <select
                           name="vDocumentType"
                           value={vDocumentType}
-                          onChange={e => {
+                          onChange={(e) => {
                             handleOnChange(e)
                             setShowDocOption(e.target.value)
                           }}>
@@ -234,10 +234,9 @@ export const FooterSubs = () => {
         </footer>
       )}
 
-      {console.log('okkkkkkkk doc', userStep)}
       {userStep !== 4 && (
         <section
-          className="step__bottom" 
+          className="step__bottom"
           style={userStep === 5 ? { display: 'none' } : {}}>
           <button className={styles.btnDetail} type="button" id="btn-detail">
             <div>

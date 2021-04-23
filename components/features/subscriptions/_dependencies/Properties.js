@@ -165,11 +165,13 @@ const PropertiesSite = {
 const PropertiesCommon = {
   // prettier-ignore
   urls: {
-    ecoID:          `https://${IsPROD ? '' : 'pre.'}ecoid.pe`,
-    newsLetters:    `https://${IsPROD ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/userprofile/public/v1`,
-    paymentTracker: `https://${IsPROD ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/v1`,
-    subsDniToken:   `https://${IsPROD ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-    dsnSentry:      'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    ecoID:            `https://${IsPROD ? '' : 'pre.'}ecoid.pe`,
+    newsLetters:      `https://${IsPROD ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/userprofile/public/v1`,
+    paymentTracker:   `https://${IsPROD ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/v1`,
+    subsDniToken:     `https://${IsPROD ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
+    dsnSentry:        'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    tokenPayEfectivo: `https://${IsPROD ? '' : 'pre1a.'}services.pagoefectivo.pe/v1/authorizations`,
+    cipPayEfectivo:   `https://${IsPROD ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`
   },
 
   // prettier-ignore
@@ -186,13 +188,21 @@ const PropertiesCommon = {
     bannerCorp:   `/suscripcionesdigitales/empresa/${IsPROD ? '' : '?outputType=paywall'}`,
     landingFia:   `/suscripcionesdigitales/fia/${IsPROD ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,
     clubComercio: 'https://clubelcomercio.pe/?home=suscripciones_digitales',
-    callCenter:   'tel:+5113115100'
+    callCenter:   'tel:+5113115100',
+    howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx'
   },
 
   tokens: {
     paymentTracker: IsPROD
       ? '5088cbc5ceb807c702b4e3487173ef792eb50be4'
       : 'deb904a03a4e31d420a014534514b8cc8ca4d111',
+    payEfectivoService: IsPROD ? '1290' : '1290',
+    payEfectivoAccessKey: IsPROD
+      ? 'ZDVkMmMxZmI1MGExMTE2'
+      : 'ZDVkMmMxZmI1MGExMTE2',
+    payEfectivoSecretKey: IsPROD
+      ? 'uVlNKocbAxDNxcvYPAnrkNtrMcaB5jRMS/kxnipx'
+      : 'uVlNKocbAxDNxcvYPAnrkNtrMcaB5jRMS/kxnipx',
   },
 
   // prettier-ignore
@@ -213,12 +223,13 @@ const PropertiesCommon = {
     noticeUser:      'Con tus datos, mejoraremos tu experiencia de navegación y nunca publicaremos sin tu permiso',
     notHasAccount:   `No tengo cuenta `,
     RememberChose:   'Recuerda que puedes elegir entre nuestros diferentes planes.',
-    verifyEmail:     'Verifique su correo electrónico. A esta enviaremos su boleta.',
+    verifyEmail:     'Verifique su correo electrónico. A este enviaremos su boleta.',
+    verifyEmailPayEfec: 'Verifique su correo electrónico. Después de realizar el pago a este enviaremos su boleta.',
     rememberRecurrency: 'El precio de la suscripción se cargará automáticamente en tu tarjeta cada mes o año, según el período elegido.',
     showSecure:      'Compra seguro. Esta web está protegida',
     textTerms:       'Acepto las condiciones de servicio, las políticas de privacidad, y estoy de acuerdo con la información.',
     whereCvv:        '¿Dónde está el CVV?',
-    titlePay:        'Ingresa tus datos de pago',
+    titlePay:        'Elige e ingresa tu método de pago',
     labelcNumber:    'Número de tarjeta',
     labelcExpire:    'Fecha de vencimiento',
     labelcCvv:       `CVV `,
@@ -249,7 +260,7 @@ const PropertiesCommon = {
     howItWork:       '¿Cómo funciona?',
     textBanca:       'Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Caja Arequipa Y Banco Pichincha, a travéz de la banca por internet o banca móvil en la opción pago de servicios.',
     textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.'
-  }
+  },
 }
 
 export { PropertiesSite, PropertiesCommon, ArcEnv, IsPROD }

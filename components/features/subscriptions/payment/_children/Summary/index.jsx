@@ -23,7 +23,7 @@ const styles = {
   boxEmail: 'step__right-verify-email',
   stepLink: 'step__btn-link',
   benefits: 'step__right-benefits',
-  notes: 'step__right-notes-footer',
+  notes: 'step__notes-footer',
 }
 const nameTagCategory = 'Web_Paywall_Landing'
 const Summary = () => {
@@ -36,6 +36,7 @@ const Summary = () => {
     loadPage,
     userStep,
     userProfile,
+    userMethodPay,
     updateStep,
     updatePlan,
     updatePeriod,
@@ -282,12 +283,15 @@ const Summary = () => {
               </button>
               <h4>{getFullNameFormat(firstName, lastName, secondLastName)}</h4>
               <p className="email">{userProfile && userProfile.email}</p>
-              <p>{texts.verifyEmail}</p>
+              {userMethodPay === 'cardCreDeb' && <p>{texts.verifyEmail}</p>}
+              {userMethodPay === 'payEfectivo' && (
+                <p>{texts.verifyEmailPayEfec}</p>
+              )}
             </div>
           </>
         )}
       </div>
-      {userStep === 3 && (
+      {userStep === 3 && userMethodPay === 'cardCreDeb' && (
         <p className={styles.notes}>{texts.rememberRecurrency}</p>
       )}
       <br />

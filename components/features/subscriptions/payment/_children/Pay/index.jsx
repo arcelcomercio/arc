@@ -39,7 +39,6 @@ const styles = {
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   secure: 'step__left-text-security',
-  notes: 'step__left-notes-footer',
   cvvAmex: 'img-info-cvvamex',
   cvvAll: 'img-info-cvv',
   tabCard1: 'step__left-tab-cards tab1',
@@ -59,6 +58,7 @@ const Pay = () => {
     updateStep,
     updatePurchase,
     updateLoadPage,
+    updateMethodPay,
   } = React.useContext(AuthContext)
   const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -91,7 +91,7 @@ const Pay = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0)
 
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('document', documentNumber || 'none')
       scope.setTag('phone', phone || 'none')
       scope.setTag('email', email || 'none')
@@ -122,7 +122,7 @@ const Pay = () => {
         })
         window.Sales.options({ apiOrigin: urls.arcOrigin })
       })
-      .catch(errSalesSDK => {
+      .catch((errSalesSDK) => {
         Sentry.captureEvent({
           message: 'SDK Sales no ha cargado correctamente',
           level: 'error',
@@ -158,7 +158,7 @@ const Pay = () => {
         window.payU.setLanguage('es')
         window.payU.getPaymentMethods()
       })
-      .catch(errPayuSDK => {
+      .catch((errPayuSDK) => {
         Sentry.captureEvent({
           message: 'El SDK PayU no ha cargado correctamente',
           level: 'error',
@@ -205,7 +205,7 @@ const Pay = () => {
     cNumber: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           'payU' in window &&
           window.payU.validateCard(value.replace(/\s/g, '')),
         error: 'Número tarjeta inválido.',
@@ -214,7 +214,7 @@ const Pay = () => {
     cExpire: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^(0[1-9]|1[0-2])\/?(((202)\d{1}|(202)\d{1})|(2)\d{1})$/.test(value),
         error: 'Fecha incorrecta',
       },
@@ -222,7 +222,7 @@ const Pay = () => {
     cCvv: {
       required: true,
       validator: {
-        func: value => /^([0-9]{3,})+$/.test(value),
+        func: (value) => /^([0-9]{3,})+$/.test(value),
         error: 'CVV Inválido',
       },
     },
@@ -309,7 +309,7 @@ const Pay = () => {
               { country: 'PE' }
             )
           })
-          .then(resOrder => {
+          .then((resOrder) => {
             Sentry.addBreadcrumb({
               type: 'info',
               category: 'pago',
@@ -320,11 +320,11 @@ const Pay = () => {
               level: 'info',
             })
             return window.Sales.getPaymentOptions()
-              .then(resPayOptions => {
+              .then((resPayOptions) => {
                 setTxtLoading('Iniciando Proceso...')
 
                 payUPaymentMethod = resPayOptions?.find(
-                  m => m?.paymentMethodType === 8
+                  (m) => m?.paymentMethodType === 8
                 )
                 orderNumberDinamic = resOrder?.orderNumber
                 const { paymentMethodID } = payUPaymentMethod || {}
@@ -348,7 +348,7 @@ const Pay = () => {
                   paymentMethodID
                 )
               })
-              .catch(paymentError => {
+              .catch((paymentError) => {
                 Sentry.captureEvent({
                   message:
                     paymentError?.error || getCodeError(paymentError?.code),
@@ -356,7 +356,7 @@ const Pay = () => {
                   extra: paymentError || {},
                 })
               })
-              .then(resInitialize => {
+              .then((resInitialize) => {
                 const {
                   orderNumber,
                   parameter1: publicKey,
@@ -409,7 +409,7 @@ const Pay = () => {
                     },
                     level: 'info',
                   })
-                  window.payU.createToken(response => {
+                  window.payU.createToken((response) => {
                     if (response?.error) {
                       reject(new Error(response.error))
                       setMsgError(response.error)
@@ -435,8 +435,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${response.error ||
-                            getCodeError('errorFinalize')}`,
+                          action: `${userPeriod} - ${
+                            response.error || getCodeError('errorFinalize')
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -463,7 +464,7 @@ const Pay = () => {
                   })
                 })
 
-                return handleCreateToken.then(resToken => {
+                return handleCreateToken.then((resToken) => {
                   const { paymentMethodID, paymentMethodType } =
                     payUPaymentMethod || {}
                   const tokenDinamic = `${resToken}~${deviceSessionId}~${cCvv}`
@@ -488,7 +489,7 @@ const Pay = () => {
                     paymentMethodID,
                     tokenDinamic
                   )
-                    .then(resFinalize => {
+                    .then((resFinalize) => {
                       Sentry.addBreadcrumb({
                         type: 'info',
                         category: 'compra',
@@ -553,8 +554,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${errFinalize.message ||
-                            getCodeError('errorFinalize')}`,
+                          action: `${userPeriod} - ${
+                            errFinalize.message || getCodeError('errorFinalize')
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -583,7 +585,7 @@ const Pay = () => {
     }
   }
 
-  const validateCardNumber = e => {
+  const validateCardNumber = (e) => {
     if (typeof window !== 'undefined' && 'payU' in window) {
       window.payU.validateCard(e.target.value)
       setMethodCard(window.payU.card.method)
@@ -603,7 +605,7 @@ const Pay = () => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFormPay)
 
-  const handleOnChangeInput = e => {
+  const handleOnChangeInput = (e) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         setMsgError(false)
@@ -615,9 +617,9 @@ const Pay = () => {
     }
   }
 
-  const openNewTab = typeLink => {
+  const openNewTab = (typeLink) => {
     if (typeof window !== 'undefined') {
-      window.open(urls[typeLink], '_blank')
+      window.open(urls[typeLink] ? urls[typeLink] : typeLink, '_blank')
     }
   }
 
@@ -630,9 +632,13 @@ const Pay = () => {
     }
   }
 
-  const handlePayEfective = e => {
+  const handlePayEfective = (e) => {
+    setLoading(true)
+    setTxtLoading('Generando CIP...')
     e.preventDefault()
-    updateStep(5)
+    setTimeout(() => {
+      updateStep(5)
+    }, 1000)
   }
 
   return (
@@ -646,23 +652,36 @@ const Pay = () => {
       <h3 className={styles.subtitle}>{texts.titlePay}</h3>
 
       <div className="payment-tab">
-        <input defaultChecked id="tab1" type="radio" name="optpay" />
-        <input id="tab2" type="radio" name="optpay" />
+        <input
+          defaultChecked
+          id="tab1"
+          type="radio"
+          name="optpay"
+          onChange={() => updateMethodPay('cardCreDeb')}
+        />
+        <input
+          id="tab2"
+          type="radio"
+          name="optpay"
+          onChange={() => updateMethodPay('payEfectivo')}
+        />
 
-        <nav>
-          <ul className={styles.tabpay}>
-            <li className="cards tab1">
-              <label htmlFor="tab1">
-                Tarjeta de <br /> crédito / Débito <i></i>
-              </label>
-            </li>
-            <li className="efectivo tab2">
-              <label htmlFor="tab2">
-                <i></i> Transferencias /Depósitos en efectivo
-              </label>
-            </li>
-          </ul>
-        </nav>
+        {userPeriod !== 'Mensual' && (
+          <nav>
+            <ul className={styles.tabpay}>
+              <li className="cards tab1">
+                <label htmlFor="tab1">
+                  Tarjeta de <br /> crédito / Débito <i></i>
+                </label>
+              </li>
+              <li className="efectivo tab2">
+                <label htmlFor="tab2">
+                  <i></i> Transferencias /Depósitos en efectivo
+                </label>
+              </li>
+            </ul>
+          </nav>
+        )}
 
         <section>
           <div className={styles.tabCard1}>
@@ -786,7 +805,7 @@ const Pay = () => {
                     name="cTerms"
                     required
                     disabled={loading}
-                    onChange={e => {
+                    onChange={(e) => {
                       handleOnChange(e)
                       setCheckedTerms(!checkedTerms)
                     }}
@@ -807,8 +826,9 @@ const Pay = () => {
                   </button>
                   {texts.textTermsAccord}
                   <span
-                    className={`checkmark ${cTermsError &&
-                      'input-error'}`}></span>
+                    className={`checkmark ${
+                      cTermsError && 'input-error'
+                    }`}></span>
                 </label>
               </div>
 
@@ -859,7 +879,10 @@ const Pay = () => {
               <section>
                 <div className="tab3">
                   {texts.textBanca}
-                  <button className="step__btn-link" type="button">
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab(links.howItWork)}>
                     {texts.howItWork}
                   </button>
                   <div className="img-movil"></div>
@@ -869,14 +892,17 @@ const Pay = () => {
                         className={`${styles.btn} ${loading && 'btn-loading'}`}
                         type="submit"
                         disabled={loading}>
-                        {loading ? txtLoading : 'Pagar suscripción'}
+                        {loading ? txtLoading : 'Generar código'}
                       </button>
                     </div>
                   </form>
                 </div>
                 <div className="tab4">
                   {texts.textAgentes}
-                  <button className="step__btn-link" type="button">
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab(links.howItWork)}>
                     {texts.howItWork}
                   </button>
                   <div className="img-agentes"></div>
@@ -886,7 +912,7 @@ const Pay = () => {
                         className={`${styles.btn} ${loading && 'btn-loading'}`}
                         type="submit"
                         disabled={loading}>
-                        {loading ? txtLoading : 'Pagar suscripción'}
+                        {loading ? txtLoading : 'Generar código'}
                       </button>
                     </div>
                   </form>
