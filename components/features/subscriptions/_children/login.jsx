@@ -21,7 +21,7 @@ const styles = {
   btn: 'step__left-btn-next',
   link: 'step__btn-link',
   titleRegister: 'step__left-link-register',
-  noteEnd: 'step__left-notes-footer',
+  noteEnd: 'step__notes-footer text-center',
 }
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
@@ -48,7 +48,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
     lpass: {
       required: true,
       validator: {
-        func: value => value.length >= 8,
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
       nospaces: true,
@@ -64,7 +64,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
         cookie: true,
       })
         .then(() => {
-          window.Identity.getUserProfile().then(resProfile => {
+          window.Identity.getUserProfile().then((resProfile) => {
             if (
               !resProfile.emailVerified &&
               resProfile.displayName === resProfile.email
@@ -88,7 +88,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
             }
           })
         })
-        .catch(err => {
+        .catch((err) => {
           setMsgError(getCodeError(err.code))
           setShowVerify(err.code === '130051')
           setLoading(false)
@@ -109,7 +109,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFormSignIn)
 
-  const handleChangeInput = e => {
+  const handleChangeInput = (e) => {
     handleOnChange(e)
     setMsgError(false)
   }
@@ -143,12 +143,13 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
 
   return (
     <NavigateConsumer>
-      {value => (
+      {(value) => (
         <>
           <h2 className={styles.title}>{texts.login}</h2>
           <div
-            className={`${styles.blockMiddle} ${isFbBrowser() &&
-              styles.blockFull}`}>
+            className={`${styles.blockMiddle} ${
+              isFbBrowser() && styles.blockFull
+            }`}>
             <ButtonSocial
               arcSocial="facebook"
               arcSite={arcSite}

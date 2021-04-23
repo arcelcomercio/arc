@@ -42,7 +42,6 @@ const Menu = ({
 
       const isSubs =
         window.location.pathname.indexOf('suscripciones') >= 0 || false
-      window.localStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
       window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
       window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
       window.Identity.logout()

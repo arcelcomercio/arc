@@ -39,7 +39,6 @@ const styles = {
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   secure: 'step__left-text-security',
-  notes: 'step__left-notes-footer',
   cvvAmex: 'img-info-cvvamex',
   cvvAll: 'img-info-cvv',
   tabCard1: 'step__left-tab-cards tab1',
@@ -667,20 +666,22 @@ const Pay = () => {
           onChange={() => updateMethodPay('payEfectivo')}
         />
 
-        <nav>
-          <ul className={styles.tabpay}>
-            <li className="cards tab1">
-              <label htmlFor="tab1">
-                Tarjeta de <br /> crédito / Débito <i></i>
-              </label>
-            </li>
-            <li className="efectivo tab2">
-              <label htmlFor="tab2">
-                <i></i> Transferencias /Depósitos en efectivo
-              </label>
-            </li>
-          </ul>
-        </nav>
+        {userPeriod !== 'Mensual' && (
+          <nav>
+            <ul className={styles.tabpay}>
+              <li className="cards tab1">
+                <label htmlFor="tab1">
+                  Tarjeta de <br /> crédito / Débito <i></i>
+                </label>
+              </li>
+              <li className="efectivo tab2">
+                <label htmlFor="tab2">
+                  <i></i> Transferencias /Depósitos en efectivo
+                </label>
+              </li>
+            </ul>
+          </nav>
+        )}
 
         <section>
           <div className={styles.tabCard1}>

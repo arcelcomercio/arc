@@ -264,7 +264,6 @@ const Confirmation = () => {
             ? urlLocal
             : urlsSite.mainHome
       }
-      window.localStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('paywall_confirm_subs')
       window.sessionStorage.removeItem('paywall_type_modal')
