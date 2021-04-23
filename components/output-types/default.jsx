@@ -324,8 +324,6 @@ export default ({
     (arcSite === 'elcomercio' || arcSite === SITE_ELBOCON) &&
     style === 'story-video' // isStyleBasic || (style === 'story' && true)
 
-  console.log('isFooterFinal', isFooterFinal)
-
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
