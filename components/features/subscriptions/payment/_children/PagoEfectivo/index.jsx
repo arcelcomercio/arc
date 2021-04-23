@@ -1,9 +1,18 @@
 import * as React from 'react'
 import { useAppContext } from 'fusion:context'
-import PWA from '../../../_dependencies/Pwa'
-import { PropertiesSite } from '../../../_dependencies/Properties'
+import { useContent } from 'fusion:content'
 
+import {
+  PropertiesSite,
+  PropertiesCommon,
+} from '../../../_dependencies/Properties'
 import { getSessionStorage } from '../../../_dependencies/Utils'
+import { cipPayEfectivo } from '../../../_dependencies/Services'
+import { AuthContext } from '../../../_context/auth'
+import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import PWA from '../../../_dependencies/Pwa'
+
+const { urls: urlCommon } = PropertiesCommon
 
 const styles = {
   step: 'step__left-progres',
@@ -18,16 +27,80 @@ const styles = {
 const Confirmation = () => {
   const {
     arcSite,
-    globalContent: { fromFia },
+    globalContent: { plans = [], fromFia },
   } = useAppContext() || {}
+
+  const { data: { token = '' } = {} } =
+    useContent({
+      source: 'paywall-pago-efectivo',
+    }) || {}
+
+  const {
+    updateStep,
+    // userStep,
+    userPeriod,
+    userPlan,
+    userProfile,
+  } = React.useContext(AuthContext)
+
+  const {
+    uuid,
+    email,
+    firstName,
+    lastName,
+    secondLastName = '',
+    documentType,
+    documentNumber,
+  } = conformProfile(userProfile || {})
 
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = React.useState(false)
+  const [showIframe, setShowIframe] = React.useState(false)
+
+  React.useEffect(() => {
+    if (!isLogged()) {
+      setTimeout(() => {
+        updateStep(1)
+        window.location.reload()
+      }, 1000)
+    }
+  })
+
+  const getCipPayEfectivo = () => {
+    const getPLanSelected = plans.reduce(
+      (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+      null
+    )
+
+    const { amount, productName } = getPLanSelected || {}
+
+    const dataCIP = {
+      currency: 'PEN',
+      amount: amount,
+      payment_concept: productName + ' - ' + userPeriod,
+      user_email: email,
+      user_id: userProfile.uuid || uuid,
+      user_name: firstName,
+      user_last_name: lastName + ' ' + secondLastName,
+      user_document_type: documentType,
+      user_document_number: documentNumber,
+      date_expiry: '',
+      user_code_country: '+51',
+    }
+
+    cipPayEfectivo(urlCommon.cipPayEfectivo, token, dataCIP)
+      .then((resCIP) => {
+        const { response: { data: { cipUrl = '' } = {} } = {} } = resCIP || {}
+        setShowIframe(cipUrl)
+      })
+      .catch((errCIP) => {
+        console.log('Hubo un error ', errCIP)
+      })
+  }
 
   const goToHome = () => {
     if (typeof window !== 'undefined') {
       setLoading(true)
-      // setSendTracking(false)
       if (PWA.isPWA()) {
         PWA.pwaCloseWebView()
         return
@@ -51,22 +124,27 @@ const Confirmation = () => {
 
   return (
     <>
+      {token && getCipPayEfectivo()}
       <ul className={styles.step}>
         <li className="active">Perfil</li>
         <li className="active">Pago</li>
         <li className="active">Confirmación</li>
       </ul>
+
       <h3 className={styles.subtitle}>
         ¡Estás a un paso de finalizar la compra!
       </h3>
 
       <div className="form-confirmation">
-        <iframe
-          title="pago-efectivo"
-          src="https://signwall-test.e3.pe/pago_efectivo_confirmacion.html"
-          width="100%"
-          height="450"
-          framborder="0"></iframe>
+        {showIframe && (
+          <iframe
+            title="pago-efectivo"
+            // src="https://signwall-test.e3.pe/pago_efectivo_confirmacion.html"
+            src={showIframe}
+            width="100%"
+            height="450"
+            framborder="0"></iframe>
+        )}
       </div>
 
       {!fromFia && (
