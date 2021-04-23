@@ -1,5 +1,6 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
+
 import Image from './image'
 
 const StoryContentChildVideoJwplayerList = ({
@@ -20,6 +21,10 @@ const StoryContentChildVideoJwplayerList = ({
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
   const titleTxt = showSection ? section : title
+
+  const customWidth = 580
+  const customHeight = 330
+  const sizes = `(max-width: 360px) 280px, (max-width: 639px) 482px, ${customWidth}px`
   return (
     <>
       {mediaId && (
@@ -28,17 +33,20 @@ const StoryContentChildVideoJwplayerList = ({
             data-time={time}
             className="jwplayer-lazy"
             id={`botr_${mediaId}_${jwplayerId}_div`}>
-            <div className="jwplayer-lazy-icon-play"></div>
-            <Image
-              src={image}
-              width={580}
-              height={326}
-              alt={titleTxt}
-              style={{
-                width: '100%',
-              }}
-              loading="lazy"
-            />
+            <div className="jwplayer-lazy-icon-play">{` `}</div>
+            <figure>
+              <Image
+                src={image}
+                width={customWidth}
+                height={customHeight}
+                sizes={sizes}
+                alt={titleTxt}
+                style={{
+                  width: '100%',
+                }}
+                loading="lazy"
+              />
+            </figure>
           </div>
           {titleTxt && (
             <figcaption

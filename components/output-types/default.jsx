@@ -324,6 +324,7 @@ export default ({
     (arcSite === 'elcomercio' || arcSite === SITE_ELBOCON) &&
     style === 'story-video' // isStyleBasic || (style === 'story' && true)
 
+  const isFonts = isTrivia || isCovid
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -395,7 +396,7 @@ export default ({
           href="//arc-subs-sdk.s3.amazonaws.com"
         />
         <link rel="preconnect dns-prefetch" href="//acdn.adnxs.com" />
-        {arcSite === 'elcomercio' && isTrivia && isCovid && (
+        {isFonts && (
           <>
             <link
               rel="preload"
