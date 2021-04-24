@@ -1,14 +1,14 @@
-import * as React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
-import getCodeError, { formatEmail } from '../_dependencies/Errors'
-import useForm from '../_hooks/useForm'
-import { NavigateConsumer } from '../_context/navigate'
 import { AuthContext } from '../_context/auth'
+import { NavigateConsumer } from '../_context/navigate'
+import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import { PropertiesCommon } from '../_dependencies/Properties'
-import ButtonSocial from './social'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
+import useForm from '../_hooks/useForm'
+import ButtonSocial from './social'
 
 const styles = {
   title: 'step__left-title',

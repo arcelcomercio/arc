@@ -1,17 +1,17 @@
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
-import { useContent } from 'fusion:content'
 import * as Sentry from '@sentry/browser'
+import { useContent } from 'fusion:content'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import {
-  PropertiesSite,
-  PropertiesCommon,
-} from '../../../_dependencies/Properties'
-import { getSessionStorage } from '../../../_dependencies/Utils'
-import { cipPayEfectivo } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
-import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import {
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
 import PWA from '../../../_dependencies/Pwa'
+import { cipPayEfectivo } from '../../../_dependencies/Services'
+import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import { getSessionStorage } from '../../../_dependencies/Utils'
 
 const { urls: urlCommon } = PropertiesCommon
 
@@ -54,6 +54,47 @@ const Confirmation = () => {
   const [loading, setLoading] = React.useState(false)
   const [showIframe, setShowIframe] = React.useState(false)
 
+  const getCipPayEfectivo = () => {
+    const getPLanSelected = plans.reduce(
+      (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+      null
+    )
+
+    const { amount, productName } = getPLanSelected || {}
+
+    if (amount) {
+      const dataCIP = {
+        currency: 'PEN',
+        amount,
+        payment_concept: `${productName} - ${userPeriod}`,
+        user_email: email,
+        user_id: userProfile.uuid || uuid,
+        user_name: firstName,
+        user_last_name: `${lastName} ${secondLastName}`,
+        user_document_type: documentType,
+        user_document_number: documentNumber,
+        date_expiry: '',
+        user_code_country: '+51',
+        token,
+      }
+
+      cipPayEfectivo(urlCommon.cipPayEfectivo, dataCIP)
+        .then((resCIP) => {
+          const { response: { data: { cipUrl = '' } = {} } = {} } = resCIP || {}
+          setShowIframe(cipUrl)
+        })
+        .catch((errCIP) => {
+          Sentry.captureEvent({
+            message: 'Error al generar CIP',
+            level: 'error',
+            extra: errCIP || {},
+          })
+        })
+    } else {
+      updateStep(2)
+    }
+  }
+
   React.useEffect(() => {
     Sentry.configureScope((scope) => {
       scope.setTag('step', 'cip')
@@ -76,47 +117,6 @@ const Confirmation = () => {
       getCipPayEfectivo()
     }
   })
-
-  const getCipPayEfectivo = () => {
-    const getPLanSelected = plans.reduce(
-      (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
-      null
-    )
-
-    const { amount, productName } = getPLanSelected || {}
-
-    if (amount) {
-      const dataCIP = {
-        currency: 'PEN',
-        amount: amount,
-        payment_concept: productName + ' - ' + userPeriod,
-        user_email: email,
-        user_id: userProfile.uuid || uuid,
-        user_name: firstName,
-        user_last_name: lastName + ' ' + secondLastName,
-        user_document_type: documentType,
-        user_document_number: documentNumber,
-        date_expiry: '',
-        user_code_country: '+51',
-        token: token,
-      }
-
-      cipPayEfectivo(urlCommon.cipPayEfectivo, dataCIP)
-        .then((resCIP) => {
-          const { response: { data: { cipUrl = '' } = {} } = {} } = resCIP || {}
-          setShowIframe(cipUrl)
-        })
-        .catch((errCIP) => {
-          Sentry.captureEvent({
-            message: 'Error al generar CIP',
-            level: 'error',
-            extra: errCIP || {},
-          })
-        })
-    } else {
-      updateStep(2)
-    }
-  }
 
   const goToHome = () => {
     if (typeof window !== 'undefined') {
@@ -160,7 +160,8 @@ const Confirmation = () => {
             src={showIframe}
             width="100%"
             height="450"
-            framborder="0"></iframe>
+            framborder="0"
+          />
         )}
       </div>
 
