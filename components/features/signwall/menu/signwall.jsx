@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { PureComponent, useState } from 'react'
 import Consumer from 'fusion:consumer'
-import { WrapperMenu } from './styled'
-import { Avatar } from './_children/avatar'
+import React, { PureComponent, useState } from 'react'
+
+import Loading from '../_children/loading'
 import Cookies from '../_dependencies/cookies'
 import Domains from '../_dependencies/domains'
 import GetProfile from '../_dependencies/get-profile'
 import Taggeo from '../_dependencies/taggeo'
-import Loading from '../_children/loading'
+import { Avatar } from './_children/avatar'
+import { WrapperMenu } from './styled'
 
 const Menu = ({
   arcSite,
@@ -42,7 +43,6 @@ const Menu = ({
 
       const isSubs =
         window.location.pathname.indexOf('suscripciones') >= 0 || false
-      window.localStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
       window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
       window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
       window.Identity.logout()

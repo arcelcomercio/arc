@@ -1,29 +1,29 @@
-import * as React from 'react'
 import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
-import { AuthContext, AuthProvider } from '../_context/auth'
-import useRoute from '../_hooks/useRoute'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
-import { FooterLand, FooterSubs } from '../_layouts/footer'
-import { clearUrlAPI } from '../_dependencies/Utils'
-import HeaderSubs from '../_layouts/header'
-import Summary from './_children/Summary'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
+import { AuthContext, AuthProvider } from '../_context/auth'
 import addScriptAsync from '../_dependencies/Async'
-import stylesPayment from '../_styles/Payment'
-import scriptsPayment from '../_scripts/Payment'
+import { PropertiesCommon,PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
-import Loading from '../_layouts/loading'
+import { clearUrlAPI } from '../_dependencies/Utils'
+import useRoute from '../_hooks/useRoute'
 import {
   Container,
-  Wrapper,
   PanelLeft,
   PanelRight,
+  Wrapper,
 } from '../_layouts/containers'
+import { FooterLand, FooterSubs } from '../_layouts/footer'
+import HeaderSubs from '../_layouts/header'
+import Loading from '../_layouts/loading'
+import scriptsPayment from '../_scripts/Payment'
+import stylesPayment from '../_styles/Payment'
 import PaymentSteps from './_children/Steps'
+import Summary from './_children/Summary'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {
@@ -39,6 +39,7 @@ const WrapperPaymentSubs = () => {
     userProfile,
     userLoading,
     updateLoading,
+    updateStep,
   } = React.useContext(AuthContext)
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -47,11 +48,15 @@ const WrapperPaymentSubs = () => {
     import(/* webpackChunkName: 'Confirmation' */ './_children/Confirmation')
   )
 
+  React.useEffect(() => {
+    if (!userLoaded) {
+      updateStep(1)
+    }
+  })
+
   useRoute(event)
 
   React.useEffect(() => {
-    window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
-
     Sentry.init({
       dsn: urlCommon.dsnSentry,
       debug: env !== PROD,
@@ -59,7 +64,7 @@ const WrapperPaymentSubs = () => {
       environment: env,
     })
 
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('brand', arcSite)
     })
 
@@ -76,7 +81,7 @@ const WrapperPaymentSubs = () => {
           })
         })
       })
-      .catch(errIdentitySDK => {
+      .catch((errIdentitySDK) => {
         Sentry.captureEvent({
           message: 'SDK Identity no ha cargado correctamente',
           level: 'error',
@@ -92,7 +97,6 @@ const WrapperPaymentSubs = () => {
       window.sessionStorage.setItem('paywall_type_modal', 'mailing')
 
     clearUrlAPI(urls.landingUrl)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
