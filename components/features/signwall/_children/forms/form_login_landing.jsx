@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import { sha256 } from 'js-sha256'
+import sha256 from 'crypto-js/sha256'
 import * as S from './styles'
 import { ButtonSocial, AuthURL } from './control_social'
 import { ModalConsumer } from '../context'
@@ -46,7 +46,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     lemail: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
             value
           ),
@@ -56,13 +56,13 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     lpass: {
       required: true,
       validator: {
-        func: value => value.length >= 8,
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
     },
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     const { lemail, lpass } = state
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
@@ -76,7 +76,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     })
       .then(() => {
         window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-        window.Identity.getUserProfile().then(profile => {
+        window.Identity.getUserProfile().then((profile) => {
           if (!profile.emailVerified && profile.displayName === profile.email) {
             setShowError(getCodeError('130051'))
             setShowVerify(true)
@@ -104,7 +104,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
           }
         })
       })
-      .catch(errLogin => {
+      .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))
         setShowVerify(errLogin.code === '130051')
         onLoggedFail(errLogin) // para hendrul
@@ -172,7 +172,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <>
           {(!isLogged() || showVerify) && (
             <S.Form onSubmit={handleOnSubmit}>
@@ -195,7 +195,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 />
               ) : (
                 <>
-                  {authProviders.map(item => (
+                  {authProviders.map((item) => (
                     <ButtonSocial
                       brand={item}
                       size={sizeBtnSocial}
@@ -254,7 +254,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 clase="mb-10"
                 required
                 value={lemail}
-                onChange={e => {
+                onChange={(e) => {
                   handleOnChange(e)
                   setShowError(false)
                   setShowVerify(false)
@@ -269,7 +269,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 placeholder="Contraseña"
                 required
                 value={lpass}
-                onChange={e => {
+                onChange={(e) => {
                   handleOnChange(e)
                   setShowError(false)
                   setShowVerify(false)
@@ -280,7 +280,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
               <S.Link
                 c="light"
                 className="mt-10 mb-20 inline f-right text-sm"
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault()
                   Taggeo(
                     `Web_Sign_Wall_${typeDialog}`,
@@ -301,7 +301,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                   c={mainColorLink}
                   fw="bold"
                   className="ml-10"
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault()
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
