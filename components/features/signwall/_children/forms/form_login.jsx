@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import { sha256 } from 'js-sha256'
+import sha256 from 'crypto-js/sha256'
 import * as S from './styles'
 import { ButtonSocial, ButtonEmail, AuthURL } from './control_social'
 import { MsgRegister } from '../iconos'
@@ -34,8 +34,8 @@ export const FormLogin = ({ valTemplate, attributes }) => {
       activeVerifyEmail = false,
       activePaywall,
     },
-    removeBefore = i => i,
-    onLogged = i => i,
+    removeBefore = (i) => i,
+    onLogged = (i) => i,
   } = attributes
 
   const [showLoginEmail, setShowLoginEmail] = useState(valTemplate)
@@ -57,7 +57,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     lemail: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
             value
           ),
@@ -67,7 +67,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     lpass: {
       required: true,
       validator: {
-        func: value => value.length >= 8,
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
     },
@@ -88,21 +88,21 @@ export const FormLogin = ({ valTemplate, attributes }) => {
   }
 
   const getListSubs = () => {
-    return window.Identity.extendSession().then(resExt => {
+    return window.Identity.extendSession().then((resExt) => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
       )
-        .then(res => {
+        .then((res) => {
           if (res.skus) {
-            const result = Object.keys(res.skus).map(key => {
+            const result = Object.keys(res.skus).map((key) => {
               return res.skus[key].sku
             })
             return result
           }
           return []
         })
-        .catch(err => window.console.error(err))
+        .catch((err) => window.console.error(err))
 
       return checkEntitlement
     })
@@ -134,7 +134,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
 
-      getListSubs().then(p => {
+      getListSubs().then((p) => {
         if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
@@ -151,7 +151,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     }
   }
 
-  const handleGetProfile = profile => {
+  const handleGetProfile = (profile) => {
     setShowLoading(true)
 
     Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
@@ -162,7 +162,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
 
-      getListSubs().then(p => {
+      getListSubs().then((p) => {
         if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
@@ -179,8 +179,9 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName ||
-          'Bienvenido'} ${profile.lastName || ''}`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
+          profile.lastName || ''
+        }`
       }
       onClose()
     }
@@ -194,7 +195,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     return null
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     const { lemail, lpass } = state
     setShowLoading(true)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
@@ -204,7 +205,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     })
       .then(() => {
         window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-        window.Identity.getUserProfile().then(resProfile => {
+        window.Identity.getUserProfile().then((resProfile) => {
           if (
             activeVerifyEmail &&
             !resProfile.emailVerified &&
@@ -229,7 +230,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
           }
         })
       })
-      .catch(errLogin => {
+      .catch((errLogin) => {
         setShowLoading(false)
         setShowError(getCodeError(errLogin.code))
         setShowVerify(errLogin.code === '130051')
@@ -244,7 +245,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
       })
   }
 
-  const checkFormat = e => {
+  const checkFormat = (e) => {
     if (e.target.value.indexOf(' ') >= 0) {
       setShowFormatInvalid('No se permite espacios')
     } else {
@@ -288,7 +289,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <>
           {!showCheckPremium ? (
             <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
@@ -306,7 +307,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                 Ingresa con
               </S.Text>
 
-              {authProviders.map(item => (
+              {authProviders.map((item) => (
                 <ButtonSocial
                   brand={item}
                   size="middle"
@@ -375,7 +376,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                     placeholder="Correo electrónico"
                     required
                     value={lemail}
-                    onChange={e => {
+                    onChange={(e) => {
                       handleOnChange(e)
                       setShowError(false)
                     }}
@@ -389,7 +390,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                     placeholder="Contraseña"
                     required
                     value={lpass}
-                    onChange={e => {
+                    onChange={(e) => {
                       handleOnChange(e)
                       setShowError(false)
                       checkFormat(e)
@@ -401,7 +402,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                     href="#"
                     c="gray"
                     className="mt-10 mb-20 inline f-right text-sm"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault()
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
@@ -434,7 +435,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                   c={mainColorLink}
                   fw="bold"
                   className="ml-10"
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault()
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
@@ -462,8 +463,9 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                   </div>
 
                   <S.Title s="22" className="center mb-10">
-                    {`Bienvenido(a) ${window.Identity.userProfile.firstName ||
-                      'Usuario'} `}
+                    {`Bienvenido(a) ${
+                      window.Identity.userProfile.firstName || 'Usuario'
+                    } `}
                   </S.Title>
                   <S.Text
                     c="gray"
