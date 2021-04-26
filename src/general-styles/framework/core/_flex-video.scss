@@ -1,0 +1,33 @@
+/** ----------------------------*
+*       justify-content         */
+
+$map-flex-justify: (
+  start: flex-start,
+  center: center,
+  end: flex-end,
+  between: space-between,
+  evenly: space-evenly,
+  around: space-around,
+);
+
+@each $flex-justify, $flex-justify-value in $map-flex-justify {
+  @include build-class(
+    justify-#{$flex-justify},
+    justify-content,
+    $flex-justify-value
+  );
+}
+
+/** ----------------------------*
+*           align-items         *
+*-------------------------------*/
+
+$map-flex-align: (
+  start: flex-start,
+  center: center,
+  end: flex-end,
+);
+
+@each $flex-align, $flex-align-value in $map-flex-align {
+  @include build-class(items-#{$flex-align}, align-items, $flex-align-value);
+}
