@@ -300,3 +300,18 @@
     display: none;
   }
 }
+.nav-mujer{
+  &__item-desk{
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+  &__item-mob{
+    display: block;
+    align-self: center;
+    @media (--desktop) {
+      display: none;
+    }
+  }
+}
