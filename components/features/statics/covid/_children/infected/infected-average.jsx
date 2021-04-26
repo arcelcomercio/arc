@@ -74,7 +74,7 @@ const StaticsCovidInfectedAverage = ({ region, distrito }) => {
     date: ultimaFecha,
     maxValue,
     embedChart,
-    closeUrl: `/covid-19/contagiados/${region}`,
+    closeUrl: `/covid-19/contagiados/${region}/`,
   }
 
   return <CovidChildGraph {...params} />
