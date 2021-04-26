@@ -1,13 +1,13 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import customFields from './_dependencies/custom-fields'
 import {
-  createScript,
   appendToBody,
   appendToId,
+  createScript,
 } from '../../../utilities/client/nodes'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   htmlContainer: 'htmlContainer overflow-x-auto overflow-y-hidden',
@@ -22,19 +22,16 @@ const storyVideoPlayerId = (content = '') => {
   return content.match(pattern) || []
 }
 
-const isDaznServicePlayer = content =>
+const isDaznServicePlayer = (content) =>
   content.includes('player.daznservices.com/') ||
   content.includes('player.performgroup.com/')
 
 const clearUrlOrCode = (url = '') => {
-  const clearUrl = url
-    .trim()
-    .replace('"', '')
-    .replace('"', '')
+  const clearUrl = url.trim().replace('"', '').replace('"', '')
   return { clearUrl, code: clearUrl.split('#')[1] }
 }
 
-const BasicHtmlFeat = props => {
+const BasicHtmlFeat = (props) => {
   const {
     customFields: { freeHtml = '', adsSpace, adsBorder = '' } = {},
   } = props
@@ -81,9 +78,8 @@ const BasicHtmlFeat = props => {
         isDaznServicePlayer(freeHtml) && freeHtml.includes('id') && idVideo[2]
           ? `id_video_embed_${ID_VIDEO}`
           : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
-      const myList = document.getElementById(idElement)
       appendToId(
-        myList,
+        idElement,
         createScript({
           src: freeHtml.includes('id')
             ? URL_VIDEO
@@ -110,7 +106,7 @@ const BasicHtmlFeat = props => {
   }, [URL_VIDEO, ID_VIDEO, freeHtml])
 
   const getAdsSpace = () => {
-    const toDate = dateStr => {
+    const toDate = (dateStr) => {
       const [date, time] = dateStr.split(' ')
       const [day, month, year] = date.split('/')
       return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
