@@ -47,20 +47,17 @@ export type PromoItemType =
   | 'basic_html'
   | 'basic'
   | 'basic_gallery'
-
 interface ContentElementAdditionalProperties {
   comments: any[]
   inline_comments: any[]
   _id: number
 }
-
 export interface ContentElement {
   _id: string
   type: ContentElementType
   additional_properties: ContentElementAdditionalProperties
   content: string
 }
-
 export interface Headlines {
   basic: string
   mobile: string
@@ -70,33 +67,27 @@ export interface Headlines {
   web: string
   meta_title: string
 }
-
 interface Owner {
   sponsored: boolean
   id: string
 }
-
 export interface ContentRestrictions {
   content_code: ContentCode
 }
-
 interface Workflow {
   status_code: number
   note: string
 }
-
 interface Source {
   system: string
   name: string
   source_type: string
 }
-
 export interface LabelElement {
   url: string
   text: string
   display: boolean
 }
-
 export interface Label {
   contenido: LabelElement
   facebook_ia: LabelElement
@@ -105,13 +96,11 @@ export interface Label {
   nucleo: LabelElement
   trustproject: LabelElement
 }
-
 export interface Tag {
   text: string
   description: string
   slug: string
 }
-
 interface SectionAdditionalProperties {
   original: {
     _id: string
@@ -130,7 +119,6 @@ interface SectionAdditionalProperties {
     }
   }
 }
-
 export interface Section {
   _id: string
   _website: ArcSite
@@ -145,34 +133,29 @@ export interface Section {
   additional_properties: SectionAdditionalProperties
   _website_section_id: string
 }
-
 export interface Taxonomy {
   tags?: Tag[]
   sections?: Section[]
   seo_keywords?: string[]
   primary_section: Section
 }
-
 interface Reference {
   type: 'reference'
   referent: {
     id: string
   }
 }
-
 export interface RelatedContent {
   basic: any[]
   redirect: any[]
   clonedFromParent: Reference[]
   clonedChildren: any[]
 }
-
 interface Distributor {
   name: string
   category: string
   subcategory: string
 }
-
 interface Planning {
   scheduling: {
     will_have_image: boolean
@@ -186,12 +169,10 @@ interface Planning {
     inch_count_actual: number
   }
 }
-
 export interface SocialLink {
   site: string
   url: string
 }
-
 export interface AuthorAdditionalProperties {
   original: {
     _id: string
@@ -217,7 +198,6 @@ export interface AuthorAdditionalProperties {
     role: string
   }
 }
-
 export interface Author {
   _id: string
   type: string
@@ -234,23 +214,121 @@ export interface Author {
   social_links: SocialLink[]
   additional_properties: AuthorAdditionalProperties
 }
-
 export interface Credits {
   by: Author[]
 }
 
-export interface Websites {
-  [website: string]: {
+export type Websites = {
+  [key in ArcSite]?: {
     website_section: Section
     website_url: string
   }
 }
-
 interface AdditionalProperties {
   clipboard: AnyObject
   has_published_copy: boolean
   is_published: boolean
   publish_date: string
+}
+
+interface ResizedUrls {
+  landscape_s: string
+  landscape_xs: string
+  portrait_md: string
+}
+
+interface Config {
+  date: number
+  duration: string
+  has_ads: number
+  size: string
+  description: string
+  thumbnail_url: string
+  title: string
+  updated: number
+  account: string
+  key: string
+  status: string
+  resized_urls: ResizedUrls
+}
+
+interface Embed {
+  id: string
+  config: Config
+  url: string
+}
+
+export interface GalleryContentElement {
+  caption: string
+  taxonomy?: Taxonomy
+  type: string
+  version: string
+  url: string
+  licensable: boolean
+  credits?: Credits
+  subtitle: string
+  width: number
+  _id: string
+  additional_properties: AdditionalProperties
+  height: number
+  image_type?: string
+  copyright?: string
+  creditIPTC?: string
+  status?: string
+  created?: string
+  created_date?: string
+  last_updated_date?: string
+}
+
+interface BasicJwplayer {
+  subtype: string
+  embed: Embed
+  type: string
+}
+
+export interface BasicVideo {
+  _id: string
+  additional_properties: AdditionalProperties
+  duration: number
+  embed_html: string
+  headlines: Headlines
+  promo_items: PromoItems
+  publish_date: string
+  type: string
+}
+
+interface BasicGallery {
+  content_elements: GalleryContentElement[]
+  taxonomy: Taxonomy
+  canonical_url: string
+  promo_items: PromoItems
+  type: string
+  version: string
+  canonical_website: string
+  display_date: string
+  credits: Credits
+  headlines: Headlines
+  first_publish_date: string
+  websites: Websites
+  _id: string
+  additional_properties: AdditionalProperties
+  created_date: string
+  last_updated_date: string
+  publish_date: string
+}
+
+interface Basic {
+  width: number
+  resized_urls: ResizedUrls
+  url: string
+  type: string
+  height: number
+}
+interface PromoItems {
+  basic?: Basic
+  basic_jwplayer?: BasicJwplayer
+  basic_gallery?: BasicGallery
+  basic_video?: BasicVideo
 }
 
 export interface Story {
@@ -273,7 +351,7 @@ export interface Story {
   label: Label
   taxonomy: Taxonomy
   related_content: RelatedContent
-  promo_items: AnyObject
+  promo_items: PromoItems
   distributor: Distributor
   canonical_website: ArcSite
   geo: AnyObject
@@ -287,4 +365,17 @@ export interface Story {
   publish_date: string
   website: ArcSite
   website_url: string
+}
+
+export interface Stories {
+  type: string
+  version: string
+  content_elements: Story[]
+  additional_properties: AdditionalProperties
+  count: number
+  next: number
+  siteName: string
+  tag_name: string
+  page_number: number
+  _id: string
 }

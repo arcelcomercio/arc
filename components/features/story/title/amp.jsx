@@ -1,22 +1,18 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import React from 'react'
 
-import StorySocialChildAmpSocial from '../social/_children/amp-social'
-import StoryData from '../../../utilities/story-data'
-import { storyTagsBbc } from '../../../utilities/tags'
 import { getAssetsPath } from '../../../utilities/assets'
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 import {
   publicidadAmp,
   publicidadAmpCaja1,
 } from '../../../utilities/story/helpers-amp'
-import {
-  SITE_ELCOMERCIOMAG,
-  SITE_OJO,
-  SITE_PERU21,
-  SITE_TROME,
-} from '../../../utilities/constants/sitenames'
-import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
+import StoryData from '../../../utilities/story-data'
+import { storyTagsBbc } from '../../../utilities/tags'
+import StorySocialChildAmpSocial from '../social/_children/amp-social'
+import AmpStoriesChild from './_children/amp-stories'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
@@ -66,13 +62,6 @@ const StoryTitleAmp = () => {
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
   }
 
-  // const ojoParamsIframe = {
-  //   height: '150',
-  //   layout: 'fixed-height',
-  //   sandbox: 'allow-scripts allow-popups allow-same-origin allow-top-navigation',
-  //   src: 'https://stories.peru21.pe/spc/load/ZECO_453_877_194/188/amp/stories-amp'
-  // }
-
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
   const imgBbc =
     `${getAssetsPath(
@@ -101,48 +90,8 @@ const StoryTitleAmp = () => {
               </a>
             </div>
           )}
-          {/* SCRIPT AMP */}
-          {arcSite === SITE_OJO && (
-            <amp-iframe
-              height="150"
-              layout="fixed-height"
-              sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
-              src="https://stories.ojo.pe/spc/load/ZECO_453_877_194/200/amp/stories-amp"
-              noloading="">
-              <amp-img
-                layout="fill"
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                placeholder></amp-img>
-            </amp-iframe>
-          )}
 
-          {arcSite === SITE_PERU21 && (
-            <amp-iframe
-              height="150"
-              layout="fixed-height"
-              sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
-              src="https://stories.peru21.pe/spc/load/ZECO_453_877_194/188/amp/stories-amp"
-              noloading="">
-              <amp-img
-                layout="fill"
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                placeholder></amp-img>
-            </amp-iframe>
-          )}
-
-          {arcSite === SITE_TROME && (
-            <amp-iframe
-              height="150"
-              layout="fixed-height"
-              sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
-              src="https://stories.trome.pe/spc/load/ZECO_453_877_194/132/amp/stories-amp"
-              noloading="">
-              <amp-img
-                layout="fill"
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                placeholder></amp-img>
-            </amp-iframe>
-          )}
+          <AmpStoriesChild arcSite={arcSite} />
 
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
         </header>
