@@ -49,7 +49,7 @@ export default ({
     image = authorImage
   }
   const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
-  if (arcSite === SITE_ELCOMERCIO && isSaltarIntro) {
+  if (arcSite === SITE_ELCOMERCIO && isSaltarIntro && !story) {
     image = `${getAssetsPath(
       arcSite,
       contextPath

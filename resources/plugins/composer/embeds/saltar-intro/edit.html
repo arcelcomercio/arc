@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Saltar Intro - DATOS</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <strong>Saltar Intro - DATOS</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+    <main role="main">
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <!-- Edit Form -->
+          <div class="row" id="config_edit">
+            <div class="col-md-12 p-3 text-center">
+              <!--<button type="button" class="btn btn-primary" id="btn_apply">
+                Aceptar
+              </button>-->
+              <button type="button" class="btn btn-light mx-1" id="btn_cancel">
+                Cerrar
+              </button>
+            </div>
+          </div>
+          <section class="jumbotron text-center my-0 pb-3 pt-3">
+            <form onsubmit="handleSearch(); return false;" class="container">
+              <!-- Search Form -->
+              <p class="lead text-muted">
+                Datos para Saltar Intro
+              </p>
+              <div class="row" id="content_holder">
+                <div class="col-md-12 p-3 text-center">
+                  Cargando información...
+                </div>
+              </div>
+              <div class="container text-center">
+                <input class="btn btn-primary w-50" type="button" name="save-data" value="Guardar datos" onclick="handleSave(this.form)" />
+              </div>
+            </form>
+          </section>
+      </div>
+    </main>
+
+    <footer  class="navbar navbar-dark bg-dark box-shadow">
+      <div class="container text-center d-block">
+          <a href="#">Hecho con <img src="https://d13xymm0hzzbsd.cloudfront.net/1/20200908/15996022549905.svg"> por GEC</a>
+      </div>
+    </footer>
+
+    <template id="content_template">
+      <label class="w-50" for="title">Título:
+        <input class="w-50" type="textfield" id="title" name="title" value="%title%" />
+      </label>
+      <label class="w-50" for="score">Puntaje:
+        <input class="w-50" onkeydown=" return onlyNumber(event)" min="0" max="5" type="number" id="score" name="score" value="%score%" />
+      </label>
+      <label class="w-50" for="year">Año:
+        <input class="w-50" onkeydown=" return onlyNumber(event)" type="textfield" id="year" name="year" value="%year%" />
+      </label>
+      <label class="w-50" for="plataform">Plataforma:
+        <input class="w-50" type="textfield" id="plataform" name="plataform" value="%plataform%" />
+      </label>
+      %director_edit%
+      %cast_edit%
+      %genre_edit%
+      <label class="w-50" for="duration">Duración:
+        <input class="w-50" type="textfield" id="duration" name="duration"  value="%duration%" />
+      </label>
+      <label class="w-50" for="clasification">Clasificación:
+        <input class="w-50" type="textfield" id="clasification" name="clasification" value="%clasification%" />
+      </label>
+    </template>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
