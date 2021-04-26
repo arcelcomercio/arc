@@ -1,0 +1,41 @@
+.link-site {
+  content-visibility: auto;
+  contain-intrinsic-size: 512px;
+  border-top: 1px solid #888;
+  &__image {
+    object-fit: cover;
+  }
+  &__pic {
+    display: block;
+  }
+  &__header {
+    border-bottom: 2px solid #e1e1e1;
+  }
+  &__h-text {
+    color: #111;
+  }
+  &__subtitle {
+    color: #111;
+  }
+  &__site {
+    font-weight: 700;
+  }
+
+  &__title-link {
+    color: #111;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    @media (--tablet) {
+      -webkit-line-clamp: 3;
+    }
+  }
+  &__item {
+    border-bottom: 2px solid #e1e1e1;
+
+    @media (--tablet) {
+      border-bottom: 0;
+    }
+  }
+}

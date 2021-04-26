@@ -4,13 +4,13 @@
  * SVG optimizados con https://petercollingridge.appspot.com/svg-optimiser
  */
 
-import * as React from 'react'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
 import { env } from '../../../../../utilities/arc/env'
 import {
-  searchScript,
   menuScript,
+  searchScript,
   singwallScript,
   stickyScript,
 } from '../_dependencies/scripts'
@@ -35,6 +35,13 @@ export default (props) => {
     arcEnv: env,
     locUrl: (sectionPath.split('/')[1] || '').replace('-', ''),
   }
+
+  const scripts = [
+    activeSticky ? stickyScript : '',
+    searchScript,
+    hideMenu ? '' : menuScript,
+    disableSignwall ? '' : singwallScript(paramSignwall),
+  ]
 
   return (
     <>
@@ -141,15 +148,11 @@ export default (props) => {
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: `"use strict";${
-              activeSticky ? stickyScript : ''
-            }${searchScript}${hideMenu ? '' : menuScript}${
-              disableSignwall ? '' : singwallScript(paramSignwall)
-            }`,
+            __html: `"use strict";${scripts.join('')}`,
           }}
         />
       </header>
-      <div id="h-basic-pointer"></div>
+      <div id="h-basic-pointer" />
     </>
   )
 }

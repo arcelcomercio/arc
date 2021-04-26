@@ -1,0 +1,48 @@
+.st-continue {
+  content-visibility: auto;
+  contain-intrinsic-size: 100px;
+  &__progress-box {
+    height: 30px;
+    background-color: #f5f5f5;
+    align-items: center;
+  }
+
+  &__progress {
+    height: 100%;
+    width: 100%;
+    background-color: #cddde5;
+    transform-origin: left;
+
+    &.loading {
+      animation: loading 2s ease-in-out infinite alternate;
+    }
+  }
+
+  &__subtitle {
+    font: 700 11px/18px $primary-font;
+    color: $color-gray-300;
+    padding: 0 15px;
+  }
+
+  &__close {
+    right: 15px;
+    fill: $color-white;
+    background-color: $color-gray-300;
+    border-radius: 50%;
+  }
+
+  &__title {
+    padding: 10px 15px 60px 15px;
+    font: 400 20px/26px $secondary-font;
+    color: $color-gray-300;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(100%);
+  }
+}
