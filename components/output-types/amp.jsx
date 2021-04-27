@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { BaseMarkup,Html } from '@arc-core-components/amp-document-boilerplate'
+import { BaseMarkup, Html } from '@arc-core-components/amp-document-boilerplate'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { env,originByEnv } from '../utilities/arc/env'
-import { METERED,PREMIUM } from '../utilities/constants/content-tiers'
+import { env, originByEnv } from '../utilities/arc/env'
+import { METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
@@ -198,17 +198,15 @@ const AmpOutputType = ({
     isMetered &&
     activeRulesCounter &&
     activePaywall &&
-    ((arcSite === SITE_GESTION &&
-      /^\/(podcast|mundo|tecnologia|tendencias)\//.test(requestUri)) ||
-      (arcSite === SITE_ELCOMERCIO &&
-        /^\/(tecnologia|somos|opinion)\//.test(requestUri)))
+    arcSite === SITE_ELCOMERCIO &&
+    /^\/(tecnologia|somos|opinion)\//.test(requestUri)
 
   const hasAmpSubscriptions =
     isMetered &&
     activeRulesCounter &&
     activePaywall &&
-    ((arcSite === SITE_GESTION && /^\/(tu-dinero)\//.test(requestUri)) ||
-      (arcSite === SITE_ELCOMERCIO && /^\/(tu-dinero)\//.test(requestUri)))
+    arcSite === SITE_ELCOMERCIO &&
+    /^\/(tu-dinero)\//.test(requestUri)
 
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
