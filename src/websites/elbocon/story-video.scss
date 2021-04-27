@@ -6,7 +6,7 @@
 @import "./scss/variables/index";
 @import "../../general-styles/framework/core/index";
 @import "./scss/partials/import-fonts";
-@import "../../general-styles/framework/generators/index";
+//@import "../../general-styles/framework/generators/index";
 @import "./scss/partials/base";
 
 /* --- STORY VARIABLES --------------------------------------------------
@@ -23,13 +23,13 @@
 /* --- FEATURES ---------------------------------------------------------
   Estilos de features desde el core
 ------------------------------------------------------------------------- */
-@import "../../general-styles/components/features/layout/navbar/nav";
+//@import "../../general-styles/components/features/layout/navbar/nav";
 @import "../../general-styles/components/features/layout/navbar/nav-sidebar";
 @import "../../general-styles/components/features/layout/header/header";
 @import "../../general-styles/components/features/basic-html/basic-html";
 @import "../../general-styles/components/features/video/section/video-navbar";
 @import "../../general-styles/components/features/video/section/section-video";
-@import "../../general-styles/components/features/video/section/play-list";
+//@import "../../general-styles/components/features/video/section/play-list";
 @import "../../general-styles/components/features/video/list/video-list";
 @import "../../general-styles/components/features/layout/footer/footer";
 
@@ -39,9 +39,12 @@
 // @import "./scss/global-components/buttons";
 
 @import "./scss/components/layout/navbar/nav";
-@import "./scss/components/layout/header/header";
-@import "./scss/components/section/section";
+//@import "./scss/components/layout/header/header";
+//@import "./scss/components/section/section";
 @import "./scss/components/video/play-list";
 @import "./scss/components/video/section-video";
 @import "./scss/components/video/video-list";
 @import "./scss/components/layout/footer/footer";
+.nav__input-search {
+  padding-right: 40px;
+}

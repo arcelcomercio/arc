@@ -321,7 +321,10 @@ export default ({
   const iscriptJwplayer = jwplayerSeo || isVideosSection
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
-  const isFooterFinal = arcSite === 'elcomercio' && style === 'story-video' // isStyleBasic || (style === 'story' && true)
+  const isFooterFinal =
+    (arcSite === 'elcomercio' || arcSite === SITE_ELBOCON) &&
+    style === 'story-video' // isStyleBasic || (style === 'story' && true)
+
   const isFonts = isTrivia || isCovid
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
