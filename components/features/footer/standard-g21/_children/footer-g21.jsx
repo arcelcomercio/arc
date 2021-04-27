@@ -45,6 +45,8 @@ const FooterChildStandardG21 = props => {
     logoUrl,
     sections,
     arcSite,
+    customLogoTitle = 'Ir a la portada',
+    customLogoLink = '/',
   } = props
 
   return (
@@ -52,13 +54,13 @@ const FooterChildStandardG21 = props => {
       <div className={classes.info}>
         <a
           itemProp="url"
-          href="/"
+          href={customLogoLink}
           className={classes.logoContainer}
-          title="Ir a la portada">
+          title={customLogoTitle}>
           <img
             className={classes.logoImg}
             src={logoUrl}
-            alt={`Logo de ${arcSite}`}
+            alt={customLogoTitle}
           />
         </a>
         <ul className={classes.legalList}>

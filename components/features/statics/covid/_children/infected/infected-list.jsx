@@ -57,7 +57,7 @@ const StaticsCovidInfectedList = ({region}) => {
       if(dist.estado === "(+)") infClass = classes.itemUp
       if(dist.estado === "(-)") infClass = classes.itemDown
 
-      const link = `/covid-19/contagiados/${region}/${dist.slug}`
+      const link = `/covid-19/contagiados/${region}/${dist.slug}/`
       
       return <li className={infClass}><a href={link} alt={dist.nombre} title={dist.nombre}>{dist.nombre}</a></li>
     })

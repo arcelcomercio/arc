@@ -1,7 +1,10 @@
 import React from 'react'
 import StoryData from '../../utilities/story-data'
 import { deleteQueryString } from '../../utilities/parse/queries'
-import { SITE_DIARIOCORREO } from '../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+} from '../../utilities/constants/sitenames'
 import { createResizedParams } from '../../utilities/resizer/resizer'
 import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 import { getResultJwplayer } from '../../utilities/story/helpers'
@@ -52,6 +55,14 @@ export default ({
   if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage
   }
+  const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
+  if (arcSite === SITE_ELCOMERCIO && isSaltarIntro && !story) {
+    image = `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/logo_saltar-intro.jpg?d=1`
+  }
+
   const urlVideo = getAssetsPathVideo(arcSite, url)
   const ulrJwplayer = getResultJwplayer(conversions)
   return (
