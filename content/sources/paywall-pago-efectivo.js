@@ -1,8 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import request from 'request-promise-native'
 import sha256 from 'crypto-js/sha256'
+import request from 'request-promise-native'
 
 import { PropertiesCommon } from '../../components/features/subscriptions/_dependencies/Properties'
+
 const { urls: urlCommon, tokens } = PropertiesCommon
 
 const {
@@ -13,14 +14,14 @@ const {
 
 const nowDate = new Date()
 const getUtcDate = new Date(
-  nowDate.toLocaleString('es-PE', { timeZone: 'America/Lima' })
+  nowDate.getTime() - nowDate.getTimezoneOffset() * 60000
 ).toISOString()
+
 const dateCurrent = getUtcDate.split('.')[0]
 const parameters = `${idService}.${accessKey}.${secretKey}.${dateCurrent}-05:00`
 const hashPayEfectivo = sha256(parameters)
 
-const fetch = () => {
-  return request({
+const fetch = () => request({
     method: 'POST',
     uri: urlCommon.tokenPayEfectivo,
     body: {
@@ -31,6 +32,5 @@ const fetch = () => {
     },
     json: true,
   })
-}
 
 export default { fetch }
