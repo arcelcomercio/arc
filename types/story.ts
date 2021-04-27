@@ -1,6 +1,7 @@
 import type { ArcSite } from 'fusion:context'
 
-import { AnyObject } from './utils'
+import type { ResizedUrls } from '../components/utilities/resizer/format-presets'
+import type { AnyObject } from './utils'
 
 export type StoryType = 'story' | 'video' | 'gallery'
 export type ContentElementType =
@@ -40,27 +41,38 @@ export type Subtype =
   | 'video_jwplayer'
   | 'video_jwplayer_matching'
   | 'parallax'
-export type PromoItemType =
-  | 'basic_video'
-  | 'basic_jwplayer'
-  | 'youtube_id'
-  | 'basic_html'
-  | 'basic'
-  | 'basic_gallery'
+export type PromoItemType = keyof PromoItems
+
+interface ANSBase {
+  _id: string
+  version: string
+}
+interface ANSDates {
+  created_date: string
+  last_updated_date: string
+  publish_date: string
+  first_publish_date: string
+  display_date: string
+}
+
+interface AdditionalPropertiesBase {
+  owner: string
+  published: boolean
+  restricted: boolean
+  version: number
+}
 
 interface ContentElementAdditionalProperties {
   comments: any[]
   inline_comments: any[]
   _id: number
 }
-
 export interface ContentElement {
   _id: string
   type: ContentElementType
   additional_properties: ContentElementAdditionalProperties
   content: string
 }
-
 export interface Headlines {
   basic: string
   mobile: string
@@ -70,33 +82,27 @@ export interface Headlines {
   web: string
   meta_title: string
 }
-
 interface Owner {
   sponsored: boolean
   id: string
 }
-
 export interface ContentRestrictions {
   content_code: ContentCode
 }
-
 interface Workflow {
   status_code: number
-  note: string
+  note?: string
 }
-
 interface Source {
   system: string
   name: string
   source_type: string
 }
-
 export interface LabelElement {
   url: string
   text: string
   display: boolean
 }
-
 export interface Label {
   contenido: LabelElement
   facebook_ia: LabelElement
@@ -105,13 +111,11 @@ export interface Label {
   nucleo: LabelElement
   trustproject: LabelElement
 }
-
 export interface Tag {
   text: string
   description: string
   slug: string
 }
-
 interface SectionAdditionalProperties {
   original: {
     _id: string
@@ -130,12 +134,9 @@ interface SectionAdditionalProperties {
     }
   }
 }
-
-export interface Section {
-  _id: string
+export interface Section extends ANSBase {
   _website: ArcSite
   type: string
-  version: string
   name: string
   path: string
   parent_id: string
@@ -145,34 +146,31 @@ export interface Section {
   additional_properties: SectionAdditionalProperties
   _website_section_id: string
 }
-
 export interface Taxonomy {
   tags?: Tag[]
   sections?: Section[]
   seo_keywords?: string[]
   primary_section: Section
 }
-
 interface Reference {
   type: 'reference'
   referent: {
     id: string
+    type?: string
+    website?: ArcSite
   }
 }
-
 export interface RelatedContent {
   basic: any[]
   redirect: any[]
   clonedFromParent: Reference[]
   clonedChildren: any[]
 }
-
 interface Distributor {
   name: string
   category: string
   subcategory: string
 }
-
 interface Planning {
   scheduling: {
     will_have_image: boolean
@@ -186,12 +184,10 @@ interface Planning {
     inch_count_actual: number
   }
 }
-
 export interface SocialLink {
   site: string
   url: string
 }
-
 export interface AuthorAdditionalProperties {
   original: {
     _id: string
@@ -217,11 +213,8 @@ export interface AuthorAdditionalProperties {
     role: string
   }
 }
-
-export interface Author {
-  _id: string
+export interface Author extends ANSBase {
   type: string
-  version: string
   name: string
   org: string
   image: {
@@ -234,18 +227,16 @@ export interface Author {
   social_links: SocialLink[]
   additional_properties: AuthorAdditionalProperties
 }
-
 export interface Credits {
   by: Author[]
 }
 
-export interface Websites {
-  [website: string]: {
+export type Websites = {
+  [key in ArcSite]?: {
     website_section: Section
     website_url: string
   }
 }
-
 interface AdditionalProperties {
   clipboard: AnyObject
   has_published_copy: boolean
@@ -253,13 +244,129 @@ interface AdditionalProperties {
   publish_date: string
 }
 
-export interface Story {
+interface EmbedConfig {
+  date: number
+  duration: string
+  has_ads: number
+  size: string
+  description: string
+  thumbnail_url: string
+  title: string
+  updated: number
+  account: string
+  key: string
+  status: string
+  resized_urls: ResizedUrls
+}
+
+export interface Embed {
+  id: string
+  config: EmbedConfig
+  url: string
+}
+
+export interface BasicJwplayer {
+  subtype: 'video_jwplayer'
+  embed: Embed
+  type: 'custom_embed'
+}
+
+export interface BasicVideo {
   _id: string
+  additional_properties: AdditionalProperties
+  duration: number
+  embed_html: string
+  headlines: Pick<Headlines, 'basic'>
+  promo_items: Pick<PromoItems, 'basic'>
+  publish_date: string
+  type: string
+}
+interface GalleryContentElementsAdditionalProperties
+  extends Pick<
+    GalleryAdditionalProperties,
+    'owner' | 'published' | 'restricted' | 'version'
+  > {
+  fullSizeResizeUrl: string
+  galleries: any[]
+  galleryOrder: number
+  ingestionMethod: string
+  iptc_source: string
+  iptc_title: string
+  keywords: string[]
+  mime_type: string
+  originalName: string
+  originalUrl: string
+  proxyUrl: string
+  ptgVersion: number
+  resizeUrl: string
+  takenOn: string
+}
+
+export interface GalleryContentElement extends ANSBase {
+  caption: string
+  credits?: Credits
+  type: string
+  url: string
+  licensable: boolean
+  owner: Owner
+  subtitle: string
+  width: number
+  additional_properties: GalleryContentElementsAdditionalProperties
+  height: number
+  image_type?: string
+  copyright?: string
+  creditIPTC?: string
+  status?: string
+  created?: string
+  created_date?: string
+  last_updated_date?: string
+}
+
+interface GalleryAdditionalProperties {
+  has_published_copy: boolean
+  owner: string
+  published: boolean
+  restricted: boolean
+  version: number
+  roles: any[]
+}
+export interface BasicGallery extends ANSBase, ANSDates {
+  content_elements: GalleryContentElement[]
+  taxonomy: {
+    sections: Reference[]
+  }
+  canonical_url: string
+  promo_items: Pick<PromoItems, 'basic'>
+  type: 'gallery'
+  canonical_website: ArcSite
+  credits: Credits
+  headlines: Pick<Headlines, 'basic'>
+  description: Pick<Headlines, 'basic'>
+  owner: Owner
+  additional_properties: GalleryAdditionalProperties
+  websites: Websites
+  workflow: Workflow
+}
+
+export interface Basic {
+  width: number
+  resized_urls?: ResizedUrls
+  url: string
+  type: string
+  height: number
+}
+export interface PromoItems {
+  basic?: Basic
+  basic_jwplayer?: BasicJwplayer
+  basic_gallery?: BasicGallery
+  basic_video?: BasicVideo
+  basic_html?: AnyObject
+  youtube_id?: AnyObject
+}
+
+export interface Story extends ANSBase, ANSDates {
   type: StoryType
-  version: string
   content_elements: ContentElement[]
-  created_date: string
-  last_updated_date: string
   canonical_url: string
   headlines: Headlines
   owner: Owner
@@ -273,18 +380,26 @@ export interface Story {
   label: Label
   taxonomy: Taxonomy
   related_content: RelatedContent
-  promo_items: AnyObject
+  promo_items: PromoItems
   distributor: Distributor
   canonical_website: ArcSite
   geo: AnyObject
   planning: Planning
-  display_date: string
   credits: Credits
   subtype: Subtype
-  first_publish_date: string
   websites: Websites
   additional_properties: AdditionalProperties
-  publish_date: string
   website: ArcSite
   website_url: string
+}
+
+export interface Stories extends ANSBase {
+  type: string
+  content_elements: Story[]
+  additional_properties: AdditionalProperties
+  count: number
+  next: number
+  siteName: string
+  tag_name: string
+  page_number: number
 }
