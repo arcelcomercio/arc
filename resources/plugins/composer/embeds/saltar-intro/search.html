@@ -1,0 +1,130 @@
+<!-- https://github.com/washingtonpost/arc-custom-embed/blob/master/docs/getting-started.md -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#212529" />
+    <title>Saltar Intro - DATOS</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <strong>Saltar Intro - DATOS</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <section class="jumbotron text-center my-0 pb-3 pt-3">
+        <form class="container">
+          <!-- Search Form -->
+          <p class="lead text-muted">
+            Datos para Saltar Intro
+          </p>
+          <div class="row">
+            <label class="w-50" for="title">Título:
+              <input class="w-50" type="textfield" id="title" name="title" />
+            </label>
+            <label class="w-50" for="score">Puntaje:
+              <input class="w-50" onkeydown=" return onlyNumber(event)" min="0" max="5"  id="score" name="score" />
+            </label>
+            <label class="w-50" for="year">Año:
+              <input class="w-50" onkeydown=" return onlyNumber(event)" id="year" name="year" />
+            </label>
+            <label class="w-50" for="plataform">Plataforma:
+              <input class="w-50" type="textfield" id="plataform" name="plataform" />
+            </label>
+            <label class="w-50" for="director[0]">Director:
+              <input class="w-50" type="textfield" id="director[0]" name="director" />
+            </label>
+            <label class="w-50" for="director_url[0]">Url de director:
+              <input class="w-50" type="textfield" id="director_url[0]" name="director_url" />
+            </label>
+            <label class="w-50" for="director[1]">Director 2:
+              <input class="w-50" type="textfield" id="director[1]" name="director" />
+            </label>
+            <label class="w-50" for="director_url[1]">Url de director :
+              <input class="w-50" type="textfield" id="director_url[1]" name="director_url" />
+            </label>
+            <label class="w-50" for="cast[0]">Elenco:
+              <input class="w-50" type="textfield" id="cast[0]" name="cast" />
+            </label>
+            <label class="w-50" for="cast_url[0]">Url de elenco:
+              <input class="w-50" type="textfield" id="cast_url[0]" name="cast_url" />
+            </label>
+            <label class="w-50" for="cast[1]">Elenco 2:
+              <input class="w-50" type="textfield" id="cast[1]" name="cast" />
+            </label>
+            <label class="w-50" for="cast_url[1]">Url de elenco 2:
+              <input class="w-50" type="textfield" id="cast_url[1]" name="cast_url" />
+            </label>
+            <label class="w-50" for="cast[2]">Elenco 3:
+              <input class="w-50" type="textfield" id="cast[2]" name="cast" />
+            </label>
+            <label class="w-50" for="cast_url[2]">Url de elenco 3:
+              <input class="w-50" type="textfield" id="cast_url[2]" name="cast_url" />
+            </label>
+            <label class="w-50" for="cast[3]">Elenco 4:
+              <input class="w-50" type="textfield" id="cast[3]" name="cast" />
+            </label>
+            <label class="w-50" for="cast_url[3]">Url de elenco 4:
+              <input class="w-50" type="textfield" id="cast_url[3]" name="cast_url" />
+            </label>
+            <label class="w-50" for="cast[4]">Elenco 5:
+              <input class="w-50" type="textfield" id="cast[4]" name="cast" />
+            </label>
+            <label class="w-50" for="cast_url[4]">Url de elenco 5:
+              <input class="w-50" type="textfield" id="cast_url[4]" name="cast_url" />
+            </label>
+            <label class="w-50" for="genre[0]">Género:
+              <input class="w-50" type="textfield" id="genre[0]" name="genre" />
+            </label>
+            <label class="w-50" for="genre_url[0]">Url de género:
+              <input class="w-50" type="textfield" id="genre_url[0]" name="genre_url" />
+            </label>
+            <label class="w-50" for="genre[1]">Género 2:
+              <input class="w-50" type="textfield" id="genre[1]" name="genre" />
+            </label>
+            <label class="w-50" for="genre_url[1]">Url de género 2:
+              <input class="w-50" type="textfield" id="genre_url[1]" name="genre_url" />
+            </label>
+            <label class="w-50" for="genre[2]">Género 3:
+              <input class="w-50" type="textfield" id="genre[2]" name="genre" />
+            </label>
+            <label class="w-50" for="genre_url[2]">Url de género 3:
+              <input class="w-50" type="textfield" id="genre_url[2]" name="genre_url" />
+            </label>
+            <label class="w-50" for="duration">Duración:
+              <input class="w-50" type="textfield" id="duration" name="duration" />
+            </label>
+            <label class="w-50" for="clasification">Clasificación:
+              <input class="w-50" type="textfield" id="clasification" name="clasification" />
+            </label>
+          </div>
+          <div class="container text-center">
+            <input class="btn btn-primary w-50" type="button" name="save-data" value="Guardar datos" onclick="handleSave(this.form)" />
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer  class="navbar navbar-dark bg-dark box-shadow">
+      <div class="container text-center d-block">
+          <a href="#">Hecho con <img src="https://d13xymm0hzzbsd.cloudfront.net/1/20200908/15996022549905.svg"> por GEC</a>
+      </div>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

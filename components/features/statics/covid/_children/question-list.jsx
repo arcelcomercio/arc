@@ -1,5 +1,5 @@
-import React from 'react'
 import { useContent } from 'fusion:content'
+import React from 'react'
 
 const classes = {
   container: 'covid-question-list__container flex flex-col',
@@ -23,32 +23,32 @@ const CovidChildQuestionList = ({ path }) => {
       },
     }) || {}
 
-  const questionList = questionData => {
+  const questionList = (questionData) => {
     const dataArr = Array.from(questionData) || []
     return (
       <div className={classes.container}>
         <h2 className={classes.title}>Más Información</h2>
         <div className={classes.box}>
-          {dataArr.map(({ pregunta = '', slug = '' }) => {
-            return (
-              <a
-                href={`/covid-19/mas-informacion/${slug}`}
-                className={classes.item}>
-                <span className={classes.question}>{pregunta}</span>
-                <svg
-                  className={classes.iconRight}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="7.678"
-                  height="12.686"
-                  viewBox="0 0 7.678 12.686">
-                  <path
-                    d="M12,6.343,6.737,11.508l1.2,1.178,6.475-6.343L7.94,0l-1.2,1.178Z"
-                    transform="translate(-6.737)"
-                  />
-                </svg>
-              </a>
-            )
-          })}
+          {dataArr.map(({ pregunta = '', embed_chart = '' }) => (
+            <a
+              href={embed_chart}
+              className={classes.item}
+              target="_blank"
+              rel="noreferrer">
+              <span className={classes.question}>{pregunta}</span>
+              <svg
+                className={classes.iconRight}
+                xmlns="http://www.w3.org/2000/svg"
+                width="7.678"
+                height="12.686"
+                viewBox="0 0 7.678 12.686">
+                <path
+                  d="M12,6.343,6.737,11.508l1.2,1.178,6.475-6.343L7.94,0l-1.2,1.178Z"
+                  transform="translate(-6.737)"
+                />
+              </svg>
+            </a>
+          ))}
         </div>
         <a className={classes.btnHome} href="/covid-19/">
           Inicio
@@ -58,7 +58,7 @@ const CovidChildQuestionList = ({ path }) => {
   }
 
   const graph = (questionData, slug) => {
-    const dataSlug = questionData.filter(el => el.slug === slug)
+    const dataSlug = questionData.filter((el) => el.slug === slug)
     const { titulo: title, embed_chart: urlEmbed } =
       (dataSlug && dataSlug[0]) || {}
 
