@@ -354,6 +354,14 @@ const StoryContentsLite = props => {
                     : classes.textClasses
                   return (
                     <>
+                      {arcSite === SITE_DEPOR && (
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }}></p>
+                      )}
                       {nameAds === 'caja3' &&
                         (arcSite === SITE_ELCOMERCIOMAG ||
                           arcSite === SITE_DEPOR) &&
@@ -390,12 +398,14 @@ const StoryContentsLite = props => {
                           data-bloque="4"
                           data-prebid-enabled></div>
                       )}
-                      <p
-                        itemProp="description"
-                        className={alignmentClass}
-                        dangerouslySetInnerHTML={{
-                          __html: replaceTags(content),
-                        }}></p>
+                      {arcSite !== SITE_DEPOR && (
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }}></p>
+                      )}
                     </>
                   )
                 }
