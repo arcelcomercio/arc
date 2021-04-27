@@ -1,4 +1,4 @@
-export default function isIE() {
+export default function isIE(): boolean {
   const ua = window.navigator.userAgent
   const msie = ua.indexOf('MSIE ')
   const trident = ua.indexOf('Trident/')

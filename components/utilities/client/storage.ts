@@ -1,11 +1,11 @@
+type Storage = 'localStorage' | 'sessionStorage'
+
 /**
  * Verifica si es posible usar el almacenamiento
  * del navegador
- * @param {'localStorage'|'sessionStorage'} type
- * @returns {boolean}
+ * @param type storage que se quiere validar.
  */
-// eslint-disable-next-line import/prefer-default-export
-export const isStorageAvailable = type => {
+export const isStorageAvailable = (type: Storage): boolean => {
   try {
     const storage = window[type]
     const x = '__storage_test__'

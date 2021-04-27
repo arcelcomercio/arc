@@ -1,10 +1,11 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
+import * as React from 'react'
+
 import Home from './_children/home'
+import Infected from './_children/infected/infected'
 import QuestionList from './_children/question-list'
 import UciBeds from './_children/uci_beds/home'
-import Infected from './_children/infected/infected'
 
 /**
  * @see estilos `src/websites/elcomercio/covid.scss`
@@ -13,7 +14,7 @@ import Infected from './_children/infected/infected'
 const StaticsCovid = () => {
   const { requestUri } = useAppContext()
   const fullPath = requestUri.split('?')[0]
-  const pathArr = fullPath.split('/').filter(el => el !== '')
+  const pathArr = fullPath.split('/').filter((el) => el !== '')
   const [
     paramOne = '',
     paramTwo = '',
@@ -51,7 +52,6 @@ const StaticsCovid = () => {
   return html
 }
 
-StaticsCovid.static = true
 StaticsCovid.label = 'Covid Especial'
 
 StaticsCovid.propTypes = {
