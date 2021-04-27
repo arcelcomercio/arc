@@ -1,75 +1,73 @@
 /* eslint-disable no-nested-ternary */
-import * as React from 'react'
-import Consumer from 'fusion:consumer'
-
+import AmpImage from '@arc-core-components/element_image'
 import StoryContent, {
   AmpOembed,
   RawHtml,
   Text,
 } from '@arc-core-components/feature_article-body'
 import AMPCarousel from '@arc-core-components/feature_global-amp-gallery'
-import AmpImage from '@arc-core-components/element_image'
-import ElePrincipal from './_children/amp-ele-principal'
-import StoryContentChildVideo from './_children/amp-video'
-import StoryContentChildVideoJwplayer from './_children/amp-video-jwplayer'
-import StoryContentChildTable from '../../../global-components/story-table'
-import StoryContentChildBlockQuote from './_children/blockquote'
+import Consumer from 'fusion:consumer'
+import * as React from 'react'
+
 import StoryGoogleNews from '../../../global-components/google-news'
-import StoryContentChildTags from './_children/tags'
-import StoryContentsChildInterstitialLink from './_children/interstitial-link'
-import StoryContentsChildLinkList from './_children/link-list'
-import StoryContentsChildCorrection from './_children/correction'
-import StoryContentsChildStampTrust from './_children/stamp-trust'
-import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
-import StoryData from '../../../utilities/story-data'
-import { getDateSeo, formatDateTime } from '../../../utilities/date-time/dates'
-import { formatHtmlToText } from '../../../utilities/parse/strings'
+import StoryContentChildTable from '../../../global-components/story-table'
+import { env, originByEnv } from '../../../utilities/arc/env'
+import { getAssetsPath } from '../../../utilities/assets'
+import { METERED } from '../../../utilities/constants/content-tiers'
 import {
-  replaceTags,
-  cleanLegacyAnchor,
-  storyTagsBbc,
-} from '../../../utilities/tags'
-import { originByEnv, env } from '../../../utilities/arc/env'
-import {
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_CUSTOM_EMBED,
+  ELEMENT_GALLERY,
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
+  ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
+  ELEMENT_OEMBED,
   ELEMENT_QUOTE,
-  ELEMENT_CUSTOM_EMBED,
   ELEMENT_RAW_HTML,
   ELEMENT_TABLE,
   ELEMENT_TEXT,
   ELEMENT_VIDEO,
-  ELEMENT_GALLERY,
-  ELEMENT_OEMBED,
-  ELEMENT_BLOCKQUOTE,
-  ELEMENT_INTERSTITIAL_LINK,
-  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
-
 import {
-  SITE_ELCOMERCIO,
-  SITE_PERU21,
-  SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELBOCON,
+  SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
-  SITE_GESTION,
+  SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
-import { getAssetsPath } from '../../../utilities/assets'
 import {
-  publicidadAmp,
-  publicidadAmpAd,
-  ampHtml,
-} from '../../../utilities/story/helpers-amp'
-import { createResizedParams } from '../../../utilities/resizer/resizer'
-import {
-  STORY_CORRECTION,
-  STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  STAMP_TRUST,
+  STORY_CORRECTION,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
 } from '../../../utilities/constants/subtypes'
-import { METERED } from '../../../utilities/constants/content-tiers'
+import { formatDateTime, getDateSeo } from '../../../utilities/date-time/dates'
+import { formatHtmlToText } from '../../../utilities/parse/strings'
+import { createResizedParams } from '../../../utilities/resizer/resizer'
+import {
+  ampHtml,
+  publicidadAmp,
+  publicidadAmpAd,
+} from '../../../utilities/story/helpers-amp'
+import StoryData from '../../../utilities/story-data'
+import {
+  cleanLegacyAnchor,
+  replaceTags,
+  storyTagsBbc,
+} from '../../../utilities/tags'
+import ElePrincipal from './_children/amp-ele-principal'
+import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
+import StoryContentChildVideo from './_children/amp-video'
+import StoryContentChildVideoJwplayer from './_children/amp-video-jwplayer'
+import StoryContentChildBlockQuote from './_children/blockquote'
+import StoryContentsChildCorrection from './_children/correction'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentChildTags from './_children/tags'
 
 const classes = {
   content: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto',
@@ -198,7 +196,7 @@ class StoryContentAmp extends React.PureComponent {
         contextPath
       )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
 
-    const processedAdsAmp = content => {
+    const processedAdsAmp = (content) => {
       const res = content.split('<div class="live-event2-comment">')
       let entryHtml = ''
 
@@ -214,8 +212,10 @@ class StoryContentAmp extends React.PureComponent {
         if (i === 11) {
           publicidad = publicidadAmp(parametersCaja3)
         }
-        entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad &&
-          `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`}`
+        entryHtml = `${entryHtml} ${divContent} ${entry} ${
+          publicidad &&
+          `<div class='text-center ad-amp-movil'>${publicidad.__html} </div>`
+        }`
       })
       return entryHtml
     }
@@ -266,7 +266,7 @@ class StoryContentAmp extends React.PureComponent {
                 </p>
               ) : // Validamos si es EC
               isComercio ? (
-                authorsList.map(authorData => (
+                authorsList.map((authorData) => (
                   <p className={classes.author}>
                     <a href={authorData.urlAuthor}>{authorData.nameAuthor}</a>
                   </p>
@@ -288,10 +288,8 @@ class StoryContentAmp extends React.PureComponent {
           {isMetered &&
           activeRulesCounter &&
           activePaywall &&
-          ((arcSite === SITE_GESTION &&
-            /^\/(podcast|mundo|tecnologia|tendencias)\//.test(requestUri)) ||
-            (arcSite === SITE_ELCOMERCIO &&
-              /^\/(tecnologia|somos|opinion)\//.test(requestUri))) ? (
+          arcSite === SITE_ELCOMERCIO &&
+          /^\/(tecnologia|somos|opinion)\//.test(requestUri) ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"
@@ -308,7 +306,7 @@ class StoryContentAmp extends React.PureComponent {
             <StoryContent
               data={contentPosicionPublicidadAmp}
               elementClasses={classes}
-              renderElement={element => {
+              renderElement={(element) => {
                 const {
                   type,
                   subtype: sub,
