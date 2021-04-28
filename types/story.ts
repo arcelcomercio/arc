@@ -1,7 +1,8 @@
 import type { ArcSite } from 'fusion:context'
+import { ANSBase, ANSDates, Owner } from 'types/ans'
+import type { AnyObject } from 'types/utils'
 
 import type { ResizedUrls } from '../components/utilities/resizer/format-presets'
-import type { AnyObject } from './utils'
 
 export type StoryType = 'story' | 'video' | 'gallery'
 export type ContentElementType =
@@ -43,25 +44,6 @@ export type Subtype =
   | 'parallax'
 export type PromoItemType = keyof PromoItems
 
-interface ANSBase {
-  _id: string
-  version: string
-}
-interface ANSDates {
-  created_date: string
-  last_updated_date: string
-  publish_date: string
-  first_publish_date: string
-  display_date: string
-}
-
-interface AdditionalPropertiesBase {
-  owner: string
-  published: boolean
-  restricted: boolean
-  version: number
-}
-
 interface ContentElementAdditionalProperties {
   comments: any[]
   inline_comments: any[]
@@ -82,10 +64,7 @@ export interface Headlines {
   web: string
   meta_title: string
 }
-interface Owner {
-  sponsored: boolean
-  id: string
-}
+
 export interface ContentRestrictions {
   content_code: ContentCode
 }
@@ -256,7 +235,7 @@ interface EmbedConfig {
   account: string
   key: string
   status: string
-  resized_urls: ResizedUrls
+  resized_urls?: ResizedUrls
 }
 
 export interface Embed {
@@ -277,7 +256,7 @@ export interface BasicVideo {
   duration: number
   embed_html: string
   headlines: Pick<Headlines, 'basic'>
-  promo_items: Pick<PromoItems, 'basic'>
+  promo_items: Required<Pick<PromoItems, 'basic'>>
   publish_date: string
   type: string
 }
@@ -336,7 +315,7 @@ export interface BasicGallery extends ANSBase, ANSDates {
     sections: Reference[]
   }
   canonical_url: string
-  promo_items: Pick<PromoItems, 'basic'>
+  promo_items: Required<Pick<PromoItems, 'basic'>>
   type: 'gallery'
   canonical_website: ArcSite
   credits: Credits
