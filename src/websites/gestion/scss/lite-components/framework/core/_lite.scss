@@ -57,6 +57,14 @@
 
 // #fusion-app > div.f.just-center {   overflow: hidden;} se elimina por sticky
 
+html {
+  font-size: 15px;
+
+  @media (--tablet) {
+    font-size: 15px;
+  }
+}
+
 body {
   background: #f5e9de;
 }
