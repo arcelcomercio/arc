@@ -25,8 +25,6 @@ const FormRegister = (props) => {
     onLogged = (i) => i,
     onLoggedFail = (i) => i,
     arcSite,
-    // isFia,
-    // handleCallToAction,
     siteProperties: {
       signwall: {
         mainColorLink,
@@ -255,7 +253,6 @@ const FormRegister = (props) => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_success_registrarme`
         )
-        // handleFia()
       })
       .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))
@@ -407,6 +404,7 @@ const FormRegister = (props) => {
                           typeForm="registro"
                           activeNewsletter={activeNewsletter}
                           checkUserSubs={checkUserSubs}
+                          dataTreatment={checkedPolits ? '1' : '0'}
                         />
                       ))}
 
@@ -503,7 +501,8 @@ const FormRegister = (props) => {
                             setCheckedPolits(!checkedPolits)
                           }}>
                           <S.Text c="gray" lh="18" s="12" className="mt-10">
-                            Autorizo el uso de mis datos para
+                            Al registrarme por redes sociales o por este
+                            formulario autorizo el uso de mis datos para
                             <S.Link
                               href="/tratamiento-de-datos/"
                               target="_blank"
@@ -543,27 +542,18 @@ const FormRegister = (props) => {
                           </S.Link>
                           y
                           <S.Link
-                            href={
-                              // {
-                              //   'elcomercio': '/politicas-privacidad/',
-                              //   'gestion': '/politica-de-privacidad/',
-                              //   'peru21': '/politicas-de-privacidad/',
-                              //   'depor': '/politicas-privacidad/',
-                              //   'trome': '/politica-de-privacidad/'
-                              // }[arcSite]
-                              (() => {
-                                switch (arcSite) {
-                                  case 'elcomercio':
-                                  case 'depor':
-                                    return '/politicas-privacidad/'
-                                  case 'gestion':
-                                  case 'trome':
-                                    return '/politica-de-privacidad/'
-                                  default:
-                                    return '/politicas-de-privacidad/'
-                                }
-                              })()
-                            }
+                            href={(() => {
+                              switch (arcSite) {
+                                case 'elcomercio':
+                                case 'depor':
+                                  return '/politicas-privacidad/'
+                                case 'gestion':
+                                case 'trome':
+                                  return '/politica-de-privacidad/'
+                                default:
+                                  return '/politicas-de-privacidad/'
+                              }
+                            })()}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"

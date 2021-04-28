@@ -153,7 +153,8 @@ const setupUserProfile = (
   typeForm,
   onLogged,
   checkUserSubs,
-  onStudents
+  onStudents,
+  dataTreatment
 ) => {
   window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
   window.Identity.getUserProfile()
@@ -204,7 +205,11 @@ const setupUserProfile = (
             },
             {
               name: 'dataTreatment',
-              value: 'NULL',
+              value:
+                dataTreatment &&
+                (arcSite === 'elcomercio' || arcSite === 'gestion')
+                  ? dataTreatment
+                  : 'NULL',
               type: 'String',
             },
           ],
@@ -341,6 +346,7 @@ export const ButtonSocial = ({
   activeNewsletter,
   checkUserSubs,
   showMsgVerify,
+  dataTreatment,
 }) => {
   const [showTextLoad, setShowTextLoad] = useState('')
 
@@ -409,7 +415,8 @@ export const ButtonSocial = ({
           typeForm,
           onLogged,
           checkUserSubs,
-          onStudents
+          onStudents,
+          dataTreatment
         )
       } else {
         taggeoError(data.providerSource)

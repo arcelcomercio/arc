@@ -33,6 +33,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   const [showVerify, setShowVerify] = React.useState()
   const [showHidePass, setShowHidePass] = React.useState('password')
   const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
   const { texts } = PropertiesCommon
 
   const stateSchema = {
@@ -136,6 +137,32 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
     }, 1000)
   }
 
+  const dataTreatment = () => {
+    if (typeof window !== 'undefined') {
+      window.open('/tratamiento-de-datos/', '_blank')
+    }
+  }
+
+  const openPoliticas = () => {
+    if (typeof window !== 'undefined') {
+      window.open(
+        (() => {
+          switch (arcSite) {
+            case 'elcomercio':
+            case 'depor':
+              return '/politicas-privacidad/'
+            case 'gestion':
+            case 'trome':
+              return '/politica-de-privacidad/'
+            default:
+              return '/politicas-de-privacidad/'
+          }
+        })(),
+        '_blank'
+      )
+    }
+  }
+
   const triggerShowVerify = () => {
     setMsgError(getCodeError('verifySocial'))
     setShowVerify(false)
@@ -155,6 +182,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               arcSite={arcSite}
               arcType="login"
               showMsgVerify={() => triggerShowVerify()}
+              dataTreatment={checkedPolits ? '1' : '0'}
             />
             {!isFbBrowser() && (
               <ButtonSocial
@@ -162,6 +190,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                 arcSite={arcSite}
                 arcType="login"
                 showMsgVerify={() => triggerShowVerify()}
+                dataTreatment={checkedPolits ? '1' : '0'}
               />
             )}
           </div>
@@ -282,6 +311,43 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
           </p>
 
           <p className={styles.noteEnd}>{texts.noticeUser}</p>
+
+          <div className={styles.block}>
+            <label htmlFor="rpolit" className="terms">
+              <input
+                id="rpolit"
+                type="checkbox"
+                name="rpolit"
+                value={checkedPolits ? '1' : '0'}
+                checked={checkedPolits}
+                disabled={loading}
+                onChange={() => {
+                  setCheckedPolits(!checkedPolits)
+                }}
+              />
+              Al ingresar por redes sociales autorizo el uso de mis datos para{' '}
+              <button
+                className={styles.link}
+                type="button"
+                onClick={dataTreatment}>
+                fines adicionales
+              </button>
+              <span className="checkmark"></span>
+            </label>
+          </div>
+
+          <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
+            En caso ya hayas autorizado los fines de usos adicionales de manera
+            previa, no es necesario que lo vuelvas a marcar. Si deseas retirar
+            dicho consentimiento puedes seguir el procedimiento establecito en
+            nuestras{' '}
+            <button
+              className={styles.link}
+              type="button"
+              onClick={openPoliticas}>
+              Políticas de Privacidad.
+            </button>
+          </p>
         </>
       )}
     </NavigateConsumer>
