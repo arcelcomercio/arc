@@ -1,11 +1,12 @@
 import React from 'react'
+
 import {
+  SITE_DEPOR,
+  SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
-  SITE_DEPOR,
   SITE_PERU21G21,
   SITE_TROME,
-  SITE_ELBOCON,
 } from '../../utilities/constants/sitenames'
 
 const Styles = ({
@@ -80,17 +81,16 @@ const Styles = ({
       : styleDefault
 
   styleDefault = isFooterFinal ? 'dstory-video' : styleDefault
-  styleDefault = requestUri.includes('/trivias/') ? style : styleDefault
+  // styleDefault = requestUri.includes('/trivias/') ? style : styleDefault
   // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos para todas las marcas
   if (metaValue('section_style') === 'resumen_2020') {
     style = 'resumen-2020'
     styleUrl = `${contextPath}/resources/dist/elcomercio/css/${style}.css`
   }
 
-  return isStyleBasic || styleDefault || requestUri.includes('/trivias/') ? (
+  return isStyleBasic || styleDefault ? (
     <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
-      {({ data }) => {
-        return data ? (
+      {({ data }) => data ? (
           <style
             dangerouslySetInnerHTML={{
               __html: data
@@ -98,8 +98,7 @@ const Styles = ({
                 .replace('-----------', ''),
             }}
           />
-        ) : null
-      }}
+        ) : null}
     </Resource>
   ) : (
     isAmp === false && isLite === false && (
