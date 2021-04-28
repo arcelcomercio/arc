@@ -55,6 +55,24 @@ const HeaderBasic = (props) => {
     },
   })
 
+  const navSections =
+    useContent(
+      arcSite === SITE_GESTION
+        ? {
+            source: 'navigation-by-hierarchy',
+            query: {
+              website: arcSite,
+              hierarchy: 'header-default',
+            },
+            filter: schemaFilter,
+            transform: (data) => {
+              const { children: sections = [] } = data || {}
+              return sections
+            },
+          }
+        : {}
+    ) || []
+
   const imagesBySite = {
     [SITE_ELCOMERCIO]: `${getAssetsPath(
       arcSite,
@@ -87,6 +105,8 @@ const HeaderBasic = (props) => {
       isSomos={isSomos}
       activeSticky={activeSticky}
       disableSignwall={isPreview}
+      storyTitle={storyTitle}
+      navSections={navSections}
     />
   )
 }

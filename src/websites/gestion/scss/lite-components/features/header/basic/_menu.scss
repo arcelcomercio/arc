@@ -133,7 +133,7 @@
   }
 
   &__link {
-    font-size: 14px;
+    font: 400 0.9rem/1 $secondary-font;
     color: $color-white;
     padding: 15px 15px 15px 25px;
     width: 100%;
@@ -144,25 +144,13 @@
   }
 
   &__text {
+    font: 400 0.9rem/1 $secondary-font;
     display: block;
-    font-weight: 300;
     padding: 5px 0;
-    font-size: 14px;
     color: $color-white;
   }
 
   &__footer {
     padding: 30px;
-  }
-
-  // ----- MODIFICADOR SOMOS LITE -----
-  &--somos {
-    top: $header-somos-height-m;
-    height: calc(100vh - #{$header-somos-height-m});
-
-    @media (--desktop) {
-      top: $header-somos-height;
-      height: calc(100vh - #{$header-somos-height});
-    }
   }
 }

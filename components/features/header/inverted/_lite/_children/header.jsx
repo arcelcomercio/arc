@@ -8,13 +8,16 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { env } from '../../../../../utilities/arc/env'
+import { SITE_GESTION } from '../../../../../utilities/constants/sitenames'
 import {
+  headerStickyScript,
   menuScript,
   searchScript,
   singwallScript,
   stickyScript,
 } from '../_dependencies/scripts'
 import Menu from './menu'
+import HeaderInvertedSocialIcons from './social-icons'
 
 export default (props) => {
   const {
@@ -27,6 +30,8 @@ export default (props) => {
     isSomos,
     activeSticky,
     disableSignwall,
+    storyTitle,
+    navSections,
   } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
 
@@ -41,15 +46,36 @@ export default (props) => {
     searchScript,
     hideMenu ? '' : menuScript,
     disableSignwall ? '' : singwallScript(paramSignwall),
+    arcSite === SITE_GESTION ? headerStickyScript : '',
   ]
 
   return (
     <>
+      {arcSite === SITE_GESTION && (
+        <nav className="h-basic__nav f oflow-h">
+          <div className="h-basic__nav-text">Hoy interessa</div>
+          <ul className="f">
+            {navSections?.map(
+              ({
+                name = '',
+                _id: id = '',
+                display_name: displayName = '',
+                url = '',
+              }) => (
+                <li className="h-basic__nav-link f">
+                  <a href={url || id || '/'}> {name || displayName}</a>
+                </li>
+              )
+            )}
+          </ul>
+        </nav>
+      )}
       <header
         className={`h-basic pos-rel f f-center ${
           isSomos ? 'h-basic--somos' : ''
         }`}
         id="h-basic">
+        {arcSite === SITE_GESTION && <div className="h-basic__loader" />}
         <div className="h-basic__wrapper f just-between alg-center">
           <div className="f">
             <input
@@ -113,6 +139,14 @@ export default (props) => {
             />
           </a>
 
+          {arcSite === SITE_GESTION && (
+            <>
+              <div className="h-basic__title">{storyTitle}</div>
+
+              <HeaderInvertedSocialIcons />
+            </>
+          )}
+
           <div className="h-basic__signwall f">
             <button type="button" className="h-basic__sub uppercase">
               Suscríbete
@@ -148,7 +182,7 @@ export default (props) => {
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: `"use strict";${scripts.join('')}`,
+            __html: scripts.join(''),
           }}
         />
       </header>

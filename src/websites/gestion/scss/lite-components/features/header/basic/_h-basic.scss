@@ -10,6 +10,7 @@
   &__wrapper {
     width: 100%;
     padding: 0 16px;
+    z-index: 1;
     @media (--tablet) {
       max-width: 640px;
     }
@@ -31,16 +32,6 @@
     }
   }
 
-  &__btn-search {
-    padding: 0 12px 0 0;
-    border-right: 1px solid #707070;
-    margin-right: 20px;
-    display: none;
-    @media (--desktop) {
-      display: block;
-    }
-  }
-
   &__input {
     width: 0;
     transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
@@ -49,7 +40,7 @@
     color: #444;
     font-family: $secondary-font;
     font-weight: bold;
-    height: 25px;
+    height: 30px;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     display: none;
@@ -59,17 +50,21 @@
   }
 
   &__btn-user {
+    background-color: #f4e0d2;
+    border-radius: 50%;
+    height: 34px;
+    width: 34px;
     @media (--desktop) {
-      width: fit-content;
-      max-width: 250px;
-      height: 25px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0 6px;
-      border-radius: 3px;
-      border: 1px solid transparent;
-
+      height: auto;
+      width: auto;
+      color: #444;
+      font: 700 14px/16px $primary-font;
+      background-color: #fff;
+      border-radius: 4px;
+      margin-right: 15px;
+      outline: none;
+      padding: 8px 12px;
+      text-transform: capitalize;
       &:focus,
       &:hover {
         border-color: $color-gray-300;
@@ -78,23 +73,33 @@
   }
 
   &__sub {
-    width: 85px;
-    height: 25px;
-    color: #fff;
-    font: 700 11px/13px $primary-font;
-    letter-spacing: 0.26px;
-    background-color: $color-gray-300;
-    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.2));
-    border-radius: 3px;
+    font: 400 10px/16px sans-serif;
+    border-radius: 4px;
     margin-right: 15px;
-    display: block;
+    outline: none;
+    padding: 5px 7px;
+    background-color: #f4e0d2;
+    border: 1px solid #f4e0d2;
+    color: #8f071f;
     @media (--desktop) {
+      font: 700 14px/16px $primary-font;
       margin-right: 10px;
+      padding: 8px 12px;
+      background-color: #fff;
+      border: 1px solid #fff;
+      color: #444;
+      text-transform: capitalize;
     }
   }
 
   &__btn-menu {
     align-items: center;
+    border-right: 1px solid #fff;
+    padding-right: 15px;
+    @media (--desktop) {
+      border-right: none;
+      padding-right: 0;
+    }
   }
 
   &__menu-txt {
@@ -110,13 +115,6 @@
   }
 
   &__user-txt {
-    font: 700 11px $primary-font;
-    letter-spacing: 0.24px;
-    color: $color-gray-300;
-    padding-top: 2px;
-    padding-right: 5px;
-    overflow: hidden;
-    white-space: nowrap;
     display: none;
     @media (--desktop) {
       display: block;
@@ -131,14 +129,29 @@
   }
 
   &__user {
-    height: 24px;
-    width: 24px;
+    height: 20px;
+    width: 20px;
     @media (--desktop) {
-      height: 11px;
-      // width: fit-content;
+      display: none;
     }
     path {
-      fill: #fff;
+      fill: #8f071f;
+    }
+  }
+
+  &__btn-search {
+    height: 30px;
+    padding: 0 12px 0 0;
+    border-right: 1px solid #fff;
+    margin-right: 20px;
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+    &.active {
+      path {
+        fill: #444;
+      }
     }
   }
 
@@ -174,19 +187,140 @@
     }
   }
 
-  // ----- MODIFICADOR SOMOS LITE -----
-  &--somos {
-    background-color: $color-white;
-    height: $header-somos-height-m;
+  &__title {
+    display: none;
+    color: #fff;
+    font: 700 14px/1 $secondary-font;
+    flex: 1;
+    padding: 0 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
 
-    @media (--desktop) {
-      height: $header-somos-height;
+  &__item-link,
+  &__show-more {
+    height: 23px;
+    width: 23px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    svg {
+      fill: #fff;
     }
-    .h-basic__img {
+  }
+
+  &__item {
+    @media (--tablet) {
+      display: block;
+      padding-left: 5px;
+    }
+  }
+
+  &__item-mob.h-basic__item {
+    display: none;
+  }
+
+  &__list {
+    display: none;
+  }
+
+  &__loader {
+    display: none;
+    background-color: #9f2321;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+    will-change: transform;
+  }
+
+  &.scrolled {
+    position: fixed;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    .h-basic__img-link {
       height: 30px;
+      border-left: 1px solid #fff;
+      border-right: 1px solid #fff;
+      padding-right: 15px;
+      margin-left: 15px;
+      display: none;
       @media (--desktop) {
-        height: 42px;
+        display: block;
       }
+    }
+    .h-basic__signwall {
+      display: none;
+    }
+    .h-basic__title {
+      display: block;
+      display: -webkit-box;
+    }
+    .h-basic__list {
+      display: flex;
+
+      @media (--only-mobile) {
+        display: none;
+      }
+      &.active {
+        @media (--only-mobile) {
+          display: flex;
+          position: absolute;
+          right: 8px;
+          flex-direction: column;
+          top: 40px;
+          background-color: #fff;
+          box-shadow: -1px 7px 11px rgb(0 0 0 / 30%);
+          padding: 5px 10px;
+          .h-basic__item-link {
+            border: 1px solid #333;
+            margin: 5px 0;
+          }
+          svg {
+            fill: #333;
+          }
+        }
+      }
+    }
+    .h-basic__item-mob {
+      display: block;
+      @media (--tablet) {
+        display: none;
+      }
+    }
+    .h-basic__loader {
+      display: block;
+    }
+  }
+  &__nav {
+    @media (--only-mobile) {
+      display: none;
+    }
+  }
+  &__nav-text {
+    font: 700 9px/1 $tertiary-font;
+    padding: 10px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+  &__nav-link {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    color: #333;
+    text-transform: capitalize;
+    letter-spacing: 0.02rem;
+    a {
+      padding: 10px;
+    }
+    &:not(:last-child)::after {
+      content: " ·";
     }
   }
 }
