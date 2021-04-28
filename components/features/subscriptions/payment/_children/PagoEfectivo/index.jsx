@@ -61,6 +61,12 @@ const Confirmation = () => {
     )
 
     const { amount, productName } = getPLanSelected || {}
+    const nowDate = new Date()
+    const getUtcDate = new Date(nowDate.getTime() - 300 * 60000)
+    const set24Hours = new Date(
+      getUtcDate.setDate(getUtcDate.getDate() + 1)
+    ).toISOString()
+    const dateTimePeru = set24Hours.split('.')[0]
 
     if (amount) {
       const dataCIP = {
@@ -73,7 +79,7 @@ const Confirmation = () => {
         user_last_name: `${lastName} ${secondLastName}`,
         user_document_type: documentType,
         user_document_number: documentNumber,
-        date_expiry: '',
+        date_expiry: `${dateTimePeru}-05:00`,
         user_code_country: '+51',
         token,
       }
