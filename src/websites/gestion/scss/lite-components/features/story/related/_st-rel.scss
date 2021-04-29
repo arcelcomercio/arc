@@ -2,20 +2,22 @@
   content-visibility: auto;
   contain-intrinsic-size: 512px;
   margin: 0 20px 14px 20px;
-  border-top: 1px solid #888;
   padding-top: 20px;
+  font-family: $primary-font;
   &__title {
-    font: 700 14px/18px $primary-font;
     letter-spacing: 0;
-    color: #222;
+    color: #9e0620;
+    font-weight: 700;
     text-transform: uppercase;
     padding-bottom: 20px;
+    @media (--tablet) {
+      font-size: 19px;
+    }
   }
 
   &__item {
-    padding-bottom: 20px;
-    border-top: 2px solid #e1e1e1;
-    padding-top: 20px;
+    padding-bottom: 15px;
+    padding-top: 15px;
   }
 
   &__logo {
@@ -27,7 +29,6 @@
   &__author {
     letter-spacing: 0;
     color: #888;
-    font: 700 11px/15px $primary-font;
     text-transform: uppercase;
   }
   &__img {
@@ -35,20 +36,45 @@
     height: 100px;
     object-fit: cover;
     @media (--desktop) {
-      width: 200px;
+      height: 95px;
+      width: 80px;
     }
   }
 
   &__txt {
-    font: 700 16px/22px $primary-font;
     letter-spacing: 0;
+    font-size: 16px;
     color: #111;
-
-    /* padding-right: 15px; */
-    padding: 0 30px 5px 0;
+    font-weight: 400;
+    margin-bottom: 10px;
     @media (--desktop) {
-      padding-right: 30px;
-      font: 700 19px/23px $primary-font;
+      font-size: 22px;
     }
+  }
+  &__multimedia {
+    order: -1;
+    @media (--tablet) {
+      height: 95px;
+      width: 80px;
+    }
+  }
+  &__box {
+    margin-left: 15px;
+    width: calc(100% - 95px);
+    @media (--tablet) {
+      max-width: none;
+    }
+  }
+  &__link {
+    font-size: 16px;
+    font-weight: 700;
+    @media (--tablet) {
+      font-size: 22px;
+    }
+  }
+  &__container {
+    border-top: 2px solid #9e0620;
+    padding-bottom: 20px;
+    padding-top: 20px;
   }
 }

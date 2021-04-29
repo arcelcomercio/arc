@@ -18,14 +18,14 @@
   }
   &__header {
     margin-bottom: 15px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
   }
-  &__h-text {
-    font: 700 14px/1 $primary-font;
-  }
-  &__subtitle {
-    font: 400 10px/18px $primary-font;
-  }
+  // &__h-text {
+
+  // }
+  // &__subtitle {
+
+  // }
   &__list {
     @media (--tablet) {
       flex-direction: row;
@@ -34,7 +34,6 @@
     }
   }
   &__title-link {
-    font: 700 16px/20px $primary-font;
     letter-spacing: 0.08px;
     max-height: calc(20px * 4);
     @media (--tablet) {
