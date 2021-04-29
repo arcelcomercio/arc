@@ -52,7 +52,7 @@ export default ({
           arcSite,
         }).large
       : `${imageYoutube}`
-  const imagePreloac =
+  const imagePreload =
     story && multimediaLarge && !idYoutube
       ? createResizedParams({
           url: multimediaLarge,
@@ -82,9 +82,7 @@ export default ({
       <meta property="og:title" content={story ? seoTitle : title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
-
-      <link rel="preload" as="image" href={imagePreloac} />
-
+      {story && <link rel="preload" as="image" href={imagePreload} />}
       {arcSite === SITE_ELCOMERCIO && (
         <>
           <link
