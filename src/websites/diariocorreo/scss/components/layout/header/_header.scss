@@ -11,6 +11,9 @@
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
+    @media (--only-mobile) {
+      font-size: 12px;
+    }
   }
   &__logo {
     position: absolute;
@@ -37,15 +40,15 @@
     color: $color-base-300;
   }
   &__item {
-    &:after {
-      content: '';
+    &::after {
+      content: "";
       display: block;
       width: 1px;
       height: 10px;
       background-color: $color-white;
     }
     &:last-child {
-      &:after {
+      &::after {
         display: none;
       }
     }
