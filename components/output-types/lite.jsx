@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { getPreroll } from '../utilities/ads/preroll'
 import { getAssetsPath } from '../utilities/assets'
-import { FREE,METERED, PREMIUM } from '../utilities/constants/content-tiers'
+import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
   SITE_DEPOR,
   SITE_ELBOCON,
@@ -498,7 +498,8 @@ const LiteOutput = ({
           globalContent={globalContent}
         />
         <Resource path={inlineStyleUrl}>
-          {({ data }) => data ? (
+          {({ data }) =>
+            data ? (
               <style
                 dangerouslySetInnerHTML={{
                   __html: data
@@ -506,7 +507,8 @@ const LiteOutput = ({
                     .replace('-----------', ''),
                 }}
               />
-            ) : null}
+            ) : null
+          }
         </Resource>
         <ChartbeatBody
           story={isStory}
@@ -637,25 +639,29 @@ const LiteOutput = ({
         )}
         {subtype === GALLERY_VERTICAL && (
           <Resource path="resources/assets/js/vertical-gallery.min.js">
-            {({ data }) => data ? (
+            {({ data }) =>
+              data ? (
                 <script
                   dangerouslySetInnerHTML={{
                     __html: data,
                   }}
                 />
-              ) : null}
+              ) : null
+            }
           </Resource>
         )}
         {hasYoutubeVideo && (
           <>
             <Resource path="resources/assets/lite-youtube/styles.min.css">
-              {({ data }) => data ? (
+              {({ data }) =>
+                data ? (
                   <style
                     dangerouslySetInnerHTML={{
                       __html: data,
                     }}
                   />
-                ) : null}
+                ) : null
+              }
             </Resource>
             <script
               defer
