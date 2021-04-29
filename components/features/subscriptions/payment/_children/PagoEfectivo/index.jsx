@@ -43,6 +43,7 @@ const Confirmation = () => {
   const {
     uuid,
     email,
+    phone,
     firstName,
     lastName,
     secondLastName = '',
@@ -60,7 +61,7 @@ const Confirmation = () => {
       null
     )
 
-    const { amount, productName } = getPLanSelected || {}
+    const { amount, productName, priceCode } = getPLanSelected || {}
     const nowDate = new Date()
     const getUtcDate = new Date(nowDate.getTime() - 300 * 60000)
     const set24Hours = new Date(
@@ -79,8 +80,10 @@ const Confirmation = () => {
         user_last_name: `${lastName} ${secondLastName}`,
         user_document_type: documentType,
         user_document_number: documentNumber,
-        date_expiry: `${dateTimePeru}-05:00`,
+        date_expiry: `${dateTimePeru.replace('T', ' ')}-05:00`,
         user_code_country: '+51',
+        user_phone: phone,
+        price_code: priceCode,
         token,
       }
 
