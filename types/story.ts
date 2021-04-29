@@ -4,7 +4,7 @@ import type { AnyObject } from 'types/utils'
 
 import type { ResizedUrls } from '../components/utilities/resizer/format-presets'
 
-export type StoryType = 'story' | 'video' | 'gallery'
+export type StoryType = 'story' | 'video' | 'gallery' | 'redirect'
 export type ContentElementType =
   | 'image'
   | 'video'

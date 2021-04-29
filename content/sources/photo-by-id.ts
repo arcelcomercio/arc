@@ -6,7 +6,7 @@ import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
 export type PhotoByIdQuery = {
   _id: string
-  presets: string
+  presets?: string
 }
 
 type PhotoByIdParams = PhotoByIdQuery & ConentSourceBase
