@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
-import { useFusionContext } from 'fusion:context'
 import StoryData from '../../../utilities/story-data'
 
 const StoryTitleLite = () => {
@@ -24,6 +25,32 @@ const StoryTitleLite = () => {
   const blockType = data?.promo_items?.basic_parallax?.embed?.config?.block
   const blockData = data?.promo_items?.basic_parallax?.embed?.config?.data
 
+  const { resized_urls: { image } = {} } =
+    useContent(
+      blockData?.url
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: blockData?.url,
+              presets: 'image:2000x0',
+            },
+          }
+        : ''
+    ) || {}
+
+  const { resized_urls: { mobile_image: mobileImage } = {} } =
+    useContent(
+      blockData?.url
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: blockData?.url_mobile,
+              presets: 'mobile_image:640x0',
+            },
+          }
+        : ''
+    ) || {}
+
   return blockType === 'featured' ? (
     <>
       {blockData?.type === 'image' ? (
@@ -45,11 +72,11 @@ const StoryTitleLite = () => {
           </h1>
 
           <picture>
-            <source srcSet={blockData?.url_mobile} media="(max-width: 639px)" />
+            <source srcSet={mobileImage} media="(max-width: 639px)" />
             <img
               className="featured-img__img"
               style={{ backgroundColor: blockData?.bg_color || 'transparent' }}
-              src={blockData?.url}
+              src={image}
               alt={title}
             />
           </picture>
@@ -60,7 +87,8 @@ const StoryTitleLite = () => {
           style={{ height: '100%', width: '100%' }}
           dangerouslySetInnerHTML={{
             __html: blockData?.html,
-          }}></div>
+          }}
+        />
       ) : null}
     </>
   ) : null
