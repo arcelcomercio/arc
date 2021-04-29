@@ -51,13 +51,26 @@ const StoryTitleLite = () => {
         : ''
     ) || {}
 
+  const { resized_urls: { logo_image: logoImage } = {} } =
+    useContent(
+      blockData?.url_logo
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: blockData?.url_logo,
+              presets: 'logo_image:0x300',
+            },
+          }
+        : ''
+    ) || {}
+
   return blockType === 'featured' ? (
     <>
       {blockData?.type === 'image' ? (
         <div className="featured-img">
           <img
             className="featured-img__logo"
-            src={blockData?.url_logo}
+            src={logoImage}
             alt="Noticia - logo"
           />
           <h2
