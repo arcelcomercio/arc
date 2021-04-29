@@ -5,7 +5,6 @@
 //       isIPhone || /iPad|iPod|Android/i.test(window.navigator.userAgent)
 //     const buttonTop = document.getElementById('btn-arrow-top')
 //     const header = document.getElementById('header')
-//     const divCallIn = document.getElementById('callin')
 //     const minScroll = isMobile ? 10 : 60
 
 //     const controlVideo = () => {
@@ -26,7 +25,6 @@
 //         }
 //       }
 
-//       // iPhones tienen reestricciones con el autoplay
 //       if (videoPlayer) {
 //         const optionsVideo = {
 //           rootMargin: '0px 0px 0px 0px',
@@ -122,22 +120,8 @@
 //       }
 //     }
 
-//     const activeCallIn = () => {
-//       if (divCallIn) {
-//         if (
-//           document.body.scrollTop ||
-//           document.documentElement.scrollTop > minScroll
-//         ) {
-//           divCallIn.classList.add('active')
-//         } else {
-//           divCallIn.classList.remove('active')
-//         }
-//       }
-//     }
-
 //     window.onscroll = () => {
 //       activeHeader()
-//       activeCallIn()
 //       activeButtonScroll()
 //     }
 
@@ -158,5 +142,5 @@
 // })
 
 const scriptsLanding =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=/iPhone/i.test(window.navigator.userAgent),t=e||/iPad|iPod|Android/i.test(window.navigator.userAgent),n=document.getElementById("btn-arrow-top"),o=document.getElementById("header"),c=document.getElementById("callin"),d=t?10:60,i=function(){var e=document.getElementById("btn-signwall");if(function(){var e=!1;try{var t=window.localStorage.getItem("ArcId.USER_PROFILE"),n=window.localStorage.getItem("ArcId.USER_INFO");t&&(e=!("null"===t||"{}"===n)||!1)}catch(e){console.warn("localStorage no está disponible")}return e}()&&e){var t=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||"{}")||{},n=t.firstName,o=t.lastName;e.innerHTML=function(e,t){var n="Bienvenido Usuario",o=/undefined|null/,c=o.test(e),d=o.test(t);return e&&!c&&t&&!d?n=e+" "+t:!e||c||t&&!d?!t||d||e&&!c||(n=t):n=e,n.length<=17?n:n.slice(0,17)+"..."}(n,o)}};window.onscroll=function(){o&&(document.body.scrollTop||document.documentElement.scrollTop>d?o.classList.add("active"):o.classList.remove("active")),c&&(document.body.scrollTop||document.documentElement.scrollTop>d?c.classList.add("active"):c.classList.remove("active")),document.body.scrollTop||document.documentElement.scrollTop>150?n&&n.classList.add("active"):n&&n.classList.remove("active")},setTimeout(function(){i(),function(){for(var e=document.getElementById("beneficios"),t=e.querySelectorAll(".tab"),n=e.querySelectorAll(".picture"),o=0;o<t.length;o++)t[o].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),o=0;o<n.length;o++)n[o].classList.remove("move");document.getElementById("picture--"+t).classList.add("move")})}(),n&&n.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),e||function(){var e=document.getElementById("video"),t=!1;e&&new window.IntersectionObserver(function(n,o){n[0].isIntersecting?e.readyState>=2&&!e.ended&&(e.paused||0===e.currentTime)&&(e.play(),t=!0):t&&e.pause()},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(e)}()},1)},2e3)});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=/iPhone/i.test(window.navigator.userAgent),t=e||/iPad|iPod|Android/i.test(window.navigator.userAgent),n=document.getElementById("btn-arrow-top"),o=document.getElementById("header"),r=t?10:60,c=function(){var e=document.getElementById("btn-signwall");if(function(){var e=!1;try{var t=window.localStorage.getItem("ArcId.USER_PROFILE"),n=window.localStorage.getItem("ArcId.USER_INFO");t&&(e=!("null"===t||"{}"===n)||!1)}catch(e){console.warn("localStorage no está disponible")}return e}()&&e){var t=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||"{}")||{},n=t.firstName,o=t.lastName;e.innerHTML=function(e,t){var n="Bienvenido Usuario",o=/undefined|null/,r=o.test(e),c=o.test(t);return e&&!r&&t&&!c?n=e+" "+t:!e||r||t&&!c?!t||c||e&&!r||(n=t):n=e,n.length<=17?n:n.slice(0,17)+"..."}(n,o)}};window.onscroll=function(){o&&(document.body.scrollTop||document.documentElement.scrollTop>r?o.classList.add("active"):o.classList.remove("active")),document.body.scrollTop||document.documentElement.scrollTop>150?n&&n.classList.add("active"):n&&n.classList.remove("active")},setTimeout(function(){c(),function(){for(var e=document.getElementById("beneficios"),t=e.querySelectorAll(".tab"),n=e.querySelectorAll(".picture"),o=0;o<t.length;o++)t[o].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),o=0;o<n.length;o++)n[o].classList.remove("move");document.getElementById("picture--"+t).classList.add("move")})}(),n&&n.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),e||function(){var e=document.getElementById("video"),t=!1;e&&new window.IntersectionObserver(function(n,o){n[0].isIntersecting?e.readyState>=2&&!e.ended&&(e.paused||0===e.currentTime)&&(e.play(),t=!0):t&&e.pause()},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(e)}()},1)},2e3)});'
 export default scriptsLanding
