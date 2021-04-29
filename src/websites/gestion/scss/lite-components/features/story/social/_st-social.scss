@@ -1,19 +1,15 @@
 .st-social {
-  margin: 0 20px 25px 20px;
-  padding: 20px 0;
-  border-top: 1px solid $border-color-gray;
-  border-bottom: 2px solid $border-color-gray;
-  flex-direction: column;
-
-  @media (--tablet) {
-    padding: 20px 10px;
-    flex-direction: initial;
-  }
+  margin: 0 0 25px;
+  padding: 20px;
+  border-top: 1px solid #c1c1c1;
+  border-bottom: 1px dashed #c1c1c1;
 
   &__txt {
-    font: 400 18px/29px $secondary-font;
-    letter-spacing: 1px;
+    font: 700 1.1rem/1 $primary-font;
     color: #111;
+    @media (--tablet) {
+      font-size: 24px;
+    }
   }
 
   &__link {

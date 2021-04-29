@@ -1,5 +1,5 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
+import React from 'react'
 
 import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from '../../../global-components/trustprojectlabel'
@@ -68,7 +68,8 @@ const StorySocialLite = () => {
             arcSite === 'elcomerciomag' ||
             arcSite === 'peru21' ||
             arcSite === 'elbocon' ||
-            arcSite === 'ojo'
+            arcSite === 'ojo' ||
+            arcSite === 'gestion'
           }
         />
       </div>
