@@ -33,7 +33,6 @@ const transform = (data, { 'arc-site': website, presets }) => {
         arcSite: website,
       })
 
-      console.log('>>>>>>>>>>>>>>>>>>>', resizedUrls)
       return { ...item, resized_urls: resizedUrls }
     }
   )
