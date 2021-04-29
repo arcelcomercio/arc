@@ -23,7 +23,7 @@ import Menu from './menu'
 
 const classes = {
   nav: `nav text-white text-sm w-full flex items-center top-0 secondary-font`,
-  wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-15 pr-15`,
+  wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-10 pr-10`,
   form: 'flex position-relative items-center',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
   navContainerRight: `nav__container-right position-absolute lg:inline-block`,
@@ -75,6 +75,10 @@ const classes = {
 
   mujerItemDesk: 'nav-mujer__item-desk',
   mujerItemMob: 'nav-mujer__item-mob',
+
+  menuRegion: 'nav-region',
+  menuRegionL: 'nav-region__link',
+  menuRegionI: 'nav-region__icon',
 }
 
 @Consumer
@@ -266,6 +270,33 @@ class NavBarDefault extends React.PureComponent {
                     alt="icono newsletter"
                   />
                 </label>
+                <div className={classes.menuRegion}>
+                  <button className={classes.menuRegionL} id="btn-region">
+                    <svg xmlns="http://www.w3.org/2000/svg" className={classes.menuRegionI} width={20} height={20} xmlSpace="preserve">
+                    <path d="M16.738 12.591c-1.674.179-.745-1.146-1.149-1.656-.659.128-1.209 1.07-1.997.012-.609-.818-1.684-1.473-1.448-2.576.518-2.426 1.668-3.286 4.171-3.498.111-.432-.791-.46-.384-1.049.764-1.096-.188-1.377-.842-1.226-1.816.424-2.703-.769-3.723-1.82-.235-.245-.473-.517-.766-.665-.309-.158-.657-.24-.572.389.18 1.345-.636 2.035-1.753 2.503-.714.301-1.531.501-1.701 1.436-.218 1.199-.773.96-1.642.572-.71-.319.3-.958-.523-1.122-.675.507-1.111.939-.919 2.176.194 1.261 1.211 1.479 1.719 2.267 1.427 2.212 2.689 4.574 3.642 6.953.815 2.035 2.153 2.909 3.816 3.729 1.095.536 2.088 1.163 2.756 2.212h1.183c.242-1.374 1.083-2.572.753-4.172-.117-.564.065-1.71.38-2.584.237-.664-.522-1.93-1.001-1.881z"/>
+                    </svg>
+                  </button>
+                </div>
+                {/* 
+                  window.addEventListener("DOMContentLoaded", () => {requestIdle(() => {
+                    const btnRegion = document.getElementById("btn-region")
+                    const Nav = document.getElementsByTagName("nav")
+                    btnRegion.addEventListener("click", (event) => {
+                      for (var i = 0; i < Nav.length; i++) {
+                        if(Nav[i].classList.contains('nav__wrapper')){
+                          Nav[i].classList.toggle("hidden")
+                        }
+                      }
+                    })
+                  })})
+                */}
+                  <script
+                    type="text/javascript"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                      `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("btn-region"),n=document.getElementsByTagName("nav");e.addEventListener("click",function(e){for(var t=0;t<n.length;t++)n[t].classList.contains("nav__wrapper")&&n[t].classList.toggle("hidden")})})});`,
+                    }}
+                  />
               </>
             )}
             <a

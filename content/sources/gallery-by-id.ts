@@ -1,4 +1,12 @@
+import { ConentSourceBase } from 'types/content-source'
+
 import { createResizedParams } from '../../components/utilities/resizer/resizer'
+
+export type GalleryByIdQuery = {
+  _id: string
+}
+
+type GalleryByIdParams = GalleryByIdQuery & ConentSourceBase
 
 const schemaName = 'photo'
 
@@ -15,25 +23,24 @@ const params = [
   },
 ]
 
-const resolve = ({ _id: id }) => {
+const resolve = ({ _id: id }: GalleryByIdParams): string | never => {
   if (!id) throw new Error('Esta fuente de contenido requiere un id')
   return `/photo/api/v2/galleries/${id}`
 }
 
-const transform = (data, { 'arc-site': website, presets }) => {
+const transform = (data: any, { 'arc-site': website, presets }: any) => {
   if (!website) return data
 
   const dataWithResizer = data || {}
 
   dataWithResizer.content_elements = data?.content_elements?.map(
-    (item = {}) => {
+    (item: any) => {
       const resizedUrls = createResizedParams({
         url: item?.url,
         presets,
         arcSite: website,
       })
 
-      console.log('>>>>>>>>>>>>>>>>>>>', resizedUrls)
       return { ...item, resized_urls: resizedUrls }
     }
   )

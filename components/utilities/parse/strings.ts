@@ -1,8 +1,10 @@
-export const reduceWord = (word, len = 145, finalText = '...') => {
-  return word.length > len ? word.slice(0, len).concat(finalText) : word
-}
+export const reduceWord = (
+  word: string,
+  len = 145,
+  finalText = '...'
+): string => (word.length > len ? word.slice(0, len).concat(finalText) : word)
 
-export const formatSlugToText = (text = '', length = 0) => {
+export const formatSlugToText = (text: string, length = 0): string | null => {
   if (!text) return null
   const splitText = text.slice(1).includes('/')
     ? text.slice(1).split('/')
@@ -19,7 +21,7 @@ export const formatSlugToText = (text = '', length = 0) => {
         .replace(/-/, ' ')
 }
 
-export const formatHtmlToText = (html = '') => {
+export const formatHtmlToText = (html = ''): string => {
   const htmlData = html.toString()
   return htmlData
     .replace(/<[^>]*>/g, '')
@@ -27,34 +29,38 @@ export const formatHtmlToText = (html = '') => {
     .replace(/\\/g, '')
 }
 
-export const getUrlFromHtml = (html = '') => {
+export const getUrlFromHtml = (html = ''): string[] => {
   const regexp = /<(?:a|img)[^>]+(?:href|src)=['"]?([^'" >]+)/gi
   const data = html.match(regexp) || []
-  const urls = []
+  const urls: string[] = []
 
-  data.forEach(el => {
+  data.forEach((el) => {
     urls.push(el.replace(/(<(?:a|img)[^>]+(?:href|src)=['"]?)/g, ''))
   })
 
   return urls
 }
 
-export const removeLastSlash = (url = '') => {
+export const removeLastSlash = (url = ''): string => {
   if (url === '/' || !url.endsWith('/')) return url
   return url && url.endsWith('/') ? url.slice(0, url.length - 1) : url
 }
 
-export const addSlashToEnd = (url = '') => {
+export const addSlashToEnd = (url = ''): string => {
   const urlString = `${url}`
   if (url && urlString.trim() === '/') return url
   return url && !urlString.endsWith('/') ? `${url}/` : url
 }
 
-export const ifblogType = (globalContent = {}) => {
-  const { post: { tags = [] } = {} } = globalContent
-  const slugArray = tags.map(el => {
-    return el.slug
-  })
+type Gsss = {
+  post: {
+    tags: { slug: string }[]
+  }
+}
+
+export const ifblogType = (globalContent: Gsss): string => {
+  const { post: { tags = [] } = {} } = globalContent || {}
+  const slugArray = tags.map((el) => el.slug)
   let urls = 'metered'
   urls = slugArray.indexOf('locked') !== -1 ? 'locked' : urls
   urls = slugArray.indexOf('free') !== -1 ? 'free' : urls
@@ -62,8 +68,8 @@ export const ifblogType = (globalContent = {}) => {
   return urls
 }
 
-export const addParamToEndPath = (path, param) => {
-  const getPathAndString = (pathData, symbol = '?') => {
+export const addParamToEndPath = (path: string, param: string): string => {
+  const getPathAndString = (pathData: string, symbol = '?') => {
     const index = pathData.indexOf(symbol)
     let onlyPath = pathData
     let queryString = ''
@@ -79,9 +85,9 @@ export const addParamToEndPath = (path, param) => {
       haveQueryString,
     }
   }
-  const addParam = (onlyPath, variable, queryString = '') => {
-    return `${addSlashToEnd(onlyPath)}${addSlashToEnd(variable)}${queryString}`
-  }
+  const addParam = (onlyPath: string, variable: string, queryString = '') =>
+    `${addSlashToEnd(onlyPath)}${addSlashToEnd(variable)}${queryString}`
+
   let data = getPathAndString(path)
   if (data.haveQueryString)
     return addParam(data.onlyPath, param, data.queryString)
@@ -94,11 +100,5 @@ export const addParamToEndPath = (path, param) => {
   return addParam(path, param)
 }
 
-/**
- *
- * @param {string} text
- * @returns {string}
- */
-export const nbspToSpace = text => {
-  return text.replace(/&nbsp;/gi, ' ')
-}
+export const nbspToSpace = (text: string): string =>
+  text.replace(/&nbsp;/gi, ' ')

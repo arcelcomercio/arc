@@ -74,6 +74,7 @@ const HeaderBasic = props => {
       isSomos={isSomos}
       activeSticky={activeSticky}
       disableSignwall={isPreview}
+      siteProperties={siteProperties}
     />
   )
 }

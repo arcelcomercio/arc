@@ -394,13 +394,11 @@ const AmpOutputType = ({
           />
         )}
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
-          <>
-            <script
-              async
-              custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-            />
-          </>
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
         )}
 
         {hasTwitter && (

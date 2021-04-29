@@ -34,7 +34,7 @@ const styles = {
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Register = ({ arcSite }) => {
-  // const { activateAuth, updateStep } = useContext(AuthContext)
+  // const { activateAuth, updateStep } = React.useContext(AuthContext)
   const [loading, setLoading] = React.useState()
   const [loadText, setLoadText] = React.useState('Cargando...')
   const [msgError, setMsgError] = React.useState()
@@ -62,7 +62,7 @@ const Register = ({ arcSite }) => {
     rpass: {
       required: true,
       validator: {
-        func: value => value.length >= 8,
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
       nospaces: true,
@@ -186,11 +186,11 @@ const Register = ({ arcSite }) => {
         { doLogin: true },
         { rememberMe: true }
       )
-        .then(resSignUp => {
+        .then((resSignUp) => {
           setShowConfirm(true)
 
           setLoadText('Cargando Perfil...')
-          window.Identity.getUserProfile().then(resProfile => {
+          window.Identity.getUserProfile().then((resProfile) => {
             setLoadText('Cargando Servicios...')
             sendNewsLettersUser(
               urls.newsLetters,
@@ -213,7 +213,7 @@ const Register = ({ arcSite }) => {
               })
           })
         })
-        .catch(err => {
+        .catch((err) => {
           setMsgError(getCodeError(err.code))
           setForgotLink(err.code === '300039')
           setLoading(false)
@@ -235,7 +235,7 @@ const Register = ({ arcSite }) => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFormRegister)
 
-  const handleChangeInput = e => {
+  const handleChangeInput = (e) => {
     handleOnChange(e)
     setMsgError(false)
   }
@@ -264,24 +264,27 @@ const Register = ({ arcSite }) => {
 
   return (
     <NavigateConsumer>
-      {value => (
+      {(value) => (
         <>
           {!showConfirm ? (
             <>
               <h2 className={styles.title}>{texts.register}</h2>
               <div
-                className={`${styles.blockMiddle} ${isFbBrowser() &&
-                  styles.blockFull}`}>
+                className={`${styles.blockMiddle} ${
+                  isFbBrowser() && styles.blockFull
+                }`}>
                 <ButtonSocial
                   arcSocial="facebook"
                   arcSite={arcSite}
                   arcType="registro"
+                  dataTreatment={checkedPolits ? '1' : '0'}
                 />
                 {!isFbBrowser() && (
                   <ButtonSocial
                     arcSocial="google"
                     arcSite={arcSite}
                     arcType="registro"
+                    dataTreatment={checkedPolits ? '1' : '0'}
                   />
                 )}
               </div>
@@ -388,19 +391,20 @@ const Register = ({ arcSite }) => {
                       value={checkedPolits ? '1' : '0'}
                       checked={checkedPolits}
                       disabled={loading}
-                      onChange={e => {
+                      onChange={(e) => {
                         handleOnChange(e)
                         setCheckedPolits(!checkedPolits)
                       }}
                     />
-                    Autorizo el uso de mis datos para{' '}
+                    Al registrarme por redes sociales o por este formulario
+                    autorizo el uso de mis datos para{' '}
                     <button
                       className={styles.link}
                       type="button"
                       onClick={dataTreatment}>
                       fines adicionales
                     </button>
-                    <span className="checkmark"></span>
+                    <span className="checkmark" />
                   </label>
                 </div>
 
@@ -414,7 +418,7 @@ const Register = ({ arcSite }) => {
                       checked={checkedTerms}
                       disabled={loading}
                       required
-                      onChange={e => {
+                      onChange={(e) => {
                         handleOnChange(e)
                         setCheckedTerms(!checkedTerms)
                       }}

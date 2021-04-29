@@ -1,46 +1,49 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
-import TextMask from 'react-text-mask'
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import * as Sentry from '@sentry/browser'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
+import TextMask from 'react-text-mask'
 
-import useForm from '../../../_hooks/useForm'
-import { conformProfile, isLogged } from '../../../_dependencies/Session'
 // import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
-import {
-  PixelActions,
-  sendAction,
-  TaggeoJoao,
-  eventCategory,
-} from '../../../_dependencies/Taggeo'
-import { getSessionStorage } from '../../../_dependencies/Utils'
-import PWA from '../../../_dependencies/Pwa'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-  ArcEnv,
-} from '../../../_dependencies/Properties'
-import {
-  patternCard,
-  patternDate,
-  patterCvv,
-} from '../../../_dependencies/Regex'
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
+import {
+  ArcEnv,
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
+import PWA from '../../../_dependencies/Pwa'
+import {
+  patterCvv,
+  patternCard,
+  patternDate,
+} from '../../../_dependencies/Regex'
+import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import {
+  eventCategory,
+  PixelActions,
+  sendAction,
+  TaggeoJoao,
+} from '../../../_dependencies/Taggeo'
+import { getSessionStorage } from '../../../_dependencies/Utils'
+import useForm from '../../../_hooks/useForm'
 
 const styles = {
   step: 'step__left-progres',
   card: 'step__left-cards',
   subtitle: 'step__left-subtitle',
+  tabpay: 'step__left-tab-pay',
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   secure: 'step__left-text-security',
-  notes: 'step__left-notes-footer',
   cvvAmex: 'img-info-cvvamex',
   cvvAll: 'img-info-cvv',
+  tabCard1: 'step__left-tab-cards tab1',
+  tabCard2: 'step__left-tab-efectivo tab2',
 }
 
 const Pay = () => {
@@ -56,6 +59,7 @@ const Pay = () => {
     updateStep,
     updatePurchase,
     updateLoadPage,
+    updateMethodPay,
   } = React.useContext(AuthContext)
   const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -78,9 +82,10 @@ const Pay = () => {
   const [methodCard, setMethodCard] = React.useState()
   const [checkedTerms, setCheckedTerms] = React.useState()
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.priceCode === userPlan.priceCode ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+    null
+  )
 
   const { amount, sku, billingFrequency, priceCode, name } =
     getPLanSelected || {}
@@ -88,7 +93,7 @@ const Pay = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0)
 
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('document', documentNumber || 'none')
       scope.setTag('phone', phone || 'none')
       scope.setTag('email', email || 'none')
@@ -119,7 +124,7 @@ const Pay = () => {
         })
         window.Sales.options({ apiOrigin: urls.arcOrigin })
       })
-      .catch(errSalesSDK => {
+      .catch((errSalesSDK) => {
         Sentry.captureEvent({
           message: 'SDK Sales no ha cargado correctamente',
           level: 'error',
@@ -155,14 +160,13 @@ const Pay = () => {
         window.payU.setLanguage('es')
         window.payU.getPaymentMethods()
       })
-      .catch(errPayuSDK => {
+      .catch((errPayuSDK) => {
         Sentry.captureEvent({
           message: 'El SDK PayU no ha cargado correctamente',
           level: 'error',
           extra: errPayuSDK || {},
         })
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   React.useEffect(() => {
@@ -188,7 +192,6 @@ const Pay = () => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -202,7 +205,7 @@ const Pay = () => {
     cNumber: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           'payU' in window &&
           window.payU.validateCard(value.replace(/\s/g, '')),
         error: 'Número tarjeta inválido.',
@@ -211,7 +214,7 @@ const Pay = () => {
     cExpire: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^(0[1-9]|1[0-2])\/?(((202)\d{1}|(202)\d{1})|(2)\d{1})$/.test(value),
         error: 'Fecha incorrecta',
       },
@@ -219,7 +222,7 @@ const Pay = () => {
     cCvv: {
       required: true,
       validator: {
-        func: value => /^([0-9]{3,})+$/.test(value),
+        func: (value) => /^([0-9]{3,})+$/.test(value),
         error: 'CVV Inválido',
       },
     },
@@ -306,7 +309,7 @@ const Pay = () => {
               { country: 'PE' }
             )
           })
-          .then(resOrder => {
+          .then((resOrder) => {
             Sentry.addBreadcrumb({
               type: 'info',
               category: 'pago',
@@ -317,11 +320,11 @@ const Pay = () => {
               level: 'info',
             })
             return window.Sales.getPaymentOptions()
-              .then(resPayOptions => {
+              .then((resPayOptions) => {
                 setTxtLoading('Iniciando Proceso...')
 
                 payUPaymentMethod = resPayOptions?.find(
-                  m => m?.paymentMethodType === 8
+                  (m) => m?.paymentMethodType === 8
                 )
                 orderNumberDinamic = resOrder?.orderNumber
                 const { paymentMethodID } = payUPaymentMethod || {}
@@ -345,7 +348,7 @@ const Pay = () => {
                   paymentMethodID
                 )
               })
-              .catch(paymentError => {
+              .catch((paymentError) => {
                 Sentry.captureEvent({
                   message:
                     paymentError?.error || getCodeError(paymentError?.code),
@@ -353,7 +356,7 @@ const Pay = () => {
                   extra: paymentError || {},
                 })
               })
-              .then(resInitialize => {
+              .then((resInitialize) => {
                 const {
                   orderNumber,
                   parameter1: publicKey,
@@ -406,7 +409,7 @@ const Pay = () => {
                     },
                     level: 'info',
                   })
-                  window.payU.createToken(response => {
+                  window.payU.createToken((response) => {
                     if (response?.error) {
                       reject(new Error(response.error))
                       setMsgError(response.error)
@@ -432,8 +435,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${response.error ||
-                            getCodeError('errorFinalize')}`,
+                          action: `${userPeriod} - ${
+                            response.error || getCodeError('errorFinalize')
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -460,7 +464,7 @@ const Pay = () => {
                   })
                 })
 
-                return handleCreateToken.then(resToken => {
+                return handleCreateToken.then((resToken) => {
                   const { paymentMethodID, paymentMethodType } =
                     payUPaymentMethod || {}
                   const tokenDinamic = `${resToken}~${deviceSessionId}~${cCvv}`
@@ -485,7 +489,7 @@ const Pay = () => {
                     paymentMethodID,
                     tokenDinamic
                   )
-                    .then(resFinalize => {
+                    .then((resFinalize) => {
                       Sentry.addBreadcrumb({
                         type: 'info',
                         category: 'compra',
@@ -550,8 +554,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${errFinalize.message ||
-                            getCodeError('errorFinalize')}`,
+                          action: `${userPeriod} - ${
+                            errFinalize.message || getCodeError('errorFinalize')
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -580,7 +585,7 @@ const Pay = () => {
     }
   }
 
-  const validateCardNumber = e => {
+  const validateCardNumber = (e) => {
     if (typeof window !== 'undefined' && 'payU' in window) {
       window.payU.validateCard(e.target.value)
       setMethodCard(window.payU.card.method)
@@ -600,7 +605,7 @@ const Pay = () => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFormPay)
 
-  const handleOnChangeInput = e => {
+  const handleOnChangeInput = (e) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         setMsgError(false)
@@ -612,9 +617,9 @@ const Pay = () => {
     }
   }
 
-  const openNewTab = typeLink => {
+  const openNewTab = (typeLink) => {
     if (typeof window !== 'undefined') {
-      window.open(urls[typeLink], '_blank')
+      window.open(urls[typeLink] ? urls[typeLink] : typeLink, '_blank')
     }
   }
 
@@ -627,6 +632,15 @@ const Pay = () => {
     }
   }
 
+  const handlePayEfective = (e) => {
+    setLoading(true)
+    setTxtLoading('Generando CIP...')
+    e.preventDefault()
+    setTimeout(() => {
+      updateStep(5)
+    }, 1000)
+  }
+
   return (
     <>
       <ul className={styles.step}>
@@ -637,167 +651,281 @@ const Pay = () => {
 
       <h3 className={styles.subtitle}>{texts.titlePay}</h3>
 
-      <div className={styles.card}>
-        <p>Aceptamos:</p>
-        <i className="icon-visa"></i>
-        <i className="icon-mc"></i>
-        <i className="icon-amex"></i>
-        <i className="icon-dinners"></i>
-      </div>
+      <div className="payment-tab">
+        <input
+          defaultChecked
+          id="tab1"
+          type="radio"
+          name="optpay"
+          onChange={() => updateMethodPay('cardCreDeb')}
+        />
+        <input
+          id="tab2"
+          type="radio"
+          name="optpay"
+          onChange={() => updateMethodPay('payEfectivo')}
+        />
 
-      {msgError && (
-        <div className={styles.block}>
-          <div className="msg-alert">{msgError}</div>
-        </div>
-      )}
-
-      <form onSubmit={handleOnSubmit} className="form-pay">
-        <div className={styles.block}>
-          <label htmlFor="cNumber">
-            {texts.labelcNumber}
-            <TextMask
-              mask={patternCard}
-              guide={false}
-              className={cNumberError && 'input-error'}
-              type="text"
-              inputMode="numeric"
-              autoComplete="cc-number"
-              name="cNumber"
-              maxLength="19"
-              value={cNumber}
-              required
-              onChange={handleOnChangeInput}
-              onBlur={handleOnChangeInput}
-              onKeyUp={validateCardNumber}
-              placeholder="0000 0000 0000 0000"
-              disabled={loading}
-            />
-            {cNumberError && <span className="msn-error">{cNumberError}</span>}
-            <div id="mylistID" className="img-input-card"></div>
-          </label>
-        </div>
-
-        <div className="step__left-block-middle">
-          <div className="block">
-            <label htmlFor="cExpire">
-              {texts.labelcExpire}
-              <TextMask
-                mask={patternDate}
-                guide={false}
-                className={cExpireError && 'input-error'}
-                type="text"
-                inputMode="numeric"
-                autoComplete="cc-exp"
-                name="cExpire"
-                maxLength="7"
-                value={cExpire}
-                required
-                onChange={handleOnChangeInput}
-                onBlur={handleOnChangeInput}
-                onKeyUp={getCardNumber}
-                placeholder="mm/aaaa"
-                disabled={loading}
-              />
-              {cExpireError && (
-                <span className="msn-error">{cExpireError}</span>
-              )}
-            </label>
-          </div>
-
-          <div className="block">
-            <label htmlFor="cCvv">
-              {texts.labelcCvv}
-              <button
-                type="button"
-                className="tooltip step__btn-link"
-                tabIndex={-1}>
-                <i className="icon-info"> </i>
-                <span className="tooltiptext-leftarrow">
-                  {texts.whereCvv}
-                  <i
-                    className={
-                      methodCard === 'AMEX' ? styles.cvvAmex : styles.cvvAll
-                    }></i>
-                </span>
-              </button>
-              <TextMask
-                mask={patterCvv}
-                guide={false}
-                className={cCvvError && 'input-error'}
-                type="text"
-                inputMode="numeric"
-                autoComplete="cc-csc"
-                name="cCvv"
-                maxLength={methodCard === 'AMEX' ? '4' : '3'}
-                value={cCvv}
-                required
-                onChange={handleOnChangeInput}
-                onBlur={handleOnChangeInput}
-                onKeyUp={getCardNumber}
-                placeholder={methodCard === 'AMEX' ? '****' : '***'}
-                disabled={loading}
-              />
-              {cCvvError && <span className="msn-error">{cCvvError}</span>}
-            </label>
-          </div>
-        </div>
-
-        <div className={styles.block}>
-          <label htmlFor="cTerms" className="terms">
-            <input
-              id="cTerms"
-              value={checkedTerms ? 'si' : 'no'}
-              type="checkbox"
-              name="cTerms"
-              required
-              disabled={loading}
-              onChange={e => {
-                handleOnChange(e)
-                setCheckedTerms(!checkedTerms)
-              }}
-            />
-            {texts.termsAccept}
-            <button
-              className="step__btn-link"
-              type="button"
-              onClick={() => openNewTab('terminos')}>
-              {texts.termsConditions}
-            </button>
-            {texts.textTermsThe}
-            <button
-              className="step__btn-link"
-              type="button"
-              onClick={() => openNewTab('politicas')}>
-              {texts.textTermsPolices}
-            </button>
-            {texts.textTermsAccord}
-            <span
-              className={`checkmark ${cTermsError && 'input-error'}`}></span>
-          </label>
-        </div>
-
-        {cTermsError && (
-          <div className={styles.block}>
-            <div className="msg-alert">{cTermsError}</div>
-          </div>
+        {userPeriod !== 'Mensual' && (
+          <nav>
+            <ul className={styles.tabpay}>
+              <li className="cards tab1">
+                <label htmlFor="tab1">
+                  Tarjeta de <br /> crédito / Débito <i />
+                </label>
+              </li>
+              <li className="efectivo tab2">
+                <label htmlFor="tab2">
+                  <i /> Transferencias /Depósitos en efectivo
+                </label>
+              </li>
+            </ul>
+          </nav>
         )}
 
-        <div className={styles.block}>
-          <button
-            className={`${styles.btn} ${loading && 'btn-loading'}`}
-            type="submit"
-            disabled={disable || loading}>
-            {loading ? txtLoading : 'Pagar suscripción'}
-          </button>
-        </div>
-      </form>
+        <section>
+          <div className={styles.tabCard1}>
+            <div className={styles.card}>
+              <p>Aceptamos:</p>
+              <i className="icon-visa" />
+              <i className="icon-mc" />
+              <i className="icon-amex" />
+              <i className="icon-dinners" />
+            </div>
 
-      <p className={styles.secure}>
-        <i className="icon-security"></i>
-        {texts.showSecure}
-      </p>
+            {msgError && (
+              <div className={styles.block}>
+                <div className="msg-alert">{msgError}</div>
+              </div>
+            )}
 
-      <p className={styles.notes}>{texts.rememberRecurrency}</p>
+            <form onSubmit={handleOnSubmit} className="form-pay">
+              <div className={styles.block}>
+                <label htmlFor="cNumber">
+                  {texts.labelcNumber}
+                  <TextMask
+                    mask={patternCard}
+                    guide={false}
+                    className={cNumberError && 'input-error'}
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="cc-number"
+                    name="cNumber"
+                    maxLength="19"
+                    value={cNumber}
+                    required
+                    onChange={handleOnChangeInput}
+                    onBlur={handleOnChangeInput}
+                    onKeyUp={validateCardNumber}
+                    placeholder="0000 0000 0000 0000"
+                    disabled={loading}
+                  />
+                  {cNumberError && (
+                    <span className="msn-error">{cNumberError}</span>
+                  )}
+                  <div id="mylistID" className="img-input-card" />
+                </label>
+              </div>
+
+              <div className="step__left-block-middle">
+                <div className="block">
+                  <label htmlFor="cExpire">
+                    {texts.labelcExpire}
+                    <TextMask
+                      mask={patternDate}
+                      guide={false}
+                      className={cExpireError && 'input-error'}
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="cc-exp"
+                      name="cExpire"
+                      maxLength="7"
+                      value={cExpire}
+                      required
+                      onChange={handleOnChangeInput}
+                      onBlur={handleOnChangeInput}
+                      onKeyUp={getCardNumber}
+                      placeholder="mm/aaaa"
+                      disabled={loading}
+                    />
+                    {cExpireError && (
+                      <span className="msn-error">{cExpireError}</span>
+                    )}
+                  </label>
+                </div>
+
+                <div className="block">
+                  <label htmlFor="cCvv">
+                    {texts.labelcCvv}
+                    <button
+                      type="button"
+                      className="tooltip step__btn-link"
+                      tabIndex={-1}>
+                      <i className="icon-info"> </i>
+                      <span className="tooltiptext-leftarrow">
+                        {texts.whereCvv}
+                        <i
+                          className={
+                            methodCard === 'AMEX'
+                              ? styles.cvvAmex
+                              : styles.cvvAll
+                          }
+                        />
+                      </span>
+                    </button>
+                    <TextMask
+                      mask={patterCvv}
+                      guide={false}
+                      className={cCvvError && 'input-error'}
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="cc-csc"
+                      name="cCvv"
+                      maxLength={methodCard === 'AMEX' ? '4' : '3'}
+                      value={cCvv}
+                      required
+                      onChange={handleOnChangeInput}
+                      onBlur={handleOnChangeInput}
+                      onKeyUp={getCardNumber}
+                      placeholder={methodCard === 'AMEX' ? '****' : '***'}
+                      disabled={loading}
+                    />
+                    {cCvvError && (
+                      <span className="msn-error">{cCvvError}</span>
+                    )}
+                  </label>
+                </div>
+              </div>
+
+              <div className={styles.block}>
+                <label htmlFor="cTerms" className="terms">
+                  <input
+                    id="cTerms"
+                    value={checkedTerms ? 'si' : 'no'}
+                    type="checkbox"
+                    name="cTerms"
+                    required
+                    disabled={loading}
+                    onChange={(e) => {
+                      handleOnChange(e)
+                      setCheckedTerms(!checkedTerms)
+                    }}
+                  />
+                  {texts.termsAccept}
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab('terminos')}>
+                    {texts.termsConditions}
+                  </button>
+                  {texts.textTermsThe}
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab('politicas')}>
+                    {texts.textTermsPolices}
+                  </button>
+                  {texts.textTermsAccord}
+                  <span
+                    className={`checkmark ${cTermsError && 'input-error'}`}
+                  />
+                </label>
+              </div>
+
+              {cTermsError && (
+                <div className={styles.block}>
+                  <div className="msg-alert">{cTermsError}</div>
+                </div>
+              )}
+
+              <div className={styles.block}>
+                <button
+                  className={`${styles.btn} ${loading && 'btn-loading'}`}
+                  type="submit"
+                  disabled={disable || loading}>
+                  {loading ? txtLoading : 'Pagar suscripción'}
+                </button>
+              </div>
+            </form>
+
+            <p className={styles.secure}>
+              <i className="icon-security" />
+              {texts.showSecure}
+            </p>
+          </div>
+
+          <div className={styles.tabCard2}>
+            <div className="efectivo-tab">
+              <input defaultChecked id="tab3" type="radio" name="optefectivo" />
+              <input id="tab4" type="radio" name="optefectivo" />
+
+              <nav>
+                <ul>
+                  <li className="tab3">
+                    <label htmlFor="tab3">
+                      Banca Móvil
+                      <span className="checkmark" />
+                    </label>
+                  </li>
+                  <li className="tab4">
+                    <label htmlFor="tab4">
+                      Agentes y Bodegas
+                      <span className="checkmark" />
+                    </label>
+                  </li>
+                </ul>
+              </nav>
+
+              <section>
+                <div className="tab3">
+                  {texts.textBanca}
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab(links.howItWork)}>
+                    {texts.howItWork}
+                  </button>
+                  <div className="img-movil" />
+                  <form onSubmit={handlePayEfective} className="form-pay">
+                    <div className={styles.block}>
+                      <button
+                        className={`${styles.btn} ${loading && 'btn-loading'}`}
+                        type="submit"
+                        disabled={loading}>
+                        {loading ? txtLoading : 'Generar código'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div className="tab4">
+                  {texts.textAgentes}
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab(links.howItWork)}>
+                    {texts.howItWork}
+                  </button>
+                  <div className="img-agentes" />
+                  <form onSubmit={handlePayEfective} className="form-pay">
+                    <div className={styles.block}>
+                      <button
+                        className={`${styles.btn} ${loading && 'btn-loading'}`}
+                        type="submit"
+                        disabled={loading}>
+                        {loading ? txtLoading : 'Generar código'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <p className={styles.secure}>
+                  <i className="icon-security" />
+                  {texts.showSecure}
+                </p>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   )
 }

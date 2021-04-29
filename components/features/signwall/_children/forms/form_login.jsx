@@ -1,12 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import { sha256 } from 'js-sha256'
+import sha256 from 'crypto-js/sha256'
 import * as S from './styles'
 import { ButtonSocial, ButtonEmail, AuthURL } from './control_social'
 import { MsgRegister } from '../iconos'
 import { ModalConsumer } from '../context'
 import { Input } from './control_input_select'
+import { CheckBox } from './control_checkbox'
 import useForm from '../../_dependencies/useForm'
 import getCodeError from '../../_dependencies/codes_error'
 import Domains from '../../_dependencies/domains'
@@ -34,8 +35,8 @@ export const FormLogin = ({ valTemplate, attributes }) => {
       activeVerifyEmail = false,
       activePaywall,
     },
-    removeBefore = i => i,
-    onLogged = i => i,
+    removeBefore = (i) => i,
+    onLogged = (i) => i,
   } = attributes
 
   const [showLoginEmail, setShowLoginEmail] = useState(valTemplate)
@@ -47,6 +48,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
   const [showFormatInvalid, setShowFormatInvalid] = useState('')
   const [showVerify, setShowVerify] = useState()
   const [showSendEmail, setShowSendEmail] = useState(false)
+  const [checkedPolits, setCheckedPolits] = useState(true)
 
   const stateSchema = {
     lemail: { value: valTemplate || '', error: '' },
@@ -57,7 +59,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     lemail: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
             value
           ),
@@ -67,7 +69,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     lpass: {
       required: true,
       validator: {
-        func: value => value.length >= 8,
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
     },
@@ -88,21 +90,21 @@ export const FormLogin = ({ valTemplate, attributes }) => {
   }
 
   const getListSubs = () => {
-    return window.Identity.extendSession().then(resExt => {
+    return window.Identity.extendSession().then((resExt) => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
       )
-        .then(res => {
+        .then((res) => {
           if (res.skus) {
-            const result = Object.keys(res.skus).map(key => {
+            const result = Object.keys(res.skus).map((key) => {
               return res.skus[key].sku
             })
             return result
           }
           return []
         })
-        .catch(err => window.console.error(err))
+        .catch((err) => window.console.error(err))
 
       return checkEntitlement
     })
@@ -134,14 +136,14 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
 
-      getListSubs().then(p => {
+      getListSubs().then((p) => {
         if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
         } else {
           setShowUserWithSubs(true) // tengo subs
           setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
+          const divPremium = document.getElementById('container')
           if (divPremium) {
             divPremium.classList.remove('story-content__nota-premium')
             divPremium.removeAttribute('style')
@@ -151,7 +153,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     }
   }
 
-  const handleGetProfile = profile => {
+  const handleGetProfile = (profile) => {
     setShowLoading(true)
 
     Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
@@ -162,14 +164,14 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
 
-      getListSubs().then(p => {
+      getListSubs().then((p) => {
         if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
         } else {
           setShowUserWithSubs(true) // tengo subs
           setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
+          const divPremium = document.getElementById('container')
           if (divPremium) {
             divPremium.classList.remove('story-content__nota-premium')
             divPremium.removeAttribute('style')
@@ -179,8 +181,9 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName ||
-          'Bienvenido'} ${profile.lastName || ''}`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
+          profile.lastName || ''
+        }`
       }
       onClose()
     }
@@ -194,7 +197,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     return null
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     const { lemail, lpass } = state
     setShowLoading(true)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
@@ -204,7 +207,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     })
       .then(() => {
         window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-        window.Identity.getUserProfile().then(resProfile => {
+        window.Identity.getUserProfile().then((resProfile) => {
           if (
             activeVerifyEmail &&
             !resProfile.emailVerified &&
@@ -229,7 +232,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
           }
         })
       })
-      .catch(errLogin => {
+      .catch((errLogin) => {
         setShowLoading(false)
         setShowError(getCodeError(errLogin.code))
         setShowVerify(errLogin.code === '130051')
@@ -244,7 +247,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
       })
   }
 
-  const checkFormat = e => {
+  const checkFormat = (e) => {
     if (e.target.value.indexOf(' ') >= 0) {
       setShowFormatInvalid('No se permite espacios')
     } else {
@@ -288,169 +291,227 @@ export const FormLogin = ({ valTemplate, attributes }) => {
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <>
           {!showCheckPremium ? (
-            <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
-              {activePaywall && typeDialog !== 'premium' && (
-                <S.Title
-                  s="22"
-                  primaryFont={primaryFont}
-                  className="center mb-20 mt-20 only-mobile-tablet">
-                  Regístrate y mantente siempre informado con las noticias más
-                  relevantes del Perú y el mundo
-                </S.Title>
-              )}
+            <>
+              <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
+                {activePaywall && typeDialog !== 'premium' && (
+                  <S.Title
+                    s="22"
+                    primaryFont={primaryFont}
+                    className="center mb-20 mt-20 only-mobile-tablet">
+                    Regístrate y mantente siempre informado con las noticias más
+                    relevantes del Perú y el mundo
+                  </S.Title>
+                )}
 
-              <S.Text c="gray" s="18" className="mb-10 mt-10 center">
-                Ingresa con
-              </S.Text>
+                <S.Text c="gray" s="18" className="mb-10 mt-10 center">
+                  Ingresa con
+                </S.Text>
 
-              {authProviders.map(item => (
-                <ButtonSocial
-                  brand={item}
-                  size="middle"
-                  c="mb-10"
+                {authProviders.map((item) => (
+                  <ButtonSocial
+                    brand={item}
+                    size="middle"
+                    c="mb-10"
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    arcSite={arcSite}
+                    typeForm="login"
+                    activeNewsletter={activeNewsletter}
+                    checkUserSubs={checkUserSubs}
+                    onLogged={onLogged}
+                    showMsgVerify={() => triggerShowVerify()}
+                    dataTreatment={checkedPolits ? '1' : '0'}
+                  />
+                ))}
+
+                <AuthURL
+                  arcSite={arcSite}
                   onClose={onClose}
                   typeDialog={typeDialog}
-                  arcSite={arcSite}
-                  typeForm="login"
                   activeNewsletter={activeNewsletter}
-                  checkUserSubs={checkUserSubs}
+                  typeForm="login"
                   onLogged={onLogged}
-                  showMsgVerify={() => triggerShowVerify()}
+                  checkUserSubs={checkUserSubs}
                 />
-              ))}
 
-              <AuthURL
-                arcSite={arcSite}
-                onClose={onClose}
-                typeDialog={typeDialog}
-                activeNewsletter={activeNewsletter}
-                typeForm="login"
-                onLogged={onLogged}
-                checkUserSubs={checkUserSubs}
-              />
-
-              {!showLoginEmail && (
-                <ButtonEmail
-                  size="full"
-                  onClick={() => {
-                    Taggeo(
-                      `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_open_login_boton_ingresar`
-                    )
-                    setShowLoginEmail(!showLoginEmail)
-                  }}
-                />
-              )}
-
-              {showLoginEmail && (
-                <>
-                  {showError && (
-                    <S.Error type={showVerify ? 'warning' : ''}>
-                      {` ${showError} `}
-                      {showVerify && (
-                        <>
-                          {!showSendEmail ? (
-                            <button type="button" onClick={sendVerifyEmail}>
-                              Reenviar correo de activación
-                            </button>
-                          ) : (
-                            <span>
-                              Podrás reenviar nuevamente dentro de
-                              <strong id="countdown"> 10 </strong> segundos
-                            </span>
-                          )}
-                        </>
-                      )}
-                    </S.Error>
-                  )}
-
-                  <Input
-                    type="email"
-                    inputMode="email"
-                    autoComplete="email"
-                    name="lemail"
-                    placeholder="Correo electrónico"
-                    required
-                    value={lemail}
-                    onChange={e => {
-                      handleOnChange(e)
-                      setShowError(false)
+                {!showLoginEmail && (
+                  <ButtonEmail
+                    size="full"
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_open_login_boton_ingresar`
+                      )
+                      setShowLoginEmail(!showLoginEmail)
                     }}
-                    error={lemailError}
                   />
+                )}
 
-                  <Input
-                    type="password"
-                    autoComplete="current-password"
-                    name="lpass"
-                    placeholder="Contraseña"
-                    required
-                    value={lpass}
-                    onChange={e => {
-                      handleOnChange(e)
-                      setShowError(false)
-                      checkFormat(e)
-                    }}
-                    error={lpassError || showFormatInvalid}
-                  />
+                {showLoginEmail && (
+                  <>
+                    {showError && (
+                      <S.Error type={showVerify ? 'warning' : ''}>
+                        {` ${showError} `}
+                        {showVerify && (
+                          <>
+                            {!showSendEmail ? (
+                              <button type="button" onClick={sendVerifyEmail}>
+                                Reenviar correo de activación
+                              </button>
+                            ) : (
+                              <span>
+                                Podrás reenviar nuevamente dentro de
+                                <strong id="countdown"> 10 </strong> segundos
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </S.Error>
+                    )}
 
+                    <Input
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      name="lemail"
+                      placeholder="Correo electrónico"
+                      required
+                      value={lemail}
+                      onChange={(e) => {
+                        handleOnChange(e)
+                        setShowError(false)
+                      }}
+                      error={lemailError}
+                    />
+
+                    <Input
+                      type="password"
+                      autoComplete="current-password"
+                      name="lpass"
+                      placeholder="Contraseña"
+                      required
+                      value={lpass}
+                      onChange={(e) => {
+                        handleOnChange(e)
+                        setShowError(false)
+                        checkFormat(e)
+                      }}
+                      error={lpassError || showFormatInvalid}
+                    />
+
+                    <S.Link
+                      href="#"
+                      c="gray"
+                      className="mt-10 mb-20 inline f-right text-sm"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        Taggeo(
+                          `Web_Sign_Wall_${typeDialog}`,
+                          `web_sw${typeDialog[0]}_contrasena_link_olvide`
+                        )
+                        value.changeTemplate('forgot')
+                      }}>
+                      Olvidé mi contraseña
+                    </S.Link>
+
+                    <S.Button
+                      type="submit"
+                      color={mainColorBtn}
+                      disabled={disable || showLoading || showFormatInvalid}
+                      onClick={() =>
+                        Taggeo(
+                          `Web_Sign_Wall_${typeDialog}`,
+                          `web_sw${typeDialog[0]}_login_boton_ingresar`
+                        )
+                      }>
+                      {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
+                    </S.Button>
+                  </>
+                )}
+
+                <S.Text c="black" s="12" className="mt-10 mb-10 center">
+                  ¿Aún no tienes una cuenta?
                   <S.Link
                     href="#"
-                    c="gray"
-                    className="mt-10 mb-20 inline f-right text-sm"
-                    onClick={e => {
+                    c={mainColorLink}
+                    fw="bold"
+                    className="ml-10"
+                    onClick={(e) => {
                       e.preventDefault()
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_contrasena_link_olvide`
+                        `web_sw${typeDialog[0]}_login_boton_registrate`
                       )
-                      value.changeTemplate('forgot')
+                      value.changeTemplate('register')
                     }}>
-                    Olvidé mi contraseña
+                    Regístrate
                   </S.Link>
+                </S.Text>
 
-                  <S.Button
-                    type="submit"
-                    color={mainColorBtn}
-                    disabled={disable || showLoading || showFormatInvalid}
-                    onClick={() =>
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_login_boton_ingresar`
-                      )
-                    }>
-                    {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
-                  </S.Button>
-                </>
+                <S.Text c="light" s="10" className="mt-10 mb-10 center">
+                  CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN
+                  Y NUNCA PUBLICAREMOS SIN TU PERMISO
+                </S.Text>
+              </S.Form>
+
+              {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                <S.Form>
+                  <CheckBox
+                    checked={checkedPolits}
+                    value={checkedPolits ? '1' : '0'}
+                    name="rpolit"
+                    onChange={() => {
+                      setCheckedPolits(!checkedPolits)
+                    }}>
+                    <S.Text c="gray" lh="18" s="12" className="mt-10">
+                      Al ingresar por redes sociales autorizo el uso de mis
+                      datos para
+                      <S.Link
+                        href="/tratamiento-de-datos/"
+                        target="_blank"
+                        c={mainColorLink}
+                        fw="bold"
+                        className="ml-5 inline">
+                        fines adicionales
+                      </S.Link>
+                    </S.Text>
+                  </CheckBox>
+
+                  <S.Text
+                    c="light"
+                    s="11"
+                    className="mt-10 mb-10"
+                    style={{ textAlign: 'justify' }}>
+                    En caso ya hayas autorizado los fines de usos adicionales de
+                    manera previa, no es necesario que lo vuelvas a marcar. Si
+                    deseas retirar dicho consentimiento puedes seguir el
+                    procedimiento establecito en nuestras
+                    <S.Link
+                      href={(() => {
+                        switch (arcSite) {
+                          case 'elcomercio':
+                          case 'depor':
+                            return '/politicas-privacidad/'
+                          case 'gestion':
+                          case 'trome':
+                            return '/politica-de-privacidad/'
+                          default:
+                            return '/politicas-de-privacidad/'
+                        }
+                      })()}
+                      target="_blank"
+                      c={mainColorLink}
+                      fw="bold"
+                      className="ml-5 inline">
+                      Políticas de Privacidad.
+                    </S.Link>
+                  </S.Text>
+                </S.Form>
               )}
-
-              <S.Text c="black" s="12" className="mt-10 mb-10 center">
-                ¿Aún no tienes una cuenta?
-                <S.Link
-                  href="#"
-                  c={mainColorLink}
-                  fw="bold"
-                  className="ml-10"
-                  onClick={e => {
-                    e.preventDefault()
-                    Taggeo(
-                      `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_login_boton_registrate`
-                    )
-                    value.changeTemplate('register')
-                  }}>
-                  Regístrate
-                </S.Link>
-              </S.Text>
-
-              <S.Text c="light" s="10" className="mt-10 mb-10 center">
-                CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
-                NUNCA PUBLICAREMOS SIN TU PERMISO
-              </S.Text>
-            </S.Form>
+            </>
           ) : (
             <>
               {showLoadingPremium ? (
@@ -462,8 +523,9 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                   </div>
 
                   <S.Title s="22" className="center mb-10">
-                    {`Bienvenido(a) ${window.Identity.userProfile.firstName ||
-                      'Usuario'} `}
+                    {`Bienvenido(a) ${
+                      window.Identity.userProfile.firstName || 'Usuario'
+                    } `}
                   </S.Title>
                   <S.Text
                     c="gray"

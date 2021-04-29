@@ -1,5 +1,5 @@
 export const loginSocialEco = (URL, username, accessToken, type) => {
-  const response = new Promise(resolve => {
+  const response = new Promise((resolve) => {
     fetch(`${URL}/identity/public/v1/auth/token`, {
       method: 'POST',
       body: JSON.stringify({
@@ -10,13 +10,13 @@ export const loginSocialEco = (URL, username, accessToken, type) => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(res => resolve(res.json()))
+    }).then((res) => resolve(res.json()))
   })
   return response
 }
 
 export const sendNewsLettersUser = (URL, uuid, email, site, token, data) => {
-  const response = new Promise(resolve => {
+  const response = new Promise((resolve) => {
     fetch(`${URL}/newsletter/events?v=${new Date().getTime()}`, {
       method: 'POST',
       cache: 'no-cache',
@@ -36,19 +36,19 @@ export const sendNewsLettersUser = (URL, uuid, email, site, token, data) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token} ${site}`,
       },
-    }).then(res => resolve(res.json()))
+    }).then((res) => resolve(res.json()))
   })
   return response
 }
 
 export const getEntitlements = (URL, jwt) => {
-  const response = new Promise(resolve => {
+  const response = new Promise((resolve) => {
     fetch(`${URL}/sales/public/v1/entitlements`, {
       method: 'GET',
       headers: {
         Authorization: jwt,
       },
-    }).then(res => resolve(res.json()))
+    }).then((res) => resolve(res.json()))
   })
   return response
 }
@@ -62,7 +62,7 @@ export const paymentTraker = (
   order,
   confirm
 ) => {
-  const response = new Promise(resolve => {
+  const response = new Promise((resolve) => {
     fetch(`${URL}/service/arc/paywall/tracking`, {
       method: 'POST',
       cache: 'no-cache',
@@ -78,13 +78,13 @@ export const paymentTraker = (
         Authorization: `Bearer ${jwt}`,
         'X-arc-site': site,
       },
-    }).then(res => resolve(res.json()))
+    }).then((res) => resolve(res.json()))
   })
   return response
 }
 
 export const subDniToken = (URL, jwt) => {
-  const response = new Promise(resolve => {
+  const response = new Promise((resolve) => {
     fetch(URL, {
       method: 'POST',
       cache: 'no-cache',
@@ -92,18 +92,16 @@ export const subDniToken = (URL, jwt) => {
         'Content-Type': 'application/json',
         'user-token': jwt,
       },
-    }).then(res => resolve(res.json()))
+    }).then((res) => resolve(res.json()))
   })
 
   return response
 }
 
 export const pushCallOut = (name, phone) => {
-  const response = new Promise(resolve => {
+  const response = new Promise((resolve) => {
     fetch('https://servicios.scc.pe/web_api_comercio/insertar_cliente/', {
       method: 'POST',
-      // mode: 'cors',
-      // credentials: 'same-origin',
       body: JSON.stringify({
         nombre: name,
         telefono: phone,
@@ -113,7 +111,22 @@ export const pushCallOut = (name, phone) => {
         Authorization:
           'Basic dXN1YXJpb19jb21lcmNpb19jMmM6YzBtM3JjMTAuQzJDLnczYi5AcGk=',
       },
-    }).then(res => resolve(res.json()))
+    }).then((res) => resolve(res.json()))
+  })
+
+  return response
+}
+
+export const cipPayEfectivo = (url, data) => {
+  const response = new Promise((resolve) => {
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Authorization: 'Token deb904a03a4e31d420a014534514b8cc8ca4d111',
+      }),
+    }).then((res) => resolve(res.json()))
   })
 
   return response
