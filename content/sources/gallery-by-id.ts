@@ -1,4 +1,11 @@
 // import { createResizedParams } from '../../components/utilities/resizer/resizer'
+import { ConentSourceBase } from 'types/content-source'
+
+export type GalleryByIdQuery = {
+  _id: string
+}
+
+type GalleryByIdParams = GalleryByIdQuery & ConentSourceBase
 
 const schemaName = 'photo'
 
@@ -15,7 +22,7 @@ const params = [
   // },
 ]
 
-const resolve = ({ _id: id }) => {
+const resolve = ({ _id: id }: GalleryByIdParams): string | never => {
   if (!id) throw new Error('Esta fuente de contenido requiere un id')
   return `/photo/api/v2/galleries/${id}`
 }

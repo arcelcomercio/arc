@@ -1,4 +1,15 @@
+import { ConentSourceBase } from 'types/content-source'
+import { Story } from 'types/story'
+
 import { getResizedImageData } from '../../components/utilities/resizer/resizer'
+
+export type StoryByUrlQuery = {
+  website_url: number
+  published?: string
+  presets?: string
+}
+
+type StoryByUrlParams = StoryByUrlQuery & ConentSourceBase
 
 const schemaName = 'story'
 
@@ -20,12 +31,12 @@ const params = [
   },
 ]
 
-const resolve = (key = {}) => {
+const resolve = (key: StoryByUrlParams): string | never => {
   const hasWebsiteUrl = Object.prototype.hasOwnProperty.call(key, 'website_url')
   if (!hasWebsiteUrl)
     throw new Error('Esta fuente de contenido requiere una URI y un sitio web')
 
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  const website = key?.['arc-site'] || 'Arc Site no está definido'
   const { website_url: websiteUrl, published = '' } = key
   const isPublished = published === 'false' ? 'false' : 'true'
 
@@ -35,9 +46,12 @@ const resolve = (key = {}) => {
   return requestUri
 }
 
-const transform = (data, { 'arc-site': arcSite, presets }) => {
+const transform = (
+  data: Story,
+  { 'arc-site': arcSite, presets }: StoryByUrlParams
+): Story => {
   if (data.type === 'redirect' || presets === 'no-presets') return data
-  return getResizedImageData(data, presets, arcSite)
+  return getResizedImageData(data, presets, arcSite) as Story
 }
 
 export default {
