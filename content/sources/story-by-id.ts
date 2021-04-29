@@ -32,7 +32,7 @@ const params = [
 ]
 
 const resolve = (key: StoryByIdParams): string => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
+  const website = key?.['arc-site'] || 'Arc Site no está definido'
 
   const hasWebsiteId = Object.prototype.hasOwnProperty.call(key, '_id')
   if (!hasWebsiteId)

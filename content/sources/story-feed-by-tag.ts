@@ -69,22 +69,23 @@ const resolve = (key: StoryFeedByTagParams): string => {
 
   const websiteField = rawWebsite === null ? '' : rawWebsite
 
-  const website = websiteField || key['arc-site'] || 'Arc Site no está definido'
+  const website =
+    websiteField || key?.['arc-site'] || 'Arc Site no está definido'
 
-  const size = key.size || 20
+  const size = key?.size || 20
 
   if (!name) {
     throw new Error('Esta fuente de contenido necesita el Slug de la etiqueta')
   }
 
   const validateFrom = () => {
-    if (key.from !== '1' && key.from) {
+    if (key?.from !== '1' && key.from) {
       return (key.from - 1) * size
     }
     return '0'
   }
 
-  const from = includedFields ? key.from || 0 : `${validateFrom()}`
+  const from = includedFields ? key?.from || 0 : `${validateFrom()}`
 
   const contentTypeQuery = contentType
     ? // metered,free,premium -> (metered+free+premium)
