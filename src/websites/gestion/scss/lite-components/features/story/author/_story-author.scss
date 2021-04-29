@@ -1,13 +1,9 @@
 .story-contents {
   &__author {
-    font-size: 16px;
-    letter-spacing: 0.42px;
-    color: #807e7e;
-    font-family: $primary-font;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-bottom: 8px;
+    padding-bottom: 20px;
     @media (--only-mobile) {
       flex-direction: column-reverse;
     }
@@ -23,12 +19,12 @@
     }
   }
   &__author-link {
-    font-family: $secondary-font !important;
-    font-size: 16px !important;
-    font-weight: 700;
+    font: 700 1rem/1.333 $primary-font;
     display: inline-block;
-    color: #333;
-    margin-bottom: 6px;
+    color: #8f071f;
+    @media (--tablet) {
+      font-size: 19px;
+    }
   }
   &__author-image {
     width: 57px;
@@ -43,21 +39,21 @@
     color: #444;
   }
   &__author-email {
-    font-family: $secondary-font;
-    font-size: 12px;
-    color: #747a84;
+    font: 700 0.9rem/1.33 $primary-font;
+    margin-bottom: 6px;
+    color: #8a8a8a;
+    a {
+      color: #8a8a8a;
+    }
   }
   &__author-date {
-    line-height: 18px;
-    color: #888;
-    font-size: 12px;
-    font-family: $primary-font;
+    font: 400 0.9rem/1.333 $tertiary-font;
+    color: #8a8a8a;
     flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     @media (--desktop) {
-      font-size: 12px;
-    }
-    @media (--only-mobile) {
-      margin-bottom: 15px;
+      font-size: 11px;
     }
   }
 
@@ -68,8 +64,6 @@
 .gv {
   border-bottom: 1px solid #d6d6d6;
   border-top: 1px solid #d6d6d6;
-  padding-top: 20px;
-  margin-right: 20px;
-  margin-left: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0 10px;
+  margin: 0 20px;
 }
