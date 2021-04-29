@@ -1,4 +1,4 @@
-// import { createResizedParams } from '../../components/utilities/resizer/resizer'
+import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'photo'
 
@@ -8,11 +8,11 @@ const params = [
     displayName: 'ID de la galería en Photo Center',
     type: 'text',
   },
-  // {
-  //   name: 'presets',
-  //   displayName: 'Tamaño de las imágenes (opcional)',
-  //   type: 'text',
-  // },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)',
+    type: 'text',
+  },
 ]
 
 const resolve = ({ _id: id }) => {
@@ -20,27 +20,30 @@ const resolve = ({ _id: id }) => {
   return `/photo/api/v2/galleries/${id}`
 }
 
-// const transform = (data, { 'arc-site': website, presets }) => {
-//   if (!website) return data
+const transform = (data, { 'arc-site': website, presets }) => {
+  if (!website) return data
 
-//   let photoData = {}
+  const dataWithResizer = data || {}
 
-//   if (data) {
-//     photoData = data
-//     const { url } = photoData
-//     const resizedUrls = createResizedParams({
-//       url,
-//       presets,
-//       arcSite: website,
-//     })
-//     photoData.resized_urls = resizedUrls
-//   }
-//   return { ...photoData }
-// }
+  dataWithResizer.content_elements = data?.content_elements?.map(
+    (item = {}) => {
+      const resizedUrls = createResizedParams({
+        url: item?.url,
+        presets,
+        arcSite: website,
+      })
+
+      console.log('>>>>>>>>>>>>>>>>>>>', resizedUrls)
+      return { ...item, resized_urls: resizedUrls }
+    }
+  )
+
+  return dataWithResizer
+}
 
 export default {
   resolve,
-  // transform,
+  transform,
   schemaName,
   params,
 }
