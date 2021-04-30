@@ -11,6 +11,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_PERU21G21,
+  SITE_TROME, 
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
