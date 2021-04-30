@@ -16,6 +16,7 @@ import {
   PixelActions,
   sendAction,
   TaggeoJoao,
+  TagsAdsMurai,
   eventCategory,
 } from '../../../_dependencies/Taggeo'
 import {
@@ -70,6 +71,7 @@ const Confirmation = () => {
     userProfile,
   } = React.useContext(AuthContext)
 
+  const { phone, province } = conformProfile(userProfile || {})
   const { texts } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = React.useState(false)
@@ -95,7 +97,7 @@ const Confirmation = () => {
   }
 
   React.useEffect(() => {
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('step', 'Confirmación')
     })
     Sentry.addBreadcrumb({
@@ -201,12 +203,24 @@ const Confirmation = () => {
         value: amount,
       })
 
+      TagsAdsMurai(
+        {
+          event: 'pageview',
+          em: email,
+          fn: `${firstName || ''}`,
+          ln: `${lastName || ''} ${secondLastName || ''}`,
+          ct: `${province || ''}`,
+          ph: `${phone || ''}`,
+        },
+        window.location.pathname
+      )
+
       if ('Identity' in window) {
         window.Identity.extendSession()
           .then(() => {
             setSendTracking(true)
           })
-          .catch(extendErr => {
+          .catch((extendErr) => {
             Sentry.captureEvent({
               message: 'Error al extender la sesión',
               level: 'error',
@@ -221,7 +235,6 @@ const Confirmation = () => {
         })
       }
 
-      // Datalayer solicitados por Joao
       setTimeout(() => {
         TaggeoJoao(
           {
@@ -235,6 +248,19 @@ const Confirmation = () => {
             action: userPeriod,
             label: uuid,
             value: `${amount}`,
+          },
+          window.location.pathname
+        )
+
+        TagsAdsMurai(
+          {
+            event: 'Subscribe',
+            content_ids: sku,
+            content_type: 'product',
+            content_name: name,
+            value: amount,
+            currency: 'PEN',
+            subscription_type: userPeriod,
           },
           window.location.pathname
         )

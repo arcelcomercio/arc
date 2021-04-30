@@ -34,6 +34,18 @@ export const TaggeoJoao = (obj, path) => {
   }
 }
 
+export const TagsAdsMurai = (obj, path) => {
+  window.dataLayer.push(obj)
+  if (!IsPROD) {
+    window.console.groupCollapsed(
+      `%c 🔔 Taggeo AdsMurai - Data: ${obj} | Ruta: ${path}`,
+      'color:  blue; font-size: 12px'
+    )
+    window.console.table(obj)
+    window.console.groupEnd()
+  }
+}
+
 /**
  * @typedef {object} EventCategoryOpts
  * @property {(1|2|3)} step
@@ -78,7 +90,7 @@ export function sendAction(action, payload = {}) {
   }
 }
 
-export const pushCxense = codeCxense => {
+export const pushCxense = (codeCxense) => {
   if (window.cX && typeof window !== 'undefined') {
     window.cX.CCE.callQueue.push([
       'sendConversionEvent',

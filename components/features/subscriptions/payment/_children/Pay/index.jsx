@@ -6,13 +6,13 @@ import * as Sentry from '@sentry/browser'
 
 import useForm from '../../../_hooks/useForm'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
-// import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
 import {
   PixelActions,
   sendAction,
   TaggeoJoao,
+  TagsAdsMurai,
   eventCategory,
 } from '../../../_dependencies/Taggeo'
 import { getSessionStorage } from '../../../_dependencies/Utils'
@@ -70,6 +70,7 @@ const Pay = () => {
     documentType,
     documentNumber,
     emailVerified,
+    province,
   } = conformProfile(userProfile || {})
 
   const [msgError, setMsgError] = React.useState(false)
@@ -88,7 +89,7 @@ const Pay = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0)
 
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('document', documentNumber || 'none')
       scope.setTag('phone', phone || 'none')
       scope.setTag('email', email || 'none')
@@ -119,7 +120,7 @@ const Pay = () => {
         })
         window.Sales.options({ apiOrigin: urls.arcOrigin })
       })
-      .catch(errSalesSDK => {
+      .catch((errSalesSDK) => {
         Sentry.captureEvent({
           message: 'SDK Sales no ha cargado correctamente',
           level: 'error',
@@ -155,7 +156,7 @@ const Pay = () => {
         window.payU.setLanguage('es')
         window.payU.getPaymentMethods()
       })
-      .catch(errPayuSDK => {
+      .catch((errPayuSDK) => {
         Sentry.captureEvent({
           message: 'El SDK PayU no ha cargado correctamente',
           level: 'error',
@@ -188,6 +189,18 @@ const Pay = () => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    TagsAdsMurai(
+      {
+        event: 'pageview',
+        em: email,
+        fn: `${firstName || ''}`,
+        ln: `${lastName || ''} ${secondLastName || ''}`,
+        ct: `${province || ''}`,
+        ph: `${phone || ''}`,
+      },
+      window.location.pathname
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -202,7 +215,7 @@ const Pay = () => {
     cNumber: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           'payU' in window &&
           window.payU.validateCard(value.replace(/\s/g, '')),
         error: 'Número tarjeta inválido.',
@@ -211,7 +224,7 @@ const Pay = () => {
     cExpire: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^(0[1-9]|1[0-2])\/?(((202)\d{1}|(202)\d{1})|(2)\d{1})$/.test(value),
         error: 'Fecha incorrecta',
       },
@@ -219,7 +232,7 @@ const Pay = () => {
     cCvv: {
       required: true,
       validator: {
-        func: value => /^([0-9]{3,})+$/.test(value),
+        func: (value) => /^([0-9]{3,})+$/.test(value),
         error: 'CVV Inválido',
       },
     },
@@ -268,6 +281,19 @@ const Pay = () => {
         setMsgError(false)
         setTxtLoading('Preparando Orden...')
 
+        TagsAdsMurai(
+          {
+            event: 'AddPaymentInfo',
+            content_ids: sku,
+            content_type: 'product',
+            content_name: name,
+            value: amount,
+            currency: 'PEN',
+            subscription_type: userPeriod,
+          },
+          window.location.pathname
+        )
+
         window.Sales.clearCart()
           .then(() => {
             Sentry.addBreadcrumb({
@@ -306,7 +332,7 @@ const Pay = () => {
               { country: 'PE' }
             )
           })
-          .then(resOrder => {
+          .then((resOrder) => {
             Sentry.addBreadcrumb({
               type: 'info',
               category: 'pago',
@@ -317,11 +343,11 @@ const Pay = () => {
               level: 'info',
             })
             return window.Sales.getPaymentOptions()
-              .then(resPayOptions => {
+              .then((resPayOptions) => {
                 setTxtLoading('Iniciando Proceso...')
 
                 payUPaymentMethod = resPayOptions?.find(
-                  m => m?.paymentMethodType === 8
+                  (m) => m?.paymentMethodType === 8
                 )
                 orderNumberDinamic = resOrder?.orderNumber
                 const { paymentMethodID } = payUPaymentMethod || {}
@@ -345,7 +371,7 @@ const Pay = () => {
                   paymentMethodID
                 )
               })
-              .catch(paymentError => {
+              .catch((paymentError) => {
                 Sentry.captureEvent({
                   message:
                     paymentError?.error || getCodeError(paymentError?.code),
@@ -353,7 +379,7 @@ const Pay = () => {
                   extra: paymentError || {},
                 })
               })
-              .then(resInitialize => {
+              .then((resInitialize) => {
                 const {
                   orderNumber,
                   parameter1: publicKey,
@@ -406,7 +432,7 @@ const Pay = () => {
                     },
                     level: 'info',
                   })
-                  window.payU.createToken(response => {
+                  window.payU.createToken((response) => {
                     if (response?.error) {
                       reject(new Error(response.error))
                       setMsgError(response.error)
@@ -421,7 +447,6 @@ const Pay = () => {
                         },
                       })
 
-                      // Datalayer solicitados por Joao
                       TaggeoJoao(
                         {
                           event: 'Pasarela Suscripciones Digitales',
@@ -432,8 +457,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${response.error ||
-                            getCodeError('errorFinalize')}`,
+                          action: `${userPeriod} - ${
+                            response.error || getCodeError('errorFinalize')
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -460,7 +486,7 @@ const Pay = () => {
                   })
                 })
 
-                return handleCreateToken.then(resToken => {
+                return handleCreateToken.then((resToken) => {
                   const { paymentMethodID, paymentMethodType } =
                     payUPaymentMethod || {}
                   const tokenDinamic = `${resToken}~${deviceSessionId}~${cCvv}`
@@ -485,7 +511,7 @@ const Pay = () => {
                     paymentMethodID,
                     tokenDinamic
                   )
-                    .then(resFinalize => {
+                    .then((resFinalize) => {
                       Sentry.addBreadcrumb({
                         type: 'info',
                         category: 'compra',
@@ -498,7 +524,6 @@ const Pay = () => {
                         resFinalize || {}
                       updatePurchase(resFinalize)
 
-                      // Datalayer solicitados por Joao
                       TaggeoJoao(
                         {
                           event: 'Pasarela Suscripciones Digitales',
@@ -539,7 +564,6 @@ const Pay = () => {
                         },
                       })
 
-                      // Datalayer solicitados por Joao
                       TaggeoJoao(
                         {
                           event: 'Pasarela Suscripciones Digitales',
@@ -550,8 +574,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${errFinalize.message ||
-                            getCodeError('errorFinalize')}`,
+                          action: `${userPeriod} - ${
+                            errFinalize.message || getCodeError('errorFinalize')
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -580,7 +605,7 @@ const Pay = () => {
     }
   }
 
-  const validateCardNumber = e => {
+  const validateCardNumber = (e) => {
     if (typeof window !== 'undefined' && 'payU' in window) {
       window.payU.validateCard(e.target.value)
       setMethodCard(window.payU.card.method)
@@ -600,7 +625,7 @@ const Pay = () => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFormPay)
 
-  const handleOnChangeInput = e => {
+  const handleOnChangeInput = (e) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         setMsgError(false)
@@ -612,7 +637,7 @@ const Pay = () => {
     }
   }
 
-  const openNewTab = typeLink => {
+  const openNewTab = (typeLink) => {
     if (typeof window !== 'undefined') {
       window.open(urls[typeLink], '_blank')
     }
@@ -751,7 +776,7 @@ const Pay = () => {
               name="cTerms"
               required
               disabled={loading}
-              onChange={e => {
+              onChange={(e) => {
                 handleOnChange(e)
                 setCheckedTerms(!checkedTerms)
               }}
