@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import { sha256 } from 'js-sha256'
+import sha256 from 'crypto-js/sha256'
 import * as S from './styles'
 import { ButtonSocial, AuthURL } from './control_social'
 import { ModalConsumer } from '../context'
@@ -36,7 +36,7 @@ export const FormRelogin = ({
     remail: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
             value
           ),
@@ -46,7 +46,7 @@ export const FormRelogin = ({
     rpass: {
       required: true,
       validator: {
-        func: value => value.length >= 8,
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
     },
@@ -59,7 +59,7 @@ export const FormRelogin = ({
     )
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     const { remail, rpass } = state
     setShowLoading(true)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
@@ -69,7 +69,7 @@ export const FormRelogin = ({
     })
       .then(() => {
         window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-        window.Identity.getUserProfile().then(profile => {
+        window.Identity.getUserProfile().then((profile) => {
           if (
             activeVerifyEmail &&
             !profile.emailVerified &&
@@ -96,7 +96,7 @@ export const FormRelogin = ({
           }
         })
       })
-      .catch(errLogin => {
+      .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))
         setShowVerify(errLogin.code === '130051')
         if (errLogin.code === '130051') {
@@ -150,7 +150,7 @@ export const FormRelogin = ({
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <S.Form onSubmit={handleOnSubmit}>
           <S.Text c="black" s="18" className="center">
             Ingresa con
@@ -184,7 +184,7 @@ export const FormRelogin = ({
             placeholder="Correo electrónico"
             required
             value={remail}
-            onChange={e => {
+            onChange={(e) => {
               handleOnChange(e)
               setShowError(false)
             }}
@@ -198,7 +198,7 @@ export const FormRelogin = ({
             placeholder="Contraseña"
             required
             value={rpass}
-            onChange={e => {
+            onChange={(e) => {
               handleOnChange(e)
               setShowError(false)
             }}
@@ -209,7 +209,7 @@ export const FormRelogin = ({
             href="#"
             c="gray"
             className="mt-10 mb-20 inline f-right text-sm"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault()
               Taggeo(
                 `Web_Sign_Wall_${typeDialog}`,
@@ -237,7 +237,7 @@ export const FormRelogin = ({
             ó ingresa con tu cuenta de:
           </S.Text>
 
-          {authProviders.map(item => (
+          {authProviders.map((item) => (
             <ButtonSocial
               brand={item}
               size={sizeBtnSocial}
@@ -265,7 +265,7 @@ export const FormRelogin = ({
               c={mainColorLink}
               fw="bold"
               className="ml-10"
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault()
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,
