@@ -49,3 +49,8 @@ export interface Photo
   }
   resized_urls?: ResizedUrls
 }
+
+export interface Gallery extends ANSBase {
+  type: string
+  content_elements: Photo[]
+}
