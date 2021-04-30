@@ -57,7 +57,7 @@ export const createResizer = (
     breakpoint,
     format = 'jpeg'
   ) => {
-    const validFormat = /jpg|jpeg|png|webp/.test(format) ? format : 'jpeg'
+    const validFormat = /jpeg|png|webp/.test(format) ? format : 'jpeg'
 
     if (typeof window === 'undefined') {
       /**
