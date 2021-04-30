@@ -90,7 +90,8 @@ const Styles = ({
 
   return isStyleBasic || styleDefault ? (
     <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
-      {({ data }) => data ? (
+      {({ data }) =>
+        data ? (
           <style
             dangerouslySetInnerHTML={{
               __html: data
@@ -98,7 +99,8 @@ const Styles = ({
                 .replace('-----------', ''),
             }}
           />
-        ) : null}
+        ) : null
+      }
     </Resource>
   ) : (
     isAmp === false && isLite === false && (

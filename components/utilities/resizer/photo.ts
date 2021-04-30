@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const getPhotoId = photoUrl => {
+export const getPhotoId = (photoUrl: string): string => {
   if (!photoUrl) return ''
   const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
   const [, photoId] = customPhotoUrl || []

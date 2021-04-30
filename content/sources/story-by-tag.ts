@@ -1,4 +1,15 @@
+import { ConentSourceBase } from 'types/content-source'
+import { Story } from 'types/story'
+
 import { getResizedImageData } from '../../components/utilities/resizer/resizer'
+
+export type StoryByTagQuery = {
+  name?: string
+  feedOffset: number
+  presets?: string
+}
+
+type StoryByTagParams = StoryByTagQuery & ConentSourceBase
 
 const schemaName = 'story'
 
@@ -20,8 +31,8 @@ const params = [
   },
 ]
 
-const resolve = (key = {}) => {
-  const website = key['arc-site'] || 'Arc Site no está definido'
+const resolve = (key: StoryByTagParams): string => {
+  const website = key?.['arc-site'] || 'Arc Site no está definido'
   const { name, feedOffset } = key
 
   const slugSearch = name ? `AND+taxonomy.tags.slug:${name.toLowerCase()}+` : ''
@@ -34,12 +45,15 @@ const resolve = (key = {}) => {
   const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
 
-  return `/content/v4/search/published?q=${q}&size=1&from=${feedOffset ||
-    0}&sort=display_date:desc&website=${website}&single=true${excludedFields}`
+  return `/content/v4/search/published?q=${q}&size=1&from=${
+    feedOffset || 0
+  }&sort=display_date:desc&website=${website}&single=true${excludedFields}`
 }
 
-const transform = (data, { 'arc-site': arcSite, presets }) =>
-  getResizedImageData(data, presets, arcSite)
+const transform = (
+  data: Story,
+  { 'arc-site': arcSite, presets }: StoryByTagParams
+): Story => getResizedImageData(data, presets, arcSite) as Story
 
 const source = {
   resolve,
