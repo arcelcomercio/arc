@@ -1,6 +1,5 @@
 declare module 'fusion:content' {
   type AnyObject = Record<string, unknown>
-
   export interface UseContentConfig<Query = AnyObject> {
     source: string
     query: Query

@@ -1,0 +1,55 @@
+/******* Base *******/
+@import "./scss/partials/lite/import-fonts";
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+@import "./scss/variables/_fonts";
+
+@import "../elcomercio/scss/lite-components/features/story/contents/contents";
+
+.h-basic {
+  &__sub {
+    background-color: $color-primary;
+  }
+}
+
+.story-contents {
+  border-bottom: none;
+
+  &__font-paragraph {
+    font: 400 19px/32px $primary-font;
+  }
+
+  a {
+    color: #06c;
+  }
+
+  &__paragraph-list li a {
+    color: #4496ff;
+  }
+
+  .pquote {
+    background: none;
+
+    &__text {
+      font: 500 24px/34px $primary-font;
+      padding: 80px 0;
+      color: #777;
+      font-style: normal;
+      max-width: 640px;
+
+      @media (--desktop) {
+        font: 500 24px/36px $primary-font;
+        padding: 174px 0;
+      }
+    }
+
+    &::first-letter {
+      font: 500 24px/34px $primary-font;
+      font-weight: 500;
+
+      @media (--desktop) {
+        font: 500 24px/36px $primary-font;
+      }
+    }
+  }
+}

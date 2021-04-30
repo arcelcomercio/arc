@@ -227,6 +227,11 @@ const LiteOutput = ({
   if (metaValue('section_style') === 'parallax') {
     inlineStyleUrl = `resources/dist/elcomercio/css/dlite-parallax.css`
     styleUrl = `${contextPath}/resources/dist/elcomercio/css/lite-parallax.css`
+
+    if (arcSite === SITE_TROME) {
+      styleUrl = `${contextPath}/resources/dist/trome/css/lite-parallax.css`
+    }
+
     if (CURRENT_ENVIRONMENT === 'prod') {
       if (CURRENT_ENVIRONMENT === 'prod') {
         styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/elcomercio/css/lite-parallax.css`
@@ -236,6 +241,10 @@ const LiteOutput = ({
       }
       if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
         styleUrl = `https://cdnc.g21.peru21.pe/dist/elcomercio/css/lite-parallax.css`
+      }
+
+      if (arcSite === SITE_TROME && CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.g21.peru21.pe/dist/trome/css/lite-parallax.css`
       }
     }
   }
