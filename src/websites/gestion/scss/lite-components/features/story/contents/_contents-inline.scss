@@ -1,20 +1,23 @@
 .story-contents {
   padding: 25px 20px 20px 20px;
   margin-bottom: 25px;
-  font-family: $tertiary-font;
+  font-family: $primary-font;
 
   &__blockquote {
-    font: 400 18px/22px $tertiary-font;
+    font: 400 18px/1.333 $tertiary-font;
     padding: 20px 20px 20px 36px;
     margin: 20px 0 40px 15px;
   }
   &__font-paragraph {
-    font: 400 18px/30px $tertiary-font;
+    font: 400 21px/1.5 $fourth-font;
     padding: 0 0 20px 0;
+    @media (--tablet) {
+      font-size: 20px;
+    }
   }
   &__caption {
-    font: 400 13px/16px $primary-font;
-    padding: 15px 0;
+    font: 400 0.9rem/1 $tertiary-font;
+    padding: 10px 0;
     margin-bottom: 20px;
   }
   &__paragraph-list {

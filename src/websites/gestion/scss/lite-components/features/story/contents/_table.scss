@@ -4,6 +4,7 @@
   border-style: solid;
   border-width: 1px;
   margin-top: 20px;
+  margin-bottom: 20px;
   &__cell {
     padding: 10px;
     border-color: $color-gray-300;
@@ -15,7 +16,7 @@
   thead {
     border-bottom: 1px solid $color-gray-300;
     background-color: $color-primary;
-    color: $color-gray-300;
+    color: #fff;
     th {
       padding: 5px;
       border-right: 1px solid $color-gray-300;
