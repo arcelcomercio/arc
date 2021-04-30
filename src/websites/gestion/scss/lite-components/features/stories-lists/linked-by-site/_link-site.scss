@@ -1,7 +1,7 @@
 .link-site {
   content-visibility: auto;
   contain-intrinsic-size: 512px;
-  border-top: 1px solid #888;
+  font-family: $primary-font;
   &__image {
     object-fit: cover;
   }
@@ -9,13 +9,16 @@
     display: block;
   }
   &__header {
-    border-bottom: 2px solid #e1e1e1;
+    border-bottom: 2px solid #000;
   }
   &__h-text {
     color: #111;
+    font-size: 1.3rem;
+    font-weight: 700;
   }
   &__subtitle {
     color: #111;
+    font-size: 0.9rem;
   }
   &__site {
     font-weight: 700;
@@ -27,8 +30,13 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
+    max-height: calc(1.3rem * 1.3333 * 4);
+    font-weight: 700;
+    line-height: 1.3333333333;
     @media (--tablet) {
       -webkit-line-clamp: 3;
+      font-size: 1rem;
+      max-height: calc(1rem * 1.3333 * 3);
     }
   }
   &__item {

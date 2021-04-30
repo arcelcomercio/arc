@@ -1,19 +1,25 @@
 .most-read {
-  border-bottom: 2px solid #111;
   margin: 20px;
+  background-color: #e2d5c8;
   &__title {
     font: 700 18px/26px $primary-font;
     letter-spacing: 0.29px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #111;
+    background-color: #8a8a8a;
+    padding: 0 10px;
+    height: 35px;
+    align-items: center;
   }
   &__logo {
     padding-right: 10px;
   }
   &__item {
-    border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
     padding-top: 20px;
+    margin: 0 20px;
+    border-bottom: 1px solid #8a8a8a;
+    &:last-child {
+      border-bottom: 0;
+    }
   }
   &__multimedia {
     height: 72px;
@@ -29,5 +35,12 @@
     max-height: 74px;
     line-height: 1.3333333333;
     overflow: hidden;
+  }
+  &__link {
+    color: #fff;
+    font-size: 15px;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
