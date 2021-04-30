@@ -49,6 +49,10 @@ const transform = (data, { slug, from, size, 'arc-site': arcSite }) => {
           width: 59,
           height: 59,
         },
+        image_lg: {
+          width: 191,
+          height: 191,
+        },
       },
       arcSite,
     })
