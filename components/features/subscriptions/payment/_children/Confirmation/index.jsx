@@ -10,7 +10,7 @@ import {
   PropertiesSite,
 } from '../../../_dependencies/Properties'
 import PWA from '../../../_dependencies/Pwa'
-import { getStorageInfo } from '../../../_dependencies/Session'
+import { conformProfile, getStorageInfo } from '../../../_dependencies/Session'
 import {
   eventCategory,
   PixelActions,
