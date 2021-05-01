@@ -83,22 +83,7 @@ export default ({
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       {story && <link rel="preload" as="image" href={imagePreload} />}
-      {arcSite === SITE_ELCOMERCIO && (
-        <>
-          <link
-            rel="preload"
-            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2"
-            as="font"
-            type="font/woff2"
-          />
-          <link
-            rel="preload"
-            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2"
-            as="font"
-            type="font/woff2"
-          />
-        </>
-      )}
+
       <meta property="og:image:secure_url" content={image} />
 
       {story && (
