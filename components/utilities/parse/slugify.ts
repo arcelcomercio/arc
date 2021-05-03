@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const slugify = str => {
+export const slugify = (str: string): string => {
   let slug = str
   const from = 'àáäâèéëêìíïîòóöôùúüûñç·/_,:;'
   const to = 'aaaaeeeeiiiioooouuuunc------'

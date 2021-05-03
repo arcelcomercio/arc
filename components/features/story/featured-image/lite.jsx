@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
+import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
-import { useFusionContext } from 'fusion:context'
 import StoryData from '../../../utilities/story-data'
 
 const StoryTitleLite = () => {
@@ -24,15 +25,58 @@ const StoryTitleLite = () => {
   const blockType = data?.promo_items?.basic_parallax?.embed?.config?.block
   const blockData = data?.promo_items?.basic_parallax?.embed?.config?.data
 
+  const { resized_urls: { image } = {} } =
+    useContent(
+      blockData?.url
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: blockData?.url,
+              presets: 'image:2000x0',
+            },
+          }
+        : ''
+    ) || {}
+
+  const { resized_urls: { mobile_image: mobileImage } = {} } =
+    useContent(
+      blockData?.url
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: blockData?.url_mobile,
+              presets: 'mobile_image:640x0',
+            },
+          }
+        : ''
+    ) || {}
+
+  const { resized_urls: { logo_image: logoImage } = {} } =
+    useContent(
+      blockData?.url_logo
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: blockData?.url_logo,
+              presets: 'logo_image:0x100',
+              quality: 100,
+              format: /\.png$/.test(blockData?.url_logo) ? 'png' : '',
+            },
+          }
+        : ''
+    ) || {}
+
   return blockType === 'featured' ? (
     <>
       {blockData?.type === 'image' ? (
         <div className="featured-img">
-          <img
-            className="featured-img__logo"
-            src={blockData?.url_logo}
-            alt="Noticia - logo"
-          />
+          {blockData?.url_logo && (
+            <img
+              className="featured-img__logo"
+              src={logoImage}
+              alt="Noticia - logo"
+            />
+          )}
           <h2
             style={{ color: blockData?.color || '#777' }}
             className="featured-img__subtitle">
@@ -45,11 +89,11 @@ const StoryTitleLite = () => {
           </h1>
 
           <picture>
-            <source srcSet={blockData?.url_mobile} media="(max-width: 639px)" />
+            <source srcSet={mobileImage} media="(max-width: 639px)" />
             <img
               className="featured-img__img"
               style={{ backgroundColor: blockData?.bg_color || 'transparent' }}
-              src={blockData?.url}
+              src={image}
               alt={title}
             />
           </picture>
@@ -60,7 +104,8 @@ const StoryTitleLite = () => {
           style={{ height: '100%', width: '100%' }}
           dangerouslySetInnerHTML={{
             __html: blockData?.html,
-          }}></div>
+          }}
+        />
       ) : null}
     </>
   ) : null
