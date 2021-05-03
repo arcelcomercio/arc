@@ -64,5 +64,8 @@
   &__featured {
     flex-wrap: wrap;
     max-width: 826px;
+    @media (--only-mobile) {
+      justify-content: center;
+    }
   }
 }
