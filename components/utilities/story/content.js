@@ -54,7 +54,6 @@ export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
               }
             }
           }
-
           textElementsCounter += 1
         }
         return dataElements
