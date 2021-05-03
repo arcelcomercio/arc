@@ -46,12 +46,12 @@
   }
   &__item {
     padding: 15px 0;
-    margin-bottom: 15px;
 
     @media (--tablet) {
       max-width: calc((100% / 3) - 10px);
       flex-direction: column;
       padding: 0;
+      margin-bottom: 15px;
     }
   }
 }

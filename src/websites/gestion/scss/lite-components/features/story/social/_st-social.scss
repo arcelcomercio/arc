@@ -1,4 +1,5 @@
 .st-social {
+  overflow: hidden;
   margin: 0 0 25px;
   padding: 20px;
   border-top: 1px solid #c1c1c1;
@@ -7,14 +8,31 @@
   &__txt {
     font: 700 1.1rem/1 $primary-font;
     color: #111;
+    position: relative;
     @media (--tablet) {
       font-size: 24px;
+    }
+
+    &.st-social__premium {
+      padding-left: 65px;
+      &::before {
+        background: url(https://cdna.gestion.pe/resources/dist/gestion/images/plusg.png?d=285)
+          no-repeat 0;
+        border-right: 1px solid #8f071f;
+        color: transparent;
+        content: ".";
+        height: 25px;
+        left: 0;
+        padding-right: 15px;
+        position: absolute;
+        top: -3px;
+        width: 40px;
+      }
     }
   }
 
   &__link {
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   &__tooltdiv {
