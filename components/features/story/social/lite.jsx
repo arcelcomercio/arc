@@ -52,7 +52,9 @@ const StorySocialLite = () => {
       <div className={classes.upsection}>
         <h2
           itemProp="name"
-          className={`${classes.section}${isPremium ? ' premium' : ''}`}>
+          className={`${classes.section}${
+            isPremium ? ' st-social__premium' : ''
+          }`}>
           <a
             itemProp="url"
             className={classes.sectionLink}
