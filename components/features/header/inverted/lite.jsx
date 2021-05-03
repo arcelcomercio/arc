@@ -107,6 +107,7 @@ const HeaderBasic = (props) => {
       disableSignwall={isPreview}
       storyTitle={storyTitle}
       navSections={navSections}
+      siteProperties={siteProperties}
     />
   )
 }

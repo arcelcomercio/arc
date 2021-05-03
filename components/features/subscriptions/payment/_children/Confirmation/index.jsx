@@ -1,22 +1,23 @@
-import * as React from 'react'
+import * as Sentry from '@sentry/browser'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
-import * as Sentry from '@sentry/browser'
+import * as React from 'react'
 
-import { AuthContext } from '../../../_context/auth'
-import { getStorageInfo } from '../../../_dependencies/Session'
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
-import PWA from '../../../_dependencies/Pwa'
+import { AuthContext } from '../../../_context/auth'
 import {
-  PropertiesSite,
   PropertiesCommon,
+  PropertiesSite,
 } from '../../../_dependencies/Properties'
+import PWA from '../../../_dependencies/Pwa'
+import { conformProfile, getStorageInfo } from '../../../_dependencies/Session'
 import {
-  pushCxense,
+  eventCategory,
   PixelActions,
+  pushCxense,
   sendAction,
   TaggeoJoao,
-  eventCategory,
+  TagsAdsMurai,
 } from '../../../_dependencies/Taggeo'
 import {
   getFullNameFormat,
@@ -70,6 +71,7 @@ const Confirmation = () => {
     userProfile,
   } = React.useContext(AuthContext)
 
+  const { phone, province } = conformProfile(userProfile || {})
   const { texts } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = React.useState(false)
@@ -95,7 +97,7 @@ const Confirmation = () => {
   }
 
   React.useEffect(() => {
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('step', 'Confirmación')
     })
     Sentry.addBreadcrumb({
@@ -201,12 +203,24 @@ const Confirmation = () => {
         value: amount,
       })
 
+      TagsAdsMurai(
+        {
+          event: 'pageview',
+          em: email,
+          fn: `${firstName || ''}`,
+          ln: `${lastName || ''} ${secondLastName || ''}`,
+          ct: `${province || ''}`,
+          ph: `${phone || ''}`,
+        },
+        window.location.pathname
+      )
+
       if ('Identity' in window) {
         window.Identity.extendSession()
           .then(() => {
             setSendTracking(true)
           })
-          .catch(extendErr => {
+          .catch((extendErr) => {
             Sentry.captureEvent({
               message: 'Error al extender la sesión',
               level: 'error',
@@ -222,28 +236,41 @@ const Confirmation = () => {
       }
 
       // Datalayer solicitados por Joao
-      setTimeout(() => {
-        TaggeoJoao(
-          {
-            event: 'Pasarela Suscripciones Digitales',
-            category: eventCategory({
-              step: 3,
-              event,
-              hasPrint: printedSubscriber,
-              plan: name,
-            }),
-            action: userPeriod,
-            label: uuid,
-            value: `${amount}`,
-          },
-          window.location.pathname
-        )
-      }, 1000)
+      if (!freeAccess) {
+        setTimeout(() => {
+          TaggeoJoao(
+            {
+              event: 'Pasarela Suscripciones Digitales',
+              category: eventCategory({
+                step: 3,
+                event,
+                hasPrint: printedSubscriber,
+                plan: name,
+              }),
+              action: userPeriod,
+              label: uuid,
+              value: `${amount}`,
+            },
+            window.location.pathname
+          )
+
+          TagsAdsMurai(
+            {
+              event: 'Subscribe',
+              content_ids: sku,
+              content_type: 'product',
+              content_name: name,
+              value: amount,
+              currency: 'PEN',
+              subscription_type: userPeriod,
+            },
+            window.location.pathname
+          )
+        }, 1000)
+      }
     } else {
       updateStep(2)
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const goToHome = () => {
@@ -262,7 +289,6 @@ const Confirmation = () => {
             ? urlLocal
             : urlsSite.mainHome
       }
-      window.localStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('paywall_confirm_subs')
       window.sessionStorage.removeItem('paywall_type_modal')

@@ -39,6 +39,7 @@ const WrapperPaymentSubs = () => {
     userProfile,
     userLoading,
     updateLoading,
+    updateStep,
   } = React.useContext(AuthContext)
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -47,11 +48,15 @@ const WrapperPaymentSubs = () => {
     import(/* webpackChunkName: 'Confirmation' */ './_children/Confirmation')
   )
 
+  React.useEffect(() => {
+    if (!userLoaded) {
+      updateStep(1)
+    }
+  })
+
   useRoute(event)
 
   React.useEffect(() => {
-    window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
-
     Sentry.init({
       dsn: urlCommon.dsnSentry,
       debug: env !== PROD,
@@ -124,11 +129,12 @@ const WrapperPaymentSubs = () => {
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
           <Wrapper
+            step={userStep}
             style={{
               minHeight: '530px',
             }}>
             {!userLoading && (
-              <PanelLeft>
+              <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
                   <h2 className="step__left-title-campaign">
                     {texts.textWinback}
@@ -145,9 +151,11 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
-            </PanelRight>
+            {userStep !== 5 && (
+              <PanelRight>
+                {userStep !== 4 && !freeAccess && <Summary />}
+              </PanelRight>
+            )}
           </Wrapper>
         </Container>
         {!freeAccess && <FooterSubs />}

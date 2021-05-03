@@ -34,7 +34,7 @@ export const isAuthenticated = () => {
 const attrToObject = (attributes = [], getAttributes = []) => {
   return getAttributes.reduce((prev, name) => {
     const newAttrs = prev
-    const attrs = (attributes || []).find(attr => attr.name === name)
+    const attrs = (attributes || []).find((attr) => attr.name === name)
     if (attrs && attrs.value !== 'undefined') {
       newAttrs[name] = attrs.value.toUpperCase()
     }
@@ -42,14 +42,19 @@ const attrToObject = (attributes = [], getAttributes = []) => {
   }, {})
 }
 
-export const conformProfile = userPorfile => {
+export const conformProfile = (userPorfile) => {
   const { attributes, contacts = [], ...restProfile } = userPorfile
   const [phone = {}] = contacts || []
 
   return {
     ...restProfile,
     ...phone,
-    ...attrToObject(attributes, ['documentNumber', 'phone', 'documentType']),
+    ...attrToObject(attributes, [
+      'documentNumber',
+      'phone',
+      'documentType',
+      'province',
+    ]),
   }
 }
 
