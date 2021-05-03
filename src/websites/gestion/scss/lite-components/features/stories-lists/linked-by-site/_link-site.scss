@@ -12,13 +12,12 @@
     border-bottom: 2px solid #000;
   }
   &__h-text {
+    font: 700 1.3rem/1 $secondary-font;
     color: #111;
-    font-size: 1.3rem;
-    font-weight: 700;
   }
   &__subtitle {
     color: #111;
-    font-size: 0.9rem;
+    font: 400 0.9rem/1 $secondary-font;
   }
   &__site {
     font-weight: 700;
@@ -31,19 +30,11 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     max-height: calc(1.3rem * 1.3333 * 4);
-    font-weight: 700;
-    line-height: 1.3333333333;
+    font: 700 1.3rem/1.333 $secondary-font;
     @media (--tablet) {
       -webkit-line-clamp: 3;
       font-size: 1rem;
       max-height: calc(1rem * 1.3333 * 3);
-    }
-  }
-  &__item {
-    border-bottom: 2px solid #e1e1e1;
-
-    @media (--tablet) {
-      border-bottom: 0;
     }
   }
 }
