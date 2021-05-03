@@ -11,7 +11,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_PERU21G21,
-  SITE_TROME,
+  SITE_TROME, 
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -28,6 +28,7 @@ import LiteAds from './_children/lite-ads'
 import MetaSite from './_children/meta-site'
 import MetaStory from './_children/meta-story'
 import OpenGraph from './_children/open-graph'
+import Preload from './_children/preload'
 import Styles from './_children/styles'
 import TagManager from './_children/tag-manager'
 import TwitterCards from './_children/twitter-cards'
@@ -333,24 +334,7 @@ const LiteOutput = ({
              *
              * https://web.dev/preconnect-and-dns-prefetch/
              */}
-            {arcSite === SITE_ELCOMERCIO && (
-              // Preload fuente de titulo de nota para mejor LCP
-              <link
-                rel="preload"
-                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
-                as="font"
-                type="font/woff2"
-              />
-            )}
-            {arcSite === SITE_ELCOMERCIOMAG && (
-              // Preload fuente de titulo de nota para mejor LCP
-              <link
-                rel="preload"
-                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
-                as="font"
-                type="font/woff2"
-              />
-            )}
+            {isStory && <Preload arcSite={arcSite} />}
             <link
               rel="preconnect"
               href={`//cdnc.${siteProperties.siteDomain}`}
