@@ -1,9 +1,9 @@
 import * as React from 'react'
+import { FC } from 'types/features'
 
-import { FC } from '../../../../../types/features'
-import customFields from '../_dependencies/custom-fields'
+import customFields from './_dependencies/custom-fields'
 
-interface AdsFeatMonoProps {
+interface AdsFeatLiteProps {
   customFields?: {
     liteAdId?: string
     liteAdName?: string
@@ -14,10 +14,11 @@ interface AdsFeatMonoProps {
     liteAdInlineStyles?: string
     prebidAdEnabled?: boolean
     prebidAdDimensions?: string
+    isContainer?: boolean
   }
 }
 
-const AdsFeatMono: FC<AdsFeatMonoProps> = (props) => {
+const AdsFeatLite: FC<AdsFeatLiteProps> = (props) => {
   const {
     customFields: {
       liteAdId,
@@ -29,10 +30,11 @@ const AdsFeatMono: FC<AdsFeatMonoProps> = (props) => {
       liteAdInlineStyles,
       prebidAdEnabled,
       prebidAdDimensions,
+      isContainer,
     } = {},
   } = props
 
-  return liteAdId || liteAdName || liteAdDimensions ? (
+  const getDiv = (): JSX.Element => (
     <div
       id={liteAdId}
       data-ads-name={liteAdName}
@@ -44,14 +46,22 @@ const AdsFeatMono: FC<AdsFeatMonoProps> = (props) => {
       data-prebid-dimensions={prebidAdDimensions}
       style={liteAdInlineStyles && (JSON.parse(liteAdInlineStyles) || {})}
     />
-  ) : null
+  )
+
+  if (isContainer === true && liteAdId) {
+    return <div className={`content_${liteAdId}_ads`}>{getDiv()}</div>
+  }
+  if (liteAdId || liteAdName || liteAdDimensions) {
+    return getDiv()
+  }
+  return null
 }
 
-AdsFeatMono.propTypes = {
+AdsFeatLite.propTypes = {
   customFields,
 }
 
-AdsFeatMono.label = 'Publicidad'
-// AdsFeatMono.static = true
+AdsFeatLite.label = 'Publicidad'
+AdsFeatLite.static = true
 
-export default AdsFeatMono
+export default AdsFeatLite
