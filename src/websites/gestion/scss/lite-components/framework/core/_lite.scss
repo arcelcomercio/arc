@@ -75,22 +75,15 @@ body {
   background-color: transparent;
 }
 .story-gallery-slider__content {
-  -webkit-transition: -webkit-transform 0.4s ease;
-  transition: -webkit-transform 0.4s ease;
   transition: transform 0.4s ease;
-  transition: transform 0.4s ease, -webkit-transform 0.4s ease;
 }
 .story-gallery-slider__item {
   width: 280px;
   pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 .story-gallery-slider__img {
   height: 240px;
-  -o-object-fit: cover;
   object-fit: cover;
 }
 .story-gallery-slider__body {
@@ -98,63 +91,70 @@ body {
   overflow: hidden;
 }
 .story-gallery-slider__quantity {
+  font-family: $tertiary-font;
+  font-weight: 700;
   background-color: #333;
   width: 102px;
   color: #fff;
   height: 30px;
   letter-spacing: 3px;
   margin-right: 10px;
-  float: left;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
+  @media (--desktop) {
+    height: 40px;
+  }
 }
 .story-gallery-slider__arrows {
   position: absolute;
   outline: 0;
   top: 0;
   width: auto;
-  height: calc(100% - 86px);
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  padding-left: 20px;
+  padding: 0 10px;
+  height: 200px;
+  background: linear-gradient(
+    270deg,
+    rgba(14, 33, 13, 0),
+    rgba(14, 33, 13, 0.4)
+  );
+  @media (--tablet) {
+    height: 360px;
+  }
+  @media (--desktop) {
+    height: 528px;
+  }
 }
 .story-gallery-slider__arrows--left,
 .story-gallery-slider__arrows--right {
-  width: 40px;
-  height: 40px;
-  background-color: #fff;
-  border-radius: 50%;
-  color: #575757;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border: 1px dashed #575757;
-  font-size: 18px;
-  font-weight: 700;
+  svg {
+    fill: #fff;
+    @media (--desktop) {
+      width: 35px;
+    }
+  }
 }
+
 .story-gallery-slider__caption {
   padding: 20px 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+.story-gallery-slider__caption-image {
+  font: 500 14.4px/1.333 $tertiary-font;
+  padding-top: 10px;
 }
 .story-gallery-slider__figure {
   position: relative;
 }
 .story-gallery-slider__right {
   right: 0;
-  padding-right: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(14, 33, 13, 0),
+    rgba(14, 33, 13, 0.4)
+  );
 }
 
 .most-read__item {
