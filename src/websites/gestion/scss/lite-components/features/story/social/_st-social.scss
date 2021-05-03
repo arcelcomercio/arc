@@ -1,0 +1,66 @@
+.st-social {
+  margin: 0 0 25px;
+  padding: 20px;
+  border-top: 1px solid #c1c1c1;
+  border-bottom: 1px dashed #c1c1c1;
+
+  &__txt {
+    font: 700 1.1rem/1 $primary-font;
+    color: #111;
+    @media (--tablet) {
+      font-size: 24px;
+    }
+  }
+
+  &__link {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__tooltdiv {
+    padding-bottom: 5px;
+    flex-wrap: wrap;
+    @media (--tablet) {
+      padding-bottom: 0;
+    }
+  }
+
+  &__tooltip {
+    font-family: $secondary-font;
+    font-size: 18px;
+    position: relative;
+    color: #6d6d66;
+    display: inline;
+    margin: 6px;
+    & span {
+      display: none;
+    }
+    &:hover span {
+      position: absolute;
+      top: 30px;
+      font-size: 15px;
+      left: 0;
+      display: block;
+      width: 315px;
+      color: #404040;
+      background-color: #fff;
+      border: 1px solid #d7d7d7;
+      padding: 15px;
+      text-transform: none;
+      line-height: 22px;
+      @media (--only-mobile) {
+        width: 215px;
+      }
+    }
+  }
+
+  &__share {
+    display: flex;
+    margin-right: -15px;
+    // Este margen es para contraarrestar el margin-right que tienen los .share-btn
+  }
+  &__special {
+    margin-right: -15px;
+    padding-bottom: 25px;
+  }
+}
