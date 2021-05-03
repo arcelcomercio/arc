@@ -9,12 +9,54 @@ import StoryData from '../../../../utilities/story-data'
 const placeholderSrc = (width, height) =>
   `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
 
+const ParallaxImage = ({ data, id }) => {
+  const { resized_urls: { image } = {} } =
+    useContent(
+      data?.url
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: data?.url,
+              presets: 'image:2000x0',
+            },
+          }
+        : ''
+    ) || {}
+
+  const { resized_urls: { mobile_image: mobileImage } = {} } =
+    useContent(
+      data?.url_mobile
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: data?.url_mobile,
+              presets: 'mobile_image:640x0',
+            },
+          }
+        : ''
+    ) || {}
+
+  return (
+    <div style={{ padding: '64px 0', margin: 0, maxWidth: 'none' }}>
+      <div id={id} className="parallax-image lazy-background">
+        <h3 style={{ color: data?.color || '#fff' }}>{data?.title}</h3>
+      </div>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `[id="${id}"].visible{background-image:url("${mobileImage}")}@media screen and (min-width:640px){[id="${id}"].visible{background-image:url("${image}")}}`,
+        }}
+      />
+    </div>
+  )
+}
+
 const ImageRatioElement = ({ galleryId = '' }) => {
   const data =
     useContent({
       source: 'gallery-by-id',
       query: {
         _id: galleryId,
+        presets: 'image:860x0',
       },
     }) || []
 
@@ -65,7 +107,7 @@ const ImageRatioElement = ({ galleryId = '' }) => {
                 maxWidth: sizesRatios.width,
               }}
               className="lazy"
-              data-src={item?.url}
+              data-src={item?.resized_urls?.image}
               src={placeholderSrc(item?.width, item?.height)}
               alt={item?.caption}
             />
@@ -89,6 +131,7 @@ const GalleryWithScroll = ({ galleryId }) => {
       source: 'gallery-by-id',
       query: {
         _id: galleryId,
+        presets: 'image:0x650',
       },
     }) || []
   return galleryId ? (
@@ -105,12 +148,12 @@ const GalleryWithScroll = ({ galleryId }) => {
             className="scrolling-gallery__container"
             id={`container${galleryId}`}>
             {(data?.content_elements || []).map(
-              ({ url, caption, width, height }) => (
+              ({ resized_urls, caption, width, height }) => (
                 <div className="scrolling-gallery__item">
                   <figure>
                     <img
                       className="lazy"
-                      data-src={url}
+                      data-src={resized_urls?.image}
                       src={placeholderSrc(width, height)}
                       alt={caption}
                     />
@@ -155,18 +198,7 @@ export default function StoryContentsChildParallaxElements({ config, id }) {
 
   return (
     <>
-      {block === 'image' ? (
-        <div style={{ padding: '64px 0', margin: 0, maxWidth: 'none' }}>
-          <div id={id} className="parallax-image lazy-background">
-            <h3 style={{ color: data?.color || '#fff' }}>{data?.title}</h3>
-          </div>
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `[id="${id}"].visible{background-image:url("${data?.url_mobile}")}@media screen and (min-width:640px){[id="${id}"].visible{background-image:url("${data?.url}")}}`,
-            }}
-          />
-        </div>
-      ) : null}
+      {block === 'image' ? <ParallaxImage data={data} id={id} /> : null}
 
       {block === 'author' ? (
         <div className="parallax-el__cont">
