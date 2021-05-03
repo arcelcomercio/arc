@@ -1,8 +1,20 @@
-// eslint-disable-next-line import/prefer-default-export
-export const getPreroll = ({ section, arcSite, siteDomain, metaValue }) => {
-  const getSectionSlug = (sectionId = '') => {
-    return sectionId.split('/')[1] || 'default'
-  }
+import { ArcSite } from 'fusion:context'
+
+type GetPrerollProps = {
+  section: string
+  arcSite: ArcSite
+  siteDomain: string
+  metaValue: (key: string) => string
+}
+
+export const getPreroll = ({
+  section,
+  arcSite,
+  siteDomain,
+  metaValue,
+}: GetPrerollProps): string => {
+  const getSectionSlug = (sectionId = '') =>
+    sectionId.split('/')[1] || 'default'
 
   if (arcSite) {
     const arcSiteNew = arcSite === 'peru21g21' ? 'peru21' : arcSite
