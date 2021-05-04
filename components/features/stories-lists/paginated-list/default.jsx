@@ -5,10 +5,11 @@ import { useContent } from 'fusion:content'
 
 import { customFields } from '../_dependencies/custom-fields'
 import StoryItem from '../../../global-components/story-item'
+import StorySimple from '../../../global-components/story-simple'
 import Pagination from '../../../global-components/pagination'
 import Ads from '../../../global-components/ads'
 import StructuredData from './_children/structured-data'
-import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
+import { SITE_DEPOR, SITE_TROME } from '../../../utilities/constants/sitenames'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
@@ -30,30 +31,40 @@ const StoriesListPaginatedList = props => {
   const { isDfp = false } = getProperties(arcSite)
   const isSearchSection = /^\/buscar\//.test(requestUri)
 
-  let { content_elements: stories = [], count = 0, author: { url: authorPath = '' } = {} } = globalContent || {}
-  const { author = {}, slug: slugAuthor = '', from: fromAuthor = 1, size:sizeAuthor = 30 } = globalContent || {}
+  let {
+    content_elements: stories = [],
+    count = 0,
+    author: { url: authorPath = '' } = {},
+  } = globalContent || {}
+  const {
+    author = {},
+    slug: slugAuthor = '',
+    from: fromAuthor = 1,
+    size: sizeAuthor = 30,
+  } = globalContent || {}
   let { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
-  if(stories.length === 0){
-    if(author._id){
-      ({bio_page: authorPath} = author)
-      const storiesAuthor =
-        useContent({
-          source: 'story-feed-by-author',
-          query: {
-            name: slugAuthor,
-            from: fromAuthor, 
-            size: sizeAuthor, 
-            website: arcSite
-          },
-        })
+  if (stories.length === 0) {
+    if (author._id) {
+      ;({ bio_page: authorPath } = author)
+      const storiesAuthor = useContent({
+        source: 'story-feed-by-author',
+        query: {
+          name: slugAuthor,
+          from: fromAuthor,
+          size: sizeAuthor,
+          website: arcSite,
+        },
+      })
 
-      if(typeof(storiesAuthor) !== 'undefined' && 
-         typeof(storiesAuthor.content_elements) === 'object' && 
-         storiesAuthor.content_elements.length > 0){
-          ({content_elements: stories, count} = storiesAuthor)
-          size = sizeAuthor
-          from = fromAuthor
+      if (
+        typeof storiesAuthor !== 'undefined' &&
+        typeof storiesAuthor.content_elements === 'object' &&
+        storiesAuthor.content_elements.length > 0
+      ) {
+        ;({ content_elements: stories, count } = storiesAuthor)
+        size = sizeAuthor
+        from = fromAuthor
       }
     }
   }
@@ -73,29 +84,61 @@ const StoriesListPaginatedList = props => {
 
   return (
     <>
-      <div>
-        {stories.map((story, index) => {
-          const ads = hasAds(index + 1, activeAdsArray)
-          return (
-            <Fragment key={`Paginated-list-${story._id}`}>
-              <StoryItem
-                data={story}
-                {...{ deployment, contextPath, arcSite, isAdmin }}
-              />
-              {ads.length > 0 && (
-                <div className={classes.adsBox}>
-                  <Ads
-                    adElement={ads[0].name}
-                    isDesktop={false}
-                    isMobile
-                    isDfp={isDfp}
-                  />
-                </div>
-              )}
-            </Fragment>
-          )
-        })}
-      </div>
+      {arcSite == SITE_TROME ? (
+        <div>
+          {author && (
+            <div className={classes.storySimpleHeader}>
+              <h2>Las noticias de {author.firstName}</h2>
+            </div>
+          )}
+          {stories.map((story, index) => {
+            const ads = hasAds(index + 1, activeAdsArray)
+            return (
+              <Fragment key={`Paginated-list-${story._id}`}>
+                <StorySimple
+                  data={story}
+                  {...{ deployment, contextPath, arcSite }}
+                />
+                {ads.length > 0 && (
+                  <div className={classes.adsBox}>
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp={isDfp}
+                    />
+                  </div>
+                )}
+              </Fragment>
+            )
+          })}
+        </div>
+      ) : (
+        <div>
+          {stories.map((story, index) => {
+            const ads = hasAds(index + 1, activeAdsArray)
+            return (
+              <Fragment key={`Paginated-list-${story._id}`}>
+                <StoryItem
+                  data={story}
+                  {...{ deployment, contextPath, arcSite, isAdmin }}
+                />
+                {ads.length > 0 && (
+                  <div className={classes.adsBox}>
+                    <Ads
+                      adElement={ads[0].name}
+                      isDesktop={false}
+                      isMobile
+                      isDfp={isDfp}
+                    />
+                  </div>
+                )}
+              </Fragment>
+            )
+          })}
+        </div>
+      )}
+
       {arcSite == SITE_DEPOR && isSearchSection && (
         <div id="afscontainer1"></div>
       )}
@@ -107,9 +150,13 @@ const StoriesListPaginatedList = props => {
           requestUri={requestUri}
         />
       )}
-      { (customFieldsProps.structuredData && stories.length > 0) &&
-        <StructuredData authorPath={authorPath} stories={stories} arcSite={arcSite} />
-      }
+      {customFieldsProps.structuredData && stories.length > 0 && (
+        <StructuredData
+          authorPath={authorPath}
+          stories={stories}
+          arcSite={arcSite}
+        />
+      )}
     </>
   )
 }
