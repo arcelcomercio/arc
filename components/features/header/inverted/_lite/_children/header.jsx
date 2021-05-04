@@ -27,6 +27,7 @@ export default (props) => {
     isSomos,
     activeSticky,
     disableSignwall,
+    siteProperties,
   } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
 
@@ -105,7 +106,7 @@ export default (props) => {
               title={title}
             />
           </a>
-
+          {siteProperties.activePaywall && (
           <div className="h-basic__signwall f">
             <button type="button" className="h-basic__sub uppercase">
               Suscríbete
@@ -129,6 +130,8 @@ export default (props) => {
               </svg>
             </button>
           </div>
+          )}
+
           {!hideMenu && (
             <Menu
               isSomos={isSomos}
