@@ -23,7 +23,7 @@
   &__paragraph-list {
     padding-left: 30px;
     & li a {
-      font: 700 18px/1.5 $primary-font;
+      font: 700 18px/1.5 $secondary-font;
       @media (--desktop) {
         font-size: 20px;
       }
