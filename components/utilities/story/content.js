@@ -1,9 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { ELEMENT_TEXT, ELEMENT_LIST } from '../constants/element-types'
-import {
-  SITE_DEPOR,
-  SITE_ELCOMERCIOMAG,
-} from '../constants/sitenames'
+import { SITE_DEPOR, SITE_ELCOMERCIOMAG } from '../constants/sitenames'
 
 /**
  * Inyecta los ads disponibles entre en contenido de la noticia
@@ -28,11 +25,14 @@ export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
           typeElement === ELEMENT_LIST && i === 0 ? [] : dataContent
 
         if (typeElement === ELEMENT_TEXT) {
-          if (arcSite === SITE_ELCOMERCIOMAG || arcSite === SITE_DEPOR) {
+          if (arcSite === SITE_ELCOMERCIOMAG) {
             if (textElementsCounter === 1) {
               dataElements.publicidad = true
               dataElements.nameAds = 'caja3'
-            } else if (textElementsCounter > 0 && (textElementsCounter - 1) % adsEvery === 0) {
+            } else if (
+              textElementsCounter > 0 &&
+              (textElementsCounter - 1) % adsEvery === 0
+            ) {
               if (adsCounter < contentAdsList.length) {
                 dataElements.publicidad = true
                 dataElements.nameAds = contentAdsList[adsCounter]
@@ -40,7 +40,13 @@ export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
               }
             }
           } else {
-            if (textElementsCounter > 0 && textElementsCounter % adsEvery === 0) {
+            if (arcSite === SITE_DEPOR && textElementsCounter === 0) {
+              dataElements.publicidad = true
+              dataElements.nameAds = 'caja3'
+            } else if (
+              textElementsCounter > 0 &&
+              textElementsCounter % adsEvery === 0
+            ) {
               if (adsCounter < contentAdsList.length) {
                 dataElements.publicidad = true
                 dataElements.nameAds = contentAdsList[adsCounter]
@@ -48,7 +54,6 @@ export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
               }
             }
           }
-
           textElementsCounter += 1
         }
         return dataElements

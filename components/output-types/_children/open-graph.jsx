@@ -1,13 +1,14 @@
 import React from 'react'
-import StoryData from '../../utilities/story-data'
-import { deleteQueryString } from '../../utilities/parse/queries'
+
+import { getAssetsPath, getAssetsPathVideo } from '../../utilities/assets'
 import {
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
 } from '../../utilities/constants/sitenames'
+import { deleteQueryString } from '../../utilities/parse/queries'
 import { createResizedParams } from '../../utilities/resizer/resizer'
-import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
 import { getResultJwplayer } from '../../utilities/story/helpers'
+import StoryData from '../../utilities/story-data'
 
 export default ({
   fbAppId,
@@ -51,7 +52,14 @@ export default ({
           arcSite,
         }).large
       : `${imageYoutube}`
-
+  const imagePreload =
+    story && multimediaLarge && !idYoutube
+      ? createResizedParams({
+          url: multimediaLarge,
+          presets: 'large:280x159',
+          arcSite,
+        }).large
+      : `${imageYoutube}`
   if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage
   }
@@ -74,6 +82,8 @@ export default ({
       <meta property="og:title" content={story ? seoTitle : title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
+      {story && <link rel="preload" as="image" href={imagePreload} />}
+
       <meta property="og:image:secure_url" content={image} />
 
       {story && (
