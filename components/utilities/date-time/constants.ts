@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const locale = 'es-419-u-hc-h12'
 
 /* export const arrayMonths = [
