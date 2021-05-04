@@ -1,12 +1,9 @@
-export const msToTime = (
-  duration: number | string = 5555,
-  seo = true
-): string => {
+export const msToTime = (duration: number | string = 0, seo = true): string => {
   const durationNumber =
     typeof duration === 'string' ? parseInt(duration, 10) : duration
-  const seconds = (durationNumber / 1000) % 60
-  const minutes = (durationNumber / (1000 * 60)) % 60
-  const hours = (durationNumber / (1000 * 60 * 60)) % 24
+  const seconds = Math.floor((durationNumber / 1000) % 60)
+  const minutes = Math.floor((durationNumber / (1000 * 60)) % 60)
+  const hours = Math.floor((durationNumber / (1000 * 60 * 60)) % 24)
   let resultSeo = ''
   if (seo) {
     const h = hours < 10 ? `0${hours}` : hours
@@ -28,6 +25,7 @@ export const secToTime = (
 ): string => {
   const secNum =
     typeof duration === 'string' ? parseInt(duration, 10) : duration
+
   const hours = Math.floor(secNum / 3600)
   const minutes = Math.floor((secNum - hours * 3600) / 60)
   const seconds = secNum - hours * 3600 - minutes * 60
