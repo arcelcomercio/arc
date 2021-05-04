@@ -39,9 +39,11 @@ module.exports = {
       'error',
       {
         ignore: [
+          'types',
+          'content',
+          'components',
           'react',
           'prop-types',
-          'types',
           'fusion:consumer',
           'fusion:environment',
           'fusion:properties',
