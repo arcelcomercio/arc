@@ -1,0 +1,94 @@
+@mixin Anims($time) {
+  transition: all $time;
+}
+
+@mixin title {
+  font-family: $primaryFont;
+  text-align: center;
+  color: $black;
+}
+
+@mixin button {
+  border: none;
+  padding: 0.9em 2.2em;
+  font-size: 0.9375em;
+  border-radius: 0.3em;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: $secondaryFont;
+  outline: none;
+  &:disabled {
+    opacity: 0.7;
+    cursor: default;
+  }
+  &:hover:enabled,
+  &:hover:active {
+    box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.75);
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flipdown {
+  0% {
+    opacity: 0;
+    transform-origin: top center;
+    transform: rotateX(-90deg);
+  }
+  5% {
+    opacity: 1;
+  }
+  80% {
+    transform: rotateX(8deg);
+  }
+  83% {
+    transform: rotateX(6deg);
+  }
+  92% {
+    transform: rotateX(-3deg);
+  }
+  100% {
+    transform-origin: top center;
+    transform: rotateX(0deg);
+  }
+}
+
+@mixin crapie() {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content;
+  }
+}
+
+$breakpoints: (
+  mobile: 680px,
+  tabletp: 768px,
+  tabletl: 1024px,
+  desktop: 1200px,
+  // resolucion anterior 1366px,,,,,,,,,,,,,,,,,,,
+);
+
+@mixin device($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+    @if $breakpoint == mobile {
+      @media screen and (max-width: $breakpoint-value) {
+        @content;
+      }
+    } @else {
+      @media screen and (min-width: $breakpoint-value) {
+        @content;
+      }
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}

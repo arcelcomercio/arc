@@ -1,0 +1,25 @@
+@import "./base/_normalize";
+@import "./base/_mixins";
+@import "./base/_ie";
+@import "./base/_fonts";
+@import "./base/_base";
+@import "./modules/loading";
+
+// Estilos para landing principal
+@import "./modules/_header";
+@import "./modules/_plans";
+@import "./modules/_banners";
+@import "./modules/_benefits";
+@import "./modules/_club";
+@import "./modules/_video";
+@import "./modules/_help";
+
+// Estilos para landing de compra
+@import "./modules/_header-payment";
+@import "./modules/_forms";
+@import "./modules/_body-payment";
+@import "./modules/_banner_validate";
+@import "./modules/_tooltip";
+
+@import "./modules/_footer";
+@import "./modules/_modal";

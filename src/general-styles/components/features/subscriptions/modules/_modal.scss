@@ -1,0 +1,147 @@
+.modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: 3;
+  will-change: opacity;
+  transition: opacity 200ms ease-in-out;
+}
+
+.open-modal {
+  display: flex;
+  opacity: 1;
+  pointer-events: inherit;
+  position: fixed;
+}
+
+.modal-background {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+}
+
+.modal-content {
+  position: relative;
+  // scroleable
+  max-height: 100vh;
+  overflow: auto;
+  padding: 10px;
+}
+
+.modal-buttom {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  border: none;
+  z-index: 1000;
+  background: none;
+}
+
+.modal-form {
+  padding: 20px 20px !important;
+  & form {
+    width: 100% !important ;
+  }
+  & label {
+    top: 2px;
+    background: $white !important;
+    & p {
+      padding-top: 0;
+      padding-bottom: 0;
+      line-height: 22px !important;
+      text-align: left !important;
+    }
+  }
+}
+
+.close-button {
+  top: 20px !important;
+  right: 20px !important;
+}
+
+.modal-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 74px;
+  box-sizing: border-box;
+  //   width: 100%;
+  min-height: 250px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  color: rgb(68, 68, 68);
+  // box-shadow: rgb(148, 148, 148) 0rem 0rem 0.5rem;
+  box-shadow: 0 0 19px -6px rgba(56, 56, 56, 1);
+  border-radius: 6px;
+  padding: 40px 50px;
+  transition: opacity 0.25s ease 0s;
+  animation: 0.5s ease 0s 1 normal none running vDialog-enter;
+  & h4 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    line-height: 22px;
+    & button {
+      font-size: 16px;
+      font-weight: bold;
+      color: $bluePrimary;
+    }
+  }
+  & p {
+    text-align: center;
+    padding: 10px 0;
+    line-height: 20px;
+    font-size: 14px;
+    & span {
+      display: block;
+    }
+  }
+  & a {
+    text-decoration: underline;
+    color: $gray;
+    display: block;
+  }
+}
+
+.modal-btn {
+  @include button;
+
+  background: $borderLines;
+  color: $borderLine;
+  width: 48%;
+  &:first-child {
+    background: $bluePrimary;
+    color: $white;
+  }
+}
+
+.modal-group-middle {
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+@include device(tabletp) {
+  .modal-container {
+    width: 65%;
+    & p {
+      & span {
+        display: inline-block;
+        margin-left: 4px;
+      }
+    }
+  }
+  .modal-form {
+    width: 100% !important;
+    & form {
+      padding: 20px 20px !important ;
+    }
+  }
+}

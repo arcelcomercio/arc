@@ -1,0 +1,200 @@
+.header {
+  // padding: 12px 0;
+  justify-content: space-between;
+  // position: fixed;
+  z-index: 3;
+  width: 100%;
+  color: $black;
+  height: 60px;
+  background: $backgroundHeader;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  &.active {
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    background: $headerActive;
+    box-shadow: 0 3px 9px -2px rgba(0, 0, 0, 0.55);
+    transition: all 0.3s ease-in-out;
+    color: $colorActive;
+    & .header__content-logo {
+      background-position: 0 36px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-logo {
+      align-self: center;
+      background: url($logoHeader);
+      background-position: 0 0;
+      width: 154px;
+      height: 36px;
+    }
+
+    &-call {
+      display: none;
+    }
+
+    &-button {
+      border: none;
+      padding: 0.4em 1em 0.4em 2em;
+      font-size: 14px;
+      background: none;
+      font-weight: bold;
+      color: inherit;
+      font-family: $secondaryFont;
+      line-height: normal;
+      outline: none;
+      text-transform: capitalize;
+      width: 180px;
+      text-align: right;
+      & span {
+        font-weight: normal;
+      }
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+        color: $hoverLinkButon;
+      }
+    }
+  }
+
+  @include device(tabletp) {
+    &.active {
+      background: $headerActive;
+      box-shadow: 0 3px 9px -2px rgba(0, 0, 0, 0.55);
+      transition: all 0.3s ease-in-out;
+      color: $colorActive;
+    }
+  }
+
+  @include device(tabletl) {
+    padding: 0 0;
+    &__content {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      &.box-cont {
+        padding: 12px 0;
+      }
+      &-call {
+        background: $black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 60px;
+        min-width: 585px;
+        height: 60px;
+        margin-left: 25px;
+
+        & span {
+          color: $white;
+          font-weight: bold;
+        }
+
+        & button {
+          border-radius: 8px;
+          border: 0;
+          padding: 10px 20px 10px 40px;
+          font-size: 14px;
+          outline: none;
+          cursor: pointer;
+        }
+      }
+      &-button {
+        padding: 0.4em 1em 0.4em 1em;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.callin {
+  display: none;
+
+  @include device(tabletl) {
+    background: $white;
+    top: 60px;
+    width: 100%;
+    min-height: 60px;
+    padding: 10px 20px;
+    z-index: 3;
+    display: block;
+    position: sticky;
+    &.active {
+      position: fixed;
+      box-shadow: 0 3px 9px -2px rgba(0, 0, 0, 0.55);
+      transition: all 0.3s ease-in-out;
+    }
+    & .msg-confirmation {
+      text-align: center;
+      h3 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      p {
+        font-size: 14px;
+      }
+      & .note-schedule {
+        font-size: 11px;
+        color: #3d3d3d;
+        margin-top: 7px;
+      }
+    }
+    & form {
+      display: flex;
+      margin: 0 auto;
+      width: 60%;
+      justify-content: space-between;
+    }
+    & input {
+      border: 1px solid $black;
+      border-radius: 4px;
+      padding: 10px 20px;
+      outline: none;
+      font-size: 14px;
+      margin: 0 10px;
+      max-width: 260px;
+    }
+    & input:disabled {
+      opacity: 0.5;
+      border: 1px solid #6d6d6d;
+    }
+    & button {
+      height: 38px;
+      width: 40px;
+      border: 1px solid $black;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 0 10px;
+      outline: none;
+    }
+    & .icon-send {
+      background: #fff
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAuklEQVRIie3UPQ5BQRTF8Z+PCKUehbVYhtpaLEClUuv0eomorUDBCoT4KpBM4XmPZ0ThJCe5xeT+Z87MXP5KUSmo5yhgiUMM2BFnbNBH89OA0w1w9w5jdGIBQi/QQy0PIKl56FzxZQHkiu8VQOb4CkFdRzvBLZRTNrjBCAOsHgGeqXyDJG2gHqzdY4IhpsWMgHe05QsRhcp7ydW0I/3EM127frTGK43vij4qog+76ON6hi4qn27811NdAMsvgR3oQtjdAAAAAElFTkSuQmCC");
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+    & .icon-loading {
+      opacity: 0.5;
+      background: #dedede;
+      border: 1px solid #6d6d6d;
+      color: $black;
+    }
+    & .input-error {
+      border: 1px solid red;
+    }
+  }
+
+  @include device(desktop) {
+    & form {
+      width: 48%;
+    }
+  }
+}
