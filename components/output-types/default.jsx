@@ -674,14 +674,12 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${
-                  getPreroll({
-                    section: sectionPath,
-                    arcSite,
-                    siteDomain,
-                    metaValue,
-                  }) || siteProperties.urlPreroll
-                }';
+                __html: `window.preroll='${getPreroll({
+                  section: sectionPath,
+                  arcSite,
+                  siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll}';
                 window.addPrefetch('preconnect', 'https://d1tqo5nrys2b20.cloudfront.net/')`,
               }}
             />
