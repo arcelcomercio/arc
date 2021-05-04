@@ -11,8 +11,6 @@ import addScriptAsync from '../_dependencies/Async'
 import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import { deleteCookie } from '../_dependencies/Cookies'
 import { Container, Wrapper, PanelLeft } from '../_layouts/containers'
-import stylesPayment from '../_styles/Payment'
-
 import Header from './_children/header'
 import CallToActionFia from './_children/call_to_action'
 
@@ -95,8 +93,6 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }} />
-
       <Header {...{ arcSite, mainColorBg, buttonBack }} />
       <Container>
         <Wrapper>

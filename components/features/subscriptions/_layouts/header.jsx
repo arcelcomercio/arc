@@ -10,10 +10,10 @@ import Signwall from '../_children/Signwall'
 import PWA from '../_dependencies/Pwa'
 
 const styles = {
-  wrapper: 'header__content wrapper-buy',
-  link: 'header__content-link',
-  logo: 'header__content-logo',
-  button: 'header__content-button',
+  wrapper: 'header-payment__content wrapper-buy',
+  link: 'header-payment__content-link',
+  logo: 'header-payment__content-logo',
+  button: 'header-payment__content-button',
 }
 
 const HeaderSubs = ({ userProfile, arcSite }) => {
@@ -57,7 +57,7 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
 
   return (
     <>
-      <header className="header" id="header">
+      <header className="header-payment" id="header">
         <div className={styles.wrapper}>
           {PWA.isPWA() ? (
             <div className={styles.logo}></div>
