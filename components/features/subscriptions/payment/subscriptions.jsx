@@ -21,7 +21,6 @@ import { FooterLand, FooterSubs } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
 import Loading from '../_layouts/loading'
 import scriptsPayment from '../_scripts/Payment'
-import stylesPayment from '../_styles/Payment'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
 
@@ -117,7 +116,6 @@ const WrapperPaymentSubs = () => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }} />
       <>
         {userLoading && <Loading arcSite={arcSite} />}
         <HeaderSubs userProfile={userProfile} arcSite={arcSite} />

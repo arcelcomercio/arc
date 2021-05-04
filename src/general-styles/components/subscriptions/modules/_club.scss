@@ -1,0 +1,192 @@
+.club {
+  background: $black;
+  color: $white;
+  padding: 2.5em 0;
+
+  &__content {
+    padding: 1em 0;
+    position: relative;
+    .logo-club {
+      text-align: center;
+      display: block;
+      width: 140px;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+    .title-club {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 30px;
+      line-height: 25px;
+      font-weight: 300;
+    }
+
+    .button-club {
+      margin: 0 auto;
+      width: 280px;
+      margin-top: 50px;
+      button {
+        @include button;
+        font-weight: normal;
+        border: 1px solid $gray;
+        border-radius: 50px;
+        background: transparent;
+        color: $white;
+        span {
+          font-weight: bold;
+        }
+        &:hover {
+          background: $white;
+          color: $black;
+          border: 1px solid $black;
+        }
+      }
+    }
+    .rows-club {
+      .row-club {
+        display: block;
+        margin-bottom: 40px;
+        h4 {
+          color: $bluePrimary;
+          font-weight: bold;
+          font-size: 14px;
+          margin-top: 20px;
+          margin-bottom: 10px;
+        }
+        p {
+          font-size: 14px;
+          line-height: 20px;
+        }
+        i {
+          display: block;
+          margin: 0 10px;
+          width: 100px;
+          height: 80px;
+          float: left;
+        }
+        i.icon-descuento {
+          background: url("https://signwall.e3.pe/images/icon-off.png")
+            no-repeat;
+          background-position: center center;
+          background-size: 55%;
+        }
+        i.icon-limite {
+          background: url("https://signwall.e3.pe/images/icon-limit.png")
+            no-repeat;
+          background-position: center center;
+          background-size: 80%;
+        }
+        i.icon-pago {
+          background: url("https://signwall.e3.pe/images/icon-pay.png")
+            no-repeat;
+          background-position: center center;
+          background-size: 80%;
+        }
+        i.icon-compartir {
+          background: url("https://signwall.e3.pe/images/icon-share.png")
+            no-repeat;
+          background-position: center center;
+          background-size: 90%;
+        }
+      }
+    }
+  }
+
+  @include device(tabletp) {
+    padding: 3em 0;
+    &__content {
+      .logo-club {
+        margin-bottom: 30px;
+      }
+      .title-club {
+        font-size: 20px;
+        line-height: 30px;
+      }
+      .rows-club {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        text-align: center;
+        .row-club {
+          display: flex;
+          flex-direction: column;
+          flex-basis: 100%;
+          flex: 1;
+          padding: 0 20px;
+          i {
+            margin: 0 auto;
+            width: 240px;
+            height: 100px;
+          }
+          i.icon-descuento {
+            background-size: auto;
+          }
+          i.icon-limite {
+            background-size: auto;
+          }
+          i.icon-pago {
+            background-size: auto;
+          }
+          i.icon-compartir {
+            background-size: auto;
+          }
+          h4 {
+            margin-bottom: 20px;
+            font-size: 16px;
+          }
+          p {
+            font-size: 16px;
+            line-height: 24px;
+          }
+        }
+      }
+    }
+  }
+
+  @include device(tabletl) {
+    padding: 3.5em 0;
+    &__content {
+      .title-club {
+        font-size: 25px;
+      }
+      .rows-club {
+        .row-club {
+          padding: 0 10px;
+          i {
+            width: 200px;
+            height: 100px;
+          }
+        }
+      }
+      .button-club {
+        width: 300px;
+      }
+    }
+  }
+
+  @include device(desktop) {
+    padding: 4em 0;
+    &__content {
+      .logo-club {
+        width: 184px;
+      }
+      .title-club {
+        font-size: 30px;
+        line-height: 38px;
+      }
+      .rows-club {
+        .row-club {
+          padding: 0 20px;
+          i {
+            width: 180px;
+            height: 100px;
+          }
+          h4 {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}

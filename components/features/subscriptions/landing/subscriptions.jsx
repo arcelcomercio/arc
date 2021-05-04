@@ -15,7 +15,6 @@ import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
-import stylesLanding from '../_styles/Landing'
 import Benefits from './_children/Benefits'
 import CallinCallOut from './_children/CallinCallout'
 import Callout from './_children/Callout'
@@ -161,7 +160,6 @@ const LandingSubscriptions = (props) => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: stylesLanding[arcSite] }} />
       <>
         <header className="header" id="header">
           <div className="wrapper">
