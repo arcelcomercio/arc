@@ -1,10 +1,13 @@
-import AdsChild from 'components/global-components/ads'
-import { Ad, GetAdsSpacesQuery } from 'content/sources/get-ads-spaces'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import { FC } from 'types/features'
 
+import {
+  Ad,
+  GetAdsSpacesQuery,
+} from '../../../../content/sources/get-ads-spaces'
+import AdsChild from '../../../global-components/ads'
 import customFields from './_dependencies/custom-fields'
 
 const NO_DESKTOP = 'no-desktop'

@@ -40,8 +40,6 @@ module.exports = {
       {
         ignore: [
           'types',
-          'content',
-          'components',
           'react',
           'prop-types',
           'fusion:consumer',
