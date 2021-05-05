@@ -73,7 +73,6 @@ $breakpoints: (
   tabletp: 768px,
   tabletl: 1024px,
   desktop: 1200px,
-  // resolucion anterior 1366px,,,,,,,,,,,,,,,,,,,
 );
 
 @mixin device($breakpoint) {
