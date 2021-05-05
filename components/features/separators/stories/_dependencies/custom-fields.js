@@ -60,7 +60,7 @@ export default PropTypes.shape({
     group: 'Configuración del responsive',
   }),
   isDeporBetsDesign: PropTypes.bool.tag({
-    name: 'Activar diseño de auspiciador',
+    name: 'Activar diseño con auspiciador',
     defaultValue: false,
     group: 'Diseños Depor',
   }),
