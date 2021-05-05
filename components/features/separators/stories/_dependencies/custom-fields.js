@@ -59,4 +59,26 @@ export default PropTypes.shape({
     defaultValue: 'complete',
     group: 'Configuración del responsive',
   }),
+  isDeporBetsDesign: PropTypes.bool.tag({
+    name: 'Activar diseño de auspiciador',
+    defaultValue: false,
+    group: 'Diseños Depor',
+  }),
+  deporBetsText: PropTypes.string.tag({
+    name: 'Texto a la izquierda de la imagen',
+    defaultValue: 'Auspiciado por:',
+    group: 'Diseños Depor',
+  }),
+  deporBetsImg: PropTypes.string.tag({
+    name: 'URL de la imagen',
+    group: 'Diseños Depor',
+  }),
+  deporBetsUrl: PropTypes.string.tag({
+    name: 'Enlace de destino de la imagen',
+    group: 'Diseños Depor',
+  }),
+  deporBetsAlt: PropTypes.string.tag({
+    name: 'Alt de la imagen',
+    group: 'Diseños Depor',
+  }),
 })
