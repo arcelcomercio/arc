@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import request from 'request-promise-native'
 import getProperties from 'fusion:properties'
+import request from 'request-promise-native'
+
 import { interpolateUrl } from '../../components/features/paywall/_dependencies/domains'
 
 const fetch = (key = {}) => {
@@ -11,6 +12,7 @@ const fetch = (key = {}) => {
 
   return request({
     uri: interpolateUrl(urls.originSubscriptionsBundles),
+    gzip: true,
     json: true,
   })
 }
