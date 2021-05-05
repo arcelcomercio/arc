@@ -81,7 +81,8 @@ const Styles = ({
       : styleDefault
 
   styleDefault = isFooterFinal ? 'dstory-video' : styleDefault
-  // styleDefault = requestUri.includes('/trivias/') ? style : styleDefault
+  styleDefault =
+    requestUri.includes('/trivias/') && isAmp === false ? style : styleDefault
   // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos para todas las marcas
   if (metaValue('section_style') === 'resumen_2020') {
     style = 'resumen-2020'
