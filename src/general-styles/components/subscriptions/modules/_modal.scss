@@ -29,7 +29,6 @@
 
 .modal-content {
   position: relative;
-  // scroleable
   max-height: 100vh;
   overflow: auto;
   padding: 10px;
@@ -69,15 +68,12 @@
 .modal-container {
   width: 100%;
   margin: 0 auto;
-  padding: 40px 74px;
   box-sizing: border-box;
-  //   width: 100%;
   min-height: 250px;
   background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   color: rgb(68, 68, 68);
-  // box-shadow: rgb(148, 148, 148) 0rem 0rem 0.5rem;
   box-shadow: 0 0 19px -6px rgba(56, 56, 56, 1);
   border-radius: 6px;
   padding: 40px 50px;

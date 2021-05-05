@@ -85,26 +85,6 @@
         padding: 0.9em 0.5em;
       }
     }
-    // width: 100%;
-    // .cont-select-input {
-    //   width: 100%;
-    // }
-    // .cont-button {
-    //   width: 100%;
-    //   margin-top: 20px;
-    // }
-    // .step__left-block {
-    //   display: block;
-    //   margin-bottom: 0;
-    //   select {
-    //     width: 40%;
-    //   }
-    //   button {
-    //     @include button;
-    //     background: #a6bed1;
-    //     color: $white;
-    //   }
-    // }
   }
 
   @media (min-width: 376px) and (max-width: 767px) {
@@ -123,25 +103,6 @@
       .cont-select-input {
         width: 65%;
       }
-      // .cont-button {
-      //   width: 28%;
-      //   padding-left: 10px;
-      //   margin-top: 0;
-      // }
-      // .step__left-block {
-      //   display: flex;
-      //   justify-content: flex-end;
-      //   select {
-      //     width: 35%;
-      //   }
-      //   input {
-      //     width: 65%;
-      //   }
-      //   button {
-      //     margin-top: 4px;
-      //     padding: 0.9em 0.5em;
-      //   }
-      // }
     }
     &__banner-info {
       p {

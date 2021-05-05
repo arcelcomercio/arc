@@ -27,6 +27,7 @@
       margin-top: 50px;
       button {
         @include button;
+        
         font-weight: normal;
         border: 1px solid $gray;
         border-radius: 50px;
@@ -112,7 +113,6 @@
           display: flex;
           flex-direction: column;
           flex-basis: 100%;
-          flex: 1;
           padding: 0 20px;
           i {
             margin: 0 auto;
@@ -151,6 +151,7 @@
         font-size: 25px;
       }
       .rows-club {
+        flex-wrap: nowrap;
         .row-club {
           padding: 0 10px;
           i {
