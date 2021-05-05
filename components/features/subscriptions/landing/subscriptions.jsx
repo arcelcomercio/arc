@@ -450,12 +450,6 @@ const LandingSubscriptions = (props) => {
           />
         ) : null}
       </>
-
-      <script
-        type="text/javascript"
-        src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"
-      />
-
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

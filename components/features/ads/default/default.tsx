@@ -1,9 +1,14 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
+import { FC } from 'types/features'
 
-import customFields from './_dependencies/custom-fields'
+import {
+  Ad,
+  GetAdsSpacesQuery,
+} from '../../../../content/sources/get-ads-spaces'
 import AdsChild from '../../../global-components/ads'
+import customFields from './_dependencies/custom-fields'
 
 const NO_DESKTOP = 'no-desktop'
 const NO_MOBILE = 'no-mobile'
@@ -12,36 +17,45 @@ const classes = {
   adsBox: 'flex items-center flex-col',
 }
 
-const AdsFeat = props => {
+interface AdsFeatProps {
+  customFields?: {
+    adsSpace?: string
+    adElement?: string
+    isDesktop?: boolean
+    isMobile?: boolean
+    freeHtml?: string
+    columns?: 'w-full' | 'col-1' | 'col-2' | 'col-3'
+    adsBorder?: 'border' | 'containerp'
+    isDfp?: boolean
+    rows?: 'empty' | 'row-1' | 'row-2'
+  }
+}
+
+const AdsFeat: FC<AdsFeatProps> = (props) => {
   const {
     customFields: {
-      adsSpace,
+      adsSpace = 'none',
       adElement,
       isDesktop,
       isMobile,
       freeHtml,
-      columns,
-      adsBorder,
-      isDfp,
-      rows,
+      columns = 'w-full',
+      adsBorder = false,
+      isDfp = true,
+      rows = 'empty',
     } = {},
   } = props
 
   const { isAdmin } = useAppContext()
 
   const adsSpaces =
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useContent(
-      adsSpace && adsSpace !== 'none'
-        ? {
-            source: 'get-ads-spaces',
-            query: { space: adsSpace },
-          }
-        : {}
-    ) || {}
+    useContent<GetAdsSpacesQuery, Ad>({
+      source: 'get-ads-spaces',
+      query: { space: adsSpace },
+    }) || {}
 
-  const getAdsSpace = () => {
-    const toDate = dateStr => {
+  const getAdsSpace = (): string => {
+    const toDate = (dateStr: string): Date => {
       const [date, time] = dateStr.split(' ')
       const [day, month, year] = date.split('/')
       return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
@@ -58,10 +72,10 @@ const AdsFeat = props => {
       const initDate = toDate(fecInicio)
       const endDate = toDate(fecFin)
 
-      return currentDate > initDate && endDate > currentDate ? desHtml : false
+      return currentDate > initDate && endDate > currentDate ? desHtml : ''
     }
 
-    return false
+    return ''
   }
 
   const addEmptyBorder = () =>
@@ -96,42 +110,39 @@ const AdsFeat = props => {
     return deviceClass
   }
 
-  return (() => {
-    if (getAdsSpace())
-      return (
-        <div
-          className={addEmptyBorder()}
-          dangerouslySetInnerHTML={{ __html: getAdsSpace() }}
-        />
-      )
+  if (getAdsSpace())
+    return (
+      <div
+        className={addEmptyBorder()}
+        dangerouslySetInnerHTML={{ __html: getAdsSpace() }}
+      />
+    )
 
-    if (!neverShow())
-      return (
-        <>
+  if (!neverShow() && adElement)
+    return (
+      <>
+        <div
+          className={`${classes.adsBox} ${
+            adElement === 'boton1' ? 'justify-start' : 'justify-center'
+          } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()} no-row-2-mobile`}>
+          <AdsChild
+            adElement={adElement}
+            isDesktop={isDesktop}
+            isMobile={isMobile}
+            isDfp={isDfp}
+          />
+          {freeHtml && <div dangerouslySetInnerHTML={{ __html: freeHtml }} />}
+        </div>
+        {!alwaysShow() && freeHtml && (
           <div
-            className={`${classes.adsBox} ${
-              adElement === 'boton1' ? 'justify-start' : 'justify-center'
-            } ${columns} ${addRowsClass()} ${addEmptyBackground()} ${hideInDevice()} no-row-2-mobile`}>
-            <AdsChild
-              adElement={adElement}
-              isDesktop={isDesktop}
-              isMobile={isMobile}
-              isDfp={isDfp}
-            />
-            {freeHtml && (
-              <div dangerouslySetInnerHTML={{ __html: freeHtml }} />
-            )}
-          </div>
-          {!alwaysShow() && freeHtml && (
-            <div
-              className={showHtmlInDevice()}
-              dangerouslySetInnerHTML={{ __html: freeHtml }}
-            />
-          )}
-        </>
-      )
-    return ''
-  })()
+            className={showHtmlInDevice()}
+            dangerouslySetInnerHTML={{ __html: freeHtml }}
+          />
+        )}
+      </>
+    )
+
+  return null
 }
 
 AdsFeat.propTypes = {

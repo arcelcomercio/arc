@@ -25,7 +25,7 @@ $max-width: 1366px;
     }
 
     @media (--only-mobile) {
-      margin-right: 15px;
+      margin-right: 0px; // valor por defecto es 15, se bajo a 0 por el nuevo menu de regiones
       padding: 2px 10px 0 10px;
     }
   }

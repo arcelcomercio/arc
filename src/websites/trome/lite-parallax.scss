@@ -7,6 +7,8 @@
 @import "../elcomercio/scss/lite-components/features/story/contents/contents";
 
 .h-basic {
+  top: 0;
+
   &__sub {
     background-color: $color-primary;
   }
@@ -51,5 +53,11 @@
         font: 500 24px/36px $primary-font;
       }
     }
+  }
+}
+
+.st-foot {
+  &__block {
+    white-space: pre-wrap;
   }
 }
