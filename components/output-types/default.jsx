@@ -94,9 +94,8 @@ export default ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const {
-    website_section: { path: storySectionPath },
-  } = websites[arcSite] || {}
+  const { website_section: { path: storySectionPath } = {} } =
+    websites?.[arcSite] || {}
 
   const sectionPath = nodeType === 'section' ? id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
