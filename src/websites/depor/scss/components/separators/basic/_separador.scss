@@ -246,11 +246,13 @@
     }
     .separator__header-link {
       color: #d0af27;
+      line-height: 54px;
       @media (--tablet) {
         font-size: 45px;
       }
       @media (--desktop) {
         font-size: 70px;
+        line-height: 85px;
       }
     }
     .separator__title {
