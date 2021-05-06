@@ -53,12 +53,15 @@ sans-serif;
   &__title {
     font-weight: 700;
     font-size: 16px;
+    font-family: $story-simple-font;
+    margin-bottom: 5px;
 
     a {
       color: #000;
     }
 
     @media(--desktop) {
+      margin-bottom: 10px;
       font-size: 23px;
     }
   }
@@ -66,6 +69,7 @@ sans-serif;
   &__subtitle {
     font-weight: 300;
     font-size: 16px;
+    font-family: $story-simple-font;
 
     a {
       color: #000;
