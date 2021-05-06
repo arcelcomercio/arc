@@ -11,7 +11,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_PERU21G21,
-  SITE_TROME, 
+  SITE_TROME,
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -75,15 +75,27 @@ const LiteOutput = ({
     deployment,
   }
   const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const {
+    videoSeo,
+    idYoutube,
+    contentElementsHtml,
+    oembedSubtypes,
+    embedTwitterAndInst,
+    getPremiumValue,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+    primarySectionLink: storySectionPath,
+    jwplayerSeo,
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
 
   const {
     credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: promoItems = {},
-    taxonomy: {
-      primary_section: { path: storySectionPath = '' } = {},
-      tags = [],
-    } = {},
+    taxonomy: { tags = [] } = {},
     subtype = '',
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
@@ -181,20 +193,6 @@ const LiteOutput = ({
     arcSite,
   }
 
-  const {
-    videoSeo,
-    idYoutube,
-    contentElementsHtml,
-    oembedSubtypes,
-    embedTwitterAndInst,
-    getPremiumValue,
-    promoItems: { basic_html: { content = '' } = {} } = {},
-    jwplayerSeo,
-  } = new StoryData({
-    data: globalContent,
-    arcSite,
-    contextPath,
-  })
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
     idYoutube ||
@@ -276,7 +274,11 @@ const LiteOutput = ({
   ).replace(/^\/carga-continua/, '')}`
 
   const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
-
+  console.log('asdasdasdasdsa', storySectionPath)
+  console.log(
+    'asdasdasdasdsalleellellelllll=>>>>>>>>',
+    storySectionPath.split('/')[1]
+  )
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -440,15 +442,7 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        <LiteAds
-          requestUri={requestUri}
-          tags={tags}
-          contentCode={contentCode}
-          siteProperties={siteProperties}
-          arcSite={arcSite}
-          section={storySectionPath.split('/')[1]}
-          subtype={subtype}
-        />
+
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
           <>

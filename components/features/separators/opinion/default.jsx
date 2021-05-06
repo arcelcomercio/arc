@@ -23,7 +23,7 @@ const classes = {
   colorText: 'text-white',
 }
 
-const SeparatorOpinion = props => {
+const SeparatorOpinion = (props) => {
   const { arcSite, deployment, contextPath } = useFusionContext()
   const {
     customFields: { titleSection, htmlCode, section },
@@ -37,10 +37,12 @@ const SeparatorOpinion = props => {
       stories_qty: STORIES_QTY,
       section,
       presets: 'no-presets',
-      includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection},${includeCredits},${includeCreditsImage}`,
+      includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection(
+        { arcSite }
+      )},${includeCredits},${includeCreditsImage}`,
     },
     filter: schemaFilter(arcSite),
-    transform: data => {
+    transform: (data) => {
       const { content_elements: contentElements = [] } = data || {}
       const storyData = new StoryData({
         deployment,
@@ -52,7 +54,7 @@ const SeparatorOpinion = props => {
       const filteredStories =
         contentElements &&
         contentElements.length > 0 &&
-        contentElements.map(story => {
+        contentElements.map((story) => {
           const { credits: { by = [] } = {} } = story || {}
           const { image: { url: authorImage } = {} } = by[0] || {}
 
@@ -93,7 +95,7 @@ const SeparatorOpinion = props => {
       <div className={classes.opinionBody}>
         {stories &&
           stories.length > 0 &&
-          stories.map(info => (
+          stories.map((info) => (
             <AuthorCard
               key={info.id}
               data={info}

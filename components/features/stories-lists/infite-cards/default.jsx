@@ -29,7 +29,9 @@ class StoriesLiestInfiniteCards extends Component {
     } = this.props
 
     const presets = 'portrait_md:306x225'
-    const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection},promo_items.basic_gallery.content_elements.type`
+    const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection(
+      { arcSite }
+    )},promo_items.basic_gallery.content_elements.type`
 
     this.fetchContent({
       data: {
@@ -71,7 +73,9 @@ class StoriesLiestInfiniteCards extends Component {
     } = this.props
 
     const presets = 'portrait_md:306x225'
-    const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection},promo_items.basic_gallery.content_elements.type`
+    const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection(
+      { arcSite }
+    )},promo_items.basic_gallery.content_elements.type`
 
     this.fetchContent({
       data: {
@@ -83,7 +87,7 @@ class StoriesLiestInfiniteCards extends Component {
           feedOffset: next,
         }),
         filter: schemaFilter(arcSite),
-        transform: res => {
+        transform: (res) => {
           this.setState({ isLoading: false })
           const { content_elements: stories = [] } = res || {}
           if (contentElements && res) {
@@ -97,7 +101,7 @@ class StoriesLiestInfiniteCards extends Component {
 
   removeDuplicates = (array, key) => {
     const lookup = new Set()
-    return array.filter(obj => !lookup.has(obj[key]) && lookup.add(obj[key]))
+    return array.filter((obj) => !lookup.has(obj[key]) && lookup.add(obj[key]))
   }
 
   render() {
@@ -121,7 +125,7 @@ class StoriesLiestInfiniteCards extends Component {
     })
 
     const stories = this.removeDuplicates(
-      contentElements.map(story => {
+      contentElements.map((story) => {
         storyData._data = story
         const {
           title,

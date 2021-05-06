@@ -1,7 +1,6 @@
-export default arcSite => {
-  return `{ 
+export default (arcSite) => `{ 
     headlines { basic }
-    websites { ${arcSite} { website_url } }
+    websites { ${arcSite} { website_url website_section{name path} } }
     promo_items {
         youtube_id {
           content
@@ -33,11 +32,4 @@ export default arcSite => {
           }
         }
       }
-    taxonomy {
-      primary_section {
-          name
-          path
-      }
-    }
   }`
-}

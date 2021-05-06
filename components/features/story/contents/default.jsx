@@ -123,7 +123,6 @@ class StoryContents extends React.PureComponent {
       multimedia,
       tags,
       contentPosicionPublicidad,
-      prerollDefault,
       contentElementsHtml,
       authorImageSecond,
       authorLinkSecond,
@@ -265,7 +264,7 @@ class StoryContents extends React.PureComponent {
               <ArcStoryContent
                 data={contentPosicionPublicidadFilter}
                 elementClasses={classes}
-                renderElement={element => {
+                renderElement={(element) => {
                   const {
                     type,
                     subtype: sub,
@@ -458,7 +457,7 @@ class StoryContents extends React.PureComponent {
                       const ListType = listType === 'ordered' ? 'ol' : 'ul'
                       return (
                         <ListType className={classes.listClasses}>
-                          {items.map(item => (
+                          {items.map((item) => (
                             <li
                               dangerouslySetInnerHTML={{
                                 __html: item.content
@@ -633,7 +632,6 @@ class StoryContents extends React.PureComponent {
               />
             )}
           </div>
-          {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
           {storyTagsBbc(tags) && (
             <div className={classes.bbcHead}>
               <a
