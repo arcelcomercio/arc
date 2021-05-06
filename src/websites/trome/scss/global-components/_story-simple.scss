@@ -1,0 +1,78 @@
+$story-simple-font: "Encode Sans",
+sans-serif;
+
+.story-simple {
+  &__header {
+    display: flex;
+    align-items: center;
+    background-color: #F15A22;
+    height: 47px;
+    margin-bottom: 10px;
+
+    @media(--desktop) {
+      margin-bottom: 17px;
+      height: 67px;
+    }
+
+    svg {
+      margin-left: 5px;
+      height: 34px;
+
+      @media(--desktop) {
+        height: 54px;
+        margin-left: 10px;
+      }
+    }
+
+    h2 {
+      font-family: $story-simple-font;
+      font-weight: 700;
+      font-size: 20px;
+      color: #fff;
+      line-height: 0;
+      margin-left: 5px;
+
+      @media(--desktop) {
+        font-size: 39px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  &__container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #F15A22;
+
+    @media(--desktop) {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 16px;
+
+    a {
+      color: #000;
+    }
+
+    @media(--desktop) {
+      font-size: 23px;
+    }
+  }
+
+  &__subtitle {
+    font-weight: 300;
+    font-size: 16px;
+
+    a {
+      color: #000;
+    }
+
+    @media(--desktop) {
+      font-size: 23px;
+    }
+  }
+}

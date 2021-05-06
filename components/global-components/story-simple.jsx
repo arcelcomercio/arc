@@ -2,7 +2,7 @@ import React from 'react'
 import StoryData from '../utilities/story-data'
 
 const classes = {
-  storySimple: `story-simple w-full pr-20 pl-20 pb-20 mb-20 border-b-1 border-solid border-gray md:pl-0 md:pr-0  lg:p-0`,
+  storySimple: `story-simple__container`,
   title: 'story-simple__title',
   subtitle: 'story-simple__subtitle',
 }

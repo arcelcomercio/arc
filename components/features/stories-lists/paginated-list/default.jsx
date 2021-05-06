@@ -13,6 +13,7 @@ import { SITE_DEPOR, SITE_TROME } from '../../../utilities/constants/sitenames'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
+  storySimpleHeader: 'story-simple__header',
 }
 
 const StoriesListPaginatedList = props => {
@@ -85,9 +86,34 @@ const StoriesListPaginatedList = props => {
   return (
     <>
       {arcSite == SITE_TROME ? (
-        <div>
+        <div className="pl-20 pr-20">
           {author && (
             <div className={classes.storySimpleHeader}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 53 54">
+                <defs />
+                <g clip-path="url(#clip0)">
+                  <path
+                    fill="#000"
+                    d="M26.5 54c14.498 0 26.25-12.088 26.25-27S40.998 0 26.5 0C12.003 0 .25 12.088.25 27S12.003 54 26.5 54z"
+                  />
+                  <path
+                    fill="#fff"
+                    d="M38.28 22.06H26.9v13.82c.06 1.823.401 2.588 2.23 2.588 2.574 0 2.46-1.884 2.574-4l.056-1.645h7.835v2.765c0 8.41-3.031 10.294-11.036 10.294-6.29 0-11.494-.825-11.494-8.588V22.059h-3.66v-7.411h3.66V8.12h9.836v6.53h11.38v7.408z"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0">
+                    <path
+                      fill="#fff"
+                      d="M0 0h52.5v54H0z"
+                      transform="translate(.25)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
               <h2>Las noticias de {author.firstName}</h2>
             </div>
           )}
