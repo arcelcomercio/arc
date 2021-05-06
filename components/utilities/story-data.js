@@ -1589,8 +1589,6 @@ class StoryData {
     const { taxonomy: { sections = [] } = {} } = data || {}
     const name = sectionData.name || ''
     const path = sectionData.path || ''
-    console.log('website=>>>ddd', sectionData)
-    console.log('website=>>>ddd', website)
     // En caso de que el primary section no devuelva "path" ni "name"
     const { name: auxName, path: auxPath } = sections[0] || {}
 
