@@ -34,19 +34,20 @@ const SeparatorsBasicChildSeparator = ({
 }) => {
   const isRecetasSection = /^(\/recetas\/(.*))$/.test(requestUri)
 
-  const { resized_urls: { image: resizedDeporBetsImg } = {} } = useContent(
-    arcSite === 'depor' && isDeporBetsDesign && deporBetsImg
-      ? {
-          source: 'photo-resizer',
-          query: {
-            url: deporBetsImg,
-            presets: 'image:0x44',
-            quality: 100,
-            format: /\.png$/.test(deporBetsImg) ? 'png' : '',
-          },
-        }
-      : {}
-  )
+  const { resized_urls: { image: resizedDeporBetsImg } = {} } =
+    useContent(
+      arcSite === 'depor' && isDeporBetsDesign && deporBetsImg
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: deporBetsImg,
+              presets: 'image:0x44',
+              quality: 100,
+              format: /\.png$/.test(deporBetsImg) ? 'png' : '',
+            },
+          }
+        : {}
+    ) || {}
 
   return (
     <div
