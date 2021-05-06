@@ -16,19 +16,21 @@ import { getAssetsPath } from '../../../utilities/assets'
 
 const PHOTO_SOURCE = 'photo-resizer'
 
-const getPhotoId = photoUrl => {
+const getPhotoId = (photoUrl) => {
   if (!photoUrl) return ''
   const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
   const [, photoId] = customPhotoUrl || []
   return photoId
 }
 
-const ExtraordinaryStoryGrid = props => {
+const ExtraordinaryStoryGrid = (props) => {
   const { customFields: customFieldsData = {} } = props
   const { deployment, contextPath, arcSite, isAdmin } = useFusionContext()
 
   const presets = 'landscape_xl:980x528,square_l:600x600'
-  const includedFields = `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`
+  const includedFields = `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection(
+    { arcSite }
+  )}`
 
   const {
     urlStory: {

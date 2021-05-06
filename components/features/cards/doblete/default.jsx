@@ -1,18 +1,17 @@
-import React from 'react'
-
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
-import DobleteCard from './_children/doblete-card'
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import StoryData from '../../../utilities/story-data'
 import {
   includeCredits,
   includePrimarySection,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import DobleteCard from './_children/doblete-card'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
-const Doblete = props => {
+const Doblete = (props) => {
   const { arcSite, contextPath, deployment } = useFusionContext()
   const {
     customFields: {
@@ -27,7 +26,7 @@ const Doblete = props => {
     } = {},
   } = props
 
-  const getParams = data => {
+  const getParams = (data) => {
     const {
       websiteLink,
       title,
@@ -52,7 +51,9 @@ const Doblete = props => {
     }
   }
 
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includeCredits},${includePrimarySection}`
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includeCredits},${includePrimarySection(
+    { arcSite }
+  )}`
 
   const data1 =
     useContent({

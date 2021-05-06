@@ -1,16 +1,20 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
-import AuthorTitle from './_children/author-title'
-import { defaultImage } from '../../../utilities/helpers'
 import ConfigParams from '../../../utilities/config-params'
+import { defaultImage } from '../../../utilities/helpers'
+import AuthorTitle from './_children/author-title'
 
 const StoryAuthorTitle = () => {
   const { globalContent, arcSite, contextPath, deployment } = useFusionContext()
   const {
     credits: { by = [] },
-    taxonomy: { primary_section: { path: pathSection = '' } = {} } = {},
+    websites = {},
   } = globalContent || {}
+
+  const {
+    website_section: { path: pathSection = '' },
+  } = websites[arcSite] || {}
 
   const {
     name = '',

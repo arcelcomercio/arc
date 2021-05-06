@@ -1,5 +1,5 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
+import React from 'react'
 
 import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from '../../../global-components/trustprojectlabel'
@@ -19,12 +19,14 @@ const StorySocialLite = () => {
   const { requestUri, globalContent, arcSite } = useAppContext()
 
   const {
-    taxonomy: {
-      primary_section: { name = '', path = '' } = {},
-      sections = [],
-    } = {},
+    taxonomy: { sections = [] } = {},
+    websites = {},
     label: { trustproject } = {},
   } = globalContent || {}
+
+  const {
+    website_section: { path = '', name = '' },
+  } = websites[arcSite] || {}
 
   // En caso de que el primary section no devuelva "path" ni "name"
   const { name: auxName = '', path: auxPath = '/' } = sections[0] || {}

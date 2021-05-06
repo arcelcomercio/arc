@@ -20,7 +20,7 @@ import {
  *
  * @see https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC):~:text=If%20the%20time%20is%20in%20UTC%2C,UTC%22%20would%20be%20%2214%3A45%3A15Z%22%20or%20%22144515Z%22.
  */
-const fixDate = date => {
+const fixDate = (date) => {
   const originalDate = new Date(date)
   const fixedDate = originalDate.setHours(originalDate.getHours() - 5)
   return new Date(fixedDate).toISOString().replace('Z', '-05:00')
@@ -54,7 +54,7 @@ class XmlContentMigration {
       ${includePromoItemsCaptions},
       ${includePromoItemsSizes},
       ${includeGalleryUrls},
-      ${includePrimarySection},
+      ${includePrimarySection({ arcSite })},
       ${includeSections},
       ${includeTags},
       ${includeCredits},
@@ -94,7 +94,7 @@ class XmlContentMigration {
   render() {
     const stories = []
     if (this.state)
-      Object.keys(this.state).forEach(key => {
+      Object.keys(this.state).forEach((key) => {
         const { content_elements: contentElements = [] } =
           (key && this.state[key]) || {}
         stories.push(...contentElements)
@@ -106,7 +106,7 @@ class XmlContentMigration {
 
     const feed = {
       stories: [
-        ...stories.map(story => {
+        ...stories.map((story) => {
           return {
             data: encodeURIComponent(
               JSON.stringify({

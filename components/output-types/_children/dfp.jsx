@@ -1,13 +1,11 @@
-import React from 'react'
 import Content from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import React from 'react'
 
 import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
-const getSectionSlug = (sectionId = '') => {
-  return sectionId.split('/')[1] || ''
-}
+const getSectionSlug = (sectionId = '') => sectionId.split('/')[1] || ''
 
 const Dfp = () => {
   const {
@@ -25,24 +23,26 @@ const Dfp = () => {
 
   const {
     section_id: sectionId,
-    _id,
+    _id: id,
     content_restrictions: { content_code: contentCode = '' } = {},
-    taxonomy: {
-      primary_section: { path: primarySection = '' } = {},
-      tags = [],
-    } = {},
+    taxonomy: { tags = [] } = {},
+    websites = {},
     subtype = '',
   } = globalContent
+  const {
+    website_section: { path: primarySection = '' },
+  } = websites[arcSite] || {}
+
   let contentConfigValues = {}
   let page = ''
   let flagsub = false
   let typeContent = ''
   switch (metaValue('id')) {
     case 'meta_section':
-      if (sectionId || _id) {
+      if (sectionId || id) {
         contentConfigValues = {
           page: 'sect',
-          sectionSlug: getSectionSlug(sectionId || _id),
+          sectionSlug: getSectionSlug(sectionId || id),
         }
       } else {
         contentConfigValues = {
@@ -97,7 +97,7 @@ const Dfp = () => {
       break
   }
 
-  const formatAdsCollection = response => {
+  const formatAdsCollection = (response) => {
     const { espacios: spaces = [] } = response || {}
 
     const getTmpAdFunction = `var getTmpAd=function getTmpAd(){var tmpAdTargeting=window.location.search.match(/tmp_ad=([^&]*)/)||[];return tmpAdTargeting[1]||''}`
@@ -105,8 +105,8 @@ const Dfp = () => {
 
     const sectionValues =
       page === 'home' || page === 'post'
-        ? (primarySection || sectionId || _id || '').split('/')
-        : (primarySection || sectionId || _id || requestUri || '').split('/')
+        ? (primarySection || sectionId || id || '').split('/')
+        : (primarySection || sectionId || id || requestUri || '').split('/')
     const section = sectionValues[1] || ''
     const subsection = flagsub ? '' : sectionValues[2] || ''
     const { siteUrl = '' } = getProperties(arcSite) || {}
@@ -174,7 +174,7 @@ const Dfp = () => {
         contentService: 'get-dfp-spaces',
         contentConfigValues,
       }}>
-      {content => (
+      {(content) => (
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{

@@ -1,13 +1,13 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
 import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_lite/_dependencies/schema-filter'
 import HeaderBasicChildren from './_lite/_children/header'
+import schemaFilter from './_lite/_dependencies/schema-filter'
 
-const HeaderBasic = props => {
+const HeaderBasic = (props) => {
   const {
     arcSite,
     contextPath,
@@ -22,8 +22,12 @@ const HeaderBasic = props => {
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    taxonomy: { primary_section: { path: sectionPath = '' } = {} } = {},
+    websites = {},
   } = globalContent || {}
+
+  const {
+    website_section: { path: sectionPath = '' },
+  } = websites[arcSite] || {}
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -45,7 +49,7 @@ const HeaderBasic = props => {
       hierarchy: 'menu-default',
     },
     filter: schemaFilter,
-    transform: data => {
+    transform: (data) => {
       const { children: sections = [] } = data || {}
       return sections
     },

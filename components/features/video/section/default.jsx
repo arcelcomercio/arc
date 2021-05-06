@@ -1,42 +1,39 @@
-import React from 'react'
-
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import React from 'react'
 
-import StoryData from '../../../utilities/story-data'
 import {
-  VIDEO,
   ELEMENT_YOUTUBE_ID,
+  VIDEO,
 } from '../../../utilities/constants/multimedia-types'
-import { removeLastSlash } from '../../../utilities/parse/strings'
-import ChildrenSectionVideo from './_children/section-video'
-import customFields from './_dependencies/custom-fields'
 import {
-  SchemaMultiStory,
-  SchemaSingleStory,
-  SchemaHierarchy,
-} from './_dependencies/schema-filter'
-import {
-  includePromoItems,
+  includeCredits,
   includePrimarySection,
+  includePromoItems,
   includePromoItemsCaptions,
   includePromoVideo,
   includePromoVideoAds,
-  includeCredits,
 } from '../../../utilities/included-fields'
+import { removeLastSlash } from '../../../utilities/parse/strings'
+import StoryData from '../../../utilities/story-data'
+import ChildrenSectionVideo from './_children/section-video'
+import customFields from './_dependencies/custom-fields'
+import {
+  SchemaHierarchy,
+  SchemaMultiStory,
+  SchemaSingleStory,
+} from './_dependencies/schema-filter'
 
 const formatSections = (data = {}) => {
   const link = 'link'
   const { children = [] } = data
-  return children.map(el => {
-    return {
-      name: el.node_type === link ? el.display_name : el.name,
-      url: el.node_type === link ? el.url : el._id,
-    }
-  })
+  return children.map((el) => ({
+    name: el.node_type === link ? el.display_name : el.name,
+    url: el.node_type === link ? el.url : el._id,
+  }))
 }
 
-const SectionVideo = props => {
+const SectionVideo = (props) => {
   const DEFAULT_HIERARCHY = 'header-default'
   const {
     globalContent,
@@ -74,7 +71,7 @@ const SectionVideo = props => {
 
   const arrSections = formatSections(dataHierarchy)
 
-  const principalVideo = data => {
+  const principalVideo = (data) => {
     const Story = new StoryData({
       data,
       arcSite,
@@ -143,7 +140,9 @@ const SectionVideo = props => {
           feedOffset: offset,
           stories_qty: 4,
           presets,
-          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},${includePromoItems},${includePromoVideo},${includeCredits}`,
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection(
+            { arcSite }
+          )},${includePromoItems},${includePromoVideo},${includeCredits}`,
         },
         filter: SchemaMultiStory(arcSite),
       }) || {}
@@ -162,7 +161,9 @@ const SectionVideo = props => {
         query: {
           section,
           presets: 'no-presets',
-          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,${includePrimarySection},${includePromoItems},${includePromoItemsCaptions},${includePromoVideo},${includePromoVideoAds},${includeCredits}`,
+          includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,subheadlines.basic,${includePrimarySection(
+            { arcSite }
+          )},${includePromoItems},${includePromoItemsCaptions},${includePromoVideo},${includePromoVideoAds},${includeCredits}`,
         },
         filter: SchemaSingleStory(arcSite),
       }) || {}

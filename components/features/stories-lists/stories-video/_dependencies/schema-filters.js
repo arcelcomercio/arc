@@ -1,8 +1,8 @@
-export default `{
+export default (arcSite) => `{
     headlines {
         basic
     }
-    taxonomy { primary_section { name path } }
+    websites { ${arcSite} { website_url website_section{name path} } }
     promo_items{
         basic_video{
             _id
