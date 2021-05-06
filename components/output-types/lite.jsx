@@ -274,11 +274,7 @@ const LiteOutput = ({
   ).replace(/^\/carga-continua/, '')}`
 
   const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
-  console.log('asdasdasdasdsa', storySectionPath)
-  console.log(
-    'asdasdasdasdsalleellellelllll=>>>>>>>>',
-    storySectionPath.split('/')[1]
-  )
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -441,6 +437,15 @@ const LiteOutput = ({
             */
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
+        />
+        <LiteAds
+          requestUri={requestUri}
+          tags={tags}
+          contentCode={contentCode}
+          siteProperties={siteProperties}
+          arcSite={arcSite}
+          section={storySectionPath.split('/')[1]}
+          subtype={subtype}
         />
 
         <Styles {...metaSiteData} />
