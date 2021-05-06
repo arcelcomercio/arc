@@ -200,7 +200,7 @@
   &__sponsored-img {
     height: 44px;
     @media (--tablet) {
-      height: 35px;
+      height: 30px;
     }
     @media (--desktop) {
       height: 42px;
@@ -248,6 +248,9 @@
       color: #d0af27;
       @media (--tablet) {
         font-size: 45px;
+      }
+      @media (--desktop) {
+        font-size: 70px;
       }
     }
     .separator__title {
