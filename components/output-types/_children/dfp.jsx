@@ -29,9 +29,8 @@ const Dfp = () => {
     websites = {},
     subtype = '',
   } = globalContent
-  const {
-    website_section: { path: primarySection = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path: primarySection = '' } = {} } =
+    websites?.[arcSite] || {}
 
   let contentConfigValues = {}
   let page = ''
