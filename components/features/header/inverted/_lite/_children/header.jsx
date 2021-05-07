@@ -32,6 +32,7 @@ export default (props) => {
     disableSignwall,
     storyTitle,
     navSections,
+    siteProperties,
   } = props
   const { siteDomain, legalLinks } = getProperties(arcSite)
 
@@ -147,29 +148,32 @@ export default (props) => {
             </>
           )}
 
-          <div className="h-basic__signwall f">
-            <button type="button" className="h-basic__sub uppercase">
-              Suscríbete
-            </button>
+          {siteProperties.activePaywall && (
+            <div className="h-basic__signwall f">
+              <button type="button" className="h-basic__sub uppercase">
+                Suscríbete
+              </button>
 
-            <button
-              type="button"
-              className="h-basic__btn-user h-basic__btn uppercase">
-              <span className="h-basic__user-txt" aria-hidden="true">
-                Iniciar
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-basic__user"
-                viewBox="0 0 18 21"
-                width="18"
-                height="21">
-                <title>Iniciar sesión / Perfil</title>
-                <path d="M9.49 10.82C6.79 10.82 4.61 8.4 4.61 5.41C4.61 2.42 6.79 0 9.49 0C12.19 0 14.37 2.42 14.37 5.41C14.37 8.4 12.19 10.82 9.49 10.82Z" />
-                <path d="M18 20L18 16.08C18 16.08 15.12 12.09 9.49 12.09C3.85 12.09 0.98 16.08 0.98 16.08L0.98 20L18 20Z" />
-              </svg>
-            </button>
-          </div>
+              <button
+                type="button"
+                className="h-basic__btn-user h-basic__btn uppercase">
+                <span className="h-basic__user-txt" aria-hidden="true">
+                  Iniciar
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-basic__user"
+                  viewBox="0 0 18 21"
+                  width="18"
+                  height="21">
+                  <title>Iniciar sesión / Perfil</title>
+                  <path d="M9.49 10.82C6.79 10.82 4.61 8.4 4.61 5.41C4.61 2.42 6.79 0 9.49 0C12.19 0 14.37 2.42 14.37 5.41C14.37 8.4 12.19 10.82 9.49 10.82Z" />
+                  <path d="M18 20L18 16.08C18 16.08 15.12 12.09 9.49 12.09C3.85 12.09 0.98 16.08 0.98 16.08L0.98 20L18 20Z" />
+                </svg>
+              </button>
+            </div>
+          )}
+
           {!hideMenu && (
             <Menu
               isSomos={isSomos}

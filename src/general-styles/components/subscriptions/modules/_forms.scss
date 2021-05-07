@@ -1,0 +1,105 @@
+// Forms
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 42px;
+  padding: 10px 14px; // The 6px vertically centers text on FF, ignored by Webkit
+  background-color: #fff;
+  border: 1px solid #c7d1d6;
+  border-radius: 3px;
+  box-shadow: none;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+// Removes awkward default styles on some inputs for iOS
+input {
+  &[type="email"],
+  &[type="number"],
+  &[type="search"],
+  &[type="text"],
+  &[type="tel"],
+  &[type="url"],
+  &[type="password"] {
+    appearance: none;
+  }
+}
+
+textarea {
+  appearance: none;
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+input {
+  &[type="email"]:focus,
+  &[type="number"]:focus,
+  &[type="search"]:focus,
+  &[type="text"]:focus,
+  &[type="tel"]:focus,
+  &[type="url"]:focus,
+  &[type="password"]:focus {
+    border: 1px solid $bluePrimary;
+    outline: 0;
+  }
+}
+
+input {
+  &[type="email"]:disabled,
+  &[type="number"]:disabled,
+  &[type="search"]:disabled,
+  &[type="text"]:disabled,
+  &[type="tel"]:disabled,
+  &[type="url"]:disabled,
+  &[type="password"]:disabled {
+    opacity: 0.7;
+    cursor: wait;
+  }
+}
+
+textarea:focus,
+select:focus {
+  border: 1px solid $bluePrimary;
+  outline: 0;
+}
+
+textarea:disabled,
+select:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+label,
+legend {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+fieldset {
+  padding: 0;
+  border-width: 0;
+}
+
+input {
+  &[type="checkbox"],
+  &[type="radio"] {
+    display: inline;
+  }
+}
+
+label > .label-body {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-weight: normal;
+}
