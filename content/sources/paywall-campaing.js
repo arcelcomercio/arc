@@ -47,6 +47,7 @@ const fetch = (key = {}) => {
   const url = interpolateUrl(urls.originSubscriptions, params)
   return request({
     uri: url,
+    gzip: true,
     json: true,
   }).then((data) => {
     const validCampaing = data.campaign || data.campaigns[0]
