@@ -1,0 +1,197 @@
+.f {
+  display: flex;
+}
+
+.f-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.alg-center {
+  align-items: center;
+}
+
+.just-center {
+  justify-content: center;
+}
+
+.just-between {
+  justify-content: space-between;
+}
+
+.f-col {
+  flex-direction: column;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.pos-abs {
+  position: absolute;
+}
+
+.oflow-h {
+  overflow: hidden;
+}
+
+.premium__wrapper.flex.hidden {
+  display: none;
+}
+.st-sidebar__content {
+  background: #f5e9de;
+}
+
+.st-iframe {
+  content-visibility: auto;
+  contain-intrinsic-size: 5000px;
+}
+
+// #fusion-app > div.f.just-center {   overflow: hidden;} se elimina por sticky
+
+html {
+  font-size: 15px;
+
+  @media (--tablet) {
+    font-size: 15px;
+  }
+}
+
+body {
+  background: #f5e9de;
+}
+
+.story-gallery-slider {
+  max-width: 100vw;
+  padding: 0 20px 0 20px;
+  background-color: transparent;
+}
+.story-gallery-slider__content {
+  transition: transform 0.4s ease;
+}
+.story-gallery-slider__item {
+  width: 280px;
+  pointer-events: none;
+  user-select: none;
+}
+.story-gallery-slider__img {
+  height: 240px;
+  object-fit: cover;
+}
+.story-gallery-slider__body {
+  position: relative;
+  overflow: hidden;
+}
+.story-gallery-slider__quantity {
+  font-family: $tertiary-font;
+  font-weight: 700;
+  background-color: #333;
+  width: 102px;
+  color: #fff;
+  height: 30px;
+  letter-spacing: 3px;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: center;
+  @media (--desktop) {
+    height: 40px;
+  }
+}
+.story-gallery-slider__arrows {
+  position: absolute;
+  outline: 0;
+  top: 0;
+  width: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  height: 200px;
+  background: linear-gradient(
+    270deg,
+    rgba(14, 33, 13, 0),
+    rgba(14, 33, 13, 0.4)
+  );
+  @media (--tablet) {
+    height: 360px;
+  }
+  @media (--desktop) {
+    height: 528px;
+  }
+}
+.story-gallery-slider__arrows--left,
+.story-gallery-slider__arrows--right {
+  svg {
+    fill: #fff;
+    @media (--desktop) {
+      width: 35px;
+    }
+  }
+}
+
+.story-gallery-slider__caption {
+  padding: 20px 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+.story-gallery-slider__caption-image {
+  font: 500 14.4px/1.333 $tertiary-font;
+  padding-top: 10px;
+}
+.story-gallery-slider__figure {
+  position: relative;
+}
+.story-gallery-slider__right {
+  right: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(14, 33, 13, 0),
+    rgba(14, 33, 13, 0.4)
+  );
+}
+
+.most-read__item {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.hidden-label {
+  font-size: 0;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+}
+
+[id^="gpt_"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  @media print {
+    display: none;
+  }
+}
+
+/* -------------------------------/
+/          LITE NORMALIZE         /
+/ ------------------------------ */
+.menu {
+  width: 0;
+  transform: translateX(-100vw);
+}
+
+#signwall-app > div {
+  content-visibility: auto;
+}
