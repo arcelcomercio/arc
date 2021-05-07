@@ -158,7 +158,7 @@ export default (props) => {
                 type="button"
                 className="h-basic__btn-user h-basic__btn uppercase">
                 <span className="h-basic__user-txt" aria-hidden="true">
-                  Iniciar
+                  {arcSite === SITE_GESTION ? 'Iniciar Sesión' : 'Iniciar'}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
