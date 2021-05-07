@@ -85,7 +85,7 @@ export default ({
 
   const {
     node_type: nodeType,
-    _id,
+    _id: id,
     credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: promoItems = {},
@@ -99,7 +99,7 @@ export default ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const sectionPath = nodeType === 'section' ? _id : storySectionPath
+  const sectionPath = nodeType === 'section' ? id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
   const isVideosSection = /^\/videos\//.test(requestUri)
   const isSearchSection = /^\/buscar\//.test(requestUri)
@@ -179,6 +179,7 @@ export default ({
     }
     return prebid
   }
+
   const indPrebid = getPrebid()
   const urlArcAds =
     arcSite === SITE_ELCOMERCIOMAG
@@ -232,6 +233,8 @@ export default ({
     globalContent,
     requestUri,
   }
+  const isTrivia = /^\/trivias\//.test(requestUri)
+
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
     title,
@@ -243,6 +246,7 @@ export default ({
     siteName: siteProperties.siteName,
     story: isStory, // check data origin - Boolean
     deployment,
+    isTrivia,
     globalContent,
   }
   const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
@@ -259,7 +263,6 @@ export default ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-  const isTrivia = /^\/trivias\//.test(requestUri)
   const isCovid = /^\/covid-19\//.test(requestUri)
   const isElecciones = /^\/resultados-elecciones-2021\//.test(requestUri)
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
@@ -674,12 +677,14 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${getPreroll({
-                  section: sectionPath,
-                  arcSite,
-                  siteDomain,
-                  metaValue,
-                }) || siteProperties.urlPreroll}';
+                __html: `window.preroll='${
+                  getPreroll({
+                    section: sectionPath,
+                    arcSite,
+                    siteDomain,
+                    metaValue,
+                  }) || siteProperties.urlPreroll
+                }';
                 window.addPrefetch('preconnect', 'https://d1tqo5nrys2b20.cloudfront.net/')`,
               }}
             />

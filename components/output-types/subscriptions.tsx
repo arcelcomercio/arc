@@ -38,6 +38,9 @@ const Subscriptions: OT<OutputProps> = ({
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
+  const stylesheet = /^\/suscripcionesdigitales\//.test(requestUri)
+    ? 'subs-payment'
+    : 'subs-landing'
 
   return (
     <>
@@ -110,7 +113,7 @@ const Subscriptions: OT<OutputProps> = ({
             <link
               rel="stylesheet"
               href={deployment(
-                `${contextPath}/resources/dist/${arcSite}/css/subscriptions.css`
+                `${contextPath}/resources/dist/${arcSite}/css/${stylesheet}.css`
               )}
             />
             <script
