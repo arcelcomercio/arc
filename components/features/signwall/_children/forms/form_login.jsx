@@ -1,20 +1,21 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
 import sha256 from 'crypto-js/sha256'
-import * as S from './styles'
-import { ButtonSocial, ButtonEmail, AuthURL } from './control_social'
-import { MsgRegister } from '../iconos'
-import { ModalConsumer } from '../context'
-import { Input } from './control_input_select'
-import { CheckBox } from './control_checkbox'
-import useForm from '../../_dependencies/useForm'
+import React, { useState } from 'react'
+
 import getCodeError from '../../_dependencies/codes_error'
-import Domains from '../../_dependencies/domains'
 import Cookies from '../../_dependencies/cookies'
-import Taggeo from '../../_dependencies/taggeo'
+import Domains from '../../_dependencies/domains'
 import Services from '../../_dependencies/services'
+import Taggeo from '../../_dependencies/taggeo'
+import useForm from '../../_dependencies/useForm'
+import { ModalConsumer } from '../context'
+import { MsgRegister } from '../iconos'
 import Loading from '../loading'
+import { CheckBox } from './control_checkbox'
+import { Input } from './control_input_select'
+import { AuthURL, ButtonEmail, ButtonSocial } from './control_social'
+import * as S from './styles'
 
 export const FormLogin = ({ valTemplate, attributes }) => {
   const {
@@ -89,17 +90,15 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     )
   }
 
-  const getListSubs = () => {
-    return window.Identity.extendSession().then((resExt) => {
+  const getListSubs = () =>
+    window.Identity.extendSession().then((resExt) => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
       )
         .then((res) => {
           if (res.skus) {
-            const result = Object.keys(res.skus).map((key) => {
-              return res.skus[key].sku
-            })
+            const result = Object.keys(res.skus).map((key) => res.skus[key].sku)
             return result
           }
           return []
@@ -108,7 +107,6 @@ export const FormLogin = ({ valTemplate, attributes }) => {
 
       return checkEntitlement
     })
-  }
 
   const handleSuscription = () => {
     if (typeDialog === 'premium') {
@@ -451,66 +449,62 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                   </S.Link>
                 </S.Text>
 
-                <S.Text c="light" s="10" className="mt-10 mb-10 center">
-                  CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN
-                  Y NUNCA PUBLICAREMOS SIN TU PERMISO
-                </S.Text>
-              </S.Form>
+                {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                  <>
+                    <br />
+                    <CheckBox
+                      checked={checkedPolits}
+                      value={checkedPolits ? '1' : '0'}
+                      name="rpolit"
+                      onChange={() => {
+                        setCheckedPolits(!checkedPolits)
+                      }}>
+                      <S.Text c="gray" lh="18" s="12" className="mt-10">
+                        Al ingresar por redes sociales autorizo el uso de mis
+                        datos para
+                        <S.Link
+                          href="/tratamiento-de-datos/"
+                          target="_blank"
+                          c={mainColorLink}
+                          fw="bold"
+                          className="ml-5 inline">
+                          fines adicionales
+                        </S.Link>
+                      </S.Text>
+                    </CheckBox>
 
-              {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
-                <S.Form>
-                  <CheckBox
-                    checked={checkedPolits}
-                    value={checkedPolits ? '1' : '0'}
-                    name="rpolit"
-                    onChange={() => {
-                      setCheckedPolits(!checkedPolits)
-                    }}>
-                    <S.Text c="gray" lh="18" s="12" className="mt-10">
-                      Al ingresar por redes sociales autorizo el uso de mis
-                      datos para
+                    <S.Text
+                      c="light"
+                      s="11"
+                      className="mt-10 mb-10"
+                      style={{ textAlign: 'justify' }}>
+                      En caso hayas autorizado los fines de uso adicionales
+                      anteriormente, no es necesario que lo vuelvas a marcar. Si
+                      deseas retirar dicho consentimiento, revisa el
+                      procedimiento en nuestras
                       <S.Link
-                        href="/tratamiento-de-datos/"
+                        href={(() => {
+                          switch (arcSite) {
+                            case 'elcomercio':
+                            case 'depor':
+                              return '/politicas-privacidad/'
+                            case 'gestion':
+                            case 'trome':
+                              return '/politica-de-privacidad/'
+                            default:
+                              return '/politicas-de-privacidad/'
+                          }
+                        })()}
                         target="_blank"
                         c={mainColorLink}
                         fw="bold"
                         className="ml-5 inline">
-                        fines adicionales
+                        Políticas de Privacidad.
                       </S.Link>
                     </S.Text>
-                  </CheckBox>
-
-                  <S.Text
-                    c="light"
-                    s="11"
-                    className="mt-10 mb-10"
-                    style={{ textAlign: 'justify' }}>
-                    En caso ya hayas autorizado los fines de usos adicionales de
-                    manera previa, no es necesario que lo vuelvas a marcar. Si
-                    deseas retirar dicho consentimiento puedes seguir el
-                    procedimiento establecito en nuestras
-                    <S.Link
-                      href={(() => {
-                        switch (arcSite) {
-                          case 'elcomercio':
-                          case 'depor':
-                            return '/politicas-privacidad/'
-                          case 'gestion':
-                          case 'trome':
-                            return '/politica-de-privacidad/'
-                          default:
-                            return '/politicas-de-privacidad/'
-                        }
-                      })()}
-                      target="_blank"
-                      c={mainColorLink}
-                      fw="bold"
-                      className="ml-5 inline">
-                      Políticas de Privacidad.
-                    </S.Link>
-                  </S.Text>
-                </S.Form>
-              )}
+                  </>
+                )}
+              </S.Form>
             </>
           ) : (
             <>
