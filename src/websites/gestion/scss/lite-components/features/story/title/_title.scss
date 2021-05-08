@@ -1,0 +1,40 @@
+.sht {
+  &__title {
+    font: 700 2.2rem/1.166 $primary-font;
+    padding: 0 20px 20px 20px;
+    @media (--desktop) {
+      font-size: 42px;
+      letter-spacing: -1px;
+      line-height: 42px;
+    }
+  }
+
+  &__summary {
+    font: 700 1.1rem/1.333 $primary-font;
+    padding: 0 20px 20px 20px;
+  }
+  &__list {
+    list-style-type: disc;
+    padding: 0 40px 30px 20px;
+    & li {
+      font-size: 19px;
+      line-height: 26px;
+      color: #000;
+      font-family: $secondary-font;
+      margin-bottom: 10px;
+      & b {
+        color: #343434;
+      }
+      & a {
+        color: #0e6dc1;
+      }
+      @media (--desktop) {
+        font-size: 22px;
+        line-height: 1.2;
+      }
+    }
+  }
+  &__link:hover {
+    text-decoration: none;
+  }
+}

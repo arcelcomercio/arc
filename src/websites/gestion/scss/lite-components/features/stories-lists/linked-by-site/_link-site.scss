@@ -1,0 +1,40 @@
+.link-site {
+  content-visibility: auto;
+  contain-intrinsic-size: 512px;
+  font-family: $primary-font;
+  &__image {
+    object-fit: cover;
+  }
+  &__pic {
+    display: block;
+  }
+  &__header {
+    border-bottom: 2px solid #000;
+  }
+  &__h-text {
+    font: 700 1.3rem/1 $secondary-font;
+    color: #111;
+  }
+  &__subtitle {
+    color: #111;
+    font: 400 0.9rem/1 $secondary-font;
+  }
+  &__site {
+    font-weight: 700;
+  }
+
+  &__title-link {
+    color: #111;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    max-height: calc(1.3rem * 1.3333 * 4);
+    font: 700 1.3rem/1.333 $secondary-font;
+    @media (--tablet) {
+      -webkit-line-clamp: 3;
+      font-size: 1rem;
+      max-height: calc(1rem * 1.3333 * 3);
+    }
+  }
+}

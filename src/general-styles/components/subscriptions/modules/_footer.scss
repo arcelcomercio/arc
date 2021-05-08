@@ -1,0 +1,282 @@
+.footer {
+  background: $black;
+  color: $white;
+  padding: 2em 0 0 0;
+  font-size: 14px;
+
+  &__grid {
+    display: grid;
+    grid-row-gap: 1em;
+  }
+
+  &__item {
+    overflow: hidden;
+  }
+
+  &__content {
+    padding: 1.8em;
+
+    &-title {
+      font-size: 20px;
+      font-weight: 300;
+      color: $graySecondary;
+      margin-top: 5px;
+    }
+
+    &-logo {
+      display: inline-block;
+      width: 170px;
+      height: 27px;
+      background: url($logoFooter) no-repeat;
+      background-position: left bottom;
+    }
+
+    &-link {
+      color: $white;
+      font-weight: bold;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &-mail {
+      & p {
+        line-height: 24px;
+        margin-top: 24px;
+      }
+    }
+
+    &-ayuda {
+      position: relative;
+      & p {
+        line-height: 18px;
+        margin-bottom: 16px;
+      }
+    }
+
+    &-legal {
+      position: relative;
+      & p {
+        line-height: 18px;
+        margin-bottom: 16px;
+        & span {
+          font-size: 12px;
+          font-style: italic;
+        }
+      }
+    }
+
+    &-encuentranos {
+      & h4 {
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
+
+      &-apps {
+        & a {
+          opacity: 0.8;
+          text-decoration: none;
+          &:first-child {
+            margin-right: 10px;
+          }
+          & .icon-appstore,
+          & .icon-googleplay {
+            content: "";
+            width: 135px;
+            height: 40px;
+            display: inline-block;
+            background: url($imgAssets) no-repeat;
+            background-size: 135px 102px;
+          }
+          & .icon-appstore {
+            background-position: 0 -22px;
+          }
+          & .icon-googleplay {
+            background-position: 0 -62px;
+          }
+          &:hover {
+            opacity: 1;
+            transition: all 0.3s ease-in-out;
+          }
+        }
+      }
+
+      &-social {
+        margin-bottom: 40px;
+        & a {
+          margin-right: 28px;
+          text-decoration: none;
+          opacity: 0.8;
+          & .icon-twitter,
+          & .icon-facebook,
+          & .icon-instangram {
+            content: "";
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            background: url($imgAssets) no-repeat;
+            background-size: 135px 102px;
+          }
+          & .icon-instangram {
+            background-position: -22px 0;
+          }
+          & .icon-twitter {
+            background-position: -42px 0;
+          }
+          & .icon-facebook {
+            width: 11px;
+            background-position: -62px 0;
+          }
+          &:hover {
+            opacity: 1;
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    &-accordion {
+      input[type="checkbox"] {
+        display: none;
+      }
+    }
+  }
+
+  &__end {
+    border-top: 1px solid $borderLine;
+    padding: 1.5em 0;
+    margin: 0 25px;
+    & p {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  @include device(mobile) {
+    &__content {
+      &-accordion {
+        & h4 {
+          user-select: none;
+          display: block;
+          cursor: pointer;
+          line-height: 40px;
+          border-bottom: 1px solid gray;
+        }
+        & .cont {
+          position: relative;
+          overflow: hidden;
+          opacity: 1;
+          transform: translate(0, 0);
+          z-index: 2;
+          transition: all 0.25s ease-in-out;
+          margin-top: 25px;
+        }
+        & i {
+          position: absolute;
+          margin-top: 16px;
+          right: 20px;
+          &::before,
+          &::after {
+            content: "";
+            position: absolute;
+            background-color: white;
+            width: 2px;
+            height: 12px;
+            transition: all 0.25s ease-in-out;
+          }
+          &::before {
+            transform: translate(-4px, 0) rotate(45deg);
+          }
+          &::after {
+            transform: translate(4px, 0) rotate(-45deg);
+          }
+        }
+
+        input[type="checkbox"] {
+          display: block;
+          position: absolute;
+          cursor: pointer;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          opacity: 0;
+          margin: 0;
+          padding: 0;
+          -webkit-tap-highlight-color: transparent;
+          &:checked ~ .cont {
+            max-height: 0;
+            opacity: 0;
+            transform: translate(0, 50%);
+            margin-top: 0;
+          }
+          &:checked ~ i::before {
+            transform: translate(4px, 0) rotate(45deg);
+          }
+          &:checked ~ i::after {
+            transform: translate(-4px, 0) rotate(-45deg);
+          }
+        }
+      }
+    }
+  }
+
+  @include device(tabletp) {
+    &__grid {
+      display: grid;
+      grid-column-gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 220px;
+    }
+
+    &__item {
+      @include crapie() {
+        margin: 5px;
+      }
+    }
+
+    &__content {
+      padding: 1em 0;
+      &-title {
+        margin-bottom: 30px;
+      }
+      &-encuentranos {
+        & h4 {
+          margin-top: 0;
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    &__end {
+      margin: 0;
+      padding: 2em 0;
+    }
+  }
+
+  @include device(tabletl) {
+    &__grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-row-gap: 2em;
+    }
+  }
+
+  @include device(desktop) {
+    &__grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 200px;
+    }
+
+    &__content {
+      &-encuentranos {
+        &-social {
+          margin-bottom: 20px;
+        }
+        &-apps a:first-child {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
