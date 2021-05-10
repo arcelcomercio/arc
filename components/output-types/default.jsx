@@ -29,6 +29,7 @@ import {
   SITE_TROME,
   SITE_OJO,
   SITE_ELBOCON,
+  SITE_GESTION,
 } from '../utilities/constants/sitenames'
 import { META_HOME } from '../utilities/constants/meta'
 
@@ -617,6 +618,12 @@ export default ({
           </>
         )}
         <TagManager {...siteProperties} />
+        {/* WebTracking */}
+        { arcSite === SITE_GESTION && requestUri.includes('/economia/') ?(
+          <>
+            <script src="https://storage.embluemail.com/pixeltracking/sdk-worker.js" />
+          </>
+        ):null}
       </head>
       <body
         className={classBody}

@@ -11,7 +11,8 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_PERU21G21,
-  SITE_TROME, 
+  SITE_TROME,
+  SITE_GESTION, 
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -521,6 +522,18 @@ const LiteOutput = ({
           </>
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
+        {/* WebTracking */}
+        { arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ?(
+          <>
+            <script src="https://storage.embluemail.com/pixeltracking/sdk-worker.js" />
+          </>
+        ):null}
+
+        { arcSite === SITE_GESTION && requestUri.includes('/economia/') ?(
+          <>
+            <script src="https://storage.embluemail.com/pixeltracking/sdk-worker.js" />
+          </>
+        ):null}
       </head>
       <body
         className={classBody}
