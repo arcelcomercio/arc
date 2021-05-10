@@ -13,7 +13,7 @@ const AuthorDescription = () => {
   author.resized_urls.image_xs =
     (author.resized_urls && author.resized_urls.image_xs) ||
     deployment(logoAuthor)
-  return <AuthorBiography {...author} />
+  return <AuthorBiography {...author} arcSite={arcSite} />
 }
 
 AuthorDescription.label = 'Autor - Descripción'
