@@ -51,6 +51,7 @@ import {
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
   WORK_TYPE_REVISION,
+  SALTAR_INTRO,
 } from './constants/subtypes'
 import { msToTime, secToTime } from './date-time/time'
 import {
@@ -518,7 +519,9 @@ class StoryData {
     )
     const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter((el) => (el && el.thumbnail_url ? el : ''))
+    return result.filter((el) => {
+      return el && el.thumbnail_url ? el : ''
+    })
   }
 
   get haveJwplayerMatching() {
@@ -542,7 +545,9 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter((el) => (el && el.urlImage ? el : ''))
+    return result.filter((el) => {
+      return el && el.urlImage ? el : ''
+    })
   }
 
   get metaTitle() {
@@ -915,6 +920,14 @@ class StoryData {
         StoryData.getFirstContentElementsRevision(
           this._data.content_elements
         )) ||
+      []
+    )
+  }
+
+  get dataSaltarIntro() {
+    return (
+      (this._data &&
+        StoryData.getDataSaltarIntro(this._data.content_elements)) ||
       []
     )
   }
@@ -1461,6 +1474,15 @@ class StoryData {
       ? data.find(
           ({ type, subtype }) =>
             type === ELEMENT_CUSTOM_EMBED && subtype === WORK_TYPE_REVISION
+        )
+      : {}
+  }
+
+  static getDataSaltarIntro(data = []) {
+    return data && data.length > 0
+      ? data.find(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === SALTAR_INTRO
         )
       : {}
   }
