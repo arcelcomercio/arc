@@ -58,6 +58,7 @@ import {
   STAMP_TRUST,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
+  SALTAR_INTRO,
 } from './constants/subtypes'
 
 const AUTOR_SOCIAL_NETWORK_TWITTER = 'twitter'
@@ -67,8 +68,8 @@ export const breadcrumbList = (siteUrl = '', primarySectionLink = '') => {
   let sectionQueue = '/'
   return primarySectionLink
     .split('/')
-    .filter(section => section !== '')
-    .map(section => {
+    .filter((section) => section !== '')
+    .map((section) => {
       sectionQueue = `${sectionQueue}${section}/`
       return {
         name:
@@ -212,7 +213,7 @@ class StoryData {
 
   get authorTwitterLink() {
     const twitter = StoryData.getDataAuthor(this._data).socialLinks.filter(
-      x => x.site === AUTOR_SOCIAL_NETWORK_TWITTER
+      (x) => x.site === AUTOR_SOCIAL_NETWORK_TWITTER
     )
     const result = twitter && twitter[0] && twitter[0].url ? twitter[0].url : ''
     return result
@@ -243,7 +244,7 @@ class StoryData {
       deployment: this._deployment,
       website: this._website,
     })
-    authors = authors.map(author => {
+    authors = authors.map((author) => {
       const newAuthor = author
       newAuthor.imageAuthor = author.imageAuthor || this.defaultImg
       return newAuthor
@@ -430,9 +431,11 @@ class StoryData {
     let result = []
     const { taxonomy: { sections = [] } = {} } = this._data || {}
     if (sections) {
-      auxSections = sections.map(sec => sec.name)
+      auxSections = sections.map((sec) => sec.name)
     }
-    result = auxSections.filter(x => x !== null || x !== undefined || x !== '')
+    result = auxSections.filter(
+      (x) => x !== null || x !== undefined || x !== ''
+    )
     return result
   }
 
@@ -510,7 +513,7 @@ class StoryData {
     )
     const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter(el => {
+    return result.filter((el) => {
       return el && el.thumbnail_url ? el : ''
     })
   }
@@ -519,7 +522,7 @@ class StoryData {
     const videosContent = StoryData.getContentJwplayerMatching(
       this._data && this._data.content_elements
     )
-    const filterData = videosContent.filter(el => el !== null)
+    const filterData = videosContent.filter((el) => el !== null)
     return filterData.length > 0
   }
 
@@ -536,7 +539,7 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter(el => {
+    return result.filter((el) => {
       return el && el.urlImage ? el : ''
     })
   }
@@ -928,6 +931,14 @@ class StoryData {
     )
   }
 
+  get dataSaltarIntro() {
+    return (
+      (this._data &&
+        StoryData.getDataSaltarIntro(this._data.content_elements)) ||
+      []
+    )
+  }
+
   get contentElementGallery() {
     return (
       (this._data &&
@@ -948,7 +959,7 @@ class StoryData {
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
-      contentElements.map(dataContent => {
+      contentElements.map((dataContent) => {
         let dataElements = {}
         const { type: typeElement } = dataContent
         dataElements = dataContent
@@ -1012,7 +1023,7 @@ class StoryData {
     const { content_elements: contentElements = null } = this._data || {}
     return (
       contentElements &&
-      contentElements.map(dataContent => {
+      contentElements.map((dataContent) => {
         let dataElements = {}
         const { type: typeElement } = dataContent
         dataElements = dataContent
@@ -1093,7 +1104,7 @@ class StoryData {
     const primaryId = [getVideoIdRedSocial(videoprimary)]
     const videosIds =
       contentElements &&
-      contentElements.map(dataContent => {
+      contentElements.map((dataContent) => {
         let dataElements = ''
         const {
           type: typeElement,
@@ -1473,6 +1484,15 @@ class StoryData {
       : {}
   }
 
+  static getDataSaltarIntro(data = []) {
+    return data && data.length > 0
+      ? data.find(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === SALTAR_INTRO
+        )
+      : {}
+  }
+
   static getContentElementsHtml(data = [], typeElement = '') {
     return data && data.length > 0
       ? data
@@ -1501,7 +1521,7 @@ class StoryData {
 
   static getContentElements(data = [], typeElement = '') {
     return data && data.length > 0
-      ? data.filter(item => item.type === typeElement)
+      ? data.filter((item) => item.type === typeElement)
       : []
   }
 
@@ -1561,7 +1581,7 @@ class StoryData {
 
   static getContentJwplayer(data = []) {
     return data && data.length > 0
-      ? data.map(item => {
+      ? data.map((item) => {
           return item.type === 'custom_embed' && item.subtype === VIDEO_JWPLAYER
             ? item.embed.config
             : []
@@ -1571,7 +1591,7 @@ class StoryData {
 
   static getContentJwplayerMatching(data = []) {
     return data && data.length > 0
-      ? data.map(item => {
+      ? data.map((item) => {
           return item.type === 'custom_embed' &&
             item.subtype === VIDEO_JWPLAYER_MATCHING
             ? item.embed.config
@@ -1746,7 +1766,7 @@ class StoryData {
     return typeMultimedia
   }
 
-  static getCaptionVideo = data => {
+  static getCaptionVideo = (data) => {
     const {
       promo_items: {
         basic_video: {
@@ -1757,7 +1777,7 @@ class StoryData {
     return caption
   }
 
-  static getMultimediaIconType = data => {
+  static getMultimediaIconType = (data) => {
     let typeMultimedia = IMAGE
     const { promo_items: promoItems = {} } = data || {}
     const items = Object.keys(promoItems)
@@ -1782,7 +1802,7 @@ class StoryData {
     return typeMultimedia
   }
 
-  static getMultimediaIconTypeFIA = data => {
+  static getMultimediaIconTypeFIA = (data) => {
     let typeMultimedia = null
     const { promo_items: promoItems = {} } = data || {}
     const items = Object.keys(promoItems)
@@ -1906,7 +1926,7 @@ class StoryData {
     let i = 0
     return (
       recentElements
-        .map(data => {
+        .map((data) => {
           const {
             headlines: { basic } = {},
             canonical_url: websiteUrl,

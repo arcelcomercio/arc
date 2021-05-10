@@ -16,7 +16,17 @@ const classes = {
   seeMore: 'saltar-intro-entrevista__see-more',
 }
 
-export default ({ isAdmin, seeMoreLink, title, image, link, lazyImage }) => {
+export default ({
+  isAdmin,
+  seeMoreLink,
+  title,
+  image,
+  link,
+  author,
+  lazyImage,
+  actor,
+  rol,
+}) => {
   return (
     <article className={classes.container}>
       <div className={classes.titleBox}>
@@ -32,13 +42,12 @@ export default ({ isAdmin, seeMoreLink, title, image, link, lazyImage }) => {
           />
         </a>
       </figure>
-      <div className={classes.actor}>Alvaro Mont</div>
-      <div className={classes.movies}>actor de casa papel</div>
-      <div className={classes.description}>
-        “Si La casa de Papel inspira a luchar contra la injusticia, nos sentimos
-        absolutamente orgullosos”
-      </div>
-      <div className={classes.author}>nombre y apellidos</div>
+      <div className={classes.actor}>{actor}</div>
+      <div className={classes.movies}>{rol}</div>
+      <a href={link} className={classes.description}>
+        {title}
+      </a>
+      <div className={classes.author}>{author}</div>
       <div className={classes.boxSeeMore}>
         <a itemProp="url" href={seeMoreLink} className={classes.seeMore}>
           Ver más

@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext, useAppContext } from 'fusion:context'
-// import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import Content from './_children/content'
 import schemaFilter from './_dependencies/schema-filter'
@@ -17,6 +16,10 @@ import StoryData from '../../../utilities/story-data'
 const SaltarIntroEntrevista = (props) => {
   const {
     customFields: {
+      image = null,
+      title: titleCF = null,
+      actor = '',
+      rol = '',
       seeMoreLink,
       storiesConfig: { contentService = '', contentConfigValues = {} } = {},
     },
@@ -35,14 +38,14 @@ const SaltarIntroEntrevista = (props) => {
     }) || {}
 
   const {
-    primarySection,
-    primarySectionLink,
+    // primarySection,
+    // primarySectionLink,
     title,
     websiteLink,
     author,
-    authorLink,
+    // authorLink,
     multimediaPortraitS,
-    multimediaLandscapeS,
+    // multimediaLandscapeS,
     multimediaLazyDefault,
   } = new StoryData({
     data,
@@ -52,11 +55,13 @@ const SaltarIntroEntrevista = (props) => {
   })
   return (
     <Content
-      title={title}
+      title={titleCF || title}
       author={author}
-      image={multimediaPortraitS}
+      image={image || multimediaPortraitS}
       lazyImage={multimediaLazyDefault}
       link={websiteLink}
+      actor={actor}
+      rol={rol}
       isAdmin={isAdmin}
       seeMoreLink={seeMoreLink}
     />
