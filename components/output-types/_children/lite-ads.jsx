@@ -365,7 +365,6 @@ const LiteAds = ({
 
   const adsEconomiaNext = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var o=window,e=(o.isMobiles,o.existAds);o.adsCollection;if(e){window.googletag=window.googletag||{cmd:[]},googletag.cmd.push(function(){googletag.pubads().collapseEmptyDivs(),googletag.enableServices()}),window.adsCollection.length>0&&requestIdle(function(){i()});var i=function(){var o=new ArcAds({dfp:{id:"28253241"}}),e=window.adsCollection.filter(function(o){if("1"==o.bloque)return o});window.adsBloque1=e,o.registerAdCollection(e)}}})});`
   const tiponota = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
-  const isMexico = /^\/mexico\//.test(requestUri)
   return (
     <>
       {arcSite === 'elcomerciomag' ||
@@ -375,7 +374,8 @@ const LiteAds = ({
       arcSite === 'elcomercio' ||
       arcSite === 'depor' ? (
         <>
-          {arcSite !== 'elcomerciomag' && !(arcSite === 'depor' && isMexico) ? (
+          {arcSite !== 'elcomerciomag' &&
+          !(arcSite === 'depor' && section === 'mexico') ? (
             <>
               <script
                 async
