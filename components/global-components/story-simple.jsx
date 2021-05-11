@@ -17,10 +17,8 @@ const StoriesList = ({ data, deployment, contextPath, arcSite }) => {
 
   return (
     <div className={classes.storySimple}>
-      <h2 itemProp="category" className={classes.title}>
-        <a itemProp="categoryurl" href={element.primarySectionLink}>
-          ///{element.primarySection}
-        </a>
+      <h2 className={classes.title}>
+        <a href={element.primarySectionLink}>///{element.primarySection}</a>
       </h2>
       <p itemProp="description" className={classes.subtitle}>
         <a itemProp="url" href={element.websiteLink}>
