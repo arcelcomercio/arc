@@ -9,6 +9,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import {
   includeCredits,
   separatorBasicFields,
+  includeContentBasic,
 } from '../../../utilities/included-fields'
 import StoryData from '../../../utilities/story-data'
 
@@ -24,7 +25,7 @@ const SaltarIntroVersus = (props) => {
     },
   } = props
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
-  const includedFields = `${separatorBasicFields},${includeCredits}`
+  const includedFields = `${separatorBasicFields},${includeCredits},${includeContentBasic}`
   const data =
     useContent({
       source: contentService,

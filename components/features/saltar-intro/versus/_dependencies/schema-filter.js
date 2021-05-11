@@ -5,6 +5,17 @@ export default (arcSite) => `{
       website_url
     }
   }
+  content_elements {
+    _id
+    type
+    subtype
+    embed {
+      config {
+        chapter
+        plataform
+      }
+    }
+  }
   promo_items{
     basic_video {
       type
