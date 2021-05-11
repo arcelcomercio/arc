@@ -1,10 +1,10 @@
 import {
-  IMAGE,
-  VIDEO,
-  GALLERY,
   ELEMENT_YOUTUBE_ID,
+  GALLERY,
   HTML,
+  IMAGE,
   JWPLAYER,
+  VIDEO,
 } from './constants/multimedia-types'
 
 /** ----------------------------*
@@ -21,7 +21,7 @@ const videoJwplayer = `${promoItemsBase}.${JWPLAYER}`
 
 const galleryElements = `${galleryBase}.content_elements`
 
-export const includePromoItems = `${imageBase}.type,${imageBase}.url,${imageBase}.width,${imageBase}.height,${imageBase}.resized_urls,${videoBase}.${imageBase}.url,${videoBase}.${imageBase}.resized_urls,${galleryBase}.${imageBase}.url,${galleryBase}.${imageBase}.resized_urls,${youtubeBase}.content,${htmlBase},${videoJwplayer}.type,${videoJwplayer}.subtype,${videoJwplayer}.embed,${videoJwplayer}.embed.config,${videoJwplayer}.embed.config.thumbnail_url,${videoJwplayer}.embed.config.resized_urls,${videoJwplayer}.embed.config.key`
+export const includePromoItems = `${imageBase}.type,${imageBase}.url,${imageBase}.width,${imageBase}.height,${imageBase}.resized_urls,${videoBase}.${imageBase}.url,${videoBase}.${imageBase}.type,${videoBase}.${imageBase}.resized_urls,${galleryBase}.${imageBase}.url,${galleryBase}.${imageBase}.type,${galleryBase}.${imageBase}.resized_urls,${youtubeBase}.content,${htmlBase},${videoJwplayer}.type,${videoJwplayer}.subtype,${videoJwplayer}.embed,${videoJwplayer}.embed.config,${videoJwplayer}.embed.config.thumbnail_url,${videoJwplayer}.embed.config.resized_urls,${videoJwplayer}.embed.config.key`
 
 export const includePromoItemsCaptions = `${imageBase}.subtitle,${imageBase}.caption,${videoBase}.${imageBase}.subtitle,${videoBase}.${imageBase}.caption,${galleryBase}.${imageBase}.subtitle,${galleryBase}.${imageBase}.caption`
 
@@ -72,7 +72,7 @@ export const includeContentBasic = `content_elements.content,content_elements.ty
  *           FEATURES            *
  *------------------------------*/
 
-const encodedFueatureName = name => `<${name}>`
+const encodedFueatureName = (name) => `<${name}>`
 
 export const featuredStoryFields = encodedFueatureName('featuredStory')
 export const sectionColumnsFields = encodedFueatureName('sectionColumns')
@@ -89,7 +89,7 @@ export const featuredStoryRecentFields = encodedFueatureName(
   'featuredStoryRecent'
 )
 
-const getFeaturesIncludedFields = arcSite => ({
+const getFeaturesIncludedFields = (arcSite) => ({
   featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`,
   sectionColumns: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems},${includeCredits}`,
   separatorFeatured: `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection}`,
