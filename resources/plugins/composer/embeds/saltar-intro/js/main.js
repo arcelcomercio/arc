@@ -25,15 +25,17 @@ const renderViewEdit = (data) => {
     return v.name != '' && v.url != '' ? `<div class="card-text text-muted"><b>Género ${(i) === 0 ? '': (i+1)} :</b> ${v.name} (${v.url})</div>`: '';
   });
 
-  const directorsEdit = director.map((v,i) => {
+  const directorsEdit = /*director*/[0,1].map((val,i) => {
+    const v = director[i] || {name:'', url:''};
     return `<label class="w-50" for="director[${i}]">Director ${(i) === 0 ? '': (i+1)}:
-        <input class="w-50" type="textfield" id="director[${i}]" name="director" value="${v.name}" />
+        <input class="w-50" type="textfield" id="director[${i}]" name="director" value="${v?.name}" />
       </label>
       <label class="w-50" for="director_url[${i}]">Url de director ${(i) === 0 ? '': (i+1)}:
-        <input class="w-50" type="textfield" id="director_url[${i}]" name="director_url" value="${v.url}" />
+        <input class="w-50" type="textfield" id="director_url[${i}]" name="director_url" value="${v?.url}" />
       </label>`;
   });
-  const castsEdit = cast.map((v,i) => {
+  const castsEdit = /*cast*/[0,1,2,3,4].map((val,i) => {
+    const v = cast[i] || {name:'', url:''};
     return `<label class="w-50" for="cast[${i}]">Elenco ${(i) === 0 ? '': (i+1)}:
         <input class="w-50" type="textfield" id="cast[${i}]" name="cast" value="${v.name}" />
       </label>
@@ -41,7 +43,8 @@ const renderViewEdit = (data) => {
         <input class="w-50" type="textfield" id="cast_url[${i}]" name="cast_url" value="${v.url}" />
       </label>`;
   });
-  const genresEdit = genre.map((v,i) => {
+  const genresEdit = /*genre*/[0,1,2].map((val,i) => {
+    const v = genre[i] || {name:'', url:''};
     return `<label class="w-50" for="genre[${i}]">Género ${(i) === 0 ? '': (i+1)}:
         <input class="w-50" type="textfield" id="genre[${i}]" name="genre" value="${v.name}" />
       </label>
