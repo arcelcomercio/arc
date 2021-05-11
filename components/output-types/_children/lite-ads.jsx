@@ -375,7 +375,10 @@ const LiteAds = ({
       arcSite === 'depor' ? (
         <>
           {arcSite !== 'elcomerciomag' &&
-          !(arcSite === 'depor' && section === 'mexico') ? (
+          !(
+            arcSite === 'depor' &&
+            (section === 'futbol-internacional' || section === 'off-side')
+          ) ? (
             <>
               <script
                 async
