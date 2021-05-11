@@ -22,7 +22,7 @@ const StoriesList = ({ data, deployment, contextPath, arcSite }) => {
       </h2>
       <p itemProp="description" className={classes.subtitle}>
         <a itemProp="url" href={element.websiteLink}>
-          {element.subTitle}
+          {element.title}
         </a>
       </p>
     </div>
