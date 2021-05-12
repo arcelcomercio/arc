@@ -1,31 +1,33 @@
 /* eslint-disable jsx-a11y/alt-text */
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import { PropertiesSite } from '../_dependencies/Properties'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
-const FbEventTag = React.memo(({ event, onBeforeSend = i => i, ...props }) => {
-  const content = useContent({
-    source: SIGNER_CONTENT_SOURCE,
-    query: {
-      event,
-      ...props,
-    },
-  })
-  if (content && props.debug) {
-    if (typeof window !== 'undefined') {
-      window.console.log(`SignedUri: ${content.uri}`)
+const FbEventTag = React.memo(
+  ({ event, onBeforeSend = (i) => i, ...props }) => {
+    const content = useContent({
+      source: SIGNER_CONTENT_SOURCE,
+      query: {
+        event,
+        ...props,
+      },
+    })
+    if (content && props.debug) {
+      if (typeof window !== 'undefined') {
+        window.console.log(`SignedUri: ${content?.uri}`)
+      }
     }
+    if (content) onBeforeSend(content)
+    return content?.uri ? (
+      <img src={content.uri} style={{ display: 'none' }} />
+    ) : null
   }
-  if (content) onBeforeSend(content)
-  return content && content.uri ? (
-    <img src={content.uri} style={{ display: 'none' }} />
-  ) : null
-})
+)
 
 export const SubscribeEventTag = ({
   debug,
@@ -65,14 +67,13 @@ export const LogIntoAccountEventTag = ({
 
   React.useEffect(() => {
     window.Identity.options({ apiOrigin: urls.arcOrigin })
-    window.Identity.isLoggedIn().then(resLog => {
+    window.Identity.isLoggedIn().then((resLog) => {
       if (resLog) {
         window.Identity.extendSession().then(({ accessToken: token }) => {
           setAccessToken(token)
         })
       }
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return accessToken ? (

@@ -1,5 +1,5 @@
+import { isProd } from '../../../utilities/arc/env'
 import { titleCase } from './Utils'
-import { IsPROD } from './Properties'
 
 export const Taggeo = (cat, acc) => {
   const TRIGGER = 'tag_signwall'
@@ -11,7 +11,7 @@ export const Taggeo = (cat, acc) => {
       eventAction: acc,
     }
     window.dataLayer.push(dataPush)
-    if (!IsPROD) {
+    if (!isProd) {
       window.console.groupCollapsed(
         `%c 🔔 Taggeo Detectado - Evento: ${dataPush.event}`,
         'color:  dodgerblue; font-size: 12px'
@@ -24,7 +24,7 @@ export const Taggeo = (cat, acc) => {
 
 export const TaggeoJoao = (obj, path) => {
   window.dataLayer.push(obj)
-  if (!IsPROD) {
+  if (!isProd) {
     window.console.groupCollapsed(
       `%c 🔔 Taggeo Joao - Categoria: ${obj.category} | Ruta: ${path}`,
       'color:  purple; font-size: 12px'
@@ -36,7 +36,7 @@ export const TaggeoJoao = (obj, path) => {
 
 export const TagsAdsMurai = (obj, path) => {
   window.dataLayer.push(obj)
-  if (!IsPROD) {
+  if (!isProd) {
     window.console.groupCollapsed(
       `%c 🔔 Taggeo AdsMurai - Data: ${obj} | Ruta: ${path}`,
       'color:  blue; font-size: 12px'

@@ -6,13 +6,13 @@ import * as React from 'react'
 import TextMask from 'react-text-mask'
 
 // import addPayU from '../../../_dependencies/Payu'
+import { isSandbox } from '../../../../../utilities/arc/env'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
 import {
-  ArcEnv,
   PropertiesCommon,
   PropertiesSite,
 } from '../../../_dependencies/Properties'
@@ -417,7 +417,7 @@ const Pay = () => {
                 window.payU.validateNumber(cNumber.replace(/\s/g, ''))
                 window.payU.setCardDetails({
                   number: cNumber.replace(/\s/g, ''),
-                  name_card: ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
+                  name_card: isSandbox ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
                   payer_id: documentNumber,
                   exp_month: cExpireMonth,
                   exp_year: cExpireYear,
