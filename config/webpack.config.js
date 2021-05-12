@@ -14,7 +14,7 @@ function setConfig(listOutputs, mode) {
       publicPath: paths.dist,
       filename: `[name]/${ext}/${ext === 'css' ? 'dump' : type}.${ext}`,
     },
-    devtool: mode === 'development' ? 'source-map' : 'none',
+    devtool: mode === 'development' ? 'eval-source-map' : undefined,
     module: {
       rules: rules(mode, type),
     },
