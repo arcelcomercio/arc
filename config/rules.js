@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const paths = require('./paths')
 
 module.exports = (mode, type = 'index') => {
   const javascript = {
@@ -9,17 +10,6 @@ module.exports = (mode, type = 'index') => {
       options: {
         presets: ['@babel/preset-env'],
         cacheDirectory: true,
-        /**
-         * plugins: ['@babel/plugin-transform-runtime'],
-         *
-         * Si se piensa hacer que nuestro webpack realmente transpile JS
-         * puro y duro, es recomendable habilitar este plugin de nuevo e
-         * instalar:
-         *
-         * npm install -D @babel/plugin-transform-runtime
-         * npm install @babel/runtime
-         *
-         */
       },
     },
   }
@@ -27,9 +17,7 @@ module.exports = (mode, type = 'index') => {
   const styles = {
     test: /\.(sass|scss|css)$/,
     use: [
-      {
-        loader: MiniCssExtractPlugin.loader,
-      },
+      MiniCssExtractPlugin.loader,
       {
         loader: 'css-loader',
         options: {
@@ -39,29 +27,21 @@ module.exports = (mode, type = 'index') => {
       {
         loader: 'postcss-loader',
         options: {
-          config: {
-            ctx: {
-              env: mode,
-              cssnano: {
-                preset: ['advanced', { cssDeclarationSorter: true }],
-              },
-            },
+          postcssOptions: {
+            config: `${paths.config}/postcss.config.js`,
           },
         },
       },
-      {
-        loader: 'resolve-url-loader',
-        options: {
-          keepQuery: true,
-        },
-      },
+      'resolve-url-loader',
       {
         loader: 'sass-loader',
         options: {
           // eslint-disable-next-line global-require
           implementation: require('sass'),
           sourceMap: true,
-          outputStyle: 'expanded',
+          sassOptions: {
+            outputStyle: 'expanded',
+          },
         },
       },
     ],
