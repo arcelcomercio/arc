@@ -1,10 +1,10 @@
 import {
-  IMAGE,
-  VIDEO,
-  GALLERY,
   ELEMENT_YOUTUBE_ID,
+  GALLERY,
   HTML,
+  IMAGE,
   JWPLAYER,
+  VIDEO,
 } from './constants/multimedia-types'
 
 /** ----------------------------*
@@ -90,12 +90,20 @@ export const featuredStoryRecentFields = encodedFueatureName(
 )
 
 const getFeaturesIncludedFields = (arcSite) => ({
-  featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`,
+  featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
+    { arcSite }
+  )},${includeSections},publish_date,display_date`,
   sectionColumns: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems},${includeCredits}`,
-  separatorFeatured: `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection}`,
-  separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePrimarySection}`,
+  separatorFeatured: `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection(
+    { arcSite }
+  )}`,
+  separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePrimarySection(
+    { arcSite }
+  )}`,
   separatorStories: `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url`,
-  featuredStoryPremium: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`,
+  featuredStoryPremium: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
+    { arcSite }
+  )}`,
   featuredStoryRecentImg: `headlines.basic,websites.${arcSite}.website_url,content_restrictions.content_code,_id,display_date,publish_date,${includePromoItems}`,
   featuredStoryRecent: `headlines.basic,websites.${arcSite}.website_url,_id,content_restrictions.content_code,display_date,publish_date`,
 })
