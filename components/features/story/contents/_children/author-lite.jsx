@@ -1,14 +1,15 @@
 import * as React from 'react'
 
-import { formatDateTime } from '../../../../utilities/date-time/dates'
 import {
   SITE_DEPOR,
-  SITE_TROME,
-  SITE_PERU21,
-  SITE_ELBOCON,
-  SITE_OJO,
   SITE_DIARIOCORREO,
+  SITE_ELBOCON,
+  SITE_GESTION,
+  SITE_OJO,
+  SITE_PERU21,
+  SITE_TROME,
 } from '../../../../utilities/constants/sitenames'
+import { formatDateTime } from '../../../../utilities/date-time/dates'
 
 const classes = {
   author: 'story-contents__author  ',
@@ -33,7 +34,8 @@ const StoryContentChildAuthorLite = ({
       arcSite === SITE_PERU21 ||
       arcSite === SITE_ELBOCON ||
       arcSite === SITE_OJO ||
-      arcSite === SITE_DIARIOCORREO
+      arcSite === SITE_DIARIOCORREO ||
+      arcSite === SITE_GESTION
     ) {
       return `Actualizado el ${formattedUpdateDate}`
     }
@@ -75,7 +77,8 @@ window.addEventListener("load", function () {
     <>
       {arcSite === SITE_PERU21 ||
       arcSite === SITE_ELBOCON ||
-      arcSite === SITE_OJO ? (
+      arcSite === SITE_OJO ||
+      arcSite === SITE_GESTION ? (
         <div className={classes.author}>
           <div>
             {author && (

@@ -1,6 +1,6 @@
-import React from 'react'
-import Markdown from 'react-markdown/with-html'
 import { useContent } from 'fusion:content'
+import * as React from 'react'
+import Markdown from 'react-markdown/with-html'
 
 const VallaHtml = () => {
   const {
@@ -13,9 +13,10 @@ const VallaHtml = () => {
       source: 'paywall-campaing',
     }) || {}
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.description.checked ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.description.checked ? plan : prev),
+    null
+  )
 
   const {
     amount = '-',
@@ -26,7 +27,7 @@ const VallaHtml = () => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: style }}></style>
+      <style dangerouslySetInnerHTML={{ __html: style }} />
       <div id="signwall-app" className="signwall-app">
         <div className="panel open">
           <div className="size-medium position-middle">
@@ -37,8 +38,8 @@ const VallaHtml = () => {
                 id="btn-close-paywall">
                 <svg width="14" height="14">
                   <g>
-                    <path d="M11.63.4l-9.91 9.92 8.6-8.6-9.91 9.91a1.39 1.39 0 0 0 1.96 1.96l9.91-9.91-8.6 8.6 9.92-9.9A1.39 1.39 0 0 0 11.64.4z"></path>
-                    <path d="M13.6 11.63L3.67 1.72l8.6 8.6L2.37.41A1.39 1.39 0 0 0 .4 2.37l9.91 9.91-8.6-8.6 9.9 9.91a1.39 1.39 0 0 0 1.97-1.96z"></path>
+                    <path d="M11.63.4l-9.91 9.92 8.6-8.6-9.91 9.91a1.39 1.39 0 0 0 1.96 1.96l9.91-9.91-8.6 8.6 9.92-9.9A1.39 1.39 0 0 0 11.64.4z" />
+                    <path d="M13.6 11.63L3.67 1.72l8.6 8.6L2.37.41A1.39 1.39 0 0 0 .4 2.37l9.91 9.91-8.6-8.6 9.9 9.91a1.39 1.39 0 0 0 1.97-1.96z" />
                   </g>
                 </svg>
               </button>
@@ -80,10 +81,10 @@ const VallaHtml = () => {
                     <span>Beneficios</span>
                   </h3>
                   <ul className="list-benefits">
-                    {feature.map((item, i) => {
+                    {feature.map((item, i) => (
                       // eslint-disable-next-line react/no-array-index-key
-                      return <li key={`lista-${i}`}>{item}</li>
-                    })}
+                      <li key={`lista-${i}`}>{item}</li>
+                    ))}
                   </ul>
                 </div>
                 <button
@@ -93,7 +94,7 @@ const VallaHtml = () => {
                   VER PLANES
                 </button>
                 <p className="suscrito">
-                  {printAttributes.map(item => {
+                  {printAttributes.map((item) => {
                     if (item.name === 'subscriber_title_popup') {
                       return item.value
                     }
@@ -101,7 +102,7 @@ const VallaHtml = () => {
                   })}
                 </p>
 
-                {printAttributes.map(item => {
+                {printAttributes.map((item) => {
                   if (item.name === 'subscriber_detail_popup') {
                     return (
                       <div className="note-premium">

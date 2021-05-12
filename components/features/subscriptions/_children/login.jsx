@@ -21,7 +21,7 @@ const styles = {
   btn: 'step__left-btn-next',
   link: 'step__btn-link',
   titleRegister: 'step__left-link-register',
-  noteEnd: 'step__left-notes-footer',
+  noteEnd: 'step__notes-footer text-center',
 }
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'

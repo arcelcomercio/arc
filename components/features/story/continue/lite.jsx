@@ -143,6 +143,7 @@ const StoryContinueLite = () => {
       arcSite === 'peru21' ||
       arcSite === 'elbocon' ||
       arcSite === 'ojo' ||
+      arcSite === 'gestion' ||
       arcSite === 'diariocorreo' ? (
         <div className="st-continue f just-center">
           <div className="st-continue__progress" />

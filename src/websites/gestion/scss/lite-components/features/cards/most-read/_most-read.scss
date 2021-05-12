@@ -1,0 +1,23 @@
+.most-read {
+  content-visibility: auto;
+  contain-intrinsic-size: 380px;
+
+  @media (--desktop) {
+    margin: 0;
+  }
+
+  &__title {
+    color: #222;
+    text-transform: capitalize;
+  }
+  &__img {
+    -o-object-fit: cover;
+  }
+  &__txt {
+    opacity: 1;
+    color: #333;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+}

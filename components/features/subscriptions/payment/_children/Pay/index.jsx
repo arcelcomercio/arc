@@ -38,7 +38,7 @@ const styles = {
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   secure: 'step__left-text-security',
-  notes: 'step__left-notes-footer',
+  notes: 'step__notes-footer',
   cvvAmex: 'img-info-cvvamex',
   cvvAll: 'img-info-cvv',
 }

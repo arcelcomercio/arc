@@ -1,3 +1,4 @@
+import { useContent } from 'fusion:content'
 import * as React from 'react'
 
 import SeparatorStory from './separator-story'
@@ -25,18 +26,39 @@ const SeparatorsBasicChildSeparator = ({
   responsive,
   requestUri,
   arcSite,
+  isDeporBetsDesign,
+  deporBetsText,
+  deporBetsImg,
+  deporBetsUrl,
+  deporBetsAlt,
 }) => {
   const isRecetasSection = /^(\/recetas\/(.*))$/.test(requestUri)
+
+  const { resized_urls: { image: resizedDeporBetsImg } = {} } =
+    useContent(
+      arcSite === 'depor' && isDeporBetsDesign && deporBetsImg
+        ? {
+            source: 'photo-resizer',
+            query: {
+              url: deporBetsImg,
+              presets: 'image:0x44',
+              quality: 100,
+              format: /\.png$/.test(deporBetsImg) ? 'png' : '',
+            },
+          }
+        : {}
+    ) || {}
+
   return (
     <div
       className={`${classes.separator} ${design} ${bgColor} ${responsive} ${
         isRecetasSection ? 'recetas' : ''
-      }`}>
+      } ${arcSite === 'depor' && isDeporBetsDesign ? 's-bets' : ''}`}>
       {htmlCode ? (
         <div
           className={classes.title}
           dangerouslySetInnerHTML={{
-            __html: htmlCode
+            __html: htmlCode,
           }}
         />
       ) : (
@@ -55,6 +77,20 @@ const SeparatorsBasicChildSeparator = ({
           className="separator__button position-absolute right-0 text-sm font-normal border-1 border-gray border-solid p-10 text-gray-200">
           VER MÁS
         </a>
+      )}
+      {arcSite === 'depor' && isDeporBetsDesign && (
+        <div className="separator__sponsored">
+          <span className="separator__sponsored-txt">
+            {deporBetsText || 'Auspiciado por:'}
+          </span>
+          <a className="separator__sponsored-link" href={deporBetsUrl}>
+            <img
+              className="separator__sponsored-img"
+              src={resizedDeporBetsImg}
+              alt={deporBetsAlt}
+            />
+          </a>
+        </div>
       )}
       <div role="list" className={classes.body}>
         {stories.map(
