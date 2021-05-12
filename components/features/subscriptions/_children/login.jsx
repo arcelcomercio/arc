@@ -33,6 +33,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   const [showVerify, setShowVerify] = React.useState()
   const [showHidePass, setShowHidePass] = React.useState('password')
   const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
   const { texts } = PropertiesCommon
 
   const stateSchema = {
@@ -136,6 +137,32 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
     }, 1000)
   }
 
+  const dataTreatment = () => {
+    if (typeof window !== 'undefined') {
+      window.open('/tratamiento-de-datos/', '_blank')
+    }
+  }
+
+  const openPoliticas = () => {
+    if (typeof window !== 'undefined') {
+      window.open(
+        (() => {
+          switch (arcSite) {
+            case 'elcomercio':
+            case 'depor':
+              return '/politicas-privacidad/'
+            case 'gestion':
+            case 'trome':
+              return '/politica-de-privacidad/'
+            default:
+              return '/politicas-de-privacidad/'
+          }
+        })(),
+        '_blank'
+      )
+    }
+  }
+
   const triggerShowVerify = () => {
     setMsgError(getCodeError('verifySocial'))
     setShowVerify(false)
@@ -155,6 +182,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               arcSite={arcSite}
               arcType="login"
               showMsgVerify={() => triggerShowVerify()}
+              dataTreatment={checkedPolits ? '1' : '0'}
             />
             {!isFbBrowser() && (
               <ButtonSocial
@@ -162,14 +190,13 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                 arcSite={arcSite}
                 arcType="login"
                 showMsgVerify={() => triggerShowVerify()}
+                dataTreatment={checkedPolits ? '1' : '0'}
               />
             )}
           </div>
-
           <div className={styles.titleLine}>
             <p>{texts.orEnterDatesLog}</p>
           </div>
-
           {msgError && (
             <div className={styles.block}>
               <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
@@ -195,7 +222,6 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               </div>
             </div>
           )}
-
           <form onSubmit={handleOnSubmit} className="form-login">
             <div className={styles.block}>
               <label htmlFor="lemail">
@@ -267,7 +293,6 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               </button>
             </div>
           </form>
-
           <p className={styles.titleRegister}>
             {texts.notHasAccount}
             <button
@@ -280,8 +305,40 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               Registrarme
             </button>
           </p>
-
-          <p className={styles.noteEnd}>{texts.noticeUser}</p>
+          <div className={styles.block}>
+            <label htmlFor="rpolit" className="terms">
+              <input
+                id="rpolit"
+                type="checkbox"
+                name="rpolit"
+                value={checkedPolits ? '1' : '0'}
+                checked={checkedPolits}
+                disabled={loading}
+                onChange={() => {
+                  setCheckedPolits(!checkedPolits)
+                }}
+              />
+              Al ingresar por redes sociales autorizo el uso de mis datos para{' '}
+              <button
+                className={styles.link}
+                type="button"
+                onClick={dataTreatment}>
+                fines adicionales
+              </button>
+              <span className="checkmark" />
+            </label>
+          </div>
+          <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
+            En caso hayas autorizado los fines de uso adicionales anteriormente,
+            no es necesario que lo vuelvas a marcar. Si deseas retirar dicho
+            consentimiento, revisa el procedimiento en nuestras{' '}
+            <button
+              className={styles.link}
+              type="button"
+              onClick={openPoliticas}>
+              Políticas de Privacidad.
+            </button>
+          </p>
         </>
       )}
     </NavigateConsumer>
