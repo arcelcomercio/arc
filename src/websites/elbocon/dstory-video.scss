@@ -1,0 +1,237 @@
+/* --- BASE -------------------------------------------------------------
+  Estilos core del framework, modificadores del core y partials por marca 
+------------------------------------------------------------------------- */
+@import "./scss/partials/import-icons";
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+//@import "../../general-styles/framework/core/index";
+
+@import "../../general-styles/framework/core/reset";
+@import "../../general-styles/framework/core/base-icons";
+@import "../../general-styles/framework/core/content-layout";
+//@import "../../general-styles/framework/core/content-sidebar";
+@import "../../general-styles/framework/core/flex-video";
+@import "../../general-styles/framework/core/utils-video";
+//@import "../../general-styles/framework/core/grid";
+//@import "../../general-styles/framework/core/ie-grid";
+//@import "../../general-styles/framework/core/button";
+@import "../../general-styles/framework/core/ads-zocalo";
+
+//@import "./scss/partials/import-fonts";
+//@import "../../general-styles/framework/generators/index";
+@import "../../general-styles/framework/generators/generate-icons";
+//@import "./scss/partials/base";
+
+/* --- STORY VARIABLES --------------------------------------------------
+  Modificacion de variables SCSS del core y de marca
+------------------------------------------------------------------------- */
+
+/* --- GLOBAL COMPONENTS ------------------------------------------------
+  Estilos de componentes globales desde el core
+------------------------------------------------------------------------- */
+//@import "../../general-styles/components/global-components/icons";
+//@import "../../general-styles/components/global-components/multimedia-icon";
+//@import "../../general-styles/components/global-components/search-input";
+
+/* --- FEATURES ---------------------------------------------------------
+  Estilos de features desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/layout/navbar/nav";
+//@import "../../general-styles/components/features/layout/navbar/nav-sidebar";
+//@import "../../general-styles/components/features/layout/header/header"; quitar
+//@import "../../general-styles/components/features/basic-html/basic-html";
+//@import "../../general-styles/components/features/video/section/video-navbar";
+//@import "../../general-styles/components/features/video/section/section-video";
+@import "../../general-styles/components/features/video/section/play-list";
+//@import "../../general-styles/components/features/video/list/video-list";
+//@import "../../general-styles/components/features/layout/footer/footer";
+
+/* --- MODIFICADORES ----------------------------------------------------
+  Estilos de features modificados por marca
+------------------------------------------------------------------------- */
+// @import "./scss/global-components/buttons";
+
+//@import "./scss/components/layout/navbar/nav";
+@import "./scss/components/layout/header/header";
+@import "./scss/components/section/section";
+//@import "./scss/components/video/play-list";
+@import "./scss/components/video/section-video";
+//@import "./scss/components/layout/footer/footer";
+
+.flex-col {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.section-video {
+  &__top {
+    display: flex;
+    flex-direction: column;
+  }
+  &__left {
+    width: 100%;
+  }
+  &__frame {
+    width: 100%;
+    & .powa {
+      height: 0;
+      width: 100%;
+    }
+  }
+  &__right {
+    width: 100%;
+    padding: 30px 30px 15px 30px;
+  }
+  & .jwplayer-lazy {
+    align-items: center;
+    height: 347px;
+    background-color: black;
+    justify-content: center;
+    display: flex;
+    @media (--only-mobile) {
+      height: 180px;
+    }
+
+    &-icon-play {
+      width: 70px;
+      position: absolute;
+      height: 70px;
+      border: 10px solid #eee;
+      border-top: 10px solid #666;
+      border-radius: 50%;
+      animation-name: girar;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+    @keyframes girar {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+.text-white {
+  color: #fff;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+.pb-10 {
+  padding-bottom: 10px;
+}
+.pt-10 {
+  padding-top: 10px;
+}
+.text-gray-200 {
+  color: #8a8a8a;
+}
+.line-h-xs {
+  line-height: 1.1666666667;
+}
+.text-sm {
+  font-size: 0.8rem;
+}
+.pr-10 {
+  padding-right: 10px;
+}
+.mb-5 {
+  margin-bottom: 5px;
+}
+.pt-20 {
+  padding-top: 20px;
+}
+.line-h-none {
+  line-height: 1;
+}
+.text-xs {
+  font-size: 0.7rem;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.p-20 {
+  padding: 20px;
+}
+.nav__container-menu,
+.nav__search-box {
+  border-right-color: #fff;
+}
+.border-r-1 {
+  border-right-width: 1px;
+}
+.nav__btn span,
+.nav__icon-menu,
+.nav__icon-search {
+  color: #fff;
+}
+.nav__list-link {
+  color: #fff;
+}
+.video-list__item {
+  width: calc(100% / 3 - 10px);
+}
+
+.pl-20 {
+  padding-left: 20px;
+}
+.pb-20 {
+  padding-bottom: 20px;
+}
+.pr-20 {
+  padding-right: 20px;
+}
+
+@media (--only-mobile) {
+  .flex.items-center.flex-col.justify-center.w-full.no-row-2-mobile {
+    overflow: auto;
+    height: 100px;
+    width: 100%;
+  }
+  .md\:flex-1 {
+    flex: 1 1;
+  }
+  .md\:pt-20 {
+    padding-top: 20px;
+  }
+  .md\:pl-30 {
+    padding-left: 30px;
+  }
+}
+@media (--desktop) {
+  .lg\:flex {
+    display: flex;
+  }
+
+  .video-list__item {
+    width: calc(100% / 4 - 10px);
+  }
+  .section-video .section-video__top,
+  .section-video__detail {
+    flex-direction: row;
+    padding-bottom: 20px;
+  }
+  .header-inverted__btn-menu.flex.items-center.font-bold.text-white {
+    padding-left: 20px;
+  }
+}
+
+.border-solid {
+  border-style: solid;
+}
+.p-5 {
+  padding: 5px;
+}
+.p-10 {
+  padding: 10px;
+}
+.pr-15 {
+  padding-right: 15px;
+}
+.pl-15 {
+  padding-left: 15px;
+}

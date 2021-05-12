@@ -300,3 +300,40 @@
     display: none;
   }
 }
+.nav-mujer{
+  &__item-desk{
+    display: none;
+    @media (--desktop) {
+      display: block;
+    }
+  }
+  &__item-mob{
+    display: block;
+    align-self: center;
+    @media (--desktop) {
+      display: none;
+    }
+  }
+}
+.nav-region{
+  display: block;
+  @media (--desktop) {
+    display: none;
+  }
+  &:focus{
+    outline: none;
+  }
+  &__link{
+    display: flex;
+    color: #FFF;
+    padding: initial;
+    &:focus{
+      outline: none;
+    }
+  }
+  &__icon{
+    filter: invert(1);
+  }
+
+}
+

@@ -1,28 +1,27 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import * as React from 'react'
 import * as Sentry from '@sentry/browser'
-import PropTypes from 'prop-types'
 import { useAppContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
-import { sendAction, PixelActions } from '../../paywall/_dependencies/analitycs'
+import { PixelActions, sendAction } from '../../paywall/_dependencies/analitycs'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
-import stylesLanding from '../_styles/Landing'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
+import Signwall from '../_children/Signwall'
+import addScriptAsync from '../_dependencies/Async'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
-import addScriptAsync from '../_dependencies/Async'
-import Signwall from '../_children/Signwall'
 import Benefits from './_children/Benefits'
 import CallinCallOut from './_children/CallinCallout'
 import Callout from './_children/Callout'
 import Cards from './_children/Cards'
 
 const arcType = 'landing'
-const LandingSubscriptions = props => {
+const LandingSubscriptions = (props) => {
   const {
     customFields: {
       bannerUniComercio = false,
@@ -52,9 +51,25 @@ const LandingSubscriptions = props => {
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
+      ignoreErrors: [
+        'Unexpected end of JSON input',
+        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
+        'JSON Parse error: Unexpected EOF',
+      ],
+      // allowUrls: [
+      //   // API + origin
+      //   /https:\/\/.+(elcomercio|gestion).pe/,
+      //   // Sandbox CDN
+      //   /https:\/\/elcomercio-(elcomercio|gestion)-sandbox\.cdn\.arcpublishing.com/,
+      //   // Identity & Sales SDKs
+      //   /https:\/\/arc-subs-sdk\.s3\.amazonaws\.com/,
+      //   // PayU
+      //   /https?:\/\/.+payulatam\.com/,
+      // ],
+      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
     })
 
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('brand', arcSite)
     })
 
@@ -66,7 +81,7 @@ const LandingSubscriptions = props => {
       .then(() => {
         window.Identity.options({ apiOrigin: urls.arcOrigin })
       })
-      .catch(errIdentitySDK => {
+      .catch((errIdentitySDK) => {
         Sentry.captureEvent({
           message: 'SDK Identity no ha cargado correctamente',
           level: 'error',
@@ -77,7 +92,7 @@ const LandingSubscriptions = props => {
     sendAction(PixelActions.PRODUCT_IMPRESSION, {
       ecommerce: {
         currencyCode: items[0].price.currencyCode,
-        impressions: items.map(item => ({
+        impressions: items.map((item) => ({
           name: item.title,
           id: item.sku,
           price: item.price.amount,
@@ -86,7 +101,6 @@ const LandingSubscriptions = props => {
         })),
       },
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleUniversity = () => {
@@ -146,8 +160,6 @@ const LandingSubscriptions = props => {
 
   return (
     <>
-      <style
-        dangerouslySetInnerHTML={{ __html: stylesLanding[arcSite] }}></style>
       <>
         <header className="header" id="header">
           <div className="wrapper">
@@ -161,7 +173,7 @@ const LandingSubscriptions = props => {
                 rel="noreferrer"
                 className="header__content-link"
                 aria-label={arcSite}>
-                <div className="header__content-logo"></div>
+                <div className="header__content-logo" />
               </a>
 
               {moduleCall && (
@@ -221,7 +233,7 @@ const LandingSubscriptions = props => {
               {isComercio && (
                 <article className="planes__item planes__banner grid-four-four">
                   <div className="planes__content">
-                    <i className="planes__banner-icon"></i>
+                    <i className="planes__banner-icon" />
                     <h3 className="planes__banner-title">
                       {texts.bannerTitle}
                     </h3>
@@ -310,19 +322,19 @@ const LandingSubscriptions = props => {
 
               <div className="rows-club">
                 <div className="row-club">
-                  <i className="icon-descuento"></i>
+                  <i className="icon-descuento" />
                   <h4>Cientos de descuentos</h4>
                   <p>
                     En restaurantes, educación, hogar, entretenimiento y más.
                   </p>
                 </div>
                 <div className="row-club">
-                  <i className="icon-limite"></i>
+                  <i className="icon-limite" />
                   <h4>Las veces que quieras</h4>
                   <p>Utilízalos todas las veces que quieras, ¡no hay límite</p>
                 </div>
                 <div className="row-club">
-                  <i className="icon-pago"></i>
+                  <i className="icon-pago" />
                   <h4>Con cualquier medio de pago</h4>
                   <p>
                     Paga como prefieras, con cualquier tarjeta que acepte el
@@ -330,7 +342,7 @@ const LandingSubscriptions = props => {
                   </p>
                 </div>
                 <div className="row-club">
-                  <i className="icon-compartir"></i>
+                  <i className="icon-compartir" />
                   <h4>Compártelo con alguien más</h4>
                   <p>
                     Registra a un invitado para que disfrute de todos los
@@ -369,7 +381,8 @@ const LandingSubscriptions = props => {
                   muted
                   controls="1"
                   poster="https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/fondo_video.jpg"
-                  src="https://pub.minoticia.pe/elcomercio/el_comercio.mp4"></video>
+                  src="https://pub.minoticia.pe/elcomercio/el_comercio.mp4"
+                />
               </div>
             </div>
           </section>
@@ -437,11 +450,6 @@ const LandingSubscriptions = props => {
           />
         ) : null}
       </>
-
-      <script
-        type="text/javascript"
-        src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
-
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

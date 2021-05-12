@@ -1,0 +1,48 @@
+.ayuda {
+  background: $bgHelp;
+  color: $black;
+  padding: 1em 0;
+  text-align: center;
+
+  &__content {
+    padding: 2em 0.5em;
+    text-align: center;
+    &-title {
+      @include title;
+      
+      font-size: 25px;
+      font-weight: bold;
+      & br {
+        display: none;
+      }
+    }
+    &-description {
+      font-size: 18px;
+      margin-top: 20px;
+      color: $gray;
+      line-height: 28px;
+      & a {
+        color: $bluePrimary;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  @include device(tabletp) {
+    &__content {
+      padding: 2em 1.8em;
+      &-title {
+        font-size: 32px;
+        & br {
+          display: block;
+        }
+      }
+      &-description {
+        font-size: 22px;
+      }
+    }
+  }
+}

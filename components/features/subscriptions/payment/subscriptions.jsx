@@ -7,7 +7,7 @@ import { PROD } from '../../../utilities/constants/environment'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthContext, AuthProvider } from '../_context/auth'
 import addScriptAsync from '../_dependencies/Async'
-import { PropertiesCommon,PropertiesSite } from '../_dependencies/Properties'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { clearUrlAPI } from '../_dependencies/Utils'
 import useRoute from '../_hooks/useRoute'
@@ -21,7 +21,6 @@ import { FooterLand, FooterSubs } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
 import Loading from '../_layouts/loading'
 import scriptsPayment from '../_scripts/Payment'
-import stylesPayment from '../_styles/Payment'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
 
@@ -62,6 +61,22 @@ const WrapperPaymentSubs = () => {
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
+      ignoreErrors: [
+        'Unexpected end of JSON input',
+        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
+        'JSON Parse error: Unexpected EOF',
+      ],
+      // allowUrls: [
+      //   // API + origin
+      //   /https:\/\/.+(elcomercio|gestion).pe/,
+      //   // Sandbox CDN
+      //   /https:\/\/elcomercio-(elcomercio|gestion)-sandbox\.cdn\.arcpublishing.com/,
+      //   // Identity & Sales SDKs
+      //   /https:\/\/arc-subs-sdk\.s3\.amazonaws\.com/,
+      //   // PayU
+      //   /https?:\/\/.+payulatam\.com/,
+      // ],
+      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
     })
 
     Sentry.configureScope((scope) => {
@@ -101,7 +116,6 @@ const WrapperPaymentSubs = () => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }} />
       <>
         {userLoading && <Loading arcSite={arcSite} />}
         <HeaderSubs userProfile={userProfile} arcSite={arcSite} />

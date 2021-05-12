@@ -1,188 +1,133 @@
 // document.addEventListener('DOMContentLoaded', () => {
 //   setTimeout(() => {
-//     const isMobile = /iPhone|iPad|iPod|Android/i.test(
-//       window.navigator.userAgent
-//     )
+//     const isIPhone = /iPhone/i.test(window.navigator.userAgent)
 //     const buttonTop = document.getElementById('btn-arrow-top')
-//     const buttonCall = document.getElementById('btn-help-call')
-//     const btnSignwall = document.getElementById('btn-signwall')
-//     const allinput = document.querySelectorAll('.tab')
-//     const allPictures = document.querySelectorAll('.picture')
-//     const divBeneficios = document.getElementById('beneficios')
-//     const videoPlayer = document.getElementById('video')
+
+//     const controlVideo = () => {
+//       const videoPlayer = document.getElementById('video')
+//       let playingVideo = false
+//       function callbackVideo(entries, observerVideo) {
+//         if (entries[0].isIntersecting) {
+//           if (
+//             videoPlayer.readyState >= 2 &&
+//             !videoPlayer.ended &&
+//             (videoPlayer.paused || videoPlayer.currentTime === 0)
+//           ) {
+//             videoPlayer.play()
+//             playingVideo = true
+//           }
+//         } else if (playingVideo) {
+//           videoPlayer.pause()
+//         }
+//       }
+
+//       if (videoPlayer) {
+//         const optionsVideo = {
+//           rootMargin: '0px 0px 0px 0px',
+//           threshold: 0.5,
+//         }
+//         const observerVideo = new window.IntersectionObserver(
+//           callbackVideo,
+//           optionsVideo
+//         )
+//         observerVideo.observe(videoPlayer)
+//       }
+//     }
+
+//     const controlSlider = () => {
+//       const divBeneficios = document.getElementById('beneficios')
+//       const allinput = divBeneficios.querySelectorAll('.tab')
+//       const allPictures = divBeneficios.querySelectorAll('.picture')
+
+//       for (let i = 0; i < allinput.length; i++) {
+//         allinput[i].addEventListener('change', (e) => {
+//           const tabCurrent = e.target.getAttribute('id')
+//           for (let j = 0; j < allPictures.length; j++) {
+//             allPictures[j].classList.remove('move')
+//           }
+//           document
+//             .getElementById(`picture--${tabCurrent}`)
+//             .classList.add('move')
+//         })
+//       }
+//     }
 
 //     const checkSession = () => {
-//       if (typeof window !== 'undefined') {
+//       let hasSession = false
+//       try {
 //         const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
 //         const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
 //         if (profileStorage) {
-//           return !(profileStorage === 'null' || sesionStorage === '{}') || false
+//           hasSession =
+//             !(profileStorage === 'null' || sesionStorage === '{}') || false
 //         }
+//       } catch (e) {
+//         console.warn('localStorage no está disponible')
 //       }
-//       return false
+//       return hasSession
 //     }
 
 //     const cleanUserName = (firstName, lastName) => {
 //       let fullName = 'Bienvenido Usuario'
 //       const badName = /undefined|null/
-//       if (
-//         firstName &&
-//         !firstName.match(badName) &&
-//         lastName &&
-//         !lastName.match(badName)
-//       ) {
+//       const isBadFirstName = badName.test(firstName)
+//       const isBadLastName = badName.test(lastName)
+
+//       if (firstName && !isBadFirstName && lastName && !isBadLastName) {
 //         fullName = `${firstName} ${lastName}`
-//       }
-//       if (
-//         firstName &&
-//         !firstName.match(badName) &&
-//         (!lastName || lastName.match(badName))
-//       ) {
+//       } else if (firstName && !isBadFirstName && (!lastName || isBadLastName)) {
 //         fullName = firstName
-//       }
-//       if (
-//         lastName &&
-//         !lastName.match(badName) &&
-//         (!firstName || firstName.match(badName))
-//       ) {
+//       } else if (lastName && !isBadLastName && (!firstName || isBadFirstName)) {
 //         fullName = lastName
 //       }
+
 //       return fullName.length <= 17 ? fullName : `${fullName.slice(0, 17)}...`
 //     }
 
-//     function updateBtnSignwall() {
-//       if (checkSession()) {
-//         const userInfo =
-//           window.JSON.parse(
-//             window.localStorage.getItem('ArcId.USER_PROFILE') || '{}'
-//           )
-
+//     const updateBtnSignwall = () => {
+//       const btnSignwall = document.getElementById('btn-signwall')
+//       if (checkSession() && btnSignwall) {
+//         const userInfo = window.JSON.parse(
+//           window.localStorage.getItem('ArcId.USER_PROFILE') || '{}'
+//         )
 //         const { firstName, lastName } = userInfo || {}
 //         btnSignwall.innerHTML = cleanUserName(firstName, lastName)
 //       }
 //     }
-//     updateBtnSignwall()
 
-//     function activeButtonScroll() {
-//       const scrollCurrent =
-//         document.body.scrollTop || document.documentElement.scrollTop
-
-//       if (scrollCurrent > 150) {
-//         if (buttonTop) buttonTop.classList.add('active')
-//         if (buttonCall) buttonCall.classList.add('active')
-//         if (buttonCall && buttonCall.classList.contains('ges')) {
-//           buttonCall.classList.remove('ges')
-//         }
-//       } else {
-//         if (buttonTop) buttonTop.classList.remove('active')
-//         if (buttonCall) buttonCall.classList.remove('active')
-//         if (buttonCall && window.location.href.match(/gestion/)) {
-//           buttonCall.classList.add('ges')
-//         }
-//       }
-//     }
-
-//     function activeHeader() {
-//       const minScroll = isMobile ? 10 : 60
-//       const scrollDevice =
-//         document.body.scrollTop || document.documentElement.scrollTop
-//       if (scrollDevice > minScroll) {
-//         document.getElementById('header').classList.add('active')
-//       } else {
-//         document.getElementById('header').classList.remove('active')
-//       }
-//     }
-
-//     function activeCallIn() {
-//       const minScroll = isMobile ? 10 : 60
-//       const divCallIn = document.getElementById('callin')
-//       if (divCallIn) {
-//         const scrollDevice =
-//           document.body.scrollTop || document.documentElement.scrollTop
-//         if (scrollDevice > minScroll) {
-//           divCallIn.classList.add('active')
+//     const activeButtonScroll = () => {
+//       if (buttonTop) {
+//         if (
+//           document.body.scrollTop ||
+//           document.documentElement.scrollTop > 150
+//         ) {
+//           buttonTop.classList.add('active')
 //         } else {
-//           divCallIn.classList.remove('active')
+//           buttonTop.classList.remove('active')
 //         }
-//       }
-//     }
-
-//     function callback(entries, observer) {
-//       if (entries[0].isIntersecting) {
-//         for (let i = 0; i < allinput.length; i++) {
-//           const tabCurrent = allinput[i].getAttribute('id')
-//           if (allinput[i].checked) {
-//             document
-//               .getElementById(`picture--${tabCurrent}`)
-//               .classList.add('move')
-//           }
-//         }
-//       } else {
-//         for (let j = 0; j < allinput.length; j++) {
-//           const tabCurrent = allinput[j].getAttribute('id')
-//           if (allinput[j].checked) {
-//             document
-//               .getElementById(`picture--${tabCurrent}`)
-//               .classList.remove('move')
-//           }
-//         }
-//       }
-//     }
-
-//     function callbackVideo(entries, observerVideo) {
-//       if (entries[0].isIntersecting) {
-//         videoPlayer.play()
-//       } else {
-//         videoPlayer.pause()
 //       }
 //     }
 
 //     window.onscroll = () => {
-//       activeHeader()
-//       activeCallIn()
 //       activeButtonScroll()
 //     }
 
-//     if (buttonTop) {
-//       buttonTop.addEventListener('click', () => {
-//         document.body.scrollTop = 0 // For Safari
-//         document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
-//       })
-//     }
-
-//     if (videoPlayer) {
-//       const optionsVideo = {
-//         rootMargin: '0px 0px 0px 0px',
-//         threshold: 0.5,
+//     setTimeout(() => {
+//       updateBtnSignwall()
+//       controlSlider()
+//       if (buttonTop) {
+//         buttonTop.addEventListener('click', () => {
+//           document.body.scrollTop = 0 // For Safari
+//           document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+//         })
 //       }
-//       const observerVideo = new window.IntersectionObserver(
-//         callbackVideo,
-//         optionsVideo
-//       )
-//       observerVideo.observe(videoPlayer)
-//     }
-
-//     if (divBeneficios) {
-//       const options = {
-//         rootMargin: '0px 0px 0px 0px',
-//         threshold: 0.5,
+//       if (!isIPhone && 'IntersectionObserver' in window) {
+//         controlVideo()
 //       }
-//       const observer = new window.IntersectionObserver(callback, options)
-//       observer.observe(divBeneficios)
-//     }
-
-//     for (let i = 0; i < allinput.length; i++) {
-//       allinput[i].addEventListener('change', e => {
-//         const tabCurrent = e.target.getAttribute('id')
-//         for (let j = 0; j < allPictures.length; j++) {
-//           allPictures[j].classList.remove('move')
-//         }
-//         document.getElementById(`picture--${tabCurrent}`).classList.add('move')
-//       })
-//     }
-//   }, 1000)
+//     }, 1)
+//   }, 2000)
 // })
 
 const scriptsLanding =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=/iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent),t=document.getElementById("btn-arrow-top"),n=document.getElementById("btn-help-call"),o=document.getElementById("btn-signwall"),c=document.querySelectorAll(".tab"),i=document.querySelectorAll(".picture"),d=document.getElementById("beneficios"),a=document.getElementById("video"),r=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE"),t=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===t)||!1}return!1},s=function(e,t){var n="Bienvenido Usuario",o=/undefined|null/;return e&&!e.match(o)&&t&&!t.match(o)&&(n="".concat(e," ").concat(t)),!e||e.match(o)||t&&!t.match(o)||(n=e),!t||t.match(o)||e&&!e.match(o)||(n=t),n.length<=17?n:"".concat(n.slice(0,17),"...")};if(function(){if(r()){var e=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||"{}")||{},t=e.firstName,n=e.lastName;o.innerHTML=s(t,n)}}(),window.onscroll=function(){var o;o=e?10:60,(document.body.scrollTop||document.documentElement.scrollTop)>o?document.getElementById("header").classList.add("active"):document.getElementById("header").classList.remove("active"),function(){var t=e?10:60,n=document.getElementById("callin");n&&((document.body.scrollTop||document.documentElement.scrollTop)>t?n.classList.add("active"):n.classList.remove("active"))}(),(document.body.scrollTop||document.documentElement.scrollTop)>150?(t&&t.classList.add("active"),n&&n.classList.add("active"),n&&n.classList.contains("ges")&&n.classList.remove("ges")):(t&&t.classList.remove("active"),n&&n.classList.remove("active"),n&&window.location.href.match(/gestion/)&&n.classList.add("ges"))},t&&t.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),a){new window.IntersectionObserver(function(e,t){e[0].isIntersecting?a.play():a.pause()},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(a)}if(d){new window.IntersectionObserver(function(e,t){if(e[0].isIntersecting)for(var n=0;n<c.length;n++){var o=c[n].getAttribute("id");c[n].checked&&document.getElementById("picture--".concat(o)).classList.add("move")}else for(var i=0;i<c.length;i++){var d=c[i].getAttribute("id");c[i].checked&&document.getElementById("picture--".concat(d)).classList.remove("move")}},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(d)}for(var l=0;l<c.length;l++)c[l].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),n=0;n<i.length;n++)i[n].classList.remove("move");document.getElementById("picture--".concat(t)).classList.add("move")})},1e3)});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var e=/iPhone/i.test(window.navigator.userAgent),t=document.getElementById("btn-arrow-top"),n=function(){var e=document.getElementById("btn-signwall");if(function(){var e=!1;try{var t=window.localStorage.getItem("ArcId.USER_PROFILE"),n=window.localStorage.getItem("ArcId.USER_INFO");t&&(e=!("null"===t||"{}"===n)||!1)}catch(e){console.warn("localStorage no está disponible")}return e}()&&e){var t=window.JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||"{}")||{},n=t.firstName,o=t.lastName;e.innerHTML=function(e,t){var n="Bienvenido Usuario",o=/undefined|null/,c=o.test(e),r=o.test(t);return e&&!c&&t&&!r?n="".concat(e," ").concat(t):!e||c||t&&!r?!t||r||e&&!c||(n=t):n=e,n.length<=17?n:"".concat(n.slice(0,17),"...")}(n,o)}};window.onscroll=function(){t&&(document.body.scrollTop||document.documentElement.scrollTop>150?t.classList.add("active"):t.classList.remove("active"))},setTimeout(function(){n(),function(){for(var e=document.getElementById("beneficios"),t=e.querySelectorAll(".tab"),n=e.querySelectorAll(".picture"),o=0;o<t.length;o++)t[o].addEventListener("change",function(e){for(var t=e.target.getAttribute("id"),o=0;o<n.length;o++)n[o].classList.remove("move");document.getElementById("picture--".concat(t)).classList.add("move")})}(),t&&t.addEventListener("click",function(){document.body.scrollTop=0,document.documentElement.scrollTop=0}),!e&&"IntersectionObserver"in window&&function(){var e=document.getElementById("video"),t=!1;e&&new window.IntersectionObserver(function(n,o){n[0].isIntersecting?e.readyState>=2&&!e.ended&&(e.paused||0===e.currentTime)&&(e.play(),t=!0):t&&e.pause()},{rootMargin:"0px 0px 0px 0px",threshold:.5}).observe(e)}()},1)},2e3)});'
 export default scriptsLanding

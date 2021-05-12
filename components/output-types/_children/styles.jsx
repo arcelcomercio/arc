@@ -1,11 +1,12 @@
 import React from 'react'
+
 import {
+  SITE_DEPOR,
+  SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
-  SITE_DEPOR,
   SITE_PERU21G21,
   SITE_TROME,
-  SITE_ELBOCON,
 } from '../../utilities/constants/sitenames'
 
 const Styles = ({
@@ -37,6 +38,7 @@ const Styles = ({
   )
     style = 'story-video'
   else if (isStoryMatch && arcSite === SITE_ELCOMERCIO) style = 'dstory-video'
+  else if (isStoryMatch && arcSite === SITE_ELBOCON) style = 'dstory-video'
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (/^\/resultados-elecciones-2021\//.test(requestUri))
@@ -79,6 +81,8 @@ const Styles = ({
       : styleDefault
 
   styleDefault = isFooterFinal ? 'dstory-video' : styleDefault
+  styleDefault =
+    requestUri.includes('/trivias/') && isAmp === false ? style : styleDefault
   // Cambio temporal, resumen 2020 por el momento solo usa una hoja de estilos para todas las marcas
   if (metaValue('section_style') === 'resumen_2020') {
     style = 'resumen-2020'
@@ -87,8 +91,8 @@ const Styles = ({
 
   return isStyleBasic || styleDefault ? (
     <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
-      {({ data }) => {
-        return data ? (
+      {({ data }) =>
+        data ? (
           <style
             dangerouslySetInnerHTML={{
               __html: data
@@ -97,7 +101,7 @@ const Styles = ({
             }}
           />
         ) : null
-      }}
+      }
     </Resource>
   ) : (
     isAmp === false && isLite === false && (

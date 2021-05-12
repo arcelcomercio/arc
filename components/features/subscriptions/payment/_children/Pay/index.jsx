@@ -78,7 +78,10 @@ const Pay = () => {
   const [methodCard, setMethodCard] = React.useState()
   const [checkedTerms, setCheckedTerms] = React.useState()
 
-  const getPLanSelected = plans.reduce((prev, plan) => plan.priceCode === userPlan.priceCode ? plan : prev, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+    null
+  )
 
   const { amount, sku, billingFrequency, priceCode, name } =
     getPLanSelected || {}
@@ -715,7 +718,8 @@ const Pay = () => {
                   <i
                     className={
                       methodCard === 'AMEX' ? styles.cvvAmex : styles.cvvAll
-                    } />
+                    }
+                  />
                 </span>
               </button>
               <TextMask
@@ -769,8 +773,7 @@ const Pay = () => {
               {texts.textTermsPolices}
             </button>
             {texts.textTermsAccord}
-            <span
-              className={`checkmark ${cTermsError && 'input-error'}`} />
+            <span className={`checkmark ${cTermsError && 'input-error'}`} />
           </label>
         </div>
 

@@ -1,0 +1,78 @@
+.trivias-result {
+  background-color: $color-soft;
+  width: 100%;
+  text-align: center;
+
+  &__line {
+    stroke: $color-gold;
+  }
+
+  &__title {
+    font-size: 28px;
+    line-height: 30px;
+    font-weight: 900;
+
+    @media (--tablet) {
+      font-size: 30px;
+      line-height: 32px;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  &__points {
+    background-color: $color-white;
+    border: 3px solid $color-gold;
+    border-radius: 50%;
+    font-size: 56px;
+    line-height: 86px;
+    font-weight: 900;
+    height: 166px;
+    width: 166px;
+    animation-name: scaleIn;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-in-out;
+
+    @media (--tablet) {
+      font-size: 74px;
+      line-height: 113px;
+      height: 214px;
+      width: 214px;
+    }
+  }
+
+  &__message {
+    font-size: 21px;
+    line-height: 25px;
+    font-weight: 600;
+  }
+
+  &__restart {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 800;
+    padding: 8px 0;
+    background-color: $color-white;
+    border: 1px solid $color-black;
+    width: 198px;
+  }
+
+  &__share-box {
+    font-size: 15px;
+    line-height: 30px;
+    font-weight: bold;
+    max-width: 130px;
+  }
+
+  &__share {
+    display: flex;
+    justify-content: space-between;
+  }
+}

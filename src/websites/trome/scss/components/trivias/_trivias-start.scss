@@ -1,0 +1,77 @@
+.trivias-start {
+  &::after {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 36%,
+      rgba(0, 0, 0, 0) 65%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  &__image {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  &__title {
+    top: 45px;
+    color: $color-white;
+    font-size: 30px;
+    line-height: 32px;
+    font-weight: 900;
+    text-align: center;
+    width: 100%;
+    max-width: 430px;
+    padding: 0 30px;
+    z-index: 5;
+
+    &::after {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      content: "";
+      width: 77px;
+      height: 2px;
+      background-color: $color-gold;
+    }
+
+    @media (--tablet) {
+      top: 60px;
+    }
+  }
+  &__button {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 800;
+    padding: 10px 30px;
+    background-color: $color-white;
+    border: 1px solid $color-black;
+    bottom: 30px;
+    z-index: 5;
+
+    &::after {
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      content: "";
+      width: 100%;
+      height: 4px;
+      background-color: $color-gold;
+    }
+
+    @media (--tablet) {
+      bottom: 50px;
+    }
+  }
+}

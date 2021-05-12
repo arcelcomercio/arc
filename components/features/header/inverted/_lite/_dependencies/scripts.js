@@ -9,10 +9,12 @@
         window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
       }
       else if (input.style.width === "150px")  {
+        button.classList.remove('active')
         input.style = ""
         button.style = ""
         // svgPath.style = ""
       } else {
+        button.classList.add('active')
         input.style = "width:150px;padding: 5px 8px;"
         button.style = "background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;"
         // svgPath.style = "fill: #575757;"
@@ -21,7 +23,7 @@
   })
 }) */
 export const searchScript =
-  'document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){var e=document.getElementById("h-basic_search-btn");e.addEventListener("click",function(){var t=document.getElementById("h-basic_search-input");if(t.value){var n=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/"+n+"/todas/descendiente/?query="+n}else"150px"===t.style.width?(t.style="",e.style=""):(t.style="width:150px;padding: 5px 8px;",e.style="background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;")})})});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){window.requestIdle(function(){var e=document.getElementById("h-basic_search-btn");e.addEventListener("click",function(){var t=document.getElementById("h-basic_search-input");if(t.value){var d=encodeURIComponent(t.value).replace(/%20/g,"+");window.location.href="/buscar/"+d+"/todas/descendiente/?query="+d}else"150px"===t.style.width?(e.classList.remove("active"),t.style="",e.style=""):(e.classList.add("active"),t.style="width:150px;padding: 5px 8px;",e.style="background-color: white;border-top-right-radius: 4px;border-bottom-right-radius: 4px;")})})});'
 
 /* document.addEventListener('DOMContentLoaded', () => {
   requestIdle(() => {
@@ -71,6 +73,68 @@ export const searchScript =
 
 export const stickyScript =
   '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=[].slice.call(document.getElementsByClassName("ad-lateral")),c=document.getElementById("h-basic-pointer");function s(){c.className=c.className.concat(" scrolled"),e.forEach(function(e){e.className=e.className.concat(" scrolled")})}function n(){c.className=c.className.replace("scrolled",""),e.forEach(function(e){e.className=e.className.replace("scrolled","")})}"IntersectionObserver"in window?new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting?n():s()})}).observe(c):window.addEventListener("scroll",function(){var e=document,o=e.body,l=void 0===o?{}:o,a=e.documentElement,t=void 0===a?{}:a,r=l.scrollTop,d=void 0===r?0:r,i=t.scrollTop,m=d||(void 0===i?0:i);m>60&&!c.className.includes("scrolled")?s():m<=60&&c.className.includes("scrolled")&&n()})})});'
+
+/* document.addEventListener('DOMContentLoaded', () => {
+  requestIdle(() => {
+    const headerPointer = document.getElementById('h-basic-pointer')
+    const header = document.getElementById('h-basic')
+
+    function addScrolled() {
+      header.classList.add('scrolled')
+    }
+    function removeScrolled() {
+      header.classList.remove('scrolled')
+    }
+    if ('IntersectionObserver' in window) {
+      const sectionOneObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            removeScrolled()
+          } else {
+            addScrolled()
+          }
+        })
+      })
+      sectionOneObserver.observe(headerPointer)
+    } else {
+      window.addEventListener('scroll', () => {
+        const { body = {}, documentElement = {} } = document
+        const { scrollTop: scrollBody = 0 } = body
+        const { scrollTop: scrollElement = 0 } = documentElement
+        const scroll = scrollBody || scrollElement
+
+        const headerTop = 60
+        if (scroll > headerTop && !headerPointer.className.includes('scrolled')) {
+          addScrolled()
+        } else if (scroll <= headerTop && headerPointer.className.includes('scrolled')) {
+          removeScrolled()
+        }
+      })
+    }
+  })
+
+  if (
+    !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    window.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scale = Math.round((winScroll / height) * 100) / 100;
+      const loader = document.querySelector(".h-basic__loader");
+      if (loader) {
+        loader.style.transform = `scaleX(${scale})`;
+      }
+    });
+  }
+}) */
+
+export const headerStickyScript =
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementById("h-basic-pointer"),n=document.getElementById("h-basic");function o(){n.classList.add("scrolled")}function t(){n.classList.remove("scrolled")}"IntersectionObserver"in window?new IntersectionObserver(function(e){e.forEach(function(e){e.isIntersecting?t():o()})}).observe(e):window.addEventListener("scroll",function(){var n=document,c=n.body,d=void 0===c?{}:c,i=n.documentElement,s=void 0===i?{}:i,l=d.scrollTop,r=void 0===l?0:l,u=s.scrollTop,a=r||(void 0===u?0:u);a>60&&!e.className.includes("scrolled")?o():a<=60&&e.className.includes("scrolled")&&t()})}),/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)||window.addEventListener("scroll",function(){var e=document.body.scrollTop||document.documentElement.scrollTop,n=document.documentElement.scrollHeight-document.documentElement.clientHeight,o=Math.round(e/n*100)/100,t=document.querySelector(".h-basic__loader");t&&(t.style.transform="scaleX("+o+")")})});'
 
 /* ;window.addEventListener('load', () => {
     window.requestIdle(() => {
