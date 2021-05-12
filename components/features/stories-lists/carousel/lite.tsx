@@ -89,7 +89,7 @@ const StoriesListCarousel: FeatureComponent<FeatureProps> = (props) => {
                     </figure>
                     <div className="stories-carousel__text-content">
                       <h3 className="stories-carousel__subtitle">
-                        {story?.taxonomy?.primary_section?.name}
+                        {story?.websites?.[arcSite]?.website_section?.name}
                       </h3>
                       <h2 className="stories-carousel__title">
                         {story?.headlines?.basic}

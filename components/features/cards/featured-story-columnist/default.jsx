@@ -1,19 +1,19 @@
-import React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import React from 'react'
 
+import { defaultAuthorImage, getAssetsPath } from '../../../utilities/assets'
+import {
+  includeCredits,
+  includeCreditsImage,
+  includePrimarySection,
+} from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 import ColumnistPremium from './_childen/columnist-premium'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../../utilities/story-data'
-import {
-  includeCredits,
-  includePrimarySection,
-  includeCreditsImage,
-} from '../../../utilities/included-fields'
-import { getAssetsPath, defaultAuthorImage } from '../../../utilities/assets'
 
-const FeaturedStoryColumnist = props => {
+const FeaturedStoryColumnist = (props) => {
   const {
     arcSite,
     contextPath,
@@ -33,7 +33,9 @@ const FeaturedStoryColumnist = props => {
   } = props
 
   const presets = 'no-presets'
-  const includedFields = `content_restrictions.content_code,websites.${arcSite}.website_url,subheadlines.basic,${includeCredits},${includeCreditsImage},${includePrimarySection}`
+  const includedFields = `content_restrictions.content_code,websites.${arcSite}.website_url,subheadlines.basic,${includeCredits},${includeCreditsImage}, ${includePrimarySection(
+    { arcSite }
+  )}`
 
   const data =
     useContent({

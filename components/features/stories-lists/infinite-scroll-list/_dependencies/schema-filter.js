@@ -1,4 +1,4 @@
-export default arcSite => {
+export default (arcSite) => {
   return `
   { 
     next
@@ -83,10 +83,6 @@ export default arcSite => {
         }
       }
       taxonomy { 
-        primary_section { 
-          name
-          path 
-        }
         sections {
           name
           path 

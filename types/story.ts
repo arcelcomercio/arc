@@ -129,7 +129,6 @@ export interface Taxonomy {
   tags?: Tag[]
   sections?: Section[]
   seo_keywords?: string[]
-  primary_section: Section
 }
 interface Reference {
   type: 'reference'

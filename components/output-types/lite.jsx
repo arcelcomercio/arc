@@ -11,7 +11,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_PERU21G21,
-  SITE_TROME, 
+  SITE_TROME,
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -75,15 +75,27 @@ const LiteOutput = ({
     deployment,
   }
   const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const {
+    videoSeo,
+    idYoutube,
+    contentElementsHtml,
+    oembedSubtypes,
+    embedTwitterAndInst,
+    getPremiumValue,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+    primarySectionLink: storySectionPath,
+    jwplayerSeo,
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
 
   const {
     credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: promoItems = {},
-    taxonomy: {
-      primary_section: { path: storySectionPath = '' } = {},
-      tags = [],
-    } = {},
+    taxonomy: { tags = [] } = {},
     subtype = '',
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
@@ -181,20 +193,6 @@ const LiteOutput = ({
     arcSite,
   }
 
-  const {
-    videoSeo,
-    idYoutube,
-    contentElementsHtml,
-    oembedSubtypes,
-    embedTwitterAndInst,
-    getPremiumValue,
-    promoItems: { basic_html: { content = '' } = {} } = {},
-    jwplayerSeo,
-  } = new StoryData({
-    data: globalContent,
-    arcSite,
-    contextPath,
-  })
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
     idYoutube ||
@@ -449,6 +447,7 @@ const LiteOutput = ({
           section={storySectionPath.split('/')[1]}
           subtype={subtype}
         />
+
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
           <>

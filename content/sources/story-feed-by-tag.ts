@@ -100,7 +100,9 @@ const resolve = (key: StoryFeedByTagParams): string => {
         includedFields,
         arcSite: website,
       })}`
-    : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems},taxonomy.tags.slug,taxonomy.tags.text`
+    : `&_sourceInclude=${includePrimarySection({
+        arcSite: website,
+      })},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems},taxonomy.tags.slug,taxonomy.tags.text`
 
   /* const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'

@@ -92,16 +92,14 @@ const formatContent = ({
 }) => {
   const { content_elements: contentElements = [], section_name: sectionName } =
     content || {}
-  const [
-    {
-      taxonomy: {
-        primary_section: {
-          path: primarySectionPath,
-          name: primarySectionName,
-        } = {},
-      } = {},
-    } = {},
-  ] = contentElements || []
+  const [{ websites = {} } = {}] = contentElements || []
+
+  const {
+    website_section: {
+      path: primarySectionPath = '',
+      name: primarySectionName = '',
+    },
+  } = websites[arcSite] || {}
   return {
     sectionName: sectionName || primarySectionName,
     sectionUrl: `${section || primarySectionPath}/`,
@@ -160,7 +158,7 @@ export default ({ section = '' }) => {
           section_id
           content_elements {
             headlines { basic }
-            websites { ${arcSite} { website_url } }
+            websites { ${arcSite} { website_url website_section{name path} } }
             promo_items {
               basic { resized_urls { mobile } }
               basic_video {
@@ -190,11 +188,10 @@ export default ({ section = '' }) => {
               youtube_id { content }
             }
             credits { by { name url } }
-            taxonomy { primary_section { name path } }
           }
         }`,
       }}>
-      {content => (
+      {(content) => (
         <ChildrenSectionColumn
           {...formatContent({
             section,

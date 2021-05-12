@@ -15,14 +15,14 @@ import {
 const SOURCE = 'story-by-section'
 const PHOTO_SOURCE = 'photo-resizer'
 
-const getPhotoId = photoUrl => {
+const getPhotoId = (photoUrl) => {
   if (!photoUrl) return ''
   const customPhotoUrl = photoUrl.match(/\/([A-Z0-9]{26})(:?.[\w]+)?$/)
   const [, photoId] = customPhotoUrl || []
   return photoId
 }
 
-const ExtraordinaryStoryBySection = props => {
+const ExtraordinaryStoryBySection = (props) => {
   const { customFields } = props
   const {
     sectionName,
@@ -43,7 +43,9 @@ const ExtraordinaryStoryBySection = props => {
               section: sectionName,
               feedOffset: positionData || 0,
               presets,
-              includedFields: `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection}`,
+              includedFields: `websites.${arcSite}.website_url,website,headlines.basic,subheadlines.basic,promo_items.basic_video._id,${includePromoItems},${includeCredits},${includePrimarySection(
+                { arcSite }
+              )}`,
             },
             filter: schemaFilter(arcSite),
           }
