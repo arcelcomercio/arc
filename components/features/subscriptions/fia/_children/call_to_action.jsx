@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React, { useState, useEffect } from 'react'
+import * as React from 'react'
+
 import { LogIntoAccountEventTag } from '../../_children/fb-account-linking'
 import { MsgRegister } from '../../_dependencies/Icons'
-import Loading from '../../_layouts/loading'
-import { Taggeo } from '../../_dependencies/Taggeo'
 import { deleteQuery } from '../../_dependencies/QueryString'
+import { Taggeo } from '../../_dependencies/Taggeo'
+import Loading from '../../_layouts/loading'
 
 const styles = {
   title: 'step__left-title',
@@ -16,13 +17,13 @@ const styles = {
   center: 'step__left-align-center',
 }
 
-const CallToActionFia = props => {
+const CallToActionFia = (props) => {
   const { mainColorBr, logoutSession, arcSite, typeDialog, urlPlan } = props
-  const [suscriptionId, setSuscriptionId] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [statusSubs, setStatusSubs] = useState(null)
+  const [suscriptionId, setSuscriptionId] = React.useState(null)
+  const [loading, setLoading] = React.useState(true)
+  const [statusSubs, setStatusSubs] = React.useState(null)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== 'undefined') {
       setSuscriptionId(window.Identity.userIdentity.uuid)
     }
@@ -42,7 +43,7 @@ const CallToActionFia = props => {
       {suscriptionId && (
         <LogIntoAccountEventTag
           subscriptionId={suscriptionId}
-          onBeforeSend={res => {
+          onBeforeSend={(res) => {
             setStatusSubs((res && res.isSubscriber) || false)
             setLoading(false)
             deleteQuery('signFia')
