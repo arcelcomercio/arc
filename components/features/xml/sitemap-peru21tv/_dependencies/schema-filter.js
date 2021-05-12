@@ -11,6 +11,10 @@ export default (arcSite, promoType) => `{
         websites {
             ${arcSite} {
                 website_url
+                website_section {
+                    name
+                    path
+                }
             }
         }
         promo_items {
@@ -36,9 +40,6 @@ export default (arcSite, promoType) => `{
                 duration
                 display_date
                 taxonomy {
-                    primary_section {
-                        name
-                    }
                     tags {
                         text
                     }

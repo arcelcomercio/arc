@@ -1,9 +1,13 @@
-export default arcSite => {
+export default (arcSite) => {
   return `
   {
     websites { 
       ${arcSite} { 
         website_url 
+        website_section {
+          name
+          path
+        }
       } 
     }
     promo_items {
@@ -62,12 +66,6 @@ export default arcSite => {
     }
     headlines { basic }
     display_date
-    taxonomy {
-      primary_section {
-        path
-        name
-      }
-    }
     section_name
   }
   `

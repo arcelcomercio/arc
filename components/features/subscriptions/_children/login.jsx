@@ -194,11 +194,9 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               />
             )}
           </div>
-
           <div className={styles.titleLine}>
             <p>{texts.orEnterDatesLog}</p>
           </div>
-
           {msgError && (
             <div className={styles.block}>
               <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
@@ -224,7 +222,6 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               </div>
             </div>
           )}
-
           <form onSubmit={handleOnSubmit} className="form-login">
             <div className={styles.block}>
               <label htmlFor="lemail">
@@ -296,7 +293,6 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               </button>
             </div>
           </form>
-
           <p className={styles.titleRegister}>
             {texts.notHasAccount}
             <button
@@ -309,9 +305,6 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
               Registrarme
             </button>
           </p>
-
-          <p className={styles.noteEnd}>{texts.noticeUser}</p>
-
           <div className={styles.block}>
             <label htmlFor="rpolit" className="terms">
               <input
@@ -332,15 +325,13 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
                 onClick={dataTreatment}>
                 fines adicionales
               </button>
-              <span className="checkmark"></span>
+              <span className="checkmark" />
             </label>
           </div>
-
           <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
-            En caso ya hayas autorizado los fines de usos adicionales de manera
-            previa, no es necesario que lo vuelvas a marcar. Si deseas retirar
-            dicho consentimiento puedes seguir el procedimiento establecito en
-            nuestras{' '}
+            En caso hayas autorizado los fines de uso adicionales anteriormente,
+            no es necesario que lo vuelvas a marcar. Si deseas retirar dicho
+            consentimiento, revisa el procedimiento en nuestras{' '}
             <button
               className={styles.link}
               type="button"

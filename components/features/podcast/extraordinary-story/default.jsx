@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import Icon from '../../../global-components/multimedia-icon'
-import StoryData from '../../../utilities/story-data'
 import {
-  includeSections,
   includePrimarySection,
   includePromoItems,
+  includeSections,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 
-const PodcastExtraordinazryStory = props => {
+const PodcastExtraordinazryStory = (props) => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -22,7 +22,9 @@ const PodcastExtraordinazryStory = props => {
   const { arcSite, contextPath, deployment } = useFusionContext()
 
   const presets = 'landscape_l:648x374'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},${includePrimarySection},${includeSections}`
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},${includePrimarySection(
+    { arcSite }
+  )},${includeSections}`
 
   const data =
     useContent({
@@ -86,13 +88,13 @@ const PodcastExtraordinazryStory = props => {
         websites {
           ${arcSite} {
             website_url
+            website_section {
+              name
+              path
+            }
           }
         }
         taxonomy { 
-          primary_section { 
-            name
-            path 
-          }
           sections {
             name
             path 

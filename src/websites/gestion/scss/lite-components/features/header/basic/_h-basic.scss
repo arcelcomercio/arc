@@ -170,9 +170,12 @@
   }
 
   &__img {
-    height: 20px;
+    height: 22px;
+    @media (--tablet) {
+      height: 25px;
+    }
     @media (--desktop) {
-      height: 26px;
+      height: 28px;
     }
   }
 

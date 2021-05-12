@@ -1,4 +1,4 @@
-import { defaultImage,getAssetsPath } from './assets'
+import { defaultImage, getAssetsPath } from './assets'
 import {
   ELEMENT_CORRECTION,
   ELEMENT_CUSTOM_EMBED,
@@ -51,6 +51,7 @@ import {
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
   WORK_TYPE_REVISION,
+  SALTAR_INTRO,
 } from './constants/subtypes'
 import { msToTime, secToTime } from './date-time/time'
 import {
@@ -404,20 +405,26 @@ class StoryData {
   }
 
   get primarySection() {
-    return StoryData.getPrimarySection(this._data).name
+    return StoryData.getPrimarySection(this._data, this._website).name
   }
 
   get primarySectionLink() {
-    return addSlashToEnd(StoryData.getPrimarySection(this._data).path) || ''
+    return (
+      addSlashToEnd(
+        StoryData.getPrimarySection(this._data, this._website).path
+      ) || ''
+    )
   }
 
   get sectionsFIA() {
     let result = { section: null, subsection: null }
-    const { taxonomy: { primary_section: { path } = {} } = {} } =
-      this._data || {}
+    const { websites = {} } = this._data || {}
+    const {
+      website_section: { path = '' },
+    } = websites[this._website] || {}
     if (path) {
       result = { section: null, subsection: null }
-      const listSections = this._data.taxonomy.primary_section.path.split('/')
+      const listSections = path.split('/')
 
       result.section = listSections[1] !== undefined ? listSections[1] : null
       result.subsection = listSections[2] !== undefined ? listSections[2] : null
@@ -512,7 +519,9 @@ class StoryData {
     )
     const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter((el) => el && el.thumbnail_url ? el : '')
+    return result.filter((el) => {
+      return el && el.thumbnail_url ? el : ''
+    })
   }
 
   get haveJwplayerMatching() {
@@ -536,7 +545,9 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter((el) => el && el.urlImage ? el : '')
+    return result.filter((el) => {
+      return el && el.urlImage ? el : ''
+    })
   }
 
   get metaTitle() {
@@ -793,19 +804,6 @@ class StoryData {
     return seoKeywords
   }
 
-  get prerollDefault() {
-    const {
-      taxonomy: {
-        primary_section: {
-          additional_properties: {
-            original: { _admin: { alias_ids: aliasId = [] } = {} } = {},
-          } = {},
-        } = {},
-      } = {},
-    } = this._data || {}
-    return aliasId
-  }
-
   get sourceUrlOld() {
     const { additional_properties: { source_url: sourceUrl = '' } = {} } =
       this._data || {}
@@ -922,6 +920,14 @@ class StoryData {
         StoryData.getFirstContentElementsRevision(
           this._data.content_elements
         )) ||
+      []
+    )
+  }
+
+  get dataSaltarIntro() {
+    return (
+      (this._data &&
+        StoryData.getDataSaltarIntro(this._data.content_elements)) ||
       []
     )
   }
@@ -1263,7 +1269,10 @@ class StoryData {
 
   static getContentElementCustomBlock(data = []) {
     return data && data.length > 0
-      ? data.filter(({ type, subtype }) => type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CUSTOMBLOCK)
+      ? data.filter(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CUSTOMBLOCK
+        )
       : []
   }
 
@@ -1362,7 +1371,8 @@ class StoryData {
               url,
               stream_type: streamType,
               resized_urls: resizedUrlsV = '',
-            }) => streamType === 'ts'
+            }) =>
+              streamType === 'ts'
                 ? {
                     idVideo,
                     url,
@@ -1433,7 +1443,9 @@ class StoryData {
   static getContentElementsText(data = [], typeElement = '') {
     return data && data.length > 0
       ? data
-          .map(({ content, type }) => type === typeElement ? formatHtmlToText(content) : [])
+          .map(({ content, type }) =>
+            type === typeElement ? formatHtmlToText(content) : []
+          )
           .join(' ')
       : ''
   }
@@ -1441,14 +1453,19 @@ class StoryData {
   static getTextElementsText(data = [], typeElement = '') {
     return data && data.length > 0
       ? data
-          .map(({ text, type }) => type === typeElement ? formatHtmlToText(text) : [])
+          .map(({ text, type }) =>
+            type === typeElement ? formatHtmlToText(text) : []
+          )
           .join(' ')
       : ''
   }
 
   static getContentElementsCorrectionList(data = []) {
     return data && data.length > 0
-      ? data.filter(({ type, subtype }) => type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CORRECTION)
+      ? data.filter(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === STORY_CORRECTION
+        )
       : []
   }
 
@@ -1461,10 +1478,19 @@ class StoryData {
       : {}
   }
 
+  static getDataSaltarIntro(data = []) {
+    return data && data.length > 0
+      ? data.find(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === SALTAR_INTRO
+        )
+      : {}
+  }
+
   static getContentElementsHtml(data = [], typeElement = '') {
     return data && data.length > 0
       ? data
-          .map(({ content, type }) => type === typeElement ? content : [])
+          .map(({ content, type }) => (type === typeElement ? content : []))
           .join(' ')
       : ''
   }
@@ -1507,7 +1533,8 @@ class StoryData {
             embed_html: embedHtml,
           }) => {
             const resultVideo = streams
-              .map(({ url = '', stream_type: streamType = '' }) => streamType === 'ts'
+              .map(({ url = '', stream_type: streamType = '' }) =>
+                streamType === 'ts'
                   ? {
                       idVideo,
                       url,
@@ -1517,7 +1544,8 @@ class StoryData {
                       date,
                       description,
                     }
-                  : [])
+                  : []
+              )
               .filter(String)
 
             const dateVideo = dateDisplay.split('T')[0]
@@ -1543,18 +1571,22 @@ class StoryData {
 
   static getContentJwplayer(data = []) {
     return data && data.length > 0
-      ? data.map((item) => item.type === 'custom_embed' && item.subtype === VIDEO_JWPLAYER
+      ? data.map((item) =>
+          item.type === 'custom_embed' && item.subtype === VIDEO_JWPLAYER
             ? item.embed.config
-            : [])
+            : []
+        )
       : []
   }
 
   static getContentJwplayerMatching(data = []) {
     return data && data.length > 0
-      ? data.map((item) => item.type === 'custom_embed' &&
-            item.subtype === VIDEO_JWPLAYER_MATCHING
+      ? data.map((item) =>
+          item.type === 'custom_embed' &&
+          item.subtype === VIDEO_JWPLAYER_MATCHING
             ? item.embed.config
-            : null)
+            : null
+        )
       : []
   }
 
@@ -1569,14 +1601,16 @@ class StoryData {
     return playAds
   }
 
-  static getPrimarySection(data) {
-    const {
-      taxonomy: {
-        primary_section: { name = '', path = '' } = {},
-        sections = [],
-      } = {},
-    } = data || {}
-
+  static getPrimarySection(data, website) {
+    const sectionData =
+      (data &&
+        data.websites &&
+        data.websites[website] &&
+        data.websites[website].website_section) ||
+      {}
+    const { taxonomy: { sections = [] } = {} } = data || {}
+    const name = sectionData.name || ''
+    const path = sectionData.path || ''
     // En caso de que el primary section no devuelva "path" ni "name"
     const { name: auxName, path: auxPath } = sections[0] || {}
 

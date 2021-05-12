@@ -1,14 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import StoryData from '../../../utilities/story-data'
 import { getVerboseDate } from '../../../utilities/date-time/dates'
 import {
   includePrimarySection,
   includePromoItems,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 
 /**
  * TODO:
@@ -17,7 +17,7 @@ import {
  * Separar vista de controlador
  */
 
-const CardsTabloidStory = props => {
+const CardsTabloidStory = (props) => {
   /* const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -34,7 +34,9 @@ const CardsTabloidStory = props => {
         section,
         feedOffset: storyNumber,
         presets: 'preset1:394x222',
-        includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,${includePrimarySection},${includePromoItems}`,
+        includedFields: `websites.${arcSite}.website_url,display_date,headlines.basic,${includePrimarySection(
+          { arcSite }
+        )},${includePromoItems}`,
       },
       filter: `
       {
@@ -42,16 +44,14 @@ const CardsTabloidStory = props => {
         websites {
           ${arcSite} {
             website_url
+            website_section {
+              name
+              path
+            }
           }
         }
         headlines{
           basic
-        }
-        taxonomy {
-          primary_section { 
-            name 
-            path
-          }
         }
         promo_items {
           basic { 
@@ -113,8 +113,8 @@ const CardsTabloidStory = props => {
     title, // { headlines { basic } }
     date,
     // multimediaType, // { promo_items }
-    primarySectionLink, // { taxonomy { primary_section { path } } }
-    primarySection, // { taxonomy { primary_section { name } } }
+    primarySectionLink,
+    primarySection,
   } = new StoryData({
     data,
     arcSite,

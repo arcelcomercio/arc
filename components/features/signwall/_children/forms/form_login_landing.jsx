@@ -1,18 +1,19 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
 import sha256 from 'crypto-js/sha256'
-import * as S from './styles'
-import { ButtonSocial, AuthURL } from './control_social'
-import { ModalConsumer } from '../context'
-import { FormStudents } from './form_students'
-import { Input } from './control_input_select'
-import { CheckBox } from './control_checkbox'
-import useForm from '../../_dependencies/useForm'
+import React, { useState } from 'react'
+
 import getCodeError from '../../_dependencies/codes_error'
-import Domains from '../../_dependencies/domains'
 import Cookies from '../../_dependencies/cookies'
+import Domains from '../../_dependencies/domains'
 import Taggeo from '../../_dependencies/taggeo'
+import useForm from '../../_dependencies/useForm'
+import { ModalConsumer } from '../context'
+import { CheckBox } from './control_checkbox'
+import { Input } from './control_input_select'
+import { AuthURL, ButtonSocial } from './control_social'
+import { FormStudents } from './form_students'
+import * as S from './styles'
 
 export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const {
@@ -317,11 +318,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                     Regístrate
                   </S.Link>
                 </S.Text>
-
-                <S.Text c="light" s="10" className="mt-10 center">
-                  CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN
-                  Y NUNCA PUBLICAREMOS SIN TU PERMISO
-                </S.Text>
               </S.Form>
 
               {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
@@ -352,10 +348,10 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                     s="11"
                     className="mt-10 mb-10"
                     style={{ textAlign: 'justify' }}>
-                    En caso ya hayas autorizado los fines de usos adicionales de
-                    manera previa, no es necesario que lo vuelvas a marcar. Si
-                    deseas retirar dicho consentimiento puedes seguir el
-                    procedimiento establecito en nuestras
+                    En caso hayas autorizado los fines de uso adicionales
+                    anteriormente, no es necesario que lo vuelvas a marcar. Si
+                    deseas retirar dicho consentimiento, revisa el procedimiento
+                    en nuestras
                     <S.Link
                       href={(() => {
                         switch (arcSite) {

@@ -16,7 +16,10 @@ const StoryNextStoryButton = ({
   source = 'footer',
 }) => {
   const { arcSite, globalContent } = useAppContext()
-  const { primary_section: { path: section } = {} } = globalContent || {}
+  const { websites: websitesSec = {} } = globalContent || {}
+  const {
+    website_section: { path: section = '' },
+  } = websitesSec[arcSite] || {}
 
   const nextStory = useContent({
     source: 'story-by-section',
@@ -26,6 +29,7 @@ const StoryNextStoryButton = ({
       includedFields: 'websites,website_url',
     },
   })
+
   const { websites = {} } = nextStory || {}
   const { website_url: websiteUrl = '/' } = websites[arcSite] || nextStory || {}
 
