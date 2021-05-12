@@ -1,10 +1,10 @@
 import {
-  IMAGE,
-  VIDEO,
-  GALLERY,
   ELEMENT_YOUTUBE_ID,
+  GALLERY,
   HTML,
+  IMAGE,
   JWPLAYER,
+  VIDEO,
 } from './constants/multimedia-types'
 
 /** ----------------------------*
@@ -38,11 +38,11 @@ export const includeGalleryUrls = `${galleryElements}.resized_urls,${galleryElem
  *------------------------------*/
 
 const taxonomy = 'taxonomy'
-const primarySection = `${taxonomy}.primary_section`
 const sections = `${taxonomy}.sections`
 const tags = `${taxonomy}.tags`
 
-export const includePrimarySection = `${primarySection}.path,${primarySection}.name`
+export const includePrimarySection = ({ arcSite }) =>
+  `websites.${arcSite}.website_section.path,websites.${arcSite}.website_section.name`
 
 export const includeSections = `${sections}.path,${sections}._id,${sections}.name`
 
@@ -72,7 +72,7 @@ export const includeContentBasic = `content_elements.content,content_elements.ty
  *           FEATURES            *
  *------------------------------*/
 
-const encodedFueatureName = name => `<${name}>`
+const encodedFueatureName = (name) => `<${name}>`
 
 export const featuredStoryFields = encodedFueatureName('featuredStory')
 export const sectionColumnsFields = encodedFueatureName('sectionColumns')
@@ -89,13 +89,21 @@ export const featuredStoryRecentFields = encodedFueatureName(
   'featuredStoryRecent'
 )
 
-const getFeaturesIncludedFields = arcSite => ({
-  featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection},${includeSections},publish_date,display_date`,
+const getFeaturesIncludedFields = (arcSite) => ({
+  featuredStory: `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
+    { arcSite }
+  )},${includeSections},publish_date,display_date`,
   sectionColumns: `websites.${arcSite}.website_url,_id,headlines.basic,display_date,publish_date,${includePromoItems},${includeCredits}`,
-  separatorFeatured: `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection}`,
-  separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePrimarySection}`,
+  separatorFeatured: `headlines.basic,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection(
+    { arcSite }
+  )}`,
+  separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePrimarySection(
+    { arcSite }
+  )}`,
   separatorStories: `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url`,
-  featuredStoryPremium: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection}`,
+  featuredStoryPremium: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
+    { arcSite }
+  )}`,
   featuredStoryRecentImg: `headlines.basic,websites.${arcSite}.website_url,content_restrictions.content_code,_id,display_date,publish_date,${includePromoItems}`,
   featuredStoryRecent: `headlines.basic,websites.${arcSite}.website_url,_id,content_restrictions.content_code,display_date,publish_date`,
 })

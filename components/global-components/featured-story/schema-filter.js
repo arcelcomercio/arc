@@ -43,13 +43,13 @@ export default (arcSite) => `{
   websites {
     ${arcSite} {
       website_url
+      website_section {
+        name
+        path
+      }
     }
   }
   taxonomy { 
-    primary_section { 
-      name
-      path 
-    }
     sections {
       name
       path 

@@ -22,7 +22,7 @@ const storySchemaBase = `
     taxonomy: Taxonomy
   `
 
-const storySchemaTypes = presets => {
+const storySchemaTypes = (presets) => {
   const auxPresets =
     presets ||
     `
@@ -159,11 +159,7 @@ const storySchemaTypes = presets => {
       description: String
       slug: String
     }
-    type PrimarySection {
-      name: String
-    }
     type Taxonomy {
-      primary_section: PrimarySection
       sections: [Sections]
       tags: [Tags]
       seo_keywords: [String]
@@ -206,6 +202,13 @@ const storySchemaTypes = presets => {
       elcomercio: DataWebsites
       peru21: DataWebsites
       gestion: DataWebsites
+      depor: DataWebsites
+      trome: DataWebsites
+      ojo: DataWebsites
+      diariocorreo: DataWebsites
+      elbocon: DataWebsites
+      elcomerciomag: DataWebsites
+      peru21g21: DataWebsites
     }
   `
 }

@@ -25,9 +25,6 @@ type Websites {
     peru21: DataWebsites
     gestion: DataWebsites
 }
-type PrimarySection {
-    name: String
-}
 type Sections {
     _id: String!,
     _website: String!,
@@ -55,7 +52,6 @@ type SiteTopper{
     site_logo_image: String!
 }
 type Taxonomy {
-    primary_section: PrimarySection
     sections: [Sections]
     tags: [Tags]
     seo_keywords: [String]

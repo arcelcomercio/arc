@@ -1,4 +1,4 @@
-export default arcSite => {
+export default (arcSite) => {
   return `
   { 
     next
@@ -60,12 +60,10 @@ export default arcSite => {
       websites {
         ${arcSite} {
           website_url
-        }
-      }
-      taxonomy { 
-        primary_section { 
-          name
-          path 
+          website_section {
+            name
+            path
+          }
         }
       }
     }

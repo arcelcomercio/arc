@@ -10,11 +10,13 @@ import {
   includePrimarySection,
 } from '../../../utilities/included-fields'
 
-const TabloidList = props => {
+const TabloidList = (props) => {
   const { arcSite, contextPath, deployment } = useAppContext()
 
   const presets = 'no-presets'
-  const includedFields = `headlines.basic,${includePromoItems},${includePrimarySection},websites.${arcSite}.website_url,display_date`
+  const includedFields = `headlines.basic,${includePromoItems},${includePrimarySection(
+    { arcSite }
+  )},websites.${arcSite}.website_url,display_date`
 
   const {
     customFields: {

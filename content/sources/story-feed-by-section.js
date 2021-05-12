@@ -1,8 +1,9 @@
 import getProperties from 'fusion:properties'
+
+import { formatIncludedFields } from '../../components/utilities/included-fields'
+import { removeLastSlash } from '../../components/utilities/parse/strings'
 import RedirectError from '../../components/utilities/redirect-error'
 import { getResizedImageData } from '../../components/utilities/resizer/resizer'
-import { removeLastSlash } from '../../components/utilities/parse/strings'
-import { formatIncludedFields } from '../../components/utilities/included-fields'
 
 const SCHEMA_NAME = 'stories'
 
@@ -188,8 +189,9 @@ const resolve = (key = {}) => {
       })}`
     : ''
 
-  return `/content/v4/search/published?${queryFilter}&website=${website}&size=${storiesQty ||
-    10}&from=${feedOffset || 0}&sort=display_date:desc${sourceInclude}`
+  return `/content/v4/search/published?${queryFilter}&website=${website}&size=${
+    storiesQty || 10
+  }&from=${feedOffset || 0}&sort=display_date:desc${sourceInclude}`
 }
 
 const transform = (
@@ -223,7 +225,7 @@ const transform = (
       content_elements: [{ taxonomy: { sections = [] } = {} } = {}] = [],
     } = stories || {}
 
-    sectionMatch = sections.find(sec => sec._id === section)
+    sectionMatch = sections.find((sec) => sec._id === section)
   }
 
   return {
