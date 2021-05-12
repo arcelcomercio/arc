@@ -1,7 +1,4 @@
-import { ENVIRONMENT } from 'fusion:environment'
-
-const ArcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-const IsPROD = ArcEnv === 'prod'
+import { env, isProd } from '../../../utilities/arc/env'
 
 const cdnStaticEc = 'https://cdna.elcomercio.pe/resources/dist/elcomercio'
 const cdnStaticGe = 'https://cdna.gestion.pe/resources/dist/gestion'
@@ -10,9 +7,9 @@ const PropertiesSite = {
   elcomercio: {
     // prettier-ignore
     urls: {
-      mainHome:     `https://${IsPROD ? 'elcomercio.pe' : 'elcomercio-elcomercio-sandbox.cdn.arcpublishing.com'}/?ref=paywall`,
-      homeUrl:      `https://${IsPROD ? 'elcomercio.pe/suscripciones/?ref=paywall' : 'elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'}`,
-      landingUrl:   `https://${IsPROD ? 'elcomercio.pe/suscripcionesdigitales/?ref=paywall' : 'elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/suscripcionesdigitales/?outputType=subscriptions'}`,
+      mainHome:     `https://${isProd ? 'elcomercio.pe' : 'elcomercio-elcomercio-sandbox.cdn.arcpublishing.com'}/?ref=paywall`,
+      homeUrl:      `https://${isProd ? 'elcomercio.pe/suscripciones/?ref=paywall' : 'elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'}`,
+      landingUrl:   `https://${isProd ? 'elcomercio.pe/suscripcionesdigitales/?ref=paywall' : 'elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/suscripcionesdigitales/?outputType=subscriptions'}`,
       facebook:     'https://www.facebook.com/elcomercio.pe',
       twitter:      'https://twitter.com/elcomercio_peru',
       instangram:   'https://www.instagram.com/elcomercio/',
@@ -25,8 +22,8 @@ const PropertiesSite = {
       googlePlay:   'https://play.google.com/store/apps/details?id=com.gec.elcomercio&referrer=email_footer',
       subsPrint:    'https://suscripciones.elcomercio.pe/?ref=Boton_suscrip_imp',
       clickHelp:    'https://pe-eca.grupodigitex.com/C2C_Comercio/Ventas/Ventas.aspx?utm_source=web-suscripciones&utm_medium=boton&utm_campaign=C2C&utm_term=ayuda-llamar&utm_content=suscripciones-portada',
-      arcOrigin:    `https://api${IsPROD ? '' : '-sandbox'}.elcomercio.pe`,
-      codeCxense:   `${IsPROD ? '8msiqbaswc5u' : '8n3ltuopvlh1'}` 
+      arcOrigin:    `https://api${isProd ? '' : '-sandbox'}.elcomercio.pe`,
+      codeCxense:   `${isProd ? '8msiqbaswc5u' : '8n3ltuopvlh1'}` 
     },
 
     emails: {
@@ -90,9 +87,9 @@ const PropertiesSite = {
   gestion: {
     // prettier-ignore
     urls: {
-      mainHome:     `https://${IsPROD ? 'gestion.pe' : 'elcomercio-gestion-sandbox.cdn.arcpublishing.com'}/?ref=paywall`,
-      homeUrl:      `https://${IsPROD ? 'gestion.pe/suscripciones/?ref=paywall' : 'elcomercio-gestion-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'}`,
-      landingUrl:   `https://${IsPROD ? 'gestion.pe/suscripcionesdigitales/?ref=paywall' : 'elcomercio-gestion-sandbox.cdn.arcpublishing.com/suscripcionesdigitales/?outputType=subscriptions'}`,
+      mainHome:     `https://${isProd ? 'gestion.pe' : 'elcomercio-gestion-sandbox.cdn.arcpublishing.com'}/?ref=paywall`,
+      homeUrl:      `https://${isProd ? 'gestion.pe/suscripciones/?ref=paywall' : 'elcomercio-gestion-sandbox.cdn.arcpublishing.com/suscripciones/?outputType=subscriptions'}`,
+      landingUrl:   `https://${isProd ? 'gestion.pe/suscripcionesdigitales/?ref=paywall' : 'elcomercio-gestion-sandbox.cdn.arcpublishing.com/suscripcionesdigitales/?outputType=subscriptions'}`,
       facebook:     'https://www.facebook.com/Gestionpe',
       twitter:      'https://twitter.com/gestionpe',
       instangram:   'https://www.instagram.com/diariogestion/?hl=es',
@@ -105,8 +102,8 @@ const PropertiesSite = {
       googlePlay:   'https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer',
       subsPrint:    'https://suscripciones.gestion.pe/?ref=Boton_suscrip_imp',
       clickHelp:    'https://pe-eca.grupodigitex.com/C2C_Comercio/Gestion/Gestion.aspx?utm_source=web-suscripciones&utm_medium=boton&utm_campaign=C2C&utm_term=ayuda-llamar&utm_content=suscripciones-portada',
-      arcOrigin:    `https://api${IsPROD ? '' : '-sandbox'}.gestion.pe`,
-      codeCxense:   `${IsPROD ? '8n3linhnzos6' : '8msif5r9dikx' }`
+      arcOrigin:    `https://api${isProd ? '' : '-sandbox'}.gestion.pe`,
+      codeCxense:   `${isProd ? '8n3linhnzos6' : '8msif5r9dikx' }`
     },
 
     emails: {
@@ -165,42 +162,42 @@ const PropertiesSite = {
 const PropertiesCommon = {
   // prettier-ignore
   urls: {
-    ecoID:            `https://${IsPROD ? '' : 'pre.'}ecoid.pe`,
-    newsLetters:      `https://${IsPROD ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/userprofile/public/v1`,
-    paymentTracker:   `https://${IsPROD ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/v1`,
-    subsDniToken:     `https://${IsPROD ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
+    ecoID:            `https://${isProd ? '' : 'pre.'}ecoid.pe`,
+    newsLetters:      `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
+    paymentTracker:   `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
+    subsDniToken:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
     dsnSentry:        'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
-    tokenPayEfectivo: `https://${IsPROD ? '' : 'pre1a.'}services.pagoefectivo.pe/v1/authorizations`,
-    cipPayEfectivo:   `https://${IsPROD ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`
+    tokenPayEfectivo: `https://${isProd ? '' : 'pre1a.'}services.pagoefectivo.pe/v1/authorizations`,
+    cipPayEfectivo:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`
   },
 
   // prettier-ignore
   links: {
-    identity:     `https://arc-subs-sdk.s3.amazonaws.com/${ArcEnv}/sdk-identity.min.js`,
-    sales:        `https://arc-subs-sdk.s3.amazonaws.com/${ArcEnv}/sdk-sales.min.js`,
+    identity:     `https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`,
+    sales:        `https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js`,
     payu:         'https://gateway.payulatam.com/ppp-web-gateway/javascript/PayU.js',
     payuTags:     'https://maf.pagosonline.net/ws/fp/tags.js?id=',
-    payuPayments: `https://${IsPROD ? '' : 'sandbox.'}api.payulatam.com/payments-api/4.0/service`,
-    payuPublicKey: IsPROD ? 'PK63j8CtoTehN173BZ568SB6Bs' : 'PKaC6H4cEDJD919n705L544kSU',
-    payuAccountID: IsPROD ? '781124' : '512323',
+    payuPayments: `https://${isProd ? '' : 'sandbox.'}api.payulatam.com/payments-api/4.0/service`,
+    payuPublicKey: isProd ? 'PK63j8CtoTehN173BZ568SB6Bs' : 'PKaC6H4cEDJD919n705L544kSU',
+    payuAccountID: isProd ? '781124' : '512323',
     profile:      '/mi-perfil/?outputType=signwall',
-    preguntas:    `/suscripcionesdigitales/faqs/${IsPROD ? '' : '?outputType=paywall'}`,
-    bannerCorp:   `/suscripcionesdigitales/empresa/${IsPROD ? '' : '?outputType=paywall'}`,
-    landingFia:   `/suscripcionesdigitales/fia/${IsPROD ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,
+    preguntas:    `/suscripcionesdigitales/faqs/${isProd ? '' : '?outputType=paywall'}`,
+    bannerCorp:   `/suscripcionesdigitales/empresa/${isProd ? '' : '?outputType=paywall'}`,
+    landingFia:   `/suscripcionesdigitales/fia/${isProd ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,
     clubComercio: 'https://clubelcomercio.pe/?home=suscripciones_digitales',
     callCenter:   'tel:+5113115100',
     howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx'
   },
 
   tokens: {
-    paymentTracker: IsPROD
+    paymentTracker: isProd
       ? '5088cbc5ceb807c702b4e3487173ef792eb50be4'
       : 'deb904a03a4e31d420a014534514b8cc8ca4d111',
-    payEfectivoService: IsPROD ? '1290' : '1290',
-    payEfectivoAccessKey: IsPROD
+    payEfectivoService: isProd ? '1290' : '1290',
+    payEfectivoAccessKey: isProd
       ? 'ZDVkMmMxZmI1MGExMTE2'
       : 'ZDVkMmMxZmI1MGExMTE2',
-    payEfectivoSecretKey: IsPROD
+    payEfectivoSecretKey: isProd
       ? 'uVlNKocbAxDNxcvYPAnrkNtrMcaB5jRMS/kxnipx'
       : 'uVlNKocbAxDNxcvYPAnrkNtrMcaB5jRMS/kxnipx',
   },
@@ -263,4 +260,4 @@ const PropertiesCommon = {
   },
 }
 
-export { PropertiesSite, PropertiesCommon, ArcEnv, IsPROD }
+export { PropertiesCommon, PropertiesSite }

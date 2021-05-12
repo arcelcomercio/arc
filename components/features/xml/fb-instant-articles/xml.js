@@ -1,18 +1,19 @@
+import md5 from 'crypto-js/md5'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
-import md5 from 'md5'
-import StoryData from '../../../utilities/story-data'
-import { getMultimediaAnalitycs, nbspToSpace } from '../../../utilities/helpers'
-import { localISODate, getActualDate } from '../../../utilities/date-time/dates'
-import formatTime from '../../../utilities/date-time/format-time'
-import buildHtml from './_dependencies/build-html'
-import customFields from './_dependencies/custom-fields'
-import { includePromoItems } from '../../../utilities/included-fields'
-import schemaFilter from '../../stories-lists/recommender-by-site/_dependencies/schema-filter'
+
 import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
+import { getActualDate, localISODate } from '../../../utilities/date-time/dates'
+import formatTime from '../../../utilities/date-time/format-time'
+import { getMultimediaAnalitycs, nbspToSpace } from '../../../utilities/helpers'
+import { includePromoItems } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import schemaFilter from '../../stories-lists/recommender-by-site/_dependencies/schema-filter'
+import buildHtml from './_dependencies/build-html'
+import customFields from './_dependencies/custom-fields'
 
 /**
  * @description Feed para Facebook Instant Articles.
@@ -51,10 +52,12 @@ class XmlFacebookInstantArticles {
       const { siteUrl: siteUrlRecommender } =
         getProperties(websiteRecommender || arcSite) || {}
       const presets = 'no-presets'
-      const includedFieldsManual = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteRecommenderManual ||
-        arcSite}.website_url`
-      const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${websiteRecommender ||
-        arcSite}.website_url`
+      const includedFieldsManual = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${
+        websiteRecommenderManual || arcSite
+      }.website_url`
+      const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${
+        websiteRecommender || arcSite
+      }.website_url`
 
       this.state = {
         websiteRecommenderManual,
@@ -168,7 +171,7 @@ class XmlFacebookInstantArticles {
           { description: DESCRIPTION },
           { lastBuildDate: localISODate() },
           { link: siteUrl },
-          ...this.stories.map(story => {
+          ...this.stories.map((story) => {
             storyData.__data = story
 
             const {
@@ -268,7 +271,7 @@ class XmlFacebookInstantArticles {
                 typeof storyData.authorsList !== 'undefined' &&
                 storyData.authorsList !== null
               ) {
-                authorData = storyData.authorsList.map(authorStory =>
+                authorData = storyData.authorsList.map((authorStory) =>
                   nbspToSpace(authorStory.nameAuthor)
                 )
                 authorData = authorData.join(', ')
