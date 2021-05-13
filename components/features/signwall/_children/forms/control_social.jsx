@@ -12,7 +12,7 @@ import Taggeo from '../../_dependencies/taggeo'
 import QueryString from '../../_dependencies/querystring'
 
 const ButtonStyleSocial = styled(Button)`
-  font-size: ${props => (props.size === 'full' ? '18' : '16')}px !important;
+  font-size: ${(props) => (props.size === 'full' ? '18' : '16')}px !important;
   position: relative;
   height: 45px !important;
   display: inline-block;
@@ -26,28 +26,28 @@ const ButtonStyleSocial = styled(Button)`
   margin-right: 0px;
   margin-left: 0px;
 
-  ${props =>
+  ${(props) =>
     props.size === 'full' &&
     css`
       padding: 0px 45px 0px 45px !important;
       width: calc(100% - 0px) !important;
     `}
-  
-  ${props =>
+
+  ${(props) =>
     props.size === 'middle' &&
     props.brand === 'facebook' &&
     css`
       margin-right: 10px !important;
     `}
 
-  ${props =>
+  ${(props) =>
     props.size === 'middle' &&
     props.brand === 'google' &&
     css`
       margin-left: 10px !important;
     `}
 
-  ${props =>
+  ${(props) =>
     props.brand === 'facebook' &&
     css`
       background: #4267b2 !important;
@@ -58,7 +58,7 @@ const ButtonStyleSocial = styled(Button)`
     position: absolute;
     left: 1px;
     top: 1px;
-    ${props =>
+    ${(props) =>
       props.brand === 'facebook' &&
       css`
         left: 10px !important;
@@ -67,7 +67,8 @@ const ButtonStyleSocial = styled(Button)`
   }
 
   @media ${device.tablet} {
-    padding: 0px ${props => (props.size === 'full' ? '30px' : '10px')} 0px 45px;
+    padding: 0px ${(props) => (props.size === 'full' ? '30px' : '10px')} 0px
+      45px;
   }
 `
 
@@ -82,7 +83,7 @@ const ButtonStyleEmail = styled(Button)`
   }
 `
 
-const originAction = dialogModal => {
+const originAction = (dialogModal) => {
   switch (dialogModal) {
     case 'organico':
       return '0'
@@ -131,8 +132,9 @@ const AfterLoginRegister = (
       break
     case 'newsletter':
       if (btnSignwall) {
-        btnSignwall.textContent = `${resProfile.firstName ||
-          'Bienvenido'}  ${resProfile.lastName || ''}`
+        btnSignwall.textContent = `${resProfile.firstName || 'Bienvenido'}  ${
+          resProfile.lastName || ''
+        }`
       }
       onClose()
       break
@@ -151,11 +153,12 @@ const setupUserProfile = (
   typeForm,
   onLogged,
   checkUserSubs,
-  onStudents
+  onStudents,
+  dataTreatment
 ) => {
   window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
   window.Identity.getUserProfile()
-    .then(resProfile => {
+    .then((resProfile) => {
       const EMAIL_USER =
         resProfile.email ||
         `${resProfile.identities[0].userName}@${provider}.com`
@@ -202,7 +205,11 @@ const setupUserProfile = (
             },
             {
               name: 'dataTreatment',
-              value: 'NULL',
+              value:
+                dataTreatment &&
+                (arcSite === 'elcomercio' || arcSite === 'gestion')
+                  ? dataTreatment
+                  : 'NULL',
               type: 'String',
             },
           ],
@@ -298,7 +305,7 @@ const authSocialProviderURL = (
     data.accessToken,
     data.providerSource
   )
-    .then(resLogSocial => {
+    .then((resLogSocial) => {
       if (resLogSocial.accessToken) {
         window.localStorage.setItem(
           'ArcId.USER_INFO',
@@ -330,7 +337,7 @@ export const ButtonSocial = ({
   typeDialog,
   brand,
   size,
-  onLogged = i => i,
+  onLogged = (i) => i,
   onClose,
   onStudents,
   arcSite,
@@ -339,6 +346,7 @@ export const ButtonSocial = ({
   activeNewsletter,
   checkUserSubs,
   showMsgVerify,
+  dataTreatment,
 }) => {
   const [showTextLoad, setShowTextLoad] = useState('')
 
@@ -369,7 +377,7 @@ export const ButtonSocial = ({
     }
   }
 
-  const taggeoError = resProvider => {
+  const taggeoError = (resProvider) => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_${typeForm}_error_${resProvider}`
@@ -388,7 +396,7 @@ export const ButtonSocial = ({
       '',
       data.accessToken,
       data.providerSource
-    ).then(resLogSocial => {
+    ).then((resLogSocial) => {
       if (resLogSocial.accessToken) {
         window.localStorage.setItem(
           'ArcId.USER_INFO',
@@ -407,7 +415,8 @@ export const ButtonSocial = ({
           typeForm,
           onLogged,
           checkUserSubs,
-          onStudents
+          onStudents,
+          dataTreatment
         )
       } else {
         taggeoError(data.providerSource)
@@ -423,7 +432,7 @@ export const ButtonSocial = ({
     })
   }
 
-  const clickLoginSocialEcoID = brandCurrent => {
+  const clickLoginSocialEcoID = (brandCurrent) => {
     const eventMethod = window.addEventListener
       ? 'addEventListener'
       : 'attachEvent'
@@ -501,7 +510,7 @@ export const AuthURL = ({
   activeNewsletter,
   typeDialog,
   typeForm,
-  onLogged = i => i,
+  onLogged = (i) => i,
   checkUserSubs,
   onStudents,
 }) => {
@@ -519,7 +528,7 @@ export const AuthURL = ({
       'signStudents',
     ]
 
-    listUrlRedirect.map(item => {
+    listUrlRedirect.map((item) => {
       if (QueryString.getQuery(item)) {
         setTimeout(() => {
           const btnFacebook = document.getElementById('btn-sign-facebook')

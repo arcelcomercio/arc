@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { PureComponent, useState } from 'react'
 import Consumer from 'fusion:consumer'
-import { WrapperMenu } from './styled'
-import { Avatar } from './_children/avatar'
+import React, { PureComponent, useState } from 'react'
+
+import Loading from '../_children/loading'
 import Cookies from '../_dependencies/cookies'
 import Domains from '../_dependencies/domains'
 import GetProfile from '../_dependencies/get-profile'
 import Taggeo from '../_dependencies/taggeo'
-import Loading from '../_children/loading'
+import { Avatar } from './_children/avatar'
+import { WrapperMenu } from './styled'
 
 const Menu = ({
   arcSite,
@@ -19,8 +20,6 @@ const Menu = ({
   },
   dispatchEvent,
 }) => {
-  const W = typeof window !== 'undefined' ? window : null
-
   const { publicProfile } = new GetProfile()
   const { identities = [] } = publicProfile
   const [identitie = { type: 'Password' }] = identities || []
@@ -35,26 +34,27 @@ const Menu = ({
   const [showLoading, setShowLoading] = useState(false)
 
   const closeSession = () => {
-    setShowLoading(true)
-    Cookies.deleteCookie('arc_e_id')
-    Cookies.deleteCookie('mpp_sess')
-    Cookies.deleteCookieDomain('ArcId.USER_INFO', arcSite)
-    Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
-    if (W) {
-      const isSubs = W.location.pathname.indexOf('suscripciones') >= 0 || false
-      W.localStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
-      W.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
-      W.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
-      W.Identity.logout()
+    if (typeof window !== 'undefined') {
+      setShowLoading(true)
+      Cookies.deleteCookie('arc_e_id')
+      Cookies.deleteCookie('mpp_sess')
+      Cookies.deleteCookieDomain('ArcId.USER_INFO', arcSite)
+      Cookies.deleteCookie('EcoId.REQUEST_STUDENTS')
+
+      const isSubs =
+        window.location.pathname.indexOf('suscripciones') >= 0 || false
+      window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
+      window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
+      window.Identity.logout()
         .then(() => {
           if (isSubs || activePaywall) {
-            if (W.Sales) W.Sales.subscriptions = []
+            if (window.Sales) window.Sales.subscriptions = []
           }
           Taggeo(`Web_Sign_Wall_General`, `web_swg_link_cerrarsesion`)
-          W.location.href = document.referrer ? document.referrer : '/'
+          window.location.href = document.referrer ? document.referrer : '/'
         })
         .catch(() => {
-          W.location.reload()
+          window.location.reload()
         })
     }
   }
@@ -70,7 +70,7 @@ const Menu = ({
     return false
   }
 
-  const openItemMenu = item => {
+  const openItemMenu = (item) => {
     if (typeof window !== 'undefined') {
       if (checkSession()) {
         if (arcSite === 'elcomercio' && item === 'news') {
@@ -109,7 +109,7 @@ const Menu = ({
                   <li>
                     <a
                       href="#"
-                      onClick={e => {
+                      onClick={(e) => {
                         e.preventDefault()
                         openItemMenu('home')
                       }}>
@@ -120,7 +120,7 @@ const Menu = ({
                 <li>
                   <a
                     href="#"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault()
                       openItemMenu('prof')
                     }}>
@@ -132,7 +132,7 @@ const Menu = ({
                     <a
                       href="#"
                       id="btn-subs"
-                      onClick={e => {
+                      onClick={(e) => {
                         e.preventDefault()
                         openItemMenu('subs')
                       }}>
@@ -144,7 +144,7 @@ const Menu = ({
                   <li>
                     <a
                       href="#"
-                      onClick={e => {
+                      onClick={(e) => {
                         e.preventDefault()
                         openItemMenu('news')
                       }}>
@@ -157,7 +157,7 @@ const Menu = ({
                     className="close-sesion"
                     href="#"
                     id="web_link_cerrarsesion"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault()
                       closeSession()
                     }}>
