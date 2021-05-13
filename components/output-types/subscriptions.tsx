@@ -35,12 +35,16 @@ const Subscriptions: OT<OutputProps> = ({
 
   const isExternalCounter = () =>
     /\/paywall-counter-external\//.test(requestUri)
+  const isPageSubscription = () =>
+    /^\/([\w-]+)\/(empresa|faqs)\//.test(requestUri)
+  const isSubscriptionPage = () => /^\/suscripciones\//.test(requestUri)
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
-  const stylesheet = /^\/suscripcionesdigitales\//.test(requestUri)
-    ? 'subs-payment'
-    : 'subs-landing'
+  const stylesheet =
+    isPageSubscription() || isSubscriptionPage()
+      ? 'subs-landing'
+      : 'subs-payment'
 
   return (
     <>
@@ -120,6 +124,11 @@ const Subscriptions: OT<OutputProps> = ({
               src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
               defer
             />
+            {isPageSubscription() && (
+              <script
+                src="https://www.google.com/recaptcha/api.js?hl=es"
+                defer></script>
+            )}
             <FinallyPolyfill />
           </head>
           <body>
