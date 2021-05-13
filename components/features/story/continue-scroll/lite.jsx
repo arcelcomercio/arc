@@ -21,9 +21,7 @@ const StoryContinueLite = (props) => {
   const { globalContent, arcSite, requestUri } = useAppContext()
   const { taxonomy: { tags = [] } = {}, websites = {} } = globalContent || {}
 
-  const {
-    website_section: { path = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path = '' } = {} } = websites[arcSite] || {}
   const { slug: tag = '' } = tags[0] || {}
   const cleanRequestUri = deleteQueryString(requestUri)
   const { idGoogleAnalitics } = getProperties(arcSite)

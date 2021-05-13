@@ -144,9 +144,8 @@ export const getImage = (data, ImageSize) => {
 export const getPrimarySection = (data, arcSite) => {
   const { taxonomy: { sections = [] } = {}, websites = {} } = data || {}
 
-  const {
-    website_section: { path = '', name = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path = '', name = '' } = {} } =
+    websites[arcSite] || {}
 
   // En caso de que el primary section no devuelva "path" ni "name"
   const { name: auxName, path: auxPath } = sections[0] || {}

@@ -105,9 +105,7 @@ const StoryContinueLite = () => {
   const { globalContent, arcSite } = useAppContext()
   const { websites = {} } = globalContent || {}
 
-  const {
-    website_section: { path = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path = '' } = {} } = websites[arcSite] || {}
 
   const recentStories =
     useContent({
