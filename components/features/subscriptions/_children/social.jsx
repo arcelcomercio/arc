@@ -14,7 +14,13 @@ import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
+const ButtonSocial = ({
+  arcSocial,
+  arcSite,
+  arcType,
+  showMsgVerify,
+  dataTreatment,
+}) => {
   const [loading, setLoading] = React.useState()
   const [loadText, setLoadText] = React.useState('Cargando...')
   const { activateAuth, updateStep } = React.useContext(AuthContext)
@@ -26,7 +32,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
       setLoadText('Cargando Perfil...')
       window.Identity.options({ apiOrigin: urlSite.arcOrigin })
       window.Identity.getUserProfile()
-        .then(resProfile => {
+        .then((resProfile) => {
           const userEmail =
             resProfile.email ||
             `${resProfile.identities[0].userName}@${arcSocial}.com`
@@ -73,14 +79,18 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
                 },
                 {
                   name: 'dataTreatment',
-                  value: 'NULL',
+                  value:
+                    dataTreatment &&
+                    (arcSite === 'elcomercio' || arcSite === 'gestion')
+                      ? dataTreatment
+                      : 'NULL',
                   type: 'String',
                 },
               ],
             }
             setLoadText('Actualizando Perfil...')
             window.Identity.updateUserProfile(newProfileFB)
-              .then(resUpdateProfile => {
+              .then((resUpdateProfile) => {
                 if (userEmail.indexOf('facebook.com') < 0) {
                   setLoadText('Cargando Servicios...')
                   sendNewsLettersUser(
@@ -111,7 +121,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
                   )
                 }
               })
-              .catch(errUpdateProfile => {
+              .catch((errUpdateProfile) => {
                 setLoading(false)
                 window.console.error(errUpdateProfile) // Temporal hasta implementar Sentry
                 Taggeo(nameTagCategory, `web_swl_${arcType}_error_${arcSocial}`)
@@ -122,7 +132,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
             Taggeo(nameTagCategory, `web_swl_${arcType}_success_${arcSocial}`)
           }
         })
-        .catch(errProfile => {
+        .catch((errProfile) => {
           setLoading(false)
           window.console.error(errProfile) // Temporal hasta implementar Sentry
           Taggeo(nameTagCategory, `web_swl_${arcType}_error_${arcSocial}`)
@@ -144,7 +154,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
         data.accessToken,
         data.providerSource
       )
-        .then(resloginSocialEco => {
+        .then((resloginSocialEco) => {
           if (resloginSocialEco.accessToken) {
             setLocaleStorage('ArcId.USER_INFO', resloginSocialEco)
             window.Identity.userIdentity = resloginSocialEco
@@ -158,7 +168,7 @@ const ButtonSocial = ({ arcSocial, arcSite, arcType, showMsgVerify }) => {
             window.removeEventListener('onmessage', authSocialProvider)
           }
         })
-        .catch(errloginSocialEco => {
+        .catch((errloginSocialEco) => {
           setLoading(false)
           window.console.error(errloginSocialEco) // Temporal hasta implementar Sentry
         })
