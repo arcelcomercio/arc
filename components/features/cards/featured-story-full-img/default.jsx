@@ -1,24 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
-import FeatureFullImageChild from './_children/feature-full-image'
-import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../../utilities/story-data'
 import { getPhotoId } from '../../../utilities/helpers'
 import {
   includeCredits,
+  includeCreditsImage,
   includePrimarySection,
   includePromoItems,
   includePromoItemsCaptions,
-  includeCreditsImage,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import FeatureFullImageChild from './_children/feature-full-image'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const PHOTO_SOURCE = 'photo-resizer'
 
-const FeatureStoryFullImage = props => {
+const FeatureStoryFullImage = (props) => {
   const {
     customFields: {
       imgField,
@@ -42,7 +42,9 @@ const FeatureStoryFullImage = props => {
     presets = 'landscape_l:648x374,portrait_md:314x374,square_xl:647x767'
   }
 
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsImage},${includePrimarySection}`
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsImage},${includePrimarySection(
+    { arcSite }
+  )}`
 
   const data =
     useContent({

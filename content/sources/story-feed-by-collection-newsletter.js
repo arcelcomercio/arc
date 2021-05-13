@@ -25,8 +25,8 @@ const options = {
 const sortStories = (collectionIds, storiesByCollection) => {
   const sortedStories = []
 
-  collectionIds.forEach(id => {
-    const foundStory = storiesByCollection.find(story => story._id === id)
+  collectionIds.forEach((id) => {
+    const foundStory = storiesByCollection.find((story) => story._id === id)
 
     if (foundStory) {
       sortedStories.push(foundStory)
@@ -42,7 +42,7 @@ const fetch = ({ 'arc-site': website, id }) => {
   return request({
     uri: `${CONTENT_BASE}/content/v4/collections?website=${website}&_id=${id}`,
     ...options,
-  }).then(collection => {
+  }).then((collection) => {
     const {
       headlines: { basic: name } = {},
       description: { basic: description } = {},
@@ -52,15 +52,15 @@ const fetch = ({ 'arc-site': website, id }) => {
     const ids = contentElements.map((story = {}) => story._id)
 
     return request({
-      uri: `${CONTENT_BASE}/content/v4/ids?ids=${ids.toString()}&website=${website}&included_fields=content_elements,headlines.basic,subheadlines.basic,websites,content_restrictions,display_date,taxonomy.primary_section.path,taxonomy.primary_section.name,credits`,
+      uri: `${CONTENT_BASE}/content/v4/ids?ids=${ids.toString()}&website=${website}&included_fields=content_elements,headlines.basic,subheadlines.basic,websites,content_restrictions,display_date,credits`,
       ...options,
-    }).then(response => {
+    }).then((response) => {
       const { content_elements: stories } = response || {}
 
       return {
         content_elements: contentElements
-          .filter(collectionStory => collectionStory._id)
-          .map(collectionStory => ({
+          .filter((collectionStory) => collectionStory._id)
+          .map((collectionStory) => ({
             headlines: collectionStory.headlines,
             description: collectionStory.description,
             promo_items: collectionStory.promo_items,

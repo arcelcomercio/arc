@@ -1,15 +1,15 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
-import schemaFilter from './_dependencies/schema-filter'
-import StorySeparatorChildItem from './_children/item'
-import StoryData from '../../../utilities/story-data'
-import UtilListKey from '../../../utilities/list-keys'
 import {
-  includePromoItems,
   includePrimarySection,
+  includePromoItems,
 } from '../../../utilities/included-fields'
+import UtilListKey from '../../../utilities/list-keys'
+import StoryData from '../../../utilities/story-data'
+import StorySeparatorChildItem from './_children/item'
+import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
   separator: 'story-separator block non-tablet non-mobile w-full h-auto',
@@ -20,9 +20,10 @@ const CONTENT_SOURCE = 'story-feed-by-section'
 
 const StorySeparator = () => {
   const { deployment, contextPath, arcSite, globalContent } = useFusionContext()
-  const { taxonomy: { primary_section: { path: section } = {} } = {} } =
-    globalContent || {}
-
+  const { websites = {} } = globalContent || {}
+  const {
+    website_section: { path: section = '' },
+  } = websites[arcSite] || {}
   const data = useContent({
     source: CONTENT_SOURCE,
     query: {
@@ -30,7 +31,9 @@ const StorySeparator = () => {
       section,
       stories_qty: 7,
       presets: 'portrait_xs:75x90',
-      includedFields: `websites.${arcSite}.website_url,canonical_url,headlines.basic,${includePromoItems},${includePrimarySection}`,
+      includedFields: `websites.${arcSite}.website_url,canonical_url,headlines.basic,${includePromoItems},${includePrimarySection(
+        { arcSite }
+      )}`,
     },
     filter: schemaFilter(arcSite),
   })

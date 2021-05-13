@@ -7,12 +7,12 @@ import {
   VIDEO_JWPLAYER,
 } from './constants'
 
-export const getTitle = data => {
+export const getTitle = (data) => {
   const { headlines: { basic = '' } = {} } = data || {}
   return basic
 }
 
-export const getVideoID = data => {
+export const getVideoID = (data) => {
   return (
     (data &&
       data.promo_items &&
@@ -22,7 +22,7 @@ export const getVideoID = data => {
   )
 }
 
-export const getVideoStreams = data => {
+export const getVideoStreams = (data) => {
   return (
     (data &&
       data.promo_items &&
@@ -32,7 +32,7 @@ export const getVideoStreams = data => {
   )
 }
 
-export const getVideoYoutube = data => {
+export const getVideoYoutube = (data) => {
   return (
     (data &&
       data.promo_items &&
@@ -42,7 +42,7 @@ export const getVideoYoutube = data => {
   )
 }
 
-export const getVideoJWplayer = data => {
+export const getVideoJWplayer = (data) => {
   return data &&
     data.promo_items &&
     data.promo_items[VIDEO_JWPLAYER] &&
@@ -52,7 +52,7 @@ export const getVideoJWplayer = data => {
     : ''
 }
 
-export const getVideoJWplayerHasAds = data => {
+export const getVideoJWplayerHasAds = (data) => {
   return (
     (data &&
       data.promo_items &&
@@ -81,7 +81,7 @@ export const getVideoImageJWplayer = (data, ImageSize) => {
   return result
 }
 
-export const getVideoJWplayerId = data => {
+export const getVideoJWplayerId = (data) => {
   return (
     (data &&
       data.promo_items &&
@@ -93,7 +93,7 @@ export const getVideoJWplayerId = data => {
   )
 }
 
-export const getVideoAccount = data => {
+export const getVideoAccount = (data) => {
   let result = 0
 
   result =
@@ -107,7 +107,7 @@ export const getVideoAccount = data => {
   return result
 }
 
-export const getVideoTimeJWplayer = data => {
+export const getVideoTimeJWplayer = (data) => {
   let result = 0
 
   result =
@@ -121,7 +121,7 @@ export const getVideoTimeJWplayer = data => {
   return result
 }
 
-export const getType = data => {
+export const getType = (data) => {
   const powa = getVideoID(data) && VIDEO
   const youtube = getVideoYoutube(data) && ELEMENT_YOUTUBE_ID
   const jwplayer = getVideoJWplayer(data) && VIDEO_JWPLAYER
@@ -141,13 +141,12 @@ export const getImage = (data, ImageSize) => {
   return result
 }
 
-export const getPrimarySection = data => {
+export const getPrimarySection = (data, arcSite) => {
+  const { taxonomy: { sections = [] } = {}, websites = {} } = data || {}
+
   const {
-    taxonomy: {
-      primary_section: { name = '', path = '' } = {},
-      sections = [],
-    } = {},
-  } = data || {}
+    website_section: { path = '', name = '' },
+  } = websites[arcSite] || {}
 
   // En caso de que el primary section no devuelva "path" ni "name"
   const { name: auxName, path: auxPath } = sections[0] || {}
@@ -181,7 +180,7 @@ export const getVideoImage = (data, ImageSize) => {
   return result
 }
 
-export const getVideoTime = data => {
+export const getVideoTime = (data) => {
   let result = 0
 
   result =
@@ -193,7 +192,7 @@ export const getVideoTime = data => {
   return result
 }
 
-export const getFootballGameId = data => {
+export const getFootballGameId = (data) => {
   let result = ''
 
   result =
@@ -205,7 +204,7 @@ export const getFootballGameId = data => {
   return result
 }
 
-export const getFootballAds = data => {
+export const getFootballAds = (data) => {
   let result = ''
 
   result =
@@ -314,7 +313,7 @@ export const formatGoalList = (goalList = []) => {
   // agrupa los goles de los jugadores
   const footballPlayers = []
   const result = []
-  goalList.forEach(footballPlayer => {
+  goalList.forEach((footballPlayer) => {
     const { scorerName } = footballPlayer
     if (!footballPlayers.includes(scorerName)) {
       footballPlayers.push(scorerName)
@@ -327,7 +326,7 @@ export const formatGoalList = (goalList = []) => {
         }
       }
 
-      const listText = goalMinute.map(text => `${text}'`).join(',')
+      const listText = goalMinute.map((text) => `${text}'`).join(',')
       result.push({
         scorerName,
         timeMinSec: listText,

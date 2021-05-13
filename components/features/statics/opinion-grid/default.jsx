@@ -47,15 +47,19 @@ const StaticOpinionGrid = () => {
         <CustomTitle />
       </div>
       <div role="list" className={classes.container}>
-        {stories.slice(0, 12).map(story => {
+        {stories.slice(0, 12).map((story) => {
           const { credits: { by = [] } = {} } = story || {}
           const { image: { url } = {} } = by[0] || {}
 
           const authorImage = url || defaultAuthorImage
 
           data.__data = story
-          const { taxonomy: { primary_section: { name } = '' } = {} } =
-            story || {}
+          const { websites = {} } = story || {}
+
+          const {
+            website_section: { name = '' },
+          } = websites[arcSite] || {}
+
           const section = name ? name.toUpperCase() : ''
           let result = null
           countAdd += 1

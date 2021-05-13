@@ -1,12 +1,12 @@
-import { getResizedImageData } from '../../components/utilities/resizer/resizer'
-import { removeLastSlash } from '../../components/utilities/parse/strings'
 import {
-  includePromoItems,
-  includePrimarySection,
-  includeSections,
-  includeCredits,
   formatIncludedFields,
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+  includeSections,
 } from '../../components/utilities/included-fields'
+import { removeLastSlash } from '../../components/utilities/parse/strings'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'story'
 
@@ -110,10 +110,13 @@ const resolve = (key = {}) => {
         includedFields,
         arcSite: website,
       })}`
-    : `&_sourceInclude=${includePrimarySection},${includeSections},display_date,publish_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
+    : `&_sourceInclude=${includePrimarySection({
+        arcSite: website,
+      })},${includeSections},display_date,publish_date,website_url,websites.${website}.website_url,websites.${website}.website_section.name,websites.${website}.website_section.path,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
 
-  return `/content/v4/search/published?${queryFilter}&website=${website}&size=1&from=${feedOffset ||
-    0}&sort=display_date:desc&single=true${sourceInclude}`
+  return `/content/v4/search/published?${queryFilter}&website=${website}&size=1&from=${
+    feedOffset || 0
+  }&sort=display_date:desc&single=true${sourceInclude}`
 }
 
 const transform = (
