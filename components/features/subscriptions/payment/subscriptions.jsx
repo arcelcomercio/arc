@@ -118,7 +118,7 @@ const WrapperPaymentSubs = () => {
     <>
       <>
         {userLoading && <Loading arcSite={arcSite} />}
-        <HeaderSubs userProfile={userProfile} arcSite={arcSite} />
+        <HeaderSubs {...{ userProfile, arcSite, arcType }} />
         <Container>
           {userLoading === false &&
             userLoaded &&
