@@ -12,22 +12,21 @@ import { PROD } from '../../../utilities/constants/environment'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import Signwall from '../_children/Signwall'
-import addScriptAsync from '../_dependencies/Async'
-import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { AuthContext, AuthProvider } from '../_context/auth'
-import { getUserName, isLogged } from '../_dependencies/Session'
-import { FooterLand } from '../_layouts/footer'
-import HeaderSubs from '../_layouts/header'
-import scriptsLanding from '../_scripts/Landing'
-import CallinCallOut from '../landing/_children/CallinCallout'
-import Callout from '../landing/_children/Callout'
-import useForm from '../_hooks/useForm'
-
+import addScriptAsync from '../_dependencies/Async'
 import getCodeError, {
   formatEmail,
   formatNames,
   formatPhone,
 } from '../_dependencies/Errors'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { getUserName, isLogged } from '../_dependencies/Session'
+import useForm from '../_hooks/useForm'
+import { FooterLand } from '../_layouts/footer'
+import HeaderSubs from '../_layouts/header'
+import scriptsLanding from '../_scripts/Landing'
+import CallinCallOut from '../landing/_children/CallinCallout'
+import Callout from '../landing/_children/Callout'
 
 const arcType = 'pages'
 const WrapperPageSubs = ({ properties }) => {
@@ -246,7 +245,11 @@ const WrapperPageSubs = ({ properties }) => {
             {moduleCall && showCallin && <CallinCallOut />}
           </>
         ) : (
-          <HeaderSubs {...{ userProfile, arcSite, arcType }} />
+          <HeaderSubs
+            userProfile={userProfile}
+            arcSite={arcSite}
+            arcType={arcType}
+          />
         )}
 
         {pageSubscriptions === 'faqPage' ? (
@@ -255,47 +258,45 @@ const WrapperPageSubs = ({ properties }) => {
               <div className="faq__content">
                 <h1 className="faq__content-title">Preguntas Frecuentes</h1>
 
-                {faqs.map((faqGroup, i) => {
-                  return (
-                    <div key={i} className="accordion">
-                      <input
-                        id={`toggle${i + 1}`}
-                        type="checkbox"
-                        className="accordion-toggle"
-                        name="toggle"
+                {faqs.map((faqGroup, i) => (
+                  <div key={faqGroup.group} className="accordion">
+                    <input
+                      id={`toggle${i + 1}`}
+                      type="checkbox"
+                      className="accordion-toggle"
+                      name="toggle"
+                    />
+                    <label htmlFor={`toggle${i + 1}`}>
+                      <Markdown
+                        source={faqGroup.group}
+                        unwrapDisallowed
+                        disallowedTypes={['paragraph']}
                       />
-                      <label htmlFor={`toggle${i + 1}`}>
-                        <Markdown
-                          source={faqGroup.group}
-                          unwrapDisallowed
-                          disallowedTypes={['paragraph']}
-                        />
-                      </label>
-                      <section>
-                        {(faqGroup.faqs || []).map((faq, j) => {
-                          const question = Array.isArray(faq.q)
-                            ? faq.q.join(' \n')
-                            : faq.q
-                          const answer = Array.isArray(faq.a)
-                            ? faq.a.join(' \n')
-                            : faq.a
-                          return (
-                            <div key={j} className="bloque">
-                              <h3>
-                                <Markdown
-                                  source={question}
-                                  unwrapDisallowed
-                                  disallowedTypes={['paragraph']}
-                                />
-                              </h3>
-                              <Markdown source={answer} />
-                            </div>
-                          )
-                        })}
-                      </section>
-                    </div>
-                  )
-                })}
+                    </label>
+                    <section>
+                      {(faqGroup.faqs || []).map((faq) => {
+                        const question = Array.isArray(faq.q)
+                          ? faq.q.join(' \n')
+                          : faq.q
+                        const answer = Array.isArray(faq.a)
+                          ? faq.a.join(' \n')
+                          : faq.a
+                        return (
+                          <div key={question} className="bloque">
+                            <h3>
+                              <Markdown
+                                source={question}
+                                unwrapDisallowed
+                                disallowedTypes={['paragraph']}
+                              />
+                            </h3>
+                            <Markdown source={answer} />
+                          </div>
+                        )
+                      })}
+                    </section>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
@@ -304,7 +305,7 @@ const WrapperPageSubs = ({ properties }) => {
             <div className="wrapper">
               <div className="company__content">
                 <div className="company__content-box">
-                  <div className="company-bg"></div>
+                  <div className="company-bg" />
 
                   <div className="cont-form">
                     <h3>
@@ -404,7 +405,8 @@ const WrapperPageSubs = ({ properties }) => {
                           <div className="block">
                             <div
                               className="g-recaptcha"
-                              data-sitekey="6LfEGMcUAAAAAEBWDI6qyRGEc0_KG0XTNBNeeCjv"></div>
+                              data-sitekey="6LfEGMcUAAAAAEBWDI6qyRGEc0_KG0XTNBNeeCjv"
+                            />
                           </div>
                         </div>
                         <div className="column">
@@ -443,7 +445,7 @@ const WrapperPageSubs = ({ properties }) => {
                           <div className="block">
                             <label htmlFor="">
                               Descripción
-                              <textarea></textarea>
+                              <textarea />
                             </label>
                           </div>
 
