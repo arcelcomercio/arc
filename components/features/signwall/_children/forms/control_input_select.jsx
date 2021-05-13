@@ -6,7 +6,7 @@ import TextMask from 'react-text-mask'
 export const Cont = styled.div`
   background-color: inherit;
   display: inline-block;
-  width: ${props => (props.width ? props.width : '100')}%;
+  width: ${(props) => (props.width ? props.width : '100')}%;
   label,
   input,
   select {
@@ -31,7 +31,7 @@ export const Cont = styled.div`
     &:placeholder-shown + label {
       cursor: text;
       transform-origin: 0 0;
-      transform: translate(1rem, 2rem) scale(0.95);
+      transform: translate(1rem, 1.8rem) scale(0.95);
     }
 
     &::placeholder {
@@ -110,7 +110,7 @@ export const InputMask = styled(TextMask)`
 
 InputMask.defaultProps = { guide: false }
 
-export const ContMask = props => {
+export const ContMask = (props) => {
   const { error, children, nolabelerror } = props
   const { placeholder, name } = children.props
   return (
@@ -125,7 +125,7 @@ export const ContMask = props => {
   )
 }
 
-export const Input = props => {
+export const Input = (props) => {
   const { onChange, name, placeholder, clase, error, nolabelerror } = props
   return (
     <Cont>
@@ -144,7 +144,7 @@ export const Input = props => {
   )
 }
 
-export const Select = props => {
+export const Select = (props) => {
   const {
     clase,
     width,
