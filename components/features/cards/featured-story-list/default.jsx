@@ -1,19 +1,19 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import FeaturedStory from '../../../global-components/featured-story'
-import StoryData from '../../../utilities/story-data'
 import {
+  includeCredits,
+  includePrimarySection,
   includePromoItems,
   includePromoItemsCaptions,
-  includePrimarySection,
   includeSections,
-  includeCredits,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 
-const CardsFeaturedStoryList = props => {
+const CardsFeaturedStoryList = (props) => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -22,7 +22,9 @@ const CardsFeaturedStoryList = props => {
   } = props
 
   const { arcSite, contextPath, deployment } = useAppContext()
-  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},publish_date,display_date`
+  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection(
+    { arcSite }
+  )},${includeSections},publish_date,display_date`
 
   const { content_elements: contentElements = [] } =
     useContent({
@@ -78,13 +80,13 @@ const CardsFeaturedStoryList = props => {
           websites {
             ${arcSite} {
               website_url
+              website_section {
+                name
+                path
+              }
             }
           }
           taxonomy { 
-            primary_section { 
-              name
-              path 
-            }
             sections {
               name
               path 
@@ -105,7 +107,7 @@ const CardsFeaturedStoryList = props => {
 
   return (
     <>
-      {contentElements.map(data => {
+      {contentElements.map((data) => {
         storyData.__data = data
         const {
           primarySection,

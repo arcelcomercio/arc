@@ -26,8 +26,12 @@ const HeaderBasic = (props) => {
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    taxonomy: { primary_section: { path: sectionPath = '' } = {} } = {},
+    websites = {},
   } = globalContent || {}
+
+  const {
+    website_section: { path: sectionPath = '' },
+  } = websites[arcSite] || {}
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 

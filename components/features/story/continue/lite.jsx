@@ -103,8 +103,11 @@ window.addEventListener('load', () => {requestIdle(() => {
 
 const StoryContinueLite = () => {
   const { globalContent, arcSite } = useAppContext()
-  const { taxonomy: { primary_section: { path = '' } = {} } = {} } =
-    globalContent || {}
+  const { websites = {} } = globalContent || {}
+
+  const {
+    website_section: { path = '' },
+  } = websites[arcSite] || {}
 
   const recentStories =
     useContent({

@@ -1,23 +1,32 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import SeparatorList from './_children/separator'
+import {
+  includeCredits,
+  separatorBasicFields,
+} from '../../../utilities/included-fields'
 import StoryData from '../../../utilities/story-data'
-import { includeCredits, separatorBasicFields } from '../../../utilities/included-fields'
+import SeparatorList from './_children/separator'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const DEFAULT_TITLE = ''
 
-const SeparatorSaltarIntro = props => {
+const SeparatorSaltarIntro = (props) => {
   const {
-    customFields: { titleSeparator, titleLink, seeMoreLink, modeStreaming = false, storyConfig: { contentService = '', contentConfigValues = {} } = {} },
+    customFields: {
+      titleSeparator,
+      titleLink,
+      seeMoreLink,
+      modeStreaming = false,
+      storyConfig: { contentService = '', contentConfigValues = {} } = {},
+    },
   } = props
 
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
-  const dataTransform = data => {
+  const dataTransform = (data) => {
     const {
       content_elements: contentElements = [],
       section_name: sectionName = '',
@@ -31,7 +40,7 @@ const SeparatorSaltarIntro = props => {
 
     const newData =
       contentElements.length > 0
-        ? contentElements.map(story => {
+        ? contentElements.map((story) => {
             dataFormat.__data = story
             return { ...dataFormat.attributesRaw }
           })
@@ -63,7 +72,10 @@ const SeparatorSaltarIntro = props => {
   }
 
   return (
-    <SeparatorList data={getDataComponent()} {...{ isAdmin, seeMoreLink, modeStreaming }} />
+    <SeparatorList
+      data={getDataComponent()}
+      {...{ isAdmin, seeMoreLink, modeStreaming }}
+    />
   )
 }
 
