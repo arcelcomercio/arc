@@ -18,7 +18,7 @@ const HeaderSectionTitle = ({
   const { websites = {} } = globalContent || {}
 
   const {
-    website_section: { path: primarySectionLink, name: primarySection },
+    website_section: { path: primarySectionLink, name: primarySection } = {},
   } = websites[arcSite] || {}
 
   const title = section || primarySection

@@ -98,7 +98,7 @@ const formatContent = ({
     website_section: {
       path: primarySectionPath = '',
       name: primarySectionName = '',
-    },
+    } = {},
   } = websites[arcSite] || {}
   return {
     sectionName: sectionName || primarySectionName,

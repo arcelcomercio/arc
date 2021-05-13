@@ -51,9 +51,8 @@ const StoryContentChildVideo = (props) => {
     } = {},
     websites = {},
   } = globalContent || {}
-  const {
-    website_section: { path: primarySection = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path: primarySection = '' } = {} } =
+    websites[arcSite] || {}
 
   const {
     _id: id,
