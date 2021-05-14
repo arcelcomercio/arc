@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react'
-import styled from 'styled-components'
 import TextMask from 'react-text-mask'
+import styled from 'styled-components'
 
 export const Cont = styled.div`
   background-color: inherit;
@@ -32,6 +32,8 @@ export const Cont = styled.div`
       cursor: text;
       transform-origin: 0 0;
       transform: translate(1rem, 1.8rem) scale(0.95);
+      margin: 0px;
+      font-size: 15px;
     }
 
     &::placeholder {
@@ -52,6 +54,7 @@ export const Cont = styled.div`
       cursor: pointer;
       background-color: inherit;
       padding: 0px 10px;
+      margin: 0px;
     }
   }
 
