@@ -53,12 +53,10 @@ const StaticOpinionGrid = () => {
           const authorImage = url || defaultAuthorImage
 
           data.__data = story
-          const { websites = {} } = story || {}
 
-          const { website_section: { name = '' } = {} } =
-            websites[arcSite] || {}
-
-          const section = name ? name.toUpperCase() : ''
+          const section = data.primarySection
+            ? data.primarySection.toUpperCase()
+            : ''
           let result = null
           countAdd += 1
           if (section && section === 'EDITORIALp') {
