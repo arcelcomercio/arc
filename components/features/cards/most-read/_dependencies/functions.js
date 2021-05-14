@@ -33,9 +33,8 @@ export const getQuery = ({
   const { query: { section = '' } = {} } = globalContentConfig || {}
   const { websites = {} } = globalContent || {}
 
-  const {
-    website_section: { _id: id = '', path = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { _id: id = '', path = '' } = {} } =
+    websites[arcSite] || {}
 
   let sec = id || path || section
 

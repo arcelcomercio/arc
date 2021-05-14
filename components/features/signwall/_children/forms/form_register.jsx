@@ -18,15 +18,13 @@ import Taggeo from '../../_dependencies/taggeo'
 import Loading from '../loading'
 import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
 
-const FormRegister = props => {
+const FormRegister = (props) => {
   const {
     typeDialog,
     onClose,
-    onLogged = i => i,
-    onLoggedFail = i => i,
+    onLogged = (i) => i,
+    onLoggedFail = (i) => i,
     arcSite,
-    // isFia,
-    // handleCallToAction,
     siteProperties: {
       signwall: {
         mainColorLink,
@@ -37,7 +35,7 @@ const FormRegister = props => {
       activeNewsletter = false,
       activeVerifyEmail = false,
     },
-    removeBefore = i => i,
+    removeBefore = (i) => i,
   } = props
 
   const [showError, setShowError] = useState(false)
@@ -65,7 +63,7 @@ const FormRegister = props => {
     remail: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
             value
           ),
@@ -75,7 +73,7 @@ const FormRegister = props => {
     rpass: {
       required: true,
       validator: {
-        func: value => {
+        func: (value) => {
           if (value.length >= 8) {
             return true
           }
@@ -95,7 +93,7 @@ const FormRegister = props => {
     rterms: {
       required: true,
       validator: {
-        func: value => value !== '1',
+        func: (value) => value !== '1',
         error:
           'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones',
       },
@@ -121,7 +119,7 @@ const FormRegister = props => {
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
 
-  const handleNewsleters = profile => {
+  const handleNewsleters = (profile) => {
     Services.sendNewsLettersUser(
       profile.uuid,
       profile.email,
@@ -131,7 +129,7 @@ const FormRegister = props => {
     )
   }
 
-  const handleStopProfile = profile => {
+  const handleStopProfile = (profile) => {
     if (activeNewsletter && profile.accessToken) {
       handleNewsleters(profile)
     }
@@ -146,7 +144,7 @@ const FormRegister = props => {
   const handleGetProfile = () => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile()
-      .then(profile => {
+      .then((profile) => {
         Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
 
         const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
@@ -181,7 +179,7 @@ const FormRegister = props => {
     }
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     const { remail, rpass, rphone } = state
     setShowLoading(true)
 
@@ -245,7 +243,7 @@ const FormRegister = props => {
       { doLogin: true },
       { rememberMe: true }
     )
-      .then(resSignUp => {
+      .then((resSignUp) => {
         if (activeVerifyEmail) {
           handleStopProfile(resSignUp)
         } else {
@@ -255,9 +253,8 @@ const FormRegister = props => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_success_registrarme`
         )
-        // handleFia()
       })
-      .catch(errLogin => {
+      .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))
         onLoggedFail(errLogin)
         setShowLoading(false)
@@ -270,21 +267,21 @@ const FormRegister = props => {
   }
 
   const getListSubs = () => {
-    return window.Identity.extendSession().then(resExt => {
+    return window.Identity.extendSession().then((resExt) => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
       )
-        .then(res => {
+        .then((res) => {
           if (res.skus) {
-            const result = Object.keys(res.skus).map(key => {
+            const result = Object.keys(res.skus).map((key) => {
               return res.skus[key].sku
             })
             return result
           }
           return []
         })
-        .catch(err => window.console.error(err))
+        .catch((err) => window.console.error(err))
 
       return checkEntitlement
     })
@@ -297,7 +294,7 @@ const FormRegister = props => {
       setShowCheckPremium(true)
 
       getListSubs()
-        .then(p => {
+        .then((p) => {
           if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
           } else {
@@ -316,7 +313,7 @@ const FormRegister = props => {
     }
   }
 
-  const checkFormat = e => {
+  const checkFormat = (e) => {
     if (e.target.value.indexOf(' ') >= 0) {
       setShowFormatInvalid('No se permite espacios')
     } else {
@@ -337,7 +334,7 @@ const FormRegister = props => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
-  const sendVerifyEmail = e => {
+  const sendVerifyEmail = (e) => {
     e.preventDefault()
     setShowSendEmail(true)
     window.Identity.requestVerifyEmail(remail)
@@ -362,7 +359,7 @@ const FormRegister = props => {
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <>
           {!showStudents && (
             <>
@@ -395,7 +392,7 @@ const FormRegister = props => {
                         Accede fácilmente con:
                       </S.Text>
 
-                      {authProviders.map(item => (
+                      {authProviders.map((item) => (
                         <ButtonSocial
                           brand={item}
                           size={sizeBtnSocial}
@@ -407,6 +404,7 @@ const FormRegister = props => {
                           typeForm="registro"
                           activeNewsletter={activeNewsletter}
                           checkUserSubs={checkUserSubs}
+                          dataTreatment={checkedPolits ? '1' : '0'}
                         />
                       ))}
 
@@ -434,7 +432,7 @@ const FormRegister = props => {
                                 href="#"
                                 c="white"
                                 fw="bold"
-                                onClick={e => {
+                                onClick={(e) => {
                                   e.preventDefault()
                                   value.changeTemplate('forgot')
                                 }}>
@@ -455,7 +453,7 @@ const FormRegister = props => {
                         placeholder="Correo electrónico*"
                         required
                         value={remail}
-                        onChange={e => {
+                        onChange={(e) => {
                           handleOnChange(e)
                           setShowError(false)
                         }}
@@ -469,7 +467,7 @@ const FormRegister = props => {
                         placeholder="Contraseña*"
                         required
                         value={rpass}
-                        onChange={e => {
+                        onChange={(e) => {
                           handleOnChange(e)
                           setShowError(false)
                           checkFormat(e)
@@ -486,7 +484,7 @@ const FormRegister = props => {
                           placeholder="Teléfono"
                           maxLength="12"
                           value={rphone}
-                          onChange={e => {
+                          onChange={(e) => {
                             handleOnChange(e)
                           }}
                           error={rphoneError}
@@ -498,12 +496,13 @@ const FormRegister = props => {
                           checked={checkedPolits}
                           value={checkedPolits ? '1' : '0'}
                           name="rpolit"
-                          onChange={e => {
+                          onChange={(e) => {
                             handleOnChange(e)
                             setCheckedPolits(!checkedPolits)
                           }}>
                           <S.Text c="gray" lh="18" s="12" className="mt-10">
-                            Autorizo el uso de mis datos para
+                            Al registrarme por redes sociales o por este
+                            formulario autorizo el uso de mis datos para
                             <S.Link
                               href="/tratamiento-de-datos/"
                               target="_blank"
@@ -520,7 +519,7 @@ const FormRegister = props => {
                         checked={checkedTerms}
                         value={checkedTerms ? '1' : '0'}
                         name="rterms"
-                        onChange={e => {
+                        onChange={(e) => {
                           handleOnChange(e)
                           setCheckedTerms(!checkedTerms)
                           setShowError(false)
@@ -543,27 +542,18 @@ const FormRegister = props => {
                           </S.Link>
                           y
                           <S.Link
-                            href={
-                              // {
-                              //   'elcomercio': '/politicas-privacidad/',
-                              //   'gestion': '/politica-de-privacidad/',
-                              //   'peru21': '/politicas-de-privacidad/',
-                              //   'depor': '/politicas-privacidad/',
-                              //   'trome': '/politica-de-privacidad/'
-                              // }[arcSite]
-                              (() => {
-                                switch (arcSite) {
-                                  case 'elcomercio':
-                                  case 'depor':
-                                    return '/politicas-privacidad/'
-                                  case 'gestion':
-                                  case 'trome':
-                                    return '/politica-de-privacidad/'
-                                  default:
-                                    return '/politicas-de-privacidad/'
-                                }
-                              })()
-                            }
+                            href={(() => {
+                              switch (arcSite) {
+                                case 'elcomercio':
+                                case 'depor':
+                                  return '/politicas-privacidad/'
+                                case 'gestion':
+                                case 'trome':
+                                  return '/politica-de-privacidad/'
+                                default:
+                                  return '/politicas-de-privacidad/'
+                              }
+                            })()}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"
@@ -597,8 +587,9 @@ const FormRegister = props => {
 
                       <S.Title s="22" className="center mb-10">
                         {showUserWithSubs
-                          ? `Bienvenido(a) ${window.Identity.userProfile
-                              .firstName || 'Usuario'}`
+                          ? `Bienvenido(a) ${
+                              window.Identity.userProfile.firstName || 'Usuario'
+                            }`
                           : 'Tu cuenta ha sido creada correctamente'}
                       </S.Title>
 

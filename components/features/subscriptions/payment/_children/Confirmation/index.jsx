@@ -222,23 +222,25 @@ const Confirmation = () => {
       }
 
       // Datalayer solicitados por Joao
-      setTimeout(() => {
-        TaggeoJoao(
-          {
-            event: 'Pasarela Suscripciones Digitales',
-            category: eventCategory({
-              step: 3,
-              event,
-              hasPrint: printedSubscriber,
-              plan: name,
-            }),
-            action: userPeriod,
-            label: uuid,
-            value: `${amount}`,
-          },
-          window.location.pathname
-        )
-      }, 1000)
+      if (!freeAccess) {
+        setTimeout(() => {
+          TaggeoJoao(
+            {
+              event: 'Pasarela Suscripciones Digitales',
+              category: eventCategory({
+                step: 3,
+                event,
+                hasPrint: printedSubscriber,
+                plan: name,
+              }),
+              action: userPeriod,
+              label: uuid,
+              value: `${amount}`,
+            },
+            window.location.pathname
+          )
+        }, 1000)
+      }
     } else {
       updateStep(2)
     }
@@ -260,7 +262,6 @@ const Confirmation = () => {
             ? urlLocal
             : urlsSite.mainHome
       }
-      window.localStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('paywall_confirm_subs')
       window.sessionStorage.removeItem('paywall_type_modal')

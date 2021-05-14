@@ -21,9 +21,8 @@ const CONTENT_SOURCE = 'story-feed-by-section'
 const StorySeparator = () => {
   const { deployment, contextPath, arcSite, globalContent } = useFusionContext()
   const { websites = {} } = globalContent || {}
-  const {
-    website_section: { path: section = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path: section = '' } = {} } =
+    websites[arcSite] || {}
   const data = useContent({
     source: CONTENT_SOURCE,
     query: {
