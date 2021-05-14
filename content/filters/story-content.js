@@ -1,6 +1,6 @@
-import { basicVideoJWplayer } from './basic-video-jwplayer'
-import { basicVideo } from './basic-video'
 import { basicGallery } from './basic-gallery'
+import { basicVideo } from './basic-video'
+import { basicVideoJWplayer } from './basic-video-jwplayer'
 
 // eslint-disable-next-line import/prefer-default-export
 export const storyContent = `
@@ -83,7 +83,13 @@ content_elements {
         height
       }
       block
-      data { bg_color color html type title url url_logo url_mobile author_type text_type text name list gallery_id}
+      data { 
+        bg_color color html type title url url_logo url_mobile author_type text_type text name list gallery_id
+        stories {
+          date description title image {caption url}
+        }
+        image {caption url}
+      }
     }
   }
   raw_oembed{
@@ -325,6 +331,7 @@ promo_items{
   ${basicVideo}
   ${basicGallery}
   basic_parallax { embed { config { block data { bg_color color html type url url_logo url_mobile } } } }
+  basic_resumen { embed { config { block data { description name text title } } } }
 }
 
 credits{

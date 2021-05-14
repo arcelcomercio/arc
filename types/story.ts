@@ -52,8 +52,10 @@ interface ContentElementAdditionalProperties {
 export interface ContentElement {
   _id: string
   type: ContentElementType
-  additional_properties: ContentElementAdditionalProperties
+  additional_properties?: ContentElementAdditionalProperties
   content: string
+  embed?: Embed
+  subtype?: string
 }
 export interface Headlines {
   basic: string
@@ -223,6 +225,30 @@ interface AdditionalProperties {
   publish_date: string
 }
 
+export interface EmbedConfigDataStories {
+  date?: string
+  description?: string
+  title?: string
+  image?: {
+    caption?: string
+    url?: string
+  }
+  url?: string
+}
+
+interface EmbedConfigData {
+  description?: string
+  name?: string
+  text?: string
+  title?: string
+  url?: string
+  image?: {
+    caption?: string
+    url?: string
+  }
+  stories: EmbedConfigDataStories[]
+}
+
 interface EmbedConfig {
   date: number
   duration: string
@@ -236,18 +262,24 @@ interface EmbedConfig {
   key: string
   status: string
   resized_urls?: ResizedUrls
+  block?: string
+  data?: EmbedConfigData
 }
 
 export interface Embed {
-  id: string
-  config: EmbedConfig
-  url: string
+  id?: string
+  config?: EmbedConfig
+  url?: string
 }
 
 export interface BasicJwplayer {
   subtype: 'video_jwplayer'
   embed: Embed
   type: 'custom_embed'
+}
+
+export interface BasicResumen {
+  embed: Embed
 }
 
 export interface BasicVideo {
@@ -341,6 +373,7 @@ export interface PromoItems {
   basic_video?: BasicVideo
   basic_html?: AnyObject
   youtube_id?: AnyObject
+  basic_resumen?: BasicResumen
 }
 
 export interface Story extends ANSBase, ANSDates {
@@ -359,7 +392,7 @@ export interface Story extends ANSBase, ANSDates {
   label: Label
   taxonomy: Taxonomy
   related_content: RelatedContent
-  promo_items: PromoItems
+  promo_items?: PromoItems
   distributor: Distributor
   canonical_website: ArcSite
   geo: AnyObject
