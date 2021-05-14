@@ -12,9 +12,8 @@ const StoryAuthorTitle = () => {
     websites = {},
   } = globalContent || {}
 
-  const {
-    website_section: { path: pathSection = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path: pathSection = '' } = {} } =
+    websites[arcSite] || {}
 
   const {
     name = '',

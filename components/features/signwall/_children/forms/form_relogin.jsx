@@ -281,7 +281,7 @@ export const FormRelogin = ({
             </S.Link>
           </S.Text>
 
-          {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+          {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
             <>
               <br />
               <CheckBox
@@ -335,6 +335,11 @@ export const FormRelogin = ({
                 </S.Link>
               </S.Text>
             </>
+          ) : (
+            <S.Text c="light" s="10" className="mt-10 center">
+              CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
+              NUNCA PUBLICAREMOS SIN TU PERMISO
+            </S.Text>
           )}
         </S.Form>
       )}

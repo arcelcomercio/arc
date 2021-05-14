@@ -47,9 +47,7 @@ const VideoListAmp = (props) => {
   }
 
   const { websites = {} } = globalContent
-  const {
-    website_section: { path = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path = '' } = {} } = websites[arcSite] || {}
 
   fetchListVideo(path)
 

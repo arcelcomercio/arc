@@ -320,7 +320,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 </S.Text>
               </S.Form>
 
-              {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+              {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
                 <S.Form>
                   <CheckBox
                     checked={checkedPolits}
@@ -373,6 +373,11 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                     </S.Link>
                   </S.Text>
                 </S.Form>
+              ) : (
+                <S.Text c="light" s="10" className="mt-10 center">
+                  CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN
+                  Y NUNCA PUBLICAREMOS SIN TU PERMISO
+                </S.Text>
               )}
             </>
           )}
