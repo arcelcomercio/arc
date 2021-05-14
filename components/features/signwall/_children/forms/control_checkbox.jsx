@@ -14,9 +14,9 @@ export const CheckContainer = styled.label`
   & input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
-    width: 5px;
-    height: 5px;
+    cursor: pointer !important;
+    width: 5px !important;
+    height: 5px !important;
     &:checked ~ .checkmark {
       background-color: #2196f3;
       border: 1px solid #2196f3;
@@ -67,24 +67,22 @@ export const CheckBox = ({
   valid,
   error,
   children,
-}) => {
-  return (
-    <CheckContainer>
-      <input
-        type="checkbox"
-        name={name}
-        checked={checked}
-        value={value}
-        onChange={onChange}
-        required={valid}
-        error={error}
-      />
+}) => (
+  <CheckContainer>
+    <input
+      type="checkbox"
+      name={name}
+      checked={checked}
+      value={value}
+      onChange={onChange}
+      required={valid}
+      error={error}
+    />
 
-      {children}
+    {children}
 
-      <span className={error && 'error'}>{error}</span>
+    <span className={error && 'error'}>{error}</span>
 
-      <span className={error ? 'error checkmark' : 'checkmark'} />
-    </CheckContainer>
-  )
-}
+    <span className={error ? 'error checkmark' : 'checkmark'} />
+  </CheckContainer>
+)
