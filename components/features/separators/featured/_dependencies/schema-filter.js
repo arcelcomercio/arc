@@ -1,7 +1,7 @@
-export default arcSite => `
+export default (arcSite) => `
 {
   content_elements{
-    websites { ${arcSite} { website_url } }
+    websites { ${arcSite} { website_url website_section{name path} } }
     promo_items{
       basic_video {
         type
@@ -40,12 +40,6 @@ export default arcSite => `
     }
     headlines{
       basic
-    }
-    taxonomy {
-      primary_section {
-          name
-          path
-      }
     }
   } 
 }

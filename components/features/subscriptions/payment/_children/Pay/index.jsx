@@ -1,35 +1,35 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
-import TextMask from 'react-text-mask'
 import * as Sentry from '@sentry/browser'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
+import TextMask from 'react-text-mask'
 
-import useForm from '../../../_hooks/useForm'
-import { conformProfile, isLogged } from '../../../_dependencies/Session'
 // import addPayU from '../../../_dependencies/Payu'
 import { AuthContext } from '../../../_context/auth'
 import addScriptAsync from '../../../_dependencies/Async'
-import {
-  PixelActions,
-  sendAction,
-  TaggeoJoao,
-  eventCategory,
-} from '../../../_dependencies/Taggeo'
-import { getSessionStorage } from '../../../_dependencies/Utils'
-import PWA from '../../../_dependencies/Pwa'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-  ArcEnv,
-} from '../../../_dependencies/Properties'
-import {
-  patternCard,
-  patternDate,
-  patterCvv,
-} from '../../../_dependencies/Regex'
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
+import {
+  ArcEnv,
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
+import PWA from '../../../_dependencies/Pwa'
+import {
+  patterCvv,
+  patternCard,
+  patternDate,
+} from '../../../_dependencies/Regex'
+import { conformProfile, isLogged } from '../../../_dependencies/Session'
+import {
+  eventCategory,
+  PixelActions,
+  sendAction,
+  TaggeoJoao,
+} from '../../../_dependencies/Taggeo'
+import { getSessionStorage } from '../../../_dependencies/Utils'
+import useForm from '../../../_hooks/useForm'
 
 const styles = {
   step: 'step__left-progres',
@@ -38,7 +38,7 @@ const styles = {
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   secure: 'step__left-text-security',
-  notes: 'step__notes-footer',
+  notes: 'step__notes-footer text-center',
   cvvAmex: 'img-info-cvvamex',
   cvvAll: 'img-info-cvv',
 }
@@ -78,9 +78,10 @@ const Pay = () => {
   const [methodCard, setMethodCard] = React.useState()
   const [checkedTerms, setCheckedTerms] = React.useState()
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.priceCode === userPlan.priceCode ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+    null
+  )
 
   const { amount, sku, billingFrequency, priceCode, name } =
     getPLanSelected || {}
@@ -88,7 +89,7 @@ const Pay = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0)
 
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('document', documentNumber || 'none')
       scope.setTag('phone', phone || 'none')
       scope.setTag('email', email || 'none')
@@ -119,7 +120,7 @@ const Pay = () => {
         })
         window.Sales.options({ apiOrigin: urls.arcOrigin })
       })
-      .catch(errSalesSDK => {
+      .catch((errSalesSDK) => {
         Sentry.captureEvent({
           message: 'SDK Sales no ha cargado correctamente',
           level: 'error',
@@ -155,14 +156,13 @@ const Pay = () => {
         window.payU.setLanguage('es')
         window.payU.getPaymentMethods()
       })
-      .catch(errPayuSDK => {
+      .catch((errPayuSDK) => {
         Sentry.captureEvent({
           message: 'El SDK PayU no ha cargado correctamente',
           level: 'error',
           extra: errPayuSDK || {},
         })
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   React.useEffect(() => {
@@ -188,7 +188,6 @@ const Pay = () => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -202,7 +201,7 @@ const Pay = () => {
     cNumber: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           'payU' in window &&
           window.payU.validateCard(value.replace(/\s/g, '')),
         error: 'Número tarjeta inválido.',
@@ -211,7 +210,7 @@ const Pay = () => {
     cExpire: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^(0[1-9]|1[0-2])\/?(((202)\d{1}|(202)\d{1})|(2)\d{1})$/.test(value),
         error: 'Fecha incorrecta',
       },
@@ -219,7 +218,7 @@ const Pay = () => {
     cCvv: {
       required: true,
       validator: {
-        func: value => /^([0-9]{3,})+$/.test(value),
+        func: (value) => /^([0-9]{3,})+$/.test(value),
         error: 'CVV Inválido',
       },
     },
@@ -306,7 +305,7 @@ const Pay = () => {
               { country: 'PE' }
             )
           })
-          .then(resOrder => {
+          .then((resOrder) => {
             Sentry.addBreadcrumb({
               type: 'info',
               category: 'pago',
@@ -317,11 +316,11 @@ const Pay = () => {
               level: 'info',
             })
             return window.Sales.getPaymentOptions()
-              .then(resPayOptions => {
+              .then((resPayOptions) => {
                 setTxtLoading('Iniciando Proceso...')
 
                 payUPaymentMethod = resPayOptions?.find(
-                  m => m?.paymentMethodType === 8
+                  (m) => m?.paymentMethodType === 8
                 )
                 orderNumberDinamic = resOrder?.orderNumber
                 const { paymentMethodID } = payUPaymentMethod || {}
@@ -345,7 +344,7 @@ const Pay = () => {
                   paymentMethodID
                 )
               })
-              .catch(paymentError => {
+              .catch((paymentError) => {
                 Sentry.captureEvent({
                   message:
                     paymentError?.error || getCodeError(paymentError?.code),
@@ -353,7 +352,7 @@ const Pay = () => {
                   extra: paymentError || {},
                 })
               })
-              .then(resInitialize => {
+              .then((resInitialize) => {
                 const {
                   orderNumber,
                   parameter1: publicKey,
@@ -406,7 +405,7 @@ const Pay = () => {
                     },
                     level: 'info',
                   })
-                  window.payU.createToken(response => {
+                  window.payU.createToken((response) => {
                     if (response?.error) {
                       reject(new Error(response.error))
                       setMsgError(response.error)
@@ -432,8 +431,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${response.error ||
-                            getCodeError('errorFinalize')}`,
+                          action: `${userPeriod} - ${
+                            response.error || getCodeError('errorFinalize')
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -460,7 +460,7 @@ const Pay = () => {
                   })
                 })
 
-                return handleCreateToken.then(resToken => {
+                return handleCreateToken.then((resToken) => {
                   const { paymentMethodID, paymentMethodType } =
                     payUPaymentMethod || {}
                   const tokenDinamic = `${resToken}~${deviceSessionId}~${cCvv}`
@@ -485,7 +485,7 @@ const Pay = () => {
                     paymentMethodID,
                     tokenDinamic
                   )
-                    .then(resFinalize => {
+                    .then((resFinalize) => {
                       Sentry.addBreadcrumb({
                         type: 'info',
                         category: 'compra',
@@ -550,8 +550,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${errFinalize.message ||
-                            getCodeError('errorFinalize')}`,
+                          action: `${userPeriod} - ${
+                            errFinalize.message || getCodeError('errorFinalize')
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -580,7 +581,7 @@ const Pay = () => {
     }
   }
 
-  const validateCardNumber = e => {
+  const validateCardNumber = (e) => {
     if (typeof window !== 'undefined' && 'payU' in window) {
       window.payU.validateCard(e.target.value)
       setMethodCard(window.payU.card.method)
@@ -600,7 +601,7 @@ const Pay = () => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFormPay)
 
-  const handleOnChangeInput = e => {
+  const handleOnChangeInput = (e) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         setMsgError(false)
@@ -612,7 +613,7 @@ const Pay = () => {
     }
   }
 
-  const openNewTab = typeLink => {
+  const openNewTab = (typeLink) => {
     if (typeof window !== 'undefined') {
       window.open(urls[typeLink], '_blank')
     }
@@ -639,10 +640,10 @@ const Pay = () => {
 
       <div className={styles.card}>
         <p>Aceptamos:</p>
-        <i className="icon-visa"></i>
-        <i className="icon-mc"></i>
-        <i className="icon-amex"></i>
-        <i className="icon-dinners"></i>
+        <i className="icon-visa" />
+        <i className="icon-mc" />
+        <i className="icon-amex" />
+        <i className="icon-dinners" />
       </div>
 
       {msgError && (
@@ -673,7 +674,7 @@ const Pay = () => {
               disabled={loading}
             />
             {cNumberError && <span className="msn-error">{cNumberError}</span>}
-            <div id="mylistID" className="img-input-card"></div>
+            <div id="mylistID" className="img-input-card" />
           </label>
         </div>
 
@@ -717,7 +718,8 @@ const Pay = () => {
                   <i
                     className={
                       methodCard === 'AMEX' ? styles.cvvAmex : styles.cvvAll
-                    }></i>
+                    }
+                  />
                 </span>
               </button>
               <TextMask
@@ -751,7 +753,7 @@ const Pay = () => {
               name="cTerms"
               required
               disabled={loading}
-              onChange={e => {
+              onChange={(e) => {
                 handleOnChange(e)
                 setCheckedTerms(!checkedTerms)
               }}
@@ -771,8 +773,7 @@ const Pay = () => {
               {texts.textTermsPolices}
             </button>
             {texts.textTermsAccord}
-            <span
-              className={`checkmark ${cTermsError && 'input-error'}`}></span>
+            <span className={`checkmark ${cTermsError && 'input-error'}`} />
           </label>
         </div>
 
@@ -793,7 +794,7 @@ const Pay = () => {
       </form>
 
       <p className={styles.secure}>
-        <i className="icon-security"></i>
+        <i className="icon-security" />
         {texts.showSecure}
       </p>
 

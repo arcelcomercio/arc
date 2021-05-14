@@ -1,11 +1,12 @@
-import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
-import SchemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import VideoListItem from './_children/item'
-import StoryData from '../../../utilities/story-data'
+import React, { PureComponent } from 'react'
+
 import Spinner from '../../../global-components/spinner'
 import { includePrimarySection } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import VideoListItem from './_children/item'
+import customFields from './_dependencies/custom-fields'
+import SchemaFilter from './_dependencies/schema-filter'
 
 const source = 'story-feed-by-section'
 const presets = 'landscape_md:314x0'
@@ -19,12 +20,13 @@ class VideoList extends PureComponent {
       isLoading: false,
     }
     this.section = '/'
-    const { globalContent } = this.props
+    const { globalContent, arcSite } = this.props
 
     if (globalContent && globalContent.type === 'story') {
+      const { websites = {} } = globalContent
       const {
-        taxonomy: { primary_section: { path = '' } = {} } = {},
-      } = globalContent
+        website_section: { path = '' },
+      } = websites[arcSite] || {}
       this.section = path
       this.initialFetch(this.section)
     } else {
@@ -33,8 +35,10 @@ class VideoList extends PureComponent {
     }
   }
 
-  includedFields = arcSite =>
-    `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content,promo_items.basic_jwplayer.embed.config.thumbnail_url,promo_items.basic_jwplayer.embed.config.resized_urls`
+  includedFields = (arcSite) =>
+    `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection({
+      arcSite,
+    })},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content,promo_items.basic_jwplayer.embed.config.thumbnail_url,promo_items.basic_jwplayer.embed.config.resized_urls`
 
   initialFetch = (section = '/') => {
     const { arcSite } = this.props
@@ -73,7 +77,7 @@ class VideoList extends PureComponent {
           includedFields: this.includedFields(arcSite),
         },
         filter: SchemaFilter(arcSite),
-        transform: res => {
+        transform: (res) => {
           this.setState({ isLoading: false })
           const { content_elements: stories = [] } = res || {}
           if (contentElements && res) {

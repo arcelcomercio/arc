@@ -1,14 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import StoryData from '../../../utilities/story-data'
 import {
   includePrimarySection,
   includePromoItems,
   includeSections,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 
 /**
  * TODO:
@@ -18,7 +18,7 @@ import {
  * Aplicar Lazyload para las imagenes (guiate del destaque global)
  */
 
-const CardsFeaturedStorySpecial = props => {
+const CardsFeaturedStorySpecial = (props) => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -28,7 +28,9 @@ const CardsFeaturedStorySpecial = props => {
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
 
   const presets = 'landscape_xl:980x528,landscape_l:648x374'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePrimarySection},${includeSections}`
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePrimarySection(
+    { arcSite }
+  )},${includeSections}`
 
   const data = useContent({
     source: contentService,
@@ -89,13 +91,10 @@ const CardsFeaturedStorySpecial = props => {
       websites {
         ${arcSite} {
           website_url
+          website_section{name path} 
         }
       }
       taxonomy { 
-        primary_section { 
-          name
-          path 
-        }
         sections {
           name
           path 
@@ -111,8 +110,8 @@ const CardsFeaturedStorySpecial = props => {
     multimediaLazyDefault,
     title, // { headlines { basic } }
     // multimediaType, // { promo_items }
-    primarySectionLink, // { taxonomy { primary_section { path } } }
-    primarySection, // { taxonomy { primary_section { name } } }
+    primarySectionLink, //
+    primarySection, //
   } = new StoryData({
     data,
     arcSite,

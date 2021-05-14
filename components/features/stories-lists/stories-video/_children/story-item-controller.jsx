@@ -1,40 +1,40 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import {
-  getType,
-  getTitle,
-  getVideoID,
-  getVideoStreams,
-  getVideoYoutube,
-  getImage,
-  getVideoImage,
-  getVideoTime,
-  getVideoJWplayerId,
-  getVideoJWplayerHasAds,
-  getVideoTimeJWplayer,
-  getVideoAccount,
-  getVideoImageJWplayer,
-  getPrimarySection,
-} from '../../../../utilities/get-story-values'
-import {
-  VIDEO,
-  ELEMENT_YOUTUBE_ID,
-} from '../../../../utilities/constants/multimedia-types'
-import { LANDSCAPE_XXS } from '../../../../utilities/constants/image-sizes'
 import { defaultImage, getAssetsPathVideo } from '../../../../utilities/assets'
+import { VIDEO_JWPLAYER } from '../../../../utilities/constants'
+import { LANDSCAPE_XXS } from '../../../../utilities/constants/image-sizes'
+import {
+  ELEMENT_YOUTUBE_ID,
+  VIDEO,
+} from '../../../../utilities/constants/multimedia-types'
+import {
+  getImage,
+  getPrimarySection,
+  getTitle,
+  getType,
+  getVideoAccount,
+  getVideoID,
+  getVideoImage,
+  getVideoImageJWplayer,
+  getVideoJWplayerHasAds,
+  getVideoJWplayerId,
+  getVideoStreams,
+  getVideoTime,
+  getVideoTimeJWplayer,
+  getVideoYoutube,
+} from '../../../../utilities/get-story-values'
 import schemaFilter from '../_dependencies/schema-filters'
 import StoryItem from './story-video-item'
-import { VIDEO_JWPLAYER } from '../../../../utilities/constants'
 
 const CONTENT_SOURCE = 'story-by-url'
 
 const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
-  const getListVideoNews = data => {
+  const getListVideoNews = (data) => {
     const videoType = getType(data)
 
     let videoID = ''
@@ -43,7 +43,7 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
     let image = {}
     let duration = ''
     let account = ''
-    const sectionData = getPrimarySection(data)
+    const sectionData = getPrimarySection(data, arcSite)
 
     if (videoType === ELEMENT_YOUTUBE_ID) {
       videoID = getVideoYoutube(data)
@@ -91,9 +91,9 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
 
       if (videoStreams) {
         const streamUrls = videoStreams
-          .map(({ url = '', stream_type: streamType = '' }) => {
-            return streamType === 'ts' ? url : []
-          })
+          .map(({ url = '', stream_type: streamType = '' }) =>
+            streamType === 'ts' ? url : []
+          )
           .filter(String)
         powaVideo = getAssetsPathVideo(
           arcSite,
@@ -131,8 +131,8 @@ const Peru21TvItem = ({ storyUrl, isLive, index = 0 }) => {
               website_url: storyUrl,
               presets: `${LANDSCAPE_XXS}:170x90`,
             },
-            filter: schemaFilter,
-            transform: data => getListVideoNews(data),
+            filter: schemaFilter(arcSite),
+            transform: (data) => getListVideoNews(data),
           }
         : {}
     ) || {}

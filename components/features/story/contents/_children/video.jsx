@@ -29,7 +29,7 @@ const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
 
-const StoryContentChildVideo = props => {
+const StoryContentChildVideo = (props) => {
   const {
     siteProperties: { urlPreroll, siteDomain },
     globalContent,
@@ -46,8 +46,11 @@ const StoryContentChildVideo = props => {
         streams = [],
       } = {},
     } = {},
-    taxonomy: { primary_section: { path: primarySection } = {} },
+    websites = {},
   } = globalContent || {}
+
+  const { website_section: { path: primarySection = '' } = {} } =
+    websites[arcSite] || {}
 
   const {
     _id: id,
