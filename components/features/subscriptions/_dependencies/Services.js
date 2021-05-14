@@ -131,3 +131,39 @@ export const cipPayEfectivo = (url, data) => {
 
   return response
 }
+
+export const sendEmailCompany = (
+  URL,
+  arcSite,
+  token,
+  captcha,
+  correo,
+  nombre,
+  apellido,
+  organizacion,
+  telefono,
+  tipo_consulta,
+  descripcion
+) => {
+  const response = new Promise((resolve) => {
+    fetch(URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        'g-recaptcha-response': captcha,
+        correo,
+        nombre,
+        apellido,
+        organizacion,
+        telefono,
+        tipo_consulta,
+        descripcion,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'user-token': token,
+        site: arcSite,
+      },
+    }).then((res) => resolve(res.json()))
+  })
+  return response
+}
