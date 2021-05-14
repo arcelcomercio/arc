@@ -608,6 +608,7 @@ const PropertiesCommon = {
     paymentTracker: `https://${IsPROD ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${IsPROD ? 'prod' : 'dev'}/v1`,
     subsDniToken:   `https://${IsPROD ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
     dsnSentry:      'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    companyEmail:   `https://${IsPROD ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`
   },
 
   // prettier-ignore
@@ -684,7 +685,10 @@ const PropertiesCommon = {
     reSendEmail:     'Reenviar correo de activación',
     youCanSendEmail: 'Podrás reenviar nuevamente dentro de',
     textWinback:     '¡Tenemos un precio especial para ti!',
+    titleCompany:    'Por favor envíanos tus datos para brindarte información sobre nuestras suscripciones corporativas.',
+    successCompany:  'Tu mensaje ha sido enviado, nos pondremos en contacto contigo.',
+    errorCompany:    'Ha ocurrido un error. Inténtelo más tarde'
   },
 }
 
-export { ArcEnv, IsPROD,PropertiesCommon, PropertiesSite }
+export { ArcEnv, IsPROD, PropertiesCommon, PropertiesSite }
