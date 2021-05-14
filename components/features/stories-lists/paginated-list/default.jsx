@@ -30,30 +30,40 @@ const StoriesListPaginatedList = props => {
   const { isDfp = false } = getProperties(arcSite)
   const isSearchSection = /^\/buscar\//.test(requestUri)
 
-  let { content_elements: stories = [], count = 0, author: { url: authorPath = '' } = {} } = globalContent || {}
-  const { author = {}, slug: slugAuthor = '', from: fromAuthor = 1, size:sizeAuthor = 30 } = globalContent || {}
+  let {
+    content_elements: stories = [],
+    count = 0,
+    author: { url: authorPath = '' } = {},
+  } = globalContent || {}
+  const {
+    author = {},
+    slug: slugAuthor = '',
+    from: fromAuthor = 1,
+    size: sizeAuthor = 30,
+  } = globalContent || {}
   let { query: { size = 0, from = 1 } = {} } = globalContentConfig || {}
 
-  if(stories.length === 0){
-    if(author._id){
-      ({bio_page: authorPath} = author)
-      const storiesAuthor =
-        useContent({
-          source: 'story-feed-by-author',
-          query: {
-            name: slugAuthor,
-            from: fromAuthor, 
-            size: sizeAuthor, 
-            website: arcSite
-          },
-        })
+  if (stories.length === 0) {
+    if (author._id) {
+      ;({ bio_page: authorPath } = author)
+      const storiesAuthor = useContent({
+        source: 'story-feed-by-author',
+        query: {
+          name: slugAuthor,
+          from: fromAuthor,
+          size: sizeAuthor,
+          website: arcSite,
+        },
+      })
 
-      if(typeof(storiesAuthor) !== 'undefined' && 
-         typeof(storiesAuthor.content_elements) === 'object' && 
-         storiesAuthor.content_elements.length > 0){
-          ({content_elements: stories, count} = storiesAuthor)
-          size = sizeAuthor
-          from = fromAuthor
+      if (
+        typeof storiesAuthor !== 'undefined' &&
+        typeof storiesAuthor.content_elements === 'object' &&
+        storiesAuthor.content_elements.length > 0
+      ) {
+        ;({ content_elements: stories, count } = storiesAuthor)
+        size = sizeAuthor
+        from = fromAuthor
       }
     }
   }
@@ -107,9 +117,13 @@ const StoriesListPaginatedList = props => {
           requestUri={requestUri}
         />
       )}
-      { (customFieldsProps.structuredData && stories.length > 0) &&
-        <StructuredData authorPath={authorPath} stories={stories} arcSite={arcSite} />
-      }
+      {customFieldsProps.structuredData && stories.length > 0 && (
+        <StructuredData
+          authorPath={authorPath}
+          stories={stories}
+          arcSite={arcSite}
+        />
+      )}
     </>
   )
 }

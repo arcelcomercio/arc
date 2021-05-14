@@ -1,8 +1,14 @@
-import { basicVideoJWplayer } from './basic-video-jwplayer'
-import { basicVideo } from './basic-video'
 import { basicGallery } from './basic-gallery'
+import { basicVideo } from './basic-video'
+import { basicVideoJWplayer } from './basic-video-jwplayer'
 
-// eslint-disable-next-line import/prefer-default-export
+const websites = `
+website_section{
+  type
+  name
+  path
+}
+`
 export const storyContent = `
 _id
 type
@@ -269,18 +275,6 @@ taxonomy {
   sections{
     name
   }
-  primary_section{
-    type
-    name
-    path
-    additional_properties{
-      original{
-        _admin{
-          alias_ids
-        }
-      }
-    }
-  }
   seo_keywords
 }
 promo_items{
@@ -356,6 +350,7 @@ subtype
 display_date
 publish_date
 website
+
 editor_note
 website_url
 related_content{
@@ -363,5 +358,37 @@ related_content{
     type
     redirect_url
   }
+}
+websites{
+  elcomercio{
+    ${websites}
+  }
+  elcomerciomag{
+    ${websites}
+  }
+  peru21g21{
+    ${websites}
+  }
+  peru21{
+    ${websites}
+  }
+  trome{
+    ${websites}
+  }      
+  depor{
+    ${websites}
+  }   
+  ojo{
+    ${websites}
+  }  
+  diariocorreo{
+    ${websites}
+  }   
+  gestion{
+    ${websites}
+  }      
+  elbocon{
+    ${websites}
+  }      
 }
 `

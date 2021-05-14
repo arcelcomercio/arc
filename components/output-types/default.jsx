@@ -1,56 +1,53 @@
-import * as React from 'react'
 import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 
-import Styles from './_children/styles'
-import MetaSite from './_children/meta-site'
-import TwitterCards from './_children/twitter-cards'
-import OpenGraph from './_children/open-graph'
-import TagManager from './_children/tag-manager'
-import renderMetaPage from './_children/render-meta-page'
-import AppNexus from './_children/appnexus'
-import Dfp from './_children/dfp'
-import ChartbeatBody from './_children/chartbeat-body'
-import RegisterServiceWorker from './_children/register-service-worker'
-import WebVitals from './_children/web-vitals'
-
-// import Preconnects from './_children/preconnects'
-
-import StoryData from '../utilities/story-data'
-import { storyTagsBbc } from '../utilities/tags'
-import { addSlashToEnd, ifblogType } from '../utilities/parse/strings'
-import { deleteQueryString } from '../utilities/parse/queries'
-import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
+import { getAssetsPath } from '../utilities/assets'
+import { PREMIUM } from '../utilities/constants/content-tiers'
+import { META_HOME } from '../utilities/constants/meta'
 import {
+  SITE_DEPOR,
+  SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
-  SITE_DEPOR,
+  SITE_OJO,
   SITE_PERU21G21,
   SITE_TROME,
-  SITE_OJO,
-  SITE_ELBOCON,
 } from '../utilities/constants/sitenames'
-import { META_HOME } from '../utilities/constants/meta'
-
 import {
-  skipAdvertising,
-  getIsStory,
-  getTitle,
-  getDescription,
-  getKeywords,
-} from './_dependencies/utils'
-import { getPushud, getEnablePushud } from './_dependencies/pushud'
-import iframeScript from './_dependencies/iframe-script'
+  GALLERY_VERTICAL,
+  MINUTO_MINUTO,
+} from '../utilities/constants/subtypes'
+import { deleteQueryString } from '../utilities/parse/queries'
+import { addSlashToEnd, ifblogType } from '../utilities/parse/strings'
+// import Preconnects from './_children/preconnects'
+import StoryData from '../utilities/story-data'
+import { storyTagsBbc } from '../utilities/tags'
+import AppNexus from './_children/appnexus'
+import ChartbeatBody from './_children/chartbeat-body'
+import Dfp from './_children/dfp'
+import MetaSite from './_children/meta-site'
+import OpenGraph from './_children/open-graph'
+import RegisterServiceWorker from './_children/register-service-worker'
+import renderMetaPage from './_children/render-meta-page'
+import Styles from './_children/styles'
+import TagManager from './_children/tag-manager'
+import TwitterCards from './_children/twitter-cards'
+import WebVitals from './_children/web-vitals'
 import htmlScript from './_dependencies/html-script'
-import widgets from './_dependencies/widgets'
-import videoScript from './_dependencies/video-script'
+import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
+import { getEnablePushud, getPushud } from './_dependencies/pushud'
 import {
-  MINUTO_MINUTO,
-  GALLERY_VERTICAL,
-} from '../utilities/constants/subtypes'
-import { PREMIUM } from '../utilities/constants/content-tiers'
+  getDescription,
+  getIsStory,
+  getKeywords,
+  getTitle,
+  skipAdvertising,
+} from './_dependencies/utils'
+import videoScript from './_dependencies/video-script'
+import widgets from './_dependencies/widgets'
 
 export default ({
   children,
@@ -85,21 +82,22 @@ export default ({
 
   const {
     node_type: nodeType,
-    _id,
+    _id: id,
     credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: promoItems = {},
-    taxonomy: {
-      primary_section: { path: storySectionPath = '' } = {},
-      tags = [],
-    } = {},
+    taxonomy: { tags = [] } = {},
+    websites,
     subtype = '',
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const sectionPath = nodeType === 'section' ? _id : storySectionPath
+  const { website_section: { path: storySectionPath } = {} } =
+    websites?.[arcSite] || {}
+
+  const sectionPath = nodeType === 'section' ? id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
   const isVideosSection = /^\/videos\//.test(requestUri)
   const isSearchSection = /^\/buscar\//.test(requestUri)
@@ -180,6 +178,7 @@ export default ({
     }
     return prebid
   }
+
   const indPrebid = getPrebid()
   const urlArcAds =
     arcSite === SITE_ELCOMERCIOMAG
@@ -233,6 +232,8 @@ export default ({
     globalContent,
     requestUri,
   }
+  const isTrivia = /^\/trivias\//.test(requestUri)
+
   const openGraphData = {
     fbAppId: siteProperties.fbAppId,
     title,
@@ -244,6 +245,7 @@ export default ({
     siteName: siteProperties.siteName,
     story: isStory, // check data origin - Boolean
     deployment,
+    isTrivia,
     globalContent,
   }
   const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
@@ -253,8 +255,6 @@ export default ({
 
   const { googleFonts = '', siteDomain = '' } = siteProperties || {}
   const noAds = skipAdvertising(tags)
-  const isLivePage =
-    arcSite === SITE_ELCOMERCIO && requestUri.match(`^/en-vivo/`)
 
   const structuredBBC = `!function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
   (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
@@ -262,7 +262,6 @@ export default ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-  const isTrivia = /^\/trivias\//.test(requestUri)
   const isCovid = /^\/covid-19\//.test(requestUri)
   const isElecciones = /^\/resultados-elecciones-2021\//.test(requestUri)
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
@@ -538,7 +537,7 @@ export default ({
           </>
         )}
         {/* Scripts de AdManager */}
-        {!noAds && !isLivePage && (
+        {!noAds && (
           <>
             {indPrebid && (
               <script
@@ -725,30 +724,30 @@ export default ({
         )}
         {subtype === GALLERY_VERTICAL && (
           <Resource path="resources/assets/js/vertical-gallery.min.js">
-            {({ data }) => {
-              return data ? (
+            {({ data }) =>
+              data ? (
                 <script
                   dangerouslySetInnerHTML={{
                     __html: data,
                   }}
                 />
               ) : null
-            }}
+            }
           </Resource>
         )}
 
         {(hasYoutubeVideo || isVideosSection) && (
           <>
             <Resource path="resources/assets/lite-youtube/styles.min.css">
-              {({ data }) => {
-                return data ? (
+              {({ data }) =>
+                data ? (
                   <style
                     dangerouslySetInnerHTML={{
                       __html: data,
                     }}
                   />
                 ) : null
-              }}
+              }
             </Resource>
             <script
               defer

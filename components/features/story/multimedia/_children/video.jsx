@@ -1,9 +1,10 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
-import { getResultVideo } from '../../../../utilities/story/helpers'
-import { getPreroll } from '../../../../utilities/ads/preroll'
+import React from 'react'
+
 import PowaPlayer from '../../../../global-components/powa-player'
+import { getPreroll } from '../../../../utilities/ads/preroll'
 import { msToTime } from '../../../../utilities/date-time/time'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
  *
@@ -31,7 +32,7 @@ const classes = {
   caption: '__caption ',
 }
 
-const StoryContentChildVideo = props => {
+const StoryContentChildVideo = (props) => {
   const {
     siteProperties: { urlPreroll, siteDomain },
     globalContent,
@@ -48,8 +49,10 @@ const StoryContentChildVideo = props => {
         streams = [],
       } = {},
     } = {},
-    taxonomy: { primary_section: { path: primarySection } = {} },
+    websites = {},
   } = globalContent || {}
+  const { website_section: { path: primarySection = '' } = {} } =
+    websites[arcSite] || {}
 
   const {
     _id: id,

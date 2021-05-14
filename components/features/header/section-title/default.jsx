@@ -1,10 +1,9 @@
+import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
-import { useFusionContext } from 'fusion:context'
-
-import customFields from './_dependencies/custom-fields'
-import { addSlashToEnd } from '../../../utilities/parse/strings'
 import SectionTitle from '../../../global-components/independent-title'
+import { addSlashToEnd } from '../../../utilities/parse/strings'
+import customFields from './_dependencies/custom-fields'
 
 const HeaderSectionTitle = ({
   customFields: {
@@ -15,15 +14,12 @@ const HeaderSectionTitle = ({
     TextType = 'h1',
   } = {},
 }) => {
-  const { globalContent } = useFusionContext()
+  const { globalContent, arcSite } = useFusionContext()
+  const { websites = {} } = globalContent || {}
+
   const {
-    taxonomy: {
-      primary_section: {
-        name: primarySection = '',
-        path: primarySectionLink = '/',
-      } = {},
-    } = {},
-  } = globalContent || {}
+    website_section: { path: primarySectionLink, name: primarySection } = {},
+  } = websites[arcSite] || {}
 
   const title = section || primarySection
   const link = sectionUrl || primarySectionLink

@@ -1,9 +1,10 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
+import React from 'react'
 
 import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from '../../../global-components/trustprojectlabel'
 import { addSlashToEnd } from '../../../utilities/parse/strings'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   container: 'st-social f just-between',
@@ -16,15 +17,16 @@ const classes = {
 }
 
 const StorySocialLite = () => {
-  const { requestUri, globalContent, arcSite } = useAppContext()
+  const { requestUri, globalContent, arcSite, contextPath } = useAppContext()
 
   const {
-    taxonomy: {
-      primary_section: { name = '', path = '' } = {},
-      sections = [],
-    } = {},
+    taxonomy: { sections = [] } = {},
+    websites = {},
     label: { trustproject } = {},
   } = globalContent || {}
+
+  const { website_section: { path = '', name = '' } = {} } =
+    websites[arcSite] || {}
 
   // En caso de que el primary section no devuelva "path" ni "name"
   const { name: auxName = '', path: auxPath = '/' } = sections[0] || {}
@@ -35,6 +37,11 @@ const StorySocialLite = () => {
 
   const isArchivoElcomercio = requestUri.includes('/archivo-elcomercio')
 
+  const { isPremium } = new StoryData({
+    data: globalContent,
+    contextPath,
+  })
+
   return isArchivoElcomercio ? (
     <div className={classes.center}>
       <div className={classes.special}>
@@ -44,7 +51,11 @@ const StorySocialLite = () => {
   ) : (
     <div className={classes.container}>
       <div className={classes.upsection}>
-        <h2 itemProp="name" className={classes.section}>
+        <h2
+          itemProp="name"
+          className={`${classes.section}${
+            isPremium ? ' st-social__premium' : ''
+          }`}>
           <a
             itemProp="url"
             className={classes.sectionLink}
@@ -68,7 +79,8 @@ const StorySocialLite = () => {
             arcSite === 'elcomerciomag' ||
             arcSite === 'peru21' ||
             arcSite === 'elbocon' ||
-            arcSite === 'ojo'
+            arcSite === 'ojo' ||
+            arcSite === 'gestion'
           }
         />
       </div>

@@ -21,7 +21,6 @@ import { FooterLand, FooterSubs } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
 import Loading from '../_layouts/loading'
 import scriptsPayment from '../_scripts/Payment'
-import stylesPayment from '../_styles/Payment'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
 
@@ -39,6 +38,7 @@ const WrapperPaymentSubs = () => {
     userProfile,
     userLoading,
     updateLoading,
+    updateStep,
   } = React.useContext(AuthContext)
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -47,11 +47,15 @@ const WrapperPaymentSubs = () => {
     import(/* webpackChunkName: 'Confirmation' */ './_children/Confirmation')
   )
 
+  React.useEffect(() => {
+    if (!userLoaded) {
+      updateStep(1)
+    }
+  })
+
   useRoute(event)
 
   React.useEffect(() => {
-    window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
-
     Sentry.init({
       dsn: urlCommon.dsnSentry,
       debug: env !== PROD,
@@ -112,7 +116,6 @@ const WrapperPaymentSubs = () => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }} />
       <>
         {userLoading && <Loading arcSite={arcSite} />}
         <HeaderSubs userProfile={userProfile} arcSite={arcSite} />

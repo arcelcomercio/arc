@@ -125,7 +125,6 @@ const StoryContentsLite = (props) => {
     tags,
     contentElements,
     canonicalUrl,
-    prerollDefault,
     contentElementsHtml,
     authorImageSecond,
     authorLinkSecond,
@@ -355,6 +354,14 @@ const StoryContentsLite = (props) => {
                     : classes.textClasses
                   return (
                     <>
+                      {arcSite === SITE_DEPOR && (
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }}></p>
+                      )}
                       {nameAds === 'caja3' &&
                         (arcSite === SITE_ELCOMERCIOMAG ||
                           arcSite === SITE_DEPOR) &&
@@ -395,13 +402,14 @@ const StoryContentsLite = (props) => {
                           data-prebid-enabled
                         />
                       )}
-                      <p
-                        itemProp="description"
-                        className={alignmentClass}
-                        dangerouslySetInnerHTML={{
-                          __html: replaceTags(content),
-                        }}
-                      />
+                      {arcSite !== SITE_DEPOR && (
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }}></p>
+                      )}
                     </>
                   )
                 }
@@ -673,7 +681,6 @@ const StoryContentsLite = (props) => {
             />
           )}
         </div>
-        {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
         <div
           className={`${classes.social} ${shareAlign === 'left' ? 'f' : ''}`}>
           <div className="st-social__share">

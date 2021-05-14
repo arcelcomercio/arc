@@ -1,4 +1,4 @@
-export const schemaNote = arcSite => {
+export const schemaNote = (arcSite) => {
   return `{ 
     headlines { basic }
     subheadlines { basic }
@@ -6,13 +6,7 @@ export const schemaNote = arcSite => {
     credits {
       by { name url type }
     }
-    websites { ${arcSite} { website_url } }
-    taxonomy {
-      primary_section {
-          name
-          path
-      }
-    }
+    websites { ${arcSite} { website_url website_section{name path} } }
   }`
 }
 

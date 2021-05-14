@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import request from 'request-promise-native'
+
 import { PropertiesCommon } from '../../components/features/subscriptions/_dependencies/Properties'
 
 const { urls: urlCommon, tokens } = PropertiesCommon
@@ -32,6 +33,7 @@ const fetch = (key = {}) => {
       is_pwa: isPwaUser,
       uuid: userId,
     },
+    gzip: true,
     json: true,
   })
 }

@@ -85,7 +85,9 @@ const resolve = (key = {}) => {
         includedFields,
         arcSite: website,
       })}`
-    : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includePromoItems},credits.by.additional_properties.original.longBio`
+    : `&_sourceInclude=${includePrimarySection({
+        arcSite: website,
+      })},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includePromoItems},credits.by.additional_properties.original.longBio`
 
   /* const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
@@ -128,7 +130,7 @@ const transform = (
 
   if (by.length === 0) return dataStories
 
-  const realAuthor = by.find(author => url === author.url)
+  const realAuthor = by.find((author) => url === author.url)
 
   const { additional_properties: { original: { longBio = '' } = {} } = {} } =
     realAuthor || {}

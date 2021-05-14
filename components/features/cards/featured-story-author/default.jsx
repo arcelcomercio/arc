@@ -17,7 +17,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import FeaturedAuthor from './_children/featured-author'
 
-const CardFeaturedStoryAuthor = props => {
+const CardFeaturedStoryAuthor = (props) => {
   const { arcSite, contextPath, deployment, isAdmin } = useAppContext()
 
   const {
@@ -32,7 +32,9 @@ const CardFeaturedStoryAuthor = props => {
 
   const presets =
     'landscape_l:648x374,landscape_md:314x157,portrait_md:314x374,square_s:150x150'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsRole},${includeCreditsEducation},${includeCreditsImage},${includePrimarySection},${includeSections},publish_date,display_date`
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includeCreditsRole},${includeCreditsEducation},${includeCreditsImage},${includePrimarySection(
+    arcSite
+  )},${includeSections},publish_date,display_date`
 
   const data =
     useContent({

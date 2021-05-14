@@ -28,6 +28,7 @@ import LiteAds from './_children/lite-ads'
 import MetaSite from './_children/meta-site'
 import MetaStory from './_children/meta-story'
 import OpenGraph from './_children/open-graph'
+import Preload from './_children/preload'
 import Styles from './_children/styles'
 import TagManager from './_children/tag-manager'
 import TwitterCards from './_children/twitter-cards'
@@ -74,15 +75,27 @@ const LiteOutput = ({
     deployment,
   }
   const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const {
+    videoSeo,
+    idYoutube,
+    contentElementsHtml,
+    oembedSubtypes,
+    embedTwitterAndInst,
+    getPremiumValue,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+    primarySectionLink: storySectionPath,
+    jwplayerSeo,
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
 
   const {
     credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: promoItems = {},
-    taxonomy: {
-      primary_section: { path: storySectionPath = '' } = {},
-      tags = [],
-    } = {},
+    taxonomy: { tags = [] } = {},
     subtype = '',
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
@@ -180,20 +193,6 @@ const LiteOutput = ({
     arcSite,
   }
 
-  const {
-    videoSeo,
-    idYoutube,
-    contentElementsHtml,
-    oembedSubtypes,
-    embedTwitterAndInst,
-    getPremiumValue,
-    promoItems: { basic_html: { content = '' } = {} } = {},
-    jwplayerSeo,
-  } = new StoryData({
-    data: globalContent,
-    arcSite,
-    contextPath,
-  })
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
     idYoutube ||
@@ -333,24 +332,7 @@ const LiteOutput = ({
              *
              * https://web.dev/preconnect-and-dns-prefetch/
              */}
-            {arcSite === SITE_ELCOMERCIO && (
-              // Preload fuente de titulo de nota para mejor LCP
-              <link
-                rel="preload"
-                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
-                as="font"
-                type="font/woff2"
-              />
-            )}
-            {arcSite === SITE_ELCOMERCIOMAG && (
-              // Preload fuente de titulo de nota para mejor LCP
-              <link
-                rel="preload"
-                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
-                as="font"
-                type="font/woff2"
-              />
-            )}
+            {isStory && <Preload arcSite={arcSite} />}
             <link
               rel="preconnect"
               href={`//cdnc.${siteProperties.siteDomain}`}
@@ -465,6 +447,7 @@ const LiteOutput = ({
           section={storySectionPath.split('/')[1]}
           subtype={subtype}
         />
+
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
           <>

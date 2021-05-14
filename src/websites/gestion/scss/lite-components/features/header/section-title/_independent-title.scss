@@ -1,0 +1,12 @@
+.independent-title {
+  border-bottom: 1px dashed #888;
+  padding: 5px 0;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__link {
+    font: 700 2.5rem/1 $primary-font;
+    color: #8f071f;
+  }
+}
