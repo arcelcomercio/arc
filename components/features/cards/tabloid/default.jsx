@@ -66,9 +66,8 @@ const CardTabloid = (props) => {
     section_name: sourceSectionName = '',
   } = data || {}
 
-  const {
-    website_section: { path: primarySectionLink = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path: primarySectionLink = '' } = {} } =
+    websites[arcSite] || {}
 
   /**
    * Estos sizes salen de la clase .tabloid__face

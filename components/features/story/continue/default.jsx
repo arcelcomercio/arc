@@ -33,9 +33,7 @@ const StoryContinue = ({ customFields: { isBlog } = {} }) => {
     siteProperties,
     contextPath,
   } = useFusionContext()
-  const {
-    website_section: { path = '' },
-  } = websitesP[arcSite] || {}
+  const { website_section: { path = '' } = {} } = websitesP[arcSite] || {}
   const data = useContent({
     source: 'story-feed-by-section',
     query: {

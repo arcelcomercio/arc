@@ -29,9 +29,8 @@ const HeaderBasic = (props) => {
     websites = {},
   } = globalContent || {}
 
-  const {
-    website_section: { path: sectionPath = '' },
-  } = websites[arcSite] || {}
+  const { website_section: { path: sectionPath = '' } = {} } =
+    websites[arcSite] || {}
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
