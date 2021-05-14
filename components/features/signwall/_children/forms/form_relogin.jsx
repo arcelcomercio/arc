@@ -11,7 +11,7 @@ import useForm from '../../_dependencies/useForm'
 import { ModalConsumer } from '../context'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
-import { AuthURL,ButtonSocial } from './control_social'
+import { AuthURL, ButtonSocial } from './control_social'
 import * as S from './styles'
 
 export const FormRelogin = ({
@@ -281,7 +281,7 @@ export const FormRelogin = ({
             </S.Link>
           </S.Text>
 
-          {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+          {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
             <>
               <br />
               <CheckBox
@@ -335,6 +335,11 @@ export const FormRelogin = ({
                 </S.Link>
               </S.Text>
             </>
+          ) : (
+            <S.Text c="light" s="10" className="mt-10 center">
+              CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
+              NUNCA PUBLICAREMOS SIN TU PERMISO
+            </S.Text>
           )}
         </S.Form>
       )}

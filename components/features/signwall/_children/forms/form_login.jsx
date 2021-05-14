@@ -14,7 +14,7 @@ import { MsgRegister } from '../iconos'
 import Loading from '../loading'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
-import { AuthURL,ButtonEmail, ButtonSocial } from './control_social'
+import { AuthURL, ButtonEmail, ButtonSocial } from './control_social'
 import * as S from './styles'
 
 export const FormLogin = ({ valTemplate, attributes }) => {
@@ -90,7 +90,8 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     )
   }
 
-  const getListSubs = () => window.Identity.extendSession().then((resExt) => {
+  const getListSubs = () =>
+    window.Identity.extendSession().then((resExt) => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
@@ -448,7 +449,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                   </S.Link>
                 </S.Text>
 
-                {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
                   <>
                     <br />
                     <CheckBox
@@ -502,6 +503,11 @@ export const FormLogin = ({ valTemplate, attributes }) => {
                       </S.Link>
                     </S.Text>
                   </>
+                ) : (
+                  <S.Text c="light" s="10" className="mt-10 mb-10 center">
+                    CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br />{' '}
+                    NAVEGACIÓN Y NUNCA PUBLICAREMOS SIN TU PERMISO
+                  </S.Text>
                 )}
               </S.Form>
             </>
