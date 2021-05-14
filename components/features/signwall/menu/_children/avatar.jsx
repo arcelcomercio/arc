@@ -1,6 +1,6 @@
-/* eslint-disable import/prefer-default-export */
-import React from 'react'
-import md5 from 'md5'
+import md5 from 'crypto-js/md5'
+import * as React from 'react'
+
 import { WrapperAvatar } from '../styled'
 
 export const Avatar = ({ mainColorBr, typeLogin, userFB, userMAIL }) => {

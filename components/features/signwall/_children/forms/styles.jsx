@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components'
+
 import { device } from '../../_dependencies/breakpoints'
 
-const changeColor = color => {
+const changeColor = (color) => {
   switch (color) {
     case 'light':
       return '#818181'
@@ -17,23 +18,24 @@ const changeColor = color => {
 }
 
 export const Title = styled.h4`
-  color: ${props => (props.c ? props.c : '#000000')};
-  font-family: ${props => (props.primaryFont ? props.primaryFont : 'inherit')};
-  font-size: ${props => props.s - 2}px;
+  color: ${(props) => (props.c ? props.c : '#000000')};
+  font-family: ${(props) =>
+    props.primaryFont ? props.primaryFont : 'inherit'};
+  font-size: ${(props) => props.s - 2}px;
   font-weight: bold;
   line-height: 28px;
   @media ${device.tablet} {
-    font-size: ${props => props.s - 3}px;
+    font-size: ${(props) => props.s - 3}px;
   }
   @media ${device.desktop} {
-    font-size: ${props => props.s}px;
+    font-size: ${(props) => props.s}px;
   }
 `
 export const Text = styled.p`
-  color: ${props => changeColor(props.c)};
-  font-size: ${props => props.s}px;
-  line-height: ${props => (props.lh ? props.lh : '18')}px;
-  font-weight: ${props => (props.fw ? props.fw : 'normal')};
+  color: ${(props) => changeColor(props.c)};
+  font-size: ${(props) => props.s}px;
+  line-height: ${(props) => (props.lh ? props.lh : '18')}px;
+  font-weight: ${(props) => (props.fw ? props.fw : 'normal')};
   font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   @media ${device.mobile} {
     & .sub-paragraph {
@@ -48,27 +50,27 @@ export const Text = styled.p`
 export const Form = styled.form`
   width: 100%;
   background-color: inherit;
-  padding: ${props => (props.npadding ? '0px' : '10px 25px')};
+  padding: ${(props) => (props.npadding ? '0px' : '10px 25px')};
   box-sizing: border-box;
   display: block;
-  ${props =>
+  ${(props) =>
     props.typeDialog === 'premium' &&
     css`
       padding: 10px 20px !important;
     `}
 
   @media ${device.tablet} {
-    padding: ${props => (props.npadding ? '0px' : '40px 35px')};
+    padding: ${(props) => (props.npadding ? '0px' : '40px 35px')};
   }
 
   @media screen and (min-width: 768px) {
-    padding: ${props => (props.npadding ? '0px' : '20px 80px')};
+    padding: ${(props) => (props.npadding ? '0px' : '20px 80px')};
   }
 
   @media ${device.desktop} {
-    padding: ${props => (props.npadding ? '0px' : '10px 50px')};
+    padding: ${(props) => (props.npadding ? '0px' : '10px 50px')};
 
-    ${props =>
+    ${(props) =>
       props.typeDialog === 'premium' &&
       css`
         padding: 20px !important;
@@ -95,7 +97,7 @@ export const Form = styled.form`
     border-radius: 4px;
   }
 
-  & textarea{
+  & textarea {
     height: 65px;
     resize: none;
   }
@@ -130,7 +132,7 @@ export const Form = styled.form`
       padding: 5px 15px;
     }
   }
- 
+
   & .mb-5 {
     margin-bottom: 5px;
   }
@@ -206,7 +208,7 @@ export const Form = styled.form`
       display: block;
     }
   }
-  & .note-premium{
+  & .note-premium {
     padding: 0px;
     @media ${device.tablet} {
       padding: 0px 40px 0px 40px;
@@ -217,7 +219,7 @@ export const Form = styled.form`
   }
 `
 export const Button = styled.button`
-  background: ${props => (props.color ? props.color : '#0179af')};
+  background: ${(props) => (props.color ? props.color : '#0179af')};
   font-weight: bold;
   color: white;
   cursor: pointer;
@@ -253,11 +255,11 @@ export const ButtonBase = styled(Button)`
 `
 
 export const Link = styled.a`
-  color: ${props => props.c};
+  color: ${(props) => props.c};
   text-decoration: underline;
-  font-size: ${props => props.s}px;
+  font-size: ${(props) => props.s}px;
   display: inline-block;
-  font-weight: ${props => (props.fw ? props.fw : 'normal')};
+  font-weight: ${(props) => (props.fw ? props.fw : 'normal')};
   cursor: pointer;
 `
 
@@ -368,8 +370,8 @@ export const ContPaywall = styled.div`
 `
 
 export const Error = styled.div`
-  background: ${props => (props.type === 'warning' ? '#f9d8a7' : '#ff2b2b')};
-  color: ${props => (props.type === 'warning' ? '#925700' : '#fff')};
+  background: ${(props) => (props.type === 'warning' ? '#f9d8a7' : '#ff2b2b')};
+  color: ${(props) => (props.type === 'warning' ? '#925700' : '#fff')};
   font-family: Libre Franklin, sans-serif;
   font-size: 12px;
   padding: 5px 10px;
