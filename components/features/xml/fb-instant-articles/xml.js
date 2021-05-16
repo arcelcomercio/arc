@@ -1,4 +1,4 @@
-import md5 from 'crypto-js/md5'
+// import md5 from 'crypto-js/md5' problemas en produccion
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
 
@@ -284,7 +284,7 @@ class XmlFacebookInstantArticles {
                   },
                   pubDate: localISODate(storyData.date || ''),
                   link: storyLink,
-                  guid: md5(storyData.id),
+                  guid: storyData.id,
                   author: authorData,
                   premium: storyData.isPremium,
                   captureDate: `${getActualDate()}, ${formatTime(localTime)}`,
