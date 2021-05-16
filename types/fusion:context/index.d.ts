@@ -17,7 +17,6 @@ declare module 'fusion:context' {
     | 'default'
     | 'lite'
     | 'amp'
-    | 'paywall'
     | 'signwall'
     | 'subscriptions'
     | 'text'
