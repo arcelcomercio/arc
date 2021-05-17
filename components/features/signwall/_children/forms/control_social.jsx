@@ -1,4 +1,4 @@
-import { sha256 } from 'crypto-js/sha256'
+import sha256 from 'crypto-js/sha256'
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 

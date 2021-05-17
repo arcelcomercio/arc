@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { sha256 } from 'crypto-js/sha256'
+import sha256 from 'crypto-js/sha256'
 import * as React from 'react'
 
 import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
