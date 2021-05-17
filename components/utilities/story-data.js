@@ -50,6 +50,7 @@ import {
   STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
+  SALTAR_INTRO,
   WORK_TYPE_REVISION,
 } from './constants/subtypes'
 import { msToTime, secToTime } from './date-time/time'
@@ -418,9 +419,8 @@ class StoryData {
   get sectionsFIA() {
     let result = { section: null, subsection: null }
     const { websites = {} } = this._data || {}
-    const {
-      website_section: { path = '' },
-    } = websites[this._website] || {}
+    const { website_section: { path = '' } = {} } =
+      websites[this._website] || {}
     if (path) {
       result = { section: null, subsection: null }
       const listSections = path.split('/')
@@ -915,6 +915,14 @@ class StoryData {
         StoryData.getFirstContentElementsRevision(
           this._data.content_elements
         )) ||
+      []
+    )
+  }
+
+  get dataSaltarIntro() {
+    return (
+      (this._data &&
+        StoryData.getDataSaltarIntro(this._data.content_elements)) ||
       []
     )
   }
@@ -1461,6 +1469,15 @@ class StoryData {
       ? data.find(
           ({ type, subtype }) =>
             type === ELEMENT_CUSTOM_EMBED && subtype === WORK_TYPE_REVISION
+        )
+      : {}
+  }
+
+  static getDataSaltarIntro(data = []) {
+    return data && data.length > 0
+      ? data.find(
+          ({ type, subtype }) =>
+            type === ELEMENT_CUSTOM_EMBED && subtype === SALTAR_INTRO
         )
       : {}
   }
