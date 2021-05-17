@@ -418,9 +418,8 @@ class StoryData {
   get sectionsFIA() {
     let result = { section: null, subsection: null }
     const { websites = {} } = this._data || {}
-    const {
-      website_section: { path = '' },
-    } = websites[this._website] || {}
+    const { website_section: { path = '' } = {} } =
+      websites[this._website] || {}
     if (path) {
       result = { section: null, subsection: null }
       const listSections = path.split('/')

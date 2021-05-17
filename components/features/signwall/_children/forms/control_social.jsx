@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
-import { sha256 } from 'js-sha256'
+import { sha256 } from 'crypto-js/sha256'
+import * as React from 'react'
 import styled, { css } from 'styled-components'
+
 import { device } from '../../_dependencies/breakpoints'
+import Cookies from '../../_dependencies/cookies'
+import Domains from '../../_dependencies/domains'
+import getDevice from '../../_dependencies/get-device'
+import QueryString from '../../_dependencies/querystring'
+import Services from '../../_dependencies/services'
+import Taggeo from '../../_dependencies/taggeo'
 import { Facebook, Google, Mail } from '../iconos'
 import { Button } from './styles'
-import Services from '../../_dependencies/services'
-import Domains from '../../_dependencies/domains'
-import Cookies from '../../_dependencies/cookies'
-import getDevice from '../../_dependencies/get-device'
-import Taggeo from '../../_dependencies/taggeo'
-import QueryString from '../../_dependencies/querystring'
 
 const ButtonStyleSocial = styled(Button)`
   font-size: ${(props) => (props.size === 'full' ? '18' : '16')}px !important;
@@ -114,7 +115,7 @@ const AfterLoginRegister = (
     `Web_Sign_Wall_${typeDialog}`,
     `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
   )
-  Cookies.setCookie('arc_e_id', sha256(emailUser), 365)
+  Cookies.setCookie('arc_e_id', sha256(emailUser).toString(), 365)
   const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
   Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
@@ -348,7 +349,7 @@ export const ButtonSocial = ({
   showMsgVerify,
   dataTreatment,
 }) => {
-  const [showTextLoad, setShowTextLoad] = useState('')
+  const [showTextLoad, setShowTextLoad] = React.useState('')
 
   const queryDialog = () => {
     switch (typeDialog) {
@@ -495,14 +496,12 @@ export const ButtonSocial = ({
   )
 }
 
-export const ButtonEmail = ({ size, onClick }) => {
-  return (
-    <ButtonStyleEmail type="button" size={size} onClick={onClick}>
-      <Mail />
-      Ingresa con tu usuario
-    </ButtonStyleEmail>
-  )
-}
+export const ButtonEmail = ({ size, onClick }) => (
+  <ButtonStyleEmail type="button" size={size} onClick={onClick}>
+    <Mail />
+    Ingresa con tu usuario
+  </ButtonStyleEmail>
+)
 
 export const AuthURL = ({
   arcSite,
