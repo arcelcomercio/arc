@@ -4,7 +4,7 @@ import * as React from 'react'
 import { WrapperAvatar } from '../styled'
 
 export const Avatar = ({ mainColorBr, typeLogin, userFB, userMAIL }) => {
-  const hashMAIL = md5(userMAIL)
+  const hashMAIL = md5(userMAIL).toString()
   return (
     <WrapperAvatar br={mainColorBr}>
       {typeLogin === 'facebook' ? (

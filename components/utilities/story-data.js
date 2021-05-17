@@ -45,13 +45,13 @@ import {
 } from './constants/multimedia-types'
 import {
   IMAGE_LINK,
+  SALTAR_INTRO,
   STAMP_TRUST,
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
   WORK_TYPE_REVISION,
-  SALTAR_INTRO,
 } from './constants/subtypes'
 import { msToTime, secToTime } from './date-time/time'
 import {
@@ -419,9 +419,8 @@ class StoryData {
   get sectionsFIA() {
     let result = { section: null, subsection: null }
     const { websites = {} } = this._data || {}
-    const {
-      website_section: { path = '' },
-    } = websites[this._website] || {}
+    const { website_section: { path = '' } = {} } =
+      websites[this._website] || {}
     if (path) {
       result = { section: null, subsection: null }
       const listSections = path.split('/')
@@ -519,9 +518,7 @@ class StoryData {
     )
     const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter((el) => {
-      return el && el.thumbnail_url ? el : ''
-    })
+    return result.filter((el) => el && el.thumbnail_url ? el : '')
   }
 
   get haveJwplayerMatching() {
@@ -545,9 +542,7 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter((el) => {
-      return el && el.urlImage ? el : ''
-    })
+    return result.filter((el) => el && el.urlImage ? el : '')
   }
 
   get metaTitle() {
