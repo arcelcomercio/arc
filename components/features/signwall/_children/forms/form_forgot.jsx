@@ -1,14 +1,15 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
-import * as S from './styles'
-import { ModalConsumer } from '../context'
-import { ForgotPass, MsgForgotPass, Back } from '../iconos'
-import { Input } from './control_input_select'
+
 import getCodeError from '../../_dependencies/codes_error'
-import useForm from '../../_dependencies/useForm'
 import Domains from '../../_dependencies/domains'
 import Taggeo from '../../_dependencies/taggeo'
+import useForm from '../../_dependencies/useForm'
+import { ModalConsumer } from '../context'
+import { Back, ForgotPass, MsgForgotPass } from '../iconos'
+import { Input } from './control_input_select'
+import * as S from './styles'
 
 export const FormForgot = ({
   arcSite,
@@ -32,7 +33,7 @@ export const FormForgot = ({
     femail: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
             value
           ),
@@ -55,7 +56,7 @@ export const FormForgot = ({
     )
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     const { femail } = state
     setShowLoading(true)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
@@ -64,7 +65,7 @@ export const FormForgot = ({
         setShowConfirm(!showConfirm)
         taggeoSuccess()
       })
-      .catch(errForgot => {
+      .catch((errForgot) => {
         setRegisterLink(errForgot.code === '300030')
         setShowVerify(errForgot.code === '130051')
         if (errForgot.code === '130051') {
@@ -113,10 +114,10 @@ export const FormForgot = ({
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <>
           <S.Form
-            onSubmit={e => {
+            onSubmit={(e) => {
               handleOnSubmit(e)
             }}
             typeDialog={typeDialog}>
@@ -178,7 +179,7 @@ export const FormForgot = ({
                         href="#"
                         c="white"
                         fw="bold"
-                        onClick={e => {
+                        onClick={(e) => {
                           e.preventDefault()
                           value.changeTemplate('register')
                         }}>
@@ -196,7 +197,7 @@ export const FormForgot = ({
                   placeholder="Correo electrónico"
                   required
                   value={femail}
-                  onChange={e => {
+                  onChange={(e) => {
                     handleOnChange(e)
                     setShowError(false)
                   }}

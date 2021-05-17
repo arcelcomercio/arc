@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { device } from '../../_dependencies/breakpoints'
 
 export const Cont = styled.div`
@@ -41,14 +42,14 @@ export const Cont = styled.div`
 `
 
 export const ItemTitle = styled.h3`
-  color: ${props => props.mainColorTitle || 'blue'};
+  color: ${(props) => props.mainColorTitle || 'blue'};
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
 `
 
 export const TitleContainer = styled.div`
-  font-family: ${props => props.primaryFont};
+  font-family: ${(props) => props.primaryFont};
   width: 72%;
   text-align: center;
   & .title {

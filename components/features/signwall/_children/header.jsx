@@ -1,9 +1,10 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react'
 import Context from 'fusion:context'
-import { Back, Close } from './iconos'
-import Taggeo from '../_dependencies/taggeo'
+import React from 'react'
+
 import { getAssetsPath } from '../../../utilities/constants'
+import Taggeo from '../_dependencies/taggeo'
+import { Back, Close } from './iconos'
 
 const Header = ({ type, closePopup, typePopUp }) => {
   const typeHeader = (siteProperties, contextPath, deployment, arcSite) => (

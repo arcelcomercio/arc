@@ -1,5 +1,5 @@
-import getDevice from './get-device'
 import Domains from './domains'
+import getDevice from './get-device'
 
 /* eslint-disable class-methods-use-this */
 class Services {
@@ -25,20 +25,20 @@ class Services {
       }
     }
     formBody = formBody.join('&')
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(`${Domains.getUrlECOID()}/api/v2/verify_credentials`, {
         method: 'POST',
         body: formBody,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      }).then(res => resolve(res.json()))
+      }).then((res) => resolve(res.json()))
     })
     return response
   }
 
   loginFBeco(URL, username, accessToken, type) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(`${URL}/identity/public/v1/auth/token`, {
         method: 'POST',
         body: JSON.stringify({
@@ -49,43 +49,43 @@ class Services {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(res => resolve(res.json()))
+      }).then((res) => resolve(res.json()))
     })
     return response
   }
 
   getUbigeo(item) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(
         `${Domains.getUrlECOID()}/get_ubigeo/${item}?v=${new Date().getTime()}`
-      ).then(res => resolve(res.json()))
+      ).then((res) => resolve(res.json()))
     })
     return response
   }
 
   getEntitlement(jwt, site) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(`${Domains.getOriginAPI(site)}/sales/public/v1/entitlements`, {
         method: 'GET',
         headers: {
           Authorization: jwt,
         },
-      }).then(res => resolve(res.json()))
+      }).then((res) => resolve(res.json()))
     })
     return response
   }
 
   getIpEco() {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(`https://geoapi.eclabs.io/location`, {
         method: 'GET',
-      }).then(res => resolve(res.json()))
+      }).then((res) => resolve(res.json()))
     })
     return response
   }
 
   sendNewsLettersUser(uuid, email, site, token, data) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(
         `${Domains.getUrlNewsLetters()}/newsletter/events?v=${new Date().getTime()}`,
         {
@@ -108,37 +108,37 @@ class Services {
             Authorization: `Bearer ${token} ${site}`,
           },
         }
-      ).then(res => resolve(res.json()))
+      ).then((res) => resolve(res.json()))
     })
     return response
   }
 
   getNewsLettersUser(uuid, site) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(
         `${Domains.getUrlNewsLetters()}/newsletter/?brand=${site}&type=newsletter&uuid=${uuid}&v=${new Date().getTime()}`,
         {
           cache: 'no-cache',
         }
-      ).then(res => resolve(res.json()))
+      ).then((res) => resolve(res.json()))
     })
     return response
   }
 
   getNewsLetters() {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(
         `${Domains.getUrlNewsLetters()}/newsletter/list?v=${new Date().getTime()}`,
         {
           cache: 'no-cache',
         }
-      ).then(res => resolve(res.json()))
+      ).then((res) => resolve(res.json()))
     })
     return response
   }
 
   checkStudents(email, date, grade, site, jwt) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(`${Domains.getUrlComercioSubs()}/validate_user_academic/`, {
         method: 'POST',
         body: JSON.stringify({
@@ -151,13 +151,13 @@ class Services {
           site,
           'user-token': jwt,
         },
-      }).then(res => resolve(res.json()))
+      }).then((res) => resolve(res.json()))
     })
     return response
   }
 
   checkCodeStudents(hash, email, site, jwt) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(`${Domains.getUrlComercioSubs()}/activate_promotion/`, {
         method: 'POST',
         body: JSON.stringify({
@@ -169,13 +169,13 @@ class Services {
           site,
           'user-token': jwt,
         },
-      }).then(res => resolve(res.json()))
+      }).then((res) => resolve(res.json()))
     })
     return response
   }
 
   initPaymentUpdate(id, pid, site, jwt) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(
         `${Domains.getOriginAPI(
           site
@@ -186,13 +186,13 @@ class Services {
             Authorization: jwt,
           },
         }
-      ).then(res => resolve(res.json()))
+      ).then((res) => resolve(res.json()))
     })
     return response
   }
 
   finalizePaymentUpdate(id, pid, site, jwt, token, email, adress, phone) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(
         `${Domains.getOriginAPI(
           site
@@ -214,20 +214,20 @@ class Services {
             Authorization: jwt,
           },
         }
-      ).then(res => resolve(res.json()))
+      ).then((res) => resolve(res.json()))
     })
     return response
   }
 
   getProfilePayu(jwt, idsubs, site) {
-    const response = new Promise(resolve => {
+    const response = new Promise((resolve) => {
       fetch(`${Domains.getUrlComercioSubs()}/user/payment-profile/${idsubs}/`, {
         method: 'GET',
         headers: {
           site,
           'user-token': jwt,
         },
-      }).then(res => resolve(res.json()))
+      }).then((res) => resolve(res.json()))
     })
     return response
   }
@@ -236,7 +236,7 @@ class Services {
 export default new Services()
 
 export const requestVerifyEmail = (email, site) => {
-  const response = new Promise(resolve => {
+  const response = new Promise((resolve) => {
     fetch(`${Domains.getOriginAPI(site)}/identity/public/v1/email/verify`, {
       method: 'POST',
       body: JSON.stringify({
@@ -245,7 +245,7 @@ export const requestVerifyEmail = (email, site) => {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(res => resolve(res.json()))
+    }).then((res) => resolve(res.json()))
   })
   return response
 }

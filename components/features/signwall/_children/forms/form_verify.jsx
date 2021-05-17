@@ -1,12 +1,13 @@
 /* eslint-disable import/prefer-default-export */
-import React, { useState, useEffect } from 'react'
-import * as S from './styles'
+import React, { useEffect, useState } from 'react'
+
+import getCodeError from '../../_dependencies/codes_error'
+import Domains from '../../_dependencies/domains'
+import Taggeo from '../../_dependencies/taggeo'
 import { ModalConsumer } from '../context'
 import { MsgResetPass } from '../iconos'
-import Domains from '../../_dependencies/domains'
-import getCodeError from '../../_dependencies/codes_error'
-import Taggeo from '../../_dependencies/taggeo'
 import Loading from '../loading'
+import * as S from './styles'
 
 export const FormVerify = ({
   arcSite,
@@ -48,7 +49,7 @@ export const FormVerify = ({
             window.Identity.getUserProfile()
           }
         })
-        .catch(errLogin => {
+        .catch((errLogin) => {
           setShowError(getCodeError(errLogin.code))
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
@@ -63,7 +64,7 @@ export const FormVerify = ({
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <>
           <S.Form>
             {showLoading ? (

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { device } from '../../_dependencies/breakpoints'
 
 export const WrapperModal = styled.div`
@@ -10,7 +11,7 @@ export const WrapperModal = styled.div`
   width: 100%;
   height: 100%;
   z-index: 9999999999;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.bgColor === 'white'
       ? 'rgba(255, 255, 255, 0.5)'
       : 'rgba(0, 0, 0, 0.5)'};
@@ -74,7 +75,7 @@ export const DialogModal = styled.div`
   align-self: flex-start;
   box-shadow: 0rem 0rem 0.5rem #949494;
   @media ${device.tablet} {
-    border-radius: ${props => (props.noborderRa ? '0' : '8')}px;
+    border-radius: ${(props) => (props.noborderRa ? '0' : '8')}px;
   }
 
   &.position-middle {

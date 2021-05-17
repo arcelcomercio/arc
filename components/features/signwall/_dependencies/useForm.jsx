@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import * as React from 'react'
 
 const VALUE = 'value'
 const ERROR = 'error'
@@ -53,16 +53,14 @@ function useForm(
   stateValidatorSchema = {},
   submitFormCallback
 ) {
-  const [state, setStateSchema] = useState(stateSchema)
-
-  const [values, setValues] = useState(getPropValues(state, VALUE))
-  const [errors, setErrors] = useState(getPropValues(state, ERROR))
-
-  const [disable, setDisable] = useState(true)
-  const [isDirty, setIsDirty] = useState(false)
+  const [state, setStateSchema] = React.useState(stateSchema)
+  const [values, setValues] = React.useState(getPropValues(state, VALUE))
+  const [errors, setErrors] = React.useState(getPropValues(state, ERROR))
+  const [disable, setDisable] = React.useState(true)
+  const [isDirty, setIsDirty] = React.useState(false)
 
   // Get a local copy of stateSchema
-  useEffect(() => {
+  React.useEffect(() => {
     setStateSchema(stateSchema)
     setDisable(true) // Disable button in initial render.
   }, []) // eslint-disable-line
@@ -71,60 +69,60 @@ function useForm(
   // or the required field in state has no value.
   // Wrapped in useCallback to cached the function to avoid intensive memory leaked
   // in every re-render in component
-  const validateErrorState = useCallback(
-    () => Object.values(errors).some(error => error),
+  const validateErrorState = React.useCallback(
+    () => Object.values(errors).some((error) => error),
     [errors]
   )
 
   // For every changed in our state this will be fired
   // To be able to disable the button
-  useEffect(() => {
+  React.useEffect(() => {
     if (isDirty) {
       setDisable(validateErrorState())
     }
   }, [errors, isDirty]) // eslint-disable-line
 
   // Event handler for handling changes in input.
-  const handleOnChange = useCallback(
-    event => {
+  const handleOnChange = React.useCallback(
+    (event) => {
       setIsDirty(true)
 
-      const name = event.target.name
-      const value = event.target.value
-      const _validator = stateValidatorSchema
+      const { name } = event.target
+      const { value } = event.target
+      const validatorState = stateValidatorSchema
 
       // Making sure that stateValidatorSchema name is same in
       // stateSchema
-      if (!_validator[name]) return
+      if (!validatorState[name]) return
 
-      const _field = _validator[name]
+      const fieldValid = validatorState[name]
 
       let errorObj = ''
-      errorObj = isRequiredField(value, _field.required)
+      errorObj = isRequiredField(value, fieldValid.required)
 
-      if (_field.min6caracts && errorObj === '') {
+      if (fieldValid.min6caracts && errorObj === '') {
         errorObj = min6Caracts(value)
       }
 
       // Prevent running this function if the value is required field
-      if (errorObj === '' && isObject(_field['validator'])) {
-        const _fieldValidator = _field['validator']
+      if (errorObj === '' && isObject(fieldValid.validator)) {
+        const fieldValidator = fieldValid.validator
 
         // Test the function callback if the value is meet the criteria
-        const testFunc = _fieldValidator['func']
+        const testFunc = fieldValidator.func
         if (!testFunc(value, values)) {
-          errorObj = _fieldValidator['error']
+          errorObj = fieldValidator.error
         }
       }
 
-      setValues(prevState => ({ ...prevState, [name]: value }))
-      setErrors(prevState => ({ ...prevState, [name]: errorObj }))
+      setValues((prevState) => ({ ...prevState, [name]: value }))
+      setErrors((prevState) => ({ ...prevState, [name]: errorObj }))
     },
     [stateValidatorSchema, values]
   )
 
-  const handleOnSubmit = useCallback(
-    event => {
+  const handleOnSubmit = React.useCallback(
+    (event) => {
       event.preventDefault()
 
       // Making sure that there's no error in the state

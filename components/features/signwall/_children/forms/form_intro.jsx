@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import Markdown from 'react-markdown/with-html'
 import { useContent } from 'fusion:content'
-import * as S from './styles'
-import { ModalConsumer } from '../context'
-import Loading from '../loading'
+import React, { useEffect, useState } from 'react'
+import Markdown from 'react-markdown/with-html'
+
 import Domains from '../../_dependencies/domains'
 import Taggeo from '../../_dependencies/taggeo'
+import { ModalConsumer } from '../context'
+import Loading from '../loading'
+import * as S from './styles'
 
 const FormIntro = ({
   arcSite,
   typeDialog,
-  removeBefore = i => i,
-  checkModal = i => i,
+  removeBefore = (i) => i,
+  checkModal = (i) => i,
 }) => {
   const [showLoading, setShowLoading] = useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = useState(false)
@@ -26,9 +27,10 @@ const FormIntro = ({
     Year: 'al año',
   }
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.description.checked ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.description.checked ? plan : prev),
+    null
+  )
 
   const {
     amount = '',
@@ -68,7 +70,7 @@ const FormIntro = ({
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <S.Form typeDialog={typeDialog}>
           {showLoading ? (
             <Loading arcSite={arcSite} typeBg="wait" typeDialog={typeDialog} />
@@ -109,13 +111,13 @@ const FormIntro = ({
                     </h3>
 
                     <ul className="list-benefits mb-20">
-                      {feature.map(item => {
-                        return <li key={item}>{item}</li>
-                      })}
+                      {feature.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
                     </ul>
                   </>
                 ) : (
-                  <div className="mt-20 block"></div>
+                  <div className="mt-20 block" />
                 )}
               </S.ContPaywall>
 
@@ -166,7 +168,7 @@ const FormIntro = ({
                 c="gray"
                 s={typeDialog === 'premium' ? '12' : '15'}
                 className="mt-20 mb-10 center">
-                {printAttributes.map(item => {
+                {printAttributes.map((item) => {
                   if (item.name === 'subscriber_title_popup') {
                     return item.value
                   }
@@ -180,7 +182,7 @@ const FormIntro = ({
                 className={`center note-premium ${
                   arcSite === 'elcomercio' ? 'mb-10' : ''
                 }`}>
-                {printAttributes.map(item => {
+                {printAttributes.map((item) => {
                   if (item.name === 'subscriber_detail_popup') {
                     return (
                       <div className="sub-paragraph">

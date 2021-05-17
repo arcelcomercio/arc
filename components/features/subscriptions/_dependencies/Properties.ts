@@ -182,7 +182,7 @@ const PropertiesCommon = {
     payuPayments: `https://${isProd ? '' : 'sandbox.'}api.payulatam.com/payments-api/4.0/service`,
     payuPublicKey: isProd ? 'PK63j8CtoTehN173BZ568SB6Bs' : 'PKaC6H4cEDJD919n705L544kSU',
     payuAccountID: isProd ? '781124' : '512323',
-    profile:      '/mi-perfil/?outputType=signwall',
+    profile:      '/mi-perfil/?outputType=subscriptions',
     preguntas:    `/suscripcionesdigitales/faqs/${isProd ? '' : '?outputType=subscriptions'}`,
     bannerCorp:   `/suscripcionesdigitales/empresa/${isProd ? '' : '?outputType=subscriptions'}`,
     landingFia:   `/suscripcionesdigitales/fia/${isProd ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,

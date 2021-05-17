@@ -1,12 +1,10 @@
-import { ENVIRONMENT } from 'fusion:environment'
+import { env } from '../../../utilities/arc/env'
 
 class Domains {
-  getOriginAPI = site => {
-    const _env_ = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-
+  getOriginAPI = (site) => {
     switch (site) {
       case 'depor':
-        return _env_ === 'prod'
+        return env === 'prod'
           ? `https://api.${site}.com`
           : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
       case 'peru21':
@@ -14,37 +12,36 @@ class Domains {
       case 'trome':
       case 'ojo':
       case 'diariocorreo':
-        return _env_ === 'prod'
+        return env === 'prod'
           ? `https://api.${site}.pe`
           : `https://api-elcomercio-${site}-sandbox.cdn.arcpublishing.com`
       case 'peru21g21':
-        return _env_ === 'prod'
+        return env === 'prod'
           ? `https://api.peru21.pe`
           : `https://api-elcomercio-peru21-sandbox.cdn.arcpublishing.com`
       case 'elcomerciomag':
-        return _env_ === 'prod'
+        return env === 'prod'
           ? `https://api.elcomercio.pe`
           : `https://api-sandbox.elcomercio.pe`
       default:
-        return _env_ === 'prod'
+        return env === 'prod'
           ? `https://api.${site}.pe`
           : `https://api-sandbox.${site}.pe`
     }
   }
 
-  getUrlPaywall = site => {
-    return ENVIRONMENT === 'elcomercio'
+  getUrlPaywall = (site) =>
+    env === 'prod'
       ? `/suscripcionesdigitales/`
       : `/suscripcionesdigitales/?_website=${site}&outputType=subscriptions`
-  }
 
   getUrlECOID = () => {
-    const _env_ = ENVIRONMENT === 'elcomercio' ? '' : 'pre.'
-    return `https://${_env_}ecoid.pe`
+    const arcEnv = env === 'prod' ? '' : 'pre.'
+    return `https://${arcEnv}ecoid.pe`
   }
 
   getPoliticsTerms = (type, site) => {
-    const _env_ = ENVIRONMENT === 'elcomercio' ? '' : 'pre.'
+    const arcEnv = env === 'prod' ? '' : 'pre.'
 
     const hashSite = {
       elcomerciomag: 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
@@ -60,69 +57,56 @@ class Domains {
     }
 
     return type === 'terms'
-      ? `https://${_env_}ecoid.pe/terminos_y_condiciones/${hashSite[site]}`
-      : `https://${_env_}ecoid.pe/politica_privacidad/${hashSite[site]}`
+      ? `https://${arcEnv}ecoid.pe/terminos_y_condiciones/${hashSite[site]}`
+      : `https://${arcEnv}ecoid.pe/politica_privacidad/${hashSite[site]}`
   }
 
-  getScriptSales = () => {
-    const _env_ = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-    return `https://arc-subs-sdk.s3.amazonaws.com/${_env_}/sdk-sales.min.js`
-  }
+  getScriptSales = () =>
+    `https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js`
 
-  getUrlNewsLetters = () => {
-    return ENVIRONMENT === 'elcomercio'
+  getUrlNewsLetters = () =>
+    env === 'prod'
       ? 'https://afv5trdj4i.execute-api.us-east-1.amazonaws.com/prod/userprofile/public/v1'
       : 'https://vq01ksb95d.execute-api.us-east-1.amazonaws.com/dev/userprofile/public/v1'
-  }
 
-  getListBundle = () => {
-    return ['UJWWFG', '7NK9SV', 'DQZ00K', 'OKLLPH', 'NO07ET'] // price code bundle sandbox & prod
-  }
+  getListBundle = () => ['UJWWFG', '7NK9SV', 'DQZ00K', 'OKLLPH', 'NO07ET'] // price code bundle sandbox & prod
 
-  getPayuSDK = () => {
-    return ENVIRONMENT === 'elcomercio'
+  getPayuSDK = () =>
+    env === 'prod'
       ? 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
       : 'https://signwall-test.e3.pe/static/payu-sdk.js'
-  }
 
-  getPayuTags = () => {
-    return 'https://maf.pagosonline.net/ws/fp/tags.js?id='
-  }
+  getPayuTags = () => 'https://maf.pagosonline.net/ws/fp/tags.js?id='
 
   getUrlComercioSubs = () => {
-    const _env_ = ENVIRONMENT === 'elcomercio' ? '' : 'dev'
-    return `https://${_env_}paywall.comerciosuscripciones.pe/api`
+    const arcEnv = env === 'prod' ? '' : 'dev'
+    return `https://${arcEnv}paywall.comerciosuscripciones.pe/api`
   }
 
-  getUrlProfile = arcSite => {
-    return ENVIRONMENT === 'elcomercio'
-      ? '/mi-perfil/?outputType=signwall'
-      : `/mi-perfil/?_website=${arcSite}&outputType=signwall`
-  }
+  getUrlProfile = (arcSite) =>
+    env === 'prod'
+      ? '/mi-perfil/?outputType=subscriptions'
+      : `/mi-perfil/?_website=${arcSite}&outputType=subscriptions`
 
-  getUrlLandingAuth = arcSite => {
-    return ENVIRONMENT === 'elcomercio'
-      ? '/auth-fia/?outputType=signwall'
-      : `/auth-fia/?_website=${arcSite}&outputType=signwall`
-  }
+  getUrlLandingAuth = (arcSite) =>
+    env === 'prod'
+      ? '/auth-fia/?outputType=subscriptions'
+      : `/auth-fia/?_website=${arcSite}&outputType=subscriptions`
 
-  getUrlPaywallFia = arcSite => {
-    return ENVIRONMENT === 'elcomercio'
+  getUrlPaywallFia = (arcSite) =>
+    env === 'prod'
       ? `/suscripcionesdigitales/fia/?ref=auth-fia`
       : `/suscripcionesdigitales/fia/?_website=${arcSite}&outputType=subscriptions`
-  }
 
-  getUrlSignwall = (arcSite, typeDialog, hash) => {
-    return ENVIRONMENT === 'elcomercio'
-      ? `/signwall/?outputType=signwall&${typeDialog}=${hash}`
-      : `/signwall/?_website=${arcSite}&outputType=signwall&${typeDialog}=${hash}`
-  }
+  getUrlSignwall = (arcSite, typeDialog, hash) =>
+    env === 'prod'
+      ? `/signwall/?outputType=subscriptions&${typeDialog}=${hash}`
+      : `/signwall/?_website=${arcSite}&outputType=subscriptions&${typeDialog}=${hash}`
 
-  getGoogleID = () => {
-    return ENVIRONMENT === 'elcomercio'
+  getGoogleID = () =>
+    env === 'prod'
       ? '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
       : '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
-  }
 }
 
 export default new Domains()

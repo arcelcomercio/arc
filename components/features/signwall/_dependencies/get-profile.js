@@ -22,9 +22,7 @@ class GetProfile {
     this.initname = this._getUserName().inituser
   }
 
-  _getComplete = () => {
-    return this.cleanProfile(this.profile)
-  }
+  _getComplete = () => this.cleanProfile(this.profile)
 
   cleanAttribute = (attrValue) => {
     const newAttrValue =

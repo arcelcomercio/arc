@@ -1,15 +1,16 @@
-import React from 'react'
 import Context from 'fusion:context'
+import React from 'react'
 import styled, { css } from 'styled-components'
-import { LoadingGes, LoadingEco, LoadingP21 } from './iconos'
-import { device } from '../_dependencies/breakpoints'
+
 import { getAssetsPath } from '../../../utilities/constants'
+import { device } from '../_dependencies/breakpoints'
+import { LoadingEco, LoadingGes, LoadingP21 } from './iconos'
 
 export const WrapperLoading = styled.div`
   width: 100%;
   text-align: center;
 
-  ${props =>
+  ${(props) =>
     props.typeBg === 'wait' &&
     css`
       position: relative;
@@ -20,7 +21,7 @@ export const WrapperLoading = styled.div`
       }
     `};
 
-  ${props =>
+  ${(props) =>
     props.typeBg === 'block' &&
     css`
       position: absolute;
@@ -29,7 +30,7 @@ export const WrapperLoading = styled.div`
       z-index: 20;
     `};
 
-  ${props =>
+  ${(props) =>
     props.typeDialog === 'premium' &&
     css`
       padding: 20% 0% !important;

@@ -1,22 +1,19 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react'
-import useForm from '../../../subscriptions/_hooks/useForm'
-import Modal from '../../../subscriptions/payment/_children/Profile/children/modal'
-import { ContMiddle, CloseBtn } from '../landing/styled'
-import * as S from '../forms/styles'
-// import { CheckBox } from '../forms/control_checkbox'
-import { Input } from '../forms/control_input_select'
-import { Close, MsgRegister } from '../iconos'
 
 import {
-  formatNames,
   formatCellphone,
+  formatNames,
 } from '../../../subscriptions/_dependencies/Errors'
 import { pushCallOut } from '../../../subscriptions/_dependencies/Services'
+import useForm from '../../../subscriptions/_hooks/useForm'
+import Modal from '../../../subscriptions/payment/_children/Profile/children/modal'
+import { Input } from '../forms/control_input_select'
+import * as S from '../forms/styles'
+import { Close, MsgRegister } from '../iconos'
+import { CloseBtn, ContMiddle } from '../landing/styled'
 
-const CallOut = props => {
-  const { onClose, noBtnClose } = props
-  // const [showChecked, setShowChecked] = useState(false)
+const CallOut = ({ onClose, noBtnClose }) => {
   const [showConfirmCall, setShowConfirmCall] = useState(false)
   const [showRepeatCall, setShowRepeatCall] = useState(false)
   const [showErrorCall, setShowErrorCall] = useState(false)
@@ -25,7 +22,6 @@ const CallOut = props => {
   const stateSchema = {
     namecall: { value: '', error: '' },
     phonecall: { value: '', error: '' },
-    // rterms: { value: '', error: '' },
   }
 
   const stateValidatorSchema = {
@@ -39,19 +35,12 @@ const CallOut = props => {
       required: true,
       validator: formatCellphone(),
     },
-    // rterms: {
-    //   required: true,
-    //   validator: {
-    //     func: value => value !== '1',
-    //     error: 'Para usar este servicio es necesario marcar este campo',
-    //   },
-    // },
   }
 
   const onFomrCallOut = ({ namecall, phonecall }) => {
     setLoading(true)
     pushCallOut(namecall, phonecall)
-      .then(resCall => {
+      .then((resCall) => {
         if (
           resCall.resultado ||
           resCall.mensaje ===
@@ -81,11 +70,7 @@ const CallOut = props => {
 
   const {
     values: { namecall, phonecall },
-    errors: {
-      namecall: namecallError,
-      phonecall: phonecallError,
-      // rterms: rtermsError,
-    },
+    errors: { namecall: namecallError, phonecall: phonecallError },
     handleOnChange,
     handleOnSubmit,
     disable,
@@ -167,7 +152,7 @@ const CallOut = props => {
                 maxLength="80"
                 required
                 value={namecall}
-                onChange={e => {
+                onChange={(e) => {
                   handleOnChange(e)
                 }}
                 error={namecallError}
@@ -183,27 +168,12 @@ const CallOut = props => {
                 maxLength="9"
                 required
                 value={phonecall}
-                onChange={e => {
+                onChange={(e) => {
                   handleOnChange(e)
                 }}
                 error={phonecallError}
                 disabled={loading}
               />
-
-              {/* <CheckBox
-                checked={showChecked}
-                value={showChecked ? '1' : '0'}
-                name="rterms"
-                onChange={e => {
-                  handleOnChange(e)
-                  setShowChecked(!showChecked)
-                }}
-                valid
-                error={rtermsError}>
-                <S.Text c="gray" lh="16" s="14" className="mt-20">
-                  Autorizo el tratamiento de mis datos
-                </S.Text>
-              </CheckBox> */}
 
               <S.ButtonCall
                 type="submit"

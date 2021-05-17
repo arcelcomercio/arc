@@ -1,25 +1,25 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { PureComponent, useEffect, useState } from 'react'
 import Consumer from 'fusion:consumer'
 import { useContent } from 'fusion:content'
-import { ModalProvider, ModalConsumer } from '../../../_children/context'
-import { FormLogin } from '../../../_children/forms/form_login'
-import FormIntro from '../../../_children/forms/form_intro'
-import { FormForgot } from '../../../_children/forms/form_forgot'
-import FormRegister from '../../../_children/forms/form_register'
-import Taggeo from '../../../_dependencies/taggeo'
-import QueryString from '../../../_dependencies/querystring'
+import React, { PureComponent, useEffect, useState } from 'react'
 
+import { ModalConsumer, ModalProvider } from '../../../_children/context'
+import { FormForgot } from '../../../_children/forms/form_forgot'
+import FormIntro from '../../../_children/forms/form_intro'
+import { FormLogin } from '../../../_children/forms/form_login'
+import FormRegister from '../../../_children/forms/form_register'
+import { Close } from '../../../_children/iconos'
+import { Modal } from '../../../_children/modal/index'
+import QueryString from '../../../_dependencies/querystring'
+import Taggeo from '../../../_dependencies/taggeo'
 import {
+  CloseBtn,
   ContMiddle,
+  ContPaywall,
   FirstMiddle,
   SecondMiddle,
-  ContPaywall,
-  CloseBtn,
   Title,
 } from './styled'
-import { Modal } from '../../../_children/modal/index'
-import { Close } from '../../../_children/iconos'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
@@ -39,7 +39,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
   return templates[template] || templates.intro
 }
 
-export const PremiumInt = props => {
+export const PremiumInt = (props) => {
   const [resizeModal, setResizeModal] = useState('smallbottom')
   const {
     onClose,
@@ -63,7 +63,7 @@ export const PremiumInt = props => {
     }
   }
 
-  const handleLeavePage = event => {
+  const handleLeavePage = (event) => {
     event.preventDefault()
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
   }
@@ -83,7 +83,7 @@ export const PremiumInt = props => {
   return (
     <ModalProvider>
       <ModalConsumer>
-        {value => (
+        {(value) => (
           <Modal
             size={resizeModal}
             position="bottom"
@@ -125,9 +125,9 @@ export const PremiumInt = props => {
                     />
                   </center>
                   <ul className="list-benefits mb-20">
-                    {feature.map(item => {
-                      return <li key={item}>{item}</li>
-                    })}
+                    {feature.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
                   </ul>
                 </ContPaywall>
               </FirstMiddle>

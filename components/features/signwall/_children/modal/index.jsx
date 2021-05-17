@@ -1,7 +1,8 @@
 // eslint-disable-next-line max-classes-per-file
 import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
-import { WrapperModal, DialogModal } from './styles'
+
+import { DialogModal, WrapperModal } from './styles'
 
 class BodyEnd extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class BodyEnd extends Component {
 }
 
 class Modal extends Component {
-  changeView = rule => {
+  changeView = (rule) => {
     const view = document.querySelector('meta[name=viewport]')
     if (view) view.remove()
     const meta = document.createElement('meta')
@@ -41,7 +42,7 @@ class Modal extends Component {
     window.navigator.userAgent.indexOf('CriOS') === -1 &&
     window.navigator.userAgent.indexOf('FxiOS') === -1
 
-  handleScroll = e => {
+  handleScroll = (e) => {
     e.preventDefault()
   }
 

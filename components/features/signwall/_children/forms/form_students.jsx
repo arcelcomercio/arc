@@ -1,13 +1,14 @@
 /* eslint-disable import/prefer-default-export */
-import React, { useState, useEffect } from 'react'
 import { ENVIRONMENT } from 'fusion:environment'
-import * as S from './styles'
-import { Input, Select } from './control_input_select'
-import useForm from '../../_dependencies/useForm'
-import Services from '../../_dependencies/services'
+import React, { useEffect, useState } from 'react'
+
 import Cookies from '../../_dependencies/cookies'
 import Domains from '../../_dependencies/domains'
+import Services from '../../_dependencies/services'
+import useForm from '../../_dependencies/useForm'
 import { Back } from '../iconos'
+import { Input, Select } from './control_input_select'
+import * as S from './styles'
 
 const cookieStudents = 'EcoId.REQUEST_STUDENTS'
 
@@ -25,7 +26,7 @@ const FormCode = ({ arcSite, showRequest }) => {
     ucode: {
       required: true,
       validator: {
-        func: value => /^[a-zA-Z0-9]{8,10}$/.test(value),
+        func: (value) => /^[a-zA-Z0-9]{8,10}$/.test(value),
         error: 'Formato inválido',
       },
     },
@@ -35,7 +36,7 @@ const FormCode = ({ arcSite, showRequest }) => {
     const REQUEST = JSON.parse(Cookies.getCookie(cookieStudents))
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
-      .then(resExtend => {
+      .then((resExtend) => {
         Services.checkStudents(
           REQUEST.uemail,
           REQUEST.udate,
@@ -43,7 +44,7 @@ const FormCode = ({ arcSite, showRequest }) => {
           arcSite,
           resExtend.accessToken
         )
-          .then(resOk => {
+          .then((resOk) => {
             if (resOk.status) {
               setShowLinkMail(false)
               setTimeout(() => {
@@ -51,28 +52,28 @@ const FormCode = ({ arcSite, showRequest }) => {
               }, 10000)
             }
           })
-          .catch(resErr => {
+          .catch((resErr) => {
             setShowError(resErr.message)
           })
       })
-      .catch(resErr => {
+      .catch((resErr) => {
         setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
       })
   }
 
-  const onSubmitFormCode = state => {
+  const onSubmitFormCode = (state) => {
     setShowLoading(true)
     const { ucode } = state
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
-      .then(resExtend => {
+      .then((resExtend) => {
         Services.checkCodeStudents(
           ucode.trim(),
           EMAIL_USER,
           arcSite,
           resExtend.accessToken
         )
-          .then(resCode => {
+          .then((resCode) => {
             if (resCode.status) {
               Cookies.deleteCookie(cookieStudents)
               setTimeout(() => {
@@ -91,7 +92,7 @@ const FormCode = ({ arcSite, showRequest }) => {
             setShowError('Oops. Ocurrió un error inesperado.')
           })
       })
-      .catch(resErr => {
+      .catch((resErr) => {
         setShowLoading(false)
         setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
       })
@@ -140,7 +141,7 @@ const FormCode = ({ arcSite, showRequest }) => {
         autoCorrect="off"
         required
         value={ucode}
-        onChange={e => {
+        onChange={(e) => {
           handleOnChange(e)
           setShowError(false)
         }}
@@ -207,7 +208,7 @@ const FormRequest = ({ arcSite, showCode }) => {
     uemail: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@(?!gmail\.com)(?!yahoo\.com)(?!hotmail\.com)[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
             value
           ),
@@ -252,7 +253,7 @@ const FormRequest = ({ arcSite, showCode }) => {
     return false
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     setShowLoading(true)
     const { uemail, ugrade, uday, umonth, uyear } = state
 
@@ -274,7 +275,7 @@ const FormRequest = ({ arcSite, showCode }) => {
         window.Identity.userIdentity = userCredentials
         window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
         window.Identity.extendSession()
-          .then(resExtend => {
+          .then((resExtend) => {
             Services.checkStudents(
               uemail,
               udate,
@@ -282,7 +283,7 @@ const FormRequest = ({ arcSite, showCode }) => {
               arcSite,
               resExtend.accessToken
             )
-              .then(res => {
+              .then((res) => {
                 if (res.status) {
                   Cookies.setCookieSession(cookieStudents, {
                     uemail,
@@ -300,7 +301,7 @@ const FormRequest = ({ arcSite, showCode }) => {
                 setShowLoading(false)
               })
           })
-          .catch(resErr => {
+          .catch((resErr) => {
             setShowLoading(false)
             setShowError(`Ocurrió un error inesperado. ${resErr.message}`)
           })
@@ -344,7 +345,7 @@ const FormRequest = ({ arcSite, showCode }) => {
         placeholder="Correo Universitario*"
         value={uemail}
         clase="mb-10"
-        onChange={e => {
+        onChange={(e) => {
           handleOnChange(e)
           setShowError(false)
         }}
@@ -361,7 +362,7 @@ const FormRequest = ({ arcSite, showCode }) => {
           clase="mb-10"
           required
           value={uday}
-          onChange={e => {
+          onChange={(e) => {
             handleOnChange(e)
             setShowError(false)
           }}
@@ -370,13 +371,11 @@ const FormRequest = ({ arcSite, showCode }) => {
           <option disabled value="">
             DÍA
           </option>
-          {ListNumRange(0, 31).map(value => {
-            return (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            )
-          })}
+          {ListNumRange(0, 31).map((value) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
         </Select>
 
         <Select
@@ -386,7 +385,7 @@ const FormRequest = ({ arcSite, showCode }) => {
           clase="mb-10"
           required
           value={umonth}
-          onChange={e => {
+          onChange={(e) => {
             handleOnChange(e)
             setShowError(false)
           }}
@@ -395,13 +394,11 @@ const FormRequest = ({ arcSite, showCode }) => {
           <option disabled value="">
             MES
           </option>
-          {ListMonth.map((value, index) => {
-            return (
-              <option key={value} value={index + 1}>
-                {value}
-              </option>
-            )
-          })}
+          {ListMonth.map((value, index) => (
+            <option key={value} value={index + 1}>
+              {value}
+            </option>
+          ))}
         </Select>
 
         <Select
@@ -410,7 +407,7 @@ const FormRequest = ({ arcSite, showCode }) => {
           width="30"
           clase="mb-10"
           value={uyear}
-          onChange={e => {
+          onChange={(e) => {
             handleOnChange(e)
             setShowError(false)
           }}
@@ -421,13 +418,11 @@ const FormRequest = ({ arcSite, showCode }) => {
             AÑO
           </option>
           {ListNumRange(1904, new Date().getFullYear() - 16, 'desc').map(
-            value => {
-              return (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              )
-            }
+            (value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            )
           )}
         </Select>
       </div>
@@ -436,7 +431,7 @@ const FormRequest = ({ arcSite, showCode }) => {
         name="ugrade"
         placeholder="Grado de Estudios"
         value={ugrade}
-        onChange={e => {
+        onChange={(e) => {
           handleOnChange(e)
           setShowError(false)
         }}

@@ -1,13 +1,14 @@
 /* eslint-disable import/prefer-default-export */
-import React, { useState, useEffect } from 'react'
-import * as S from './styles'
-import { ModalConsumer } from '../context'
-import { ResetPass, MsgResetPass } from '../iconos'
-import { Input } from './control_input_select'
-import useForm from '../../_dependencies/useForm'
-import Domains from '../../_dependencies/domains'
+import React, { useEffect, useState } from 'react'
+
 import getCodeError from '../../_dependencies/codes_error'
+import Domains from '../../_dependencies/domains'
 import Taggeo from '../../_dependencies/taggeo'
+import useForm from '../../_dependencies/useForm'
+import { ModalConsumer } from '../context'
+import { MsgResetPass, ResetPass } from '../iconos'
+import { Input } from './control_input_select'
+import * as S from './styles'
 
 export const FormReset = ({
   arcSite,
@@ -40,20 +41,20 @@ export const FormReset = ({
     rpass: {
       required: true,
       validator: {
-        func: value => value.length >= 8,
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
     },
     rconfirmpass: {
       required: true,
       validator: {
-        func: value => value.length >= 8,
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
     },
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     const { rpass } = state
     setShowLoading(true)
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
@@ -65,7 +66,7 @@ export const FormReset = ({
           `web_sw${typeDialog[0]}_aceptar_success`
         )
       })
-      .catch(errLogin => {
+      .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
@@ -85,7 +86,7 @@ export const FormReset = ({
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
-  const checkFormatOne = e => {
+  const checkFormatOne = (e) => {
     if (e.target.value.indexOf(' ') >= 0) {
       setShowFormatInvalidOne('No se permite espacios')
     } else if (rconfirmpass.length > 1 && rconfirmpass !== e.target.value) {
@@ -95,7 +96,7 @@ export const FormReset = ({
     }
   }
 
-  const checkFormatTwo = e => {
+  const checkFormatTwo = (e) => {
     if (e.target.value.indexOf(' ') >= 0) {
       setShowFormatInvalidTwo('No se permite espacios.')
     } else if (rpass.length > 1 && rpass !== e.target.value) {
@@ -107,7 +108,7 @@ export const FormReset = ({
 
   return (
     <ModalConsumer>
-      {value => (
+      {(value) => (
         <>
           <S.Form onSubmit={handleOnSubmit}>
             {!showConfirm ? (
@@ -134,7 +135,7 @@ export const FormReset = ({
                   placeholder="Nueva contraseña"
                   required
                   value={rpass}
-                  onChange={e => {
+                  onChange={(e) => {
                     handleOnChange(e)
                     setShowError(false)
                     checkFormatOne(e)
@@ -149,7 +150,7 @@ export const FormReset = ({
                   placeholder="Confirmar contraseña"
                   required
                   value={rconfirmpass}
-                  onChange={e => {
+                  onChange={(e) => {
                     handleOnChange(e)
                     setShowError(false)
                     checkFormatTwo(e)

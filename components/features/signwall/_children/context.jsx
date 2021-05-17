@@ -37,4 +37,4 @@ class ModalProvider extends Component {
   }
 }
 
-export { ModalProvider, Consumer as ModalConsumer }
+export { Consumer as ModalConsumer, ModalProvider }

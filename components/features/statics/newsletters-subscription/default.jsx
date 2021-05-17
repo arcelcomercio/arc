@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import Checkbox from './_children/item'
+import React, { Component } from 'react'
+
 import Loading from '../../signwall/_children/loading'
-import Services from '../../signwall/_dependencies/services'
 import Domains from '../../signwall/_dependencies/domains'
+import Services from '../../signwall/_dependencies/services'
+import { Generic } from '../../signwall/auth-user/_children/generic'
+import Checkbox from './_children/item'
 import SubscriptionTitle from './_children/title'
-import { Generic } from '../../signwall/mainpage/_children/generic'
 
 const classes = {
   container:
@@ -18,29 +19,30 @@ const classes = {
 
 @Consumer
 class NewslettersSubscription extends Component {
-  state = {
-    newsletters: [],
-    checksNews: {},
-    loading: false,
-    disabled: true,
-    showsuccess: false,
-    textSave: 'GUARDAR',
-    categories: null,
-    selectCategories: new Set(),
-    isFetching: false,
-    showSignwall: false,
-    lastItemSelected: null,
+  constructor(props) {
+    super(props)
+    this.state = {
+      newsletters: [],
+      checksNews: {},
+      loading: false,
+      disabled: true,
+      showsuccess: false,
+      textSave: 'GUARDAR',
+      categories: null,
+      selectCategories: new Set(),
+      isFetching: false,
+      showSignwall: false,
+      lastItemSelected: null,
+      newSetCategories: null,
+      timeout: null,
+    }
   }
 
-  newSetCategories
-
-  timeout
-
-  componentWillMount() {
-    this.removeEventListener('logged', this.afterLoggued)
-    this.removeEventListener('protect', this.protectRefresh)
-    this.removeEventListener('unprotect', this.unProtectRefresh)
-  }
+  // componentWillMount() {
+  //   this.removeEventListener('logged', this.afterLoggued)
+  //   this.removeEventListener('protect', this.protectRefresh)
+  //   this.removeEventListener('unprotect', this.unProtectRefresh)
+  // }
 
   componentDidMount() {
     this.loadSetting()
@@ -49,12 +51,13 @@ class NewslettersSubscription extends Component {
     this.addEventListener('unprotect', this.unProtectRefresh)
   }
 
-  handleLeavePage = e => {
+  handleLeavePage = (e) => {
     const confirmationMessage = '¿Deseas volver a argar el sitio?'
     e.returnValue = confirmationMessage
     return confirmationMessage
   }
 
+  // eslint-disable-next-line react/sort-comp
   protectRefresh = () => {
     window.addEventListener('beforeunload', this.handleLeavePage)
   }
@@ -77,7 +80,7 @@ class NewslettersSubscription extends Component {
     const EMAIL = window.Identity.userProfile.email
 
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.extendSession().then(extSess => {
+    window.Identity.extendSession().then((extSess) => {
       Services.sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
         ...selectCategories,
       ])
@@ -92,7 +95,7 @@ class NewslettersSubscription extends Component {
           // }, 3000)
           this.dispatchEvent('unprotect')
         })
-        .catch(e => {
+        .catch((e) => {
           window.console.error(e)
         })
     })
@@ -134,8 +137,8 @@ class NewslettersSubscription extends Component {
 
     const listAllNews = { ...[] }
 
-    Services.getNewsLetters().then(resNews => {
-      resNews[SITE].map(item => {
+    Services.getNewsLetters().then((resNews) => {
+      resNews[SITE].map((item) => {
         listAllNews[item.code] = false
         return null
       })
@@ -146,10 +149,10 @@ class NewslettersSubscription extends Component {
       })
 
       Services.getNewsLettersUser(UUID, SITE)
-        .then(res => {
+        .then((res) => {
           if (res.data.length >= 1) {
-            res.data.map(item => {
-              this.setState(prevState => ({
+            res.data.map((item) => {
+              this.setState((prevState) => ({
                 checksNews: {
                   ...prevState.checksNews,
                   [item]: true,
@@ -177,7 +180,7 @@ class NewslettersSubscription extends Component {
     })
   }
 
-  getUrlParam = name => {
+  getUrlParam = (name) => {
     const vars = {}
     if (typeof window !== 'undefined')
       window.location.href.replace(
@@ -232,7 +235,7 @@ class NewslettersSubscription extends Component {
             <Loading arcSite={arcSite} typeBg="wait" />
           ) : (
             <div role="list" className={classes.list}>
-              {newsletters.map(item => (
+              {newsletters.map((item) => (
                 <label className="item" key={item.code}>
                   <Checkbox
                     image={item.image}
@@ -240,7 +243,7 @@ class NewslettersSubscription extends Component {
                     description={item.description}
                     site={arcSite}
                     checked={checksNews[item.code]}
-                    onChange={e => {
+                    onChange={(e) => {
                       if (this.checkSession()) {
                         this.handleCheckbox(e, item.code)
                       } else {
