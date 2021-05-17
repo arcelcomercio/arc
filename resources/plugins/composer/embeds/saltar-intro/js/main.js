@@ -1,7 +1,7 @@
 const renderForEditAndView = (dataParams) => {
-    const {id, config:{title='', score=0, year='', plataform='', director = [], cast = [], genre = [], duration, clasification }} = dataParams
+    const {id, config:{title='', score=0, chapter='', year='', plataform='', director = [], cast = [], genre = [], duration, clasification }} = dataParams
 
-    const html = renderViewEdit({id, title, score, year, plataform, director, cast, genre, duration, clasification});
+    const html = renderViewEdit({id, title, score, chapter, year, plataform, director, cast, genre, duration, clasification});
 
     const element = document.createElement('div');
     document.getElementById('content_holder').innerHTML = '<br>';
@@ -13,27 +13,29 @@ const renderForEditAndView = (dataParams) => {
 }
 
 const renderViewEdit = (data) => {
-  const {id, title='', score=0, year='', plataform='', director = [], cast = [], genre = [], duration, clasification } = data;
+  const {id, title='', chapter='', score=0, year='', plataform='', director = [], cast = [], genre = [], duration, clasification } = data;
   const template = document.getElementById('content_template').innerHTML;
   const directors = director.map((v,i) => {
-    return `<div class="card-text text-muted"><b>Director ${(i) === 0 ? '': (i+1)} :</b> ${v.name} (${v.url})</div>`;
+    return v.name != '' && v.url != '' ? `<div class="card-text text-muted"><b>Director ${(i) === 0 ? '': (i+1)} :</b> ${v.name} (${v.url})</div>`: '';
   });
   const casts = cast.map((v,i) => {
-    return `<div class="card-text text-muted"><b>Elenco ${(i) === 0 ? '': (i+1)} :</b> ${v.name} (${v.url})</div>`;
+    return v.name != '' && v.url != '' ? `<div class="card-text text-muted"><b>Elenco ${(i) === 0 ? '': (i+1)} :</b> ${v.name} (${v.url})</div>`: '';
   });
   const genres = genre.map((v,i) => {
-    return `<div class="card-text text-muted"><b>Género ${(i) === 0 ? '': (i+1)} :</b> ${v.name} (${v.url})</div>`;
+    return v.name != '' && v.url != '' ? `<div class="card-text text-muted"><b>Género ${(i) === 0 ? '': (i+1)} :</b> ${v.name} (${v.url})</div>`: '';
   });
 
-  const directorsEdit = director.map((v,i) => {
+  const directorsEdit = /*director*/[0,1].map((val,i) => {
+    const v = director[i] || {name:'', url:''};
     return `<label class="w-50" for="director[${i}]">Director ${(i) === 0 ? '': (i+1)}:
-        <input class="w-50" type="textfield" id="director[${i}]" name="director" value="${v.name}" />
+        <input class="w-50" type="textfield" id="director[${i}]" name="director" value="${v?.name}" />
       </label>
       <label class="w-50" for="director_url[${i}]">Url de director ${(i) === 0 ? '': (i+1)}:
-        <input class="w-50" type="textfield" id="director_url[${i}]" name="director_url" value="${v.url}" />
+        <input class="w-50" type="textfield" id="director_url[${i}]" name="director_url" value="${v?.url}" />
       </label>`;
   });
-  const castsEdit = cast.map((v,i) => {
+  const castsEdit = /*cast*/[0,1,2,3,4].map((val,i) => {
+    const v = cast[i] || {name:'', url:''};
     return `<label class="w-50" for="cast[${i}]">Elenco ${(i) === 0 ? '': (i+1)}:
         <input class="w-50" type="textfield" id="cast[${i}]" name="cast" value="${v.name}" />
       </label>
@@ -41,7 +43,8 @@ const renderViewEdit = (data) => {
         <input class="w-50" type="textfield" id="cast_url[${i}]" name="cast_url" value="${v.url}" />
       </label>`;
   });
-  const genresEdit = genre.map((v,i) => {
+  const genresEdit = /*genre*/[0,1,2].map((val,i) => {
+    const v = genre[i] || {name:'', url:''};
     return `<label class="w-50" for="genre[${i}]">Género ${(i) === 0 ? '': (i+1)}:
         <input class="w-50" type="textfield" id="genre[${i}]" name="genre" value="${v.name}" />
       </label>
@@ -60,6 +63,7 @@ const renderViewEdit = (data) => {
       .replace(/%genres%/gi, genres.join(''))
       .replace(/%duration%/gi, duration)
       .replace(/%clasification%/gi, clasification)
+      .replace(/%chapter%/gi, chapter)
       .replace(/%director_edit%/gi, directorsEdit.join(''))
       .replace(/%cast_edit%/gi, castsEdit.join(''))
       .replace(/%genre_edit%/gi, genresEdit.join(''))
@@ -111,10 +115,11 @@ const buildDataAns = (data) => {
   data.genre.forEach((val, index) => {
     genre.push({name: val, url: data.genre_url[index]});
   });
-  const {title, score, year, plataform, duration, clasification} = data || {};
+  const {title, score, chapter, year, plataform, duration, clasification} = data || {};
   return {
       title, 
       score,
+      chapter,
       year, 
       plataform, 
       duration,
