@@ -55,6 +55,7 @@ const PropertiesSite = {
       videoTitle:         'Periodismo independiente y veraz, todos los días',
       videoSubtitle:      'Trabajamos para mantenerte informado e inspirado. Te contamos cómo lo hacemos.',
       videoDescription:   'Con testimonios de Juan José Garrido (Director Periodístico), Mario Ghibellini (Opinión), Graciela Villasís (Investigación) y más',
+      backSite:           'Volver a El Comercio',
     },
 
     benefits: [
@@ -313,6 +314,7 @@ const PropertiesSite = {
       helpTitle:          '¿Necesitas ayuda o tienes dudas?',
       helpSubstitle:      'Comunícate con nosotros',
       helpDescription:    'Consulta nuestra sección de',
+      backSite:           'Volver a Gestión',
     },
 
     benefits: [
