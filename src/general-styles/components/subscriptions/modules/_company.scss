@@ -120,7 +120,7 @@
           border-radius: 4px;
           padding: 10px 14px;
           display: block;
-          width: calc(700px - 20px);
+          width: 100%;
           margin: 0 auto;
           margin-bottom: 10px;
           background: $redAlert;
@@ -146,6 +146,7 @@
         .g-recaptcha {
           transform: scale(1.09);
           transform-origin: 0 0;
+          display: table;
         }
       }
     }
