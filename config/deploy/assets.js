@@ -45,13 +45,7 @@ const verifyAssetVersion = async () => {
   if (!lambdasList) {
     throw 'error to get lambdas'
   }
-  const lambdaDetail = lambdasList.find(
-    (item) => !item.Aliases || !item.Aliases[0]
-  )
-
-  if (!lambdaDetail) {
-    return lambdasList && lambdasList[0] && lambdasList[0]['Version']
-  }
+  const lambdaDetail = lambdasList.find((item) => !item.Aliases)
 
   return lambdaDetail['Version']
 }
