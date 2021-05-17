@@ -284,7 +284,7 @@ class XmlFacebookInstantArticles {
                   },
                   pubDate: localISODate(storyData.date || ''),
                   link: storyLink,
-                  guid: md5(storyData.id),
+                  guid: md5(storyData.id).toString(),
                   author: authorData,
                   premium: storyData.isPremium,
                   captureDate: `${getActualDate()}, ${formatTime(localTime)}`,
