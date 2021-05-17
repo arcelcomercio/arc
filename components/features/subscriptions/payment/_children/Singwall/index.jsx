@@ -51,7 +51,7 @@ const WrapperSingwall = () => {
 
     TagsAdsMurai(
       {
-        event: 'pageview',
+        event: 'adsmurai_pageview',
         em: '',
         fn: '',
         ln: '',

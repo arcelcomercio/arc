@@ -1,45 +1,45 @@
+import * as Sentry from '@sentry/browser'
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { useAppContext } from 'fusion:context'
-import * as Sentry from '@sentry/browser'
 
-import useForm from '../../../_hooks/useForm'
-import { getEntitlements } from '../../../_dependencies/Services'
 import { AuthContext } from '../../../_context/auth'
-import {
-  PixelActions,
-  sendAction,
-  Taggeo,
-  TaggeoJoao,
-  TagsAdsMurai,
-  eventCategory,
-} from '../../../_dependencies/Taggeo'
-import { maskDocuments, docPatterns } from '../../../_dependencies/Regex'
-import Modal from './children/modal'
-import PWA from '../../../_dependencies/Pwa'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-} from '../../../_dependencies/Properties'
-import {
-  conformProfile,
-  isLogged,
-  getStorageProfile,
-  getStorageEmailProfile,
-} from '../../../_dependencies/Session'
-import {
-  checkUndefined,
-  checkFbEmail,
-  checkFormatPhone,
-  setLocaleStorage,
-  getSessionStorage,
-} from '../../../_dependencies/Utils'
 import getCodeError, {
   formatEmail,
   formatNames,
   formatPhone,
   formatSecondLastName,
 } from '../../../_dependencies/Errors'
+import {
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
+import PWA from '../../../_dependencies/Pwa'
+import { docPatterns, maskDocuments } from '../../../_dependencies/Regex'
+import { getEntitlements } from '../../../_dependencies/Services'
+import {
+  conformProfile,
+  getStorageEmailProfile,
+  getStorageProfile,
+  isLogged,
+} from '../../../_dependencies/Session'
+import {
+  eventCategory,
+  PixelActions,
+  sendAction,
+  Taggeo,
+  TaggeoJoao,
+  TagsAdsMurai,
+} from '../../../_dependencies/Taggeo'
+import {
+  checkFbEmail,
+  checkFormatPhone,
+  checkUndefined,
+  getSessionStorage,
+  setLocaleStorage,
+} from '../../../_dependencies/Utils'
+import useForm from '../../../_hooks/useForm'
+import Modal from './children/modal'
 
 const styles = {
   step: 'step__left-progres',
@@ -136,7 +136,7 @@ const Profile = () => {
 
     TagsAdsMurai(
       {
-        event: 'pageview',
+        event: 'adsmurai_pageview',
         em: email,
         fn: `${firstName || ''}`,
         ln: `${lastName || ''} ${secondLastName || ''}`,
@@ -175,7 +175,6 @@ const Profile = () => {
     }
 
     if (userErrorApi !== false) updateErrorApi(error)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -410,7 +409,7 @@ const Profile = () => {
 
       TagsAdsMurai(
         {
-          event: 'AddtoCart',
+          event: 'AddToCart',
           content_ids: sku,
           content_type: 'product',
           content_name: namePlanApi,
