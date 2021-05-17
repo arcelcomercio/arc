@@ -7,8 +7,8 @@ import TextMask from 'react-text-mask'
 
 // import addPayU from '../../../_dependencies/Payu'
 import { isSandbox } from '../../../../../utilities/arc/env'
+import addScriptAsync from '../../../../../utilities/script-async'
 import { AuthContext } from '../../../_context/auth'
-import addScriptAsync from '../../../_dependencies/Async'
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
