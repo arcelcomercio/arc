@@ -198,7 +198,7 @@ const Pay = () => {
 
     TagsAdsMurai(
       {
-        event: 'pageview',
+        event: 'adsmurai_pageview',
         em: email,
         fn: `${firstName || ''}`,
         ln: `${lastName || ''} ${secondLastName || ''}`,

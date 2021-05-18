@@ -16,8 +16,8 @@ import { sendEmailCompany } from '../../_dependencies/Services'
 import useForm from '../../_hooks/useForm'
 
 const PageCompany = ({ arcSite }) => {
-  const { urls } = PropertiesSite[arcSite]
-  const { urls: urlCommon, texts } = PropertiesCommon
+  const { urls, texts } = PropertiesSite[arcSite]
+  const { urls: urlCommon, texts: textsCommon } = PropertiesCommon
   const [msgError, setMsgError] = React.useState()
   const [errCaptcha, setErrCaptcha] = React.useState()
   const [loading, setLoading] = React.useState()
@@ -105,12 +105,12 @@ const PageCompany = ({ arcSite }) => {
             setShowThanks(true)
             window.scrollTo(0, 0)
           } else {
-            setMsgError(texts.errorCompany)
+            setMsgError(textsCommon.errorCompany)
             setLoading(false)
           }
         })
         .catch((errEmail) => {
-          setMsgError(texts.errorCompany)
+          setMsgError(textsCommon.errorCompany)
           setLoading(false)
           Sentry.captureEvent({
             message:
@@ -167,19 +167,19 @@ const PageCompany = ({ arcSite }) => {
                 <div className="cont-success">
                   <MsgRegister bgcolor="#D1E9BE" />
                   <h2>Gracias</h2>
-                  <p>{texts.successCompany}</p>
+                  <p>{textsCommon.successCompany}</p>
                   <div className="block">
                     <button
                       className="btn-next"
                       type="button"
                       onClick={handleReturnHome}>
-                      Seguir navegando
+                      {texts.backSite}
                     </button>
                   </div>
                 </div>
               ) : (
                 <>
-                  <h3>{texts.titleCompany}</h3>
+                  <h3>{textsCommon.titleCompany}</h3>
 
                   {(msgError || errCaptcha) && (
                     <div className="msg-alert">{` ${

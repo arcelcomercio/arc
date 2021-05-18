@@ -13,7 +13,7 @@ const mediumRegularExp = new RegExp(
 const namesRegex = new RegExp(
   /^([a-zA-ZÑñÁáÉéÍíÓóÚúüÜ\-'\s])+[a-zA-ZZÑñÁáÉéÍíÓóÚúüÜ]+$/
 )
-const descripRegex = new RegExp(/^\w+( +\w+)*$/)
+const descripRegex = new RegExp(/^[A-Za-z0-9ZÑñÁáÉéÍíÓóÚúüÜ,.\-\s]+$/)
 
 // prettier-ignore
 const patternCard = [/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,]

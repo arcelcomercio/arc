@@ -518,7 +518,7 @@ class StoryData {
     )
     const promoItemsVideo = StoryData.promoItemJwplayer(this._data)
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter((el) => el && el.thumbnail_url ? el : '')
+    return result.filter((el) => (el && el.thumbnail_url ? el : ''))
   }
 
   get haveJwplayerMatching() {
@@ -542,7 +542,7 @@ class StoryData {
       StoryData.getSeoMultimedia(this._data.promo_items, 'video')
 
     const result = videosContent.concat(promoItemsVideo).filter(String)
-    return result.filter((el) => el && el.urlImage ? el : '')
+    return result.filter((el) => (el && el.urlImage ? el : ''))
   }
 
   get metaTitle() {
