@@ -180,6 +180,11 @@ declare module 'fusion:properties' {
     videoId: string
   }
 
+  interface LegalLink {
+    name?: string
+    url?: string
+  }
+
   export interface SiteProperties {
     siteName: string
     sitemapNewsName: string
@@ -236,5 +241,6 @@ declare module 'fusion:properties' {
     archiveLimit: string
     jwplayers: Jwplayers
     jwplayersMatching: JwplayersMatching
+    legalLinks?: LegalLink[]
   }
 }

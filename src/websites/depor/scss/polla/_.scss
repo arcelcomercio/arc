@@ -1,0 +1,12 @@
+@import "../../../../general-styles/framework/variables/index";
+@import "../variables/index";
+@import "./partials/import-fonts";
+
+/******* Site Variables *******/
+@import "../../../../general-styles/framework/core/index";
+@import "./partials/utils";
+
+$primary-font: "Roboto", sans-serif;
+$secondary-font: "Raleway", sans-serif;
+
+@import "./components/navbar/navbar";
