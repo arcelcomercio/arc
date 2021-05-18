@@ -100,13 +100,12 @@ const PageCompany = ({ arcSite }) => {
         cQuestion.trim()
       )
         .then((resEmail = {}) => {
+          setLoading(false)
           if (resEmail.httpStatus === 200) {
-            setLoading(false)
             setShowThanks(true)
             window.scrollTo(0, 0)
           } else {
             setMsgError(textsCommon.errorCompany)
-            setLoading(false)
           }
         })
         .catch((errEmail) => {
@@ -196,6 +195,8 @@ const PageCompany = ({ arcSite }) => {
                             <input
                               className={cEmailError && 'input-error'}
                               type="email"
+                              inputMode="email"
+                              autoComplete="email"
                               name="cEmail"
                               value={cEmail}
                               required
@@ -216,6 +217,7 @@ const PageCompany = ({ arcSite }) => {
                             <input
                               className={cFirstNameError && 'input-error'}
                               type="text"
+                              autoComplete="given-name"
                               name="cFirstName"
                               value={cFirstName}
                               required
@@ -238,6 +240,7 @@ const PageCompany = ({ arcSite }) => {
                             <input
                               className={cLastNameError && 'input-error'}
                               type="text"
+                              autoComplete="family-name"
                               name="cLastName"
                               value={cLastName}
                               required
@@ -260,6 +263,7 @@ const PageCompany = ({ arcSite }) => {
                             <input
                               className={cCompanyError && 'input-error'}
                               type="text"
+                              autoComplete="organization"
                               name="cCompany"
                               value={cCompany}
                               required
@@ -282,6 +286,8 @@ const PageCompany = ({ arcSite }) => {
                             <input
                               className={cPhoneError && 'input-error'}
                               type="text"
+                              inputMode="tel"
+                              autoComplete="tel"
                               name="cPhone"
                               value={cPhone}
                               maxLength="12"

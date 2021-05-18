@@ -5,11 +5,11 @@ import * as React from 'react'
 
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
+import addScriptAsync from '../../../utilities/script-async'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import Signwall from '../_children/Signwall'
 import { AuthContext, AuthProvider } from '../_context/auth'
-import addScriptAsync from '../_dependencies/Async'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { FooterLand } from '../_layouts/footer'
@@ -125,112 +125,110 @@ const WrapperPageSubs = ({ properties }) => {
 
   return (
     <>
-      <>
-        {isComercio ? (
-          <>
-            <header className="header" id="header">
-              <div className="wrapper">
-                <div
-                  className={`header__content ${
-                    !isComercio || !moduleCall ? 'box-cont' : ''
-                  }`}>
-                  <a
-                    href={urls.mainHome}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="header__content-link"
-                    aria-label={arcSite}>
-                    <div className="header__content-logo" />
-                  </a>
+      {isComercio ? (
+        <>
+          <header className="header" id="header">
+            <div className="wrapper">
+              <div
+                className={`header__content ${
+                  !isComercio || !moduleCall ? 'box-cont' : ''
+                }`}>
+                <a
+                  href={urls.mainHome}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="header__content-link"
+                  aria-label={arcSite}>
+                  <div className="header__content-logo" />
+                </a>
 
-                  {moduleCall && (
-                    <div className="header__content-call">
-                      <span>Llama Gratis</span>
-                      <button
-                        type="button"
-                        className="icon-phone"
-                        onClick={handleCallIn}>
-                        01 311 5100
-                      </button>
-                      <button
-                        type="button"
-                        className="icon-support"
-                        onClick={() => setShowCallin(!showCallin)}>
-                        Te Llamamos
-                      </button>
-                    </div>
-                  )}
+                {moduleCall && (
+                  <div className="header__content-call">
+                    <span>Llama Gratis</span>
+                    <button
+                      type="button"
+                      className="icon-phone"
+                      onClick={handleCallIn}>
+                      01 311 5100
+                    </button>
+                    <button
+                      type="button"
+                      className="icon-support"
+                      onClick={() => setShowCallin(!showCallin)}>
+                      Te Llamamos
+                    </button>
+                  </div>
+                )}
 
-                  <button
-                    className="header__content-button"
-                    type="button"
-                    id="btn-signwall"
-                    onClick={handleSignwall}>
-                    {showProfile || 'Inicia sesión'}
-                  </button>
-                </div>
+                <button
+                  className="header__content-button"
+                  type="button"
+                  id="btn-signwall"
+                  onClick={handleSignwall}>
+                  {showProfile || 'Inicia sesión'}
+                </button>
               </div>
-            </header>
-            {moduleCall && showCallin && <CallinCallOut />}
-          </>
-        ) : (
-          <HeaderSubs
-            userProfile={userProfile}
-            arcSite={arcSite}
-            arcType={arcType}
-          />
-        )}
+            </div>
+          </header>
+          {moduleCall && showCallin && <CallinCallOut />}
+        </>
+      ) : (
+        <HeaderSubs
+          userProfile={userProfile}
+          arcSite={arcSite}
+          arcType={arcType}
+        />
+      )}
 
-        {pageSubscriptions === 'faqPage' ? (
-          <PageFaq arcSite={arcSite} />
-        ) : (
-          <PageCompany arcSite={arcSite} />
-        )}
+      {pageSubscriptions === 'faqPage' ? (
+        <PageFaq arcSite={arcSite} />
+      ) : (
+        <PageCompany arcSite={arcSite} />
+      )}
 
-        <FooterLand arcType={arcType} />
+      <FooterLand arcType={arcType} />
 
-        {moduleCall && (
-          <section className="callin-movil">
-            <button type="button" className="icon-phone" onClick={handleCallIn}>
-              01 311 5100
-            </button>
-            <button
-              type="button"
-              className="icon-support"
-              onClick={() => setShowModalCall(true)}>
-              Te Llamamos
-            </button>
-          </section>
-        )}
+      {moduleCall && (
+        <section className="callin-movil">
+          <button type="button" className="icon-phone" onClick={handleCallIn}>
+            01 311 5100
+          </button>
+          <button
+            type="button"
+            className="icon-support"
+            onClick={() => setShowModalCall(true)}>
+            Te Llamamos
+          </button>
+        </section>
+      )}
 
-        {(QueryString.getQuery('signLanding') ||
-          QueryString.getQuery('signStudents') ||
-          showSignwall) && (
-          <Signwall
-            fallback={<div>Cargando...</div>}
-            typeDialog={showTypeLanding}
-            nameDialog={showTypeLanding}
-            onLogged={handleAfterLogged}
-            onLoggedFail={() => {}}
-            onClose={() => {
-              setShowSignwall(false)
-              setShowTypeLanding('landing')
-            }}
-          />
-        )}
+      {(QueryString.getQuery('signLanding') ||
+        QueryString.getQuery('signStudents') ||
+        showSignwall) && (
+        <Signwall
+          fallback={<div>Cargando...</div>}
+          typeDialog={showTypeLanding}
+          nameDialog={showTypeLanding}
+          onLogged={handleAfterLogged}
+          onLoggedFail={() => {}}
+          onClose={() => {
+            setShowSignwall(false)
+            setShowTypeLanding('landing')
+          }}
+        />
+      )}
 
-        {showModalCall && (
-          <Callout
-            fallback={<div>Cargando...</div>}
-            typeDialog={showTypeLanding}
-            nameDialog={showTypeLanding}
-            onLoggedFail={() => {}}
-            onClose={() => {
-              setShowModalCall(false)
-            }}
-          />
-        )}
-      </>
+      {showModalCall && (
+        <Callout
+          fallback={<div>Cargando...</div>}
+          typeDialog={showTypeLanding}
+          nameDialog={showTypeLanding}
+          onLoggedFail={() => {}}
+          onClose={() => {
+            setShowModalCall(false)
+          }}
+        />
+      )}
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
