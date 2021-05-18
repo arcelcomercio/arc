@@ -76,7 +76,7 @@ const ChartbeatBody = ({
   const { charbeatAccountNumber, siteDomain } = getProperties(arcSite)
   const page = metaValue('id')
   const sectionList = getSectionList(requestUri, page)
-  const author = getAuthor(credits) || ''
+  const author = getAuthor(credits).join(',') || ''
   const tagsList = getTagList(tags) || arcSite
   const { type, stringType } = getStoryType(promoItems, subtype) || {}
   const renderSections = story ? sectionList.concat(tagsList) : sectionList
@@ -119,8 +119,9 @@ const ChartbeatBody = ({
     var _sf_startpt = new Date().getTime()
     var _sf_async_config = _sf_async_config || {};_sf_async_config.uid = ${charbeatAccountNumber};_sf_async_config.domain = "${siteDomain}";_sf_async_config.flickerControl = false;_sf_async_config.useCanonical = true;_sf_async_config.sections = "${renderSections}"; ${
     story
-      ? `_sf_async_config.authors = '${escape(
-          author
+      ? `_sf_async_config.authors = '${author?.replace(
+          /'/g,
+          ''
         )}'; _sf_async_config.type = '${type}'; _sf_async_config.contentType = "${stringType}";`
       : ''
   } ${
