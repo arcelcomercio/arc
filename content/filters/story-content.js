@@ -93,7 +93,7 @@ content_elements {
       data { 
         bg_color color html type title url url_logo url_mobile author_type text_type text name list gallery_id
         stories {
-          date description title image {caption url}
+          date description title url image {caption url}
         }
         image {caption url}
       }
