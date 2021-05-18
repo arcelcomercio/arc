@@ -372,6 +372,7 @@ const LiteAds = ({
       arcSite === 'elbocon' ||
       arcSite === 'peru21' ||
       arcSite === 'elcomercio' ||
+      arcSite === 'gestion' ||
       arcSite === 'depor' ? (
         <>
           {arcSite !== 'elcomerciomag' &&
