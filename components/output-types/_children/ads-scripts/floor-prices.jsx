@@ -1,14 +1,10 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
 export default () => {
-  const { arcSite, globalContent = {} } = useFusionContext()
+  const { arcSite } = useFusionContext()
 
-  const {
-    section_id: sectionId,
-    _id,
-    taxonomy: { primary_section: { path: primarySection } = {} } = {},
-  } = globalContent || {}
+  // const { section_id: sectionId } = globalContent || {}
 
   return (
     <>

@@ -169,7 +169,9 @@ const fetch = ({
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`
-    : `&_sourceInclude=${includePrimarySection},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
+    : `&_sourceInclude=${includePrimarySection({
+        arcSite: website,
+      })},display_date,website_url,websites.${website}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includePromoItems}`
 
   /* Legacy
     const sourceExclude =
@@ -181,7 +183,7 @@ const fetch = ({
     return request({
       uri: requestUri,
       ...options,
-    }).then(data => data)
+    }).then((data) => data)
   }
 
   /**
@@ -191,14 +193,14 @@ const fetch = ({
   return request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${section}`,
     ...options,
-  }).then(resp => {
+  }).then((resp) => {
     if (Object.prototype.hasOwnProperty.call(resp, 'status'))
       throw new Error('Sección no encontrada')
 
     return request({
       uri: requestUri,
       ...options,
-    }).then(data => data)
+    }).then((data) => data)
   })
 }
 

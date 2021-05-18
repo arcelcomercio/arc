@@ -11,7 +11,7 @@ const formatStories = ({ data, deployment, contextPath, arcSite }) => {
     defaultImgSize: 'sm',
   })
 
-  data.forEach(el => {
+  data.forEach((el) => {
     element.__data = el
     aux.push({
       websiteUrl: element.link,
@@ -28,12 +28,15 @@ export const getQuery = ({
   globalContentConfig,
   globalContent,
   storiesQty,
+  arcSite,
 }) => {
   const { query: { section = '' } = {} } = globalContentConfig || {}
-  const { taxonomy: { primary_section: { _id, path } = {} } = {} } =
-    globalContent || {}
+  const { websites = {} } = globalContent || {}
 
-  let sec = _id || path || section
+  const { website_section: { _id: id = '', path = '' } = {} } =
+    websites[arcSite] || {}
+
+  let sec = id || path || section
 
   if (sec === 'todas' || sec === null || sec === 'undefined') sec = ''
   else if (sec !== '') {

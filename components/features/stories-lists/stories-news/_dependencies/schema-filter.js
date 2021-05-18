@@ -1,15 +1,9 @@
-export default arcSite => {
+export default (arcSite) => {
   return `{ 
     content_elements { 
       headlines { basic }
       subheadlines { basic }
       display_date
-      taxonomy {
-        primary_section {
-          name
-          path
-        }
-      }
       credits {
         by { 
           name url type 
@@ -18,7 +12,7 @@ export default arcSite => {
           }
         }
       }
-      websites { ${arcSite} { website_url } }
+      websites { ${arcSite} { website_url website_section{name path} } }
       promo_items {
         youtube_id {
           content

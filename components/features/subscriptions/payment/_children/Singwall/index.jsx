@@ -1,13 +1,13 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
+import Forgot from '../../../_children/forgot'
 import Login from '../../../_children/login'
 import Register from '../../../_children/register'
-import Forgot from '../../../_children/forgot'
-import { NavigateProvider, NavigateConsumer } from '../../../_context/navigate'
-import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
+import { NavigateConsumer, NavigateProvider } from '../../../_context/navigate'
 import PWA from '../../../_dependencies/Pwa'
-import { isFbBrowser, getSessionStorage } from '../../../_dependencies/Utils'
+import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
+import { getSessionStorage, isFbBrowser } from '../../../_dependencies/Utils'
 
 const renderTemplate = (template, contTempl, attributes) => {
   const templates = {
@@ -45,10 +45,11 @@ const WrapperSingwall = () => {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
 
-    if (fromFia) {
+    if (fromFia || isFbBrowser()) {
+      // TODO: cambiar surface de 'fia' a 'IA' segun documentacion
+      // https://developers.facebook.com/docs/instant-articles/subscriptions/pixel-measurement/
       window.fbq('track', 'ViewPaywall', {
-        // eslint-disable-next-line no-nested-ternary
-        surface: fromFia ? 'fia' : isFbBrowser() ? 'mWeb' : 'nonApp',
+        surface: fromFia ? 'fia' : 'mWeb',
       })
     }
 
@@ -61,7 +62,6 @@ const WrapperSingwall = () => {
     })
 
     window.fbq('track', 'Lead')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

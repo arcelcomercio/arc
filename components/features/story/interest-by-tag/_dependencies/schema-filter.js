@@ -1,4 +1,4 @@
-export default website => `
+export default (website) => `
     {
       content_elements{
         canonical_url
@@ -8,6 +8,10 @@ export default website => `
         websites {
           ${website} {
             website_url
+            website_section {
+              name
+              path
+            }
           }
         }
         _id
@@ -49,12 +53,6 @@ export default website => `
         }
         subheadlines{
           basic
-        }
-        taxonomy {
-          primary_section {
-              name 
-              path
-          }
         }
       }
     }

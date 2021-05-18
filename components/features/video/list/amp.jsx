@@ -14,7 +14,7 @@ const classes = {
   taboola: 'amp-story-content bg-white pl-20 pr-20 m-0 mx-auto ',
 }
 
-const VideoListAmp = props => {
+const VideoListAmp = (props) => {
   const {
     arcSite,
     globalContent,
@@ -37,16 +37,18 @@ const VideoListAmp = props => {
           feedOffset: offSetNote,
           stories_qty: quantyStory,
           presets: 'landscape_md:314x157',
-          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content,promo_items.basic_jwplayer.embed.config.thumbnail_url,promo_items.basic_jwplayer.embed.config.resized_urls,promo_items.basic_jwplayer.embed.config.duration`,
+          includedFields: `websites.${arcSite}.website_url,headlines.basic,${includePrimarySection(
+            { arcSite }
+          )},promo_items.basic.url,promo_items.basic.type,promo_items.basic.resized_urls,promo_items.basic_video._id,promo_items.basic_video.embed_html,promo_items.basic_video.promo_items.basic.url,promo_items.basic_video.promo_items.basic.type,promo_items.basic_video.promo_items.basic.resized_urls,promo_items.basic_video.duration,promo_items.youtube_id.content,promo_items.basic_jwplayer.embed.config.thumbnail_url,promo_items.basic_jwplayer.embed.config.resized_urls,promo_items.basic_jwplayer.embed.config.duration`,
         },
         filter: SchemaFilter(arcSite),
       }) || {}
     dataList = listVideo
   }
 
-  const {
-    taxonomy: { primary_section: { path = '' } = {} } = {},
-  } = globalContent
+  const { websites = {} } = globalContent
+  const { website_section: { path = '' } = {} } = websites[arcSite] || {}
+
   fetchListVideo(path)
 
   const list = dataList.content_elements || []
@@ -63,7 +65,7 @@ const VideoListAmp = props => {
     <>
       <div className={classes.videoList}>
         {list &&
-          list.map(video => {
+          list.map((video) => {
             Story.__data = video
             const {
               websiteLink,

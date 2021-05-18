@@ -46,7 +46,9 @@ class StoriesListInfiniteScroll extends PureComponent {
 
     this.section = contentConfigValues.section || sectionField
     this.presets = 'landscape_s:234x161,landscape_xs:118x72'
-    this.includedFields = `&_sourceInclude=websites.${arcSite}.website_url,_id,headlines.basic,subheadlines.basic,display_date,content_restrictions.content_code,${includeCredits},${includeCreditsImage},${includePrimarySection},${includeSections},${includePromoItems},promo_items.basic_html.content`
+    this.includedFields = `&_sourceInclude=websites.${arcSite}.website_url,_id,headlines.basic,subheadlines.basic,display_date,content_restrictions.content_code,${includeCredits},${includeCreditsImage},${includePrimarySection(
+      { arcSite }
+    )},${includeSections},${includePromoItems},promo_items.basic_html.content`
 
     this.fetchContent({
       data: {
@@ -129,7 +131,7 @@ class StoriesListInfiniteScroll extends PureComponent {
                 includedFields: this.includedFields,
               }),
         filter: schemaFilter(arcSite),
-        transform: res => {
+        transform: (res) => {
           this.setState({ isLoading: false })
           const { content_elements: stories = [] } = res || {}
           if (contentElements && res) {
@@ -141,11 +143,11 @@ class StoriesListInfiniteScroll extends PureComponent {
     })
   }
 
-  hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
+  hasAds = (index, adsList) => adsList.filter((el) => el.pos === index)
 
   removeDuplicates = (array, key) => {
     const lookup = new Set()
-    return array.filter(obj => !lookup.has(obj[key]) && lookup.add(obj[key]))
+    return array.filter((obj) => !lookup.has(obj[key]) && lookup.add(obj[key]))
   }
 
   render() {
@@ -175,7 +177,7 @@ class StoriesListInfiniteScroll extends PureComponent {
     })
 
     const stories = this.removeDuplicates(
-      contentElements.map(story => {
+      contentElements.map((story) => {
         storyData._data = story
         const {
           isPremium,
@@ -229,11 +231,11 @@ class StoriesListInfiniteScroll extends PureComponent {
     )
 
     const activeAds = Object.keys(customFieldsProps)
-      .filter(prop => prop.match(/adsMobile(\d)/))
-      .filter(key => customFieldsProps[key] === true)
+      .filter((prop) => prop.match(/adsMobile(\d)/))
+      .filter((key) => customFieldsProps[key] === true)
     const typeSpace = isDfp ? 'caja' : 'movil'
 
-    const activeAdsArray = activeAds.map(el => {
+    const activeAdsArray = activeAds.map((el) => {
       return {
         name: `${typeSpace}${el.slice(-1)}`,
         pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,

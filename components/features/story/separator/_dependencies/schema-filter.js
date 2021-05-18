@@ -1,10 +1,17 @@
-export default arcSite => `
+export default (arcSite) => `
     {
       content_elements{
         canonical_url
         websites {
           ${arcSite} {
             website_url
+            website_section {
+              _id 
+              _website 
+              type 
+              name
+              path
+            }
           }
         }
         promo_items{
@@ -56,15 +63,6 @@ export default arcSite => `
         }
         headlines{
           basic
-        }
-        taxonomy {
-          primary_section {
-              _id 
-              _website 
-              type 
-              name 
-              path
-          }
         }
       }
     }

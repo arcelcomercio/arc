@@ -10,7 +10,7 @@ import { getQuery, getStories } from './_dependencies/functions'
 
 const CONTENT_SOURCE = 'story-feed-by-views'
 
-const CardMostRead = props => {
+const CardMostRead = (props) => {
   const {
     globalContent,
     globalContentConfig,
@@ -31,7 +31,7 @@ const CardMostRead = props => {
     source: CONTENT_SOURCE,
     query: {
       presets,
-      ...getQuery({ globalContent, globalContentConfig, storiesQty }),
+      ...getQuery({ globalContent, globalContentConfig, storiesQty, arcSite }),
     },
     filter: schemaFilter,
     transform: ({ content_elements: contentElements = [] } = {}) => {
