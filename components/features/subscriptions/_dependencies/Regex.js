@@ -1,29 +1,25 @@
 const passRecomend = new RegExp(
   '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.])(?=.{8,})'
 )
-const emailRegex = new RegExp(
-  /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/
-)
+const emailRegex = new RegExp(/^[\w]{1}[\w.-]+@[\w-]{2,}(?:\.[\w-]{2,})+$/)
 const strongRegularExp = new RegExp(
   '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.])(?=.{8,})'
 )
 const mediumRegularExp = new RegExp(
   '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})'
 )
-const namesRegex = new RegExp(
-  /^([a-zA-ZÑñÁáÉéÍíÓóÚúüÜ\-'\s])+[a-zA-ZZÑñÁáÉéÍíÓóÚúüÜ]+$/
-)
-const descripRegex = new RegExp(/^(?!\s)[A-Za-z0-9ZÑñÁáÉéÍíÓóÚúüÜ@,.\-_\s]+$/)
+const namesRegex = new RegExp(/^([a-zñáéíóúü-'\s])+[a-zñáéíóúü]+$/, 'i')
+const descripRegex = new RegExp(/^(?!\s)[\wñáéíóúü@,.-\s]+$/, 'i')
 
 // prettier-ignore
 const patternCard = [/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,' ',/\d/,/\d/,/\d/,/\d/,]
 const patternDate = [/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
 const patterCvv = [/\d/, /\d/, /\d/, /\d/]
 
-const numberRegex = new RegExp(/^([0-9])+$/)
+const numberRegex = new RegExp(/^([\d])+$/)
 const cellphoneRegex = new RegExp(/^9\d{8}$/)
-const docRegex = new RegExp(/^([0-9a-zA-Z-])+$/)
-const phoneRegex = new RegExp(/^[0-9-]+$/)
+const docRegex = new RegExp(/^([a-zA-Z0-9-])+$/)
+const phoneRegex = new RegExp(/^[\d-]+$/)
 
 const maskDocuments = {
   DNI: new Array(8).fill(/\d/),
