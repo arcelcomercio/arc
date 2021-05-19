@@ -102,12 +102,15 @@ const StoriesListPaginatedList = props => {
                   />
                 </div>
               )}
+              {arcSite == SITE_DEPOR && isSearchSection && index == 2 && (
+                <div id='afscontainer1'></div>
+              )}
             </Fragment>
           )
         })}
       </div>
-      {arcSite == SITE_DEPOR && isSearchSection && (
-        <div id="afscontainer1"></div>
+      {arcSite == SITE_DEPOR && isSearchSection && stories.length < 3 && (
+        <div id='afscontainer1'></div>
       )}
       {count !== 0 && (
         <Pagination
