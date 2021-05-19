@@ -2,10 +2,14 @@
 import { ENVIRONMENT } from 'fusion:environment'
 import React, { useEffect, useState } from 'react'
 
-import Cookies from '../../_dependencies/cookies'
+import {
+  deleteCookie,
+  getCookie,
+  setCookieSession,
+} from '../../../subscriptions/_dependencies/Cookies'
+import useForm from '../../../subscriptions/_hooks/useForm'
 import Domains from '../../_dependencies/domains'
 import Services from '../../_dependencies/services'
-import useForm from '../../_dependencies/useForm'
 import { Back } from '../iconos'
 import { Input, Select } from './control_input_select'
 import * as S from './styles'
@@ -16,7 +20,7 @@ const FormCode = ({ arcSite, showRequest }) => {
   const [showError, setShowError] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [showLinkMail, setShowLinkMail] = useState(true)
-  const EMAIL_USER = JSON.parse(Cookies.getCookie(cookieStudents)).uemail || ''
+  const EMAIL_USER = JSON.parse(getCookie(cookieStudents)).uemail || ''
 
   const stateSchema = {
     ucode: { value: '', error: '' },
@@ -33,7 +37,7 @@ const FormCode = ({ arcSite, showRequest }) => {
   }
 
   const sendRequestMail = () => {
-    const REQUEST = JSON.parse(Cookies.getCookie(cookieStudents))
+    const REQUEST = JSON.parse(getCookie(cookieStudents))
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then((resExtend) => {
@@ -75,7 +79,7 @@ const FormCode = ({ arcSite, showRequest }) => {
         )
           .then((resCode) => {
             if (resCode.status) {
-              Cookies.deleteCookie(cookieStudents)
+              deleteCookie(cookieStudents)
               setTimeout(() => {
                 window.location.href =
                   ENVIRONMENT === 'elcomercio'
@@ -112,7 +116,7 @@ const FormCode = ({ arcSite, showRequest }) => {
         type="button"
         className="mb-10"
         onClick={() => {
-          Cookies.deleteCookie(cookieStudents)
+          deleteCookie(cookieStudents)
           showRequest()
         }}>
         <Back /> Volver
@@ -285,7 +289,7 @@ const FormRequest = ({ arcSite, showCode }) => {
             )
               .then((res) => {
                 if (res.status) {
-                  Cookies.setCookieSession(cookieStudents, {
+                  setCookieSession(cookieStudents, {
                     uemail,
                     udate,
                     ugrade,
@@ -460,7 +464,7 @@ export const FormStudents = ({ arcSite }) => {
   const [showReqCode, setShowReqCode] = useState(false)
 
   useEffect(() => {
-    if (Cookies.getCookie(cookieStudents)) {
+    if (getCookie(cookieStudents)) {
       setShowReqCode(true)
     }
   }, [])

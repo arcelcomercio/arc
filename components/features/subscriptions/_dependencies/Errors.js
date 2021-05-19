@@ -1,64 +1,50 @@
 import {
-  namesRegex,
-  numberRegex,
-  // docRegex,
-  emailRegex,
   // phoneRegex,
   cellphoneRegex,
+  // docRegex,
+  emailRegex,
+  namesRegex,
+  numberRegex,
 } from './Regex'
 
-export const formatEmail = () => {
-  return {
-    func: value => emailRegex.test(value) && !value.match(/@facebook.com/),
-    error: 'Correo electrónico Inválido',
-  }
-}
+export const formatEmail = () => ({
+  func: (value) => emailRegex.test(value) && !value.match(/@facebook.com/),
+  error: 'Correo electrónico Inválido',
+})
 
-export const formatNames = () => {
-  return {
-    func: value => namesRegex.test(value),
-    error: 'Formato inválido, solo letras',
-  }
-}
+export const formatNames = () => ({
+  func: (value) => namesRegex.test(value),
+  error: 'Formato inválido, solo letras',
+})
 
-export const formatSecondLastName = () => {
-  return {
-    func: value =>
-      value === '' || (value.length >= 2 && namesRegex.test(value)),
-    error: 'Formato inválido, solo letras',
-  }
-}
+export const formatSecondLastName = () => ({
+  func: (value) =>
+    value === '' || (value.length >= 2 && namesRegex.test(value)),
+  error: 'Formato inválido, solo letras',
+})
 
-export const formatPhone = () => {
-  return {
-    func: value =>
-      value === '' || (value.length >= 2 && numberRegex.test(value)),
-    error: 'Formato inválido. Solo números',
-  }
-}
+export const formatPhone = () => ({
+  func: (value) =>
+    value === '' || (value.length >= 2 && numberRegex.test(value)),
+  error: 'Formato inválido. Solo números',
+})
 
-export const formatCellphone = () => {
-  return {
-    func: value => cellphoneRegex.test(value),
-    error: 'Formato inválido.',
-  }
-}
+export const formatCellphone = () => ({
+  func: (value) => cellphoneRegex.test(value),
+  error: 'Formato inválido.',
+})
 
-export const acceptCheckTerms = () => {
-  return {
-    func: value => value !== '1',
-    error:
-      'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones',
-  }
-}
+export const acceptCheckTerms = () => ({
+  func: (value) => value !== '1',
+  error:
+    'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones',
+})
 
-export const acceptCheckTermsPay = () => {
-  return {
-    func: value => value === 'no',
-    error:
-      'Para continuar con le proceso de pago es necesario aceptar las condiciones de servicio y las políticas de privacidad',
-  }
-}
+export const acceptCheckTermsPay = () => ({
+  func: (value) => value === 'no',
+  error:
+    'Para continuar con le proceso de pago es necesario aceptar las condiciones de servicio y las políticas de privacidad',
+})
 
 const getCodeError = (code, status) => {
   switch (code) {

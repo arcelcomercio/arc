@@ -2,13 +2,16 @@ import { sha256 } from 'js-sha256'
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 
+import {
+  setCookie,
+  setCookieDomain,
+} from '../../../subscriptions/_dependencies/Cookies'
+import getDevice from '../../../subscriptions/_dependencies/GetDevice'
+import { getQuery } from '../../../subscriptions/_dependencies/QueryString'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { device } from '../../_dependencies/breakpoints'
-import Cookies from '../../_dependencies/cookies'
 import Domains from '../../_dependencies/domains'
-import getDevice from '../../_dependencies/get-device'
-import QueryString from '../../_dependencies/querystring'
 import Services from '../../_dependencies/services'
-import Taggeo from '../../_dependencies/taggeo'
 import { Facebook, Google, Mail } from '../iconos'
 import { Button } from './styles'
 
@@ -115,9 +118,9 @@ const AfterLoginRegister = (
     `Web_Sign_Wall_${typeDialog}`,
     `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
   )
-  Cookies.setCookie('arc_e_id', sha256(emailUser), 365)
+  setCookie('arc_e_id', sha256(emailUser), 365)
   const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-  Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+  setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
   onLogged(resProfile)
 
@@ -528,7 +531,7 @@ export const AuthURL = ({
     ]
 
     listUrlRedirect.map((item) => {
-      if (QueryString.getQuery(item)) {
+      if (getQuery(item)) {
         setTimeout(() => {
           const btnFacebook = document.getElementById('btn-sign-facebook')
           if (btnFacebook) {
@@ -539,7 +542,7 @@ export const AuthURL = ({
         authSocialProviderURL(
           {
             data: {
-              accessToken: QueryString.getQuery(item).replace(/(#_=_)$/, ''),
+              accessToken: getQuery(item).replace(/(#_=_)$/, ''),
               providerSource: 'facebook',
             },
             origin: Domains.getUrlECOID(),

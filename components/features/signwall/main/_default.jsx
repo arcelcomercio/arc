@@ -2,12 +2,12 @@ import Fingerprint2 from 'fingerprintjs2'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
-import Cookies from '../_dependencies/cookies'
+import { getCookie, setCookie } from '../../subscriptions/_dependencies/Cookies'
+import { getQuery } from '../../subscriptions/_dependencies/QueryString'
+import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
 import Domains from '../_dependencies/domains'
 import GetProfile from '../_dependencies/get-profile'
-import QueryString from '../_dependencies/querystring'
 import Services from '../_dependencies/services'
-import Taggeo from '../_dependencies/taggeo'
 import { Paywall } from './_children/paywall'
 import { Premium } from './_children/premium'
 
@@ -38,7 +38,7 @@ class SignwallComponent extends React.PureComponent {
       }
       window.requestIdle(() => {
         Fingerprint2.getV18({}, (result) => {
-          Cookies.setCookie('gecdigarc', result, 365)
+          setCookie('gecdigarc', result, 365)
         })
       })
     }
@@ -99,10 +99,8 @@ class SignwallComponent extends React.PureComponent {
       ? contentTier.getAttribute('content')
       : 'metered'
 
-    if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
-      const artURL = decodeURIComponent(
-        QueryString.getQuery('article_url') || ''
-      )
+    if (iOS && getQuery('surface') === 'meter_limit_reached') {
+      const artURL = decodeURIComponent(getQuery('article_url') || '')
       W.sessionStorage.setItem('paywall_last_url', artURL)
       W.location.href = Domains.getUrlLandingAuth(arcSite)
     }
@@ -214,7 +212,7 @@ class SignwallComponent extends React.PureComponent {
         'meta[name="content-type"]'
       )
       if (
-        Cookies.getCookie('arc_e_id') &&
+        getCookie('arc_e_id') &&
         dataContType &&
         siteProperties.activePaywall
       ) {

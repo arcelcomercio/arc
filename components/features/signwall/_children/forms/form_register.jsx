@@ -2,14 +2,18 @@
 import { sha256 } from 'js-sha256'
 import React, { useState } from 'react'
 
-import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
-import getCodeError from '../../_dependencies/codes_error'
-import Cookies from '../../_dependencies/cookies'
+import {
+  setCookie,
+  setCookieDomain,
+} from '../../../subscriptions/_dependencies/Cookies'
+import getCodeError, {
+  formatPhone,
+} from '../../../subscriptions/_dependencies/Errors'
+import getDevice from '../../../subscriptions/_dependencies/GetDevice'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../subscriptions/_hooks/useForm'
 import Domains from '../../_dependencies/domains'
-import getDevice from '../../_dependencies/get-device'
 import Services from '../../_dependencies/services'
-import Taggeo from '../../_dependencies/taggeo'
-import useForm from '../../_dependencies/useForm'
 import { ModalConsumer } from '../context'
 import { Back, MsgRegister } from '../iconos'
 import Loading from '../loading'
@@ -146,10 +150,10 @@ const FormRegister = (props) => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile()
       .then((profile) => {
-        Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+        setCookie('arc_e_id', sha256(profile.email), 365)
 
         const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-        Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+        setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
         if (activeNewsletter) {
           handleNewsleters(profile)
@@ -264,7 +268,7 @@ const FormRegister = (props) => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_error_registrarme`
         )
-        Cookies.setCookie('lostEmail', remail, 1)
+        setCookie('lostEmail', remail, 1)
       })
   }
 

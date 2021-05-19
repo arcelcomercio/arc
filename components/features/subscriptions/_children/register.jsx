@@ -1,19 +1,19 @@
-import * as React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import { NavigateConsumer } from '../_context/navigate'
-import useForm from '../_hooks/useForm'
+import getCodeError, {
+  acceptCheckTerms,
+  formatEmail,
+  formatPhone,
+} from '../_dependencies/Errors'
 import getDevice from '../_dependencies/GetDevice'
+import { MsgRegister } from '../_dependencies/Icons'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
-import getCodeError, {
-  formatEmail,
-  formatPhone,
-  acceptCheckTerms,
-} from '../_dependencies/Errors'
-import { MsgRegister } from '../_dependencies/Icons'
 import { isFbBrowser } from '../_dependencies/Utils'
+import useForm from '../_hooks/useForm'
 import ButtonSocial from './social'
 
 const styles = {
@@ -404,7 +404,7 @@ const Register = ({ arcSite }) => {
                       onClick={dataTreatment}>
                       fines adicionales
                     </button>
-                    <span className="checkmark"></span>
+                    <span className="checkmark" />
                   </label>
                 </div>
 

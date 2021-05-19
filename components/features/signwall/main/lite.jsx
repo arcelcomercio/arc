@@ -2,9 +2,9 @@ import Fingerprint2 from 'fingerprintjs2'
 import Consumer from 'fusion:consumer'
 import React, { PureComponent } from 'react'
 
-import Cookies from '../_dependencies/cookies'
+import { getCookie, setCookie } from '../../subscriptions/_dependencies/Cookies'
+import { getQuery } from '../../subscriptions/_dependencies/QueryString'
 import Domains from '../_dependencies/domains'
-import QueryString from '../_dependencies/querystring'
 import Services from '../_dependencies/services'
 import { Paywall } from './_children/paywall'
 import { Premium } from './_children/premium'
@@ -31,7 +31,7 @@ class SignwallComponent extends PureComponent {
       }
       window.requestIdle(() => {
         Fingerprint2.getV18({}, (result) => {
-          Cookies.setCookie('gecdigarc', result, 365)
+          setCookie('gecdigarc', result, 365)
         })
       })
 
@@ -110,10 +110,8 @@ class SignwallComponent extends PureComponent {
       ? contentTier.getAttribute('content')
       : 'metered'
 
-    if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
-      const artURL = decodeURIComponent(
-        QueryString.getQuery('article_url') || ''
-      )
+    if (iOS && getQuery('surface') === 'meter_limit_reached') {
+      const artURL = decodeURIComponent(getQuery('article_url') || '')
       W.sessionStorage.setItem('paywall_last_url', artURL)
       W.postMessage(
         {
@@ -230,7 +228,7 @@ class SignwallComponent extends PureComponent {
         'meta[name="content-type"]'
       )
       if (
-        Cookies.getCookie('arc_e_id') &&
+        getCookie('arc_e_id') &&
         dataContType &&
         siteProperties.activePaywall
       ) {

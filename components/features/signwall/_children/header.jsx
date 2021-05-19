@@ -3,7 +3,7 @@ import Context from 'fusion:context'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/constants'
-import Taggeo from '../_dependencies/taggeo'
+import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
 import { Back, Close } from './iconos'
 
 const Header = ({ type, closePopup, typePopUp }) => {

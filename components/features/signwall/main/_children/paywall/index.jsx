@@ -2,6 +2,11 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent, useEffect } from 'react'
 
+import {
+  deleteQuery,
+  getQuery,
+} from '../../../../subscriptions/_dependencies/QueryString'
+import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import { ModalConsumer, ModalProvider } from '../../../_children/context'
 import { FormForgot } from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
@@ -9,8 +14,6 @@ import { FormLogin } from '../../../_children/forms/form_login'
 import FormRegister from '../../../_children/forms/form_register'
 import { Close } from '../../../_children/iconos'
 import { Modal } from '../../../_children/modal/index'
-import QueryString from '../../../_dependencies/querystring'
-import Taggeo from '../../../_dependencies/taggeo'
 import {
   CloseBtn,
   ContMiddle,
@@ -28,9 +31,9 @@ const renderTemplate = (template, valTemplate, attributes) => {
     register: <FormRegister {...attributes} />,
   }
 
-  if (QueryString.getQuery('signPaywall')) {
+  if (getQuery('signPaywall')) {
     setTimeout(() => {
-      QueryString.deleteQuery('signPaywall')
+      deleteQuery('signPaywall')
     }, 2000)
     return templates.login
   }

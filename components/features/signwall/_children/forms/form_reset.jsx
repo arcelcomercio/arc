@@ -1,10 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useEffect, useState } from 'react'
 
-import getCodeError from '../../_dependencies/codes_error'
+import getCodeError from '../../../subscriptions/_dependencies/Errors'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../subscriptions/_hooks/useForm'
 import Domains from '../../_dependencies/domains'
-import Taggeo from '../../_dependencies/taggeo'
-import useForm from '../../_dependencies/useForm'
 import { ModalConsumer } from '../context'
 import { MsgResetPass, ResetPass } from '../iconos'
 import { Input } from './control_input_select'

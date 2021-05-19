@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import React, { useEffect, useState } from 'react'
 
-import getCodeError from '../../_dependencies/codes_error'
+import getCodeError from '../../../subscriptions/_dependencies/Errors'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import Domains from '../../_dependencies/domains'
-import Taggeo from '../../_dependencies/taggeo'
 import { ModalConsumer } from '../context'
 import { MsgResetPass } from '../iconos'
 import Loading from '../loading'

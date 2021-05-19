@@ -3,11 +3,11 @@
 import { sha256 } from 'js-sha256'
 import React, { useState } from 'react'
 
-import getCodeError from '../../_dependencies/codes_error'
-import Cookies from '../../_dependencies/cookies'
+import { setCookie } from '../../../subscriptions/_dependencies/Cookies'
+import getCodeError from '../../../subscriptions/_dependencies/Errors'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../subscriptions/_hooks/useForm'
 import Domains from '../../_dependencies/domains'
-import Taggeo from '../../_dependencies/taggeo'
-import useForm from '../../_dependencies/useForm'
 import { ModalConsumer } from '../context'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
@@ -90,7 +90,7 @@ export const FormRelogin = ({
             window.Identity.userProfile = null
             window.Identity.userIdentity = {}
           } else {
-            Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+            setCookie('arc_e_id', sha256(profile.email), 365)
             Taggeo(
               `Web_Sign_Wall_${typeDialog}`,
               `web_sw${typeDialog[0]}_email_login_success_ingresar`

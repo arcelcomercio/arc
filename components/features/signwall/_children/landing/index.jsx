@@ -2,8 +2,11 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import QueryString from '../../_dependencies/querystring'
-import Taggeo from '../../_dependencies/taggeo'
+import {
+  deleteQuery,
+  getQuery,
+} from '../../../subscriptions/_dependencies/QueryString'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { ModalConsumer, ModalProvider } from '../context'
 import { FormForgot } from '../forms/form_forgot'
 import { FormLoginPaywall } from '../forms/form_login_landing'
@@ -19,13 +22,10 @@ const renderTemplate = (template, valTemplate, attributes) => {
     register: <FormRegister {...attributes} />,
   }
 
-  if (
-    QueryString.getQuery('signLanding') ||
-    QueryString.getQuery('signStudents')
-  ) {
+  if (getQuery('signLanding') || getQuery('signStudents')) {
     setTimeout(() => {
-      QueryString.deleteQuery('signLanding')
-      QueryString.deleteQuery('signStudents')
+      deleteQuery('signLanding')
+      deleteQuery('signStudents')
     }, 1000)
     return templates.login
   }

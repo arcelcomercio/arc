@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-import useForm from '../_hooks/useForm'
+import { NavigateConsumer } from '../_context/navigate'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import { MsgForgotPass } from '../_dependencies/Icons'
-import { NavigateConsumer } from '../_context/navigate'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
+import useForm from '../_hooks/useForm'
 
 const styles = {
   title: 'step__left-title',
@@ -48,7 +48,7 @@ const Forgot = () => {
           setShowConfirm(true)
           Taggeo(nameTagCategory, 'web_swl_contrasena_success_boton')
         })
-        .catch(err => {
+        .catch((err) => {
           setRegisterLink(err.code === '300030')
           setShowVerify(err.code === '130051')
           setLoading(false)
@@ -71,7 +71,7 @@ const Forgot = () => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFomrForgot)
 
-  const handleChangeInput = e => {
+  const handleChangeInput = (e) => {
     handleOnChange(e)
     setMsgError(false)
   }
@@ -95,7 +95,7 @@ const Forgot = () => {
 
   return (
     <NavigateConsumer>
-      {value => (
+      {(value) => (
         <>
           {!showConfirm ? (
             <>

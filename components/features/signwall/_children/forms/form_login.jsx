@@ -3,12 +3,15 @@
 import { sha256 } from 'js-sha256'
 import React, { useState } from 'react'
 
-import getCodeError from '../../_dependencies/codes_error'
-import Cookies from '../../_dependencies/cookies'
+import {
+  setCookie,
+  setCookieDomain,
+} from '../../../subscriptions/_dependencies/Cookies'
+import getCodeError from '../../../subscriptions/_dependencies/Errors'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../subscriptions/_hooks/useForm'
 import Domains from '../../_dependencies/domains'
 import Services from '../../_dependencies/services'
-import Taggeo from '../../_dependencies/taggeo'
-import useForm from '../../_dependencies/useForm'
 import { ModalConsumer } from '../context'
 import { MsgRegister } from '../iconos'
 import Loading from '../loading'
@@ -154,10 +157,10 @@ export const FormLogin = ({ valTemplate, attributes }) => {
   const handleGetProfile = (profile) => {
     setShowLoading(true)
 
-    Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+    setCookie('arc_e_id', sha256(profile.email), 365)
 
     const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-    Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+    setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs

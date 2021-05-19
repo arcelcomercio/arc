@@ -76,8 +76,6 @@ class Domains {
       ? 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
       : 'https://signwall-test.e3.pe/static/payu-sdk.js'
 
-  getPayuTags = () => 'https://maf.pagosonline.net/ws/fp/tags.js?id='
-
   getUrlComercioSubs = () => {
     const arcEnv = env === 'prod' ? '' : 'dev'
     return `https://${arcEnv}paywall.comerciosuscripciones.pe/api`
@@ -93,20 +91,10 @@ class Domains {
       ? '/auth-fia/?outputType=subscriptions'
       : `/auth-fia/?_website=${arcSite}&outputType=subscriptions`
 
-  getUrlPaywallFia = (arcSite) =>
-    env === 'prod'
-      ? `/suscripcionesdigitales/fia/?ref=auth-fia`
-      : `/suscripcionesdigitales/fia/?_website=${arcSite}&outputType=subscriptions`
-
   getUrlSignwall = (arcSite, typeDialog, hash) =>
     env === 'prod'
       ? `/signwall/?outputType=subscriptions&${typeDialog}=${hash}`
       : `/signwall/?_website=${arcSite}&outputType=subscriptions&${typeDialog}=${hash}`
-
-  getGoogleID = () =>
-    env === 'prod'
-      ? '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
-      : '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com'
 }
 
 export default new Domains()

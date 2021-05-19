@@ -1,13 +1,13 @@
 import * as React from 'react'
 
-import QueryString from '../../signwall/_dependencies/querystring'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
-import { Taggeo } from '../_dependencies/Taggeo'
-import { isAuthenticated } from '../_dependencies/Session'
-import { checkUndefined } from '../_dependencies/Utils'
-import { AuthContext } from '../_context/auth'
 import Signwall from '../_children/Signwall'
+import { AuthContext } from '../_context/auth'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
+import { getQuery } from '../_dependencies/QueryString'
+import { isAuthenticated } from '../_dependencies/Session'
+import { Taggeo } from '../_dependencies/Taggeo'
+import { checkUndefined } from '../_dependencies/Utils'
 
 const styles = {
   wrapper: 'header-payment__content wrapper-buy',
@@ -25,9 +25,9 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
 
   const formatName = () => {
-    const fullName = `${checkUndefined(firstName, 'Usuario')} ${checkUndefined(
-      lastName
-    ) || ''} ${checkUndefined(secondLastName) || ''}`
+    const fullName = `${checkUndefined(firstName, 'Usuario')} ${
+      checkUndefined(lastName) || ''
+    } ${checkUndefined(secondLastName) || ''}`
 
     return fullName.length >= 15 ? `${fullName.substring(0, 15)}...` : fullName
   }
@@ -60,7 +60,7 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
       <header className="header-payment" id="header">
         <div className={styles.wrapper}>
           {PWA.isPWA() ? (
-            <div className={styles.logo}></div>
+            <div className={styles.logo} />
           ) : (
             <a
               href={urls.homeUrl}
@@ -68,7 +68,7 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
               target="_blank"
               rel="noreferrer"
               aria-label={arcSite}>
-              <div className={styles.logo}></div>
+              <div className={styles.logo} />
             </a>
           )}
           <button
@@ -84,9 +84,7 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
         </div>
       </header>
 
-      {QueryString.getQuery('signLanding') ||
-      QueryString.getQuery('signStudents') ||
-      showSignwall ? (
+      {getQuery('signLanding') || getQuery('signStudents') || showSignwall ? (
         <Signwall
           fallback={<div>Cargando...</div>}
           typeDialog={showTypeLanding} // tipo de modal (students , landing)
