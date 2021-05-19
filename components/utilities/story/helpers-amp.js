@@ -31,8 +31,7 @@ export const publicidadAmp = ({
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp = ( SITE_PERU21 === arcSite && 
-    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const prebidAmp = (prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
   const nuevoScript =
     (movil1 &&
       `data-multi-size="${size}"
@@ -62,8 +61,7 @@ export const publicidadAmpAd = ({
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp = ( SITE_PERU21 === arcSite && 
-    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const prebidAmp = (prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
   const flying1 =
     (movil1 === false && `<amp-fx-flying-carpet height="600px">`) || ''
   const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
@@ -90,8 +88,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '', prebidSlot = '' })
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp = ( SITE_PERU21 === arcSite && 
-    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const prebidAmp = (prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
   resultData = `<amp-ad
     width="320"
     height="50"
@@ -105,8 +102,7 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '', prebidSlot = '' })
 
 export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '', prebidSlot = '' }) => {
   let resultData = ''
-  const prebidAmp = ( SITE_PERU21 === arcSite && 
-    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const prebidAmp = (prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
 
   resultData = `<amp-ad
     width="320"
