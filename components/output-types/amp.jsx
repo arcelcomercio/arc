@@ -464,8 +464,7 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-        {arcSite === SITE_PERU21 && (
-          <amp-iframe
+        <amp-iframe
             width="1"
             title="User Sync"
             height="1"
@@ -478,7 +477,6 @@ const AmpOutputType = ({
               placeholder
             />
           </amp-iframe>
-        )}
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />

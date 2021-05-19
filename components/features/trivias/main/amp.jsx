@@ -107,39 +107,25 @@ const TriviasMainAmp = ({
         />
 
         <amp-story-auto-ads>
-          {arcSite == SITE_PERU21 ? (
-            <script
+          <script
               type="application/json"
               dangerouslySetInnerHTML={{
                 __html: `{
                   "ad-attributes": {
                     "type": "doubleclick",
                     "data-slot": "${dataSlot}",
-                    "rtc-config": {
-                      "vendors": {
-                        "prebidrubicon": {
-                          "REQUEST_ID": "${prebidSlot}", 
-                          "ACCOUNT_ID": "19186"
+                      "rtc-config": {
+                        "vendors": {
+                          "prebidrubicon": {
+                            "REQUEST_ID": "${prebidSlot}", 
+                            "ACCOUNT_ID": "19186"
+                          }
                         }
                       }
                     }
-                  }
-                }`,
+                  }`,
               }}
-            />
-          ):(
-            <script
-              type="application/json"
-              dangerouslySetInnerHTML={{
-                __html: `{
-                  "ad-attributes": {
-                    "type": "doubleclick",
-                    "data-slot": "${dataSlot}",
-                  }
-                }`,
-              }}
-            />
-          )}
+          />
         </amp-story-auto-ads>
 
         <TriviaStart title={title} image={triviaImage} alt={caption}>
