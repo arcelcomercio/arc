@@ -162,7 +162,7 @@ const LandingSubscriptions = (props) => {
   return (
     <>
       <>
-        <header className="header active" id="header">
+        <header className="header" id="header">
           <div className="wrapper">
             <div
               className={`header__content ${
