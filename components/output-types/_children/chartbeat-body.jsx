@@ -31,13 +31,13 @@ const getSectionList = (requestUri, type) => {
   return ''
 }
 
-const getAuthor = credits =>
+const getAuthor = (credits) =>
   credits &&
   credits.by &&
   credits.by[0] &&
-  credits.by.map(author => author.name)
+  credits.by.map((author) => author.name)
 
-const getTagList = tags => tags.map(tag => tag.slug)
+const getTagList = (tags) => tags.map((tag) => tag.slug)
 
 const getStoryType = (promoItems, subtype) => {
   const promoTypes = Object.keys(promoItems)
@@ -76,7 +76,7 @@ const ChartbeatBody = ({
   const { charbeatAccountNumber, siteDomain } = getProperties(arcSite)
   const page = metaValue('id')
   const sectionList = getSectionList(requestUri, page)
-  const author = getAuthor(credits) || ''
+  const author = getAuthor(credits).join(',') || ''
   const tagsList = getTagList(tags) || arcSite
   const { type, stringType } = getStoryType(promoItems, subtype) || {}
   const renderSections = story ? sectionList.concat(tagsList) : sectionList
@@ -119,7 +119,10 @@ const ChartbeatBody = ({
     var _sf_startpt = new Date().getTime()
     var _sf_async_config = _sf_async_config || {};_sf_async_config.uid = ${charbeatAccountNumber};_sf_async_config.domain = "${siteDomain}";_sf_async_config.flickerControl = false;_sf_async_config.useCanonical = true;_sf_async_config.sections = "${renderSections}"; ${
     story
-      ? `_sf_async_config.authors = '${author}'; _sf_async_config.type = '${type}'; _sf_async_config.contentType = "${stringType}";`
+      ? `_sf_async_config.authors = '${author?.replace(
+          /'/g,
+          ''
+        )}'; _sf_async_config.type = '${type}'; _sf_async_config.contentType = "${stringType}";`
       : ''
   } ${
     // TODO: identificar que portadas y secciones normalmente tienen videos
