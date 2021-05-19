@@ -8,7 +8,7 @@ const strongRegularExp = new RegExp(
 const mediumRegularExp = new RegExp(
   '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})'
 )
-const namesRegex = new RegExp(/^([a-zñáéíóúü-'\s])+[a-zñáéíóúü]+$/, 'i')
+const namesRegex = new RegExp(/^([a-zñáéíóúü'\s-])+[a-zñáéíóúü]+$/, 'i')
 const descripRegex = new RegExp(/^(?!\s)[\wñáéíóúü@,.-\s]+$/, 'i')
 
 // prettier-ignore
