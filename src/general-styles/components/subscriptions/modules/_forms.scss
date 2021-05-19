@@ -17,11 +17,17 @@ select {
   border-radius: 3px;
   box-shadow: none;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 15px;
+  font-family: $secondaryFont;
 }
 
 // Removes awkward default styles on some inputs for iOS
 input {
+  &[type="checkbox"],
+  &[type="radio"] {
+    display: inline;
+  }
+
   &[type="email"],
   &[type="number"],
   &[type="search"],
@@ -31,16 +37,7 @@ input {
   &[type="password"] {
     appearance: none;
   }
-}
 
-textarea {
-  appearance: none;
-  min-height: 65px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
-
-input {
   &[type="email"]:focus,
   &[type="number"]:focus,
   &[type="search"]:focus,
@@ -51,9 +48,7 @@ input {
     border: 1px solid $bluePrimary;
     outline: 0;
   }
-}
 
-input {
   &[type="email"]:disabled,
   &[type="number"]:disabled,
   &[type="search"]:disabled,
@@ -64,6 +59,13 @@ input {
     opacity: 0.7;
     cursor: wait;
   }
+}
+
+textarea {
+  appearance: none;
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 textarea:focus,
@@ -89,13 +91,6 @@ legend {
 fieldset {
   padding: 0;
   border-width: 0;
-}
-
-input {
-  &[type="checkbox"],
-  &[type="radio"] {
-    display: inline;
-  }
 }
 
 label > .label-body {

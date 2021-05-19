@@ -165,6 +165,8 @@
     color: $white;
     padding: 40px 20px;
     background-image: url("https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/banner_impreso.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     &-icon {
       width: 34px;
       height: 34px;
