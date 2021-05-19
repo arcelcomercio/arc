@@ -158,7 +158,7 @@ const PropertiesSite = {
           {
             q: '¿Puedo solicitar un comprobante de venta por la suscripción?',
             a: [
-              'Sí, la empresa emitirá un comprobante electrónico (boleta o factura) por el importe correspondiente al servicio contratado. El suscriptor podrá visualizar dicho comprobante de pago desde la página web clubelcomercio.pe o ingresando directamente a [http://ecomedia.pe/facturacion] Para visualizar el comprobante, el suscriptor deberá ingresar los siguientes dígitos según corresponda.',
+              'Sí, la empresa emitirá un comprobante electrónico (boleta o factura) por el importe correspondiente al servicio contratado. El suscriptor podrá visualizar dicho comprobante de pago desde la página web clubelcomercio.pe o ingresando directamente a [http://ecomedia.pe/facturacion](http://ecomedia.pe/facturacion) Para visualizar el comprobante, el suscriptor deberá ingresar los siguientes dígitos según corresponda.',
               'Persona natural: Ingresar los 8 dígitos del DNI del suscriptor contraseña: INICIO00',
               'Empresa: Ingresar los 10 primeros dígitos del RUC contraseña: INICIO00',
             ],
@@ -166,7 +166,7 @@ const PropertiesSite = {
           {
             q: '¿Puedo cambiar el medio de pago de mi suscripción?',
             a:
-              'Puedes realizar el cambio de medio de pago accediendo a tu perfil en www.elcomercio.pe ',
+              'Puedes realizar el cambio de medio de pago accediendo a tu perfil en [https://www.elcomercio.pe](https://www.elcomercio.pe)',
           },
           {
             q: '¿Desde cuándo hago uso de los beneficios de Club El Comercio?',
@@ -187,7 +187,7 @@ const PropertiesSite = {
               '3. Disfruta de sus descuentos.  ',
               '',
               '### B. Si Usted es una persona jurídica, síguenos los Siguientes Pasos:',
-              '1. Registre en nuestra central de atención al cliente o al correo suscripcione@comercio.com.pe a los beneficiarios de su empresa y registre su DNI',
+              '1. Registre en nuestra central de atención al cliente [(01) 311-5100](tel:+5113115100) a los beneficiarios de su empresa y registre su DNI',
               '2. Identifíquese presentando su Documento de Identidad (imprescindible)',
               '3. Disfruta de Sus Descuentos.',
             ],
@@ -240,7 +240,7 @@ const PropertiesSite = {
             q:
               'Tengo problemas para adquirir uno de los planes digitales. ¿Me pueden ayudar?',
             a:
-              'Asegúrate de ingresar la información correctamente en los espacios solicitados del formulario. Si aun así no logras registrarte, contáctanos al (01) 311-5100 o a [suscripciones@comercio.com.pe]',
+              'Asegúrate de ingresar la información correctamente en los espacios solicitados del formulario. Si aun así no logras registrarte, llámanos al [(01) 311-5100](tel:+5113115100)',
           },
           {
             q: '¿Qué van a hacer con mi información?',
@@ -257,9 +257,11 @@ const PropertiesSite = {
               'Mi pregunta no fue solucionada aquí, ¿dónde puedo recibir ayuda?',
             a: [
               'Para cualquier información, duda o consulta, puedes recibir ayuda personalizada por los siguientes medios:',
-              '   1. Escríbenos a [suscripciones@comercio.com.pe]',
-              '   2. Llámanos al (01) 311-5100',
+              '',
+              '   1. Llámanos al [(01) 311-5100](tel:+5113115100)',
+              '',
               'Horario de atención al Cliente es el siguiente:',
+              '',
               'De lunes a viernes de 7:00 am 9:00 pm',
               'Sábados, domingos y feriados de 7:00 am a 1:00 pm',
             ],
@@ -434,7 +436,7 @@ const PropertiesSite = {
           {
             q: '¿Puedo solicitar un comprobante de venta por la suscripción?',
             a: [
-              'Sí, la empresa emitirá un comprobante electrónico (boleta o factura) por el importe correspondiente al servicio contratado. El suscriptor podrá visualizar dicho comprobante de pago desde la página web clubelcomercio.pe o ingresando directamente a [http://ecomedia.pe/facturacion] Para visualizar el comprobante, el suscriptor deberá ingresar los siguientes dígitos según corresponda.',
+              'Sí, la empresa emitirá un comprobante electrónico (boleta o factura) por el importe correspondiente al servicio contratado. El suscriptor podrá visualizar dicho comprobante de pago desde la página web clubelcomercio.pe o ingresando directamente a [http://ecomedia.pe/facturacion](http://ecomedia.pe/facturacion) Para visualizar el comprobante, el suscriptor deberá ingresar los siguientes dígitos según corresponda.',
               'Persona natural: Ingresar los 8 dígitos del DNI del suscriptor contraseña: INICIO00',
               'Empresa: Ingresar los 10 primeros dígitos del RUC contraseña: INICIO00',
             ],
@@ -460,10 +462,10 @@ const PropertiesSite = {
               '### A. Si usted es una persona natural, siga los siguientes pasos:',
               '1. Indique que es suscriptor de Diario Gestión en el establecimiento.',
               '2. Identifíquese presentando su Documento de Identidad (imprescindible).',
-              '3. Disfruta de sus descuentos.  ',
+              '3. Disfruta de sus descuentos.',
               '',
               '### B. Si Usted es una persona jurídica, síguenos los Siguientes Pasos:',
-              '1. Registre en nuestra central de atención al cliente o al correo suscriptores@diariogestión.com.pe a los beneficiarios de su empresa y registre su DNI.',
+              '1. Registre en nuestra central de atención al cliente [(01) 311-5100](tel:+5113115100) a los beneficiarios de su empresa y registre su DNI.',
               '2. Identifíquese presentando su Documento de Identidad (imprescindible)',
               '3. Disfruta de Sus Descuentos.',
             ],
@@ -492,7 +494,7 @@ const PropertiesSite = {
           {
             q: '¿Puedo solicitar un comprobante de venta por la suscripción?',
             a: [
-              'Sí, la empresa emitirá un comprobante electrónico (boleta o factura) por el importe correspondiente al servicio contratado. El suscriptor podrá visualizar dicho comprobante de pago desde la página web clubelcomercio.pe o ingresando directamente a http://ecomedia.pe/facturacion Para visualizar el comprobante, el suscriptor deberá ingresar los siguientes dígitos según corresponda.',
+              'Sí, la empresa emitirá un comprobante electrónico (boleta o factura) por el importe correspondiente al servicio contratado. El suscriptor podrá visualizar dicho comprobante de pago desde la página web clubelcomercio.pe o ingresando directamente a [http://ecomedia.pe/facturacion](http://ecomedia.pe/facturacion) Para visualizar el comprobante, el suscriptor deberá ingresar los siguientes dígitos según corresponda.',
               'Persona natural: Ingresar los 8 dígitos del DNI del suscriptor, contraseña: INICIO00',
               'Empresa: Ingresar los 10 primeros dígitos del RUC, contraseña: INICIO00',
             ],
@@ -519,8 +521,9 @@ const PropertiesSite = {
               '1. Indique que es suscriptor de Diario Gestión en el establecimiento.',
               '2. Identifíquese presentando su Documento de Identidad (imprescindible).',
               '3. Disfruta de sus descuentos.',
+              '',
               '### B. Si Usted es una persona jurídica, síguenos los Siguientes Pasos:',
-              '1. Registre en nuestra central de atención al cliente o al correo suscriptores@diariogestión.com.pe a los beneficiarios de su empresa y registre',
+              '1. Registre en nuestra central de atención al cliente [(01) 311-5100](tel:+5113115100) a los beneficiarios de su empresa y registre',
               '2. Identifíquese presentando su Documento de Identidad (imprescindible)',
               '3. Disfruta de Sus Descuentos.',
             ],
@@ -573,7 +576,7 @@ const PropertiesSite = {
             q:
               'Tengo problemas para adquirir uno de los planes digitales. ¿Me pueden ayudar?',
             a:
-              'Asegúrate de ingresar la información correctamente en los espacios solicitados del formulario. Si aun así no logras registrarte, contáctanos al (01) 311-5100 o a [suscriptores@diariogestion.com.pe]',
+              'Asegúrate de ingresar la información correctamente en los espacios solicitados del formulario. Si aun así no logras registrarte, llámanos al [(01) 311-5100](tel:+5113115100)',
           },
           {
             q: '¿Qué van a hacer con mi información?',
@@ -590,9 +593,11 @@ const PropertiesSite = {
               'Mi pregunta no fue solucionada aquí, ¿dónde puedo recibir ayuda?',
             a: [
               'Para cualquier información, duda o consulta, puedes recibir ayuda personalizada por los siguientes medios:',
-              '   1. Escríbenos a [suscriptores@diariogestion.com.pe]',
-              '   2. Llámanos al (01) 311-5100',
+              '',
+              '   1. Llámanos al [(01) 311-5100](tel:+5113115100)',
+              '',
               'Horario de atención al Cliente es el siguiente:',
+              '',
               'De Lunes a Viernes: 7:00 a.m. a 9:00 p.m.',
               'Sábados, Domingos y Feriados: 7:00 a.m. a 1:00 p.m.',
             ],
