@@ -30,7 +30,7 @@ const WrapperPageSubs = ({ properties }) => {
     } = {},
   } = properties
 
-  const { arcSite, deployment } = useAppContext() || {}
+  const { arcSite, deployment, contextPath } = useAppContext() || {}
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
   const [showProfile, setShowProfile] = React.useState(false)
@@ -188,7 +188,7 @@ const WrapperPageSubs = ({ properties }) => {
         {pageSubscriptions === 'faqPage' ? (
           <PageFaq arcSite={arcSite} />
         ) : (
-          <PageCompany arcSite={arcSite} />
+          <PageCompany arcSite={arcSite} contextPath={contextPath} />
         )}
 
         <FooterLand arcType={arcType} btnOnTop={btnOnTop} />
