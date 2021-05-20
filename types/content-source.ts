@@ -1,4 +1,4 @@
-import type { ArcSite } from 'fusion:context'
+import type { ArcSite } from 'types/fusion'
 
 export interface ConentSourceBase {
   'arc-site': ArcSite
