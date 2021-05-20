@@ -522,18 +522,31 @@ const LiteOutput = ({
           </>
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
-        {/* WebTracking */}
+        {/* ============== WebTracking */}
         { arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ?(
           <>
-            <script src="https://storage.embluemail.com/pixeltracking/sdk-worker.js" />
+            <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+            )}
+            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"></script>
           </>
         ):null}
 
         { arcSite === SITE_GESTION && requestUri.includes('/economia/') ?(
           <>
-            <script src="https://storage.embluemail.com/pixeltracking/sdk-worker.js" />
+            <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+            )}
+            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"></script>
           </>
         ):null}
+        {/* ============== WebTracking */}
       </head>
       <body
         className={classBody}
