@@ -34,8 +34,8 @@ const Subscriptions: OT<OutputProps> = ({
     env === PROD ? googleTagManagerId : googleTagManagerIdSandbox
 
   const isExternalCounter = /\/paywall-counter-external\//.test(requestUri)
-  const isEmpresaPage = /^\/([\w-]+)\/(empresa)\//.test(requestUri)
-  const isFaqsPage = /^\/([\w-]+)\/(faqs)\//.test(requestUri)
+  const isEmpresaPage = /^\/[a-z-]+\/empresa\//.test(requestUri)
+  const isFaqsPage = /^\/[a-z-]+\/faqs\//.test(requestUri)
   const isSubscriptionPage = /^\/suscripciones\//.test(requestUri)
 
   const title = getMetaValue('title') || defaultTitle
