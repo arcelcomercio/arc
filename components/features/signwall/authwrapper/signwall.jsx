@@ -1,16 +1,31 @@
-import React, { useState, useEffect } from 'react'
 import Consumer from 'fusion:consumer'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+
 import { ModalConsumer, ModalProvider } from '../_children/context'
-import { SecondMiddle } from '../mainpage/_children/generic/styled'
+import { FormForgot } from '../_children/forms/form_forgot'
 import { FormLogin } from '../_children/forms/form_login'
 import FormRegister from '../_children/forms/form_register'
-import { FormForgot } from '../_children/forms/form_forgot'
-import CallToActionFia from './_children/call_to_action'
 import { device } from '../_dependencies/breakpoints'
-import Domains from '../_dependencies/domains'
 import Cookies from '../_dependencies/cookies'
+import Domains from '../_dependencies/domains'
+import { SecondMiddle } from '../mainpage/_children/generic/styled'
+import CallToActionFia from './_children/call_to_action'
 
+const AuthBox = styled.div`
+  padding: 20px 0;
+  width: 100%;
+  min-height: 280px;
+
+  @media ${device.tablet} {
+    width: 380px;
+    margin: 0 auto;
+    & > * {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+`
 const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
     login: <FormLogin {...{ valTemplate, attributes }} />,
@@ -21,7 +36,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
   return templates[template] || templates.login
 }
 
-const AuthContWrapper = props => {
+const AuthContWrapper = (props) => {
   const {
     siteProperties: {
       signwall: { mainColorBr },
@@ -32,7 +47,7 @@ const AuthContWrapper = props => {
 
   const [isLogged, setLogged] = useState(false)
 
-  const handleCallToAction = status => {
+  const handleCallToAction = (status) => {
     setLogged(status)
   }
 
@@ -41,8 +56,6 @@ const AuthContWrapper = props => {
       window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
       window.Identity.logout()
       Cookies.deleteCookie('arc_e_id')
-      window.sessionStorage.removeItem('paywall-profile-form') // formik raul
-      window.sessionStorage.removeItem('paywall-payment-form') // formik raul
       window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
       setLogged(false)
     }
@@ -58,7 +71,7 @@ const AuthContWrapper = props => {
     <ModalProvider>
       <AuthBox>
         <ModalConsumer>
-          {value => (
+          {(value) => (
             <SecondMiddle>
               {!isLogged ? (
                 renderTemplate(value.selectedTemplate, value.valTemplate, {
@@ -97,20 +110,5 @@ class AuthWrapper extends React.PureComponent {
     return <AuthContWrapper {...this.props} typeDialog="authfia" />
   }
 }
-
-const AuthBox = styled.div`
-  padding: 20px 0;
-  width: 100%;
-  min-height: 280px;
-
-  @media ${device.tablet} {
-    width: 380px;
-    margin: 0 auto;
-    & > * {
-      width: 100%;
-      margin: 0 auto;
-    }
-  }
-`
 
 export default AuthWrapper
