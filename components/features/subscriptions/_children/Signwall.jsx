@@ -13,18 +13,16 @@ const Signwall = ({
   onLogged,
   onLoggedFail,
   onClose,
-}) => {
-  return (
-    <React.Suspense fallback={fallback}>
-      <SignwallLanding
-        typeDialog={typeDialog}
-        nameDialog={nameDialog}
-        onLogged={onLogged}
-        onLoggedFail={onLoggedFail}
-        onClose={onClose}
-      />
-    </React.Suspense>
-  )
-}
+}) => (
+  <React.Suspense fallback={fallback}>
+    <SignwallLanding
+      typeDialog={typeDialog}
+      nameDialog={nameDialog}
+      onLogged={onLogged}
+      onLoggedFail={onLoggedFail}
+      onClose={onClose}
+    />
+  </React.Suspense>
+)
 
 export default React.memo(Signwall)

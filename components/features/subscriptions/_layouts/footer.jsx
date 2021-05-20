@@ -202,26 +202,12 @@ export const FooterSubs = () => {
                           {loading ? 'Validando...' : 'Validar'}
                         </button>
                       </div>
-                      {/* {vDocumentNumberError && (
-                        <span className="msn-error">
-                          {vDocumentNumberError}
-                        </span>
-                      )} */}
                     </form>
                     {vDocumentNumberError && (
                       <span className={styles.tooltip}>
                         {vDocumentNumberError}
-                        {/* <button type="button" className="btn-link">
-                          Entendido
-                        </button> */}
                       </span>
                     )}
-                    {/* <span className={styles.tooltip}>
-                      El documento que enviaste no accede a ningún descuento.
-                      <button type="button" className="btn-link">
-                        Entendido
-                      </button>
-                    </span> */}
                   </>
                 )}
               </div>
@@ -255,13 +241,9 @@ export const FooterSubs = () => {
   )
 }
 
-export const FooterLand = ({ arcType }) => {
+export const FooterLand = ({ arcType, btnOnTop }) => {
   const { arcSite } = useAppContext() || {}
-  const {
-    urls,
-    // emails,
-    texts,
-  } = PropertiesSite[arcSite]
+  const { urls, texts } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   return (
     <>
@@ -284,11 +266,6 @@ export const FooterLand = ({ arcType }) => {
                   <p>
                     Llámanos al
                     <br />
-                    {/* <a
-                      href={`mailto:${emails.atencion}`}
-                      className="footer__content-link">
-                      {emails.atencion}
-                    </a> */}
                     <a href={links.callCenter} className="footer__content-link">
                       Call Center: 311-5100
                     </a>
@@ -313,26 +290,12 @@ export const FooterLand = ({ arcType }) => {
                     <p>
                       Servicio al cliente y Ventas:
                       <br />
-                      {/* <a
-                        href={`mailto:${emails.atencion}`}
-                        className="footer__content-link">
-                        {emails.atencion}
-                      </a> */}
                       <a
                         href={links.callCenter}
                         className="footer__content-link">
                         Call Center: 311-5100
                       </a>
                     </p>
-                    {/* <p>
-                      Pagos pendientes y Facturación:
-                      <br />
-                      <a
-                        href={`mailto:${emails.cobranzas}`}
-                        className="footer__content-link">
-                        {emails.cobranzas}
-                      </a>
-                    </p> */}
                   </div>
                 </div>
               </div>
@@ -349,7 +312,6 @@ export const FooterLand = ({ arcType }) => {
                         rel="noreferrer"
                         className="footer__content-link">
                         Términos y Condiciones
-                        {/* <span>(Actualizado al 2019)</span> */}
                       </a>
                     </p>
                     <p>
@@ -359,7 +321,6 @@ export const FooterLand = ({ arcType }) => {
                         rel="noreferrer"
                         className="footer__content-link">
                         Política de Privacidad
-                        {/* <span>(Actualizado al 2019)</span> */}
                       </a>
                     </p>
                     <p>
@@ -428,10 +389,11 @@ export const FooterLand = ({ arcType }) => {
           </div>
         </div>
       </footer>
-
-      <button type="button" id="btn-arrow-top" className="arrow-up">
-        <i />
-      </button>
+      {btnOnTop && (
+        <button type="button" id="btn-arrow-top" className="arrow-up">
+          <i />
+        </button>
+      )}
     </>
   )
 }
