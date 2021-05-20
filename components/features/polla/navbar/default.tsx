@@ -1,21 +1,28 @@
+import { useContent } from 'fusion:content'
 import Static from 'fusion:static'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
+import { NavigationByHierarchyQuery } from '../../../../content/sources/navigation-by-hierarchy'
 import PollaNavbarMenu from './_children/menu'
 
 interface Props {
   customFields?: any
 }
 
-const PollaNavbar: FC<Props> = (props) => {
-  const { customFields } = props
-  console.log(customFields)
+const PollaNavbar: FC<Props> = () => {
+  const { children: menuList = [] } = useContent<NavigationByHierarchyQuery>({
+    source: 'navigation-by-hierarchy',
+    query: {
+      hierarchy: 'la-polla',
+    },
+  })
+
   return (
     <Static id="PollaNavbar">
       <div className="polla-nav">
-        <PollaNavbarMenu />
+        <PollaNavbarMenu menuList={menuList} />
         <button
           id="polla-nav__btn-menu"
           type="button"
@@ -40,30 +47,24 @@ const PollaNavbar: FC<Props> = (props) => {
         <div className="polla-nav__middle">
           <h2 className="polla-nav__tournament">Copa América 2021</h2>
           <ul className="polla-nav__list">
-            <li className="polla-nav__item">
-              <a href="/">INICIO</a>
-            </li>
-            <li className="polla-nav__item">
-              <a href="/">RANKING</a>
-            </li>
-            <li className="polla-nav__item">
-              <a href="/">TU APUESTA</a>
-            </li>
-            <li className="polla-nav__item">
-              <a href="/">RESULTADOS</a>
-            </li>
-            <li className="polla-nav__item">
-              <a href="/">REGLAS</a>
-            </li>
-            <li className="polla-nav__item">
-              <a href="/">PREMIOS</a>
-            </li>
+            {menuList.map(
+              ({
+                name = '',
+                _id: id = '',
+                display_name: displayName = '',
+                url = '',
+              }) => (
+                <li className="polla-nav__item">
+                  <a href={url || id || '/'}>{name || displayName}</a>
+                </li>
+              )
+            )}
           </ul>
         </div>
         <a href="/" className="polla-nav__play-link">
           ¡JUEGA!
         </a>
-        <button type="button" className="polla-nav__sign">
+        <button id="signwall-nav-btn" type="button" className="polla-nav__sign">
           <span>Ingresar</span>
           <svg
             width="20"

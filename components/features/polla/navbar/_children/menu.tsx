@@ -1,10 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
-
-import { NavigationByHierarchyQuery } from '../../../../../content/sources/navigation-by-hierarchy'
 
 const edittion = (cName: string, opcion = '', has = true) => (
   <>
@@ -116,16 +113,15 @@ const renderSections = (sections: any, deep: number, nameId = 'root') => {
 const menuScript =
   '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".polla-nav__btn-menu"),t=document.querySelector(".header-full__megamenu");e&&t&&e.addEventListener("click",function(){t.classList.toggle("active")})});'
 
-const PollaNavbarMenu: React.FC = () => {
+interface Props {
+  menuList: any[]
+}
+
+const PollaNavbarMenu: React.FC<Props> = (props) => {
   const { arcSite } = useAppContext()
   const { siteDomain, legalLinks } = getProperties(arcSite)
 
-  const { children: menuList = [] } = useContent<NavigationByHierarchyQuery>({
-    source: 'navigation-by-hierarchy',
-    query: {
-      hierarchy: 'la-polla',
-    },
-  })
+  const { menuList } = props
 
   return (
     <>
