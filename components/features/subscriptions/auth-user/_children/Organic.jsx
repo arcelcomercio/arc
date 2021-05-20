@@ -2,20 +2,20 @@
 import Consumer from 'fusion:consumer'
 import React, { PureComponent, useEffect, useRef } from 'react'
 
-import { Benefits } from '../../../../signwall/_children/benefist/index'
+import { Benefits } from '../../../signwall/_children/benefist/index'
 import {
   ModalConsumer,
   ModalProvider,
-} from '../../../../signwall/_children/context'
-import { FormForgot } from '../../../../signwall/_children/forms/form_forgot'
-import { FormLogin } from '../../../../signwall/_children/forms/form_login'
-import FormRegister from '../../../../signwall/_children/forms/form_register'
-import { FormRelogin } from '../../../../signwall/_children/forms/form_relogin'
-import { FormReset } from '../../../../signwall/_children/forms/form_reset'
-import { FormVerify } from '../../../../signwall/_children/forms/form_verify'
-import { Modal } from '../../../../signwall/_children/modal/index'
-import { Taggeo } from '../../../_dependencies/Taggeo'
-import Header from '../../../profile-user/_children/header/signwall'
+} from '../../../signwall/_children/context'
+import { FormForgot } from '../../../signwall/_children/forms/form_forgot'
+import { FormLogin } from '../../../signwall/_children/forms/form_login'
+import FormRegister from '../../../signwall/_children/forms/form_register'
+import { FormRelogin } from '../../../signwall/_children/forms/form_relogin'
+import { FormReset } from '../../../signwall/_children/forms/form_reset'
+import { FormVerify } from '../../../signwall/_children/forms/form_verify'
+import { Modal } from '../../../signwall/_children/modal/index'
+import { Taggeo } from '../../_dependencies/Taggeo'
+import Header from '../../profile-user/_children/header/signwall'
 import { ContMiddle, FirstMiddle, SecondMiddle } from './styled'
 
 const renderTemplate = (template, valTemplate, attributes) => {
@@ -108,7 +108,7 @@ export const ContGeneric = (props) => {
 }
 
 @Consumer
-class Generic extends PureComponent {
+class SignOrganic extends PureComponent {
   render() {
     return (
       <ContGeneric
@@ -120,4 +120,4 @@ class Generic extends PureComponent {
   }
 }
 
-export { Generic }
+export { SignOrganic }

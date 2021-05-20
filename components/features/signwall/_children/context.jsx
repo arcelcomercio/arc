@@ -1,40 +1,24 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 
 const { Provider, Consumer } = React.createContext()
 
-class ModalProvider extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectedTemplate: 'intro',
-      idTemplate: '0',
-      valTemplate: '',
-    }
+const ModalProvider = ({ children }) => {
+  const [selectedTemplate, setSelectedTemplate] = React.useState('intro')
+  const [idTemplate, setIdTemplate] = React.useState('0')
+  const [valTemplate, setValTemplate] = React.useState('')
+
+  const value = {
+    selectedTemplate,
+    idTemplate,
+    valTemplate,
+    changeTemplate: (val, id, valTeml) => {
+      setSelectedTemplate(val)
+      setIdTemplate(id)
+      setValTemplate(valTeml)
+    },
   }
 
-  changeTemplate = (val, id, valTeml) => {
-    this.setState({
-      selectedTemplate: val,
-      idTemplate: id,
-      valTemplate: valTeml,
-    })
-  }
-
-  render() {
-    const { children } = this.props
-    const { selectedTemplate, idTemplate, valTemplate } = this.state
-    return (
-      <Provider
-        value={{
-          selectedTemplate,
-          idTemplate,
-          valTemplate,
-          changeTemplate: this.changeTemplate,
-        }}>
-        {children}
-      </Provider>
-    )
-  }
+  return <Provider value={value}>{children}</Provider>
 }
 
 export { Consumer as ModalConsumer, ModalProvider }

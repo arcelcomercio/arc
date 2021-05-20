@@ -1,38 +1,37 @@
-import md5 from 'crypto-js/md5'
-import { useFusionContext } from 'fusion:context'
+// import md5 from 'crypto-js/md5'
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import Loading from '../../../../signwall/_children/loading'
 import Domains from '../../../../signwall/_dependencies/domains'
-import GetProfile from '../../../../signwall/_dependencies/get-profile'
 import {
   deleteCookie,
   deleteCookieDomain,
 } from '../../../_dependencies/Cookies'
+import {
+  // getStorageProfile,
+  // getUserName,
+  isAuthenticated,
+} from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 import { WrapperAvatar, WrapperMenu } from './styled'
 
-const MenuSignwall = ({ handleMenu }) => {
+const MenuSignwall = ({ handleMenu, arcSite }) => {
   const {
     siteProperties: {
       signwall: { mainColorBr, mainColorLink },
       activePaywall,
       activeNewsletter,
     },
-    arcSite,
-  } = useFusionContext() || {}
+  } = useAppContext() || {}
 
-  const { publicProfile } = new GetProfile()
-  const { identities = [] } = publicProfile
-  const [identitie = { type: 'Password' }] = identities || []
-  const [usernameid = { userName: '' }] = identities || []
-  const nameInit = publicProfile.firstName || 'Usuario'
-  const typeLogin = identitie.type.toLowerCase()
-  const userNAME =
-    nameInit && nameInit.length >= 20 ? `${nameInit.slice(0, 16)}...` : nameInit
-  const userMAIL = publicProfile.email || 'admin@elcomercio.pe'
-  const userFB = usernameid.userName
-  const hashMAIL = md5(userMAIL)
+  // const { firstName, lastName } = getStorageProfile()
+  // const [identitie = { type: 'Password' }] = identities || []
+  // const [usernameid = { userName: '' }] = identities || []
+  // const typeLogin = identitie.type.toLowerCase()
+  // const userMAIL = email || 'admin@elcomercio.pe'
+  // const userFB = usernameid.userName
+  // const hashMAIL = md5(userMAIL)
 
   const [showLoading, setShowLoading] = React.useState(false)
 
@@ -62,20 +61,9 @@ const MenuSignwall = ({ handleMenu }) => {
     }
   }
 
-  const checkSession = () => {
-    if (typeof window !== 'undefined') {
-      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
-      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-      if (profileStorage) {
-        return !(profileStorage === 'null' || sesionStorage === '{}') || false
-      }
-    }
-    return false
-  }
-
   const openItemMenu = (item) => {
     if (typeof window !== 'undefined') {
-      if (checkSession()) {
+      if (isAuthenticated()) {
         if (arcSite === 'elcomercio' && item === 'news') {
           window.open('/newsletters', '_blank')
         } else {
@@ -96,18 +84,18 @@ const MenuSignwall = ({ handleMenu }) => {
       ) : (
         <>
           <WrapperAvatar br={mainColorBr}>
-            <img
+            {/* <img
               src={
                 typeLogin === 'facebook'
                   ? `https://graph.facebook.com/${userFB}/picture?type=large&redirect=true&width=500&height=500`
                   : `https://www.gravatar.com/avatar/${hashMAIL}?s=180&d=identicon`
               }
               alt="Avatar"
-            />
+            /> */}
           </WrapperAvatar>
           <WrapperMenu cl={mainColorLink}>
             <h1 className="hello" id="name-user-profile">
-              Hola {userNAME || 'Lector'}
+              {/* Hola {getUserName(firstName, lastName)} */}
             </h1>
             <p className="welcome">Bienvenido a tu perfil</p>
             <div className="cont-menu">

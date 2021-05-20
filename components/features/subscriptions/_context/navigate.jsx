@@ -18,4 +18,4 @@ const NavigateProvider = ({ children }) => {
   return <Provider value={value}>{children}</Provider>
 }
 
-export { NavigateProvider, Consumer as NavigateConsumer }
+export { Consumer as NavigateConsumer, NavigateProvider }

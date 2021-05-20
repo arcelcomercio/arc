@@ -1,100 +1,90 @@
-import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
+import * as Sentry from '@sentry/browser'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import Domains from '../../signwall/_dependencies/domains'
+import { env } from '../../../utilities/arc/env'
+import { PROD } from '../../../utilities/constants/environment'
+import addScriptAsync from '../../../utilities/script-async'
 import { deleteCookie, getCookie, setCookie } from '../_dependencies/Cookies'
-import { Generic } from './_children/generic'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { getQuery } from '../_dependencies/QueryString'
+import { isLogged } from '../_dependencies/Session'
+import { SignOrganic } from './_children/Organic'
 
-@Consumer
-class MainPage extends PureComponent {
-  _isMounted = false
+const AuthUser = () => {
+  const { arcSite, deployment } = useAppContext() || {}
+  const [showOrganic, setShowOrganic] = React.useState(false)
+  const [showHard, setShowHard] = React.useState(false)
+  const [showReEmail, setShowReEmail] = React.useState(false)
+  const [showRelogHash, setShowRelogHash] = React.useState(false)
+  const [showVerify, setShowVerify] = React.useState(false)
+  const [showReset, setShowReset] = React.useState(false)
+  const [nameModal, setNameModal] = React.useState()
+  const { links, urls: urlCommon } = PropertiesCommon
+  const { urls } = PropertiesSite[arcSite]
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      showOrganic: false,
-      showHard: false,
-      showVerify: false,
-      showReset: false,
-      showReEmail: false,
-      showRelogHash: false,
+  React.useEffect(() => {
+    Sentry.init({
+      dsn: urlCommon.sentrySign,
+      debug: env !== PROD,
+      release: `arc-deployment@${deployment}`,
+      environment: env,
+      ignoreErrors: [
+        'Unexpected end of JSON input',
+        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
+        'JSON Parse error: Unexpected EOF',
+      ],
+      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
+    })
+
+    Sentry.configureScope((scope) => {
+      scope.setTag('brand', arcSite)
+    })
+
+    addScriptAsync({
+      name: 'IdentitySDK',
+      url: links.identity,
+      includeNoScript: false,
+    })
+      .then(() => {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+      })
+      .catch((errIdentitySDK) => {
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: errIdentitySDK || {},
+        })
+      })
+
+    const UrlRef = window.document.referrer
+    if (UrlRef && !UrlRef.match(/facebook.com/)) {
+      deleteCookie('signreferer')
+      setCookie('signreferer', UrlRef, 365)
     }
-  }
 
-  componentDidMount() {
-    const { arcSite } = this.props
-    if (typeof window !== 'undefined' && window.Identity) {
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      if (window.Sales !== undefined) {
-        window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      }
-      if (
-        window.document.referrer &&
-        !window.document.referrer.match(/facebook.com/)
-      ) {
-        deleteCookie('signreferer')
-        setCookie('signreferer', window.document.referrer, 365)
-      }
+    if (getQuery('signHard') || getQuery('signwallHard')) {
+      setShowHard(true)
+      setNameModal('hard')
+    } else if (getQuery('signEmail') || getQuery('reloginEmail')) {
+      setShowReEmail(true)
+      setNameModal('relogemail')
+    } else if (getQuery('signHash') || getQuery('reloginHash')) {
+      setShowRelogHash(true)
+      setNameModal('reloghash')
+    } else if (getQuery('tokenVerify')) {
+      setShowVerify(true)
+      setNameModal('verify')
+    } else if (getQuery('tokenReset')) {
+      setShowReset(true)
+      setNameModal('resetpass')
+    } else {
+      setShowOrganic(true)
+      setNameModal('organico')
     }
-  }
+  }, [])
 
-  componentWillUnmount() {
-    this._isMounted = false
-  }
-
-  checkSession = () => {
-    if (typeof window !== 'undefined') {
-      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
-      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-      if (profileStorage) {
-        return !(profileStorage === 'null' || sesionStorage === '{}') || false
-      }
-    }
-    return false
-  }
-
-  getUrlParam = (name) => {
-    const vars = {}
-    if (typeof window !== 'undefined')
-      window.location.href.replace(
-        /[?&]+([^=&]+)=([^&]*)/gi,
-        (m, key, value) => {
-          vars[key] = value
-        }
-      )
-    if (vars[name]) {
-      setTimeout(() => {
-        switch (name) {
-          case 'signwallOrganic':
-          case 'signOrganic':
-            this.setState({ showOrganic: true })
-            break
-          case 'signwallHard':
-          case 'signHard':
-            this.setState({ showHard: true })
-            break
-          case 'tokenVerify':
-            this.setState({ showVerify: true })
-            break
-          case 'tokenReset':
-            this.setState({ showReset: true })
-            break
-          case 'reloginEmail':
-          case 'signEmail':
-            this.setState({ showReEmail: true })
-            break
-          case 'reloginHash':
-          case 'signHash':
-            this.setState({ showRelogHash: true })
-            break
-          default:
-        }
-      }, 500)
-    }
-    return vars[name]
-  }
-
-  closePopUp = () => {
+  const closePopUp = () => {
     if (typeof window !== 'undefined') {
       if (
         getCookie('signreferer') &&
@@ -111,108 +101,35 @@ class MainPage extends PureComponent {
     }
   }
 
-  render() {
-    const {
-      showOrganic,
-      showHard,
-      showVerify,
-      showReset,
-      showReEmail,
-      showRelogHash,
-    } = this.state
-    const { arcSite, siteProperties } = this.props
-    return (
-      <>
-        {siteProperties.activeSignwall && (
-          <>
-            {(this.getUrlParam('signOrganic') ||
-              this.getUrlParam('signwallOrganic')) &&
-              showOrganic && (
-                <>
-                  {!this.checkSession() ? (
-                    <Generic
-                      onClose={() => this.closePopUp('showOrganic')}
-                      arcSite={arcSite}
-                      typeDialog="organico"
-                    />
-                  ) : (
-                    <>{this.closePopUp()}</>
-                  )}
-                </>
-              )}
+  return (
+    <>
+      {(showOrganic || showHard || showReEmail || showRelogHash) && (
+        <>
+          {!isLogged() ? (
+            <SignOrganic
+              onClose={() => closePopUp()}
+              arcSite={arcSite}
+              typeDialog={nameModal}
+            />
+          ) : (
+            <> {closePopUp()}</>
+          )}
+        </>
+      )}
 
-            {this.getUrlParam('tokenVerify') && showVerify && (
-              <Generic
-                onClose={() => this.closePopUp('showVerify')}
-                arcSite={arcSite}
-                typeDialog="verify"
-                tokenVerify={this.getUrlParam('tokenVerify')}
-              />
-            )}
-
-            {this.getUrlParam('tokenReset') && showReset && (
-              <Generic
-                onClose={() => this.closePopUp('showReset')}
-                arcSite={arcSite}
-                typeDialog="resetpass"
-                tokenReset={this.getUrlParam('tokenReset')}
-              />
-            )}
-
-            {(this.getUrlParam('signHard') ||
-              this.getUrlParam('signwallHard')) &&
-              showHard && (
-                <>
-                  {!this.checkSession() ? (
-                    <Generic
-                      onClose={() => this.closePopUp('showHard')}
-                      arcSite={arcSite}
-                      typeDialog="hard"
-                    />
-                  ) : (
-                    <>{this.closePopUp()}</>
-                  )}
-                </>
-              )}
-
-            {(this.getUrlParam('signEmail') ||
-              this.getUrlParam('reloginEmail')) &&
-              showReEmail && (
-                <>
-                  {!this.checkSession() ? (
-                    <Generic
-                      onClose={() => this.closePopUp('showReEmail')}
-                      arcSite={arcSite}
-                      typeDialog="relogemail"
-                    />
-                  ) : (
-                    <>{this.closePopUp()}</>
-                  )}
-                </>
-              )}
-
-            {(this.getUrlParam('signHash') ||
-              this.getUrlParam('reloginHash')) &&
-              showRelogHash && (
-                <>
-                  {!this.checkSession() ? (
-                    <Generic
-                      onClose={() => this.closePopUp('showRelogHash')}
-                      arcSite={arcSite}
-                      typeDialog="reloghash"
-                    />
-                  ) : (
-                    <>{this.closePopUp()}</>
-                  )}
-                </>
-              )}
-          </>
-        )}
-      </>
-    )
-  }
+      {(showVerify || showReset) && (
+        <SignOrganic
+          onClose={() => closePopUp()}
+          arcSite={arcSite}
+          typeDialog={nameModal}
+          tokenVerify={showVerify && getQuery('tokenVerify')}
+          tokenReset={showReset && getQuery('tokenReset')}
+        />
+      )}
+    </>
+  )
 }
 
-MainPage.label = 'Signwall - Página Inicial'
+AuthUser.label = 'Signwall - Página Login / Registro / Hard'
 
-export default MainPage
+export default AuthUser

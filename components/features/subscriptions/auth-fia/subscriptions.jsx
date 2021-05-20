@@ -140,4 +140,6 @@ const FiaSubscriptions = () => (
   </AuthProvider>
 )
 
+FiaSubscriptions.label = 'Signwall - Login / Registo FIA'
+
 export default FiaSubscriptions

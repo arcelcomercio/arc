@@ -57,7 +57,7 @@ const WrapperPaymentSubs = () => {
 
   React.useEffect(() => {
     Sentry.init({
-      dsn: urlCommon.dsnSentry,
+      dsn: urlCommon.sentrySubs,
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
@@ -170,5 +170,7 @@ const PaymentSubscriptions = () => (
     <WrapperPaymentSubs />
   </AuthProvider>
 )
+
+PaymentSubscriptions.label = 'Subscriptions - Landing de Compra'
 
 export default PaymentSubscriptions

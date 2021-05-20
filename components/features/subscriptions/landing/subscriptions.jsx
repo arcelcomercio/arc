@@ -46,7 +46,7 @@ const LandingSubscriptions = (props) => {
 
   React.useEffect(() => {
     Sentry.init({
-      dsn: urlCommon.dsnSentry,
+      dsn: urlCommon.sentrySubs,
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
@@ -476,5 +476,7 @@ LandingSubscriptions.propTypes = {
     }),
   }),
 }
+
+LandingSubscriptions.label = 'Subscriptions - Landing Principal'
 
 export default LandingSubscriptions

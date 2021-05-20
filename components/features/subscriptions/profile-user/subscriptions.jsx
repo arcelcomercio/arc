@@ -1,7 +1,13 @@
-import { useFusionContext } from 'fusion:context'
+import * as Sentry from '@sentry/browser'
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { env } from '../../../utilities/arc/env'
+import { PROD } from '../../../utilities/constants/environment'
+import addScriptAsync from '../../../utilities/script-async'
 import { ModalConsumer, ModalProvider } from '../../signwall/_children/context'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
 import MenuSignwall from './_children/menu/signwall'
 import { NewsLetter } from './_children/newsletters'
@@ -23,15 +29,46 @@ const renderTemplate = (template, id) => {
 }
 
 const ProfileSignwall = () => {
-  const { siteProperties } = useFusionContext() || {}
+  const { siteProperties, arcSite, deployment } = useAppContext() || {}
+  const { links, urls: urlCommon } = PropertiesCommon
+  const { urls } = PropertiesSite[arcSite]
 
   React.useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      window.Identity &&
-      (!window.Identity.userProfile || !window.Identity.userIdentity.uuid)
-    ) {
-      window.location.href = '/'
+    Sentry.init({
+      dsn: urlCommon.sentrySign,
+      debug: env !== PROD,
+      release: `arc-deployment@${deployment}`,
+      environment: env,
+      ignoreErrors: [
+        'Unexpected end of JSON input',
+        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
+        'JSON Parse error: Unexpected EOF',
+      ],
+      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
+    })
+
+    Sentry.configureScope((scope) => {
+      scope.setTag('brand', arcSite)
+    })
+
+    addScriptAsync({
+      name: 'IdentitySDK',
+      url: links.identity,
+      includeNoScript: false,
+    })
+      .then(() => {
+        window.Identity.options({ apiOrigin: urls.arcOrigin })
+      })
+      .catch((errIdentitySDK) => {
+        Sentry.captureEvent({
+          message: 'SDK Identity no ha cargado correctamente',
+          level: 'error',
+          extra: errIdentitySDK || {},
+        })
+      })
+
+    if (typeof window !== 'undefined' && !isAuthenticated()) {
+      window.location.href = '/?ref=signwall'
     }
   }, [])
 
@@ -46,6 +83,7 @@ const ProfileSignwall = () => {
                 <div className="panel-left">
                   <MenuSignwall
                     handleMenu={(item) => value.changeTemplate(item)}
+                    arcSite={arcSite}
                   />
                 </div>
                 <div className="panel-right">

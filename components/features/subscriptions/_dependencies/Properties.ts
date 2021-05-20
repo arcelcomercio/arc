@@ -170,7 +170,8 @@ const PropertiesCommon = {
     newsLetters:    `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
     paymentTracker: `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
     subsDniToken:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-    dsnSentry:      'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    sentrySubs:     'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    sentrySign:     'https://493719de8c8d11e991ab0242ac120008@sentry.ec.pe/82',
   },
 
   // prettier-ignore

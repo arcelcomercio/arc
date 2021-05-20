@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 import Loading from '../../signwall/_children/loading'
 import Domains from '../../signwall/_dependencies/domains'
 import Services from '../../signwall/_dependencies/services'
-import { Generic } from '../../signwall/auth-user/_children/generic'
+import { SignOrganic } from '../../subscriptions/auth-user/_children/Organic'
 import Checkbox from './_children/item'
 import SubscriptionTitle from './_children/title'
 
@@ -262,7 +262,7 @@ class NewslettersSubscription extends Component {
         </div>
 
         {(this.getUrlParam('signNewsletters') || showSignwall) && (
-          <Generic
+          <SignOrganic
             onClose={() => this.setState({ showSignwall: false })}
             arcSite={arcSite}
             typeDialog="newsletter"
