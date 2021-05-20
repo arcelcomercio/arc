@@ -1,8 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import getProperties from 'fusion:properties'
 import request from 'request-promise-native'
 
-import { interpolateUrl } from '../../components/features/paywall/_dependencies/domains'
+import { PropertiesSite } from '../../components/features/subscriptions/_dependencies/Properties'
 
 function parseJSON(str) {
   const noParagraphStr = (str || '').replace(/<p>|<\/p>/g, '')
@@ -23,9 +22,6 @@ const fetch = (key = {}) => {
     fromFia,
     winback,
   } = key
-  const {
-    paywall: { urls },
-  } = getProperties(site)
 
   const isCheckingSubscriptor = !!attemptToken
   const isDniEvent = !!winback
@@ -44,7 +40,10 @@ const fetch = (key = {}) => {
     ...(fromFia ? { fromFia: true } : {}),
   }
 
-  const url = interpolateUrl(urls.originSubscriptions, params)
+  const { urls } = PropertiesSite[site]
+  // prettier-ignore
+  const url = `${urls.subsDigitales}${params ? '?' : ''}${isCheckingSubscriptor ? `doctype=${documentType}&docnumber=${documentNumber}&token=${attemptToken}${isDniEvent ? `&subscriptor_event=suscripitor_winback&event=winback` : ''}` : ''}${isEvent ? `${isCheckingSubscriptor ? '&' : ''}event=${event}` : ''}${fromFia ? 'from_fia=true' : ''}`
+
   return request({
     uri: url,
     gzip: true,

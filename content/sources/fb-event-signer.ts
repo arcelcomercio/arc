@@ -7,7 +7,7 @@ import request from 'request-promise-native'
 import { ConentSourceBase } from 'types/content-source'
 import { v4 as uuidv4 } from 'uuid'
 
-import { interpolateUrl } from '../../components/features/paywall/_dependencies/domains'
+import { PropertiesSite } from '../../components/features/subscriptions/_dependencies/Properties'
 
 export type FbEventSignerQuery = {
   event: string
@@ -89,13 +89,10 @@ const buildPixelUrl = (
 
 const fetch = (key: FbEventSignerParams): Promise<FbEventSignature> => {
   const site = key['arc-site']
-  const {
-    fbPixelId,
-    paywall: { urls },
-  } = getProperties(site)
-
+  const { fbPixelId } = getProperties(site)
   const { debug, accessToken, event, ...data } = key || {}
-  const uri = interpolateUrl(`${urls.originApi}${urls.arcEntitlements}`)
+  const { urls } = PropertiesSite[site as 'elcomercio' | 'gestion']
+  const uri = `${urls.arcOrigin}/sales/public/v1/entitlements`
 
   return new Promise((resolve, reject) => {
     if (event === 'LogIntoAccount') {
