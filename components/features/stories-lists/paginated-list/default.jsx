@@ -6,12 +6,13 @@ import React, { Fragment } from 'react'
 import Ads from '../../../global-components/ads'
 import Pagination from '../../../global-components/pagination'
 import StoryItem from '../../../global-components/story-item'
-import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
+import { SITE_DEPOR, SITE_GESTION } from '../../../utilities/constants/sitenames'
 import { customFields } from '../_dependencies/custom-fields'
 import StructuredData from './_children/structured-data'
 
 const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
+  adsAfsBox: 'pb-20'
 }
 
 const StoriesListPaginatedList = (props) => {
@@ -100,15 +101,17 @@ const StoriesListPaginatedList = (props) => {
                   />
                 </div>
               )}
-              {arcSite === SITE_DEPOR && isSearchSection && index === 2 && (
-                <div id="afscontainer1" />
+              {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && index === 2 && (
+                <div className={classes.adsAfsBox}>
+                  <div id={`afs_container_1`} />
+                </div>
               )}
             </Fragment>
           )
         })}
       </div>
-      {arcSite === SITE_DEPOR && isSearchSection && stories.length < 3 && (
-        <div id="afscontainer1" />
+      {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && stories.length < 3 && (
+        <div id={`afs_container_1`} />
       )}
       {count !== 0 && (
         <Pagination
