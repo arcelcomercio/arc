@@ -103,11 +103,11 @@ const buildDataAns = (data, brand) => {
     const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`
     const conversions = getPathsVideos(key, brand);
     const hasAds = hasAdsVideo(tags)
-    const titleLink = `${title} <a href="${link}">${link}</a>`
+    const descriptionLink = `${description} <a href="${link}">${link}</a>`
     return {
         key,
-        title: titleLink, 
-        description: description,
+        title: title, 
+        description: descriptionLink,
         size, 
         duration, 
         status, 
