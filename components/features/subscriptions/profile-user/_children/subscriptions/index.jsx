@@ -1,104 +1,82 @@
-import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import addScriptAsync from '../../../../../utilities/script-async'
-import { ModalConsumer } from '../../../../signwall/_children/context'
 import FormIntro from '../../../../signwall/_children/forms/form_intro'
 import Loading from '../../../../signwall/_children/loading'
-import Domains from '../../../../signwall/_dependencies/domains'
+import { ModalConsumer } from '../../../_context/modal'
+import {
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
 import { ResumeDates, Title, Wrapper } from '../../styled'
 import Subs from '../resume/_children/subs'
 
-@Consumer
-class Subscription extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loading: true,
-      isSubs: false,
-    }
-  }
+const Subscription = () => {
+  const {
+    arcSite,
+    siteProperties: {
+      signwall: { primaryFont },
+    },
+  } = useAppContext() || {}
 
-  componentDidMount() {
-    if (typeof window !== 'undefined' && !window.Sales) {
-      addScriptAsync({
-        name: 'sdkSalesARC',
-        url: Domains.getScriptSales(),
-      }).then(() => {
-        this.getListSubs()
-      })
-    } else {
-      this.getListSubs()
-    }
-  }
+  const { urls } = PropertiesSite[arcSite]
+  const { links } = PropertiesCommon
+  const { changeTemplate } = React.useContext(ModalConsumer)
+  const [showLoading, setShowLoading] = React.useState(true)
+  const [showSubs, setShowSubs] = React.useState()
 
-  getListSubs() {
-    const { arcSite } = this.props
-    if (typeof window !== 'undefined' && window.Sales && window.Identity) {
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+  const getListSubs = () => {
+    if (typeof window !== 'undefined') {
       window.Identity.extendSession().then(() => {
-        window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
         window.Sales.getAllActiveSubscriptions()
           .then((res) => {
-            if (res.length > 0) {
-              this.setState({
-                isSubs: true,
-              })
-            }
-            this.setState({
-              loading: false,
-            })
+            if (res.length > 0) setShowSubs(true)
+            setShowLoading(false)
           })
           .catch((err) => window.console.error(err))
       })
     }
   }
 
-  render() {
-    const { loading, isSubs } = this.state
-    const {
-      arcSite,
-      siteProperties: {
-        signwall: { primaryFont },
-      },
-    } = this.props
+  React.useEffect(() => {
+    addScriptAsync({
+      name: 'SalesSDK',
+      url: links.sales,
+      includeNoScript: false,
+    }).then(() => {
+      window.Sales.options({ apiOrigin: urls.arcOrigin })
+      getListSubs()
+    })
+  }, [])
 
-    return (
-      <ModalConsumer>
-        {(value) => (
-          <Wrapper>
-            {!loading ? (
-              <>
-                {isSubs ? (
-                  <Subs detail={(id) => value.changeTemplate('detail', id)} />
-                ) : (
-                  <ResumeDates>
-                    <div className="cont-plan">
-                      <div className="first-plan">
-                        <p>
-                          Accede ilimitadamente a nuestro contenido, adquiere
-                          el:
-                        </p>
-                        <Title s="40" f={primaryFont}>
-                          Plan Digital
-                        </Title>
-                      </div>
-
-                      <div className="last-plan">
-                        <FormIntro arcSite={arcSite} typeDialog="organico" />
-                      </div>
-                    </div>
-                  </ResumeDates>
-                )}
-              </>
-            ) : (
-              <Loading arcSite={arcSite} typeBg="wait" />
-            )}
-          </Wrapper>
-        )}
-      </ModalConsumer>
-    )
-  }
+  return (
+    <Wrapper>
+      {!showLoading ? (
+        <>
+          {showSubs ? (
+            <Subs detail={(id) => changeTemplate('detail', id)} />
+          ) : (
+            <ResumeDates>
+              <div className="cont-plan">
+                <div className="first-plan">
+                  <p>Accede ilimitadamente a nuestro contenido, adquiere el:</p>
+                  <Title s="40" f={primaryFont}>
+                    Plan Digital
+                  </Title>
+                </div>
+                <div className="last-plan">
+                  <FormIntro arcSite={arcSite} typeDialog="organico" />
+                </div>
+              </div>
+            </ResumeDates>
+          )}
+        </>
+      ) : (
+        <Loading arcSite={arcSite} typeBg="wait" />
+      )}
+    </Wrapper>
+  )
 }
 
 export default Subscription

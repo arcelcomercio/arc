@@ -1,37 +1,35 @@
-// import md5 from 'crypto-js/md5'
+import md5 from 'crypto-js/md5'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import Loading from '../../../../signwall/_children/loading'
 import Domains from '../../../../signwall/_dependencies/domains'
+import { ModalConsumer } from '../../../_context/modal'
 import {
   deleteCookie,
   deleteCookieDomain,
 } from '../../../_dependencies/Cookies'
-import {
-  // getStorageProfile,
-  // getUserName,
-  isAuthenticated,
-} from '../../../_dependencies/Session'
+import { getUserName, isAuthenticated } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 import { WrapperAvatar, WrapperMenu } from './styled'
 
-const MenuSignwall = ({ handleMenu, arcSite }) => {
+const MenuSignwall = ({ handleMenu }) => {
   const {
     siteProperties: {
       signwall: { mainColorBr, mainColorLink },
       activePaywall,
       activeNewsletter,
     },
+    arcSite,
   } = useAppContext() || {}
 
-  // const { firstName, lastName } = getStorageProfile()
-  // const [identitie = { type: 'Password' }] = identities || []
-  // const [usernameid = { userName: '' }] = identities || []
-  // const typeLogin = identitie.type.toLowerCase()
-  // const userMAIL = email || 'admin@elcomercio.pe'
-  // const userFB = usernameid.userName
-  // const hashMAIL = md5(userMAIL)
+  const { userProfile } = React.useContext(ModalConsumer)
+  const { firstName, lastName, email, identities } = userProfile || {}
+  const [identitie = { type: 'Password' }] = identities || []
+  const [usernameid = { userName: '' }] = identities || []
+  const typeLogin = identitie.type.toLowerCase()
+  const userFB = usernameid.userName
+  const emailHash = md5(email)
 
   const [showLoading, setShowLoading] = React.useState(false)
 
@@ -84,18 +82,18 @@ const MenuSignwall = ({ handleMenu, arcSite }) => {
       ) : (
         <>
           <WrapperAvatar br={mainColorBr}>
-            {/* <img
+            <img
               src={
                 typeLogin === 'facebook'
                   ? `https://graph.facebook.com/${userFB}/picture?type=large&redirect=true&width=500&height=500`
-                  : `https://www.gravatar.com/avatar/${hashMAIL}?s=180&d=identicon`
+                  : `https://www.gravatar.com/avatar/${emailHash}?s=180&d=identicon`
               }
               alt="Avatar"
-            /> */}
+            />
           </WrapperAvatar>
           <WrapperMenu cl={mainColorLink}>
             <h1 className="hello" id="name-user-profile">
-              {/* Hola {getUserName(firstName, lastName)} */}
+              Hola {getUserName(firstName, lastName)}
             </h1>
             <p className="welcome">Bienvenido a tu perfil</p>
             <div className="cont-menu">
@@ -124,6 +122,7 @@ const MenuSignwall = ({ handleMenu, arcSite }) => {
                   <li>
                     <button
                       type="button"
+                      id="btn-subs"
                       onClick={() => {
                         openItemMenu('subs')
                       }}>

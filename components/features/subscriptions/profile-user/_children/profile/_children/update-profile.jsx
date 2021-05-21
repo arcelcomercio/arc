@@ -9,7 +9,7 @@ import * as React from 'react'
 
 import { Button, Text } from '../../../../../signwall/_children/forms/styles'
 import { Close } from '../../../../../signwall/_children/iconos'
-import Modal from '../../../../../signwall/_children/modal'
+import { Modal } from '../../../../../signwall/_children/modal/index'
 import Domains from '../../../../../signwall/_dependencies/domains'
 import GetProfile from '../../../../../signwall/_dependencies/get-profile'
 import { clean } from '../../../../../signwall/_dependencies/object'
@@ -1012,12 +1012,7 @@ class UpdateProfile extends React.Component {
         </FormGrid>
 
         {showModalConfirm && (
-          <Modal
-            size="mini"
-            position="middle"
-            bg="white"
-            name="modal-div-confirmpass"
-            id="modal-div-confirmpass">
+          <Modal size="mini" position="middle" bgColor="white">
             <div className="text-right">
               <button
                 type="button"

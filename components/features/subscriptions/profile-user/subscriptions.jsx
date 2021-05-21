@@ -5,7 +5,7 @@ import * as React from 'react'
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
 import addScriptAsync from '../../../utilities/script-async'
-import { ModalConsumer, ModalProvider } from '../../signwall/_children/context'
+import { ModalConsumer, ModalProvider } from '../_context/modal'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
@@ -28,10 +28,14 @@ const renderTemplate = (template, id) => {
   return templates[template] || templates.home
 }
 
-const ProfileSignwall = () => {
+const WrapperProfile = () => {
   const { siteProperties, arcSite, deployment } = useAppContext() || {}
   const { links, urls: urlCommon } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
+
+  const { changeTemplate, selectedTemplate, idTemplate } = React.useContext(
+    ModalConsumer
+  )
 
   React.useEffect(() => {
     Sentry.init({
@@ -76,31 +80,26 @@ const ProfileSignwall = () => {
     <PanelWrapper id="profile-signwall">
       <Header />
       <PanelContent>
-        <ModalProvider>
-          <ModalConsumer>
-            {(value) => (
-              <>
-                <div className="panel-left">
-                  <MenuSignwall
-                    handleMenu={(item) => value.changeTemplate(item)}
-                    arcSite={arcSite}
-                  />
-                </div>
-                <div className="panel-right">
-                  {siteProperties.activePaywall ? (
-                    renderTemplate(value.selectedTemplate, value.idTemplate)
-                  ) : (
-                    <MiPerfil />
-                  )}
-                </div>
-              </>
-            )}
-          </ModalConsumer>
-        </ModalProvider>
+        <div className="panel-left">
+          <MenuSignwall handleMenu={(item) => changeTemplate(item)} />
+        </div>
+        <div className="panel-right">
+          {siteProperties.activePaywall ? (
+            renderTemplate(selectedTemplate, idTemplate)
+          ) : (
+            <MiPerfil />
+          )}
+        </div>
       </PanelContent>
     </PanelWrapper>
   )
 }
+
+const ProfileSignwall = () => (
+  <ModalProvider>
+    <WrapperProfile />
+  </ModalProvider>
+)
 
 ProfileSignwall.label = 'Signwall - Página Perfil de Usuario'
 

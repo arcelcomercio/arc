@@ -3,12 +3,12 @@
 import { sha256 } from 'js-sha256'
 import React, { useState } from 'react'
 
+import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import { setCookie } from '../../../subscriptions/_dependencies/Cookies'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import Domains from '../../_dependencies/domains'
-import { ModalConsumer } from '../context'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'

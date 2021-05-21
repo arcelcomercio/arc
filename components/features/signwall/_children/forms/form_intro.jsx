@@ -2,9 +2,9 @@ import { useContent } from 'fusion:content'
 import React, { useEffect, useState } from 'react'
 import Markdown from 'react-markdown/with-html'
 
+import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import Domains from '../../_dependencies/domains'
-import { ModalConsumer } from '../context'
 import Loading from '../loading'
 import * as S from './styles'
 

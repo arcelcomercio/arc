@@ -2,7 +2,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { env } from '../../../utilities/arc/env'
-import { cintilloScript } from './scripts'
+import { cintilloScript } from '../_scripts/VerifyEmail'
 
 const classes = {
   wrapper:

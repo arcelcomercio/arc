@@ -2,11 +2,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react'
 
+import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import Domains from '../../_dependencies/domains'
-import { ModalConsumer } from '../context'
 import { Back, ForgotPass, MsgForgotPass } from '../iconos'
 import { Input } from './control_input_select'
 import * as S from './styles'

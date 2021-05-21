@@ -21,7 +21,7 @@ import {
   Notice,
 } from '../../../../../signwall/_children/iconos'
 import Loading from '../../../../../signwall/_children/loading'
-import Modal from '../../../../../signwall/_children/modal'
+import { Modal } from '../../../../../signwall/_children/modal/index'
 import Domains from '../../../../../signwall/_dependencies/domains'
 import addPayU from '../../../../../signwall/_dependencies/payu'
 import { PayuError } from '../../../../../signwall/_dependencies/payu-error'
@@ -816,12 +816,7 @@ export const SubsDetail = ({ IdSubscription }) => {
       )}
 
       {showModalConfirm && (
-        <Modal
-          size="small"
-          position="middle"
-          bg="white"
-          name="modal-div-confirm-delsubs"
-          id="modal-div-confirm-delsubs">
+        <Modal size="small" position="middle" bgColor="white">
           <div className="btn-close-int">
             <button
               type="button"
@@ -1147,12 +1142,7 @@ export const SubsDetail = ({ IdSubscription }) => {
       )}
 
       {showModalRecovery && (
-        <Modal
-          size="small"
-          position="middle"
-          bg="white"
-          name="modal-div-confirm-recovery-subs"
-          id="modal-div-confirm-recovery-subs">
+        <Modal size="small" position="middle" bgColor="white">
           <div className="btn-close-int">
             <button
               type="button"
@@ -1162,6 +1152,7 @@ export const SubsDetail = ({ IdSubscription }) => {
               <Close />
             </button>
           </div>
+
           <div className="modal-body__wrapper">
             <Form npadding>
               <Title s="18" className="center mt-10 mb-20">

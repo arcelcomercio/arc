@@ -3,11 +3,14 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import {
+  ModalConsumer,
+  ModalProvider,
+} from '../../../subscriptions/_context/modal'
+import {
   deleteQuery,
   getQuery,
 } from '../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import { ModalConsumer, ModalProvider } from '../context'
 import { FormForgot } from '../forms/form_forgot'
 import { FormLoginPaywall } from '../forms/form_login_landing'
 import FormRegister from '../forms/form_register'
