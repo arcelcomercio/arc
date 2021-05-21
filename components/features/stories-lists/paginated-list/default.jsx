@@ -4,7 +4,6 @@ import getProperties from 'fusion:properties'
 import React, { Fragment } from 'react'
 
 import Ads from '../../../global-components/ads'
-import AdsAfs from '../../../global-components/ads-afs'
 import Pagination from '../../../global-components/pagination'
 import StoryItem from '../../../global-components/story-item'
 import { SITE_DEPOR, SITE_GESTION } from '../../../utilities/constants/sitenames'
