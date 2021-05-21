@@ -52,11 +52,13 @@ const StoryContentChildVideoJwplayerList = ({
             <figcaption
               className={`${
                 lite === true
-                  ? `s-multimedia__caption`
-                  : `story-content__caption`
-              }`}>
-              {titleTxt}
-            </figcaption>
+                  ? `s-multimedia__caption x`
+                  : `story-content__caption x`
+              }`}
+              dangerouslySetInnerHTML={{
+                __html: titleTxt,
+              }}
+            />
           )}
         </>
       )}

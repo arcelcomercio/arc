@@ -1,5 +1,6 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
+
 import Image from './image'
 
 const StoryContentChildVideoJwplayerList = ({
@@ -28,7 +29,7 @@ const StoryContentChildVideoJwplayerList = ({
             data-time={time}
             className="jwplayer-lazy"
             id={`botr_${mediaId}_${jwplayerId}_div`}>
-            <div className="jwplayer-lazy-icon-play"></div>
+            <div className="jwplayer-lazy-icon-play" />
             <Image
               src={image}
               width={580}
@@ -46,9 +47,11 @@ const StoryContentChildVideoJwplayerList = ({
                 lite === true
                   ? `s-multimedia__caption`
                   : `story-content__caption`
-              }`}>
-              {titleTxt}
-            </figcaption>
+              }`}
+              dangerouslySetInnerHTML={{
+                __html: titleTxt,
+              }}
+            />
           )}
         </>
       )}
