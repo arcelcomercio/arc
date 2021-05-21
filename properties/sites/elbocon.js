@@ -48,9 +48,6 @@ export default {
     aboutUs: '',
     frequentQuestions: '',
   },
-  paywall: {
-    title: 'El Bocón | Suscripciones Digitales',
-  },
   assets: {
     nav: {
       logoSomos: 'logo.png',
@@ -63,25 +60,8 @@ export default {
       heightAmp: 47,
     },
     path: `/resources/dist/elbocon/`,
-    paywall: {
-      icon: `images/favicon.png`,
-      apple_icon: 'images/apple-touch-icon.png',
-      apple_icon_76: 'images/apple-touch-icon-76x76.png',
-      apple_icon_120: 'images/apple-touch-icon-120x120.png',
-      apple_icon_144: 'images/apple-touch-icon-144x144.png',
-      apple_icon_152: 'images/apple-touch-icon-152x152.png',
-      apple_icon_180: 'images/apple-touch-icon-180x180.png',
-      logo: `images/logo.svg`,
-      lector: `images/img_lector.png`,
-      confirmation: `images/img_confirmation.jpg`,
-      confirmation_webp: `images/img_confirmation_1.webp`,
-      support: `images/img_soporte.png`,
-      contact_form_left: 'images/adult-attire-blazer-173125@2x.jpg',
-      support_webp: `images/img_soporte.webp`,
-      backgroundx1: `images/bg-planes-10.png`,
-    },
-    fullAssets(contextPath, deployment = path => path) {
-      return image => deployment(`${contextPath}${this.pwAssets(image)}`)
+    fullAssets(contextPath, deployment = (path) => path) {
+      return (image) => deployment(`${contextPath}${this.pwAssets(image)}`)
     },
     pwAssets(image = 'logo') {
       return `${this.path}${this.paywall[image]}`
