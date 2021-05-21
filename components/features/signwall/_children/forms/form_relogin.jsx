@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { sha256 } from 'js-sha256'
-import React, { useState } from 'react'
+import sha256 from 'crypto-js/sha256'
+import * as React from 'react'
 
 import getCodeError from '../../_dependencies/codes_error'
 import Cookies from '../../_dependencies/cookies'
@@ -24,11 +24,11 @@ export const FormRelogin = ({
   onClose,
   typeDialog,
 }) => {
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
-  const [showVerify, setShowVerify] = useState()
-  const [showSendEmail, setShowSendEmail] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(true)
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showVerify, setShowVerify] = React.useState()
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -90,7 +90,7 @@ export const FormRelogin = ({
             window.Identity.userProfile = null
             window.Identity.userIdentity = {}
           } else {
-            Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+            Cookies.setCookie('arc_e_id', sha256(profile.email).toString(), 365)
             Taggeo(
               `Web_Sign_Wall_${typeDialog}`,
               `web_sw${typeDialog[0]}_email_login_success_ingresar`

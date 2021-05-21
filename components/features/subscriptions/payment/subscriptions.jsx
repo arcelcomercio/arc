@@ -4,9 +4,9 @@ import * as React from 'react'
 
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
+import addScriptAsync from '../../../utilities/script-async'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthContext, AuthProvider } from '../_context/auth'
-import addScriptAsync from '../_dependencies/Async'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { clearUrlAPI } from '../_dependencies/Utils'
@@ -118,7 +118,11 @@ const WrapperPaymentSubs = () => {
     <>
       <>
         {userLoading && <Loading arcSite={arcSite} />}
-        <HeaderSubs userProfile={userProfile} arcSite={arcSite} />
+        <HeaderSubs
+          userProfile={userProfile}
+          arcSite={arcSite}
+          arcType={arcType}
+        />
         <Container>
           {userLoading === false &&
             userLoaded &&
@@ -127,11 +131,12 @@ const WrapperPaymentSubs = () => {
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
           <Wrapper
+            step={userStep}
             style={{
               minHeight: '530px',
             }}>
             {!userLoading && (
-              <PanelLeft>
+              <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
                   <h2 className="step__left-title-campaign">
                     {texts.textWinback}
@@ -148,9 +153,11 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
-            </PanelRight>
+            {userStep !== 5 && (
+              <PanelRight>
+                {userStep !== 4 && !freeAccess && <Summary />}
+              </PanelRight>
+            )}
           </Wrapper>
         </Container>
         {!freeAccess && <FooterSubs />}

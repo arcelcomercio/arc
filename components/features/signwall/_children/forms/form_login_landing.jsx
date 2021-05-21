@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { sha256 } from 'js-sha256'
-import React, { useState } from 'react'
+import sha256 from 'crypto-js/sha256'
+import * as React from 'react'
 
 import getCodeError from '../../_dependencies/codes_error'
 import Cookies from '../../_dependencies/cookies'
@@ -28,12 +28,12 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     },
   } = attributes
 
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
-  const [showStudents, setShowStudents] = useState(false)
-  const [showVerify, setShowVerify] = useState()
-  const [showSendEmail, setShowSendEmail] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(true)
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showStudents, setShowStudents] = React.useState(false)
+  const [showVerify, setShowVerify] = React.useState()
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
 
   const isFbBrowser =
     typeof window !== 'undefined' &&
@@ -92,7 +92,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
             window.Identity.userProfile = null
             window.Identity.userIdentity = {}
           } else {
-            Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+            Cookies.setCookie('arc_e_id', sha256(profile.email).toString(), 365)
             onLogged(profile) // para hendrul
             setShowVerify(false)
             Taggeo(
@@ -212,6 +212,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                         typeForm="login"
                         activeNewsletter={activeNewsletter}
                         showMsgVerify={() => triggerShowVerify()}
+                        dataTreatment={checkedPolits ? '1' : '0'}
                       />
                     ))}
                   </>

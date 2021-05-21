@@ -34,12 +34,12 @@ export default {
     color: '#8F071F',
   },
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: 'LE7X7PCZPRCM7ASXLIHWS7DKYQ',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'RXAYTOUIXNEI5N3MBETUNR7TCI',
     integratedManagementPolicy: '',
     arcoProcedure: '',
-    cookiesPolicy: '',
+    cookiesPolicy: 'UF4RYI7XLNH4NGDN2FONQJ7HHU',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
     dataTreatment: 'RPHBHLSJA5AFLCV5QUC3E6A7SY',
@@ -59,80 +59,9 @@ export default {
     title: 'Suscripciones Digitales | Gestión',
     description:
       'Suscríbete al Plan Digital y accede a contenido exclusivo ilimitadamente desde todos tus dispositivos. Gestión El diario de Economía y Negocios.',
-    descriptionPayment:
-      'Suscríbete al Plan Digital y accede a CONTENIDO EXCLUSIVO ilimitadamente desde todos tus dispositivos digitales. Suscripción Anual y Mensual.',
-    /**
-     * Las rutas se definen como plantillas "mustachejs" y estas se resuelven utilizando
-     * la libreria templayed que es una implementacion ligera de mustache. Recomiendo
-     * crear una funcion utilitaria que añada las siguientes variables implicitas
-     *    - contextPath: Path del contexto de publicacion de fusion
-     *    - isProd:      Verdadero si se esta en produccion
-     *    - hasParams:   Verdadero si se pasan parametros extra
-     *
-     * Ejemplo:  resolverUrl( '{{contextPath}}/{{param1}}', { param1: 'somePath' } );  // return: '/pf/somePath'
-     */
-    // prettier-ignore
     urls: {
-      // PATHS
-      eventsRegexp:                      `eventos\\/(\\w+)`,
-      corporateSuscription:              `{{contextPath}}/suscripcionesdigitales/empresa/?ref=HomeSuscripciones{{^isProd}}&_website=gestion&outputType=paywall{{/isProd}}`,
-      faqs:                              `{{contextPath}}/suscripcionesdigitales/faqs/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
-      digitalSubscriptions:              `{{contextPath}}/suscripcionesdigitales/{{#isEvent}}eventos/{{event}}/{{/isEvent}}{{#isCheckingSubscriptor}}{{documentType}}/{{documentNumber}}/{{attemptToken}}/{{/isCheckingSubscriptor}}{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
-      digitalSubscriptionsHome:          `{{contextPath}}/suscripciones/{{^isProd}}?_website=gestion&outputType=paywall{{/isProd}}`,
-      arcEntitlements:                   `/sales/public/v1/entitlements`,
-
-      // URLS
-      canonical:                         `https://gestion.pe/suscripcionesdigitales/`,
-      image:                             `https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158`,
-      clickToCall:                       `https://pe-eca.grupodigitex.com/C2C_Comercio/Gestion/Gestion.aspx?utm_source=web-suscripciones&utm_medium=boton&utm_campaign=C2C&utm_term=ayuda-llamar&utm_content=suscripciones-portada`,
-      pwaDomain:                         `https://pwa{{^isProd}}.dev{{/isProd}}.gestion.pe`,
-      originApi:                         `https://api{{^isProd}}-sandbox{{/isProd}}.gestion.pe`,
-      originIdentitySdk:                 `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-identity.min.js?v=1`,
-      originSalesSdk:                    `https://arc-subs-sdk.s3.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}sandbox{{/isProd}}/sdk-sales.min.js`,
-      originPayuSdk:                     `https://{{#isProd}}d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/{{/isProd}}{{^isProd}}signwall-test.e3.pe/static/{{/isProd}}payu-sdk.js`,
-      originPayuTags:                    `https://maf.pagosonline.net/ws/fp/tags.js?id={{deviceSessionId}}80200`,
-      originPaymentTraker:               `https://{{#isProd}}su3l9d6w10{{/isProd}}{{^isProd}}72q176wl1l{{/isProd}}.execute-api.us-east-1.amazonaws.com/{{#isProd}}prod{{/isProd}}{{^isProd}}dev{{/isProd}}/v1/service/arc/paywall/tracking`,
-      originSubscriptionCorpApi:         `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
-      originSubscriptionOnlineToken:     `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-      // originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/{{#hasParams}}?{{/hasParams}}{{#isCheckingSubscriptor}}doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{/isCheckingSubscriptor}}{{#isEvent}}{{#isCheckingSubscriptor}}&{{/isCheckingSubscriptor}}event={{event}}{{/isEvent}}{{#fromFia}}from_fia=true{{/fromFia}}`,
-      originSubscriptions:               `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/{{#hasParams}}?{{/hasParams}}{{#isCheckingSubscriptor}}doctype={{documentType}}&docnumber={{documentNumber}}&token={{attemptToken}}{{#isDniEvent}}&subscriptor_event=suscripitor_winback&event=winback{{/isDniEvent}}{{/isCheckingSubscriptor}}{{#isEvent}}{{#isCheckingSubscriptor}}&{{/isCheckingSubscriptor}}event={{event}}{{/isEvent}}{{#fromFia}}from_fia=true{{/fromFia}}`,
-      originSubscriptionsBundles:        `https://{{^isProd}}dev{{/isProd}}paywall.comerciosuscripciones.pe/api/subscriber/validation/gestion/bundle/`,
-      originSubsPrinted:                 `{{#isProd}}https://suscripciones.gestion.pe/payment/7/96/{{/isProd}}
-                                          {{^isProd}}http://pre.suscripciones.gestion.pe/payment/7/96/{{/isProd}}`,
-      originSubsDigitalPrinted:          `{{#isProd}}https://suscripciones.gestion.pe/payment/8/98/{{/isProd}}
-                                          {{^isProd}}http://pre.suscripciones.gestion.pe/payment/8/97/{{/isProd}}`,
-      privacyPolicy:                     `https://gestion.pe/politica-de-privacidad`,
-      disclaimer:                        `http://ecomedia.pe/libro/registrar/gestion/`,
-      terms:                             `https://suscripciones.gestion.pe/terminos/`,
-      originSubsOnline:                  `https://suscripciones.gestion.pe/`,
-      contactEmailRef:                   `mailto:atencionalcliente@comercio.com.pe`,
-      contactPhoneRef:                   `tel:+5113115100`,
-      androidAppDownload:                `https://play.google.com/store/apps/details?id=com.eeec.gestion&referrer=email_footer`,
-      iosAppDownload:                    `https://apps.apple.com/es/app/gestion/id991224096?ct=email_footer`,
-      facebook:                          `https://www.facebook.com/Gestionpe`,
-      twitter:                           `https://twitter.com/gestionpe`,
-      instagram:                         `https://www.instagram.com/diariogestion/?hl=es`,
-      fbSubscriptionsSync:               `https://graph.facebook.com/v2.10/{{subscriptionNodeId}}/subscriptions`,
-      codeCxense:                        `{{#isProd}}8n3linhnzos6{{/isProd}}
-                                          {{^isProd}}8msif5r9dikx{{/isProd}}`,
-      profileSignwall:                    `{{contextPath}}/mi-perfil/?outputType=signwall`,
-    },
-    // prettier-ignore
-    images: {
-      pixel:                             `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=`,
-      icon:                              `{{contextPath}}/resources/dist/gestion/images/favicon.png`,
-      apple_icon:                        `{{contextPath}}/resources/dist/gestion/images/apple-touch-icon.png`,
-      apple_icon_76:                     `{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-76x76.png`,
-      apple_icon_120:                    `{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-120x120.png`,
-      apple_icon_144:                    `{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-144x144.png`,
-      apple_icon_152:                    `{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-152x152.png`,
-      apple_icon_180:                    `{{contextPath}}/resources/dist/gestion/images/apple-touch-icon-180x180.png`,
-      lector:                            `{{contextPath}}/resources/dist/gestion/images/img_lector.{{ext}}`,
-      corporativo:                       `{{contextPath}}/resources/dist/gestion/images/img_corporativo.{{ext}}`,
-      confirmation:                      `{{contextPath}}/resources/dist/gestion/images/img_confirmation.{{ext}}`,
-      support:                           `{{contextPath}}/resources/dist/gestion/images/img_soporte.{{ext}}`,
-      backgroundx1:                      `{{contextPath}}/resources/dist/gestion/images/bg_planes_10.jpg`,
-      mainLogo:                          `{{contextPath}}/resources/dist/gestion/images/logo_gestion_30.png`,
+      canonical: `https://gestion.pe/suscripcionesdigitales/`,
+      image: `https://gestion.pe/pf/resources/dist/gestion/images/logo_fb.jpg?d=158`,
     },
   },
   assets: {

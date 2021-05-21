@@ -13,6 +13,7 @@ import {
   SITE_OJO,
   SITE_PERU21G21,
   SITE_TROME,
+  SITE_GESTION,
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -143,6 +144,7 @@ export default ({
 
   if (arcSite === SITE_ELCOMERCIO) {
     if (/^\/suscriptor-digital/.test(requestUri)) classBody = `section-premium`
+    else if (/^\/saltar-intro/.test(requestUri)) classBody = `saltar-intro`
   }
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
@@ -191,6 +193,17 @@ export default ({
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
+  
+  const getAfsStyle = () => {
+    let styleAfsId = ''
+    if (arcSite === SITE_DEPOR) {
+      styleAfsId = '9799771650'
+    } else if (arcSite === SITE_GESTION) {
+      styleAfsId = '2165195451'
+    }
+    return styleAfsId
+  }
+  const styleIdAfsGo = getAfsStyle()
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -262,8 +275,8 @@ export default ({
   s_bbcws('track', 'pageView');`
 
   const isCovid = /^\/covid-19\//.test(requestUri)
-  const isElecciones = /^\/resultados-elecciones-2021\//.test(requestUri)
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
+  const isElecciones = /^\/resultados-elecciones-2021\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
@@ -520,7 +533,7 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {arcSite === SITE_DEPOR && isSearchSection && (
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && (
           <>
             <script
               async="async"
@@ -615,6 +628,31 @@ export default ({
           </>
         )}
         <TagManager {...siteProperties} />
+        {/* ============== WebTracking */}
+        { arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ?(
+          <>
+            <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+            )}
+            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"></script>
+          </>
+        ):null}
+
+        { arcSite === SITE_GESTION && requestUri.includes('/economia/') ?(
+          <>
+            <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+            )}
+            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"></script>
+          </>
+        ):null}
+        {/* ============== WebTracking */}
       </head>
       <body
         className={classBody}
@@ -671,6 +709,15 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `"use strict";!function(){var e="";null!=document.querySelector("input.search-input")&&(e=document.querySelector("input.search-input").value);_googCsa("ads",{pubId:"partner-pub-8088376505685131",query:e,styleId:"${styleIdAfsGo}"},{container:"afs_container_1"})}();`,
+              }}
+            />
+          </>
+        )}
         {(contenidoVideo || isVideosSection) && (
           <>
             <script

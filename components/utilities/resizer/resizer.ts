@@ -281,7 +281,7 @@ export const getResizedImageParams = (
     return sourceData
   }
 
-  if ('canonical_url' in data || 'website_url' in data) {
+  if ('promo_items' in data) {
     generateParams(data?.promo_items)
   } else if (
     data?.content_elements &&
