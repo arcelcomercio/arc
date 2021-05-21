@@ -1,24 +1,23 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../../utilities/story-data'
-
-import GalleryTitle from './_children/title'
-import FullImage from './_children/full-image'
 import {
   includePrimarySection,
   includePromoItems,
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import FullImage from './_children/full-image'
+import GalleryTitle from './_children/title'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
   boxContainer: 'photogallery col-3 pl-20 pb-20 pr-20',
 }
 
-const PhotogalleryFeat = props => {
+const PhotogalleryFeat = (props) => {
   const { arcSite, contextPath, deployment, isAdmin } = useAppContext()
   const {
     customFields: {
@@ -33,7 +32,9 @@ const PhotogalleryFeat = props => {
   } = props
 
   const presets = 'landscape_l:648x374,landscape_md:314x157,square_md:300x300'
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection}`
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection(
+    { arcSite }
+  )}`
 
   const data =
     useContent({

@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-undef */
-import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
+import React, { useState } from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
-import customFields from './_dependencies/custom-fields'
 import StoryItemController from './_children/story-item-controller'
+import customFields from './_dependencies/custom-fields'
 import { tvListScripts } from './_dependencies/scripts'
 
 const classes = {
@@ -25,7 +25,7 @@ const classes = {
 
 const PERU21TV_URL = 'https://peru21.pe/peru21tv/'
 
-const StoriesListVideo = props => {
+const StoriesListVideo = (props) => {
   const { contextPath, arcSite } = useFusionContext()
 
   const {
@@ -122,7 +122,8 @@ const StoriesListVideo = props => {
               viewBox="0 0 8 14">
               <path
                 d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z"
-                transform="translate(-0.293 -0.293)"></path>
+                transform="translate(-0.293 -0.293)"
+              />
             </svg>
           </a>
         </div>
@@ -131,7 +132,8 @@ const StoriesListVideo = props => {
         type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: tvListScripts,
-        }}></script>
+        }}
+      />
     </>
   )
 }

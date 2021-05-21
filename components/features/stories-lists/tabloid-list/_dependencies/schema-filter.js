@@ -1,8 +1,8 @@
-export default function(arcSite) {
+export default function (arcSite) {
   return `{
     content_elements { 
       headlines { basic }
-      websites { ${arcSite} { website_url } }
+      websites { ${arcSite} { website_url website_section{name path} } }
       display_date
       promo_items {
         basic { 
@@ -40,9 +40,6 @@ export default function(arcSite) {
           }
         }
 
-      }
-      taxonomy {
-        primary_section { name }
       }
     }
   }`

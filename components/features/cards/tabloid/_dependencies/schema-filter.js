@@ -1,8 +1,12 @@
-export default arcSite => `
+export default (arcSite) => `
     {
-      websites {
+      websites { 
         ${arcSite} {
           website_url
+          website_section {
+            name
+            path
+          }
         }
       }
       created_date
@@ -15,12 +19,6 @@ export default arcSite => `
       }
       headlines{
         basic
-      }
-      taxonomy {
-        primary_section { 
-          name 
-          path
-        }
       }
     }
     `

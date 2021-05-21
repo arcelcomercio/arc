@@ -28,14 +28,12 @@ const classes = {
 
 const StoryContinue = ({ customFields: { isBlog } = {} }) => {
   const {
-    globalContent: {
-      taxonomy: { primary_section: { path = '' } = {} } = {},
-    } = {},
+    globalContent: { websites: websitesP = {} } = {},
     arcSite,
     siteProperties,
     contextPath,
   } = useFusionContext()
-
+  const { website_section: { path = '' } = {} } = websitesP[arcSite] || {}
   const data = useContent({
     source: 'story-feed-by-section',
     query: {
@@ -49,7 +47,7 @@ const StoryContinue = ({ customFields: { isBlog } = {} }) => {
   const { siteUrl } = siteProperties
   const { content_elements: stories = [] } = data || {}
 
-  const recentStoryContinue = stories.map(story => {
+  const recentStoryContinue = stories.map((story) => {
     const { headlines: { basic: title = '' } = '', websites = {} } = story
     const { website_url: websiteUrl } = websites[arcSite] || {}
 

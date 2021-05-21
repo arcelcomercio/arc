@@ -14,12 +14,12 @@
   &__icon {
     display: block;
 
-    &:before {
-      content: '';
+    &::before {
+      content: "";
       display: block;
       width: 20px;
       height: 20px;
-      background-image: url(/pf/resources/dist/peru21/images/logo-sm.png?d=380);
+      background-image: url("#{$assets_url}/pf/resources/dist/peru21/images/logo-sm.png?d=380");
       background-size: cover;
     }
   }

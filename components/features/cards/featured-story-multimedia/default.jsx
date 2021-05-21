@@ -1,20 +1,19 @@
-import React from 'react'
-
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
-import FeaturedMultimedia from './_children/featured-multimedia'
-import customFields from './_dependencies/custom-fields'
-import SchemaFilter from './_dependencies/schema-filter'
-import StoryData from '../../../utilities/story-data'
 import {
-  includePromoItems,
   includePrimarySection,
+  includePromoItems,
   includePromoItemsCaptions,
   includeSections,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import FeaturedMultimedia from './_children/featured-multimedia'
+import customFields from './_dependencies/custom-fields'
+import SchemaFilter from './_dependencies/schema-filter'
 
-const CardFeaturedStoryMultimedia = props => {
+const CardFeaturedStoryMultimedia = (props) => {
   const { customFields: { section = '', freeHtml = '' } = {} } = props
 
   const { arcSite, contextPath, deployment, isAdmin } = useFusionContext()
@@ -24,7 +23,9 @@ const CardFeaturedStoryMultimedia = props => {
     query: {
       section,
       presets: 'landscape_md:314x157',
-      includedFields: `websites.${arcSite}.website_url,${includePromoItems},${includePromoItemsCaptions},headlines.basic,${includePrimarySection},${includeSections},display_date`,
+      includedFields: `websites.${arcSite}.website_url,${includePromoItems},${includePromoItemsCaptions},headlines.basic,${includePrimarySection(
+        { arcSite }
+      )},${includeSections},display_date`,
     },
     filter: SchemaFilter(arcSite),
   })
@@ -38,8 +39,8 @@ const CardFeaturedStoryMultimedia = props => {
     title, // { headlines { basic } }
     multimediaType, // { promo_items }
     date, // { display_date }
-    primarySectionLink, // { taxonomy { primary_section { path } } }
-    primarySection, // { taxonomy { primary_section { name } } }
+    primarySectionLink,
+    primarySection,
     multimediaSubtitle,
     multimediaCaption,
   } = new StoryData({

@@ -1,4 +1,4 @@
-const schemaFilter = arcSite => `{
+const schemaFilter = (arcSite) => `{
     headlines {
         basic
     }
@@ -70,16 +70,14 @@ const schemaFilter = arcSite => `{
             url
         }
     }
-    taxonomy {
-        primary_section { 
-            name
-            path
-        }
-    }
     website
     websites {
         ${arcSite} {
             website_url
+            website_section {
+                name
+                path
+            }
         }
     }
 }`

@@ -1,5 +1,7 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
+
+import StoryData from '../../../utilities/story-data'
 import StoryTitleChildHeading from '../title/_children/heading'
 
 const classes = {
@@ -8,14 +10,18 @@ const classes = {
 }
 
 const StorySpecialTitle = () => {
-  const { globalContent } = useFusionContext()
+  const { contextPath, globalContent: data, arcSite } = useFusionContext()
+
   const {
-    headlines: { basic: title = '' } = {},
-    editor_note: editorNote = '',
-    taxonomy: {
-      primary_section: { name: sectionName = '', path: sectionLink = '' } = {},
-    } = {},
-  } = globalContent || {}
+    title,
+    editorNote,
+    primarySection,
+    primarySectionLink,
+  } = new StoryData({
+    data,
+    arcSite,
+    contextPath,
+  })
 
   return (
     <>
@@ -24,10 +30,11 @@ const StorySpecialTitle = () => {
           {editorNote ? (
             <p
               itemProp="description"
-              dangerouslySetInnerHTML={{ __html: editorNote }}></p>
+              dangerouslySetInnerHTML={{ __html: editorNote }}
+            />
           ) : (
-            <a itemProp="url" href={sectionLink}>
-              {sectionName}
+            <a itemProp="url" href={primarySectionLink}>
+              {primarySection}
             </a>
           )}
         </div>

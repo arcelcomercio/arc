@@ -4,9 +4,9 @@ import * as React from 'react'
 
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
+import addScriptAsync from '../../../utilities/script-async'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthContext, AuthProvider } from '../_context/auth'
-import addScriptAsync from '../_dependencies/Async'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { clearUrlAPI } from '../_dependencies/Utils'
@@ -38,6 +38,7 @@ const WrapperPaymentSubs = () => {
     userProfile,
     userLoading,
     updateLoading,
+    updateStep,
   } = React.useContext(AuthContext)
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -46,11 +47,15 @@ const WrapperPaymentSubs = () => {
     import(/* webpackChunkName: 'Confirmation' */ './_children/Confirmation')
   )
 
+  React.useEffect(() => {
+    if (!userLoaded) {
+      updateStep(1)
+    }
+  })
+
   useRoute(event)
 
   React.useEffect(() => {
-    window.localStorage.removeItem('ArcId.USER_STEP') // borrar step en local storage global
-
     Sentry.init({
       dsn: urlCommon.dsnSentry,
       debug: env !== PROD,
@@ -113,7 +118,11 @@ const WrapperPaymentSubs = () => {
     <>
       <>
         {userLoading && <Loading arcSite={arcSite} />}
-        <HeaderSubs userProfile={userProfile} arcSite={arcSite} />
+        <HeaderSubs
+          userProfile={userProfile}
+          arcSite={arcSite}
+          arcType={arcType}
+        />
         <Container>
           {userLoading === false &&
             userLoaded &&

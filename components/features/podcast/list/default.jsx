@@ -1,21 +1,21 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import StoryData from '../../../utilities/story-data'
 import { formatDayMonthYear } from '../../../utilities/date-time/dates'
 import {
-  includePromoItems,
   includePrimarySection,
+  includePromoItems,
   includeSections,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 
 // TODO: Subir clases a objeto
 // TODO: sacar schemaFilter
 
-const PodcastList = props => {
+const PodcastList = (props) => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -25,7 +25,9 @@ const PodcastList = props => {
   const { arcSite, contextPath, deployment } = useFusionContext()
 
   const presets = 'landscape_l:648x374'
-  const includedFields = `headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},display_date`
+  const includedFields = `headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},websites.${arcSite}.website_url,${includePrimarySection(
+    { arcSite }
+  )},${includeSections},display_date`
 
   const { content_elements: contentElements = [] } =
     useContent({
@@ -90,13 +92,13 @@ const PodcastList = props => {
           websites {
             ${arcSite} {
               website_url
+              website_section {
+                name
+                path
+              } 
             }
           }
           taxonomy { 
-            primary_section { 
-              name
-              path 
-            }
             sections {
               name
               path 
@@ -115,7 +117,7 @@ const PodcastList = props => {
     defaultImgSize: 'sm',
   })
 
-  const stories = contentElements.map(story => {
+  const stories = contentElements.map((story) => {
     storyData._data = story
     const {
       multimediaLandscapeL,

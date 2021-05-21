@@ -1,25 +1,27 @@
-import React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import React from 'react'
 
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import StoriesAuthorChild from './_children/stories-author'
-import StoryData from '../../../utilities/story-data'
 import { defaultAuthorImage } from '../../../utilities/assets'
 import {
+  includeCredits,
+  includeCreditsEducation,
+  includeCreditsRole,
   includePrimarySection,
   includeSections,
-  includeCreditsRole,
-  includeCreditsEducation,
-  includeCredits,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import StoriesAuthorChild from './_children/stories-author'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
-const StoriesListAuthor = props => {
+const StoriesListAuthor = (props) => {
   const { arcSite, contextPath, deployment } = useAppContext()
 
   const presets = 'no-presets'
-  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,${includeCreditsEducation},${includeCreditsRole},websites.${arcSite}.website_url,${includePrimarySection},${includeSections}`
+  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,${includeCreditsEducation},${includeCreditsRole},websites.${arcSite}.website_url,${includePrimarySection(
+    { arcSite }
+  )},${includeSections}`
 
   const {
     customFields: {
@@ -45,7 +47,7 @@ const StoriesListAuthor = props => {
   const storiesData = []
   const { content_elements: contentElements = [] } = data
 
-  contentElements.forEach(el => {
+  contentElements.forEach((el) => {
     storyObj.__data = el
     storiesData.push({
       title: storyObj.title,
