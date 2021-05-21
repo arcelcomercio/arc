@@ -1,58 +1,4 @@
 .polla-home {
-  &__logo-container {
-    background-color: #2f18c9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 72px 0 90px;
-  }
-  &__logo-img {
-    width: 100%;
-    max-width: 320px;
-    margin-bottom: 11px;
-  }
-  &__logo-title {
-    font: bold 24px/29px $secondary-font;
-    letter-spacing: 0.24px;
-    color: #fff;
-    margin-bottom: 20px;
-  }
-  &__brand-container {
-    font: 400 14px/16px $primary-font;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    img {
-      max-height: 35px;
-      margin-left: 8px;
-    }
-  }
-
-  &__desc-container {
-    padding-top: 24px;
-  }
-  &__desc-title {
-    font: 700 32px/36px $primary-font;
-    color: #333;
-    margin: 0 24px 16px 26px;
-  }
-  &__desc-parag {
-    font: 400 18px/24px $primary-font;
-    color: #888;
-    margin: 0 24px 24px 26px;
-  }
-  &__desc-link {
-    background-color: #dc532e;
-    border-radius: 4px;
-    padding: 11px 51px;
-    font: 700 14px/42px $primary-font;
-    letter-spacing: 1.12px;
-    color: #fff;
-    margin: 0 24px 20px 26px;
-  }
-  &__desc-img {
-    width: 100%;
-  }
   &__rank-container {
     background-color: #001a63;
     padding: 24px 15px;
@@ -74,6 +20,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 580px;
+    @media (--desktop) {
+      padding: 22px 20px;
+    }
   }
   &__rank-title {
     font: 700 26px/42px $secondary-font;
@@ -103,6 +53,10 @@
     margin-right: 15px;
     white-space: nowrap;
     overflow: hidden;
+    @media (--desktop) {
+      font: 400 17px/42px $primary-font;
+      letter-spacing: 0;
+    }
   }
   &__rank-third {
     font: 900 17px/42px $primary-font;
