@@ -32,6 +32,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
     arcSite,
   } = useFusionContext() || {}
 
+  const { selectedTemplate, valueTemplate } = React.useContext(NavigateConsumer)
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const [isLogged, setLogged] = React.useState(false)
@@ -97,36 +98,32 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
       <Container>
         <Wrapper>
           <NavigateProvider>
-            <NavigateConsumer>
-              {({ selectedTemplate, valueTemplate }) => (
-                <PanelLeft>
-                  {!isLogged ? (
-                    renderTemplate(selectedTemplate, valueTemplate, {
-                      arcSite,
-                      isFia: true,
-                      handleCallToAction,
-                      onClose: () => {
-                        if (
-                          'Identity' in window &&
-                          window.Identity.userProfile &&
-                          window.Identity.userIdentity.uuid
-                        ) {
-                          setLogged(true)
-                        }
-                      },
-                    })
-                  ) : (
-                    <CallToActionFia
-                      mainColorBr={mainColorBr}
-                      logoutSession={logoutSession}
-                      arcSite={arcSite}
-                      typeDialog={typeDialog}
-                      urlPlan={links.landingFia}
-                    />
-                  )}
-                </PanelLeft>
+            <PanelLeft>
+              {!isLogged ? (
+                renderTemplate(selectedTemplate, valueTemplate, {
+                  arcSite,
+                  isFia: true,
+                  handleCallToAction,
+                  onClose: () => {
+                    if (
+                      'Identity' in window &&
+                      window.Identity.userProfile &&
+                      window.Identity.userIdentity.uuid
+                    ) {
+                      setLogged(true)
+                    }
+                  },
+                })
+              ) : (
+                <CallToActionFia
+                  mainColorBr={mainColorBr}
+                  logoutSession={logoutSession}
+                  arcSite={arcSite}
+                  typeDialog={typeDialog}
+                  urlPlan={links.landingFia}
+                />
               )}
-            </NavigateConsumer>
+            </PanelLeft>
           </NavigateProvider>
         </Wrapper>
       </Container>

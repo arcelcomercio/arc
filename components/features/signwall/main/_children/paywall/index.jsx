@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-no-bind */
-import Consumer from 'fusion:consumer'
-import React, { PureComponent, useEffect } from 'react'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import {
   ModalConsumer,
@@ -44,103 +43,89 @@ const renderTemplate = (template, valTemplate, attributes) => {
   return templates[template] || templates.intro
 }
 
-export const PaywallInt = (props) => {
+export const PaywallInt = ({ properties }) => {
+  const { onClose, typeDialog } = properties
   const {
-    onClose,
     arcSite,
-    typeDialog,
     siteProperties: {
       signwall: { primaryFont },
     },
-    addEventListener,
-    removeEventListener,
-  } = props
+  } = useAppContext() || {}
 
-  const handleLeavePage = (event) => {
-    event.preventDefault()
-    Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
-  }
+  // const handleLeavePage = (event) => {
+  //   event.preventDefault()
+  //   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
+  // }
 
-  useEffect(() => {
+  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
+
+  React.useEffect(() => {
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)
-    addEventListener('beforeunload', handleLeavePage)
+    // addEventListener('beforeunload', handleLeavePage)
     return () => {
-      removeEventListener('beforeunload', handleLeavePage)
+      // removeEventListener('beforeunload', handleLeavePage)
     }
   }, [])
 
   const removeBefore = () => {
-    removeEventListener('beforeunload', handleLeavePage)
+    // removeEventListener('beforeunload', handleLeavePage)
   }
 
   return (
-    <ModalProvider>
-      <ModalConsumer>
-        {(value) => (
-          <Modal size="medium" position="middle">
-            <ContMiddle>
-              <CloseBtn
-                type="button"
-                className="btn-close"
-                onClick={() => {
-                  Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
-                  if (typeDialog === 'paywall') {
-                    if (document.getElementById('btn-premium-continue')) {
-                      onClose()
-                    } else {
-                      window.location.href = `/?signwallPaywall=1&ref=${window.location.pathname}`
-                    }
-                  }
-                }}>
-                <Close />
-              </CloseBtn>
-              <FirstMiddle
-                pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342`}
-                arcSite={arcSite}>
-                <ContPaywall>
-                  <p>
-                    {typeDialog === 'paywall'
-                      ? 'Has alcanzado el límite de noticias.'
-                      : 'Para acceder a este contenido'}
-                    <br />
-                    {typeDialog === 'paywall'
-                      ? 'Para continuar leyendo, adquiere el'
-                      : 'exclusivo, adquiere tu'}
-                  </p>
-                  <Title f={primaryFont}>Plan Digital</Title>
-                  <center>
-                    <img
-                      style={{ maxWidth: '320px', height: 'auto' }}
-                      alt="Logo"
-                      src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
-                    />
-                  </center>
-                </ContPaywall>
-              </FirstMiddle>
-              <SecondMiddle>
-                {renderTemplate(value.selectedTemplate, value.valTemplate, {
-                  removeBefore,
-                  ...props,
-                })}
-              </SecondMiddle>
-            </ContMiddle>
-          </Modal>
-        )}
-      </ModalConsumer>
-    </ModalProvider>
+    <Modal size="medium" position="middle">
+      <ContMiddle>
+        <CloseBtn
+          type="button"
+          className="btn-close"
+          onClick={() => {
+            Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
+            if (typeDialog === 'paywall') {
+              if (document.getElementById('btn-premium-continue')) {
+                onClose()
+              } else {
+                window.location.href = `/?signwallPaywall=1&ref=${window.location.pathname}`
+              }
+            }
+          }}>
+          <Close />
+        </CloseBtn>
+        <FirstMiddle
+          pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342`}
+          arcSite={arcSite}>
+          <ContPaywall>
+            <p>
+              {typeDialog === 'paywall'
+                ? 'Has alcanzado el límite de noticias.'
+                : 'Para acceder a este contenido'}
+              <br />
+              {typeDialog === 'paywall'
+                ? 'Para continuar leyendo, adquiere el'
+                : 'exclusivo, adquiere tu'}
+            </p>
+            <Title f={primaryFont}>Plan Digital</Title>
+            <center>
+              <img
+                style={{ maxWidth: '320px', height: 'auto' }}
+                alt="Logo"
+                src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
+              />
+            </center>
+          </ContPaywall>
+        </FirstMiddle>
+        <SecondMiddle>
+          {renderTemplate(selectedTemplate, valTemplate, {
+            removeBefore,
+            ...properties,
+          })}
+        </SecondMiddle>
+      </ContMiddle>
+    </Modal>
   )
 }
 
-@Consumer
-class Paywall extends PureComponent {
-  render() {
-    return (
-      <PaywallInt
-        {...this.props}
-        addEventListener={this.addEventListener.bind(this)}
-        removeEventListener={this.removeEventListener.bind(this)}
-      />
-    )
-  }
-}
+const Paywall = (props) => (
+  <ModalProvider>
+    <PaywallInt properties={props} />
+  </ModalProvider>
+)
 export { Paywall }

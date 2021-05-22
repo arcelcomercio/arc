@@ -41,6 +41,7 @@ const Subscriptions: OT<OutputProps> = ({
   const stylesheet = /^\/suscripcionesdigitales\//.test(requestUri)
     ? 'subs-payment'
     : 'subs-landing'
+  // const stylesheet = 'signwall'
 
   return (
     <>

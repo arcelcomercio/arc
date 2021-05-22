@@ -222,8 +222,7 @@ export const SubsDetail = ({ IdSubscription }) => {
     }, 500)
   }
 
-  const onSubmitForm = (state) => {
-    const { numcard, dateexpire, codecvv } = state
+  const onSubmitForm = ({ numcard, dateexpire, codecvv }) => {
     const subsID = showResDetail.currentPaymentMethod.paymentMethodID
 
     setShowMessageSuccess(false)
@@ -446,22 +445,22 @@ export const SubsDetail = ({ IdSubscription }) => {
     return '-'
   }
 
-  const { values, errors, handleOnChange, handleOnSubmit, disable } = useForm(
-    stateSchema,
-    stateValidatorSchema,
-    onSubmitForm
-  )
+  const {
+    values: { numcard, dateexpire, codecvv },
+    errors,
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
-  const { numcard, dateexpire, codecvv } = values
-
-  const clearValues = () => {
-    errors.numcard = ''
-    errors.dateexpire = ''
-    errors.codecvv = ''
-    values.numcard = ''
-    values.dateexpire = ''
-    values.codecvv = ''
-  }
+  // const clearValues = () => {
+  //   errors.numcard = ''
+  //   errors.dateexpire = ''
+  //   errors.codecvv = ''
+  //   numcard = ''
+  //   dateexpire = ''
+  //   codecvv = ''
+  // }
 
   const changeCardTrigger = (card) => {
     if (typeof window !== 'undefined') {
@@ -586,7 +585,7 @@ export const SubsDetail = ({ IdSubscription }) => {
                   id="btn-signwall-editcard"
                   onClick={() => {
                     setShowUpdateCard(!showUpdateCard)
-                    clearValues()
+                    // clearValues()
                   }}>
                   {showUpdateCard ? 'CERRAR' : 'EDITAR'}
                 </Button>

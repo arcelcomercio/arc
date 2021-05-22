@@ -5,6 +5,7 @@ import * as React from 'react'
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
 import addScriptAsync from '../../../utilities/script-async'
+import Loading from '../../signwall/_children/loading'
 import { ModalConsumer, ModalProvider } from '../_context/modal'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
@@ -33,11 +34,16 @@ const WrapperProfile = () => {
   const { links, urls: urlCommon } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
-  const { changeTemplate, selectedTemplate, idTemplate } = React.useContext(
-    ModalConsumer
-  )
+  const {
+    changeTemplate,
+    selectedTemplate,
+    idTemplate,
+    userLoading,
+    updateLoading,
+  } = React.useContext(ModalConsumer)
 
   React.useEffect(() => {
+    updateLoading(false)
     Sentry.init({
       dsn: urlCommon.sentrySign,
       debug: env !== PROD,
@@ -78,19 +84,27 @@ const WrapperProfile = () => {
 
   return (
     <PanelWrapper id="profile-signwall">
-      <Header />
-      <PanelContent>
-        <div className="panel-left">
-          <MenuSignwall handleMenu={(item) => changeTemplate(item)} />
+      {userLoading ? (
+        <div className="back-loading" style={{ zIndex: '20' }}>
+          <Loading arcSite={arcSite} />
         </div>
-        <div className="panel-right">
-          {siteProperties.activePaywall ? (
-            renderTemplate(selectedTemplate, idTemplate)
-          ) : (
-            <MiPerfil />
-          )}
-        </div>
-      </PanelContent>
+      ) : (
+        <>
+          <Header />
+          <PanelContent>
+            <div className="panel-left">
+              <MenuSignwall handleMenu={(item) => changeTemplate(item)} />
+            </div>
+            <div className="panel-right">
+              {siteProperties.activePaywall ? (
+                renderTemplate(selectedTemplate, idTemplate)
+              ) : (
+                <MiPerfil />
+              )}
+            </div>
+          </PanelContent>
+        </>
+      )}
     </PanelWrapper>
   )
 }

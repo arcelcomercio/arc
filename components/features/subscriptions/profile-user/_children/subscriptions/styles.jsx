@@ -118,7 +118,7 @@ export const Notice = styled.div`
   display: flex;
   width: 100%;
   margin-top: 20px;
-  & :first-child {
+  & svg {
     margin-right: 10px;
     margin-top: 5px;
     width: 100px;

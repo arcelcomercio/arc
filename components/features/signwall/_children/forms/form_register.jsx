@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { useAppContext } from 'fusion:context'
 import { sha256 } from 'js-sha256'
-import React, { useState } from 'react'
+import * as React from 'react'
 
 import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import {
@@ -8,6 +9,8 @@ import {
   setCookieDomain,
 } from '../../../subscriptions/_dependencies/Cookies'
 import getCodeError, {
+  acceptCheckTerms,
+  formatEmail,
   formatPhone,
 } from '../../../subscriptions/_dependencies/Errors'
 import getDevice from '../../../subscriptions/_dependencies/GetDevice'
@@ -23,12 +26,14 @@ import { AuthURL, ButtonSocial } from './control_social'
 import { FormStudents } from './form_students'
 import * as S from './styles'
 
-const FormRegister = (props) => {
+const FormRegister = ({
+  typeDialog,
+  onClose,
+  onLogged = (i) => i,
+  onLoggedFail = (i) => i,
+  removeBefore = (i) => i,
+}) => {
   const {
-    typeDialog,
-    onClose,
-    onLogged = (i) => i,
-    onLoggedFail = (i) => i,
     arcSite,
     siteProperties: {
       signwall: {
@@ -40,21 +45,20 @@ const FormRegister = (props) => {
       activeNewsletter = false,
       activeVerifyEmail = false,
     },
-    removeBefore = (i) => i,
-  } = props
+  } = useAppContext() || {}
 
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [showStudents, setShowStudents] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(true)
-  const [checkedTerms, setCheckedTerms] = useState(false)
-  const [showFormatInvalid, setShowFormatInvalid] = useState('')
-
-  const [showCheckPremium, setShowCheckPremium] = useState(false)
-  const [showUserWithSubs, setShowUserWithSubs] = useState(false)
-  const [showSendEmail, setShowSendEmail] = useState(false)
-  const [showContinueVerify, setShowContinueVerify] = useState(false)
+  const { changeTemplate } = React.useContext(ModalConsumer)
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [showStudents, setShowStudents] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [checkedTerms, setCheckedTerms] = React.useState(false)
+  const [showFormatInvalid, setShowFormatInvalid] = React.useState('')
+  const [showCheckPremium, setShowCheckPremium] = React.useState(false)
+  const [showUserWithSubs, setShowUserWithSubs] = React.useState(false)
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [showContinueVerify, setShowContinueVerify] = React.useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -67,25 +71,15 @@ const FormRegister = (props) => {
   const stateValidatorSchema = {
     remail: {
       required: true,
-      validator: {
-        func: (value) =>
-          /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
-            value
-          ),
-        error: 'Correo Electrónico Inválido',
-      },
+      validator: formatEmail(),
     },
     rpass: {
       required: true,
       validator: {
-        func: (value) => {
-          if (value.length >= 8) {
-            return true
-          }
-          return false
-        },
+        func: (value) => value.length >= 8,
         error: 'Mínimo 8 caracteres',
       },
+      nospaces: true,
     },
     rphone: {
       required: false,
@@ -97,11 +91,7 @@ const FormRegister = (props) => {
     },
     rterms: {
       required: true,
-      validator: {
-        func: (value) => value !== '1',
-        error:
-          'Para ser parte de nuestra comunidad es necesario aceptar los términos y condiciones',
-      },
+      validator: acceptCheckTerms(),
     },
   }
 
@@ -184,8 +174,7 @@ const FormRegister = (props) => {
     }
   }
 
-  const onSubmitForm = (state) => {
-    const { remail, rpass, rphone } = state
+  const onSubmitForm = ({ remail, rpass, rphone }) => {
     setShowLoading(true)
 
     const contacts =
@@ -361,388 +350,381 @@ const FormRegister = (props) => {
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
   return (
-    <ModalConsumer>
-      {(value) => (
+    <>
+      {!showStudents && (
         <>
-          {!showStudents && (
-            <>
-              {showCheckPremium ? (
-                <Loading arcSite={arcSite} typeBg="wait" />
-              ) : (
-                <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
-                  {!showConfirm && (
-                    <>
-                      <S.ButtonBase
-                        type="button"
-                        onClick={() => {
-                          Taggeo(
-                            `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_link_volver`
-                          )
-                          switch (typeDialog) {
-                            case 'relogemail':
-                            case 'reloghash':
-                              value.changeTemplate('relogin')
-                              break
-                            default:
-                              value.changeTemplate('login')
-                          }
-                        }}>
-                        <Back /> Volver
-                      </S.ButtonBase>
+          {showCheckPremium ? (
+            <Loading arcSite={arcSite} typeBg="wait" />
+          ) : (
+            <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
+              {!showConfirm && (
+                <>
+                  <S.ButtonBase
+                    type="button"
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_registro_link_volver`
+                      )
+                      switch (typeDialog) {
+                        case 'relogemail':
+                        case 'reloghash':
+                          changeTemplate('relogin')
+                          break
+                        default:
+                          changeTemplate('login')
+                      }
+                    }}>
+                    <Back /> Volver
+                  </S.ButtonBase>
 
-                      <S.Text c="gray" s="16" className="mb-10 center">
-                        Accede fácilmente con:
-                      </S.Text>
+                  <S.Text c="gray" s="16" className="mb-10 center">
+                    Accede fácilmente con:
+                  </S.Text>
 
-                      {authProviders.map((item) => (
-                        <ButtonSocial
-                          brand={item}
-                          size={sizeBtnSocial}
-                          onLogged={onLogged}
-                          onClose={onClose}
-                          typeDialog={typeDialog}
-                          onStudents={() => setShowStudents(!showStudents)}
-                          arcSite={arcSite}
-                          typeForm="registro"
-                          activeNewsletter={activeNewsletter}
-                          checkUserSubs={checkUserSubs}
-                          dataTreatment={checkedPolits ? '1' : '0'}
-                        />
-                      ))}
+                  {authProviders.map((item) => (
+                    <ButtonSocial
+                      key={item}
+                      brand={item}
+                      size={sizeBtnSocial}
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+                  ))}
 
-                      <AuthURL
-                        arcSite={arcSite}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        activeNewsletter={activeNewsletter}
-                        typeForm="registro"
-                        onLogged={onLogged}
-                        checkUserSubs={checkUserSubs}
-                        onStudents={() => setShowStudents(!showStudents)}
-                      />
+                  <AuthURL
+                    arcSite={arcSite}
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    activeNewsletter={activeNewsletter}
+                    typeForm="registro"
+                    onLogged={onLogged}
+                    checkUserSubs={checkUserSubs}
+                    onStudents={() => setShowStudents(!showStudents)}
+                  />
 
-                      <S.Text c="gray" s="14" className="mt-15 center">
-                        o completa tus datos para registrarte
-                      </S.Text>
+                  <S.Text c="gray" s="14" className="mt-15 center">
+                    o completa tus datos para registrarte
+                  </S.Text>
 
-                      {showError && (
-                        <S.Error>
-                          {showError.indexOf('ya existe') ? (
-                            <>
-                              {showError}
-                              <S.Link
-                                href="#"
-                                c="white"
-                                fw="bold"
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  value.changeTemplate('forgot')
-                                }}>
-                                Recuperar contraseña
-                              </S.Link>
-                            </>
-                          ) : (
-                            showError
-                          )}
-                        </S.Error>
-                      )}
-
-                      <Input
-                        type="email"
-                        inputMode="email"
-                        autoComplete="email"
-                        name="remail"
-                        placeholder="Correo electrónico*"
-                        required
-                        value={remail}
-                        onChange={(e) => {
-                          handleOnChange(e)
-                          setShowError(false)
-                        }}
-                        error={remailError}
-                      />
-
-                      <Input
-                        type="password"
-                        autoComplete="new-password"
-                        name="rpass"
-                        placeholder="Contraseña*"
-                        required
-                        value={rpass}
-                        onChange={(e) => {
-                          handleOnChange(e)
-                          setShowError(false)
-                          checkFormat(e)
-                        }}
-                        error={rpassError || showFormatInvalid}
-                      />
-
-                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
-                        <Input
-                          type="tel"
-                          inputMode="tel"
-                          autoComplete="tel"
-                          name="rphone"
-                          placeholder="Teléfono"
-                          maxLength="12"
-                          value={rphone}
-                          onChange={(e) => {
-                            handleOnChange(e)
-                          }}
-                          error={rphoneError}
-                        />
-                      )}
-
-                      {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
-                        <CheckBox
-                          checked={checkedPolits}
-                          value={checkedPolits ? '1' : '0'}
-                          name="rpolit"
-                          onChange={(e) => {
-                            handleOnChange(e)
-                            setCheckedPolits(!checkedPolits)
-                          }}>
-                          <S.Text c="gray" lh="18" s="12" className="mt-10">
-                            Al registrarme por redes sociales o por este
-                            formulario autorizo el uso de mis datos para
-                            <S.Link
-                              href="/tratamiento-de-datos/"
-                              target="_blank"
-                              c={mainColorLink}
-                              fw="bold"
-                              className="ml-5 inline">
-                              fines adicionales
-                            </S.Link>
-                          </S.Text>
-                        </CheckBox>
-                      )}
-
-                      <CheckBox
-                        checked={checkedTerms}
-                        value={checkedTerms ? '1' : '0'}
-                        name="rterms"
-                        onChange={(e) => {
-                          handleOnChange(e)
-                          setCheckedTerms(!checkedTerms)
-                          setShowError(false)
-                        }}
-                        valid
-                        error={rtermsError}>
-                        <S.Text c="gray" lh="18" s="12" className="mt-10">
-                          Al crear la cuenta acepto los
+                  {showError && (
+                    <S.Error>
+                      {showError.indexOf('ya existe') ? (
+                        <>
+                          {showError}
                           <S.Link
-                            href={`${
-                              arcSite === 'depor'
-                                ? '/terminos-servicio/'
-                                : '/terminos-y-condiciones/'
-                            }`}
-                            target="_blank"
-                            c={mainColorLink}
+                            href="#"
+                            c="white"
                             fw="bold"
-                            className="ml-5 mr-5 inline">
-                            Términos y Condiciones
+                            onClick={(e) => {
+                              e.preventDefault()
+                              changeTemplate('forgot')
+                            }}>
+                            Recuperar contraseña
                           </S.Link>
-                          y
-                          <S.Link
-                            href={(() => {
-                              switch (arcSite) {
-                                case 'elcomercio':
-                                case 'depor':
-                                  return '/politicas-privacidad/'
-                                case 'gestion':
-                                case 'trome':
-                                  return '/politica-de-privacidad/'
-                                default:
-                                  return '/politicas-de-privacidad/'
-                              }
-                            })()}
-                            target="_blank"
-                            c={mainColorLink}
-                            fw="bold"
-                            className="ml-5 inline">
-                            Políticas de Privacidad
-                          </S.Link>
-                        </S.Text>
-                      </CheckBox>
-
-                      <S.Button
-                        color={mainColorBtn}
-                        type="submit"
-                        className="mt-15 mb-5"
-                        disabled={disable || showLoading || showFormatInvalid}
-                        onClick={() => {
-                          Taggeo(
-                            `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_boton_registrarme`
-                          )
-                        }}>
-                        {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
-                      </S.Button>
-                    </>
+                        </>
+                      ) : (
+                        showError
+                      )}
+                    </S.Error>
                   )}
 
-                  {showConfirm && (
-                    <>
-                      <div className="center block mb-20 mt-20">
-                        <MsgRegister bgcolor={mainColorBr} />
-                      </div>
+                  <Input
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    name="remail"
+                    placeholder="Correo electrónico*"
+                    required
+                    value={remail}
+                    onChange={(e) => {
+                      handleOnChange(e)
+                      setShowError(false)
+                    }}
+                    error={remailError}
+                  />
 
-                      <S.Title s="22" className="center mb-10">
-                        {showUserWithSubs
-                          ? `Bienvenido(a) ${
-                              window.Identity.userProfile.firstName || 'Usuario'
-                            }`
-                          : 'Tu cuenta ha sido creada correctamente'}
-                      </S.Title>
+                  <Input
+                    type="password"
+                    autoComplete="new-password"
+                    name="rpass"
+                    placeholder="Contraseña*"
+                    required
+                    value={rpass}
+                    onChange={(e) => {
+                      handleOnChange(e)
+                      setShowError(false)
+                      checkFormat(e)
+                    }}
+                    error={rpassError || showFormatInvalid}
+                  />
 
-                      {showContinueVerify && (
-                        <S.Title s="14" c="#6a6a6a" className="center">
-                          {remail}
-                        </S.Title>
-                      )}
+                  {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                    <Input
+                      type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      name="rphone"
+                      placeholder="Teléfono"
+                      maxLength="12"
+                      value={rphone}
+                      onChange={(e) => {
+                        handleOnChange(e)
+                      }}
+                      error={rphoneError}
+                    />
+                  )}
 
-                      {(typeDialog === 'premium' || typeDialog === 'paywall') &&
-                        !showContinueVerify && (
+                  {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                    <CheckBox
+                      checked={checkedPolits}
+                      value={checkedPolits ? '1' : '0'}
+                      name="rpolit"
+                      onChange={(e) => {
+                        handleOnChange(e)
+                        setCheckedPolits(!checkedPolits)
+                      }}>
+                      <S.Text c="gray" lh="18" s="12" className="mt-10">
+                        Al registrarme por redes sociales o por este formulario
+                        autorizo el uso de mis datos para
+                        <S.Link
+                          href="/tratamiento-de-datos/"
+                          target="_blank"
+                          c={mainColorLink}
+                          fw="bold"
+                          className="ml-5 inline">
+                          fines adicionales
+                        </S.Link>
+                      </S.Text>
+                    </CheckBox>
+                  )}
+
+                  <CheckBox
+                    checked={checkedTerms}
+                    value={checkedTerms ? '1' : '0'}
+                    name="rterms"
+                    onChange={(e) => {
+                      handleOnChange(e)
+                      setCheckedTerms(!checkedTerms)
+                      setShowError(false)
+                    }}
+                    valid
+                    error={rtermsError}>
+                    <S.Text c="gray" lh="18" s="12" className="mt-10">
+                      Al crear la cuenta acepto los
+                      <S.Link
+                        href={`${
+                          arcSite === 'depor'
+                            ? '/terminos-servicio/'
+                            : '/terminos-y-condiciones/'
+                        }`}
+                        target="_blank"
+                        c={mainColorLink}
+                        fw="bold"
+                        className="ml-5 mr-5 inline">
+                        Términos y Condiciones
+                      </S.Link>
+                      y
+                      <S.Link
+                        href={(() => {
+                          switch (arcSite) {
+                            case 'elcomercio':
+                            case 'depor':
+                              return '/politicas-privacidad/'
+                            case 'gestion':
+                            case 'trome':
+                              return '/politica-de-privacidad/'
+                            default:
+                              return '/politicas-de-privacidad/'
+                          }
+                        })()}
+                        target="_blank"
+                        c={mainColorLink}
+                        fw="bold"
+                        className="ml-5 inline">
+                        Políticas de Privacidad
+                      </S.Link>
+                    </S.Text>
+                  </CheckBox>
+
+                  <S.Button
+                    color={mainColorBtn}
+                    type="submit"
+                    className="mt-15 mb-5"
+                    disabled={disable || showLoading || showFormatInvalid}
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+                      )
+                    }}>
+                    {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
+                  </S.Button>
+                </>
+              )}
+
+              {showConfirm && (
+                <>
+                  <div className="center block mb-20 mt-20">
+                    <MsgRegister bgcolor={mainColorBr} />
+                  </div>
+
+                  <S.Title s="22" className="center mb-10">
+                    {showUserWithSubs
+                      ? `Bienvenido(a) ${
+                          window.Identity.userProfile.firstName || 'Usuario'
+                        }`
+                      : 'Tu cuenta ha sido creada correctamente'}
+                  </S.Title>
+
+                  {showContinueVerify && (
+                    <S.Title s="14" c="#6a6a6a" className="center">
+                      {remail}
+                    </S.Title>
+                  )}
+
+                  {(typeDialog === 'premium' || typeDialog === 'paywall') &&
+                    !showContinueVerify && (
+                      <>
+                        {showUserWithSubs ? (
                           <>
-                            {showUserWithSubs ? (
-                              <>
-                                <S.Text
-                                  c="gray"
-                                  s="14"
-                                  lh="28"
-                                  className="mt-10 mb-20 center">
-                                  Sigue disfrutando del contenido exclusivo que
-                                  tenemos para ti
-                                </S.Text>
+                            <S.Text
+                              c="gray"
+                              s="14"
+                              lh="28"
+                              className="mt-10 mb-20 center">
+                              Sigue disfrutando del contenido exclusivo que
+                              tenemos para ti
+                            </S.Text>
 
-                                <S.Button
-                                  id="btn-premium-continue"
-                                  type="button"
-                                  color={mainColorBtn}
-                                  onClick={() => {
-                                    Taggeo(
-                                      `Web_${typeDialog}_Hard`,
-                                      `web_${typeDialog}_boton_sigue_navegando`
-                                    )
-                                    if (
-                                      window.sessionStorage.getItem(
-                                        'paywall_last_url'
-                                      ) &&
-                                      window.sessionStorage.getItem(
-                                        'paywall_last_url'
-                                      ) !== ''
-                                    ) {
-                                      window.location.href = window.sessionStorage.getItem(
-                                        'paywall_last_url'
-                                      )
-                                    } else {
-                                      onClose()
-                                    }
-                                  }}>
-                                  SIGUE NAVEGANDO
-                                </S.Button>
-                              </>
-                            ) : (
-                              <S.Button
-                                type="button"
-                                color={mainColorBtn}
-                                onClick={() => {
-                                  Taggeo(
-                                    `Web_Sign_Wall_${typeDialog}`,
-                                    `web_sw${typeDialog[0]}_boton_ver_planes`
+                            <S.Button
+                              id="btn-premium-continue"
+                              type="button"
+                              color={mainColorBtn}
+                              onClick={() => {
+                                Taggeo(
+                                  `Web_${typeDialog}_Hard`,
+                                  `web_${typeDialog}_boton_sigue_navegando`
+                                )
+                                if (
+                                  window.sessionStorage.getItem(
+                                    'paywall_last_url'
+                                  ) &&
+                                  window.sessionStorage.getItem(
+                                    'paywall_last_url'
+                                  ) !== ''
+                                ) {
+                                  window.location.href = window.sessionStorage.getItem(
+                                    'paywall_last_url'
                                   )
-                                  handleSuscription()
-                                }}>
-                                VER PLANES
-                              </S.Button>
-                            )}
+                                } else {
+                                  onClose()
+                                }
+                              }}>
+                              SIGUE NAVEGANDO
+                            </S.Button>
                           </>
-                        )}
-
-                      {(showContinueVerify || !activeVerifyEmail) && (
-                        <>
-                          <S.Text
-                            c="gray"
-                            s="14"
-                            lh="22"
-                            className="mt-10 mb-20 center">
-                            Revisa tu bandeja de correo para confirmar tu
-                            {showContinueVerify
-                              ? ` registro y sigue navegando`
-                              : ` solicitud de registro`}
-                          </S.Text>
+                        ) : (
                           <S.Button
                             type="button"
                             color={mainColorBtn}
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
-                                `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                                `web_sw${typeDialog[0]}_boton_ver_planes`
                               )
-                              if (typeDialog === 'students') {
-                                if (showContinueVerify) {
-                                  value.changeTemplate('login', '', remail)
-                                } else {
-                                  setShowStudents(!showStudents)
-                                }
-                              } else {
-                                const btnSignwall = document.getElementById(
-                                  'signwall-nav-btn'
-                                )
-                                if (
-                                  typeDialog === 'newsletter' &&
-                                  btnSignwall
-                                ) {
-                                  btnSignwall.textContent = 'Bienvenido'
-                                }
-                                if (showContinueVerify) {
-                                  value.changeTemplate('login', '', remail)
-                                } else {
-                                  onClose()
-                                }
-                              }
+                              handleSuscription()
                             }}>
-                            CONTINUAR
+                            VER PLANES
                           </S.Button>
-                        </>
-                      )}
+                        )}
+                      </>
+                    )}
 
-                      {showContinueVerify && (
-                        <S.Text c="black" s="12" className="mt-20 mb-10 center">
-                          ¿No recibiste el correo?
-                          <br />
-                          {!showSendEmail ? (
-                            <S.Link
-                              href="#"
-                              c={mainColorLink}
-                              fw="bold"
-                              className="ml-10"
-                              onClick={sendVerifyEmail}>
-                              Reenviar correo de activación
-                            </S.Link>
-                          ) : (
-                            <span>
-                              Podrás reenviar nuevamente dentro de
-                              <strong id="countdown"> 10 </strong> segundos
-                            </span>
-                          )}
-                        </S.Text>
-                      )}
+                  {(showContinueVerify || !activeVerifyEmail) && (
+                    <>
+                      <S.Text
+                        c="gray"
+                        s="14"
+                        lh="22"
+                        className="mt-10 mb-20 center">
+                        Revisa tu bandeja de correo para confirmar tu
+                        {showContinueVerify
+                          ? ` registro y sigue navegando`
+                          : ` solicitud de registro`}
+                      </S.Text>
+                      <S.Button
+                        type="button"
+                        color={mainColorBtn}
+                        onClick={() => {
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                          )
+                          if (typeDialog === 'students') {
+                            if (showContinueVerify) {
+                              changeTemplate('login', '', remail)
+                            } else {
+                              setShowStudents(!showStudents)
+                            }
+                          } else {
+                            const btnSignwall = document.getElementById(
+                              'signwall-nav-btn'
+                            )
+                            if (typeDialog === 'newsletter' && btnSignwall) {
+                              btnSignwall.textContent = 'Bienvenido'
+                            }
+                            if (showContinueVerify) {
+                              changeTemplate('login', '', remail)
+                            } else {
+                              onClose()
+                            }
+                          }
+                        }}>
+                        CONTINUAR
+                      </S.Button>
                     </>
                   )}
-                </S.Form>
-              )}
-            </>
-          )}
 
-          {showStudents && typeDialog === 'students' && (
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <FormStudents {...props} />
+                  {showContinueVerify && (
+                    <S.Text c="black" s="12" className="mt-20 mb-10 center">
+                      ¿No recibiste el correo?
+                      <br />
+                      {!showSendEmail ? (
+                        <S.Link
+                          href="#"
+                          c={mainColorLink}
+                          fw="bold"
+                          className="ml-10"
+                          onClick={sendVerifyEmail}>
+                          Reenviar correo de activación
+                        </S.Link>
+                      ) : (
+                        <span>
+                          Podrás reenviar nuevamente dentro de
+                          <strong id="countdown"> 10 </strong> segundos
+                        </span>
+                      )}
+                    </S.Text>
+                  )}
+                </>
+              )}
+            </S.Form>
           )}
         </>
       )}
-    </ModalConsumer>
+
+      {showStudents && typeDialog === 'students' && (
+        <FormStudents arcSite={arcSite} />
+      )}
+    </>
   )
 }
 

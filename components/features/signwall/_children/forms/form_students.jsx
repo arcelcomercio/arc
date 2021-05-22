@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { ENVIRONMENT } from 'fusion:environment'
 import React, { useEffect, useState } from 'react'
 
@@ -65,9 +64,8 @@ const FormCode = ({ arcSite, showRequest }) => {
       })
   }
 
-  const onSubmitFormCode = (state) => {
+  const onSubmitFormCode = ({ ucode }) => {
     setShowLoading(true)
-    const { ucode } = state
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then((resExtend) => {
@@ -257,10 +255,8 @@ const FormRequest = ({ arcSite, showCode }) => {
     return false
   }
 
-  const onSubmitForm = (state) => {
+  const onSubmitForm = ({ uemail, ugrade, uday, umonth, uyear }) => {
     setShowLoading(true)
-    const { uemail, ugrade, uday, umonth, uyear } = state
-
     const Fmonth = parseInt(umonth, 10) - 1
     if (
       Fmonth >= 0 &&

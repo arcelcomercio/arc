@@ -13,10 +13,12 @@ const ModalProvider = ({ children }) => {
   const [userProfile, setUserProfile] = React.useState(() =>
     getLocaleStorage(keyStorageProfile)
   )
+  const [userLoading, setUserLoading] = React.useState(true)
 
   const value = {
     selectedTemplate,
     userProfile,
+    userLoading,
     idTemplate,
     valTemplate,
     changeTemplate: (val, id, valTeml) => {
@@ -26,6 +28,9 @@ const ModalProvider = ({ children }) => {
     },
     updateProfile: (profile) => {
       setUserProfile(profile)
+    },
+    updateLoading: (status) => {
+      setUserLoading(status)
     },
   }
 

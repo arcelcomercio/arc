@@ -2,7 +2,6 @@ import md5 from 'crypto-js/md5'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import Loading from '../../../../signwall/_children/loading'
 import Domains from '../../../../signwall/_dependencies/domains'
 import { ModalConsumer } from '../../../_context/modal'
 import {
@@ -31,11 +30,8 @@ const MenuSignwall = ({ handleMenu }) => {
   const userFB = usernameid.userName
   const emailHash = md5(email)
 
-  const [showLoading, setShowLoading] = React.useState(false)
-
   const closeSession = () => {
     if (typeof window !== 'undefined') {
-      setShowLoading(true)
       deleteCookie('arc_e_id')
       deleteCookie('mpp_sess')
       deleteCookieDomain('ArcId.USER_INFO', arcSite)
@@ -68,95 +64,87 @@ const MenuSignwall = ({ handleMenu }) => {
           handleMenu(item)
         }
       } else {
-        window.location.href = '/'
+        window.location.href = '/?ref=signwall'
       }
     }
   }
 
   return (
     <>
-      {showLoading ? (
-        <div className="back-loading" style={{ zIndex: '20' }}>
-          <Loading arcSite={arcSite} />
+      <WrapperAvatar br={mainColorBr}>
+        <img
+          src={
+            typeLogin === 'facebook'
+              ? `https://graph.facebook.com/${userFB}/picture?type=large&redirect=true&width=500&height=500`
+              : `https://www.gravatar.com/avatar/${emailHash}?s=180&d=identicon`
+          }
+          alt="Avatar"
+        />
+      </WrapperAvatar>
+      <WrapperMenu cl={mainColorLink}>
+        <h1 className="hello" id="name-user-profile">
+          Hola {getUserName(firstName, lastName)}
+        </h1>
+        <p className="welcome">Bienvenido a tu perfil</p>
+        <div className="cont-menu">
+          <ul>
+            {activePaywall && (
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    openItemMenu('home')
+                  }}>
+                  Inicio
+                </button>
+              </li>
+            )}
+            <li>
+              <button
+                type="button"
+                onClick={() => {
+                  openItemMenu('prof')
+                }}>
+                Mis Datos
+              </button>
+            </li>
+            {activePaywall && (
+              <li>
+                <button
+                  type="button"
+                  id="btn-subs"
+                  onClick={() => {
+                    openItemMenu('subs')
+                  }}>
+                  Mi Suscripción
+                </button>
+              </li>
+            )}
+            {activeNewsletter && (
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    openItemMenu('news')
+                  }}>
+                  Newsletters
+                </button>
+              </li>
+            )}
+            <li>
+              <button
+                type="button"
+                className="close-sesion"
+                id="web_link_cerrarsesion"
+                onClick={() => {
+                  closeSession()
+                }}>
+                Cerrar sesión
+              </button>
+            </li>
+          </ul>
         </div>
-      ) : (
-        <>
-          <WrapperAvatar br={mainColorBr}>
-            <img
-              src={
-                typeLogin === 'facebook'
-                  ? `https://graph.facebook.com/${userFB}/picture?type=large&redirect=true&width=500&height=500`
-                  : `https://www.gravatar.com/avatar/${emailHash}?s=180&d=identicon`
-              }
-              alt="Avatar"
-            />
-          </WrapperAvatar>
-          <WrapperMenu cl={mainColorLink}>
-            <h1 className="hello" id="name-user-profile">
-              Hola {getUserName(firstName, lastName)}
-            </h1>
-            <p className="welcome">Bienvenido a tu perfil</p>
-            <div className="cont-menu">
-              <ul>
-                {activePaywall && (
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        openItemMenu('home')
-                      }}>
-                      Inicio
-                    </button>
-                  </li>
-                )}
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      openItemMenu('prof')
-                    }}>
-                    Mis Datos
-                  </button>
-                </li>
-                {activePaywall && (
-                  <li>
-                    <button
-                      type="button"
-                      id="btn-subs"
-                      onClick={() => {
-                        openItemMenu('subs')
-                      }}>
-                      Mi Suscripción
-                    </button>
-                  </li>
-                )}
-                {activeNewsletter && (
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        openItemMenu('news')
-                      }}>
-                      Newsletters
-                    </button>
-                  </li>
-                )}
-                <li>
-                  <button
-                    type="button"
-                    className="close-sesion"
-                    id="web_link_cerrarsesion"
-                    onClick={() => {
-                      closeSession()
-                    }}>
-                    Cerrar sesión
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </WrapperMenu>
-        </>
-      )}
+      </WrapperMenu>
     </>
   )
 }

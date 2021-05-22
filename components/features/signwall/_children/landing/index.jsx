@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-no-bind */
-import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import {
   ModalConsumer,
@@ -36,60 +35,45 @@ const renderTemplate = (template, valTemplate, attributes) => {
   return templates[template] || templates.login
 }
 
-export const LandingInt = (props) => {
-  const {
-    onClose,
-    arcSite,
-    // onLogged,
-    noBtnClose,
-    typeDialog,
-  } = props
+export const LandingInt = ({ properties }) => {
+  const { onClose, noBtnClose, typeDialog } = properties
+  const { arcSite } = useAppContext() || {}
+  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
   const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
+
   return (
-    <ModalProvider>
-      <ModalConsumer>
-        {(value) => (
-          <Modal size="medium" position="middle">
-            <ContMiddle>
-              {!noBtnClose && (
-                <CloseBtn
-                  type="button"
-                  onClick={() => {
-                    Taggeo(
-                      `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_boton_cerrar`
-                    )
-                    onClose()
-                  }}>
-                  <Close />
-                </CloseBtn>
-              )}
-              <FirstMiddle
-                pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/${IMG}.jpg?d=1342`}
-              />
-              <SecondMiddle>
-                {renderTemplate(value.selectedTemplate, value.valTemplate, {
-                  ...props,
-                })}
-              </SecondMiddle>
-            </ContMiddle>
-          </Modal>
+    <Modal size="medium" position="middle">
+      <ContMiddle>
+        {!noBtnClose && (
+          <CloseBtn
+            type="button"
+            onClick={() => {
+              Taggeo(
+                `Web_Sign_Wall_${typeDialog}`,
+                `web_sw${typeDialog[0]}_boton_cerrar`
+              )
+              onClose()
+            }}>
+            <Close />
+          </CloseBtn>
         )}
-      </ModalConsumer>
-    </ModalProvider>
+        <FirstMiddle
+          pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/${IMG}.jpg?d=1342`}
+        />
+        <SecondMiddle>
+          {renderTemplate(selectedTemplate, valTemplate, {
+            ...properties,
+          })}
+        </SecondMiddle>
+      </ContMiddle>
+    </Modal>
   )
 }
 
-@Consumer
-class Landing extends Component {
-  render() {
-    return (
-      <LandingInt
-        {...this.props}
-        dispatchEvent={this.dispatchEvent.bind(this)}
-      />
-    )
-  }
-}
+const Landing = (props) => (
+  <ModalProvider>
+    <LandingInt properties={props} />
+  </ModalProvider>
+)
 
 export default Landing
