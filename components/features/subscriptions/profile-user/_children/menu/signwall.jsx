@@ -28,7 +28,7 @@ const MenuSignwall = ({ handleMenu }) => {
   const [usernameid = { userName: '' }] = identities || []
   const typeLogin = identitie.type.toLowerCase()
   const userFB = usernameid.userName
-  const emailHash = md5(email)
+  const emailHash = md5(email).toString()
 
   const closeSession = () => {
     if (typeof window !== 'undefined') {
