@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { ArcSite } from 'fusion:context'
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import { ArcSite } from 'types/fusion'
 import { Basic, PromoItems, Stories, Story } from 'types/story'
 
 import {
