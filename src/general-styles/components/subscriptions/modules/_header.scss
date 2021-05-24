@@ -2,24 +2,14 @@
   justify-content: space-between;
   z-index: 3;
   width: 100%;
-  color: $black;
   height: 60px;
-  background: $backgroundHeader;
   padding: 12px 0;
   position: sticky;
   top: 0;
-  &.active {
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    background: $headerActive;
-    box-shadow: 0 3px 9px -2px rgba(0, 0, 0, 0.55);
-    transition: all 0.3s ease-in-out;
-    color: $colorActive;
-    & .header__content-logo {
-      background-position: 0 36px;
-    }
-  }
+  align-items: center;
+  background: $headerActive;
+  box-shadow: 0 3px 9px -2px rgba(0, 0, 0, 0.55);
+  color: $colorActive;
 
   &__content {
     display: flex;
@@ -27,11 +17,14 @@
     align-items: center;
 
     &-logo {
-      align-self: center;
-      background: url($logoHeader);
+      background: $logoHeaderShop;
       background-position: 0 0;
-      width: 154px;
-      height: 36px;
+      background-repeat: no-repeat;
+      background-size: $widthLogoShop 24px;
+      width: $widthLogoShop;
+      height: 24px;
+      margin: 4px 0;
+      margin-left: 5px;
     }
 
     &-call {
@@ -40,7 +33,7 @@
 
     &-button {
       border: none;
-      padding: 0.4em 1em 0.4em 2em;
+      padding: 0.4em 0.4em 0.4em 2em;
       font-size: 14px;
       background: none;
       font-weight: bold;
@@ -77,6 +70,9 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
+      &-logo {
+        margin-left: 0;
+      }
       &.box-cont {
         padding: 12px 0;
       }
@@ -105,8 +101,7 @@
         }
       }
       &-button {
-        padding: 0.4em 1em 0.4em 1em;
-        text-align: center;
+        padding: 0.4em 0 0.4em 1em;
       }
     }
   }
@@ -171,8 +166,7 @@
       outline: none;
     }
     & .icon-send {
-      background: #fff
-        url("https://signwall.e3.pe/images/icon-send.png");
+      background: #fff url("https://signwall.e3.pe/images/icon-send.png");
       background-repeat: no-repeat;
       background-position: center center;
     }

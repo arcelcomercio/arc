@@ -33,6 +33,10 @@ import './images/signwall/logo_elcomercio.png'
 import './images/signwall/bg_login.jpg'
 import './images/signwall/bg_students.jpg'
 
+/** Images Paywall */
+import './images/img_corporativo.png'
+import './images/img_corporativo.webp'
+
 /** Fonts & icons */
 import './icons/fonts/default.woff'
 import './icons/fonts/comercio.woff'
@@ -45,6 +49,3 @@ import './fonts/NotoSerifSC/noto-serif-sc-v6-latin-500.woff'
 import './fonts/NotoSerifSC/noto-serif-sc-v6-latin-700.woff'
 
 /** Scripts */
-
-// Imagenes paywall
-require.context('./images/paywall', true, /\.(png|webp|jpg|jpeg|gif|svg)$/)

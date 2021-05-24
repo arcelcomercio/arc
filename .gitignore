@@ -19,8 +19,6 @@ dist/
 mocks/user
 coverage/
 
-components/features/paywall/bundle.js
-
 launch.json
 /.idea
 /.scannerwork

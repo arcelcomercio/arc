@@ -1,0 +1,180 @@
+.faq {
+  background: $white;
+  color: $black;
+  padding: 1em 0;
+
+  &__content {
+    padding: 2em 0.5em;
+    min-height: 540px;
+    &-title {
+      @include title;
+
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+    .accordion {
+      transform: translateZ(0);
+      background: #fff;
+      font-family: $secondaryFont;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .accordion > .accordion-toggle {
+      position: absolute;
+      opacity: 0;
+      display: none;
+    }
+    .accordion > label {
+      position: relative;
+      display: block;
+      line-height: 50px;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: 300;
+      border-top: 1px solid #ddd;
+      background: $colorAcordion;
+      cursor: pointer;
+      font-family: $secondaryFont;
+      user-select: none;
+      margin-bottom: 0;
+    }
+    .accordion > label:after {
+      position: absolute;
+      top: calc(65% - 28px);
+      right: 20px;
+      content: " ";
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' class='expand_more__StyledSvg-hjoqpk-0 bhhsxY'%3E%3Cpath d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z'%3E%3C/path%3E%3C/svg%3E");
+      transition: 0.3s transform;
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+    .accordion > section {
+      height: 0;
+      transition: 0.3s all;
+      overflow: hidden;
+    }
+    .accordion > .accordion-toggle:checked ~ label:after {
+      transform: rotate(180deg);
+    }
+    .accordion > .accordion-toggle:checked ~ section {
+      height: auto;
+    }
+    .accordion .bloque {
+      display: inline-block;
+      box-shadow: 0 2px 3px -3px #b1b1b1;
+      width: calc(100% - 20px);
+      margin: 10px 10px;
+      padding-bottom: 10px;
+    }
+    .accordion .bloque:last-child {
+      margin-bottom: 40px;
+      box-shadow: none;
+    }
+    .accordion > section h3 {
+      margin: 15px 0;
+      padding: 0 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+    .accordion > section h3:first-child {
+      font-size: 18px;
+    }
+    .accordion > section p {
+      margin: 15px 0;
+      padding: 0 10px;
+      text-align: justify;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2;
+      letter-spacing: normal;
+    }
+    .accordion > section table {
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+    .accordion > section table td {
+      border: 1px solid #bbb;
+      padding: 12px;
+      text-align: left;
+    }
+    .accordion > section table th {
+      padding: 12px;
+    }
+    .accordion > section a {
+      color: $bluePrimary;
+    }
+    .accordion > section ul,
+    .accordion > section ol {
+      text-align: justify;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2;
+      letter-spacing: normal;
+      list-style-type: disc;
+      padding-left: 16px;
+    }
+    .accordion > section ul li ul li {
+      list-style: circle;
+    }
+    .accordion > section ol {
+      list-style-type: decimal;
+    }
+    .accordion > section li p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  @include device(tabletp) {
+    &__content {
+      padding: 2em 1em;
+      &-title {
+        font-size: 32px;
+      }
+      .accordion > label {
+        font-size: 30px;
+      }
+      .accordion .bloque {
+        display: inline-block;
+        box-shadow: 0 2px 3px -3px #b1b1b1;
+        width: calc(100% - 40px);
+        margin: 20px 20px;
+        padding-bottom: 20px;
+      }
+      .accordion > section h3 {
+        padding: 0 20px;
+        font-size: 16px;
+      }
+      .accordion > section h3:first-child {
+        font-size: 20px;
+      }
+      .accordion > section ul,
+      .accordion > section ol {
+        padding-left: 35px;
+      }
+
+      .accordion > section p {
+        padding: 0 20px;
+      }
+    }
+  }
+  @include device(tabletl) {
+    &__content {
+      padding: 2em 0;
+    }
+  }
+  @include device(desktop) {
+    &__content {
+      padding: 2em 1.8em;
+    }
+  }
+}
