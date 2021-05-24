@@ -1,12 +1,13 @@
-import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import Loading from '../../../_children/loading'
-import Domains from '../../../_dependencies/domains'
-import addScriptAsync from '../../../_dependencies/script-async'
-import Subs from '../resume/_children/subs'
-import { Wrapper, ResumeDates, Title } from '../../styled'
+import React, { Component } from 'react'
+
+import addScriptAsync from '../../../../../utilities/script-async'
 import { ModalConsumer } from '../../../_children/context'
 import FormIntro from '../../../_children/forms/form_intro'
+import Loading from '../../../_children/loading'
+import Domains from '../../../_dependencies/domains'
+import { ResumeDates, Title, Wrapper } from '../../styled'
+import Subs from '../resume/_children/subs'
 
 @Consumer
 class Subscription extends Component {
@@ -38,7 +39,7 @@ class Subscription extends Component {
       window.Identity.extendSession().then(() => {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
         window.Sales.getAllActiveSubscriptions()
-          .then(res => {
+          .then((res) => {
             if (res.length > 0) {
               this.setState({
                 isSubs: true,
@@ -48,7 +49,7 @@ class Subscription extends Component {
               loading: false,
             })
           })
-          .catch(err => window.console.error(err))
+          .catch((err) => window.console.error(err))
       })
     }
   }
@@ -64,12 +65,12 @@ class Subscription extends Component {
 
     return (
       <ModalConsumer>
-        {value => (
+        {(value) => (
           <Wrapper>
             {!loading ? (
               <>
                 {isSubs ? (
-                  <Subs detail={id => value.changeTemplate('detail', id)} />
+                  <Subs detail={(id) => value.changeTemplate('detail', id)} />
                 ) : (
                   <ResumeDates>
                     <div className="cont-plan">

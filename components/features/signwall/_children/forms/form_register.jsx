@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { sha256 } from 'js-sha256'
-import React, { useState } from 'react'
+import sha256 from 'crypto-js/sha256'
+import * as React from 'react'
 
 import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
 import getCodeError from '../../_dependencies/codes_error'
@@ -39,18 +39,18 @@ const FormRegister = (props) => {
     removeBefore = (i) => i,
   } = props
 
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [showStudents, setShowStudents] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(true)
-  const [checkedTerms, setCheckedTerms] = useState(false)
-  const [showFormatInvalid, setShowFormatInvalid] = useState('')
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [showStudents, setShowStudents] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [checkedTerms, setCheckedTerms] = React.useState(false)
+  const [showFormatInvalid, setShowFormatInvalid] = React.useState('')
 
-  const [showCheckPremium, setShowCheckPremium] = useState(false)
-  const [showUserWithSubs, setShowUserWithSubs] = useState(false)
-  const [showSendEmail, setShowSendEmail] = useState(false)
-  const [showContinueVerify, setShowContinueVerify] = useState(false)
+  const [showCheckPremium, setShowCheckPremium] = React.useState(false)
+  const [showUserWithSubs, setShowUserWithSubs] = React.useState(false)
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [showContinueVerify, setShowContinueVerify] = React.useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -146,7 +146,7 @@ const FormRegister = (props) => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile()
       .then((profile) => {
-        Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+        Cookies.setCookie('arc_e_id', sha256(profile.email).toString(), 365)
 
         const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
         Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
