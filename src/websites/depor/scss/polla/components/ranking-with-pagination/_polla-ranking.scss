@@ -1,0 +1,85 @@
+.polla-ranking {
+  &__rank-img {
+    width: 100%;
+    max-width: 220px;
+    display: block;
+    margin: 25px auto;
+  }
+  &__table {
+    padding: 16px 15px 32px;
+    background-color: #004b91;
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+    @media (--tablet) {
+      border-radius: 10px;
+    }
+  }
+  &__table-title {
+    text-align: center;
+    font: 700 24px/29px $secondary-font;
+    letter-spacing: 2.88px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  &__table-item {
+    background-color: #002c6b;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    padding: 5px 16px;
+    color: #fff;
+    display: flex;
+    width: 100%;
+    font: 700 17px/42px $primary-font;
+  }
+  &__table-first {
+    width: 25px;
+    margin-right: 16px;
+  }
+  &__table-second {
+    font-weight: 400;
+    font-size: 16px;
+    flex: 1;
+    margin-right: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  &__pag {
+    background-color: #f5f5f5;
+    display: flex;
+    height: 78px;
+    justify-content: center;
+    align-items: center;
+    @media (--tablet) {
+      margin-top: 24px;
+      height: 96px;
+    }
+  }
+  &__pag-arr {
+    display: flex;
+    align-items: center;
+    span {
+      font: 400 15px/28px $primary-font;
+      color: #2c78ff;
+      margin: 0 8px;
+    }
+    @media (--tablet) {
+      margin: 0 23px;
+    }
+  }
+  &__pag-numbers {
+    button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font: 500 15px/28px $primary-font;
+      color: #999;
+    }
+    .active {
+      background-color: #ebebeb;
+      color: #333;
+    }
+  }
+}

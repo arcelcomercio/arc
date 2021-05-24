@@ -1,0 +1,31 @@
+.polla-banner {
+  &__logo-container {
+    background-color: #002d7f;
+    text-align: center;
+    padding: 20px;
+  }
+  &__logo-img {
+    width: 100%;
+    max-width: 220px;
+    @media (--desktop) {
+      max-width: 280px;
+    }
+  }
+  &__logo-title {
+    font: 700 18px/21px $secondary-font;
+    letter-spacing: 0.18px;
+    color: #fff;
+    margin-top: 10px;
+  }
+  &__text {
+    text-align: center;
+    font: 700 20px/28px $primary-font;
+    color: #333;
+    margin: 0 auto;
+    max-width: 720px;
+    padding: 26px 40px 24px;
+    @media (--tablet) {
+      font-size: 24px;
+    }
+  }
+}

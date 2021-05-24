@@ -93,7 +93,7 @@ PollaNavbar.static = true
 PollaNavbar.propTypes = {
   customFields: PropTypes.shape({
     customNav: PropTypes.string.tag({
-      name: 'Jerarquía ',
+      name: 'Jerarquía',
     }),
   }),
 }

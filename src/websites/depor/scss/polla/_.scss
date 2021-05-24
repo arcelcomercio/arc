@@ -10,5 +10,9 @@ $primary-font: "Roboto", sans-serif;
 $secondary-font: "Raleway", sans-serif;
 
 @import "./components/navbar/navbar";
-@import "./components/homepage/landing";
-@import "./components/homepage/rank-and-awards";
+@import "./components/homepage/polla-home";
+@import "./components/footer/polla-footer";
+@import "./components/ranking-with-pagination/polla-ranking";
+@import "./components/banner/polla-banner";
+@import "./components/guide/polla-guide";
+@import "./components/score-list/polla-score";

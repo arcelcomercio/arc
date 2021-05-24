@@ -1,0 +1,15 @@
+.polla-footer {
+  background-color: #222;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  color: #666;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px 73px;
+  font: 400 13px/18px $primary-font;
+  letter-spacing: 0.26px;
+  @media (--desktop) {
+    flex-direction: row;
+  }
+}
