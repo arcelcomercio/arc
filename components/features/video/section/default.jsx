@@ -70,7 +70,6 @@ const SectionVideo = (props) => {
     }) || {}
 
   const arrSections = formatSections(dataHierarchy)
-
   const principalVideo = (data) => {
     const Story = new StoryData({
       data,
@@ -93,6 +92,7 @@ const SectionVideo = (props) => {
       author,
       videoDuration,
       promoItemJwplayer,
+      contentElements,
     } = Story
 
     dataVideo.principalVideo = {
@@ -109,6 +109,7 @@ const SectionVideo = (props) => {
       author,
       videoDuration,
       promoItemJwplayer,
+      contentElements,
     }
     if (promoItemsType === VIDEO) {
       const { video, promoItems } = Story
@@ -148,7 +149,6 @@ const SectionVideo = (props) => {
       }) || {}
     dataVideo.playListVideo = fetchPlayList
   }
-
   if (globalContent && globalContent.type === 'story') {
     principalVideo(globalContent)
     playListVideo()
