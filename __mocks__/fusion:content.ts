@@ -1,6 +1,6 @@
-import type { UseContentConfig } from 'fusion:content'
+import type { UseContentConfig } from 'types/fusion'
+import type { AnyObject } from 'types/utils'
 
-import type { AnyObject } from '../types/utils'
 /**
  * In order to use this mock you must do
  * `import Content from 'fusion:content';`

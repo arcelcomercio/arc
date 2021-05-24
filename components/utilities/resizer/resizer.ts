@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { ArcSite } from 'fusion:context'
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import { ArcSite } from 'types/fusion'
 import { Basic, PromoItems, Stories, Story } from 'types/story'
 
 import {
@@ -281,7 +281,7 @@ export const getResizedImageParams = (
     return sourceData
   }
 
-  if ('canonical_url' in data || 'website_url' in data) {
+  if ('promo_items' in data) {
     generateParams(data?.promo_items)
   } else if (
     data?.content_elements &&

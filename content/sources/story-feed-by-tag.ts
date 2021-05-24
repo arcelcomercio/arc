@@ -1,6 +1,6 @@
-import { ArcSite } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import { ConentSourceBase } from 'types/content-source'
+import { ArcSite } from 'types/fusion'
 import { ContentCode, Stories } from 'types/story'
 
 import {
