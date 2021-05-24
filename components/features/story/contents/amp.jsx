@@ -34,6 +34,7 @@ import {
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
   SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
 import {
@@ -288,8 +289,7 @@ class StoryContentAmp extends React.PureComponent {
           {isMetered &&
           activeRulesCounter &&
           activePaywall &&
-          arcSite === SITE_ELCOMERCIO &&
-          /^\/(tecnologia|somos|opinion)\//.test(requestUri) ? (
+          arcSite === SITE_GESTION ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"

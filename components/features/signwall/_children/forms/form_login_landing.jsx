@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
-import { sha256 } from 'js-sha256'
 import * as React from 'react'
 
 import { ModalConsumer } from '../../../subscriptions/_context/modal'
@@ -86,7 +86,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
             window.Identity.userProfile = null
             window.Identity.userIdentity = {}
           } else {
-            setCookie('arc_e_id', sha256(profile.email), 365)
+            setCookie('arc_e_id', sha256(profile.email).toString(), 365)
             onLogged(profile) // para hendrul
             setShowVerify(false)
             Taggeo(

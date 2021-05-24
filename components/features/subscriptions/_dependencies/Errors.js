@@ -1,7 +1,6 @@
 import {
-  // phoneRegex,
   cellphoneRegex,
-  // docRegex,
+  descripRegex,
   emailRegex,
   namesRegex,
   numberRegex,
@@ -44,6 +43,12 @@ export const acceptCheckTermsPay = () => ({
   func: (value) => value === 'no',
   error:
     'Para continuar con le proceso de pago es necesario aceptar las condiciones de servicio y las políticas de privacidad',
+})
+
+export const formatDescription = () => ({
+  func: (value) =>
+    value === '' || (value.length >= 2 && descripRegex.test(value)),
+  error: 'Contiene caracteres no permitidos',
 })
 
 const getCodeError = (code, status) => {
@@ -142,6 +147,9 @@ const getCodeError = (code, status) => {
 
     case 'verifySocial':
       return 'El Correo Electrónico asociado a tu red social no está verificado. Contáctate al Call Center: 311-5100.'
+
+    case 'validCaptcha':
+      return 'Seleccionar la casilla de verificación'
 
     default:
       return 'Ocurrió un error inesperado.'

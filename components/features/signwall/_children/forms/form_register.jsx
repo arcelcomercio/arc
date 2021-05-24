@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
-import { sha256 } from 'js-sha256'
 import * as React from 'react'
 
 import { ModalConsumer } from '../../../subscriptions/_context/modal'
@@ -140,8 +140,7 @@ const FormRegister = ({
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile()
       .then((profile) => {
-        setCookie('arc_e_id', sha256(profile.email), 365)
-
+        setCookie('arc_e_id', sha256(profile.email).toString(), 365)
         const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
         setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 

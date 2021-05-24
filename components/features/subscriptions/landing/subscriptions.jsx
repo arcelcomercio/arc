@@ -26,6 +26,7 @@ const LandingSubscriptions = (props) => {
       bannerUniComercio = false,
       bannerUniGestion = false,
       callInnCallOut = false,
+      btnOnTop = false,
     } = {},
   } = props
   const { arcSite, deployment, globalContent: items = [] } =
@@ -405,7 +406,7 @@ const LandingSubscriptions = (props) => {
           </div>
         </section>
 
-        <FooterLand arcType={arcType} />
+        <FooterLand arcType={arcType} btnOnTop={btnOnTop} />
 
         {moduleCall && (
           <section className="callin-movil">
@@ -473,6 +474,11 @@ LandingSubscriptions.propTypes = {
       name: 'Módulo Call In Call Out',
       defaultValue: false,
       description: 'Mostrar/Ocultar Módulo Call In Call Out',
+    }),
+    btnOnTop: PropTypes.bool.tag({
+      name: 'Botón subir arriba',
+      defaultValue: false,
+      description: 'Mostrar/Ocultar Botón subir arriba',
     }),
   }),
 }

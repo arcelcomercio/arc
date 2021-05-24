@@ -23,6 +23,7 @@ content_elements {
     id
     config{
       key
+      chapter
       description
       duration
       thumbnail_url

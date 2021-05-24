@@ -1,5 +1,5 @@
-import { sha256 } from 'js-sha256'
-import React, { useState } from 'react'
+import sha256 from 'crypto-js/sha256'
+import * as React from 'react'
 import styled, { css } from 'styled-components'
 
 import {
@@ -118,7 +118,7 @@ const AfterLoginRegister = (
     `Web_Sign_Wall_${typeDialog}`,
     `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
   )
-  setCookie('arc_e_id', sha256(emailUser), 365)
+  setCookie('arc_e_id', sha256(emailUser).toString(), 365)
   const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
   setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
@@ -352,7 +352,7 @@ export const ButtonSocial = ({
   showMsgVerify,
   dataTreatment,
 }) => {
-  const [showTextLoad, setShowTextLoad] = useState('')
+  const [showTextLoad, setShowTextLoad] = React.useState('')
 
   const queryDialog = () => {
     switch (typeDialog) {

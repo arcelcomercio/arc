@@ -1,0 +1,165 @@
+.saltar-intro-entrevista {
+  &__container {
+    font-family: $primary-font;
+    margin-bottom: 60px;
+    &:last-child {
+      margin-bottom: 0;
+      border-right: unset;
+      padding-right: 0;
+    }
+    @media (--desktop) {
+      border-right: 1px solid #58097b7b;
+      padding-right: 15px;
+      margin-bottom: 0;
+    }
+  }
+  &__actor {
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: -0.38px;
+    color: #000;
+  }
+  &__title-box {
+    text-align: center;
+    position: relative;
+    top: -26px;
+    @media (--desktop) {
+      top: -40px;
+    }
+  }
+  &__title {
+    // font: normal normal 800 19px/24px Bitter;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 24px;
+    letter-spacing: 0;
+    color: #000;
+    text-transform: uppercase;
+    position: relative;
+    @media (--desktop) {
+      font-size: 19px;
+    }
+    &::before {
+      content: "";
+      border-left: 11.5px solid #917de5;
+      -moz-transform: rotate(0deg) skew(0deg, -45deg);
+      -webkit-transform: rotate(0deg) skew(0deg, -45deg);
+      -o-transform: rotate(0deg) skew(0deg, -45deg);
+      -ms-transform: rotate(0deg) skew(0deg, -45deg);
+      transform: rotate(0deg) skew(0deg, -45deg);
+      height: 24px;
+      position: absolute;
+      left: -15px;
+      top: 7px;
+      @media (--desktop) {
+        height: 25px;
+        top: 6px;
+      }
+    }
+    &::after {
+      content: "";
+      border-bottom: 15px solid #58097b;
+      -moz-transform: rotate(45deg) skew(0deg, -45deg);
+      -webkit-transform: rotate(45deg) skew(0deg, -45deg);
+      -o-transform: rotate(45deg) skew(0deg, -45deg);
+      -ms-transform: rotate(45deg) skew(0deg, -45deg);
+      transform: rotate(45deg) skew(0deg, -45deg);
+      height: 11px;
+      position: absolute;
+      width: 122px;
+      top: 14px;
+      left: 20px;
+      @media (--desktop) {
+        height: 11px;
+        width: 110px;
+        left: 17px;
+      }
+    }
+  }
+  &__movies {
+    // font: normal normal medium 14px/24px Bitter;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #000;
+  }
+  &__description {
+    // font: normal normal bold 22px/26px Bitter;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 26px;
+    letter-spacing: -0.22px;
+    color: #000;
+    border-top: 1px dashed #818181;
+    padding-top: 23px;
+    margin-bottom: 20px;
+    // display: block;
+    // height: 130px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  &__author {
+    // font: normal normal medium 10px/24px Bitter;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 24px;
+    letter-spacing: 0.14px;
+    color: #000;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  &__see-more {
+    // font: normal normal medium 10px/17px Bitter;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 17px;
+    letter-spacing: -0.2px;
+    color: #000;
+    text-transform: uppercase;
+    opacity: 1;
+    border-top: 1px dashed #777;
+    width: 200px;
+    display: inline-block;
+    svg {
+      width: 15px;
+      top: 2px;
+      position: relative;
+      // fill: #808080;
+      // transform: rotate(90deg);
+    }
+  }
+  &__box-see-more {
+    text-align: center;
+  }
+  &__image {
+    width: 100%;
+    @media (--desktop) {
+      max-width: 296px;
+    }
+  }
+  &__figure {
+    margin-bottom: 5px;
+  }
+}
+
+.saltar-intro {
+  // .grid.grid--content.grid--col-3.bg-gray-200.chain-ordered-stories
+  .chain-ordered-stories {
+    background-color: #e8e8e8;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 45px;
+    padding-bottom: 15px;
+    @media (--desktop) {
+      background-color: #e8e8e8;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 15px;
+    }
+  }
+}
