@@ -1,73 +1,71 @@
 // file path: StoryContentContent.js
-import Consumer from 'fusion:consumer'
-import * as React from 'react'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
+import Consumer from 'fusion:consumer'
+import * as React from 'react'
+
+import Ads from '../../../global-components/ads'
 import Image from '../../../global-components/image'
-
-import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
-import { getDateSeo } from '../../../utilities/date-time/dates'
+import LiteYoutube from '../../../global-components/lite-youtube'
+import StoryContentsChildTable from '../../../global-components/story-table'
 import { getAssetsPath } from '../../../utilities/assets'
-
 import {
-  SITE_ELCOMERCIO,
-  SITE_ELCOMERCIOMAG,
-  SITE_PERU21,
-  SITE_ELBOCON,
-  SITE_DEPOR,
-} from '../../../utilities/constants/sitenames'
-import {
-  SPECIAL,
-  SPECIAL_BASIC,
-  BIG_IMAGE,
-  STORY_CORRECTION,
-  STAMP_TRUST,
-  GALLERY_VERTICAL,
-  MINUTO_MINUTO,
-  VIDEO_JWPLAYER,
-  VIDEO_JWPLAYER_MATCHING,
-} from '../../../utilities/constants/subtypes'
-import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
-import {
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_CUSTOM_EMBED,
+  ELEMENT_GALLERY,
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
+  ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
+  ELEMENT_LIST,
+  ELEMENT_OEMBED,
   ELEMENT_QUOTE,
-  ELEMENT_CUSTOM_EMBED,
   ELEMENT_RAW_HTML,
   ELEMENT_TABLE,
   ELEMENT_TEXT,
   ELEMENT_VIDEO,
-  ELEMENT_GALLERY,
-  ELEMENT_OEMBED,
-  ELEMENT_BLOCKQUOTE,
-  ELEMENT_INTERSTITIAL_LINK,
-  ELEMENT_LINK_LIST,
-  ELEMENT_LIST,
 } from '../../../utilities/constants/element-types'
+import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
+import {
+  SITE_DEPOR,
+  SITE_ELBOCON,
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+  SITE_PERU21,
+} from '../../../utilities/constants/sitenames'
+import {
+  BIG_IMAGE,
+  GALLERY_VERTICAL,
+  MINUTO_MINUTO,
+  SPECIAL,
+  SPECIAL_BASIC,
+  STAMP_TRUST,
+  STORY_CORRECTION,
+  VIDEO_JWPLAYER,
+  VIDEO_JWPLAYER_MATCHING,
+} from '../../../utilities/constants/subtypes'
+import { getDateSeo } from '../../../utilities/date-time/dates'
+import { processedAds } from '../../../utilities/story/helpers'
 import StoryData from '../../../utilities/story-data'
-
-import StoryContentsChildVideo from './_children/video'
-import StoryContentsChildImage from './_children/image'
-import StoryContentsChildLinkedImage from './_children/linked-image'
+import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
 import StoryHeaderChildGallery from '../gallery/_children/gallery'
-import StoryContentChildRawHTML from './_children/rawHtml'
-import StoryContentsChildBlockQuote from './_children/blockquote'
-import StoryContentsChildTable from '../../../global-components/story-table'
 import StoryContentsChildAuthor from './_children/author'
 import StoryContentsChildAuthorTrust from './_children/author-trust'
-import StoryContentsChildMultimedia from './_children/multimedia'
-import StoryContentsChildIcon from './_children/icon-list'
-import StoryContentsChildImpresa from './_children/impresa'
-import StoryContentsChildVideoNativo from './_children/video-nativo'
-import StoryContentsChildInterstitialLink from './_children/interstitial-link'
-import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildBlockQuote from './_children/blockquote'
 import StoryContentsChildCorrection from './_children/correction'
-import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildIcon from './_children/icon-list'
+import StoryContentsChildImage from './_children/image'
+import StoryContentsChildImpresa from './_children/impresa'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
 import StoryContentsChildJwplayerRecommender from './_children/jwplayer-recommender'
-import Ads from '../../../global-components/ads'
-import LiteYoutube from '../../../global-components/lite-youtube'
-import { processedAds } from '../../../utilities/story/helpers'
+import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildLinkedImage from './_children/linked-image'
+import StoryContentsChildMultimedia from './_children/multimedia'
+import StoryContentChildRawHTML from './_children/rawHtml'
+import StoryContentsChildStampTrust from './_children/stamp-trust'
+import StoryContentsChildVideo from './_children/video'
+import StoryContentsChildVideoNativo from './_children/video-nativo'
 
 const classes = {
   news: 'story-content w-full pr-20 pl-20',
@@ -324,6 +322,7 @@ class StoryContents extends React.PureComponent {
                             has_ads: hasAds = 0,
                             account = 'gec',
                             title = '',
+                            description: descriptionTxt,
                             thumbnail_url: image = '',
                           } = {},
                         } = {},
@@ -337,7 +336,7 @@ class StoryContents extends React.PureComponent {
                           <div
                             className="jwplayer-lazy"
                             id={`botr_${mediaId}_${jwplayerId}_div`}>
-                            <div className="jwplayer-lazy-icon-play"></div>
+                            <div className="jwplayer-lazy-icon-play" />
                             <Image
                               src={image}
                               width={580}
@@ -349,9 +348,12 @@ class StoryContents extends React.PureComponent {
                               loading="lazy"
                             />
                           </div>
-                          <figcaption className="story-content__caption ">
-                            {title}
-                          </figcaption>
+                          <figcaption
+                            className="story-content__caption"
+                            dangerouslySetInnerHTML={{
+                              __html: descriptionTxt,
+                            }}
+                          />
                         </>
                       )
                     }
@@ -394,7 +396,7 @@ class StoryContents extends React.PureComponent {
                           className={alignmentClass}
                           dangerouslySetInnerHTML={{
                             __html: replaceTags(content),
-                          }}></p>
+                          }} />
                       </>
                     )
                   }
@@ -466,7 +468,7 @@ class StoryContents extends React.PureComponent {
                                       '<a itemprop="url"'
                                     )
                                   : '',
-                              }}></li>
+                              }} />
                           ))}
                         </ListType>
                       )
@@ -653,7 +655,7 @@ class StoryContents extends React.PureComponent {
           </>
         )}
         {arcSite === SITE_ELBOCON && isJwVideo === true && (
-          <script src="https://cdn.jwplayer.com/players/IxomITB6-BHYH7DVh.js?search=__CONTEXTUAL__"></script>
+          <script src="https://cdn.jwplayer.com/players/IxomITB6-BHYH7DVh.js?search=__CONTEXTUAL__" />
         )}
       </>
     )
