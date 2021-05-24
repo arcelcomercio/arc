@@ -28,11 +28,11 @@ const AuthorBiography = ({
   awards,
   arcSite,
   // resized_urls: { image_xs: imageXS = '' } = {},
-  resized_urls: { image_lg: imageLG = '' } = {},
+  resized_urls: { image_lg: imageLG = '', image_xs: imageXS = '' } = {},
 }) => {
   const twitterData = twitter && twitter.split(',')
   const expertiseData = expertise && expertise.replace(/{[^}]+}/g, '')
-  const urlTwitter = account => {
+  const urlTwitter = (account) => {
     const user = account.replace(/@/, '')
     return `https://twitter.com/${user}`
   }
@@ -119,7 +119,7 @@ const AuthorBiography = ({
               <p className={classes.content}>
                 Premios:
                 <ul>
-                  {awards.map(award => (
+                  {awards.map((award) => (
                     <li className={classes.content} key={award.name}>
                       <strong>{award.name}</strong>
                     </li>
@@ -200,7 +200,7 @@ const AuthorBiography = ({
             <p className={classes.content}>
               <strong>Premios: </strong>
               <ul>
-                {awards.map(award => (
+                {awards.map((award) => (
                   <li className={classes.content}>{award.name}</li>
                 ))}
               </ul>
