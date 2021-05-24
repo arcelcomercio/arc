@@ -1,4 +1,4 @@
-import { ArcSite } from 'fusion:context'
+import { ArcSite } from 'types/fusion'
 
 type GetPrerollProps = {
   section: string

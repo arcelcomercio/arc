@@ -1,5 +1,5 @@
-import type { ArcSite } from 'fusion:context'
 import { ANSBase, ANSDates, Owner } from 'types/ans'
+import type { ArcSite } from 'types/fusion'
 import type { AnyObject } from 'types/utils'
 
 import type { ResizedUrls } from '../components/utilities/resizer/format-presets'
