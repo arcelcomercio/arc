@@ -15,9 +15,10 @@
       .company-bg {
         display: none;
         line-height: 0px;
-        background: url($bgCompany) no-repeat;
-        background-size: cover;
-        background-position: center center;
+        &__img {
+          height: 100%;
+          object-fit: cover;
+        }
       }
 
       .cont-form {
@@ -158,6 +159,7 @@
       &-box {
         background-color: #fff;
         box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
         margin: 2em auto;
         .cont-form {
           padding-top: 1em;

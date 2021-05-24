@@ -1,6 +1,7 @@
 import * as Sentry from '@sentry/browser'
 import * as React from 'react'
 
+import { getAssetsPath } from '../../../../utilities/assets'
 import getCodeError, {
   formatDescription,
   formatEmail,
@@ -15,7 +16,7 @@ import {
 import { sendEmailCompany } from '../../_dependencies/Services'
 import useForm from '../../_hooks/useForm'
 
-const PageCompany = ({ arcSite }) => {
+const PageCompany = ({ arcSite, contextPath }) => {
   const { urls, texts } = PropertiesSite[arcSite]
   const { urls: urlCommon, texts: textsCommon } = PropertiesCommon
   const [msgError, setMsgError] = React.useState()
@@ -154,13 +155,25 @@ const PageCompany = ({ arcSite }) => {
     window.location.href = urls.mainHome
   }
 
+  const getFormImage = (format) =>
+    `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/${arcSite}/images/img_corporativo.${format}?d=1`
+
   return (
     <section className="company">
       <div className="wrapper">
         <div className="company__content">
           <div className="company__content-box">
-            <div className="company-bg" />
-
+            <picture className="company-bg">
+              <source srcSet={getFormImage('webp')} type="image/webp" />
+              <img
+                src={getFormImage('png')}
+                alt="Foto de históricas oficinas de El Comercio"
+                className="company-bg__img"
+              />
+            </picture>
             <div className="cont-form">
               {showThanks ? (
                 <div className="cont-success">

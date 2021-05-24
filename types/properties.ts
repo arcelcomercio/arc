@@ -1,66 +1,12 @@
 interface Urls {
-  eventsRegexp: string
-  corporateSuscription: string
-  faqs: string
-  digitalSubscriptions: string
-  digitalSubscriptionsHome: string
-  arcEntitlements: string
   canonical: string
   image: string
-  reviewVideo: string
-  clickToCall: string
-  pwaDomain: string
-  originApi: string
-  originIdentitySdk: string
-  originSalesSdk: string
-  originPayuSdk: string
-  originPayuTags: string
-  originPaymentTraker: string
-  originSubscriptionCorpApi: string
-  originSubscriptionOnlineToken: string
-  originSubscriptions: string
-  originSubscriptionsBundles: string
-  originSubsPrinted: string
-  originSubsDigitalPrinted: string
-  privacyPolicy: string
-  disclaimer: string
-  terms: string
-  originSubsOnline: string
-  contactEmailRef: string
-  contactPhoneRef: string
-  androidAppDownload: string
-  iosAppDownload: string
-  facebook: string
-  twitter: string
-  instagram: string
-  codeCxense: string
-  profileSignwall: string
 }
 
-interface Images {
-  pixel: string
-  icon: string
-  apple_icon: string
-  apple_icon_76: string
-  apple_icon_120: string
-  apple_icon_144: string
-  apple_icon_152: string
-  apple_icon_180: string
-  lector: string
-  corporativo: string
-  confirmation: string
-  support: string
-  backgroundx1: string
-  backgroundReview: string
-  reviewPoster: string
-  mainLogo: string
-}
 export interface Paywall {
   title: string
   description: string
-  descriptionPayment: string
   urls: Urls
-  images: Images
 }
 
 interface Facebook {

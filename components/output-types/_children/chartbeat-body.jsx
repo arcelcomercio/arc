@@ -1,15 +1,16 @@
-import React from 'react'
 import getProperties from 'fusion:properties'
-import { VIDEO, GALLERY } from '../../utilities/constants/multimedia-types'
+import * as React from 'react'
+
 import {
   META_ARCHIVE,
   META_AUTHOR,
   META_HOME,
-  META_SECTION,
   META_SEARCH,
+  META_SECTION,
   META_STORY,
   META_TAG,
 } from '../../utilities/constants/meta'
+import { GALLERY, VIDEO } from '../../utilities/constants/multimedia-types'
 import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 
 const getSectionList = (requestUri, type) => {
@@ -32,12 +33,9 @@ const getSectionList = (requestUri, type) => {
 }
 
 const getAuthor = (credits) =>
-  credits &&
-  credits.by &&
-  credits.by[0] &&
-  credits.by.map((author) => author.name)
+  credits?.by?.[0] && credits.by.map((author) => author?.name)
 
-const getTagList = (tags) => tags.map((tag) => tag.slug)
+const getTagList = (tags) => tags.map((tag) => tag?.slug)
 
 const getStoryType = (promoItems, subtype) => {
   const promoTypes = Object.keys(promoItems)
@@ -76,7 +74,7 @@ const ChartbeatBody = ({
   const { charbeatAccountNumber, siteDomain } = getProperties(arcSite)
   const page = metaValue('id')
   const sectionList = getSectionList(requestUri, page)
-  const author = getAuthor(credits) || ''
+  const author = getAuthor(credits)
   const tagsList = getTagList(tags) || arcSite
   const { type, stringType } = getStoryType(promoItems, subtype) || {}
   const renderSections = story ? sectionList.concat(tagsList) : sectionList
@@ -118,7 +116,7 @@ const ChartbeatBody = ({
   const chartbeatConfig = `
     var _sf_startpt = new Date().getTime()
     var _sf_async_config = _sf_async_config || {};_sf_async_config.uid = ${charbeatAccountNumber};_sf_async_config.domain = "${siteDomain}";_sf_async_config.flickerControl = false;_sf_async_config.useCanonical = true;_sf_async_config.sections = "${renderSections}"; ${
-    story
+    story && author
       ? `_sf_async_config.authors = '${author
           ?.join(',')
           ?.replace(
