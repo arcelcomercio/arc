@@ -104,7 +104,7 @@ export default ({
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
   const structuredAuthors = authorsList.map(
-    author => `
+    (author) => `
   {
     "@context": "http://schema.org/",
     "@type": "Person",
@@ -146,7 +146,7 @@ export default ({
     arcSite === SITE_ELCOMERCIO ? getDateSeo(updateDate) : updateDate
 
   const redSocialVideo = contentElementsRedesSociales
-    .map(redesSociales => {
+    .map((redesSociales) => {
       const { youtube = '', facebook = '', twitter = '', user = '' } =
         redesSociales || {}
       const thumbnailUrlYoutube =
@@ -169,21 +169,21 @@ export default ({
             title || arcSite
           )}",   "description": "${formatHtmlToText(
             subTitle || arcSite
-          )}",  "thumbnailUrl": "${thumbnailUrlYoutube ||
-            thumbnailUrlTwitter ||
-            thumbnailUrlFacebook}", "uploadDate": "${publishDateZone}",  "embedUrl": "${embedUrlYoutube ||
-            embedUrlTwitter ||
-            embedUrlFacebook}" }`
+          )}",  "thumbnailUrl": "${
+            thumbnailUrlYoutube || thumbnailUrlTwitter || thumbnailUrlFacebook
+          }", "uploadDate": "${publishDateZone}",  "embedUrl": "${
+            embedUrlYoutube || embedUrlTwitter || embedUrlFacebook
+          }" }`
         : ''
     })
-    .filter(video => video !== '')
+    .filter((video) => video !== '')
 
   let resultRelated = ''
 
   if (relatedContent[0] && relatedContent[0].type !== 'reference') {
     resultRelated = relatedContent
   } else {
-    resultRelated = resultStoryRecent.map(story => {
+    resultRelated = resultStoryRecent.map((story) => {
       const { websites = {} } = story || {}
       const brandWeb = websites[arcSite] || {}
       return { canonical_url: brandWeb.website_url }
@@ -216,6 +216,13 @@ export default ({
         date = '',
         duration,
       } = {}) => {
+        if (!date || date < 946702800000) {
+          date = getDateSeo(updateDate)
+        } else {
+          const dateObj = new Date(date)
+          date = getDateSeo(dateObj)
+        }
+
         const {
           large = '',
           amp_image_1x1: ampVideo1x1 = urlImage,
@@ -242,9 +249,9 @@ export default ({
           titleVideo || arcSite
         )}", "contentUrl": "${getResultJwplayer(
           conversions
-        )}",  "uploadDate": "${msToTimestamp(
-          date
-        )}", "duration": "${msToTimeJplayer(duration)}" }`
+        )}",  "uploadDate": "${date}", "duration": "${msToTimeJplayer(
+          duration
+        )}" }`
       }
     )
 
@@ -296,11 +303,12 @@ export default ({
         arcSite,
       }) || {}
 
-    return `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 ||
-      url}"]`
+    return `["${ampImage16x9 || url}","${ampImage1x1 || url}","${
+      ampImage4x3 || url
+    }"]`
   })
 
-  const imagesSeoItems = imagePrimarySeo.map(image => {
+  const imagesSeoItems = imagePrimarySeo.map((image) => {
     const { subtitle = false, url = '' } = image || {}
     let presets = ''
     let img = ''
@@ -325,11 +333,13 @@ export default ({
       ? `"description":"${formatHtmlToText(subtitle)}",`
       : ''
     if (SITE_ELCOMERCIOMAG === arcSite)
-      img = `["${ampImage16x9 || url}","${ampImage1x1 || url}","${ampImage4x3 ||
-        url}"]`
+      img = `["${ampImage16x9 || url}","${ampImage1x1 || url}","${
+        ampImage4x3 || url
+      }"]`
     else img = `"${large}"`
-    return `{  "@type":"ImageObject", "url": ${img ||
-      url}, ${description} "height":800, "width":1200 }`
+    return `{  "@type":"ImageObject", "url": ${
+      img || url
+    }, ${description} "height":800, "width":1200 }`
   })
 
   const listItems = tags.map(({ description }) => {
@@ -339,19 +349,20 @@ export default ({
   const listItemsTagsKeywords = tags.map(({ description }) => {
     return `"${formatHtmlToText(description)}"`
   })
-  const seoKeyWordsStructurada = seoKeywords.map(item => {
+  const seoKeyWordsStructurada = seoKeywords.map((item) => {
     return `"${formatHtmlToText(item)}"`
   })
 
-  const seoKeywordsItems = seoKeywords.map(item => {
+  const seoKeywordsItems = seoKeywords.map((item) => {
     return `${item}`
   })
 
   const relatedContentItem = resultRelated.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
     const pathUrl = ENVIRONMENT === 'elcomercio' ? siteUrl : ''
-    return `{  "@type":"ListItem",  "position":${i +
-      1}, "url":"${pathUrl}${urlItem}" }`
+    return `{  "@type":"ListItem",  "position":${
+      i + 1
+    }, "url":"${pathUrl}${urlItem}" }`
   })
 
   const relatedContentData = relatedContentItem[0]
@@ -425,7 +436,7 @@ export default ({
 
   let citationStructuredItems = ''
   if (arcSite === SITE_ELCOMERCIO) {
-    contentElementsLinks.forEach(url => {
+    contentElementsLinks.forEach((url) => {
       citationStructuredItems += `{
         "@type": "CreativeWork",
         "url": "${url}"
@@ -451,7 +462,7 @@ export default ({
 
   const backStoryStructured = `
   "backstory":"${contentElementCustomBlock
-    .map(element => {
+    .map((element) => {
       return element.embed.config.customBlockType === 'backstory'
         ? element.embed.config.customBlockContent
         : ''
@@ -462,7 +473,7 @@ export default ({
     .replace(/\r?\n|\r/g, '')}", `
 
   let correctionStructuredItems = ''
-  contentElementsCorrectionList.forEach(ele => {
+  contentElementsCorrectionList.forEach((ele) => {
     const {
       embed: {
         config: { content: contentCorrection = '', date: dateCorrection = '' },
@@ -533,16 +544,17 @@ export default ({
     ${accessibleForFree} 
     "keywords":[${
       seoKeyWordsStructurada[0]
-        ? seoKeyWordsStructurada.map(item => item)
-        : listItemsTagsKeywords.map(item => item)
+        ? seoKeyWordsStructurada.map((item) => item)
+        : listItemsTagsKeywords.map((item) => item)
     }]
  }`
 
   const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
     return (
       url &&
-      `{"@type":"ListItem", "position":${i +
-        1}, "name":"${name}", "item":"${url}" }`
+      `{"@type":"ListItem", "position":${
+        i + 1
+      }, "name":"${name}", "item":"${url}" }`
     )
   })
 
@@ -652,7 +664,7 @@ export default ({
       <meta name="bi3dSection" content={primarySection} />
       <meta name="bi3dArtTitle" content={title} />
       <meta name="cXenseParse:per-categories" content={primarySection} />
-      <meta name="etiquetas" content={listItems.map(item => item)} />
+      <meta name="etiquetas" content={listItems.map((item) => item)} />
       <meta
         name="content-type"
         content={
@@ -666,8 +678,8 @@ export default ({
         name="keywords"
         content={
           seoKeywordsItems[0]
-            ? seoKeywordsItems.map(item => item)
-            : (listItems[0] && listItems.map(item => item)) || arcSite
+            ? seoKeywordsItems.map((item) => item)
+            : (listItems[0] && listItems.map((item) => item)) || arcSite
         }
       />
       {isPremium && <meta name="cXenseParse:per-tiponota" content="premium" />}
@@ -681,7 +693,7 @@ export default ({
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
       <meta property="article:content_tier" content={getContentType()} />
-      {listItems.map(item => {
+      {listItems.map((item) => {
         return <meta property="article:tag" content={item} />
       })}
       {!isIframeStory && (
@@ -705,7 +717,7 @@ export default ({
         <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
       )}
       {isAmp === true &&
-        dataStructuraHtmlAmp.map(datas => {
+        dataStructuraHtmlAmp.map((datas) => {
           return (
             <>
               <script

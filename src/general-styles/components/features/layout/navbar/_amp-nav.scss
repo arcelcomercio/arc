@@ -9,7 +9,7 @@
     height: 4px;
 
     &:before {
-      content: '';
+      content: "";
       top: -12px;
       width: 100%;
       height: 4px;
@@ -19,19 +19,13 @@
     }
 
     &:after {
-      content: '';
+      content: "";
       top: -6px;
       width: 100%;
       height: 4px;
       background-color: $color-gray-300;
       left: 0;
       position: absolute;
-    }
-  }
-
-  &__wrapper {
-    @media (--desktop) {
-      max-width: 980px;
     }
   }
 
