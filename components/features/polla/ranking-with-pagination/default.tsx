@@ -2,7 +2,25 @@ import * as React from 'react'
 import { FC } from 'types/features'
 
 const PollaRankingWithPagintation: FC = () => {
-  console.log('TODO')
+  const [list, setList] = React.useState<any[]>([])
+  const [currentPage, setCurrentPage] = React.useState<number>(1)
+
+  const itemsPerPage = 25
+
+  React.useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((res) => res.json())
+      .then((res) => {
+        setList(res)
+      })
+  }, [])
+
+  const scrollIntoTableView = () => {
+    if (typeof window !== 'undefined') {
+      const div = document.querySelector('.polla-ranking__rank-img')
+      if (div) div.scrollIntoView()
+    }
+  }
 
   return (
     <>
@@ -13,16 +31,29 @@ const PollaRankingWithPagintation: FC = () => {
       />
       <div className="polla-ranking__table">
         <h2 className="polla-ranking__table-title">Ranking</h2>
-        {Array.from(Array(10).keys()).map((_, i) => (
-          <div className="polla-ranking__table-item">
-            <div className="polla-ranking__table-first">{i + 1}.</div>
-            <div className="polla-ranking__table-second">Alessandra Quispe</div>
-            <div className="polla-ranking__table-third">30</div>
-          </div>
-        ))}
+        {list
+          .slice(
+            itemsPerPage * (currentPage - 1),
+            itemsPerPage * (currentPage - 1) + itemsPerPage
+          )
+          .map((item) => (
+            <div className="polla-ranking__table-item" key={item?.id}>
+              <div className="polla-ranking__table-first">{item?.id}</div>
+              <div className="polla-ranking__table-second">{item?.title}</div>
+              <div className="polla-ranking__table-third">30</div>
+            </div>
+          ))}
       </div>
       <div className="polla-ranking__pag">
-        <button type="button" className="polla-ranking__pag-arr">
+        <button
+          onClick={() => {
+            setCurrentPage(currentPage - 1)
+            scrollIntoTableView()
+          }}
+          type="button"
+          className={`polla-ranking__pag-arr ${
+            currentPage === 1 ? 'disable' : ''
+          }`}>
           <svg
             width="7"
             height="12"
@@ -38,14 +69,34 @@ const PollaRankingWithPagintation: FC = () => {
         </button>
 
         <div className="polla-ranking__pag-numbers">
-          <button className="active" type="button">
-            1
-          </button>
-          <button type="button">2</button>
-          <button type="button">3</button>
+          {Array.from(
+            { length: Math.ceil(list.length / itemsPerPage) },
+            (_, i) => (
+              <button
+                key={i}
+                className={currentPage === i + 1 ? 'active' : ''}
+                onClick={() => {
+                  setCurrentPage(i + 1)
+                  scrollIntoTableView()
+                }}
+                type="button">
+                {i + 1}
+              </button>
+            )
+          )}
         </div>
 
-        <button type="button" className="polla-ranking__pag-arr">
+        <button
+          onClick={() => {
+            setCurrentPage(currentPage + 1)
+            scrollIntoTableView()
+          }}
+          type="button"
+          className={`polla-ranking__pag-arr ${
+            currentPage === Math.ceil(list.length / itemsPerPage)
+              ? 'disable'
+              : ''
+          }`}>
           <span>Siguiente</span>
           <svg
             width="8"

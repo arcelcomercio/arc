@@ -68,10 +68,21 @@
     @media (--tablet) {
       margin: 0 23px;
     }
+    &.disable {
+      pointer-events: none;
+      span {
+        color: #999;
+      }
+      path {
+        fill: #999;
+      }
+    }
   }
   &__pag-numbers {
+    overflow-x: auto;
+    display: flex;
     button {
-      width: 44px;
+      min-width: 44px;
       height: 44px;
       border-radius: 50%;
       font: 500 15px/28px $primary-font;
