@@ -9,10 +9,10 @@ import {
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
   SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
-  SITE_GESTION, 
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -507,7 +507,6 @@ const LiteOutput = ({
         />
         {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
           <>
-            <Libs />
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
@@ -522,29 +521,29 @@ const LiteOutput = ({
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
         {/* ============== WebTracking */}
-        { arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ?(
+        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
           <>
             <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
-            )}
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"></script>
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec" />
           </>
-        ):null}
+        ) : null}
 
-        { arcSite === SITE_GESTION && requestUri.includes('/economia/') ?(
+        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
-            )}
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"></script>
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6" />
           </>
-        ):null}
+        ) : null}
         {/* ============== WebTracking */}
       </head>
       <body
@@ -563,7 +562,12 @@ const LiteOutput = ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {isPremium && <Fusion />}
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <>
+            <Libs />
+            <Fusion />
+          </>
+        ) : null}
         {isStory && (
           <script
             type="text/javascript"
