@@ -1,10 +1,6 @@
 .amp-footer {
   background-color: $amp-footer-background;
 
-  @media (--desktop) {
-    max-width: 980px;
-  }
-
   &__text {
     color: $footer-text-color;
   }

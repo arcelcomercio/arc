@@ -1,8 +1,4 @@
-import type {
-  AppContext,
-  ComponentContext,
-  FusionContext,
-} from 'fusion:context'
+import type { AppContext, ComponentContext, FusionContext } from 'types/fusion'
 /**
  * In order to use this mock you must do
  * `import Context from 'fusion:context';`

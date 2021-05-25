@@ -193,6 +193,16 @@ export default ({
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
+  const getAfsStyle = () => {
+    let styleAfsId = ''
+    if (arcSite === SITE_DEPOR) {
+      styleAfsId = '9799771650'
+    } else if (arcSite === SITE_GESTION) {
+      styleAfsId = '2165195451'
+    }
+    return styleAfsId
+  }
+  const styleIdAfsGo = getAfsStyle()
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -522,7 +532,7 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {arcSite === SITE_DEPOR && isSearchSection && (
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && (
           <>
             <script
               async="async"
@@ -698,6 +708,13 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `"use strict";!function(){var e="";null!=document.querySelector("input.search-input")&&(e=document.querySelector("input.search-input").value);_googCsa("ads",{pubId:"partner-pub-8088376505685131",query:e,styleId:"${styleIdAfsGo}"},{container:"afs_container_1"})}();`,
+            }}
+          />
+        )}
         {(contenidoVideo || isVideosSection) && (
           <>
             <script

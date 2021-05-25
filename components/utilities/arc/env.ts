@@ -1,6 +1,6 @@
-import { ArcSite } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import { ArcSite } from 'types/fusion'
 
 import { ORGANIZATION, PROD, SANDBOX } from '../constants/environment'
 

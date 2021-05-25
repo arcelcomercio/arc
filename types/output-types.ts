@@ -1,4 +1,4 @@
-import { FusionContext } from 'fusion:context'
+import { FusionContext } from 'types/fusion'
 
 import { AnyObject } from './utils'
 

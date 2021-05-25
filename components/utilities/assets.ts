@@ -1,4 +1,14 @@
-export const getAssetsPath = (arcSite, contextPath) => {
+import { ArcSite } from 'types/fusion'
+
+interface DefaultImageProps {
+  contextPath: string
+  arcSite: ArcSite
+}
+
+export const getAssetsPath = (
+  arcSite: ArcSite,
+  contextPath: string
+): string => {
   if (!contextPath) return '/pf'
   if (!arcSite) return contextPath
 
@@ -10,28 +20,25 @@ export const getAssetsPath = (arcSite, contextPath) => {
   return `https://cdna.${site}`
 }
 
-/**
- * @param {object} objeto Propiedades necesarias para armar la URL de la imagen por defecto.
- * @param {string} objeto.contextPath Normalmente /pf/. Viene desde fusion.
- * @param {string} objeto.arcSite Identificador del sitio actual. Viene desde fusion.
- *
- * @returns {string} URL de la imagen por defecto desde /resources/dist/...
- */
-export const defaultImage = ({ contextPath, arcSite }) => {
-  return `${getAssetsPath(
+export const defaultImage = ({
+  contextPath,
+  arcSite,
+}: DefaultImageProps): string =>
+  `${getAssetsPath(
     arcSite,
     contextPath
   )}/resources/dist/${arcSite}/images/default-md.png?d=2`
-}
 
-export const defaultAuthorImage = ({ contextPath, arcSite }) => {
-  return `${getAssetsPath(
+export const defaultAuthorImage = ({
+  contextPath,
+  arcSite,
+}: DefaultImageProps): string =>
+  `${getAssetsPath(
     arcSite,
     contextPath
   )}/resources/assets/author-grid/author.png?d=1`
-}
 
-export const getAssetsPathVideo = (arcSite, urlVideo = '') => {
+export const getAssetsPathVideo = (arcSite: ArcSite, urlVideo = ''): string => {
   let site = `${arcSite}.pe`
   if (arcSite === 'depor') site = `${arcSite}.com`
   if (arcSite === 'elcomerciomag') site = 'elcomercio.pe'

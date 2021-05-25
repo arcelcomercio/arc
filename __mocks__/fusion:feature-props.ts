@@ -1,4 +1,4 @@
-import type { AppContext } from 'fusion:context'
+import type { AppContext } from 'types/fusion'
 
 import getProperties from './fusion:properties'
 /**
