@@ -505,6 +505,11 @@ const LiteOutput = ({
           arcSite={arcSite}
           subtype={subtype}
         />
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <>
+            <Libs />
+          </>
+        ) : null}
         {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
           <>
             <script
@@ -564,7 +569,6 @@ const LiteOutput = ({
         </div>
         {isPremium || metaValue('include_fusion_libs') === 'true' ? (
           <>
-            <Libs />
             <Fusion />
           </>
         ) : null}
