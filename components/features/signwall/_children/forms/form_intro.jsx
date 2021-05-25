@@ -15,10 +15,10 @@ const FormIntro = ({
   checkModal = (i) => i,
 }) => {
   const { arcSite } = useAppContext() || {}
-
   const { changeTemplate } = React.useContext(ModalConsumer)
   const [showLoading, setShowLoading] = React.useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
+
   const { summary: { feature = [] } = {}, plans = [], printAttributes = [] } =
     useContent({
       source: 'paywall-campaing',
@@ -50,11 +50,6 @@ const FormIntro = ({
   const handleSuscription = () => {
     switch (typeDialog) {
       case 'premium':
-        window.sessionStorage.setItem(
-          'paywall_last_url',
-          window.location.pathname ? window.location.pathname : ''
-        )
-        break
       case 'paywall':
         window.sessionStorage.setItem(
           'paywall_last_url',
@@ -168,12 +163,11 @@ const FormIntro = ({
             c="gray"
             s={typeDialog === 'premium' ? '12' : '15'}
             className="mt-20 mb-10 center">
-            {printAttributes.map((item) => {
-              if (item.name === 'subscriber_title_popup') {
-                return item.value
-              }
-              return null
-            })}
+            {printAttributes.map((item) => (
+              <React.Fragment key={item.name}>
+                {item.name === 'subscriber_title_popup' && item.value}
+              </React.Fragment>
+            ))}
           </S.Text>
 
           <S.Text
@@ -182,21 +176,19 @@ const FormIntro = ({
             className={`center note-premium ${
               arcSite === 'elcomercio' ? 'mb-10' : ''
             }`}>
-            {printAttributes.map((item) => {
-              if (item.name === 'subscriber_detail_popup') {
-                return (
-                  <div className="sub-paragraph">
+            {printAttributes.map(
+              (item) =>
+                item.name === 'subscriber_detail_popup' && (
+                  <React.Fragment key={item.name}>
                     <Markdown
                       source={item.value}
                       escapeHtml={false}
                       unwrapDisallowed
                       disallowedTypes={['paragraph']}
                     />
-                  </div>
+                  </React.Fragment>
                 )
-              }
-              return null
-            })}
+            )}
           </S.Text>
         </>
       )}

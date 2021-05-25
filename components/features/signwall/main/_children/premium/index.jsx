@@ -55,7 +55,6 @@ export const PremiumInt = ({ properties }) => {
 
   const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
   const [resizeModal, setResizeModal] = React.useState('smallbottom')
-
   const { name = '', summary: { feature = [] } = {} } =
     useContent({
       source: 'paywall-campaing',

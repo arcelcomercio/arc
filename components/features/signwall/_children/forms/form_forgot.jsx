@@ -22,7 +22,7 @@ export const FormForgot = ({ typeDialog }) => {
   } = useAppContext() || {}
 
   const { changeTemplate } = React.useContext(ModalConsumer)
-  const [showError, setShowError] = React.React.useState(false)
+  const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [registerLink, setRegisterLink] = React.useState()

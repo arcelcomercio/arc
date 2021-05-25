@@ -37,13 +37,16 @@ const Subscriptions: OT<OutputProps> = ({
   const isEmpresaPage = /^\/[a-z-]+\/empresa\//.test(requestUri)
   const isFaqsPage = /^\/[a-z-]+\/faqs\//.test(requestUri)
   const isSubscriptionPage = /^\/suscripciones\//.test(requestUri)
+  const isSignwallPage = /^\/signwall\/|\/mi-perfil\//.test(requestUri)
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
-  const stylesheet =
-    isEmpresaPage || isFaqsPage || isSubscriptionPage
-      ? 'subs-landing'
-      : 'subs-payment'
+  // eslint-disable-next-line no-nested-ternary
+  const stylesheet = isSignwallPage
+    ? 'signwall'
+    : isEmpresaPage || isFaqsPage || isSubscriptionPage
+    ? 'subs-landing'
+    : 'subs-payment'
 
   return (
     <>

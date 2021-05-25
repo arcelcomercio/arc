@@ -2,9 +2,5 @@
 
 /******* Site Variables *******/
 @import "./scss/variables/colors";
-@import "./scss/signwall/reset";
+@import "../../general-styles/components/features/signwall/reset";
 @import "./scss/signwall/loading";
-
-/******* Temporales *******/
-@import "../../general-styles/components/features/signwall/modal";
-@import "../../general-styles/components/features/signwall/modal-body";

@@ -52,12 +52,12 @@ export const PaywallInt = ({ properties }) => {
     },
   } = useAppContext() || {}
 
+  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
+
   // const handleLeavePage = (event) => {
   //   event.preventDefault()
   //   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
   // }
-
-  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
 
   React.useEffect(() => {
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)

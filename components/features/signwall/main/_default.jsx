@@ -33,9 +33,6 @@ class SignwallComponent extends React.PureComponent {
     const { siteProperties, arcSite } = this.props
     if (typeof window !== 'undefined' && window.Identity) {
       window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      if (window.Sales !== undefined) {
-        window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      }
       window.requestIdle(() => {
         Fingerprint2.getV18({}, (result) => {
           setCookie('gecdigarc', result, 365)

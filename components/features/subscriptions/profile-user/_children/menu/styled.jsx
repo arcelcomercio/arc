@@ -95,6 +95,7 @@ export const WrapperMenu = styled.div`
       font-size: 14px;
       font-weight: bold;
       text-decoration: none;
+      cursor: pointer;
     }
     & .close-sesion {
       color: #bbbbbb;

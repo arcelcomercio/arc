@@ -26,9 +26,6 @@ class SignwallComponent extends PureComponent {
     if (typeof window !== 'undefined' && window.Identity) {
       const apiOrigin = Domains.getOriginAPI(arcSite)
       window.Identity.options({ apiOrigin })
-      if (window.Sales !== undefined) {
-        window.Sales.options({ apiOrigin })
-      }
       window.requestIdle(() => {
         Fingerprint2.getV18({}, (result) => {
           setCookie('gecdigarc', result, 365)
