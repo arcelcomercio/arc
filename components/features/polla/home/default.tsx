@@ -3,13 +3,13 @@ import * as React from 'react'
 import { FC } from 'types/features'
 
 interface Props {
-  customFields: {
-    block: 'landing' | 'ranking' | 'awards'
+  customFields?: {
+    block?: 'landing' | 'ranking' | 'awards'
   }
 }
 
-const PollaHomepage: FC<unknown> = (props) => {
-  const { customFields } = props as Props
+const PollaHomepage: FC<Props> = (props) => {
+  const { customFields } = props
 
   return (
     <>

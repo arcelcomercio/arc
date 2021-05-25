@@ -8,8 +8,8 @@ interface Props {
   }
 }
 
-const PollaBanner: FC<unknown> = (props) => {
-  const { customFields } = props as Props
+const PollaBanner: FC<Props> = (props) => {
+  const { customFields } = props
 
   return (
     <>
