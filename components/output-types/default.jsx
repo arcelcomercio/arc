@@ -193,7 +193,7 @@ export default ({
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
-  
+
   const getAfsStyle = () => {
     let styleAfsId = ''
     if (arcSite === SITE_DEPOR) {
@@ -533,21 +533,22 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && (
-          <>
-            <script
-              async="async"
-              src="https://www.google.com/adsense/search/ads.js"
-            />
-            <script
-              type="text/javascript"
-              charset="utf-8"
-              dangerouslySetInnerHTML={{
-                __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`,
-              }}
-            />
-          </>
-        )}
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
+          isSearchSection && (
+            <>
+              <script
+                async="async"
+                src="https://www.google.com/adsense/search/ads.js"
+              />
+              <script
+                type="text/javascript"
+                charset="utf-8"
+                dangerouslySetInnerHTML={{
+                  __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`,
+                }}
+              />
+            </>
+          )}
         {/* Scripts de AdManager */}
         {!noAds && (
           <>
@@ -629,29 +630,29 @@ export default ({
         )}
         <TagManager {...siteProperties} />
         {/* ============== WebTracking */}
-        { arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ?(
+        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
           <>
             <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
-            )}
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
             />
             <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"></script>
           </>
-        ):null}
+        ) : null}
 
-        { arcSite === SITE_GESTION && requestUri.includes('/economia/') ?(
+        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
-            )}
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
             />
             <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"></script>
           </>
-        ):null}
+        ) : null}
         {/* ============== WebTracking */}
       </head>
       <body
@@ -709,15 +710,14 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && (
-          <>
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
+          isSearchSection && (
             <script
               dangerouslySetInnerHTML={{
                 __html: `"use strict";!function(){var e="";null!=document.querySelector("input.search-input")&&(e=document.querySelector("input.search-input").value);_googCsa("ads",{pubId:"partner-pub-8088376505685131",query:e,styleId:"${styleIdAfsGo}"},{container:"afs_container_1"})}();`,
               }}
             />
-          </>
-        )}
+          )}
         {(contenidoVideo || isVideosSection) && (
           <>
             <script
