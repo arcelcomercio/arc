@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700;800&display=swap');
+
+
+$nav-height-active: 45px;
+$hi-font-primary: 'Encode Sans Condensed';
+$hi-font-secondary: 'Fira Sans';
+$hi-gray: #BFBFBF;
+
+.header-inverted-featured {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(224, 100, 55, 1) 50%, rgba(224, 100, 55, 1) 100%);
+  height: 64px;
+
+  &__btn-menu {
+    font-family: $hi-font-primary;
+    color: $hi-gray;
+    font-size: 14px;
+  }
+
+  &__icon-search {
+    color: $hi-gray;
+  }
+
+  &__band {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    margin-bottom: 1em;
+  }
+
+  &__tags {
+    font-size: 14px;
+    font-family: $hi-font-secondary;
+  }
+
+  &__features-link {
+    font-family: $hi-font-secondary;
+    font-size: 14px;
+    color: #333;
+  }
+
+
+
+  .nav {
+    &__mobile-logo {
+      top: -32px;
+
+      img {
+        height: 64px;
+      }
+    }
+  }
+
+  .nav-sidebar {
+    background-color: #000;
+    top: 64px;
+
+    &__link {
+      font-family: $hi-font-primary;
+    }
+  }
+
+
+
+}
