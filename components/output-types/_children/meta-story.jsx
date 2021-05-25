@@ -216,8 +216,7 @@ export default ({
         date = '',
         duration,
       } = {}) => {
-        date = 946702800001
-        if (date < 946702800000) {
+        if (!date || date < 946702800000) {
           date = getDateSeo(updateDate)
         } else {
           const dateObj = new Date(date)
