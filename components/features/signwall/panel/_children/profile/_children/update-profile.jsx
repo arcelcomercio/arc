@@ -4,24 +4,24 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 
-import * as React from 'react'
 import Consumer from 'fusion:consumer'
+import * as React from 'react'
 
-import Services from '../../../../_dependencies/services'
+import { Button, Text } from '../../../../_children/forms/styles'
+import { Close } from '../../../../_children/iconos'
+import Modal from '../../../../_children/modal'
+import Domains from '../../../../_dependencies/domains'
+import GetProfile from '../../../../_dependencies/get-profile'
+import { clean } from '../../../../_dependencies/object'
 import {
-  namesRegex,
-  numberRegex,
   docRegex,
   emailRegex,
+  namesRegex,
+  numberRegex,
   phoneRegex,
 } from '../../../../_dependencies/regex'
-import { clean } from '../../../../_dependencies/object'
-import GetProfile from '../../../../_dependencies/get-profile'
-import Domains from '../../../../_dependencies/domains'
+import Services from '../../../../_dependencies/services'
 import { FormGrid, FormGroup, Message } from './styled'
-import { Text, Button } from '../../../../_children/forms/styles'
-import Modal from '../../../../_children/modal'
-import { Close } from '../../../../_children/iconos'
 
 const SET_ATTRIBUTES_PROFILE = [
   'documentType',
@@ -39,17 +39,13 @@ const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
 class UpdateProfile extends React.Component {
   constructor(props) {
     super(props)
-    // const sociales = ['facebook', 'google']
     const { publicProfile } = new GetProfile()
     const { attributes = [] } = publicProfile
-    const _attrib = this.attributeToObject(attributes)
+    const attrProfile = this.attributeToObject(attributes)
 
     this._backup_attributes = Array.isArray(attributes)
       ? attributes.filter(({ name }) => !GET_ATTRIBUTES_PROFILE.includes(name))
       : []
-
-    // const { identities = [] } = publicProfile
-    // const [identitie = { type: 'Password' }] = identities || []
 
     const customVars = {
       showMsgSuccess: false,
@@ -69,7 +65,6 @@ class UpdateProfile extends React.Component {
       dataDepartments: [],
       dataProvinces: [],
       dataDistricts: [],
-      // disableNames: sociales.includes(identitie.type.toLowerCase()),
       formErrors: {
         firstName: '',
         lastName: '',
@@ -82,11 +77,11 @@ class UpdateProfile extends React.Component {
       loading: false,
       hasChange: false,
       textSubmit: 'GUARDAR CAMBIOS',
-      typeDocLenghtMax: _attrib.documentType !== 'dni' ? '15' : '8',
-      typeDocLenghtMin: _attrib.documentType !== 'dni' ? '5' : '8',
-      typeDoc: _attrib.documentType !== 'dni' ? 'text' : 'numeric',
+      typeDocLenghtMax: attrProfile.documentType !== 'dni' ? '15' : '8',
+      typeDocLenghtMin: attrProfile.documentType !== 'dni' ? '5' : '8',
+      typeDoc: attrProfile.documentType !== 'dni' ? 'text' : 'numeric',
       ...publicProfile,
-      ..._attrib,
+      ...attrProfile,
       ...customVars,
     }
   }
@@ -153,17 +148,13 @@ class UpdateProfile extends React.Component {
     }
     const result = Services.getUbigeo(value)
 
-    result
-      .then(geoData => {
-        const GeoUpper = geo.charAt(0).toUpperCase() + geo.slice(1)
-        Object.assign(state, {
-          [`data${GeoUpper}s`]: geoData,
-        })
-        this.setState(state)
+    result.then((geoData) => {
+      const GeoUpper = geo.charAt(0).toUpperCase() + geo.slice(1)
+      Object.assign(state, {
+        [`data${GeoUpper}s`]: geoData,
       })
-      .catch(() => {
-        // window.console.error()
-      })
+      this.setState(state)
+    })
   }
 
   getAtributes = (state, list = []) => {
@@ -211,7 +202,7 @@ class UpdateProfile extends React.Component {
     profile.attributes = [
       ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
       ...this._backup_attributes,
-    ].map(attribute => {
+    ].map((attribute) => {
       if (attribute.name === 'originReferer' && attribute.value) {
         return {
           ...attribute,
@@ -262,7 +253,7 @@ class UpdateProfile extends React.Component {
 
           this.dispatchEvent('profileUpdate', profile)
         })
-        .catch(errUpdate => {
+        .catch((errUpdate) => {
           if (errUpdate.code === '100018') {
             this.setState({
               showModalConfirm: true,
@@ -295,7 +286,7 @@ class UpdateProfile extends React.Component {
     }
   }
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     if (e.target.name === 'mobilePhone') {
       this.setState({
         contacts: [{ type: 'PRIMARY', phone: e.target.value }],
@@ -309,7 +300,7 @@ class UpdateProfile extends React.Component {
     }
   }
 
-  handleTypeDocument = e => {
+  handleTypeDocument = (e) => {
     e.preventDefault()
     const { value } = e.target
     let state = {}
@@ -366,7 +357,7 @@ class UpdateProfile extends React.Component {
     })
   }
 
-  changeValidationConfirm = e => {
+  changeValidationConfirm = (e) => {
     const { name, value } = e.target
     const { formErrorsConfirm } = this.state
     const space =
@@ -391,7 +382,7 @@ class UpdateProfile extends React.Component {
     }
   }
 
-  handleValidation = e => {
+  handleValidation = (e) => {
     const { name, value } = e.target
     const { formErrors } = this.state
     const { documentType } = this.state
@@ -511,7 +502,7 @@ class UpdateProfile extends React.Component {
     })
   }
 
-  onLogout = e => {
+  onLogout = (e) => {
     e.preventDefault()
     if (typeof window !== 'undefined') {
       const linkLogout = document.getElementById('web_link_cerrarsesion')
@@ -521,7 +512,7 @@ class UpdateProfile extends React.Component {
     }
   }
 
-  submitConfirmPassword = e => {
+  submitConfirmPassword = (e) => {
     e.preventDefault()
 
     const { formErrorsConfirm, currentPassword, email } = this.state
@@ -648,7 +639,7 @@ class UpdateProfile extends React.Component {
     return (
       <>
         <FormGrid
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault()
             this.handleUpdateProfile()
           }}>
@@ -669,7 +660,7 @@ class UpdateProfile extends React.Component {
                   {messageErrorDelete}
                   <a
                     href="#"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.preventDefault()
                       this.onLogout(e)
                     }}>
@@ -696,7 +687,7 @@ class UpdateProfile extends React.Component {
                 placeholder="Nombres"
                 noValidate
                 maxLength="50"
-                onChange={e => {
+                onChange={(e) => {
                   this.handleOnChange(e)
                   this.handleValidation(e)
                 }}
@@ -724,7 +715,7 @@ class UpdateProfile extends React.Component {
                 placeholder="Apellido Paterno"
                 noValidate
                 maxLength="50"
-                onChange={e => {
+                onChange={(e) => {
                   this.handleValidation(e)
                   this.handleOnChange(e)
                 }}
@@ -751,7 +742,7 @@ class UpdateProfile extends React.Component {
                 placeholder="Apellido Materno"
                 noValidate
                 maxLength="50"
-                onChange={e => {
+                onChange={(e) => {
                   this.handleValidation(e)
                   this.handleOnChange(e)
                 }}
@@ -781,7 +772,7 @@ class UpdateProfile extends React.Component {
                   defaultValue={
                     documentType ? documentType.toUpperCase() : 'default'
                   }
-                  onChange={e => {
+                  onChange={(e) => {
                     this.handleOnChange(e)
                     this.handleTypeDocument(e)
                     this.handleValidation(e)
@@ -812,11 +803,11 @@ class UpdateProfile extends React.Component {
                   minLength={typeDocLenghtMin}
                   maxLength={typeDocLenghtMax}
                   typedoc={typeDoc}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.handleOnChange(e)
                     this.handleValidation(e)
                   }}
-                  onBlur={e => this.handleValidation(e)}
+                  onBlur={(e) => this.handleValidation(e)}
                   defaultValue={documentNumber}
                   tabIndex="5"
                   disabled={!email}
@@ -834,7 +825,7 @@ class UpdateProfile extends React.Component {
                 name="civilStatus"
                 className="input input-minimal"
                 value={civilStatus ? civilStatus.toUpperCase() : 'default'}
-                onChange={e => {
+                onChange={(e) => {
                   this.handleOnChange(e)
                   this.handleValidation(e)
                 }}
@@ -864,7 +855,7 @@ class UpdateProfile extends React.Component {
                 placeholder="Número de Celular"
                 noValidate
                 maxLength="12"
-                onChange={e => {
+                onChange={(e) => {
                   this.handleOnChange(e)
                   this.handleValidation(e)
                 }}
@@ -887,7 +878,7 @@ class UpdateProfile extends React.Component {
                 name="country"
                 className="input input-minimal"
                 value={country || 'default'}
-                onChange={e => {
+                onChange={(e) => {
                   this.handleOnChange(e)
                   this._getUbigeo(e, 'department')
                   this.handleValidation(e)
@@ -908,7 +899,7 @@ class UpdateProfile extends React.Component {
                 name="department"
                 className="input input-minimal"
                 value={department || 'default'}
-                onChange={e => {
+                onChange={(e) => {
                   this.handleOnChange(e)
                   this._getUbigeo(e, 'province')
                   this.handleValidation(e)
@@ -934,7 +925,7 @@ class UpdateProfile extends React.Component {
                 name="province"
                 className="input input-minimal"
                 value={province || 'default'}
-                onChange={e => {
+                onChange={(e) => {
                   this.handleOnChange(e)
                   this._getUbigeo(e, 'district')
                   this.handleValidation(e)
@@ -962,7 +953,7 @@ class UpdateProfile extends React.Component {
                 name="district"
                 className="input input-minimal"
                 value={district || 'default'}
-                onChange={e => {
+                onChange={(e) => {
                   this.handleValidation(e)
                   this.handleOnChange(e)
                 }}
@@ -996,7 +987,7 @@ class UpdateProfile extends React.Component {
                 defaultValue={email}
                 tabIndex="12"
                 disabled={email !== null}
-                onChange={e => {
+                onChange={(e) => {
                   this.handleValidation(e)
                   this.handleOnChange(e)
                 }}
@@ -1030,13 +1021,13 @@ class UpdateProfile extends React.Component {
             <div className="text-right">
               <button
                 type="button"
-                onClick={e => this.togglePopupModalConfirm(e)}>
+                onClick={(e) => this.togglePopupModalConfirm(e)}>
                 <Close />
               </button>
             </div>
 
             <div className="modal-body__wrapper">
-              <FormGrid onSubmit={e => this.submitConfirmPassword(e)}>
+              <FormGrid onSubmit={(e) => this.submitConfirmPassword(e)}>
                 <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
                   Para realizar los cambios, por favor ingresa tu contraseña
                 </Text>
@@ -1054,7 +1045,7 @@ class UpdateProfile extends React.Component {
                     noValidate
                     maxLength="50"
                     autoComplete="off"
-                    onChange={e => {
+                    onChange={(e) => {
                       this.setState({ currentPassword: e.target.value })
                       this.changeValidationConfirm(e)
                     }}
