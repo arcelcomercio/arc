@@ -49,6 +49,11 @@ interface ContentElementAdditionalProperties {
   inline_comments: any[]
   _id: number
 }
+
+interface TypeListItems {
+  content: string
+  type: string
+}
 export interface ContentElement {
   _id: string
   type: ContentElementType
@@ -56,6 +61,7 @@ export interface ContentElement {
   content: string
   embed?: Embed
   subtype?: string
+  items?: TypeListItems[]
 }
 export interface Headlines {
   basic: string
