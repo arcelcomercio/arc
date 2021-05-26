@@ -1,7 +1,7 @@
 import React from 'react'
 import { FC } from 'types/features'
 
-import ShareButtons from '../../../../global-components/lite/share/social'
+import ShareButtons from '../../../../global-components/lite/share/buttons'
 import TProLbl from '../../../../global-components/trustprojectlabel'
 
 const classes = {
