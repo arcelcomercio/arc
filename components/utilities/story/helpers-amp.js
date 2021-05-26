@@ -37,10 +37,10 @@ export const publicidadAmp = ({
       `data-multi-size="${size}"
   data-multi-size-validation="false"`) ||
     ''
-
+  const adsLoadAmp = (SITE_PERU21 === arcSite && `data-loading-strategy="prefer-viewability-over-views"`) || ''
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
-  <amp-ad width="${width}" height="${height}" type="doubleclick"
+  <amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
   data-slot="${dataSlot}" ${nuevoScript} ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
@@ -67,6 +67,7 @@ export const publicidadAmpAd = ({
   const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
 
   const height2 = (movil1 === false && '600') || height
+  const adsLoadAmp = (SITE_PERU21 === arcSite && `data-loading-strategy="prefer-viewability-over-views"`) || ''
 
   const nuevoScript =
     (movil1 &&
@@ -77,7 +78,7 @@ export const publicidadAmpAd = ({
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `${flying1}
-  <amp-ad width="${width}" height="${height2}" type="doubleclick"
+  <amp-ad width="${width}" height="${height2}" ${adsLoadAmp} type="doubleclick"
   data-slot="${dataSlot}" ${nuevoScript} ${json} ${prebidAmp}></amp-ad>${flying2}`
   }
   return createMarkup(resultData)
@@ -89,9 +90,11 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '', prebidSlot = '' })
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
   const prebidAmp = (prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const adsLoadAmp = (SITE_PERU21 === arcSite && `data-loading-strategy="prefer-viewability-over-views"`) || ''
   resultData = `<amp-ad
     width="320"
     height="50"
+    ${adsLoadAmp}
     type="doubleclick"
     data-slot="${dataSlot}"
     ${json}
@@ -103,10 +106,11 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '', prebidSlot = '' })
 export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '', prebidSlot = '' }) => {
   let resultData = ''
   const prebidAmp = (prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
-
+  const adsLoadAmp = (SITE_PERU21 === arcSite && `data-loading-strategy="prefer-viewability-over-views"`) || ''
   resultData = `<amp-ad
     width="320"
     height="100"
+    ${adsLoadAmp}
     type="doubleclick"
     data-slot="${dataSlot}"
     ${prebidAmp}
