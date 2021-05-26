@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 const classes = {
   container: 'w-full nsb',
@@ -16,7 +16,8 @@ const StoryNextStoryButton = ({
   source = 'footer',
 }) => {
   const { arcSite, globalContent } = useAppContext()
-  const { primary_section: { path: section } = {} } = globalContent || {}
+  const { websites: websitesSec = {} } = globalContent || {}
+  const { website_section: { path: section } = {} } = websitesSec[arcSite] || {}
 
   const nextStory = useContent({
     source: 'story-by-section',
@@ -46,7 +47,8 @@ const StoryNextStoryButton = ({
         className={arrowClass || classes.arrow}>
         <path
           fill="#000"
-          d="M517.504 288l-194.272-194.272 45.248-45.248 271.52 271.52-271.52 271.52-45.248-45.248 194.272-194.272h-517.504v-64z"></path>
+          d="M517.504 288l-194.272-194.272 45.248-45.248 271.52 271.52-271.52 271.52-45.248-45.248 194.272-194.272h-517.504v-64z"
+        />
       </svg>
     </a>
   )

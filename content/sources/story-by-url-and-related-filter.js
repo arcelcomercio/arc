@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { ARC_ACCESS_TOKEN, CONTENT_BASE } from 'fusion:environment'
 import request from 'request-promise-native'
-import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
+
 import RedirectError from '../../components/utilities/redirect-error'
 import { storyContent } from '../filters/story-content'
 
@@ -43,7 +44,7 @@ const fetch = ({
   return request({
     uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${section}${websiteUrl}&website=${website}${excludedFieldsStory}`,
     ...options,
-  }).then(storyResp => {
+  }).then((storyResp) => {
     const {
       related_content: {
         redirect: [

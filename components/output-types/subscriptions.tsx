@@ -33,15 +33,21 @@ const Subscriptions: OT<OutputProps> = ({
   const GTMContainer =
     env === PROD ? googleTagManagerId : googleTagManagerIdSandbox
 
-  const isExternalCounter = () =>
-    /\/paywall-counter-external\//.test(requestUri)
+  const isExternalCounter = /\/paywall-counter-external\//.test(requestUri)
+  const isEmpresaPage = /^\/[a-z-]+\/empresa\//.test(requestUri)
+  const isFaqsPage = /^\/[a-z-]+\/faqs\//.test(requestUri)
+  const isSubscriptionPage = /^\/suscripciones\//.test(requestUri)
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
+  const stylesheet =
+    isEmpresaPage || isFaqsPage || isSubscriptionPage
+      ? 'subs-landing'
+      : 'subs-payment'
 
   return (
     <>
-      {isExternalCounter() ? (
+      {isExternalCounter ? (
         <html lang="es">
           <head>
             <title>Contador Externo Paywall</title>
@@ -110,13 +116,19 @@ const Subscriptions: OT<OutputProps> = ({
             <link
               rel="stylesheet"
               href={deployment(
-                `${contextPath}/resources/dist/${arcSite}/css/subscriptions.css`
+                `${contextPath}/resources/dist/${arcSite}/css/${stylesheet}.css`
               )}
             />
             <script
               src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
               defer
             />
+            {isEmpresaPage && (
+              <script
+                src="https://www.google.com/recaptcha/api.js?hl=es"
+                defer
+              />
+            )}
             <FinallyPolyfill />
           </head>
           <body>

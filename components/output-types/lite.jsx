@@ -11,7 +11,8 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
   SITE_PERU21G21,
-  SITE_TROME, 
+  SITE_TROME,
+  SITE_GESTION, 
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -75,15 +76,27 @@ const LiteOutput = ({
     deployment,
   }
   const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const {
+    videoSeo,
+    idYoutube,
+    contentElementsHtml,
+    oembedSubtypes,
+    embedTwitterAndInst,
+    getPremiumValue,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+    primarySectionLink: storySectionPath,
+    jwplayerSeo,
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
 
   const {
     credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: promoItems = {},
-    taxonomy: {
-      primary_section: { path: storySectionPath = '' } = {},
-      tags = [],
-    } = {},
+    taxonomy: { tags = [] } = {},
     subtype = '',
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
@@ -181,20 +194,6 @@ const LiteOutput = ({
     arcSite,
   }
 
-  const {
-    videoSeo,
-    idYoutube,
-    contentElementsHtml,
-    oembedSubtypes,
-    embedTwitterAndInst,
-    getPremiumValue,
-    promoItems: { basic_html: { content = '' } = {} } = {},
-    jwplayerSeo,
-  } = new StoryData({
-    data: globalContent,
-    arcSite,
-    contextPath,
-  })
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
     idYoutube ||
@@ -449,6 +448,7 @@ const LiteOutput = ({
           section={storySectionPath.split('/')[1]}
           subtype={subtype}
         />
+
         <Styles {...metaSiteData} />
         {!isIframeStory ? (
           <>
@@ -521,6 +521,31 @@ const LiteOutput = ({
           </>
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
+        {/* ============== WebTracking */}
+        { arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ?(
+          <>
+            <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+            )}
+            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"></script>
+          </>
+        ):null}
+
+        { arcSite === SITE_GESTION && requestUri.includes('/economia/') ?(
+          <>
+            <script
+            defer
+            src={deployment(
+              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+            )}
+            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"></script>
+          </>
+        ):null}
+        {/* ============== WebTracking */}
       </head>
       <body
         className={classBody}

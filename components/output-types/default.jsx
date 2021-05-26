@@ -1,56 +1,54 @@
-import * as React from 'react'
 import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 
-import Styles from './_children/styles'
-import MetaSite from './_children/meta-site'
-import TwitterCards from './_children/twitter-cards'
-import OpenGraph from './_children/open-graph'
-import TagManager from './_children/tag-manager'
-import renderMetaPage from './_children/render-meta-page'
-import AppNexus from './_children/appnexus'
-import Dfp from './_children/dfp'
-import ChartbeatBody from './_children/chartbeat-body'
-import RegisterServiceWorker from './_children/register-service-worker'
-import WebVitals from './_children/web-vitals'
-
-// import Preconnects from './_children/preconnects'
-
-import StoryData from '../utilities/story-data'
-import { storyTagsBbc } from '../utilities/tags'
-import { addSlashToEnd, ifblogType } from '../utilities/parse/strings'
-import { deleteQueryString } from '../utilities/parse/queries'
-import { getAssetsPath } from '../utilities/assets'
 import { getPreroll } from '../utilities/ads/preroll'
+import { getAssetsPath } from '../utilities/assets'
+import { PREMIUM } from '../utilities/constants/content-tiers'
+import { META_HOME } from '../utilities/constants/meta'
 import {
+  SITE_DEPOR,
+  SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
-  SITE_DEPOR,
+  SITE_OJO,
   SITE_PERU21G21,
   SITE_TROME,
-  SITE_OJO,
-  SITE_ELBOCON,
+  SITE_GESTION,
 } from '../utilities/constants/sitenames'
-import { META_HOME } from '../utilities/constants/meta'
-
 import {
-  skipAdvertising,
-  getIsStory,
-  getTitle,
-  getDescription,
-  getKeywords,
-} from './_dependencies/utils'
-import { getPushud, getEnablePushud } from './_dependencies/pushud'
-import iframeScript from './_dependencies/iframe-script'
+  GALLERY_VERTICAL,
+  MINUTO_MINUTO,
+} from '../utilities/constants/subtypes'
+import { deleteQueryString } from '../utilities/parse/queries'
+import { addSlashToEnd, ifblogType } from '../utilities/parse/strings'
+// import Preconnects from './_children/preconnects'
+import StoryData from '../utilities/story-data'
+import { storyTagsBbc } from '../utilities/tags'
+import AppNexus from './_children/appnexus'
+import ChartbeatBody from './_children/chartbeat-body'
+import Dfp from './_children/dfp'
+import MetaSite from './_children/meta-site'
+import OpenGraph from './_children/open-graph'
+import RegisterServiceWorker from './_children/register-service-worker'
+import renderMetaPage from './_children/render-meta-page'
+import Styles from './_children/styles'
+import TagManager from './_children/tag-manager'
+import TwitterCards from './_children/twitter-cards'
+import WebVitals from './_children/web-vitals'
 import htmlScript from './_dependencies/html-script'
-import widgets from './_dependencies/widgets'
-import videoScript from './_dependencies/video-script'
+import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
+import { getEnablePushud, getPushud } from './_dependencies/pushud'
 import {
-  MINUTO_MINUTO,
-  GALLERY_VERTICAL,
-} from '../utilities/constants/subtypes'
-import { PREMIUM } from '../utilities/constants/content-tiers'
+  getDescription,
+  getIsStory,
+  getKeywords,
+  getTitle,
+  skipAdvertising,
+} from './_dependencies/utils'
+import videoScript from './_dependencies/video-script'
+import widgets from './_dependencies/widgets'
 
 export default ({
   children,
@@ -89,15 +87,16 @@ export default ({
     credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: promoItems = {},
-    taxonomy: {
-      primary_section: { path: storySectionPath = '' } = {},
-      tags = [],
-    } = {},
+    taxonomy: { tags = [] } = {},
+    websites,
     subtype = '',
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
     page_number: pageNumber = 1,
   } = globalContent || {}
+
+  const { website_section: { path: storySectionPath = '' } = {} } =
+    websites?.[arcSite] || {}
 
   const sectionPath = nodeType === 'section' ? id : storySectionPath
   const isStory = getIsStory({ metaValue, requestUri })
@@ -145,6 +144,7 @@ export default ({
 
   if (arcSite === SITE_ELCOMERCIO) {
     if (/^\/suscriptor-digital/.test(requestUri)) classBody = `section-premium`
+    else if (/^\/saltar-intro/.test(requestUri)) classBody = `saltar-intro`
   }
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
@@ -193,6 +193,16 @@ export default ({
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
+  const getAfsStyle = () => {
+    let styleAfsId = ''
+    if (arcSite === SITE_DEPOR) {
+      styleAfsId = '9799771650'
+    } else if (arcSite === SITE_GESTION) {
+      styleAfsId = '2165195451'
+    }
+    return styleAfsId
+  }
+  const styleIdAfsGo = getAfsStyle()
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -522,21 +532,22 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {arcSite === SITE_DEPOR && isSearchSection && (
-          <>
-            <script
-              async="async"
-              src="https://www.google.com/adsense/search/ads.js"
-            />
-            <script
-              type="text/javascript"
-              charset="utf-8"
-              dangerouslySetInnerHTML={{
-                __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`,
-              }}
-            />
-          </>
-        )}
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
+          isSearchSection && (
+            <>
+              <script
+                async="async"
+                src="https://www.google.com/adsense/search/ads.js"
+              />
+              <script
+                type="text/javascript"
+                charset="utf-8"
+                dangerouslySetInnerHTML={{
+                  __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`,
+                }}
+              />
+            </>
+          )}
         {/* Scripts de AdManager */}
         {!noAds && (
           <>
@@ -617,6 +628,31 @@ export default ({
           </>
         )}
         <TagManager {...siteProperties} />
+        {/* ============== WebTracking */}
+        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
+          <>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
+            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"></script>
+          </>
+        ) : null}
+
+        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
+          <>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
+            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"></script>
+          </>
+        ) : null}
+        {/* ============== WebTracking */}
       </head>
       <body
         className={classBody}
@@ -673,6 +709,14 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
+          isSearchSection && (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `"use strict";!function(){var e="";null!=document.querySelector("input.search-input")&&(e=document.querySelector("input.search-input").value);_googCsa("ads",{pubId:"partner-pub-8088376505685131",query:e,styleId:"${styleIdAfsGo}"},{container:"afs_container_1"})}();`,
+              }}
+            />
+          )}
         {(contenidoVideo || isVideosSection) && (
           <>
             <script
@@ -725,30 +769,30 @@ export default ({
         )}
         {subtype === GALLERY_VERTICAL && (
           <Resource path="resources/assets/js/vertical-gallery.min.js">
-            {({ data }) => {
-              return data ? (
+            {({ data }) =>
+              data ? (
                 <script
                   dangerouslySetInnerHTML={{
                     __html: data,
                   }}
                 />
               ) : null
-            }}
+            }
           </Resource>
         )}
 
         {(hasYoutubeVideo || isVideosSection) && (
           <>
             <Resource path="resources/assets/lite-youtube/styles.min.css">
-              {({ data }) => {
-                return data ? (
+              {({ data }) =>
+                data ? (
                   <style
                     dangerouslySetInnerHTML={{
                       __html: data,
                     }}
                   />
                 ) : null
-              }}
+              }
             </Resource>
             <script
               defer

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Plugin</title>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <style>
+      code {
+        overflow: auto;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .save {
+        background-color: #28a745;
+        color: #fff;
+      }
+
+      .danger {
+        background-color: #dc3545;
+        color: #fff;
+      }
+
+      .close {
+        background-color: #6c757d;
+        color: #fff;
+      }
+
+      .btn-add {
+        font-size: 20px;
+        border-radius: 50%;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .btn-link {
+        color: #dc3545;
+        cursor: pointer;
+      }
+
+      .btn-link:hover {
+        text-decoration: underline;
+      }
+
+      .row {
+        padding: 5px 0;
+      }
+
+      .item-cont {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .item-cont button {
+        margin: 0;
+      }
+
+      .arrows-cont {
+        display: flex;
+        flex-direction: column;
+        margin-right: 5px;
+      }
+
+      .arrows-cont svg {
+        height: 10px;
+        fill: #555;
+      }
+
+      .arrows-cont svg:first-child {
+        margin-bottom: 3px;
+      }
+
+      .arrows-cont svg:hover {
+        fill: #33c3f0;
+      }
+
+      .back {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container" x-data="data()" x-init="init">
+      <!-- Botones de navegación -->
+      <div
+        x-on:click="page = ''"
+        x-show="page !== '' && page !== 'edit' && page !== 'new'"
+        class="back"
+      >
+        <svg
+          style="margin: 10px"
+          width="10"
+          height="16"
+          viewBox="0 0 10 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.13238 1.90245L7.79738 0.574951L0.379883 7.99995L7.80488 15.4249L9.13238 14.0974L3.03488 7.99995L9.13238 1.90245V1.90245Z"
+            fill="#33C3F0"
+          />
+        </svg>
+        <span style="color: #33c3f0; font-size: 12px; font-weight: bold"
+          >REGRESAR</span
+        >
+      </div>
+
+      <!-- Página principal -->
+      <div x-show="page === ''">
+        <h4 style="text-align: center; padding: 20px 0">
+          Selecciona el elemento que deseas incertar
+        </h4>
+        <div style="text-align: center; margin-top: 10px">
+          ELEMENTOS PARA MEDIOS DESTACADOS:
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+          <button style="margin: 15px" x-on:click="page = 'featured'">
+            Portada
+          </button>
+        </div>
+        <div style="text-align: center; margin-top: 20px">
+          ELEMENTOS PARA EL CONTENIDO:
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap">
+          <button style="margin: 15px" x-on:click="page = 'section'">
+            Sección
+          </button>
+        </div>
+      </div>
+
+      <!-- Página featured -->
+      <div x-show="page === 'featured'">
+        <h4>Editor de portada</h4>
+        <div class="row">
+          <label class="two columns" for="section">Título superior:</label>
+          <input class="ten columns" type="text" x-model="featured.name" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section">Título principal:</label>
+          <input class="ten columns" type="text" x-model="featured.title" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section">Título inferior:</label>
+          <input
+            class="ten columns"
+            type="text"
+            x-model="featured.description"
+          />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section"
+            >Texto de ayuda para el lista:</label
+          >
+          <input class="ten columns" type="text" x-model="featured.text" />
+        </div>
+        <button class="button-primary" x-on:click="sendData()">Guardar</button>
+        <div style="margin: 20px 0">
+          <h5
+            style="
+              border-bottom: 1px solid #000;
+              border-top: 1px solid #000;
+              margin: 30px 0;
+            "
+          >
+            Previsualización
+          </h5>
+          <div
+            style="
+              margin: 20px 0;
+              background-color: #080808;
+              color: #fff;
+              text-align: center;
+              padding: 20px;
+            "
+          >
+            <div
+              x-text="featured.name"
+              style="color: #eed27c; font-size: 26px"
+            ></div>
+            <div
+              x-text="featured.title"
+              style="color: #eed27c; font-size: 150px; line-height: 1"
+            ></div>
+            <div
+              x-text="featured.description"
+              style="font-size: 36px; margin-bottom: 50px"
+            ></div>
+            <div x-text="featured.text" style="font-size: 18px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página section -->
+      <div x-show="page === 'section'">
+        <h4>Editor de sección</h4>
+        <div class="row">
+          <label class="two columns" for="section">Nombre de la sección:</label>
+          <input class="ten columns" type="text" x-model="section.name" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section"
+            >Texto superior sección:</label
+          >
+          <input class="ten columns" type="text" x-model="section.text" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="url">Imagen de la sección:</label>
+          <input class="ten columns" type="text" x-model="section.image.url" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="Caption">Caption de la imagen:</label>
+          <input
+            class="ten columns"
+            type="text"
+            x-model="section.image.caption"
+          />
+        </div>
+
+        <h5 style="margin-top: 10px">Stories:</h5>
+
+        <template x-for="(item, index) in section.stories" :key="index">
+          <div class="item-cont">
+            <div class="arrows-cont">
+              <svg
+                x-on:click="if(index !== 0) arrayMove(section.stories, index, index - 1)"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19.999"
+                height="14.973"
+                viewBox="0 0 19.999 14.973"
+              >
+                <path
+                  d="M1,14.973H19a1,1,0,0,0,.823-1.569l-9-13A1.039,1.039,0,0,0,9.179.4l-9,13A1,1,0,0,0,1,14.973ZM10,2.73l7.092,10.243H2.909Z"
+                />
+              </svg>
+              <svg
+                x-on:click="if(index !== (section.stories.length - 1)) arrayMove(section.stories, index, index + 1)"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19.998"
+                height="15.001"
+                viewBox="0 0 19.998 15.001"
+              >
+                <path
+                  d="M19.884.536A1,1,0,0,0,19,0H1A1,1,0,0,0,.176,1.569l9,13a1,1,0,0,0,1.644,0l9-13A1,1,0,0,0,19.884.536ZM10,12.243,2.906,2H17.09Z"
+                />
+              </svg>
+            </div>
+            <button
+              x-on:click="currentStoryEdit = index; newStory = item; page = 'edit'"
+              x-text="item.title"
+            ></button>
+          </div>
+        </template>
+
+        <button class="btn-add button-primary" x-on:click="page = 'new'">
+          +
+        </button>
+
+        <div style="margin-top: 35px">
+          <button class="button-primary" x-on:click="sendData()">
+            Guardar
+          </button>
+        </div>
+
+        <div style="margin: 20px 0">
+          <h5
+            style="
+              border-bottom: 1px solid #000;
+              border-top: 1px solid #000;
+              margin: 30px 0;
+            "
+          >
+            Previsualización
+          </h5>
+          <div>PATH: <span x-text="`/${section.url}`"></span></div>
+          <div style="background-color: #eed27c; padding: 10px">
+            <div x-text="section.text"></div>
+            <div
+              x-text="section.name"
+              style="font-weight: bold; font-size: 1.8rem"
+            ></div>
+          </div>
+          <img :src="section.image.url" alt="" style="width: 100%" />
+          <div x-text="section.image.caption"></div>
+          <div style="margin-top: 50px">
+            <template x-for="(item, index) in section.stories" :key="index">
+              <div style="margin: 20px 0">
+                <div
+                  x-text="item.date"
+                  style="
+                    display: inline-block;
+                    background-color: #eed27c;
+                    padding: 5px 15px;
+                    margin-bottom: 10px;
+                  "
+                ></div>
+                <div x-text="item.title" style="margin-bottom: 10px"></div>
+                <img
+                  x-show="item.image.url"
+                  :src="item.image.url"
+                  alt=""
+                  style="width: 100%"
+                />
+                <div
+                  x-show="item.image.caption"
+                  x-text="item.image.caption"
+                  style="margin-bottom: 20px"
+                ></div>
+                <div x-text="item.description"></div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página edit o new -->
+      <div x-show="page === 'edit' || page === 'new'">
+        <div style="display: flex">
+          <h4
+            x-text="page === 'edit' ? 'Editar historia' : 'Nueva Historia'"
+          ></h4>
+          <button
+            x-show="page === 'edit'"
+            x-on:click="section.stories.splice(currentStoryEdit, 1);resetStoryEditor()"
+            style="margin: 10px 0 25px 30px"
+            class="danger"
+          >
+            Eliminar Historia
+          </button>
+        </div>
+
+        <div class="row">
+          <label class="two columns" for="section">Titulo:</label>
+          <input class="ten columns" type="text" x-model="newStory.title" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section">URL (opcional):</label>
+          <input class="ten columns" type="text" x-model="newStory.url" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section">Fecha:</label>
+          <input class="ten columns" type="text" x-model="newStory.date" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section">Descripcion:</label>
+          <textarea
+            class="ten columns"
+            name="desc"
+            id="desc"
+            cols="30"
+            x-model="newStory.description"
+          ></textarea>
+        </div>
+        <div class="row">
+          <label class="two columns" for="section"
+            >Imagen URL (opcional):</label
+          >
+          <input class="ten columns" type="text" x-model="newStory.image.url" />
+        </div>
+        <div class="row">
+          <label class="two columns" for="section"
+            >Imagen Caption (opcional):</label
+          >
+          <input
+            class="ten columns"
+            type="text"
+            x-model="newStory.image.caption"
+          />
+        </div>
+        <div style="margin: 20px 0">
+          <button
+            class="button-primary"
+            x-on:click="if(page === 'new'){section.stories.push(newStory)}else{section.stories[currentStoryEdit] = newStory};resetStoryEditor()"
+          >
+            Guardar
+          </button>
+          <button class="close" x-on:click="resetStoryEditor()">
+            Cancelar
+          </button>
+        </div>
+        <div style="margin: 20px 0">
+          <h5
+            style="
+              border-bottom: 1px solid #000;
+              border-top: 1px solid #000;
+              margin: 30px 0;
+            "
+          >
+            Previsualización
+          </h5>
+          <div
+            x-text="newStory.date"
+            style="
+              display: inline-block;
+              background-color: #eed27c;
+              padding: 5px 15px;
+              margin-bottom: 10px;
+            "
+          ></div>
+          <div x-text="newStory.title" style="margin-bottom: 10px"></div>
+          <img
+            x-show="newStory.image.url"
+            :src="newStory.image.url"
+            alt=""
+            style="width: 100%"
+          />
+          <div
+            x-show="newStory.image.caption"
+            x-text="newStory.image.caption"
+            style="margin-bottom: 20px"
+          ></div>
+          <div x-text="newStory.description"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function data() {
+        return {
+          init() {
+            this.$watch(
+              "section.name",
+              (value) => (this.section.url = this.slugify(value))
+            );
+            const parameters = Object.assign(
+              {
+                wait: 0,
+              },
+              this.parseQueryString()
+            );
+            // Emulate wait time
+            setTimeout(() => {
+              this.sendMessage("ready", {
+                height: document.documentElement.scrollHeight,
+              });
+            }, Number.parseInt(parameters.wait));
+
+            const jsonData = JSON.parse(
+              decodeURIComponent(parameters.p).replace(/\+/g, " ")
+            );
+            console.log(jsonData);
+            this.page = jsonData.config.block;
+            this[this.page] = jsonData.config.data;
+          },
+          sendMessage(action, data) {
+            window.parent.postMessage(
+              JSON.stringify({
+                source: "custom_embed",
+                action,
+                data,
+                key: this.parseQueryString()["k"],
+              }),
+              "*"
+            );
+          },
+          parseQueryString() {
+            const params = location.search.split("?")[1] || "";
+            const kv = params.split("&");
+            return kv.reduce((result, item) => {
+              const [key, value] = item.split("=");
+              return Object.assign(result, {
+                [key]: value,
+              });
+            }, {});
+          },
+          sendData() {
+            this.sendMessage("data", {
+              id: "no-fetch",
+              url: "/",
+              config: {
+                block: this.page,
+                data: this[this.page],
+              },
+            });
+          },
+          page: "",
+          section: {
+            name: "",
+            url: "",
+            text: "",
+            image: {
+              url: "",
+              caption: "",
+            },
+            stories: [],
+          },
+          newStory: {
+            title: "",
+            date: "",
+            description: "",
+            image: {
+              url: "",
+              caption: "",
+            },
+            url: "",
+          },
+          currentStoryEdit: null,
+          resetStoryEditor: function () {
+            this.currentStoryEdit = null;
+            this.page = "section";
+            this.newStory = { image: {} };
+          },
+          featured: {
+            name: "RESUMEN DEL AÑO",
+            title: "2020",
+            description: "Las noticias más impactantes del Perú y el Mundo",
+            text: "Selecciona un mes:",
+          },
+          slugify: function (str) {
+            {
+              let slug = str;
+              const from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+              const to = "aaaaeeeeiiiioooouuuunc------";
+
+              for (let i = 0; i < from.length; i++) {
+                slug = slug.replace(
+                  new RegExp(from.charAt(i), "g"),
+                  to.charAt(i)
+                );
+              }
+
+              return slug
+                .trim()
+                .replace(/\s+/g, "-") // Replace spaces with -
+                .replace(/[^\w-]+/g, "") // Remove all non-word chars
+                .replace(/--+/g, "-") // Replace multiple - with single -
+                .replace(/^-+/, "") // Trim - from start of text
+                .replace(/-+$/, "") // Trim - from end of text
+                .toLowerCase();
+            }
+          },
+          arrayMove: function (arr, old_index, new_index) {
+            if (new_index >= arr.length) {
+              var k = new_index - arr.length + 1;
+              while (k--) {
+                arr.push(undefined);
+              }
+            }
+            arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+            return arr; // for testing
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

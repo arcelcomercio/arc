@@ -1,9 +1,11 @@
 .story-continue {
   &__story-load-image {
-    background-image: url($assets_url+"/resources/dist/ojo/images/loader.png");
+    background-image: url("#{$assets_url}/resources/dist/ojo/images/loader.png");
     width: 53px;
     height: 37px;
     background-size: cover;
+    top: 33px;
+    left: 26px;
   }
   &__counter {
     &::after {
@@ -12,9 +14,5 @@
   }
   &__progress {
     background: linear-gradient(to bottom, $color-primary 0, $color-white 100%);
-  }
-  &__story-load-image {
-    top: 33px;
-    left: 26px;
   }
 }

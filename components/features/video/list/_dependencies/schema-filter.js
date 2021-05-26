@@ -1,11 +1,7 @@
-export default arcSite => {
-  return `{
+export default (arcSite) => `{
     content_elements {
-      websites { ${arcSite} { website_url } }
+      websites { ${arcSite} { website_url website_section{name path} } }
       headlines { basic }
-      taxonomy {
-        primary_section { name path }
-      }
       promo_items {
         basic { url type resized_urls { landscape_md lazy_default  } }
         basic_jwplayer {
@@ -39,4 +35,3 @@ export default arcSite => {
     }
     next
   }`
-}

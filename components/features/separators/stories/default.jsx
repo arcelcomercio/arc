@@ -1,22 +1,21 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
-import { separatorStoriesFields } from '../../../utilities/included-fields'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
-
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
+import { separatorStoriesFields } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 import Separator from './_children/separator'
 import SeparatorOpt from './_children/separator-opt'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 /**
- * 
- * @param {*} props 
+ *
+ * @param {*} props
  * @todo analizar bien los tamanos de las imagenes para los children
  */
-const SeparatorStories = props => {
+const SeparatorStories = (props) => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -29,6 +28,11 @@ const SeparatorStories = props => {
       isSeeMoreVisible,
       isImageVisible,
       responsive = 'complete',
+      isDeporBetsDesign,
+      deporBetsText,
+      deporBetsImg,
+      deporBetsUrl,
+      deporBetsAlt,
     } = {},
   } = props
 
@@ -73,7 +77,7 @@ const SeparatorStories = props => {
   /**
    * @type {Array<StoriesSeparatorStory>}
    */
-  const stories = contentElements.map(story => {
+  const stories = contentElements.map((story) => {
     storyData._data = story
     const {
       id,
@@ -109,7 +113,12 @@ const SeparatorStories = props => {
     isImageVisible,
     responsive,
     requestUri,
-    arcSite
+    arcSite,
+    isDeporBetsDesign,
+    deporBetsText,
+    deporBetsImg,
+    deporBetsUrl,
+    deporBetsAlt,
   }
 
   return arcSite === SITE_ELCOMERCIO ? (

@@ -1,20 +1,18 @@
-import * as React from 'react'
-import { useFusionContext } from 'fusion:context'
 import * as Sentry from '@sentry/browser'
+import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
 
+import addScriptAsync from '../../../utilities/script-async'
+import Forgot from '../_children/forgot'
 import Login from '../_children/login'
 import Register from '../_children/register'
-import Forgot from '../_children/forgot'
-import { NavigateProvider, NavigateConsumer } from '../_context/navigate'
 import { AuthProvider } from '../_context/auth'
-import addScriptAsync from '../_dependencies/Async'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
+import { NavigateConsumer, NavigateProvider } from '../_context/navigate'
 import { deleteCookie } from '../_dependencies/Cookies'
-import { Container, Wrapper, PanelLeft } from '../_layouts/containers'
-import stylesPayment from '../_styles/Payment'
-
-import Header from './_children/header'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { Container, PanelLeft, Wrapper } from '../_layouts/containers'
 import CallToActionFia from './_children/call_to_action'
+import Header from './_children/header'
 
 const renderTemplate = (template, contTempl, attributes) => {
   const templates = {
@@ -38,7 +36,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   const { links } = PropertiesCommon
   const [isLogged, setLogged] = React.useState(false)
 
-  const handleCallToAction = status => {
+  const handleCallToAction = (status) => {
     setLogged(status)
   }
 
@@ -84,7 +82,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
       .then(() => {
         window.Identity.options({ apiOrigin: urls.arcOrigin })
       })
-      .catch(errIdentitySDK => {
+      .catch((errIdentitySDK) => {
         Sentry.captureEvent({
           message: 'SDK Identity no ha cargado correctamente',
           level: 'error',
@@ -95,8 +93,6 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: stylesPayment[arcSite] }} />
-
       <Header {...{ arcSite, mainColorBg, buttonBack }} />
       <Container>
         <Wrapper>

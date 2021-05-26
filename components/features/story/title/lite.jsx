@@ -1,10 +1,9 @@
+import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
-import { useFusionContext } from 'fusion:context'
-
-import PremiumTag from './_children/premium'
-import StoryData from '../../../utilities/story-data'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
+import StoryData from '../../../utilities/story-data'
+import PremiumTag from './_children/premium'
 
 const classes = {
   description: 'sht__summary',
@@ -25,9 +24,9 @@ const StoryTitleLite = () => {
     contentElementsListOne: { items = [], type = '' } = {},
   } = new StoryData({
     data,
+    arcSite,
     contextPath,
   })
-
   return (
     <>
       {arcSite === SITE_DEPOR && (
@@ -41,13 +40,11 @@ const StoryTitleLite = () => {
       {items && type === 'list' ? (
         <div style={{ ' margin-right': '20px;', 'margin-left': '20px;' }}>
           <ul className={classes.listClasses}>
-            {items.map(({ content }) => {
-              return (
-                <>
-                  <li dangerouslySetInnerHTML={{ __html: content }} />
-                </>
-              )
-            })}
+            {items.map(({ content }) => (
+              <>
+                <li dangerouslySetInnerHTML={{ __html: content }} />
+              </>
+            ))}
           </ul>
         </div>
       ) : (

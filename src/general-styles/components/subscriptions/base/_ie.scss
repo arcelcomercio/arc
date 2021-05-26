@@ -1,0 +1,131 @@
+@include device(tabletp) {
+  .grid-two-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-two-two {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .grid-two-one-buy {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-two-two-buy {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .grid-three-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-three-two {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .grid-three-three {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .grid-four-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-four-two {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .grid-four-three {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  .grid-four-four {
+    grid-row: 2;
+    grid-column: 2;
+  }
+}
+
+@include device(tabletl) {
+  .grid-two-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-two-two {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .grid-three-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-three-two {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .grid-three-three {
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .grid-four-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-four-two {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .grid-four-three {
+    grid-row: 1;
+    grid-column: 3;
+  }
+  .grid-four-four {
+    grid-row: 2;
+    grid-column: 2;
+  }
+}
+
+@include device(desktop) {
+  .grid-two-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-two-two {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .grid-three-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-three-two {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .grid-three-three {
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .grid-four-one {
+    grid-row: 1;
+    grid-column: 1;
+  }
+  .grid-four-two {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .grid-four-three {
+    grid-row: 1;
+    grid-column: 3;
+  }
+  .grid-four-four {
+    grid-row: 1;
+    grid-column: 4;
+  }
+}

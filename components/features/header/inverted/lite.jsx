@@ -1,13 +1,17 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../utilities/constants/sitenames'
 import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_lite/_dependencies/schema-filter'
 import HeaderBasicChildren from './_lite/_children/header'
+import schemaFilter from './_lite/_dependencies/schema-filter'
 
-const HeaderBasic = props => {
+const HeaderBasic = (props) => {
   const {
     arcSite,
     contextPath,
@@ -22,8 +26,11 @@ const HeaderBasic = props => {
 
   const {
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-    taxonomy: { primary_section: { path: sectionPath = '' } = {} } = {},
+    websites = {},
   } = globalContent || {}
+
+  const { website_section: { path: sectionPath = '' } = {} } =
+    websites[arcSite] || {}
 
   const storyTitleRe = StoryMetaTitle || storyTitle
 
@@ -45,21 +52,48 @@ const HeaderBasic = props => {
       hierarchy: 'menu-default',
     },
     filter: schemaFilter,
-    transform: data => {
+    transform: (data) => {
       const { children: sections = [] } = data || {}
       return sections
     },
   })
+
+  const navSections =
+    useContent(
+      arcSite === SITE_GESTION
+        ? {
+            source: 'navigation-by-hierarchy',
+            query: {
+              website: arcSite,
+              hierarchy: 'header-default',
+            },
+            filter: schemaFilter,
+            transform: (data) => {
+              const { children: sections = [] } = data || {}
+              return sections
+            },
+          }
+        : {}
+    ) || []
+
+  const imagesBySite = {
+    [SITE_ELCOMERCIO]: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/elcomercio/images/logo.png?d=1`,
+    [SITE_GESTION]: `${getAssetsPath(
+      arcSite,
+      contextPath
+    )}/resources/dist/gestion/images/white-logo.png?d=1`,
+  }
 
   const isSomos = requestUri.includes('/somos/')
   const mainImage =
     customLogo ||
     (isSomos
       ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
-      : `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/elcomercio/images/logo.png?d=1`)
+      : imagesBySite[arcSite])
+
   const isPreview = /^\/preview\//.test(requestUri)
 
   return (
@@ -74,6 +108,8 @@ const HeaderBasic = props => {
       isSomos={isSomos}
       activeSticky={activeSticky}
       disableSignwall={isPreview}
+      storyTitle={storyTitle}
+      navSections={navSections}
       siteProperties={siteProperties}
     />
   )

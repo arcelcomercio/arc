@@ -22,6 +22,7 @@ import {
   ELEMENT_IMAGE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
+  ELEMENT_LIST,
   ELEMENT_OEMBED,
   ELEMENT_QUOTE,
   ELEMENT_RAW_HTML,
@@ -34,6 +35,7 @@ import {
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
   SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
 import {
@@ -288,8 +290,7 @@ class StoryContentAmp extends React.PureComponent {
           {isMetered &&
           activeRulesCounter &&
           activePaywall &&
-          arcSite === SITE_ELCOMERCIO &&
-          /^\/(tecnologia|somos|opinion)\//.test(requestUri) ? (
+          arcSite === SITE_GESTION ? (
             // Contador de paywall para AMP
             <amp-iframe
               width="1"
@@ -370,6 +371,11 @@ class StoryContentAmp extends React.PureComponent {
                 }
                 if (type === ELEMENT_TABLE) {
                   return <StoryContentChildTable data={element} type={type} />
+                }
+
+                // Condicion para mag sin lista - components/features/story/title/amp.jsx
+                if (type === ELEMENT_LIST && arcSite === SITE_ELCOMERCIOMAG) {
+                  return null
                 }
 
                 if (type === ELEMENT_GALLERY) {

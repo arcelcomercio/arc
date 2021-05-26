@@ -1,9 +1,10 @@
 import React from 'react'
-import StoryData from '../../utilities/story-data'
-import { getMultimediaAnalitycs } from '../../utilities/helpers'
-import { SITE_OJO } from '../../utilities/constants/sitenames'
 
-const getSite = site => {
+import { SITE_OJO } from '../../utilities/constants/sitenames'
+import { getMultimediaAnalitycs } from '../../utilities/helpers'
+import StoryData from '../../utilities/story-data'
+
+const getSite = (site) => {
   const sites = {
     elcomercio: 'eco',
     depor: 'dep',
@@ -50,6 +51,32 @@ const dataLayer = (
   });`
 }
 
+const userStatus = () => `var user_type = '';
+
+  if (window.localStorage.hasOwnProperty('ArcId.USER_INFO') && window.localStorage.getItem('ArcId.USER_INFO') !== '{}') {
+    user_type = 'lgdin';
+    var UUID_USER = JSON.parse(window.localStorage.getItem('ArcId.USER_INFO') || "{}").uuid;
+    var COUNT_USER = JSON.parse(window.localStorage.getItem('ArcP') || "{}")[UUID_USER];
+  
+    if (COUNT_USER && COUNT_USER.sub.p.length) {
+      user_type = 'paid';
+    }
+  } else {
+    var user_type = 'anon';
+  }`
+
+const dataLayerSomos = (id, title, isPremium, subsection, userStat) => `
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ 
+    'event' : 'ViewContent',
+    'content_ids' : '${id}',
+    'content_type' : 'product',
+    'content_name' : '${title}',
+    'content_paywall' : '${isPremium}',
+    'content_category' : '${subsection}',
+    'User_status' : ${userStat}
+  });`
+
 const getVars = (
   { globalContent, arcSite, isStory, requestUri, port = 'port1' },
   isGallery
@@ -63,6 +90,11 @@ const getVars = (
   let dataStory = ''
   let dataNucleoOrigen = ''
 
+  let notaId = ''
+  let titleSo = ''
+  let isPreSo = ''
+  let userStat = ''
+
   if (requestUri) {
     if (path === '/homepage') {
       section = 'home'
@@ -75,6 +107,7 @@ const getVars = (
       if (isStory && sectionList.length >= 3) {
         const {
           id,
+          title,
           multimediaType,
           primarySectionLink,
           getPremiumValue,
@@ -121,6 +154,11 @@ const getVars = (
           genderOrigen,
           author
         )
+
+        notaId = `${id}`
+        titleSo = `${title}`
+        isPreSo = `${isPremium}`
+        userStat = 'user_type'
       } else if (!isStory && sectionList.length >= 2 && path !== 'buscar') {
         subsection = sectionList[1].replace('-', '')
       }
@@ -131,15 +169,28 @@ const getVars = (
   if (section.match(/publirreportaje|publireportaje/) !== null && isStory)
     typeSpace = 'nota5'
   const scriptLayerType = arcSite === SITE_OJO ? scriptLayer : ''
+  const isSomos = requestUri.includes('/somos/')
   return `
     var type_space = '${typeSpace}'; var site = '${getSite(
     site
   )}'; var type_template = '${template}'; var section = '${section}'; var subsection = '${subsection}'; var path_name = '${path}';
     ${dataStory} 
-    ${dataNucleoOrigen}; ${scriptLayerType}`
+    ${dataNucleoOrigen}; ${scriptLayerType} 
+    ${
+      isSomos
+        ? `${userStatus()} ${dataLayerSomos(
+            notaId,
+            titleSo,
+            isPreSo,
+            subsection,
+            userStat
+          )}`
+        : ''
+    }
+    `
 }
 
-const AppNexus = props => {
+const AppNexus = (props) => {
   const { isStory, globalContent } = props
   const isGallery = isStory && getTypeStory(globalContent)
   const data = getVars(props, isGallery)

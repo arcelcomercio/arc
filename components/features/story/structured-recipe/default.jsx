@@ -44,22 +44,22 @@ const StructuredRecipe = () => {
     }) || {}
 
   const seoKeyWordsStructurada = seoKeywords.map(
-    item => `"${formatHtmlToText(item)}"`
+    (item) => `"${formatHtmlToText(item)}"`
   )
   const listItemsTagsKeywords = tags.map(
     ({ description }) => `"${formatHtmlToText(description)}"`
   )
   const keywordsList = `[${
     seoKeyWordsStructurada[0]
-      ? seoKeyWordsStructurada.map(item => item)
-      : listItemsTagsKeywords.map(item => item)
+      ? seoKeyWordsStructurada.map((item) => item)
+      : listItemsTagsKeywords.map((item) => item)
   }]`
 
-  const clearBrTag = paragraph => {
+  const clearBrTag = (paragraph) => {
     return nbspToSpace(paragraph.trim().replace(/<\/?br[^<>]+>/, ''))
   }
 
-  const clearHtml = paragraph => {
+  const clearHtml = (paragraph) => {
     return nbspToSpace(
       clearBrTag(
         paragraph
@@ -80,7 +80,7 @@ const StructuredRecipe = () => {
       if (initFetch) {
         if (type === ELEMENT_LIST)
           arrayIngredients = items.map(
-            el => el.type === ELEMENT_TEXT && `"${clearHtml(el.content)}"`
+            (el) => el.type === ELEMENT_TEXT && `"${clearHtml(el.content)}"`
           )
         else arrayIngredients.push(content)
       }
@@ -100,7 +100,7 @@ const StructuredRecipe = () => {
         switch (type) {
           case ELEMENT_LIST:
             arrayInstructions = items.map(
-              el => el.type === ELEMENT_TEXT && `"${el.content}"`
+              (el) => el.type === ELEMENT_TEXT && `"${el.content}"`
             )
             break
           case ELEMENT_TEXT:
@@ -125,7 +125,7 @@ const StructuredRecipe = () => {
   const instructionList = instructionsContent()
 
   const instructionsFormated = () => {
-    return instructionList.map(el => {
+    return instructionList.map((el) => {
       return `{ "@type":"HowToStep", "text": ${clearHtml(el)} }`
     })
   }
@@ -160,14 +160,14 @@ const StructuredRecipe = () => {
         caption={caption}
         description={description}
         urlImage={urlImage}
-        date={date}
+        date={localISODate(date)}
         duration={duration}
         arcSite={arcSite}
       />
     )
   )
 
-  const formatTime = string =>
+  const formatTime = (string) =>
     string
       .trim()
       .toLowerCase()

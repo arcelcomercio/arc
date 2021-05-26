@@ -1,5 +1,5 @@
-import { ArcSite } from 'fusion:context'
 import { ConentSourceBase } from 'types/content-source'
+import { ArcSite } from 'types/fusion'
 
 export type GetAdsSpacesQuery = {
   space?: string

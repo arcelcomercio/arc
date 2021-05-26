@@ -10,13 +10,13 @@ import Signwall from '../_children/Signwall'
 import PWA from '../_dependencies/Pwa'
 
 const styles = {
-  wrapper: 'header__content wrapper-buy',
-  link: 'header__content-link',
-  logo: 'header__content-logo',
-  button: 'header__content-button',
+  wrapper: 'header-payment__content',
+  link: 'header-payment__content-link',
+  logo: 'header-payment__content-logo',
+  button: 'header-payment__content-button',
 }
 
-const HeaderSubs = ({ userProfile, arcSite }) => {
+const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const { userLoaded, activateAuth, updateStep } = React.useContext(AuthContext)
@@ -25,9 +25,9 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
 
   const formatName = () => {
-    const fullName = `${checkUndefined(firstName, 'Usuario')} ${checkUndefined(
-      lastName
-    ) || ''} ${checkUndefined(secondLastName) || ''}`
+    const fullName = `${checkUndefined(firstName, 'Usuario')} ${
+      checkUndefined(lastName) || ''
+    } ${checkUndefined(secondLastName) || ''}`
 
     return fullName.length >= 15 ? `${fullName.substring(0, 15)}...` : fullName
   }
@@ -57,8 +57,11 @@ const HeaderSubs = ({ userProfile, arcSite }) => {
 
   return (
     <>
-      <header className="header" id="header">
-        <div className={styles.wrapper}>
+      <header className="header-payment" id="header">
+        <div
+          className={`${styles.wrapper} ${
+            arcType === 'payment' ? 'wrapper-buy' : 'wrapper'
+          } `}>
           {PWA.isPWA() ? (
             <div className={styles.logo}></div>
           ) : (

@@ -29,7 +29,7 @@ const classes = {
   face: 'tabloid__face',
 }
 
-const CardTabloid = props => {
+const CardTabloid = (props) => {
   const {
     customFields: {
       date: dateField,
@@ -61,10 +61,13 @@ const CardTabloid = props => {
   const {
     headlines: { basic: title = '' } = {},
     created_date: createdDate = '',
-    taxonomy: { primary_section: { path: primarySectionLink = '' } = {} } = {},
+    websites = {},
     promo_items: { basic: { url: sourceImage = '' } = {} } = {},
     section_name: sourceSectionName = '',
   } = data || {}
+
+  const { website_section: { path: primarySectionLink = '' } = {} } =
+    websites[arcSite] || {}
 
   /**
    * Estos sizes salen de la clase .tabloid__face
