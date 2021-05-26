@@ -145,6 +145,7 @@ const Subscriptions: OT<OutputProps> = ({
                       ? '01780ae129e2be9f4afea429d618f3ec'
                       : 'ddc9f70a72959e3037f40dd5359a99d6'
                   }`}
+                  async
                 />
               </>
             ) : null}
