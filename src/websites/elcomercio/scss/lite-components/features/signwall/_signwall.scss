@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2147483647;
 }
 .container {
   display: inline;
@@ -14,7 +15,11 @@
   max-height: 100%;
   align-self: center;
   width: 600px;
-  overflow: hidden;
+  overflow-x: hidden;
+
+  @media (--tablet) {
+    overflow-x: auto;
+  }
 
   @media (--desktop) {
     display: table;
@@ -46,6 +51,7 @@
     display: table-cell;
     background: url(https://elcomercio.pe/pf/resources/dist/elcomercio/images/paywall_bg.jpg)
       center center/cover no-repeat;
+    background-color: #232323;
     background-repeat: no-repeat;
     background-position: center center;
     height: 100%;
