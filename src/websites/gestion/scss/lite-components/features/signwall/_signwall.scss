@@ -1,0 +1,229 @@
+.active-signwall {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2147483647;
+}
+.container {
+  display: inline;
+  position: relative;
+  background: #fff;
+  max-height: 100%;
+  align-self: center;
+  width: 600px;
+  overflow-x: hidden;
+
+  @media (--tablet) {
+    overflow-x: initial;
+  }
+
+  @media (--desktop) {
+    display: table;
+    width: 864px;
+    max-height: 100%;
+  }
+}
+.btn-close {
+  position: absolute;
+  top: 212px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10px;
+
+  @media (--desktop) {
+    top: 10px;
+  }
+}
+.header-box {
+  width: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: #8f071f;
+
+  @media (--desktop) {
+    width: 50%;
+    display: table-cell;
+    background: url(https://gestion.pe/pf/resources/dist/gestion/images/paywall_bg.jpg)
+      center center/cover no-repeat;
+    background-color: #8f071f;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+  }
+}
+
+.plan-digital {
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  font-family: "Judson", Arial, Helvetica, sans-serif;
+
+  @media (--desktop) {
+    font-size: 58px;
+  }
+}
+
+.content {
+  vertical-align: top;
+  width: 100%;
+  display: table-cell;
+  padding: 20px 50px;
+
+  @media (--tablet) {
+    padding: 50px 35px;
+  }
+
+  @media (--desktop) {
+    padding: 20px 50px;
+  }
+}
+.header {
+  position: relative;
+  width: 100%;
+  min-height: 170px !important;
+  padding: 20px;
+  text-align: center;
+
+  & p {
+    width: 100%;
+    color: #fff;
+    line-height: 26px;
+    font-size: 16px;
+    padding: 10px 0;
+
+    @media (--desktop) {
+      line-height: 32px;
+      font-size: 18px;
+    }
+  }
+
+  & img {
+    margin-top: 25px;
+    min-height: 25px;
+    width: auto;
+
+    @media (--desktop) {
+      margin-top: 40px;
+    }
+  }
+
+  @media (--desktop) {
+    position: relative;
+    margin-top: 25%;
+    padding: 40px;
+  }
+}
+
+.planes {
+  width: 100%;
+  height: 45px;
+  font-size: 14px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  background: #0179af;
+}
+
+.cont-price-detail {
+  margin-top: 30px;
+  display: flex;
+}
+.price {
+  font-size: 54px;
+  text-align: right;
+  font-weight: 700;
+  font-family: inherit;
+  padding-top: 20px;
+  padding-right: 15px;
+
+  @media (--desktop) {
+    padding-right: 30px;
+  }
+
+  &-currency {
+    font-size: 0.7em;
+  }
+}
+.price-free h3 {
+  font-size: 42px;
+  padding-top: 10px;
+
+  @media (--desktop) {
+    font-size: 50px;
+  }
+}
+.price-detail {
+  width: 50%;
+}
+.beneficio {
+  font-weight: 700;
+  font-size: 14px;
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    z-index: 0;
+    border-top: 1px solid #a98e7c !important;
+  }
+
+  & span {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding: 0 10px;
+  }
+}
+.details {
+  color: #444;
+  line-height: 20px;
+  position: relative;
+}
+
+.note-premium {
+  padding: 0 34px;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+}
+.suscrito {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+}
+.list-benefits {
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 20px;
+  list-style: none;
+  padding: 0;
+
+  & li {
+    padding-left: 30px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAYNJREFUOBGFUsFxgzAQBEEDqSDgBuIOogH/43QQXnmGdOBUELsC55mn/Qcjd0AaICqBArDJrgeIkB3nZsSduN3T3kmuY5mUMvB9/wW/Jda0S5fw2yzLFt1+cP4QIYjjeOm6LslO27ZfiLfwNXyAtTGxfez2AcglQHfYb5umSZVSus/ZPoqiJ2Dv8zxPTgWMk98uyTQLkCyEWFPh4XCQbtfzN0DscW6C7dgmQ2UtPM9LCaRsm2DuL5GZF1iScvqeZ7OZZMK0v8jECA4OS3PDduAKzGTNPe0amfnRNVIFCAmHhCK8yr05MPZMEg1KN3APgvIR3PInbbfbfRyPxwSqRtM2ycSBF5DLGSisaScf4W8RAnhVNplYtg6oGq4R4A0exuOpwj+fXj5uLvS01nUYhjeUPJlMnKqq9tf4IC+Qf8aBq6IoPs+eMpVA9itkawAHo2y8mXccNMfP4dENBYg0njS3JYppBiAFcFMsDm+FVlPGtFEB/uhOIkB2gyKJN6WgbGkr+wHP1//N8PmHWQAAAABJRU5ErkJggg==);
+    margin-bottom: 14px;
+    background-repeat: no-repeat;
+    background-position: 0 4px;
+  }
+}

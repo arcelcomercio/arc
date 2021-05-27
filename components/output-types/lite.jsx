@@ -790,7 +790,7 @@ const LiteOutput = ({
           </>
         )}
         {vallaSignwall === false &&
-        arcSite === SITE_ELCOMERCIO &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (
           <>
             <script
