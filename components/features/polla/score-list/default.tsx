@@ -1,8 +1,92 @@
 import * as React from 'react'
 import { FC } from 'types/features'
 
+export interface ScoresApiResponse {
+  losPartidos: Score[]
+  mensaje: string
+}
+
+export interface Score {
+  id: string
+  grupo: string
+  equipo1: string
+  equipo1Bandera: string
+  equipo1Goles: string
+  equipo2: string
+  equipo2Bandera: string
+  equipo2Goles: string
+  estadio: string
+  ciudad: string
+  fecha: string
+  hora: string
+  fechaHora: string
+  activo: boolean
+  estado: number
+  puntos: number
+  fase: string
+  jornada: number
+  show: boolean
+  exists_teams: number
+  timestamp: number
+  resultadoFinal: string
+  ec_equipo1_porcentaje: string
+  ec_equipo2_porcentaje: string
+  ec_empate_porcentaje: string
+  ec_porcentaje_coincidencia: string
+  ec_fondo_destacados_desktop: string
+  ec_fondo_destacados_movil: string
+}
+
 const PollaScoreList: FC = () => {
-  console.log('TODO')
+  const [scores, setScores] = React.useState<Score[]>()
+  const [currentSchedule, setCurrentSchedule] = React.useState('1')
+
+  React.useEffect(() => {
+    fetch(
+      'https://pmdu68gci6.execute-api.us-east-1.amazonaws.com/prod/depor/usuario/6f3015f2281091770eb7b700b87b547883b03bd916e5b705cc7dd70ae63ba89c/partidos'
+    )
+      .then((res) => res.json())
+      .then((res: ScoresApiResponse) => {
+        setScores(res.losPartidos)
+        console.log(res)
+      })
+  }, [])
+
+  // const groupByJornada = scores?.reduce(
+  //   (
+  //     r: {
+  //       [key in string]: Score[]
+  //     },
+  //     a: Score
+  //   ) => {
+  //     const auxR = r
+  //     auxR[a.jornada] = [...(r[a.jornada] || []), a]
+  //     return auxR
+  //   },
+  //   {}
+  // )
+
+  const listOfSchedules = [...new Set(scores?.map((item) => item.jornada))]
+
+  const scoresBySchedule = scores?.filter(
+    (score) => score.jornada.toString() === currentSchedule
+  )
+
+  const scoresByGroup = scoresBySchedule?.reduce(
+    (
+      r: {
+        [key in string]: Score[]
+      },
+      a: Score
+    ) => {
+      const auxR = r
+      auxR[a.grupo] = [...(r[a.grupo] || []), a]
+      return auxR
+    },
+    {}
+  )
+
+  console.log(scoresByGroup)
 
   return (
     <>
@@ -23,7 +107,17 @@ const PollaScoreList: FC = () => {
       </div>
 
       <div className="polla-score__nav">
-        <button type="button" className="polla-score__nav-btn">
+        <button
+          type="button"
+          className="polla-score__nav-btn"
+          onClick={() => {
+            const currentIndex = listOfSchedules.findIndex(
+              (sc) => sc.toString() === currentSchedule
+            )
+            if (currentIndex !== 0) {
+              setCurrentSchedule(listOfSchedules[currentIndex - 1].toString())
+            }
+          }}>
           <svg
             width="7"
             height="12"
@@ -36,10 +130,9 @@ const PollaScoreList: FC = () => {
             />
           </svg>
         </button>
-
         <div className="polla-score__nav-sel-cont">
           <div className="polla-score__nav-sel-p">
-            <span className="bold">Jornada 1</span>
+            <span className="bold">Jornada {currentSchedule}</span>
             <span>11 - 13 Jun.</span>
             <svg
               width="13"
@@ -50,15 +143,30 @@ const PollaScoreList: FC = () => {
               <path d="M0 0L6.5 7L13 0" fill="#DC532E" />
             </svg>
           </div>
-          <select name="cars" id="cars" className="polla-score__nav-sel">
-            <option value="volvo">Jornada 1 (11 - 13 Jun.)</option>
-            <option value="saab">Jornada 2 (11 - 13 Jun.)</option>
-            <option value="mercedes">Jornada 3 (11 - 13 Jun.)</option>
-            <option value="audi">Jornada 4 (11 - 13 Jun.)</option>
+          <select
+            value={currentSchedule}
+            className="polla-score__nav-sel"
+            onChange={(e) => {
+              setCurrentSchedule(e.target.value)
+            }}>
+            {listOfSchedules.map((jor) => (
+              <option key={jor} value={jor}>
+                {jor} (11 - 13 Jun.)
+              </option>
+            ))}
           </select>
         </div>
-
-        <button type="button" className="polla-score__nav-btn">
+        <button
+          type="button"
+          className="polla-score__nav-btn"
+          onClick={() => {
+            const currentIndex = listOfSchedules.findIndex(
+              (sc) => sc.toString() === currentSchedule
+            )
+            if (currentIndex !== listOfSchedules.length - 1) {
+              setCurrentSchedule(listOfSchedules[currentIndex + 1].toString())
+            }
+          }}>
           <svg
             width="8"
             height="13"
@@ -72,6 +180,108 @@ const PollaScoreList: FC = () => {
           </svg>
         </button>
       </div>
+
+      {Object.keys(scoresByGroup || {}).map((key) => (
+        <div className="polla-score__group-cont" key={key}>
+          <div className="polla-score__group-title">
+            <div className="polla-score__group-name">{key}</div>
+            <div className="polla-score__group-aus">Auspicia:</div>
+            <img
+              className="polla-score__group-brand"
+              src="https://images.virtualsoft.tech/site/doradobet/logo-horizontalv2.png"
+              alt="Brand"
+            />
+          </div>
+          {scoresByGroup?.[key].map((score) => {
+            const scoreArray = score.resultadoFinal.split('-')
+            return (
+              <React.Fragment key={score.id}>
+                <div className="polla-score__group-sted">
+                  <div className="polla-score__group-stedn">
+                    Estadio <b>{score.estadio}</b>
+                  </div>
+                  <div className="polla-score__group-stedc">
+                    Buenos Aires - Argentina (No hay)
+                  </div>
+                  <div className="polla-score__group-stedd">
+                    {score.fechaHora}
+                  </div>
+                </div>
+                <form
+                  className="polla-score__form"
+                  onSubmit={(e) => {
+                    const form = e.target as HTMLFormElement
+                    const formData = new FormData(form)
+                    const team1 = formData.get('team1')
+                    const team2 = formData.get('team2')
+                    console.log(team1, team2, score)
+                    e.preventDefault()
+                  }}
+                  onFocus={(e) => {
+                    // const form = e.target
+                    // form.classList.add('.focus')
+                  }}>
+                  <div className="polla-score__form-top">
+                    <div className="polla-score__country-cont">
+                      <img
+                        className="polla-score__country-img"
+                        src="https://polla-resources.surge.sh/dist/depor/images-polla/paises/per.svg"
+                        alt="País"
+                      />
+                      <div className="polla-score__country-text">
+                        {score.equipo1}
+                      </div>
+                    </div>
+                    <input
+                      type="number"
+                      className="polla-score__form-input"
+                      name="team1"
+                      defaultValue={scoreArray[0]}
+                    />
+                    <div className="polla-score__form-dots">
+                      <svg
+                        width="4"
+                        height="4"
+                        viewBox="0 0 4 4"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2" cy="2" r="2" fill="#333333" />
+                      </svg>
+                      <svg
+                        width="4"
+                        height="4"
+                        viewBox="0 0 4 4"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2" cy="2" r="2" fill="#333333" />
+                      </svg>
+                    </div>
+                    <input
+                      type="number"
+                      className="polla-score__form-input"
+                      name="team2"
+                      defaultValue={scoreArray[1]}
+                    />
+                    <div className="polla-score__country-cont">
+                      <img
+                        className="polla-score__country-img"
+                        src="https://polla-resources.surge.sh/dist/depor/images-polla/paises/per.svg"
+                        alt="País"
+                      />
+                      <div className="polla-score__country-text">
+                        {score.equipo2}
+                      </div>
+                    </div>
+                  </div>
+                  <button className="polla-score__form-btn" type="submit">
+                    Juega
+                  </button>
+                </form>
+              </React.Fragment>
+            )
+          })}
+        </div>
+      ))}
     </>
   )
 }

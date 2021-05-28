@@ -75,6 +75,7 @@
     opacity: 0;
     width: 100%;
     height: 100%;
+    padding: 10px;
   }
   &__nav-sel-p {
     position: absolute;
@@ -100,5 +101,132 @@
     svg {
       margin-left: 18px;
     }
+  }
+
+  &__group-cont {
+    margin: 10px;
+    padding: 17px;
+    background-color: #fff;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 10px;
+  }
+  &__group-title {
+    display: flex;
+    align-items: center;
+    padding-bottom: 11px;
+  }
+  &__group-name {
+    font: 800 18px/21px $secondary-font;
+    letter-spacing: 0.58px;
+    color: #002c6b;
+    text-transform: uppercase;
+    flex: 1;
+    padding-left: 10px;
+    border-left: 2px solid #dc532e;
+  }
+  &__group-aus {
+    font: normal 12px/20px $primary-font;
+    letter-spacing: 0.12px;
+    color: #999;
+    margin-right: 3px;
+  }
+  &__group-brand {
+    background-color: #000;
+    max-height: 32px;
+  }
+
+  &__group-sted {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-top: 1px solid #ddd;
+    padding-top: 24px;
+    @media (--desktop) {
+      justify-content: flex-start;
+    }
+  }
+  &__group-stedn {
+    font: 400 14px/1 $primary-font;
+    color: #222;
+    margin: 0 0 4px;
+    @media (--desktop) {
+      margin: 0 8px 0 0;
+    }
+  }
+  &__group-stedc {
+    font: normal 14px/1 $primary-font;
+    letter-spacing: -0.14px;
+    color: #999;
+    margin: 0 8px 4px 8px;
+    @media (--desktop) {
+      margin: 0 8px 0 0;
+    }
+  }
+  &__group-stedd {
+    font: normal 14px/1 $primary-font;
+    color: #0072d8;
+    width: 100%;
+    text-align: center;
+    @media (--desktop) {
+      width: auto;
+    }
+  }
+
+  &__form {
+    margin-top: 16px;
+  }
+  &__form-top {
+    display: flex;
+    justify-content: center;
+  }
+  &__country-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+  }
+  &__country-img {
+    max-height: 32px;
+    margin-bottom: 8px;
+  }
+  &__country-text {
+    font: 500 19px/23px $primary-font;
+    color: #222;
+    max-width: 48px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__form-dots {
+    display: flex;
+    flex-direction: column;
+    height: 48px;
+    justify-content: center;
+    svg {
+      &:first-child {
+        margin-bottom: 8px;
+      }
+    }
+  }
+  &__form-input {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin: 0 16px;
+    font: 700 24px/28px $primary-font;
+    color: #222;
+    text-align: center;
+  }
+  &__form-btn {
+    font: 500 14px/16px $primary-font;
+    letter-spacing: 0.14px;
+    color: #999;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 10px 20px;
+    width: 100%;
+    max-width: 160px;
+    margin: 9px auto 32px;
+    display: block;
   }
 }
