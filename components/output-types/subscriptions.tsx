@@ -26,7 +26,11 @@ const Subscriptions: OT<OutputProps> = ({
     googleTagManagerId,
     googleTagManagerIdSandbox,
     fbPixelId,
-    paywall: { urls, title: defaultTitle, description: defaultDescription },
+    paywall: {
+      urls: { canonical, image } = {},
+      title: defaultTitle,
+      description: defaultDescription,
+    } = {},
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
 
@@ -87,18 +91,18 @@ const Subscriptions: OT<OutputProps> = ({
             />
             <title>{title}</title>
             <meta name="description" content={description} />
-            <link rel="canonical" href={urls.canonical} />
+            <link rel="canonical" href={canonical} />
             <meta name="theme-color" content={colorPrimary} />
             <meta name="msapplication-TileColor" content={colorPrimary} />
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:site" content={twitterSite} />
             <meta name="twitter:title" content={title} />
-            <meta name="twitter:image" content={urls.image} />
+            <meta name="twitter:image" content={image} />
             <meta name="twitter:description" content={description} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content={urls.image} />
-            <meta property="og:url" content={urls.canonical} />
+            <meta property="og:image" content={image} />
+            <meta property="og:url" content={canonical} />
             <meta property="og:site_name" content={siteName} />
             <meta property="og:type" content="website" />
             <link
@@ -121,10 +125,6 @@ const Subscriptions: OT<OutputProps> = ({
               href={deployment(
                 `${contextPath}/resources/dist/${arcSite}/css/${stylesheet}.css`
               )}
-            />
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
-              defer
             />
             {isEmpresaPage && (
               <script

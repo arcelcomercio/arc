@@ -10,8 +10,8 @@ import getDevice from '../../../subscriptions/_dependencies/GetDevice'
 import { getQuery } from '../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { device } from '../../_dependencies/breakpoints'
-import Domains from '../../_dependencies/domains'
-import Services from '../../_dependencies/services'
+import { getOriginAPI, getUrlECOID } from '../../_dependencies/domains'
+import { loginFBeco, sendNewsLettersUser } from '../../_dependencies/services'
 import { Facebook, Google, Mail } from '../iconos'
 import { Button } from './styles'
 
@@ -160,7 +160,7 @@ const setupUserProfile = (
   onStudents,
   dataTreatment
 ) => {
-  window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+  window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
   window.Identity.getUserProfile()
     .then((resProfile) => {
       const EMAIL_USER =
@@ -220,13 +220,13 @@ const setupUserProfile = (
         }
 
         window.Identity.options({
-          apiOrigin: Domains.getOriginAPI(arcSite),
+          apiOrigin: getOriginAPI(arcSite),
         })
 
         window.Identity.updateUserProfile(newProfileFB)
           .then(() => {
             if (activeNewsletter && EMAIL_USER.indexOf('facebook.com') < 0) {
-              Services.sendNewsLettersUser(
+              sendNewsLettersUser(
                 resProfile.uuid,
                 EMAIL_USER,
                 arcSite,
@@ -299,16 +299,11 @@ const authSocialProviderURL = (
   checkUserSubs,
   onStudents
 ) => {
-  if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
+  if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
     return
   }
 
-  Services.loginFBeco(
-    Domains.getOriginAPI(arcSite),
-    '',
-    data.accessToken,
-    data.providerSource
-  )
+  loginFBeco(getOriginAPI(arcSite), '', data.accessToken, data.providerSource)
     .then((resLogSocial) => {
       if (resLogSocial.accessToken) {
         window.localStorage.setItem(
@@ -389,14 +384,14 @@ export const ButtonSocial = ({
   }
 
   const authSocialProvider = ({ data, origin }) => {
-    if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
+    if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
       return
     }
 
     setShowTextLoad('Conectando...')
 
-    Services.loginFBeco(
-      Domains.getOriginAPI(arcSite),
+    loginFBeco(
+      getOriginAPI(arcSite),
       '',
       data.accessToken,
       data.providerSource
@@ -452,7 +447,7 @@ export const ButtonSocial = ({
     const height = 640
     const left = window.screen.width / 2 - 800 / 2
     const top = window.screen.height / 2 - 600 / 2
-    const URL = `${Domains.getUrlECOID()}/mpp/${brandCurrent}/login/`
+    const URL = `${getUrlECOID}/mpp/${brandCurrent}/login/`
 
     const URLRedirect = () => {
       window.location.href = `${URL}?urlReference=${encodeURIComponent(
@@ -545,7 +540,7 @@ export const AuthURL = ({
               accessToken: getQuery(item).replace(/(#_=_)$/, ''),
               providerSource: 'facebook',
             },
-            origin: Domains.getUrlECOID(),
+            origin: getUrlECOID,
           },
           arcSite,
           onClose,

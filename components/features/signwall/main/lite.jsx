@@ -4,8 +4,12 @@ import React, { PureComponent } from 'react'
 
 import { getCookie, setCookie } from '../../subscriptions/_dependencies/Cookies'
 import { getQuery } from '../../subscriptions/_dependencies/QueryString'
-import Domains from '../_dependencies/domains'
-import Services from '../_dependencies/services'
+import {
+  getOriginAPI,
+  getUrlLandingAuth,
+  getUrlSignwall,
+} from '../_dependencies/domains'
+import { getEntitlement } from '../_dependencies/services'
 import { Paywall } from './_children/paywall'
 import { Premium } from './_children/premium'
 
@@ -24,7 +28,7 @@ class SignwallComponent extends PureComponent {
   componentDidMount() {
     const { siteProperties, arcSite } = this.props
     if (typeof window !== 'undefined' && window.Identity) {
-      const apiOrigin = Domains.getOriginAPI(arcSite)
+      const apiOrigin = getOriginAPI(arcSite)
       window.Identity.options({ apiOrigin })
       window.requestIdle(() => {
         Fingerprint2.getV18({}, (result) => {
@@ -102,7 +106,7 @@ class SignwallComponent extends PureComponent {
     const contentTier = W.document.head.querySelector(
       'meta[property="article:content_tier"]'
     )
-    const URL_ORIGIN = Domains.getOriginAPI(arcSite)
+    const URL_ORIGIN = getOriginAPI(arcSite)
     const typeContentTier = contentTier
       ? contentTier.getAttribute('content')
       : 'metered'
@@ -113,11 +117,11 @@ class SignwallComponent extends PureComponent {
       W.postMessage(
         {
           id: 'iframe_signwall',
-          redirectUrl: Domains.getUrlLandingAuth(arcSite),
+          redirectUrl: getUrlLandingAuth(arcSite),
         },
         W.location.origin
       )
-      W.location.href = Domains.getUrlLandingAuth(arcSite)
+      W.location.href = getUrlLandingAuth(arcSite)
     }
 
     if (typeContentTier === 'locked') {
@@ -126,11 +130,7 @@ class SignwallComponent extends PureComponent {
       W.ArcP.run({
         paywallFunction: (campaignURL) => {
           if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
-            W.location.href = Domains.getUrlSignwall(
-              arcSite,
-              'signwallHard',
-              '1'
-            )
+            W.location.href = getUrlSignwall(arcSite, 'signwallHard', '1')
           } else if (
             campaignURL.match(/signwallPaywall/) &&
             this.checkSession()
@@ -188,10 +188,7 @@ class SignwallComponent extends PureComponent {
     const { arcSite } = this.props
     const W = window
     return W.Identity.extendSession().then((resExt) => {
-      const checkEntitlement = Services.getEntitlement(
-        resExt.accessToken,
-        arcSite
-      )
+      const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
             const result = Object.keys(res.skus).map((key) => res.skus[key].sku)
@@ -229,11 +226,7 @@ class SignwallComponent extends PureComponent {
         dataContType &&
         siteProperties.activePaywall
       ) {
-        const urlSignwallRelogin = Domains.getUrlSignwall(
-          arcSite,
-          'reloginHash',
-          '1'
-        )
+        const urlSignwallRelogin = getUrlSignwall(arcSite, 'reloginHash', '1')
         window.top.postMessage(
           { id: 'iframe_relogin', redirectUrl: urlSignwallRelogin },
           window.location.origin
@@ -246,7 +239,7 @@ class SignwallComponent extends PureComponent {
 
   redirectURL = (typeDialog, hash) => {
     const { arcSite } = this.props
-    const urlSignwall = Domains.getUrlSignwall(arcSite, typeDialog, hash)
+    const urlSignwall = getUrlSignwall(arcSite, typeDialog, hash)
     window.top.postMessage(
       { id: 'iframe_signwall', redirectUrl: urlSignwall },
       window.location.origin

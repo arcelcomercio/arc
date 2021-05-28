@@ -8,7 +8,7 @@ import React, { Component } from 'react'
 import { Button, Text } from '../../../../../signwall/_children/forms/styles'
 import { Close } from '../../../../../signwall/_children/iconos'
 import { Modal } from '../../../../../signwall/_children/modal/index'
-import Domains from '../../../../../signwall/_dependencies/domains'
+import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import FormValid from '../../../../../signwall/_dependencies/form-valid'
 import {
   mediumRegularExp,
@@ -39,7 +39,7 @@ class UpdatePassword extends Component {
       sending: true,
     }
     const { arcSite } = this.props
-    this.origin_api = Domains.getOriginAPI(arcSite)
+    this.origin_api = getOriginAPI(arcSite)
   }
 
   handleChangePassword = (e) => {

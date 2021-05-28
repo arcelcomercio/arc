@@ -7,8 +7,8 @@ import {
   setCookieSession,
 } from '../../../subscriptions/_dependencies/Cookies'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import Domains from '../../_dependencies/domains'
-import Services from '../../_dependencies/services'
+import { getOriginAPI } from '../../_dependencies/domains'
+import { checkCodeStudents, checkStudents } from '../../_dependencies/services'
 import { Back } from '../iconos'
 import { Input, Select } from './control_input_select'
 import * as S from './styles'
@@ -37,10 +37,10 @@ const FormCode = ({ arcSite, showRequest }) => {
 
   const sendRequestMail = () => {
     const REQUEST = JSON.parse(getCookie(cookieStudents))
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then((resExtend) => {
-        Services.checkStudents(
+        checkStudents(
           REQUEST.uemail,
           REQUEST.udate,
           REQUEST.ugrade,
@@ -66,10 +66,10 @@ const FormCode = ({ arcSite, showRequest }) => {
 
   const onSubmitFormCode = ({ ucode }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.extendSession()
       .then((resExtend) => {
-        Services.checkCodeStudents(
+        checkCodeStudents(
           ucode.trim(),
           EMAIL_USER,
           arcSite,
@@ -273,16 +273,10 @@ const FormRequest = ({ arcSite, showCode }) => {
           window.localStorage.getItem('ArcId.USER_INFO') || '{}'
         )
         window.Identity.userIdentity = userCredentials
-        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
         window.Identity.extendSession()
           .then((resExtend) => {
-            Services.checkStudents(
-              uemail,
-              udate,
-              ugrade,
-              arcSite,
-              resExtend.accessToken
-            )
+            checkStudents(uemail, udate, ugrade, arcSite, resExtend.accessToken)
               .then((res) => {
                 if (res.status) {
                   setCookieSession(cookieStudents, {

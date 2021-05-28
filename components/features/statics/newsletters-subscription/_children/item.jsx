@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 
 const classes = {
   item: 'newsletters-subscription__item p-5',
@@ -16,54 +15,22 @@ const classes = {
   titleSpan:
     'newsletters-subscription__title-span  primary-font font-bold text-gray-300',
   description: 'newsletters-subscription__description',
-  btn: 'newsletters-subscription__btn mt-15',
-  btnSubscribed:
-    'newsletters-subscription__btn newsletters-subscription__btn--subscribed mt-15',
+  chkcont: 'newsletters-subscription__check-cont',
+  chkBtn: 'newsletters-subscription__check-btn mt-15',
+  chk: 'newsletters-subscription__input-check',
 }
 
-const CheckboxContainer = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  width: 100%;
-  height: auto;
-  position: relative;
-  cursor: pointer;
-  user-select: none;
-`
-
-const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
-  border: 0;
-  clip: rect(0 0 0 0);
-  clippath: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-`
-
-const ButtonSub = styled.div`
-  border: 1px solid #adadad;
-  padding: 15px 40px;
-  border-radius: 5px;
-  background: ${props => (props.checked ? '#f7c600' : '#ffffff')};
-`
-
 const Checkbox = ({
-  className,
   checked,
   disabled,
   name,
   description,
-  site,
   image,
   ...props
 }) => (
   <article role="listitem" className={classes.item}>
     <div className={classes.card}>
-      <CheckboxContainer checked={checked} className={className}>
+      <div className={classes.chkcont}>
         <figure className={classes.figure}>
           <img className={classes.image} src={image} alt={name} />
           <i className={classes.icon} />
@@ -77,13 +44,19 @@ const Checkbox = ({
             {description}
           </p>
 
-          <ButtonSub className={classes.btnSubscribed} checked={checked}>
+          <div className={`${classes.chkBtn} ${checked ? 'subscribed' : ''}`}>
             {(checked && `Eliminar registro`) || `Suscríbete`}
-          </ButtonSub>
+          </div>
         </div>
 
-        <HiddenCheckbox checked={checked} disabled={disabled} {...props} />
-      </CheckboxContainer>
+        <input
+          className={classes.chk}
+          type="checkbox"
+          checked={checked}
+          disabled={disabled}
+          {...props}
+        />
+      </div>
     </div>
   </article>
 )

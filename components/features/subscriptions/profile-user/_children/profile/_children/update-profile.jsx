@@ -10,10 +10,10 @@ import * as React from 'react'
 import { Button, Text } from '../../../../../signwall/_children/forms/styles'
 import { Close } from '../../../../../signwall/_children/iconos'
 import { Modal } from '../../../../../signwall/_children/modal/index'
-import Domains from '../../../../../signwall/_dependencies/domains'
+import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import GetProfile from '../../../../../signwall/_dependencies/get-profile'
 import { clean } from '../../../../../signwall/_dependencies/object'
-import Services from '../../../../../signwall/_dependencies/services'
+import { getUbigeo } from '../../../../../signwall/_dependencies/services'
 import {
   docRegex,
   emailRegex,
@@ -146,7 +146,7 @@ class UpdateProfile extends React.Component {
         default:
       }
     }
-    const result = Services.getUbigeo(value)
+    const result = getUbigeo(value)
 
     result.then((geoData) => {
       const GeoUpper = geo.charAt(0).toUpperCase() + geo.slice(1)
@@ -223,7 +223,7 @@ class UpdateProfile extends React.Component {
     this.setState({ loading: true, textSubmit: 'GUARDANDO...' })
 
     if (typeof window !== 'undefined') {
-      window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
+      window.Identity.apiOrigin = getOriginAPI(arcSite)
       window.Identity.updateUserProfile(profile)
         .then(() => {
           this.setState({
@@ -528,7 +528,7 @@ class UpdateProfile extends React.Component {
     ) {
       this.setState({ sending: true, sendingConfirmText: 'CONFIRMANDO...' })
 
-      window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
+      window.Identity.apiOrigin = getOriginAPI(arcSite)
 
       const currentEmail = email || window.Identity.userProfile.email
 

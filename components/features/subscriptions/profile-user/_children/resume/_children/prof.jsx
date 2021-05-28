@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import GetProfile from '../../../../../signwall/_dependencies/get-profile'
-import Services from '../../../../../signwall/_dependencies/services'
+import { getUbigeo } from '../../../../../signwall/_dependencies/services'
 import { WrapperBlock } from '../styles'
 
 class Prof extends Component {
@@ -88,7 +88,7 @@ class Prof extends Component {
       }
     }
 
-    Services.getUbigeo(value).then((geoData) => {
+    getUbigeo(value).then((geoData) => {
       const GeoUpper = geo.charAt(0).toUpperCase() + geo.slice(1)
       Object.assign(state, {
         [`data${GeoUpper}s`]: geoData,

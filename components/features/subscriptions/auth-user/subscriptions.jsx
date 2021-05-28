@@ -5,8 +5,9 @@ import * as React from 'react'
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
 import addScriptAsync from '../../../utilities/script-async'
+import { getOriginAPI } from '../../signwall/_dependencies/domains'
 import { deleteCookie, getCookie, setCookie } from '../_dependencies/Cookies'
-import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { PropertiesCommon } from '../_dependencies/Properties'
 import { getQuery } from '../_dependencies/QueryString'
 import { isLogged } from '../_dependencies/Session'
 import { SignOrganic } from './_children/Organic'
@@ -21,7 +22,6 @@ const AuthUser = () => {
   const [showReset, setShowReset] = React.useState(false)
   const [nameModal, setNameModal] = React.useState()
   const { links, urls: urlCommon } = PropertiesCommon
-  const { urls } = PropertiesSite[arcSite]
 
   React.useEffect(() => {
     Sentry.init({
@@ -47,7 +47,7 @@ const AuthUser = () => {
       includeNoScript: false,
     })
       .then(() => {
-        window.Identity.options({ apiOrigin: urls.arcOrigin })
+        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
       })
       .catch((errIdentitySDK) => {
         Sentry.captureEvent({

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import Domains from '../../_dependencies/domains'
+import { getOriginAPI } from '../../_dependencies/domains'
 import { MsgResetPass } from '../iconos'
 import Loading from '../loading'
 import * as S from './styles'
@@ -26,7 +26,7 @@ export const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
 
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
       window.Identity.verifyEmail(tokenVerify)
         .then(() => {
           setShowConfirm(true)

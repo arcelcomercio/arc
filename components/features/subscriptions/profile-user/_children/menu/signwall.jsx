@@ -2,7 +2,7 @@ import md5 from 'crypto-js/md5'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import Domains from '../../../../signwall/_dependencies/domains'
+import { getOriginAPI } from '../../../../signwall/_dependencies/domains'
 import { ModalConsumer } from '../../../_context/modal'
 import {
   deleteCookie,
@@ -40,7 +40,7 @@ const MenuSignwall = ({ handleMenu }) => {
       const isSubs =
         window.location.pathname.indexOf('suscripciones') >= 0 || false
       window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
-      window.Identity.apiOrigin = Domains.getOriginAPI(arcSite)
+      window.Identity.apiOrigin = getOriginAPI(arcSite)
       window.Identity.logout()
         .then(() => {
           if (isSubs || activePaywall) {

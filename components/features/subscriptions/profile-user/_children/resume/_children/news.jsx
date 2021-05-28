@@ -2,7 +2,10 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import Loading from '../../../../../signwall/_children/loading'
-import Services from '../../../../../signwall/_dependencies/services'
+import {
+  getNewsLetters,
+  getNewsLettersUser,
+} from '../../../../../signwall/_dependencies/services'
 import { WrapperBlock } from '../styles'
 
 @Consumer
@@ -28,7 +31,7 @@ class NewsResume extends Component {
 
       const listAllNews = { ...[] }
 
-      Services.getNewsLetters().then((resNews) => {
+      getNewsLetters().then((resNews) => {
         resNews[SITE].map((item) => {
           listAllNews[item.code] = false
           return null
@@ -41,7 +44,7 @@ class NewsResume extends Component {
           })
         }
 
-        Services.getNewsLettersUser(UUID, SITE).then((res) => {
+        getNewsLettersUser(UUID, SITE).then((res) => {
           if (res.data.length >= 1) {
             res.data.map((item) => {
               if (this._isMounted) {

@@ -13,8 +13,8 @@ import getCodeError, {
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import Domains from '../../_dependencies/domains'
-import Services from '../../_dependencies/services'
+import { getOriginAPI, getUrlPaywall } from '../../_dependencies/domains'
+import { getEntitlement } from '../../_dependencies/services'
 import { MsgRegister } from '../iconos'
 import Loading from '../loading'
 import { CheckBox } from './control_checkbox'
@@ -94,10 +94,7 @@ export const FormLogin = ({ valTemplate, attributes }) => {
 
   const getListSubs = () =>
     window.Identity.extendSession().then((resExt) => {
-      const checkEntitlement = Services.getEntitlement(
-        resExt.accessToken,
-        arcSite
-      )
+      const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
             const result = Object.keys(res.skus).map((key) => res.skus[key].sku)
@@ -126,12 +123,12 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     }
 
     removeBefore() // dismount before
-    window.location.href = Domains.getUrlPaywall(arcSite)
+    window.location.href = getUrlPaywall(arcSite)
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
 
   const checkUserSubs = () => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
 
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
@@ -190,13 +187,13 @@ export const FormLogin = ({ valTemplate, attributes }) => {
 
   const onSubmitForm = ({ lemail, lpass }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.login(lemail, lpass, {
       rememberMe: true,
       cookie: true,
     })
       .then(() => {
-        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
         window.Identity.getUserProfile().then((resProfile) => {
           if (
             activeVerifyEmail &&

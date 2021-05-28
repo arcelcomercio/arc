@@ -10,7 +10,7 @@ import getCodeError, {
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import Domains from '../../_dependencies/domains'
+import { getOriginAPI } from '../../_dependencies/domains'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
@@ -62,13 +62,13 @@ export const FormRelogin = ({ onClose, typeDialog }) => {
 
   const onSubmitForm = ({ remail, rpass }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.login(remail, rpass, {
       rememberMe: true,
       cookie: true,
     })
       .then(() => {
-        window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
         window.Identity.getUserProfile().then((profile) => {
           if (
             activeVerifyEmail &&

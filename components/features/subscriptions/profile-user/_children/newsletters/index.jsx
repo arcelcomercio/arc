@@ -5,8 +5,12 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import Loading from '../../../../signwall/_children/loading'
-import Domains from '../../../../signwall/_dependencies/domains'
-import Services from '../../../../signwall/_dependencies/services'
+import { getOriginAPI } from '../../../../signwall/_dependencies/domains'
+import {
+  getNewsLetters,
+  getNewsLettersUser,
+  sendNewsLettersUser,
+} from '../../../../signwall/_dependencies/services'
 import { Wrapper } from '../../styled'
 import Checkbox from './_children/checkbox'
 
@@ -38,7 +42,7 @@ class NewsLetter extends Component {
 
     const listAllNews = { ...[] }
 
-    Services.getNewsLetters().then((resNews) => {
+    getNewsLetters().then((resNews) => {
       resNews[SITE].map((item) => {
         listAllNews[item.code] = false
         return null
@@ -49,7 +53,7 @@ class NewsLetter extends Component {
         checksNews: listAllNews,
       })
 
-      Services.getNewsLettersUser(UUID, SITE).then((res) => {
+      getNewsLettersUser(UUID, SITE).then((res) => {
         if (res.data.length >= 1) {
           res.data.map((item) => {
             this.setState((prevState) => ({
@@ -103,9 +107,9 @@ class NewsLetter extends Component {
     const UUID = window.Identity.userIdentity.uuid
     const EMAIL = window.Identity.userProfile.email
 
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.extendSession().then((extSess) => {
-      Services.sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
+      sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
         ...selectCategories,
       ])
         .then(() => {

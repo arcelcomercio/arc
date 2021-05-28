@@ -22,10 +22,14 @@ import {
 } from '../../../../../signwall/_children/iconos'
 import Loading from '../../../../../signwall/_children/loading'
 import { Modal } from '../../../../../signwall/_children/modal/index'
-import Domains from '../../../../../signwall/_dependencies/domains'
+import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import addPayU from '../../../../../signwall/_dependencies/payu'
 import { PayuError } from '../../../../../signwall/_dependencies/payu-error'
-import Services from '../../../../../signwall/_dependencies/services'
+import {
+  finalizePaymentUpdate,
+  getProfilePayu,
+  initPaymentUpdate,
+} from '../../../../../signwall/_dependencies/services'
 import getCodeError from '../../../../_dependencies/Errors'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 import useForm from '../../../../_hooks/useForm'
@@ -178,9 +182,9 @@ export const SubsDetail = ({ IdSubscription }) => {
   }
 
   React.useEffect(() => {
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.extendSession().then(() => {
-      window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      window.Sales.options({ apiOrigin: getOriginAPI(arcSite) })
       window.Sales.getSubscriptionDetails(IdSubscription).then((resDetail) => {
         setShowResDetail(resDetail)
         setShowLoading(false)
@@ -231,117 +235,114 @@ export const SubsDetail = ({ IdSubscription }) => {
     setShowOpenUpdate(true)
 
     if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
       window.Identity.extendSession().then(() => {
-        window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Sales.options({ apiOrigin: getOriginAPI(arcSite) })
         window.Sales.getPaymentOptions().then((res) => {
           const providerID = res[0].paymentMethodID
           const accessTOKEN = window.Identity.userIdentity.accessToken
-          Services.initPaymentUpdate(
-            subsID,
-            providerID,
-            arcSite,
-            accessTOKEN
-          ).then((resUpdate) => {
-            const {
-              parameter1: publicKey,
-              parameter2: accountId,
-              parameter3: payuBaseUrl,
-              parameter4: deviceSessionId,
-            } = resUpdate
+          initPaymentUpdate(subsID, providerID, arcSite, accessTOKEN).then(
+            (resUpdate) => {
+              const {
+                parameter1: publicKey,
+                parameter2: accountId,
+                parameter3: payuBaseUrl,
+                parameter4: deviceSessionId,
+              } = resUpdate
 
-            Services.getProfilePayu(accessTOKEN, IdSubscription, arcSite).then(
-              (profilePayu) =>
-                addPayU(arcSite, deviceSessionId)
-                  .then((payU) => {
-                    payU.setURL(payuBaseUrl)
-                    payU.setPublicKey(publicKey)
-                    payU.setAccountID(accountId)
-                    payU.setListBoxID('mylistID')
-                    payU.getPaymentMethods()
-                    payU.setLanguage('es')
-                    payU.setCardDetails({
-                      number: numcard.replace(/\s/g, ''),
-                      name_card:
-                        ENVIRONMENT === 'elcomercio'
-                          ? `${profilePayu.name || 'Usuario'} ${
-                              profilePayu.lastname || 'Usuario'
-                            }`
-                          : 'APPROVED',
-                      payer_id: new Date().getTime(),
-                      exp_month: dateexpire.split('/')[0],
-                      exp_year:
-                        dateexpire.split('/')[1].length <= 2
-                          ? `20${dateexpire.split('/')[1]}`
-                          : dateexpire.split('/')[1],
-                      method: showSelectedOption,
-                      document: profilePayu.doc_number,
-                      cvv: codecvv,
+              getProfilePayu(accessTOKEN, IdSubscription, arcSite).then(
+                (profilePayu) =>
+                  addPayU(arcSite, deviceSessionId)
+                    .then((payU) => {
+                      payU.setURL(payuBaseUrl)
+                      payU.setPublicKey(publicKey)
+                      payU.setAccountID(accountId)
+                      payU.setListBoxID('mylistID')
+                      payU.getPaymentMethods()
+                      payU.setLanguage('es')
+                      payU.setCardDetails({
+                        number: numcard.replace(/\s/g, ''),
+                        name_card:
+                          ENVIRONMENT === 'elcomercio'
+                            ? `${profilePayu.name || 'Usuario'} ${
+                                profilePayu.lastname || 'Usuario'
+                              }`
+                            : 'APPROVED',
+                        payer_id: new Date().getTime(),
+                        exp_month: dateexpire.split('/')[0],
+                        exp_year:
+                          dateexpire.split('/')[1].length <= 2
+                            ? `20${dateexpire.split('/')[1]}`
+                            : dateexpire.split('/')[1],
+                        method: showSelectedOption,
+                        document: profilePayu.doc_number,
+                        cvv: codecvv,
+                      })
+                      return new Promise((resolve, reject) => {
+                        payU.createToken((response) => {
+                          if (response.error) {
+                            reject(new PayuError(response.error))
+                            setShowMessageFailed(true)
+                            setShowCustomMsgFailed(
+                              response.error ||
+                                'Ha ocurrido un error al actualizar'
+                            )
+                            setShowLoadingSubmit(false)
+                            setShowOpenUpdate(false)
+                            setTimeout(() => {
+                              setShowMessageFailed(false)
+                            }, 5000)
+                          } else {
+                            resolve(response.token)
+                          }
+                        })
+                      })
                     })
-                    return new Promise((resolve, reject) => {
-                      payU.createToken((response) => {
-                        if (response.error) {
-                          reject(new PayuError(response.error))
+                    .then((token) => {
+                      finalizePaymentUpdate(
+                        subsID,
+                        providerID,
+                        arcSite,
+                        accessTOKEN,
+                        `${token}~${deviceSessionId}~${codecvv}`,
+                        profilePayu.email,
+                        `${profilePayu.doc_type}_${profilePayu.doc_number}`,
+                        profilePayu.phone
+                      )
+                        .then((resFin) => {
+                          if (
+                            resFin.cardholderName &&
+                            resFin.creditCardLastFour
+                          ) {
+                            setShowLastFour(resFin.creditCardLastFour)
+                            setShowMessageSuccess(true)
+                            setShowUpdateCard(false)
+                            setShowLastCard(showSelectedOption)
+                          } else {
+                            setShowMessageFailed(true)
+                            setShowCustomMsgFailed(
+                              'Ha ocurrido un error al actualizar. Inténtalo nuevamente.'
+                            )
+                          }
+                        })
+                        .catch(() => {
                           setShowMessageFailed(true)
                           setShowCustomMsgFailed(
-                            response.error ||
-                              'Ha ocurrido un error al actualizar'
+                            'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
                           )
+                        })
+                        .finally(() => {
                           setShowLoadingSubmit(false)
                           setShowOpenUpdate(false)
                           setTimeout(() => {
                             setShowMessageFailed(false)
+                            setShowMessageSuccess(false)
                           }, 5000)
-                        } else {
-                          resolve(response.token)
-                        }
-                      })
+                        })
                     })
-                  })
-                  .then((token) => {
-                    Services.finalizePaymentUpdate(
-                      subsID,
-                      providerID,
-                      arcSite,
-                      accessTOKEN,
-                      `${token}~${deviceSessionId}~${codecvv}`,
-                      profilePayu.email,
-                      `${profilePayu.doc_type}_${profilePayu.doc_number}`,
-                      profilePayu.phone
-                    )
-                      .then((resFin) => {
-                        if (
-                          resFin.cardholderName &&
-                          resFin.creditCardLastFour
-                        ) {
-                          setShowLastFour(resFin.creditCardLastFour)
-                          setShowMessageSuccess(true)
-                          setShowUpdateCard(false)
-                          setShowLastCard(showSelectedOption)
-                        } else {
-                          setShowMessageFailed(true)
-                          setShowCustomMsgFailed(
-                            'Ha ocurrido un error al actualizar. Inténtalo nuevamente.'
-                          )
-                        }
-                      })
-                      .catch(() => {
-                        setShowMessageFailed(true)
-                        setShowCustomMsgFailed(
-                          'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
-                        )
-                      })
-                      .finally(() => {
-                        setShowLoadingSubmit(false)
-                        setShowOpenUpdate(false)
-                        setTimeout(() => {
-                          setShowMessageFailed(false)
-                          setShowMessageSuccess(false)
-                        }, 5000)
-                      })
-                  })
-            )
-          })
+              )
+            }
+          )
         })
       })
     }
@@ -373,7 +374,7 @@ export const SubsDetail = ({ IdSubscription }) => {
   const recoverySubscription = (idSubsRecovery) => {
     if (typeof window !== 'undefined') {
       setShowLoadRescue('Recuperando...')
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
       window.Identity.extendSession().then(() => {
         window.Sales.rescueSubscription(idSubsRecovery)
           .then(() => {
@@ -395,9 +396,9 @@ export const SubsDetail = ({ IdSubscription }) => {
       setShowLoadCancel('Finalizando...')
 
       const valMotivo = option === 'Otro motivo' ? txtMotivo.trim() : option
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
       window.Identity.extendSession().then(() => {
-        window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+        window.Sales.options({ apiOrigin: getOriginAPI(arcSite) })
         window.Sales.cancelSubscription(idSubsDelete, valMotivo || undefined)
           .then(() => {
             Taggeo(`Web_Sign_Wall_General`, `web_swg_success_anulacion`)

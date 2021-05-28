@@ -3,7 +3,12 @@ import React, { Component } from 'react'
 
 import addScriptAsync from '../../../../../../utilities/script-async'
 import Loading from '../../../../../signwall/_children/loading'
-import Domains from '../../../../../signwall/_dependencies/domains'
+import {
+  getListBundle,
+  getOriginAPI,
+  getScriptSales,
+  getUrlPaywall,
+} from '../../../../../signwall/_dependencies/domains'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 import { ResumeDates, Title } from '../../../styled'
 import { WrapperBlock } from '../styles'
@@ -22,11 +27,11 @@ class Subs extends Component {
       isSubs: false,
       isLoad: true,
       userSubsDetail: [],
-      listBundle: Domains.getListBundle() || [],
+      listBundle: getListBundle || [],
     }
 
     const { arcSite } = this.props
-    this.origin_api = Domains.getOriginAPI(arcSite)
+    this.origin_api = getOriginAPI(arcSite)
   }
 
   componentDidMount() {
@@ -37,7 +42,7 @@ class Subs extends Component {
         if (!window.Sales) {
           addScriptAsync({
             name: 'sdkSalesARC',
-            url: Domains.getScriptSales(),
+            url: getScriptSales,
           }).then(() => {
             this.getListSubs().then((p) => {
               setTimeout(() => {
@@ -150,7 +155,7 @@ class Subs extends Component {
     const { arcSite } = this.props
     e.preventDefault()
     if (typeof window !== 'undefined') {
-      window.location.href = Domains.getUrlPaywall(arcSite)
+      window.location.href = getUrlPaywall(arcSite)
       window.sessionStorage.setItem('paywall_type_modal', 'organico')
       window.sessionStorage.setItem('paywall_last_url', '/')
     }

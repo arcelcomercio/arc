@@ -6,8 +6,9 @@ import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
 import addScriptAsync from '../../../utilities/script-async'
 import Loading from '../../signwall/_children/loading'
+import { getOriginAPI } from '../../signwall/_dependencies/domains'
 import { ModalConsumer, ModalProvider } from '../_context/modal'
-import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
 import MenuSignwall from './_children/menu/signwall'
@@ -32,7 +33,6 @@ const renderTemplate = (template, id) => {
 const WrapperProfile = () => {
   const { siteProperties, arcSite, deployment } = useAppContext() || {}
   const { links, urls: urlCommon } = PropertiesCommon
-  const { urls } = PropertiesSite[arcSite]
 
   const {
     changeTemplate,
@@ -43,7 +43,6 @@ const WrapperProfile = () => {
   } = React.useContext(ModalConsumer)
 
   React.useEffect(() => {
-    updateLoading(false)
     Sentry.init({
       dsn: urlCommon.sentrySign,
       debug: env !== PROD,
@@ -67,7 +66,8 @@ const WrapperProfile = () => {
       includeNoScript: false,
     })
       .then(() => {
-        window.Identity.options({ apiOrigin: urls.arcOrigin })
+        updateLoading(false)
+        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
       })
       .catch((errIdentitySDK) => {
         Sentry.captureEvent({

@@ -94,7 +94,11 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   return (
     <>
-      <Header {...{ arcSite, mainColorBg, buttonBack }} />
+      <Header
+        arcSite={arcSite}
+        mainColorBg={mainColorBg}
+        buttonBack={buttonBack}
+      />
       <Container>
         <Wrapper>
           <NavigateProvider>

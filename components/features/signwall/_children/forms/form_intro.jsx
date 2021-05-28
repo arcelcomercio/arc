@@ -5,7 +5,7 @@ import Markdown from 'react-markdown/with-html'
 
 import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import Domains from '../../_dependencies/domains'
+import { getUrlPaywall } from '../../_dependencies/domains'
 import Loading from '../loading'
 import * as S from './styles'
 
@@ -62,7 +62,7 @@ const FormIntro = ({
 
     removeBefore()
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
-    window.location.href = Domains.getUrlPaywall(arcSite)
+    window.location.href = getUrlPaywall(arcSite)
   }
 
   return (

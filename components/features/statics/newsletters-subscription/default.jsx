@@ -5,8 +5,12 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import Loading from '../../signwall/_children/loading'
-import Domains from '../../signwall/_dependencies/domains'
-import Services from '../../signwall/_dependencies/services'
+import { getOriginAPI } from '../../signwall/_dependencies/domains'
+import {
+  getNewsLetters,
+  getNewsLettersUser,
+  sendNewsLettersUser,
+} from '../../signwall/_dependencies/services'
 import { SignOrganic } from '../../subscriptions/auth-user/_children/Organic'
 import Checkbox from './_children/item'
 import SubscriptionTitle from './_children/title'
@@ -52,7 +56,7 @@ class NewslettersSubscription extends Component {
   }
 
   handleLeavePage = (e) => {
-    const confirmationMessage = '¿Deseas volver a argar el sitio?'
+    const confirmationMessage = '¿Desea volver a cargar el sitio?'
     e.returnValue = confirmationMessage
     return confirmationMessage
   }
@@ -79,9 +83,9 @@ class NewslettersSubscription extends Component {
     const UUID = window.Identity.userIdentity.uuid
     const EMAIL = window.Identity.userProfile.email
 
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.extendSession().then((extSess) => {
-      Services.sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
+      sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
         ...selectCategories,
       ])
         .then(() => {
@@ -131,24 +135,21 @@ class NewslettersSubscription extends Component {
 
     const { selectCategories, lastItemSelected } = this.state
     const { arcSite } = this.props
-
     const UUID = window.Identity.userIdentity.uuid
-    const SITE = arcSite
-
     const listAllNews = { ...[] }
 
-    Services.getNewsLetters().then((resNews) => {
-      resNews[SITE].map((item) => {
+    getNewsLetters().then((resNews) => {
+      resNews[arcSite].map((item) => {
         listAllNews[item.code] = false
         return null
       })
 
       this.setState({
-        newsletters: resNews[SITE] || [],
+        newsletters: resNews[arcSite] || [],
         checksNews: listAllNews,
       })
 
-      Services.getNewsLettersUser(UUID, SITE)
+      getNewsLettersUser(UUID, arcSite)
         .then((res) => {
           if (res.data.length >= 1) {
             res.data.map((item) => {
@@ -217,7 +218,6 @@ class NewslettersSubscription extends Component {
       showsuccess,
       showSignwall,
     } = this.state
-
     const { arcSite } = this.props
 
     return (
@@ -241,7 +241,6 @@ class NewslettersSubscription extends Component {
                     image={item.image}
                     name={item.name}
                     description={item.description}
-                    site={arcSite}
                     checked={checksNews[item.code]}
                     onChange={(e) => {
                       if (this.checkSession()) {

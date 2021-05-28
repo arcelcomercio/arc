@@ -5,7 +5,7 @@ import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import Domains from '../../_dependencies/domains'
+import { getOriginAPI } from '../../_dependencies/domains'
 import { MsgResetPass, ResetPass } from '../iconos'
 import { Input } from './control_input_select'
 import * as S from './styles'
@@ -58,7 +58,7 @@ export const FormReset = ({ onClose, tokenReset, typeDialog }) => {
 
   const onSubmitForm = ({ rpass }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.resetPassword(tokenReset, rpass)
       .then(() => {
         setShowConfirm(true)
