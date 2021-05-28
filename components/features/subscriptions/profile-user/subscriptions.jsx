@@ -85,7 +85,7 @@ const WrapperProfile = () => {
   return (
     <PanelWrapper id="profile-signwall">
       {userLoading ? (
-        <div className="back-loading" style={{ zIndex: '20' }}>
+        <div className="subs-loading" style={{ zIndex: '20' }}>
           <Loading arcSite={arcSite} />
         </div>
       ) : (

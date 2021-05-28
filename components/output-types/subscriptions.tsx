@@ -43,7 +43,7 @@ const Subscriptions: OT<OutputProps> = ({
   const description = getMetaValue('description') || defaultDescription
   // eslint-disable-next-line no-nested-ternary
   const stylesheet = isSignwallPage
-    ? 'signwall'
+    ? 'subs-signwall'
     : isEmpresaPage || isFaqsPage || isSubscriptionPage
     ? 'subs-landing'
     : 'subs-payment'

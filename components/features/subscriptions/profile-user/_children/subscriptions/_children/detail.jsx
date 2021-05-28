@@ -826,317 +826,300 @@ export const SubsDetail = ({ IdSubscription }) => {
             </button>
           </div>
 
-          <div className="modal-body__wrapper">
-            <Form npadding>
-              {showStepCancel === 1 && (
-                <>
-                  {arcSite === 'elcomercio' ? (
+          <Form>
+            {showStepCancel === 1 && (
+              <>
+                {arcSite === 'elcomercio' ? (
+                  <>
+                    <Title s="16" className="justify mt-10 mb-20">
+                      Queremos que sepas que gracias a tu suscripción podemos
+                      reforzar nuestro compromiso con el periodismo de calidad.
+                    </Title>
+                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                      Nuestro trabajo periodístico va más allá de mantenerte
+                      informado. Queremos darte una opción de análisis para que
+                      tomes decisiones a través de contenidos exclusivos y notas
+                      de valor agregado especialmente creados para ti.
+                    </Text>
+                    <Text c="gray" s="14" lh="26" className="justify mb-20">
+                      Gracias a lectores como tú renovamos a diario nuestro
+                      deber con la información veraz y confiable que nos
+                      permiten mantener más de 180 años de trayectoria.
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Title s="16" className="justify mt-10 mb-20">
+                      Lamentamos mucho que estés por tomar la decisión de
+                      cancelar tu suscripción con Gestion.pe y quieras dejar de
+                      formar parte de nuestro selecto grupo de suscriptores.
+                    </Title>
+                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                      Durante todo el tiempo que estás con nosotros, un
+                      experimentado equipo de 50 periodistas trabaja
+                      intensamente para ofrecerte primicias y una selección de
+                      las noticias más importantes de economía y negocios del
+                      Perú y el mundo, lo que incluye a alrededor de 600
+                      artículos mensuales Plus G exclusivos para suscriptores.
+                    </Text>
+                    <Text c="gray" s="14" lh="26" className="justify mb-20">
+                      ¿Deseas continuar con la anulación de tu suscripción?
+                    </Text>
+                  </>
+                )}
+
+                <S.Block align="center" pt="10">
+                  <S.FormGroup width="80">
+                    <Button
+                      typeBtn="border"
+                      type="button"
+                      onClick={() => {
+                        setShowStepCancel(2)
+                        Taggeo(
+                          `Web_Sign_Wall_General`,
+                          `web_swg_open_anulacion_step2`
+                        )
+                      }}>
+                      Continuar con la anulación
+                    </Button>
+                  </S.FormGroup>
+                </S.Block>
+              </>
+            )}
+
+            {showStepCancel === 2 && (
+              <>
+                <Title s="20" c={mainColorTitle} className="center mt-10 mb-20">
+                  ¿De qué te perderás si cancelas tu suscripción?
+                </Title>
+
+                {arcSite === 'elcomercio' ? (
+                  <>
+                    <Title s="16" className="justify mt-10 mb-10">
+                      Con tu Plan Digital tienes acceso exclusivo a:
+                    </Title>
+
+                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                      Reportajes, entrevistas, artículos de opinión,
+                      suplementos, informes y la mejor selección de historias
+                      elaboradas por El Comercio, todo creado especialmente para
+                      ti.
+                    </Text>
+
+                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                      Navegación ilimitada a {arcSite}.pe desde todos tus
+                      dispositivos.
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                      Contenido premium Plus G exclusivo para suscriptores
+                    </Text>
+
+                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                      Lectura ilimitada del contenido abierto desde todos tus
+                      dispositivos.
+                    </Text>
+
+                    <Text c="gray" s="14" lh="26" className="justify mb-20">
+                      La mejor selección de artículos e informes elaborados por
+                      el diario Gestión, The Economist y la agencia Bloomberg.
+                    </Text>
+                  </>
+                )}
+
+                <S.Block align="center" pt="10">
+                  <S.FormGroup width="80">
+                    <Button
+                      typeBtn="border"
+                      type="button"
+                      onClick={() => {
+                        setShowStepCancel(3)
+                        Taggeo(
+                          `Web_Sign_Wall_General`,
+                          `web_swg_open_anulacion_step3`
+                        )
+                      }}>
+                      Continuar con la anulación
+                    </Button>
+                  </S.FormGroup>
+                </S.Block>
+              </>
+            )}
+
+            {showStepCancel === 3 && (
+              <>
+                <Title s="20" c={mainColorTitle} className="center mt-10 mb-20">
+                  {` ${
+                    new Date() >= new Date(showResLastSubs)
+                      ? 'Tu suscripción no se puede anular, ya que se encuentra en proceso de renovación automática desde el'
+                      : 'Ten en cuenta que solo tendrás acceso a tu plan digital hasta el'
+                  }  ${dateFormat(showResLastSubs)}`}
+                </Title>
+
+                <Title s="16" className="center mt-20 mb-20">
+                  {`${
+                    new Date() >= new Date(showResLastSubs)
+                      ? '¿Deseas renovar en este momento?'
+                      : '¿Deseas continuar con la anulación de tu suscripción?'
+                  } `}
+                </Title>
+
+                <S.Block align="center" pt="10">
+                  {new Date() >= new Date(showResLastSubs) ? (
                     <>
-                      <Title s="16" className="justify mt-10 mb-20">
-                        Queremos que sepas que gracias a tu suscripción podemos
-                        reforzar nuestro compromiso con el periodismo de
-                        calidad.
-                      </Title>
-                      <Text c="gray" s="14" lh="26" className="justify mb-10">
-                        Nuestro trabajo periodístico va más allá de mantenerte
-                        informado. Queremos darte una opción de análisis para
-                        que tomes decisiones a través de contenidos exclusivos y
-                        notas de valor agregado especialmente creados para ti.
-                      </Text>
-                      <Text c="gray" s="14" lh="26" className="justify mb-20">
-                        Gracias a lectores como tú renovamos a diario nuestro
-                        deber con la información veraz y confiable que nos
-                        permiten mantener más de 180 años de trayectoria.
-                      </Text>
-                    </>
-                  ) : (
-                    <>
-                      <Title s="16" className="justify mt-10 mb-20">
-                        Lamentamos mucho que estés por tomar la decisión de
-                        cancelar tu suscripción con Gestion.pe y quieras dejar
-                        de formar parte de nuestro selecto grupo de
-                        suscriptores.
-                      </Title>
-                      <Text c="gray" s="14" lh="26" className="justify mb-10">
-                        Durante todo el tiempo que estás con nosotros, un
-                        experimentado equipo de 50 periodistas trabaja
-                        intensamente para ofrecerte primicias y una selección de
-                        las noticias más importantes de economía y negocios del
-                        Perú y el mundo, lo que incluye a alrededor de 600
-                        artículos mensuales Plus G exclusivos para suscriptores.
-                      </Text>
-                      <Text c="gray" s="14" lh="26" className="justify mb-20">
-                        ¿Deseas continuar con la anulación de tu suscripción?
-                      </Text>
-                    </>
-                  )}
+                      <S.FormGroup width="45">
+                        <Button
+                          type="button"
+                          onClick={() => {
+                            closeModalConfirm('anulacion')
+                          }}>
+                          Cancelar
+                        </Button>
+                      </S.FormGroup>
 
-                  <S.Block align="center" pt="10">
-                    <S.FormGroup width="80">
-                      <Button
-                        typeBtn="border"
-                        type="button"
-                        onClick={() => {
-                          setShowStepCancel(2)
-                          Taggeo(
-                            `Web_Sign_Wall_General`,
-                            `web_swg_open_anulacion_step2`
-                          )
-                        }}>
-                        Continuar con la anulación
-                      </Button>
-                    </S.FormGroup>
-                  </S.Block>
-                </>
-              )}
-
-              {showStepCancel === 2 && (
-                <>
-                  <Title
-                    s="20"
-                    c={mainColorTitle}
-                    className="center mt-10 mb-20">
-                    ¿De qué te perderás si cancelas tu suscripción?
-                  </Title>
-
-                  {arcSite === 'elcomercio' ? (
-                    <>
-                      <Title s="16" className="justify mt-10 mb-10">
-                        Con tu Plan Digital tienes acceso exclusivo a:
-                      </Title>
-
-                      <Text c="gray" s="14" lh="26" className="justify mb-10">
-                        Reportajes, entrevistas, artículos de opinión,
-                        suplementos, informes y la mejor selección de historias
-                        elaboradas por El Comercio, todo creado especialmente
-                        para ti.
-                      </Text>
-
-                      <Text c="gray" s="14" lh="26" className="justify mb-10">
-                        Navegación ilimitada a {arcSite}.pe desde todos tus
-                        dispositivos.
-                      </Text>
-                    </>
-                  ) : (
-                    <>
-                      <Text c="gray" s="14" lh="26" className="justify mb-10">
-                        Contenido premium Plus G exclusivo para suscriptores
-                      </Text>
-
-                      <Text c="gray" s="14" lh="26" className="justify mb-10">
-                        Lectura ilimitada del contenido abierto desde todos tus
-                        dispositivos.
-                      </Text>
-
-                      <Text c="gray" s="14" lh="26" className="justify mb-20">
-                        La mejor selección de artículos e informes elaborados
-                        por el diario Gestión, The Economist y la agencia
-                        Bloomberg.
-                      </Text>
-                    </>
-                  )}
-
-                  <S.Block align="center" pt="10">
-                    <S.FormGroup width="80">
-                      <Button
-                        typeBtn="border"
-                        type="button"
-                        onClick={() => {
-                          setShowStepCancel(3)
-                          Taggeo(
-                            `Web_Sign_Wall_General`,
-                            `web_swg_open_anulacion_step3`
-                          )
-                        }}>
-                        Continuar con la anulación
-                      </Button>
-                    </S.FormGroup>
-                  </S.Block>
-                </>
-              )}
-
-              {showStepCancel === 3 && (
-                <>
-                  <Title
-                    s="20"
-                    c={mainColorTitle}
-                    className="center mt-10 mb-20">
-                    {` ${
-                      new Date() >= new Date(showResLastSubs)
-                        ? 'Tu suscripción no se puede anular, ya que se encuentra en proceso de renovación automática desde el'
-                        : 'Ten en cuenta que solo tendrás acceso a tu plan digital hasta el'
-                    }  ${dateFormat(showResLastSubs)}`}
-                  </Title>
-
-                  <Title s="16" className="center mt-20 mb-20">
-                    {`${
-                      new Date() >= new Date(showResLastSubs)
-                        ? '¿Deseas renovar en este momento?'
-                        : '¿Deseas continuar con la anulación de tu suscripción?'
-                    } `}
-                  </Title>
-
-                  <S.Block align="center" pt="10">
-                    {new Date() >= new Date(showResLastSubs) ? (
-                      <>
-                        <S.FormGroup width="45">
-                          <Button
-                            type="button"
-                            onClick={() => {
-                              closeModalConfirm('anulacion')
-                            }}>
-                            Cancelar
-                          </Button>
-                        </S.FormGroup>
-
-                        <S.FormGroup width="45">
-                          <Button
-                            typeBtn="border"
-                            type="button"
-                            onClick={() => {
-                              Taggeo(
-                                `Web_Sign_Wall_General`,
-                                `web_swg_boton_anulacion_renovar`
-                              )
-                              setShowUpdateCard(true)
-                              closeModalConfirm('anulacion')
-                              setTimeout(() => {
-                                const divUpdateCard = document.getElementById(
-                                  'div-signwall-updatecard'
-                                )
-                                if (divUpdateCard)
-                                  divUpdateCard.scrollIntoView()
-                              }, 100)
-                            }}>
-                            Renovar suscripción
-                          </Button>
-                        </S.FormGroup>
-                      </>
-                    ) : (
-                      <S.FormGroup width="80">
+                      <S.FormGroup width="45">
                         <Button
                           typeBtn="border"
                           type="button"
                           onClick={() => {
-                            setShowStepCancel(4)
                             Taggeo(
                               `Web_Sign_Wall_General`,
-                              `web_swg_open_anulacion_step4`
+                              `web_swg_boton_anulacion_renovar`
                             )
+                            setShowUpdateCard(true)
+                            closeModalConfirm('anulacion')
+                            setTimeout(() => {
+                              const divUpdateCard = document.getElementById(
+                                'div-signwall-updatecard'
+                              )
+                              if (divUpdateCard) divUpdateCard.scrollIntoView()
+                            }, 100)
                           }}>
-                          Continuar con la anulación
+                          Renovar suscripción
                         </Button>
                       </S.FormGroup>
-                    )}
-                  </S.Block>
-                </>
-              )}
-
-              {showStepCancel === 4 && (
-                <>
-                  <Title
-                    s="20"
-                    c={mainColorTitle}
-                    className="center mt-10 mb-20">
-                    Finalizar suscripción
-                  </Title>
-
-                  {showErrorCancel && (
-                    <Message failed>{showErrorCancel}</Message>
-                  )}
-
-                  <Title s="16" className="justify mt-10 mb-10">
-                    Antes de hacer efectiva la anulación, por favor, cuéntanos
-                    los motivos por los que deseas anular tu suscripción:
-                  </Title>
-
-                  {arcSite === 'elcomercio'
-                    ? listOptionsComercio.map((item) => (
-                        <label key={item}>
-                          <RadioboxSimple
-                            key={item}
-                            name={item}
-                            checked={showOptionCancel === item}
-                            onChange={() => {
-                              setShowOptionCancel(item)
-                            }}
-                            value={item}
-                          />
-                        </label>
-                      ))
-                    : listOptionsGestion.map((item) => (
-                        <label key={item}>
-                          <RadioboxSimple
-                            key={item}
-                            name={item}
-                            checked={showOptionCancel === item}
-                            onChange={() => {
-                              setShowOptionCancel(item)
-                            }}
-                            value={item}
-                          />
-                        </label>
-                      ))}
-
-                  {showOptionCancel === 'Otro motivo' && (
-                    <S.Block pt="10">
-                      <S.FormGroup
-                        width="100"
-                        className={validateMotivo() && 'group-required'}>
-                        <p>{validateMotivo()}</p>
-                        <textarea
-                          id="motivo-detalle"
-                          required={showOptionCancel === 'Otro motivo'}
-                          onChange={(e) => {
-                            setTxtMotivo(e.target.value)
-                            validateMotivo()
-                          }}
-                          value={txtMotivo}
-                          placeholder="Ingresa motivo"
-                          maxLength="200"
-                        />
-                      </S.FormGroup>
-                    </S.Block>
-                  )}
-
-                  <S.Block align="center" pt="20">
-                    <S.FormGroup width="45">
-                      <Button
-                        type="button"
-                        onClick={() => {
-                          closeModalConfirm('anulacion')
-                        }}>
-                        Cancelar
-                      </Button>
-                    </S.FormGroup>
-                    <S.FormGroup width="45">
+                    </>
+                  ) : (
+                    <S.FormGroup width="80">
                       <Button
                         typeBtn="border"
                         type="button"
-                        disabled={
-                          showOptionCancel === null ||
-                          (showOptionCancel === 'Otro motivo' &&
-                            validateMotivo()) ||
-                          showLoadCancel
-                        }
                         onClick={() => {
-                          deleteSubscription(
-                            showResDetail.subscriptionID,
-                            showOptionCancel
-                          )
+                          setShowStepCancel(4)
                           Taggeo(
                             `Web_Sign_Wall_General`,
-                            `web_swg_boton_finalizar_anulacion`
+                            `web_swg_open_anulacion_step4`
                           )
                         }}>
-                        {showLoadCancel || 'Finalizar Suscripción'}
+                        Continuar con la anulación
                       </Button>
                     </S.FormGroup>
+                  )}
+                </S.Block>
+              </>
+            )}
+
+            {showStepCancel === 4 && (
+              <>
+                <Title s="20" c={mainColorTitle} className="center mt-10 mb-20">
+                  Finalizar suscripción
+                </Title>
+
+                {showErrorCancel && <Message failed>{showErrorCancel}</Message>}
+
+                <Title s="16" className="justify mt-10 mb-10">
+                  Antes de hacer efectiva la anulación, por favor, cuéntanos los
+                  motivos por los que deseas anular tu suscripción:
+                </Title>
+
+                {arcSite === 'elcomercio'
+                  ? listOptionsComercio.map((item) => (
+                      <label key={item}>
+                        <RadioboxSimple
+                          key={item}
+                          name={item}
+                          checked={showOptionCancel === item}
+                          onChange={() => {
+                            setShowOptionCancel(item)
+                          }}
+                          value={item}
+                        />
+                      </label>
+                    ))
+                  : listOptionsGestion.map((item) => (
+                      <label key={item}>
+                        <RadioboxSimple
+                          key={item}
+                          name={item}
+                          checked={showOptionCancel === item}
+                          onChange={() => {
+                            setShowOptionCancel(item)
+                          }}
+                          value={item}
+                        />
+                      </label>
+                    ))}
+
+                {showOptionCancel === 'Otro motivo' && (
+                  <S.Block pt="10">
+                    <S.FormGroup
+                      width="100"
+                      className={validateMotivo() && 'group-required'}>
+                      <p>{validateMotivo()}</p>
+                      <textarea
+                        id="motivo-detalle"
+                        required={showOptionCancel === 'Otro motivo'}
+                        onChange={(e) => {
+                          setTxtMotivo(e.target.value)
+                          validateMotivo()
+                        }}
+                        value={txtMotivo}
+                        placeholder="Ingresa motivo"
+                        maxLength="200"
+                      />
+                    </S.FormGroup>
                   </S.Block>
-                </>
-              )}
-            </Form>
-          </div>
+                )}
+
+                <S.Block align="center" pt="20">
+                  <S.FormGroup width="45">
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        closeModalConfirm('anulacion')
+                      }}>
+                      Cancelar
+                    </Button>
+                  </S.FormGroup>
+                  <S.FormGroup width="45">
+                    <Button
+                      typeBtn="border"
+                      type="button"
+                      disabled={
+                        showOptionCancel === null ||
+                        (showOptionCancel === 'Otro motivo' &&
+                          validateMotivo()) ||
+                        showLoadCancel
+                      }
+                      onClick={() => {
+                        deleteSubscription(
+                          showResDetail.subscriptionID,
+                          showOptionCancel
+                        )
+                        Taggeo(
+                          `Web_Sign_Wall_General`,
+                          `web_swg_boton_finalizar_anulacion`
+                        )
+                      }}>
+                      {showLoadCancel || 'Finalizar Suscripción'}
+                    </Button>
+                  </S.FormGroup>
+                </S.Block>
+              </>
+            )}
+          </Form>
         </Modal>
       )}
 
@@ -1151,47 +1134,44 @@ export const SubsDetail = ({ IdSubscription }) => {
               <Close />
             </button>
           </div>
-
-          <div className="modal-body__wrapper">
-            <Form npadding>
-              <Title s="18" className="center mt-10 mb-20">
-                Confirmar Recuperación
-              </Title>
-              <Text c="gray" s="16" lh="26" className="center mb-10">
-                Al recuperar se volverá a activar la recurrencia de pagos de
-                acuerdo a su plan.
-              </Text>
-              <Text c="gray" s="16" lh="26" className="center mb-10">
-                ¿Desea recuperar su suscripción?
-              </Text>
-              <S.Block align="center" pt="20">
-                <S.FormGroup width="45">
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      closeModalConfirm('recuperar')
-                    }}>
-                    Cancelar
-                  </Button>
-                </S.FormGroup>
-                <S.FormGroup width="45">
-                  <Button
-                    typeBtn="border"
-                    type="button"
-                    disabled={showLoadRescue}
-                    onClick={() => {
-                      recoverySubscription(showResDetail.subscriptionID)
-                      Taggeo(
-                        `Web_Sign_Wall_General`,
-                        `web_swg_boton_finalizar_recuperacion`
-                      )
-                    }}>
-                    {showLoadRescue || 'Recuperar'}
-                  </Button>
-                </S.FormGroup>
-              </S.Block>
-            </Form>
-          </div>
+          <Form>
+            <Title s="18" className="center mt-10 mb-20">
+              Confirmar Recuperación
+            </Title>
+            <Text c="gray" s="16" lh="26" className="center mb-10">
+              Al recuperar se volverá a activar la recurrencia de pagos de
+              acuerdo a su plan.
+            </Text>
+            <Text c="gray" s="16" lh="26" className="center mb-10">
+              ¿Desea recuperar su suscripción?
+            </Text>
+            <S.Block align="center" pt="20">
+              <S.FormGroup width="45">
+                <Button
+                  type="button"
+                  onClick={() => {
+                    closeModalConfirm('recuperar')
+                  }}>
+                  Cancelar
+                </Button>
+              </S.FormGroup>
+              <S.FormGroup width="45">
+                <Button
+                  typeBtn="border"
+                  type="button"
+                  disabled={showLoadRescue}
+                  onClick={() => {
+                    recoverySubscription(showResDetail.subscriptionID)
+                    Taggeo(
+                      `Web_Sign_Wall_General`,
+                      `web_swg_boton_finalizar_recuperacion`
+                    )
+                  }}>
+                  {showLoadRescue || 'Recuperar'}
+                </Button>
+              </S.FormGroup>
+            </S.Block>
+          </Form>
         </Modal>
       )}
     </Wrapper>

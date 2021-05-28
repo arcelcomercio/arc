@@ -294,46 +294,41 @@ class UpdatePassword extends Component {
               </button>
             </div>
 
-            <div className="modal-body__wrapper">
-              <FormGrid onSubmit={(e) => this.submitConfirmPassword(e)}>
-                <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
-                  Para confirmar el cambio, por favor ingresa tu contraseña
-                  actual
-                </Text>
+            <FormGrid onSubmit={(e) => this.submitConfirmPassword(e)}>
+              <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
+                Para confirmar el cambio, por favor ingresa tu contraseña actual
+              </Text>
 
-                <FormGroup full>
-                  <input
-                    type="password"
-                    name="oldPassword"
-                    className={
-                      formErrorsConfirm.oldPassword.length > 0
-                        ? 'input error'
-                        : 'input'
-                    }
-                    placeholder="Contraseña Actual"
-                    noValidate
-                    maxLength="50"
-                    autoComplete="off"
-                    onChange={(e) => {
-                      this.setState({ oldPassword: e.target.value })
-                      this.changeValidationConfirm(e)
-                    }}
-                  />
-                  <label htmlFor="oldPassword" className="label">
-                    Contraseña actual
-                  </label>
-                  {formErrorsConfirm.oldPassword.length > 0 && (
-                    <span className="error">
-                      {formErrorsConfirm.oldPassword}
-                    </span>
-                  )}
-                </FormGroup>
+              <FormGroup full>
+                <input
+                  type="password"
+                  name="oldPassword"
+                  className={
+                    formErrorsConfirm.oldPassword.length > 0
+                      ? 'input error'
+                      : 'input'
+                  }
+                  placeholder="Contraseña Actual"
+                  noValidate
+                  maxLength="50"
+                  autoComplete="off"
+                  onChange={(e) => {
+                    this.setState({ oldPassword: e.target.value })
+                    this.changeValidationConfirm(e)
+                  }}
+                />
+                <label htmlFor="oldPassword" className="label">
+                  Contraseña actual
+                </label>
+                {formErrorsConfirm.oldPassword.length > 0 && (
+                  <span className="error">{formErrorsConfirm.oldPassword}</span>
+                )}
+              </FormGroup>
 
-                <Button type="submit" disabled={!sending} color={mainColorBtn}>
-                  {!sending ? 'CONFIRMANDO...' : 'CONFIRMAR'}
-                </Button>
-              </FormGrid>
-            </div>
+              <Button type="submit" disabled={!sending} color={mainColorBtn}>
+                {!sending ? 'CONFIRMANDO...' : 'CONFIRMAR'}
+              </Button>
+            </FormGrid>
           </Modal>
         )}
       </>

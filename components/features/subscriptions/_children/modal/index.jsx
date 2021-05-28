@@ -19,7 +19,6 @@ function Modal({
     } else {
       window.document.body.classList.remove(MODAL)
     }
-
     return () => {
       window.document.body.classList.remove(MODAL)
     }
@@ -30,19 +29,19 @@ function Modal({
       onClose()
     }
 
-    const _onClose = ({ key }) => {
+    const onCloseModal = ({ key }) => {
       if (allowEsc && key === 'Escape') {
         close()
       }
     }
-    window.addEventListener('keydown', _onClose)
+    window.addEventListener('keydown', onCloseModal)
     return () => {
-      window.removeEventListener('keydown', _onClose)
+      window.removeEventListener('keydown', onCloseModal)
     }
   }, [])
 
   return (
-    <Portal id="modal">
+    <Portal id="subs-modal">
       <div className={`modal ${open && 'open-modal'}`} {...props}>
         <div className="modal-background" />
         <div className="modal-content" scrollable={scrollable}>

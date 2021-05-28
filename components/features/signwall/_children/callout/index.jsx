@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
+import Modal from '../../../subscriptions/_children/modal'
 import {
   formatCellphone,
   formatNames,
 } from '../../../subscriptions/_dependencies/Errors'
 import { pushCallOut } from '../../../subscriptions/_dependencies/Services'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import Modal from '../../../subscriptions/payment/_children/Profile/children/modal'
 import { Input } from '../forms/control_input_select'
 import * as S from '../forms/styles'
 import { Close, MsgRegister } from '../iconos'

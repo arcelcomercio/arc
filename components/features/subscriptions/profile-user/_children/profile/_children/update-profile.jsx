@@ -1021,45 +1021,43 @@ class UpdateProfile extends React.Component {
               </button>
             </div>
 
-            <div className="modal-body__wrapper">
-              <FormGrid onSubmit={(e) => this.submitConfirmPassword(e)}>
-                <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
-                  Para realizar los cambios, por favor ingresa tu contraseña
-                </Text>
+            <FormGrid onSubmit={(e) => this.submitConfirmPassword(e)}>
+              <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
+                Para realizar los cambios, por favor ingresa tu contraseña
+              </Text>
 
-                <FormGroup full>
-                  <input
-                    type="password"
-                    name="currentPassword"
-                    className={
-                      formErrorsConfirm.currentPassword.length > 0
-                        ? 'input error'
-                        : 'input'
-                    }
-                    placeholder="Contraseña"
-                    noValidate
-                    maxLength="50"
-                    autoComplete="off"
-                    onChange={(e) => {
-                      this.setState({ currentPassword: e.target.value })
-                      this.changeValidationConfirm(e)
-                    }}
-                  />
-                  <label htmlFor="currentPassword" className="label">
-                    Contraseña
-                  </label>
-                  {formErrorsConfirm.currentPassword.length > 0 && (
-                    <span className="error">
-                      {formErrorsConfirm.currentPassword}
-                    </span>
-                  )}
-                </FormGroup>
+              <FormGroup full>
+                <input
+                  type="password"
+                  name="currentPassword"
+                  className={
+                    formErrorsConfirm.currentPassword.length > 0
+                      ? 'input error'
+                      : 'input'
+                  }
+                  placeholder="Contraseña"
+                  noValidate
+                  maxLength="50"
+                  autoComplete="off"
+                  onChange={(e) => {
+                    this.setState({ currentPassword: e.target.value })
+                    this.changeValidationConfirm(e)
+                  }}
+                />
+                <label htmlFor="currentPassword" className="label">
+                  Contraseña
+                </label>
+                {formErrorsConfirm.currentPassword.length > 0 && (
+                  <span className="error">
+                    {formErrorsConfirm.currentPassword}
+                  </span>
+                )}
+              </FormGroup>
 
-                <Button type="submit" disabled={sending} color={mainColorBtn}>
-                  {sendingConfirmText}
-                </Button>
-              </FormGrid>
-            </div>
+              <Button type="submit" disabled={sending} color={mainColorBtn}>
+                {sendingConfirmText}
+              </Button>
+            </FormGrid>
           </Modal>
         )}
       </>
