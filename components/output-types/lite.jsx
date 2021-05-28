@@ -186,6 +186,19 @@ const LiteOutput = ({
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
+  const structuredTaboola = ` 
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});`
+
+const jsAdpushup = `
+(function(w, d) {
+	var s = d.createElement('script');
+	s.src = '//cdn.adpushup.com/42614/adpushup.js';
+	s.crossOrigin='anonymous'; 
+	s.type = 'text/javascript'; s.async = true;
+	(d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+})(window, document);`
+
   const isPremium = contentCode === PREMIUM
   const htmlAmpIs = isPremium ? '' : true
   const link = deleteQueryString(requestUri).replace(/\/homepage[/]?$/, '/')
@@ -449,6 +462,15 @@ const LiteOutput = ({
           section={storySectionPath.split('/')[1]}
           subtype={subtype}
         />
+        {arcSite === SITE_ELBOCON ? (
+          <>
+             <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: jsAdpushup }}
+            />
+          </>
+        ) : null}
 
         <Styles
           // eslint-disable-next-line react/jsx-props-no-spreading
