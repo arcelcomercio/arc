@@ -214,6 +214,92 @@ $heightHeader: 52px;
           cursor: wait;
         }
       }
+      &-full {
+        width: 100%;
+        button {
+          width: 100% !important;
+        }
+      }
+
+      &-middle {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .input-error,
+        .input-error:focus {
+          border: 1px solid $redAlert;
+        }
+
+        .msn-error {
+          color: $redAlert;
+          font-size: 9px;
+          font-weight: bold;
+          float: right;
+          position: relative;
+          right: 0;
+          top: 2px;
+          align-items: center;
+        }
+
+        .block {
+          width: 48%;
+          &:first-child {
+            margin-right: 2%;
+          }
+          &:last-child {
+            margin-left: 2%;
+          }
+          input {
+            width: 100%;
+            margin-top: 4px;
+          }
+          & input::placeholder {
+            color: $textPlaceholder;
+          }
+        }
+        button:not(.tooltip) {
+          @include button;
+
+          color: $white;
+          width: 48%;
+          font-size: 11px;
+          background-color: $bluePrimary;
+          &:first-child {
+            margin-right: 2%;
+          }
+          &:last-child {
+            margin-left: 2%;
+          }
+        }
+        button.btn-facebook {
+          background: $bgFacebook
+            url("https://signwall.e3.pe/images/icon-btn-facebook.png") no-repeat;
+        }
+        button.btn-google {
+          background: $bgGoogle
+            url("https://signwall.e3.pe/images/icon-btn-google.png") no-repeat;
+        }
+
+        button.btn-facebook,
+        button.btn-google {
+          background-position: 5px center;
+          background-size: 20px;
+          padding: 5px 5px 5px 25px;
+          text-align: center;
+          height: 40px;
+          line-height: 14px;
+        }
+
+        & .icon-info {
+          width: 13px;
+          height: 13px;
+          display: inline-block;
+          vertical-align: middle;
+          background: url("https://signwall.e3.pe/images/icon-info.png");
+        }
+      }
 
       & .cont-select-input {
         display: flex;
@@ -241,94 +327,6 @@ $heightHeader: 52px;
         & input {
           width: 75%;
           border-radius: 0 4px 4px 0;
-        }
-
-        &-full {
-          width: 100%;
-          button {
-            width: 100% !important;
-          }
-        }
-
-        &-middle {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          width: 100%;
-
-          .input-error,
-          .input-error:focus {
-            border: 1px solid $redAlert;
-          }
-
-          .msn-error {
-            color: $redAlert;
-            font-size: 9px;
-            font-weight: bold;
-            float: right;
-            position: relative;
-            right: 0;
-            top: 2px;
-            align-items: center;
-          }
-
-          .block {
-            width: 48%;
-            &:first-child {
-              margin-right: 2%;
-            }
-            &:last-child {
-              margin-left: 2%;
-            }
-            input {
-              width: 100%;
-              margin-top: 4px;
-            }
-            & input::placeholder {
-              color: $textPlaceholder;
-            }
-          }
-          button:not(.tooltip) {
-            @include button;
-
-            color: $white;
-            width: 48%;
-            font-size: 11px;
-            background-color: $bluePrimary;
-            &:first-child {
-              margin-right: 2%;
-            }
-            &:last-child {
-              margin-left: 2%;
-            }
-          }
-          button.btn-facebook {
-            background: $bgFacebook
-              url("https://signwall.e3.pe/images/icon-btn-facebook.png")
-              no-repeat;
-          }
-          button.btn-google {
-            background: $bgGoogle
-              url("https://signwall.e3.pe/images/icon-btn-google.png") no-repeat;
-          }
-
-          button.btn-facebook,
-          button.btn-google {
-            background-position: 5px center;
-            background-size: 20px;
-            padding: 5px 5px 5px 25px;
-            text-align: center;
-            height: 40px;
-            line-height: 14px;
-          }
-
-          & .icon-info {
-            width: 13px;
-            height: 13px;
-            display: inline-block;
-            vertical-align: middle;
-            background: url("https://signwall.e3.pe/images/icon-info.png");
-          }
         }
       }
     }
