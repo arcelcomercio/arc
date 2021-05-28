@@ -207,8 +207,12 @@ export interface Author extends ANSBase {
   social_links: SocialLink[]
   additional_properties: AuthorAdditionalProperties
 }
+interface Affiliation {
+  name: string
+}
 export interface Credits {
   by: Author[]
+  affiliation: Affiliation
 }
 
 export type Websites = {
@@ -248,7 +252,7 @@ interface EmbedConfigData {
   stories: EmbedConfigDataStories[]
 }
 
-interface EmbedConfig {
+export interface EmbedConfig {
   date: number
   duration: string
   has_ads: number
@@ -280,15 +284,21 @@ export interface BasicJwplayer {
 export interface BasicResumen {
   embed: Embed
 }
-
+export interface Streams {
+  filesize: number
+  stream_type: string
+  url: string
+}
 export interface BasicVideo {
   _id: string
   additional_properties: AdditionalProperties
   duration: number
   embed_html: string
+  streams: Streams[]
   headlines: Pick<Headlines, 'basic'>
   promo_items: Required<Pick<PromoItems, 'basic'>>
   publish_date: string
+  description: string
   type: string
 }
 interface GalleryContentElementsAdditionalProperties
@@ -363,16 +373,41 @@ export interface Basic {
   resized_urls?: ResizedUrls
   url: string
   type: string
+  caption: string
   height: number
 }
+interface BasicMp3 {
+  content: string
+  _id: string
+  type: string
+}
+interface BasicHtml {
+  content: string
+  _id: string
+  type: string
+}
+interface Infografia {
+  content: string
+  _id: string
+  type: string
+}
+
+interface YoutubeId {
+  content: string
+  _id: string
+  type: string
+}
+
 export interface PromoItems {
   basic?: Basic
   basic_jwplayer?: BasicJwplayer
   basic_gallery?: BasicGallery
   basic_video?: BasicVideo
-  basic_html?: AnyObject
-  youtube_id?: AnyObject
+  basic_html?: BasicHtml
+  youtube_id?: YoutubeId
   basic_resumen?: BasicResumen
+  path_mp3?: BasicMp3
+  infografia?: Infografia
 }
 
 export interface Story extends ANSBase, ANSDates {
