@@ -9,6 +9,7 @@ import {
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
   SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
@@ -49,6 +50,7 @@ import vallaScript from './_dependencies/valla'
 import videoScript from './_dependencies/video-script'
 import widgets from './_dependencies/widgets'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const LiteOutput = ({
   children,
   contextPath,
@@ -448,18 +450,30 @@ const LiteOutput = ({
           subtype={subtype}
         />
 
-        <Styles {...metaSiteData} />
+        <Styles
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaSiteData}
+        />
         {!isIframeStory ? (
           <>
-            <MetaSite {...metaSiteData} />
+            <MetaSite
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...metaSiteData}
+            />
             <meta name="description" lang="es" content={description} />
             {isStory ? (
               ''
             ) : (
               <meta name="keywords" lang="es" content={keywords} />
             )}
-            <OpenGraph {...openGraphData} />
-            <TwitterCards {...twitterCardsData} />
+            <OpenGraph
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...openGraphData}
+            />
+            <TwitterCards
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...twitterCardsData}
+            />
           </>
         ) : (
           // Solo para iframes de notas continuas
@@ -468,7 +482,11 @@ const LiteOutput = ({
             <meta name="twitter:site" content={twitterCardsData.twitterUser} />
           </>
         )}
-        <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
+        <MetaStory
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaPageData}
+          isIframeStory={isIframeStory}
+        />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
         )}
@@ -520,6 +538,37 @@ const LiteOutput = ({
           </>
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
+        {/* ============== WebTracking */}
+        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
+          <>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
+            />
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"
+              async
+            />
+          </>
+        ) : null}
+
+        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
+          <>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
+            />
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"
+              async
+            />
+          </>
+        ) : null}
+        {/* ============== WebTracking */}
       </head>
       <body
         className={classBody}
