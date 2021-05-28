@@ -1,10 +1,19 @@
-import React from 'react'
-import Static from 'fusion:static'
-import { ENVIRONMENT } from 'fusion:environment'
 import { useAppContext } from 'fusion:context'
+import { ENVIRONMENT } from 'fusion:environment'
+import Static from 'fusion:static'
+import React from 'react'
+import { FC } from 'types/features'
+import { Streams } from 'types/story'
+
 import { createResizedParams } from '../utilities/resizer/resizer'
 
 const styles = {
+  powas: {
+    width: '100%',
+    height: 'auto',
+    position: 'absolute',
+    objectFit: 'contain',
+  },
   powa: {
     width: '100%',
     height: 0,
@@ -12,15 +21,26 @@ const styles = {
     backgroundColor: '#000',
     overflow: 'hidden',
   },
-  image: {
-    position: 'abslute',
-    objectFit: 'contain',
-    width: '100%',
-    height: 'auto',
-  },
 }
 
-const PowaPlayer = ({
+interface FeatureProps {
+  uuid?: string
+  className?: string
+  preload?: string
+  autoplay?: string
+  sticky?: string
+  stream?: string
+  preroll?: string
+  time?: string
+  ratio?: string
+  id?: string
+  image?: string
+  lazy?: boolean
+  description?: string
+  presets?: string
+}
+
+const PowaPlayer: FC<FeatureProps> = ({
   uuid,
   className,
   stream,
@@ -30,13 +50,12 @@ const PowaPlayer = ({
   preroll,
   time = '-1',
   ratio,
-  image,
-  lazy,
-  alt = '',
+  image = '',
+  lazy = false,
+  description,
   presets: customPresets = '',
 }) => {
   const { arcSite } = useAppContext()
-  // presets con aspect-ratio: 16/9
   const presets =
     customPresets.includes('mobile:') && customPresets.includes('desktop:')
       ? customPresets
@@ -73,9 +92,14 @@ const PowaPlayer = ({
             <source data-srcset={mobile} media="(max-width: 480px)" />
             <img
               data-src={desktop}
-              alt={alt}
+              alt={description}
               className="lazy"
-              style={styles.image}
+              style={{
+                width: '100%',
+                height: 'auto',
+                position: 'absolute',
+                objectFit: 'contain',
+              }}
             />
           </picture>
         ) : (
@@ -83,9 +107,14 @@ const PowaPlayer = ({
             <source srcSet={mobile} media="(max-width: 480px)" />
             <img
               src={desktop}
-              alt={alt}
+              alt={description}
               loading="eager"
-              style={styles.image}
+              style={{
+                width: '100%',
+                height: 'auto',
+                position: 'absolute',
+                objectFit: 'contain',
+              }}
               importance="high"
             />
           </picture>
