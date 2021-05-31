@@ -1,7 +1,7 @@
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import { getPreroll } from '../utilities/ads/preroll'
+import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
 import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
@@ -76,7 +76,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = env
   const {
     videoSeo,
     idYoutube,
@@ -544,9 +544,13 @@ const jsAdpushup = `
           arcSite={arcSite}
           subtype={subtype}
         />
-        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <Libs />
+        ) : null}
+        {isPremium &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <>
-            <Libs />
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
@@ -608,7 +612,9 @@ const jsAdpushup = `
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {isPremium && <Fusion />}
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <Fusion />
+        ) : null}
         {isStory && (
           <script
             type="text/javascript"
@@ -731,6 +737,7 @@ const jsAdpushup = `
           }}
         />
         <script
+          async
           src={`${getAssetsPath(
             arcSite,
             contextPath
