@@ -1,16 +1,16 @@
-import * as React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import { AuthContext } from '../_context/auth'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
 import getDevice from '../_dependencies/GetDevice'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
+import { Taggeo } from '../_dependencies/Taggeo'
 import {
   Capitalize,
-  setLocaleStorage,
   isFbBrowser,
+  setLocaleStorage,
 } from '../_dependencies/Utils'
-import { Taggeo } from '../_dependencies/Taggeo'
-import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
@@ -222,7 +222,7 @@ const ButtonSocial = ({
       const URLRedirect = () => {
         window.location.href = `${URL}?urlReference=${encodeURIComponent(
           window.location.href
-        )}&typeModal=${queryDialog()}`
+        )}&typeModal=${queryDialog()}&dataTreatment=${dataTreatment}`
         setLoadText('Redireccionando...')
       }
 
@@ -238,8 +238,8 @@ const ButtonSocial = ({
 
       if (arcSocial === 'google') return URLWindow()
 
-      // return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
-      return isFbBrowser() ? URLRedirect() : URLWindow()
+      // return isFbBrowser() ? URLRedirect() : URLWindow()
+      return URLRedirect()
     }
     return ''
   }
