@@ -372,7 +372,8 @@ window.addEventListener('load', function liteAds() {
       arcSite === 'elbocon' ||
       arcSite === 'peru21' ||
       arcSite === 'elcomercio' ||
-      arcSite === 'depor' ? (
+      arcSite === 'depor' ||
+      arcSite === 'gestion' ? (
         <>
           {arcSite !== 'elcomerciomag' &&
           !(
