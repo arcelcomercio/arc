@@ -5,6 +5,11 @@ import { FC } from 'types/features'
 interface Props {
   customFields?: {
     block?: 'landing' | 'ranking' | 'awards'
+    landingBrand?: string
+    landingSubtitle?: string
+    landingUrl?: string
+    rankingUrl?: string
+    awardsHtml?: string
   }
 }
 
@@ -23,11 +28,9 @@ const PollaHomepage: FC<Props> = (props) => {
             />
             <h1 className="polla-home__logo-title">Copa América 2021</h1>
             <div className="polla-home__brand-container">
-              <span>Aspicia: </span>
-              <img
-                src="https://images.virtualsoft.tech/site/doradobet/logo-horizontalv2.png"
-                alt="Brand"
-              />
+              <span>Auspicia: </span>
+              <img src={`${customFields.landingBrand}`} alt="Brand" />
+              {/* https://images.virtualsoft.tech/site/doradobet/logo-horizontalv2.png */}
             </div>
           </div>
           <div className="polla-home__desc-container">
@@ -36,10 +39,11 @@ const PollaHomepage: FC<Props> = (props) => {
                 ¡Juega la Polla Depor y gana increíbles premios!
               </h2>
               <p className="polla-home__desc-parag">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry
+                {customFields.landingSubtitle}
               </p>
-              <a href="/" className="polla-home__desc-link">
+              <a
+                href={`${customFields.landingUrl}`}
+                className="polla-home__desc-link">
                 ¡JUEGA!
               </a>
             </div>
@@ -67,7 +71,9 @@ const PollaHomepage: FC<Props> = (props) => {
                 <div className="polla-home__rank-third">30</div>
               </div>
             ))}
-            <a className="polla-home__rank-link" href="/">
+            <a
+              className="polla-home__rank-link"
+              href={`${customFields.rankingUrl}`}>
               VER TABLA COMPLETA
             </a>
           </div>
@@ -78,7 +84,11 @@ const PollaHomepage: FC<Props> = (props) => {
           <h2 className="polla-home__aw-title">
             ¡Estos son algunos de los premios!
           </h2>
-          <div>Aqui va el HTML</div>
+          {customFields.awardsHtml && (
+            <div
+              dangerouslySetInnerHTML={{ __html: customFields.awardsHtml }}
+            />
+          )}
           <a href="/" className="polla-home__aw-link">
             VER MÁS
           </a>
@@ -100,6 +110,29 @@ PollaHomepage.propTypes = {
         awards: 'Premios',
       },
       defaultValue: 'landing',
+    }),
+    landingBrand: PropTypes.string.tag({
+      name: 'URL Brand',
+      group: 'landing',
+    }),
+    landingSubtitle: PropTypes.string.tag({
+      name: 'Subtitulo',
+      group: 'landing',
+    }),
+    landingUrl: PropTypes.string.tag({
+      name: 'URL del boton ¡Juega!',
+      defaultValue: '/',
+      group: 'landing',
+    }),
+    rankingUrl: PropTypes.string.tag({
+      name: 'URL del boton "VER TABLA COMPLETA"',
+      defaultValue: '/',
+      group: 'ranking',
+    }),
+    awardsHtml: PropTypes.richtext.tag({
+      name: 'HTML libre',
+      defaultValue: '',
+      group: 'awards',
     }),
   }),
 }
