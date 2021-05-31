@@ -32,17 +32,15 @@ export const publicidadAmp = ({
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
   const prebidAmp =
-    (prebidSlot != '' &&
+    (SITE_PERU21 === arcSite &&
+      prebidSlot != '' &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
+  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
   const nuevoScript =
     (movil1 &&
       `data-multi-size="${size}"
   data-multi-size-validation="false"`) ||
-    ''
-  const adsLoadAmp =
-    (SITE_PERU21 === arcSite &&
-      `data-loading-strategy="prefer-viewability-over-views"`) ||
     ''
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
@@ -76,10 +74,7 @@ export const publicidadAmpAd = ({
   const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
 
   const height2 = (movil1 === false && '600') || height
-  const adsLoadAmp =
-    (SITE_PERU21 === arcSite &&
-      `data-loading-strategy="prefer-viewability-over-views"`) ||
-    ''
+  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
   const nuevoScript =
     (movil1 &&
@@ -106,13 +101,11 @@ export const publicidadAmpMovil0 = ({
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
   const prebidAmp =
-    (prebidSlot != '' &&
+    (SITE_PERU21 === arcSite &&
+      prebidSlot != '' &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
-  const adsLoadAmp =
-    (SITE_PERU21 === arcSite &&
-      `data-loading-strategy="prefer-viewability-over-views"`) ||
-    ''
+  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
   resultData = `<amp-ad
     width="320"
     height="50"
@@ -132,13 +125,12 @@ export const publicidadAmpCaja1 = ({
 }) => {
   let resultData = ''
   const prebidAmp =
-    (prebidSlot != '' &&
+    (SITE_PERU21 === arcSite &&
+      prebidSlot != '' &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
-  const adsLoadAmp =
-    (SITE_PERU21 === arcSite &&
-      `data-loading-strategy="prefer-viewability-over-views"`) ||
-    ''
+  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+
   resultData = `<amp-ad
     width="320"
     height="100"
