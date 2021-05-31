@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { FC } from 'types/features'
 
+import { slugify } from '../../../utilities/parse/slugify'
+
 export interface ScoresApiResponse {
   losPartidos: Score[]
   mensaje: string
@@ -37,6 +39,9 @@ export interface Score {
   ec_fondo_destacados_movil: string
 }
 
+const countriesAssetsPath =
+  'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
+
 const PollaScoreList: FC = () => {
   const [scores, setScores] = React.useState<Score[]>()
   const [currentSchedule, setCurrentSchedule] = React.useState('1')
@@ -51,20 +56,6 @@ const PollaScoreList: FC = () => {
         console.log(res)
       })
   }, [])
-
-  // const groupByJornada = scores?.reduce(
-  //   (
-  //     r: {
-  //       [key in string]: Score[]
-  //     },
-  //     a: Score
-  //   ) => {
-  //     const auxR = r
-  //     auxR[a.jornada] = [...(r[a.jornada] || []), a]
-  //     return auxR
-  //   },
-  //   {}
-  // )
 
   const listOfSchedules = [...new Set(scores?.map((item) => item.jornada))]
 
@@ -198,7 +189,8 @@ const PollaScoreList: FC = () => {
               <React.Fragment key={score.id}>
                 <div className="polla-score__group-sted">
                   <div className="polla-score__group-stedn">
-                    Estadio <b>{score.estadio}</b>
+                    {/* Estadio <b>{score.estadio}</b> */}
+                    <b>{score.estadio}</b>
                   </div>
                   <div className="polla-score__group-stedc">
                     Buenos Aires - Argentina (No hay)
@@ -225,7 +217,9 @@ const PollaScoreList: FC = () => {
                     <div className="polla-score__country-cont">
                       <img
                         className="polla-score__country-img"
-                        src="https://polla-resources.surge.sh/dist/depor/images-polla/paises/per.svg"
+                        src={`${countriesAssetsPath}${slugify(
+                          score.equipo1
+                        )}.svg`}
                         alt="País"
                       />
                       <div className="polla-score__country-text">
@@ -265,7 +259,9 @@ const PollaScoreList: FC = () => {
                     <div className="polla-score__country-cont">
                       <img
                         className="polla-score__country-img"
-                        src="https://polla-resources.surge.sh/dist/depor/images-polla/paises/per.svg"
+                        src={`${countriesAssetsPath}${slugify(
+                          score.equipo2
+                        )}.svg`}
                         alt="País"
                       />
                       <div className="polla-score__country-text">
