@@ -1,4 +1,24 @@
 .polla-score {
+  &__spinner {
+    width: 10em;
+    height: 10em;
+    border-top: 1em solid #004b91;
+    border-right: 1em solid transparent;
+    border-radius: 50%;
+    margin: auto;
+    animation: score-spinner 0.6s linear infinite;
+
+    &.btn {
+      display: none;
+      position: absolute;
+      right: -45px;
+      top: 1px;
+      border-top: 1em solid #34c759;
+      transform: rotate(0deg) scale(0.5);
+      animation: score-spinner-scale 0.6s linear infinite;
+    }
+  }
+
   &__current {
     display: flex;
     flex-direction: column;
@@ -174,10 +194,44 @@
     }
   }
 
+  &__form-btn {
+    font: 500 14px/16px $primary-font;
+    letter-spacing: 0.14px;
+    color: #fff;
+    border: 1px solid #34c759;
+    background-color: #34c759;
+    border-radius: 4px;
+    padding: 10px 20px;
+    width: 100%;
+    max-width: 160px;
+    margin: 0 auto 32px;
+    display: block;
+    position: relative;
+
+    &.success {
+      border-color: #34c759;
+      color: #34c759;
+      background-color: transparent;
+    }
+    &.error {
+      color: #999;
+      border-color: #aaa;
+      background-color: transparent;
+    }
+  }
+
   &__form {
     margin-top: 16px;
     @media (--desktop) {
       margin-top: 24px;
+    }
+    &.loading {
+      .polla-score__spinner.btn {
+        display: block;
+      }
+      .polla-score__form-btn {
+        pointer-events: none;
+      }
     }
   }
   &__form-top {
@@ -244,19 +298,36 @@
       margin: 0;
     }
   }
-  &__form-btn {
-    font: 500 14px/16px $primary-font;
-    letter-spacing: 0.14px;
-    color: #999;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    padding: 10px 20px;
-    width: 100%;
-    max-width: 160px;
-    margin: 9px auto 32px;
-    display: block;
-    @media (--desktop) {
-      margin-top: 22px;
+
+  &__error-cont {
+    padding: 8px 10px;
+    @media (--tablet) {
+      padding: 11px 10px;
     }
+  }
+  &__error {
+    display: flex;
+    justify-content: center;
+    font: 400 12px/1 $primary-font;
+    letter-spacing: -0.29px;
+    color: #ff3b30;
+  }
+  &__btn-done {
+    fill: #34c759;
+    position: absolute;
+    top: 5px;
+    right: -35px;
+  }
+}
+
+@keyframes score-spinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes score-spinner-scale {
+  100% {
+    transform: rotate(360deg) scale(0.5);
   }
 }

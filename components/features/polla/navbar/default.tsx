@@ -12,6 +12,7 @@ interface Props {
     customNav?: string
     navInicio?: string
     navPlay?: string
+    isStatic?: boolean
   }
 }
 
@@ -20,7 +21,7 @@ const PollaNavbar: FC<Props> = (props) => {
   const { children: menuList = [] } = useContent<NavigationByHierarchyQuery>({
     source: 'navigation-by-hierarchy',
     query: {
-      hierarchy: 'la-polla',
+      hierarchy: customFields?.customNav || 'la-polla',
     },
   })
 
@@ -70,8 +71,9 @@ const PollaNavbar: FC<Props> = (props) => {
           ¡JUEGA!
         </a>
         <button id="signwall-nav-btn" type="button" className="polla-nav__sign">
-          <span>Ingresar</span>
+          <span id="signwall-nav-text">Ingresar</span>
           <svg
+            className="polla-nav__sign-user"
             width="20"
             height="20"
             viewBox="0 0 20 20"
@@ -86,8 +88,47 @@ const PollaNavbar: FC<Props> = (props) => {
               fill="#D2D900"
             />
           </svg>
+          <svg
+            className="polla-nav__sign-arrow"
+            width="10"
+            height="5"
+            viewBox="0 0 10 5"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0L5 5L10 0H0Z" fill="#D2D900" />
+          </svg>
         </button>
       </div>
+      {/* document.addEventListener("DOMContentLoaded", () => {
+            const btn = document.getElementById("signwall-nav-btn");
+            const btnText = document.getElementById("signwall-nav-text");
+            const localProfile = JSON.parse(
+              window.localStorage.getItem("ArcId.USER_PROFILE")
+            );
+            const { firstName = "", lastName = "", uuid = "" } = localProfile || {};
+            if (btn) {
+              btn.addEventListener("click", () => {
+                if (uuid) {
+                  window.location.href = "/mi-perfil/?outputType=signwall";
+                } else {
+                  window.location.href =
+                    "/signwall/?outputType=signwall&signwallOrganic=1";
+                }
+              });
+              if (uuid) {
+                btnText.innerText = `Hola, ${firstName || lastName || "Usuario"}`;
+                btn.classList.add("signed");
+              }
+            }
+          }); */}
+      {customFields?.isStatic ? (
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("signwall-nav-btn"),t=document.getElementById("signwall-nav-text"),n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,a=void 0===i?"":i,l=n.lastName,d=void 0===l?"":l,o=n.uuid,s=void 0===o?"":o;e&&(e.addEventListener("click",function(){window.location.href=s?"/mi-perfil/?outputType=signwall":"/signwall/?outputType=signwall&signwallOrganic=1"}),s&&(t.innerText="Hola, "+(a||d||"Usuario"),e.classList.add("signed")))});',
+          }}
+        />
+      ) : null}
     </Static>
   )
 }
@@ -99,6 +140,10 @@ PollaNavbar.propTypes = {
   customFields: PropTypes.shape({
     customNav: PropTypes.string.tag({
       name: 'Jerarquía',
+    }),
+    isStatic: PropTypes.bool.tag({
+      name: 'Modo Estático',
+      defaultValue: false,
     }),
     navInicio: PropTypes.string.tag({
       name: 'URL del boton "LA POLLA"',
