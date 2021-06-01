@@ -51,11 +51,11 @@ const StoryTitleAmp = () => {
     dataSlot,
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width,
-    height: '50',
+    height: '100',
     movil1: true,
     primarySectionLink,
     arcSite,
-    size: '320x100',
+    size: '320x50',
   }
 
   const parametersCaja1 = {
