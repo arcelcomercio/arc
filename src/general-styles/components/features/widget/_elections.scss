@@ -1,0 +1,125 @@
+.elections-widget {
+  background-color: #e5e5e5;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  &__svga {
+    fill: #fff;
+  }
+
+  &__svgc {
+    fill: #d9000f;
+  }
+  &__svgb {
+    fill: #121212;
+  }
+  &__photo {
+    margin-top: 20px;
+    width: 57px;
+    @media (--desktop) {
+      margin-left: 5px;
+      width: 84px;
+      margin-right: 5px;
+    }
+  }
+  &__description {
+    font-size: 11px;
+    margin-left: 5px;
+    margin-top: 5px;
+    @media (--desktop) {
+      margin-top: 0;
+    }
+  }
+  &__graph {
+    height: 25px;
+    background: linear-gradient(to bottom, #eb6d00, #763700);
+    // display: flex;
+    align-items: center;
+    position: relative;
+
+    /* &::before {
+      background: linear-gradient(to bottom, #e70101, #740101);
+      content: "";
+      height: 100%;
+    } */
+  }
+  &__bar {
+    background: linear-gradient(to bottom, #e70101, #740101);
+    height: 100%;
+  }
+  &__header {
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-direction: column;
+    @media (--desktop) {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      flex-direction: row;
+    }
+  }
+  &__percent {
+    color: #fff;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600;
+  }
+  &__left {
+    position: absolute;
+    float: left;
+    // margin-left: 5px;
+  }
+  &__right {
+    // position: absolute;
+    margin-left: auto;
+    float: right;
+    // margin-right: 5px;
+    text-align: right;
+  }
+  &__center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__logotypes {
+    position: relative;
+  }
+  &__btn {
+    font-size: 10px;
+    line-height: 19px;
+    font-weight: 400;
+    background-color: #000;
+    padding: 2px 10px;
+    padding-bottom: 3px;
+    color: #fff;
+    border-radius: 4px;
+  }
+  &__text {
+    font-size: 11px;
+    line-height: 15px;
+    font-weight: 400;
+    display: none;
+    @media (--only-mobile) {
+      span {
+        display: block;
+      }
+    }
+  }
+  &__logo {
+    width: 24px;
+    margin-top: 5px;
+  }
+  @media (--desktop) {
+    &__show-desktop {
+      display: block;
+    }
+  }
+  @media (--only-mobile) {
+    &__show-phone {
+      display: block;
+    }
+  }
+}
