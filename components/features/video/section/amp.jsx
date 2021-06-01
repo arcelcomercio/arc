@@ -72,7 +72,7 @@ const VideoSectionAmp = () => {
     height: '100',
     movil1: true,
     arcSite,
-    size = '320x50',
+    size: '320x50',
   }
 
   const parametersCaja2 = { 
