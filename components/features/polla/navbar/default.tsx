@@ -8,10 +8,15 @@ import { NavigationByHierarchyQuery } from '../../../../content/sources/navigati
 import PollaNavbarMenu from './_children/menu'
 
 interface Props {
-  customFields?: any
+  customFields?: {
+    customNav?: string
+    navInicio?: string
+    navPlay?: string
+  }
 }
 
-const PollaNavbar: FC<Props> = () => {
+const PollaNavbar: FC<Props> = (props) => {
+  const { customFields } = props
   const { children: menuList = [] } = useContent<NavigationByHierarchyQuery>({
     source: 'navigation-by-hierarchy',
     query: {
@@ -40,7 +45,7 @@ const PollaNavbar: FC<Props> = () => {
           </svg>
         </button>
         <h1 className="polla-nav__logo">
-          <a href="/">
+          <a href={`${customFields?.navInicio}`}>
             LA POLLA <span>DEPOR</span>
           </a>
         </h1>
@@ -61,7 +66,7 @@ const PollaNavbar: FC<Props> = () => {
             )}
           </ul>
         </div>
-        <a href="/" className="polla-nav__play-link">
+        <a href={`${customFields?.navPlay}`} className="polla-nav__play-link">
           ¡JUEGA!
         </a>
         <button id="signwall-nav-btn" type="button" className="polla-nav__sign">
@@ -94,6 +99,14 @@ PollaNavbar.propTypes = {
   customFields: PropTypes.shape({
     customNav: PropTypes.string.tag({
       name: 'Jerarquía',
+    }),
+    navInicio: PropTypes.string.tag({
+      name: 'URL del boton "LA POLLA"',
+      defaultValue: '/',
+    }),
+    navPlay: PropTypes.string.tag({
+      name: 'URL del boton "JUEGA"',
+      defaultValue: '/',
     }),
   }),
 }
