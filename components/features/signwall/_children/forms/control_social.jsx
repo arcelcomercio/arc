@@ -473,8 +473,8 @@ export const ButtonSocial = ({
 
     if (brandCurrent === 'google') return URLWindow()
 
-    // return isFbBrowser ? URLRedirect() : URLWindow()
-    return URLRedirect()
+    return isFbBrowser ? URLRedirect() : URLWindow()
+    // return URLRedirect()
   }
 
   return (
