@@ -40,7 +40,7 @@ const StoryTitleAmp = () => {
   const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`
 
   const width = '320'
-  const height = '50'
+  const height = '100'
   const parameters = {
     dataSlot,
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
@@ -48,7 +48,7 @@ const StoryTitleAmp = () => {
     height,
     movil1: true,
     arcSite,
-    size:'320x100'
+    size:'320x50'
   }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'

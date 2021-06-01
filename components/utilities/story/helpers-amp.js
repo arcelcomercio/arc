@@ -136,6 +136,7 @@ export const publicidadAmpCaja1 = ({
     height="100"
     ${adsLoadAmp}
     type="doubleclick"
+    data-multi-size="320x50"
     data-slot="${dataSlot}"
     ${prebidAmp}
   />`
