@@ -8,6 +8,7 @@ const classes = {
   box: 'elections-widget__box w-full',
   header: 'elections-widget__header flex',
   figure: 'elections-widget__figure',
+  figurePhoto: 'elections-widget__figure-photo',
   photo: 'elections-widget__photo',
   logo: 'elections-widget__logo',
   logoDescription: 'elections-widget__logo-description',
@@ -23,6 +24,8 @@ const classes = {
   btn: 'elections-widget__btn',
   showDesktop: 'elections-widget__show-desktop',
   showPhone: 'elections-widget__show-phone',
+  dataPolitic: 'elections-widget__data-politic',
+  dataBox: 'elections-widget__data-box',
 }
 
 interface PoliticaParties {
@@ -64,7 +67,8 @@ const ElectionsChildWidget: React.FC<WidgetProps> = (props) => {
   } = props
   return (
     <div className={classes.main}>
-      <figure className={`${classes.figure}`}>
+      <figure
+        className={`${classes.figure} ${classes.figurePhoto} ${classes.showDesktop}`}>
         <picture>
           <source srcSet={image.photoOneMovil} media="(max-width: 640px)" />
           <img
@@ -155,21 +159,45 @@ const ElectionsChildWidget: React.FC<WidgetProps> = (props) => {
           </svg>
           <div className={classes.description}>{description}</div>
         </div>
-        <div className={classes.graph}>
-          <span
-            className={classes.bar}
-            data-percent={`${porcentajeVotos}%`}
-            style={{ width: `${porcentajeVotos}%` }}
-          />
-          <span className={`${classes.percent} ${classes.left} ml-5`}>
-            {porcentajeVotos}%
-          </span>
-          <span className={`${classes.percent} ${classes.right} mr-5`}>
-            {porcentajeVotos2}%
-          </span>
+        <div className={classes.dataBox}>
+          <figure
+            className={`${classes.figure} ${classes.figurePhoto} ${classes.showPhone}`}>
+            <picture>
+              <source srcSet={image.photoOneMovil} media="(max-width: 640px)" />
+              <img
+                className={classes.photo}
+                src={image.photoOneDesktop}
+                alt={candidato}
+              />
+            </picture>
+          </figure>
+          <div className={classes.graph}>
+            <span
+              className={classes.bar}
+              data-percent={`${porcentajeVotos}%`}
+              style={{ width: `${porcentajeVotos}%` }}
+            />
+            <span className={`${classes.percent} ${classes.left} ml-5`}>
+              {porcentajeVotos}%
+            </span>
+            <span className={`${classes.percent} ${classes.right} mr-5`}>
+              {porcentajeVotos2}%
+            </span>
+          </div>
+          <figure
+            className={`${classes.figure} ${classes.figurePhoto} ${classes.showPhone}`}>
+            <picture>
+              <source srcSet={image.photoTwoMovil} media="(max-width: 640px)" />
+              <img
+                className={classes.photo}
+                src={image.photoTwoDesktop}
+                alt={candidato2}
+              />
+            </picture>
+          </figure>
         </div>
         <div className={classes.logotypes}>
-          <div className={classes.left}>
+          <div className={`${classes.left} ${classes.dataPolitic}`}>
             <figure className={`${classes.figure}`}>
               <picture>
                 <source srcSet={image.logoOne} media="(max-width: 640px)" />
@@ -183,7 +211,7 @@ const ElectionsChildWidget: React.FC<WidgetProps> = (props) => {
             <div className={`${classes.text} ${classes.showDesktop}`}>
               <b>{candidato} /</b> {nombre}
             </div>
-            <div className={`${classes.text} ${classes.showPhone}`}>
+            <div className={`${classes.text} ${classes.showPhone} ml-5`}>
               <b>{candidato}</b>
               <span>{nombre}</span>
             </div>
@@ -191,7 +219,7 @@ const ElectionsChildWidget: React.FC<WidgetProps> = (props) => {
           <a href={link} className={`${classes.btn} ${classes.center}`}>
             Ver más
           </a>
-          <div className={classes.right}>
+          <div className={`${classes.right} ${classes.dataPolitic}`}>
             <figure className={`${classes.figure}`}>
               <picture>
                 <source srcSet={image.logoTwo} media="(max-width: 640px)" />
@@ -205,14 +233,15 @@ const ElectionsChildWidget: React.FC<WidgetProps> = (props) => {
             <div className={`${classes.text} ${classes.showDesktop}`}>
               {nombre2} <b>/ {candidato2}</b>
             </div>
-            <div className={`${classes.text} ${classes.showPhone}`}>
+            <div className={`${classes.text} ${classes.showPhone} mr-5`}>
               <b>{candidato2}</b>
               <span>{nombre2}</span>
             </div>
           </div>
         </div>
       </div>
-      <figure className={`${classes.figure}`}>
+      <figure
+        className={`${classes.figure} ${classes.figurePhoto} ${classes.showDesktop}`}>
         <picture>
           <source srcSet={image.photoTwoMovil} media="(max-width: 640px)" />
           <img

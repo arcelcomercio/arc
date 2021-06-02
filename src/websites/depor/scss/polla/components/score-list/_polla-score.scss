@@ -1,0 +1,333 @@
+.polla-score {
+  &__spinner {
+    width: 10em;
+    height: 10em;
+    border-top: 1em solid #004b91;
+    border-right: 1em solid transparent;
+    border-radius: 50%;
+    margin: auto;
+    animation: score-spinner 0.6s linear infinite;
+
+    &.btn {
+      display: none;
+      position: absolute;
+      right: -45px;
+      top: 1px;
+      border-top: 1em solid #34c759;
+      transform: rotate(0deg) scale(0.5);
+      animation: score-spinner-scale 0.6s linear infinite;
+    }
+  }
+
+  &__current {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  &__current-text {
+    font: 400 15px/18px $primary-font;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  &__current-wrap {
+    border: 1px solid #89c2e8;
+    display: inline-block;
+    border-radius: 6px;
+  }
+  &__current-cont {
+    background-color: #004b91;
+    border: 4px solid #fff;
+    border-radius: 6px;
+    width: 188px;
+    height: 82px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__current-top {
+    span {
+      font: 700 17px/20px $primary-font;
+      letter-spacing: 0.34px;
+      color: #fff;
+    }
+    .left {
+      font: 900 32px/38px $primary-font;
+      letter-spacing: 0.64px;
+      margin-right: 8px;
+    }
+  }
+  &__current-bot {
+    span {
+      font: 400 13px/15px $primary-font;
+      color: #89c2e8;
+    }
+    .right {
+      color: #fed900;
+      font-weight: 700;
+      margin-left: 5px;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  &__nav-btn {
+    width: 32px;
+    height: 32px;
+    background-color: #dc532e;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__nav-sel-cont {
+    width: 216px;
+    height: 48px;
+    position: relative;
+    margin: 0 24px;
+  }
+  &__nav-sel {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+  }
+  &__nav-sel-p {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      font: 400 13px/15px $primary-font;
+      color: #666;
+    }
+    .bold {
+      font: 900 16px/19px $primary-font;
+      letter-spacing: 0.32px;
+      color: #222;
+      margin-right: 9px;
+    }
+    svg {
+      margin-left: 18px;
+    }
+  }
+
+  &__group-cont {
+    margin: 10px;
+    padding: 17px;
+    background-color: #fff;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 10px;
+  }
+  &__group-title {
+    display: flex;
+    align-items: center;
+    padding-bottom: 11px;
+  }
+  &__group-name {
+    font: 800 18px/21px $secondary-font;
+    letter-spacing: 0.58px;
+    color: #002c6b;
+    text-transform: uppercase;
+    flex: 1;
+    padding-left: 10px;
+    border-left: 2px solid #dc532e;
+  }
+  &__group-aus {
+    font: normal 12px/20px $primary-font;
+    letter-spacing: 0.12px;
+    color: #999;
+    margin-right: 3px;
+  }
+  &__group-brand {
+    background-color: #000;
+    max-height: 32px;
+  }
+
+  &__group-sted {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-top: 1px solid #ddd;
+    padding-top: 24px;
+    @media (--desktop) {
+      justify-content: flex-start;
+      padding-top: 19px;
+    }
+  }
+  &__group-stedn {
+    font: 400 14px/1 $primary-font;
+    color: #222;
+    margin: 0 0 4px;
+    @media (--desktop) {
+      margin: 5px 8px 0 0;
+    }
+  }
+  &__group-stedc {
+    font: normal 14px/1 $primary-font;
+    letter-spacing: -0.14px;
+    color: #999;
+    margin: 0 8px 4px 8px;
+    @media (--desktop) {
+      margin: 5px 8px 0 0;
+    }
+  }
+  &__group-stedd {
+    font: normal 14px/1 $primary-font;
+    color: #0072d8;
+    width: 100%;
+    text-align: center;
+    @media (--desktop) {
+      width: auto;
+      margin-top: 5px;
+    }
+  }
+
+  &__form-btn {
+    font: 500 14px/16px $primary-font;
+    letter-spacing: 0.14px;
+    color: #fff;
+    border: 1px solid #34c759;
+    background-color: #34c759;
+    border-radius: 4px;
+    padding: 10px 20px;
+    width: 100%;
+    max-width: 160px;
+    margin: 0 auto 32px;
+    display: block;
+    position: relative;
+
+    &.success {
+      border-color: #34c759;
+      color: #34c759;
+      background-color: transparent;
+    }
+    &.error {
+      color: #999;
+      border-color: #aaa;
+      background-color: transparent;
+    }
+  }
+
+  &__form {
+    margin-top: 16px;
+    @media (--desktop) {
+      margin-top: 24px;
+    }
+    &.loading {
+      .polla-score__spinner.btn {
+        display: block;
+      }
+      .polla-score__form-btn {
+        pointer-events: none;
+      }
+    }
+  }
+  &__form-top {
+    display: flex;
+    justify-content: center;
+  }
+  &__country-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+    @media (--desktop) {
+      flex: 1;
+      &:first-child {
+        flex-direction: row;
+      }
+      &:last-child {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+  &__country-img {
+    max-height: 32px;
+    margin-bottom: 8px;
+    @media (--desktop) {
+      margin-bottom: 0;
+    }
+  }
+  &__country-text {
+    font: 500 19px/23px $primary-font;
+    color: #222;
+    max-width: 48px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @media (--desktop) {
+      max-width: none;
+      margin: 0 12px;
+    }
+  }
+  &__form-dots {
+    display: flex;
+    flex-direction: column;
+    height: 48px;
+    justify-content: center;
+    svg {
+      &:first-child {
+        margin-bottom: 8px;
+      }
+    }
+  }
+  &__form-input {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin: 0 16px;
+    font: 700 24px/28px $primary-font;
+    color: #222;
+    text-align: center;
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__error-cont {
+    padding: 8px 10px;
+    @media (--tablet) {
+      padding: 11px 10px;
+    }
+  }
+  &__error {
+    display: flex;
+    justify-content: center;
+    font: 400 12px/1 $primary-font;
+    letter-spacing: -0.29px;
+    color: #ff3b30;
+  }
+  &__btn-done {
+    fill: #34c759;
+    position: absolute;
+    top: 5px;
+    right: -35px;
+  }
+}
+
+@keyframes score-spinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes score-spinner-scale {
+  100% {
+    transform: rotate(360deg) scale(0.5);
+  }
+}
