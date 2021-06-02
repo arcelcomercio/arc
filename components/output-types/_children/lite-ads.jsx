@@ -380,10 +380,8 @@ const LiteAds = ({
           !(
             arcSite === 'depor' &&
             (section === 'futbol-internacional' || section === 'off-side')
-          ) && !(
-            arcSite === 'trome' &&
-            section === 'respuestas'
-          ) ? (
+          ) &&
+          !(arcSite === 'trome' && section === 'deportes') ? (
             <>
               <script
                 async
