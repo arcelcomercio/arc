@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+
 import { localISODate } from '../../../utilities/helpers'
 
 /**
@@ -9,7 +10,7 @@ import { localISODate } from '../../../utilities/helpers'
  */
 
 @Consumer
-class XmlSitemapWebByDate {
+class XmlSitemapWebByYearMonth {
   constructor(props) {
     this.props = props
     const { globalContent } = props
@@ -26,7 +27,7 @@ class XmlSitemapWebByDate {
     // MAX 1000 historias
     while (count <= 9) {
       states[`data${count}`] = {
-        source: 'sitemap-feed-by-section-date',
+        source: 'sitemap-feed-by-section-year-month',
         query: {
           section,
           year,
@@ -84,4 +85,4 @@ class XmlSitemapWebByDate {
   }
 }
 
-export default XmlSitemapWebByDate
+export default XmlSitemapWebByYearMonth

@@ -1,5 +1,5 @@
-import RedirectError from '../../components/utilities/redirect-error'
 import { getYYYYMMDDfromISO } from '../../components/utilities/date-time/dates'
+import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'stories-dev'
 
@@ -105,10 +105,10 @@ const resolve = (key = {}) => {
 
   if (auxYear < 2009) throw new RedirectError(`/410`, 410)
 
-  const section = auxSection === null || !auxSection ? '/' : auxSection
+  const section = auxSection === null || !auxSection ? '/' : `/${auxSection}`
   const date = auxYear && auxMonth ? `${auxYear}-${auxMonth}-01` : null
 
-  const queryFilter = getQueryFilter(`/${section}`, website, date)
+  const queryFilter = getQueryFilter(section, website, date)
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`
