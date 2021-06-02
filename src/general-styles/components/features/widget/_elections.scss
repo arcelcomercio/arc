@@ -15,9 +15,9 @@
     fill: #121212;
   }
   &__photo {
-    margin-top: 20px;
     width: 57px;
-    @media (--desktop) {
+    @media (--tablet) {
+      margin-top: 20px;
       margin-left: 5px;
       width: 84px;
       margin-right: 5px;
@@ -27,7 +27,7 @@
     font-size: 11px;
     margin-left: 5px;
     margin-top: 5px;
-    @media (--desktop) {
+    @media (--tablet) {
       margin-top: 0;
     }
   }
@@ -43,6 +43,9 @@
       content: "";
       height: 100%;
     } */
+    @media (--only-mobile) {
+      width: calc(100% - 114px);
+    }
   }
   &__bar {
     background: linear-gradient(to bottom, #e70101, #740101);
@@ -54,10 +57,15 @@
     margin-top: 5px;
     margin-bottom: 5px;
     flex-direction: column;
-    @media (--desktop) {
-      margin-top: 10px;
+    @media (--tablet) {
+      // margin-top: 10px;
       margin-bottom: 10px;
       flex-direction: row;
+    }
+    @media (--only-mobile) {
+      position: relative;
+      top: 5px;
+      margin: 0;
     }
   }
   &__percent {
@@ -108,11 +116,24 @@
       }
     }
   }
+  &__figure-photo {
+    display: none;
+    @media (--only-mobile) {
+      position: relative;
+      z-index: 1;
+      &:first-child {
+        left: 5px;
+      }
+      &:last-child {
+        right: 5px;
+      }
+    }
+  }
   &__logo {
     width: 24px;
     margin-top: 5px;
   }
-  @media (--desktop) {
+  @media (--tablet) {
     &__show-desktop {
       display: block;
     }
@@ -120,6 +141,22 @@
   @media (--only-mobile) {
     &__show-phone {
       display: block;
+    }
+    &__data-politic {
+      display: flex;
+      &:first-child {
+        margin-left: 30px;
+      }
+      &:last-child {
+        margin-right: 25px;
+      }
+    }
+    &__data-politic.elections-widget__right {
+      flex-direction: row-reverse;
+    }
+    &__data-box {
+      display: flex;
+      align-items: center;
     }
   }
 }
