@@ -212,6 +212,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                         typeForm="login"
                         activeNewsletter={activeNewsletter}
                         showMsgVerify={() => triggerShowVerify()}
+                        dataTreatment={checkedPolits ? '1' : '0'}
                       />
                     ))}
                   </>
