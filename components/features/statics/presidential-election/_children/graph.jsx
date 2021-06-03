@@ -116,13 +116,8 @@ const PresidentialElectionChildGraph = ({
                   <div className={classes.boxBar}>
                     <span
                       className={classes.bar}
-                      data-value={`${roundTwoDecimals(
-                        itemData.percentage * 100
-                      )}%`}
-                      style={printBar(
-                        roundTwoDecimals(itemData.percentage * 100),
-                        color
-                      )}
+                      data-value={`${roundTwoDecimals(emitidos * 100)}%`}
+                      style={printBar(roundTwoDecimals(emitidos * 100), color)}
                     />
                     <span className={classes.votes} style={{ width: 'auto' }}>
                       {getFormatedNumberResult(cantidad_votos)}
