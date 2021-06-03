@@ -238,8 +238,8 @@ const ButtonSocial = ({
 
       if (arcSocial === 'google') return URLWindow()
 
-      // return isFbBrowser() ? URLRedirect() : URLWindow()
-      return URLRedirect()
+      return isFbBrowser() ? URLRedirect() : URLWindow()
+      // return URLRedirect()
     }
     return ''
   }

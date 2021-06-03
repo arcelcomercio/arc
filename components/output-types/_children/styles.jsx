@@ -41,7 +41,7 @@ const Styles = ({
   else if (isStoryMatch && arcSite === SITE_ELBOCON) style = 'dstory-video'
   else if (isStoryMatch && arcSite === SITE_DEPOR) style = 'match-score'
   else if (requestUri.includes('/trivias/')) style = 'trivias'
-  else if (/^\/resultados-elecciones-2021\//.test(requestUri))
+  else if (metaValue('section_style') === 'resultados_elecciones')
     style = 'elecciones-2021'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'

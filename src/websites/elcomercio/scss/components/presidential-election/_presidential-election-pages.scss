@@ -1,10 +1,14 @@
 .presidential-election-pages {
   font-family: $primary-font;
-  max-width: 360px;
+  max-width: 100%;
   margin: 0 auto;
   color: #000;
   text-align: center;
   margin-top: 10px;
+  @media (--tablet) {
+    max-width: 360px;
+  }
+
   &__title {
     font-size: 28px;
     font-weight: 700;
@@ -57,8 +61,18 @@
       }
     }
   }
-  &__ec-data svg {
-    height: 20px;
+  &__ec-data {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    margin-top: 5px;
+    svg {
+      height: 19px;
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      transform: translate(50%, -50%);
+    }
   }
   &__cls-1 {
     fill: #0a0a0b;
@@ -71,5 +85,29 @@
     stroke: #1d1d1b;
     stroke-miterlimit: 10;
     stroke-width: 0.5px;
+  }
+  &__link {
+    font: 700 21px/18px $primary-font;
+    background-color: #d9000f;
+    border-radius: 6px 0 0 6px;
+    color: #fff;
+    height: 49px;
+    width: 116px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding-left: 9px;
+  }
+
+  &.second {
+    .presidential-election-pages__link {
+      font: 700 12px/10px $primary-font;
+      width: 118px;
+      height: 23px;
+    }
+    .presidential-election-pages__ec-data {
+      margin-top: 22px;
+      margin-bottom: 33px;
+    }
   }
 }
