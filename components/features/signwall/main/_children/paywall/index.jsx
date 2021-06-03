@@ -1,24 +1,24 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { PureComponent, useEffect } from 'react'
 import Consumer from 'fusion:consumer'
-import { ModalProvider, ModalConsumer } from '../../../_children/context'
-import { FormLogin } from '../../../_children/forms/form_login'
-import FormIntro from '../../../_children/forms/form_intro'
-import { FormForgot } from '../../../_children/forms/form_forgot'
-import FormRegister from '../../../_children/forms/form_register'
-import Taggeo from '../../../_dependencies/taggeo'
-import QueryString from '../../../_dependencies/querystring'
+import React, { PureComponent, useEffect } from 'react'
 
+import { ModalConsumer, ModalProvider } from '../../../_children/context'
+import { FormForgot } from '../../../_children/forms/form_forgot'
+import FormIntro from '../../../_children/forms/form_intro'
+import { FormLogin } from '../../../_children/forms/form_login'
+import FormRegister from '../../../_children/forms/form_register'
+import { Close } from '../../../_children/iconos'
+import { Modal } from '../../../_children/modal/index'
+import QueryString from '../../../_dependencies/querystring'
+import Taggeo from '../../../_dependencies/taggeo'
 import {
+  CloseBtn,
   ContMiddle,
+  ContPaywall,
   FirstMiddle,
   SecondMiddle,
-  ContPaywall,
-  CloseBtn,
   Title,
 } from './styled'
-import { Modal } from '../../../_children/modal/index'
-import { Close } from '../../../_children/iconos'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
@@ -31,6 +31,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
   if (QueryString.getQuery('signPaywall')) {
     setTimeout(() => {
       QueryString.deleteQuery('signPaywall')
+      QueryString.deleteQuery('dataTreatment')
     }, 2000)
     return templates.login
   }
@@ -38,7 +39,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
   return templates[template] || templates.intro
 }
 
-export const PaywallInt = props => {
+export const PaywallInt = (props) => {
   const {
     onClose,
     arcSite,
@@ -50,7 +51,7 @@ export const PaywallInt = props => {
     removeEventListener,
   } = props
 
-  const handleLeavePage = event => {
+  const handleLeavePage = (event) => {
     event.preventDefault()
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
   }
@@ -70,7 +71,7 @@ export const PaywallInt = props => {
   return (
     <ModalProvider>
       <ModalConsumer>
-        {value => (
+        {(value) => (
           <Modal size="medium" position="middle">
             <ContMiddle>
               <CloseBtn
