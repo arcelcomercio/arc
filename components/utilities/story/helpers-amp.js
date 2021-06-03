@@ -69,11 +69,7 @@ export const publicidadAmpAd = ({
     (prebidSlot != '' &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
-  const flying1 =
-    (movil1 === false && `<amp-fx-flying-carpet height="600px">`) || ''
-  const flying2 = (movil1 === false && `</amp-fx-flying-carpet>`) || ''
-
-  const height2 = (movil1 === false && '600') || height
+  
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
   const nuevoScript =
@@ -84,9 +80,8 @@ export const publicidadAmpAd = ({
     data-multi-size-validation="false"`
 
   if (secctionPrimary[1] !== 'respuestas') {
-    resultData = `${flying1}
-  <amp-ad width="${width}" height="${height2}" ${adsLoadAmp} type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript} ${json} ${prebidAmp}></amp-ad>${flying2}`
+    resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+  data-slot="${dataSlot}" ${nuevoScript} ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
 }
