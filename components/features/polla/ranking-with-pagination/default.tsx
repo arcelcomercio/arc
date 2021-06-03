@@ -6,12 +6,15 @@ const PollaRankingWithPagintation: FC = () => {
   const [currentPage, setCurrentPage] = React.useState<number>(1)
 
   const itemsPerPage = 25
+  const idconcurso = 1
 
   React.useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    fetch(
+      `https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev/${idconcurso}/ranking`
+    )
       .then((res) => res.json())
       .then((res) => {
-        setList(res)
+        setList(res.ranking)
       })
   }, [])
 
@@ -117,11 +120,13 @@ const PollaRankingWithPagintation: FC = () => {
             itemsPerPage * (currentPage - 1),
             itemsPerPage * (currentPage - 1) + itemsPerPage
           )
-          .map((item) => (
+          .map((item, i) => (
             <div className="polla-ranking__table-item" key={item?.id}>
-              <div className="polla-ranking__table-first">{item?.id}</div>
-              <div className="polla-ranking__table-second">{item?.title}</div>
-              <div className="polla-ranking__table-third">30</div>
+              <div className="polla-ranking__table-first">
+                {(currentPage - 1) * itemsPerPage + i}.
+              </div>
+              <div className="polla-ranking__table-second">{item?.nombre}</div>
+              <div className="polla-ranking__table-third">{item?.puntaje}</div>
             </div>
           ))}
       </div>
