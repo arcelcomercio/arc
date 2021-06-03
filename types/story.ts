@@ -402,6 +402,7 @@ export interface Story extends ANSBase, ANSDates {
   additional_properties: AdditionalProperties
   website: ArcSite
   website_url: string
+  siteName?: string
 }
 
 export interface Stories extends ANSBase {
