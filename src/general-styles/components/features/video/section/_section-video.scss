@@ -59,6 +59,12 @@
     text-align: center;
     margin-top: 15px;
   }
+  &__list-items{
+    & a {
+      color: #aaa;
+      font-size: 16px;
+    }
+  }
   &__author {
     margin-top: 10px;
     color: #b1b1b1;
