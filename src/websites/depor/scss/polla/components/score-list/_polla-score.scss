@@ -204,7 +204,7 @@
     padding: 10px 20px;
     width: 100%;
     max-width: 160px;
-    margin: 0 auto 32px;
+    margin: 0 auto;
     display: block;
     position: relative;
 
@@ -222,6 +222,7 @@
 
   &__form {
     margin-top: 16px;
+    margin-bottom: 32px;
     @media (--desktop) {
       margin-top: 24px;
     }
@@ -297,6 +298,9 @@
       -webkit-appearance: none;
       margin: 0;
     }
+    &:disabled {
+      background-color: #eee;
+    }
   }
 
   &__error-cont {
@@ -317,6 +321,19 @@
     position: absolute;
     top: 5px;
     right: -35px;
+  }
+  &__points-txt {
+    font: 700 13px/15px $primary-font;
+    display: flex;
+    justify-content: center;
+    color: #0072d8;
+  }
+  &__result-txt {
+    font: 400 12px/15px $primary-font;
+    display: flex;
+    justify-content: center;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
   }
 }
 

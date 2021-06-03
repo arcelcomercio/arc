@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
@@ -35,12 +36,29 @@ const addUserToNavbar = (localProfile: Profile | null | undefined) => {
   }
 }
 
-const PollaScoreList: FC = () => {
+interface Props {
+  customFields?: {
+    datesPerJornada?: string
+    stadiumLocationPerName?: string
+    excludedIds?: string
+  }
+}
+
+const PollaScoreList: FC<Props> = (props) => {
   const [scores, setScores] = React.useState<Score[]>()
   const [currentSchedule, setCurrentSchedule] = React.useState('1')
   const [user, setUser] = React.useState<UserData>()
   const [userUuid, setUserUuid] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
+
+  const {
+    customFields: { datesPerJornada, stadiumLocationPerName, excludedIds } = {},
+  } = props
+
+  const parsedDatesPerJornada = JSON.parse(datesPerJornada || '{}')
+  const parsedStadiumLocationPerName = JSON.parse(
+    stadiumLocationPerName || '{}'
+  )
 
   const registerUser = async (localProfile: Profile) => {
     const {
@@ -130,7 +148,14 @@ const PollaScoreList: FC = () => {
           `https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev/${idconcurso}/usuario/${uuid}/partidos`
         )
         const scoreRes: ScoresApiResponse = await scoreFetch.json()
-        setScores(scoreRes.losPartidos)
+        setScores(
+          scoreRes?.losPartidos?.map((score) => {
+            if (new RegExp(`\\b${score.id}\\b`).test(excludedIds || '')) {
+              return { ...score, estado: score.estado > 2 ? score.estado : 2 }
+            }
+            return score
+          })
+        )
         setIsLoading(false)
       } catch (e) {
         console.error(e)
@@ -164,6 +189,15 @@ const PollaScoreList: FC = () => {
     },
     {}
   )
+
+  const dateTimeFormater = new Intl.DateTimeFormat('es-419-u-hc-h12', {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'America/Lima',
+    hour12: true,
+  })
 
   return (
     <>
@@ -218,7 +252,7 @@ const PollaScoreList: FC = () => {
             <div className="polla-score__nav-sel-cont">
               <div className="polla-score__nav-sel-p">
                 <span className="bold">Jornada {currentSchedule}</span>
-                <span>11 - 13 Jun.</span>
+                <span>{parsedDatesPerJornada[currentSchedule]}</span>
                 <svg
                   width="13"
                   height="7"
@@ -236,7 +270,10 @@ const PollaScoreList: FC = () => {
                 }}>
                 {listOfSchedules.map((jor) => (
                   <option key={jor} value={jor}>
-                    {jor} (11 - 13 Jun.)
+                    Jornada {jor}{' '}
+                    {parsedDatesPerJornada[jor]
+                      ? `(${parsedDatesPerJornada[jor]})`
+                      : ''}
                   </option>
                 ))}
               </select>
@@ -280,12 +317,9 @@ const PollaScoreList: FC = () => {
                 />
               </div>
               {scoresByGroup?.[key].map((score) => {
-                const scoreArray = score.resultadoFinal.split('-')
-                let score1 = score.equipo1Goles
-                let score2 = score.equipo2Goles
-                if (score.estado === 3) {
-                  ;[score1, score2] = scoreArray
-                }
+                // const scoreArray = score.resultadoFinal.split('-')
+                const score1 = score.equipo1Goles
+                const score2 = score.equipo2Goles
                 return (
                   <React.Fragment key={score.id}>
                     <div className="polla-score__group-sted">
@@ -294,10 +328,10 @@ const PollaScoreList: FC = () => {
                         <b>{score.estadio}</b>
                       </div>
                       <div className="polla-score__group-stedc">
-                        Buenos Aires - Argentina (No hay)
+                        {parsedStadiumLocationPerName[score.estadio]}
                       </div>
                       <div className="polla-score__group-stedd">
-                        {score.fechaHora}
+                        {dateTimeFormater.format(new Date(score.fechaHora))}
                       </div>
                     </div>
                     <form
@@ -381,6 +415,7 @@ const PollaScoreList: FC = () => {
                           </div>
                         </div>
                         <input
+                          disabled={score.estado > 1}
                           type="number"
                           min="0"
                           className="polla-score__form-input"
@@ -406,6 +441,7 @@ const PollaScoreList: FC = () => {
                           </svg>
                         </div>
                         <input
+                          disabled={score.estado > 1}
                           type="number"
                           min="0"
                           className="polla-score__form-input"
@@ -431,27 +467,39 @@ const PollaScoreList: FC = () => {
                             Debes llenar ambas casillas
                           </span>
                         )}
+                        {score.estado === 3 ? (
+                          <span className="polla-score__points-txt">
+                            + {score.puntos} pts.
+                          </span>
+                        ) : null}
+                        {score.estado === 3 ? (
+                          <span className="polla-score__result-txt">
+                            Resultado Final: {score.resultadoFinal}
+                          </span>
+                        ) : null}
                       </div>
-                      <button
-                        className={`polla-score__form-btn ${score.msg || ''}`}
-                        type="submit">
-                        {score.msg === 'success' ? 'Guardado' : 'Juega'}
-                        <div
-                          className="polla-score__spinner btn"
-                          style={{ fontSize: '4px' }}
-                        />
-                        {score.msg === 'success' && (
-                          <svg
-                            className="polla-score__btn-done"
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            width="24">
-                            <path d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
-                          </svg>
-                        )}
-                      </button>
+                      {score.estado < 2 && (
+                        <button
+                          className={`polla-score__form-btn ${score.msg || ''}`}
+                          type="submit">
+                          {score.msg === 'success' ? 'Guardado' : 'Juega'}
+                          <div
+                            className="polla-score__spinner btn"
+                            style={{ fontSize: '4px' }}
+                          />
+                          {score.msg === 'success' && (
+                            <svg
+                              className="polla-score__btn-done"
+                              xmlns="http://www.w3.org/2000/svg"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              width="24">
+                              <path d="M0 0h24v24H0z" fill="none" />
+                              <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                            </svg>
+                          )}
+                        </button>
+                      )}
                     </form>
                   </React.Fragment>
                 )
@@ -465,5 +513,21 @@ const PollaScoreList: FC = () => {
 }
 
 PollaScoreList.label = 'La Polla - Listado de Scores'
+
+PollaScoreList.propTypes = {
+  customFields: PropTypes.shape({
+    datesPerJornada: PropTypes.json.tag({
+      name: 'JSON de Fechas por jornada',
+    }),
+    stadiumLocationPerName: PropTypes.json.tag({
+      name: 'JSON de locación de estadios por nombre de estadios',
+    }),
+    excludedIds: PropTypes.richtext.tag({
+      name: 'Listado de IDs, separados por comas, que deben tener estado 3',
+      description:
+        'Ej: f1dm5ayrkdn4epycrwclcnmne,f183xpeabr5fz3379ygnug416,f1blibc0yb0reblr32nbodc2y',
+    }),
+  }),
+}
 
 export default PollaScoreList
