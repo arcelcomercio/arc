@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
@@ -9,6 +10,14 @@ import {
   User,
   UserData,
 } from './_utils/types'
+
+interface Props {
+  customFields?: {
+    urlImgSouth?: string
+    urlImgNorth?: string
+    urlImgUniqueGroup?: string
+  }
+}
 
 const idconcurso = 1
 
@@ -35,7 +44,8 @@ const addUserToNavbar = (localProfile: Profile | null | undefined) => {
   }
 }
 
-const PollaScoreList: FC = () => {
+const PollaScoreList: FC<Props> = (props) => {
+  const { customFields } = props
   const [scores, setScores] = React.useState<Score[]>()
   const [currentSchedule, setCurrentSchedule] = React.useState('1')
   const [user, setUser] = React.useState<UserData>()
@@ -275,7 +285,13 @@ const PollaScoreList: FC = () => {
                 <div className="polla-score__group-aus">Auspicia:</div>
                 <img
                   className="polla-score__group-brand"
-                  src="https://images.virtualsoft.tech/site/doradobet/logo-horizontalv2.png"
+                  src={`${key === 'Sur' ? customFields?.urlImgSouth : ''}${
+                    key === 'Norte' ? customFields?.urlImgNorth : ''
+                  }${
+                    key !== 'Norte' && key !== 'Sur'
+                      ? customFields?.urlImgUniqueGroup
+                      : ''
+                  }`}
                   alt="Brand"
                 />
               </div>
@@ -465,5 +481,22 @@ const PollaScoreList: FC = () => {
 }
 
 PollaScoreList.label = 'La Polla - Listado de Scores'
+
+PollaScoreList.propTypes = {
+  customFields: PropTypes.shape({
+    urlImgSouth: PropTypes.string.tag({
+      name: 'URL de la imagen auspicia - SUR',
+      group: 'auspiciador',
+    }),
+    urlImgNorth: PropTypes.string.tag({
+      name: 'URL de la imagen auspicia - NORTE',
+      group: 'auspiciador',
+    }),
+    urlImgUniqueGroup: PropTypes.string.tag({
+      name: 'URL de la imagen auspicia - GRUPO UNICO',
+      group: 'auspiciador',
+    }),
+  }),
+}
 
 export default PollaScoreList
