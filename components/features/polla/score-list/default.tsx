@@ -11,6 +11,17 @@ import {
   UserData,
 } from './_utils/types'
 
+interface Props {
+  customFields?: {
+    urlImgSouth?: string
+    urlImgNorth?: string
+    urlImgUniqueGroup?: string
+    datesPerJornada?: string
+    stadiumLocationPerName?: string
+    excludedIds?: string
+  }
+}
+
 const idconcurso = 1
 
 const countriesAssetsPath =
@@ -36,24 +47,16 @@ const addUserToNavbar = (localProfile: Profile | null | undefined) => {
   }
 }
 
-interface Props {
-  customFields?: {
-    datesPerJornada?: string
-    stadiumLocationPerName?: string
-    excludedIds?: string
-  }
-}
-
 const PollaScoreList: FC<Props> = (props) => {
+  const { customFields } = props
   const [scores, setScores] = React.useState<Score[]>()
   const [currentSchedule, setCurrentSchedule] = React.useState('1')
   const [user, setUser] = React.useState<UserData>()
   const [userUuid, setUserUuid] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
 
-  const {
-    customFields: { datesPerJornada, stadiumLocationPerName, excludedIds } = {},
-  } = props
+  const { datesPerJornada, stadiumLocationPerName, excludedIds } =
+    customFields || {}
 
   const parsedDatesPerJornada = JSON.parse(datesPerJornada || '{}')
   const parsedStadiumLocationPerName = JSON.parse(
@@ -312,7 +315,13 @@ const PollaScoreList: FC<Props> = (props) => {
                 <div className="polla-score__group-aus">Auspicia:</div>
                 <img
                   className="polla-score__group-brand"
-                  src="https://images.virtualsoft.tech/site/doradobet/logo-horizontalv2.png"
+                  src={`${key === 'Sur' ? customFields?.urlImgSouth : ''}${
+                    key === 'Norte' ? customFields?.urlImgNorth : ''
+                  }${
+                    key !== 'Norte' && key !== 'Sur'
+                      ? customFields?.urlImgUniqueGroup
+                      : ''
+                  }`}
                   alt="Brand"
                 />
               </div>
@@ -526,6 +535,18 @@ PollaScoreList.propTypes = {
       name: 'Listado de IDs, separados por comas, que deben tener estado 3',
       description:
         'Ej: f1dm5ayrkdn4epycrwclcnmne,f183xpeabr5fz3379ygnug416,f1blibc0yb0reblr32nbodc2y',
+    }),
+    urlImgSouth: PropTypes.string.tag({
+      name: 'URL de la imagen auspicia - SUR',
+      group: 'auspiciador',
+    }),
+    urlImgNorth: PropTypes.string.tag({
+      name: 'URL de la imagen auspicia - NORTE',
+      group: 'auspiciador',
+    }),
+    urlImgUniqueGroup: PropTypes.string.tag({
+      name: 'URL de la imagen auspicia - GRUPO UNICO',
+      group: 'auspiciador',
     }),
   }),
 }
