@@ -276,7 +276,7 @@ export default ({
   s_bbcws('track', 'pageView');`
 
   const isCovid = /^\/covid-19\//.test(requestUri)
-  const isElecciones = /^\/resultados-elecciones-2021\//.test(requestUri)
+  const isElecciones = metaValue('section_style') === 'resultados_elecciones'
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
