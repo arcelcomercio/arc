@@ -154,7 +154,7 @@ class StoryContentAmp extends React.PureComponent {
       height,
       primarySectionLink,
       arcSite,
-      movil1: true,
+      movil1: false,
       size: '320x100,320x50',
     }
     const parametersCaja3 = {
@@ -165,7 +165,7 @@ class StoryContentAmp extends React.PureComponent {
       height,
       primarySectionLink,
       arcSite,
-      movil1: true,
+      movil1: false,
       size: '320x100,320x50,300x1',
     }
     const parametersCaja4 = {
@@ -176,7 +176,7 @@ class StoryContentAmp extends React.PureComponent {
       height,
       primarySectionLink,
       arcSite,
-      movil1: true,
+      movil1: false,
       size: '320x100,320x50',
     }
     const parametersCaja5 = {
@@ -187,7 +187,7 @@ class StoryContentAmp extends React.PureComponent {
       height,
       primarySectionLink,
       arcSite,
-      movil1: true,
+      movil1: false,
       size: '320x100,320x50',
     }
 
