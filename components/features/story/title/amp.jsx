@@ -52,7 +52,7 @@ const StoryTitleAmp = () => {
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width,
     height: '50',
-    movil1: true,
+    movil1: false,
     primarySectionLink,
     arcSite,
     size: '320x100',

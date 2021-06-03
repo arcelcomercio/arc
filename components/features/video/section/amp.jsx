@@ -70,7 +70,7 @@ const VideoSectionAmp = () => {
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width,
     height,
-    movil1: true,
+    movil1: false,
     arcSite,
   }
 
