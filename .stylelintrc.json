@@ -10,6 +10,7 @@
           "each",
           "include",
           "mixin",
+          "warn",
           "return"
         ]
       }
@@ -17,10 +18,7 @@
     "property-no-unknown": [
       true,
       {
-        "ignoreProperties": [
-          "content-visibility",
-          "contain-intrinsic-size"
-        ]
+        "ignoreProperties": ["content-visibility", "contain-intrinsic-size"]
       }
     ]
   },

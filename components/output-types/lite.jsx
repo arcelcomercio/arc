@@ -1,7 +1,7 @@
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import { getPreroll } from '../utilities/ads/preroll'
+import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
 import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
@@ -76,7 +76,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = env
   const {
     videoSeo,
     idYoutube,
@@ -175,16 +175,25 @@ const LiteOutput = ({
     globalContent,
   }
 
-  const structuredTaboola = ` 
-    window._taboola = window._taboola || [];
-    _taboola.push({flush: true});`
+const structuredTaboola = ` 
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});`
 
-  const structuredBBC = `
+const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
   (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
   s_bbcws('partner', 'elcomercio.pe');
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
+
+const jsAdpushup = `
+(function(w, d) {
+	var s = d.createElement('script');
+	s.src = '//cdn.adpushup.com/42614/adpushup.js';
+	s.crossOrigin='anonymous'; 
+	s.type = 'text/javascript'; s.async = true;
+	(d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+})(window, document);`
 
   const isPremium = contentCode === PREMIUM
   const htmlAmpIs = isPremium ? '' : true
@@ -449,6 +458,15 @@ const LiteOutput = ({
           section={storySectionPath.split('/')[1]}
           subtype={subtype}
         />
+        {arcSite === SITE_ELBOCON ? (
+          <>
+             <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: jsAdpushup }}
+            />
+          </>
+        ) : null}
 
         <Styles
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -522,9 +540,13 @@ const LiteOutput = ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <Libs />
+        ) : null}
+        {isPremium &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <>
-            <Libs />
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
@@ -586,7 +608,9 @@ const LiteOutput = ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {isPremium && <Fusion />}
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <Fusion />
+        ) : null}
         {isStory && (
           <script
             type="text/javascript"
@@ -709,6 +733,7 @@ const LiteOutput = ({
           }}
         />
         <script
+          async
           src={`${getAssetsPath(
             arcSite,
             contextPath
@@ -730,6 +755,7 @@ const LiteOutput = ({
         />
         {arcSite === SITE_ELCOMERCIOMAG ||
         arcSite === SITE_PERU21 ||
+        arcSite === SITE_TROME ||
         arcSite === SITE_DEPOR ? (
           <script
             defer
@@ -790,7 +816,7 @@ const LiteOutput = ({
           </>
         )}
         {vallaSignwall === false &&
-        arcSite === SITE_ELCOMERCIO &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (
           <>
             <script

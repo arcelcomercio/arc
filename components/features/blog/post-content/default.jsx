@@ -6,7 +6,6 @@ import { getFullDateIso8601 } from '../../../utilities/helpers'
 import Ads from '../../../global-components/ads'
 import { Parser } from 'html-to-react'
 
-
 const classes = {
   content: 'post-content bg-white p-20',
   header: 'post-content__header uppercase inline-block mb-25 text-md',
@@ -35,7 +34,7 @@ const BlogPostContent = () => {
           {formatDate && `${day}/${month}/${fullYear} ${hours}:${minutes}`}
         </time>
       </div>
-      <div className={classes.story} id="contenedor">
+      <div className={classes.story} id="container">
         <Ads adElement="inline" isDesktop isMobile={false} isDfp={isDfp} />
         <Ads adElement="movil_video" isDesktop={false} isMobile isDfp={isDfp} />
         <Ads adElement="movil3" isDesktop={false} isMobile isDfp={isDfp} />

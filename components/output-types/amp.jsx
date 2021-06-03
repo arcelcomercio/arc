@@ -380,13 +380,11 @@ const AmpOutputType = ({
           />
         )}
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
-          <>
-            <script
-              async
-              custom-element="amp-jwplayer"
-              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-            />
-          </>
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
         )}
 
         {hasTwitter && (
@@ -466,8 +464,7 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-        {arcSite === SITE_PERU21 && (
-          <amp-iframe
+        <amp-iframe
             width="1"
             title="User Sync"
             height="1"
@@ -480,7 +477,6 @@ const AmpOutputType = ({
               placeholder
             />
           </amp-iframe>
-        )}
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
