@@ -77,6 +77,9 @@ const WrapperPageSubs = ({ properties }) => {
           extra: errIdentitySDK || {},
         })
       })
+
+    const isParamsRedirect = QueryString.getQuery('signLanding')
+    setShowSignwall(isParamsRedirect)
   }, [])
 
   const handleSignwall = () => {
@@ -120,6 +123,9 @@ const WrapperPageSubs = ({ properties }) => {
         })
       }
       setShowProfile(getUserName(userfirstName, userlastName))
+      setShowSignwall(false)
+      QueryString.deleteQuery('signLanding')
+      QueryString.deleteQuery('dataTreatment')
     }
   }
 
@@ -207,9 +213,7 @@ const WrapperPageSubs = ({ properties }) => {
           </section>
         )}
 
-        {(QueryString.getQuery('signLanding') ||
-          QueryString.getQuery('signStudents') ||
-          showSignwall) && (
+        {showSignwall && (
           <Signwall
             fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
