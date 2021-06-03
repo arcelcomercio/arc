@@ -75,9 +75,7 @@ export const publicidadAmpAd = ({
   const nuevoScript =
     (movil1 &&
       `data-multi-size="${size}"
-  data-multi-size-validation="false"`) ||
-    `data-multi-size="1x1"
-    data-multi-size-validation="false"`
+  data-multi-size-validation="false"`) || ``
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
