@@ -5,26 +5,20 @@ $nav-height-active: 45px;
 $hi-font-primary: 'Encode Sans Condensed';
 $hi-font-secondary: 'Fira Sans';
 $hi-gray: #BFBFBF;
+$hi-dark: #666;
 
 .header-inverted-featured {
   background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(224, 100, 55, 1) 50%, rgba(224, 100, 55, 1) 100%);
-<<<<<<< Updated upstream
-  height: 64px;
-=======
   height: 48px;
-
-  &.active {
-    background-color: white;
-  }
 
   @media (--desktop) {
     height: 64px;
 
     &.active {
+      // position: static;
       background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(224, 100, 55, 1) 50%, rgba(224, 100, 55, 1) 100%);
     }
   }
->>>>>>> Stashed changes
 
   &__btn-menu {
     font-family: $hi-font-primary;
@@ -56,34 +50,112 @@ $hi-gray: #BFBFBF;
 
   .nav {
     &__mobile-logo {
-<<<<<<< Updated upstream
-      top: -32px;
+
+      @media(--tablet) {
+        .active {
+          left: initial;
+          padding-right: 0;
+          border: 0;
+        }
+      }
 
       img {
-        height: 64px;
-=======
+        height: 48px !important;
 
-      img {
-        height: 48px;
+        @media(--tablet) {
+          .active {
+            height: 48px;
+          }
+        }
 
         @media (--desktop) {
           top: -32px;
-          height: 64px;
+          height: 64px !important;
         }
->>>>>>> Stashed changes
       }
     }
   }
 
   .nav-sidebar {
     background-color: #000;
-    top: 64px;
+    top: 48px;
+    height: calc(100vh - 48px);
 
-    &__link {
+    @media (--desktop) {
+      top: 64px;
+    }
+
+    &__link,
+    &__text {
       font-family: $hi-font-primary;
+    }
+
+  }
+
+  .story-header__icon {
+    color: #fff;
+    font-size: 13px !important;
+    padding: 11px;
+    margin-left: 20px;
+    border-radius: 50%;
+
+    &.icon-facebook {
+      background-color: #496098;
+    }
+
+    &.icon-twitter {
+      background-color: #4ca0eb;
+    }
+
+    &.icon-linkedin {
+      background-color: #0e76a8;
+    }
+
+    &.icon-whatsapp {
+      background-color: #42c64c;
     }
   }
 
+  &__btn-search {
+    border-color: $hi-gray;
+  }
 
+  // estilos para scrolled status
+  &.active {
+    background: white;
+
+    .nav {
+      &__mobile-logo {
+        display: none !important;
+
+        @media(--desktop) {
+          display: block !important;
+          left: initial !important;
+          padding-right: 0 !important;
+          border: 0 !important;
+        }
+
+
+        img {
+          height: 48px !important;
+        }
+      }
+    }
+
+
+    .header-inverted-featured__socials {
+      display: flex;
+
+      @media (--desktop) {
+        display: none !important;
+      }
+    }
+
+
+
+    .header-inverted-featured__btn-menu {
+      color: $hi-dark !important;
+    }
+  }
 
 }

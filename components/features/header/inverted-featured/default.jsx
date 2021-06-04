@@ -11,6 +11,9 @@ import { bandFilter, menuFilter } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
 import HeaderChildInverted from './_children/header'
 
+import { getAssetsPath } from '../../../utilities/assets'
+import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
+
 const BAND_HIERARCHY = 'header-default'
 const MENU_HIERARCHY = 'menu-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
@@ -72,18 +75,18 @@ const HeaderInvertedFeatured = (props) => {
   const shareButtons = [
     {
       name: 'facebook',
-      icon: 'icon-facebook-circle',
+      icon: 'icon-facebook',
       link: urlsShareList.facebook,
     },
 
     {
       name: 'twitter',
-      icon: 'icon-twitter-circle',
+      icon: 'icon-twitter',
       link: urlsShareList.twitter,
     },
     {
       name: 'linkedin',
-      icon: 'icon-linkedin-circle',
+      icon: 'icon-linkedin',
       link: urlsShareList.linkedin,
     },
     {
@@ -102,7 +105,7 @@ const HeaderInvertedFeatured = (props) => {
     {},
     {},
     customLogoTitle,
-    customLogo,
+    // customLogo,
     customLogoLink,
     tags
   )
@@ -137,12 +140,21 @@ const HeaderInvertedFeatured = (props) => {
   formatter.setBandData(bandData)
   formatter.setMenuData(menuData)
 
+  const logo =
+    arcSite === SITE_DEPOR
+      ? 'https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg'
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
+
   return (
     <HeaderChildInverted
       {...formatter.getParams()}
       search={search}
       isStory={isStory}
       shareButtons={shareButtons}
+      logo={logo}
     />
   )
 }

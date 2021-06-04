@@ -14,11 +14,7 @@ const LIST_WIDTH = 330
 */
 
 const classes = {
-<<<<<<< Updated upstream
-  header: `header header-inverted-featured bg-primary secondary-font w-full font-normal flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
-=======
   header: `header header-inverted header-inverted-featured bg-primary secondary-font w-full font-normal flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
->>>>>>> Stashed changes
   wrapper: `w-full flex items-center justify-center position-relative wrapper`,
   logoContainer: 'nav__mobile-logo position-absolute',
   logo: 'header__logo',
@@ -31,24 +27,15 @@ const classes = {
   tags:
     'header-inverted-featured__tags justify-center ml-20 mr-10 hidden md:flex items-center font-bold',
   navBtnContainer: `flex items-center justify-start nav__container-menu position-absolute`,
-<<<<<<< Updated upstream
-  leftBtnContainer: `left-0 ml-10 lg:ml-20`,
-  rightBtnContainer: `right-0 mr-10 lg:mr-20`,
-=======
   leftBtnContainer: `left-0 lg:ml-20`,
   rightBtnContainer: `right-0 lg:mr-20`,
->>>>>>> Stashed changes
   form: 'position-relative items-center hidden lg:flex ml-10',
   search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
   searchLabel: 'overflow-hidden w-0 h-0',
   btnSearch: `header-inverted-featured__btn-search flex items-center nav__btn--search text-white lg:pr-20 lg:pl-20 border-l-1 border-solid`,
   iconSearch: 'icon-search header-inverted-featured__icon-search text-lg',
   btnMenu:
-<<<<<<< Updated upstream
-    'header-inverted-featured__btn-menu flex items-center font-bold p-5 md:pr-20 lg:pl-20',
-=======
     'header-inverted-featured__btn-menu flex items-center font-bold md:pr-20 lg:pl-20',
->>>>>>> Stashed changes
   iconMenu:
     'header-inverted-featured__icon-hamburguer icon-hamburguer title-sm pr-10',
   navStoryTitle:
@@ -77,11 +64,7 @@ const popUpWindow = (url, title, w, h) => {
 // TODO: Agregar el click afuera del menu
 const HeaderChildInverted = ({
   logo,
-<<<<<<< Updated upstream
-  auxLogo,
-=======
   // auxLogo,
->>>>>>> Stashed changes
   bandLinks,
   menuSections,
   tags,
@@ -231,7 +214,7 @@ const HeaderChildInverted = ({
             <Button
               iconClass={classes.iconMenu}
               btnClass={`${classes.btnMenu}`}
-              btnText="Menú"
+              btnText={scrolled ? '' : 'Menú'}
               onClick={_handleToggleSectionElements}
             />
             <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
@@ -280,41 +263,58 @@ const HeaderChildInverted = ({
           <div
             className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
             {isStory && scrolled && (
-              <>
-                <div className={classes.navStorySocialNetwork}>
-                  <div>
-                    <a
-                      itemProp="url"
-                      className={classes.moreLink}
-                      href="/"
-                      onClick={(event) => {
-                        openLink(event, 3)
-                      }}>
-                      <i className={`${classes.iconMore}`} />
-                    </a>
-                  </div>
+              // <>
+              //   <div className={classes.navStorySocialNetwork}>
+              //     <div>
+              //       <a
+              //         itemProp="url"
+              //         className={classes.moreLink}
+              //         href="/"
+              //         onClick={(event) => {
+              //           openLink(event, 3)
+              //         }}>
+              //         <i className={`${classes.iconMore}`} />
+              //       </a>
+              //     </div>
 
-                  <ul className={classes.listIcon}>
-                    {shareButtons.map((item, i) => (
-                      <li key={item.icon} className={classes.shareItem}>
-                        <a
-                          itemProp="url"
-                          title={`Compartir en ${item.name}`}
-                          className={classes.shareLink}
-                          href={item.link}
-                          onClick={(event) => {
-                            openLink(event, item)
-                          }}>
-                          <i
-                            className={`${item.icon} ${classes.shareIcon}`}
-                            aria-hidden="true"
-                          />
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
+              //     <ul className={classes.listIcon}>
+              //       {shareButtons.map((item, i) => (
+              //         <li key={item.icon} className={classes.shareItem}>
+              //           <a
+              //             itemProp="url"
+              //             title={`Compartir en ${item.name}`}
+              //             className={classes.shareLink}
+              //             href={item.link}
+              //             onClick={(event) => {
+              //               openLink(event, item)
+              //             }}>
+              //             <i
+              //               className={`${item.icon} ${classes.shareIcon}`}
+              //               aria-hidden="true"
+              //             />
+              //           </a>
+              //         </li>
+              //       ))}
+              //     </ul>
+              //   </div>
+              // </>
+              <div className="flex header-inverted-featured__socials">
+                {shareButtons.map((item, i) => (
+                  <a
+                    itemProp="url"
+                    title={`Compartir en ${item.name}`}
+                    className={classes.shareLink}
+                    href={item.link}
+                    onClick={(event) => {
+                      openLink(event, item)
+                    }}>
+                    <i
+                      className={`${item.icon} ${classes.shareIcon}`}
+                      aria-hidden="true"
+                    />
+                  </a>
+                ))}
+              </div>
             )}
           </div>
           {/** ************* // RIGHT *************** */}
