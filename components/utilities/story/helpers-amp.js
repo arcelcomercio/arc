@@ -37,15 +37,11 @@ export const publicidadAmp = ({
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
-  const nuevoScript =
-    (movil1 &&
-      `data-multi-size="${size}"
-  data-multi-size-validation="false"`) ||
     ''
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript} ${json} ${prebidAmp}></amp-ad>`
+  data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -72,14 +68,9 @@ export const publicidadAmpAd = ({
   
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
-  const nuevoScript =
-    (movil1 &&
-      `data-multi-size="${size}"
-  data-multi-size-validation="false"`) || ``
-
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
-  data-slot="${dataSlot}" ${nuevoScript} ${json} ${prebidAmp}></amp-ad>`
+  data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
 }
