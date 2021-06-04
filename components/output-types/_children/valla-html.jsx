@@ -26,7 +26,7 @@ const VallaHtml = () => {
   } = getPLanSelected || {}
 
   return (
-    <div id="signwall-app" className="signwall-app active-signwall">
+    <div id="signwall-app" className="signwall-app">
       <div className="container">
         <button
           type="button"
