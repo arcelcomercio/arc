@@ -312,18 +312,38 @@ const PollaScoreList: FC<Props> = (props) => {
             <div className="polla-score__group-cont" key={key}>
               <div className="polla-score__group-title">
                 <div className="polla-score__group-name">{key}</div>
-                <div className="polla-score__group-aus">Auspicia:</div>
-                <img
-                  className="polla-score__group-brand"
-                  src={`${key === 'Sur' ? customFields?.urlImgSouth : ''}${
-                    key === 'Norte' ? customFields?.urlImgNorth : ''
-                  }${
-                    key !== 'Norte' && key !== 'Sur'
-                      ? customFields?.urlImgUniqueGroup
-                      : ''
-                  }`}
-                  alt="Brand"
-                />
+                {key === 'Sur' && customFields?.urlImgSouth && (
+                  <>
+                    <div className="polla-score__group-aus">Auspicia:</div>
+                    <img
+                      className="polla-score__group-brand"
+                      src={`${customFields?.urlImgSouth}`}
+                      alt="Brand"
+                    />
+                  </>
+                )}
+                {key === 'Norte' && customFields?.urlImgNorth && (
+                  <>
+                    <div className="polla-score__group-aus">Auspicia:</div>
+                    <img
+                      className="polla-score__group-brand"
+                      src={`${customFields?.urlImgNorth}`}
+                      alt="Brand"
+                    />
+                  </>
+                )}
+                {key !== 'Norte' &&
+                  key !== 'Sur' &&
+                  customFields?.urlImgUniqueGroup && (
+                    <>
+                      <div className="polla-score__group-aus">Auspicia:</div>
+                      <img
+                        className="polla-score__group-brand"
+                        src={`${customFields?.urlImgUniqueGroup}`}
+                        alt="Brand"
+                      />
+                    </>
+                  )}
               </div>
               {scoresByGroup?.[key].map((score) => {
                 // const scoreArray = score.resultadoFinal.split('-')
