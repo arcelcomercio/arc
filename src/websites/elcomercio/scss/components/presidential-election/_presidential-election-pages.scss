@@ -97,6 +97,9 @@
     align-items: center;
     text-align: left;
     padding-left: 9px;
+    @media screen and (max-width: 360px) {
+      width: 105px;
+    }
   }
 
   &.second {
@@ -104,6 +107,9 @@
       font: 700 12px/10px $primary-font;
       width: 118px;
       height: 23px;
+      @media screen and (max-width: 360px) {
+        width: 102px;
+      }
     }
     .presidential-election-pages__ec-data {
       margin-top: 22px;
