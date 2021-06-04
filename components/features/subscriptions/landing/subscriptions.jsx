@@ -102,6 +102,16 @@ const LandingSubscriptions = (props) => {
         })),
       },
     })
+
+    if (QueryString.getQuery('signStudents')) {
+      setShowTypeLanding('students')
+    }
+
+    const isParamsRedirect =
+      QueryString.getQuery('signLanding') ||
+      QueryString.getQuery('signStudents')
+
+    setShowSignwall(isParamsRedirect)
   }, [])
 
   const handleUniversity = () => {
@@ -152,6 +162,10 @@ const LandingSubscriptions = (props) => {
       }
 
       setShowProfile(getUserName(userfirstName, userlastName))
+      // setShowSignwall(false)
+      QueryString.deleteQuery('signLanding')
+      // QueryString.deleteQuery('signStudents')
+      QueryString.deleteQuery('dataTreatment')
     }
   }
 
@@ -423,9 +437,7 @@ const LandingSubscriptions = (props) => {
           </section>
         )}
 
-        {QueryString.getQuery('signLanding') ||
-        QueryString.getQuery('signStudents') ||
-        showSignwall ? (
+        {showSignwall && (
           <Signwall
             fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
@@ -437,7 +449,7 @@ const LandingSubscriptions = (props) => {
               setShowTypeLanding('landing')
             }}
           />
-        ) : null}
+        )}
 
         {showModalCall ? (
           <Callout

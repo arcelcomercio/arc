@@ -22,7 +22,7 @@ const storySchemaBase = `
     taxonomy: Taxonomy
   `
 
-const storySchemaTypes = (presets) => {
+const storySchemaTypes = (presets?: string) => {
   const auxPresets =
     presets ||
     `
