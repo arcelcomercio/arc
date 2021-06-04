@@ -1,4 +1,5 @@
-const resolve = (): string => `http://jab.pe/eco/api.json`
+const resolve = (): string =>
+  `https://elecciones2021.minoticia.pe/widgetportada.json`
 export default {
   resolve,
   params: {
