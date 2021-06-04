@@ -11,8 +11,16 @@ import {
   UserData,
 } from './_utils/types'
 
+const DEFAULT_ENDPOINT =
+  'https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev'
+
+const ID_CONCURSO = 1
+
+const COUNTRIES_ASSETS_PATH =
+  'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
 interface Props {
   customFields?: {
+    serviceEndPoint?: string
     urlImgSouth?: string
     urlImgNorth?: string
     urlImgUniqueGroup?: string
@@ -21,11 +29,6 @@ interface Props {
     excludedIds?: string
   }
 }
-
-const idconcurso = 1
-
-const countriesAssetsPath =
-  'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
 
 const addUserToNavbar = (localProfile: Profile | null | undefined) => {
   const btn = document.getElementById('signwall-nav-btn')
@@ -55,8 +58,14 @@ const PollaScoreList: FC<Props> = (props) => {
   const [userUuid, setUserUuid] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
 
-  const { datesPerJornada, stadiumLocationPerName, excludedIds } =
-    customFields || {}
+  const {
+    datesPerJornada,
+    stadiumLocationPerName,
+    excludedIds,
+    serviceEndPoint,
+  } = customFields || {}
+
+  const serviceURL = serviceEndPoint || DEFAULT_ENDPOINT
 
   const parsedDatesPerJornada = JSON.parse(datesPerJornada || '{}')
   const parsedStadiumLocationPerName = JSON.parse(
@@ -88,7 +97,7 @@ const PollaScoreList: FC<Props> = (props) => {
     const department = attributes.find((el) => el.name === 'department')?.value
     const province = attributes.find((el) => el.name === 'province')?.value
     const newUserFetch = await fetch(
-      `https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev/${idconcurso}/usuario/${uuid}`,
+      `${serviceURL}/${ID_CONCURSO}/usuario/${uuid}`,
       {
         method: 'PUT',
         headers: {
@@ -121,7 +130,7 @@ const PollaScoreList: FC<Props> = (props) => {
 
   const getUserData = async (uuid: string): Promise<User> => {
     const userDataFetch = await fetch(
-      `https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev/${idconcurso}/usuario/${uuid}/ultimopartido`
+      `${serviceURL}/${ID_CONCURSO}/usuario/${uuid}/ultimopartido`
     )
     return userDataFetch.json()
   }
@@ -148,7 +157,7 @@ const PollaScoreList: FC<Props> = (props) => {
         }
 
         const scoreFetch = await fetch(
-          `https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev/${idconcurso}/usuario/${uuid}/partidos`
+          `${serviceURL}/${ID_CONCURSO}/usuario/${uuid}/partidos`
         )
         const scoreRes: ScoresApiResponse = await scoreFetch.json()
         setScores(
@@ -312,18 +321,38 @@ const PollaScoreList: FC<Props> = (props) => {
             <div className="polla-score__group-cont" key={key}>
               <div className="polla-score__group-title">
                 <div className="polla-score__group-name">{key}</div>
-                <div className="polla-score__group-aus">Auspicia:</div>
-                <img
-                  className="polla-score__group-brand"
-                  src={`${key === 'Sur' ? customFields?.urlImgSouth : ''}${
-                    key === 'Norte' ? customFields?.urlImgNorth : ''
-                  }${
-                    key !== 'Norte' && key !== 'Sur'
-                      ? customFields?.urlImgUniqueGroup
-                      : ''
-                  }`}
-                  alt="Brand"
-                />
+                {key === 'Sur' && customFields?.urlImgSouth && (
+                  <>
+                    <div className="polla-score__group-aus">Auspicia:</div>
+                    <img
+                      className="polla-score__group-brand"
+                      src={`${customFields?.urlImgSouth}`}
+                      alt="Brand"
+                    />
+                  </>
+                )}
+                {key === 'Norte' && customFields?.urlImgNorth && (
+                  <>
+                    <div className="polla-score__group-aus">Auspicia:</div>
+                    <img
+                      className="polla-score__group-brand"
+                      src={`${customFields?.urlImgNorth}`}
+                      alt="Brand"
+                    />
+                  </>
+                )}
+                {key !== 'Norte' &&
+                  key !== 'Sur' &&
+                  customFields?.urlImgUniqueGroup && (
+                    <>
+                      <div className="polla-score__group-aus">Auspicia:</div>
+                      <img
+                        className="polla-score__group-brand"
+                        src={`${customFields?.urlImgUniqueGroup}`}
+                        alt="Brand"
+                      />
+                    </>
+                  )}
               </div>
               {scoresByGroup?.[key].map((score) => {
                 // const scoreArray = score.resultadoFinal.split('-')
@@ -363,7 +392,7 @@ const PollaScoreList: FC<Props> = (props) => {
                           ) {
                             form.classList.add('loading')
                             await fetch(
-                              `https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev/${idconcurso}/usuario/${userUuid}/pronostico/${score.id}`,
+                              `${serviceURL}/${ID_CONCURSO}/usuario/${userUuid}/pronostico/${score.id}`,
                               {
                                 method: 'PUT',
                                 headers: {
@@ -414,7 +443,7 @@ const PollaScoreList: FC<Props> = (props) => {
                         <div className="polla-score__country-cont">
                           <img
                             className="polla-score__country-img"
-                            src={`${countriesAssetsPath}${slugify(
+                            src={`${COUNTRIES_ASSETS_PATH}${slugify(
                               score.equipo1
                             )}.svg`}
                             alt="País"
@@ -460,7 +489,7 @@ const PollaScoreList: FC<Props> = (props) => {
                         <div className="polla-score__country-cont">
                           <img
                             className="polla-score__country-img"
-                            src={`${countriesAssetsPath}${slugify(
+                            src={`${COUNTRIES_ASSETS_PATH}${slugify(
                               score.equipo2
                             )}.svg`}
                             alt="País"
@@ -477,13 +506,13 @@ const PollaScoreList: FC<Props> = (props) => {
                           </span>
                         )}
                         {score.estado === 3 ? (
-                          <span className="polla-score__points-txt">
-                            + {score.puntos} pts.
+                          <span className="polla-score__result-txt">
+                            Resultado Final: {score.resultadoFinal}
                           </span>
                         ) : null}
                         {score.estado === 3 ? (
-                          <span className="polla-score__result-txt">
-                            Resultado Final: {score.resultadoFinal}
+                          <span className="polla-score__points-txt">
+                            + {score.puntos} pts.
                           </span>
                         ) : null}
                       </div>
@@ -525,6 +554,11 @@ PollaScoreList.label = 'La Polla - Listado de Scores'
 
 PollaScoreList.propTypes = {
   customFields: PropTypes.shape({
+    serviceEndPoint: PropTypes.string.tag({
+      name: 'URL del servicio',
+      description:
+        'Por defecto la URL es https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev',
+    }),
     datesPerJornada: PropTypes.json.tag({
       name: 'JSON de Fechas por jornada',
     }),
