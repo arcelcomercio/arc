@@ -75,11 +75,11 @@ const VideoSectionAmp = () => {
     size: '320x50',
   }
 
-  const parametersCaja2 = { 
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`, 
+  const parametersCaja2 = {
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`,
     prebidSlot: `19186-${namePublicidad}-amp-caja2`,
-    width, 
-    height, 
+    width,
+    height,
     movil1: false,
     arcSite,
   }

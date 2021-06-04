@@ -140,12 +140,16 @@
   display: flex;
 }
 .price {
-  font-size: 54px;
+  font-size: 3em;
   text-align: right;
   font-weight: 700;
   font-family: inherit;
   padding-top: 20px;
   padding-right: 15px;
+
+  @media (--mobile) {
+    font-size: 3.6em;
+  }
 
   @media (--desktop) {
     padding-right: 30px;
@@ -200,7 +204,6 @@
 }
 
 .note-premium {
-  padding: 0 34px;
   font-size: 15px;
   line-height: 18px;
   text-align: center;
