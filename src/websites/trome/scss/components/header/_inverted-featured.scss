@@ -8,7 +8,23 @@ $hi-gray: #BFBFBF;
 
 .header-inverted-featured {
   background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(224, 100, 55, 1) 50%, rgba(224, 100, 55, 1) 100%);
+<<<<<<< Updated upstream
   height: 64px;
+=======
+  height: 48px;
+
+  &.active {
+    background-color: white;
+  }
+
+  @media (--desktop) {
+    height: 64px;
+
+    &.active {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(224, 100, 55, 1) 50%, rgba(224, 100, 55, 1) 100%);
+    }
+  }
+>>>>>>> Stashed changes
 
   &__btn-menu {
     font-family: $hi-font-primary;
@@ -40,10 +56,21 @@ $hi-gray: #BFBFBF;
 
   .nav {
     &__mobile-logo {
+<<<<<<< Updated upstream
       top: -32px;
 
       img {
         height: 64px;
+=======
+
+      img {
+        height: 48px;
+
+        @media (--desktop) {
+          top: -32px;
+          height: 64px;
+        }
+>>>>>>> Stashed changes
       }
     }
   }
