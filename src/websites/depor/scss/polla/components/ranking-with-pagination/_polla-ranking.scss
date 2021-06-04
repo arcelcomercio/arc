@@ -1,7 +1,7 @@
 .polla-ranking {
   &__rank-img {
     width: 100%;
-    max-width: 220px;
+    max-width: 180px;
     display: block;
     margin: 25px auto;
   }
@@ -18,6 +18,7 @@
     width: 100%;
     max-width: 580px;
     margin: 0 auto;
+    min-height: 500px;
     @media (--tablet) {
       border-radius: 10px;
     }
@@ -99,4 +100,10 @@
       color: #333;
     }
   }
+}
+
+.polla-score__spinner.ranking {
+  font-size: 5px;
+  border-top: 1em solid #fff;
+  margin-top: 50px;
 }

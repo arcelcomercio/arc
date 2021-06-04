@@ -2,6 +2,11 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
+const DEFAULT_ENDPOINT =
+  'https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev'
+
+const ID_CONCURSO = 1
+
 interface Props {
   customFields?: {
     block?: 'landing' | 'ranking' | 'awards'
@@ -11,22 +16,28 @@ interface Props {
     rankingUrl?: string
     awardsHtml?: string
     awardsUrl?: string
+    serviceEndPoint?: string
   }
 }
 
 const PollaHomepage: FC<Props> = (props) => {
   const { customFields } = props
   const [list, setList] = React.useState<any[]>([])
+  const [isLoading, setIsLoading] = React.useState(true)
 
-  const API_BASE =
-    'https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev/1/ranking'
+  const API_BASE = `${
+    customFields?.serviceEndPoint || DEFAULT_ENDPOINT
+  }/${ID_CONCURSO}/ranking`
 
   React.useEffect(() => {
-    fetch(API_BASE)
-      .then((res) => res.json())
-      .then((res) => {
-        setList(res.ranking)
-      })
+    if (customFields?.block === 'ranking') {
+      fetch(API_BASE)
+        .then((res) => res.json())
+        .then((res) => {
+          setList(res.ranking)
+          setIsLoading(false)
+        })
+    }
   }, [])
 
   return (
@@ -154,6 +165,9 @@ const PollaHomepage: FC<Props> = (props) => {
           </svg>
           <div className="polla-home__rank-table">
             <h3 className="polla-home__rank-title">RANKING</h3>
+            {isLoading ? (
+              <div className="polla-score__spinner ranking" />
+            ) : null}
             {list &&
               list.slice(0, 10).map((item, i) => (
                 <div className="polla-home__rank-item">
@@ -214,6 +228,12 @@ PollaHomepage.propTypes = {
       name: 'URL del boton ¡Juega!',
       defaultValue: '/',
       group: 'landing',
+    }),
+    serviceEndPoint: PropTypes.string.tag({
+      name: 'URL del servicio',
+      description:
+        'Por defecto la URL es https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev',
+      group: 'ranking',
     }),
     rankingUrl: PropTypes.string.tag({
       name: 'URL del boton "VER TABLA COMPLETA"',

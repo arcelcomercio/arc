@@ -1,20 +1,33 @@
+import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-const PollaRankingWithPagintation: FC = () => {
+const DEFAULT_ENDPOINT =
+  'https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev'
+
+const ID_CONCURSO = 1
+
+interface Props {
+  customFields?: {
+    serviceEndPoint?: string
+  }
+}
+
+const PollaRankingWithPagintation: FC<Props> = (props) => {
   const [list, setList] = React.useState<any[]>([])
   const [currentPage, setCurrentPage] = React.useState<number>(1)
+  const [isLoading, setIsLoading] = React.useState(true)
 
   const itemsPerPage = 25
-  const idconcurso = 1
+
+  const { customFields: { serviceEndPoint } = {} } = props
 
   React.useEffect(() => {
-    fetch(
-      `https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev/${idconcurso}/ranking`
-    )
+    fetch(`${serviceEndPoint || DEFAULT_ENDPOINT}/${ID_CONCURSO}/ranking`)
       .then((res) => res.json())
       .then((res) => {
         setList(res.ranking)
+        setIsLoading(false)
       })
   }, [])
 
@@ -27,11 +40,6 @@ const PollaRankingWithPagintation: FC = () => {
 
   return (
     <>
-      {/* <img
-        className="polla-ranking__rank-img"
-        src="https://tl.vhv.rs/dpng/s/407-4077902_no-1-logo-png-h-with-laurel-wreath.png"
-        alt="Trofeo con laureles"
-      /> */}
       <svg
         className="polla-ranking__rank-img"
         id="Capa_1"
@@ -115,6 +123,7 @@ const PollaRankingWithPagintation: FC = () => {
       </svg>
       <div className="polla-ranking__table">
         <h2 className="polla-ranking__table-title">Ranking</h2>
+        {isLoading ? <div className="polla-score__spinner ranking" /> : null}
         {list
           .slice(
             itemsPerPage * (currentPage - 1),
@@ -122,9 +131,7 @@ const PollaRankingWithPagintation: FC = () => {
           )
           .map((item, i) => (
             <div className="polla-ranking__table-item" key={item?.id}>
-              <div className="polla-ranking__table-first">
-                {(currentPage - 1) * itemsPerPage + i}.
-              </div>
+              <div className="polla-ranking__table-first">{item?.puesto}.</div>
               <div className="polla-ranking__table-second">{item?.nombre}</div>
               <div className="polla-ranking__table-third">{item?.puntaje}</div>
             </div>
@@ -202,5 +209,14 @@ const PollaRankingWithPagintation: FC = () => {
 }
 
 PollaRankingWithPagintation.label = 'La Polla - Ranking con paginación'
+PollaRankingWithPagintation.propTypes = {
+  customFields: PropTypes.shape({
+    serviceEndPoint: PropTypes.string.tag({
+      name: 'URL del servicio',
+      description:
+        'Por defecto la URL es https://4dtmic7lj2.execute-api.us-east-1.amazonaws.com/dev',
+    }),
+  }),
+}
 
 export default PollaRankingWithPagintation
