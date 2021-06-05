@@ -62,13 +62,13 @@ const VideoSectionAmp = () => {
 
   const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
 
-  const width = '320'
-  const height = '50'
+  const width = '300'
+  const height = '250'
   const parametersCaja1 = {
     // top
     dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja1`,
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
-    width,
+    width: '320',
     height: '100',
     movil1: false,
     arcSite,

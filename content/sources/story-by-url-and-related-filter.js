@@ -60,8 +60,21 @@ const fetch = ({
   })
 }
 
+const transform = (data, { 'arc-site': arcSite }) => {
+  const { publish_date: publishDate = '', websites = {} } = data
+  const { website_url: websiteUrl = '' } = websites[arcSite] || {}
+  const isResultadosOnpe =
+    /^(\/[\w\d-\\/]+\/resultados-onpe\/.+-(?:\d{3,9}|noticia(?:-\d{1,2})?\/))$/.test(
+      websiteUrl
+    ) || false
+  const dataStory = data
+  if (isResultadosOnpe) dataStory.display_date = publishDate
+  return { ...dataStory }
+}
+
 export default {
   fetch,
+  transform,
   schemaName,
   params,
   ttl: 300,
