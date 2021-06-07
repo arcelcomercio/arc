@@ -60,11 +60,11 @@ $hi-dark: #666;
       }
 
       img {
-        height: 48px !important;
+        height: 49px !important;
 
         @media(--tablet) {
           .active {
-            height: 48px;
+            height: 49px;
           }
         }
 
@@ -99,21 +99,7 @@ $hi-dark: #666;
     margin-left: 20px;
     border-radius: 50%;
 
-    &.icon-facebook {
-      background-color: #496098;
-    }
 
-    &.icon-twitter {
-      background-color: #4ca0eb;
-    }
-
-    &.icon-linkedin {
-      background-color: #0e76a8;
-    }
-
-    &.icon-whatsapp {
-      background-color: #42c64c;
-    }
   }
 
   &__btn-search {
@@ -137,7 +123,7 @@ $hi-dark: #666;
 
 
         img {
-          height: 48px !important;
+          height: 49px !important;
         }
       }
     }
@@ -148,6 +134,53 @@ $hi-dark: #666;
 
       @media (--desktop) {
         display: none !important;
+      }
+
+      a.share-btn {
+        width: 30px;
+        height: 30px;
+        margin-left: 16px;
+        border-radius: 50%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          height: 14px;
+          fill: #fff;
+        }
+
+        &.s-fb {
+          background-color: #21589B;
+        }
+
+        &.s-tw {
+          background-color: #00AEF0;
+        }
+
+        &.s-lk {
+          background-color: #0088E7;
+        }
+
+        &--ws {
+          background-color: #24D165;
+
+          svg {
+            fill: transparent;
+            stroke: #fff;
+            stroke-width: 2px;
+          }
+        }
+
+        &--gnews {
+          border: 1px solid #333;
+
+          svg {
+            fill: #333;
+            height: 22px;
+          }
+        }
       }
     }
 

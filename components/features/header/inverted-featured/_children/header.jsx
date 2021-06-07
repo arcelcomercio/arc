@@ -8,6 +8,7 @@ import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
 import searchQuery from '../../../../utilities/client/search'
 
+import ShareButtons from '../../../../global-components/lite/share'
 /* 
 const DRAG_SCREEN_LIMIT = 90
 const LIST_WIDTH = 330 
@@ -299,7 +300,7 @@ const HeaderChildInverted = ({
               //   </div>
               // </>
               <div className="flex header-inverted-featured__socials">
-                {shareButtons.map((item, i) => (
+                {/* {shareButtons.map((item, i) => (
                   <a
                     itemProp="url"
                     title={`Compartir en ${item.name}`}
@@ -313,7 +314,8 @@ const HeaderChildInverted = ({
                       aria-hidden="true"
                     />
                   </a>
-                ))}
+                ))} */}
+                <ShareButtons activeGoogleNews googleNewsText={false} />
               </div>
             )}
           </div>
