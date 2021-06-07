@@ -1,0 +1,65 @@
+.polla-guide {
+  padding: 32px 0 24px;
+  position: relative;
+  &__title-cont {
+    display: flex;
+    padding: 0 20px 18px;
+    align-items: flex-end;
+    position: relative;
+    h2 {
+      font: 800 22px/26px $secondary-font;
+      letter-spacing: 0.7px;
+      color: #004b91;
+    }
+    span {
+      font: 500 16px/19px $primary-font;
+      letter-spacing: 0.51px;
+      color: #004b91;
+      margin-left: 8px;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      width: 96px;
+      bottom: -1px;
+      left: 10px;
+      height: 4px;
+      background-color: #002c6b;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      width: calc(100% - 20px);
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 1px;
+      background-color: #002c6b;
+    }
+  }
+  &__results {
+    margin-top: 17px;
+    text-align: center;
+    padding: 12px 18px;
+    background-color: #fed900cc;
+    font: 400 12px/14px $primary-font;
+    letter-spacing: -0.24px;
+    color: #222;
+    @media (--desktop) {
+      font: 400 14px/16px $primary-font;
+      letter-spacing: 0.14px;
+      position: absolute;
+      top: 11px;
+      right: 0;
+      border-radius: 50px;
+    }
+  }
+  &__results-b {
+    font-weight: 700;
+    margin-left: 3px;
+  }
+  &__results-s {
+    color: #fff;
+    margin: 0 7px;
+  }
+}
