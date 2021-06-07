@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700;800&display=swap');
-
-
 $nav-height-active: 45px;
 $hi-font-primary: 'Encode Sans Condensed';
 $hi-font-secondary: 'Fira Sans';
@@ -168,8 +165,16 @@ $hi-dark: #666;
 
           svg {
             fill: transparent;
-            stroke: #fff;
-            stroke-width: 2px;
+
+            path:first-of-type {
+              stroke: #fff;
+              stroke-width: 3px;
+            }
+
+            path:last-of-type {
+              fill: #fff;
+            }
+
           }
         }
 
