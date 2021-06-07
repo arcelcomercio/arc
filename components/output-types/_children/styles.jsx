@@ -89,6 +89,11 @@ const Styles = ({
     styleUrl = `${contextPath}/resources/dist/elcomercio/css/${style}.css`
   }
 
+  if (metaValue('section_style') === 'polla') {
+    style = 'polla'
+    styleUrl = `${contextPath}/resources/dist/depor/css/${style}.css`
+  }
+
   return isStyleBasic || styleDefault ? (
     <Resource path={`resources/dist/${arcSite}/css/${styleDefault}.css`}>
       {({ data }) =>
