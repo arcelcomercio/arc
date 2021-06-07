@@ -7,18 +7,13 @@ import customFields from './_dependencies/custom-fields'
 interface SubscriptionsProviderProps {
   customFields?: {
     disableSales?: boolean
-    disableSentry?: boolean
   }
 }
 
 const SubscriptionsProvider: FC<SubscriptionsProviderProps> = ({
   children,
-  customFields: { disableSales = false, disableSentry = false } = {},
-}) => (
-  <SdksProvider disableSales={disableSales} disableSentry={disableSentry}>
-    {children}
-  </SdksProvider>
-)
+  customFields: { disableSales = false } = {},
+}) => <SdksProvider disableSales={disableSales}>{children}</SdksProvider>
 
 SubscriptionsProvider.label = 'SDKs de Suscripciones'
 SubscriptionsProvider.propTypes = {

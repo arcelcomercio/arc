@@ -5,10 +5,6 @@ const customFields = PropTypes.shape({
     name: 'Deshabilitar SDK Sales',
     defaultValue: false,
   }),
-  disableSentry: PropTypes.bool.tag({
-    name: 'Deshabilitar SDK Sentry',
-    defaultValue: false,
-  }),
 })
 
 export default customFields
