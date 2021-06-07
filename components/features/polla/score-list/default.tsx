@@ -211,6 +211,17 @@ const PollaScoreList: FC<Props> = (props) => {
     hour12: true,
   })
 
+  const currentIndex = listOfSchedules.findIndex(
+    (sc) => sc.toString() === currentSchedule
+  )
+
+  const scrollIntoTableView = () => {
+    if (typeof window !== 'undefined') {
+      const div = document.querySelector('.polla-score__current-cont')
+      if (div) div.scrollIntoView()
+    }
+  }
+
   return (
     <>
       {isLoading && (
@@ -237,29 +248,33 @@ const PollaScoreList: FC<Props> = (props) => {
 
           <div className="polla-score__nav">
             <button
+              disabled={currentIndex === 0}
               type="button"
               className="polla-score__nav-btn"
               onClick={() => {
-                const currentIndex = listOfSchedules.findIndex(
-                  (sc) => sc.toString() === currentSchedule
-                )
                 if (currentIndex !== 0) {
                   setCurrentSchedule(
                     listOfSchedules[currentIndex - 1].toString()
                   )
                 }
               }}>
-              <svg
-                width="7"
-                height="12"
-                viewBox="0 0 7 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M7 1.07273L5.9323 0L0 6L5.9383 12L7 10.9273L2.12339 6L7 1.07273V1.07273Z"
-                  fill="#FFFFFF"
-                />
-              </svg>
+              <div className="polla-score__arrow-btn">
+                <svg
+                  width="7"
+                  height="12"
+                  viewBox="0 0 7 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M7 1.07273L5.9323 0L0 6L5.9383 12L7 10.9273L2.12339 6L7 1.07273V1.07273Z"
+                    fill="#FFFFFF"
+                  />
+                </svg>
+              </div>
+              <span className="polla-score__nav-btn-text">
+                Jornada{' '}
+                {currentIndex !== 0 ? listOfSchedules[currentIndex - 1] : 1}
+              </span>
             </button>
             <div className="polla-score__nav-sel-cont">
               <div className="polla-score__nav-sel-p">
@@ -291,29 +306,35 @@ const PollaScoreList: FC<Props> = (props) => {
               </select>
             </div>
             <button
-              type="button"
+              disabled={currentIndex === listOfSchedules.length - 1}
               className="polla-score__nav-btn"
+              type="button"
               onClick={() => {
-                const currentIndex = listOfSchedules.findIndex(
-                  (sc) => sc.toString() === currentSchedule
-                )
                 if (currentIndex !== listOfSchedules.length - 1) {
                   setCurrentSchedule(
                     listOfSchedules[currentIndex + 1].toString()
                   )
                 }
               }}>
-              <svg
-                width="8"
-                height="13"
-                viewBox="0 0 8 13"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M0.752442 11.7774L1.82014 12.8501L7.75244 6.8501L1.81414 0.850097L0.752443 1.92282L5.62905 6.8501L0.752442 11.7774V11.7774Z"
-                  fill="#FFFFFF"
-                />
-              </svg>
+              <span className="polla-score__nav-btn-text">
+                Jornada{' '}
+                {currentIndex !== listOfSchedules.length - 1
+                  ? listOfSchedules[currentIndex + 1]
+                  : listOfSchedules[currentIndex]}
+              </span>
+              <div className="polla-score__arrow-btn">
+                <svg
+                  width="8"
+                  height="13"
+                  viewBox="0 0 8 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0.752442 11.7774L1.82014 12.8501L7.75244 6.8501L1.81414 0.850097L0.752443 1.92282L5.62905 6.8501L0.752442 11.7774V11.7774Z"
+                    fill="#FFFFFF"
+                  />
+                </svg>
+              </div>
             </button>
           </div>
 
@@ -369,7 +390,9 @@ const PollaScoreList: FC<Props> = (props) => {
                         {parsedStadiumLocationPerName[score.estadio]}
                       </div>
                       <div className="polla-score__group-stedd">
-                        {dateTimeFormater.format(new Date(score.fechaHora))}
+                        {dateTimeFormater.format(
+                          new Date(score.fechaHora.replace(/-/g, '/'))
+                        )}
                       </div>
                     </div>
                     <form
@@ -544,6 +567,71 @@ const PollaScoreList: FC<Props> = (props) => {
               })}
             </div>
           ))}
+
+          <div className="polla-score__nav bottom">
+            <button
+              disabled={currentIndex === 0}
+              type="button"
+              className="polla-score__nav-btn"
+              onClick={() => {
+                if (currentIndex !== 0) {
+                  scrollIntoTableView()
+                  setCurrentSchedule(
+                    listOfSchedules[currentIndex - 1].toString()
+                  )
+                }
+              }}>
+              <div className="polla-score__arrow-btn">
+                <svg
+                  width="7"
+                  height="12"
+                  viewBox="0 0 7 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M7 1.07273L5.9323 0L0 6L5.9383 12L7 10.9273L2.12339 6L7 1.07273V1.07273Z"
+                    fill="#FFFFFF"
+                  />
+                </svg>
+              </div>
+              <span className="polla-score__nav-btn-text">
+                Jornada{' '}
+                {currentIndex !== 0 ? listOfSchedules[currentIndex - 1] : 1}
+              </span>
+            </button>
+            <button
+              disabled={currentIndex === listOfSchedules.length - 1}
+              className="polla-score__nav-btn"
+              type="button"
+              onClick={() => {
+                if (currentIndex !== listOfSchedules.length - 1) {
+                  scrollIntoTableView()
+                  setCurrentSchedule(
+                    listOfSchedules[currentIndex + 1].toString()
+                  )
+                }
+              }}>
+              <span className="polla-score__nav-btn-text">
+                Jornada{' '}
+                {currentIndex !== listOfSchedules.length - 1
+                  ? listOfSchedules[currentIndex + 1]
+                  : listOfSchedules[currentIndex]}
+              </span>
+              <div className="polla-score__arrow-btn">
+                <svg
+                  width="8"
+                  height="13"
+                  viewBox="0 0 8 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0.752442 11.7774L1.82014 12.8501L7.75244 6.8501L1.81414 0.850097L0.752443 1.92282L5.62905 6.8501L0.752442 11.7774V11.7774Z"
+                    fill="#FFFFFF"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
         </>
       )}
     </>

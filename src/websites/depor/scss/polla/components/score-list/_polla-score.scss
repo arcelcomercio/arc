@@ -70,13 +70,17 @@
     }
   }
 
-  &__nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+  &__nav-btn-text {
+    display: none;
+    font: 500 14px/16px $primary-font;
+    letter-spacing: 0.28px;
+    color: #222;
+    margin: 0 15px;
+    @media (--desktop) {
+      display: block;
+    }
   }
-  &__nav-btn {
+  &__arrow-btn {
     width: 32px;
     height: 32px;
     background-color: #dc532e;
@@ -84,6 +88,36 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  &__nav-btn {
+    display: flex;
+    align-items: center;
+    &:disabled {
+      .polla-score__arrow-btn {
+        background-color: #aaa;
+      }
+      .polla-score__nav-btn-text {
+        color: #999;
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    @media (--desktop) {
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    &.bottom {
+      justify-content: space-between;
+      padding: 10px 20px;
+      .polla-score__nav-btn-text {
+        display: block;
+      }
+    }
   }
   &__nav-sel-cont {
     width: 216px;

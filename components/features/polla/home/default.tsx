@@ -47,7 +47,7 @@ const PollaHomepage: FC<Props> = (props) => {
           <div className="polla-home__logo-container">
             <img
               className="polla-home__logo-img"
-              src="https://d1ts5g4ys243sh.cloudfront.net/proyectos_especiales_general/depor/prod/polla-peru-vs-argentina-nndd-xvisual/img/polla-depor.png"
+              src="https://cdna.depor.com/resources/dist/depor/images-polla/logo.png"
               alt="Logo La Polla"
             />
             <h1 className="polla-home__logo-title">Copa América 2021</h1>
