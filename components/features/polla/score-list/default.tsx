@@ -27,6 +27,7 @@ interface Props {
     datesPerJornada?: string
     stadiumLocationPerName?: string
     excludedIds?: string
+    currentJornada?: string
   }
 }
 
@@ -53,7 +54,9 @@ const addUserToNavbar = (localProfile: Profile | null | undefined) => {
 const PollaScoreList: FC<Props> = (props) => {
   const { customFields } = props
   const [scores, setScores] = React.useState<Score[]>()
-  const [currentSchedule, setCurrentSchedule] = React.useState('1')
+  const [currentSchedule, setCurrentSchedule] = React.useState(
+    customFields?.currentJornada || '1'
+  )
   const [user, setUser] = React.useState<UserData>()
   const [userUuid, setUserUuid] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
@@ -657,6 +660,11 @@ PollaScoreList.propTypes = {
       name: 'Listado de IDs, separados por comas, que deben tener estado 3',
       description:
         'Ej: f1dm5ayrkdn4epycrwclcnmne,f183xpeabr5fz3379ygnug416,f1blibc0yb0reblr32nbodc2y',
+    }),
+    currentJornada: PropTypes.string.tag({
+      name: 'Jornada actual',
+      description:
+        'Si se deja este campo vacío, se usará 1 como jornada actual',
     }),
     urlImgSouth: PropTypes.string.tag({
       name: 'URL de la imagen auspicia - SUR',
