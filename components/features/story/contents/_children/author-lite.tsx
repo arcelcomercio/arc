@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
 
 import {
   SITE_DEPOR,
@@ -18,7 +19,14 @@ const classes = {
   authorEmail: 'story-contents__author-email  ',
 }
 
-const StoryContentChildAuthorLite = ({
+const StoryContentChildAuthorLite: React.FC<{
+  author: string
+  authorLink: string
+  authorEmail: string
+  displayDate: Date
+  publishDate: Date
+  arcSite: ArcSite
+}> = ({
   author,
   authorLink,
   authorEmail,

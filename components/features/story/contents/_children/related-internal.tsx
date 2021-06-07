@@ -1,7 +1,7 @@
+import { ArcSite } from 'fusion:context'
 import * as React from 'react'
 
 import StoryData from '../../../../utilities/story-data'
-
 import RelatedItem from './related-internal-item'
 
 const classes = {
@@ -14,13 +14,13 @@ const classes = {
  *
  * @todo aparentemente no se importa, si es asi, borrar
  */
-const StoryContentChildRelatedInternal = ({
-  stories,
-  ids,
-  deployment,
-  contextPath,
-  arcSite,
-}) => {
+const StoryContentChildRelatedInternal: React.FC<{
+  stories: { story: { _id: string } }[]
+  ids: any[]
+  deployment: any
+  contextPath: any
+  arcSite: ArcSite
+}> = ({ stories, ids, deployment, contextPath, arcSite }) => {
   const keyinternal = 'st-rel-internal'
 
   const storyData = new StoryData({
@@ -32,7 +32,7 @@ const StoryContentChildRelatedInternal = ({
   return (
     <div className={classes.related}>
       <div className={classes.title}>Mira También:</div>
-      {stories.map(story => {
+      {stories.map((story) => {
         if (ids.includes(story._id)) {
           storyData.__data = story
           return (

@@ -1,7 +1,8 @@
-import React from 'react'
+import * as React from 'react'
+
 import {
-  formatDayMonthYearBasic,
   formatDateStory,
+  formatDayMonthYearBasic,
 } from '../../../../utilities/date-time/dates'
 import StoryContentChildAuthorDetailsTrust from './details-author-trust'
 
@@ -21,7 +22,17 @@ const classes = {
   authorRole: 'story-content__author-role',
 }
 
-const StoryContentChildAuthorTrust = ({
+const StoryContentChildAuthorTrust: React.FC<{
+  author: string
+  authorLink: string
+  authorImage: string
+  authorRole: string
+  updatedDate: Date
+  locality: string
+  authorEmail: string
+  primarySection?: string
+  authorsList: any[]
+}> = ({
   author,
   authorLink,
   authorImage,
@@ -47,8 +58,7 @@ const StoryContentChildAuthorTrust = ({
     <>
       <div className={classes.author}>
         {primarySection !== 'Columnistas' && (
-          <StoryContentChildAuthorDetailsTrust
-            {...detailsAuthorParamet}></StoryContentChildAuthorDetailsTrust>
+          <StoryContentChildAuthorDetailsTrust {...detailsAuthorParamet} />
         )}
         <div
           className={
@@ -71,7 +81,7 @@ const StoryContentChildAuthorTrust = ({
       </div>
       {primarySection !== 'Columnistas' &&
         authorsList &&
-        authorsList.map(authorData => {
+        authorsList.map((authorData) => {
           const detailsAuthorRenderer = {
             author: authorData.nameAuthor,
             authorLink: authorData.urlAuthor,
@@ -80,8 +90,7 @@ const StoryContentChildAuthorTrust = ({
             authorRole: authorData.role,
           }
           return (
-            <StoryContentChildAuthorDetailsTrust
-              {...detailsAuthorRenderer}></StoryContentChildAuthorDetailsTrust>
+            <StoryContentChildAuthorDetailsTrust {...detailsAuthorRenderer} />
           )
         })}
     </>

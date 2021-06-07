@@ -1,4 +1,6 @@
-import React from 'react'
+import { ArcSite } from 'fusion:context'
+import * as React from 'react'
+
 import { SITE_ELCOMERCIOMAG } from '../../../../utilities/constants/sitenames'
 import UtilListKey from '../../../../utilities/list-keys'
 
@@ -9,7 +11,16 @@ const classes = {
   link:
     'story-tags__link block bg-gray-100 text-gray-200 pt-5 pb-5 pr-10 pl-10',
 }
-const StoryContentChildTags = ({ data, isAmp, arcSite }) => {
+interface Data {
+  slug: string
+  text: string
+}
+
+const StoryContentChildTags: React.FC<{
+  data: Data[]
+  isAmp: boolean
+  arcSite: ArcSite
+}> = ({ data, isAmp, arcSite }) => {
   const isMag = arcSite === SITE_ELCOMERCIOMAG
   // classes.title = isMag ? `${classes.title} inline-block` : classes.title
   const classTitle = isMag ? `${classes.title} inline-block` : classes.title

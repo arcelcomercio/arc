@@ -1,9 +1,14 @@
-import React from 'react'
+import * as React from 'react'
+
 import { nlToBrTag } from '../../../../utilities/helpers'
 
 const CUSTOMBLOCK_TYPE_BACKSTORY = 'backstory'
 
-export default ({ content = '', isAmp, type = CUSTOMBLOCK_TYPE_BACKSTORY }) => {
+const CustomBlock: React.FC<{
+  content?: string
+  isAmp: boolean
+  type?: string
+}> = ({ content = '', isAmp, type = CUSTOMBLOCK_TYPE_BACKSTORY }) => {
   const classes = {
     customblock: `${
       isAmp
@@ -18,7 +23,7 @@ export default ({ content = '', isAmp, type = CUSTOMBLOCK_TYPE_BACKSTORY }) => {
     paragraph: 'story-contents__font-paragraph',
   }
 
-  const renderType = blockType => {
+  const renderType = (blockType: string) => {
     let ret
     switch (blockType) {
       case 'backstory':
@@ -41,3 +46,5 @@ export default ({ content = '', isAmp, type = CUSTOMBLOCK_TYPE_BACKSTORY }) => {
     </div>
   )
 }
+
+export default CustomBlock

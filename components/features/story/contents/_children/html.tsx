@@ -1,5 +1,6 @@
-import React from 'react'
 import { RawHtml } from '@arc-core-components/feature_article-body'
+import * as React from 'react'
+
 import LiteYoutube from '../../../../global-components/lite-youtube'
 import Video from './video'
 
@@ -9,13 +10,13 @@ const classes = {
     'story-content__caption pt-10 secondary-font text-md pb-10 pr-20 pl-20',
 }
 
-const StoryContentChildHtml = ({
-  data,
-  caption,
-  primaryImage,
-  basic = {},
-  header = false,
-}) => {
+const StoryContentChildHtml: React.FC<{
+  data: any
+  caption: string
+  primaryImage: boolean
+  basic: any
+  header?: boolean
+}> = ({ data, caption, primaryImage, basic = {}, header = false }) => {
   if (data.includes('id="powa-') && !header) {
     return (
       <Video

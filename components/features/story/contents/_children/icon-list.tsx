@@ -1,5 +1,6 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
+
 import UtilListKey from '../../../../utilities/list-keys'
 
 const classes = {
@@ -42,24 +43,22 @@ const popup = `(function(){window.addEventListener('load',
         )})})}})})})()`
 // Funcion extraida de helpers
 const socialMediaUrlShareList = (
-  siteUrl,
-  postPermaLink,
-  postTitle,
+  siteUrl: string,
+  postPermaLink: string,
+  postTitle: string,
   siteNameRedSocial = 'Gestionpe'
-) => {
-  return {
-    facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
-    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-      postTitle
-    )}&url=${siteUrl}${postPermaLink}&via=${siteNameRedSocial}`,
-    linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
-    // pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
-    // whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
-    // fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
-  }
-}
+) => ({
+  facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
+  twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    postTitle
+  )}&url=${siteUrl}${postPermaLink}&via=${siteNameRedSocial}`,
+  linkedin: `http://www.linkedin.com/shareArticle?url=${siteUrl}${postPermaLink}`,
+  // pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
+  // whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
+  // fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
+})
 
-const StoryContentChildIcon = () => {
+const StoryContentChildIcon: React.FC = () => {
   const firstList = 'firstList'
   const currentList = firstList
 
@@ -174,7 +173,7 @@ const StoryContentChildIcon = () => {
           ))}
         </ul>
       </div>
-      <script dangerouslySetInnerHTML={{ __html: popup }}></script>
+      <script dangerouslySetInnerHTML={{ __html: popup }} />
     </>
   )
 }

@@ -13,7 +13,16 @@ const classes = {
  * utilizado exclusivamente para la version lite.
  * Solo cambia el objeto de classes.
  */
-const StoryContentChildImage = ({
+const StoryContentChildImage: React.FC<{
+  url: string
+  multimedia: string
+  caption: string
+  showCaption: boolean
+  primaryImage: boolean
+  completeImage: boolean
+  customWidth: number
+  customHeight: number
+}> = ({
   url,
   multimedia,
   caption,

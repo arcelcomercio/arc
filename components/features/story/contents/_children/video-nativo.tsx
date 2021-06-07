@@ -1,6 +1,12 @@
-import React from 'react'
+import * as React from 'react'
 
-const StoryContentChildVideoNativo = ({ streams } = []) => {
+interface Streams {
+  url: string
+  stream_type: string
+}
+const StoryContentChildVideoNativo: React.FC<{ streams?: Streams[] }> = ({
+  streams = [],
+}) => {
   const dataVideo = streams
     .map(({ url, stream_type: streamType }) => {
       return streamType === 'mp4'

@@ -3,17 +3,18 @@ import * as React from 'react'
 
 import LiteYoutube from '../../../../global-components/lite-youtube'
 import VideoJwplayer from '../../../../global-components/video-jwplayer'
-
-import Video from './video'
-import Imagen from './image'
 import Html from './html'
+import Imagen from './image'
+import Video from './video'
 import VideoNativo from './video-nativo'
 
 const classes = {
   audio: 'pt-10 w-full',
 }
 
-const StoryContentChildMultimedia = ({ data } = []) => {
+const StoryContentChildMultimedia: React.FC<{
+  data: any
+}> = ({ data }) => {
   const {
     basic_video: {
       embed_html: embedHtml = '',
@@ -37,12 +38,12 @@ const StoryContentChildMultimedia = ({ data } = []) => {
   } = data
 
   const { type: typeImage, caption = '' } = basic || {}
-  
+
   return (
     <>
       {promoItemJwplayer.key ? (
         <>
-          <VideoJwplayer data={promoItemJwplayer}></VideoJwplayer>
+          <VideoJwplayer data={promoItemJwplayer} />
         </>
       ) : (
         <>

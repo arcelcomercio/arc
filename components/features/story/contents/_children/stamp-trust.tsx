@@ -1,9 +1,14 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import { defaultImage } from '../../../../utilities/assets'
 
-export default ({ url, urlImg = '', isAmp = false, siteUrl }) => {
+const StampTrust: React.FC<{
+  url: string
+  urlImg?: string
+  isAmp?: boolean
+  siteUrl: string
+}> = ({ url, urlImg = '', isAmp = false, siteUrl }) => {
   const { arcSite, contextPath } = useAppContext()
 
   const classes = {
@@ -70,3 +75,5 @@ export default ({ url, urlImg = '', isAmp = false, siteUrl }) => {
     </div>
   )
 }
+
+export default StampTrust

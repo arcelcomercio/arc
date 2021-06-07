@@ -1,9 +1,14 @@
-import React from 'react'
+import * as React from 'react'
+
 import { nlToBrTag } from '../../../../utilities/helpers'
 
 const CORRECTION_TYPE_CORRECTION = 'correction'
 
-export default ({ content = '', isAmp, type = CORRECTION_TYPE_CORRECTION }) => {
+const Correction: React.FC<{
+  content?: string
+  isAmp: boolean
+  type?: string
+}> = ({ content = '', isAmp, type = CORRECTION_TYPE_CORRECTION }) => {
   const classes = {
     correction: `${
       isAmp ? 'amp-story-content__correction' : 'story-content__correction'
@@ -24,3 +29,5 @@ export default ({ content = '', isAmp, type = CORRECTION_TYPE_CORRECTION }) => {
     </div>
   )
 }
+
+export default Correction

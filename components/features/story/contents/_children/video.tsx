@@ -1,9 +1,10 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
-import { getResultVideo } from '../../../../utilities/story/helpers'
-import { getPreroll } from '../../../../utilities/ads/preroll'
+import * as React from 'react'
+
 import PowaPlayer from '../../../../global-components/powa-player'
+import { getPreroll } from '../../../../utilities/ads/preroll'
 import { msToTime } from '../../../../utilities/date-time/time'
+import { getResultVideo } from '../../../../utilities/story/helpers'
 
 /**
  *
@@ -29,7 +30,16 @@ const classes = {
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
 
-const StoryContentChildVideo = (props) => {
+const StoryContentChildVideo: React.FC<{
+  _id: string
+  data: any
+  description: string
+  promo_items: any
+  streams: any[]
+  duration: string
+  url: string
+  contentElemtent: string
+}> = (props) => {
   const {
     siteProperties: { urlPreroll, siteDomain },
     globalContent,
