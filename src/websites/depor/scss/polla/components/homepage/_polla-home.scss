@@ -78,12 +78,9 @@
   }
   &__rank-container {
     background-image: url(https://cdna.depor.com/resources/dist/depor/images-polla/polla-inicio/Background.jpg);
-    background-repeat: round;
-    background-size: contain;
-    @media (--desktop) {
-      background-size: auto;
-    }
-
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     padding: 24px 15px;
     display: flex;
     flex-direction: column;
