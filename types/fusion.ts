@@ -3,8 +3,8 @@ import type { SiteProperties } from 'types/properties'
 type AnyObject = Record<string, unknown>
 
 export interface UseContentConfig<Query = AnyObject> {
-  source: string
-  query: Query
+  source?: string
+  query?: Query
   filter?: string
   transform?: (data: AnyObject) => any
 }
