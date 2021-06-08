@@ -9,47 +9,31 @@ import Menu from '../../../../global-components/menu'
 import searchQuery from '../../../../utilities/client/search'
 
 import ShareButtons from '../../../../global-components/lite/share'
-/* 
-const DRAG_SCREEN_LIMIT = 90
-const LIST_WIDTH = 330 
-*/
 
 const classes = {
-  header: `header header-inverted header-inverted-featured bg-primary secondary-font w-full font-normal flex items-center justify-center pt-0 pb-0 pl-15 pr-15 text-sm text-gray-300 position-relative top-0`,
-  wrapper: `w-full flex items-center justify-center position-relative wrapper`,
-  logoContainer: 'nav__mobile-logo position-absolute',
-  logo: 'header__logo',
-  featured:
-    'header-inverted-featured__features flex w-full font-normal overflow-hidden pr-20',
-  item: 'header__item flex items-center justify-center h-inherit',
-  link: 'header-inverted-featured__features-link p-10',
-  band: 'header-inverted-featured__band hidden md:block',
-  bandWrapper: 'justify-between w-full wrapper mx-auto md:flex',
-  tags:
-    'header-inverted-featured__tags justify-center ml-20 mr-10 hidden md:flex items-center font-bold',
-  navBtnContainer: `flex items-center justify-start nav__container-menu position-absolute`,
-  leftBtnContainer: `left-0 lg:ml-20`,
-  rightBtnContainer: `right-0 lg:mr-20`,
-  form: 'position-relative items-center hidden lg:flex ml-10',
-  search: `nav__input-search border-0 w-0 text-md pt-5 pb-5 rounded-sm line-h line-h-xs`,
-  searchLabel: 'overflow-hidden w-0 h-0',
-  btnSearch: `header-inverted-featured__btn-search flex items-center nav__btn--search text-white lg:pr-20 lg:pl-20 border-l-1 border-solid`,
-  iconSearch: 'icon-search header-inverted-featured__icon-search text-lg',
-  btnMenu:
-    'header-inverted-featured__btn-menu flex items-center font-bold md:pr-20 lg:pl-20',
-  iconMenu:
-    'header-inverted-featured__icon-hamburguer icon-hamburguer title-sm pr-10',
-  navStoryTitle:
-    'nav__story-title position-absolute overflow-hidden text-white pl-15 pr-15 line-h-sm',
-  navStorySocialNetwork: 'nav__story-social-network position-relative mr-5',
+  header: `header-inverted-featured header`,
+  wrapper: `header-inverted-featured__wrapper wrapper`,
+  logoContainer: 'header-inverted-featured__logo-container',
+  logo: 'header-inverted-featured__logo',
+  featured: 'header-inverted-featured__features',
+  item: 'header-inverted-featured__item header__item',
+  link: 'header-inverted-featured__features-link',
+  bandWrapper: 'header-inverted-featured__band-wrapper',
+  band: 'header-inverted-featured__band',
+  tags: 'header-inverted-featured__tags',
+  navBtnContainer: `header-inverted-featured__nav-btn-container`,
+  leftBtnContainer: `header-inverted-featured__left-btn-container`,
+  rightBtnContainer: `header-inverted-featured__right-btn-container`,
+  form: 'header-inverted-featured__form',
+  search: `header-inverted-featured__search`,
+  searchLabel: 'header-inverted-featured__search-label',
+  btnSearch: `header-inverted-featured__btn-search`,
+  iconSearch: 'header-inverted-featured__icon-search icon-search',
+  btnMenu: 'header-inverted-featured__btn-menu',
+  iconMenu: 'header-inverted-featured__icon-hamburguer icon-hamburguer',
+  navStoryTitle: 'header-inverted-featured__nav-story-title',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
-
-  listIcon: 'story-header__list hidden md:flex justify-between rounded-sm',
-  moreLink: 'story-content__more-link',
-  shareItem: 'story-header__item',
-  shareLink: 'story-header__link flex items-center justify-center text-white',
-  shareIcon: 'story-header__icon',
-  iconMore: 'story-header__share-icon icon-share text-white',
+  listIcon: 'header-inverted-featured__list-icon story-header__list',
 }
 
 const popUpWindow = (url, title, w, h) => {
@@ -72,7 +56,6 @@ const HeaderChildInverted = ({
   date,
   search,
   isStory,
-  shareButtons,
 }) => {
   const [scrolled, setScrolled] = React.useState(false)
   const [statusSidebar, setStatusSidebar] = React.useState(false)
@@ -81,8 +64,8 @@ const HeaderChildInverted = ({
   const {
     contextPath,
     siteProperties,
-    arcSite,
-    requestUri,
+    // arcSite,
+    // requestUri,
   } = useFusionContext()
 
   const inputSearch = React.useRef()
@@ -204,6 +187,8 @@ const HeaderChildInverted = ({
     }
   }, [_handleScroll])
 
+  console.log('scrolled:', scrolled)
+
   return (
     <>
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
@@ -245,9 +230,7 @@ const HeaderChildInverted = ({
           <a
             itemProp="url"
             href={logo.link}
-            className={`${classes.logoContainer} ${
-              isStory && scrolled && statusSearch && 'opacity-0'
-            }`}
+            className={`${classes.logoContainer}  ${scrolled ? 'active' : ''}`}
             title={logo.alt}>
             <img
               // src={
@@ -264,57 +247,7 @@ const HeaderChildInverted = ({
           <div
             className={`${classes.navBtnContainer} ${classes.rightBtnContainer}`}>
             {isStory && scrolled && (
-              // <>
-              //   <div className={classes.navStorySocialNetwork}>
-              //     <div>
-              //       <a
-              //         itemProp="url"
-              //         className={classes.moreLink}
-              //         href="/"
-              //         onClick={(event) => {
-              //           openLink(event, 3)
-              //         }}>
-              //         <i className={`${classes.iconMore}`} />
-              //       </a>
-              //     </div>
-
-              //     <ul className={classes.listIcon}>
-              //       {shareButtons.map((item, i) => (
-              //         <li key={item.icon} className={classes.shareItem}>
-              //           <a
-              //             itemProp="url"
-              //             title={`Compartir en ${item.name}`}
-              //             className={classes.shareLink}
-              //             href={item.link}
-              //             onClick={(event) => {
-              //               openLink(event, item)
-              //             }}>
-              //             <i
-              //               className={`${item.icon} ${classes.shareIcon}`}
-              //               aria-hidden="true"
-              //             />
-              //           </a>
-              //         </li>
-              //       ))}
-              //     </ul>
-              //   </div>
-              // </>
               <div className="flex header-inverted-featured__socials">
-                {/* {shareButtons.map((item, i) => (
-                  <a
-                    itemProp="url"
-                    title={`Compartir en ${item.name}`}
-                    className={classes.shareLink}
-                    href={item.link}
-                    onClick={(event) => {
-                      openLink(event, item)
-                    }}>
-                    <i
-                      className={`${item.icon} ${classes.shareIcon}`}
-                      aria-hidden="true"
-                    />
-                  </a>
-                ))} */}
                 <ShareButtons activeGoogleNews googleNewsText={false} />
               </div>
             )}
