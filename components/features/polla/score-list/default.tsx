@@ -27,6 +27,7 @@ interface Props {
     datesPerJornada?: string
     stadiumLocationPerName?: string
     excludedIds?: string
+    currentJornada?: string
   }
 }
 
@@ -53,7 +54,9 @@ const addUserToNavbar = (localProfile: Profile | null | undefined) => {
 const PollaScoreList: FC<Props> = (props) => {
   const { customFields } = props
   const [scores, setScores] = React.useState<Score[]>()
-  const [currentSchedule, setCurrentSchedule] = React.useState('1')
+  const [currentSchedule, setCurrentSchedule] = React.useState(
+    customFields?.currentJornada || '1'
+  )
   const [user, setUser] = React.useState<UserData>()
   const [userUuid, setUserUuid] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
@@ -396,7 +399,7 @@ const PollaScoreList: FC<Props> = (props) => {
                       </div>
                     </div>
                     <form
-                      className="polla-score__form"
+                      className="polla-score__form not-touched"
                       onSubmit={async (e) => {
                         e.preventDefault()
                         const form = e.target as HTMLFormElement
@@ -440,11 +443,29 @@ const PollaScoreList: FC<Props> = (props) => {
                             })
                             setScores(parsedScore)
                             form.classList.remove('loading')
+                          } else {
+                            const parsedScore = scores?.map((sc) => {
+                              if (sc.id === score.id) {
+                                const newScore: Score = {
+                                  ...sc,
+                                  msg: 'error',
+                                  errorMsg:
+                                    'Debes actualizar tu predicción para continuar',
+                                }
+                                return newScore
+                              }
+                              return sc
+                            })
+                            setScores(parsedScore)
                           }
                         } else {
                           const parsedScore = scores?.map((sc) => {
                             if (sc.id === score.id) {
-                              const newScore: Score = { ...sc, msg: 'error' }
+                              const newScore: Score = {
+                                ...sc,
+                                msg: 'error',
+                                errorMsg: 'Debes llenar ambas casillas',
+                              }
                               return newScore
                             }
                             return sc
@@ -452,7 +473,9 @@ const PollaScoreList: FC<Props> = (props) => {
                           setScores(parsedScore)
                         }
                       }}
-                      onFocus={() => {
+                      onFocus={(e) => {
+                        const form = e.currentTarget as HTMLFormElement
+                        form.classList.remove('not-touched')
                         const parsedScore = scores?.map((sc) => {
                           if (sc.id === score.id) {
                             const newScore: Score = { ...sc, msg: null }
@@ -525,7 +548,7 @@ const PollaScoreList: FC<Props> = (props) => {
                       <div className="polla-score__error-cont">
                         {score.msg === 'error' && (
                           <span className="polla-score__error">
-                            Debes llenar ambas casillas
+                            {score.errorMsg}
                           </span>
                         )}
                         {score.estado === 3 ? (
@@ -541,6 +564,7 @@ const PollaScoreList: FC<Props> = (props) => {
                       </div>
                       {score.estado < 2 && (
                         <button
+                          disabled={score.msg === 'error'}
                           className={`polla-score__form-btn ${score.msg || ''}`}
                           type="submit">
                           {score.msg === 'success' ? 'Guardado' : 'Juega'}
@@ -657,6 +681,11 @@ PollaScoreList.propTypes = {
       name: 'Listado de IDs, separados por comas, que deben tener estado 3',
       description:
         'Ej: f1dm5ayrkdn4epycrwclcnmne,f183xpeabr5fz3379ygnug416,f1blibc0yb0reblr32nbodc2y',
+    }),
+    currentJornada: PropTypes.string.tag({
+      name: 'Jornada actual',
+      description:
+        'Si se deja este campo vacío, se usará 1 como jornada actual',
     }),
     urlImgSouth: PropTypes.string.tag({
       name: 'URL de la imagen auspicia - SUR',
