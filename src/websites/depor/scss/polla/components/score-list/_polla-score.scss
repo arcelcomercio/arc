@@ -241,14 +241,15 @@
     display: block;
     position: relative;
 
-    &.success {
-      border-color: #34c759;
-      color: #34c759;
-      background-color: transparent;
-    }
     &:disabled {
       color: #999;
       border-color: #aaa;
+      background-color: transparent;
+    }
+
+    &.success {
+      border-color: #34c759;
+      color: #34c759;
       background-color: transparent;
     }
   }
