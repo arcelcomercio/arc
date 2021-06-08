@@ -1,0 +1,199 @@
+.tooltip {
+  position: relative;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  .btn-link {
+    color: $bluePrimary;
+    background: none;
+    border: none;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 0;
+    outline: none;
+    cursor: pointer;
+    float: right;
+  }
+
+  .img-info-cvv {
+    padding: 5px 0;
+    background: url("https://signwall.e3.pe/images/logo-card-info.png")
+      no-repeat;
+  }
+
+  .img-info-cvvamex {
+    background: url("https://signwall.e3.pe/images/logo-card-amex.png")
+      no-repeat;
+  }
+
+  .img-info-cvv,
+  .img-info-cvvamex {
+    background-position: center center;
+    width: 86px;
+    height: 53px;
+    display: block;
+    margin: 5px auto;
+  }
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  position: absolute;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s;
+  font-size: 12px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip .tooltiptext-bottomarrow {
+  visibility: hidden;
+  width: 200px;
+  background-color: #fff7d3;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 48%;
+  margin-left: -100px;
+  font-size: 12px;
+  color: #2e3a43;
+  padding: 8px 15px;
+  box-shadow: 0 0 5px 0 black;
+}
+
+.tooltip .tooltiptext-bottomarrow::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #fff7d3 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext-bottomarrow {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext-toparrow {
+  visibility: hidden;
+  width: 120px;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 12px;
+}
+.tooltip .tooltiptext-toparrow::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+.tooltip:hover .tooltiptext-toparrow {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext-leftarrow {
+  visibility: hidden;
+  width: 120px;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -36px;
+  left: 150%;
+  font-size: 11px;
+  box-shadow: 0 0 5px 0 black;
+}
+.tooltip .tooltiptext-leftarrow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+.tooltip:hover .tooltiptext-leftarrow {
+  visibility: visible;
+}
+.tooltip .tooltiptext-rightarrow {
+  visibility: hidden;
+  width: 120px;
+  background-color: $bgFooterShop;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 5px 8px;
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  right: 102%;
+  font-size: 10px;
+  box-shadow: 0 0 5px 0 black;
+}
+.tooltip .tooltiptext-rightarrow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent $bgFooterShop;
+}
+
+@include device(tabletp) {
+  .tooltip-active {
+    visibility: visible !important;
+    opacity: 1;
+    transition: opacity 2s linear;
+  }
+  .tooltip-inactive {
+    display: none;
+    visibility: hidden !important;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+  }
+  .tooltip .tooltiptext-bottomarrow {
+    bottom: 120%;
+    left: 50%;
+  }
+
+  .tooltip:hover .tooltiptext-rightarrow {
+    visibility: visible;
+  }
+}
+
+@include device(tabletl) {
+  .tooltip .tooltiptext-bottomarrow {
+    bottom: 130%;
+  }
+}

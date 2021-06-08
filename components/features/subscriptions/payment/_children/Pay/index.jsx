@@ -1,18 +1,18 @@
-/* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
 
 // import addPayU from '../../../_dependencies/Payu'
+import { isSandbox } from '../../../../../utilities/arc/env'
+import addScriptAsync from '../../../../../utilities/script-async'
 import { AuthContext } from '../../../_context/auth'
-import addScriptAsync from '../../../_dependencies/Async'
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
 import {
-  ArcEnv,
   PropertiesCommon,
   PropertiesSite,
 } from '../../../_dependencies/Properties'
@@ -40,6 +40,7 @@ const styles = {
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   secure: 'step__left-text-security',
+  notes: 'step__notes-footer text-center',
   cvvAmex: 'img-info-cvvamex',
   cvvAll: 'img-info-cvv',
   tabCard1: 'step__left-tab-cards tab1',
@@ -82,7 +83,10 @@ const Pay = () => {
   const [methodCard, setMethodCard] = React.useState()
   const [checkedTerms, setCheckedTerms] = React.useState()
 
-  const getPLanSelected = plans.reduce((prev, plan) => plan.priceCode === userPlan.priceCode ? plan : prev, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+    null
+  )
 
   const { amount, sku, billingFrequency, priceCode, name } =
     getPLanSelected || {}
@@ -386,7 +390,7 @@ const Pay = () => {
                 window.payU.validateNumber(cNumber.replace(/\s/g, ''))
                 window.payU.setCardDetails({
                   number: cNumber.replace(/\s/g, ''),
-                  name_card: ArcEnv === 'sandbox' ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
+                  name_card: isSandbox ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
                   payer_id: documentNumber,
                   exp_month: cExpireMonth,
                   exp_year: cExpireYear,
@@ -766,7 +770,8 @@ const Pay = () => {
                             methodCard === 'AMEX'
                               ? styles.cvvAmex
                               : styles.cvvAll
-                          } />
+                          }
+                        />
                       </span>
                     </button>
                     <TextMask
@@ -823,9 +828,8 @@ const Pay = () => {
                   </button>
                   {texts.textTermsAccord}
                   <span
-                    className={`checkmark ${
-                      cTermsError && 'input-error'
-                    }`} />
+                    className={`checkmark ${cTermsError && 'input-error'}`}
+                  />
                 </label>
               </div>
 

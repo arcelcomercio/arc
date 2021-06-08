@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+
 import { VIDEO } from '../../../utilities/constants/multimedia-types'
 import { localISODate } from '../../../utilities/helpers'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
@@ -46,7 +47,7 @@ class XmlPeru21TVSitemap {
       urlset: [
         { '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9' },
         { '@xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1' },
-        ...videos.map(video => {
+        ...videos.map((video) => {
           const {
             headlines: { basic: title = '' } = {},
             subheadlines: { basic: description = '' } = {},
@@ -76,9 +77,9 @@ class XmlPeru21TVSitemap {
           const dataVideo =
             streams &&
             streams
-              .map(({ url, stream_type: streamType }) => {
-                return streamType === VIDEO_FORMAT ? url : []
-              })
+              .map(({ url, stream_type: streamType }) =>
+                streamType === VIDEO_FORMAT ? url : []
+              )
               .filter(String)
 
           const cantidadVideo = dataVideo.length
@@ -101,11 +102,9 @@ class XmlPeru21TVSitemap {
                 // { 'video:view_count': '15: ni idea de donde sacar esto' },
                 { 'video:publication_date': localISODate(date) },
                 ...tags
-                  .map((tag = {}) => {
-                    return {
-                      'video:tag': tag.text !== 'sample' ? tag.text : '',
-                    }
-                  })
+                  .map((tag = {}) => ({
+                    'video:tag': tag.text !== 'sample' ? tag.text : '',
+                  }))
                   .filter(({ 'video:tag': videoTag }) => videoTag !== ''),
                 { 'video:category': section },
                 { 'video:family_friendly': 'yes' }, // o no

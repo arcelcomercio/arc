@@ -4,20 +4,17 @@
  * @FooterLand
  */
 
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { useAppContext } from 'fusion:context'
 
-import {
-  PropertiesSite,
-  PropertiesCommon,
-  ArcEnv,
-} from '../_dependencies/Properties'
+import { isProd } from '../../../utilities/arc/env'
 import { AuthContext } from '../_context/auth'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import PWA from '../_dependencies/Pwa'
+import { docPatterns, maskDocuments } from '../_dependencies/Regex'
 import { subDniToken } from '../_dependencies/Services'
 import useForm from '../_hooks/useForm'
-import { maskDocuments, docPatterns } from '../_dependencies/Regex'
-import PWA from '../_dependencies/Pwa'
 
 const styles = {
   wrapper: 'validate__grid wrapper-buy',
@@ -94,10 +91,9 @@ export const FooterSubs = () => {
                 updateLoading(true)
                 const isEvent = event ? `${event}/` : ''
                 setTimeout(() => {
-                  window.location.href =
-                    ArcEnv === 'prod'
-                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}`
-                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}?outputType=subscriptions`
+                  window.location.href = isProd
+                    ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}`
+                    : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}?outputType=subscriptions`
                 }, 1000)
               } else {
                 window.console.error('Hubo un error con la respuesta') // Temporal hasta implementar Sentry
@@ -206,26 +202,12 @@ export const FooterSubs = () => {
                           {loading ? 'Validando...' : 'Validar'}
                         </button>
                       </div>
-                      {/* {vDocumentNumberError && (
-                        <span className="msn-error">
-                          {vDocumentNumberError}
-                        </span>
-                      )} */}
                     </form>
                     {vDocumentNumberError && (
                       <span className={styles.tooltip}>
                         {vDocumentNumberError}
-                        {/* <button type="button" className="btn-link">
-                          Entendido
-                        </button> */}
                       </span>
                     )}
-                    {/* <span className={styles.tooltip}>
-                      El documento que enviaste no accede a ningún descuento.
-                      <button type="button" className="btn-link">
-                        Entendido
-                      </button>
-                    </span> */}
                   </>
                 )}
               </div>
@@ -252,7 +234,7 @@ export const FooterSubs = () => {
               <span className="price-item">
                 {getPlanAmount(userDataPlan.amount)}
               </span>
-              <i className={styles.iconUp}></i>
+              <i className={styles.iconUp} />
             </div>
           </button>
         </section>
@@ -261,13 +243,9 @@ export const FooterSubs = () => {
   )
 }
 
-export const FooterLand = ({ arcType }) => {
+export const FooterLand = ({ arcType, btnOnTop }) => {
   const { arcSite } = useAppContext() || {}
-  const {
-    urls,
-    // emails,
-    texts,
-  } = PropertiesSite[arcSite]
+  const { urls, texts } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   return (
     <>
@@ -285,16 +263,11 @@ export const FooterLand = ({ arcType }) => {
                     rel="noreferrer"
                     href={urls.homeUrl}
                     aria-label={arcSite}>
-                    <div className="footer__content-logo"></div>
+                    <div className="footer__content-logo" />
                   </a>
                   <p>
                     Llámanos al
                     <br />
-                    {/* <a
-                      href={`mailto:${emails.atencion}`}
-                      className="footer__content-link">
-                      {emails.atencion}
-                    </a> */}
                     <a href={links.callCenter} className="footer__content-link">
                       Call Center: 311-5100
                     </a>
@@ -304,7 +277,7 @@ export const FooterLand = ({ arcType }) => {
               <div className="footer__item grid-four-two">
                 <div className="footer__content-ayuda footer__content-accordion">
                   <input type="checkbox" defaultChecked onChange={() => {}} />
-                  <i></i>
+                  <i />
                   <h4 className="footer__content-title">Ayuda</h4>
                   <div className="cont">
                     <p>
@@ -319,33 +292,19 @@ export const FooterLand = ({ arcType }) => {
                     <p>
                       Servicio al cliente y Ventas:
                       <br />
-                      {/* <a
-                        href={`mailto:${emails.atencion}`}
-                        className="footer__content-link">
-                        {emails.atencion}
-                      </a> */}
                       <a
                         href={links.callCenter}
                         className="footer__content-link">
                         Call Center: 311-5100
                       </a>
                     </p>
-                    {/* <p>
-                      Pagos pendientes y Facturación:
-                      <br />
-                      <a
-                        href={`mailto:${emails.cobranzas}`}
-                        className="footer__content-link">
-                        {emails.cobranzas}
-                      </a>
-                    </p> */}
                   </div>
                 </div>
               </div>
               <div className="footer__item grid-four-three">
                 <div className="footer__content-legal footer__content-accordion">
                   <input type="checkbox" defaultChecked onChange={() => {}} />
-                  <i></i>
+                  <i />
                   <h4 className="footer__content-title">Legal</h4>
                   <div className="cont">
                     <p>
@@ -355,7 +314,6 @@ export const FooterLand = ({ arcType }) => {
                         rel="noreferrer"
                         className="footer__content-link">
                         Términos y Condiciones
-                        {/* <span>(Actualizado al 2019)</span> */}
                       </a>
                     </p>
                     <p>
@@ -365,7 +323,6 @@ export const FooterLand = ({ arcType }) => {
                         rel="noreferrer"
                         className="footer__content-link">
                         Política de Privacidad
-                        {/* <span>(Actualizado al 2019)</span> */}
                       </a>
                     </p>
                     <p>
@@ -389,21 +346,21 @@ export const FooterLand = ({ arcType }) => {
                       target="_blank"
                       rel="noreferrer"
                       aria-label="Twitter">
-                      <i className="icon-twitter"></i>
+                      <i className="icon-twitter" />
                     </a>
                     <a
                       href={urls.facebook}
                       target="_blank"
                       rel="noreferrer"
                       aria-label="Facebook">
-                      <i className="icon-facebook"></i>
+                      <i className="icon-facebook" />
                     </a>
                     <a
                       href={urls.instangram}
                       target="_blank"
                       rel="noreferrer"
                       aria-label="Instagram">
-                      <i className="icon-instangram"></i>
+                      <i className="icon-instangram" />
                     </a>
                   </div>
 
@@ -414,14 +371,14 @@ export const FooterLand = ({ arcType }) => {
                         target="_blank"
                         rel="noreferrer"
                         aria-label="AppStore">
-                        <i className="icon-appstore"></i>
+                        <i className="icon-appstore" />
                       </a>
                       <a
                         href={urls.googlePlay}
                         target="_blank"
                         rel="noreferrer"
                         aria-label="GooglePlay">
-                        <i className="icon-googleplay"></i>
+                        <i className="icon-googleplay" />
                       </a>
                     </div>
                   )}
@@ -434,10 +391,11 @@ export const FooterLand = ({ arcType }) => {
           </div>
         </div>
       </footer>
-
-      <button type="button" id="btn-arrow-top" className="arrow-up">
-        <i></i>
-      </button>
+      {btnOnTop && (
+        <button type="button" id="btn-arrow-top" className="arrow-up">
+          <i />
+        </button>
+      )}
     </>
   )
 }

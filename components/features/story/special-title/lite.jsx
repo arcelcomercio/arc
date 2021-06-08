@@ -1,6 +1,8 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
+
 import TProLbl from '../../../global-components/trustprojectlabel'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   story: 'st-special-t w-full',
@@ -8,16 +10,20 @@ const classes = {
   title: 'sht__title',
 }
 
-const StorySpecialTitle = () => {
-  const { globalContent } = useFusionContext()
+const StorySpecialTitleLite = () => {
+  const { globalContent: data, arcSite, contextPath } = useFusionContext()
+  const { label: { trustproject = '' } = {} } = data || {}
+
   const {
-    headlines: { basic: title = '' } = {},
-    editor_note: editorNote = '',
-    taxonomy: {
-      primary_section: { name: sectionName = '', path: sectionLink = '' } = {},
-    } = {},
-    label: { trustproject = '' } = {},
-  } = globalContent || {}
+    title,
+    editorNote,
+    primarySection,
+    primarySectionLink,
+  } = new StoryData({
+    data,
+    arcSite,
+    contextPath,
+  })
 
   return (
     <>
@@ -26,10 +32,11 @@ const StorySpecialTitle = () => {
           {editorNote ? (
             <p
               itemProp="description"
-              dangerouslySetInnerHTML={{ __html: editorNote }}></p>
+              dangerouslySetInnerHTML={{ __html: editorNote }}
+            />
           ) : (
-            <a itemProp="url" href={sectionLink}>
-              {sectionName}
+            <a itemProp="url" href={primarySectionLink}>
+              {primarySection}
             </a>
           )}
           {trustproject && (
@@ -45,7 +52,7 @@ const StorySpecialTitle = () => {
   )
 }
 
-StorySpecialTitle.label = 'Artículo - Título Especial'
-StorySpecialTitle.static = true
+StorySpecialTitleLite.label = 'Artículo - Título Especial'
+StorySpecialTitleLite.static = true
 
-export default StorySpecialTitle
+export default StorySpecialTitleLite

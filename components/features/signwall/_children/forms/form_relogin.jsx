@@ -1,16 +1,18 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
 import sha256 from 'crypto-js/sha256'
-import * as S from './styles'
-import { ButtonSocial, AuthURL } from './control_social'
-import { ModalConsumer } from '../context'
-import { Input } from './control_input_select'
-import useForm from '../../_dependencies/useForm'
+import * as React from 'react'
+
 import getCodeError from '../../_dependencies/codes_error'
-import Domains from '../../_dependencies/domains'
 import Cookies from '../../_dependencies/cookies'
+import Domains from '../../_dependencies/domains'
 import Taggeo from '../../_dependencies/taggeo'
+import useForm from '../../_dependencies/useForm'
+import { ModalConsumer } from '../context'
+import { CheckBox } from './control_checkbox'
+import { Input } from './control_input_select'
+import { AuthURL, ButtonSocial } from './control_social'
+import * as S from './styles'
 
 export const FormRelogin = ({
   arcSite,
@@ -22,10 +24,11 @@ export const FormRelogin = ({
   onClose,
   typeDialog,
 }) => {
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
-  const [showVerify, setShowVerify] = useState()
-  const [showSendEmail, setShowSendEmail] = useState(false)
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showVerify, setShowVerify] = React.useState()
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -87,7 +90,7 @@ export const FormRelogin = ({
             window.Identity.userProfile = null
             window.Identity.userIdentity = {}
           } else {
-            Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+            Cookies.setCookie('arc_e_id', sha256(profile.email).toString(), 365)
             Taggeo(
               `Web_Sign_Wall_${typeDialog}`,
               `web_sw${typeDialog[0]}_email_login_success_ingresar`
@@ -247,6 +250,7 @@ export const FormRelogin = ({
               typeForm="relogin"
               activeNewsletter={activeNewsletter}
               showMsgVerify={() => triggerShowVerify()}
+              dataTreatment={checkedPolits ? '1' : '0'}
             />
           ))}
 
@@ -277,10 +281,66 @@ export const FormRelogin = ({
             </S.Link>
           </S.Text>
 
-          <S.Text c="light" s="10" className="mt-10 center">
-            CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
-            NUNCA PUBLICAREMOS SIN TU PERMISO
-          </S.Text>
+          {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
+            <>
+              <br />
+              <CheckBox
+                checked={checkedPolits}
+                value={checkedPolits ? '1' : '0'}
+                name="rpolit"
+                onChange={() => {
+                  setCheckedPolits(!checkedPolits)
+                }}>
+                <S.Text c="gray" lh="18" s="12" className="mt-10">
+                  Al ingresar por redes sociales autorizo el uso de mis datos
+                  para
+                  <S.Link
+                    href="/tratamiento-de-datos/"
+                    target="_blank"
+                    c={mainColorLink}
+                    fw="bold"
+                    className="ml-5 inline">
+                    fines adicionales
+                  </S.Link>
+                </S.Text>
+              </CheckBox>
+
+              <S.Text
+                c="light"
+                s="11"
+                className="mt-10 mb-10"
+                style={{ textAlign: 'justify' }}>
+                En caso hayas autorizado los fines de uso adicionales
+                anteriormente, no es necesario que lo vuelvas a marcar. Si
+                deseas retirar dicho consentimiento, revisa el procedimiento en
+                nuestras
+                <S.Link
+                  href={(() => {
+                    switch (arcSite) {
+                      case 'elcomercio':
+                      case 'depor':
+                        return '/politicas-privacidad/'
+                      case 'gestion':
+                      case 'trome':
+                        return '/politica-de-privacidad/'
+                      default:
+                        return '/politicas-de-privacidad/'
+                    }
+                  })()}
+                  target="_blank"
+                  c={mainColorLink}
+                  fw="bold"
+                  className="ml-5 inline">
+                  Políticas de Privacidad.
+                </S.Link>
+              </S.Text>
+            </>
+          ) : (
+            <S.Text c="light" s="10" className="mt-10 center">
+              CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
+              NUNCA PUBLICAREMOS SIN TU PERMISO
+            </S.Text>
+          )}
         </S.Form>
       )}
     </ModalConsumer>

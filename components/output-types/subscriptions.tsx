@@ -4,6 +4,7 @@ import { OT, OutputProps } from 'types/output-types'
 
 import { env } from '../utilities/arc/env'
 import { ORGANIZATION, PROD } from '../utilities/constants/environment'
+import { SITE_ELCOMERCIO } from '../utilities/constants/sitenames'
 import FbPixel from './_children/fb-pixel'
 import FinallyPolyfill from './_children/finallyPolyfill'
 import TagManager from './_children/tag-manager'
@@ -33,15 +34,21 @@ const Subscriptions: OT<OutputProps> = ({
   const GTMContainer =
     env === PROD ? googleTagManagerId : googleTagManagerIdSandbox
 
-  const isExternalCounter = () =>
-    /\/paywall-counter-external\//.test(requestUri)
+  const isExternalCounter = /\/paywall-counter-external\//.test(requestUri)
+  const isEmpresaPage = /^\/[a-z-]+\/empresa\//.test(requestUri)
+  const isFaqsPage = /^\/[a-z-]+\/faqs\//.test(requestUri)
+  const isSubscriptionPage = /^\/suscripciones\//.test(requestUri)
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
+  const stylesheet =
+    isEmpresaPage || isFaqsPage || isSubscriptionPage
+      ? 'subs-landing'
+      : 'subs-payment'
 
   return (
     <>
-      {isExternalCounter() ? (
+      {isExternalCounter ? (
         <html lang="es">
           <head>
             <title>Contador Externo Paywall</title>
@@ -110,13 +117,38 @@ const Subscriptions: OT<OutputProps> = ({
             <link
               rel="stylesheet"
               href={deployment(
-                `${contextPath}/resources/dist/${arcSite}/css/subscriptions.css`
+                `${contextPath}/resources/dist/${arcSite}/css/${stylesheet}.css`
               )}
             />
             <script
               src={`https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-identity.min.js`}
               defer
             />
+            {isEmpresaPage && (
+              <script
+                src="https://www.google.com/recaptcha/api.js?hl=es"
+                defer
+              />
+            )}
+            {/* ============== WebTracking */}
+            {requestUri.includes('/suscripcionesdigitales/') ? (
+              <>
+                <script
+                  defer
+                  src={deployment(
+                    `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+                  )}
+                />
+                <script
+                  src={`https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=${
+                    arcSite === SITE_ELCOMERCIO
+                      ? '01780ae129e2be9f4afea429d618f3ec'
+                      : 'ddc9f70a72959e3037f40dd5359a99d6'
+                  }`}
+                  async
+                />
+              </>
+            ) : null}
             <FinallyPolyfill />
           </head>
           <body>

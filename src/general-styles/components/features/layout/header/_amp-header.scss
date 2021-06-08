@@ -4,10 +4,6 @@
 
   &__wrap {
     height: 50px;
-
-    @media (--desktop) {
-      max-width: 980px;
-    }
   }
 
   &__link-container {

@@ -1,16 +1,13 @@
 /* eslint-disable camelcase */
 import * as React from 'react'
 
-const getPartidoDataFromId = (id = '', partidos = []) => {
-  return partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
-}
+const getPartidoDataFromId = (id = '', partidos = []) =>
+  partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
 
-const roundTwoDecimals = num => Math.round(num * 100) / 100
+const roundTwoDecimals = (num) => Math.round(num * 100) / 100
 
 const Projection = ({ filterData = [], partidos = [] }) => {
-  const resizeHeight = num => {
-    return `${num * 7 + 45}px`
-  }
+  const resizeHeight = (num) => `${num * 7 + 45}px`
 
   return (
     <>

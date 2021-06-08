@@ -1,16 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import request from 'request-promise-native'
-import getProperties from 'fusion:properties'
-import { interpolateUrl } from '../../components/features/paywall/_dependencies/domains'
+
+import { PropertiesSite } from '../../components/features/subscriptions/_dependencies/Properties'
 
 const fetch = (key = {}) => {
   const site = key['arc-site']
-  const {
-    paywall: { urls },
-  } = getProperties(site)
+
+  const { urls } = PropertiesSite[site]
 
   return request({
-    uri: interpolateUrl(urls.originSubscriptionsBundles),
+    uri: urls.subsBundle,
+    gzip: true,
     json: true,
   })
 }

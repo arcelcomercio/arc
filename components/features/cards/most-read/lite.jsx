@@ -9,7 +9,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import { getQuery, getStories } from './_dependencies/functions'
 
 const CONTENT_SOURCE = 'story-feed-by-views'
-const CardMostReadLite = props => {
+const CardMostReadLite = (props) => {
   const {
     globalContent,
     globalContentConfig,
@@ -30,7 +30,7 @@ const CardMostReadLite = props => {
     source: CONTENT_SOURCE,
     query: {
       presets,
-      ...getQuery({ globalContent, globalContentConfig, storiesQty }),
+      ...getQuery({ globalContent, globalContentConfig, storiesQty, arcSite }),
     },
     filter: schemaFilter,
     transform: ({ content_elements: contentElements = [] } = {}) => {

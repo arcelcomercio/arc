@@ -1167,7 +1167,6 @@ describe('Get primarySection - StoryData', () => {
     const datastring = JSON.stringify(data)
     const datatest = JSON.parse(datastring)
     // datatest.taxonomy = taxonomy
-    // datatest.taxonomy.primary_section = undefined
     element.__data = datatest
     expect(element.primarySection).toBe('')
   })
@@ -1332,7 +1331,5 @@ describe('Get videoSeo - StoryData', () => {
     const datastring = JSON.stringify(data)
     const datatest = JSON.parse(datastring)
     element.__data = datatest
-
-    
   })
 })

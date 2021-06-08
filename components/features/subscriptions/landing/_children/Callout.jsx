@@ -12,17 +12,15 @@ const Callout = ({
   nameDialog,
   onLoggedFail,
   onClose,
-}) => {
-  return (
-    <React.Suspense fallback={fallback}>
-      <SignwallCallout
-        typeDialog={typeDialog}
-        nameDialog={nameDialog}
-        onLoggedFail={onLoggedFail}
-        onClose={onClose}
-      />
-    </React.Suspense>
-  )
-}
+}) => (
+  <React.Suspense fallback={fallback}>
+    <SignwallCallout
+      typeDialog={typeDialog}
+      nameDialog={nameDialog}
+      onLoggedFail={onLoggedFail}
+      onClose={onClose}
+    />
+  </React.Suspense>
+)
 
 export default React.memo(Callout)

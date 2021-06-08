@@ -1,16 +1,22 @@
-import { opta, optaCommentaries } from './opta'
+import { basicGallery } from './basic-gallery'
 import { basicVideo } from './basic-video'
 import { basicVideoJWplayer } from './basic-video-jwplayer'
-import { basicGallery } from './basic-gallery'
+import { opta, optaCommentaries } from './opta'
 
-const filter = params => {
+const filter = (params) => {
   const {
     basicVideoFilter = false,
     basicGalleryFilter = false,
     optaFilter = false,
     optaCommentariesFilter = false,
   } = params
-
+  const websites = `
+  website_section{
+    type
+    name
+    path
+  }
+  `
   return `
       _id
       type
@@ -239,18 +245,6 @@ const filter = params => {
         sections{
           name
         }
-        primary_section{
-          type
-          name
-          path
-          additional_properties{
-            original{
-              _admin{
-                alias_ids
-              }
-            }
-          }
-        }
         seo_keywords
       }
       promo_items{
@@ -360,6 +354,38 @@ const filter = params => {
             ${basicVideoJWplayer}
           }
         }
+      }
+      websites{
+        elcomercio{
+          ${websites}
+        }
+        elcomerciomag{
+          ${websites}
+        }
+        peru21g21{
+          ${websites}
+        }
+        peru21{
+          ${websites}
+        }
+        trome{
+          ${websites}
+        }      
+        depor{
+          ${websites}
+        }   
+        ojo{
+          ${websites}
+        }  
+        diariocorreo{
+          ${websites}
+        }   
+        gestion{
+          ${websites}
+        }      
+        elbocon{
+          ${websites}
+        }      
       }
       `
 }

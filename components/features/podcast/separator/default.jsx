@@ -1,22 +1,22 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import Icon from '../../../global-components/multimedia-icon'
-import StoryData from '../../../utilities/story-data'
 import { formatDayMonthYear } from '../../../utilities/date-time/dates'
 import {
-  includePromoItems,
   includePrimarySection,
+  includePromoItems,
   includeSections,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 
 // TODO: Subir clases a objeto
 // TODO: sacar schemaFilter
 
-const PodcastSeparator = props => {
+const PodcastSeparator = (props) => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -28,7 +28,9 @@ const PodcastSeparator = props => {
   const { arcSite, contextPath, deployment } = useFusionContext()
 
   const presets = 'landscape_l:648x374'
-  const includedFields = `headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},websites.${arcSite}.website_url,${includePrimarySection},${includeSections},display_date`
+  const includedFields = `headlines.basic,subheadlines.basic,promo_items.path_mp3.content,${includePromoItems},websites.${arcSite}.website_url,${includePrimarySection(
+    { arcSite }
+  )},${includeSections},display_date`
 
   const { content_elements: contentElements = [] } =
     useContent({
@@ -93,13 +95,13 @@ const PodcastSeparator = props => {
           websites {
             ${arcSite} {
               website_url
+              website_section {
+                name
+                path
+              }
             }
           }
           taxonomy { 
-            primary_section { 
-              name
-              path 
-            }
             sections {
               name
               path 
@@ -118,7 +120,7 @@ const PodcastSeparator = props => {
     defaultImgSize: 'sm',
   })
 
-  const stories = contentElements.map(story => {
+  const stories = contentElements.map((story) => {
     storyData._data = story
     const {
       multimediaLandscapeL,
@@ -162,7 +164,7 @@ const PodcastSeparator = props => {
           href={titleLinkField || primarySectionLink}
           className="podcast-separator__title-button secondary-font font-bold text-sm text-black flex items-center">
           Ver todos
-          <i className="icon-back podcast-separator__title-icon ml-5 text-sm font-bold"></i>
+          <i className="icon-back podcast-separator__title-icon ml-5 text-sm font-bold" />
         </a>
       </div>
       <div className="podcast-separator__body flex justify-between">

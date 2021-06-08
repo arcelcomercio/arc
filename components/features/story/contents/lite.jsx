@@ -1,72 +1,72 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
 import ArcStoryContent, {
   Oembed,
 } from '@arc-core-components/feature_article-body'
-import Image from '../../../global-components/image'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
-import { getDateSeo } from '../../../utilities/date-time/dates'
+import Image from '../../../global-components/image'
+import ShareButtons from '../../../global-components/lite/share'
+import LiteYoutube from '../../../global-components/lite-youtube'
+import StoryContentsChildTable from '../../../global-components/story-table'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
-  SITE_ELCOMERCIO,
-  SITE_PERU21,
-  SITE_ELCOMERCIOMAG,
-  SITE_DEPOR,
-} from '../../../utilities/constants/sitenames'
-import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
-import {
+  ELEMENT_BLOCKQUOTE,
+  ELEMENT_CUSTOM_EMBED,
+  ELEMENT_GALLERY,
   ELEMENT_HEADER,
   ELEMENT_IMAGE,
+  ELEMENT_INTERSTITIAL_LINK,
+  ELEMENT_LINK_LIST,
+  ELEMENT_LIST,
+  ELEMENT_OEMBED,
   ELEMENT_QUOTE,
-  ELEMENT_CUSTOM_EMBED,
   ELEMENT_RAW_HTML,
   ELEMENT_TABLE,
   ELEMENT_TEXT,
   ELEMENT_VIDEO,
-  ELEMENT_GALLERY,
-  ELEMENT_OEMBED,
-  ELEMENT_BLOCKQUOTE,
-  ELEMENT_INTERSTITIAL_LINK,
-  ELEMENT_LIST,
-  ELEMENT_LINK_LIST,
 } from '../../../utilities/constants/element-types'
-import StoryData from '../../../utilities/story-data'
-
-import StoryContentsChildVideo from '../multimedia/_children/video'
-import StoryContentsChildImage from '../multimedia/_children/image'
-import StoryHeaderChildGallery from '../gallery/_children/gallery'
-import StoryContentChildRawHTML from './_children/rawHtml'
-import StoryContentsChildLinkedImage from './_children/linked-image'
-import StoryContentsChildBlockQuote from './_children/blockquote'
-import StoryContentsChildTable from '../../../global-components/story-table'
-import StoryContentsChildAuthorLite from './_children/author-lite'
-import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
-import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
-import StoryContentsChildInterstitialLink from './_children/interstitial-link'
-import StoryContentsChildCorrection from './_children/correction'
-import StoryContentsChildStampTrust from './_children/stamp-trust'
-import StoryContentsChildCustomBlock from './_children/custom-block'
-import StoryContentsChildJwplayerRecommender from './_children/jwplayer-recommender'
-import customFields from './_dependencies/custom-fields'
-import iframeScriptCounter from './_dependencies/counter-mag'
+import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
-  STORY_CORRECTION,
-  STORY_CUSTOMBLOCK,
-  STAMP_TRUST,
+  SITE_DEPOR,
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+  SITE_PERU21,
+} from '../../../utilities/constants/sitenames'
+import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  PARALLAX,
+  STAMP_TRUST,
+  STORY_CORRECTION,
+  STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
-  PARALLAX,
 } from '../../../utilities/constants/subtypes'
-import LiteYoutube from '../../../global-components/lite-youtube'
-import ShareButtons from '../../../global-components/lite/share'
+import { getDateSeo } from '../../../utilities/date-time/dates'
 import { contentWithAds } from '../../../utilities/story/content'
 import { processedAds } from '../../../utilities/story/helpers'
+import StoryData from '../../../utilities/story-data'
+import { replaceTags, storyTagsBbc } from '../../../utilities/tags'
+import StoryHeaderChildGallery from '../gallery/_children/gallery'
+import StoryContentsChildImage from '../multimedia/_children/image'
+import StoryContentsChildVideo from '../multimedia/_children/video'
+import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
+import StoryContentsChildAuthorLite from './_children/author-lite'
+import StoryContentsChildAuthorTrustLite from './_children/author-trust-lite'
+import StoryContentsChildBlockQuote from './_children/blockquote'
+import StoryContentsChildCorrection from './_children/correction'
+import StoryContentsChildCustomBlock from './_children/custom-block'
+import StoryContentsChildInterstitialLink from './_children/interstitial-link'
+import StoryContentsChildJwplayerRecommender from './_children/jwplayer-recommender'
 import StoryContentsChildLinkList from './_children/link-list'
+import StoryContentsChildLinkedImage from './_children/linked-image'
 import StoryContentsChildParallaxElements from './_children/parallax-elements'
+import StoryContentChildRawHTML from './_children/rawHtml'
+import StoryContentsChildStampTrust from './_children/stamp-trust'
+import iframeScriptCounter from './_dependencies/counter-mag'
+import customFields from './_dependencies/custom-fields'
 
 const classes = {
   news: 'story-contents w-full ',
@@ -83,7 +83,7 @@ const classes = {
   bbcHead: 'bbc-head p-10',
 }
 
-const StoryContentsLite = props => {
+const StoryContentsLite = (props) => {
   const {
     customFields: {
       shareAlign = 'right',
@@ -125,7 +125,6 @@ const StoryContentsLite = props => {
     tags,
     contentElements,
     canonicalUrl,
-    prerollDefault,
     contentElementsHtml,
     authorImageSecond,
     authorLinkSecond,
@@ -207,7 +206,8 @@ const StoryContentsLite = props => {
               data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
               data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
               data-bloque="3"
-              data-prebid-enabled></div>
+              data-prebid-enabled
+            />
           )}
         <div
           className={`${classes.content} ${
@@ -237,7 +237,7 @@ const StoryContentsLite = props => {
             <ArcStoryContent
               data={storyContent}
               elementClasses={classes}
-              renderElement={element => {
+              renderElement={(element) => {
                 const {
                   _id,
                   type,
@@ -299,6 +299,7 @@ const StoryContentsLite = props => {
                           account = 'gec',
                           title = '',
                           thumbnail_url: image = '',
+                          description: descriptionTxt,
                         } = {},
                       } = {},
                     } = element
@@ -311,7 +312,7 @@ const StoryContentsLite = props => {
                         <div
                           className="jwplayer-lazy "
                           id={`botr_${mediaId}_${jwplayerId}_div`}>
-                          <div className="jwplayer-lazy-icon-play"></div>
+                          <div className="jwplayer-lazy-icon-play" />
                           <Image
                             src={image}
                             width={580}
@@ -323,9 +324,12 @@ const StoryContentsLite = props => {
                             loading="lazy"
                           />
                         </div>
-                        <figcaption className="s-multimedia__caption ">
-                          {title}
-                        </figcaption>
+                        <figcaption
+                          className="s-multimedia__caption"
+                          dangerouslySetInnerHTML={{
+                            __html: descriptionTxt,
+                          }}
+                        />
                       </>
                     )
                   }
@@ -354,6 +358,14 @@ const StoryContentsLite = props => {
                     : classes.textClasses
                   return (
                     <>
+                      {arcSite === SITE_DEPOR && (
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }} />
+                      )}
                       {nameAds === 'caja3' &&
                         (arcSite === SITE_ELCOMERCIOMAG ||
                           arcSite === SITE_DEPOR) &&
@@ -364,7 +376,8 @@ const StoryContentsLite = props => {
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
                             data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                             data-bloque="3"
-                            data-prebid-enabled></div>
+                            data-prebid-enabled
+                          />
                         )}
                       {nameAds === 'inline' && (
                         <div
@@ -372,7 +385,8 @@ const StoryContentsLite = props => {
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
                           data-ads-dimensions="[[1,1]]"
                           data-bloque="3"
-                          data-ads-dimensions-m="[[1,1]]"></div>
+                          data-ads-dimensions-m="[[1,1]]"
+                        />
                       )}
                       {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
                         <div
@@ -380,7 +394,8 @@ const StoryContentsLite = props => {
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                           data-bloque="3"
-                          data-prebid-enabled></div>
+                          data-prebid-enabled
+                        />
                       )}
                       {nameAds === 'caja5' && subtype !== GALLERY_VERTICAL && (
                         <div
@@ -388,14 +403,17 @@ const StoryContentsLite = props => {
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                           data-bloque="4"
-                          data-prebid-enabled></div>
+                          data-prebid-enabled
+                        />
                       )}
-                      <p
-                        itemProp="description"
-                        className={alignmentClass}
-                        dangerouslySetInnerHTML={{
-                          __html: replaceTags(content),
-                        }}></p>
+                      {arcSite !== SITE_DEPOR && (
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }} />
+                      )}
                     </>
                   )
                 }
@@ -410,7 +428,7 @@ const StoryContentsLite = props => {
                     const ListType = listType === 'ordered' ? 'ol' : 'ul'
                     return (
                       <ListType className={classes.listClasses}>
-                        {items.map(item => (
+                        {items.map((item) => (
                           <li
                             dangerouslySetInnerHTML={{
                               __html: item.content
@@ -419,7 +437,8 @@ const StoryContentsLite = props => {
                                     '<a itemprop="url"'
                                   )
                                 : '',
-                            }}></li>
+                            }}
+                          />
                         ))}
                       </ListType>
                     )
@@ -666,7 +685,6 @@ const StoryContentsLite = props => {
             />
           )}
         </div>
-        {prerollDefault[1] && <div id="rpm" data-roll={prerollDefault[1]} />}
         <div
           className={`${classes.social} ${shareAlign === 'left' ? 'f' : ''}`}>
           <div className="st-social__share">
@@ -690,11 +708,12 @@ const StoryContentsLite = props => {
           </div>
         )}
       </div>
-      <div id="bottom-content-observed"></div>
+      <div id="bottom-content-observed" />
       {arcSite === SITE_ELCOMERCIO && contentElementsHtml.includes('mxm') && (
         <script
           src="https://w.ecodigital.pe/components/elcomercio/mxm/mxm.bundle.js?v=1.7"
-          defer></script>
+          defer
+        />
       )}
       {arcSite === SITE_ELCOMERCIOMAG && (
         <script
@@ -710,7 +729,7 @@ const StoryContentsLite = props => {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html:
-              'document.addEventListener("DOMContentLoaded",function(){var e=[].slice.call(document.querySelectorAll(".lazy-background"));if("IntersectionObserver"in window){let n=new IntersectionObserver(function(e,t){e.forEach(function(e){e.isIntersecting&&(e.target.classList.add("visible"),n.unobserve(e.target))})});e.forEach(function(e){n.observe(e)})}});',
+              '"use strict";document.addEventListener("DOMContentLoaded",function(){var e,n=[].slice.call(document.querySelectorAll(".lazy-background"));"IntersectionObserver"in window&&(e=new IntersectionObserver(function(n,t){n.forEach(function(n){n.isIntersecting&&(n.target.classList.add("visible"),e.unobserve(n.target))})},{rootMargin:"0px 0px 256px 0px"}),n.forEach(function(n){e.observe(n)}))});',
           }}
         />
       )}
@@ -718,10 +737,12 @@ const StoryContentsLite = props => {
         <>
           <script
             defer
-            src="https://cdna.elcomercio.pe/resources/assets/js/gsap.min.js"></script>
+            src="https://cdna.elcomercio.pe/resources/assets/js/gsap.min.js"
+          />
           <script
             defer
-            src="https://cdna.elcomercio.pe/resources/assets/js/ScrollTrigger.min.js"></script>
+            src="https://cdna.elcomercio.pe/resources/assets/js/ScrollTrigger.min.js"
+          />
         </>
       )}
     </>

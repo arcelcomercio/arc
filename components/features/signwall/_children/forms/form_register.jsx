@@ -1,22 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
 import sha256 from 'crypto-js/sha256'
-import * as S from './styles'
-import { ButtonSocial, AuthURL } from './control_social'
-import { ModalConsumer } from '../context'
-import { MsgRegister, Back } from '../iconos'
-import { CheckBox } from './control_checkbox'
-import { Input } from './control_input_select'
+import * as React from 'react'
+
+import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
 import getCodeError from '../../_dependencies/codes_error'
-import useForm from '../../_dependencies/useForm'
-import getDevice from '../../_dependencies/get-device'
-import { FormStudents } from './form_students'
-import Domains from '../../_dependencies/domains'
 import Cookies from '../../_dependencies/cookies'
+import Domains from '../../_dependencies/domains'
+import getDevice from '../../_dependencies/get-device'
 import Services from '../../_dependencies/services'
 import Taggeo from '../../_dependencies/taggeo'
+import useForm from '../../_dependencies/useForm'
+import { ModalConsumer } from '../context'
+import { Back, MsgRegister } from '../iconos'
 import Loading from '../loading'
-import { formatPhone } from '../../../subscriptions/_dependencies/Errors'
+import { CheckBox } from './control_checkbox'
+import { Input } from './control_input_select'
+import { AuthURL, ButtonSocial } from './control_social'
+import { FormStudents } from './form_students'
+import * as S from './styles'
 
 const FormRegister = (props) => {
   const {
@@ -25,8 +26,6 @@ const FormRegister = (props) => {
     onLogged = (i) => i,
     onLoggedFail = (i) => i,
     arcSite,
-    // isFia,
-    // handleCallToAction,
     siteProperties: {
       signwall: {
         mainColorLink,
@@ -40,18 +39,18 @@ const FormRegister = (props) => {
     removeBefore = (i) => i,
   } = props
 
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [showStudents, setShowStudents] = useState(false)
-  const [checkedPolits, setCheckedPolits] = useState(true)
-  const [checkedTerms, setCheckedTerms] = useState(false)
-  const [showFormatInvalid, setShowFormatInvalid] = useState('')
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [showStudents, setShowStudents] = React.useState(false)
+  const [checkedPolits, setCheckedPolits] = React.useState(true)
+  const [checkedTerms, setCheckedTerms] = React.useState(false)
+  const [showFormatInvalid, setShowFormatInvalid] = React.useState('')
 
-  const [showCheckPremium, setShowCheckPremium] = useState(false)
-  const [showUserWithSubs, setShowUserWithSubs] = useState(false)
-  const [showSendEmail, setShowSendEmail] = useState(false)
-  const [showContinueVerify, setShowContinueVerify] = useState(false)
+  const [showCheckPremium, setShowCheckPremium] = React.useState(false)
+  const [showUserWithSubs, setShowUserWithSubs] = React.useState(false)
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
+  const [showContinueVerify, setShowContinueVerify] = React.useState(false)
 
   const stateSchema = {
     remail: { value: '', error: '' },
@@ -147,7 +146,7 @@ const FormRegister = (props) => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.getUserProfile()
       .then((profile) => {
-        Cookies.setCookie('arc_e_id', sha256(profile.email), 365)
+        Cookies.setCookie('arc_e_id', sha256(profile.email).toString(), 365)
 
         const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
         Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
@@ -233,6 +232,7 @@ const FormRegister = (props) => {
           {
             name: 'dataTreatment',
             value:
+              // eslint-disable-next-line no-nested-ternary
               arcSite === 'elcomercio' || arcSite === 'gestion'
                 ? checkedPolits
                   ? '1'
@@ -255,7 +255,6 @@ const FormRegister = (props) => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_registro_success_registrarme`
         )
-        // handleFia()
       })
       .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))
@@ -269,17 +268,15 @@ const FormRegister = (props) => {
       })
   }
 
-  const getListSubs = () => {
-    return window.Identity.extendSession().then((resExt) => {
+  const getListSubs = () =>
+    window.Identity.extendSession().then((resExt) => {
       const checkEntitlement = Services.getEntitlement(
         resExt.accessToken,
         arcSite
       )
         .then((res) => {
           if (res.skus) {
-            const result = Object.keys(res.skus).map((key) => {
-              return res.skus[key].sku
-            })
+            const result = Object.keys(res.skus).map((key) => res.skus[key].sku)
             return result
           }
           return []
@@ -288,7 +285,6 @@ const FormRegister = (props) => {
 
       return checkEntitlement
     })
-  }
 
   const checkUserSubs = () => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
@@ -407,6 +403,7 @@ const FormRegister = (props) => {
                           typeForm="registro"
                           activeNewsletter={activeNewsletter}
                           checkUserSubs={checkUserSubs}
+                          dataTreatment={checkedPolits ? '1' : '0'}
                         />
                       ))}
 
@@ -503,7 +500,8 @@ const FormRegister = (props) => {
                             setCheckedPolits(!checkedPolits)
                           }}>
                           <S.Text c="gray" lh="18" s="12" className="mt-10">
-                            Autorizo el uso de mis datos para
+                            Al registrarme por redes sociales o por este
+                            formulario autorizo el uso de mis datos para
                             <S.Link
                               href="/tratamiento-de-datos/"
                               target="_blank"
@@ -543,27 +541,18 @@ const FormRegister = (props) => {
                           </S.Link>
                           y
                           <S.Link
-                            href={
-                              // {
-                              //   'elcomercio': '/politicas-privacidad/',
-                              //   'gestion': '/politica-de-privacidad/',
-                              //   'peru21': '/politicas-de-privacidad/',
-                              //   'depor': '/politicas-privacidad/',
-                              //   'trome': '/politica-de-privacidad/'
-                              // }[arcSite]
-                              (() => {
-                                switch (arcSite) {
-                                  case 'elcomercio':
-                                  case 'depor':
-                                    return '/politicas-privacidad/'
-                                  case 'gestion':
-                                  case 'trome':
-                                    return '/politica-de-privacidad/'
-                                  default:
-                                    return '/politicas-de-privacidad/'
-                                }
-                              })()
-                            }
+                            href={(() => {
+                              switch (arcSite) {
+                                case 'elcomercio':
+                                case 'depor':
+                                  return '/politicas-privacidad/'
+                                case 'gestion':
+                                case 'trome':
+                                  return '/politica-de-privacidad/'
+                                default:
+                                  return '/politicas-de-privacidad/'
+                              }
+                            })()}
                             target="_blank"
                             c={mainColorLink}
                             fw="bold"

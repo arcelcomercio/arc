@@ -23,8 +23,8 @@ const classes = {
   adsBox: 'flex items-center flex-col no-desktop pb-20',
 }
 
-const StoriesListNew = props => {
-  const hasAds = (index, adsList) => adsList.filter(el => el.pos === index)
+const StoriesListNew = (props) => {
+  const hasAds = (index, adsList) => adsList.filter((el) => el.pos === index)
   const {
     arcSite,
     contextPath,
@@ -35,7 +35,9 @@ const StoriesListNew = props => {
   } = useFusionContext()
 
   const presets = 'landscape_md:314x157,landscape_s:234x161,landscape_xs:118x72'
-  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,promo_items.basic_html.content,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection},display_date`
+  const includedFields = `headlines.basic,subheadlines.basic,${includeCredits},credits.by.image.url,promo_items.basic_html.content,${includePromoItems},${includePromoItemsCaptions},websites.${arcSite}.website_url,${includePrimarySection(
+    { arcSite }
+  )},display_date`
 
   const { customFields: customFieldsProps = {} } = props
   const {
@@ -54,12 +56,12 @@ const StoriesListNew = props => {
   const stories = contentElements || []
 
   const activeAds = Object.keys(customFieldsProps)
-    .filter(prop => prop.match(/adsMobile(\d)/))
-    .filter(key => customFieldsProps[key] === true)
+    .filter((prop) => prop.match(/adsMobile(\d)/))
+    .filter((key) => customFieldsProps[key] === true)
 
   const typeSpace = isDfp ? 'caja' : 'movil'
 
-  const activeAdsArray = activeAds.map(el => {
+  const activeAdsArray = activeAds.map((el) => {
     return {
       name: `${typeSpace}${el.slice(-1)}`,
       pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,

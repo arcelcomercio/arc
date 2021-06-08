@@ -17,7 +17,7 @@ import {
 
 const CONTENT_SOURCE = 'story-by-section'
 
-const TVHighlightFeat = props => {
+const TVHighlightFeat = (props) => {
   const { customFields: { section } = {} } = props
   const { arcSite, deployment, contextPath } = useAppContext()
 
@@ -27,10 +27,12 @@ const TVHighlightFeat = props => {
       section,
       feedOffset: 0,
       presets: 'landscape_xl:980x528',
-      includedFields: `websites.${arcSite}.website_url,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection},${includeTags},${includeCredits},canonical_url,headlines.basic,subheadlines.basic`,
+      includedFields: `websites.${arcSite}.website_url,${includePromoItems},${includePromoItemsCaptions},${includePrimarySection(
+        { arcSite }
+      )},${includeTags},${includeCredits},canonical_url,headlines.basic,subheadlines.basic`,
     },
     filter: schemaFilter(arcSite),
-    transform: data => {
+    transform: (data) => {
       const storyData = new StoryData({
         data,
         deployment,

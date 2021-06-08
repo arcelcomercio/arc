@@ -1,8 +1,14 @@
-import { basicVideoJWplayer } from './basic-video-jwplayer'
-import { basicVideo } from './basic-video'
 import { basicGallery } from './basic-gallery'
+import { basicVideo } from './basic-video'
+import { basicVideoJWplayer } from './basic-video-jwplayer'
 
-// eslint-disable-next-line import/prefer-default-export
+const websites = `
+website_section{
+  type
+  name
+  path
+}
+`
 export const storyContent = `
 _id
 type
@@ -17,6 +23,7 @@ content_elements {
     id
     config{
       key
+      chapter
       description
       duration
       thumbnail_url
@@ -83,7 +90,13 @@ content_elements {
         height
       }
       block
-      data { bg_color color html type title url url_logo url_mobile author_type text_type text name list gallery_id}
+      data { 
+        bg_color color html type title url url_logo url_mobile author_type text_type text name list gallery_id
+        stories {
+          date description title url image {caption url}
+        }
+        image {caption url}
+      }
     }
   }
   raw_oembed{
@@ -268,18 +281,6 @@ taxonomy {
   sections{
     name
   }
-  primary_section{
-    type
-    name
-    path
-    additional_properties{
-      original{
-        _admin{
-          alias_ids
-        }
-      }
-    }
-  }
   seo_keywords
 }
 promo_items{
@@ -325,6 +326,7 @@ promo_items{
   ${basicVideo}
   ${basicGallery}
   basic_parallax { embed { config { block data { bg_color color html type url url_logo url_mobile } } } }
+  basic_resumen { embed { config { block data { description name text title } } } }
 }
 
 credits{
@@ -355,6 +357,7 @@ subtype
 display_date
 publish_date
 website
+
 editor_note
 website_url
 related_content{
@@ -362,5 +365,37 @@ related_content{
     type
     redirect_url
   }
+}
+websites{
+  elcomercio{
+    ${websites}
+  }
+  elcomerciomag{
+    ${websites}
+  }
+  peru21g21{
+    ${websites}
+  }
+  peru21{
+    ${websites}
+  }
+  trome{
+    ${websites}
+  }      
+  depor{
+    ${websites}
+  }   
+  ojo{
+    ${websites}
+  }  
+  diariocorreo{
+    ${websites}
+  }   
+  gestion{
+    ${websites}
+  }      
+  elbocon{
+    ${websites}
+  }      
 }
 `

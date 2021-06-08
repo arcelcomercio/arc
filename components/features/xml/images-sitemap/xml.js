@@ -40,7 +40,7 @@ class XmlImagesSitemap {
           stories_qty: 100,
         },
         // filter: schemaFilter(props.arcSite, ConfigParams.VIDEO),
-        transform: data => {
+        transform: (data) => {
           const { content_elements: images = [] } = data || {}
           return images
         },
@@ -60,7 +60,7 @@ class XmlImagesSitemap {
       urlset: [
         { '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9' },
         { '@xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1' },
-        ...images.map(video => {
+        ...images.map((video) => {
           const {
             headlines: { basic: title = '' } = {},
             subheadlines: { basic: description = '' } = {},
@@ -82,7 +82,7 @@ class XmlImagesSitemap {
           } = promoItems[ConfigParams.VIDEO]
 
           const videoUrl = streams.find(
-            stream =>
+            (stream) =>
               stream.stream_type === VIDEO_FORMAT &&
               stream.height >= MIN_VIDEO_HEIGHT
           ).url
@@ -103,7 +103,7 @@ class XmlImagesSitemap {
                 { 'video:duration': this.msToSec(duration) },
                 // { 'video:view_count': '15: ni idea de donde sacar esto' },
                 { 'video:publication_date': localISODate(date) },
-                ...tags.map(tag => {
+                ...tags.map((tag) => {
                   return { 'video:tag': tag.text !== 'sample' ? tag.text : '' }
                 }),
                 { 'video:category': section },

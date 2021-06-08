@@ -1,0 +1,80 @@
+.st-rel {
+  content-visibility: auto;
+  contain-intrinsic-size: 512px;
+  margin: 0 20px 14px 20px;
+  padding-top: 20px;
+  font-family: $primary-font;
+  &__title {
+    letter-spacing: 0;
+    color: #9e0620;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    @media (--tablet) {
+      font-size: 19px;
+    }
+  }
+
+  &__item {
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+
+  &__logo {
+    width: 29px;
+    height: 29px;
+    margin-right: 10px;
+  }
+
+  &__author {
+    letter-spacing: 0;
+    color: #888;
+    text-transform: uppercase;
+  }
+  &__img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    @media (--desktop) {
+      height: 95px;
+      width: 80px;
+    }
+  }
+
+  &__txt {
+    letter-spacing: 0;
+    font-size: 16px;
+    color: #111;
+    font-weight: 400;
+    margin-bottom: 10px;
+    @media (--desktop) {
+      font-size: 22px;
+    }
+  }
+  &__multimedia {
+    order: -1;
+    @media (--tablet) {
+      height: 95px;
+      width: 80px;
+    }
+  }
+  &__box {
+    margin-left: 15px;
+    width: calc(100% - 95px);
+    @media (--tablet) {
+      max-width: none;
+    }
+  }
+  &__link {
+    font-size: 16px;
+    font-weight: 700;
+    @media (--tablet) {
+      font-size: 22px;
+    }
+  }
+  &__container {
+    border-top: 2px solid #9e0620;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+}

@@ -1,53 +1,56 @@
-import * as React from 'react'
 import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 
-import { deleteQueryString } from '../utilities/parse/queries'
-import { addSlashToEnd } from '../utilities/parse/strings'
-import { storyTagsBbc } from '../utilities/tags'
+import { getPreroll } from '../utilities/ads/preroll'
+import { getAssetsPath } from '../utilities/assets'
+import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
-  SITE_ELCOMERCIOMAG,
-  SITE_PERU21G21,
-  SITE_ELCOMERCIO,
   SITE_DEPOR,
   SITE_ELBOCON,
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
   SITE_PERU21,
+  SITE_PERU21G21,
+  SITE_TROME,
 } from '../utilities/constants/sitenames'
-import { getAssetsPath } from '../utilities/assets'
-import { getPreroll } from '../utilities/ads/preroll'
-import StoryData from '../utilities/story-data'
-import Styles from './_children/styles'
-import MetaSite from './_children/meta-site'
-import TwitterCards from './_children/twitter-cards'
-import OpenGraph from './_children/open-graph'
-import TagManager from './_children/tag-manager'
-import LiteAds from './_children/lite-ads'
-import ChartbeatBody from './_children/chartbeat-body'
-import AppNexus from './_children/appnexus'
-import VallaHtml from './_children/valla-html'
-import MetaStory from './_children/meta-story'
-// import RegisterServiceWorker from './_children/register-service-worker'
-import WebVitals from './_children/web-vitals'
-
-import videoScript from './_dependencies/video-script'
-import jwplayerScript from './_dependencies/jwplayer-script'
-import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
-import iframeScript from './_dependencies/iframe-script'
-import htmlScript from './_dependencies/html-script'
-import widgets from './_dependencies/widgets'
-import vallaScript from './_dependencies/valla'
 import {
-  getIsStory,
-  getTitle,
-  getDescription,
-  getKeywords,
-} from './_dependencies/utils'
-import {
-  MINUTO_MINUTO,
   GALLERY_VERTICAL,
+  MINUTO_MINUTO,
   PARALLAX,
 } from '../utilities/constants/subtypes'
-import { PREMIUM, METERED, FREE } from '../utilities/constants/content-tiers'
+import { deleteQueryString } from '../utilities/parse/queries'
+import { addSlashToEnd } from '../utilities/parse/strings'
+import StoryData from '../utilities/story-data'
+import { storyTagsBbc } from '../utilities/tags'
+import AppNexus from './_children/appnexus'
+import ChartbeatBody from './_children/chartbeat-body'
+import LiteAds from './_children/lite-ads'
+import MetaSite from './_children/meta-site'
+import MetaStory from './_children/meta-story'
+import OpenGraph from './_children/open-graph'
+import Preload from './_children/preload'
+import Styles from './_children/styles'
+import TagManager from './_children/tag-manager'
+import TwitterCards from './_children/twitter-cards'
+import VallaHtml from './_children/valla-html'
+// import RegisterServiceWorker from './_children/register-service-worker'
+import WebVitals from './_children/web-vitals'
+import htmlScript from './_dependencies/html-script'
+import iframeScript from './_dependencies/iframe-script'
+import jwplayerScript from './_dependencies/jwplayer-script'
+import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
+import {
+  getDescription,
+  getIsStory,
+  getKeywords,
+  getTitle,
+} from './_dependencies/utils'
+import vallaScript from './_dependencies/valla'
+import videoScript from './_dependencies/video-script'
+import widgets from './_dependencies/widgets'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const LiteOutput = ({
   children,
   contextPath,
@@ -74,15 +77,27 @@ const LiteOutput = ({
     deployment,
   }
   const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const {
+    videoSeo,
+    idYoutube,
+    contentElementsHtml,
+    oembedSubtypes,
+    embedTwitterAndInst,
+    getPremiumValue,
+    promoItems: { basic_html: { content = '' } = {} } = {},
+    primarySectionLink: storySectionPath,
+    jwplayerSeo,
+  } = new StoryData({
+    data: globalContent,
+    arcSite,
+    contextPath,
+  })
 
   const {
     credits = {},
     headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
     promo_items: promoItems = {},
-    taxonomy: {
-      primary_section: { path: storySectionPath = '' } = {},
-      tags = [],
-    } = {},
+    taxonomy: { tags = [] } = {},
     subtype = '',
     website_url: url = '',
     content_restrictions: { content_code: contentCode = '' } = {},
@@ -180,20 +195,6 @@ const LiteOutput = ({
     arcSite,
   }
 
-  const {
-    videoSeo,
-    idYoutube,
-    contentElementsHtml,
-    oembedSubtypes,
-    embedTwitterAndInst,
-    getPremiumValue,
-    promoItems: { basic_html: { content = '' } = {} } = {},
-    jwplayerSeo,
-  } = new StoryData({
-    data: globalContent,
-    arcSite,
-    contextPath,
-  })
   const regexYoutube = /<iframe.+youtu\.be|youtube\.com/
   const hasYoutubeVideo =
     idYoutube ||
@@ -227,6 +228,11 @@ const LiteOutput = ({
   if (metaValue('section_style') === 'parallax') {
     inlineStyleUrl = `resources/dist/elcomercio/css/dlite-parallax.css`
     styleUrl = `${contextPath}/resources/dist/elcomercio/css/lite-parallax.css`
+
+    if (arcSite === SITE_TROME) {
+      styleUrl = `${contextPath}/resources/dist/trome/css/lite-parallax.css`
+    }
+
     if (CURRENT_ENVIRONMENT === 'prod') {
       if (CURRENT_ENVIRONMENT === 'prod') {
         styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/elcomercio/css/lite-parallax.css`
@@ -236,6 +242,10 @@ const LiteOutput = ({
       }
       if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
         styleUrl = `https://cdnc.g21.peru21.pe/dist/elcomercio/css/lite-parallax.css`
+      }
+
+      if (arcSite === SITE_TROME && CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.g21.peru21.pe/dist/trome/css/lite-parallax.css`
       }
     }
   }
@@ -324,24 +334,7 @@ const LiteOutput = ({
              *
              * https://web.dev/preconnect-and-dns-prefetch/
              */}
-            {arcSite === SITE_ELCOMERCIO && (
-              // Preload fuente de titulo de nota para mejor LCP
-              <link
-                rel="preload"
-                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/georgia-latin-regular.woff2"
-                as="font"
-                type="font/woff2"
-              />
-            )}
-            {arcSite === SITE_ELCOMERCIOMAG && (
-              // Preload fuente de titulo de nota para mejor LCP
-              <link
-                rel="preload"
-                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
-                as="font"
-                type="font/woff2"
-              />
-            )}
+            {isStory && <Preload arcSite={arcSite} />}
             <link
               rel="preconnect"
               href={`//cdnc.${siteProperties.siteDomain}`}
@@ -456,18 +449,31 @@ const LiteOutput = ({
           section={storySectionPath.split('/')[1]}
           subtype={subtype}
         />
-        <Styles {...metaSiteData} />
+
+        <Styles
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaSiteData}
+        />
         {!isIframeStory ? (
           <>
-            <MetaSite {...metaSiteData} />
+            <MetaSite
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...metaSiteData}
+            />
             <meta name="description" lang="es" content={description} />
             {isStory ? (
               ''
             ) : (
               <meta name="keywords" lang="es" content={keywords} />
             )}
-            <OpenGraph {...openGraphData} />
-            <TwitterCards {...twitterCardsData} />
+            <OpenGraph
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...openGraphData}
+            />
+            <TwitterCards
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...twitterCardsData}
+            />
           </>
         ) : (
           // Solo para iframes de notas continuas
@@ -476,7 +482,11 @@ const LiteOutput = ({
             <meta name="twitter:site" content={twitterCardsData.twitterUser} />
           </>
         )}
-        <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
+        <MetaStory
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaPageData}
+          isIframeStory={isIframeStory}
+        />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
         )}
@@ -489,8 +499,8 @@ const LiteOutput = ({
           globalContent={globalContent}
         />
         <Resource path={inlineStyleUrl}>
-          {({ data }) => {
-            return data ? (
+          {({ data }) =>
+            data ? (
               <style
                 dangerouslySetInnerHTML={{
                   __html: data
@@ -499,7 +509,7 @@ const LiteOutput = ({
                 }}
               />
             ) : null
-          }}
+          }
         </Resource>
         <ChartbeatBody
           story={isStory}
@@ -514,7 +524,7 @@ const LiteOutput = ({
         />
         {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
           <>
-            <Libs></Libs>
+            <Libs />
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
@@ -528,6 +538,37 @@ const LiteOutput = ({
           </>
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
+        {/* ============== WebTracking */}
+        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
+          <>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
+            />
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"
+              async
+            />
+          </>
+        ) : null}
+
+        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
+          <>
+            <script
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
+            />
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"
+              async
+            />
+          </>
+        ) : null}
+        {/* ============== WebTracking */}
       </head>
       <body
         className={classBody}
@@ -583,12 +624,14 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${getPreroll({
-                  section: storySectionPath,
-                  arcSite,
-                  siteDomain: siteProperties.siteDomain,
-                  metaValue,
-                }) || siteProperties.urlPreroll}'`,
+                __html: `window.preroll='${
+                  getPreroll({
+                    section: storySectionPath,
+                    arcSite,
+                    siteDomain: siteProperties.siteDomain,
+                    metaValue,
+                  }) || siteProperties.urlPreroll
+                }'`,
               }}
             />
             <script
@@ -628,29 +671,29 @@ const LiteOutput = ({
         )}
         {subtype === GALLERY_VERTICAL && (
           <Resource path="resources/assets/js/vertical-gallery.min.js">
-            {({ data }) => {
-              return data ? (
+            {({ data }) =>
+              data ? (
                 <script
                   dangerouslySetInnerHTML={{
                     __html: data,
                   }}
                 />
               ) : null
-            }}
+            }
           </Resource>
         )}
         {hasYoutubeVideo && (
           <>
             <Resource path="resources/assets/lite-youtube/styles.min.css">
-              {({ data }) => {
-                return data ? (
+              {({ data }) =>
+                data ? (
                   <style
                     dangerouslySetInnerHTML={{
                       __html: data,
                     }}
                   />
                 ) : null
-              }}
+              }
             </Resource>
             <script
               defer
@@ -687,6 +730,7 @@ const LiteOutput = ({
         />
         {arcSite === SITE_ELCOMERCIOMAG ||
         arcSite === SITE_PERU21 ||
+        arcSite === SITE_TROME ||
         arcSite === SITE_DEPOR ? (
           <script
             defer
