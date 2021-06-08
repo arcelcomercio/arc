@@ -1,15 +1,16 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import { ModalProvider, ModalConsumer } from '../context'
-import { Modal } from '../modal/index'
-import { FormLoginPaywall } from '../forms/form_login_landing'
-import { FormForgot } from '../forms/form_forgot'
-import FormRegister from '../forms/form_register'
-import { ContMiddle, FirstMiddle, SecondMiddle, CloseBtn } from './styled'
-import { Close } from '../iconos'
-import Taggeo from '../../_dependencies/taggeo'
+import React, { Component } from 'react'
+
 import QueryString from '../../_dependencies/querystring'
+import Taggeo from '../../_dependencies/taggeo'
+import { ModalConsumer, ModalProvider } from '../context'
+import { FormForgot } from '../forms/form_forgot'
+import { FormLoginPaywall } from '../forms/form_login_landing'
+import FormRegister from '../forms/form_register'
+import { Close } from '../iconos'
+import { Modal } from '../modal/index'
+import { CloseBtn, ContMiddle, FirstMiddle, SecondMiddle } from './styled'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
@@ -25,6 +26,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
     setTimeout(() => {
       QueryString.deleteQuery('signLanding')
       QueryString.deleteQuery('signStudents')
+      QueryString.deleteQuery('dataTreatment')
     }, 1000)
     return templates.login
   }
@@ -32,7 +34,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
   return templates[template] || templates.login
 }
 
-export const LandingInt = props => {
+export const LandingInt = (props) => {
   const {
     onClose,
     arcSite,
@@ -44,7 +46,7 @@ export const LandingInt = props => {
   return (
     <ModalProvider>
       <ModalConsumer>
-        {value => (
+        {(value) => (
           <Modal size="medium" position="middle">
             <ContMiddle>
               {!noBtnClose && (
@@ -67,7 +69,8 @@ export const LandingInt = props => {
                 </CloseBtn>
               )}
               <FirstMiddle
-                pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/${IMG}.jpg?d=1342`}></FirstMiddle>
+                pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/${IMG}.jpg?d=1342`}
+              />
               <SecondMiddle>
                 {renderTemplate(value.selectedTemplate, value.valTemplate, {
                   ...props,

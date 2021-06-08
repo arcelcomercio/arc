@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
     height: 15px;
+    position: relative;
   }
   &__box-info {
     width: 100%;
@@ -18,14 +19,14 @@
     margin-right: 10px;
   }
   &__votes {
-    width: 100px;
     text-align: right;
     font-weight: 500;
     line-height: 24px;
     font-size: 12px;
     margin-right: 5px;
-    position: relative;
     top: -3px;
+    position: absolute;
+    right: 0;
     & span {
       font-weight: bold;
     }

@@ -1,0 +1,184 @@
+.polla-home {
+  &__logo-container {
+    background-image: url(https://cdna.depor.com/resources/dist/depor/images-polla/polla-inicio/Header.jpg);
+    background-repeat: round;
+    background-size: auto;
+    @media (--desktop) {
+      background-size: contain;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 72px 0 90px;
+  }
+  &__logo-img {
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 11px;
+    @media (--desktop) {
+      max-width: 360px;
+    }
+  }
+  &__logo-title {
+    font: bold 24px/29px $secondary-font;
+    letter-spacing: 0.24px;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  &__brand-container {
+    font: 400 14px/16px $primary-font;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    img {
+      max-height: 35px;
+      margin-left: 8px;
+    }
+  }
+  &__desc-container {
+    padding-top: 24px;
+    @media (--desktop) {
+      display: flex;
+      padding-top: 0;
+    }
+  }
+  &__desc-title {
+    font: 700 32px/36px $primary-font;
+    color: #333;
+    margin: 0 24px 16px 26px;
+    @media (--desktop) {
+      margin-top: 60px;
+      font: 700 36px/42px $primary-font;
+    }
+  }
+  &__desc-parag {
+    font: 400 18px/24px $primary-font;
+    color: #888;
+    margin: 0 24px 24px 26px;
+  }
+  &__desc-link {
+    background-color: #dc532e;
+    border-radius: 4px;
+    padding: 13px 51px;
+    font: 700 14px/1 $primary-font;
+    letter-spacing: 1.12px;
+    color: #fff;
+    margin: 0 24px 20px 26px;
+    display: inline-block;
+    @media (--desktop) {
+      margin-bottom: 30px;
+    }
+  }
+  &__desc-img {
+    width: 100%;
+    @media (--desktop) {
+      width: 48%;
+    }
+  }
+  &__rank-container {
+    background-image: url(https://cdna.depor.com/resources/dist/depor/images-polla/polla-inicio/Background.jpg);
+    background-repeat: round;
+    background-size: contain;
+    @media (--desktop) {
+      background-size: auto;
+    }
+
+    padding: 24px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__rank-img {
+    max-width: 180px;
+    display: block;
+    margin-bottom: 20px;
+  }
+  &__rank-table {
+    background-color: #004b91;
+    border: 1px solid #89c2e8;
+    border-radius: 6px;
+    width: 100%;
+    padding: 20px 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 580px;
+    @media (--desktop) {
+      padding: 22px 20px;
+    }
+  }
+  &__rank-title {
+    font: 700 26px/42px $secondary-font;
+    letter-spacing: 3.12px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  &__rank-item {
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    padding: 5px 16px;
+    color: #333;
+    display: flex;
+    width: 100%;
+  }
+  &__rank-first {
+    font: 700 17px/42px $primary-font;
+    width: 25px;
+    margin-right: 15px;
+  }
+  &__rank-second {
+    font: 400 16px/42px $primary-font;
+    letter-spacing: -0.16px;
+    flex: 1;
+    margin-right: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    @media (--desktop) {
+      font: 400 17px/42px $primary-font;
+      letter-spacing: 0;
+    }
+  }
+  &__rank-third {
+    font: 900 17px/42px $primary-font;
+    letter-spacing: 0.34px;
+  }
+  &__rank-link {
+    background-color: #00529e;
+    border: 1px solid #fed900;
+    border-radius: 5px;
+    font: 700 12px/14px $primary-font;
+    letter-spacing: 0.24px;
+    color: #fed900;
+    padding: 12px 24px;
+    margin-top: 20px;
+    display: inline-block;
+  }
+  &__aw {
+    padding: 32px 20px 64px;
+  }
+  &__aw-title {
+    font: 700 24px/30px $primary-font;
+    color: #333;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  &__aw-link {
+    display: block;
+    font: 700 13px/15px $primary-font;
+    letter-spacing: 0.26px;
+    color: #dc532e;
+    border: 1px solid #dc532e;
+    border-radius: 5px;
+    padding: 12px;
+    text-align: center;
+    max-width: 286px;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+  &__svgranking {
+    fill: #fed900;
+  }
+}
