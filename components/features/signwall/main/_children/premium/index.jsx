@@ -11,9 +11,9 @@ import {
   getQuery,
 } from '../../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
-import { FormForgot } from '../../../_children/forms/form_forgot'
+import FormForgot from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
-import { FormLogin } from '../../../_children/forms/form_login'
+import FormLogin from '../../../_children/forms/form_login'
 import FormRegister from '../../../_children/forms/form_register'
 import { Close } from '../../../_children/iconos'
 import { Modal } from '../../../_children/modal/index'

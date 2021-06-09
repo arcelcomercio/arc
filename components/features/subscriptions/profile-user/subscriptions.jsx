@@ -11,21 +11,65 @@ import { ModalConsumer, ModalProvider } from '../_context/modal'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
-import MenuSignwall from './_children/menu/signwall'
-import { NewsLetter } from './_children/newsletters'
-import MiPerfil from './_children/profile'
-import { ResumeProfile } from './_children/resume'
-import Subscription from './_children/subscriptions'
-import { SubsDetail } from './_children/subscriptions/_children/detail'
 import { PanelContent, PanelWrapper } from './styled'
+
+const MenuSignwall = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu/signwall'
+  )
+)
+
+const ResumeProfile = React.lazy(() =>
+  import(/* webpackChunkName: 'Profile-ResumeProfile' */ './_children/resume')
+)
+
+const NewsLetter = React.lazy(() =>
+  import(/* webpackChunkName: 'Profile-NewsLetter' */ './_children/newsletters')
+)
+
+const Subscription = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Profile-Subscription' */ './_children/subscriptions'
+  )
+)
+
+const MiPerfil = React.lazy(() =>
+  import(/* webpackChunkName: 'Profile-MiPerfil' */ './_children/profile')
+)
+
+const SubsDetail = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Profile-SubsDetail' */ './_children/subscriptions/_children/detail'
+  )
+)
 
 const renderTemplate = (template, id) => {
   const templates = {
-    home: <ResumeProfile />,
-    news: <NewsLetter />,
-    subs: <Subscription />,
-    prof: <MiPerfil />,
-    detail: <SubsDetail IdSubscription={id} />,
+    home: (
+      <React.Suspense fallback={null}>
+        <ResumeProfile />
+      </React.Suspense>
+    ),
+    news: (
+      <React.Suspense fallback={null}>
+        <NewsLetter />
+      </React.Suspense>
+    ),
+    subs: (
+      <React.Suspense fallback={null}>
+        <Subscription />
+      </React.Suspense>
+    ),
+    prof: (
+      <React.Suspense fallback={null}>
+        <MiPerfil />
+      </React.Suspense>
+    ),
+    detail: (
+      <React.Suspense fallback={null}>
+        <SubsDetail IdSubscription={id} />
+      </React.Suspense>
+    ),
   }
   return templates[template] || templates.home
 }
@@ -93,13 +137,17 @@ const WrapperProfile = () => {
           <Header />
           <PanelContent>
             <div className="panel-left">
-              <MenuSignwall handleMenu={(item) => changeTemplate(item)} />
+              <React.Suspense fallback={null}>
+                <MenuSignwall handleMenu={(item) => changeTemplate(item)} />
+              </React.Suspense>
             </div>
             <div className="panel-right">
               {siteProperties.activePaywall ? (
                 renderTemplate(selectedTemplate, idTemplate)
               ) : (
-                <MiPerfil />
+                <React.Suspense fallback={null}>
+                  <MiPerfil />
+                </React.Suspense>
               )}
             </div>
           </PanelContent>

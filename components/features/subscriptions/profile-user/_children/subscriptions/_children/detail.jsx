@@ -103,7 +103,7 @@ const Mask = {
   CARD_CVV: [/\d/, /\d/, /\d/, /\d/],
 }
 
-export const SubsDetail = ({ IdSubscription }) => {
+const SubsDetail = ({ IdSubscription }) => {
   const {
     arcSite,
     siteProperties: {
@@ -1178,3 +1178,5 @@ export const SubsDetail = ({ IdSubscription }) => {
     </Wrapper>
   )
 }
+
+export default SubsDetail

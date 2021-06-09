@@ -6,7 +6,7 @@ import News from './_children/news'
 import Prof from './_children/prof'
 import Subs from './_children/subs'
 
-export const ResumeProfile = () => {
+const ResumeProfile = () => {
   const { changeTemplate } = React.useContext(ModalConsumer)
 
   return (
@@ -22,3 +22,5 @@ export const ResumeProfile = () => {
     </Wrapper>
   )
 }
+
+export default ResumeProfile
