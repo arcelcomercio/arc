@@ -45,7 +45,7 @@ const WrapperPageSubs = ({ properties }) => {
 
   React.useEffect(() => {
     Sentry.init({
-      dsn: urlCommon.dsnSentry,
+      dsn: urlCommon.sentrySubs,
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
