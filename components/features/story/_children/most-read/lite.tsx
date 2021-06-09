@@ -10,7 +10,7 @@ import schemaFilter from './_dependencies/schema-filter'
 import CardMostReadList from './_lite/_children/list'
 
 interface FeatureProps {
-  story?: Story
+  story?: Story[]
   arcSite?: ArcSite
   deployment?: AnyObject
   contextPath?: string
@@ -23,12 +23,12 @@ interface FeatureProps {
 const CONTENT_SOURCE = 'story-feed-by-views'
 const CardMostReadLite: FC<FeatureProps> = (props) => {
   const {
-    story = [],
+    story,
     deployment = {},
     contextPath = '',
     arcSite = 'elcomercio',
     viewImage = false,
-    storiesQty,
+    storiesQty = 10,
     customTitle = '',
     customLink = '',
   } = props
@@ -45,15 +45,14 @@ const CardMostReadLite: FC<FeatureProps> = (props) => {
     transform: ({ content_elements: contentElements = [] } = {}) => {
       const storyItem = contentElements || []
       const response = {
-        stories: [
-          getStories({
-            data: storyItem,
-            deployment,
-            contextPath,
-            arcSite,
-          }),
-        ],
+        stories: getStories({
+          data: storyItem,
+          deployment,
+          contextPath,
+          arcSite,
+        }),
       }
+
       return response
     },
   })

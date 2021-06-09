@@ -1,8 +1,7 @@
 import { AnyObject } from 'fusion:content'
-import { ReactElementLike, ReactNodeArray } from 'prop-types'
 import React, { ReactElement } from 'react'
 import { ArcSite } from 'types/fusion'
-import { ListDataStories, Stories, Story } from 'types/story'
+import { ListDataStories, Story } from 'types/story'
 
 import { removeLastSlash } from '../../../../../utilities/parse/strings'
 import StoryData from '../../../../../utilities/story-data'
@@ -56,7 +55,7 @@ const formatStories: React.FC<StoriesProps> = ({
 interface QueryProps {
   arcSite?: ArcSite
   story?: Story
-  storiesQty?: Story
+  storiesQty?: number
 }
 export const getQuery: React.FC<QueryProps> = (props): AnyObject => {
   const { story, storiesQty, arcSite = 'elcomercio' } = props
