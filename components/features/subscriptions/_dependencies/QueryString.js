@@ -1,4 +1,4 @@
-export const getQuery = name => {
+export const getQuery = (name) => {
   const vars = {}
   if (typeof window !== 'undefined') {
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
@@ -8,7 +8,7 @@ export const getQuery = name => {
   return vars[name]
 }
 
-export const deleteQuery = name => {
+export const deleteQuery = (name) => {
   const rg = new RegExp(`[(&|?)]+${name}=`)
   const queryMatch = window.location.href.match(rg)
   const newUrl = window.location.href.split(queryMatch)

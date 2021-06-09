@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { device } from '../../_dependencies/breakpoints'
 
 export const Base = styled.div`
@@ -9,7 +10,7 @@ export const Base = styled.div`
 export const ContMiddle = styled.div`
   display: block;
   height: 100%;
-  min-height: ${props => (props.hm ? props.hm : '520')}px;
+  min-height: ${(props) => (props.hm ? props.hm : '520')}px;
   @media ${device.tablet} {
     display: table;
     width: 100%;
@@ -25,7 +26,7 @@ export const FirstMiddle = styled(Base)`
   @media ${device.desktop} {
     width: 50%;
     display: table-cell;
-    background: url(${props => props.pathSourcePNG});
+    background: url(${(props) => props.pathSourcePNG});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

@@ -3,6 +3,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
 
+import Modal from '../../../_children/modal'
 import { AuthContext } from '../../../_context/auth'
 import getCodeError, {
   formatEmail,
@@ -39,7 +40,6 @@ import {
   setLocaleStorage,
 } from '../../../_dependencies/Utils'
 import useForm from '../../../_hooks/useForm'
-import Modal from './children/modal'
 
 const styles = {
   step: 'step__left-progres',

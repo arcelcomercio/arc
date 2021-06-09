@@ -37,7 +37,6 @@ export const publicidadAmp = ({
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
-    ''
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
@@ -65,7 +64,7 @@ export const publicidadAmpAd = ({
     (prebidSlot != '' &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
-  
+
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
   if (secctionPrimary[1] !== 'respuestas') {

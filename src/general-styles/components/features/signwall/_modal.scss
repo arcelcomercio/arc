@@ -1,145 +1,165 @@
-.signwall {
-  * {
-    .modal {
-      display: flex;
-      justify-content: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999999999;
-      background-color: rgba(0, 0, 0, 0.5);
-      overflow-x: hidden;
-      overflow-y: auto;
-      transition: opacity 0.25s;
-      font-size: 16px;
-      will-change: transform;
-      animation: vDialog-enter 0.5s;
-      -webkit-text-size-adjust: 100%;
+.signwall-modal {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999999999;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: opacity 0.25s;
+  font-size: 16px;
+  will-change: transform;
+  animation: modalEnter 0.5s;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
-      &--open {
-        overflow: hidden;
-      }
+  &.white {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 
-      &--white {
-        background-color: rgba(233, 233, 233, 0.8);
+  &.black {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
 
-        v-dialog {
-          box-shadow: 0rem 0rem 0.5rem #949494;
-          @media (--tablet) {
-            border-radius: 8px;
-          }
-        }
-      }
+  &.open {
+    overflow: hidden;
+  }
 
-      &__wrapper {
-        display: block;
-        position: relative;
-        pointer-events: auto;
-        background: #fff;
-        z-index: 0;
-        align-self: flex-start;
-        @media (--tablet) {
-          border-radius: 8px;
-        }
-
-        &:focus {
-          outline: 0;
-        }
-      }
-
-      &__position-middle {
-        max-height: 100%;
-        overflow-y: auto;
-        align-self: center;
-      }
-
-      &__position-fit {
-        width: 100%;
-      }
-
-      &__size-small {
-        width: 100%;
-        height: auto;
-        padding: 20px;
-        @media (--tablet) {
-          width: 70%;
-          height: auto;
-        }
-
-        @media (--desktop) {
-          max-width: 480px;
-          width: 60%;
-        }
-      }
-
-      &__size-mini {
-        width: 80%;
-        height: auto;
-        padding: 20px;
-        @media (--tablet) {
-          width: 60%;
-          height: auto;
-        }
-
-        @media (--desktop) {
-          max-width: 380px;
-          width: 50%;
-        }
-      }
-
-      &__size-medium {
-        width: 100%;
-        @media (--tablet) {
-          width: 600px;
-        }
-
-        @media (--desktop) {
-          width: 864px;
-        }
-      }
-
-      &__size-large {
-        width: 100%;
-        height: 100%;
-
-        @media (--tablet) {
-          width: 90%;
-          height: auto;
-          background: transparent;
-        }
-
-        @media (--desktop) {
-          max-width: 1000px;
-        }
-      }
-
-      &__size-full {
-        width: 100%;
-        height: 100%;
-      }
-
-      & .text-right {
-        text-align: right;
-      }
-
-      & .btn-close-int {
-        position: absolute;
-        right: 20px;
-        & > button {
-          cursor: pointer;
-        }
-      }
+  @keyframes modalEnter {
+    from {
+      opacity: 0;
     }
 
-    @keyframes vDialog-enter {
-      from {
-        opacity: 0;
-      }
+    to {
+      opacity: 1;
+    }
+  }
 
-      to {
-        opacity: 1;
+  .body-modal {
+    display: block;
+    position: relative;
+    pointer-events: auto;
+    background: #fff;
+    z-index: 0;
+    align-self: flex-start;
+    box-shadow: 0 0 0.5rem #949494;
+    border-radius: 0;
+
+    &.position-middle {
+      max-height: 100%;
+      overflow-y: auto;
+      align-self: center;
+    }
+
+    &.position-bottom {
+      max-height: 100%;
+      overflow-y: auto;
+      align-self: flex-end;
+    }
+
+    &.position-fit {
+      width: 100%;
+    }
+
+    &.size-mini {
+      width: 80%;
+      height: auto;
+      padding: 20px;
+    }
+
+    &.size-small {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+    }
+
+    &.size-medium {
+      width: 100%;
+    }
+
+    &.size-smallbottom {
+      width: 90%;
+    }
+
+    &.size-smallbottom-large {
+      width: 90%;
+    }
+
+    &.size-large {
+      width: 100%;
+      height: 100%;
+    }
+
+    &.size-full {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 640px) {
+    .body-modal {
+      &.size-large {
+        width: 80%;
+        height: 555px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .body-modal {
+      &.size-mini {
+        width: 60%;
+        height: auto;
+      }
+      &.size-small {
+        width: 90%;
+        height: auto;
+      }
+      &.size-medium {
+        width: 600px;
+      }
+      &.size-large {
+        width: 70%;
+        height: 650px;
+      }
+      &.size-smallbottom {
+        width: 648px;
+      }
+      &.size-smallbottom-large {
+        width: 640px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    .body-modal {
+      &.size-medium {
+        width: 864px;
+      }
+      &.size-large {
+        width: 90%;
+        height: 555px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    .body-modal {
+      &.size-mini {
+        max-width: 380px;
+        width: 50%;
+      }
+      &.size-small {
+        max-width: 480px;
+        width: 60%;
+      }
+      &.size-large {
+        max-width: 1000px;
+        height: 600px;
       }
     }
   }

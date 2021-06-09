@@ -119,7 +119,7 @@ const PresidentialElectionChildGraph = ({
                       data-value={`${roundTwoDecimals(emitidos * 100)}%`}
                       style={printBar(roundTwoDecimals(emitidos * 100), color)}
                     />
-                    <span className={classes.votes} style={{ width: 'auto' }}>
+                    <span className={classes.votes}>
                       {getFormatedNumberResult(cantidad_votos)}
                       {filters?.subFilter !== 'porcentaje' && (
                         <>

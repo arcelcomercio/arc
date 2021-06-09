@@ -6,12 +6,12 @@ import * as React from 'react'
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
 import addScriptAsync from '../../../utilities/script-async'
-import QueryString from '../../signwall/_dependencies/querystring'
-import Taggeo from '../../signwall/_dependencies/taggeo'
 import Signwall from '../_children/Signwall'
 import { AuthContext, AuthProvider } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { getUserName, isLogged } from '../_dependencies/Session'
+import { Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
 import scriptsLanding from '../_scripts/Landing'
@@ -54,7 +54,6 @@ const WrapperPageSubs = ({ properties }) => {
         'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
         'JSON Parse error: Unexpected EOF',
       ],
-
       denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
     })
 
@@ -78,7 +77,7 @@ const WrapperPageSubs = ({ properties }) => {
         })
       })
 
-    const isParamsRedirect = QueryString.getQuery('signLanding')
+    const isParamsRedirect = getQuery('signLanding')
     setShowSignwall(isParamsRedirect)
   }, [])
 
@@ -124,8 +123,8 @@ const WrapperPageSubs = ({ properties }) => {
       }
       setShowProfile(getUserName(userfirstName, userlastName))
       setShowSignwall(false)
-      QueryString.deleteQuery('signLanding')
-      QueryString.deleteQuery('dataTreatment')
+      deleteQuery('signLanding')
+      deleteQuery('dataTreatment')
     }
   }
 

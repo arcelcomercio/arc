@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { device } from '../../../_dependencies/breakpoints'
 
 export const Base = styled.div`
@@ -22,11 +23,12 @@ export const FirstMiddle = styled(Base)`
   position: relative;
   overflow: hidden;
   height: 100%;
-  background: ${props => (props.arcSite === 'gestion' ? '#8f071f' : '#232323')};
+  background: ${(props) =>
+    props.arcSite === 'gestion' ? '#8f071f' : '#232323'};
   @media ${device.tablet} {
     width: 50%;
     display: table-cell;
-    background: url(${props => props.pathSourcePNG});
+    background: url(${(props) => props.pathSourcePNG});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -36,7 +38,7 @@ export const FirstMiddle = styled(Base)`
 export const SecondMiddle = styled(Base)`
   width: 100%;
   position: relative;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4'};
   @media ${device.tablet} {
     width: 50%;
@@ -72,7 +74,7 @@ export const ContPaywall = styled.div`
     flex-direction: column;
     justify-content: center;
     height: 100%;
-    padding: ${props =>
+    padding: ${(props) =>
       props.arcSite === 'gestion' ? '15px 10px' : '25px 25px'};
   }
   p {
@@ -84,8 +86,9 @@ export const ContPaywall = styled.div`
     margin-top: 20px;
     max-width: 200px;
     @media ${device.tablet} {
-      margin-top: ${props => (props.arcSite === 'gestion' ? '10px' : '20px')};
-      max-width: ${props => (props.arcSite === 'gestion' ? '160px' : '220px')};
+      margin-top: ${(props) => (props.arcSite === 'gestion' ? '10px' : '20px')};
+      max-width: ${(props) =>
+        props.arcSite === 'gestion' ? '160px' : '220px'};
     }
   }
   p {
@@ -124,7 +127,7 @@ export const Title = styled.h3`
   color: #ffffff;
   text-align: center;
   font-size: 24px;
-  font-family: ${props => props.f};
+  font-family: ${(props) => props.f};
   text-shadow: 0px 4px 5px rgba(0, 0, 0, 0.49);
   font-weight: 600;
   @media ${device.desktop} {
