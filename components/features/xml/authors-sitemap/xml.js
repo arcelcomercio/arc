@@ -31,7 +31,7 @@ class XmlAuthorsSitemapWeb {
     const sitemap = {
       urlset: authors.map((author) => ({
         url: {
-          loc: `${siteUrl}${author.bio_page || ''}`,
+          loc: `${siteUrl}${author.bio_page || ''}/`,
           lastmod: localISODate(author.last_updated_date),
         },
       })),
