@@ -9,23 +9,19 @@ import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import Formatter from './_dependencies/formatter'
 import { bandFilter, menuFilter } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import HeaderChildInverted from './_children/header'
+import HeaderChildInverted from './_lite/_children/header'
+// import HeaderChildInverted from './_lite/_children/header'
+
+import { getAssetsPath } from '../../../utilities/assets'
+import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
 
 const BAND_HIERARCHY = 'header-default'
 const MENU_HIERARCHY = 'menu-default'
 const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
-const HeaderInvertedFeaturedLite = (props) => {
+const HeaderInvertedFeatured = (props) => {
   const {
-    customFields: {
-      hierarchyConfig,
-      customLogo,
-      customLogoLink,
-      tags,
-      showDate,
-      hideMenu,
-      isSlider,
-    },
+    customFields: { hierarchyConfig, customLogo, customLogoLink, tags },
   } = props
 
   let { customFields: { customLogoTitle } = {} } = props
@@ -77,30 +73,6 @@ const HeaderInvertedFeaturedLite = (props) => {
     siteNameRedSocial
   )
 
-  const shareButtons = [
-    {
-      name: 'facebook',
-      icon: 'icon-facebook-circle',
-      link: urlsShareList.facebook,
-    },
-
-    {
-      name: 'twitter',
-      icon: 'icon-twitter-circle',
-      link: urlsShareList.twitter,
-    },
-    {
-      name: 'linkedin',
-      icon: 'icon-linkedin-circle',
-      link: urlsShareList.linkedin,
-    },
-    {
-      name: 'whatsapp',
-      icon: 'icon-whatsapp',
-      link: urlsShareList.whatsapp,
-    },
-  ]
-
   const formatter = new Formatter(
     deployment,
     contextPath,
@@ -110,10 +82,9 @@ const HeaderInvertedFeaturedLite = (props) => {
     {},
     {},
     customLogoTitle,
-    customLogo,
+    // customLogo,
     customLogoLink,
-    tags,
-    showDate
+    tags
   )
 
   const { contentService = '', contentConfigValues = {} } =
@@ -134,35 +105,41 @@ const HeaderInvertedFeaturedLite = (props) => {
     filter: bandFilter,
   })
   const menuData =
-    useContent(
-      !hideMenu
-        ? {
-            source: CONTENT_SOURCE,
-            query: {
-              website: arcSite,
-              hierarchy: MENU_HIERARCHY,
-            },
-            filter: menuFilter,
-          }
-        : {}
-    ) || {}
+    useContent({
+      source: CONTENT_SOURCE,
+      query: {
+        website: arcSite,
+        hierarchy: MENU_HIERARCHY,
+      },
+      filter: menuFilter,
+    }) || {}
 
   formatter.setBandData(bandData)
   formatter.setMenuData(menuData)
 
-  const isPreview = /^\/preview\//.test(requestUri)
+  const logoImg =
+    arcSite === SITE_DEPOR
+      ? 'https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg'
+      : `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
 
   return (
     <HeaderChildInverted
       {...formatter.getParams()}
       search={search}
       isStory={isStory}
-      shareButtons={shareButtons}
-      isSlider={isSlider}
-      hideMenu={hideMenu}
-      disableSignwall={isPreview}
+      // shareButtons={shareButtons}
+      logoImg={logoImg}
     />
   )
 }
 
-export default HeaderInvertedFeaturedLite
+HeaderInvertedFeatured.propTypes = {
+  customFields,
+}
+
+HeaderInvertedFeatured.label = 'Cabecera - Banda superior features debajo'
+
+export default HeaderInvertedFeatured

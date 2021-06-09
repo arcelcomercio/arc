@@ -187,8 +187,6 @@ const HeaderChildInverted = ({
     }
   }, [_handleScroll])
 
-  console.log('scrolled:', scrolled)
-
   return (
     <>
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
