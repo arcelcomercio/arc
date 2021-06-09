@@ -10,7 +10,7 @@ import { MsgResetPass, ResetPass } from '../iconos'
 import { Input } from './control_input_select'
 import * as S from './styles'
 
-export const FormReset = ({ onClose, tokenReset, typeDialog }) => {
+const FormReset = ({ onClose, tokenReset, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
@@ -208,3 +208,5 @@ export const FormReset = ({ onClose, tokenReset, typeDialog }) => {
     </S.Form>
   )
 }
+
+export default FormReset

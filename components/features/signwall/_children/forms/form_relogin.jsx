@@ -16,7 +16,7 @@ import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
 import * as S from './styles'
 
-export const FormRelogin = ({ onClose, typeDialog }) => {
+const FormRelogin = ({ onClose, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
@@ -338,3 +338,5 @@ export const FormRelogin = ({ onClose, typeDialog }) => {
     </S.Form>
   )
 }
+
+export default FormRelogin

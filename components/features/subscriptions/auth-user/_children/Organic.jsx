@@ -1,29 +1,90 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { Benefits } from '../../../signwall/_children/benefist/index'
-import { FormForgot } from '../../../signwall/_children/forms/form_forgot'
-import { FormLogin } from '../../../signwall/_children/forms/form_login'
-import FormRegister from '../../../signwall/_children/forms/form_register'
-import { FormRelogin } from '../../../signwall/_children/forms/form_relogin'
-import { FormReset } from '../../../signwall/_children/forms/form_reset'
-import { FormVerify } from '../../../signwall/_children/forms/form_verify'
 import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalConsumer, ModalProvider } from '../../_context/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
 import Header from '../../profile-user/_children/header/signwall'
 import { ContMiddle, FirstMiddle, SecondMiddle } from './styled'
 
+const Benefits = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-Benefits' */ '../../../signwall/_children/benefits/index'
+  )
+)
+
+const FormLogin = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormLogin' */ '../../../signwall/_children/forms/form_login'
+  )
+)
+
+const FormRegister = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormRegister' */ '../../../signwall/_children/forms/form_register'
+  )
+)
+
+const FormForgot = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormForgot' */ '../../../signwall/_children/forms/form_forgot'
+  )
+)
+
+const FormReset = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormReset' */ '../../../signwall/_children/forms/form_reset'
+  )
+)
+
+const FormVerify = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/form_verify'
+  )
+)
+
+const FormRelogin = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormRelogin' */ '../../../signwall/_children/forms/form_relogin'
+  )
+)
+
+const lazyFallback = <div style={{ padding: '30px' }}>Cargando...</div>
+
 const renderTemplate = (template, valTemplate, attributes) => {
   const { typeDialog } = attributes
 
   const templates = {
-    login: <FormLogin {...{ valTemplate, attributes }} />,
-    register: <FormRegister {...attributes} />,
-    forgot: <FormForgot {...attributes} />,
-    reset: <FormReset {...attributes} />,
-    verify: <FormVerify {...attributes} />,
-    relogin: <FormRelogin {...attributes} />,
+    login: (
+      <React.Suspense fallback={lazyFallback}>
+        <FormLogin {...{ valTemplate, attributes }} />
+      </React.Suspense>
+    ),
+    register: (
+      <React.Suspense fallback={lazyFallback}>
+        <FormRegister {...attributes} />
+      </React.Suspense>
+    ),
+    forgot: (
+      <React.Suspense fallback={lazyFallback}>
+        <FormForgot {...attributes} />
+      </React.Suspense>
+    ),
+    reset: (
+      <React.Suspense fallback={lazyFallback}>
+        <FormReset {...attributes} />
+      </React.Suspense>
+    ),
+    verify: (
+      <React.Suspense fallback={lazyFallback}>
+        <FormVerify {...attributes} />
+      </React.Suspense>
+    ),
+    relogin: (
+      <React.Suspense fallback={lazyFallback}>
+        <FormRelogin {...attributes} />
+      </React.Suspense>
+    ),
   }
 
   const getDefault = () => {
@@ -70,15 +131,18 @@ export const ContGeneric = ({ properties }) => {
   return (
     <Modal size={activePaywall ? 'large' : 'small'} position="middle">
       <Header buttonClose onClose={onClose} typeDialog={typeDialog} noLoading />
+
       <ContMiddle>
         {activePaywall && (
           <FirstMiddle>
-            <Benefits
-              arcSite={arcSite}
-              mainColorTitle={mainColorTitle}
-              primaryFont={primaryFont}
-              typeMessage={typeDialog}
-            />
+            <React.Suspense fallback={null}>
+              <Benefits
+                arcSite={arcSite}
+                mainColorTitle={mainColorTitle}
+                primaryFont={primaryFont}
+                typeMessage={typeDialog}
+              />
+            </React.Suspense>
           </FirstMiddle>
         )}
         <SecondMiddle full={!activePaywall}>

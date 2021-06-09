@@ -9,7 +9,7 @@ import { MsgResetPass } from '../iconos'
 import Loading from '../loading'
 import * as S from './styles'
 
-export const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
+const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
@@ -117,3 +117,5 @@ export const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
     </S.Form>
   )
 }
+
+export default FormVerify
