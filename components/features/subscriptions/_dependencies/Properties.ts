@@ -611,14 +611,14 @@ const PropertiesSite = {
 const PropertiesCommon = {
   // prettier-ignore
   urls: {
-    ecoID:            `https://${isProd ? '' : 'pre.'}ecoid.pe`,
-    newsLetters:      `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
-    paymentTracker:   `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
-    subsDniToken:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-    dsnSentry:        'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    ecoID:          `https://${isProd ? '' : 'pre.'}ecoid.pe`,
+    newsLetters:    `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
+    paymentTracker: `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
+    subsDniToken:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
+    dsnSentry:      'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    companyEmail:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
     tokenPayEfectivo: `https://${isProd ? '' : 'pre1a.'}services.pagoefectivo.pe/v1/authorizations`,
-    cipPayEfectivo:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`,
-    companyEmail:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`
+    cipPayEfectivo:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`
   },
 
   // prettier-ignore
@@ -709,7 +709,7 @@ const PropertiesCommon = {
     textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.',
     titleCompany:    'Por favor envíanos tus datos para brindarte información sobre nuestras suscripciones corporativas.',
     successCompany:  'Tu mensaje ha sido enviado, nos pondremos en contacto contigo.',
-    errorCompany:    'Ha ocurrido un error. Inténtelo más tarde'
+    errorCompany:    'Ha ocurrido un error. Inténtelo más tarde',
   },
 }
 
