@@ -564,7 +564,9 @@ const PollaScoreList: FC<Props> = (props) => {
                       </div>
                       {score.estado < 2 && (
                         <button
-                          disabled={score.msg === 'error'}
+                          disabled={
+                            score.msg === 'error' || score.msg === 'success'
+                          }
                           className={`polla-score__form-btn ${score.msg || ''}`}
                           type="submit">
                           {score.msg === 'success' ? 'Guardado' : 'Juega'}
