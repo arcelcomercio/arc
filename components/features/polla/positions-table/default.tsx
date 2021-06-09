@@ -3,30 +3,41 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-const DEFAULT_ENDPOINT =
-  'https://cdna-resultadosopta.minoticia.pe/api-soccer/statistics/leagues/'
+import { slugify } from '../../../utilities/parse/slugify'
+import { GroupData } from './_utlis/types'
 
-const UUID_COMPETITION = '45db8orh1qttbsqq9hqapmbit'
+// const DEFAULT_ENDPOINT =
+//   'https://cdna-resultadosopta.minoticia.pe/api-soccer/statistics/leagues/'
+
+// const UUID_COMPETITION = '45db8orh1qttbsqq9hqapmbit'
+
+const COUNTRIES_ASSETS_PATH =
+  'https://cdna.depor.com/resources/dist/depor/images-polla/paises/'
 
 interface Props {
   customFields?: {
     serviceEndPoint?: string
+    tableLinkUrl?: string
   }
 }
 
 const PollaPositionsTable: FC<Props> = (props) => {
-  // eslint-disable-next-line no-console
-  const [list, setList] = React.useState<any[]>([])
+  const [list, setList] = React.useState<GroupData[]>()
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [isError, setIsError] = React.useState(false)
 
-  const { customFields: { serviceEndPoint } = {} } = props
+  const { customFields } = props
 
   React.useEffect(() => {
-    fetch(
-      `${serviceEndPoint || DEFAULT_ENDPOINT}/${UUID_COMPETITION}/positions`
-    )
+    fetch(customFields?.serviceEndPoint || '')
       .then((res) => res.json())
-      .then((res) => {
+      .then((res: GroupData[]) => {
         setList(res)
+        setIsLoading(false)
+      })
+      .catch(() => {
+        setIsLoading(false)
+        setIsError(true)
       })
   }, [])
 
@@ -37,20 +48,43 @@ const PollaPositionsTable: FC<Props> = (props) => {
           <div className="polla-positions__title-left">COPA AMÉRICA 2021</div>
           <div className="polla-positions__title-right">POSICIONES</div>
         </div>
-        {list.map((group) => (
+        {isLoading ? (
+          <div
+            className="polla-score__spinner"
+            style={{ fontSize: '3px', marginTop: '30px', marginBottom: '30px' }}
+          />
+        ) : null}
+        {isError ? (
+          <div
+            style={{
+              marginTop: '30px',
+              marginBottom: '30px',
+              textAlign: 'center',
+              color: '#999',
+              fontSize: '13px',
+            }}>
+            La data se está actualizando
+          </div>
+        ) : null}
+        {list?.map((group) => (
           <div className="polla-positions__group">
             <div className="polla-positions__group-left">
               <div className="polla-positions__group-left__title">
                 Grupo {group.name}
               </div>
-              {group.map((team, i) => (
+              {group?.teams?.map((team, i) => (
                 <ul className="polla-positions__group-left__teams">
                   <li>
                     <span className="polla-positions__group-left__teams-number">
                       {i + 1}
                     </span>
                     <span className="polla-positions__group-left__teams-flag">
-                      <img src="http://i.imgur.com/oSlQ5BZ.png" alt="flag" />
+                      <img
+                        src={`${COUNTRIES_ASSETS_PATH}${slugify(
+                          team?.name
+                        )}.svg`}
+                        alt="flag"
+                      />
                     </span>
                     <span className="polla-positions__group-left__teams-name">
                       {team?.name}
@@ -67,7 +101,7 @@ const PollaPositionsTable: FC<Props> = (props) => {
                 <li>PE</li>
                 <li>PP</li>
               </ul>
-              {group.map((team) => (
+              {group.teams.map((team) => (
                 <ul className="polla-positions__group-right__points">
                   <li>{team?.points}</li>
                   <li>{team?.played}</li>
@@ -79,9 +113,11 @@ const PollaPositionsTable: FC<Props> = (props) => {
             </div>
           </div>
         ))}
-        <div className="polla-positions__button">
-          <button>VER TABLA COMPLETA</button>
-        </div>
+        {customFields?.tableLinkUrl ? (
+          <div className="polla-positions__button">
+            <a href={customFields?.tableLinkUrl}>VER TABLA COMPLETA</a>
+          </div>
+        ) : null}
       </div>
     </>
   )
@@ -92,8 +128,9 @@ PollaPositionsTable.propTypes = {
   customFields: PropTypes.shape({
     serviceEndPoint: PropTypes.string.tag({
       name: 'URL del servicio',
-      description:
-        'Por defecto la URL es https://cdna-resultadosopta.minoticia.pe/api-soccer/statistics/leagues/',
+    }),
+    tableLinkUrl: PropTypes.string.tag({
+      name: 'Enlace del link "VER TABLA COMPLETA"',
     }),
   }),
 }
