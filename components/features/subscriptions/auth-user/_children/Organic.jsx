@@ -5,7 +5,6 @@ import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalConsumer, ModalProvider } from '../../_context/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
 import Header from '../../profile-user/_children/header/signwall'
-import { ContMiddle, FirstMiddle, SecondMiddle } from './styled'
 
 const Benefits = React.lazy(() =>
   import(
@@ -129,28 +128,34 @@ export const ContGeneric = ({ properties }) => {
   }, [])
 
   return (
-    <Modal size={activePaywall ? 'large' : 'small'} position="middle">
-      <Header buttonClose onClose={onClose} typeDialog={typeDialog} noLoading />
-
-      <ContMiddle>
-        {activePaywall && (
-          <FirstMiddle>
-            <React.Suspense fallback={null}>
-              <Benefits
-                arcSite={arcSite}
-                mainColorTitle={mainColorTitle}
-                primaryFont={primaryFont}
-                typeMessage={typeDialog}
-              />
-            </React.Suspense>
-          </FirstMiddle>
-        )}
-        <SecondMiddle full={!activePaywall}>
+    <Modal
+      // eslint-disable-next-line no-nested-ternary
+      size={activePaywall ? 'large' : arcSite === 'trome' ? 'medium' : 'small'}
+      position="middle">
+      <Header
+        buttonClose
+        onClose={onClose}
+        typeDialog={typeDialog}
+        noLoading
+        logoLeft
+      />
+      <div className="cont-modal">
+        <div className={`left-modal ${arcSite === 'trome' ? 'bg-white' : ''}`}>
+          <React.Suspense fallback={null}>
+            <Benefits
+              arcSite={arcSite}
+              mainColorTitle={mainColorTitle}
+              primaryFont={primaryFont}
+              typeMessage={typeDialog}
+            />
+          </React.Suspense>
+        </div>
+        <div className="right-modal">
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
           })}
-        </SecondMiddle>
-      </ContMiddle>
+        </div>
+      </div>
     </Modal>
   )
 }

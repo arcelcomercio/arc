@@ -12,7 +12,7 @@ import {
   HeaderWrapper,
 } from './styled'
 
-const HeaderSignwall = ({ buttonClose, onClose, typeDialog }) => {
+const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
   const {
     arcSite,
     siteProperties: {
@@ -21,8 +21,13 @@ const HeaderSignwall = ({ buttonClose, onClose, typeDialog }) => {
     contextPath,
   } = useFusionContext() || {}
 
+  const colorHeader = arcSite === 'trome' ? '#FF650F' : mainColorBg
+
   return (
-    <HeaderWrapper cbg={mainColorBg} ctx={mainColorTxt}>
+    <HeaderWrapper
+      cbg={colorHeader}
+      ctx={mainColorTxt}
+      br={arcSite === 'trome'}>
       <HeaderContent>
         {buttonClose ? (
           <ButtonBack type="button" />
@@ -39,13 +44,20 @@ const HeaderSignwall = ({ buttonClose, onClose, typeDialog }) => {
         )}
 
         <ContLogo>
-          <div className={`cont cont_${arcSite}`}>
+          <div
+            className={`cont cont_${arcSite} ${
+              arcSite === 'trome' && logoLeft ? 'cont_left' : ''
+            }`}>
             <img
               alt={`Logo ${arcSite}`}
-              src={`${getAssetsPath(
-                arcSite,
-                contextPath
-              )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
+              src={
+                arcSite === 'trome'
+                  ? 'https://signwall.e3.pe/images/logo-trome.png'
+                  : `${getAssetsPath(
+                      arcSite,
+                      contextPath
+                    )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`
+              }
             />
           </div>
         </ContLogo>

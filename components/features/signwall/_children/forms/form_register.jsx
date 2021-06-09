@@ -228,7 +228,9 @@ const FormRegister = ({
             name: 'dataTreatment',
             value:
               // eslint-disable-next-line no-nested-ternary
-              arcSite === 'elcomercio' || arcSite === 'gestion'
+              arcSite === 'elcomercio' ||
+              arcSite === 'gestion' ||
+              arcSite === 'trome'
                 ? checkedPolits
                   ? '1'
                   : '0'
@@ -465,7 +467,9 @@ const FormRegister = ({
                     error={rpassError || showFormatInvalid}
                   />
 
-                  {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                  {(arcSite === 'elcomercio' ||
+                    arcSite === 'gestion' ||
+                    arcSite === 'trome') && (
                     <Input
                       type="tel"
                       inputMode="tel"
@@ -481,7 +485,9 @@ const FormRegister = ({
                     />
                   )}
 
-                  {(arcSite === 'elcomercio' || arcSite === 'gestion') && (
+                  {(arcSite === 'elcomercio' ||
+                    arcSite === 'gestion' ||
+                    arcSite === 'trome') && (
                     <CheckBox
                       checked={checkedPolits}
                       value={checkedPolits ? '1' : '0'}

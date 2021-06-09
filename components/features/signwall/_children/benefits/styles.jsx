@@ -39,6 +39,24 @@ export const Cont = styled.div`
   & .info {
     width: 75%;
   }
+  & .box-benefist {
+    padding: 0% 10%;
+    h1 {
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    ul,
+    p {
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .icon-slash {
+      color: #ff650f;
+      letter-spacing: -2px;
+      font-weight: bold;
+    }
+  }
 `
 
 export const ItemTitle = styled.h3`
