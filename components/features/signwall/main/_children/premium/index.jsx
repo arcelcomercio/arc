@@ -1,17 +1,22 @@
-/* eslint-disable react/jsx-no-bind */
-import Consumer from 'fusion:consumer'
 import { useContent } from 'fusion:content'
-import React, { PureComponent, useEffect, useState } from 'react'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import { ModalConsumer, ModalProvider } from '../../../_children/context'
+import {
+  ModalConsumer,
+  ModalProvider,
+} from '../../../../subscriptions/_context/modal'
+import {
+  deleteQuery,
+  getQuery,
+} from '../../../../subscriptions/_dependencies/QueryString'
+import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import { FormForgot } from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
 import { FormLogin } from '../../../_children/forms/form_login'
 import FormRegister from '../../../_children/forms/form_register'
 import { Close } from '../../../_children/iconos'
 import { Modal } from '../../../_children/modal/index'
-import QueryString from '../../../_dependencies/querystring'
-import Taggeo from '../../../_dependencies/taggeo'
 import {
   CloseBtn,
   ContMiddle,
@@ -29,10 +34,10 @@ const renderTemplate = (template, valTemplate, attributes) => {
     register: <FormRegister {...attributes} />,
   }
 
-  if (QueryString.getQuery('signPremium')) {
+  if (getQuery('signPremium')) {
     setTimeout(() => {
-      QueryString.deleteQuery('signPremium')
-      QueryString.deleteQuery('dataTreatment')
+      deleteQuery('signPremium')
+      deleteQuery('dataTreatment')
     }, 2000)
     return templates.login
   }
@@ -40,19 +45,17 @@ const renderTemplate = (template, valTemplate, attributes) => {
   return templates[template] || templates.intro
 }
 
-export const PremiumInt = (props) => {
-  const [resizeModal, setResizeModal] = useState('smallbottom')
+export const PremiumInt = ({ properties }) => {
+  const { typeDialog, onClose } = properties
   const {
-    onClose,
     arcSite,
-    typeDialog,
     siteProperties: {
       signwall: { primaryFont },
     },
-    addEventListener,
-    removeEventListener,
-  } = props
+  } = useAppContext() || {}
 
+  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
+  const [resizeModal, setResizeModal] = React.useState('smallbottom')
   const { name = '', summary: { feature = [] } = {} } =
     useContent({
       source: 'paywall-campaing',
@@ -64,100 +67,86 @@ export const PremiumInt = (props) => {
     }
   }
 
-  const handleLeavePage = (event) => {
-    event.preventDefault()
-    Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
-  }
+  // const handleLeavePage = (event) => {
+  //   event.preventDefault()
+  //   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
+  // }
 
-  useEffect(() => {
+  React.useEffect(() => {
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)
-    addEventListener('beforeunload', handleLeavePage)
+    // addEventListener('beforeunload', handleLeavePage)
     return () => {
-      removeEventListener('beforeunload', handleLeavePage)
+      // removeEventListener('beforeunload', handleLeavePage)
     }
   }, [])
 
   const removeBefore = () => {
-    removeEventListener('beforeunload', handleLeavePage)
+    // removeEventListener('beforeunload', handleLeavePage)
   }
 
   return (
-    <ModalProvider>
-      <ModalConsumer>
-        {(value) => (
-          <Modal
-            size={resizeModal}
-            position="bottom"
-            bgColor={arcSite === 'gestion' ? 'black' : 'white'}>
-            <ContMiddle>
-              <CloseBtn
-                type="button"
-                className="btn-close"
-                onClick={() => {
-                  Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
-
-                  if (typeDialog === 'premium') {
-                    if (document.getElementById('btn-premium-continue')) {
-                      onClose()
-                    } else {
-                      window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
-                    }
-                  } else {
-                    onClose()
-                  }
-                }}>
-                <Close />
-              </CloseBtn>
-              <FirstMiddle
-                pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342`}
-                arcSite={arcSite}>
-                <ContPaywall arcSite={arcSite}>
-                  <p>
-                    Para acceder a este contenido
-                    <br />
-                    exclusivo, adquiere tu
-                  </p>
-                  <Title f={primaryFont}>{name}</Title>
-                  <center>
-                    <img
-                      alt="Logo"
-                      className="logo"
-                      src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
-                    />
-                  </center>
-                  <ul className="list-benefits mb-20">
-                    {feature.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </ContPaywall>
-              </FirstMiddle>
-              <SecondMiddle arcSite={arcSite}>
-                {renderTemplate(value.selectedTemplate, value.valTemplate, {
-                  removeBefore,
-                  checkModal,
-                  ...props,
-                })}
-              </SecondMiddle>
-            </ContMiddle>
-          </Modal>
-        )}
-      </ModalConsumer>
-    </ModalProvider>
+    <Modal
+      size={resizeModal}
+      position="bottom"
+      bgColor={arcSite === 'gestion' ? 'black' : 'white'}>
+      <ContMiddle>
+        <CloseBtn
+          type="button"
+          className="btn-close"
+          onClick={() => {
+            Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
+            if (typeDialog === 'premium') {
+              if (document.getElementById('btn-premium-continue')) {
+                onClose()
+              } else {
+                window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
+              }
+            } else {
+              onClose()
+            }
+          }}>
+          <Close />
+        </CloseBtn>
+        <FirstMiddle
+          pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342`}
+          arcSite={arcSite}>
+          <ContPaywall arcSite={arcSite}>
+            <p>
+              Para acceder a este contenido
+              <br />
+              exclusivo, adquiere tu
+            </p>
+            <Title f={primaryFont}>{name}</Title>
+            <center>
+              <img
+                alt="Logo"
+                className="logo"
+                src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
+              />
+            </center>
+            <ul className="list-benefits mb-20">
+              {feature.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </ContPaywall>
+        </FirstMiddle>
+        <SecondMiddle arcSite={arcSite}>
+          {renderTemplate(selectedTemplate, valTemplate, {
+            removeBefore,
+            checkModal,
+            ...properties,
+          })}
+        </SecondMiddle>
+      </ContMiddle>
+    </Modal>
   )
 }
 
-@Consumer
-class Premium extends PureComponent {
-  render() {
-    return (
-      <PremiumInt
-        {...this.props}
-        addEventListener={this.addEventListener.bind(this)}
-        removeEventListener={this.removeEventListener.bind(this)}
-      />
-    )
-  }
-}
+const Premium = (props) => (
+  <ModalProvider>
+    <PremiumInt properties={props} />
+  </ModalProvider>
+)
 
 export { Premium }

@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-import QueryString from '../../signwall/_dependencies/querystring'
 import Signwall from '../_children/Signwall'
 import { AuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { isAuthenticated } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { checkUndefined } from '../_dependencies/Utils'
@@ -53,13 +53,13 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
       activateAuth(resProfile)
       updateStep(2)
       setShowSignwall(false)
-      QueryString.deleteQuery('signLanding')
-      QueryString.deleteQuery('dataTreatment')
+      deleteQuery('signLanding')
+      deleteQuery('dataTreatment')
     }
   }
 
   React.useEffect(() => {
-    const isParamsRedirect = QueryString.getQuery('signLanding')
+    const isParamsRedirect = getQuery('signLanding')
     setShowSignwall(isParamsRedirect)
   }, [])
 

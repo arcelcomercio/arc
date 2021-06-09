@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { device } from '../../../_dependencies/breakpoints'
 
 export const Base = styled.div`
@@ -22,11 +23,12 @@ export const FirstMiddle = styled(Base)`
   position: relative;
   overflow: hidden;
   height: 100%;
-  background: ${props => (props.arcSite === 'gestion' ? '#8f071f' : '#232323')};
+  background: ${(props) =>
+    props.arcSite === 'gestion' ? '#8f071f' : '#232323'};
   @media ${device.desktop} {
     width: 50%;
     display: table-cell;
-    background: url(${props => props.pathSourcePNG});
+    background: url(${(props) => props.pathSourcePNG});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -96,7 +98,7 @@ export const Title = styled.h3`
   color: #ffffff;
   text-align: center;
   font-size: 30px;
-  font-family: ${props => props.f};
+  font-family: ${(props) => props.f};
   text-shadow: 0px 4px 5px rgba(0, 0, 0, 0.49);
   font-weight: 600;
   @media ${device.desktop} {

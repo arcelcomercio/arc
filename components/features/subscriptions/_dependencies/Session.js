@@ -31,8 +31,8 @@ export const isAuthenticated = () => {
   return false
 }
 
-const attrToObject = (attributes = [], getAttributes = []) => {
-  return getAttributes.reduce((prev, name) => {
+const attrToObject = (attributes = [], getAttributes = []) =>
+  getAttributes.reduce((prev, name) => {
     const newAttrs = prev
     const attrs = (attributes || []).find((attr) => attr.name === name)
     if (attrs && attrs.value !== 'undefined') {
@@ -40,7 +40,6 @@ const attrToObject = (attributes = [], getAttributes = []) => {
     }
     return newAttrs
   }, {})
-}
 
 export const conformProfile = (userPorfile) => {
   const { attributes, contacts = [], ...restProfile } = userPorfile

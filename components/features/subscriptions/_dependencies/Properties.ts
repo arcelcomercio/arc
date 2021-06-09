@@ -611,11 +611,12 @@ const PropertiesSite = {
 const PropertiesCommon = {
   // prettier-ignore
   urls: {
-    ecoID:          `https://${isProd ? '' : 'pre.'}ecoid.pe`,
-    newsLetters:    `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
-    paymentTracker: `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
-    subsDniToken:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-    dsnSentry:      'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    ecoID:            `https://${isProd ? '' : 'pre.'}ecoid.pe`,
+    newsLetters:      `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
+    paymentTracker:   `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
+    subsDniToken:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
+    sentrySubs:       'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    sentrySign:       'https://493719de8c8d11e991ab0242ac120008@sentry.ec.pe/82',
     companyEmail:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
     tokenPayEfectivo: `https://${isProd ? '' : 'pre1a.'}services.pagoefectivo.pe/v1/authorizations`,
     cipPayEfectivo:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`
@@ -630,7 +631,7 @@ const PropertiesCommon = {
     payuPayments: `https://${isProd ? '' : 'sandbox.'}api.payulatam.com/payments-api/4.0/service`,
     payuPublicKey: isProd ? 'PK63j8CtoTehN173BZ568SB6Bs' : 'PKaC6H4cEDJD919n705L544kSU',
     payuAccountID: isProd ? '781124' : '512323',
-    profile:      '/mi-perfil/?outputType=signwall',
+    profile:      '/mi-perfil/?outputType=subscriptions',
     preguntas:    `/suscripcionesdigitales/faqs/${isProd ? '' : '?outputType=subscriptions'}`,
     bannerCorp:   `/suscripcionesdigitales/empresa/${isProd ? '' : '?outputType=subscriptions'}`,
     landingFia:   `/suscripcionesdigitales/fia/${isProd ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,

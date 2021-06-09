@@ -7,12 +7,11 @@ import * as React from 'react'
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
 import addScriptAsync from '../../../utilities/script-async'
-import QueryString from '../../signwall/_dependencies/querystring'
-import Taggeo from '../../signwall/_dependencies/taggeo'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { getUserName, isLogged } from '../_dependencies/Session'
-import { PixelActions, sendAction } from '../_dependencies/Taggeo'
+import { PixelActions, sendAction, Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
 import Benefits from './_children/Benefits'
@@ -48,7 +47,7 @@ const LandingSubscriptions = (props) => {
 
   React.useEffect(() => {
     Sentry.init({
-      dsn: urlCommon.dsnSentry,
+      dsn: urlCommon.sentrySubs,
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
@@ -103,13 +102,11 @@ const LandingSubscriptions = (props) => {
       },
     })
 
-    if (QueryString.getQuery('signStudents')) {
+    if (getQuery('signStudents')) {
       setShowTypeLanding('students')
     }
 
-    const isParamsRedirect =
-      QueryString.getQuery('signLanding') ||
-      QueryString.getQuery('signStudents')
+    const isParamsRedirect = getQuery('signLanding') || getQuery('signStudents')
 
     setShowSignwall(isParamsRedirect)
   }, [])
@@ -163,9 +160,9 @@ const LandingSubscriptions = (props) => {
 
       setShowProfile(getUserName(userfirstName, userlastName))
       // setShowSignwall(false)
-      QueryString.deleteQuery('signLanding')
-      // QueryString.deleteQuery('signStudents')
-      QueryString.deleteQuery('dataTreatment')
+      deleteQuery('signLanding')
+      // deleteQuery('signStudents')
+      deleteQuery('dataTreatment')
     }
   }
 
@@ -497,5 +494,7 @@ LandingSubscriptions.propTypes = {
     }),
   }),
 }
+
+LandingSubscriptions.label = 'Subscriptions - Landing Principal'
 
 export default LandingSubscriptions

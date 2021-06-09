@@ -1,13 +1,14 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import Portal from '../payment/_children/Profile/children/portal'
-import { LoadingGes, LoadingEco } from '../_dependencies/Icons'
+import React from 'react'
+
+import Portal from '../_children/modal/portal'
+import { LoadingEco, LoadingGes } from '../_dependencies/Icons'
 
 function Loading({ arcSite }) {
   return (
-    <Portal id="loading">
+    <Portal id="subs-loading">
       <div className="subs-loading">
-        <div className="subs-background">
+        <div className="cont-loader-logo">
           {arcSite === 'gestion' ? (
             <>
               <LoadingGes />
