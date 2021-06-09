@@ -39,9 +39,10 @@ class GetProfile {
         switch (attr) {
           case 'attributes':
             newPrev[attr] = (profile[attr] || []).map((item) => {
-              const { value } = item
+              const { value, name } = item
               // eslint-disable-next-line no-param-reassign
-              item.value = this.cleanAttribute(value)
+              item.value =
+                name !== 'dataTreatment' ? this.cleanAttribute(value) : value
               return item
             })
             break

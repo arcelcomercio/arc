@@ -297,7 +297,8 @@ const authSocialProviderURL = (
   typeForm,
   onLogged,
   checkUserSubs,
-  onStudents
+  onStudents,
+  dataTreatment
 ) => {
   if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
     return
@@ -321,7 +322,8 @@ const authSocialProviderURL = (
           typeForm,
           onLogged,
           checkUserSubs,
-          onStudents
+          onStudents,
+          dataTreatment
         )
       } else {
         onClose()
@@ -452,7 +454,7 @@ export const ButtonSocial = ({
     const URLRedirect = () => {
       window.location.href = `${URL}?urlReference=${encodeURIComponent(
         window.location.href
-      )}&typeModal=${queryDialog()}`
+      )}&typeModal=${queryDialog()}&dataTreatment=${dataTreatment}`
 
       setShowTextLoad('Conectando...')
     }
@@ -469,8 +471,8 @@ export const ButtonSocial = ({
 
     if (brandCurrent === 'google') return URLWindow()
 
-    // return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
     return isFbBrowser ? URLRedirect() : URLWindow()
+    // return URLRedirect()
   }
 
   return (
@@ -534,6 +536,8 @@ export const AuthURL = ({
           }
         }, 800)
 
+        const dataTreatment = getQuery('dataTreatment') || 'NULL'
+
         authSocialProviderURL(
           {
             data: {
@@ -549,7 +553,8 @@ export const AuthURL = ({
           typeForm,
           onLogged,
           checkUserSubs,
-          onStudents
+          onStudents,
+          dataTreatment
         )
       }
       return null

@@ -13,14 +13,14 @@ const StoryContentChildVideoJwplayerList = ({
     key: mediaId = '',
     has_ads: hasAds = 0,
     account = 'gec',
-    title = '',
+    description = '',
     time = '',
     section,
     thumbnail_url: image = '',
   } = data
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
-  const titleTxt = showSection ? section : title
+  const descriptionTxt = showSection ? section : description
 
   const customWidth = 580
   const customHeight = 330
@@ -40,7 +40,7 @@ const StoryContentChildVideoJwplayerList = ({
                 width={customWidth}
                 height={customHeight}
                 sizes={sizes}
-                alt={titleTxt}
+                alt={descriptionTxt}
                 style={{
                   width: '100%',
                 }}
@@ -48,15 +48,17 @@ const StoryContentChildVideoJwplayerList = ({
               />
             </figure>
           </div>
-          {titleTxt && (
+          {descriptionTxt && (
             <figcaption
               className={`${
                 lite === true
-                  ? `s-multimedia__caption`
-                  : `story-content__caption`
-              }`}>
-              {titleTxt}
-            </figcaption>
+                  ? `s-multimedia__caption `
+                  : `story-content__caption `
+              }`}
+              dangerouslySetInnerHTML={{
+                __html: descriptionTxt,
+              }}
+            />
           )}
         </>
       )}

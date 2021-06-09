@@ -1,4 +1,4 @@
-import type { ArcSite } from 'fusion:context'
+import { ArcSite } from 'types/fusion'
 
 import properties from '../properties/index'
 

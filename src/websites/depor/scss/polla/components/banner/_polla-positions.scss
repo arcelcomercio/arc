@@ -1,0 +1,142 @@
+.polla-positions {
+  // width: 320px;
+  height: 588px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background: #eee 0% 0% no-repeat padding-box;
+  font-family: $primary-font;
+  display: none;
+  @media (--desktop) {
+    display: block;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 3px solid #222;
+    padding: 20px 0 10px;
+    margin: 0 10px;
+  }
+  &__title-left {
+    color: #004b91;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.64px;
+    margin-left: 5px;
+  }
+  &__title-right {
+    color: #222;
+    font-size: 13px;
+    letter-spacing: 0.78px;
+    margin-right: 5px;
+  }
+  &__group {
+    display: flex;
+    padding-top: 20px;
+    width: 100%;
+  }
+  &__group-left {
+    width: 50%;
+    align-self: center;
+    &__title {
+      font-size: 13px;
+      color: #0072d8;
+      font-weight: bold;
+      margin-left: 15px;
+      padding: 9px 0;
+    }
+    &__teams {
+      padding-left: 15px;
+      height: 30px;
+      border-top: 1px solid #ddd;
+      &:last-child {
+        border-bottom: 1px solid #ddd;
+        height: 29px;
+      }
+      & li {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+      }
+    }
+    &__teams-number {
+      font-size: 13px;
+      color: #999;
+      font-weight: bold;
+    }
+    &__teams-flag {
+      margin: 0 10px;
+      & img {
+        width: 24px;
+        height: 16px;
+      }
+    }
+    &__teams-name {
+      font-size: 12px;
+      color: #222;
+      font-weight: bold;
+    }
+  }
+  &__group-right {
+    width: 50%;
+    &__title {
+      white-space: nowrap;
+      width: 100%;
+      & li {
+        &:first-child {
+          background-color: #004b91;
+          color: #fff;
+        }
+
+        color: #444;
+        font-size: 11px;
+        font-weight: bold;
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border: 1px solid #ddd;
+      }
+    }
+    &__points {
+      white-space: nowrap;
+      width: 100%;
+      & li {
+        &:first-child {
+          background-color: #333;
+          color: #fff;
+        }
+
+        color: #444;
+        font-size: 11px;
+        font-weight: bold;
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border: 1px solid #ddd;
+      }
+    }
+  }
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & button {
+      font-size: 12px;
+      color: #0072d8;
+      font-weight: bold;
+      border: 1px solid #0072d8;
+      border-radius: 5px;
+      background: #fff;
+      width: 180px;
+      height: 32px;
+      margin-top: 20px;
+    }
+  }
+}

@@ -299,6 +299,7 @@ const StoryContentsLite = (props) => {
                           account = 'gec',
                           title = '',
                           thumbnail_url: image = '',
+                          description: descriptionTxt,
                         } = {},
                       } = {},
                     } = element
@@ -323,9 +324,12 @@ const StoryContentsLite = (props) => {
                             loading="lazy"
                           />
                         </div>
-                        <figcaption className="s-multimedia__caption ">
-                          {title}
-                        </figcaption>
+                        <figcaption
+                          className="s-multimedia__caption"
+                          dangerouslySetInnerHTML={{
+                            __html: descriptionTxt,
+                          }}
+                        />
                       </>
                     )
                   }
@@ -360,7 +364,7 @@ const StoryContentsLite = (props) => {
                           className={alignmentClass}
                           dangerouslySetInnerHTML={{
                             __html: replaceTags(content),
-                          }}></p>
+                          }} />
                       )}
                       {nameAds === 'caja3' &&
                         (arcSite === SITE_ELCOMERCIOMAG ||
@@ -408,7 +412,7 @@ const StoryContentsLite = (props) => {
                           className={alignmentClass}
                           dangerouslySetInnerHTML={{
                             __html: replaceTags(content),
-                          }}></p>
+                          }} />
                       )}
                     </>
                   )

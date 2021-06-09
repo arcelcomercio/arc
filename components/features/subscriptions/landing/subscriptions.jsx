@@ -9,7 +9,7 @@ import { PROD } from '../../../utilities/constants/environment'
 import addScriptAsync from '../../../utilities/script-async'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
-import { getQuery } from '../_dependencies/QueryString'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { PixelActions, sendAction, Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
@@ -101,6 +101,14 @@ const LandingSubscriptions = (props) => {
         })),
       },
     })
+
+    if (getQuery('signStudents')) {
+      setShowTypeLanding('students')
+    }
+
+    const isParamsRedirect = getQuery('signLanding') || getQuery('signStudents')
+
+    setShowSignwall(isParamsRedirect)
   }, [])
 
   const handleUniversity = () => {
@@ -151,6 +159,10 @@ const LandingSubscriptions = (props) => {
       }
 
       setShowProfile(getUserName(userfirstName, userlastName))
+      // setShowSignwall(false)
+      deleteQuery('signLanding')
+      // deleteQuery('signStudents')
+      deleteQuery('dataTreatment')
     }
   }
 
@@ -422,7 +434,7 @@ const LandingSubscriptions = (props) => {
           </section>
         )}
 
-        {getQuery('signLanding') || getQuery('signStudents') || showSignwall ? (
+        {showSignwall && (
           <Signwall
             fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
@@ -434,7 +446,7 @@ const LandingSubscriptions = (props) => {
               setShowTypeLanding('landing')
             }}
           />
-        ) : null}
+        )}
 
         {showModalCall ? (
           <Callout

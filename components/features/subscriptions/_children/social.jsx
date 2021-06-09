@@ -222,7 +222,7 @@ const ButtonSocial = ({
       const URLRedirect = () => {
         window.location.href = `${URL}?urlReference=${encodeURIComponent(
           window.location.href
-        )}&typeModal=${queryDialog()}`
+        )}&typeModal=${queryDialog()}&dataTreatment=${dataTreatment}`
         setLoadText('Redireccionando...')
       }
 
@@ -238,8 +238,8 @@ const ButtonSocial = ({
 
       if (arcSocial === 'google') return URLWindow()
 
-      // return getDevice(window) !== 'desktop' ? URLRedirect() : URLWindow()
       return isFbBrowser() ? URLRedirect() : URLWindow()
+      // return URLRedirect()
     }
     return ''
   }

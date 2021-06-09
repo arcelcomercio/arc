@@ -1,4 +1,4 @@
-import Fingerprint2 from 'fingerprintjs2'
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
@@ -37,12 +37,22 @@ class SignwallComponent extends React.PureComponent {
   componentDidMount() {
     const { siteProperties, arcSite } = this.props
     if (typeof window !== 'undefined' && window.Identity) {
-      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-      window.requestIdle(() => {
-        Fingerprint2.getV18({}, (result) => {
-          setCookie('gecdigarc', result, 365)
+      const apiOrigin = getOriginAPI(arcSite)
+      window.Identity.options({ apiOrigin })
+
+      const fpPromise = FingerprintJS.load()
+      fpPromise
+        .then((fp) => fp.get())
+        .then((result) => {
+          setCookie('gecdigarc', result.visitorId, 365)
+          console.log({ result })
         })
-      })
+        .catch((error) => {
+          console.error(
+            'Ha ocurrido un error al crear la cookie - gecdigarc: ',
+            error
+          )
+        })
     }
 
     window.requestIdle(() => {

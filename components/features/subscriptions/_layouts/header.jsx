@@ -4,7 +4,7 @@ import Signwall from '../_children/Signwall'
 import { AuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
-import { getQuery } from '../_dependencies/QueryString'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { isAuthenticated } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { checkUndefined } from '../_dependencies/Utils'
@@ -52,8 +52,16 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
       const resProfile = window.Identity.userProfile || {}
       activateAuth(resProfile)
       updateStep(2)
+      setShowSignwall(false)
+      deleteQuery('signLanding')
+      deleteQuery('dataTreatment')
     }
   }
+
+  React.useEffect(() => {
+    const isParamsRedirect = getQuery('signLanding')
+    setShowSignwall(isParamsRedirect)
+  }, [])
 
   return (
     <>
@@ -87,7 +95,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
         </div>
       </header>
 
-      {getQuery('signLanding') || getQuery('signStudents') || showSignwall ? (
+      {showSignwall && (
         <Signwall
           fallback={<div>Cargando...</div>}
           typeDialog={showTypeLanding} // tipo de modal (students , landing)
@@ -99,7 +107,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
             setShowTypeLanding('landing')
           }}
         />
-      ) : null}
+      )}
     </>
   )
 }

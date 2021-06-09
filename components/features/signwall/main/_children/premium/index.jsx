@@ -37,6 +37,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
   if (getQuery('signPremium')) {
     setTimeout(() => {
       deleteQuery('signPremium')
+      deleteQuery('dataTreatment')
     }, 2000)
     return templates.login
   }

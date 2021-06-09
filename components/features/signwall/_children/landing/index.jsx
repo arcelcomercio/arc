@@ -28,6 +28,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
     setTimeout(() => {
       deleteQuery('signLanding')
       deleteQuery('signStudents')
+      deleteQuery('dataTreatment')
     }, 1000)
     return templates.login
   }

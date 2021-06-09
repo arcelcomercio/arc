@@ -36,6 +36,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
   if (getQuery('signPaywall')) {
     setTimeout(() => {
       deleteQuery('signPaywall')
+      deleteQuery('dataTreatment')
     }, 2000)
     return templates.login
   }

@@ -22,6 +22,7 @@ import {
   ELEMENT_IMAGE,
   ELEMENT_INTERSTITIAL_LINK,
   ELEMENT_LINK_LIST,
+  ELEMENT_LIST,
   ELEMENT_OEMBED,
   ELEMENT_QUOTE,
   ELEMENT_RAW_HTML,
@@ -370,6 +371,11 @@ class StoryContentAmp extends React.PureComponent {
                 }
                 if (type === ELEMENT_TABLE) {
                   return <StoryContentChildTable data={element} type={type} />
+                }
+
+                // Condicion para mag sin lista - components/features/story/title/amp.jsx
+                if (type === ELEMENT_LIST && arcSite === SITE_ELCOMERCIOMAG) {
+                  return null
                 }
 
                 if (type === ELEMENT_GALLERY) {

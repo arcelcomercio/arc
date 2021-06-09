@@ -9,7 +9,7 @@ import addScriptAsync from '../../../utilities/script-async'
 import Signwall from '../_children/Signwall'
 import { AuthContext, AuthProvider } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
-import { getQuery } from '../_dependencies/QueryString'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { getUserName, isLogged } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
@@ -76,6 +76,9 @@ const WrapperPageSubs = ({ properties }) => {
           extra: errIdentitySDK || {},
         })
       })
+
+    const isParamsRedirect = getQuery('signLanding')
+    setShowSignwall(isParamsRedirect)
   }, [])
 
   const handleSignwall = () => {
@@ -119,6 +122,9 @@ const WrapperPageSubs = ({ properties }) => {
         })
       }
       setShowProfile(getUserName(userfirstName, userlastName))
+      setShowSignwall(false)
+      deleteQuery('signLanding')
+      deleteQuery('dataTreatment')
     }
   }
 
@@ -206,9 +212,7 @@ const WrapperPageSubs = ({ properties }) => {
           </section>
         )}
 
-        {(getQuery('signLanding') ||
-          getQuery('signStudents') ||
-          showSignwall) && (
+        {showSignwall && (
           <Signwall
             fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}

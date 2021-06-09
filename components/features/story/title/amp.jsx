@@ -24,6 +24,7 @@ const classes = {
   gallery: 'amp-sh bg-white w-full pr-20 pl-20 m-5 mx-auto',
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
+  listClasses: 'amp-story-content mt-20',
 }
 const StoryTitleAmp = () => {
   const { arcSite, contextPath, globalContent: data } = useFusionContext()
@@ -37,6 +38,7 @@ const StoryTitleAmp = () => {
     subtype,
     primarySectionLink,
     promoItems: { basic_gallery: { content_elements: galleryItems } = {} } = {},
+    contentElementsListOne: { items = [], type = '' } = {},
   } = new StoryData({
     data,
     contextPath,
@@ -49,8 +51,8 @@ const StoryTitleAmp = () => {
     dataSlot,
     prebidSlot: `19186-${namePublicidad}-amp-caja1`,
     width,
-    height: '50',
-    movil1: true,
+    height: '100',
+    movil1: false,
     primarySectionLink,
     arcSite,
     size: '320x100',
@@ -94,6 +96,19 @@ const StoryTitleAmp = () => {
           <AmpStoriesChild arcSite={arcSite} />
 
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
+
+          {/* Condicion para mag igual que web */}
+          {items && arcSite === SITE_ELCOMERCIOMAG && type === 'list' ? (
+            <div className={classes.listClasses}>
+              <ul>
+                {items.map(({ content }) => (
+                    <>
+                      <li dangerouslySetInnerHTML={{ __html: content }} />
+                    </>
+                  ))}
+              </ul>
+            </div>
+          ) : null}
         </header>
 
         {arcSite !== SITE_ELCOMERCIOMAG && subtype !== GALLERY_VERTICAL && (
