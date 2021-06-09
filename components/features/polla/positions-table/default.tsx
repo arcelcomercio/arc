@@ -70,7 +70,7 @@ const PollaPositionsTable: FC<Props> = (props) => {
           <div className="polla-positions__group">
             <div className="polla-positions__group-left">
               <div className="polla-positions__group-left__title">
-                Grupo {group.name}
+                {group.name}
               </div>
               {group?.teams?.map((team, i) => (
                 <ul className="polla-positions__group-left__teams">
