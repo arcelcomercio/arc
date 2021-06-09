@@ -569,7 +569,7 @@ const PollaScoreList: FC<Props> = (props) => {
                           }
                           className={`polla-score__form-btn ${score.msg || ''}`}
                           type="submit">
-                          {score.msg === 'success' ? 'Guardado' : 'Juega'}
+                          {score.msg === 'success' ? 'Guardado' : 'Guardar'}
                           <div
                             className="polla-score__spinner btn"
                             style={{ fontSize: '4px' }}
