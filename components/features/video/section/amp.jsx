@@ -72,14 +72,15 @@ const VideoSectionAmp = () => {
     height: '100',
     movil1: false,
     arcSite,
+    size: '320x50',
   }
 
-  const parametersCaja2 = { 
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`, 
+  const parametersCaja2 = {
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`,
     prebidSlot: `19186-${namePublicidad}-amp-caja2`,
-    width, 
-    height, 
-    movil1: true,
+    width,
+    height,
+    movil1: false,
     arcSite,
   }
 
@@ -89,7 +90,7 @@ const VideoSectionAmp = () => {
     prebidSlot: `19186-${namePublicidad}-amp-caja3`,
     width,
     height,
-    movil1: true,
+    movil1: false,
     arcSite,
   }
   const parametersCaja4 = {
@@ -98,7 +99,7 @@ const VideoSectionAmp = () => {
     prebidSlot: `19186-${namePublicidad}-amp-caja4`,
     width,
     height,
-    movil1: true,
+    movil1: false,
     arcSite,
   }
 

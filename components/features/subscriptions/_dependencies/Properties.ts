@@ -671,6 +671,7 @@ const PropertiesCommon = {
     notHasAccount:   `No tengo cuenta `,
     RememberChose:   'Recuerda que puedes elegir entre nuestros diferentes planes.',
     verifyEmail:     'Verifique su correo electrónico. A este enviaremos su boleta.',
+    verifyEmailPayEfec: 'Verifique su correo electrónico. Después de realizar el pago a este enviaremos su boleta.',
     rememberRecurrency: 'El precio de la suscripción se cargará automáticamente en tu tarjeta cada mes o año, según el período elegido.',
     showSecure:      'Compra seguro. Esta web está protegida',
     textTerms:       'Acepto las condiciones de servicio, las políticas de privacidad, y estoy de acuerdo con la información.',
@@ -703,12 +704,12 @@ const PropertiesCommon = {
     reSendEmail:     'Reenviar correo de activación',
     youCanSendEmail: 'Podrás reenviar nuevamente dentro de',
     textWinback:     '¡Tenemos un precio especial para ti!',
+    howItWork:       '¿Cómo funciona?',
+    textBanca:       'Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Caja Arequipa Y Banco Pichincha, a travéz de la banca por internet o banca móvil en la opción pago de servicios.',
+    textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.',
     titleCompany:    'Por favor envíanos tus datos para brindarte información sobre nuestras suscripciones corporativas.',
     successCompany:  'Tu mensaje ha sido enviado, nos pondremos en contacto contigo.',
     errorCompany:    'Ha ocurrido un error. Inténtelo más tarde',
-    howItWork:       '¿Cómo funciona?',
-    textBanca:       'Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Caja Arequipa Y Banco Pichincha, a travéz de la banca por internet o banca móvil en la opción pago de servicios.',
-    textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.'
   },
 }
 

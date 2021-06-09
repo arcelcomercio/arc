@@ -241,14 +241,15 @@
     display: block;
     position: relative;
 
+    &:disabled {
+      color: #999;
+      border-color: #aaa;
+      background-color: transparent;
+    }
+
     &.success {
       border-color: #34c759;
       color: #34c759;
-      background-color: transparent;
-    }
-    &.error {
-      color: #999;
-      border-color: #aaa;
       background-color: transparent;
     }
   }
@@ -265,6 +266,13 @@
       }
       .polla-score__form-btn {
         pointer-events: none;
+      }
+    }
+    &.not-touched {
+      .polla-score__form-btn {
+        color: #999;
+        border-color: #aaa;
+        background-color: transparent;
       }
     }
   }

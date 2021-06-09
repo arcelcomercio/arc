@@ -48,7 +48,7 @@ const StoryTitleAmp = () => {
     height,
     movil1: false,
     arcSite,
-    size:'320x100'
+    size:'320x50'
   }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'

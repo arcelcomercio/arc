@@ -247,7 +247,7 @@ class StoryContents extends React.PureComponent {
                 : ''
             }`}
             style={isPremium && !isPreview ? { display: 'none' } : {}}
-            id="contenedor">
+            id="container">
             {!requestUri.includes('/recetas/') && subtype !== MINUTO_MINUTO && (
               <StoryContentsChildIcon />
             )}

@@ -298,7 +298,7 @@ const FormRegister = (props) => {
             setShowUserWithSubs(false) // no tengo subs
           } else {
             setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
+            const divPremium = document.getElementById('container')
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
               divPremium.removeAttribute('style')

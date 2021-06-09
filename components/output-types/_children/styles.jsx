@@ -43,8 +43,8 @@ const Styles = ({
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (metaValue('section_style') === 'resultados_elecciones')
     style = 'elecciones-2021'
-  // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
+  // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (

@@ -130,7 +130,11 @@ const WrapperPaymentSubs = () => {
             userStep === 2 && (
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
-          <Wrapper step={userStep}>
+          <Wrapper
+            step={userStep}
+            style={{
+              minHeight: '530px',
+            }}>
             {!userLoading && (
               <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
