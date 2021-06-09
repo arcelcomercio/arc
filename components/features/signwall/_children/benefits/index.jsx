@@ -111,64 +111,98 @@ const Benefits = ({
   primaryFont,
 }) => (
   <Cont>
-    <TitleContainer primaryFont={primaryFont}>
-      {getTitle(typeMessage, nameMPP, arcSite)}
-    </TitleContainer>
-
-    <div className="item">
-      <div className="icon">
-        <BeneOne />
+    {arcSite === 'trome' ? (
+      <div className="box-benefist">
+        <h1>¡Regístrate gratis!</h1>
+        <p>
+          Mantente informado por el{' '}
+          <strong>diario en español más leído de hispanoamérica. </strong>{' '}
+          Tendrás todas las noticias del espéctaculo, política, deportes y las
+          mejores columnas de opinión de la prensa nacional.{' '}
+          <strong>Con tu cuenta podrás: </strong>
+        </p>
+        <ul>
+          <li>
+            <span className="icon-slash">&#47;&#47;&#47;</span>{' '}
+            <strong>Acceder</strong> a más de 400 noticias nuevas diarias además
+            de informes especiales.
+          </li>
+          <li>
+            <span className="icon-slash">&#47;&#47;&#47;</span>{' '}
+            <strong> Participar </strong>en todas las promociones de trome.pe y
+            ganar miles de premios.
+          </li>
+          <li>
+            <span className="icon-slash">&#47;&#47;&#47;</span>{' '}
+            <strong>Recibir nuestro ‘Cafe de Noticias’ </strong> todos los días.
+            Un newsletter a nuestro estilo.
+          </li>
+        </ul>
       </div>
+    ) : (
+      <>
+        <TitleContainer primaryFont={primaryFont}>
+          {getTitle(typeMessage, nameMPP, arcSite)}
+        </TitleContainer>
 
-      <div className="info">
-        <ItemTitle mainColorTitle={mainColorTitle}>
-          Acceder a más de {arcSite === 'elcomercio' ? '400' : '100'} noticias
-          nuevas al día
-        </ItemTitle>
-        <p className="item-text">e informes especiales</p>
-      </div>
-    </div>
+        <div className="item">
+          <div className="icon">
+            <BeneOne />
+          </div>
 
-    {arcSite === 'elcomercio' || arcSite === 'elcomerciomag' ? (
-      <div className="item">
-        <div className="icon">
-          <BeneFive />
+          <div className="info">
+            <ItemTitle mainColorTitle={mainColorTitle}>
+              Acceder a más de {arcSite === 'elcomercio' ? '400' : '100'}{' '}
+              noticias nuevas al día
+            </ItemTitle>
+            <p className="item-text">e informes especiales</p>
+          </div>
         </div>
 
-        <div className="info">
-          <ItemTitle mainColorTitle={mainColorTitle}>
-            Escuchar podcasts con las primeras noticias del día
-          </ItemTitle>
-          <p className="item-text">desde la App</p>
+        {(arcSite === 'elcomercio' || arcSite === 'elcomerciomag') && (
+          <div className="item">
+            <div className="icon">
+              <BeneFive />
+            </div>
+
+            <div className="info">
+              <ItemTitle mainColorTitle={mainColorTitle}>
+                Escuchar podcasts con las primeras noticias del día
+              </ItemTitle>
+              <p className="item-text">desde la App</p>
+            </div>
+          </div>
+        )}
+
+        <div className="item">
+          <div className="icon">
+            <BeneThree />
+          </div>
+
+          <div>
+            <ItemTitle mainColorTitle={mainColorTitle}>
+              Guardar tus notas favoritas
+            </ItemTitle>
+            <p className="item-text">en la App</p>
+          </div>
         </div>
-      </div>
-    ) : null}
 
-    <div className="item">
-      <div className="icon">
-        <BeneThree />
-      </div>
+        {(arcSite === 'gestion' || arcSite === 'elcomercio') && (
+          <div className="item">
+            <div className="icon">
+              <BeneFour />
+            </div>
 
-      <div>
-        <ItemTitle mainColorTitle={mainColorTitle}>
-          Guardar tus notas favoritas
-        </ItemTitle>
-        <p className="item-text">en la App</p>
-      </div>
-    </div>
-
-    {arcSite === 'gestion' || arcSite === 'elcomercio' ? (
-      <div className="item">
-        <div className="icon">
-          <BeneFour />
-        </div>
-
-        <div>
-          <ItemTitle mainColorTitle={mainColorTitle}>Personalizar</ItemTitle>
-          <p className="item-text">tus Newsletters</p>
-        </div>
-      </div>
-    ) : null}
+            <div>
+              <ItemTitle mainColorTitle={mainColorTitle}>
+                Personalizar
+              </ItemTitle>
+              <p className="item-text">tus Newsletters</p>
+            </div>
+          </div>
+        )}
+      </>
+    )}
   </Cont>
 )
 

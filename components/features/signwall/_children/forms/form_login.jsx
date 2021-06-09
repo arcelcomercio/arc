@@ -47,7 +47,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
   } = attributes
 
   const { changeTemplate } = React.useContext(ModalConsumer)
-  const [showLoginEmail, setShowLoginEmail] = React.useState(valTemplate)
+  const [showLoginEmail, setShowLoginEmail] = React.useState(
+    valTemplate || arcSite === 'trome'
+  )
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showUserWithSubs, setShowUserWithSubs] = React.useState(false)
@@ -436,7 +438,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
               </S.Link>
             </S.Text>
 
-            {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
+            {arcSite === 'elcomercio' ||
+            arcSite === 'gestion' ||
+            arcSite === 'trome' ? (
               <>
                 <br />
                 <CheckBox
