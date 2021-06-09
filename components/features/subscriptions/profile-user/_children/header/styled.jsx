@@ -7,6 +7,7 @@ export const HeaderWrapper = styled.div`
   color: ${(props) => props.ctx || 'white'};
   position: relative;
   width: 100%;
+  border-bottom: ${(props) => (props.br ? '7px' : '0px')} solid black;
 `
 
 export const HeaderContent = styled.div`
@@ -73,6 +74,11 @@ export const ContLogo = styled.div`
       max-width: 160px;
       height: auto;
     }
+  }
+
+  & > .cont_left {
+    position: absolute;
+    left: 0px;
   }
 
   & > .cont_depor {
