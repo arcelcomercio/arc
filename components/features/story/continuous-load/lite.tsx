@@ -7,6 +7,7 @@ import { Story } from 'types/story'
 
 import { deleteQueryString } from '../../../utilities/parse/queries'
 import { removeLastSlash } from '../../../utilities/parse/strings'
+import StoryChildrenContinueHeader from '../_children/continue-header/lite'
 
 const StoryContinousLoad: FC = () => {
   const { globalContent, arcSite, requestUri } = useAppContext<Story>()
@@ -184,6 +185,7 @@ const StoryContinousLoad: FC = () => {
   return (
     <div>
       <h1>Hola mundo</h1>
+      <StoryChildrenContinueHeader hideAnchor={false} />
     </div>
   )
 }
