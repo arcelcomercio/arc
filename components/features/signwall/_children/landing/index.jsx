@@ -10,7 +10,7 @@ import {
   getQuery,
 } from '../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import { FormForgot } from '../forms/form_forgot'
+import FormForgot from '../forms/form_forgot'
 import { FormLoginPaywall } from '../forms/form_login_landing'
 import FormRegister from '../forms/form_register'
 import { Close } from '../iconos'

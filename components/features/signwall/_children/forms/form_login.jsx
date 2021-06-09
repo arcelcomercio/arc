@@ -22,7 +22,7 @@ import { Input } from './control_input_select'
 import { AuthURL, ButtonEmail, ButtonSocial } from './control_social'
 import * as S from './styles'
 
-export const FormLogin = ({ valTemplate, attributes }) => {
+const FormLogin = ({ valTemplate, attributes }) => {
   const {
     arcSite,
     siteProperties: {
@@ -563,3 +563,5 @@ export const FormLogin = ({ valTemplate, attributes }) => {
     </>
   )
 }
+
+export default FormLogin

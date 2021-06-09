@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { BeneFive, BeneFour, BeneOne, BeneThree } from '../iconos'
 import { Cont, ItemTitle, TitleContainer } from './styles'
@@ -172,4 +172,4 @@ const Benefits = ({
   </Cont>
 )
 
-export { Benefits }
+export default Benefits

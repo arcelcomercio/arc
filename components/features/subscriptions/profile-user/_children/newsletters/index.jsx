@@ -177,4 +177,4 @@ class NewsLetter extends Component {
   }
 }
 
-export { NewsLetter }
+export default NewsLetter

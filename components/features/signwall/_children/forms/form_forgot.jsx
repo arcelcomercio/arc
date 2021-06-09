@@ -13,7 +13,7 @@ import { Back, ForgotPass, MsgForgotPass } from '../iconos'
 import { Input } from './control_input_select'
 import * as S from './styles'
 
-export const FormForgot = ({ typeDialog }) => {
+const FormForgot = ({ typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
@@ -247,3 +247,5 @@ export const FormForgot = ({ typeDialog }) => {
     </S.Form>
   )
 }
+
+export default FormForgot
