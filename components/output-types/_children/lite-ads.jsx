@@ -404,6 +404,7 @@ const LiteAds = ({
           {arcSite === 'elcomerciomag' ||
           arcSite === 'peru21' ||
           arcSite === 'trome' ||
+          arcSite === 'elbocon' ||
           arcSite === 'depor' ? (
             <>
               <script
