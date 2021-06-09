@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { ELEMENT_TEXT, ELEMENT_LIST } from '../constants/element-types'
+import { ELEMENT_LIST, ELEMENT_TEXT } from '../constants/element-types'
 import { SITE_DEPOR, SITE_ELCOMERCIOMAG } from '../constants/sitenames'
 
 /**
@@ -9,6 +9,7 @@ import { SITE_DEPOR, SITE_ELCOMERCIOMAG } from '../constants/sitenames'
  * @param {Object} config
  * @param {Object[]} config.contentElements - Contenido de la noticia
  * @param {number} [config.adsEvery=2] - Cantidad de parrafos que separan los ads disponibles en contenido
+ * @param {string} config.arcSite
  * @returns {Object[]} - Contenido de noticia con ads cada N parrafos. N = adsEvery.
  */
 export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
@@ -39,19 +40,17 @@ export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
                 adsCounter += 1
               }
             }
-          } else {
-            if (arcSite === SITE_DEPOR && textElementsCounter === 0) {
+          } else if (arcSite === SITE_DEPOR && textElementsCounter === 0) {
+            dataElements.publicidad = true
+            dataElements.nameAds = 'caja3'
+          } else if (
+            textElementsCounter > 0 &&
+            textElementsCounter % adsEvery === 0
+          ) {
+            if (adsCounter < contentAdsList.length) {
               dataElements.publicidad = true
-              dataElements.nameAds = 'caja3'
-            } else if (
-              textElementsCounter > 0 &&
-              textElementsCounter % adsEvery === 0
-            ) {
-              if (adsCounter < contentAdsList.length) {
-                dataElements.publicidad = true
-                dataElements.nameAds = contentAdsList[adsCounter]
-                adsCounter += 1
-              }
+              dataElements.nameAds = contentAdsList[adsCounter]
+              adsCounter += 1
             }
           }
           textElementsCounter += 1
