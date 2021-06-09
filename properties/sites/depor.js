@@ -134,7 +134,7 @@ export default {
     mainColorBr: '#d5d945',
     mainColorLink: '#007c31',
     mainColorBtn: '#007c31',
-    authProviders: ['facebook'],
+    authProviders: ['facebook', 'google'],
   },
   isDfp: true,
   archiveLimit: '2015-12-29',
