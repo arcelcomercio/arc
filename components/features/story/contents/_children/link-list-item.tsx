@@ -2,7 +2,19 @@ import * as React from 'react'
 
 import Image from '../../../../global-components/image'
 
-const LinkListItem = ({ url, title, image, isAmp }) => {
+interface FeatureProps {
+  url?: string
+  title?: string
+  image?: string
+  isAmp?: boolean
+}
+
+const LinkListItem: React.FC<FeatureProps> = ({
+  url,
+  title = '',
+  image = '',
+  isAmp,
+}) => {
   const classAmp = isAmp ? 'amp-' : ''
   const classes = {
     multimedia: `${classAmp}story-content__link-list-figure position-relative`,
@@ -11,19 +23,19 @@ const LinkListItem = ({ url, title, image, isAmp }) => {
     info: `${classAmp}story-content__link-list-information w-full md:pr-10 pl-20`,
     titleLink: `${classAmp}story-content__link-list-title-link underline font-bold overflow-hidden`,
   }
-
+  const width = 96
+  const height = 64
   return (
     <div className={classes.item}>
       <figure className={classes.multimedia}>
         <a itemProp="url" href={url}>
           <Image
             src={image}
-            width="96"
-            height="64"
+            width={width}
+            height={height}
             alt={title}
-            class={classes.image}
+            className={classes.image}
             loading="lazy"
-            amp={isAmp}
           />
         </a>
       </figure>

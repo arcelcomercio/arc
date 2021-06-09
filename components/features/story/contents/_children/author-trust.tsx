@@ -1,3 +1,4 @@
+import { AnyObject } from 'fusion:content'
 import * as React from 'react'
 
 import {
@@ -31,7 +32,7 @@ const StoryContentChildAuthorTrust: React.FC<{
   locality: string
   authorEmail: string
   primarySection?: string
-  authorsList: any[]
+  authorsList: AnyObject[]
 }> = ({
   author,
   authorLink,
@@ -45,24 +46,22 @@ const StoryContentChildAuthorTrust: React.FC<{
 }) => {
   const displayLoc = locality === '' ? 'Lima' : locality
 
-  const detailsAuthorParamet = {
-    author,
-    authorLink,
-    authorEmail,
-    authorImage,
-    authorRole,
-  }
-
   authorsList.shift()
   return (
     <>
       <div className={classes.author}>
         {primarySection !== 'Columnistas' && (
-          <StoryContentChildAuthorDetailsTrust {...detailsAuthorParamet} />
+          <StoryContentChildAuthorDetailsTrust
+            author={author}
+            authorLink={authorLink}
+            authorEmail={authorEmail}
+            authorImage={authorImage}
+            authorRole={authorRole}
+          />
         )}
         <div
           className={
-            authorsList.lenght > 0
+            authorsList.length > 0
               ? classes.authorDate
               : `${classes.authorDate} ${classes.authorDateTop}`
           }>
@@ -70,8 +69,7 @@ const StoryContentChildAuthorTrust: React.FC<{
             {updatedDate &&
               `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
                 updatedDate,
-                false,
-                true
+                false
               )}`}
           </time>
           <time className={classes.authorTime} dateTime={updatedDate}>
@@ -82,15 +80,20 @@ const StoryContentChildAuthorTrust: React.FC<{
       {primarySection !== 'Columnistas' &&
         authorsList &&
         authorsList.map((authorData) => {
-          const detailsAuthorRenderer = {
-            author: authorData.nameAuthor,
-            authorLink: authorData.urlAuthor,
-            authorEmail: authorData.mailAuthor,
-            authorImage: authorData.imageAuthor,
-            authorRole: authorData.role,
-          }
+          const authorList = authorData?.nameAuthor
+          const authorLinkList = authorData?.urlAuthor
+          const authorEmailList = authorData?.mailAuthor
+          const authorImageList = authorData?.imageAuthor
+          const authorRoleList = authorData?.role
           return (
-            <StoryContentChildAuthorDetailsTrust {...detailsAuthorRenderer} />
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <StoryContentChildAuthorDetailsTrust
+              author={authorList as string}
+              authorLink={authorLinkList as string}
+              authorImage={authorImageList as string}
+              authorRole={authorRoleList as string}
+              authorEmail={authorEmailList as string}
+            />
           )
         })}
     </>

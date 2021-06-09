@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
 import LiteYoutube from '../../../../global-components/lite-youtube'
 
@@ -7,29 +7,29 @@ const classes = {
   newsEmbed: 'story-content__embed',
 }
 
-// Funcion extraida de helpers
-const storyVideoPlayerId = (content = '') => {
-  const pattern = content.includes('id')
-    ? /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
-    : /<script (src=(.*))(.*)(async(=(.*))?)><\/script>/
-  return content.match(pattern) || []
+interface FeatureProps {
+  content?: string
 }
+// Funcion extraida de helpers
 
 const clearUrlOrCode = (url = '') => {
-  const clearUrl = url
-    .trim()
-    .replace('"', '')
-    .replace('"', '')
+  const clearUrl = url.trim().replace('"', '').replace('"', '')
   return { clearUrl, code: clearUrl.split('#')[1] }
 }
 
-const isDaznServicePlayer = content =>
-  content.includes('player.daznservices.com/') ||
-  content.includes('player.performgroup.com/')
-
 const extractHash = (path = '') => path.replace(/.+#|"/g, '')
 
-const RawHTML = ({ content }) => {
+const RawHTML: React.FC<FeatureProps> = ({ content = '' }) => {
+  const isDaznServicePlayer =
+    content?.includes('player.daznservices.com/') ||
+    content?.includes('player.performgroup.com/') ||
+    false
+
+  const pattern = content.includes('id')
+    ? /<script (.+)id=([A-Za-z0-9 _]*[A-Za-z0-9])(.*)><\/script>/
+    : /<script (src=(.*))(.*)(async(=(.*))?)><\/script>/
+  const storyVideoPlayerId = content.match(pattern) || []
+
   const { outputType } = useAppContext()
   let URL = ''
   let URL_VIDEO = ''
@@ -43,10 +43,10 @@ const RawHTML = ({ content }) => {
     const [URI] = rgexpURL.exec(scriptResult) || []
     URL = URI
   } else if (
-    isDaznServicePlayer(content) &&
+    isDaznServicePlayer &&
     content.trim().match(/^<script(.*)<\/script>$/)
   ) {
-    const idVideos = storyVideoPlayerId(content)
+    const idVideos = storyVideoPlayerId
     const urlAssignHttp = content.includes('player.daznservices.com/')
       ? idVideos[1].replace('src="//', 'https://')
       : idVideos[1]
@@ -58,9 +58,9 @@ const RawHTML = ({ content }) => {
       : `${urlAssignHttp}`
   }
 
-  const idVideo = storyVideoPlayerId(content)
+  const idVideo = storyVideoPlayerId
   const idVideoEmbed =
-    isDaznServicePlayer(content) && content.includes('id') && idVideo[2]
+    isDaznServicePlayer && content.includes('id') && idVideo[2]
       ? `id_video_embed_${idVideo[2]}`
       : `_${clearUrlOrCode(idVideo[2] || '').code || ''}`
   const isWidgets = URL && URL.includes('widgets.js')
@@ -123,7 +123,7 @@ const RawHTML = ({ content }) => {
       className={classes.newsEmbed}
       dangerouslySetInnerHTML={{
         __html:
-          isDaznServicePlayer(content) && outputType !== 'lite'
+          isDaznServicePlayer && outputType !== 'lite'
             ? content.trim().replace('performgroup', 'daznservices')
             : content,
       }}

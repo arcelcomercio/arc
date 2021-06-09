@@ -50,9 +50,14 @@ interface ContentElementAdditionalProperties {
   _id: number
 }
 
-interface TypeListItems {
+export interface TypeListItems {
   content: string
   type: string
+  url: string
+  image: {
+    url: string
+    version: string
+  }
 }
 export interface ContentElement {
   _id: string
@@ -232,17 +237,6 @@ interface AdditionalProperties {
   has_published_copy: boolean
   is_published: boolean
   publish_date: string
-}
-
-export interface EmbedConfigDataStories {
-  date?: string
-  description?: string
-  title?: string
-  image?: {
-    caption?: string
-    url?: string
-  }
-  url?: string
 }
 
 interface EmbedConfigData {
@@ -443,6 +437,7 @@ export interface Story extends ANSBase, ANSDates {
   additional_properties: AdditionalProperties
   website: ArcSite
   website_url: string
+  siteName?: string
 }
 
 export interface Stories extends ANSBase {
@@ -454,4 +449,15 @@ export interface Stories extends ANSBase {
   siteName: string
   tag_name: string
   page_number: number
+}
+
+export interface ListDataStories {
+  [x: string]: string
+  date?: string
+  description?: string
+  url?: string
+  imageUrl?: string
+  websiteUrl?: string
+  title?: string
+  storyType?: string
 }

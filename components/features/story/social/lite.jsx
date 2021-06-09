@@ -5,6 +5,7 @@ import ShareButtons from '../../../global-components/lite/share'
 import TProLbl from '../../../global-components/trustprojectlabel'
 import { addSlashToEnd } from '../../../utilities/parse/strings'
 import StoryData from '../../../utilities/story-data'
+import CardMostReadLite from '../_children/most-read/lite'
 
 const classes = {
   container: 'st-social f just-between',
@@ -17,7 +18,13 @@ const classes = {
 }
 
 const StorySocialLite = () => {
-  const { requestUri, globalContent, arcSite, contextPath } = useAppContext()
+  const {
+    requestUri,
+    globalContent,
+    arcSite,
+    contextPath,
+    deployment,
+  } = useAppContext()
 
   const {
     taxonomy: { sections = [] } = {},
@@ -50,6 +57,15 @@ const StorySocialLite = () => {
     </div>
   ) : (
     <div className={classes.container}>
+      <CardMostReadLite
+        viewImage
+        story={globalContent}
+        arcSite={arcSite}
+        deployment={deployment}
+        storiesQty={10}
+        contextPath={contextPath}
+      />
+
       <div className={classes.upsection}>
         <h2
           itemProp="name"

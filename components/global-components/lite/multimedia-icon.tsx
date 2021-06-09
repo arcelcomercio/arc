@@ -4,7 +4,10 @@ const classes = {
   icon: 'm-icon pos-abs',
 }
 
-const MultimediaIcon = ({ type }) => {
+interface FeatureProps {
+  type?: string
+}
+const MultimediaIcon: React.FC<FeatureProps> = ({ type = '' }) => {
   switch (type) {
     case 'basic_gallery':
       return (
@@ -32,8 +35,7 @@ const MultimediaIcon = ({ type }) => {
       )
 
     default:
-      return ''
+      return <> </>
   }
 }
-
 export default MultimediaIcon

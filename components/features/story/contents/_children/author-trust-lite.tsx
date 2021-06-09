@@ -1,9 +1,10 @@
+import { AnyObject } from 'fusion:content'
 import React from 'react'
-import {
-  formatDayMonthYearBasic,
-  formatDateStory,
-} from '../../../../utilities/date-time/dates'
 
+import {
+  formatDateStory,
+  formatDayMonthYearBasic,
+} from '../../../../utilities/date-time/dates'
 import DetailsAuthor from './details-author-trust-lite'
 
 const classes = {
@@ -18,36 +19,48 @@ const classes = {
   authorRole: 'story-contents__author-role',
 }
 
-const StoryContentChildAuthorTrustLite = ({
-  author,
+interface FeatureProps {
+  author?: string
+  authorLink: string
+  authorImage: string
+  authorRole: string
+  displayDate: Date
+  publishDate: Date
+  locality: string
+  authorEmail: string
+  primarySection?: string
+  authorsList: AnyObject[]
+}
+
+const StoryContentChildAuthorTrustLite: React.FC<FeatureProps> = ({
+  author = '',
   authorLink,
   authorImage,
   authorRole,
   displayDate,
-  publishDate: updateDate,
+  publishDate,
   locality,
   authorEmail,
   primarySection = '',
   authorsList,
 }) => {
   const displayLoc = locality === '' ? 'Lima' : locality
-  const detailsAuthorParamet = {
-    author,
-    authorLink,
-    authorEmail,
-    authorImage,
-    authorRole,
-  }
 
   authorsList.shift()
 
   return (
     <>
       <div className={classes.author}>
-        <DetailsAuthor {...detailsAuthorParamet}></DetailsAuthor>
+        <DetailsAuthor
+          author={author}
+          authorLink={authorLink}
+          authorEmail={authorEmail}
+          authorImage={authorImage}
+          authorRole={authorRole}
+        />
         <div
           className={
-            authorsList.lenght > 0
+            authorsList?.length > 0
               ? classes.authorDate
               : `${classes.authorDate} ${classes.authortop}`
           }>
@@ -55,26 +68,32 @@ const StoryContentChildAuthorTrustLite = ({
             {displayDate &&
               `${displayLoc && `${displayLoc}, `} ${formatDayMonthYearBasic(
                 displayDate,
-                false,
-                true
+                false
               )}`}
           </time>
-          <time dateTime={updateDate}>
-            {updateDate && formatDateStory(updateDate)}
+          <time dateTime={publishDate}>
+            {publishDate && formatDateStory(publishDate)}
           </time>
         </div>
       </div>
       {primarySection !== 'Columnistas' &&
         authorsList &&
-        authorsList.map(authorData => {
-          const detailsAuthorRenderer = {
-            author: authorData.nameAuthor,
-            authorLink: authorData.urlAuthor,
-            authorEmail: authorData.mailAuthor,
-            authorImage: authorData.imageAuthor,
-            authorRole: authorData.role,
-          }
-          return <DetailsAuthor {...detailsAuthorRenderer}></DetailsAuthor>
+        authorsList.map((authorData) => {
+          const authorList = authorData?.name
+          const authorLinkList = authorData?.urlAuthor
+          const authorEmailList = authorData?.mailAuthor
+          const authorImageList = authorData?.imageAuthor
+          const authorRoleList = authorData?.role
+
+          return (
+            <DetailsAuthor
+              author={authorList as string}
+              authorLink={authorLinkList as string}
+              authorImage={authorImageList as string}
+              authorRole={authorRoleList as string}
+              authorEmail={authorEmailList as string}
+            />
+          )
         })}
     </>
   )
