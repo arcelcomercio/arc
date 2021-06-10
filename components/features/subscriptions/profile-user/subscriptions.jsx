@@ -87,6 +87,12 @@ const WrapperProfile = () => {
   } = React.useContext(ModalConsumer)
 
   React.useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/?ref=signwall'
+    }
+  }, [])
+
+  React.useEffect(() => {
     Sentry.init({
       dsn: urlCommon.sentrySign,
       debug: env !== PROD,
@@ -120,10 +126,6 @@ const WrapperProfile = () => {
           extra: errIdentitySDK || {},
         })
       })
-
-    if (typeof window !== 'undefined' && !isAuthenticated()) {
-      window.location.href = '/?ref=signwall'
-    }
   }, [])
 
   return (
