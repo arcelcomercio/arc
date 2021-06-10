@@ -13,28 +13,26 @@ interface FeatureProps {
   embedHtml?: string
   descriptionVideo?: string
   primarySection?: string
-  description?: string
   duration?: number
   classImage?: string
   content?: string
   streams?: Streams[]
   header?: boolean
-  caption?: string
+  caption: string
   id?: string
   imageUrl?: string
 }
-
 const StoryContentChildHtml: FC<FeatureProps> = ({
   embedHtml = '',
-  descriptionVideo,
-  primarySection,
-  duration,
-  streams,
+  descriptionVideo = '',
+  primarySection = '',
+  duration = 0,
+  streams = [],
   classImage = 'story-contents',
   header = false,
   caption,
-  id,
-  imageUrl,
+  id = '',
+  imageUrl = '',
 }) => {
   if (embedHtml?.includes('id="powa-') && !header) {
     return (

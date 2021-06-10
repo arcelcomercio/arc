@@ -21,30 +21,30 @@ const classes = {
 }
 
 interface FeatureProps {
-  subtype?: string
-  multimedia?: string
-  canonicalUrl?: string
-  isPremium?: boolean
-  promoItems?: PromoItems
+  subtype: string
+  multimedia: string
+  canonicalUrl: string
+  isPremium: boolean
+  promoItems: PromoItems
   primarySection?: string
-  promoItemJwplayer?: EmbedConfig
+  promoItemJwplayer: EmbedConfig
 }
 
-const StoryGalleryLite: FC<FeatureProps> = (props) => {
+const StoryChildrenGalleryLite: FC<FeatureProps> = (props) => {
   const { arcSite, requestUri } = useAppContext()
 
   const {
     subtype,
     canonicalUrl = '',
-    multimedia,
+    multimedia = '',
     isPremium,
-    promoItems,
-    primarySection,
+    promoItems = {},
+    primarySection = '',
     promoItemJwplayer,
   } = props
 
   const contentElementGallery = promoItems?.basic_gallery?.content_elements
-  const caption = promoItems?.basic?.caption
+  const caption = promoItems?.basic?.caption || ''
   const embedHtmlPromoItems = promoItems?.infografia?.content
 
   const sectionUrl = canonicalUrl.split('/')
@@ -110,6 +110,6 @@ const StoryGalleryLite: FC<FeatureProps> = (props) => {
   )
 }
 
-StoryGalleryLite.label = 'Artículo - galería'
+StoryChildrenGalleryLite.label = 'Artículo - galería'
 
-export default StoryGalleryLite
+export default StoryChildrenGalleryLite

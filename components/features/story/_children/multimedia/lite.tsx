@@ -1,39 +1,37 @@
-import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import { FC } from 'types/features'
-import { Story } from 'types/story'
+import { EmbedConfig, PromoItems, Story, Taxonomy } from 'types/story'
 
 import {
   BIG_IMAGE,
   SPECIAL,
   SPECIAL_BASIC,
 } from '../../../../utilities/constants/subtypes'
-import StoryData from '../../../../utilities/story-data'
 import { storyTagsBbc } from '../../../../utilities/tags'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildMultimedia from './_children/multimedia'
 
 interface FeatureProps {
   data?: Story
+  promoItems?: PromoItems
+  primarySection?: string
+  primarySectionLink?: string
+  subtype?: string
+  multimedia?: string
+  promoItemJwplayer: EmbedConfig
+  tags?: Taxonomy[]
 }
 
-const StoryMultimediaLte: FC<FeatureProps> = (props) => {
-  const { arcSite, contextPath } = useAppContext()
-  const { data } = props
+const StoryChildrenMultimediaLte: FC<FeatureProps> = (props) => {
   const {
     promoItems,
-    primarySection,
-    authorEmail,
+    primarySection = '',
     primarySectionLink,
     subtype,
     multimedia,
     promoItemJwplayer,
     tags,
-  } = new StoryData({
-    data,
-    contextPath,
-    arcSite,
-  })
+  } = props
   return (
     <div className="s-multimedia">
       {primarySectionLink === '/impresa/' ||
@@ -42,8 +40,8 @@ const StoryMultimediaLte: FC<FeatureProps> = (props) => {
       storyTagsBbc(tags, 'portada-trome')
         ? promoItems?.basic && (
             <StoryContentsChildImpresa
-              url={promoItems.basic.url}
-              subtitle={promoItems.basic.subtitle}
+              url={promoItems?.basic?.url}
+              subtitle={promoItems?.basic?.subtitle}
             />
           )
         : promoItems &&
@@ -51,9 +49,8 @@ const StoryMultimediaLte: FC<FeatureProps> = (props) => {
           subtype !== SPECIAL_BASIC &&
           subtype !== SPECIAL && (
             <StoryContentsChildMultimedia
-              authorEmail={authorEmail}
               promoItems={promoItems}
-              multimedia={multimedia}
+              multimedia={multimedia as string}
               primarySection={primarySection}
               primaryImage
               completeImage
@@ -66,6 +63,6 @@ const StoryMultimediaLte: FC<FeatureProps> = (props) => {
   )
 }
 
-StoryMultimediaLte.label = 'Artículo - multimedia '
+StoryChildrenMultimediaLte.label = 'Artículo - multimedia '
 
-export default StoryMultimediaLte
+export default StoryChildrenMultimediaLte

@@ -65,6 +65,7 @@ const CardMostReadChildList: FC<FeatureProps> = (props) => {
           const websiteUrl = item?.websiteUrl || ''
           const title = item?.title || ''
           const storyType = item?.storyType || ''
+
           return (
             <CardMostReadItem
               viewImage={viewImage}

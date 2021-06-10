@@ -15,7 +15,6 @@ const classes = {
 
 interface FeatureProps {
   primarySection?: string
-  authorEmail?: string
   promoItems?: PromoItems
   multimedia?: string
   primaryImage?: boolean
@@ -27,30 +26,30 @@ interface FeatureProps {
 }
 const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
   const {
-    primarySection,
+    primarySection = '',
     promoItems,
-    multimedia,
-    primaryImage,
-    completeImage,
+    multimedia = '',
+    primaryImage = false,
+    completeImage = false,
     promoItemJwplayer,
-    classImage,
+    classImage = '',
     lite = false,
     showCaption = true,
   } = data
 
-  const contenEmbed = promoItems?.basic_html?.content
+  const contenEmbed = promoItems?.basic_html?.content || ''
   const typeEmbed = promoItems?.basic_html?.type
   const youtubeId = promoItems?.youtube_id?.content
   const typeInfo = promoItems?.youtube_id?.type
   const typeImage = promoItems?.basic?.type
-  const caption = promoItems?.basic?.caption
-  const imageUrl = promoItems?.basic?.url
-  const streams = promoItems?.basic_video?.streams
-  const embedHtml = promoItems?.basic_video?.embed_html
-  const id = promoItems?.basic_video?._id
-  const duration = promoItems?.basic_video?.duration
+  const caption = promoItems?.basic?.caption || ''
+  const imageUrl = promoItems?.basic?.url || ''
+  const streams = promoItems?.basic_video?.streams || []
+  const embedHtml = promoItems?.basic_video?.embed_html || ''
+  const id = promoItems?.basic_video?._id || ''
+  const duration = promoItems?.basic_video?.duration || 0
   const typoVideo = promoItems?.basic_video?.type
-  const descriptionVideo = promoItems?.basic_video?.description
+  const descriptionVideo = promoItems?.basic_video?.description || ''
   const mp3 = promoItems?.path_mp3?.content
 
   return (
