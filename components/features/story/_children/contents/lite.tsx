@@ -101,7 +101,7 @@ interface FeaturesProps {
   primarySection: string
   authorEmail: string
   subtype: string
-  isPremium: string
+  isPremium: boolean
   multimedia: string
   tags: Tag[]
   contentElements: ContentElement[]
@@ -112,7 +112,7 @@ interface FeaturesProps {
   liteAdsEvery: number
 }
 
-const StoryContentsLite: FC<FeaturesProps> = (props) => {
+const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
   const {
     siteProperties: {
       ids: { opta },
@@ -762,6 +762,6 @@ const StoryContentsLite: FC<FeaturesProps> = (props) => {
   )
 }
 
-StoryContentsLite.label = 'Artículo - contenidos'
+StoryChildrenContentsLite.label = 'Artículo - contenidos'
 
-export default StoryContentsLite
+export default StoryChildrenContentsLite

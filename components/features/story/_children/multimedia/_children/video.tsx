@@ -23,20 +23,20 @@ const classes = {
 }
 
 interface FeatureProps {
-  primarySection?: string
-  content?: string
-  description?: string
-  duration?: number
+  primarySection: string
+  content: string
+  description: string
+  duration: number
   classImage?: string
-  streams?: Streams[]
-  contentElemtent?: boolean
-  id?: string
-  imageUrl?: string
+  streams: Streams[]
+  contentElemtent?: string
+  id: string
+  imageUrl: string
 }
 
 const StoryContentChildVideo: FC<FeatureProps> = (data) => {
   const {
-    contentElemtent,
+    contentElemtent = '',
     primarySection = '',
     description,
     content,
@@ -79,7 +79,7 @@ const StoryContentChildVideo: FC<FeatureProps> = (data) => {
   const videoArray =
     urlVideo && urlVideo.match(/stream="((.*).(jpeg|jpg|png|gif|mp4|mp3))"/)
 
-  const stream = videoUrl || videoArray?.[1]
+  const stream = videoUrl || videoArray?.[1] || ''
 
   const dataTime = duration ? msToTime(duration) : ''
 

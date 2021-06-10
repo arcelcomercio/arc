@@ -18,7 +18,7 @@ interface FeatureProps {
   primarySectionLink?: string
   subtype?: string
   multimedia?: string
-  promoItemJwplayer?: EmbedConfig
+  promoItemJwplayer: EmbedConfig
   tags?: Taxonomy[]
 }
 

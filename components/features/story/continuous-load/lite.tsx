@@ -8,6 +8,7 @@ import { Story } from 'types/story'
 import { deleteQueryString } from '../../../utilities/parse/queries'
 import { removeLastSlash } from '../../../utilities/parse/strings'
 import StoryData from '../../../utilities/story-data'
+import StoryChildrenContentsLite from '../_children/contents/lite'
 import StoryChildrenContinueHeader from '../_children/continue-header/lite'
 import StoryChildrenGalleryLite from '../_children/gallery/lite'
 import StoryChildrenMultimediaLte from '../_children/multimedia/lite'
@@ -210,6 +211,17 @@ const StoryContinousLoad: FC = () => {
       multimedia,
       promoItemJwplayer,
       tags: tagsStory,
+      displayDate,
+      publishDate,
+      createdDate,
+      authorImage,
+      authorLink,
+      author,
+      role,
+      locality,
+      contentElements,
+      authorsList,
+      authorEmail,
     } = new StoryData({
       data: story,
       contextPath,
@@ -256,6 +268,32 @@ const StoryContinousLoad: FC = () => {
           promoItems={promoItems}
           primarySection={primarySection}
           promoItemJwplayer={promoItemJwplayer}
+        />
+
+        <StoryChildrenContentsLite
+          arcSite={arcSite}
+          contextPath={contextPath}
+          requestUri={requestUri}
+          displayDate={displayDate}
+          publishDate={publishDate}
+          createdDate={createdDate}
+          authorImage={authorImage}
+          authorLink={authorLink}
+          author={author}
+          role={role}
+          locality={locality}
+          primarySection={primarySection}
+          authorEmail={authorEmail}
+          subtype={subtype}
+          isPremium={isPremium}
+          multimedia={multimedia}
+          tags={tags}
+          contentElements={contentElements}
+          canonicalUrl={websiteLink}
+          authorsList={authorsList}
+          copyLink
+          shareAlign="right"
+          liteAdsEvery={2}
         />
       </>
     )

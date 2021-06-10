@@ -35,7 +35,7 @@ interface FeatureProps {
   ratio?: string
   id?: string
   image?: string
-  lazy?: boolean
+  lazy?: string
   description?: string
   presets?: string
 }
