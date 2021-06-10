@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { isAuthenticated } from '../_dependencies/Session'
 import { getLocaleStorage, getSessionStorage } from '../_dependencies/Utils'
 
@@ -83,4 +84,4 @@ const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-export { AuthProvider, AuthContext }
+export { AuthContext, AuthProvider }

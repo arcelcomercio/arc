@@ -27,6 +27,7 @@ const styles = {
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
+  const { changeTemplate } = React.useContext(NavigateConsumer)
   const { activateAuth, updateStep } = React.useContext(AuthContext)
   const [loading, setLoading] = React.useState()
   const [msgError, setMsgError] = React.useState()
@@ -169,179 +170,167 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   }
 
   return (
-    <NavigateConsumer>
-      {(value) => (
-        <>
-          <h2 className={styles.title}>{texts.login}</h2>
-          <div
-            className={`${styles.blockMiddle} ${
-              isFbBrowser() && styles.blockFull
-            }`}>
-            <ButtonSocial
-              arcSocial="facebook"
-              arcSite={arcSite}
-              arcType="login"
-              showMsgVerify={() => triggerShowVerify()}
-              dataTreatment={checkedPolits ? '1' : '0'}
-            />
-            {!isFbBrowser() && (
-              <ButtonSocial
-                arcSocial="google"
-                arcSite={arcSite}
-                arcType="login"
-                showMsgVerify={() => triggerShowVerify()}
-                dataTreatment={checkedPolits ? '1' : '0'}
-              />
+    <>
+      <h2 className={styles.title}>{texts.login}</h2>
+      <div
+        className={`${styles.blockMiddle} ${
+          isFbBrowser() && styles.blockFull
+        }`}>
+        <ButtonSocial
+          arcSocial="facebook"
+          arcSite={arcSite}
+          arcType="login"
+          showMsgVerify={() => triggerShowVerify()}
+          dataTreatment={checkedPolits ? '1' : '0'}
+        />
+        {!isFbBrowser() && (
+          <ButtonSocial
+            arcSocial="google"
+            arcSite={arcSite}
+            arcType="login"
+            showMsgVerify={() => triggerShowVerify()}
+            dataTreatment={checkedPolits ? '1' : '0'}
+          />
+        )}
+      </div>
+      <div className={styles.titleLine}>
+        <p>{texts.orEnterDatesLog}</p>
+      </div>
+      {msgError && (
+        <div className={styles.block}>
+          <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
+            {` ${msgError} `}
+            {showVerify && (
+              <>
+                <br />
+                {!showSendEmail ? (
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={sendVerifyEmail}>
+                    {texts.reSendEmail}
+                  </button>
+                ) : (
+                  <span>
+                    {texts.youCanSendEmail}
+                    <strong id="countdown"> 10 </strong> segundos
+                  </span>
+                )}
+              </>
             )}
           </div>
-          <div className={styles.titleLine}>
-            <p>{texts.orEnterDatesLog}</p>
-          </div>
-          {msgError && (
-            <div className={styles.block}>
-              <div className={showVerify ? ' msg-warning' : 'msg-alert'}>
-                {` ${msgError} `}
-                {showVerify && (
-                  <>
-                    <br />
-                    {!showSendEmail ? (
-                      <button
-                        className="step__btn-link"
-                        type="button"
-                        onClick={sendVerifyEmail}>
-                        {texts.reSendEmail}
-                      </button>
-                    ) : (
-                      <span>
-                        {texts.youCanSendEmail}
-                        <strong id="countdown"> 10 </strong> segundos
-                      </span>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-          )}
-          <form onSubmit={handleOnSubmit} className="form-login">
-            <div className={styles.block}>
-              <label htmlFor="lemail">
-                Correo electrónico
-                <input
-                  className={lemailError && 'input-error'}
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  name="lemail"
-                  value={lemail}
-                  required
-                  onChange={handleChangeInput}
-                  onBlur={handleOnChange}
-                  maxLength="80"
-                  disabled={loading}
-                />
-                {lemailError && (
-                  <span className="msn-error">{lemailError}</span>
-                )}
-              </label>
-            </div>
-
-            <div className={styles.block}>
-              <label htmlFor="lpass">
-                Contraseña
-                <input
-                  className={lpassError && 'input-error'}
-                  type={showHidePass}
-                  autoComplete="current-password"
-                  name="lpass"
-                  value={lpass}
-                  required
-                  onChange={handleChangeInput}
-                  maxLength="50"
-                  onBlur={handleOnChange}
-                  disabled={loading}
-                />
-                <button
-                  name="lshowpass"
-                  aria-label="lshowpass"
-                  className={`${styles.btnShow}-${showHidePass}`}
-                  type="button"
-                  tabIndex={-1}
-                  onClick={toogleHidePass}
-                />
-                {lpassError && <span className="msn-error">{lpassError}</span>}
-              </label>
-            </div>
-
-            <p className={styles.titleForgot}>
-              <button
-                className={styles.link}
-                type="button"
-                onClick={() => {
-                  value.changeTemplate('forgot')
-                  Taggeo(nameTagCategory, 'web_swl_contrasena_link_olvide')
-                }}>
-                Olvidé mi contraseña
-              </button>
-            </p>
-
-            <div className={styles.block}>
-              <button
-                className={`${styles.btn} ${loading && 'btn-loading'}`}
-                type="submit"
-                disabled={disable || loading}>
-                {loading ? 'Cargando...' : 'Iniciar sesión'}
-              </button>
-            </div>
-          </form>
-          <p className={styles.titleRegister}>
-            {texts.notHasAccount}
-            <button
-              className={styles.link}
-              type="button"
-              onClick={() => {
-                value.changeTemplate('register')
-                Taggeo(nameTagCategory, 'web_swl_login_boton_registrate')
-              }}>
-              Registrarme
-            </button>
-          </p>
-          <div className={styles.block}>
-            <label htmlFor="rpolit" className="terms">
-              <input
-                id="rpolit"
-                type="checkbox"
-                name="rpolit"
-                value={checkedPolits ? '1' : '0'}
-                checked={checkedPolits}
-                disabled={loading}
-                onChange={() => {
-                  setCheckedPolits(!checkedPolits)
-                }}
-              />
-              Al ingresar por redes sociales autorizo el uso de mis datos para{' '}
-              <button
-                className={styles.link}
-                type="button"
-                onClick={dataTreatment}>
-                fines adicionales
-              </button>
-              <span className="checkmark" />
-            </label>
-          </div>
-          <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
-            En caso hayas autorizado los fines de uso adicionales anteriormente,
-            no es necesario que lo vuelvas a marcar. Si deseas retirar dicho
-            consentimiento, revisa el procedimiento en nuestras{' '}
-            <button
-              className={styles.link}
-              type="button"
-              onClick={openPoliticas}>
-              Políticas de Privacidad.
-            </button>
-          </p>
-        </>
+        </div>
       )}
-    </NavigateConsumer>
+      <form onSubmit={handleOnSubmit} className="form-login">
+        <div className={styles.block}>
+          <label htmlFor="lemail">
+            Correo electrónico
+            <input
+              className={lemailError && 'input-error'}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              name="lemail"
+              value={lemail}
+              required
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              maxLength="80"
+              disabled={loading}
+            />
+            {lemailError && <span className="msn-error">{lemailError}</span>}
+          </label>
+        </div>
+
+        <div className={styles.block}>
+          <label htmlFor="lpass">
+            Contraseña
+            <input
+              className={lpassError && 'input-error'}
+              type={showHidePass}
+              autoComplete="current-password"
+              name="lpass"
+              value={lpass}
+              required
+              onChange={handleChangeInput}
+              maxLength="50"
+              onBlur={handleOnChange}
+              disabled={loading}
+            />
+            <button
+              name="lshowpass"
+              aria-label="lshowpass"
+              className={`${styles.btnShow}-${showHidePass}`}
+              type="button"
+              tabIndex={-1}
+              onClick={toogleHidePass}
+            />
+            {lpassError && <span className="msn-error">{lpassError}</span>}
+          </label>
+        </div>
+
+        <p className={styles.titleForgot}>
+          <button
+            className={styles.link}
+            type="button"
+            onClick={() => {
+              changeTemplate('forgot')
+              Taggeo(nameTagCategory, 'web_swl_contrasena_link_olvide')
+            }}>
+            Olvidé mi contraseña
+          </button>
+        </p>
+
+        <div className={styles.block}>
+          <button
+            className={`${styles.btn} ${loading && 'btn-loading'}`}
+            type="submit"
+            disabled={disable || loading}>
+            {loading ? 'Cargando...' : 'Iniciar sesión'}
+          </button>
+        </div>
+      </form>
+      <p className={styles.titleRegister}>
+        {texts.notHasAccount}
+        <button
+          className={styles.link}
+          type="button"
+          onClick={() => {
+            changeTemplate('register')
+            Taggeo(nameTagCategory, 'web_swl_login_boton_registrate')
+          }}>
+          Registrarme
+        </button>
+      </p>
+      <div className={styles.block}>
+        <label htmlFor="rpolit" className="terms">
+          <input
+            id="rpolit"
+            type="checkbox"
+            name="rpolit"
+            value={checkedPolits ? '1' : '0'}
+            checked={checkedPolits}
+            disabled={loading}
+            onChange={() => {
+              setCheckedPolits(!checkedPolits)
+            }}
+          />
+          Al ingresar por redes sociales autorizo el uso de mis datos para{' '}
+          <button className={styles.link} type="button" onClick={dataTreatment}>
+            fines adicionales
+          </button>
+          <span className="checkmark" />
+        </label>
+      </div>
+      <p className={styles.titleRegister} style={{ textAlign: 'justify' }}>
+        En caso hayas autorizado los fines de uso adicionales anteriormente, no
+        es necesario que lo vuelvas a marcar. Si deseas retirar dicho
+        consentimiento, revisa el procedimiento en nuestras{' '}
+        <button className={styles.link} type="button" onClick={openPoliticas}>
+          Políticas de Privacidad.
+        </button>
+      </p>
+    </>
   )
 }
 

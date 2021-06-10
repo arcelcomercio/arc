@@ -10,7 +10,7 @@
   left: 0;
 }
 
-.subs-background {
+.cont-loader-logo {
   position: absolute;
   width: 200px;
   height: 50px;
@@ -32,6 +32,25 @@
   svg:nth-child(3) {
     animation: identifier 700ms infinite linear;
     animation-delay: calc(350ms * 2);
+  }
+}
+
+.cont-loader-default {
+  position: absolute;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  margin-top: -60px;
+  margin-left: -60px;
+  text-align: center;
+  img {
+    width: auto;
+    max-width: 80px;
+    max-height: 30px;
+    animation: identifier 700ms infinite linear;
+    margin-top: 35%;
   }
 }
 
