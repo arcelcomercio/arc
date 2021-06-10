@@ -661,8 +661,15 @@ $heightHeader: 52px;
     }
 
     &-cip {
-      height: 3030px;
+      // iframe del CIP de pago efectivo
+      height: 3530px;
 
+      @media (min-width: 360px) {
+        height: 3370px;
+      }
+      @media (min-width: 376px) {
+        height: 3030px;
+      }
       @media (min-width: 767px) {
         height: 2120px;
       }
