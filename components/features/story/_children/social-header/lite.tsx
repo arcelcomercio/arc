@@ -21,8 +21,8 @@ interface FeatureProps {
   isPremium?: boolean
   trustproject?: LabelElement
   arcSite?: string
-  postPermaLink?: string
-  postTitle?: string
+  postPermaLink: string
+  postTitle: string
 }
 
 const StoryChildrenSocialHeaderLite: FC<FeatureProps> = (data) => {
