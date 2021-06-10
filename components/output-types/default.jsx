@@ -271,6 +271,7 @@ export default ({
     isTrivia,
     globalContent,
   }
+  const collapseRetargetly = `"use strict";var _rl_gen_sg=function(){var e="_rl_sg",g=document.cookie.indexOf(e);if(-1==g)return[];g+=e.length+1;var o=document.cookie.indexOf(";",g);return-1==o&&(o=document.cookie.length),document.cookie.substring(g,o).split(",")},googletag=window.googletag||{cmd:[]};googletag.cmd.push(function(){googletag.pubads().collapseEmptyDivs(),googletag.pubads().setTargeting("_rl",_rl_gen_sg()),googletag.enableServices()});`
   const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
   const structuredTaboola = ` 
     window._taboola = window._taboola || [];
@@ -583,12 +584,19 @@ export default ({
               />
             )}
             <script defer src={urlArcAds} />
-
-            <script
-              type="text/javascript"
-              defer
-              dangerouslySetInnerHTML={{ __html: collapseDivs }}
-            />
+            {arcSite === SITE_DEPOR ? (
+              <script
+                defer
+                type="text/javascript"
+                dangerouslySetInnerHTML={{ __html: collapseRetargetly }}
+              />
+            ) : (
+              <script
+                type="text/javascript"
+                defer
+                dangerouslySetInnerHTML={{ __html: collapseDivs }}
+              />
+            )}
             <Dfp />
           </>
         )}
