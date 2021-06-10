@@ -731,6 +731,7 @@ const LiteOutput = ({
         {arcSite === SITE_ELCOMERCIOMAG ||
         arcSite === SITE_PERU21 ||
         arcSite === SITE_TROME ||
+        arcSite === SITE_ELBOCON ||
         arcSite === SITE_DEPOR ? (
           <script
             defer
