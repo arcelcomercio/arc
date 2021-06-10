@@ -1,7 +1,8 @@
 import { useContent } from 'fusion:content'
-// import * as React from 'react'
+import * as React from 'react'
 
-const getStory: any = (link: string, arcSite: string) => {
+const GetStory: React.FC = (props) => {
+  const { link = '', arcSite = '', refCallback } = props
   const dataStory =
     useContent({
       source: 'story-by-url-and-related-filter',
@@ -12,10 +13,23 @@ const getStory: any = (link: string, arcSite: string) => {
       },
     }) || {}
 
-  console.log('=> link', link)
+  console.log('=> link 2', link)
   console.log('=> arcSite', arcSite)
   console.log('=> data story', dataStory)
-  return { title: dataStory.title }
+  const { headlines: { basic: title = '' } = {} } = dataStory || {}
+  return (
+    <div>
+      <h2>{title}</h2>
+      <section
+        style={{
+          height: 700,
+          border: '1px solid red',
+        }}>
+        content 2
+      </section>
+      <div ref={refCallback}>footer</div>
+    </div>
+  )
 }
 
-export default getStory
+export default GetStory

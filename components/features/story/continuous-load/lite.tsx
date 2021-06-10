@@ -6,7 +6,7 @@ import { FC } from 'types/features'
 import { Story } from 'types/story'
 
 import getLinks from './_children/get-links'
-import getStory from './_children/get-story'
+import GetStory from './_children/get-story'
 
 const StoryContinousLoad: FC = () => {
   const { globalContent, arcSite, requestUri } = useAppContext<Story>()
@@ -15,7 +15,7 @@ const StoryContinousLoad: FC = () => {
   const [pageHtml, setPageHtml] = React.useState([])
   const [pageNumber, setPageNumber] = React.useState(0)
   const links = getLinks()
-  console.log('=> linkss ', links)
+  // console.log('=> linkss ', links)
   // const loading = false
   // const hasMore = true
 
@@ -51,32 +51,22 @@ const StoryContinousLoad: FC = () => {
 
   React.useEffect(() => {
     // getStory(nextStoriesArray[0]?.link, arcSite)
-    console.log('==> pageNumber', pageNumber)
-    console.log('==> set LenLinks', links.length)
+    // console.log('==> pageNumber', pageNumber)
+    // console.log('==> set LenLinks', links.length)
     setPageHtml((prevPageHtml) => {
       console.log('==> prevPageHtml', prevPageHtml)
-      return [...prevPageHtml, componentsHtml(links[pageNumber])]
+
+      return [
+        ...prevPageHtml,
+        <GetStory
+          link={links[pageNumber]?.link}
+          arcSite={arcSite}
+          refCallback={lastFooterElementRef}
+        />,
+      ]
     })
   }, [pageNumber])
 
-  /* *********** */
-
-  /* const dataStory =
-    useContent({
-      source: 'story-by-url-and-related-filter',
-      query: {
-        website_url: nextStoriesArray[0]?.link,
-        section: '',
-        includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
-      },
-    }) || {}
-
-  console.log('=> link', nextStoriesArray[0]?.link)
-  console.log('=> data story', dataStory) */
-
-  /* React.useEffect(() => {
-    setPageHtml(componentsHtml(nextStoriesArray[0]))
-  }, []) */
   console.dir(pageHtml)
   return (
     <div>
