@@ -3,10 +3,6 @@ import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-// import {
-//   getUrlPaywall,
-//   getUrlPaywallFia,
-// } from '../../../../signwall/_dependencies/domains'
 import { AuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
@@ -119,17 +115,23 @@ const Confirmation = () => {
       level: 'info',
     })
 
+    // reset step para que no pueda recargar esta pagina
+    window.sessionStorage.removeItem('ArcId.USER_STEP')
+    window.scrollTo(0, 0)
+
     if (!isLogged()) {
       setTimeout(() => {
         updateStep(1)
         window.location.reload()
       }, 1000)
     }
+  }, [])
 
+  React.useEffect(() => {
     if (token && !cipLink) {
       getCipPayEfectivo()
     }
-  })
+  }, [token])
 
   const goToHome = () => {
     if (typeof window !== 'undefined') {
@@ -154,10 +156,6 @@ const Confirmation = () => {
     }
   }
 
-  // const errorAction = fromFia
-  //   ? getUrlPaywallFia(arcSite)
-  //   : getUrlPaywall(arcSite)
-
   const getHeading = () => {
     let heading = ''
     switch (cipLink) {
@@ -165,10 +163,14 @@ const Confirmation = () => {
         heading = (
           <span>
             Ha ocurrido un error al generar el Código de pago (CIP).{' '}
-            <a
-              href={`/suscripcionesdigitales/?outputType=subscriptions&_website=${arcSite}`}>
-              Intenta de nuevo
-            </a>
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={() => {
+                updateStep(2)
+              }}>
+              Intente de nuevo.
+            </button>
           </span>
         )
         break
