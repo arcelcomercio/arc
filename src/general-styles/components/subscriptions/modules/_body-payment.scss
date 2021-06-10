@@ -304,13 +304,11 @@ $heightHeader: 52px;
       }
       button.btn-facebook {
         background: $bgFacebook
-          url("https://signwall.e3.pe/images/icon-btn-facebook.png")
-          no-repeat;
+          url("https://signwall.e3.pe/images/icon-btn-facebook.png") no-repeat;
       }
       button.btn-google {
         background: $bgGoogle
-          url("https://signwall.e3.pe/images/icon-btn-google.png")
-          no-repeat;
+          url("https://signwall.e3.pe/images/icon-btn-google.png") no-repeat;
       }
 
       button.btn-facebook,
@@ -646,12 +644,10 @@ $heightHeader: 52px;
         margin: 0 4px;
       }
       & .icon-visa {
-        background: url("https://signwall.e3.pe/images/icon-visa.png")
-          no-repeat;
+        background: url("https://signwall.e3.pe/images/icon-visa.png") no-repeat;
       }
       & .icon-mc {
-        background: url("https://signwall.e3.pe/images/icon-mc.png")
-          no-repeat;
+        background: url("https://signwall.e3.pe/images/icon-mc.png") no-repeat;
       }
 
       & .icon-dinners {
@@ -660,8 +656,18 @@ $heightHeader: 52px;
       }
 
       & .icon-amex {
-        background: url("https://signwall.e3.pe/images/icon-amex.png")
-          no-repeat;
+        background: url("https://signwall.e3.pe/images/icon-amex.png") no-repeat;
+      }
+    }
+
+    &-cip {
+      height: 3030px;
+
+      @media (min-width: 767px) {
+        height: 2120px;
+      }
+      @media (min-width: 1024px) {
+        height: 1932px;
       }
     }
 

@@ -3,6 +3,10 @@ import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+// import {
+//   getUrlPaywall,
+//   getUrlPaywallFia,
+// } from '../../../../signwall/_dependencies/domains'
 import { AuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
@@ -18,11 +22,9 @@ const { urls: urlCommon } = PropertiesCommon
 const styles = {
   step: 'step__left-progres',
   subtitle: 'step__left-subtitle',
-  contConfirm: 'step__left-cont-confirm',
-  noteConfirm: 'step__left-note-confirm',
+  cipWrapper: 'step__left-cip',
   contButton: 'step__left-note-button',
   btn: 'step__left-btn-next',
-  noteBenefist: 'step__left-note-benefist',
 }
 
 const Confirmation = () => {
@@ -52,8 +54,9 @@ const Confirmation = () => {
   } = conformProfile(userProfile || {})
 
   const { urls: urlsSite } = PropertiesSite[arcSite]
-  const [loading, setLoading] = React.useState(false)
-  const [showIframe, setShowIframe] = React.useState(false)
+  const [redirecting, setRedirecting] = React.useState(false)
+  /** type CipLink = string | null */
+  const [cipLink, setCipLink] = React.useState(null)
 
   const getCipPayEfectivo = () => {
     const getPLanSelected = plans.reduce(
@@ -90,7 +93,7 @@ const Confirmation = () => {
       cipPayEfectivo(urlCommon.cipPayEfectivo, dataCIP)
         .then((resCIP) => {
           const { response: { data: { cipUrl = '' } = {} } = {} } = resCIP || {}
-          setShowIframe(cipUrl)
+          setCipLink(cipUrl)
         })
         .catch((errCIP) => {
           Sentry.captureEvent({
@@ -98,6 +101,7 @@ const Confirmation = () => {
             level: 'error',
             extra: errCIP || {},
           })
+          setCipLink('error')
         })
     } else {
       updateStep(2)
@@ -122,14 +126,14 @@ const Confirmation = () => {
       }, 1000)
     }
 
-    if (token && !showIframe) {
+    if (token && !cipLink) {
       getCipPayEfectivo()
     }
   })
 
   const goToHome = () => {
     if (typeof window !== 'undefined') {
-      setLoading(true)
+      setRedirecting(true)
       if (PWA.isPWA()) {
         PWA.pwaCloseWebView()
         return
@@ -150,6 +154,36 @@ const Confirmation = () => {
     }
   }
 
+  // const errorAction = fromFia
+  //   ? getUrlPaywallFia(arcSite)
+  //   : getUrlPaywall(arcSite)
+
+  const getHeading = () => {
+    let heading = ''
+    switch (cipLink) {
+      case 'error':
+        heading = (
+          <span>
+            Ha ocurrido un error al generar el Código de pago (CIP).{' '}
+            <a
+              href={`/suscripcionesdigitales/?outputType=subscriptions&_website=${arcSite}`}>
+              Intenta de nuevo
+            </a>
+          </span>
+        )
+        break
+      case null:
+        heading = (
+          <span>Generando Código de pago (CIP), por favor espere...</span>
+        )
+        break
+      default:
+        heading = <span>¡Estás a un paso de finalizar la compra!</span>
+        break
+    }
+    return heading
+  }
+
   return (
     <>
       <ul className={styles.step}>
@@ -158,20 +192,22 @@ const Confirmation = () => {
         <li className="active">Confirmación</li>
       </ul>
 
-      <h3 className={styles.subtitle}>
-        ¡Estás a un paso de finalizar la compra!
-      </h3>
+      <h3 className={styles.subtitle}>{getHeading()}</h3>
 
       <div className="form-confirmation">
-        {showIframe && (
-          <iframe
-            title="pago-efectivo"
-            src={showIframe}
-            width="100%"
-            height="450"
-            framborder="0"
-          />
-        )}
+        {cipLink !== 'error' ? (
+          <div className={styles.cipWrapper}>
+            {cipLink ? (
+              <iframe
+                title="pago-efectivo"
+                src={cipLink}
+                width="100%"
+                height="100%"
+                frameBorder="0"
+              />
+            ) : null}
+          </div>
+        ) : null}
       </div>
 
       {!fromFia && (
@@ -180,8 +216,8 @@ const Confirmation = () => {
             className={styles.btn}
             type="button"
             onClick={goToHome}
-            disabled={loading}>
-            {loading ? 'Redireccionando...' : 'Seguir navegando'}
+            disabled={redirecting}>
+            {redirecting ? 'Redireccionando...' : 'Seguir navegando'}
           </button>
         </div>
       )}
