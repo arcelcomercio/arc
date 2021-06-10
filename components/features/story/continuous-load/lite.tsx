@@ -7,10 +7,20 @@ import { Story } from 'types/story'
 
 import { deleteQueryString } from '../../../utilities/parse/queries'
 import { removeLastSlash } from '../../../utilities/parse/strings'
+import StoryData from '../../../utilities/story-data'
 import StoryChildrenContinueHeader from '../_children/continue-header/lite'
+import StoryChildrenGalleryLite from '../_children/gallery/lite'
+import StoryChildrenMultimediaLte from '../_children/multimedia/lite'
+import StoryChildrenSocialHeaderLite from '../_children/social-header/lite'
+import StoryChildrenTitle from '../_children/title/lite'
 
 const StoryContinousLoad: FC = () => {
-  const { globalContent, arcSite, requestUri } = useAppContext<Story>()
+  const {
+    globalContent,
+    arcSite,
+    requestUri,
+    contextPath,
+  } = useAppContext<Story>()
   const { idGoogleAnalitics } = getProperties(arcSite)
   const cleanRequestUri = deleteQueryString(requestUri)
 
@@ -181,6 +191,75 @@ const StoryContinousLoad: FC = () => {
       nextStoriesArray
     )
   }, [])
+
+  const filterStoriesCbs = (story: Story) => {
+    const {
+      label: { trustproject },
+    } = story
+
+    const {
+      isPremium,
+      primarySection,
+      primarySectionLink,
+      title,
+      websiteLink,
+      subTitle,
+      promoItems,
+      contentElementsListOne,
+      subtype,
+      multimedia,
+      promoItemJwplayer,
+      tags: tagsStory,
+    } = new StoryData({
+      data: story,
+      contextPath,
+      arcSite,
+    })
+
+    return (
+      <>
+        <StoryChildrenSocialHeaderLite
+          arcSite={arcSite}
+          primarySectionLink={primarySectionLink}
+          primarySection={primarySection}
+          postTitle={title}
+          postPermaLink={websiteLink}
+          isPremium={isPremium}
+          trustproject={trustproject}
+        />
+
+        <StoryChildrenTitle
+          arcSite={arcSite}
+          primarySectionLink={primarySectionLink}
+          primarySection={primarySection}
+          title={title}
+          subTitle={subTitle}
+          isPremium={isPremium}
+          contentElementsListOne={contentElementsListOne}
+        />
+
+        <StoryChildrenMultimediaLte
+          promoItems={promoItems}
+          primarySection={primarySection}
+          primarySectionLink={primarySectionLink}
+          subtype={subtype}
+          multimedia={multimedia}
+          promoItemJwplayer={promoItemJwplayer}
+          tags={tagsStory}
+        />
+
+        <StoryChildrenGalleryLite
+          subtype={subtype}
+          canonicalUrl={websiteLink}
+          multimedia={multimedia}
+          isPremium={isPremium}
+          promoItems={promoItems}
+          primarySection={primarySection}
+          promoItemJwplayer={promoItemJwplayer}
+        />
+      </>
+    )
+  }
 
   return (
     <div>

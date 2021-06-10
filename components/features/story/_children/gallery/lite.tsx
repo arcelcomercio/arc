@@ -30,7 +30,7 @@ interface FeatureProps {
   promoItemJwplayer?: EmbedConfig
 }
 
-const StoryGalleryLite: FC<FeatureProps> = (props) => {
+const StoryChildrenGalleryLite: FC<FeatureProps> = (props) => {
   const { arcSite, requestUri } = useAppContext()
 
   const {
@@ -110,6 +110,6 @@ const StoryGalleryLite: FC<FeatureProps> = (props) => {
   )
 }
 
-StoryGalleryLite.label = 'Artículo - galería'
+StoryChildrenGalleryLite.label = 'Artículo - galería'
 
-export default StoryGalleryLite
+export default StoryChildrenGalleryLite

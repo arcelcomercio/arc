@@ -1,5 +1,6 @@
 import React from 'react'
 import { FC } from 'types/features'
+import { LabelElement } from 'types/story'
 
 import ShareButtons from '../../../../global-components/lite/share/buttons'
 import TProLbl from '../../../../global-components/trustprojectlabel'
@@ -17,14 +18,14 @@ const classes = {
 interface FeatureProps {
   primarySection?: string
   primarySectionLink?: string
-  isPremium?: string
-  trustproject?: string
+  isPremium?: boolean
+  trustproject?: LabelElement
   arcSite?: string
   postPermaLink?: string
   postTitle?: string
 }
 
-const StorySocialHeaderLite: FC<FeatureProps> = (data) => {
+const StoryChildrenSocialHeaderLite: FC<FeatureProps> = (data) => {
   const {
     primarySection,
     primarySectionLink,
@@ -80,6 +81,6 @@ const StorySocialHeaderLite: FC<FeatureProps> = (data) => {
   )
 }
 
-StorySocialHeaderLite.label = 'Artículo - redes sociales'
+StoryChildrenSocialHeaderLite.label = 'Artículo - redes sociales'
 
-export default StorySocialHeaderLite
+export default StoryChildrenSocialHeaderLite

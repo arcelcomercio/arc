@@ -61,14 +61,10 @@ const CardMostReadChildList: FC<FeatureProps> = (props) => {
 
       {stories &&
         stories.map((item) => {
-          console.log('storyItemcc', item)
-          console.log('storyItemsss', stories)
-
           const imageUrl = item?.imageUrl || ''
           const websiteUrl = item?.websiteUrl || ''
           const title = item?.title || ''
           const storyType = item?.storyType || ''
-          console.log('storyItem', title)
 
           return (
             <CardMostReadItem

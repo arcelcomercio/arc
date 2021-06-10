@@ -375,6 +375,7 @@ export interface Basic {
   type: string
   caption: string
   height: number
+  subtitle: string
 }
 interface BasicMp3 {
   content: string
