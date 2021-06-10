@@ -1,24 +1,18 @@
-import { env } from '../../../utilities/arc/env'
+import getProperties from 'fusion:properties'
+
+import { env, isProd } from '../../../utilities/arc/env'
 
 const getOriginAPI = (site) => {
-  switch (site) {
-    case 'depor':
-      return `https://api${env === 'prod' ? '' : '-sandbox'}.depor.com`
-    case 'peru21g21':
-      return `https://api${env === 'prod' ? '' : '-sandbox'}.peru21.pe`
-    case 'elcomerciomag':
-      return `https://api${env === 'prod' ? '' : '-sandbox'}.elcomercio.pe`
-    default:
-      return `https://api${env === 'prod' ? '' : '-sandbox'}.${site}.pe`
-  }
+  const { siteDomain } = getProperties(site)
+  return `https://api${isProd ? '' : '-sandbox'}.${siteDomain}`
 }
 
 const getUrlPaywall = (site) =>
-  env === 'prod'
+  isProd
     ? `/suscripcionesdigitales/`
     : `/suscripcionesdigitales/?_website=${site}&outputType=subscriptions`
 
-const getUrlECOID = `https://${env === 'prod' ? '' : 'pre.'}ecoid.pe`
+const getUrlECOID = `https://${isProd ? '' : 'pre.'}ecoid.pe`
 
 const getPoliticsTerms = (type, site) => {
   const hashSite = {
@@ -33,7 +27,7 @@ const getPoliticsTerms = (type, site) => {
     ojo: 'r2tbzg902jxaq6c0tmc2zr6txgzfzmiy',
     diariocorreo: '547a1802dfdcaa443d08c92c8dac62e9',
   }
-  return `https://${env === 'prod' ? '' : 'pre.'}ecoid.pe/${
+  return `https://${isProd ? '' : 'pre.'}ecoid.pe/${
     type === 'terms' ? 'terminos_y_condiciones' : 'politica_privacidad'
   }/${hashSite[site]}`
 }
@@ -41,36 +35,35 @@ const getPoliticsTerms = (type, site) => {
 const getScriptSales = `https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js`
 
 const getUrlNewsLetters = `https://${
-  env === 'prod' ? 'afv5trdj4i' : 'vq01ksb95d'
+  isProd ? 'afv5trdj4i' : 'vq01ksb95d'
 }.execute-api.us-east-1.amazonaws.com/${
-  env === 'prod' ? 'prod' : 'dev'
+  isProd ? 'prod' : 'dev'
 }/userprofile/public/v1`
 
 const getListBundle = ['UJWWFG', '7NK9SV', 'DQZ00K', 'OKLLPH', 'NO07ET'] // price code bundle sandbox & prod
 
-const getPayuSDK =
-  env === 'prod'
-    ? 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
-    : 'https://signwall-test.e3.pe/static/payu-sdk.js'
+const getPayuSDK = isProd
+  ? 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
+  : 'https://signwall-test.e3.pe/static/payu-sdk.js'
 
 const getUrlComercioSubs = `https://${
-  env === 'prod' ? '' : 'dev'
+  isProd ? '' : 'dev'
 }paywall.comerciosuscripciones.pe/api`
 
 const getUrlProfile = (arcSite) =>
-  env === 'prod'
+  isProd
     ? '/mi-perfil/?outputType=subscriptions'
-    : `/mi-perfil/?_website=${arcSite}&outputType=subscriptions`
+    : `/mi-perfil/?outputType=subscriptions&_website=${arcSite}`
 
 const getUrlLandingAuth = (arcSite) =>
-  env === 'prod'
+  isProd
     ? '/auth-fia/?outputType=subscriptions'
-    : `/auth-fia/?_website=${arcSite}&outputType=subscriptions`
+    : `/auth-fia/?outputType=subscriptions&_website=${arcSite}`
 
 const getUrlSignwall = (arcSite, typeDialog, hash) =>
-  env === 'prod'
+  isProd
     ? `/signwall/?outputType=subscriptions&${typeDialog}=${hash}`
-    : `/signwall/?_website=${arcSite}&outputType=subscriptions&${typeDialog}=${hash}`
+    : `/signwall/?outputType=subscriptions&_website=${arcSite}&${typeDialog}=${hash}`
 
 export {
   getListBundle,

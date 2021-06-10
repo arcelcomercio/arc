@@ -12,15 +12,17 @@ import { getQuery } from '../_dependencies/QueryString'
 import { isLogged } from '../_dependencies/Session'
 import { SignOrganic } from './_children/Organic'
 
+const COOKIE_NAME = 'signreferer'
+const HARD = 'hard'
+const RELOGIN_EMAIL = 'relogemail'
+const RELOGIN_HASH = 'reloghash'
+const TOKEN_VERIFY = 'verify'
+const RESET_PASSWORD = 'resetpass'
+const ORGANIC = 'organico'
+
 const AuthUser = () => {
   const { arcSite, deployment } = useAppContext() || {}
-  const [showOrganic, setShowOrganic] = React.useState(false)
-  const [showHard, setShowHard] = React.useState(false)
-  const [showReEmail, setShowReEmail] = React.useState(false)
-  const [showRelogHash, setShowRelogHash] = React.useState(false)
-  const [showVerify, setShowVerify] = React.useState(false)
-  const [showReset, setShowReset] = React.useState(false)
-  const [nameModal, setNameModal] = React.useState()
+  const [activeModal, setActiveModal] = React.useState()
   const { links, urls: urlCommon } = PropertiesCommon
 
   React.useEffect(() => {
@@ -57,73 +59,71 @@ const AuthUser = () => {
         })
       })
 
-    const UrlRef = window.document.referrer
-    if (UrlRef && !UrlRef.match(/facebook.com/)) {
-      deleteCookie('signreferer')
-      setCookie('signreferer', UrlRef, 365)
+    const urlRef = window.document.referrer
+    if (urlRef && !/facebook.com/.test(urlRef)) {
+      deleteCookie(COOKIE_NAME)
+      setCookie(COOKIE_NAME, urlRef, 365)
     }
 
     if (getQuery('signHard') || getQuery('signwallHard')) {
-      setShowHard(true)
-      setNameModal('hard')
+      setActiveModal(HARD)
     } else if (getQuery('signEmail') || getQuery('reloginEmail')) {
-      setShowReEmail(true)
-      setNameModal('relogemail')
+      setActiveModal(RELOGIN_EMAIL)
     } else if (getQuery('signHash') || getQuery('reloginHash')) {
-      setShowRelogHash(true)
-      setNameModal('reloghash')
+      setActiveModal(RELOGIN_HASH)
     } else if (getQuery('tokenVerify')) {
-      setShowVerify(true)
-      setNameModal('verify')
+      setActiveModal(TOKEN_VERIFY)
     } else if (getQuery('tokenReset')) {
-      setShowReset(true)
-      setNameModal('resetpass')
+      setActiveModal(RESET_PASSWORD)
     } else {
-      setShowOrganic(true)
-      setNameModal('organico')
+      setActiveModal(ORGANIC)
     }
   }, [])
 
   const closePopUp = () => {
     if (typeof window !== 'undefined') {
-      if (
-        getCookie('signreferer') &&
-        getCookie('signreferer') !== '' &&
-        !getCookie('signreferer').match(/\/signwall\//)
-      ) {
-        const URL_CLEAR = getCookie('signreferer').split('?')
-        deleteCookie('signreferer')
+      const cookie = getCookie(COOKIE_NAME)
+      if (cookie && cookie !== '' && !/\/signwall\//.test(cookie)) {
+        const URL_CLEAR = cookie.split('?')
+        deleteCookie(COOKIE_NAME)
         window.location.href = `${URL_CLEAR[0]}?ref=signwall`
       } else {
-        deleteCookie('signreferer')
+        deleteCookie(COOKIE_NAME)
         window.location.href = '/?ref=signwall'
       }
     }
   }
 
+  const isOrganic = activeModal === ORGANIC
+  const isHard = activeModal === HARD
+  const isReloginEmail = activeModal === RELOGIN_EMAIL
+  const isReloginHash = activeModal === RELOGIN_HASH
+  const isTokenVerify = activeModal === TOKEN_VERIFY
+  const isResetPassword = activeModal === RESET_PASSWORD
+
   return (
     <>
-      {(showOrganic || showHard || showReEmail || showRelogHash) && (
+      {(isOrganic || isHard || isReloginEmail || isReloginHash) && (
         <>
           {!isLogged() ? (
             <SignOrganic
               onClose={() => closePopUp()}
               arcSite={arcSite}
-              typeDialog={nameModal}
+              typeDialog={activeModal}
             />
           ) : (
-            <> {closePopUp()}</>
+            closePopUp()
           )}
         </>
       )}
 
-      {(showVerify || showReset) && (
+      {(isTokenVerify || isResetPassword) && (
         <SignOrganic
           onClose={() => closePopUp()}
           arcSite={arcSite}
-          typeDialog={nameModal}
-          tokenVerify={showVerify && getQuery('tokenVerify')}
-          tokenReset={showReset && getQuery('tokenReset')}
+          typeDialog={activeModal}
+          tokenVerify={isTokenVerify && getQuery('tokenVerify')}
+          tokenReset={isResetPassword && getQuery('tokenReset')}
         />
       )}
     </>
