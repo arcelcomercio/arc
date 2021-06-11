@@ -85,7 +85,6 @@ const classes = {
   premiumText:
     'premium__text flex justify-center items-center text-black font-bold icon-padlock',
 }
-
 @Consumer
 class StoryContents extends React.PureComponent {
   render() {
@@ -194,7 +193,6 @@ class StoryContents extends React.PureComponent {
     const isJwVideo = rawHtmlContent.includes('cdn.jwplayer.com')
     const isPreview = /^\/preview\//.test(requestUri)
 
-    const comscoreScript = `jwplayer().on('ready', function () { ns_.StreamingAnalytics.JWPlayer(jwplayer(), { publisherId: "8429002"  }); });`
     return (
       <>
         <div className={classes.news}>
@@ -334,11 +332,8 @@ class StoryContents extends React.PureComponent {
                         ? playerId.playerAds
                         : playerId.player
                       return (
-                        <div className="jwp-id">
-                          <script src="https://sb.scorecardresearch.com/c2/plugins/streamingtag_plugin_jwplayer.js" />
-
+                        <>
                           <div
-                            aria-label="jwp-video"
                             className="jwplayer-lazy"
                             id={`botr_${mediaId}_${jwplayerId}_div`}>
                             <div className="jwplayer-lazy-icon-play" />
@@ -353,20 +348,13 @@ class StoryContents extends React.PureComponent {
                               loading="lazy"
                             />
                           </div>
-                          <span className="jwp-aaa" />
                           <figcaption
                             className="story-content__caption"
                             dangerouslySetInnerHTML={{
                               __html: descriptionTxt,
                             }}
                           />
-
-                          <script
-                            dangerouslySetInnerHTML={{
-                              __html: comscoreScript,
-                            }}
-                          />
-                        </div>
+                        </>
                       )
                     }
                     if (sub === VIDEO_JWPLAYER_MATCHING) {
