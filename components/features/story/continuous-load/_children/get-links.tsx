@@ -74,7 +74,7 @@ const getLinks = () => {
 
   const filterStoriesCb = (story: Story) => {
     // Filtra las historias que no son Galeria horizontal
-    const websiteUrl = story.websites[arcSite]?.website_url
+    const websiteUrl = story?.websites && story.websites[arcSite]?.website_url
     const type = story.promo_items?.basic_gallery?.type
 
     return (
