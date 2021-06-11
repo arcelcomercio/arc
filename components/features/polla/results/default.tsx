@@ -236,7 +236,7 @@ const PollaGuide: FC<Props> = (props) => {
 
           {currentGamesArray?.map((game) => (
             <div
-              key={`${game.date}-${game.time}`}
+              key={`${game.date}-${game.time}-${game.contestants.home_contestant}`}
               className={`polla-results__list ${game.status}`}>
               <div className="polla-results__list-item">
                 <div className="polla-results__list-stadium">
