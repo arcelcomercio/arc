@@ -9,6 +9,7 @@ interface Props {
   customFields?: {
     stadiumLocationPerName?: string
     serviceEndPoint?: string
+    defaultDate?: string
   }
 }
 
@@ -87,7 +88,7 @@ const PollaGuide: FC<Props> = (props) => {
         if ((format?.[dateFormater.format(actualDate)]?.length || -1) > 0) {
           setCurrentDate(dateFormater.format(actualDate))
         } else if (format) {
-          setCurrentDate('13/6')
+          setCurrentDate(customFields?.defaultDate || '13/6')
         }
       })
       .catch(() => {
@@ -327,6 +328,9 @@ PollaGuide.propTypes = {
     }),
     stadiumLocationPerName: PropTypes.json.tag({
       name: 'JSON de locación de estadios por nombre de estadios',
+    }),
+    defaultDate: PropTypes.string.tag({
+      name: 'Fecha por defecto cuando en la fecha actual no hay partidos',
     }),
   }),
 }
