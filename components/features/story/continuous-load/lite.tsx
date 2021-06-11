@@ -9,7 +9,12 @@ import getLinks from './_children/get-links'
 import GetStory from './_children/get-story'
 
 const StoryContinousLoad: FC = () => {
-  const { globalContent, arcSite, requestUri } = useAppContext<Story>()
+  const {
+    globalContent,
+    arcSite,
+    requestUri,
+    contextPath,
+  } = useAppContext<Story>()
   // const { idGoogleAnalitics } = getProperties(arcSite)
 
   const [pageHtml, setPageHtml] = React.useState([])
@@ -61,6 +66,8 @@ const StoryContinousLoad: FC = () => {
         <GetStory
           link={links[pageNumber]?.link}
           arcSite={arcSite}
+          contextPath={contextPath}
+          requestUri={requestUri}
           refCallback={lastFooterElementRef}
         />,
       ]

@@ -1,8 +1,19 @@
 import { useContent } from 'fusion:content'
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
 
-const GetStory: React.FC = (props) => {
-  const { link = '', arcSite = '', refCallback } = props
+import RederStory from './render-story'
+
+const GetStory: React.FC<{
+  link: string
+  contextPath: string
+  arcSite: ArcSite
+  requestUri: string
+  refCallback: string
+}> = (props) => {
+  const { link = '', arcSite, refCallback, contextPath, requestUri } = props
+  console.log('Primerrrrrrrrrr', props)
+
   const dataStory =
     useContent({
       source: 'story-by-url-and-related-filter',
@@ -12,13 +23,18 @@ const GetStory: React.FC = (props) => {
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
       },
     }) || {}
-
-  console.log('=> link 2', link)
-  console.log('=> arcSite', arcSite)
-  console.log('=> data story', dataStory)
   const { headlines: { basic: title = '' } = {} } = dataStory || {}
+  console.log('dataStorydataStoryxxx', dataStory)
   return (
     <div>
+      {dataStory && (
+        <RederStory
+          data={dataStory}
+          contextPath={contextPath}
+          arcSite={arcSite}
+          requestUri={requestUri}
+        />
+      )}
       <h2>{title}</h2>
       <section
         style={{

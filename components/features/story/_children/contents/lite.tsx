@@ -156,7 +156,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
       contextPath
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
   const seccArary = canonicalUrl.split('/')
-  const secc = seccArary[1].replace(/-/gm, '')
+  const secc = seccArary[1] && seccArary[1].replace(/-/gm, '')
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
