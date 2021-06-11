@@ -175,18 +175,18 @@ const LiteOutput = ({
     globalContent,
   }
 
-const structuredTaboola = ` 
+  const structuredTaboola = ` 
   window._taboola = window._taboola || [];
   _taboola.push({flush: true});`
 
-const structuredBBC = `
+  const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
   (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
   s_bbcws('partner', 'elcomercio.pe');
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
 
-const jsAdpushup = `
+  const jsAdpushup = `
 (function(w, d) {
 	var s = d.createElement('script');
 	s.src = '//cdn.adpushup.com/42614/adpushup.js';
@@ -460,7 +460,7 @@ const jsAdpushup = `
         />
         {arcSite === SITE_ELBOCON ? (
           <>
-             <script
+            <script
               type="text/javascript"
               data-cfasync="false"
               dangerouslySetInnerHTML={{ __html: jsAdpushup }}
@@ -569,10 +569,7 @@ const jsAdpushup = `
                 `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
               )}
             />
-            <script
-              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"
-              async
-            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec" />
           </>
         ) : null}
 
@@ -584,10 +581,7 @@ const jsAdpushup = `
                 `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
               )}
             />
-            <script
-              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"
-              async
-            />
+            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6" />
           </>
         ) : null}
         {/* ============== WebTracking */}
@@ -609,7 +603,9 @@ const jsAdpushup = `
           {children}
         </div>
         {isPremium || metaValue('include_fusion_libs') === 'true' ? (
-          <Fusion />
+          <>
+            <Fusion />
+          </>
         ) : null}
         {isStory && (
           <script
