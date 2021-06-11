@@ -17,7 +17,7 @@ interface FeatureProps {
   primarySection?: string
   primarySectionLink?: string
   subtype?: string
-  multimedia?: string
+  multimedia: string
   promoItemJwplayer: EmbedConfig
   tags?: Taxonomy[]
 }
@@ -34,31 +34,35 @@ const StoryChildrenMultimediaLte: FC<FeatureProps> = (props) => {
   } = props
   return (
     <div className="s-multimedia">
-      {primarySectionLink === '/impresa/' ||
-      primarySectionLink === '/malcriadas/' ||
-      primarySectionLink === '/el-otorongo/' ||
-      storyTagsBbc(tags, 'portada-trome')
-        ? promoItems?.basic && (
-            <StoryContentsChildImpresa
-              url={promoItems?.basic?.url}
-              subtitle={promoItems?.basic?.subtitle}
-            />
-          )
-        : promoItems &&
-          subtype !== BIG_IMAGE &&
-          subtype !== SPECIAL_BASIC &&
-          subtype !== SPECIAL && (
-            <StoryContentsChildMultimedia
-              promoItems={promoItems}
-              multimedia={multimedia as string}
-              primarySection={primarySection}
-              primaryImage
-              completeImage
-              promoItemJwplayer={promoItemJwplayer}
-              classImage="s-multimedia"
-              lite
-            />
-          )}
+      {subtype && (
+        <>
+          {primarySectionLink === '/impresa/' ||
+          primarySectionLink === '/malcriadas/' ||
+          primarySectionLink === '/el-otorongo/' ||
+          storyTagsBbc(tags, 'portada-trome')
+            ? promoItems?.basic && (
+                <StoryContentsChildImpresa
+                  url={promoItems?.basic?.url}
+                  subtitle={promoItems?.basic?.subtitle}
+                />
+              )
+            : promoItems &&
+              subtype !== BIG_IMAGE &&
+              subtype !== SPECIAL_BASIC &&
+              subtype !== SPECIAL && (
+                <StoryContentsChildMultimedia
+                  promoItems={promoItems}
+                  multimedia={multimedia}
+                  primarySection={primarySection}
+                  primaryImage
+                  completeImage
+                  promoItemJwplayer={promoItemJwplayer}
+                  classImage="s-multimedia"
+                  lite
+                />
+              )}
+        </>
+      )}
     </div>
   )
 }

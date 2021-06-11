@@ -4,7 +4,7 @@ import { ArcSite } from 'types/fusion'
 import { ListDataStories } from 'types/story'
 
 import { getAssetsPath } from '../../../../../../utilities/assets'
-import CardMostReadItem from './item'
+import CardMostReadChildrenItem from './item'
 
 const classes = {
   mostRead: 'most-read f f-col ',
@@ -23,10 +23,10 @@ interface FeatureProps {
   customTitle?: string
   customLink?: string
 }
-const CardMostReadChildList: FC<FeatureProps> = (props) => {
+const CardMostReadChildrenList: FC<FeatureProps> = (props) => {
   const {
     viewImage = false,
-    stories,
+    stories = [],
     customTitle,
     customLink,
     contextPath = '',
@@ -59,24 +59,23 @@ const CardMostReadChildList: FC<FeatureProps> = (props) => {
         <i className={classes.icon} />
       </h4>
 
-      {stories &&
-        stories.map((item) => {
-          const imageUrl = item?.imageUrl || ''
-          const websiteUrl = item?.websiteUrl || ''
-          const title = item?.title || ''
-          const storyType = item?.storyType || ''
+      {stories.map((item) => {
+        const imageUrl = item?.imageUrl || ''
+        const websiteUrl = item?.websiteUrl || ''
+        const title = item?.title || ''
+        const storyType = item?.storyType || ''
 
-          return (
-            <CardMostReadItem
-              viewImage={viewImage}
-              imageUrl={imageUrl}
-              websiteUrl={websiteUrl}
-              title={title}
-              storyType={storyType}
-              arcSite={arcSite}
-            />
-          )
-        })}
+        return (
+          <CardMostReadChildrenItem
+            viewImage={viewImage}
+            imageUrl={imageUrl}
+            websiteUrl={websiteUrl}
+            title={title}
+            storyType={storyType}
+            arcSite={arcSite}
+          />
+        )
+      })}
 
       {arcSite === 'depor' && (
         <>
@@ -122,4 +121,4 @@ const CardMostReadChildList: FC<FeatureProps> = (props) => {
   )
 }
 
-export default CardMostReadChildList
+export default CardMostReadChildrenList

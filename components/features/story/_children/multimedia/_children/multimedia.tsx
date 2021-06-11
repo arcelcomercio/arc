@@ -87,7 +87,6 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
               caption={caption}
             />
           )}
-
           {youtubeId && <LiteYoutube videoId={youtubeId} />}
           {typoVideo === 'video' && embedHtml ? (
             <Video
@@ -101,7 +100,7 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
               imageUrl={imageUrl}
             />
           ) : (
-            <>{streams && <VideoNativo streams={streams} />}</>
+            <>{streams[0] && <VideoNativo streams={streams} />}</>
           )}
           {mp3 && (
             <>

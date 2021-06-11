@@ -15,6 +15,8 @@ const classes = {
 
 interface Props {
   hideAnchor: boolean
+  title: string
+  metaTitle: string
 }
 
 /*
@@ -28,15 +30,9 @@ interface Props {
 const anchorScript = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){document.getElementById("h-anchor").addEventListener("click",function(){top.postMessage({id:"anchor-top"},location.origin)})})});`
 
 const StoryChildrenContinueHeader: React.FC<Props> = (props) => {
-  const { hideAnchor } = props
+  const { hideAnchor, title = '', metaTitle } = props
 
-  const {
-    arcSite,
-    requestUri,
-    contextPath,
-    globalContent,
-    metaValue,
-  } = useAppContext<Story>()
+  const { arcSite, requestUri, contextPath, metaValue } = useAppContext<Story>()
   const {
     siteDomain,
     siteTitle,
@@ -51,18 +47,14 @@ const StoryChildrenContinueHeader: React.FC<Props> = (props) => {
         contextPath
       )}/resources/dist/${arcSite}/images/${header.logo}?d=1`
 
-  const {
-    headlines: { basic: storyTitle = '', meta_title: StoryMetaTitle = '' } = {},
-  } = globalContent || {}
-
-  const storyTitleRe = StoryMetaTitle || storyTitle
+  const storyTitleRe = metaTitle || title
 
   const seoTitle =
     metaValue('title') &&
     !metaValue('title').match(/content/) &&
     metaValue('title')
 
-  const title = `${seoTitle}: ${
+  const titleSeo = `${seoTitle}: ${
     storyTitleRe ? storyTitleRe.substring(0, 70) : ''
   } | ${siteTitle.toUpperCase()}`
 
@@ -75,8 +67,8 @@ const StoryChildrenContinueHeader: React.FC<Props> = (props) => {
           <img
             className={classes.image}
             src={mainImage}
-            alt={title}
-            title={title}
+            alt={titleSeo}
+            title={titleSeo}
           />
         </a>
         {hideAnchor ? null : (

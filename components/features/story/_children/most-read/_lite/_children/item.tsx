@@ -14,7 +14,7 @@ interface FeatureProps {
   title?: string
   storyType?: string
 }
-const CardMostReadChildItem: FC<FeatureProps> = (props) => {
+const CardMostReadChildrenItem: FC<FeatureProps> = (props) => {
   const {
     arcSite = 'depor',
     viewImage,
@@ -60,4 +60,4 @@ const CardMostReadChildItem: FC<FeatureProps> = (props) => {
   )
 }
 
-export default CardMostReadChildItem
+export default CardMostReadChildrenItem

@@ -1,14 +1,14 @@
 import { AnyObject } from 'fusion:content'
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { ArcSite } from 'types/fusion'
-import { ListDataStories, Story } from 'types/story'
+import { ListDataStories } from 'types/story'
 
 import { removeLastSlash } from '../../../../../utilities/parse/strings'
 import StoryData from '../../../../../utilities/story-data'
 
 interface StoriesProps {
   arcSite?: ArcSite
-  deployment?: AnyObject[]
+  deployment?: AnyObject
   contextPath?: string
   viewImage?: boolean
   data?: ListDataStories[]
@@ -18,7 +18,7 @@ interface StoriesProps {
 
 const formatStories: React.FC<StoriesProps> = ({
   data = [],
-  deployment,
+  deployment = {},
   contextPath,
   arcSite,
 }) => {
@@ -53,18 +53,13 @@ const formatStories: React.FC<StoriesProps> = ({
   return aux
 }
 interface QueryProps {
-  arcSite?: ArcSite
-  story?: Story
+  primarySectionLink: string
   storiesQty?: number
 }
 export const getQuery: React.FC<QueryProps> = (props): AnyObject => {
-  const { story, storiesQty, arcSite = 'elcomercio' } = props
-  const { websites = {} } = story || {}
+  const { primarySectionLink = '', storiesQty } = props
 
-  const { website_section: { _id: id = '', path = '' } = {} } =
-    websites[arcSite] || {}
-
-  let sec = id || path
+  let sec = primarySectionLink
 
   if (sec === 'todas' || sec === null || sec === 'undefined') sec = ''
   else if (sec !== '') {
@@ -78,19 +73,19 @@ export const getQuery: React.FC<QueryProps> = (props): AnyObject => {
 }
 interface FeatureProps {
   arcSite?: ArcSite
-  deployment?: AnyObject[]
+  deployment?: AnyObject
   contextPath?: string
   data?: ListDataStories[]
 }
 
-export const getStories: React.FC<FeatureProps> = (props): ReactElement => {
+export const getStories: React.FC<FeatureProps> = (props) => {
   const {
     data = [],
-    deployment = [],
+    deployment = {},
     contextPath = '',
     arcSite = 'elcomercio',
   } = props
-  let stories = {}
+  let stories = []
   if (data?.length > 0) {
     stories = formatStories({
       data,
@@ -99,5 +94,5 @@ export const getStories: React.FC<FeatureProps> = (props): ReactElement => {
       arcSite,
     })
   }
-  return stories as ReactElement
+  return stories
 }

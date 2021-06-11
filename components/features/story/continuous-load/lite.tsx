@@ -10,7 +10,7 @@ import GetStory from './_children/get-story'
 
 const StoryContinousLoad: FC = () => {
   const {
-    globalContent,
+    deployment,
     arcSite,
     requestUri,
     contextPath,
@@ -40,20 +40,6 @@ const StoryContinousLoad: FC = () => {
     [/* loading, */ links]
   )
 
-  const componentsHtml = ({ title = '' }) => (
-    <div>
-      <h2>{title}</h2>
-      <section
-        style={{
-          height: 700,
-          border: '1px solid red',
-        }}>
-        content
-      </section>
-      <div ref={lastFooterElementRef}>footer</div>
-    </div>
-  )
-
   React.useEffect(() => {
     // getStory(nextStoriesArray[0]?.link, arcSite)
     // console.log('==> pageNumber', pageNumber)
@@ -68,6 +54,7 @@ const StoryContinousLoad: FC = () => {
           arcSite={arcSite}
           contextPath={contextPath}
           requestUri={requestUri}
+          deployment={deployment}
           refCallback={lastFooterElementRef}
         />,
       ]
@@ -75,12 +62,7 @@ const StoryContinousLoad: FC = () => {
   }, [pageNumber])
 
   console.dir(pageHtml)
-  return (
-    <div>
-      <h1>Hola mundo</h1>
-      {pageHtml}
-    </div>
-  )
+  return <div>{pageHtml}</div>
 }
 
 StoryContinousLoad.label = 'Artículo - Carga Conitnua'

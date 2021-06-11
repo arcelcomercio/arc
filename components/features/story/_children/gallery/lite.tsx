@@ -48,7 +48,7 @@ const StoryChildrenGalleryLite: FC<FeatureProps> = (props) => {
   const embedHtmlPromoItems = promoItems?.infografia?.content
 
   const sectionUrl = canonicalUrl.split('/')
-  const seccioPublicidad = sectionUrl[1].replace(/-/gm, '')
+  const seccioPublicidad = sectionUrl[1] && sectionUrl[1].replace(/-/gm, '')
 
   return (
     <>

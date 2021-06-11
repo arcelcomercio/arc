@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-curly-brace-presence */
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
@@ -7,7 +6,9 @@ import { AnyObject } from 'types/utils'
 import StorySidebarContinueLayout from '../../../../layouts/story-sidebar/continue'
 import StoryData from '../../../../utilities/story-data'
 import StoryChildrenContentsLite from '../../_children/contents/lite'
+import StoryChildrenContinueHeader from '../../_children/continue-header/lite'
 import StoryChildrenGalleryLite from '../../_children/gallery/lite'
+import StoryMostReadLite from '../../_children/most-read/lite'
 import StoryChildrenMultimediaLte from '../../_children/multimedia/lite'
 import StoryChildrenSocialHeaderLite from '../../_children/social-header/lite'
 import StoryChildrenTitle from '../../_children/title/lite'
@@ -17,8 +18,9 @@ const rederStory: React.FC<{
   contextPath: string
   arcSite: ArcSite
   requestUri: string
+  deployment: AnyObject
 }> = (props) => {
-  const { contextPath, arcSite, requestUri, data } = props
+  const { contextPath, arcSite, requestUri, data, deployment } = props
   const trustproject = data?.label?.trustproject
 
   const {
@@ -45,6 +47,7 @@ const rederStory: React.FC<{
     contentElements,
     authorsList,
     authorEmail,
+    metaTitle,
   } = new StoryData({
     data,
     contextPath,
@@ -54,6 +57,11 @@ const rederStory: React.FC<{
   // eslint-disable-next-line no-sparse-arrays
   const children = [
     ,
+    StoryChildrenContinueHeader({
+      hideAnchor: false,
+      title,
+      metaTitle,
+    }),
     StoryChildrenSocialHeaderLite({
       arcSite,
       primarySectionLink,
@@ -71,6 +79,15 @@ const rederStory: React.FC<{
       contentElementsListOne,
       subTitle,
       isPremium,
+    }),
+    StoryChildrenGalleryLite({
+      subtype,
+      canonicalUrl: websiteLink,
+      multimedia,
+      isPremium,
+      promoItems,
+      primarySection,
+      promoItemJwplayer,
     }),
 
     StoryChildrenMultimediaLte({
@@ -106,6 +123,16 @@ const rederStory: React.FC<{
       canonicalUrl: websiteLink,
       authorsList,
       liteAdsEvery: 2,
+    }),
+    StoryMostReadLite({
+      primarySectionLink,
+      deployment,
+      contextPath,
+      arcSite,
+      viewImage: true,
+      storiesQty: 10,
+      customTitle: '',
+      customLink: '',
     }),
   ]
 

@@ -3,15 +3,14 @@ import { AnyObject } from 'fusion:context'
 import React from 'react'
 import { FC } from 'types/features'
 import { ArcSite } from 'types/fusion'
-import { Story } from 'types/story'
 
 import { getQuery, getStories } from './_dependencies/functions'
 import schemaFilter from './_dependencies/schema-filter'
-import CardMostReadList from './_lite/_children/list'
+import CardMostReadChildrenList from './_lite/_children/list'
 
 interface FeatureProps {
-  story?: Story[]
-  arcSite?: ArcSite
+  primarySectionLink: string
+  arcSite: ArcSite
   deployment?: AnyObject
   contextPath?: string
   viewImage?: boolean
@@ -21,12 +20,12 @@ interface FeatureProps {
 }
 
 const CONTENT_SOURCE = 'story-feed-by-views'
-const CardMostReadLite: FC<FeatureProps> = (props) => {
+const StoryMostReadChildrenLite: FC<FeatureProps> = (props) => {
   const {
-    story,
+    primarySectionLink,
     deployment = {},
     contextPath = '',
-    arcSite = 'elcomercio',
+    arcSite,
     viewImage = false,
     storiesQty = 10,
     customTitle = '',
@@ -39,7 +38,7 @@ const CardMostReadLite: FC<FeatureProps> = (props) => {
     source: CONTENT_SOURCE,
     query: {
       presets,
-      ...getQuery({ story, storiesQty, arcSite }),
+      ...getQuery({ primarySectionLink, storiesQty }),
     },
     filter: schemaFilter,
     transform: ({ content_elements: contentElements = [] } = {}) => {
@@ -56,10 +55,10 @@ const CardMostReadLite: FC<FeatureProps> = (props) => {
       return response
     },
   })
-  const { stories = [] } = data || {}
+  const { stories = [] } = data || []
 
   return (
-    <CardMostReadList
+    <CardMostReadChildrenList
       viewImage={viewImage}
       stories={stories}
       customTitle={customTitle}
@@ -70,6 +69,6 @@ const CardMostReadLite: FC<FeatureProps> = (props) => {
   )
 }
 
-CardMostReadLite.label = 'Últimas Noticias'
+StoryMostReadChildrenLite.label = 'Últimas Noticias'
 
-export default CardMostReadLite
+export default StoryMostReadChildrenLite

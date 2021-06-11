@@ -22,28 +22,31 @@ const StorySidebarContinueLayout: FC<{ children: AnyObject[] }> = ({
   <>
     <div className={classes.layout}>
       <div className={`${classes.lateral} ${classes.lateralL}`}>
-        {children[0] /* Lateral izquierdo */}
+        {children[0] && children[0] /* Lateral izquierdo */}
       </div>
       <div className={classes.contentContainer}>
-        {children[1] /*  Barra de navegación */}
+        {children[1] && children[1] /*  Barra de navegación */}
+        {children[2] && children[2] /*  Barra de navegación */}
         <section className={classes.content}>
           <div role="banner" className={classes.heading}>
-            {children[2] /* Encabezado */}
-            {children[3] /* Encabezado */}
+            {children[3] && children[3] /* Encabezado */}
+            {children[4] && children[4] /* Multimedia */}
           </div>
           <div role="main" className={classes.main}>
-            {children[4] /* Contenido */}
+            {children[5] && children[5] /* Multimedia */}
+
+            {children[6] && children[6] /* Contenido */}
           </div>
-          {children[5] && (
+          {children[7] && (
             <aside className={classes.sidebar}>
-              {children[5] /* Barra lateral */}
+              {children[7] /* Barra lateral */}
             </aside>
           )}
         </section>
-        {children[6] /* Pie de página */}
+        {children[8] && children[8] /* Pie de página */}
       </div>
       <div className={`${classes.lateral} ${classes.lateralR}`}>
-        {children[7] /* Lateral derecho */}
+        {children[9] && children[9] /* Lateral derecho */}
       </div>
     </div>
   </>
