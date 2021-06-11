@@ -96,12 +96,6 @@ const PollaGuide: FC<Props> = (props) => {
       })
   }, [])
 
-  const fullDateFormater = new Intl.DateTimeFormat('es-419-u-hc-h12', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric',
-  })
-
   const currentGamesArray = gamesByDate?.[currentDate]
 
   const sideScrollInterval = (
@@ -152,7 +146,12 @@ const PollaGuide: FC<Props> = (props) => {
           <div className="polla-results__title">
             Resultados del{' '}
             {gamesByDate?.[currentDate]?.[0].date
-              ? fullDateFormater.format(
+              ? new Intl.DateTimeFormat('es-419-u-hc-h12', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: '2-digit',
+                  timeZone: 'America/Lima',
+                }).format(
                   new Date(
                     gamesByDate?.[currentDate]?.[0].date.replace(/-/g, '/')
                   )
@@ -286,7 +285,19 @@ const PollaGuide: FC<Props> = (props) => {
                               day: '2-digit',
                             }).format(new Date(game.date.replace(/-/g, '/')))}
                           </span>
-                          <span>{game.time}</span>
+                          <span>
+                            {' '}
+                            {new Intl.DateTimeFormat('es-419-u-hc-h12', {
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              timeZone: 'America/Lima',
+                              hour12: true,
+                            }).format(
+                              new Date(
+                                `${game.date.replace(/-/g, '/')} ${game.time}`
+                              )
+                            )}
+                          </span>
                         </div>
                       )}
                     </div>
