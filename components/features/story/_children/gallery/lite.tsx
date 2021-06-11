@@ -38,7 +38,7 @@ const StoryChildrenGalleryLite: FC<FeatureProps> = (props) => {
     canonicalUrl = '',
     multimedia = '',
     isPremium,
-    promoItems = {},
+    promoItems,
     primarySection = '',
     promoItemJwplayer,
   } = props

@@ -38,6 +38,7 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
   } = data
 
   const contenEmbed = promoItems?.basic_html?.content || ''
+  const idImg = promoItems?.basic?._id || ''
   const typeEmbed = promoItems?.basic_html?.type
   const youtubeId = promoItems?.youtube_id?.content
   const typeInfo = promoItems?.youtube_id?.type
@@ -51,7 +52,6 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
   const typoVideo = promoItems?.basic_video?.type
   const descriptionVideo = promoItems?.basic_video?.description || ''
   const mp3 = promoItems?.path_mp3?.content
-
   return (
     <>
       {promoItemJwplayer?.key ? (
@@ -66,6 +66,7 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
           !typeEmbed &&
           typeImage ? (
             <Imagen
+              id={idImg}
               multimedia={multimedia}
               caption={caption}
               showCaption={showCaption}

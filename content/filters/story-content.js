@@ -182,6 +182,7 @@ content_elements {
   }
   promo_items{
     basic{
+      _id
       caption
       subtitle
       url
@@ -296,7 +297,8 @@ promo_items{
     content
     type
   }
-  basic { 
+  basic {
+    _id 
     url 
     type
     subtitle

@@ -1,6 +1,7 @@
 import { useContent } from 'fusion:content'
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
+import { AnyObject } from 'types/utils'
 
 import RederStory from './render-story'
 
@@ -10,8 +11,16 @@ const GetStory: React.FC<{
   arcSite: ArcSite
   requestUri: string
   refCallback: string
+  deployment: AnyObject
 }> = (props) => {
-  const { link = '', arcSite, refCallback, contextPath, requestUri } = props
+  const {
+    link = '',
+    arcSite,
+    refCallback,
+    contextPath,
+    deployment,
+    requestUri,
+  } = props
   const dataStory =
     useContent({
       source: 'story-by-url-and-related-filter',
@@ -21,6 +30,7 @@ const GetStory: React.FC<{
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
       },
     }) || {}
+
   return (
     <div>
       <div ref={refCallback}>
@@ -30,6 +40,7 @@ const GetStory: React.FC<{
             contextPath={contextPath}
             arcSite={arcSite}
             requestUri={requestUri}
+            deployment={deployment}
           />
         )}
       </div>

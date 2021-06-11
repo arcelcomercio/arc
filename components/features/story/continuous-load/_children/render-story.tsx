@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'

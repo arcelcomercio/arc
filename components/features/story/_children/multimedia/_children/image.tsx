@@ -9,6 +9,7 @@ const classes = {
   caption: '__caption',
 }
 interface FeatureProps {
+  id?: string
   url?: string
   multimedia?: string
   caption?: string
@@ -21,6 +22,7 @@ interface FeatureProps {
 }
 
 const StoryContentChildImage: FC<FeatureProps> = ({
+  id = '',
   url = '',
   multimedia,
   caption = '',
@@ -42,6 +44,7 @@ const StoryContentChildImage: FC<FeatureProps> = ({
   return (
     <figure>
       <Image
+        id={`${id}451`}
         src={multimedia || url}
         width={customWidth}
         height={customHeight}

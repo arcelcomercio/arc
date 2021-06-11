@@ -400,6 +400,7 @@ interface YoutubeId {
 }
 
 export interface PromoItems {
+  _id: string
   basic?: Basic
   basic_jwplayer?: BasicJwplayer
   basic_gallery?: BasicGallery
