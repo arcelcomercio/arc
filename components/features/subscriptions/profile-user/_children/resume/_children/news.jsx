@@ -2,10 +2,7 @@ import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import Loading from '../../../../../signwall/_children/loading'
-import {
-  getNewsLetters,
-  getNewsLettersUser,
-} from '../../../../../signwall/_dependencies/services'
+import Services from '../../../../_dependencies/Services'
 import { WrapperBlock } from '../styles'
 
 @Consumer
@@ -31,7 +28,7 @@ class NewsResume extends Component {
 
       const listAllNews = { ...[] }
 
-      getNewsLetters().then((resNews) => {
+      Services.getNewsLetters().then((resNews) => {
         resNews[SITE].map((item) => {
           listAllNews[item.code] = false
           return null
@@ -44,7 +41,7 @@ class NewsResume extends Component {
           })
         }
 
-        getNewsLettersUser(UUID, SITE).then((res) => {
+        Services.getNewsLettersUser(UUID, SITE).then((res) => {
           if (res.data.length >= 1) {
             res.data.map((item) => {
               if (this._isMounted) {
@@ -95,9 +92,9 @@ class NewsResume extends Component {
                         checksNews[itemNews.code] && (
                           <div className="item item1" key={itemNews.code}>
                             <img src={itemNews.image} alt="demo" />
-                            <div className={`title title-${arcSite}`}>
+                            {/* <div className={`title title-${arcSite}`}>
                               {itemNews.name}
-                            </div>
+                            </div> */}
                           </div>
                         )
                     )}

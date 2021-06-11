@@ -118,9 +118,9 @@ const Checkbox = ({ className, checked, disabled, name, site, ...props }) => (
   <CheckboxContainer checked={checked} className={className}>
     <Image {...props} />
     <Cover checked={checked} />
-    <Name checked={checked} site={site}>
+    {/* <Name checked={checked} site={site}>
       {name}
-    </Name>
+    </Name> */}
     <HiddenCheckbox checked={checked} disabled={disabled} {...props} />
     <StyledCheckbox checked={checked}>
       <Icon viewBox="0 0 24 24">
