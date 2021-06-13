@@ -90,11 +90,19 @@
     font: 400 14px/1 $primary-font;
     color: #222;
     margin-bottom: 4px;
+    @media (--desktop) {
+      display: inline-block;
+      margin-right: 8px;
+      margin-bottom: 12px;
+    }
   }
   &__list-ub {
     font: 400 14px/1 $primary-font;
     color: #999;
     margin-bottom: 12px;
+    @media (--desktop) {
+      display: inline-block;
+    }
   }
   &__list-cont {
     border: 1px solid #ddd;
