@@ -217,7 +217,9 @@ export const FooterSubs = () => {
       )}
 
       {userStep !== 4 && (
-        <section className="step__bottom">
+        <section
+          className="step__bottom"
+          style={userStep === 5 ? { display: 'none' } : {}}>
           <button className={styles.btnDetail} type="button" id="btn-detail">
             <div>
               <span className="title-item">Resumen de pedido:</span>
@@ -343,6 +345,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                       href={urls.twitter}
                       target="_blank"
                       rel="noreferrer"
+                      className="footer__content-encuentranos-social-link"
                       aria-label="Twitter">
                       <i className="icon-twitter" />
                     </a>
@@ -350,6 +353,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                       href={urls.facebook}
                       target="_blank"
                       rel="noreferrer"
+                      className="footer__content-encuentranos-social-link"
                       aria-label="Facebook">
                       <i className="icon-facebook" />
                     </a>
@@ -357,6 +361,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                       href={urls.instangram}
                       target="_blank"
                       rel="noreferrer"
+                      className="footer__content-encuentranos-social-link"
                       aria-label="Instagram">
                       <i className="icon-instangram" />
                     </a>
@@ -368,6 +373,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                         href={urls.appStore}
                         target="_blank"
                         rel="noreferrer"
+                        className="footer__content-encuentranos-apps-link"
                         aria-label="AppStore">
                         <i className="icon-appstore" />
                       </a>
@@ -375,6 +381,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                         href={urls.googlePlay}
                         target="_blank"
                         rel="noreferrer"
+                        className="footer__content-encuentranos-apps-link"
                         aria-label="GooglePlay">
                         <i className="icon-googleplay" />
                       </a>

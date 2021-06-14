@@ -57,7 +57,7 @@ const WrapperPaymentSubs = () => {
 
   React.useEffect(() => {
     Sentry.init({
-      dsn: urlCommon.dsnSentry,
+      dsn: urlCommon.sentrySubs,
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
@@ -131,11 +131,12 @@ const WrapperPaymentSubs = () => {
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
           <Wrapper
+            step={userStep}
             style={{
               minHeight: '530px',
             }}>
             {!userLoading && (
-              <PanelLeft>
+              <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
                   <h2 className="step__left-title-campaign">
                     {texts.textWinback}
@@ -152,9 +153,11 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
-            </PanelRight>
+            {userStep !== 5 && (
+              <PanelRight>
+                {userStep !== 4 && !freeAccess && <Summary />}
+              </PanelRight>
+            )}
           </Wrapper>
         </Container>
         {!freeAccess && <FooterSubs />}
@@ -174,5 +177,7 @@ const PaymentSubscriptions = () => (
     <WrapperPaymentSubs />
   </AuthProvider>
 )
+
+PaymentSubscriptions.label = 'Subscriptions - Landing de Compra'
 
 export default PaymentSubscriptions

@@ -1,13 +1,13 @@
 import * as React from 'react'
 
-import QueryString from '../../signwall/_dependencies/querystring'
-import { PropertiesSite, PropertiesCommon } from '../_dependencies/Properties'
-import { Taggeo } from '../_dependencies/Taggeo'
-import { isAuthenticated } from '../_dependencies/Session'
-import { checkUndefined } from '../_dependencies/Utils'
-import { AuthContext } from '../_context/auth'
 import Signwall from '../_children/Signwall'
+import { AuthContext } from '../_context/auth'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
+import { isAuthenticated } from '../_dependencies/Session'
+import { Taggeo } from '../_dependencies/Taggeo'
+import { checkUndefined } from '../_dependencies/Utils'
 
 const styles = {
   wrapper: 'header-payment__content',
@@ -52,8 +52,16 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
       const resProfile = window.Identity.userProfile || {}
       activateAuth(resProfile)
       updateStep(2)
+      setShowSignwall(false)
+      deleteQuery('signLanding')
+      deleteQuery('dataTreatment')
     }
   }
+
+  React.useEffect(() => {
+    const isParamsRedirect = getQuery('signLanding')
+    setShowSignwall(isParamsRedirect)
+  }, [])
 
   return (
     <>
@@ -63,7 +71,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
             arcType === 'payment' ? 'wrapper-buy' : 'wrapper'
           } `}>
           {PWA.isPWA() ? (
-            <div className={styles.logo}></div>
+            <div className={styles.logo} />
           ) : (
             <a
               href={urls.homeUrl}
@@ -71,7 +79,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
               target="_blank"
               rel="noreferrer"
               aria-label={arcSite}>
-              <div className={styles.logo}></div>
+              <div className={styles.logo} />
             </a>
           )}
           <button
@@ -87,9 +95,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
         </div>
       </header>
 
-      {QueryString.getQuery('signLanding') ||
-      QueryString.getQuery('signStudents') ||
-      showSignwall ? (
+      {showSignwall && (
         <Signwall
           fallback={<div>Cargando...</div>}
           typeDialog={showTypeLanding} // tipo de modal (students , landing)
@@ -101,7 +107,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
             setShowTypeLanding('landing')
           }}
         />
-      ) : null}
+      )}
     </>
   )
 }

@@ -1,7 +1,7 @@
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import { getPreroll } from '../utilities/ads/preroll'
+import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
 import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
@@ -10,6 +10,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
+  SITE_OJO,
   SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
@@ -50,6 +51,7 @@ import vallaScript from './_dependencies/valla'
 import videoScript from './_dependencies/video-script'
 import widgets from './_dependencies/widgets'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const LiteOutput = ({
   children,
   contextPath,
@@ -75,7 +77,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = env
   const {
     videoSeo,
     idYoutube,
@@ -175,8 +177,8 @@ const LiteOutput = ({
   }
 
   const structuredTaboola = ` 
-    window._taboola = window._taboola || [];
-    _taboola.push({flush: true});`
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});`
 
   const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
@@ -184,6 +186,15 @@ const LiteOutput = ({
   s_bbcws('partner', 'elcomercio.pe');
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
+
+  const jsAdpushup = `
+(function(w, d) {
+	var s = d.createElement('script');
+	s.src = '//cdn.adpushup.com/42614/adpushup.js';
+	s.crossOrigin='anonymous'; 
+	s.type = 'text/javascript'; s.async = true;
+	(d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+})(window, document);`
 
   const isPremium = contentCode === PREMIUM
   const htmlAmpIs = isPremium ? '' : true
@@ -448,19 +459,40 @@ const LiteOutput = ({
           section={storySectionPath.split('/')[1]}
           subtype={subtype}
         />
+        {arcSite === SITE_ELBOCON ? (
+          <>
+            <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: jsAdpushup }}
+            />
+          </>
+        ) : null}
 
-        <Styles {...metaSiteData} />
+        <Styles
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaSiteData}
+        />
         {!isIframeStory ? (
           <>
-            <MetaSite {...metaSiteData} />
+            <MetaSite
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...metaSiteData}
+            />
             <meta name="description" lang="es" content={description} />
             {isStory ? (
               ''
             ) : (
               <meta name="keywords" lang="es" content={keywords} />
             )}
-            <OpenGraph {...openGraphData} />
-            <TwitterCards {...twitterCardsData} />
+            <OpenGraph
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...openGraphData}
+            />
+            <TwitterCards
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...twitterCardsData}
+            />
           </>
         ) : (
           // Solo para iframes de notas continuas
@@ -469,7 +501,11 @@ const LiteOutput = ({
             <meta name="twitter:site" content={twitterCardsData.twitterUser} />
           </>
         )}
-        <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
+        <MetaStory
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaPageData}
+          isIframeStory={isIframeStory}
+        />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
         )}
@@ -506,11 +542,11 @@ const LiteOutput = ({
           subtype={subtype}
         />
         {isPremium || metaValue('include_fusion_libs') === 'true' ? (
-          <>
-            <Libs />
-          </>
+          <Libs />
         ) : null}
-        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
+        {isPremium &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <>
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
@@ -694,6 +730,7 @@ const LiteOutput = ({
           }}
         />
         <script
+          async
           src={`${getAssetsPath(
             arcSite,
             contextPath
@@ -715,6 +752,9 @@ const LiteOutput = ({
         />
         {arcSite === SITE_ELCOMERCIOMAG ||
         arcSite === SITE_PERU21 ||
+        arcSite === SITE_TROME ||
+        arcSite === SITE_ELBOCON ||
+        arcSite === SITE_OJO ||
         arcSite === SITE_DEPOR ? (
           <script
             defer
@@ -775,7 +815,7 @@ const LiteOutput = ({
           </>
         )}
         {vallaSignwall === false &&
-        arcSite === SITE_ELCOMERCIO &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (
           <>
             <script

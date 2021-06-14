@@ -7,12 +7,11 @@ import * as React from 'react'
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
 import addScriptAsync from '../../../utilities/script-async'
-import QueryString from '../../signwall/_dependencies/querystring'
-import Taggeo from '../../signwall/_dependencies/taggeo'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { getUserName, isLogged } from '../_dependencies/Session'
-import { PixelActions, sendAction } from '../_dependencies/Taggeo'
+import { PixelActions, sendAction, Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
 import Benefits from './_children/Benefits'
@@ -48,7 +47,7 @@ const LandingSubscriptions = (props) => {
 
   React.useEffect(() => {
     Sentry.init({
-      dsn: urlCommon.dsnSentry,
+      dsn: urlCommon.sentrySubs,
       debug: env !== PROD,
       release: `arc-deployment@${deployment}`,
       environment: env,
@@ -102,6 +101,14 @@ const LandingSubscriptions = (props) => {
         })),
       },
     })
+
+    if (getQuery('signStudents')) {
+      setShowTypeLanding('students')
+    }
+
+    const isParamsRedirect = getQuery('signLanding') || getQuery('signStudents')
+
+    setShowSignwall(isParamsRedirect)
   }, [])
 
   const handleUniversity = () => {
@@ -152,6 +159,10 @@ const LandingSubscriptions = (props) => {
       }
 
       setShowProfile(getUserName(userfirstName, userlastName))
+      // setShowSignwall(false)
+      deleteQuery('signLanding')
+      // deleteQuery('signStudents')
+      deleteQuery('dataTreatment')
     }
   }
 
@@ -423,9 +434,7 @@ const LandingSubscriptions = (props) => {
           </section>
         )}
 
-        {QueryString.getQuery('signLanding') ||
-        QueryString.getQuery('signStudents') ||
-        showSignwall ? (
+        {showSignwall && (
           <Signwall
             fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
@@ -437,7 +446,7 @@ const LandingSubscriptions = (props) => {
               setShowTypeLanding('landing')
             }}
           />
-        ) : null}
+        )}
 
         {showModalCall ? (
           <Callout
@@ -485,5 +494,7 @@ LandingSubscriptions.propTypes = {
     }),
   }),
 }
+
+LandingSubscriptions.label = 'Subscriptions - Landing Principal'
 
 export default LandingSubscriptions

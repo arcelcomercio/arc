@@ -1,8 +1,8 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { PureComponent } from 'react'
-import Consumer from 'fusion:consumer'
-import { ENVIRONMENT } from 'fusion:environment'
-import { cintilloScript } from './scripts'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
+
+import { env } from '../../../utilities/arc/env'
+import { cintilloScript } from './VerifyEmail'
 
 const classes = {
   wrapper:
@@ -13,57 +13,48 @@ const classes = {
   btnIcon: 'icon-close-circle rounded bg-black title-xs',
   txtCount: 'confirmation-notice__counter md:mr-25',
 }
+const ConfirmationNotice = () => {
+  const { arcSite } = useAppContext() || {}
 
-@Consumer
-class ConfirmationNotice extends PureComponent {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props)
-  }
+  return (
+    <>
+      <div
+        id="signwall-cintillo-verify"
+        style={{ display: 'none' }}
+        className={`${classes.wrapper} ${
+          arcSite === 'elcomercio' ? 'bg-base-100' : 'bg-base-300'
+        }`}>
+        <p id="signwall-cintillo-texto" />
 
-  render() {
-    const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
-    const { arcSite } = this.props
-    return (
-      <>
-        <div
-          id="signwall-cintillo-verify"
+        <a href={() => {}} id="signwall-cintillo-link" className={classes.link}>
+          Enviar correo de confirmación
+        </a>
+
+        <span
+          id="signwall-cintillo-counter"
           style={{ display: 'none' }}
-          className={`${classes.wrapper} ${
-            arcSite === 'elcomercio' ? 'bg-base-100' : 'bg-base-300'
-          }`}>
-          <p id="signwall-cintillo-texto"></p>
+          className={classes.txtCount}>
+          Podrás reenviar nuevamente dentro de
+          <strong id="signwall-cintillo-countdown"> 10 </strong> segundos
+        </span>
 
-          <a href="#" id="signwall-cintillo-link" className={classes.link}>
-            Enviar correo de confirmación
-          </a>
-
-          <span
-            id="signwall-cintillo-counter"
-            style={{ display: 'none' }}
-            className={classes.txtCount}>
-            Podrás reenviar nuevamente dentro de
-            <strong id="signwall-cintillo-countdown"> 10 </strong> segundos
-          </span>
-
-          <button
-            id="signwall-cintillo-close"
-            type="button"
-            className={classes.closed}>
-            <i className={classes.btnIcon}></i>
-          </button>
-        </div>
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: cintilloScript({ arcEnv, arcSite }),
-          }}
-        />
-      </>
-    )
-  }
+        <button
+          id="signwall-cintillo-close"
+          type="button"
+          className={classes.closed}>
+          <i className={classes.btnIcon} />
+        </button>
+      </div>
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: cintilloScript({ env, arcSite }),
+        }}
+      />
+    </>
+  )
 }
 
-ConfirmationNotice.label = 'Singwall - Cintillo de Confirmación'
+ConfirmationNotice.label = 'Signwall - Cintillo Verificación de E-mail'
 
 export default ConfirmationNotice

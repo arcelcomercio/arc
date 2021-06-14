@@ -1,0 +1,128 @@
+.polla-nav {
+  background-color: #00185a;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 18px;
+  z-index: 21;
+  position: sticky;
+  top: 0;
+
+  button {
+    padding: 0;
+  }
+
+  &__btn-menu {
+    display: flex;
+    margin-right: 16px;
+    svg {
+      fill: #fff;
+    }
+    @media (--desktop) {
+      display: none;
+    }
+  }
+
+  &__logo {
+    flex: 1;
+    display: flex;
+    @media (--desktop) {
+      flex: none;
+    }
+    a {
+      color: #fff;
+      font: 700 18px/21px $secondary-font;
+      letter-spacing: 0.18px;
+    }
+    span {
+      display: none;
+      @media (--tablet) {
+        display: inline;
+      }
+    }
+  }
+
+  &__play-link {
+    color: #fff;
+    background-color: #dc532e;
+    font: 700 11px/1 $primary-font;
+    padding: 10px 25px;
+    border-radius: 4px;
+    margin-right: 18px;
+    letter-spacing: 0.88px;
+    @media (--tablet) {
+      font: 700 14px/1 $primary-font;
+      letter-spacing: 1.12px;
+      margin-right: 24px;
+      padding: 10px 50px;
+    }
+  }
+
+  &__sign-arrow {
+    display: none;
+  }
+  &__sign {
+    display: flex;
+    align-items: center;
+    color: #d2d900;
+    font: 400 14px/16px $primary-font;
+    span {
+      margin-right: 10px;
+      display: none;
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      @media (--tablet) {
+        display: inline;
+      }
+    }
+    &.signed {
+      .polla-nav__sign-user {
+        @media (--tablet) {
+          display: none;
+        }
+      }
+      .polla-nav__sign-arrow {
+        @media (--tablet) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &__middle {
+    display: none;
+    overflow: hidden;
+
+    @media (--desktop) {
+      flex: 1;
+      display: flex;
+    }
+  }
+  &__list {
+    display: flex;
+    align-items: center;
+  }
+  &__item {
+    margin-right: 32px;
+    a {
+      color: #fff;
+      font: 500 13px/15px $primary-font;
+      letter-spacing: 0.52px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+  }
+  &__tournament {
+    color: #fff;
+    font: 400 16px/19px $secondary-font;
+    padding: 3px 24px 3px 10px;
+    margin-right: 24px;
+    border-right: 1px solid #d2d900;
+    white-space: nowrap;
+    letter-spacing: 0.16px;
+  }
+}
+
+@import "./menu";

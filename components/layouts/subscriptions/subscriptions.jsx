@@ -1,19 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-const SubscriptionsLayout = ({ children = [] }) => {
-  return (
-    <>
-      <div>{children[0]}</div>
-      <div>
-        <div role="main">{children[1]}</div>
-      </div>
-      <div>
-        <div>{children[2]}</div>
-      </div>
-    </>
-  )
-}
+const SubscriptionsLayout = ({ children = [] }) => (
+  <>
+    <div>{children[0]}</div>
+    <div>
+      <div role="main">{children[1]}</div>
+    </div>
+    <div>
+      <div>{children[2]}</div>
+    </div>
+  </>
+)
 
 SubscriptionsLayout.propTypes = {
   children: PropTypes.node,

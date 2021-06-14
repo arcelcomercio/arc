@@ -15,16 +15,14 @@ class GetProfile {
     this.profile = null
     if (typeof window !== 'undefined') {
       const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
-      this.profile = JSON.parse(localProfile || '{}')
+      this.profile = JSON.parse(localProfile || '{}') || {}
     }
     this.publicProfile = this._getComplete()
     this.username = this._getUserName().userName
     this.initname = this._getUserName().inituser
   }
 
-  _getComplete = () => {
-    return this.cleanProfile(this.profile)
-  }
+  _getComplete = () => this.cleanProfile(this.profile || {})
 
   cleanAttribute = (attrValue) => {
     const newAttrValue =
@@ -41,9 +39,10 @@ class GetProfile {
         switch (attr) {
           case 'attributes':
             newPrev[attr] = (profile[attr] || []).map((item) => {
-              const { value } = item
+              const { value, name } = item
               // eslint-disable-next-line no-param-reassign
-              item.value = this.cleanAttribute(value)
+              item.value =
+                name !== 'dataTreatment' ? this.cleanAttribute(value) : value
               return item
             })
             break
@@ -76,10 +75,10 @@ class GetProfile {
             userName = 'Bienvenido Usuario'
           } else {
             userName =
-              profile.firstName.length >= 15
+              profile && profile.firstName.length >= 15
                 ? `${profile.firstName.slice(0, 15)}...`
                 : profile.firstName
-            inituser = profile.firstName.slice(0, 2)
+            inituser = profile && profile.firstName.slice(0, 2)
           }
           break
         case (profile.firstName !== 'undefined' ||
@@ -90,7 +89,7 @@ class GetProfile {
               profile.lastName.length >= 15
                 ? `${profile.lastName.slice(0, 15)}...`
                 : profile.lastName
-            inituser = profile.lastName.slice(0, 2)
+            inituser = profile && profile.lastName.slice(0, 2)
           } else {
             userName =
               `${profile.firstName} ${profile.lastName}`.length >= 15
@@ -100,6 +99,7 @@ class GetProfile {
                   )}...`
                 : `${profile.firstName} ${profile.lastName}`
             inituser =
+              profile &&
               profile.firstName.slice(0, 1) + profile.lastName.slice(0, 1)
           }
           break

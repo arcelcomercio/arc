@@ -10,10 +10,10 @@ import {
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
   SITE_OJO,
   SITE_PERU21G21,
   SITE_TROME,
-  SITE_GESTION,
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -50,6 +50,7 @@ import {
 import videoScript from './_dependencies/video-script'
 import widgets from './_dependencies/widgets'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default ({
   children,
   contextPath,
@@ -149,6 +150,15 @@ export default ({
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
+  const jsAdpushup = `
+  (function(w, d) {
+    var s = d.createElement('script');
+    s.src = '//cdn.adpushup.com/42614/adpushup.js';
+    s.crossOrigin='anonymous'; 
+    s.type = 'text/javascript'; s.async = true;
+    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+  })(window, document);`
+
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
@@ -182,6 +192,7 @@ export default ({
 
   const indPrebid = getPrebid()
   const urlArcAds =
+    // eslint-disable-next-line no-nested-ternary
     arcSite === SITE_ELCOMERCIOMAG
       ? `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
           .toISOString()
@@ -193,6 +204,7 @@ export default ({
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
+
   const getAfsStyle = () => {
     let styleAfsId = ''
     if (arcSite === SITE_DEPOR) {
@@ -259,6 +271,7 @@ export default ({
     isTrivia,
     globalContent,
   }
+  const collapseRetargetly = `"use strict";var _rl_gen_sg=function(){var e="_rl_sg",g=document.cookie.indexOf(e);if(-1==g)return[];g+=e.length+1;var o=document.cookie.indexOf(";",g);return-1==o&&(o=document.cookie.length),document.cookie.substring(g,o).split(",")},googletag=window.googletag||{cmd:[]};googletag.cmd.push(function(){googletag.pubads().collapseEmptyDivs(),googletag.pubads().setTargeting("_rl",_rl_gen_sg()),googletag.enableServices()});`
   const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
   const structuredTaboola = ` 
     window._taboola = window._taboola || [];
@@ -274,7 +287,7 @@ export default ({
   s_bbcws('track', 'pageView');`
 
   const isCovid = /^\/covid-19\//.test(requestUri)
-  const isElecciones = /^\/resultados-elecciones-2021\//.test(requestUri)
+  const isElecciones = metaValue('section_style') === 'resultados_elecciones'
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
@@ -501,19 +514,30 @@ export default ({
           }}
         />
         <Styles
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...metaSiteData}
           isStyleBasic={isStyleBasic}
           isFooterFinal={isFooterFinal}
         />
-        <MetaSite {...metaSiteData} />
+
+        <MetaSite
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaSiteData}
+        />
 
         <meta name="description" lang="es" content={description} />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
         )}
         {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
+        <TwitterCards
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...twitterCardsData}
+        />
+        <OpenGraph
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...openGraphData}
+        />
         {isBlogPost && (
           <>
             <meta name="section-id" content="/blog" />
@@ -560,12 +584,19 @@ export default ({
               />
             )}
             <script defer src={urlArcAds} />
-
-            <script
-              type="text/javascript"
-              defer
-              dangerouslySetInnerHTML={{ __html: collapseDivs }}
-            />
+            {arcSite === SITE_DEPOR ? (
+              <script
+                defer
+                type="text/javascript"
+                dangerouslySetInnerHTML={{ __html: collapseRetargetly }}
+              />
+            ) : (
+              <script
+                type="text/javascript"
+                defer
+                dangerouslySetInnerHTML={{ __html: collapseDivs }}
+              />
+            )}
             <Dfp />
           </>
         )}
@@ -627,7 +658,19 @@ export default ({
             />
           </>
         )}
-        <TagManager {...siteProperties} />
+        {arcSite === SITE_ELBOCON ? (
+          <>
+            <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: jsAdpushup }}
+            />
+          </>
+        ) : null}
+        <TagManager
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...siteProperties}
+        />
         {/* ============== WebTracking */}
         {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
           <>
@@ -637,7 +680,10 @@ export default ({
                 `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
               )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"></script>
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"
+              async
+            />
           </>
         ) : null}
 
@@ -649,7 +695,10 @@ export default ({
                 `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
               )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"></script>
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"
+              async
+            />
           </>
         ) : null}
         {/* ============== WebTracking */}

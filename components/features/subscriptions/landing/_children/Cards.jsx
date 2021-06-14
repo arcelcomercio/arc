@@ -1,10 +1,10 @@
-import * as React from 'react'
 import * as Sentry from '@sentry/browser'
+import * as React from 'react'
 import Markdown from 'react-markdown/with-html'
 
-import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
 import { isStorageAvailable } from '../../../../utilities/client/storage'
-import { Taggeo, sendAction, PixelActions } from '../../_dependencies/Taggeo'
+import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
+import { PixelActions, sendAction, Taggeo } from '../../_dependencies/Taggeo'
 
 function Cards({ item, arcSite, order, textOffer }) {
   const itemGrid = ['one', 'two', 'three']
@@ -116,7 +116,7 @@ function Cards({ item, arcSite, order, textOffer }) {
         </div>
         <div className="planes__content-accordion">
           <input type="checkbox" defaultChecked onChange={() => {}} />
-          <i></i>
+          <i />
           <h4>Ver detalles</h4>
           <div className="cont">
             <button
@@ -127,20 +127,18 @@ function Cards({ item, arcSite, order, textOffer }) {
               {loading ? 'Redireccionando...' : 'Suscribirme'}
             </button>
             <ul className="planes__content-benefits">
-              {features.map((list, i) => {
-                return (
-                  <li
-                    key={`lista-${i + 1}`}
-                    className={list.match(/\[ok\]/) ? 'check' : ''}>
-                    <Markdown
-                      source={list.replace(/\[ok\]/, '')}
-                      escapeHtml={false}
-                      unwrapDisallowed
-                      disallowedTypes={['paragraph']}
-                    />
-                  </li>
-                )
-              })}
+              {features.map((list, i) => (
+                <li
+                  key={`lista-${i + 1}`}
+                  className={list.match(/\[ok\]/) ? 'check' : ''}>
+                  <Markdown
+                    source={list.replace(/\[ok\]/, '')}
+                    escapeHtml={false}
+                    unwrapDisallowed
+                    disallowedTypes={['paragraph']}
+                  />
+                </li>
+              ))}
             </ul>
           </div>
         </div>
