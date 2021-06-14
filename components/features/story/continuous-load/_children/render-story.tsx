@@ -2,9 +2,7 @@
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
-import { AnyObject } from 'types/utils'
 
-import StorySidebarContinueLayout from '../../../../layouts/story-sidebar/continue'
 import StoryData from '../../../../utilities/story-data'
 import StoryChildrenContentsLite from '../../_children/contents/lite'
 import StoryChildrenContinueHeader from '../../_children/continue-header/lite'
@@ -13,6 +11,7 @@ import StoryMostReadLite from '../../_children/most-read/lite'
 import StoryChildrenMultimediaLte from '../../_children/multimedia/lite'
 import StoryChildrenSocialHeaderLite from '../../_children/social-header/lite'
 import StoryChildrenTitle from '../../_children/title/lite'
+import StorySidebarContinueLayout from './continue'
 
 const rederStory: React.FC<{
   data: Story
