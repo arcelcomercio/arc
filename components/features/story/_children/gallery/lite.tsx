@@ -22,7 +22,9 @@ const classes = {
 
 interface FeatureProps {
   subtype: string
-  multimedia: string
+  multimediaLarge: string
+  multimediaLandscapeMD: string
+  multimediaLandscapeS: string
   canonicalUrl: string
   isPremium: boolean
   promoItems: PromoItems
@@ -36,7 +38,9 @@ const StoryChildrenGalleryLite: FC<FeatureProps> = (props) => {
   const {
     subtype,
     canonicalUrl = '',
-    multimedia = '',
+    multimediaLarge,
+    multimediaLandscapeMD,
+    multimediaLandscapeS,
     isPremium,
     promoItems,
     primarySection = '',
@@ -94,7 +98,9 @@ const StoryChildrenGalleryLite: FC<FeatureProps> = (props) => {
       {subtype === BIG_IMAGE || subtype === SPECIAL_BASIC ? (
         <div className={classes.image}>
           <StoryContentsChildMultimedia
-            multimedia={multimedia}
+            multimediaLarge={multimediaLarge}
+            multimediaLandscapeMD={multimediaLandscapeMD}
+            multimediaLandscapeS={multimediaLandscapeS}
             primarySection={primarySection}
             promoItems={promoItems}
             promoItemJwplayer={promoItemJwplayer}

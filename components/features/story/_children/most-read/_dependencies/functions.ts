@@ -44,7 +44,7 @@ const formatStories: React.FC<StoriesProps> = ({
     element.__data = el
     aux.push({
       websiteUrl: element.link,
-      imageUrl: element.multimedia,
+      imageUrl: element.multimediaLandscapeS,
       storyType: element.multimediaType,
       title: element.title,
       id: el._id,

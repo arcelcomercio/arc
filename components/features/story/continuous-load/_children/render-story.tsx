@@ -2,9 +2,7 @@
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
-import { AnyObject } from 'types/utils'
 
-import StorySidebarContinueLayout from '../../../../layouts/story-sidebar/continue'
 import StoryData from '../../../../utilities/story-data'
 import StoryChildrenContentsLite from '../../_children/contents/lite'
 import StoryChildrenContinueHeader from '../../_children/continue-header/lite'
@@ -13,13 +11,14 @@ import StoryMostReadLite from '../../_children/most-read/lite'
 import StoryChildrenMultimediaLte from '../../_children/multimedia/lite'
 import StoryChildrenSocialHeaderLite from '../../_children/social-header/lite'
 import StoryChildrenTitle from '../../_children/title/lite'
+import StorySidebarContinueLayout from './layout'
 
 const rederStory: React.FC<{
   data: Story
   contextPath: string
   arcSite: ArcSite
   requestUri: string
-  deployment: AnyObject
+  deployment: (resource: string) => string | string
 }> = (props) => {
   const { contextPath, arcSite, requestUri, data, deployment } = props
   const trustproject = data?.label?.trustproject
@@ -34,7 +33,9 @@ const rederStory: React.FC<{
     promoItems,
     contentElementsListOne,
     subtype,
-    multimedia,
+    multimediaLarge,
+    multimediaLandscapeMD,
+    multimediaLandscapeS,
     promoItemJwplayer,
     tags: tagsStory,
     displayDate,
@@ -55,9 +56,7 @@ const rederStory: React.FC<{
     arcSite,
   })
 
-  // eslint-disable-next-line no-sparse-arrays
   const children = [
-    ,
     StoryChildrenContinueHeader({
       hideAnchor: false,
       title,
@@ -84,7 +83,9 @@ const rederStory: React.FC<{
     StoryChildrenGalleryLite({
       subtype,
       canonicalUrl: websiteLink,
-      multimedia,
+      multimediaLarge,
+      multimediaLandscapeMD,
+      multimediaLandscapeS,
       isPremium,
       promoItems,
       primarySection,
@@ -96,7 +97,9 @@ const rederStory: React.FC<{
       primarySection,
       primarySectionLink,
       subtype,
-      multimedia,
+      multimediaLarge,
+      multimediaLandscapeMD,
+      multimediaLandscapeS,
       promoItemJwplayer,
       tags: tagsStory,
     }),
@@ -118,7 +121,9 @@ const rederStory: React.FC<{
       authorEmail,
       subtype,
       isPremium,
-      multimedia,
+      multimediaLarge,
+      multimediaLandscapeMD,
+      multimediaLandscapeS,
       tags: tagsStory,
       contentElements,
       canonicalUrl: websiteLink,

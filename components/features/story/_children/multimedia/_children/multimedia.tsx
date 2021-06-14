@@ -16,7 +16,9 @@ const classes = {
 interface FeatureProps {
   primarySection?: string
   promoItems?: PromoItems
-  multimedia?: string
+  multimediaLarge?: string
+  multimediaLandscapeMD?: string
+  multimediaLandscapeS: string
   primaryImage?: boolean
   completeImage?: boolean
   promoItemJwplayer?: EmbedConfig
@@ -28,7 +30,9 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
   const {
     primarySection = '',
     promoItems,
-    multimedia = '',
+    multimediaLarge = '',
+    multimediaLandscapeMD = '',
+    multimediaLandscapeS,
     primaryImage = false,
     completeImage = false,
     promoItemJwplayer,
@@ -38,13 +42,13 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
   } = data
 
   const contenEmbed = promoItems?.basic_html?.content || ''
-  const idImg = promoItems?.basic?._id || ''
+
   const typeEmbed = promoItems?.basic_html?.type
   const youtubeId = promoItems?.youtube_id?.content
   const typeInfo = promoItems?.youtube_id?.type
   const typeImage = promoItems?.basic?.type
   const caption = promoItems?.basic?.caption || ''
-  const imageUrl = promoItems?.basic?.url || ''
+
   const streams = promoItems?.basic_video?.streams || []
   const embedHtml = promoItems?.basic_video?.embed_html || ''
   const id = promoItems?.basic_video?._id || ''
@@ -66,8 +70,9 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
           !typeEmbed &&
           typeImage ? (
             <Imagen
-              id={idImg}
-              multimedia={multimedia}
+              multimediaLarge={multimediaLarge}
+              multimediaLandscapeMD={multimediaLandscapeMD}
+              multimediaLandscapeS={multimediaLandscapeS}
               caption={caption}
               showCaption={showCaption}
               primaryImage={primaryImage}
@@ -84,7 +89,7 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
               content={contenEmbed}
               streams={streams}
               id={id}
-              imageUrl={imageUrl}
+              imageUrl={multimediaLarge}
               caption={caption}
             />
           )}
@@ -98,7 +103,7 @@ const StoryContentChildMultimedia: FC<FeatureProps> = (data) => {
               duration={duration}
               streams={streams}
               id={id}
-              imageUrl={imageUrl}
+              imageUrl={multimediaLarge}
             />
           ) : (
             <>{streams[0] && <VideoNativo streams={streams} />}</>
