@@ -18,6 +18,7 @@ interface Props {
   customFields?: {
     serviceEndPoint?: string
     tableLinkUrl?: string
+    customGroupName?: string
   }
 }
 
@@ -40,6 +41,10 @@ const PollaPositionsTable: FC<Props> = (props) => {
         setIsError(true)
       })
   }, [])
+
+  const parsedCustomGroupName: { [key in string]: string } = JSON.parse(
+    customFields?.customGroupName || '{}'
+  )
 
   return (
     <>
@@ -67,13 +72,15 @@ const PollaPositionsTable: FC<Props> = (props) => {
           </div>
         ) : null}
         {list?.map((group) => (
-          <div className="polla-positions__group">
+          <div className="polla-positions__group" key={group.name}>
             <div className="polla-positions__group-left">
               <div className="polla-positions__group-left__title">
-                {group.name}
+                {parsedCustomGroupName[group.name] || group.name}
               </div>
               {group?.teams?.map((team, i) => (
-                <ul className="polla-positions__group-left__teams">
+                <ul
+                  className="polla-positions__group-left__teams"
+                  key={team.name}>
                   <li>
                     <span className="polla-positions__group-left__teams-number">
                       {i + 1}
@@ -102,7 +109,9 @@ const PollaPositionsTable: FC<Props> = (props) => {
                 <li>PP</li>
               </ul>
               {group.teams.map((team) => (
-                <ul className="polla-positions__group-right__points">
+                <ul
+                  className="polla-positions__group-right__points"
+                  key={team.name}>
                   <li>{team?.points}</li>
                   <li>{team?.played}</li>
                   <li>{team?.won}</li>
@@ -131,6 +140,9 @@ PollaPositionsTable.propTypes = {
     }),
     tableLinkUrl: PropTypes.string.tag({
       name: 'Enlace del link "VER TABLA COMPLETA"',
+    }),
+    customGroupName: PropTypes.json.tag({
+      name: 'JSON de nombre de grupos',
     }),
   }),
 }
