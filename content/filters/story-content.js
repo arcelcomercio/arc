@@ -33,6 +33,8 @@ content_elements {
         landscape_xs
         landscape_s
         lazy_default 
+        landscape_md
+        large
       }
       link
       photo
@@ -188,7 +190,11 @@ content_elements {
       url
       width
       height
-      
+      resized_urls { 
+        large
+        landscape_md
+        landscape_s
+      }
     }
   }
 
@@ -305,7 +311,11 @@ promo_items{
     caption
     width
     height
-
+    resized_urls { 
+      large
+      landscape_md
+      landscape_s
+    }
   }
   basic_movil { 
     url 

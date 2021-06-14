@@ -11,7 +11,7 @@ import CardMostReadChildrenList from './_lite/_children/list'
 interface FeatureProps {
   primarySectionLink: string
   arcSite: ArcSite
-  deployment?: AnyObject
+  deployment?: (resource: string) => string | string
   contextPath?: string
   viewImage?: boolean
   storiesQty?: number
@@ -32,7 +32,8 @@ const StoryMostReadChildrenLite: FC<FeatureProps> = (props) => {
     customLink = '',
   } = props
 
-  const presets = 'no-presets'
+  const presets =
+    arcSite === 'depor' ? 'landscape_s:314x72' : 'landscape_s:157x72'
 
   const data = useContent({
     source: CONTENT_SOURCE,

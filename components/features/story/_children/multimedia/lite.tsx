@@ -17,18 +17,22 @@ interface FeatureProps {
   primarySection?: string
   primarySectionLink?: string
   subtype?: string
-  multimedia: string
+  multimediaLarge: string
+  multimediaLandscapeMD: string
+  multimediaLandscapeS: string
   promoItemJwplayer: EmbedConfig
   tags?: Taxonomy[]
 }
 
-const StoryChildrenMultimediaLte: FC<FeatureProps> = (props) => {
+const StoryChildrenMultimediaLite: FC<FeatureProps> = (props) => {
   const {
     promoItems,
     primarySection = '',
     primarySectionLink,
     subtype,
-    multimedia,
+    multimediaLarge,
+    multimediaLandscapeMD,
+    multimediaLandscapeS,
     promoItemJwplayer,
     tags,
   } = props
@@ -52,7 +56,9 @@ const StoryChildrenMultimediaLte: FC<FeatureProps> = (props) => {
               subtype !== SPECIAL && (
                 <StoryContentsChildMultimedia
                   promoItems={promoItems}
-                  multimedia={multimedia}
+                  multimediaLarge={multimediaLarge}
+                  multimediaLandscapeMD={multimediaLandscapeMD}
+                  multimediaLandscapeS={multimediaLandscapeS}
                   primarySection={primarySection}
                   primaryImage
                   completeImage
@@ -67,6 +73,6 @@ const StoryChildrenMultimediaLte: FC<FeatureProps> = (props) => {
   )
 }
 
-StoryChildrenMultimediaLte.label = 'Artículo - multimedia '
+StoryChildrenMultimediaLite.label = 'Artículo - multimedia '
 
-export default StoryChildrenMultimediaLte
+export default StoryChildrenMultimediaLite
