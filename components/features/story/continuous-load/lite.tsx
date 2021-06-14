@@ -1,4 +1,3 @@
-import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 // import getProperties from 'fusion:properties'
 import * as React from 'react'
@@ -20,14 +19,10 @@ const StoryContinousLoad: FC = () => {
   const [pageHtml, setPageHtml] = React.useState([])
   const [pageNumber, setPageNumber] = React.useState(0)
   const links = getLinks()
-  // console.log('=> linkss ', links)
-  // const loading = false
-  // const hasMore = true
 
   const observer = React.useRef()
   const lastFooterElementRef = React.useCallback(
     (node) => {
-      // if (loading) return
       if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && links.length - 1 > pageNumber) {
@@ -37,20 +32,16 @@ const StoryContinousLoad: FC = () => {
       })
       if (node) observer.current.observe(node)
     },
-    [/* loading, */ links]
+    [links]
   )
 
   React.useEffect(() => {
-    // getStory(nextStoriesArray[0]?.link, arcSite)
-    // console.log('==> pageNumber', pageNumber)
-    // console.log('==> set LenLinks', links.length)
     setPageHtml((prevPageHtml) => {
-      console.log('==> prevPageHtml', prevPageHtml)
-
+      const link = links[pageNumber]?.link
       return [
         ...prevPageHtml,
         <GetStory
-          link={links[pageNumber]?.link}
+          link={link}
           arcSite={arcSite}
           contextPath={contextPath}
           requestUri={requestUri}
@@ -60,8 +51,6 @@ const StoryContinousLoad: FC = () => {
       ]
     })
   }, [pageNumber])
-
-  console.dir(pageHtml)
   return <div>{pageHtml}</div>
 }
 
