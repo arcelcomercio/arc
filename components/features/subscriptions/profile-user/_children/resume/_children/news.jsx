@@ -1,5 +1,5 @@
 import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import * as React from 'react'
 
 import Loading from '../../../../../signwall/_children/loading'
 import {
@@ -9,7 +9,7 @@ import {
 import { WrapperBlock } from '../styles'
 
 @Consumer
-class NewsResume extends Component {
+class NewsResume extends React.Component {
   _isMounted = false
 
   constructor(props) {
@@ -95,9 +95,9 @@ class NewsResume extends Component {
                         checksNews[itemNews.code] && (
                           <div className="item item1" key={itemNews.code}>
                             <img src={itemNews.image} alt="demo" />
-                            <div className={`title title-${arcSite}`}>
+                            {/* <div className={`title title-${arcSite}`}>
                               {itemNews.name}
-                            </div>
+                            </div> */}
                           </div>
                         )
                     )}
