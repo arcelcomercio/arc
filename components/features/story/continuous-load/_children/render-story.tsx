@@ -11,7 +11,7 @@ import StoryMostReadLite from '../../_children/most-read/lite'
 import StoryChildrenMultimediaLte from '../../_children/multimedia/lite'
 import StoryChildrenSocialHeaderLite from '../../_children/social-header/lite'
 import StoryChildrenTitle from '../../_children/title/lite'
-import StorySidebarContinueLayout from './continue'
+import StorySidebarContinueLayout from './layout'
 
 const rederStory: React.FC<{
   data: Story
