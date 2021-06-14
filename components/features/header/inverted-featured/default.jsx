@@ -105,7 +105,7 @@ const HeaderInvertedFeatured = (props) => {
     {},
     {},
     customLogoTitle,
-    // customLogo,
+    customLogo,
     customLogoLink,
     tags
   )
@@ -140,7 +140,7 @@ const HeaderInvertedFeatured = (props) => {
   formatter.setBandData(bandData)
   formatter.setMenuData(menuData)
 
-  const logo =
+  const logoImg =
     arcSite === SITE_DEPOR
       ? 'https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg'
       : `${getAssetsPath(
@@ -148,13 +148,22 @@ const HeaderInvertedFeatured = (props) => {
           contextPath
         )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
 
+  const winningCallLogo =
+    arcSite === 'trome'
+      ? `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
+      : ''
+
   return (
     <HeaderChildInverted
       {...formatter.getParams()}
       search={search}
       isStory={isStory}
       shareButtons={shareButtons}
-      logo={logo}
+      logoImg={logoImg}
+      winningCallLogo={winningCallLogo}
     />
   )
 }

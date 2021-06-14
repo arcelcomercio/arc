@@ -34,6 +34,7 @@ const classes = {
   navStoryTitle: 'header-inverted-featured__nav-story-title',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
   listIcon: 'header-inverted-featured__list-icon story-header__list',
+  callImg: 'header-inverted-featured__call-img',
 }
 
 const popUpWindow = (url, title, w, h) => {
@@ -49,13 +50,14 @@ const popUpWindow = (url, title, w, h) => {
 // TODO: Agregar el click afuera del menu
 const HeaderChildInverted = ({
   logo,
-  // auxLogo,
+  logoImg,
   bandLinks,
   menuSections,
   tags,
   date,
   search,
   isStory,
+  winningCallLogo,
 }) => {
   const [scrolled, setScrolled] = React.useState(false)
   const [statusSidebar, setStatusSidebar] = React.useState(false)
@@ -195,12 +197,14 @@ const HeaderChildInverted = ({
           {/** ************* LEFT *************** */}
           <div
             className={`${classes.navBtnContainer} ${classes.leftBtnContainer}`}>
-            <Button
-              iconClass={classes.iconMenu}
-              btnClass={`${classes.btnMenu}`}
-              btnText={scrolled ? '' : 'Menú'}
+            <button
+              type="button"
+              className={classes.btnMenu}
               onClick={_handleToggleSectionElements}
-            />
+              tabIndex="0">
+              <i className={classes.iconMenu} />
+              <span aria-hidden="true">Menú</span>
+            </button>
             <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
               <input
                 id="header-search-input"
@@ -234,7 +238,7 @@ const HeaderChildInverted = ({
               // src={
               //   scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
               // }
-              src={`https://cdna.trome.pe/resources/dist/trome/images/alternate-logo.png?d=1`}
+              src={logoImg}
               alt={logo.alt}
               title={logo.alt}
               className={classes.logo}
@@ -258,6 +262,14 @@ const HeaderChildInverted = ({
           contextPath={contextPath}
           siteProperties={siteProperties}
         />
+        <div className={classes.callImg}>
+          <a
+            itemProp="url"
+            href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
+            title="Llamada Ganadora">
+            <img src={winningCallLogo} alt="Llamada Ganadora" />
+          </a>
+        </div>
         <div className="layer" />
       </header>
       <nav className={classes.band}>

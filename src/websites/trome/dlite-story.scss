@@ -1,3 +1,6 @@
+/******* Fonts *******/
+@import "./scss/partials/lite/import-fonts";
+
 /******* Base *******/
 @import "../../general-styles/framework/variables/index";
 @import "./scss/lite-components/framework/core/lite";
@@ -30,6 +33,7 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/layout/nav-sidebar";
 
 @import "./scss/lite-components/features/header/header-full/header-full";
+@import "./scss/lite-components/features/header/basic/h-basic";
 // @import "../../general-styles/components/features/header/inverted";
 @import "./scss/components/header/inverted-featured";
 

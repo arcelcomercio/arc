@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { useFusionContext } from 'fusion:context'
 
 import MenuLite from './menu'
-// import searchQuery from '../../../../../utilities/client/search'
 
 import ShareButtons from '../../../../../global-components/lite/share'
 
@@ -39,42 +38,24 @@ const classes = {
   navStoryTitle: 'header-inverted-featured__nav-story-title',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
   listIcon: 'header-inverted-featured__list-icon story-header__list',
-}
-
-const popUpWindow = (url, title, w, h) => {
-  const left = window.screen.width / 2 - w / 2
-  const top = window.screen.height / 2 - h / 2
-  return window.open(
-    url,
-    title,
-    `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
-  )
+  callImg: 'header-inverted-featured__call-img',
 }
 
 // TODO: Agregar el click afuera del menu
 const HeaderChildInverted = ({
   logo,
-  // auxLogo,
   bandLinks,
   menuSections,
   tags,
   date,
-  // search,
-  // isStory,
+  logoImg,
+  winningCallLogo,
 }) => {
   const {
-    contextPath,
     siteProperties: { siteDomain = '', legalLinks = [] } = {},
-    // arcSite,
-    // requestUri,
   } = useFusionContext()
 
-  const scripts = [
-    // activeSticky ? stickyScript : '',
-    searchScript,
-    menuScript,
-    InvertedStickyScript,
-  ]
+  const scripts = [searchScript, menuScript, InvertedStickyScript]
 
   return (
     <>
@@ -93,14 +74,14 @@ const HeaderChildInverted = ({
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-basic__menu"
-                height="23"
+                height="26"
                 viewBox="0 0 24 24">
                 <title>Menú</title>
                 <path d="M4 6h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4C3.5 8 3 7.6 3 7l0 0C3 6.5 3.5 6 4 6z" />
                 <path d="M4 11h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 11.5 3.5 11 4 11z" />
                 <path d="M4 16h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 16.5 3.5 16 4 16z" />
               </svg>
-              <span className="h-basic__menu-txt uppercase" aria-hidden="true">
+              <span className="h-basic__menu-txt" aria-hidden="true">
                 Menú
               </span>
             </button>
@@ -120,8 +101,9 @@ const HeaderChildInverted = ({
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-basic__search"
-                width="22"
-                height="22"
+                width="18"
+                height="18"
+                strokeWidth="3"
                 viewBox="0 0 14 14">
                 <title>abrir cuadro de búsqueda</title>
                 <path d="M13.2 12.4L9.2 8.3C9.8 7.5 10.1 6.5 10.1 5.4 10.1 4.2 9.6 3 8.8 2.1 7.9 1.2 6.7 0.8 5.4 0.8 4.2 0.8 3 1.2 2.1 2.1 1.2 3 0.8 4.2 0.8 5.4 0.8 6.7 1.2 7.9 2.1 8.8 3 9.6 4.2 10.1 5.4 10.1 6.5 10.1 7.5 9.8 8.3 9.2L12.4 13.2C12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.3 12.4 13.3 12.5 13.3 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2L13.2 12.5C13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.3 12.5 13.3 12.4 13.3 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4V12.4ZM7.9 7.9C7.3 8.6 6.4 8.9 5.4 8.9 4.5 8.9 3.6 8.6 3 7.9 2.3 7.3 1.9 6.4 1.9 5.4 1.9 4.5 2.3 3.6 3 3 3.6 2.3 4.5 1.9 5.4 1.9 6.4 1.9 7.3 2.3 7.9 3 8.6 3.6 8.9 4.5 8.9 5.4 8.9 6.4 8.6 7.3 7.9 7.9Z" />
@@ -139,7 +121,7 @@ const HeaderChildInverted = ({
               // src={
               //   scrolled && auxLogo.src !== logo.src ? auxLogo.src : logo.src
               // }
-              src={`https://cdna.trome.pe/resources/dist/trome/images/alternate-logo.png?d=1`}
+              src={logoImg}
               alt={logo.alt}
               title={logo.alt}
               className={classes.logo}
@@ -155,18 +137,20 @@ const HeaderChildInverted = ({
           </div>
           {/** ************* // RIGHT *************** */}
         </div>
-        {/* <Menu
-          sections={menuSections}
-          showSidebar={statusSidebar}
-          contextPath={contextPath}
-          siteProperties={siteProperties}
-        /> */}
         <MenuLite
           // isSomos={isSomos}
           menuSections={menuSections || []}
-          // siteDomain={siteDomain}
-          // legalLinks={legalLinks}
+          siteDomain={siteDomain}
+          legalLinks={legalLinks}
         />
+        <div className={classes.callImg}>
+          <a
+            itemProp="url"
+            href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
+            title="Llamada Ganadora">
+            <img src={winningCallLogo} alt="Llamada Ganadora" />
+          </a>
+        </div>
         <div className="layer" />
       </header>
       <nav className={classes.band}>

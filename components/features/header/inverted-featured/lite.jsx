@@ -125,13 +125,21 @@ const HeaderInvertedFeatured = (props) => {
           contextPath
         )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
 
+  const winningCallLogo =
+    arcSite === 'trome'
+      ? `${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
+      : ''
+
   return (
     <HeaderChildInverted
       {...formatter.getParams()}
       search={search}
       isStory={isStory}
-      // shareButtons={shareButtons}
       logoImg={logoImg}
+      winningCallLogo={winningCallLogo}
     />
   )
 }
