@@ -13,6 +13,9 @@ export default `
             url
             type
             caption
+            resized_urls { 
+              landscape_s
+            }
           }
           basic_video {
             promo_items {
@@ -20,6 +23,9 @@ export default `
                 url
                 type
                 caption
+                resized_urls { 
+                  landscape_s
+                }
               }
             }
           }
@@ -29,6 +35,9 @@ export default `
                 url
                 type
                 caption
+                resized_urls { 
+                  landscape_s
+                }
               }
             }
           }
@@ -39,9 +48,7 @@ export default `
               config{
                 thumbnail_url
                 resized_urls { 
-                  landscape_xs
                   landscape_s
-                  lazy_default 
                 }
               }
             }

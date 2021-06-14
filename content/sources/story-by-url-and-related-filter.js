@@ -4,6 +4,7 @@ import { ARC_ACCESS_TOKEN, CONTENT_BASE } from 'fusion:environment'
 import request from 'request-promise-native'
 
 import RedirectError from '../../components/utilities/redirect-error'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 import { storyContent } from '../filters/story-content'
 
 const schemaName = 'story-dev'
@@ -16,6 +17,11 @@ const params = [
   {
     name: 'section',
     displayName: 'Sección / Categoría (sin slash)',
+    type: 'text',
+  },
+  {
+    name: 'presets',
+    displayName: 'Tamaño de las imágenes (opcional)d',
     type: 'text',
   },
 ]
@@ -60,8 +66,16 @@ const fetch = ({
   })
 }
 
+const transform = (data, { 'arc-site': website, presets }) => {
+  let dataStory
+  if (presets) dataStory = getResizedImageData(data, presets, website)
+  else dataStory = data
+  return dataStory
+}
+
 export default {
   fetch,
+  transform,
   schemaName,
   params,
   ttl: 300,

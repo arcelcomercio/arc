@@ -26,11 +26,11 @@ const GetStory: React.FC<{
       source: 'story-by-url-and-related-filter',
       query: {
         website_url: link,
+        presets: 'large:980x528,landscape_md:482x274,landscape_s:280x159',
         section: '',
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
       },
     }) || {}
-
   return (
     <div>
       <div ref={refCallback}>

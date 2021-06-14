@@ -9,6 +9,11 @@ basic_gallery {
       width
       height
       url
+      resized_urls { 
+        large
+        landscape_md
+        landscape_s
+      }
     }
   }
   content_elements{
