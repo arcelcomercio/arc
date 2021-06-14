@@ -6,11 +6,6 @@ import { Story } from 'types/story'
 import GetStory from './_children/get-story'
 import useLinks from './_children/useLinks'
 
-interface Link {
-  link: string
-  title: string
-}
-
 const StoryContinousLoad: FC = () => {
   const {
     deployment,

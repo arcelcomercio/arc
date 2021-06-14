@@ -102,7 +102,9 @@ interface FeaturesProps {
   authorEmail: string
   subtype: string
   isPremium: boolean
-  multimedia: string
+  multimediaLarge: string
+  multimediaLandscapeMD: string
+  multimediaLandscapeS: string
   tags: Tag[]
   contentElements: ContentElement[]
   canonicalUrl: string
@@ -141,7 +143,9 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
     authorEmail,
     subtype,
     isPremium,
-    multimedia,
+    multimediaLarge,
+    multimediaLandscapeMD,
+    multimediaLandscapeS,
     tags,
     contentElements,
     canonicalUrl,
@@ -265,7 +269,9 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                       customHeight={0}
                       customWidth={620}
                       url={url}
-                      multimedia={multimedia}
+                      multimediaLandscapeMD={multimediaLandscapeMD}
+                      multimediaLarge={multimediaLarge}
+                      multimediaLandscapeS={multimediaLandscapeS}
                       caption={caption}
                       showCaption={showCaption}
                     />
