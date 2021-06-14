@@ -19,7 +19,7 @@ const rederStory: React.FC<{
   contextPath: string
   arcSite: ArcSite
   requestUri: string
-  deployment: AnyObject
+  deployment: (resource: string) => string | string
 }> = (props) => {
   const { contextPath, arcSite, requestUri, data, deployment } = props
   const trustproject = data?.label?.trustproject
@@ -55,9 +55,7 @@ const rederStory: React.FC<{
     arcSite,
   })
 
-  // eslint-disable-next-line no-sparse-arrays
   const children = [
-    ,
     StoryChildrenContinueHeader({
       hideAnchor: false,
       title,

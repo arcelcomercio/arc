@@ -1,7 +1,4 @@
-import PropTypes from 'prop-types'
 import React from 'react'
-import { FC } from 'types/features'
-import { AnyObject } from 'types/utils'
 
 const classes = {
   layout: 'f just-center',
@@ -16,7 +13,7 @@ const classes = {
   lateralR: 'ad-lateral--r',
 }
 
-const StorySidebarContinueLayout: FC<{ children: AnyObject[] }> = ({
+const StorySidebarContinueLayout: React.FC<{ children: React.ReactNode[] }> = ({
   children = [],
 }) => (
   <>
@@ -51,9 +48,5 @@ const StorySidebarContinueLayout: FC<{ children: AnyObject[] }> = ({
     </div>
   </>
 )
-
-StorySidebarContinueLayout.propTypes = {
-  children: PropTypes.node,
-}
 
 export default StorySidebarContinueLayout

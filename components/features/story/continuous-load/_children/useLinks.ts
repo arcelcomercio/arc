@@ -8,8 +8,16 @@ import { Story } from 'types/story'
 import { deleteQueryString } from '../../../../utilities/parse/queries'
 import { removeLastSlash } from '../../../../utilities/parse/strings'
 
-const getLinks = () => {
-  const [links, setLinks] = React.useState([])
+interface Link {
+  link: string
+  title: string
+}
+
+const useLinks = (): {
+  links: Link[]
+  setLinks: React.Dispatch<React.SetStateAction<Link[]>>
+} => {
+  const [links, setLinks] = React.useState<Link[]>([])
   const { globalContent, arcSite, requestUri } = useAppContext<Story>()
   // const { idGoogleAnalitics } = getProperties(arcSite)
   const cleanRequestUri = deleteQueryString(requestUri)
@@ -134,58 +142,54 @@ const getLinks = () => {
     data: filteredStories,
   }
 
-  // React.useEffect(() => {
-  const isPremiumUser = () => {
-    let isPremium = false
-    if (
-      window.localStorage &&
-      // eslint-disable-next-line no-prototype-builtins
-      window.localStorage.hasOwnProperty('ArcId.USER_INFO') &&
-      window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
-    ) {
-      const UUID_USER = JSON.parse(
-        window.localStorage.getItem('ArcId.USER_INFO') || '{}'
-      ).uuid
-      const COUNT_USER = JSON.parse(
-        window.localStorage.getItem('ArcP') || '{}'
-      )[UUID_USER]
-      if (COUNT_USER && COUNT_USER.sub.p.length) {
-        isPremium = true
+  React.useEffect(() => {
+    const isPremiumUser = () => {
+      let isPremium = false
+      if (
+        window.localStorage &&
+        // eslint-disable-next-line no-prototype-builtins
+        window.localStorage.hasOwnProperty('ArcId.USER_INFO') &&
+        window.localStorage.getItem('ArcId.USER_INFO') !== '{}'
+      ) {
+        const UUID_USER = JSON.parse(
+          window.localStorage.getItem('ArcId.USER_INFO') || '{}'
+        ).uuid
+        const COUNT_USER = JSON.parse(
+          window.localStorage.getItem('ArcP') || '{}'
+        )[UUID_USER]
+        if (COUNT_USER && COUNT_USER.sub.p.length) {
+          isPremium = true
+        }
       }
+      return isPremium
     }
-    return isPremium
-  }
 
-  const sessionStoriesObject = filledStContinueScript.data || {
-    storiesByTag: [],
-    storiesBySection: [],
-    storiesBySectionPremium: [],
-  }
+    const sessionStoriesObject = filledStContinueScript.data || {
+      storiesByTag: [],
+      storiesBySection: [],
+      storiesBySectionPremium: [],
+    }
 
-  const nextStoriesArray = isPremiumUser()
-    ? [
-        ...sessionStoriesObject.storiesBySectionPremium,
-        ...sessionStoriesObject.storiesByTag,
-      ]
-    : [
-        ...sessionStoriesObject.storiesByTag,
-        ...sessionStoriesObject.storiesBySection,
-      ]
-  nextStoriesArray.unshift({
-    title: document.title,
-    link: window.location.pathname,
-  })
+    const nextStoriesArray = isPremiumUser()
+      ? [
+          ...sessionStoriesObject.storiesBySectionPremium,
+          ...sessionStoriesObject.storiesByTag,
+        ]
+      : [
+          ...sessionStoriesObject.storiesByTag,
+          ...sessionStoriesObject.storiesBySection,
+        ]
+    // nextStoriesArray.unshift({
+    //   title: document.title,
+    //   link: window.location.pathname,
+    // })
 
-  console.log(
-    'Arreglo de notas que deben cargarse >>>>>>>>>>>>>>>>>>>>',
-    nextStoriesArray,
-    nextStoriesArray.length
-  )
-  // setLinks(nextStoriesArray)
-  return nextStoriesArray
-  // }, [])
+    console.log('USELINK>>>', nextStoriesArray)
 
-  // return links
+    setLinks(nextStoriesArray)
+  }, [])
+
+  return { links, setLinks }
 }
 
-export default getLinks
+export default useLinks

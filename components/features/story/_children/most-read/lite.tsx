@@ -11,7 +11,7 @@ import CardMostReadChildrenList from './_lite/_children/list'
 interface FeatureProps {
   primarySectionLink: string
   arcSite: ArcSite
-  deployment?: AnyObject
+  deployment?: (resource: string) => string | string
   contextPath?: string
   viewImage?: boolean
   storiesQty?: number
