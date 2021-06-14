@@ -184,8 +184,6 @@ const useLinks = (): {
     //   link: window.location.pathname,
     // })
 
-    console.log('USELINK>>>', nextStoriesArray)
-
     setLinks(nextStoriesArray)
   }, [])
 
