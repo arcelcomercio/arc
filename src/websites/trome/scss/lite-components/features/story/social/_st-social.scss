@@ -1,14 +1,13 @@
-$encode-c: 'Encode Sans Condensed';
-
 .st-social {
-  margin: 20px;
-  padding: 16px 0;
-  border-top: 2px solid #d5d5d5;
+  margin: 20px 20px 0 20px;
+  padding: 12px;
   align-items: center;
   justify-content: center;
 
   @media(--desktop) {
+    padding: 16px 0;
     justify-content: space-between;
+    border-top: 2px solid #d5d5d5;
   }
 
   &__txt {
@@ -25,8 +24,15 @@ $encode-c: 'Encode Sans Condensed';
     white-space: nowrap;
     color: #D35B2C;
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0.58px;
     font-family: $encode-c;
+
+    @media(--desktop) {
+      font-size: 24px;
+      letter-spacing: 0.77px;
+    }
   }
 
   &__tooltdiv {
