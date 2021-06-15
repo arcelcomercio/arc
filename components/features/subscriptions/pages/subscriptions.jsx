@@ -3,8 +3,7 @@ import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { env } from '../../../utilities/arc/env'
-import { PROD } from '../../../utilities/constants/environment'
+import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
 import Signwall from '../_children/Signwall'
 import { AuthContext, AuthProvider } from '../_context/auth'
@@ -30,7 +29,7 @@ const WrapperPageSubs = ({ properties }) => {
     } = {},
   } = properties
 
-  const { arcSite, deployment, contextPath } = useAppContext() || {}
+  const { arcSite, contextPath } = useAppContext() || {}
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
   const [showProfile, setShowProfile] = React.useState(false)
@@ -43,24 +42,9 @@ const WrapperPageSubs = ({ properties }) => {
   const isComercio = arcSite === 'elcomercio'
   const moduleCall = callInnCallOut && isComercio
 
+  useSentry(urlCommon.sentrySubs)
+
   React.useEffect(() => {
-    Sentry.init({
-      dsn: urlCommon.sentrySubs,
-      debug: env !== PROD,
-      release: `arc-deployment@${deployment}`,
-      environment: env,
-      ignoreErrors: [
-        'Unexpected end of JSON input',
-        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
-        'JSON Parse error: Unexpected EOF',
-      ],
-      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
-    })
-
-    Sentry.configureScope((scope) => {
-      scope.setTag('brand', arcSite)
-    })
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
