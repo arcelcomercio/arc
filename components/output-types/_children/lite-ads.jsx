@@ -392,7 +392,7 @@ const LiteAds = ({
           ) : null}
           <script
             defer
-            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section.replace(
+            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
               /-/gm,
               ''
             )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}></script>
