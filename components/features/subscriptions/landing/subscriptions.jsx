@@ -4,8 +4,7 @@ import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { env } from '../../../utilities/arc/env'
-import { PROD } from '../../../utilities/constants/environment'
+import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
@@ -29,8 +28,7 @@ const LandingSubscriptions = (props) => {
       btnOnTop = false,
     } = {},
   } = props
-  const { arcSite, deployment, globalContent: items = [] } =
-    useAppContext() || {}
+  const { arcSite, globalContent: items = [] } = useAppContext() || {}
 
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
@@ -45,34 +43,9 @@ const LandingSubscriptions = (props) => {
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
   const moduleCall = callInnCallOut && isComercio
 
+  useSentry(urlCommon.sentrySubs)
+
   React.useEffect(() => {
-    Sentry.init({
-      dsn: urlCommon.sentrySubs,
-      debug: env !== PROD,
-      release: `arc-deployment@${deployment}`,
-      environment: env,
-      ignoreErrors: [
-        'Unexpected end of JSON input',
-        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
-        'JSON Parse error: Unexpected EOF',
-      ],
-      // allowUrls: [
-      //   // API + origin
-      //   /https:\/\/.+(elcomercio|gestion).pe/,
-      //   // Sandbox CDN
-      //   /https:\/\/elcomercio-(elcomercio|gestion)-sandbox\.cdn\.arcpublishing.com/,
-      //   // Identity & Sales SDKs
-      //   /https:\/\/arc-subs-sdk\.s3\.amazonaws\.com/,
-      //   // PayU
-      //   /https?:\/\/.+payulatam\.com/,
-      // ],
-      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
-    })
-
-    Sentry.configureScope((scope) => {
-      scope.setTag('brand', arcSite)
-    })
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
