@@ -10,6 +10,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
+  SITE_OJO,
   SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
@@ -732,6 +733,7 @@ const LiteOutput = ({
         arcSite === SITE_PERU21 ||
         arcSite === SITE_TROME ||
         arcSite === SITE_ELBOCON ||
+        arcSite === SITE_OJO ||
         arcSite === SITE_DEPOR ? (
           <script
             defer
