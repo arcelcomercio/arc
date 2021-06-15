@@ -1,23 +1,22 @@
-export const storyTagsBbc = (data = [], slugTag = 'bbc') => {
-  return data
-    .map(({ slug }) => {
-      return slug === slugTag ? true : ''
-    })
-    .filter(String)[0]
-}
+import { Tag } from 'types/story'
 
-export const replacer = (str, p1 = '', p2 = '', p3 = '') => {
+export const findTag = (data: Tag[] = [], slugTag: string): boolean =>
+  data.some(({ slug }) => slug === slugTag)
+
+export const storyTagsBbc = (data: Tag[] = [], slugTag = 'bbc'): boolean =>
+  findTag(data, slugTag)
+
+export const replacer = (str: string, p1 = '', p2 = '', p3 = ''): string => {
   const isSlash = p3.slice(p3.length - 1, p3.length)
   const psReplace = `${p3}/`
 
   return `href="${p1}://${p2}${isSlash !== '/' ? psReplace : p3}"`
 }
 
-export const cleanLegacyAnchor = text => {
-  return text.replace(/xn--(.+)-\w+\/"/g, '$1/"').replace(/%20%20/g, '/')
-}
+export const cleanLegacyAnchor = (text: string): string =>
+  text.replace(/xn--(.+)-\w+\/"/g, '$1/"').replace(/%20%20/g, '/')
 
-export const replaceTags = text => {
+export const replaceTags = (text: string): string => {
   const resultText = text.replace(
     /href="(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"/g,
     replacer

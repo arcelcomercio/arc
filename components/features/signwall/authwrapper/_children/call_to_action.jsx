@@ -75,6 +75,7 @@ const CallToActionFia = (props) => {
             setStatusSubs((res && res.isSubscriber) || false)
             setLoading(false)
             QueryString.deleteQuery('signFia')
+            QueryString.deleteQuery('dataTreatment')
           }}
         />
       )}

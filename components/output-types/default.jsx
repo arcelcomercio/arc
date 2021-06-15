@@ -10,10 +10,10 @@ import {
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
   SITE_OJO,
   SITE_PERU21G21,
   SITE_TROME,
-  SITE_GESTION,
 } from '../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -50,6 +50,7 @@ import {
 import videoScript from './_dependencies/video-script'
 import widgets from './_dependencies/widgets'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default ({
   children,
   contextPath,
@@ -95,7 +96,7 @@ export default ({
     page_number: pageNumber = 1,
   } = globalContent || {}
 
-  const { website_section: { path: storySectionPath } = {} } =
+  const { website_section: { path: storySectionPath = '' } = {} } =
     websites?.[arcSite] || {}
 
   const sectionPath = nodeType === 'section' ? id : storySectionPath
@@ -182,6 +183,7 @@ export default ({
 
   const indPrebid = getPrebid()
   const urlArcAds =
+    // eslint-disable-next-line no-nested-ternary
     arcSite === SITE_ELCOMERCIOMAG
       ? `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
           .toISOString()
@@ -259,6 +261,7 @@ export default ({
     isTrivia,
     globalContent,
   }
+  const collapseRetargetly = `"use strict";var _rl_gen_sg=function(){var e="_rl_sg",g=document.cookie.indexOf(e);if(-1==g)return[];g+=e.length+1;var o=document.cookie.indexOf(";",g);return-1==o&&(o=document.cookie.length),document.cookie.substring(g,o).split(",")},googletag=window.googletag||{cmd:[]};googletag.cmd.push(function(){googletag.pubads().collapseEmptyDivs(),googletag.pubads().setTargeting("_rl",_rl_gen_sg()),googletag.enableServices()});`
   const collapseDivs = `var googletag = window.googletag || {cmd: []}; googletag.cmd.push(function() {googletag.pubads().collapseEmptyDivs();console.log('collapse googleads');googletag.enableServices();});`
   const structuredTaboola = ` 
     window._taboola = window._taboola || [];
@@ -274,7 +277,7 @@ export default ({
   s_bbcws('track', 'pageView');`
 
   const isCovid = /^\/covid-19\//.test(requestUri)
-  const isElecciones = /^\/resultados-elecciones-2021\//.test(requestUri)
+  const isElecciones = metaValue('section_style') === 'resultados_elecciones'
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
@@ -501,19 +504,30 @@ export default ({
           }}
         />
         <Styles
+          // eslint-disable-next-line react/jsx-props-no-spreading
           {...metaSiteData}
           isStyleBasic={isStyleBasic}
           isFooterFinal={isFooterFinal}
         />
-        <MetaSite {...metaSiteData} />
+
+        <MetaSite
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaSiteData}
+        />
 
         <meta name="description" lang="es" content={description} />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
         )}
         {isStory ? '' : <meta name="keywords" lang="es" content={keywords} />}
-        <TwitterCards {...twitterCardsData} />
-        <OpenGraph {...openGraphData} />
+        <TwitterCards
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...twitterCardsData}
+        />
+        <OpenGraph
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...openGraphData}
+        />
         {isBlogPost && (
           <>
             <meta name="section-id" content="/blog" />
@@ -532,21 +546,22 @@ export default ({
           isStory={isStory}
           globalContent={globalContent}
         />
-        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && (
-          <>
-            <script
-              async="async"
-              src="https://www.google.com/adsense/search/ads.js"
-            />
-            <script
-              type="text/javascript"
-              charset="utf-8"
-              dangerouslySetInnerHTML={{
-                __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`,
-              }}
-            />
-          </>
-        )}
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
+          isSearchSection && (
+            <>
+              <script
+                async="async"
+                src="https://www.google.com/adsense/search/ads.js"
+              />
+              <script
+                type="text/javascript"
+                charset="utf-8"
+                dangerouslySetInnerHTML={{
+                  __html: `(function(g,o){g[o]=g[o]||function(){(g[o]['q']=g[o]['q']||[]).push(arguments)},g[o]['t']=1*new Date})(window,'_googCsa');`,
+                }}
+              />
+            </>
+          )}
         {/* Scripts de AdManager */}
         {!noAds && (
           <>
@@ -559,12 +574,19 @@ export default ({
               />
             )}
             <script defer src={urlArcAds} />
-
-            <script
-              type="text/javascript"
-              defer
-              dangerouslySetInnerHTML={{ __html: collapseDivs }}
-            />
+            {arcSite === SITE_DEPOR ? (
+              <script
+                defer
+                type="text/javascript"
+                dangerouslySetInnerHTML={{ __html: collapseRetargetly }}
+              />
+            ) : (
+              <script
+                type="text/javascript"
+                defer
+                dangerouslySetInnerHTML={{ __html: collapseDivs }}
+              />
+            )}
             <Dfp />
           </>
         )}
@@ -626,31 +648,40 @@ export default ({
             />
           </>
         )}
-        <TagManager {...siteProperties} />
+        <TagManager
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...siteProperties}
+        />
         {/* ============== WebTracking */}
-        { arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ?(
+        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
           <>
             <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
-            )}
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"></script>
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"
+              async
+            />
           </>
-        ):null}
+        ) : null}
 
-        { arcSite === SITE_GESTION && requestUri.includes('/economia/') ?(
+        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script
-            defer
-            src={deployment(
-              `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
-            )}
+              defer
+              src={deployment(
+                `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+              )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"></script>
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"
+              async
+            />
           </>
-        ):null}
+        ) : null}
         {/* ============== WebTracking */}
       </head>
       <body
@@ -708,13 +739,14 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
-        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) && isSearchSection && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `"use strict";!function(){var e="";null!=document.querySelector("input.search-input")&&(e=document.querySelector("input.search-input").value);_googCsa("ads",{pubId:"partner-pub-8088376505685131",query:e,styleId:"${styleIdAfsGo}"},{container:"afs_container_1"})}();`,
-            }}
-          />
-        )}
+        {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
+          isSearchSection && (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `"use strict";!function(){var e="";null!=document.querySelector("input.search-input")&&(e=document.querySelector("input.search-input").value);_googCsa("ads",{pubId:"partner-pub-8088376505685131",query:e,styleId:"${styleIdAfsGo}"},{container:"afs_container_1"})}();`,
+              }}
+            />
+          )}
         {(contenidoVideo || isVideosSection) && (
           <>
             <script

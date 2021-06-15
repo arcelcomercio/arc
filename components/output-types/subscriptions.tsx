@@ -4,6 +4,7 @@ import { OT, OutputProps } from 'types/output-types'
 
 import { env } from '../utilities/arc/env'
 import { ORGANIZATION, PROD } from '../utilities/constants/environment'
+import { SITE_ELCOMERCIO } from '../utilities/constants/sitenames'
 import FbPixel from './_children/fb-pixel'
 import FinallyPolyfill from './_children/finallyPolyfill'
 import TagManager from './_children/tag-manager'
@@ -129,6 +130,25 @@ const Subscriptions: OT<OutputProps> = ({
                 defer
               />
             )}
+            {/* ============== WebTracking */}
+            {requestUri.includes('/suscripcionesdigitales/') ? (
+              <>
+                <script
+                  defer
+                  src={deployment(
+                    `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
+                  )}
+                />
+                <script
+                  src={`https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=${
+                    arcSite === SITE_ELCOMERCIO
+                      ? '01780ae129e2be9f4afea429d618f3ec'
+                      : 'ddc9f70a72959e3037f40dd5359a99d6'
+                  }`}
+                  async
+                />
+              </>
+            ) : null}
             <FinallyPolyfill />
           </head>
           <body>
