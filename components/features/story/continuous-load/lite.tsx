@@ -58,9 +58,10 @@ const StoryContinousLoad: FC = () => {
 
   return (
     <div>
-      {renderedLinks.map(({ link }) => (
+      {renderedLinks.map(({ link, title }) => (
         <GetStory
           link={link}
+          title={title}
           arcSite={arcSite}
           contextPath={contextPath}
           requestUri={requestUri}
