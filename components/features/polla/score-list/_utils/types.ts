@@ -33,6 +33,7 @@ export interface Score {
   ec_fondo_destacados_desktop: string
   ec_fondo_destacados_movil: string
   msg?: 'error' | 'success' | null
+  errorMsg?: string
 }
 
 export interface Profile {
