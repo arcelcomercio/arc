@@ -1,11 +1,20 @@
+$encode-c: 'Encode Sans Condensed';
+
 .st-social {
   margin: 20px;
-  padding: 15px 0;
-  border-bottom: 1px solid #ddd;
+  padding: 16px 0;
+  border-top: 2px solid #d5d5d5;
   align-items: center;
+  justify-content: center;
+
+  @media(--desktop) {
+    justify-content: space-between;
+  }
+
   &__txt {
     font: 700 15px/1 $primary-font;
     text-transform: capitalize;
+
     @media (--tablet) {
       font: 700 16px/1 $primary-font;
     }
@@ -14,12 +23,15 @@
   &__link {
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #666;
+    color: #D35B2C;
     text-transform: uppercase;
+    font-size: 24px;
+    font-family: $encode-c;
   }
 
   &__tooltdiv {
     display: flex;
+
     @media (--only-mobile) {
       display: block;
     }
@@ -58,10 +70,25 @@
   // }
 
   &__share {
-    display: flex;
+    display: none;
     margin-right: -15px;
+
+    @media(--desktop) {
+
+      display: flex;
+    }
+
     // Este margen es para contraarrestar el margin-right que tienen los .share-btn
   }
+
+  .share-btn {
+    border-color: #BABABA;
+
+    svg {
+      fill: #333;
+    }
+  }
+
   // &__special {
   //   margin-right: -15px;
   //   padding-bottom: 25px;
