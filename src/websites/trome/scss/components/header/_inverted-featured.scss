@@ -78,11 +78,16 @@ $hi-dark: #666;
   }
 
   &__call-img {
+    display: none;
     position: absolute;
     top: 0;
     right: 10%;
     z-index: 99;
     height: $header-inverted-height;
+
+    @media(--desktop) {
+      display: block;
+    }
 
     img {
       height: 100%;
