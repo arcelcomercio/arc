@@ -27,5 +27,10 @@ basic_gallery {
         name
       }
     }
+    resized_urls { 
+      large
+      landscape_md
+      landscape_s
+    }
   }
 }`

@@ -40,7 +40,9 @@ const StoryHeaderChildGallery: FC<FeatureProps> = (props) => {
           const height = slide?.height
           const subtitle = slide?.subtitle
           const caption = slide?.caption
-          const url = slide?.url
+          const large = slide?.resized_urls?.large
+          const medium = slide?.resized_urls?.landscape_md
+          const small = slide?.resized_urls?.landscape_s
           const itemv = width < height && true
           return (
             <>
@@ -196,7 +198,9 @@ const StoryHeaderChildGallery: FC<FeatureProps> = (props) => {
                 </span>
                 <div className={classes.figure}>
                   <StoryGalleryChildPicture
-                    url={url}
+                    large={large}
+                    medium={medium}
+                    small={small}
                     caption={caption}
                     subtitle={subtitle}
                   />
