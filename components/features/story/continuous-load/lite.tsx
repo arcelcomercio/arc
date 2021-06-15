@@ -4,7 +4,7 @@ import { FC } from 'types/features'
 import { Story } from 'types/story'
 
 import GetStory from './_children/get-story'
-import useLinks from './_children/useLinks'
+import useLinks from './_hooks/useLinks'
 
 const StoryContinousLoad: FC = () => {
   const {
@@ -19,16 +19,26 @@ const StoryContinousLoad: FC = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [renderCount, setRenderCount] = React.useState(0)
 
-  const { links, setLinks } = useLinks()
+  const observer = React.useRef<null | IntersectionObserver>(null)
+
+  const { links } = useLinks()
 
   const loadingContainer = React.useRef<HTMLDivElement>(null)
 
+  const cleanOb = () => {
+    if (observer.current) {
+      observer.current.disconnect()
+    }
+  }
+
   React.useEffect(() => {
+    cleanOb()
     if ('IntersectionObserver' in window) {
-      const sectionObserver = new IntersectionObserver(
+      observer.current = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting && !isLoading) {
+              console.log('setRenderCount>>>>>>', renderCount)
               setRenderCount(renderCount + 1)
               setIsLoading(true)
             }
@@ -37,14 +47,16 @@ const StoryContinousLoad: FC = () => {
         { rootMargin: '0px 0px 0px 0px' }
       )
       if (loadingContainer.current) {
-        sectionObserver.observe(loadingContainer.current)
+        observer.current.observe(loadingContainer.current)
       }
-    } else {
-      //
     }
-  }, [])
 
-  console.log('StoryContinousLoad>>', renderCount)
+    return () => {
+      cleanOb()
+    }
+  }, [isLoading, setIsLoading, setRenderCount])
+
+  // console.log('StoryContinousLoad>>', renderCount, isLoading)
 
   const renderedLinks = links.slice(0, renderCount)
 
@@ -57,6 +69,7 @@ const StoryContinousLoad: FC = () => {
           contextPath={contextPath}
           requestUri={requestUri}
           deployment={deployment}
+          setIsLoading={(value) => setIsLoading(value)}
         />
       ))}
       <div ref={loadingContainer}>

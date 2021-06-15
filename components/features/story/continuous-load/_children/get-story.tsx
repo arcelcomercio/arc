@@ -1,6 +1,7 @@
 import { useContent } from 'fusion:content'
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
+import { Story } from 'types/story'
 
 import RederStory from './render-story'
 
@@ -10,9 +11,17 @@ const GetStory: React.FC<{
   arcSite: ArcSite
   requestUri: string
   deployment: (resource: string) => string | string
+  setIsLoading: (value: boolean) => void
 }> = (props) => {
-  const { link = '', arcSite, contextPath, deployment, requestUri } = props
-  const dataStory =
+  const {
+    link = '',
+    arcSite,
+    contextPath,
+    deployment,
+    requestUri,
+    setIsLoading,
+  } = props
+  const dataStory: Story =
     useContent({
       source: 'story-by-url-and-related-filter',
       query: {
@@ -21,7 +30,16 @@ const GetStory: React.FC<{
         section: '',
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
       },
+      transform: (story) => {
+        if (story?._id) {
+          setIsLoading(false)
+        }
+        return story
+      },
     }) || {}
+
+  // console.log('GetStory>>', dataStory)
+
   return (
     <div>
       {dataStory?._id && (

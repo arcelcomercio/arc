@@ -76,7 +76,6 @@ const transform = (data, { 'arc-site': arcSite, presets }) => {
   let dataStory = data
   if (isResultadosOnpe) dataStory.display_date = publishDate
   if (presets) dataStory = getResizedImageData(data, presets, arcSite)
-  else dataStory = data
   return { ...dataStory }
 }
 
