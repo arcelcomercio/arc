@@ -3,6 +3,11 @@ import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
 
+import {
+  BIG_IMAGE,
+  GALLERY_SLIDER,
+  GALLERY_VERTICAL,
+} from '../../../../utilities/constants/subtypes'
 import StoryData from '../../../../utilities/story-data'
 import StoryChildrenContentsLite from '../../_children/contents/lite'
 import StoryChildrenContinueHeader from '../../_children/continue-header/lite'
@@ -55,6 +60,43 @@ const rederStory: React.FC<{
     contextPath,
     arcSite,
   })
+  const typeGallery = data?.promo_items?.basic_gallery?.type
+  const gellery =
+    StoryChildrenGalleryLite({
+      subtype,
+      canonicalUrl: websiteLink,
+      multimediaLarge,
+      multimediaLandscapeMD,
+      multimediaLandscapeS,
+      isPremium,
+      promoItems,
+      primarySection,
+      promoItemJwplayer,
+    }) || ''
+
+  const multimedia =
+    StoryChildrenMultimediaLte({
+      promoItems,
+      primarySection,
+      primarySectionLink,
+      subtype,
+      multimediaLarge,
+      multimediaLandscapeMD,
+      multimediaLandscapeS,
+      promoItemJwplayer,
+      tags: tagsStory,
+    }) || ''
+
+  let multimediaVertical
+  let multimediaHorizontal
+  if (
+    subtype === BIG_IMAGE ||
+    (typeGallery === 'gallery' && subtype === GALLERY_SLIDER)
+  ) {
+    multimediaHorizontal = typeGallery === 'gallery' ? gellery : multimedia
+  } else {
+    multimediaVertical = subtype === GALLERY_VERTICAL ? gellery : multimedia
+  }
 
   const children = [
     StoryChildrenContinueHeader({
@@ -80,29 +122,8 @@ const rederStory: React.FC<{
       subTitle,
       isPremium,
     }),
-    StoryChildrenGalleryLite({
-      subtype,
-      canonicalUrl: websiteLink,
-      multimediaLarge,
-      multimediaLandscapeMD,
-      multimediaLandscapeS,
-      isPremium,
-      promoItems,
-      primarySection,
-      promoItemJwplayer,
-    }),
-
-    StoryChildrenMultimediaLte({
-      promoItems,
-      primarySection,
-      primarySectionLink,
-      subtype,
-      multimediaLarge,
-      multimediaLandscapeMD,
-      multimediaLandscapeS,
-      promoItemJwplayer,
-      tags: tagsStory,
-    }),
+    multimediaHorizontal,
+    multimediaVertical,
     StoryChildrenContentsLite({
       arcSite,
       contextPath,
@@ -145,16 +166,6 @@ const rederStory: React.FC<{
   return (
     <>
       <StorySidebarContinueLayout children={children} />
-
-      {/* <StoryChildrenGalleryLite
-        subtype={subtype}
-        canonicalUrl={websiteLink}
-        multimedia={multimedia}
-        isPremium={isPremium}
-        promoItems={promoItems}
-        primarySection={primarySection}
-        promoItemJwplayer={promoItemJwplayer}
-      /> */}
     </>
   )
 }

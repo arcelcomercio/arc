@@ -66,7 +66,7 @@ import StoryContentsChildParallaxElements from '../../contents/_children/paralla
 import StoryContentChildRawHTML from '../../contents/_children/rawHtml'
 import StoryContentsChildStampTrust from '../../contents/_children/stamp-trust'
 import iframeScriptCounter from '../../contents/_dependencies/counter-mag'
-import StoryHeaderChildGallery from '../../gallery/_children/gallery'
+import StoryHeaderChildGallery from '../gallery/_children/gallery-lite'
 import StoryContentsChildImage from '../multimedia/_children/image'
 import StoryContentsChildVideo from '../multimedia/_children/video'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
@@ -143,9 +143,6 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
     authorEmail,
     subtype,
     isPremium,
-    multimediaLarge,
-    multimediaLandscapeMD,
-    multimediaLandscapeS,
     tags,
     contentElements,
     canonicalUrl,
@@ -269,9 +266,9 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                       customHeight={0}
                       customWidth={620}
                       url={url}
-                      multimediaLandscapeMD={multimediaLandscapeMD}
-                      multimediaLarge={multimediaLarge}
-                      multimediaLandscapeS={multimediaLandscapeS}
+                      multimediaLandscapeMD={url}
+                      multimediaLarge={url}
+                      multimediaLandscapeS={url}
                       caption={caption}
                       showCaption={showCaption}
                     />
@@ -364,10 +361,13 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                   }
                 }
                 if (type === ELEMENT_GALLERY) {
+                  const sectionUrl = canonicalUrl.split('/')
+                  const seccioPublicidad = sectionUrl[1].replace(/-/gm, '')
                   return (
                     <StoryHeaderChildGallery
-                      contentElementGallery={element}
-                      type={type}
+                      promoItems={element}
+                      seccioPublicidad={seccioPublicidad}
+                      arcSite={arcSite}
                     />
                   )
                 }

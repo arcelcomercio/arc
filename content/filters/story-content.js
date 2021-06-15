@@ -121,6 +121,9 @@ content_elements {
   level
   language
   url
+  resized_urls { 
+    landscape_md
+  }
   duration
   list_type
   title

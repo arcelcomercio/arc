@@ -340,6 +340,7 @@ export interface GalleryContentElement extends ANSBase {
   created?: string
   created_date?: string
   last_updated_date?: string
+  resized_urls: ResizedUrls
 }
 
 interface GalleryAdditionalProperties {
