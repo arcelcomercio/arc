@@ -2,8 +2,7 @@ import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { env } from '../../../utilities/arc/env'
-import { PROD } from '../../../utilities/constants/environment'
+import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
 import { getOriginAPI } from '../../signwall/_dependencies/domains'
 import { deleteCookie, getCookie, setCookie } from '../_dependencies/Cookies'
@@ -21,28 +20,13 @@ const RESET_PASSWORD = 'resetpass'
 const ORGANIC = 'organico'
 
 const AuthUser = () => {
-  const { arcSite, deployment } = useAppContext() || {}
+  const { arcSite } = useAppContext() || {}
   const [activeModal, setActiveModal] = React.useState()
   const { links, urls: urlCommon } = PropertiesCommon
 
+  useSentry(urlCommon.sentrySign)
+
   React.useEffect(() => {
-    Sentry.init({
-      dsn: urlCommon.sentrySign,
-      debug: env !== PROD,
-      release: `arc-deployment@${deployment}`,
-      environment: env,
-      ignoreErrors: [
-        'Unexpected end of JSON input',
-        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
-        'JSON Parse error: Unexpected EOF',
-      ],
-      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
-    })
-
-    Sentry.configureScope((scope) => {
-      scope.setTag('brand', arcSite)
-    })
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,

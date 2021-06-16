@@ -2,8 +2,7 @@ import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { env } from '../../../utilities/arc/env'
-import { PROD } from '../../../utilities/constants/environment'
+import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
 import Loading from '../../signwall/_children/loading'
 import { getOriginAPI } from '../../signwall/_dependencies/domains'
@@ -75,7 +74,7 @@ const renderTemplate = (template, id) => {
 }
 
 const WrapperProfile = () => {
-  const { siteProperties, arcSite, deployment } = useAppContext() || {}
+  const { siteProperties, arcSite } = useAppContext() || {}
   const { links, urls: urlCommon } = PropertiesCommon
 
   const {
@@ -86,6 +85,8 @@ const WrapperProfile = () => {
     updateLoading,
   } = React.useContext(ModalConsumer)
 
+  useSentry(urlCommon.sentrySign)
+
   React.useEffect(() => {
     if (!isAuthenticated()) {
       window.location.href = '/?ref=signwall'
@@ -93,23 +94,6 @@ const WrapperProfile = () => {
   }, [])
 
   React.useEffect(() => {
-    Sentry.init({
-      dsn: urlCommon.sentrySign,
-      debug: env !== PROD,
-      release: `arc-deployment@${deployment}`,
-      environment: env,
-      ignoreErrors: [
-        'Unexpected end of JSON input',
-        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
-        'JSON Parse error: Unexpected EOF',
-      ],
-      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
-    })
-
-    Sentry.configureScope((scope) => {
-      scope.setTag('brand', arcSite)
-    })
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,

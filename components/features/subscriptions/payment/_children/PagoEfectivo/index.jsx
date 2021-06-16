@@ -11,7 +11,6 @@ import {
 import PWA from '../../../_dependencies/Pwa'
 import { cipPayEfectivo } from '../../../_dependencies/Services'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
-import { getSessionStorage } from '../../../_dependencies/Utils'
 
 const { urls: urlCommon } = PropertiesCommon
 
@@ -140,19 +139,11 @@ const Confirmation = () => {
         PWA.pwaCloseWebView()
         return
       }
-      const urlLocal = getSessionStorage('paywall_last_url')
-      let urlRedirect = urlsSite.mainHome
-      if (urlLocal) {
-        urlRedirect =
-          urlLocal !== '' && urlLocal !== '/suscripciones/'
-            ? urlLocal
-            : urlsSite.mainHome
-      }
       window.sessionStorage.removeItem('ArcId.USER_STEP')
       window.sessionStorage.removeItem('paywall_confirm_subs')
       window.sessionStorage.removeItem('paywall_type_modal')
       window.sessionStorage.removeItem('paywall_last_url')
-      window.location.href = urlRedirect
+      window.location.href = urlsSite.mainHome
     }
   }
 
