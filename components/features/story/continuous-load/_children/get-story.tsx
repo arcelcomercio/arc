@@ -55,7 +55,7 @@ const GetStory: React.FC<{
           entries.forEach((entry) => {
             if (entry.isIntersecting && window.location.pathname !== link) {
               document.title = title
-              //  window.history.pushState({}, title, link)
+              window.history.pushState({}, title, link)
             }
           })
         },
