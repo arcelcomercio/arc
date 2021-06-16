@@ -11,6 +11,7 @@ import { removeLastSlash } from '../../../../utilities/parse/strings'
 interface Link {
   link: string
   title: string
+  subtype: string
 }
 
 const useLinks = (): {
@@ -104,7 +105,8 @@ const useLinks = (): {
         ({
           websites: { [arcSite]: { website_url: websiteUrl = '' } = {} } = {},
           headlines: { basic = '' } = {},
-        }) => ({ link: websiteUrl, title: basic })
+          subtype,
+        }) => ({ link: websiteUrl, title: basic, subtype })
       )
 
   const sectionStoriesPremium =

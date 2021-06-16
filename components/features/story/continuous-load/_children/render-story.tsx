@@ -10,7 +10,7 @@ import {
   GALLERY_VERTICAL,
 } from '../../../../utilities/constants/subtypes'
 import StoryData from '../../../../utilities/story-data'
-import RawHTMLContinue from '../../_children/contents/_children/rawHtml'
+import ScriptsContinue from '../../_children/contents/_dependencies/scripts'
 import StoryChildrenContentsLite from '../../_children/contents/lite'
 import StoryChildrenContinueHeader from '../../_children/continue-header/lite'
 import StoryChildrenGalleryLite from '../../_children/gallery/lite'
@@ -186,14 +186,32 @@ const rederStory: React.FC<{
     }
   }
 
+  const jwplayerObserver = () => {
+    const videos = Array.from(document.body.querySelectorAll('.jwplayer-lazy'))
+    videos.forEach((entry) => {
+      const { id = '' } = entry
+      if (id) {
+        const nameId = id.split('_')
+        if (nameId[1]) {
+          const linkElem = `https://cdn.jwplayer.com/players/${nameId[1]}-${nameId[2]}.js`
+          const node = document.createElement('script')
+          node.type = 'text/javascript'
+          node.src = linkElem
+          document.head.append(node)
+        }
+      }
+    })
+  }
+
   React.useEffect(() => {
     contentElements.map((element: { content?: string; type: string }) => {
       const content = element?.content || ''
       const type = element?.type
       const isRawHtml = type === ELEMENT_RAW_HTML
-      return isRawHtml && RawHTMLContinue({ content })
+      return isRawHtml && ScriptsContinue({ content })
     })
     changeTwitter()
+    jwplayerObserver()
   }, [contentElements])
 
   return (
