@@ -96,7 +96,6 @@ class StoryContentAmp extends React.PureComponent {
       contextPath,
       arcSite,
       deployment,
-      requestUri,
       siteProperties: {
         siteUrl,
         adsAmp,
