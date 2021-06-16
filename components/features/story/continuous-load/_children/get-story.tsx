@@ -5,6 +5,12 @@ import { Story } from 'types/story'
 
 import RederStory from './render-story'
 
+declare global {
+  interface Window {
+    lazyLoadInstance: any
+  }
+}
+
 const GetStory: React.FC<{
   link: string
   title: string
@@ -47,13 +53,9 @@ const GetStory: React.FC<{
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              if (window.location.pathname !== link) {
-                document.title = title
-                // eslint-disable-next-line no-new
-                new LazyLoad({ elements_selector: '.lazy' })
-                // window.history.pushState({}, title, link)
-              }
+            if (entry.isIntersecting && window.location.pathname !== link) {
+              document.title = title
+              window.history.pushState({}, title, link)
             }
           })
         },
@@ -64,6 +66,14 @@ const GetStory: React.FC<{
       }
     }
   }, [])
+
+  React.useEffect(() => {
+    if (window.lazyLoadInstance && dataStory?._id) {
+      setTimeout(() => {
+        window.lazyLoadInstance.update()
+      }, 300)
+    }
+  }, [dataStory])
 
   return (
     <div ref={container}>

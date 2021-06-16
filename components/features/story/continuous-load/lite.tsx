@@ -12,15 +12,16 @@ const StoryContinousLoad: FC = () => {
     arcSite,
     requestUri,
     contextPath,
+    globalContent,
   } = useAppContext<Story>()
   // const { idGoogleAnalitics } = getProperties(arcSite)
+
+  const { links } = useLinks()
 
   const [isLoading, setIsLoading] = React.useState(false)
   const [renderCount, setRenderCount] = React.useState(0)
 
   const observer = React.useRef<null | IntersectionObserver>(null)
-
-  const { links } = useLinks()
 
   const loadingContainer = React.useRef<HTMLDivElement>(null)
 
@@ -53,6 +54,32 @@ const StoryContinousLoad: FC = () => {
       cleanOb()
     }
   }, [isLoading])
+
+  React.useEffect(() => {
+    const firstStoryContainer = document.querySelector('.st-sidebar__content')
+    if ('IntersectionObserver' in window) {
+      const firstStoryObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              if (window.location.pathname !== globalContent?.website_url) {
+                document.title = globalContent?.headlines.basic || ''
+                window.history.pushState(
+                  {},
+                  globalContent?.headlines.basic || '',
+                  globalContent?.website_url
+                )
+              }
+            }
+          })
+        },
+        { rootMargin: '0px 0px 0px 0px', threshold: 0.1 }
+      )
+      if (firstStoryContainer) {
+        firstStoryObserver.observe(firstStoryContainer)
+      }
+    }
+  }, [])
 
   const renderedLinks = links.slice(0, renderCount)
 
