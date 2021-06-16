@@ -24,7 +24,6 @@ export type OutputType =
   | 'default'
   | 'lite'
   | 'amp'
-  | 'signwall'
   | 'subscriptions'
   | 'text'
   | 'xml'
