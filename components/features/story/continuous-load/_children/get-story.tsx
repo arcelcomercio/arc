@@ -7,7 +7,7 @@ import RederStory from './render-story'
 
 declare global {
   interface Window {
-    LazyLoad: any
+    lazyLoadInstance: any
   }
 }
 
@@ -68,11 +68,12 @@ const GetStory: React.FC<{
   }, [])
 
   React.useEffect(() => {
-    if (window.LazyLoad) {
-      // eslint-disable-next-line no-new
-      new window.LazyLoad({ elements_selector: '.lazy' })
+    if (window.lazyLoadInstance && dataStory?._id) {
+      setTimeout(() => {
+        window.lazyLoadInstance.update()
+      }, 300)
     }
-  }, [])
+  }, [dataStory])
 
   return (
     <div ref={container}>

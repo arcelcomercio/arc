@@ -27,7 +27,7 @@ const CardMostReadChildrenItem: FC<FeatureProps> = (props) => {
     item: `most-read__item `,
     link: `most-read__link f`,
     figure: `most-read__multimedia f pos-rel`,
-    img: 'lazy most-read__img ',
+    img: 'most-read__img ',
     icon: 'most-read__icon',
     title: `most-read__txt w-full `,
     numLines: 'three-lines',
@@ -41,8 +41,7 @@ const CardMostReadChildrenItem: FC<FeatureProps> = (props) => {
         {viewImage && (
           <figure className={classes.figure}>
             <img
-              src="https://cdna.elcomercio.pe/resources/dist/elcomercio/images/default-md.png?d=2"
-              data-src={imageUrl}
+              src={imageUrl}
               width={arcSite === SITE_DEPOR ? 314 : 118}
               height={arcSite === SITE_DEPOR ? 157 : 72}
               alt={title}
