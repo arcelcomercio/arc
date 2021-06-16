@@ -186,6 +186,23 @@ const rederStory: React.FC<{
     }
   }
 
+  const jwplayerObserver = () => {
+    const videos = Array.from(document.body.querySelectorAll('.jwplayer-lazy'))
+    videos.forEach((entry) => {
+      const { id = '' } = entry
+      if (id) {
+        const nameId = id.split('_')
+        if (nameId[1]) {
+          const linkElem = `https://cdn.jwplayer.com/players/${nameId[1]}-${nameId[2]}.js`
+          const node = document.createElement('script')
+          node.type = 'text/javascript'
+          node.src = linkElem
+          document.head.append(node)
+        }
+      }
+    })
+  }
+
   React.useEffect(() => {
     contentElements.map((element: { content?: string; type: string }) => {
       const content = element?.content || ''
@@ -194,6 +211,7 @@ const rederStory: React.FC<{
       return isRawHtml && RawHTMLContinue({ content })
     })
     changeTwitter()
+    jwplayerObserver()
   }, [contentElements])
 
   return (
