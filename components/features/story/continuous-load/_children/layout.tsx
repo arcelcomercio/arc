@@ -28,7 +28,6 @@ const StorySidebarContinueLayout: React.FC<{ children: React.ReactNode[] }> = ({
           </div>
           <div role="main" className={classes.main}>
             {children[4] && children[4] /* Multimedia */}
-
             {children[5] && children[5] /* Contenido */}
           </div>
           {children[6] && (

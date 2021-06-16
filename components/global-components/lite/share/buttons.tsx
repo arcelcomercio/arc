@@ -1,7 +1,7 @@
-import { ArcSite } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { FC } from 'types/features'
+import { ArcSite } from 'types/fusion'
 
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
 import { copyLink, popup } from './utils'
@@ -22,7 +22,8 @@ interface ButtonsProps {
   activeGoogleNews?: boolean
   activeCopyLink?: boolean
   activeLinkedin?: boolean
-  arcSite?: ArcSite
+  arcSite: ArcSite
+  script: boolean
 }
 
 const ShareButtons: FC<ButtonsProps> = (data) => {
@@ -33,6 +34,7 @@ const ShareButtons: FC<ButtonsProps> = (data) => {
     activeGoogleNews = false,
     activeLinkedin = true,
     arcSite,
+    script = true,
   } = data
 
   const {
@@ -129,11 +131,13 @@ const ShareButtons: FC<ButtonsProps> = (data) => {
           Copiar enlace
         </button>
       ) : null}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `${popup}${activeCopyLink ? copyLink : ''}`,
-        }}
-      />
+      {script && (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `${popup}${activeCopyLink ? copyLink : ''}`,
+          }}
+        />
+      )}
     </>
   )
 }

@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { FC } from 'types/features'
 
-import Image from '../../../../../global-components/image'
-
 const classes = {
   image: 'story-content__gallery-img w-full ',
   caption: 'story-content__caption pt-10 secondary-font text-md',
@@ -15,25 +13,31 @@ const classes = {
  * tienen plantillas con tres columnas de ancho.
  */
 interface FeatureProps {
-  url?: string
+  small?: string
+  large?: string
+  medium?: string
   caption?: string
   subtitle?: string
 }
 
 const StoryHeaderChildPicture: FC<FeatureProps> = (data) => {
-  const url = data?.url || ''
+  const large = data?.large || ''
+  const small = data?.small || ''
+  const medium = data?.medium || ''
   const caption = data?.caption || ''
-  const subtitle = data?.subtitle || ''
+
+  const renderCompleteImage = () => (
+    <>
+      <source srcSet={small} media="(max-width: 360px)" />
+      <source srcSet={medium} media="(max-width: 768px)" />
+      <img src={large} alt={caption} className={classes.image} />
+    </>
+  )
+
   return (
-    <Image
-      src={url}
-      width={980}
-      height={0}
-      sizes="(max-width: 360px) 314px, (max-width: 768px) 482px, 980px"
-      alt={caption || subtitle}
-      className={classes.image}
-      loading="lazy"
-    />
+    <figure>
+      <picture>{renderCompleteImage()}</picture>
+    </figure>
   )
 }
 

@@ -1,15 +1,15 @@
-import React from 'react'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import React from 'react'
 
-import UtilListKey from '../../../../utilities/list-keys'
-import StoryData from '../../../../utilities/story-data'
+import TProLbl from '../../../../global-components/trustprojectlabel'
 import {
   SPECIAL,
   SPECIAL_BASIC,
 } from '../../../../utilities/constants/subtypes'
+import UtilListKey from '../../../../utilities/list-keys'
+import StoryData from '../../../../utilities/story-data'
 import StorySocialChildAuthor from './author'
-import TProLbl from '../../../../global-components/trustprojectlabel'
 
 const classes = {
   news:
@@ -61,8 +61,7 @@ const socialMediaUrlShareList = (
   postPermaLink,
   postTitle,
   siteNameRedSocial = 'Gestionpe'
-) => {
-  return {
+) => ({
     facebook: `http://www.facebook.com/sharer.php?u=${siteUrl}${postPermaLink}`,
     twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       postTitle
@@ -71,8 +70,7 @@ const socialMediaUrlShareList = (
     // pinterest: `https://pinterest.com/pin/create/button/?url=${siteUrl}${postPermaLink}`,
     whatsapp: `whatsapp://send?text=${siteUrl}${postPermaLink}`,
     // fbmsg: `fb-messenger://share/?link=${siteUrl}${postPermaLink}`,
-  }
-}
+  })
 
 const StoryHeaderChildSocial = () => {
   const { globalContent, arcSite, contextPath } = useAppContext()
@@ -163,13 +161,13 @@ const StoryHeaderChildSocial = () => {
           subtype !== SPECIAL &&
           primarySectionLink !== '/archivo-elcomercio/' && (
             <div
-              className={`${classes.category} ${(isPremium &&
-                classes.premium) ||
-                ''}`}>
+              className={`${classes.category} ${
+                (isPremium && classes.premium) || ''
+              }`}>
               {(editorNote && (
                 <p
                   itemProp="description"
-                  dangerouslySetInnerHTML={{ __html: editorNote }}></p>
+                  dangerouslySetInnerHTML={{ __html: editorNote }} />
               )) ||
                 primarySection}
               <StorySocialChildAuthor {...params} />
@@ -198,7 +196,7 @@ const StoryHeaderChildSocial = () => {
           ))}
         </ul>
       </div>
-      <script dangerouslySetInnerHTML={{ __html: popup }}></script>
+      <script dangerouslySetInnerHTML={{ __html: popup }} />
     </>
   )
 }

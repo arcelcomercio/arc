@@ -7,6 +7,7 @@ import RederStory from './render-story'
 
 const GetStory: React.FC<{
   link: string
+  title: string
   contextPath: string
   arcSite: ArcSite
   requestUri: string
@@ -15,6 +16,7 @@ const GetStory: React.FC<{
 }> = (props) => {
   const {
     link = '',
+    title = '',
     arcSite,
     contextPath,
     deployment,
@@ -38,10 +40,33 @@ const GetStory: React.FC<{
       },
     }) || {}
 
-  // console.log('GetStory>>', dataStory)
+  const container = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              if (window.location.pathname !== link) {
+                document.title = title
+                // eslint-disable-next-line no-new
+                new LazyLoad({ elements_selector: '.lazy' })
+                // window.history.pushState({}, title, link)
+              }
+            }
+          })
+        },
+        { rootMargin: '0px 0px 0px 0px', threshold: 0.1 }
+      )
+      if (container.current) {
+        observer.observe(container.current)
+      }
+    }
+  }, [])
 
   return (
-    <div>
+    <div ref={container}>
       {dataStory?._id && (
         <RederStory
           data={dataStory}
