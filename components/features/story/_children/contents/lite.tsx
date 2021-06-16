@@ -63,13 +63,13 @@ import StoryContentsChildJwplayerRecommender from '../../contents/_children/jwpl
 import StoryContentsChildLinkList from '../../contents/_children/link-list'
 import StoryContentsChildLinkedImage from '../../contents/_children/linked-image'
 import StoryContentsChildParallaxElements from '../../contents/_children/parallax-elements'
-import StoryContentChildRawHTML from '../../contents/_children/rawHtml'
 import StoryContentsChildStampTrust from '../../contents/_children/stamp-trust'
 import iframeScriptCounter from '../../contents/_dependencies/counter-mag'
 import StoryHeaderChildGallery from '../gallery/_children/gallery-lite'
 import StoryContentsChildImage from '../multimedia/_children/image'
 import StoryContentsChildVideo from '../multimedia/_children/video'
 import StoryContentsChildVideoNativo from '../multimedia/_children/video-nativo'
+import StoryContentChildRawHTML from './_children/rawHtml'
 
 const classes = {
   news: 'story-contents w-full ',
