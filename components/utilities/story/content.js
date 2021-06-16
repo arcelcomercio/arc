@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 import { ELEMENT_LIST, ELEMENT_TEXT } from '../constants/element-types'
-import { SITE_DEPOR, SITE_ELCOMERCIOMAG } from '../constants/sitenames'
 
 /**
  * Inyecta los ads disponibles entre en contenido de la noticia
@@ -15,7 +14,7 @@ import { SITE_DEPOR, SITE_ELCOMERCIOMAG } from '../constants/sitenames'
 export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
   let textElementsCounter = 0
   let adsCounter = 0
-  const contentAdsList = ['inline', 'caja4', 'caja5']
+  const contentAdsList = ['caja3', 'inline', 'caja4', 'caja5']
 
   return contentElements
     ? contentElements.map((dataContent, i) => {
@@ -26,23 +25,10 @@ export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {
           typeElement === ELEMENT_LIST && i === 0 ? [] : dataContent
 
         if (typeElement === ELEMENT_TEXT) {
-          if (arcSite === SITE_ELCOMERCIOMAG) {
-            if (textElementsCounter === 1) {
-              dataElements.publicidad = true
-              dataElements.nameAds = 'caja3'
-            } else if (
-              textElementsCounter > 0 &&
-              (textElementsCounter - 1) % adsEvery === 0
-            ) {
-              if (adsCounter < contentAdsList.length) {
-                dataElements.publicidad = true
-                dataElements.nameAds = contentAdsList[adsCounter]
-                adsCounter += 1
-              }
-            }
-          } else if (arcSite === SITE_DEPOR && textElementsCounter === 0) {
+          if (textElementsCounter === 0) {
             dataElements.publicidad = true
-            dataElements.nameAds = 'caja3'
+            dataElements.nameAds = contentAdsList[0]
+            adsCounter += 1
           } else if (
             textElementsCounter > 0 &&
             textElementsCounter % adsEvery === 0
