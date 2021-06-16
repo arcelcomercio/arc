@@ -197,18 +197,6 @@ const StoryContentsLite = (props) => {
             )}
           </>
         )}
-        {arcSite !== SITE_ELCOMERCIOMAG &&
-          arcSite !== SITE_DEPOR &&
-          subtype !== MINUTO_MINUTO &&
-          subtype !== GALLERY_VERTICAL && (
-            <div
-              id="gpt_caja3"
-              data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
-              data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
-              data-bloque="3"
-              data-prebid-enabled
-            />
-          )}
         <div
           className={`${classes.content} ${
             isPremium && !isPreview
@@ -358,17 +346,13 @@ const StoryContentsLite = (props) => {
                     : classes.textClasses
                   return (
                     <>
-                      {arcSite === SITE_DEPOR && (
-                        <p
-                          itemProp="description"
-                          className={alignmentClass}
-                          dangerouslySetInnerHTML={{
-                            __html: replaceTags(content),
-                          }} />
-                      )}
+                      <p
+                        itemProp="description"
+                        className={alignmentClass}
+                        dangerouslySetInnerHTML={{
+                          __html: replaceTags(content),
+                        }} />
                       {nameAds === 'caja3' &&
-                        (arcSite === SITE_ELCOMERCIOMAG ||
-                          arcSite === SITE_DEPOR) &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
                           <div
@@ -405,14 +389,6 @@ const StoryContentsLite = (props) => {
                           data-bloque="4"
                           data-prebid-enabled
                         />
-                      )}
-                      {arcSite !== SITE_DEPOR && (
-                        <p
-                          itemProp="description"
-                          className={alignmentClass}
-                          dangerouslySetInnerHTML={{
-                            __html: replaceTags(content),
-                          }} />
                       )}
                     </>
                   )
