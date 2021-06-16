@@ -8,6 +8,7 @@ import RederStory from './render-story'
 declare global {
   interface Window {
     LazyLoad: any
+    lazyLoadInstance: any
   }
 }
 
@@ -55,7 +56,7 @@ const GetStory: React.FC<{
           entries.forEach((entry) => {
             if (entry.isIntersecting && window.location.pathname !== link) {
               document.title = title
-              window.history.pushState({}, title, link)
+              //  window.history.pushState({}, title, link)
             }
           })
         },
@@ -68,11 +69,12 @@ const GetStory: React.FC<{
   }, [])
 
   React.useEffect(() => {
-    if (window.LazyLoad) {
-      // eslint-disable-next-line no-new
-      new window.LazyLoad({ elements_selector: '.lazy' })
+    if (window.lazyLoadInstance && dataStory?._id) {
+      setTimeout(() => {
+        window.lazyLoadInstance.update()
+      }, 1000)
     }
-  }, [])
+  }, [dataStory?._id])
 
   return (
     <div ref={container}>
