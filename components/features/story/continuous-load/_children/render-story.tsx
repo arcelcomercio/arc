@@ -35,7 +35,7 @@ const rederStory: React.FC<{
     primarySection,
     primarySectionLink,
     title,
-    websiteLink,
+    link,
     subTitle,
     promoItems,
     contentElementsListOne,
@@ -66,7 +66,7 @@ const rederStory: React.FC<{
   const gellery =
     StoryChildrenGalleryLite({
       subtype,
-      canonicalUrl: websiteLink,
+      canonicalUrl: link,
       multimediaLarge,
       multimediaLandscapeMD,
       multimediaLandscapeS,
@@ -111,7 +111,7 @@ const rederStory: React.FC<{
       primarySectionLink,
       primarySection,
       postTitle: title,
-      postPermaLink: websiteLink,
+      postPermaLink: link,
       isPremium,
       trustproject,
     }),
@@ -149,7 +149,7 @@ const rederStory: React.FC<{
       multimediaLandscapeS,
       tags: tagsStory,
       contentElements,
-      canonicalUrl: websiteLink,
+      canonicalUrl: link,
       authorsList,
       liteAdsEvery: 2,
     }),
@@ -164,6 +164,28 @@ const rederStory: React.FC<{
       customLink: '',
     }),
   ]
+
+  const changeTwitter = () => {
+    const windowW = 600
+    const windowH = 400
+    const $shareButtons = document.body.querySelectorAll('a[data-share]')
+    if ($shareButtons && $shareButtons.length > 0) {
+      const wLeft = window.screen.width / 2 - windowW / 2
+      const wTop = window.screen.height / 2 - windowH / 2
+      $shareButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+          const href = button.getAttribute('href') || ''
+          e.preventDefault()
+          window.open(
+            href,
+            '',
+            `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${windowW}, height=${windowH}, top=${wTop}, left=${wLeft}`
+          )
+        })
+      })
+    }
+  }
+
   React.useEffect(() => {
     contentElements.map((element: { content?: string; type: string }) => {
       const content = element?.content || ''
@@ -171,6 +193,7 @@ const rederStory: React.FC<{
       const isRawHtml = type === ELEMENT_RAW_HTML
       return isRawHtml && RawHTMLContinue({ content })
     })
+    changeTwitter()
   }, [contentElements])
 
   return (
