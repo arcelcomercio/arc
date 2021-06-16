@@ -50,7 +50,9 @@ const GetStory: React.FC<{
             if (entry.isIntersecting) {
               if (window.location.pathname !== link) {
                 document.title = title
-                window.history.pushState({}, title, link)
+                // eslint-disable-next-line no-new
+                new LazyLoad({ elements_selector: '.lazy' })
+                // window.history.pushState({}, title, link)
               }
             }
           })

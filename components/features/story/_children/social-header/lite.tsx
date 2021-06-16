@@ -1,5 +1,6 @@
 import React from 'react'
 import { FC } from 'types/features'
+import { ArcSite } from 'types/fusion'
 import { LabelElement } from 'types/story'
 
 import ShareButtons from '../../../../global-components/lite/share/buttons'
@@ -20,7 +21,7 @@ interface FeatureProps {
   primarySectionLink?: string
   isPremium?: boolean
   trustproject?: LabelElement
-  arcSite?: string
+  arcSite: ArcSite
   postPermaLink: string
   postTitle: string
 }
@@ -74,6 +75,7 @@ const StoryChildrenSocialHeaderLite: FC<FeatureProps> = (data) => {
             arcSite={arcSite}
             postPermaLink={postPermaLink}
             postTitle={postTitle}
+            script={false}
           />
         </div>
       </div>
