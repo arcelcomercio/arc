@@ -290,7 +290,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                           content={element.embed_html || content}
                           classImage={classes.newsImage}
                           description={captionVideo}
-                          contentElemtent
+                          contentElemtent=""
                           primarySection={primarySection}
                           duration={duration}
                           imageUrl={imageUrl}
@@ -638,7 +638,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                     return (
                       <>
                         <StoryContentsChildVideo
-                          contentElemtent
+                          contentElemtent=""
                           primarySection={primarySection}
                           description={description}
                           content={content}

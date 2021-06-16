@@ -5,6 +5,12 @@ import { Story } from 'types/story'
 
 import RederStory from './render-story'
 
+declare global {
+  interface Window {
+    LazyLoad: any
+  }
+}
+
 const GetStory: React.FC<{
   link: string
   title: string
@@ -58,6 +64,13 @@ const GetStory: React.FC<{
       if (container.current) {
         observer.observe(container.current)
       }
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (window.LazyLoad) {
+      // eslint-disable-next-line no-new
+      new window.LazyLoad({ elements_selector: '.lazy' })
     }
   }, [])
 
