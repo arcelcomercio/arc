@@ -47,11 +47,9 @@ const GetStory: React.FC<{
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              if (window.location.pathname !== link) {
-                document.title = title
-                window.history.pushState({}, title, link)
-              }
+            if (entry.isIntersecting && window.location.pathname !== link) {
+              document.title = title
+              window.history.pushState({}, title, link)
             }
           })
         },
