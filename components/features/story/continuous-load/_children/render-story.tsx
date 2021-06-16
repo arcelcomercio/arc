@@ -159,7 +159,7 @@ const rederStory: React.FC<{
       contextPath,
       arcSite,
       viewImage: true,
-      storiesQty: 10,
+      storiesQty: 3,
       customTitle: '',
       customLink: '',
     }),

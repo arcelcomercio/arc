@@ -7,7 +7,6 @@ import RederStory from './render-story'
 
 declare global {
   interface Window {
-    LazyLoad: any
     lazyLoadInstance: any
   }
 }
@@ -72,7 +71,7 @@ const GetStory: React.FC<{
     if (window.lazyLoadInstance && dataStory?._id) {
       setTimeout(() => {
         window.lazyLoadInstance.update()
-      }, 1000)
+      }, 300)
     }
   }, [dataStory?._id])
 
