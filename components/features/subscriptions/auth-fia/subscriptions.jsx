@@ -101,7 +101,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
       />
       <Container>
         <Wrapper>
-          <NavigateProvider>
+          <AuthProvider>
             <PanelLeft>
               {!isLogged ? (
                 renderTemplate(selectedTemplate, valueTemplate, {
@@ -128,7 +128,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                 />
               )}
             </PanelLeft>
-          </NavigateProvider>
+          </AuthProvider>
         </Wrapper>
       </Container>
     </>
@@ -136,9 +136,9 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 }
 
 const FiaSubscriptions = () => (
-  <AuthProvider>
+  <NavigateProvider>
     <FiaSubscriptionsWrapper typeDialog="authfia" />
-  </AuthProvider>
+  </NavigateProvider>
 )
 
 FiaSubscriptions.label = 'Signwall - Login / Registo FIA'
