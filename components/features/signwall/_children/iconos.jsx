@@ -65,7 +65,7 @@ export const Back = ({ color }) => (
 )
 
 export const ForgotPass = ({ bgcolor }) => (
-  <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120">
+  <svg width="120" height="120">
     <circle cx="60" cy="60" r="60" fill={bgcolor} />
     <use xlinkHref="#B" fill="#b0e0d4" />
     <path
@@ -169,7 +169,7 @@ export const MsgRegister = ({ bgcolor }) => (
 )
 
 export const ResetPass = ({ bgcolor }) => (
-  <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120">
+  <svg width="120" height="120">
     <circle cx="60" cy="60" r="60" fill={bgcolor} />
     <use xlinkHref="#B" fill="#b0e0d4" />
     <path
@@ -200,7 +200,7 @@ export const ResetPass = ({ bgcolor }) => (
 )
 
 export const MsgResetPass = ({ bgcolor }) => (
-  <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="120">
+  <svg width="120" height="120">
     <circle cx="60" cy="60" r="60" fill={bgcolor} />
     <use xlinkHref="#B" fill="#b0e0d4" />
     <path
