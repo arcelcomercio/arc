@@ -1,3 +1,6 @@
+/**
+ * @deprecated use `components/utilities/parse/queries` instead
+ */
 export const getQuery = (name) => {
   const vars = {}
   if (typeof window !== 'undefined') {
@@ -8,6 +11,9 @@ export const getQuery = (name) => {
   return vars[name]
 }
 
+/**
+ * @deprecated use `components/utilities/parse/queries` instead
+ */
 export const deleteQuery = (name) => {
   const rg = new RegExp(`[(&|?)]+${name}=`)
   const queryMatch = window.location.href.match(rg)
