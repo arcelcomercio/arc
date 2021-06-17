@@ -62,13 +62,7 @@ const transform = (data, key) => {
 
   const date = auxDate === null ? '' : auxDate
 
-  const dateFormater = new Intl.DateTimeFormat('es-419-u-hc-h12', {
-    dateStyle: 'full',
-    // timeZone: 'America/Lima',  // Se envia la fecha por url, que es la fecha de Peru, asi que no debe usarse timeZone
-    hour12: true,
-  })
-
-  const formatDate = date ? new Date(date.replace(/-/g, '/')) : ''
+  const formatDate = date ? new Date(date) : ''
 
   return {
     ...data,
@@ -80,9 +74,11 @@ const transform = (data, key) => {
     archiveParams: {
       // eslint-disable-next-line no-nested-ternary
       date: date
-        ? `ARCHIVO DE ${sections
-            .toString()
-            .toUpperCase()}, ${dateFormater.format(formatDate).toUpperCase()}`
+        ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ${getVerboseDate({
+            date: formatDate,
+            showTime: false,
+            defailtTimeZone: false,
+          }).toUpperCase()}`
         : sections !== 'Todas'
         ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ÚLTIMO MINUTO`
         : 'ÚLTIMO MINUTO',
