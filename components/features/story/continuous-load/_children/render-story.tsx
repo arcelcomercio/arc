@@ -26,8 +26,9 @@ const rederStory: React.FC<{
   arcSite: ArcSite
   requestUri: string
   deployment: (resource: string) => string | string
+  index: number
 }> = (props) => {
-  const { contextPath, arcSite, requestUri, data, deployment } = props
+  const { contextPath, arcSite, requestUri, data, deployment, index } = props
   const trustproject = data?.label?.trustproject
 
   const {
@@ -152,6 +153,7 @@ const rederStory: React.FC<{
       canonicalUrl: link,
       authorsList,
       liteAdsEvery: 2,
+      index,
     }),
     StoryMostReadLite({
       primarySectionLink,
@@ -216,7 +218,11 @@ const rederStory: React.FC<{
 
   return (
     <>
-      <StorySidebarContinueLayout children={children} />
+      <StorySidebarContinueLayout
+        children={children}
+        index={index}
+        arcSite={arcSite}
+      />
     </>
   )
 }

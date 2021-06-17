@@ -84,7 +84,7 @@ const StoryContinousLoad: FC = () => {
   const renderedLinks = links.slice(0, renderCount)
   return (
     <div>
-      {renderedLinks.map(({ link, title, subtype }) => (
+      {renderedLinks.map(({ link, title, subtype }, i) => (
         <GetStory
           link={link}
           title={title}
@@ -94,6 +94,7 @@ const StoryContinousLoad: FC = () => {
           requestUri={requestUri}
           deployment={deployment}
           setIsLoading={(value) => setIsLoading(value)}
+          index={i}
         />
       ))}
       {renderedLinks.length === links.length && isLoading ? null : (
