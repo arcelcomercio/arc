@@ -112,6 +112,7 @@ interface FeaturesProps {
   shareAlign: string
   copyLink: boolean
   liteAdsEvery: number
+  index: number
 }
 
 const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
@@ -147,6 +148,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
     contentElements,
     canonicalUrl,
     authorsList = [],
+    index,
   } = props
   const displayDateStory = getDateSeo(displayDate || createdDate)
   const publishDateStory = getDateSeo(updateDate)
@@ -209,7 +211,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
           subtype !== MINUTO_MINUTO &&
           subtype !== GALLERY_VERTICAL && (
             <div
-              id="gpt_caja3"
+              id={`gpt_caja_${index + 1}`}
               data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
               data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
               data-bloque="3"
@@ -392,7 +394,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
                           <div
-                            id="gpt_caja3"
+                            id={`gpt_caja3_${index + 1}`}
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
                             data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                             data-bloque="3"
@@ -401,7 +403,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                         )}
                       {nameAds === 'inline' && (
                         <div
-                          id="gpt_inline"
+                          id={`gpt_inline_${index + 1}`}
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
                           data-ads-dimensions="[[1,1]]"
                           data-bloque="3"
@@ -410,7 +412,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                       )}
                       {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
                         <div
-                          id="gpt_caja4"
+                          id={`gpt_caja4_${index + 1}`}
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                           data-bloque="3"
@@ -419,7 +421,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                       )}
                       {nameAds === 'caja5' && subtype !== GALLERY_VERTICAL && (
                         <div
-                          id="gpt_caja5"
+                          id={`gpt_caja5_${index + 1}`}
                           data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                           data-bloque="4"

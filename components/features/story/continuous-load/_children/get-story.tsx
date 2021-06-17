@@ -21,6 +21,7 @@ const GetStory: React.FC<{
   subtype: string
   deployment: (resource: string) => string | string
   setIsLoading: (value: boolean) => void
+  index: number
 }> = (props) => {
   const {
     link = '',
@@ -31,6 +32,7 @@ const GetStory: React.FC<{
     deployment,
     requestUri,
     setIsLoading,
+    index,
   } = props
 
   const presets =
@@ -84,7 +86,7 @@ const GetStory: React.FC<{
   }, [dataStory?._id])
 
   return (
-    <div ref={container}>
+    <div id={`nota${index + 1}`} ref={container}>
       {dataStory?._id && (
         <RederStory
           data={dataStory}
@@ -92,6 +94,7 @@ const GetStory: React.FC<{
           arcSite={arcSite}
           requestUri={requestUri}
           deployment={deployment}
+          index={index}
         />
       )}
     </div>
