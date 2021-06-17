@@ -77,7 +77,7 @@ const transform = (data, key) => {
         ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ${getVerboseDate({
             date: formatDate,
             showTime: false,
-            defailtTimeZone: false,
+            defaultTimeZone: false,
           }).toUpperCase()}`
         : sections !== 'Todas'
         ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ÚLTIMO MINUTO`
