@@ -132,6 +132,6 @@ const StoryContinousLoad: FC = () => {
   )
 }
 
-StoryContinousLoad.label = 'Artículo - Carga Conitnua'
+StoryContinousLoad.label = 'Artículo - Carga Continua'
 
 export default StoryContinousLoad
