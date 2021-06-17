@@ -8,11 +8,9 @@ const {
 
 const urls = [
   'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/pf/dist/components/combinations/subscriptions.js?d=',
-  'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/pf/dist/components/combinations/signwall.js?d=',
   'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/pf/dist/components/combinations/default.js?d=',
   'https://elcomercio-elcomercio-sandbox.cdn.arcpublishing.com/pf/dist/components/combinations/lite.js?d=',
   'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/pf/dist/components/combinations/subscriptions.js?d=',
-  'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/pf/dist/components/combinations/signwall.js?d=',
   'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/pf/dist/components/combinations/default.js?d=',
   'https://elcomercio-gestion-sandbox.cdn.arcpublishing.com/pf/dist/components/combinations/lite.js?d=',
 ]
