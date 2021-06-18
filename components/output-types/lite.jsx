@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
@@ -10,6 +11,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
+  SITE_OJO,
   SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
@@ -50,6 +52,7 @@ import vallaScript from './_dependencies/valla'
 import videoScript from './_dependencies/video-script'
 import widgets from './_dependencies/widgets'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const LiteOutput = ({
   children,
   contextPath,
@@ -449,18 +452,30 @@ const LiteOutput = ({
           subtype={subtype}
         />
 
-        <Styles {...metaSiteData} />
+        <Styles
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaSiteData}
+        />
         {!isIframeStory ? (
           <>
-            <MetaSite {...metaSiteData} />
+            <MetaSite
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...metaSiteData}
+            />
             <meta name="description" lang="es" content={description} />
             {isStory ? (
               ''
             ) : (
               <meta name="keywords" lang="es" content={keywords} />
             )}
-            <OpenGraph {...openGraphData} />
-            <TwitterCards {...twitterCardsData} />
+            <OpenGraph
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...openGraphData}
+            />
+            <TwitterCards
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...twitterCardsData}
+            />
           </>
         ) : (
           // Solo para iframes de notas continuas
@@ -469,7 +484,11 @@ const LiteOutput = ({
             <meta name="twitter:site" content={twitterCardsData.twitterUser} />
           </>
         )}
-        <MetaStory {...metaPageData} isIframeStory={isIframeStory} />
+        <MetaStory
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...metaPageData}
+          isIframeStory={isIframeStory}
+        />
         {arcSite === SITE_ELCOMERCIOMAG && (
           <meta property="fb:pages" content="530810044019640" />
         )}
@@ -534,7 +553,10 @@ const LiteOutput = ({
                 `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
               )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec" />
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"
+              async
+            />
           </>
         ) : null}
 
@@ -546,7 +568,10 @@ const LiteOutput = ({
                 `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
               )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6" />
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"
+              async
+            />
           </>
         ) : null}
         {/* ============== WebTracking */}
@@ -715,6 +740,9 @@ const LiteOutput = ({
         />
         {arcSite === SITE_ELCOMERCIOMAG ||
         arcSite === SITE_PERU21 ||
+        arcSite === SITE_TROME ||
+        arcSite === SITE_ELBOCON ||
+        arcSite === SITE_OJO ||
         arcSite === SITE_DEPOR ? (
           <script
             defer

@@ -243,10 +243,11 @@ export default ({
                 )}
                 {!hidden && (
                   <p itemProp="description" className="section-video__subtitle">
-                    {principalVideo.contentElements && principalVideo.contentElements[0].type === "list" ? (
+                    {principalVideo.contentElements && principalVideo.contentElements.length > 0 ? (
+                      principalVideo.contentElements[0].type === "list" ? 
                         principalVideo.contentElements[0].items.map(el => (
                           <div  dangerouslySetInnerHTML={{ __html: el.content}} className="section-video__list-items" key={el.content} />
-                        ))
+                        )) : principalVideo.subTitle
                     ) : principalVideo.subTitle }
                   </p>
                 )}

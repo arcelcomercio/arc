@@ -372,13 +372,16 @@ window.addEventListener('load', function liteAds() {
       arcSite === 'elbocon' ||
       arcSite === 'peru21' ||
       arcSite === 'elcomercio' ||
-      arcSite === 'depor' ? (
+      arcSite === 'gestion' ||
+      arcSite === 'depor' ||
+      arcSite === 'ojo' ? (
         <>
           {arcSite !== 'elcomerciomag' &&
           !(
             arcSite === 'depor' &&
             (section === 'futbol-internacional' || section === 'off-side')
-          ) ? (
+          ) &&
+          !(arcSite === 'trome' && section === 'deportes') ? (
             <>
               <script
                 async
@@ -400,6 +403,9 @@ window.addEventListener('load', function liteAds() {
               .slice(0, 10)}`}></script>
           {arcSite === 'elcomerciomag' ||
           arcSite === 'peru21' ||
+          arcSite === 'trome' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'ojo' ||
           arcSite === 'depor' ? (
             <>
               <script

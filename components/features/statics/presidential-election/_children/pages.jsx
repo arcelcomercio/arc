@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react'
 import { useAppContext } from 'fusion:context'
+import React from 'react'
 
 const classes = {
   container: 'presidential-election-pages',
@@ -21,28 +21,32 @@ const PATH_PARLAMENTO_ANDINO = 'parlamento-andino'
 export default ({
   customFields = {},
   page = PATH_PRESIDENCIAL,
-  pathBase = '/resultados-elecciones-2021',
+  pathBase = '',
 }) => {
   const { arcSite } = useAppContext()
 
+  const { template, urlFirstElection, urlSecondElection } = customFields
+
   const urlPath = page.replaceAll('_', '-')
-  const selectedInput = (pathVal, pathCurrent) => {
-    return pathVal === pathCurrent
-  }
+  const selectedInput = (pathVal, pathCurrent) => pathVal === pathCurrent
   const addClassActive = (pathVal, pathCurrent) => {
     const classActive = selectedInput(pathVal, pathCurrent)
       ? classes.active
       : ''
     return `${classes.inputRadio} ${classActive}`
   }
-  const handleChangeRadio = e => {
+  const handleChangeRadio = (e) => {
     window.location.href = e.target.value
   }
   return (
-    <div className={classes.container}>
+    <div
+      className={`${classes.container} ${
+        template === 'second' ? 'second' : ''
+      }`}>
       <h1 className={classes.title}>Resultados oficiales</h1>
-      {arcSite === 'elcomercio' ? (
-        <div className={classes.ec_data}>
+
+      <div className={classes.ec_data}>
+        {arcSite === 'elcomercio' && (
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370.68 77.8">
             <g id="Capa_2" data-name="Capa 2">
               <g id="Capa_1-2" data-name="Capa 1">
@@ -70,59 +74,70 @@ export default ({
               </g>
             </g>
           </svg>
-        </div>
-      ) : null}
-      <div className={classes.boxUrl} onChange={handleChangeRadio}>
-        {customFields[PATH_PRESIDENCIAL] ? (
-          <>
-            {' '}
-            <input
-              className={addClassActive(urlPath, PATH_PRESIDENCIAL)}
-              value={`${pathBase}/${PATH_PRESIDENCIAL}/`}
-              type="radio"
-              name="url"
-              id={PATH_PRESIDENCIAL}
-              checked={selectedInput(urlPath, PATH_PRESIDENCIAL)}
-            />
-            <label htmlFor={PATH_PRESIDENCIAL} className={classes.label}>
-              <span className={classes.radioFake}></span>Presidencial
-            </label>{' '}
-          </>
-        ) : null}
-
-        {customFields[PATH_CONGRESAL] ? (
-          <>
-            <input
-              className={addClassActive(urlPath, PATH_CONGRESAL)}
-              value={`${pathBase}/${PATH_CONGRESAL}/`}
-              type="radio"
-              name="url"
-              id={PATH_CONGRESAL}
-              checked={selectedInput(urlPath, PATH_CONGRESAL)}
-            />
-            <label htmlFor={PATH_CONGRESAL} className={classes.label}>
-              <span className={classes.radioFake}></span>Congresal
-            </label>
-          </>
-        ) : null}
-
-        {customFields[PATH_PARLAMENTO_ANDINO] ? (
-          <>
-            {' '}
-            <input
-              className={addClassActive(urlPath, PATH_PARLAMENTO_ANDINO)}
-              value={`${pathBase}/${PATH_PARLAMENTO_ANDINO}/`}
-              type="radio"
-              name="url"
-              id={PATH_PARLAMENTO_ANDINO}
-              checked={selectedInput(urlPath, PATH_PARLAMENTO_ANDINO)}
-            />
-            <label htmlFor={PATH_PARLAMENTO_ANDINO} className={classes.label}>
-              <span className={classes.radioFake}></span>Par. Andino
-            </label>
-          </>
-        ) : null}
+        )}
+        <a
+          className="presidential-election-pages__link"
+          href={template === 'second' ? urlFirstElection : urlSecondElection}>
+          {template === 'second' ? 'Primera vuelta' : 'Segunda vuelta'}
+        </a>
       </div>
+
+      {template !== 'second' && (
+        <div className={classes.boxUrl} onChange={handleChangeRadio}>
+          {customFields[PATH_PRESIDENCIAL] ? (
+            <>
+              {' '}
+              <input
+                className={addClassActive(urlPath, PATH_PRESIDENCIAL)}
+                value={`${pathBase}/${PATH_PRESIDENCIAL}/`}
+                type="radio"
+                name="url"
+                id={PATH_PRESIDENCIAL}
+                checked={selectedInput(urlPath, PATH_PRESIDENCIAL)}
+              />
+              <label htmlFor={PATH_PRESIDENCIAL} className={classes.label}>
+                <span className={classes.radioFake} />
+                Presidencial
+              </label>{' '}
+            </>
+          ) : null}
+
+          {customFields[PATH_CONGRESAL] ? (
+            <>
+              <input
+                className={addClassActive(urlPath, PATH_CONGRESAL)}
+                value={`${pathBase}/${PATH_CONGRESAL}/`}
+                type="radio"
+                name="url"
+                id={PATH_CONGRESAL}
+                checked={selectedInput(urlPath, PATH_CONGRESAL)}
+              />
+              <label htmlFor={PATH_CONGRESAL} className={classes.label}>
+                <span className={classes.radioFake} />
+                Congresal
+              </label>
+            </>
+          ) : null}
+
+          {customFields[PATH_PARLAMENTO_ANDINO] ? (
+            <>
+              {' '}
+              <input
+                className={addClassActive(urlPath, PATH_PARLAMENTO_ANDINO)}
+                value={`${pathBase}/${PATH_PARLAMENTO_ANDINO}/`}
+                type="radio"
+                name="url"
+                id={PATH_PARLAMENTO_ANDINO}
+                checked={selectedInput(urlPath, PATH_PARLAMENTO_ANDINO)}
+              />
+              <label htmlFor={PATH_PARLAMENTO_ANDINO} className={classes.label}>
+                <span className={classes.radioFake} />
+                Par. Andino
+              </label>
+            </>
+          ) : null}
+        </div>
+      )}
     </div>
   )
 }

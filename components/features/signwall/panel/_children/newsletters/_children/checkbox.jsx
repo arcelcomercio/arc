@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+
 import { device } from '../../../../_dependencies/breakpoints'
 
 const CheckboxContainer = styled.div`
@@ -46,17 +47,17 @@ const Cover = styled.div`
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0px;
-  display: ${props => (props.checked ? 'none' : 'block')};
+  display: ${(props) => (props.checked ? 'none' : 'block')};
 `
 
 const Image = styled.div`
   width: 100%;
   height: 138px;
-  background-image: url(${props => props.image});
+  background-image: url(${(props) => props.image});
 `
 
 const Name = styled.div`
-  background: ${props =>
+  background: ${(props) =>
     // eslint-disable-next-line no-nested-ternary
     props.site === 'elcomercio'
       ? props.checked
@@ -65,7 +66,7 @@ const Name = styled.div`
       : props.checked
       ? '#d64445'
       : 'transparent'};
-  color: ${props =>
+  color: ${(props) =>
     // eslint-disable-next-line no-nested-ternary
     props.site === 'elcomercio'
       ? props.checked
@@ -96,7 +97,7 @@ const StyledCheckbox = styled.div`
   width: 25px;
   height: 25px;
   border: 2px solid white;
-  background: ${props => (props.checked ? '#0179af' : '#cccccc')};
+  background: ${(props) => (props.checked ? '#0179af' : '#cccccc')};
   border-radius: 50%;
   transition: all 150ms;
   position: absolute;
@@ -109,7 +110,7 @@ const StyledCheckbox = styled.div`
   }
 
   ${Icon} {
-    visibility: ${props => (props.checked ? 'visible' : 'hidden')};
+    visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
   }
 `
 
@@ -117,9 +118,9 @@ const Checkbox = ({ className, checked, disabled, name, site, ...props }) => (
   <CheckboxContainer checked={checked} className={className}>
     <Image {...props} />
     <Cover checked={checked} />
-    <Name checked={checked} site={site}>
+    {/* <Name checked={checked} site={site}>
       {name}
-    </Name>
+    </Name> */}
     <HiddenCheckbox checked={checked} disabled={disabled} {...props} />
     <StyledCheckbox checked={checked}>
       <Icon viewBox="0 0 24 24">
