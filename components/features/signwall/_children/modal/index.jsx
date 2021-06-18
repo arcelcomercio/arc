@@ -1,134 +1,86 @@
-// eslint-disable-next-line max-classes-per-file
-import React, { Component } from 'react'
-import { createPortal } from 'react-dom'
-import { WrapperModal, DialogModal } from './styles'
+import * as React from 'react'
 
-class BodyEnd extends Component {
-  constructor(props) {
-    super(props)
-    this.el = document.createElement('div')
-    this.el.id = 'signwall-app'
-  }
+import Portal from '../../../subscriptions/_children/modal/portal'
 
-  componentDidMount() {
-    document.body.appendChild(this.el)
-  }
+const HIDE_SCROLL = 'overflow-hidden'
+const HIDE_SCROLL_IOS = 'overflow-hidden-ios'
+const VIEWPORT_DEFAULT = 'width=device-width, initial-scale=1'
+const VIEWPORT_CUSTOM = `${VIEWPORT_DEFAULT}, user-scalable=0, shrink-to-fit=no`
 
-  componentWillUnmount() {
-    document.body.removeChild(this.el)
-  }
-
-  render() {
-    const { children } = this.props
-    return createPortal(children, this.el)
-  }
-}
-
-class Modal extends Component {
-  changeView = rule => {
-    const view = document.querySelector('meta[name=viewport]')
+const Modal = ({ bgColor, position, size, children }) => {
+  const changeView = (rule) => {
+    const view = window.document.querySelector('meta[name=viewport]')
     if (view) view.remove()
-    const meta = document.createElement('meta')
+    const meta = window.document.createElement('meta')
     meta.name = 'viewport'
     meta.content = rule
-    document.getElementsByTagName('head')[0].appendChild(meta)
+    window.document.getElementsByTagName('head')[0].appendChild(meta)
   }
 
-  isSafari = () =>
-    window.navigator.vendor &&
-    window.navigator.vendor.indexOf('Apple') > -1 &&
-    window.navigator.userAgent &&
-    window.navigator.userAgent.indexOf('CriOS') === -1 &&
-    window.navigator.userAgent.indexOf('FxiOS') === -1
+  const isSafari = () => {
+    if (typeof window !== 'undefined') {
+      return (
+        window.navigator.vendor &&
+        window.navigator.vendor.indexOf('Apple') > -1 &&
+        window.navigator.userAgent &&
+        window.navigator.userAgent.indexOf('CriOS') === -1 &&
+        window.navigator.userAgent.indexOf('FxiOS') === -1
+      )
+    }
+    return null
+  }
 
-  handleScroll = e => {
+  const handleScroll = (e) => {
     e.preventDefault()
   }
 
-  componentDidMount = () => {
-    if (this.isSafari()) {
-      document.querySelector('html').classList.add('overflow-hidden-ios')
-      document.querySelector('body').classList.add('overflow-hidden-ios')
-      this.changeView(
-        'width=device-width, initial-scale=1, user-scalable=0, shrink-to-fit=no'
-      )
+  React.useEffect(() => {
+    if (isSafari()) {
+      document.querySelector('html').classList.add(HIDE_SCROLL_IOS)
+      document.querySelector('body').classList.add(HIDE_SCROLL_IOS)
+      changeView(VIEWPORT_CUSTOM)
     }
-    document.body.addEventListener('touchmove', this.handleScroll, {
+    document.body.addEventListener('touchmove', handleScroll, {
       passive: false,
     })
-    document.querySelector('html').classList.add('overflow-hidden')
-    document.querySelector('body').classList.add('overflow-hidden')
-  }
-
-  componentWillUnmount = () => {
-    if (this.isSafari()) {
-      document.querySelector('html').classList.remove('overflow-hidden-ios')
-      document.querySelector('body').classList.remove('overflow-hidden-ios')
-      this.changeView('width=device-width, initial-scale=1')
+    document.querySelector('html').classList.add(HIDE_SCROLL)
+    document.querySelector('body').classList.add(HIDE_SCROLL)
+    return () => {
+      if (isSafari()) {
+        document.querySelector('html').classList.remove(HIDE_SCROLL_IOS)
+        document.querySelector('body').classList.remove(HIDE_SCROLL_IOS)
+        changeView(VIEWPORT_DEFAULT)
+      }
+      document.querySelector('html').classList.remove(HIDE_SCROLL)
+      document.querySelector('body').classList.remove(HIDE_SCROLL)
+      document.body.removeEventListener('touchmove', handleScroll)
     }
-    document.querySelector('html').classList.remove('overflow-hidden')
-    document.querySelector('body').classList.remove('overflow-hidden')
-    document.body.removeEventListener('touchmove', this.handleScroll)
-  }
+  }, [])
 
-  turnOffFormScroll = () => {
+  const turnOffFormScroll = () => {
     if (typeof window !== 'undefined') {
-      document.body.removeEventListener('touchmove', this.handleScroll)
+      window.document.body.removeEventListener('touchmove', handleScroll)
     }
   }
 
-  turnOnFormScroll = () => {
+  const turnOnFormScroll = () => {
     if (typeof window !== 'undefined') {
-      document.body.removeEventListener('touchmove', this.handleScroll)
+      window.document.body.removeEventListener('touchmove', handleScroll)
     }
   }
 
-  turnOffFormScroll = () => {
-    if (typeof window !== 'undefined') {
-      document.body.removeEventListener('touchmove', this.handleScroll)
-    }
-  }
-
-  turnOnFormScroll = () => {
-    if (typeof window !== 'undefined') {
-      document.body.removeEventListener('touchmove', this.handleScroll)
-    }
-  }
-
-  turnOffFormScroll = () => {
-    if (typeof window !== 'undefined') {
-      document.body.removeEventListener('touchmove', this.handleScroll)
-    }
-  }
-
-  turnOnFormScroll = () => {
-    if (typeof window !== 'undefined') {
-      document.body.removeEventListener('touchmove', this.handleScroll)
-    }
-  }
-
-  render() {
-    const { bgColor, position, size, name, color, id, children } = this.props
-    return (
-      <BodyEnd>
-        <WrapperModal className="open" bgColor={bgColor}>
-          <DialogModal
-            className={`position-${position} size-${size}`}
-            heading={name}
-            noborderRa
-            size={size}
-            style={{ backgroundColor: color }}
-            id={id}
-            name={name}
-            onTouchStart={this.turnOffFormScroll}
-            onTouchEnd={this.turnOnFormScroll}>
-            {children}
-          </DialogModal>
-        </WrapperModal>
-      </BodyEnd>
-    )
-  }
+  return (
+    <Portal id="sign-modal">
+      <div className={`signwall-modal open ${bgColor}`}>
+        <div
+          className={`body-modal position-${position} size-${size}`}
+          onTouchStart={turnOffFormScroll}
+          onTouchEnd={turnOnFormScroll}>
+          {children}
+        </div>
+      </div>
+    </Portal>
+  )
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export { Modal }

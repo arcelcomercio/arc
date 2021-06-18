@@ -1,7 +1,7 @@
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import { getPreroll } from '../utilities/ads/preroll'
+import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
 import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
@@ -10,6 +10,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
+  SITE_OJO,
   SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
@@ -76,7 +77,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = env
   const {
     videoSeo,
     idYoutube,
@@ -522,9 +523,13 @@ const LiteOutput = ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <Libs />
+        ) : null}
+        {isPremium &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <>
-            <Libs />
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
@@ -586,7 +591,9 @@ const LiteOutput = ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {isPremium && <Fusion />}
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <Fusion />
+        ) : null}
         {isStory && (
           <script
             type="text/javascript"
@@ -709,6 +716,7 @@ const LiteOutput = ({
           }}
         />
         <script
+          async
           src={`${getAssetsPath(
             arcSite,
             contextPath
@@ -732,6 +740,7 @@ const LiteOutput = ({
         arcSite === SITE_PERU21 ||
         arcSite === SITE_TROME ||
         arcSite === SITE_ELBOCON ||
+        arcSite === SITE_OJO ||
         arcSite === SITE_DEPOR ? (
           <script
             defer
@@ -792,7 +801,7 @@ const LiteOutput = ({
           </>
         )}
         {vallaSignwall === false &&
-        arcSite === SITE_ELCOMERCIO &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (
           <>
             <script

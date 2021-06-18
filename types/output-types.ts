@@ -1,4 +1,4 @@
-import { FusionContext } from 'types/fusion'
+import { FusionContext, OutputType } from 'types/fusion'
 
 import { AnyObject } from './utils'
 
@@ -16,7 +16,7 @@ export interface OutputProps extends FusionContext {
 }
 
 export interface OutputComponent<P = AnyObject> extends React.FC<P> {
-  fallback?: boolean
+  fallback?: boolean | OutputType
   contentType?: string
 }
 

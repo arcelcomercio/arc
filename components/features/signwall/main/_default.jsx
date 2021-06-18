@@ -2,12 +2,17 @@ import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
-import Cookies from '../_dependencies/cookies'
-import Domains from '../_dependencies/domains'
+import { getCookie, setCookie } from '../../subscriptions/_dependencies/Cookies'
+import { getQuery } from '../../subscriptions/_dependencies/QueryString'
+import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
+import {
+  getOriginAPI,
+  getUrlLandingAuth,
+  getUrlProfile,
+  getUrlSignwall,
+} from '../_dependencies/domains'
 import GetProfile from '../_dependencies/get-profile'
-import QueryString from '../_dependencies/querystring'
-import Services from '../_dependencies/services'
-import Taggeo from '../_dependencies/taggeo'
+import { getEntitlement } from '../_dependencies/services'
 import { Paywall } from './_children/paywall'
 import { Premium } from './_children/premium'
 
@@ -32,15 +37,14 @@ class SignwallComponent extends React.PureComponent {
   componentDidMount() {
     const { siteProperties, arcSite } = this.props
     if (typeof window !== 'undefined' && window.Identity) {
-      window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      if (window.Sales !== undefined) {
-        window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      }
+      const apiOrigin = getOriginAPI(arcSite)
+      window.Identity.options({ apiOrigin })
+
       const fpPromise = FingerprintJS.load()
       fpPromise
         .then((fp) => fp.get())
         .then((result) => {
-          Cookies.setCookie('gecdigarc', result.visitorId, 365)
+          setCookie('gecdigarc', result.visitorId, 365)
           console.log({ result })
         })
         .catch((error) => {
@@ -102,17 +106,15 @@ class SignwallComponent extends React.PureComponent {
     const contentTier = W.document.head.querySelector(
       'meta[property="article:content_tier"]'
     )
-    const URL_ORIGIN = Domains.getOriginAPI(arcSite)
+    const URL_ORIGIN = getOriginAPI(arcSite)
     const typeContentTier = contentTier
       ? contentTier.getAttribute('content')
       : 'metered'
 
-    if (iOS && QueryString.getQuery('surface') === 'meter_limit_reached') {
-      const artURL = decodeURIComponent(
-        QueryString.getQuery('article_url') || ''
-      )
+    if (iOS && getQuery('surface') === 'meter_limit_reached') {
+      const artURL = decodeURIComponent(getQuery('article_url') || '')
       W.sessionStorage.setItem('paywall_last_url', artURL)
-      W.location.href = Domains.getUrlLandingAuth(arcSite)
+      W.location.href = getUrlLandingAuth(arcSite)
     }
 
     if (typeContentTier === 'locked') {
@@ -122,11 +124,7 @@ class SignwallComponent extends React.PureComponent {
         paywallFunction: (campaignURL) => {
           if (countOnly) return
           if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
-            W.location.href = Domains.getUrlSignwall(
-              arcSite,
-              'signwallHard',
-              '1'
-            )
+            W.location.href = getUrlSignwall(arcSite, 'signwallHard', '1')
           } else if (
             campaignURL.match(/signwallPaywall/) &&
             this.checkSession()
@@ -184,10 +182,7 @@ class SignwallComponent extends React.PureComponent {
     const { arcSite } = this.props
     const W = window
     return W.Identity.extendSession().then((resExt) => {
-      const checkEntitlement = Services.getEntitlement(
-        resExt.accessToken,
-        arcSite
-      )
+      const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
             const result = Object.keys(res.skus).map((key) => res.skus[key].sku)
@@ -222,15 +217,11 @@ class SignwallComponent extends React.PureComponent {
         'meta[name="content-type"]'
       )
       if (
-        Cookies.getCookie('arc_e_id') &&
+        getCookie('arc_e_id') &&
         dataContType &&
         siteProperties.activePaywall
       ) {
-        window.location.href = Domains.getUrlSignwall(
-          arcSite,
-          'reloginHash',
-          '1'
-        )
+        window.location.href = getUrlSignwall(arcSite, 'reloginHash', '1')
       }
     }
     return null
@@ -238,7 +229,7 @@ class SignwallComponent extends React.PureComponent {
 
   redirectURL = (typeDialog, hash) => {
     const { arcSite } = this.props
-    window.location.href = Domains.getUrlSignwall(arcSite, typeDialog, hash)
+    window.location.href = getUrlSignwall(arcSite, typeDialog, hash)
   }
 
   getUrlParam = (name) => {
@@ -304,27 +295,17 @@ class SignwallComponent extends React.PureComponent {
     if (typeof window !== 'undefined') {
       if (this.checkSession()) {
         Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresacuenta`)
-        window.location.href = Domains.getUrlProfile(arcSite)
+        window.location.href = getUrlProfile(arcSite)
       } else {
         Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresaperfil`)
-        window.location.href = Domains.getUrlSignwall(
-          arcSite,
-          'signwallOrganic',
-          '1'
-        )
+        window.location.href = getUrlSignwall(arcSite, 'signwallOrganic', '1')
       }
     }
   }
 
   render() {
     const { userName, initialUser, showPaywall, showPremium } = this.state
-    const {
-      countOnly,
-      arcSite,
-      requestUri,
-      siteProperties,
-      classButton = '',
-    } = this.props
+    const { countOnly, arcSite, siteProperties, classButton = '' } = this.props
     return (
       <>
         <button

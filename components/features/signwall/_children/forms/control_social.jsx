@@ -2,13 +2,16 @@ import sha256 from 'crypto-js/sha256'
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 
+import {
+  setCookie,
+  setCookieDomain,
+} from '../../../subscriptions/_dependencies/Cookies'
+import getDevice from '../../../subscriptions/_dependencies/GetDevice'
+import { getQuery } from '../../../subscriptions/_dependencies/QueryString'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { device } from '../../_dependencies/breakpoints'
-import Cookies from '../../_dependencies/cookies'
-import Domains from '../../_dependencies/domains'
-import getDevice from '../../_dependencies/get-device'
-import QueryString from '../../_dependencies/querystring'
-import Services from '../../_dependencies/services'
-import Taggeo from '../../_dependencies/taggeo'
+import { getOriginAPI, getUrlECOID } from '../../_dependencies/domains'
+import { loginFBeco, sendNewsLettersUser } from '../../_dependencies/services'
 import { Facebook, Google, Mail } from '../iconos'
 import { Button } from './styles'
 
@@ -115,9 +118,9 @@ const AfterLoginRegister = (
     `Web_Sign_Wall_${typeDialog}`,
     `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
   )
-  Cookies.setCookie('arc_e_id', sha256(emailUser).toString(), 365)
+  setCookie('arc_e_id', sha256(emailUser).toString(), 365)
   const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-  Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+  setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
   onLogged(resProfile)
 
@@ -157,7 +160,7 @@ const setupUserProfile = (
   onStudents,
   dataTreatment
 ) => {
-  window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+  window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
   window.Identity.getUserProfile()
     .then((resProfile) => {
       const EMAIL_USER =
@@ -208,7 +211,9 @@ const setupUserProfile = (
               name: 'dataTreatment',
               value:
                 dataTreatment &&
-                (arcSite === 'elcomercio' || arcSite === 'gestion')
+                (arcSite === 'elcomercio' ||
+                  arcSite === 'gestion' ||
+                  arcSite === 'trome')
                   ? dataTreatment
                   : 'NULL',
               type: 'String',
@@ -217,13 +222,13 @@ const setupUserProfile = (
         }
 
         window.Identity.options({
-          apiOrigin: Domains.getOriginAPI(arcSite),
+          apiOrigin: getOriginAPI(arcSite),
         })
 
         window.Identity.updateUserProfile(newProfileFB)
           .then(() => {
             if (activeNewsletter && EMAIL_USER.indexOf('facebook.com') < 0) {
-              Services.sendNewsLettersUser(
+              sendNewsLettersUser(
                 resProfile.uuid,
                 EMAIL_USER,
                 arcSite,
@@ -297,16 +302,11 @@ const authSocialProviderURL = (
   onStudents,
   dataTreatment
 ) => {
-  if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
+  if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
     return
   }
 
-  Services.loginFBeco(
-    Domains.getOriginAPI(arcSite),
-    '',
-    data.accessToken,
-    data.providerSource
-  )
+  loginFBeco(getOriginAPI(arcSite), '', data.accessToken, data.providerSource)
     .then((resLogSocial) => {
       if (resLogSocial.accessToken) {
         window.localStorage.setItem(
@@ -388,14 +388,14 @@ export const ButtonSocial = ({
   }
 
   const authSocialProvider = ({ data, origin }) => {
-    if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
+    if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
       return
     }
 
     setShowTextLoad('Conectando...')
 
-    Services.loginFBeco(
-      Domains.getOriginAPI(arcSite),
+    loginFBeco(
+      getOriginAPI(arcSite),
       '',
       data.accessToken,
       data.providerSource
@@ -451,7 +451,7 @@ export const ButtonSocial = ({
     const height = 640
     const left = window.screen.width / 2 - 800 / 2
     const top = window.screen.height / 2 - 600 / 2
-    const URL = `${Domains.getUrlECOID()}/mpp/${brandCurrent}/login/`
+    const URL = `${getUrlECOID}/mpp/${brandCurrent}/login/`
 
     const URLRedirect = () => {
       window.location.href = `${URL}?urlReference=${encodeURIComponent(
@@ -530,7 +530,7 @@ export const AuthURL = ({
     ]
 
     listUrlRedirect.map((item) => {
-      if (QueryString.getQuery(item)) {
+      if (getQuery(item)) {
         setTimeout(() => {
           const btnFacebook = document.getElementById('btn-sign-facebook')
           if (btnFacebook) {
@@ -538,15 +538,15 @@ export const AuthURL = ({
           }
         }, 800)
 
-        const dataTreatment = QueryString.getQuery('dataTreatment') || 'NULL'
+        const dataTreatment = getQuery('dataTreatment') || 'NULL'
 
         authSocialProviderURL(
           {
             data: {
-              accessToken: QueryString.getQuery(item).replace(/(#_=_)$/, ''),
+              accessToken: getQuery(item).replace(/(#_=_)$/, ''),
               providerSource: 'facebook',
             },
-            origin: Domains.getUrlECOID(),
+            origin: getUrlECOID,
           },
           arcSite,
           onClose,

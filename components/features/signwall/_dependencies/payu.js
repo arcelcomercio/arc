@@ -1,14 +1,12 @@
 import addScriptAsync from '../../../utilities/script-async'
-import Domains from './domains'
+import { getPayuSDK } from './domains'
 
-const addPayU = () => {
-  const originPayuSdk = Domains.getPayuSDK()
-  return Promise.all([
+const addPayU = () =>
+  Promise.all([
     addScriptAsync({
       name: 'sdkPayU',
-      url: originPayuSdk,
+      url: getPayuSDK,
     }),
   ]).then(() => window.payU)
-}
 
 export default addPayU

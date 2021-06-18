@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import * as React from 'react'
 
 const VALUE = 'value'
 const ERROR = 'error'
@@ -69,14 +69,14 @@ function useForm(
   stateValidatorSchema = {},
   submitFormCallback
 ) {
-  const [state, setStateSchema] = useState(stateSchema)
-  const [values, setValues] = useState(getPropValues(state, VALUE))
-  const [errors, setErrors] = useState(getPropValues(state, ERROR))
-  const [disable, setDisable] = useState(true)
-  const [isDirty, setIsDirty] = useState(false)
+  const [state, setStateSchema] = React.useState(stateSchema)
+  const [values, setValues] = React.useState(getPropValues(state, VALUE))
+  const [errors, setErrors] = React.useState(getPropValues(state, ERROR))
+  const [disable, setDisable] = React.useState(true)
+  const [isDirty, setIsDirty] = React.useState(false)
 
   // Get a local copy of stateSchema
-  useEffect(() => {
+  React.useEffect(() => {
     setStateSchema(stateSchema)
     setDisable(true) // Disable button in initial render.
   }, []) // eslint-disable-line
@@ -85,56 +85,56 @@ function useForm(
   // or the required field in state has no value.
   // Wrapped in useCallback to cached the function to avoid intensive memory leaked
   // in every re-render in component
-  const validateErrorState = useCallback(
-    () => Object.values(errors).some(error => error),
+  const validateErrorState = React.useCallback(
+    () => Object.values(errors).some((error) => error),
     [errors]
   )
 
   // For every changed in our state this will be fired
   // To be able to disable the button
-  useEffect(() => {
+  React.useEffect(() => {
     if (isDirty) {
       setDisable(validateErrorState())
     }
   }, [errors, isDirty]) // eslint-disable-line
 
   // Event handler for handling changes in input.
-  const handleOnChange = useCallback(
-    event => {
+  const handleOnChange = React.useCallback(
+    (event) => {
       setIsDirty(true)
       const { value, name } = event.target
-      const _validator = stateValidatorSchema
+      const validatorState = stateValidatorSchema
 
       // Making sure that stateValidatorSchema name is same in
       // stateSchema
-      if (!_validator[name]) return
+      if (!validatorState[name]) return
 
-      const _field = _validator[name]
+      const fieldValid = validatorState[name]
 
       let errorObj = ''
 
-      errorObj = isRequiredField(value, _field.required)
+      errorObj = isRequiredField(value, fieldValid.required)
 
-      if (_field.nospaces && errorObj === '') {
+      if (fieldValid.nospaces && errorObj === '') {
         errorObj = notSpaces(value)
       }
 
-      if (_field.min2caracts && errorObj === '') {
+      if (fieldValid.min2caracts && errorObj === '') {
         errorObj = min2Caracts(value)
       }
 
-      if (_field.min6caracts && errorObj === '') {
+      if (fieldValid.min6caracts && errorObj === '') {
         errorObj = min6Caracts(value)
       }
 
-      if (_field.invalidtext && errorObj === '') {
+      if (fieldValid.invalidtext && errorObj === '') {
         errorObj = invalidText(value)
       }
 
       // Prevent running this function if the value is required field
-      if (errorObj === '' && isObject(_field.validator)) {
-        const _fieldValidator = _field.validator
-        const { func, error } = _fieldValidator
+      if (errorObj === '' && isObject(fieldValid.validator)) {
+        const fieldValidator = fieldValid.validator
+        const { func, error } = fieldValidator
 
         // Test the function callback if the value is meet the criteria
         const testFunc = func
@@ -143,14 +143,14 @@ function useForm(
         }
       }
 
-      setValues(prevState => ({ ...prevState, [name]: value }))
-      setErrors(prevState => ({ ...prevState, [name]: errorObj }))
+      setValues((prevState) => ({ ...prevState, [name]: value }))
+      setErrors((prevState) => ({ ...prevState, [name]: errorObj }))
     },
     [stateValidatorSchema, values]
   )
 
-  const handleOnSubmit = useCallback(
-    event => {
+  const handleOnSubmit = React.useCallback(
+    (event) => {
       event.preventDefault()
 
       // Making sure that there's no error in the state

@@ -12,14 +12,14 @@ type UseSentryValue = {
   isConfigured: boolean
 }
 
-const useSentry = (): UseSentryValue => {
+const useSentry = (dsn: string): UseSentryValue => {
   const { arcSite, deployment } = useAppContext()
 
   React.useEffect(() => {
     if (!isConfigured) {
       const { urls } = PropertiesCommon
       Sentry.init({
-        dsn: urls.dsnSentry,
+        dsn: dsn || urls.sentrySubs,
         debug: env !== PROD,
         release: `arc-deployment@${deployment}`,
         environment: env,

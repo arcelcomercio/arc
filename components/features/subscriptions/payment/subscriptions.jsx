@@ -2,8 +2,7 @@ import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { env } from '../../../utilities/arc/env'
-import { PROD } from '../../../utilities/constants/environment'
+import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthContext, AuthProvider } from '../_context/auth'
@@ -28,7 +27,6 @@ const arcType = 'payment'
 const WrapperPaymentSubs = () => {
   const {
     arcSite,
-    deployment,
     globalContent: { fromFia, freeAccess, event },
   } = useAppContext() || {}
 
@@ -54,35 +52,9 @@ const WrapperPaymentSubs = () => {
   })
 
   useRoute(event)
+  useSentry(urlCommon.sentrySubs)
 
   React.useEffect(() => {
-    Sentry.init({
-      dsn: urlCommon.dsnSentry,
-      debug: env !== PROD,
-      release: `arc-deployment@${deployment}`,
-      environment: env,
-      ignoreErrors: [
-        'Unexpected end of JSON input',
-        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
-        'JSON Parse error: Unexpected EOF',
-      ],
-      // allowUrls: [
-      //   // API + origin
-      //   /https:\/\/.+(elcomercio|gestion).pe/,
-      //   // Sandbox CDN
-      //   /https:\/\/elcomercio-(elcomercio|gestion)-sandbox\.cdn\.arcpublishing.com/,
-      //   // Identity & Sales SDKs
-      //   /https:\/\/arc-subs-sdk\.s3\.amazonaws\.com/,
-      //   // PayU
-      //   /https?:\/\/.+payulatam\.com/,
-      // ],
-      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
-    })
-
-    Sentry.configureScope((scope) => {
-      scope.setTag('brand', arcSite)
-    })
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
@@ -174,5 +146,7 @@ const PaymentSubscriptions = () => (
     <WrapperPaymentSubs />
   </AuthProvider>
 )
+
+PaymentSubscriptions.label = 'Subscriptions - Landing de Compra'
 
 export default PaymentSubscriptions

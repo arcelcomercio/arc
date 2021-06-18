@@ -24,6 +24,8 @@ const WrapperSingwall = () => {
     globalContent: { plans = [], printedSubscriber, fromFia },
   } = useAppContext() || {}
 
+  const { selectedTemplate, valueTemplate } = React.useContext(NavigateConsumer)
+
   React.useEffect(() => {
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
@@ -64,13 +66,7 @@ const WrapperSingwall = () => {
     window.fbq('track', 'Lead')
   }, [])
 
-  return (
-    <NavigateConsumer>
-      {({ selectedTemplate, valueTemplate }) => (
-        <>{renderTemplate(selectedTemplate, valueTemplate, { arcSite })}</>
-      )}
-    </NavigateConsumer>
-  )
+  return <>{renderTemplate(selectedTemplate, valueTemplate, { arcSite })}</>
 }
 
 const Singwall = () => (
