@@ -9,6 +9,7 @@ import getCodeError, {
   formatEmail,
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI } from '../../_dependencies/domains'
 import { CheckBox } from './control_checkbox'
@@ -34,11 +35,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const [showVerify, setShowVerify] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [checkedPolits, setCheckedPolits] = React.useState(true)
-
-  const isFbBrowser =
-    typeof window !== 'undefined' &&
-    (window.navigator.userAgent.indexOf('FBAN') > -1 ||
-      window.navigator.userAgent.indexOf('FBAV') > -1)
 
   const stateSchema = {
     lemail: { value: valTemplate || '', error: '' },
