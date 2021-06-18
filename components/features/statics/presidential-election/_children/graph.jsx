@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 import React from 'react'
 
@@ -15,15 +17,13 @@ const classes = {
   description: 'presidential-election-graph__description',
 }
 
-const getFormatedNumberResult = x => {
-  return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : ''
-}
+const getFormatedNumberResult = (x) =>
+  x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') : ''
 
-const getPartidoDataFromId = (id = '', partidos = []) => {
-  return partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
-}
+const getPartidoDataFromId = (id = '', partidos = []) =>
+  partidos.filter(({ id: itemId }) => itemId === id)[0] || {}
 
-const roundTwoDecimals = num => Math.round(num * 100) / 100
+const roundTwoDecimals = (num) => Math.round(num * 100) / 100
 
 const PresidentialElectionChildGraph = ({
   partidos,
@@ -32,6 +32,7 @@ const PresidentialElectionChildGraph = ({
   showTitle = true,
   filters,
   description = '',
+  template,
 }) => {
   const printBar = (value, color) => {
     const colorBar = value <= 0 ? 'transparent' : color
@@ -43,14 +44,34 @@ const PresidentialElectionChildGraph = ({
   return (
     <section className={classes.container}>
       {showTitle && (
-        <div className={classes.title}>
-          {filters?.subFilter !== 'porcentaje' && <>Votos {' | '}</>}{' '}
-          <span>Porcentaje</span>
-        </div>
+        <>
+          {template === 'second' ? (
+            <div className={classes.title}>
+              <span>Votos</span>
+              <span style={{ fontWeight: '500' }}>|</span>
+              <span style={{ fontWeight: '500' }}>Emitidos - Válidos</span>
+            </div>
+          ) : (
+            <div className={classes.title}>
+              {filters?.subFilter !== 'porcentaje' && <>Votos {' | '}</>}{' '}
+              <span>Porcentaje</span>
+            </div>
+          )}
+        </>
       )}
       <ul className={classes.list}>
         {filterData?.map(
-          ({ id_partido, cantidad_votos, porcentaje_votos, candidato }, i) => {
+          (
+            {
+              id_partido,
+              cantidad_votos,
+              porcentaje_votos,
+              candidato,
+              emitidos,
+              validos,
+            },
+            i
+          ) => {
             const idPartido =
               filters?.group === 'todos_los_partidos'
                 ? filters?.filter
@@ -80,7 +101,54 @@ const PresidentialElectionChildGraph = ({
               }
             }
 
-            return (
+            return template === 'second' ? (
+              <li
+                key={`${id_partido}-${cantidad_votos}-${i}`}
+                className={classes.item}>
+                {logo && filters?.group !== 'todos_los_partidos' && (
+                  <img
+                    src={logo}
+                    alt="Logo del partido"
+                    className={classes.avatar}
+                  />
+                )}
+                <div className={classes.boxInfo}>
+                  <div className={classes.boxBar}>
+                    <span
+                      className={classes.bar}
+                      data-value={`${roundTwoDecimals(emitidos * 100)}%`}
+                      style={printBar(roundTwoDecimals(emitidos * 100), color)}
+                    />
+                    <span className={classes.votes}>
+                      {getFormatedNumberResult(cantidad_votos)}
+                      {filters?.subFilter !== 'porcentaje' && (
+                        <>
+                          {' | '}
+                          <span>
+                            {`${roundTwoDecimals(emitidos * 100)}%`} -{' '}
+                            {validos ? (
+                              `${roundTwoDecimals(validos * 100)}%`
+                            ) : (
+                              <div
+                                style={{
+                                  width: '38px',
+                                  height: '2px',
+                                  border: '1px solid #707070',
+                                  display: 'inline-block',
+                                  verticalAlign: 'middle',
+                                  margin: '0 0 5px 2px',
+                                }}
+                              />
+                            )}
+                          </span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+                  <div className={classes.name}>{itemData.name}</div>
+                </div>
+              </li>
+            ) : (
               <li
                 key={`${id_partido}-${cantidad_votos}-${i}`}
                 className={classes.item}>
@@ -101,7 +169,8 @@ const PresidentialElectionChildGraph = ({
                       style={printBar(
                         roundTwoDecimals(itemData.percentage * 100),
                         color
-                      )}></span>
+                      )}
+                    />
                     <span className={classes.votes}>
                       {itemData.result}
                       {filters?.subFilter !== 'porcentaje' && (

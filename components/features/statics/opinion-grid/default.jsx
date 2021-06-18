@@ -1,14 +1,13 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
+import Ads from '../../../global-components/ads'
 import StoryData from '../../../utilities/story-data'
-
+import CustomTitle from '../../custom-title/default/default'
 import AuthorCard from './_children/author-card'
 import EditorialCard from './_children/editorial-card'
 import ListItem from './_children/list-item'
-import CustomTitle from '../../custom-title/default/default'
-import Ads from '../../../global-components/ads'
 
 // TODO: author-card y editorial-card pueden evitar código duplicado con un contenedor
 const classes = {
@@ -47,16 +46,17 @@ const StaticOpinionGrid = () => {
         <CustomTitle />
       </div>
       <div role="list" className={classes.container}>
-        {stories.slice(0, 12).map(story => {
+        {stories.slice(0, 12).map((story) => {
           const { credits: { by = [] } = {} } = story || {}
           const { image: { url } = {} } = by[0] || {}
 
           const authorImage = url || defaultAuthorImage
 
           data.__data = story
-          const { taxonomy: { primary_section: { name } = '' } = {} } =
-            story || {}
-          const section = name ? name.toUpperCase() : ''
+
+          const section = data.primarySection
+            ? data.primarySection.toUpperCase()
+            : ''
           let result = null
           countAdd += 1
           if (section && section === 'EDITORIALp') {

@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import { WrapperBlock } from '../styles'
-import Services from '../../../../_dependencies/services'
+import React, { Component } from 'react'
+
 import Loading from '../../../../_children/loading'
+import Services from '../../../../_dependencies/services'
+import { WrapperBlock } from '../styles'
 
 @Consumer
 class News extends Component {
@@ -27,8 +28,8 @@ class News extends Component {
 
       const listAllNews = { ...[] }
 
-      Services.getNewsLetters().then(resNews => {
-        resNews[SITE].map(item => {
+      Services.getNewsLetters().then((resNews) => {
+        resNews[SITE].map((item) => {
           listAllNews[item.code] = false
           return null
         })
@@ -40,11 +41,11 @@ class News extends Component {
           })
         }
 
-        Services.getNewsLettersUser(UUID, SITE).then(res => {
+        Services.getNewsLettersUser(UUID, SITE).then((res) => {
           if (res.data.length >= 1) {
-            res.data.map(item => {
+            res.data.map((item) => {
               if (this._isMounted) {
-                this.setState(prevState => ({
+                this.setState((prevState) => ({
                   checksNews: {
                     ...prevState.checksNews,
                     [item]: true,
@@ -87,13 +88,13 @@ class News extends Component {
                 <div className="right">
                   <div className="container-grid">
                     {newsletters.map(
-                      itemNews =>
+                      (itemNews) =>
                         checksNews[itemNews.code] && (
                           <div className="item item1" key={itemNews.code}>
                             <img src={itemNews.image} alt="demo" />
-                            <div className={`title title-${arcSite}`}>
+                            {/* <div className={`title title-${arcSite}`}>
                               {itemNews.name}
-                            </div>
+                            </div> */}
                           </div>
                         )
                     )}

@@ -1,82 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { LogIntoAccountEventTag } from '../../../paywall/_children/fb-account-linking'
+
+import { LogIntoAccountEventTag } from '../../../subscriptions/_children/fb-account-linking'
 import { MsgRegister } from '../../_children/iconos'
 import Loading from '../../_children/loading'
-import Taggeo from '../../_dependencies/taggeo'
 import QueryString from '../../_dependencies/querystring'
-
-const CallToActionFia = props => {
-  const { mainColorBr, logoutSession, arcSite, typeDialog, urlPlan } = props
-
-  const [suscriptionId, setSuscriptionId] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [statusSubs, setStatusSubs] = useState(null)
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setSuscriptionId(window.Identity.userIdentity.uuid)
-    }
-  }, [])
-
-  const handleSuscription = () => {
-    window.sessionStorage.setItem('paywall_type_modal', 'fia')
-    window.location.href = urlPlan
-  }
-
-  return (
-    <CTAwrapper>
-      {suscriptionId && (
-        <LogIntoAccountEventTag
-          subscriptionId={suscriptionId}
-          onBeforeSend={res => {
-            setStatusSubs((res && res.isSubscriber) || false)
-            setLoading(false)
-            QueryString.deleteQuery('signFia')
-          }}
-        />
-      )}
-
-      {loading ? (
-        <Loading arcSite={arcSite} typeBg="wait" />
-      ) : (
-        <>
-          <MsgRegister bgcolor={mainColorBr} />
-          <div className="paragraph">Haz iniciado sesión</div>
-          <div className="paragraph">correctamente</div>
-
-          {!statusSubs && (
-            <Button
-              onClick={() => {
-                Taggeo(
-                  `Web_Sign_Wall_${typeDialog}`,
-                  `web_sw${typeDialog[0]}_boton_ver_planes`
-                )
-                handleSuscription()
-              }}>
-              Ver Planes
-            </Button>
-          )}
-
-          <Link
-            href="#"
-            onClick={e => {
-              e.preventDefault()
-              Taggeo(
-                `Web_Sign_Wall_${typeDialog}`,
-                `web_sw${typeDialog[0]}_cerrar_sesion`
-              )
-              logoutSession()
-            }}>
-            Cerrar sesión
-          </Link>
-        </>
-      )}
-    </CTAwrapper>
-  )
-}
+import Taggeo from '../../_dependencies/taggeo'
 
 const CTAwrapper = styled.div`
   display: flex;
@@ -116,5 +47,76 @@ const Link = styled.a`
   color: gray;
   margin-top: 20px;
 `
+
+const CallToActionFia = (props) => {
+  const { mainColorBr, logoutSession, arcSite, typeDialog, urlPlan } = props
+
+  const [suscriptionId, setSuscriptionId] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [statusSubs, setStatusSubs] = useState(null)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setSuscriptionId(window.Identity.userIdentity.uuid)
+    }
+  }, [])
+
+  const handleSuscription = () => {
+    window.sessionStorage.setItem('paywall_type_modal', 'fia')
+    window.location.href = urlPlan
+  }
+
+  return (
+    <CTAwrapper>
+      {suscriptionId && (
+        <LogIntoAccountEventTag
+          subscriptionId={suscriptionId}
+          onBeforeSend={(res) => {
+            setStatusSubs((res && res.isSubscriber) || false)
+            setLoading(false)
+            QueryString.deleteQuery('signFia')
+            QueryString.deleteQuery('dataTreatment')
+          }}
+        />
+      )}
+
+      {loading ? (
+        <Loading arcSite={arcSite} typeBg="wait" />
+      ) : (
+        <>
+          <MsgRegister bgcolor={mainColorBr} />
+          <div className="paragraph">Haz iniciado sesión</div>
+          <div className="paragraph">correctamente</div>
+
+          {!statusSubs && (
+            <Button
+              onClick={() => {
+                Taggeo(
+                  `Web_Sign_Wall_${typeDialog}`,
+                  `web_sw${typeDialog[0]}_boton_ver_planes`
+                )
+                handleSuscription()
+              }}>
+              Ver Planes
+            </Button>
+          )}
+
+          <Link
+            href="#"
+            onClick={(e) => {
+              e.preventDefault()
+              Taggeo(
+                `Web_Sign_Wall_${typeDialog}`,
+                `web_sw${typeDialog[0]}_cerrar_sesion`
+              )
+              logoutSession()
+            }}>
+            Cerrar sesión
+          </Link>
+        </>
+      )}
+    </CTAwrapper>
+  )
+}
 
 export default CallToActionFia

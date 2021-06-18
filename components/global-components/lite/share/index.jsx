@@ -23,14 +23,16 @@ const ShareButtons = ({
 }) => {
   const { globalContent, arcSite } = useAppContext()
 
-  const urlRoot = () => {
-    const { websites = {} } = globalContent || {}
-    return websites[arcSite] || globalContent || {}
-  }
+  // const urlRoot = () => {
+  //   const { websites = {} } = globalContent || {}
+  //   return websites[arcSite] || globalContent || {}
+  // }
+  // const { website_url: postPermaLink = '' } = urlRoot()
 
-  const { headlines: { basic: postTitle = '' } = {} } = globalContent || {}
-  const { website_url: postPermaLink = '' } = urlRoot()
-
+  const {
+    website_url: postPermaLink,
+    headlines: { basic: postTitle = '' } = {},
+  } = globalContent || {}
   const {
     social: { twitter: { user: siteNameRedSocial = '' } = {} } = {},
     siteUrl,

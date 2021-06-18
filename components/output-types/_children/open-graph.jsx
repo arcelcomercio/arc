@@ -21,6 +21,7 @@ export default ({
   story,
   globalContent: data,
   requestUri,
+  isTrivia,
 }) => {
   let link = deleteQueryString(requestUri)
   link = link.replace(/\/homepage[/]?$/, '/')
@@ -37,6 +38,9 @@ export default ({
     arcSite,
   })
 
+  const { promo_items: { basic_movil: { url: movilImage = '' } = {} } = {} } =
+    data || {}
+
   const imageYoutube = idYoutube
     ? `https://i.ytimg.com/vi/${idYoutube}/hqdefault.jpg`
     : `${getAssetsPath(
@@ -52,14 +56,16 @@ export default ({
           arcSite,
         }).large
       : `${imageYoutube}`
+  const imges = { '360x550': { width: 360, height: 550 } }
   const imagePreload =
-    story && multimediaLarge && !idYoutube
-      ? createResizedParams({
-          url: multimediaLarge,
-          presets: 'large:280x159',
-          arcSite,
-        }).large
-      : `${imageYoutube}`
+    story &&
+    multimediaLarge &&
+    !idYoutube &&
+    createResizedParams({
+      url: isTrivia ? movilImage : multimediaLarge,
+      presets: isTrivia ? imges : 'large:280x159',
+      arcSite,
+    })
   if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage
   }
@@ -82,25 +88,14 @@ export default ({
       <meta property="og:title" content={story ? seoTitle : title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
-      {story && <link rel="preload" as="image" href={imagePreload} />}
-      {arcSite === SITE_ELCOMERCIO && (
-        <>
-          <link
-            rel="preload"
-            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2"
-            as="font"
-            type="font/woff2"
-          />
-          <link
-            rel="preload"
-            href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2"
-            as="font"
-            type="font/woff2"
-          />
-        </>
+      {story && (
+        <link
+          rel="preload"
+          as="image"
+          href={imagePreload[`360x550`] || imagePreload.large}
+        />
       )}
       <meta property="og:image:secure_url" content={image} />
-
       {story && (
         <>
           <meta property="og:image:width" content="980" />
@@ -108,7 +103,6 @@ export default ({
           <meta property="og:image:type" content="image/jpeg" />
         </>
       )}
-
       {(urlVideo || ulrJwplayer) && (
         <>
           <meta property="og:video" content={urlVideo || ulrJwplayer} />
@@ -122,7 +116,6 @@ export default ({
           <meta property="og:video:type" content="video/mp4" />
         </>
       )}
-
       <meta property="og:url" content={`${siteUrl}${link}`} />
       <meta property="og:type" content={story ? 'article' : 'website'} />
     </>

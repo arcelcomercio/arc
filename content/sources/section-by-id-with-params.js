@@ -1,10 +1,11 @@
 import getProperties from 'fusion:properties'
-import RedirectError from '../../components/utilities/redirect-error'
-import { removeLastSlash } from '../../components/utilities/parse/strings'
+
 import {
   getVerboseDate,
   loadDateFromYYYYMMDD,
 } from '../../components/utilities/date-time/dates'
+import { removeLastSlash } from '../../components/utilities/parse/strings'
+import RedirectError from '../../components/utilities/redirect-error'
 
 const schemaName = 'section'
 
@@ -38,12 +39,12 @@ const resolve = (key = {}) => {
   return `/site/v3/website/${website}/section${!id ? '' : `?_id=${clearSlug}`}`
 }
 
-const splitSections = sections =>
+const splitSections = (sections) =>
   sections
     .slice(1)
     .split('/')
     .map(
-      section =>
+      (section) =>
         ` ${section
           .charAt(0)
           .toUpperCase()
@@ -76,6 +77,7 @@ const transform = (data, key) => {
         ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ${getVerboseDate({
             date: formatDate,
             showTime: false,
+            defaultTimeZone: false,
           }).toUpperCase()}`
         : sections !== 'Todas'
         ? `ARCHIVO DE ${sections.toString().toUpperCase()}, ÚLTIMO MINUTO`

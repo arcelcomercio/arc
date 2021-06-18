@@ -3,13 +3,12 @@ import { BaseMarkup, Html } from '@arc-core-components/amp-document-boilerplate'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { env, originByEnv } from '../utilities/arc/env'
+import { originByEnv } from '../utilities/arc/env'
 import { METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
-  SITE_ELCOMERCIO,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
@@ -26,7 +25,6 @@ import MetaStory from './_children/meta-story'
 import OpenGraph from './_children/open-graph'
 import Styles from './_children/styles'
 import TwitterCards from './_children/twitter-cards'
-import subscriptionsConfig from './_dependencies/amp-subscriptions-config'
 
 const AmpOutputType = ({
   children,
@@ -195,18 +193,7 @@ const AmpOutputType = ({
 
   /** ---------------------------- */
   const hasExternalCounterPaywall =
-    isMetered &&
-    activeRulesCounter &&
-    activePaywall &&
-    arcSite === SITE_ELCOMERCIO &&
-    /^\/(tecnologia|somos|opinion)\//.test(requestUri)
-
-  const hasAmpSubscriptions =
-    isMetered &&
-    activeRulesCounter &&
-    activePaywall &&
-    arcSite === SITE_ELCOMERCIO &&
-    /^\/(tu-dinero)\//.test(requestUri)
+    isMetered && activeRulesCounter && activePaywall && arcSite === SITE_GESTION
 
   /** Iframe validation */
   /** Si existe un iframe como promoItem principal pero este iframe es
@@ -229,8 +216,7 @@ const AmpOutputType = ({
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
-    hasExternalCounterPaywall ||
-    hasAmpSubscriptions
+    hasExternalCounterPaywall
 
   const hasEmbedCard = rawHtmlContent.includes('tiktok-embed')
 
@@ -424,11 +410,6 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"
           />
         )}
-        <script
-          async
-          custom-element="amp-fx-flying-carpet"
-          src="https://cdn.ampproject.org/v0/amp-fx-flying-carpet-0.1.js"
-        />
         {arcSite === SITE_DEPOR && hasSoundcloud && (
           <script
             async
@@ -478,30 +459,6 @@ const AmpOutputType = ({
             />
           </>
         )}
-        {hasAmpSubscriptions && (
-          <>
-            <script
-              async
-              custom-element="amp-subscriptions"
-              src="https://cdn.ampproject.org/v0/amp-subscriptions-0.1.js"
-            />
-            <script
-              type="application/json"
-              id="amp-subscriptions"
-              dangerouslySetInnerHTML={{
-                __html: subscriptionsConfig({
-                  origin: envOrigin,
-                  section: primarySectionLink,
-                  api: `https://api${
-                    env === 'sandbox' ? '-sandbox' : ''
-                  }.${arcSite}.pe`,
-                  contentCode,
-                  contentType: getMultimedia(multimediaType),
-                }),
-              }}
-            />
-          </>
-        )}
       </head>
       <body className={subtype}>
         {arcSite === SITE_PERU21 && (
@@ -529,11 +486,7 @@ const AmpOutputType = ({
             />
           </>
         )}
-        {hasAmpSubscriptions ? (
-          <div subscriptions-section="content">{children}</div>
-        ) : (
-          children
-        )}
+        {children}
       </body>
     </Html>
   )

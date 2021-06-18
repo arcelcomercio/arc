@@ -1,4 +1,4 @@
-export default arcSite => `{ 
+export default (arcSite) => `{ 
     canonical_url 
     headlines { basic }
     subheadlines { basic }
@@ -8,6 +8,10 @@ export default arcSite => `{
     websites {
       ${arcSite} {
         website_url
+        website_section {
+          name
+          path
+        }
       }
     }
     promo_items {
@@ -38,10 +42,6 @@ export default arcSite => `{
         }
       }
     taxonomy {
-      primary_section {
-          name
-          path
-      }
       tags {
         description
         slug

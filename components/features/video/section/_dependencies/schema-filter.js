@@ -1,12 +1,9 @@
-export const SchemaSingleStory = arcSite => {
+export const SchemaSingleStory = (arcSite) => {
   return `{
-    websites { ${arcSite} { website_url } }
+    websites { ${arcSite} { website_url website_section{name path} } }
     headlines { basic }
     subheadlines { basic }
     display_date
-    taxonomy {
-      primary_section { name path }
-    }
     credits { by { name, url, id, type } }
     promo_items {
       basic { url type caption }
@@ -44,14 +41,11 @@ export const SchemaSingleStory = arcSite => {
   }`
 }
 
-export const SchemaMultiStory = arcSite => {
+export const SchemaMultiStory = (arcSite) => {
   return `{
     content_elements {
-      websites { ${arcSite} { website_url } }
+      websites { ${arcSite} { website_url website_section{name path} } }
       headlines { basic }
-      taxonomy {
-        primary_section { name path }
-      }
       credits { by { name, url, id, type } }
       promo_items {
         basic { url type resized_urls { landscape_md lazy_default  } }

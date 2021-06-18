@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { ArcSite } from 'fusion:context'
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import { ArcSite } from 'types/fusion'
 import { Basic, PromoItems, Stories, Story } from 'types/story'
 
 import {
@@ -19,7 +19,8 @@ type CreateResizerFunctions = {
   ) => string
   getResizerParams: (
     originalUrl: string,
-    presets?: InlinePresets | undefined
+    presets?: InlinePresets | undefined,
+    format?: string
   ) => ResizedUrls
 }
 
@@ -56,6 +57,8 @@ export const createResizer = (
     breakpoint,
     format = 'jpeg'
   ) => {
+    const validFormat = /jpeg|png|webp/.test(format) ? format : 'jpeg'
+
     if (typeof window === 'undefined') {
       /**
        * Esta validacion es "temporal", mientras no esta habilitada
@@ -82,7 +85,7 @@ export const createResizer = (
         originalUrl &&
         thumbor
           .setImagePath(originalUrl.replace(/(^\w+:|^)\/\//, ''))
-          .filter(`format(${format})`)
+          .filter(`format(${validFormat})`)
           .filter(`quality(${filterQuality})`)
           .resize(width, height)
           .buildUrl()
@@ -114,10 +117,10 @@ export const createResizer = (
    */
   const getResizerParams: CreateResizerFunctions['getResizerParams'] = (
     originalUrl,
-    presets
+    presets,
+    format = 'jpeg'
   ) => {
     let output: ResizedUrls = {}
-    const format = 'jpeg'
     // const formats = ['webp', 'jpeg']
 
     const getParamsByPreset = (): void => {
@@ -167,6 +170,7 @@ type CreateResizedParamsProps = {
   presets?: InlinePresets
   arcSite: ArcSite
   filterQuality?: number
+  format?: string
 }
 /**
  * @description
@@ -185,6 +189,7 @@ export const createResizedParams = ({
   presets,
   arcSite,
   filterQuality,
+  format,
 }: CreateResizedParamsProps): ResizedUrls => {
   if (typeof window === 'undefined' && url) {
     const { resizerUrl } = getProperties(arcSite)
@@ -192,14 +197,14 @@ export const createResizedParams = ({
       resizerSecret,
       resizerUrl,
       filterQuality
-    ).getResizerParams(url, presets)
+    ).getResizerParams(url, presets, format)
   }
   return {}
 }
 
 export const resizeImage = (
   image: Pick<Basic, 'type' | 'url'>,
-  presets: InlinePresets,
+  presets: InlinePresets | undefined,
   resizer: CreateResizerFunctions
 ): ResizedUrls | never => {
   if ((image.type && image.type !== 'image') || !image.url) {
@@ -211,7 +216,7 @@ export const resizeImage = (
 
 const resizePromoImage = (
   promoImage: Basic,
-  presets: InlinePresets,
+  presets: InlinePresets | undefined,
   resizer: CreateResizerFunctions
 ) => {
   const output: Basic = promoImage
@@ -276,7 +281,7 @@ export const getResizedImageParams = (
     return sourceData
   }
 
-  if ('canonical_url' in data || 'website_url' in data) {
+  if ('promo_items' in data) {
     generateParams(data?.promo_items)
   } else if (
     data?.content_elements &&

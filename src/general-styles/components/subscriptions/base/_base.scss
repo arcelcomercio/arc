@@ -1,0 +1,212 @@
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  font-family: $secondaryFont;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+html,
+body {
+  height: 100%;
+  background: $white;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.bg-shop {
+  background: $bgBodyShop;
+}
+
+.wrapper,
+.wrapper-medium,
+.wrapper-full,
+.wrapper-buy,
+.wrapper-steps {
+  position: relative;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.wrapper,
+.wrapper-medium {
+  width: 96%;
+}
+
+.wrapper-buy {
+  width: 94%;
+}
+
+.wrapper-extra-full,
+.wrapper-full {
+  width: 100%;
+}
+
+.arrow-up {
+  display: none;
+}
+
+.bg-white {
+  background: $white !important;
+}
+
+.height-full {
+  height: auto !important;
+}
+
+.btn-loading {
+  cursor: wait !important;
+}
+
+.email-verify,
+.email-noverify,
+.input-disabled {
+  cursor: default !important;
+}
+
+.input-disabled {
+  background: #eaeaea !important ;
+}
+
+.email-verify {
+  background: #e3f6d2 !important;
+}
+
+.email-noverify {
+  background: #fbe6cd !important;
+}
+
+.fix-modal {
+  overflow: hidden;
+}
+
+.callin-movil {
+  width: 100%;
+  background: black;
+  position: fixed;
+  bottom: 0;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 4px solid $primaryColor;
+  z-index: 2;
+  & button {
+    border-radius: 8px;
+    border: 0;
+    padding: 12px 20px 12px 40px;
+    font-size: 15px;
+    outline: none;
+    cursor: pointer;
+    width: 45%;
+  }
+}
+
+.icon-phone {
+  background: #fff url("https://signwall.e3.pe/images/icon-call-phone.png");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+.icon-support {
+  background: $primaryColor
+    url("https://signwall.e3.pe/images/icon-call-support.png");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+@include device(tabletp) {
+  .wrapper,
+  .wrapper-medium,
+  .wrapper-full {
+    max-width: 720px;
+  }
+
+  .wrapper-buy,
+  .wrapper-steps {
+    width: 94%;
+  }
+
+  .callin-movil {
+    & button {
+      width: 25%;
+    }
+  }
+}
+
+@include device(tabletl) {
+  .wrapper,
+  .wrapper-medium,
+  .wrapper-full {
+    max-width: 960px;
+  }
+
+  .wrapper-full {
+    & .planes__description {
+      margin-bottom: 3.5em;
+    }
+  }
+
+  .arrow-up {
+    width: 56px;
+    height: 56px;
+    z-index: 1;
+    display: none;
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    outline: none;
+    cursor: pointer;
+    opacity: 0.8;
+    background: $white;
+    -webkit-tap-highlight-color: transparent;
+    i {
+      width: 19px;
+      height: 20px;
+      display: inline-block;
+      background: url($imgAssets) no-repeat;
+      background-position: -72.5px 0;
+      background-size: 135px 102px;
+    }
+    &.active {
+      display: block;
+    }
+    &:hover {
+      opacity: 1;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  .callin-movil {
+    display: none;
+  }
+}
+
+@include device(desktop) {
+  .wrapper {
+    max-width: 1190px;
+  }
+  .wrapper-medium,
+  .wrapper-full {
+    max-width: 893px;
+  }
+  .wrapper-buy,
+  .wrapper-steps {
+    max-width: 974px;
+  }
+}

@@ -1,27 +1,27 @@
-import * as React from 'react'
-import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
-import { removeLastSlash } from '../../../utilities/parse/strings'
-import { deleteQueryString } from '../../../utilities/parse/queries'
-import {
-  GALLERY_SLIDER,
-  PARALLAX,
-  MINUTO_MINUTO,
-} from '../../../utilities/constants/subtypes'
 import { ELEMENT_GALLERY } from '../../../utilities/constants/element-types'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
-
+import {
+  GALLERY_SLIDER,
+  MINUTO_MINUTO,
+  PARALLAX,
+} from '../../../utilities/constants/subtypes'
+import { deleteQueryString } from '../../../utilities/parse/queries'
+import { removeLastSlash } from '../../../utilities/parse/strings'
+import TopAnchor from './_children/anchor'
 import customFields from './_dependencies/custom-fields'
 import { stContinueScript } from './_dependencies/scripts'
-import TopAnchor from './_children/anchor'
 
-const StoryContinueLite = props => {
+const StoryContinueLite = (props) => {
   const { customFields: { activeAnchor } = {} } = props
   const { globalContent, arcSite, requestUri } = useAppContext()
-  const { taxonomy: { primary_section: { path = '' } = {}, tags = [] } = {} } =
-    globalContent || {}
+  const { taxonomy: { tags = [] } = {}, websites = {} } = globalContent || {}
+
+  const { website_section: { path = '' } = {} } = websites[arcSite] || {}
   const { slug: tag = '' } = tags[0] || {}
   const cleanRequestUri = deleteQueryString(requestUri)
   const { idGoogleAnalitics } = getProperties(arcSite)

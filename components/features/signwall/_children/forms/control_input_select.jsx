@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react'
-import styled from 'styled-components'
 import TextMask from 'react-text-mask'
+import styled from 'styled-components'
 
 export const Cont = styled.div`
   background-color: inherit;
   display: inline-block;
-  width: ${props => (props.width ? props.width : '100')}%;
+  width: ${(props) => (props.width ? props.width : '100')}%;
   label,
   input,
   select {
@@ -31,7 +31,9 @@ export const Cont = styled.div`
     &:placeholder-shown + label {
       cursor: text;
       transform-origin: 0 0;
-      transform: translate(1rem, 2rem) scale(0.95);
+      transform: translate(1rem, 1.8rem) scale(0.95);
+      margin: 0px;
+      font-size: 15px;
     }
 
     &::placeholder {
@@ -52,6 +54,7 @@ export const Cont = styled.div`
       cursor: pointer;
       background-color: inherit;
       padding: 0px 10px;
+      margin: 0px;
     }
   }
 
@@ -110,7 +113,7 @@ export const InputMask = styled(TextMask)`
 
 InputMask.defaultProps = { guide: false }
 
-export const ContMask = props => {
+export const ContMask = (props) => {
   const { error, children, nolabelerror } = props
   const { placeholder, name } = children.props
   return (
@@ -125,7 +128,7 @@ export const ContMask = props => {
   )
 }
 
-export const Input = props => {
+export const Input = (props) => {
   const { onChange, name, placeholder, clase, error, nolabelerror } = props
   return (
     <Cont>
@@ -144,7 +147,7 @@ export const Input = props => {
   )
 }
 
-export const Select = props => {
+export const Select = (props) => {
   const {
     clase,
     width,

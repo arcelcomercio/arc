@@ -1,4 +1,4 @@
-export default function(arcSite) {
+export default function (arcSite) {
   return `{ 
     headlines { basic }
     ${arcSite === 'elcomercio' ? '' : 'subheadlines { basic }'}
@@ -6,7 +6,7 @@ export default function(arcSite) {
     credits {
       by { name url type }
     }
-    websites { ${arcSite} { website_url } }
+    websites { ${arcSite} { website_url website_section{name path} } }
     promo_items {
         basic { url type subtitle caption }
         basic_video {
@@ -29,11 +29,5 @@ export default function(arcSite) {
           }
         }
       }
-    taxonomy {
-      primary_section {
-          name
-          path
-      }
-    }
   }`
 }

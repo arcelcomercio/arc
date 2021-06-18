@@ -6,16 +6,15 @@ import * as React from 'react'
 
 import { env } from '../../../utilities/arc/env'
 import { PROD } from '../../../utilities/constants/environment'
-import { PixelActions, sendAction } from '../../paywall/_dependencies/analitycs'
+import addScriptAsync from '../../../utilities/script-async'
 import QueryString from '../../signwall/_dependencies/querystring'
 import Taggeo from '../../signwall/_dependencies/taggeo'
 import Signwall from '../_children/Signwall'
-import addScriptAsync from '../_dependencies/Async'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { getUserName, isLogged } from '../_dependencies/Session'
+import { PixelActions, sendAction } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
-import stylesLanding from '../_styles/Landing'
 import Benefits from './_children/Benefits'
 import CallinCallOut from './_children/CallinCallout'
 import Callout from './_children/Callout'
@@ -28,6 +27,7 @@ const LandingSubscriptions = (props) => {
       bannerUniComercio = false,
       bannerUniGestion = false,
       callInnCallOut = false,
+      btnOnTop = false,
     } = {},
   } = props
   const { arcSite, deployment, globalContent: items = [] } =
@@ -102,6 +102,16 @@ const LandingSubscriptions = (props) => {
         })),
       },
     })
+
+    if (QueryString.getQuery('signStudents')) {
+      setShowTypeLanding('students')
+    }
+
+    const isParamsRedirect =
+      QueryString.getQuery('signLanding') ||
+      QueryString.getQuery('signStudents')
+
+    setShowSignwall(isParamsRedirect)
   }, [])
 
   const handleUniversity = () => {
@@ -152,6 +162,10 @@ const LandingSubscriptions = (props) => {
       }
 
       setShowProfile(getUserName(userfirstName, userlastName))
+      // setShowSignwall(false)
+      QueryString.deleteQuery('signLanding')
+      // QueryString.deleteQuery('signStudents')
+      QueryString.deleteQuery('dataTreatment')
     }
   }
 
@@ -161,7 +175,6 @@ const LandingSubscriptions = (props) => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: stylesLanding[arcSite] }} />
       <>
         <header className="header" id="header">
           <div className="wrapper">
@@ -408,7 +421,7 @@ const LandingSubscriptions = (props) => {
           </div>
         </section>
 
-        <FooterLand arcType={arcType} />
+        <FooterLand arcType={arcType} btnOnTop={btnOnTop} />
 
         {moduleCall && (
           <section className="callin-movil">
@@ -424,9 +437,7 @@ const LandingSubscriptions = (props) => {
           </section>
         )}
 
-        {QueryString.getQuery('signLanding') ||
-        QueryString.getQuery('signStudents') ||
-        showSignwall ? (
+        {showSignwall && (
           <Signwall
             fallback={<div>Cargando...</div>}
             typeDialog={showTypeLanding}
@@ -438,7 +449,7 @@ const LandingSubscriptions = (props) => {
               setShowTypeLanding('landing')
             }}
           />
-        ) : null}
+        )}
 
         {showModalCall ? (
           <Callout
@@ -452,12 +463,6 @@ const LandingSubscriptions = (props) => {
           />
         ) : null}
       </>
-
-      <script
-        type="text/javascript"
-        src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"
-      />
-
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
@@ -484,6 +489,11 @@ LandingSubscriptions.propTypes = {
       name: 'Módulo Call In Call Out',
       defaultValue: false,
       description: 'Mostrar/Ocultar Módulo Call In Call Out',
+    }),
+    btnOnTop: PropTypes.bool.tag({
+      name: 'Botón subir arriba',
+      defaultValue: false,
+      description: 'Mostrar/Ocultar Botón subir arriba',
     }),
   }),
 }

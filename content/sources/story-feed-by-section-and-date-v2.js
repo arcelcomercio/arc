@@ -52,7 +52,7 @@ const params = [
   },
 ]
 
-const getNextDate = date => {
+const getNextDate = (date) => {
   const requestedDate = new Date(date)
   requestedDate.setDate(requestedDate.getDate() + 1)
   return getYYYYMMDDfromISO(requestedDate)
@@ -163,7 +163,9 @@ const resolve = (key = {}) => {
 
   const sourceInclude = includedFields
     ? `&_sourceInclude=${includedFields}`
-    : `&_sourceInclude=websites.${website}.website_url,_id,headlines.basic,subheadlines.basic,display_date,${includeCredits},${includeCreditsImage},${includePrimarySection},${includeSections},${includePromoItems},promo_items.basic_html.content`
+    : `&_sourceInclude=websites.${website}.website_url,_id,headlines.basic,subheadlines.basic,display_date,${includeCredits},${includeCreditsImage},${includePrimarySection(
+        { arcSite: website }
+      )},${includeSections},${includePromoItems},promo_items.basic_html.content`
 
   const requestUri = `/content/v4/search/published?${queryFilter}&sort=display_date:desc&website=${website}&from=${from}&size=${size}${sourceInclude}`
 

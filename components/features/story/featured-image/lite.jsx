@@ -58,7 +58,9 @@ const StoryTitleLite = () => {
             source: 'photo-resizer',
             query: {
               url: blockData?.url_logo,
-              presets: 'logo_image:0x300',
+              presets: 'logo_image:0x100',
+              quality: 100,
+              format: /\.png$/.test(blockData?.url_logo) ? 'png' : '',
             },
           }
         : ''
@@ -68,11 +70,13 @@ const StoryTitleLite = () => {
     <>
       {blockData?.type === 'image' ? (
         <div className="featured-img">
-          <img
-            className="featured-img__logo"
-            src={logoImage}
-            alt="Noticia - logo"
-          />
+          {blockData?.url_logo && (
+            <img
+              className="featured-img__logo"
+              src={logoImage}
+              alt="Noticia - logo"
+            />
+          )}
           <h2
             style={{ color: blockData?.color || '#777' }}
             className="featured-img__subtitle">

@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { ARC_ACCESS_TOKEN, CONTENT_BASE } from 'fusion:environment'
 import request from 'request-promise-native'
-import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
+
 import RedirectError from '../../components/utilities/redirect-error'
 import { storyContent } from '../filters/story-content'
 
@@ -43,7 +44,7 @@ const fetch = ({
   return request({
     uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${section}${websiteUrl}&website=${website}${excludedFieldsStory}`,
     ...options,
-  }).then(storyResp => {
+  }).then((storyResp) => {
     const {
       related_content: {
         redirect: [
@@ -59,8 +60,21 @@ const fetch = ({
   })
 }
 
+const transform = (data, { 'arc-site': arcSite }) => {
+  const { publish_date: publishDate = '', websites = {} } = data
+  const { website_url: websiteUrl = '' } = websites[arcSite] || {}
+  const isResultadosOnpe =
+    /^(\/[\w\d-\\/]+\/resultados-onpe\/.+-(?:\d{3,9}|noticia(?:-\d{1,2})?\/))$/.test(
+      websiteUrl
+    ) || false
+  const dataStory = data
+  if (isResultadosOnpe) dataStory.display_date = publishDate
+  return { ...dataStory }
+}
+
 export default {
   fetch,
+  transform,
   schemaName,
   params,
   ttl: 300,

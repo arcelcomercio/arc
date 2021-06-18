@@ -10,7 +10,7 @@
     font-size: 16px;
     font-weight: 900;
     font-family: $secondary-font;
-    &:after {
+    &::after {
       content: "";
       display: block;
       position: absolute;
@@ -18,7 +18,7 @@
       top: 0;
       width: 20px;
       height: 20px;
-      background-image: url($assets_url+"/resources/dist/elbocon/images/loader.png");
+      background-image: url("#{$assets_url}/resources/dist/elbocon/images/loader.png");
       background-size: cover;
     }
   }
@@ -26,27 +26,24 @@
     display: none;
   }
   &__tile--active {
-    background-color: transparent;
+    background-color: $color-gray-300;
+    font-weight: 700;
   }
   &__month-view__weekdays,
   &__month-view__days__day {
     border: 0;
   }
-  &__month-view__days__day {
-    &:disabled {
-      abbr {
-        color: #bbbbbb;
-      }
-    }
-  }
   &__month-view__weekdays__weekday abbr {
-    color: #bbbbbb;
+    color: #bbb;
     font-weight: 900;
     font-family: $secondary-font;
     font-size: 13px;
   }
-  &__tile--active {
-    background-color: $color-gray-300;
-    font-weight: 700;
+  &__month-view__days__day {
+    &:disabled {
+      abbr {
+        color: #bbb;
+      }
+    }
   }
 }
