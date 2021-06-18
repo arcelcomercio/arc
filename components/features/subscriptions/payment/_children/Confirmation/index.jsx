@@ -247,7 +247,7 @@ const Confirmation = () => {
                 hasPrint: printedSubscriber,
                 plan: name,
               }),
-              action: userPeriod,
+              action: `${userPeriod} | Tarjeta - ${window.payU.card.method}`,
               label: uuid,
               value: `${amount}`,
             },
