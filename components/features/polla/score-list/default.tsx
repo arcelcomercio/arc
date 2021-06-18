@@ -399,7 +399,7 @@ const PollaScoreList: FC<Props> = (props) => {
                       </div>
                     </div>
                     <form
-                      className="polla-score__form"
+                      className="polla-score__form not-touched"
                       onSubmit={async (e) => {
                         e.preventDefault()
                         const form = e.target as HTMLFormElement
@@ -443,11 +443,29 @@ const PollaScoreList: FC<Props> = (props) => {
                             })
                             setScores(parsedScore)
                             form.classList.remove('loading')
+                          } else {
+                            const parsedScore = scores?.map((sc) => {
+                              if (sc.id === score.id) {
+                                const newScore: Score = {
+                                  ...sc,
+                                  msg: 'error',
+                                  errorMsg:
+                                    'Debes actualizar tu predicción para continuar',
+                                }
+                                return newScore
+                              }
+                              return sc
+                            })
+                            setScores(parsedScore)
                           }
                         } else {
                           const parsedScore = scores?.map((sc) => {
                             if (sc.id === score.id) {
-                              const newScore: Score = { ...sc, msg: 'error' }
+                              const newScore: Score = {
+                                ...sc,
+                                msg: 'error',
+                                errorMsg: 'Debes llenar ambas casillas',
+                              }
                               return newScore
                             }
                             return sc
@@ -455,7 +473,9 @@ const PollaScoreList: FC<Props> = (props) => {
                           setScores(parsedScore)
                         }
                       }}
-                      onFocus={() => {
+                      onFocus={(e) => {
+                        const form = e.currentTarget as HTMLFormElement
+                        form.classList.remove('not-touched')
                         const parsedScore = scores?.map((sc) => {
                           if (sc.id === score.id) {
                             const newScore: Score = { ...sc, msg: null }
@@ -528,7 +548,7 @@ const PollaScoreList: FC<Props> = (props) => {
                       <div className="polla-score__error-cont">
                         {score.msg === 'error' && (
                           <span className="polla-score__error">
-                            Debes llenar ambas casillas
+                            {score.errorMsg}
                           </span>
                         )}
                         {score.estado === 3 ? (
@@ -544,9 +564,12 @@ const PollaScoreList: FC<Props> = (props) => {
                       </div>
                       {score.estado < 2 && (
                         <button
+                          disabled={
+                            score.msg === 'error' || score.msg === 'success'
+                          }
                           className={`polla-score__form-btn ${score.msg || ''}`}
                           type="submit">
-                          {score.msg === 'success' ? 'Guardado' : 'Juega'}
+                          {score.msg === 'success' ? 'Guardado' : 'Guardar'}
                           <div
                             className="polla-score__spinner btn"
                             style={{ fontSize: '4px' }}

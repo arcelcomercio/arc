@@ -404,6 +404,8 @@ window.addEventListener('load', function liteAds() {
           {arcSite === 'elcomerciomag' ||
           arcSite === 'peru21' ||
           arcSite === 'trome' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'ojo' ||
           arcSite === 'depor' ? (
             <>
               <script

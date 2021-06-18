@@ -80,7 +80,7 @@ class XmlTagsSitemap {
       if (sitemap.urlset.length < 1000)
         sitemap.urlset.push({
           url: {
-            loc: `${siteUrl}/noticias/${key || ''}`,
+            loc: `${siteUrl}/noticias/${key || ''}/`,
             lastmod: localISODate(value),
           },
         })
