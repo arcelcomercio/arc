@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
     parseInt(getSessionStorage(keyStorageStep), 10) || 2
   )
   const [userMethodPay, setUserMethodPay] = React.useState('cardCreDeb')
+  const [userPeOption, setUserPeOption] = React.useState('agencia')
 
   const value = {
     userLoaded,
@@ -37,6 +38,7 @@ const AuthProvider = ({ children }) => {
     userLoading,
     userErrorApi,
     userMethodPay,
+    userPeOption,
     updateUser: (profile) => {
       setUser(profile)
     },
@@ -78,6 +80,9 @@ const AuthProvider = ({ children }) => {
     },
     updateMethodPay: (name) => {
       setUserMethodPay(name)
+    },
+    updatePeOption: (name) => {
+      setUserPeOption(name)
     },
   }
 

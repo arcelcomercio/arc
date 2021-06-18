@@ -9,6 +9,7 @@ import {
 import getDevice from '../../../subscriptions/_dependencies/GetDevice'
 import { getQuery } from '../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
 import { device } from '../../_dependencies/breakpoints'
 import { getOriginAPI, getUrlECOID } from '../../_dependencies/domains'
 import { loginFBeco, sendNewsLettersUser } from '../../_dependencies/services'
@@ -442,10 +443,6 @@ export const ButtonSocial = ({
     const eventer = window[eventMethod]
     const messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message'
     eventer(messageEvent, authSocialProvider)
-
-    const isFbBrowser =
-      window.navigator.userAgent.indexOf('FBAN') > -1 ||
-      window.navigator.userAgent.indexOf('FBAV') > -1
 
     const width = 780
     const height = 640

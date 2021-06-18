@@ -261,7 +261,7 @@ const Register = ({ arcSite }) => {
           <h2 className={styles.title}>{texts.register}</h2>
           <div
             className={`${styles.blockMiddle} ${
-              isFbBrowser() && styles.blockFull
+              isFbBrowser ? styles.blockFull : ''
             }`}>
             <ButtonSocial
               arcSocial="facebook"
@@ -269,7 +269,7 @@ const Register = ({ arcSite }) => {
               arcType="registro"
               dataTreatment={checkedPolits ? '1' : '0'}
             />
-            {!isFbBrowser() && (
+            {!isFbBrowser && (
               <ButtonSocial
                 arcSocial="google"
                 arcSite={arcSite}
