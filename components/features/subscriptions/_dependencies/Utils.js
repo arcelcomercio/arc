@@ -98,7 +98,7 @@ export const getFullNameFormat = (firstName, lastName, secondLastName) => {
   return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
 }
 
-export const isFbBrowser = () =>
+export const isFbBrowser =
   typeof window !== 'undefined' &&
   (window.navigator.userAgent.indexOf('FBAN') > -1 ||
     window.navigator.userAgent.indexOf('FBAV') > -1)

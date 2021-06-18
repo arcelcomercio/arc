@@ -174,7 +174,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
       <h2 className={styles.title}>{texts.login}</h2>
       <div
         className={`${styles.blockMiddle} ${
-          isFbBrowser() && styles.blockFull
+          isFbBrowser ? styles.blockFull : ''
         }`}>
         <ButtonSocial
           arcSocial="facebook"
@@ -183,7 +183,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
           showMsgVerify={() => triggerShowVerify()}
           dataTreatment={checkedPolits ? '1' : '0'}
         />
-        {!isFbBrowser() && (
+        {!isFbBrowser && (
           <ButtonSocial
             arcSocial="google"
             arcSite={arcSite}

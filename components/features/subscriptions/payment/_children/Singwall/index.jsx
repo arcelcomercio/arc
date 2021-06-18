@@ -63,7 +63,7 @@ const WrapperSingwall = () => {
       window.location.pathname
     )
 
-    if (fromFia || isFbBrowser()) {
+    if (fromFia || isFbBrowser) {
       // TODO: cambiar surface de 'fia' a 'IA' segun documentacion
       // https://developers.facebook.com/docs/instant-articles/subscriptions/pixel-measurement/
       window.fbq('track', 'ViewPaywall', {

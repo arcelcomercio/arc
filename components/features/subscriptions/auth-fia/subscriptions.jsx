@@ -67,14 +67,6 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   }
 
   React.useEffect(() => {
-    if (
-      'Identity' in window &&
-      window.Identity.userProfile &&
-      window.Identity.userIdentity.uuid
-    ) {
-      setLogged(true)
-    }
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
@@ -82,6 +74,13 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
     })
       .then(() => {
         window.Identity.options({ apiOrigin: urls.arcOrigin })
+        if (
+          'Identity' in window &&
+          window.Identity.userProfile &&
+          window.Identity.userIdentity.uuid
+        ) {
+          setLogged(true)
+        }
       })
       .catch((errIdentitySDK) => {
         Sentry.captureEvent({
