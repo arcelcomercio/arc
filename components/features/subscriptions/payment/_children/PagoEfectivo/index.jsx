@@ -11,8 +11,7 @@ import {
 import PWA from '../../../_dependencies/Pwa'
 import { cipPayEfectivo } from '../../../_dependencies/Services'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
-
-const { urls: urlCommon } = PropertiesCommon
+import { eventCategory, TaggeoJoao } from '../../../_dependencies/Taggeo'
 
 const styles = {
   step: 'step__left-progres',
@@ -25,7 +24,7 @@ const styles = {
 const Confirmation = () => {
   const {
     arcSite,
-    globalContent: { plans = [], fromFia },
+    globalContent: { plans = [], printedSubscriber, event, fromFia },
   } = useAppContext() || {}
 
   const { data: { token = '' } = {} } =
@@ -33,9 +32,13 @@ const Confirmation = () => {
       source: 'paywall-pago-efectivo',
     }) || {}
 
-  const { updateStep, userPeriod, userPlan, userProfile } = React.useContext(
-    AuthContext
-  )
+  const {
+    updateStep,
+    userPeriod,
+    userPlan,
+    userProfile,
+    userPeOption,
+  } = React.useContext(AuthContext)
 
   const {
     uuid,
@@ -48,6 +51,7 @@ const Confirmation = () => {
     documentNumber,
   } = conformProfile(userProfile || {})
 
+  const { urls: urlCommon } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [redirecting, setRedirecting] = React.useState(false)
   /** type CipLink = string | null */
@@ -87,8 +91,24 @@ const Confirmation = () => {
 
       cipPayEfectivo(urlCommon.cipPayEfectivo, dataCIP)
         .then((resCIP) => {
-          const { response: { data: { cipUrl = '' } = {} } = {} } = resCIP || {}
+          const { response: { data: { cipUrl = '', cip = '' } = {} } = {} } =
+            resCIP || {}
           setCipLink(cipUrl)
+          TaggeoJoao(
+            {
+              event: 'Pasarela Suscripciones Digitales',
+              category: eventCategory({
+                step: 2.5,
+                event,
+                hasPrint: printedSubscriber,
+                plan: productName,
+                cip: true,
+              }),
+              action: `${userPeriod} | PE - ${userPeOption} - ${cip}`,
+              label: userProfile.uuid || uuid,
+            },
+            window.location.pathname
+          )
         })
         .catch((errCIP) => {
           Sentry.captureEvent({
@@ -97,6 +117,23 @@ const Confirmation = () => {
             extra: errCIP || {},
           })
           setCipLink('error')
+          TaggeoJoao(
+            {
+              event: 'Pasarela Suscripciones Digitales',
+              category: eventCategory({
+                step: 2.5,
+                event,
+                hasPrint: printedSubscriber,
+                plan: productName,
+                cancel: true,
+              }),
+              action: `${userPeriod}  | PE - ${userPeOption} - ${
+                errCIP || 'Error al generar CIP'
+              }`,
+              label: uuid,
+            },
+            window.location.pathname
+          )
         })
     } else {
       updateStep(2)
