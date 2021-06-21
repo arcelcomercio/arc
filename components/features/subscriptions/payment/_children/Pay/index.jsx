@@ -194,6 +194,8 @@ const Pay = () => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    updateLoadPage(false)
   }, [])
 
   const stateSchema = {
