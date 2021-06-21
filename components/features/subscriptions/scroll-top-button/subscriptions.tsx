@@ -15,7 +15,10 @@ const ScrollTopButton: FC<ScrollTopButtonProps> = (props) => {
   const [active, setActive] = React.useState(false)
 
   const activeButtonScroll = () => {
-    if (document.body.scrollTop || document.documentElement.scrollTop > gap) {
+    if (
+      (document.body.scrollTop || document.documentElement.scrollTop > gap) &&
+      !active
+    ) {
       setActive(true)
     } else {
       setActive(false)
