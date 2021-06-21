@@ -20,6 +20,7 @@ const ShareButtons = ({
   activeGoogleNews = false,
   activeCopyLink = false,
   activeLinkedin = true,
+  googleNewsText = true,
 }) => {
   const { globalContent, arcSite } = useAppContext()
 
@@ -55,7 +56,9 @@ const ShareButtons = ({
           className={`${classes.btn} ${classes.gnews}`}
           rel="noreferrer"
           target="_blank">
-          <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          {googleNewsText && (
+            <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="25"

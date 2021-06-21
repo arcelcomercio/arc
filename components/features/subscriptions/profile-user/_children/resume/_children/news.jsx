@@ -95,9 +95,9 @@ class NewsResume extends Component {
                         checksNews[itemNews.code] && (
                           <div className="item item1" key={itemNews.code}>
                             <img src={itemNews.image} alt="demo" />
-                            <div className={`title title-${arcSite}`}>
+                            {/* <div className={`title title-${arcSite}`}>
                               {itemNews.name}
-                            </div>
+                            </div> */}
                           </div>
                         )
                     )}
