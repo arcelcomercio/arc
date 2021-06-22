@@ -4,11 +4,14 @@ import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
 
 import { GALLERY_VERTICAL } from '../../../../utilities/constants/subtypes'
+import { getMultimediaAnalitycs } from '../../../../utilities/helpers'
+import StoryData from '../../../../utilities/story-data'
 import RederStory from './render-story'
 
 declare global {
   interface Window {
     lazyLoadInstance: any
+    dataLayer: any
   }
 }
 
@@ -50,6 +53,43 @@ const GetStory: React.FC<{
       },
       transform: (story) => {
         if (story?._id) {
+          if (typeof window !== 'undefined') {
+            const {
+              multimediaType,
+              id,
+              getPremiumValue,
+              author,
+              nucleoOrigen,
+              formatOrigen,
+              contentOrigen,
+              genderOrigen,
+              sectionLink,
+              tags,
+            } = new StoryData({ data: story, arcSite, contextPath })
+            const type = getMultimediaAnalitycs(multimediaType, subtype, true)
+            const sectionList = sectionLink.split('/').slice(1) || []
+            const premium = getPremiumValue === 'premium' && true
+
+            window.dataLayer = window.dataLayer || []
+            window.dataLayer.push({
+              event: 'carga_continua',
+              url_path: `${link}?ref=nota&ft=cargacontinua&nota=${index + 1}`,
+              seccion: sectionList[0] || '',
+              subseccion: sectionList[1] || '',
+              url_title: title,
+              tipo_nota: type,
+              id_nota: id,
+              tag1: tags[0]?.slug || '',
+              tag2: tags[1]?.slug || '',
+              premium: `${premium}`,
+              autor: author || 'Redacción',
+              nucleo_ID: nucleoOrigen,
+              tipo_formato: formatOrigen,
+              tipo_contenido: contentOrigen,
+              genero: genderOrigen,
+            })
+          }
+
           setIsLoading(false)
         }
         return story
