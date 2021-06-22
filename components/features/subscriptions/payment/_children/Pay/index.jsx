@@ -5,7 +5,6 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
 
-// import addPayU from '../../../_dependencies/Payu'
 import { isSandbox } from '../../../../../utilities/arc/env'
 import addScriptAsync from '../../../../../utilities/script-async'
 import { AuthContext } from '../../../_context/auth'
@@ -208,6 +207,8 @@ const Pay = () => {
       },
       window.location.pathname
     )
+
+    updateLoadPage(false)
   }, [])
 
   const stateSchema = {
