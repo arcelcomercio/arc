@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
@@ -523,9 +524,13 @@ const LiteOutput = ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
           <>
             <Libs />
+          </>
+        ) : null}
+        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
+          <>
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
                 .toISOString()
@@ -587,7 +592,11 @@ const LiteOutput = ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {isPremium && <Fusion />}
+        {isPremium || metaValue('include_fusion_libs') === 'true' ? (
+          <>
+            <Fusion />
+          </>
+        ) : null}
         {isStory && (
           <script
             type="text/javascript"

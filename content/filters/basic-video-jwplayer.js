@@ -16,7 +16,8 @@ basic_jwplayer {
       resized_urls { 
         landscape_xs
         landscape_s
-        lazy_default 
+        lazy_default
+        large 
       }
       conversions{
         key

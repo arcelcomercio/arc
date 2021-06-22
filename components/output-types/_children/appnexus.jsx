@@ -168,7 +168,8 @@ const getVars = (
   if (isGallery) typeSpace = 'nota2'
   if (section.match(/publirreportaje|publireportaje/) !== null && isStory)
     typeSpace = 'nota5'
-  const scriptLayerType = arcSite === SITE_OJO ? scriptLayer : ''
+  // const scriptLayerType = arcSite === SITE_OJO ? scriptLayer : ''
+  const scriptLayerType = scriptLayer // para todas las marcas
   const isSomos = requestUri.includes('/somos/')
   return `
     var type_space = '${typeSpace}'; var site = '${getSite(
