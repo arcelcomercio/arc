@@ -35,6 +35,11 @@ basic_video {
       caption
       width
       height
+      resized_urls { 
+        large
+        landscape_md
+        landscape_s
+      }
     }
   }
 }`

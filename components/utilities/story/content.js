@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { ELEMENT_TEXT, ELEMENT_LIST } from '../constants/element-types'
+import { ELEMENT_LIST, ELEMENT_TEXT } from '../constants/element-types'
 
 /**
  * Inyecta los ads disponibles entre en contenido de la noticia
@@ -8,6 +8,7 @@ import { ELEMENT_TEXT, ELEMENT_LIST } from '../constants/element-types'
  * @param {Object} config
  * @param {Object[]} config.contentElements - Contenido de la noticia
  * @param {number} [config.adsEvery=2] - Cantidad de parrafos que separan los ads disponibles en contenido
+ * @param {string} config.arcSite
  * @returns {Object[]} - Contenido de noticia con ads cada N parrafos. N = adsEvery.
  */
 export const contentWithAds = ({ contentElements, adsEvery = 2, arcSite }) => {

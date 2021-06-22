@@ -33,6 +33,8 @@ content_elements {
         landscape_xs
         landscape_s
         lazy_default 
+        landscape_md
+        large
       }
       link
       photo
@@ -119,6 +121,9 @@ content_elements {
   level
   language
   url
+  resized_urls { 
+    landscape_md
+  }
   duration
   list_type
   title
@@ -182,12 +187,17 @@ content_elements {
   }
   promo_items{
     basic{
+      _id
       caption
       subtitle
       url
       width
       height
-      
+      resized_urls { 
+        large
+        landscape_md
+        landscape_s
+      }
     }
   }
 
@@ -296,14 +306,19 @@ promo_items{
     content
     type
   }
-  basic { 
+  basic {
+    _id 
     url 
     type
     subtitle
     caption
     width
     height
-
+    resized_urls { 
+      large
+      landscape_md
+      landscape_s
+    }
   }
   basic_movil { 
     url 

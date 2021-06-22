@@ -21,7 +21,6 @@ import {
 } from '../utilities/constants/subtypes'
 import { deleteQueryString } from '../utilities/parse/queries'
 import { addSlashToEnd, ifblogType } from '../utilities/parse/strings'
-// import Preconnects from './_children/preconnects'
 import StoryData from '../utilities/story-data'
 import { storyTagsBbc } from '../utilities/tags'
 import AppNexus from './_children/appnexus'
