@@ -319,49 +319,49 @@ const LiteAds = ({
     .replace(/st_value6/g, `${siteProperties.siteUrl}${requestUri}`)
     .replace(/st_value9/g, targetingTags)
   /* 
-window.addEventListener('load', function liteAds() {
- requestIdle(function initLiteAds() {
-     const {
-         isMobiles,
-         existAds,
-         adsCollection
-     } = window
+  window.addEventListener('load', function liteAds() {
+    requestIdle(function initLiteAds() {
+        const {
+            isMobiles,
+            existAds,
+            adsCollection
+        } = window
 
-     if (existAds) {
-         // Solo ejecuta si existen ads
-         window.googletag = window.googletag || {
-             cmd: []
-         }
-         googletag.cmd.push(function() {
-             googletag.pubads().collapseEmptyDivs();
-             googletag.enableServices();
-         });
+        if (existAds) {
+            // Solo ejecuta si existen ads
+            window.googletag = window.googletag || {
+                cmd: []
+            }
+            googletag.cmd.push(function() {
+                googletag.pubads().collapseEmptyDivs();
+                googletag.enableServices();
+            });
 
-         if (window.adsCollection.length > 0) requestIdle(function() {
-             firstRequest()
-         })
+            if (window.adsCollection.length > 0) requestIdle(function() {
+                firstRequest()
+            })
 
-         const firstRequest = () => {
-             let arcAds = new ArcAds({
-                 dfp: {
-                     id: "28253241"
-                 }
-             });
-             let adsBloque1 = window.adsCollection.filter(
-                 function(input) {
-                     if (input.bloque == '1') {
-                         return input;
-                     };
-                 }
-             );
+            const firstRequest = () => {
+                let arcAds = new ArcAds({
+                    dfp: {
+                        id: "28253241"
+                    }
+                });
+                let adsBloque1 = window.adsCollection.filter(
+                    function(input) {
+                        if (input.bloque == '1') {
+                            return input;
+                        };
+                    }
+                );
 
-             window.adsBloque1 = adsBloque1
-             arcAds.registerAdCollection(adsBloque1)
-         }
-     }
- })
-})
-*/
+                window.adsBloque1 = adsBloque1
+                arcAds.registerAdCollection(adsBloque1)
+            }
+        }
+    })
+  })
+  */
 
   const adsEconomiaNext = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var o=window,e=(o.isMobiles,o.existAds);o.adsCollection;if(e){window.googletag=window.googletag||{cmd:[]},googletag.cmd.push(function(){googletag.pubads().collapseEmptyDivs(),googletag.enableServices()}),window.adsCollection.length>0&&requestIdle(function(){i()});var i=function(){var o=new ArcAds({dfp:{id:"28253241"}}),e=window.adsCollection.filter(function(o){if("1"==o.bloque)return o});window.adsBloque1=e,o.registerAdCollection(e)}}})});`
   const tiponota = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
@@ -392,7 +392,7 @@ window.addEventListener('load', function liteAds() {
           ) : null}
           <script
             defer
-            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section.replace(
+            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
               /-/gm,
               ''
             )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}></script>

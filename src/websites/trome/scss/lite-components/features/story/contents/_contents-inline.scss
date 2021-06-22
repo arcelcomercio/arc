@@ -1,25 +1,92 @@
 .story-contents {
-  padding: 25px 20px 20px 20px;
+  padding: 32px 16px 20px 16px;
   margin-bottom: 25px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $fira-s;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: 36px;
+    color: #333;
+    position: relative;
+    margin-top: 40px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 64px;
+      height: 6px;
+      background-color: #D35B2C;
+      top: -15px;
+    }
+  }
+
   &__blockquote {
-    padding: 20px 20px 20px 36px;
-    margin: 40px 0 40px 15px;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.16px;
+    padding: 19px 0;
+    font-family: $encode-c;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.32px;
+    color: #343434;
   }
+
   &__author {
+    font-family: $fira-s;
+    font-weight: 900;
     font-size: 16px;
-    font-family: $primary-font;
+    letter-spacing: 0px;
+    line-height: 22px;
+    color: #333;
     padding-bottom: 8px;
+
+    @media(--desktop) {
+      font-size: 18px;
+    }
   }
+
+  &__author-date {
+    margin-top: 8px;
+    font-family: $fira-s;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: -0.13px;
+    line-height: 18px;
+    color: #444;
+  }
+
   &__font-paragraph {
-    font-size: 18px;
-    padding: 10px 0;
-    line-height: 28px;
+    font-family: $fira-s;
+    color: #343434;
+    font-size: 22px;
+    letter-spacing: -0.44px;
+    line-height: 32px;
+    padding: 19px 0;
+
+    @media(--desktop) {
+      font-size: 23px;
+      letter-spacing: -0.46px;
+    }
+
+    a {
+      color: #306D95;
+      text-decoration: underline;
+      font-family: $fira-s;
+    }
   }
+
   &__content {
-    padding-top: 5px;
+    padding-top: 16px;
+
+    @media (--desktop) {
+      padding-top: 3px;
+    }
   }
 }
 

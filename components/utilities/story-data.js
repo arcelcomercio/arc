@@ -45,12 +45,12 @@ import {
 } from './constants/multimedia-types'
 import {
   IMAGE_LINK,
+  SALTAR_INTRO,
   STAMP_TRUST,
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
-  SALTAR_INTRO,
   WORK_TYPE_REVISION,
 } from './constants/subtypes'
 import { msToTime, secToTime } from './date-time/time'

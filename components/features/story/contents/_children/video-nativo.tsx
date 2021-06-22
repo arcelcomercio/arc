@@ -8,13 +8,11 @@ const StoryContentChildVideoNativo: React.FC<{ streams?: Streams[] }> = ({
   streams = [],
 }) => {
   const dataVideo = streams
-    .map(({ url, stream_type: streamType }) => {
-      return streamType === 'mp4'
+    .map(({ url, stream_type: streamType }) => streamType === 'mp4'
         ? {
             url,
           }
-        : []
-    })
+        : [])
     .filter(String)
   const cantidadVideo = dataVideo.length
   const vdeoResul = dataVideo[cantidadVideo - 1]
