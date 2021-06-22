@@ -42,10 +42,6 @@ const getUrlNewsLetters = `https://${
 
 const getListBundle = ['UJWWFG', '7NK9SV', 'DQZ00K', 'OKLLPH', 'NO07ET'] // price code bundle sandbox & prod
 
-const getPayuSDK = isProd
-  ? 'https://d2g037f9e082nm.cloudfront.net/creativos/payu-sdk/payu-sdk.js'
-  : 'https://signwall-test.e3.pe/static/payu-sdk.js'
-
 const getUrlComercioSubs = `https://${
   isProd ? '' : 'dev'
 }paywall.comerciosuscripciones.pe/api`
@@ -68,7 +64,6 @@ const getUrlSignwall = (arcSite, typeDialog, hash) =>
 export {
   getListBundle,
   getOriginAPI,
-  getPayuSDK,
   getPoliticsTerms,
   getScriptSales,
   getUrlComercioSubs,
