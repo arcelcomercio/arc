@@ -27,9 +27,10 @@ const rederStory: React.FC<{
   requestUri: string
   deployment: (resource: string) => string | string
   index: number
-}> = (props) => {
+}> = props => {
   const { contextPath, arcSite, requestUri, data, deployment, index } = props
   const trustproject = data?.label?.trustproject
+  console.log('Render Notaaaaaa')
 
   const {
     isPremium,
@@ -174,8 +175,8 @@ const rederStory: React.FC<{
     if ($shareButtons && $shareButtons.length > 0) {
       const wLeft = window.screen.width / 2 - windowW / 2
       const wTop = window.screen.height / 2 - windowH / 2
-      $shareButtons.forEach((button) => {
-        button.addEventListener('click', (e) => {
+      $shareButtons.forEach(button => {
+        button.addEventListener('click', e => {
           const href = button.getAttribute('href') || ''
           e.preventDefault()
           window.open(
@@ -190,7 +191,7 @@ const rederStory: React.FC<{
 
   const jwplayerObserver = () => {
     const videos = Array.from(document.body.querySelectorAll('.jwplayer-lazy'))
-    videos.forEach((entry) => {
+    videos.forEach(entry => {
       const { id = '' } = entry
       if (id) {
         const nameId = id.split('_')
@@ -205,19 +206,20 @@ const rederStory: React.FC<{
     })
   }
 
-  const jsSpacesAds = () => {
-    const typeNote = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
-    const sectionClean = primarySectionLink?.split('/')[1]?.replace(/-/gm,'')
-    const linkUrl = `https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${index+1}&date=${new Date().toISOString().slice(0, 10)}`;
-    try {
-      const node = document.createElement('script')
-      node.type = 'text/javascript'
-      node.async = true
-      node.src = linkUrl
-      document.head.append(node)
-    } catch (error) {}
-  }
-  jsSpacesAds()
+  // const jsSpacesAds = () => {
+  //   const typeNote = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
+  //   const sectionClean = primarySectionLink?.split('/')[1]?.replace(/-/gm, '')
+  //   const linkUrl = `https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${index +
+  //     1}&date=${new Date().toISOString().slice(0, 10)}`
+  //   try {
+  //     const node = document.createElement('script')
+  //     node.type = 'text/javascript'
+  //     node.async = true
+  //     node.src = linkUrl
+  //     document.head.append(node)
+  //   } catch (error) {}
+  // }
+  // jsSpacesAds()
 
   React.useEffect(() => {
     contentElements.map((element: { content?: string; type: string }) => {

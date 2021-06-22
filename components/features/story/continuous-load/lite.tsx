@@ -35,8 +35,8 @@ const StoryContinousLoad: FC = () => {
     cleanOb()
     if ('IntersectionObserver' in window) {
       observer.current = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
+        entries => {
+          entries.forEach(entry => {
             if (entry.isIntersecting && !isLoading) {
               setRenderCount(renderCount + 1)
               setIsLoading(true)
@@ -59,17 +59,17 @@ const StoryContinousLoad: FC = () => {
     const firstStoryContainer = document.querySelector('.st-sidebar__content')
     if ('IntersectionObserver' in window) {
       const firstStoryObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
+        entries => {
+          entries.forEach(entry => {
             if (entry.isIntersecting) {
-              if (window.location.pathname !== globalContent?.website_url) {
+              /*if (window.location.pathname !== globalContent?.website_url) {
                 document.title = globalContent?.headlines.basic || ''
                 window.history.pushState(
                   {},
                   globalContent?.headlines.basic || '',
                   globalContent?.website_url
                 )
-              }
+              }*/
             }
           })
         },
@@ -93,7 +93,7 @@ const StoryContinousLoad: FC = () => {
           contextPath={contextPath}
           requestUri={requestUri}
           deployment={deployment}
-          setIsLoading={(value) => setIsLoading(value)}
+          setIsLoading={value => setIsLoading(value)}
           index={i}
         />
       ))}

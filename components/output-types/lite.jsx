@@ -560,7 +560,7 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-        {!isIframeStory && <TagManager {...parameters} />}
+        {/* {!isIframeStory && <TagManager {...parameters} />} */}
         {/* ============== WebTracking */}
         {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
           <>
@@ -772,7 +772,7 @@ const LiteOutput = ({
         <script
           type="module"
           defer
-          src={`https://jab.pe/carloscp/continua/main/main.min.js?v=${new Date()
+          src={`http://localhost:9000/main.min.js?v=${new Date()
             .toISOString()
             .slice(0, 10)}`}
         />
