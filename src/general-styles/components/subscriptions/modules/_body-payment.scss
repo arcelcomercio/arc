@@ -214,12 +214,6 @@ $heightHeader: 52px;
           cursor: wait;
         }
       }
-      &-full {
-        width: 100%;
-        button {
-          width: 100% !important;
-        }
-      }
 
       &-middle {
         display: flex;
@@ -298,6 +292,16 @@ $heightHeader: 52px;
           display: inline-block;
           vertical-align: middle;
           background: url("https://signwall.e3.pe/images/icon-info.png");
+        }
+      }
+
+      &-full {
+        width: 100%;
+        & button {
+          width: 100%;
+          margin: 0;
+          font-size: 12px;
+          background-position: 15px center;
         }
       }
 
