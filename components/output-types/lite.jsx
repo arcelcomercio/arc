@@ -570,7 +570,10 @@ const LiteOutput = ({
                 `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
               )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec" />
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=01780ae129e2be9f4afea429d618f3ec"
+              async
+            />
           </>
         ) : null}
 
@@ -582,7 +585,10 @@ const LiteOutput = ({
                 `${contextPath}/resources/assets/js/emblue-sdk-worker.js`
               )}
             />
-            <script src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6" />
+            <script
+              src="https://cdn.embluemail.com/pixeltracking/pixeltracking.js?code=ddc9f70a72959e3037f40dd5359a99d6"
+              async
+            />
           </>
         ) : null}
         {/* ============== WebTracking */}
