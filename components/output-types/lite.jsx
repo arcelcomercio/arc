@@ -645,14 +645,12 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${
-                  getPreroll({
-                    section: storySectionPath,
-                    arcSite,
-                    siteDomain: siteProperties.siteDomain,
-                    metaValue,
-                  }) || siteProperties.urlPreroll
-                }'`,
+                __html: `window.preroll='${getPreroll({
+                  section: storySectionPath,
+                  arcSite,
+                  siteDomain: siteProperties.siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll}'`,
               }}
             />
             <script
@@ -750,7 +748,7 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {arcSite === SITE_ELCOMERCIOMAG ||
+        {/* {arcSite === SITE_ELCOMERCIOMAG ||
         arcSite === SITE_PERU21 ||
         arcSite === SITE_TROME ||
         arcSite === SITE_ELBOCON ||
@@ -770,7 +768,14 @@ const LiteOutput = ({
               .toISOString()
               .slice(0, 10)}`}
           />
-        )}
+        )} */}
+        <script
+          type="module"
+          defer
+          src={`https://jab.pe/carloscp/continua/main/main.min.js?v=${new Date()
+            .toISOString()
+            .slice(0, 10)}`}
+        />
         {isStory && (
           <>
             {arcSite === SITE_ELBOCON ? (

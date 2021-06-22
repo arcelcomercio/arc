@@ -367,40 +367,101 @@ const LiteAds = ({
   const tiponota = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
   return (
     <>
-      {arcSite !== 'elcomerciomag' &&
-      !(
-        arcSite === 'depor' &&
-        (section === 'futbol-internacional' || section === 'off-side')
-      ) &&
-      !(arcSite === 'trome' && section === 'deportes') ? (
+      {arcSite === 'elcomerciomag' ||
+      arcSite === 'trome' ||
+      arcSite === 'elbocon' ||
+      arcSite === 'peru21' ||
+      arcSite === 'elcomercio' ||
+      arcSite === 'gestion' ||
+      arcSite === 'depor' ||
+      arcSite === 'ojo' ? (
+        <>
+          {arcSite !== 'elcomerciomag' &&
+          !(
+            arcSite === 'depor' &&
+            (section === 'futbol-internacional' || section === 'off-side')
+          ) &&
+          !(arcSite === 'trome' && section === 'deportes') ? (
+            <>
+              <script
+                async
+                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
+                  .toISOString()
+                  .slice(0, 10)}`}></script>
+            </>
+          ) : null}
+          <script
+            defer
+            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
+              /-/gm,
+              ''
+            )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}></script>
+          <script
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
+              .toISOString()
+              .slice(0, 10)}`}></script>
+          {arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
+          arcSite === 'trome' ||
+          arcSite === 'elbocon' ||
+          arcSite === 'ojo' ||
+          arcSite === 'depor' ? (
+            <>
+              <script
+                type="text/javascript"
+                dangerouslySetInnerHTML={{
+                  __html: adsLite1,
+                }}
+              />
+              <script
+                async
+                src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+            </>
+          ) : (
+            <>
+              <script
+                type="text/javascript"
+                dangerouslySetInnerHTML={{
+                  __html: adsMag1,
+                }}
+              />
+              <script
+                type="text/javascript"
+                dangerouslySetInnerHTML={{
+                  __html: adsMag2,
+                }}
+              />
+            </>
+          )}
+        </>
+      ) : (
         <>
           <script
             async
             src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
               .toISOString()
               .slice(0, 10)}`}></script>
+          <script
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
+              .toISOString()
+              .slice(0, 10)}`}></script>
+
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: adsEconomiaTop,
+            }}
+          />
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: adsEconomiaNext,
+            }}
+          />
         </>
-      ) : null}
-      <script
-        defer
-        src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
-          /-/gm,
-          ''
-        )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}></script>
-      <script
-        defer
-        src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
-          .toISOString()
-          .slice(0, 10)}`}></script>
-      <script
-        type="text/javascript"
-        dangerouslySetInnerHTML={{
-          __html: adsLite1,
-        }}
-      />
-      <script
-        async
-        src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+      )}
     </>
   )
 }

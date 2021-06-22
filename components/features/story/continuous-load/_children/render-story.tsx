@@ -205,6 +205,20 @@ const rederStory: React.FC<{
     })
   }
 
+  const jsSpacesAds = () => {
+    const typeNote = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
+    const sectionClean = primarySectionLink?.split('/')[1]?.replace(/-/gm,'')
+    const linkUrl = `https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${index+1}&date=${new Date().toISOString().slice(0, 10)}`;
+    try {
+      const node = document.createElement('script')
+      node.type = 'text/javascript'
+      node.async = true
+      node.src = linkUrl
+      document.head.append(node)
+    } catch (error) {}
+  }
+  jsSpacesAds()
+
   React.useEffect(() => {
     contentElements.map((element: { content?: string; type: string }) => {
       const content = element?.content || ''
