@@ -208,6 +208,8 @@ const Pay = () => {
       },
       window.location.pathname
     )
+
+    updateLoadPage(false)
   }, [])
 
   const stateSchema = {

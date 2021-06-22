@@ -125,11 +125,15 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            {userStep !== 5 && (
-              <PanelRight>
-                {userStep !== 4 && !freeAccess && <Summary />}
-              </PanelRight>
-            )}
+
+            <PanelRight
+              style={
+                freeAccess || userStep === 4 || userStep === 5
+                  ? { display: 'none' }
+                  : {}
+              }>
+              <Summary />
+            </PanelRight>
           </Wrapper>
         </Container>
         {!freeAccess && <FooterSubs />}
