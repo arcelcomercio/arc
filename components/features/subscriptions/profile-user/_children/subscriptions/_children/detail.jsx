@@ -5,6 +5,7 @@ import { useFusionContext } from 'fusion:context'
 import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
+import addScriptAsync from '../../../../../../utilities/script-async'
 import {
   ContMask,
   InputMask,
@@ -23,14 +24,13 @@ import {
 import Loading from '../../../../../signwall/_children/loading'
 import { Modal } from '../../../../../signwall/_children/modal/index'
 import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
-import addPayU from '../../../../../signwall/_dependencies/payu'
-import { PayuError } from '../../../../../signwall/_dependencies/payu-error'
 import {
   finalizePaymentUpdate,
   getProfilePayu,
   initPaymentUpdate,
 } from '../../../../../signwall/_dependencies/services'
 import getCodeError from '../../../../_dependencies/Errors'
+import { PropertiesCommon } from '../../../../_dependencies/Properties'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 import useForm from '../../../../_hooks/useForm'
 import { Button, Table, Wrapper } from '../../../styled'
@@ -110,6 +110,8 @@ const SubsDetail = ({ IdSubscription }) => {
       signwall: { mainColorBtn, mainColorTitle },
     },
   } = useFusionContext() || {}
+
+  const { links } = PropertiesCommon
 
   const [showLoading, setShowLoading] = React.useState(true)
   const [showLoadingSubmit, setShowLoadingSubmit] = React.useState(false)
@@ -204,6 +206,19 @@ const SubsDetail = ({ IdSubscription }) => {
         )
       })
     })
+
+    addScriptAsync({
+      name: 'PayuSDK',
+      url: links.payu,
+      includeNoScript: false,
+    }).then(() => {
+      window.payU.setURL(links.payuPayments)
+      window.payU.setPublicKey(links.payuPublicKey)
+      window.payU.setAccountID(links.payuAccountID)
+      window.payU.setListBoxID('mylistID')
+      window.payU.setLanguage('es')
+      window.payU.getPaymentMethods()
+    })
   }, [IdSubscription, arcSite])
 
   const openModalConfirm = (type) => {
@@ -251,95 +266,101 @@ const SubsDetail = ({ IdSubscription }) => {
               } = resUpdate
 
               getProfilePayu(accessTOKEN, IdSubscription, arcSite).then(
-                (profilePayu) =>
-                  addPayU(arcSite, deviceSessionId)
-                    .then((payU) => {
-                      payU.setURL(payuBaseUrl)
-                      payU.setPublicKey(publicKey)
-                      payU.setAccountID(accountId)
-                      payU.setListBoxID('mylistID')
-                      payU.getPaymentMethods()
-                      payU.setLanguage('es')
-                      payU.setCardDetails({
-                        number: numcard.replace(/\s/g, ''),
-                        name_card:
-                          ENVIRONMENT === 'elcomercio'
-                            ? `${profilePayu.name || 'Usuario'} ${
-                                profilePayu.lastname || 'Usuario'
-                              }`
-                            : 'APPROVED',
-                        payer_id: new Date().getTime(),
-                        exp_month: dateexpire.split('/')[0],
-                        exp_year:
-                          dateexpire.split('/')[1].length <= 2
-                            ? `20${dateexpire.split('/')[1]}`
-                            : dateexpire.split('/')[1],
-                        method: showSelectedOption,
-                        document: profilePayu.doc_number,
-                        cvv: codecvv,
-                      })
-                      return new Promise((resolve, reject) => {
-                        payU.createToken((response) => {
-                          if (response.error) {
-                            reject(new PayuError(response.error))
-                            setShowMessageFailed(true)
-                            setShowCustomMsgFailed(
-                              response.error ||
-                                'Ha ocurrido un error al actualizar'
-                            )
-                            setShowLoadingSubmit(false)
-                            setShowOpenUpdate(false)
-                            setTimeout(() => {
-                              setShowMessageFailed(false)
-                            }, 5000)
-                          } else {
-                            resolve(response.token)
-                          }
-                        })
-                      })
+                (profilePayu) => {
+                  const fullUserName = `${
+                    profilePayu.name ||
+                    window.Identity.userProfile.firstName ||
+                    'Usuario'
+                  } ${
+                    profilePayu.lastname ||
+                    window.Identity.userProfile.firstName ||
+                    ''
+                  }`
+                  window.payU.setURL(payuBaseUrl)
+                  window.payU.setPublicKey(publicKey)
+                  window.payU.setAccountID(accountId)
+                  window.payU.setCardDetails({
+                    number: numcard.replace(/\s/g, ''),
+                    // name_card:
+                    //   ENVIRONMENT === 'elcomercio' ? fullUserName : 'APPROVED',
+                    name_card: fullUserName,
+                    payer_id: new Date().getTime(),
+                    exp_month: dateexpire.split('/')[0],
+                    exp_year:
+                      dateexpire.split('/')[1].length <= 2
+                        ? `20${dateexpire.split('/')[1]}`
+                        : dateexpire.split('/')[1],
+                    method: showSelectedOption,
+                    document: profilePayu.doc_number,
+                    cvv: codecvv,
+                  })
+
+                  const handleCreateToken = new Promise((resolve, reject) => {
+                    window.payU.createToken((response) => {
+                      if (response.error) {
+                        reject(new Error(response.error))
+                        setShowMessageFailed(true)
+                        setShowCustomMsgFailed(
+                          response.error ||
+                            'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
+                        )
+                        setShowLoadingSubmit(false)
+                        setShowOpenUpdate(false)
+                        setTimeout(() => {
+                          setShowMessageFailed(false)
+                        }, 5000)
+                      } else {
+                        resolve(response.token)
+                      }
                     })
-                    .then((token) => {
-                      finalizePaymentUpdate(
-                        subsID,
-                        providerID,
-                        arcSite,
-                        accessTOKEN,
-                        `${token}~${deviceSessionId}~${codecvv}`,
-                        profilePayu.email,
-                        `${profilePayu.doc_type}_${profilePayu.doc_number}`,
-                        profilePayu.phone
-                      )
-                        .then((resFin) => {
-                          if (
-                            resFin.cardholderName &&
-                            resFin.creditCardLastFour
-                          ) {
-                            setShowLastFour(resFin.creditCardLastFour)
-                            setShowMessageSuccess(true)
-                            setShowUpdateCard(false)
-                            setShowLastCard(showSelectedOption)
-                          } else {
-                            setShowMessageFailed(true)
-                            setShowCustomMsgFailed(
-                              'Ha ocurrido un error al actualizar. Inténtalo nuevamente.'
-                            )
-                          }
-                        })
-                        .catch(() => {
+                  })
+
+                  handleCreateToken.then((token) => {
+                    const tokenDinamic = `${token}~${deviceSessionId}~${codecvv}`
+                    const documentPay = `${profilePayu.doc_type}_${profilePayu.doc_number}`
+
+                    finalizePaymentUpdate(
+                      subsID,
+                      providerID,
+                      arcSite,
+                      accessTOKEN,
+                      tokenDinamic,
+                      profilePayu.email,
+                      documentPay,
+                      profilePayu.phone
+                    )
+                      .then((resFin) => {
+                        if (
+                          resFin.cardholderName &&
+                          resFin.creditCardLastFour
+                        ) {
+                          setShowLastFour(resFin.creditCardLastFour)
+                          setShowMessageSuccess(true)
+                          setShowUpdateCard(false)
+                          setShowLastCard(showSelectedOption)
+                        } else {
                           setShowMessageFailed(true)
                           setShowCustomMsgFailed(
-                            'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
+                            'Ha ocurrido un error al actualizar. Revise sus datos de tarjeta e inténtelo nuevamente.'
                           )
-                        })
-                        .finally(() => {
-                          setShowLoadingSubmit(false)
-                          setShowOpenUpdate(false)
-                          setTimeout(() => {
-                            setShowMessageFailed(false)
-                            setShowMessageSuccess(false)
-                          }, 5000)
-                        })
-                    })
+                        }
+                      })
+                      .catch(() => {
+                        setShowMessageFailed(true)
+                        setShowCustomMsgFailed(
+                          'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
+                        )
+                      })
+                      .finally(() => {
+                        setShowLoadingSubmit(false)
+                        setShowOpenUpdate(false)
+                        setTimeout(() => {
+                          setShowMessageFailed(false)
+                          setShowMessageSuccess(false)
+                        }, 5000)
+                      })
+                  })
+                }
               )
             }
           )
@@ -487,6 +508,7 @@ const SubsDetail = ({ IdSubscription }) => {
         <S.WrapperBlock>
           <S.Subsdetail nopadding nocolumn>
             <div className="details-left">
+              <div id="mylistID" style={{ display: 'none' }} />
               <small>DETALLE DE LA SUSCRIPCIÓN</small>
               <h2>{showResDetail.productName}</h2>
               <p>
