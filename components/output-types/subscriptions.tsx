@@ -112,8 +112,11 @@ const Subscriptions: OT<OutputProps> = ({
               href={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/favicon.png?d=1038`}
             />
 
-            <Libs />
-
+            {isSubscriptionPage && arcSite === SITE_ELCOMERCIO ? (
+              <link rel="preconnect" href="https://pub.minoticia.pe" />
+            ) : null}
+            <link rel="preconnect" href="https://s.go-mpulse.net" />
+            <link rel="preconnect" href="https://www.facebook.com" />
             <link rel="dns-prefetch" href="//fonts.gstatic.com" />
             <link rel="dns-prefetch" href="//fonts.googleapis.com" />
             <link rel="dns-prefetch" href="//www.google-analytics.com" />
@@ -121,6 +124,8 @@ const Subscriptions: OT<OutputProps> = ({
               rel="preconnect dns-prefetch"
               href="//arc-subs-sdk.s3.amazonaws.com"
             />
+            <Libs />
+
             <link
               rel="stylesheet"
               href={deployment(
