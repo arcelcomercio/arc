@@ -217,6 +217,20 @@ const rederStory: React.FC<{
       node.async = true
       node.src = linkUrl
       document.head.append(node)
+      ;(window as any).adsContinua[index + 1] =
+        (window as any).adsContinua[index + 1] || {}
+      ;(window as any).adsContinua[index + 1].targeting = {
+        categoria: 'sucesos',
+        contenido: 'metered',
+        fuente: 'WEB',
+        paywall: 'no',
+        phatname: '',
+        publisher: 'elcomercio',
+        seccion: 'lima',
+        tags: '',
+        tipoplantilla: 'post',
+        tmp_ad: 'continua',
+      }
     } catch (error) {}
   }
 
