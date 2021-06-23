@@ -46,15 +46,15 @@ import { JWPLAYER } from '../../../../utilities/constants/multimedia-types'
 
 const presets = 'resizedImage:840x0'
 
-const buildIframeAdvertising = urlAdvertising => {
+const buildIframeAdvertising = (urlAdvertising) => {
   return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 }
 
-const cleanTag = paragraph => {
+const cleanTag = (paragraph) => {
   return nbspToSpace(paragraph.trim().replace(/<\/?(?:br|mark)[^<>]*>/, ''))
 }
 
-const clearHtml = paragraph => {
+const clearHtml = (paragraph) => {
   return nbspToSpace(
     paragraph.replace(/(<([^>]+)>)/g, '').replace(/\s{2,}/g, ' ')
   )
@@ -77,7 +77,7 @@ const buildHeaderParagraph = (paragraph, level = '2') => {
   return result
 }
 
-const buildTexParagraph = paragraph => {
+const buildTexParagraph = (paragraph) => {
   const result = { numberWords: 0, processedParagraph: '' }
   result.numberWords = countWordsHelper(clearHtml(paragraph))
 
@@ -141,8 +141,9 @@ const buildListLinkParagraph = (items, defaultImage, arcSite) => {
     items.length > 0
       ? `<div>
           <div>Mira también:</div>
-          ${items &&
-            items.map(data => {
+          ${
+            items &&
+            items.map((data) => {
               const {
                 url = '',
                 content = '',
@@ -157,15 +158,16 @@ const buildListLinkParagraph = (items, defaultImage, arcSite) => {
               return `
               <div>
                 <figure>
-                  <a href="${url}"><img src="${resizedImage ||
-                urlImg ||
-                defaultImage}" alt="${content}" /></a>
+                  <a href="${url}"><img src="${
+                resizedImage || urlImg || defaultImage
+              }" alt="${content}" /></a>
                 </figure>
                 <div>
                   <h2><a href="${url}">${content}</a></h2>
                 </div>
               </div>`
-            })}
+            })
+          }
         </div>`
       : ''
 
@@ -289,8 +291,9 @@ const analyzeParagraph = ({
         presets,
         arcSite,
       })
-      result.processedParagraph = `<figure><img src="${resizedImage ||
-        processedParagraph}" /></figure>`
+      result.processedParagraph = `<figure><img src="${
+        resizedImage || processedParagraph
+      }" /></figure>`
       break
 
     case ConfigParams.ELEMENT_RAW_HTML:
@@ -419,8 +422,9 @@ const analyzeParagraph = ({
             presets,
             arcSite,
           })
-          result.processedParagraph = `<figure class="op-interactive"><img width="560" height="315" src="${resizedImage ||
-            imageUrl}" alt="${imageAlt}" /></figure>`
+          result.processedParagraph = `<figure class="op-interactive"><img width="560" height="315" src="${
+            resizedImage || imageUrl
+          }" alt="${imageAlt}" /></figure>`
         } else {
           result.processedParagraph = ''
         }
@@ -573,7 +577,7 @@ const ParagraphshWithAdds = ({
         }
         if (ConfigParams.ELEMENT_STORY !== type && lookAlso.length > 0) {
           let ulLookAlso = `<ul class="op-related-articles" title="Mira También">`
-          lookAlso.forEach(value => {
+          lookAlso.forEach((value) => {
             ulLookAlso += `<li><a href="${siteUrl}${value}"></a></li>`
           })
           processedParagraph = `${ulLookAlso}</ul>`
@@ -680,7 +684,7 @@ const multimediaHeader = (
         )}`
         break
       } else {
-        result = `<figure class="op-slideshow">${payload.map(url => {
+        result = `<figure class="op-slideshow">${payload.map((url) => {
           // eslint-disable-next-line no-shadow
           const { resizedImage } = createResizedParams({
             url,
@@ -781,6 +785,9 @@ const BuildHtml = ({
           )}</script>
           <script defer src="//static.chartbeat.com/js/chartbeat_fia.js"></script>
           <script>${ScriptElement()}</script>
+          <noscript>
+            <img src="http://b.scorecardresearch.com/p?c1=2&c2=8429002&cv=2.0&cj=1&comscorekw=fbia" />
+          </noscript>
         </iframe>
       </figure>
     
@@ -813,7 +820,7 @@ const BuildHtml = ({
           websiteUrlsBytag.length > 1
             ? `<ul class="op-related-articles" title="Noticias relacionadas">
           ${websiteUrlsBytag
-            .map(url =>
+            .map((url) =>
               url === canonical ? '' : `<li><a href="${url}"></a></li>`
             )
             .join('')}

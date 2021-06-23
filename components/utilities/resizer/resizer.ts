@@ -271,6 +271,11 @@ export const getResizedImageParams = (
         resizer
       )
     }
+    if (sourceData?.basic_gallery?.content_elements) {
+      sourceData?.basic_gallery?.content_elements.forEach((elements) => {
+        resizePromoImage(elements, option.presets, resizer)
+      })
+    }
     if (sourceData?.basic_jwplayer?.embed?.config?.thumbnail_url) {
       const resizedUrls = resizer.getResizerParams(
         sourceData.basic_jwplayer.embed.config.thumbnail_url,

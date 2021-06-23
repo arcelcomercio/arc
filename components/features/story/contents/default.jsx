@@ -396,7 +396,8 @@ class StoryContents extends React.PureComponent {
                           className={alignmentClass}
                           dangerouslySetInnerHTML={{
                             __html: replaceTags(content),
-                          }} />
+                          }}
+                        />
                       </>
                     )
                   }
@@ -468,7 +469,8 @@ class StoryContents extends React.PureComponent {
                                       '<a itemprop="url"'
                                     )
                                   : '',
-                              }} />
+                              }}
+                            />
                           ))}
                         </ListType>
                       )
