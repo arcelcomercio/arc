@@ -33,7 +33,6 @@ const StoryContentChildAuthor: React.FC<{
       {/* // TODO: Cambiar este div por <address> */}
       {primarySection !== 'Columnistas' && (
         <div>
-          Date
           {author && (
             <a
               itemProp="url"

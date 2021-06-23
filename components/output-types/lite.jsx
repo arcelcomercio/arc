@@ -610,9 +610,7 @@ const LiteOutput = ({
           {children}
         </div>
         {isPremium || metaValue('include_fusion_libs') === 'true' ? (
-          <>
-            <Fusion />
-          </>
+          <Fusion />
         ) : null}
         {isStory && (
           <script
