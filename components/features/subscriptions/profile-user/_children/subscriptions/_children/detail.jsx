@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 import { useFusionContext } from 'fusion:context'
-// import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import addScriptAsync from '../../../../../../utilities/script-async'
@@ -276,6 +275,7 @@ const SubsDetail = ({ IdSubscription }) => {
                     window.Identity.userProfile.firstName ||
                     ''
                   }`
+
                   window.payU.setURL(payuBaseUrl)
                   window.payU.setPublicKey(publicKey)
                   window.payU.setAccountID(accountId)
