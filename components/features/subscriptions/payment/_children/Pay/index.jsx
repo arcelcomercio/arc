@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
 
-import { isSandbox } from '../../../../../utilities/arc/env'
+// import { isSandbox } from '../../../../../utilities/arc/env'
 import addScriptAsync from '../../../../../utilities/script-async'
 import { AuthContext } from '../../../_context/auth'
 import getCodeError, {
@@ -384,7 +384,8 @@ const Pay = () => {
                 window.payU.validateNumber(cNumber.replace(/\s/g, ''))
                 window.payU.setCardDetails({
                   number: cNumber.replace(/\s/g, ''),
-                  name_card: isSandbox ? 'APPROVED' : fullUserName, // APPROVED SOLO PARA FINES DE DESAROLLO fullUserName ES PARA PROD
+                  // name_card: isSandbox ? 'APPROVED' : fullUserName.replace(/'/g, ''),
+                  name_card: fullUserName.replace(/'/g, ''),
                   payer_id: documentNumber,
                   exp_month: cExpireMonth,
                   exp_year: cExpireYear,
