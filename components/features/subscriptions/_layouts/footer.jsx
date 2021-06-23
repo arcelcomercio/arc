@@ -216,29 +216,27 @@ export const FooterSubs = () => {
         </footer>
       )}
 
-      {userStep !== 4 && (
-        <section
-          className="step__bottom"
-          style={userStep === 5 ? { display: 'none' } : {}}>
-          <button className={styles.btnDetail} type="button" id="btn-detail">
-            <div>
-              <span className="title-item">Resumen de pedido:</span>
-              <h5 className="name-item">
-                {planName}
-                <span className="period-item">
-                  {' - '} {period[userDataPlan.billingFrequency]}
-                </span>
-              </h5>
-            </div>
-            <div>
-              <span className="price-item">
-                {getPlanAmount(userDataPlan.amount)}
+      <section
+        className="step__bottom"
+        style={userStep === 4 || userStep === 5 ? { display: 'none' } : {}}>
+        <button className={styles.btnDetail} type="button" id="btn-detail">
+          <div>
+            <span className="title-item">Resumen de pedido:</span>
+            <h5 className="name-item">
+              {planName}
+              <span className="period-item">
+                {' - '} {period[userDataPlan.billingFrequency]}
               </span>
-              <i className={styles.iconUp} />
-            </div>
-          </button>
-        </section>
-      )}
+            </h5>
+          </div>
+          <div>
+            <span className="price-item">
+              {getPlanAmount(userDataPlan.amount)}
+            </span>
+            <i className={styles.iconUp} />
+          </div>
+        </button>
+      </section>
     </>
   )
 }

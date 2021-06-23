@@ -61,6 +61,7 @@ const Pay = () => {
     updatePurchase,
     updateLoadPage,
     updateMethodPay,
+    updatePeOption,
   } = React.useContext(AuthContext)
   const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -193,6 +194,8 @@ const Pay = () => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    updateLoadPage(false)
   }, [])
 
   const stateSchema = {
@@ -436,7 +439,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${
+                          action: `${userPeriod}  | Tarjeta - ${
+                            methodCard || window.payU.card.method
+                          } - ${
                             response.error || getCodeError('errorFinalize')
                           }`,
                           label: uuid,
@@ -513,7 +518,9 @@ const Pay = () => {
                             hasPrint: printedSubscriber,
                             plan: name,
                           }),
-                          action: userPeriod,
+                          action: `${userPeriod} | Tarjeta - ${
+                            methodCard || window.payU.card.method
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -555,7 +562,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${
+                          action: `${userPeriod}  | Tarjeta - ${
+                            methodCard || window.payU.card.method
+                          } - ${
                             errFinalize.message || getCodeError('errorFinalize')
                           }`,
                           label: uuid,
@@ -634,12 +643,31 @@ const Pay = () => {
   }
 
   const handlePayEfective = (e) => {
-    setLoading(true)
-    setTxtLoading('Generando CIP...')
-    e.preventDefault()
-    setTimeout(() => {
-      updateStep(5)
-    }, 1000)
+    if (typeof window !== 'undefined') {
+      const nameButon = e.target.name.split('-').join(' ')
+      setLoading(true)
+      setTxtLoading('Generando CIP...')
+      updatePeOption(nameButon)
+
+      // Datalayer solicitados por Joao
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: eventCategory({
+            step: 2,
+            event,
+            plan: name,
+          }),
+          action: `${userPeriod} | PE - ${nameButon}`,
+          label: uuid,
+        },
+        window.location.pathname
+      )
+
+      setTimeout(() => {
+        updateStep(5)
+      }, 1000)
+    }
   }
 
   return (
@@ -887,11 +915,13 @@ const Pay = () => {
                     {texts.howItWork}
                   </button>
                   <div className="img-movil" />
-                  <form onSubmit={handlePayEfective} className="form-pay">
+                  <form className="form-pay">
                     <div className={styles.block}>
                       <button
                         className={`${styles.btn} ${loading && 'btn-loading'}`}
-                        type="submit"
+                        type="button"
+                        name="Banca-por-Internet"
+                        onClick={handlePayEfective}
                         disabled={loading}>
                         {loading ? txtLoading : 'Generar código'}
                       </button>
@@ -907,11 +937,13 @@ const Pay = () => {
                     {texts.howItWork}
                   </button>
                   <div className="img-agentes" />
-                  <form onSubmit={handlePayEfective} className="form-pay">
+                  <form className="form-pay">
                     <div className={styles.block}>
                       <button
                         className={`${styles.btn} ${loading && 'btn-loading'}`}
-                        type="submit"
+                        type="button"
+                        name="Agencia"
+                        onClick={handlePayEfective}
                         disabled={loading}>
                         {loading ? txtLoading : 'Generar código'}
                       </button>

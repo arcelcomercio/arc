@@ -121,11 +121,11 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            {userStep !== 5 && (
-              <PanelRight>
-                {userStep !== 4 && !freeAccess && <Summary />}
-              </PanelRight>
-            )}
+
+            <PanelRight
+              hidePanel={freeAccess || userStep === 4 || userStep === 5}>
+              <Summary />
+            </PanelRight>
           </Wrapper>
         </Container>
         {!freeAccess && <FooterSubs />}
