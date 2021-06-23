@@ -64,7 +64,7 @@ const StoryContinousLoad: FC = () => {
             if (entry.isIntersecting) {
               /*if (window.location.pathname !== globalContent?.website_url) {
                 document.title = globalContent?.headlines.basic || ''
-                window.history.pushState(
+                /*window.history.pushState(
                   {},
                   globalContent?.headlines.basic || '',
                   globalContent?.website_url
