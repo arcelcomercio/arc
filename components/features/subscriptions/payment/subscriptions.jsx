@@ -123,11 +123,7 @@ const WrapperPaymentSubs = () => {
             )}
 
             <PanelRight
-              style={
-                freeAccess || userStep === 4 || userStep === 5
-                  ? { display: 'none' }
-                  : {}
-              }>
+              hidePanel={freeAccess || userStep === 4 || userStep === 5}>
               <Summary />
             </PanelRight>
           </Wrapper>
