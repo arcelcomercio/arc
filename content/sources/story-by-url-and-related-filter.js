@@ -46,6 +46,10 @@ const fetch = ({
   if (!website) {
     throw new Error('Arc Site no está definido')
   }
+  const isUrlTrome = /^(\/[\w\d-/]+-((?:\d{1,9}))\/.*trome\.pe)\/*[\w\d-/]*$/.test(
+    websiteUrl
+  )
+  if (isUrlTrome) throw new RedirectError(`/410`, 410)
 
   return request({
     uri: `${CONTENT_BASE}/content/v4/stories/?website_url=${section}${websiteUrl}&website=${website}${excludedFieldsStory}`,

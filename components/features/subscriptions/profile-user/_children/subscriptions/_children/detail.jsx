@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 import { useFusionContext } from 'fusion:context'
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import addScriptAsync from '../../../../../../utilities/script-async'
@@ -276,14 +275,17 @@ const SubsDetail = ({ IdSubscription }) => {
                     window.Identity.userProfile.firstName ||
                     ''
                   }`
+
                   window.payU.setURL(payuBaseUrl)
                   window.payU.setPublicKey(publicKey)
                   window.payU.setAccountID(accountId)
                   window.payU.setCardDetails({
                     number: numcard.replace(/\s/g, ''),
                     // name_card:
-                    //   ENVIRONMENT === 'elcomercio' ? fullUserName : 'APPROVED',
-                    name_card: fullUserName,
+                    //   ENVIRONMENT === 'elcomercio'
+                    //     ? fullUserName.replace(/'/g, '')
+                    //     : 'APPROVED',
+                    name_card: fullUserName.replace(/'/g, ''),
                     payer_id: new Date().getTime(),
                     exp_month: dateexpire.split('/')[0],
                     exp_year:
