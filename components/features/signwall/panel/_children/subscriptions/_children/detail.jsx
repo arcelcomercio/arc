@@ -1,27 +1,30 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
-import React, { PureComponent, useState, useEffect } from 'react'
 import Consumer from 'fusion:consumer'
 import { ENVIRONMENT } from 'fusion:environment'
-import * as S from '../styles'
-import { Button, Table, Wrapper } from '../../../styled'
-import { Notice, Cvv, CvvFront, Close } from '../../../../_children/iconos'
-import Domains from '../../../../_dependencies/domains'
+import * as React from 'react'
+
+import addScriptAsync from '../../../../../../utilities/script-async'
+import { PropertiesCommon } from '../../../../../subscriptions/_dependencies/Properties'
+import {
+  ContMask,
+  InputMask,
+} from '../../../../_children/forms/control_input_select'
+import { Form, Text, Title } from '../../../../_children/forms/styles'
+import { Close, Cvv, CvvFront, Notice } from '../../../../_children/iconos'
 import Loading from '../../../../_children/loading'
 import Modal from '../../../../_children/modal'
-import addPayU from '../../../../_dependencies/payu'
-import { PayuError } from '../../../../_dependencies/payu-error'
-import Services from '../../../../_dependencies/services'
-import { Radiobox, RadioboxSimple, Message } from './radiobox'
-import { Form, Title, Text } from '../../../../_children/forms/styles'
-import {
-  InputMask,
-  ContMask,
-} from '../../../../_children/forms/control_input_select'
-import useForm from '../../../../_dependencies/useForm'
-import Taggeo from '../../../../_dependencies/taggeo'
 import getCodeError from '../../../../_dependencies/codes_error'
+import Domains from '../../../../_dependencies/domains'
+// import addPayU from '../../../../_dependencies/payu'
+// import { PayuError } from '../../../../_dependencies/payu-error'
+import Services from '../../../../_dependencies/services'
+import Taggeo from '../../../../_dependencies/taggeo'
+import useForm from '../../../../_dependencies/useForm'
+import { Button, Table, Wrapper } from '../../../styled'
+import * as S from '../styles'
+import { Message, Radiobox, RadioboxSimple } from './radiobox'
 
 const LOGO_VISA =
   'data:image/png;base64,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'
@@ -89,7 +92,7 @@ const Mask = {
   CARD_CVV: [/\d/, /\d/, /\d/, /\d/],
 }
 
-export const SubDetailInt = props => {
+export const SubDetailInt = (props) => {
   const {
     arcSite,
     IdSubscription,
@@ -98,27 +101,29 @@ export const SubDetailInt = props => {
     },
   } = props
 
-  const [showLoading, setShowLoading] = useState(true)
-  const [showLoadingSubmit, setShowLoadingSubmit] = useState(false)
-  const [showResDetail, setShowResDetail] = useState({})
-  const [showResLastSubs, setShowResLastSubs] = useState(null)
-  const [showModalConfirm, setShowModalConfirm] = useState(false)
-  const [showModalRecovery, setShowModalRecovery] = useState(false)
-  const [showMessageSuccess, setShowMessageSuccess] = useState(false)
-  const [showMessageFailed, setShowMessageFailed] = useState(false)
-  const [showUpdateCard, setShowUpdateCard] = useState(false)
-  const [showSelectedOption, setShowSelectedOption] = useState('VISA')
-  const [showTypeAmex, setShowTypeAmex] = useState(false)
-  const [showLastFour, setShowLastFour] = useState('0000')
-  const [showLastCard, setShowLastCard] = useState('VISA')
-  const [showCustomMsgFailed, setShowCustomMsgFailed] = useState(null)
-  const [showOpenUpdate, setShowOpenUpdate] = useState(false)
-  const [showStepCancel, setShowStepCancel] = useState(1)
-  const [showOptionCancel, setShowOptionCancel] = useState(null)
-  const [showErrorCancel, setShowErrorCancel] = useState('')
-  const [showLoadCancel, setShowLoadCancel] = useState('')
-  const [showLoadRescue, setShowLoadRescue] = useState('')
-  const [txtMotivo, setTxtMotivo] = useState('')
+  const { links } = PropertiesCommon
+
+  const [showLoading, setShowLoading] = React.useState(true)
+  const [showLoadingSubmit, setShowLoadingSubmit] = React.useState(false)
+  const [showResDetail, setShowResDetail] = React.useState({})
+  const [showResLastSubs, setShowResLastSubs] = React.useState(null)
+  const [showModalConfirm, setShowModalConfirm] = React.useState(false)
+  const [showModalRecovery, setShowModalRecovery] = React.useState(false)
+  const [showMessageSuccess, setShowMessageSuccess] = React.useState(false)
+  const [showMessageFailed, setShowMessageFailed] = React.useState(false)
+  const [showUpdateCard, setShowUpdateCard] = React.useState(false)
+  const [showSelectedOption, setShowSelectedOption] = React.useState('VISA')
+  const [showTypeAmex, setShowTypeAmex] = React.useState(false)
+  const [showLastFour, setShowLastFour] = React.useState('0000')
+  const [showLastCard, setShowLastCard] = React.useState('VISA')
+  const [showCustomMsgFailed, setShowCustomMsgFailed] = React.useState(null)
+  const [showOpenUpdate, setShowOpenUpdate] = React.useState(false)
+  const [showStepCancel, setShowStepCancel] = React.useState(1)
+  const [showOptionCancel, setShowOptionCancel] = React.useState(null)
+  const [showErrorCancel, setShowErrorCancel] = React.useState('')
+  const [showLoadCancel, setShowLoadCancel] = React.useState('')
+  const [showLoadRescue, setShowLoadRescue] = React.useState('')
+  const [txtMotivo, setTxtMotivo] = React.useState('')
 
   const validateMotivo = () => {
     let respuesta = ''
@@ -146,7 +151,7 @@ export const SubDetailInt = props => {
     numcard: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           cardPatterns[showSelectedOption].test(value.replace(/\s/g, '')),
         error: 'Formato inválido.',
       },
@@ -154,7 +159,7 @@ export const SubDetailInt = props => {
     dateexpire: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           /^(0[1-9]|1[0-2])\/?(((202)\d{1}|(202)\d{1})|(2)\d{1})$/.test(value),
         error: 'Formato inválido.',
       },
@@ -162,17 +167,17 @@ export const SubDetailInt = props => {
     codecvv: {
       required: true,
       validator: {
-        func: value => /^(\d{3,4})/.test(value),
+        func: (value) => /^(\d{3,4})/.test(value),
         error: 'Mínimo 3 caracteres',
       },
     },
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
     window.Identity.extendSession().then(() => {
       window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-      window.Sales.getSubscriptionDetails(IdSubscription).then(resDetail => {
+      window.Sales.getSubscriptionDetails(IdSubscription).then((resDetail) => {
         setShowResDetail(resDetail)
         setShowLoading(false)
         setShowLastCard(
@@ -191,9 +196,22 @@ export const SubDetailInt = props => {
         )
       })
     })
+
+    addScriptAsync({
+      name: 'PayuSDK',
+      url: links.payu,
+      includeNoScript: false,
+    }).then(() => {
+      window.payU.setURL(links.payuPayments)
+      window.payU.setPublicKey(links.payuPublicKey)
+      window.payU.setAccountID(links.payuAccountID)
+      window.payU.setListBoxID('mylistID')
+      window.payU.setLanguage('es')
+      window.payU.getPaymentMethods()
+    })
   }, [IdSubscription, arcSite])
 
-  const openModalConfirm = type => {
+  const openModalConfirm = (type) => {
     if (type === 'anulacion') {
       setShowModalConfirm(true)
       Taggeo(`Web_Sign_Wall_General`, `web_swg_open_anulacion_step1`)
@@ -213,7 +231,7 @@ export const SubDetailInt = props => {
     }, 500)
   }
 
-  const onSubmitForm = state => {
+  const onSubmitForm = (state) => {
     const { numcard, dateexpire, codecvv } = state
     const subsID = showResDetail.currentPaymentMethod.paymentMethodID
 
@@ -226,7 +244,7 @@ export const SubDetailInt = props => {
       window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
       window.Identity.extendSession().then(() => {
         window.Sales.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-        window.Sales.getPaymentOptions().then(res => {
+        window.Sales.getPaymentOptions().then((res) => {
           const providerID = res[0].paymentMethodID
           const accessTOKEN = window.Identity.userIdentity.accessToken
           Services.initPaymentUpdate(
@@ -234,7 +252,7 @@ export const SubDetailInt = props => {
             providerID,
             arcSite,
             accessTOKEN
-          ).then(resUpdate => {
+          ).then((resUpdate) => {
             const {
               parameter1: publicKey,
               parameter2: accountId,
@@ -243,94 +261,97 @@ export const SubDetailInt = props => {
             } = resUpdate
 
             Services.getProfilePayu(accessTOKEN, IdSubscription, arcSite).then(
-              profilePayu => {
-                return addPayU(arcSite, deviceSessionId)
-                  .then(payU => {
-                    payU.setURL(payuBaseUrl)
-                    payU.setPublicKey(publicKey)
-                    payU.setAccountID(accountId)
-                    payU.setListBoxID('mylistID')
-                    payU.getPaymentMethods()
-                    payU.setLanguage('es')
-                    payU.setCardDetails({
-                      number: numcard.replace(/\s/g, ''),
-                      name_card:
-                        ENVIRONMENT === 'elcomercio'
-                          ? `${profilePayu.name ||
-                              'Usuario'} ${profilePayu.lastname || 'Usuario'}`
-                          : 'APPROVED',
-                      payer_id: new Date().getTime(),
-                      exp_month: dateexpire.split('/')[0],
-                      exp_year:
-                        dateexpire.split('/')[1].length <= 2
-                          ? `20${dateexpire.split('/')[1]}`
-                          : dateexpire.split('/')[1],
-                      method: showSelectedOption,
-                      document: profilePayu.doc_number,
-                      cvv: codecvv,
-                    })
-                    return new Promise((resolve, reject) => {
-                      payU.createToken(response => {
-                        if (response.error) {
-                          reject(new PayuError(response.error))
-                          setShowMessageFailed(true)
-                          setShowCustomMsgFailed(
-                            response.error ||
-                              'Ha ocurrido un error al actualizar'
-                          )
-                          setShowLoadingSubmit(false)
-                          setShowOpenUpdate(false)
-                          setTimeout(() => {
-                            setShowMessageFailed(false)
-                          }, 5000)
-                        } else {
-                          resolve(response.token)
-                        }
-                      })
-                    })
+              (profilePayu) => {
+                const fullUserName = `${
+                  profilePayu.name ||
+                  window.Identity.userProfile.firstName ||
+                  'Usuario'
+                } ${
+                  profilePayu.lastname ||
+                  window.Identity.userProfile.firstName ||
+                  ''
+                }`
+
+                window.payU.setURL(payuBaseUrl)
+                window.payU.setPublicKey(publicKey)
+                window.payU.setAccountID(accountId)
+                window.payU.setCardDetails({
+                  number: numcard.replace(/\s/g, ''),
+                  name_card:
+                    ENVIRONMENT === 'elcomercio'
+                      ? fullUserName.replace(/'/g, '')
+                      : 'APPROVED',
+                  // name_card: fullUserName.replace(/'/g, ''),
+                  payer_id: new Date().getTime(),
+                  exp_month: dateexpire.split('/')[0],
+                  exp_year:
+                    dateexpire.split('/')[1].length <= 2
+                      ? `20${dateexpire.split('/')[1]}`
+                      : dateexpire.split('/')[1],
+                  method: showSelectedOption,
+                  document: profilePayu.doc_number,
+                  cvv: codecvv,
+                })
+
+                const handleCreateToken = new Promise((resolve, reject) => {
+                  window.payU.createToken((response) => {
+                    if (response.error) {
+                      reject(new Error(response.error))
+                      setShowMessageFailed(true)
+                      setShowCustomMsgFailed(
+                        response.error ||
+                          'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
+                      )
+                      setShowLoadingSubmit(false)
+                      setShowOpenUpdate(false)
+                      setTimeout(() => {
+                        setShowMessageFailed(false)
+                      }, 5000)
+                    } else {
+                      resolve(response.token)
+                    }
                   })
-                  .then(token => {
-                    Services.finalizePaymentUpdate(
-                      subsID,
-                      providerID,
-                      arcSite,
-                      accessTOKEN,
-                      `${token}~${deviceSessionId}~${codecvv}`,
-                      profilePayu.email,
-                      `${profilePayu.doc_type}_${profilePayu.doc_number}`,
-                      profilePayu.phone
-                    )
-                      .then(resFin => {
-                        if (
-                          resFin.cardholderName &&
-                          resFin.creditCardLastFour
-                        ) {
-                          setShowLastFour(resFin.creditCardLastFour)
-                          setShowMessageSuccess(true)
-                          setShowUpdateCard(false)
-                          setShowLastCard(showSelectedOption)
-                        } else {
-                          setShowMessageFailed(true)
-                          setShowCustomMsgFailed(
-                            'Ha ocurrido un error al actualizar. Inténtalo nuevamente.'
-                          )
-                        }
-                      })
-                      .catch(() => {
+                })
+
+                handleCreateToken.then((token) => {
+                  Services.finalizePaymentUpdate(
+                    subsID,
+                    providerID,
+                    arcSite,
+                    accessTOKEN,
+                    `${token}~${deviceSessionId}~${codecvv}`,
+                    profilePayu.email,
+                    `${profilePayu.doc_type}_${profilePayu.doc_number}`,
+                    profilePayu.phone
+                  )
+                    .then((resFin) => {
+                      if (resFin.cardholderName && resFin.creditCardLastFour) {
+                        setShowLastFour(resFin.creditCardLastFour)
+                        setShowMessageSuccess(true)
+                        setShowUpdateCard(false)
+                        setShowLastCard(showSelectedOption)
+                      } else {
                         setShowMessageFailed(true)
                         setShowCustomMsgFailed(
-                          'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
+                          'Ha ocurrido un error al actualizar. Revise sus datos de tarjeta e inténtelo nuevamente.'
                         )
-                      })
-                      .finally(() => {
-                        setShowLoadingSubmit(false)
-                        setShowOpenUpdate(false)
-                        setTimeout(() => {
-                          setShowMessageFailed(false)
-                          setShowMessageSuccess(false)
-                        }, 5000)
-                      })
-                  })
+                      }
+                    })
+                    .catch(() => {
+                      setShowMessageFailed(true)
+                      setShowCustomMsgFailed(
+                        'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
+                      )
+                    })
+                    .finally(() => {
+                      setShowLoadingSubmit(false)
+                      setShowOpenUpdate(false)
+                      setTimeout(() => {
+                        setShowMessageFailed(false)
+                        setShowMessageSuccess(false)
+                      }, 5000)
+                    })
+                })
               }
             )
           })
@@ -339,7 +360,7 @@ export const SubDetailInt = props => {
     }
   }
 
-  const closeModalConfirm = type => {
+  const closeModalConfirm = (type) => {
     if (type === 'anulacion') {
       setShowModalConfirm(!showModalConfirm)
       setShowStepCancel(1)
@@ -362,7 +383,7 @@ export const SubDetailInt = props => {
     }
   }
 
-  const recoverySubscription = idSubsRecovery => {
+  const recoverySubscription = (idSubsRecovery) => {
     if (typeof window !== 'undefined') {
       setShowLoadRescue('Recuperando...')
       window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
@@ -395,7 +416,7 @@ export const SubDetailInt = props => {
             Taggeo(`Web_Sign_Wall_General`, `web_swg_success_anulacion`)
             window.document.getElementById('btn-subs').click()
           })
-          .catch(resError => {
+          .catch((resError) => {
             setShowErrorCancel(getCodeError(resError.code))
             Taggeo(`Web_Sign_Wall_General`, `web_swg_error_anulacion`)
           })
@@ -406,7 +427,7 @@ export const SubDetailInt = props => {
     }
   }
 
-  const dateFormat = date => {
+  const dateFormat = (date) => {
     const day = new Date(date).getDate()
     const month = new Date(date).getMonth() + 1
     const year = new Date(date).getFullYear()
@@ -415,15 +436,14 @@ export const SubDetailInt = props => {
     return `${formatDay}/${formatMonth}/${year}`.toString()
   }
 
-  const docFormat = doc => {
-    return doc ? doc.replace('_', ': ') : 'Sin Documento'
-  }
+  const docFormat = (doc) => (doc ? doc.replace('_', ': ') : 'Sin Documento')
 
   const nameFormat = () => {
     if (typeof window !== 'undefined') {
       return window.Identity.userProfile
-        ? `${window.Identity.userProfile.firstName || 'Usuario'} ${window
-            .Identity.userProfile.lastName || ''}`
+        ? `${window.Identity.userProfile.firstName || 'Usuario'} ${
+            window.Identity.userProfile.lastName || ''
+          }`
         : 'Usuario'
     }
     return false
@@ -455,7 +475,7 @@ export const SubDetailInt = props => {
     values.codecvv = ''
   }
 
-  const changeCardTrigger = card => {
+  const changeCardTrigger = (card) => {
     if (typeof window !== 'undefined') {
       const buttonUpdate = window.document.getElementById('btn-update-card')
       if (numcard.length >= 16 && buttonUpdate) {
@@ -479,6 +499,7 @@ export const SubDetailInt = props => {
         <S.WrapperBlock>
           <S.Subsdetail nopadding nocolumn>
             <div className="details-left">
+              <div id="mylistID" style={{ display: 'none' }} />
               <small>DETALLE DE LA SUSCRIPCIÓN</small>
               <h2>{showResDetail.productName}</h2>
               <p>
@@ -599,7 +620,7 @@ export const SubDetailInt = props => {
               <S.Group pt="10" ac>
                 <div className="subtitle">Selecciona un tipo de tarjeta</div>
                 <div>
-                  {ListCards.map(item => (
+                  {ListCards.map((item) => (
                     <label key={item.name}>
                       <Radiobox
                         key={item.name}
@@ -618,7 +639,7 @@ export const SubDetailInt = props => {
                 </div>
               </S.Group>
 
-              <S.Block pt="30"></S.Block>
+              <S.Block pt="30" />
 
               <Form npadding onSubmit={handleOnSubmit}>
                 <S.FormGroup width="30">
@@ -636,11 +657,11 @@ export const SubDetailInt = props => {
                       maxLength="19"
                       tabIndex="1"
                       className={`${errors.numcard && 'error'}`}
-                      onChange={e => {
+                      onChange={(e) => {
                         handleOnChange(e)
                         setShowMessageFailed(false)
                       }}
-                      onFocus={e => {
+                      onFocus={(e) => {
                         handleOnChange(e)
                         setShowMessageFailed(false)
                       }}
@@ -663,11 +684,11 @@ export const SubDetailInt = props => {
                       maxLength="7"
                       tabIndex="2"
                       className={`${errors.dateexpire && 'error'}`}
-                      onChange={e => {
+                      onChange={(e) => {
                         handleOnChange(e)
                         setShowMessageFailed(false)
                       }}
-                      onFocus={e => {
+                      onFocus={(e) => {
                         handleOnChange(e)
                         setShowMessageFailed(false)
                       }}
@@ -690,11 +711,11 @@ export const SubDetailInt = props => {
                       maxLength="4"
                       tabIndex="3"
                       className={`${errors.codecvv && 'error'}`}
-                      onChange={e => {
+                      onChange={(e) => {
                         handleOnChange(e)
                         setShowMessageFailed(false)
                       }}
-                      onFocus={e => {
+                      onFocus={(e) => {
                         handleOnChange(e)
                         setShowMessageFailed(false)
                       }}
@@ -770,25 +791,23 @@ export const SubDetailInt = props => {
                   </tr>
                 </thead>
                 <tbody>
-                  {showResDetail.paymentHistory.map(reSubs => {
-                    return (
-                      <tr key={reSubs.transactionDate}>
-                        <td>
-                          <strong>{nameFormat()}</strong>
-                          <p>{docFormat(showResDetail.billingAddress.line2)}</p>
-                        </td>
-                        <td className="center">
-                          {showResDetail.productName || 'Ninguno'}
-                        </td>
-                        <td className="center">
-                          {periodFormat(reSubs.periodTo, reSubs.periodFrom)}
-                        </td>
-                        <td className="center">
-                          {dateFormat(reSubs.transactionDate)}
-                        </td>
-                      </tr>
-                    )
-                  })}
+                  {showResDetail.paymentHistory.map((reSubs) => (
+                    <tr key={reSubs.transactionDate}>
+                      <td>
+                        <strong>{nameFormat()}</strong>
+                        <p>{docFormat(showResDetail.billingAddress.line2)}</p>
+                      </td>
+                      <td className="center">
+                        {showResDetail.productName || 'Ninguno'}
+                      </td>
+                      <td className="center">
+                        {periodFormat(reSubs.periodTo, reSubs.periodFrom)}
+                      </td>
+                      <td className="center">
+                        {dateFormat(reSubs.transactionDate)}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
             </div>
@@ -1051,7 +1070,7 @@ export const SubDetailInt = props => {
                   </Title>
 
                   {arcSite === 'elcomercio'
-                    ? listOptionsComercio.map(item => (
+                    ? listOptionsComercio.map((item) => (
                         <label key={item}>
                           <RadioboxSimple
                             key={item}
@@ -1064,7 +1083,7 @@ export const SubDetailInt = props => {
                           />
                         </label>
                       ))
-                    : listOptionsGestion.map(item => (
+                    : listOptionsGestion.map((item) => (
                         <label key={item}>
                           <RadioboxSimple
                             key={item}
@@ -1087,13 +1106,14 @@ export const SubDetailInt = props => {
                         <textarea
                           id="motivo-detalle"
                           required={showOptionCancel === 'Otro motivo'}
-                          onChange={e => {
+                          onChange={(e) => {
                             setTxtMotivo(e.target.value)
                             validateMotivo()
                           }}
                           value={txtMotivo}
                           placeholder="Ingresa motivo"
-                          maxLength="200"></textarea>
+                          maxLength="200"
+                        />
                       </S.FormGroup>
                     </S.Block>
                   )}
@@ -1202,7 +1222,7 @@ export const SubDetailInt = props => {
 }
 
 @Consumer
-class SubDetail extends PureComponent {
+class SubDetail extends React.PureComponent {
   render() {
     return <SubDetailInt {...this.props} />
   }
