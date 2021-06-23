@@ -73,6 +73,7 @@ const VideoSectionAmp = () => {
     movil1: false,
     arcSite,
     size: '320x50',
+    fluid:false
   }
 
   const parametersCaja2 = {
@@ -82,6 +83,7 @@ const VideoSectionAmp = () => {
     height,
     movil1: false,
     arcSite,
+    fluid:true
   }
 
   const parametersCaja3 = {
@@ -92,6 +94,7 @@ const VideoSectionAmp = () => {
     height,
     movil1: false,
     arcSite,
+    fluid:false
   }
   const parametersCaja4 = {
     // movil5 caja5 caja4
@@ -101,6 +104,7 @@ const VideoSectionAmp = () => {
     height,
     movil1: false,
     arcSite,
+    fluid:false
   }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
