@@ -63,11 +63,11 @@ const GetStory: React.FC<{
               formatOrigen,
               contentOrigen,
               genderOrigen,
-              sectionLink,
+              primarySectionLink,
               tags,
             } = new StoryData({ data: story, arcSite, contextPath })
             const type = getMultimediaAnalitycs(multimediaType, subtype, true)
-            const sectionList = sectionLink.split('/').slice(1) || []
+            const sectionList = primarySectionLink.split('/').slice(1) || []
             const premium = getPremiumValue === 'premium' && true
 
             window.dataLayer = window.dataLayer || []
