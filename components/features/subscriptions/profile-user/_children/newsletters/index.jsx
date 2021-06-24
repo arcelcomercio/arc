@@ -11,7 +11,6 @@ import {
   getNewsLettersUser,
   sendNewsLettersUser,
 } from '../../../../signwall/_dependencies/services'
-import { Wrapper } from '../../styled'
 import Checkbox from './_children/checkbox'
 
 @Consumer
@@ -136,11 +135,10 @@ class NewsLetter extends Component {
 
   render() {
     const { newsletters, loading, checksNews, showsuccess } = this.state
-
     const { arcSite } = this.props
 
     return (
-      <Wrapper>
+      <div className="sign-profile_general-wrapper">
         {!loading ? (
           <>
             <h4>
@@ -172,7 +170,7 @@ class NewsLetter extends Component {
         ) : (
           <Loading arcSite={arcSite} typeBg="wait" />
         )}
-      </Wrapper>
+      </div>
     )
   }
 }
