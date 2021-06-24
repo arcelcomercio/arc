@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import { ModalConsumer } from '../../../_context/modal'
-import { Wrapper } from '../../styled'
 import UpdatePass from './_children/update-pass'
 import UpdateProfile from './_children/update-profile'
 
@@ -12,13 +11,13 @@ const MiPerfil = () => {
   const disabledSocial = identitie.type !== 'Password'
 
   return (
-    <Wrapper>
+    <div className="sign-profile_general-wrapper">
       <UpdateProfile />
       <div className="space-40" />
       <div hidden={disabledSocial}>
         <UpdatePass />
       </div>
-    </Wrapper>
+    </div>
   )
 }
 

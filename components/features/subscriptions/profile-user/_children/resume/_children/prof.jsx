@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 import GetProfile from '../../../../../signwall/_dependencies/get-profile'
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
-import { WrapperBlock } from '../styles'
 
 class Prof extends Component {
   _isMounted = false
@@ -123,7 +122,7 @@ class Prof extends Component {
     const { prof } = this.props
 
     return (
-      <WrapperBlock column="2">
+      <div className="sign-profile_resume">
         <div className="left">
           <h3>Mis Datos</h3>
           <button className="link" type="button" onClick={() => prof()}>
@@ -131,7 +130,7 @@ class Prof extends Component {
           </button>
         </div>
 
-        <div className="right column">
+        <div className="right column sign-profile_resume-coltwo">
           <p>
             <strong>Nombre: </strong>{' '}
             {!firstName && !lastName && !secondLastName ? '-' : null}
@@ -200,7 +199,7 @@ class Prof extends Component {
             <strong>Celular: </strong> {phone || '-'}
           </p>
         </div>
-      </WrapperBlock>
+      </div>
     )
   }
 }

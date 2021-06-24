@@ -14,7 +14,6 @@ import {
   mediumRegularExp,
   strongRegularExp,
 } from '../../../../_dependencies/Regex'
-import { FormGrid, FormGroup, Message } from './styled'
 
 @Consumer
 class UpdatePassword extends Component {
@@ -204,7 +203,8 @@ class UpdatePassword extends Component {
     } = this.props
     return (
       <>
-        <FormGrid
+        <form
+          className="sign-profile_update-form-grid"
           onSubmit={(e) => this.handleChangePassword(e)}
           autoComplete="off">
           <div className="row">
@@ -212,14 +212,18 @@ class UpdatePassword extends Component {
           </div>
 
           {showMsgSuccess && (
-            <Message success>
+            <div className="sign-profile_update-message sign-profile_update-message-success">
               Tu contraseña ha sido actualizada correctamente.
-            </Message>
+            </div>
           )}
-          {showMsgError && <Message failed>{MessageErrorPass}</Message>}
+          {showMsgError && (
+            <div className="sign-profile_update-message sign-profile_update-message-failed">
+              {MessageErrorPass}
+            </div>
+          )}
 
           <div className="row three">
-            <FormGroup>
+            <div className="sign-profile_update-form-group">
               <div hidden>
                 <input type="password" />
               </div>
@@ -252,8 +256,8 @@ class UpdatePassword extends Component {
                   style={{ width: checkpwdStrength }}
                 />
               </div>
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <input
                 type="password"
                 name="repeatPassword"
@@ -275,14 +279,14 @@ class UpdatePassword extends Component {
               {formErrors.repeatPassword.length > 0 && (
                 <span className="error">{formErrors.repeatPassword}</span>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <Button type="submit" color={mainColorBtn}>
                 GUARDAR CAMBIOS
               </Button>
-            </FormGroup>
+            </div>
           </div>
-        </FormGrid>
+        </form>
 
         {showModalConfirm && (
           <Modal size="mini" position="middle" bgColor="white">
@@ -294,12 +298,19 @@ class UpdatePassword extends Component {
               </button>
             </div>
 
-            <FormGrid onSubmit={(e) => this.submitConfirmPassword(e)}>
+            <form
+              className="sign-profile_update-form-grid"
+              onSubmit={(e) => this.submitConfirmPassword(e)}>
               <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
                 Para confirmar el cambio, por favor ingresa tu contraseña actual
               </Text>
 
-              <FormGroup full>
+              <div
+                className="sign-profile_update-form-group"
+                style={{
+                  width: '100%',
+                  margin: '10px 0px',
+                }}>
                 <input
                   type="password"
                   name="oldPassword"
@@ -323,12 +334,12 @@ class UpdatePassword extends Component {
                 {formErrorsConfirm.oldPassword.length > 0 && (
                   <span className="error">{formErrorsConfirm.oldPassword}</span>
                 )}
-              </FormGroup>
+              </div>
 
               <Button type="submit" disabled={!sending} color={mainColorBtn}>
                 {!sending ? 'CONFIRMANDO...' : 'CONFIRMAR'}
               </Button>
-            </FormGrid>
+            </form>
           </Modal>
         )}
       </>

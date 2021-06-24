@@ -43,7 +43,7 @@ export const LandingInt = ({ properties }) => {
   const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
 
   return (
-    <Modal size="medium" position="middle">
+    <Modal size="medium-large" position="middle">
       <ContMiddle>
         {!noBtnClose && (
           <CloseBtn

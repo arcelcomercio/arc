@@ -21,7 +21,6 @@ import {
   numberRegex,
   phoneRegex,
 } from '../../../../_dependencies/Regex'
-import { FormGrid, FormGroup, Message } from './styled'
 
 const SET_ATTRIBUTES_PROFILE = [
   'documentType',
@@ -638,7 +637,8 @@ class UpdateProfile extends React.Component {
 
     return (
       <>
-        <FormGrid
+        <form
+          className="sign-profile_update-form-grid"
           onSubmit={(e) => {
             e.preventDefault()
             this.handleUpdateProfile()
@@ -648,13 +648,13 @@ class UpdateProfile extends React.Component {
           </div>
 
           {showMsgSuccess && (
-            <Message success>
+            <div className="sign-profile_update-message sign-profile_update-message-success">
               Tus datos de perfil han sido actualizados correctamente.
-            </Message>
+            </div>
           )}
 
           {showMsgError && (
-            <Message failed>
+            <div className="sign-profile_update-message sign-profile_update-message-failed">
               {messageErrorDelete ? (
                 <>
                   {messageErrorDelete}
@@ -670,11 +670,11 @@ class UpdateProfile extends React.Component {
               ) : (
                 messageErrorPass
               )}
-            </Message>
+            </div>
           )}
 
           <div className="row three">
-            <FormGroup>
+            <div className="sign-profile_update-form-group">
               <input
                 type="text"
                 autoComplete="given-name"
@@ -701,8 +701,8 @@ class UpdateProfile extends React.Component {
               {formErrors.firstName.length > 0 && (
                 <span className="error">{formErrors.firstName}</span>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <input
                 type="text"
                 autoComplete="family-name"
@@ -729,8 +729,8 @@ class UpdateProfile extends React.Component {
               {formErrors.lastName.length > 0 && (
                 <span className="error">{formErrors.lastName}</span>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <input
                 type="text"
                 name="secondLastName"
@@ -756,11 +756,11 @@ class UpdateProfile extends React.Component {
               {formErrors.secondLastName.length > 0 && (
                 <span className="error">{formErrors.secondLastName}</span>
               )}
-            </FormGroup>
+            </div>
           </div>
 
           <div className="row three">
-            <FormGroup>
+            <div className="sign-profile_update-form-group">
               <div className="combo">
                 <select
                   name="documentType"
@@ -819,8 +819,8 @@ class UpdateProfile extends React.Component {
               {formErrors.typeDocument.length > 0 && (
                 <span className="error">{formErrors.typeDocument}</span>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <select
                 name="civilStatus"
                 className="input input-minimal"
@@ -842,8 +842,8 @@ class UpdateProfile extends React.Component {
               <label htmlFor="statusCivil" className="label">
                 Estado Civil
               </label>
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <input
                 type="text"
                 inputMode="tel"
@@ -869,11 +869,11 @@ class UpdateProfile extends React.Component {
               {formErrors.mobilePhone.length > 0 && (
                 <span className="error">{formErrors.mobilePhone}</span>
               )}
-            </FormGroup>
+            </div>
           </div>
 
           <div className="row three">
-            <FormGroup>
+            <div className="sign-profile_update-form-group">
               <select
                 name="country"
                 className="input input-minimal"
@@ -893,8 +893,8 @@ class UpdateProfile extends React.Component {
               <label htmlFor="País" className="label">
                 País
               </label>
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <select
                 name="department"
                 className="input input-minimal"
@@ -919,8 +919,8 @@ class UpdateProfile extends React.Component {
               <label htmlFor="Departamento" className="label">
                 Departamento
               </label>
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <select
                 name="province"
                 className="input input-minimal"
@@ -944,11 +944,11 @@ class UpdateProfile extends React.Component {
               <label htmlFor="Provincia" className="label">
                 Provincia
               </label>
-            </FormGroup>
+            </div>
           </div>
 
           <div className="row three">
-            <FormGroup>
+            <div className="sign-profile_update-form-group">
               <select
                 name="district"
                 className="input input-minimal"
@@ -971,8 +971,8 @@ class UpdateProfile extends React.Component {
               <label htmlFor="Distrito" className="label">
                 Distrito
               </label>
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <input
                 type="text"
                 inputMode="email"
@@ -998,8 +998,8 @@ class UpdateProfile extends React.Component {
               {formErrors.userEmail.length > 0 && (
                 <span className="error">{formErrors.userEmail}</span>
               )}
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <Button
                 type="submit"
                 color={mainColorBtn}
@@ -1007,9 +1007,9 @@ class UpdateProfile extends React.Component {
                 tabIndex="13">
                 {textSubmit}
               </Button>
-            </FormGroup>
+            </div>
           </div>
-        </FormGrid>
+        </form>
 
         {showModalConfirm && (
           <Modal size="mini" position="middle" bgColor="white">
@@ -1021,12 +1021,19 @@ class UpdateProfile extends React.Component {
               </button>
             </div>
 
-            <FormGrid onSubmit={(e) => this.submitConfirmPassword(e)}>
+            <form
+              className="sign-profile_update-form-grid"
+              onSubmit={(e) => this.submitConfirmPassword(e)}>
               <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
                 Para realizar los cambios, por favor ingresa tu contraseña
               </Text>
 
-              <FormGroup full>
+              <div
+                className="sign-profile_update-form-group"
+                style={{
+                  width: '100%',
+                  margin: '10px 0px',
+                }}>
                 <input
                   type="password"
                   name="currentPassword"
@@ -1052,12 +1059,12 @@ class UpdateProfile extends React.Component {
                     {formErrorsConfirm.currentPassword}
                   </span>
                 )}
-              </FormGroup>
+              </div>
 
               <Button type="submit" disabled={sending} color={mainColorBtn}>
                 {sendingConfirmText}
               </Button>
-            </FormGrid>
+            </form>
           </Modal>
         )}
       </>

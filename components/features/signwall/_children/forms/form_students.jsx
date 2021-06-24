@@ -361,7 +361,7 @@ const FormRequest = ({ arcSite, showCode }) => {
             setShowError(false)
           }}
           error={errors.uday}
-          nolabel>
+          nolabel="true">
           <option disabled value="">
             DÍA
           </option>
@@ -384,7 +384,7 @@ const FormRequest = ({ arcSite, showCode }) => {
             setShowError(false)
           }}
           error={errors.umonth}
-          nolabel>
+          nolabel="true">
           <option disabled value="">
             MES
           </option>
@@ -407,7 +407,7 @@ const FormRequest = ({ arcSite, showCode }) => {
           }}
           required
           error={errors.uyear}
-          nolabel>
+          nolabel="true">
           <option disabled value="">
             AÑO
           </option>
