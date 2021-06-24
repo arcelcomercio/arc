@@ -160,7 +160,7 @@ const rederStory: React.FC<{
       deployment,
       contextPath,
       arcSite,
-      viewImage: true,
+      viewImage: arcSite !== 'depor',
       storiesQty: 3,
       customTitle: '',
       customLink: '',
