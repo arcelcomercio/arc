@@ -42,7 +42,7 @@ export const publicidadAmp = ({
   const widthtAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || ` width="${width}"`
   const fluidAmp = (fluid && SITE_DIARIOCORREO === arcSite && `layout="fluid"`) || ``
 
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views ${fluid}"`
+  const adsLoadAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || `data-loading-strategy="prefer-viewability-over-views"`
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
   <amp-ad${widthtAmp} ${fluidAmp} ${heightAmp} ${adsLoadAmp} type="doubleclick"
@@ -72,7 +72,7 @@ export const publicidadAmpAd = ({
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
 
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  const adsLoadAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || `data-loading-strategy="prefer-viewability-over-views"`
   const heightAmp = (fluid && SITE_DIARIOCORREO === arcSite && `height="fluid"`) || `height="${height}"`
   const widthtAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || ` width="${width}"`
   const fluidAmp = (fluid && SITE_DIARIOCORREO === arcSite && `layout="fluid"`) || ``
