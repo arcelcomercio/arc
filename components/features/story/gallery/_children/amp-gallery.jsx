@@ -35,7 +35,8 @@ const StoryHeaderChildAmpGallery = props => {
 
   const publicidadAmpAd = (
     caja,
-    size = '300x250,320x100,320x50,300x100,300x50'
+    size = '300x250,320x100,320x50,300x100,300x50',
+    fluid
   ) => {
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/${caja}`
@@ -49,6 +50,7 @@ const StoryHeaderChildAmpGallery = props => {
       arcSite,
       movil1: true,
       size,
+      fluid
     }
   }
   return (
@@ -104,7 +106,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja2', '320x100,320x50')
+                      publicidadAmpAd('caja2', '320x100,320x50', true)
                     )}
                   />
                 )}
@@ -112,7 +114,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja3', '320x100,320x50,300x1')
+                      publicidadAmpAd('caja3', '320x100,320x50,300x1', false)
                     )}
                   />
                 )}
@@ -120,7 +122,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja4', '320x100,320x50')
+                      publicidadAmpAd('caja4', '320x100,320x50', false)
                     )}
                   />
                 )}
@@ -128,7 +130,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja5', '320x100,320x50')
+                      publicidadAmpAd('caja5', '320x100,320x50', false)
                     )}
                   />
                 )}

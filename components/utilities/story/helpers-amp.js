@@ -24,6 +24,7 @@ export const publicidadAmp = ({
   arcSite = '',
   prebidSlot = '',
   size = '320x100',
+  fluid = false
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -33,11 +34,16 @@ export const publicidadAmp = ({
     ''
   const prebidAmp = ( SITE_PERU21 === arcSite && 
     prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+
+  const heightAmp = (fluid && SITE_DIARIOCORREO === arcSite && `height="fluid"`) || `height="${height}"`
+  const widthtAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || ` width="${width}"`
+  const fluidAmp = (fluid && SITE_DIARIOCORREO === arcSite && `layout="fluid"`) || ``  
+
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
-  <amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+  <amp-ad${widthtAmp} ${fluidAmp} ${heightAmp} ${adsLoadAmp} type="doubleclick"
   data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
@@ -51,6 +57,7 @@ export const publicidadAmpAd = ({
   arcSite = '',
   prebidSlot = '',
   size = '320x100,320x50,300x1',
+  fluid = false
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -63,8 +70,12 @@ export const publicidadAmpAd = ({
 
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
+  const heightAmp = (fluid && SITE_DIARIOCORREO === arcSite && `height="fluid"`) || `height="${height}"`
+  const widthtAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || ` width="${width}"`
+  const fluidAmp = (fluid && SITE_DIARIOCORREO === arcSite && `layout="fluid"`) || ``
+
   if (secctionPrimary[1] !== 'respuestas') {
-    resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+    resultData = `<amp-ad${widthtAmp} ${fluidAmp} ${heightAmp} ${adsLoadAmp} type="doubleclick"
   data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
