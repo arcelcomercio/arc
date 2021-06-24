@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
@@ -34,12 +35,15 @@ const styles = {
   step: 'step__left-progres',
   card: 'step__left-cards',
   subtitle: 'step__left-subtitle',
+  tabpay: 'step__left-tab-pay',
   block: 'step__left-block',
   btn: 'step__left-btn-next',
   secure: 'step__left-text-security',
   notes: 'step__notes-footer text-center',
   cvvAmex: 'img-info-cvvamex',
   cvvAll: 'img-info-cvv',
+  tabCard1: 'step__left-tab-cards tab1',
+  tabCard2: 'step__left-tab-efectivo tab2',
 }
 
 const Pay = () => {
@@ -55,6 +59,8 @@ const Pay = () => {
     updateStep,
     updatePurchase,
     updateLoadPage,
+    updateMethodPay,
+    updatePeOption,
   } = React.useContext(AuthContext)
   const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
@@ -187,6 +193,8 @@ const Pay = () => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    updateLoadPage(false)
   }, [])
 
   const stateSchema = {
@@ -431,7 +439,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${
+                          action: `${userPeriod}  | Tarjeta - ${
+                            methodCard || window.payU.card.method
+                          } - ${
                             response.error || getCodeError('errorFinalize')
                           }`,
                           label: uuid,
@@ -508,7 +518,9 @@ const Pay = () => {
                             hasPrint: printedSubscriber,
                             plan: name,
                           }),
-                          action: userPeriod,
+                          action: `${userPeriod} | Tarjeta - ${
+                            methodCard || window.payU.card.method
+                          }`,
                           label: uuid,
                         },
                         window.location.pathname
@@ -550,7 +562,9 @@ const Pay = () => {
                             plan: name,
                             cancel: true,
                           }),
-                          action: `${userPeriod} - ${
+                          action: `${userPeriod}  | Tarjeta - ${
+                            methodCard || window.payU.card.method
+                          } - ${
                             errFinalize.message || getCodeError('errorFinalize')
                           }`,
                           label: uuid,
@@ -615,7 +629,7 @@ const Pay = () => {
 
   const openNewTab = (typeLink) => {
     if (typeof window !== 'undefined') {
-      window.open(urls[typeLink], '_blank')
+      window.open(urls[typeLink] ? urls[typeLink] : typeLink, '_blank')
     }
   }
 
@@ -625,6 +639,34 @@ const Pay = () => {
         window.payU.validateNumber(cNumber.replace(/\s/g, ''))
         setMethodCard(window.payU.card.method)
       }
+    }
+  }
+
+  const handlePayEfective = (e) => {
+    if (typeof window !== 'undefined') {
+      const nameButon = e.target.name.split('-').join(' ')
+      setLoading(true)
+      setTxtLoading('Generando CIP...')
+      updatePeOption(nameButon)
+
+      // Datalayer solicitados por Joao
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: eventCategory({
+            step: 2,
+            event,
+            plan: name,
+          }),
+          action: `${userPeriod} | PE - ${nameButon}`,
+          label: uuid,
+        },
+        window.location.pathname
+      )
+
+      setTimeout(() => {
+        updateStep(5)
+      }, 1000)
     }
   }
 
@@ -638,167 +680,285 @@ const Pay = () => {
 
       <h3 className={styles.subtitle}>{texts.titlePay}</h3>
 
-      <div className={styles.card}>
-        <p>Aceptamos:</p>
-        <i className="icon-visa" />
-        <i className="icon-mc" />
-        <i className="icon-amex" />
-        <i className="icon-dinners" />
-      </div>
+      <div className="payment-tab">
+        <input
+          defaultChecked
+          id="tab1"
+          type="radio"
+          name="optpay"
+          onChange={() => updateMethodPay('cardCreDeb')}
+        />
+        <input
+          id="tab2"
+          type="radio"
+          name="optpay"
+          onChange={() => updateMethodPay('payEfectivo')}
+        />
 
-      {msgError && (
-        <div className={styles.block}>
-          <div className="msg-alert">{msgError}</div>
-        </div>
-      )}
-
-      <form onSubmit={handleOnSubmit} className="form-pay">
-        <div className={styles.block}>
-          <label htmlFor="cNumber">
-            {texts.labelcNumber}
-            <TextMask
-              mask={patternCard}
-              guide={false}
-              className={cNumberError && 'input-error'}
-              type="text"
-              inputMode="numeric"
-              autoComplete="cc-number"
-              name="cNumber"
-              maxLength="19"
-              value={cNumber}
-              required
-              onChange={handleOnChangeInput}
-              onBlur={handleOnChangeInput}
-              onKeyUp={validateCardNumber}
-              placeholder="0000 0000 0000 0000"
-              disabled={loading}
-            />
-            {cNumberError && <span className="msn-error">{cNumberError}</span>}
-            <div id="mylistID" className="img-input-card" />
-          </label>
-        </div>
-
-        <div className="step__left-block-middle">
-          <div className="block">
-            <label htmlFor="cExpire">
-              {texts.labelcExpire}
-              <TextMask
-                mask={patternDate}
-                guide={false}
-                className={cExpireError && 'input-error'}
-                type="text"
-                inputMode="numeric"
-                autoComplete="cc-exp"
-                name="cExpire"
-                maxLength="7"
-                value={cExpire}
-                required
-                onChange={handleOnChangeInput}
-                onBlur={handleOnChangeInput}
-                onKeyUp={getCardNumber}
-                placeholder="mm/aaaa"
-                disabled={loading}
-              />
-              {cExpireError && (
-                <span className="msn-error">{cExpireError}</span>
-              )}
-            </label>
-          </div>
-
-          <div className="block">
-            <label htmlFor="cCvv">
-              {texts.labelcCvv}
-              <button
-                type="button"
-                className="tooltip step__btn-link"
-                tabIndex={-1}>
-                <i className="icon-info"> </i>
-                <span className="tooltiptext-leftarrow">
-                  {texts.whereCvv}
-                  <i
-                    className={
-                      methodCard === 'AMEX' ? styles.cvvAmex : styles.cvvAll
-                    }
-                  />
-                </span>
-              </button>
-              <TextMask
-                mask={patterCvv}
-                guide={false}
-                className={cCvvError && 'input-error'}
-                type="text"
-                inputMode="numeric"
-                autoComplete="cc-csc"
-                name="cCvv"
-                maxLength={methodCard === 'AMEX' ? '4' : '3'}
-                value={cCvv}
-                required
-                onChange={handleOnChangeInput}
-                onBlur={handleOnChangeInput}
-                onKeyUp={getCardNumber}
-                placeholder={methodCard === 'AMEX' ? '****' : '***'}
-                disabled={loading}
-              />
-              {cCvvError && <span className="msn-error">{cCvvError}</span>}
-            </label>
-          </div>
-        </div>
-
-        <div className={styles.block}>
-          <label htmlFor="cTerms" className="terms">
-            <input
-              id="cTerms"
-              value={checkedTerms ? 'si' : 'no'}
-              type="checkbox"
-              name="cTerms"
-              required
-              disabled={loading}
-              onChange={(e) => {
-                handleOnChange(e)
-                setCheckedTerms(!checkedTerms)
-              }}
-            />
-            {texts.termsAccept}
-            <button
-              className="step__btn-link"
-              type="button"
-              onClick={() => openNewTab('terminos')}>
-              {texts.termsConditions}
-            </button>
-            {texts.textTermsThe}
-            <button
-              className="step__btn-link"
-              type="button"
-              onClick={() => openNewTab('politicas')}>
-              {texts.textTermsPolices}
-            </button>
-            {texts.textTermsAccord}
-            <span className={`checkmark ${cTermsError && 'input-error'}`} />
-          </label>
-        </div>
-
-        {cTermsError && (
-          <div className={styles.block}>
-            <div className="msg-alert">{cTermsError}</div>
-          </div>
+        {userPeriod !== 'Mensual' && (
+          <nav>
+            <ul className={styles.tabpay}>
+              <li className="cards tab1">
+                <label htmlFor="tab1">
+                  Tarjeta de <br /> crédito / Débito <i />
+                </label>
+              </li>
+              <li className="efectivo tab2">
+                <label htmlFor="tab2">
+                  <i /> Transferencias /Depósitos en efectivo
+                </label>
+              </li>
+            </ul>
+          </nav>
         )}
 
-        <div className={styles.block}>
-          <button
-            className={`${styles.btn} ${loading && 'btn-loading'}`}
-            type="submit"
-            disabled={disable || loading}>
-            {loading ? txtLoading : 'Pagar suscripción'}
-          </button>
-        </div>
-      </form>
+        <section>
+          <div className={styles.tabCard1}>
+            <div className={styles.card}>
+              <p>Aceptamos:</p>
+              <i className="icon-visa" />
+              <i className="icon-mc" />
+              <i className="icon-amex" />
+              <i className="icon-dinners" />
+            </div>
 
-      <p className={styles.secure}>
-        <i className="icon-security" />
-        {texts.showSecure}
-      </p>
+            {msgError && (
+              <div className={styles.block}>
+                <div className="msg-alert">{msgError}</div>
+              </div>
+            )}
 
-      <p className={styles.notes}>{texts.rememberRecurrency}</p>
+            <form onSubmit={handleOnSubmit} className="form-pay">
+              <div className={styles.block}>
+                <label htmlFor="cNumber">
+                  {texts.labelcNumber}
+                  <TextMask
+                    mask={patternCard}
+                    guide={false}
+                    className={cNumberError && 'input-error'}
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="cc-number"
+                    name="cNumber"
+                    maxLength="19"
+                    value={cNumber}
+                    required
+                    onChange={handleOnChangeInput}
+                    onBlur={handleOnChangeInput}
+                    onKeyUp={validateCardNumber}
+                    placeholder="0000 0000 0000 0000"
+                    disabled={loading}
+                  />
+                  {cNumberError && (
+                    <span className="msn-error">{cNumberError}</span>
+                  )}
+                  <div id="mylistID" className="img-input-card" />
+                </label>
+              </div>
+
+              <div className="step__left-block-middle">
+                <div className="block">
+                  <label htmlFor="cExpire">
+                    {texts.labelcExpire}
+                    <TextMask
+                      mask={patternDate}
+                      guide={false}
+                      className={cExpireError && 'input-error'}
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="cc-exp"
+                      name="cExpire"
+                      maxLength="7"
+                      value={cExpire}
+                      required
+                      onChange={handleOnChangeInput}
+                      onBlur={handleOnChangeInput}
+                      onKeyUp={getCardNumber}
+                      placeholder="mm/aaaa"
+                      disabled={loading}
+                    />
+                    {cExpireError && (
+                      <span className="msn-error">{cExpireError}</span>
+                    )}
+                  </label>
+                </div>
+
+                <div className="block">
+                  <label htmlFor="cCvv">
+                    {texts.labelcCvv}
+                    <button
+                      type="button"
+                      className="tooltip step__btn-link"
+                      tabIndex={-1}>
+                      <i className="icon-info"> </i>
+                      <span className="tooltiptext-leftarrow">
+                        {texts.whereCvv}
+                        <i
+                          className={
+                            methodCard === 'AMEX'
+                              ? styles.cvvAmex
+                              : styles.cvvAll
+                          }
+                        />
+                      </span>
+                    </button>
+                    <TextMask
+                      mask={patterCvv}
+                      guide={false}
+                      className={cCvvError && 'input-error'}
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="cc-csc"
+                      name="cCvv"
+                      maxLength={methodCard === 'AMEX' ? '4' : '3'}
+                      value={cCvv}
+                      required
+                      onChange={handleOnChangeInput}
+                      onBlur={handleOnChangeInput}
+                      onKeyUp={getCardNumber}
+                      placeholder={methodCard === 'AMEX' ? '****' : '***'}
+                      disabled={loading}
+                    />
+                    {cCvvError && (
+                      <span className="msn-error">{cCvvError}</span>
+                    )}
+                  </label>
+                </div>
+              </div>
+
+              <div className={styles.block}>
+                <label htmlFor="cTerms" className="terms">
+                  <input
+                    id="cTerms"
+                    value={checkedTerms ? 'si' : 'no'}
+                    type="checkbox"
+                    name="cTerms"
+                    required
+                    disabled={loading}
+                    onChange={(e) => {
+                      handleOnChange(e)
+                      setCheckedTerms(!checkedTerms)
+                    }}
+                  />
+                  {texts.termsAccept}
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab('terminos')}>
+                    {texts.termsConditions}
+                  </button>
+                  {texts.textTermsThe}
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab('politicas')}>
+                    {texts.textTermsPolices}
+                  </button>
+                  {texts.textTermsAccord}
+                  <span
+                    className={`checkmark ${cTermsError && 'input-error'}`}
+                  />
+                </label>
+              </div>
+
+              {cTermsError && (
+                <div className={styles.block}>
+                  <div className="msg-alert">{cTermsError}</div>
+                </div>
+              )}
+
+              <div className={styles.block}>
+                <button
+                  className={`${styles.btn} ${loading && 'btn-loading'}`}
+                  type="submit"
+                  disabled={disable || loading}>
+                  {loading ? txtLoading : 'Pagar suscripción'}
+                </button>
+              </div>
+            </form>
+
+            <p className={styles.secure}>
+              <i className="icon-security" />
+              {texts.showSecure}
+            </p>
+          </div>
+
+          <div className={styles.tabCard2}>
+            <div className="efectivo-tab">
+              <input defaultChecked id="tab3" type="radio" name="optefectivo" />
+              <input id="tab4" type="radio" name="optefectivo" />
+
+              <nav>
+                <ul>
+                  <li className="tab3">
+                    <label htmlFor="tab3">
+                      Banca Móvil
+                      <span className="checkmark" />
+                    </label>
+                  </li>
+                  <li className="tab4">
+                    <label htmlFor="tab4">
+                      Agentes y Bodegas
+                      <span className="checkmark" />
+                    </label>
+                  </li>
+                </ul>
+              </nav>
+
+              <section>
+                <div className="tab3">
+                  {texts.textBanca}
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab(links.howItWork)}>
+                    {texts.howItWork}
+                  </button>
+                  <div className="img-movil" />
+                  <form className="form-pay">
+                    <div className={styles.block}>
+                      <button
+                        className={`${styles.btn} ${loading && 'btn-loading'}`}
+                        type="button"
+                        name="Banca-por-Internet"
+                        onClick={handlePayEfective}
+                        disabled={loading}>
+                        {loading ? txtLoading : 'Generar código'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div className="tab4">
+                  {texts.textAgentes}
+                  <button
+                    className="step__btn-link"
+                    type="button"
+                    onClick={() => openNewTab(links.howItWork)}>
+                    {texts.howItWork}
+                  </button>
+                  <div className="img-agentes" />
+                  <form className="form-pay">
+                    <div className={styles.block}>
+                      <button
+                        className={`${styles.btn} ${loading && 'btn-loading'}`}
+                        type="button"
+                        name="Agencia"
+                        onClick={handlePayEfective}
+                        disabled={loading}>
+                        {loading ? txtLoading : 'Generar código'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <p className={styles.secure}>
+                  <i className="icon-security" />
+                  {texts.showSecure}
+                </p>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   )
 }
