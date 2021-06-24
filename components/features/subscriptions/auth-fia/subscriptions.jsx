@@ -67,14 +67,6 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   }
 
   React.useEffect(() => {
-    if (
-      'Identity' in window &&
-      window.Identity.userProfile &&
-      window.Identity.userIdentity.uuid
-    ) {
-      setLogged(true)
-    }
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
@@ -82,6 +74,13 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
     })
       .then(() => {
         window.Identity.options({ apiOrigin: urls.arcOrigin })
+        if (
+          'Identity' in window &&
+          window.Identity.userProfile &&
+          window.Identity.userIdentity.uuid
+        ) {
+          setLogged(true)
+        }
       })
       .catch((errIdentitySDK) => {
         Sentry.captureEvent({
@@ -101,7 +100,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
       />
       <Container>
         <Wrapper>
-          <NavigateProvider>
+          <AuthProvider>
             <PanelLeft>
               {!isLogged ? (
                 renderTemplate(selectedTemplate, valueTemplate, {
@@ -128,7 +127,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                 />
               )}
             </PanelLeft>
-          </NavigateProvider>
+          </AuthProvider>
         </Wrapper>
       </Container>
     </>
@@ -136,9 +135,9 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 }
 
 const FiaSubscriptions = () => (
-  <AuthProvider>
+  <NavigateProvider>
     <FiaSubscriptionsWrapper typeDialog="authfia" />
-  </AuthProvider>
+  </NavigateProvider>
 )
 
 FiaSubscriptions.label = 'Signwall - Login / Registo FIA'

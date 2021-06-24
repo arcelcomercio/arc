@@ -228,6 +228,10 @@ footer {
   display: flex;
   @media (--only-mobile) {
     height: 180px;
+    a {
+      animation-name: key;
+      animation-timing-function: id;
+    }
   }
 
   &-icon-play {
@@ -240,6 +244,24 @@ footer {
     animation-name: girar;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+  }
+
+  @keyframes key {
+    //
+    from {
+      transform: rotate(2);
+    }
+    to {
+      transform: rotate(2deg);
+    }
+  }
+  @keyframes id {
+    from {
+      transform: rotate(3deg);
+    }
+    to {
+      transform: rotate(3deg);
+    }
   }
   @keyframes girar {
     from {
