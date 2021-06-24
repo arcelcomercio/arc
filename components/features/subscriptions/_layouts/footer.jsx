@@ -216,7 +216,6 @@ export const FooterSubs = () => {
         </footer>
       )}
 
-      {/* {userStep !== 4 && ( */}
       <section
         className="step__bottom"
         style={userStep === 4 || userStep === 5 ? { display: 'none' } : {}}>
@@ -238,7 +237,6 @@ export const FooterSubs = () => {
           </div>
         </button>
       </section>
-      {/* )} */}
     </>
   )
 }
