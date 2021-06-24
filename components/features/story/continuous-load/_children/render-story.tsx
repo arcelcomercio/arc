@@ -20,6 +20,13 @@ import StoryChildrenSocialHeaderLite from '../../_children/social-header/lite'
 import StoryChildrenTitle from '../../_children/title/lite'
 import StorySidebarContinueLayout from './layout'
 
+declare global {
+  interface Window {
+    adsContinua: any
+    userPaywall: any
+  }
+}
+
 const rederStory: React.FC<{
   data: Story
   contextPath: string
@@ -34,6 +41,7 @@ const rederStory: React.FC<{
 
   const {
     isPremium,
+    getPremiumValue,
     primarySection,
     primarySectionLink,
     title,
@@ -208,7 +216,11 @@ const rederStory: React.FC<{
 
   const jsSpacesAds = () => {
     const typeNote = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
-    const sectionClean = primarySectionLink?.split('/')[1]?.replace(/-/gm, '')
+    const sectionList = primarySectionLink?.split('/').slice(1)
+    const sectionClean = sectionList[0]?.replace(/-/gm, '')
+    const subSection = sectionList[1]
+      ? sectionList[1]?.replace(/-/gm, '')
+      : sectionClean
     const linkUrl = `https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${index +
       1}&date=${new Date().toISOString().slice(0, 10)}`
     try {
@@ -217,21 +229,37 @@ const rederStory: React.FC<{
       node.async = true
       node.src = linkUrl
       document.head.append(node)
-      ;(window as any).adsContinua[index + 1] =
-        (window as any).adsContinua[index + 1] || {}
-      ;(window as any).adsContinua[index + 1].targeting = {
-        categoria: 'sucesos',
-        contenido: 'metered',
-        fuente: 'WEB',
-        paywall: 'no',
-        phatname: '',
-        publisher: 'elcomercio',
-        seccion: 'lima',
-        tags: '',
-        tipoplantilla: 'post',
-        tmp_ad: 'continua',
+    } catch (error) {
+      console.log('Error Load Spaces: ', error)
+    }
+
+    try {
+      if (typeof window != 'undefined') {
+        let typeContent = getPremiumValue
+        typeContent =
+          typeContent === '' || typeContent === 'vacio'
+            ? 'standar'
+            : typeContent
+        const targetingTags = tagsStory
+          .map(({ slug = '' }) => slug.split('-').join(''))
+          .join()
+        window.adsContinua[index + 1] = window.adsContinua[index + 1] || {}
+        window.adsContinua[index + 1].targeting = {
+          categoria: subSection,
+          contenido: typeContent,
+          fuente: 'WEB',
+          paywall: window.userPaywall(),
+          phatname: `${requestUri}`,
+          publisher: arcSite,
+          seccion: sectionClean,
+          tags: targetingTags,
+          tipoplantilla: 'post',
+          tmp_ad: 'continua',
+        }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log('Error Targeting: ', error)
+    }
   }
 
   React.useEffect(() => {
