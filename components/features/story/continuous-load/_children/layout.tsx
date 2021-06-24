@@ -2,7 +2,7 @@ import React from 'react'
 import { ArcSite } from 'types/fusion'
 
 const classes = {
-  layout: 'f just-center',
+  layout: 'f just-center pos-rel',
   contentContainer: 'st-sidebar__container f f-col w-full pos-rel',
   separator: 'w-full ',
   heading: 'w-full',
@@ -10,8 +10,10 @@ const classes = {
   main: 'st-sidebar__main',
   sidebar: 'st-sidebar__side',
   lateral: 'ad-lateral',
-  lateralL: 'ad-lateral--l',
-  lateralR: 'ad-lateral--r',
+  lateralL: 'ad-lateral--l ads-lateral-fix',
+  lateralR: 'ad-lateral--r ads-lateral-fix',
+  adcajaR: 'ads-lateralr',
+  adcajaL: 'ads-laterall',
 }
 
 const StorySidebarContinueLayout: React.FC<{
@@ -29,6 +31,7 @@ const StorySidebarContinueLayout: React.FC<{
           data-ads-load-first="true"
           data-bloque="1"
           data-prebid-enabled="true"
+          className={classes.adcajaL}
         />
       </div>
       <div className={classes.contentContainer}>
@@ -86,6 +89,7 @@ const StorySidebarContinueLayout: React.FC<{
           data-ads-load-first="true"
           data-bloque="1"
           data-prebid-enabled="true"
+          className={classes.adcajaR}
         />
       </div>
     </div>

@@ -24,6 +24,7 @@ declare global {
   interface Window {
     adsContinua: any
     userPaywall: any
+    getTmpAd: any
   }
 }
 
@@ -33,12 +34,19 @@ const rederStory: React.FC<{
   arcSite: ArcSite
   requestUri: string
   deployment: (resource: string) => string | string
+  siteUrl: string
   index: number
 }> = props => {
-  const { contextPath, arcSite, requestUri, data, deployment, index } = props
+  const {
+    contextPath,
+    arcSite,
+    requestUri,
+    data,
+    deployment,
+    siteUrl,
+    index,
+  } = props
   const trustproject = data?.label?.trustproject
-  console.log('Render Notaaaaaa')
-
   const {
     isPremium,
     getPremiumValue,
@@ -215,23 +223,24 @@ const rederStory: React.FC<{
   }
 
   const jsSpacesAds = () => {
+    const noteId = index + 1
     const typeNote = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
+    console.log(`primarySectionLink: ${primarySectionLink}`)
     const sectionList = primarySectionLink?.split('/').slice(1)
     const sectionClean = sectionList[0]?.replace(/-/gm, '')
     const subSection = sectionList[1]
       ? sectionList[1]?.replace(/-/gm, '')
       : sectionClean
-    const linkUrl = `https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${index +
-      1}&date=${new Date().toISOString().slice(0, 10)}`
+    const linkSpaceUrl = `https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${noteId}&date=${new Date()
+      .toISOString()
+      .slice(0, 10)}`
     try {
       const node = document.createElement('script')
       node.type = 'text/javascript'
       node.async = true
-      node.src = linkUrl
+      node.src = linkSpaceUrl
       document.head.append(node)
-    } catch (error) {
-      console.log('Error Load Spaces: ', error)
-    }
+    } catch (error) {}
 
     try {
       if (typeof window != 'undefined') {
@@ -243,18 +252,18 @@ const rederStory: React.FC<{
         const targetingTags = tagsStory
           .map(({ slug = '' }) => slug.split('-').join(''))
           .join()
-        window.adsContinua[index + 1] = window.adsContinua[index + 1] || {}
-        window.adsContinua[index + 1].targeting = {
+        window.adsContinua[noteId] = window.adsContinua[noteId] || {}
+        window.adsContinua[noteId].targeting = {
           categoria: subSection,
           contenido: typeContent,
           fuente: 'WEB',
           paywall: window.userPaywall(),
-          phatname: `${requestUri}`,
+          phatname: `${siteUrl}${link}`,
           publisher: arcSite,
           seccion: sectionClean,
           tags: targetingTags,
           tipoplantilla: 'post',
-          tmp_ad: 'continua',
+          tmp_ad: window.getTmpAd(),
         }
       }
     } catch (error) {
