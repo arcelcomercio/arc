@@ -1,7 +1,7 @@
 import {
   getOriginAPI,
-  getUrlComercioSubs,
   getUrlECOID,
+  getUrlMiddleWare,
   getUrlNewsLetters,
 } from './domains'
 
@@ -92,7 +92,7 @@ export const getNewsLetters = () => {
 
 export const checkStudents = (email, date, grade, site, jwt) => {
   const response = new Promise((resolve) => {
-    fetch(`${getUrlComercioSubs}/validate_user_academic/`, {
+    fetch(`${getUrlMiddleWare}/validate_user_academic/`, {
       method: 'POST',
       body: JSON.stringify({
         correo: email,
@@ -111,7 +111,7 @@ export const checkStudents = (email, date, grade, site, jwt) => {
 
 export const checkCodeStudents = (hash, email, site, jwt) => {
   const response = new Promise((resolve) => {
-    fetch(`${getUrlComercioSubs}/activate_promotion/`, {
+    fetch(`${getUrlMiddleWare}/activate_promotion/`, {
       method: 'POST',
       body: JSON.stringify({
         hash_user: hash,
@@ -183,7 +183,7 @@ export const finalizePaymentUpdate = (
 
 export const getProfilePayu = (jwt, idsubs, site) => {
   const response = new Promise((resolve) => {
-    fetch(`${getUrlComercioSubs}/user/payment-profile/${idsubs}/`, {
+    fetch(`${getUrlMiddleWare}/user/payment-profile/${idsubs}/`, {
       method: 'GET',
       headers: {
         site,

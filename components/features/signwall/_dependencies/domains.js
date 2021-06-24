@@ -14,24 +14,6 @@ const getUrlPaywall = (site) =>
 
 const getUrlECOID = `https://${isProd ? '' : 'pre.'}ecoid.pe`
 
-const getPoliticsTerms = (type, site) => {
-  const hashSite = {
-    elcomerciomag: 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
-    elcomercio: 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
-    gestion: '108f85a3d8e750a325ced951af6cd758a90e73a34',
-    peru21: 'f7bd562ca9912019255511635185bf2b',
-    peru21g21: 'f7bd562ca9912019255511635185bf2b',
-    elbocon: 'dcd90a2190d1682f39d41a4889a1cc57',
-    depor: '6d83b35ec628d33d0606bcd9083dc2a6',
-    trome: '4895ff32853e4dd68b5bd63c6437d17c',
-    ojo: 'r2tbzg902jxaq6c0tmc2zr6txgzfzmiy',
-    diariocorreo: '547a1802dfdcaa443d08c92c8dac62e9',
-  }
-  return `https://${isProd ? '' : 'pre.'}ecoid.pe/${
-    type === 'terms' ? 'terminos_y_condiciones' : 'politica_privacidad'
-  }/${hashSite[site]}`
-}
-
 const getScriptSales = `https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js`
 
 const getUrlNewsLetters = `https://${
@@ -42,7 +24,7 @@ const getUrlNewsLetters = `https://${
 
 const getListBundle = ['UJWWFG', '7NK9SV', 'DQZ00K', 'OKLLPH', 'NO07ET'] // price code bundle sandbox & prod
 
-const getUrlComercioSubs = `https://${
+const getUrlMiddleWare = `https://${
   isProd ? '' : 'dev'
 }paywall.comerciosuscripciones.pe/api`
 
@@ -64,11 +46,10 @@ const getUrlSignwall = (arcSite, typeDialog, hash) =>
 export {
   getListBundle,
   getOriginAPI,
-  getPoliticsTerms,
   getScriptSales,
-  getUrlComercioSubs,
   getUrlECOID,
   getUrlLandingAuth,
+  getUrlMiddleWare,
   getUrlNewsLetters,
   getUrlPaywall,
   getUrlProfile,

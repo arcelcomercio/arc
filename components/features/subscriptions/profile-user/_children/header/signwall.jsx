@@ -4,13 +4,6 @@ import * as React from 'react'
 import { getAssetsPath } from '../../../../../utilities/constants'
 import { Back, Close } from '../../../../signwall/_children/iconos'
 import { Taggeo } from '../../../_dependencies/Taggeo'
-import {
-  ButtonBack,
-  ButtonClose,
-  ContLogo,
-  HeaderContent,
-  HeaderWrapper,
-} from './styled'
 
 const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
   const {
@@ -21,29 +14,33 @@ const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
     contextPath,
   } = useFusionContext() || {}
 
-  const colorHeader = arcSite === 'trome' ? '#FF650F' : mainColorBg
-
   return (
-    <HeaderWrapper
-      cbg={colorHeader}
-      ctx={mainColorTxt}
-      br={arcSite === 'trome'}>
-      <HeaderContent>
+    <div
+      className="sign-profile_header-wrapper"
+      style={{
+        background: arcSite === 'trome' ? '#FF650F' : mainColorBg,
+        color: mainColorTxt,
+        borderBottom: arcSite === 'trome' ? '7px solid black' : 'none',
+      }}>
+      <div className="sign-profile_header-content">
         {buttonClose ? (
-          <ButtonBack type="button" />
+          <button className="sign-profile_header-back" type="button">
+            {' '}
+          </button>
         ) : (
-          <ButtonBack
+          <button
+            className="sign-profile_header-back"
+            style={{ color: mainColorTxt }}
             type="button"
-            ctx={mainColorTxt}
             onClick={() => {
               window.location.href = document.referrer ? document.referrer : '/'
             }}>
             <Back color={mainColorTxt} />
             <span className="text">Volver</span>
-          </ButtonBack>
+          </button>
         )}
 
-        <ContLogo>
+        <div className="sign-profile_header-logo">
           <div
             className={`cont cont_${arcSite} ${
               arcSite === 'trome' && logoLeft ? 'cont_left' : ''
@@ -60,10 +57,11 @@ const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
               }
             />
           </div>
-        </ContLogo>
+        </div>
 
         {buttonClose && (
-          <ButtonClose
+          <button
+            className="sign-profile_header-close"
             type="button"
             onClick={() => {
               Taggeo(
@@ -88,10 +86,10 @@ const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
               }
             }}>
             <Close color={mainColorTxt} />
-          </ButtonClose>
+          </button>
         )}
-      </HeaderContent>
-    </HeaderWrapper>
+      </div>
+    </div>
   )
 }
 

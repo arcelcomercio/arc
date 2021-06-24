@@ -373,7 +373,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
       {(showStudents || isLogged()) &&
         typeDialog === 'students' &&
-        !showVerify && <FormStudents {...attributes} />}
+        !showVerify && <FormStudents arcSite={arcSite} />}
     </>
   )
 }

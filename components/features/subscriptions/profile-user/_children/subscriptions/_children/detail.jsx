@@ -14,12 +14,7 @@ import {
   Text,
   Title,
 } from '../../../../../signwall/_children/forms/styles'
-import {
-  Close,
-  Cvv,
-  CvvFront,
-  Notice,
-} from '../../../../../signwall/_children/iconos'
+import { Close, Notice } from '../../../../../signwall/_children/iconos'
 import Loading from '../../../../../signwall/_children/loading'
 import { Modal } from '../../../../../signwall/_children/modal/index'
 import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
@@ -32,9 +27,7 @@ import getCodeError from '../../../../_dependencies/Errors'
 import { PropertiesCommon } from '../../../../_dependencies/Properties'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
 import useForm from '../../../../_hooks/useForm'
-import { Button, Table, Wrapper } from '../../../styled'
-import * as S from '../styles'
-import { Message, Radiobox, RadioboxSimple } from './radiobox'
+import { Radiobox, RadioboxSimple } from './radiobox'
 
 const LOGO_VISA =
   'data:image/png;base64,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'
@@ -503,12 +496,17 @@ const SubsDetail = ({ IdSubscription }) => {
   }
 
   return (
-    <Wrapper>
+    <div className="sign-profile_general-wrapper">
       {showLoading ? (
         <Loading arcSite={arcSite} typeBg="wait" />
       ) : (
-        <S.WrapperBlock>
-          <S.Subsdetail nopadding nocolumn>
+        <div className="sign-profile_subscriptions-wrapper-block">
+          <div
+            className="sign-profile_subscriptions-subs-detail"
+            style={{
+              padding: '0px',
+              columnCount: '0',
+            }}>
             <div className="details-left">
               <div id="mylistID" style={{ display: 'none' }} />
               <small>DETALLE DE LA SUSCRIPCIÓN</small>
@@ -584,16 +582,18 @@ const SubsDetail = ({ IdSubscription }) => {
                 )}
               </ul>
             </div>
-          </S.Subsdetail>
+          </div>
 
           {showResDetail.status !== 3 && (
-            <S.Fieldset id="div-signwall-updatecard">
+            <fieldset
+              className="sign-profile_subscriptions-fieldset"
+              id="div-signwall-updatecard">
               <legend>Método de pago</legend>
 
               {showMessageSuccess && (
-                <S.Message success>
+                <div className="sign-profile_subscriptions-message sign-profile_subscriptions-message-success">
                   Se actualizó correctamente los datos de la tarjeta.
-                </S.Message>
+                </div>
               )}
 
               <div className="left">
@@ -604,8 +604,9 @@ const SubsDetail = ({ IdSubscription }) => {
                 </p>
               </div>
               <div className="right">
-                <Button
+                <button
                   type="button"
+                  className="sign-profile_general-button"
                   disabled={showOpenUpdate}
                   id="btn-signwall-editcard"
                   onClick={() => {
@@ -613,22 +614,28 @@ const SubsDetail = ({ IdSubscription }) => {
                     // clearValues()
                   }}>
                   {showUpdateCard ? 'CERRAR' : 'EDITAR'}
-                </Button>
+                </button>
               </div>
-            </S.Fieldset>
+            </fieldset>
           )}
 
           {showUpdateCard && (
-            <S.Fieldset>
+            <fieldset className="sign-profile_subscriptions-fieldset">
               {showOpenUpdate && <Loading arcSite={arcSite} typeBg="block" />}
 
               <legend>Datos de la tarjeta</legend>
 
               {showMessageFailed && (
-                <S.Message failed>{showCustomMsgFailed}</S.Message>
+                <div className="sign-profile_subscriptions-message sign-profile_subscriptions-message-failed">
+                  {showCustomMsgFailed}
+                </div>
               )}
 
-              <S.Group pt="10" ac>
+              <div
+                className="sign-profile_subscriptions-group"
+                style={{
+                  alignItems: 'center',
+                }}>
                 <div className="subtitle">Selecciona un tipo de tarjeta</div>
                 <div>
                   {ListCards.map((item) => (
@@ -648,151 +655,161 @@ const SubsDetail = ({ IdSubscription }) => {
                     </label>
                   ))}
                 </div>
-              </S.Group>
+              </div>
 
-              <S.Block pt="30" />
+              <br />
 
               <Form npadding onSubmit={handleOnSubmit}>
-                <S.FormGroup width="30">
-                  <ContMask error={errors.numcard}>
-                    <InputMask
-                      type="text"
-                      id="numcard"
-                      name="numcard"
-                      mask={Mask.CARD_NUMBER}
-                      required
-                      placeholder="Número de tarjeta"
-                      inputMode="numeric"
-                      autoComplete="cc-number"
-                      value={numcard}
-                      maxLength="19"
-                      tabIndex="1"
-                      className={`${errors.numcard && 'error'}`}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                        setShowMessageFailed(false)
-                      }}
-                      onFocus={(e) => {
-                        handleOnChange(e)
-                        setShowMessageFailed(false)
-                      }}
-                    />
-                  </ContMask>
-                </S.FormGroup>
+                <div className="sign-profile_subscriptions-align">
+                  <div className="sign-profile_subscriptions-form-group width-card">
+                    <ContMask error={errors.numcard}>
+                      <InputMask
+                        type="text"
+                        id="numcard"
+                        name="numcard"
+                        mask={Mask.CARD_NUMBER}
+                        required
+                        placeholder="Número de tarjeta"
+                        inputMode="numeric"
+                        autoComplete="cc-number"
+                        value={numcard}
+                        maxLength="19"
+                        tabIndex="1"
+                        className={`${errors.numcard && 'error'}`}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowMessageFailed(false)
+                        }}
+                        onFocus={(e) => {
+                          handleOnChange(e)
+                          setShowMessageFailed(false)
+                        }}
+                      />
+                    </ContMask>
+                  </div>
 
-                <S.FormGroup width="20">
-                  <ContMask error={errors.dateexpire} nolabelerror>
-                    <InputMask
-                      type="text"
-                      id="dateexpire"
-                      name="dateexpire"
-                      mask={Mask.EXPIRY_DATE}
-                      required
-                      placeholder="F. de Vencimiento"
-                      inputMode="numeric"
-                      autoComplete="cc-exp"
-                      value={dateexpire}
-                      maxLength="7"
-                      tabIndex="2"
-                      className={`${errors.dateexpire && 'error'}`}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                        setShowMessageFailed(false)
-                      }}
-                      onFocus={(e) => {
-                        handleOnChange(e)
-                        setShowMessageFailed(false)
-                      }}
-                    />
-                  </ContMask>
-                </S.FormGroup>
+                  <div className="sign-profile_subscriptions-form-group">
+                    <ContMask error={errors.dateexpire} nolabelerror>
+                      <InputMask
+                        type="text"
+                        id="dateexpire"
+                        name="dateexpire"
+                        mask={Mask.EXPIRY_DATE}
+                        required
+                        placeholder="F. de Vencimiento"
+                        inputMode="numeric"
+                        autoComplete="cc-exp"
+                        value={dateexpire}
+                        maxLength="7"
+                        tabIndex="2"
+                        className={`${errors.dateexpire && 'error'}`}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowMessageFailed(false)
+                        }}
+                        onFocus={(e) => {
+                          handleOnChange(e)
+                          setShowMessageFailed(false)
+                        }}
+                      />
+                    </ContMask>
+                  </div>
 
-                <S.FormGroup width="10">
-                  <ContMask error={errors.codecvv} nolabelerror>
-                    <InputMask
-                      type="text"
-                      id="codecvv"
-                      name="codecvv"
-                      mask={Mask.CARD_CVV}
-                      required
-                      placeholder="CVV"
-                      inputMode="numeric"
-                      autoComplete="cc-csc"
-                      value={codecvv}
-                      maxLength="4"
-                      tabIndex="3"
-                      className={`${errors.codecvv && 'error'}`}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                        setShowMessageFailed(false)
-                      }}
-                      onFocus={(e) => {
-                        handleOnChange(e)
-                        setShowMessageFailed(false)
-                      }}
-                    />
-                  </ContMask>
-                </S.FormGroup>
+                  <div className="sign-profile_subscriptions-form-group">
+                    <ContMask error={errors.codecvv} nolabelerror>
+                      <InputMask
+                        type="text"
+                        id="codecvv"
+                        name="codecvv"
+                        mask={Mask.CARD_CVV}
+                        required
+                        placeholder="CVV"
+                        inputMode="numeric"
+                        autoComplete="cc-csc"
+                        value={codecvv}
+                        maxLength="4"
+                        tabIndex="3"
+                        className={`${errors.codecvv && 'error'}`}
+                        onChange={(e) => {
+                          handleOnChange(e)
+                          setShowMessageFailed(false)
+                        }}
+                        onFocus={(e) => {
+                          handleOnChange(e)
+                          setShowMessageFailed(false)
+                        }}
+                      />
+                    </ContMask>
+                  </div>
 
-                <S.FormGroup width="30">
-                  <S.Msgcvv>
-                    {showTypeAmex ? (
-                      <>
-                        <CvvFront />
-                        <small>Se encuentra en el anverso de su tarjeta*</small>
-                      </>
-                    ) : (
-                      <>
-                        <Cvv />
-                        <small>Se encuentra en el reverso de su tarjeta*</small>
-                      </>
-                    )}
-                  </S.Msgcvv>
-                </S.FormGroup>
-
-                <S.Block align="right" pt="10">
-                  <S.FormGroup width="25">
-                    <Button
+                  <div className="sign-profile_subscriptions-form-group">
+                    <div className="sign-profile_subscriptions-msg-cvv">
+                      <img
+                        src={`https://signwall.e3.pe/images/logo-${
+                          showTypeAmex ? 'card-amex' : 'card-info'
+                        }.png`}
+                        alt="card-info"
+                      />
+                      <small>{`Se encuentra en el ${
+                        showTypeAmex ? 'anverso' : 'reverso'
+                      } de su tarjeta*`}</small>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="sign-profile_subscriptions-block"
+                  style={{
+                    textAlign: 'right',
+                    paddingTop: '10px',
+                  }}>
+                  <div className="sign-profile_subscriptions-form-group">
+                    <button
                       type="submit"
+                      className="sign-profile_general-button"
                       id="btn-update-card"
                       color={mainColorBtn}
                       disabled={disable || showLoadingSubmit}>
                       {showLoadingSubmit ? 'ACTUALIZANDO...' : 'ACTUALIZAR'}
-                    </Button>
-                  </S.FormGroup>
-                </S.Block>
+                    </button>
+                  </div>
+                </div>
               </Form>
-            </S.Fieldset>
+            </fieldset>
           )}
 
-          <S.Block align="right" bt>
+          <div
+            className="sign-profile_subscriptions-block"
+            style={{
+              borderTop: '1px solid #e8e8e8',
+              textAlign: 'right',
+            }}>
             {showResDetail.status !== 3 ? (
-              <Button
+              <button
                 type="button"
-                link
+                className="sign-profile_general-button sign-profile_general-button-link"
                 onClick={() => {
                   Taggeo(`Web_Sign_Wall_General`, `web_swg_boton_anulacion`)
                   openModalConfirm('anulacion')
                 }}>
                 ANULAR MI SUSCRIPCIÓN
-              </Button>
+              </button>
             ) : (
-              <Button
+              <button
                 type="button"
-                link
+                className="sign-profile_general-button sign-profile_general-button-link"
                 onClick={() => {
                   Taggeo(`Web_Sign_Wall_General`, `web_swg_boton_recuperar`)
                   openModalConfirm('recovery')
                 }}>
                 RECUPERAR MI SUSCRIPCIÓN
-              </Button>
+              </button>
             )}
-          </S.Block>
+          </div>
 
-          <S.Fieldset>
+          <fieldset className="sign-profile_subscriptions-fieldset">
             <legend>Historial del pago</legend>
             <div className="cont-table">
-              <Table>
+              <table className="sign-profile_general-table">
                 <thead>
                   <tr>
                     <th className="left">Suscriptor</th>
@@ -820,11 +837,11 @@ const SubsDetail = ({ IdSubscription }) => {
                     </tr>
                   ))}
                 </tbody>
-              </Table>
+              </table>
             </div>
-          </S.Fieldset>
+          </fieldset>
 
-          <S.Notice>
+          <div className="sign-profile_subscriptions-notice">
             <Notice />
             <div>
               <strong>
@@ -835,28 +852,27 @@ const SubsDetail = ({ IdSubscription }) => {
                 atencionalcliente@comercio.com.pe
               </p>
             </div>
-          </S.Notice>
-        </S.WrapperBlock>
+          </div>
+        </div>
       )}
 
       {showModalConfirm && (
         <Modal size="small" position="middle" bgColor="white">
-          <div className="btn-close-int">
-            <button
-              type="button"
-              onClick={() => {
-                closeModalConfirm('anulacion')
-              }}>
-              <Close />
-            </button>
-          </div>
+          <button
+            className="close-modal"
+            type="button"
+            onClick={() => {
+              closeModalConfirm('anulacion')
+            }}>
+            <Close />
+          </button>
 
           <Form>
             {showStepCancel === 1 && (
               <>
                 {arcSite === 'elcomercio' ? (
                   <>
-                    <Title s="16" className="justify mt-10 mb-20">
+                    <Title s="16" className="justify mt-40 mb-20">
                       Queremos que sepas que gracias a tu suscripción podemos
                       reforzar nuestro compromiso con el periodismo de calidad.
                     </Title>
@@ -874,7 +890,7 @@ const SubsDetail = ({ IdSubscription }) => {
                   </>
                 ) : (
                   <>
-                    <Title s="16" className="justify mt-10 mb-20">
+                    <Title s="16" className="justify mt-40 mb-20">
                       Lamentamos mucho que estés por tomar la decisión de
                       cancelar tu suscripción con Gestion.pe y quieras dejar de
                       formar parte de nuestro selecto grupo de suscriptores.
@@ -893,28 +909,32 @@ const SubsDetail = ({ IdSubscription }) => {
                   </>
                 )}
 
-                <S.Block align="center" pt="10">
-                  <S.FormGroup width="80">
-                    <Button
-                      typeBtn="border"
-                      type="button"
-                      onClick={() => {
-                        setShowStepCancel(2)
-                        Taggeo(
-                          `Web_Sign_Wall_General`,
-                          `web_swg_open_anulacion_step2`
-                        )
-                      }}>
-                      Continuar con la anulación
-                    </Button>
-                  </S.FormGroup>
-                </S.Block>
+                <div
+                  className="sign-profile_subscriptions-block"
+                  style={{
+                    textAlign: 'center',
+                    paddingTop: '10px',
+                    paddingBottom: '20px',
+                  }}>
+                  <button
+                    type="button"
+                    className="sign-profile_general-button sign-profile_general-button-border"
+                    onClick={() => {
+                      setShowStepCancel(2)
+                      Taggeo(
+                        `Web_Sign_Wall_General`,
+                        `web_swg_open_anulacion_step2`
+                      )
+                    }}>
+                    Continuar con la anulación
+                  </button>
+                </div>
               </>
             )}
 
             {showStepCancel === 2 && (
               <>
-                <Title s="20" c={mainColorTitle} className="center mt-10 mb-20">
+                <Title s="20" c={mainColorTitle} className="center mt-40 mb-20">
                   ¿De qué te perderás si cancelas tu suscripción?
                 </Title>
 
@@ -954,28 +974,32 @@ const SubsDetail = ({ IdSubscription }) => {
                   </>
                 )}
 
-                <S.Block align="center" pt="10">
-                  <S.FormGroup width="80">
-                    <Button
-                      typeBtn="border"
-                      type="button"
-                      onClick={() => {
-                        setShowStepCancel(3)
-                        Taggeo(
-                          `Web_Sign_Wall_General`,
-                          `web_swg_open_anulacion_step3`
-                        )
-                      }}>
-                      Continuar con la anulación
-                    </Button>
-                  </S.FormGroup>
-                </S.Block>
+                <div
+                  className="sign-profile_subscriptions-block"
+                  style={{
+                    textAlign: 'center',
+                    paddingTop: '10px',
+                    paddingBottom: '20px',
+                  }}>
+                  <button
+                    type="button"
+                    className="sign-profile_general-button sign-profile_general-button-border"
+                    onClick={() => {
+                      setShowStepCancel(3)
+                      Taggeo(
+                        `Web_Sign_Wall_General`,
+                        `web_swg_open_anulacion_step3`
+                      )
+                    }}>
+                    Continuar con la anulación
+                  </button>
+                </div>
               </>
             )}
 
             {showStepCancel === 3 && (
               <>
-                <Title s="20" c={mainColorTitle} className="center mt-10 mb-20">
+                <Title s="20" c={mainColorTitle} className="center mt-40 mb-20">
                   {` ${
                     new Date() >= new Date(showResLastSubs)
                       ? 'Tu suscripción no se puede anular, ya que se encuentra en proceso de renovación automática desde el'
@@ -991,23 +1015,30 @@ const SubsDetail = ({ IdSubscription }) => {
                   } `}
                 </Title>
 
-                <S.Block align="center" pt="10">
+                <div
+                  className="sign-profile_subscriptions-block"
+                  style={{
+                    textAlign: 'center',
+                    paddingTop: '10px',
+                    paddingBottom: '20px',
+                  }}>
                   {new Date() >= new Date(showResLastSubs) ? (
                     <>
-                      <S.FormGroup width="45">
-                        <Button
+                      <div className="sign-profile_subscriptions-form-group">
+                        <button
                           type="button"
+                          className="sign-profile_general-button"
                           onClick={() => {
                             closeModalConfirm('anulacion')
                           }}>
                           Cancelar
-                        </Button>
-                      </S.FormGroup>
+                        </button>
+                      </div>
 
-                      <S.FormGroup width="45">
-                        <Button
-                          typeBtn="border"
+                      <div className="sign-profile_subscriptions-form-group">
+                        <button
                           type="button"
+                          className="sign-profile_general-button sign-profile_general-button-border"
                           onClick={() => {
                             Taggeo(
                               `Web_Sign_Wall_General`,
@@ -1023,36 +1054,38 @@ const SubsDetail = ({ IdSubscription }) => {
                             }, 100)
                           }}>
                           Renovar suscripción
-                        </Button>
-                      </S.FormGroup>
+                        </button>
+                      </div>
                     </>
                   ) : (
-                    <S.FormGroup width="80">
-                      <Button
-                        typeBtn="border"
-                        type="button"
-                        onClick={() => {
-                          setShowStepCancel(4)
-                          Taggeo(
-                            `Web_Sign_Wall_General`,
-                            `web_swg_open_anulacion_step4`
-                          )
-                        }}>
-                        Continuar con la anulación
-                      </Button>
-                    </S.FormGroup>
+                    <buttton
+                      type="button"
+                      className="sign-profile_general-button sign-profile_general-button-border"
+                      onClick={() => {
+                        setShowStepCancel(4)
+                        Taggeo(
+                          `Web_Sign_Wall_General`,
+                          `web_swg_open_anulacion_step4`
+                        )
+                      }}>
+                      Continuar con la anulación
+                    </buttton>
                   )}
-                </S.Block>
+                </div>
               </>
             )}
 
             {showStepCancel === 4 && (
               <>
-                <Title s="20" c={mainColorTitle} className="center mt-10 mb-20">
+                <Title s="20" c={mainColorTitle} className="center mt-40 mb-20">
                   Finalizar suscripción
                 </Title>
 
-                {showErrorCancel && <Message failed>{showErrorCancel}</Message>}
+                {showErrorCancel && (
+                  <div className="sign-profile_subscriptions-message sign-profile_subscriptions-message-failed">
+                    {showErrorCancel}
+                  </div>
+                )}
 
                 <Title s="16" className="justify mt-10 mb-10">
                   Antes de hacer efectiva la anulación, por favor, cuéntanos los
@@ -1088,10 +1121,19 @@ const SubsDetail = ({ IdSubscription }) => {
                     ))}
 
                 {showOptionCancel === 'Otro motivo' && (
-                  <S.Block pt="10">
-                    <S.FormGroup
-                      width="100"
-                      className={validateMotivo() && 'group-required'}>
+                  <div
+                    className="sign-profile_subscriptions-block"
+                    style={{
+                      paddingTop: '10px',
+                    }}>
+                    <div
+                      style={{
+                        width: '100%',
+                        margin: '0px',
+                      }}
+                      className={`sign-profile_subscriptions-form-group ${
+                        validateMotivo() ? 'group-required' : ''
+                      }`}>
                       <p>{validateMotivo()}</p>
                       <textarea
                         id="motivo-detalle"
@@ -1104,24 +1146,31 @@ const SubsDetail = ({ IdSubscription }) => {
                         placeholder="Ingresa motivo"
                         maxLength="200"
                       />
-                    </S.FormGroup>
-                  </S.Block>
+                    </div>
+                  </div>
                 )}
 
-                <S.Block align="center" pt="20">
-                  <S.FormGroup width="45">
-                    <Button
+                <div
+                  className="sign-profile_subscriptions-block"
+                  style={{
+                    textAlign: 'center',
+                    paddingTop: '20px',
+                    paddingBottom: '20px',
+                  }}>
+                  <div className="sign-profile_subscriptions-form-group">
+                    <button
                       type="button"
+                      className="sign-profile_general-button"
                       onClick={() => {
                         closeModalConfirm('anulacion')
                       }}>
                       Cancelar
-                    </Button>
-                  </S.FormGroup>
-                  <S.FormGroup width="45">
-                    <Button
-                      typeBtn="border"
+                    </button>
+                  </div>
+                  <div className="sign-profile_subscriptions-form-group">
+                    <button
                       type="button"
+                      className="sign-profile_general-button sign-profile_general-button-border"
                       disabled={
                         showOptionCancel === null ||
                         (showOptionCancel === 'Otro motivo' &&
@@ -1139,9 +1188,9 @@ const SubsDetail = ({ IdSubscription }) => {
                         )
                       }}>
                       {showLoadCancel || 'Finalizar Suscripción'}
-                    </Button>
-                  </S.FormGroup>
-                </S.Block>
+                    </button>
+                  </div>
+                </div>
               </>
             )}
           </Form>
@@ -1150,17 +1199,17 @@ const SubsDetail = ({ IdSubscription }) => {
 
       {showModalRecovery && (
         <Modal size="small" position="middle" bgColor="white">
-          <div className="btn-close-int">
-            <button
-              type="button"
-              onClick={() => {
-                closeModalConfirm('recuperar')
-              }}>
-              <Close />
-            </button>
-          </div>
+          <button
+            className="close-modal"
+            type="button"
+            onClick={() => {
+              closeModalConfirm('recuperar')
+            }}>
+            <Close />
+          </button>
+
           <Form>
-            <Title s="18" className="center mt-10 mb-20">
+            <Title s="18" className="center mt-40 mb-20">
               Confirmar Recuperación
             </Title>
             <Text c="gray" s="16" lh="26" className="center mb-10">
@@ -1170,20 +1219,23 @@ const SubsDetail = ({ IdSubscription }) => {
             <Text c="gray" s="16" lh="26" className="center mb-10">
               ¿Desea recuperar su suscripción?
             </Text>
-            <S.Block align="center" pt="20">
-              <S.FormGroup width="45">
-                <Button
+            <div
+              className="sign-profile_subscriptions-block"
+              style={{ textAlign: 'center', paddingTop: '20px' }}>
+              <div className="sign-profile_subscriptions-form-group">
+                <button
                   type="button"
+                  className="sign-profile_general-button"
                   onClick={() => {
                     closeModalConfirm('recuperar')
                   }}>
                   Cancelar
-                </Button>
-              </S.FormGroup>
-              <S.FormGroup width="45">
-                <Button
-                  typeBtn="border"
+                </button>
+              </div>
+              <div className="sign-profile_subscriptions-form-group">
+                <button
                   type="button"
+                  className="sign-profile_general-button sign-profile_general-button-border"
                   disabled={showLoadRescue}
                   onClick={() => {
                     recoverySubscription(showResDetail.subscriptionID)
@@ -1193,13 +1245,13 @@ const SubsDetail = ({ IdSubscription }) => {
                     )
                   }}>
                   {showLoadRescue || 'Recuperar'}
-                </Button>
-              </S.FormGroup>
-            </S.Block>
+                </button>
+              </div>
+            </div>
           </Form>
         </Modal>
       )}
-    </Wrapper>
+    </div>
   )
 }
 
