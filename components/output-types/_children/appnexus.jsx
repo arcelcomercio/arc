@@ -17,7 +17,6 @@ const getSite = (site) => {
   }
   return sites[site] || sites.elcomercio
 }
-let scriptLayer = ''
 const getTypeStory = ({ promo_items: promoItems = {} } = {}) => {
   const type = promoItems
   const arrType = Object.keys(type)
@@ -94,6 +93,8 @@ const getVars = (
   let titleSo = ''
   let isPreSo = ''
   let userStat = ''
+
+  let scriptLayer = ''
 
   if (requestUri) {
     if (path === '/homepage') {
