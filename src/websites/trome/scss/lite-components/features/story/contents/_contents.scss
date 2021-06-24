@@ -29,16 +29,37 @@
   }
 
 
+
+
   a {
-    color: #306D95;
-    font-weight: 700;
-    text-decoration: underline;
+    color: #D35B2C;
+    font-weight: 800;
+    text-decoration: none;
+    font-family: $encode-c;
+  }
+
+  mark {
+    background: #000;
+    color: #fff;
+    padding: 3px 6px;
+    font-family: $encode-c;
+    font-weight: 800;
+    font-size: 14px;
+
+    @media(--desktop) {
+      font-size: 22px;
+    }
+
+    h6 {
+      font-weight: 800;
+    }
   }
 
   &__blockquote {
     padding: 19px 0;
     font-family: $encode-c;
     font-size: 32px;
+    font-weight: 700;
     line-height: 40px;
     letter-spacing: -0.32px;
     color: #343434;
@@ -157,8 +178,9 @@
 
     a {
       color: #306D95;
-      text-decoration: underline;
       font-family: $fira-s;
+      font-weight: inherit;
+      text-decoration: underline;
     }
   }
 
@@ -200,18 +222,13 @@
 
   .pquote {
     background: none;
-
-    &__text {
-      font-style: italic;
-      color: #469bc6;
-      padding: 15px;
-      font-size: 1.3rem;
-    }
-
-    &::first-letter {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
+    padding: 19px 0;
+    font-family: $encode-c;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: -0.32px;
+    color: #343434;
   }
 
   /* Esto es importante definirlo por los scripts de Opta */
@@ -511,6 +528,19 @@
 }
 
 .story-content {
+  &__caption {
+    font-size: 20px;
+    line-height: 24px;
+    padding: 10px 0;
+    border-bottom: 3px solid #AAAAAA;
+    margin-bottom: 38px;
+
+    @media(--desktop) {
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+
   &__embed {
     padding-bottom: 20px;
 
@@ -630,52 +660,67 @@
   }
 
   &__link-list {
-    background-color: #f8f8f8;
-    border: 1px solid #f0f0f0;
+    background: none;
+    border: none;
     position: relative;
-    padding: 20px;
-    margin: 20px 20px 20px 0;
+    margin: 38px 0;
+
+    &-single {
+      display: flex;
+
+      .story-content__link-list-item,
+      .story-content__link-list-title {
+        margin-bottom: 0 !important;
+      }
+
+      .story-content__link-list-item {
+        margin-left: 1em;
+      }
+    }
 
     &-item {
-      display: flex;
-      margin-top: 20px;
+      // display: flex;
+      margin-bottom: 24px;
     }
 
     &-figure {
-      width: 96px;
-      height: 64px;
+      display: none;
     }
 
     &-title {
       font-family: $encode-c;
-      font-size: 16px;
-      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #fff;
+      background-color: #000;
+      padding: 3px 6px;
+      display: inline-block;
+
+      @media(--desktop) {
+        font-size: 22px;
+      }
 
       &-link {
-        font-size: 15px;
-        font-weight: 700;
-        text-decoration: underline;
+        font-weight: 800;
+        text-decoration: none;
         overflow: hidden;
+        font-family: $encode-c;
+        font-size: 20px;
+        line-height: 24px;
 
-        @media (--desktop) {
-          font-size: 17px;
+        @media(--desktop) {
+          font-size: 24px;
+          line-height: 32px;
         }
-
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        line-height: 20px;
-        height: 62px;
       }
     }
 
     &-information {
-      padding: 0 0 0 20px;
-
-      @media (--tablet) {
-        padding: 0 10px 0 20px;
-      }
+      padding: 0;
     }
+
+
   }
 }
 

@@ -33,6 +33,7 @@ import {
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -252,7 +253,17 @@ const StoryContentsLite = (props) => {
                   url = '',
                   items = [],
                   list_type: listType = 'unordered',
+                  title,
                 } = element
+
+                if (
+                  arcSite === SITE_TROME &&
+                  type === ELEMENT_BLOCKQUOTE &&
+                  content.toLowerCase().includes('puedes leer')
+                ) {
+                  return null
+                }
+
                 if (type === ELEMENT_IMAGE) {
                   return (
                     <StoryContentsChildImage
@@ -344,6 +355,11 @@ const StoryContentsLite = (props) => {
                     )
                   }
                 }
+                // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
+                // if (type === ELEMENT_BLOCKQUOTE && arcSite === SITE_TROME) {
+                //   return null
+                // }
+
                 if (type === ELEMENT_GALLERY) {
                   return (
                     <StoryHeaderChildGallery
@@ -364,7 +380,8 @@ const StoryContentsLite = (props) => {
                           className={alignmentClass}
                           dangerouslySetInnerHTML={{
                             __html: replaceTags(content),
-                          }} />
+                          }}
+                        />
                       )}
                       {nameAds === 'caja3' &&
                         (arcSite === SITE_ELCOMERCIOMAG ||
@@ -412,7 +429,8 @@ const StoryContentsLite = (props) => {
                           className={alignmentClass}
                           dangerouslySetInnerHTML={{
                             __html: replaceTags(content),
-                          }} />
+                          }}
+                        />
                       )}
                     </>
                   )
@@ -480,7 +498,9 @@ const StoryContentsLite = (props) => {
                     />
                   )
                 }
+
                 if (type === ELEMENT_BLOCKQUOTE) {
+                  console.log(content)
                   return (
                     <blockquote
                       dangerouslySetInnerHTML={{
@@ -525,6 +545,11 @@ const StoryContentsLite = (props) => {
                 }
 
                 if (type === ELEMENT_LINK_LIST) {
+                  console.log('LIIIIIIIIIIST TItle')
+                  if (arcSite === SITE_TROME)
+                    return (
+                      <StoryContentsChildLinkList items={items} title={title} />
+                    )
                   return <StoryContentsChildLinkList items={items} />
                 }
 

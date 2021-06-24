@@ -69,4 +69,37 @@
   &__link:hover {
     text-decoration: none;
   }
+
+  &__related {
+    margin: 0 57px 28px 57px;
+
+    mark {
+      background: #000;
+      color: #fff;
+      padding: 3px 6px;
+      font-family: $encode-c;
+      font-weight: 800;
+      font-size: 14px;
+
+      @media(--desktop) {
+        font-size: 22px;
+      }
+    }
+
+    a {
+      color: #D35B2C;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: $encode-c;
+      font-size: 20px;
+      line-height: 24px;
+
+      @media(--desktop) {
+        font-size: 24px;
+        line-height: 32px;
+      }
+    }
+  }
+
+
 }
