@@ -34,6 +34,7 @@ $hi-dark: #666;
     align-items: center;
     justify-content: center;
     position: relative;
+    max-width: 1366px;
   }
 
   &__menu-txt {
@@ -124,6 +125,8 @@ $hi-dark: #666;
     padding-right: 100px;
     padding-left: 8vw;
     padding-right: 8vw;
+    z-index: 2;
+    background-color: #fff;
 
     @media (--desktop) {
       display: block;
@@ -290,7 +293,7 @@ $hi-dark: #666;
     }
 
     &__content {
-      width: calc(100% + 17px);
+      width: calc(100% + 5px);
     }
 
     &__box-search {
