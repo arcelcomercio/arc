@@ -500,7 +500,6 @@ const StoryContentsLite = (props) => {
                 }
 
                 if (type === ELEMENT_BLOCKQUOTE) {
-                  console.log(content)
                   return (
                     <blockquote
                       dangerouslySetInnerHTML={{
@@ -545,7 +544,6 @@ const StoryContentsLite = (props) => {
                 }
 
                 if (type === ELEMENT_LINK_LIST) {
-                  console.log('LIIIIIIIIIIST TItle')
                   if (arcSite === SITE_TROME)
                     return (
                       <StoryContentsChildLinkList items={items} title={title} />
