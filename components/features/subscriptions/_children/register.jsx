@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { MsgRegister } from '../../signwall/_children/icons'
 import { NavigateConsumer } from '../_context/navigate'
 import getCodeError, {
   acceptCheckTerms,
@@ -8,7 +9,6 @@ import getCodeError, {
   formatPhone,
 } from '../_dependencies/Errors'
 import getDevice from '../_dependencies/GetDevice'
-import { MsgRegister } from '../_dependencies/Icons'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'

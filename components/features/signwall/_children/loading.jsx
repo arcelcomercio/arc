@@ -1,128 +1,93 @@
-import Context from 'fusion:context'
+import { useFusionContext } from 'fusion:context'
+import PropTypes from 'prop-types'
 import React from 'react'
-import styled, { css } from 'styled-components'
 
 import { getAssetsPath } from '../../../utilities/constants'
-import { device } from '../_dependencies/breakpoints'
-import { LoadingEco, LoadingGes, LoadingP21 } from './iconos'
+import Portal from '../../subscriptions/_children/modal/portal'
+import { LoadingEco, LoadingGes, LoadingP21 } from './icons'
 
-export const WrapperLoading = styled.div`
-  width: 100%;
-  text-align: center;
-
-  ${(props) =>
-    props.typeBg === 'wait' &&
-    css`
-      position: relative;
-      background: transparent;
-      padding: 50% 0%;
-      @media ${device.desktop} {
-        padding: 20% 0%;
+const Inside = ({ arcSite, mainColorBg, urlLogo, typeBg }) => (
+  <div className={`sign-loading ${typeBg}`}>
+    {(() => {
+      switch (arcSite) {
+        case 'gestion':
+          return (
+            <div className={`cont-loader-logo ${typeBg}`}>
+              <LoadingGes />
+              <LoadingGes />
+              <LoadingGes />
+            </div>
+          )
+        case 'elcomercio':
+          return (
+            <div className={`cont-loader-logo ${typeBg}`}>
+              <LoadingEco />
+              <LoadingEco />
+              <LoadingEco />
+            </div>
+          )
+        case 'peru21':
+          return (
+            <div className={`cont-loader-logo ${typeBg}`}>
+              <LoadingP21 />
+              <LoadingP21 />
+              <LoadingP21 />
+            </div>
+          )
+        default:
+          return (
+            <div
+              className="cont-loader-default"
+              style={{
+                background: mainColorBg,
+              }}>
+              <img src={urlLogo} alt="Logo Marca" />
+            </div>
+          )
       }
-    `};
+    })()}
+  </div>
+)
+const Loading = ({ typeBg }) => {
+  const {
+    siteProperties: {
+      signwall: { mainColorBg = 'gray' },
+      assets: { header: { logo } = {} } = {},
+    },
+    contextPath,
+    arcSite,
+  } = useFusionContext() || {}
 
-  ${(props) =>
-    props.typeBg === 'block' &&
-    css`
-      position: absolute;
-      background: rgba(255, 255, 255, 0.5);
-      padding: 20% 0%;
-      z-index: 20;
-    `};
+  const urlLogo = `${getAssetsPath(
+    arcSite,
+    contextPath
+  )}/resources/dist/${arcSite}/images/${logo}?d=1`
 
-  ${(props) =>
-    props.typeDialog === 'premium' &&
-    css`
-      padding: 20% 0% !important;
-      @media ${device.tablet} {
-        padding: 35% 0% !important;
-      }
-    `};
-
-  .cont-loader-logo {
-    svg {
-      margin: 0px 5px;
-    }
-    svg:nth-child(1) {
-      animation: identifier 700ms infinite linear;
-    }
-    svg:nth-child(2) {
-      animation: identifier 700ms infinite linear;
-      animation-delay: calc(350ms);
-    }
-    svg:nth-child(3) {
-      animation: identifier 700ms infinite linear;
-      animation-delay: calc(350ms * 2);
-    }
-  }
-
-  @keyframes identifier {
-    50% {
-      transform: scale(1.2);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-`
-
-const Loading = ({ arcSite, typeBg, typeDialog }) => {
-  const sitesLoad = ['gestion', 'elcomercio', 'peru21']
   return (
-    <WrapperLoading typeBg={typeBg} typeDialog={typeDialog}>
-      {sitesLoad.includes(arcSite) ? (
-        <div className="cont-loader-logo">
-          {
-            {
-              gestion: (
-                <>
-                  <LoadingGes />
-                  <LoadingGes />
-                  <LoadingGes />
-                </>
-              ),
-              elcomercio: (
-                <>
-                  <LoadingEco />
-                  <LoadingEco />
-                  <LoadingEco />
-                </>
-              ),
-              peru21: (
-                <>
-                  <LoadingP21 />
-                  <LoadingP21 />
-                  <LoadingP21 />
-                </>
-              ),
-            }[arcSite]
-          }
-        </div>
+    <>
+      {typeBg === 'full' ? (
+        <Portal id="sign-loading">
+          <Inside
+            mainColorBg={mainColorBg}
+            arcSite={arcSite}
+            urlLogo={urlLogo}
+            typeBg={typeBg}
+          />
+        </Portal>
       ) : (
-        <>
-          <Context>
-            {({ siteProperties, contextPath }) => (
-              <div
-                className="cont-loader-default"
-                style={{
-                  background: siteProperties.signwall.mainColorBg || 'gray',
-                }}>
-                <img
-                  alt={`Logo ${arcSite}`}
-                  src={`${getAssetsPath(
-                    arcSite,
-                    contextPath
-                  )}/resources/dist/${arcSite}/images/${
-                    siteProperties.assets.header.logo
-                  }?d=1`}
-                />
-              </div>
-            )}
-          </Context>
-        </>
+        <Inside
+          mainColorBg={mainColorBg}
+          arcSite={arcSite}
+          urlLogo={urlLogo}
+          typeBg={typeBg}
+        />
       )}
-    </WrapperLoading>
+    </>
   )
+}
+
+Loading.propTypes = {
+  typeBg: PropTypes.string.isRequired,
 }
 
 export default Loading

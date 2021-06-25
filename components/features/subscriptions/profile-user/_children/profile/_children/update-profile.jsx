@@ -7,8 +7,7 @@
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
-import { Button, Text } from '../../../../../signwall/_children/forms/styles'
-import { Close } from '../../../../../signwall/_children/iconos'
+import { Close } from '../../../../../signwall/_children/icons'
 import { Modal } from '../../../../../signwall/_children/modal/index'
 import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import GetProfile from '../../../../../signwall/_dependencies/get-profile'
@@ -1000,13 +999,14 @@ class UpdateProfile extends React.Component {
               )}
             </div>
             <div className="sign-profile_update-form-group">
-              <Button
+              <button
+                className="signwall-inside_forms-btn"
                 type="submit"
                 color={mainColorBtn}
                 disabled={!hasChange || loading || hasError}
                 tabIndex="13">
                 {textSubmit}
-              </Button>
+              </button>
             </div>
           </div>
         </form>
@@ -1024,9 +1024,14 @@ class UpdateProfile extends React.Component {
             <form
               className="sign-profile_update-form-grid"
               onSubmit={(e) => this.submitConfirmPassword(e)}>
-              <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
+              <p
+                style={{
+                  fontSize: '14px',
+                  lineHeight: '28px',
+                }}
+                className="signwall-inside_forms-text mt-10 mb-10 center">
                 Para realizar los cambios, por favor ingresa tu contraseña
-              </Text>
+              </p>
 
               <div
                 className="sign-profile_update-form-group"
@@ -1061,9 +1066,13 @@ class UpdateProfile extends React.Component {
                 )}
               </div>
 
-              <Button type="submit" disabled={sending} color={mainColorBtn}>
+              <button
+                className="signwall-inside_forms-btn"
+                type="submit"
+                disabled={sending}
+                style={{ color: mainColorBtn }}>
                 {sendingConfirmText}
-              </Button>
+              </button>
             </form>
           </Modal>
         )}

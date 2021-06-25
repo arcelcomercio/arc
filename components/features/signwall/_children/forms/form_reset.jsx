@@ -6,9 +6,8 @@ import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI } from '../../_dependencies/domains'
-import { MsgResetPass, ResetPass } from '../iconos'
+import { MsgResetPass, ResetPass } from '../icons'
 import { Input } from './control_input_select'
-import * as S from './styles'
 
 const FormReset = ({ onClose, tokenReset, typeDialog }) => {
   const {
@@ -108,20 +107,29 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
   }
 
   return (
-    <S.Form onSubmit={handleOnSubmit}>
+    <form className="signwall-inside_forms-form" onSubmit={handleOnSubmit}>
       {!showConfirm ? (
         <>
           <div className="center block mb-20">
             <ResetPass bgcolor={mainColorBr} />
           </div>
-          <S.Title s="20" primaryFont={primaryFont} className="center mb-10">
+          <h4
+            style={{ fontSize: '20px', fontFamily: primaryFont }}
+            className="signwall-inside_forms-title center mb-10">
             Cambiar contraseña
-          </S.Title>
-          <S.Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
+          </h4>
+          <p
+            style={{
+              fontSize: '14px',
+              lineHeight: '28px',
+            }}
+            className="signwall-inside_forms-text mt-10 mb-10 center">
             Ingresa una nueva contraseña para tu cuenta
-          </S.Text>
+          </p>
 
-          {showError && <S.Error>{showError}</S.Error>}
+          {showError && (
+            <div className="signwall-inside_forms-error">{showError}</div>
+          )}
 
           <Input
             type="password"
@@ -153,10 +161,10 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
             error={rconfirmpassError || showFormatInvalidTwo}
           />
 
-          <S.Button
-            color={mainColorBtn}
+          <button
+            style={{ color: mainColorBtn }}
             type="submit"
-            className="mt-20"
+            className="signwall-inside_forms-btn mt-20"
             disabled={
               disable ||
               showLoading ||
@@ -164,7 +172,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
               showFormatInvalidTwo
             }>
             {showLoading ? 'CAMBIANDO...' : 'ACEPTAR'}
-          </S.Button>
+          </button>
         </>
       ) : (
         <>
@@ -172,14 +180,17 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
             <MsgResetPass bgcolor={mainColorBr} />
           </div>
 
-          <S.Title s="20" className="center mb-20 ">
+          <h4
+            style={{ fontSize: '20px' }}
+            className="signwall-inside_forms-title center mb-20 ">
             Tu contraseña ha sido actualizada
-          </S.Title>
+          </h4>
 
           {showBtnContinue ? (
-            <S.Button
+            <button
               type="button"
-              color={mainColorBtn}
+              className="signwall-inside_forms-btn"
+              style={{ color: mainColorBtn }}
               onClick={() => {
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,
@@ -188,11 +199,12 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
                 onClose()
               }}>
               CONTINUAR NAVEGANDO
-            </S.Button>
+            </button>
           ) : (
-            <S.Button
+            <button
               type="button"
-              color={mainColorBtn}
+              className="signwall-inside_forms-btn"
+              style={{ color: mainColorBtn }}
               onClick={() => {
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,
@@ -201,11 +213,11 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
                 changeTemplate('login')
               }}>
               CONTINUAR
-            </S.Button>
+            </button>
           )}
         </>
       )}
-    </S.Form>
+    </form>
   )
 }
 

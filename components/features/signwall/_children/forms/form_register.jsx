@@ -21,13 +21,12 @@ import {
   getEntitlement,
   sendNewsLettersUser,
 } from '../../_dependencies/services'
-import { Back, MsgRegister } from '../iconos'
+import { Back, MsgRegister } from '../icons'
 import Loading from '../loading'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
 import { FormStudents } from './form_students'
-import * as S from './styles'
 
 const FormRegister = ({
   typeDialog,
@@ -355,12 +354,15 @@ const FormRegister = ({
       {!showStudents && (
         <>
           {showCheckPremium ? (
-            <Loading arcSite={arcSite} typeBg="wait" />
+            <Loading typeBg="wait" />
           ) : (
-            <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
+            <form
+              className={`signwall-inside_forms-form ${typeDialog}`}
+              onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
-                  <S.ButtonBase
+                  <button
+                    className="signwall-inside_forms-btn-base"
                     type="button"
                     onClick={() => {
                       Taggeo(
@@ -377,11 +379,15 @@ const FormRegister = ({
                       }
                     }}>
                     <Back /> Volver
-                  </S.ButtonBase>
+                  </button>
 
-                  <S.Text c="gray" s="16" className="mb-10 center">
+                  <p
+                    style={{
+                      fontSize: '16px',
+                    }}
+                    className="signwall-inside_forms-text mb-10 center">
                     Accede fácilmente con:
-                  </S.Text>
+                  </p>
 
                   {authProviders.map((item) => (
                     <ButtonSocial
@@ -411,30 +417,34 @@ const FormRegister = ({
                     onStudents={() => setShowStudents(!showStudents)}
                   />
 
-                  <S.Text c="gray" s="14" className="mt-15 center">
+                  <p
+                    style={{
+                      fontSize: '14px',
+                    }}
+                    className="signwall-inside_forms-text mt-15 center">
                     o completa tus datos para registrarte
-                  </S.Text>
+                  </p>
 
                   {showError && (
-                    <S.Error>
+                    <div className="signwall-inside_forms-error">
                       {showError.indexOf('ya existe') ? (
                         <>
                           {showError}
-                          <S.Link
+                          <a
                             href="#"
-                            c="white"
-                            fw="bold"
+                            style={{ color: 'white', fontWeight: 'bold' }}
+                            className="signwall-inside_forms-link"
                             onClick={(e) => {
                               e.preventDefault()
                               changeTemplate('forgot')
                             }}>
                             Recuperar contraseña
-                          </S.Link>
+                          </a>
                         </>
                       ) : (
                         showError
                       )}
-                    </S.Error>
+                    </div>
                   )}
 
                   <Input
@@ -496,18 +506,22 @@ const FormRegister = ({
                         handleOnChange(e)
                         setCheckedPolits(!checkedPolits)
                       }}>
-                      <S.Text c="gray" lh="18" s="12" className="mt-10">
+                      <p
+                        style={{
+                          lineHeight: '18px',
+                          fontSize: '12px',
+                        }}
+                        className="signwall-inside_forms-text mt-10">
                         Al registrarme por redes sociales o por este formulario
                         autorizo el uso de mis datos para
-                        <S.Link
+                        <a
                           href="/tratamiento-de-datos/"
                           target="_blank"
-                          c={mainColorLink}
-                          fw="bold"
-                          className="ml-5 inline">
+                          style={{ color: mainColorLink, fontWeight: 'bold' }}
+                          className="signwall-inside_forms-link ml-5 inline">
                           fines adicionales
-                        </S.Link>
-                      </S.Text>
+                        </a>
+                      </p>
                     </CheckBox>
                   )}
 
@@ -522,22 +536,27 @@ const FormRegister = ({
                     }}
                     valid
                     error={rtermsError}>
-                    <S.Text c="gray" lh="18" s="12" className="mt-10">
+                    <p
+                      style={{
+                        lineHeight: '18px',
+                        fontSize: '12px',
+                      }}
+                      className="signwall-inside_forms-text mt-10">
                       Al crear la cuenta acepto los
-                      <S.Link
+                      <a
                         href={`${
                           arcSite === 'depor'
                             ? '/terminos-servicio/'
                             : '/terminos-y-condiciones/'
                         }`}
                         target="_blank"
-                        c={mainColorLink}
-                        fw="bold"
-                        className="ml-5 mr-5 inline">
+                        rel="noreferrer"
+                        style={{ color: mainColorLink, fontWeight: 'bold' }}
+                        className="signwall-inside_forms-link ml-5 mr-5 inline">
                         Términos y Condiciones
-                      </S.Link>
+                      </a>
                       y
-                      <S.Link
+                      <a
                         href={(() => {
                           switch (arcSite) {
                             case 'elcomercio':
@@ -551,18 +570,18 @@ const FormRegister = ({
                           }
                         })()}
                         target="_blank"
-                        c={mainColorLink}
-                        fw="bold"
-                        className="ml-5 inline">
+                        rel="noreferrer"
+                        style={{ color: mainColorLink, fontWeight: 'bold' }}
+                        className="signwall-inside_forms-link ml-5 inline">
                         Políticas de Privacidad
-                      </S.Link>
-                    </S.Text>
+                      </a>
+                    </p>
                   </CheckBox>
 
-                  <S.Button
-                    color={mainColorBtn}
+                  <button
+                    style={{ color: mainColorBtn }}
                     type="submit"
-                    className="mt-15 mb-5"
+                    className="signwall-inside_forms-btn mt-15 mb-5"
                     disabled={disable || showLoading || showFormatInvalid}
                     onClick={() => {
                       Taggeo(
@@ -571,7 +590,7 @@ const FormRegister = ({
                       )
                     }}>
                     {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
-                  </S.Button>
+                  </button>
                 </>
               )}
 
@@ -581,18 +600,22 @@ const FormRegister = ({
                     <MsgRegister bgcolor={mainColorBr} />
                   </div>
 
-                  <S.Title s="22" className="center mb-10">
+                  <h4
+                    style={{ fontSize: '22px' }}
+                    className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
                       ? `Bienvenido(a) ${
                           window.Identity.userProfile.firstName || 'Usuario'
                         }`
                       : 'Tu cuenta ha sido creada correctamente'}
-                  </S.Title>
+                  </h4>
 
                   {showContinueVerify && (
-                    <S.Title s="14" c="#6a6a6a" className="center">
+                    <h4
+                      style={{ fontSize: '14px', color: '#6a6a6a' }}
+                      className="signwall-inside_forms-title center">
                       {remail}
-                    </S.Title>
+                    </h4>
                   )}
 
                   {(typeDialog === 'premium' || typeDialog === 'paywall') &&
@@ -600,19 +623,21 @@ const FormRegister = ({
                       <>
                         {showUserWithSubs ? (
                           <>
-                            <S.Text
-                              c="gray"
-                              s="14"
-                              lh="28"
-                              className="mt-10 mb-20 center">
+                            <p
+                              style={{
+                                fontSize: '14px',
+                                lineHeight: '28px',
+                              }}
+                              className="signwall-inside_forms-text mt-10 mb-20 center">
                               Sigue disfrutando del contenido exclusivo que
                               tenemos para ti
-                            </S.Text>
+                            </p>
 
-                            <S.Button
+                            <button
                               id="btn-premium-continue"
+                              className="signwall-inside_forms-btn"
                               type="button"
-                              color={mainColorBtn}
+                              style={{ color: mainColorBtn }}
                               onClick={() => {
                                 Taggeo(
                                   `Web_${typeDialog}_Hard`,
@@ -634,12 +659,13 @@ const FormRegister = ({
                                 }
                               }}>
                               SIGUE NAVEGANDO
-                            </S.Button>
+                            </button>
                           </>
                         ) : (
-                          <S.Button
+                          <button
                             type="button"
-                            color={mainColorBtn}
+                            className="signwall-inside_forms-btn"
+                            style={{ color: mainColorBtn }}
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
@@ -648,26 +674,28 @@ const FormRegister = ({
                               handleSuscription()
                             }}>
                             VER PLANES
-                          </S.Button>
+                          </button>
                         )}
                       </>
                     )}
 
                   {(showContinueVerify || !activeVerifyEmail) && (
                     <>
-                      <S.Text
-                        c="gray"
-                        s="14"
-                        lh="22"
-                        className="mt-10 mb-20 center">
+                      <p
+                        style={{
+                          fontSize: '14px',
+                          lineHeight: '22px',
+                        }}
+                        className="signwall-inside_forms-text mt-10 mb-20 center">
                         Revisa tu bandeja de correo para confirmar tu
                         {showContinueVerify
                           ? ` registro y sigue navegando`
                           : ` solicitud de registro`}
-                      </S.Text>
-                      <S.Button
+                      </p>
+                      <button
                         type="button"
-                        color={mainColorBtn}
+                        className="signwall-inside_forms-btn"
+                        style={{ color: mainColorBtn }}
                         onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
@@ -694,34 +722,38 @@ const FormRegister = ({
                           }
                         }}>
                         CONTINUAR
-                      </S.Button>
+                      </button>
                     </>
                   )}
 
                   {showContinueVerify && (
-                    <S.Text c="black" s="12" className="mt-20 mb-10 center">
+                    <p
+                      style={{
+                        color: '#000000',
+                        fontSize: '12px',
+                      }}
+                      className="signwall-inside_forms-text mt-20 mb-10 center">
                       ¿No recibiste el correo?
                       <br />
                       {!showSendEmail ? (
-                        <S.Link
+                        <a
                           href="#"
-                          c={mainColorLink}
-                          fw="bold"
-                          className="ml-10"
+                          style={{ color: mainColorLink, fontWeight: 'bold' }}
+                          className="signwall-inside_forms-link ml-10"
                           onClick={sendVerifyEmail}>
                           Reenviar correo de activación
-                        </S.Link>
+                        </a>
                       ) : (
                         <span>
                           Podrás reenviar nuevamente dentro de
                           <strong id="countdown"> 10 </strong> segundos
                         </span>
                       )}
-                    </S.Text>
+                    </p>
                   )}
                 </>
               )}
-            </S.Form>
+            </form>
           )}
         </>
       )}
