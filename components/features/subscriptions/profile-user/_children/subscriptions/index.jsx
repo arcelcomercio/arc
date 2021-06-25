@@ -77,7 +77,7 @@ const Subscription = () => {
           )}
         </>
       ) : (
-        <Loading arcSite={arcSite} typeBg="wait" />
+        <Loading typeBg="wait" />
       )}
     </div>
   )

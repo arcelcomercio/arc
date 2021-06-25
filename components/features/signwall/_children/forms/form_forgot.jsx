@@ -9,9 +9,8 @@ import getCodeError, {
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI } from '../../_dependencies/domains'
-import { Back, ForgotPass, MsgForgotPass } from '../iconos'
+import { Back, ForgotPass, MsgForgotPass } from '../icons'
 import { Input } from './control_input_select'
-import * as S from './styles'
 
 const FormForgot = ({ typeDialog }) => {
   const {
@@ -110,12 +109,13 @@ const FormForgot = ({ typeDialog }) => {
   }
 
   return (
-    <S.Form
+    <form
+      className={`signwall-inside_forms-form ${typeDialog}`}
       onSubmit={(e) => {
         handleOnSubmit(e)
-      }}
-      typeDialog={typeDialog}>
-      <S.ButtonBase
+      }}>
+      <button
+        className="signwall-inside_forms-btn-base"
         type="button"
         onClick={() => {
           Taggeo(
@@ -132,22 +132,32 @@ const FormForgot = ({ typeDialog }) => {
           }
         }}>
         <Back /> Volver
-      </S.ButtonBase>
+      </button>
 
       {!showConfirm ? (
         <>
           <div className="center block mb-10">
             <ForgotPass bgcolor={mainColorBr} />
           </div>
-          <S.Title s="22" className="center mb-10" primaryFont={primaryFont}>
+          <h4
+            className="signwall-inside_forms-title center mb-10"
+            style={{ fontSize: '22px', fontFamily: primaryFont }}>
             Olvidé mi contraseña
-          </S.Title>
-          <S.Text c="gray" s="14" lh="26" className="center">
+          </h4>
+          <p
+            className="signwall-inside_forms-text center"
+            style={{
+              fontSize: '14px',
+              lineHeight: '26px',
+            }}>
             Ingresa tu correo electrónico para <br /> cambiar tu contraseña
-          </S.Text>
+          </p>
 
           {showError && (
-            <S.Error type={showVerify ? 'warning' : ''}>
+            <div
+              className={`signwall-inside_forms-error ${
+                showVerify ? 'warning' : ''
+              }`}>
               {` ${showError} `}
               {showVerify && (
                 <>
@@ -165,18 +175,21 @@ const FormForgot = ({ typeDialog }) => {
               )}
 
               {registerLink && (
-                <S.Link
+                <a
+                  className="signwall-inside_forms-link"
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                  }}
                   href="#"
-                  c="white"
-                  fw="bold"
                   onClick={(e) => {
                     e.preventDefault()
                     changeTemplate('register')
                   }}>
                   Registrar
-                </S.Link>
+                </a>
               )}
-            </S.Error>
+            </div>
           )}
 
           <Input
@@ -194,10 +207,10 @@ const FormForgot = ({ typeDialog }) => {
             error={femailError}
           />
 
-          <S.Button
+          <button
             type="submit"
-            color={mainColorBtn}
-            className="mt-20 mb-10"
+            style={{ color: mainColorBtn }}
+            className="signwall-inside_forms-btn mt-20 mb-10"
             disabled={disable || showLoading}
             onClick={() =>
               Taggeo(
@@ -206,7 +219,7 @@ const FormForgot = ({ typeDialog }) => {
               )
             }>
             {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
-          </S.Button>
+          </button>
         </>
       ) : (
         <>
@@ -214,18 +227,26 @@ const FormForgot = ({ typeDialog }) => {
             <MsgForgotPass bgcolor={mainColorBr} />
           </div>
 
-          <S.Title s="20" className="center mb-10">
+          <h4
+            style={{ fontSize: '20px' }}
+            className="signwall-inside_forms-title center mb-10">
             Correo enviado
-          </S.Title>
+          </h4>
 
-          <S.Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
+          <p
+            style={{
+              fontSize: '14px',
+              lineHeight: '28px',
+            }}
+            className="signwall-inside_forms-text mt-10 mb-10 center">
             Revisa tu correo electrónico para
             <br /> cambiar tu contraseña
-          </S.Text>
+          </p>
 
-          <S.Button
+          <button
             type="button"
-            color={mainColorBtn}
+            style={{ color: mainColorBtn }}
+            className="signwall-inside_forms-btn"
             onClick={() => {
               Taggeo(
                 `Web_Sign_Wall_${typeDialog}`,
@@ -241,10 +262,10 @@ const FormForgot = ({ typeDialog }) => {
               }
             }}>
             ACEPTAR
-          </S.Button>
+          </button>
         </>
       )}
-    </S.Form>
+    </form>
   )
 }
 

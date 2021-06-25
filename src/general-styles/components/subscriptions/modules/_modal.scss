@@ -44,8 +44,10 @@
 }
 
 .close-button {
-  top: 20px !important;
-  right: 20px !important;
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  padding: 10px;
 }
 
 .modal-container {

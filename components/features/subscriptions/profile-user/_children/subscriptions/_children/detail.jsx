@@ -3,18 +3,11 @@
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
+import TextMask from 'react-text-mask'
 
 import addScriptAsync from '../../../../../../utilities/script-async'
-import {
-  ContMask,
-  InputMask,
-} from '../../../../../signwall/_children/forms/control_input_select'
-import {
-  Form,
-  Text,
-  Title,
-} from '../../../../../signwall/_children/forms/styles'
-import { Close, Notice } from '../../../../../signwall/_children/iconos'
+import { ContMask } from '../../../../../signwall/_children/forms/control_input_select'
+import { Close, Notice } from '../../../../../signwall/_children/icons'
 import Loading from '../../../../../signwall/_children/loading'
 import { Modal } from '../../../../../signwall/_children/modal/index'
 import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
@@ -498,7 +491,7 @@ const SubsDetail = ({ IdSubscription }) => {
   return (
     <div className="sign-profile_general-wrapper">
       {showLoading ? (
-        <Loading arcSite={arcSite} typeBg="wait" />
+        <Loading typeBg="wait" />
       ) : (
         <div className="sign-profile_subscriptions-wrapper-block">
           <div
@@ -621,7 +614,7 @@ const SubsDetail = ({ IdSubscription }) => {
 
           {showUpdateCard && (
             <fieldset className="sign-profile_subscriptions-fieldset">
-              {showOpenUpdate && <Loading arcSite={arcSite} typeBg="block" />}
+              {showOpenUpdate && <Loading typeBg="block" />}
 
               <legend>Datos de la tarjeta</legend>
 
@@ -659,14 +652,17 @@ const SubsDetail = ({ IdSubscription }) => {
 
               <br />
 
-              <Form npadding onSubmit={handleOnSubmit}>
+              <form
+                className="signwall-inside_forms-form npadding"
+                onSubmit={handleOnSubmit}>
                 <div className="sign-profile_subscriptions-align">
                   <div className="sign-profile_subscriptions-form-group width-card">
                     <ContMask error={errors.numcard}>
-                      <InputMask
+                      <TextMask
                         type="text"
                         id="numcard"
                         name="numcard"
+                        guide={false}
                         mask={Mask.CARD_NUMBER}
                         required
                         placeholder="Número de tarjeta"
@@ -690,10 +686,11 @@ const SubsDetail = ({ IdSubscription }) => {
 
                   <div className="sign-profile_subscriptions-form-group">
                     <ContMask error={errors.dateexpire} nolabelerror>
-                      <InputMask
+                      <TextMask
                         type="text"
                         id="dateexpire"
                         name="dateexpire"
+                        guide={false}
                         mask={Mask.EXPIRY_DATE}
                         required
                         placeholder="F. de Vencimiento"
@@ -717,10 +714,11 @@ const SubsDetail = ({ IdSubscription }) => {
 
                   <div className="sign-profile_subscriptions-form-group">
                     <ContMask error={errors.codecvv} nolabelerror>
-                      <InputMask
+                      <TextMask
                         type="text"
                         id="codecvv"
                         name="codecvv"
+                        guide={false}
                         mask={Mask.CARD_CVV}
                         required
                         placeholder="CVV"
@@ -773,7 +771,7 @@ const SubsDetail = ({ IdSubscription }) => {
                     </button>
                   </div>
                 </div>
-              </Form>
+              </form>
             </fieldset>
           )}
 
@@ -867,45 +865,77 @@ const SubsDetail = ({ IdSubscription }) => {
             <Close />
           </button>
 
-          <Form>
+          <form className="signwall-inside_forms-form">
             {showStepCancel === 1 && (
               <>
                 {arcSite === 'elcomercio' ? (
                   <>
-                    <Title s="16" className="justify mt-40 mb-20">
+                    <h4
+                      style={{
+                        fontSize: '16px',
+                      }}
+                      className="signwall-inside_forms-title justify mt-40 mb-20">
                       Queremos que sepas que gracias a tu suscripción podemos
                       reforzar nuestro compromiso con el periodismo de calidad.
-                    </Title>
-                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                    </h4>
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text justify mb-10">
                       Nuestro trabajo periodístico va más allá de mantenerte
                       informado. Queremos darte una opción de análisis para que
                       tomes decisiones a través de contenidos exclusivos y notas
                       de valor agregado especialmente creados para ti.
-                    </Text>
-                    <Text c="gray" s="14" lh="26" className="justify mb-20">
+                    </p>
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text  justify mb-20">
                       Gracias a lectores como tú renovamos a diario nuestro
                       deber con la información veraz y confiable que nos
                       permiten mantener más de 180 años de trayectoria.
-                    </Text>
+                    </p>
                   </>
                 ) : (
                   <>
-                    <Title s="16" className="justify mt-40 mb-20">
+                    <h4
+                      style={{
+                        fontSize: '16px',
+                      }}
+                      className="signwall-inside_forms-title justify mt-40 mb-20">
                       Lamentamos mucho que estés por tomar la decisión de
                       cancelar tu suscripción con Gestion.pe y quieras dejar de
                       formar parte de nuestro selecto grupo de suscriptores.
-                    </Title>
-                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                    </h4>
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text justify mb-10">
                       Durante todo el tiempo que estás con nosotros, un
                       experimentado equipo de 50 periodistas trabaja
                       intensamente para ofrecerte primicias y una selección de
                       las noticias más importantes de economía y negocios del
                       Perú y el mundo, lo que incluye a alrededor de 600
                       artículos mensuales Plus G exclusivos para suscriptores.
-                    </Text>
-                    <Text c="gray" s="14" lh="26" className="justify mb-20">
+                    </p>
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text justify mb-20">
                       ¿Deseas continuar con la anulación de tu suscripción?
-                    </Text>
+                    </p>
                   </>
                 )}
 
@@ -934,43 +964,77 @@ const SubsDetail = ({ IdSubscription }) => {
 
             {showStepCancel === 2 && (
               <>
-                <Title s="20" c={mainColorTitle} className="center mt-40 mb-20">
+                <h4
+                  style={{ fontSize: '20px', color: mainColorTitle }}
+                  className="signwall-inside_forms-title center mt-40 mb-20">
                   ¿De qué te perderás si cancelas tu suscripción?
-                </Title>
+                </h4>
 
                 {arcSite === 'elcomercio' ? (
                   <>
-                    <Title s="16" className="justify mt-10 mb-10">
+                    <h4
+                      style={{ fontSize: '16px' }}
+                      className="signwall-inside_forms-title justify mt-10 mb-10">
                       Con tu Plan Digital tienes acceso exclusivo a:
-                    </Title>
+                    </h4>
 
-                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text justify mb-10">
                       Reportajes, entrevistas, artículos de opinión,
                       suplementos, informes y la mejor selección de historias
                       elaboradas por El Comercio, todo creado especialmente para
                       ti.
-                    </Text>
+                    </p>
 
-                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text justify mb-10">
                       Navegación ilimitada a {arcSite}.pe desde todos tus
                       dispositivos.
-                    </Text>
+                    </p>
                   </>
                 ) : (
                   <>
-                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text justify mb-10">
                       Contenido premium Plus G exclusivo para suscriptores
-                    </Text>
+                    </p>
 
-                    <Text c="gray" s="14" lh="26" className="justify mb-10">
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text justify mb-10">
                       Lectura ilimitada del contenido abierto desde todos tus
                       dispositivos.
-                    </Text>
+                    </p>
 
-                    <Text c="gray" s="14" lh="26" className="justify mb-20">
+                    <p
+                      style={{
+                        color: '444444',
+                        fontSize: '14px',
+                        lineHeight: '26px',
+                      }}
+                      className="signwall-inside_forms_text justify mb-20">
                       La mejor selección de artículos e informes elaborados por
                       el diario Gestión, The Economist y la agencia Bloomberg.
-                    </Text>
+                    </p>
                   </>
                 )}
 
@@ -999,21 +1063,30 @@ const SubsDetail = ({ IdSubscription }) => {
 
             {showStepCancel === 3 && (
               <>
-                <Title s="20" c={mainColorTitle} className="center mt-40 mb-20">
+                <h4
+                  style={{
+                    fontSize: '20px',
+                    color: mainColorTitle,
+                  }}
+                  className="signwall-inside_forms-title center mt-40 mb-20">
                   {` ${
                     new Date() >= new Date(showResLastSubs)
                       ? 'Tu suscripción no se puede anular, ya que se encuentra en proceso de renovación automática desde el'
                       : 'Ten en cuenta que solo tendrás acceso a tu plan digital hasta el'
                   }  ${dateFormat(showResLastSubs)}`}
-                </Title>
+                </h4>
 
-                <Title s="16" className="center mt-20 mb-20">
+                <h4
+                  style={{
+                    fontSize: '16px',
+                  }}
+                  className="signwall-inside_forms-title center mt-20 mb-20">
                   {`${
                     new Date() >= new Date(showResLastSubs)
                       ? '¿Deseas renovar en este momento?'
                       : '¿Deseas continuar con la anulación de tu suscripción?'
                   } `}
-                </Title>
+                </h4>
 
                 <div
                   className="sign-profile_subscriptions-block"
@@ -1058,7 +1131,7 @@ const SubsDetail = ({ IdSubscription }) => {
                       </div>
                     </>
                   ) : (
-                    <buttton
+                    <button
                       type="button"
                       className="sign-profile_general-button sign-profile_general-button-border"
                       onClick={() => {
@@ -1069,7 +1142,7 @@ const SubsDetail = ({ IdSubscription }) => {
                         )
                       }}>
                       Continuar con la anulación
-                    </buttton>
+                    </button>
                   )}
                 </div>
               </>
@@ -1077,9 +1150,14 @@ const SubsDetail = ({ IdSubscription }) => {
 
             {showStepCancel === 4 && (
               <>
-                <Title s="20" c={mainColorTitle} className="center mt-40 mb-20">
+                <h4
+                  style={{
+                    fontSize: '20px',
+                    color: mainColorTitle,
+                  }}
+                  className="signwall-inside_forms-title center mt-40 mb-20">
                   Finalizar suscripción
-                </Title>
+                </h4>
 
                 {showErrorCancel && (
                   <div className="sign-profile_subscriptions-message sign-profile_subscriptions-message-failed">
@@ -1087,10 +1165,12 @@ const SubsDetail = ({ IdSubscription }) => {
                   </div>
                 )}
 
-                <Title s="16" className="justify mt-10 mb-10">
+                <h4
+                  styles={{ fontSize: '16px' }}
+                  className="signwall-inside_forms-title justify mt-10 mb-10">
                   Antes de hacer efectiva la anulación, por favor, cuéntanos los
                   motivos por los que deseas anular tu suscripción:
-                </Title>
+                </h4>
 
                 {arcSite === 'elcomercio'
                   ? listOptionsComercio.map((item) => (
@@ -1193,7 +1273,7 @@ const SubsDetail = ({ IdSubscription }) => {
                 </div>
               </>
             )}
-          </Form>
+          </form>
         </Modal>
       )}
 
@@ -1208,17 +1288,29 @@ const SubsDetail = ({ IdSubscription }) => {
             <Close />
           </button>
 
-          <Form>
-            <Title s="18" className="center mt-40 mb-20">
+          <form className="signwall-inside_forms-form">
+            <h4
+              style={{ fontSize: '18px' }}
+              className="signwall-inside_forms-title center mt-40 mb-20">
               Confirmar Recuperación
-            </Title>
-            <Text c="gray" s="16" lh="26" className="center mb-10">
+            </h4>
+            <p
+              style={{
+                fontSize: '16px',
+                lineHeight: '26px',
+              }}
+              className="signwall-inside_forms-text center mb-10">
               Al recuperar se volverá a activar la recurrencia de pagos de
               acuerdo a su plan.
-            </Text>
-            <Text c="gray" s="16" lh="26" className="center mb-10">
+            </p>
+            <p
+              style={{
+                fontSize: '16px',
+                lineHeight: '26px',
+              }}
+              className="signwall-inside_forms-text center mb-10">
               ¿Desea recuperar su suscripción?
-            </Text>
+            </p>
             <div
               className="sign-profile_subscriptions-block"
               style={{ textAlign: 'center', paddingTop: '20px' }}>
@@ -1248,7 +1340,7 @@ const SubsDetail = ({ IdSubscription }) => {
                 </button>
               </div>
             </div>
-          </Form>
+          </form>
         </Modal>
       )}
     </div>

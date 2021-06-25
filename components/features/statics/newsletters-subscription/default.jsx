@@ -232,7 +232,7 @@ class NewslettersSubscription extends Component {
           )}
 
           {loading ? (
-            <Loading arcSite={arcSite} typeBg="wait" />
+            <Loading typeBg="wait" />
           ) : (
             <div role="list" className={classes.list}>
               {newsletters.map((item) => (

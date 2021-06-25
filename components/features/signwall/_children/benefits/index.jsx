@@ -1,9 +1,14 @@
 import * as React from 'react'
 
-import { BeneFive, BeneFour, BeneOne, BeneThree } from '../iconos'
-import { Cont, ItemTitle, TitleContainer } from './styles'
+import { BeneFive, BeneFour, BeneOne, BeneThree } from '../icons'
 
-const Title = ({ content, subTitle, subTitleExtra, subTitleMore, arcSite }) => (
+const TitleBenefit = ({
+  content,
+  subTitle,
+  subTitleExtra,
+  subTitleMore,
+  arcSite,
+}) => (
   <>
     <h1 className={`title title-${arcSite}`}>
       {content}
@@ -31,7 +36,7 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
   let title = ''
   if (typeMessage === 'relogemail') {
     title = (
-      <Title
+      <TitleBenefit
         content={`¡Hola ${
           nameMPP || 'Lector'
         }! Para mejorar tu experiencia de navegación, inicia sesión nuevamente.`}
@@ -41,7 +46,7 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
     )
   } else if (typeMessage === 'reloghash') {
     title = (
-      <Title
+      <TitleBenefit
         content="¡Hola Lector! Hemos mejorado tu experiencia de navegación, inicia sesión nuevamente."
         subTitleExtra="Recuerda que con tu cuenta podrás:"
         arcSite={arcSite}
@@ -57,7 +62,7 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
       case 'elcomercio':
       case 'elcomerciomag':
         title = (
-          <Title
+          <TitleBenefit
             content="Regístrate gratis para continuar leyendo y estar siempre informado con las noticias más relevantes."
             subTitleMore
             arcSite={arcSite}
@@ -66,7 +71,7 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
         break
       case 'gestion':
         title = (
-          <Title
+          <TitleBenefit
             content="Regístrate y continúa informándote con lo más completo en economía, negocios y finanzas."
             subTitleMore
             arcSite={arcSite}
@@ -75,7 +80,7 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
         break
       default:
         title = (
-          <Title
+          <TitleBenefit
             content="Regístrate y continúa informándote."
             subTitleMore
             arcSite={arcSite}
@@ -85,14 +90,14 @@ const getTitle = (typeMessage, nameMPP, arcSite) => {
   } else if (typeMessage === 'hard') {
     if (arcSite === 'elcomercio') {
       title = (
-        <Title
+        <TitleBenefit
           content="Regístrate gratis para continuar leyendo y estar siempre informado con las noticias más relevantes."
           arcSite={arcSite}
         />
       )
     } else {
       title = (
-        <Title
+        <TitleBenefit
           content="¿TE GUSTA LO QUE ESTÁS LEYENDO?"
           subTitle="Regístrate y continúa informándote con lo más completo en economía, negocios y finanzas."
           arcSite={arcSite}
@@ -110,7 +115,7 @@ const Benefits = ({
   mainColorTitle,
   primaryFont,
 }) => (
-  <Cont>
+  <div className="sign-auth_benefits-cont">
     {arcSite === 'trome' ? (
       <div className="box-benefist">
         <h1>¡Regístrate gratis!</h1>
@@ -141,9 +146,11 @@ const Benefits = ({
       </div>
     ) : (
       <>
-        <TitleContainer primaryFont={primaryFont}>
+        <div
+          className="sign-auth_benefits-title-container"
+          style={{ fontFamily: primaryFont }}>
           {getTitle(typeMessage, nameMPP, arcSite)}
-        </TitleContainer>
+        </div>
 
         <div className="item">
           <div className="icon">
@@ -151,10 +158,12 @@ const Benefits = ({
           </div>
 
           <div className="info">
-            <ItemTitle mainColorTitle={mainColorTitle}>
+            <h3
+              className="sign-auth_benefits-item-title"
+              style={{ color: mainColorTitle }}>
               Acceder a más de {arcSite === 'elcomercio' ? '400' : '100'}{' '}
               noticias nuevas al día
-            </ItemTitle>
+            </h3>
             <p className="item-text">e informes especiales</p>
           </div>
         </div>
@@ -166,9 +175,11 @@ const Benefits = ({
             </div>
 
             <div className="info">
-              <ItemTitle mainColorTitle={mainColorTitle}>
+              <h3
+                className="sign-auth_benefits-item-title"
+                style={{ color: mainColorTitle }}>
                 Escuchar podcasts con las primeras noticias del día
-              </ItemTitle>
+              </h3>
               <p className="item-text">desde la App</p>
             </div>
           </div>
@@ -180,9 +191,11 @@ const Benefits = ({
           </div>
 
           <div>
-            <ItemTitle mainColorTitle={mainColorTitle}>
+            <h3
+              className="sign-auth_benefits-item-title"
+              style={{ color: mainColorTitle }}>
               Guardar tus notas favoritas
-            </ItemTitle>
+            </h3>
             <p className="item-text">en la App</p>
           </div>
         </div>
@@ -194,16 +207,18 @@ const Benefits = ({
             </div>
 
             <div>
-              <ItemTitle mainColorTitle={mainColorTitle}>
+              <h3
+                className="sign-auth_benefits-item-title"
+                style={{ color: mainColorTitle }}>
                 Personalizar
-              </ItemTitle>
+              </h3>
               <p className="item-text">tus Newsletters</p>
             </div>
           </div>
         )}
       </>
     )}
-  </Cont>
+  </div>
 )
 
 export default Benefits
