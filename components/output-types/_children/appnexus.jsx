@@ -17,7 +17,6 @@ const getSite = (site) => {
   }
   return sites[site] || sites.elcomercio
 }
-let scriptLayer = ''
 const getTypeStory = ({ promo_items: promoItems = {} } = {}) => {
   const type = promoItems
   const arrType = Object.keys(type)
@@ -95,6 +94,8 @@ const getVars = (
   let isPreSo = ''
   let userStat = ''
 
+  let scriptLayer = ''
+
   if (requestUri) {
     if (path === '/homepage') {
       section = 'home'
@@ -168,7 +169,8 @@ const getVars = (
   if (isGallery) typeSpace = 'nota2'
   if (section.match(/publirreportaje|publireportaje/) !== null && isStory)
     typeSpace = 'nota5'
-  const scriptLayerType = arcSite === SITE_OJO ? scriptLayer : ''
+  // const scriptLayerType = arcSite === SITE_OJO ? scriptLayer : ''
+  const scriptLayerType = scriptLayer // para todas las marcas
   const isSomos = requestUri.includes('/somos/')
   return `
     var type_space = '${typeSpace}'; var site = '${getSite(

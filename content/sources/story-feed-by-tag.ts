@@ -79,7 +79,7 @@ const resolve = (key: StoryFeedByTagParams): string => {
   }
 
   const validateFrom = () => {
-    if (key?.from !== '1' && key.from) {
+    if (key?.from !== ('1' as unknown) && key.from) {
       return (key.from - 1) * size
     }
     return '0'
@@ -91,7 +91,7 @@ const resolve = (key: StoryFeedByTagParams): string => {
     ? // metered,free,premium -> (metered+free+premium)
       `+AND+content_restrictions.content_code:(${contentType.replace(
         /,/g,
-        '+'
+        '+OR+'
       )})`
     : ''
 
@@ -107,6 +107,7 @@ const resolve = (key: StoryFeedByTagParams): string => {
   /* const excludedFields =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website'
  */
+
   return `/content/v4/search/published?q=canonical_website:${website}+AND+taxonomy.tags.slug:${decodeURIComponent(
     name
   ).toLowerCase()}${contentTypeQuery}+AND+type:story&size=${size}&from=${from}&sort=display_date:desc&website=${website}${sourceInclude}`
