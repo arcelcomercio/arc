@@ -14,16 +14,8 @@ import FormForgot from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
 import FormLogin from '../../../_children/forms/form_login'
 import FormRegister from '../../../_children/forms/form_register'
-import { Close } from '../../../_children/iconos'
+import { Close } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
-import {
-  CloseBtn,
-  ContMiddle,
-  ContPaywall,
-  FirstMiddle,
-  SecondMiddle,
-  Title,
-} from './styled'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
@@ -73,11 +65,11 @@ export const PaywallInt = ({ properties }) => {
   }
 
   return (
-    <Modal size="medium" position="middle">
-      <ContMiddle>
-        <CloseBtn
+    <Modal size="medium-large" position="middle">
+      <div className="signwall-inside_body-container paywall">
+        <button
           type="button"
-          className="btn-close"
+          className="signwall-inside_body-close paywall"
           onClick={() => {
             Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
             if (typeDialog === 'paywall') {
@@ -89,11 +81,16 @@ export const PaywallInt = ({ properties }) => {
             }
           }}>
           <Close />
-        </CloseBtn>
-        <FirstMiddle
-          pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342`}
-          arcSite={arcSite}>
-          <ContPaywall>
+        </button>
+        <div
+          className="signwall-inside_body-left paywall"
+          style={{
+            background: `${
+              arcSite === 'gestion' ? '#8f071f' : '#232323'
+            } url(https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342)`,
+            backgroundSize: 'cover',
+          }}>
+          <div className="signwall-inside_body-cont paywall">
             <p>
               {typeDialog === 'paywall'
                 ? 'Has alcanzado el límite de noticias.'
@@ -103,23 +100,29 @@ export const PaywallInt = ({ properties }) => {
                 ? 'Para continuar leyendo, adquiere el'
                 : 'exclusivo, adquiere tu'}
             </p>
-            <Title f={primaryFont}>Plan Digital</Title>
+            <h3
+              className="signwall-inside_body-title paywall"
+              style={{
+                fontFamily: primaryFont,
+              }}>
+              Plan Digital
+            </h3>
             <center>
               <img
-                style={{ maxWidth: '320px', height: 'auto' }}
                 alt="Logo"
+                className={`logo ${arcSite}`}
                 src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
               />
             </center>
-          </ContPaywall>
-        </FirstMiddle>
-        <SecondMiddle>
+          </div>
+        </div>
+        <div className="signwall-inside_body-right paywall">
           {renderTemplate(selectedTemplate, valTemplate, {
             removeBefore,
             ...properties,
           })}
-        </SecondMiddle>
-      </ContMiddle>
+        </div>
+      </div>
     </Modal>
   )
 }

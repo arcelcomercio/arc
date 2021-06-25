@@ -2,13 +2,13 @@ import * as Sentry from '@sentry/browser'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../utilities/assets'
+import { MsgRegister } from '../../../signwall/_children/icons'
 import getCodeError, {
   formatDescription,
   formatEmail,
   formatNames,
   formatPhone,
 } from '../../_dependencies/Errors'
-import { MsgRegister } from '../../_dependencies/Icons'
 import {
   PropertiesCommon,
   PropertiesSite,

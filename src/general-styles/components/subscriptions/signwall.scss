@@ -1,5 +1,5 @@
 @import "./base/_normalize";
-@import "./modules/loading";
+@import "../features/signwall/loading";
 
 @import "../features/signwall/modal";
 @import "../features/signwall/profile";

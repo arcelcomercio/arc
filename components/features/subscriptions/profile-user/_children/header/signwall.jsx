@@ -2,7 +2,7 @@ import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../../utilities/constants'
-import { Back, Close } from '../../../../signwall/_children/iconos'
+import { Back, Close } from '../../../../signwall/_children/icons'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 
 const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {

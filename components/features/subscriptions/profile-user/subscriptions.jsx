@@ -114,9 +114,7 @@ const WrapperProfile = () => {
   return (
     <div className="sign-profile_general-panel-wrapper" id="profile-signwall">
       {userLoading ? (
-        <div className="subs-loading" style={{ zIndex: '20' }}>
-          <Loading arcSite={arcSite} />
-        </div>
+        <Loading typeBg="full" />
       ) : (
         <>
           <Header />
