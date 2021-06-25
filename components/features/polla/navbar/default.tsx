@@ -109,10 +109,10 @@ const PollaNavbar: FC<Props> = (props) => {
             if (btn) {
               btn.addEventListener("click", () => {
                 if (uuid) {
-                  window.location.href = "/mi-perfil/?outputType=signwall";
+                  window.location.href = "/mi-perfil/?outputType=subscriptions";
                 } else {
                   window.location.href =
-                    "/signwall/?outputType=signwall&signwallOrganic=1";
+                    "/signwall/?outputType=subscriptions&signwallOrganic=1";
                 }
               });
               if (uuid) {
@@ -125,7 +125,7 @@ const PollaNavbar: FC<Props> = (props) => {
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("signwall-nav-btn"),t=document.getElementById("signwall-nav-text"),n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,a=void 0===i?"":i,l=n.lastName,d=void 0===l?"":l,o=n.uuid,s=void 0===o?"":o;e&&(e.addEventListener("click",function(){window.location.href=s?"/mi-perfil/?outputType=signwall":"/signwall/?outputType=signwall&signwallOrganic=1"}),s&&(t.innerText="Hola, "+(a||d||"Usuario"),e.classList.add("signed")))});',
+              '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("signwall-nav-btn"),t=document.getElementById("signwall-nav-text"),n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,a=void 0===i?"":i,l=n.lastName,d=void 0===l?"":l,o=n.uuid,s=void 0===o?"":o;e&&(e.addEventListener("click",function(){window.location.href=s?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions&signwallOrganic=1"}),s&&(t.innerText="Hola, "+(a||d||"Usuario"),e.classList.add("signed")))});',
           }}
         />
       ) : null}
