@@ -130,7 +130,7 @@ export default {
     mainColorBr: '#cccccc',
     mainColorLink: '#1c75c9',
     mainColorBtn: '#000000',
-    authProviders: ['facebook'],
+    authProviders: ['facebook', 'google'],
   },
   gda: true, // Grupo Diarios de America
   taboola: {

@@ -627,7 +627,7 @@ class UpdateProfile extends React.Component {
 
     const {
       siteProperties: {
-        signwall: { mainColorBtn },
+        signwall: { mainColorBtn, mainColorLink },
       },
     } = this.props
 
@@ -1002,7 +1002,10 @@ class UpdateProfile extends React.Component {
               <button
                 className="signwall-inside_forms-btn"
                 type="submit"
-                color={mainColorBtn}
+                style={{
+                  color: mainColorBtn,
+                  backgroundColor: mainColorLink,
+                }}
                 disabled={!hasChange || loading || hasError}
                 tabIndex="13">
                 {textSubmit}
@@ -1070,7 +1073,7 @@ class UpdateProfile extends React.Component {
                 className="signwall-inside_forms-btn"
                 type="submit"
                 disabled={sending}
-                style={{ color: mainColorBtn }}>
+                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
                 {sendingConfirmText}
               </button>
             </form>
