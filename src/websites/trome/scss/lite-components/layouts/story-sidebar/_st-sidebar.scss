@@ -2,10 +2,14 @@
   &__container {
     margin: 0 auto;
     background: $color-white;
+
     @media (--tablet) {
       width: 620px;
     }
+
     @media (--desktop) {
+      padding-left: 53px;
+      padding-right: 53px;
       min-width: 980px;
     }
   }
@@ -14,6 +18,7 @@
     flex-direction: column;
     width: 100%;
     margin: 20px 0;
+
     @media (--desktop) {
       flex-direction: row;
       flex-wrap: wrap;
@@ -23,19 +28,22 @@
   &__main {
     width: 100%;
     margin-bottom: 20px;
+
     @media (--desktop) {
       width: calc(100% - 313px);
-      padding-right: 10px;
+      padding-right: 78px;
       margin-bottom: 0;
     }
   }
 
   &__side {
     width: 100%;
+
     @media (--desktop) {
       width: 313px;
       padding-left: 10px;
-      & > [class] {
+
+      &>[class] {
         margin-bottom: 20px;
       }
     }

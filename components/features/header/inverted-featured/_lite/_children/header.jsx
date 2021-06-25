@@ -114,7 +114,7 @@ const HeaderChildInverted = ({
           <a
             itemProp="url"
             id="header-inverted-featured__logo"
-            href={logo.link}
+            href="/"
             className={`${classes.logoContainer} `}
             title={logo.alt}>
             <img
