@@ -197,7 +197,7 @@ class UpdatePassword extends Component {
     } = this.state
     const {
       siteProperties: {
-        signwall: { mainColorBtn },
+        signwall: { mainColorBtn, mainColorLink },
       },
     } = this.props
     return (
@@ -282,7 +282,7 @@ class UpdatePassword extends Component {
             <div className="sign-profile_update-form-group">
               <button
                 className="signwall-inside_forms-btn"
-                style={{ color: mainColorBtn }}
+                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}
                 type="submit">
                 GUARDAR CAMBIOS
               </button>
@@ -292,13 +292,12 @@ class UpdatePassword extends Component {
 
         {showModalConfirm && (
           <Modal size="mini" position="middle" bgColor="white">
-            <div className="text-right">
-              <button
-                type="button"
-                onClick={(e) => this.togglePopupModalConfirm(e)}>
-                <Close />
-              </button>
-            </div>
+            <button
+              className="close-modal"
+              type="button"
+              onClick={(e) => this.togglePopupModalConfirm(e)}>
+              <Close />
+            </button>
 
             <form
               className="sign-profile_update-form-grid"
@@ -307,6 +306,7 @@ class UpdatePassword extends Component {
                 style={{
                   fontSize: '14px',
                   lineHeight: '28px',
+                  marginTop: '20px',
                 }}
                 className="signwall-inside_forms-text mt-10 mb-10 center">
                 Para confirmar el cambio, por favor ingresa tu contraseña actual
@@ -347,7 +347,7 @@ class UpdatePassword extends Component {
                 className="signwall-inside_forms-btn"
                 type="submit"
                 disabled={!sending}
-                style={{ color: mainColorBtn }}>
+                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
                 {!sending ? 'CONFIRMANDO...' : 'CONFIRMAR'}
               </button>
             </form>

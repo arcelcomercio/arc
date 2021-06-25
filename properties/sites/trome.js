@@ -125,7 +125,7 @@ export default {
   ],
   activeSignwall: true,
   activePaywall: false,
-  activeRulesCounter: true,
+  activeRulesCounter: false,
   activeNewsletter: false,
   activeVerifyEmail: false,
   signwall: {
@@ -133,7 +133,7 @@ export default {
     mainColorTxt: '#ffffff',
     mainLogo: 'logo.png',
     mainColorBr: '#ffede5',
-    mainColorLink: '#e06437',
+    mainColorLink: '#FF650F',
     mainColorBtn: '#f15c23',
     authProviders: ['facebook', 'google'],
   },
