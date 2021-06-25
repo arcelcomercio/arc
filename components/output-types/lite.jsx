@@ -6,6 +6,7 @@ import { getAssetsPath } from '../utilities/assets'
 import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
   SITE_DEPOR,
+  SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
@@ -649,14 +650,12 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${
-                  getPreroll({
-                    section: storySectionPath,
-                    arcSite,
-                    siteDomain: siteProperties.siteDomain,
-                    metaValue,
-                  }) || siteProperties.urlPreroll
-                }'`,
+                __html: `window.preroll='${getPreroll({
+                  section: storySectionPath,
+                  arcSite,
+                  siteDomain: siteProperties.siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll}'`,
               }}
             />
             <script
@@ -754,15 +753,10 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {arcSite === SITE_ELCOMERCIOMAG ||
-        arcSite === SITE_PERU21 ||
-        arcSite === SITE_TROME ||
-        arcSite === SITE_ELBOCON ||
-        arcSite === SITE_OJO ||
-        arcSite === SITE_DEPOR ? (
+        {arcSite !== SITE_DIARIOCORREO ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
