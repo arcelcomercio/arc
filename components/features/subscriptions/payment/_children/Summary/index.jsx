@@ -58,10 +58,8 @@ const Summary = () => {
   }
 
   React.useEffect(() => {
-    const getPLanSelected = plans.reduce(
-      (prev, plan) => (plan.description.checked ? plan : prev),
-      null
-    )
+    const getPLanSelected = plans.find((plan) => plan.description.checked)
+
     const OrderForce = plans.sort((a, b) => b.amount - a.amount)
     const { priceCode, sku, amount, billingFrequency, description } =
       getPLanSelected || {}

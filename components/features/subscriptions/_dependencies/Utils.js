@@ -83,7 +83,6 @@ export const setLocaleStorage = (key, data) => {
     if (process.browser) {
       return window.localStorage.setItem(key, encodeValue(data))
     }
-    return false
   }
   return null
 }
@@ -108,7 +107,6 @@ export const getSessionStorage = (key) => {
     if (process.browser) {
       return window.sessionStorage.getItem(key)
     }
-    return false
   }
   return null
 }

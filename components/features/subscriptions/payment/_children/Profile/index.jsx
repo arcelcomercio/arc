@@ -161,7 +161,7 @@ const Profile = () => {
       )
     }
 
-    if (userErrorApi !== false) updateErrorApi(error)
+    if (userErrorApi !== null) updateErrorApi(error)
   }, [])
 
   const stateSchema = {
@@ -463,7 +463,7 @@ const Profile = () => {
 
   const onFormProfile = (...props) => {
     if (typeof window !== 'undefined') {
-      updateErrorApi(false)
+      updateErrorApi(null)
       setLoading(true)
       if (isLogged()) {
         setLoadText('Verificando Suscripciones...')
@@ -559,7 +559,7 @@ const Profile = () => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         setMsgError(false)
-        updateErrorApi(false)
+        updateErrorApi(null)
         handleOnChange(e)
       } else {
         restoreClearSession()

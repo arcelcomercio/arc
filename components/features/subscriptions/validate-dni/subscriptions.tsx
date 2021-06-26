@@ -1,9 +1,10 @@
+import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
 
 import { isProd } from '../../../utilities/arc/env'
-import { AuthContext } from '../_context/auth'
+import { useAuthContext } from '../_context/auth'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { docPatterns, maskDocuments } from '../_dependencies/Regex'
 import { subDniToken } from '../_dependencies/Services'
@@ -16,6 +17,12 @@ const styles = {
   tooltip: 'tooltiptext-bottomarrow',
   btnDetail: 'step__bottom-btn-detail',
   iconUp: 'icon-arrow-up',
+}
+
+declare global {
+  interface Window {
+    dataLayer: any[]
+  }
 }
 
 type Attributes = {
@@ -38,12 +45,9 @@ type PaywallCampaign = {
 }
 
 const SubscriptionsValidateDNI = () => {
-  const {
-    userLoaded,
-    userStep,
-    updateLoading,
-    userDataPlan,
-  } = React.useContext(AuthContext)
+  const { userLoaded, userStep, updateLoading, userDataPlan } =
+    useAuthContext() || {}
+
   const [loading, setLoading] = React.useState(false)
   const [showDocOption, setShowDocOption] = React.useState<DocumentType>('DNI')
   const { urls, texts } = PropertiesCommon
@@ -90,12 +94,13 @@ const SubscriptionsValidateDNI = () => {
   const handleValidateDNI = ({ vDocumentType, vDocumentNumber }) => {
     if (typeof window !== 'undefined') {
       setLoading(true)
+      window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         event: 'paywall_check_subscriptor',
         eventCategory: 'paywall_check_subscriptor',
         eventAction: 'submit',
       })
-      window.Identity.heartbeat()
+      Identity.heartbeat()
         .then((resHeart) => {
           subDniToken(urls.subsDniToken, resHeart.accessToken)
             .then((resDniToken) => {
