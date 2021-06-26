@@ -113,7 +113,7 @@ class NewsResume extends React.Component {
                 </div>
               </>
             ) : (
-              <Loading arcSite={arcSite} typeBg="wait" />
+              <Loading typeBg="wait" />
             )}
           </div>
         )}

@@ -4,7 +4,7 @@ import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/constants'
 import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
-import { Back, Close } from './iconos'
+import { Back, Close } from './icons'
 
 const Header = ({ type, closePopup, typePopUp }) => {
   const typeHeader = (siteProperties, contextPath, deployment, arcSite) => (

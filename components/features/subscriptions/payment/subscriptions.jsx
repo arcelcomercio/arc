@@ -4,6 +4,7 @@ import * as React from 'react'
 
 import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
+import Loading from '../../signwall/_children/loading'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthContext, AuthProvider } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
@@ -18,7 +19,6 @@ import {
 } from '../_layouts/containers'
 import { FooterLand, FooterSubs } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
-import Loading from '../_layouts/loading'
 import scriptsPayment from '../_scripts/Payment'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
@@ -89,7 +89,7 @@ const WrapperPaymentSubs = () => {
   return (
     <>
       <>
-        {userLoading && <Loading arcSite={arcSite} />}
+        {userLoading && <Loading typeBg="full" />}
         <HeaderSubs
           userProfile={userProfile}
           arcSite={arcSite}

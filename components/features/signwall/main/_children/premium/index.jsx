@@ -15,16 +15,8 @@ import FormForgot from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
 import FormLogin from '../../../_children/forms/form_login'
 import FormRegister from '../../../_children/forms/form_register'
-import { Close } from '../../../_children/iconos'
+import { Close } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
-import {
-  CloseBtn,
-  ContMiddle,
-  ContPaywall,
-  FirstMiddle,
-  SecondMiddle,
-  Title,
-} from './styled'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
@@ -89,10 +81,10 @@ export const PremiumInt = ({ properties }) => {
       size={resizeModal}
       position="bottom"
       bgColor={arcSite === 'gestion' ? 'black' : 'white'}>
-      <ContMiddle>
-        <CloseBtn
+      <div className="signwall-inside_body-container premium">
+        <button
           type="button"
-          className="btn-close"
+          className="signwall-inside_body-close premium"
           onClick={() => {
             Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
             if (typeDialog === 'premium') {
@@ -106,21 +98,35 @@ export const PremiumInt = ({ properties }) => {
             }
           }}>
           <Close />
-        </CloseBtn>
-        <FirstMiddle
-          pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342`}
-          arcSite={arcSite}>
-          <ContPaywall arcSite={arcSite}>
+        </button>
+        <div
+          className="signwall-inside_body-left premium"
+          style={{
+            background: `${
+              arcSite === 'gestion' ? '#8f071f' : '#232323'
+            } url(https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342)`,
+          }}>
+          <div
+            className="signwall-inside_body-cont premium"
+            style={{
+              padding: arcSite === 'gestion' ? '15px 10px' : '12px 20px',
+            }}>
             <p>
               Para acceder a este contenido
               <br />
               exclusivo, adquiere tu
             </p>
-            <Title f={primaryFont}>{name}</Title>
+            <h3
+              className="signwall-inside_body-title premium"
+              style={{
+                fontFamily: primaryFont,
+              }}>
+              {name}
+            </h3>
             <center>
               <img
                 alt="Logo"
-                className="logo"
+                className={`logo ${arcSite}`}
                 src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
               />
             </center>
@@ -129,16 +135,20 @@ export const PremiumInt = ({ properties }) => {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-          </ContPaywall>
-        </FirstMiddle>
-        <SecondMiddle arcSite={arcSite}>
+          </div>
+        </div>
+        <div
+          className="signwall-inside_body-right premium"
+          style={{
+            backgroundColor: arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4',
+          }}>
           {renderTemplate(selectedTemplate, valTemplate, {
             removeBefore,
             checkModal,
             ...properties,
           })}
-        </SecondMiddle>
-      </ContMiddle>
+        </div>
+      </div>
     </Modal>
   )
 }

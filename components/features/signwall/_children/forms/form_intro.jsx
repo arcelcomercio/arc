@@ -7,7 +7,6 @@ import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { getUrlPaywall } from '../../_dependencies/domains'
 import Loading from '../loading'
-import * as S from './styles'
 
 const FormIntro = ({
   typeDialog,
@@ -66,12 +65,12 @@ const FormIntro = ({
   }
 
   return (
-    <S.Form typeDialog={typeDialog}>
+    <form className={`signwall-inside_forms-form ${typeDialog}`}>
       {showLoading ? (
-        <Loading arcSite={arcSite} typeBg="wait" typeDialog={typeDialog} />
+        <Loading typeBg="premium" />
       ) : (
         <>
-          <S.ContPaywall>
+          <div className="signwall-inside_forms-cont-paywall">
             <div className="cont-price-detail">
               {amount === 0 ? (
                 <div className="price-middle">
@@ -114,11 +113,12 @@ const FormIntro = ({
             ) : (
               <div className="mt-20 block" />
             )}
-          </S.ContPaywall>
+          </div>
 
           {showPaywallBtn ? (
-            <S.Button
+            <button
               type="button"
+              className="signwall-inside_forms-btn"
               onClick={() => {
                 Taggeo(
                   `Web_${typeDialog}_Hard`,
@@ -127,10 +127,11 @@ const FormIntro = ({
                 handleSuscription()
               }}>
               VER PLANES
-            </S.Button>
+            </button>
           ) : (
-            <S.Button
+            <button
               type="button"
+              className="signwall-inside_forms-btn"
               onClick={() => {
                 Taggeo(
                   `Web_${typeDialog}_Hard`,
@@ -156,24 +157,24 @@ const FormIntro = ({
                 checkModal()
               }}>
               CONTINUAR
-            </S.Button>
+            </button>
           )}
 
-          <S.Text
-            c="gray"
-            s={typeDialog === 'premium' ? '12' : '15'}
-            className="mt-20 mb-10 center">
+          <p
+            style={{
+              fontSize: typeDialog === 'premium' ? '12px' : '15px',
+            }}
+            className="signwall-inside_forms-text mt-20 mb-10 center">
             {printAttributes.map((item) => (
               <React.Fragment key={item.name}>
                 {item.name === 'subscriber_title_popup' && item.value}
               </React.Fragment>
             ))}
-          </S.Text>
+          </p>
 
-          <S.Text
-            c="gray"
-            s={typeDialog === 'premium' ? '12' : '15'}
-            className={`center note-premium ${
+          <p
+            style={{ fontSize: typeDialog === 'premium' ? '12px' : '15px' }}
+            className={`signwall-inside_forms-text center note-premium ${
               arcSite === 'elcomercio' ? 'mb-10' : ''
             }`}>
             {printAttributes.map(
@@ -189,10 +190,10 @@ const FormIntro = ({
                   </React.Fragment>
                 )
             )}
-          </S.Text>
+          </p>
         </>
       )}
-    </S.Form>
+    </form>
   )
 }
 

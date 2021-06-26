@@ -15,12 +15,11 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI, getUrlPaywall } from '../../_dependencies/domains'
 import { getEntitlement } from '../../_dependencies/services'
-import { MsgRegister } from '../iconos'
+import { MsgRegister } from '../icons'
 import Loading from '../loading'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonEmail, ButtonSocial } from './control_social'
-import * as S from './styles'
 
 const FormLogin = ({ valTemplate, attributes }) => {
   const {
@@ -281,20 +280,25 @@ const FormLogin = ({ valTemplate, attributes }) => {
     <>
       {!showCheckPremium ? (
         <>
-          <S.Form onSubmit={handleOnSubmit} typeDialog={typeDialog}>
-            {activePaywall && typeDialog !== 'premium' && (
-              <S.Title
-                s="22"
-                primaryFont={primaryFont}
-                className="center mb-20 mt-20 only-mobile-tablet">
+          <form
+            className={`signwall-inside_forms-form ${typeDialog}`}
+            onSubmit={handleOnSubmit}>
+            {activePaywall && typeDialog !== 'premium' && !showLoginEmail && (
+              <h4
+                style={{ fontSize: '22px', fontFamily: primaryFont }}
+                className="signwall-inside_forms-title center mb-20 mt-20 only-mobile-tablet">
                 Regístrate y mantente siempre informado con las noticias más
                 relevantes del Perú y el mundo
-              </S.Title>
+              </h4>
             )}
 
-            <S.Text c="gray" s="18" className="mb-10 mt-10 center">
+            <p
+              style={{
+                fontSize: '18px',
+              }}
+              className="signwall-inside_forms-text mb-10 mt-10 center">
               Ingresa con
-            </S.Text>
+            </p>
 
             {authProviders.map((item) => (
               <ButtonSocial
@@ -340,7 +344,10 @@ const FormLogin = ({ valTemplate, attributes }) => {
             {showLoginEmail && (
               <>
                 {showError && (
-                  <S.Error type={showVerify ? 'warning' : ''}>
+                  <div
+                    className={`signwall-inside_forms-error ${
+                      showVerify ? 'warning' : ''
+                    }`}>
                     {` ${showError} `}
                     {showVerify && (
                       <>
@@ -356,7 +363,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                         )}
                       </>
                     )}
-                  </S.Error>
+                  </div>
                 )}
 
                 <Input
@@ -389,10 +396,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   error={lpassError || showFormatInvalid}
                 />
 
-                <S.Link
+                <a
                   href="#"
-                  c="gray"
-                  className="mt-10 mb-20 inline f-right text-sm"
+                  style={{
+                    color: 'gray',
+                  }}
+                  className="signwall-inside_forms-link mt-10 mb-20 inline f-right text-sm"
                   onClick={(e) => {
                     e.preventDefault()
                     Taggeo(
@@ -402,11 +411,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     changeTemplate('forgot')
                   }}>
                   Olvidé mi contraseña
-                </S.Link>
+                </a>
 
-                <S.Button
+                <button
                   type="submit"
-                  color={mainColorBtn}
+                  className="signwall-inside_forms-btn"
+                  style={{ color: mainColorBtn }}
                   disabled={disable || showLoading || showFormatInvalid}
                   onClick={() =>
                     Taggeo(
@@ -415,17 +425,21 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     )
                   }>
                   {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
-                </S.Button>
+                </button>
               </>
             )}
 
-            <S.Text c="black" s="12" className="mt-10 mb-10 center">
+            <p
+              style={{
+                fontSize: '12px',
+                color: '#000000',
+              }}
+              className="signwall-inside_forms-text mt-10 mb-10 center">
               ¿Aún no tienes una cuenta?
-              <S.Link
+              <a
                 href="#"
-                c={mainColorLink}
-                fw="bold"
-                className="ml-10"
+                style={{ color: mainColorLink, fontWeight: 'bold' }}
+                className="signwall-inside_forms-link ml-10"
                 onClick={(e) => {
                   e.preventDefault()
                   Taggeo(
@@ -435,8 +449,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   changeTemplate('register')
                 }}>
                 Regístrate
-              </S.Link>
-            </S.Text>
+              </a>
+            </p>
 
             {arcSite === 'elcomercio' ||
             arcSite === 'gestion' ||
@@ -450,30 +464,36 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   onChange={() => {
                     setCheckedPolits(!checkedPolits)
                   }}>
-                  <S.Text c="gray" lh="18" s="12" className="mt-10">
+                  <p
+                    style={{
+                      fontSize: '12px',
+                      lineHeight: '18px',
+                    }}
+                    className="signwall-inside_forms-text mt-10">
                     Al ingresar por redes sociales autorizo el uso de mis datos
                     para
-                    <S.Link
+                    <a
                       href="/tratamiento-de-datos/"
                       target="_blank"
-                      c={mainColorLink}
-                      fw="bold"
-                      className="ml-5 inline">
+                      style={{ color: mainColorLink, fontWeight: 'bold' }}
+                      className="signwall-inside_forms-link ml-5 inline">
                       fines adicionales
-                    </S.Link>
-                  </S.Text>
+                    </a>
+                  </p>
                 </CheckBox>
 
-                <S.Text
-                  c="light"
-                  s="11"
-                  className="mt-10 mb-10"
-                  style={{ textAlign: 'justify' }}>
+                <p
+                  className="signwall-inside_forms-text mt-10 mb-10"
+                  style={{
+                    textAlign: 'justify',
+                    color: '#818181',
+                    fontSize: '11px',
+                  }}>
                   En caso hayas autorizado los fines de uso adicionales
                   anteriormente, no es necesario que lo vuelvas a marcar. Si
                   deseas retirar dicho consentimiento, revisa el procedimiento
                   en nuestras
-                  <S.Link
+                  <a
                     href={(() => {
                       switch (arcSite) {
                         case 'elcomercio':
@@ -487,47 +507,60 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       }
                     })()}
                     target="_blank"
-                    c={mainColorLink}
-                    fw="bold"
-                    className="ml-5 inline">
+                    rel="noreferrer"
+                    style={{ color: mainColorLink, fontWeight: 'bold' }}
+                    className="signwall-inside_forms-link ml-5 inline">
                     Políticas de Privacidad.
-                  </S.Link>
-                </S.Text>
+                  </a>
+                </p>
               </>
             ) : (
-              <S.Text c="light" s="10" className="mt-10 mb-10 center">
+              <p
+                style={{
+                  color: '#81818',
+                  fontSize: '10px',
+                }}
+                className="signwall-inside_forms-text mt-10 mb-10 center">
                 CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
                 NUNCA PUBLICAREMOS SIN TU PERMISO
-              </S.Text>
+              </p>
             )}
-          </S.Form>
+          </form>
         </>
       ) : (
         <>
           {showLoadingPremium ? (
-            <Loading arcSite={arcSite} typeBg="wait" />
+            <Loading typeBg="wait" />
           ) : (
-            <S.Form>
+            <form className="signwall-inside_forms-form">
               <div className="center block mb-20 mt-20">
                 <MsgRegister bgcolor={mainColorBr} />
               </div>
 
-              <S.Title s="22" className="center mb-10">
+              <h4
+                style={{ fontSize: '22px' }}
+                className="signwall-inside_forms-title center mb-10">
                 {`Bienvenido(a) ${
                   window.Identity.userProfile.firstName || 'Usuario'
                 } `}
-              </S.Title>
-              <S.Text c="gray" s="14" lh="28" className="mt-10 mb-20 center">
+              </h4>
+              <p
+                style={{
+                  fontSize: '14px',
+                  lineHeight: '28px',
+                }}
+                className="signwall-inside_forms-text mt-10 mb-20 center">
                 {showUserWithSubs
                   ? 'Sigue disfrutando del contenido exclusivo que tenemos para ti'
                   : 'Ahora puedes continuar con tu compra'}
-              </S.Text>
+              </p>
 
               {showUserWithSubs ? (
-                <S.Button
+                <button
                   id="btn-premium-continue"
+                  className="signwall-inside_forms-btn"
                   type="button"
-                  color={mainColorBtn}
+                  style={{ color: mainColorBtn }}
                   onClick={() => {
                     Taggeo(
                       `Web_${typeDialog}_Hard`,
@@ -545,11 +578,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     }
                   }}>
                   SIGUE NAVEGANDO
-                </S.Button>
+                </button>
               ) : (
-                <S.Button
+                <button
                   type="button"
-                  color={mainColorBtn}
+                  className="signwall-inside_forms-btn"
+                  style={{ color: mainColorBtn }}
                   onClick={() => {
                     Taggeo(
                       `Web_${typeDialog}_Hard`,
@@ -558,9 +592,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     handleSuscription()
                   }}>
                   VER PLANES
-                </S.Button>
+                </button>
               )}
-            </S.Form>
+            </form>
           )}
         </>
       )}

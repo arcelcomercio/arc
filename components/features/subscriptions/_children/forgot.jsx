@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import { MsgForgotPass } from '../../signwall/_children/icons'
 import { NavigateConsumer } from '../_context/navigate'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
-import { MsgForgotPass } from '../_dependencies/Icons'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
 import useForm from '../_hooks/useForm'

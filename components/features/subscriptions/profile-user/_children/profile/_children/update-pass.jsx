@@ -5,8 +5,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import { Button, Text } from '../../../../../signwall/_children/forms/styles'
-import { Close } from '../../../../../signwall/_children/iconos'
+import { Close } from '../../../../../signwall/_children/icons'
 import { Modal } from '../../../../../signwall/_children/modal/index'
 import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import FormValid from '../../../../../signwall/_dependencies/form-valid'
@@ -198,7 +197,7 @@ class UpdatePassword extends Component {
     } = this.state
     const {
       siteProperties: {
-        signwall: { mainColorBtn },
+        signwall: { mainColorBtn, mainColorLink },
       },
     } = this.props
     return (
@@ -281,29 +280,37 @@ class UpdatePassword extends Component {
               )}
             </div>
             <div className="sign-profile_update-form-group">
-              <Button type="submit" color={mainColorBtn}>
+              <button
+                className="signwall-inside_forms-btn"
+                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}
+                type="submit">
                 GUARDAR CAMBIOS
-              </Button>
+              </button>
             </div>
           </div>
         </form>
 
         {showModalConfirm && (
           <Modal size="mini" position="middle" bgColor="white">
-            <div className="text-right">
-              <button
-                type="button"
-                onClick={(e) => this.togglePopupModalConfirm(e)}>
-                <Close />
-              </button>
-            </div>
+            <button
+              className="close-modal"
+              type="button"
+              onClick={(e) => this.togglePopupModalConfirm(e)}>
+              <Close />
+            </button>
 
             <form
               className="sign-profile_update-form-grid"
               onSubmit={(e) => this.submitConfirmPassword(e)}>
-              <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
+              <p
+                style={{
+                  fontSize: '14px',
+                  lineHeight: '28px',
+                  marginTop: '20px',
+                }}
+                className="signwall-inside_forms-text mt-10 mb-10 center">
                 Para confirmar el cambio, por favor ingresa tu contraseña actual
-              </Text>
+              </p>
 
               <div
                 className="sign-profile_update-form-group"
@@ -336,9 +343,13 @@ class UpdatePassword extends Component {
                 )}
               </div>
 
-              <Button type="submit" disabled={!sending} color={mainColorBtn}>
+              <button
+                className="signwall-inside_forms-btn"
+                type="submit"
+                disabled={!sending}
+                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
                 {!sending ? 'CONFIRMANDO...' : 'CONFIRMAR'}
-              </Button>
+              </button>
             </form>
           </Modal>
         )}

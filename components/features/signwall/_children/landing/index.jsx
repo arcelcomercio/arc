@@ -13,9 +13,8 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import FormForgot from '../forms/form_forgot'
 import { FormLoginPaywall } from '../forms/form_login_landing'
 import FormRegister from '../forms/form_register'
-import { Close } from '../iconos'
+import { Close } from '../icons'
 import { Modal } from '../modal/index'
-import { CloseBtn, ContMiddle, FirstMiddle, SecondMiddle } from './styled'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
@@ -44,10 +43,11 @@ export const LandingInt = ({ properties }) => {
 
   return (
     <Modal size="medium-large" position="middle">
-      <ContMiddle>
+      <div className="signwall-inside_body-container landing">
         {!noBtnClose && (
-          <CloseBtn
+          <button
             type="button"
+            className="signwall-inside_body-close"
             onClick={() => {
               Taggeo(
                 `Web_Sign_Wall_${typeDialog}`,
@@ -56,17 +56,23 @@ export const LandingInt = ({ properties }) => {
               onClose()
             }}>
             <Close />
-          </CloseBtn>
+          </button>
         )}
-        <FirstMiddle
-          pathSourcePNG={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/${IMG}.jpg?d=1342`}
+        <div
+          className="signwall-inside_body-left landing"
+          style={{
+            background: `${
+              arcSite === 'gestion' ? '#8f071f' : '#232323'
+            } url(https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/${IMG}.jpg?d=1342)`,
+            backgroundSize: 'cover',
+          }}
         />
-        <SecondMiddle>
+        <div className="signwall-inside_body-right landing">
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
           })}
-        </SecondMiddle>
-      </ContMiddle>
+        </div>
+      </div>
     </Modal>
   )
 }

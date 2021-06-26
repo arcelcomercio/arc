@@ -1,6 +1,5 @@
 import sha256 from 'crypto-js/sha256'
 import * as React from 'react'
-import styled, { css } from 'styled-components'
 
 import {
   setCookie,
@@ -10,83 +9,9 @@ import getDevice from '../../../subscriptions/_dependencies/GetDevice'
 import { getQuery } from '../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
-import { device } from '../../_dependencies/breakpoints'
 import { getOriginAPI, getUrlECOID } from '../../_dependencies/domains'
 import { loginFBeco, sendNewsLettersUser } from '../../_dependencies/services'
-import { Facebook, Google, Mail } from '../iconos'
-import { Button } from './styles'
-
-const ButtonStyleSocial = styled(Button)`
-  font-size: ${(props) => (props.size === 'full' ? '18' : '16')}px !important;
-  position: relative;
-  height: 45px !important;
-  display: inline-block;
-  vertical-align: top;
-  padding: 0px 10px 0px 45px !important;
-  width: calc(50% - 10px) !important;
-  background: #4285f4;
-  border: 1px solid #4285f4;
-  text-transform: capitalize;
-  font-weight: normal;
-  margin-right: 0px;
-  margin-left: 0px;
-
-  ${(props) =>
-    props.size === 'full' &&
-    css`
-      padding: 0px 45px 0px 45px !important;
-      width: calc(100% - 0px) !important;
-    `}
-
-  ${(props) =>
-    props.size === 'middle' &&
-    props.brand === 'facebook' &&
-    css`
-      margin-right: 10px !important;
-    `}
-
-  ${(props) =>
-    props.size === 'middle' &&
-    props.brand === 'google' &&
-    css`
-      margin-left: 10px !important;
-    `}
-
-  ${(props) =>
-    props.brand === 'facebook' &&
-    css`
-      background: #4267b2 !important;
-      border: 1px solid #4267b2 !important;
-    `}
-
-  & svg {
-    position: absolute;
-    left: 1px;
-    top: 1px;
-    ${(props) =>
-      props.brand === 'facebook' &&
-      css`
-        left: 10px !important;
-        top: 8px !important;
-      `}
-  }
-
-  @media ${device.tablet} {
-    padding: 0px ${(props) => (props.size === 'full' ? '30px' : '10px')} 0px
-      45px;
-  }
-`
-
-const ButtonStyleEmail = styled(Button)`
-  background: #f2f2f2;
-  color: #818181;
-  font-weight: normal;
-  border-bottom: 2px solid #d4d4d4 !important;
-  margin-bottom: 40px;
-  & svg {
-    margin-right: 10px;
-  }
-`
+import { Facebook, Google, Mail } from '../icons'
 
 const originAction = (dialogModal) => {
   switch (dialogModal) {
@@ -475,12 +400,10 @@ export const ButtonSocial = ({
   }
 
   return (
-    <ButtonStyleSocial
+    <button
+      className={`signwall-inside_forms-btn-social ${c} ${brand} ${size} ${brand}-${size}`}
       type="button"
       id={`btn-sign-${brand}`}
-      brand={brand}
-      size={size}
-      className={c}
       disabled={showTextLoad}
       onClick={() => {
         Taggeo(
@@ -491,15 +414,19 @@ export const ButtonSocial = ({
       }}>
       {brand === 'facebook' ? <Facebook /> : <Google />}
       {showTextLoad || brand}
-    </ButtonStyleSocial>
+    </button>
   )
 }
 
 export const ButtonEmail = ({ size, onClick }) => (
-  <ButtonStyleEmail type="button" size={size} onClick={onClick}>
+  <button
+    className="signwall-inside_forms-btn-email"
+    type="button"
+    size={size}
+    onClick={onClick}>
     <Mail />
     Ingresa con tu usuario
-  </ButtonStyleEmail>
+  </button>
 )
 
 export const AuthURL = ({
