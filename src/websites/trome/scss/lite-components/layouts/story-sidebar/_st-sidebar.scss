@@ -8,8 +8,6 @@
     }
 
     @media (--desktop) {
-      padding-left: 53px;
-      padding-right: 53px;
       min-width: 980px;
     }
   }
@@ -31,7 +29,7 @@
 
     @media (--desktop) {
       width: calc(100% - 313px);
-      padding-right: 78px;
+      padding-right: 10px;
       margin-bottom: 0;
     }
   }
