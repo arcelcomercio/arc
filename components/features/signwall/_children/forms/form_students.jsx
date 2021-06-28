@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { ENVIRONMENT } from 'fusion:environment'
 import React, { useEffect, useState } from 'react'
 
@@ -9,9 +10,8 @@ import {
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI } from '../../_dependencies/domains'
 import { checkCodeStudents, checkStudents } from '../../_dependencies/services'
-import { Back } from '../iconos'
+import { Back } from '../icons'
 import { Input, Select } from './control_input_select'
-import * as S from './styles'
 
 const cookieStudents = 'EcoId.REQUEST_STUDENTS'
 
@@ -109,29 +109,37 @@ const FormCode = ({ arcSite, showRequest }) => {
   const { ucode } = values
 
   return (
-    <S.Form onSubmit={handleOnSubmit}>
-      <S.ButtonBase
+    <form className="signwall-inside_forms-form" onSubmit={handleOnSubmit}>
+      <button
+        className="signwall-inside_forms-btn-base mb-10"
         type="button"
-        className="mb-10"
         onClick={() => {
           deleteCookie(cookieStudents)
           showRequest()
         }}>
         <Back /> Volver
-      </S.ButtonBase>
+      </button>
 
-      <S.Title className="center mb-10 mt-20" cp>
+      <h4 className="signwall-inside_forms-title center mb-10 mt-20" cp>
         PLAN UNIVERSITARIO
-      </S.Title>
+      </h4>
 
-      <S.Text c="light" s="14" lh="28" className="mb-20 center">
+      <p
+        style={{
+          fontSize: '14px',
+          lineHeight: '28px',
+          color: '#818181',
+        }}
+        className="signwall-inside_forms-text mb-20 center">
         Ingresa aquí el código de validación que <br /> hemos enviado a tu
         bandeja de correo:
         <br />
         <strong>{EMAIL_USER}</strong>
-      </S.Text>
+      </p>
 
-      {showError && <S.Error>{showError}</S.Error>}
+      {showError && (
+        <div className="signwall-inside_forms-error">{showError}</div>
+      )}
 
       <Input
         type="text"
@@ -150,23 +158,38 @@ const FormCode = ({ arcSite, showRequest }) => {
         error={errors.ucode}
       />
 
-      <S.Button type="submit" disabled={disable || showLoading}>
+      <button
+        className="signwall-inside_forms-btn"
+        type="submit"
+        disabled={disable || showLoading}>
         {showLoading ? 'VALIDANDO...' : 'VALIDAR'}
-      </S.Button>
+      </button>
 
       {showLinkMail ? (
-        <S.Text c="gray" s="12" className="mt-20 center">
+        <p
+          style={{
+            fontSize: '12px',
+          }}
+          className="signwall-inside_forms-text mt-20 center">
           ¿No recibiste el correo?
-          <S.Link c="blue" onClick={() => sendRequestMail()} className="ml-10">
+          <a
+            href="#"
+            onClick={() => sendRequestMail()}
+            className="signwall-inside_forms-link ml-10"
+            style={{ color: '#4267b2' }}>
             Reenviar correo de validación
-          </S.Link>
-        </S.Text>
+          </a>
+        </p>
       ) : (
-        <S.Text c="gray" s="12" className="mt-20 center">
+        <p
+          style={{
+            fontSize: '12px',
+          }}
+          className="signwall-inside_forms-text mt-20 center">
           Podrás reenviar nuevamente dentro de 10 segundos.
-        </S.Text>
+        </p>
       )}
-    </S.Form>
+    </form>
   )
 }
 
@@ -319,16 +342,26 @@ const FormRequest = ({ arcSite, showCode }) => {
   const { uemail, ugrade, uday, umonth, uyear } = values
 
   return (
-    <S.Form onSubmit={handleOnSubmit}>
-      <S.Title s="16" className="center mb-10 mt-20" cp>
+    <form className="signwall-inside_forms-form" onSubmit={handleOnSubmit}>
+      <h4
+        style={{ fontSize: '16px' }}
+        className="signwall-inside_forms-title center mb-10 mt-20">
         PLAN UNIVERSITARIO
-      </S.Title>
+      </h4>
 
-      <S.Text c="light" s="14" lh="28" className="mb-10 center">
+      <p
+        style={{
+          color: '#818181',
+          fontSize: '14px',
+          lineHeight: '28px',
+        }}
+        className="signwall-inside_forms-text mb-10 center">
         Valida tu correo universitario y accede a la <br /> tarifa de estudiante
-      </S.Text>
+      </p>
 
-      {showError && <S.Error>{showError}</S.Error>}
+      {showError && (
+        <div className="signwall-inside_forms-error">{showError}</div>
+      )}
 
       <Input
         type="email"
@@ -361,7 +394,7 @@ const FormRequest = ({ arcSite, showCode }) => {
             setShowError(false)
           }}
           error={errors.uday}
-          nolabel>
+          nolabel="true">
           <option disabled value="">
             DÍA
           </option>
@@ -384,7 +417,7 @@ const FormRequest = ({ arcSite, showCode }) => {
             setShowError(false)
           }}
           error={errors.umonth}
-          nolabel>
+          nolabel="true">
           <option disabled value="">
             MES
           </option>
@@ -407,7 +440,7 @@ const FormRequest = ({ arcSite, showCode }) => {
           }}
           required
           error={errors.uyear}
-          nolabel>
+          nolabel="true">
           <option disabled value="">
             AÑO
           </option>
@@ -440,13 +473,13 @@ const FormRequest = ({ arcSite, showCode }) => {
         <option value="administrativo">Administrativo</option>
       </Select>
 
-      <S.Button
+      <button
         type="submit"
-        className="mt-20"
+        className="signwall-inside_forms-btn mt-20"
         disabled={disable || showLoading}>
         {showLoading ? 'VALIDANDO...' : 'VALIDAR'}
-      </S.Button>
-    </S.Form>
+      </button>
+    </form>
   )
 }
 

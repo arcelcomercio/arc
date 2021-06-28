@@ -16,7 +16,6 @@ import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
 import { FormStudents } from './form_students'
-import * as S from './styles'
 
 export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const {
@@ -167,10 +166,16 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     <>
       {(!isLogged() || showVerify) && (
         <>
-          <S.Form onSubmit={handleOnSubmit}>
-            <S.Text c="gray" s="14" className="mb-10 mt-20 center">
+          <form
+            className="signwall-inside_forms-form"
+            onSubmit={handleOnSubmit}>
+            <p
+              style={{
+                fontSize: '14px',
+              }}
+              className="signwall-inside_forms-text mb-10 mt-20 center">
               Ingresa con tus redes sociales
-            </S.Text>
+            </p>
 
             {isFbBrowser ? (
               <ButtonSocial
@@ -216,12 +221,19 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
               onLogged={onLogged}
             />
 
-            <S.Text c="gray" s="14" className="mt-20 center">
+            <p
+              style={{
+                fontSize: '14px',
+              }}
+              className="signwall-inside_forms-text mt-20 center">
               Ingresa con tu usuario
-            </S.Text>
+            </p>
 
             {showError && (
-              <S.Error type={showVerify ? 'warning' : ''}>
+              <div
+                className={`signwall-inside_forms-error ${
+                  showVerify ? 'warning' : ''
+                }`}>
                 {` ${showError} `}
                 {showVerify && (
                   <>
@@ -237,7 +249,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                     )}
                   </>
                 )}
-              </S.Error>
+              </div>
             )}
 
             <Input
@@ -272,9 +284,10 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
               error={lpassError}
             />
 
-            <S.Link
-              c="light"
-              className="mt-10 mb-20 inline f-right text-sm"
+            <a
+              href="#"
+              className="signwall-inside_forms-link mt-10 mb-20 inline f-right text-sm"
+              style={{ color: 'gray' }}
               onClick={(e) => {
                 e.preventDefault()
                 Taggeo(
@@ -284,18 +297,26 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 changeTemplate('forgot')
               }}>
               Olvidé mi contraseña
-            </S.Link>
+            </a>
 
-            <S.Button type="submit" disabled={disable || showLoading}>
+            <button
+              type="submit"
+              className="signwall-inside_forms-btn"
+              disabled={disable || showLoading}>
               {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
-            </S.Button>
+            </button>
 
-            <S.Text c="black" s="12" className="mt-20 mb-10 center">
+            <p
+              style={{
+                color: '#000000',
+                fontSize: '12px',
+              }}
+              className="signwall-inside_forms-text mt-20 mb-10 center">
               ¿Aún no tienes una cuenta?
-              <S.Link
-                c={mainColorLink}
-                fw="bold"
-                className="ml-10"
+              <a
+                href="#"
+                className="signwall-inside_forms-link ml-10"
+                style={{ color: mainColorLink, fontWeight: 'bold' }}
                 onClick={(e) => {
                   e.preventDefault()
                   Taggeo(
@@ -305,12 +326,12 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                   changeTemplate('register')
                 }}>
                 Regístrate
-              </S.Link>
-            </S.Text>
-          </S.Form>
+              </a>
+            </p>
+          </form>
 
           {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
-            <S.Form>
+            <form className="signwall-inside_forms-form">
               <CheckBox
                 checked={checkedPolits}
                 value={checkedPolits ? '1' : '0'}
@@ -318,30 +339,36 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 onChange={() => {
                   setCheckedPolits(!checkedPolits)
                 }}>
-                <S.Text c="gray" lh="18" s="12" className="mt-10">
+                <p
+                  style={{
+                    lineHieght: '18px',
+                    fontSize: '12px',
+                  }}
+                  className="signwall-inside_forms-text mt-10">
                   Al ingresar por redes sociales autorizo el uso de mis datos
                   para
-                  <S.Link
+                  <a
                     href="/tratamiento-de-datos/"
                     target="_blank"
-                    c={mainColorLink}
-                    fw="bold"
-                    className="ml-5 inline">
+                    className="signwall-inside_forms-link ml-5 inline"
+                    style={{ fontWeight: 'bold', color: mainColorLink }}>
                     fines adicionales
-                  </S.Link>
-                </S.Text>
+                  </a>
+                </p>
               </CheckBox>
 
-              <S.Text
-                c="light"
-                s="11"
-                className="mt-10 mb-10"
-                style={{ textAlign: 'justify' }}>
+              <p
+                className="signwall-inside_forms-text mt-10 mb-10"
+                style={{
+                  textAlign: 'justify',
+                  color: '#818181',
+                  fontSize: '11px',
+                }}>
                 En caso hayas autorizado los fines de uso adicionales
                 anteriormente, no es necesario que lo vuelvas a marcar. Si
                 deseas retirar dicho consentimiento, revisa el procedimiento en
                 nuestras
-                <S.Link
+                <a
                   href={(() => {
                     switch (arcSite) {
                       case 'elcomercio':
@@ -354,26 +381,31 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                         return '/politicas-de-privacidad/'
                     }
                   })()}
+                  rel="noreferrer"
                   target="_blank"
-                  c={mainColorLink}
-                  fw="bold"
-                  className="ml-5 inline">
+                  className="signwall-inside_forms-link ml-5 inline"
+                  style={{ color: mainColorLink, fontWeight: 'bold' }}>
                   Políticas de Privacidad.
-                </S.Link>
-              </S.Text>
-            </S.Form>
+                </a>
+              </p>
+            </form>
           ) : (
-            <S.Text c="light" s="10" className="mt-10 center">
+            <p
+              style={{
+                color: '#818181',
+                fontSize: '10px',
+              }}
+              className="signwall-inside_forms-text mt-10 center">
               CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y
               NUNCA PUBLICAREMOS SIN TU PERMISO
-            </S.Text>
+            </p>
           )}
         </>
       )}
 
       {(showStudents || isLogged()) &&
         typeDialog === 'students' &&
-        !showVerify && <FormStudents {...attributes} />}
+        !showVerify && <FormStudents arcSite={arcSite} />}
     </>
   )
 }

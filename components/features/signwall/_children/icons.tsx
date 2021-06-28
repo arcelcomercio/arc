@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const styles = {
   svg: {
@@ -7,7 +7,15 @@ const styles = {
   },
 }
 
-export const Google = () => (
+type BgProps = {
+  bgcolor: string
+}
+
+type ColorProps = {
+  color: string
+}
+
+export const Google = (): JSX.Element => (
   <svg viewBox="0 0 50 50" width="43" height="43" style={styles.svg}>
     <g fill="#fff">
       <path d="M45 1H5C2.8 1 1 2.8 1 5v40c0 2.2 1.8 4 4 4h40c2.2 0 4-1.8 4-4V5c0-2.2-1.8-4-4-4z" />
@@ -32,7 +40,7 @@ export const Google = () => (
   </svg>
 )
 
-export const Facebook = () => (
+export const Facebook = (): JSX.Element => (
   <svg width="28" height="28" style={styles.svg}>
     <path
       d="M24.23 0H3.77A3.77 3.77 0 0 0 0 3.77v20.46A3.77 3.77 0 0 0 3.77 28h10.1V18h-2.6a.61.61 0 0 1-.6-.62l-.02-3.22a.61.61 0 0 1 .62-.62h2.6v-3.11c0-3.62 2.2-5.59 5.43-5.59h2.64a.61.61 0 0 1 .62.61v2.72a.61.61 0 0 1-.62.62h-1.62c-1.76 0-2.1.83-2.1 2.05v2.7h3.86a.61.61 0 0 1 .6.69l-.37 3.22a.61.61 0 0 1-.61.55h-3.46l-.02 10h6A3.77 3.77 0 0 0 28 24.23V3.77A3.77 3.77 0 0 0 24.23 0z"
@@ -41,7 +49,7 @@ export const Facebook = () => (
   </svg>
 )
 
-export const Mail = () => (
+export const Mail = (): JSX.Element => (
   <svg width="26" height="18" style={styles.svg}>
     <path
       d="M23.9 18H2.1A2 2 0 0 1 0 16V2a2 2 0 0 1 2.1-2h21.8A2 2 0 0 1 26 2v14a2 2 0 0 1-2.1 2zM2.1.8A1.2 1.2 0 0 0 .8 2v14a1.2 1.2 0 0 0 1.3 1.2h21.8a1.2 1.2 0 0 0 1.3-1.2V2A1.2 1.2 0 0 0 23.9.8z"
@@ -54,7 +62,7 @@ export const Mail = () => (
   </svg>
 )
 
-export const Back = ({ color }) => (
+export const Back = ({ color }: ColorProps): JSX.Element => (
   <svg width="20" height="20" style={styles.svg}>
     <path
       fill={color}
@@ -64,7 +72,7 @@ export const Back = ({ color }) => (
   </svg>
 )
 
-export const ForgotPass = ({ bgcolor }) => (
+export const ForgotPass = ({ bgcolor }: BgProps): JSX.Element => (
   <svg width="120" height="120">
     <circle cx="60" cy="60" r="60" fill={bgcolor} />
     <use xlinkHref="#B" fill="#b0e0d4" />
@@ -101,7 +109,7 @@ export const ForgotPass = ({ bgcolor }) => (
   </svg>
 )
 
-export const MsgForgotPass = ({ bgcolor }) => (
+export const MsgForgotPass = ({ bgcolor }: BgProps): JSX.Element => (
   <svg width="120" height="120">
     <circle cx="60" cy="60" r="60" fill={bgcolor} />
     <g fill="#fff">
@@ -117,7 +125,7 @@ export const MsgForgotPass = ({ bgcolor }) => (
   </svg>
 )
 
-export const MsgRegister = ({ bgcolor }) => (
+export const MsgRegister = ({ bgcolor }: BgProps): JSX.Element => (
   <svg width="121" height="123.881">
     <circle cx="61" cy="63.881" r="60" fill={bgcolor} />
     <path
@@ -168,7 +176,7 @@ export const MsgRegister = ({ bgcolor }) => (
   </svg>
 )
 
-export const ResetPass = ({ bgcolor }) => (
+export const ResetPass = ({ bgcolor }: BgProps): JSX.Element => (
   <svg width="120" height="120">
     <circle cx="60" cy="60" r="60" fill={bgcolor} />
     <use xlinkHref="#B" fill="#b0e0d4" />
@@ -199,7 +207,7 @@ export const ResetPass = ({ bgcolor }) => (
   </svg>
 )
 
-export const MsgResetPass = ({ bgcolor }) => (
+export const MsgResetPass = ({ bgcolor }: BgProps): JSX.Element => (
   <svg width="120" height="120">
     <circle cx="60" cy="60" r="60" fill={bgcolor} />
     <use xlinkHref="#B" fill="#b0e0d4" />
@@ -236,7 +244,7 @@ export const MsgResetPass = ({ bgcolor }) => (
   </svg>
 )
 
-export const Plus = () => (
+export const Plus = (): JSX.Element => (
   <svg width="30" height="30">
     <g>
       <path
@@ -259,7 +267,7 @@ export const Plus = () => (
   </svg>
 )
 
-export const Close = ({ color }) => (
+export const Close = ({ color }: ColorProps): JSX.Element => (
   <svg width="14" height="14">
     {/* <g fill="#1e201d"> */}
     <g fill={color}>
@@ -269,7 +277,7 @@ export const Close = ({ color }) => (
   </svg>
 )
 
-export const BeneOne = () => (
+export const BeneOne = (): JSX.Element => (
   <svg width="58.2" height="58.2" style={styles.svg}>
     <g fill="#444b54">
       <path d="M48.5 34.6a8 8 0 0 0 3.4-6.4v-5a1.1 1.1 0 0 0 0-.4 8 8 0 0 0-16 .7v4.7a8 8 0 0 0 3.3 6.4 14.5 14.5 0 0 0-5.5 3.4l-.7-3.2a2.4 2.4 0 0 0-2.4-2h-22a2.5 2.5 0 0 0-2.4 3l3.5 15.6H1a1.1 1.1 0 0 0-1 1.1v4.6a1.1 1.1 0 0 0 1.1 1.1h56a1.1 1.1 0 0 0 1.1-1.1v-8.9a14.4 14.4 0 0 0-9.7-13.6zm-4.7-16.8a5.8 5.8 0 0 1 5.4 3.8 7.6 7.6 0 0 1-5.4 2.3h-5.7v-.3a5.8 5.8 0 0 1 5.7-5.8zm-5.7 10.4v-2h5.7a9.9 9.9 0 0 0 5.8-2v4a5.6 5.6 0 0 1-2.8 4.9 6 6 0 0 1-5.9 0 5.6 5.6 0 0 1-2.8-5zm5.7 7.9A12.1 12.1 0 0 1 56 48.2v3.2H36.7l-2.4-10.7a12.2 12.2 0 0 1 9.5-4.6zM9.4 39.7h12a1.1 1.1 0 0 0 0-2.3H8.9l-.5-2a.2.2 0 0 1 .2-.3h22a.2.2 0 0 1 .2.2l3.6 16.1H12zM56 55.9H2.3v-2.2H56z" />
@@ -279,7 +287,7 @@ export const BeneOne = () => (
   </svg>
 )
 
-export const BeneTwo = () => (
+export const BeneTwo = (): JSX.Element => (
   <svg width="58.2" height="45.9" style={styles.svg}>
     <path
       fill="#444b54"
@@ -296,7 +304,7 @@ export const BeneTwo = () => (
   </svg>
 )
 
-export const BeneThree = () => (
+export const BeneThree = (): JSX.Element => (
   <svg width="37.4" height="60" style={styles.svg}>
     <g fill="#444b54">
       <path d="M31.9 59.6H5.5a5.1 5.1 0 0 1-5.1-5.1v-49a5 5 0 0 1 5-5.1H32a5 5 0 0 1 5.1 5v49a5 5 0 0 1-5.1 5.2zM3.3 50v4.5c0 1.2 1 2.2 2.2 2.2h26.4c1.2 0 2.2-1 2.2-2.2V50H3.3zm0-37v34h30.8V13H3.3zm2.2-9.7c-1.2 0-2.2 1-2.2 2.2V10h30.8V5.5c0-1.2-1-2.2-2.2-2.2H5.5z" />
@@ -318,7 +326,7 @@ export const BeneThree = () => (
   </svg>
 )
 
-export const BeneFour = () => (
+export const BeneFour = (): JSX.Element => (
   <svg width="50.4" height="38.2" style={styles.svg}>
     <g fill="#444b54">
       <path d="M44.2 38.1h-38a6 6 0 0 1-6.1-6V6a6 6 0 0 1 6-6h38.2a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6zM6.2 2.7a3.4 3.4 0 0 0-3.5 3.5V32c0 1.9 1.6 3.4 3.5 3.4h38c2 0 3.5-1.5 3.5-3.4V6.2c0-2-1.6-3.5-3.5-3.5h-38z" />
@@ -335,7 +343,7 @@ export const BeneFour = () => (
   </svg>
 )
 
-export const BeneFive = () => (
+export const BeneFive = (): JSX.Element => (
   <svg width="54.3" height="57.3">
     <g>
       <path
@@ -350,7 +358,7 @@ export const BeneFive = () => (
   </svg>
 )
 
-export const LoadingGes = () => (
+export const LoadingGes = (): JSX.Element => (
   <svg width="42.427" height="42.426">
     <rect
       width="30"
@@ -366,14 +374,14 @@ export const LoadingGes = () => (
   </svg>
 )
 
-export const LoadingEco = () => (
+export const LoadingEco = (): JSX.Element => (
   <svg width="44" height="44">
     <circle cx="22" cy="22" r="22" fill="#fecd26" />
     <path d="M21.513 30.051a9.32 9.32 0 0 1-2.879-.839c-.918-.464-1.744-1.093-2.435-1.855a26.22 26.22 0 0 0 2.97-2.723c.322-.334.565-.736.712-1.176a6.1 6.1 0 0 0 .138-1.624v-6.239l1.494-1.223zm9.115-2.89l-.36.3a13.06 13.06 0 0 1-3.649 2.029c-1.193.456-2.461.683-3.738.667l-.713-.013V14.977c.996.588 2.133.893 3.289.882 1.911 0 3.637-1.265 4.992-3.16l-.52-.265c-.574.767-1.475 1.222-2.433 1.229-1.523-.172-2.972-.746-4.2-1.662l-6.609 5.274v6.318c.071.832.016 1.669-.162 2.485a3.23 3.23 0 0 1-.688.845 8.27 8.27 0 0 1-1.978-5.3 7.78 7.78 0 0 1 1.332-4.38 10.7 10.7 0 0 1 3.044-3.1l.191-.124-.359-.372-.171.1c-1.889.932-3.577 2.226-4.968 3.809-1.246 1.642-1.923 3.645-1.928 5.706a9.61 9.61 0 0 0 1.363 4.852c.887 1.546 2.2 2.805 3.783 3.625a10.96 10.96 0 0 0 5.138 1.262 12.07 12.07 0 0 0 3.7-.6c1.15-.353 2.232-.898 3.2-1.612.997-.801 1.847-1.769 2.512-2.862l.306-.462z" />
   </svg>
 )
 
-export const LoadingP21 = () => (
+export const LoadingP21 = (): JSX.Element => (
   <svg width="44" height="44">
     <circle cx="22" cy="22" r="22" fill="#0c70bf" />
     <path
@@ -388,81 +396,10 @@ export const LoadingP21 = () => (
   </svg>
 )
 
-export const Notice = () => (
+export const Notice = (): JSX.Element => (
   <svg width="42" height="42">
     <path d="M21 0a21 21 0 1021 21A21.024 21.024 0 0021 0zm0 38.182A17.182 17.182 0 1138.182 21 17.2 17.2 0 0121 38.182z" />
     <path d="M21 8.909a2.545 2.545 0 102.545 2.547A2.549 2.549 0 0021 8.909z" />
     <path d="M21 17.818a1.909 1.909 0 00-1.909 1.909v11.455a1.909 1.909 0 003.818 0V19.727A1.909 1.909 0 0021 17.818z" />
-  </svg>
-)
-
-export const Cvv = () => (
-  <svg width="42" height="22">
-    <g fill="#fff" stroke="#707070">
-      <rect width="34" height="22" rx="2" stroke="none" />
-      <rect x=".5" y=".5" width="33" height="21" rx="1.5" fill="none" />
-    </g>
-    <path fill="#707070" d="M.768 4.115h33.005V8.72H.768z" />
-    <g fill="#fff" stroke="#ff006c">
-      <circle cx="33" cy="11" r="9" stroke="none" />
-      <circle cx="33" cy="11" r="8" fill="none" />
-    </g>
-    <text fill="#ff006c">
-      <tspan x="28" y="13">
-        XXX
-      </tspan>
-    </text>
-  </svg>
-)
-
-export const CvvFront = () => (
-  <svg width="42" height="22">
-    <g fill="#fff" stroke="#707070">
-      <rect width="34" height="22" rx="2" stroke="none" />
-      <rect x=".5" y=".5" width="33" height="21" rx="1.5" fill="none" />
-    </g>
-    <path
-      fill="#707070"
-      d="M3 14h5v4H3zM11 14h5v4h-5zM18 14h5v4h-5zM26 14h5v4h-5zM11.575 10.551H3.667a.736.736 0 01-.736-.734V4.253a.736.736 0 01.736-.736h7.908a.736.736 0 01.736.736v5.564a.736.736 0 01-.736.736"
-    />
-    <path
-      d="M11.575 11.138H3.667a1.324 1.324 0 01-1.322-1.322V4.253a1.324 1.324 0 011.322-1.322h7.908a1.324 1.324 0 011.322 1.322v5.563a1.324 1.324 0 01-1.322 1.322M3.667 4.103a.149.149 0 00-.149.149v5.563a.149.149 0 00.149.149h7.908a.149.149 0 00.149-.149V4.253a.149.149 0 00-.149-.149z"
-      fill="#e8e8e8"
-    />
-    <path
-      d="M12.31 4.253a.735.735 0 00-.736-.736h-4.39a.735.735 0 00-.736.736v5.564a.735.735 0 00.736.736h.873a.736.736 0 00.736-.736V6.598a.735.735 0 01.736-.736h2.046a.736.736 0 00.736-.736z"
-      fill="#707070"
-    />
-    <path
-      d="M8.062 11.138h-.873a1.324 1.324 0 01-1.327-1.322V4.253a1.324 1.324 0 011.322-1.322h4.391a1.324 1.324 0 011.322 1.322v.878a1.324 1.324 0 01-1.322 1.322H9.529a.149.149 0 00-.149.149V9.82a1.324 1.324 0 01-1.318 1.318m-.873-7.034a.149.149 0 00-.149.149v5.563a.149.149 0 00.149.149h.873a.149.149 0 00.149-.149V6.598a1.324 1.324 0 011.322-1.322h2.046a.149.149 0 00.149-.149v-.873a.149.149 0 00-.149-.149z"
-      fill="#e8e8e8"
-    />
-    <path fill="#f0c41b" d="M9 8h3" />
-    <path
-      d="M12.307 8.793H8.793a.586.586 0 110-1.172h3.514a.586.586 0 110 1.172"
-      fill="#e8e8e8"
-    />
-    <path fill="#f0c41b" d="M6 6H3" />
-    <path
-      d="M6.445 6.448H2.931a.586.586 0 010-1.172h3.514a.586.586 0 010 1.172"
-      fill="#e8e8e8"
-    />
-    <path fill="#f0c41b" d="M6 8H3" />
-    <path
-      d="M6.445 8.793H2.931a.586.586 0 010-1.172h3.514a.586.586 0 010 1.172"
-      fill="#e8e8e8"
-    />
-    <g fill="#fff">
-      <path d="M32 20c-4.963 0-9-4.037-9-9s4.037-9 9-9 9 4.037 9 9-4.037 9-9 9z" />
-      <path
-        d="M32 3a8.01 8.01 0 0 0-8 8 8.01 8.01 0 0 0 8 8 8.01 8.01 0 0 0 8-8 8.01 8.01 0 0 0-8-8m0-2a10 10 0 1 1 0 20 10 10 0 1 1 0-20z"
-        fill="#ff006c"
-      />
-    </g>
-    <text fill="#ff006c">
-      <tspan x="25" y="13">
-        XXXX
-      </tspan>
-    </text>
   </svg>
 )

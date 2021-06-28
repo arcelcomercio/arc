@@ -10,7 +10,6 @@ import { ModalConsumer, ModalProvider } from '../_context/modal'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
-import { PanelContent, PanelWrapper } from './styled'
 
 const MenuSignwall = React.lazy(() =>
   import(
@@ -113,15 +112,13 @@ const WrapperProfile = () => {
   }, [])
 
   return (
-    <PanelWrapper id="profile-signwall">
+    <div className="sign-profile_general-panel-wrapper" id="profile-signwall">
       {userLoading ? (
-        <div className="subs-loading" style={{ zIndex: '20' }}>
-          <Loading arcSite={arcSite} />
-        </div>
+        <Loading typeBg="full" />
       ) : (
         <>
           <Header />
-          <PanelContent>
+          <div className="sign-profile_general-panel-content">
             <div className="panel-left">
               <React.Suspense fallback={null}>
                 <MenuSignwall handleMenu={(item) => changeTemplate(item)} />
@@ -136,10 +133,10 @@ const WrapperProfile = () => {
                 </React.Suspense>
               )}
             </div>
-          </PanelContent>
+          </div>
         </>
       )}
-    </PanelWrapper>
+    </div>
   )
 }
 

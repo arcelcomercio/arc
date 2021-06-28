@@ -160,3 +160,31 @@ window.addEventListener('load', () => {requestIdle(() => {
 export const edicionMenu = `
 window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("edicionId").addEventListener("click",function(e){e.preventDefault();var d=document.querySelector(".header-full__e-content");d.classList.contains("block")?(d.classList.remove("block"),d.classList.add("hidden")):(d.classList.remove("hidden"),d.classList.add("block"))})})});
 `
+
+export const getBtnSignScript = (
+  _env,
+  arcSite
+) => `document.addEventListener('DOMContentLoaded', function () {
+  requestIdle(function(){
+    var checkSession = function checkSession() {
+      if (typeof window !== 'undefined') {
+        var profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE');
+        var sesionStorage = window.localStorage.getItem('ArcId.USER_INFO');
+        if (profileStorage) {
+          return !(profileStorage === 'null' || sesionStorage === '{}') || false;
+        }
+      }
+      return false;
+    };
+    var signBtn = document.body.querySelector('.header-full__btn-signwall');
+    if (signBtn) {
+      signBtn.addEventListener('click', function () {
+        if (checkSession()) {
+          window.location.href = '${_env}' === 'prod' ? '/mi-perfil/?outputType=subscriptions' : "/mi-perfil/?_website=${arcSite}&outputType=subscriptions";
+        } else {
+          window.location.href = '${_env}' === 'prod' ? '/signwall/?outputType=subscriptions&signwallOrganic=1' : "/signwall/?_website=${arcSite}&outputType=subscriptions&signwallOrganic=1";
+        }
+      });
+    }
+  })
+});`

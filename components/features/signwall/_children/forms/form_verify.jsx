@@ -5,9 +5,8 @@ import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { getOriginAPI } from '../../_dependencies/domains'
-import { MsgResetPass } from '../iconos'
+import { MsgResetPass } from '../icons'
 import Loading from '../loading'
-import * as S from './styles'
 
 const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const {
@@ -59,36 +58,46 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   }, [])
 
   return (
-    <S.Form>
+    <form className="signwall-inside_forms-form">
       {showLoading ? (
-        <Loading arcSite={arcSite} typeBg="wait" />
+        <Loading typeBg="wait" />
       ) : (
         <>
           <div className="center block mb-20">
             <MsgResetPass bgcolor={mainColorBr} />
           </div>
 
-          <S.Title s="20" primaryFont={primaryFont} className="center mb-10">
+          <h4
+            style={{ fontSize: '20px', fontFamily: primaryFont }}
+            className="signwall-inside_forms-title center mb-10">
             {showConfirm
               ? '¡Bienvenido(a) Usuario!'
               : '¡Bienvenido(a) Nuevamente!'}
-          </S.Title>
+          </h4>
 
-          {showError && <S.Error>{showError}</S.Error>}
+          {showError && (
+            <div className="signwall-inside_forms-error">{showError}</div>
+          )}
 
-          <S.Text c="gray" s="14" lh="28" className="mt-10 mb-20 center">
+          <p
+            style={{
+              fontSize: '14px',
+              lineHeight: '28px',
+            }}
+            className="signwall-inside_forms-text mt-10 mb-20 center">
             {showConfirm
               ? 'Tu correo electrónico ha sido validado'
               : 'Tu correo electrónico podría ya estar validado'}
             <br />
 
             {!activePaywall && 'disfruta nuestro contenido sin límites'}
-          </S.Text>
+          </p>
 
           {showBtnContinue ? (
-            <S.Button
+            <button
               type="button"
-              color={mainColorBtn}
+              className="signwall-inside_forms-btn"
+              style={{ color: mainColorBtn }}
               onClick={() => {
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,
@@ -97,11 +106,12 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
                 onClose()
               }}>
               CONTINUAR NAVEGANDO
-            </S.Button>
+            </button>
           ) : (
-            <S.Button
+            <button
               type="button"
-              color={mainColorBtn}
+              className="signwall-inside_forms-btn"
+              style={{ color: mainColorBtn }}
               onClick={() => {
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,
@@ -110,11 +120,11 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
                 changeTemplate('login')
               }}>
               CONTINUAR
-            </S.Button>
+            </button>
           )}
         </>
       )}
-    </S.Form>
+    </form>
   )
 }
 

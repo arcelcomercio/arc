@@ -3,7 +3,7 @@
 @import "./base/_ie";
 @import "./base/_fonts";
 @import "./base/_base";
-@import "./modules/loading";
+@import "../features/signwall/loading";
 
 // Estilos para landing de compra
 @import "./modules/_header-payment";

@@ -38,10 +38,10 @@ const addUserToNavbar = (localProfile: Profile | null | undefined) => {
   if (btn) {
     btn.addEventListener('click', () => {
       if (uuid) {
-        window.location.href = '/mi-perfil/?outputType=signwall'
+        window.location.href = '/mi-perfil/?outputType=subscriptions'
       } else {
         window.location.href =
-          '/signwall/?outputType=signwall&signwallOrganic=1'
+          '/signwall/?outputType=subscriptions&signwallOrganic=1'
       }
     })
     if (uuid && btnText) {
@@ -177,7 +177,7 @@ const PollaScoreList: FC<Props> = (props) => {
       }
     } else {
       document.location.href =
-        '/signwall/?outputType=signwall&signwallOrganic=1'
+        '/signwall/?outputType=subscriptions&signwallOrganic=1'
     }
   }
 
