@@ -289,3 +289,208 @@
     }
   }
 }
+
+//REDISEÑO DEPOR-PLAY
+.depor-play {
+  .s-multimedia {
+    picture {
+      display: block;
+    }
+    img {
+      display: block;
+    }
+  }
+  .s-multimedia__caption {
+    background-color: #252256;
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .nav-sidebar__item {
+    @media (--only-mobile) {
+      border: 1px solid #3731a3;
+    }
+  }
+  .nav-sidebar__footer {
+    display: none;
+  }
+  .header-full {
+    background: transparent linear-gradient(90deg, #63298a 0%, #1d1a57 100%) 0%
+      0% no-repeat padding-box;
+    &.active {
+      background: #fff;
+      & .header-full__newsletter {
+        display: none;
+      }
+      & .header-full__logo {
+        filter: none;
+      }
+      & .header-full__link-logo {
+        & svg {
+          filter: none;
+        }
+      }
+      & .header-full__link-logo-play img {
+        filter: brightness(0) invert(1);
+      }
+    }
+    &__box-logo {
+      background-color: transparent;
+      @media (--only-mobile) {
+        transform: initial;
+        width: 100%;
+      }
+    }
+    &__logo-play {
+      text-align: center;
+      display: block;
+      @media (--desktop) {
+        display: none;
+      }
+      & img {
+        height: 40px;
+        width: 100px;
+      }
+    }
+    &__link-logo {
+      display: none;
+      @media (--desktop) {
+        display: flex;
+      }
+      & svg {
+        width: 15px;
+        filter: invert(1);
+        transform: skewX(10deg);
+        margin-right: 15px;
+      }
+    }
+    &__box-logo-play {
+      display: flex;
+      height: 100%;
+      padding: 15px 25px;
+    }
+    &__link-logo-play {
+      & svg {
+        width: 15px;
+        filter: invert(1);
+        transform: skewX(355deg);
+        margin-right: 15px;
+      }
+      & img {
+        height: 70px;
+        transform: skew(355deg);
+      }
+    }
+    &__logo {
+      filter: brightness(0) invert(1);
+    }
+    &__btn-menu {
+      @media (--desktop) {
+        display: none;
+      }
+      display: block;
+      border: 1px solid #ada8f0;
+      border-radius: 50%;
+      padding: 8px;
+      & svg {
+        height: 12px;
+      }
+    }
+    &__edicion {
+      display: none;
+    }
+    &__btn-container {
+      display: none;
+    }
+    &__left {
+      width: 100%;
+    }
+    &__box-list {
+      width: 100%;
+    }
+    &__list-nav {
+      justify-content: space-evenly;
+      padding: 0px 40px;
+    }
+    &__newsletter {
+      @media (--desktop) {
+        display: block;
+      }
+      display: none;
+      width: 110px;
+      & a {
+        padding: 0 5px;
+        align-items: center;
+        display: flex;
+        svg {
+          fill: #dddf45;
+        }
+        span {
+          color: #dddf45;
+          font-size: 13px;
+          margin-left: 10px;
+        }
+      }
+    }
+    &__newsletter-li {
+      padding: 15px 25px;
+      & a {
+        align-items: center;
+        display: flex;
+        svg {
+          fill: #dddf45;
+        }
+        span {
+          color: #dddf45;
+          font-size: 13px;
+          margin-left: 10px;
+          text-transform: capitalize;
+        }
+      }
+    }
+    &__megamenu {
+      background-color: #1d1a57;
+    }
+    &__dpsearch {
+      padding: 15px 20px 0;
+    }
+    &__dpform {
+      display: flex;
+      justify-content: flex-end;
+      & svg {
+        position: absolute;
+        height: 18px;
+        margin-right: 12px;
+        margin-top: 9px;
+        opacity: 0.5;
+      }
+    }
+    &__dpforminput {
+      width: 100%;
+      border-radius: 4px;
+      height: 36px;
+      padding: 10px 15px;
+    }
+    &__banner-logo {
+      display: none;
+      @media (--desktop) {
+        display: block;
+        margin: 15px 0;
+        & a {
+          cursor: default;
+        }
+      }
+    }
+  }
+  .h-continuous {
+    background: transparent linear-gradient(90deg, #63298a 0%, #1d1a57 100%) 0%
+      0% no-repeat padding-box;
+    &__img {
+      height: 30px;
+      content: url(https://cdna.depor.com/resources/dist/depor/depor-play/Logo_DeporPlay_1.svg);
+      @media (--desktop) {
+        height: 45px;
+      }
+    }
+  }
+}

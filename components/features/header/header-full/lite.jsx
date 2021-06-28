@@ -29,7 +29,14 @@ const HeaderFull = (props) => {
   } = useFusionContext() || {}
 
   const {
-    customFields: { hierarchyHeader, hierarchyMenu, hideMenu } = {},
+    customFields: {
+      hierarchyHeader,
+      hierarchyMenu,
+      hideMenu,
+      showNewsletter,
+      urlLogoPlay,
+      showArrowLeft,
+    } = {},
   } = props
 
   let { customFields: { customLogoTitle } = {} } = props
@@ -193,6 +200,9 @@ const HeaderFull = (props) => {
     siteDomain,
     legalLinks,
     hideMenu,
+    showNewsletter,
+    urlLogoPlay,
+    showArrowLeft,
     Newsle: <Newsletter />,
   }
   return (
