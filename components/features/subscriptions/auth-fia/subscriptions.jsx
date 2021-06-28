@@ -134,6 +134,13 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                       urlPlan={links.landingFia}
                     />
                   )}
+
+                  <div id="divLog" />
+                  {`USER AGENT: ${
+                    typeof window !== 'undefined'
+                      ? window.navigator.userAgent
+                      : ''
+                  }`}
                 </PanelLeft>
               </AuthProvider>
             </Wrapper>
