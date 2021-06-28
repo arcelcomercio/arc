@@ -179,7 +179,7 @@ const rederStory: React.FC<{
       contextPath,
       arcSite,
       viewImage: arcSite !== 'depor',
-      storiesQty: 3,
+      storiesQty: arcSite === 'depor' ? 7 : 3,
       customTitle: '',
       customLink: '',
     }),
