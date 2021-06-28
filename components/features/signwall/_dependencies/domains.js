@@ -2,56 +2,69 @@ import getProperties from 'fusion:properties'
 
 import { env, isProd } from '../../../utilities/arc/env'
 
-const getOriginAPI = (site) => {
+export const getOriginAPI = (site) => {
   const { siteDomain } = getProperties(site)
   return `https://api${isProd ? '' : '-sandbox'}.${siteDomain}`
 }
 
-const getUrlPaywall = (site) =>
-  isProd
-    ? `/suscripcionesdigitales/`
-    : `/suscripcionesdigitales/?_website=${site}&outputType=subscriptions`
+export const TermsConditions = (site) => {
+  switch (site) {
+    case 'depor': {
+      return '/terminos-servicio/'
+    }
+    default: {
+      return '/terminos-y-condiciones/'
+    }
+  }
+}
 
-const getUrlECOID = `https://${isProd ? '' : 'pre.'}ecoid.pe`
+export const PolicyPrivacy = (site) => {
+  switch (site) {
+    case 'elcomercio':
+    case 'depor': {
+      return '/politicas-privacidad/'
+    }
+    case 'peru21': {
+      return '/politicas-de-privacidad/'
+    }
+    default: {
+      return '/politica-de-privacidad/'
+    }
+  }
+}
 
-const getScriptSales = `https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js`
+export const dataTreatment = '/tratamiento-de-datos/'
 
-const getUrlNewsLetters = `https://${
+export const getUrlPaywall = (site) =>
+  `/suscripcionesdigitales/${
+    isProd ? '' : `?_website=${site}&outputType=subscriptions`
+  }`
+
+export const getUrlECOID = `https://${isProd ? '' : 'pre.'}ecoid.pe`
+
+export const getScriptSales = `https://arc-subs-sdk.s3.amazonaws.com/${env}/sdk-sales.min.js`
+
+export const getUrlNewsLetters = `https://${
   isProd ? 'afv5trdj4i' : 'vq01ksb95d'
 }.execute-api.us-east-1.amazonaws.com/${
   isProd ? 'prod' : 'dev'
 }/userprofile/public/v1`
 
-const getListBundle = ['UJWWFG', '7NK9SV', 'DQZ00K', 'OKLLPH', 'NO07ET'] // price code bundle sandbox & prod
+export const getListBundle = ['UJWWFG', '7NK9SV', 'DQZ00K', 'OKLLPH', 'NO07ET']
 
-const getUrlMiddleWare = `https://${
+export const getUrlMiddleWare = `https://${
   isProd ? '' : 'dev'
 }paywall.comerciosuscripciones.pe/api`
 
-const getUrlProfile = (arcSite) =>
-  isProd
-    ? '/mi-perfil/?outputType=subscriptions'
-    : `/mi-perfil/?outputType=subscriptions&_website=${arcSite}`
+export const getUrlProfile = (arcSite) =>
+  `/mi-perfil/?outputType=subscriptions${isProd ? '' : `&_website=${arcSite}`}`
 
-const getUrlLandingAuth = (arcSite) =>
-  isProd
-    ? '/auth-fia/?outputType=subscriptions'
-    : `/auth-fia/?outputType=subscriptions&_website=${arcSite}`
+export const getUrlLandingAuth = (arcSite) =>
+  `/auth-fia/?outputType=subscriptions${isProd ? '' : `&_website=${arcSite}`}`
 
-const getUrlSignwall = (arcSite, typeDialog, hash) =>
-  isProd
-    ? `/signwall/?outputType=subscriptions&${typeDialog}=${hash}`
-    : `/signwall/?outputType=subscriptions&_website=${arcSite}&${typeDialog}=${hash}`
-
-export {
-  getListBundle,
-  getOriginAPI,
-  getScriptSales,
-  getUrlECOID,
-  getUrlLandingAuth,
-  getUrlMiddleWare,
-  getUrlNewsLetters,
-  getUrlPaywall,
-  getUrlProfile,
-  getUrlSignwall,
-}
+export const getUrlSignwall = (arcSite, typeDialog, hash) =>
+  `/signwall/?outputType=subscriptions${
+    isProd
+      ? `&${typeDialog}=${hash}`
+      : `&_website=${arcSite}&${typeDialog}=${hash}`
+  }`

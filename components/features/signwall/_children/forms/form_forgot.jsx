@@ -16,7 +16,7 @@ const FormForgot = ({ typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorBr, mainColorBtn, primaryFont },
+      signwall: { mainColorBr, mainColorBtn, mainColorLink, primaryFont },
     },
   } = useAppContext() || {}
 
@@ -162,7 +162,10 @@ const FormForgot = ({ typeDialog }) => {
               {showVerify && (
                 <>
                   {!showSendEmail ? (
-                    <button type="button" onClick={sendVerifyEmail}>
+                    <button
+                      type="button"
+                      className="link"
+                      onClick={sendVerifyEmail}>
                       Reenviar correo de activación
                     </button>
                   ) : (
@@ -209,7 +212,7 @@ const FormForgot = ({ typeDialog }) => {
 
           <button
             type="submit"
-            style={{ color: mainColorBtn }}
+            style={{ color: mainColorBtn, background: mainColorLink }}
             className="signwall-inside_forms-btn mt-20 mb-10"
             disabled={disable || showLoading}
             onClick={() =>

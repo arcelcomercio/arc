@@ -2,7 +2,9 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { ModalConsumer } from '../../../subscriptions/_context/modal'
-import getCodeError from '../../../subscriptions/_dependencies/Errors'
+import getCodeError, {
+  formatPass,
+} from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI } from '../../_dependencies/domains'
@@ -39,18 +41,12 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
   const stateValidatorSchema = {
     rpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
     rconfirmpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
   }

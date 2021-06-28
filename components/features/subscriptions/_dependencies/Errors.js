@@ -11,6 +11,11 @@ export const formatEmail = () => ({
   error: 'Correo electrónico Inválido',
 })
 
+export const formatPass = () => ({
+  func: (value) => value.length >= 8,
+  error: 'Mínimo 8 caracteres',
+})
+
 export const formatNames = () => ({
   func: (value) => namesRegex.test(value),
   error: 'Formato inválido, solo letras',
