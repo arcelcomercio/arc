@@ -168,7 +168,7 @@ class NewsLetter extends Component {
             </div>
           </>
         ) : (
-          <Loading typeBg="wait" />
+          <Loading typeBg="block" />
         )}
       </div>
     )

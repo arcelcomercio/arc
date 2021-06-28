@@ -1234,9 +1234,15 @@ $heightHeader: 52px;
     margin: 0;
     outline: none;
     text-decoration: underline;
+
     &:disabled {
       opacity: 0.7;
       cursor: wait;
+    }
+
+    &.link-color {
+      color: $bluePrimary;
+      font-weight: bold;
     }
   }
 

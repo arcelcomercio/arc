@@ -7,10 +7,15 @@ import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import { setCookie } from '../../../subscriptions/_dependencies/Cookies'
 import getCodeError, {
   formatEmail,
+  formatPass,
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import { getOriginAPI } from '../../_dependencies/domains'
+import {
+  dataTreatment,
+  getOriginAPI,
+  PolicyPrivacy,
+} from '../../_dependencies/domains'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
@@ -44,10 +49,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
     },
     rpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
   }
@@ -167,7 +169,10 @@ const FormRelogin = ({ onClose, typeDialog }) => {
           {showVerify && (
             <>
               {!showSendEmail ? (
-                <button type="button" onClick={sendVerifyEmail}>
+                <button
+                  type="button"
+                  className="link"
+                  onClick={sendVerifyEmail}>
                   Reenviar correo de activación
                 </button>
               ) : (
@@ -275,7 +280,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
           color: '#000000',
           fontSize: '12px',
         }}
-        className="signwall-inside_forms-text mt-20 mb-10 center">
+        className="signwall-inside_forms-text mt-20 mb-20 center">
         ¿Aún no tienes una cuenta?
         <a
           href="#"
@@ -295,7 +300,6 @@ const FormRelogin = ({ onClose, typeDialog }) => {
 
       {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
         <>
-          <br />
           <CheckBox
             checked={checkedPolits}
             value={checkedPolits ? '1' : '0'}
@@ -311,8 +315,9 @@ const FormRelogin = ({ onClose, typeDialog }) => {
               className="signwall-inside_forms-text mt-10">
               Al ingresar por redes sociales autorizo el uso de mis datos para
               <a
-                href="/tratamiento-de-datos/"
+                href={dataTreatment}
                 target="_blank"
+                rel="noreferrer"
                 style={{ color: mainColorLink, fontWeight: 'bold' }}
                 className="signwall-inside_forms-link ml-5 inline">
                 fines adicionales
@@ -331,18 +336,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
             no es necesario que lo vuelvas a marcar. Si deseas retirar dicho
             consentimiento, revisa el procedimiento en nuestras
             <a
-              href={(() => {
-                switch (arcSite) {
-                  case 'elcomercio':
-                  case 'depor':
-                    return '/politicas-privacidad/'
-                  case 'gestion':
-                  case 'trome':
-                    return '/politica-de-privacidad/'
-                  default:
-                    return '/politicas-de-privacidad/'
-                }
-              })()}
+              href={PolicyPrivacy(arcSite)}
               target="_blank"
               rel="noreferrer"
               style={{ color: mainColorLink, fontWeight: 'bold' }}

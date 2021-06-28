@@ -21,7 +21,7 @@ const ButtonSocial = ({
   showMsgVerify,
   dataTreatment,
 }) => {
-  const [loading, setLoading] = React.useState()
+  const [loading, setLoading] = React.useState(false)
   const [loadText, setLoadText] = React.useState('Cargando...')
   const { activateAuth, updateStep } = React.useContext(AuthContext)
   const { urls } = PropertiesCommon
@@ -190,6 +190,7 @@ const ButtonSocial = ({
       case 'premium':
         return 'signPremium'
       case 'login':
+      case 'registro':
       case 'landing':
         return 'signLanding'
       case 'authfia':
@@ -205,13 +206,7 @@ const ButtonSocial = ({
 
   const clickLoginSocialEcoID = () => {
     if (typeof window !== 'undefined') {
-      const eventMethod = window.addEventListener
-        ? 'addEventListener'
-        : 'attachEvent'
-      const eventer = window[eventMethod]
-      const messageEvent =
-        eventMethod === 'attachEvent' ? 'onmessage' : 'message'
-      eventer(messageEvent, authSocialProvider)
+      Taggeo(nameTagCategory, `web_swl_${arcType}_boton_${arcSocial}`)
 
       const width = 780
       const height = 640
@@ -220,13 +215,22 @@ const ButtonSocial = ({
       const URL = `${urls.ecoID}/mpp/${arcSocial}/login/`
 
       const URLRedirect = () => {
+        setLoading(true)
+        setLoadText('Redireccionando...')
         window.location.href = `${URL}?urlReference=${encodeURIComponent(
           window.location.href
         )}&typeModal=${queryDialog()}&dataTreatment=${dataTreatment}`
-        setLoadText('Redireccionando...')
       }
 
       const URLWindow = () => {
+        const eventMethod = window.addEventListener
+          ? 'addEventListener'
+          : 'attachEvent'
+        const eventer = window[eventMethod]
+        const messageEvent =
+          eventMethod === 'attachEvent' ? 'onmessage' : 'message'
+        eventer(messageEvent, authSocialProvider)
+
         window.open(
           URL,
           '',
@@ -258,10 +262,8 @@ const ButtonSocial = ({
   return (
     <button
       className={`btn-${arcSocial}`}
-      onClick={() => {
-        clickLoginSocialEcoID()
-        Taggeo(nameTagCategory, `web_swl_${arcType}_boton_${arcSocial}`)
-      }}
+      id={`btn-sign-${arcSocial}`}
+      onClick={clickLoginSocialEcoID}
       disabled={loading}
       type="button">
       {loading ? loadText : `Continua con ${Capitalize(arcSocial)}`}
