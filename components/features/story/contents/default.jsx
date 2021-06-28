@@ -230,16 +230,6 @@ class StoryContents extends React.PureComponent {
               )}
             </>
           )}
-          {arcSite !== SITE_ELCOMERCIOMAG &&
-            arcSite !== SITE_DEPOR &&
-            subtype !== GALLERY_VERTICAL && (
-              <Ads
-                adElement={`${isDfp === true ? 'caja3' : 'movil2'}`}
-                isDesktop={false}
-                isMobile
-                isDfp={isDfp}
-              />
-            )}
           <div
             className={`${classes.content} ${
               isPremium && !isPreview
@@ -383,14 +373,6 @@ class StoryContents extends React.PureComponent {
 
                     return (
                       <>
-                        {publicidad && isDfp && (
-                          <Ads
-                            adElement={nameAds}
-                            isDesktop={false}
-                            isMobile
-                            isDfp={isDfp}
-                          />
-                        )}
                         <p
                           itemProp="description"
                           className={alignmentClass}
@@ -398,6 +380,15 @@ class StoryContents extends React.PureComponent {
                             __html: replaceTags(content),
                           }}
                         />
+                        {publicidad && isDfp && 
+                          !(subtype == GALLERY_VERTICAL && nameAds == 'caja3') && (
+                          <Ads
+                            adElement={nameAds}
+                            isDesktop={false}
+                            isMobile
+                            isDfp={isDfp}
+                          />
+                        )}
                       </>
                     )
                   }
