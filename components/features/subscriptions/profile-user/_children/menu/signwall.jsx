@@ -10,7 +10,6 @@ import {
 } from '../../../_dependencies/Cookies'
 import { getUserName, isAuthenticated } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
-import { WrapperAvatar, WrapperMenu } from './styled'
 
 const MenuSignwall = ({ handleMenu }) => {
   const {
@@ -71,7 +70,9 @@ const MenuSignwall = ({ handleMenu }) => {
 
   return (
     <>
-      <WrapperAvatar br={mainColorBr}>
+      <div
+        className="sign-profile_menu-avatar"
+        style={{ borderColor: mainColorBr }}>
         <img
           src={
             typeLogin === 'facebook'
@@ -80,8 +81,8 @@ const MenuSignwall = ({ handleMenu }) => {
           }
           alt="Avatar"
         />
-      </WrapperAvatar>
-      <WrapperMenu cl={mainColorLink}>
+      </div>
+      <div className="sign-profile_menu-wrapper">
         <h1 className="hello" id="name-user-profile">
           Hola {getUserName(firstName, lastName)}
         </h1>
@@ -92,6 +93,7 @@ const MenuSignwall = ({ handleMenu }) => {
               <li>
                 <button
                   type="button"
+                  style={{ color: mainColorLink }}
                   onClick={() => {
                     openItemMenu('home')
                   }}>
@@ -102,6 +104,7 @@ const MenuSignwall = ({ handleMenu }) => {
             <li>
               <button
                 type="button"
+                style={{ color: mainColorLink }}
                 onClick={() => {
                   openItemMenu('prof')
                 }}>
@@ -112,6 +115,7 @@ const MenuSignwall = ({ handleMenu }) => {
               <li>
                 <button
                   type="button"
+                  style={{ color: mainColorLink }}
                   id="btn-subs"
                   onClick={() => {
                     openItemMenu('subs')
@@ -124,6 +128,7 @@ const MenuSignwall = ({ handleMenu }) => {
               <li>
                 <button
                   type="button"
+                  style={{ color: mainColorLink }}
                   onClick={() => {
                     openItemMenu('news')
                   }}>
@@ -144,7 +149,7 @@ const MenuSignwall = ({ handleMenu }) => {
             </li>
           </ul>
         </div>
-      </WrapperMenu>
+      </div>
     </>
   )
 }

@@ -9,7 +9,6 @@ import {
   PropertiesCommon,
   PropertiesSite,
 } from '../../../_dependencies/Properties'
-import { ResumeDates, Title, Wrapper } from '../../styled'
 import Subs from '../resume/_children/subs'
 
 const Subscription = () => {
@@ -51,31 +50,36 @@ const Subscription = () => {
   }, [])
 
   return (
-    <Wrapper>
+    <div className="sign-profile_general-wrapper">
       {!showLoading ? (
         <>
           {showSubs ? (
             <Subs detail={(id) => changeTemplate('detail', id)} />
           ) : (
-            <ResumeDates>
+            <div className="sign-profile_general-resume-dates">
               <div className="cont-plan">
                 <div className="first-plan">
                   <p>Accede ilimitadamente a nuestro contenido, adquiere el:</p>
-                  <Title s="40" f={primaryFont}>
+                  <h3
+                    className="sign-profile_general-title"
+                    style={{
+                      fontFamily: primaryFont,
+                      fontSize: '40px',
+                    }}>
                     Plan Digital
-                  </Title>
+                  </h3>
                 </div>
                 <div className="last-plan">
                   <FormIntro arcSite={arcSite} typeDialog="organico" />
                 </div>
               </div>
-            </ResumeDates>
+            </div>
           )}
         </>
       ) : (
-        <Loading arcSite={arcSite} typeBg="wait" />
+        <Loading typeBg="wait" />
       )}
-    </Wrapper>
+    </div>
   )
 }
 

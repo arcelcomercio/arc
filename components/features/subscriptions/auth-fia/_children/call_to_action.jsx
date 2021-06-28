@@ -2,11 +2,11 @@
 
 import * as React from 'react'
 
+import { MsgRegister } from '../../../signwall/_children/icons'
+import Loading from '../../../signwall/_children/loading'
 import { LogIntoAccountEventTag } from '../../_children/fb-account-linking'
-import { MsgRegister } from '../../_dependencies/Icons'
 import { deleteQuery } from '../../_dependencies/QueryString'
 import { Taggeo } from '../../_dependencies/Taggeo'
-import Loading from '../../_layouts/loading'
 
 const styles = {
   title: 'step__left-title',
@@ -53,7 +53,7 @@ const CallToActionFia = (props) => {
       )}
 
       {loading ? (
-        <Loading arcSite={arcSite} typeBg="wait" />
+        <Loading typeBg="wait" />
       ) : (
         <>
           <MsgRegister bgcolor={mainColorBr} />

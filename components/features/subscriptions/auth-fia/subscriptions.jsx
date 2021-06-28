@@ -3,6 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 
 import addScriptAsync from '../../../utilities/script-async'
+import Loading from '../../signwall/_children/loading'
 import Forgot from '../_children/forgot'
 import Login from '../_children/login'
 import Register from '../_children/register'
@@ -36,6 +37,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const [isLogged, setLogged] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
 
   const handleCallToAction = (status) => {
     setLogged(status)
@@ -81,6 +83,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
         ) {
           setLogged(true)
         }
+        setLoading(false)
       })
       .catch((errIdentitySDK) => {
         Sentry.captureEvent({
@@ -93,43 +96,49 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   return (
     <>
-      <Header
-        arcSite={arcSite}
-        mainColorBg={mainColorBg}
-        buttonBack={buttonBack}
-      />
-      <Container>
-        <Wrapper>
-          <AuthProvider>
-            <PanelLeft>
-              {!isLogged ? (
-                renderTemplate(selectedTemplate, valueTemplate, {
-                  arcSite,
-                  isFia: true,
-                  handleCallToAction,
-                  onClose: () => {
-                    if (
-                      'Identity' in window &&
-                      window.Identity.userProfile &&
-                      window.Identity.userIdentity.uuid
-                    ) {
-                      setLogged(true)
-                    }
-                  },
-                })
-              ) : (
-                <CallToActionFia
-                  mainColorBr={mainColorBr}
-                  logoutSession={logoutSession}
-                  arcSite={arcSite}
-                  typeDialog={typeDialog}
-                  urlPlan={links.landingFia}
-                />
-              )}
-            </PanelLeft>
-          </AuthProvider>
-        </Wrapper>
-      </Container>
+      {loading ? (
+        <Loading typeBg="full" />
+      ) : (
+        <>
+          <Header
+            arcSite={arcSite}
+            mainColorBg={mainColorBg}
+            buttonBack={buttonBack}
+          />
+          <Container>
+            <Wrapper>
+              <AuthProvider>
+                <PanelLeft>
+                  {!isLogged ? (
+                    renderTemplate(selectedTemplate, valueTemplate, {
+                      arcSite,
+                      isFia: true,
+                      handleCallToAction,
+                      onClose: () => {
+                        if (
+                          'Identity' in window &&
+                          window.Identity.userProfile &&
+                          window.Identity.userIdentity.uuid
+                        ) {
+                          setLogged(true)
+                        }
+                      },
+                    })
+                  ) : (
+                    <CallToActionFia
+                      mainColorBr={mainColorBr}
+                      logoutSession={logoutSession}
+                      arcSite={arcSite}
+                      typeDialog={typeDialog}
+                      urlPlan={links.landingFia}
+                    />
+                  )}
+                </PanelLeft>
+              </AuthProvider>
+            </Wrapper>
+          </Container>
+        </>
+      )}
     </>
   )
 }

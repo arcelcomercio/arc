@@ -4,6 +4,7 @@ import * as React from 'react'
 
 import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
+import Loading from '../../signwall/_children/loading'
 import { getOriginAPI } from '../../signwall/_dependencies/domains'
 import { deleteCookie, getCookie, setCookie } from '../_dependencies/Cookies'
 import { PropertiesCommon } from '../_dependencies/Properties'
@@ -22,6 +23,7 @@ const ORGANIC = 'organico'
 const AuthUser = () => {
   const { arcSite } = useAppContext() || {}
   const [activeModal, setActiveModal] = React.useState()
+  const [loading, setLoading] = React.useState(true)
   const { links, urls: urlCommon } = PropertiesCommon
 
   useSentry(urlCommon.sentrySign)
@@ -34,6 +36,7 @@ const AuthUser = () => {
     })
       .then(() => {
         window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
+        setLoading(false)
       })
       .catch((errIdentitySDK) => {
         Sentry.captureEvent({
@@ -89,28 +92,34 @@ const AuthUser = () => {
 
   return (
     <>
-      {(isOrganic || isHard || isReloginEmail || isReloginHash) && (
+      {loading ? (
+        <Loading typeBg="full" />
+      ) : (
         <>
-          {!isLogged() ? (
+          {(isOrganic || isHard || isReloginEmail || isReloginHash) && (
+            <>
+              {!isLogged() ? (
+                <SignOrganic
+                  onClose={() => closePopUp()}
+                  arcSite={arcSite}
+                  typeDialog={activeModal}
+                />
+              ) : (
+                closePopUp()
+              )}
+            </>
+          )}
+
+          {(isTokenVerify || isResetPassword) && (
             <SignOrganic
               onClose={() => closePopUp()}
               arcSite={arcSite}
               typeDialog={activeModal}
+              tokenVerify={isTokenVerify && getQuery('tokenVerify')}
+              tokenReset={isResetPassword && getQuery('tokenReset')}
             />
-          ) : (
-            closePopUp()
           )}
         </>
-      )}
-
-      {(isTokenVerify || isResetPassword) && (
-        <SignOrganic
-          onClose={() => closePopUp()}
-          arcSite={arcSite}
-          typeDialog={activeModal}
-          tokenVerify={isTokenVerify && getQuery('tokenVerify')}
-          tokenReset={isResetPassword && getQuery('tokenReset')}
-        />
       )}
     </>
   )

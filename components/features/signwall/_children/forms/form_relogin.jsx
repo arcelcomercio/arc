@@ -14,7 +14,6 @@ import { getOriginAPI } from '../../_dependencies/domains'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
-import * as S from './styles'
 
 const FormRelogin = ({ onClose, typeDialog }) => {
   const {
@@ -149,13 +148,21 @@ const FormRelogin = ({ onClose, typeDialog }) => {
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
   return (
-    <S.Form onSubmit={handleOnSubmit}>
-      <S.Text c="black" s="18" className="center">
+    <form className="signwall-inside_forms-form" onSubmit={handleOnSubmit}>
+      <p
+        style={{
+          color: '#000000',
+          fontSize: '18px',
+        }}
+        className="signwall-inside_forms-text center">
         Ingresa con
-      </S.Text>
+      </p>
 
       {showError && (
-        <S.Error type={showVerify ? 'warning' : ''}>
+        <div
+          className={`signwall-inside_forms-error ${
+            showVerify ? 'warning' : ''
+          }`}>
           {` ${showError} `}
           {showVerify && (
             <>
@@ -171,7 +178,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
               )}
             </>
           )}
-        </S.Error>
+        </div>
       )}
 
       <Input
@@ -203,10 +210,10 @@ const FormRelogin = ({ onClose, typeDialog }) => {
         error={rpassError}
       />
 
-      <S.Link
+      <a
         href="#"
-        c="gray"
-        className="mt-10 mb-20 inline f-right text-sm"
+        style={{ color: 'gray' }}
+        className="signwall-inside_forms-link mt-10 mb-20 inline f-right text-sm"
         onClick={(e) => {
           e.preventDefault()
           Taggeo(
@@ -216,11 +223,12 @@ const FormRelogin = ({ onClose, typeDialog }) => {
           changeTemplate('forgot')
         }}>
         Olvidé mi contraseña
-      </S.Link>
+      </a>
 
-      <S.Button
+      <button
         type="submit"
-        color={mainColorBtn}
+        className="signwall-inside_forms-btn"
+        style={{ color: mainColorBtn }}
         disabled={disable || showLoading}
         onClick={() =>
           Taggeo(
@@ -229,11 +237,15 @@ const FormRelogin = ({ onClose, typeDialog }) => {
           )
         }>
         {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
-      </S.Button>
+      </button>
 
-      <S.Text c="gray" s="14" className="mt-20 mb-10 center">
+      <p
+        style={{
+          fontSize: '14px',
+        }}
+        className="signwall-inside_forms-text mt-20 mb-10 center">
         ó ingresa con tu cuenta de:
-      </S.Text>
+      </p>
 
       {authProviders.map((item) => (
         <ButtonSocial
@@ -258,13 +270,17 @@ const FormRelogin = ({ onClose, typeDialog }) => {
         typeForm="relogin"
       />
 
-      <S.Text c="black" s="12" className="mt-20 mb-10 center">
+      <p
+        style={{
+          color: '#000000',
+          fontSize: '12px',
+        }}
+        className="signwall-inside_forms-text mt-20 mb-10 center">
         ¿Aún no tienes una cuenta?
-        <S.Link
+        <a
           href="#"
-          c={mainColorLink}
-          fw="bold"
-          className="ml-10"
+          style={{ color: mainColorLink, fontWeight: 'bold' }}
+          className="signwall-inside_forms-link ml-10"
           onClick={(e) => {
             e.preventDefault()
             Taggeo(
@@ -274,8 +290,8 @@ const FormRelogin = ({ onClose, typeDialog }) => {
             changeTemplate('register')
           }}>
           Regístrate
-        </S.Link>
-      </S.Text>
+        </a>
+      </p>
 
       {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
         <>
@@ -287,28 +303,34 @@ const FormRelogin = ({ onClose, typeDialog }) => {
             onChange={() => {
               setCheckedPolits(!checkedPolits)
             }}>
-            <S.Text c="gray" lh="18" s="12" className="mt-10">
+            <p
+              style={{
+                lineHeight: '18px',
+                fontSize: '12px',
+              }}
+              className="signwall-inside_forms-text mt-10">
               Al ingresar por redes sociales autorizo el uso de mis datos para
-              <S.Link
+              <a
                 href="/tratamiento-de-datos/"
                 target="_blank"
-                c={mainColorLink}
-                fw="bold"
-                className="ml-5 inline">
+                style={{ color: mainColorLink, fontWeight: 'bold' }}
+                className="signwall-inside_forms-link ml-5 inline">
                 fines adicionales
-              </S.Link>
-            </S.Text>
+              </a>
+            </p>
           </CheckBox>
 
-          <S.Text
-            c="light"
-            s="11"
-            className="mt-10 mb-10"
-            style={{ textAlign: 'justify' }}>
+          <p
+            className="signwall-inside_forms-text mt-10 mb-10"
+            style={{
+              textAlign: 'justify',
+              color: '#818181',
+              fontSize: '11px',
+            }}>
             En caso hayas autorizado los fines de uso adicionales anteriormente,
             no es necesario que lo vuelvas a marcar. Si deseas retirar dicho
             consentimiento, revisa el procedimiento en nuestras
-            <S.Link
+            <a
               href={(() => {
                 switch (arcSite) {
                   case 'elcomercio':
@@ -322,20 +344,25 @@ const FormRelogin = ({ onClose, typeDialog }) => {
                 }
               })()}
               target="_blank"
-              c={mainColorLink}
-              fw="bold"
-              className="ml-5 inline">
+              rel="noreferrer"
+              style={{ color: mainColorLink, fontWeight: 'bold' }}
+              className="signwall-inside_forms-link ml-5 inline">
               Políticas de Privacidad.
-            </S.Link>
-          </S.Text>
+            </a>
+          </p>
         </>
       ) : (
-        <S.Text c="light" s="10" className="mt-10 center">
+        <p
+          style={{
+            color: '#818181',
+            fontSize: '10px',
+          }}
+          className="signwall-inside_forms-text mt-10 center">
           CON TUS DATOS, MEJORAREMOS TU EXPERIENCIA DE <br /> NAVEGACIÓN Y NUNCA
           PUBLICAREMOS SIN TU PERMISO
-        </S.Text>
+        </p>
       )}
-    </S.Form>
+    </form>
   )
 }
 

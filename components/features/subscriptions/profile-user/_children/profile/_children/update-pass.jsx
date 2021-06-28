@@ -5,8 +5,7 @@
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import { Button, Text } from '../../../../../signwall/_children/forms/styles'
-import { Close } from '../../../../../signwall/_children/iconos'
+import { Close } from '../../../../../signwall/_children/icons'
 import { Modal } from '../../../../../signwall/_children/modal/index'
 import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import FormValid from '../../../../../signwall/_dependencies/form-valid'
@@ -14,7 +13,6 @@ import {
   mediumRegularExp,
   strongRegularExp,
 } from '../../../../_dependencies/Regex'
-import { FormGrid, FormGroup, Message } from './styled'
 
 @Consumer
 class UpdatePassword extends Component {
@@ -199,12 +197,13 @@ class UpdatePassword extends Component {
     } = this.state
     const {
       siteProperties: {
-        signwall: { mainColorBtn },
+        signwall: { mainColorBtn, mainColorLink },
       },
     } = this.props
     return (
       <>
-        <FormGrid
+        <form
+          className="sign-profile_update-form-grid"
           onSubmit={(e) => this.handleChangePassword(e)}
           autoComplete="off">
           <div className="row">
@@ -212,14 +211,18 @@ class UpdatePassword extends Component {
           </div>
 
           {showMsgSuccess && (
-            <Message success>
+            <div className="sign-profile_update-message sign-profile_update-message-success">
               Tu contraseña ha sido actualizada correctamente.
-            </Message>
+            </div>
           )}
-          {showMsgError && <Message failed>{MessageErrorPass}</Message>}
+          {showMsgError && (
+            <div className="sign-profile_update-message sign-profile_update-message-failed">
+              {MessageErrorPass}
+            </div>
+          )}
 
           <div className="row three">
-            <FormGroup>
+            <div className="sign-profile_update-form-group">
               <div hidden>
                 <input type="password" />
               </div>
@@ -252,8 +255,8 @@ class UpdatePassword extends Component {
                   style={{ width: checkpwdStrength }}
                 />
               </div>
-            </FormGroup>
-            <FormGroup>
+            </div>
+            <div className="sign-profile_update-form-group">
               <input
                 type="password"
                 name="repeatPassword"
@@ -275,31 +278,46 @@ class UpdatePassword extends Component {
               {formErrors.repeatPassword.length > 0 && (
                 <span className="error">{formErrors.repeatPassword}</span>
               )}
-            </FormGroup>
-            <FormGroup>
-              <Button type="submit" color={mainColorBtn}>
+            </div>
+            <div className="sign-profile_update-form-group">
+              <button
+                className="signwall-inside_forms-btn"
+                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}
+                type="submit">
                 GUARDAR CAMBIOS
-              </Button>
-            </FormGroup>
+              </button>
+            </div>
           </div>
-        </FormGrid>
+        </form>
 
         {showModalConfirm && (
           <Modal size="mini" position="middle" bgColor="white">
-            <div className="text-right">
-              <button
-                type="button"
-                onClick={(e) => this.togglePopupModalConfirm(e)}>
-                <Close />
-              </button>
-            </div>
+            <button
+              className="close-modal"
+              type="button"
+              onClick={(e) => this.togglePopupModalConfirm(e)}>
+              <Close />
+            </button>
 
-            <FormGrid onSubmit={(e) => this.submitConfirmPassword(e)}>
-              <Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
+            <form
+              className="sign-profile_update-form-grid"
+              onSubmit={(e) => this.submitConfirmPassword(e)}>
+              <p
+                style={{
+                  fontSize: '14px',
+                  lineHeight: '28px',
+                  marginTop: '20px',
+                }}
+                className="signwall-inside_forms-text mt-10 mb-10 center">
                 Para confirmar el cambio, por favor ingresa tu contraseña actual
-              </Text>
+              </p>
 
-              <FormGroup full>
+              <div
+                className="sign-profile_update-form-group"
+                style={{
+                  width: '100%',
+                  margin: '10px 0px',
+                }}>
                 <input
                   type="password"
                   name="oldPassword"
@@ -323,12 +341,16 @@ class UpdatePassword extends Component {
                 {formErrorsConfirm.oldPassword.length > 0 && (
                   <span className="error">{formErrorsConfirm.oldPassword}</span>
                 )}
-              </FormGroup>
+              </div>
 
-              <Button type="submit" disabled={!sending} color={mainColorBtn}>
+              <button
+                className="signwall-inside_forms-btn"
+                type="submit"
+                disabled={!sending}
+                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
                 {!sending ? 'CONFIRMANDO...' : 'CONFIRMAR'}
-              </Button>
-            </FormGrid>
+              </button>
+            </form>
           </Modal>
         )}
       </>

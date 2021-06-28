@@ -10,8 +10,6 @@ import {
   getUrlPaywall,
 } from '../../../../../signwall/_dependencies/domains'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
-import { ResumeDates, Title } from '../../../styled'
-import { WrapperBlock } from '../styles'
 
 @Consumer
 class Subs extends Component {
@@ -182,15 +180,15 @@ class Subs extends Component {
     return (
       <>
         {isLoad ? (
-          <Loading arcSite={arcSite} typeBg="wait" />
+          <Loading typeBg="wait" />
         ) : (
           <>
             {isSubs ? (
               <>
                 {userSubsDetail.map((reSubs) => (
-                  <WrapperBlock
-                    nopadding
-                    nocolumn
+                  <div
+                    className="sign-profile_resume"
+                    style={{ padding: '0px' }}
                     key={reSubs.subscriptionID}
                     id={reSubs.subscriptionID}>
                     <div className="left">
@@ -269,13 +267,13 @@ class Subs extends Component {
                         </div>
                       </div>
                     </div>
-                  </WrapperBlock>
+                  </div>
                 ))}
               </>
             ) : (
               <>
                 {(arcSite === 'gestion' || arcSite === 'elcomercio') && (
-                  <ResumeDates>
+                  <div className="sign-profile_general-resume-dates">
                     <div className="title-dates">
                       <h2 className="title">Mi suscripción</h2>
                     </div>
@@ -285,9 +283,11 @@ class Subs extends Component {
                           Accede ilimitadamente a nuestro contenido, adquiere
                           el:
                         </p>
-                        <Title s="30" f={primaryFont}>
+                        <h3
+                          className="sign-profile_general-title"
+                          style={{ fontSize: '30px', fontFamily: primaryFont }}>
                           {paywallName}
-                        </Title>
+                        </h3>
                       </div>
                       <div className="last-subs">
                         <button
@@ -328,7 +328,7 @@ class Subs extends Component {
                         canal, por el momento, no podrás visualizarla aquí.
                       </p>
                     </div>
-                  </ResumeDates>
+                  </div>
                 )}
               </>
             )}

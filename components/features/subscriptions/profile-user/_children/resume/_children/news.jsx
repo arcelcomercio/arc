@@ -6,7 +6,6 @@ import {
   getNewsLetters,
   getNewsLettersUser,
 } from '../../../../../signwall/_dependencies/services'
-import { WrapperBlock } from '../styles'
 
 @Consumer
 class NewsResume extends React.Component {
@@ -82,7 +81,9 @@ class NewsResume extends React.Component {
     return (
       <>
         {arcSite === 'gestion' && (
-          <WrapperBlock nopadding nobackground nocolumn>
+          <div
+            className="sign-profile_resume"
+            style={{ padding: '0px', background: 'none' }}>
             {!loading ? (
               <>
                 <div className="left">
@@ -94,10 +95,10 @@ class NewsResume extends React.Component {
                       (itemNews) =>
                         checksNews[itemNews.code] && (
                           <div className="item item1" key={itemNews.code}>
-                            <img src={itemNews.image} alt="demo" />
-                            {/* <div className={`title title-${arcSite}`}>
-                              {itemNews.name}
-                            </div> */}
+                            <img
+                              src={itemNews.image}
+                              alt={`img-${itemNews.code}`}
+                            />
                           </div>
                         )
                     )}
@@ -112,9 +113,9 @@ class NewsResume extends React.Component {
                 </div>
               </>
             ) : (
-              <Loading arcSite={arcSite} typeBg="wait" />
+              <Loading typeBg="wait" />
             )}
-          </WrapperBlock>
+          </div>
         )}
       </>
     )
