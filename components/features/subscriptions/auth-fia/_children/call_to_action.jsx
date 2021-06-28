@@ -18,7 +18,7 @@ const styles = {
 }
 
 const CallToActionFia = (props) => {
-  const { mainColorBr, logoutSession, arcSite, typeDialog, urlPlan } = props
+  const { mainColorBr, logoutSession, typeDialog, urlPlan } = props
   const [suscriptionId, setSuscriptionId] = React.useState(null)
   const [loading, setLoading] = React.useState(true)
   const [statusSubs, setStatusSubs] = React.useState(null)
@@ -53,7 +53,7 @@ const CallToActionFia = (props) => {
       )}
 
       {loading ? (
-        <Loading typeBg="wait" />
+        <Loading typeBg="block" />
       ) : (
         <>
           <MsgRegister bgcolor={mainColorBr} />

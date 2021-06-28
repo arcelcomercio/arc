@@ -180,7 +180,7 @@ class Subs extends Component {
     return (
       <>
         {isLoad ? (
-          <Loading typeBg="wait" />
+          <Loading typeBg="block" />
         ) : (
           <>
             {isSubs ? (

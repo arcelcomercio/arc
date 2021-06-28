@@ -11,12 +11,19 @@ import {
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
+  formatPass,
   formatPhone,
 } from '../../../subscriptions/_dependencies/Errors'
 import getDevice from '../../../subscriptions/_dependencies/GetDevice'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import { getOriginAPI, getUrlPaywall } from '../../_dependencies/domains'
+import {
+  dataTreatment,
+  getOriginAPI,
+  getUrlPaywall,
+  PolicyPrivacy,
+  TermsConditions,
+} from '../../_dependencies/domains'
 import {
   getEntitlement,
   sendNewsLettersUser,
@@ -77,10 +84,7 @@ const FormRegister = ({
     },
     rpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
     rphone: {
@@ -354,7 +358,7 @@ const FormRegister = ({
       {!showStudents && (
         <>
           {showCheckPremium ? (
-            <Loading typeBg="wait" />
+            <Loading typeBg="block" />
           ) : (
             <form
               className={`signwall-inside_forms-form ${typeDialog}`}
@@ -515,8 +519,9 @@ const FormRegister = ({
                         Al registrarme por redes sociales o por este formulario
                         autorizo el uso de mis datos para
                         <a
-                          href="/tratamiento-de-datos/"
+                          href={dataTreatment}
                           target="_blank"
+                          rel="noreferrer"
                           style={{ color: mainColorLink, fontWeight: 'bold' }}
                           className="signwall-inside_forms-link ml-5 inline">
                           fines adicionales
@@ -544,11 +549,7 @@ const FormRegister = ({
                       className="signwall-inside_forms-text mt-10">
                       Al crear la cuenta acepto los
                       <a
-                        href={`${
-                          arcSite === 'depor'
-                            ? '/terminos-servicio/'
-                            : '/terminos-y-condiciones/'
-                        }`}
+                        href={TermsConditions(arcSite)}
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: mainColorLink, fontWeight: 'bold' }}
@@ -557,18 +558,7 @@ const FormRegister = ({
                       </a>
                       y
                       <a
-                        href={(() => {
-                          switch (arcSite) {
-                            case 'elcomercio':
-                            case 'depor':
-                              return '/politicas-privacidad/'
-                            case 'gestion':
-                            case 'trome':
-                              return '/politica-de-privacidad/'
-                            default:
-                              return '/politicas-de-privacidad/'
-                          }
-                        })()}
+                        href={PolicyPrivacy(arcSite)}
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: mainColorLink, fontWeight: 'bold' }}
@@ -579,7 +569,7 @@ const FormRegister = ({
                   </CheckBox>
 
                   <button
-                    style={{ color: mainColorBtn }}
+                    style={{ color: mainColorBtn, background: mainColorLink }}
                     type="submit"
                     className="signwall-inside_forms-btn mt-15 mb-5"
                     disabled={disable || showLoading || showFormatInvalid}
