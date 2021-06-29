@@ -23,6 +23,14 @@ const FbEventTag = React.memo(
       }
     }
     if (content) onBeforeSend(content)
+
+    if (content && content.uri) {
+      const divLog = window.document.getElementById('divLog')
+      if (divLog) {
+        divLog.innerHTML = ` URL PIXEL: ${content.uri}`
+      }
+    }
+
     return content?.uri ? (
       <img src={content.uri} style={{ display: 'none' }} />
     ) : null

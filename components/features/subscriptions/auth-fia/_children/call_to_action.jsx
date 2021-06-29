@@ -59,7 +59,7 @@ const CallToActionFia = (props) => {
           <MsgRegister bgcolor={mainColorBr} />
 
           <h2 className={styles.title} style={{ marginTop: '20px' }}>
-            Haz iniciado sesión
+            Has iniciado sesión
             <br />
             correctamente
           </h2>
