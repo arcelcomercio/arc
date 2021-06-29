@@ -28,6 +28,9 @@ interface Props {
     stadiumLocationPerName?: string
     excludedIds?: string
     currentJornada?: string
+    enableFases?: string
+    aliasFases?: string
+    currentFase?: string
   }
 }
 
@@ -57,6 +60,9 @@ const PollaScoreList: FC<Props> = (props) => {
   const [currentSchedule, setCurrentSchedule] = React.useState(
     customFields?.currentJornada || '1'
   )
+  const [currentPhase, setCurrentPhase] = React.useState(
+    customFields?.currentFase || ''
+  )
   const [user, setUser] = React.useState<UserData>()
   const [userUuid, setUserUuid] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(true)
@@ -66,6 +72,8 @@ const PollaScoreList: FC<Props> = (props) => {
     stadiumLocationPerName,
     excludedIds,
     serviceEndPoint,
+    enableFases,
+    aliasFases,
   } = customFields || {}
 
   const serviceURL = serviceEndPoint || DEFAULT_ENDPOINT
@@ -74,6 +82,7 @@ const PollaScoreList: FC<Props> = (props) => {
   const parsedStadiumLocationPerName = JSON.parse(
     stadiumLocationPerName || '{}'
   )
+  const parsedAliasFases = JSON.parse(aliasFases || '{}')
 
   const registerUser = async (localProfile: Profile) => {
     const {
@@ -185,10 +194,35 @@ const PollaScoreList: FC<Props> = (props) => {
     getData()
   }, [])
 
-  const listOfSchedules = [...new Set(scores?.map((item) => item.jornada))]
+  const listOfSchedules = [
+    ...new Set(
+      scores
+        ?.filter((item) => {
+          if (item.fase === currentPhase) {
+            return true
+          }
+          return false
+        })
+        .map((item) => item.jornada)
+    ),
+  ]
+  const listOfPhases = [
+    ...new Set(
+      scores
+        ?.map((item) => item.fase)
+        .filter((item) => {
+          if (new RegExp(`\\b${item}\\b`).test(enableFases || '')) {
+            return true
+          }
+          return false
+        })
+    ),
+  ]
 
   const scoresBySchedule = scores?.filter(
-    (score) => score.jornada.toString() === currentSchedule
+    (score) =>
+      score.fase.toString() === currentPhase &&
+      score.jornada.toString() === currentSchedule
   )
 
   const scoresByGroup = scoresBySchedule?.reduce(
@@ -247,6 +281,41 @@ const PollaScoreList: FC<Props> = (props) => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="polla-score__nav">
+            <div />
+            <div className="polla-score__nav-sel-cont">
+              <div className="polla-score__nav-sel-p">
+                <span className="bold">
+                  {parsedAliasFases[currentPhase]
+                    ? parsedAliasFases[currentPhase]
+                    : currentPhase}
+                </span>
+                <svg
+                  width="13"
+                  height="7"
+                  viewBox="0 0 13 7"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0L6.5 7L13 0" fill="#DC532E" />
+                </svg>
+              </div>
+              <select
+                value={currentPhase}
+                className="polla-score__nav-sel"
+                onChange={(e) => {
+                  setCurrentPhase(e.target.value)
+                  setCurrentSchedule('1')
+                }}>
+                {listOfPhases.map((pha) => (
+                  <option key={pha} value={pha}>
+                    {parsedAliasFases[pha] ? parsedAliasFases[pha] : pha}{' '}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div />
           </div>
 
           <div className="polla-score__nav">
@@ -688,6 +757,19 @@ PollaScoreList.propTypes = {
       name: 'Jornada actual',
       description:
         'Si se deja este campo vacío, se usará 1 como jornada actual',
+    }),
+    enableFases: PropTypes.richtext.tag({
+      name: 'Fases a mostrar',
+      description:
+        'Ej: Listado de números de fase a mostrase, por ejemplo: 1 mostrará solo la primera fase, 1,3 mostrará la primera y tercera',
+    }),
+    aliasFases: PropTypes.richtext.tag({
+      name: 'Alias de fases a mostrar',
+      description: 'JSON de alias de fases que se mostraran en el selector',
+    }),
+    currentFase: PropTypes.string.tag({
+      name: 'Fase actual',
+      description: 'Si se deja este campo vacío, se usará 1 como fase actual',
     }),
     urlImgSouth: PropTypes.string.tag({
       name: 'URL de la imagen auspicia - SUR',

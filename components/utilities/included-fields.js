@@ -56,6 +56,9 @@ const creditsBy = 'credits.by'
 
 export const includeCredits = `${creditsBy}._id, ${creditsBy}.name,${creditsBy}.url,${creditsBy}.type`
 
+// Se agregó esta variable como un hot fix temporal, porque el componente separators/opinion no mostraba el nombre del autor usando includeCredits
+export const includeCreditsTempFix = `${creditsBy}.name,${creditsBy}.url,${creditsBy}.type`
+
 export const includeCreditsImage = `${creditsBy}.image.url`
 
 export const includeCreditsRole = `${creditsBy}.additional_properties.original.role`
