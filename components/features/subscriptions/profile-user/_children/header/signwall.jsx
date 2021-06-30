@@ -16,11 +16,12 @@ const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
 
   return (
     <div
-      className="sign-profile_header-wrapper"
+      className={`sign-profile_header-wrapper ${
+        arcSite === 'trome' ? 'border-trome' : ''
+      }`}
       style={{
         background: arcSite === 'trome' ? '#FF650F' : mainColorBg,
         color: mainColorTxt,
-        borderBottom: arcSite === 'trome' ? '7px solid black' : 'none',
       }}>
       <div className="sign-profile_header-content">
         {buttonClose ? (
@@ -49,7 +50,7 @@ const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
               alt={`Logo ${arcSite}`}
               src={
                 arcSite === 'trome'
-                  ? 'https://signwall.e3.pe/images/logo-trome.png'
+                  ? 'https://signwall.e3.pe/images/trome/logo-orange.png'
                   : `${getAssetsPath(
                       arcSite,
                       contextPath

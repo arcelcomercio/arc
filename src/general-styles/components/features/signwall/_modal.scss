@@ -62,11 +62,14 @@
       background-color: #f4f4f4;
       height: 100%;
     }
-    & .bg-white {
-      background-color: white;
-    }
     & .right-modal {
       background-color: white;
+    }
+    & .bg-trome {
+      background: #fff url(https://signwall.e3.pe/images/trome/hand.png)
+        no-repeat;
+      background-position: center bottom;
+      font-family: "Encode Sans Condensed", sans-serif;
     }
   }
 
@@ -183,6 +186,7 @@
     .body-modal {
       &.size-medium {
         width: 680px;
+        height: 580px;
         .left-modal {
           display: inline-block;
           width: 45%;
@@ -228,6 +232,9 @@
       &.size-small {
         max-width: 480px;
         width: 60%;
+      }
+      &.size-medium {
+        width: 720px;
       }
       &.size-large {
         max-width: 1000px;
@@ -387,10 +394,17 @@
         &:checked ~ .checkmark {
           background-color: #2196f3;
           border: 1px solid #2196f3;
+          &::after {
+            display: block;
+          }
+          &.trome {
+            background-color: #ff650f;
+            border: 1px solid #ff650f;
+          }
         }
-        &:checked ~ .checkmark:after {
-          display: block;
-        }
+        // &:checked ~ .checkmark:after {
+        //   display: block;
+        // }
       }
       & .checkmark {
         position: absolute;

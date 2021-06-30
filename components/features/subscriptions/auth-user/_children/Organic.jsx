@@ -139,7 +139,7 @@ export const ContGeneric = ({ properties }) => {
       />
       <div className="cont-modal">
         {(isTrome || isComercio || isGestion) && (
-          <div className={`left-modal ${isTrome ? 'bg-white' : ''}`}>
+          <div className={`left-modal ${isTrome ? 'bg-trome' : ''}`}>
             <React.Suspense fallback={null}>
               {isTrome ? (
                 <BenefitsTrome />
