@@ -491,7 +491,7 @@ const SubsDetail = ({ IdSubscription }) => {
   return (
     <div className="sign-profile_general-wrapper">
       {showLoading ? (
-        <Loading typeBg="wait" />
+        <Loading typeBg="block" />
       ) : (
         <div className="sign-profile_subscriptions-wrapper-block">
           <div
@@ -614,7 +614,7 @@ const SubsDetail = ({ IdSubscription }) => {
 
           {showUpdateCard && (
             <fieldset className="sign-profile_subscriptions-fieldset">
-              {showOpenUpdate && <Loading typeBg="block" />}
+              {showOpenUpdate && <Loading typeBg="transparent" />}
 
               <legend>Datos de la tarjeta</legend>
 

@@ -28,7 +28,7 @@ const renderTemplate = (template, contTempl, attributes) => {
 const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   const {
     siteProperties: {
-      signwall: { mainColorBr, mainColorBg },
+      signwall: { mainColorBr, mainColorBg, mainColorTxt },
     },
     arcSite,
   } = useFusionContext() || {}
@@ -103,6 +103,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
           <Header
             arcSite={arcSite}
             mainColorBg={mainColorBg}
+            mainColorTxt={mainColorTxt}
             buttonBack={buttonBack}
           />
           <Container>
@@ -133,6 +134,13 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                       urlPlan={links.landingFia}
                     />
                   )}
+
+                  <div id="divLog" />
+                  {`USER AGENT: ${
+                    typeof window !== 'undefined'
+                      ? window.navigator.userAgent
+                      : ''
+                  }`}
                 </PanelLeft>
               </AuthProvider>
             </Wrapper>

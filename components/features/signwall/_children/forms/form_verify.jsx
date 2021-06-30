@@ -60,7 +60,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   return (
     <form className="signwall-inside_forms-form">
       {showLoading ? (
-        <Loading typeBg="wait" />
+        <Loading typeBg="block" />
       ) : (
         <>
           <div className="center block mb-20">

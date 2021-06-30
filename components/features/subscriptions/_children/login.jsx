@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { AuthURL } from '../../signwall/_children/forms/control_social'
+import {
+  dataTreatment,
+  PolicyPrivacy,
+} from '../../signwall/_dependencies/domains'
 import { useAuthContext } from '../_context/auth'
 import { NavigateConsumer } from '../_context/navigate'
-import getCodeError, { formatEmail } from '../_dependencies/Errors'
+import getCodeError, { formatEmail, formatPass } from '../_dependencies/Errors'
 import { PropertiesCommon } from '../_dependencies/Properties'
+import { deleteQuery } from '../_dependencies/QueryString'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
@@ -49,10 +55,7 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
     },
     lpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
   }
@@ -138,35 +141,25 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
     }, 1000)
   }
 
-  const dataTreatment = () => {
-    if (typeof window !== 'undefined') {
-      window.open('/tratamiento-de-datos/', '_blank')
-    }
-  }
-
-  const openPoliticas = () => {
-    if (typeof window !== 'undefined') {
-      window.open(
-        (() => {
-          switch (arcSite) {
-            case 'elcomercio':
-            case 'depor':
-              return '/politicas-privacidad/'
-            case 'gestion':
-            case 'trome':
-              return '/politica-de-privacidad/'
-            default:
-              return '/politicas-de-privacidad/'
-          }
-        })(),
-        '_blank'
-      )
-    }
-  }
-
   const triggerShowVerify = () => {
     setMsgError(getCodeError('verifySocial'))
     setShowVerify(false)
+  }
+
+  const onLoggedFia = (profile) => {
+    activateAuth(profile)
+    if (isFbBrowser) {
+      deleteQuery('signFia')
+      deleteQuery('signLanding')
+      deleteQuery('dataTreatment')
+      setTimeout(() => {
+        updateStep(2)
+        window.location.reload()
+      }, 1000)
+    }
+    if (isFia) {
+      handleCallToAction(true)
+    }
   }
 
   return (
@@ -190,6 +183,18 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
             arcType="login"
             showMsgVerify={() => triggerShowVerify()}
             dataTreatment={checkedPolits ? '1' : '0'}
+          />
+        )}
+
+        {isFbBrowser && (
+          <AuthURL
+            arcSite={arcSite}
+            onClose={() => {}}
+            typeDialog="authfia"
+            activeNewsletter
+            typeForm="login"
+            onLogged={onLoggedFia}
+            checkUserSubs={() => {}}
           />
         )}
       </div>
@@ -316,9 +321,13 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
             }}
           />
           Al ingresar por redes sociales autorizo el uso de mis datos para{' '}
-          <button className={styles.link} type="button" onClick={dataTreatment}>
+          <a
+            href={dataTreatment}
+            className={`${styles.link} link-color`}
+            target="_blank"
+            rel="noreferrer">
             fines adicionales
-          </button>
+          </a>
           <span className="checkmark" />
         </label>
       </div>
@@ -326,9 +335,13 @@ const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
         En caso hayas autorizado los fines de uso adicionales anteriormente, no
         es necesario que lo vuelvas a marcar. Si deseas retirar dicho
         consentimiento, revisa el procedimiento en nuestras{' '}
-        <button className={styles.link} type="button" onClick={openPoliticas}>
+        <a
+          href={PolicyPrivacy(arcSite)}
+          className={`${styles.link} link-color`}
+          target="_blank"
+          rel="noreferrer">
           Políticas de Privacidad.
-        </button>
+        </a>
       </p>
     </>
   )

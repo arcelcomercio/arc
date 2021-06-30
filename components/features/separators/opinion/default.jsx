@@ -1,17 +1,18 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
-import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
+import {
+  includeCredits,
+  includeCreditsImage,
+  includeCreditsTempFix,
+  includePrimarySection,
+} from '../../../utilities/included-fields'
 import StoryData from '../../../utilities/story-data'
 import AuthorCard from './_children/author-card'
 import Separator from './_children/separator'
-import {
-  includePrimarySection,
-  includeCredits,
-  includeCreditsImage,
-} from '../../../utilities/included-fields'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const STORIES_QTY = 5
 
@@ -39,7 +40,7 @@ const SeparatorOpinion = (props) => {
       presets: 'no-presets',
       includedFields: `websites.${arcSite}.website_url,_id,headlines.basic,${includePrimarySection(
         { arcSite }
-      )},${includeCredits},${includeCreditsImage}`,
+      )},${includeCreditsTempFix},${includeCreditsImage}`,
     },
     filter: schemaFilter(arcSite),
     transform: (data) => {

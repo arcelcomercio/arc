@@ -1,5 +1,14 @@
 @import "../../subscriptions//base/responsive";
 
+@keyframes identifier {
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .sign-loading {
   width: 100%;
   text-align: center;
@@ -16,16 +25,13 @@
     left: 0;
   }
 
-  &.wait {
+  &.block {
     position: relative;
     background: transparent;
     padding: 50% 0%;
-    @include device(desktop) {
-      padding: 20% 0%;
-    }
   }
 
-  &.block {
+  &.transparent {
     position: absolute;
     background: rgba(255, 255, 255, 0.5);
     padding: 20% 0%;
@@ -35,13 +41,21 @@
   &.premium {
     position: relative;
     background: transparent;
-    // padding: 50% 0%;
     padding: 20% 0% !important;
-    @include device(desktop) {
+  }
+
+  @include device(tabletl) {
+    &.premium {
+      padding: 35% 0% !important;
+    }
+  }
+
+  @include device(desktop) {
+    &.block {
       padding: 20% 0%;
     }
-    @include device(tabletl) {
-      padding: 35% 0% !important;
+    &.premium {
+      padding: 20% 0%;
     }
   }
 }
@@ -92,14 +106,5 @@
     max-width: 80px;
     max-height: 30px;
     animation: identifier 700ms infinite linear;
-  }
-}
-
-@keyframes identifier {
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
   }
 }

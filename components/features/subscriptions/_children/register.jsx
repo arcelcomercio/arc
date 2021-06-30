@@ -1,15 +1,24 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { AuthURL } from '../../signwall/_children/forms/control_social'
 import { MsgRegister } from '../../signwall/_children/icons'
+import {
+  dataTreatment,
+  PolicyPrivacy,
+  TermsConditions,
+} from '../../signwall/_dependencies/domains'
+import { useAuthContext } from '../_context/auth'
 import { NavigateConsumer } from '../_context/navigate'
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
+  formatPass,
   formatPhone,
 } from '../_dependencies/Errors'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon } from '../_dependencies/Properties'
+import { deleteQuery } from '../_dependencies/QueryString'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
@@ -33,7 +42,8 @@ const styles = {
 
 const nameTagCategory = 'Web_Sign_Wall_Landing'
 
-const Register = ({ arcSite }) => {
+const Register = ({ arcSite, handleCallToAction, isFia }) => {
+  const { activateAuth, updateStep } = useAuthContext()
   const { changeTemplate } = React.useContext(NavigateConsumer)
   const [loading, setLoading] = React.useState()
   const [loadText, setLoadText] = React.useState('Cargando...')
@@ -61,10 +71,7 @@ const Register = ({ arcSite }) => {
     },
     rpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
     rphone: {
@@ -79,45 +86,6 @@ const Register = ({ arcSite }) => {
       required: true,
       validator: acceptCheckTerms(),
     },
-  }
-
-  const openTerminos = () => {
-    if (typeof window !== 'undefined') {
-      window.open(
-        `${
-          arcSite === 'depor'
-            ? '/terminos-servicio/'
-            : '/terminos-y-condiciones/'
-        }`,
-        '_blank'
-      )
-    }
-  }
-
-  const openPoliticas = () => {
-    if (typeof window !== 'undefined') {
-      window.open(
-        (() => {
-          switch (arcSite) {
-            case 'elcomercio':
-            case 'depor':
-              return '/politicas-privacidad/'
-            case 'gestion':
-            case 'trome':
-              return '/politica-de-privacidad/'
-            default:
-              return '/politicas-de-privacidad/'
-          }
-        })(),
-        '_blank'
-      )
-    }
-  }
-
-  const dataTreatment = () => {
-    if (typeof window !== 'undefined') {
-      window.open('/tratamiento-de-datos/', '_blank')
-    }
   }
 
   const onFormRegister = ({ remail, rpass, rphone }) => {
@@ -254,6 +222,22 @@ const Register = ({ arcSite }) => {
     }, 1000)
   }
 
+  const onLoggedFia = (profile) => {
+    activateAuth(profile)
+    if (isFbBrowser) {
+      deleteQuery('signFia')
+      deleteQuery('signLanding')
+      deleteQuery('dataTreatment')
+      setTimeout(() => {
+        updateStep(2)
+        window.location.reload()
+      }, 1000)
+    }
+    if (isFia) {
+      handleCallToAction(true)
+    }
+  }
+
   return (
     <>
       {!showConfirm ? (
@@ -275,6 +259,18 @@ const Register = ({ arcSite }) => {
                 arcSite={arcSite}
                 arcType="registro"
                 dataTreatment={checkedPolits ? '1' : '0'}
+              />
+            )}
+
+            {isFbBrowser && (
+              <AuthURL
+                arcSite={arcSite}
+                onClose={() => {}}
+                typeDialog="authfia"
+                activeNewsletter
+                typeForm="registro"
+                onLogged={onLoggedFia}
+                checkUserSubs={() => {}}
               />
             )}
           </div>
@@ -386,12 +382,13 @@ const Register = ({ arcSite }) => {
                 />
                 Al registrarme por redes sociales o por este formulario autorizo
                 el uso de mis datos para{' '}
-                <button
-                  className={styles.link}
-                  type="button"
-                  onClick={dataTreatment}>
+                <a
+                  href={dataTreatment}
+                  className={`${styles.link} link-color`}
+                  target="_blank"
+                  rel="noreferrer">
                   fines adicionales
-                </button>
+                </a>
                 <span className="checkmark" />
               </label>
             </div>
@@ -412,19 +409,21 @@ const Register = ({ arcSite }) => {
                   }}
                 />
                 {texts.accept}
-                <button
-                  className={styles.link}
-                  type="button"
-                  onClick={() => openTerminos()}>
+                <a
+                  href={TermsConditions(arcSite)}
+                  className={`${styles.link} link-color`}
+                  target="_blank"
+                  rel="noreferrer">
                   {texts.terms}
-                </button>
+                </a>
                 {texts.and}
-                <button
-                  className={styles.link}
-                  type="button"
-                  onClick={() => openPoliticas()}>
+                <a
+                  href={PolicyPrivacy(arcSite)}
+                  className={`${styles.link} link-color`}
+                  target="_blank"
+                  rel="noreferrer">
                   {texts.policies}
-                </button>
+                </a>
                 <span className={`checkmark ${rtermsError && 'input-error'}`} />
               </label>
             </div>

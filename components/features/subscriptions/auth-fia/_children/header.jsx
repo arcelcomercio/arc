@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Back } from '../../../signwall/_children/icons'
+
 const styles2 = {
   background: 'transparent',
   border: '0px',
@@ -25,30 +27,35 @@ const styles3 = {
 
 const styles4 = {
   height: '50px',
-  padding: '5px 10px',
+  padding: '10px 10px',
   margin: '0 auto',
   display: 'inline-grid',
+  maxWidth: '200px',
 }
 
-export default function Header({ arcSite, mainColorBg, buttonBack }) {
+const styles5 = {
+  height: '50px',
+  padding: '10px 10px',
+  margin: '0 auto',
+  display: 'inline-grid',
+  maxWidth: '160px',
+}
+
+export default function Header({
+  arcSite,
+  mainColorBg,
+  mainColorTxt,
+  buttonBack,
+}) {
   return (
     <div style={{ background: mainColorBg }}>
       <button type="button" style={styles2} onClick={buttonBack}>
-        <svg
-          width="20"
-          height="20"
-          style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-          <path
-            fill={arcSite === 'elcomercio' ? '#000000' : '#ffffff'}
-            d="M20 8.8H4.7l7-7L10 0 0 10l10 10 1.8-1.8-7-7H20V8.8z"
-            fillRule="evenodd"
-          />
-        </svg>
+        <Back color={mainColorTxt} />
       </button>
       <div style={styles3}>
-        <div style={styles4}>
+        <div style={arcSite === 'elcomercio' ? styles4 : styles5}>
           <img
-            alt="Logo elcomercio"
+            alt={`Logo ${arcSite}`}
             src={`https://cdna.elcomercio.pe/resources/dist/${arcSite}/images/${
               arcSite === 'elcomercio' ? '' : 'white-'
             }logo.png?d=1`}

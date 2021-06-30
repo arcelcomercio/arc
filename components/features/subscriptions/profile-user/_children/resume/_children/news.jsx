@@ -113,7 +113,7 @@ class NewsResume extends React.Component {
                 </div>
               </>
             ) : (
-              <Loading typeBg="wait" />
+              <Loading typeBg="block" />
             )}
           </div>
         )}

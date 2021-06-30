@@ -10,10 +10,16 @@ import {
 } from '../../../subscriptions/_dependencies/Cookies'
 import getCodeError, {
   formatEmail,
+  formatPass,
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import { getOriginAPI, getUrlPaywall } from '../../_dependencies/domains'
+import {
+  dataTreatment,
+  getOriginAPI,
+  getUrlPaywall,
+  PolicyPrivacy,
+} from '../../_dependencies/domains'
 import { getEntitlement } from '../../_dependencies/services'
 import { MsgRegister } from '../icons'
 import Loading from '../loading'
@@ -71,10 +77,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
     },
     lpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
   }
@@ -352,7 +355,10 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     {showVerify && (
                       <>
                         {!showSendEmail ? (
-                          <button type="button" onClick={sendVerifyEmail}>
+                          <button
+                            type="button"
+                            className="link"
+                            onClick={sendVerifyEmail}>
                             Reenviar correo de activación
                           </button>
                         ) : (
@@ -416,7 +422,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 <button
                   type="submit"
                   className="signwall-inside_forms-btn"
-                  style={{ color: mainColorBtn }}
+                  style={{ color: mainColorBtn, background: mainColorLink }}
                   disabled={disable || showLoading || showFormatInvalid}
                   onClick={() =>
                     Taggeo(
@@ -434,7 +440,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 fontSize: '12px',
                 color: '#000000',
               }}
-              className="signwall-inside_forms-text mt-10 mb-10 center">
+              className="signwall-inside_forms-text mt-10 mb-20 center">
               ¿Aún no tienes una cuenta?
               <a
                 href="#"
@@ -456,7 +462,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
             arcSite === 'gestion' ||
             arcSite === 'trome' ? (
               <>
-                <br />
                 <CheckBox
                   checked={checkedPolits}
                   value={checkedPolits ? '1' : '0'}
@@ -473,8 +478,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     Al ingresar por redes sociales autorizo el uso de mis datos
                     para
                     <a
-                      href="/tratamiento-de-datos/"
+                      href={dataTreatment}
                       target="_blank"
+                      rel="noreferrer"
                       style={{ color: mainColorLink, fontWeight: 'bold' }}
                       className="signwall-inside_forms-link ml-5 inline">
                       fines adicionales
@@ -494,18 +500,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   deseas retirar dicho consentimiento, revisa el procedimiento
                   en nuestras
                   <a
-                    href={(() => {
-                      switch (arcSite) {
-                        case 'elcomercio':
-                        case 'depor':
-                          return '/politicas-privacidad/'
-                        case 'gestion':
-                        case 'trome':
-                          return '/politica-de-privacidad/'
-                        default:
-                          return '/politicas-de-privacidad/'
-                      }
-                    })()}
+                    href={PolicyPrivacy(arcSite)}
                     target="_blank"
                     rel="noreferrer"
                     style={{ color: mainColorLink, fontWeight: 'bold' }}
@@ -530,7 +525,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
       ) : (
         <>
           {showLoadingPremium ? (
-            <Loading typeBg="wait" />
+            <Loading typeBg="block" />
           ) : (
             <form className="signwall-inside_forms-form">
               <div className="center block mb-20 mt-20">
@@ -560,7 +555,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   id="btn-premium-continue"
                   className="signwall-inside_forms-btn"
                   type="button"
-                  style={{ color: mainColorBtn }}
+                  style={{ color: mainColorBtn, background: mainColorLink }}
                   onClick={() => {
                     Taggeo(
                       `Web_${typeDialog}_Hard`,
@@ -583,7 +578,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 <button
                   type="button"
                   className="signwall-inside_forms-btn"
-                  style={{ color: mainColorBtn }}
+                  style={{ color: mainColorBtn, background: mainColorLink }}
                   onClick={() => {
                     Taggeo(
                       `Web_${typeDialog}_Hard`,
