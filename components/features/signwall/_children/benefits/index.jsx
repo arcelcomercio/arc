@@ -68,80 +68,105 @@ export const Benefits = ({
 
   return (
     <div className="sign-auth_benefits-cont">
-      <div
-        className="sign-auth_benefits-title-container"
-        style={{ fontFamily: primaryFont }}>
-        {isHard ? (
-          <>
-            <h1 className={`title ${arcSite}`}>
-              {isComercio ? textRegisterEco : '¿TE GUSTA LO QUE ESTÁS LEYENDO?'}
-            </h1>
-            {isGestion && (
-              <p className="text-panel">
-                {textRegisterGes}
-                <br /> {textMore}
-              </p>
-            )}
-          </>
-        ) : (
-          <h1 className={`title ${arcSite}`}>
-            {(isRelogEmail || isRelogHash) && (
+      {arcSite !== 'trome' ? (
+        <>
+          <div
+            className="sign-auth_benefits-title-container"
+            style={{ fontFamily: primaryFont }}>
+            {isHard ? (
               <>
-                {textGreeting}
-                <br /> {textRemenber}
+                <h1 className={`title ${arcSite}`}>
+                  {isComercio
+                    ? textRegisterEco
+                    : '¿TE GUSTA LO QUE ESTÁS LEYENDO?'}
+                </h1>
+                {isGestion && (
+                  <p className="text-panel">
+                    {textRegisterGes}
+                    <br /> {textMore}
+                  </p>
+                )}
               </>
+            ) : (
+              <h1 className={`title ${arcSite}`}>
+                {(isRelogEmail || isRelogHash) && (
+                  <>
+                    {textGreeting}
+                    <br /> {textRemenber}
+                  </>
+                )}
+                {(isOrganic || isResetPass || isVerify || isNewsLetter) && (
+                  <>
+                    {isComercio ? textRegisterEco : textRegisterGes}
+                    <br /> {textMore}
+                  </>
+                )}
+              </h1>
             )}
-            {(isOrganic || isResetPass || isVerify || isNewsLetter) && (
-              <>
-                {isComercio ? textRegisterEco : textRegisterGes}
-                <br /> {textMore}
-              </>
-            )}
-          </h1>
-        )}
-      </div>
-
-      {BenefitsGeneric.filter((item) => {
-        if (item.more === 'desde la App' && isGestion) {
-          return false
-        }
-        return true
-      }).map((item) => (
-        <div className="item" key={`item-${item.more}`}>
-          <div className="icon">{item.icon}</div>
-          <div className="info">
-            <h3
-              className="sign-auth_benefits-item-title"
-              style={{ color: mainColorTitle }}>
-              {item.text[arcSite] || item.text}
-            </h3>
-            <p className="item-text">{item.more}</p>
           </div>
+
+          {BenefitsGeneric.filter((item) => {
+            if (item.more === 'desde la App' && isGestion) {
+              return false
+            }
+            return true
+          }).map((item) => (
+            <div className="item" key={`item-${item.more}`}>
+              <div className="icon">{item.icon}</div>
+              <div className="info">
+                <h3
+                  className="sign-auth_benefits-item-title"
+                  style={{ color: mainColorTitle }}>
+                  {item.text[arcSite] || item.text}
+                </h3>
+                <p className="item-text">{item.more}</p>
+              </div>
+            </div>
+          ))}
+        </>
+      ) : (
+        <div className="box-benefist">
+          {isResetPass && (
+            <>
+              <br />
+              <h1>
+                ¡Hola! <br />
+                ¿Olvidaste tu contraseña?
+              </h1>
+              <p className="description">
+                <strong>No te preocupes, cámbiala fácilmente.</strong>
+              </p>
+            </>
+          )}
+
+          {(isOrganic || isNewsLetter || isHard || isVerify) && (
+            <>
+              <h1>
+                {isVerify
+                  ? '¡Gracias por ser un Trome!'
+                  : '¡Regístrate gratis!'}
+              </h1>
+
+              <p className="description">
+                Mantente informado por el
+                <strong> diario en español más leído de hispanoamérica.</strong>
+                Tendrás todas las noticias del espéctaculo, política, deportes y
+                las mejores columnas de opinión de la prensa nacional.
+                <strong> Con tu cuenta podrás: </strong>
+              </p>
+
+              <ul className="list-benefist">
+                {BenfistTrome.map((item) => (
+                  <li key={`item-${item.title}`}>
+                    <span className="icon-slash">&#47;&#47;&#47;</span>
+                    <strong> {item.title} </strong> {item.text}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
-      ))}
+      )}
     </div>
   )
 }
-
-export const BenefitsTrome = () => (
-  <div className="sign-auth_benefits-cont">
-    <div className="box-benefist">
-      <h1>¡Regístrate gratis!</h1>
-      <p className="description">
-        Mantente informado por el
-        <strong> diario en español más leído de hispanoamérica. </strong>
-        Tendrás todas las noticias del espéctaculo, política, deportes y las
-        mejores columnas de opinión de la prensa nacional.
-        <strong> Con tu cuenta podrás: </strong>
-      </p>
-      <ul className="list-benefist">
-        {BenfistTrome.map((item) => (
-          <li key={`item-${item.title}`}>
-            <span className="icon-slash">&#47;&#47;&#47;</span>
-            <strong> {item.title} </strong> {item.text}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-)

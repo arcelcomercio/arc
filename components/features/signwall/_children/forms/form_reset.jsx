@@ -15,7 +15,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorBr, mainColorBtn, primaryFont },
+      signwall: { mainColorBr, mainColorBtn, primaryFont, mainColorLink },
     },
   } = useAppContext() || {}
 
@@ -103,7 +103,12 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
   }
 
   return (
-    <form className="signwall-inside_forms-form" onSubmit={handleOnSubmit}>
+    <form
+      className={`signwall-inside_forms-form ${
+        arcSite === 'trome' ? 'form-trome' : ''
+      }`}
+      onSubmit={handleOnSubmit}>
+      <br />
       {!showConfirm ? (
         <>
           <div className="center block mb-20">
@@ -158,7 +163,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
           />
 
           <button
-            style={{ color: mainColorBtn }}
+            style={{ color: mainColorBtn, background: mainColorLink }}
             type="submit"
             className="signwall-inside_forms-btn mt-20"
             disabled={
@@ -186,7 +191,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
             <button
               type="button"
               className="signwall-inside_forms-btn"
-              style={{ color: mainColorBtn }}
+              style={{ color: mainColorBtn, background: mainColorLink }}
               onClick={() => {
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,
@@ -200,7 +205,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
             <button
               type="button"
               className="signwall-inside_forms-btn"
-              style={{ color: mainColorBtn }}
+              style={{ color: mainColorBtn, background: mainColorLink }}
               onClick={() => {
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,
