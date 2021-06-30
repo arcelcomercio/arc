@@ -7,6 +7,9 @@
       color: white;
       position: relative;
       width: 100%;
+      &.border-trome {
+        box-shadow: 0 0 0 7px black;
+      }
     }
     &-back {
       background: transparent;
@@ -21,7 +24,8 @@
       padding: 0 0 0 15px;
       margin: 0;
       text-align: left;
-      @media screen and (min-width: 1025px) {
+
+      @include device(desktop) {
         padding: 0;
       }
       & > span {
@@ -57,10 +61,6 @@
       text-align: center;
       height: 50px;
       line-height: 65px;
-
-      @media only screen and (min-width: 1024px) {
-        width: 50%;
-      }
 
       & > .cont {
         height: 50px;
@@ -161,9 +161,11 @@
         padding: 80px 20px 20px 20px;
         margin-top: -60px;
       }
-      @media screen and (min-width: 1025px) {
+
+      @include device(desktop) {
         padding: 80px 40px 20px 40px;
       }
+
       & .hello {
         color: #000;
         font-size: 20px;
@@ -261,17 +263,20 @@
       margin: 0% 0% 0% 70%;
       background: #ccc;
       z-index: 1;
+
       @include device(tabletl) {
         border: 10px solid gray;
         max-width: 120px;
         min-height: 120px;
         margin: 0 auto;
       }
-      @media only screen and (min-width: 1024px) {
+
+      @include device(desktop) {
         max-width: 160px;
         min-height: 160px;
         margin: 0 auto;
       }
+
       & > img {
         width: 100%;
         border-radius: 50%;
@@ -298,8 +303,11 @@
       justify-content: space-between;
       vertical-align: top;
       margin-bottom: 10px;
-      @include device(desktop) {
+      @include device(tabletl) {
         display: inline-block;
+        width: 25%;
+      }
+      @include device(desktop) {
         width: 20%;
       }
       & > h3 {
@@ -307,11 +315,14 @@
         line-height: 28px;
         color: black;
         font-weight: bold;
-        @media screen and (min-width: 1025px) {
+        @include device(tabletl) {
+          font-size: 16px;
+        }
+        @include device(desktop) {
           font-size: 20px;
         }
       }
-      & > button {
+      & button.link {
         color: #0179af;
         font-size: 12px;
         font-weight: bold;
@@ -319,6 +330,7 @@
         background: none;
         cursor: pointer;
         padding: 0;
+        text-align: left;
         @include device(tabletl) {
           font-size: 10px;
         }
@@ -340,6 +352,9 @@
       padding: 10px 20px;
       border-radius: 4px;
       color: black;
+      @include device(tabletl) {
+        width: 75%;
+      }
       @include device(desktop) {
         width: 80%;
       }
@@ -370,6 +385,9 @@
         width: 100%;
         border-radius: 4px 4px 0 0;
         line-height: 30px;
+        @include device(tabletl) {
+          width: 50%;
+        }
         @include device(desktop) {
           border-radius: 4px 0 0 4px;
           width: 40%;
@@ -379,6 +397,9 @@
         padding: 20px 20px;
         width: 100%;
         color: #444;
+        @include device(tabletl) {
+          width: 50%;
+        }
         @include device(desktop) {
           width: 60%;
           padding: 30px 20px;
@@ -424,7 +445,7 @@
         & img {
           height: 100%;
         }
-        @media screen and (min-width: 568px) {
+        @include device(tabletp) {
           width: calc(33.3% - 20px);
           margin: 10px 10px;
         }
@@ -947,6 +968,9 @@
       box-shadow: 0 0 0.3rem #dadada;
       margin-left: 0;
       padding: 20px 10px;
+      @include device(tabletp) {
+        padding: 25px 50px;
+      }
       @include device(tabletl) {
         margin-left: 10px;
         width: calc(100% - 10px);
@@ -992,7 +1016,8 @@
         display: inline-block;
         width: calc(50% - 10px);
         text-align: center;
-        @media screen and (min-width: 678px) {
+
+        @include device(tabletp) {
           width: calc(50% - 10px);
           margin: 5px 5px;
         }
@@ -1212,18 +1237,15 @@
         }
         .first-dates,
         .last-dates {
+          width: 100%;
           display: inline-block;
           vertical-align: top;
-          p:first-child {
-            text-transform: capitalize;
-          }
           p {
             margin: 0;
           }
-        }
-        .first-dates,
-        .last-dates {
-          width: 100%;
+          p:first-child {
+            text-transform: capitalize;
+          }
           @include device(desktop) {
             width: 50%;
           }
@@ -1316,7 +1338,13 @@
       margin: 0 auto;
       position: relative;
       padding: 10px 0 0 0;
+      @include device(tabletp) {
+        padding: 20px 50px;
+      }
       @include device(tabletl) {
+        padding: 20px 20px;
+      }
+      @include device(desktop) {
         padding: 20px 0;
       }
       & .panel-left,
@@ -1329,7 +1357,7 @@
         width: 100%;
         position: relative;
         @include device(tabletl) {
-          width: 30%;
+          width: 25%;
         }
         @include device(desktop) {
           width: 22%;
@@ -1338,7 +1366,7 @@
       & .panel-right {
         width: 100%;
         @include device(tabletl) {
-          width: 70%;
+          width: 75%;
         }
         @include device(desktop) {
           width: 78%;
@@ -1355,9 +1383,11 @@
       position: relative;
       cursor: pointer;
       user-select: none;
-      @media screen and (max-width: 320px) {
+
+      @include device(mobile) {
         width: 140px;
       }
+
       @include device(tabletl) {
         width: 180px;
       }
@@ -1527,12 +1557,9 @@
       display: flex;
       align-items: center;
       flex-direction: column;
-      @include device(tabletl) {
-        padding: 5%;
-      }
 
       & .text-panel {
-        font-size: 22px !important;
+        font-size: 20px;
         line-height: 34px;
         margin: 0;
       }
@@ -1559,20 +1586,22 @@
         width: 75%;
       }
       & .box-benefist {
-        padding: 0% 10%;
+        padding: 2% 10%;
         h1 {
           font-size: 26px;
           font-weight: bold;
-          margin-bottom: 20px;
+          margin-bottom: 30px;
+          margin-top: 20px;
         }
-        ul,
-        p {
+        .description,
+        .list-benefist {
           font-size: 14px;
           margin-top: 20px;
+          line-height: 18px;
         }
         .icon-slash {
           color: #ff650f;
-          letter-spacing: -2px;
+          letter-spacing: 1px;
           font-weight: bold;
         }
       }
@@ -1585,14 +1614,25 @@
     &-title-container {
       width: 72%;
       text-align: center;
-      & .title {
+      & h1.title {
         font-size: 1.2rem;
         line-height: 30px;
         font-weight: bold;
         margin-bottom: 5px;
+        &.elcomercio {
+          font-size: 1.3rem;
+        }
+        &.gestion {
+          font-size: 1.1rem;
+        }
       }
-      & .title-elcomercio {
-        font-size: 1.1rem;
+    }
+  }
+
+  @include device(tabletl) {
+    &_benefits {
+      &-cont {
+        padding: 5%;
       }
     }
   }

@@ -287,23 +287,6 @@ export const BeneOne = (): JSX.Element => (
   </svg>
 )
 
-export const BeneTwo = (): JSX.Element => (
-  <svg width="58.2" height="45.9" style={styles.svg}>
-    <path
-      fill="#444b54"
-      d="M37 33.8h2.8v2.7H37zm-10.7 0H29v2.7h-2.7zm5.4 0h2.7v2.7h-2.7z"
-    />
-    <path
-      d="M19 45.9h28.5a6.7 6.7 0 0 0 6.7-6.7v-.6l4-2.7v-1.6l-4-2.7V31a6.7 6.7 0 0 0-6.7-6.7H19a6.7 6.7 0 0 0-6.8 6.7v8.2a6.7 6.7 0 0 0 6.8 6.7zM15 31a4 4 0 0 1 4-4h28.5a4 4 0 0 1 4 4v2l3 2.1-3 2v2a4 4 0 0 1-4 4.1H19a4 4 0 0 1-4-4zM29 9.5h2.7v2.7H29zm-10.8 0H21v2.7h-2.7zm5.4 0h2.7v2.7h-2.7z"
-      fill="#444b54"
-    />
-    <path
-      d="M39.2 0H10.8A6.7 6.7 0 0 0 4 6.7v.6L0 10v1.6l4 2.7v.6a6.7 6.7 0 0 0 6.8 6.7h28.4a6.7 6.7 0 0 0 6.7-6.7V6.7A6.7 6.7 0 0 0 39.2 0zm4 14.9a4 4 0 0 1-4 4H10.8a4 4 0 0 1-4-4v-2l-3.1-2.1 3-2v-2a4 4 0 0 1 4-4.1h28.5a4 4 0 0 1 4 4z"
-      fill="#444b54"
-    />
-  </svg>
-)
-
 export const BeneThree = (): JSX.Element => (
   <svg width="37.4" height="60" style={styles.svg}>
     <g fill="#444b54">

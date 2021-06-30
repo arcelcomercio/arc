@@ -9,6 +9,7 @@ export const CheckBox = ({
   valid,
   error,
   children,
+  arcSite,
 }) => (
   <label className="signwall-inside_forms-checkbox">
     <input
@@ -24,7 +25,6 @@ export const CheckBox = ({
     {children}
 
     <span className={error && 'error'}>{error}</span>
-
-    <span className={error ? 'error checkmark' : 'checkmark'} />
+    <span className={error ? 'error checkmark' : `checkmark ${arcSite}`} />
   </label>
 )

@@ -466,6 +466,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   checked={checkedPolits}
                   value={checkedPolits ? '1' : '0'}
                   name="rpolit"
+                  arcSite={arcSite}
                   onChange={() => {
                     setCheckedPolits(!checkedPolits)
                   }}>
