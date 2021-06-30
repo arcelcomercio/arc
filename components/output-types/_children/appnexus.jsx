@@ -163,10 +163,10 @@ const getVars = (
           contentOrigen,
           genderOrigen,
           author,
-          subSectionList[0] || '',
-          subSectionList[1] || '',
-          tags[0]?.slug || '',
-          tags[1]?.slug || ''
+          subSectionList[0] || 'sin-definir',
+          subSectionList[1] || 'sin-definir',
+          tags[0]?.slug || 'sin-definir',
+          tags[1]?.slug || 'sin-definir'
         )
 
         notaId = `${id}`
