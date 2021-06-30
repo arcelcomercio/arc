@@ -34,19 +34,17 @@ const CallOut = ({ onClose, noBtnClose }) => {
     },
   }
 
+  const msgFailedApi =
+    'El numero de telefono ya ha sido registrado el dia de hoy'
+  const msgFailed =
+    'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
+
   const onFomrCallOut = ({ namecall, phonecall }) => {
     setLoading(true)
     pushCallOut(namecall, phonecall)
       .then((resCall) => {
-        if (
-          resCall.resultado ||
-          resCall.mensaje ===
-            'El numero de telefono ya ha sido registrado el dia de hoy'
-        ) {
-          if (
-            resCall.mensaje ===
-            'El numero de telefono ya ha sido registrado el dia de hoy'
-          ) {
+        if (resCall.resultado || resCall.mensaje === msgFailedApi) {
+          if (resCall.mensaje === msgFailedApi) {
             setLoading(false)
             setShowRepeatCall(resCall.mensaje)
           } else {
@@ -59,9 +57,7 @@ const CallOut = ({ onClose, noBtnClose }) => {
       })
       .catch(() => {
         setLoading(false)
-        setShowErrorCall(
-          'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
-        )
+        setShowErrorCall(msgFailed)
       })
   }
 

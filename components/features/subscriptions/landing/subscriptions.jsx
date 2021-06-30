@@ -13,7 +13,7 @@ import { getUserName, isLogged } from '../_dependencies/Session'
 import { PixelActions, sendAction, Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
-import Benefits from './_children/Benefits'
+import BenefitsLanding from './_children/Benefits'
 import CallinCallOut from './_children/CallinCallout'
 import Callout from './_children/Callout'
 import Cards from './_children/Cards'
@@ -286,7 +286,7 @@ const LandingSubscriptions = (props) => {
           </div>
         </section>
 
-        <Benefits arcSite={arcSite} />
+        <BenefitsLanding arcSite={arcSite} />
 
         <section className="club" id="club">
           <div className="wrapper">

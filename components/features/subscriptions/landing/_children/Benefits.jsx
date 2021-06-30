@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { PropertiesSite } from '../../_dependencies/Properties'
 
-const Benefits = ({ arcSite }) => {
+const BenefitsLanding = ({ arcSite }) => {
   const { benefits = [] } = PropertiesSite[arcSite]
 
   return (
@@ -78,4 +78,4 @@ const Benefits = ({ arcSite }) => {
   )
 }
 
-export default Benefits
+export default BenefitsLanding
