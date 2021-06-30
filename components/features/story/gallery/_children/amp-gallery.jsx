@@ -16,7 +16,7 @@ const classes = {
   adsAmp: 'text-center ad-amp-movil',
 }
 
-const StoryHeaderChildAmpGallery = props => {
+const StoryHeaderChildAmpGallery = (props) => {
   const { data, primarySectionLink, adsAmp } = props
 
   const { arcSite } = useAppContext()
@@ -50,7 +50,6 @@ const StoryHeaderChildAmpGallery = props => {
       arcSite,
       movil1: true,
       size,
-      fluid: fluid
     }
   }
   return (
@@ -130,7 +129,7 @@ const StoryHeaderChildAmpGallery = props => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja5', '320x100,320x50' , false)
+                      publicidadAmpAd('caja5', '320x100,320x50', false)
                     )}
                   />
                 )}

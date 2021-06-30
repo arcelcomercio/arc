@@ -506,6 +506,7 @@ const FormRegister = ({
                       checked={checkedPolits}
                       value={checkedPolits ? '1' : '0'}
                       name="rpolit"
+                      arcSite={arcSite}
                       onChange={(e) => {
                         handleOnChange(e)
                         setCheckedPolits(!checkedPolits)
@@ -534,6 +535,7 @@ const FormRegister = ({
                     checked={checkedTerms}
                     value={checkedTerms ? '1' : '0'}
                     name="rterms"
+                    arcSite={arcSite}
                     onChange={(e) => {
                       handleOnChange(e)
                       setCheckedTerms(!checkedTerms)
