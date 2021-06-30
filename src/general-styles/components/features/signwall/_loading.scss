@@ -52,10 +52,10 @@
 
   @include device(desktop) {
     &.block {
-      padding: 20% 0%;
+      padding: 200px 0;
     }
     &.premium {
-      padding: 20% 0%;
+      padding: 100px 0;
     }
   }
 }

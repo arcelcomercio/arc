@@ -1,7 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { Benefits, BenefitsTrome } from '../../../signwall/_children/benefits'
+import { Benefits } from '../../../signwall/_children/benefits'
 import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalConsumer, ModalProvider } from '../../_context/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
@@ -141,16 +141,12 @@ export const ContGeneric = ({ properties }) => {
         {(isTrome || isComercio || isGestion) && (
           <div className={`left-modal ${isTrome ? 'bg-trome' : ''}`}>
             <React.Suspense fallback={null}>
-              {isTrome ? (
-                <BenefitsTrome />
-              ) : (
-                <Benefits
-                  arcSite={arcSite}
-                  mainColorTitle={mainColorTitle}
-                  primaryFont={primaryFont}
-                  typeMessage={typeDialog}
-                />
-              )}
+              <Benefits
+                arcSite={arcSite}
+                mainColorTitle={mainColorTitle}
+                primaryFont={primaryFont}
+                typeMessage={typeDialog}
+              />
             </React.Suspense>
           </div>
         )}

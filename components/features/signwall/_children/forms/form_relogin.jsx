@@ -150,7 +150,11 @@ const FormRelogin = ({ onClose, typeDialog }) => {
   const sizeBtnSocial = authProviders.length === 1 ? 'full' : 'middle'
 
   return (
-    <form className="signwall-inside_forms-form" onSubmit={handleOnSubmit}>
+    <form
+      className={`signwall-inside_forms-form ${
+        arcSite === 'trome' ? 'form-trome' : ''
+      }`}
+      onSubmit={handleOnSubmit}>
       <p
         style={{
           color: '#000000',
@@ -279,8 +283,9 @@ const FormRelogin = ({ onClose, typeDialog }) => {
         style={{
           color: '#000000',
           fontSize: '12px',
+          textAlign: 'center',
         }}
-        className="signwall-inside_forms-text mt-20 mb-20 center">
+        className="signwall-inside_forms-text mt-20 mb-20">
         ¿Aún no tienes una cuenta?
         <a
           href="#"

@@ -110,7 +110,9 @@ const FormForgot = ({ typeDialog }) => {
 
   return (
     <form
-      className={`signwall-inside_forms-form ${typeDialog}`}
+      className={`signwall-inside_forms-form ${
+        arcSite === 'trome' ? 'form-trome' : ''
+      } ${typeDialog}`}
       onSubmit={(e) => {
         handleOnSubmit(e)
       }}>
@@ -145,10 +147,11 @@ const FormForgot = ({ typeDialog }) => {
             Olvidé mi contraseña
           </h4>
           <p
-            className="signwall-inside_forms-text center"
+            className="signwall-inside_forms-text"
             style={{
               fontSize: '14px',
               lineHeight: '26px',
+              textAlign: 'center',
             }}>
             Ingresa tu correo electrónico para <br /> cambiar tu contraseña
           </p>
