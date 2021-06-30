@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import Signwall from '../_children/Signwall'
-import { AuthContext } from '../_context/auth'
+import { useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { deleteQuery, getQuery } from '../_dependencies/QueryString'
@@ -19,7 +19,7 @@ const styles = {
 const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
-  const { userLoaded, activateAuth, updateStep } = React.useContext(AuthContext)
+  const { userLoaded, activateAuth, updateStep } = useAuthContext()
   const { firstName, lastName, secondLastName } = userProfile || {}
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')

@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
   PropertiesSite,
@@ -68,7 +68,7 @@ const Confirmation = () => {
     userPeriod,
     userPlan,
     userProfile,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
 
   const { texts } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]

@@ -9,48 +9,67 @@ const MIN_2_CARACTS_FIELD_ERROR = 'Se requiere mínimo 2 caracteres'
 const MIN_6_CARACTS_FIELD_ERROR = 'Se requiere mínimo 6 caracteres'
 const TEXT_INVALID_ERROR = 'Este valor no está permitido'
 
-/**
- * Determines a value if it's an object
- *
- * @param {object} value
- */
-function isObject(value) {
+type StateSchemaValue = { value: string; error: string }
+type StateSchema = Record<string, StateSchemaValue>
+
+type StateValidatorProps = {
+  required?: boolean
+  validator?: { func: (value: string) => boolean; error: string }
+  nospaces?: boolean
+  min2caracts?: boolean
+  min6caracts?: boolean
+  invalidtext?: boolean
+}
+type StateValidator = Record<keyof StateSchema, StateValidatorProps>
+type StateValues = Record<keyof StateSchema, string>
+
+type UseForm<TValues extends StateValues = StateValues> = {
+  handleOnChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void
+  handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  values: TValues
+  errors: StateValues
+  disable: boolean
+  setValues: React.Dispatch<React.SetStateAction<TValues>>
+  setErrors: React.Dispatch<React.SetStateAction<StateValues>>
+}
+
+function isObject(value: unknown) {
   return value !== null && typeof value === 'object'
 }
 
-function getPropValues(stateSchema, prop) {
+function getPropValues(
+  stateSchema: StateSchema,
+  prop: typeof VALUE | typeof ERROR
+) {
   if (!isObject(stateSchema) || !prop) {
     throw new Error('Invalid Parameter passed.')
   }
 
-  return Object.keys(stateSchema).reduce((accumulator, curr) => {
+  return Object.keys(stateSchema).reduce<StateValues>((accumulator, curr) => {
     accumulator[curr] = stateSchema[curr][prop]
     return accumulator
   }, {})
 }
 
-/**
- *
- * @param {string} value
- * @param {boolean} isRequired
- */
-function isRequiredField(value, isRequired) {
+function isRequiredField(value: string, isRequired?: boolean) {
   return !value && isRequired ? REQUIRED_FIELD_ERROR : ''
 }
 
-function notSpaces(value) {
+function notSpaces(value: string) {
   return value.indexOf(' ') >= 0 ? EMPTY_FIELD_ERROR : ''
 }
 
-function min2Caracts(value) {
+function min2Caracts(value: string) {
   return value.length < 2 ? MIN_2_CARACTS_FIELD_ERROR : ''
 }
 
-function min6Caracts(value) {
+function min6Caracts(value: string) {
   return value.length >= 1 && value.length < 6 ? MIN_6_CARACTS_FIELD_ERROR : ''
 }
 
-function invalidText(value) {
+function invalidText(value: string) {
   const lowerValue = value.toLowerCase()
   return lowerValue.match(/undefined/) || lowerValue === 'null'
     ? TEXT_INVALID_ERROR
@@ -60,17 +79,19 @@ function invalidText(value) {
 /**
  * Custom hooks to validate your Form...
  *
- * @param {object} stateSchema model you stateSchema.
- * @param {object} stateValidatorSchema model your validation.
- * @param {function} submitFormCallback function to be execute during form submission.
+ * @param stateSchema model you stateSchema.
+ * @param stateSchemaValidator model your validation.
+ * @param submitFormCallback function to be execute during form submission.
  */
-function useForm(
-  stateSchema = {},
-  stateValidatorSchema = {},
-  submitFormCallback
-) {
+function useForm<TValues extends StateValues = StateValues>(
+  stateSchema: StateSchema,
+  stateSchemaValidator: StateValidator,
+  submitFormCallback: (values: TValues) => void
+): UseForm<TValues> {
   const [state, setStateSchema] = React.useState(stateSchema)
-  const [values, setValues] = React.useState(getPropValues(state, VALUE))
+  const [values, setValues] = React.useState(
+    getPropValues(state, VALUE) as TValues
+  )
   const [errors, setErrors] = React.useState(getPropValues(state, ERROR))
   const [disable, setDisable] = React.useState(true)
   const [isDirty, setIsDirty] = React.useState(false)
@@ -79,33 +100,33 @@ function useForm(
   React.useEffect(() => {
     setStateSchema(stateSchema)
     setDisable(true) // Disable button in initial render.
-  }, []) // eslint-disable-line
+  }, [])
 
   // Used to disable submit button if there's a value in errors
   // or the required field in state has no value.
-  // Wrapped in useCallback to cached the function to avoid intensive memory leaked
+  // Wrapped in useCallback to cache the function to avoid intensive memory leaked
   // in every re-render in component
   const validateErrorState = React.useCallback(
     () => Object.values(errors).some((error) => error),
     [errors]
   )
 
-  // For every changed in our state this will be fired
+  // For every change in our state this will be fired
   // To be able to disable the button
   React.useEffect(() => {
     if (isDirty) {
       setDisable(validateErrorState())
     }
-  }, [errors, isDirty]) // eslint-disable-line
+  }, [errors, isDirty])
 
   // Event handler for handling changes in input.
   const handleOnChange = React.useCallback(
     (event) => {
       setIsDirty(true)
       const { value, name } = event.target
-      const validatorState = stateValidatorSchema
+      const validatorState = stateSchemaValidator
 
-      // Making sure that stateValidatorSchema name is same in
+      // Making sure that stateSchemaValidator name is same in
       // stateSchema
       if (!validatorState[name]) return
 
@@ -113,7 +134,7 @@ function useForm(
 
       let errorObj = ''
 
-      errorObj = isRequiredField(value, fieldValid.required)
+      errorObj = isRequiredField(value, fieldValid?.required)
 
       if (fieldValid.nospaces && errorObj === '') {
         errorObj = notSpaces(value)
@@ -132,13 +153,17 @@ function useForm(
       }
 
       // Prevent running this function if the value is required field
-      if (errorObj === '' && isObject(fieldValid.validator)) {
-        const fieldValidator = fieldValid.validator
-        const { func, error } = fieldValidator
+      if (
+        errorObj === '' &&
+        fieldValid?.validator &&
+        isObject(fieldValid.validator)
+      ) {
+        const {
+          validator: { func: testFunc, error },
+        } = fieldValid
 
         // Test the function callback if the value is meet the criteria
-        const testFunc = func
-        if (!testFunc(value, values)) {
+        if (!testFunc(value)) {
           errorObj = error
         }
       }
@@ -146,7 +171,7 @@ function useForm(
       setValues((prevState) => ({ ...prevState, [name]: value }))
       setErrors((prevState) => ({ ...prevState, [name]: errorObj }))
     },
-    [stateValidatorSchema, values]
+    [stateSchemaValidator, values]
   )
 
   const handleOnSubmit = React.useCallback(
@@ -174,3 +199,4 @@ function useForm(
 }
 
 export default useForm
+export { StateValues }

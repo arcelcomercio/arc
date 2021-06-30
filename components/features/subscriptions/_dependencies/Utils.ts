@@ -1,4 +1,6 @@
-export function decodeValue(val) {
+import { isStorageAvailable } from '../../../utilities/client/storage'
+
+export function decodeValue(val: unknown): unknown {
   if (typeof val === 'string') {
     try {
       return JSON.parse(val)
@@ -9,14 +11,14 @@ export function decodeValue(val) {
   return val
 }
 
-export function encodeValue(val) {
+export function encodeValue(val: unknown): string {
   if (typeof val === 'string') {
     return val
   }
   return JSON.stringify(val)
 }
 
-export const createExternalScript = (content, defer = false) => {
+export const createExternalScript = (content: string, defer = false): void => {
   const script = document.createElement('script')
   script.setAttribute('type', 'text/javascript')
   if (defer) script.setAttribute('defer', 'true')
@@ -24,8 +26,11 @@ export const createExternalScript = (content, defer = false) => {
   document.body.appendChild(script)
 }
 
-export const checkUndefined = (name, alias) => {
-  if (name && (name !== undefined || name !== null)) {
+export const checkUndefined = (
+  name: string | undefined,
+  alias = ''
+): string => {
+  if (typeof name === 'string') {
     const nameLowerCase = name.toLowerCase()
     if (nameLowerCase === 'undefined' || nameLowerCase === 'null') {
       return alias || ''
@@ -34,33 +39,33 @@ export const checkUndefined = (name, alias) => {
   return name || alias
 }
 
-export const checkFbEmail = (email) =>
+export const checkFbEmail = (email: string): string =>
   email && email.indexOf('facebook.com') >= 0 ? '' : email
 
-export const Capitalize = (string) =>
+export const Capitalize = (string: string): string =>
   string.charAt(0).toUpperCase() + string.slice(1)
 
-export const checkFormatPhone = (string) => {
+export const checkFormatPhone = (string: string): string => {
   if (!string) return ''
   return checkUndefined(string).replace(/\+|\s|-|\(|\)/g, '')
 }
 
-export const clearUrlAPI = (urlDefault) => {
+export const clearUrlAPI = (urlDefault: string): void => {
   if (typeof window !== 'undefined') {
     const rg = new RegExp(/((DNI|CDI|CEX)\/([\w-]+)\/([\w]+)\/)|((fia)\/)/g)
-    const queryMatch = window.location.href.match(rg)
+    const [queryMatch] = rg.exec(window.location.href) || []
     const newUrl = window.location.href.split(queryMatch)
-    const isWinback = newUrl[1] && newUrl[1].match(/(winback\/)/g)
+    const isWinback = newUrl[1] && /(winback\/)/g.test(newUrl[1])
 
     const UrlComplete = isWinback
       ? `${newUrl[0] || urlDefault}${`eventos/${newUrl[1]}` || ''}`
       : `${newUrl[0] || urlDefault}${newUrl[1] || ''}`
 
-    window.history.pushState(null, null, UrlComplete)
+    window.history.pushState(null, '', UrlComplete)
   }
 }
 
-export const titleCase = (string) => {
+export const titleCase = (string: string): string => {
   const wordsArray = string.toLowerCase().split(/_/)
   const upperCased = wordsArray.map(
     (word) => word.charAt(0).toUpperCase() + word.substr(1)
@@ -68,9 +73,9 @@ export const titleCase = (string) => {
   return upperCased.join('_')
 }
 
-export const getLocaleStorage = (key) => {
+export const getLocaleStorage = (key: string): unknown | null => {
   if (typeof window !== 'undefined') {
-    if (process.browser) {
+    if (isStorageAvailable('localStorage')) {
       const value = window.localStorage.getItem(key)
       return decodeValue(value)
     }
@@ -78,16 +83,19 @@ export const getLocaleStorage = (key) => {
   return null
 }
 
-export const setLocaleStorage = (key, data) => {
+export const setLocaleStorage = (key: string, data: unknown): void => {
   if (typeof window !== 'undefined') {
-    if (process.browser) {
-      return window.localStorage.setItem(key, encodeValue(data))
+    if (isStorageAvailable('localStorage')) {
+      window.localStorage.setItem(key, encodeValue(data))
     }
   }
-  return null
 }
 
-export const getFullNameFormat = (firstName, lastName, secondLastName) => {
+export const getFullNameFormat = (
+  firstName: string,
+  lastName: string,
+  secondLastName?: string
+): string => {
   const lowerSecLastName = secondLastName && secondLastName.toLowerCase()
   const fullName = `${firstName} ${lastName} ${
     lowerSecLastName === 'undefined' || lowerSecLastName === 'null'
@@ -102,9 +110,9 @@ export const isFbBrowser =
   (window.navigator.userAgent.indexOf('FBAN') > -1 ||
     window.navigator.userAgent.indexOf('FBAV') > -1)
 
-export const getSessionStorage = (key) => {
+export const getSessionStorage = (key: string): string | null => {
   if (typeof window !== 'undefined') {
-    if (process.browser) {
+    if (isStorageAvailable('sessionStorage')) {
       return window.sessionStorage.getItem(key)
     }
   }

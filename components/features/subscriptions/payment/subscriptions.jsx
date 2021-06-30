@@ -6,7 +6,7 @@ import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
 import Loading from '../../signwall/_children/loading'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
-import { AuthContext, AuthProvider } from '../_context/auth'
+import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { clearUrlAPI } from '../_dependencies/Utils'
@@ -37,7 +37,7 @@ const WrapperPaymentSubs = () => {
     userLoading,
     updateLoading,
     updateStep,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
   const { links, urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 

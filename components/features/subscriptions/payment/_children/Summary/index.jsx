@@ -1,7 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
   PropertiesSite,
@@ -41,7 +41,7 @@ const Summary = () => {
     updatePlan,
     updatePeriod,
     updateDataPlan,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
 
   const [checkPlan, setCheckPlan] = React.useState()
   const [totalPlan, setTotalPlan] = React.useState()

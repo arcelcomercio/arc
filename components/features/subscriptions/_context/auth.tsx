@@ -5,9 +5,9 @@ import * as React from 'react'
 import { isAuthenticated } from '../_dependencies/Session'
 import { getLocaleStorage, getSessionStorage } from '../_dependencies/Utils'
 
-export type AuthContextValue = {
+type AuthContextValue = {
   userLoaded: boolean
-  userProfile: UserProfile
+  userProfile: UserProfile | null
   userStep: number
   userPlan: UserPlan | undefined
   userDataPlan: UserDataPlan | undefined
@@ -56,15 +56,17 @@ type UserDataPlan = { amount: number; billingFrequency: BillingFrequency }
 type PaymentMethod = 'payEfectivo' | 'cardCreDeb'
 type PagoEfectivoMethod = 'Banca por Internet' | 'Agencia'
 
-export const AuthContext = React.createContext<AuthContextValue | undefined>(
-  undefined
-)
+const AuthContext = React.createContext<AuthContextValue | undefined>(undefined)
 
-// retorna "value" o lo mismo que "AuthContext"
-export const useAuthContext = (): AuthContextValue | undefined =>
-  React.useContext(AuthContext)
+const useAuthContext = (): AuthContextValue => {
+  const context = React.useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error('useAuthContext debe ser usado dentro de un AuthProvider')
+  }
+  return context
+}
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const keyStorageStep = 'ArcId.USER_STEP'
   const keyStorageProfile = 'ArcId.USER_PROFILE'
 
@@ -75,11 +77,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [userDataPlan, setUserDataPlan] = React.useState<UserDataPlan>()
   const [userPeriod, setUserPeriod] = React.useState<string>()
   const [userPurchase, setUserPurchase] = React.useState<CreateOrderResponse>()
-  const [loadPage, setLoadPage] = React.useState<boolean>(false)
-  const [userLoading, setUserLoading] = React.useState<boolean>(true)
+  const [loadPage, setLoadPage] = React.useState(false)
+  const [userLoading, setUserLoading] = React.useState(true)
   const [userErrorApi, setUserErrorApi] = React.useState<string | null>(null)
-  const [userProfile, setUser] = React.useState<UserProfile>(() =>
-    getLocaleStorage(keyStorageProfile)
+  const [userProfile, setUser] = React.useState<UserProfile | null>(
+    () => getLocaleStorage(keyStorageProfile) as UserProfile | null
   )
   const [userStep, setUserStep] = React.useState(
     parseInt(getSessionStorage(keyStorageStep) || '2', 10)
@@ -154,3 +156,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
+
+// no se exporta `AuthContext` para conseguir mejor validación con TS
+export { AuthContextValue, AuthProvider, useAuthContext }

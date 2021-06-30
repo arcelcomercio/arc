@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { AuthContext } from '../_context/auth'
+import { useAuthContext } from '../_context/auth'
 import { NavigateConsumer } from '../_context/navigate'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import { PropertiesCommon } from '../_dependencies/Properties'
@@ -28,7 +28,7 @@ const nameTagCategory = 'Web_Sign_Wall_Landing'
 
 const Login = ({ contTempl, arcSite, handleCallToAction, isFia }) => {
   const { changeTemplate } = React.useContext(NavigateConsumer)
-  const { activateAuth, updateStep } = React.useContext(AuthContext)
+  const { activateAuth, updateStep } = useAuthContext()
   const [loading, setLoading] = React.useState()
   const [msgError, setMsgError] = React.useState()
   const [showVerify, setShowVerify] = React.useState()

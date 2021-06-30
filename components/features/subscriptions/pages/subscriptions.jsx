@@ -6,7 +6,7 @@ import * as React from 'react'
 import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
 import Signwall from '../_children/Signwall'
-import { AuthContext, AuthProvider } from '../_context/auth'
+import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { getUserName, isLogged } from '../_dependencies/Session'
@@ -36,7 +36,7 @@ const WrapperPageSubs = ({ properties }) => {
   const [showCallin, setShowCallin] = React.useState(false)
   const [showModalCall, setShowModalCall] = React.useState(false)
 
-  const { userProfile } = React.useContext(AuthContext)
+  const { userProfile } = useAuthContext()
   const { urls } = PropertiesSite[arcSite]
   const { links, urls: urlCommon } = PropertiesCommon
   const isComercio = arcSite === 'elcomercio'

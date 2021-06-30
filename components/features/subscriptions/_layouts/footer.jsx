@@ -9,7 +9,7 @@ import * as React from 'react'
 import TextMask from 'react-text-mask'
 
 import { isProd } from '../../../utilities/arc/env'
-import { AuthContext } from '../_context/auth'
+import { useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { docPatterns, maskDocuments } from '../_dependencies/Regex'
@@ -26,12 +26,7 @@ const styles = {
 }
 
 export const FooterSubs = () => {
-  const {
-    userLoaded,
-    userStep,
-    updateLoading,
-    userDataPlan,
-  } = React.useContext(AuthContext)
+  const { userLoaded, userStep, updateLoading, userDataPlan } = useAuthContext()
   const [loading, setLoading] = React.useState(false)
   const [showDocOption, setShowDocOption] = React.useState('DNI')
   const { urls, texts } = PropertiesCommon

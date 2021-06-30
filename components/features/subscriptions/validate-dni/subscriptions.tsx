@@ -1,10 +1,13 @@
 import Identity from '@arc-publishing/sdk-identity'
+import { isUserIdentity } from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
+import { FC } from 'types/features'
+import { PaywallCampaign, UserDocumentType } from 'types/subscriptions'
 
 import { isProd } from '../../../utilities/arc/env'
-import { useAuthContext } from '../_context/auth'
+import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { docPatterns, maskDocuments } from '../_dependencies/Regex'
 import { subDniToken } from '../_dependencies/Services'
@@ -19,37 +22,23 @@ const styles = {
   iconUp: 'icon-arrow-up',
 }
 
-declare global {
-  interface Window {
-    dataLayer: any[]
-  }
+type ValidateDocumentProps = {
+  vDocumentType: UserDocumentType
+  vDocumentNumber: string
 }
 
-type Attributes = {
-  name: string
-  value: string
-}
-
-type DocumentType = 'DNI' | 'CDI' | 'CEX'
-
-type PrintedSubscriber = {
-  documentType: DocumentType
-  documentNumber: number
-}
-
-type PaywallCampaign = {
-  name: string
-  printAttributes: Attributes[]
-  printedSubscriber?: PrintedSubscriber
-  event?: string
-}
-
-const SubscriptionsValidateDNI = () => {
-  const { userLoaded, userStep, updateLoading, userDataPlan } =
-    useAuthContext() || {}
+const SubscriptionsValidateDNI: FC = () => {
+  const {
+    userLoaded,
+    userStep,
+    updateLoading,
+    userDataPlan: { billingFrequency, amount: billingAmount } = {},
+  } = useAuthContext()
 
   const [loading, setLoading] = React.useState(false)
-  const [showDocOption, setShowDocOption] = React.useState<DocumentType>('DNI')
+  const [showDocOption, setShowDocOption] = React.useState<UserDocumentType>(
+    'DNI'
+  )
   const { urls, texts } = PropertiesCommon
   const {
     globalContent: {
@@ -91,7 +80,10 @@ const SubscriptionsValidateDNI = () => {
     },
   }
 
-  const handleValidateDNI = ({ vDocumentType, vDocumentNumber }) => {
+  const handleValidateDNI = ({
+    vDocumentType,
+    vDocumentNumber,
+  }: ValidateDocumentProps) => {
     if (typeof window !== 'undefined') {
       setLoading(true)
       window.dataLayer = window.dataLayer || []
@@ -102,32 +94,33 @@ const SubscriptionsValidateDNI = () => {
       })
       Identity.heartbeat()
         .then((resHeart) => {
-          subDniToken(urls.subsDniToken, resHeart.accessToken)
-            .then((resDniToken) => {
-              if (resDniToken.token) {
-                updateLoading(true)
-                const isEvent = event ? `${event}/` : ''
-                setTimeout(() => {
-                  window.location.href = isProd
-                    ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}`
-                    : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}?outputType=subscriptions`
-                }, 1000)
-              } else {
-                window.console.error('Hubo un error con la respuesta') // Temporal hasta implementar Sentry
+          if (isUserIdentity(resHeart)) {
+            subDniToken(urls.subsDniToken, resHeart.accessToken)
+              .then((resDniToken) => {
+                if (resDniToken.token) {
+                  updateLoading(true)
+                  const isEvent = event ? `${event}/` : ''
+                  setTimeout(() => {
+                    window.location.href = isProd
+                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}`
+                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}?outputType=subscriptions`
+                  }, 1000)
+                } else {
+                  window.console.error('Hubo un error con la respuesta') // Temporal hasta implementar Sentry
+                  setLoading(false)
+                }
+              })
+              .catch((errDniToken) => {
+                window.console.error(errDniToken) // Temporal hasta implementar Sentry
                 setLoading(false)
-              }
-            })
-            .catch((errDniToken) => {
-              window.console.error(errDniToken) // Temporal hasta implementar Sentry
-              setLoading(false)
-            })
+              })
+          }
         })
         .catch((errHeart) => {
           window.console.error(errHeart) // Temporal hasta implementar Sentry
           setLoading(false)
         })
     }
-    return ''
   }
 
   /**
@@ -152,10 +145,14 @@ const SubscriptionsValidateDNI = () => {
     handleOnChange,
     handleOnSubmit,
     disable,
-  } = useForm(stateSchema, stateValidatorSchema, handleValidateDNI)
+  } = useForm<ValidateDocumentProps>(
+    stateSchema,
+    stateValidatorSchema,
+    handleValidateDNI
+  )
 
   return (
-    <>
+    <AuthProvider>
       {!printedSubscriber && (userStep === 1 || userStep === 2) && (
         <footer className="validate" id="validate">
           <div className={styles.wrapper}>
@@ -191,7 +188,7 @@ const SubscriptionsValidateDNI = () => {
                           value={vDocumentType}
                           onChange={(e) => {
                             handleOnChange(e)
-                            setShowDocOption(e.target.value as DocumentType)
+                            setShowDocOption(e.target.value as UserDocumentType)
                           }}>
                           <option value="DNI">DNI</option>
                           <option value="CDI">CDI</option>
@@ -241,20 +238,20 @@ const SubscriptionsValidateDNI = () => {
               <h5 className="name-item">
                 {planName}
                 <span className="period-item">
-                  {' - '} {period[userDataPlan.billingFrequency]}
+                  {' - '} {billingFrequency ? period[billingFrequency] : ''}
                 </span>
               </h5>
             </div>
             <div>
               <span className="price-item">
-                {getPlanAmount(userDataPlan.amount)}
+                {billingAmount ? getPlanAmount(billingAmount) : ''}
               </span>
               <i className={styles.iconUp} />
             </div>
           </button>
         </section>
       )}
-    </>
+    </AuthProvider>
   )
 }
 

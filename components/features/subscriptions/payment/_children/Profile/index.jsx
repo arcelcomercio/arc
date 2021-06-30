@@ -4,7 +4,7 @@ import * as React from 'react'
 import TextMask from 'react-text-mask'
 
 import Modal from '../../../_children/modal'
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import getCodeError, {
   formatEmail,
   formatNames,
@@ -64,7 +64,7 @@ const Profile = () => {
     updateErrorApi,
     userPlan,
     userPeriod,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
 
   const { urls, emails } = PropertiesSite[arcSite]
   const { texts, links } = PropertiesCommon
