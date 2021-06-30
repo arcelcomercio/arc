@@ -40,6 +40,7 @@ export type ArcSite =
   | 'peru21'
   | 'peru21g21'
   | 'trome'
+  | 'cms-transversal'
 
 export interface ComponentContext<
   GlobalContent = AnyObject,
