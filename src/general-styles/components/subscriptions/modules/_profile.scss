@@ -868,7 +868,8 @@
     }
     &-group {
       display: block;
-      @include device(desktop) {
+      align-items: center;
+      @include device(tabletl) {
         display: flex;
         align-items: flex-start;
         box-sizing: border-box;
@@ -1009,21 +1010,24 @@
         flex-wrap: wrap;
         padding-bottom: 40px;
         justify-content: flex-start;
-      }
-
-      & .item {
-        margin: 5px 5px;
-        display: inline-block;
-        width: calc(50% - 10px);
-        text-align: center;
-
-        @include device(tabletp) {
-          width: calc(50% - 10px);
+        & .item {
           margin: 5px 5px;
-        }
-        @include device(desktop) {
-          width: calc(33.3% - 40px);
-          margin: 10px 20px;
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+
+          @include device(tabletp) {
+            width: calc(50% - 10px);
+            margin: 5px 5px;
+          }
+          // @include device(tabletl) {
+          //   width: calc(50% - 10px);
+          //   margin: 5px 5px;
+          // }
+          @include device(desktop) {
+            width: calc(33.3% - 40px);
+            margin: 10px 20px;
+          }
         }
       }
 
@@ -1385,12 +1389,16 @@
       user-select: none;
 
       @include device(mobile) {
-        width: 140px;
+        width: 227px;
+        // height: 138px;
       }
-
-      @include device(tabletl) {
-        width: 180px;
+      @include device(tabletp) {
+        width: 225px;
+        // height: 138px;
       }
+      // @include device(tabletl) {
+      //   width: 180px;
+      // }
       @include device(desktop) {
         width: 220px;
       }
