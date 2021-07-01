@@ -213,6 +213,7 @@ const AmpOutputType = ({
     arcSite === SITE_ELBOCON ||
     arcSite === SITE_DIARIOCORREO ||
     arcSite === SITE_DEPOR ||
+    arcSite === SITE_GESTION ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
@@ -380,11 +381,13 @@ const AmpOutputType = ({
           />
         )}
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
-          <script
-            async
-            custom-element="amp-jwplayer"
-            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
-          />
+          <>
+            <script
+              async
+              custom-element="amp-jwplayer"
+              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+            />
+          </>
         )}
 
         {hasTwitter && (
@@ -459,7 +462,8 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-        <amp-iframe
+        {arcSite === SITE_PERU21 && (
+          <amp-iframe
             width="1"
             title="User Sync"
             height="1"
@@ -472,6 +476,7 @@ const AmpOutputType = ({
               placeholder
             />
           </amp-iframe>
+        )}
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
