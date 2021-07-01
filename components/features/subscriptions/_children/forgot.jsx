@@ -17,9 +17,7 @@ const styles = {
   textNotice: 'step__left-text-notice',
 }
 
-const nameTagCategory = 'Web_Sign_Wall_Landing'
-
-const Forgot = () => {
+const Forgot = ({ typeDialog }) => {
   const { changeTemplate } = React.useContext(NavigateConsumer)
   const [loading, setLoading] = React.useState(false)
   const [msgError, setMsgError] = React.useState(false)
@@ -40,14 +38,22 @@ const Forgot = () => {
     },
   }
 
+  const nameTagCategory = `Web_Sign_Wall_${typeDialog}`
+
   const onFomrForgot = ({ femail }) => {
     if (typeof window !== 'undefined') {
-      Taggeo(nameTagCategory, 'web_swl_contrasena_boton_recuperar')
+      Taggeo(
+        nameTagCategory,
+        `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
+      )
       setLoading(true)
       window.Identity.requestResetPassword(femail)
         .then(() => {
           setShowConfirm(true)
-          Taggeo(nameTagCategory, 'web_swl_contrasena_success_boton')
+          Taggeo(
+            nameTagCategory,
+            `web_sw${typeDialog[0]}_contrasena_success_boton`
+          )
         })
         .catch((err) => {
           setRegisterLink(err.code === '300030')
@@ -55,10 +61,16 @@ const Forgot = () => {
           setLoading(false)
           if (err.code === '130051') {
             setMsgError(getCodeError('verifyReset'))
-            Taggeo(nameTagCategory, 'web_swl_contrasena_show_reenviar_correo')
+            Taggeo(
+              nameTagCategory,
+              `web_sw${typeDialog[0]}_contrasena_show_reenviar_correo`
+            )
           } else {
             setMsgError(getCodeError(err.code))
-            Taggeo(nameTagCategory, 'web_swl_contrasena_error_boton')
+            Taggeo(
+              nameTagCategory,
+              `web_sw${typeDialog[0]}_contrasena_error_boton`
+            )
           }
         })
     }
@@ -80,7 +92,7 @@ const Forgot = () => {
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
     window.Identity.requestVerifyEmail(femail)
-    Taggeo(nameTagCategory, 'web_swl_contrasena_reenviar_correo')
+    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_contrasena_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
@@ -171,7 +183,10 @@ const Forgot = () => {
                 type="button"
                 onClick={() => {
                   changeTemplate('login')
-                  Taggeo(nameTagCategory, 'web_swl_contrasena_link_volver')
+                  Taggeo(
+                    nameTagCategory,
+                    `web_sw${typeDialog[0]}_contrasena_link_volver`
+                  )
                 }}>
                 Inciar Sesión
               </button>
@@ -189,7 +204,10 @@ const Forgot = () => {
               type="button"
               onClick={() => {
                 changeTemplate('login', femail)
-                Taggeo(nameTagCategory, 'web_swl_contrasena_boton_aceptar')
+                Taggeo(
+                  nameTagCategory,
+                  `web_sw${typeDialog[0]}_contrasena_boton_aceptar`
+                )
               }}>
               Aceptar
             </button>

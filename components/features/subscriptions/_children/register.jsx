@@ -1,15 +1,24 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { AuthURL } from '../../signwall/_children/forms/control_social'
 import { MsgRegister } from '../../signwall/_children/icons'
+import {
+  dataTreatment,
+  PolicyPrivacy,
+  TermsConditions,
+} from '../../signwall/_dependencies/domains'
+import { AuthContext } from '../_context/auth'
 import { NavigateConsumer } from '../_context/navigate'
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
+  formatPass,
   formatPhone,
 } from '../_dependencies/Errors'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon } from '../_dependencies/Properties'
+import { deleteQuery } from '../_dependencies/QueryString'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
@@ -31,9 +40,8 @@ const styles = {
   textBlock: 'step__left-textblock',
 }
 
-const nameTagCategory = 'Web_Sign_Wall_Landing'
-
-const Register = ({ arcSite }) => {
+const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
+  const { activateAuth, updateStep } = React.useContext(AuthContext)
   const { changeTemplate } = React.useContext(NavigateConsumer)
   const [loading, setLoading] = React.useState()
   const [loadText, setLoadText] = React.useState('Cargando...')
@@ -61,10 +69,7 @@ const Register = ({ arcSite }) => {
     },
     rpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
     rphone: {
@@ -81,48 +86,14 @@ const Register = ({ arcSite }) => {
     },
   }
 
-  const openTerminos = () => {
-    if (typeof window !== 'undefined') {
-      window.open(
-        `${
-          arcSite === 'depor'
-            ? '/terminos-servicio/'
-            : '/terminos-y-condiciones/'
-        }`,
-        '_blank'
-      )
-    }
-  }
-
-  const openPoliticas = () => {
-    if (typeof window !== 'undefined') {
-      window.open(
-        (() => {
-          switch (arcSite) {
-            case 'elcomercio':
-            case 'depor':
-              return '/politicas-privacidad/'
-            case 'gestion':
-            case 'trome':
-              return '/politica-de-privacidad/'
-            default:
-              return '/politicas-de-privacidad/'
-          }
-        })(),
-        '_blank'
-      )
-    }
-  }
-
-  const dataTreatment = () => {
-    if (typeof window !== 'undefined') {
-      window.open('/tratamiento-de-datos/', '_blank')
-    }
-  }
+  const nameTagCategory = `Web_Sign_Wall_${typeDialog}`
 
   const onFormRegister = ({ remail, rpass, rphone }) => {
     if (typeof window !== 'undefined') {
-      Taggeo(nameTagCategory, 'web_swl_registro_boton_registrarme')
+      Taggeo(
+        nameTagCategory,
+        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+      )
       setLoading(true)
       setLoadText('Registrando...')
 
@@ -162,7 +133,7 @@ const Register = ({ arcSite }) => {
             },
             {
               name: 'originAction',
-              value: 'landing',
+              value: typeDialog || 'landing',
               type: 'String',
             },
             {
@@ -201,7 +172,10 @@ const Register = ({ arcSite }) => {
                 window.Identity.userIdentity = {}
               })
               .finally(() => {
-                Taggeo(nameTagCategory, 'web_swl_registro_success_registrarme')
+                Taggeo(
+                  nameTagCategory,
+                  `web_sw${typeDialog[0]}_registro_success_registrarme`
+                )
               })
           })
         })
@@ -209,7 +183,10 @@ const Register = ({ arcSite }) => {
           setMsgError(getCodeError(err.code))
           setForgotLink(err.code === '300039')
           setLoading(false)
-          Taggeo(nameTagCategory, 'web_swl_registro_error_registrarme')
+          Taggeo(
+            nameTagCategory,
+            `web_sw${typeDialog[0]}_registro_error_registrarme`
+          )
         })
     }
   }
@@ -240,7 +217,7 @@ const Register = ({ arcSite }) => {
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
     window.Identity.requestVerifyEmail(remail)
-    Taggeo(nameTagCategory, 'web_swl_registro_reenviar_correo')
+    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_registro_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
@@ -252,6 +229,22 @@ const Register = ({ arcSite }) => {
       }
       timeleft -= 1
     }, 1000)
+  }
+
+  const onLoggedFia = (profile) => {
+    activateAuth(profile)
+    if (isFbBrowser) {
+      deleteQuery('signFia')
+      deleteQuery('signLanding')
+      deleteQuery('dataTreatment')
+      setTimeout(() => {
+        updateStep(2)
+        window.location.reload()
+      }, 1000)
+    }
+    if (isFia) {
+      handleCallToAction(true)
+    }
   }
 
   return (
@@ -268,6 +261,7 @@ const Register = ({ arcSite }) => {
               arcSite={arcSite}
               arcType="registro"
               dataTreatment={checkedPolits ? '1' : '0'}
+              typeDialog={typeDialog}
             />
             {!isFbBrowser && (
               <ButtonSocial
@@ -275,6 +269,19 @@ const Register = ({ arcSite }) => {
                 arcSite={arcSite}
                 arcType="registro"
                 dataTreatment={checkedPolits ? '1' : '0'}
+                typeDialog={typeDialog}
+              />
+            )}
+
+            {isFbBrowser && (
+              <AuthURL
+                arcSite={arcSite}
+                onClose={() => {}}
+                typeDialog={typeDialog}
+                activeNewsletter
+                typeForm="registro"
+                onLogged={onLoggedFia}
+                checkUserSubs={() => {}}
               />
             )}
           </div>
@@ -386,12 +393,13 @@ const Register = ({ arcSite }) => {
                 />
                 Al registrarme por redes sociales o por este formulario autorizo
                 el uso de mis datos para{' '}
-                <button
-                  className={styles.link}
-                  type="button"
-                  onClick={dataTreatment}>
+                <a
+                  href={dataTreatment}
+                  className={`${styles.link} link-color`}
+                  target="_blank"
+                  rel="noreferrer">
                   fines adicionales
-                </button>
+                </a>
                 <span className="checkmark" />
               </label>
             </div>
@@ -412,19 +420,21 @@ const Register = ({ arcSite }) => {
                   }}
                 />
                 {texts.accept}
-                <button
-                  className={styles.link}
-                  type="button"
-                  onClick={() => openTerminos()}>
+                <a
+                  href={TermsConditions(arcSite)}
+                  className={`${styles.link} link-color`}
+                  target="_blank"
+                  rel="noreferrer">
                   {texts.terms}
-                </button>
+                </a>
                 {texts.and}
-                <button
-                  className={styles.link}
-                  type="button"
-                  onClick={() => openPoliticas()}>
+                <a
+                  href={PolicyPrivacy(arcSite)}
+                  className={`${styles.link} link-color`}
+                  target="_blank"
+                  rel="noreferrer">
                   {texts.policies}
-                </button>
+                </a>
                 <span className={`checkmark ${rtermsError && 'input-error'}`} />
               </label>
             </div>
@@ -451,7 +461,7 @@ const Register = ({ arcSite }) => {
               type="button"
               onClick={() => {
                 changeTemplate('login')
-                Taggeo(nameTagCategory, 'web_swl_registro_link_volver')
+                Taggeo(nameTagCategory, `web_swl_registro_link_volver`)
               }}>
               Iniciar Sesión
             </button>

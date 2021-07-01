@@ -1,16 +1,11 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { Benefits } from '../../../signwall/_children/benefits'
 import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalConsumer, ModalProvider } from '../../_context/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
 import Header from '../../profile-user/_children/header/signwall'
-
-const Benefits = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Auth-Benefits' */ '../../../signwall/_children/benefits/index'
-  )
-)
 
 const FormLogin = React.lazy(() =>
   import(
@@ -114,6 +109,9 @@ export const ContGeneric = ({ properties }) => {
   } = useAppContext() || {}
 
   const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
+  const isTrome = arcSite === 'trome'
+  const isComercio = arcSite === 'elcomercio'
+  const isGestion = arcSite === 'gestion'
 
   // const handleLeavePage = useRef(() => {
   //   Taggeo(`Web_Sign_Wall_${typeDialog}`, `web_sw${typeDialog[0]}_leave`)
@@ -130,7 +128,7 @@ export const ContGeneric = ({ properties }) => {
   return (
     <Modal
       // eslint-disable-next-line no-nested-ternary
-      size={activePaywall ? 'large' : arcSite === 'trome' ? 'medium' : 'small'}
+      size={activePaywall ? 'large' : isTrome ? 'medium' : 'small'}
       position="middle">
       <Header
         buttonClose
@@ -140,16 +138,19 @@ export const ContGeneric = ({ properties }) => {
         logoLeft
       />
       <div className="cont-modal">
-        <div className={`left-modal ${arcSite === 'trome' ? 'bg-white' : ''}`}>
-          <React.Suspense fallback={null}>
-            <Benefits
-              arcSite={arcSite}
-              mainColorTitle={mainColorTitle}
-              primaryFont={primaryFont}
-              typeMessage={typeDialog}
-            />
-          </React.Suspense>
-        </div>
+        {(isTrome || isComercio || isGestion) && (
+          <div className={`left-modal ${isTrome ? 'bg-trome' : ''}`}>
+            <React.Suspense fallback={null}>
+              <Benefits
+                arcSite={arcSite}
+                mainColorTitle={mainColorTitle}
+                primaryFont={primaryFont}
+                typeMessage={typeDialog}
+              />
+            </React.Suspense>
+          </div>
+        )}
+
         <div className="right-modal">
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,

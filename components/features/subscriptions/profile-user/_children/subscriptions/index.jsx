@@ -77,7 +77,7 @@ const Subscription = () => {
           )}
         </>
       ) : (
-        <Loading typeBg="wait" />
+        <Loading typeBg="block" />
       )}
     </div>
   )

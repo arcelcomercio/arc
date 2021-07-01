@@ -12,7 +12,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorBr, mainColorBtn, primaryFont },
+      signwall: { mainColorBr, mainColorBtn, primaryFont, mainColorLink },
       activePaywall,
     },
   } = useAppContext() || {}
@@ -58,11 +58,15 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   }, [])
 
   return (
-    <form className="signwall-inside_forms-form">
+    <form
+      className={`signwall-inside_forms-form ${
+        arcSite === 'trome' ? 'form-trome' : ''
+      }`}>
       {showLoading ? (
-        <Loading typeBg="wait" />
+        <Loading typeBg="block" />
       ) : (
         <>
+          <br />
           <div className="center block mb-20">
             <MsgResetPass bgcolor={mainColorBr} />
           </div>
@@ -83,11 +87,12 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
             style={{
               fontSize: '14px',
               lineHeight: '28px',
+              textAlign: 'center',
             }}
             className="signwall-inside_forms-text mt-10 mb-20 center">
             {showConfirm
-              ? 'Tu correo electrónico ha sido validado'
-              : 'Tu correo electrónico podría ya estar validado'}
+              ? 'Tu correo electrónico ha sido validado correctamente.'
+              : 'Tu correo electrónico podría ya estar validado.'}
             <br />
 
             {!activePaywall && 'disfruta nuestro contenido sin límites'}
@@ -97,7 +102,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
             <button
               type="button"
               className="signwall-inside_forms-btn"
-              style={{ color: mainColorBtn }}
+              style={{ color: mainColorBtn, background: mainColorLink }}
               onClick={() => {
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,
@@ -111,7 +116,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
             <button
               type="button"
               className="signwall-inside_forms-btn"
-              style={{ color: mainColorBtn }}
+              style={{ color: mainColorBtn, background: mainColorLink }}
               onClick={() => {
                 Taggeo(
                   `Web_Sign_Wall_${typeDialog}`,

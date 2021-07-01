@@ -12,20 +12,21 @@ import {
   setLocaleStorage,
 } from '../_dependencies/Utils'
 
-const nameTagCategory = 'Web_Sign_Wall_Landing'
-
 const ButtonSocial = ({
   arcSocial,
   arcSite,
   arcType,
   showMsgVerify,
   dataTreatment,
+  typeDialog,
 }) => {
-  const [loading, setLoading] = React.useState()
+  const [loading, setLoading] = React.useState(false)
   const [loadText, setLoadText] = React.useState('Cargando...')
   const { activateAuth, updateStep } = React.useContext(AuthContext)
   const { urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
+
+  const nameTagCategory = `Web_Sign_Wall_${typeDialog}`
 
   const setupUserProfile = () => {
     if (typeof window !== 'undefined') {
@@ -69,7 +70,7 @@ const ButtonSocial = ({
                 },
                 {
                   name: 'originAction',
-                  value: 'landing',
+                  value: typeDialog || 'landing',
                   type: 'String',
                 },
                 {
@@ -106,7 +107,7 @@ const ButtonSocial = ({
                       updateStep(2)
                       Taggeo(
                         nameTagCategory,
-                        `web_swl_${arcType}_success_${arcSocial}`
+                        `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
                       )
                     })
                     .catch(() => {
@@ -117,25 +118,34 @@ const ButtonSocial = ({
                   updateStep(2)
                   Taggeo(
                     nameTagCategory,
-                    `web_swl_${arcType}_success_${arcSocial}`
+                    `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
                   )
                 }
               })
               .catch((errUpdateProfile) => {
                 setLoading(false)
                 window.console.error(errUpdateProfile) // Temporal hasta implementar Sentry
-                Taggeo(nameTagCategory, `web_swl_${arcType}_error_${arcSocial}`)
+                Taggeo(
+                  nameTagCategory,
+                  `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
+                )
               })
           } else {
             activateAuth(resProfile)
             updateStep(2)
-            Taggeo(nameTagCategory, `web_swl_${arcType}_success_${arcSocial}`)
+            Taggeo(
+              nameTagCategory,
+              `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
+            )
           }
         })
         .catch((errProfile) => {
           setLoading(false)
           window.console.error(errProfile) // Temporal hasta implementar Sentry
-          Taggeo(nameTagCategory, `web_swl_${arcType}_error_${arcSocial}`)
+          Taggeo(
+            nameTagCategory,
+            `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
+          )
         })
     }
   }
@@ -190,6 +200,7 @@ const ButtonSocial = ({
       case 'premium':
         return 'signPremium'
       case 'login':
+      case 'registro':
       case 'landing':
         return 'signLanding'
       case 'authfia':
@@ -205,13 +216,10 @@ const ButtonSocial = ({
 
   const clickLoginSocialEcoID = () => {
     if (typeof window !== 'undefined') {
-      const eventMethod = window.addEventListener
-        ? 'addEventListener'
-        : 'attachEvent'
-      const eventer = window[eventMethod]
-      const messageEvent =
-        eventMethod === 'attachEvent' ? 'onmessage' : 'message'
-      eventer(messageEvent, authSocialProvider)
+      Taggeo(
+        nameTagCategory,
+        `web_sw${typeDialog[0]}_${arcType}_boton_${arcSocial}`
+      )
 
       const width = 780
       const height = 640
@@ -220,13 +228,22 @@ const ButtonSocial = ({
       const URL = `${urls.ecoID}/mpp/${arcSocial}/login/`
 
       const URLRedirect = () => {
+        setLoading(true)
+        setLoadText('Redireccionando...')
         window.location.href = `${URL}?urlReference=${encodeURIComponent(
           window.location.href
         )}&typeModal=${queryDialog()}&dataTreatment=${dataTreatment}`
-        setLoadText('Redireccionando...')
       }
 
       const URLWindow = () => {
+        const eventMethod = window.addEventListener
+          ? 'addEventListener'
+          : 'attachEvent'
+        const eventer = window[eventMethod]
+        const messageEvent =
+          eventMethod === 'attachEvent' ? 'onmessage' : 'message'
+        eventer(messageEvent, authSocialProvider)
+
         window.open(
           URL,
           '',
@@ -258,10 +275,8 @@ const ButtonSocial = ({
   return (
     <button
       className={`btn-${arcSocial}`}
-      onClick={() => {
-        clickLoginSocialEcoID()
-        Taggeo(nameTagCategory, `web_swl_${arcType}_boton_${arcSocial}`)
-      }}
+      id={`btn-sign-${arcSocial}`}
+      onClick={clickLoginSocialEcoID}
       disabled={loading}
       type="button">
       {loading ? loadText : `Continua con ${Capitalize(arcSocial)}`}

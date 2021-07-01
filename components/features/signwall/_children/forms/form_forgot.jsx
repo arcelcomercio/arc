@@ -16,7 +16,7 @@ const FormForgot = ({ typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorBr, mainColorBtn, primaryFont },
+      signwall: { mainColorBr, mainColorBtn, mainColorLink, primaryFont },
     },
   } = useAppContext() || {}
 
@@ -110,7 +110,9 @@ const FormForgot = ({ typeDialog }) => {
 
   return (
     <form
-      className={`signwall-inside_forms-form ${typeDialog}`}
+      className={`signwall-inside_forms-form ${
+        arcSite === 'trome' ? 'form-trome' : ''
+      } ${typeDialog}`}
       onSubmit={(e) => {
         handleOnSubmit(e)
       }}>
@@ -145,10 +147,11 @@ const FormForgot = ({ typeDialog }) => {
             Olvidé mi contraseña
           </h4>
           <p
-            className="signwall-inside_forms-text center"
+            className="signwall-inside_forms-text"
             style={{
               fontSize: '14px',
               lineHeight: '26px',
+              textAlign: 'center',
             }}>
             Ingresa tu correo electrónico para <br /> cambiar tu contraseña
           </p>
@@ -162,7 +165,10 @@ const FormForgot = ({ typeDialog }) => {
               {showVerify && (
                 <>
                   {!showSendEmail ? (
-                    <button type="button" onClick={sendVerifyEmail}>
+                    <button
+                      type="button"
+                      className="link"
+                      onClick={sendVerifyEmail}>
                       Reenviar correo de activación
                     </button>
                   ) : (
@@ -209,7 +215,7 @@ const FormForgot = ({ typeDialog }) => {
 
           <button
             type="submit"
-            style={{ color: mainColorBtn }}
+            style={{ color: mainColorBtn, background: mainColorLink }}
             className="signwall-inside_forms-btn mt-20 mb-10"
             disabled={disable || showLoading}
             onClick={() =>

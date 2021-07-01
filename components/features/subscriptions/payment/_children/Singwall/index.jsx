@@ -18,7 +18,7 @@ const renderTemplate = (template, contTempl, attributes) => {
   return templates[template] || templates.login
 }
 
-const WrapperSingwall = () => {
+const WrapperSingwall = ({ typeDialog }) => {
   const {
     arcSite,
     globalContent: { plans = [], printedSubscriber, fromFia },
@@ -66,12 +66,16 @@ const WrapperSingwall = () => {
     window.fbq('track', 'Lead')
   }, [])
 
-  return <>{renderTemplate(selectedTemplate, valueTemplate, { arcSite })}</>
+  return (
+    <>
+      {renderTemplate(selectedTemplate, valueTemplate, { arcSite, typeDialog })}
+    </>
+  )
 }
 
 const Singwall = () => (
   <NavigateProvider>
-    <WrapperSingwall />
+    <WrapperSingwall typeDialog="landing" />
   </NavigateProvider>
 )
 

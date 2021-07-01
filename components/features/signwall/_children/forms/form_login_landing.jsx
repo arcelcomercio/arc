@@ -7,11 +7,16 @@ import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import { setCookie } from '../../../subscriptions/_dependencies/Cookies'
 import getCodeError, {
   formatEmail,
+  formatPass,
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import { getOriginAPI } from '../../_dependencies/domains'
+import {
+  dataTreatment,
+  getOriginAPI,
+  PolicyPrivacy,
+} from '../../_dependencies/domains'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
@@ -47,10 +52,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
     },
     lpass: {
       required: true,
-      validator: {
-        func: (value) => value.length >= 8,
-        error: 'Mínimo 8 caracteres',
-      },
+      validator: formatPass(),
       nospaces: true,
     },
   }
@@ -238,7 +240,10 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 {showVerify && (
                   <>
                     {!showSendEmail ? (
-                      <button type="button" onClick={sendVerifyEmail}>
+                      <button
+                        type="button"
+                        className="link"
+                        onClick={sendVerifyEmail}>
                         Reenviar correo de activación
                       </button>
                     ) : (
@@ -336,6 +341,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 checked={checkedPolits}
                 value={checkedPolits ? '1' : '0'}
                 name="rpolit"
+                arcSite={arcSite}
                 onChange={() => {
                   setCheckedPolits(!checkedPolits)
                 }}>
@@ -348,8 +354,9 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                   Al ingresar por redes sociales autorizo el uso de mis datos
                   para
                   <a
-                    href="/tratamiento-de-datos/"
+                    href={dataTreatment}
                     target="_blank"
+                    rel="noreferrer"
                     className="signwall-inside_forms-link ml-5 inline"
                     style={{ fontWeight: 'bold', color: mainColorLink }}>
                     fines adicionales
@@ -369,18 +376,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 deseas retirar dicho consentimiento, revisa el procedimiento en
                 nuestras
                 <a
-                  href={(() => {
-                    switch (arcSite) {
-                      case 'elcomercio':
-                      case 'depor':
-                        return '/politicas-privacidad/'
-                      case 'gestion':
-                      case 'trome':
-                        return '/politica-de-privacidad/'
-                      default:
-                        return '/politicas-de-privacidad/'
-                    }
-                  })()}
+                  href={PolicyPrivacy(arcSite)}
                   rel="noreferrer"
                   target="_blank"
                   className="signwall-inside_forms-link ml-5 inline"
