@@ -531,6 +531,21 @@ const LiteOutput = ({
             ) : null
           }
         </Resource>
+        {metaValue('section_style') === 'depor-play' ? (
+          <Resource path="resources/dist/depor/css/depor-play.css">
+            {({ data }) =>
+              data ? (
+                <style
+                  dangerouslySetInnerHTML={{
+                    __html: data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', ''),
+                  }}
+                />
+              ) : null
+            }
+          </Resource>
+        ) : null}
         <ChartbeatBody
           story={isStory}
           hasVideo={contenidoVideo || hasYoutubeVideo}
@@ -650,12 +665,14 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${getPreroll({
-                  section: storySectionPath,
-                  arcSite,
-                  siteDomain: siteProperties.siteDomain,
-                  metaValue,
-                }) || siteProperties.urlPreroll}'`,
+                __html: `window.preroll='${
+                  getPreroll({
+                    section: storySectionPath,
+                    arcSite,
+                    siteDomain: siteProperties.siteDomain,
+                    metaValue,
+                  }) || siteProperties.urlPreroll
+                }'`,
               }}
             />
             <script
