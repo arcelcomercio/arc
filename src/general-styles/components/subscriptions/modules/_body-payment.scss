@@ -1265,7 +1265,7 @@ $heightHeader: 52px;
   }
 
   @include device(tabletp) {
-    height: calc(100vh - 200px);
+    // height: calc(100vh - 200px);
 
     &__bottom {
       display: none;

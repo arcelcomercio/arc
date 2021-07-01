@@ -10,6 +10,12 @@
 // CUSTOM MEDIA QUERYS
 @custom-media --only-mobile screen and (max-width: 639px);
 
+// CUSTOM MEDIA QUERYS SUBSCRIPTIONS
+@custom-media --subs-mobile screen and (max-width: 680px);
+@custom-media --subs-tabletp screen and (min-width: 768px);
+@custom-media --subs-tabletl screen and (min-width: 769px) and (min-width: 1024px);
+@custom-media --subs-desktop screen and (min-width: 1200px);
+
 $map-breakpoints: "md", "lg";
 
 // Traductor de nombre de breakpoint
