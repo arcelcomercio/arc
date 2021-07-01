@@ -519,14 +519,21 @@
         input::placeholder {
           font-size: 14px;
         }
-        input:placeholder-shown + label {
+        input:placeholder-shown + label,
+        select:placeholder-shown + label {
           cursor: text;
           transform-origin: 0 0;
-          transform: translate(1rem, 1.8rem) scale(1.1);
+          transform: translate(1rem, 2.1rem) scale(0.75);
         }
-        label {
-          font-size: 12px;
-          margin-top: 0;
+        input:not(:placeholder-shown) + label,
+        input:-webkit-autofill + label,
+        input:focus + label {
+          transform-origin: 0 0;
+          transform: translate(0.5rem, 0.58rem) scale(0.75);
+          cursor: pointer;
+          background-color: inherit;
+          padding: 0 5px;
+          margin: 0;
         }
       }
 

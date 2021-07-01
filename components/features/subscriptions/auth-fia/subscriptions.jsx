@@ -114,6 +114,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                     renderTemplate(selectedTemplate, valueTemplate, {
                       arcSite,
                       isFia: true,
+                      typeDialog,
                       handleCallToAction,
                       onClose: () => {
                         if (

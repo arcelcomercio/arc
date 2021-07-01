@@ -526,7 +526,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
           {showLoadingPremium ? (
             <Loading typeBg="block" />
           ) : (
-            <form className="signwall-inside_forms-form">
+            <form className={`signwall-inside_forms-form ${typeDialog}`}>
               <div className="center block mb-20 mt-20">
                 <MsgRegister bgcolor={mainColorBr} />
               </div>
