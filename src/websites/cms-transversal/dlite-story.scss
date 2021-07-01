@@ -1,0 +1,31 @@
+/******* Base *******/
+@import "../../general-styles/framework/variables/index";
+
+@import "../elcomercio/scss/variables/index";
+@import "../elcomercio/scss/variables/lite/fonts";
+@import "../../general-styles/framework/core/reset";
+@import "../../general-styles/framework/core/lite";
+@import "../../general-styles/framework/core/ads";
+
+/******* Components *******/
+@import "../elcomercio/scss/lite-components/global-components/ads/ad-lateral";
+@import "../elcomercio/scss/lite-components/features/story/title/title";
+@import "../elcomercio/scss/lite-components/features/story/author/story-author";
+@import "../elcomercio/scss/lite-components/features/story/special-title/st-special-t";
+@import "../elcomercio/scss/lite-components/features/premium/premium";
+@import "../elcomercio/scss/lite-components/features/story/multimedia/multimedia";
+@import "../elcomercio/scss/lite-components/layouts/story-sidebar/st-sidebar";
+@import "../elcomercio/scss/lite-components/features/header/basic/h-basic";
+@import "../elcomercio/scss/lite-components/features/header/continuous/h-continuous";
+@import "../elcomercio/scss/lite-components/features/widgets/breaking-news/b-news";
+@import "../elcomercio/scss/lite-components/global-components/share/share";
+@import "../elcomercio/scss/lite-components/features/header/links-band/links-band";
+@import "../elcomercio/scss/lite-components/features/story/social/st-social";
+@import "../elcomercio/scss/lite-components/features/story/gallery/gallery-img";
+@import "../elcomercio/scss/lite-components/features/story/minuto-a-minuto/story";
+
+@import "../elcomercio/scss/lite-components/features/story/contents/contents-inline";
+@import "../elcomercio/scss/lite-components/features/story/google-news/google-news-inline";
+@import "../elcomercio/scss/lite-components/features/story/tags/st-tags-inline";
+@import "../elcomercio/scss/lite-components/features/cards/most-read/most-read-inline";
+@import "../elcomercio/scss/lite-components/features/stories-lists//linked-by-site/link-site-inline";

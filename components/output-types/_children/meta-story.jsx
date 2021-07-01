@@ -1,33 +1,29 @@
-import * as React from 'react'
-import { ENVIRONMENT } from 'fusion:environment'
 import { useContent } from 'fusion:content'
-import StoriesRecent from '../../global-components/stories-recent'
+import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 
-import StoryData from '../../utilities/story-data'
+import StoriesRecent from '../../global-components/stories-recent'
+import { getAssetsPath, getAssetsPathVideo } from '../../utilities/assets'
+import { FREE } from '../../utilities/constants/content-tiers'
+import {
+  SITE_DEPOR,
+  SITE_ELBOCON,
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
+} from '../../utilities/constants/sitenames'
+import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
+import { getDateSeo } from '../../utilities/date-time/dates'
+import { msToTime, msToTimeJplayer } from '../../utilities/date-time/time'
 import { getMultimedia } from '../../utilities/multimedia'
 import {
   formatHtmlToText,
   removeLastSlash,
 } from '../../utilities/parse/strings'
-import {
-  msToTime,
-  msToTimeJplayer,
-  msToTimestamp,
-} from '../../utilities/date-time/time'
-import { getDateSeo } from '../../utilities/date-time/dates'
-import {
-  SITE_ELCOMERCIOMAG,
-  SITE_DEPOR,
-  SITE_ELBOCON,
-  SITE_ELCOMERCIO,
-  SITE_GESTION,
-} from '../../utilities/constants/sitenames'
 import { createResizedParams } from '../../utilities/resizer/resizer'
-import { getAssetsPathVideo, getAssetsPath } from '../../utilities/assets'
-import workType, { revisionAttr } from '../_dependencies/work-type'
-import { GALLERY_VERTICAL } from '../../utilities/constants/subtypes'
 import { getResultJwplayer } from '../../utilities/story/helpers'
-import { FREE } from '../../utilities/constants/content-tiers'
+import StoryData from '../../utilities/story-data'
+import workType, { revisionAttr } from '../_dependencies/work-type'
 
 export default ({
   globalContent: data,
@@ -342,20 +338,16 @@ export default ({
     }, ${description} "height":800, "width":1200 }`
   })
 
-  const listItems = tags.map(({ description }) => {
-    return `${description}`
-  })
+  const listItems = tags.map(({ description }) => `${description}`)
 
-  const listItemsTagsKeywords = tags.map(({ description }) => {
-    return `"${formatHtmlToText(description)}"`
-  })
-  const seoKeyWordsStructurada = seoKeywords.map((item) => {
-    return `"${formatHtmlToText(item)}"`
-  })
+  const listItemsTagsKeywords = tags.map(
+    ({ description }) => `"${formatHtmlToText(description)}"`
+  )
+  const seoKeyWordsStructurada = seoKeywords.map(
+    (item) => `"${formatHtmlToText(item)}"`
+  )
 
-  const seoKeywordsItems = seoKeywords.map((item) => {
-    return `${item}`
-  })
+  const seoKeywordsItems = seoKeywords.map((item) => `${item}`)
 
   const relatedContentItem = resultRelated.map((content, i) => {
     const { canonical_url: urlItem = '' } = content || {}
@@ -462,11 +454,11 @@ export default ({
 
   const backStoryStructured = `
   "backstory":"${contentElementCustomBlock
-    .map((element) => {
-      return element.embed.config.customBlockType === 'backstory'
+    .map((element) =>
+      element.embed.config.customBlockType === 'backstory'
         ? element.embed.config.customBlockContent
         : ''
-    })
+    )
     .join(' ')
     .trim()
     .replace(/"/g, '\\"')
@@ -549,14 +541,13 @@ export default ({
     }]
  }`
 
-  const breadcrumbResult = breadcrumbList.map(({ url, name }, i) => {
-    return (
+  const breadcrumbResult = breadcrumbList.map(
+    ({ url, name }, i) =>
       url &&
       `{"@type":"ListItem", "position":${
         i + 1
       }, "name":"${name}", "item":"${url}" }`
-    )
-  })
+  )
 
   const structuredBreadcrumb = `{ "@context":"https://schema.org", "@type":"BreadcrumbList", "itemListElement":[${breadcrumbResult}] }`
 
@@ -650,7 +641,7 @@ export default ({
   return (
     <>
       <meta name="data-article-id" content={id} />
-      <meta property="article:publisher" content={socialName.url} />
+      <meta property="article:publisher" content={socialName?.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDateZone} />
       {sourceId && (
@@ -693,9 +684,9 @@ export default ({
       <meta property="article:author" content={`Redacción ${siteName}`} />
       <meta property="article:section" content={primarySection} />
       <meta property="article:content_tier" content={getContentType()} />
-      {listItems.map((item) => {
-        return <meta property="article:tag" content={item} />
-      })}
+      {listItems.map((item) => (
+        <meta property="article:tag" content={item} />
+      ))}
       {!isIframeStory && (
         <>
           <script
@@ -717,26 +708,25 @@ export default ({
         <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
       )}
       {isAmp === true &&
-        dataStructuraHtmlAmp.map((datas) => {
-          return (
-            <>
-              <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                  __html: datas
-                    .replace(':<script type="application/ld+json">', '')
-                    .replace('</script>:', ''),
-                }}
-              />
-            </>
-          )
-        })}
+        dataStructuraHtmlAmp.map((datas) => (
+          <>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: datas
+                  .replace(':<script type="application/ld+json">', '')
+                  .replace('</script>:', ''),
+              }}
+            />
+          </>
+        ))}
       {isAmp !== true &&
         contentElementsHtml.match(/<mxm-event (.*)><\/mxm-event>/gm) && (
           <style
             dangerouslySetInnerHTML={{
               __html: `.live-event {font-size: 16px;} .live-event .live-event-comment {display: block;position: relative;padding: 0 0 10px 65px;border-bottom: 1px solid #dcdcdc;margin-bottom: 10px;} .live-event .live-event-comment .live-event-minute{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-event .live-event-comment p{font-size: 18px;font-family: Georgia;line-height: 1.5;} .live-event .live-event-comment p a{color: #4a88c6;font-weight: bold;} .live-match {font-size: 16px;} .live-match .live-match-comment {display: block;position: relative;padding: 0 0 10px 40px;border-bottom: 1px solid #dcdcdc;margin-bottom: 10px;} .live-match .live-match-comment .live-match-minute{background: #e2e2e2;padding: 3px 8px;display: block;color: #000;top: 0px;position: absolute;left: 0;} .live-match .live-match-comment p{font-size: 18px;font-family: Georgia;line-height: 1.5;} .live-match .live-match-comment p a{color: #4a88c6;font-weight: bold;}`,
-            }}></style>
+            }}
+          />
         )}
     </>
   )
