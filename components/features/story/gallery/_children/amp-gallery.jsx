@@ -48,7 +48,7 @@ const StoryHeaderChildAmpGallery = props => {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size,
+      size
     }
   }
   return (

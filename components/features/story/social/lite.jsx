@@ -37,7 +37,7 @@ const StorySocialLite = () => {
 
   const isArchivoElcomercio = requestUri.includes('/archivo-elcomercio')
 
-  const { isPremium } = new StoryData({
+  const { isPremium, editorNote } = new StoryData({
     data: globalContent,
     contextPath,
   })
@@ -56,12 +56,19 @@ const StorySocialLite = () => {
           className={`${classes.section}${
             isPremium ? ' st-social__premium' : ''
           }`}>
-          <a
-            itemProp="url"
-            className={classes.sectionLink}
-            href={primarySectionLink}>
-            {primarySection}
-          </a>
+          {(editorNote && (
+            <p
+              itemProp="description"
+              dangerouslySetInnerHTML={{ __html: editorNote }}
+            />
+          )) || (
+            <a
+              itemProp="url"
+              className={classes.sectionLink}
+              href={primarySectionLink}>
+              {primarySection}
+            </a>
+          )}
         </h2>
         {trustproject && (
           <TProLbl trustproject={trustproject} plantilla="lite" />

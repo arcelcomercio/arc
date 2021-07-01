@@ -1,13 +1,15 @@
+import { ARC_ACCESS_TOKEN, CONTENT_BASE } from 'fusion:environment'
+import getProperties from 'fusion:properties'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
-import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
-import getProperties from 'fusion:properties'
-import { getResizedImageData } from '../../components/utilities/resizer/resizer'
+
 import {
-  includePromoItems,
-  includePrimarySection,
   includeCredits,
+  includePrimarySection,
+  includePromoItems,
 } from '../../components/utilities/included-fields'
+import RedirectError from '../../components/utilities/redirect-error'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'stories-dev'
 
@@ -151,7 +153,7 @@ const validateFrom = (page, size) => {
   return '0'
 }
 
-const fetch = ({
+const fetch = async ({
   'arc-site': website,
   query,
   section: rawSection,
@@ -180,28 +182,38 @@ const fetch = ({
   const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&${queryFilter}${sourceInclude}`
 
   if (section === 'todas') {
-    return request({
+    const responseDefult = await request({
       uri: requestUri,
       ...options,
-    }).then((data) => data)
+    }).catch(() => {
+      throw new RedirectError('/404', 404)
+    })
+    return responseDefult
   }
 
   /**
    * Si se esta buscando por seccion, primero se verifica que la seccion existe.
    * Si la seccino no existe debe devolver 404.
    */
-  return request({
+  const sectionResponse = await request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${section}`,
     ...options,
-  }).then((resp) => {
-    if (Object.prototype.hasOwnProperty.call(resp, 'status'))
-      throw new Error('Sección no encontrada')
-
-    return request({
-      uri: requestUri,
-      ...options,
-    }).then((data) => data)
+  }).catch(() => {
+    throw new RedirectError('/404', 404)
   })
+
+  if (Object.prototype.hasOwnProperty.call(sectionResponse, 'status')) {
+    throw new Error('Sección no encontrada')
+  }
+
+  const responseWithFilter = await request({
+    uri: requestUri,
+    ...options,
+  }).catch(() => {
+    throw new RedirectError('/404', 404)
+  })
+
+  return responseWithFilter
 }
 
 const transform = (

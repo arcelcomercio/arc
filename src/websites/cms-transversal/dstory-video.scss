@@ -1,0 +1,176 @@
+/* --- BASE -------------------------------------------------------------
+  Estilos core del framework, modificadores del core y partials por marca 
+------------------------------------------------------------------------- */
+@import "../elcomercio/scss/partials/import-icons";
+@import "../../general-styles/framework/variables/index";
+@import "../elcomercio/scss/variables/index";
+//@import "../../general-styles/framework/core/index";
+
+@import "../../general-styles/framework/core/reset";
+@import "../../general-styles/framework/core/base-icons";
+@import "../../general-styles/framework/core/content-layout";
+//@import "../../general-styles/framework/core/content-sidebar";
+@import "../../general-styles/framework/core/flex";
+@import "../../general-styles/framework/core/utils-video";
+//@import "../../general-styles/framework/core/grid";
+//@import "../../general-styles/framework/core/ie-grid";
+@import "../../general-styles/framework/core/button";
+@import "../../general-styles/framework/core/ads-zocalo";
+
+@import "../elcomercio/scss/partials/import-fonts";
+
+/* --- STORY VARIABLES --------------------------------------------------
+  Modificacion de variables SCSS del core y de marca
+------------------------------------------------------------------------- */
+
+/* --- GLOBAL COMPONENTS ------------------------------------------------
+  Estilos de componentes globales desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/ads/ads";
+
+/* --- FEATURES ---------------------------------------------------------
+  Estilos de features desde el core
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/header/inverted";
+@import "../../general-styles/components/features/video/section/play-list";
+
+/* --- MODIFICADORES ----------------------------------------------------
+  Estilos de features modificados por marca
+------------------------------------------------------------------------- */
+@import "../elcomercio/scss/global-components/independent-title";
+@import "../elcomercio/scss/components/layout/header/header";
+@import "../elcomercio/scss/components/header/inverted";
+@import "../elcomercio/scss/components/section/section";
+@import "../elcomercio/scss/components/video/play-list";
+@import "../elcomercio/scss/components/video/section-video";
+@import "../elcomercio/scss/components/video/video-list";
+
+.p-30 {
+  padding: 30px;
+}
+.line-h-lg {
+  line-height: 1.6666666667;
+}
+.line-h-md {
+  line-height: 1.5;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.section-videos
+  .flex.flex-col.content-layout-container.w-full.position-relative.bg-container {
+  background-color: transparent;
+}
+.p-20 {
+  padding: 20px;
+}
+.border-solid {
+  border-style: solid;
+}
+.border-dashed {
+  border-style: dashed;
+}
+
+@media screen and (min-width: 1024px) {
+  .section-video .section-video__top,
+  .section-video__detail {
+    flex-direction: row;
+    padding-bottom: 20px;
+  }
+  .header-inverted__btn-menu.flex.items-center.font-bold.text-white {
+    padding-left: 20px;
+  }
+}
+.section-video__top {
+  display: flex;
+  flex-direction: column;
+}
+.border-r-1 {
+  border-right-width: 1px;
+}
+.pl-15 {
+  padding-left: 15px;
+}
+
+.pb-10 {
+  padding-bottom: 10px;
+}
+.pb-15 {
+  padding-bottom: 15px;
+}
+
+.pl-25 {
+  padding-left: 25px;
+}
+
+.pl-30 {
+  padding-left: 30px;
+}
+
+.pr-30 {
+  padding-right: 30px;
+}
+
+.pt-15 {
+  padding-top: 15px;
+}
+
+.p-15 {
+  padding: 15px;
+}
+.border-gray {
+  border-color: #e8e8e8;
+}
+.border-b-1 {
+  border-bottom-width: 1px;
+}
+
+.section-video .story-content__caption {
+  display: none;
+}
+.section-video__box-section {
+  margin-bottom: 5px;
+}
+@media screen and (max-width: 639px) {
+  .flex.items-center.justify-start.nav__container-menu {
+    margin-right: 10px;
+  }
+  .header-inverted .nav__mobile-logo {
+    left: 15%;
+  }
+}
+
+.nav {
+  &__input-search {
+    background-color: transparent;
+    outline: none;
+    padding-right: 40px;
+    height: 30px;
+    text-indent: 0;
+    display: initial;
+    transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715),
+      padding-left 0.25s;
+    will-change: width;
+
+    &.active {
+      padding-left: 8px;
+      transition: width 0.25s cubic-bezier(0.49, 0.37, 0.445, 0.715);
+      width: 200px;
+      will-change: width;
+      border: solid 1px $color-primary;
+    }
+  }
+}
+.nav__btn--search {
+  padding: 6px;
+  padding-right: 20px;
+}
+.video-navbar__list {
+  display: flex;
+}
+.bg-primary {
+  background-color: #f7c600;
+}
+.section-video__left {
+  width: 100%;
+}
