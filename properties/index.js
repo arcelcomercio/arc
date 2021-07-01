@@ -1,6 +1,9 @@
 export default {
   linkTabloide: 'https://peruquiosco.pe/',
   newsletterBrand: '',
+  siteTitle: 'Cms',
+  resizerUrl: 'https://elcomercio.pe/resizer',
+  siteName: 'Cms',
   api: {
     blog: '',
   },
@@ -152,6 +155,15 @@ export default {
   taboola: {
     dataModeAmp: 'thumbnails-a-amp',
     mode: 'thumbnails-a',
+  },
+  social: {
+    facebook: {
+      user: '@elcomercio.pe',
+      url: 'https://www.facebook.com/elcomercio.pe',
+    },
+    twitter: {
+      user: 'elcomercio_peru',
+    },
   },
   stick: {
     logo: 'logo-stick.png',
