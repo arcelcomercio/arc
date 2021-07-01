@@ -200,14 +200,14 @@ document.addEventListener('DOMContentLoaded', function() {
           Taggeo('web_swg_link_ingresaperfil')
           window.location.href =
             arcEnv === 'prod'
-              ? '/mi-perfil/?outputType=signwall'
-              : `/mi-perfil/?_website=${arcSite}&outputType=signwall`
+              ? '/mi-perfil/?outputType=subscriptions'
+              : `/mi-perfil/?_website=${arcSite}&outputType=subscriptions`
         } else {
           Taggeo('web_swg_link_ingresacuenta')
           window.location.href =
             arcEnv === 'prod'
-              ? '/signwall/?outputType=signwall&signwallOrganic=1'
-              : `/signwall/?_website=${arcSite}&outputType=signwall&signwallOrganic=1`
+              ? '/signwall/?outputType=subscriptions&signwallOrganic=1'
+              : `/signwall/?_website=${arcSite}&outputType=subscriptions&signwallOrganic=1`
         }
       })
     if (uuid) {
@@ -244,4 +244,4 @@ document.addEventListener('DOMContentLoaded', function() {
 }) */
 
 export const singwallScript = ({ arcSite, arcEnv, locUrl }) =>
-  `var arcSite="${arcSite}",arcEnv="${arcEnv}",locUrl="${locUrl}";document.addEventListener("DOMContentLoaded",function(){var e=function(e){window.dataLayer=window.dataLayer||[];var n={event:"tag_signwall",eventCategory:"Web_Sign_Wall_General",eventAction:e};window.dataLayer.push(n),"sandbox"===arcEnv&&window.console.log(n)};window.requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,t=void 0===i?"":i,a=n.lastName,r=void 0===a?"":a,o=n.uuid,l=void 0===o?"":o;if(document.querySelector(".h-basic__btn-user").addEventListener("click",function(){l?(e("web_swg_link_ingresaperfil"),window.location.href="prod"===arcEnv?"/mi-perfil/?outputType=signwall":"/mi-perfil/?_website="+arcSite+"&outputType=signwall"):(e("web_swg_link_ingresacuenta"),window.location.href="prod"===arcEnv?"/signwall/?outputType=signwall&signwallOrganic=1":"/signwall/?_website="+arcSite+"&outputType=signwall&signwallOrganic=1")}),l){var c=document.body.querySelector(".h-basic__user-txt");if(!t&&!r||"undefined"===t&&"undefined"===r)c.innerHTML="Bienvenido Usuario";else{var d="";t&&r?d=("undefined"!==t?t:"")+" "+("undefined"!==r?r:""):t&&!r?d=t:!t&&r&&(d=r),c.innerHTML=d.length>30?d.slice(0,30)+"...":d}}document.body.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc="+locUrl})})});`
+  `var arcSite="${arcSite}",arcEnv="${arcEnv}",locUrl="${locUrl}";document.addEventListener("DOMContentLoaded",function(){var e=function(e){window.dataLayer=window.dataLayer||[];var n={event:"tag_signwall",eventCategory:"Web_Sign_Wall_General",eventAction:e};window.dataLayer.push(n),"sandbox"===arcEnv&&window.console.log(n)};window.requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,t=void 0===i?"":i,a=n.lastName,r=void 0===a?"":a,o=n.uuid,l=void 0===o?"":o;if(document.querySelector(".h-basic__btn-user").addEventListener("click",function(){l?(e("web_swg_link_ingresaperfil"),window.location.href="prod"===arcEnv?"/mi-perfil/?outputType=subscriptions":"/mi-perfil/?_website="+arcSite+"&outputType=subscriptions"):(e("web_swg_link_ingresacuenta"),window.location.href="prod"===arcEnv?"/signwall/?outputType=subscriptions&signwallOrganic=1":"/signwall/?_website="+arcSite+"&outputType=subscriptions&signwallOrganic=1")}),l){var c=document.body.querySelector(".h-basic__user-txt");if(!t&&!r||"undefined"===t&&"undefined"===r)c.innerHTML="Bienvenido Usuario";else{var d="";t&&r?d=("undefined"!==t?t:"")+" "+("undefined"!==r?r:""):t&&!r?d=t:!t&&r&&(d=r),c.innerHTML=d.length>30?d.slice(0,30)+"...":d}}document.body.querySelector(".h-basic__sub").addEventListener("click",function(){window.location.href="/suscripciones/?ref=btn-suscribete-elcomercio&loc="+locUrl})})});`

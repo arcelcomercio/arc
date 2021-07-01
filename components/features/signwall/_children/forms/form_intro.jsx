@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import Markdown from 'react-markdown/with-html'
 import { useContent } from 'fusion:content'
-import * as S from './styles'
-import { ModalConsumer } from '../context'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
+import Markdown from 'react-markdown/with-html'
+
+import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import { getUrlPaywall } from '../../_dependencies/domains'
 import Loading from '../loading'
-import Domains from '../../_dependencies/domains'
-import Taggeo from '../../_dependencies/taggeo'
 
 const FormIntro = ({
-  arcSite,
   typeDialog,
-  removeBefore = i => i,
-  checkModal = i => i,
+  removeBefore = (i) => i,
+  checkModal = (i) => i,
 }) => {
-  const [showLoading, setShowLoading] = useState(true)
-  const [showPaywallBtn, setShowPaywallBtn] = useState(false)
+  const { arcSite } = useAppContext() || {}
+  const { changeTemplate } = React.useContext(ModalConsumer)
+  const [showLoading, setShowLoading] = React.useState(true)
+  const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
 
   const { summary: { feature = [] } = {}, plans = [], printAttributes = [] } =
     useContent({
@@ -26,9 +28,10 @@ const FormIntro = ({
     Year: 'al año',
   }
 
-  const getPLanSelected = plans.reduce((prev, plan) => {
-    return plan.description.checked ? plan : prev
-  }, null)
+  const getPLanSelected = plans.reduce(
+    (prev, plan) => (plan.description.checked ? plan : prev),
+    null
+  )
 
   const {
     amount = '',
@@ -36,7 +39,7 @@ const FormIntro = ({
     description: { title = '', description = '' } = {},
   } = getPLanSelected || {}
 
-  useEffect(() => {
+  React.useEffect(() => {
     setShowLoading(false)
     if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
       setShowPaywallBtn(true)
@@ -46,11 +49,6 @@ const FormIntro = ({
   const handleSuscription = () => {
     switch (typeDialog) {
       case 'premium':
-        window.sessionStorage.setItem(
-          'paywall_last_url',
-          window.location.pathname ? window.location.pathname : ''
-        )
-        break
       case 'paywall':
         window.sessionStorage.setItem(
           'paywall_last_url',
@@ -63,144 +61,139 @@ const FormIntro = ({
 
     removeBefore()
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
-    window.location.href = Domains.getUrlPaywall(arcSite)
+    window.location.href = getUrlPaywall(arcSite)
   }
 
   return (
-    <ModalConsumer>
-      {value => (
-        <S.Form typeDialog={typeDialog}>
-          {showLoading ? (
-            <Loading arcSite={arcSite} typeBg="wait" typeDialog={typeDialog} />
-          ) : (
-            <>
-              <S.ContPaywall>
-                <div className="cont-price-detail">
-                  {amount === 0 ? (
-                    <div className="price-middle">
-                      <h3>Gratis</h3>
-                    </div>
-                  ) : (
-                    <div className="price">
-                      <i>s/</i>
-                      {amount}
-                    </div>
-                  )}
-                  <div
-                    className={
-                      amount === 0 ? 'detail-price-middle' : 'detail-price'
-                    }>
-                    {amount !== 0 && (
-                      <p>
-                        <strong>{frecuency[billingFrequency]}</strong>
-                      </p>
-                    )}
-                    <p>
-                      <strong>{title}</strong>
-                    </p>
-                    <p>{description}</p>
-                  </div>
+    <form className={`signwall-inside_forms-form ${typeDialog}`}>
+      {showLoading ? (
+        <Loading typeBg="premium" />
+      ) : (
+        <>
+          <div className="signwall-inside_forms-cont-paywall">
+            <div className="cont-price-detail">
+              {amount === 0 ? (
+                <div className="price-middle">
+                  <h3>Gratis</h3>
                 </div>
-
-                {typeDialog !== 'premium' ? (
-                  <>
-                    <h3 className="title-line line-gestion uppercase text-center mt-30 mb-20">
-                      <span>Beneficios</span>
-                    </h3>
-
-                    <ul className="list-benefits mb-20">
-                      {feature.map(item => {
-                        return <li key={item}>{item}</li>
-                      })}
-                    </ul>
-                  </>
-                ) : (
-                  <div className="mt-20 block"></div>
-                )}
-              </S.ContPaywall>
-
-              {showPaywallBtn ? (
-                <S.Button
-                  type="button"
-                  onClick={() => {
-                    Taggeo(
-                      `Web_${typeDialog}_Hard`,
-                      `web_${typeDialog}_boton_ver_planes`
-                    )
-                    handleSuscription()
-                  }}>
-                  VER PLANES
-                </S.Button>
               ) : (
-                <S.Button
-                  type="button"
-                  onClick={() => {
-                    Taggeo(
-                      `Web_${typeDialog}_Hard`,
-                      `web_${typeDialog}_boton_iniciar_continuar`
-                    )
-
-                    if (typeDialog === 'premium') {
-                      window.sessionStorage.setItem(
-                        'paywall_last_url',
-                        window.location.pathname ? window.location.pathname : ''
-                      )
-                    } else {
-                      window.sessionStorage.setItem(
-                        'paywall_last_url',
-                        window.document.referrer
-                          ? window.document.referrer.split(
-                              window.location.origin
-                            )[1]
-                          : ''
-                      )
-                    }
-                    value.changeTemplate('login')
-                    checkModal()
-                  }}>
-                  CONTINUAR
-                </S.Button>
+                <div className="price">
+                  <i>s/</i>
+                  {amount}
+                </div>
               )}
+              <div
+                className={
+                  amount === 0 ? 'detail-price-middle' : 'detail-price'
+                }>
+                {amount !== 0 && (
+                  <p>
+                    <strong>{frecuency[billingFrequency]}</strong>
+                  </p>
+                )}
+                <p>
+                  <strong>{title}</strong>
+                </p>
+                <p>{description}</p>
+              </div>
+            </div>
 
-              <S.Text
-                c="gray"
-                s={typeDialog === 'premium' ? '12' : '15'}
-                className="mt-20 mb-10 center">
-                {printAttributes.map(item => {
-                  if (item.name === 'subscriber_title_popup') {
-                    return item.value
-                  }
-                  return null
-                })}
-              </S.Text>
+            {typeDialog !== 'premium' ? (
+              <>
+                <h3 className="title-line line-gestion uppercase text-center mt-30 mb-20">
+                  <span>Beneficios</span>
+                </h3>
 
-              <S.Text
-                c="gray"
-                s={typeDialog === 'premium' ? '12' : '15'}
-                className={`center note-premium ${
-                  arcSite === 'elcomercio' ? 'mb-10' : ''
-                }`}>
-                {printAttributes.map(item => {
-                  if (item.name === 'subscriber_detail_popup') {
-                    return (
-                      <div className="sub-paragraph">
-                        <Markdown
-                          source={item.value}
-                          escapeHtml={false}
-                          unwrapDisallowed
-                          disallowedTypes={['paragraph']}
-                        />
-                      </div>
-                    )
-                  }
-                  return null
-                })}
-              </S.Text>
-            </>
+                <ul className="list-benefits mb-20">
+                  {feature.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <div className="mt-20 block" />
+            )}
+          </div>
+
+          {showPaywallBtn ? (
+            <button
+              type="button"
+              className="signwall-inside_forms-btn"
+              onClick={() => {
+                Taggeo(
+                  `Web_${typeDialog}_Hard`,
+                  `web_${typeDialog}_boton_ver_planes`
+                )
+                handleSuscription()
+              }}>
+              VER PLANES
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="signwall-inside_forms-btn"
+              onClick={() => {
+                Taggeo(
+                  `Web_${typeDialog}_Hard`,
+                  `web_${typeDialog}_boton_iniciar_continuar`
+                )
+
+                if (typeDialog === 'premium') {
+                  window.sessionStorage.setItem(
+                    'paywall_last_url',
+                    window.location.pathname ? window.location.pathname : ''
+                  )
+                } else {
+                  window.sessionStorage.setItem(
+                    'paywall_last_url',
+                    window.document.referrer
+                      ? window.document.referrer.split(
+                          window.location.origin
+                        )[1]
+                      : ''
+                  )
+                }
+                changeTemplate('login')
+                checkModal()
+              }}>
+              CONTINUAR
+            </button>
           )}
-        </S.Form>
+
+          <p
+            style={{
+              fontSize: typeDialog === 'premium' ? '12px' : '15px',
+            }}
+            className="signwall-inside_forms-text mt-20 mb-10 center">
+            {printAttributes.map((item) => (
+              <React.Fragment key={item.name}>
+                {item.name === 'subscriber_title_popup' && item.value}
+              </React.Fragment>
+            ))}
+          </p>
+
+          <p
+            style={{ fontSize: typeDialog === 'premium' ? '12px' : '15px' }}
+            className={`signwall-inside_forms-text center note-premium ${
+              arcSite === 'elcomercio' ? 'mb-10' : ''
+            }`}>
+            {printAttributes.map(
+              (item) =>
+                item.name === 'subscriber_detail_popup' && (
+                  <React.Fragment key={item.name}>
+                    <Markdown
+                      source={item.value}
+                      escapeHtml={false}
+                      unwrapDisallowed
+                      disallowedTypes={['paragraph']}
+                    />
+                  </React.Fragment>
+                )
+            )}
+          </p>
+        </>
       )}
-    </ModalConsumer>
+    </form>
   )
 }
 

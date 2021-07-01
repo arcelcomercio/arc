@@ -1,5 +1,6 @@
 import { defaultImage, getAssetsPath } from './assets'
 import {
+  ELEMENT_BLOCKQUOTE,
   ELEMENT_CORRECTION,
   ELEMENT_CUSTOM_EMBED,
   ELEMENT_HEADER,
@@ -45,12 +46,12 @@ import {
 } from './constants/multimedia-types'
 import {
   IMAGE_LINK,
+  SALTAR_INTRO,
   STAMP_TRUST,
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
-  SALTAR_INTRO,
   WORK_TYPE_REVISION,
 } from './constants/subtypes'
 import { msToTime, secToTime } from './date-time/time'
@@ -836,6 +837,15 @@ class StoryData {
     return result && result.type === ELEMENT_LIST ? result : []
   }
 
+  get contentElementsQuoteOne() {
+    const result =
+      (this._data &&
+        this._data.content_elements &&
+        this._data.content_elements[0]) ||
+      {}
+    return result && result.type === ELEMENT_BLOCKQUOTE ? result.content : null
+  }
+
   get contentElementsHtml() {
     return (
       (this._data &&
@@ -1032,36 +1042,21 @@ class StoryData {
           dataElements = dataContent
         } */
 
-        if (this.__website === 'elcomerciomag' || this.__website === 'depor') {
-          if (i === 1) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja3`
-          }
-          if (i === 3) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `inline`
-          }
-          if (i === 5) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja4`
-          }
-          if (i === 7) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja5`
-          }
-        } else {
-          if (i === 2) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `inline`
-          }
-          if (i === 4) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja4`
-          }
-          if (i === 6) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja5`
-          }
+        if (i === 0) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja3`
+        }
+        if (i === 2) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `inline`
+        }
+        if (i === 4) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
+        }
+        if (i === 6) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja5`
         }
         if (typeElement === ELEMENT_TEXT) {
           i += 1
@@ -1936,6 +1931,8 @@ class StoryData {
   }
 
   static paragraphsNews(contentElements) {
+    console.log('PAPRAHRAPHS')
+    console.log(JSON.stringify(contentElements))
     const paragraphs = contentElements.map(
       ({
         content = '',

@@ -34,6 +34,18 @@ export const TaggeoJoao = (obj, path) => {
   }
 }
 
+export const TagsAdsMurai = (obj, path) => {
+  window.dataLayer.push(obj)
+  if (!isProd) {
+    window.console.groupCollapsed(
+      `%c 🔔 Taggeo AdsMurai - Data: ${obj} | Ruta: ${path}`,
+      'color:  blue; font-size: 12px'
+    )
+    window.console.table(obj)
+    window.console.groupEnd()
+  }
+}
+
 /**
  * @typedef {object} EventCategoryOpts
  * @property {(1|2|3)} step
@@ -47,14 +59,14 @@ export const TaggeoJoao = (obj, path) => {
  * @param {EventCategoryOpts}
  * @returns {string}
  */
-export const eventCategory = ({ step, event, hasPrint, plan, cancel }) => {
+export const eventCategory = ({ step, event, hasPrint, plan, cancel, cip }) => {
   let planName = plan ? plan.replace(' ', '_') : ''
   if (event && event === 'winback') {
     planName = 'Plan_Winback'
   } else if (hasPrint) {
     planName = 'Plan_Suscriptor'
   }
-  return `P${step}_${planName}${cancel ? '_Cancelado' : ''}`
+  return `P${step}_${planName}${cancel ? '_Cancelado' : ''}${cip ? '_CIP' : ''}`
 }
 
 export const PixelActions = {

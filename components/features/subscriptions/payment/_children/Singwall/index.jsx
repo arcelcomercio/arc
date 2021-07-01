@@ -6,7 +6,11 @@ import Login from '../../../_children/login'
 import Register from '../../../_children/register'
 import { NavigateConsumer, NavigateProvider } from '../../../_context/navigate'
 import PWA from '../../../_dependencies/Pwa'
-import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
+import {
+  PixelActions,
+  sendAction,
+  TagsAdsMurai,
+} from '../../../_dependencies/Taggeo'
 import { getSessionStorage, isFbBrowser } from '../../../_dependencies/Utils'
 
 const renderTemplate = (template, contTempl, attributes) => {
@@ -18,11 +22,13 @@ const renderTemplate = (template, contTempl, attributes) => {
   return templates[template] || templates.login
 }
 
-const WrapperSingwall = () => {
+const WrapperSingwall = ({ typeDialog }) => {
   const {
     arcSite,
     globalContent: { plans = [], printedSubscriber, fromFia },
   } = useAppContext() || {}
+
+  const { selectedTemplate, valueTemplate } = React.useContext(NavigateConsumer)
 
   React.useEffect(() => {
     window.dataLayer = window.dataLayer || []
@@ -45,7 +51,19 @@ const WrapperSingwall = () => {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
 
-    if (fromFia || isFbBrowser()) {
+    TagsAdsMurai(
+      {
+        event: 'adsmurai_pageview',
+        em: '',
+        fn: '',
+        ln: '',
+        ct: '',
+        ph: '',
+      },
+      window.location.pathname
+    )
+
+    if (fromFia || isFbBrowser) {
       // TODO: cambiar surface de 'fia' a 'IA' segun documentacion
       // https://developers.facebook.com/docs/instant-articles/subscriptions/pixel-measurement/
       window.fbq('track', 'ViewPaywall', {
@@ -65,17 +83,15 @@ const WrapperSingwall = () => {
   }, [])
 
   return (
-    <NavigateConsumer>
-      {({ selectedTemplate, valueTemplate }) => (
-        <>{renderTemplate(selectedTemplate, valueTemplate, { arcSite })}</>
-      )}
-    </NavigateConsumer>
+    <>
+      {renderTemplate(selectedTemplate, valueTemplate, { arcSite, typeDialog })}
+    </>
   )
 }
 
 const Singwall = () => (
   <NavigateProvider>
-    <WrapperSingwall />
+    <WrapperSingwall typeDialog="landing" />
   </NavigateProvider>
 )
 

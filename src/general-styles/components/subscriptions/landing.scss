@@ -3,7 +3,7 @@
 @import "./base/_ie";
 @import "./base/_fonts";
 @import "./base/_base";
-@import "./modules/loading";
+@import "../features//signwall/loading";
 
 // Estilos para landing principal
 @import "./modules/_header";
@@ -22,3 +22,4 @@
 
 @import "./modules/_footer";
 @import "./modules/_modal";
+@import "../features/signwall/modal";

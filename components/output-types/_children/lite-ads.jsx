@@ -247,7 +247,7 @@ const LiteAds = ({
     })
   */
 
-  const adsLite1 = `"use strict";window.lazier=function(e,t){var o,n=arguments.length<=2||void 0===arguments[2]?"0px 0px 200px 0px":arguments[2],a=function(e,o){e.forEach(function(e){var n=e.isIntersecting,a=e.target;n&&(t(a),o.unobserve(a))})};"IntersectionObserver"in window&&(o={rootMargin:n},e.forEach(function(e){new IntersectionObserver(a,o).observe(e)}))},window.isMobiles=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent),window.mobile=window.isMobiles?"mobile":"desktop";var userPaywall=function(){var e="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,o=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];o&&o.sub.p.length&&(e="si")}else e="no";return e},userPaywallStat=userPaywall(),getTmpAd=function(){return(window.location.search.match(/tmp_ad=([^&]*)/)||[])[1]||""},getTarget=function(){return{contenido:"st_value3",publisher:"${arcSite}",seccion:section,categoria:subsection,fuente:"WEB",tipoplantilla:"post",phatname:"st_value6",tags:"st_value9",ab_test:"",paywall:userPaywallStat,tmp_ad:getTmpAd()}};window.googletag=window.googletag||{cmd:[]};`
+  const adsLite1 = `"use strict";window.lazier=function(e,t){var o,n=arguments.length<=2||void 0===arguments[2]?"0px 0px 200px 0px":arguments[2],a=function(e,o){e.forEach(function(e){var n=e.isIntersecting,a=e.target;n&&(t(a),o.unobserve(a))})};"IntersectionObserver"in window&&(o={rootMargin:n},e.forEach(function(e){new IntersectionObserver(a,o).observe(e)}))},window.isMobiles=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent),window.mobile=window.isMobiles?"mobile":"desktop";var userPaywall=function(){var e="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,o=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];o&&o.sub.p.length&&(e="si")}else e="no";return e},userPaywallStat=userPaywall(),getTmpAd=function(){return(window.location.search.match(/tmp_ad=([^&]*)/)||[])[1]||""},getTarget=function(){return{contenido:"st_value3",publisher:"${arcSite}",seccion:section,categoria:subsection,fuente:"WEB",tipoplantilla:"post",phatname:"st_value6",tags:"st_value9",ab_test:"",paywall:userPaywallStat,tmp_ad:getTmpAd()}};window.googletag=window.googletag||{cmd:[]};window.adsContinua=window.adsContinua||[];window.adsCollection=window.adsCollection||[];`
     .replace(/st_value3/g, typeContent)
     .replace(/st_value6/g, `${siteProperties.siteUrl}${requestUri}`)
     .replace(/st_value9/g, targetingTags)
@@ -312,6 +312,8 @@ const LiteAds = ({
         }
     };
     window.googletag = window.googletag || { cmd: [] };
+    window.adsContinua = window.adsContinua || [];
+    window.adsCollection = window.adsCollection || [];
   */
 
   const adsEconomiaTop = `"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){window.isMobiles=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent);var t=[].slice.call(document.querySelectorAll(isMobiles?"div[data-ads-name][data-ads-dimensions-m]":"div[data-ads-name][data-ads-dimensions]"));window.existAds=t.length>0,window.lazier=function(t,e,a){void 0===a&&(a="0px 0px 200px 0px");var i=function(t,a){t.forEach(function(t){var i=t.isIntersecting,n=t.target;i&&(e(n),a.unobserve(n))})};if("IntersectionObserver"in window){var n={rootMargin:a};t.forEach(function(t){new IntersectionObserver(i,n).observe(t)})}};var e=window,a=e.section,i=e.subsection,n=function(){var t="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,a=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[e];a&&a.sub.p.length&&(t="si")}else t="no";return t}();window.adsCollection=[],t.forEach(function(t){""!==(isMobiles?t.getAttribute("data-ads-dimensions-m"):t.getAttribute("data-ads-dimensions"))&&window.adsCollection.push(function(t){var e=t||{},o=e.getAttribute("data-ads-name").replace("snota",a).slice(10),s=isMobiles?e.getAttribute("data-ads-dimensions-m"):e.getAttribute("data-ads-dimensions"),d=JSON.parse(s||"[]"),r=e.getAttribute("data-bloque")?e.getAttribute("data-bloque"):1;return{id:e.id,slotName:o,dimensions:d,targeting:{contenido:"st_value3",publisher:"${arcSite}",seccion:a,categoria:i,fuente:"WEB",tipoplantilla:"post",phatname:"st_value6",tags:"st_value9",ab_test:"",paywall:n,tmp_ad:(window.location.search.match(/tmp_ad=([^&]*)/)||[])[1]||""},bloque:r}}(t))})})});`
@@ -319,62 +321,55 @@ const LiteAds = ({
     .replace(/st_value6/g, `${siteProperties.siteUrl}${requestUri}`)
     .replace(/st_value9/g, targetingTags)
   /* 
-window.addEventListener('load', function liteAds() {
- requestIdle(function initLiteAds() {
-     const {
-         isMobiles,
-         existAds,
-         adsCollection
-     } = window
+  window.addEventListener('load', function liteAds() {
+    requestIdle(function initLiteAds() {
+        const {
+            isMobiles,
+            existAds,
+            adsCollection
+        } = window
 
-     if (existAds) {
-         // Solo ejecuta si existen ads
-         window.googletag = window.googletag || {
-             cmd: []
-         }
-         googletag.cmd.push(function() {
-             googletag.pubads().collapseEmptyDivs();
-             googletag.enableServices();
-         });
+        if (existAds) {
+            // Solo ejecuta si existen ads
+            window.googletag = window.googletag || {
+                cmd: []
+            }
+            googletag.cmd.push(function() {
+                googletag.pubads().collapseEmptyDivs();
+                googletag.enableServices();
+            });
 
-         if (window.adsCollection.length > 0) requestIdle(function() {
-             firstRequest()
-         })
+            if (window.adsCollection.length > 0) requestIdle(function() {
+                firstRequest()
+            })
 
-         const firstRequest = () => {
-             let arcAds = new ArcAds({
-                 dfp: {
-                     id: "28253241"
-                 }
-             });
-             let adsBloque1 = window.adsCollection.filter(
-                 function(input) {
-                     if (input.bloque == '1') {
-                         return input;
-                     };
-                 }
-             );
+            const firstRequest = () => {
+                let arcAds = new ArcAds({
+                    dfp: {
+                        id: "28253241"
+                    }
+                });
+                let adsBloque1 = window.adsCollection.filter(
+                    function(input) {
+                        if (input.bloque == '1') {
+                            return input;
+                        };
+                    }
+                );
 
-             window.adsBloque1 = adsBloque1
-             arcAds.registerAdCollection(adsBloque1)
-         }
-     }
- })
-})
-*/
+                window.adsBloque1 = adsBloque1
+                arcAds.registerAdCollection(adsBloque1)
+            }
+        }
+    })
+  })
+  */
 
   const adsEconomiaNext = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var o=window,e=(o.isMobiles,o.existAds);o.adsCollection;if(e){window.googletag=window.googletag||{cmd:[]},googletag.cmd.push(function(){googletag.pubads().collapseEmptyDivs(),googletag.enableServices()}),window.adsCollection.length>0&&requestIdle(function(){i()});var i=function(){var o=new ArcAds({dfp:{id:"28253241"}}),e=window.adsCollection.filter(function(o){if("1"==o.bloque)return o});window.adsBloque1=e,o.registerAdCollection(e)}}})});`
   const tiponota = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
   return (
     <>
-      {arcSite === 'elcomerciomag' ||
-      arcSite === 'trome' ||
-      arcSite === 'elbocon' ||
-      arcSite === 'peru21' ||
-      arcSite === 'elcomercio' ||
-      arcSite === 'gestion' ||
-      arcSite === 'depor' ||
-      arcSite === 'ojo' ? (
+      {arcSite !== 'diariocorreo' ? (
         <>
           {arcSite !== 'elcomerciomag' &&
           !(
@@ -390,9 +385,10 @@ window.addEventListener('load', function liteAds() {
                   .slice(0, 10)}`}></script>
             </>
           ) : null}
+          {/* pro: d2dvq461rdwooi | dev: d37z8six7qdyn4 */}
           <script
             defer
-            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section.replace(
+            src={`https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
               /-/gm,
               ''
             )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}></script>
@@ -401,39 +397,15 @@ window.addEventListener('load', function liteAds() {
             src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
               .toISOString()
               .slice(0, 10)}`}></script>
-          {arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'trome' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'ojo' ||
-          arcSite === 'depor' ? (
-            <>
-              <script
-                type="text/javascript"
-                dangerouslySetInnerHTML={{
-                  __html: adsLite1,
-                }}
-              />
-              <script
-                async
-                src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-            </>
-          ) : (
-            <>
-              <script
-                type="text/javascript"
-                dangerouslySetInnerHTML={{
-                  __html: adsMag1,
-                }}
-              />
-              <script
-                type="text/javascript"
-                dangerouslySetInnerHTML={{
-                  __html: adsMag2,
-                }}
-              />
-            </>
-          )}
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: adsLite1,
+            }}
+          />
+          <script
+            async
+            src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
         </>
       ) : (
         <>

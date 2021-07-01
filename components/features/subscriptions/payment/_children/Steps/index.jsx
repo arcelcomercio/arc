@@ -10,6 +10,9 @@ const Pay = React.lazy(() => import(/* webpackChunkName: 'Pay' */ '../Pay'))
 const Confirmation = React.lazy(() =>
   import(/* webpackChunkName: 'Confirmation' */ '../Confirmation')
 )
+const PagoEfectivo = React.lazy(() =>
+  import(/* webpackChunkName: 'PagoEfectivo' */ '../PagoEfectivo')
+)
 
 const PaymentSubscriptionsSteps = ({ step, userLoaded }) => {
   if (typeof window === 'undefined') return null
@@ -39,6 +42,16 @@ const PaymentSubscriptionsSteps = ({ step, userLoaded }) => {
       return userLoaded ? (
         <React.Suspense fallback={<div>Cargando...</div>}>
           <Confirmation />
+        </React.Suspense>
+      ) : (
+        <React.Suspense fallback={<div>Cargando...</div>}>
+          <Singwall />
+        </React.Suspense>
+      )
+    case 5:
+      return userLoaded ? (
+        <React.Suspense fallback={<div>Cargando...</div>}>
+          <PagoEfectivo />
         </React.Suspense>
       ) : (
         <React.Suspense fallback={<div>Cargando...</div>}>

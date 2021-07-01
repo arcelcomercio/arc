@@ -1,28 +1,32 @@
-/* eslint-disable import/prefer-default-export */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
-import * as S from './styles'
-import { ModalConsumer } from '../context'
-import { ForgotPass, MsgForgotPass, Back } from '../iconos'
-import { Input } from './control_input_select'
-import getCodeError from '../../_dependencies/codes_error'
-import useForm from '../../_dependencies/useForm'
-import Domains from '../../_dependencies/domains'
-import Taggeo from '../../_dependencies/taggeo'
+import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-export const FormForgot = ({
-  arcSite,
-  siteProperties: {
-    signwall: { mainColorBr, mainColorBtn, primaryFont },
-  },
-  typeDialog,
-}) => {
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [registerLink, setRegisterLink] = useState()
-  const [showVerify, setShowVerify] = useState()
-  const [showSendEmail, setShowSendEmail] = useState(false)
+import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import getCodeError, {
+  formatEmail,
+} from '../../../subscriptions/_dependencies/Errors'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../subscriptions/_hooks/useForm'
+import { getOriginAPI } from '../../_dependencies/domains'
+import { Back, ForgotPass, MsgForgotPass } from '../icons'
+import { Input } from './control_input_select'
+
+const FormForgot = ({ typeDialog }) => {
+  const {
+    arcSite,
+    siteProperties: {
+      signwall: { mainColorBr, mainColorBtn, mainColorLink, primaryFont },
+    },
+  } = useAppContext() || {}
+
+  const { changeTemplate } = React.useContext(ModalConsumer)
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showConfirm, setShowConfirm] = React.useState(false)
+  const [registerLink, setRegisterLink] = React.useState()
+  const [showVerify, setShowVerify] = React.useState()
+  const [showSendEmail, setShowSendEmail] = React.useState(false)
 
   const stateSchema = {
     femail: { value: '', error: '' },
@@ -31,13 +35,7 @@ export const FormForgot = ({
   const stateValidatorSchema = {
     femail: {
       required: true,
-      validator: {
-        func: value =>
-          /^[a-zA-Z0-9]{1}[a-zA-Z0-9._-]+@[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})+$/.test(
-            value
-          ),
-        error: 'Correo Electrónico Inválido',
-      },
+      validator: formatEmail(),
     },
   }
 
@@ -55,16 +53,15 @@ export const FormForgot = ({
     )
   }
 
-  const onSubmitForm = state => {
-    const { femail } = state
+  const onSubmitForm = ({ femail }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
     window.Identity.requestResetPassword(femail)
       .then(() => {
         setShowConfirm(!showConfirm)
         taggeoSuccess()
       })
-      .catch(errForgot => {
+      .catch((errForgot) => {
         setRegisterLink(errForgot.code === '300030')
         setShowVerify(errForgot.code === '130051')
         if (errForgot.code === '130051') {
@@ -112,150 +109,170 @@ export const FormForgot = ({
   }
 
   return (
-    <ModalConsumer>
-      {value => (
+    <form
+      className={`signwall-inside_forms-form ${
+        arcSite === 'trome' ? 'form-trome' : ''
+      } ${typeDialog}`}
+      onSubmit={(e) => {
+        handleOnSubmit(e)
+      }}>
+      <button
+        className="signwall-inside_forms-btn-base"
+        type="button"
+        onClick={() => {
+          Taggeo(
+            `Web_Sign_Wall_${typeDialog}`,
+            `web_sw${typeDialog[0]}_contrasena_link_volver`
+          )
+          switch (typeDialog) {
+            case 'relogemail':
+            case 'reloghash':
+              changeTemplate('relogin')
+              break
+            default:
+              changeTemplate('login')
+          }
+        }}>
+        <Back /> Volver
+      </button>
+
+      {!showConfirm ? (
         <>
-          <S.Form
-            onSubmit={e => {
-              handleOnSubmit(e)
-            }}
-            typeDialog={typeDialog}>
-            <S.ButtonBase
-              type="button"
-              onClick={() => {
-                Taggeo(
-                  `Web_Sign_Wall_${typeDialog}`,
-                  `web_sw${typeDialog[0]}_contrasena_link_volver`
-                )
-                switch (typeDialog) {
-                  case 'relogemail':
-                  case 'reloghash':
-                    value.changeTemplate('relogin')
-                    break
-                  default:
-                    value.changeTemplate('login')
-                }
-              }}>
-              <Back /> Volver
-            </S.ButtonBase>
+          <div className="center block mb-10">
+            <ForgotPass bgcolor={mainColorBr} />
+          </div>
+          <h4
+            className="signwall-inside_forms-title center mb-10"
+            style={{ fontSize: '22px', fontFamily: primaryFont }}>
+            Olvidé mi contraseña
+          </h4>
+          <p
+            className="signwall-inside_forms-text"
+            style={{
+              fontSize: '14px',
+              lineHeight: '26px',
+              textAlign: 'center',
+            }}>
+            Ingresa tu correo electrónico para <br /> cambiar tu contraseña
+          </p>
 
-            {!showConfirm ? (
-              <>
-                <div className="center block mb-10">
-                  <ForgotPass bgcolor={mainColorBr} />
-                </div>
-                <S.Title
-                  s="22"
-                  className="center mb-10"
-                  primaryFont={primaryFont}>
-                  Olvidé mi contraseña
-                </S.Title>
-                <S.Text c="gray" s="14" lh="26" className="center">
-                  Ingresa tu correo electrónico para <br /> cambiar tu
-                  contraseña
-                </S.Text>
+          {showError && (
+            <div
+              className={`signwall-inside_forms-error ${
+                showVerify ? 'warning' : ''
+              }`}>
+              {` ${showError} `}
+              {showVerify && (
+                <>
+                  {!showSendEmail ? (
+                    <button
+                      type="button"
+                      className="link"
+                      onClick={sendVerifyEmail}>
+                      Reenviar correo de activación
+                    </button>
+                  ) : (
+                    <span>
+                      Podrás reenviar nuevamente dentro de
+                      <strong id="countdown"> 10 </strong> segundos
+                    </span>
+                  )}
+                </>
+              )}
 
-                {showError && (
-                  <S.Error type={showVerify ? 'warning' : ''}>
-                    {` ${showError} `}
-                    {showVerify && (
-                      <>
-                        {!showSendEmail ? (
-                          <button type="button" onClick={sendVerifyEmail}>
-                            Reenviar correo de activación
-                          </button>
-                        ) : (
-                          <span>
-                            Podrás reenviar nuevamente dentro de
-                            <strong id="countdown"> 10 </strong> segundos
-                          </span>
-                        )}
-                      </>
-                    )}
-
-                    {registerLink && (
-                      <S.Link
-                        href="#"
-                        c="white"
-                        fw="bold"
-                        onClick={e => {
-                          e.preventDefault()
-                          value.changeTemplate('register')
-                        }}>
-                        Registrar
-                      </S.Link>
-                    )}
-                  </S.Error>
-                )}
-
-                <Input
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  name="femail"
-                  placeholder="Correo electrónico"
-                  required
-                  value={femail}
-                  onChange={e => {
-                    handleOnChange(e)
-                    setShowError(false)
+              {registerLink && (
+                <a
+                  className="signwall-inside_forms-link"
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
                   }}
-                  error={femailError}
-                />
-
-                <S.Button
-                  type="submit"
-                  color={mainColorBtn}
-                  className="mt-20 mb-10"
-                  disabled={disable || showLoading}
-                  onClick={() =>
-                    Taggeo(
-                      `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
-                    )
-                  }>
-                  {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
-                </S.Button>
-              </>
-            ) : (
-              <>
-                <div className="center block mb-20">
-                  <MsgForgotPass bgcolor={mainColorBr} />
-                </div>
-
-                <S.Title s="20" className="center mb-10">
-                  Correo enviado
-                </S.Title>
-
-                <S.Text c="gray" s="14" lh="28" className="mt-10 mb-10 center">
-                  Revisa tu correo electrónico para
-                  <br /> cambiar tu contraseña
-                </S.Text>
-
-                <S.Button
-                  type="button"
-                  color={mainColorBtn}
-                  onClick={() => {
-                    Taggeo(
-                      `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_contrasena_boton_aceptar`
-                    )
-                    switch (typeDialog) {
-                      case 'relogemail':
-                      case 'reloghash':
-                        value.changeTemplate('relogin')
-                        break
-                      default:
-                        value.changeTemplate('login', '', femail)
-                    }
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    changeTemplate('register')
                   }}>
-                  ACEPTAR
-                </S.Button>
-              </>
-            )}
-          </S.Form>
+                  Registrar
+                </a>
+              )}
+            </div>
+          )}
+
+          <Input
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            name="femail"
+            placeholder="Correo electrónico"
+            required
+            value={femail}
+            onChange={(e) => {
+              handleOnChange(e)
+              setShowError(false)
+            }}
+            error={femailError}
+          />
+
+          <button
+            type="submit"
+            style={{ color: mainColorBtn, background: mainColorLink }}
+            className="signwall-inside_forms-btn mt-20 mb-10"
+            disabled={disable || showLoading}
+            onClick={() =>
+              Taggeo(
+                `Web_Sign_Wall_${typeDialog}`,
+                `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
+              )
+            }>
+            {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
+          </button>
+        </>
+      ) : (
+        <>
+          <div className="center block mb-20">
+            <MsgForgotPass bgcolor={mainColorBr} />
+          </div>
+
+          <h4
+            style={{ fontSize: '20px' }}
+            className="signwall-inside_forms-title center mb-10">
+            Correo enviado
+          </h4>
+
+          <p
+            style={{
+              fontSize: '14px',
+              lineHeight: '28px',
+            }}
+            className="signwall-inside_forms-text mt-10 mb-10 center">
+            Revisa tu correo electrónico para
+            <br /> cambiar tu contraseña
+          </p>
+
+          <button
+            type="button"
+            style={{ color: mainColorBtn }}
+            className="signwall-inside_forms-btn"
+            onClick={() => {
+              Taggeo(
+                `Web_Sign_Wall_${typeDialog}`,
+                `web_sw${typeDialog[0]}_contrasena_boton_aceptar`
+              )
+              switch (typeDialog) {
+                case 'relogemail':
+                case 'reloghash':
+                  changeTemplate('relogin')
+                  break
+                default:
+                  changeTemplate('login', '', femail)
+              }
+            }}>
+            ACEPTAR
+          </button>
         </>
       )}
-    </ModalConsumer>
+    </form>
   )
 }
+
+export default FormForgot

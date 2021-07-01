@@ -1,4 +1,5 @@
 import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
@@ -25,7 +26,7 @@ const GetStory: React.FC<{
   deployment: (resource: string) => string | string
   setIsLoading: (value: boolean) => void
   index: number
-}> = (props) => {
+}> = props => {
   const {
     link = '',
     title = '',
@@ -37,7 +38,7 @@ const GetStory: React.FC<{
     setIsLoading,
     index,
   } = props
-
+  const { siteUrl = '' } = getProperties(arcSite)
   const presets =
     subtype === GALLERY_VERTICAL
       ? 'large:980x0,landscape_md:482x0,landscape_s:280x0'
@@ -51,7 +52,7 @@ const GetStory: React.FC<{
         section: '',
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
       },
-      transform: (story) => {
+      transform: story => {
         if (story?._id) {
           if (typeof window !== 'undefined') {
             const {
@@ -101,8 +102,8 @@ const GetStory: React.FC<{
   React.useEffect(() => {
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
+        entries => {
+          entries.forEach(entry => {
             if (entry.isIntersecting && window.location.pathname !== link) {
               document.title = title
               window.history.pushState({}, title, link)
@@ -134,6 +135,7 @@ const GetStory: React.FC<{
           arcSite={arcSite}
           requestUri={requestUri}
           deployment={deployment}
+          siteUrl={siteUrl}
           index={index}
         />
       )}

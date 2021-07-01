@@ -20,7 +20,7 @@ export default ({ origin, section, api, contentCode, contentType }) => `{
           "DOCUMENT_REFERRER"
         ],
         "actions":{
-          "login": "${origin}/signwall/?outputType=signwall&signwallHard=1",
+          "login": "${origin}/signwall/?outputType=subscriptions&signwallHard=1",
           "subscribe": "${origin}/suscripcionesdigitales/?outputType=subscriptions"
         },
         "data": {

@@ -1,44 +1,45 @@
+import * as Sentry from '@sentry/browser'
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { useAppContext } from 'fusion:context'
-import * as Sentry from '@sentry/browser'
 
-import useForm from '../../../_hooks/useForm'
-import { getEntitlements } from '../../../_dependencies/Services'
+import Modal from '../../../_children/modal'
 import { AuthContext } from '../../../_context/auth'
-import {
-  PixelActions,
-  sendAction,
-  Taggeo,
-  TaggeoJoao,
-  eventCategory,
-} from '../../../_dependencies/Taggeo'
-import { maskDocuments, docPatterns } from '../../../_dependencies/Regex'
-import Modal from './children/modal'
-import PWA from '../../../_dependencies/Pwa'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-} from '../../../_dependencies/Properties'
-import {
-  conformProfile,
-  isLogged,
-  getStorageProfile,
-  getStorageEmailProfile,
-} from '../../../_dependencies/Session'
-import {
-  checkUndefined,
-  checkFbEmail,
-  checkFormatPhone,
-  setLocaleStorage,
-  getSessionStorage,
-} from '../../../_dependencies/Utils'
 import getCodeError, {
   formatEmail,
   formatNames,
   formatPhone,
   formatSecondLastName,
 } from '../../../_dependencies/Errors'
+import {
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
+import PWA from '../../../_dependencies/Pwa'
+import { docPatterns, maskDocuments } from '../../../_dependencies/Regex'
+import { getEntitlements } from '../../../_dependencies/Services'
+import {
+  conformProfile,
+  getStorageEmailProfile,
+  getStorageProfile,
+  isLogged,
+} from '../../../_dependencies/Session'
+import {
+  eventCategory,
+  PixelActions,
+  sendAction,
+  Taggeo,
+  TaggeoJoao,
+  TagsAdsMurai,
+} from '../../../_dependencies/Taggeo'
+import {
+  checkFbEmail,
+  checkFormatPhone,
+  checkUndefined,
+  getSessionStorage,
+  setLocaleStorage,
+} from '../../../_dependencies/Utils'
+import useForm from '../../../_hooks/useForm'
 
 const styles = {
   step: 'step__left-progres',
@@ -79,6 +80,7 @@ const Profile = () => {
     email,
     phone,
     emailVerified,
+    province,
   } = conformProfile(getStorageProfile())
 
   const [msgError, setMsgError] = React.useState(false)
@@ -132,7 +134,19 @@ const Profile = () => {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
 
-    Sentry.configureScope(scope => {
+    TagsAdsMurai(
+      {
+        event: 'adsmurai_pageview',
+        em: email,
+        fn: `${firstName || ''}`,
+        ln: `${lastName || ''} ${secondLastName || ''}`,
+        ct: `${province || ''}`,
+        ph: `${phone || ''}`,
+      },
+      window.location.pathname
+    )
+
+    Sentry.configureScope((scope) => {
       scope.setTag('document', documentNumber || 'none')
       scope.setTag('phone', phone || 'none')
       scope.setTag('email', email || 'none')
@@ -149,7 +163,6 @@ const Profile = () => {
     })
 
     if (printedSubscriber || error) {
-      // Datalayer solicitados por Joao
       TaggeoJoao(
         {
           event: 'Pasarela Suscripciones Digitales',
@@ -162,7 +175,6 @@ const Profile = () => {
     }
 
     if (userErrorApi !== false) updateErrorApi(error)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -211,7 +223,7 @@ const Profile = () => {
     uDocumentNumber: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
           !value.match(/00000000|12345678/),
         error: 'Formato inválido.',
@@ -238,14 +250,14 @@ const Profile = () => {
         level: 'info',
       })
       return window.Identity.heartbeat()
-        .then(resHeart =>
+        .then((resHeart) =>
           getEntitlements(urls.arcOrigin, resHeart.accessToken)
             .then(
-              resEntitlements =>
+              (resEntitlements) =>
                 Array.isArray(resEntitlements.skus) &&
                 resEntitlements.skus.length > 0
             )
-            .catch(errEntitlements => {
+            .catch((errEntitlements) => {
               Sentry.captureEvent({
                 message: 'Error al verificar Suscripciones',
                 level: 'error',
@@ -253,7 +265,7 @@ const Profile = () => {
               })
             })
         )
-        .catch(errHeart => {
+        .catch((errHeart) => {
           Sentry.captureEvent({
             message: 'Error al extender la sesión',
             level: 'error',
@@ -350,10 +362,10 @@ const Profile = () => {
       addAttributes('documentType', uDocumentType)
       addAttributes('documentNumber', uDocumentNumber)
       const getUniqueListBy = (arr, key) => [
-        ...new Map(arr.map(item => [item[key], item])).values(),
+        ...new Map(arr.map((item) => [item[key], item])).values(),
       ]
       const clearAttrRepeats = getUniqueListBy(uAttributes, 'name')
-      const clearOriginReferer = clearAttrRepeats.map(attribute => {
+      const clearOriginReferer = clearAttrRepeats.map((attribute) => {
         if (attribute.name === 'originReferer') {
           return {
             ...attribute,
@@ -380,7 +392,6 @@ const Profile = () => {
         })
       }
 
-      // Datalayer solicitados por Joao
       TaggeoJoao(
         {
           event: 'Pasarela Suscripciones Digitales',
@@ -392,6 +403,19 @@ const Profile = () => {
           }),
           action: userPeriod,
           label: uuid,
+        },
+        window.location.pathname
+      )
+
+      TagsAdsMurai(
+        {
+          event: 'AddToCart',
+          content_ids: sku,
+          content_type: 'product',
+          content_name: namePlanApi,
+          value: amount,
+          currency: 'PEN',
+          subscription_type: userPeriod,
         },
         window.location.pathname
       )
@@ -410,12 +434,12 @@ const Profile = () => {
         })
 
         window.Identity.updateUserProfile(profile)
-          .then(resProfile => {
+          .then((resProfile) => {
             updateUser(resProfile)
             updateStep(3)
             TaggeoEcommerce()
           })
-          .catch(err => {
+          .catch((err) => {
             if (err.code === '100018') {
               const currentProfile = window.Identity.userProfile
               const newProfile = Object.assign(currentProfile, profile)
@@ -469,7 +493,7 @@ const Profile = () => {
       if (isLogged()) {
         setLoadText('Verificando Suscripciones...')
         if ('Identity' in window) {
-          checkSubscriptions().then(resSubs => {
+          checkSubscriptions().then((resSubs) => {
             if (resSubs) {
               setShowModal(true)
               setLoading(false)
@@ -520,7 +544,6 @@ const Profile = () => {
       window.sessionStorage.setItem('paywall_confirm_subs', '2')
       Taggeo(nameTagCategory, 'web_paywall_close_validation')
 
-      // Datalayer solicitados por Joao
       TaggeoJoao(
         {
           event: 'Pasarela Suscripciones Digitales',
@@ -556,7 +579,7 @@ const Profile = () => {
     }
   }
 
-  const handleChangeInput = e => {
+  const handleChangeInput = (e) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         setMsgError(false)
@@ -572,7 +595,7 @@ const Profile = () => {
     if (typeof window !== 'undefined') {
       if ('Identity' in window) {
         window.Identity.logout()
-          .catch(err =>
+          .catch((err) =>
             Sentry.captureEvent({
               message: 'Error al cerrar sesión con Identity',
               level: 'error',
@@ -705,7 +728,7 @@ const Profile = () => {
                 className={printedSubscriber && 'input-disabled'}
                 name="uDocumentType"
                 value={uDocumentType}
-                onChange={e => {
+                onChange={(e) => {
                   handleChangeInput(e)
                   setShowDocOption(e.target.value)
                 }}
@@ -717,8 +740,9 @@ const Profile = () => {
               <TextMask
                 mask={maskDocuments[uDocumentType]}
                 guide={false}
-                className={`${uDocumentNumberError &&
-                  'input-error'} ${printedSubscriber && 'input-disabled'}`}
+                className={`${uDocumentNumberError && 'input-error'} ${
+                  printedSubscriber && 'input-disabled'
+                }`}
                 type="text"
                 name="uDocumentNumber"
                 maxLength={uDocumentType === 'DNI' ? '8' : '15'}

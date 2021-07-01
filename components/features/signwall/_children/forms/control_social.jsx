@@ -1,88 +1,17 @@
 import sha256 from 'crypto-js/sha256'
 import * as React from 'react'
-import styled, { css } from 'styled-components'
 
-import { device } from '../../_dependencies/breakpoints'
-import Cookies from '../../_dependencies/cookies'
-import Domains from '../../_dependencies/domains'
-import getDevice from '../../_dependencies/get-device'
-import QueryString from '../../_dependencies/querystring'
-import Services from '../../_dependencies/services'
-import Taggeo from '../../_dependencies/taggeo'
-import { Facebook, Google, Mail } from '../iconos'
-import { Button } from './styles'
-
-const ButtonStyleSocial = styled(Button)`
-  font-size: ${(props) => (props.size === 'full' ? '18' : '16')}px !important;
-  position: relative;
-  height: 45px !important;
-  display: inline-block;
-  vertical-align: top;
-  padding: 0px 10px 0px 45px !important;
-  width: calc(50% - 10px) !important;
-  background: #4285f4;
-  border: 1px solid #4285f4;
-  text-transform: capitalize;
-  font-weight: normal;
-  margin-right: 0px;
-  margin-left: 0px;
-
-  ${(props) =>
-    props.size === 'full' &&
-    css`
-      padding: 0px 45px 0px 45px !important;
-      width: calc(100% - 0px) !important;
-    `}
-
-  ${(props) =>
-    props.size === 'middle' &&
-    props.brand === 'facebook' &&
-    css`
-      margin-right: 10px !important;
-    `}
-
-  ${(props) =>
-    props.size === 'middle' &&
-    props.brand === 'google' &&
-    css`
-      margin-left: 10px !important;
-    `}
-
-  ${(props) =>
-    props.brand === 'facebook' &&
-    css`
-      background: #4267b2 !important;
-      border: 1px solid #4267b2 !important;
-    `}
-
-  & svg {
-    position: absolute;
-    left: 1px;
-    top: 1px;
-    ${(props) =>
-      props.brand === 'facebook' &&
-      css`
-        left: 10px !important;
-        top: 8px !important;
-      `}
-  }
-
-  @media ${device.tablet} {
-    padding: 0px ${(props) => (props.size === 'full' ? '30px' : '10px')} 0px
-      45px;
-  }
-`
-
-const ButtonStyleEmail = styled(Button)`
-  background: #f2f2f2;
-  color: #818181;
-  font-weight: normal;
-  border-bottom: 2px solid #d4d4d4 !important;
-  margin-bottom: 40px;
-  & svg {
-    margin-right: 10px;
-  }
-`
+import {
+  setCookie,
+  setCookieDomain,
+} from '../../../subscriptions/_dependencies/Cookies'
+import getDevice from '../../../subscriptions/_dependencies/GetDevice'
+import { getQuery } from '../../../subscriptions/_dependencies/QueryString'
+import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
+import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
+import { getOriginAPI, getUrlECOID } from '../../_dependencies/domains'
+import { loginFBeco, sendNewsLettersUser } from '../../_dependencies/services'
+import { Facebook, Google, Mail } from '../icons'
 
 const originAction = (dialogModal) => {
   switch (dialogModal) {
@@ -115,9 +44,9 @@ const AfterLoginRegister = (
     `Web_Sign_Wall_${typeDialog}`,
     `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
   )
-  Cookies.setCookie('arc_e_id', sha256(emailUser).toString(), 365)
+  setCookie('arc_e_id', sha256(emailUser).toString(), 365)
   const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-  Cookies.setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+  setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
 
   onLogged(resProfile)
 
@@ -157,7 +86,7 @@ const setupUserProfile = (
   onStudents,
   dataTreatment
 ) => {
-  window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
+  window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
   window.Identity.getUserProfile()
     .then((resProfile) => {
       const EMAIL_USER =
@@ -208,7 +137,9 @@ const setupUserProfile = (
               name: 'dataTreatment',
               value:
                 dataTreatment &&
-                (arcSite === 'elcomercio' || arcSite === 'gestion')
+                (arcSite === 'elcomercio' ||
+                  arcSite === 'gestion' ||
+                  arcSite === 'trome')
                   ? dataTreatment
                   : 'NULL',
               type: 'String',
@@ -217,13 +148,13 @@ const setupUserProfile = (
         }
 
         window.Identity.options({
-          apiOrigin: Domains.getOriginAPI(arcSite),
+          apiOrigin: getOriginAPI(arcSite),
         })
 
         window.Identity.updateUserProfile(newProfileFB)
           .then(() => {
             if (activeNewsletter && EMAIL_USER.indexOf('facebook.com') < 0) {
-              Services.sendNewsLettersUser(
+              sendNewsLettersUser(
                 resProfile.uuid,
                 EMAIL_USER,
                 arcSite,
@@ -297,16 +228,11 @@ const authSocialProviderURL = (
   onStudents,
   dataTreatment
 ) => {
-  if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
+  if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
     return
   }
 
-  Services.loginFBeco(
-    Domains.getOriginAPI(arcSite),
-    '',
-    data.accessToken,
-    data.providerSource
-  )
+  loginFBeco(getOriginAPI(arcSite), '', data.accessToken, data.providerSource)
     .then((resLogSocial) => {
       if (resLogSocial.accessToken) {
         window.localStorage.setItem(
@@ -344,7 +270,6 @@ export const ButtonSocial = ({
   onClose,
   onStudents,
   arcSite,
-  c,
   typeForm,
   activeNewsletter,
   checkUserSubs,
@@ -388,14 +313,14 @@ export const ButtonSocial = ({
   }
 
   const authSocialProvider = ({ data, origin }) => {
-    if (origin !== Domains.getUrlECOID() || window.Identity.userIdentity.uuid) {
+    if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
       return
     }
 
     setShowTextLoad('Conectando...')
 
-    Services.loginFBeco(
-      Domains.getOriginAPI(arcSite),
+    loginFBeco(
+      getOriginAPI(arcSite),
       '',
       data.accessToken,
       data.providerSource
@@ -443,15 +368,11 @@ export const ButtonSocial = ({
     const messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message'
     eventer(messageEvent, authSocialProvider)
 
-    const isFbBrowser =
-      window.navigator.userAgent.indexOf('FBAN') > -1 ||
-      window.navigator.userAgent.indexOf('FBAV') > -1
-
     const width = 780
     const height = 640
     const left = window.screen.width / 2 - 800 / 2
     const top = window.screen.height / 2 - 600 / 2
-    const URL = `${Domains.getUrlECOID()}/mpp/${brandCurrent}/login/`
+    const URL = `${getUrlECOID}/mpp/${brandCurrent}/login/`
 
     const URLRedirect = () => {
       window.location.href = `${URL}?urlReference=${encodeURIComponent(
@@ -478,12 +399,12 @@ export const ButtonSocial = ({
   }
 
   return (
-    <ButtonStyleSocial
+    <button
+      className={`signwall-inside_forms-btn-social ${brand} ${size} ${brand}-${size} ${
+        arcSite === 'trome' ? `trome-${brand}` : ''
+      }`}
       type="button"
       id={`btn-sign-${brand}`}
-      brand={brand}
-      size={size}
-      className={c}
       disabled={showTextLoad}
       onClick={() => {
         Taggeo(
@@ -492,17 +413,24 @@ export const ButtonSocial = ({
         )
         clickLoginSocialEcoID(brand)
       }}>
-      {brand === 'facebook' ? <Facebook /> : <Google />}
-      {showTextLoad || brand}
-    </ButtonStyleSocial>
+      {arcSite !== 'trome' && (
+        <>{brand === 'facebook' ? <Facebook /> : <Google />}</>
+      )}
+
+      {arcSite !== 'trome' ? showTextLoad || brand : ''}
+    </button>
   )
 }
 
 export const ButtonEmail = ({ size, onClick }) => (
-  <ButtonStyleEmail type="button" size={size} onClick={onClick}>
+  <button
+    className="signwall-inside_forms-btn-email"
+    type="button"
+    size={size}
+    onClick={onClick}>
     <Mail />
     Ingresa con tu usuario
-  </ButtonStyleEmail>
+  </button>
 )
 
 export const AuthURL = ({
@@ -530,7 +458,7 @@ export const AuthURL = ({
     ]
 
     listUrlRedirect.map((item) => {
-      if (QueryString.getQuery(item)) {
+      if (getQuery(item)) {
         setTimeout(() => {
           const btnFacebook = document.getElementById('btn-sign-facebook')
           if (btnFacebook) {
@@ -538,15 +466,15 @@ export const AuthURL = ({
           }
         }, 800)
 
-        const dataTreatment = QueryString.getQuery('dataTreatment') || 'NULL'
+        const dataTreatment = getQuery('dataTreatment') || 'NULL'
 
         authSocialProviderURL(
           {
             data: {
-              accessToken: QueryString.getQuery(item).replace(/(#_=_)$/, ''),
+              accessToken: getQuery(item).replace(/(#_=_)$/, ''),
               providerSource: 'facebook',
             },
-            origin: Domains.getUrlECOID(),
+            origin: getUrlECOID,
           },
           arcSite,
           onClose,

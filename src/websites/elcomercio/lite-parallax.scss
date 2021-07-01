@@ -5,6 +5,8 @@
 @import "./scss/variables/lite/fonts";
 
 @import "./scss/lite-components/features/story/contents/contents";
+@import "./scss/lite-components/features/signwall/signwall";
+@import "../../general-styles/components/features/signwall/modal";
 
 .story-contents {
   border-bottom: none;
