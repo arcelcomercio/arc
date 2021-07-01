@@ -46,7 +46,15 @@ const SectionVideo = (props) => {
   const dataVideo = {}
   let section = null
 
-  const { customFields: { hierarchyConfig } = {} } = props
+  const {
+    customFields: {
+      hierarchyConfig,
+      hidePlaylist,
+      categoryTop,
+      hideShare,
+      hideMeta,
+    } = {},
+  } = props
 
   const { contentService = '', contentConfigValues = {} } =
     hierarchyConfig || {}
@@ -180,7 +188,15 @@ const SectionVideo = (props) => {
     arrSections,
   }
 
-  return <ChildrenSectionVideo {...params} />
+  return (
+    <ChildrenSectionVideo
+      {...params}
+      hidePlaylist={hidePlaylist}
+      hideShare={hideShare}
+      hideMeta={hideMeta}
+      categoryTop={categoryTop}
+    />
+  )
 }
 
 SectionVideo.propTypes = {

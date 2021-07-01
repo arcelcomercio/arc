@@ -49,6 +49,10 @@ export default ({
   isAdmin,
   arrSections,
   siteProperties,
+  hidePlaylist,
+  hideShare,
+  hideMeta,
+  categoryTop,
 }) => {
   // const [hasFixedSection, changeFixedSection] = useState(false)
   const [hidden, setHidden] = useState(false)
@@ -174,7 +178,10 @@ export default ({
           <div className="section-video__top">
             <div className="section-video__left">
               {arcSite === 'trome' && (
-                <div className="section-video__box-section section-video__box-section-mobile">
+                <div
+                  className={`section-video__box-section section-video__box-section-top ${
+                    categoryTop ? 'section-video__box-section-top-mobile' : ''
+                  }`}>
                   <a
                     itemProp="url"
                     href={principalVideo.primarySectionLink}
@@ -208,7 +215,12 @@ export default ({
             </div>
             <div className="section-video__right">
               <div className="section-video__information">
-                <div className="section-video__box-section section-video__box-section-desktop">
+                <div
+                  className={`section-video__box-section section-video__box-section-bottom ${
+                    categoryTop
+                      ? 'section-video__box-section-bottom-mobile'
+                      : null
+                  }`}>
                   <a
                     itemProp="url"
                     href={principalVideo.primarySectionLink}
@@ -288,7 +300,7 @@ export default ({
                   {principalVideo.captionVideo}(asdf)
                 </span>
               )}
-              {arcSite === 'trome' && (
+              {arcSite === 'trome' && !hideShare ? (
                 <>
                   {!hidden && (
                     <div className="section-video__content-share pt-10 pb-20 flex flex-row justify-between border-b-1 border-solid">
@@ -367,7 +379,7 @@ export default ({
                     )}
                   </div>
                 </>
-              )}
+              ) : null}
             </div>
           </div>
           {arcSite !== 'trome' && (
@@ -416,9 +428,9 @@ export default ({
             }
           />
         </div>
-        <PlayList {...playListParams} />
+        {!hidePlaylist && <PlayList {...playListParams} />}
       </div>
-      <VideoBar sections={arrSections} />
+      {!hidePlaylist && <VideoBar sections={arrSections} />}
     </div>
   )
 }
