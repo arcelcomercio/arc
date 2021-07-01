@@ -40,9 +40,7 @@ const styles = {
   textBlock: 'step__left-textblock',
 }
 
-const nameTagCategory = 'Web_Sign_Wall_Landing'
-
-const Register = ({ arcSite, handleCallToAction, isFia }) => {
+const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
   const { activateAuth, updateStep } = React.useContext(AuthContext)
   const { changeTemplate } = React.useContext(NavigateConsumer)
   const [loading, setLoading] = React.useState()
@@ -88,9 +86,14 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
     },
   }
 
+  const nameTagCategory = `Web_Sign_Wall_${typeDialog}`
+
   const onFormRegister = ({ remail, rpass, rphone }) => {
     if (typeof window !== 'undefined') {
-      Taggeo(nameTagCategory, 'web_swl_registro_boton_registrarme')
+      Taggeo(
+        nameTagCategory,
+        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+      )
       setLoading(true)
       setLoadText('Registrando...')
 
@@ -130,7 +133,7 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
             },
             {
               name: 'originAction',
-              value: 'landing',
+              value: typeDialog || 'landing',
               type: 'String',
             },
             {
@@ -169,7 +172,10 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
                 window.Identity.userIdentity = {}
               })
               .finally(() => {
-                Taggeo(nameTagCategory, 'web_swl_registro_success_registrarme')
+                Taggeo(
+                  nameTagCategory,
+                  `web_sw${typeDialog[0]}_registro_success_registrarme`
+                )
               })
           })
         })
@@ -177,7 +183,10 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
           setMsgError(getCodeError(err.code))
           setForgotLink(err.code === '300039')
           setLoading(false)
-          Taggeo(nameTagCategory, 'web_swl_registro_error_registrarme')
+          Taggeo(
+            nameTagCategory,
+            `web_sw${typeDialog[0]}_registro_error_registrarme`
+          )
         })
     }
   }
@@ -208,7 +217,7 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
     window.Identity.requestVerifyEmail(remail)
-    Taggeo(nameTagCategory, 'web_swl_registro_reenviar_correo')
+    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_registro_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {
       if (timeleft <= 0) {
@@ -252,6 +261,7 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
               arcSite={arcSite}
               arcType="registro"
               dataTreatment={checkedPolits ? '1' : '0'}
+              typeDialog={typeDialog}
             />
             {!isFbBrowser && (
               <ButtonSocial
@@ -259,6 +269,7 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
                 arcSite={arcSite}
                 arcType="registro"
                 dataTreatment={checkedPolits ? '1' : '0'}
+                typeDialog={typeDialog}
               />
             )}
 
@@ -266,7 +277,7 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
               <AuthURL
                 arcSite={arcSite}
                 onClose={() => {}}
-                typeDialog="authfia"
+                typeDialog={typeDialog}
                 activeNewsletter
                 typeForm="registro"
                 onLogged={onLoggedFia}
@@ -450,7 +461,7 @@ const Register = ({ arcSite, handleCallToAction, isFia }) => {
               type="button"
               onClick={() => {
                 changeTemplate('login')
-                Taggeo(nameTagCategory, 'web_swl_registro_link_volver')
+                Taggeo(nameTagCategory, `web_swl_registro_link_volver`)
               }}>
               Iniciar Sesión
             </button>

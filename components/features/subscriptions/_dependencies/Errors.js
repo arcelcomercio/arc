@@ -56,6 +56,17 @@ export const formatDescription = () => ({
   error: 'Contiene caracteres no permitidos',
 })
 
+export const formatCvv = () => ({
+  func: (value) => /^(\d{3,4})/.test(value),
+  error: 'Mínimo 3 caracteres',
+})
+
+export const formatExpire = () => ({
+  func: (value) =>
+    /^(0[1-9]|1[0-2])\/?(((202)\d{1}|(202)\d{1})|(2)\d{1})$/.test(value),
+  error: 'Formato inválido',
+})
+
 const getCodeError = (code, status) => {
   switch (code) {
     case '300040':
@@ -155,6 +166,12 @@ const getCodeError = (code, status) => {
 
     case 'validCaptcha':
       return 'Seleccionar la casilla de verificación'
+
+    case 'updateCard':
+      return 'Ha ocurrido un error inesperado. Por favor inténtalo más tarde ó contáctanos al 01 311-5100.'
+
+    case 'updateCardTry':
+      return 'Ha ocurrido un error al actualizar. Revise sus datos de tarjeta e inténtelo nuevamente.'
 
     default:
       return 'Ocurrió un error inesperado.'
