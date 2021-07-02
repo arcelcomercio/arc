@@ -62,11 +62,13 @@
       background-color: #f4f4f4;
       height: 100%;
     }
-    & .bg-white {
-      background-color: white;
-    }
     & .right-modal {
       background-color: white;
+    }
+    & .bg-trome {
+      background: #fff;
+      font-family: "Encode Sans Condensed", sans-serif;
+      display: block !important;
     }
   }
 
@@ -180,9 +182,18 @@
   }
 
   @include device(tabletl) {
+    .cont-modal {
+      & .bg-trome {
+        background: #fff url(https://signwall.e3.pe/images/trome/hand.png)
+          no-repeat;
+        background-position: center bottom;
+        display: inline-block !important;
+      }
+    }
     .body-modal {
       &.size-medium {
         width: 680px;
+        height: 600px;
         .left-modal {
           display: inline-block;
           width: 45%;
@@ -228,6 +239,9 @@
       &.size-small {
         max-width: 480px;
         width: 60%;
+      }
+      &.size-medium {
+        width: 720px;
       }
       &.size-large {
         max-width: 1000px;
@@ -387,9 +401,13 @@
         &:checked ~ .checkmark {
           background-color: #2196f3;
           border: 1px solid #2196f3;
-        }
-        &:checked ~ .checkmark:after {
-          display: block;
+          &::after {
+            display: block;
+          }
+          &.trome {
+            background-color: #ff650f;
+            border: 1px solid #ff650f;
+          }
         }
       }
       & .checkmark {
@@ -501,14 +519,21 @@
         input::placeholder {
           font-size: 14px;
         }
-        input:placeholder-shown + label {
+        input:placeholder-shown + label,
+        select:placeholder-shown + label {
           cursor: text;
           transform-origin: 0 0;
-          transform: translate(1rem, 1.8rem) scale(1.1);
+          transform: translate(1rem, 2.1rem) scale(0.75);
         }
-        label {
-          font-size: 12px;
-          margin-top: 0;
+        input:not(:placeholder-shown) + label,
+        input:-webkit-autofill + label,
+        input:focus + label {
+          transform-origin: 0 0;
+          transform: translate(0.5rem, 0.58rem) scale(0.75);
+          cursor: pointer;
+          background-color: inherit;
+          padding: 0 5px;
+          margin: 0;
         }
       }
 
@@ -533,6 +558,7 @@
       font-weight: normal;
       border-bottom: 2px solid #d4d4d4 !important;
       margin-bottom: 40px;
+      margin-top: 10px;
       & svg {
         margin-right: 10px;
       }
@@ -553,7 +579,7 @@
       cursor: pointer;
 
       &.full {
-        font-size: 18px;
+        font-size: 18px !important;
         padding: 0 45px 0 45px !important;
         width: calc(100% - 0px) !important;
       }
@@ -570,8 +596,8 @@
       }
 
       &.facebook {
-        background: #4267b2 !important;
-        border: 1px solid #4267b2 !important;
+        background: #4267b2;
+        border: 1px solid #4267b2;
         & svg {
           left: 10px;
           top: 8px;
@@ -585,6 +611,21 @@
           left: 0;
           top: 0;
         }
+      }
+
+      &.trome-facebook,
+      &.trome-google {
+        border: 0;
+        width: 67px !important;
+        height: 67px !important;
+        margin-right: 50px !important;
+      }
+
+      &.trome-facebook {
+        background: url(https://signwall.e3.pe/images/trome/icon-facebook.png);
+      }
+      &.trome-google {
+        background: url(https://signwall.e3.pe/images/trome/icon-google.png);
       }
     }
     &-button-call {
@@ -914,6 +955,7 @@
       line-height: 18px;
       font-weight: normal;
       font-family: "Open Sans", Arial, Helvetica, sans-serif;
+      font-size: 14px;
 
       & .sub-paragraph {
         display: inline-block;
@@ -1135,5 +1177,32 @@
         }
       }
     }
+  }
+}
+
+.form-trome {
+  & .signwall-inside_forms-btn {
+    text-align: left;
+    padding-top: 20px;
+  }
+  & .signwall-inside_forms-link {
+    text-decoration: none;
+  }
+  & .signwall-inside_forms-cont {
+    & input:placeholder-shown + label,
+    select:placeholder-shown + label {
+      transform: translate(0.5rem, 2.3rem) scale(0.95);
+    }
+    & input:focus + label {
+      transform-origin: 0 0;
+      transform: translate(0.5rem, 0.58rem) scale(0.75);
+      cursor: pointer;
+      background-color: inherit;
+      padding: 0 5px;
+      margin: 0;
+    }
+  }
+  & .signwall-inside_forms-text {
+    text-align: left;
   }
 }

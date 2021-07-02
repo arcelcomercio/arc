@@ -361,7 +361,9 @@ const FormRegister = ({
             <Loading typeBg="block" />
           ) : (
             <form
-              className={`signwall-inside_forms-form ${typeDialog}`}
+              className={`signwall-inside_forms-form ${
+                arcSite === 'trome' ? 'form-trome' : ''
+              } ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -385,11 +387,7 @@ const FormRegister = ({
                     <Back /> Volver
                   </button>
 
-                  <p
-                    style={{
-                      fontSize: '16px',
-                    }}
-                    className="signwall-inside_forms-text mb-10 center">
+                  <p className="signwall-inside_forms-text mb-10 center">
                     Accede fácilmente con:
                   </p>
 
@@ -506,6 +504,7 @@ const FormRegister = ({
                       checked={checkedPolits}
                       value={checkedPolits ? '1' : '0'}
                       name="rpolit"
+                      arcSite={arcSite}
                       onChange={(e) => {
                         handleOnChange(e)
                         setCheckedPolits(!checkedPolits)
@@ -534,6 +533,7 @@ const FormRegister = ({
                     checked={checkedTerms}
                     value={checkedTerms ? '1' : '0'}
                     name="rterms"
+                    arcSite={arcSite}
                     onChange={(e) => {
                       handleOnChange(e)
                       setCheckedTerms(!checkedTerms)
@@ -627,7 +627,10 @@ const FormRegister = ({
                               id="btn-premium-continue"
                               className="signwall-inside_forms-btn"
                               type="button"
-                              style={{ color: mainColorBtn }}
+                              style={{
+                                color: mainColorBtn,
+                                background: mainColorLink,
+                              }}
                               onClick={() => {
                                 Taggeo(
                                   `Web_${typeDialog}_Hard`,
@@ -655,7 +658,10 @@ const FormRegister = ({
                           <button
                             type="button"
                             className="signwall-inside_forms-btn"
-                            style={{ color: mainColorBtn }}
+                            style={{
+                              color: mainColorBtn,
+                              background: mainColorLink,
+                            }}
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
@@ -685,7 +691,10 @@ const FormRegister = ({
                       <button
                         type="button"
                         className="signwall-inside_forms-btn"
-                        style={{ color: mainColorBtn }}
+                        style={{
+                          color: mainColorBtn,
+                          background: mainColorLink,
+                        }}
                         onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,

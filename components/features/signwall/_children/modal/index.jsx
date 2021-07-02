@@ -71,7 +71,7 @@ const Modal = ({ bgColor, position, size, children }) => {
 
   return (
     <Portal id="sign-modal">
-      <div className={`signwall-modal open ${bgColor}`}>
+      <div className={`signwall-modal open ${bgColor || ''}`}>
         <div
           className={`body-modal position-${position} size-${size}`}
           onTouchStart={turnOffFormScroll}

@@ -126,6 +126,13 @@ const Subscriptions: OT<OutputProps> = ({
             />
             <Libs />
 
+            {arcSite === 'trome' && (
+              <link
+                href="https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:wght@300;700&display=swap"
+                rel="stylesheet"
+              />
+            )}
+
             <link
               rel="stylesheet"
               href={deployment(

@@ -7,6 +7,9 @@
       color: white;
       position: relative;
       width: 100%;
+      &.border-trome {
+        box-shadow: 0 0 0 7px black;
+      }
     }
     &-back {
       background: transparent;
@@ -1583,20 +1586,22 @@
         width: 75%;
       }
       & .box-benefist {
-        padding: 0% 10%;
+        padding: 2% 10%;
         h1 {
           font-size: 26px;
           font-weight: bold;
-          margin-bottom: 20px;
+          margin-bottom: 30px;
+          margin-top: 20px;
         }
         .description,
         .list-benefist {
           font-size: 14px;
           margin-top: 20px;
+          line-height: 18px;
         }
         .icon-slash {
           color: #ff650f;
-          letter-spacing: -2px;
+          letter-spacing: 1px;
           font-weight: bold;
         }
       }

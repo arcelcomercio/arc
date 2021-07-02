@@ -270,7 +270,6 @@ export const ButtonSocial = ({
   onClose,
   onStudents,
   arcSite,
-  c,
   typeForm,
   activeNewsletter,
   checkUserSubs,
@@ -401,7 +400,9 @@ export const ButtonSocial = ({
 
   return (
     <button
-      className={`signwall-inside_forms-btn-social ${c} ${brand} ${size} ${brand}-${size}`}
+      className={`signwall-inside_forms-btn-social ${brand} ${size} ${brand}-${size} ${
+        arcSite === 'trome' ? `trome-${brand}` : ''
+      }`}
       type="button"
       id={`btn-sign-${brand}`}
       disabled={showTextLoad}
@@ -412,8 +413,11 @@ export const ButtonSocial = ({
         )
         clickLoginSocialEcoID(brand)
       }}>
-      {brand === 'facebook' ? <Facebook /> : <Google />}
-      {showTextLoad || brand}
+      {arcSite !== 'trome' && (
+        <>{brand === 'facebook' ? <Facebook /> : <Google />}</>
+      )}
+
+      {arcSite !== 'trome' ? showTextLoad || brand : ''}
     </button>
   )
 }

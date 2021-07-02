@@ -284,7 +284,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
       {!showCheckPremium ? (
         <>
           <form
-            className={`signwall-inside_forms-form ${typeDialog}`}
+            className={`signwall-inside_forms-form ${
+              arcSite === 'trome' ? 'form-trome' : ''
+            } ${typeDialog}`}
             onSubmit={handleOnSubmit}>
             {activePaywall && typeDialog !== 'premium' && !showLoginEmail && (
               <h4
@@ -295,11 +297,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
               </h4>
             )}
 
-            <p
-              style={{
-                fontSize: '18px',
-              }}
-              className="signwall-inside_forms-text mb-10 mt-10 center">
+            <p className="signwall-inside_forms-text mb-10 mt-10 center">
               Ingresa con
             </p>
 
@@ -308,7 +306,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 key={item}
                 brand={item}
                 size="middle"
-                c="mb-10"
                 onClose={onClose}
                 typeDialog={typeDialog}
                 arcSite={arcSite}
@@ -439,8 +436,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
               style={{
                 fontSize: '12px',
                 color: '#000000',
+                textAlign: 'center',
               }}
-              className="signwall-inside_forms-text mt-10 mb-20 center">
+              className="signwall-inside_forms-text mt-10 mb-20">
               ¿Aún no tienes una cuenta?
               <a
                 href="#"
@@ -466,6 +464,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   checked={checkedPolits}
                   value={checkedPolits ? '1' : '0'}
                   name="rpolit"
+                  arcSite={arcSite}
                   onChange={() => {
                     setCheckedPolits(!checkedPolits)
                   }}>
@@ -527,7 +526,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
           {showLoadingPremium ? (
             <Loading typeBg="block" />
           ) : (
-            <form className="signwall-inside_forms-form">
+            <form className={`signwall-inside_forms-form ${typeDialog}`}>
               <div className="center block mb-20 mt-20">
                 <MsgRegister bgcolor={mainColorBr} />
               </div>
