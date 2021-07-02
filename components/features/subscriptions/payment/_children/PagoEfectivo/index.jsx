@@ -3,6 +3,7 @@ import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import Loading from '../../../../signwall/_children/loading'
 import { AuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
@@ -63,7 +64,7 @@ const Confirmation = () => {
       null
     )
 
-    const { amount, productName, priceCode } = getPLanSelected || {}
+    const { amount, priceCode, name } = getPLanSelected || {}
     const nowDate = new Date()
     const getUtcDate = new Date(nowDate.getTime() - 300 * 60000)
     const set24Hours = new Date(
@@ -75,7 +76,7 @@ const Confirmation = () => {
       const dataCIP = {
         currency: 'PEN',
         amount,
-        payment_concept: `${productName} - ${userPeriod}`,
+        payment_concept: `${name} - ${userPeriod}`,
         user_email: email,
         user_id: userProfile.uuid || uuid,
         user_name: firstName,
@@ -93,22 +94,26 @@ const Confirmation = () => {
         .then((resCIP) => {
           const { response: { data: { cipUrl = '', cip = '' } = {} } = {} } =
             resCIP || {}
-          setCipLink(cipUrl)
-          TaggeoJoao(
-            {
-              event: 'Pasarela Suscripciones Digitales',
-              category: eventCategory({
-                step: 2.5,
-                event,
-                hasPrint: printedSubscriber,
-                plan: productName,
-                cip: true,
-              }),
-              action: `${userPeriod} | PE - ${userPeOption} - ${cip}`,
-              label: userProfile.uuid || uuid,
-            },
-            window.location.pathname
-          )
+          if (cipUrl === '' || cip === '') {
+            setCipLink('error')
+          } else {
+            setCipLink(cipUrl)
+            TaggeoJoao(
+              {
+                event: 'Pasarela Suscripciones Digitales',
+                category: eventCategory({
+                  step: 2.5,
+                  event,
+                  hasPrint: printedSubscriber,
+                  plan: name,
+                  cip: true,
+                }),
+                action: `${userPeriod} | PE - ${userPeOption} - ${cip}`,
+                label: userProfile.uuid || uuid,
+              },
+              window.location.pathname
+            )
+          }
         })
         .catch((errCIP) => {
           Sentry.captureEvent({
@@ -124,7 +129,7 @@ const Confirmation = () => {
                 step: 2.5,
                 event,
                 hasPrint: printedSubscriber,
-                plan: productName,
+                plan: name,
                 cancel: true,
               }),
               action: `${userPeriod}  | PE - ${userPeOption} - ${
@@ -204,7 +209,10 @@ const Confirmation = () => {
         break
       case null:
         heading = (
-          <span>Generando Código de pago (CIP), por favor espere...</span>
+          <>
+            <span>Generando Código de pago (CIP), por favor espere...</span>
+            <Loading typeBg="block" />
+          </>
         )
         break
       default:
