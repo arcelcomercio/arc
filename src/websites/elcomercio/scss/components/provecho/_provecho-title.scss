@@ -1,0 +1,29 @@
+@import "../saltar-intro/saltar-intro-title";
+
+.saltar-intro-title {
+  &__container {
+    border: 0;
+  }
+  &__title {
+    // font: normal normal 800 19px/24px Bitter;
+    font-size: 19px;
+    line-height: 24px;
+    letter-spacing: 0.27px;
+    border: 0;
+    color: #fff !important;
+    background-color: #000;
+    text-transform: unset;
+  }
+  &__box-line {
+    width: 50%;
+    @media (--only-mobile) {
+      width: 70%;
+    }
+  }
+  &__line {
+    border-color: transparent;
+    &:nth-child(3) {
+      border-top: 1px solid #707070;
+    }
+  }
+}

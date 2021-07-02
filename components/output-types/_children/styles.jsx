@@ -54,6 +54,7 @@ const Styles = ({
   )
     style = 'story-recetas'
   else if (requestUri.includes('/saltar-intro/')) style = 'saltar-intro'
+  else if (requestUri.includes('/provecho/')) style = 'provecho'
   else if (
     requestUri.includes('/mas-especiales/') ||
     requestUri.includes('/especiales/')
