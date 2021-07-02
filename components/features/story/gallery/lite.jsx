@@ -41,8 +41,8 @@ const StoryGalleryLite = () => {
     contextPath,
   })
 
-  const sectionUrl = canonicalUrl.split('/')
-  const seccioPublicidad = sectionUrl[1].replace(/-/gm, '')
+  const sectionUrl = canonicalUrl?.split('/') || '/'
+  const seccioPublicidad = sectionUrl[1]?.replace(/-/gm, '')
 
   const {
     basic: { caption = '' } = {},

@@ -158,7 +158,7 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
       arcSite,
       contextPath
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
-  const seccArary = canonicalUrl.split('/')
+  const seccArary = canonicalUrl?.split('/')
   const secc = seccArary[1] && seccArary[1].replace(/-/gm, '')
   const storyContent = contentWithAds({
     contentElements,
@@ -363,8 +363,8 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                   }
                 }
                 if (type === ELEMENT_GALLERY) {
-                  const sectionUrl = canonicalUrl.split('/')
-                  const seccioPublicidad = sectionUrl[1].replace(/-/gm, '')
+                  const sectionUrl = canonicalUrl?.split('/') || '/'
+                  const seccioPublicidad = sectionUrl[1]?.replace(/-/gm, '')
                   return (
                     <StoryHeaderChildGallery
                       promoItems={element}

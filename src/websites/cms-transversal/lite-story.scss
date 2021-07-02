@@ -1,0 +1,23 @@
+/******* Base *******/
+@import "../elcomercio/scss/partials/lite/import-fonts";
+@import "../../general-styles/framework/variables/index";
+@import "../elcomercio/scss/variables/index";
+@import "../elcomercio/scss/variables/lite/fonts";
+
+/******* Components *******/
+@import "../elcomercio/scss/lite-components/features/header/basic/menu";
+@import "../elcomercio/scss/lite-components/features/story/gallery/gallery";
+@import "../elcomercio/scss/lite-components/features/story/gallery/gallery-vertical";
+@import "../elcomercio/scss/lite-components/features/story/contents/contents";
+@import "../elcomercio/scss/lite-components/features/story/contents/table";
+@import "../elcomercio/scss/lite-components/features/story/related/st-rel";
+@import "../elcomercio/scss/lite-components/features/story/tags/st-tags";
+@import "../elcomercio/scss/lite-components/features/stories-lists/linked-by-site/link-site";
+@import "../elcomercio/scss/lite-components/features/story/continue/st-continue";
+@import "../elcomercio/scss/lite-components/features/story/continue-scroll/st-scroll";
+@import "../elcomercio/scss/lite-components/features/footer/story/st-foot";
+@import "../elcomercio/scss/lite-components/global-components/multimedia-icon/m-icon";
+@import "../elcomercio/scss/lite-components/features/story/taboola/taboola";
+@import "../elcomercio/scss/lite-components/features/cards/most-read/most-read";
+@import "../elcomercio/scss/lite-components/features/story/google-news/google-news";
+@import "../elcomercio/scss/lite-components/features/story/interest/st-interest";
