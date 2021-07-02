@@ -675,6 +675,9 @@ $heightHeader: 52px;
       @media (min-width: 767px) {
         height: 2120px;
       }
+      @media (min-width: 768px) {
+        height: 2120px;
+      }
       @media (min-width: 1024px) {
         height: 1932px;
       }
@@ -1283,7 +1286,7 @@ $heightHeader: 52px;
   }
 
   @include device(tabletp) {
-    height: calc(100vh - 200px);
+    // height: calc(100vh - 200px);
 
     &__bottom {
       display: none;
