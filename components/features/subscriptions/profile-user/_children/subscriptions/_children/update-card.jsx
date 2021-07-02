@@ -333,11 +333,7 @@ const UpdateCard = ({
           </div>
         )}
 
-        <div
-          className="sign-profile_subscriptions-group"
-          style={{
-            alignItems: 'center',
-          }}>
+        <div className="sign-profile_subscriptions-group">
           <div className="subtitle">Selecciona un tipo de tarjeta</div>
           <div>
             {ListCards.map((item) => (
@@ -473,7 +469,7 @@ const UpdateCard = ({
                 type="submit"
                 className="sign-profile_general-button"
                 id="btn-update-card"
-                color={mainColorBtn}
+                style={{ background: mainColorBtn }}
                 disabled={disable || showLoadingSubmit}>
                 {showLoadingSubmit ? 'ACTUALIZANDO...' : 'ACTUALIZAR'}
               </button>
