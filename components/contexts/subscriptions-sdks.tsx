@@ -12,10 +12,17 @@ type SdksProviderProps = {
   disableSales?: boolean
 }
 
-export const SdksContext = React.createContext({})
+const SdksContext = React.createContext<
+  Pick<SdksProviderProps, 'disableSales'> | undefined
+>(undefined)
 
-export const useSdksContext = (): Pick<SdksProviderProps, 'disableSales'> =>
-  React.useContext(SdksContext)
+const useSdksContext = (): Pick<SdksProviderProps, 'disableSales'> => {
+  const context = React.useContext(SdksContext)
+  if (context === undefined) {
+    throw new Error('useSdksContext debe ser usado dentro de un AuthProvider')
+  }
+  return context
+}
 
 const SdksProvider: React.FC<SdksProviderProps> = ({
   children,
@@ -56,4 +63,4 @@ const SdksProvider: React.FC<SdksProviderProps> = ({
   return <SdksContext.Provider value={value}>{children}</SdksContext.Provider>
 }
 
-export default SdksProvider
+export { SdksProvider, useSdksContext }
