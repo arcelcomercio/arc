@@ -145,6 +145,7 @@ export default ({
   if (arcSite === SITE_ELCOMERCIO) {
     if (/^\/suscriptor-digital/.test(requestUri)) classBody = `section-premium`
     else if (/^\/saltar-intro/.test(requestUri)) classBody = `saltar-intro`
+    else if (/^\/provecho/.test(requestUri)) classBody = `provecho`
   }
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
