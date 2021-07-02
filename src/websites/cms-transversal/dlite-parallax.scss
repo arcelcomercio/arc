@@ -1,0 +1,262 @@
+@import "../../general-styles/framework/variables/index";
+@import "../elcomercio/scss/variables/index";
+
+@import "../elcomercio/scss/variables/lite/fonts";
+
+@import "../../general-styles/framework/core/reset";
+@import "../elcomercio/scss/parallax/core.scss";
+@import "../../general-styles/framework/core/ads";
+
+.l-parallax {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 0;
+  &__p {
+    padding-top: calc(100vh - 60px);
+    z-index: 0;
+  }
+  &__content {
+    background-color: #fff;
+    z-index: 1;
+    position: relative;
+  }
+  &__g {
+    height: 163px;
+    position: relative;
+    background: transparent linear-gradient(180deg, #fff0 0%, #fff 100%) 0% 0%
+      no-repeat padding-box;
+    opacity: 1;
+  }
+}
+
+// Estilos heredados
+@import "../elcomercio/scss/lite-components/features/header/basic/h-basic";
+@import "../elcomercio/scss/lite-components/features/header/basic/menu";
+@import "../elcomercio/scss/lite-components/features/story/contents/contents-inline";
+@import "../elcomercio/scss/lite-components/features/story/contents/table";
+@import "../elcomercio/scss/lite-components/features/footer/story/st-foot";
+
+// Custom styles
+@import "../elcomercio/scss/parallax/features/header/h-basic.scss";
+@import "../elcomercio/scss/parallax/features/story/featured-image/featured-img.scss";
+@import "../elcomercio/scss/parallax/features/story/contents/story-contents.scss";
+@import "../elcomercio/scss/parallax/features/story/subscription-call/story-subs-call.scss";
+
+.parallax-image {
+  height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding: 128px 0;
+
+  h3 {
+    font: 700 24px/32px $primary-font;
+    padding: 0 20px;
+    letter-spacing: 0.77px;
+    text-align: center;
+    color: #fff;
+    @media (--desktop) {
+      font: 700 24px/52px $primary-font;
+    }
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    height: 128px;
+    display: block;
+    width: 100%;
+    opacity: 1;
+    position: absolute;
+  }
+  &::after {
+    top: 0;
+    background: transparent linear-gradient(0deg, #fff0 0%, #fff 100%) 0% 0%
+      no-repeat padding-box;
+  }
+  &::before {
+    bottom: 0;
+    background: transparent linear-gradient(180deg, #fff0 0%, #fff 100%) 0% 0%
+      no-repeat padding-box;
+  }
+}
+
+.st-foot {
+  background-color: #161616;
+  &__block,
+  &__link {
+    color: #777;
+  }
+  &__content,
+  &__block {
+    border-color: #333 !important;
+  }
+  @media (--desktop) {
+    &__block {
+      height: 68px;
+    }
+  }
+}
+
+// TODO: Eliminar clases no usadas
+.scrolling-gallery {
+  &__container {
+    display: flex;
+    flex-shrink: 0;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    @media (--only-mobile) {
+      padding-top: 40px;
+    }
+  }
+  &__wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+  }
+  &__title {
+    position: absolute;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    font: 700 24px/1 $primary-font;
+    color: #888;
+    letter-spacing: 0.77px;
+    padding: 40px 10px;
+    @media (--tablet) {
+      padding: 50px 70px;
+    }
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    @media screen and (max-height: 450px) {
+      display: none;
+    }
+  }
+  &__item {
+    margin: 50px;
+    figure {
+      display: table;
+      margin: 0;
+    }
+
+    figure img {
+      height: 50vh;
+    }
+
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      padding-top: 10px;
+      font: 400 16px/24px $primary-font;
+      color: #777;
+      letter-spacing: 0.26px;
+      text-align: center;
+    }
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    &:first-child {
+      margin-left: 50vw;
+    }
+    &:last-child {
+      margin-right: 50vw;
+    }
+  }
+}
+
+.stories-carousel {
+  &__container {
+    padding: 32px 0;
+  }
+  &__main-title {
+    text-align: center;
+    font: 700 24px/52px $primary-font;
+    letter-spacing: 0.77px;
+    color: #888;
+    padding: 30px 20px;
+  }
+  &__item {
+    background-color: #333;
+    margin: 12px;
+  }
+  &__item-container {
+    height: 420px;
+    position: relative;
+    display: block;
+  }
+  &__text-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    padding: 0 24px 32px 24px;
+  }
+  &__subtitle {
+    font: 500 16px/1 $primary-font;
+    letter-spacing: 0.26px;
+    margin-bottom: 10px;
+  }
+  &__title {
+    font: 400 24px/30px $secondary-font;
+    letter-spacing: 0.19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+  &__img-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    &::before {
+      background: linear-gradient(180deg, rgba(68, 68, 68, 0) 20%, #444);
+      bottom: 0;
+      content: "";
+      height: 306px;
+      left: 0;
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+    }
+  }
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.glider-contain {
+  width: 95% !important;
+  max-width: 1030px;
+  @media (--tablet) {
+    width: 85% !important;
+  }
+}
+
+.glider-next,
+.glider-prev {
+  display: none;
+  top: 40% !important;
+  @media (--tablet) {
+    display: block;
+  }
+}
