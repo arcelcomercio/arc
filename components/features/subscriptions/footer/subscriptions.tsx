@@ -1,6 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import { FC } from 'types/features'
+import { SubsArcSite } from 'types/subscriptions'
 
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
@@ -16,7 +17,7 @@ const SubscriptionsFooter: FC<SubscriptionsFooterProps> = (props) => {
   const { customFields: { type = 'landing' } = {} } = props
 
   const { arcSite } = useAppContext() || {}
-  const { urls, texts } = PropertiesSite[arcSite as 'elcomercio' | 'gestion']
+  const { urls, texts } = PropertiesSite[arcSite as SubsArcSite]
   const { links } = PropertiesCommon
 
   return (

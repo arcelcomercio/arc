@@ -1,3 +1,5 @@
+export type SubsArcSite = 'elcomercio' | 'gestion'
+
 type Attributes = {
   name: string
   value: string

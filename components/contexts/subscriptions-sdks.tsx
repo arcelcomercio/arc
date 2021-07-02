@@ -2,10 +2,9 @@ import Identity from '@arc-publishing/sdk-identity'
 import Sales from '@arc-publishing/sdk-sales'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import { SubsArcSite } from 'types/subscriptions'
 
 import { PropertiesSite } from '../features/subscriptions/_dependencies/Properties'
-
-type SubsArcSite = 'elcomercio' | 'gestion'
 
 type SdksProviderProps = {
   children: React.ReactNode
