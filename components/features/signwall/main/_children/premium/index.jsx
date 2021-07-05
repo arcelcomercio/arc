@@ -106,10 +106,10 @@ export const PremiumInt = ({ properties }) => {
           style={{
             background: `${
               arcSite === 'gestion' ? '#8f071f' : '#232323'
-            } url(${getAssetsPath({
+            } url(${getAssetsPath(
               arcSite,
-              contextPath,
-            })}/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1)`,
+              contextPath
+            )}/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1)`,
           }}>
           <div
             className="signwall-inside_body-cont premium"
@@ -132,10 +132,10 @@ export const PremiumInt = ({ properties }) => {
               <img
                 alt="Logo"
                 className={`logo ${arcSite}`}
-                src={`${getAssetsPath({
+                src={`${getAssetsPath(
                   arcSite,
-                  contextPath,
-                })}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
+                  contextPath
+                )}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
               />
             </center>
             <ul className="list-benefits mb-20">
