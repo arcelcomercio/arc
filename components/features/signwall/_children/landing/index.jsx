@@ -1,6 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { getAssetsPath } from '../../../../utilities/assets'
 import {
   ModalConsumer,
   ModalProvider,
@@ -37,7 +38,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
 
 export const LandingInt = ({ properties }) => {
   const { onClose, noBtnClose, typeDialog } = properties
-  const { arcSite } = useAppContext() || {}
+  const { arcSite, contextPath } = useAppContext() || {}
   const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
   const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
 
@@ -63,7 +64,10 @@ export const LandingInt = ({ properties }) => {
           style={{
             background: `${
               arcSite === 'gestion' ? '#8f071f' : '#232323'
-            } url(https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/${IMG}.jpg?d=1342)`,
+            } url(${getAssetsPath({
+              arcSite,
+              contextPath,
+            })}/resources/dist/${arcSite}/images/${IMG}.jpg?d=1)`,
             backgroundSize: 'cover',
           }}
         />

@@ -3,8 +3,10 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import Markdown from 'react-markdown/with-html'
 
+import { getAssetsPath } from '../../utilities/assets'
+
 const VallaHtml = () => {
-  const { arcSite } = useAppContext()
+  const { arcSite, contextPath } = useAppContext()
   const {
     name = 'Nombre Plan',
     summary: { feature = [] } = {},
@@ -49,7 +51,10 @@ const VallaHtml = () => {
             <div className="plan-digital">{name}</div>
             <img
               alt="Logo"
-              src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
+              src={`${getAssetsPath({
+                arcSite,
+                contextPath,
+              })}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
             />
           </div>
         </div>
