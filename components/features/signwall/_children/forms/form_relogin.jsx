@@ -248,11 +248,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
         {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
       </button>
 
-      <p
-        style={{
-          fontSize: '14px',
-        }}
-        className="signwall-inside_forms-text mt-20 mb-10 center">
+      <p className="signwall-inside_forms-text mt-20 mb-10 center">
         ó ingresa con tu cuenta de:
       </p>
 
@@ -315,7 +311,6 @@ const FormRelogin = ({ onClose, typeDialog }) => {
             }}>
             <p
               style={{
-                lineHeight: '18px',
                 fontSize: '12px',
               }}
               className="signwall-inside_forms-text mt-10">
@@ -332,12 +327,12 @@ const FormRelogin = ({ onClose, typeDialog }) => {
           </CheckBox>
 
           <p
-            className="signwall-inside_forms-text mt-10 mb-10"
             style={{
               textAlign: 'justify',
               color: '#818181',
               fontSize: '11px',
-            }}>
+            }}
+            className="signwall-inside_forms-text mt-10 mb-10">
             En caso hayas autorizado los fines de uso adicionales anteriormente,
             no es necesario que lo vuelvas a marcar. Si deseas retirar dicho
             consentimiento, revisa el procedimiento en nuestras

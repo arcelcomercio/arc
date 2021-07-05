@@ -127,7 +127,7 @@ export default {
   activePaywall: false,
   activeRulesCounter: false,
   activeNewsletter: false,
-  activeVerifyEmail: false,
+  activeVerifyEmail: true,
   signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
@@ -135,7 +135,7 @@ export default {
     mainColorBr: '#ffede5',
     mainColorLink: '#FF650F',
     mainColorBtn: '#f15c23',
-    authProviders: ['facebook', 'google'],
+    authProviders: ['google', 'facebook'],
   },
   taboola: {
     dataModeAmp: 'thumbnails-e',
