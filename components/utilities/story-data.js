@@ -1032,36 +1032,21 @@ class StoryData {
           dataElements = dataContent
         } */
 
-        if (this.__website === 'elcomerciomag' || this.__website === 'depor') {
-          if (i === 1) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja3`
-          }
-          if (i === 3) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `inline`
-          }
-          if (i === 5) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja4`
-          }
-          if (i === 7) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja5`
-          }
-        } else {
-          if (i === 2) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `inline`
-          }
-          if (i === 4) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja4`
-          }
-          if (i === 6) {
-            dataElements.publicidad = true
-            dataElements.nameAds = `caja5`
-          }
+        if (i === 0) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja3`
+        }
+        if (i === 2) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `inline`
+        }
+        if (i === 4) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja4`
+        }
+        if (i === 6) {
+          dataElements.publicidad = true
+          dataElements.nameAds = `caja5`
         }
         if (typeElement === ELEMENT_TEXT) {
           i += 1

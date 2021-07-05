@@ -8,7 +8,7 @@
       position: relative;
       width: 100%;
       &.border-trome {
-        box-shadow: 0 0 0 7px black;
+        box-shadow: 0 0 0 5px black;
       }
     }
     &-back {
@@ -1560,7 +1560,6 @@
 .sign-auth {
   &_benefits {
     &-cont {
-      padding-bottom: 5%;
       color: black;
       display: flex;
       align-items: center;
