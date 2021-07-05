@@ -171,11 +171,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
           <form
             className="signwall-inside_forms-form"
             onSubmit={handleOnSubmit}>
-            <p
-              style={{
-                fontSize: '14px',
-              }}
-              className="signwall-inside_forms-text mb-10 mt-20 center">
+            <p className="signwall-inside_forms-text mb-10 mt-20 center">
               Ingresa con tus redes sociales
             </p>
 
@@ -223,11 +219,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
               onLogged={onLogged}
             />
 
-            <p
-              style={{
-                fontSize: '14px',
-              }}
-              className="signwall-inside_forms-text mt-20 center">
+            <p className="signwall-inside_forms-text mt-20 center">
               Ingresa con tu usuario
             </p>
 
@@ -347,7 +339,6 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                 }}>
                 <p
                   style={{
-                    lineHieght: '18px',
                     fontSize: '12px',
                   }}
                   className="signwall-inside_forms-text mt-10">
@@ -365,12 +356,12 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
               </CheckBox>
 
               <p
-                className="signwall-inside_forms-text mt-10 mb-10"
                 style={{
                   textAlign: 'justify',
                   color: '#818181',
                   fontSize: '11px',
-                }}>
+                }}
+                className="signwall-inside_forms-text mt-10 mb-10">
                 En caso hayas autorizado los fines de uso adicionales
                 anteriormente, no es necesario que lo vuelvas a marcar. Si
                 deseas retirar dicho consentimiento, revisa el procedimiento en

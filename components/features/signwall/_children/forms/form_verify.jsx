@@ -17,6 +17,8 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
     },
   } = useAppContext() || {}
 
+  const isTromeVerify = arcSite === 'trome' && typeDialog === 'verify'
+
   const { changeTemplate } = React.useContext(ModalConsumer)
   const [showLoading, setShowLoading] = React.useState(true)
   const [showConfirm, setShowConfirm] = React.useState(false)
@@ -66,37 +68,60 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
         <Loading typeBg="block" />
       ) : (
         <>
-          <br />
-          <div className="center block mb-20">
-            <MsgResetPass bgcolor={mainColorBr} />
-          </div>
+          {isTromeVerify ? (
+            <>
+              <div className={isTromeVerify ? 'group-float-trome' : ''}>
+                <br />
+                <h1 className="group-float-trome__title">
+                  ¡Gracias por ser un Trome!
+                </h1>
+                <p className="group-float-trome__subtitle">
+                  {showConfirm
+                    ? 'Tu cuenta de correo electrónico ha sido verificado correctamente.'
+                    : 'Tu cuenta de correo electrónico podría ya estar validado.'}
+                </p>
+              </div>
+              <div className="spacing-trome" />
+              <div className="spacing-trome" />
+              {showError && (
+                <div className="signwall-inside_forms-error">{showError}</div>
+              )}
+              <br />
+            </>
+          ) : (
+            <>
+              <br />
+              <div className="center block mb-20">
+                <MsgResetPass bgcolor={mainColorBr} />
+              </div>
 
-          <h4
-            style={{ fontSize: '20px', fontFamily: primaryFont }}
-            className="signwall-inside_forms-title center mb-10">
-            {showConfirm
-              ? '¡Bienvenido(a) Usuario!'
-              : '¡Bienvenido(a) Nuevamente!'}
-          </h4>
+              <h4
+                style={{ fontSize: '20px', fontFamily: primaryFont }}
+                className="signwall-inside_forms-title center mb-10">
+                {showConfirm
+                  ? '¡Bienvenido(a) Usuario!'
+                  : '¡Bienvenido(a) Nuevamente!'}
+              </h4>
 
-          {showError && (
-            <div className="signwall-inside_forms-error">{showError}</div>
+              {showError && (
+                <div className="signwall-inside_forms-error">{showError}</div>
+              )}
+
+              <p
+                style={{
+                  lineHeight: '28px',
+                  textAlign: 'center',
+                }}
+                className="signwall-inside_forms-text mt-10 mb-20 center">
+                {showConfirm
+                  ? 'Tu correo electrónico ha sido validado correctamente.'
+                  : 'Tu correo electrónico podría ya estar validado.'}
+                <br />
+
+                {!activePaywall && 'disfruta nuestro contenido sin límites'}
+              </p>
+            </>
           )}
-
-          <p
-            style={{
-              fontSize: '14px',
-              lineHeight: '28px',
-              textAlign: 'center',
-            }}
-            className="signwall-inside_forms-text mt-10 mb-20 center">
-            {showConfirm
-              ? 'Tu correo electrónico ha sido validado correctamente.'
-              : 'Tu correo electrónico podría ya estar validado.'}
-            <br />
-
-            {!activePaywall && 'disfruta nuestro contenido sin límites'}
-          </p>
 
           {showBtnContinue ? (
             <button

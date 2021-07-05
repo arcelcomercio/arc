@@ -39,7 +39,7 @@ const SubsDetail = ({ IdSubscription }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorBtn, mainColorTitle },
+      signwall: { mainColorTitle, mainColorLink },
     },
   } = useFusionContext() || {}
 
@@ -362,6 +362,7 @@ const SubsDetail = ({ IdSubscription }) => {
                   className="sign-profile_general-button"
                   disabled={showOpenUpdate}
                   id="btn-signwall-editcard"
+                  style={{ background: mainColorLink }}
                   onClick={() => {
                     setShowUpdateCard(!showUpdateCard)
                   }}>
@@ -375,7 +376,7 @@ const SubsDetail = ({ IdSubscription }) => {
             <UpdateCard
               IdSubscription={IdSubscription}
               arcSite={arcSite}
-              mainColorBtn={mainColorBtn}
+              mainColorBtn={mainColorLink}
               detailSubs={showResDetail}
               cardSelected={showLastCard}
               blockBtnUpdate={blockBtnUpdate}
