@@ -304,7 +304,6 @@ class UpdatePassword extends Component {
               onSubmit={(e) => this.submitConfirmPassword(e)}>
               <p
                 style={{
-                  fontSize: '14px',
                   lineHeight: '28px',
                   marginTop: '20px',
                 }}

@@ -40,7 +40,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
       },
       activeNewsletter = false,
       activeVerifyEmail = false,
-      activePaywall,
     },
   } = useAppContext() || {}
 
@@ -50,6 +49,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
     removeBefore = (i) => i,
     onLogged = (i) => i,
   } = attributes
+
+  const isTromeOrganic = arcSite === 'trome' && typeDialog === 'organico'
 
   const { changeTemplate } = React.useContext(ModalConsumer)
   const [showLoginEmail, setShowLoginEmail] = React.useState(
@@ -288,45 +289,61 @@ const FormLogin = ({ valTemplate, attributes }) => {
               arcSite === 'trome' ? 'form-trome' : ''
             } ${typeDialog}`}
             onSubmit={handleOnSubmit}>
-            {activePaywall && typeDialog !== 'premium' && !showLoginEmail && (
-              <h4
-                style={{ fontSize: '22px', fontFamily: primaryFont }}
-                className="signwall-inside_forms-title center mb-20 mt-20 only-mobile-tablet">
-                Regístrate y mantente siempre informado con las noticias más
-                relevantes del Perú y el mundo
-              </h4>
-            )}
+            <div className={isTromeOrganic ? 'group-float-trome' : ''}>
+              {isTromeOrganic && (
+                <h1 className="group-float-trome__title">Ingresa</h1>
+              )}
 
-            <p className="signwall-inside_forms-text mb-10 mt-10 center">
-              Ingresa con
-            </p>
+              {typeDialog === 'paywall' && !showLoginEmail && (
+                <h4
+                  style={{ fontSize: '22px', fontFamily: primaryFont }}
+                  className="signwall-inside_forms-title center mb-20 mt-20 only-mobile-tablet">
+                  Regístrate y mantente siempre informado con las noticias más
+                  relevantes del Perú y el mundo
+                </h4>
+              )}
 
-            {authProviders.map((item) => (
-              <ButtonSocial
-                key={item}
-                brand={item}
-                size="middle"
+              <p className="signwall-inside_forms-text mb-10 mt-10 center">
+                {arcSite === 'trome'
+                  ? 'Accede fácilmente con:'
+                  : ' Ingresa con'}
+              </p>
+
+              {authProviders.map((item) => (
+                <ButtonSocial
+                  key={item}
+                  brand={item}
+                  size="middle"
+                  onClose={onClose}
+                  typeDialog={typeDialog}
+                  arcSite={arcSite}
+                  typeForm="login"
+                  activeNewsletter={activeNewsletter}
+                  checkUserSubs={checkUserSubs}
+                  onLogged={onLogged}
+                  showMsgVerify={() => triggerShowVerify()}
+                  dataTreatment={checkedPolits ? '1' : '0'}
+                />
+              ))}
+
+              <AuthURL
+                arcSite={arcSite}
                 onClose={onClose}
                 typeDialog={typeDialog}
-                arcSite={arcSite}
-                typeForm="login"
                 activeNewsletter={activeNewsletter}
-                checkUserSubs={checkUserSubs}
+                typeForm="login"
                 onLogged={onLogged}
-                showMsgVerify={() => triggerShowVerify()}
-                dataTreatment={checkedPolits ? '1' : '0'}
+                checkUserSubs={checkUserSubs}
               />
-            ))}
 
-            <AuthURL
-              arcSite={arcSite}
-              onClose={onClose}
-              typeDialog={typeDialog}
-              activeNewsletter={activeNewsletter}
-              typeForm="login"
-              onLogged={onLogged}
-              checkUserSubs={checkUserSubs}
-            />
+              {arcSite === 'trome' && (
+                <p className="signwall-inside_forms-text mt-15 center">
+                  o completa tus datos para acceder
+                </p>
+              )}
+            </div>
+
+            {isTromeOrganic && <div className="spacing-trome" />}
 
             {!showLoginEmail && (
               <ButtonEmail
@@ -443,7 +460,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <a
                 href="#"
                 style={{ color: mainColorLink, fontWeight: 'bold' }}
-                className="signwall-inside_forms-link ml-10"
+                className="signwall-inside_forms-link ml-5"
                 onClick={(e) => {
                   e.preventDefault()
                   Taggeo(
@@ -471,7 +488,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   <p
                     style={{
                       fontSize: '12px',
-                      lineHeight: '18px',
                     }}
                     className="signwall-inside_forms-text mt-10">
                     Al ingresar por redes sociales autorizo el uso de mis datos
@@ -488,12 +504,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 </CheckBox>
 
                 <p
-                  className="signwall-inside_forms-text mt-10 mb-10"
                   style={{
                     textAlign: 'justify',
                     color: '#818181',
                     fontSize: '11px',
-                  }}>
+                  }}
+                  className="signwall-inside_forms-text mt-10 mb-10">
                   En caso hayas autorizado los fines de uso adicionales
                   anteriormente, no es necesario que lo vuelvas a marcar. Si
                   deseas retirar dicho consentimiento, revisa el procedimiento
@@ -540,7 +556,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
               </h4>
               <p
                 style={{
-                  fontSize: '14px',
                   lineHeight: '28px',
                 }}
                 className="signwall-inside_forms-text mt-10 mb-20 center">

@@ -19,6 +19,8 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
     },
   } = useAppContext() || {}
 
+  const isTromeReset = arcSite === 'trome' && typeDialog === 'resetpass'
+
   const { changeTemplate } = React.useContext(ModalConsumer)
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showError, setShowError] = React.useState(false)
@@ -108,25 +110,48 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
         arcSite === 'trome' ? 'form-trome' : ''
       }`}
       onSubmit={handleOnSubmit}>
-      <br />
+      {isTromeReset && (
+        <>
+          <div className={isTromeReset ? 'group-float-trome' : ''}>
+            <br />
+            <h1 className="group-float-trome__title">
+              ¡Hola! <br />
+              ¿Olvidaste tu contraseña?
+            </h1>
+            <p className="group-float-trome__subtitle">
+              No te preocupes, cámbiala fácilmente.
+            </p>
+          </div>
+        </>
+      )}
+
       {!showConfirm ? (
         <>
-          <div className="center block mb-20">
-            <ResetPass bgcolor={mainColorBr} />
-          </div>
-          <h4
-            style={{ fontSize: '20px', fontFamily: primaryFont }}
-            className="signwall-inside_forms-title center mb-10">
-            Cambiar contraseña
-          </h4>
-          <p
-            style={{
-              fontSize: '14px',
-              lineHeight: '28px',
-            }}
-            className="signwall-inside_forms-text mt-10 mb-10 center">
-            Ingresa una nueva contraseña para tu cuenta
-          </p>
+          {isTromeReset ? (
+            <>
+              <br />
+              <div className="spacing-trome" />
+            </>
+          ) : (
+            <>
+              <div className="center block mb-20">
+                <br />
+                <ResetPass bgcolor={mainColorBr} />
+              </div>
+              <h4
+                style={{ fontSize: '20px', fontFamily: primaryFont }}
+                className="signwall-inside_forms-title center mb-10">
+                Cambiar contraseña
+              </h4>
+              <p
+                style={{
+                  lineHeight: '28px',
+                }}
+                className="signwall-inside_forms-text mt-10 mb-10 center">
+                Ingresa una nueva contraseña para tu cuenta
+              </p>
+            </>
+          )}
 
           {showError && (
             <div className="signwall-inside_forms-error">{showError}</div>
@@ -177,6 +202,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
         </>
       ) : (
         <>
+          <br />
           <div className="center block mb-20">
             <MsgResetPass bgcolor={mainColorBr} />
           </div>

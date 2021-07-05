@@ -46,7 +46,7 @@ const FormRelogin = React.lazy(() =>
 const lazyFallback = <div style={{ padding: '30px' }}>Cargando...</div>
 
 const renderTemplate = (template, valTemplate, attributes) => {
-  const { typeDialog } = attributes
+  const { typeDialog, arcSite } = attributes
 
   const templates = {
     login: (
@@ -91,7 +91,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
       case 'reloghash':
         return templates.relogin
       default:
-        return templates.login
+        return arcSite === 'trome' ? templates.register : templates.login
     }
   }
 
@@ -129,6 +129,7 @@ export const ContGeneric = ({ properties }) => {
     <Modal
       // eslint-disable-next-line no-nested-ternary
       size={activePaywall ? 'large' : isTrome ? 'medium' : 'small'}
+      arcSite={arcSite}
       position="middle">
       <Header
         buttonClose
@@ -145,7 +146,8 @@ export const ContGeneric = ({ properties }) => {
                 arcSite={arcSite}
                 mainColorTitle={mainColorTitle}
                 primaryFont={primaryFont}
-                typeMessage={typeDialog}
+                typeDialog={typeDialog}
+                onClose={onClose}
               />
             </React.Suspense>
           </div>

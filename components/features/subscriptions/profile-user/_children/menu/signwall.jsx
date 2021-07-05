@@ -72,7 +72,7 @@ const MenuSignwall = ({ handleMenu }) => {
     <>
       <div
         className="sign-profile_menu-avatar"
-        style={{ borderColor: mainColorBr }}>
+        style={{ borderColor: arcSite === 'trome' ? 'black' : mainColorBr }}>
         <img
           src={
             typeLogin === 'facebook'

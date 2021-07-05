@@ -51,20 +51,20 @@ const BenefitsGeneric = [
 ]
 
 export const Benefits = ({
-  typeMessage,
+  typeDialog,
   arcSite,
   mainColorTitle,
   primaryFont,
 }) => {
   const isComercio = arcSite === 'elcomercio'
   const isGestion = arcSite === 'gestion'
-  const isHard = typeMessage === 'hard'
-  const isRelogEmail = typeMessage === 'relogemail'
-  const isRelogHash = typeMessage === 'reloghash'
-  const isOrganic = typeMessage === 'organico'
-  const isResetPass = typeMessage === 'resetpass'
-  const isVerify = typeMessage === 'verify'
-  const isNewsLetter = typeMessage === 'newsletter'
+  const isHard = typeDialog === 'hard'
+  const isRelogEmail = typeDialog === 'relogemail'
+  const isRelogHash = typeDialog === 'reloghash'
+  const isOrganic = typeDialog === 'organico'
+  const isResetPass = typeDialog === 'resetpass'
+  const isVerify = typeDialog === 'verify'
+  const isNewsLetter = typeDialog === 'newsletter'
 
   return (
     <div className="sign-auth_benefits-cont">
@@ -125,27 +125,10 @@ export const Benefits = ({
           ))}
         </>
       ) : (
-        <div className="box-benefist">
-          {isResetPass && (
-            <>
-              <br />
-              <h1>
-                ¡Hola! <br />
-                ¿Olvidaste tu contraseña?
-              </h1>
-              <p className="description">
-                <strong>No te preocupes, cámbiala fácilmente.</strong>
-              </p>
-            </>
-          )}
-
-          {(isOrganic || isNewsLetter || isHard || isVerify) && (
-            <>
-              <h1>
-                {isVerify
-                  ? '¡Gracias por ser un Trome!'
-                  : '¡Regístrate gratis!'}
-              </h1>
+        <>
+          {isHard && (
+            <div className="box-benefist">
+              <h1>¡Regístrate gratis!</h1>
 
               <p className="description">
                 Mantente informado por el
@@ -163,9 +146,9 @@ export const Benefits = ({
                   </li>
                 ))}
               </ul>
-            </>
+            </div>
           )}
-        </div>
+        </>
       )}
     </div>
   )

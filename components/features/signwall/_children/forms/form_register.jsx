@@ -28,7 +28,7 @@ import {
   getEntitlement,
   sendNewsLettersUser,
 } from '../../_dependencies/services'
-import { Back, MsgRegister } from '../icons'
+import { MsgRegister } from '../icons'
 import Loading from '../loading'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
@@ -55,6 +55,8 @@ const FormRegister = ({
       activeVerifyEmail = false,
     },
   } = useAppContext() || {}
+
+  const isTromeOrganic = arcSite === 'trome' && typeDialog === 'organico'
 
   const { changeTemplate } = React.useContext(ModalConsumer)
   const [showError, setShowError] = React.useState(false)
@@ -367,65 +369,51 @@ const FormRegister = ({
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
-                  <button
-                    className="signwall-inside_forms-btn-base"
-                    type="button"
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_link_volver`
-                      )
-                      switch (typeDialog) {
-                        case 'relogemail':
-                        case 'reloghash':
-                          changeTemplate('relogin')
-                          break
-                        default:
-                          changeTemplate('login')
-                      }
-                    }}>
-                    <Back /> Volver
-                  </button>
+                  <div className={isTromeOrganic ? 'group-float-trome' : ''}>
+                    {isTromeOrganic && (
+                      <h1 className="group-float-trome__title">
+                        ¡Regístrate gratis!
+                      </h1>
+                    )}
 
-                  <p className="signwall-inside_forms-text mb-10 center">
-                    Accede fácilmente con:
-                  </p>
+                    <p className="signwall-inside_forms-text mt-10 mb-10 center">
+                      Accede fácilmente con:
+                    </p>
 
-                  {authProviders.map((item) => (
-                    <ButtonSocial
-                      key={item}
-                      brand={item}
-                      size={sizeBtnSocial}
-                      onLogged={onLogged}
+                    {authProviders.map((item) => (
+                      <ButtonSocial
+                        key={item}
+                        brand={item}
+                        size={sizeBtnSocial}
+                        onLogged={onLogged}
+                        onClose={onClose}
+                        typeDialog={typeDialog}
+                        onStudents={() => setShowStudents(!showStudents)}
+                        arcSite={arcSite}
+                        typeForm="registro"
+                        activeNewsletter={activeNewsletter}
+                        checkUserSubs={checkUserSubs}
+                        dataTreatment={checkedPolits ? '1' : '0'}
+                      />
+                    ))}
+
+                    <AuthURL
+                      arcSite={arcSite}
                       onClose={onClose}
                       typeDialog={typeDialog}
-                      onStudents={() => setShowStudents(!showStudents)}
-                      arcSite={arcSite}
-                      typeForm="registro"
                       activeNewsletter={activeNewsletter}
+                      typeForm="registro"
+                      onLogged={onLogged}
                       checkUserSubs={checkUserSubs}
-                      dataTreatment={checkedPolits ? '1' : '0'}
+                      onStudents={() => setShowStudents(!showStudents)}
                     />
-                  ))}
 
-                  <AuthURL
-                    arcSite={arcSite}
-                    onClose={onClose}
-                    typeDialog={typeDialog}
-                    activeNewsletter={activeNewsletter}
-                    typeForm="registro"
-                    onLogged={onLogged}
-                    checkUserSubs={checkUserSubs}
-                    onStudents={() => setShowStudents(!showStudents)}
-                  />
+                    <p className="signwall-inside_forms-text mt-15 center">
+                      o completa tus datos para registrarte
+                    </p>
+                  </div>
 
-                  <p
-                    style={{
-                      fontSize: '14px',
-                    }}
-                    className="signwall-inside_forms-text mt-15 center">
-                    o completa tus datos para registrarte
-                  </p>
+                  {isTromeOrganic && <div className="spacing-trome" />}
 
                   {showError && (
                     <div className="signwall-inside_forms-error">
@@ -511,7 +499,6 @@ const FormRegister = ({
                       }}>
                       <p
                         style={{
-                          lineHeight: '18px',
                           fontSize: '12px',
                         }}
                         className="signwall-inside_forms-text mt-10">
@@ -543,7 +530,6 @@ const FormRegister = ({
                     error={rtermsError}>
                     <p
                       style={{
-                        lineHeight: '18px',
                         fontSize: '12px',
                       }}
                       className="signwall-inside_forms-text mt-10">
@@ -581,26 +567,77 @@ const FormRegister = ({
                     }}>
                     {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
                   </button>
+
+                  <p
+                    style={{
+                      fontSize: '12px',
+                      color: '#000000',
+                      textAlign: 'center',
+                    }}
+                    className="signwall-inside_forms-text mt-20 mb-10">
+                    Ya tengo una cuenta
+                    <a
+                      href="#"
+                      style={{ color: mainColorLink, fontWeight: 'bold' }}
+                      className="signwall-inside_forms-link ml-5"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        Taggeo(
+                          `Web_Sign_Wall_${typeDialog}`,
+                          `web_sw${typeDialog[0]}_registro_link_volver`
+                        )
+                        switch (typeDialog) {
+                          case 'relogemail':
+                          case 'reloghash':
+                            changeTemplate('relogin')
+                            break
+                          default:
+                            changeTemplate('login')
+                        }
+                      }}>
+                      Iniciar Sesión
+                    </a>
+                  </p>
                 </>
               )}
 
               {showConfirm && (
                 <>
-                  <div className="center block mb-20 mt-20">
-                    <MsgRegister bgcolor={mainColorBr} />
-                  </div>
+                  {isTromeOrganic ? (
+                    <>
+                      <div
+                        className={isTromeOrganic ? 'group-float-trome' : ''}>
+                        <br />
+                        <h1 className="group-float-trome__title">
+                          ¡Gracias por ser un Trome!
+                        </h1>
+                        <p className="group-float-trome__subtitle">
+                          Para confirmar tu registro te solicitamos confirmar tu
+                          <br /> cuenta de correo electrónico.
+                        </p>
+                      </div>
+                      <div className="spacing-trome" />
+                      <div className="spacing-trome" />
+                    </>
+                  ) : (
+                    <>
+                      <div className="center block mb-20 mt-20">
+                        <MsgRegister bgcolor={mainColorBr} />
+                      </div>
 
-                  <h4
-                    style={{ fontSize: '22px' }}
-                    className="signwall-inside_forms-title center mb-10">
-                    {showUserWithSubs
-                      ? `Bienvenido(a) ${
-                          window.Identity.userProfile.firstName || 'Usuario'
-                        }`
-                      : 'Tu cuenta ha sido creada correctamente'}
-                  </h4>
+                      <h4
+                        style={{ fontSize: '22px' }}
+                        className="signwall-inside_forms-title center mb-10">
+                        {showUserWithSubs
+                          ? `Bienvenido(a) ${
+                              window.Identity.userProfile.firstName || 'Usuario'
+                            }`
+                          : 'Tu cuenta ha sido creada correctamente'}
+                      </h4>
+                    </>
+                  )}
 
-                  {showContinueVerify && (
+                  {showContinueVerify && !isTromeOrganic && (
                     <h4
                       style={{ fontSize: '14px', color: '#6a6a6a' }}
                       className="signwall-inside_forms-title center">
@@ -615,7 +652,6 @@ const FormRegister = ({
                           <>
                             <p
                               style={{
-                                fontSize: '14px',
                                 lineHeight: '28px',
                               }}
                               className="signwall-inside_forms-text mt-10 mb-20 center">
@@ -677,17 +713,19 @@ const FormRegister = ({
 
                   {(showContinueVerify || !activeVerifyEmail) && (
                     <>
-                      <p
-                        style={{
-                          fontSize: '14px',
-                          lineHeight: '22px',
-                        }}
-                        className="signwall-inside_forms-text mt-10 mb-20 center">
-                        Revisa tu bandeja de correo para confirmar tu
-                        {showContinueVerify
-                          ? ` registro y sigue navegando`
-                          : ` solicitud de registro`}
-                      </p>
+                      {!isTromeOrganic && (
+                        <p
+                          style={{
+                            lineHeight: '22px',
+                          }}
+                          className="signwall-inside_forms-text mt-10 mb-20 center">
+                          Revisa tu bandeja de correo para confirmar tu
+                          {showContinueVerify
+                            ? ` registro y sigue navegando`
+                            : ` solicitud de registro`}
+                        </p>
+                      )}
+
                       <button
                         type="button"
                         className="signwall-inside_forms-btn"
@@ -720,7 +758,7 @@ const FormRegister = ({
                             }
                           }
                         }}>
-                        CONTINUAR
+                        {arcSite === 'trome' ? 'CONFIRMAR CORREO' : 'CONTINUAR'}
                       </button>
                     </>
                   )}
@@ -730,6 +768,7 @@ const FormRegister = ({
                       style={{
                         color: '#000000',
                         fontSize: '12px',
+                        textAlign: 'center',
                       }}
                       className="signwall-inside_forms-text mt-20 mb-10 center">
                       ¿No recibiste el correo?
@@ -751,6 +790,12 @@ const FormRegister = ({
                     </p>
                   )}
                 </>
+              )}
+              {showConfirm && isTromeOrganic && (
+                <p className="signwall-inside_forms-text-note">
+                  Al hacer click estarás aceptando los Términos y <br />{' '}
+                  condiciones y la Política de privacidad.
+                </p>
               )}
             </form>
           )}
