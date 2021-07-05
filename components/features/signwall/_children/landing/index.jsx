@@ -64,10 +64,10 @@ export const LandingInt = ({ properties }) => {
           style={{
             background: `${
               arcSite === 'gestion' ? '#8f071f' : '#232323'
-            } url(${getAssetsPath({
+            } url(${getAssetsPath(
               arcSite,
-              contextPath,
-            })}/resources/dist/${arcSite}/images/${IMG}.jpg?d=1)`,
+              contextPath
+            )}/resources/dist/${arcSite}/images/${IMG}.jpg?d=1)`,
             backgroundSize: 'cover',
           }}
         />
