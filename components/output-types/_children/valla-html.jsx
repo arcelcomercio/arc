@@ -51,10 +51,10 @@ const VallaHtml = () => {
             <div className="plan-digital">{name}</div>
             <img
               alt="Logo"
-              src={`${getAssetsPath({
+              src={`${getAssetsPath(
                 arcSite,
-                contextPath,
-              })}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
+                contextPath
+              )}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
             />
           </div>
         </div>
