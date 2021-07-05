@@ -1,47 +1,81 @@
-import * as React from 'react'
-import Static from 'fusion:static'
 import { useAppContext } from 'fusion:context'
+import Static from 'fusion:static'
+import * as React from 'react'
+import { InlinePresets } from 'types/resizer'
 
-import { validateSizes } from './utils'
-import Image from './image'
 import ClientImage from './client-image'
+import Image from './image'
+import { validateSizes } from './utils'
+
+type ArcImageProps = {
+  src: string
+  alt: string
+  children?: React.ReactNode
+  uid?: string | number
+  width: number
+  height: number
+  loading?: 'lazy' | 'eager' | 'auto'
+  placeholder?: string
+  sizes?: string
+  sizesHeight?: number[]
+  layout?:
+    | 'responsive'
+    | 'intrinsic'
+    | 'fixed'
+    | 'fill'
+    | 'fixed-height'
+    | 'flex-item'
+    | 'nodisplay'
+    | 'container'
+  title?: string
+  style?: React.CSSProperties
+  className?: string
+  pictureClassName?: string
+  id?: string
+  type?: string
+  importance?: 'low' | 'medium' | 'high'
+  itemProp?: string
+  quality?: number
+  clientResize?: boolean
+  movilImage?: string
+  defaultImg?: InlinePresets
+}
 
 /**
  *
- * @param {object} config
- * @param {string} config.src
- * @param {string} config.alt
- * @param {JSX.Element} [config.children]
- * @param {string|number} [config.uid] Static unique id
- * @param {number} [config.width=640]
- * @param {number} [config.height=360]
- * @param {string} [config.loading] "lazy" | "eager" | "auto"
- * @param {string} [config.placeholder]
- * @param {string} [config.sizes] Ej. `(max-width: 360px) 320px, 640px`
- * @param {number[]} [config.sizesHeight] - Arreglo numérico donde cada valor
+ * @param src URL de la imagen
+ * @param alt Texto alternativo descriptivo de la imagen
+ * @param children
+ * @param uid ID único para el elemento cuando es Static
+ * @param width Ancho de la imagen
+ * @param height Alto de la imagen
+ * @param loading [Forma de carga de la imagen](https://web.dev/native-lazy-loading/)
+ * @param placeholder Imagen que se muestra cuando la imagen principal no está disponible
+ * @param sizes Ej. `(max-width: 360px) 320px, 640px`
+ * @param sizesHeight - Arreglo numérico donde cada valor
  * representa el `height` del media breakpoint correspondiente en `sizes`.
- * @param {string} [config.layout] - Atributo de AMP
+ * @param layout - Atributo de AMP
  * "responsive" | "intrinsic" | "fixed" | "fill" | "fixed_height" | "flex_item" | "nodisplay"
- * @param {string} [config.title]
- * @param {object} [config.style]
- * @param {string} [config.className]
- * @param {string} [config.pictureClassName]
- * @param {string} [config.id]
- * @param {string} [config.type]
- * @param {string} [config.importance] Priority hint for browsers
- * @param {string} [config.itemProp] Related to Structured Data
- * @param {number} [config.quality] 1 to 100. Default 75
- * @param {boolean} [config.clientResize=false] - Define si se hace resize por
- * @param {string} [config.movilImage] - Define si se movilImage
- * @param {object} [config.defaultImg] - Define si se defaultImg
+ * @param title Título de la imagen
+ * @param style Estilos inline de la imagen
+ * @param className Clases de la imagen
+ * @param pictureClassName Clases del elemento picture que contiene la imagen
+ * @param id ID único del elemento
+ * @param type Tipo de imagen
+ * @param importance Priority hint for browsers
+ * @param itemProp Related to Structured Data
+ * @param quality 1 to 100. Default 75
+ * @param clientResize - Define si se hace resize en cliente o servidor
+ * @param movilImage - Define si se movilImage
+ * @param defaultImg - Define si se defaultImg
  * content source o solo en server
  *
- * @returns {JSX.Element} Static resized `<img/>` o `<picture/>`
+ * @returns Static resized `<img/>` o `<picture/>`
  *
  * @see loading https://web.dev/native-lazy-loading/
  * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
  */
-const ArcImage = ({
+const ArcImage: React.FC<ArcImageProps> = ({
   children,
   id,
   uid,
@@ -57,9 +91,9 @@ const ArcImage = ({
   type,
   title,
   alt,
+  pictureClassName,
   style = {},
   className = '',
-  pictureClassName = null,
   width = 640,
   height = 360,
   clientResize = false,
@@ -91,7 +125,7 @@ const ArcImage = ({
           arcSite={arcSite}
           contextPath={contextPath}
           alt={alt}
-          class={className}
+          className={className}
           layout={layout}
           movilImage={movilImage}
           defaultImg={defaultImg}
@@ -124,7 +158,6 @@ const ArcImage = ({
       icon={children}
       isAdmin={isAdmin}
       movilImage={movilImage}
-      defaultImg={defaultImg}
     />
   ) : (
     <Static id={staticId}>

@@ -1,40 +1,46 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
+import * as React from 'react'
+import { ArcSite, OutputType } from 'types/fusion'
 
 import { defaultImage } from '../../utilities/assets'
-import { buildPresets } from './utils'
+import { buildPresets, MediaSizeObject } from './utils'
 
-/**
- *
- * @param {object} config
- * @param {string} config.src
- * @param {string} config.alt
- * @param {number} [config.width=640]
- * @param {number} [config.height=360]
- * @param {MediaSizeObject[]} [config.sizes]
- * @param {string} [config.loading] "lazy" | "eager" | "auto"
- * @param {string} [config.placeholder]
- * @param {string} [config.title]
- * @param {object} [config.style]
- * @param {string} [config.id]
- * @param {string} [config.type]
- * @param {string} [config.importance] Priority hint for browsers
- * @param {string} [config.layout] - Atributo de AMP
- * "responsive" | "intrinsic" | "fixed" | "fill" | "fixed_height" | "flex_item" | "nodisplay"
- * @param {string} [config.itemProp] Related to Structured Data
- * @param {number} [config.quality] 1 to 100. Default 75
- * @param {string} config.arcSite
- * @param {string} config.contextPath
- * @param {string} config.outputType
- * @param {JSX.Element} [config.icon]
- * @param {boolean} [config.isAdmin=false]
- *
- * @returns {HTMLImageElement | HTMLPictureElement} Resized `<img/>` o `<picture/>`
- *
- * @see loading https://web.dev/native-lazy-loading/
- * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
- */
-const ClientImage = ({
+type ClientImageProps = {
+  src: string
+  alt: string
+  width: number
+  height: number
+  loading?: 'lazy' | 'eager' | 'auto'
+  placeholder?: string
+  sizes?: MediaSizeObject[]
+  title?: string
+  style?: React.CSSProperties
+  id?: string
+  type?: string
+  importance?: 'low' | 'medium' | 'high'
+  layout?:
+    | 'responsive'
+    | 'intrinsic'
+    | 'fixed'
+    | 'fill'
+    | 'fixed-height'
+    | 'flex-item'
+    | 'nodisplay'
+    | 'container'
+  itemProp?: string
+  quality?: number
+  className?: string
+  pictureClassName?: string
+  clientResize?: boolean
+  arcSite: ArcSite
+  contextPath: string
+  outputType: OutputType
+  icon?: React.ReactNode
+  movilImage?: string
+  isAdmin?: boolean
+}
+
+const ClientImage: React.FC<ClientImageProps> = ({
   id,
   src,
   loading,
@@ -56,8 +62,8 @@ const ClientImage = ({
   contextPath,
   outputType,
   icon,
-  isAdmin = false,
   movilImage,
+  isAdmin = false,
 }) => {
   /**
    * Se espera el atributo `loading` para simular los
@@ -78,7 +84,7 @@ const ClientImage = ({
    * si hay o no `sizes`.
    */
   const presets =
-    sizes.length >= 1
+    sizes && sizes.length >= 1
       ? { ...buildPresets(sizes), ...mainImagePreset }
       : mainImagePreset
 
@@ -139,7 +145,6 @@ const ClientImage = ({
       id={id}
       className={`${lazy ? 'lazy' : ''} ${className}`}
       style={style}
-      type={type}
       itemProp={itemProp}
       title={title}
       importance={importance}
@@ -148,12 +153,12 @@ const ClientImage = ({
 
   return (
     mainImage &&
-    (sizes.length >= 1 ? (
+    (sizes && sizes.length >= 1 ? (
       <picture className={pictureClassName}>
-        {sizes.map(size => {
+        {sizes.map((size) => {
           const { width: sourceWidth, height: sourceHeight, media } = size
           const sourceImage =
-            resizedImages[`${sourceWidth}x${sourceHeight}`] || placeholder
+            resizedImages?.[`${sourceWidth}x${sourceHeight}`] || placeholder
           const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
             sourceImage.length - 30,
             sourceImage.length
@@ -161,11 +166,11 @@ const ClientImage = ({
           return (
             <source
               key={key}
-              srcSet={lazy ? null : sourceImage}
-              data-srcset={lazy ? sourceImage : null}
+              srcSet={lazy ? undefined : sourceImage}
+              data-srcset={lazy ? sourceImage : undefined}
               media={media}
               type={type}
-              className={lazy ? 'lazy' : null}
+              className={lazy ? 'lazy' : undefined}
             />
           )
         })}
