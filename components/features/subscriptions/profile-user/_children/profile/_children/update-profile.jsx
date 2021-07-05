@@ -1029,7 +1029,6 @@ class UpdateProfile extends React.Component {
               onSubmit={(e) => this.submitConfirmPassword(e)}>
               <p
                 style={{
-                  fontSize: '14px',
                   lineHeight: '28px',
                 }}
                 className="signwall-inside_forms-text mt-10 mb-10 center">

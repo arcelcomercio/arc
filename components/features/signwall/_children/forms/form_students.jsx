@@ -126,7 +126,6 @@ const FormCode = ({ arcSite, showRequest }) => {
 
       <p
         style={{
-          fontSize: '14px',
           lineHeight: '28px',
           color: '#818181',
         }}
@@ -352,7 +351,6 @@ const FormRequest = ({ arcSite, showCode }) => {
       <p
         style={{
           color: '#818181',
-          fontSize: '14px',
           lineHeight: '28px',
         }}
         className="signwall-inside_forms-text mb-10 center">

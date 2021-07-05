@@ -9,7 +9,7 @@ import getCodeError, {
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI } from '../../_dependencies/domains'
-import { Back, ForgotPass, MsgForgotPass } from '../icons'
+import { ForgotPass, MsgForgotPass } from '../icons'
 import { Input } from './control_input_select'
 
 const FormForgot = ({ typeDialog }) => {
@@ -19,6 +19,9 @@ const FormForgot = ({ typeDialog }) => {
       signwall: { mainColorBr, mainColorBtn, mainColorLink, primaryFont },
     },
   } = useAppContext() || {}
+
+  const textBtnSend = arcSite === 'trome' ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
+  const isTromeOrganic = arcSite === 'trome' && typeDialog === 'organico'
 
   const { changeTemplate } = React.useContext(ModalConsumer)
   const [showError, setShowError] = React.useState(false)
@@ -116,45 +119,49 @@ const FormForgot = ({ typeDialog }) => {
       onSubmit={(e) => {
         handleOnSubmit(e)
       }}>
-      <button
-        className="signwall-inside_forms-btn-base"
-        type="button"
-        onClick={() => {
-          Taggeo(
-            `Web_Sign_Wall_${typeDialog}`,
-            `web_sw${typeDialog[0]}_contrasena_link_volver`
-          )
-          switch (typeDialog) {
-            case 'relogemail':
-            case 'reloghash':
-              changeTemplate('relogin')
-              break
-            default:
-              changeTemplate('login')
-          }
-        }}>
-        <Back /> Volver
-      </button>
+      {isTromeOrganic && (
+        <>
+          <div className={isTromeOrganic ? 'group-float-trome' : ''}>
+            <br />
+            <h1 className="group-float-trome__title">
+              ¡Hola! <br />
+              ¿Olvidaste tu contraseña?
+            </h1>
+            <p className="group-float-trome__subtitle">
+              No te preocupes, cámbiala fácilmente.
+            </p>
+          </div>
+        </>
+      )}
 
       {!showConfirm ? (
         <>
-          <div className="center block mb-10">
-            <ForgotPass bgcolor={mainColorBr} />
-          </div>
-          <h4
-            className="signwall-inside_forms-title center mb-10"
-            style={{ fontSize: '22px', fontFamily: primaryFont }}>
-            Olvidé mi contraseña
-          </h4>
-          <p
-            className="signwall-inside_forms-text"
-            style={{
-              fontSize: '14px',
-              lineHeight: '26px',
-              textAlign: 'center',
-            }}>
-            Ingresa tu correo electrónico para <br /> cambiar tu contraseña
-          </p>
+          {isTromeOrganic ? (
+            <>
+              <br />
+              <div className="spacing-trome" />
+            </>
+          ) : (
+            <>
+              <br />
+              <div className="center block mb-10">
+                <ForgotPass bgcolor={mainColorBr} />
+              </div>
+              <h4
+                className="signwall-inside_forms-title center mb-10"
+                style={{ fontSize: '22px', fontFamily: primaryFont }}>
+                Olvidé mi contraseña
+              </h4>
+              <p
+                style={{
+                  lineHeight: '26px',
+                  textAlign: 'center',
+                }}
+                className="signwall-inside_forms-text">
+                Ingresa tu correo electrónico para <br /> cambiar tu contraseña
+              </p>
+            </>
+          )}
 
           {showError && (
             <div
@@ -224,11 +231,12 @@ const FormForgot = ({ typeDialog }) => {
                 `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
               )
             }>
-            {showLoading ? 'ENVIANDO...' : 'ENVIAR'}
+            {showLoading ? 'ENVIANDO...' : textBtnSend}
           </button>
         </>
       ) : (
         <>
+          <br />
           <div className="center block mb-20">
             <MsgForgotPass bgcolor={mainColorBr} />
           </div>
@@ -241,17 +249,17 @@ const FormForgot = ({ typeDialog }) => {
 
           <p
             style={{
-              fontSize: '14px',
               lineHeight: '28px',
+              textAlign: 'center',
             }}
             className="signwall-inside_forms-text mt-10 mb-10 center">
-            Revisa tu correo electrónico para
+            Revisa tu bandeja de correo para
             <br /> cambiar tu contraseña
           </p>
 
           <button
             type="button"
-            style={{ color: mainColorBtn }}
+            style={{ color: mainColorBtn, background: mainColorLink }}
             className="signwall-inside_forms-btn"
             onClick={() => {
               Taggeo(
@@ -270,6 +278,45 @@ const FormForgot = ({ typeDialog }) => {
             ACEPTAR
           </button>
         </>
+      )}
+
+      <p
+        style={{
+          fontSize: '12px',
+          color: '#000000',
+          textAlign: 'center',
+        }}
+        className="signwall-inside_forms-text mt-20 mb-10">
+        Volver a
+        <a
+          href="#"
+          style={{ color: mainColorLink, fontWeight: 'bold' }}
+          className="signwall-inside_forms-link ml-5"
+          onClick={(e) => {
+            e.preventDefault()
+            Taggeo(
+              `Web_Sign_Wall_${typeDialog}`,
+              `web_sw${typeDialog[0]}_contrasena_link_volver`
+            )
+            switch (typeDialog) {
+              case 'relogemail':
+              case 'reloghash':
+                changeTemplate('relogin')
+
+                break
+              default:
+                changeTemplate('login')
+            }
+          }}>
+          Iniciar Sesión
+        </a>
+      </p>
+
+      {isTromeOrganic && (
+        <p className="signwall-inside_forms-text-note">
+          Al hacer click estarás aceptando los Términos y <br /> condiciones y
+          la Política de privacidad.
+        </p>
       )}
     </form>
   )

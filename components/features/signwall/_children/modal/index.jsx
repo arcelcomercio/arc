@@ -7,7 +7,7 @@ const HIDE_SCROLL_IOS = 'overflow-hidden-ios'
 const VIEWPORT_DEFAULT = 'width=device-width, initial-scale=1'
 const VIEWPORT_CUSTOM = `${VIEWPORT_DEFAULT}, user-scalable=0, shrink-to-fit=no`
 
-const Modal = ({ bgColor, position, size, children }) => {
+const Modal = ({ bgColor, position, size, children, arcSite }) => {
   const changeView = (rule) => {
     const view = window.document.querySelector('meta[name=viewport]')
     if (view) view.remove()
@@ -16,6 +16,8 @@ const Modal = ({ bgColor, position, size, children }) => {
     meta.content = rule
     window.document.getElementsByTagName('head')[0].appendChild(meta)
   }
+
+  const isTrome = arcSite === 'trome'
 
   const isSafari = () => {
     if (typeof window !== 'undefined') {
@@ -73,7 +75,9 @@ const Modal = ({ bgColor, position, size, children }) => {
     <Portal id="sign-modal">
       <div className={`signwall-modal open ${bgColor || ''}`}>
         <div
-          className={`body-modal position-${position} size-${size}`}
+          className={`body-modal position-${position} size-${size} ${
+            isTrome ? 'bottom-trome' : ''
+          }`}
           onTouchStart={turnOffFormScroll}
           onTouchEnd={turnOnFormScroll}>
           {children}
