@@ -4,6 +4,7 @@ import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
+  SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
   SITE_TROME,
@@ -21,7 +22,8 @@ const AmpStoriesChild = ({ arcSite }) => (
         <amp-img
           layout="fill"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-          placeholder />
+          placeholder
+        />
       </amp-iframe>
     )}
     {arcSite === SITE_PERU21 && (
@@ -34,7 +36,8 @@ const AmpStoriesChild = ({ arcSite }) => (
         <amp-img
           layout="fill"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-          placeholder />
+          placeholder
+        />
       </amp-iframe>
     )}
     {arcSite === SITE_OJO && (
@@ -47,7 +50,8 @@ const AmpStoriesChild = ({ arcSite }) => (
         <amp-img
           layout="fill"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-          placeholder />
+          placeholder
+        />
       </amp-iframe>
     )}
     {arcSite === SITE_DEPOR && (
@@ -60,7 +64,8 @@ const AmpStoriesChild = ({ arcSite }) => (
         <amp-img
           layout="fill"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-          placeholder />
+          placeholder
+        />
       </amp-iframe>
     )}
     {arcSite === SITE_DIARIOCORREO && (
@@ -73,7 +78,8 @@ const AmpStoriesChild = ({ arcSite }) => (
         <amp-img
           layout="fill"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-          placeholder />
+          placeholder
+        />
       </amp-iframe>
     )}
     {arcSite === SITE_ELBOCON && (
@@ -86,7 +92,22 @@ const AmpStoriesChild = ({ arcSite }) => (
         <amp-img
           layout="fill"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-          placeholder />
+          placeholder
+        />
+      </amp-iframe>
+    )}
+    {arcSite === SITE_GESTION && (
+      <amp-iframe
+        height="150"
+        layout="fixed-height"
+        sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
+        src="https://stories.gestion.pe/spc/load/ZECO_453_877_194/228/amp/stories-amp"
+        noloading="">
+        <amp-img
+          layout="fill"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+          placeholder
+        />
       </amp-iframe>
     )}
   </>
