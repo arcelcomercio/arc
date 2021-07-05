@@ -29,7 +29,6 @@ import {
 } from '../../../utilities/constants/element-types'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
-  SITE_DEPOR,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
@@ -168,8 +167,8 @@ const StoryContentsLite = (props) => {
       arcSite,
       contextPath
     )}/resources/dist/${arcSite}/images/bbc_head.png?d=1` || ''
-  const seccArary = canonicalUrl.split('/')
-  const secc = seccArary[1].replace(/-/gm, '')
+  const seccArary = canonicalUrl?.split('/') || '/'
+  const secc = seccArary[1] && seccArary[1]?.replace(/-/gm, '')
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
@@ -351,7 +350,8 @@ const StoryContentsLite = (props) => {
                         className={alignmentClass}
                         dangerouslySetInnerHTML={{
                           __html: replaceTags(content),
-                        }} />
+                        }}
+                      />
                       {nameAds === 'caja3' &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (

@@ -61,7 +61,7 @@ export const getTitle = ({
 
   const metaId = getMetaValue('id')
   const seoTitle = getMetaValue('title')
-  const siteTitleSuffix = siteTitle.toUpperCase()
+  const siteTitleSuffix = siteTitle?.toUpperCase()
   let title = `${seoTitle} | ${siteTitleSuffix}`
 
   if (isStory) {
@@ -70,7 +70,7 @@ export const getTitle = ({
     // } | ${siteTitleSuffix}`
     const urlTitle = requestUri.split('/')
     const sectionName = urlTitle[1] && urlTitle[1].toUpperCase()
-    const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
+    const siteTitleSuffixR = siteTitleSuffix?.replace('NOTICIAS ', '')
     title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
   } else if (
     pageNumber > 1 &&
