@@ -2,6 +2,7 @@
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import Static from 'fusion:static'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
@@ -13,7 +14,7 @@ import customFields from './_dependencies/custom-fields'
 import { filterHeader, filterMenu } from './_dependencies/schema-filter'
 import HeaderFullView from './_lite/_children/header-full'
 
-const HeaderFull = props => {
+const HeaderFull = (props) => {
   const {
     arcSite,
     contextPath,
@@ -28,7 +29,14 @@ const HeaderFull = props => {
   } = useFusionContext() || {}
 
   const {
-    customFields: { hierarchyHeader, hierarchyMenu, hideMenu, showNewsletter, urlLogoPlay, showArrowLeft } = {},
+    customFields: {
+      hierarchyHeader,
+      hierarchyMenu,
+      hideMenu,
+      showNewsletter,
+      urlLogoPlay,
+      showArrowLeft,
+    } = {},
   } = props
 
   let { customFields: { customLogoTitle } = {} } = props
@@ -197,7 +205,11 @@ const HeaderFull = props => {
     showArrowLeft,
     Newsle: <Newsletter />,
   }
-  return <HeaderFullView {...params} />
+  return (
+    <Static id="Header-full">
+      <HeaderFullView {...params} />
+    </Static>
+  )
 }
 HeaderFull.propTypes = {
   customFields,
