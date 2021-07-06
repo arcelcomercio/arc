@@ -1,9 +1,22 @@
 # Arc Fusion - Grupo El Comercio
 
+## Tabla de contenido
+
+- [Sistema Operativo recomendado](#sistema-operativo-recomendado)
+- [Requerimientos](#requerimientos)
+- [Instalación](#instalación)
+- [Editor de código](#editor-de-código)
+- [Convención de commits](#convención-de-commits)
+- [Git hooks](#git-hooks)
+- [Pruebas unitarias](#pruebas-unitarias)
+- [Documentación](#documentación)
+  &nbsp;
+
 ## Sistema Operativo recomendado
 
 **Ubuntu 20.04** _(es el sistema que recomendamos porque está comprobada su estabilidad con Arc Fusion)_ o algún otro **sistema basado en Linux**.
 Si estas usando Windows, te recomendamos que trabajes sobre [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) para estar alineado con los estándares del proyecto.
+&nbsp;
 
 ## Requerimientos
 
@@ -23,6 +36,8 @@ docker --version
 docker-compose --version
 ```
 
+&nbsp;
+
 ## Instalación
 
 Antes de iniciar con la instalación, por favor verifica que cumples los [requerimientos básicos](#requerimientos), y que has [generado y agregado una llave SSH](https://docs.gitlab.com/ee/ssh/#generate-an-ssh-key-pair) a tu cuenta de gitlab.
@@ -35,6 +50,8 @@ npm run dev:all
 npx fusion start
 ```
 
+&nbsp;
+
 ## Editor de código
 
 [**VSC (Visual Studio Code)**](https://code.visualstudio.com/download)
@@ -42,6 +59,7 @@ Todo el equipo usa VSC por su versatilidad y extensiones que permiten mejorar in
 Es importante que luego de instalar VSC, instales las **extensiones recomendadas** por el equipo.
 
 ![](https://i.ibb.co/x2kSP4w/exts.png)
+&nbsp;
 
 ## Convención de commits
 
@@ -62,6 +80,7 @@ Los mensajes de `commit` deben estar estructurados de la siguiente manera:
 - `New:` normalmente representa una nueva característica, donde se han creado nuevos archivos.
 - `Update:` incrementos, mejoras y nuevas características sobre archivos existentes (normalmente usarás mucho este tipo).
 - `Fix:` ligeros cambios que solucionan un problema puntual en el código.
+  &nbsp;
 
 ## Git hooks
 
@@ -84,6 +103,7 @@ HUSKY=0 git push # no se ejecutará ningún git hook
 
 _Mira la [sección de requerimientos](#requerimientos) para asegurarte de estar usando la versión correcta de cada herramienta._
 _Para más información, puedes revisar la [documentación de husky v4](https://github.com/typicode/husky/tree/master)._
+&nbsp;
 
 ## Pruebas unitarias
 
@@ -108,3 +128,10 @@ npm run test:coverage
 # ejecuta las pruebas unitarias en modo debug
 npm run test:debug
 ```
+
+&nbsp;
+
+## Documentación
+
+Si ya tienes acceso a Arc, podrás ingresar al [Arc Learning Center (ALC)](https://elcomercio.arcpublishing.com/alc/), donde encontrarás documentación sobre todos los productos de Arc.
+&nbsp;
