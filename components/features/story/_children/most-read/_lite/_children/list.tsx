@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { FC } from 'types/features'
 import { ArcSite } from 'types/fusion'
 import { ListDataStories } from 'types/story'
@@ -33,6 +33,8 @@ const CardMostReadChildrenList: FC<FeatureProps> = (props) => {
     arcSite = 'elcomercio',
   } = props
 
+  const [active, setActive] = React.useState(false)
+
   const logoSidebar =
     arcSite === 'elcomercio'
       ? `${getAssetsPath(
@@ -42,7 +44,9 @@ const CardMostReadChildrenList: FC<FeatureProps> = (props) => {
       : ''
 
   return (
-    <div role="list" className={classes.mostRead}>
+    <div
+      role="list"
+      className={`${classes.mostRead} ${active ? 'active' : ''}`}>
       <h4 itemProp="name" className={classes.title}>
         {logoSidebar && (
           <img className={classes.logo} alt="logo" src={logoSidebar} />
@@ -79,7 +83,12 @@ const CardMostReadChildrenList: FC<FeatureProps> = (props) => {
 
       {arcSite === 'depor' && (
         <>
-          <button type="button" className="most-read__sm f f-center">
+          <button
+            type="button"
+            className="most-read__sm f f-center"
+            onClick={() => {
+              setActive(!active)
+            }}>
             <span id="mr-sm-txt">Ver más</span>
 
             <svg
@@ -108,13 +117,13 @@ const CardMostReadChildrenList: FC<FeatureProps> = (props) => {
                   })
                 }
               }); */}
-          <script
+          {/* <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html:
                 '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.querySelector(".most-read__sm"),t=document.querySelector(".most-read"),n=document.getElementById("mr-sm-txt");e&&t&&n&&e.addEventListener("click",function(){t.classList.toggle("active"),"Ver menos"===n.textContent?n.textContent="Ver más":n.textContent="Ver menos"})});',
             }}
-          />
+          /> */}
         </>
       )}
     </div>
