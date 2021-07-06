@@ -1,12 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
+import Static from 'fusion:static'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import CardMostReadList from './_lite/_children/list'
-
-import schemaFilter from './_dependencies/schema-filter'
 import { getQuery, getStories } from './_dependencies/functions'
+import schemaFilter from './_dependencies/schema-filter'
+import CardMostReadList from './_lite/_children/list'
 
 const CONTENT_SOURCE = 'story-feed-by-views'
 const CardMostReadLite = (props) => {
@@ -61,7 +61,11 @@ const CardMostReadLite = (props) => {
     contextPath,
   }
 
-  return <CardMostReadList {...params} />
+  return (
+    <Static id="CardMostReadLite">
+      <CardMostReadList {...params} />
+    </Static>
+  )
 }
 
 CardMostReadLite.propTypes = {
