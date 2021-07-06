@@ -62,11 +62,12 @@
 }
 
 .plan-digital {
+  margin-top: 0.2em;
   font-size: 30px;
   color: #fff;
   text-align: center;
   font-weight: 600;
-  font-family: "Judson", Arial, Helvetica, sans-serif;
+  font-family: "Judson", serif;
 
   @media (--desktop) {
     font-size: 58px;
