@@ -62,15 +62,17 @@ export const LandingInt = ({ properties }) => {
         <div
           className="signwall-inside_body-left landing"
           style={{
-            background: `${
-              arcSite === 'gestion' ? '#8f071f' : '#232323'
-            } url(${getAssetsPath(
+            background: `${arcSite === 'gestion' ? '#8f071f' : '#232323'}`,
+          }}>
+          <img
+            src={`${getAssetsPath(
               arcSite,
               contextPath
-            )}/resources/dist/${arcSite}/images/${IMG}.jpg?d=1)`,
-            backgroundSize: 'cover',
-          }}
-        />
+            )}/resources/dist/${arcSite}/images/${IMG}.jpg?d=1`}
+            alt={`Ejemplo de usuario suscriptor de ${arcSite}`}
+            className="signwall-inside_body-left__bg"
+          />
+        </div>
         <div className="signwall-inside_body-right landing">
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
