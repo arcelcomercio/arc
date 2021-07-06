@@ -89,10 +89,10 @@ export const PaywallInt = ({ properties }) => {
           style={{
             background: `${
               arcSite === 'gestion' ? '#8f071f' : '#232323'
-            } url(${getAssetsPath({
+            } url(${getAssetsPath(
               arcSite,
-              contextPath,
-            })}/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1)`,
+              contextPath
+            )}/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1)`,
             backgroundSize: 'cover',
           }}>
           <div className="signwall-inside_body-cont paywall">
@@ -116,10 +116,10 @@ export const PaywallInt = ({ properties }) => {
               <img
                 alt="Logo"
                 className={`logo ${arcSite}`}
-                src={`${getAssetsPath({
+                src={`${getAssetsPath(
                   arcSite,
-                  contextPath,
-                })}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
+                  contextPath
+                )}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
               />
             </center>
           </div>
