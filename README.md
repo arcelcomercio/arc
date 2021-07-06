@@ -25,7 +25,7 @@ docker-compose --version
 
 ## Instalación
 
-Antes de iniciar con la instalación, por favor verifica que cumples los [requerimientos básicos](#requerimientos).
+Antes de iniciar con la instalación, por favor verifica que cumples los [requerimientos básicos](#requerimientos), y que has [generado y agregado una llave SSH](https://docs.gitlab.com/ee/ssh/#generate-an-ssh-key-pair) a tu cuenta de gitlab.
 
 ```bash
 git clone git@gitlab.ec.pe:contenidos/arc.git
