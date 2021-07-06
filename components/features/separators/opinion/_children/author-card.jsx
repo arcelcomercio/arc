@@ -1,4 +1,5 @@
-import React from 'react'
+import * as React from 'react'
+
 import Image from '../../../../global-components/image'
 
 const classes = {
@@ -18,7 +19,7 @@ const classes = {
     'separator__opinion--item-threeline separator__opinion-description overflow-hidden',
 }
 
-const SeparatorsChildAuthorCard = props => {
+const SeparatorsChildAuthorCard = (props) => {
   const {
     arcSite,
     defaultAuthorImage,
@@ -53,8 +54,8 @@ const SeparatorsChildAuthorCard = props => {
               <Image
                 src={authorImage}
                 placeholder={defaultAuthorImage}
-                width={85}
-                height={85}
+                width={arcSite === 'diariocorreo' ? 150 : 85}
+                height={arcSite === 'diariocorreo' ? 130 : 85}
                 alt={author}
                 className={classes.opinionItemImageImg}
                 loading="lazy"

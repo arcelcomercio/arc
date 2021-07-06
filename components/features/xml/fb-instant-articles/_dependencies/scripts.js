@@ -74,6 +74,13 @@ export const ScriptElement = () =>
               s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
               el.parentNode.insertBefore(s, el);
           })();`
+export const ScriptElementBbc = () =>
+  `!function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
+  (window,document,"script","https://news.files.bbci.co.uk/ws/partner-analytics/js/pageTracker.min.js","s_bbcws");
+  s_bbcws('partner', 'elcomercio.pe');
+  s_bbcws('producer', 'mundo');
+  s_bbcws('language', 'es');
+  s_bbcws('track', 'pageView');`
 
 export const ScriptHeader = ({
   siteDomain = '',
@@ -84,10 +91,10 @@ export const ScriptHeader = ({
   typeNews,
   premium,
 }) => {
-  const listTag = tags.map(tg => tg.text && ` '${tg.text}'`).join(', ')
+  const listTag = tags.map((tg) => tg.text && ` '${tg.text}'`).join(', ')
 
   const listSec = sections
-    .map(seccionName => seccionName && ` '${seccionName}'`)
+    .map((seccionName) => seccionName && ` '${seccionName}'`)
     .join(',')
 
   let TipoNota = ''
