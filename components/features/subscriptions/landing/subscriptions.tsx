@@ -5,7 +5,7 @@ import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
-import { SubsArcSite } from 'types/subscriptions'
+import { PaywallHomeCampaign, SubsArcSite } from 'types/subscriptions'
 
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
@@ -41,7 +41,9 @@ const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
       btnOnTop = false,
     } = {},
   } = props
-  const { arcSite, globalContent: items = [] } = useAppContext()
+  const { arcSite, globalContent: items = [] } = useAppContext<
+    PaywallHomeCampaign[]
+  >()
 
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [landingType, setLandingType] = React.useState('landing')

@@ -18,3 +18,27 @@ export type PaywallCampaign = {
   printedSubscriber?: PrintedSubscriber
   event?: string
 }
+
+/** Paywall Home Campaign */
+export type PaywallCampaignPrice = {
+  amount: number
+  currency: string
+  currencyCode: string
+}
+
+export type PaywallCampaignDetail = {
+  frequency: string
+  duration: string
+  aditional: string
+}
+
+export type PaywallHomeCampaign = {
+  title: string
+  subtitle: string | null
+  url: string
+  sku: string
+  price: PaywallCampaignPrice
+  detail: PaywallCampaignDetail
+  features: string[]
+  recommended: boolean
+}
