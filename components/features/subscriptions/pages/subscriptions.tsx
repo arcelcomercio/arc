@@ -6,10 +6,10 @@ import * as React from 'react'
 import { FC } from 'types/features'
 import { SubsArcSite } from 'types/subscriptions'
 
+import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
 import { deleteQuery, getQuery } from '../../../utilities/parse/queries'
 import Signwall from '../_children/Signwall'
-import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { getUserName } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
@@ -47,8 +47,6 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
   )
   const [showCallin, setShowCallin] = React.useState(false)
   const [showModalCall, setShowModalCall] = React.useState(false)
-
-  const { userProfile } = useAuthContext()
 
   const { urls } = PropertiesSite[arcSite as SubsArcSite]
   const { links, urls: urlCommon } = PropertiesCommon
@@ -123,7 +121,7 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
   }
 
   return (
-    <AuthProvider>
+    <SdksProvider>
       {isComercio ? (
         <>
           <header className="header" id="header">
@@ -176,7 +174,7 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
         </>
       ) : (
         <HeaderSubs
-          userProfile={userProfile}
+          userProfile={Identity.userProfile}
           arcSite={arcSite}
           arcType={arcType}
         />
@@ -231,7 +229,7 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
           }}
         />
       )}
-    </AuthProvider>
+    </SdksProvider>
   )
 }
 

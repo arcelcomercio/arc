@@ -7,6 +7,7 @@ import TextMask from 'react-text-mask'
 import { FC } from 'types/features'
 import { PaywallCampaign, UserDocumentType } from 'types/subscriptions'
 
+import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
 import { isProd } from '../../../utilities/arc/env'
 import { AuthProvider, useAuthContext } from '../_context/auth'
@@ -170,106 +171,110 @@ const SubscriptionsValidateDNI: FC = () => {
   )
 
   return (
-    <AuthProvider>
-      {!printedSubscriber && (userStep === 1 || userStep === 2) && (
-        <footer className="validate" id="validate">
-          <div className={styles.wrapper}>
-            <>
-              <div className={styles.info}>
-                {userLoaded && (userStep === 1 || userStep === 2) ? (
-                  <>
-                    <h4>{textsAttr.subscriber_title_banner}</h4>
-                    <p>
-                      {textsAttr.subscriber_detail_banner}
-                      <span>{textsAttr.subscriber_regular_period}</span>
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <h4>{texts.titleValidDni}</h4>
-                    <p>
-                      {texts.subTitleValidDni}
-                      <span>especial para ti.</span>
-                    </p>
-                  </>
-                )}
+    <SdksProvider>
+      <AuthProvider>
+        {!printedSubscriber && (userStep === 1 || userStep === 2) && (
+          <footer className="validate" id="validate">
+            <div className={styles.wrapper}>
+              <>
+                <div className={styles.info}>
+                  {userLoaded && (userStep === 1 || userStep === 2) ? (
+                    <>
+                      <h4>{textsAttr.subscriber_title_banner}</h4>
+                      <p>
+                        {textsAttr.subscriber_detail_banner}
+                        <span>{textsAttr.subscriber_regular_period}</span>
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <h4>{texts.titleValidDni}</h4>
+                      <p>
+                        {texts.subTitleValidDni}
+                        <span>especial para ti.</span>
+                      </p>
+                    </>
+                  )}
+                </div>
+                <div className={styles.form}>
+                  {userLoaded && (userStep === 1 || userStep === 2) && (
+                    <>
+                      <form
+                        className="step__left-block"
+                        onSubmit={handleOnSubmit}>
+                        <div className="cont-select-input">
+                          <select
+                            name="vDocumentType"
+                            value={vDocumentType}
+                            onChange={(e) => {
+                              handleOnChange(e)
+                              setShowDocOption(
+                                e.target.value as UserDocumentType
+                              )
+                            }}>
+                            <option value="DNI">DNI</option>
+                            <option value="CDI">CDI</option>
+                            <option value="CEX">CEX</option>
+                          </select>
+
+                          <TextMask
+                            mask={maskDocuments[vDocumentType]}
+                            guide={false}
+                            type="text"
+                            name="vDocumentNumber"
+                            maxLength={vDocumentType === 'DNI' ? 8 : 15}
+                            required
+                            value={vDocumentNumber}
+                            onBlur={handleOnChange}
+                            onChange={handleOnChange}
+                          />
+                        </div>
+
+                        <div className="cont-button">
+                          <button
+                            className="btn-next"
+                            type="submit"
+                            disabled={disable || loading}>
+                            {loading ? 'Validando...' : 'Validar'}
+                          </button>
+                        </div>
+                      </form>
+                      {vDocumentNumberError && (
+                        <span className={styles.tooltip}>
+                          {vDocumentNumberError}
+                        </span>
+                      )}
+                    </>
+                  )}
+                </div>
+              </>
+            </div>
+          </footer>
+        )}
+
+        {userStep !== 4 && (
+          <section className="step__bottom">
+            <button className={styles.btnDetail} type="button" id="btn-detail">
+              <div>
+                <span className="title-item">Resumen de pedido:</span>
+                <h5 className="name-item">
+                  {planName}
+                  <span className="period-item">
+                    {' - '} {billingFrequency ? period[billingFrequency] : ''}
+                  </span>
+                </h5>
               </div>
-              <div className={styles.form}>
-                {userLoaded && (userStep === 1 || userStep === 2) && (
-                  <>
-                    <form
-                      className="step__left-block"
-                      onSubmit={handleOnSubmit}>
-                      <div className="cont-select-input">
-                        <select
-                          name="vDocumentType"
-                          value={vDocumentType}
-                          onChange={(e) => {
-                            handleOnChange(e)
-                            setShowDocOption(e.target.value as UserDocumentType)
-                          }}>
-                          <option value="DNI">DNI</option>
-                          <option value="CDI">CDI</option>
-                          <option value="CEX">CEX</option>
-                        </select>
-
-                        <TextMask
-                          mask={maskDocuments[vDocumentType]}
-                          guide={false}
-                          type="text"
-                          name="vDocumentNumber"
-                          maxLength={vDocumentType === 'DNI' ? 8 : 15}
-                          required
-                          value={vDocumentNumber}
-                          onBlur={handleOnChange}
-                          onChange={handleOnChange}
-                        />
-                      </div>
-
-                      <div className="cont-button">
-                        <button
-                          className="btn-next"
-                          type="submit"
-                          disabled={disable || loading}>
-                          {loading ? 'Validando...' : 'Validar'}
-                        </button>
-                      </div>
-                    </form>
-                    {vDocumentNumberError && (
-                      <span className={styles.tooltip}>
-                        {vDocumentNumberError}
-                      </span>
-                    )}
-                  </>
-                )}
-              </div>
-            </>
-          </div>
-        </footer>
-      )}
-
-      {userStep !== 4 && (
-        <section className="step__bottom">
-          <button className={styles.btnDetail} type="button" id="btn-detail">
-            <div>
-              <span className="title-item">Resumen de pedido:</span>
-              <h5 className="name-item">
-                {planName}
-                <span className="period-item">
-                  {' - '} {billingFrequency ? period[billingFrequency] : ''}
+              <div>
+                <span className="price-item">
+                  {billingAmount ? getPlanAmount(billingAmount) : ''}
                 </span>
-              </h5>
-            </div>
-            <div>
-              <span className="price-item">
-                {billingAmount ? getPlanAmount(billingAmount) : ''}
-              </span>
-              <i className={styles.iconUp} />
-            </div>
-          </button>
-        </section>
-      )}
-    </AuthProvider>
+                <i className={styles.iconUp} />
+              </div>
+            </button>
+          </section>
+        )}
+      </AuthProvider>
+    </SdksProvider>
   )
 }
 

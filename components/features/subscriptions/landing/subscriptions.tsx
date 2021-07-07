@@ -1,15 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-for */
+import Identity from '@arc-publishing/sdk-identity'
 import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
+import { FC } from 'types/features'
+import { SubsArcSite } from 'types/subscriptions'
 
+import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
-import addScriptAsync from '../../../utilities/script-async'
+import { deleteQuery, getQuery } from '../../../utilities/parse/queries'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
-import { deleteQuery, getQuery } from '../_dependencies/QueryString'
-import { getUserName, isLogged } from '../_dependencies/Session'
+import { getUserName } from '../_dependencies/Session'
 import { PixelActions, sendAction, Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
@@ -18,8 +21,18 @@ import CallinCallOut from './_children/CallinCallout'
 import Callout from './_children/Callout'
 import Cards from './_children/Cards'
 
+type LandingSubscriptionsProps = {
+  customFields?: {
+    bannerUniComercio?: boolean
+    bannerUniGestion?: boolean
+    callInnCallOut?: boolean
+    btnOnTop?: boolean
+  }
+}
+
 const arcType = 'landing'
-const LandingSubscriptions = (props) => {
+
+const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
   const {
     customFields: {
       bannerUniComercio = false,
@@ -28,15 +41,17 @@ const LandingSubscriptions = (props) => {
       btnOnTop = false,
     } = {},
   } = props
-  const { arcSite, globalContent: items = [] } = useAppContext() || {}
+  const { arcSite, globalContent: items = [] } = useAppContext()
 
   const [showSignwall, setShowSignwall] = React.useState(false)
-  const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
-  const [showProfile, setShowProfile] = React.useState(false)
+  const [landingType, setLandingType] = React.useState('landing')
+  const [profileButtonText, setProfileButtonText] = React.useState(
+    'Inicia sesión'
+  )
   const [showCallin, setShowCallin] = React.useState(false)
   const [showModalCall, setShowModalCall] = React.useState(false)
 
-  const { urls, texts } = PropertiesSite[arcSite]
+  const { urls, texts } = PropertiesSite[arcSite as SubsArcSite]
   const { links, urls: urlCommon } = PropertiesCommon
   const isComercio = arcSite === 'elcomercio'
   const bannerUniv =
@@ -46,22 +61,6 @@ const LandingSubscriptions = (props) => {
   useSentry(urlCommon.sentrySubs)
 
   React.useEffect(() => {
-    addScriptAsync({
-      name: 'IdentitySDK',
-      url: links.identity,
-      includeNoScript: false,
-    })
-      .then(() => {
-        window.Identity.options({ apiOrigin: urls.arcOrigin })
-      })
-      .catch((errIdentitySDK) => {
-        Sentry.captureEvent({
-          message: 'SDK Identity no ha cargado correctamente',
-          level: 'error',
-          extra: errIdentitySDK || {},
-        })
-      })
-
     sendAction(PixelActions.PRODUCT_IMPRESSION, {
       ecommerce: {
         currencyCode: items[0].price.currencyCode,
@@ -76,39 +75,43 @@ const LandingSubscriptions = (props) => {
     })
 
     if (getQuery('signStudents')) {
-      setShowTypeLanding('students')
+      setLandingType('students')
     }
 
-    const isParamsRedirect = getQuery('signLanding') || getQuery('signStudents')
-
-    setShowSignwall(isParamsRedirect)
+    const hasRedirectParam = !!(
+      getQuery('signLanding') || getQuery('signStudents')
+    )
+    setShowSignwall(hasRedirectParam)
   }, [])
 
   const handleUniversity = () => {
     Taggeo('Web_Sign_Wall_Students', 'web_link_ingresar_cuenta')
-    setShowTypeLanding('students')
+    setLandingType('students')
     setShowSignwall(!showSignwall)
   }
 
-  const handleSignwall = () => {
+  const handleSignwall = async () => {
+    const isLoggedIn = await Identity.isLoggedIn()
+
     Taggeo(
       'Web_Sign_Wall_Suscripciones',
-      `web_link_ingresar_${isLogged() ? 'perfil' : 'cuenta'}`
+      `web_link_ingresar_${isLoggedIn ? 'perfil' : 'cuenta'}`
     )
-    if (isLogged()) {
+    if (isLoggedIn) {
       window.location.href = links.profile
     } else {
       setShowSignwall(!showSignwall)
       const signwallButton = document.getElementById('btn-signwall')
       if (signwallButton) signwallButton.innerHTML = 'Inicia sesión'
+
       try {
-        window.Identity.clearSession()
-      } catch (e) {
+        Identity.clearSession()
+      } catch (error) {
         Sentry.captureEvent({
           message:
             'Ocurrió un error al limpiar la sesión con Identity.clearSession()',
-          level: 'error',
-          extra: e || {},
+          level: Sentry.Severity.Error,
+          extra: error || {},
         })
       }
     }
@@ -119,22 +122,22 @@ const LandingSubscriptions = (props) => {
       let userfirstName = ''
       let userlastName = ''
       try {
-        const { firstName, lastName } = window.Identity.userProfile || {}
-        userfirstName = firstName
-        userlastName = lastName
-      } catch (e) {
+        const { firstName, lastName } = Identity.userProfile || {}
+        if (firstName && lastName) {
+          userfirstName = firstName
+          userlastName = lastName
+        }
+      } catch (error) {
         Sentry.captureEvent({
           message:
-            'Ha ocurrido un error intentar al obtener firstName y lastName desde Identity.userProfile',
-          level: 'error',
-          extra: e || {},
+            'Error intentar al obtener firstName y lastName desde Identity.userProfile',
+          level: Sentry.Severity.Error,
+          extra: error || {},
         })
       }
 
-      setShowProfile(getUserName(userfirstName, userlastName))
-      // setShowSignwall(false)
+      setProfileButtonText(getUserName(userfirstName, userlastName))
       deleteQuery('signLanding')
-      // deleteQuery('signStudents')
       deleteQuery('dataTreatment')
     }
   }
@@ -144,7 +147,7 @@ const LandingSubscriptions = (props) => {
   }
 
   return (
-    <>
+    <SdksProvider>
       <>
         <header className="header" id="header">
           <div className="wrapper">
@@ -184,7 +187,7 @@ const LandingSubscriptions = (props) => {
                 type="button"
                 id="btn-signwall"
                 onClick={handleSignwall}>
-                {showProfile || 'Inicia sesión'}
+                {profileButtonText || 'Inicia sesión'}
               </button>
             </div>
           </div>
@@ -296,7 +299,6 @@ const LandingSubscriptions = (props) => {
                 src="https://suscripciones.elcomercio.pe/static/partners/comercio/img/logo_club.png?v137"
                 alt="Logo Club"
                 loading="lazy"
-                importance="low"
                 decoding="async"
               />
 
@@ -354,9 +356,7 @@ const LandingSubscriptions = (props) => {
             <div className="wrapper">
               <div className="video__content">
                 <h1 className="video__content-title">{texts.videoTitle}</h1>
-                <p className="video__content-subtitle">
-                  {texts.videoSubstitle}
-                </p>
+                <p className="video__content-subtitle">{texts.videoSubtitle}</p>
                 <p className="video__content-descripction">
                   {texts.videoDescription}
                 </p>
@@ -364,7 +364,7 @@ const LandingSubscriptions = (props) => {
                   id="video"
                   className="video__content-video"
                   muted
-                  controls="1"
+                  controls
                   poster="https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/fondo_video.jpg"
                   src="https://pub.minoticia.pe/elcomercio/el_comercio.mp4"
                 />
@@ -410,13 +410,13 @@ const LandingSubscriptions = (props) => {
         {showSignwall && (
           <Signwall
             fallback={<div>Cargando...</div>}
-            typeDialog={showTypeLanding}
-            nameDialog={showTypeLanding}
+            typeDialog={landingType}
+            nameDialog={landingType}
             onLogged={handleAfterLogged}
             onLoggedFail={() => {}}
             onClose={() => {
               setShowSignwall(false)
-              setShowTypeLanding('landing')
+              setLandingType('landing')
             }}
           />
         )}
@@ -424,8 +424,8 @@ const LandingSubscriptions = (props) => {
         {showModalCall ? (
           <Callout
             fallback={<div>Cargando...</div>}
-            typeDialog={showTypeLanding}
-            nameDialog={showTypeLanding}
+            typeDialog={landingType}
+            nameDialog={landingType}
             onLoggedFail={() => {}}
             onClose={() => {
               setShowModalCall(false)
@@ -439,7 +439,7 @@ const LandingSubscriptions = (props) => {
           __html: scriptsLanding,
         }}
       />
-    </>
+    </SdksProvider>
   )
 }
 
