@@ -80,7 +80,8 @@ const Confirmation = () => {
         user_email: email,
         user_id: userProfile.uuid || uuid,
         user_name: firstName,
-        user_last_name: `${lastName} ${secondLastName}`,
+        lastname_father: `${lastName}`,
+        lastname_mother: `${secondLastName || ''}`,
         user_document_type: documentType,
         user_document_number: documentNumber,
         date_expiry: `${dateTimePeru.replace('T', ' ')}-05:00`,
@@ -170,7 +171,11 @@ const Confirmation = () => {
 
   React.useEffect(() => {
     if (token && !cipLink) {
-      getCipPayEfectivo()
+      if (token === '') {
+        setCipLink('error')
+      } else {
+        getCipPayEfectivo()
+      }
     }
   }, [token])
 
@@ -194,17 +199,7 @@ const Confirmation = () => {
     switch (cipLink) {
       case 'error':
         heading = (
-          <span>
-            Ha ocurrido un error al generar el Código de pago (CIP).{' '}
-            <button
-              type="button"
-              className={styles.btn}
-              onClick={() => {
-                updateStep(2)
-              }}>
-              Intente de nuevo.
-            </button>
-          </span>
+          <span>Ha ocurrido un error al generar el Código de pago (CIP).</span>
         )
         break
       case null:
@@ -250,13 +245,24 @@ const Confirmation = () => {
 
       {!fromFia && (
         <div className={styles.contButton}>
-          <button
-            className={styles.btn}
-            type="button"
-            onClick={goToHome}
-            disabled={redirecting}>
-            {redirecting ? 'Redireccionando...' : 'Seguir navegando'}
-          </button>
+          {cipLink !== 'error' ? (
+            <button
+              className={styles.btn}
+              type="button"
+              onClick={goToHome}
+              disabled={redirecting}>
+              {redirecting ? 'Redireccionando...' : 'Seguir navegando'}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={styles.btn}
+              onClick={() => {
+                updateStep(2)
+              }}>
+              Intentar de nuevo.
+            </button>
+          )}
         </div>
       )}
     </>

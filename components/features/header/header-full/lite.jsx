@@ -1,22 +1,20 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
-
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import Static from 'fusion:static'
+import React from 'react'
 
+import { getAssetsPath } from '../../../utilities/assets'
+import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
+import { SITE_DEPOR, SITE_TROME } from '../../../utilities/constants/sitenames'
+import { socialMediaUrlShareList } from '../../../utilities/social-media'
+import Newsletter from '../../statics/newsletter-custom/default'
 import customFields from './_dependencies/custom-fields'
 import { filterHeader, filterMenu } from './_dependencies/schema-filter'
-import { socialMediaUrlShareList } from '../../../utilities/social-media'
-import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
-import { getAssetsPath } from '../../../utilities/assets'
-
-import Newsletter from '../../statics/newsletter-custom/default'
-
 import HeaderFullView from './_lite/_children/header-full'
-import { SITE_DEPOR, SITE_TROME } from '../../../utilities/constants/sitenames'
 
-const HeaderFull = props => {
+const HeaderFull = (props) => {
   const {
     arcSite,
     contextPath,
@@ -31,7 +29,14 @@ const HeaderFull = props => {
   } = useFusionContext() || {}
 
   const {
-    customFields: { hierarchyHeader, hierarchyMenu, hideMenu } = {},
+    customFields: {
+      hierarchyHeader,
+      hierarchyMenu,
+      hideMenu,
+      showNewsletter,
+      urlLogoPlay,
+      showArrowLeft,
+    } = {},
   } = props
 
   let { customFields: { customLogoTitle } = {} } = props
@@ -195,9 +200,16 @@ const HeaderFull = props => {
     siteDomain,
     legalLinks,
     hideMenu,
+    showNewsletter,
+    urlLogoPlay,
+    showArrowLeft,
     Newsle: <Newsletter />,
   }
-  return <HeaderFullView {...params} />
+  return (
+    <Static id="Header-full">
+      <HeaderFullView {...params} />
+    </Static>
+  )
 }
 HeaderFull.propTypes = {
   customFields,

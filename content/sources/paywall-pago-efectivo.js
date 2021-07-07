@@ -17,7 +17,8 @@ const dateTimePeru = getUtcDate.split('.')[0]
 const parameters = `${idService}.${accessKey}.${secretKey}.${dateTimePeru}-05:00`
 const hashPayEfectivo = sha256(parameters)
 
-const fetch = () => request({
+const fetch = () =>
+  request({
     method: 'POST',
     uri: urlCommon.tokenPayEfectivo,
     body: {

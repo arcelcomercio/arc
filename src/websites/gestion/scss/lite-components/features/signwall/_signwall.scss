@@ -52,7 +52,7 @@
   @media (--desktop) {
     width: 50%;
     display: table-cell;
-    background: url(https://gestion.pe/pf/resources/dist/gestion/images/paywall_bg.jpg?d=1342)
+    background: url(https://cdna.gestion.pe/resources/dist/gestion/images/paywall_bg.jpg?d=1)
       center center/cover no-repeat;
     background-color: #8f071f;
     background-repeat: no-repeat;
@@ -62,11 +62,12 @@
 }
 
 .plan-digital {
+  margin-top: 0.2em;
   font-size: 30px;
   color: #fff;
   text-align: center;
   font-weight: 600;
-  font-family: "Judson", Arial, Helvetica, sans-serif;
+  font-family: "Judson", serif;
 
   @media (--desktop) {
     font-size: 58px;
