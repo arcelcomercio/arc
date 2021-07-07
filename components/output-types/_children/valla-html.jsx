@@ -17,10 +17,7 @@ const VallaHtml = () => {
       source: 'paywall-campaing',
     }) || {}
 
-  const getPLanSelected = plans.reduce(
-    (prev, plan) => (plan.description.checked ? plan : prev),
-    null
-  )
+  const getPLanSelected = plans.find((plan) => plan.description.checked)
 
   const {
     amount = '-',
