@@ -28,7 +28,7 @@ const Confirmation = () => {
     globalContent: { plans = [], printedSubscriber, event, fromFia },
   } = useAppContext() || {}
 
-  const { data: { token = '' } = {} } =
+  const { data: { token = '' } = {}, error } =
     useContent({
       source: 'paywall-pago-efectivo',
     }) || {}
@@ -172,6 +172,11 @@ const Confirmation = () => {
   React.useEffect(() => {
     if (token && !cipLink) {
       if (token === '') {
+        Sentry.captureEvent({
+          message: 'Error al generar Token CIP',
+          level: 'error',
+          extra: error || {},
+        })
         setCipLink('error')
       } else {
         getCipPayEfectivo()
