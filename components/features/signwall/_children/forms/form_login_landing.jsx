@@ -327,7 +327,11 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
             </p>
           </form>
 
-          {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
+          {arcSite === 'elcomercio' ||
+          arcSite === 'gestion' ||
+          arcSite === 'trome' ||
+          arcSite === 'ojo' ||
+          arcSite === 'diariocorreo' ? (
             <form className="signwall-inside_forms-form">
               <CheckBox
                 checked={checkedPolits}

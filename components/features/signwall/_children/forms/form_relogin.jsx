@@ -299,7 +299,11 @@ const FormRelogin = ({ onClose, typeDialog }) => {
         </a>
       </p>
 
-      {arcSite === 'elcomercio' || arcSite === 'gestion' ? (
+      {arcSite === 'elcomercio' ||
+      arcSite === 'gestion' ||
+      arcSite === 'trome' ||
+      arcSite === 'ojo' ||
+      arcSite === 'diariocorreo' ? (
         <>
           <CheckBox
             checked={checkedPolits}

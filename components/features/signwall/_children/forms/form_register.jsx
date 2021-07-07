@@ -235,7 +235,9 @@ const FormRegister = ({
               // eslint-disable-next-line no-nested-ternary
               arcSite === 'elcomercio' ||
               arcSite === 'gestion' ||
-              arcSite === 'trome'
+              arcSite === 'trome' ||
+              arcSite === 'ojo' ||
+              arcSite === 'diariocorreo'
                 ? checkedPolits
                   ? '1'
                   : '0'
@@ -487,7 +489,9 @@ const FormRegister = ({
 
                   {(arcSite === 'elcomercio' ||
                     arcSite === 'gestion' ||
-                    arcSite === 'trome') && (
+                    arcSite === 'trome' ||
+                    arcSite === 'ojo' ||
+                    arcSite === 'diariocorreo') && (
                     <CheckBox
                       checked={checkedPolits}
                       value={checkedPolits ? '1' : '0'}
