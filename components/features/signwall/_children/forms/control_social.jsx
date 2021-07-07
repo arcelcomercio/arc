@@ -139,7 +139,9 @@ const setupUserProfile = (
                 dataTreatment &&
                 (arcSite === 'elcomercio' ||
                   arcSite === 'gestion' ||
-                  arcSite === 'trome')
+                  arcSite === 'trome' ||
+                  arcSite === 'ojo' ||
+                  arcSite === 'diariocorreo')
                   ? dataTreatment
                   : 'NULL',
               type: 'String',
