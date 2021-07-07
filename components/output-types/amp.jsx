@@ -213,6 +213,7 @@ const AmpOutputType = ({
     arcSite === SITE_ELBOCON ||
     arcSite === SITE_DIARIOCORREO ||
     arcSite === SITE_DEPOR ||
+    arcSite === SITE_GESTION ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||

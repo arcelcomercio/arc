@@ -52,7 +52,7 @@
   @media (--desktop) {
     width: 50%;
     display: table-cell;
-    background: url(https://elcomercio.pe/pf/resources/dist/elcomercio/images/paywall_bg.jpg)
+    background: url(https://cdna.elcomercio.pe/resources/dist/elcomercio/images/paywall_bg.jpg?d=1)
       center center/cover no-repeat;
     background-color: #232323;
     background-repeat: no-repeat;
@@ -62,11 +62,12 @@
 }
 
 .plan-digital {
+  margin-top: 0.2em;
   font-size: 30px;
   color: #fff;
   text-align: center;
   font-weight: 600;
-  font-family: "Noto Serif SC", Arial, Helvetica, sans-serif;
+  font-family: "Noto Serif SC", serif;
 
   @media (--desktop) {
     font-size: 58px;

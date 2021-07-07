@@ -2,6 +2,7 @@ import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { getAssetsPath } from '../../../../../utilities/assets'
 import {
   ModalConsumer,
   ModalProvider,
@@ -41,6 +42,7 @@ export const PremiumInt = ({ properties }) => {
   const { typeDialog, onClose } = properties
   const {
     arcSite,
+    contextPath,
     siteProperties: {
       signwall: { primaryFont },
     },
@@ -102,10 +104,16 @@ export const PremiumInt = ({ properties }) => {
         <div
           className="signwall-inside_body-left premium"
           style={{
-            background: `${
-              arcSite === 'gestion' ? '#8f071f' : '#232323'
-            } url(https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1342)`,
+            background: `${arcSite === 'gestion' ? '#8f071f' : '#232323'}`,
           }}>
+          <img
+            src={`${getAssetsPath(
+              arcSite,
+              contextPath
+            )}/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1`}
+            alt={`Ejemplo de usuario suscriptor de ${arcSite}`}
+            className="signwall-inside_body-left__bg"
+          />
           <div
             className="signwall-inside_body-cont premium"
             style={{
@@ -127,7 +135,10 @@ export const PremiumInt = ({ properties }) => {
               <img
                 alt="Logo"
                 className={`logo ${arcSite}`}
-                src={`https://${arcSite}.pe/pf/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=408`}
+                src={`${getAssetsPath(
+                  arcSite,
+                  contextPath
+                )}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
               />
             </center>
             <ul className="list-benefits mb-20">
