@@ -19,7 +19,7 @@ import {
 import { sendEmailCompany } from '../../_dependencies/Services'
 import useForm from '../../_hooks/useForm'
 
-type FormCompanyProps = {
+type CompanyFormProps = {
   cEmail: string
   cFirstName: string
   cLastName: string
@@ -92,7 +92,7 @@ const PageCompany: React.FC<{ arcSite: ArcSite; contextPath: string }> = ({
     cPhone,
     cSubject,
     cQuestion,
-  }: FormCompanyProps) => {
+  }: CompanyFormProps) => {
     setLoading(true)
     setMsgError('')
     setErrCaptcha('')

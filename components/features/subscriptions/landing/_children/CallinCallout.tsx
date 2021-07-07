@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import * as React from 'react'
 
 import { formatCellphone, formatNames } from '../../_dependencies/Errors'
 import { pushCallOut } from '../../_dependencies/Services'
 import useForm from '../../_hooks/useForm'
 
-function CallinCallout() {
-  const [showConfirmCall, setShowConfirmCall] = useState(false)
-  const [showRepeatCall, setShowRepeatCall] = useState(false)
-  const [showErrorCall, setShowErrorCall] = useState(false)
-  const [loading, setLoading] = useState()
+type CallOutFormProps = {
+  namecall: string
+  phonecall: string
+}
+
+const CallinCallout = (): JSX.Element => {
+  const [showConfirmCall, setShowConfirmCall] = React.useState(false)
+  const [showRepeatCall, setShowRepeatCall] = React.useState<string>()
+  const [showErrorCall, setShowErrorCall] = React.useState<string>()
+  const [loading, setLoading] = React.useState(false)
 
   const stateSchema = {
     namecall: { value: '', error: '' },
@@ -26,7 +31,7 @@ function CallinCallout() {
     },
   }
 
-  const onFomrCallOut = ({ namecall, phonecall }) => {
+  const onFomrCallOut = ({ namecall, phonecall }: CallOutFormProps) => {
     setLoading(true)
     pushCallOut(namecall, phonecall)
       .then((resCall) => {
@@ -65,7 +70,7 @@ function CallinCallout() {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFomrCallOut)
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleOnChange(e)
   }
 
@@ -100,7 +105,7 @@ function CallinCallout() {
               autoComplete="name"
               placeholder="Nombre"
               name="namecall"
-              maxLength="80"
+              maxLength={80}
               required
               value={namecall}
               onBlur={handleOnChange}
@@ -114,7 +119,7 @@ function CallinCallout() {
               autoComplete="tel"
               placeholder="Celular"
               name="phonecall"
-              maxLength="9"
+              maxLength={9}
               required
               value={phonecall}
               onBlur={handleOnChange}
