@@ -1,11 +1,13 @@
 import Identity from '@arc-publishing/sdk-identity'
 import { isUserIdentity } from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
+import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
 import { FC } from 'types/features'
 import { PaywallCampaign, UserDocumentType } from 'types/subscriptions'
 
+import useSentry from '../../../hooks/useSentry'
 import { isProd } from '../../../utilities/arc/env'
 import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon } from '../_dependencies/Properties'
@@ -48,6 +50,8 @@ const SubscriptionsValidateDNI: FC = () => {
       event = undefined,
     } = {},
   } = useAppContext<PaywallCampaign>() || {}
+
+  useSentry(urls.sentrySubs)
 
   const textsAttr: Record<string, string> = printAttributes.reduce(
     (prev, item) => ({ ...prev, [item.name]: item.value }),
@@ -99,25 +103,39 @@ const SubscriptionsValidateDNI: FC = () => {
               .then((resDniToken) => {
                 if (resDniToken.token) {
                   updateLoading(true)
-                  const isEvent = event ? `${event}/` : ''
+                  const currentEvent = event ? `${event}/` : ''
                   setTimeout(() => {
                     window.location.href = isProd
-                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}`
-                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${isEvent}?outputType=subscriptions`
+                      ? `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${currentEvent}`
+                      : `/suscripcionesdigitales/${vDocumentType}/${vDocumentNumber}/${resDniToken.token}/${currentEvent}?outputType=subscriptions`
                   }, 1000)
                 } else {
-                  window.console.error('Hubo un error con la respuesta') // Temporal hasta implementar Sentry
+                  Sentry.captureEvent({
+                    message: 'La validación de DNI no ha retornado un token',
+                    level: Sentry.Severity.Error,
+                    extra: resDniToken || {},
+                  })
                   setLoading(false)
                 }
               })
               .catch((errDniToken) => {
-                window.console.error(errDniToken) // Temporal hasta implementar Sentry
+                Sentry.captureEvent({
+                  message:
+                    'Error al validar el DNI y obtener el token de usuario',
+                  level: Sentry.Severity.Error,
+                  extra: errDniToken || {},
+                })
                 setLoading(false)
               })
           }
         })
-        .catch((errHeart) => {
-          window.console.error(errHeart) // Temporal hasta implementar Sentry
+        .catch((errHeartbeat) => {
+          Sentry.captureEvent({
+            message:
+              'Error al refrescar el token de usuario con Identity.heartbeat() para validar DNI',
+            level: Sentry.Severity.Error,
+            extra: errHeartbeat || {},
+          })
           setLoading(false)
         })
     }
