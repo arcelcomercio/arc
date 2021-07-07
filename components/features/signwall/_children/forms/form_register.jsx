@@ -611,7 +611,7 @@ const FormRegister = ({
                         <h1 className="group-float-trome__title">
                           ¡Gracias por ser un Trome!
                         </h1>
-                        <p className="group-float-trome__subtitle">
+                        <p className="group-float-trome__subtitle mb-20">
                           Para confirmar tu registro te solicitamos confirmar tu
                           <br /> cuenta de correo electrónico.
                         </p>
@@ -637,10 +637,10 @@ const FormRegister = ({
                     </>
                   )}
 
-                  {showContinueVerify && !isTromeOrganic && (
+                  {showContinueVerify && (
                     <h4
                       style={{ fontSize: '14px', color: '#6a6a6a' }}
-                      className="signwall-inside_forms-title center">
+                      className="signwall-inside_forms-title mb-10 center">
                       {remail}
                     </h4>
                   )}
@@ -654,7 +654,7 @@ const FormRegister = ({
                               style={{
                                 lineHeight: '28px',
                               }}
-                              className="signwall-inside_forms-text mt-10 mb-20 center">
+                              className="signwall-inside_forms-text mb-20 center">
                               Sigue disfrutando del contenido exclusivo que
                               tenemos para ti
                             </p>
@@ -718,7 +718,7 @@ const FormRegister = ({
                           style={{
                             lineHeight: '22px',
                           }}
-                          className="signwall-inside_forms-text mt-10 mb-20 center">
+                          className="signwall-inside_forms-text mb-20 center">
                           Revisa tu bandeja de correo para confirmar tu
                           {showContinueVerify
                             ? ` registro y sigue navegando`
