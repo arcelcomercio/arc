@@ -1,5 +1,8 @@
+import Identity from '@arc-publishing/sdk-identity'
 import * as Sentry from '@sentry/browser'
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
+import { SubsArcSite } from 'types/subscriptions'
 
 import { getAssetsPath } from '../../../../utilities/assets'
 import { MsgRegister } from '../../../signwall/_children/icons'
@@ -16,12 +19,25 @@ import {
 import { sendEmailCompany } from '../../_dependencies/Services'
 import useForm from '../../_hooks/useForm'
 
-const PageCompany = ({ arcSite, contextPath }) => {
-  const { urls, texts } = PropertiesSite[arcSite]
+type FormCompanyProps = {
+  cEmail: string
+  cFirstName: string
+  cLastName: string
+  cCompany: string
+  cPhone: string
+  cSubject: string
+  cQuestion: string
+}
+
+const PageCompany: React.FC<{ arcSite: ArcSite; contextPath: string }> = ({
+  arcSite,
+  contextPath,
+}) => {
+  const { urls, texts } = PropertiesSite[arcSite as SubsArcSite]
   const { urls: urlCommon, texts: textsCommon } = PropertiesCommon
-  const [msgError, setMsgError] = React.useState()
-  const [errCaptcha, setErrCaptcha] = React.useState()
-  const [loading, setLoading] = React.useState()
+  const [msgError, setMsgError] = React.useState('')
+  const [errCaptcha, setErrCaptcha] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
   const [showThanks, setShowThanks] = React.useState(false)
 
   const stateSchema = {
@@ -76,17 +92,17 @@ const PageCompany = ({ arcSite, contextPath }) => {
     cPhone,
     cSubject,
     cQuestion,
-  }) => {
+  }: FormCompanyProps) => {
     setLoading(true)
-    setMsgError(false)
-    setErrCaptcha(false)
-    const response = window.grecaptcha.getResponse()
+    setMsgError('')
+    setErrCaptcha('')
+    const response = window.grecaptcha?.getResponse()
     if (response.length === 0) {
       setLoading(false)
       setErrCaptcha(getCodeError('validCaptcha'))
     } else {
-      const userToken = window.Identity.userIdentity.accessToken
-      const captcha = window.grecaptcha.getResponse()
+      const userToken = Identity.userIdentity?.accessToken
+      const captcha = window.grecaptcha?.getResponse()
       sendEmailCompany(
         urlCommon.companyEmail,
         arcSite,
@@ -115,7 +131,7 @@ const PageCompany = ({ arcSite, contextPath }) => {
           Sentry.captureEvent({
             message:
               'Ocurrió un error al enviar mensaje  del formulario Corporativo',
-            level: 'error',
+            level: Sentry.Severity.Error,
             extra: errEmail || {},
           })
         })
@@ -146,16 +162,20 @@ const PageCompany = ({ arcSite, contextPath }) => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFormCompany)
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     handleOnChange(e)
-    setMsgError(false)
+    setMsgError('')
   }
 
   const handleReturnHome = () => {
     window.location.href = urls.mainHome
   }
 
-  const getFormImage = (format) =>
+  const getFormImage = (format: 'webp' | 'png' | 'jpg') =>
     `${getAssetsPath(
       arcSite,
       contextPath
@@ -215,7 +235,7 @@ const PageCompany = ({ arcSite, contextPath }) => {
                               required
                               onChange={handleChangeInput}
                               onBlur={handleOnChange}
-                              maxLength="80"
+                              maxLength={80}
                               disabled={loading}
                             />
                             {cEmailError && (
@@ -235,7 +255,7 @@ const PageCompany = ({ arcSite, contextPath }) => {
                               value={cFirstName}
                               required
                               onChange={handleChangeInput}
-                              maxLength="50"
+                              maxLength={50}
                               onBlur={handleOnChange}
                               disabled={loading}
                             />
@@ -258,7 +278,7 @@ const PageCompany = ({ arcSite, contextPath }) => {
                               value={cLastName}
                               required
                               onChange={handleChangeInput}
-                              maxLength="50"
+                              maxLength={50}
                               onBlur={handleOnChange}
                               disabled={loading}
                             />
@@ -281,7 +301,7 @@ const PageCompany = ({ arcSite, contextPath }) => {
                               value={cCompany}
                               required
                               onChange={handleChangeInput}
-                              maxLength="50"
+                              maxLength={50}
                               onBlur={handleOnChange}
                               disabled={loading}
                             />
@@ -303,7 +323,7 @@ const PageCompany = ({ arcSite, contextPath }) => {
                               autoComplete="tel"
                               name="cPhone"
                               value={cPhone}
-                              maxLength="12"
+                              maxLength={12}
                               required
                               onChange={handleChangeInput}
                               onBlur={handleOnChange}
@@ -345,7 +365,7 @@ const PageCompany = ({ arcSite, contextPath }) => {
                               className={cQuestionError && 'input-error'}
                               name="cQuestion"
                               value={cQuestion}
-                              maxLength="200"
+                              maxLength={200}
                               onChange={handleChangeInput}
                               onBlur={handleOnChange}
                             />

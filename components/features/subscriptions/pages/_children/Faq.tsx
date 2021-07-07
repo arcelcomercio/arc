@@ -3,11 +3,13 @@
 
 import * as React from 'react'
 import Markdown from 'react-markdown/with-html'
+import { ArcSite } from 'types/fusion'
+import { SubsArcSite } from 'types/subscriptions'
 
 import { PropertiesSite } from '../../_dependencies/Properties'
 
-const PageFaq = ({ arcSite }) => {
-  const { faqs = [] } = PropertiesSite[arcSite]
+const PageFaq: React.FC<{ arcSite: ArcSite }> = ({ arcSite }) => {
+  const { faqs = [] } = PropertiesSite[arcSite as SubsArcSite]
 
   return (
     <section className="faq">

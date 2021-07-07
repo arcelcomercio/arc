@@ -25,7 +25,9 @@ type StateValues = Record<keyof StateSchema, string>
 
 type UseForm<TValues extends StateValues = StateValues> = {
   handleOnChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => void
   handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   values: TValues
