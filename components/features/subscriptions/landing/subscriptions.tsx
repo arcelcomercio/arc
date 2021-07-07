@@ -9,6 +9,7 @@ import { PaywallHomeCampaign, SubsArcSite } from 'types/subscriptions'
 
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
+import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 import { deleteQuery, getQuery } from '../../../utilities/parse/queries'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
@@ -55,7 +56,7 @@ const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
 
   const { urls, texts } = PropertiesSite[arcSite as SubsArcSite]
   const { links, urls: urlCommon } = PropertiesCommon
-  const isComercio = arcSite === 'elcomercio'
+  const isComercio = arcSite === SITE_ELCOMERCIO
   const bannerUniv =
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
   const moduleCall = callInnCallOut && isComercio
@@ -426,9 +427,6 @@ const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
         {showModalCall ? (
           <Callout
             fallback={<div>Cargando...</div>}
-            typeDialog={landingType}
-            nameDialog={landingType}
-            onLoggedFail={() => {}}
             onClose={() => {
               setShowModalCall(false)
             }}

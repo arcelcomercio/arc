@@ -8,6 +8,7 @@ import { SubsArcSite } from 'types/subscriptions'
 
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
+import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 import { deleteQuery, getQuery } from '../../../utilities/parse/queries'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
@@ -29,13 +30,15 @@ type PagesSubscriptionsProps = {
 }
 
 const arcType = 'pages'
+const FAQ_PAGE = 'faqPage'
+const COMPANY_PAGE = 'companyPage'
 
 const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
   const {
     customFields: {
       callInnCallOut = false,
       btnOnTop = false,
-      pageSubscriptions = 'faqPage',
+      pageSubscriptions = FAQ_PAGE,
     } = {},
   } = props
 
@@ -51,7 +54,7 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
   const { urls } = PropertiesSite[arcSite as SubsArcSite]
   const { links, urls: urlCommon } = PropertiesCommon
 
-  const isComercio = arcSite === 'elcomercio'
+  const isComercio = arcSite === SITE_ELCOMERCIO
   const moduleCall = callInnCallOut && isComercio
 
   useSentry(urlCommon.sentrySubs)
@@ -180,7 +183,7 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
         />
       )}
 
-      {pageSubscriptions === 'faqPage' ? (
+      {pageSubscriptions === FAQ_PAGE ? (
         <PageFaq arcSite={arcSite} />
       ) : (
         <PageCompany arcSite={arcSite} contextPath={contextPath} />
@@ -221,9 +224,6 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
       {showModalCall && (
         <Callout
           fallback={<div>Cargando...</div>}
-          typeDialog={landingType}
-          nameDialog={landingType}
-          onLoggedFail={() => {}}
           onClose={() => {
             setShowModalCall(false)
           }}
@@ -245,13 +245,13 @@ PagesSubscriptions.propTypes = {
       defaultValue: false,
       description: 'Mostrar/Ocultar Botón subir arriba',
     }),
-    pageSubscriptions: PropTypes.oneOf(['faqPage', 'companyPage']).tag({
+    pageSubscriptions: PropTypes.oneOf([FAQ_PAGE, COMPANY_PAGE]).tag({
       name: 'Seleccione Página ',
       labels: {
         faqPage: 'Preguntas Frecuentes',
         companyPage: 'Formulario Corporativo',
       },
-      defaultValue: 'faqPage',
+      defaultValue: FAQ_PAGE,
     }),
   }),
 }
