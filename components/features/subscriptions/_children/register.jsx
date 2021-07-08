@@ -9,7 +9,7 @@ import {
   TermsConditions,
 } from '../../signwall/_dependencies/domains'
 import { useAuthContext } from '../_context/auth'
-import { NavigateConsumer } from '../_context/navigate'
+import { useNavigateContext } from '../_context/navigate'
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
@@ -42,7 +42,7 @@ const styles = {
 
 const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
   const { activateAuth, updateStep } = useAuthContext()
-  const { changeTemplate } = React.useContext(NavigateConsumer)
+  const { changeTemplate } = useNavigateContext()
   const [loading, setLoading] = React.useState()
   const [loadText, setLoadText] = React.useState('Cargando...')
   const [msgError, setMsgError] = React.useState()

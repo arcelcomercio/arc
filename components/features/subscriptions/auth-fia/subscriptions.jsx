@@ -8,7 +8,7 @@ import Forgot from '../_children/forgot'
 import Login from '../_children/login'
 import Register from '../_children/register'
 import { AuthProvider } from '../_context/auth'
-import { NavigateConsumer, NavigateProvider } from '../_context/navigate'
+import { NavigateProvider, useNavigateContext } from '../_context/navigate'
 import { deleteCookie } from '../_dependencies/Cookies'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { Container, PanelLeft, Wrapper } from '../_layouts/containers'
@@ -33,7 +33,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
     arcSite,
   } = useFusionContext() || {}
 
-  const { selectedTemplate, valueTemplate } = React.useContext(NavigateConsumer)
+  const { selectedTemplate, valueTemplate } = useNavigateContext()
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const [isLogged, setLogged] = React.useState(false)

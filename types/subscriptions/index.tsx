@@ -1,5 +1,7 @@
 export type SubsArcSite = 'elcomercio' | 'gestion'
 
+export type DialogType = 'login' | 'registro' | 'payment' | 'landing' | 'pages'
+
 type Attributes = {
   name: string
   value: string
@@ -22,6 +24,7 @@ export type Subscriber = SubscriberName & SubscriberDocument
 
 export type PaywallCampaign = {
   name: string
+  plans: any[]
   printAttributes: Attributes[]
   printedSubscriber: boolean
   event?: string

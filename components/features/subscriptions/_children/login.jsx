@@ -7,7 +7,7 @@ import {
   PolicyPrivacy,
 } from '../../signwall/_dependencies/domains'
 import { useAuthContext } from '../_context/auth'
-import { NavigateConsumer } from '../_context/navigate'
+import { useNavigateContext } from '../_context/navigate'
 import getCodeError, { formatEmail, formatPass } from '../_dependencies/Errors'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { deleteQuery } from '../_dependencies/QueryString'
@@ -37,7 +37,7 @@ const Login = ({
   isFia,
   typeDialog,
 }) => {
-  const { changeTemplate } = React.useContext(NavigateConsumer)
+  const { changeTemplate } = useNavigateContext()
   const { activateAuth, updateStep } = useAuthContext()
   const [loading, setLoading] = React.useState()
   const [msgError, setMsgError] = React.useState()

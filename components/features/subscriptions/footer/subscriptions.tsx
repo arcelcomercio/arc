@@ -1,7 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import { FC } from 'types/features'
-import { SubsArcSite } from 'types/subscriptions'
+import { DialogType, SubsArcSite } from 'types/subscriptions'
 
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
@@ -9,7 +9,7 @@ import customFields from './_dependencies/custom-fields'
 
 type SubscriptionsFooterProps = {
   customFields?: {
-    type?: 'login' | 'registro' | 'payment' | 'landing' | 'pages'
+    type?: DialogType
   }
 }
 
