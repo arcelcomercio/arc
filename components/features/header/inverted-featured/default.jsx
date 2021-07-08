@@ -20,7 +20,13 @@ const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const HeaderInvertedFeatured = (props) => {
   const {
-    customFields: { hierarchyConfig, customLogo, customLogoLink, tags },
+    customFields: {
+      hierarchyConfig,
+      customLogo,
+      customLogoLink,
+      tags,
+      hideMenu,
+    },
   } = props
 
   let { customFields: { customLogoTitle } = {} } = props
@@ -164,6 +170,7 @@ const HeaderInvertedFeatured = (props) => {
       shareButtons={shareButtons}
       logoImg={logoImg}
       winningCallLogo={winningCallLogo}
+      hideMenu={hideMenu}
     />
   )
 }
