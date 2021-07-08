@@ -28,8 +28,9 @@ const fetch = () =>
       hashString: hashPayEfectivo.toString(),
     },
     json: true,
-  }).catch(() => ({ error: 'Solicitud inválida' }))
+  }).catch(() => ({ error: 'Solicitud inválida', date: dateTimePeru }))
 
 export default {
   fetch,
+  cache: false,
 }

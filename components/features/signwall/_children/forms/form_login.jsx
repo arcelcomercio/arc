@@ -475,7 +475,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
             {arcSite === 'elcomercio' ||
             arcSite === 'gestion' ||
-            arcSite === 'trome' ? (
+            arcSite === 'trome' ||
+            arcSite === 'ojo' ||
+            arcSite === 'diariocorreo' ? (
               <>
                 <CheckBox
                   checked={checkedPolits}
