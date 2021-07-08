@@ -70,6 +70,9 @@ const GetStory: React.FC<{
             const sectionList = primarySectionLink.split('/').slice(1) || []
             const premium = getPremiumValue === 'premium' && true
 
+            document.title = title
+            window.history.pushState({}, title, link)
+
             window.dataLayer = window.dataLayer || []
             window.dataLayer.push({
               event: 'carga_continua',
@@ -126,7 +129,10 @@ const GetStory: React.FC<{
   }, [dataStory?._id])
 
   return (
-    <div id={`nota${index + 1}`} ref={container}>
+    <div
+      id={`nota${index + 1}`}
+      className={dataStory?.subtype || ''}
+      ref={container}>
       {dataStory?._id && (
         <RederStory
           data={dataStory}
