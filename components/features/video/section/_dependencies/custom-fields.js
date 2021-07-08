@@ -5,6 +5,22 @@ const customFields = PropTypes.shape({
     name: 'Editar navegación',
     group: 'Configuración del contenido',
   }),
+  hidePlaylist: PropTypes.bool.tag({
+    name: 'Ocultar Playlist',
+    defaultValue: false,
+  }),
+  hideShare: PropTypes.bool.tag({
+    name: 'Ocultar Compartir',
+    defaultValue: false,
+  }),
+  hideMeta: PropTypes.bool.tag({
+    name: 'Ocultar metadata',
+    defaultValue: false,
+  }),
+  categoryTop: PropTypes.bool.tag({
+    name: 'categoria top video mobile',
+    defaultValue: false,
+  }),
 })
 
 export default customFields
