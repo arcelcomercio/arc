@@ -1,4 +1,9 @@
-![](https://i.ibb.co/JRXhcWd/Grupo-El-Comercio-1996.png)
+<img src="https://pbs.twimg.com/profile_images/1379080793721561088/7wLcCuMm_400x400.jpg" alt="logo de arc" height="100"/> +
+<img src="https://i.ibb.co/JRXhcWd/Grupo-El-Comercio-1996.png" alt="logo de grupo el comercio" height="100"/>
+
+![pipeline](https://gitlab.ec.pe/contenidos/arc/badges/master/pipeline.svg)
+![coverage](https://gitlab.ec.pe/contenidos/arc/badges/master/coverage.svg?job=coverage)
+
 
 ## Tabla de contenido
 
