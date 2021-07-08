@@ -1,14 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import React, { Component } from 'react'
 import Consumer from 'fusion:consumer'
-import Checkbox from './_children/item'
+import React, { Component } from 'react'
+
 import Loading from '../../signwall/_children/loading'
-import Services from '../../signwall/_dependencies/services'
-import Domains from '../../signwall/_dependencies/domains'
+import { getOriginAPI } from '../../signwall/_dependencies/domains'
+import {
+  getNewsLetters,
+  getNewsLettersUser,
+  sendNewsLettersUser,
+} from '../../signwall/_dependencies/services'
+import { SignOrganic } from '../../subscriptions/auth-user/_children/Organic'
+import Checkbox from './_children/item'
 import SubscriptionTitle from './_children/title'
-import { Generic } from '../../signwall/mainpage/_children/generic'
 
 const classes = {
   container:
@@ -18,29 +23,30 @@ const classes = {
 
 @Consumer
 class NewslettersSubscription extends Component {
-  state = {
-    newsletters: [],
-    checksNews: {},
-    loading: false,
-    disabled: true,
-    showsuccess: false,
-    textSave: 'GUARDAR',
-    categories: null,
-    selectCategories: new Set(),
-    isFetching: false,
-    showSignwall: false,
-    lastItemSelected: null,
+  constructor(props) {
+    super(props)
+    this.state = {
+      newsletters: [],
+      checksNews: {},
+      loading: false,
+      disabled: true,
+      showsuccess: false,
+      textSave: 'GUARDAR',
+      categories: null,
+      selectCategories: new Set(),
+      isFetching: false,
+      showSignwall: false,
+      lastItemSelected: null,
+      newSetCategories: null,
+      timeout: null,
+    }
   }
 
-  newSetCategories
-
-  timeout
-
-  componentWillMount() {
-    this.removeEventListener('logged', this.afterLoggued)
-    this.removeEventListener('protect', this.protectRefresh)
-    this.removeEventListener('unprotect', this.unProtectRefresh)
-  }
+  // componentWillMount() {
+  //   this.removeEventListener('logged', this.afterLoggued)
+  //   this.removeEventListener('protect', this.protectRefresh)
+  //   this.removeEventListener('unprotect', this.unProtectRefresh)
+  // }
 
   componentDidMount() {
     this.loadSetting()
@@ -49,12 +55,13 @@ class NewslettersSubscription extends Component {
     this.addEventListener('unprotect', this.unProtectRefresh)
   }
 
-  handleLeavePage = e => {
-    const confirmationMessage = '¿Deseas volver a argar el sitio?'
+  handleLeavePage = (e) => {
+    const confirmationMessage = '¿Desea volver a cargar el sitio?'
     e.returnValue = confirmationMessage
     return confirmationMessage
   }
 
+  // eslint-disable-next-line react/sort-comp
   protectRefresh = () => {
     window.addEventListener('beforeunload', this.handleLeavePage)
   }
@@ -76,9 +83,9 @@ class NewslettersSubscription extends Component {
     const UUID = window.Identity.userIdentity.uuid
     const EMAIL = window.Identity.userProfile.email
 
-    window.Identity.options({ apiOrigin: Domains.getOriginAPI(arcSite) })
-    window.Identity.extendSession().then(extSess => {
-      Services.sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
+    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
+    window.Identity.extendSession().then((extSess) => {
+      sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
         ...selectCategories,
       ])
         .then(() => {
@@ -92,7 +99,7 @@ class NewslettersSubscription extends Component {
           // }, 3000)
           this.dispatchEvent('unprotect')
         })
-        .catch(e => {
+        .catch((e) => {
           window.console.error(e)
         })
     })
@@ -128,28 +135,25 @@ class NewslettersSubscription extends Component {
 
     const { selectCategories, lastItemSelected } = this.state
     const { arcSite } = this.props
-
     const UUID = window.Identity.userIdentity.uuid
-    const SITE = arcSite
-
     const listAllNews = { ...[] }
 
-    Services.getNewsLetters().then(resNews => {
-      resNews[SITE].map(item => {
+    getNewsLetters().then((resNews) => {
+      resNews[arcSite].map((item) => {
         listAllNews[item.code] = false
         return null
       })
 
       this.setState({
-        newsletters: resNews[SITE] || [],
+        newsletters: resNews[arcSite] || [],
         checksNews: listAllNews,
       })
 
-      Services.getNewsLettersUser(UUID, SITE)
-        .then(res => {
+      getNewsLettersUser(UUID, arcSite)
+        .then((res) => {
           if (res.data.length >= 1) {
-            res.data.map(item => {
-              this.setState(prevState => ({
+            res.data.map((item) => {
+              this.setState((prevState) => ({
                 checksNews: {
                   ...prevState.checksNews,
                   [item]: true,
@@ -177,7 +181,7 @@ class NewslettersSubscription extends Component {
     })
   }
 
-  getUrlParam = name => {
+  getUrlParam = (name) => {
     const vars = {}
     if (typeof window !== 'undefined')
       window.location.href.replace(
@@ -214,7 +218,6 @@ class NewslettersSubscription extends Component {
       showsuccess,
       showSignwall,
     } = this.state
-
     const { arcSite } = this.props
 
     return (
@@ -229,18 +232,17 @@ class NewslettersSubscription extends Component {
           )}
 
           {loading ? (
-            <Loading arcSite={arcSite} typeBg="wait" />
+            <Loading typeBg="block" />
           ) : (
             <div role="list" className={classes.list}>
-              {newsletters.map(item => (
+              {newsletters.map((item) => (
                 <label className="item" key={item.code}>
                   <Checkbox
                     image={item.image}
                     name={item.name}
                     description={item.description}
-                    site={arcSite}
                     checked={checksNews[item.code]}
-                    onChange={e => {
+                    onChange={(e) => {
                       if (this.checkSession()) {
                         this.handleCheckbox(e, item.code)
                       } else {
@@ -259,7 +261,7 @@ class NewslettersSubscription extends Component {
         </div>
 
         {(this.getUrlParam('signNewsletters') || showSignwall) && (
-          <Generic
+          <SignOrganic
             onClose={() => this.setState({ showSignwall: false })}
             arcSite={arcSite}
             typeDialog="newsletter"

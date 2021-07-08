@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { isAuthenticated } from '../_dependencies/Session'
 import { getLocaleStorage, getSessionStorage } from '../_dependencies/Utils'
 
@@ -34,14 +35,14 @@ const AuthProvider = ({ children }) => {
     loadPage,
     userLoading,
     userErrorApi,
-    updateUser: profile => {
+    updateUser: (profile) => {
       setUser(profile)
     },
-    activateAuth: authUser => {
+    activateAuth: (authUser) => {
       setUserLoaded(true)
       setUser(authUser)
     },
-    updateStep: currentStep => {
+    updateStep: (currentStep) => {
       window.sessionStorage.setItem(keyStorageStep, currentStep)
       setUserStep(currentStep)
     },
@@ -56,21 +57,21 @@ const AuthProvider = ({ children }) => {
     updateDataPlan: (amount, billingFrequency) => {
       setUserDataPlan({ amount, billingFrequency })
     },
-    updatePeriod: period => {
+    updatePeriod: (period) => {
       setUserPeriod(period)
     },
-    updatePurchase: purchaseInfo => {
+    updatePurchase: (purchaseInfo) => {
       setUserPurchase(purchaseInfo)
       window.sessionStorage.setItem(keyStorageStep, 4)
       setUserStep(4)
     },
-    updateLoadPage: status => {
+    updateLoadPage: (status) => {
       setLoadPage(status)
     },
-    updateLoading: status => {
+    updateLoading: (status) => {
       setUserLoading(status)
     },
-    updateErrorApi: staus => {
+    updateErrorApi: (staus) => {
       setUserErrorApi(staus)
     },
   }
@@ -78,4 +79,4 @@ const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-export { AuthProvider, AuthContext }
+export { AuthContext, AuthProvider }

@@ -28,10 +28,6 @@ import './images/logo-sidebar.png'
 import './images/bbc_head_fg.jpg'
 import './images/bbc_head.png'
 import './images/logo-elcomercio.jpg'
-import './images/signwall/paywall_bg.jpg'
-import './images/signwall/logo_elcomercio.png'
-import './images/signwall/bg_login.jpg'
-import './images/signwall/bg_students.jpg'
 
 /** Images Paywall */
 import './images/img_corporativo.png'
