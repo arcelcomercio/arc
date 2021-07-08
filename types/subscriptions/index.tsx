@@ -7,16 +7,27 @@ type Attributes = {
 
 export type UserDocumentType = 'DNI' | 'CDI' | 'CEX'
 
-export type PrintedSubscriber = {
+export type SubscriberDocument = {
   documentType: UserDocumentType
   documentNumber: number
 }
 
+export type SubscriberName = {
+  firstName: string
+  lastName: string
+  secondLastName: string
+}
+
+export type Subscriber = SubscriberName & SubscriberDocument
+
 export type PaywallCampaign = {
   name: string
   printAttributes: Attributes[]
-  printedSubscriber?: PrintedSubscriber
+  printedSubscriber: boolean
   event?: string
+  fromFia: boolean
+  freeAccess: boolean
+  subscriber: Subscriber
 }
 
 /** Paywall Home Campaign */

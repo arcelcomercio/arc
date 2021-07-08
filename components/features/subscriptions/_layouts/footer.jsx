@@ -236,7 +236,7 @@ export const FooterSubs = () => {
   )
 }
 
-export const FooterLand = ({ arcType, btnOnTop }) => {
+export const FooterLand = ({ arcType, btnOnTop = false }) => {
   const { arcSite } = useAppContext() || {}
   const { urls, texts } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon

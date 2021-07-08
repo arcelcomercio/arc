@@ -110,6 +110,14 @@ export const isFbBrowser =
   (window.navigator.userAgent.indexOf('FBAN') > -1 ||
     window.navigator.userAgent.indexOf('FBAV') > -1)
 
+export const setSessionStorage = (key: string, data: unknown): void => {
+  if (typeof window !== 'undefined') {
+    if (isStorageAvailable('sessionStorage')) {
+      window.sessionStorage.setItem(key, encodeValue(data))
+    }
+  }
+}
+
 export const getSessionStorage = (key: string): string | null => {
   if (typeof window !== 'undefined') {
     if (isStorageAvailable('sessionStorage')) {

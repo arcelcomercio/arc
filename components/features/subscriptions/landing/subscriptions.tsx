@@ -151,288 +151,282 @@ const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
 
   return (
     <SdksProvider>
-      <>
-        <header className="header" id="header">
-          <div className="wrapper">
-            <div
-              className={`header__content ${
-                !isComercio || !moduleCall ? 'box-cont' : ''
-              }`}>
-              <a
-                href={urls.mainHome}
-                target="_blank"
-                rel="noreferrer"
-                className="header__content-link"
-                aria-label={arcSite}>
-                <div className="header__content-logo" />
-              </a>
+      <header className="header" id="header">
+        <div className="wrapper">
+          <div
+            className={`header__content ${
+              !isComercio || !moduleCall ? 'box-cont' : ''
+            }`}>
+            <a
+              href={urls.mainHome}
+              target="_blank"
+              rel="noreferrer"
+              className="header__content-link"
+              aria-label={arcSite}>
+              <div className="header__content-logo" />
+            </a>
 
-              {moduleCall && (
-                <div className="header__content-call">
-                  <span>Llama Gratis</span>
-                  <button
-                    type="button"
-                    className="icon-phone"
-                    onClick={handleCallIn}>
-                    01 311 5100
-                  </button>
-                  <button
-                    type="button"
-                    className="icon-support"
-                    onClick={() => setShowCallin(!showCallin)}>
-                    Te Llamamos
-                  </button>
-                </div>
-              )}
-
-              <button
-                className="header__content-button"
-                type="button"
-                id="btn-signwall"
-                onClick={handleSignwall}>
-                {profileButtonText || 'Inicia sesión'}
-              </button>
-            </div>
-          </div>
-        </header>
-
-        {moduleCall && showCallin && <CallinCallOut />}
-
-        <section className="planes">
-          <div className={isComercio ? 'wrapper' : 'wrapper-full'}>
-            {!isComercio && (
-              <>
-                <h1 className="planes__title">{texts.mainTop}</h1>
-                <p className="planes__description">
-                  {texts.parrafOne} <br />
-                  {texts.parrafTwo}
-                </p>
-              </>
+            {moduleCall && (
+              <div className="header__content-call">
+                <span>Llama Gratis</span>
+                <button
+                  type="button"
+                  className="icon-phone"
+                  onClick={handleCallIn}>
+                  01 311 5100
+                </button>
+                <button
+                  type="button"
+                  className="icon-support"
+                  onClick={() => setShowCallin(!showCallin)}>
+                  Te Llamamos
+                </button>
+              </div>
             )}
 
-            <div className={isComercio ? 'planes__grid' : 'planes__grid-three'}>
-              {items.map((item, order) => (
-                <Cards
-                  key={`card-${order + 1}`}
-                  item={item}
-                  order={order}
-                  arcSite={arcSite}
-                  textOffer={texts.offer}
-                />
-              ))}
-
-              {isComercio && (
-                <article className="planes__item planes__banner grid-four-four">
-                  <div className="planes__content">
-                    <i className="planes__banner-icon" />
-                    <h3 className="planes__banner-title">
-                      {texts.bannerTitle}
-                    </h3>
-                    <p className="planes__banner-description">
-                      {texts.bannerText}
-                    </p>
-                    <button
-                      type="button"
-                      className="planes__banner-button"
-                      onClick={() => {
-                        if (typeof window !== 'undefined') {
-                          window.open(urls.subsPrint, '_blank')
-                        }
-                      }}>
-                      {texts.bannerButton}
-                    </button>
-                  </div>
-                </article>
-              )}
-            </div>
+            <button
+              className="header__content-button"
+              type="button"
+              id="btn-signwall"
+              onClick={handleSignwall}>
+              {profileButtonText || 'Inicia sesión'}
+            </button>
           </div>
-        </section>
+        </div>
+      </header>
 
-        <section className="banners">
-          <div className={isComercio ? 'wrapper' : 'wrapper-medium'}>
-            <div
-              className={`banners__grid ${!bannerUniv && 'banners__grid-one'}`}>
-              {bannerUniv && (
-                <article
-                  className="banners__item grid-two-one"
-                  role="presentation"
-                  onClick={handleUniversity}>
-                  <div className="banners__content">
-                    <h4 className="banners__content-title">
-                      {texts.uniTitle}
-                      <small>{texts.bannerNew}</small>
-                    </h4>
-                    <p className="banners__content-description">
-                      {texts.uniDescription}
-                    </p>
-                  </div>
-                </article>
-              )}
+      {moduleCall && showCallin && <CallinCallOut />}
 
+      <section className="planes">
+        <div className={isComercio ? 'wrapper' : 'wrapper-full'}>
+          {!isComercio && (
+            <>
+              <h1 className="planes__title">{texts.mainTop}</h1>
+              <p className="planes__description">
+                {texts.parrafOne} <br />
+                {texts.parrafTwo}
+              </p>
+            </>
+          )}
+
+          <div className={isComercio ? 'planes__grid' : 'planes__grid-three'}>
+            {items.map((item, order) => (
+              <Cards
+                key={`card-${order + 1}`}
+                item={item}
+                order={order}
+                arcSite={arcSite}
+                textOffer={texts.offer}
+              />
+            ))}
+
+            {isComercio && (
+              <article className="planes__item planes__banner grid-four-four">
+                <div className="planes__content">
+                  <i className="planes__banner-icon" />
+                  <h3 className="planes__banner-title">{texts.bannerTitle}</h3>
+                  <p className="planes__banner-description">
+                    {texts.bannerText}
+                  </p>
+                  <button
+                    type="button"
+                    className="planes__banner-button"
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        window.open(urls.subsPrint, '_blank')
+                      }
+                    }}>
+                    {texts.bannerButton}
+                  </button>
+                </div>
+              </article>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="banners">
+        <div className={isComercio ? 'wrapper' : 'wrapper-medium'}>
+          <div
+            className={`banners__grid ${!bannerUniv && 'banners__grid-one'}`}>
+            {bannerUniv && (
               <article
-                className={`banners__item ${
-                  bannerUniv ? 'grid-two-two' : 'banners__item-one'
-                }`}
+                className="banners__item grid-two-one"
                 role="presentation"
-                onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    window.open(links.bannerCorp, '_blank')
-                  }
-                }}>
+                onClick={handleUniversity}>
                 <div className="banners__content">
                   <h4 className="banners__content-title">
-                    {texts.corporativeTitle}
+                    {texts.uniTitle}
+                    <small>{texts.bannerNew}</small>
                   </h4>
                   <p className="banners__content-description">
-                    {texts.corporativeDescrip}
+                    {texts.uniDescription}
                   </p>
                 </div>
               </article>
-            </div>
-          </div>
-        </section>
+            )}
 
-        <BenefitsLanding arcSite={arcSite} />
-
-        <section className="club" id="club">
-          <div className="wrapper">
-            <div className="club__content">
-              <img
-                className="logo-club"
-                src="https://suscripciones.elcomercio.pe/static/partners/comercio/img/logo_club.png?v137"
-                alt="Logo Club"
-                loading="lazy"
-                decoding="async"
-              />
-
-              <h3 className="title-club">
-                El programa de beneficios para los suscriptores <br /> de las
-                ediciones impresas y digitales que te ofrece:
-              </h3>
-
-              <div className="rows-club">
-                <div className="row-club">
-                  <i className="icon-descuento" />
-                  <h4>Cientos de descuentos</h4>
-                  <p>
-                    En restaurantes, educación, hogar, entretenimiento y más.
-                  </p>
-                </div>
-                <div className="row-club">
-                  <i className="icon-limite" />
-                  <h4>Las veces que quieras</h4>
-                  <p>Utilízalos todas las veces que quieras, ¡no hay límite</p>
-                </div>
-                <div className="row-club">
-                  <i className="icon-pago" />
-                  <h4>Con cualquier medio de pago</h4>
-                  <p>
-                    Paga como prefieras, con cualquier tarjeta que acepte el
-                    establecimiento o en efectivo.
-                  </p>
-                </div>
-                <div className="row-club">
-                  <i className="icon-compartir" />
-                  <h4>Compártelo con alguien más</h4>
-                  <p>
-                    Registra a un invitado para que disfrute de todos los
-                    beneficios del club.
-                  </p>
-                </div>
-              </div>
-
-              <div className="button-club">
-                <button
-                  type="button"
-                  onClick={() => {
-                    window.open(`${links.clubComercio}_${arcSite}`, '_blank')
-                  }}>
-                  Ver más en <span>clubelcomercio.pe</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {isComercio && (
-          <section className="video">
-            <div className="wrapper">
-              <div className="video__content">
-                <h1 className="video__content-title">{texts.videoTitle}</h1>
-                <p className="video__content-subtitle">{texts.videoSubtitle}</p>
-                <p className="video__content-descripction">
-                  {texts.videoDescription}
+            <article
+              className={`banners__item ${
+                bannerUniv ? 'grid-two-two' : 'banners__item-one'
+              }`}
+              role="presentation"
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.open(links.bannerCorp, '_blank')
+                }
+              }}>
+              <div className="banners__content">
+                <h4 className="banners__content-title">
+                  {texts.corporativeTitle}
+                </h4>
+                <p className="banners__content-description">
+                  {texts.corporativeDescrip}
                 </p>
-                <video
-                  id="video"
-                  className="video__content-video"
-                  muted
-                  controls
-                  poster="https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/fondo_video.jpg"
-                  src="https://pub.minoticia.pe/elcomercio/el_comercio.mp4"
-                />
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <BenefitsLanding arcSite={arcSite} />
+
+      <section className="club" id="club">
+        <div className="wrapper">
+          <div className="club__content">
+            <img
+              className="logo-club"
+              src="https://suscripciones.elcomercio.pe/static/partners/comercio/img/logo_club.png?v137"
+              alt="Logo Club"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <h3 className="title-club">
+              El programa de beneficios para los suscriptores <br /> de las
+              ediciones impresas y digitales que te ofrece:
+            </h3>
+
+            <div className="rows-club">
+              <div className="row-club">
+                <i className="icon-descuento" />
+                <h4>Cientos de descuentos</h4>
+                <p>En restaurantes, educación, hogar, entretenimiento y más.</p>
+              </div>
+              <div className="row-club">
+                <i className="icon-limite" />
+                <h4>Las veces que quieras</h4>
+                <p>Utilízalos todas las veces que quieras, ¡no hay límite</p>
+              </div>
+              <div className="row-club">
+                <i className="icon-pago" />
+                <h4>Con cualquier medio de pago</h4>
+                <p>
+                  Paga como prefieras, con cualquier tarjeta que acepte el
+                  establecimiento o en efectivo.
+                </p>
+              </div>
+              <div className="row-club">
+                <i className="icon-compartir" />
+                <h4>Compártelo con alguien más</h4>
+                <p>
+                  Registra a un invitado para que disfrute de todos los
+                  beneficios del club.
+                </p>
               </div>
             </div>
-          </section>
-        )}
 
-        <section className="ayuda">
+            <div className="button-club">
+              <button
+                type="button"
+                onClick={() => {
+                  window.open(`${links.clubComercio}_${arcSite}`, '_blank')
+                }}>
+                Ver más en <span>clubelcomercio.pe</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {isComercio && (
+        <section className="video">
           <div className="wrapper">
-            <div className="ayuda__content">
-              <h1 className="ayuda__content-title">
-                {texts.helpTitle}
-                <br />
-                {texts.helpSubstitle}
-              </h1>
-              <p className="ayuda__content-description">
-                {`${texts.helpDescription} `}
-                <a target="_blank" rel="noreferrer" href={links.preguntas}>
-                  Preguntas Frecuentes
-                </a>
+            <div className="video__content">
+              <h1 className="video__content-title">{texts.videoTitle}</h1>
+              <p className="video__content-subtitle">{texts.videoSubtitle}</p>
+              <p className="video__content-descripction">
+                {texts.videoDescription}
               </p>
+              <video
+                id="video"
+                className="video__content-video"
+                muted
+                controls
+                poster="https://cdna.elcomercio.pe/resources/dist/elcomercio/images/landing/fondo_video.jpg"
+                src="https://pub.minoticia.pe/elcomercio/el_comercio.mp4"
+              />
             </div>
           </div>
         </section>
+      )}
 
-        <FooterLand arcType={arcType} btnOnTop={btnOnTop} />
+      <section className="ayuda">
+        <div className="wrapper">
+          <div className="ayuda__content">
+            <h1 className="ayuda__content-title">
+              {texts.helpTitle}
+              <br />
+              {texts.helpSubstitle}
+            </h1>
+            <p className="ayuda__content-description">
+              {`${texts.helpDescription} `}
+              <a target="_blank" rel="noreferrer" href={links.preguntas}>
+                Preguntas Frecuentes
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
 
-        {moduleCall && (
-          <section className="callin-movil">
-            <button type="button" className="icon-phone" onClick={handleCallIn}>
-              01 311 5100
-            </button>
-            <button
-              type="button"
-              className="icon-support"
-              onClick={() => setShowModalCall(true)}>
-              Te Llamamos
-            </button>
-          </section>
-        )}
+      <FooterLand arcType={arcType} btnOnTop={btnOnTop} />
 
-        {showSignwall && (
-          <Signwall
-            fallback={<div>Cargando...</div>}
-            typeDialog={landingType}
-            nameDialog={landingType}
-            onLogged={handleAfterLogged}
-            onLoggedFail={() => {}}
-            onClose={() => {
-              setShowSignwall(false)
-              setLandingType('landing')
-            }}
-          />
-        )}
+      {moduleCall && (
+        <section className="callin-movil">
+          <button type="button" className="icon-phone" onClick={handleCallIn}>
+            01 311 5100
+          </button>
+          <button
+            type="button"
+            className="icon-support"
+            onClick={() => setShowModalCall(true)}>
+            Te Llamamos
+          </button>
+        </section>
+      )}
 
-        {showModalCall ? (
-          <Callout
-            fallback={<div>Cargando...</div>}
-            onClose={() => {
-              setShowModalCall(false)
-            }}
-          />
-        ) : null}
-      </>
+      {showSignwall && (
+        <Signwall
+          fallback={<div>Cargando...</div>}
+          typeDialog={landingType}
+          nameDialog={landingType}
+          onLogged={handleAfterLogged}
+          onLoggedFail={() => {}}
+          onClose={() => {
+            setShowSignwall(false)
+            setLandingType('landing')
+          }}
+        />
+      )}
+
+      {showModalCall ? (
+        <Callout
+          fallback={<div>Cargando...</div>}
+          onClose={() => {
+            setShowModalCall(false)
+          }}
+        />
+      ) : null}
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{

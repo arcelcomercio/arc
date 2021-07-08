@@ -53,7 +53,7 @@ const nameTagCategory = 'Web_Paywall_Landing'
 const Profile = () => {
   const {
     arcSite,
-    globalContent: { plans = [], error, printedSubscriber, event },
+    globalContent: { plans = [], error, subscriber, printedSubscriber, event },
   } = useAppContext() || {}
 
   const {
@@ -170,14 +170,12 @@ const Profile = () => {
     uSecondLastName: { value: checkUndefined(secondLastName) || '', error: '' },
     uDocumentType: {
       value:
-        (printedSubscriber && printedSubscriber.documentType) ||
-        documentType ||
-        'DNI',
+        (printedSubscriber && subscriber.documentType) || documentType || 'DNI',
       error: '',
     },
     uDocumentNumber: {
       value:
-        (printedSubscriber && printedSubscriber.documentNumber) ||
+        (printedSubscriber && subscriber.documentNumber) ||
         checkUndefined(documentNumber) ||
         '',
       error:

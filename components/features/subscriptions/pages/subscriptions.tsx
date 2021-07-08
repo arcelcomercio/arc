@@ -21,24 +21,29 @@ import Callout from '../landing/_children/Callout'
 import PageCompany from './_children/Company'
 import PageFaq from './_children/Faq'
 
+type PageOptions = 'faqPage' | 'companyPage'
+
+const Pages: Record<'faqs' | 'company', PageOptions> = {
+  faqs: 'faqPage',
+  company: 'companyPage',
+}
+
 type PagesSubscriptionsProps = {
   customFields?: {
     callInnCallOut?: boolean
     btnOnTop?: boolean
-    pageSubscriptions?: 'faqPage' | 'companyPage'
+    pageSubscriptions?: PageOptions
   }
 }
 
 const arcType = 'pages'
-const FAQ_PAGE = 'faqPage'
-const COMPANY_PAGE = 'companyPage'
 
 const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
   const {
     customFields: {
       callInnCallOut = false,
       btnOnTop = false,
-      pageSubscriptions = FAQ_PAGE,
+      pageSubscriptions = Pages.faqs,
     } = {},
   } = props
 
@@ -183,7 +188,7 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
         />
       )}
 
-      {pageSubscriptions === FAQ_PAGE ? (
+      {pageSubscriptions === Pages.faqs ? (
         <PageFaq arcSite={arcSite} />
       ) : (
         <PageCompany arcSite={arcSite} contextPath={contextPath} />
@@ -245,13 +250,13 @@ PagesSubscriptions.propTypes = {
       defaultValue: false,
       description: 'Mostrar/Ocultar Botón subir arriba',
     }),
-    pageSubscriptions: PropTypes.oneOf([FAQ_PAGE, COMPANY_PAGE]).tag({
+    pageSubscriptions: PropTypes.oneOf([Pages.faqs, Pages.company]).tag({
       name: 'Seleccione Página ',
       labels: {
         faqPage: 'Preguntas Frecuentes',
         companyPage: 'Formulario Corporativo',
       },
-      defaultValue: FAQ_PAGE,
+      defaultValue: Pages.faqs,
     }),
   }),
 }

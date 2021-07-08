@@ -56,6 +56,7 @@ const Confirmation = () => {
       name: namePlanApi,
       plans = [],
       freeAccess,
+      subscriber,
       fromFia,
       printedSubscriber,
       event,
@@ -306,7 +307,7 @@ const Confirmation = () => {
           <p className="title">Nombre</p>
           <p className="description">
             {freeAccess
-              ? `${freeAccess.firstName} ${freeAccess.lastName}`
+              ? `${subscriber.firstName} ${subscriber.lastName}`
               : getFullNameFormat(firstName, lastName, secondLastName)}
           </p>
 

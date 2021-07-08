@@ -5,7 +5,7 @@ import { useAuthContext } from '../_context/auth'
 
 let history: BrowserHistory
 
-type Source = 'winback'
+type Source = string
 type UseRouteValue = {
   history: typeof history
 }

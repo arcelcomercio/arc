@@ -47,7 +47,7 @@ const SubscriptionsValidateDNI: FC = () => {
     globalContent: {
       name: planName = '',
       printAttributes = [],
-      printedSubscriber = undefined,
+      printedSubscriber = false,
       event = undefined,
     } = {},
   } = useAppContext<PaywallCampaign>() || {}

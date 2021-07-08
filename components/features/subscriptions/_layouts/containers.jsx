@@ -20,7 +20,7 @@ export const Container = ({ children }) => (
 /**
  * @param {object} props
  * @param {React.ReactNode} props.children
- * @param {React.CSSProperties} props.style
+ * @param {number} props.step
  * @returns
  */
 export const Wrapper = ({ children, step }) => (
@@ -36,6 +36,7 @@ export const Wrapper = ({ children, step }) => (
 /**
  * @param {object} props
  * @param {React.ReactNode} props.children
+ * @param {number} props.step
  * @returns
  */
 export const PanelLeft = ({ children, step }) => (
@@ -50,6 +51,7 @@ export const PanelLeft = ({ children, step }) => (
 /**
  * @param {object} props
  * @param {React.ReactNode} props.children
+ * @param {boolean} props.hidePanel
  * @returns
  */
 export const PanelRight = ({ children, hidePanel }) => (

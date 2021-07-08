@@ -6,16 +6,28 @@ import { SubsArcSite } from 'types/subscriptions'
 
 import { PropertiesSite } from '../features/subscriptions/_dependencies/Properties'
 
-type SdksProviderProps = {
-  children: React.ReactNode
-  disableSales?: boolean
+type StatusOptions = 'error' | 'loading' | 'ready'
+
+const Status: Record<StatusOptions, StatusOptions> = {
+  error: 'error',
+  loading: 'loading',
+  ready: 'ready',
 }
 
-const SdksContext = React.createContext<
-  Pick<SdksProviderProps, 'disableSales'> | undefined
->(undefined)
+type SdksProviderProps = {
+  children: React.ReactNode
+}
 
-const useSdksContext = (): Pick<SdksProviderProps, 'disableSales'> => {
+type SdksProviderValue = {
+  status: StatusOptions | undefined
+  error?: any | undefined
+}
+
+const SdksContext = React.createContext<SdksProviderValue | undefined>(
+  undefined
+)
+
+const useSdksContext = (): SdksProviderValue => {
   const context = React.useContext(SdksContext)
   if (context === undefined) {
     throw new Error('useSdksContext debe ser usado dentro de un AuthProvider')
@@ -23,41 +35,42 @@ const useSdksContext = (): Pick<SdksProviderProps, 'disableSales'> => {
   return context
 }
 
-const SdksProvider: React.FC<SdksProviderProps> = ({
-  children,
-  disableSales,
-}) => {
+/** @see https://elcomercio.arcpublishing.com/alc/arc-products/subscriptions/user-docs/subscribe-with-google-swg-integration/ */
+const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
   const { arcSite } = useAppContext()
   const {
     urls: { arcOrigin: apiOrigin },
   } = PropertiesSite[arcSite as SubsArcSite]
 
-  const initializeSDKs = async () => {
+  const initializeSDKs = async (): Promise<SdksProviderValue> => {
     Identity.options({
       apiOrigin,
     })
 
-    if (!disableSales) {
-      Sales.options({
-        Identity,
-        apiOrigin,
-      })
-    }
+    Sales.options({
+      Identity,
+      apiOrigin,
+    })
 
     return {
-      Identity,
+      status: Status.ready,
     }
   }
 
-  const value = {
-    disableSales,
+  let value: SdksProviderValue = {
+    status: Status.loading,
   }
 
-  initializeSDKs().then((sdks) => {
-    // esto sera funcional cuando se implemente SubscribeWithGoogle
-    // value = sdks
-    console.log('SDKs inicializadas')
-  })
+  initializeSDKs()
+    .then((sdks) => {
+      value = sdks
+    })
+    .catch((error) => {
+      value = {
+        status: Status.error,
+        error,
+      }
+    })
 
   return <SdksContext.Provider value={value}>{children}</SdksContext.Provider>
 }
