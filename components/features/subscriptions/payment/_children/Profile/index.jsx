@@ -193,7 +193,10 @@ const Profile = () => {
         (printedSubscriber && printedSubscriber.documentNumber) ||
         checkUndefined(documentNumber) ||
         '',
-      error: '',
+      error:
+        documentType === 'DNI' && documentNumber.length !== 8
+          ? 'Formato inválido.'
+          : '',
     },
     uPhone: { value: checkFormatPhone(phone) || '', error: '' },
     uEmail: { value: checkFbEmail(email) || '', error: '' },
@@ -746,6 +749,7 @@ const Profile = () => {
                 type="text"
                 name="uDocumentNumber"
                 maxLength={uDocumentType === 'DNI' ? '8' : '15'}
+                minLength={uDocumentType === 'DNI' ? '8' : '5'}
                 value={uDocumentNumber}
                 required
                 onChange={handleChangeInput}
