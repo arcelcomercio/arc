@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const { Provider, Consumer } = React.createContext()
+const NavigateConsumer = React.createContext()
 
 const NavigateProvider = ({ children }) => {
   const [selectedTemplate, setSelectedTemplate] = React.useState('login')
@@ -15,7 +15,11 @@ const NavigateProvider = ({ children }) => {
     },
   }
 
-  return <Provider value={value}>{children}</Provider>
+  return (
+    <NavigateConsumer.Provider value={value}>
+      {children}
+    </NavigateConsumer.Provider>
+  )
 }
 
-export { NavigateProvider, Consumer as NavigateConsumer }
+export { NavigateConsumer, NavigateProvider }

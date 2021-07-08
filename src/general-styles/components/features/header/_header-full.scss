@@ -30,7 +30,7 @@ $max-width: 1366px;
     }
   }
 
-  .checkNewsCinDesk:checked~.showTooltipDesk {
+  .checkNewsCinDesk:checked ~ .showTooltipDesk {
     @media (--desktop) {
       display: flex;
     }
@@ -44,7 +44,7 @@ $max-width: 1366px;
     }
   }
 
-  .checkNewsCinMob:checked~.showModalMob {
+  .checkNewsCinMob:checked ~ .showModalMob {
     @media (--desktop) {
       display: none;
     }
@@ -353,6 +353,16 @@ $max-width: 1366px;
       top: 46px;
       height: 5px;
       background-color: $color-primary;
+    }
+  }
+  &__btn-signwall {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    margin-right: 10px;
+    @media (--only-mobile) {
+      margin-right: 0;
     }
   }
 }

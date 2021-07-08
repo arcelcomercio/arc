@@ -1,8 +1,7 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import { getPreroll } from '../utilities/ads/preroll'
+import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
 import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
@@ -78,7 +77,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = env
   const {
     videoSeo,
     idYoutube,
@@ -540,11 +539,11 @@ const LiteOutput = ({
           subtype={subtype}
         />
         {isPremium || metaValue('include_fusion_libs') === 'true' ? (
-          <>
-            <Libs />
-          </>
+          <Libs />
         ) : null}
-        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
+        {isPremium &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <>
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
@@ -608,9 +607,7 @@ const LiteOutput = ({
           {children}
         </div>
         {isPremium || metaValue('include_fusion_libs') === 'true' ? (
-          <>
-            <Fusion />
-          </>
+          <Fusion />
         ) : null}
         {isStory && (
           <script
@@ -734,6 +731,7 @@ const LiteOutput = ({
           }}
         />
         <script
+          async
           src={`${getAssetsPath(
             arcSite,
             contextPath
@@ -818,7 +816,7 @@ const LiteOutput = ({
           </>
         )}
         {vallaSignwall === false &&
-        arcSite === SITE_ELCOMERCIO &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (
           <>
             <script
