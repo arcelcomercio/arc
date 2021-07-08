@@ -1,4 +1,4 @@
-# Arc Fusion - Grupo El Comercio
+![](https://i.ibb.co/JRXhcWd/Grupo-El-Comercio-1996.png)
 
 ## Tabla de contenido
 
