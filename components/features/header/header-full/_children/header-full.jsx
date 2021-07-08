@@ -2,12 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import { useAppContext } from 'fusion:context'
-import { ENVIRONMENT } from 'fusion:environment'
+// import { ENVIRONMENT } from 'fusion:environment'
 import React from 'react'
 
 import {
   edicionMenu,
-  getBtnSignScript,
+  // getBtnSignScript,
   popup,
   scrolled,
   searchScript,
@@ -145,10 +145,13 @@ export default ({
   Newsle,
 }) => {
   const arcSiteTrome = 'trome'
-  const { requestUri, siteProperties } = useAppContext()
-  const { activeSignwall } = siteProperties || {}
+  const {
+    requestUri,
+    // siteProperties
+  } = useAppContext()
+  // const { activeSignwall } = siteProperties || {}
   const isMexico = /^\/mexico\//.test(requestUri)
-  const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  // const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   const edittion = (cName, opcion = '', has = true) => (
     <>
@@ -379,18 +382,16 @@ export default ({
             )}
             <div className={classes.boxList}>
               <ul className={classes.listNav}>
-                {headerList.map((item) => {
-                  return (
-                    <li className={classes.itemNav}>
-                      <a
-                        itemProp="url"
-                        href={item.url || item._id || '/'}
-                        className={classes.linkNav}>
-                        {item.name || item.display_name}
-                      </a>
-                    </li>
-                  )
-                })}
+                {headerList.map((item) => (
+                  <li className={classes.itemNav}>
+                    <a
+                      itemProp="url"
+                      href={item.url || item._id || '/'}
+                      className={classes.linkNav}>
+                      {item.name || item.display_name}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             {!hideMenu && (
@@ -548,14 +549,14 @@ export default ({
               </>
             )}
 
-            {activeSignwall && (
+            {/* {activeSignwall && (
               <button
                 type="button"
                 className={`bg-black ${classes.btnSingwall}`}>
                 <i className=" icon-user title-sm text-white" />
-                {/* <span className="text-md tertiary-font text-white">JD</span> */}
+                <span className="text-md tertiary-font text-white">JD</span>
               </button>
-            )}
+            )} */}
 
             {arcSite === 'depor' && (
               <>
@@ -603,13 +604,13 @@ export default ({
           __html: edicionMenu,
         }}
       />
-      {activeSignwall && (
+      {/* {activeSignwall && (
         <script
           dangerouslySetInnerHTML={{
             __html: getBtnSignScript(arcEnv, arcSite),
           }}
         />
-      )}
+      )} */}
     </>
   )
 }
