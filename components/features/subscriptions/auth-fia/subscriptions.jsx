@@ -136,12 +136,12 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                     />
                   )}
 
-                  <div id="divLog" />
+                  {/* <div id="divLog" />
                   {`USER AGENT: ${
                     typeof window !== 'undefined'
                       ? window.navigator.userAgent
                       : ''
-                  }`}
+                  }`} */}
                 </PanelLeft>
               </AuthProvider>
             </Wrapper>
