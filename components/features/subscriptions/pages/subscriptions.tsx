@@ -38,7 +38,7 @@ type PagesSubscriptionsProps = {
 
 const arcType = 'pages'
 
-const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
+const Component: FC<PagesSubscriptionsProps> = (props) => {
   const {
     customFields: {
       callInnCallOut = false,
@@ -129,7 +129,7 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
   }
 
   return (
-    <SdksProvider>
+    <>
       {isComercio ? (
         <>
           <header className="header" id="header">
@@ -234,6 +234,15 @@ const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
           }}
         />
       )}
+    </>
+  )
+}
+
+const PagesSubscriptions: FC<PagesSubscriptionsProps> = (props) => {
+  const { customFields } = props
+  return (
+    <SdksProvider>
+      <Component customFields={customFields} />
     </SdksProvider>
   )
 }

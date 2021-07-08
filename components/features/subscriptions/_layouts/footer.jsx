@@ -26,7 +26,12 @@ const styles = {
 }
 
 export const FooterSubs = () => {
-  const { userLoaded, userStep, updateLoading, userDataPlan } = useAuthContext()
+  const {
+    userLoaded,
+    userStep,
+    updateLoading,
+    userDataPlan: { billingFrequency, amount: billingAmount } = {},
+  } = useAuthContext()
   const [loading, setLoading] = React.useState(false)
   const [showDocOption, setShowDocOption] = React.useState('DNI')
   const { urls, texts } = PropertiesCommon
@@ -220,13 +225,13 @@ export const FooterSubs = () => {
             <h5 className="name-item">
               {planName}
               <span className="period-item">
-                {' - '} {period[userDataPlan.billingFrequency]}
+                {' - '} {billingFrequency ? period[billingFrequency] : ''}
               </span>
             </h5>
           </div>
           <div>
             <span className="price-item">
-              {getPlanAmount(userDataPlan.amount)}
+              {billingAmount ? getPlanAmount(billingAmount) : ''}
             </span>
             <i className={styles.iconUp} />
           </div>

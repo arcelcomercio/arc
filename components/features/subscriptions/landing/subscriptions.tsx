@@ -33,7 +33,7 @@ type LandingSubscriptionsProps = {
 
 const arcType = 'landing'
 
-const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
+const Component: FC<LandingSubscriptionsProps> = (props) => {
   const {
     customFields: {
       bannerUniComercio = false,
@@ -150,7 +150,7 @@ const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
   }
 
   return (
-    <SdksProvider>
+    <>
       <header className="header" id="header">
         <div className="wrapper">
           <div
@@ -433,6 +433,15 @@ const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
           __html: scriptsLanding,
         }}
       />
+    </>
+  )
+}
+
+const LandingSubscriptions: FC<LandingSubscriptionsProps> = (props) => {
+  const { customFields } = props
+  return (
+    <SdksProvider>
+      <Component customFields={customFields} />
     </SdksProvider>
   )
 }

@@ -33,7 +33,7 @@ const Confirmation = React.lazy(
 
 const arcType = 'payment'
 
-const PaymentSubscriptions: FC = () => {
+const Component = () => {
   const {
     arcSite,
     globalContent: { fromFia = false, freeAccess = false, event = '' } = {},
@@ -85,58 +85,64 @@ const PaymentSubscriptions: FC = () => {
   }, [])
 
   return (
-    <SdksProvider>
-      <AuthProvider>
-        {userLoading && <Loading typeBg="full" />}
-        <HeaderSubs
-          userProfile={userProfile}
-          arcSite={arcSite}
-          arcType={arcType}
-        />
-        <Container>
-          {userLoading === false &&
-            userLoaded &&
-            userProfile &&
-            userStep === 2 && (
-              <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
-            )}
-          <Wrapper step={userStep}>
-            {!userLoading && (
-              <PanelLeft step={userStep}>
-                {event && userStep !== 4 && (
-                  <h2 className="step__left-title-campaign">
-                    {texts.textWinback}
-                  </h2>
-                )}
-                {freeAccess ? (
-                  typeof window !== 'undefined' && (
-                    <React.Suspense fallback={<div>Cargando...</div>}>
-                      <Confirmation />
-                    </React.Suspense>
-                  )
-                ) : (
-                  <PaymentSteps step={userStep} userLoaded={userLoaded} />
-                )}
-              </PanelLeft>
-            )}
+    <>
+      {userLoading && <Loading typeBg="full" />}
+      <HeaderSubs
+        userProfile={userProfile}
+        arcSite={arcSite}
+        arcType={arcType}
+      />
+      <Container>
+        {userLoading === false &&
+          userLoaded &&
+          userProfile &&
+          userStep === 2 && (
+            <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
+          )}
+        <Wrapper step={userStep}>
+          {!userLoading && (
+            <PanelLeft step={userStep}>
+              {event && userStep !== 4 && (
+                <h2 className="step__left-title-campaign">
+                  {texts.textWinback}
+                </h2>
+              )}
+              {freeAccess ? (
+                typeof window !== 'undefined' && (
+                  <React.Suspense fallback={<div>Cargando...</div>}>
+                    <Confirmation />
+                  </React.Suspense>
+                )
+              ) : (
+                <PaymentSteps step={userStep} userLoaded={userLoaded} />
+              )}
+            </PanelLeft>
+          )}
 
-            <PanelRight
-              hidePanel={freeAccess || userStep === 4 || userStep === 5}>
-              <Summary />
-            </PanelRight>
-          </Wrapper>
-        </Container>
-        {!freeAccess && <FooterSubs />}
-        <FooterLand arcType={arcType} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: scriptsPayment,
-          }}
-        />
-      </AuthProvider>
-    </SdksProvider>
+          <PanelRight
+            hidePanel={freeAccess || userStep === 4 || userStep === 5}>
+            <Summary />
+          </PanelRight>
+        </Wrapper>
+      </Container>
+      {!freeAccess && <FooterSubs />}
+      <FooterLand arcType={arcType} />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: scriptsPayment,
+        }}
+      />
+    </>
   )
 }
+
+const PaymentSubscriptions: FC = () => (
+  <SdksProvider>
+    <AuthProvider>
+      <Component />
+    </AuthProvider>
+  </SdksProvider>
+)
 
 PaymentSubscriptions.label = 'Subscriptions - Landing de Compra'
 
