@@ -91,6 +91,7 @@ const Profile = () => {
   const [showDocOption, setShowDocOption] = React.useState(
     documentType || 'DNI'
   )
+  const [valNumDocument, setValNumDocument] = React.useState()
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
@@ -193,10 +194,7 @@ const Profile = () => {
         (printedSubscriber && printedSubscriber.documentNumber) ||
         checkUndefined(documentNumber) ||
         '',
-      error:
-        documentType === 'DNI' && documentNumber.length !== 8
-          ? 'Formato inválido.'
-          : '',
+      error: '',
     },
     uPhone: { value: checkFormatPhone(phone) || '', error: '' },
     uEmail: { value: checkFbEmail(email) || '', error: '' },
@@ -489,8 +487,15 @@ const Profile = () => {
     }, 1000)
   }
 
-  const onFormProfile = (...props) => {
+  const onFormProfile = (props) => {
     if (typeof window !== 'undefined') {
+      const { uDocumentType, uDocumentNumber } = props
+
+      if (uDocumentType === 'DNI' && uDocumentNumber.length !== 8) {
+        setValNumDocument('Formato inválido.')
+        return
+      }
+
       updateErrorApi(false)
       setLoading(true)
       if (isLogged()) {
@@ -502,7 +507,7 @@ const Profile = () => {
               setLoading(false)
               Taggeo(nameTagCategory, 'web_paywall_open_validation')
             } else {
-              updateProfile(...props)
+              updateProfile(props)
             }
           })
         } else {
@@ -585,8 +590,15 @@ const Profile = () => {
   const handleChangeInput = (e) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
+        if (e.target.name === 'uDocumentType') {
+          const numDoc = document.getElementsByName('uDocumentNumber')[0].value
+          if (numDoc && e.target.value === 'DNI' && numDoc.length !== 8) {
+            setValNumDocument(false)
+          }
+        }
         setMsgError(false)
         updateErrorApi(false)
+        setValNumDocument(false)
         handleOnChange(e)
       } else {
         restoreClearSession()
@@ -743,9 +755,9 @@ const Profile = () => {
               <TextMask
                 mask={maskDocuments[uDocumentType]}
                 guide={false}
-                className={`${uDocumentNumberError && 'input-error'} ${
-                  printedSubscriber && 'input-disabled'
-                }`}
+                className={`${
+                  (uDocumentNumberError || valNumDocument) && 'input-error'
+                } ${printedSubscriber && 'input-disabled'}`}
                 type="text"
                 name="uDocumentNumber"
                 maxLength={uDocumentType === 'DNI' ? '8' : '15'}
@@ -757,8 +769,10 @@ const Profile = () => {
                 disabled={loading || printedSubscriber}
               />
             </div>
-            {uDocumentNumberError && (
-              <span className="msn-error">{uDocumentNumberError}</span>
+            {(uDocumentNumberError || valNumDocument) && (
+              <span className="msn-error">
+                {uDocumentNumberError || valNumDocument}
+              </span>
             )}
           </label>
         </div>
