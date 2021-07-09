@@ -8,6 +8,11 @@
   }
 }
 
+// sólo para versión lite
+// estrictamente necesario para ocultar el modal inicialmente
+#signwall-app {
+  position: fixed;
+}
 .signwall-modal {
   display: flex;
   justify-content: center;
