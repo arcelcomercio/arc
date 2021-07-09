@@ -24,7 +24,6 @@ declare global {
   interface Window {
     adsContinua: any
     userPaywall: any
-    getTmpAd: any
   }
 }
 
@@ -225,7 +224,7 @@ const rederStory: React.FC<{
           seccion: sectionClean,
           tags: targetingTags,
           tipoplantilla: 'post',
-          tmp_ad: window.getTmpAd(),
+          tmp_ad: '',
         }
       }
     } catch (error) {
