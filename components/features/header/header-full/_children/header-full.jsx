@@ -2,12 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import { useAppContext } from 'fusion:context'
-// import { ENVIRONMENT } from 'fusion:environment'
 import React from 'react'
 
+import { env } from '../../../../utilities/arc/env'
 import {
   edicionMenu,
-  // getBtnSignScript,
+  getBtnSignScript,
   popup,
   scrolled,
   searchScript,
@@ -145,13 +145,9 @@ export default ({
   Newsle,
 }) => {
   const arcSiteTrome = 'trome'
-  const {
-    requestUri,
-    // siteProperties
-  } = useAppContext()
-  // const { activeSignwall } = siteProperties || {}
+  const { requestUri, siteProperties } = useAppContext()
+  const { activeSignwall } = siteProperties || {}
   const isMexico = /^\/mexico\//.test(requestUri)
-  // const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   const edittion = (cName, opcion = '', has = true) => (
     <>
@@ -549,14 +545,14 @@ export default ({
               </>
             )}
 
-            {/* {activeSignwall && (
+            {activeSignwall && (
               <button
                 type="button"
                 className={`bg-black ${classes.btnSingwall}`}>
-                <i className=" icon-user title-sm text-white" />
-                <span className="text-md tertiary-font text-white">JD</span>
+                <i className="icon-user title-sm text-white" />
+                <span className="text-md tertiary-font text-white" />
               </button>
-            )} */}
+            )}
 
             {arcSite === 'depor' && (
               <>
@@ -604,13 +600,13 @@ export default ({
           __html: edicionMenu,
         }}
       />
-      {/* {activeSignwall && (
+      {activeSignwall && (
         <script
           dangerouslySetInnerHTML={{
-            __html: getBtnSignScript(arcEnv, arcSite),
+            __html: getBtnSignScript(env, arcSite),
           }}
         />
-      )} */}
+      )}
     </>
   )
 }
