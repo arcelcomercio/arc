@@ -233,7 +233,7 @@ const rederStory: React.FC<{
         }
       }
     } catch (error) {
-      console.log('Error Targeting: ', error)
+      // TODO: ...
     }
   }
 
