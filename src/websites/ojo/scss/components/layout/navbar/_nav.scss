@@ -5,7 +5,7 @@
     }
     &--section span {
       font-weight: 500;
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
   &__logo {
@@ -34,6 +34,14 @@
     background: $new-color-primary;
     @media (--desktop) {
       background-color: $new-color-primary;
+      .nav__container-right {
+        display: block;
+      }
+      .nav-mujer {
+        &__item-desk {
+          display: none;
+        }
+      }
     }
   }
 }
