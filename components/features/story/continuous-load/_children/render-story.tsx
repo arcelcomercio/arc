@@ -22,6 +22,9 @@ import StorySidebarContinueLayout from './layout'
 
 declare global {
   interface Window {
+    instgrm: any
+    widgetsObserver: any
+    createScript: any
     adsContinua: any
     userPaywall: any
   }
@@ -35,7 +38,7 @@ const rederStory: React.FC<{
   deployment: (resource: string) => string | string
   siteUrl: string
   index: number
-}> = props => {
+}> = (props) => {
   const {
     contextPath,
     arcSite,
@@ -186,7 +189,7 @@ const rederStory: React.FC<{
 
   const jsSpacesAds = () => {
     const noteId = index + 1
-    const typeNote = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
+    const typeNote = subtype === 'gallery_vertical' ? 'galeria_v' : 'post'
     const sectionList = primarySectionLink?.split('/').slice(1)
     const sectionClean = sectionList[0]?.replace(/-/gm, '')
     const subSection = sectionList[1]
@@ -201,10 +204,12 @@ const rederStory: React.FC<{
       node.async = true
       node.src = linkSpaceUrl
       document.head.append(node)
-    } catch (error) {}
+    } catch (error) {
+      // TODO: ...
+    }
 
     try {
-      if (typeof window != 'undefined') {
+      if (typeof window !== 'undefined') {
         let typeContent = getPremiumValue
         typeContent =
           typeContent === '' || typeContent === 'vacio'
@@ -239,8 +244,8 @@ const rederStory: React.FC<{
     if ($shareButtons && $shareButtons.length > 0) {
       const wLeft = window.screen.width / 2 - windowW / 2
       const wTop = window.screen.height / 2 - windowH / 2
-      $shareButtons.forEach(button => {
-        button.addEventListener('click', e => {
+      $shareButtons.forEach((button) => {
+        button.addEventListener('click', (e) => {
           const href = button.getAttribute('href') || ''
           e.preventDefault()
           window.open(
@@ -255,7 +260,7 @@ const rederStory: React.FC<{
 
   const jwplayerObserver = () => {
     const videos = Array.from(document.body.querySelectorAll('.jwplayer-lazy'))
-    videos.forEach(entry => {
+    videos.forEach((entry) => {
       const { id = '' } = entry
       if (id) {
         const nameId = id.split('_')
@@ -270,6 +275,38 @@ const rederStory: React.FC<{
     })
   }
 
+  const checkInstagramScript = () => {
+    if (
+      document.querySelector('script[src="https://www.instagram.com/embed.js"]')
+    ) {
+      window.instgrm.Embeds.process()
+    } else if ('IntersectionObserver' in window) {
+      const options = {
+        rootMargin: '0px 0px 500px 0px',
+      }
+      const embeds = Array.from(document.body.querySelectorAll('.embed-script'))
+      const observer = new IntersectionObserver(window.widgetsObserver, options)
+      embeds.forEach((embed) => {
+        observer.observe(embed)
+      })
+    }
+  }
+
+  const ckeckTikTokScript = () => {
+    if (
+      document.querySelectorAll('script[src="https://www.tiktok.com/embed.js"]')
+        .length > 0
+    ) {
+      document
+        .querySelectorAll('script[src="https://www.tiktok.com/embed.js"]')
+        .forEach((e) => e.parentNode?.removeChild(e))
+      window.createScript({
+        src: 'https://www.tiktok.com/embed.js',
+        async: true,
+      })
+    }
+  }
+
   React.useEffect(() => {
     contentElements.map((element: { content?: string; type: string }) => {
       const content = element?.content || ''
@@ -279,6 +316,8 @@ const rederStory: React.FC<{
     })
     changeTwitter()
     jwplayerObserver()
+    checkInstagramScript()
+    ckeckTikTokScript()
     jsSpacesAds()
   }, [contentElements])
 
