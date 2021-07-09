@@ -9,7 +9,7 @@ import Login from '../_children/login'
 import Register from '../_children/register'
 import { AuthProvider } from '../_context/auth'
 import { NavigateProvider, useNavigateContext } from '../_context/navigate'
-import { deleteCookie } from '../_dependencies/Cookies'
+import { deleteCookie, deleteCookieDomain } from '../_dependencies/Cookies'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { Container, PanelLeft, Wrapper } from '../_layouts/containers'
 import CallToActionFia from './_children/call_to_action'
@@ -45,12 +45,21 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   const logoutSession = () => {
     if (typeof window !== 'undefined') {
+      deleteCookie('arc_e_id')
+      deleteCookie('mpp_sess')
+      deleteCookieDomain('ArcId.USER_INFO', arcSite)
+      deleteCookie('EcoId.REQUEST_STUDENTS')
       if ('Identity' in window) {
         window.Identity.options({ apiOrigin: urls.arcOrigin })
         window.Identity.logout()
-        deleteCookie('arc_e_id')
-        window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
-        setLogged(false)
+          .then(() => {
+            window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
+            window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
+            setLogged(false)
+          })
+          .catch(() => {
+            window.location.reload()
+          })
       } else {
         Sentry.captureEvent({
           message:
@@ -69,6 +78,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   }
 
   React.useEffect(() => {
+    deleteCookieDomain('ArcId.USER_INFO', arcSite)
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
@@ -136,12 +146,12 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                     />
                   )}
 
-                  <div id="divLog" />
+                  {/* <div id="divLog" />
                   {`USER AGENT: ${
                     typeof window !== 'undefined'
                       ? window.navigator.userAgent
                       : ''
-                  }`}
+                  }`} */}
                 </PanelLeft>
               </AuthProvider>
             </Wrapper>
