@@ -1,18 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Consumer from 'fusion:consumer'
-import * as React from 'react'
 import { ENVIRONMENT } from 'fusion:environment'
-
-import SignwallComponent from '../../../signwall/main/default'
-import getResponsiveClasses from '../../../../utilities/responsive-classes'
-import searchQuery from '../../../../utilities/client/search'
-import { socialMediaUrlShareList } from '../../../../utilities/social-media'
-import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
-import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+import * as React from 'react'
 
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
+import searchQuery from '../../../../utilities/client/search'
+import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
+import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
+import getResponsiveClasses from '../../../../utilities/responsive-classes'
+import { socialMediaUrlShareList } from '../../../../utilities/social-media'
+import SignwallComponent from '../../../signwall/main/default'
 
 const classes = {
   nav: `nav text-white text-sm w-full flex items-center top-0 secondary-font`,
@@ -402,7 +401,7 @@ class NavBarDefault extends React.PureComponent {
   }
 
   render() {
-    const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+    const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { statusSidebar, scrolled } = this.state
     const {
       logo,
@@ -444,9 +443,9 @@ class NavBarDefault extends React.PureComponent {
     document.addEventListener('DOMContentLoaded', function () {
       requestIdle(function () {
         if (window.location.href.match(/reloginEmail=/)) { window.location.href = '${
-          _env === 'prod'
-            ? `/signwall/?outputType=signwall&reloginEmail=1`
-            : `/signwall/?_website=${arcSite}&outputType=signwall&reloginEmail=1`
+          arcEnv === 'prod'
+            ? `/signwall/?outputType=subscriptions&reloginEmail=1`
+            : `/signwall/?_website=${arcSite}&outputType=subscriptions&reloginEmail=1`
         }';}
       });
     })`
@@ -519,20 +518,18 @@ class NavBarDefault extends React.PureComponent {
                       url,
                       name = '',
                       display_name: displayName = '',
-                    }) => {
-                      return (
-                        <li
-                          key={`navbar-${url || id}`}
-                          className={classes.listItem}>
-                          <a
-                            itemProp="url"
-                            href={url || id || '/'}
-                            className={classes.listLink}>
-                            {name || displayName}
-                          </a>
-                        </li>
-                      )
-                    }
+                    }) => (
+                      <li
+                        key={`navbar-${url || id}`}
+                        className={classes.listItem}>
+                        <a
+                          itemProp="url"
+                          href={url || id || '/'}
+                          className={classes.listLink}>
+                          {name || displayName}
+                        </a>
+                      </li>
+                    )
                   )}
               </ul>
             </div>
@@ -615,10 +612,10 @@ class NavBarDefault extends React.PureComponent {
                     onClick={() => {
                       const { origin } = window.location
                       const outputType =
-                        _env === 'prod' ? '' : 'outputType=subscriptions&'
-                      const pf = _env === 'prod' ? '' : '/pf'
+                        arcEnv === 'prod' ? '' : 'outputType=subscriptions&'
+                      const pf = arcEnv === 'prod' ? '' : '/pf'
                       const connector =
-                        _env !== 'prod' ? `?_website=${arcSite}&` : `?`
+                        arcEnv !== 'prod' ? `?_website=${arcSite}&` : `?`
                       const link =
                         origin +
                         pf +

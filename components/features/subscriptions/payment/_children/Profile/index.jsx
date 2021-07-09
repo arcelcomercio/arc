@@ -1,44 +1,44 @@
+import * as Sentry from '@sentry/browser'
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { useAppContext } from 'fusion:context'
-import * as Sentry from '@sentry/browser'
 
-import useForm from '../../../_hooks/useForm'
-import { getEntitlements } from '../../../_dependencies/Services'
+import Modal from '../../../_children/modal'
 import { AuthContext } from '../../../_context/auth'
-import {
-  PixelActions,
-  sendAction,
-  Taggeo,
-  TaggeoJoao,
-  eventCategory,
-} from '../../../_dependencies/Taggeo'
-import { maskDocuments, docPatterns } from '../../../_dependencies/Regex'
-import Modal from './children/modal'
-import PWA from '../../../_dependencies/Pwa'
-import {
-  PropertiesSite,
-  PropertiesCommon,
-} from '../../../_dependencies/Properties'
-import {
-  conformProfile,
-  isLogged,
-  getStorageProfile,
-  getStorageEmailProfile,
-} from '../../../_dependencies/Session'
-import {
-  checkUndefined,
-  checkFbEmail,
-  checkFormatPhone,
-  setLocaleStorage,
-  getSessionStorage,
-} from '../../../_dependencies/Utils'
 import getCodeError, {
   formatEmail,
   formatNames,
   formatPhone,
   formatSecondLastName,
 } from '../../../_dependencies/Errors'
+import {
+  PropertiesCommon,
+  PropertiesSite,
+} from '../../../_dependencies/Properties'
+import PWA from '../../../_dependencies/Pwa'
+import { docPatterns, maskDocuments } from '../../../_dependencies/Regex'
+import { getEntitlements } from '../../../_dependencies/Services'
+import {
+  conformProfile,
+  getStorageEmailProfile,
+  getStorageProfile,
+  isLogged,
+} from '../../../_dependencies/Session'
+import {
+  eventCategory,
+  PixelActions,
+  sendAction,
+  Taggeo,
+  TaggeoJoao,
+} from '../../../_dependencies/Taggeo'
+import {
+  checkFbEmail,
+  checkFormatPhone,
+  checkUndefined,
+  getSessionStorage,
+  setLocaleStorage,
+} from '../../../_dependencies/Utils'
+import useForm from '../../../_hooks/useForm'
 
 const styles = {
   step: 'step__left-progres',
@@ -89,6 +89,7 @@ const Profile = () => {
   const [showDocOption, setShowDocOption] = React.useState(
     documentType || 'DNI'
   )
+  const [valNumDocument, setValNumDocument] = React.useState()
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
@@ -132,7 +133,7 @@ const Profile = () => {
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
 
-    Sentry.configureScope(scope => {
+    Sentry.configureScope((scope) => {
       scope.setTag('document', documentNumber || 'none')
       scope.setTag('phone', phone || 'none')
       scope.setTag('email', email || 'none')
@@ -162,7 +163,6 @@ const Profile = () => {
     }
 
     if (userErrorApi !== false) updateErrorApi(error)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const stateSchema = {
@@ -211,7 +211,7 @@ const Profile = () => {
     uDocumentNumber: {
       required: true,
       validator: {
-        func: value =>
+        func: (value) =>
           docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
           !value.match(/00000000|12345678/),
         error: 'Formato inválido.',
@@ -238,14 +238,14 @@ const Profile = () => {
         level: 'info',
       })
       return window.Identity.heartbeat()
-        .then(resHeart =>
+        .then((resHeart) =>
           getEntitlements(urls.arcOrigin, resHeart.accessToken)
             .then(
-              resEntitlements =>
+              (resEntitlements) =>
                 Array.isArray(resEntitlements.skus) &&
                 resEntitlements.skus.length > 0
             )
-            .catch(errEntitlements => {
+            .catch((errEntitlements) => {
               Sentry.captureEvent({
                 message: 'Error al verificar Suscripciones',
                 level: 'error',
@@ -253,7 +253,7 @@ const Profile = () => {
               })
             })
         )
-        .catch(errHeart => {
+        .catch((errHeart) => {
           Sentry.captureEvent({
             message: 'Error al extender la sesión',
             level: 'error',
@@ -350,10 +350,10 @@ const Profile = () => {
       addAttributes('documentType', uDocumentType)
       addAttributes('documentNumber', uDocumentNumber)
       const getUniqueListBy = (arr, key) => [
-        ...new Map(arr.map(item => [item[key], item])).values(),
+        ...new Map(arr.map((item) => [item[key], item])).values(),
       ]
       const clearAttrRepeats = getUniqueListBy(uAttributes, 'name')
-      const clearOriginReferer = clearAttrRepeats.map(attribute => {
+      const clearOriginReferer = clearAttrRepeats.map((attribute) => {
         if (attribute.name === 'originReferer') {
           return {
             ...attribute,
@@ -410,12 +410,12 @@ const Profile = () => {
         })
 
         window.Identity.updateUserProfile(profile)
-          .then(resProfile => {
+          .then((resProfile) => {
             updateUser(resProfile)
             updateStep(3)
             TaggeoEcommerce()
           })
-          .catch(err => {
+          .catch((err) => {
             if (err.code === '100018') {
               const currentProfile = window.Identity.userProfile
               const newProfile = Object.assign(currentProfile, profile)
@@ -462,20 +462,27 @@ const Profile = () => {
     }, 1000)
   }
 
-  const onFormProfile = (...props) => {
+  const onFormProfile = (props) => {
     if (typeof window !== 'undefined') {
+      const { uDocumentType, uDocumentNumber } = props
+
+      if (uDocumentType === 'DNI' && uDocumentNumber.length !== 8) {
+        setValNumDocument('Formato inválido.')
+        return
+      }
+
       updateErrorApi(false)
       setLoading(true)
       if (isLogged()) {
         setLoadText('Verificando Suscripciones...')
         if ('Identity' in window) {
-          checkSubscriptions().then(resSubs => {
+          checkSubscriptions().then((resSubs) => {
             if (resSubs) {
               setShowModal(true)
               setLoading(false)
               Taggeo(nameTagCategory, 'web_paywall_open_validation')
             } else {
-              updateProfile(...props)
+              updateProfile(props)
             }
           })
         } else {
@@ -556,11 +563,18 @@ const Profile = () => {
     }
   }
 
-  const handleChangeInput = e => {
+  const handleChangeInput = (e) => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
+        if (e.target.name === 'uDocumentType') {
+          const numDoc = document.getElementsByName('uDocumentNumber')[0].value
+          if (numDoc && e.target.value === 'DNI' && numDoc.length !== 8) {
+            setValNumDocument(false)
+          }
+        }
         setMsgError(false)
         updateErrorApi(false)
+        setValNumDocument(false)
         handleOnChange(e)
       } else {
         restoreClearSession()
@@ -572,7 +586,7 @@ const Profile = () => {
     if (typeof window !== 'undefined') {
       if ('Identity' in window) {
         window.Identity.logout()
-          .catch(err =>
+          .catch((err) =>
             Sentry.captureEvent({
               message: 'Error al cerrar sesión con Identity',
               level: 'error',
@@ -705,7 +719,7 @@ const Profile = () => {
                 className={printedSubscriber && 'input-disabled'}
                 name="uDocumentType"
                 value={uDocumentType}
-                onChange={e => {
+                onChange={(e) => {
                   handleChangeInput(e)
                   setShowDocOption(e.target.value)
                 }}
@@ -717,11 +731,13 @@ const Profile = () => {
               <TextMask
                 mask={maskDocuments[uDocumentType]}
                 guide={false}
-                className={`${uDocumentNumberError &&
-                  'input-error'} ${printedSubscriber && 'input-disabled'}`}
+                className={`${
+                  (uDocumentNumberError || valNumDocument) && 'input-error'
+                } ${printedSubscriber && 'input-disabled'}`}
                 type="text"
                 name="uDocumentNumber"
                 maxLength={uDocumentType === 'DNI' ? '8' : '15'}
+                minLength={uDocumentType === 'DNI' ? '8' : '5'}
                 value={uDocumentNumber}
                 required
                 onChange={handleChangeInput}
@@ -729,8 +745,10 @@ const Profile = () => {
                 disabled={loading || printedSubscriber}
               />
             </div>
-            {uDocumentNumberError && (
-              <span className="msn-error">{uDocumentNumberError}</span>
+            {(uDocumentNumberError || valNumDocument) && (
+              <span className="msn-error">
+                {uDocumentNumberError || valNumDocument}
+              </span>
             )}
           </label>
         </div>

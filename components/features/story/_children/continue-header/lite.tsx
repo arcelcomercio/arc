@@ -19,16 +19,6 @@ interface Props {
   metaTitle: string
 }
 
-/*
-  window.addEventListener('DOMContentLoaded', () => {requestIdle(() => {
-    const $anchor = document.getElementById("h-anchor")
-    $anchor.addEventListener("click", () => {
-      top.postMessage({id: "anchor-top"}, location.origin);
-    })
-  })})
-*/
-const anchorScript = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){document.getElementById("h-anchor").addEventListener("click",function(){top.postMessage({id:"anchor-top"},location.origin)})})});`
-
 const StoryChildrenContinueHeader: React.FC<Props> = (props) => {
   const { hideAnchor, title = '', metaTitle } = props
 
@@ -77,7 +67,12 @@ const StoryChildrenContinueHeader: React.FC<Props> = (props) => {
               type="button"
               aria-label="Ir al inicio de la página"
               id="h-anchor"
-              className={classes.anchor}>
+              className={classes.anchor}
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }
+              }}>
               <svg
                 className={classes.svg}
                 aria-disabled="true"
@@ -87,12 +82,6 @@ const StoryChildrenContinueHeader: React.FC<Props> = (props) => {
                 <path d="M345.4 248.3L151.2 442.6c-12.4 12.4-32.4 12.4-44.7 0 -12.4-12.4-12.4-32.4 0-44.7L278.3 225.9 106.4 54c-12.4-12.4-12.4-32.4 0-44.7 12.4-12.4 32.4-12.4 44.8 0l194.3 194.3c6.2 6.2 9.3 14.3 9.3 22.4C354.7 234 351.6 242.1 345.4 248.3z" />
               </svg>
             </button>
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: anchorScript,
-              }}
-            />
           </>
         )}
       </header>

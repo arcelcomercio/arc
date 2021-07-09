@@ -90,3 +90,9 @@ $space-interval: 5;
 @import "./scss/components/layout/navbar/nav-story";
 @import "./scss/components/header/inverted";
 @import "./scss/components/layout/header/header";
+
+/* --- SIGNWALL ----------------------------------------------------
+  Estilos de componentes migrado
+------------------------------------------------------------------------- */
+@import "../../general-styles/components/features/signwall/modal";
+@import "../../general-styles/components/features/signwall/loading";

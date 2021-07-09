@@ -1,0 +1,23 @@
+$breakpoints: (
+  mobile: 680px,
+  tabletp: 768px,
+  tabletl: 1024px,
+  desktop: 1200px,
+);
+
+@mixin device($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+    @if $breakpoint == mobile {
+      @media screen and (max-width: $breakpoint-value) {
+        @content;
+      }
+    } @else {
+      @media screen and (min-width: $breakpoint-value) {
+        @content;
+      }
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}

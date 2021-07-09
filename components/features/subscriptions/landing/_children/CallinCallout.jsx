@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import useForm from '../../_hooks/useForm'
-import { formatNames, formatCellphone } from '../../_dependencies/Errors'
+
+import { formatCellphone, formatNames } from '../../_dependencies/Errors'
 import { pushCallOut } from '../../_dependencies/Services'
+import useForm from '../../_hooks/useForm'
 
 function CallinCallout() {
   const [showConfirmCall, setShowConfirmCall] = useState(false)
@@ -28,7 +29,7 @@ function CallinCallout() {
   const onFomrCallOut = ({ namecall, phonecall }) => {
     setLoading(true)
     pushCallOut(namecall, phonecall)
-      .then(resCall => {
+      .then((resCall) => {
         if (
           resCall.resultado ||
           resCall.mensaje ===
@@ -64,7 +65,7 @@ function CallinCallout() {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onFomrCallOut)
 
-  const handleChangeInput = e => {
+  const handleChangeInput = (e) => {
     handleOnChange(e)
   }
 

@@ -1,28 +1,34 @@
 /* eslint-disable no-case-declarations */
-import { AnalyticsScript, ScriptElement, ScriptHeader } from './scripts'
 import ConfigParams from '../../../../utilities/config-params'
-import StoryData from '../../../../utilities/story-data'
-import { createResizedParams } from '../../../../utilities/resizer/resizer'
-import {
-  countWords as countWordsHelper,
-  nbspToSpace,
-  isEmpty,
-} from '../../../../utilities/helpers'
-import recommederBySite from '../_children/recommeder-by-site'
 import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
+import { JWPLAYER } from '../../../../utilities/constants/multimedia-types'
 import {
-  STORY_CORRECTION,
-  STAMP_TRUST,
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
+  STAMP_TRUST,
+  STORY_CORRECTION,
   VIDEO_JWPLAYER,
 } from '../../../../utilities/constants/subtypes'
 import {
+  countWords as countWordsHelper,
+  isEmpty,
+  nbspToSpace,
+} from '../../../../utilities/helpers'
+import { createResizedParams } from '../../../../utilities/resizer/resizer'
+import {
+  getResultJwplayer,
   getResultVideo,
   stripTags,
-  getResultJwplayer,
 } from '../../../../utilities/story/helpers'
-import { JWPLAYER } from '../../../../utilities/constants/multimedia-types'
+import StoryData from '../../../../utilities/story-data'
+import { storyTagsBbc } from '../../../../utilities/tags'
+import recommederBySite from '../_children/recommeder-by-site'
+import {
+  AnalyticsScript,
+  ScriptElement,
+  ScriptElementBbc,
+  ScriptHeader,
+} from './scripts'
 
 /**
  *
@@ -46,19 +52,14 @@ import { JWPLAYER } from '../../../../utilities/constants/multimedia-types'
 
 const presets = 'resizedImage:840x0'
 
-const buildIframeAdvertising = (urlAdvertising) => {
-  return `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
-}
+const buildIframeAdvertising = (urlAdvertising) =>
+  `<figure class="op-ad"><iframe width="300" height="250" style="border:0; margin:0;" src="${urlAdvertising}"></iframe></figure>`
 
-const cleanTag = (paragraph) => {
-  return nbspToSpace(paragraph.trim().replace(/<\/?(?:br|mark)[^<>]*>/, ''))
-}
+const cleanTag = (paragraph) =>
+  nbspToSpace(paragraph.trim().replace(/<\/?(?:br|mark)[^<>]*>/, ''))
 
-const clearHtml = (paragraph) => {
-  return nbspToSpace(
-    paragraph.replace(/(<([^>]+)>)/g, '').replace(/\s{2,}/g, ' ')
-  )
-}
+const clearHtml = (paragraph) =>
+  nbspToSpace(paragraph.replace(/(<([^>]+)>)/g, '').replace(/\s{2,}/g, ' '))
 
 const buildHeaderParagraph = (paragraph, level = '2') => {
   const result = { numberWords: 0, processedParagraph: '' }
@@ -734,6 +735,7 @@ const BuildHtml = ({
   subtype,
   contentElementGallery,
   promoItemJwplayer,
+  tags = [],
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -790,6 +792,24 @@ const BuildHtml = ({
           </noscript>
         </iframe>
       </figure>
+      ${
+        storyTagsBbc(tags) &&
+        `<figure class="op-tracker">
+            <iframe>
+              <script>${ScriptElementBbc()}</script>
+              <noscript>
+                <img
+                  src="//a1.api.bbc.co.uk/hit.xiti?library_version=synd_v5.7.0_nojs&s=598346"
+                  height="1"
+                  width="1"
+                  border="0"
+                  alt=""
+                />
+              </noscript>
+            </iframe>
+          </figure>
+          `
+      }
     
       <header>
         <h1>${title}</h1>

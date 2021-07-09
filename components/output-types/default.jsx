@@ -349,7 +349,16 @@ export default ({
         <meta name="lang" content={lang} />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
-        <meta name="robots" content="index, follow" />
+        {arcSite === 'trome' && isStory ? (
+          <meta
+            name="robots"
+            content={`${
+              /-agnc-/.test(requestUri) ? 'noindex' : 'index'
+            }, follow`}
+          />
+        ) : (
+          <meta name="robots" content="index, follow" />
+        )}
         <meta name="GOOGLEBOT" content="index follow" />
         <meta name="author" content={siteProperties.siteTitle} />
         {isStory && (

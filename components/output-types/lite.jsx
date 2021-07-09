@@ -1,8 +1,7 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import { getPreroll } from '../utilities/ads/preroll'
+import { env } from '../utilities/arc/env'
 import { getAssetsPath } from '../utilities/assets'
 import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
@@ -78,7 +77,7 @@ const LiteOutput = ({
     metaValue,
     deployment,
   }
-  const CURRENT_ENVIRONMENT = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox' // se reutilizó nombre de ambiente
+  const CURRENT_ENVIRONMENT = env
   const {
     videoSeo,
     idYoutube,
@@ -290,7 +289,16 @@ const LiteOutput = ({
           <>
             <meta name="resource-type" content="document" />
             <meta content="global" name="distribution" />
-            <meta name="robots" content="index, follow" />
+            {arcSite === 'trome' && isStory ? (
+              <meta
+                name="robots"
+                content={`${
+                  /-agnc-/.test(requestUri) ? 'noindex' : 'index'
+                }, follow`}
+              />
+            ) : (
+              <meta name="robots" content="index, follow" />
+            )}
             <meta name="GOOGLEBOT" content="index follow" />
             <meta name="author" content={siteProperties.siteName} />
             {isStory && (
@@ -513,6 +521,21 @@ const LiteOutput = ({
             ) : null
           }
         </Resource>
+        {metaValue('section_style') === 'depor-play' ? (
+          <Resource path="resources/dist/depor/css/depor-play.css">
+            {({ data }) =>
+              data ? (
+                <style
+                  dangerouslySetInnerHTML={{
+                    __html: data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', ''),
+                  }}
+                />
+              ) : null
+            }
+          </Resource>
+        ) : null}
         <ChartbeatBody
           story={isStory}
           hasVideo={contenidoVideo || hasYoutubeVideo}
@@ -525,11 +548,11 @@ const LiteOutput = ({
           subtype={subtype}
         />
         {isPremium || metaValue('include_fusion_libs') === 'true' ? (
-          <>
-            <Libs />
-          </>
+          <Libs />
         ) : null}
-        {isPremium && arcSite === SITE_ELCOMERCIO && !isPreview ? (
+        {isPremium &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+        !isPreview ? (
           <>
             <script
               src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
@@ -593,9 +616,7 @@ const LiteOutput = ({
           {children}
         </div>
         {isPremium || metaValue('include_fusion_libs') === 'true' ? (
-          <>
-            <Fusion />
-          </>
+          <Fusion />
         ) : null}
         {isStory && (
           <script
@@ -719,6 +740,7 @@ const LiteOutput = ({
           }}
         />
         <script
+          async
           src={`${getAssetsPath(
             arcSite,
             contextPath
@@ -803,7 +825,7 @@ const LiteOutput = ({
           </>
         )}
         {vallaSignwall === false &&
-        arcSite === SITE_ELCOMERCIO &&
+        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (
           <>
             <script

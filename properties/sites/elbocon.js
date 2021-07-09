@@ -127,7 +127,7 @@ export default {
     mainColorBr: '#feabab',
     mainColorLink: '#c2080e',
     mainColorBtn: '#d20100',
-    authProviders: ['facebook'],
+    authProviders: ['facebook', 'google'],
   },
   taboola: {
     dataModeAmp: 'thumbs-feed-01',

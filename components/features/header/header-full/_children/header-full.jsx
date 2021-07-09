@@ -1,17 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
-import React from 'react'
 import { useAppContext } from 'fusion:context'
+// import { ENVIRONMENT } from 'fusion:environment'
+import React from 'react'
 
 import {
+  edicionMenu,
+  // getBtnSignScript,
   popup,
-  showMore,
-  searchScript,
   scrolled,
+  searchScript,
+  showMore,
   showSubmenu,
   toggleMenu,
-  edicionMenu,
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -121,6 +123,7 @@ const classes = {
   ePais: '__e-pais  p-20',
   eName: '__e-name  p-10',
   eArrow: 'header-full__e-arrow',
+  btnSingwall: 'header-full__btn-signwall',
 }
 
 export default ({
@@ -142,50 +145,54 @@ export default ({
   Newsle,
 }) => {
   const arcSiteTrome = 'trome'
-  const { requestUri } = useAppContext()
+  const {
+    requestUri,
+    // siteProperties
+  } = useAppContext()
+  // const { activeSignwall } = siteProperties || {}
   const isMexico = /^\/mexico\//.test(requestUri)
-  const edittion = (cName, opcion = '', has = true) => {
-    return (
-      <>
-        <div className={`${cName}${classes.eBody} ${opcion} `}>
-          <div className={`${cName}${classes.eName}`}>EDICIONES:</div>
+  // const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
-          <a className={`${cName}${classes.ePais}`} href="/?noredirect">
-            <svg
-              width="18"
-              height="12"
-              viewBox="0 0 18 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 0H0V12H18V0Z" fill="white" />
-              <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
-              <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
-            </svg>
+  const edittion = (cName, opcion = '', has = true) => (
+    <>
+      <div className={`${cName}${classes.eBody} ${opcion} `}>
+        <div className={`${cName}${classes.eName}`}>EDICIONES:</div>
 
-            {`${has ? 'PE (Perú)' : 'Perú'}`}
-          </a>
-          <a className={`${cName}${classes.ePais}`} href="/mexico/">
-            <svg
-              width="18"
-              height="12"
-              viewBox="0 0 18 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 0H0V12H18V0Z" fill="white" />
-              <path d="M6 0H0V12H6V0Z" fill="#006847" />
-              <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
-              <path
-                d="M9 8.0625C10.1391 8.0625 11.0625 7.13909 11.0625 6C11.0625 4.86091 10.1391 3.9375 9 3.9375C7.86091 3.9375 6.9375 4.86091 6.9375 6C6.9375 7.13909 7.86091 8.0625 9 8.0625Z"
-                fill="#BFC2A3"
-              />
-            </svg>
+        <a className={`${cName}${classes.ePais}`} href="/?noredirect">
+          <svg
+            width="18"
+            height="12"
+            viewBox="0 0 18 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 0H0V12H18V0Z" fill="white" />
+            <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
+            <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
+          </svg>
 
-            {`${has ? 'MX (México)' : 'México'}`}
-          </a>
-        </div>
-      </>
-    )
-  }
+          {`${has ? 'PE (Perú)' : 'Perú'}`}
+        </a>
+        <a className={`${cName}${classes.ePais}`} href="/mexico/">
+          <svg
+            width="18"
+            height="12"
+            viewBox="0 0 18 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 0H0V12H18V0Z" fill="white" />
+            <path d="M6 0H0V12H6V0Z" fill="#006847" />
+            <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
+            <path
+              d="M9 8.0625C10.1391 8.0625 11.0625 7.13909 11.0625 6C11.0625 4.86091 10.1391 3.9375 9 3.9375C7.86091 3.9375 6.9375 4.86091 6.9375 6C6.9375 7.13909 7.86091 8.0625 9 8.0625Z"
+              fill="#BFC2A3"
+            />
+          </svg>
+
+          {`${has ? 'MX (México)' : 'México'}`}
+        </a>
+      </div>
+    </>
+  )
   const renderSections = (sections, deep, nameId = 'root') => {
     const aux = deep
     return (
@@ -294,7 +301,7 @@ export default ({
                     </form>
                   </div>
                   <ul className={classes.headerList}>
-                    {menuList.map(item => {
+                    {menuList.map((item) => {
                       const hasChildren = item.children.length > 0
                       return (
                         <>
@@ -314,22 +321,18 @@ export default ({
                             )}
                             {hasChildren && (
                               <ul className={classes.subMenuList}>
-                                {item.children.map(subItem => {
-                                  return (() => {
-                                    return (
-                                      <li className={classes.subMenuItem}>
-                                        <a
-                                          itemProp="url"
-                                          href={
-                                            subItem.url || subItem._id || '/'
-                                          }
-                                          className={classes.headerLink}>
-                                          {subItem.name || subItem.display_name}
-                                        </a>
-                                      </li>
-                                    )
-                                  })()
-                                })}
+                                {item.children.map((subItem) =>
+                                  (() => (
+                                    <li className={classes.subMenuItem}>
+                                      <a
+                                        itemProp="url"
+                                        href={subItem.url || subItem._id || '/'}
+                                        className={classes.headerLink}>
+                                        {subItem.name || subItem.display_name}
+                                      </a>
+                                    </li>
+                                  ))()
+                                )}
                               </ul>
                             )}
                           </li>
@@ -342,21 +345,19 @@ export default ({
                       {mobileHeaderFollowing}
                     </p>
                     <ul className={classes.mediaList}>
-                      {socialNetworks.map(item => {
-                        return (
-                          <li className={classes.mediaItem}>
-                            <a
-                              itemProp="url"
-                              className={classes.mediaLink}
-                              href={item.url}>
-                              <i
-                                className={`${classes.mediaIcon} icon-${item.name}`}
-                                aria-label={item.name}
-                              />
-                            </a>
-                          </li>
-                        )
-                      })}
+                      {socialNetworks.map((item) => (
+                        <li className={classes.mediaItem}>
+                          <a
+                            itemProp="url"
+                            className={classes.mediaLink}
+                            href={item.url}>
+                            <i
+                              className={`${classes.mediaIcon} icon-${item.name}`}
+                              aria-label={item.name}
+                            />
+                          </a>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -381,18 +382,16 @@ export default ({
             )}
             <div className={classes.boxList}>
               <ul className={classes.listNav}>
-                {headerList.map(item => {
-                  return (
-                    <li className={classes.itemNav}>
-                      <a
-                        itemProp="url"
-                        href={item.url || item._id || '/'}
-                        className={classes.linkNav}>
-                        {item.name || item.display_name}
-                      </a>
-                    </li>
-                  )
-                })}
+                {headerList.map((item) => (
+                  <li className={classes.itemNav}>
+                    <a
+                      itemProp="url"
+                      href={item.url || item._id || '/'}
+                      className={classes.linkNav}>
+                      {item.name || item.display_name}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             {!hideMenu && (
@@ -410,7 +409,7 @@ export default ({
                     <a itemProp="url" href="/" className={classes.text}>
                       {siteDomain}
                     </a>
-                    {legalLinks.map(link => (
+                    {legalLinks.map((link) => (
                       <a
                         itemProp="url"
                         key={link.url}
@@ -439,7 +438,7 @@ export default ({
                 </div>
 
                 <ul className={classes.listIcon}>
-                  {shareButtons.map(item => (
+                  {shareButtons.map((item) => (
                     <li key={item.icon} className={classes.shareItem}>
                       <a
                         itemProp="url"
@@ -549,6 +548,16 @@ export default ({
                 </div>
               </>
             )}
+
+            {/* {activeSignwall && (
+              <button
+                type="button"
+                className={`bg-black ${classes.btnSingwall}`}>
+                <i className=" icon-user title-sm text-white" />
+                <span className="text-md tertiary-font text-white">JD</span>
+              </button>
+            )} */}
+
             {arcSite === 'depor' && (
               <>
                 <div className={classes.edicion}>
@@ -573,7 +582,7 @@ export default ({
                 </div>
                 <div className={classes.eContent}>
                   {edittion('header-full')}
-                  <div className={classes.eArrow}></div>
+                  <div className={classes.eArrow} />
                 </div>
               </>
             )}
@@ -588,11 +597,20 @@ export default ({
           }${isStory ? scrolled : ''}${hideMenu ? '' : showSubmenu}${
             hideMenu ? '' : toggleMenu
           } `,
-        }}></script>
+        }}
+      />
       <script
         dangerouslySetInnerHTML={{
           __html: edicionMenu,
-        }}></script>
+        }}
+      />
+      {/* {activeSignwall && (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: getBtnSignScript(arcEnv, arcSite),
+          }}
+        />
+      )} */}
     </>
   )
 }
