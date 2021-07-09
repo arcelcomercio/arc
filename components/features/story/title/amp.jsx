@@ -55,7 +55,7 @@ const StoryTitleAmp = () => {
     movil1: false,
     primarySectionLink,
     arcSite,
-    size: '320x100',
+    size: '320x50',
   }
 
   const parametersCaja1 = {

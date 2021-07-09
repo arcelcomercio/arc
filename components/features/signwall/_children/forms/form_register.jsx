@@ -45,14 +45,10 @@ const FormRegister = ({
   const {
     arcSite,
     siteProperties: {
-      signwall: {
-        mainColorLink,
-        mainColorBtn,
-        mainColorBr,
-        authProviders = [],
-      },
-      activeNewsletter = false,
-      activeVerifyEmail = false,
+      signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeNewsletter,
+      activeVerifyEmail,
+      activeDataTreatment,
     },
   } = useAppContext() || {}
 
@@ -233,15 +229,7 @@ const FormRegister = ({
             name: 'dataTreatment',
             value:
               // eslint-disable-next-line no-nested-ternary
-              arcSite === 'elcomercio' ||
-              arcSite === 'gestion' ||
-              arcSite === 'trome' ||
-              arcSite === 'ojo' ||
-              arcSite === 'diariocorreo'
-                ? checkedPolits
-                  ? '1'
-                  : '0'
-                : 'NULL',
+              activeDataTreatment ? (checkedPolits ? '1' : '0') : 'NULL',
             type: 'String',
           },
         ],
@@ -299,7 +287,7 @@ const FormRegister = ({
             setShowUserWithSubs(false) // no tengo subs
           } else {
             setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
+            const divPremium = document.getElementById('container')
             if (divPremium) {
               divPremium.classList.remove('story-content__nota-premium')
               divPremium.removeAttribute('style')
@@ -487,11 +475,7 @@ const FormRegister = ({
                     />
                   )}
 
-                  {(arcSite === 'elcomercio' ||
-                    arcSite === 'gestion' ||
-                    arcSite === 'trome' ||
-                    arcSite === 'ojo' ||
-                    arcSite === 'diariocorreo') && (
+                  {activeDataTreatment && (
                     <CheckBox
                       checked={checkedPolits}
                       value={checkedPolits ? '1' : '0'}

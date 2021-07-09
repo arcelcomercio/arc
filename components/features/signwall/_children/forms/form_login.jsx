@@ -36,10 +36,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBtn,
         primaryFont,
         mainColorBr,
-        authProviders = [],
+        authProviders,
       },
-      activeNewsletter = false,
-      activeVerifyEmail = false,
+      activeNewsletter,
+      activeVerifyEmail,
+      activeDataTreatment,
     },
   } = useAppContext() || {}
 
@@ -145,7 +146,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         } else {
           setShowUserWithSubs(true) // tengo subs
           setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
+          const divPremium = document.getElementById('container')
           if (divPremium) {
             divPremium.classList.remove('story-content__nota-premium')
             divPremium.removeAttribute('style')
@@ -171,7 +172,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         } else {
           setShowUserWithSubs(true) // tengo subs
           setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
+          const divPremium = document.getElementById('container')
           if (divPremium) {
             divPremium.classList.remove('story-content__nota-premium')
             divPremium.removeAttribute('style')
@@ -473,11 +474,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
               </a>
             </p>
 
-            {arcSite === 'elcomercio' ||
-            arcSite === 'gestion' ||
-            arcSite === 'trome' ||
-            arcSite === 'ojo' ||
-            arcSite === 'diariocorreo' ? (
+            {activeDataTreatment ? (
               <>
                 <CheckBox
                   checked={checkedPolits}

@@ -24,9 +24,10 @@ const FormRelogin = ({ onClose, typeDialog }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, mainColorBtn, authProviders = [] },
-      activeNewsletter = false,
-      activeVerifyEmail = false,
+      signwall: { mainColorLink, mainColorBtn, authProviders },
+      activeNewsletter,
+      activeVerifyEmail,
+      activeDataTreatment,
     },
   } = useAppContext() || {}
 
@@ -299,11 +300,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
         </a>
       </p>
 
-      {arcSite === 'elcomercio' ||
-      arcSite === 'gestion' ||
-      arcSite === 'trome' ||
-      arcSite === 'ojo' ||
-      arcSite === 'diariocorreo' ? (
+      {activeDataTreatment ? (
         <>
           <CheckBox
             checked={checkedPolits}

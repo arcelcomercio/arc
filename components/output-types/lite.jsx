@@ -6,6 +6,7 @@ import { getAssetsPath } from '../utilities/assets'
 import { FREE, METERED, PREMIUM } from '../utilities/constants/content-tiers'
 import {
   SITE_DEPOR,
+  SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
@@ -177,8 +178,8 @@ const LiteOutput = ({
   }
 
   const structuredTaboola = ` 
-    window._taboola = window._taboola || [];
-    _taboola.push({flush: true});`
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});`
 
   const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
@@ -186,6 +187,15 @@ const LiteOutput = ({
   s_bbcws('partner', 'elcomercio.pe');
           s_bbcws('language', 'mundo');
   s_bbcws('track', 'pageView');`
+
+  const jsAdpushup = `
+(function(w, d) {
+	var s = d.createElement('script');
+	s.src = '//cdn.adpushup.com/42614/adpushup.js';
+	s.crossOrigin='anonymous'; 
+	s.type = 'text/javascript'; s.async = true;
+	(d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+})(window, document);`
 
   const isPremium = contentCode === PREMIUM
   const htmlAmpIs = isPremium ? '' : true
@@ -459,6 +469,15 @@ const LiteOutput = ({
           section={storySectionPath.split('/')[1]}
           subtype={subtype}
         />
+        {arcSite === SITE_ELBOCON ? (
+          <>
+            <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: jsAdpushup }}
+            />
+          </>
+        ) : null}
 
         <Styles
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -760,26 +779,34 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {arcSite === SITE_ELCOMERCIOMAG ||
-        arcSite === SITE_PERU21 ||
-        arcSite === SITE_TROME ||
-        arcSite === SITE_ELBOCON ||
-        arcSite === SITE_OJO ||
-        arcSite === SITE_DEPOR ? (
+        {arcSite === SITE_DEPOR && (storySectionPath?.split('/')[1] === 'futbol-internacional' || storySectionPath?.split('/')[1] === 'futbol-peruano') ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
-        ) : (
-          <script
-            type="module"
-            defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-              .toISOString()
-              .slice(0, 10)}`}
-          />
+        ) : (arcSite === SITE_ELCOMERCIOMAG || 
+          arcSite === SITE_PERU21 ||
+          arcSite === SITE_TROME || 
+          arcSite === SITE_ELBOCON ||
+          arcSite === SITE_DEPOR ||
+          arcSite === SITE_OJO ? (
+            <script
+              defer
+              src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
+            />
+          ) : (
+            <script
+              type="module"
+              defer
+              src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+                .toISOString()
+                .slice(0, 10)}`}
+            />
+          )
         )}
         {isStory && (
           <>

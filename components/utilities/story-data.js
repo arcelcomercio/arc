@@ -1,5 +1,6 @@
 import { defaultImage, getAssetsPath } from './assets'
 import {
+  ELEMENT_BLOCKQUOTE,
   ELEMENT_CORRECTION,
   ELEMENT_CUSTOM_EMBED,
   ELEMENT_HEADER,
@@ -45,12 +46,12 @@ import {
 } from './constants/multimedia-types'
 import {
   IMAGE_LINK,
+  SALTAR_INTRO,
   STAMP_TRUST,
   STORY_CORRECTION,
   STORY_CUSTOMBLOCK,
   VIDEO_JWPLAYER,
   VIDEO_JWPLAYER_MATCHING,
-  SALTAR_INTRO,
   WORK_TYPE_REVISION,
 } from './constants/subtypes'
 import { msToTime, secToTime } from './date-time/time'
@@ -834,6 +835,15 @@ class StoryData {
         this._data.content_elements[0]) ||
       {}
     return result && result.type === ELEMENT_LIST ? result : []
+  }
+
+  get contentElementsQuoteOne() {
+    const result =
+      (this._data &&
+        this._data.content_elements &&
+        this._data.content_elements[0]) ||
+      {}
+    return result && result.type === ELEMENT_BLOCKQUOTE ? result.content : null
   }
 
   get contentElementsHtml() {
@@ -1921,6 +1931,8 @@ class StoryData {
   }
 
   static paragraphsNews(contentElements) {
+    console.log('PAPRAHRAPHS')
+    console.log(JSON.stringify(contentElements))
     const paragraphs = contentElements.map(
       ({
         content = '',

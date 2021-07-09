@@ -72,17 +72,15 @@ const VideoSectionAmp = () => {
     height: '100',
     movil1: false,
     arcSite,
-    fluid: false
   }
 
-  const parametersCaja2 = { 
-    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`, 
+  const parametersCaja2 = {
+    dataSlot: `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/caja2`,
     prebidSlot: `19186-${namePublicidad}-amp-caja2`,
-    width, 
-    height, 
+    width,
+    height,
     movil1: true,
     arcSite,
-    fluid: true
   }
 
   const parametersCaja3 = {
@@ -93,7 +91,6 @@ const VideoSectionAmp = () => {
     height,
     movil1: true,
     arcSite,
-    fluid: false
   }
   const parametersCaja4 = {
     // movil5 caja5 caja4
@@ -103,7 +100,6 @@ const VideoSectionAmp = () => {
     height,
     movil1: true,
     arcSite,
-    fluid: false
   }
 
   const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
