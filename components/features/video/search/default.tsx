@@ -7,7 +7,9 @@ import searchQuery from '../../../utilities/client/search'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  btnSearch: `header-inverted-featured__btn-search active`,
+  wrapper: 'header-inverted-featured__search-form-wrapper',
+  form: 'header-inverted-featured__search-form',
+  btnSearch: 'header-inverted-featured__btn-search active',
   iconSearch: 'header-inverted-featured__icon-search icon-search active',
   search: `header-inverted-featured__search active`,
 }
@@ -43,14 +45,8 @@ const SearchForm: FC<Props> = (props) => {
     }
   }
 
-  // const optionButtonClick = () => {
-  //   if (statusSearch) _handleSearch()
-  //   else focusInputSearch()
-  //   setStatusSearch(!statusSearch)
-  // }
-
   return (
-    <div>
+    <div className={classes.wrapper}>
       <div>{label}</div>
       <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
         <input
