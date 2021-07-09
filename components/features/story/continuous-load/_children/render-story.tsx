@@ -20,6 +20,14 @@ import StoryChildrenSocialHeaderLite from '../../_children/social-header/lite'
 import StoryChildrenTitle from '../../_children/title/lite'
 import StorySidebarContinueLayout from './layout'
 
+declare global {
+  interface Window {
+    instgrm: any
+    widgetsObserver: any
+    createScript: any
+  }
+}
+
 const rederStory: React.FC<{
   data: Story
   contextPath: string
@@ -205,6 +213,38 @@ const rederStory: React.FC<{
     })
   }
 
+  const checkInstagramScript = () => {
+    if (
+      document.querySelector('script[src="https://www.instagram.com/embed.js"]')
+    ) {
+      window.instgrm.Embeds.process()
+    } else if ('IntersectionObserver' in window) {
+      const options = {
+        rootMargin: '0px 0px 500px 0px',
+      }
+      const embeds = Array.from(document.body.querySelectorAll('.embed-script'))
+      const observer = new IntersectionObserver(window.widgetsObserver, options)
+      embeds.forEach((embed) => {
+        observer.observe(embed)
+      })
+    }
+  }
+
+  const ckeckTikTokScript = () => {
+    if (
+      document.querySelectorAll('script[src="https://www.tiktok.com/embed.js"]')
+        .length > 0
+    ) {
+      document
+        .querySelectorAll('script[src="https://www.tiktok.com/embed.js"]')
+        .forEach((e) => e.parentNode?.removeChild(e))
+      window.createScript({
+        src: 'https://www.tiktok.com/embed.js',
+        async: true,
+      })
+    }
+  }
+
   React.useEffect(() => {
     contentElements.map((element: { content?: string; type: string }) => {
       const content = element?.content || ''
@@ -214,6 +254,8 @@ const rederStory: React.FC<{
     })
     changeTwitter()
     jwplayerObserver()
+    checkInstagramScript()
+    ckeckTikTokScript()
   }, [contentElements])
 
   return (
