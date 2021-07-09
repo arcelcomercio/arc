@@ -7,11 +7,12 @@ import searchQuery from '../../../utilities/client/search'
 import customFields from './_dependencies/custom-fields'
 
 const classes = {
-  wrapper: 'header-inverted-featured__search-form-wrapper',
-  form: 'header-inverted-featured__search-form',
-  btnSearch: 'header-inverted-featured__btn-search active',
-  iconSearch: 'header-inverted-featured__icon-search icon-search active',
-  search: `header-inverted-featured__search active`,
+  wrapper: 'video-search',
+  title: 'video-search__title',
+  form: 'video-search__form',
+  btnSearch: 'video-search__btn',
+  search: 'video-search__input',
+  iconSearch: 'video-search__btn-icon icon-search',
 }
 
 interface Props {
@@ -47,7 +48,7 @@ const SearchForm: FC<Props> = (props) => {
 
   return (
     <div className={classes.wrapper}>
-      <div>{label}</div>
+      <div className={classes.title}>{label}</div>
       <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
         <input
           id="header-search-input"
@@ -72,6 +73,6 @@ SearchForm.propTypes = {
   customFields,
 }
 
-SearchForm.label = 'Búsqueda desde formulario'
+SearchForm.label = 'Busqueda desde formulario'
 
 export default SearchForm
