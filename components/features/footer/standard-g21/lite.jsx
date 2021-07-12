@@ -21,7 +21,7 @@ const SCHEMA = `{
   }
 }`
 
-const FooterStandardG21 = props => {
+const FooterStandardG21 = (props) => {
   const {
     customFields: {
       sectionsHierarchyConfig: {
@@ -52,9 +52,9 @@ const FooterStandardG21 = props => {
     filter: SCHEMA,
   })
 
-  const formatData = res => {
+  const formatData = (res) => {
     const { children = [] } = res || {}
-    const auxList = children.map(el => {
+    const auxList = children.map((el) => {
       if (el.node_type === 'link') {
         return {
           name: el.display_name,
