@@ -2,7 +2,7 @@ import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 import { FC } from 'types/features'
-import Category from './_children/category'
+import Section from './_children/section'
 import {
   SchemaHierarchy,
   SchemaMultiStory,
@@ -61,7 +61,7 @@ const VideoCategoriesList: FC<Props> = (props) => {
   return (
     <div className={classes.wrapper}>
       { arrSections.map((el) => (
-          <Category category={el} />
+          <Section section={el} />
         ))
       }
     </div>
