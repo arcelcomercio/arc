@@ -19,7 +19,6 @@ import {
   navBarLoaderScript,
   searchScript,
   singwallScript,
-  // getQueryReloginEmailScript,
   stickyScript,
 } from '../_dependencies/scripts'
 import Menu from './menu'
@@ -83,7 +82,7 @@ const classes = {
   menuRegionL: 'nav-region__link',
   menuRegionI: 'nav-region__icon',
 
-  btnSingwall: 'header-full__btn-signwall',
+  btnSingwall: 'header-full__btn-signwall bg-black nav__btn-sign',
 }
 
 @Consumer
@@ -190,9 +189,7 @@ class NavBarDefault extends React.PureComponent {
               </form>
 
               {activeSignwall && arcSite === SITE_DIARIOCORREO && (
-                <button
-                  type="button"
-                  className={`bg-black ${classes.btnSingwall}`}>
+                <button type="button" className={classes.btnSingwall}>
                   <i className="icon-user title-sm text-white" />
                   <span className="text-md tertiary-font text-white" />
                 </button>
@@ -495,13 +492,6 @@ class NavBarDefault extends React.PureComponent {
             }${hideMenu ? '' : navBarLoaderScript}`,
           }}
         />
-
-        {/* <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: getQueryReloginEmailScript(arcEnv, arcSite),
-          }}
-        /> */}
       </>
     )
   }
