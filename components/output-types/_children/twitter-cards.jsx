@@ -16,7 +16,7 @@ export default ({
   twitterCreator,
   story,
   globalContent: data,
-  requestUri = ''
+  requestUri = '',
 }) => {
   const {
     multimediaLarge,
@@ -48,12 +48,20 @@ export default ({
   if (arcSite === SITE_DIARIOCORREO && primarySectionLink === '/opinion/') {
     image = authorImage
   }
-  const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
-  if (arcSite === SITE_ELCOMERCIO && isSaltarIntro && !story) {
-    image = `${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/logo_saltar-intro.jpg?d=1`
+  if (arcSite === SITE_ELCOMERCIO && !story) {
+    const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
+    const isProvecho = /^\/provecho\//.test(requestUri)
+    if (isSaltarIntro) {
+      image = `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo_saltar-intro.jpg?d=1`
+    } else if (isProvecho) {
+      image = `${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/logo_provecho.png?d=1`
+    }
   }
   return (
     <>

@@ -1,0 +1,77 @@
+@import "../../../../../general-styles/components/global-components/_extraordinary-story";
+
+/* .feature-fullimage {
+  @media (--desktop) {
+    height: 568px;
+  }
+  @media (--tablet) {
+    height: 370px;
+  }
+  @media (--only-mobile) {
+    height: 370px;
+  }
+} */
+.extraordinary-story {
+  font-family: $primary-font;
+  color: #000;
+  &__content {
+    text-align: center;
+  }
+  &__group-content {
+    border: 8px solid #8ccb81;
+    background-color: #f3f7f0;
+    @media (--only-mobile) {
+      width: 324px;
+      align-self: center;
+      position: relative;
+      top: -50px;
+      z-index: 1;
+    }
+  }
+  &__section-link {
+    // font: normal normal 800 14px/18px Bitter;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    position: relative;
+    &:hover {
+      text-decoration: none;
+    }
+    &::after {
+      content: " ";
+      position: absolute;
+      border-bottom: 4px solid #000;
+      width: 45px;
+      margin-top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 20%;
+    }
+  }
+  &__title {
+    // font: normal normal bold 32px/37px Bitter;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 37px;
+    letter-spacing: 0;
+    max-width: 600px;
+    display: inline-block;
+    @media (--only-mobile) {
+      font-size: 25px;
+      line-height: 30px;
+    }
+  }
+  &__subtitle {
+    display: none;
+  }
+  &__multimedia {
+    i {
+      display: none;
+    }
+  }
+  address {
+    display: none;
+  }
+}
