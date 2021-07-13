@@ -141,6 +141,7 @@ export default {
   activeNewsletter: true,
   activeVerifyEmail: true,
   activeDataTreatment: true,
+  activePhoneRegister: true,
   signwall: {
     mainColorBg: '#8f071f',
     mainColorTxt: '#ffffff',

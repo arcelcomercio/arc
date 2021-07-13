@@ -51,7 +51,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
     onLogged = (i) => i,
   } = attributes
 
-  const isTromeOrganic = arcSite === 'trome' && typeDialog === 'organico'
+  const isTromeOrganic =
+    arcSite === 'trome' &&
+    (typeDialog === 'organico' || typeDialog === 'verify')
 
   const { changeTemplate } = React.useContext(ModalConsumer)
   const [showLoginEmail, setShowLoginEmail] = React.useState(
