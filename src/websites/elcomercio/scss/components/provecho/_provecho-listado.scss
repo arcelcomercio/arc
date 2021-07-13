@@ -46,6 +46,7 @@
   }
   &__image {
     display: block;
+    height: 100%;
 
     /* @media (--desktop) {
       max-width: 270px;
@@ -53,7 +54,12 @@
     } */
     @media (--only-mobile) {
       max-width: unset;
-      width: 321px;
+      width: 100%;
+    }
+  }
+  &__figure {
+    @media (--only-mobile) {
+      width: 100%;
     }
   }
   &__title {
