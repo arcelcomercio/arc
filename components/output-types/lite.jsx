@@ -740,7 +740,6 @@ const LiteOutput = ({
           }}
         />
         <script
-          async
           src={`${getAssetsPath(
             arcSite,
             contextPath
