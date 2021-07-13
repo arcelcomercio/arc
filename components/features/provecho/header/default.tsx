@@ -85,7 +85,7 @@ const ProvechoHeader: React.FC = (props) => {
           <ul className={classes.list}>
             {data &&
               data.map((row: any) => {
-                const name = row?.display_name
+                const name = row?.display_name || row?.name
                 const item =
                   name === logoString ? (
                     logoHtml
