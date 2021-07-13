@@ -80,6 +80,7 @@ const MenuSignwall = ({ handleMenu }) => {
               : `https://www.gravatar.com/avatar/${emailHash}?s=180&d=identicon`
           }
           alt="Avatar"
+          className="picture"
         />
       </div>
       <div className="sign-profile_menu-wrapper">
