@@ -220,6 +220,7 @@ const Component = () => {
                           type="text"
                           name="vDocumentNumber"
                           maxLength={vDocumentType === 'DNI' ? 8 : 15}
+                          minLength={vDocumentType === 'DNI' ? 8 : 5}
                           required
                           value={vDocumentNumber}
                           onBlur={handleOnChange}
