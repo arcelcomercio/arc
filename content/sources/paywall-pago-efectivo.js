@@ -9,16 +9,16 @@ import request from 'request-promise-native'
 
 import { PropertiesCommon } from '../../components/features/subscriptions/_dependencies/Properties'
 
-const { urls: urlCommon } = PropertiesCommon
+const fetch = () => {
+  const { urls: urlCommon } = PropertiesCommon
 
-const nowDate = new Date()
-const getUtcDate = new Date(nowDate.getTime() - 300 * 60000).toISOString()
-const dateTimePeru = getUtcDate.split('.')[0]
-const parameters = `${PAGO_EFECTIVO_SERVICE}.${PAGO_EFECTIVO_ACCESS}.${PAGO_EFECTIVO_SECRET}.${dateTimePeru}-05:00`
-const hashPayEfectivo = sha256(parameters)
+  const nowDate = new Date()
+  const getUtcDate = new Date(nowDate.getTime() - 300 * 60000).toISOString()
+  const dateTimePeru = getUtcDate.split('.')[0]
+  const parameters = `${PAGO_EFECTIVO_SERVICE}.${PAGO_EFECTIVO_ACCESS}.${PAGO_EFECTIVO_SECRET}.${dateTimePeru}-05:00`
+  const hashPayEfectivo = sha256(parameters)
 
-const fetch = () =>
-  request({
+  return request({
     method: 'POST',
     uri: urlCommon.tokenPayEfectivo,
     body: {
@@ -29,6 +29,7 @@ const fetch = () =>
     },
     json: true,
   }).catch(() => ({ error: 'Solicitud inválida', date: dateTimePeru }))
+}
 
 export default {
   fetch,
