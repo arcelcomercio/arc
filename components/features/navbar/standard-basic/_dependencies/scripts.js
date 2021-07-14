@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (uuid) {
         window.location.href  = '/mi-perfil/?outputType=subscriptions'
       } else {
-        // window.location.href  = '/signwall/?outputType=subscriptions'
-        window.location.href  = '/politica/?reloginEmail=1'
+        window.location.href  = '/signwall/?outputType=subscriptions'
+        // window.location.href  = '/politica/?reloginEmail=1'
       }
     })
     if (uuid) {
@@ -41,17 +41,18 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 export const singwallScript =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},e=n.firstName,t=void 0===e?"":e,c=n.lastName,a=void 0===c?"":c,i=n.uuid,o=void 0===i?"":i;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=o?"/mi-perfil/?outputType=subscriptions":"/politica/?reloginEmail=1"}),o){var l=document.getElementById("signwall-nav-user"),d=document.getElementById("signwall-nav-icon");if(t||a){var r="",s="";t&&a?(r="".concat(t," ").concat(a),s="".concat(t[0]||"").concat(a[0]||"")):t&&!a?(r=t,s="".concat(t[0]||"").concat(t[1]||"")):!t&&a&&(r=a,s="".concat(a[0]||"").concat(a[1]||"")),l.innerHTML=r.length>=15?"".concat(r.slice(0,15),"..."):r,d.innerHTML=s,d.className="uppercase"}else l.innerHTML="Bienvenido Usuario"}})});'
-export const getQueryReloginEmailScript = (_env, arcSite) => `"use strict";
-document.addEventListener('DOMContentLoaded', function () {
-  requestIdle(function () {
-    if (window.location.href.match(/reloginEmail=/)) { window.location.href = '${
-      _env === 'prod'
-        ? `/signwall/?outputType=subscriptions&reloginEmail=1`
-        : `/signwall/?_website=${arcSite}&outputType=subscriptions&reloginEmail=1`
-    }';}
-  });
-})`
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},e=n.firstName,t=void 0===e?"":e,c=n.lastName,a=void 0===c?"":c,i=n.uuid,o=void 0===i?"":i;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=o?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions"}),o){var l=document.getElementById("signwall-nav-user"),d=document.getElementById("signwall-nav-icon");if(t||a){var r="",s="";t&&a?(r="".concat(t," ").concat(a),s="".concat(t[0]||"").concat(a[0]||"")):t&&!a?(r=t,s="".concat(t[0]||"").concat(t[1]||"")):!t&&a&&(r=a,s="".concat(a[0]||"").concat(a[1]||"")),l.innerHTML=r.length>=15?"".concat(r.slice(0,15),"..."):r,d.innerHTML=s,d.className="uppercase"}else l.innerHTML="Bienvenido Usuario"}})});'
+
+// export const getQueryReloginEmailScript = (_env, arcSite) => `"use strict";
+// document.addEventListener('DOMContentLoaded', function () {
+//   requestIdle(function () {
+//     if (window.location.href.match(/reloginEmail=/)) { window.location.href = '${
+//       _env === 'prod'
+//         ? `/signwall/?outputType=subscriptions&reloginEmail=1`
+//         : `/signwall/?_website=${arcSite}&outputType=subscriptions&reloginEmail=1`
+//     }';}
+//   });
+// })`
 
 /* document.addEventListener('DOMContentLoaded', () => {
   if ('IntersectionObserver' in window) {

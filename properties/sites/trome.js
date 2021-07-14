@@ -124,10 +124,9 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-trome/ads-fia-28253241-trm_ia_interna5-300x250-div-gpt-ad-8599377-50.html',
   ],
   activeSignwall: true,
-  activePaywall: false,
-  activeRulesCounter: false,
-  activeNewsletter: false,
   activeVerifyEmail: true,
+  activeDataTreatment: true,
+  activePhoneRegister: true,
   signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
