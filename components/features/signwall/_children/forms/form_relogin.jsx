@@ -3,8 +3,8 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { setCookie } from '../../../../utilities/client/cookies'
 import { ModalConsumer } from '../../../subscriptions/_context/modal'
-import { setCookie } from '../../../subscriptions/_dependencies/Cookies'
 import getCodeError, {
   formatEmail,
   formatPass,

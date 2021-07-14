@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { deleteQuery } from '../../../utilities/parse/queries'
 import { AuthURL } from '../../signwall/_children/forms/control_social'
 import { MsgRegister } from '../../signwall/_children/icons'
 import {
@@ -18,7 +19,6 @@ import getCodeError, {
 } from '../_dependencies/Errors'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon } from '../_dependencies/Properties'
-import { deleteQuery } from '../_dependencies/QueryString'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'

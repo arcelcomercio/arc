@@ -2,10 +2,10 @@
 
 import * as React from 'react'
 
+import { deleteQuery } from '../../../../utilities/parse/queries'
 import { MsgRegister } from '../../../signwall/_children/icons'
 import Loading from '../../../signwall/_children/loading'
 import { LogIntoAccountEventTag } from '../../_children/fb-account-linking'
-import { deleteQuery } from '../../_dependencies/QueryString'
 import { Taggeo } from '../../_dependencies/Taggeo'
 
 const styles = {

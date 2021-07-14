@@ -3,12 +3,16 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import useSentry from '../../../hooks/useSentry'
+import {
+  deleteCookie,
+  getCookie,
+  setCookie,
+} from '../../../utilities/client/cookies'
+import { getQuery } from '../../../utilities/parse/queries'
 import addScriptAsync from '../../../utilities/script-async'
 import Loading from '../../signwall/_children/loading'
 import { getOriginAPI } from '../../signwall/_dependencies/domains'
-import { deleteCookie, getCookie, setCookie } from '../_dependencies/Cookies'
 import { PropertiesCommon } from '../_dependencies/Properties'
-import { getQuery } from '../_dependencies/QueryString'
 import { isLogged } from '../_dependencies/Session'
 import { SignOrganic } from './_children/Organic'
 

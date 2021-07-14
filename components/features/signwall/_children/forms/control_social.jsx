@@ -5,9 +5,9 @@ import * as React from 'react'
 import {
   setCookie,
   setCookieDomain,
-} from '../../../subscriptions/_dependencies/Cookies'
+} from '../../../../utilities/client/cookies'
+import { getQuery } from '../../../../utilities/parse/queries'
 import getDevice from '../../../subscriptions/_dependencies/GetDevice'
-import { getQuery } from '../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
 import { getOriginAPI, getUrlECOID } from '../../_dependencies/domains'

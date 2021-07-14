@@ -3,11 +3,11 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import {
   setCookie,
   setCookieDomain,
-} from '../../../subscriptions/_dependencies/Cookies'
+} from '../../../../utilities/client/cookies'
+import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
   formatPass,

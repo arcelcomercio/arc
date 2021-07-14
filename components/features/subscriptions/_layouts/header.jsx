@@ -1,13 +1,13 @@
 import * as React from 'react'
 
+import {
+  deleteQuery,
+  // getQuery
+} from '../../../utilities/parse/queries'
 import Signwall from '../_children/Signwall'
 import { useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
-import {
-  deleteQuery,
-  // getQuery
-} from '../_dependencies/QueryString'
 import { isAuthenticated } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { checkUndefined } from '../_dependencies/Utils'
