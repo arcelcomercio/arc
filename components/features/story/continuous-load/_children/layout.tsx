@@ -2,7 +2,7 @@ import React from 'react'
 import { ArcSite } from 'types/fusion'
 
 const classes = {
-  layout: 'f just-center',
+  layout: 'f just-center pos-rel',
   contentContainer: 'st-sidebar__container f f-col w-full pos-rel',
   separator: 'w-full ',
   heading: 'w-full',
@@ -10,8 +10,10 @@ const classes = {
   main: 'st-sidebar__main',
   sidebar: 'st-sidebar__side',
   lateral: 'ad-lateral',
-  lateralL: 'ad-lateral--l',
-  lateralR: 'ad-lateral--r',
+  lateralL: 'ad-lateral--l ads-lateral-fix',
+  lateralR: 'ad-lateral--r ads-lateral-fix',
+  adcajaR: 'ads-lateralr',
+  adcajaL: 'ads-laterall',
 }
 
 const StorySidebarContinueLayout: React.FC<{
@@ -29,6 +31,7 @@ const StorySidebarContinueLayout: React.FC<{
           data-ads-load-first="true"
           data-bloque="1"
           data-prebid-enabled="true"
+          className={classes.adcajaL}
         />
       </div>
       <div className={classes.contentContainer}>
@@ -38,7 +41,7 @@ const StorySidebarContinueLayout: React.FC<{
             id={`gpt_top_${index + 1}`}
             data-ads-name={`/28253241/${arcSite}/web/post/snota/top`}
             data-ads-dimensions="[[1,1],[970,250],[970,90],[728,9]]"
-            data-ads-dimensions-m="[[320, 100],  [320, 50],  [300, 100],  [300, 50],  [1, 1]]"
+            data-ads-dimensions-m="[[320,100],[320,50],[300,100],[300,50],[1, 1]]"
             data-ads-load-first="true"
             data-bloque="1"
             data-prebid-enabled="true"
@@ -57,7 +60,7 @@ const StorySidebarContinueLayout: React.FC<{
               <div
                 id={`gpt_caja1_${index + 1}`}
                 data-ads-name={`/28253241/${arcSite}/web/post/snota/caja1`}
-                data-ads-dimensions="[[300, 50], [320, 100], [300, 600], [320, 50], [300, 250], [300, 100]]"
+                data-ads-dimensions="[[300,50],[320,100],[300,600],[320,50],[300,250],[300,100]]"
                 data-ads-dimensions-m=""
                 data-ads-load-first="true"
                 data-bloque="1"
@@ -68,7 +71,7 @@ const StorySidebarContinueLayout: React.FC<{
               <div
                 id={`gpt_caja2_${index + 1}`}
                 data-ads-name={`/28253241/${arcSite}/web/post/snota/caja2`}
-                data-ads-dimensions="[[300, 600] , [300, 250] , [320, 100], [300, 100]]"
+                data-ads-dimensions="[[300,600],[300,250],[320,100],[300,100]]"
                 data-ads-dimensions-m=""
                 data-bloque="4"
                 data-prebid-enabled="true"
@@ -81,11 +84,12 @@ const StorySidebarContinueLayout: React.FC<{
       <div className={`${classes.lateral} ${classes.lateralR}`}>
         <div
           id={`gpt_lateralr_${index + 1}`}
-          data-ads-name={`/28253241/${arcSite}/web/post/snota/laterall"`}
+          data-ads-name={`/28253241/${arcSite}/web/post/snota/lateralr"`}
           data-ads-dimensions="[[120,600],[160,600]]"
           data-ads-load-first="true"
           data-bloque="1"
           data-prebid-enabled="true"
+          className={classes.adcajaR}
         />
       </div>
     </div>
