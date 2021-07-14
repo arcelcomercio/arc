@@ -5,14 +5,16 @@ document.addEventListener('DOMContentLoaded', function() {
       window.localStorage.getItem('ArcId.USER_PROFILE') 
     )
     const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
-    document.getElementById("signwall-nav-btn").addEventListener("click", () => {
-      if (uuid) {
-        window.location.href  = '/mi-perfil/?outputType=subscriptions'
-      } else {
-        window.location.href  = '/signwall/?outputType=subscriptions'
-        // window.location.href  = '/politica/?reloginEmail=1'
-      }
-    })
+    const btnSignwall = document.getElementById("signwall-nav-btn");
+    if(btnSignwall){
+      btnSignwall.addEventListener("click", () => {
+        if (uuid) {
+          window.location.href  = '/mi-perfil/?outputType=subscriptions'
+        } else {
+          window.location.href  = '/signwall/?outputType=subscriptions'
+        }
+      })
+    }
     if (uuid) {
       const signwallButton = document.getElementById('signwall-nav-user')
       const signwallIcon = document.getElementById('signwall-nav-icon')
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 export const singwallScript =
-  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},e=n.firstName,t=void 0===e?"":e,c=n.lastName,a=void 0===c?"":c,i=n.uuid,o=void 0===i?"":i;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=o?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions"}),o){var l=document.getElementById("signwall-nav-user"),d=document.getElementById("signwall-nav-icon");if(t||a){var r="",s="";t&&a?(r="".concat(t," ").concat(a),s="".concat(t[0]||"").concat(a[0]||"")):t&&!a?(r=t,s="".concat(t[0]||"").concat(t[1]||"")):!t&&a&&(r=a,s="".concat(a[0]||"").concat(a[1]||"")),l.innerHTML=r.length>=15?"".concat(r.slice(0,15),"..."):r,d.innerHTML=s,d.className="uppercase"}else l.innerHTML="Bienvenido Usuario"}})});'
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName,t=void 0===n?"":n,i=e.lastName,o=void 0===i?"":i,s=e.uuid,a=void 0===s?"":s,n=document.getElementById("signwall-nav-btn");n&&n.addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions"}),a&&(i=document.getElementById("signwall-nav-user"),e=document.getElementById("signwall-nav-icon"),t||o?(n=s="",t&&o?(s=t+" "+o,n=""+(t[0]||"")+(o[0]||"")):t&&!o?n=""+((s=t)[0]||"")+(t[1]||""):!t&&o&&(n=""+((s=o)[0]||"")+(o[1]||"")),i.innerHTML=15<=s.length?s.slice(0,15)+"...":s,e.innerHTML=n,e.className="uppercase"):i.innerHTML="Bienvenido Usuario")})});'
 
 // export const getQueryReloginEmailScript = (_env, arcSite) => `"use strict";
 // document.addEventListener('DOMContentLoaded', function () {
@@ -232,8 +234,10 @@ export const getBtnSignScript = (
       return false;
     };
     var signBtn = document.body.querySelector('.nav__btn-sign');
-    if (signBtn) {
-      signBtn.addEventListener('click', function () {
+    var signBtnSimple = document.getElementById('signwall-btn-simple')
+    var btnSelected = signBtn || signBtnSimple
+    if (btnSelected) {
+      btnSelected.addEventListener('click', function () {
         if (checkSession()) {
           window.location.href = '${_env}' === 'prod' ? '/mi-perfil/?outputType=subscriptions' : "/mi-perfil/?_website=${arcSite}&outputType=subscriptions";
         } else {
