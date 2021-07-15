@@ -27,6 +27,11 @@ export default PropTypes.shape({
     name: 'Insertar título con código HTML',
     group: 'Configuración del título',
   }),
+  titleColor: PropTypes.string.tag({
+    name: 'Color del título',
+    group: 'Configuración del título',
+    description: 'Ejemplo: #000000',
+  }),
   design: PropTypes.oneOf(['standart', 'invested', 'custom']).tag({
     name: 'Diseño',
     labels: {

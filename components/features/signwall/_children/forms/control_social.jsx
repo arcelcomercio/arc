@@ -1,4 +1,5 @@
 import sha256 from 'crypto-js/sha256'
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import {
@@ -86,6 +87,10 @@ const setupUserProfile = (
   onStudents,
   dataTreatment
 ) => {
+  const {
+    siteProperties: { activeDataTreatment },
+  } = useAppContext() || {}
+
   window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
   window.Identity.getUserProfile()
     .then((resProfile) => {
@@ -136,14 +141,7 @@ const setupUserProfile = (
             {
               name: 'dataTreatment',
               value:
-                dataTreatment &&
-                (arcSite === 'elcomercio' ||
-                  arcSite === 'gestion' ||
-                  arcSite === 'trome' ||
-                  arcSite === 'ojo' ||
-                  arcSite === 'diariocorreo')
-                  ? dataTreatment
-                  : 'NULL',
+                dataTreatment && activeDataTreatment ? dataTreatment : 'NULL',
               type: 'String',
             },
           ],

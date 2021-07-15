@@ -1,34 +1,36 @@
 .story-table {
   border-collapse: collapse;
-  border-color: $color-gray-300;
-  border-style: solid;
-  border-width: 1px;
   margin: 20px 0;
+  font-family: $encode-c;
+  border-bottom: 4px solid #434343;
+
   &__cell {
     padding: 10px;
-    border-color: $color-gray-300;
     vertical-align: middle;
     text-align: center;
-    border-style: solid;
-    border-width: 1px;
+    border-right: 1px solid #434343;
+
+    &:last-child {
+      border-right: none;
+    }
   }
+
   thead {
-    border-bottom: 1px solid $color-gray-300;
-    background-color: $color-primary;
+    border-top: 4px solid #434343;
+    background-color: #D35B2C;
     color: $color-white;
+
     th {
-      padding: 5px;
-      border-right: 1px solid $color-gray-300;
+      padding: 10px 0;
+      border-right: 1px solid #fff;
+      font-weight: 800;
+      font-size: 20px;
+      text-align: center;
+
       &:last-child {
         border-right: 0;
       }
     }
   }
-  tbody {
-    tr {
-      &:nth-child(2n) {
-        background-color: #ebebeb;
-      }
-    }
-  }
+
 }

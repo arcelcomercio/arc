@@ -1,11 +1,43 @@
 .play-list {
-  &__title a {
-    font-weight: 700;
-    @media (--desktop) {
-      font-family: $tertiary-font;
+  display: none;
+
+  @media(--desktop) {
+    display: block;
+  }
+
+  &__item {
+    @media(--desktop) {
+      width: calc(20% - 20px);
     }
   }
+
+  &__current {
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, .8);
+    }
+  }
+
+
+  &__title,
+  &__title a {
+    font-family: $fira-s !important;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: #fff;
+  }
+
   &__name {
+    padding: 0;
+    margin-bottom: 15px;
+    font-size: 18px !important;
+    font-family: $fira-s;
     text-transform: capitalize;
   }
 }

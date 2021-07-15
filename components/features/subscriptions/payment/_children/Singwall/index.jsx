@@ -6,7 +6,11 @@ import Login from '../../../_children/login'
 import Register from '../../../_children/register'
 import { NavigateConsumer, NavigateProvider } from '../../../_context/navigate'
 import PWA from '../../../_dependencies/Pwa'
-import { PixelActions, sendAction } from '../../../_dependencies/Taggeo'
+import {
+  PixelActions,
+  sendAction,
+  TagsAdsMurai,
+} from '../../../_dependencies/Taggeo'
 import { getSessionStorage, isFbBrowser } from '../../../_dependencies/Utils'
 
 const renderTemplate = (template, contTempl, attributes) => {
@@ -46,6 +50,18 @@ const WrapperSingwall = ({ typeDialog }) => {
       suscriptorImpreso: printedSubscriber ? 'si' : 'no',
       pwa: PWA.isPWA() ? 'si' : 'no',
     })
+
+    TagsAdsMurai(
+      {
+        event: 'adsmurai_pageview',
+        em: '',
+        fn: '',
+        ln: '',
+        ct: '',
+        ph: '',
+      },
+      window.location.pathname
+    )
 
     if (fromFia || isFbBrowser) {
       // TODO: cambiar surface de 'fia' a 'IA' segun documentacion

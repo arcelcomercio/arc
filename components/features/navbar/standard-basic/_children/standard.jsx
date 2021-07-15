@@ -19,7 +19,6 @@ import {
   navBarLoaderScript,
   searchScript,
   singwallScript,
-  // getQueryReloginEmailScript,
   stickyScript,
 } from '../_dependencies/scripts'
 import Menu from './menu'
@@ -46,10 +45,8 @@ const classes = {
   logoLeft: 'header__logo-secondary',
   ads: 'nav__ads mr-5 ml-5 hidden',
   navMobileContainer: 'nav__mobile-container lg:hidden',
-  btnSubs: 'nav__btn-subs',
-  btnSign: 'nav__btn-sign',
   btnContainer: 'flex items-center justify-end header__btn-container',
-  btnSubscribe: `flex items-center btn capitalize text-md`,
+  btnSubscribe: `flex items-center btn capitalize text-md nav__btn-subs`,
   navLoaderWrapper: 'nav__loader position-absolute w-full',
   navLoader: 'nav__loader-bar  w-full h-full',
   navStoryTitle: 'nav__story-title position-relative overflow-hidden line-h-sm',
@@ -82,6 +79,8 @@ const classes = {
   menuRegion: 'nav-region',
   menuRegionL: 'nav-region__link',
   menuRegionI: 'nav-region__icon',
+
+  btnSingwall: 'header-full__btn-signwall bg-black',
 }
 
 @Consumer
@@ -186,6 +185,16 @@ class NavBarDefault extends React.PureComponent {
                   <i className={classes.iconSearch} />
                 </button>
               </form>
+
+              {activeSignwall && arcSite === SITE_DIARIOCORREO && (
+                <button
+                  type="button"
+                  id="signwall-btn-simple"
+                  className={classes.btnSingwall}>
+                  <i className="icon-user title-sm text-white" />
+                  <span className="text-md tertiary-font text-white" />
+                </button>
+              )}
             </div>
 
             {!hideMenu && (
@@ -424,11 +433,11 @@ class NavBarDefault extends React.PureComponent {
                 {activePaywall && (
                   <Button
                     btnText="Suscríbete"
-                    btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
+                    btnClass={`${classes.btnSubscribe}`}
                   />
                 )}
 
-                {activeSignwall && (
+                {activeSignwall && arcSite !== SITE_DIARIOCORREO && (
                   <button
                     aria-label="Iniciar"
                     id="signwall-nav-btn"
@@ -484,13 +493,6 @@ class NavBarDefault extends React.PureComponent {
             }${hideMenu ? '' : navBarLoaderScript}`,
           }}
         />
-
-        {/* <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: getQueryReloginEmailScript(arcEnv, arcSite),
-          }}
-        /> */}
       </>
     )
   }

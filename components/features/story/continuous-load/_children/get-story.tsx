@@ -26,7 +26,7 @@ const GetStory: React.FC<{
   deployment: (resource: string) => string | string
   setIsLoading: (value: boolean) => void
   index: number
-}> = (props) => {
+}> = props => {
   const {
     link = '',
     title = '',
@@ -52,7 +52,7 @@ const GetStory: React.FC<{
         section: '',
         includedFields: `websites.${arcSite}.website_url,headlines.basic,promo_items.basic_gallery.type,subtype,content_restrictions.content_code`,
       },
-      transform: (story) => {
+      transform: story => {
         if (story?._id) {
           if (typeof window !== 'undefined') {
             const {
@@ -70,6 +70,9 @@ const GetStory: React.FC<{
             const type = getMultimediaAnalitycs(multimediaType, subtype, true)
             const sectionList = primarySectionLink.split('/').slice(1) || []
             const premium = getPremiumValue === 'premium' && true
+
+            document.title = title
+            window.history.pushState({}, title, link)
 
             window.dataLayer = window.dataLayer || []
             window.dataLayer.push({
@@ -102,8 +105,8 @@ const GetStory: React.FC<{
   React.useEffect(() => {
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
+        entries => {
+          entries.forEach(entry => {
             if (entry.isIntersecting && window.location.pathname !== link) {
               document.title = title
               window.history.pushState({}, title, link)
