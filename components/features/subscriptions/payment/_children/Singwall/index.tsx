@@ -1,10 +1,16 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
+import { DialogType, PaywallCampaign } from 'types/subscriptions'
 
 import Forgot from '../../../_children/forgot'
 import Login from '../../../_children/login'
 import Register from '../../../_children/register'
-import { NavigateConsumer, NavigateProvider } from '../../../_context/navigate'
+import {
+  NavigateProvider,
+  NavigateTemplates,
+  useNavigateContext,
+} from '../../../_context/navigate'
 import PWA from '../../../_dependencies/Pwa'
 import {
   PixelActions,
@@ -13,22 +19,51 @@ import {
 } from '../../../_dependencies/Taggeo'
 import { getSessionStorage, isFbBrowser } from '../../../_dependencies/Utils'
 
-const renderTemplate = (template, contTempl, attributes) => {
-  const templates = {
-    login: <Login {...{ contTempl, ...attributes }} />,
-    register: <Register {...{ ...attributes }} />,
-    forgot: <Forgot {...{ ...attributes }} />,
+type NavigateTemplatesProps = {
+  typeDialog: DialogType
+  arcSite: ArcSite
+  handleCallToAction?: (e: boolean) => void
+  isFia?: boolean
+}
+
+const renderTemplate = (
+  template: NavigateTemplates,
+  contTempl: string,
+  attributes: NavigateTemplatesProps
+) => {
+  const { typeDialog, arcSite, handleCallToAction, isFia } = attributes
+  const templates: Record<NavigateTemplates, JSX.Element> = {
+    login: (
+      <Login
+        contTempl={contTempl}
+        arcSite={arcSite}
+        handleCallToAction={handleCallToAction}
+        isFia={isFia}
+        typeDialog={typeDialog}
+      />
+    ),
+    register: (
+      <Register
+        arcSite={arcSite}
+        handleCallToAction={handleCallToAction}
+        isFia={isFia}
+        typeDialog={typeDialog}
+      />
+    ),
+    forgot: <Forgot typeDialog={typeDialog} />,
   }
   return templates[template] || templates.login
 }
 
-const WrapperSingwall = ({ typeDialog }) => {
+const WrapperSingwall = ({
+  typeDialog,
+}: Pick<NavigateTemplatesProps, 'typeDialog'>): JSX.Element => {
   const {
     arcSite,
-    globalContent: { plans = [], printedSubscriber, fromFia },
-  } = useAppContext() || {}
+    globalContent: { plans = [], printedSubscriber, fromFia } = {},
+  } = useAppContext<PaywallCampaign>()
 
-  const { selectedTemplate, valueTemplate } = React.useContext(NavigateConsumer)
+  const { selectedTemplate, valueTemplate } = useNavigateContext()
 
   React.useEffect(() => {
     window.dataLayer = window.dataLayer || []
@@ -82,14 +117,13 @@ const WrapperSingwall = ({ typeDialog }) => {
     window.fbq('track', 'Lead')
   }, [])
 
-  return (
-    <>
-      {renderTemplate(selectedTemplate, valueTemplate, { arcSite, typeDialog })}
-    </>
-  )
+  return renderTemplate(selectedTemplate, valueTemplate, {
+    arcSite,
+    typeDialog,
+  })
 }
 
-const Singwall = () => (
+const Singwall = (): JSX.Element => (
   <NavigateProvider>
     <WrapperSingwall typeDialog="landing" />
   </NavigateProvider>

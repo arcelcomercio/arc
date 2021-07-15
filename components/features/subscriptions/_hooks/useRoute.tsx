@@ -1,22 +1,23 @@
-import { createBrowserHistory } from 'history'
+import { BrowserHistory, createBrowserHistory } from 'history'
 import * as React from 'react'
 
-import { AuthContext } from '../_context/auth'
+import { useAuthContext } from '../_context/auth'
 
-/**
- * @typedef {'winback'} Source
- */
+let history: BrowserHistory
 
-let history = {}
+type Source = string
+type UseRouteValue = {
+  history: typeof history
+}
 
 /**
  * Esta funcion se encarga de ejecutar lo necesario
  * para que GA reciba el evento de pagina vista (page_view)
- * @param {string} path URL de pagina a registrar como page_view
+ * @param path URL de pagina a registrar como page_view
  *
  * @see [medicion de aplicaciones SPA](https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications)
  */
-const setPageView = (path) => {
+const setPageView = (path: string): void => {
   console.log('registra nueva pagina vista ->', path)
 }
 
@@ -25,10 +26,10 @@ const setPageView = (path) => {
  * a la ruta ROOT dependiendo del origen o evento de la suscripcion,
  * ej. Si el evento es winback, se espera que la ruta ROOT
  * sea `/suscripcionesdigitales/eventos/winback/`
- * @param {Source} source Origen o evento de suscripcion
- * @returns {string} Sufijo para agregar a la ruta ROOT
+ * @param source Origen o evento de suscripcion
+ * @returns Sufijo para agregar a la ruta ROOT
  */
-const getPathSuffix = (source) => {
+const getPathSuffix = (source: Source) => {
   let suffix = ''
   switch (source) {
     case 'winback':
@@ -44,22 +45,22 @@ const getPathSuffix = (source) => {
  * Este hook esta hecho para manejar las rutas virtuales
  * de suscripciones digitales. Para que funcione, debe ser
  * invocado en un componente que cuente con el `AuthProvider`,
- * porque este hook usa el `AuthContext` para determinar
+ * porque este hook usa el `useAuthContext` para determinar
  * el paso en el que se encuentra el usuario y asi manejar la
  * ruta adecuada.
- * @param {Source} source Origen o evento de suscripcion
- * @returns {object} [history](https://github.com/ReactTraining/history/)
+ * @param source Origen o evento de suscripcion
+ * @returns [history](https://github.com/ReactTraining/history/)
  *
  * @see [documentacion de **history**](https://github.com/ReactTraining/history/blob/master/docs/getting-started.md)
  */
-const useRoute = (source) => {
+const useRoute = (source: Source): UseRouteValue => {
   const ROOT = `/suscripcionesdigitales/${getPathSuffix(source)}`
   const PROFILE = `${ROOT}perfil/`
   const PAYMENT = `${ROOT}pago/`
   const CONFIRMATION = `${ROOT}confirmacion/`
   const CIP = `${ROOT}cip/`
 
-  const { userLoaded, userStep, updateStep } = React.useContext(AuthContext)
+  const { userLoaded, userStep, updateStep } = useAuthContext()
 
   React.useEffect(() => {
     history = createBrowserHistory()
@@ -108,7 +109,7 @@ const useRoute = (source) => {
   React.useEffect(() => {
     const { location: loc } = history
 
-    const pushPath = (path) => {
+    const pushPath = (path: string) => {
       const { pathname, search = '' } = loc || {}
       if (pathname) {
         if (pathname !== path) {

@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import Loading from '../../../../signwall/_children/loading'
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
   PropertiesSite,
@@ -39,7 +39,7 @@ const Confirmation = () => {
     userPlan,
     userProfile,
     userPeOption,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
 
   const {
     uuid,

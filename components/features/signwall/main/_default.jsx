@@ -2,8 +2,8 @@ import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
-import { getCookie, setCookie } from '../../subscriptions/_dependencies/Cookies'
-import { getQuery } from '../../subscriptions/_dependencies/QueryString'
+import { getCookie, setCookie } from '../../../utilities/client/cookies'
+import { getQuery } from '../../../utilities/parse/queries'
 import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
 import {
   getOriginAPI,

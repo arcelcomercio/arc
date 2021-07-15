@@ -2,14 +2,17 @@ import * as Sentry from '@sentry/browser'
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 
+import {
+  deleteCookie,
+  deleteCookieDomain,
+} from '../../../utilities/client/cookies'
 import addScriptAsync from '../../../utilities/script-async'
 import Loading from '../../signwall/_children/loading'
 import Forgot from '../_children/forgot'
 import Login from '../_children/login'
 import Register from '../_children/register'
 import { AuthProvider } from '../_context/auth'
-import { NavigateConsumer, NavigateProvider } from '../_context/navigate'
-import { deleteCookie, deleteCookieDomain } from '../_dependencies/Cookies'
+import { NavigateProvider, useNavigateContext } from '../_context/navigate'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { Container, PanelLeft, Wrapper } from '../_layouts/containers'
 import CallToActionFia from './_children/call_to_action'
@@ -33,7 +36,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
     arcSite,
   } = useFusionContext() || {}
 
-  const { selectedTemplate, valueTemplate } = React.useContext(NavigateConsumer)
+  const { selectedTemplate, valueTemplate } = useNavigateContext()
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const [isLogged, setLogged] = React.useState(false)

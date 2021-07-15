@@ -6,7 +6,7 @@ import {
   deleteCookie,
   getCookie,
   setCookieSession,
-} from '../../../subscriptions/_dependencies/Cookies'
+} from '../../../../utilities/client/cookies'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI } from '../../_dependencies/domains'
 import { checkCodeStudents, checkStudents } from '../../_dependencies/services'

@@ -1,12 +1,26 @@
 import * as Sentry from '@sentry/browser'
 import * as React from 'react'
 import Markdown from 'react-markdown/with-html'
+import { ArcSite } from 'types/fusion'
+import { PaywallHomeCampaign } from 'types/subscriptions'
 
 import { isStorageAvailable } from '../../../../utilities/client/storage'
 import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
 import { PixelActions, sendAction, Taggeo } from '../../_dependencies/Taggeo'
 
-function Cards({ item, arcSite, order, textOffer }) {
+type LandingCardsProps = {
+  item: PaywallHomeCampaign
+  arcSite: ArcSite
+  order: number
+  textOffer: string
+}
+
+const Cards: React.FC<LandingCardsProps> = ({
+  item,
+  arcSite,
+  order,
+  textOffer,
+}) => {
   const itemGrid = ['one', 'two', 'three']
   const [loading, setLoading] = React.useState(false)
 
@@ -25,7 +39,7 @@ function Cards({ item, arcSite, order, textOffer }) {
 
   const image = `https://cdna.${arcSite}.pe/resources/dist/${arcSite}/images/landing/plan_${itemGrid[order]}`
 
-  const handleSuscribirme = (paramUrl, paramSku) => {
+  const handleSuscribirme = (paramUrl: string, paramSku: string) => {
     setLoading(true)
 
     if (isStorageAvailable('sessionStorage')) {
@@ -33,12 +47,12 @@ function Cards({ item, arcSite, order, textOffer }) {
         const { pathname } = new URL(window.location.href)
         window.sessionStorage.setItem('paywall_last_url', pathname)
         window.sessionStorage.setItem('paywall_type_modal', 'landing')
-      } catch (err) {
+      } catch (error) {
         Sentry.captureEvent({
           message:
             'Ha ocurrido un error al almacenar la última URL visitada en sessionStorage',
-          level: 'error',
-          extra: err || {},
+          level: Sentry.Severity.Error,
+          extra: error || {},
         })
       }
     }
@@ -87,8 +101,7 @@ function Cards({ item, arcSite, order, textOffer }) {
           <source type="image/webp" srcSet={`${image}.webp`} />
           <img
             className="planes__content-picture"
-            importance="high"
-            type="image/png"
+            loading="eager"
             src={`${image}.png`}
             alt={title}
           />

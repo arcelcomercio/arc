@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { AuthContext } from '../_context/auth'
+import { useAuthContext } from '../_context/auth'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
@@ -22,7 +22,7 @@ const ButtonSocial = ({
 }) => {
   const [loading, setLoading] = React.useState(false)
   const [loadText, setLoadText] = React.useState('Cargando...')
-  const { activateAuth, updateStep } = React.useContext(AuthContext)
+  const { activateAuth, updateStep } = useAuthContext()
   const { urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
 

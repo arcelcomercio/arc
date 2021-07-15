@@ -66,8 +66,8 @@ SubscribeEventTag.propTypes = {
 
 export const LogIntoAccountEventTag = ({
   subscriptionId,
-  debug,
-  onBeforeSend,
+  debug = false,
+  onBeforeSend = (content) => content,
 }) => {
   const { arcSite } = useAppContext() || {}
   const { urls } = PropertiesSite[arcSite]

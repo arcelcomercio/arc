@@ -4,7 +4,7 @@ import * as React from 'react'
 import TextMask from 'react-text-mask'
 
 import Modal from '../../../_children/modal'
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import getCodeError, {
   formatEmail,
   formatNames,
@@ -54,7 +54,7 @@ const nameTagCategory = 'Web_Paywall_Landing'
 const Profile = () => {
   const {
     arcSite,
-    globalContent: { plans = [], error, printedSubscriber, event },
+    globalContent: { plans = [], error, subscriber, printedSubscriber, event },
   } = useAppContext() || {}
 
   const {
@@ -65,7 +65,7 @@ const Profile = () => {
     updateErrorApi,
     userPlan,
     userPeriod,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
 
   const { urls, emails } = PropertiesSite[arcSite]
   const { texts, links } = PropertiesCommon
@@ -175,7 +175,7 @@ const Profile = () => {
       )
     }
 
-    if (userErrorApi !== false) updateErrorApi(error)
+    if (userErrorApi !== null) updateErrorApi(error)
   }, [])
 
   const stateSchema = {
@@ -184,14 +184,12 @@ const Profile = () => {
     uSecondLastName: { value: checkUndefined(secondLastName) || '', error: '' },
     uDocumentType: {
       value:
-        (printedSubscriber && printedSubscriber.documentType) ||
-        documentType ||
-        'DNI',
+        (printedSubscriber && subscriber.documentType) || documentType || 'DNI',
       error: '',
     },
     uDocumentNumber: {
       value:
-        (printedSubscriber && printedSubscriber.documentNumber) ||
+        (printedSubscriber && subscriber.documentNumber) ||
         checkUndefined(documentNumber) ||
         '',
       error: '',
@@ -496,7 +494,7 @@ const Profile = () => {
         return
       }
 
-      updateErrorApi(false)
+      updateErrorApi(null)
       setLoading(true)
       if (isLogged()) {
         setLoadText('Verificando Suscripciones...')
@@ -597,7 +595,7 @@ const Profile = () => {
           }
         }
         setMsgError(false)
-        updateErrorApi(false)
+        updateErrorApi(null)
         setValNumDocument(false)
         handleOnChange(e)
       } else {

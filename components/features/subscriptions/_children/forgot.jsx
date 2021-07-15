@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { MsgForgotPass } from '../../signwall/_children/icons'
-import { NavigateConsumer } from '../_context/navigate'
+import { useNavigateContext } from '../_context/navigate'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
@@ -18,7 +18,7 @@ const styles = {
 }
 
 const Forgot = ({ typeDialog }) => {
-  const { changeTemplate } = React.useContext(NavigateConsumer)
+  const { changeTemplate } = useNavigateContext()
   const [loading, setLoading] = React.useState(false)
   const [msgError, setMsgError] = React.useState(false)
   const [showConfirm, setShowConfirm] = React.useState(false)

@@ -9,7 +9,7 @@ import * as React from 'react'
 import TextMask from 'react-text-mask'
 
 import { isProd } from '../../../utilities/arc/env'
-import { AuthContext } from '../_context/auth'
+import { useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { docPatterns, maskDocuments } from '../_dependencies/Regex'
@@ -30,8 +30,8 @@ export const FooterSubs = () => {
     userLoaded,
     userStep,
     updateLoading,
-    userDataPlan,
-  } = React.useContext(AuthContext)
+    userDataPlan: { billingFrequency, amount: billingAmount } = {},
+  } = useAuthContext()
   const [loading, setLoading] = React.useState(false)
   const [showDocOption, setShowDocOption] = React.useState('DNI')
   const { urls, texts } = PropertiesCommon
@@ -186,7 +186,8 @@ export const FooterSubs = () => {
                           guide={false}
                           type="text"
                           name="vDocumentNumber"
-                          maxLength={vDocumentType === 'DNI' ? '8' : '15'}
+                          maxLength={vDocumentType === 'DNI' ? 8 : 15}
+                          minLength={vDocumentType === 'DNI' ? 8 : 5}
                           required
                           value={vDocumentNumber}
                           onBlur={handleOnChange}
@@ -225,13 +226,13 @@ export const FooterSubs = () => {
             <h5 className="name-item">
               {planName}
               <span className="period-item">
-                {' - '} {period[userDataPlan.billingFrequency]}
+                {' - '} {billingFrequency ? period[billingFrequency] : ''}
               </span>
             </h5>
           </div>
           <div>
             <span className="price-item">
-              {getPlanAmount(userDataPlan.amount)}
+              {billingAmount ? getPlanAmount(billingAmount) : ''}
             </span>
             <i className={styles.iconUp} />
           </div>
@@ -241,7 +242,7 @@ export const FooterSubs = () => {
   )
 }
 
-export const FooterLand = ({ arcType, btnOnTop }) => {
+export const FooterLand = ({ arcType, btnOnTop = false }) => {
   const { arcSite } = useAppContext() || {}
   const { urls, texts } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon

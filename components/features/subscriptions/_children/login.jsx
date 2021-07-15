@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { deleteQuery } from '../../../utilities/parse/queries'
 import { AuthURL } from '../../signwall/_children/forms/control_social'
 import {
   dataTreatment,
   PolicyPrivacy,
 } from '../../signwall/_dependencies/domains'
-import { AuthContext } from '../_context/auth'
-import { NavigateConsumer } from '../_context/navigate'
+import { useAuthContext } from '../_context/auth'
+import { useNavigateContext } from '../_context/navigate'
 import getCodeError, { formatEmail, formatPass } from '../_dependencies/Errors'
 import { PropertiesCommon } from '../_dependencies/Properties'
-import { deleteQuery } from '../_dependencies/QueryString'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
@@ -37,8 +37,8 @@ const Login = ({
   isFia,
   typeDialog,
 }) => {
-  const { changeTemplate } = React.useContext(NavigateConsumer)
-  const { activateAuth, updateStep } = React.useContext(AuthContext)
+  const { changeTemplate } = useNavigateContext()
+  const { activateAuth, updateStep } = useAuthContext()
   const [loading, setLoading] = React.useState()
   const [msgError, setMsgError] = React.useState()
   const [showVerify, setShowVerify] = React.useState()

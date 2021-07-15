@@ -7,7 +7,7 @@ import TextMask from 'react-text-mask'
 
 // import { isSandbox } from '../../../../../utilities/arc/env'
 import addScriptAsync from '../../../../../utilities/script-async'
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import getCodeError, {
   acceptCheckTermsPay,
 } from '../../../_dependencies/Errors'
@@ -62,7 +62,7 @@ const Pay = () => {
     updateLoadPage,
     updateMethodPay,
     updatePeOption,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
   const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 

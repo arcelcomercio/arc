@@ -1,20 +1,28 @@
 import * as React from 'react'
 
-const Singwall = React.lazy(() =>
-  import(/* webpackChunkName: 'Signwall' */ '../Singwall')
+const Singwall = React.lazy(
+  () => import(/* webpackChunkName: 'Signwall' */ '../Singwall')
 )
-const Profile = React.lazy(() =>
-  import(/* webpackChunkName: 'Profile' */ '../Profile')
+const Profile = React.lazy(
+  () => import(/* webpackChunkName: 'Profile' */ '../Profile')
 )
 const Pay = React.lazy(() => import(/* webpackChunkName: 'Pay' */ '../Pay'))
-const Confirmation = React.lazy(() =>
-  import(/* webpackChunkName: 'Confirmation' */ '../Confirmation')
+const Confirmation = React.lazy(
+  () => import(/* webpackChunkName: 'Confirmation' */ '../Confirmation')
 )
-const PagoEfectivo = React.lazy(() =>
-  import(/* webpackChunkName: 'PagoEfectivo' */ '../PagoEfectivo')
+const PagoEfectivo = React.lazy(
+  () => import(/* webpackChunkName: 'PagoEfectivo' */ '../PagoEfectivo')
 )
 
-const PaymentSubscriptionsSteps = ({ step, userLoaded }) => {
+type PaymentSubscriptionsStepsProps = {
+  step: number
+  userLoaded: boolean
+}
+
+const PaymentSubscriptionsSteps: React.FC<PaymentSubscriptionsStepsProps> = ({
+  step,
+  userLoaded,
+}) => {
   if (typeof window === 'undefined') return null
 
   switch (step) {

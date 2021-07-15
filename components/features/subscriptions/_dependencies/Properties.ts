@@ -307,6 +307,9 @@ const PropertiesSite = {
       parrafTwo:          'que marcan el rumbo económico del país.',
       help:               '¿Necesitas ayuda?',
       offer:              '¡Recomendado!',
+      bannerTitle:        '',
+      bannerText:         '',
+      bannerButton:       '',
       footerEnd:          'Paquetes que incluyen diario impreso, disponibles sólo para Lima.',
       bannerNew:          '¡Nuevo!',
       uniTitle:           'Plan Universitario',
@@ -316,6 +319,9 @@ const PropertiesSite = {
       helpTitle:          '¿Necesitas ayuda o tienes dudas?',
       helpSubstitle:      'Comunícate con nosotros',
       helpDescription:    'Consulta nuestra sección de',
+      videoTitle:         '',
+      videoSubtitle:      '',
+      videoDescription:   '',
       backSite:           'Volver a Gestión',
     },
 
@@ -611,12 +617,12 @@ const PropertiesSite = {
 const PropertiesCommon = {
   // prettier-ignore
   urls: {
-    ecoID:            `https://${isProd ? '' : 'pre.'}ecoid.pe`,
-    newsLetters:      `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
-    paymentTracker:   `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
-    subsDniToken:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-    sentrySubs:       'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
-    sentrySign:       'https://d78c55937db946dabdf2de8c488358ed@sentry.ec.pe/71',
+    ecoID:          `https://${isProd ? '' : 'pre.'}ecoid.pe`,
+    newsLetters:    `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
+    paymentTracker: `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
+    subsDniToken:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
+    sentrySubs:     'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    sentrySign:     'https://d78c55937db946dabdf2de8c488358ed@sentry.ec.pe/71',
     companyEmail:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
     tokenPayEfectivo: `https://${isProd ? '' : 'pre1a.'}services.pagoefectivo.pe/v1/authorizations`,
     cipPayEfectivo:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`

@@ -1,7 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
   PropertiesSite,
@@ -41,7 +41,7 @@ const Summary = () => {
     updatePlan,
     updatePeriod,
     updateDataPlan,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
 
   const [checkPlan, setCheckPlan] = React.useState()
   const [totalPlan, setTotalPlan] = React.useState()
@@ -58,10 +58,8 @@ const Summary = () => {
   }
 
   React.useEffect(() => {
-    const getPLanSelected = plans.reduce(
-      (prev, plan) => (plan.description.checked ? plan : prev),
-      null
-    )
+    const getPLanSelected = plans.find((plan) => plan.description.checked)
+
     const OrderForce = plans.sort((a, b) => b.amount - a.amount)
     const { priceCode, sku, amount, billingFrequency, description } =
       getPLanSelected || {}

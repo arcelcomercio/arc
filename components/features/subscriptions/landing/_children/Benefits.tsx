@@ -1,9 +1,15 @@
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
+import { SubsArcSite } from 'types/subscriptions'
 
 import { PropertiesSite } from '../../_dependencies/Properties'
 
-const BenefitsLanding = ({ arcSite }) => {
-  const { benefits = [] } = PropertiesSite[arcSite]
+type BenefitsLandingProps = {
+  arcSite: ArcSite
+}
+
+const BenefitsLanding: React.FC<BenefitsLandingProps> = ({ arcSite }) => {
+  const { benefits = [] } = PropertiesSite[arcSite as SubsArcSite]
 
   return (
     <section className="beneficios" id="beneficios">
@@ -39,11 +45,9 @@ const BenefitsLanding = ({ arcSite }) => {
                           srcSet={`${item.image}.webp`}
                         />
                         <img
-                          type="image/png"
                           src={`${item.image}.png`}
                           alt={item.title}
                           loading="lazy"
-                          importance="low"
                           decoding="async"
                         />
                       </picture>
@@ -63,10 +67,8 @@ const BenefitsLanding = ({ arcSite }) => {
                 <img
                   id={`picture--tab--${i + 1}`}
                   className={`picture ${i + 1 === 1 ? 'move' : ''}`}
-                  type="image/png"
                   src={`${item.image}.png`}
                   alt={item.title}
-                  importance="low"
                   decoding="async"
                 />
               </picture>

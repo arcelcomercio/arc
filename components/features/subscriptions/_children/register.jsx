@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { deleteQuery } from '../../../utilities/parse/queries'
 import { AuthURL } from '../../signwall/_children/forms/control_social'
 import { MsgRegister } from '../../signwall/_children/icons'
 import {
@@ -8,8 +9,8 @@ import {
   PolicyPrivacy,
   TermsConditions,
 } from '../../signwall/_dependencies/domains'
-import { AuthContext } from '../_context/auth'
-import { NavigateConsumer } from '../_context/navigate'
+import { useAuthContext } from '../_context/auth'
+import { useNavigateContext } from '../_context/navigate'
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
@@ -18,7 +19,6 @@ import getCodeError, {
 } from '../_dependencies/Errors'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon } from '../_dependencies/Properties'
-import { deleteQuery } from '../_dependencies/QueryString'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
@@ -41,8 +41,8 @@ const styles = {
 }
 
 const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
-  const { activateAuth, updateStep } = React.useContext(AuthContext)
-  const { changeTemplate } = React.useContext(NavigateConsumer)
+  const { activateAuth, updateStep } = useAuthContext()
+  const { changeTemplate } = useNavigateContext()
   const [loading, setLoading] = React.useState()
   const [loadText, setLoadText] = React.useState('Cargando...')
   const [msgError, setMsgError] = React.useState()

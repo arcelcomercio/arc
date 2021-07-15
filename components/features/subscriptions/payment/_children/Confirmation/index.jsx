@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
   PropertiesSite,
@@ -57,6 +57,7 @@ const Confirmation = () => {
       name: namePlanApi,
       plans = [],
       freeAccess,
+      subscriber,
       fromFia,
       printedSubscriber,
       event,
@@ -69,7 +70,7 @@ const Confirmation = () => {
     userPeriod,
     userPlan,
     userProfile,
-  } = React.useContext(AuthContext)
+  } = useAuthContext()
 
   const { phone, province } = conformProfile(userProfile || {})
   const { texts } = PropertiesCommon
@@ -333,7 +334,7 @@ const Confirmation = () => {
           <p className="title">Nombre</p>
           <p className="description">
             {freeAccess
-              ? `${freeAccess.firstName} ${freeAccess.lastName}`
+              ? `${subscriber.firstName} ${subscriber.lastName}`
               : getFullNameFormat(firstName, lastName, secondLastName)}
           </p>
 
