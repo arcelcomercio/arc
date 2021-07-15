@@ -1,10 +1,11 @@
 const depor = {
   footer: {
     siteLegal: [
-      'Empresa Editora Depor',
-      'Jr. Jorge Salazar Araoz. Nro. 171 Urb. Santa Catalina, La Victoria, Lima',
-      'Copyright © Depor.pe',
-      'Grupo Depor - Todos los derechos reservados',
+      'Grupo El Comercio S.A.',
+      'Jr. Jorge Salazar Araoz. Nro. 171',
+      'Urb. Santa Catalina, La Victoria, Lima - Perú',
+      'Copyright© Depor.pe - Grupo El Comercio',
+      'Todos los derechos reservados',
     ],
     contacts: [
       {
@@ -468,8 +469,6 @@ const sites = {
   trome,
 }
 
-const getFooterProperties = arcSite => {
-  return { ...sites[arcSite] }
-}
+const getFooterProperties = (arcSite) => ({ ...sites[arcSite] })
 
 export default getFooterProperties
