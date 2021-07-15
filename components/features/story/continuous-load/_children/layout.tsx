@@ -41,7 +41,7 @@ const StorySidebarContinueLayout: React.FC<{
             id={`gpt_top_${index + 1}`}
             data-ads-name={`/28253241/${arcSite}/web/post/snota/top`}
             data-ads-dimensions="[[1,1],[970,250],[970,90],[728,9]]"
-            data-ads-dimensions-m="[[320, 100],  [320, 50],  [300, 100],  [300, 50],  [1, 1]]"
+            data-ads-dimensions-m="[[320,100],[320,50],[300,100],[300,50],[1, 1]]"
             data-ads-load-first="true"
             data-bloque="1"
             data-prebid-enabled="true"
@@ -60,7 +60,7 @@ const StorySidebarContinueLayout: React.FC<{
               <div
                 id={`gpt_caja1_${index + 1}`}
                 data-ads-name={`/28253241/${arcSite}/web/post/snota/caja1`}
-                data-ads-dimensions="[[300, 50], [320, 100], [300, 600], [320, 50], [300, 250], [300, 100]]"
+                data-ads-dimensions="[[300,50],[320,100],[300,600],[320,50],[300,250],[300,100]]"
                 data-ads-dimensions-m=""
                 data-ads-load-first="true"
                 data-bloque="1"
@@ -71,7 +71,7 @@ const StorySidebarContinueLayout: React.FC<{
               <div
                 id={`gpt_caja2_${index + 1}`}
                 data-ads-name={`/28253241/${arcSite}/web/post/snota/caja2`}
-                data-ads-dimensions="[[300, 600] , [300, 250] , [320, 100], [300, 100]]"
+                data-ads-dimensions="[[300,600],[300,250],[320,100],[300,100]]"
                 data-ads-dimensions-m=""
                 data-bloque="4"
                 data-prebid-enabled="true"

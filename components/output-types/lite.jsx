@@ -140,6 +140,7 @@ const LiteOutput = ({
     siteName: siteProperties.siteName,
     pageNumber,
     requestUri,
+    isStory,
   })
 
   const keywords = getKeywords({ metaValue, siteName: siteProperties.siteName })
@@ -758,7 +759,6 @@ const LiteOutput = ({
           }}
         />
         <script
-          async
           src={`${getAssetsPath(
             arcSite,
             contextPath

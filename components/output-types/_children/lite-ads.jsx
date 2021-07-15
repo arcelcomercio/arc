@@ -369,9 +369,13 @@ const LiteAds = ({
   const tiponota = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
   return (
     <>
-      {arcSite === 'depor' && (section === 'futbol-internacional' || section === 'futbol-peruano') ? (
+      {arcSite === 'depor' &&
+      (section === 'futbol-internacional' || section === 'futbol-peruano') ? (
         <>
-          {!(arcSite === 'depor' && (section === 'futbol-internacional' || section === 'off-side')) ? (
+          {!(
+            arcSite === 'depor' &&
+            (section === 'futbol-internacional' || section === 'off-side')
+          ) ? (
             <>
               <script
                 async
@@ -383,7 +387,7 @@ const LiteAds = ({
           {/* pro: d2dvq461rdwooi | dev: d37z8six7qdyn4 */}
           <script
             defer
-            src={`https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
+            src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
               /-/gm,
               ''
             )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}></script>
@@ -413,20 +417,26 @@ const LiteAds = ({
           arcSite === 'depor' ||
           arcSite === 'ojo' ? (
             <>
-              {arcSite !== 'elcomerciomag' && !(arcSite === 'depor' && (section === 'futbol-internacional' || section === 'off-side')) && !(arcSite === 'trome' && section === 'deportes') ? (
+              {arcSite !== 'elcomerciomag' &&
+              !(
+                arcSite === 'depor' &&
+                (section === 'futbol-internacional' || section === 'off-side')
+              ) &&
+              !(arcSite === 'trome' && section === 'deportes') ? (
                 <script
                   async
                   src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
                     .toISOString()
                     .slice(0, 10)}`}></script>
               ) : null}
-              {/* pro: d2dvq461rdwooi | dev: d37z8six7qdyn4 */}
               <script
                 defer
-                src={`https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
+                src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
                   /-/gm,
                   ''
-                )}/spaces.js?${new Date().toISOString().slice(0, 10)}`}></script>
+                )}/spaces.js?${new Date()
+                  .toISOString()
+                  .slice(0, 10)}`}></script>
               <script
                 defer
                 src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()

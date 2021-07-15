@@ -195,7 +195,7 @@ const rederStory: React.FC<{
     const subSection = sectionList[1]
       ? sectionList[1]?.replace(/-/gm, '')
       : sectionClean
-    const linkSpaceUrl = `https://d37z8six7qdyn4.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${noteId}&date=${new Date()
+    const linkSpaceUrl = `https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${noteId}&date=${new Date()
       .toISOString()
       .slice(0, 10)}`
     try {
