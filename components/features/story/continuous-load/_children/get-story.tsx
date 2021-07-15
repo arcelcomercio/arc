@@ -80,7 +80,7 @@ const GetStory: React.FC<{
               url_path: `${link}?ref=nota&ft=cargacontinua&nota=${index + 1}`,
               seccion: sectionList[0] || 'sin-definir',
               subseccion: sectionList[1] || 'sin-definir',
-              url_title: title,
+              // url_title: title,
               tipo_nota: type,
               id_nota: id,
               tag1: tags[0]?.slug || 'sin-definir',
