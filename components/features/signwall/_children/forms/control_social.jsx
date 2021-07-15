@@ -2,10 +2,7 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import {
-  setCookie,
-  setCookieDomain,
-} from '../../../../utilities/client/cookies'
+import { setCookie } from '../../../../utilities/client/cookies'
 import { getQuery } from '../../../../utilities/parse/queries'
 import getDevice from '../../../subscriptions/_dependencies/GetDevice'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
@@ -34,7 +31,7 @@ const AfterLoginRegister = (
   typeDialog,
   typeForm,
   provider,
-  arcSite,
+  siteDomain,
   onLogged,
   resProfile,
   checkUserSubs,
@@ -47,7 +44,7 @@ const AfterLoginRegister = (
   )
   setCookie('arc_e_id', sha256(emailUser).toString(), 365)
   const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-  setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+  setCookie('ArcId.USER_INFO', USER_IDENTITY, 1, siteDomain)
 
   onLogged(resProfile)
 
@@ -88,7 +85,7 @@ const setupUserProfile = (
   dataTreatment
 ) => {
   const {
-    siteProperties: { activeDataTreatment },
+    siteProperties: { activeDataTreatment, siteDomain },
   } = useAppContext() || {}
 
   window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
@@ -167,7 +164,7 @@ const setupUserProfile = (
                     typeDialog,
                     typeForm,
                     provider,
-                    arcSite,
+                    siteDomain,
                     onLogged,
                     resProfile,
                     checkUserSubs,
@@ -184,7 +181,7 @@ const setupUserProfile = (
                 typeDialog,
                 typeForm,
                 provider,
-                arcSite,
+                siteDomain,
                 onLogged,
                 resProfile,
                 checkUserSubs,
@@ -202,7 +199,7 @@ const setupUserProfile = (
           typeDialog,
           typeForm,
           provider,
-          arcSite,
+          siteDomain,
           onLogged,
           resProfile,
           checkUserSubs,

@@ -16,7 +16,7 @@ type SubscriptionsFooterProps = {
 const SubscriptionsFooter: FC<SubscriptionsFooterProps> = (props) => {
   const { customFields: { type = 'landing' } = {} } = props
 
-  const { arcSite } = useAppContext() || {}
+  const { arcSite } = useAppContext()
   const { urls, texts } = PropertiesSite[arcSite as SubsArcSite]
   const { links } = PropertiesCommon
 

@@ -10,9 +10,12 @@ import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 import { deleteQuery, getQuery } from '../../../utilities/parse/queries'
+import {
+  getUsername,
+  isLoggedIn,
+} from '../../../utilities/subscriptions/identity'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
-import { getUserName } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
@@ -55,6 +58,7 @@ const Component: FC<PagesSubscriptionsProps> = (props) => {
   )
   const [showCallin, setShowCallin] = React.useState(false)
   const [showModalCall, setShowModalCall] = React.useState(false)
+  const signwallButton = React.useRef<HTMLButtonElement>(null)
 
   const { urls } = PropertiesSite[arcSite as SubsArcSite]
   const { links, urls: urlCommon } = PropertiesCommon
@@ -70,19 +74,19 @@ const Component: FC<PagesSubscriptionsProps> = (props) => {
   }, [])
 
   const handleSignwall = async () => {
-    const isLoggedIn = await Identity.isLoggedIn()
+    const isLogged = await isLoggedIn()
 
     Taggeo(
       'Web_Sign_Wall_Suscripciones',
-      `web_link_ingresar_${isLoggedIn ? 'perfil' : 'cuenta'}`
+      `web_link_ingresar_${isLogged ? 'perfil' : 'cuenta'}`
     )
 
-    if (isLoggedIn) {
+    if (isLogged) {
       window.location.href = links.profile
     } else {
       setShowSignwall(!showSignwall)
-      const signwallButton = document.getElementById('btn-signwall')
-      if (signwallButton) signwallButton.innerHTML = 'Inicia sesión'
+      if (signwallButton?.current)
+        signwallButton.current.innerHTML = 'Inicia sesión'
 
       try {
         Identity.clearSession()
@@ -97,27 +101,9 @@ const Component: FC<PagesSubscriptionsProps> = (props) => {
     }
   }
 
-  const handleAfterLogged = () => {
+  const handleAfterLogged = async () => {
     if (typeof window !== 'undefined') {
-      let userfirstName = ''
-      let userlastName = ''
-
-      try {
-        const { firstName, lastName } = Identity.userProfile || {}
-        if (firstName && lastName) {
-          userfirstName = firstName
-          userlastName = lastName
-        }
-      } catch (error) {
-        Sentry.captureEvent({
-          message:
-            'Error intentar al obtener firstName y lastName desde Identity.userProfile',
-          level: Sentry.Severity.Error,
-          extra: error || {},
-        })
-      }
-
-      setProfileButtonText(getUserName(userfirstName, userlastName))
+      setProfileButtonText(await getUsername())
       setShowSignwall(false)
       deleteQuery('signLanding')
       deleteQuery('dataTreatment')
@@ -170,6 +156,7 @@ const Component: FC<PagesSubscriptionsProps> = (props) => {
                 <button
                   className="header__content-button"
                   type="button"
+                  ref={signwallButton}
                   id="btn-signwall"
                   onClick={handleSignwall}>
                   {profileButtonText}

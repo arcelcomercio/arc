@@ -2,10 +2,7 @@ import * as Sentry from '@sentry/browser'
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 
-import {
-  deleteCookie,
-  deleteCookieDomain,
-} from '../../../utilities/client/cookies'
+import { deleteCookie } from '../../../utilities/client/cookies'
 import addScriptAsync from '../../../utilities/script-async'
 import Loading from '../../signwall/_children/loading'
 import Forgot from '../_children/forgot'
@@ -32,6 +29,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   const {
     siteProperties: {
       signwall: { mainColorBr, mainColorBg, mainColorTxt },
+      siteDomain,
     },
     arcSite,
   } = useFusionContext() || {}
@@ -50,7 +48,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
     if (typeof window !== 'undefined') {
       deleteCookie('arc_e_id')
       deleteCookie('mpp_sess')
-      deleteCookieDomain('ArcId.USER_INFO', arcSite)
+      deleteCookie('ArcId.USER_INFO', siteDomain)
       deleteCookie('EcoId.REQUEST_STUDENTS')
       if ('Identity' in window) {
         window.Identity.options({ apiOrigin: urls.arcOrigin })
@@ -81,7 +79,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   }
 
   React.useEffect(() => {
-    deleteCookieDomain('ArcId.USER_INFO', arcSite)
+    deleteCookie('ArcId.USER_INFO', siteDomain)
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,

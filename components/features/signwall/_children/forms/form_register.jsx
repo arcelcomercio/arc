@@ -3,10 +3,7 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import {
-  setCookie,
-  setCookieDomain,
-} from '../../../../utilities/client/cookies'
+import { setCookie } from '../../../../utilities/client/cookies'
 import { ModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -50,6 +47,7 @@ const FormRegister = ({
       activeVerifyEmail,
       activeDataTreatment,
       activePhoneRegister,
+      siteDomain,
     },
   } = useAppContext() || {}
 
@@ -149,7 +147,7 @@ const FormRegister = ({
       .then((profile) => {
         setCookie('arc_e_id', sha256(profile.email).toString(), 365)
         const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-        setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+        setCookie('ArcId.USER_INFO', USER_IDENTITY, 1, siteDomain)
 
         if (activeNewsletter) {
           handleNewsleters(profile)

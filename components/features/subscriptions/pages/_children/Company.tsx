@@ -1,10 +1,10 @@
-import Identity from '@arc-publishing/sdk-identity'
 import * as Sentry from '@sentry/browser'
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { SubsArcSite } from 'types/subscriptions'
 
 import { getAssetsPath } from '../../../../utilities/assets'
+import { getUserIdentity } from '../../../../utilities/subscriptions/identity'
 import { MsgRegister } from '../../../signwall/_children/icons'
 import getCodeError, {
   formatDescription,
@@ -84,7 +84,7 @@ const PageCompany: React.FC<{ arcSite: ArcSite; contextPath: string }> = ({
     },
   }
 
-  const onFormCompany = ({
+  const onFormCompany = async ({
     cEmail,
     cFirstName,
     cLastName,
@@ -101,7 +101,8 @@ const PageCompany: React.FC<{ arcSite: ArcSite; contextPath: string }> = ({
       setLoading(false)
       setErrCaptcha(getCodeError('validCaptcha'))
     } else {
-      const userToken = Identity.userIdentity?.accessToken
+      const userIdentity = await getUserIdentity()
+      const { accessToken: userToken = '' } = userIdentity || {}
       const captcha = window.grecaptcha?.getResponse()
       sendEmailCompany(
         urlCommon.companyEmail,

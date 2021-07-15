@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import {
   deleteCookie,
   getCookie,
-  setCookieSession,
+  setCookie,
 } from '../../../../utilities/client/cookies'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import { getOriginAPI } from '../../_dependencies/domains'
@@ -301,11 +301,14 @@ const FormRequest = ({ arcSite, showCode }) => {
             checkStudents(uemail, udate, ugrade, arcSite, resExtend.accessToken)
               .then((res) => {
                 if (res.status) {
-                  setCookieSession(cookieStudents, {
-                    uemail,
-                    udate,
-                    ugrade,
-                  })
+                  setCookie(
+                    cookieStudents,
+                    JSON.stringify({
+                      uemail,
+                      udate,
+                      ugrade,
+                    })
+                  )
                   showCode()
                 }
                 setShowError(res.message)

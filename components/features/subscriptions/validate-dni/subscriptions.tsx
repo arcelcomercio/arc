@@ -148,7 +148,6 @@ const Component = () => {
    *
    * Se espera que el caso por defecto sea '' en lugar de undefined
    *
-   * @param amount
    * @returns Monto del plan como texto
    */
   const getPlanAmount = (amount: number): string => {

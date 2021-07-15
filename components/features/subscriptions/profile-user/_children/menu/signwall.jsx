@@ -2,10 +2,7 @@ import md5 from 'crypto-js/md5'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import {
-  deleteCookie,
-  deleteCookieDomain,
-} from '../../../../../utilities/client/cookies'
+import { deleteCookie } from '../../../../../utilities/client/cookies'
 import { getOriginAPI } from '../../../../signwall/_dependencies/domains'
 import { ModalConsumer } from '../../../_context/modal'
 import { getUserName, isAuthenticated } from '../../../_dependencies/Session'
@@ -17,6 +14,7 @@ const MenuSignwall = ({ handleMenu }) => {
       signwall: { mainColorBr, mainColorLink },
       activePaywall,
       activeNewsletter,
+      siteDomain,
     },
     arcSite,
   } = useAppContext() || {}
@@ -33,7 +31,7 @@ const MenuSignwall = ({ handleMenu }) => {
     if (typeof window !== 'undefined') {
       deleteCookie('arc_e_id')
       deleteCookie('mpp_sess')
-      deleteCookieDomain('ArcId.USER_INFO', arcSite)
+      deleteCookie('ArcId.USER_INFO', siteDomain)
       deleteCookie('EcoId.REQUEST_STUDENTS')
 
       const isSubs =
