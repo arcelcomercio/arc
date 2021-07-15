@@ -1,4 +1,5 @@
 import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
@@ -37,7 +38,7 @@ const GetStory: React.FC<{
     setIsLoading,
     index,
   } = props
-
+  const { siteUrl = '' } = getProperties(arcSite)
   const presets =
     subtype === GALLERY_VERTICAL
       ? 'large:980x0,landscape_md:482x0,landscape_s:280x0'
@@ -140,6 +141,7 @@ const GetStory: React.FC<{
           arcSite={arcSite}
           requestUri={requestUri}
           deployment={deployment}
+          siteUrl={siteUrl}
           index={index}
         />
       )}
