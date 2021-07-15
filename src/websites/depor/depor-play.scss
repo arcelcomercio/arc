@@ -314,6 +314,9 @@ $primary-font: "Roboto", sans-serif;
     @media (--desktop) {
       height: 360px;
     }
+    &__box-icon {
+      display: none;
+    }
     &__image {
       border-radius: 6px;
       @media (--desktop) {
@@ -347,6 +350,10 @@ $primary-font: "Roboto", sans-serif;
         font-size: 15px;
         font-family: $primary-font;
         font-weight: 500;
+        color: #c3c0f0;
+        @media (--desktop) {
+          color: #fff;
+        }
         &::before {
           width: 0;
         }
@@ -363,6 +370,9 @@ $primary-font: "Roboto", sans-serif;
     border-radius: 6px;
     @media (--tablet) {
       height: 360px;
+    }
+    &__icon {
+      display: none;
     }
     &__detail {
       flex-direction: column-reverse;
@@ -620,5 +630,8 @@ $primary-font: "Roboto", sans-serif;
         }
       }
     }
+  }
+  .header-full__btn-signwall {
+    display: none;
   }
 }
