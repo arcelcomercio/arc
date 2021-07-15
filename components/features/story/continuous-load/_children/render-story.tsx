@@ -20,19 +20,36 @@ import StoryChildrenSocialHeaderLite from '../../_children/social-header/lite'
 import StoryChildrenTitle from '../../_children/title/lite'
 import StorySidebarContinueLayout from './layout'
 
+declare global {
+  interface Window {
+    adsContinua: any
+    userPaywall: any
+  }
+}
+
 const rederStory: React.FC<{
   data: Story
   contextPath: string
   arcSite: ArcSite
   requestUri: string
   deployment: (resource: string) => string | string
+  siteUrl: string
   index: number
 }> = (props) => {
-  const { contextPath, arcSite, requestUri, data, deployment, index } = props
+  const {
+    contextPath,
+    arcSite,
+    requestUri,
+    data,
+    deployment,
+    siteUrl,
+    index,
+  } = props
   const trustproject = data?.label?.trustproject
 
   const {
     isPremium,
+    getPremiumValue,
     primarySection,
     primarySectionLink,
     title,
@@ -167,6 +184,56 @@ const rederStory: React.FC<{
     }),
   ]
 
+  const jsSpacesAds = () => {
+    const noteId = index + 1
+    const typeNote = subtype === 'gallery_vertical' ? 'galeria_v' : 'post'
+    const sectionList = primarySectionLink?.split('/').slice(1)
+    const sectionClean = sectionList[0]?.replace(/-/gm, '')
+    const subSection = sectionList[1]
+      ? sectionList[1]?.replace(/-/gm, '')
+      : sectionClean
+    const linkSpaceUrl = `https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${noteId}&date=${new Date()
+      .toISOString()
+      .slice(0, 10)}`
+    try {
+      const node = document.createElement('script')
+      node.type = 'text/javascript'
+      node.async = true
+      node.src = linkSpaceUrl
+      document.head.append(node)
+    } catch (error) {
+      // TODO: ...
+    }
+
+    try {
+      if (typeof window !== 'undefined') {
+        let typeContent = getPremiumValue
+        typeContent =
+          typeContent === '' || typeContent === 'vacio'
+            ? 'standar'
+            : typeContent
+        const targetingTags = tagsStory
+          .map(({ slug = '' }) => slug.split('-').join(''))
+          .join()
+        window.adsContinua[noteId] = window.adsContinua[noteId] || {}
+        window.adsContinua[noteId].targeting = {
+          categoria: subSection,
+          contenido: typeContent,
+          fuente: 'WEB',
+          paywall: window.userPaywall(),
+          phatname: `${siteUrl}${link}`,
+          publisher: arcSite,
+          seccion: sectionClean,
+          tags: targetingTags,
+          tipoplantilla: 'post',
+          tmp_ad: '',
+        }
+      }
+    } catch (error) {
+      // TODO: ...
+    }
+  }
+
   const changeTwitter = () => {
     const windowW = 600
     const windowH = 400
@@ -214,6 +281,7 @@ const rederStory: React.FC<{
     })
     changeTwitter()
     jwplayerObserver()
+    jsSpacesAds()
   }, [contentElements])
 
   return (
