@@ -43,6 +43,7 @@ export default ({
     tags,
     link,
     displayDate,
+    firstPublishDate,
     publishDate: updateDate,
     subTitle = arcSite,
     locality,
@@ -96,7 +97,7 @@ export default ({
       : displayDate
 
   publishDateZone =
-    arcSite === SITE_ELCOMERCIO ? getDateSeo(displayDate) : publishDateZone
+    arcSite === SITE_ELCOMERCIO ? getDateSeo(firstPublishDate) : publishDateZone
 
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
   const structuredAuthors = authorsList.map(
