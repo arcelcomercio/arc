@@ -1,4 +1,5 @@
 import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
@@ -37,7 +38,7 @@ const GetStory: React.FC<{
     setIsLoading,
     index,
   } = props
-
+  const { siteUrl = '' } = getProperties(arcSite)
   const presets =
     subtype === GALLERY_VERTICAL
       ? 'large:980x0,landscape_md:482x0,landscape_s:280x0'
@@ -70,13 +71,16 @@ const GetStory: React.FC<{
             const sectionList = primarySectionLink.split('/').slice(1) || []
             const premium = getPremiumValue === 'premium' && true
 
+            document.title = title
+            window.history.pushState({}, title, link)
+
             window.dataLayer = window.dataLayer || []
             window.dataLayer.push({
               event: 'carga_continua',
               url_path: `${link}?ref=nota&ft=cargacontinua&nota=${index + 1}`,
               seccion: sectionList[0] || 'sin-definir',
               subseccion: sectionList[1] || 'sin-definir',
-              url_title: title,
+              // url_title: title,
               tipo_nota: type,
               id_nota: id,
               tag1: tags[0]?.slug || 'sin-definir',
@@ -126,7 +130,10 @@ const GetStory: React.FC<{
   }, [dataStory?._id])
 
   return (
-    <div id={`nota${index + 1}`} ref={container}>
+    <div
+      id={`nota${index + 1}`}
+      className={dataStory?.subtype || ''}
+      ref={container}>
       {dataStory?._id && (
         <RederStory
           data={dataStory}
@@ -134,6 +141,7 @@ const GetStory: React.FC<{
           arcSite={arcSite}
           requestUri={requestUri}
           deployment={deployment}
+          siteUrl={siteUrl}
           index={index}
         />
       )}
