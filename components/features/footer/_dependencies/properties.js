@@ -353,18 +353,18 @@ const ojo = {
     contacts: [
       {
         position: 'Director Periodístico',
-        name: 'Jaime Asián Domínguez   jasian@grupoepensa.pe',
+        name: 'Jaime Asián Domínguez   jaime.asian@prensmart.pe',
       },
       {
         position: 'Editor Web',
-        name: 'Chavely Chiroque Quiroz ichiroque@grupoepensa.pe',
+        name: 'Chavely Chiroque Quiroz chavely.chiroque@prensmart.pe',
       },
       {
         position: '-',
         name: 'Contacto comercial',
       },
       {
-        position: 'Publicidad Online',
+        position: 'Publicidad Online:',
         name: 'fonoavisos@comercio.com.pe',
       },
 
