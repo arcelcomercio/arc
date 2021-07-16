@@ -316,6 +316,7 @@ nav.nav__wrapper {
     margin-right: 15px;
     &--image {
       position: relative;
+      z-index: 1;
       &::after {
         content: "\00B7";
         margin-left: 215px !important;
