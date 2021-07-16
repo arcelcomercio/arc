@@ -371,6 +371,7 @@ credits{
 subtype
 display_date
 publish_date
+first_publish_date
 website
 
 editor_note
