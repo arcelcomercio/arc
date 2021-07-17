@@ -9,26 +9,26 @@ import request from 'request-promise-native'
 
 import { PropertiesCommon } from '../../components/features/subscriptions/_dependencies/Properties'
 
-const fetch = () => {
+const fetch = (key = {}) => {
+  const { clientTime } = key
   const { urls: urlCommon } = PropertiesCommon
+  if (clientTime) {
+    const parameters = `${PAGO_EFECTIVO_SERVICE}.${PAGO_EFECTIVO_ACCESS}.${PAGO_EFECTIVO_SECRET}.${clientTime}-05:00`
+    const hashPayEfectivo = sha256(parameters)
 
-  const nowDate = new Date()
-  const getUtcDate = new Date(nowDate.getTime() - 300 * 60000).toISOString()
-  const dateTimePeru = getUtcDate.split('.')[0]
-  const parameters = `${PAGO_EFECTIVO_SERVICE}.${PAGO_EFECTIVO_ACCESS}.${PAGO_EFECTIVO_SECRET}.${dateTimePeru}-05:00`
-  const hashPayEfectivo = sha256(parameters)
-
-  return request({
-    method: 'POST',
-    uri: urlCommon.tokenPayEfectivo,
-    body: {
-      accessKey: PAGO_EFECTIVO_ACCESS,
-      idService: PAGO_EFECTIVO_SERVICE,
-      dateRequest: `${dateTimePeru}-05:00`,
-      hashString: hashPayEfectivo.toString(),
-    },
-    json: true,
-  }).catch(() => ({ error: 'Solicitud inválida', date: dateTimePeru }))
+    return request({
+      method: 'POST',
+      uri: urlCommon.tokenPayEfectivo,
+      body: {
+        accessKey: PAGO_EFECTIVO_ACCESS,
+        idService: PAGO_EFECTIVO_SERVICE,
+        dateRequest: `${clientTime}-05:00`,
+        hashString: hashPayEfectivo.toString(),
+      },
+      json: true,
+    }).catch(() => ({ error: 'Solicitud inválida', date: clientTime }))
+  }
+  return { error: 'Solicitud inválida - No se recibió fecha del cliente' }
 }
 
 export default {
