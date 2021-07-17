@@ -23,6 +23,10 @@ const styles = {
 }
 
 const Confirmation = () => {
+  const [dateTime] = React.useState(new Date())
+  const utcDate = new Date(dateTime.getTime() - 300 * 60000).toISOString()
+  const timeClearToken = utcDate.split('.')[0]
+
   const {
     arcSite,
     globalContent: { plans = [], printedSubscriber, event, fromFia },
@@ -31,6 +35,9 @@ const Confirmation = () => {
   const { data: { token = '' } = {}, error } =
     useContent({
       source: 'paywall-pago-efectivo',
+      query: {
+        clientTime: timeClearToken,
+      },
     }) || {}
 
   const {
@@ -65,12 +72,12 @@ const Confirmation = () => {
     )
 
     const { amount, priceCode, name } = getPLanSelected || {}
-    const nowDate = new Date()
-    const getUtcDate = new Date(nowDate.getTime() - 300 * 60000)
+
+    const getUtcDate = new Date(dateTime.getTime() - 300 * 60000)
     const set24Hours = new Date(
       getUtcDate.setDate(getUtcDate.getDate() + 1)
     ).toISOString()
-    const dateTimePeru = set24Hours.split('.')[0]
+    const timeClearCip = set24Hours.split('.')[0]
 
     if (amount) {
       const dataCIP = {
@@ -84,7 +91,7 @@ const Confirmation = () => {
         lastname_mother: `${secondLastName || ''}`,
         user_document_type: documentType,
         user_document_number: documentNumber,
-        date_expiry: `${dateTimePeru.replace('T', ' ')}-05:00`,
+        date_expiry: `${timeClearCip.replace('T', ' ')}-05:00`,
         user_code_country: '+51',
         user_phone: phone,
         price_code: priceCode,
