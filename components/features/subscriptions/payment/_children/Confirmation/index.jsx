@@ -21,6 +21,7 @@ import {
 import {
   getFullNameFormat,
   getSessionStorage,
+  getUserAgent,
 } from '../../../_dependencies/Utils'
 
 const styles = {
@@ -41,8 +42,7 @@ const PaywallTracking = ({ ...props }) => {
       confirmUser: getSessionStorage('paywall_confirm_subs') || '3',
       originUser: getSessionStorage('paywall_type_modal') || 'organico',
       isPwaUser: PWA.isPWA() ? '1' : '2',
-      userAgentClient:
-        typeof window !== 'undefined' ? window.navigator.userAgent : '',
+      userAgentClient: getUserAgent,
       ...props,
     },
   })
