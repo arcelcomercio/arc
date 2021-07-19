@@ -199,7 +199,7 @@ export default ({
             height="12"
             viewBox="0 0 18 12"
             fill="none">
-            <rect width="18" height="5" fill="#fcd116" />
+            <rect width="18" height="6" fill="#fcd116" />
             <rect y="6" width="18" height="4" fill="#003893" />
             <rect y="9" width="18" height="4" fill="#ce1126" />
           </svg>
