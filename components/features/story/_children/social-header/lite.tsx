@@ -7,7 +7,7 @@ import ShareButtons from '../../../../global-components/lite/share/buttons'
 import TProLbl from '../../../../global-components/trustprojectlabel'
 
 const classes = {
-  container: 'st-social f just-between',
+  container: 'st-social w-full f just-between',
   upsection: 'st-social__tooltdiv f alg-center uppercase',
   section: 'st-social__txt oflow-h uppercase',
   sectionLink: 'st-social__link oflow-h',

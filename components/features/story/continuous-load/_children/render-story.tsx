@@ -20,19 +20,39 @@ import StoryChildrenSocialHeaderLite from '../../_children/social-header/lite'
 import StoryChildrenTitle from '../../_children/title/lite'
 import StorySidebarContinueLayout from './layout'
 
+declare global {
+  interface Window {
+    instgrm: any
+    widgetsObserver: any
+    createScript: any
+    adsContinua: any
+    userPaywall: any
+  }
+}
+
 const rederStory: React.FC<{
   data: Story
   contextPath: string
   arcSite: ArcSite
   requestUri: string
   deployment: (resource: string) => string | string
+  siteUrl: string
   index: number
 }> = (props) => {
-  const { contextPath, arcSite, requestUri, data, deployment, index } = props
+  const {
+    contextPath,
+    arcSite,
+    requestUri,
+    data,
+    deployment,
+    siteUrl,
+    index,
+  } = props
   const trustproject = data?.label?.trustproject
 
   const {
     isPremium,
+    getPremiumValue,
     primarySection,
     primarySectionLink,
     title,
@@ -167,6 +187,56 @@ const rederStory: React.FC<{
     }),
   ]
 
+  const jsSpacesAds = () => {
+    const noteId = index + 1
+    const typeNote = subtype === 'gallery_vertical' ? 'galeria_v' : 'post'
+    const sectionList = primarySectionLink?.split('/').slice(1)
+    const sectionClean = sectionList[0]?.replace(/-/gm, '')
+    const subSection = sectionList[1]
+      ? sectionList[1]?.replace(/-/gm, '')
+      : sectionClean
+    const linkSpaceUrl = `https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${typeNote}/${sectionClean}/spaces.js?nota=${noteId}&date=${new Date()
+      .toISOString()
+      .slice(0, 10)}`
+    try {
+      const node = document.createElement('script')
+      node.type = 'text/javascript'
+      node.async = true
+      node.src = linkSpaceUrl
+      document.head.append(node)
+    } catch (error) {
+      // TODO: ...
+    }
+
+    try {
+      if (typeof window !== 'undefined') {
+        let typeContent = getPremiumValue
+        typeContent =
+          typeContent === '' || typeContent === 'vacio'
+            ? 'standar'
+            : typeContent
+        const targetingTags = tagsStory
+          .map(({ slug = '' }) => slug.split('-').join(''))
+          .join()
+        window.adsContinua[noteId] = window.adsContinua[noteId] || {}
+        window.adsContinua[noteId].targeting = {
+          categoria: subSection,
+          contenido: typeContent,
+          fuente: 'WEB',
+          paywall: window.userPaywall(),
+          phatname: `${siteUrl}${link}`,
+          publisher: arcSite,
+          seccion: sectionClean,
+          tags: targetingTags,
+          tipoplantilla: 'post',
+          tmp_ad: '',
+        }
+      }
+    } catch (error) {
+      // TODO: ...
+    }
+  }
+
   const changeTwitter = () => {
     const windowW = 600
     const windowH = 400
@@ -205,6 +275,74 @@ const rederStory: React.FC<{
     })
   }
 
+  const isScriptLoaded = (src: string) =>
+    !!document.querySelector(`script[src="${src}"]`)
+
+  const createScript = ({ src, async }: { src: string; async: boolean }) => {
+    const node = document.createElement('script')
+    if (isScriptLoaded(src) === false) {
+      if (src) {
+        node.type = 'text/javascript'
+        node.src = src
+      }
+      if (async) {
+        node.async = true
+      }
+    }
+    return document.body.append(node)
+  }
+
+  const checkInstagramScript = () => {
+    if (
+      document.querySelector('script[src="https://www.instagram.com/embed.js"]')
+    ) {
+      window.instgrm.Embeds.process()
+    } else if ('IntersectionObserver' in window) {
+      const options = {
+        rootMargin: '0px 0px 500px 0px',
+      }
+      const embeds = Array.from(document.body.querySelectorAll('.embed-script'))
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          const { isIntersecting, target } = entry
+          if (isIntersecting) {
+            const type = target.getAttribute('data-type')
+            if (type === 'instagram') {
+              createScript({
+                src: 'https://www.instagram.com/embed.js',
+                async: true,
+              })
+            } else {
+              createScript({
+                src: 'https://platform.twitter.com/widgets.js',
+                async: true,
+              })
+            }
+            currentObserver.unobserve(target)
+          }
+        })
+      }, options)
+      embeds.forEach((embed) => {
+        observer.observe(embed)
+      })
+    }
+  }
+
+  const ckeckTikTokScript = () => {
+    if (
+      document.querySelectorAll('script[src="https://www.tiktok.com/embed.js"]')
+        .length > 0
+    ) {
+      document
+        .querySelectorAll('script[src="https://www.tiktok.com/embed.js"]')
+        .forEach((e) => e.parentNode?.removeChild(e))
+      window.createScript({
+        src: 'https://www.tiktok.com/embed.js',
+        async: true,
+      })
+    }
+  }
+
   React.useEffect(() => {
     contentElements.map((element: { content?: string; type: string }) => {
       const content = element?.content || ''
@@ -214,6 +352,9 @@ const rederStory: React.FC<{
     })
     changeTwitter()
     jwplayerObserver()
+    checkInstagramScript()
+    ckeckTikTokScript()
+    jsSpacesAds()
   }, [contentElements])
 
   return (
