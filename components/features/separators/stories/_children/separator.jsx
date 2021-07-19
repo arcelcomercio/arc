@@ -17,6 +17,7 @@ const SeparatorsBasicChildSeparator = ({
   htmlCode,
   titleLink,
   titleSeparator,
+  titleColor,
   stories,
   isAuthorVisible,
   design,
@@ -64,7 +65,11 @@ const SeparatorsBasicChildSeparator = ({
       ) : (
         titleSeparator && (
           <h2 itemProp="name" className={classes.title}>
-            <a itemProp="url" href={titleLink} className={classes.titleLink}>
+            <a
+              itemProp="url"
+              href={titleLink}
+              className={classes.titleLink}
+              style={{ color: titleColor || '' }}>
               {titleSeparator}
             </a>
           </h2>
