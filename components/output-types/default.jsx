@@ -222,6 +222,7 @@ export default ({
     siteName: siteProperties.siteName,
     pageNumber,
     requestUri,
+    isStory,
   })
 
   const keywords = getKeywords({ metaValue, siteName: siteProperties.siteName })
@@ -694,6 +695,21 @@ export default ({
           </>
         ) : null}
         {/* ============== WebTracking */}
+        {metaValue('section_style') === 'depor-play' ? (
+          <Resource path="resources/dist/depor/css/depor-play.css">
+            {({ data }) =>
+              data ? (
+                <style
+                  dangerouslySetInnerHTML={{
+                    __html: data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', ''),
+                  }}
+                />
+              ) : null
+            }
+          </Resource>
+        ) : null}
       </head>
       <body
         className={classBody}
