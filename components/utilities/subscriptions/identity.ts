@@ -62,6 +62,14 @@ async function getUserIdentity(): Promise<UserIdentity | undefined> {
   return userIdentity
 }
 
+/**
+ * Esta función verifica cuidadosamente si existe información
+ * del usuario en `localStorage` y `sessionStorage`, para determinar
+ * si el usuario ha iniciado sesión o no.
+ *
+ * Esta función es diferente a `await Identity.isLoggedIn()` porque esta
+ * última no es confiable si el usuario ha cerrado sesión en otra pestaña.
+ */
 async function isLoggedIn(): Promise<boolean> {
   if (isClientSide) {
     if (
@@ -77,17 +85,50 @@ async function isLoggedIn(): Promise<boolean> {
   return false
 }
 
+/**
+ * @param username Nombre del usuario completo
+ * @param length Cantidad de caracteres máxima (80 por defecto)
+ * @returns Nombre del usuario completo, sin `null|undefined` o espacios de más
+ * @example ```
+ * formatUsername(`Carlos undefined Fernández`, 10)
+ * // Carlos Fer...
+ * formatUsername(`null Carlos Fernández`)
+ * // Carlos Fernández
+ * ```
+ */
+function formatUsername(username: string, length = 80): string {
+  const cleanUsername = username
+    .replace(/null|undefined/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+  return reduceWord(cleanUsername, length)
+}
+
+/**
+ * @returns Promesa que resuelve el nombre del usuario completo,
+ * sin `null|undefined` o espacios de más, con un máximo de 20 catacteres
+ * @example ```
+ * await getUsername(`Carlos undefined`)
+ * // Carlos
+ * await getUsername(`William Esternocleidomastoideo`)
+ * // William Esternocl...
+ * ```
+ */
 async function getUsername(): Promise<string> {
   let username = ''
-  const notAllowed = /\s?(?:undefined|null)\s?/g
   const userProfile = await getUserProfile()
   const { firstName, lastName } = userProfile || {}
 
   if (firstName || lastName) {
-    username = `${firstName} ${lastName}`.replace(notAllowed, '')
-    username = reduceWord(username, 17)
+    username = formatUsername(`${firstName} ${lastName}`, 17)
   }
   return username
 }
 
-export { getUserIdentity, getUsername, getUserProfile, isLoggedIn }
+export {
+  formatUsername,
+  getUserIdentity,
+  getUsername,
+  getUserProfile,
+  isLoggedIn,
+}

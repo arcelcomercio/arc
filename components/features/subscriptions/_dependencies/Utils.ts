@@ -91,20 +91,6 @@ export const setLocaleStorage = (key: string, data: unknown): void => {
   }
 }
 
-export const getFullNameFormat = (
-  firstName: string,
-  lastName: string,
-  secondLastName?: string
-): string => {
-  const lowerSecLastName = secondLastName && secondLastName.toLowerCase()
-  const fullName = `${firstName} ${lastName} ${
-    lowerSecLastName === 'undefined' || lowerSecLastName === 'null'
-      ? ''
-      : secondLastName || ''
-  }`
-  return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
-}
-
 export const isFbBrowser =
   typeof window !== 'undefined' &&
   (window.navigator.userAgent.indexOf('FBAN') > -1 ||

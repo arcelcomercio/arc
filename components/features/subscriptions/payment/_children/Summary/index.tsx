@@ -1,6 +1,13 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import {
+  PaywallCampaign,
+  SubsArcSite,
+  SubscriptionPlan,
+} from 'types/subscriptions'
 
+import { formatUsername } from '../../../../../utilities/subscriptions/identity'
+import { frequencies } from '../../../../../utilities/subscriptions/sales'
 import { useAuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
@@ -8,7 +15,6 @@ import {
 } from '../../../_dependencies/Properties'
 import { isLogged } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
-import { getFullNameFormat } from '../../../_dependencies/Utils'
 
 const styles = {
   boxResume: 'step__right-box-resume',
@@ -25,12 +31,14 @@ const styles = {
   benefits: 'step__right-benefits',
   notes: 'step__notes-footer',
 }
+
 const nameTagCategory = 'Web_Paywall_Landing'
-const Summary = () => {
+
+const Summary = (): JSX.Element => {
   const {
     arcSite,
-    globalContent: { plans = [], name },
-  } = useAppContext() || {}
+    globalContent: { plans = [], name } = {},
+  } = useAppContext<PaywallCampaign>()
 
   const {
     loadPage,
@@ -43,36 +51,35 @@ const Summary = () => {
     updateDataPlan,
   } = useAuthContext()
 
-  const [checkPlan, setCheckPlan] = React.useState()
-  const [totalPlan, setTotalPlan] = React.useState()
-  const [orderPlans, setOrderPlans] = React.useState([])
-  const { urls } = PropertiesSite[arcSite]
+  const [checkPlan, setCheckPlan] = React.useState<
+    SubscriptionPlan['priceCode']
+  >()
+  const [totalPlan, setTotalPlan] = React.useState<SubscriptionPlan['amount']>()
+  const [sortedPlans, setSortedPlans] = React.useState<SubscriptionPlan[]>([])
+  const { urls } = PropertiesSite[arcSite as SubsArcSite]
   const { texts } = PropertiesCommon
   const { firstName = '', lastName = '', secondLastName = '' } =
     userProfile || {}
 
-  const period = {
-    month: 'Mensual',
-    year: 'Anual',
-    semester: 'Semestral',
-  }
-
   React.useEffect(() => {
-    const getPLanSelected = plans.find((plan) => plan.description.checked)
+    const selectedPlan = plans.find((plan) => plan.description.checked)
 
-    const OrderForce = plans.sort((a, b) => b.amount - a.amount)
-    const { priceCode, sku, amount, billingFrequency, description } =
-      getPLanSelected || {}
+    const { priceCode = '', sku = '', amount, billingFrequency, description } =
+      selectedPlan || {}
 
-    const frecuencyPlan =
-      description.frecuencia_plan || billingFrequency.toLowerCase()
+    const frecuencyPlan = description?.frecuencia_plan || billingFrequency
 
-    setOrderPlans(OrderForce)
+    setSortedPlans(plans.sort((a, b) => b.amount - a.amount))
     updatePlan(priceCode, sku, 1)
     setCheckPlan(priceCode)
     setTotalPlan(amount)
-    updatePeriod(period[frecuencyPlan])
-    updateDataPlan(amount, frecuencyPlan)
+
+    if (frecuencyPlan) {
+      updatePeriod(frequencies[frecuencyPlan])
+      if (amount) {
+        updateDataPlan(amount, frecuencyPlan)
+      }
+    }
   }, [])
 
   const handleChangeDates = () => {
@@ -126,7 +133,7 @@ const Summary = () => {
 
         {userStep === 3 ? (
           <div className="form-planes">
-            {orderPlans.map((item, i) => {
+            {sortedPlans.map((item, i) => {
               if (checkPlan === item.priceCode) {
                 return (
                   <div key={`item-${i + 1}`} className={styles.selected}>
@@ -139,9 +146,9 @@ const Summary = () => {
                     </button>
                     <h4>
                       {
-                        period[
+                        frequencies[
                           item.description.frecuencia_plan ||
-                            item.billingFrequency.toLowerCase()
+                            item.billingFrequency
                         ]
                       }
                     </h4>
@@ -160,7 +167,7 @@ const Summary = () => {
           </div>
         ) : (
           <div className="form-planes">
-            {orderPlans.map((item, i) => (
+            {sortedPlans.map((item, i) => (
               <div className="tooltip" key={`item-${i + 1}`}>
                 <label
                   className={`${styles.item} ${
@@ -177,23 +184,22 @@ const Summary = () => {
                       setTotalPlan(item.amount)
                       updatePlan(item.priceCode, item.sku, 1)
                       updatePeriod(
-                        period[
+                        frequencies[
                           item.description.frecuencia_plan ||
-                            item.billingFrequency.toLowerCase()
+                            item.billingFrequency
                         ]
                       )
                       updateDataPlan(
                         item.amount,
                         item.description.frecuencia_plan ||
-                          item.billingFrequency.toLowerCase()
+                          item.billingFrequency
                       )
                     }}
                     value={item.priceCode}
                   />
                   {
-                    period[
-                      item.description.frecuencia_plan ||
-                        item.billingFrequency.toLowerCase()
+                    frequencies[
+                      item.description.frecuencia_plan || item.billingFrequency
                     ]
                   }
                   <span>
@@ -278,7 +284,9 @@ const Summary = () => {
                 onClick={handleChangeDates}>
                 Cambiar Datos
               </button>
-              <h4>{getFullNameFormat(firstName, lastName, secondLastName)}</h4>
+              <h4>
+                {formatUsername(`${firstName} ${lastName} ${secondLastName}`)}
+              </h4>
               <p className="email">{userProfile && userProfile.email}</p>
               {userMethodPay === 'cardCreDeb' && <p>{texts.verifyEmail}</p>}
               {userMethodPay === 'payEfectivo' && (

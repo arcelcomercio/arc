@@ -38,8 +38,8 @@ const FbEventTag = React.memo(
 )
 
 export const SubscribeEventTag = ({
-  debug,
-  onBeforeSend,
+  debug = false,
+  onBeforeSend = (i) => i,
   subscriptionId,
   offerCode,
   value,

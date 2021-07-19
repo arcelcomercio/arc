@@ -1,6 +1,12 @@
 export type SubsArcSite = 'elcomercio' | 'gestion'
 
-export type DialogType = 'login' | 'registro' | 'payment' | 'landing' | 'pages'
+export type DialogType =
+  | 'login'
+  | 'registro'
+  | 'payment'
+  | 'landing'
+  | 'pages'
+  | 'students'
 
 type Attributes = {
   name: string
@@ -24,13 +30,21 @@ export type Subscriber = SubscriberName & SubscriberDocument
 
 export type PaywallCampaign = {
   name: string
-  plans: any[]
+  description: PaywallCampaignDescription
+  plans: SubscriptionPlan[]
   printAttributes: Attributes[]
   printedSubscriber: boolean
   event?: string
   fromFia: boolean
   freeAccess: boolean
   subscriber: Subscriber
+}
+
+export type PaywallCampaignDescription = {
+  name: string
+  code: string
+  detail: string
+  mainBanner: string
 }
 
 /** Paywall Home Campaign */
@@ -56,3 +70,38 @@ export type PaywallHomeCampaign = {
   features: string[]
   recommended: boolean
 }
+
+export type SubscriptionPlanDescription = {
+  title: string
+  description: string
+  cart: string
+  price_origin: string
+  frecuencia_plan?: 'semester'
+  checked?: string
+  recommended?: string
+  popup_active?: string
+}
+
+export interface SubscriptionPlanDetails {
+  priceCode: string
+  sku: string
+  quantity: number
+}
+
+export interface SubscriptionPlan
+  extends SubscriptionPlanDetails,
+    SubscriptionPlanBill {
+  name: string
+  productName: string
+  pricingStrategyId: number
+  description: SubscriptionPlanDescription
+}
+
+export type BillingFrequency = 'Month' | 'Year' | 'OneTime'
+export interface SubscriptionPlanBill {
+  amount: number
+  billingFrequency: BillingFrequency
+}
+
+export type PaymentMethod = 'payEfectivo' | 'cardCreDeb'
+export type PagoEfectivoMethod = 'Banca por Internet' | 'Agencia'

@@ -4,4 +4,5 @@ interface Window {
   fbq?: any
   ReactNativeWebView?: any
   nativeConnection?: any
+  payU?: any
 }

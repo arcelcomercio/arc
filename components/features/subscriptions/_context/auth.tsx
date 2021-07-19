@@ -1,16 +1,29 @@
 import { UserProfile } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
 import { CreateOrderResponse } from '@arc-publishing/sdk-sales/lib/sdk/order'
 import * as React from 'react'
+import {
+  PagoEfectivoMethod,
+  PaymentMethod,
+  SubscriptionPlanBill,
+  SubscriptionPlanDescription,
+  SubscriptionPlanDetails,
+} from 'types/subscriptions'
 
 import { isAuthenticated } from '../_dependencies/Session'
 import { getLocaleStorage, getSessionStorage } from '../_dependencies/Utils'
+
+interface PlanBilling extends Omit<SubscriptionPlanBill, 'billingFrequency'> {
+  billingFrequency:
+    | SubscriptionPlanBill['billingFrequency']
+    | SubscriptionPlanDescription['frecuencia_plan']
+}
 
 type AuthContextValue = {
   userLoaded: boolean
   userProfile: UserProfile | null
   userStep: number
-  userPlan: UserPlan | undefined
-  userDataPlan: UserDataPlan | undefined
+  userPlan: SubscriptionPlanDetails | undefined
+  userDataPlan: PlanBilling | undefined
   userPeriod: string | undefined
   userPurchase: CreateOrderResponse | undefined
   loadPage: boolean
@@ -23,13 +36,13 @@ type AuthContextValue = {
   updateStep: (currentStep: AuthContextValue['userStep']) => void
   userLogout: () => void
   updatePlan: (
-    priceCode: UserPlan['priceCode'],
-    sku: UserPlan['sku'],
-    quantity: UserPlan['quantity']
+    priceCode: SubscriptionPlanDetails['priceCode'],
+    sku: SubscriptionPlanDetails['sku'],
+    quantity: SubscriptionPlanDetails['quantity']
   ) => void
   updateDataPlan: (
-    amount: UserDataPlan['amount'],
-    billingFrequency: UserDataPlan['billingFrequency']
+    amount: PlanBilling['amount'],
+    billingFrequency: PlanBilling['billingFrequency']
   ) => void
   updatePeriod: (period: AuthContextValue['userPeriod']) => void
   updatePurchase: (purchaseInfo: CreateOrderResponse) => void
@@ -43,18 +56,6 @@ type AuthContextValue = {
 type AuthProviderProps = {
   children: React.ReactNode
 }
-
-type UserPlan = {
-  priceCode: string
-  sku: string
-  quantity: number
-}
-
-type BillingFrequency = 'month' | 'year' | 'semester'
-type UserDataPlan = { amount: number; billingFrequency: BillingFrequency }
-
-type PaymentMethod = 'payEfectivo' | 'cardCreDeb'
-type PagoEfectivoMethod = 'Banca por Internet' | 'Agencia'
 
 const AuthContext = React.createContext<AuthContextValue | undefined>(undefined)
 
@@ -73,8 +74,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [userLoaded, setUserLoaded] = React.useState<boolean>(() =>
     isAuthenticated()
   )
-  const [userPlan, setUserPlan] = React.useState<UserPlan>()
-  const [userDataPlan, setUserDataPlan] = React.useState<UserDataPlan>()
+  const [userPlan, setUserPlan] = React.useState<SubscriptionPlanDetails>()
+  const [userDataPlan, setUserDataPlan] = React.useState<PlanBilling>()
   const [userPeriod, setUserPeriod] = React.useState<string>()
   const [userPurchase, setUserPurchase] = React.useState<CreateOrderResponse>()
   const [loadPage, setLoadPage] = React.useState(false)

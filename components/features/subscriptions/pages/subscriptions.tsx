@@ -41,7 +41,7 @@ type PagesSubscriptionsProps = {
 
 const arcType = 'pages'
 
-const Component: FC<PagesSubscriptionsProps> = (props) => {
+const Component: React.FC<PagesSubscriptionsProps> = (props) => {
   const {
     customFields: {
       callInnCallOut = false,

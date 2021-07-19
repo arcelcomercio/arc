@@ -5,7 +5,11 @@ import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
-import { PaywallHomeCampaign, SubsArcSite } from 'types/subscriptions'
+import {
+  DialogType,
+  PaywallHomeCampaign,
+  SubsArcSite,
+} from 'types/subscriptions'
 
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
@@ -36,7 +40,7 @@ type LandingSubscriptionsProps = {
 
 const arcType = 'landing'
 
-const Component: FC<LandingSubscriptionsProps> = (props) => {
+const Component = (props: LandingSubscriptionsProps) => {
   const {
     customFields: {
       bannerUniComercio = false,
@@ -50,7 +54,7 @@ const Component: FC<LandingSubscriptionsProps> = (props) => {
   >()
 
   const [showSignwall, setShowSignwall] = React.useState(false)
-  const [landingType, setLandingType] = React.useState('landing')
+  const [landingType, setLandingType] = React.useState<DialogType>('landing')
   const [profileButtonText, setProfileButtonText] = React.useState(
     'Inicia sesión'
   )

@@ -1,8 +1,12 @@
+import Identity from '@arc-publishing/sdk-identity'
 import * as Sentry from '@sentry/browser'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import { PaywallCampaign, SubsArcSite } from 'types/subscriptions'
 
+import { formatUsername } from '../../../../../utilities/subscriptions/identity'
+import { frequencies } from '../../../../../utilities/subscriptions/sales'
 import { SubscribeEventTag } from '../../../_children/fb-account-linking'
 import { useAuthContext } from '../../../_context/auth'
 import {
@@ -18,10 +22,7 @@ import {
   sendAction,
   TaggeoJoao,
 } from '../../../_dependencies/Taggeo'
-import {
-  getFullNameFormat,
-  getSessionStorage,
-} from '../../../_dependencies/Utils'
+import { getSessionStorage } from '../../../_dependencies/Utils'
 
 const styles = {
   step: 'step__left-progres',
@@ -46,22 +47,21 @@ const PaywallTracking = ({ ...props }) => {
       ...props,
     },
   })
-  return ''
 }
 
-const Confirmation = () => {
+const Confirmation = (): JSX.Element => {
   const {
     arcSite,
     globalContent: {
-      name: namePlanApi,
+      name: namePlanApi = '',
       plans = [],
-      freeAccess,
+      freeAccess = false,
       subscriber,
-      fromFia,
-      printedSubscriber,
+      fromFia = false,
+      printedSubscriber = false,
       event,
-    },
-  } = useAppContext() || {}
+    } = {},
+  } = useAppContext<PaywallCampaign>()
 
   const {
     userPurchase,
@@ -72,7 +72,7 @@ const Confirmation = () => {
   } = useAuthContext()
 
   const { texts } = PropertiesCommon
-  const { urls: urlsSite } = PropertiesSite[arcSite]
+  const { urls: urlsSite } = PropertiesSite[arcSite as SubsArcSite]
   const [loading, setLoading] = React.useState(false)
   const [sendTracking, setSendTracking] = React.useState(false)
 
@@ -89,12 +89,6 @@ const Confirmation = () => {
 
   const { priceCode: priceCodePurchase, price: pricePurchase } = items[0] || {}
 
-  const Frecuency = {
-    Month: 'Mensual',
-    Year: 'Anual',
-    OneTime: 'Mensual',
-  }
-
   React.useEffect(() => {
     Sentry.configureScope((scope) => {
       scope.setTag('step', 'Confirmación')
@@ -103,19 +97,18 @@ const Confirmation = () => {
       type: 'info',
       category: 'confirmación',
       message: 'Compra confirmada',
-      level: 'info',
+      level: Sentry.Severity.Info,
     })
 
     const divDetail = document.getElementById('div-detail')
     const divFooter = document.getElementById('footer')
-    const { uuid } = getStorageInfo()
+    const { uuid } = getStorageInfo() || {}
     const origin = getSessionStorage('paywall_type_modal') || 'organico'
     const referer = getSessionStorage('paywall_last_url') || ''
     window.scrollTo(0, 0)
 
-    const getPLanSelected = plans.reduce(
-      (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
-      null
+    const selectedPlan = plans.find(
+      (plan) => plan.priceCode === userPlan?.priceCode
     )
 
     if (freeAccess || (userPurchase && userPurchase.status)) {
@@ -124,7 +117,7 @@ const Confirmation = () => {
       document.body.classList.remove('no-scroll')
 
       const { sku, name, amount, billingFrequency, priceCode, productName } =
-        getPLanSelected || {}
+        selectedPlan || {}
 
       PWA.finalize()
       pushCxense(urlsSite.codeCxense)
@@ -153,6 +146,7 @@ const Confirmation = () => {
         pwa: PWA.isPWA() ? 'si' : 'no',
       })
 
+      window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         event: 'checkoutOption',
         ecommerce: {
@@ -178,14 +172,16 @@ const Confirmation = () => {
                 price: amount,
                 brand: arcSite,
                 category: name,
-                subCategory: Frecuency[billingFrequency],
+                subCategory: billingFrequency
+                  ? frequencies[billingFrequency]
+                  : '',
               },
             ],
             dataUser: {
-              id: userProfile.uuid || uuid,
-              name: `${firstName} ${lastName} ${secondLastName}`
-                .replace(/\s*/, ' ')
-                .trim(),
+              id: userProfile?.uuid || uuid,
+              name: formatUsername(
+                `${firstName} ${lastName} ${secondLastName}`
+              ),
               email,
             },
           },
@@ -202,25 +198,17 @@ const Confirmation = () => {
         value: amount,
       })
 
-      if ('Identity' in window) {
-        window.Identity.extendSession()
-          .then(() => {
-            setSendTracking(true)
-          })
-          .catch((extendErr) => {
-            Sentry.captureEvent({
-              message: 'Error al extender la sesión',
-              level: 'error',
-              extra: extendErr || {},
-            })
-          })
-      } else {
-        Sentry.captureEvent({
-          message: 'SDK Identity no ha cargado correctamente',
-          level: 'error',
-          extra: {},
+      Identity.extendSession()
+        .then(() => {
+          setSendTracking(true)
         })
-      }
+        .catch((extendErr) => {
+          Sentry.captureEvent({
+            message: 'Error al extender la sesión',
+            level: Sentry.Severity.Error,
+            extra: extendErr || {},
+          })
+        })
 
       // Datalayer solicitados por Joao
       if (!freeAccess) {
@@ -232,7 +220,7 @@ const Confirmation = () => {
                 step: 3,
                 event,
                 hasPrint: printedSubscriber,
-                plan: name,
+                plan: name || '',
               }),
               action: `${userPeriod} | Tarjeta - ${window.payU.card.method}`,
               label: uuid,
@@ -273,18 +261,21 @@ const Confirmation = () => {
 
   return (
     <>
-      {userProfile && priceCodePurchase && pricePurchase && (
+      {userProfile && priceCodePurchase && pricePurchase ? (
         <SubscribeEventTag
           subscriptionId={userProfile.uuid}
           offerCode={priceCodePurchase}
           currency="PEN"
           value={pricePurchase}
         />
-      )}
+      ) : null}
 
-      {sendTracking && (
-        <PaywallTracking userId={userProfile.uuid} orderNumber={orderNumber} />
-      )}
+      {sendTracking && userProfile && orderNumber
+        ? PaywallTracking({
+            userId: userProfile.uuid,
+            orderNumber,
+          })
+        : null}
 
       <ul className={styles.step}>
         <li className="active">Perfil</li>
@@ -307,8 +298,8 @@ const Confirmation = () => {
           <p className="title">Nombre</p>
           <p className="description">
             {freeAccess
-              ? `${subscriber.firstName} ${subscriber.lastName}`
-              : getFullNameFormat(firstName, lastName, secondLastName)}
+              ? `${subscriber?.firstName} ${subscriber?.lastName}`
+              : formatUsername(`${firstName} ${lastName} ${secondLastName}`)}
           </p>
 
           <p className="title">Precio</p>

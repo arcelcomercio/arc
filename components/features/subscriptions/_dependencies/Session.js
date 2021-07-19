@@ -84,7 +84,7 @@ export const getStorageProfile = () => {
 }
 
 /**
- * @returns {object|null} Información de la sesión de usuario desde `localStorage`
+ * @returns {import('@arc-publishing/sdk-identity/lib/sdk/userIdentity').UserIdentity|null} Información de la sesión de usuario desde `localStorage`
  */
 export const getStorageInfo = () => {
   if (typeof window !== 'undefined') {

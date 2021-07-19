@@ -665,6 +665,7 @@ const PropertiesCommon = {
     notHasAccount:   `No tengo cuenta `,
     RememberChose:   'Recuerda que puedes elegir entre nuestros diferentes planes.',
     verifyEmail:     'Verifique su correo electrónico. A este enviaremos su boleta.',
+    verifyEmailPayEfec: 'Verifique su correo electrónico. A este enviaremos su boleta después de realizar el pago.',
     rememberRecurrency: 'El precio de la suscripción se cargará automáticamente en tu tarjeta cada mes o año, según el período elegido.',
     showSecure:      'Compra seguro. Esta web está protegida',
     textTerms:       'Acepto las condiciones de servicio, las políticas de privacidad, y estoy de acuerdo con la información.',

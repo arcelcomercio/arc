@@ -10,6 +10,7 @@ import { PaywallCampaign, UserDocumentType } from 'types/subscriptions'
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
 import { isProd } from '../../../utilities/arc/env'
+import { frequencies } from '../../../utilities/subscriptions/sales'
 import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { docPatterns, maskDocuments } from '../_dependencies/Regex'
@@ -50,7 +51,7 @@ const Component = () => {
       printedSubscriber = false,
       event = undefined,
     } = {},
-  } = useAppContext<PaywallCampaign>() || {}
+  } = useAppContext<PaywallCampaign>()
 
   useSentry(urls.sentrySubs)
 
@@ -58,12 +59,6 @@ const Component = () => {
     (prev, item) => ({ ...prev, [item.name]: item.value }),
     {}
   )
-
-  const period = {
-    month: 'Mensual',
-    year: 'Anual',
-    semester: 'Semestral',
-  }
 
   const stateSchema = {
     vDocumentType: { value: 'DNI', error: '' },
@@ -257,7 +252,8 @@ const Component = () => {
               <h5 className="name-item">
                 {planName}
                 <span className="period-item">
-                  {' - '} {billingFrequency ? period[billingFrequency] : ''}
+                  {' - '}{' '}
+                  {billingFrequency ? frequencies[billingFrequency] : ''}
                 </span>
               </h5>
             </div>
