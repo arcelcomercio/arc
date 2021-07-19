@@ -1,8 +1,51 @@
 @import "../saltar-intro/saltar-intro-title";
 
 .saltar-intro-title {
+  font-family: $primary-font;
   &__container {
     border: 0;
+    &--section {
+      margin: 0;
+      margin-top: 5px;
+      background-color: #b6e2ae !important;
+      padding-top: 35px;
+      padding-bottom: 20px;
+      align-items: center;
+      @media (--only-mobile) {
+        margin: 0;
+      }
+      &::before {
+        display: none;
+
+        /* height: auto;
+        border: unset;
+        transform: unset;
+        position: unset; */
+      }
+      .saltar-intro-title {
+        &__box-line {
+          display: none;
+        }
+        &__title {
+          background-color: unset !important;
+          color: #000 !important;
+          max-width: 380px;
+          // font: normal normal 800 30px/24px Bitter;
+          font-size: 30px !important;
+          line-height: 24px;
+          letter-spacing: 0.42px;
+          border-bottom: 1px solid #707070;
+          margin: 0 !important;
+          padding-left: 35px;
+          padding-right: 35px;
+          @media (--only-mobile) {
+            font-size: 26px !important;
+            letter-spacing: 0.36px;
+            padding-bottom: 8px;
+          }
+        }
+      }
+    }
   }
   &__title {
     // font: normal normal 800 19px/24px Bitter;
