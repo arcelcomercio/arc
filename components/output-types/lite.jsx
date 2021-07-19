@@ -309,7 +309,9 @@ const LiteOutput = ({
             ) : (
               <meta name="robots" content="index, follow" />
             )}
-            <meta name="GOOGLEBOT" content="index follow" />
+            {arcSite === 'trome' ? null : (
+              <meta name="GOOGLEBOT" content="index follow" />
+            )}
             <meta name="author" content={siteProperties.siteName} />
             {isStory && (
               <>
