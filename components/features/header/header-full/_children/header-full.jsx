@@ -151,6 +151,8 @@ export default ({
   } = useAppContext()
   // const { activeSignwall } = siteProperties || {}
   const isMexico = /^\/mexico\//.test(requestUri)
+  const isColombia = /^\/colombia\//.test(requestUri)
+  const countryName = isMexico ? 'MX' : isColombia ? 'CO' : 'PE'
   // const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   const edittion = (cName, opcion = '', has = true) => (
@@ -189,6 +191,20 @@ export default ({
           </svg>
 
           {`${has ? 'MX (México)' : 'México'}`}
+        </a>
+        <a className={`${cName}${classes.ePais}`} href="/colombia/">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="12"
+            viewBox="0 0 18 12"
+            fill="none">
+            <rect width="18" height="5" fill="#fcd116" />
+            <rect y="6" width="18" height="4" fill="#003893" />
+            <rect y="9" width="18" height="4" fill="#ce1126" />
+          </svg>
+
+          {`${has ? 'CO (Colombia)' : 'Colombia'}`}
         </a>
       </div>
     </>
@@ -569,7 +585,7 @@ export default ({
                     href
                     title="Edicion"
                     className={classes.eLink}>
-                    <div className={classes.mx}>{isMexico ? 'MX' : 'PE'}</div>
+                    <div className={classes.mx}>{countryName}</div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       height="24"

@@ -39,6 +39,18 @@ const edittion = (cName: string, opcion = '', has = true) => (
         </svg>
         {`${has ? 'MX (México)' : 'México'}`}
       </a>
+      <a className={`${cName}__e-pais`} href="/colombia/">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="12"
+          viewBox="0 0 18 12">
+          <path d="M0 0h900v600H0z" fill="#fcd116" />
+          <path d="M0 300h900v300H0z" fill="#003893" />
+          <path d="M0 450h900v150H0z" fill="#ce1126" />
+        </svg>
+        {`${has ? 'CO (Colombia)' : 'Colombia'}`}
+      </a>
     </div>
   </>
 )
