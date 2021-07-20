@@ -1,7 +1,6 @@
 import { AdditionalPropertiesBase, ANSBase, ANSDates, Owner } from 'types/ans'
+import { ResizedUrls } from 'types/resizer'
 import { AnyObject } from 'types/utils'
-
-import { ResizedUrls } from '../components/utilities/resizer/format-presets'
 
 interface PhotoAdditionalProperties extends AdditionalPropertiesBase {
   fullSizeResizeUrl: string
