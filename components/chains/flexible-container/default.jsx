@@ -1,12 +1,12 @@
-import * as React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import {
+  containerClass,
+  containerCustomClass,
   containerType,
   customHeight,
   customWidth,
-  containerClass,
-  containerCustomClass,
 } from '../../utilities/custom-fields'
 
 const classes = 'grid grid--content'
