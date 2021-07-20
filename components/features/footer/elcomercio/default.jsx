@@ -1,18 +1,19 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import PropTypes from 'prop-types'
+import React from 'react'
 
+import { getAssetsPath } from '../../../utilities/assets'
 import getFooterProperties from '../_dependencies/properties'
 import FooterChildElComercio from './children/footer'
-import { getAssetsPath } from '../../../utilities/assets'
 
 const URL_BOOK_DEFAULT = 'http://ecomedia.pe/libro/inicio/elcomercio/'
 
-const FooterElComercio = props => {
+const FooterElComercio = (props) => {
   const { arcSite, contextPath, isAdmin } = useFusionContext()
-  const { customFields: { urlBook = URL_BOOK_DEFAULT } = {} } = props
+  const {
+    customFields: { urlBook = URL_BOOK_DEFAULT, isDeporPlay } = {},
+  } = props
   const {
     assets: { footer: { logo } = {} } = {},
     legalLinks = [],
@@ -21,7 +22,12 @@ const FooterElComercio = props => {
   } = getProperties(arcSite)
 
   const {
-    footer: { siteLegal = [], directors = [], contacts = [] } = {},
+    footer: {
+      siteLegal = [],
+      directors = [],
+      contacts = [],
+      draftingContact = [],
+    } = {},
   } = getFooterProperties(arcSite)
 
   const logoUrl =
@@ -55,6 +61,8 @@ const FooterElComercio = props => {
     isAdmin,
     urlBook,
     bookLogo,
+    isDeporPlay,
+    draftingContact,
   }
 
   return <FooterChildElComercio {...params} />
@@ -66,6 +74,9 @@ FooterElComercio.propTypes = {
       name: 'Url de libro de reclamación',
       defaultValue: URL_BOOK_DEFAULT,
       description: `Por defecto es ${URL_BOOK_DEFAULT}`,
+    }),
+    isDeporPlay: PropTypes.bool.tag({
+      name: 'Activar tipo Depor Play',
     }),
   }),
 }

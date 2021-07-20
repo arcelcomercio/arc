@@ -275,6 +275,23 @@ const rederStory: React.FC<{
     })
   }
 
+  const isScriptLoaded = (src: string) =>
+    !!document.querySelector(`script[src="${src}"]`)
+
+  const createScript = ({ src, async }: { src: string; async: boolean }) => {
+    const node = document.createElement('script')
+    if (isScriptLoaded(src) === false) {
+      if (src) {
+        node.type = 'text/javascript'
+        node.src = src
+      }
+      if (async) {
+        node.async = true
+      }
+    }
+    return document.body.append(node)
+  }
+
   const checkInstagramScript = () => {
     if (
       document.querySelector('script[src="https://www.instagram.com/embed.js"]')
@@ -285,7 +302,26 @@ const rederStory: React.FC<{
         rootMargin: '0px 0px 500px 0px',
       }
       const embeds = Array.from(document.body.querySelectorAll('.embed-script'))
-      const observer = new IntersectionObserver(window.widgetsObserver, options)
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          const { isIntersecting, target } = entry
+          if (isIntersecting) {
+            const type = target.getAttribute('data-type')
+            if (type === 'instagram') {
+              createScript({
+                src: 'https://www.instagram.com/embed.js',
+                async: true,
+              })
+            } else {
+              createScript({
+                src: 'https://platform.twitter.com/widgets.js',
+                async: true,
+              })
+            }
+            currentObserver.unobserve(target)
+          }
+        })
+      }, options)
       embeds.forEach((embed) => {
         observer.observe(embed)
       })
