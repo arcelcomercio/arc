@@ -123,6 +123,8 @@ export default ({
       lang = 'es-us'
     } else if (/^\/mexico/.test(requestUri)) {
       lang = 'es-mx'
+    } else if (/^\/mexico/.test(requestUri)) {
+      lang = 'es-mx'
     }
   }
 
