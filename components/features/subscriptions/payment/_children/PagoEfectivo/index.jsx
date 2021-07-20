@@ -13,6 +13,7 @@ import PWA from '../../../_dependencies/Pwa'
 import { cipPayEfectivo } from '../../../_dependencies/Services'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
 import { eventCategory, TaggeoJoao } from '../../../_dependencies/Taggeo'
+import { getSessionStorage, getUserAgent } from '../../../_dependencies/Utils'
 
 const styles = {
   step: 'step__left-progres',
@@ -96,6 +97,11 @@ const Confirmation = () => {
         user_phone: phone,
         price_code: priceCode,
         token,
+        url_referer: getSessionStorage('paywall_last_url') || '',
+        medium: getSessionStorage('paywall_type_modal') || 'organico',
+        confirm_subscription: getSessionStorage('paywall_confirm_subs') || '3',
+        user_agent: getUserAgent,
+        is_pwa: PWA.isPWA() ? 1 : 2,
       }
 
       cipPayEfectivo(urlCommon.cipPayEfectivo, dataCIP)
