@@ -268,6 +268,8 @@ const LiteOutput = ({
       lang = 'es-us'
     } else if (/^\/mexico/.test(requestUri)) {
       lang = 'es-mx'
+    } else if (/^\/colombia/.test(requestUri)) {
+      lang = 'es-co'
     }
   }
 
