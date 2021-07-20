@@ -1,5 +1,5 @@
 import sha256 from 'crypto-js/sha256'
-import { useAppContext } from 'fusion:context'
+import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
@@ -84,9 +84,7 @@ const setupUserProfile = (
   onStudents,
   dataTreatment
 ) => {
-  const {
-    siteProperties: { activeDataTreatment, siteDomain },
-  } = useAppContext() || {}
+  const { siteDomain } = getProperties(arcSite) || {}
 
   window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
   window.Identity.getUserProfile()
@@ -138,7 +136,14 @@ const setupUserProfile = (
             {
               name: 'dataTreatment',
               value:
-                dataTreatment && activeDataTreatment ? dataTreatment : 'NULL',
+                dataTreatment &&
+                (arcSite === 'elcomercio' ||
+                  arcSite === 'gestion' ||
+                  arcSite === 'trome' ||
+                  arcSite === 'ojo' ||
+                  arcSite === 'diariocorreo')
+                  ? dataTreatment
+                  : 'NULL',
               type: 'String',
             },
           ],
