@@ -6,14 +6,16 @@ import {
   SubscriptionPlan,
 } from 'types/subscriptions'
 
-import { formatUsername } from '../../../../../utilities/subscriptions/identity'
+import {
+  formatUsername,
+  isLoggedIn,
+} from '../../../../../utilities/subscriptions/identity'
 import { frequencies } from '../../../../../utilities/subscriptions/sales'
 import { useAuthContext } from '../../../_context/auth'
 import {
   PropertiesCommon,
   PropertiesSite,
 } from '../../../_dependencies/Properties'
-import { isLogged } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 
 const styles = {
@@ -82,9 +84,9 @@ const Summary = (): JSX.Element => {
     }
   }, [])
 
-  const handleChangeDates = () => {
+  const handleChangeDates = async () => {
     if (typeof window !== 'undefined') {
-      if (isLogged()) {
+      if (await isLoggedIn()) {
         updateStep(2)
         const divDetail = document.getElementById('div-detail')
         const btnDetail = document.getElementById('btn-detail')
@@ -103,9 +105,9 @@ const Summary = (): JSX.Element => {
     }
   }
 
-  const handleChangePlan = () => {
+  const handleChangePlan = async () => {
     if (typeof window !== 'undefined') {
-      if (isLogged()) {
+      if (await isLoggedIn()) {
         updateStep(2)
         Taggeo(nameTagCategory, 'web_paywall_change_plan')
       } else {
