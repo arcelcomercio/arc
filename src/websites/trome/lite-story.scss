@@ -5,11 +5,8 @@
 @import "../../general-styles/framework/variables/index";
 @import "./scss/variables/index";
 
-$primary-font: "Roboto",
-sans-serif;
-$secondary-font: Arial,
-Helvetica,
-sans-serif;
+$primary-font: "Roboto", sans-serif;
+$secondary-font: "Arial", "Helvetica", sans-serif;
 $tertiary-font: $secondary-font;
 
 /******* Components *******/
@@ -20,13 +17,11 @@ $tertiary-font: $secondary-font;
 // @import "./scss/lite-components/features/footer/story/st-foot";
 
 // Completados - en curso
-@import "./scss/partials/lite/import-fonts";
 @import "./scss/lite-components/features/header/header-full/header-menu";
 
 @import "./scss/lite-components/features/footer/standard-g21/foot-g";
 @import "./scss/lite-components/features/cards/most-read/most-read"; // Hecho
 @import "./scss/lite-components/features/story/gallery/gallery";
-@import "./scss/lite-components/features/story/gallery/gallery-vertical";
 @import "./scss/lite-components/features/story/tags/st-tags";
 @import "./scss/lite-components/features/story/contents/contents";
 @import "./scss/lite-components/features/story/contents/table";
