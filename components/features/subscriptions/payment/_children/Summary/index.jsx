@@ -152,7 +152,8 @@ const Summary = () => {
                     </span>
                     <p>
                       <strong>{item.description.title}. </strong>
-                      {item.description.description}
+                      {userMethodPay !== 'payEfectivo' &&
+                        item.description.description}
                     </p>
                   </div>
                 )
