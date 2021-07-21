@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import UtilListKey from '../../../../utilities/list-keys'
 import { processText } from '../../../../utilities/story/content'
-
 import StoryGalleryChildPicture from './picture'
 
 const classes = {
@@ -17,7 +16,7 @@ const classes = {
   title: 'story-gallery__title',
 }
 
-const StoryHeaderChildGallery = props => {
+const StoryHeaderChildGallery = (props) => {
   const {
     arcSite,
     seccioPublicidad,
@@ -46,7 +45,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja2`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="4"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 3 && (
                 <div
@@ -55,7 +55,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja3`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 5 && (
                 <div
@@ -64,7 +65,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja4`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 7 && (
                 <div
@@ -73,7 +75,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja5`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 9 && (
                 <div
@@ -82,7 +85,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja6`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 11 && (
                 <div
@@ -91,7 +95,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja7`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 13 && (
                 <div
@@ -100,7 +105,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja8`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 15 && (
                 <div
@@ -109,7 +115,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja9`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 17 && (
                 <div
@@ -118,7 +125,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja10`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 19 && (
                 <div
@@ -127,7 +135,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja11`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 21 && (
                 <div
@@ -136,7 +145,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja12`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 23 && (
                 <div
@@ -145,7 +155,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja13`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 25 && (
                 <div
@@ -154,7 +165,8 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja14`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               {i === 27 && (
                 <div
@@ -163,14 +175,15 @@ const StoryHeaderChildGallery = props => {
                   data-ads-name={`/28253241/${arcSite}/web/galeria_v/${seccioPublicidad}/caja15`}
                   data-ads-dimensions="[[300,250]]"
                   data-bloque="3"
-                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"></div>
+                  data-ads-dimensions-m="[[300,250],[320,50],[320,100]]"
+                />
               )}
               <div
                 className={`${classes.galleryItem} ${itemv && 'itemv'} `}
                 // data-slide-number importante para "resources/assets/js/vertical-gallery.js"
                 data-slide-number={i + 1}
                 key={UtilListKey(i)}>
-                <div className="more-compartir"></div>
+                <div className="more-compartir" />
                 <span className={classes.galleryNumber}>
                   <strong> {i + 1} </strong>
                   de {slides.length}
@@ -182,6 +195,8 @@ const StoryHeaderChildGallery = props => {
                     subtitle={subtitle}
                     itemv={itemv}
                     i={i}
+                    height={height}
+                    width={width}
                   />
                 </div>
                 {name ? (

@@ -392,7 +392,7 @@
         height: 100%;
         object-fit: cover;
         display: none;
-        @media (--subs-tabletp) {
+        @media (--subs-tabletl) {
           display: block;
         }
       }

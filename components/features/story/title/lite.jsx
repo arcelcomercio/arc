@@ -10,6 +10,7 @@ const classes = {
   listClasses: 'sht__list',
   title: 'sht__title',
   category: 'sht__category',
+  related: 'sht__related',
 }
 
 const StoryTitleLite = () => {
@@ -22,11 +23,13 @@ const StoryTitleLite = () => {
     primarySectionLink,
     primarySection,
     contentElementsListOne: { items = [], type = '' } = {},
+    contentElementsQuoteOne,
   } = new StoryData({
     data,
     arcSite,
     contextPath,
   })
+
   return (
     <>
       {arcSite === SITE_DEPOR && (
@@ -52,6 +55,12 @@ const StoryTitleLite = () => {
           <h2 itemProp="name" className={classes.description}>
             {subTitle}
           </h2>
+          {contentElementsQuoteOne && (
+            <div
+              className={classes.related}
+              dangerouslySetInnerHTML={{ __html: contentElementsQuoteOne }}
+            />
+          )}
           <PremiumTag isPremium={isPremium} arcSite={arcSite} />
         </>
       )}

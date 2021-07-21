@@ -6,6 +6,9 @@ const classes = {
   image: 'story-content__gallery-img w-full ',
   caption: 'story-content__caption pt-10 secondary-font text-md',
 }
+const placeholderSrc = (width, height) =>
+  `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
+
 /**
  *
  * @todo confirmar si las galerias verticales tienen un
@@ -19,8 +22,21 @@ const StoryHeaderChildPicture = ({
   subtitle,
   // itemv,
   i,
-} = {}) => {
-  return (
+  height,
+  width,
+} = {}) =>
+  i === 0 ? (
+    <Image
+      src={url}
+      width={980}
+      height={0}
+      sizes="(max-width: 360px) 314px, (max-width: 768px) 482px, 980px"
+      alt={caption || subtitle}
+      className={classes.image}
+      loading="lazy"
+      placeholder={placeholderSrc(width, height)}
+    />
+  ) : (
     <Image
       src={url}
       width={980}
@@ -31,6 +47,5 @@ const StoryHeaderChildPicture = ({
       loading={i === 0 ? 'auto' : 'lazy'}
     />
   )
-}
 
 export default React.memo(StoryHeaderChildPicture)

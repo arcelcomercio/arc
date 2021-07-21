@@ -2,12 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import { useAppContext } from 'fusion:context'
-// import { ENVIRONMENT } from 'fusion:environment'
 import React from 'react'
 
+import { env } from '../../../../utilities/arc/env'
 import {
   edicionMenu,
-  // getBtnSignScript,
+  getBtnSignScript,
   popup,
   scrolled,
   searchDPMenu,
@@ -155,13 +155,14 @@ export default ({
   Newsle,
 }) => {
   const arcSiteTrome = 'trome'
-  const {
-    requestUri,
-    // siteProperties
-  } = useAppContext()
-  // const { activeSignwall } = siteProperties || {}
+  const { requestUri, siteProperties } = useAppContext()
+  const { activeSignwall } = siteProperties || {}
   const isMexico = /^\/mexico\//.test(requestUri)
   const isDeporPlay = /^\/depor-play\//.test(requestUri)
+  const isColombia = /^\/colombia\//.test(requestUri)
+  const countryName = isMexico ? 'MX' : isColombia ? 'CO' : 'PE'
+  // const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+
   const edittion = (cName, opcion = '', has = true) => (
     <>
       <div className={`${cName}${classes.eBody} ${opcion} `}>
@@ -198,6 +199,20 @@ export default ({
           </svg>
 
           {`${has ? 'MX (México)' : 'México'}`}
+        </a>
+        <a className={`${cName}${classes.ePais}`} href="/colombia/">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="12"
+            viewBox="0 0 18 12"
+            fill="none">
+            <rect width="18" height="6" fill="#fcd116" />
+            <rect y="6" width="18" height="4" fill="#003893" />
+            <rect y="9" width="18" height="4" fill="#ce1126" />
+          </svg>
+
+          {`${has ? 'CO (Colombia)' : 'Colombia'}`}
         </a>
       </div>
     </>
@@ -668,14 +683,14 @@ export default ({
               </>
             )}
 
-            {/* {activeSignwall && (
+            {activeSignwall && (
               <button
                 type="button"
                 className={`bg-black ${classes.btnSingwall}`}>
-                <i className=" icon-user title-sm text-white" />
-                <span className="text-md tertiary-font text-white">JD</span>
+                <i className="icon-user title-sm text-white" />
+                <span className="text-md tertiary-font text-white" />
               </button>
-            )} */}
+            )}
 
             {arcSite === 'depor' && (
               <>
@@ -688,7 +703,7 @@ export default ({
                     href
                     title="Edicion"
                     className={classes.eLink}>
-                    <div className={classes.mx}>{isMexico ? 'MX' : 'PE'}</div>
+                    <div className={classes.mx}>{countryName}</div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       height="24"
@@ -737,6 +752,13 @@ export default ({
           __html: edicionMenu,
         }}
       />
+      {activeSignwall && (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: getBtnSignScript(env, arcSite),
+          }}
+        />
+      )}
     </>
   )
 }
