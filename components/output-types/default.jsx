@@ -123,6 +123,8 @@ export default ({
       lang = 'es-us'
     } else if (/^\/mexico/.test(requestUri)) {
       lang = 'es-mx'
+    } else if (/^\/mexico/.test(requestUri)) {
+      lang = 'es-mx'
     }
   }
 
@@ -150,6 +152,15 @@ export default ({
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
   const enabledPushud = getEnablePushud(arcSite)
+  const jsAdpushup = `
+  (function(w, d) {
+    var s = d.createElement('script');
+    s.src = '//cdn.adpushup.com/42614/adpushup.js';
+    s.crossOrigin='anonymous'; 
+    s.type = 'text/javascript'; s.async = true;
+    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+  })(window, document);`
+
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
@@ -195,6 +206,7 @@ export default ({
       : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
+
   const getAfsStyle = () => {
     let styleAfsId = ''
     if (arcSite === SITE_DEPOR) {
@@ -660,6 +672,15 @@ export default ({
             />
           </>
         )}
+        {arcSite === SITE_ELBOCON ? (
+          <>
+            <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: jsAdpushup }}
+            />
+          </>
+        ) : null}
         <TagManager
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...siteProperties}

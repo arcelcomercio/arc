@@ -2,14 +2,10 @@
 import { resizerSecret } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import { ArcSite } from 'types/fusion'
+import { InlinePresets, Preset, ResizedUrls } from 'types/resizer'
 import { Basic, PromoItems, Stories, Story } from 'types/story'
 
-import {
-  formatPresetsSizes,
-  InlinePresets,
-  Preset,
-  ResizedUrls,
-} from './format-presets'
+import { formatPresetsSizes } from './format-presets'
 
 type CreateResizerFunctions = {
   getResizerParam: (
@@ -287,7 +283,7 @@ export const getResizedImageParams = (
   }
 
   if ('promo_items' in data) {
-    generateParams(data?.promo_items)
+    generateParams(data.promo_items)
   } else if (
     data?.content_elements &&
     ((data?.count && data?.count > 0) || data?.type !== 'story')

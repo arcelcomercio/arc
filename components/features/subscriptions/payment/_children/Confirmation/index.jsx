@@ -10,17 +10,19 @@ import {
   PropertiesSite,
 } from '../../../_dependencies/Properties'
 import PWA from '../../../_dependencies/Pwa'
-import { getStorageInfo } from '../../../_dependencies/Session'
+import { conformProfile, getStorageInfo } from '../../../_dependencies/Session'
 import {
   eventCategory,
   PixelActions,
   pushCxense,
   sendAction,
   TaggeoJoao,
+  TagsAdsMurai,
 } from '../../../_dependencies/Taggeo'
 import {
   getFullNameFormat,
   getSessionStorage,
+  getUserAgent,
 } from '../../../_dependencies/Utils'
 
 const styles = {
@@ -41,8 +43,7 @@ const PaywallTracking = ({ ...props }) => {
       confirmUser: getSessionStorage('paywall_confirm_subs') || '3',
       originUser: getSessionStorage('paywall_type_modal') || 'organico',
       isPwaUser: PWA.isPWA() ? '1' : '2',
-      userAgentClient:
-        typeof window !== 'undefined' ? window.navigator.userAgent : '',
+      userAgentClient: getUserAgent,
       ...props,
     },
   })
@@ -70,6 +71,7 @@ const Confirmation = () => {
     userProfile,
   } = React.useContext(AuthContext)
 
+  const { phone, province } = conformProfile(userProfile || {})
   const { texts } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [loading, setLoading] = React.useState(false)
@@ -201,6 +203,18 @@ const Confirmation = () => {
         value: amount,
       })
 
+      TagsAdsMurai(
+        {
+          event: 'adsmurai_pageview',
+          em: email,
+          fn: `${firstName || ''}`,
+          ln: `${lastName || ''} ${secondLastName || ''}`,
+          ct: `${province || ''}`,
+          ph: `${phone || ''}`,
+        },
+        window.location.pathname
+      )
+
       if ('Identity' in window) {
         window.Identity.extendSession()
           .then(() => {
@@ -233,9 +247,22 @@ const Confirmation = () => {
                 hasPrint: printedSubscriber,
                 plan: name,
               }),
-              action: userPeriod,
+              action: `${userPeriod} | Tarjeta - ${window.payU.card.method}`,
               label: uuid,
               value: `${amount}`,
+            },
+            window.location.pathname
+          )
+
+          TagsAdsMurai(
+            {
+              event: 'Subscribe',
+              content_ids: sku,
+              content_type: 'product',
+              content_name: name,
+              value: amount,
+              currency: 'PEN',
+              subscription_type: userPeriod,
             },
             window.location.pathname
           )

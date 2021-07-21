@@ -16,7 +16,7 @@ const classes = {
   adsAmp: 'text-center ad-amp-movil',
 }
 
-const StoryHeaderChildAmpGallery = props => {
+const StoryHeaderChildAmpGallery = (props) => {
   const { data, primarySectionLink, adsAmp } = props
 
   const { arcSite } = useAppContext()
@@ -50,7 +50,6 @@ const StoryHeaderChildAmpGallery = props => {
       arcSite,
       movil1: true,
       size,
-      fluid
     }
   }
   return (

@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { createBrowserHistory } from 'history'
+import * as React from 'react'
 
 import { AuthContext } from '../_context/auth'
 
@@ -16,7 +16,7 @@ let history = {}
  *
  * @see [medicion de aplicaciones SPA](https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications)
  */
-const setPageView = path => {
+const setPageView = (path) => {
   console.log('registra nueva pagina vista ->', path)
 }
 
@@ -28,7 +28,7 @@ const setPageView = path => {
  * @param {Source} source Origen o evento de suscripcion
  * @returns {string} Sufijo para agregar a la ruta ROOT
  */
-const getPathSuffix = source => {
+const getPathSuffix = (source) => {
   let suffix = ''
   switch (source) {
     case 'winback':
@@ -52,11 +52,12 @@ const getPathSuffix = source => {
  *
  * @see [documentacion de **history**](https://github.com/ReactTraining/history/blob/master/docs/getting-started.md)
  */
-const useRoute = source => {
+const useRoute = (source) => {
   const ROOT = `/suscripcionesdigitales/${getPathSuffix(source)}`
   const PROFILE = `${ROOT}perfil/`
   const PAYMENT = `${ROOT}pago/`
   const CONFIRMATION = `${ROOT}confirmacion/`
+  const CIP = `${ROOT}cip/`
 
   const { userLoaded, userStep, updateStep } = React.useContext(AuthContext)
 
@@ -86,6 +87,10 @@ const useRoute = source => {
               setPageView(newPathname)
               updateStep(4)
               break
+            case CIP:
+              setPageView(newPathname)
+              updateStep(5)
+              break
             default: {
               if (newPathname === ROOT) history.replace(PROFILE + search)
               updateStep(2)
@@ -98,13 +103,12 @@ const useRoute = source => {
     return () => {
       unlisten()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   React.useEffect(() => {
     const { location: loc } = history
 
-    const pushPath = path => {
+    const pushPath = (path) => {
       const { pathname, search = '' } = loc || {}
       if (pathname) {
         if (pathname !== path) {
@@ -129,11 +133,13 @@ const useRoute = source => {
       case 4:
         pushPath(CONFIRMATION)
         break
+      case 5:
+        pushPath(CIP)
+        break
       default:
         pushPath(ROOT)
         break
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userStep, userLoaded])
 
   return {

@@ -45,7 +45,9 @@ const AuthUser = () => {
           extra: errIdentitySDK || {},
         })
       })
+  }, [])
 
+  React.useEffect(() => {
     const urlRef = window.document.referrer
     if (urlRef && !/facebook.com/.test(urlRef)) {
       deleteCookie(COOKIE_NAME)

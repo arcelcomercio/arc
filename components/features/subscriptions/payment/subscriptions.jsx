@@ -103,11 +103,12 @@ const WrapperPaymentSubs = () => {
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
           <Wrapper
+            step={userStep}
             style={{
               minHeight: '530px',
             }}>
             {!userLoading && (
-              <PanelLeft>
+              <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
                   <h2 className="step__left-title-campaign">
                     {texts.textWinback}
@@ -124,8 +125,10 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
+
+            <PanelRight
+              hidePanel={freeAccess || userStep === 4 || userStep === 5}>
+              <Summary />
             </PanelRight>
           </Wrapper>
         </Container>

@@ -237,7 +237,7 @@ class StoryContents extends React.PureComponent {
                 : ''
             }`}
             style={isPremium && !isPreview ? { display: 'none' } : {}}
-            id="contenedor">
+            id="container">
             {!requestUri.includes('/recetas/') && subtype !== MINUTO_MINUTO && (
               <StoryContentsChildIcon />
             )}
@@ -380,15 +380,18 @@ class StoryContents extends React.PureComponent {
                             __html: replaceTags(content),
                           }}
                         />
-                        {publicidad && isDfp &&
-                         !(subtype == GALLERY_VERTICAL && nameAds == 'caja3') && (
-                          <Ads
-                            adElement={nameAds}
-                            isDesktop={false}
-                            isMobile
-                            isDfp={isDfp}
-                          />
-                        )}
+                        {publicidad &&
+                          isDfp &&
+                          !(
+                            subtype == GALLERY_VERTICAL && nameAds == 'caja3'
+                          ) && (
+                            <Ads
+                              adElement={nameAds}
+                              isDesktop={false}
+                              isMobile
+                              isDfp={isDfp}
+                            />
+                          )}
                       </>
                     )
                   }
