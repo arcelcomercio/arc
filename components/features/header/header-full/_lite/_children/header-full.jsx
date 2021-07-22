@@ -92,44 +92,44 @@ export default ({
   const isMexico = /^\/mexico\//.test(requestUri)
   const isDeporPlay = /^\/depor-play\//.test(requestUri)
   const edittion = (cName, opcion = '', has = true) => (
-      <>
-        <div className={`${cName}${classes.eBody} ${opcion} `}>
-          <div className={`${cName}${classes.eName}`}>EDICIONES:</div>
+    <>
+      <div className={`${cName}${classes.eBody} ${opcion} `}>
+        <div className={`${cName}${classes.eName}`}>EDICIONES:</div>
 
-          <a className={`${cName}${classes.ePais}`} href="/?noredirect">
-            <svg
-              width="18"
-              height="12"
-              viewBox="0 0 18 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 0H0V12H18V0Z" fill="white" />
-              <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
-              <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
-            </svg>
-            {`${has ? 'PE (Perú)' : 'Perú'}`}
-          </a>
+        <a className={`${cName}${classes.ePais}`} href="/?noredirect">
+          <svg
+            width="18"
+            height="12"
+            viewBox="0 0 18 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 0H0V12H18V0Z" fill="white" />
+            <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
+            <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
+          </svg>
+          {`${has ? 'PE (Perú)' : 'Perú'}`}
+        </a>
 
-          <a className={`${cName}${classes.ePais}`} href="/mexico/">
-            <svg
-              width="18"
-              height="12"
-              viewBox="0 0 18 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 0H0V12H18V0Z" fill="white" />
-              <path d="M6 0H0V12H6V0Z" fill="#006847" />
-              <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
-              <path
-                d="M9 8.0625C10.1391 8.0625 11.0625 7.13909 11.0625 6C11.0625 4.86091 10.1391 3.9375 9 3.9375C7.86091 3.9375 6.9375 4.86091 6.9375 6C6.9375 7.13909 7.86091 8.0625 9 8.0625Z"
-                fill="#BFC2A3"
-              />
-            </svg>
-            {`${has ? 'MX (México)' : 'México'}`}
-          </a>
-        </div>
-      </>
-    )
+        <a className={`${cName}${classes.ePais}`} href="/mexico/">
+          <svg
+            width="18"
+            height="12"
+            viewBox="0 0 18 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 0H0V12H18V0Z" fill="white" />
+            <path d="M6 0H0V12H6V0Z" fill="#006847" />
+            <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
+            <path
+              d="M9 8.0625C10.1391 8.0625 11.0625 7.13909 11.0625 6C11.0625 4.86091 10.1391 3.9375 9 3.9375C7.86091 3.9375 6.9375 4.86091 6.9375 6C6.9375 7.13909 7.86091 8.0625 9 8.0625Z"
+              fill="#BFC2A3"
+            />
+          </svg>
+          {`${has ? 'MX (México)' : 'México'}`}
+        </a>
+      </div>
+    </>
+  )
 
   const renderSections = (sections, deep, nameId = 'root') => {
     const aux = deep
@@ -197,13 +197,17 @@ export default ({
         <div className={classes.container}>
           <div className={classes.left}>
             {!hideMenu && (
-              <button type="button" className={classes.btnMenu} id="btn-menu">
+              <button
+                title="Menú"
+                alt="Menú"
+                type="button"
+                className={classes.btnMenu}
+                id="btn-menu">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18.111"
                   height="17.105"
                   viewBox="0 0 18.111 17.105">
-                  <title>Menú</title>
                   <g transform="translate(-15 49)">
                     <path d="M15-47.491v1.509H33.111V-49H15Z" />
                     <path
@@ -224,9 +228,15 @@ export default ({
                 className={classes.linkLogo}
                 href="/"
                 title={siteDomain}>
-                  {isDeporPlay && showArrowLeft && (
-                    <svg width="74" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 492" xmlSpace="preserve"><path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z"/></svg>
-                  )}
+                {isDeporPlay && showArrowLeft && (
+                  <svg
+                    width="74"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 492 492"
+                    xmlSpace="preserve">
+                    <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" />
+                  </svg>
+                )}
                 <img
                   src={logo}
                   className={classes.logo}
@@ -249,12 +259,16 @@ export default ({
                 </a>
               )}
               {isDeporPlay && urlLogoPlay !== '' && (
-                <a 
+                <a
                   itemProp="url"
                   href="/"
                   className="header-full__logo-play"
                   title={siteDomain}>
-                  <img src={`${urlLogoPlay}`} alt="Logo Depor Play" title="Logo Depor Play"/>
+                  <img
+                    src={`${urlLogoPlay}`}
+                    alt="Logo Depor Play"
+                    title="Logo Depor Play"
+                  />
                 </a>
               )}
             </div>
@@ -263,16 +277,16 @@ export default ({
             )}
             <div className={classes.boxList}>
               <ul className={classes.listNav}>
-                {headerList.map(item => (
-                    <li className={classes.itemNav}>
-                      <a
-                        itemProp="url"
-                        href={item.url || item._id || '/'}
-                        className={classes.linkNav}>
-                        {item.name || item.display_name}
-                      </a>
-                    </li>
-                  ))}
+                {headerList.map((item) => (
+                  <li className={classes.itemNav}>
+                    <a
+                      itemProp="url"
+                      href={item.url || item._id || '/'}
+                      className={classes.linkNav}>
+                      {item.name || item.display_name}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             {!hideMenu && (
@@ -284,38 +298,42 @@ export default ({
                     )}
                     {isDeporPlay && (
                       <>
-                      <div className={classes.dpsearch}>
-                        <form className={classes.dpform}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14"><path d="M13.2 12.4L9.2 8.3C9.8 7.5 10.1 6.5 10.1 5.4 10.1 4.2 9.6 3 8.8 2.1 7.9 1.2 6.7 0.8 5.4 0.8 4.2 0.8 3 1.2 2.1 2.1 1.2 3 0.8 4.2 0.8 5.4 0.8 6.7 1.2 7.9 2.1 8.8 3 9.6 4.2 10.1 5.4 10.1 6.5 10.1 7.5 9.8 8.3 9.2L12.4 13.2C12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.3 12.4 13.3 12.5 13.3 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2L13.2 12.5C13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.3 12.5 13.3 12.4 13.3 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4V12.4ZM7.9 7.9C7.3 8.6 6.4 8.9 5.4 8.9 4.5 8.9 3.6 8.6 3 7.9 2.3 7.3 1.9 6.4 1.9 5.4 1.9 4.5 2.3 3.6 3 3 3.6 2.3 4.5 1.9 5.4 1.9 6.4 1.9 7.3 2.3 7.9 3 8.6 3.6 8.9 4.5 8.9 5.4 8.9 6.4 8.6 7.3 7.9 7.9Z" /></svg>
-                          <input
-                            type="search"
-                            placeholder="Buscar"
-                            className={classes.dpforminput}
-                          />
-                        </form>
-                      </div>
-                      <script
-                        type="text/javascript"
-                        dangerouslySetInnerHTML={{
-                          __html: searchDPMenu,
-                        }}
-                      />
+                        <div className={classes.dpsearch}>
+                          <form className={classes.dpform}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 14 14">
+                              <path d="M13.2 12.4L9.2 8.3C9.8 7.5 10.1 6.5 10.1 5.4 10.1 4.2 9.6 3 8.8 2.1 7.9 1.2 6.7 0.8 5.4 0.8 4.2 0.8 3 1.2 2.1 2.1 1.2 3 0.8 4.2 0.8 5.4 0.8 6.7 1.2 7.9 2.1 8.8 3 9.6 4.2 10.1 5.4 10.1 6.5 10.1 7.5 9.8 8.3 9.2L12.4 13.2C12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.3 12.4 13.3 12.5 13.3 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2L13.2 12.5C13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.3 12.5 13.3 12.4 13.3 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4V12.4ZM7.9 7.9C7.3 8.6 6.4 8.9 5.4 8.9 4.5 8.9 3.6 8.6 3 7.9 2.3 7.3 1.9 6.4 1.9 5.4 1.9 4.5 2.3 3.6 3 3 3.6 2.3 4.5 1.9 5.4 1.9 6.4 1.9 7.3 2.3 7.9 3 8.6 3.6 8.9 4.5 8.9 5.4 8.9 6.4 8.6 7.3 7.9 7.9Z" />
+                            </svg>
+                            <input
+                              type="search"
+                              placeholder="Buscar"
+                              className={classes.dpforminput}
+                            />
+                          </form>
+                        </div>
+                        <script
+                          type="text/javascript"
+                          dangerouslySetInnerHTML={{
+                            __html: searchDPMenu,
+                          }}
+                        />
                       </>
                     )}
                     <ul className={classes.list}>
                       {menuList && renderSections(menuList, 0)}
                       {isDeporPlay && (
                         <li className="nav-sidebar__item header-full__newsletter-li">
-                            <a href="/suscripcion-newsletter/">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="16"
-                                viewBox="0 0 20 16">
-                                <path d="M20,2a2.006,2.006,0,0,0-2-2H2A2.006,2.006,0,0,0,0,2V14a2.006,2.006,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2ZM18,2,10,6.99,2,2Zm0,12H2V4l8,5,8-5Z" />
-                              </svg>
-                              <span>Newsletter</span>
-                            </a>
+                          <a href="/suscripcion-newsletter/">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="16"
+                              viewBox="0 0 20 16">
+                              <path d="M20,2a2.006,2.006,0,0,0-2-2H2A2.006,2.006,0,0,0,0,2V14a2.006,2.006,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2ZM18,2,10,6.99,2,2Zm0,12H2V4l8,5,8-5Z" />
+                            </svg>
+                            <span>Newsletter</span>
+                          </a>
                         </li>
                       )}
                     </ul>
@@ -327,9 +345,15 @@ export default ({
                         className={classes.linkLogoFooterDPlay}
                         href="/"
                         title={siteDomain}>
-                          {showArrowLeft && (
-                            <svg width="74" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 492" xmlSpace="preserve"><path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z"/></svg>
-                          )}
+                        {showArrowLeft && (
+                          <svg
+                            width="74"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 492 492"
+                            xmlSpace="preserve">
+                            <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" />
+                          </svg>
+                        )}
                         <img
                           src={logo}
                           className={classes.logo}
@@ -343,7 +367,7 @@ export default ({
                     <a itemProp="url" href="/" className={classes.text}>
                       {siteDomain}
                     </a>
-                    {legalLinks.map(link => (
+                    {legalLinks.map((link) => (
                       <a
                         itemProp="url"
                         key={link.url}
@@ -382,7 +406,7 @@ export default ({
                       <span>Comparte</span>
                     </li>
                   )}
-                  {shareButtons.map(item => (
+                  {shareButtons.map((item) => (
                     <li key={item.icon} className={classes.shareItem}>
                       <a
                         itemProp="url"
@@ -478,7 +502,7 @@ export default ({
                 </a>
               </div>
             )}
-            
+
             {arcSite === 'trome' && (
               <>
                 <div className="header-full__ci">
@@ -489,14 +513,17 @@ export default ({
                     <img src={winningCallLogo} alt="Llamada Ganadora" />
                   </a>
                 </div>
-                <button type="button" className="header-full__is">
+                <button
+                  alt="abrir cuadro de búsqueda"
+                  title="abrir cuadro de búsqueda"
+                  type="button"
+                  className="header-full__is">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-basic__search"
                     width="19"
                     height="19"
                     viewBox="0 0 14 14">
-                    <title>abrir cuadro de búsqueda</title>
                     <path d="M13.2 12.4L9.2 8.3C9.8 7.5 10.1 6.5 10.1 5.4 10.1 4.2 9.6 3 8.8 2.1 7.9 1.2 6.7 0.8 5.4 0.8 4.2 0.8 3 1.2 2.1 2.1 1.2 3 0.8 4.2 0.8 5.4 0.8 6.7 1.2 7.9 2.1 8.8 3 9.6 4.2 10.1 5.4 10.1 6.5 10.1 7.5 9.8 8.3 9.2L12.4 13.2C12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.3 12.4 13.3 12.5 13.3 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2L13.2 12.5C13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.3 12.5 13.3 12.4 13.3 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4V12.4ZM7.9 7.9C7.3 8.6 6.4 8.9 5.4 8.9 4.5 8.9 3.6 8.6 3 7.9 2.3 7.3 1.9 6.4 1.9 5.4 1.9 4.5 2.3 3.6 3 3 3.6 2.3 4.5 1.9 5.4 1.9 6.4 1.9 7.3 2.3 7.9 3 8.6 3.6 8.9 4.5 8.9 5.4 8.9 6.4 8.6 7.3 7.9 7.9Z" />
                   </svg>
                 </button>
@@ -564,11 +591,13 @@ export default ({
           __html: `${isStory ? scrolled : ''}${hideMenu ? '' : menuScript}${
             isStory && arcSite === 'depor' ? scrollProgresBar : ''
           }`,
-        }} />
+        }}
+      />
       <script
         dangerouslySetInnerHTML={{
           __html: edicionMenu,
-        }} />
+        }}
+      />
     </>
   )
 }
