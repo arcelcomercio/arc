@@ -44,7 +44,7 @@ const TriviasMainQuestion = ({
   const [select, setSelect] = React.useState(false)
   const expandibleText = React.useRef(null)
 
-  const handleAnswer = e => {
+  const handleAnswer = (e) => {
     // check if the selected answer is the right one
     setSelect(true)
     const isRight = options.some(
@@ -54,7 +54,7 @@ const TriviasMainQuestion = ({
     setAnswer(isRight)
   }
 
-  const handleExpandDetails = e => {
+  const handleExpandDetails = (e) => {
     e.target.remove()
     expandibleText.current.style.maxHeight = 'unset'
   }
@@ -91,7 +91,8 @@ const TriviasMainQuestion = ({
             x2="100%"
             style={{
               strokeWidth: 2,
-            }}></line>
+            }}
+          />
         </svg>
         <h3 className={classes.question}>{`${number}. ${question}`}</h3>
         <ol
@@ -103,7 +104,7 @@ const TriviasMainQuestion = ({
             paddingBottom: '30px',
           }}>
           <>
-            {options.map(option => {
+            {options.map((option) => {
               const { name, response: isRight } = option
               const color = isRight ? '#26D340' : '#D92323'
               return name ? (
@@ -157,6 +158,8 @@ const TriviasMainQuestion = ({
                   <button
                     type="button"
                     className={classes.more}
+                    alt="Ver más"
+                    title="Ver más"
                     onClick={handleExpandDetails}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +169,6 @@ const TriviasMainQuestion = ({
                       width="14"
                       height="14"
                       viewBox="0 0 14 14">
-                      <title>Ver más</title>
                       <g transform="translate(-1169 -781)">
                         <g
                           fill="#fff"
