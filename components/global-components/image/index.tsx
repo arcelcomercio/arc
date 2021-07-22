@@ -8,16 +8,26 @@ import Image from './image'
 import { validateSizes } from './utils'
 
 type ArcImageProps = {
+  /** URL de la imagen */
   src: string
+  /** Texto alternativo descriptivo de la imagen */
   alt: string
   children?: React.ReactNode
+  /** ID único para el elemento cuando es Static  */
   uid?: string | number
+  /** Ancho de la imagen */
   width: number
+  /** Alto de la imagen */
   height: number
+  /** [Forma de carga de la imagen](https://web.dev/native-lazy-loading/) */
   loading?: 'lazy' | 'eager' | 'auto'
+  /** Imagen que se muestra cuando la imagen principal no está disponible */
   placeholder?: string
+  /** @example `(max-width: 360px) 320px, 640px` */
   sizes?: string
+  /** Arreglo numérico donde cada valor representa el `height` del media breakpoint correspondiente en `sizes` */
   sizesHeight?: number[]
+  /** Atributo de AMP */
   layout?:
     | 'responsive'
     | 'intrinsic'
@@ -27,54 +37,33 @@ type ArcImageProps = {
     | 'flex-item'
     | 'nodisplay'
     | 'container'
+  /** Título de la imagen */
   title?: string
+  /** Estilos inline de la imagen */
   style?: React.CSSProperties
+  /** Clases de la imagen */
   className?: string
+  /** Clases del elemento picture que contiene la imagen */
   pictureClassName?: string
+  /** ID único del elemento */
   id?: string
+  /** Tipo de imagen */
   type?: string
+  /** [Priority hint for browsers](https://developers.google.com/web/updates/2019/02/priority-hints) */
   importance?: 'low' | 'medium' | 'high'
+  /** Related to Structured Data */
   itemProp?: string
+  /** 1 to 100. Default 75 */
   quality?: number
+  /** Define si se hace resize en cliente o servidor */
   clientResize?: boolean
+  /** Define si se movilImage */
   movilImage?: string
+  /** Define si se defaultImg */
   defaultImg?: InlinePresets
 }
 
-/**
- *
- * @param src URL de la imagen
- * @param alt Texto alternativo descriptivo de la imagen
- * @param children
- * @param uid ID único para el elemento cuando es Static
- * @param width Ancho de la imagen
- * @param height Alto de la imagen
- * @param loading [Forma de carga de la imagen](https://web.dev/native-lazy-loading/)
- * @param placeholder Imagen que se muestra cuando la imagen principal no está disponible
- * @param sizes Ej. `(max-width: 360px) 320px, 640px`
- * @param sizesHeight - Arreglo numérico donde cada valor
- * representa el `height` del media breakpoint correspondiente en `sizes`.
- * @param layout - Atributo de AMP
- * "responsive" | "intrinsic" | "fixed" | "fill" | "fixed_height" | "flex_item" | "nodisplay"
- * @param title Título de la imagen
- * @param style Estilos inline de la imagen
- * @param className Clases de la imagen
- * @param pictureClassName Clases del elemento picture que contiene la imagen
- * @param id ID único del elemento
- * @param type Tipo de imagen
- * @param importance Priority hint for browsers
- * @param itemProp Related to Structured Data
- * @param quality 1 to 100. Default 75
- * @param clientResize - Define si se hace resize en cliente o servidor
- * @param movilImage - Define si se movilImage
- * @param defaultImg - Define si se defaultImg
- * content source o solo en server
- *
- * @returns Static resized `<img/>` o `<picture/>`
- *
- * @see loading https://web.dev/native-lazy-loading/
- * @see importance https://developers.google.com/web/updates/2019/02/priority-hints
- */
+/** @returns Static resized `<img/>`, `<picture/>` or `<amp-img/>` */
 const ArcImage: React.FC<ArcImageProps> = ({
   children,
   id,
