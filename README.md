@@ -4,7 +4,6 @@
 ![pipeline](https://gitlab.ec.pe/contenidos/arc/badges/master/pipeline.svg)
 ![coverage](https://gitlab.ec.pe/contenidos/arc/badges/master/coverage.svg?job=coverage)
 
-
 ## Tabla de contenido
 
 - [Sistema Operativo recomendado](#sistema-operativo-recomendado)
@@ -27,7 +26,7 @@ Si estas usando Windows, te recomendamos que trabajes sobre [WSL 2](https://docs
 
 ## Requerimientos
 
-- `nodejs = 12` [instalar node](https://nodejs.org/en/). Es recomendable [instalar node usando nvm](https://github.com/nvm-sh/nvm) (node version manager)
+- `nodejs >= 12 & < 15` [instalar node](https://nodejs.org/en/). Es recomendable [instalar node usando nvm](https://github.com/nvm-sh/nvm) (node version manager)
 - `git >= 2.13.0` [instalar git](https://git-scm.com/downloads).
 - `npm = 6` viene junto a [nodejs](https://nodejs.org/en/). _(es importante que sea la versión 6 y no la versión 7, por ahora)_
 - `docker >= 20` [instalar docker](https://docs.docker.com/get-docker/). _(si usas windows con WSL 2, sólo debes instalar docker en windows y ya tiene una opción por defecto para soportar WSL 2)_
