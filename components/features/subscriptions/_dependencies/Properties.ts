@@ -706,7 +706,12 @@ const PropertiesCommon = {
     errorCompany:    'Ha ocurrido un error. Inténtelo más tarde',
   },
 
-  domains: ['fractalservicios.pe', 'comercio.com.pe', 'rpalatam.com.pe'],
+  domains: [
+    'fractalservicios.pe',
+    'comercio.com.pe',
+    'rpalatam.com.pe',
+    'mailinator.com',
+  ],
 }
 
 export { PropertiesCommon, PropertiesSite }
