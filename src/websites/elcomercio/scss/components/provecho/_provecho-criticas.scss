@@ -5,6 +5,9 @@
     font-family: $primary-font;
     margin-bottom: 40px;
   }
+  &__author {
+    display: none;
+  }
   &__stars {
     display: none;
   }
@@ -42,9 +45,20 @@
     color: #000;
     text-align: center;
   }
+  &__list {
+    align-items: unset;
+    @media (--only-mobile) {
+      align-items: unset;
+    }
+  }
   &__item {
     max-width: unset !important;
     margin-bottom: 0;
+    @media (--only-mobile) {
+      // margin-left: 0;
+      // margin-right: 0;
+      margin: 0 0;
+    }
   }
   &__image {
     height: 198px;
