@@ -1,0 +1,82 @@
+@import "../saltar-intro/saltar-intro-criticas";
+
+.saltar-intro-listado-criticas {
+  &__container {
+    font-family: $primary-font;
+    margin-bottom: 40px;
+  }
+  &__stars {
+    display: none;
+  }
+  &__box {
+    display: flex;
+    justify-content: center;
+  }
+  &__section {
+    border: 0;
+    // font: normal normal 800 14px/18px Bitter;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0;
+    color: #000;
+    text-transform: uppercase;
+    margin-top: 10px;
+    position: relative;
+    &::after {
+      content: "";
+      width: 30px;
+      border: 1px solid #f58d00;
+      position: absolute;
+      transform: translateX(-50%);
+      left: 50%;
+      top: 20px;
+    }
+  }
+  &__title {
+    // font: normal normal bold 20px/25px Bitter;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: #000;
+    text-align: center;
+  }
+  &__item {
+    max-width: unset !important;
+    margin-bottom: 0;
+  }
+  &__image {
+    height: 198px;
+  }
+  &__line {
+    &:last-child {
+      display: none;
+    }
+  }
+  &__see-more {
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+    &::before {
+      content: "";
+      border-top: 1px solid #b7b7b7;
+      width: 200px;
+      display: inline-block;
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &:hover {
+      text-decoration: none;
+    }
+    svg {
+      position: absolute;
+      left: 40%;
+      top: 13px;
+      background-color: #fff;
+      fill: #000;
+    }
+  }
+}
