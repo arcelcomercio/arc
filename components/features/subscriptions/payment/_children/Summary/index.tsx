@@ -159,7 +159,8 @@ const Summary = (): JSX.Element => {
                     </span>
                     <p>
                       <strong>{item.description.title}. </strong>
-                      {item.description.description}
+                      {userMethodPay !== 'payEfectivo' &&
+                        item.description.description}
                     </p>
                   </div>
                 )

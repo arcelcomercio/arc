@@ -62,7 +62,7 @@ const Pay = () => {
     updateMethodPay,
     updatePeOption,
   } = useAuthContext()
-  const { texts, links } = PropertiesCommon
+  const { texts, links, domains } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
   const {
@@ -82,6 +82,8 @@ const Pay = () => {
   const [txtLoading, setTxtLoading] = React.useState('Cargando...')
   const [methodCard, setMethodCard] = React.useState()
   const [checkedTerms, setCheckedTerms] = React.useState()
+
+  const isDomainList = domains.includes(email.split('@')[1])
 
   const getPLanSelected = plans.reduce(
     (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
@@ -695,7 +697,7 @@ const Pay = () => {
           onChange={() => updateMethodPay('payEfectivo')}
         />
 
-        {userPeriod !== 'Mensual' && (
+        {userPeriod !== 'Mensual' && isDomainList && (
           <nav>
             <ul className={styles.tabpay}>
               <li className="cards tab1">
