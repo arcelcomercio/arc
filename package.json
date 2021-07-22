@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": ">=10 <15",
+    "node": ">=12 <15",
     "npm": "=6"
   },
   "dependencies": {
