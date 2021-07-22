@@ -186,20 +186,6 @@ export default ({
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M18 0H0V12H18V0Z" fill="white" />
-            <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
-            <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
-          </svg>
-
-          {`${has ? 'PE (Perú)' : 'Perú'}`}
-        </a>
-        <a className={`${cName}${classes.ePais}`} href="/mexico/">
-          <svg
-            width="18"
-            height="12"
-            viewBox="0 0 18 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 0H0V12H18V0Z" fill="white" />
             <path d="M6 0H0V12H6V0Z" fill="#006847" />
             <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
             <path
