@@ -2,6 +2,10 @@
   "name": "arc-components",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">=10 <15",
+    "npm": "=6"
+  },
   "dependencies": {
     "@arc-core-components/amp-document-boilerplate": "^0.2.6-beta.1",
     "@arc-core-components/element_image": "^0.4.2-beta.1",
