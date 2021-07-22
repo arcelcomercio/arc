@@ -88,7 +88,7 @@ export default function HeaderInvertedSocialIcons() {
                       xmlns="http://www.w3.org/2000/svg"
                       height="11"
                       viewBox="0 0 10 21">
-                      <title>Compartir en facebook</title>
+                      <title>Compartir en facebookxxxx</title>
                       <path d="M2.6 21V11.1H0V7.6H2.6V4.6C2.6 2.2 4.1 0 7.5 0 8.9 0 10 0.1 10 0.1L9.9 3.5C9.9 3.5 8.8 3.4 7.7 3.4 6.4 3.4 6.2 4 6.2 5V7.6H10L9.8 11.1H6.2V21H2.6Z" />
                     </svg>
                   )

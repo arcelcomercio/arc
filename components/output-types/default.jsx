@@ -121,8 +121,8 @@ export default ({
       classBody = `${classBody} muchafoto`
     } else if (/^\/usa/.test(requestUri)) {
       lang = 'es-us'
-    } else if (/^\/mexico/.test(requestUri)) {
-      lang = 'es-mx'
+    } else if (/^\/colombia/.test(requestUri)) {
+      lang = 'es-co'
     } else if (/^\/mexico/.test(requestUri)) {
       lang = 'es-mx'
     }
