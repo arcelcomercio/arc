@@ -311,7 +311,12 @@ const LiteOutput = ({
                 }, follow`}
               />
             ) : (
-              <meta name="robots" content="index, follow" />
+              <meta
+                name="robots"
+                content={`${
+                  globalContent?.param === 'noindex' ? 'noindex' : 'index'
+                }, follow`}
+              />
             )}
             {arcSite === 'trome' ? null : (
               <meta name="GOOGLEBOT" content="index follow" />
