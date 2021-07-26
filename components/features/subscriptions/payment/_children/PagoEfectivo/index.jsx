@@ -60,7 +60,7 @@ const Confirmation = () => {
     documentNumber,
   } = conformProfile(userProfile || {})
 
-  const { urls: urlCommon } = PropertiesCommon
+  const { urls: urlCommon, tokens } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [redirecting, setRedirecting] = React.useState(false)
   /** type CipLink = string | null */
@@ -104,7 +104,7 @@ const Confirmation = () => {
         is_pwa: PWA.isPWA() ? 1 : 2,
       }
 
-      cipPayEfectivo(urlCommon.cipPayEfectivo, dataCIP)
+      cipPayEfectivo(urlCommon.cipPayEfectivo, tokens.paymentTracker, dataCIP)
         .then((resCIP) => {
           const { response: { data: { cipUrl = '', cip = '' } = {} } = {} } =
             resCIP || {}

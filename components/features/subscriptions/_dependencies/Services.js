@@ -117,14 +117,14 @@ export const pushCallOut = (name, phone) => {
   return response
 }
 
-export const cipPayEfectivo = (url, data) => {
+export const cipPayEfectivo = (url, token, data) => {
   const response = new Promise((resolve) => {
     fetch(url, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: new Headers({
         'Content-Type': 'application/json',
-        Authorization: 'Token deb904a03a4e31d420a014534514b8cc8ca4d111',
+        Authorization: `Token ${token}`,
       }),
     }).then((res) => resolve(res.json()))
   })
