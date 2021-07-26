@@ -50,5 +50,8 @@ const fetch = (key) => {
 
 export default {
   fetch,
+  params: {
+    clientTime: 'text',
+  },
   ttl: 20,
 }
