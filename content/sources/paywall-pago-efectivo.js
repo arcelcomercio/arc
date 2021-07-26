@@ -12,23 +12,23 @@ import request from 'request-promise-native'
 
 import { PropertiesCommon } from '../../components/features/subscriptions/_dependencies/Properties'
 
-const tokens = {
-  elcomercio: {
-    access: PAGO_EFECTIVO_ACCESS_ELCOMERCIO,
-    secret: PAGO_EFECTIVO_SECRET_ELCOMERCIO,
-    id: PAGO_EFECTIVO_ID_ELCOMERCIO,
-  },
-  gestion: {
-    access: PAGO_EFECTIVO_ACCESS_GESTION,
-    secret: PAGO_EFECTIVO_SECRET_GESTION,
-    id: PAGO_EFECTIVO_ID_GESTION,
-  },
-}
-
 const fetch = (key) => {
   const { clientTime, 'arc-site': arcSite } = key || {}
   const { urls: urlCommon } = PropertiesCommon
+
   if (clientTime) {
+    const tokens = {
+      elcomercio: {
+        access: PAGO_EFECTIVO_ACCESS_ELCOMERCIO,
+        secret: PAGO_EFECTIVO_SECRET_ELCOMERCIO,
+        id: PAGO_EFECTIVO_ID_ELCOMERCIO,
+      },
+      gestion: {
+        access: PAGO_EFECTIVO_ACCESS_GESTION,
+        secret: PAGO_EFECTIVO_SECRET_GESTION,
+        id: PAGO_EFECTIVO_ID_GESTION,
+      },
+    }
     const siteTokens = tokens[arcSite]
     const parameters = `${siteTokens.id}.${siteTokens.access}.${siteTokens.secret}.${clientTime}-05:00`
     const hashPayEfectivo = sha256(parameters)
