@@ -19,13 +19,7 @@ const classes = {
   title: 'video-categories-list__section__item__title',
 }
 
-const ItemVideo: FC<Props> = ({
-  story,
-  index,
-  arcSite,
-  contextPath,
-  deployment,
-}) => {
+const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
   const Story = new StoryData({
     data: {},
     arcSite,
@@ -36,8 +30,6 @@ const ItemVideo: FC<Props> = ({
 
   Story.__data = story
 
-  const link = `${Story.websiteLink}?ref=landingvideos&pos=${index + 1}`
-
   return (
     <div className={classes.wrapper}>
       <a
@@ -46,12 +38,12 @@ const ItemVideo: FC<Props> = ({
         href={Story.websiteLink}>
         <Image
           src={Story.multimediaLandscapeMD}
-          width={225}
-          height={0}
+          width={276}
+          height={155}
           alt={Story.title}
           className={classes.image}
-          loading="lazy"
-          sizes="(max-width: 276px) 276px"
+          // loading="lazy"
+          // sizes="(max-width: 276px) 276px"
           clientResize
         />
 

@@ -1,7 +1,7 @@
 .video-categories-list{
   &__wrapper{
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 14px;
+    padding-right: 14px;
     padding-top: 20px;
   }
 
@@ -19,6 +19,12 @@
       line-height: 30px;
       font-weight: 800;
     }
+    &__arrow-title{
+      color: #333;
+      @media(--desktop) {
+        display: none;
+      }
+    }
     &__section-more-videos{
       font-family: $fira-s;
       font-size: 16px;
@@ -28,6 +34,7 @@
       display: none;
       @media(--desktop) {
         display: block;
+        line-height: 30px;
       }
     }
     &__wrapper-list{
@@ -39,8 +46,9 @@
     &__item{
       &__wrapper{
         background-color: #fff;
-        padding-left: 10px;
-        padding-right: 10px;
+        @media(--desktop) {
+          width: 276px;
+        }
       }
       &__image{
         width: 100%;
@@ -60,6 +68,7 @@
         font-size: 18px;
         font-weight: 800;
         line-height: 22px;
+        padding-top: 12px;
       }
     }
   }

@@ -6,11 +6,7 @@ import { FC } from 'types/features'
 import { formatSections } from '../../../utilities/helpers'
 import Section from './_children/section'
 import customFields from './_dependencies/custom-fields'
-import {
-  SchemaHierarchy,
-  SchemaMultiStory,
-  SchemaSingleStory,
-} from './_dependencies/schema-filter'
+import { SchemaHierarchy } from './_dependencies/schema-filter'
 
 interface Props {
   customFields?: {
@@ -52,20 +48,18 @@ const VideoSectionsList: FC<Props> = (props) => {
 
   const arrSections = formatSections(dataHierarchy)
 
-  // console.log(`=========arrSections============`)
-  // console.log(arrSections)
-  // console.log('===============================')
-
   return (
     <div className={classes.wrapper}>
       {arrSections.map((el) => (
-        <Section section={el} />
+        <Section url={el.url} name={el.name} />
       ))}
     </div>
   )
 }
 
 VideoSectionsList.label = 'Listado de videos de secciones'
+
+VideoSectionsList.static = true
 
 VideoSectionsList.propTypes = {
   customFields,
