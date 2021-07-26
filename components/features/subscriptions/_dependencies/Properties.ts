@@ -706,12 +706,7 @@ const PropertiesCommon = {
     textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.'
   },
 
-  domains: [
-    'fractalservicios.pe',
-    'comercio.com.pe',
-    'rpalatam.com.pe',
-    'mailinator.com',
-  ],
+  domains: ['fractalservicios.pe', 'comercio.com.pe', 'rpalatam.com.pe'],
 }
 
 export { PropertiesCommon, PropertiesSite }
