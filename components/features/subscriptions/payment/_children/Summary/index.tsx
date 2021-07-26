@@ -51,6 +51,7 @@ const Summary = (): JSX.Element => {
     updatePlan,
     updatePeriod,
     updateDataPlan,
+    updateMethodPay,
   } = useAuthContext()
 
   const [checkPlan, setCheckPlan] = React.useState<
@@ -88,6 +89,7 @@ const Summary = (): JSX.Element => {
     if (typeof window !== 'undefined') {
       if (await isLoggedIn()) {
         updateStep(2)
+        updateMethodPay('cardCreDeb')
         const divDetail = document.getElementById('div-detail')
         const btnDetail = document.getElementById('btn-detail')
         const divFooter = document.getElementById('footer')
@@ -109,6 +111,7 @@ const Summary = (): JSX.Element => {
     if (typeof window !== 'undefined') {
       if (await isLoggedIn()) {
         updateStep(2)
+        updateMethodPay('cardCreDeb')
         Taggeo(nameTagCategory, 'web_paywall_change_plan')
       } else {
         window.location.reload()
