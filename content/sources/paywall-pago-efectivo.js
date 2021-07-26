@@ -12,8 +12,9 @@ import request from 'request-promise-native'
 
 import { PropertiesCommon } from '../../components/features/subscriptions/_dependencies/Properties'
 
-const fetch = (key) => {
-  const { clientTime, 'arc-site': arcSite } = key || {}
+const fetch = (key = {}) => {
+  const website = key['arc-site']
+  const { clientTime } = key
   const { urls: urlCommon } = PropertiesCommon
 
   if (clientTime) {
@@ -29,7 +30,7 @@ const fetch = (key) => {
         id: PAGO_EFECTIVO_ID_GESTION,
       },
     }
-    const siteTokens = tokens[arcSite]
+    const siteTokens = tokens[website]
     const parameters = `${siteTokens.id}.${siteTokens.access}.${siteTokens.secret}.${clientTime}-05:00`
     const hashPayEfectivo = sha256(parameters)
 
