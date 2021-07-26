@@ -34,12 +34,6 @@ export default ({ arcSite }) => (
           as="font"
           type="font/woff2"
         />
-        <link
-          rel="preload"
-          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-500.woff2"
-          as="font"
-          type="font/woff2"
-        />
       </>
     )}
     {arcSite === SITE_DEPOR && (
@@ -157,25 +151,13 @@ export default ({ arcSite }) => (
       <>
         <link
           rel="preload"
-          href="https://cdna.ojo.pe/resources/dist/ojo/fonts/AlfaSlabOne-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
           href="https://cdna.ojo.pe/resources/dist/ojo/fonts/Roboto-Regular.woff2"
           as="font"
           type="font/woff2"
         />
         <link
           rel="preload"
-          href="https://cdna.ojo.pe/resources/dist/ojo/fonts/TitilliumWeb-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.ojo.pe/resources/dist/ojo/fonts/TitilliumWeb-Bold.woff2"
+          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
           as="font"
           type="font/woff2"
         />
@@ -207,40 +189,10 @@ export default ({ arcSite }) => (
           as="font"
           type="font/woff2"
         />
-        <link
-          rel="preload"
-          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
-        <link
-          rel="preload"
-          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Bold.woff2"
-          as="font"
-          type="font/woff2"
-        />
       </>
     )}
     {arcSite === SITE_GESTION && (
       <>
-        <link
-          rel="preload"
-          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Roboto-Regular.woff2"
-          as="font"
-          type="font/woff2"
-        />
         <link
           rel="preload"
           href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Judson-Regular.woff2"
