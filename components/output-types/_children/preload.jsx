@@ -2,9 +2,12 @@ import React from 'react'
 
 import {
   SITE_DEPOR,
+  SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_GESTION,
+  SITE_OJO,
   SITE_PERU21,
   SITE_TROME,
 } from '../../utilities/constants/sitenames'
@@ -28,6 +31,12 @@ export default ({ arcSite }) => (
         <link
           rel="preload"
           href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-500.woff2"
           as="font"
           type="font/woff2"
         />
@@ -114,6 +123,12 @@ export default ({ arcSite }) => (
           as="font"
           type="font/woff2"
         />
+        <link
+          rel="preload"
+          href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
       </>
     )}
     {arcSite === SITE_ELCOMERCIOMAG && (
@@ -133,6 +148,120 @@ export default ({ arcSite }) => (
         <link
           rel="preload"
           href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/Lato-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+      </>
+    )}
+    {arcSite === SITE_OJO && (
+      <>
+        <link
+          rel="preload"
+          href="https://cdna.ojo.pe/resources/dist/ojo/fonts/AlfaSlabOne-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.ojo.pe/resources/dist/ojo/fonts/Roboto-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.ojo.pe/resources/dist/ojo/fonts/TitilliumWeb-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.ojo.pe/resources/dist/ojo/fonts/TitilliumWeb-Bold.woff2"
+          as="font"
+          type="font/woff2"
+        />
+      </>
+    )}
+    {arcSite === SITE_DIARIOCORREO && (
+      <>
+        <link
+          rel="preload"
+          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Bitter-Bold.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.diariocorreo.pe/resources/dist/elbocon/fonts/TitilliumWeb-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/TitilliumWeb-Bold.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/Exo-Bold.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.diariocorreo.pe/resources/dist/diariocorreo/fonts/RobotoCondensed-Bold.woff2"
+          as="font"
+          type="font/woff2"
+        />
+      </>
+    )}
+    {arcSite === SITE_GESTION && (
+      <>
+        <link
+          rel="preload"
+          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Roboto-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Judson-Regular.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/Judson-Bold.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/LibreFranklin-Medium.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="https://cdna.gestion.pe/resources/dist/gestion/fonts/LibreFranklin-Bold.woff2"
           as="font"
           type="font/woff2"
         />
