@@ -26,16 +26,22 @@ const StoryHeaderChildPicture = ({
   width,
 } = {}) =>
   i === 0 ? (
-    <Image
-      src={url}
-      width={980}
-      height={0}
-      sizes="(max-width: 360px) 314px, (max-width: 768px) 482px, 980px"
-      alt={caption || subtitle}
-      className={classes.image}
-      loading="lazy"
-      placeholder={placeholderSrc(width, height)}
-    />
+    <div
+      style={{
+        height: 0,
+        overflow: 'hidden',
+        paddingBottom: `${(height * 100) / width}%`,
+      }}>
+      <Image
+        src={url}
+        width={980}
+        height={0}
+        sizes="(max-width: 360px) 314px, (max-width: 768px) 482px, 980px"
+        alt={caption || subtitle}
+        className={classes.image}
+        loading="auto"
+      />
+    </div>
   ) : (
     <Image
       src={url}
