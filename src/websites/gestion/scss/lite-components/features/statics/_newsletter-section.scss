@@ -1,0 +1,134 @@
+.newsletter-section {
+  margin: 20px;
+  display: flex;
+  border-top: 1px solid #a98e7c;
+  border-bottom: 1px solid #a98e7c;
+  flex-direction: column;
+  @media (--desktop) {
+    flex-direction: initial;
+    height: 310px;
+  }
+  &__left-container {
+    @media (--desktop) {
+      width: 70%;
+    }
+    &__logo {
+      margin-right: 12px;
+    }
+    &__logo-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media (--desktop) {
+        justify-content: initial;
+        padding: 20px 0;
+      }
+    }
+    &__logo-img {
+      width: 90px;
+    }
+    &__logo-mail {
+      display: block;
+      margin-top: 32px;
+      margin-bottom: 24px;
+      text-align: center;
+      @media (--desktop) {
+        display: none;
+      }
+    }
+    &__section {
+      font-size: 24px;
+    }
+    &__texto {
+      color: #666;
+      font-size: 16px;
+      line-height: 1;
+      padding: 10px;
+      text-align: center;
+      @media (--desktop) {
+        max-width: 420px;
+        text-align: initial;
+        padding: 0 0 10px 0;
+      }
+    }
+    & form {
+      display: flex;
+      flex-direction: column;
+      & input {
+        margin: 7px 0;
+        @media (--desktop) {
+          margin: 5px 0;
+        }
+      }
+    }
+    &__text-box {
+      height: 44px;
+      max-width: none;
+      padding: 0 15px;
+      border: 1px solid #e0d6ca;
+      border-radius: 5px;
+      @media (--desktop) {
+        max-width: 420px;
+        height: 42px;
+      }
+    }
+    &__button-box {
+      background-color: #9c0620;
+      color: #eee;
+      height: 44px;
+      border-radius: 5px;
+      border: none;
+      max-width: initial;
+      @media (--desktop) {
+        max-width: 120px;
+        height: 42px;
+      }
+    }
+    &__box-checkbox {
+      display: flex;
+      align-items: center;
+    }
+    &__input-term {
+      height: 15px;
+      width: 15px;
+    }
+    &__text-term {
+      font-size: 13px;
+      color: #8f7868;
+      margin-left: 5px;
+      max-width: 240px;
+      @media (--desktop) {
+        max-width: none;
+      }
+    }
+  }
+  &__right-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding-top: 35px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    @media (--desktop) {
+      width: 30%;
+      padding-top: 20px;
+    }
+    &__logo-mail {
+      text-align: right;
+      display: none;
+      @media (--desktop) {
+        text-align: center;
+        display: block;
+      }
+    }
+    &__mas-news {
+      font-weight: 700;
+      color: #1980a8;
+      font-size: 15px;
+      text-align: right;
+      @media (--desktop) {
+        text-align: left;
+      }
+    }
+  }
+}
