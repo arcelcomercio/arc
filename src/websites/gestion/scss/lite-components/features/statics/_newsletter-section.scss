@@ -38,6 +38,10 @@
     }
     &__section {
       font-size: 24px;
+      width: initial;
+      @media (--desktop) {
+        width: min-content;
+      }
     }
     &__texto {
       color: #666;
@@ -100,6 +104,10 @@
       @media (--desktop) {
         max-width: none;
       }
+      & a {
+        text-decoration: underline;
+        color: #8f7868;
+      }
     }
   }
   &__right-container {
@@ -122,12 +130,18 @@
       }
     }
     &__mas-news {
-      font-weight: 700;
-      color: #1980a8;
-      font-size: 15px;
-      text-align: right;
-      @media (--desktop) {
-        text-align: left;
+      & a {
+        font-weight: 700;
+        color: #1980a8;
+        font-size: 15px;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 135px;
+        @media (--desktop) {
+          text-align: left;
+        }
       }
     }
   }
