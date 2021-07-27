@@ -6,7 +6,7 @@
 @import "./scss/variables/index";
 
 $primary-font: "Roboto", sans-serif;
-$secondary-font: Arial, Helvetica, sans-serif;
+$secondary-font: "Arial", "Helvetica", sans-serif;
 $tertiary-font: $secondary-font;
 
 /******* Components *******/
@@ -23,7 +23,6 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/footer/standard-g21/foot-g";
 @import "./scss/lite-components/features/cards/most-read/most-read"; // Hecho
 @import "./scss/lite-components/features/story/gallery/gallery";
-@import "./scss/lite-components/features/story/gallery/gallery-vertical";
 @import "./scss/lite-components/features/story/tags/st-tags";
 @import "./scss/lite-components/features/story/contents/contents";
 @import "./scss/lite-components/features/story/contents/table";

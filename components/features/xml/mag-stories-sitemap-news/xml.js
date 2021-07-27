@@ -1,12 +1,13 @@
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
+
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { localISODate } from '../../../utilities/helpers'
 import {
-  includeTags,
   includePromoItems,
   includePromoItemsCaptions,
+  includeTags,
 } from '../../../utilities/included-fields'
-import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import StoryData from '../../../utilities/story-data'
 
 const SOURCE = 'story-feed-by-section'
 const MAG_PATH = '/mag'
@@ -33,7 +34,7 @@ class XmlMagStoriesSitemapNews {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets,
-          includedFields: `websites.elcomerciomag.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
+          includedFields: `websites.elcomerciomag.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},first_publish_date`,
         },
       },
     })
@@ -69,7 +70,7 @@ class XmlMagStoriesSitemapNews {
     })
 
     const sitemap = {
-      urlset: stories.map(story => {
+      urlset: stories.map((story) => {
         storyData.__data = story
         return {
           url:
@@ -83,7 +84,7 @@ class XmlMagStoriesSitemapNews {
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
-                      storyData.publishDate || ''
+                      storyData.firstPublishDate || storyData.publishDate || ''
                     ),
                     'news:title': {
                       '#cdata': storyData.title,
@@ -92,7 +93,7 @@ class XmlMagStoriesSitemapNews {
                       '#cdata':
                         storyData.seoKeywords.toString() ||
                         storyData.tags
-                          .map(tag => tag && tag.description)
+                          .map((tag) => tag && tag.description)
                           .toString() ||
                         arcSite,
                     },
@@ -124,7 +125,7 @@ class XmlMagStoriesSitemapNews {
                       '#cdata':
                         storyData.seoKeywords.toString() ||
                         storyData.tags
-                          .map(tag => tag && tag.description)
+                          .map((tag) => tag && tag.description)
                           .toString() ||
                         arcSite,
                     },
