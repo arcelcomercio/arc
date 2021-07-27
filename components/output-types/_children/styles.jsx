@@ -53,8 +53,10 @@ const Styles = ({
     requestUri.includes('/recetas/')
   )
     style = 'story-recetas'
-  else if (requestUri.includes('/saltar-intro/')) style = 'saltar-intro'
-  else if (requestUri.includes('/provecho/')) style = 'provecho'
+  else if (requestUri.includes('/saltar-intro/') && arcSite === SITE_ELCOMERCIO)
+    style = 'saltar-intro'
+  else if (requestUri.includes('/provecho/') && arcSite === SITE_ELCOMERCIO)
+    style = 'provecho'
   else if (
     requestUri.includes('/mas-especiales/') ||
     requestUri.includes('/especiales/')
