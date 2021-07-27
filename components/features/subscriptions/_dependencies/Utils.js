@@ -112,3 +112,6 @@ export const getSessionStorage = (key) => {
   }
   return null
 }
+
+export const getUserAgent =
+  typeof window !== 'undefined' ? window.navigator.userAgent : ''
