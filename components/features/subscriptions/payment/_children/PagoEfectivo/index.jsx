@@ -1,6 +1,7 @@
 import * as Sentry from '@sentry/browser'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import { PAYMENT_TRACKER_TOKEN } from 'fusion:environment'
 import * as React from 'react'
 
 import Loading from '../../../../signwall/_children/loading'
@@ -60,7 +61,7 @@ const Confirmation = () => {
     documentNumber,
   } = conformProfile(userProfile || {})
 
-  const { urls: urlCommon, tokens } = PropertiesCommon
+  const { urls: urlCommon } = PropertiesCommon
   const { urls: urlsSite } = PropertiesSite[arcSite]
   const [redirecting, setRedirecting] = React.useState(false)
   /** type CipLink = string | null */
@@ -104,7 +105,7 @@ const Confirmation = () => {
         is_pwa: PWA.isPWA() ? 1 : 2,
       }
 
-      cipPayEfectivo(urlCommon.cipPayEfectivo, tokens.paymentTracker, dataCIP)
+      cipPayEfectivo(urlCommon.cipPayEfectivo, PAYMENT_TRACKER_TOKEN, dataCIP)
         .then((resCIP) => {
           const { response: { data: { cipUrl = '', cip = '' } = {} } = {} } =
             resCIP || {}
