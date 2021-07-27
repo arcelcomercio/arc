@@ -699,8 +699,6 @@ const PropertiesCommon = {
     successCompany:  'Tu mensaje ha sido enviado, nos pondremos en contacto contigo.',
     errorCompany:    'Ha ocurrido un error. Inténtelo más tarde',
   },
-
-  domains: ['fractalservicios.pe', 'comercio.com.pe', 'rpalatam.com.pe'],
 }
 
 export { PropertiesCommon, PropertiesSite }
