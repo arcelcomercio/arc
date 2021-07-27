@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import * as Sentry from '@sentry/browser'
-import { useAppContext } from 'fusion:context'
+import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
 
@@ -50,7 +50,11 @@ const Pay = () => {
   const {
     arcSite,
     globalContent: { plans = [], printedSubscriber, event },
-  } = useAppContext() || {}
+    customFields: {
+      disablePagoEfectivo = false,
+      allowedDomainsPagoEfectivo,
+    } = {},
+  } = useFusionContext() || {}
 
   const {
     userProfile,
@@ -62,7 +66,7 @@ const Pay = () => {
     updateMethodPay,
     updatePeOption,
   } = React.useContext(AuthContext)
-  const { texts, links, domains } = PropertiesCommon
+  const { texts, links } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite]
 
   const {
@@ -83,7 +87,10 @@ const Pay = () => {
   const [methodCard, setMethodCard] = React.useState()
   const [checkedTerms, setCheckedTerms] = React.useState()
 
-  const isDomainList = domains.includes(email.split('@')[1])
+  // Si no hay ningún dominio listado, quiere decir que acepta todos
+  const isAllowedDomainPagoEfectivo = allowedDomainsPagoEfectivo
+    ? allowedDomainsPagoEfectivo?.includes(email.split('@')[1])
+    : true
 
   const getPLanSelected = plans.reduce(
     (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
@@ -697,22 +704,24 @@ const Pay = () => {
           onChange={() => updateMethodPay('payEfectivo')}
         />
 
-        {userPeriod !== 'Mensual' && isDomainList && (
-          <nav>
-            <ul className={styles.tabpay}>
-              <li className="cards tab1">
-                <label htmlFor="tab1">
-                  Tarjeta de <br /> crédito / Débito <i />
-                </label>
-              </li>
-              <li className="efectivo tab2">
-                <label htmlFor="tab2">
-                  <i /> Transferencias /Depósitos en efectivo
-                </label>
-              </li>
-            </ul>
-          </nav>
-        )}
+        {userPeriod !== 'Mensual' &&
+          !disablePagoEfectivo &&
+          isAllowedDomainPagoEfectivo && (
+            <nav>
+              <ul className={styles.tabpay}>
+                <li className="cards tab1">
+                  <label htmlFor="tab1">
+                    Tarjeta de <br /> crédito / Débito <i />
+                  </label>
+                </li>
+                <li className="efectivo tab2">
+                  <label htmlFor="tab2">
+                    <i /> Transferencias /Depósitos en efectivo
+                  </label>
+                </li>
+              </ul>
+            </nav>
+          )}
 
         <section>
           <div className={styles.tabCard1}>
