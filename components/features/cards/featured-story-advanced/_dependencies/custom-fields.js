@@ -54,6 +54,11 @@ const customFields = PropTypes.shape({
     group: 'Editar campos',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
+  authorField: PropTypes.string.tag({
+    name: 'Autor',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
+  }),
   imgField: PropTypes.string.tag({
     name: 'Imagen',
     group: 'Editar campos',
