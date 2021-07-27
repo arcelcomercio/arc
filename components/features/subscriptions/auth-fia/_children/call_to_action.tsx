@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-
+import Identity from '@arc-publishing/sdk-identity'
 import * as React from 'react'
+import { DialogType } from 'types/subscriptions'
 
 import { deleteQuery } from '../../../../utilities/parse/queries'
 import { MsgRegister } from '../../../signwall/_children/icons'
@@ -17,16 +18,21 @@ const styles = {
   center: 'step__left-align-center',
 }
 
-const CallToActionFia = (props) => {
+interface CTAFiaProps {
+  mainColorBr: string
+  logoutSession: () => void
+  typeDialog: DialogType
+  urlPlan: string
+}
+
+const CallToActionFia = (props: CTAFiaProps): JSX.Element => {
   const { mainColorBr, logoutSession, typeDialog, urlPlan } = props
-  const [suscriptionId, setSuscriptionId] = React.useState(null)
+  const [suscriptionId, setSuscriptionId] = React.useState('')
   const [loading, setLoading] = React.useState(true)
   const [statusSubs, setStatusSubs] = React.useState(null)
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setSuscriptionId(window.Identity.userIdentity.uuid)
-    }
+    setSuscriptionId(Identity.userIdentity?.uuid || '')
   }, [])
 
   const handleSuscription = () => {

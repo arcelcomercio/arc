@@ -5,6 +5,7 @@ import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { DialogType } from 'types/subscriptions'
 
+import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import { deleteCookie } from '../../../utilities/client/cookies'
 import Loading from '../../signwall/_children/loading'
 import Forgot from '../_children/forgot'
@@ -143,7 +144,6 @@ const FiaSubscriptionsWrapper = ({
                     <CallToActionFia
                       mainColorBr={mainColorBr}
                       logoutSession={logoutSession}
-                      arcSite={arcSite}
                       typeDialog={typeDialog}
                       urlPlan={links.landingFia}
                     />
@@ -159,9 +159,11 @@ const FiaSubscriptionsWrapper = ({
 }
 
 const FiaSubscriptions = (): JSX.Element => (
-  <NavigateProvider>
-    <FiaSubscriptionsWrapper typeDialog="authfia" />
-  </NavigateProvider>
+  <SdksProvider>
+    <NavigateProvider>
+      <FiaSubscriptionsWrapper typeDialog="authfia" />
+    </NavigateProvider>
+  </SdksProvider>
 )
 
 FiaSubscriptions.label = 'Signwall - Login / Registo FIA'
