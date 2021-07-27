@@ -1,24 +1,23 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import * as React from 'react'
-import { ENVIRONMENT } from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
-
-import getResponsiveClasses from '../../../../../utilities/responsive-classes'
-import { socialMediaUrlShareList } from '../../../../../utilities/social-media'
-import { ELEMENT_STORY } from '../../../../../utilities/constants/element-types'
-import { SITE_PERU21 } from '../../../../../utilities/constants/sitenames'
-import {
-  singwallScript,
-  getQueryReloginEmailScript,
-  stickyScript,
-  searchScript,
-  getBtnSubsScript,
-  getBtnSignScript,
-  navBarLoaderScript,
-} from '../../_dependencies/scripts'
+import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 
 import Button from '../../../../../global-components/button'
+import { ELEMENT_STORY } from '../../../../../utilities/constants/element-types'
+import { SITE_PERU21 } from '../../../../../utilities/constants/sitenames'
+import getResponsiveClasses from '../../../../../utilities/responsive-classes'
+import { socialMediaUrlShareList } from '../../../../../utilities/social-media'
+import {
+  getBtnSignScript,
+  getBtnSubsScript,
+  getQueryReloginEmailScript,
+  navBarLoaderScript,
+  searchScript,
+  singwallScript,
+  stickyScript,
+} from '../../_dependencies/scripts'
 import Menu from './menu'
 
 const classes = {
@@ -59,14 +58,14 @@ const classes = {
   iconMore: 'story-header__share-icon',
 }
 
-const NavBarDefault = props => {
+const NavBarDefault = (props) => {
   const {
     globalContent,
     arcSite,
     requestUri,
     siteProperties: {
-      activePaywall, 
-      activeSignwall, 
+      activePaywall,
+      activeSignwall,
       urlSubsOnline,
       siteUrl,
       social: { twitter: { user: siteNameRedSocial } = {} } = {},
@@ -105,6 +104,7 @@ const NavBarDefault = props => {
     },
   ]
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   const {
@@ -179,20 +179,18 @@ const NavBarDefault = props => {
                     url,
                     name = '',
                     display_name: displayName = '',
-                  }) => {
-                    return (
-                      <li
-                        key={`navbar-${url || id}`}
-                        className={classes.listItem}>
-                        <a
-                          itemProp="url"
-                          href={url || id || '/'}
-                          className={classes.listLink}>
-                          {name || displayName}
-                        </a>
-                      </li>
-                    )
-                  }
+                  }) => (
+                    <li
+                      key={`navbar-${url || id}`}
+                      className={classes.listItem}>
+                      <a
+                        itemProp="url"
+                        href={url || id || '/'}
+                        className={classes.listLink}>
+                        {name || displayName}
+                      </a>
+                    </li>
+                  )
                 )}
             </ul>
           </div>
@@ -299,7 +297,7 @@ const NavBarDefault = props => {
 
                 {!disableSticky && (
                   <ul className={classes.listIcon}>
-                    {shareButtons.map(item => (
+                    {shareButtons.map((item) => (
                       <li key={item.icon} className={classes.item}>
                         <a
                           itemProp="url"
@@ -421,7 +419,7 @@ const NavBarDefault = props => {
         </div>
         {!hideMenu && <Menu sections={sections} />}
       </nav>
-      <div id="nav-pointer"></div>
+      <div id="nav-pointer" />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
