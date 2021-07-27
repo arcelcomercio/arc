@@ -22,6 +22,7 @@ import HeaderSubs from '../_layouts/header'
 import scriptsPayment from '../_scripts/Payment'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
+import customFields from './_dependencies/custom-fields'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {
@@ -102,12 +103,9 @@ const WrapperPaymentSubs = () => {
             userStep === 2 && (
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
-          <Wrapper
-            style={{
-              minHeight: '530px',
-            }}>
+          <Wrapper step={userStep}>
             {!userLoading && (
-              <PanelLeft>
+              <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
                   <h2 className="step__left-title-campaign">
                     {texts.textWinback}
@@ -124,8 +122,10 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
+
+            <PanelRight
+              hidePanel={freeAccess || userStep === 4 || userStep === 5}>
+              <Summary />
             </PanelRight>
           </Wrapper>
         </Container>
@@ -148,5 +148,9 @@ const PaymentSubscriptions = () => (
 )
 
 PaymentSubscriptions.label = 'Subscriptions - Landing de Compra'
+PaymentSubscriptions.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
+}
 
 export default PaymentSubscriptions
