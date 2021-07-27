@@ -23,6 +23,7 @@ const styles = {
   boxEmail: 'step__right-verify-email',
   stepLink: 'step__btn-link',
   benefits: 'step__right-benefits',
+  notes: 'step__notes-footer',
 }
 const nameTagCategory = 'Web_Paywall_Landing'
 const Summary = () => {
@@ -35,10 +36,12 @@ const Summary = () => {
     loadPage,
     userStep,
     userProfile,
+    userMethodPay,
     updateStep,
     updatePlan,
     updatePeriod,
     updateDataPlan,
+    updateMethodPay,
   } = React.useContext(AuthContext)
 
   const [checkPlan, setCheckPlan] = React.useState()
@@ -79,6 +82,7 @@ const Summary = () => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         updateStep(2)
+        updateMethodPay('cardCreDeb')
         const divDetail = document.getElementById('div-detail')
         const btnDetail = document.getElementById('btn-detail')
         const divFooter = document.getElementById('footer')
@@ -100,6 +104,7 @@ const Summary = () => {
     if (typeof window !== 'undefined') {
       if (isLogged()) {
         updateStep(2)
+        updateMethodPay('cardCreDeb')
         Taggeo(nameTagCategory, 'web_paywall_change_plan')
       } else {
         window.location.reload()
@@ -150,7 +155,8 @@ const Summary = () => {
                     </span>
                     <p>
                       <strong>{item.description.title}. </strong>
-                      {item.description.description}
+                      {userMethodPay !== 'payEfectivo' &&
+                        item.description.description}
                     </p>
                   </div>
                 )
@@ -280,11 +286,17 @@ const Summary = () => {
               </button>
               <h4>{getFullNameFormat(firstName, lastName, secondLastName)}</h4>
               <p className="email">{userProfile && userProfile.email}</p>
-              <p>{texts.verifyEmail}</p>
+              {userMethodPay === 'cardCreDeb' && <p>{texts.verifyEmail}</p>}
+              {userMethodPay === 'payEfectivo' && (
+                <p>{texts.verifyEmailPayEfec}</p>
+              )}
             </div>
           </>
         )}
       </div>
+      {userStep === 3 && userMethodPay === 'cardCreDeb' && (
+        <p className={styles.notes}>{texts.rememberRecurrency}</p>
+      )}
       <br />
       <br />
     </>
