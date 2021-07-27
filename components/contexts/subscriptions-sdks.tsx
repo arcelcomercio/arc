@@ -8,7 +8,7 @@ import { PropertiesSite } from '../features/subscriptions/_dependencies/Properti
 
 type StatusOptions = 'error' | 'loading' | 'ready'
 
-const Status: Record<StatusOptions, StatusOptions> = {
+const SdkStatus: Record<StatusOptions, StatusOptions> = {
   error: 'error',
   loading: 'loading',
   ready: 'ready',
@@ -53,12 +53,12 @@ const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
     })
 
     return {
-      status: Status.ready,
+      status: SdkStatus.ready,
     }
   }
 
   let value: SdksProviderValue = {
-    status: Status.loading,
+    status: SdkStatus.loading,
   }
 
   initializeSDKs()
@@ -67,7 +67,7 @@ const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
     })
     .catch((error) => {
       value = {
-        status: Status.error,
+        status: SdkStatus.error,
         error,
       }
     })
@@ -75,4 +75,4 @@ const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
   return <SdksContext.Provider value={value}>{children}</SdksContext.Provider>
 }
 
-export { SdksProvider, useSdksContext }
+export { SdksProvider, SdkStatus, useSdksContext }

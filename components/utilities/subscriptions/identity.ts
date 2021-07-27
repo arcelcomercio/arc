@@ -70,14 +70,14 @@ async function getUserIdentity(): Promise<UserIdentity | undefined> {
  * Esta función es diferente a `await Identity.isLoggedIn()` porque esta
  * última no es confiable si el usuario ha cerrado sesión en otra pestaña.
  */
-async function isLoggedIn(): Promise<boolean> {
+function isLoggedIn(): boolean {
   if (isClientSide) {
     if (
       isStorageAvailable('localStorage') &&
       isStorageAvailable('sessionStorage')
     ) {
-      const localUserInfo = await window.localStorage.getItem(USER_INFO_KEY)
-      const sessionUserInfo = await window.sessionStorage.getItem(USER_INFO_KEY)
+      const localUserInfo = window.localStorage.getItem(USER_INFO_KEY)
+      const sessionUserInfo = window.sessionStorage.getItem(USER_INFO_KEY)
       const userInfo = localUserInfo || sessionUserInfo
       return !!(userInfo && userInfo !== '{}')
     }

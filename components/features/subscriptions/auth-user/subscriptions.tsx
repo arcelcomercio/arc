@@ -1,7 +1,11 @@
-import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import {
+  SdksProvider,
+  SdkStatus,
+  useSdksContext,
+} from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
 import {
   deleteCookie,
@@ -9,11 +13,9 @@ import {
   setCookie,
 } from '../../../utilities/client/cookies'
 import { getQuery } from '../../../utilities/parse/queries'
-import addScriptAsync from '../../../utilities/script-async'
+import { isLoggedIn } from '../../../utilities/subscriptions/identity'
 import Loading from '../../signwall/_children/loading'
-import { getOriginAPI } from '../../signwall/_dependencies/domains'
 import { PropertiesCommon } from '../_dependencies/Properties'
-import { isLogged } from '../_dependencies/Session'
 import { SignOrganic } from './_children/Organic'
 
 const COOKIE_NAME = 'signreferer'
@@ -24,32 +26,22 @@ const TOKEN_VERIFY = 'verify'
 const RESET_PASSWORD = 'resetpass'
 const ORGANIC = 'organico'
 
+type ModalType =
+  | typeof COOKIE_NAME
+  | typeof HARD
+  | typeof RELOGIN_EMAIL
+  | typeof RELOGIN_HASH
+  | typeof TOKEN_VERIFY
+  | typeof RESET_PASSWORD
+  | typeof ORGANIC
+
 const AuthUser = () => {
-  const { arcSite } = useAppContext() || {}
-  const [activeModal, setActiveModal] = React.useState()
-  const [loading, setLoading] = React.useState(true)
-  const { links, urls: urlCommon } = PropertiesCommon
+  const { arcSite } = useAppContext()
+  const { status: identityStatus } = useSdksContext() || {}
+  const [activeModal, setActiveModal] = React.useState<ModalType>()
+  const { urls: urlCommon } = PropertiesCommon
 
   useSentry(urlCommon.sentrySign)
-
-  React.useEffect(() => {
-    addScriptAsync({
-      name: 'IdentitySDK',
-      url: links.identity,
-      includeNoScript: false,
-    })
-      .then(() => {
-        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-        setLoading(false)
-      })
-      .catch((errIdentitySDK) => {
-        Sentry.captureEvent({
-          message: 'SDK Identity no ha cargado correctamente',
-          level: 'error',
-          extra: errIdentitySDK || {},
-        })
-      })
-  }, [])
 
   React.useEffect(() => {
     const urlRef = window.document.referrer
@@ -96,13 +88,13 @@ const AuthUser = () => {
 
   return (
     <>
-      {loading ? (
+      {identityStatus === SdkStatus.loading ? (
         <Loading typeBg="full" />
       ) : (
         <>
           {(isOrganic || isHard || isReloginEmail || isReloginHash) && (
             <>
-              {!isLogged() ? (
+              {!isLoggedIn() ? (
                 <SignOrganic
                   onClose={() => closePopUp()}
                   arcSite={arcSite}
@@ -129,6 +121,12 @@ const AuthUser = () => {
   )
 }
 
-AuthUser.label = 'Signwall - Página Login / Registro / Hard'
+const AuthUserContainer = (): JSX.Element => (
+  <SdksProvider>
+    <AuthUser />
+  </SdksProvider>
+)
 
-export default AuthUser
+AuthUserContainer.label = 'Signwall - Página Login / Registro / Hard'
+
+export default AuthUserContainer

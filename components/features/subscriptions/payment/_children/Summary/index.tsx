@@ -87,7 +87,7 @@ const Summary = (): JSX.Element => {
 
   const handleChangeDates = async () => {
     if (typeof window !== 'undefined') {
-      if (await isLoggedIn()) {
+      if (isLoggedIn()) {
         updateStep(2)
         updateMethodPay('cardCreDeb')
         const divDetail = document.getElementById('div-detail')
@@ -109,7 +109,7 @@ const Summary = (): JSX.Element => {
 
   const handleChangePlan = async () => {
     if (typeof window !== 'undefined') {
-      if (await isLoggedIn()) {
+      if (isLoggedIn()) {
         updateStep(2)
         updateMethodPay('cardCreDeb')
         Taggeo(nameTagCategory, 'web_paywall_change_plan')

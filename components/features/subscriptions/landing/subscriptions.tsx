@@ -112,8 +112,8 @@ const Component = (props: LandingSubscriptionsProps) => {
     setShowSignwall(!showSignwall)
   }
 
-  const handleSignwall = async () => {
-    const isLogged = await isLoggedIn()
+  const handleSignwall = () => {
+    const isLogged = isLoggedIn()
 
     Taggeo(
       'Web_Sign_Wall_Suscripciones',
