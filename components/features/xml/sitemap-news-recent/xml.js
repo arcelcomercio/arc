@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
+
 import { localISODate } from '../../../utilities/helpers'
+import StoryData from '../../../utilities/story-data'
 
 /**
  * @description Sitemap para Google News. Este feature obtiene la seccion que necesita desde "globalContent" y
@@ -97,7 +98,7 @@ class XmlSitemapNewsRecent {
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
-                      storyData.publishDate || ''
+                      storyData.firstPublishDate || storyData.publishDate || ''
                     ),
                     'news:title': {
                       '#cdata': storyData.title,
