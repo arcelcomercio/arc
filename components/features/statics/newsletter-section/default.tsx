@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-import { getAssetsPath } from '../../utilities/assets'
+import { getAssetsPath } from '../../../utilities/assets'
 // import {
 //   sendNewsLettersUser,
 // } from '../signwall/_dependencies/services'
@@ -218,7 +218,7 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
 }
 
 NewsletterSection.static = true
-NewsletterSection.label = 'Newsletter - section (old)'
+NewsletterSection.label = 'Newsletter - section'
 
 NewsletterSection.propTypes = {
   customFields: PropTypes.shape({
