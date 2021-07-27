@@ -2,8 +2,9 @@
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toGMTString
 // use `toUTCString()` instead
 
+import { Domain } from 'types/utils'
+
 type SameSiteValue = 'lax' | 'strict' | 'none'
-type Domain = `${string}.${'com' | 'pe'}`
 
 const isClientSide = typeof window !== 'undefined'
 

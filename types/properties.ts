@@ -1,3 +1,5 @@
+import { Domain } from './utils'
+
 interface Urls {
   canonical: string
   image: string
@@ -127,7 +129,7 @@ export interface SiteProperties {
   siteTitle: string
   newsletterBrand: string
   colorPrimary: string
-  siteDomain: string
+  siteDomain: Domain
   siteUrl: string
   resizerUrl: string
   resizerSecretKeyEnvVar: string

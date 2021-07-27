@@ -1,4 +1,9 @@
 import * as React from 'react'
+import { CommonProps } from 'types/utils'
+
+interface WrapperProps extends Pick<CommonProps, 'children'> {
+  step?: number
+}
 
 const styles = {
   wrapper: 'step__grid wrapper-steps',
@@ -6,24 +11,15 @@ const styles = {
   right: 'step__right grid-two-two-buy',
 }
 
-/**
- * @param {object} props
- * @param {React.ReactNode} props.children
- * @returns
- */
-export const Container = ({ children }) => (
+export const Container = ({
+  children,
+}: Pick<CommonProps, 'children'>): JSX.Element => (
   <div className="step" id="main-steps">
     {children}
   </div>
 )
 
-/**
- * @param {object} props
- * @param {React.ReactNode} props.children
- * @param {number} props.step
- * @returns
- */
-export const Wrapper = ({ children, step }) => (
+export const Wrapper = ({ children, step = 0 }: WrapperProps): JSX.Element => (
   <div
     className={` ${step !== 5 ? styles.wrapper : 'wrapper-steps wrapper-full'}`}
     style={{
@@ -33,13 +29,10 @@ export const Wrapper = ({ children, step }) => (
   </div>
 )
 
-/**
- * @param {object} props
- * @param {React.ReactNode} props.children
- * @param {number} props.step
- * @returns
- */
-export const PanelLeft = ({ children, step }) => (
+export const PanelLeft = ({
+  children,
+  step = 0,
+}: WrapperProps): JSX.Element => (
   <section
     className={`${styles.left} ${step === 3 ? 'step-pay' : ''} ${
       step === 5 ? 'step-efectivo' : ''
@@ -48,13 +41,14 @@ export const PanelLeft = ({ children, step }) => (
   </section>
 )
 
-/**
- * @param {object} props
- * @param {React.ReactNode} props.children
- * @param {boolean} props.hidePanel
- * @returns
- */
-export const PanelRight = ({ children, hidePanel }) => (
+interface PanelRightProps extends Pick<CommonProps, 'children'> {
+  hidePanel?: boolean
+}
+
+export const PanelRight = ({
+  children,
+  hidePanel = false,
+}: PanelRightProps): JSX.Element => (
   <section
     className={styles.right}
     style={hidePanel ? { display: 'none' } : {}}

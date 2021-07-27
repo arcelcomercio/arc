@@ -1,31 +1,66 @@
+import Identity from '@arc-publishing/sdk-identity'
 import * as Sentry from '@sentry/browser'
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
+import { DialogType } from 'types/subscriptions'
 
 import { deleteCookie } from '../../../utilities/client/cookies'
-import addScriptAsync from '../../../utilities/script-async'
 import Loading from '../../signwall/_children/loading'
 import Forgot from '../_children/forgot'
 import Login from '../_children/login'
 import Register from '../_children/register'
 import { AuthProvider } from '../_context/auth'
-import { NavigateProvider, useNavigateContext } from '../_context/navigate'
-import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import {
+  NavigateProvider,
+  NavigateTemplates,
+  useNavigateContext,
+} from '../_context/navigate'
+import { PropertiesCommon } from '../_dependencies/Properties'
 import { Container, PanelLeft, Wrapper } from '../_layouts/containers'
 import CallToActionFia from './_children/call_to_action'
 import Header from './_children/header'
 
-const renderTemplate = (template, contTempl, attributes) => {
-  const templates = {
-    login: <Login {...{ contTempl, ...attributes }} />,
-    register: <Register {...{ ...attributes }} />,
-    forgot: <Forgot {...{ ...attributes }} />,
+type NavigateTemplatesProps = {
+  typeDialog: DialogType
+  arcSite: ArcSite
+  handleCallToAction?: (e: boolean) => void
+  isFia?: boolean
+}
+
+const renderTemplate = (
+  template: NavigateTemplates,
+  contTempl: string,
+  attributes: NavigateTemplatesProps
+) => {
+  const { typeDialog, arcSite, handleCallToAction, isFia } = attributes
+  const templates: Record<NavigateTemplates, JSX.Element> = {
+    login: (
+      <Login
+        contTempl={contTempl}
+        arcSite={arcSite}
+        handleCallToAction={handleCallToAction}
+        isFia={isFia}
+        typeDialog={typeDialog}
+      />
+    ),
+    register: (
+      <Register
+        arcSite={arcSite}
+        handleCallToAction={handleCallToAction}
+        isFia={isFia}
+        typeDialog={typeDialog}
+      />
+    ),
+    forgot: <Forgot typeDialog={typeDialog} />,
   }
 
   return templates[template] || templates.login
 }
 
-const FiaSubscriptionsWrapper = ({ typeDialog }) => {
+const FiaSubscriptionsWrapper = ({
+  typeDialog,
+}: Pick<NavigateTemplatesProps, 'typeDialog'>) => {
   const {
     siteProperties: {
       signwall: { mainColorBr, mainColorBg, mainColorTxt },
@@ -35,12 +70,11 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   } = useFusionContext() || {}
 
   const { selectedTemplate, valueTemplate } = useNavigateContext()
-  const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const [isLogged, setLogged] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
 
-  const handleCallToAction = (status) => {
+  const handleCallToAction = (status: boolean) => {
     setLogged(status)
   }
 
@@ -50,25 +84,21 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
       deleteCookie('mpp_sess')
       deleteCookie('ArcId.USER_INFO', siteDomain)
       deleteCookie('EcoId.REQUEST_STUDENTS')
-      if ('Identity' in window) {
-        window.Identity.options({ apiOrigin: urls.arcOrigin })
-        window.Identity.logout()
-          .then(() => {
-            window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
-            window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
-            setLogged(false)
-          })
-          .catch(() => {
-            window.location.reload()
-          })
-      } else {
-        Sentry.captureEvent({
-          message:
-            'No se puede cerrar sesión - SDK Identity no ha cargado correctamente',
-          level: 'error',
-          extra: {},
+
+      Identity.logout()
+        .then(() => {
+          window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
+          window.sessionStorage.removeItem('paywall_last_url') // url redireccion despues de compra
+          setLogged(false)
         })
-      }
+        .catch((error) => {
+          Sentry.captureEvent({
+            message: 'No se puede cerrar sesión - Identity.logout()',
+            level: Sentry.Severity.Error,
+            extra: error || {},
+          })
+          window.location.reload()
+        })
     }
   }
 
@@ -80,31 +110,12 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
 
   React.useEffect(() => {
     deleteCookie('ArcId.USER_INFO', siteDomain)
-    addScriptAsync({
-      name: 'IdentitySDK',
-      url: links.identity,
-      includeNoScript: false,
-    })
-      .then(() => {
-        window.Identity.options({ apiOrigin: urls.arcOrigin })
-        if (
-          'Identity' in window &&
-          window.Identity.userProfile &&
-          window.Identity.userIdentity.uuid
-        ) {
-          setLogged(true)
-        }
-        setLoading(false)
-      })
-      .catch((errIdentitySDK) => {
-        Sentry.captureEvent({
-          message: 'SDK Identity no ha cargado correctamente',
-          level: 'error',
-          extra: errIdentitySDK || {},
-        })
-      })
-  }, [links.identity, urls.arcOrigin])
-
+    if (Identity.userProfile && Identity.userIdentity?.uuid) {
+      setLogged(true)
+    }
+    setLoading(false)
+  }, [Identity.userProfile, Identity.userIdentity])
+  const p = 3
   return (
     <>
       {loading ? (
@@ -118,7 +129,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
             buttonBack={buttonBack}
           />
           <Container>
-            <Wrapper>
+            <Wrapper step={p}>
               <AuthProvider>
                 <PanelLeft>
                   {!isLogged ? (
@@ -127,15 +138,6 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
                       isFia: true,
                       typeDialog,
                       handleCallToAction,
-                      onClose: () => {
-                        if (
-                          'Identity' in window &&
-                          window.Identity.userProfile &&
-                          window.Identity.userIdentity.uuid
-                        ) {
-                          setLogged(true)
-                        }
-                      },
                     })
                   ) : (
                     <CallToActionFia
@@ -156,7 +158,7 @@ const FiaSubscriptionsWrapper = ({ typeDialog }) => {
   )
 }
 
-const FiaSubscriptions = () => (
+const FiaSubscriptions = (): JSX.Element => (
   <NavigateProvider>
     <FiaSubscriptionsWrapper typeDialog="authfia" />
   </NavigateProvider>

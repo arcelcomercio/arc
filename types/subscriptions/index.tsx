@@ -7,6 +7,7 @@ export type DialogType =
   | 'landing'
   | 'pages'
   | 'students'
+  | 'authfia'
 
 type Attributes = {
   name: string
