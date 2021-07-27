@@ -640,12 +640,6 @@ const PropertiesCommon = {
     howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx'
   },
 
-  tokens: {
-    paymentTracker: isProd
-      ? '5088cbc5ceb807c702b4e3487173ef792eb50be4'
-      : 'deb904a03a4e31d420a014534514b8cc8ca4d111',
-  },
-
   // prettier-ignore
   texts: {
     login:           'Bienvenido. Inicia sesión',
@@ -706,12 +700,7 @@ const PropertiesCommon = {
     errorCompany:    'Ha ocurrido un error. Inténtelo más tarde',
   },
 
-  domains: [
-    'fractalservicios.pe',
-    'comercio.com.pe',
-    'rpalatam.com.pe',
-    'mailinator.com',
-  ],
+  domains: ['fractalservicios.pe', 'comercio.com.pe', 'rpalatam.com.pe'],
 }
 
 export { PropertiesCommon, PropertiesSite }
