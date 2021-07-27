@@ -240,7 +240,7 @@ class NavBarDefault extends React.PureComponent {
               </>
             )}
 
-            {arcSite === SITE_DIARIOCORREO && (
+            {arcSite === SITE_DIARIOCORREO && false && (
               <>
                 <input
                   type="checkbox"

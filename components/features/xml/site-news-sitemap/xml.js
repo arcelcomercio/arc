@@ -1,10 +1,11 @@
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
+
 import { localISODate } from '../../../utilities/helpers'
 import {
   includePromoItems,
   includePromoItemsCaptions,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 
 const SOURCE = 'story-feed-by-section'
 const OUTPUTTYPE = '?outputType=amp'
@@ -32,7 +33,7 @@ class XmlSiteNewsSitemap {
           section: '/',
           stories_qty: 100,
           presets: `${IMAGE_SIZE}:1200x800`,
-          includedFields: `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,${includePromoItems},${includePromoItemsCaptions}`,
+          includedFields: `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,${includePromoItems},${includePromoItemsCaptions},first_publish_date`,
         },
       },
     })
@@ -67,7 +68,7 @@ class XmlSiteNewsSitemap {
     })
 
     const sitemap = {
-      urlset: stories.map(story => {
+      urlset: stories.map((story) => {
         storyData.__data = story
         return {
           url:
@@ -77,8 +78,9 @@ class XmlSiteNewsSitemap {
                   lastmod: localISODate(storyData.publishDate || ''),
                   'xhtml:link': {
                     '@rel': 'amphtml',
-                    '@href': `${siteUrl}${storyData.websiteLink ||
-                      ''}${OUTPUTTYPE}`,
+                    '@href': `${siteUrl}${
+                      storyData.websiteLink || ''
+                    }${OUTPUTTYPE}`,
                   },
                   'news:news': {
                     'news:publication': {
@@ -86,7 +88,7 @@ class XmlSiteNewsSitemap {
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
-                      storyData.publishDate || ''
+                      storyData.firstPublishDate || storyData.publishDate || ''
                     ),
                     'news:title': {
                       '#cdata': storyData.title,
@@ -108,8 +110,9 @@ class XmlSiteNewsSitemap {
                   loc: `${siteUrl}${storyData.websiteLink || ''}`,
                   'xhtml:link': {
                     '@rel': 'amphtml',
-                    '@href': `${siteUrl}${storyData.websiteLink ||
-                      ''}${OUTPUTTYPE}`,
+                    '@href': `${siteUrl}${
+                      storyData.websiteLink || ''
+                    }${OUTPUTTYPE}`,
                   },
                   'news:news': {
                     'news:publication': {

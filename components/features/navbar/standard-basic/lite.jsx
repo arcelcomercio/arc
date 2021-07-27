@@ -1,15 +1,14 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
-import { useAppContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useAppContext } from 'fusion:context'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
-
-import NavbarStandardLite from './_lite/_children/standard-lite'
 import schemaFilter from './_dependencies/schema-filter'
+import NavbarStandardLite from './_lite/_children/standard-lite'
 
 // TODO: Agregar un customfield para activar o desactivar el stiky al hacer scroll (por defecto activado)
-const LayoutNavbar = props => {
+const LayoutNavbar = (props) => {
   const { contextPath, arcSite, deployment } = useAppContext()
 
   const navbarData =
@@ -42,14 +41,13 @@ const LayoutNavbar = props => {
           }
     ) || []
 
-  const getReourceImgPath = img => {
-    return deployment(
+  const getReourceImgPath = (img) =>
+    deployment(
       `${getAssetsPath(
         arcSite,
         contextPath
       )}/resources/dist/${arcSite}/images/${img}`
     )
-  }
 
   const primaryLogos = {
     elbocon: getReourceImgPath('logo.png'),
@@ -64,16 +62,13 @@ const LayoutNavbar = props => {
   const formatData = (datas = {}) => {
     const LINK = 'link'
     const { children = [] } = datas || {}
-    return children.map(child => {
+    return children.map((child) => {
       let name = child.node_type === LINK ? child.display_name : child.name
       const rawMatch = name.match(/\[#.*\]/g)
       const match =
         rawMatch === null
           ? []
-          : rawMatch[0]
-              .replace('[', '')
-              .replace(']', '')
-              .split(',')
+          : rawMatch[0].replace('[', '').replace(']', '').split(',')
       if (match) {
         name = name.replace(/\[#.*\]/g, '')
       }

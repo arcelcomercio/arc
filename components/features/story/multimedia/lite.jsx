@@ -1,16 +1,14 @@
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { useAppContext } from 'fusion:context'
-
-import StoryData from '../../../utilities/story-data'
 import {
   BIG_IMAGE,
-  SPECIAL_BASIC,
   SPECIAL,
+  SPECIAL_BASIC,
 } from '../../../utilities/constants/subtypes'
-import { storyTagsBbc } from '../../../utilities/tags'
 import { localISODate } from '../../../utilities/date-time/dates'
-
+import StoryData from '../../../utilities/story-data'
+import { storyTagsBbc } from '../../../utilities/tags'
 import StoryContentsChildImpresa from './_children/impresa'
 import StoryContentsChildMultimedia from './_children/multimedia'
 
@@ -71,8 +69,10 @@ const StoryMultimediaLte = () => {
       storyTagsBbc(tags, 'portada-trome')
         ? promoItems?.basic && (
             <StoryContentsChildImpresa
-              url={promoItems.basic.url}
-              subtitle={promoItems.basic.subtitle}
+              url={promoItems?.basic?.url}
+              subtitle={promoItems?.basic?.subtitle}
+              height={promoItems?.basic?.height}
+              width={promoItems?.basic?.width}
             />
           )
         : promoItems &&
