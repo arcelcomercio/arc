@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import UtilListKey from '../../../../utilities/list-keys'
 import { processText } from '../../../../utilities/story/content'
-
 import StoryGalleryChildPicture from './picture'
 
 const classes = {
@@ -18,7 +17,7 @@ const classes = {
   title: 'story-gallery__title',
 }
 
-const StoryHeaderChildGallery = props => {
+const StoryHeaderChildGallery = (props) => {
   const {
     contentElementGallery: { content_elements: slides = [] } = {},
   } = props
@@ -39,46 +38,46 @@ const StoryHeaderChildGallery = props => {
           return (
             <>
               {i === 1 && (
-                <div id="gpt_caja2" className="flex justify-center"></div>
+                <div id="gpt_caja2" className="flex justify-center" />
               )}
               {i === 3 && (
-                <div id="gpt_caja3" className="flex justify-center"></div>
+                <div id="gpt_caja3" className="flex justify-center" />
               )}
               {i === 5 && (
-                <div id="gpt_caja4" className="flex justify-center"></div>
+                <div id="gpt_caja4" className="flex justify-center" />
               )}
               {i === 7 && (
-                <div id="gpt_caja5" className="flex justify-center"></div>
+                <div id="gpt_caja5" className="flex justify-center" />
               )}
               {i === 9 && (
-                <div id="gpt_caja6" className="flex justify-center"></div>
+                <div id="gpt_caja6" className="flex justify-center" />
               )}
               {i === 11 && (
-                <div id="gpt_caja7" className="flex justify-center"></div>
+                <div id="gpt_caja7" className="flex justify-center" />
               )}
               {i === 13 && (
-                <div id="gpt_caja8" className="flex justify-center"></div>
+                <div id="gpt_caja8" className="flex justify-center" />
               )}
               {i === 15 && (
-                <div id="gpt_caja9" className="flex justify-center"></div>
+                <div id="gpt_caja9" className="flex justify-center" />
               )}
               {i === 17 && (
-                <div id="gpt_caja10" className="flex justify-center"></div>
+                <div id="gpt_caja10" className="flex justify-center" />
               )}
               {i === 19 && (
-                <div id="gpt_caja11" className="flex justify-center"></div>
+                <div id="gpt_caja11" className="flex justify-center" />
               )}
               {i === 21 && (
-                <div id="gpt_caja12" className="flex justify-center"></div>
+                <div id="gpt_caja12" className="flex justify-center" />
               )}
               {i === 23 && (
-                <div id="gpt_caja13" className="flex justify-center"></div>
+                <div id="gpt_caja13" className="flex justify-center" />
               )}
               {i === 25 && (
-                <div id="gpt_caja14" className="flex justify-center"></div>
+                <div id="gpt_caja14" className="flex justify-center" />
               )}
               {i === 27 && (
-                <div id="gpt_caja15" className="flex justify-center"></div>
+                <div id="gpt_caja15" className="flex justify-center" />
               )}
 
               <div
@@ -86,7 +85,7 @@ const StoryHeaderChildGallery = props => {
                 // data-slide-number importante para "resources/assets/js/vertical-gallery.js"
                 data-slide-number={i + 1}
                 key={UtilListKey(i)}>
-                <div className="more-compartir"></div>
+                <div className="more-compartir" />
                 <span className={classes.galleryNumber}>
                   <strong> {i + 1} </strong>
                   de {slides.length}
@@ -98,6 +97,8 @@ const StoryHeaderChildGallery = props => {
                     subtitle={subtitle}
                     itemv={itemv}
                     i={i}
+                    height={height}
+                    width={width}
                   />
                 </div>
                 {name ? (
