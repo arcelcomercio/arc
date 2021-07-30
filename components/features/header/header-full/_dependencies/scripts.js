@@ -176,7 +176,7 @@ export const getBtnSignScript = (
       }
       return false;
     };
-    var signBtn = document.body.querySelector('.header-full__btn-signwall');
+    var signBtn = document.getElementById('signwall-nav-btn');
     if (signBtn) {
       signBtn.addEventListener('click', function () {
         if (checkSession()) {

@@ -80,7 +80,7 @@
     }
     .nav__search-box {
       @media (--desktop) {
-        display: flex;
+        display: block;
         border-right: 0;
         height: auto;
         order: 0;
