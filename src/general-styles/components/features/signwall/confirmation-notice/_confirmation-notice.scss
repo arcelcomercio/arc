@@ -19,9 +19,14 @@
       margin-top: 0;
     }
   }
+
   &__link {
     font-weight: bold;
     margin-top: 5px;
+    font-size: 1em;
+    &:hover {
+      text-decoration: underline;
+    }
     @media (--tablet) {
       margin-top: 0;
     }

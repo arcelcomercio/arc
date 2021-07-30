@@ -22,6 +22,7 @@ import HeaderSubs from '../_layouts/header'
 import scriptsPayment from '../_scripts/Payment'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
+import customFields from './_dependencies/custom-fields'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {
@@ -147,5 +148,9 @@ const PaymentSubscriptions = () => (
 )
 
 PaymentSubscriptions.label = 'Subscriptions - Landing de Compra'
+PaymentSubscriptions.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
+}
 
 export default PaymentSubscriptions
