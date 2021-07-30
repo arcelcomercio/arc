@@ -5,7 +5,7 @@ import request from 'request-promise-native'
 import { PropertiesCommon } from '../../components/features/subscriptions/_dependencies/Properties'
 
 const fetch = (key = {}) => {
-  const { data } = key
+  const { data } = key || {}
   const { urls: urlCommon } = PropertiesCommon
 
   return request({
