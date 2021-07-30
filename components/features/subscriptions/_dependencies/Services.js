@@ -117,21 +117,6 @@ export const pushCallOut = (name, phone) => {
   return response
 }
 
-export const cipPayEfectivo = (url, token, data) => {
-  const response = new Promise((resolve) => {
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: `Token ${token}`,
-      }),
-    }).then((res) => resolve(res.json()))
-  })
-
-  return response
-}
-
 export const sendEmailCompany = (
   URL,
   arcSite,
