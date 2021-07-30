@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import * as React from 'react'
 
 import {
@@ -45,14 +46,14 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
         window.open(links.profile, '_blank')
       } else {
         setShowSignwall(!showSignwall)
-        window.Identity.clearSession()
+        Identity.clearSession()
       }
     }
   }
 
   const handleAfterLogged = () => {
     if (typeof window !== 'undefined') {
-      const resProfile = window.Identity.userProfile || {}
+      const resProfile = Identity.userProfile || {}
       activateAuth(resProfile)
       updateStep(2)
       setShowSignwall(false)

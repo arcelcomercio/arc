@@ -2,7 +2,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import { useModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
 } from '../../../subscriptions/_dependencies/Errors'
@@ -25,7 +25,7 @@ const FormForgot = ({ typeDialog }) => {
     arcSite === 'trome' &&
     (typeDialog === 'organico' || typeDialog === 'verify')
 
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalConsumer()
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showConfirm, setShowConfirm] = React.useState(false)

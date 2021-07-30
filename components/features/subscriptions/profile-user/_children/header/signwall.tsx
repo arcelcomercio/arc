@@ -5,7 +5,19 @@ import { getAssetsPath } from '../../../../../utilities/constants'
 import { Back, Close } from '../../../../signwall/_children/icons'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 
-const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
+interface HeaderSignwallProps {
+  buttonClose?: boolean
+  onClose?: () => void
+  typeDialog?: 'hard' | 'organico'
+  logoLeft?: boolean
+}
+
+const HeaderSignwall = ({
+  buttonClose = false,
+  onClose = () => {},
+  logoLeft = false,
+  typeDialog,
+}: HeaderSignwallProps): JSX.Element => {
   const {
     arcSite,
     siteProperties: {
@@ -67,12 +79,12 @@ const HeaderSignwall = ({ buttonClose, onClose, typeDialog, logoLeft }) => {
             onClick={() => {
               Taggeo(
                 `Web_Sign_Wall_${typeDialog}`,
-                `web_sw${typeDialog[0]}_boton_cerrar`
+                `web_sw${typeDialog?.[0]}_boton_cerrar`
               )
 
               if (typeDialog === 'hard') {
                 window.location.href = '/?ref=signwall'
-              } else {
+              } else if (onClose) {
                 onClose()
               }
 

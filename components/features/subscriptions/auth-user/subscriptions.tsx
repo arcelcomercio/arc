@@ -37,7 +37,7 @@ type ModalType =
 
 const AuthUser = () => {
   const { arcSite } = useAppContext()
-  const { status: identityStatus } = useSdksContext() || {}
+  const { status: identityStatus } = useSdksContext()
   const [activeModal, setActiveModal] = React.useState<ModalType>()
   const { urls: urlCommon } = PropertiesCommon
 

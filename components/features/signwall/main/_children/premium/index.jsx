@@ -5,8 +5,8 @@ import * as React from 'react'
 import { getAssetsPath } from '../../../../../utilities/assets'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
-  ModalConsumer,
   ModalProvider,
+  useModalConsumer,
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import FormForgot from '../../../_children/forms/form_forgot'
@@ -45,7 +45,7 @@ export const PremiumInt = ({ properties }) => {
     },
   } = useAppContext() || {}
 
-  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
+  const { selectedTemplate, valTemplate } = useModalConsumer()
   const [resizeModal, setResizeModal] = React.useState('smallbottom')
   const { name = '', summary: { feature = [] } = {} } =
     useContent({

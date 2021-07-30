@@ -1,7 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import { useModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatPass,
 } from '../../../subscriptions/_dependencies/Errors'
@@ -21,7 +21,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
 
   const isTromeReset = arcSite === 'trome' && typeDialog === 'resetpass'
 
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalConsumer()
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)

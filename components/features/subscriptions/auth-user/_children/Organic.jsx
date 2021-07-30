@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { Benefits } from '../../../signwall/_children/benefits'
 import { Modal } from '../../../signwall/_children/modal/index'
-import { ModalConsumer, ModalProvider } from '../../_context/modal'
+import { ModalProvider, useModalConsumer } from '../../_context/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
 import Header from '../../profile-user/_children/header/signwall'
 
@@ -108,7 +108,7 @@ export const ContGeneric = ({ properties }) => {
     },
   } = useAppContext() || {}
 
-  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
+  const { selectedTemplate, valTemplate } = useModalConsumer()
   const isTrome = arcSite === 'trome'
   const isComercio = arcSite === 'elcomercio'
   const isGestion = arcSite === 'gestion'

@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import { useModalConsumer } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
@@ -55,7 +55,7 @@ const FormRegister = ({
     arcSite === 'trome' &&
     (typeDialog === 'organico' || typeDialog === 'verify')
 
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalConsumer()
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showConfirm, setShowConfirm] = React.useState(false)

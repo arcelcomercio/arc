@@ -3,7 +3,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import Markdown from 'react-markdown/with-html'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import { useModalConsumer } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { getUrlPaywall } from '../../_dependencies/domains'
 import Loading from '../loading'
@@ -14,7 +14,7 @@ const FormIntro = ({
   checkModal = (i) => i,
 }) => {
   const { arcSite } = useAppContext() || {}
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalConsumer()
   const [showLoading, setShowLoading] = React.useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
 

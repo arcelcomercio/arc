@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import * as React from 'react'
 
 import { MsgForgotPass } from '../../signwall/_children/icons'
@@ -47,7 +48,7 @@ const Forgot = ({ typeDialog }) => {
         `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
       )
       setLoading(true)
-      window.Identity.requestResetPassword(femail)
+      Identity.requestResetPassword(femail)
         .then(() => {
           setShowConfirm(true)
           Taggeo(
@@ -91,7 +92,7 @@ const Forgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(femail)
+    Identity.requestVerifyEmail(femail)
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_contrasena_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {

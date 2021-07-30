@@ -1,48 +1,61 @@
-import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import {
+  SdksProvider,
+  SdkStatus,
+  useSdksContext,
+} from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
-import addScriptAsync from '../../../utilities/script-async'
 import Loading from '../../signwall/_children/loading'
-import { getOriginAPI } from '../../signwall/_dependencies/domains'
-import { ModalConsumer, ModalProvider } from '../_context/modal'
+import {
+  ModalProvider,
+  ProfileModalTemplates,
+  useModalConsumer,
+} from '../_context/modal'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
 
-const MenuSignwall = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu/signwall'
-  )
+const MenuSignwall = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu/signwall'
+    )
 )
 
-const ResumeProfile = React.lazy(() =>
-  import(/* webpackChunkName: 'Profile-ResumeProfile' */ './_children/resume')
+const ResumeProfile = React.lazy(
+  () =>
+    import(/* webpackChunkName: 'Profile-ResumeProfile' */ './_children/resume')
 )
 
-const NewsLetter = React.lazy(() =>
-  import(/* webpackChunkName: 'Profile-NewsLetter' */ './_children/newsletters')
+const NewsLetter = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: 'Profile-NewsLetter' */ './_children/newsletters'
+    )
 )
 
-const Subscription = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Profile-Subscription' */ './_children/subscriptions'
-  )
+const Subscription = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: 'Profile-Subscription' */ './_children/subscriptions'
+    )
 )
 
-const MiPerfil = React.lazy(() =>
-  import(/* webpackChunkName: 'Profile-MiPerfil' */ './_children/profile')
+const MiPerfil = React.lazy(
+  () => import(/* webpackChunkName: 'Profile-MiPerfil' */ './_children/profile')
 )
 
-const SubsDetail = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Profile-SubsDetail' */ './_children/subscriptions/_children/detail'
-  )
+const SubsDetail = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: 'Profile-SubsDetail' */ './_children/subscriptions/_children/detail'
+    )
 )
 
-const renderTemplate = (template, id) => {
-  const templates = {
+const renderTemplate = (template: ProfileModalTemplates, id: string) => {
+  const templates: Record<ProfileModalTemplates, JSX.Element> = {
     home: (
       <React.Suspense fallback={null}>
         <ResumeProfile />
@@ -73,8 +86,9 @@ const renderTemplate = (template, id) => {
 }
 
 const WrapperProfile = () => {
-  const { siteProperties, arcSite } = useAppContext() || {}
-  const { links, urls: urlCommon } = PropertiesCommon
+  const { siteProperties } = useAppContext()
+  const { status: identityStatus } = useSdksContext()
+  const { urls: urlCommon } = PropertiesCommon
 
   const {
     changeTemplate,
@@ -82,7 +96,7 @@ const WrapperProfile = () => {
     idTemplate,
     userLoading,
     updateLoading,
-  } = React.useContext(ModalConsumer)
+  } = useModalConsumer()
 
   useSentry(urlCommon.sentrySign)
 
@@ -93,23 +107,8 @@ const WrapperProfile = () => {
   }, [])
 
   React.useEffect(() => {
-    addScriptAsync({
-      name: 'IdentitySDK',
-      url: links.identity,
-      includeNoScript: false,
-    })
-      .then(() => {
-        updateLoading(false)
-        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-      })
-      .catch((errIdentitySDK) => {
-        Sentry.captureEvent({
-          message: 'SDK Identity no ha cargado correctamente',
-          level: 'error',
-          extra: errIdentitySDK || {},
-        })
-      })
-  }, [])
+    updateLoading(identityStatus === SdkStatus.loading)
+  }, [identityStatus])
 
   return (
     <div className="sign-profile_general-panel-wrapper" id="profile-signwall">
@@ -121,12 +120,19 @@ const WrapperProfile = () => {
           <div className="sign-profile_general-panel-content">
             <div className="panel-left">
               <React.Suspense fallback={null}>
-                <MenuSignwall handleMenu={(item) => changeTemplate(item)} />
+                <MenuSignwall
+                  handleMenu={(item: ProfileModalTemplates) =>
+                    changeTemplate(item)
+                  }
+                />
               </React.Suspense>
             </div>
             <div className="panel-right">
               {siteProperties.activePaywall ? (
-                renderTemplate(selectedTemplate, idTemplate)
+                renderTemplate(
+                  selectedTemplate as ProfileModalTemplates,
+                  idTemplate
+                )
               ) : (
                 <React.Suspense fallback={null}>
                   <MiPerfil />
@@ -140,10 +146,12 @@ const WrapperProfile = () => {
   )
 }
 
-const ProfileSignwall = () => (
-  <ModalProvider>
-    <WrapperProfile />
-  </ModalProvider>
+const ProfileSignwall = (): JSX.Element => (
+  <SdksProvider>
+    <ModalProvider>
+      <WrapperProfile />
+    </ModalProvider>
+  </SdksProvider>
 )
 
 ProfileSignwall.label = 'Signwall - Página Perfil de Usuario'

@@ -4,6 +4,7 @@
  * @FooterLand
  */
 
+import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
@@ -83,7 +84,7 @@ export const FooterSubs = () => {
         eventCategory: 'paywall_check_subscriptor',
         eventAction: 'submit',
       })
-      window.Identity.heartbeat()
+      Identity.heartbeat()
         .then((resHeart) => {
           subDniToken(urls.subsDniToken, resHeart.accessToken)
             .then((resDniToken) => {

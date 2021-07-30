@@ -4,7 +4,7 @@ import * as React from 'react'
 import addScriptAsync from '../../../../../utilities/script-async'
 import FormIntro from '../../../../signwall/_children/forms/form_intro'
 import Loading from '../../../../signwall/_children/loading'
-import { ModalConsumer } from '../../../_context/modal'
+import { useModalConsumer } from '../../../_context/modal'
 import {
   PropertiesCommon,
   PropertiesSite,
@@ -21,7 +21,7 @@ const Subscription = () => {
 
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalConsumer()
   const [showLoading, setShowLoading] = React.useState(true)
   const [showSubs, setShowSubs] = React.useState()
 

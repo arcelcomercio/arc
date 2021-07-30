@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -100,7 +101,7 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
       const contacts =
         rphone.length >= 6 ? [{ phone: rphone.trim(), type: 'PRIMARY' }] : []
 
-      window.Identity.signUp(
+      Identity.signUp(
         {
           userName: remail,
           credentials: rpass,
@@ -155,21 +156,21 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
           setShowConfirm(true)
 
           setLoadText('Cargando Perfil...')
-          window.Identity.getUserProfile().then((resProfile) => {
+          Identity.getUserProfile().then((resProfile) => {
             setLoadText('Cargando Servicios...')
             sendNewsLettersUser(
               urls.newsLetters,
               resProfile.uuid,
               resProfile.email,
               arcSite,
-              resSignUp.accessToken || window.Identity.userIdentity.accessToken,
+              resSignUp.accessToken || Identity.userIdentity.accessToken,
               ['general']
             )
               .then(() => {
                 window.localStorage.removeItem('ArcId.USER_INFO')
                 window.localStorage.removeItem('ArcId.USER_PROFILE')
-                window.Identity.userProfile = null
-                window.Identity.userIdentity = {}
+                Identity.userProfile = null
+                Identity.userIdentity = {}
               })
               .finally(() => {
                 Taggeo(
@@ -216,7 +217,7 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(remail)
+    Identity.requestVerifyEmail(remail)
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_registro_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {

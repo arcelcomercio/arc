@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -70,12 +71,12 @@ const Login = ({
     if (typeof window !== 'undefined') {
       setLoading(true)
       Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_boton_ingresar`)
-      window.Identity.login(lemail, lpass, {
+      Identity.login(lemail, lpass, {
         rememberMe: true,
         cookie: true,
       })
         .then(() => {
-          window.Identity.getUserProfile().then((resProfile) => {
+          Identity.getUserProfile().then((resProfile) => {
             if (
               !resProfile.emailVerified &&
               resProfile.displayName === resProfile.email
@@ -90,8 +91,8 @@ const Login = ({
               )
               window.localStorage.removeItem('ArcId.USER_INFO')
               window.localStorage.removeItem('ArcId.USER_PROFILE')
-              window.Identity.userProfile = null
-              window.Identity.userIdentity = {}
+              Identity.userProfile = null
+              Identity.userIdentity = {}
             } else {
               activateAuth(resProfile)
               updateStep(2)
@@ -144,7 +145,7 @@ const Login = ({
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(lemail)
+    Identity.requestVerifyEmail(lemail)
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {
