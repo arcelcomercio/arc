@@ -23,8 +23,7 @@ export const publicidadAmp = ({
   movil1 = '',
   arcSite = '',
   prebidSlot = '',
-  size = '320x100',
-  fluid = false
+  size = '320x100'
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -38,15 +37,12 @@ export const publicidadAmp = ({
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
 
-  const heightAmp = (fluid && SITE_DIARIOCORREO === arcSite && `height="fluid"`) || `height="${height}"`
-  const widthtAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || ` width="${width}"`
-  const fluidAmp = (fluid && SITE_DIARIOCORREO === arcSite && `layout="fluid"`) || ``
+  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
-  const adsLoadAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || `data-loading-strategy="prefer-viewability-over-views"`
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `
-  <amp-ad${widthtAmp} ${fluidAmp} ${heightAmp} ${adsLoadAmp} type="doubleclick"
-  data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
+    <amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+    data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`  
   }
   return createMarkup(resultData)
 }
@@ -58,8 +54,7 @@ export const publicidadAmpAd = ({
   movil1 = '',
   arcSite = '',
   prebidSlot = '',
-  size = '320x100,320x50,300x1',
-  fluid = false
+  size = '320x100,320x50,300x1'
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -72,14 +67,11 @@ export const publicidadAmpAd = ({
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
 
-  const adsLoadAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || `data-loading-strategy="prefer-viewability-over-views"`
-  const heightAmp = (fluid && SITE_DIARIOCORREO === arcSite && `height="fluid"`) || `height="${height}"`
-  const widthtAmp = (fluid && SITE_DIARIOCORREO === arcSite && ' ') || ` width="${width}"`
-  const fluidAmp = (fluid && SITE_DIARIOCORREO === arcSite && `layout="fluid"`) || ``
+  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
   if (secctionPrimary[1] !== 'respuestas') {
-    resultData = `<amp-ad${widthtAmp} ${fluidAmp} ${heightAmp} ${adsLoadAmp} type="doubleclick"
-  data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
+    resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+    data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`  
   }
   return createMarkup(resultData)
 }
