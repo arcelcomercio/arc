@@ -35,8 +35,7 @@ const StoryHeaderChildAmpGallery = (props) => {
 
   const publicidadAmpAd = (
     caja,
-    size = '300x250,320x100,320x50,300x100,300x50',
-    fluid
+    size = '300x250,320x100,320x50,300x100,300x50'
   ) => {
     const namePublicidad = arcSite !== 'peru21g21' ? arcSite : SITE_PERU21
     const dataSlot = `/${adsAmp.dataSlot}/${namePublicidad}/amp/post/default/${caja}`
@@ -105,7 +104,7 @@ const StoryHeaderChildAmpGallery = (props) => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja2', '320x100,320x50', true)
+                      publicidadAmpAd('caja2', '320x100,320x50')
                     )}
                   />
                 )}
@@ -113,7 +112,7 @@ const StoryHeaderChildAmpGallery = (props) => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja3', '320x100,320x50,300x1', false)
+                      publicidadAmpAd('caja3', '320x100,320x50,300x1')
                     )}
                   />
                 )}
@@ -121,7 +120,7 @@ const StoryHeaderChildAmpGallery = (props) => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja4', '320x100,320x50', false)
+                      publicidadAmpAd('caja4', '320x100,320x50')
                     )}
                   />
                 )}
@@ -129,7 +128,7 @@ const StoryHeaderChildAmpGallery = (props) => {
                   <div
                     className={classes.adsAmp}
                     dangerouslySetInnerHTML={publicidadAmp(
-                      publicidadAmpAd('caja5', '320x100,320x50', false)
+                      publicidadAmpAd('caja5', '320x100,320x50')
                     )}
                   />
                 )}
