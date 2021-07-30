@@ -4,24 +4,22 @@ import request from 'request-promise-native'
 
 import { PropertiesCommon } from '../../components/features/subscriptions/_dependencies/Properties'
 
-const fetch = (key) => {
-  const website = key?.['arc-site']
-  const data = key || {}
+const fetch = (key = {}) => {
+  const { data } = key || {}
   const { urls: urlCommon } = PropertiesCommon
 
   return request({
     method: 'POST',
-    uri: `${urlCommon.paymentTracker}/service/arc/paywall/tracking`,
+    uri: urlCommon.cipPayEfectivo,
     headers: {
-      Authorization: PAYMENT_TRACKER_TOKEN,
-      'X-arc-site': website,
+      Authorization: `Token ${PAYMENT_TRACKER_TOKEN}`,
     },
     body: data,
-    gzip: true,
     json: true,
-  })
+  }).catch((err) => err)
 }
 
 export default {
   fetch,
+  ttl: 20,
 }
