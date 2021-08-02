@@ -1,7 +1,9 @@
+import Identity from '@arc-publishing/sdk-identity'
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 
-import { getAssetsPath } from '../../../../../utilities/constants'
+import { getAssetsPath } from '../../../../../utilities/assets'
+import { SITE_TROME } from '../../../../../utilities/constants/sitenames'
 import { Back, Close } from '../../../../signwall/_children/icons'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 
@@ -29,10 +31,10 @@ const HeaderSignwall = ({
   return (
     <div
       className={`sign-profile_header-wrapper ${
-        arcSite === 'trome' ? 'border-trome' : ''
+        arcSite === SITE_TROME ? 'border-trome' : ''
       }`}
       style={{
-        background: arcSite === 'trome' ? '#FF650F' : mainColorBg,
+        background: arcSite === SITE_TROME ? '#FF650F' : mainColorBg,
         color: mainColorTxt,
       }}>
       <div className="sign-profile_header-content">
@@ -56,12 +58,12 @@ const HeaderSignwall = ({
         <div className="sign-profile_header-logo">
           <div
             className={`cont cont_${arcSite} ${
-              arcSite === 'trome' && logoLeft ? 'cont_left' : ''
+              arcSite === SITE_TROME && logoLeft ? 'cont_left' : ''
             }`}>
             <img
               alt={`Logo ${arcSite}`}
               src={
-                arcSite === 'trome'
+                arcSite === SITE_TROME
                   ? 'https://signwall.e3.pe/images/trome/logo-orange.png'
                   : `${getAssetsPath(
                       arcSite,
@@ -90,7 +92,7 @@ const HeaderSignwall = ({
 
               if (
                 window.location.pathname.match(/newsletters/) &&
-                window.Identity.userProfile &&
+                Identity.userProfile &&
                 typeDialog === 'organico'
               ) {
                 setTimeout(() => {

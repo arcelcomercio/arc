@@ -110,6 +110,7 @@ function formatUsername(username: string, length = 80): string {
  * @example ```
  * await getUsername(`Carlos undefined`)
  * // Carlos
+ *
  * await getUsername(`William Esternocleidomastoideo`)
  * // William Esternocl...
  * ```

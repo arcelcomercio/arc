@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import Identity from '@arc-publishing/sdk-identity'
 import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
@@ -16,7 +17,6 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import {
   dataTreatment,
-  getOriginAPI,
   getUrlPaywall,
   PolicyPrivacy,
   TermsConditions,
@@ -124,7 +124,7 @@ const FormRegister = ({
       profile.uuid,
       profile.email,
       arcSite,
-      profile.accessToken || window.Identity.userIdentity.accessToken,
+      profile.accessToken || Identity.userIdentity.accessToken,
       ['general']
     )
   }
@@ -137,16 +137,15 @@ const FormRegister = ({
     setShowContinueVerify(true)
     window.localStorage.removeItem('ArcId.USER_INFO')
     window.localStorage.removeItem('ArcId.USER_PROFILE')
-    window.Identity.userProfile = null
-    window.Identity.userIdentity = {}
+    Identity.userProfile = null
+    Identity.userIdentity = {}
   }
 
   const handleGetProfile = () => {
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.getUserProfile()
+    Identity.getUserProfile()
       .then((profile) => {
         setCookie('arc_e_id', sha256(profile.email).toString(), 365)
-        const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+        const USER_IDENTITY = JSON.stringify(Identity.userIdentity || {})
         setCookie('ArcId.USER_INFO', USER_IDENTITY, 1, siteDomain)
 
         if (activeNewsletter) {
@@ -184,8 +183,7 @@ const FormRegister = ({
     const contacts =
       rphone.length >= 6 ? [{ phone: rphone.trim(), type: 'PRIMARY' }] : []
 
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.signUp(
+    Identity.signUp(
       {
         userName: remail,
         credentials: rpass,
@@ -262,7 +260,7 @@ const FormRegister = ({
   }
 
   const getListSubs = () =>
-    window.Identity.extendSession().then((resExt) => {
+    Identity.extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -277,8 +275,6 @@ const FormRegister = ({
     })
 
   const checkUserSubs = () => {
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true)
 
@@ -326,7 +322,7 @@ const FormRegister = ({
   const sendVerifyEmail = (e) => {
     e.preventDefault()
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(remail)
+    Identity.requestVerifyEmail(remail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_registro_reenviar_correo`
@@ -617,7 +613,7 @@ const FormRegister = ({
                         className="signwall-inside_forms-title center mb-10">
                         {showUserWithSubs
                           ? `Bienvenido(a) ${
-                              window.Identity.userProfile.firstName || 'Usuario'
+                              Identity.userProfile.firstName || 'Usuario'
                             }`
                           : 'Tu cuenta ha sido creada correctamente'}
                       </h4>

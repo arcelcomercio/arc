@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -7,7 +8,6 @@ import getCodeError, {
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import { getOriginAPI } from '../../_dependencies/domains'
 import { MsgResetPass, ResetPass } from '../icons'
 import { Input } from './control_input_select'
 
@@ -30,7 +30,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
   const [showFormatInvalidTwo, setShowFormatInvalidTwo] = React.useState('')
 
   React.useEffect(() => {
-    if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
+    if (Identity.userProfile || Identity.userIdentity.uuid) {
       setShowBtnContinue(true)
     }
   }, [])
@@ -55,8 +55,7 @@ const FormReset = ({ onClose, tokenReset, typeDialog }) => {
 
   const onSubmitForm = ({ rpass }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.resetPassword(tokenReset, rpass)
+    Identity.resetPassword(tokenReset, rpass)
       .then(() => {
         setShowConfirm(true)
         Taggeo(

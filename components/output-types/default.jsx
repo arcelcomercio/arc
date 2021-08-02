@@ -615,23 +615,7 @@ export default ({
           subtype={subtype}
         />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
-        {/* <!-- Identity & Paywall - Inicio --> */}
-        {(() => {
-          if (
-            isElcomercioHome ||
-            !siteProperties.activeSignwall ||
-            isTrivia ||
-            isPreview
-          ) {
-            return null
-          }
-          return (
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-              defer
-            />
-          )
-        })()}
+        {/* <!-- Paywall - Inicio --> */}
         {(() => {
           if (
             isElcomercioHome ||
@@ -650,7 +634,7 @@ export default ({
             />
           )
         })()}
-        {/* <!-- Identity & Sales & Paywall - Fin --> */}
+        {/* <!-- Paywall - Fin --> */}
         {enabledPushud && (
           <>
             <script

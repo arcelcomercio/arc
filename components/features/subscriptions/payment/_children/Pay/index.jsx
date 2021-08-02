@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
+import Sales from '@arc-publishing/sdk-sales'
 import * as Sentry from '@sentry/browser'
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
@@ -118,29 +119,6 @@ const Pay = () => {
         emailVerified,
       })
     })
-
-    addScriptAsync({
-      name: 'SalesSDK',
-      url: links.sales,
-      includeNoScript: false,
-    })
-      .then(() => {
-        Sentry.addBreadcrumb({
-          type: 'info',
-          category: 'pago',
-          message: 'Definiendo apiOrigin para proceso de pago',
-          data: { 'Sales.options': { apiOrigin: urls.arcOrigin } },
-          level: 'info',
-        })
-        window.Sales.options({ apiOrigin: urls.arcOrigin })
-      })
-      .catch((errSalesSDK) => {
-        Sentry.captureEvent({
-          message: 'SDK Sales no ha cargado correctamente',
-          level: 'error',
-          extra: errSalesSDK || {},
-        })
-      })
 
     addScriptAsync({
       name: 'PayuSDK',
@@ -283,7 +261,7 @@ const Pay = () => {
         setMsgError(false)
         setTxtLoading('Preparando Orden...')
 
-        window.Sales.clearCart()
+        Sales.clearCart()
           .then(() => {
             Sentry.addBreadcrumb({
               type: 'info',
@@ -292,7 +270,7 @@ const Pay = () => {
               data: { 'Sales.addItemToCart': [userPlan] },
               level: 'info',
             })
-            return window.Sales.addItemToCart([userPlan])
+            return Sales.addItemToCart([userPlan])
           })
           .then(() => {
             Sentry.addBreadcrumb({
@@ -311,7 +289,7 @@ const Pay = () => {
               },
               level: 'info',
             })
-            return window.Sales.createNewOrder(
+            return Sales.createNewOrder(
               { country: 'PE', line2: `${documentType}_${documentNumber}` },
               email,
               phone,
@@ -331,7 +309,7 @@ const Pay = () => {
               },
               level: 'info',
             })
-            return window.Sales.getPaymentOptions()
+            return Sales.getPaymentOptions()
               .then((resPayOptions) => {
                 setTxtLoading('Iniciando Proceso...')
 
@@ -355,7 +333,7 @@ const Pay = () => {
                   level: 'info',
                 })
 
-                return window.Sales.initializePayment(
+                return Sales.initializePayment(
                   orderNumberDinamic,
                   paymentMethodID
                 )
@@ -499,7 +477,7 @@ const Pay = () => {
                     level: 'info',
                   })
 
-                  return window.Sales.finalizePayment(
+                  return Sales.finalizePayment(
                     orderNumberDinamic,
                     paymentMethodID,
                     tokenDinamic

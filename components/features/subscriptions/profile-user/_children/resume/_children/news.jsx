@@ -1,6 +1,8 @@
+import Identity from '@arc-publishing/sdk-identity'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
+import { SITE_GESTION } from '../../../../../../utilities/constants/sitenames'
 import Loading from '../../../../../signwall/_children/loading'
 import {
   getNewsLetters,
@@ -25,7 +27,7 @@ class NewsResume extends React.Component {
     const { arcSite } = this.props
 
     if (typeof window !== 'undefined') {
-      const UUID = window.Identity.userIdentity.uuid
+      const UUID = Identity.userIdentity.uuid
       const SITE = arcSite
 
       const listAllNews = { ...[] }
@@ -80,7 +82,7 @@ class NewsResume extends React.Component {
 
     return (
       <>
-        {arcSite === 'gestion' && (
+        {arcSite === SITE_GESTION && (
           <div
             className="sign-profile_resume"
             style={{ padding: '0px', background: 'none' }}>

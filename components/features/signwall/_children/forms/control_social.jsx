@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import sha256 from 'crypto-js/sha256'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
@@ -43,7 +44,7 @@ const AfterLoginRegister = (
     `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
   )
   setCookie('arc_e_id', sha256(emailUser).toString(), 365)
-  const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+  const USER_IDENTITY = JSON.stringify(Identity.userIdentity || {})
   setCookie('ArcId.USER_INFO', USER_IDENTITY, 1, siteDomain)
 
   onLogged(resProfile)
@@ -86,8 +87,7 @@ const setupUserProfile = (
 ) => {
   const { siteDomain } = getProperties(arcSite) || {}
 
-  window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-  window.Identity.getUserProfile()
+  Identity.getUserProfile()
     .then((resProfile) => {
       const EMAIL_USER =
         resProfile.email ||
@@ -149,11 +149,7 @@ const setupUserProfile = (
           ],
         }
 
-        window.Identity.options({
-          apiOrigin: getOriginAPI(arcSite),
-        })
-
-        window.Identity.updateUserProfile(newProfileFB)
+        Identity.updateUserProfile(newProfileFB)
           .then(() => {
             if (activeNewsletter && EMAIL_USER.indexOf('facebook.com') < 0) {
               sendNewsLettersUser(
@@ -230,7 +226,7 @@ const authSocialProviderURL = (
   onStudents,
   dataTreatment
 ) => {
-  if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
+  if (origin !== getUrlECOID || Identity.userIdentity.uuid) {
     return
   }
 
@@ -241,7 +237,7 @@ const authSocialProviderURL = (
           'ArcId.USER_INFO',
           JSON.stringify(resLogSocial)
         )
-        window.Identity.userIdentity = resLogSocial
+        Identity.userIdentity = resLogSocial
         setupUserProfile(
           resLogSocial.accessToken,
           data.providerSource,
@@ -315,7 +311,7 @@ export const ButtonSocial = ({
   }
 
   const authSocialProvider = ({ data, origin }) => {
-    if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
+    if (origin !== getUrlECOID || Identity.userIdentity.uuid) {
       return
     }
 
@@ -332,7 +328,7 @@ export const ButtonSocial = ({
           'ArcId.USER_INFO',
           JSON.stringify(resLogSocial)
         )
-        window.Identity.userIdentity = resLogSocial
+        Identity.userIdentity = resLogSocial
 
         setShowTextLoad('Cargando...')
         setupUserProfile(

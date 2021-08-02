@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
@@ -235,7 +236,7 @@ const Profile = () => {
         data: { 'Identity.heartbeat': 'function' },
         level: 'info',
       })
-      return window.Identity.heartbeat()
+      return Identity.heartbeat()
         .then((resHeart) =>
           getEntitlements(urls.arcOrigin, resHeart.accessToken)
             .then(
@@ -337,7 +338,7 @@ const Profile = () => {
         level: 'info',
       })
 
-      let { attributes: uAttributes = [] } = window.Identity.userProfile || {}
+      let { attributes: uAttributes = [] } = Identity.userProfile || {}
       if (!uAttributes) uAttributes = []
       const addAttributes = (name, value) =>
         uAttributes.push({
@@ -407,7 +408,7 @@ const Profile = () => {
           level: 'info',
         })
 
-        window.Identity.updateUserProfile(profile)
+        Identity.updateUserProfile(profile)
           .then((resProfile) => {
             updateUser(resProfile)
             updateStep(3)
@@ -415,7 +416,7 @@ const Profile = () => {
           })
           .catch((err) => {
             if (err.code === '100018') {
-              const currentProfile = window.Identity.userProfile
+              const currentProfile = Identity.userProfile
               const newProfile = Object.assign(currentProfile, profile)
               setLocaleStorage('ArcId.USER_PROFILE', newProfile)
               updateUser(newProfile)
@@ -473,24 +474,15 @@ const Profile = () => {
       setLoading(true)
       if (isLogged()) {
         setLoadText('Verificando Suscripciones...')
-        if ('Identity' in window) {
-          checkSubscriptions().then((resSubs) => {
-            if (resSubs) {
-              setShowModal(true)
-              setLoading(false)
-              Taggeo(nameTagCategory, 'web_paywall_open_validation')
-            } else {
-              updateProfile(props)
-            }
-          })
-        } else {
-          Sentry.captureEvent({
-            message:
-              'No se puede verificar suscripciones - SDK Identity no ha cargado correctamente',
-            level: 'error',
-            extra: {},
-          })
-        }
+        checkSubscriptions().then((resSubs) => {
+          if (resSubs) {
+            setShowModal(true)
+            setLoading(false)
+            Taggeo(nameTagCategory, 'web_paywall_open_validation')
+          } else {
+            updateProfile(props)
+          }
+        })
       } else {
         restoreClearSession()
       }
@@ -582,26 +574,17 @@ const Profile = () => {
 
   const logoutUser = () => {
     if (typeof window !== 'undefined') {
-      if ('Identity' in window) {
-        window.Identity.logout()
-          .catch((err) =>
-            Sentry.captureEvent({
-              message: 'Error al cerrar sesión con Identity',
-              level: 'error',
-              extra: err,
-            })
-          )
-          .finally(() => {
-            userLogout()
+      Identity.logout()
+        .catch((err) =>
+          Sentry.captureEvent({
+            message: 'Error al cerrar sesión con Identity',
+            level: 'error',
+            extra: err,
           })
-      } else {
-        Sentry.captureEvent({
-          message:
-            'No se puede cerrar sesión - SDK Identity no ha cargado correctamente',
-          level: 'error',
-          extra: {},
+        )
+        .finally(() => {
+          userLogout()
         })
-      }
     }
   }
 

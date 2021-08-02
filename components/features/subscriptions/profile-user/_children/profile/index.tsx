@@ -4,9 +4,9 @@ import { useModalContext } from '../../../_context/modal'
 import UpdatePass from './_children/update-pass'
 import UpdateProfile from './_children/update-profile'
 
-const MiPerfil = () => {
+const MiPerfil = (): JSX.Element => {
   const { userProfile } = useModalContext()
-  const { identities = [] } = userProfile
+  const { identities = [] } = userProfile || {}
   const [identitie = { type: 'Password' }] = identities || []
   const disabledSocial = identitie.type !== 'Password'
 

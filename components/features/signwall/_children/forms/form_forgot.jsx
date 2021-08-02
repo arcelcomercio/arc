@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -9,7 +10,6 @@ import getCodeError, {
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import { getOriginAPI } from '../../_dependencies/domains'
 import { ForgotPass, MsgForgotPass } from '../icons'
 import { Input } from './control_input_select'
 
@@ -61,8 +61,7 @@ const FormForgot = ({ typeDialog }) => {
 
   const onSubmitForm = ({ femail }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.requestResetPassword(femail)
+    Identity.requestResetPassword(femail)
       .then(() => {
         setShowConfirm(!showConfirm)
         taggeoSuccess()
@@ -96,7 +95,7 @@ const FormForgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(femail)
+    Identity.requestVerifyEmail(femail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_contrasena_reenviar_correo`

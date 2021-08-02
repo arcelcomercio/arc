@@ -5,7 +5,7 @@ import News from './_children/news'
 import Prof from './_children/prof'
 import Subs from './_children/subs'
 
-const ResumeProfile = () => {
+const ResumeProfile = (): JSX.Element => {
   const { changeTemplate } = useModalContext()
 
   return (
@@ -13,7 +13,7 @@ const ResumeProfile = () => {
       <Prof className="block-resume" prof={() => changeTemplate('prof')} />
       <Subs
         className="block-resume"
-        detail={(id) => {
+        detail={(id: number) => {
           changeTemplate('detail', id)
         }}
       />

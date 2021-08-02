@@ -32,7 +32,6 @@ const ButtonSocial = ({
   const setupUserProfile = () => {
     if (typeof window !== 'undefined') {
       setLoadText('Cargando Perfil...')
-      Identity.options({ apiOrigin: urlSite.arcOrigin })
       Identity.getUserProfile()
         .then((resProfile) => {
           const userEmail =

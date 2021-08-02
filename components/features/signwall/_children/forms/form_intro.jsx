@@ -1,3 +1,4 @@
+import Identity from '@arc-publishing/sdk-identity'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
@@ -41,7 +42,7 @@ const FormIntro = ({
 
   React.useEffect(() => {
     setShowLoading(false)
-    if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
+    if (Identity.userProfile || Identity.userIdentity.uuid) {
       setShowPaywallBtn(true)
     }
   }, [])

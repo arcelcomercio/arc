@@ -3,13 +3,12 @@
 /* eslint-disable react/no-string-refs */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-
+import Identity from '@arc-publishing/sdk-identity'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
 import { Close } from '../../../../../signwall/_children/icons'
 import { Modal } from '../../../../../signwall/_children/modal/index'
-import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import GetProfile from '../../../../../signwall/_dependencies/get-profile'
 import { clean } from '../../../../../signwall/_dependencies/object'
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
@@ -221,8 +220,7 @@ class UpdateProfile extends React.Component {
     this.setState({ loading: true, textSubmit: 'GUARDANDO...' })
 
     if (typeof window !== 'undefined') {
-      window.Identity.apiOrigin = getOriginAPI(arcSite)
-      window.Identity.updateUserProfile(profile)
+      Identity.updateUserProfile(profile)
         .then(() => {
           this.setState({
             showMsgSuccess: true,
@@ -526,11 +524,9 @@ class UpdateProfile extends React.Component {
     ) {
       this.setState({ sending: true, sendingConfirmText: 'CONFIRMANDO...' })
 
-      window.Identity.apiOrigin = getOriginAPI(arcSite)
+      const currentEmail = email || Identity.userProfile.email
 
-      const currentEmail = email || window.Identity.userProfile.email
-
-      window.Identity.login(currentEmail, currentPassword, {
+      Identity.login(currentEmail, currentPassword, {
         rememberMe: true,
         cookie: true,
       })

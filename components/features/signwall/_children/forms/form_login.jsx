@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import Identity from '@arc-publishing/sdk-identity'
 import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
+import { SITE_TROME } from '../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
@@ -13,7 +15,6 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
 import {
   dataTreatment,
-  getOriginAPI,
   getUrlPaywall,
   PolicyPrivacy,
 } from '../../_dependencies/domains'
@@ -50,12 +51,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
   } = attributes
 
   const isTromeOrganic =
-    arcSite === 'trome' &&
+    arcSite === SITE_TROME &&
     (typeDialog === 'organico' || typeDialog === 'verify')
 
   const { changeTemplate } = useModalContext()
   const [showLoginEmail, setShowLoginEmail] = React.useState(
-    valTemplate || arcSite === 'trome'
+    valTemplate || arcSite === SITE_TROME
   )
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
@@ -99,7 +100,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
   }
 
   const getListSubs = () =>
-    window.Identity.extendSession().then((resExt) => {
+    Identity.extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -134,8 +135,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
   }
 
   const checkUserSubs = () => {
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
 
@@ -159,7 +158,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
   const handleGetProfile = (profile) => {
     setShowLoading(true)
     setCookie('arc_e_id', sha256(profile.email).toString(), 365)
-    const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
+    const USER_IDENTITY = JSON.stringify(Identity.userIdentity || {})
     setCookie('ArcId.USER_INFO', USER_IDENTITY, 1, siteDomain)
 
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
@@ -193,14 +192,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const onSubmitForm = ({ lemail, lpass }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.login(lemail, lpass, {
+    Identity.login(lemail, lpass, {
       rememberMe: true,
       cookie: true,
     })
       .then(() => {
-        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-        window.Identity.getUserProfile().then((resProfile) => {
+        Identity.getUserProfile().then((resProfile) => {
           if (
             activeVerifyEmail &&
             !resProfile.emailVerified &&
@@ -215,8 +212,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
             )
             window.localStorage.removeItem('ArcId.USER_INFO')
             window.localStorage.removeItem('ArcId.USER_PROFILE')
-            window.Identity.userProfile = null
-            window.Identity.userIdentity = {}
+            Identity.userProfile = null
+            Identity.userIdentity = {}
           } else {
             handleGetProfile(resProfile)
             taggeoSuccess()
@@ -257,7 +254,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(lemail)
+    Identity.requestVerifyEmail(lemail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_login_reenviar_correo`
@@ -287,7 +284,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         <>
           <form
             className={`signwall-inside_forms-form ${
-              arcSite === 'trome' ? 'form-trome' : ''
+              arcSite === SITE_TROME ? 'form-trome' : ''
             } ${typeDialog}`}
             onSubmit={handleOnSubmit}>
             <div className={isTromeOrganic ? 'group-float-trome' : ''}>
@@ -305,7 +302,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
               )}
 
               <p className="signwall-inside_forms-text mb-10 mt-10 center">
-                {arcSite === 'trome'
+                {arcSite === SITE_TROME
                   ? 'Accede fácilmente con:'
                   : ' Ingresa con'}
               </p>
@@ -337,7 +334,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 checkUserSubs={checkUserSubs}
               />
 
-              {arcSite === 'trome' && (
+              {arcSite === SITE_TROME && (
                 <p className="signwall-inside_forms-text mt-15 center">
                   o completa tus datos para acceder
                 </p>
@@ -550,7 +547,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 style={{ fontSize: '22px' }}
                 className="signwall-inside_forms-title center mb-10">
                 {`Bienvenido(a) ${
-                  window.Identity.userProfile.firstName || 'Usuario'
+                  Identity.userProfile.firstName || 'Usuario'
                 } `}
               </h4>
               <p
