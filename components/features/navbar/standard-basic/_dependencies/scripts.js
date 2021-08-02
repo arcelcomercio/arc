@@ -234,10 +234,8 @@ export const getBtnSignScript = (
       return false;
     };
     var signBtn = document.body.querySelector('.nav__btn-sign');
-    var signBtnSimple = document.getElementById('signwall-btn-simple')
-    var btnSelected = signBtn || signBtnSimple
-    if (btnSelected) {
-      btnSelected.addEventListener('click', function () {
+    if (signBtn) {
+      signBtn.addEventListener('click', function () {
         if (checkSession()) {
           window.location.href = '${_env}' === 'prod' ? '/mi-perfil/?outputType=subscriptions' : "/mi-perfil/?_website=${arcSite}&outputType=subscriptions";
         } else {

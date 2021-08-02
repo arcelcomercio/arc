@@ -617,7 +617,7 @@ const PropertiesCommon = {
     subsDniToken:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
     sentrySubs:       'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
     sentrySign:       'https://d78c55937db946dabdf2de8c488358ed@sentry.ec.pe/71',
-    companyEmail:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
+    companyEmail:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
     tokenPayEfectivo: `https://${isProd ? '' : 'pre1a.'}services.pagoefectivo.pe/v1/authorizations`,
     cipPayEfectivo:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`
   },
