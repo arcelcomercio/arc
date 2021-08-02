@@ -1,4 +1,4 @@
-/* TODO: Agregar la lógica sin minificar de este script, no son iguales
+/*
 document.addEventListener('DOMContentLoaded', function() {
   requestIdle(() => {
     const localProfile = JSON.parse(
