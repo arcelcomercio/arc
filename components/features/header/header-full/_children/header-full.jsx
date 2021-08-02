@@ -4,7 +4,6 @@
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 
-import { env } from '../../../../utilities/arc/env'
 import {
   edicionMenu,
   getBtnSignScript,
@@ -678,7 +677,7 @@ export default ({
                       id="signwall-nav-user"
                       className="capitalize"
                       aria-hidden="true">
-                      Iniciar
+                      Regístrate
                     </span>
                   </button>
                 )}
@@ -758,7 +757,7 @@ export default ({
       {activeSignwall && (
         <script
           dangerouslySetInnerHTML={{
-            __html: getBtnSignScript(env, arcSite),
+            __html: getBtnSignScript,
           }}
         />
       )}

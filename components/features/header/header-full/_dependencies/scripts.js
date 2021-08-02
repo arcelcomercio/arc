@@ -161,33 +161,53 @@ export const edicionMenu = `
 window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("edicionId").addEventListener("click",function(e){e.preventDefault();var d=document.querySelector(".header-full__e-content");d.classList.contains("block")?(d.classList.remove("block"),d.classList.add("hidden")):(d.classList.remove("hidden"),d.classList.add("block"))})})});
 `
 
-export const getBtnSignScript = (
-  _env,
-  arcSite
-) => `document.addEventListener('DOMContentLoaded', function () {
-  requestIdle(function(){
-    var checkSession = function checkSession() {
-      if (typeof window !== 'undefined') {
-        var profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE');
-        var sesionStorage = window.localStorage.getItem('ArcId.USER_INFO');
-        if (profileStorage) {
-          return !(profileStorage === 'null' || sesionStorage === '{}') || false;
-        }
-      }
-      return false;
-    };
-    var signBtn = document.getElementById('signwall-nav-btn');
-    if (signBtn) {
-      signBtn.addEventListener('click', function () {
-        if (checkSession()) {
-          window.location.href = '${_env}' === 'prod' ? '/mi-perfil/?outputType=subscriptions' : "/mi-perfil/?_website=${arcSite}&outputType=subscriptions";
+/* TODO: Agregar la lógica sin minificar de este script, no son iguales
+document.addEventListener('DOMContentLoaded', function() {
+  requestIdle(() => {
+    const localProfile = JSON.parse(
+      window.localStorage.getItem('ArcId.USER_PROFILE') 
+    )
+    const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
+    const btnSignwall = document.getElementById("signwall-nav-btn");
+    if(btnSignwall){
+      btnSignwall.addEventListener("click", () => {
+        if (uuid) {
+          window.location.href  = '/mi-perfil/?outputType=subscriptions'
         } else {
-          window.location.href = '${_env}' === 'prod' ? '/signwall/?outputType=subscriptions&signwallOrganic=1' : "/signwall/?_website=${arcSite}&outputType=subscriptions&signwallOrganic=1";
+          window.location.href  = '/signwall/?outputType=subscriptions'
         }
-      });
+      })
+    }
+    if (uuid) {
+      const signwallButton = document.getElementById('signwall-nav-user')
+      const signwallIcon = document.getElementById('signwall-nav-icon')
+      if (!firstName && !lastName) {
+        signwallButton.innerHTML = 'Bienvenido'
+      } else {
+        let buttonText = ''
+        let iconText = ''
+        if (firstName && lastName) {
+          buttonText = `${firstName} ${lastName}`
+          iconText = `${firstName[0] || ''}${lastName[0] || ''}`
+        } else if (firstName && !lastName) {
+          buttonText = firstName
+          iconText = `${firstName[0] || ''}${firstName[1] || ''}`
+        } else if (!firstName && lastName) {
+          buttonText = lastName
+          iconText = `${lastName[0] || ''}${lastName[1] || ''}`
+        }
+        signwallButton.innerHTML = buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
+        signwallIcon.innerHTML = iconText
+        signwallIcon.className = 'uppercase'
+      }
     }
   })
-});`
+})
+*/
+
+export const getBtnSignScript =
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName,t=void 0===n?"":n,i=e.lastName,o=void 0===i?"":i,s=e.uuid,a=void 0===s?"":s,n=document.getElementById("signwall-nav-btn");n&&n.addEventListener("click",function(){window.location.href=a?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions"}),a&&(i=document.getElementById("signwall-nav-user"),e=document.getElementById("signwall-nav-icon"),t||o?(n=s="",t&&o?(s=t+" "+o,n=""+(t[0]||"")+(o[0]||"")):t&&!o?n=""+((s=t)[0]||"")+(t[1]||""):!t&&o&&(n=""+((s=o)[0]||"")+(o[1]||"")),i.innerHTML=15<=s.length?s.slice(0,15)+"...":s,e.innerHTML=n,e.className="uppercase"):i.innerHTML="Bienvenido")})});'
+
 /*
 window.addEventListener('load', () => {requestIdle(() => {
   const searchDeporPlay = document.body.querySelector('.header-full__dpform')
