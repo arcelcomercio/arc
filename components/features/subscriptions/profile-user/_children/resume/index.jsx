@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import { useModalConsumer } from '../../../_context/modal'
+import { useModalContext } from '../../../_context/modal'
 import News from './_children/news'
 import Prof from './_children/prof'
 import Subs from './_children/subs'
 
 const ResumeProfile = () => {
-  const { changeTemplate } = useModalConsumer()
+  const { changeTemplate } = useModalContext()
 
   return (
     <div className="sign-profile_general-wrapper">

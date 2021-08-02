@@ -1,13 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
+import Identity from '@arc-publishing/sdk-identity'
+import Sales from '@arc-publishing/sdk-sales'
+import {
+  isSubscription,
+  Subscription,
+} from '@arc-publishing/sdk-sales/lib/sdk/subscription'
+import * as Sentry from '@sentry/browser'
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
+import { CardsProviders } from 'types/subscriptions'
 
+import { SITE_ELCOMERCIO } from '../../../../../../utilities/constants/sitenames'
 import addScriptAsync from '../../../../../../utilities/script-async'
 import { Close, Notice } from '../../../../../signwall/_children/icons'
 import Loading from '../../../../../signwall/_children/loading'
 import { Modal } from '../../../../../signwall/_children/modal/index'
-import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import getCodeError from '../../../../_dependencies/Errors'
 import { PropertiesCommon } from '../../../../_dependencies/Properties'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
@@ -28,14 +36,20 @@ const listOptionsGestion = [
   'Otro motivo',
 ]
 
-const Cards = {
+const Cards: Record<CardsProviders, string> = {
   VISA: 'https://signwall.e3.pe/images/icon_visa.png',
   MASTERCARD: 'https://signwall.e3.pe/images/icon_mc.png',
   AMEX: 'https://signwall.e3.pe/images/icon_amex.png',
   DINERS: 'https://signwall.e3.pe/images/icon_diners.png',
 }
 
-const SubsDetail = ({ IdSubscription }) => {
+type ModalEventType = 'anulacion' | 'recuperar'
+
+interface SubsDatailProps {
+  IdSubscription: number
+}
+
+const SubsDetail = ({ IdSubscription }: SubsDatailProps): JSX.Element => {
   const {
     arcSite,
     siteProperties: {
@@ -46,16 +60,16 @@ const SubsDetail = ({ IdSubscription }) => {
   const { links } = PropertiesCommon
 
   const [showLoading, setShowLoading] = React.useState(true)
-  const [showResDetail, setShowResDetail] = React.useState({})
-  const [showResLastSubs, setShowResLastSubs] = React.useState(null)
+  const [showResDetail, setShowResDetail] = React.useState<Subscription>()
+  const [showResLastSubs, setShowResLastSubs] = React.useState(0)
   const [showModalConfirm, setShowModalConfirm] = React.useState(false)
   const [showModalRecovery, setShowModalRecovery] = React.useState(false)
   const [showUpdateCard, setShowUpdateCard] = React.useState(false)
   const [showLastFour, setShowLastFour] = React.useState('0000')
-  const [showLastCard, setShowLastCard] = React.useState('VISA')
+  const [showLastCard, setShowLastCard] = React.useState<CardsProviders>('VISA')
   const [showOpenUpdate, setShowOpenUpdate] = React.useState(false)
   const [showStepCancel, setShowStepCancel] = React.useState(1)
-  const [showOptionCancel, setShowOptionCancel] = React.useState(null)
+  const [showOptionCancel, setShowOptionCancel] = React.useState<string>('')
   const [showErrorCancel, setShowErrorCancel] = React.useState('')
   const [showLoadCancel, setShowLoadCancel] = React.useState('')
   const [showLoadRescue, setShowLoadRescue] = React.useState('')
@@ -79,44 +93,70 @@ const SubsDetail = ({ IdSubscription }) => {
   }
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-      window.Identity.extendSession().then(() => {
-        window.Sales.options({ apiOrigin: getOriginAPI(arcSite) })
-        window.Sales.getSubscriptionDetails(IdSubscription).then(
-          (resDetail) => {
-            setShowResDetail(resDetail)
-            setShowLoading(false)
-            setShowLastCard(
-              resDetail.currentPaymentMethod.creditCardType
-                .replace(/\s|Club/g, '')
-                .toUpperCase()
-            )
-            setShowLastFour(resDetail.currentPaymentMethod.lastFour)
-            setShowResLastSubs(
-              resDetail.paymentHistory[resDetail.paymentHistory.length - 1]
-                .periodTo
-            )
-          }
-        )
-      })
+    Identity.extendSession()
+      .then(() => {
+        Sales.getSubscriptionDetails(IdSubscription)
+          .then((resDetail) => {
+            if (isSubscription(resDetail)) {
+              setShowResDetail(resDetail)
 
-      addScriptAsync({
-        name: 'PayuSDK',
-        url: links.payu,
-        includeNoScript: false,
-      }).then(() => {
-        window.payU.setURL(links.payuPayments)
-        window.payU.setPublicKey(links.payuPublicKey)
-        window.payU.setAccountID(links.payuAccountID)
-        window.payU.setListBoxID('mylistID')
-        window.payU.setLanguage('es')
-        window.payU.getPaymentMethods()
-      })
-    }
-  }, [IdSubscription, arcSite])
+              if (resDetail.currentPaymentMethod.creditCardType) {
+                setShowLastCard(
+                  resDetail.currentPaymentMethod.creditCardType
+                    .replace(/\s|Club/gi, '')
+                    .toUpperCase() as CardsProviders
+                )
+              }
 
-  const openModalConfirm = (type) => {
+              if (resDetail.currentPaymentMethod.lastFour) {
+                setShowLastFour(resDetail.currentPaymentMethod.lastFour)
+              }
+
+              if (Array.isArray(resDetail.paymentHistory)) {
+                setShowResLastSubs(
+                  resDetail.paymentHistory[resDetail.paymentHistory.length - 1]
+                    .periodTo
+                )
+              }
+            }
+          })
+          .catch((error) => {
+            Sentry.captureEvent({
+              message:
+                'Error al obtener detalles de subscripción - Sales.getSubscriptionDetails()',
+              level: Sentry.Severity.Error,
+              extra: error || {},
+            })
+          })
+      })
+      .catch((error) => {
+        Sentry.captureEvent({
+          message: 'Error al extender la sesión - Identity.extendSession()',
+          level: Sentry.Severity.Error,
+          extra: error || {},
+        })
+      })
+      .finally(() => {
+        setShowLoading(false)
+      })
+  }, [IdSubscription])
+
+  React.useEffect(() => {
+    addScriptAsync({
+      name: 'PayuSDK',
+      url: links.payu,
+      includeNoScript: false,
+    }).then(() => {
+      window.payU.setURL(links.payuPayments)
+      window.payU.setPublicKey(links.payuPublicKey)
+      window.payU.setAccountID(links.payuAccountID)
+      window.payU.setListBoxID('mylistID')
+      window.payU.setLanguage('es')
+      window.payU.getPaymentMethods()
+    })
+  }, [])
+
+  const openModalConfirm = (type: ModalEventType) => {
     if (type === 'anulacion') {
       setShowModalConfirm(true)
       Taggeo(`Web_Sign_Wall_General`, `web_swg_open_anulacion_step1`)
@@ -125,22 +165,24 @@ const SubsDetail = ({ IdSubscription }) => {
       Taggeo(`Web_Sign_Wall_General`, `web_swg_open_recuperar`)
     }
 
-    const ModalProfile =
-      document.getElementById('profile-signwall').parentNode ||
-      document.getElementById('profile-signwall').parentElement
-    ModalProfile.style.overflow = 'hidden'
+    const ProfileSignwall = document.getElementById('profile-signwall')
+
+    const ModalProfile = ProfileSignwall?.parentElement
+    if (ModalProfile) {
+      ModalProfile.style.overflow = 'hidden'
+    }
 
     setTimeout(() => {
-      const modalConfirmPass = document.getElementById('profile-signwall')
-      modalConfirmPass.scrollIntoView()
+      const modalConfirmPass = ProfileSignwall
+      modalConfirmPass?.scrollIntoView()
     }, 500)
   }
 
-  const closeModalConfirm = (type) => {
+  const closeModalConfirm = (type: ModalEventType) => {
     if (type === 'anulacion') {
       setShowModalConfirm(!showModalConfirm)
       setShowStepCancel(1)
-      setShowOptionCancel(null)
+      setShowOptionCancel('')
       setShowErrorCancel('')
       setTxtMotivo('')
       Taggeo(`Web_Sign_Wall_General`, `web_swg_close_anulacion`)
@@ -149,48 +191,45 @@ const SubsDetail = ({ IdSubscription }) => {
       Taggeo(`Web_Sign_Wall_General`, `web_swg_close_recuperar`)
     }
 
-    const ModalProfile =
-      document.getElementById('profile-signwall').parentNode ||
-      document.getElementById('profile-signwall').parentElement
-    if (showModalConfirm) {
-      ModalProfile.style.overflow = 'auto'
-    } else {
-      ModalProfile.style.overflow = 'hidden'
+    const ProfileSignwall = document.getElementById('profile-signwall')
+    const ModalProfile = ProfileSignwall?.parentElement
+
+    if (ModalProfile) {
+      if (showModalConfirm) {
+        ModalProfile.style.overflow = 'auto'
+      } else {
+        ModalProfile.style.overflow = 'hidden'
+      }
     }
   }
 
-  const recoverySubscription = (idSubsRecovery) => {
-    if (typeof window !== 'undefined') {
-      setShowLoadRescue('Recuperando...')
-      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-      window.Identity.extendSession().then(() => {
-        window.Sales.rescueSubscription(idSubsRecovery)
-          .then(() => {
-            Taggeo(`Web_Sign_Wall_General`, `web_swg_success_recuperacion`)
-            window.document.getElementById('btn-subs').click()
-          })
-          .catch(() => {
-            Taggeo(`Web_Sign_Wall_General`, `web_swg_error_recuperacion`)
-          })
-          .finally(() => {
-            setShowLoadRescue('')
-          })
-      })
-    }
+  const recoverySubscription = (idSubsRecovery: number) => {
+    setShowLoadRescue('Recuperando...')
+    Identity.extendSession().then(() => {
+      Sales.rescueSubscription(idSubsRecovery)
+        .then(() => {
+          Taggeo(`Web_Sign_Wall_General`, `web_swg_success_recuperacion`)
+          document.getElementById('btn-subs')?.click()
+        })
+        .catch(() => {
+          Taggeo(`Web_Sign_Wall_General`, `web_swg_error_recuperacion`)
+        })
+        .finally(() => {
+          setShowLoadRescue('')
+        })
+    })
   }
 
-  const deleteSubscription = (idSubsDelete, option) => {
+  const deleteSubscription = (idSubsDelete: number, option: string) => {
     if (typeof window !== 'undefined') {
       setShowLoadCancel('Finalizando...')
 
       const valMotivo = option === 'Otro motivo' ? txtMotivo.trim() : option
-      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-      window.Identity.extendSession().then(() => {
-        window.Sales.options({ apiOrigin: getOriginAPI(arcSite) })
-        window.Sales.cancelSubscription(idSubsDelete, valMotivo || undefined)
+      Identity.extendSession().then(() => {
+        Sales.cancelSubscription(idSubsDelete, valMotivo || undefined)
           .then(() => {
             Taggeo(`Web_Sign_Wall_General`, `web_swg_success_anulacion`)
-            window.document.getElementById('btn-subs').click()
+            document.getElementById('btn-subs')?.click()
           })
           .catch((resError) => {
             setShowErrorCancel(getCodeError(resError.code))
@@ -203,42 +242,44 @@ const SubsDetail = ({ IdSubscription }) => {
     }
   }
 
-  const dateFormat = (date) => {
+  const dateFormat = (date: number) => {
     const day = new Date(date).getDate()
     const month = new Date(date).getMonth() + 1
     const year = new Date(date).getFullYear()
     const formatDay = day <= 9 ? `0${day}` : day
     const formatMonth = month <= 9 ? `0${month}` : month
-    return `${formatDay}/${formatMonth}/${year}`.toString()
+    return `${formatDay}/${formatMonth}/${year}`
   }
 
-  const docFormat = (doc) => (doc ? doc.replace('_', ': ') : 'Sin Documento')
+  const docFormat = (doc: string | null | undefined) =>
+    doc ? doc.replace('_', ': ') : 'Sin Documento'
 
   const nameFormat = () => {
     if (typeof window !== 'undefined') {
-      return window.Identity.userProfile
-        ? `${window.Identity.userProfile.firstName || 'Usuario'} ${
-            window.Identity.userProfile.lastName || ''
+      return Identity.userProfile
+        ? `${Identity.userProfile.firstName || 'Usuario'} ${
+            Identity.userProfile.lastName || ''
           }`
         : 'Usuario'
     }
     return false
   }
 
-  const periodFormat = (to, from) => {
+  const periodFormat = (to: number, from: number) => {
     if (to && from) {
-      return (new Date(to) - new Date(from)) / (1000 * 60 * 60 * 24) <= 31
-        ? 'Mensual'
-        : 'Anual'
+      return (to - from) / (1000 * 60 * 60 * 24) <= 31 ? 'Mensual' : 'Anual'
     }
     return '-'
   }
 
-  const blockBtnUpdate = (status) => {
+  const blockBtnUpdate = (status: typeof showOpenUpdate) => {
     setShowOpenUpdate(status)
   }
 
-  const successUpdate = (lastNumbers, cardProvider) => {
+  const successUpdate = (
+    lastNumbers: typeof showLastFour,
+    cardProvider: typeof showLastCard
+  ) => {
     setShowCardSuccess(true)
     setShowLastFour(lastNumbers)
     setShowLastCard(cardProvider)
@@ -258,28 +299,28 @@ const SubsDetail = ({ IdSubscription }) => {
             className="sign-profile_subscriptions-subs-detail"
             style={{
               padding: '0px',
-              columnCount: '0',
+              columnCount: 0,
             }}>
             <div className="details-left">
               <div id="mylistID" style={{ display: 'none' }} />
               <small>DETALLE DE LA SUSCRIPCIÓN</small>
-              <h2>{showResDetail.productName}</h2>
+              <h2>{showResDetail?.productName}</h2>
               <p>
                 Plan Pago:
                 <strong>
                   {periodFormat(
-                    showResDetail.paymentHistory[0].periodTo,
-                    showResDetail.paymentHistory[0].periodFrom
+                    showResDetail?.paymentHistory?.[0].periodTo || 0,
+                    showResDetail?.paymentHistory?.[0].periodFrom || 0
                   )}
                 </strong>
               </p>
               <p>
                 Precio:
-                <strong> S/ {showResDetail.salesOrders[0].total} </strong>
+                <strong> S/ {showResDetail?.salesOrders?.[0].total} </strong>
               </p>
               <p>
                 Estado:
-                {showResDetail.status === 3 ? (
+                {showResDetail?.status === 3 ? (
                   <strong className="orange"> ANULADO</strong>
                 ) : (
                   <strong className="green"> ACTIVO</strong>
@@ -292,7 +333,7 @@ const SubsDetail = ({ IdSubscription }) => {
                 <strong>BENEFICIOS</strong>
               </p>
               <ul>
-                {arcSite === 'elcomercio' ? (
+                {arcSite === SITE_ELCOMERCIO ? (
                   <>
                     <li>
                       Acceso sin límites a información exclusiva: reportajes,
@@ -306,7 +347,8 @@ const SubsDetail = ({ IdSubscription }) => {
                   </>
                 ) : (
                   <>
-                    {showResDetail.productName.indexOf('Universitario') >= 0 ? (
+                    {showResDetail?.productName &&
+                    showResDetail.productName.indexOf('Universitario') >= 0 ? (
                       <>
                         <li>
                           Acceso a Plus G: análisis e informes exclusivos.
@@ -337,7 +379,7 @@ const SubsDetail = ({ IdSubscription }) => {
             </div>
           </div>
 
-          {showResDetail.status !== 3 && (
+          {showResDetail?.status !== 3 && (
             <fieldset
               className="sign-profile_subscriptions-fieldset"
               id="div-signwall-updatecard">
@@ -390,7 +432,7 @@ const SubsDetail = ({ IdSubscription }) => {
               borderTop: '1px solid #e8e8e8',
               textAlign: 'right',
             }}>
-            {showResDetail.status !== 3 ? (
+            {showResDetail?.status !== 3 ? (
               <button
                 type="button"
                 className="sign-profile_general-button sign-profile_general-button-link"
@@ -406,7 +448,7 @@ const SubsDetail = ({ IdSubscription }) => {
                 className="sign-profile_general-button sign-profile_general-button-link"
                 onClick={() => {
                   Taggeo(`Web_Sign_Wall_General`, `web_swg_boton_recuperar`)
-                  openModalConfirm('recovery')
+                  openModalConfirm('recuperar')
                 }}>
                 RECUPERAR MI SUSCRIPCIÓN
               </button>
@@ -426,23 +468,27 @@ const SubsDetail = ({ IdSubscription }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {showResDetail.paymentHistory.map((reSubs) => (
-                    <tr key={reSubs.transactionDate}>
-                      <td>
-                        <strong>{nameFormat()}</strong>
-                        <p>{docFormat(showResDetail.billingAddress.line2)}</p>
-                      </td>
-                      <td className="center">
-                        {showResDetail.productName || 'Ninguno'}
-                      </td>
-                      <td className="center">
-                        {periodFormat(reSubs.periodTo, reSubs.periodFrom)}
-                      </td>
-                      <td className="center">
-                        {dateFormat(reSubs.transactionDate)}
-                      </td>
-                    </tr>
-                  ))}
+                  {Array.isArray(showResDetail?.paymentHistory)
+                    ? showResDetail?.paymentHistory.map((reSubs) => (
+                        <tr key={reSubs.transactionDate}>
+                          <td>
+                            <strong>{nameFormat()}</strong>
+                            <p>
+                              {docFormat(showResDetail.billingAddress.line2)}
+                            </p>
+                          </td>
+                          <td className="center">
+                            {showResDetail.productName || 'Ninguno'}
+                          </td>
+                          <td className="center">
+                            {periodFormat(reSubs.periodTo, reSubs.periodFrom)}
+                          </td>
+                          <td className="center">
+                            {dateFormat(reSubs.transactionDate)}
+                          </td>
+                        </tr>
+                      ))
+                    : null}
                 </tbody>
               </table>
             </div>
@@ -464,7 +510,7 @@ const SubsDetail = ({ IdSubscription }) => {
       )}
 
       {showModalConfirm && (
-        <Modal size="small" position="middle" bgColor="white">
+        <Modal size="small" position="middle" bgColor="white" arcSite={arcSite}>
           <button
             className="close-modal"
             type="button"
@@ -477,7 +523,7 @@ const SubsDetail = ({ IdSubscription }) => {
           <form className="signwall-inside_forms-form">
             {showStepCancel === 1 && (
               <>
-                {arcSite === 'elcomercio' ? (
+                {arcSite === SITE_ELCOMERCIO ? (
                   <>
                     <h4
                       style={{
@@ -579,7 +625,7 @@ const SubsDetail = ({ IdSubscription }) => {
                   ¿De qué te perderás si cancelas tu suscripción?
                 </h4>
 
-                {arcSite === 'elcomercio' ? (
+                {arcSite === SITE_ELCOMERCIO ? (
                   <>
                     <h4
                       style={{ fontSize: '16px' }}
@@ -775,13 +821,13 @@ const SubsDetail = ({ IdSubscription }) => {
                 )}
 
                 <h4
-                  styles={{ fontSize: '16px' }}
+                  style={{ fontSize: '16px' }}
                   className="signwall-inside_forms-title justify mt-10 mb-10">
                   Antes de hacer efectiva la anulación, por favor, cuéntanos los
                   motivos por los que deseas anular tu suscripción:
                 </h4>
 
-                {arcSite === 'elcomercio'
+                {arcSite === SITE_ELCOMERCIO
                   ? listOptionsComercio.map((item) => (
                       <label key={item}>
                         <RadioboxSimple
@@ -833,7 +879,7 @@ const SubsDetail = ({ IdSubscription }) => {
                         }}
                         value={txtMotivo}
                         placeholder="Ingresa motivo"
-                        maxLength="200"
+                        maxLength={200}
                       />
                     </div>
                   </div>
@@ -861,20 +907,22 @@ const SubsDetail = ({ IdSubscription }) => {
                       type="button"
                       className="sign-profile_general-button sign-profile_general-button-border"
                       disabled={
-                        showOptionCancel === null ||
+                        showOptionCancel === '' ||
                         (showOptionCancel === 'Otro motivo' &&
-                          validateMotivo()) ||
-                        showLoadCancel
+                          !!validateMotivo()) ||
+                        !!showLoadCancel
                       }
                       onClick={() => {
-                        deleteSubscription(
-                          showResDetail.subscriptionID,
-                          showOptionCancel
-                        )
-                        Taggeo(
-                          `Web_Sign_Wall_General`,
-                          `web_swg_boton_finalizar_anulacion`
-                        )
+                        if (showResDetail?.subscriptionID) {
+                          deleteSubscription(
+                            showResDetail.subscriptionID,
+                            showOptionCancel
+                          )
+                          Taggeo(
+                            `Web_Sign_Wall_General`,
+                            `web_swg_boton_finalizar_anulacion`
+                          )
+                        }
                       }}>
                       {showLoadCancel || 'Finalizar Suscripción'}
                     </button>
@@ -887,7 +935,7 @@ const SubsDetail = ({ IdSubscription }) => {
       )}
 
       {showModalRecovery && (
-        <Modal size="small" position="middle" bgColor="white">
+        <Modal size="small" position="middle" bgColor="white" arcSite={arcSite}>
           <button
             className="close-modal"
             type="button"
@@ -937,13 +985,15 @@ const SubsDetail = ({ IdSubscription }) => {
                 <button
                   type="button"
                   className="sign-profile_general-button sign-profile_general-button-border"
-                  disabled={showLoadRescue}
+                  disabled={!!showLoadRescue}
                   onClick={() => {
-                    recoverySubscription(showResDetail.subscriptionID)
-                    Taggeo(
-                      `Web_Sign_Wall_General`,
-                      `web_swg_boton_finalizar_recuperacion`
-                    )
+                    if (showResDetail?.subscriptionID) {
+                      recoverySubscription(showResDetail.subscriptionID)
+                      Taggeo(
+                        `Web_Sign_Wall_General`,
+                        `web_swg_boton_finalizar_recuperacion`
+                      )
+                    }
                   }}>
                   {showLoadRescue || 'Recuperar'}
                 </button>

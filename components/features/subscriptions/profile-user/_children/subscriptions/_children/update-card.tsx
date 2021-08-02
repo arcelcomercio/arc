@@ -1,13 +1,18 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
+import Identity from '@arc-publishing/sdk-identity'
+import Sales from '@arc-publishing/sdk-sales'
+import { Subscription } from '@arc-publishing/sdk-sales/lib/sdk/subscription'
 import * as Sentry from '@sentry/browser'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
+import { ArcSite } from 'types/fusion'
+import { SiteProperties } from 'types/properties'
+import { CardsProviders } from 'types/subscriptions'
 
 import { ContMask } from '../../../../../signwall/_children/forms/control_input_select'
 import Loading from '../../../../../signwall/_children/loading'
-import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import {
   finalizePaymentUpdate,
   getProfilePayu,
@@ -25,7 +30,21 @@ import {
 import useForm from '../../../../_hooks/useForm'
 import { Radiobox } from './radiobox'
 
-const ListCards = [
+type CardListItem = {
+  name: CardsProviders
+  image: string
+}
+interface UpdateCardProps {
+  IdSubscription: number
+  arcSite: ArcSite
+  mainColorBtn: SiteProperties['signwall']['mainColorLink']
+  detailSubs: Subscription | undefined
+  cardSelected: CardsProviders
+  blockBtnUpdate: (status: boolean) => void
+  successUpdate: (lastNumbers: string, cardProvider: CardsProviders) => void
+}
+
+const ListCards: CardListItem[] = [
   {
     name: 'VISA',
     image: 'https://signwall.e3.pe/images/icon_visa.png',
@@ -44,7 +63,7 @@ const ListCards = [
   },
 ]
 
-const cardPatterns = {
+const cardPatterns: Record<CardsProviders, RegExp> = {
   VISA: /^(4)(\d{12}|\d{15})$|^(606374\d{10}$)/,
   MASTERCARD: /^(5[1-5]\d{14}$)|^(2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$)/,
   AMEX: /^3[47][0-9]{13}$/,
@@ -59,9 +78,9 @@ const UpdateCard = ({
   cardSelected,
   blockBtnUpdate,
   successUpdate,
-}) => {
+}: UpdateCardProps): JSX.Element => {
   const [showLoadingSubmit, setShowLoadingSubmit] = React.useState(false)
-  const [showCustomMsgFailed, setShowCustomMsgFailed] = React.useState(null)
+  const [showCustomMsgFailed, setShowCustomMsgFailed] = React.useState('')
   const [showTypeAmex, setShowTypeAmex] = React.useState(false)
   const [showMessageFailed, setShowMessageFailed] = React.useState(false)
   const [showSelectedOption, setShowSelectedOption] = React.useState(
@@ -70,26 +89,19 @@ const UpdateCard = ({
   const [loadingCard, setLoadingCard] = React.useState(false)
 
   React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const {
+    const { email, uuid, firstName, lastName, secondLastName, emailVerified } =
+      Identity.userProfile || {}
+
+    Sentry.configureScope((scope) => {
+      scope.setTag('email', email || 'none')
+      scope.setTag('step', 'UpdateCardProfile')
+      scope.setUser({
+        id: uuid,
+        name: `${firstName} ${lastName} ${secondLastName}`,
         email,
-        uuid,
-        firstName,
-        lastName,
-        secondLastName,
         emailVerified,
-      } = window.Identity.userProfile
-      Sentry.configureScope((scope) => {
-        scope.setTag('email', email || 'none')
-        scope.setTag('step', 'UpdateCardProfile')
-        scope.setUser({
-          id: uuid,
-          name: `${firstName} ${lastName} ${secondLastName}`,
-          email,
-          emailVerified,
-        })
       })
-    }
+    })
   }, [])
 
   const stateSchema = {
@@ -102,7 +114,7 @@ const UpdateCard = ({
     numcard: {
       required: true,
       validator: {
-        func: (value) =>
+        func: (value: string) =>
           cardPatterns[showSelectedOption].test(value.replace(/\s/g, '')),
         error: 'Formato inválido.',
       },
@@ -117,8 +129,16 @@ const UpdateCard = ({
     },
   }
 
-  const onSubmitForm = ({ numcard, dateexpire, codecvv }) => {
-    const subsID = detailSubs.currentPaymentMethod.paymentMethodID
+  const onSubmitForm = ({
+    numcard,
+    dateexpire,
+    codecvv,
+  }: {
+    numcard: string
+    dateexpire: string
+    codecvv: string
+  }) => {
+    const subsID = detailSubs?.currentPaymentMethod.paymentMethodID
 
     setShowMessageFailed(false)
     setShowLoadingSubmit(true)
@@ -132,165 +152,170 @@ const UpdateCard = ({
       data: {
         SubsId: subsID,
       },
-      level: 'info',
+      level: Sentry.Severity.Info,
     })
 
     if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-      window.Identity.extendSession().then(() => {
-        window.Sales.options({ apiOrigin: getOriginAPI(arcSite) })
-        window.Sales.getPaymentOptions().then((res) => {
-          const providerID = res[0].paymentMethodID
-          const accessTOKEN = window.Identity.userIdentity.accessToken
-          initPaymentUpdate(subsID, providerID, arcSite, accessTOKEN).then(
-            (resUpdate) => {
-              const {
-                parameter1: publicKey,
-                parameter2: accountId,
-                parameter3: payuBaseUrl,
-                parameter4: deviceSessionId,
-              } = resUpdate
+      Identity.extendSession().then(() => {
+        Sales.getPaymentOptions().then((res) => {
+          if (Array.isArray(res)) {
+            const providerID = res[0].paymentMethodID
+            const accessTOKEN = Identity.userIdentity.accessToken
+            initPaymentUpdate(subsID, providerID, arcSite, accessTOKEN).then(
+              (resUpdate) => {
+                const {
+                  parameter1: publicKey,
+                  parameter2: accountId,
+                  parameter3: payuBaseUrl,
+                  parameter4: deviceSessionId,
+                } = resUpdate
 
-              getProfilePayu(accessTOKEN, IdSubscription, arcSite).then(
-                (profilePayu) => {
-                  const fullUserName = `${
-                    profilePayu.name ||
-                    window.Identity.userProfile.firstName ||
-                    'Usuario'
-                  } ${
-                    profilePayu.lastname ||
-                    window.Identity.userProfile.firstName ||
-                    ''
-                  }`
+                getProfilePayu(accessTOKEN, IdSubscription, arcSite).then(
+                  (profilePayu) => {
+                    const fullUserName = `${
+                      profilePayu.name ||
+                      Identity.userProfile?.firstName ||
+                      'Usuario'
+                    } ${
+                      profilePayu.lastname ||
+                      Identity.userProfile?.firstName ||
+                      ''
+                    }`
 
-                  Sentry.addBreadcrumb({
-                    type: 'info',
-                    category: 'profile',
-                    message: 'Solicitando autorización',
-                    data:
-                      {
-                        IdSubscription,
-                        deviceSessionId,
-                        'payU.setURL': payuBaseUrl,
-                        'payU.setPublicKey': publicKey,
-                        'payU.setAccountID': accountId,
-                        'payU.setCardDetails': 'private',
-                      } || {},
-                    level: 'info',
-                  })
-
-                  window.payU.setURL(payuBaseUrl)
-                  window.payU.setPublicKey(publicKey)
-                  window.payU.setAccountID(accountId)
-                  window.payU.setCardDetails({
-                    number: numcard.replace(/\s/g, ''),
-                    // name_card:
-                    //   ENVIRONMENT === 'elcomercio'
-                    //     ? fullUserName.replace(/'/g, '')
-                    //     : 'APPROVED',
-                    name_card: fullUserName.replace(/'/g, ''),
-                    payer_id: new Date().getTime(),
-                    exp_month: dateexpire.split('/')[0],
-                    exp_year:
-                      dateexpire.split('/')[1].length <= 2
-                        ? `20${dateexpire.split('/')[1]}`
-                        : dateexpire.split('/')[1],
-                    method: showSelectedOption,
-                    document: profilePayu.doc_number,
-                    cvv: codecvv,
-                  })
-
-                  const handleCreateToken = new Promise((resolve, reject) => {
                     Sentry.addBreadcrumb({
                       type: 'info',
                       category: 'profile',
-                      message: 'Creando token',
-                      data: {
-                        'payU.createToken': 'callback',
-                      },
-                      level: 'info',
+                      message: 'Solicitando autorización',
+                      data:
+                        {
+                          IdSubscription,
+                          deviceSessionId,
+                          'payU.setURL': payuBaseUrl,
+                          'payU.setPublicKey': publicKey,
+                          'payU.setAccountID': accountId,
+                          'payU.setCardDetails': 'private',
+                        } || {},
+                      level: Sentry.Severity.Info,
                     })
 
-                    window.payU.createToken((response) => {
-                      if (response.error) {
-                        reject(new Error(response.error))
-                        setShowMessageFailed(true)
-                        setShowCustomMsgFailed(
-                          response.error || getCodeError('updateCard')
-                        )
-                        setShowLoadingSubmit(false)
-                        blockBtnUpdate(false)
-                        setTimeout(() => {
-                          setShowMessageFailed(false)
-                        }, 6000)
-
-                        Sentry.captureEvent({
-                          message:
-                            response.error || getCodeError('transactionError'),
-                          level: 'error',
-                          extra: response || {},
-                        })
-                      } else {
-                        resolve(response.token)
-                      }
+                    window.payU.setURL(payuBaseUrl)
+                    window.payU.setPublicKey(publicKey)
+                    window.payU.setAccountID(accountId)
+                    window.payU.setCardDetails({
+                      number: numcard.replace(/\s/g, ''),
+                      // name_card:
+                      //   ENVIRONMENT === 'elcomercio'
+                      //     ? fullUserName.replace(/'/g, '')
+                      //     : 'APPROVED',
+                      name_card: fullUserName.replace(/'/g, ''),
+                      payer_id: new Date().getTime(),
+                      exp_month: dateexpire.split('/')[0],
+                      exp_year:
+                        dateexpire.split('/')[1].length <= 2
+                          ? `20${dateexpire.split('/')[1]}`
+                          : dateexpire.split('/')[1],
+                      method: showSelectedOption,
+                      document: profilePayu.doc_number,
+                      cvv: codecvv,
                     })
-                  })
 
-                  handleCreateToken.then((token) => {
-                    const tokenDinamic = `${token}~${deviceSessionId}~${codecvv}`
-                    const documentPay = `${profilePayu.doc_type}_${profilePayu.doc_number}`
+                    const handleCreateToken = new Promise((resolve, reject) => {
+                      Sentry.addBreadcrumb({
+                        type: 'info',
+                        category: 'profile',
+                        message: 'Creando token',
+                        data: {
+                          'payU.createToken': 'callback',
+                        },
+                        level: Sentry.Severity.Info,
+                      })
 
-                    finalizePaymentUpdate(
-                      subsID,
-                      providerID,
-                      arcSite,
-                      accessTOKEN,
-                      tokenDinamic,
-                      profilePayu.email,
-                      documentPay,
-                      profilePayu.phone
-                    )
-                      .then((resFin) => {
-                        if (
-                          resFin.cardholderName &&
-                          resFin.creditCardLastFour
-                        ) {
-                          successUpdate(
-                            resFin.creditCardLastFour,
-                            showSelectedOption
-                          )
-                          setLoadingCard(false)
-                        } else {
-                          setShowMessageFailed(true)
-                          setShowCustomMsgFailed(getCodeError('updateCardTry'))
-                          setLoadingCard(false)
+                      window.payU?.createToken(
+                        (response: { token: string; error: string }) => {
+                          if (response.error) {
+                            reject(new Error(response.error))
+                            setShowMessageFailed(true)
+                            setShowCustomMsgFailed(
+                              response.error || getCodeError('updateCard')
+                            )
+                            setShowLoadingSubmit(false)
+                            blockBtnUpdate(false)
+                            setTimeout(() => {
+                              setShowMessageFailed(false)
+                            }, 6000)
+
+                            Sentry.captureEvent({
+                              message:
+                                response.error ||
+                                getCodeError('transactionError'),
+                              level: Sentry.Severity.Error,
+                              extra: response || {},
+                            })
+                          } else {
+                            resolve(response.token)
+                          }
                         }
-                      })
-                      .catch((errFinalize) => {
-                        setShowMessageFailed(true)
-                        setShowCustomMsgFailed(getCodeError('updateCard'))
-                        setLoadingCard(false)
+                      )
+                    })
 
-                        Sentry.captureEvent({
-                          message:
-                            errFinalize.message ||
-                            getCodeError('errorFinalize'),
-                          level: 'error',
-                          extra: errFinalize || {},
+                    handleCreateToken.then((token) => {
+                      const tokenDinamic = `${token}~${deviceSessionId}~${codecvv}`
+                      const documentPay = `${profilePayu.doc_type}_${profilePayu.doc_number}`
+
+                      finalizePaymentUpdate(
+                        subsID,
+                        providerID,
+                        arcSite,
+                        accessTOKEN,
+                        tokenDinamic,
+                        profilePayu.email,
+                        documentPay,
+                        profilePayu.phone
+                      )
+                        .then((resFin) => {
+                          if (
+                            resFin.cardholderName &&
+                            resFin.creditCardLastFour
+                          ) {
+                            successUpdate(
+                              resFin.creditCardLastFour,
+                              showSelectedOption
+                            )
+                            setLoadingCard(false)
+                          } else {
+                            setShowMessageFailed(true)
+                            setShowCustomMsgFailed(
+                              getCodeError('updateCardTry')
+                            )
+                            setLoadingCard(false)
+                          }
                         })
-                      })
-                      .finally(() => {
-                        setShowLoadingSubmit(false)
-                        blockBtnUpdate(false)
-                        setTimeout(() => {
-                          setShowMessageFailed(false)
-                        }, 6000)
-                      })
-                  })
-                }
-              )
-            }
-          )
+                        .catch((errFinalize) => {
+                          setShowMessageFailed(true)
+                          setShowCustomMsgFailed(getCodeError('updateCard'))
+                          setLoadingCard(false)
+
+                          Sentry.captureEvent({
+                            message:
+                              errFinalize.message ||
+                              getCodeError('errorFinalize'),
+                            level: Sentry.Severity.Error,
+                            extra: errFinalize || {},
+                          })
+                        })
+                        .finally(() => {
+                          setShowLoadingSubmit(false)
+                          blockBtnUpdate(false)
+                          setTimeout(() => {
+                            setShowMessageFailed(false)
+                          }, 6000)
+                        })
+                    })
+                  }
+                )
+              }
+            )
+          }
         })
       })
     }
@@ -304,18 +329,18 @@ const UpdateCard = ({
     disable,
   } = useForm(stateSchema, stateValidatorSchema, onSubmitForm)
 
-  const changeCardTrigger = (card) => {
-    if (typeof window !== 'undefined') {
-      const buttonUpdate = window.document.getElementById('btn-update-card')
-      if (numcard.length >= 16 && buttonUpdate) {
-        errors.numcard = cardPatterns[card].test(numcard.replace(/\s/g, ''))
-          ? ''
-          : 'Formato inválido.'
-        if (!errors.numcard && !errors.dateexpire && !errors.codecvv) {
-          buttonUpdate.disabled = false
-        } else {
-          buttonUpdate.disabled = true
-        }
+  const changeCardTrigger = (card: CardsProviders) => {
+    const buttonUpdate = document.getElementById(
+      'btn-update-card'
+    ) as HTMLButtonElement
+    if (numcard.length >= 16 && buttonUpdate) {
+      errors.numcard = cardPatterns[card].test(numcard.replace(/\s/g, ''))
+        ? ''
+        : 'Formato inválido.'
+      if (!errors.numcard && !errors.dateexpire && !errors.codecvv) {
+        buttonUpdate.disabled = false
+      } else {
+        buttonUpdate.disabled = true
       }
     }
   }
@@ -374,8 +399,8 @@ const UpdateCard = ({
                   inputMode="numeric"
                   autoComplete="cc-number"
                   value={numcard}
-                  maxLength="19"
-                  tabIndex="1"
+                  maxLength={19}
+                  tabIndex={1}
                   className={`${errors.numcard && 'error'}`}
                   onChange={(e) => {
                     handleOnChange(e)
@@ -402,8 +427,8 @@ const UpdateCard = ({
                   inputMode="numeric"
                   autoComplete="cc-exp"
                   value={dateexpire}
-                  maxLength="7"
-                  tabIndex="2"
+                  maxLength={7}
+                  tabIndex={2}
                   className={`${errors.dateexpire && 'error'}`}
                   onChange={(e) => {
                     handleOnChange(e)
@@ -430,8 +455,8 @@ const UpdateCard = ({
                   inputMode="numeric"
                   autoComplete="cc-csc"
                   value={codecvv}
-                  maxLength="4"
-                  tabIndex="3"
+                  maxLength={4}
+                  tabIndex={3}
                   className={`${errors.codecvv && 'error'}`}
                   onChange={(e) => {
                     handleOnChange(e)

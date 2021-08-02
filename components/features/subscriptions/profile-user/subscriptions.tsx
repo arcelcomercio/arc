@@ -11,7 +11,7 @@ import Loading from '../../signwall/_children/loading'
 import {
   ModalProvider,
   ProfileModalTemplates,
-  useModalConsumer,
+  useModalContext,
 } from '../_context/modal'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
@@ -54,7 +54,7 @@ const SubsDetail = React.lazy(
     )
 )
 
-const renderTemplate = (template: ProfileModalTemplates, id: string) => {
+const renderTemplate = (template: ProfileModalTemplates, id: number) => {
   const templates: Record<ProfileModalTemplates, JSX.Element> = {
     home: (
       <React.Suspense fallback={null}>
@@ -90,13 +90,7 @@ const WrapperProfile = () => {
   const { status: identityStatus } = useSdksContext()
   const { urls: urlCommon } = PropertiesCommon
 
-  const {
-    changeTemplate,
-    selectedTemplate,
-    idTemplate,
-    userLoading,
-    updateLoading,
-  } = useModalConsumer()
+  const { changeTemplate, selectedTemplate, idTemplate } = useModalContext()
 
   useSentry(urlCommon.sentrySign)
 
@@ -106,13 +100,9 @@ const WrapperProfile = () => {
     }
   }, [])
 
-  React.useEffect(() => {
-    updateLoading(identityStatus === SdkStatus.loading)
-  }, [identityStatus])
-
   return (
     <div className="sign-profile_general-panel-wrapper" id="profile-signwall">
-      {userLoading ? (
+      {identityStatus === SdkStatus.loading ? (
         <Loading typeBg="full" />
       ) : (
         <>

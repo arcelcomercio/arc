@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-import { useModalConsumer } from '../../../_context/modal'
+import { useModalContext } from '../../../_context/modal'
 import UpdatePass from './_children/update-pass'
 import UpdateProfile from './_children/update-profile'
 
 const MiPerfil = () => {
-  const { userProfile } = useModalConsumer()
+  const { userProfile } = useModalContext()
   const { identities = [] } = userProfile
   const [identitie = { type: 'Password' }] = identities || []
   const disabledSocial = identitie.type !== 'Password'

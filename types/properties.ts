@@ -97,7 +97,9 @@ export interface Signwall {
   mainLogo: string
   mainColorBr: string
   mainColorLink: string
+  mainColorTitle: string
   authProviders: any[]
+  primaryFont: string
 }
 
 export interface Taboola {

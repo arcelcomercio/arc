@@ -2,7 +2,8 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { useModalConsumer } from '../../../subscriptions/_context/modal'
+import { SITE_TROME } from '../../../../utilities/constants/sitenames'
+import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
 } from '../../../subscriptions/_dependencies/Errors'
@@ -20,12 +21,12 @@ const FormForgot = ({ typeDialog }) => {
     },
   } = useAppContext() || {}
 
-  const textBtnSend = arcSite === 'trome' ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
+  const textBtnSend = arcSite === SITE_TROME ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
   const isTromeOrganic =
-    arcSite === 'trome' &&
+    arcSite === SITE_TROME &&
     (typeDialog === 'organico' || typeDialog === 'verify')
 
-  const { changeTemplate } = useModalConsumer()
+  const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showConfirm, setShowConfirm] = React.useState(false)
@@ -116,7 +117,7 @@ const FormForgot = ({ typeDialog }) => {
   return (
     <form
       className={`signwall-inside_forms-form ${
-        arcSite === 'trome' ? 'form-trome' : ''
+        arcSite === SITE_TROME ? 'form-trome' : ''
       } ${typeDialog}`}
       onSubmit={(e) => {
         handleOnSubmit(e)

@@ -20,27 +20,25 @@ type ModalProviderValue = {
   selectedTemplate: ModalTemplates
   userProfile: UserProfile | null
   userLoading: boolean
-  idTemplate: string
+  idTemplate: number
   valTemplate: string
   changeTemplate: (
     template: ModalProviderValue['selectedTemplate'],
     id?: ModalProviderValue['idTemplate'],
     valTeml?: ModalProviderValue['valTemplate']
   ) => void
-  updateProfile: (profile: any) => void
-  updateLoading: (status: any) => void
+  updateProfile: (profile: ModalProviderValue['userProfile']) => void
+  updateLoading: (status: ModalProviderValue['userLoading']) => void
 }
 
 const ModalConsumer = React.createContext<ModalProviderValue | undefined>(
   undefined
 )
 
-const useModalConsumer = (): ModalProviderValue => {
+const useModalContext = (): ModalProviderValue => {
   const context = React.useContext(ModalConsumer)
   if (context === undefined) {
-    throw new Error(
-      'useModalConsumer debe ser usado dentro de un ModalProvider'
-    )
+    throw new Error('useModalContext debe ser usado dentro de un ModalProvider')
   }
   return context
 }
@@ -51,7 +49,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [selectedTemplate, setSelectedTemplate] = React.useState<
     ModalProviderValue['selectedTemplate']
   >('intro')
-  const [idTemplate, setIdTemplate] = React.useState('0')
+  const [idTemplate, setIdTemplate] = React.useState(0)
   const [valTemplate, setValTemplate] = React.useState('')
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     () => getLocaleStorage(keyStorageProfile) as UserProfile | null
@@ -64,7 +62,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     userLoading,
     idTemplate,
     valTemplate,
-    changeTemplate: (template, id = '', valTeml = '') => {
+    changeTemplate: (template, id = 0, valTeml = '') => {
       setSelectedTemplate(template)
       setIdTemplate(id)
       setValTemplate(valTeml)
@@ -88,5 +86,5 @@ export {
   OrganicModalTemplates,
   PaywallModalTemplates,
   ProfileModalTemplates,
-  useModalConsumer,
+  useModalContext,
 }

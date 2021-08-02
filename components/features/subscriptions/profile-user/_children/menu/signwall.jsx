@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import { deleteCookie } from '../../../../../utilities/client/cookies'
 import { getOriginAPI } from '../../../../signwall/_dependencies/domains'
-import { useModalConsumer } from '../../../_context/modal'
+import { useModalContext } from '../../../_context/modal'
 import { getUserName, isAuthenticated } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 
@@ -19,7 +19,7 @@ const MenuSignwall = ({ handleMenu }) => {
     arcSite,
   } = useAppContext() || {}
 
-  const { userProfile } = useModalConsumer()
+  const { userProfile } = useModalContext()
   const { firstName, lastName, email, identities } = userProfile || {}
   const [identitie = { type: 'Password' }] = identities || []
   const [usernameid = { userName: '' }] = identities || []

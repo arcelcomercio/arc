@@ -1,7 +1,7 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { useModalConsumer } from '../../../subscriptions/_context/modal'
+import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { getOriginAPI } from '../../_dependencies/domains'
@@ -19,7 +19,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
 
   const isTromeVerify = arcSite === 'trome' && typeDialog === 'verify'
 
-  const { changeTemplate } = useModalConsumer()
+  const { changeTemplate } = useModalContext()
   const [showLoading, setShowLoading] = React.useState(true)
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showError, setShowError] = React.useState(false)

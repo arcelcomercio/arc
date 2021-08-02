@@ -1,6 +1,26 @@
-import React from 'react'
+import * as React from 'react'
 
-const Radiobox = ({ className, checked, disabled, image, ...props }) => (
+interface RadioboxCommonProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  className?: string
+  checked: boolean
+  disabled?: boolean
+}
+interface RadioboxProps extends RadioboxCommonProps {
+  image: string
+}
+
+interface RadioboxSimpleProps extends RadioboxCommonProps {
+  name: string
+}
+
+const Radiobox = ({
+  className,
+  checked,
+  disabled,
+  image,
+  ...props
+}: RadioboxProps): JSX.Element => (
   <div className="sign-profile_radiobox-container">
     <div
       className="sign-profile_radiobox-image"
@@ -9,11 +29,11 @@ const Radiobox = ({ className, checked, disabled, image, ...props }) => (
       }}
     />
     <input
+      {...props}
       className="sign-profile_radiobox-check"
       type="checkbox"
       checked={checked}
       disabled={disabled}
-      {...props}
     />
     <div
       className={`sign-profile_radiobox-box  ${
@@ -26,7 +46,13 @@ const Radiobox = ({ className, checked, disabled, image, ...props }) => (
   </div>
 )
 
-const RadioboxSimple = ({ className, checked, disabled, name, ...props }) => (
+const RadioboxSimple = ({
+  className,
+  checked,
+  disabled,
+  name,
+  ...props
+}: RadioboxSimpleProps): JSX.Element => (
   <div className="sign-profile_radiobox-container full">
     <span>{name}</span>
     <input

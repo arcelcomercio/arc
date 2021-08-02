@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
-import { useModalConsumer } from '../../../subscriptions/_context/modal'
+import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
   formatPass,
@@ -31,7 +31,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
     },
   } = useAppContext() || {}
 
-  const { changeTemplate } = useModalConsumer()
+  const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showVerify, setShowVerify] = React.useState()

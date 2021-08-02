@@ -5,7 +5,7 @@ import { getAssetsPath } from '../../../../utilities/assets'
 import { deleteQuery, getQuery } from '../../../../utilities/parse/queries'
 import {
   ModalProvider,
-  useModalConsumer,
+  useModalContext,
 } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import FormForgot from '../forms/form_forgot'
@@ -36,7 +36,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
 export const LandingInt = ({ properties }) => {
   const { onClose, noBtnClose, typeDialog } = properties
   const { arcSite, contextPath } = useAppContext() || {}
-  const { selectedTemplate, valTemplate } = useModalConsumer()
+  const { selectedTemplate, valTemplate } = useModalContext()
   const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
 
   return (

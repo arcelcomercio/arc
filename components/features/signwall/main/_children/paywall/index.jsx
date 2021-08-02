@@ -5,7 +5,7 @@ import { getAssetsPath } from '../../../../../utilities/assets'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
   ModalProvider,
-  useModalConsumer,
+  useModalContext,
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import FormForgot from '../../../_children/forms/form_forgot'
@@ -44,7 +44,7 @@ export const PaywallInt = ({ properties }) => {
     },
   } = useAppContext() || {}
 
-  const { selectedTemplate, valTemplate } = useModalConsumer()
+  const { selectedTemplate, valTemplate } = useModalContext()
 
   // const handleLeavePage = (event) => {
   //   event.preventDefault()

@@ -1,5 +1,5 @@
 export type SubsArcSite = 'elcomercio' | 'gestion'
-
+export type CardsProviders = 'VISA' | 'MASTERCARD' | 'AMEX' | 'DINERS'
 export type DialogType =
   | 'login'
   | 'registro'
