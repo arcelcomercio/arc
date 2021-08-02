@@ -5,6 +5,7 @@ import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import React from 'react'
 
+import { getBtnSignScript } from '../../_dependencies/scripts'
 import {
   edicionMenu,
   menuScript,
@@ -88,7 +89,8 @@ export default ({
   showArrowLeft,
   winningCallLogo,
 }) => {
-  const { requestUri } = useAppContext()
+  const { requestUri, siteProperties } = useAppContext()
+  const { activeSignwall } = siteProperties || {}
   const isMexico = /^\/mexico\//.test(requestUri)
   const isColombia = /^\/colombia\//.test(requestUri)
   const isDeporPlay = /^\/depor-play\//.test(requestUri)
@@ -521,6 +523,26 @@ export default ({
 
             {arcSite === 'trome' && (
               <>
+                {activeSignwall && (
+                  <button
+                    aria-label="Iniciar"
+                    id="signwall-nav-btn"
+                    site="elcomercio"
+                    className="flex items-center btn capitalize text-md nav__btn-sign"
+                    type="button">
+                    <i
+                      id="signwall-nav-icon"
+                      className="nav__icon icon-user title-sm text-primary-color"
+                    />
+                    <span
+                      id="signwall-nav-user"
+                      className="capitalize"
+                      aria-hidden="true">
+                      Regístrate
+                    </span>
+                  </button>
+                )}
+
                 <div className="header-full__ci">
                   <a
                     itemProp="url"
@@ -614,6 +636,13 @@ export default ({
           __html: edicionMenu,
         }}
       />
+      {activeSignwall && (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: getBtnSignScript,
+          }}
+        />
+      )}
     </>
   )
 }
