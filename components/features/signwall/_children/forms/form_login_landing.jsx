@@ -26,8 +26,9 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorLink, authProviders = [] },
-      activeNewsletter = false,
+      signwall: { mainColorLink, authProviders },
+      activeNewsletter,
+      activeDataTreatment,
     },
   } = useAppContext() || {}
 
@@ -327,11 +328,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
             </p>
           </form>
 
-          {arcSite === 'elcomercio' ||
-          arcSite === 'gestion' ||
-          arcSite === 'trome' ||
-          arcSite === 'ojo' ||
-          arcSite === 'diariocorreo' ? (
+          {activeDataTreatment ? (
             <form className="signwall-inside_forms-form">
               <CheckBox
                 checked={checkedPolits}

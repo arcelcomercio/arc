@@ -2,12 +2,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-nested-ternary */
 import { useAppContext } from 'fusion:context'
-// import { ENVIRONMENT } from 'fusion:environment'
 import React from 'react'
 
 import {
   edicionMenu,
-  // getBtnSignScript,
+  getBtnSignScript,
   popup,
   scrolled,
   searchDPMenu,
@@ -129,7 +128,6 @@ const classes = {
   ePais: '__e-pais  p-20',
   eName: '__e-name  p-10',
   eArrow: 'header-full__e-arrow',
-  btnSingwall: 'header-full__btn-signwall',
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -155,11 +153,8 @@ export default ({
   Newsle,
 }) => {
   const arcSiteTrome = 'trome'
-  const {
-    requestUri,
-    // siteProperties
-  } = useAppContext()
-  // const { activeSignwall } = siteProperties || {}
+  const { requestUri, siteProperties } = useAppContext()
+  const { activeSignwall } = siteProperties || {}
   const isMexico = /^\/mexico\//.test(requestUri)
   const isDeporPlay = /^\/depor-play\//.test(requestUri)
   const edittion = (cName, opcion = '', has = true) => (
@@ -667,6 +662,26 @@ export default ({
                   </>
                 )}
 
+                {activeSignwall && (
+                  <button
+                    aria-label="Iniciar"
+                    id="signwall-nav-btn"
+                    site="elcomercio"
+                    className="flex items-center btn capitalize text-md nav__btn-sign"
+                    type="button">
+                    <i
+                      id="signwall-nav-icon"
+                      className="nav__icon icon-user title-sm text-primary-color"
+                    />
+                    <span
+                      id="signwall-nav-user"
+                      className="capitalize"
+                      aria-hidden="true">
+                      Regístrate
+                    </span>
+                  </button>
+                )}
+
                 {/* <div className={`${classes.newsCinModal}`}>{Newsle}</div> */}
                 <div className={classes.callImg}>
                   <a
@@ -678,15 +693,6 @@ export default ({
                 </div>
               </>
             )}
-
-            {/* {activeSignwall && (
-              <button
-                type="button"
-                className={`bg-black ${classes.btnSingwall}`}>
-                <i className=" icon-user title-sm text-white" />
-                <span className="text-md tertiary-font text-white">JD</span>
-              </button>
-            )} */}
 
             {arcSite === 'depor' && (
               <>
@@ -748,6 +754,13 @@ export default ({
           __html: edicionMenu,
         }}
       />
+      {activeSignwall && (
+        <script
+          dangerouslySetInnerHTML={{
+            __html: getBtnSignScript,
+          }}
+        />
+      )}
     </>
   )
 }
