@@ -7,6 +7,7 @@ import {
   includeCreditsImage,
   includePrimarySection,
   includePromoItems,
+  includeSections,
 } from '../../../utilities/included-fields'
 import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
@@ -30,7 +31,7 @@ const ProvechoStoryBanner: React.FC = (props) => {
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
   const presets = 'landscape_md:400x209'
-  const includedFields = `content_restrictions.content_code,websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includeCreditsImage},${includePromoItems}, ${includePrimarySection(
+  const includedFields = `content_restrictions.content_code,websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includeCreditsImage},${includePromoItems},${includeSections},${includePrimarySection(
     { arcSite }
   )}`
 

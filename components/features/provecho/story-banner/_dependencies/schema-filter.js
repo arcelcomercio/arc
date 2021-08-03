@@ -63,6 +63,12 @@ export default function (arcSite) {
         }
       }
     }
+    taxonomy { 
+      sections {
+        name
+        path 
+      }
+    }
     headlines { basic }
     display_date
     section_name
