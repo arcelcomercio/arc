@@ -165,4 +165,27 @@
       display: block;
     }
   }
+  &__btn-sign {
+    display: flex;
+    justify-content: center;
+    font: 700 12px/14px $primary-font;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 8px 5px;
+    width: auto;
+    height: auto;
+    max-width: 112px;
+    @media (--desktop) {
+      font: 700 14px/16px $primary-font;
+      min-width: 80px;
+      padding: 8px 12px;
+      max-width: auto;
+    }
+    i {
+      display: none;
+    }
+    span {
+      display: block;
+    }
+  }
 }
