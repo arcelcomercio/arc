@@ -199,13 +199,17 @@ export default ({
         <div className={classes.container}>
           <div className={classes.left}>
             {!hideMenu && (
-              <button type="button" className={classes.btnMenu} id="btn-menu">
+              <button
+                title="Menú"
+                alt="Menú"
+                type="button"
+                className={classes.btnMenu}
+                id="btn-menu">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18.111"
                   height="17.105"
                   viewBox="0 0 18.111 17.105">
-                  <title>Menú</title>
                   <g transform="translate(-15 49)">
                     <path d="M15-47.491v1.509H33.111V-49H15Z" />
                     <path
@@ -531,14 +535,17 @@ export default ({
                     <img src={winningCallLogo} alt="Llamada Ganadora" />
                   </a>
                 </div>
-                <button type="button" className="header-full__is">
+                <button
+                  alt="abrir cuadro de búsqueda"
+                  title="abrir cuadro de búsqueda"
+                  type="button"
+                  className="header-full__is">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-basic__search"
                     width="19"
                     height="19"
                     viewBox="0 0 14 14">
-                    <title>abrir cuadro de búsqueda</title>
                     <path d="M13.2 12.4L9.2 8.3C9.8 7.5 10.1 6.5 10.1 5.4 10.1 4.2 9.6 3 8.8 2.1 7.9 1.2 6.7 0.8 5.4 0.8 4.2 0.8 3 1.2 2.1 2.1 1.2 3 0.8 4.2 0.8 5.4 0.8 6.7 1.2 7.9 2.1 8.8 3 9.6 4.2 10.1 5.4 10.1 6.5 10.1 7.5 9.8 8.3 9.2L12.4 13.2C12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.3 12.4 13.3 12.5 13.3 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2L13.2 12.5C13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.3 12.5 13.3 12.4 13.3 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4V12.4ZM7.9 7.9C7.3 8.6 6.4 8.9 5.4 8.9 4.5 8.9 3.6 8.6 3 7.9 2.3 7.3 1.9 6.4 1.9 5.4 1.9 4.5 2.3 3.6 3 3 3.6 2.3 4.5 1.9 5.4 1.9 6.4 1.9 7.3 2.3 7.9 3 8.6 3.6 8.9 4.5 8.9 5.4 8.9 6.4 8.6 7.3 7.9 7.9Z" />
                   </svg>
                 </button>
