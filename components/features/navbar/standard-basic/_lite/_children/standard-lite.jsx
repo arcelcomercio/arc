@@ -12,10 +12,10 @@ import { socialMediaUrlShareList } from '../../../../../utilities/social-media'
 import {
   getBtnSignScript,
   getBtnSubsScript,
-  getQueryReloginEmailScript,
   navBarLoaderScript,
   searchScript,
   singwallScript,
+  // getQueryReloginEmailScript,
   stickyScript,
 } from '../../_dependencies/scripts'
 import Menu from './menu'
@@ -104,7 +104,7 @@ const NavBarDefault = (props) => {
     },
   ]
 
-  const env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   const {
     primaryLogo,
@@ -430,20 +430,22 @@ const NavBarDefault = (props) => {
             disableSticky ? '' : stickyScript
           }${searchScript}${
             activePaywall && !isPreview
-              ? getBtnSubsScript(env, arcSite, urlSubsOnline)
+              ? getBtnSubsScript(arcEnv, arcSite, urlSubsOnline)
               : ''
           }${
-            activeSignwall && !isPreview ? getBtnSignScript(env, arcSite) : ''
+            activeSignwall && !isPreview
+              ? getBtnSignScript(arcEnv, arcSite)
+              : ''
           }${hideMenu ? '' : navBarLoaderScript}`,
         }}
       />
-
+      {/* 
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: getQueryReloginEmailScript(env, arcSite),
+          __html: getQueryReloginEmailScript(arcEnv, arcSite),
         }}
-      />
+      /> */}
     </>
   )
 }

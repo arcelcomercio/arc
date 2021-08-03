@@ -140,6 +140,8 @@ export default {
   activeRulesCounter: false,
   activeNewsletter: false,
   activeVerifyEmail: false,
+  activeDataTreatment: false,
+  activePhoneRegister: false,
   signwall: {
     mainColorBg: '#f7c600',
     mainColorTxt: '#000000',

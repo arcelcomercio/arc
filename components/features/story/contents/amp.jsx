@@ -155,8 +155,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100,320x50',
-      fluid: true,
+      size: '320x100,320x50'
     }
     const parametersCaja3 = {
       // movil4 caja3 caja3
@@ -167,8 +166,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100,320x50,300x1',
-      fluid: false,
+      size: '320x100,320x50,300x1'
     }
     const parametersCaja4 = {
       // movil5 caja5 caja4
@@ -179,8 +177,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100,320x50',
-      fluid: false,
+      size: '320x100,320x50'
     }
     const parametersCaja5 = {
       // movil5 caja5 caja4
@@ -191,8 +188,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100,320x50',
-      fluid: false,
+      size: '320x100,320x50'
     }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'

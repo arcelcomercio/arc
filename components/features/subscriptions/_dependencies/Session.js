@@ -58,7 +58,7 @@ export const conformProfile = (userPorfile) => {
  * @returns {string} Nombre y apellido del usuario | Bienvenido Usuario
  */
 export const getUserName = (firstName, lastName) => {
-  let fullName = 'Bienvenido Usuario'
+  let fullName = ''
   const badName = /undefined|null/
   const isBadFirstName = badName.test(firstName)
   const isBadLastName = badName.test(lastName)
