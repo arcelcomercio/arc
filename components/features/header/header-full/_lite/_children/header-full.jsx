@@ -508,7 +508,7 @@ export default ({
                     aria-label="Iniciar"
                     id="signwall-nav-btn"
                     site="elcomercio"
-                    className="flex items-center btn capitalize text-md nav__btn-sign"
+                    className="flex items-center btn capitalize text-md header-full__btn-sign"
                     type="button">
                     <i
                       id="signwall-nav-icon"
