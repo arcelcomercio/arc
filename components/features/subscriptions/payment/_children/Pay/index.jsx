@@ -90,9 +90,10 @@ const Pay = () => {
   const [checkedTerms, setCheckedTerms] = React.useState()
 
   // Si no hay ningún dominio listado, quiere decir que acepta todos
-  const isAllowedDomainPagoEfectivo = allowedDomainsPagoEfectivo
-    ? allowedDomainsPagoEfectivo?.includes(email.split('@')[1])
-    : true
+  const isAllowedDomainPagoEfectivo =
+    allowedDomainsPagoEfectivo && allowedDomainsPagoEfectivo?.length > 0
+      ? allowedDomainsPagoEfectivo?.includes(email.split('@')[1])
+      : true
 
   const getPLanSelected = plans.reduce(
     (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
