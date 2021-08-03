@@ -240,17 +240,7 @@ const UpdateCard = ({
                             )
                             setShowLoadingSubmit(false)
                             blockBtnUpdate(false)
-                            setTimeout(() => {
-                              setShowMessageFailed(false)
-                            }, 6000)
-
-                            Sentry.captureEvent({
-                              message:
-                                response.error ||
-                                getCodeError('transactionError'),
-                              level: Sentry.Severity.Error,
-                              extra: response || {},
-                            })
+                            setLoadingCard(false)
                           } else {
                             resolve(response.token)
                           }
@@ -258,59 +248,66 @@ const UpdateCard = ({
                       )
                     })
 
-                    handleCreateToken.then((token) => {
-                      const tokenDinamic = `${token}~${deviceSessionId}~${codecvv}`
-                      const documentPay = `${profilePayu.doc_type}_${profilePayu.doc_number}`
+                    handleCreateToken
+                      .catch((error) => {
+                        Sentry.captureEvent({
+                          message: error || getCodeError('transactionError'),
+                          level: Sentry.Severity.Error,
+                          extra: error || {},
+                        })
+                      })
+                      .then((token) => {
+                        if (token) {
+                          const tokenDinamic = `${token}~${deviceSessionId}~${codecvv}`
+                          const documentPay = `${profilePayu.doc_type}_${profilePayu.doc_number}`
 
-                      finalizePaymentUpdate(
-                        subsID,
-                        providerID,
-                        arcSite,
-                        accessTOKEN,
-                        tokenDinamic,
-                        profilePayu.email,
-                        documentPay,
-                        profilePayu.phone
-                      )
-                        .then((resFin) => {
-                          if (
-                            resFin.cardholderName &&
-                            resFin.creditCardLastFour
-                          ) {
-                            successUpdate(
-                              resFin.creditCardLastFour,
-                              showSelectedOption
-                            )
-                            setLoadingCard(false)
-                          } else {
-                            setShowMessageFailed(true)
-                            setShowCustomMsgFailed(
-                              getCodeError('updateCardTry')
-                            )
-                            setLoadingCard(false)
-                          }
-                        })
-                        .catch((errFinalize) => {
-                          setShowMessageFailed(true)
-                          setShowCustomMsgFailed(getCodeError('updateCard'))
-                          setLoadingCard(false)
+                          finalizePaymentUpdate(
+                            subsID,
+                            providerID,
+                            arcSite,
+                            accessTOKEN,
+                            tokenDinamic,
+                            profilePayu.email,
+                            documentPay,
+                            profilePayu.phone
+                          )
+                            .then((resFin) => {
+                              if (
+                                resFin.cardholderName &&
+                                resFin.creditCardLastFour
+                              ) {
+                                successUpdate(
+                                  resFin.creditCardLastFour,
+                                  showSelectedOption
+                                )
+                                setLoadingCard(false)
+                              } else {
+                                setShowMessageFailed(true)
+                                setShowCustomMsgFailed(
+                                  getCodeError('updateCardTry')
+                                )
+                                setLoadingCard(false)
+                              }
+                            })
+                            .catch((errFinalize) => {
+                              setShowMessageFailed(true)
+                              setShowCustomMsgFailed(getCodeError('updateCard'))
+                              setLoadingCard(false)
 
-                          Sentry.captureEvent({
-                            message:
-                              errFinalize.message ||
-                              getCodeError('errorFinalize'),
-                            level: Sentry.Severity.Error,
-                            extra: errFinalize || {},
-                          })
-                        })
-                        .finally(() => {
-                          setShowLoadingSubmit(false)
-                          blockBtnUpdate(false)
-                          setTimeout(() => {
-                            setShowMessageFailed(false)
-                          }, 6000)
-                        })
-                    })
+                              Sentry.captureEvent({
+                                message:
+                                  errFinalize.message ||
+                                  getCodeError('errorFinalize'),
+                                level: Sentry.Severity.Error,
+                                extra: errFinalize || {},
+                              })
+                            })
+                            .finally(() => {
+                              setShowLoadingSubmit(false)
+                              blockBtnUpdate(false)
+                            })
+                        }
+                      })
                   }
                 )
               }

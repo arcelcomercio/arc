@@ -47,7 +47,7 @@ const Component = () => {
     userLoading,
     updateLoading,
     updateStep,
-  } = useAuthContext()
+  } = useAuthContext() || {}
   const { urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite as SubsArcSite]
 

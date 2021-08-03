@@ -38,6 +38,10 @@ const useSdksContext = (): SdksProviderValue => {
 /** @see https://elcomercio.arcpublishing.com/alc/arc-products/subscriptions/user-docs/subscribe-with-google-swg-integration/ */
 const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
   const { arcSite } = useAppContext()
+  const [value, setValue] = React.useState<SdksProviderValue>({
+    status: SdkStatus.loading,
+  })
+
   const {
     urls: { arcOrigin: apiOrigin },
   } = PropertiesSite[arcSite as SubsArcSite]
@@ -57,20 +61,18 @@ const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
     }
   }
 
-  let value: SdksProviderValue = {
-    status: SdkStatus.loading,
-  }
-
-  initializeSDKs()
-    .then((sdks) => {
-      value = sdks
-    })
-    .catch((error) => {
-      value = {
-        status: SdkStatus.error,
-        error,
-      }
-    })
+  React.useEffect(() => {
+    initializeSDKs()
+      .then((sdks) => {
+        setValue(sdks)
+      })
+      .catch((error) => {
+        setValue({
+          status: SdkStatus.error,
+          error,
+        })
+      })
+  }, [])
 
   return <SdksContext.Provider value={value}>{children}</SdksContext.Provider>
 }

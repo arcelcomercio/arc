@@ -145,13 +145,17 @@ class UpdateProfile extends React.Component {
     }
     const result = getUbigeo(value)
 
-    result.then((geoData) => {
-      const GeoUpper = geo.charAt(0).toUpperCase() + geo.slice(1)
-      Object.assign(state, {
-        [`data${GeoUpper}s`]: geoData,
+    result
+      .then((geoData) => {
+        const GeoUpper = geo.charAt(0).toUpperCase() + geo.slice(1)
+        Object.assign(state, {
+          [`data${GeoUpper}s`]: geoData,
+        })
+        this.setState(state)
       })
-      this.setState(state)
-    })
+      .catch((error) => {
+        throw new Error(error)
+      })
   }
 
   getAtributes = (state, list = []) => {

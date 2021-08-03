@@ -10,6 +10,7 @@ import * as React from 'react'
 import TextMask from 'react-text-mask'
 
 import { isProd } from '../../../utilities/arc/env'
+import { frequencies } from '../../../utilities/subscriptions/sales'
 import { useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
@@ -32,7 +33,7 @@ export const FooterSubs = () => {
     userStep,
     updateLoading,
     userDataPlan: { billingFrequency, amount: billingAmount } = {},
-  } = useAuthContext()
+  } = useAuthContext() || {}
   const [loading, setLoading] = React.useState(false)
   const [showDocOption, setShowDocOption] = React.useState('DNI')
   const { urls, texts } = PropertiesCommon
@@ -49,12 +50,6 @@ export const FooterSubs = () => {
     (prev, item) => ({ ...prev, [item.name]: item.value }),
     {}
   )
-
-  const period = {
-    month: 'Mensual',
-    year: 'Anual',
-    semester: 'Semestral',
-  }
 
   const stateSchema = {
     vDocumentType: { value: 'DNI', error: '' },
@@ -227,7 +222,7 @@ export const FooterSubs = () => {
             <h5 className="name-item">
               {planName}
               <span className="period-item">
-                {' - '} {billingFrequency ? period[billingFrequency] : ''}
+                {' - '} {billingFrequency ? frequencies[billingFrequency] : ''}
               </span>
             </h5>
           </div>

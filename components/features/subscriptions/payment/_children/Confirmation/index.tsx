@@ -34,7 +34,13 @@ const styles = {
   // noteBenefits: 'step__left-note-benefist',
 }
 
-const PaywallTracking = ({ ...props }) => {
+const PaywallTracking = ({
+  userId,
+  orderNumber,
+}: {
+  userId: string
+  orderNumber: string
+}) => {
   useContent({
     source: 'paywall-tracking',
     query: {
@@ -43,9 +49,12 @@ const PaywallTracking = ({ ...props }) => {
       originUser: getSessionStorage('paywall_type_modal') || 'organico',
       isPwaUser: PWA.isPWA() ? '1' : '2',
       userAgentClient: getUserAgent,
-      ...props,
+      userId,
+      orderNumber,
     },
   })
+
+  return null
 }
 
 const Confirmation = (): JSX.Element => {
@@ -269,12 +278,9 @@ const Confirmation = (): JSX.Element => {
         />
       ) : null}
 
-      {sendTracking && userProfile && orderNumber
-        ? PaywallTracking({
-            userId: userProfile.uuid,
-            orderNumber,
-          })
-        : null}
+      {sendTracking && userProfile && orderNumber ? (
+        <PaywallTracking userId={userProfile.uuid} orderNumber={orderNumber} />
+      ) : null}
 
       <ul className={styles.step}>
         <li className="active">Perfil</li>

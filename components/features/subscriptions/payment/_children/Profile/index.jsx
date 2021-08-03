@@ -411,8 +411,8 @@ const Profile = () => {
         Identity.updateUserProfile(profile)
           .then((resProfile) => {
             updateUser(resProfile)
-            updateStep(3)
             TaggeoEcommerce()
+            updateStep(3)
           })
           .catch((err) => {
             if (err.code === '100018') {
@@ -420,13 +420,13 @@ const Profile = () => {
               const newProfile = Object.assign(currentProfile, profile)
               setLocaleStorage('ArcId.USER_PROFILE', newProfile)
               updateUser(newProfile)
-              updateStep(3)
               TaggeoEcommerce()
               Sentry.captureEvent({
                 message: 'Usuario no actualizó perfil',
                 level: 'info',
                 extra: err,
               })
+              updateStep(3)
             } else {
               setMsgError(getCodeError(err.code))
               Sentry.captureEvent({
@@ -512,87 +512,77 @@ const Profile = () => {
   } = useForm(stateSchema, stateValidatorSchema, onFormProfile)
 
   const handleClickCancel = () => {
-    if (typeof window !== 'undefined') {
-      setShowModal(false)
-      window.sessionStorage.setItem('paywall_confirm_subs', '2')
-      Taggeo(nameTagCategory, 'web_paywall_close_validation')
+    setShowModal(false)
+    window.sessionStorage.setItem('paywall_confirm_subs', '2')
+    Taggeo(nameTagCategory, 'web_paywall_close_validation')
 
-      // Datalayer solicitados por Joao
-      TaggeoJoao(
-        {
-          event: 'Pasarela Suscripciones Digitales',
-          category: eventCategory({
-            step: 1,
-            event,
-            hasPrint: printedSubscriber,
-            plan: namePlanApi,
-            cancel: true,
-          }),
-          action: userPeriod,
-          label: uuid,
-        },
-        window.location.pathname
-      )
-    }
+    // Datalayer solicitados por Joao
+    TaggeoJoao(
+      {
+        event: 'Pasarela Suscripciones Digitales',
+        category: eventCategory({
+          step: 1,
+          event,
+          hasPrint: printedSubscriber,
+          plan: namePlanApi,
+          cancel: true,
+        }),
+        action: userPeriod,
+        label: uuid,
+      },
+      window.location.pathname
+    )
   }
 
   const handleClickYes = () => {
-    if (typeof window !== 'undefined') {
-      setShowModal(false)
-      updateProfile({
-        uFirstName,
-        uLastName,
-        uSecondLastName,
-        uDocumentType,
-        uDocumentNumber,
-        uPhone,
-        uEmail,
-      })
-      window.sessionStorage.setItem('paywall_confirm_subs', '1')
-      Taggeo(nameTagCategory, 'web_paywall_continue_validation')
-    }
+    setShowModal(false)
+    window.sessionStorage.setItem('paywall_confirm_subs', '1')
+    Taggeo(nameTagCategory, 'web_paywall_continue_validation')
+    updateProfile({
+      uFirstName,
+      uLastName,
+      uSecondLastName,
+      uDocumentType,
+      uDocumentNumber,
+      uPhone,
+      uEmail,
+    })
   }
 
   const handleChangeInput = (e) => {
-    if (typeof window !== 'undefined') {
-      if (isLogged()) {
-        if (e.target.name === 'uDocumentType') {
-          const numDoc = document.getElementsByName('uDocumentNumber')[0].value
-          if (numDoc && e.target.value === 'DNI' && numDoc.length !== 8) {
-            setValNumDocument(false)
-          }
+    if (isLogged()) {
+      if (e.target.name === 'uDocumentType') {
+        const numDoc = document.getElementsByName('uDocumentNumber')[0].value
+        if (numDoc && e.target.value === 'DNI' && numDoc.length !== 8) {
+          setValNumDocument(false)
         }
-        setMsgError(false)
-        updateErrorApi(null)
-        setValNumDocument(false)
-        handleOnChange(e)
-      } else {
-        restoreClearSession()
       }
+      setMsgError(false)
+      updateErrorApi(null)
+      setValNumDocument(false)
+      handleOnChange(e)
+    } else {
+      restoreClearSession()
     }
   }
 
   const logoutUser = () => {
-    if (typeof window !== 'undefined') {
-      Identity.logout()
-        .catch((err) =>
-          Sentry.captureEvent({
-            message: 'Error al cerrar sesión con Identity',
-            level: 'error',
-            extra: err,
-          })
-        )
-        .finally(() => {
-          userLogout()
+    Identity.logout()
+      .catch((err) =>
+        Sentry.captureEvent({
+          message: 'Error al cerrar sesión con Identity',
+          level: 'error',
+          extra: err,
         })
-    }
+      )
+      .finally(() => {
+        userLogout()
+      })
   }
 
   const handleProfile = () => {
-    if (typeof window !== 'undefined') {
-      Taggeo(nameTagCategory, 'web_paywall_profile_validation')
-      window.open(links.profile, '_blank')
-    }
+    Taggeo(nameTagCategory, 'web_paywall_profile_validation')
+    window.open(links.profile, '_blank')
   }
 
   return (

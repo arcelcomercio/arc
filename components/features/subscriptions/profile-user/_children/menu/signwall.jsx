@@ -6,7 +6,7 @@ import * as React from 'react'
 
 import { deleteCookie } from '../../../../../utilities/client/cookies'
 import { SITE_ELCOMERCIO } from '../../../../../utilities/constants/sitenames'
-import { getUsername } from '../../../../../utilities/subscriptions/identity'
+import { formatUsername } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../_context/modal'
 import { isAuthenticated } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
@@ -82,7 +82,7 @@ const MenuSignwall = ({ handleMenu }) => {
       </div>
       <div className="sign-profile_menu-wrapper">
         <h1 className="hello" id="name-user-profile">
-          Hola {getUsername(firstName, lastName)}
+          Hola {formatUsername(`${firstName} ${lastName}`, 17)}
         </h1>
         <p className="welcome">Bienvenido a tu perfil</p>
         <div className="cont-menu">
