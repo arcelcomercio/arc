@@ -21,7 +21,9 @@ const FormForgot = ({ typeDialog }) => {
   } = useAppContext() || {}
 
   const textBtnSend = arcSite === 'trome' ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
-  const isTromeOrganic = arcSite === 'trome' && typeDialog === 'organico'
+  const isTromeOrganic =
+    arcSite === 'trome' &&
+    (typeDialog === 'organico' || typeDialog === 'verify')
 
   const { changeTemplate } = React.useContext(ModalConsumer)
   const [showError, setShowError] = React.useState(false)
