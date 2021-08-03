@@ -1,4 +1,5 @@
 import { useAppContext } from 'fusion:context'
+import { Story } from 'types/story'
 
 import { SITE_DEPOR } from '../../utilities/constants/sitenames'
 
@@ -95,13 +96,15 @@ export const getTitle = ({
 type GetDescriptionProps = {
   siteName: string
   pageNumber: number
+  isStory: boolean
 }
 
 export const getDescription = ({
   siteName,
   pageNumber,
+  isStory,
 }: GetDescriptionProps): string => {
-  const { requestUri } = useAppContext()
+  const { requestUri, arcSite, globalContent } = useAppContext<Story>()
   let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteName}.`
   const metaDescription = getMetaValue('description')
 
@@ -124,5 +127,9 @@ export const getDescription = ({
       }
     }
   }
+  if (isStory && arcSite === 'elcomercio') {
+    description = globalContent?.description?.basic || metaDescription || ''
+  }
+
   return description
 }

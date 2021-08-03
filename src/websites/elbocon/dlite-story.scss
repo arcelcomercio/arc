@@ -40,3 +40,18 @@
   object-fit: cover;
   width: 110px;
 }
+.st-interest {
+  &__link-img {
+    display: none;
+    @media (--tablet) {
+      display: block;
+      object-fit: cover;
+      width: 125px;
+      height: 72px;
+    }
+    @media (--desktop) {
+      width: 298px;
+      height: 167px;
+    }
+  }
+}

@@ -1,18 +1,16 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import schemaFilter from '../../../global-components/featured-story/schema-filter'
-
-import StoryData from '../../../utilities/story-data'
 import { featuredStoryFields } from '../../../utilities/included-fields'
-
-import customFields from './_dependencies/custom-fields'
+import StoryData from '../../../utilities/story-data'
 import FacebookLive from './_children/facebook-live'
+import customFields from './_dependencies/custom-fields'
 
-const CardFeaturedStoryAdvanced = props => {
+const CardFeaturedStoryAdvanced = (props) => {
   const {
     customFields: {
       imageSize,
@@ -20,6 +18,7 @@ const CardFeaturedStoryAdvanced = props => {
       size,
       hightlightOnMobile,
       titleField,
+      authorField,
       categoryField,
       imgField,
       flagLive,
@@ -73,7 +72,7 @@ const CardFeaturedStoryAdvanced = props => {
     ) || {}
 
   const getAdsSpace = () => {
-    const toDate = dateStr => {
+    const toDate = (dateStr) => {
       const [date, time] = dateStr.split(' ')
       const [day, month, year] = date.split('/')
       return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
@@ -122,7 +121,7 @@ const CardFeaturedStoryAdvanced = props => {
             primarySectionLink={primarySectionLink}
             title={title}
             websiteLink={websiteLink}
-            author={author}
+            author={authorField || author}
             authorLink={authorLink}
             multimediaType={multimediaType}
             multimediaCaption={multimediaCaption}
