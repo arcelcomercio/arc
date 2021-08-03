@@ -30,7 +30,7 @@ const ProvechoStoryBanner: React.FC = (props) => {
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
   const presets = 'landscape_md:400x209'
-  const includedFields = `content_restrictions.content_code,websites.${arcSite}.website_url,subheadlines.basic,${includeCredits},${includeCreditsImage},${includePromoItems}, ${includePrimarySection(
+  const includedFields = `content_restrictions.content_code,websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,${includeCredits},${includeCreditsImage},${includePromoItems}, ${includePrimarySection(
     { arcSite }
   )}`
 
