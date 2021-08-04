@@ -79,8 +79,6 @@ const classes = {
   menuRegion: 'nav-region',
   menuRegionL: 'nav-region__link',
   menuRegionI: 'nav-region__icon',
-
-  btnSingwall: 'header-full__btn-signwall bg-black',
 }
 
 @Consumer
@@ -185,16 +183,6 @@ class NavBarDefault extends React.PureComponent {
                   <i className={classes.iconSearch} />
                 </button>
               </form>
-
-              {activeSignwall && arcSite === SITE_DIARIOCORREO && (
-                <button
-                  type="button"
-                  id="signwall-btn-simple"
-                  className={classes.btnSingwall}>
-                  <i className="icon-user title-sm text-white" />
-                  <span className="text-md tertiary-font text-white" />
-                </button>
-              )}
             </div>
 
             {!hideMenu && (
@@ -437,7 +425,7 @@ class NavBarDefault extends React.PureComponent {
                   />
                 )}
 
-                {activeSignwall && arcSite !== SITE_DIARIOCORREO && (
+                {activeSignwall && (
                   <button
                     aria-label="Iniciar"
                     id="signwall-nav-btn"

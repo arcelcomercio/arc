@@ -341,6 +341,15 @@ export default ({
     style === 'story-video' // isStyleBasic || (style === 'story' && true)
 
   const isFonts = isTrivia || isCovid
+
+  const robotsIndex = `${
+    /(\/autor\/)[\w\d-]+\/([0-9]+)\//.test(requestUri) &&
+    !/(\/autor\/)[\w\d-]+\/([1])\//.test(requestUri) &&
+    arcSite === 'trome'
+      ? 'noindex'
+      : 'index'
+  }`
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -358,7 +367,9 @@ export default ({
             }, follow`}
           />
         ) : (
-          <meta name="robots" content="index, follow" />
+          <>
+            <meta name="robots" content={`${robotsIndex}, follow`} />
+          </>
         )}
         {arcSite === 'trome' ? null : (
           <meta name="GOOGLEBOT" content="index follow" />

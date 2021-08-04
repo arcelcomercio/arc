@@ -4,7 +4,6 @@
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 
-import { env } from '../../../../utilities/arc/env'
 import {
   edicionMenu,
   getBtnSignScript,
@@ -129,7 +128,6 @@ const classes = {
   ePais: '__e-pais  p-20',
   eName: '__e-name  p-10',
   eArrow: 'header-full__e-arrow',
-  btnSingwall: 'header-full__btn-signwall',
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -664,6 +662,26 @@ export default ({
                   </>
                 )}
 
+                {activeSignwall && (
+                  <button
+                    aria-label="Iniciar"
+                    id="signwall-nav-btn"
+                    site="elcomercio"
+                    className="flex items-center btn capitalize text-md nav__btn-sign"
+                    type="button">
+                    <i
+                      id="signwall-nav-icon"
+                      className="nav__icon icon-user title-sm text-primary-color"
+                    />
+                    <span
+                      id="signwall-nav-user"
+                      className="capitalize"
+                      aria-hidden="true">
+                      Regístrate
+                    </span>
+                  </button>
+                )}
+
                 {/* <div className={`${classes.newsCinModal}`}>{Newsle}</div> */}
                 <div className={classes.callImg}>
                   <a
@@ -674,15 +692,6 @@ export default ({
                   </a>
                 </div>
               </>
-            )}
-
-            {activeSignwall && (
-              <button
-                type="button"
-                className={`bg-black ${classes.btnSingwall}`}>
-                <i className="icon-user title-sm text-white" />
-                <span className="text-md tertiary-font text-white" />
-              </button>
             )}
 
             {arcSite === 'depor' && (
@@ -748,7 +757,7 @@ export default ({
       {activeSignwall && (
         <script
           dangerouslySetInnerHTML={{
-            __html: getBtnSignScript(env, arcSite),
+            __html: getBtnSignScript,
           }}
         />
       )}

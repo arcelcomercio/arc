@@ -53,7 +53,6 @@ const StaticsResumen2020StoriesList: React.FC<{
             width="36.175"
             height="36.175"
             viewBox="0 0 36.175 36.175">
-            <title>Logo Grupo El Comercio</title>
             <g transform="translate(344.488 -203.631)">
               <path
                 d="M-326.4,239.806a18.087,18.087,0,0,0,18.087-18.088A18.087,18.087,0,0,0-326.4,203.631a18.087,18.087,0,0,0-18.088,18.088A18.088,18.088,0,0,0-326.4,239.806"

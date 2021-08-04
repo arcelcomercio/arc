@@ -185,9 +185,7 @@ const fetch = async ({
     const responseDefult = await request({
       uri: requestUri,
       ...options,
-    }).catch(() => {
-      throw new RedirectError('/404', 404)
-    })
+    }).catch(() => ({}))
     return responseDefult
   }
 
@@ -195,23 +193,20 @@ const fetch = async ({
    * Si se esta buscando por seccion, primero se verifica que la seccion existe.
    * Si la seccino no existe debe devolver 404.
    */
-  const sectionResponse = await request({
+  await request({
     uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${section}`,
     ...options,
-  }).catch(() => {
-    throw new RedirectError('/404', 404)
+  }).catch((err) => {
+    if (err?.statusCode === 404) {
+      throw new RedirectError('/404', 404)
+    }
+    return {}
   })
-
-  if (Object.prototype.hasOwnProperty.call(sectionResponse, 'status')) {
-    throw new Error('Sección no encontrada')
-  }
 
   const responseWithFilter = await request({
     uri: requestUri,
     ...options,
-  }).catch(() => {
-    throw new RedirectError('/404', 404)
-  })
+  }).catch(() => ({}))
 
   return responseWithFilter
 }

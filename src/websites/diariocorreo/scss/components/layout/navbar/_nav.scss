@@ -3,6 +3,10 @@
   &__btn {
     &--section {
       padding-left: 0;
+      span {
+        font-family: $primary-font;
+        font-weight: 400;
+      }
     }
   }
   &__btn-sign {
@@ -22,6 +26,9 @@
   &__search-box {
     border-right: 0;
     order: 1;
+    form {
+      right: 125px;
+    }
   }
   &__container-menu {
     @media (--desktop) {
@@ -34,13 +41,8 @@
       border-right-color: $color-white;
     }
   }
-  &__btn--section {
-    span {
-      font-family: $primary-font;
-      font-weight: 400;
-    }
-  }
-  /*   Estilos para nav loader en notas */
+
+  /* Estilos para nav loader en notas */
   &__loader {
     background-color: transparent;
   }
@@ -80,7 +82,7 @@
     }
     .nav__search-box {
       @media (--desktop) {
-        display: flex;
+        display: block;
         border-right: 0;
         height: auto;
         order: 0;
@@ -109,11 +111,6 @@
     @media (--desktop) {
       max-width: 777px;
       margin-left: 120px;
-    }
-  }
-  &__search-box {
-    form {
-      right: 125px;
     }
   }
 }
