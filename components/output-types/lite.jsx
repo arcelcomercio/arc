@@ -783,7 +783,8 @@ const LiteOutput = ({
         />
         {arcSite === SITE_DEPOR &&
         (storySectionPath?.split('/')[1] === 'futbol-internacional' ||
-          storySectionPath?.split('/')[1] === 'futbol-peruano') ? (
+          storySectionPath?.split('/')[1] === 'futbol-peruano' ||
+          storySectionPath?.split('/')[1] === 'full-deportes') ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
