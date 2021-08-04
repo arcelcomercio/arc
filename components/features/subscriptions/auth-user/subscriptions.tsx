@@ -1,5 +1,6 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import { ValuesOf } from 'types/utils'
 
 import {
   SdksProvider,
@@ -18,22 +19,17 @@ import Loading from '../../signwall/_children/loading'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { SignOrganic } from './_children/Organic'
 
-const COOKIE_NAME = 'signreferer'
-const HARD = 'hard'
-const RELOGIN_EMAIL = 'relogemail'
-const RELOGIN_HASH = 'reloghash'
-const TOKEN_VERIFY = 'verify'
-const RESET_PASSWORD = 'resetpass'
-const ORGANIC = 'organico'
+type ModalType = ValuesOf<Modals>
 
-type ModalType =
-  | typeof COOKIE_NAME
-  | typeof HARD
-  | typeof RELOGIN_EMAIL
-  | typeof RELOGIN_HASH
-  | typeof TOKEN_VERIFY
-  | typeof RESET_PASSWORD
-  | typeof ORGANIC
+enum Modals {
+  CookieName = 'signreferer',
+  Hard = 'hard',
+  ReloginEmail = 'relogemail',
+  ReloginHash = 'reloghash',
+  TokenVerify = 'verify',
+  ResetPassword = 'resetpass',
+  Organic = 'organico',
+}
 
 const AuthUser = () => {
   const { arcSite } = useAppContext()
@@ -46,49 +42,49 @@ const AuthUser = () => {
   React.useEffect(() => {
     const urlRef = window.document.referrer
     if (urlRef && !/facebook.com/.test(urlRef)) {
-      deleteCookie(COOKIE_NAME)
-      setCookie(COOKIE_NAME, urlRef, 365)
+      deleteCookie(Modals.CookieName)
+      setCookie(Modals.CookieName, urlRef, 365)
     }
 
     if (getQuery('signHard') || getQuery('signwallHard')) {
-      setActiveModal(HARD)
-    } else if (getQuery('signEmail') || getQuery('reloginEmail')) {
-      setActiveModal(RELOGIN_EMAIL)
-    } else if (getQuery('signHash') || getQuery('reloginHash')) {
-      setActiveModal(RELOGIN_HASH)
+      setActiveModal(Modals.Hard)
+    } else if (getQuery('signEmail') || getQuery('ReloginEmail')) {
+      setActiveModal(Modals.ReloginEmail)
+    } else if (getQuery('signHash') || getQuery('ReloginHash')) {
+      setActiveModal(Modals.ReloginHash)
     } else if (getQuery('tokenVerify')) {
-      setActiveModal(TOKEN_VERIFY)
+      setActiveModal(Modals.TokenVerify)
     } else if (getQuery('tokenReset')) {
-      setActiveModal(RESET_PASSWORD)
+      setActiveModal(Modals.ResetPassword)
     } else {
-      setActiveModal(ORGANIC)
+      setActiveModal(Modals.Organic)
     }
   }, [])
 
   const closePopUp = () => {
     if (typeof window !== 'undefined') {
-      const cookie = getCookie(COOKIE_NAME)
+      const cookie = getCookie(Modals.CookieName)
       if (cookie && cookie !== '' && !/\/signwall\//.test(cookie)) {
         const URL_CLEAR = cookie.split('?')
-        deleteCookie(COOKIE_NAME)
+        deleteCookie(Modals.CookieName)
         window.location.href = `${URL_CLEAR[0]}?ref=signwall`
       } else {
-        deleteCookie(COOKIE_NAME)
+        deleteCookie(Modals.CookieName)
         window.location.href = '/?ref=signwall'
       }
     }
   }
 
-  const isOrganic = activeModal === ORGANIC
-  const isHard = activeModal === HARD
-  const isReloginEmail = activeModal === RELOGIN_EMAIL
-  const isReloginHash = activeModal === RELOGIN_HASH
-  const isTokenVerify = activeModal === TOKEN_VERIFY
-  const isResetPassword = activeModal === RESET_PASSWORD
+  const isOrganic = activeModal === Modals.Organic
+  const isHard = activeModal === Modals.Hard
+  const isReloginEmail = activeModal === Modals.ReloginEmail
+  const isReloginHash = activeModal === Modals.ReloginHash
+  const isTokenVerify = activeModal === Modals.TokenVerify
+  const isResetPassword = activeModal === Modals.ResetPassword
 
   return (
     <>
-      {identityStatus === SdkStatus.loading ? (
+      {identityStatus === SdkStatus.Loading ? (
         <Loading typeBg="full" />
       ) : (
         <>

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { FC } from 'types/features'
 import { SubsArcSite } from 'types/subscriptions'
+import { ValuesOf } from 'types/utils'
 
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
@@ -24,11 +25,11 @@ import Callout from '../landing/_children/Callout'
 import PageCompany from './_children/Company'
 import PageFaq from './_children/Faq'
 
-type PageOptions = 'faqPage' | 'companyPage'
+type PageOptions = ValuesOf<Pages>
 
-const Pages: Record<'faqs' | 'company', PageOptions> = {
-  faqs: 'faqPage',
-  company: 'companyPage',
+enum Pages {
+  Faqs = 'faqPage',
+  Company = 'companyPage',
 }
 
 type PagesSubscriptionsProps = {
@@ -46,7 +47,7 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
     customFields: {
       callInnCallOut = false,
       btnOnTop = false,
-      pageSubscriptions = Pages.faqs,
+      pageSubscriptions = Pages.Faqs,
     } = {},
   } = props
 
@@ -175,7 +176,7 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
         />
       )}
 
-      {pageSubscriptions === Pages.faqs ? (
+      {pageSubscriptions === Pages.Faqs ? (
         <PageFaq arcSite={arcSite} />
       ) : (
         <PageCompany arcSite={arcSite} contextPath={contextPath} />
@@ -246,13 +247,13 @@ PagesSubscriptions.propTypes = {
       defaultValue: false,
       description: 'Mostrar/Ocultar Botón subir arriba',
     }),
-    pageSubscriptions: PropTypes.oneOf([Pages.faqs, Pages.company]).tag({
+    pageSubscriptions: PropTypes.oneOf([Pages.Faqs, Pages.Company]).tag({
       name: 'Seleccione Página ',
       labels: {
         faqPage: 'Preguntas Frecuentes',
         companyPage: 'Formulario Corporativo',
       },
-      defaultValue: Pages.faqs,
+      defaultValue: Pages.Faqs,
     }),
   }),
 }

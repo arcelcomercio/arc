@@ -3,15 +3,15 @@ import Sales from '@arc-publishing/sdk-sales'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import { SubsArcSite } from 'types/subscriptions'
+import { ValuesOf } from 'types/utils'
 
 import { PropertiesSite } from '../features/subscriptions/_dependencies/Properties'
 
-type StatusOptions = 'error' | 'loading' | 'ready'
-
-const SdkStatus: Record<StatusOptions, StatusOptions> = {
-  error: 'error',
-  loading: 'loading',
-  ready: 'ready',
+type StatusOptions = ValuesOf<SdkStatus>
+enum SdkStatus {
+  Error,
+  Loading,
+  Ready,
 }
 
 type SdksProviderProps = {
@@ -39,7 +39,7 @@ const useSdksContext = (): SdksProviderValue => {
 const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
   const { arcSite } = useAppContext()
   const [value, setValue] = React.useState<SdksProviderValue>({
-    status: SdkStatus.loading,
+    status: SdkStatus.Loading,
   })
 
   const {
@@ -57,7 +57,7 @@ const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
     })
 
     return {
-      status: SdkStatus.ready,
+      status: SdkStatus.Ready,
     }
   }
 
@@ -68,7 +68,7 @@ const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
       })
       .catch((error) => {
         setValue({
-          status: SdkStatus.error,
+          status: SdkStatus.Error,
           error,
         })
       })

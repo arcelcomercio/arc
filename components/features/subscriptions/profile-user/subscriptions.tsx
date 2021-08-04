@@ -102,7 +102,7 @@ const WrapperProfile = () => {
 
   return (
     <div className="sign-profile_general-panel-wrapper" id="profile-signwall">
-      {identityStatus === SdkStatus.loading ? (
+      {identityStatus === SdkStatus.Loading ? (
         <Loading typeBg="full" />
       ) : (
         <>

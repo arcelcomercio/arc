@@ -5,13 +5,13 @@ import {
   deleteQuery,
   // getQuery
 } from '../../../utilities/parse/queries'
+import { formatUsername } from '../../../utilities/subscriptions/identity'
 import Signwall from '../_children/Signwall'
 import { useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { isAuthenticated } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
-import { checkUndefined } from '../_dependencies/Utils'
 
 const styles = {
   wrapper: 'header-payment__content',
@@ -28,13 +28,10 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
 
-  const formatName = () => {
-    const fullName = `${checkUndefined(firstName, 'Usuario')} ${
-      checkUndefined(lastName) || ''
-    } ${checkUndefined(secondLastName) || ''}`
-
-    return fullName.length >= 15 ? `${fullName.substring(0, 15)}...` : fullName
-  }
+  const profileButtonText = userLoaded
+    ? formatUsername(`${firstName} ${lastName} ${secondLastName}`, 15) ||
+      'Usuario'
+    : 'Invitado'
 
   const handleSignwall = () => {
     if (typeof window !== 'undefined') {
@@ -94,7 +91,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
               }
             }}
             type="button">
-            <span>Hola</span> {userLoaded ? formatName() : 'Invitado'}
+            <span>Hola</span> {profileButtonText}
           </button>
         </div>
       </header>

@@ -54,7 +54,7 @@ const Subscription = (): JSX.Element => {
   }
 
   React.useEffect(() => {
-    if (status === SdkStatus.ready) {
+    if (status === SdkStatus.Ready) {
       getListSubs()
     }
   }, [status])
