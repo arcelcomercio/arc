@@ -1,9 +1,15 @@
 /* eslint-disable react/no-children-prop */
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
 
+import { env } from '../../../../utilities/arc/env'
 import { ELEMENT_RAW_HTML } from '../../../../utilities/constants/element-types'
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_PERU21G21,
+} from '../../../../utilities/constants/sitenames'
 import {
   BIG_IMAGE,
   GALLERY_SLIDER,
@@ -49,6 +55,8 @@ const rederStory: React.FC<{
     index,
   } = props
   const trustproject = data?.label?.trustproject
+
+  const { siteProperties } = useAppContext()
 
   const {
     isPremium,
@@ -336,10 +344,38 @@ const rederStory: React.FC<{
       document
         .querySelectorAll('script[src="https://www.tiktok.com/embed.js"]')
         .forEach((e) => e.parentNode?.removeChild(e))
-      window.createScript({
+      createScript({
         src: 'https://www.tiktok.com/embed.js',
         async: true,
       })
+    }
+  }
+
+  const setGalleryStyles = () => {
+    const CURRENT_ENVIRONMENT = env
+    const style = 'dlite-vgallery'
+    if (subtype === GALLERY_VERTICAL) {
+      let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
+      if (CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.${siteProperties.siteDomain}/dist/${arcSite}/css/${style}.css`
+      }
+      if (arcSite === SITE_ELCOMERCIOMAG && CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.mag.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+      }
+      if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
+        styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
+      }
+      styleUrl = deployment(styleUrl)
+      const cssId = 'dlite-vgallery'
+      if (!document.getElementById(cssId)) {
+        const head = document.getElementsByTagName('head')[0]
+        const linkEl = document.createElement('link')
+        linkEl.id = cssId
+        linkEl.rel = 'stylesheet'
+        linkEl.type = 'text/css'
+        linkEl.href = styleUrl
+        head.appendChild(linkEl)
+      }
     }
   }
 
@@ -355,6 +391,7 @@ const rederStory: React.FC<{
     checkInstagramScript()
     ckeckTikTokScript()
     jsSpacesAds()
+    setGalleryStyles()
   }, [contentElements])
 
   return (
