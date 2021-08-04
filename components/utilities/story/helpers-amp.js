@@ -18,10 +18,8 @@ export const publicidadAmp = ({
   width,
   height,
   primarySectionLink = '/peru',
-  movil1 = '',
   arcSite = '',
   prebidSlot = '',
-  size = '320x100',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -48,10 +46,8 @@ export const publicidadAmpAd = ({
   width,
   height,
   primarySectionLink = '/peru',
-  movil1 = '',
   arcSite = '',
   prebidSlot = '',
-  size = '320x100,320x50,300x1',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
