@@ -35,6 +35,10 @@
   }
   &__title-link {
     font: 700 22px/27px $primary-font;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
   }
   &__category {
     @media (--only-mobile) {
