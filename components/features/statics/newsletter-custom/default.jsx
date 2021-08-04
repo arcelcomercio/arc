@@ -1,27 +1,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { PureComponent } from 'react'
 import Consumer from 'fusion:consumer'
 import { NEWSLETTER_API, NEWSLETTER_COVID19_API } from 'fusion:environment'
+import React, { PureComponent } from 'react'
 
-import customFieldsExtern from './_dependencies/custom-fields'
 import NewsletterChild from './_children/newsletter'
+import customFieldsExtern from './_dependencies/custom-fields'
 import Data from './_dependencies/data'
 
 @Consumer
 class Newsletter extends PureComponent {
   main = {
-    initData: () => {
-      return {
-        email: '',
-        tos: 0,
-        submitForm: false,
-        disbutton: false,
-        confirmRegister: false,
-        formMessage: '',
-      }
-    },
-    suscription: data => {
-      const dataRequest = params => {
+    initData: () => ({
+      email: '',
+      tos: 0,
+      submitForm: false,
+      disbutton: false,
+      confirmRegister: false,
+      formMessage: '',
+    }),
+    suscription: (data) => {
+      const dataRequest = (params) => {
         const {
           siteProperties: { newsletterBrand = '' },
         } = this.props
@@ -36,7 +34,7 @@ class Newsletter extends PureComponent {
         return Object.assign(params, dataBody)
       }
 
-      const messageApi = response => {
+      const messageApi = (response) => {
         let msg = ''
         if (
           response &&
@@ -48,9 +46,7 @@ class Newsletter extends PureComponent {
         return msg
       }
 
-      const successApi = response => {
-        return response && response.status !== false
-      }
+      const successApi = (response) => response && response.status !== false
 
       const {
         customFields: { isActiveApiCovid19 },
@@ -65,12 +61,12 @@ class Newsletter extends PureComponent {
           'Content-Type': 'application/json',
         },
       })
-        .catch(error => error)
-        .then(response => {
+        .catch((error) => error)
+        .then((response) => {
           let confirmRegister = false
           let formMessage = 'Error'
           if (response && response.ok) {
-            response.json().then(json => {
+            response.json().then((json) => {
               // confirmRegister = json.success
               // formMessage = json.message
               confirmRegister = successApi(json)
@@ -80,14 +76,14 @@ class Newsletter extends PureComponent {
           } else this.setState({ confirmRegister, formMessage })
         })
     },
-    email: event => {
+    email: (event) => {
       event.preventDefault()
       this.setState({ email: event.target.value })
     },
-    tos: event => {
+    tos: (event) => {
       this.setState({ tos: event.target.checked ? 1 : 0 })
     },
-    save: event => {
+    save: (event) => {
       if (this.validation.form()) this.main.suscription(this.state)
       event.preventDefault()
     },
@@ -100,16 +96,12 @@ class Newsletter extends PureComponent {
   }
 
   validation = {
-    isValidEmail: email => {
+    isValidEmail: (email) => {
       const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
       return emailValid
     },
-    isEmpty: val => {
-      return val.trim() === ''
-    },
-    isChecked: check => {
-      return check === 1
-    },
+    isEmpty: (val) => val.trim() === '',
+    isChecked: (check) => check === 1,
     email: {
       hasError: () => {
         const { email } = this.state
@@ -169,6 +161,7 @@ class Newsletter extends PureComponent {
       urlPrivacyPolicies: data.urlPrivacyPolicies
         ? data.urlPrivacyPolicies
         : '/politica-de-privacidad/',
+      UrlMoreNews: data.UrlMoreNews,
       features: this.main,
       validation: this.validation,
       submitForm,
