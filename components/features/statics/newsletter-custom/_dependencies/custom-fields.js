@@ -14,11 +14,15 @@ const customFields = PropTypes.shape({
     defaultValue:
       'Te enviaremos el mejor contenido. Escribe tu correo electrónico y dale clic a  "Recibir"',
   }),
-  urlTos: PropTypes.string.isRequired.tag({
+  urlTos: PropTypes.string.tag({
     name: 'URL de términos y condiciones',
   }),
-  urlPrivacyPolicies: PropTypes.string.isRequired.tag({
+  urlPrivacyPolicies: PropTypes.string.tag({
     name: 'URL de políticas de privacidad',
+  }),
+  UrlMoreNews: PropTypes.string.tag({
+    name: 'URL de más newsletter +',
+    description: 'Solo esta para gestion',
   }),
   colorButton: PropTypes.string.tag({
     name: 'Color del boton',

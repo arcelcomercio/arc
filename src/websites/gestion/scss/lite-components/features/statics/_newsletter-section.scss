@@ -39,6 +39,7 @@
     &__section {
       font-size: 24px;
       width: initial;
+      font-family: $primary-font;
       @media (--desktop) {
         width: min-content;
       }
@@ -49,6 +50,7 @@
       line-height: 1;
       padding: 10px;
       text-align: center;
+      font-family: $secondary-font;
       @media (--desktop) {
         max-width: 420px;
         text-align: initial;
@@ -83,6 +85,7 @@
       border-radius: 5px;
       border: none;
       max-width: initial;
+      font-family: $secondary-font;
       @media (--desktop) {
         max-width: 120px;
         height: 42px;
@@ -101,6 +104,7 @@
       color: #8f7868;
       margin-left: 5px;
       max-width: 240px;
+      font-family: $secondary-font;
       @media (--desktop) {
         max-width: none;
       }
@@ -139,6 +143,7 @@
         align-items: center;
         justify-content: space-evenly;
         width: 135px;
+        font-family: $secondary-font;
         @media (--desktop) {
           text-align: left;
         }
