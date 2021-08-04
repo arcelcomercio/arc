@@ -51,6 +51,7 @@ module.exports = {
         ],
       },
     ],
+    '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/comma-dangle': 'off',
     'react/jsx-filename-extension': 'off',

@@ -1,29 +1,25 @@
 import { OPTA_WIDGET } from '../constants/opta'
 import {
-  SITE_PERU21,
-  SITE_ELCOMERCIO,
-  SITE_TROME,
   SITE_DEPOR,
-  SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELBOCON,
+  SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_PERU21,
+  SITE_TROME,
 } from '../constants/sitenames'
 
-const createMarkup = (html) => {
-  return {
-    __html: html,
-  }
-}
+const createMarkup = (html) => ({
+  __html: html,
+})
 
 export const publicidadAmp = ({
   dataSlot,
   width,
   height,
   primarySectionLink = '/peru',
-  movil1 = '',
   arcSite = '',
   prebidSlot = '',
-  size = '320x100'
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -33,16 +29,15 @@ export const publicidadAmp = ({
     ''
   const prebidAmp =
     (SITE_PERU21 === arcSite &&
-      prebidSlot != '' &&
+      prebidSlot &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
 
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
   if (secctionPrimary[1] !== 'respuestas') {
-    resultData = `
-    <amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
-    data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`  
+    resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+    data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -51,10 +46,8 @@ export const publicidadAmpAd = ({
   width,
   height,
   primarySectionLink = '/peru',
-  movil1 = '',
   arcSite = '',
   prebidSlot = '',
-  size = '320x100,320x50,300x1'
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -63,7 +56,8 @@ export const publicidadAmpAd = ({
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
   const prebidAmp =
-    (prebidSlot != '' &&
+    (SITE_PERU21 === arcSite &&
+      prebidSlot &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
 
@@ -71,7 +65,7 @@ export const publicidadAmpAd = ({
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
-    data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`  
+  data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -87,7 +81,7 @@ export const publicidadAmpMovil0 = ({
     ''
   const prebidAmp =
     (SITE_PERU21 === arcSite &&
-      prebidSlot != '' &&
+      prebidSlot &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
@@ -111,7 +105,7 @@ export const publicidadAmpCaja1 = ({
   let resultData = ''
   const prebidAmp =
     (SITE_PERU21 === arcSite &&
-      prebidSlot != '' &&
+      prebidSlot &&
       `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
     ''
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
@@ -581,9 +575,8 @@ export const youtubeHtmlLegacy = (html) => {
 /**
  * @deprecated esta funcion por ahora no se esta usando
  */
-export const replaceHtmlMigracion = (html) => {
-  return html.replace(/<figure.*http:\/\/cms.minoticia.*<\/figure>/g, '')
-}
+export const replaceHtmlMigracion = (html) =>
+  html.replace(/<figure.*http:\/\/cms.minoticia.*<\/figure>/g, '')
 
 export const instagramHtml = (html) => {
   if (html.indexOf('instagram.com') === -1) return html
