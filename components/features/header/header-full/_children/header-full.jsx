@@ -156,11 +156,11 @@ export default ({
   const { requestUri, siteProperties } = useAppContext()
   const { activeSignwall } = siteProperties || {}
   const isMexico = /^\/mexico\//.test(requestUri)
-  const isDeporPlay = /^\/depor-play\//.test(requestUri)
   const isColombia = /^\/colombia\//.test(requestUri)
   const countryName = isMexico ? 'MX' : isColombia ? 'CO' : 'PE'
   // const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
+  const isDeporPlay = /^\/depor-play\//.test(requestUri)
   const edittion = (cName, opcion = '', has = true) => (
     <>
       <div className={`${cName}${classes.eBody} ${opcion} `}>
