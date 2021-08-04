@@ -94,9 +94,8 @@ const Profile = () => {
 
   const isFacebook = email && email.indexOf('facebook.com') >= 0
 
-  const getPLanSelected = plans.reduce(
-    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
-    null
+  const selectedPlan = plans.find(
+    (plan) => plan.priceCode === userPlan.priceCode
   )
 
   const {
@@ -106,7 +105,7 @@ const Profile = () => {
     priceCode,
     name: namePlanApi,
     productName,
-  } = getPLanSelected || {}
+  } = selectedPlan || {}
 
   React.useEffect(() => {
     window.scrollTo(0, 0)

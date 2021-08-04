@@ -67,12 +67,11 @@ const Confirmation = () => {
   const [cipLink, setCipLink] = React.useState(null)
 
   const getCipPayEfectivo = () => {
-    const getPLanSelected = plans.reduce(
-      (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
-      null
+    const selectedPlan = plans.find(
+      (plan) => plan.priceCode === userPlan.priceCode
     )
 
-    const { amount, priceCode, name } = getPLanSelected || {}
+    const { amount, priceCode, name } = selectedPlan || {}
 
     const getUtcDate = new Date(dateTime.getTime() - 300 * 60000)
     const set24Hours = new Date(

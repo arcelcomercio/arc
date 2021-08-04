@@ -102,22 +102,17 @@ class Subs extends Component {
 
     fetched.then((resCam) => {
       if (this._isMounted && typeof resCam === 'object') {
-        const getPLanSelected = resCam.plans.reduce(
-          (prev, plan) => (plan.description.checked ? plan : prev),
-          {}
+        const selectedPlan = resCam.plans.find(
+          (plan) => plan.description.checked
         )
+
+        const { amount, description } = selectedPlan || {}
 
         this.setState({
           paywallName: resCam.name || 'Plan',
-          paywallPrice: getPLanSelected.amount || '-',
-          paywallTitle:
-            (getPLanSelected.description &&
-              getPLanSelected.description.title) ||
-            '-',
-          paywallDesc:
-            (getPLanSelected.description &&
-              getPLanSelected.description.description) ||
-            '-',
+          paywallPrice: amount || '-',
+          paywallTitle: description?.title || '-',
+          paywallDesc: description?.description || '-',
         })
       }
     })

@@ -94,13 +94,11 @@ const Pay = () => {
       ? allowedDomainsPagoEfectivo?.includes(email.split('@')[1])
       : true
 
-  const getPLanSelected = plans.reduce(
-    (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
-    null
+  const selectedPlan = plans.find(
+    (plan) => plan.priceCode === userPlan.priceCode
   )
 
-  const { amount, sku, billingFrequency, priceCode, name } =
-    getPLanSelected || {}
+  const { amount, sku, billingFrequency, priceCode, name } = selectedPlan || {}
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
