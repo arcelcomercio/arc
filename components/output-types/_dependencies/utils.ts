@@ -39,6 +39,13 @@ export const getIsStory = (): boolean => {
   )
 }
 
+export const getSectionPath = (): string => {
+  const { requestUri } = useAppContext()
+  const path = requestUri.replace('/carga-continua', '').split('?')[0]
+  const sectionList = path.split('/').slice(1)
+  return sectionList[0]
+}
+
 export const skipAdvertising = (data: { slug: string }[] = []): boolean =>
   data.some(({ slug }) => slug === 'noads')
 

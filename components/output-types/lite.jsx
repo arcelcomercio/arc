@@ -45,6 +45,7 @@ import {
   getDescription,
   getIsStory,
   getKeywords,
+  getSectionPath,
   getTitle,
 } from './_dependencies/utils'
 import vallaScript from './_dependencies/valla'
@@ -280,6 +281,7 @@ const LiteOutput = ({
     arcEnv: CURRENT_ENVIRONMENT,
     getdata: new Date().toISOString().slice(0, 10),
   }
+  const sectionAds = getSectionPath({ requestUri })
 
   const premiumValue = getPremiumValue === PREMIUM ? true : getPremiumValue
   const isPremiumFree = premiumValue === FREE ? 2 : premiumValue
@@ -477,7 +479,7 @@ const LiteOutput = ({
           contentCode={contentCode}
           siteProperties={siteProperties}
           arcSite={arcSite}
-          section={storySectionPath.split('/')[1]}
+          section={sectionAds}
           subtype={subtype}
         />
         {arcSite === SITE_ELBOCON ? (
@@ -814,9 +816,9 @@ const LiteOutput = ({
           }
         />
         {arcSite === SITE_DEPOR &&
-        (storySectionPath?.split('/')[1] === 'futbol-internacional' ||
-          storySectionPath?.split('/')[1] === 'futbol-peruano' ||
-          storySectionPath?.split('/')[1] === 'full-deportes') ? (
+        (sectionAds === 'futbol-internacional' ||
+          sectionAds === 'futbol-peruano' ||
+          sectionAds === 'full-deportes') ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
