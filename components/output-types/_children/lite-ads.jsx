@@ -370,7 +370,9 @@ window.addEventListener('load', function liteAds() {
   return (
     <>
       {arcSite === 'depor' &&
-      (section === 'futbol-internacional' || section === 'futbol-peruano') ? (
+      (section === 'futbol-internacional' ||
+        section === 'futbol-peruano' ||
+        section === 'full-deportes') ? (
         <>
           {!(
             arcSite === 'depor' &&
