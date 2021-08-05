@@ -35,22 +35,22 @@ const styles = {
 }
 
 const PaywallTracking = ({
-  userId,
-  orderNumber,
+  uuid,
+  arc_order,
 }: {
-  userId: string
-  orderNumber: string
+  uuid: string
+  arc_order: string
 }) => {
   useContent({
     source: 'paywall-tracking',
     query: {
-      referrerUser: getSessionStorage('paywall_last_url') || '',
-      confirmUser: getSessionStorage('paywall_confirm_subs') || '3',
-      originUser: getSessionStorage('paywall_type_modal') || 'organico',
-      isPwaUser: PWA.isPWA() ? '1' : '2',
-      userAgentClient: getUserAgent,
-      userId,
-      orderNumber,
+      url_referer: getSessionStorage('paywall_last_url') || '',
+      confirm_subscription: getSessionStorage('paywall_confirm_subs') || '3',
+      medium: getSessionStorage('paywall_type_modal') || 'organico',
+      is_pwa: PWA.isPWA() ? '1' : '2',
+      user_agent: getUserAgent,
+      uuid,
+      arc_order,
     },
   })
 
@@ -279,7 +279,7 @@ const Confirmation = (): JSX.Element => {
       ) : null}
 
       {sendTracking && userProfile && orderNumber ? (
-        <PaywallTracking userId={userProfile.uuid} orderNumber={orderNumber} />
+        <PaywallTracking uuid={userProfile.uuid} arc_order={orderNumber} />
       ) : null}
 
       <ul className={styles.step}>
