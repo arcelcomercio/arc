@@ -4,17 +4,15 @@ import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
-import { FC } from 'types/features'
 import { PaywallCampaign, UserDocumentType } from 'types/subscriptions'
 
-import { SdksProvider } from '../../../contexts/subscriptions-sdks'
-import useSentry from '../../../hooks/useSentry'
-import { isProd } from '../../../utilities/arc/env'
-import { AuthProvider, useAuthContext } from '../_context/auth'
-import { PropertiesCommon } from '../_dependencies/Properties'
-import { docPatterns, maskDocuments } from '../_dependencies/Regex'
-import { subDniToken } from '../_dependencies/Services'
-import useForm from '../_hooks/useForm'
+import useSentry from '../../../../../hooks/useSentry'
+import { isProd } from '../../../../../utilities/arc/env'
+import { useAuthContext } from '../../../_context/auth'
+import { PropertiesCommon } from '../../../_dependencies/Properties'
+import { docPatterns, maskDocuments } from '../../../_dependencies/Regex'
+import { subDniToken } from '../../../_dependencies/Services'
+import useForm from '../../../_hooks/useForm'
 
 const styles = {
   wrapper: 'validate__grid wrapper-buy',
@@ -144,7 +142,7 @@ export const SubscriptionsValidateDNI = (): JSX.Element => {
   return (
     <>
       {!freeAccess && !printedSubscriber && (userStep === 1 || userStep === 2) && (
-        <footer className="validate" id="validate">
+        <section className="validate" id="validate">
           <div className={styles.wrapper}>
             <>
               <div className={styles.info}>
@@ -218,18 +216,10 @@ export const SubscriptionsValidateDNI = (): JSX.Element => {
               </div>
             </>
           </div>
-        </footer>
+        </section>
       )}
     </>
   )
 }
 
-const SubscriptionsValidateDNIContainer: FC = () => (
-  <SdksProvider>
-    <AuthProvider>
-      <SubscriptionsValidateDNI />
-    </AuthProvider>
-  </SdksProvider>
-)
-
-export default SubscriptionsValidateDNIContainer
+export default SubscriptionsValidateDNI
