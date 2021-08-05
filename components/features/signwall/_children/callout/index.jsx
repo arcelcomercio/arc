@@ -10,7 +10,7 @@ import useForm from '../../../subscriptions/_hooks/useForm'
 import { Input } from '../forms/control_input_select'
 import { Close, MsgRegister } from '../icons'
 
-const CallOut = ({ onClose, noBtnClose }) => {
+const CallOut = ({ onClose, noBtnClose = false }) => {
   const [showConfirmCall, setShowConfirmCall] = useState(false)
   const [showRepeatCall, setShowRepeatCall] = useState(false)
   const [showErrorCall, setShowErrorCall] = useState(false)

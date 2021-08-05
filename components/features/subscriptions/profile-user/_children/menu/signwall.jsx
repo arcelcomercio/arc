@@ -1,14 +1,14 @@
+import Identity from '@arc-publishing/sdk-identity'
+import Sales from '@arc-publishing/sdk-sales'
 import md5 from 'crypto-js/md5'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { getOriginAPI } from '../../../../signwall/_dependencies/domains'
-import { ModalConsumer } from '../../../_context/modal'
-import {
-  deleteCookie,
-  deleteCookieDomain,
-} from '../../../_dependencies/Cookies'
-import { getUserName, isAuthenticated } from '../../../_dependencies/Session'
+import { deleteCookie } from '../../../../../utilities/client/cookies'
+import { SITE_ELCOMERCIO } from '../../../../../utilities/constants/sitenames'
+import { formatUsername } from '../../../../../utilities/subscriptions/identity'
+import { useModalContext } from '../../../_context/modal'
+import { isAuthenticated } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 
 const MenuSignwall = ({ handleMenu }) => {
@@ -17,11 +17,12 @@ const MenuSignwall = ({ handleMenu }) => {
       signwall: { mainColorBr, mainColorLink },
       activePaywall,
       activeNewsletter,
+      siteDomain,
     },
     arcSite,
   } = useAppContext() || {}
 
-  const { userProfile } = React.useContext(ModalConsumer)
+  const { userProfile } = useModalContext()
   const { firstName, lastName, email, identities } = userProfile || {}
   const [identitie = { type: 'Password' }] = identities || []
   const [usernameid = { userName: '' }] = identities || []
@@ -30,41 +31,37 @@ const MenuSignwall = ({ handleMenu }) => {
   const emailHash = md5(email).toString()
 
   const closeSession = () => {
-    if (typeof window !== 'undefined') {
-      deleteCookie('arc_e_id')
-      deleteCookie('mpp_sess')
-      deleteCookieDomain('ArcId.USER_INFO', arcSite)
-      deleteCookie('EcoId.REQUEST_STUDENTS')
+    deleteCookie('arc_e_id')
+    deleteCookie('mpp_sess')
+    deleteCookie('ArcId.USER_INFO', siteDomain)
+    deleteCookie('EcoId.REQUEST_STUDENTS')
 
-      const isSubs =
-        window.location.pathname.indexOf('suscripciones') >= 0 || false
-      window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
-      window.Identity.apiOrigin = getOriginAPI(arcSite)
-      window.Identity.logout()
-        .then(() => {
-          if (isSubs || activePaywall) {
-            if (window.Sales) window.Sales.subscriptions = []
-          }
-          Taggeo(`Web_Sign_Wall_General`, `web_swg_link_cerrarsesion`)
-          window.location.href = document.referrer ? document.referrer : '/'
-        })
-        .catch(() => {
-          window.location.reload()
-        })
-    }
+    const isSubs =
+      window.location.pathname.indexOf('suscripciones') >= 0 || false
+    window.sessionStorage.removeItem('ArcId.USER_STEP') // Borrar step nueva landing de compra
+
+    Identity.logout()
+      .then(() => {
+        if (isSubs || activePaywall) {
+          Sales.subscriptions = []
+        }
+        Taggeo(`Web_Sign_Wall_General`, `web_swg_link_cerrarsesion`)
+        window.location.href = document.referrer ? document.referrer : '/'
+      })
+      .catch(() => {
+        window.location.reload()
+      })
   }
 
   const openItemMenu = (item) => {
-    if (typeof window !== 'undefined') {
-      if (isAuthenticated()) {
-        if (arcSite === 'elcomercio' && item === 'news') {
-          window.open('/newsletters', '_blank')
-        } else {
-          handleMenu(item)
-        }
+    if (isAuthenticated()) {
+      if (arcSite === SITE_ELCOMERCIO && item === 'news') {
+        window.open('/newsletters', '_blank')
       } else {
-        window.location.href = '/?ref=signwall'
+        handleMenu(item)
       }
+    } else {
+      window.location.href = '/?ref=signwall'
     }
   }
 
@@ -85,7 +82,7 @@ const MenuSignwall = ({ handleMenu }) => {
       </div>
       <div className="sign-profile_menu-wrapper">
         <h1 className="hello" id="name-user-profile">
-          Hola {getUserName(firstName, lastName)}
+          Hola {formatUsername(`${firstName} ${lastName}`, 17)}
         </h1>
         <p className="welcome">Bienvenido a tu perfil</p>
         <div className="cont-menu">

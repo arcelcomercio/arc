@@ -198,6 +198,7 @@ export default ({
 
           {`${has ? 'MX (México)' : 'México'}`}
         </a>
+        {/*
         <a className={`${cName}${classes.ePais}`} href="/colombia/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -212,6 +213,7 @@ export default ({
 
           {`${has ? 'CO (Colombia)' : 'Colombia'}`}
         </a>
+        */}
       </div>
     </>
   )

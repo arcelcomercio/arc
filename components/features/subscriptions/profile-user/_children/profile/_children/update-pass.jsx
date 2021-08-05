@@ -1,13 +1,12 @@
 /* eslint-disable react/no-string-refs */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-
+import Identity from '@arc-publishing/sdk-identity'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
 import { Close } from '../../../../../signwall/_children/icons'
 import { Modal } from '../../../../../signwall/_children/modal/index'
-import { getOriginAPI } from '../../../../../signwall/_dependencies/domains'
 import FormValid from '../../../../../signwall/_dependencies/form-valid'
 import {
   mediumRegularExp,
@@ -36,8 +35,6 @@ class UpdatePassword extends Component {
       },
       sending: true,
     }
-    const { arcSite } = this.props
-    this.origin_api = getOriginAPI(arcSite)
   }
 
   handleChangePassword = (e) => {
@@ -124,8 +121,7 @@ class UpdatePassword extends Component {
     if (typeof window !== 'undefined' && formErrorsConfirm.oldPassword === '') {
       this.setState({ sending: false })
 
-      window.Identity.apiOrigin = this.origin_api
-      window.Identity.updatePassword(oldPassword, newPassword)
+      Identity.updatePassword(oldPassword, newPassword)
         .then(() => {
           this.setState({
             newPassword: null,

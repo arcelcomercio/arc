@@ -4,7 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import Loading from '../../../../signwall/_children/loading'
-import { AuthContext } from '../../../_context/auth'
+import { useAuthContext } from '../../../_context/auth'
 import { PropertiesSite } from '../../../_dependencies/Properties'
 import PWA from '../../../_dependencies/Pwa'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
@@ -40,7 +40,7 @@ const PaywallCIP = (data) => {
     error,
   } = result
 
-  const { userPeriod, userPeOption } = React.useContext(AuthContext)
+  const { userPeriod, userPeOption } = useAuthContext()
 
   React.useEffect(() => {
     if (status) {
@@ -120,9 +120,7 @@ const PagoEfectivo = () => {
     }) || {}
   const { data: { token = '' } = {}, error = '' } = result
 
-  const { updateStep, userPeriod, userPlan, userProfile } = React.useContext(
-    AuthContext
-  )
+  const { updateStep, userPeriod, userPlan, userProfile } = useAuthContext()
 
   const {
     uuid,

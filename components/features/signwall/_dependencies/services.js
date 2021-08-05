@@ -23,10 +23,10 @@ export const loginFBeco = (URL, username, accessToken, type) => {
 }
 
 export const getUbigeo = (item) => {
-  const response = new Promise((resolve) => {
-    fetch(
-      `${getUrlECOID}/get_ubigeo/${item}?v=${new Date().getTime()}`
-    ).then((res) => resolve(res.json()))
+  const response = new Promise((resolve, reject) => {
+    fetch(`${getUrlECOID}/get_ubigeo/${item}?v=${new Date().getTime()}`)
+      .then((res) => resolve(res.json()))
+      .catch((err) => reject(err))
   })
   return response
 }

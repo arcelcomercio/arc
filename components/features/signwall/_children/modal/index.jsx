@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { SITE_TROME } from '../../../../utilities/constants/sitenames'
 import Portal from '../../../subscriptions/_children/modal/portal'
 
 const HIDE_SCROLL = 'overflow-hidden'
@@ -17,7 +18,7 @@ const Modal = ({ bgColor, position, size, children, arcSite }) => {
     window.document.getElementsByTagName('head')[0].appendChild(meta)
   }
 
-  const isTrome = arcSite === 'trome'
+  const isTrome = arcSite === SITE_TROME
 
   const isSafari = () => {
     if (typeof window !== 'undefined') {

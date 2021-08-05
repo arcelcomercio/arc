@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import Identity from '@arc-publishing/sdk-identity'
 import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
-import { setCookie } from '../../../subscriptions/_dependencies/Cookies'
+import { setCookie } from '../../../../utilities/client/cookies'
+import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
   formatPass,
@@ -12,11 +13,7 @@ import getCodeError, {
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import {
-  dataTreatment,
-  getOriginAPI,
-  PolicyPrivacy,
-} from '../../_dependencies/domains'
+import { dataTreatment, PolicyPrivacy } from '../../_dependencies/domains'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
@@ -33,7 +30,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
   } = useAppContext() || {}
 
   const { typeDialog, onClose, onLogged, onLoggedFail } = attributes
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showStudents, setShowStudents] = React.useState(false)
@@ -64,14 +61,12 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
       `web_sw${typeDialog[0]}_login_boton_ingresar`
     )
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.login(lemail, lpass, {
+    Identity.login(lemail, lpass, {
       rememberMe: true,
       cookie: true,
     })
       .then(() => {
-        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-        window.Identity.getUserProfile().then((profile) => {
+        Identity.getUserProfile().then((profile) => {
           if (!profile.emailVerified && profile.displayName === profile.email) {
             setShowError(getCodeError('130051'))
             setShowVerify(true)
@@ -81,8 +76,8 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
             )
             window.localStorage.removeItem('ArcId.USER_INFO')
             window.localStorage.removeItem('ArcId.USER_PROFILE')
-            window.Identity.userProfile = null
-            window.Identity.userIdentity = {}
+            Identity.userProfile = null
+            Identity.userIdentity = {}
           } else {
             setCookie('arc_e_id', sha256(profile.email).toString(), 365)
             onLogged(profile) // para hendrul
@@ -140,7 +135,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(lemail)
+    Identity.requestVerifyEmail(lemail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_login_reenviar_correo`

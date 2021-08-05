@@ -1,9 +1,11 @@
+import Identity from '@arc-publishing/sdk-identity'
 import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
 
-import { getCookie, setCookie } from '../../subscriptions/_dependencies/Cookies'
-import { getQuery } from '../../subscriptions/_dependencies/QueryString'
+import { SdksProvider } from '../../../contexts/subscriptions-sdks'
+import { getCookie, setCookie } from '../../../utilities/client/cookies'
+import { getQuery } from '../../../utilities/parse/queries'
 import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
 import {
   getOriginAPI,
@@ -35,25 +37,21 @@ class SignwallComponent extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { siteProperties, arcSite } = this.props
-    if (typeof window !== 'undefined' && window.Identity) {
-      const apiOrigin = getOriginAPI(arcSite)
-      window.Identity.options({ apiOrigin })
+    const { siteProperties } = this.props
 
-      const fpPromise = FingerprintJS.load()
-      fpPromise
-        .then((fp) => fp.get())
-        .then((result) => {
-          setCookie('gecdigarc', result.visitorId, 365)
-          console.log({ result })
-        })
-        .catch((error) => {
-          console.error(
-            'Ha ocurrido un error al crear la cookie - gecdigarc: ',
-            error
-          )
-        })
-    }
+    const fpPromise = FingerprintJS.load()
+    fpPromise
+      .then((fp) => fp.get())
+      .then((result) => {
+        setCookie('gecdigarc', result.visitorId, 365)
+        console.log({ result })
+      })
+      .catch((error) => {
+        console.error(
+          'Ha ocurrido un error al crear la cookie - gecdigarc: ',
+          error
+        )
+      })
 
     window.requestIdle(() => {
       this.checkUserName()
@@ -143,11 +141,11 @@ class SignwallComponent extends React.PureComponent {
             ? dataContSec.getAttribute('content')
             : 'none',
 
-        userName: W.Identity.userIdentity.uuid || null,
-        jwt: W.Identity.userIdentity.accessToken || null,
+        userName: Identity.userIdentity.uuid || null,
+        jwt: Identity.userIdentity.accessToken || null,
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
-          if (W.Identity.userIdentity.accessToken) {
+          if (Identity.userIdentity.accessToken) {
             return this.getListSubs().then((p) => {
               const isLoggedInSubs = this.checkSession()
               return {
@@ -180,8 +178,7 @@ class SignwallComponent extends React.PureComponent {
 
   getListSubs() {
     const { arcSite } = this.props
-    const W = window
-    return W.Identity.extendSession().then((resExt) => {
+    return Identity.extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
           if (res.skus) {
@@ -191,7 +188,7 @@ class SignwallComponent extends React.PureComponent {
           }
           return []
         })
-        .catch((err) => W.console.error(err))
+        .catch((err) => window.console.error(err))
 
       return checkEntitlement
     })
@@ -376,4 +373,10 @@ class SignwallComponent extends React.PureComponent {
   }
 }
 
-export default SignwallComponent
+const SignwallComponentContainer = () => (
+  <SdksProvider>
+    <SignwallComponent />
+  </SdksProvider>
+)
+
+export default SignwallComponentContainer

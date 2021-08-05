@@ -49,7 +49,7 @@ export const TagsAdsMurai = (obj, path) => {
 /**
  * @typedef {object} EventCategoryOpts
  * @property {(1|2|3)} step
- * @property {"winback"} [event]
+ * @property {string} [event]
  * @property {boolean} [hasPrint] - Indica si el usuario tiene suscripción impresa
  * @property {string} plan - Plan por defecto
  * @property {boolean} [cancel] - Plan por defecto
