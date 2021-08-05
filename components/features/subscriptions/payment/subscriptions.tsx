@@ -8,8 +8,6 @@ import { PaywallCampaign, SubsArcSite } from 'types/subscriptions'
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
 import Loading from '../../signwall/_children/loading'
-import Footer from '../footer/subscriptions'
-import { SubscriptionsValidateDNI } from '../validate-dni/subscriptions'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
@@ -24,6 +22,8 @@ import {
 } from '../_layouts/containers'
 import HeaderSubs from '../_layouts/header'
 import scriptsPayment from '../_scripts/Payment'
+import Footer from '../footer/subscriptions'
+import PrintUserValidator from './_children/print-user-validator'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
 import customFields from './_dependencies/custom-fields'
@@ -38,17 +38,11 @@ const arcType = 'payment'
 type SubscriptionsPaymentProps = {
   customFields?: {
     disableInlineFooter?: boolean
-    disableInlineDNI?: boolean
   }
 }
 
 const Component: React.FC<SubscriptionsPaymentProps> = (props) => {
-  const {
-    customFields: {
-      disableInlineFooter = false,
-      disableInlineDNI = false,
-    } = {},
-  } = props
+  const { customFields: { disableInlineFooter = false } = {} } = props
 
   const {
     arcSite,
@@ -141,7 +135,7 @@ const Component: React.FC<SubscriptionsPaymentProps> = (props) => {
           </PanelRight>
         </Wrapper>
       </Container>
-      {!freeAccess && !disableInlineDNI ? <SubscriptionsValidateDNI /> : null}
+      {!freeAccess ? <PrintUserValidator /> : null}
       {disableInlineFooter ? null : <Footer customFields={{ type: arcType }} />}
       <script
         dangerouslySetInnerHTML={{
