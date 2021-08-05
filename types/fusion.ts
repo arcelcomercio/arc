@@ -1,6 +1,5 @@
 import type { SiteProperties } from 'types/properties'
-
-type AnyObject = Record<string, unknown>
+import type { AnyObject } from 'types/utils'
 
 export interface UseContentConfig<Query = AnyObject> {
   source?: string

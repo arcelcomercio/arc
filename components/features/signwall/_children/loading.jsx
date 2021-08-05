@@ -2,7 +2,7 @@ import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 import Portal from '../../subscriptions/_children/modal/portal'
 import { LoadingEco, LoadingGes, LoadingP21 } from './icons'
 

@@ -1,16 +1,17 @@
+import Identity from '@arc-publishing/sdk-identity'
 import * as React from 'react'
 
-import Signwall from '../_children/Signwall'
-import { AuthContext } from '../_context/auth'
-import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
-import PWA from '../_dependencies/Pwa'
 import {
   deleteQuery,
   // getQuery
-} from '../_dependencies/QueryString'
+} from '../../../utilities/parse/queries'
+import { formatUsername } from '../../../utilities/subscriptions/identity'
+import Signwall from '../_children/Signwall'
+import { useAuthContext } from '../_context/auth'
+import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import PWA from '../_dependencies/Pwa'
 import { isAuthenticated } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
-import { checkUndefined } from '../_dependencies/Utils'
 
 const styles = {
   wrapper: 'header-payment__content',
@@ -22,18 +23,15 @@ const styles = {
 const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
-  const { userLoaded, activateAuth, updateStep } = React.useContext(AuthContext)
+  const { userLoaded, activateAuth, updateStep } = useAuthContext()
   const { firstName, lastName, secondLastName } = userProfile || {}
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
 
-  const formatName = () => {
-    const fullName = `${checkUndefined(firstName, 'Usuario')} ${
-      checkUndefined(lastName) || ''
-    } ${checkUndefined(secondLastName) || ''}`
-
-    return fullName.length >= 15 ? `${fullName.substring(0, 15)}...` : fullName
-  }
+  const profileButtonText = userLoaded
+    ? formatUsername(`${firstName} ${lastName} ${secondLastName}`, 15) ||
+      'Usuario'
+    : 'Invitado'
 
   const handleSignwall = () => {
     if (typeof window !== 'undefined') {
@@ -45,14 +43,14 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
         window.open(links.profile, '_blank')
       } else {
         setShowSignwall(!showSignwall)
-        window.Identity.clearSession()
+        Identity.clearSession()
       }
     }
   }
 
   const handleAfterLogged = () => {
     if (typeof window !== 'undefined') {
-      const resProfile = window.Identity.userProfile || {}
+      const resProfile = Identity.userProfile || {}
       activateAuth(resProfile)
       updateStep(2)
       setShowSignwall(false)
@@ -93,7 +91,7 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
               }
             }}
             type="button">
-            <span>Hola</span> {userLoaded ? formatName() : 'Invitado'}
+            <span>Hola</span> {profileButtonText}
           </button>
         </div>
       </header>

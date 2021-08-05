@@ -1,10 +1,10 @@
+import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import { getOriginAPI } from '../../_dependencies/domains'
 import { MsgResetPass } from '../icons'
 import Loading from '../loading'
 
@@ -19,7 +19,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
 
   const isTromeVerify = arcSite === 'trome' && typeDialog === 'verify'
 
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalContext()
   const [showLoading, setShowLoading] = React.useState(true)
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showError, setShowError] = React.useState(false)
@@ -27,19 +27,15 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
 
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-      window.Identity.verifyEmail(tokenVerify)
+      Identity.verifyEmail(tokenVerify)
         .then(() => {
           setShowConfirm(true)
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
             `web_sw${typeDialog[0]}_aceptar_sucess`
           )
-          if (
-            window.Identity.userProfile ||
-            window.Identity.userIdentity.uuid
-          ) {
-            window.Identity.getUserProfile()
+          if (Identity.userProfile || Identity.userIdentity.uuid) {
+            Identity.getUserProfile()
           }
         })
         .catch((errLogin) => {
@@ -53,7 +49,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
           setShowLoading(false)
         })
 
-      if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
+      if (Identity.userProfile || Identity.userIdentity.uuid) {
         setShowBtnContinue(true)
       }
     }

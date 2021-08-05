@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-
+import Identity from '@arc-publishing/sdk-identity'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
+import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import Loading from '../../signwall/_children/loading'
-import { getOriginAPI } from '../../signwall/_dependencies/domains'
 import {
   getNewsLetters,
   getNewsLettersUser,
@@ -80,11 +80,10 @@ class NewslettersSubscription extends Component {
   setPreference = () => {
     const { arcSite } = this.props
     const { selectCategories } = this.state
-    const UUID = window.Identity.userIdentity.uuid
-    const EMAIL = window.Identity.userProfile.email
+    const UUID = Identity.userIdentity.uuid
+    const EMAIL = Identity.userProfile.email
 
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.extendSession().then((extSess) => {
+    Identity.extendSession().then((extSess) => {
       sendNewsLettersUser(UUID, EMAIL, arcSite, extSess.accessToken, [
         ...selectCategories,
       ])
@@ -135,7 +134,7 @@ class NewslettersSubscription extends Component {
 
     const { selectCategories, lastItemSelected } = this.state
     const { arcSite } = this.props
-    const UUID = window.Identity.userIdentity.uuid
+    const UUID = Identity.userIdentity.uuid
     const listAllNews = { ...[] }
 
     getNewsLetters().then((resNews) => {
@@ -277,4 +276,10 @@ class NewslettersSubscription extends Component {
   }
 }
 
-export default NewslettersSubscription
+const NewslettersSubscriptionContainer = () => (
+  <SdksProvider>
+    <NewslettersSubscription />
+  </SdksProvider>
+)
+
+export default NewslettersSubscriptionContainer
