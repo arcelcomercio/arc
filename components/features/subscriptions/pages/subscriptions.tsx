@@ -18,8 +18,8 @@ import {
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
-import { FooterLand } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
+import Footer from '../footer/subscriptions'
 import CallinCallOut from '../landing/_children/CallinCallout'
 import Callout from '../landing/_children/Callout'
 import PageCompany from './_children/Company'
@@ -35,7 +35,7 @@ enum Pages {
 type PagesSubscriptionsProps = {
   customFields?: {
     callInnCallOut?: boolean
-    btnOnTop?: boolean
+    disableInlineFooter?: boolean
     pageSubscriptions?: PageOptions
   }
 }
@@ -46,7 +46,7 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
   const {
     customFields: {
       callInnCallOut = false,
-      btnOnTop = false,
+      disableInlineFooter = false,
       pageSubscriptions = Pages.Faqs,
     } = {},
   } = props
@@ -182,8 +182,7 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
         <PageCompany arcSite={arcSite} contextPath={contextPath} />
       )}
 
-      <FooterLand arcType={arcType} btnOnTop={btnOnTop} />
-
+      {disableInlineFooter ? null : <Footer customFields={{ type: arcType }} />}
       {moduleCall && (
         <section className="callin-movil">
           <button type="button" className="icon-phone" onClick={handleCallIn}>
@@ -242,10 +241,9 @@ PagesSubscriptions.propTypes = {
       defaultValue: false,
       description: 'Mostrar/Ocultar Módulo Call In Call Out',
     }),
-    btnOnTop: PropTypes.bool.tag({
-      name: 'Botón subir arriba',
+    disableInlineFooter: PropTypes.bool.tag({
+      name: 'Deshabilitar footer interno',
       defaultValue: false,
-      description: 'Mostrar/Ocultar Botón subir arriba',
     }),
     pageSubscriptions: PropTypes.oneOf([Pages.Faqs, Pages.Company]).tag({
       name: 'Seleccione Página ',

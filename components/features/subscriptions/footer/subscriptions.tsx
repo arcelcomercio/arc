@@ -113,6 +113,7 @@ const SubscriptionsFooter: FC<SubscriptionsFooterProps> = (props) => {
                     href={urls.twitter}
                     target="_blank"
                     rel="noreferrer"
+                    className="footer__content-encuentranos-social-link"
                     aria-label="Twitter">
                     <i className="icon-twitter" />
                   </a>
@@ -120,6 +121,7 @@ const SubscriptionsFooter: FC<SubscriptionsFooterProps> = (props) => {
                     href={urls.facebook}
                     target="_blank"
                     rel="noreferrer"
+                    className="footer__content-encuentranos-social-link"
                     aria-label="Facebook">
                     <i className="icon-facebook" />
                   </a>
@@ -127,6 +129,7 @@ const SubscriptionsFooter: FC<SubscriptionsFooterProps> = (props) => {
                     href={urls.instangram}
                     target="_blank"
                     rel="noreferrer"
+                    className="footer__content-encuentranos-social-link"
                     aria-label="Instagram">
                     <i className="icon-instangram" />
                   </a>
@@ -138,6 +141,7 @@ const SubscriptionsFooter: FC<SubscriptionsFooterProps> = (props) => {
                       href={urls.appStore}
                       target="_blank"
                       rel="noreferrer"
+                      className="footer__content-encuentranos-apps-link"
                       aria-label="AppStore">
                       <i className="icon-appstore" />
                     </a>
@@ -145,6 +149,7 @@ const SubscriptionsFooter: FC<SubscriptionsFooterProps> = (props) => {
                       href={urls.googlePlay}
                       target="_blank"
                       rel="noreferrer"
+                      className="footer__content-encuentranos-apps-link"
                       aria-label="GooglePlay">
                       <i className="icon-googleplay" />
                     </a>

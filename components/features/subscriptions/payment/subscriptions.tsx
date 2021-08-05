@@ -8,6 +8,8 @@ import { PaywallCampaign, SubsArcSite } from 'types/subscriptions'
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
 import Loading from '../../signwall/_children/loading'
+import Footer from '../footer/subscriptions'
+import { SubscriptionsValidateDNI } from '../validate-dni/subscriptions'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
@@ -20,7 +22,6 @@ import {
   PanelRight,
   Wrapper,
 } from '../_layouts/containers'
-import { FooterLand, FooterSubs } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
 import scriptsPayment from '../_scripts/Payment'
 import PaymentSteps from './_children/Steps'
@@ -34,7 +35,21 @@ const Confirmation = React.lazy(
 
 const arcType = 'payment'
 
-const Component = () => {
+type SubscriptionsPaymentProps = {
+  customFields?: {
+    disableInlineFooter?: boolean
+    disableInlineDNI?: boolean
+  }
+}
+
+const Component: React.FC<SubscriptionsPaymentProps> = (props) => {
+  const {
+    customFields: {
+      disableInlineFooter = false,
+      disableInlineDNI = false,
+    } = {},
+  } = props
+
   const {
     arcSite,
     globalContent: { fromFia = false, freeAccess = false, event = '' } = {},
@@ -126,8 +141,8 @@ const Component = () => {
           </PanelRight>
         </Wrapper>
       </Container>
-      {!freeAccess && <FooterSubs />}
-      <FooterLand arcType={arcType} />
+      {!freeAccess && !disableInlineDNI ? <SubscriptionsValidateDNI /> : null}
+      {disableInlineFooter ? null : <Footer customFields={{ type: arcType }} />}
       <script
         dangerouslySetInnerHTML={{
           __html: scriptsPayment,
@@ -137,17 +152,19 @@ const Component = () => {
   )
 }
 
-const PaymentSubscriptions: FC = () => (
-  <SdksProvider>
-    <AuthProvider>
-      <Component />
-    </AuthProvider>
-  </SdksProvider>
-)
+const PaymentSubscriptions: FC<SubscriptionsPaymentProps> = (props) => {
+  const { customFields: fields } = props
+  return (
+    <SdksProvider>
+      <AuthProvider>
+        <Component customFields={fields} />
+      </AuthProvider>
+    </SdksProvider>
+  )
+}
 
 PaymentSubscriptions.label = 'Subscriptions - Landing de Compra'
 PaymentSubscriptions.propTypes = {
-  // eslint-disable-next-line react/no-unused-prop-types
   customFields,
 }
 

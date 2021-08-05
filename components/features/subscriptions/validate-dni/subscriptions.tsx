@@ -10,7 +10,6 @@ import { PaywallCampaign, UserDocumentType } from 'types/subscriptions'
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
 import { isProd } from '../../../utilities/arc/env'
-import { frequencies } from '../../../utilities/subscriptions/sales'
 import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { docPatterns, maskDocuments } from '../_dependencies/Regex'
@@ -22,8 +21,6 @@ const styles = {
   info: 'grid-two-one-buy validate__banner-info',
   form: 'grid-two-two-buy validate__banner-form tooltip',
   tooltip: 'tooltiptext-bottomarrow',
-  btnDetail: 'step__bottom-btn-detail',
-  iconUp: 'icon-arrow-up',
 }
 
 type ValidateDocumentProps = {
@@ -31,13 +28,8 @@ type ValidateDocumentProps = {
   vDocumentNumber: string
 }
 
-const Component = () => {
-  const {
-    userLoaded,
-    userStep,
-    updateLoading,
-    userDataPlan: { billingFrequency, amount: billingAmount } = {},
-  } = useAuthContext()
+export const SubscriptionsValidateDNI = (): JSX.Element => {
+  const { userLoaded, userStep, updateLoading } = useAuthContext()
 
   const [loading, setLoading] = React.useState(false)
   const [showDocOption, setShowDocOption] = React.useState<UserDocumentType>(
@@ -46,10 +38,10 @@ const Component = () => {
   const { urls, texts } = PropertiesCommon
   const {
     globalContent: {
-      name: planName = '',
       printAttributes = [],
       printedSubscriber = false,
       event = undefined,
+      freeAccess = false,
     } = {},
   } = useAppContext<PaywallCampaign>()
 
@@ -137,21 +129,6 @@ const Component = () => {
     }
   }
 
-  /**
-   * Esta function se hizo para manejar mas
-   * casos de precios sin tener que anidar ternarios.
-   *
-   * Se espera que el caso por defecto sea '' en lugar de undefined
-   *
-   * @returns Monto del plan como texto
-   */
-  const getPlanAmount = (amount: number): string => {
-    let planAmount = ''
-    if (amount) planAmount = `S/ ${amount}.00`
-    else if (amount === 0) planAmount = 'Gratis'
-    return planAmount
-  }
-
   const {
     values: { vDocumentNumber, vDocumentType },
     errors: { vDocumentNumber: vDocumentNumberError },
@@ -166,7 +143,7 @@ const Component = () => {
 
   return (
     <>
-      {!printedSubscriber && (userStep === 1 || userStep === 2) && (
+      {!freeAccess && !printedSubscriber && (userStep === 1 || userStep === 2) && (
         <footer className="validate" id="validate">
           <div className={styles.wrapper}>
             <>
@@ -243,39 +220,16 @@ const Component = () => {
           </div>
         </footer>
       )}
-
-      {userStep !== 4 && (
-        <section className="step__bottom">
-          <button className={styles.btnDetail} type="button" id="btn-detail">
-            <div>
-              <span className="title-item">Resumen de pedido:</span>
-              <h5 className="name-item">
-                {planName}
-                <span className="period-item">
-                  {' - '}{' '}
-                  {billingFrequency ? frequencies[billingFrequency] : ''}
-                </span>
-              </h5>
-            </div>
-            <div>
-              <span className="price-item">
-                {billingAmount ? getPlanAmount(billingAmount) : ''}
-              </span>
-              <i className={styles.iconUp} />
-            </div>
-          </button>
-        </section>
-      )}
     </>
   )
 }
 
-const SubscriptionsValidateDNI: FC = () => (
+const SubscriptionsValidateDNIContainer: FC = () => (
   <SdksProvider>
     <AuthProvider>
-      <Component />
+      <SubscriptionsValidateDNI />
     </AuthProvider>
   </SdksProvider>
 )
 
-export default SubscriptionsValidateDNI
+export default SubscriptionsValidateDNIContainer

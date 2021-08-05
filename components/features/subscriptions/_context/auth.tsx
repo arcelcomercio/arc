@@ -159,4 +159,4 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 }
 
 // no se exporta `AuthContext` para conseguir mejor validación con TS
-export { AuthContextValue, AuthProvider, useAuthContext }
+export { AuthContextValue, AuthProvider, PlanBilling, useAuthContext }

@@ -22,8 +22,8 @@ import {
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { PixelActions, sendAction, Taggeo } from '../_dependencies/Taggeo'
-import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
+import Footer from '../footer/subscriptions'
 import BenefitsLanding from './_children/Benefits'
 import CallinCallOut from './_children/CallinCallout'
 import Callout from './_children/Callout'
@@ -34,7 +34,7 @@ type LandingSubscriptionsProps = {
     bannerUniComercio?: boolean
     bannerUniGestion?: boolean
     callInnCallOut?: boolean
-    btnOnTop?: boolean
+    disableInlineFooter?: boolean
   }
 }
 
@@ -46,7 +46,7 @@ const Component = (props: LandingSubscriptionsProps) => {
       bannerUniComercio = false,
       bannerUniGestion = false,
       callInnCallOut = false,
-      btnOnTop = false,
+      disableInlineFooter = false,
     } = {},
   } = props
   const { arcSite, globalContent: items = [] } = useAppContext<
@@ -391,7 +391,7 @@ const Component = (props: LandingSubscriptionsProps) => {
         </div>
       </section>
 
-      <FooterLand arcType={arcType} btnOnTop={btnOnTop} />
+      {disableInlineFooter ? null : <Footer customFields={{ type: arcType }} />}
 
       {moduleCall && (
         <section className="callin-movil">
@@ -465,10 +465,9 @@ LandingSubscriptions.propTypes = {
       defaultValue: false,
       description: 'Mostrar/Ocultar Módulo Call In Call Out',
     }),
-    btnOnTop: PropTypes.bool.tag({
-      name: 'Botón subir arriba',
+    disableInlineFooter: PropTypes.bool.tag({
+      name: 'Deshabilitar footer interno',
       defaultValue: false,
-      description: 'Mostrar/Ocultar Botón subir arriba',
     }),
   }),
 }
