@@ -1,0 +1,7 @@
+@import "../../general-styles/framework/variables/index";
+@import "./scss/variables/index";
+$primary-font: "Roboto", sans-serif;
+$secondary-font: "Arial", "Helvetica", sans-serif;
+$tertiary-font: $secondary-font;
+
+@import "./scss/lite-components/features/story/gallery/gallery-vertical";

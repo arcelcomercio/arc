@@ -64,6 +64,7 @@ $primary-font: "Roboto", sans-serif;
   .header-full {
     background: transparent linear-gradient(90deg, #63298a 0%, #1d1a57 100%) 0%
       0% no-repeat padding-box;
+    border-bottom: 1px solid #a2cc18;
     &__link-logo {
       display: none;
       @media (--desktop) {
@@ -133,6 +134,7 @@ $primary-font: "Roboto", sans-serif;
         display: block;
       }
       & a {
+        font-family: $primary-font;
         padding: 0 5px;
         align-items: center;
         display: flex;
@@ -325,7 +327,9 @@ $primary-font: "Roboto", sans-serif;
     }
     &__box-image {
       &::before {
-        background: transparent;
+        background: transparent
+          linear-gradient(180deg, #1c1a4300 0%, #1c1a43 100%) 0% 0% no-repeat
+          padding-box;
       }
       @media (--only-mobile) {
         padding: 0 10px;
@@ -398,6 +402,7 @@ $primary-font: "Roboto", sans-serif;
       color: #333;
       font-weight: 700;
       letter-spacing: -0.2px;
+      font-family: $primary-font;
       @media (--desktop) {
         font-size: 17px;
       }
@@ -474,6 +479,7 @@ $primary-font: "Roboto", sans-serif;
     }
     &__title {
       color: #fff;
+      font-family: $primary-font;
       @media (--only-mobile) {
         margin-left: 10px;
         text-align: left !important;

@@ -1,5 +1,6 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import { FC } from 'types/features'
 
 import { env } from '../../../utilities/arc/env'
 import { cintilloScript } from './VerifyEmail'
@@ -13,7 +14,7 @@ const classes = {
   btnIcon: 'icon-close-circle rounded bg-black title-xs',
   txtCount: 'confirmation-notice__counter md:mr-25',
 }
-const ConfirmationNotice = () => {
+const ConfirmationNotice: FC = () => {
   const { arcSite } = useAppContext() || {}
 
   return (
@@ -26,9 +27,12 @@ const ConfirmationNotice = () => {
         }`}>
         <p id="signwall-cintillo-texto" />
 
-        <a href={() => {}} id="signwall-cintillo-link" className={classes.link}>
+        <button
+          type="button"
+          id="signwall-cintillo-link"
+          className={classes.link}>
           Enviar correo de confirmación
-        </a>
+        </button>
 
         <span
           id="signwall-cintillo-counter"
@@ -48,7 +52,7 @@ const ConfirmationNotice = () => {
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: cintilloScript({ env, arcSite }),
+          __html: cintilloScript({ arcEnv: env, arcSite }),
         }}
       />
     </>

@@ -212,8 +212,10 @@ const LiteOutput = ({
   const style = 'lite-story'
   const dstyle = 'dlite-story'
   const mstyle = 'mlite-story'
+  const vgalleryStyles = 'dlite-vgallery'
 
   let inlineStyleUrl = `resources/dist/${arcSite}/css/${dstyle}.css`
+  const inlineVgalleryStyles = `resources/dist/${arcSite}/css/${vgalleryStyles}.css`
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   const mStyleUrl = `${contextPath}/resources/dist/${arcSite}/css/${mstyle}.css`
@@ -259,6 +261,8 @@ const LiteOutput = ({
       lang = 'es-us'
     } else if (/^\/mexico/.test(requestUri)) {
       lang = 'es-mx'
+    } else if (/^\/colombia/.test(requestUri)) {
+      lang = 'es-co'
     }
   }
 
@@ -524,6 +528,21 @@ const LiteOutput = ({
             ) : null
           }
         </Resource>
+        {subtype === GALLERY_VERTICAL ? (
+          <Resource path={inlineVgalleryStyles}>
+            {({ data }) =>
+              data ? (
+                <style
+                  dangerouslySetInnerHTML={{
+                    __html: data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', ''),
+                  }}
+                />
+              ) : null
+            }
+          </Resource>
+        ) : null}
         {metaValue('section_style') === 'depor-play' ? (
           <Resource path="resources/dist/depor/css/depor-play.css">
             {({ data }) =>
@@ -764,7 +783,8 @@ const LiteOutput = ({
         />
         {arcSite === SITE_DEPOR &&
         (storySectionPath?.split('/')[1] === 'futbol-internacional' ||
-          storySectionPath?.split('/')[1] === 'futbol-peruano') ? (
+          storySectionPath?.split('/')[1] === 'futbol-peruano' ||
+          storySectionPath?.split('/')[1] === 'full-deportes') ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
