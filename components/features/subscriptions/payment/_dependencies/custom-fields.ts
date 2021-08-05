@@ -15,10 +15,6 @@ const customFields = PropTypes.shape({
     name: 'Deshabilitar footer interno',
     defaultValue: false,
   }),
-  disableInlineDNI: PropTypes.bool.tag({
-    name: 'Deshabilitar validador de DNI interno',
-    defaultValue: false,
-  }),
 })
 
 export default customFields
