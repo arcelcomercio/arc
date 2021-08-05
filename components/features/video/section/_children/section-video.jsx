@@ -1,14 +1,15 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react'
 
+import LiteYoutube from '../../../../global-components/lite-youtube'
+import PowaPlayer from '../../../../global-components/powa-player'
+import VideoJwplayer from '../../../../global-components/video-jwplayer-list'
 import { VIDEO } from '../../../../utilities/constants/multimedia-types'
-import PlayList from './play-list'
-import VideoBar from './video-navbar'
 import { formatDayMonthYear } from '../../../../utilities/date-time/dates'
 import { socialMediaUrlShareList } from '../../../../utilities/social-media'
 import { getResultVideo } from '../../../../utilities/story/helpers'
-import PowaPlayer from '../../../../global-components/powa-player'
-import LiteYoutube from '../../../../global-components/lite-youtube'
-import VideoJwplayer from '../../../../global-components/video-jwplayer-list'
+import PlayList from './play-list'
+import VideoBar from './video-navbar'
 
 /**
  *
@@ -193,8 +194,7 @@ export default ({
               <div className="section-video__frame">
                 {principalVideo && principalVideo.promoItemJwplayer.key ? (
                   <>
-                    <VideoJwplayer
-                      data={principalVideo.promoItemJwplayer}></VideoJwplayer>
+                    <VideoJwplayer data={principalVideo.promoItemJwplayer} />
                   </>
                 ) : (
                   <>
@@ -265,7 +265,7 @@ export default ({
                         onClick={() => setHidden(true)}
                         className="section-video__read">
                         Mostrar menos{' '}
-                        <i className="section-video__icon section-video__icon--up icon-down"></i>
+                        <i className="section-video__icon section-video__icon--up icon-down" />
                       </button>
                     ) : (
                       <button
@@ -273,7 +273,7 @@ export default ({
                         onClick={() => setHidden(false)}
                         className="section-video__read">
                         Mostrar más{' '}
-                        <i className="section-video__icon icon-down"></i>
+                        <i className="section-video__icon icon-down" />
                       </button>
                     )}
                   </div>
