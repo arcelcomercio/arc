@@ -50,6 +50,7 @@ const SectionVideo = (props) => {
     customFields: {
       hierarchyConfig,
       hidePlaylist,
+      hideSectionBar,
       categoryTop,
       hideShare,
       hideMeta,
@@ -192,6 +193,7 @@ const SectionVideo = (props) => {
     <ChildrenSectionVideo
       {...params}
       hidePlaylist={hidePlaylist}
+      hideSectionBar={hideSectionBar}
       hideShare={hideShare}
       hideMeta={hideMeta}
       categoryTop={categoryTop}

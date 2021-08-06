@@ -9,6 +9,10 @@ const customFields = PropTypes.shape({
     name: 'Ocultar Playlist',
     defaultValue: false,
   }),
+  hideSectionBar: PropTypes.bool.tag({
+    name: 'Ocultar Barra de Secciones',
+    defaultValue: false,
+  }),
   hideShare: PropTypes.bool.tag({
     name: 'Ocultar Compartir',
     defaultValue: false,

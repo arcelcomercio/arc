@@ -49,6 +49,7 @@ export default ({
   isAdmin,
   arrSections,
   siteProperties,
+  hideSectionBar,
   hidePlaylist,
   hideShare,
   hideMeta,
@@ -430,7 +431,7 @@ export default ({
         </div>
         {!hidePlaylist && <PlayList {...playListParams} />}
       </div>
-      {!hidePlaylist && <VideoBar sections={arrSections} />}
+      {!hideSectionBar && <VideoBar sections={arrSections} />}
     </div>
   )
 }
