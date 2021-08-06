@@ -557,7 +557,7 @@ const LiteOutput = ({
           </Resource>
         ) : null}
         {metaValue('section_style') === 'provecho' ? (
-          <Resource path="resources/dist/elcomercio/css/provecho.css">
+          <Resource path="resources/dist/elcomercio/css/lite-provecho.css">
             {({ data }) =>
               data ? (
                 <style

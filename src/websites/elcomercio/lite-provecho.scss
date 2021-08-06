@@ -1,0 +1,31 @@
+$assets_url: "https://cdna.elcomercio.pe";
+
+/******* Color Variables *******/
+$color-black: hsl(0, 0%, 0%);
+$color-dark: hsl(0, 0%, 3%);
+$color-dark-text: hsl(0, 0%, 10%);
+$color-text: $color-dark-text;
+$color-grey: hsl(0, 0%, 53%);
+$color-gray: $color-grey;
+
+$color-silver: hsla(0, 0%, 89%, 1);
+$color-soft: hsla(0, 0%, 96%, 1);
+$color-white: hsl(0, 0%, 100%);
+
+$color-red: hsla(0, 72%, 49%, 1);
+$color-green: hsla(129, 69%, 49%, 1);
+$color-gold: hsla(48, 100%, 51%, 1);
+
+/******* Font Variables *******/
+$primary-font: "Bitter";
+$secondary-font: serif, system-ui;
+
+/** ----------------------------*
+*             STYLES            *
+* ----------------------------- */
+
+@import "../../general-styles/framework/variables/breakpoints";
+
+/******* Components *******/
+
+@import "./scss/lite-components/features/provecho/_header";
