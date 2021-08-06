@@ -78,11 +78,9 @@ const resolve = (key = {}) => {
 }
 
 const transform = (data, { 'arc-site': arcSite }) => {
-  // console.log('data',data)
-
   if (!data || (data && data.status !== 'ok' && data.status !== 200)) {
     const { siteUrl } = getProperties(arcSite)
-    // throw new RedirectError(`${siteUrl}/blog/`, 301)
+    throw new RedirectError(`${siteUrl}/blog/`, 301)
   }
 
   const newData = data
