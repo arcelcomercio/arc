@@ -2,10 +2,9 @@ import Identity from '@arc-publishing/sdk-identity'
 import Sales from '@arc-publishing/sdk-sales'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
-import { SubsArcSite } from 'types/subscriptions'
 import { ValuesOf } from 'types/utils'
 
-import { PropertiesSite } from '../features/subscriptions/_dependencies/Properties'
+import { getApiOrigin } from '../utilities/subscriptions'
 
 type StatusOptions = ValuesOf<SdkStatus>
 enum SdkStatus {
@@ -42,9 +41,7 @@ const SdksProvider: React.FC<SdksProviderProps> = ({ children }) => {
     status: SdkStatus.Loading,
   })
 
-  const {
-    urls: { arcOrigin: apiOrigin },
-  } = PropertiesSite[arcSite as SubsArcSite]
+  const apiOrigin = getApiOrigin(arcSite)
 
   const initializeSDKs = async (): Promise<SdksProviderValue> => {
     Identity.options({
