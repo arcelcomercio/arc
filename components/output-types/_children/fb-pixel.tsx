@@ -1,6 +1,10 @@
 import * as React from 'react'
 
-export default ({ fbPixelId }) => {
+type FbPixelProps = {
+  fbPixelId: string
+}
+
+export default ({ fbPixelId }: FbPixelProps): JSX.Element => {
   const fbPixelScript = `
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
