@@ -130,3 +130,17 @@
     }
   }
 }
+.provecho {
+  .footer {
+    .icon-instagram {
+      &::before {
+        background-image: url(https://cloudfront-us-east-1.images.arcpublishing.com/sandbox.elcomercio/F73SMCM5B5HDVPZRAHTMVJNIGE.png);
+        content: "";
+        width: 14px;
+        height: 14px;
+        background-size: cover;
+        display: block;
+      }
+    }
+  }
+}
