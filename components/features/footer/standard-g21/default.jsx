@@ -21,7 +21,7 @@ const SCHEMA = `{
   }
 }`
 
-const FooterStandardG21 = props => {
+const FooterStandardG21 = (props) => {
   const {
     customFields: {
       sectionsHierarchyConfig: {
@@ -52,9 +52,9 @@ const FooterStandardG21 = props => {
     filter: SCHEMA,
   })
 
-  const formatData = res => {
+  const formatData = (res) => {
     const { children = [] } = res || {}
-    const auxList = children.map(el => {
+    const auxList = children.map((el) => {
       if (el.node_type === 'link') {
         return {
           name: el.display_name,
@@ -93,10 +93,29 @@ const FooterStandardG21 = props => {
     },
   ]
 
-  const dataSocialNetwork =
+  const socialNetworksProvecho = [
+    {
+      name: 'instagram',
+      url: 'https://www.instagram.com/provechope/',
+    },
+    {
+      name: 'twitter',
+      url: 'https://twitter.com/provechope',
+    },
+  ]
+
+  /* const dataSocialNetwork =
     arcSite === SITE_ELCOMERCIO && requestUri.includes('/saltar-intro/')
       ? socialNetworksSaltarIntro
-      : socialNetworks
+      : socialNetworks */
+
+  let dataSocialNetwork = socialNetworks
+
+  if (arcSite === SITE_ELCOMERCIO && requestUri.includes('/saltar-intro/')) {
+    dataSocialNetwork = socialNetworksSaltarIntro
+  } else if (arcSite === SITE_ELCOMERCIO && /^\/provecho\//.test(requestUri)) {
+    dataSocialNetwork = socialNetworksProvecho
+  }
 
   const params = {
     socialNetworks: dataSocialNetwork,
