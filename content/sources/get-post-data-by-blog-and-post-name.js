@@ -1,5 +1,6 @@
 import { BLOG_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+
 import RedirectError from '../../components/utilities/redirect-error'
 import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
@@ -63,14 +64,27 @@ const resolve = (key = {}) => {
   const {
     api: { blog: urlApiblog = '' },
   } = getProperties(website)
+  console.log('postNamezzs=>>vv>>', postName)
+  console.log('blogPathzz=>>>>', blogPath)
+
+  const isResultadosOnpe = /^lavidaquequiero/.test(blogPath) || false
+  console.log('sdfsdfsxxxxxxd', blogPath)
+  if (isResultadosOnpe) {
+    console.log('sdfsdfsssssssd', blogPath)
+
+    const urlPost = `/${blogPath}/${year}/${month}/${postName}/xxx`
+    throw new RedirectError(urlPost, 301)
+  }
 
   return `${urlApiblog}?json=${json}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${token}`
 }
 
 const transform = (data, { 'arc-site': arcSite }) => {
+  // console.log('data',data)
+
   if (!data || (data && data.status !== 'ok' && data.status !== 200)) {
     const { siteUrl } = getProperties(arcSite)
-    throw new RedirectError(`${siteUrl}/blog/`, 301)
+    // throw new RedirectError(`${siteUrl}/blog/`, 301)
   }
 
   const newData = data
