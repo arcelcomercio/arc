@@ -63,17 +63,15 @@ const resolve = (key = {}) => {
   const website = key['arc-site']
   const {
     api: { blog: urlApiblog = '' },
+    siteUrl,
   } = getProperties(website)
-  console.log('postNamezzs=>>vv>>', postName)
-  console.log('blogPathzz=>>>>', blogPath)
 
   const isResultadosOnpe = /^lavidaquequiero/.test(blogPath) || false
-  console.log('sdfsdfsxxxxxxd', blogPath)
   if (isResultadosOnpe) {
-    console.log('sdfsdfsssssssd', blogPath)
-
-    const urlPost = `/${blogPath}/${year}/${month}/${postName}/xxx`
-    throw new RedirectError(urlPost, 301)
+    throw new RedirectError(
+      `${siteUrl}/blog/emprendedor/${year}/${month}/${postName}/`,
+      301
+    )
   }
 
   return `${urlApiblog}?json=${json}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${token}`
