@@ -6,6 +6,10 @@ import * as React from 'react'
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import { getCookie, setCookie } from '../../../utilities/client/cookies'
 import { getQuery } from '../../../utilities/parse/queries'
+import {
+  // getUsername,
+  isLoggedIn,
+} from '../../../utilities/subscriptions/identity'
 import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
 import {
   getOriginAPI,
@@ -70,9 +74,10 @@ class SignwallComponent extends React.PureComponent {
   }
 
   getPremium() {
+    const isLogged = isLoggedIn()
     this._isMounted = true
     if (typeof window !== 'undefined' && this._isMounted) {
-      if (!this.checkSession()) {
+      if (!isLogged) {
         this.setState({ showPremium: true })
       } else {
         return this.getListSubs().then((p) => {
@@ -95,6 +100,7 @@ class SignwallComponent extends React.PureComponent {
   getPaywall() {
     const { countOnly, arcSite } = this.props
     const W = window || {}
+    const isLogged = isLoggedIn()
 
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
     const dataContTyp = W.document.head.querySelector(
@@ -121,12 +127,9 @@ class SignwallComponent extends React.PureComponent {
       W.ArcP.run({
         paywallFunction: (campaignURL) => {
           if (countOnly) return
-          if (campaignURL.match(/signwallHard/) && !this.checkSession()) {
+          if (campaignURL.match(/signwallHard/) && !isLogged) {
             W.location.href = getUrlSignwall(arcSite, 'signwallHard', '1')
-          } else if (
-            campaignURL.match(/signwallPaywall/) &&
-            this.checkSession()
-          ) {
+          } else if (campaignURL.match(/signwallPaywall/) && isLogged) {
             this.setState({ showPaywall: true })
           }
         },
@@ -146,15 +149,12 @@ class SignwallComponent extends React.PureComponent {
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
           if (Identity.userIdentity.accessToken) {
-            return this.getListSubs().then((p) => {
-              const isLoggedInSubs = this.checkSession()
-              return {
-                s: isLoggedInSubs,
-                p: p || null,
-                timeTaken: 100,
-                updated: Date.now(),
-              }
-            })
+            return this.getListSubs().then((p) => ({
+              s: isLogged,
+              p: p || null,
+              timeTaken: 100,
+              updated: Date.now(),
+            }))
           }
           return {
             s: false,
@@ -165,9 +165,8 @@ class SignwallComponent extends React.PureComponent {
         },
         customRegCheck: () => {
           const start = Date.now()
-          const isLoggedIn = this.checkSession()
           return Promise.resolve({
-            l: isLoggedIn,
+            l: isLogged,
             timeTaken: Date.now() - start,
             updated: Date.now(),
           })
@@ -192,17 +191,6 @@ class SignwallComponent extends React.PureComponent {
 
       return checkEntitlement
     })
-  }
-
-  checkSession = () => {
-    if (typeof window !== 'undefined') {
-      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
-      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-      if (profileStorage) {
-        return !(profileStorage === 'null' || sesionStorage === '{}') || false
-      }
-    }
-    return false
   }
 
   checkCookieHash = () => {
@@ -257,8 +245,9 @@ class SignwallComponent extends React.PureComponent {
   checkUserName() {
     this._isMounted = true
     const { arcSite } = this.props
+    const isLogged = isLoggedIn()
 
-    if (this.checkSession() && this._isMounted) {
+    if (isLogged && this._isMounted) {
       this.setState({
         userName: new GetProfile().username,
         initialUser: new GetProfile().initname,
@@ -289,8 +278,9 @@ class SignwallComponent extends React.PureComponent {
 
   toogleButton() {
     const { arcSite } = this.props
+    const isLogged = isLoggedIn()
     if (typeof window !== 'undefined') {
-      if (this.checkSession()) {
+      if (isLogged) {
         Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresacuenta`)
         window.location.href = getUrlProfile(arcSite)
       } else {
@@ -303,11 +293,11 @@ class SignwallComponent extends React.PureComponent {
   render() {
     const { userName, initialUser, showPaywall, showPremium } = this.state
     const { countOnly, arcSite, siteProperties, classButton = '' } = this.props
+    const isLogged = isLoggedIn()
     return (
       <>
         <button
           aria-label={userName}
-          site={arcSite}
           className={classButton}
           type="button"
           onClick={() => this.toogleButton()}>
@@ -321,21 +311,6 @@ class SignwallComponent extends React.PureComponent {
 
         {siteProperties.activeSignwall && (
           <>
-            {this.getUrlParam('tokenVerify') && (
-              <>
-                {this.redirectURL(
-                  'tokenVerify',
-                  this.getUrlParam('tokenVerify')
-                )}
-              </>
-            )}
-
-            {this.getUrlParam('tokenReset') && (
-              <>
-                {this.redirectURL('tokenReset', this.getUrlParam('tokenReset'))}
-              </>
-            )}
-
             {this.getUrlParam('reloginEmail') && (
               <>
                 {this.redirectURL(
@@ -345,7 +320,7 @@ class SignwallComponent extends React.PureComponent {
               </>
             )}
 
-            {!this.checkSession() && <>{this.checkCookieHash()}</>}
+            {!isLogged && <>{this.checkCookieHash()}</>}
           </>
         )}
 
@@ -373,9 +348,9 @@ class SignwallComponent extends React.PureComponent {
   }
 }
 
-const SignwallComponentContainer = () => (
+const SignwallComponentContainer = ({ classButton, countOnly }) => (
   <SdksProvider>
-    <SignwallComponent />
+    <SignwallComponent classButton={classButton} countOnly={countOnly} />
   </SdksProvider>
 )
 
