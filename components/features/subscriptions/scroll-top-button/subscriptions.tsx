@@ -26,9 +26,8 @@ const ScrollTopButton: FC<ScrollTopButtonProps> = (props) => {
   }
 
   React.useEffect(() => {
-    window.onscroll = () => {
-      activeButtonScroll()
-    }
+    window.addEventListener('scroll', activeButtonScroll)
+    return () => window.removeEventListener('scroll', activeButtonScroll)
   }, [])
 
   return (

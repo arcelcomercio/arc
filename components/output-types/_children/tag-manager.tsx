@@ -1,6 +1,10 @@
 import * as React from 'react'
 
-export default ({ googleTagManagerId }) => {
+type TagManagerProps = {
+  googleTagManagerId: string
+}
+
+export default ({ googleTagManagerId }: TagManagerProps): JSX.Element => {
   // TODO: se reemplaza el id del tag manager por plroblemas con nota
   const googleTagManagerScript = `(function(w,d,s,l,i){w[l]=w[l]||[]
     w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js',})

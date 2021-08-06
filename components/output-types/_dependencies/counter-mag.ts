@@ -126,7 +126,11 @@
 
 // window.addEventListener('message', handleMessage, !1)
 
-const listenCounterMag = (arcEnv, arcSite) =>
+import { ArcSite } from 'types/fusion'
+
+import { env } from '../../utilities/arc/env'
+
+const listenCounterMag = (arcEnv: typeof env, arcSite: ArcSite): string =>
   `"use strict";var arcEnv="${arcEnv}",arcSite="${arcSite}",checkSession=function(){if("undefined"!=typeof window){var e=window.localStorage.getItem("ArcId.USER_PROFILE"),n=window.localStorage.getItem("ArcId.USER_INFO");if(e)return!("null"===e||"{}"===n)||!1}return!1},postExtendSession=function(e){return new Promise(function(n){fetch("https://api${
     arcEnv === 'sandbox' ? '-sandbox' : ''
   }.${arcSite}.pe/identity/public/v1/auth/token",{method:"POST",body:JSON.stringify({grantType:"refresh-token",token:e}),headers:{"Content-Type":"application/json"}}).then(function(e){return n(e.json())})})},getEntitlement=function(e){return new Promise(function(n){fetch("https://api${
