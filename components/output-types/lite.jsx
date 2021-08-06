@@ -346,13 +346,7 @@ const LiteOutput = ({
                 )}?outputType=amp`}
               />
             )}
-            {arcSite === SITE_ELCOMERCIOMAG && (
-              <link
-                rel="alternate"
-                href={`${siteProperties.siteUrlAlternate}${link}`}
-                hrefLang="es"
-              />
-            )}
+
             <title>{title}</title>
             {/**
              * dns-prefetch hace solo DNS lookup.
