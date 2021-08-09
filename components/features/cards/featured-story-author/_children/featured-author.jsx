@@ -1,7 +1,8 @@
+import { useEditableContent } from 'fusion:content'
 import React from 'react'
 
-import Icon from '../../../../global-components/multimedia-icon'
 import Image from '../../../../global-components/image'
+import Icon from '../../../../global-components/multimedia-icon'
 
 export default ({
   title,
@@ -22,6 +23,8 @@ export default ({
   isAdmin,
   // multimediaSubtitle,
   multimediaCaption,
+  isPremium,
+  arcSite,
 }) => {
   const classes = {
     featuredAuthor: 'featured-author row-1',
@@ -49,12 +52,19 @@ export default ({
     authorName: '',
     authorNameLink: 'text-md line-h-xs',
     authorRole: 'text-sm hidden text-gray-200',
+    premiumWrapper:
+      'premium__wrapper bg-primary flex justify-center items-center',
+    premiumText:
+      'premium__text flex justify-center items-center text-black font-bold icon-padlock',
   }
   const storyImages = {
     desktop: multimediaLandscapeMD,
     mobile: multimediaLandscapeL,
   }
   /** Estilos por cada diseño */
+  if (design === 'first' && isPremium) {
+    classes.featuredAuthor = 'featured-author row-1 first-premium'
+  }
   if (design === 'second') {
     classes.featuredAuthor =
       'featured-author second row-1 col-2 md:flex md:flex-row-reverse bg-tertiary'
@@ -101,6 +111,11 @@ export default ({
     storyImages.desktop = multimediaLandscapeL
     storyImages.mobile = multimediaLandscapeL
   }
+
+  const { editableField } = useEditableContent()
+  const getEditableField = (element) =>
+    editableField ? editableField(element) : null
+
   return (
     <article className={classes.featuredAuthor}>
       <a itemProp="url" className={classes.storyImgLink} href={websiteLink}>
@@ -126,12 +141,19 @@ export default ({
           <a
             itemProp="url"
             className={classes.sectionLink}
-            href={primarySectionLink}>
+            href={primarySectionLink}
+            {...getEditableField('sectionField')}
+            suppressContentEditableWarning>
             {primarySection}
           </a>
         </h3>
         <h2 itemProp="name" className={classes.title}>
-          <a itemProp="url" className={classes.titleLink} href={websiteLink}>
+          <a
+            itemProp="url"
+            className={classes.titleLink}
+            href={websiteLink}
+            {...getEditableField('titleField')}
+            suppressContentEditableWarning>
             {title}
           </a>
         </h2>
@@ -140,7 +162,9 @@ export default ({
             <a
               itemProp="url"
               className={classes.subtitleLink}
-              href={websiteLink}>
+              href={websiteLink}
+              {...getEditableField('subTitleField')}
+              suppressContentEditableWarning>
               {subTitle}
             </a>
           </h3>
@@ -170,6 +194,13 @@ export default ({
             </a>
           </div>
         </div>
+        {isPremium && arcSite === 'elcomercio' ? (
+          <div className={classes.premiumWrapper}>
+            <p itemProp="description" className={classes.premiumText}>
+              Suscriptor Digital
+            </p>
+          </div>
+        ) : null}
       </div>
     </article>
   )
