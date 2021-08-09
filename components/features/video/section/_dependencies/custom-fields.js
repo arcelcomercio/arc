@@ -21,6 +21,10 @@ const customFields = PropTypes.shape({
     name: 'Ocultar metadata',
     defaultValue: false,
   }),
+  hideSticky: PropTypes.bool.tag({
+    name: 'Ocultar video sticky',
+    defaultValue: false,
+  }),
   categoryTop: PropTypes.bool.tag({
     name: 'categoria top video mobile',
     defaultValue: false,

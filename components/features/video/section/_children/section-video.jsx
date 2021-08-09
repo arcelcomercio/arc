@@ -53,6 +53,7 @@ export default ({
   hidePlaylist,
   hideShare,
   hideMeta,
+  hideSticky, 
   categoryTop,
 }) => {
   // const [hasFixedSection, changeFixedSection] = useState(false)
@@ -88,7 +89,7 @@ export default ({
         const mTop = 450
 
         const playOff = playList.offsetTop
-        if (window.innerWidth >= 1024) {
+        if (!hideSticky && window.innerWidth >= 1024) {
           window.addEventListener('scroll', () => {
             const scrollHeight = window.scrollY
             if (scrollHeight >= playOff && arcSite !== 'gestion') {
