@@ -455,7 +455,7 @@ export const AuthURL = ({
       'signStudents',
     ]
 
-    listUrlRedirect.map((item) => {
+    listUrlRedirect.forEach((item) => {
       if (getQuery(item)) {
         setTimeout(() => {
           const btnFacebook = document.getElementById('btn-sign-facebook')
@@ -485,7 +485,6 @@ export const AuthURL = ({
           dataTreatment
         )
       }
-      return null
     })
   }
 
