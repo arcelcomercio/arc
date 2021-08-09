@@ -1,8 +1,8 @@
-export default (arcSite) => {
-  return `
+export default (arcSite) => `
   { 
     headlines { basic }
     subheadlines { basic }
+    content_restrictions { content_code }
     credits {
       by { 
         name url type 
@@ -94,4 +94,3 @@ export default (arcSite) => {
       }
     }
   }`
-}
