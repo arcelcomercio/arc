@@ -24,7 +24,7 @@ const Styles = ({
   Resource,
   isStyleBasic = false,
   isFooterFinal = false,
-  metaValue = () => {},
+  metaValue = () => '',
 }) => {
   const isStoryMatch = isStory !== '' && idMatch !== ''
   let style = 'style'
