@@ -1,6 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
 import Sales from '@arc-publishing/sdk-sales'
-import md5 from 'crypto-js/md5'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -10,11 +9,19 @@ import { formatUsername } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../_context/modal'
 import { isAuthenticated } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
+import Avatar from './avatar'
+
+const classes = {
+  menu: 'profile-menu',
+  hello: 'profile-menu__hello',
+  welcome: 'profile-menu__welcome',
+  body: 'profile-menu__body',
+}
 
 const MenuSignwall = ({ handleMenu }) => {
   const {
     siteProperties: {
-      signwall: { mainColorBr, mainColorLink },
+      signwall: { mainColorLink },
       activePaywall,
       activeNewsletter,
       siteDomain,
@@ -24,11 +31,9 @@ const MenuSignwall = ({ handleMenu }) => {
 
   const { userProfile } = useModalContext()
   const { firstName, lastName, email, identities } = userProfile || {}
+
   const [identitie = { type: 'Password' }] = identities || []
   const [usernameid = { userName: '' }] = identities || []
-  const typeLogin = identitie.type.toLowerCase()
-  const userFB = usernameid.userName
-  const emailHash = md5(email).toString()
 
   const closeSession = () => {
     deleteCookie('arc_e_id')
@@ -67,25 +72,18 @@ const MenuSignwall = ({ handleMenu }) => {
 
   return (
     <>
-      <div
-        className="sign-profile_menu-avatar"
-        style={{ borderColor: arcSite === 'trome' ? 'black' : mainColorBr }}>
-        <img
-          src={
-            typeLogin === 'facebook'
-              ? `https://graph.facebook.com/${userFB}/picture?type=large&redirect=true&width=500&height=500`
-              : `https://www.gravatar.com/avatar/${emailHash}?s=180&d=identicon`
-          }
-          alt="Avatar"
-          className="picture"
-        />
-      </div>
-      <div className="sign-profile_menu-wrapper">
-        <h1 className="hello" id="name-user-profile">
+      <Avatar
+        arcSite={arcSite}
+        email={email}
+        username={usernameid.userName}
+        loginType={identitie.type.toLowerCase()}
+      />
+      <div className={classes.menu}>
+        <h1 className={classes.hello} id="name-user-profile">
           Hola {formatUsername(`${firstName} ${lastName}`, 17)}
         </h1>
-        <p className="welcome">Bienvenido a tu perfil</p>
-        <div className="cont-menu">
+        <p className={classes.welcome}>Bienvenido a tu perfil</p>
+        <div className={classes.body}>
           <ul>
             {activePaywall && (
               <li>
