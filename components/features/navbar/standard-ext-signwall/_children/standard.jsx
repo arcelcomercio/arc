@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Consumer from 'fusion:consumer'
-import { ENVIRONMENT } from 'fusion:environment'
 import * as React from 'react'
 
 import Button from '../../../../global-components/button'
 import Menu from '../../../../global-components/menu'
+import { isProd } from '../../../../utilities/arc/env'
 import searchQuery from '../../../../utilities/client/search'
 import { ELEMENT_STORY } from '../../../../utilities/constants/element-types'
 import { SITE_PERU21 } from '../../../../utilities/constants/sitenames'
@@ -401,7 +401,6 @@ class NavBarDefault extends React.PureComponent {
   }
 
   render() {
-    const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { statusSidebar, scrolled } = this.state
     const {
       logo,
@@ -439,16 +438,16 @@ class NavBarDefault extends React.PureComponent {
       }
     } */
 
-    const queryReloginEmail = `"use strict";
-    document.addEventListener('DOMContentLoaded', function () {
-      requestIdle(function () {
-        if (window.location.href.match(/reloginEmail=/)) { window.location.href = '${
-          arcEnv === 'prod'
-            ? `/signwall/?outputType=subscriptions&reloginEmail=1`
-            : `/signwall/?_website=${arcSite}&outputType=subscriptions&reloginEmail=1`
-        }';}
-      });
-    })`
+    // const queryReloginEmail = `"use strict";
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   requestIdle(function () {
+    //     if (window.location.href.match(/reloginEmail=/)) { window.location.href = '${
+    //       arcEnv === 'prod'
+    //         ? `/signwall/?outputType=subscriptions&reloginEmail=1`
+    //         : `/signwall/?_website=${arcSite}&outputType=subscriptions&reloginEmail=1`
+    //     }';}
+    //   });
+    // })`
 
     return (
       <>
@@ -611,11 +610,11 @@ class NavBarDefault extends React.PureComponent {
                     btnClass={`${classes.btnSubscribe} ${classes.btnSubs}`}
                     onClick={() => {
                       const { origin } = window.location
-                      const outputType =
-                        arcEnv === 'prod' ? '' : 'outputType=subscriptions&'
-                      const pf = arcEnv === 'prod' ? '' : '/pf'
-                      const connector =
-                        arcEnv !== 'prod' ? `?_website=${arcSite}&` : `?`
+                      const outputType = isProd
+                        ? ''
+                        : 'outputType=subscriptions&'
+                      const pf = isProd ? '' : '/pf'
+                      const connector = isProd ? `?` : `?_website=${arcSite}&`
                       const link =
                         origin +
                         pf +
@@ -639,20 +638,20 @@ class NavBarDefault extends React.PureComponent {
                   />
                 ) : null}
 
-                <script
+                {/* <script
                   type="text/javascript"
                   dangerouslySetInnerHTML={{
                     __html:
                       '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE")||window.sessionStorage.getItem("ArcId.USER_PROFILE"))||{},n=e.firstName?e.firstName.toLowerCase():"",t=void 0===n||"undefined"===n?"":n,a=e.lastName?e.lastName.toLowerCase():"",c=void 0===a||"undefined"===a?"":a,o=document.getElementById("signwall-nav-user"),i=document.getElementById("signwall-nav-icon");if(t||c){var s="",d="";t&&c?(s="".concat(t," ").concat(c),d="".concat(t[0]||"").concat(c[0]||"")):t&&!c?d="".concat((s=t)[0]||"").concat(t[1]||""):!t&&c&&(d="".concat((s=c)[0]||"").concat(c[1]||"")),o.innerHTML=15<=s.length?"".concat(s.slice(0,15),"..."):s,i.innerHTML=d,i.className="uppercase"}else o.innerHTML=e.uuid?"Bienvenido Usuario":"Iniciar"})});',
                   }}
-                />
+                /> */}
 
-                <script
+                {/* <script
                   type="text/javascript"
                   dangerouslySetInnerHTML={{
                     __html: queryReloginEmail,
                   }}
-                />
+                /> */}
               </div>
             </div>
 
