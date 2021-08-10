@@ -1,6 +1,6 @@
 import Consumer from 'fusion:consumer'
 
-import { localISODate } from '../../../utilities/helpers'
+import { localISODate } from '../../../utilities/date-time/dates'
 import StoryData from '../../../utilities/story-data'
 
 /**
@@ -27,13 +27,12 @@ class XmlSitemapNewsRecent {
 
     let count = 0
 
-    section = !section || section === null ? '' : section
     // MAX 1000 historias
     while (count <= 9) {
       states[`data${count}`] = {
         source: 'sitemap-feed-by-section-and-date',
         query: {
-          section: `/${section}`,
+          section: `/${section || ''}`,
           from: count * interval,
           size: interval,
         },
