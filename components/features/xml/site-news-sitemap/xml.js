@@ -33,7 +33,7 @@ class XmlSiteNewsSitemap {
           section: '/',
           stories_qty: 100,
           presets: `${IMAGE_SIZE}:1200x800`,
-          includedFields: `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,${includePromoItems},${includePromoItemsCaptions},first_publish_date`,
+          includedFields: `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -88,7 +88,7 @@ class XmlSiteNewsSitemap {
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
-                      storyData.firstPublishDate || storyData.publishDate || ''
+                      storyData.publishDate || ''
                     ),
                     'news:title': {
                       '#cdata': storyData.title,
