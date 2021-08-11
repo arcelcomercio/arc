@@ -93,7 +93,7 @@ class StoryData {
 
   constructor({
     data = {},
-    deployment = () => {},
+    deployment = (resource) => '',
     contextPath = '',
     arcSite = '',
     siteUrl = '',
@@ -1946,8 +1946,6 @@ class StoryData {
   }
 
   static paragraphsNews(contentElements) {
-    console.log('PAPRAHRAPHS')
-    console.log(JSON.stringify(contentElements))
     const paragraphs = contentElements.map(
       ({
         content = '',

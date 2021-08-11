@@ -1,0 +1,41 @@
+.footer-trome{
+  &__wrapper{
+      width: 100%;
+      background-color: #E6E6E6;
+      height: 412px;
+      @media(--desktop) {
+          height: 142px;
+          display: flex;
+          justify-content: center;
+          padding-top: 24px;
+      }
+  }
+
+  &__logo{
+      width: 100%;
+      padding-top: 24px;
+      text-align: center;
+      @media(--desktop) {
+          width: 245px;
+          padding-top: 0;
+          text-align: left;
+      }
+      img{
+          width: 118px;
+      }
+  }
+
+  &__column{
+      width: 100%;
+      font-family: $primary-font;
+      font-size: 12px;
+      line-height: 20px;
+      padding-top: 24px;
+      text-align: center;
+      @media(--desktop) {
+          text-align: left;
+          width: 245px;
+          padding-top: 0;
+      }
+  }
+}

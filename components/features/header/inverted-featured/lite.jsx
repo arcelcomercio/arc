@@ -9,8 +9,7 @@ import { ELEMENT_STORY } from '../../../utilities/constants/element-types'
 import Formatter from './_dependencies/formatter'
 import { bandFilter, menuFilter } from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
-import HeaderChildInverted from './_lite/_children/header'
-// import HeaderChildInverted from './_lite/_children/header'
+import HeaderChildInverted from './_children/header'
 
 import { getAssetsPath } from '../../../utilities/assets'
 import { SITE_DEPOR } from '../../../utilities/constants/sitenames'
@@ -21,7 +20,13 @@ const CONTENT_SOURCE = 'navigation-by-hierarchy'
 
 const HeaderInvertedFeatured = (props) => {
   const {
-    customFields: { hierarchyConfig, customLogo, customLogoLink, tags },
+    customFields: {
+      hierarchyConfig,
+      customLogo,
+      customLogoLink,
+      tags,
+      hideMenu,
+    },
   } = props
 
   let { customFields: { customLogoTitle } = {} } = props
@@ -73,6 +78,30 @@ const HeaderInvertedFeatured = (props) => {
     siteNameRedSocial
   )
 
+  const shareButtons = [
+    {
+      name: 'facebook',
+      icon: 'icon-facebook',
+      link: urlsShareList.facebook,
+    },
+
+    {
+      name: 'twitter',
+      icon: 'icon-twitter',
+      link: urlsShareList.twitter,
+    },
+    {
+      name: 'linkedin',
+      icon: 'icon-linkedin',
+      link: urlsShareList.linkedin,
+    },
+    {
+      name: 'whatsapp',
+      icon: 'icon-whatsapp',
+      link: urlsShareList.whatsapp,
+    },
+  ]
+
   const formatter = new Formatter(
     deployment,
     contextPath,
@@ -82,7 +111,7 @@ const HeaderInvertedFeatured = (props) => {
     {},
     {},
     customLogoTitle,
-    // customLogo,
+    customLogo,
     customLogoLink,
     tags
   )
@@ -138,8 +167,10 @@ const HeaderInvertedFeatured = (props) => {
       {...formatter.getParams()}
       search={search}
       isStory={isStory}
+      shareButtons={shareButtons}
       logoImg={logoImg}
       winningCallLogo={winningCallLogo}
+      hideMenu={hideMenu}
     />
   )
 }

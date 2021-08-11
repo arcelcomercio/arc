@@ -2,6 +2,7 @@ import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 import { FC } from 'types/features'
+import { ContentConfig } from 'types/fusion'
 
 import { formatSections } from '../../../utilities/helpers'
 import Section from './_children/section'
@@ -10,7 +11,7 @@ import { SchemaHierarchy } from './_dependencies/schema-filter'
 
 interface Props {
   customFields?: {
-    hierarchyConfig?: string
+    hierarchyConfig?: ContentConfig
   }
 }
 
@@ -21,6 +22,7 @@ const classes = {
 const VideoSectionsList: FC<Props> = (props) => {
   const DEFAULT_HIERARCHY = 'header-default'
 
+  // const { arcSite, contextPath, deployment } = useAppContext()
   const { arcSite } = useAppContext()
 
   const { customFields: { hierarchyConfig } = {} } = props
@@ -43,7 +45,7 @@ const VideoSectionsList: FC<Props> = (props) => {
     useContent({
       source: sourceHierarchy,
       query: paramsFetch,
-      filter: SchemaHierarchy,
+      filter: SchemaHierarchy(),
     }) || {}
 
   const arrSections = formatSections(dataHierarchy)
@@ -51,7 +53,14 @@ const VideoSectionsList: FC<Props> = (props) => {
   return (
     <div className={classes.wrapper}>
       {arrSections.map((el) => (
-        <Section url={el.url} name={el.name} />
+        <Section
+          url={el.url}
+          name={el.name}
+          key={el.url}
+          // arcSite={arcSite}
+          // contextPath={contextPath}
+          // deployment={deployment}
+        />
       ))}
     </div>
   )
