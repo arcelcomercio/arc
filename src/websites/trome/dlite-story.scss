@@ -62,7 +62,8 @@ $tertiary-font: $secondary-font;
 @import "./scss/lite-components/features/video/section";
 @import "./scss/lite-components/features/video/list";
 @import "./scss/lite-components/features/video/section-list";
+@import "./scss/lite-components/features/video/play-list";
 
 @import "./scss/lite-components/features/footer/trome/trome-footer";
 
-@import "../../general-styles/framework/generators/generate-icons"
+@import "../../general-styles/framework/generators/generate-icons";
