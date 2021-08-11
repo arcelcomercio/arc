@@ -27,8 +27,8 @@ const classes = {
 }
 
 const Section: FC<Props> = (props) => {
+  // const { url = '', name = '', arcSite, contextPath, deployment } = props
   const { url = '', name = '' } = props
-
   const { arcSite, contextPath, deployment } = useAppContext()
 
   const presets = 'landscape_md:314x0'
@@ -48,6 +48,11 @@ const Section: FC<Props> = (props) => {
       filter: SchemaMultiStory(arcSite),
     }) || {}
 
+  // console.log('=======')
+  // console.log(url)
+  // console.log(videosSection.content_elements?.length)
+  // console.log('=======')
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapperTitle}>
@@ -66,6 +71,7 @@ const Section: FC<Props> = (props) => {
               arcSite={arcSite}
               contextPath={contextPath}
               deployment={deployment}
+              key={video._id}
             />
           ))}
       </div>
@@ -73,6 +79,4 @@ const Section: FC<Props> = (props) => {
   )
 }
 
-Section.label = 'Videos de Categoría'
-
-export default React.memo(Section)
+export default Section

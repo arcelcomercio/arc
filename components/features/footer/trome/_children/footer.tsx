@@ -7,7 +7,7 @@ const classes = {
   lastColumn: 'footer-trome__last-column',
 }
 
-const TromeFooter = () => (
+const Footer = () => (
   <footer className={classes.wrapper}>
     <div className={classes.logo}>
       <img
@@ -47,11 +47,4 @@ const TromeFooter = () => (
     </div>
   </footer>
 )
-
-TromeFooter.label = 'Pie de página - Trome'
-
-// TromeFooter.propTypes = {
-//   customFields,
-// }
-
-export default TromeFooter
+export default Footer

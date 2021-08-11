@@ -1,15 +1,16 @@
 import React from 'react'
 import { FC } from 'types/features'
+import { AppContext, ArcSite } from 'types/fusion'
 
 import Image from '../../../../global-components/image'
 import StoryData from '../../../../utilities/story-data'
 
 interface Props {
-  story?: object
+  story?: any
   index?: number
-  arcSite?: string
-  contextPath?: string
-  deployment?: () => boolean
+  arcSite?: ArcSite
+  contextPath?: AppContext['contextPath']
+  deployment?: AppContext['deployment']
 }
 
 const classes = {
@@ -25,7 +26,6 @@ const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
     arcSite,
     contextPath,
     deployment,
-    defaultImgSize: 'sm',
   })
 
   Story.__data = story
@@ -36,7 +36,7 @@ const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
         itemProp="url"
         className="play-list__image-box"
         href={Story.websiteLink}>
-        <Image
+        <img
           src={Story.multimediaLandscapeMD}
           width={276}
           height={155}
@@ -44,7 +44,7 @@ const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
           className={classes.image}
           // loading="lazy"
           // sizes="(max-width: 276px) 276px"
-          clientResize
+          // clientResize
         />
 
         {!(
@@ -59,7 +59,5 @@ const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
     </div>
   )
 }
-
-ItemVideo.label = 'Video de listado de secciones'
 
 export default ItemVideo
