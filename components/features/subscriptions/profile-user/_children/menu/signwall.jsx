@@ -16,6 +16,9 @@ const classes = {
   hello: 'profile-menu__hello',
   welcome: 'profile-menu__welcome',
   body: 'profile-menu__body',
+  list: 'profile-menu__list',
+  item: 'profile-menu__item',
+  button: 'profile-menu__button',
 }
 
 const MenuSignwall = ({ handleMenu }) => {
@@ -30,10 +33,13 @@ const MenuSignwall = ({ handleMenu }) => {
   } = useAppContext() || {}
 
   const { userProfile } = useModalContext()
+  const [activeButton, setActiveButton] = React.useState('home')
   const { firstName, lastName, email, identities } = userProfile || {}
 
   const [identitie = { type: 'Password' }] = identities || []
   const [usernameid = { userName: '' }] = identities || []
+
+  const hasExternalNewsletters = arcSite === SITE_ELCOMERCIO
 
   const closeSession = () => {
     deleteCookie('arc_e_id')
@@ -60,7 +66,7 @@ const MenuSignwall = ({ handleMenu }) => {
 
   const openItemMenu = (item) => {
     if (isAuthenticated()) {
-      if (arcSite === SITE_ELCOMERCIO && item === 'news') {
+      if (hasExternalNewsletters && item === 'news') {
         window.open('/newsletters', '_blank')
       } else {
         handleMenu(item)
@@ -84,58 +90,74 @@ const MenuSignwall = ({ handleMenu }) => {
         </h1>
         <p className={classes.welcome}>Bienvenido a tu perfil</p>
         <div className={classes.body}>
-          <ul>
+          <ul className={classes.list}>
             {activePaywall && (
-              <li>
+              <li className={classes.item}>
                 <button
+                  className={`${classes.button} ${
+                    activeButton === 'home' ? 'active' : ''
+                  }`}
                   type="button"
                   style={{ color: mainColorLink }}
                   onClick={() => {
                     openItemMenu('home')
+                    setActiveButton('home')
                   }}>
                   Inicio
                 </button>
               </li>
             )}
-            <li>
+            <li className={classes.item}>
               <button
+                className={`${classes.button} ${
+                  activeButton === 'prof' ? 'active' : ''
+                }`}
                 type="button"
                 style={{ color: mainColorLink }}
                 onClick={() => {
                   openItemMenu('prof')
+                  setActiveButton('prof')
                 }}>
                 Mis Datos
               </button>
             </li>
             {activePaywall && (
-              <li>
+              <li className={classes.item}>
                 <button
+                  className={`${classes.button} ${
+                    activeButton === 'subs' ? 'active' : ''
+                  }`}
                   type="button"
                   style={{ color: mainColorLink }}
                   id="btn-subs"
                   onClick={() => {
                     openItemMenu('subs')
+                    setActiveButton('subs')
                   }}>
                   Mi Suscripción
                 </button>
               </li>
             )}
             {activeNewsletter && (
-              <li>
+              <li className={classes.item}>
                 <button
+                  className={`${classes.button} ${
+                    activeButton === 'news' ? 'active' : ''
+                  }`}
                   type="button"
                   style={{ color: mainColorLink }}
                   onClick={() => {
                     openItemMenu('news')
+                    if (!hasExternalNewsletters) setActiveButton('news')
                   }}>
                   Newsletters
                 </button>
               </li>
             )}
-            <li>
+            <li className={classes.item}>
               <button
+                className={`${classes.button} close-session`}
                 type="button"
-                className="close-sesion"
                 id="web_link_cerrarsesion"
                 onClick={() => {
                   closeSession()
