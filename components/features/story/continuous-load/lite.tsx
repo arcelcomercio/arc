@@ -14,6 +14,7 @@ const StoryContinousLoad: FC = () => {
     contextPath,
     globalContent,
   } = useAppContext<Story>()
+
   // const { idGoogleAnalitics } = getProperties(arcSite)
 
   const { links } = useLinks()

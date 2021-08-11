@@ -97,7 +97,7 @@ class XmlSitemapNewsRecent {
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
-                      storyData.firstPublishDate || storyData.publishDate || ''
+                      storyData.publishDate || ''
                     ),
                     'news:title': {
                       '#cdata': storyData.title,

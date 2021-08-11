@@ -34,7 +34,7 @@ class XmlArchiveDayNewsSitemap {
           date: `${year}-${month}-${day}`,
           size: 100,
           presets,
-          includedFields: `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},first_publish_date`,
+          includedFields: `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -88,7 +88,7 @@ class XmlArchiveDayNewsSitemap {
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
-                      storyData.firstPublishDate || storyData.publishDate || ''
+                      storyData.publishDate || ''
                     ),
                     'news:title': {
                       '#cdata': storyData.title,

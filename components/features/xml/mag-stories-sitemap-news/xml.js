@@ -34,7 +34,7 @@ class XmlMagStoriesSitemapNews {
           website: 'elcomerciomag',
           stories_qty: 100,
           presets,
-          includedFields: `websites.elcomerciomag.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},first_publish_date`,
+          includedFields: `websites.elcomerciomag.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions}`,
         },
       },
     })
@@ -84,7 +84,7 @@ class XmlMagStoriesSitemapNews {
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
-                      storyData.firstPublishDate || storyData.publishDate || ''
+                      storyData.publishDate || ''
                     ),
                     'news:title': {
                       '#cdata': storyData.title,
