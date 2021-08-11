@@ -57,12 +57,12 @@ const Dfp = () => {
       if (subtype === GALLERY_VERTICAL) {
         contentConfigValues = {
           page: 'galeria_v',
-          sectionSlug: getSectionSlug(primarySection),
+          sectionSlug: getSectionSlug(requestUri),
         }
       } else if (primarySection) {
         contentConfigValues = {
           page: 'post',
-          sectionSlug: getSectionSlug(primarySection),
+          sectionSlug: getSectionSlug(requestUri),
         }
       } else {
         contentConfigValues = {
@@ -106,8 +106,15 @@ const Dfp = () => {
       page === 'home' || page === 'post'
         ? (primarySection || sectionId || id || '').split('/')
         : (primarySection || sectionId || id || requestUri || '').split('/')
-    const section = sectionValues[1] || ''
-    const subsection = flagsub ? '' : sectionValues[2] || ''
+    let section = sectionValues[1] || ''
+    let subsection = flagsub ? '' : sectionValues[2] || ''
+    if (page === 'post') {
+      const sectionList = requestUri.split('/').slice(1)
+      if (section !== sectionList[0]) {
+        section = sectionList[0] || ''
+        subsection = sectionList[1] ? sectionList[1] : section
+      }
+    }
     const { siteUrl = '' } = getProperties(arcSite) || {}
     const targetingTags = tags.map(({ slug = '' }) => slug.split('-').join(''))
     const getTargetFunction = `var getTarget=function getTarget(){ return {"contenido":"${typeContent}","publisher":"${arcSite}","seccion":"${section}","categoria":"${subsection}","fuente":"WEB","tipoplantilla":"${page}","phatname":"${siteUrl}${
@@ -149,7 +156,9 @@ const Dfp = () => {
         return formatSpace
       }
     )
-    return `"use strict"; document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}${paywallFunction}; window.adsColl=${JSON.stringify(
+    return `"use strict";console.log(${JSON.stringify(
+      sectionValues
+    )});document.addEventListener('DOMContentLoaded', function () {${initAds}${lazyLoadFunction}${getTmpAdFunction};${getAdsDisplayFunction};${getTargetFunction}${paywallFunction}; window.adsColl=${JSON.stringify(
       adsCollection
     )
       .replace(/"<::/g, '')
