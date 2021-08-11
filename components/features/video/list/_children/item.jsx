@@ -25,14 +25,14 @@ const videoListChild = ({
           )}
         </a>
       </picture>
-      {/* <div className="flex">
+      <div className="flex">
         <a
           itemProp="url"
           className="text-gray-200 text-md video-list__section"
           href={primarySectionLink}>
           {primarySection}
         </a>
-      </div> */}
+      </div>
       <a itemProp="url" href={link} className="block mb-10 video-list__title">
         <h3
           itemProp="name"
