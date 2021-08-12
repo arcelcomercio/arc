@@ -118,8 +118,16 @@ class VideoList extends PureComponent {
       defaultImgSize: 'sm',
     })
 
+    const { customFields: { showTitle = false } = {} } = this.props
+
     return (
       <>
+        {showTitle && (
+          <div className="video-list__section-title">
+            Lo último en
+            <span className="video-list__section-name">Espectáculos</span>
+          </div>
+        )}
         <div className="flex video-list justify-center md:justify-between mt-50 flex-wrap">
           {contentElements.map((video, i) => {
             Story.__data = video
