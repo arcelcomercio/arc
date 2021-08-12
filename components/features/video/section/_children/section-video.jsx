@@ -53,7 +53,7 @@ export default ({
   hidePlaylist,
   hideShare,
   hideMeta,
-  hideSticky, 
+  hideSticky,
   categoryTop,
 }) => {
   // const [hasFixedSection, changeFixedSection] = useState(false)
@@ -217,6 +217,14 @@ export default ({
             </div>
             <div className="section-video__right">
               <div className="section-video__information">
+                {!(
+                  principalVideo.videoDuration === '00:00' ||
+                  principalVideo.videoDuration === '00:00:00'
+                ) && (
+                  <div className="section-video__mobile-duration">
+                    Duración: {principalVideo.videoDuration}
+                  </div>
+                )}
                 <div
                   className={`section-video__box-section section-video__box-section-bottom ${
                     categoryTop

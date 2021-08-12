@@ -4,8 +4,8 @@ const videoListChild = ({
   websiteLink,
   title,
   multimediaLandscapeMD,
-  // primarySection,
-  // primarySectionLink,
+  primarySection,
+  primarySectionLink,
   videoDuration,
   index,
 }) => {
