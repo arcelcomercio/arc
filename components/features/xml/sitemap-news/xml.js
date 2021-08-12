@@ -27,7 +27,7 @@ class XmlSitemapNews {
     const { globalContentConfig, arcSite } = props
     const { query: { _id: section } = {} } = globalContentConfig || {}
 
-    const includedFields = `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},content_elements.url,content_elements.type,content_elements.resized_urls,content_elements.caption,first_publish_date`
+    const includedFields = `websites.${arcSite}.website_url,display_date,publish_date,headlines.basic,taxonomy.seo_keywords,${includeTags},${includePromoItems},${includePromoItemsCaptions},content_elements.url,content_elements.type,content_elements.resized_urls,content_elements.caption`
     if (arcSite === SITE_ELCOMERCIOMAG) presets = 'landscape_l:1200x800'
 
     this.fetchContent(this.getStates(section, includedFields))
@@ -106,7 +106,7 @@ class XmlSitemapNews {
                       'news:language': 'es',
                     },
                     'news:publication_date': localISODate(
-                      storyData.firstPublishDate || storyData.publishDate || ''
+                      storyData.publishDate || ''
                     ),
                     'news:title': {
                       '#cdata': storyData.title,
