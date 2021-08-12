@@ -1,12 +1,11 @@
 .video-list {
-  padding: 0 20px;
+  margin-top: 58px;
   $desktop: 1024px;
   $tablet: 640px;
   &__container{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 50px;
     @media (--tablet) {
       justify-content: space-between; 
     }
@@ -72,8 +71,8 @@
     justify-content: center;
     width: 100%;
     button {
-      color: #fff;
-      border: 1px solid #fff;
+      color: #333;
+      border: 1px solid #333;
       padding: 10px 20px;
       border-radius: 5px;
       overflow: hidden;
@@ -82,7 +81,8 @@
         width: 225px;
       }
       &:hover {
-        background-color: #4e4e4e;
+        background-color: #333;
+        color: #fff;
       }
     }
   }

@@ -15,6 +15,14 @@ $tertiary-font: $secondary-font;
 
 @import "../../general-styles/framework/core/reset";
 
+/******* Framework Variables *******/
+@import "./scss/partials/import-icons";
+@import "../../general-styles/framework/variables/declare-icons";
+
+/******* Site Variables *******/
+@import "../../general-styles/framework/core/index";
+@import "./scss/partials/import-fonts";
+
 /******* Components *******/
 
 // No van en Mag
