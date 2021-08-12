@@ -1,4 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
+import { useFusionContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
@@ -15,6 +16,7 @@ import { PropertiesCommon } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
+import AuthFacebookGoogle from './auth-facebook-google'
 import ButtonSocial from './social'
 
 const styles = {
@@ -47,6 +49,9 @@ const Login = ({
   const [showSendEmail, setShowSendEmail] = React.useState(false)
   const [checkedPolits, setCheckedPolits] = React.useState(true)
   const { texts } = PropertiesCommon
+
+  const { customFields: { disableAuthSocialArc = false } = {} } =
+    useFusionContext() || {}
 
   const stateSchema = {
     lemail: { value: contTempl || '', error: '' },
@@ -188,23 +193,29 @@ const Login = ({
         className={`${styles.blockMiddle} ${
           isFbBrowser ? styles.blockFull : ''
         }`}>
-        <ButtonSocial
-          arcSocial="facebook"
-          arcSite={arcSite}
-          arcType="login"
-          showMsgVerify={() => triggerShowVerify()}
-          dataTreatment={checkedPolits ? '1' : '0'}
-          typeDialog={typeDialog}
-        />
-        {!isFbBrowser && (
-          <ButtonSocial
-            arcSocial="google"
-            arcSite={arcSite}
-            arcType="login"
-            showMsgVerify={() => triggerShowVerify()}
-            dataTreatment={checkedPolits ? '1' : '0'}
-            typeDialog={typeDialog}
-          />
+        {disableAuthSocialArc ? (
+          <AuthFacebookGoogle />
+        ) : (
+          <>
+            <ButtonSocial
+              arcSocial="facebook"
+              arcSite={arcSite}
+              arcType="login"
+              showMsgVerify={() => triggerShowVerify()}
+              dataTreatment={checkedPolits ? '1' : '0'}
+              typeDialog={typeDialog}
+            />
+            {!isFbBrowser && (
+              <ButtonSocial
+                arcSocial="google"
+                arcSite={arcSite}
+                arcType="login"
+                showMsgVerify={() => triggerShowVerify()}
+                dataTreatment={checkedPolits ? '1' : '0'}
+                typeDialog={typeDialog}
+              />
+            )}
+          </>
         )}
 
         {isFbBrowser && (
