@@ -128,7 +128,7 @@ class VideoList extends PureComponent {
             <span className="video-list__section-name">Espectáculos</span>
           </div>
         )}
-        <div className="flex video-list justify-center md:justify-between mt-50 flex-wrap">
+        <div className="video-list video-list__container">
           {contentElements.map((video, i) => {
             Story.__data = video
             const {
