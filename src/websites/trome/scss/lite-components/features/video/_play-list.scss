@@ -39,8 +39,9 @@
     display: block;
     position: relative;
     @media (--desktop) {
-      height: 102px;
-      margin-bottom: 8px;
+      max-height: 102px;
+      height: 102px !important;
+      margin-bottom: 8px !important;
     }
   }
   &__image {
@@ -61,7 +62,7 @@
   &__title,
   &__title a {
     font-family: $fira-s !important;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.875rem;
     line-height: 18px;
     color: #ddd;
@@ -77,6 +78,7 @@
     color: white;
     text-align: center;
     font-size: 0.75rem;
+    opacity: 0.8;
 
     @media (--desktop) {
       max-height: 102px;
