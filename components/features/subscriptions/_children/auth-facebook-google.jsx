@@ -157,16 +157,16 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
             <>
               <span className={styles.textblock}>{verifyEmailFb}</span>
 
+              {msgError && (
+                <div className={styles.leftBlock}>
+                  <div className="msg-alert">{` ${msgError} `}</div>
+                </div>
+              )}
+
               <h3 className={styles.textnotice}>
                 Revisa tu bandeja de correo para confirmar tu registro y sigue
                 navegando
               </h3>
-
-              {msgError && (
-                <div className={styles.block}>
-                  <div className="msg-alert">{` ${msgError} `}</div>
-                </div>
-              )}
 
               <div className={styles.leftBlock}>
                 <button
@@ -193,7 +193,7 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
               </h3>
 
               {msgError && (
-                <div className={styles.block}>
+                <div className={styles.leftBlock}>
                   <div className="msg-alert">{` ${msgError} `}</div>
                 </div>
               )}
