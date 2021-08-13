@@ -40,9 +40,6 @@ const edittion = (cName: string, opcion = '', has = true) => (
         {`${has ? 'MX (México)' : 'México'}`}
       </a>
 
-      {
-        // eslint-disable-next-line spaced-comment
-        /*
       <a className={`${cName}__e-pais`} href="/colombia/">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -55,8 +52,7 @@ const edittion = (cName: string, opcion = '', has = true) => (
           <rect y="9" width="18" height="4" fill="#ce1126" />
         </svg>
         {`${has ? 'CO (Colombia)' : 'Colombia'}`}
-      </a>*/
-      }
+      </a>
     </div>
   </>
 )
