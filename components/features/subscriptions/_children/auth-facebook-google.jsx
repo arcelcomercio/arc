@@ -97,6 +97,7 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
 
   const onFormEmailFacebook = ({ femail }) => {
     setLoading(true)
+    setMsgError(false)
     Identity.updateUserProfile({
       email: femail,
     })
@@ -128,6 +129,19 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
     setMsgError(false)
   }
 
+  const handleCheckProfile = () => {
+    setLoading(true)
+    setMsgError(false)
+    Identity.getUserProfile().then(({ email, emailVerified }) => {
+      if (email && emailVerified) {
+        loginSuccess()
+      } else {
+        setLoading(false)
+        setMsgError(getCodeError('130051'))
+      }
+    })
+  }
+
   return (
     <>
       {showFormFacebook ? (
@@ -137,24 +151,30 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
             alt="img-facebook"
             className={styles.imgfb}
           />
-          <h2 className={styles.title}>Hola {showFormFacebook.name}</h2>
+          <h2 className={styles.title}>Hola, {showFormFacebook.name}</h2>
 
           {verifyEmailFb ? (
             <>
               <span className={styles.textblock}>{verifyEmailFb}</span>
+
               <h3 className={styles.textnotice}>
                 Revisa tu bandeja de correo para confirmar tu registro y sigue
                 navegando
               </h3>
+
+              {msgError && (
+                <div className={styles.block}>
+                  <div className="msg-alert">{` ${msgError} `}</div>
+                </div>
+              )}
+
               <div className={styles.leftBlock}>
                 <button
                   type="button"
                   className={styles.btnnext}
-                  onClick={() => {
-                    setShowFormFacebook(false)
-                    hideFormLogin(false)
-                  }}>
-                  Continuar
+                  disabled={loading}
+                  onClick={handleCheckProfile}>
+                  {loading ? 'Verificando..' : 'Continuar'}
                 </button>
               </div>
 
@@ -202,7 +222,7 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
                 </div>
                 <div className={styles.leftBlock}>
                   <button
-                    type="button"
+                    type="submit"
                     className={styles.btnnext}
                     disabled={disable || loading}>
                     {loading ? 'Verificando...' : 'Continuar'}
