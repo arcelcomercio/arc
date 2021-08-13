@@ -189,47 +189,47 @@ const Login = ({
   return (
     <>
       <h2 className={styles.title}>{texts.login}</h2>
-      <div
-        className={`${styles.blockMiddle} ${
-          isFbBrowser ? styles.blockFull : ''
-        }`}>
-        {disableAuthSocialArc ? (
-          <AuthFacebookGoogle />
-        ) : (
-          <>
+
+      {disableAuthSocialArc ? (
+        <AuthFacebookGoogle />
+      ) : (
+        <div
+          className={`${styles.blockMiddle} ${
+            isFbBrowser ? styles.blockFull : ''
+          }`}>
+          <ButtonSocial
+            arcSocial="facebook"
+            arcSite={arcSite}
+            arcType="login"
+            showMsgVerify={() => triggerShowVerify()}
+            dataTreatment={checkedPolits ? '1' : '0'}
+            typeDialog={typeDialog}
+          />
+          {!isFbBrowser && (
             <ButtonSocial
-              arcSocial="facebook"
+              arcSocial="google"
               arcSite={arcSite}
               arcType="login"
               showMsgVerify={() => triggerShowVerify()}
               dataTreatment={checkedPolits ? '1' : '0'}
               typeDialog={typeDialog}
             />
-            {!isFbBrowser && (
-              <ButtonSocial
-                arcSocial="google"
-                arcSite={arcSite}
-                arcType="login"
-                showMsgVerify={() => triggerShowVerify()}
-                dataTreatment={checkedPolits ? '1' : '0'}
-                typeDialog={typeDialog}
-              />
-            )}
-          </>
-        )}
+          )}
+        </div>
+      )}
 
-        {isFbBrowser && (
-          <AuthURL
-            arcSite={arcSite}
-            onClose={() => {}}
-            typeDialog={typeDialog}
-            activeNewsletter
-            typeForm="login"
-            onLogged={onLoggedFia}
-            checkUserSubs={() => {}}
-          />
-        )}
-      </div>
+      {isFbBrowser && (
+        <AuthURL
+          arcSite={arcSite}
+          onClose={() => {}}
+          typeDialog={typeDialog}
+          activeNewsletter
+          typeForm="login"
+          onLogged={onLoggedFia}
+          checkUserSubs={() => {}}
+        />
+      )}
+
       <div className={styles.titleLine}>
         <p>{texts.orEnterDatesLog}</p>
       </div>
