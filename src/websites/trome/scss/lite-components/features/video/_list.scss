@@ -1,5 +1,5 @@
 .video-list {
-  margin-top: 58px;
+  margin-top: 16px;
   $desktop: 1024px;
   $tablet: 640px;
   &__container{
@@ -9,6 +9,19 @@
     @media (--tablet) {
       justify-content: space-between; 
     }
+  }
+  &__section-title{
+    margin-top: 58px;
+    text-align: left;
+    font: normal normal normal 21px/26px Fira Sans;
+    letter-spacing: -0.21px;
+    color: #333333;
+  }
+  &__section-name{
+    text-align: left;
+    font: normal normal 800 21px/26px Fira Sans;
+    letter-spacing: -0.21px;
+    color: #E06437;
   }
   &__item{
     margin-bottom: 48px;
@@ -28,8 +41,9 @@
   &__image {
     height: 100%;
     min-height: 127px;
+    background-color: #000;
     @media (--desktop) {
-      max-height: 150px;
+      max-height: 155px;
     }
     @media (--tablet) {
       max-height: 186px;
@@ -55,7 +69,6 @@
     display: block;
     width: 100%;
     position: relative;
-    // height: 100%;
   }
   &__new{
     margin-top: 12px;
