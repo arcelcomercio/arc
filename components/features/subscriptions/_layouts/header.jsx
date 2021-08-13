@@ -7,7 +7,7 @@ import {
 } from '../../../utilities/parse/queries'
 import { formatUsername } from '../../../utilities/subscriptions/identity'
 import Signwall from '../_children/Signwall'
-import { useAuthContext } from '../_context/auth'
+import { AuthProvider, useAuthContext } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import PWA from '../_dependencies/Pwa'
 import { isAuthenticated } from '../_dependencies/Session'
@@ -20,7 +20,7 @@ const styles = {
   button: 'header-payment__content-button',
 }
 
-const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
+const HeaderSubscriptions = ({ userProfile, arcSite, arcType }) => {
   const { urls } = PropertiesSite[arcSite]
   const { links } = PropertiesCommon
   const { userLoaded, activateAuth, updateStep } = useAuthContext()
@@ -113,4 +113,17 @@ const HeaderSubs = ({ userProfile, arcSite, arcType }) => {
   )
 }
 
-export default HeaderSubs
+const HeaderSubscriptionsContainer = (props) => {
+  const { userProfile, arcSite, arcType } = props
+  return (
+    <AuthProvider>
+      <HeaderSubscriptions
+        userProfile={userProfile}
+        arcSite={arcSite}
+        arcType={arcType}
+      />
+    </AuthProvider>
+  )
+}
+
+export default HeaderSubscriptionsContainer
