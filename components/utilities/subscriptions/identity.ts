@@ -14,7 +14,7 @@ import { reduceWord } from '../parse/strings'
 
 const isClientSide = typeof window !== 'undefined'
 const USER_INFO_KEY = 'ArcId.USER_INFO'
-const USER_PROFILE_KEY = 'ArcId.USER_PROFILE'
+// const USER_PROFILE_KEY = 'ArcId.USER_PROFILE'
 
 async function getUserProfile(): Promise<UserProfile | undefined> {
   let userProfile: UserProfile | undefined

@@ -74,6 +74,17 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
     setShowSignwall(hasRedirectParam)
   }, [])
 
+  const updateSignwallButton = async () => {
+    const username = await getUsername()
+    if (username && signwallButton?.current) {
+      signwallButton.current.innerHTML = username
+    }
+  }
+
+  React.useEffect(() => {
+    updateSignwallButton()
+  }, [])
+
   const handleSignwall = () => {
     const isLogged = isLoggedIn()
 
