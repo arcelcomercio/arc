@@ -293,6 +293,22 @@ $heightHeader: 52px;
           vertical-align: middle;
           background: url("https://signwall.e3.pe/images/icon-info.png");
         }
+
+        #google-sign-in-button {
+          display: inline-block;
+          margin: 20px 0;
+        }
+
+        #google-sign-in-button > div {
+          border-radius: 4px;
+          box-shadow: none !important;
+        }
+
+        #google-sign-in-button span {
+          font-size: 17px !important;
+          font-weight: bold;
+          color: white;
+        }
       }
 
       &-full {
