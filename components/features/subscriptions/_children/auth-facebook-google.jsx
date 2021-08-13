@@ -181,9 +181,9 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
               <p className={styles.linkregister}>
                 ¿No recibiste el correo?
                 <br />
-                <buton type="button" className={styles.link}>
+                <button type="button" className={styles.link}>
                   Reenviar correo de activación
-                </buton>
+                </button>
               </p>
             </>
           ) : (
