@@ -428,8 +428,8 @@ const trome = {
     ],
     contacts: [
       {
-        position: 'Editora web Marilyn Corrales',
-        name: 'mcorrales@trome.com',
+        position: 'Jefe de Mesa Digital: Herbert Holguín V.',
+        name: 'herbert.holguin@trome.com',
       },
       {
         position: 'Webmaster',
