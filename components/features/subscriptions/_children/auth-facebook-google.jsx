@@ -2,17 +2,32 @@ import Identity from '@arc-publishing/sdk-identity'
 // import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { useNavigateContext } from '../_context/navigate'
+
 const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
+  const { changeTemplate } = useNavigateContext()
   const [showFormFacebook, setShowFormFacebook] = React.useState()
   const [emailFacebook, setEmailFacebook] = React.useState()
   const [verifyEmailFb, setVerifyEmailFb] = React.useState()
 
+  const styles = {
+    center: 'step__left-align-center',
+    imgfb: 'step__left-img-facebok',
+    title: 'step__left-title',
+    textblock: 'step__left-textblock',
+    textnotice: 'step__left-text-notice',
+    leftBlock: 'step__left-block',
+    btnnext: 'step__left-btn-next',
+    link: 'step__btn-link',
+    linkregister: 'step__left-link-register',
+  }
+
   React.useEffect(() => {
-    Identity.initFacebookLogin('861476194483517', 'es_ES', true)
+    Identity.initFacebookLogin('861476194483517', 'es_ES')
     if (!window.onFacebookSignOn) {
       window.onFacebookSignOn = async () => {
         try {
-          Identity.facebookSignOn().then((res) => {
+          await Identity.facebookSignOn().then((res) => {
             const { accessToken } = res || {}
             if (!accessToken) return
             window.FB.api(
@@ -82,59 +97,81 @@ const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
       })
   }
 
-  const handleContinueFacebook = () => {
-    Identity.getUserProfile().then(({ email, emailVerified }) => {
-      if (email && emailVerified) {
-        handleLogged()
-      }
-    })
-  }
-
   return (
     <>
       {showFormFacebook ? (
-        <form>
-          Hola {showFormFacebook.name} <br />
+        <div className={styles.center}>
           <img
             src={`https://graph.facebook.com/${showFormFacebook.id}/picture?type=normal`}
             alt="img-facebook"
-            className="img-facebook"
+            className={styles.imgfb}
           />
-          <br />
+          <h2 className={styles.title}>
+            {`Hola ${showFormFacebook.name} ${
+              verifyEmailFb ? '. Solo nos falta un paso más' : ''
+            }`}
+          </h2>
+
           {verifyEmailFb ? (
             <>
-              <h3>Solo falta un paso más!</h3>
-              <p>
-                <strong> {verifyEmailFb}</strong>
-                <br />
-                <br />
+              <span className={styles.textblock}>{verifyEmailFb}</span>
+              <h3 className={styles.textnotice}>
                 Revisa tu bandeja de correo para confirmar tu registro y sigue
                 navegando
-              </p>
-              <button type="button" onClick={handleContinueFacebook}>
-                Continuar
-              </button>
-              <p>
+              </h3>
+              <div className={styles.leftBlock}>
+                <button
+                  type="button"
+                  className={styles.btnnext}
+                  onClick={() => {
+                    setShowFormFacebook(false)
+                    changeTemplate('login')
+                  }}>
+                  Continuar
+                </button>
+              </div>
+
+              <p className={styles.linkregister}>
                 ¿No recibiste el correo?
                 <br />
-                <a href="https://google.com">Reenviar correo de activación</a>
+                <buton type="button" className={styles.link}>
+                  Reenviar correo de activación
+                </buton>
               </p>
             </>
           ) : (
             <>
-              <p>Se requiere ingresar un correo Electrónico para continuar</p>
+              <h3 className={styles.textnotice}>
+                Para continuar se requiere completar
+              </h3>
 
-              <input
-                type="email"
-                placeholder="Ingresar Correo Electrónico"
-                onChange={(e) => setEmailFacebook(e.target.value)}
-              />
-              <button type="button" onClick={handleLoginFb}>
-                Continuar
-              </button>
+              <form className="form-email-facebok">
+                <div className={styles.leftBlock}>
+                  <label htmlFor="lemail">
+                    Correo electrónico
+                    <input
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      name="lemail"
+                      required
+                      maxLength="80"
+                      onChange={(e) => setEmailFacebook(e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className={styles.leftBlock}>
+                  <button
+                    type="button"
+                    className={styles.btnnext}
+                    onClick={handleLoginFb}>
+                    Continuar
+                  </button>
+                </div>
+              </form>
             </>
           )}
-        </form>
+        </div>
       ) : (
         <>
           <div
@@ -147,7 +184,6 @@ const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
             data-use-continue-as="true"
             data-onlogin="window.onFacebookSignOn()"
           />
-          <br />
 
           <div id="google-sign-in-button" />
         </>

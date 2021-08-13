@@ -50,6 +50,7 @@ $heightHeader: 52px;
 
       & label {
         color: $gray;
+        text-align: left;
       }
 
       & .note-label {
@@ -293,22 +294,6 @@ $heightHeader: 52px;
           vertical-align: middle;
           background: url("https://signwall.e3.pe/images/icon-info.png");
         }
-
-        #google-sign-in-button {
-          display: inline-block;
-          margin: 20px 0;
-        }
-
-        #google-sign-in-button > div {
-          border-radius: 4px;
-          box-shadow: none !important;
-        }
-
-        #google-sign-in-button span {
-          font-size: 17px !important;
-          font-weight: bold;
-          color: white;
-        }
       }
 
       &-full {
@@ -349,6 +334,34 @@ $heightHeader: 52px;
           border-radius: 0 4px 4px 0;
         }
       }
+    }
+
+    .fb-login-button {
+      margin: 0 auto;
+      display: table;
+    }
+
+    #google-sign-in-button {
+      display: table;
+      margin: 20px auto 0 auto;
+    }
+
+    #google-sign-in-button > div {
+      border-radius: 4px;
+      box-shadow: none !important;
+    }
+
+    #google-sign-in-button span {
+      font-size: 17px !important;
+      font-weight: bold;
+      color: white;
+    }
+
+    &-img-facebok {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
     }
 
     &-cont-form {
