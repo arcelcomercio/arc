@@ -2,28 +2,44 @@ import Identity from '@arc-publishing/sdk-identity'
 // import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { useNavigateContext } from '../_context/navigate'
+import getCodeError, { formatEmail } from '../_dependencies/Errors'
+import useForm from '../_hooks/useForm'
 
-const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
-  const { changeTemplate } = useNavigateContext()
+// key's ambiente PRE mover a enviroments
+const KEY_FACEBOOK = '861476194483517'
+const KEY_GOOGLE = '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh'
+
+const styles = {
+  center: 'step__left-align-center',
+  imgfb: 'step__left-img-facebok',
+  title: 'step__left-title',
+  textblock: 'step__left-textblock',
+  textnotice: 'step__left-text-notice',
+  leftBlock: 'step__left-block',
+  btnnext: 'step__left-btn-next',
+  link: 'step__btn-link',
+  linkregister: 'step__left-link-register',
+}
+
+const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
   const [showFormFacebook, setShowFormFacebook] = React.useState()
-  const [emailFacebook, setEmailFacebook] = React.useState()
+  const [loading, setLoading] = React.useState()
+  const [msgError, setMsgError] = React.useState()
   const [verifyEmailFb, setVerifyEmailFb] = React.useState()
 
-  const styles = {
-    center: 'step__left-align-center',
-    imgfb: 'step__left-img-facebok',
-    title: 'step__left-title',
-    textblock: 'step__left-textblock',
-    textnotice: 'step__left-text-notice',
-    leftBlock: 'step__left-block',
-    btnnext: 'step__left-btn-next',
-    link: 'step__btn-link',
-    linkregister: 'step__left-link-register',
+  const stateSchema = {
+    femail: { value: '' || '', error: '' },
+  }
+
+  const stateValidatorSchema = {
+    femail: {
+      required: true,
+      validator: formatEmail(),
+    },
   }
 
   React.useEffect(() => {
-    Identity.initFacebookLogin('861476194483517', 'es_ES')
+    Identity.initFacebookLogin(KEY_FACEBOOK, 'es_ES')
     if (!window.onFacebookSignOn) {
       window.onFacebookSignOn = async () => {
         try {
@@ -35,16 +51,18 @@ const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
               { locale: 'es_ES', fields: 'id, name, email' },
               ({ email, name, id }) => {
                 if (email) {
-                  handleLogged()
+                  loginSuccess()
                 } else {
                   Identity.getUserProfile().then(
                     ({ email: emailArc, emailVerified }) => {
                       if (emailArc && emailVerified) {
-                        handleLogged()
+                        loginSuccess()
                       } else if (emailArc && !emailVerified) {
+                        hideFormLogin(true)
                         setShowFormFacebook({ name, id })
                         setVerifyEmailFb(emailArc)
                       } else {
+                        hideFormLogin(true)
                         setShowFormFacebook({ name, id })
                       }
                     }
@@ -59,42 +77,55 @@ const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
       }
     }
 
-    Identity.initGoogleLogin(
-      '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh.apps.googleusercontent.com',
-      {
+    const btnGoogle = document.getElementById('google-sign-in-button')
+    if (btnGoogle) {
+      Identity.initGoogleLogin(`${KEY_GOOGLE}.apps.googleusercontent.com`, {
         width: 300,
         height: 40,
         theme: 'dark',
         onSuccess: () => {
-          handleLogged()
+          loginSuccess()
         },
-      }
-    )
+      }).then(() => {
+        setTimeout(() => {
+          const textGoogle = btnGoogle.getElementsByTagName('span')
+          if (textGoogle) textGoogle[0].innerHTML = 'Iniciar sesión con Google'
+        }, 200)
+      })
+    }
+  }, [])
 
-    setTimeout(() => {
-      const btnGoogle = document.getElementById('google-sign-in-button')
-
-      if (btnGoogle) {
-        const textGoogle = btnGoogle.getElementsByTagName('span')[0]
-        if (textGoogle) textGoogle.innerHTML = 'Iniciar sesión con Google'
-      }
-    }, 1000)
-  }, [handleLogged])
-
-  const handleLoginFb = () => {
+  const onFormEmailFacebook = ({ femail }) => {
+    setLoading(true)
     Identity.updateUserProfile({
-      email: emailFacebook,
+      email: femail,
     })
       .then(({ emailVerified, email }) => {
         if (!emailVerified) {
           setVerifyEmailFb(email)
         } else {
-          handleLogged()
+          loginSuccess()
         }
       })
       .catch((err) => {
-        window.console.error(err)
+        setMsgError(getCodeError(err.code))
       })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+  const {
+    values: { femail },
+    errors: { femail: femailError },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, onFormEmailFacebook)
+
+  const handleChangeInput = (e) => {
+    handleOnChange(e)
+    setMsgError(false)
   }
 
   return (
@@ -106,11 +137,7 @@ const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
             alt="img-facebook"
             className={styles.imgfb}
           />
-          <h2 className={styles.title}>
-            {`Hola ${showFormFacebook.name} ${
-              verifyEmailFb ? '. Solo nos falta un paso más' : ''
-            }`}
-          </h2>
+          <h2 className={styles.title}>Hola {showFormFacebook.name}</h2>
 
           {verifyEmailFb ? (
             <>
@@ -125,7 +152,7 @@ const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
                   className={styles.btnnext}
                   onClick={() => {
                     setShowFormFacebook(false)
-                    changeTemplate('login')
+                    hideFormLogin(false)
                   }}>
                   Continuar
                 </button>
@@ -145,27 +172,40 @@ const AuthFacebookGoogle = ({ handleLogged = () => {} }) => {
                 Para continuar se requiere completar
               </h3>
 
-              <form className="form-email-facebok">
+              {msgError && (
+                <div className={styles.block}>
+                  <div className="msg-alert">{` ${msgError} `}</div>
+                </div>
+              )}
+
+              <form className="form-email-facebok" onSubmit={handleOnSubmit}>
                 <div className={styles.leftBlock}>
-                  <label htmlFor="lemail">
+                  <label htmlFor="femail">
                     Correo electrónico
                     <input
+                      className={femailError && 'input-error'}
                       type="email"
                       inputMode="email"
                       autoComplete="email"
-                      name="lemail"
+                      name="femail"
+                      value={femail}
                       required
                       maxLength="80"
-                      onChange={(e) => setEmailFacebook(e.target.value)}
+                      onChange={handleChangeInput}
+                      onBlur={handleOnChange}
+                      disabled={loading}
                     />
+                    {femailError && (
+                      <span className="msn-error">{femailError}</span>
+                    )}
                   </label>
                 </div>
                 <div className={styles.leftBlock}>
                   <button
                     type="button"
                     className={styles.btnnext}
-                    onClick={handleLoginFb}>
-                    Continuar
+                    disabled={disable || loading}>
+                    {loading ? 'Verificando...' : 'Continuar'}
                   </button>
                 </div>
               </form>
