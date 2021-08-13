@@ -15,7 +15,6 @@ import {
 import StoryData from '../../../utilities/story-data'
 import FeaturedAuthor from './_children/featured-author'
 import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
 
 const CardFeaturedStoryAuthor = (props) => {
   const { arcSite, contextPath, deployment, isAdmin } = useAppContext()
@@ -42,7 +41,7 @@ const CardFeaturedStoryAuthor = (props) => {
     useContent({
       source: contentService,
       query: Object.assign(contentConfigValues, { presets, includedFields }),
-      filter: schemaFilter(arcSite),
+      // Se elimina el schema filter porque el query al ser demasiado grande causa problemas en el pagebuilder
     }) || {}
 
   const {
