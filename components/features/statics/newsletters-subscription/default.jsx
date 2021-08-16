@@ -241,6 +241,8 @@ class NewslettersSubscription extends Component {
                     image={item.image}
                     name={item.name}
                     description={item.description}
+                    arcSite={arcSite}
+                    frequency={item.frequency}
                     checked={checksNews[item.code]}
                     onChange={(e) => {
                       if (this.checkSession()) {
