@@ -213,9 +213,11 @@ export default ({
         duration,
       } = {}) => {
         if (!date || date < 946702800000) {
+          // eslint-disable-next-line no-param-reassign
           date = getDateSeo(updateDate)
         } else {
           const dateObj = new Date(date)
+          // eslint-disable-next-line no-param-reassign
           date = getDateSeo(dateObj)
         }
 
@@ -709,7 +711,7 @@ export default ({
         </>
       )}
       {isAmp !== true &&
-        !(isPremium && primarySectionLink === '/archivo-elcomercio')(
+        !(isPremium && primarySectionLink === '/archivo-elcomercio') && (
           <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
         )}
       {isAmp === true &&

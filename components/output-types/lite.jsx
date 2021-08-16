@@ -467,6 +467,15 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
+        {arcSite === SITE_DEPOR && sectionAds === 'futbol-internacional' && (
+          <script
+            async
+            id="browsi-tag"
+            data-pubKey="elcomercio"
+            data-siteKey="deporperu"
+            src="https://cdn.browsiprod.com/bootstrap/bootstrap.js"
+          />
+        )}
         <LiteAds
           requestUri={requestUri}
           tags={tags}
@@ -815,7 +824,7 @@ const LiteOutput = ({
           sectionAds === 'full-deportes') ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
+            src={`https://d1r08wok4169a5.cloudfront.net/dev/main-v3/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
@@ -912,14 +921,14 @@ const LiteOutput = ({
         )}
         {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
         {arcSite === SITE_OJO ? (
-            <>
-              <script
-                  dangerouslySetInnerHTML={{
-                    __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42614/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
-                  }}
-              />
-            </>
-          ) : null}
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42614/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
+              }}
+            />
+          </>
+        ) : null}
       </body>
     </html>
   )
