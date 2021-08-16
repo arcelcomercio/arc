@@ -1,6 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
 import Sales from '@arc-publishing/sdk-sales'
-import md5 from 'crypto-js/md5'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -10,11 +9,22 @@ import { formatUsername } from '../../../../../utilities/subscriptions/identity'
 import { useModalContext } from '../../../_context/modal'
 import { isAuthenticated } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
+import Avatar from './avatar'
+
+const classes = {
+  menu: 'profile-menu',
+  hello: 'profile-menu__hello',
+  welcome: 'profile-menu__welcome',
+  body: 'profile-menu__body',
+  list: 'profile-menu__list',
+  item: 'profile-menu__item',
+  button: 'profile-menu__button',
+}
 
 const MenuSignwall = ({ handleMenu }) => {
   const {
     siteProperties: {
-      signwall: { mainColorBr, mainColorLink },
+      signwall: { mainColorLink },
       activePaywall,
       activeNewsletter,
       siteDomain,
@@ -23,12 +33,13 @@ const MenuSignwall = ({ handleMenu }) => {
   } = useAppContext() || {}
 
   const { userProfile } = useModalContext()
+  const [activeButton, setActiveButton] = React.useState('home')
   const { firstName, lastName, email, identities } = userProfile || {}
+
   const [identitie = { type: 'Password' }] = identities || []
   const [usernameid = { userName: '' }] = identities || []
-  const typeLogin = identitie.type.toLowerCase()
-  const userFB = usernameid.userName
-  const emailHash = md5(email).toString()
+
+  const hasExternalNewsletters = arcSite === SITE_ELCOMERCIO
 
   const closeSession = () => {
     deleteCookie('arc_e_id')
@@ -55,7 +66,7 @@ const MenuSignwall = ({ handleMenu }) => {
 
   const openItemMenu = (item) => {
     if (isAuthenticated()) {
-      if (arcSite === SITE_ELCOMERCIO && item === 'news') {
+      if (hasExternalNewsletters && item === 'news') {
         window.open('/newsletters', '_blank')
       } else {
         handleMenu(item)
@@ -67,77 +78,86 @@ const MenuSignwall = ({ handleMenu }) => {
 
   return (
     <>
-      <div
-        className="sign-profile_menu-avatar"
-        style={{ borderColor: arcSite === 'trome' ? 'black' : mainColorBr }}>
-        <img
-          src={
-            typeLogin === 'facebook'
-              ? `https://graph.facebook.com/${userFB}/picture?type=large&redirect=true&width=500&height=500`
-              : `https://www.gravatar.com/avatar/${emailHash}?s=180&d=identicon`
-          }
-          alt="Avatar"
-          className="picture"
-        />
-      </div>
-      <div className="sign-profile_menu-wrapper">
-        <h1 className="hello" id="name-user-profile">
+      <Avatar
+        arcSite={arcSite}
+        email={email}
+        username={usernameid.userName}
+        loginType={identitie.type.toLowerCase()}
+      />
+      <div className={classes.menu}>
+        <h1 className={classes.hello} id="name-user-profile">
           Hola {formatUsername(`${firstName} ${lastName}`, 17)}
         </h1>
-        <p className="welcome">Bienvenido a tu perfil</p>
-        <div className="cont-menu">
-          <ul>
+        <p className={classes.welcome}>Bienvenido a tu perfil</p>
+        <div className={classes.body}>
+          <ul className={classes.list}>
             {activePaywall && (
-              <li>
+              <li className={classes.item}>
                 <button
+                  className={`${classes.button} ${
+                    activeButton === 'home' ? 'active' : ''
+                  }`}
                   type="button"
                   style={{ color: mainColorLink }}
                   onClick={() => {
                     openItemMenu('home')
+                    setActiveButton('home')
                   }}>
                   Inicio
                 </button>
               </li>
             )}
-            <li>
+            <li className={classes.item}>
               <button
+                className={`${classes.button} ${
+                  activeButton === 'prof' ? 'active' : ''
+                }`}
                 type="button"
                 style={{ color: mainColorLink }}
                 onClick={() => {
                   openItemMenu('prof')
+                  setActiveButton('prof')
                 }}>
                 Mis Datos
               </button>
             </li>
             {activePaywall && (
-              <li>
+              <li className={classes.item}>
                 <button
+                  className={`${classes.button} ${
+                    activeButton === 'subs' ? 'active' : ''
+                  }`}
                   type="button"
                   style={{ color: mainColorLink }}
                   id="btn-subs"
                   onClick={() => {
                     openItemMenu('subs')
+                    setActiveButton('subs')
                   }}>
                   Mi Suscripción
                 </button>
               </li>
             )}
             {activeNewsletter && (
-              <li>
+              <li className={classes.item}>
                 <button
+                  className={`${classes.button} ${
+                    activeButton === 'news' ? 'active' : ''
+                  }`}
                   type="button"
                   style={{ color: mainColorLink }}
                   onClick={() => {
                     openItemMenu('news')
+                    if (!hasExternalNewsletters) setActiveButton('news')
                   }}>
                   Newsletters
                 </button>
               </li>
             )}
-            <li>
+            <li className={classes.item}>
               <button
+                className={`${classes.button} close-session`}
                 type="button"
-                className="close-sesion"
                 id="web_link_cerrarsesion"
                 onClick={() => {
                   closeSession()
