@@ -371,7 +371,7 @@ export default ({
         <meta name="lang" content={lang} />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
-        {arcSite === 'trome' && isStory ? (
+        {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
           <meta
             name="robots"
             content={`${
@@ -383,7 +383,7 @@ export default ({
             <meta name="robots" content={`${robotsIndex}, follow`} />
           </>
         )}
-        {arcSite === 'trome' ? null : (
+        {arcSite === 'trome' || arcSite === 'depor' ? null : (
           <meta name="GOOGLEBOT" content="index follow" />
         )}
         <meta name="author" content={siteProperties.siteTitle} />
