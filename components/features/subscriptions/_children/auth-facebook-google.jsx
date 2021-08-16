@@ -1,8 +1,11 @@
 import Identity from '@arc-publishing/sdk-identity'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import Loading from '../../signwall/_children/loading'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
+import { PropertiesCommon } from '../_dependencies/Properties'
+import { Taggeo } from '../_dependencies/Taggeo'
 import useForm from '../_hooks/useForm'
 
 // key's ambiente PRE mover a enviroments
@@ -19,13 +22,17 @@ const styles = {
   btnnext: 'step__left-btn-next',
   link: 'step__btn-link',
   linkregister: 'step__left-link-register',
+  formFacebok: 'form-email-facebok',
 }
 
-const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
+const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin, typeDialog }) => {
   const [showFormFacebook, setShowFormFacebook] = React.useState()
   const [loading, setLoading] = React.useState()
   const [msgError, setMsgError] = React.useState()
   const [verifyEmailFb, setVerifyEmailFb] = React.useState()
+  const [showSendEmail, setShowSendEmail] = React.useState()
+  const [loadingSocial, setLoadingSocial] = React.useState()
+  const { texts } = PropertiesCommon
 
   const stateSchema = {
     femail: { value: '' || '', error: '' },
@@ -38,11 +45,14 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
     },
   }
 
+  const nameTagCategory = `Web_Sign_Wall_${typeDialog}`
+
   React.useEffect(() => {
     Identity.initFacebookLogin(KEY_FACEBOOK, 'es_ES')
     if (!window.onFacebookSignOn) {
       window.onFacebookSignOn = async () => {
         try {
+          setLoadingSocial(true)
           await Identity.facebookSignOn().then((res) => {
             const { accessToken } = res || {}
             if (!accessToken) return
@@ -58,10 +68,12 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
                       if (emailArc && emailVerified) {
                         loginSuccess()
                       } else if (emailArc && !emailVerified) {
+                        setLoadingSocial(false)
                         hideFormLogin(true)
                         setShowFormFacebook({ name, id })
                         setVerifyEmailFb(emailArc)
                       } else {
+                        setLoadingSocial(false)
                         hideFormLogin(true)
                         setShowFormFacebook({ name, id })
                       }
@@ -72,6 +84,7 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
             )
           })
         } catch (e) {
+          setLoadingSocial(false)
           window.console.error(e.message)
         }
       }
@@ -142,6 +155,23 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
     })
   }
 
+  const sendVerifyEmail = () => {
+    setShowSendEmail(true)
+    Identity.requestVerifyEmail(verifyEmailFb)
+    Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_registro_reenviar_correo`)
+    let timeleft = 9
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer)
+        setShowSendEmail(false)
+      } else {
+        const divCount = document.getElementById('countdown')
+        if (divCount) divCount.innerHTML = ` ${timeleft} `
+      }
+      timeleft -= 1
+    }, 1000)
+  }
+
   return (
     <>
       {showFormFacebook ? (
@@ -152,22 +182,15 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
             className={styles.imgfb}
           />
           <h2 className={styles.title}>Hola, {showFormFacebook.name}</h2>
-
           {verifyEmailFb ? (
             <>
               <span className={styles.textblock}>{verifyEmailFb}</span>
-
               {msgError && (
                 <div className={styles.leftBlock}>
                   <div className="msg-alert">{` ${msgError} `}</div>
                 </div>
               )}
-
-              <h3 className={styles.textnotice}>
-                Revisa tu bandeja de correo para confirmar tu registro y sigue
-                navegando
-              </h3>
-
+              <h3 className={styles.textnotice}>{texts.checkInbox}</h3>
               <div className={styles.leftBlock}>
                 <button
                   type="button"
@@ -177,28 +200,33 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
                   {loading ? 'Verificando..' : 'Continuar'}
                 </button>
               </div>
-
               <p className={styles.linkregister}>
-                ¿No recibiste el correo?
+                {texts.notReceiptEmail}
                 <br />
-                <button type="button" className={styles.link}>
-                  Reenviar correo de activación
-                </button>
+                {!showSendEmail ? (
+                  <button
+                    className={styles.link}
+                    type="button"
+                    onClick={sendVerifyEmail}>
+                    {texts.reSendEmail}
+                  </button>
+                ) : (
+                  <span>
+                    {texts.youCanSendEmail}
+                    <strong id="countdown"> 10 </strong> segundos
+                  </span>
+                )}
               </p>
             </>
           ) : (
             <>
-              <h3 className={styles.textnotice}>
-                Para continuar se requiere completar
-              </h3>
-
+              <h3 className={styles.textnotice}>{texts.titleContinue}</h3>
               {msgError && (
                 <div className={styles.leftBlock}>
                   <div className="msg-alert">{` ${msgError} `}</div>
                 </div>
               )}
-
-              <form className="form-email-facebok" onSubmit={handleOnSubmit}>
+              <form className={styles.formFacebok} onSubmit={handleOnSubmit}>
                 <div className={styles.leftBlock}>
                   <label htmlFor="femail">
                     Correo electrónico
@@ -234,6 +262,7 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
         </div>
       ) : (
         <>
+          {loadingSocial && <Loading typeBg="transparent" />}
           <div
             className="fb-login-button"
             data-width="300"
@@ -244,7 +273,6 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
             data-use-continue-as="true"
             data-onlogin="window.onFacebookSignOn()"
           />
-
           <div id="google-sign-in-button" />
         </>
       )}
@@ -252,8 +280,10 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin }) => {
   )
 }
 
-// AuthFacebook.propTypes = {
-//   handleLogged: PropTypes.string.isRequired,
-// }
+AuthFacebookGoogle.propTypes = {
+  loginSuccess: PropTypes.func.isRequired,
+  hideFormLogin: PropTypes.func.isRequired,
+  typeDialog: PropTypes.string.isRequired,
+}
 
 export default AuthFacebookGoogle
