@@ -202,6 +202,7 @@ const Login = ({
         <AuthFacebookGoogle
           hideFormLogin={() => setHideFormLogin(!hideFormLogin)}
           loginSuccess={loginSuccess}
+          typeDialog={typeDialog}
         />
       ) : (
         <div
