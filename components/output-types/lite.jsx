@@ -294,7 +294,7 @@ const LiteOutput = ({
           <>
             <meta name="resource-type" content="document" />
             <meta content="global" name="distribution" />
-            {arcSite === 'trome' && isStory ? (
+            {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
               <meta
                 name="robots"
                 content={`${
@@ -304,7 +304,7 @@ const LiteOutput = ({
             ) : (
               <meta name="robots" content="index, follow" />
             )}
-            {arcSite === 'trome' ? null : (
+            {arcSite === 'trome' || arcSite === 'depor' ? null : (
               <meta name="GOOGLEBOT" content="index follow" />
             )}
             <meta name="author" content={siteProperties.siteName} />
