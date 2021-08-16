@@ -198,7 +198,7 @@ const rederStory: React.FC<{
   const jsSpacesAds = () => {
     const noteId = index + 1
     const typeNote = subtype === 'gallery_vertical' ? 'galeria_v' : 'post'
-    const path = requestUri.replace('/carga-continua', '').split('?')[0]
+    const path = link.replace('/carga-continua', '').split('?')[0]
     const sectionList = path.split('/').slice(1)
     const sectionClean = sectionList[0]?.replace(/-/gm, '')
     const subSection = sectionList[1]
