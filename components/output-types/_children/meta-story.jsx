@@ -708,9 +708,10 @@ export default ({
           />
         </>
       )}
-      {isAmp !== true && (
-        <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
-      )}
+      {isAmp !== true &&
+        (!isPremium && primarySectionLink !== '/archivo-elcomercio')(
+          <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
+        )}
       {isAmp === true &&
         dataStructuraHtmlAmp.map((datas) => (
           <>
