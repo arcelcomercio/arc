@@ -171,12 +171,14 @@ const Profile = () => {
     uSecondLastName: { value: checkUndefined(secondLastName) || '', error: '' },
     uDocumentType: {
       value:
-        (printedSubscriber && subscriber.documentType) || documentType || 'DNI',
+        (printedSubscriber && subscriber?.documentType) ||
+        documentType ||
+        'DNI',
       error: '',
     },
     uDocumentNumber: {
       value:
-        (printedSubscriber && subscriber.documentNumber) ||
+        (printedSubscriber && subscriber?.documentNumber) ||
         checkUndefined(documentNumber) ||
         '',
       error: '',
