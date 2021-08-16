@@ -709,7 +709,7 @@ export default ({
         </>
       )}
       {isAmp !== true &&
-        (!isPremium && primarySectionLink !== '/archivo-elcomercio')(
+        !(isPremium && primarySectionLink === '/archivo-elcomercio')(
           <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
         )}
       {isAmp === true &&
