@@ -45,6 +45,7 @@ import {
   getDescription,
   getIsStory,
   getKeywords,
+  getSectionPath,
   getTitle,
 } from './_dependencies/utils'
 import vallaScript from './_dependencies/valla'
@@ -271,6 +272,7 @@ const LiteOutput = ({
     arcEnv: CURRENT_ENVIRONMENT,
     getdata: new Date().toISOString().slice(0, 10),
   }
+  const sectionAds = getSectionPath({ requestUri })
 
   const premiumValue = getPremiumValue === PREMIUM ? true : getPremiumValue
   const isPremiumFree = premiumValue === FREE ? 2 : premiumValue
@@ -451,13 +453,22 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
+        {arcSite === SITE_DEPOR && sectionAds === 'futbol-internacional' && (
+          <script
+            async
+            id="browsi-tag"
+            data-pubKey="elcomercio"
+            data-siteKey="deporperu"
+            src="https://cdn.browsiprod.com/bootstrap/bootstrap.js"
+          />
+        )}
         <LiteAds
           requestUri={requestUri}
           tags={tags}
           contentCode={contentCode}
           siteProperties={siteProperties}
           arcSite={arcSite}
-          section={storySectionPath.split('/')[1]}
+          section={sectionAds}
           subtype={subtype}
         />
 
@@ -791,9 +802,9 @@ const LiteOutput = ({
           }
         />
         {arcSite === SITE_DEPOR &&
-        (storySectionPath?.split('/')[1] === 'futbol-internacional' ||
-          storySectionPath?.split('/')[1] === 'futbol-peruano' ||
-          storySectionPath?.split('/')[1] === 'full-deportes') ? (
+        (sectionAds === 'futbol-internacional' ||
+          sectionAds === 'futbol-peruano' ||
+          sectionAds === 'full-deportes') ? (
           <script
             defer
             src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
