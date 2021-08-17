@@ -1,32 +1,23 @@
-export default (arcSite) => `
-  { 
-    headlines { basic }
-    subheadlines { basic }
-    content_restrictions { content_code }
-    credits {
-      by { 
-        name url type 
-        image { 
-          url 
+export default function (arcSite) {
+  return `{
+    websites { 
+      ${arcSite} { 
+        website_url 
+        website_section {
+          name
+          path
         }
-        additional_properties { original { role education { name } } } 
-      }
+      } 
     }
     promo_items {
-      youtube_id {
-        content
-      }
       basic { 
         url 
         type
         subtitle
         caption
         resized_urls { 
-          landscape_l 
-          landscape_md 
-          portrait_md 
-          square_s
-          lazy_default 
+          landscape_md
+          lazy_default
         } 
       }
       basic_video {
@@ -37,11 +28,8 @@ export default (arcSite) => `
             subtitle
             caption
             resized_urls { 
-              landscape_l 
-              landscape_md 
-              portrait_md 
-              square_s
-              lazy_default 
+              landscape_md
+              lazy_default
             } 
           }
         }
@@ -68,22 +56,10 @@ export default (arcSite) => `
             subtitle
             caption
             resized_urls { 
-              landscape_l 
-              landscape_md 
-              portrait_md 
-              square_s
-              lazy_default 
+              landscape_md
+              lazy_default
             } 
           }
-        }
-      }
-    }
-    websites {
-      ${arcSite} {
-        website_url
-        website_section{
-          name
-          path
         }
       }
     }
@@ -93,4 +69,8 @@ export default (arcSite) => `
         path 
       }
     }
+    headlines { basic }
+    display_date
+    section_name
   }`
+}
