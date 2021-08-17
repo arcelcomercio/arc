@@ -1,19 +1,11 @@
 @import "../../../../../general-styles/components/global-components/_extraordinary-story";
 
-/* .feature-fullimage {
-  @media (--desktop) {
-    height: 568px;
-  }
-  @media (--tablet) {
-    height: 370px;
-  }
-  @media (--only-mobile) {
-    height: 370px;
-  }
-} */
 .extraordinary-story {
   font-family: $primary-font;
   color: #000;
+  @media (--desktop) {
+    margin-bottom: 15px;
+  }
   &__content {
     text-align: center;
   }
@@ -73,5 +65,33 @@
   }
   address {
     display: none;
+  }
+}
+
+.provecho {
+  .grid.grid--content.col-2 {
+    @media (--desktop) {
+      grid-auto-flow: column;
+    }
+    .extraordinary-story {
+      &:nth-child(2) {
+        .extraordinary-story {
+          &__group-content {
+            border: 8px solid #3c6bd5;
+          }
+        }
+      }
+      &:first-child {
+        .extraordinary-story {
+          &__group-content {
+            border: 8px solid #cbac00;
+          }
+        }
+      }
+      &__title {
+        font-size: 25px;
+        line-height: 30px;
+      }
+    }
   }
 }
