@@ -241,7 +241,7 @@ const analyzeParagraph = ({
         if (originalParagraph) {
           ulrJwplayer = getResultJwplayer(originalParagraph)
         }
-        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe></figure>`
+        result.processedParagraph = `<figure data-mode="fullscreen" class="op-interactive"><video data-fb-disable-autoplay="data-fb-disable-autoplay" controls="controls"><source src="${ulrJwplayer}" type="video/mp4"/></video></figure>`
       }
       break
     case ConfigParams.ELEMENT_LINK_LIST:
@@ -659,7 +659,7 @@ const multimediaHeader = (
       if (promoItemJwplayer && promoItemJwplayer.key) {
         ulrJwplayer = getResultJwplayer(promoItemJwplayer.conversions)
       }
-      result = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe>${
+      result = `<figure data-mode="fullscreen" class="op-interactive"><video data-fb-disable-autoplay="data-fb-disable-autoplay" controls="controls"><source src="${ulrJwplayer}" type="video/mp4"/></video>${
         title ? `<figcaption>${title}</figcaption>` : ''
       }</figure>`
       break
