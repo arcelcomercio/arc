@@ -711,7 +711,7 @@ export default ({
         </>
       )}
       {isAmp !== true &&
-        !(isPremium && primarySection === '/archivo-elcomercio/') && (
+        !(isPremium && primarySectionLink === '/archivo-elcomercio/') && (
           <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
         )}
       {isAmp === true &&
