@@ -1,10 +1,12 @@
-import React from 'react'
-import { ENVIRONMENT } from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
-import StoryData from '../../../utilities/story-data'
+import { ENVIRONMENT } from 'fusion:environment'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import StoriesRecent from '../../../global-components/stories-recent'
-import { formatHtmlToText } from '../../../utilities/helpers'
 import { SITE_GESTION } from '../../../utilities/constants/sitenames'
+import { formatHtmlToText } from '../../../utilities/helpers'
+import StoryData from '../../../utilities/story-data'
 
 const classes = {
   footer: 'amp-footer footer flex items-center pt-25 pb-25 mx-auto w-full',
@@ -55,9 +57,9 @@ const LayoutAmpFooter = () => {
       `{  
             "image":"${instance.multimediaLandscapeMD}",
             "title":"${formatHtmlToText(instance.title)}",
-            "ampUrl":"${pathUrl}${
-        instance.websiteLink
-      }?outputType=amp&next=${index + 1}"
+            "ampUrl":"${pathUrl}${instance.websiteLink}?outputType=amp&next=${
+        index + 1
+      }"
           }`
     )
   })
@@ -100,5 +102,24 @@ const LayoutAmpFooter = () => {
 }
 
 LayoutAmpFooter.label = 'Pie de Página'
+LayoutAmpFooter.static = true
+
+LayoutAmpFooter.propTypes = {
+  customFields: PropTypes.shape({
+    footerType: PropTypes.oneOf(['standard', 'secondary', 'story']).tag({
+      name: 'Diseño del Pie de página',
+      labels: {
+        standard: 'Footer estándar',
+        secondary: 'Footer 2',
+        story: 'Footer - Notas',
+      },
+      defaultValue: 'standard',
+    }),
+    sectionsHierarchyConfig: PropTypes.contentConfig('navigation').tag({
+      name: 'Editar navegación de "secciones"',
+      group: 'Configuración del contenido',
+    }),
+  }),
+}
 
 export default LayoutAmpFooter
