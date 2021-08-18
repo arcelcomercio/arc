@@ -35,8 +35,9 @@ const MobileSummary: React.FC<MobileSummaryProps> = ({
   planName,
   billingFrequency,
   billingAmount,
-}) =>
-  userStep !== 4 ? (
+}) => {
+  console.log({ userStep, planName, billingFrequency, billingAmount })
+  return userStep !== 4 ? (
     <section className="step__bottom">
       <button className={styles.btnDetail} type="button" id="btn-detail">
         <div>
@@ -57,5 +58,6 @@ const MobileSummary: React.FC<MobileSummaryProps> = ({
       </button>
     </section>
   ) : null
+}
 
 export default React.memo(MobileSummary)
