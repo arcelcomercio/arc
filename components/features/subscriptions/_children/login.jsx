@@ -189,27 +189,44 @@ const Login = ({
     }
   }
 
-  const loginSuccess = () => {
+  const registerSuccessFabebook = () => {
     Identity.getUserProfile().then((resProfile) => {
       activateAuth(resProfile)
       updateStep(2)
     })
   }
 
+  const registerFailedFacebook = () => setMsgError(getCodeError())
+
   return (
     <>
       <h2 className={styles.title}>{texts.login}</h2>
 
       {disableAuthSocialArc ? (
-        <AuthFacebookGoogle
-          hideFormLogin={() => setHideFormLogin(!hideFormLogin)}
-          loginSuccess={loginSuccess}
-          typeDialog={typeDialog}
-          dataTreatment={checkedPolits ? '1' : '0'}
-          arcSite={arcSite}
-          arcType="login"
-          activeNewsletter={activeNewsletter}
-        />
+        <>
+          <AuthFacebookGoogle
+            hideFormParent={() => setHideFormLogin(!hideFormLogin)}
+            onAuthSuccess={registerSuccessFabebook}
+            onAuthFailed={registerFailedFacebook}
+            typeDialog={typeDialog}
+            dataTreatment={checkedPolits ? '1' : '0'}
+            arcSite={arcSite}
+            arcType="login"
+            activeNewsletter={activeNewsletter}
+          />
+          {!isFbBrowser && (
+            <div className={`${styles.blockMiddle} ${styles.blockFull}`}>
+              <ButtonSocial
+                arcSocial="google"
+                arcSite={arcSite}
+                arcType="login"
+                showMsgVerify={() => triggerShowVerify()}
+                dataTreatment={checkedPolits ? '1' : '0'}
+                typeDialog={typeDialog}
+              />
+            </div>
+          )}
+        </>
       ) : (
         <div
           className={`${styles.blockMiddle} ${
@@ -233,19 +250,18 @@ const Login = ({
               typeDialog={typeDialog}
             />
           )}
+          {isFbBrowser && (
+            <AuthURL
+              arcSite={arcSite}
+              onClose={() => {}}
+              typeDialog={typeDialog}
+              activeNewsletter={activeNewsletter}
+              typeForm="login"
+              onLogged={onLoggedFia}
+              checkUserSubs={() => {}}
+            />
+          )}
         </div>
-      )}
-
-      {isFbBrowser && (
-        <AuthURL
-          arcSite={arcSite}
-          onClose={() => {}}
-          typeDialog={typeDialog}
-          activeNewsletter={activeNewsletter}
-          typeForm="login"
-          onLogged={onLoggedFia}
-          checkUserSubs={() => {}}
-        />
       )}
 
       {!hideFormLogin && (
