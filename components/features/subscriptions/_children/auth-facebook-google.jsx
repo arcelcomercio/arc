@@ -10,10 +10,6 @@ import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import useForm from '../_hooks/useForm'
 
-// key's ambiente PRE mover a enviroments
-const KEY_FACEBOOK = '861476194483517'
-const KEY_GOOGLE = '519633312892-3kpve55sqi0k1nq2n4f9suag9sji41jh'
-
 const styles = {
   center: 'step__left-align-center',
   imgfb: 'step__left-img-facebok',
@@ -28,8 +24,9 @@ const styles = {
 }
 
 const AuthFacebookGoogle = ({
-  loginSuccess,
-  hideFormLogin,
+  hideFormParent,
+  onAuthSuccess,
+  onAuthFailed,
   typeDialog,
   dataTreatment,
   arcSite,
@@ -42,7 +39,7 @@ const AuthFacebookGoogle = ({
   const [verifyEmailFb, setVerifyEmailFb] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState()
   const [loadingSocial, setLoadingSocial] = React.useState()
-  const { texts, urls } = PropertiesCommon
+  const { texts, urls, links } = PropertiesCommon
 
   const stateSchema = {
     femail: { value: '' || '', error: '' },
@@ -60,25 +57,33 @@ const AuthFacebookGoogle = ({
 
   const checkStatusForms = (emailArc, emailVerified, name, id) => {
     if (emailArc && emailVerified) {
-      loginSuccess()
+      onAuthSuccess()
       Taggeo(
         nameTagCategory,
         `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
       )
     } else if (emailArc && !emailVerified) {
       setLoadingSocial(false)
-      hideFormLogin(true)
+      hideFormParent(true)
       setShowFormFacebook({ name, id })
       setVerifyEmailFb(emailArc)
     } else {
       setLoadingSocial(false)
-      hideFormLogin(true)
+      hideFormParent(true)
       setShowFormFacebook({ name, id })
     }
   }
 
+  const authFailed = () => {
+    onAuthFailed()
+    Taggeo(
+      nameTagCategory,
+      `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
+    )
+  }
+
   React.useEffect(() => {
-    Identity.initFacebookLogin(KEY_FACEBOOK, 'es_ES')
+    Identity.initFacebookLogin(links.facebookKey, 'es_ES')
     if (!window.onFacebookSignOn) {
       window.onFacebookSignOn = async () => {
         try {
@@ -163,20 +168,14 @@ const AuthFacebookGoogle = ({
                           })
                           .catch(() => {
                             setLoadingSocial(false)
-                            Taggeo(
-                              nameTagCategory,
-                              `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
-                            )
+                            authFailed()
                           })
                       }
                     }
                   )
                   .catch(() => {
                     setLoadingSocial(false)
-                    Taggeo(
-                      nameTagCategory,
-                      `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
-                    )
+                    authFailed()
                   })
               }
             )
@@ -188,22 +187,25 @@ const AuthFacebookGoogle = ({
       }
     }
 
-    const btnGoogle = document.getElementById('google-sign-in-button')
-    if (btnGoogle) {
-      Identity.initGoogleLogin(`${KEY_GOOGLE}.apps.googleusercontent.com`, {
-        width: 300,
-        height: 40,
-        theme: 'dark',
-        onSuccess: () => {
-          loginSuccess()
-        },
-      }).then(() => {
-        setTimeout(() => {
-          const textGoogle = btnGoogle.getElementsByTagName('span')
-          if (textGoogle) textGoogle[0].innerHTML = 'Iniciar sesión con Google'
-        }, 200)
-      })
-    }
+    // const btnGoogle = document.getElementById('google-sign-in-button')
+    // if (btnGoogle) {
+    //   Identity.initGoogleLogin(
+    //     `${links.googleKey}.apps.googleusercontent.com`,
+    //     {
+    //       width: 300,
+    //       height: 40,
+    //       theme: 'dark',
+    //       onSuccess: () => {
+    //         onAuthSuccess()
+    //       },
+    //     }
+    //   ).then(() => {
+    //     setTimeout(() => {
+    //       const textGoogle = btnGoogle.getElementsByTagName('span')
+    //       if (textGoogle) textGoogle[0].innerHTML = 'Iniciar sesión con Google'
+    //     }, 200)
+    //   })
+    // }
   }, [])
 
   const onFormEmailFacebook = ({ femail }) => {
@@ -216,7 +218,7 @@ const AuthFacebookGoogle = ({
         if (!emailVerified) {
           setVerifyEmailFb(email)
         } else {
-          loginSuccess()
+          onAuthSuccess()
         }
       })
       .catch((err) => {
@@ -245,7 +247,7 @@ const AuthFacebookGoogle = ({
     setMsgError(false)
     Identity.getUserProfile().then(({ email, emailVerified }) => {
       if (email && emailVerified) {
-        loginSuccess()
+        onAuthSuccess()
       } else {
         setLoading(false)
         setMsgError(getCodeError('130051'))
@@ -371,7 +373,7 @@ const AuthFacebookGoogle = ({
             data-use-continue-as="true"
             data-onlogin="window.onFacebookSignOn()"
           />
-          <div id="google-sign-in-button" />
+          {/* <div id="google-sign-in-button" /> */}
         </>
       )}
     </>
@@ -379,8 +381,9 @@ const AuthFacebookGoogle = ({
 }
 
 AuthFacebookGoogle.propTypes = {
-  loginSuccess: PropTypes.func.isRequired,
-  hideFormLogin: PropTypes.func.isRequired,
+  hideFormParent: PropTypes.func.isRequired,
+  onAuthSuccess: PropTypes.func.isRequired,
+  onAuthFailed: PropTypes.func.isRequired,
   typeDialog: PropTypes.string.isRequired,
   dataTreatment: PropTypes.string.isRequired,
   arcSite: PropTypes.string.isRequired,
