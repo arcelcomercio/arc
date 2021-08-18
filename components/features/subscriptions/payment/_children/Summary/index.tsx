@@ -81,7 +81,7 @@ const Summary = (): JSX.Element => {
 
     if (frecuencyPlan) {
       updatePeriod(frequencies[frecuencyPlan])
-      if (amount) {
+      if (typeof amount === 'number') {
         updateDataPlan(amount, frecuencyPlan)
       }
     }
