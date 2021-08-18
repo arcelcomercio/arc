@@ -35,9 +35,8 @@ const MobileSummary: React.FC<MobileSummaryProps> = ({
   planName,
   billingFrequency,
   billingAmount,
-}) => {
-  console.log({ userStep, planName, billingFrequency, billingAmount })
-  return userStep !== 4 ? (
+}) =>
+  userStep !== 4 ? (
     <section className="step__bottom">
       <button className={styles.btnDetail} type="button" id="btn-detail">
         <div>
@@ -51,13 +50,14 @@ const MobileSummary: React.FC<MobileSummaryProps> = ({
         </div>
         <div>
           <span className="price-item">
-            {billingAmount ? getPlanAmount(billingAmount) : ''}
+            {typeof billingAmount === 'number'
+              ? getPlanAmount(billingAmount)
+              : ''}
           </span>
           <i className={styles.iconUp} />
         </div>
       </button>
     </section>
   ) : null
-}
 
 export default React.memo(MobileSummary)
