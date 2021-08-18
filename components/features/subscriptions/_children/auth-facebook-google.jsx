@@ -4,7 +4,9 @@ import * as React from 'react'
 
 import Loading from '../../signwall/_children/loading'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
+import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon } from '../_dependencies/Properties'
+import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import useForm from '../_hooks/useForm'
 
@@ -25,14 +27,22 @@ const styles = {
   formFacebok: 'form-email-facebok',
 }
 
-const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin, typeDialog }) => {
+const AuthFacebookGoogle = ({
+  loginSuccess,
+  hideFormLogin,
+  typeDialog,
+  dataTreatment,
+  arcSite,
+  arcType,
+  activeNewsletter,
+}) => {
   const [showFormFacebook, setShowFormFacebook] = React.useState()
   const [loading, setLoading] = React.useState()
   const [msgError, setMsgError] = React.useState()
   const [verifyEmailFb, setVerifyEmailFb] = React.useState()
   const [showSendEmail, setShowSendEmail] = React.useState()
   const [loadingSocial, setLoadingSocial] = React.useState()
-  const { texts } = PropertiesCommon
+  const { texts, urls } = PropertiesCommon
 
   const stateSchema = {
     femail: { value: '' || '', error: '' },
@@ -46,6 +56,26 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin, typeDialog }) => {
   }
 
   const nameTagCategory = `Web_Sign_Wall_${typeDialog}`
+  const arcSocial = 'facebook'
+
+  const checkStatusForms = (emailArc, emailVerified, name, id) => {
+    if (emailArc && emailVerified) {
+      loginSuccess()
+      Taggeo(
+        nameTagCategory,
+        `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
+      )
+    } else if (emailArc && !emailVerified) {
+      setLoadingSocial(false)
+      hideFormLogin(true)
+      setShowFormFacebook({ name, id })
+      setVerifyEmailFb(emailArc)
+    } else {
+      setLoadingSocial(false)
+      hideFormLogin(true)
+      setShowFormFacebook({ name, id })
+    }
+  }
 
   React.useEffect(() => {
     Identity.initFacebookLogin(KEY_FACEBOOK, 'es_ES')
@@ -53,6 +83,10 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin, typeDialog }) => {
       window.onFacebookSignOn = async () => {
         try {
           setLoadingSocial(true)
+          Taggeo(
+            nameTagCategory,
+            `web_sw${typeDialog[0]}_${arcType}_boton_${arcSocial}`
+          )
           await Identity.facebookSignOn().then((res) => {
             const { accessToken } = res || {}
             if (!accessToken) return
@@ -60,26 +94,90 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin, typeDialog }) => {
               '/me',
               { locale: 'es_ES', fields: 'id, name, email' },
               ({ email, name, id }) => {
-                if (email) {
-                  loginSuccess()
-                } else {
-                  Identity.getUserProfile().then(
-                    ({ email: emailArc, emailVerified }) => {
-                      if (emailArc && emailVerified) {
-                        loginSuccess()
-                      } else if (emailArc && !emailVerified) {
-                        setLoadingSocial(false)
-                        hideFormLogin(true)
-                        setShowFormFacebook({ name, id })
-                        setVerifyEmailFb(emailArc)
+                Identity.getUserProfile()
+                  .then(
+                    ({ uuid, attributes, email: emailArc, emailVerified }) => {
+                      if (attributes) {
+                        checkStatusForms(emailArc, emailVerified, name, id)
                       } else {
-                        setLoadingSocial(false)
-                        hideFormLogin(true)
-                        setShowFormFacebook({ name, id })
+                        Identity.updateUserProfile({
+                          attributes: [
+                            {
+                              name: 'originDomain',
+                              value: window.location.hostname || 'none',
+                              type: 'String',
+                            },
+                            {
+                              name: 'originReferer',
+                              value:
+                                window.location.href
+                                  .split('&')[0]
+                                  .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, '') ||
+                                'none',
+                              type: 'String',
+                            },
+                            {
+                              name: 'originMethod',
+                              value: '2', // only facebok
+                              type: 'String',
+                            },
+                            {
+                              name: 'originDevice',
+                              value: getDevice(window) || 'none',
+                              type: 'String',
+                            },
+                            {
+                              name: 'originAction',
+                              value: typeDialog || 'landing',
+                              type: 'String',
+                            },
+                            {
+                              name: 'termsCondPrivaPoli',
+                              value: '1',
+                              type: 'String',
+                            },
+                            {
+                              name: 'dataTreatment',
+                              value:
+                                dataTreatment &&
+                                (arcSite === 'elcomercio' ||
+                                  arcSite === 'gestion')
+                                  ? dataTreatment
+                                  : 'NULL',
+                              type: 'String',
+                            },
+                          ],
+                        })
+                          .then(() => {
+                            checkStatusForms(emailArc, emailVerified, name, id)
+                            if (email && activeNewsletter) {
+                              sendNewsLettersUser(
+                                urls.newsLetters,
+                                uuid,
+                                email,
+                                arcSite,
+                                accessToken,
+                                ['general']
+                              )
+                            }
+                          })
+                          .catch(() => {
+                            setLoadingSocial(false)
+                            Taggeo(
+                              nameTagCategory,
+                              `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
+                            )
+                          })
                       }
                     }
                   )
-                }
+                  .catch(() => {
+                    setLoadingSocial(false)
+                    Taggeo(
+                      nameTagCategory,
+                      `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
+                    )
+                  })
               }
             )
           })
@@ -262,7 +360,7 @@ const AuthFacebookGoogle = ({ loginSuccess, hideFormLogin, typeDialog }) => {
         </div>
       ) : (
         <>
-          {loadingSocial && <Loading typeBg="transparent" />}
+          {loadingSocial && <Loading typeBg="full-transparent" />}
           <div
             className="fb-login-button"
             data-width="300"
@@ -284,6 +382,10 @@ AuthFacebookGoogle.propTypes = {
   loginSuccess: PropTypes.func.isRequired,
   hideFormLogin: PropTypes.func.isRequired,
   typeDialog: PropTypes.string.isRequired,
+  dataTreatment: PropTypes.string.isRequired,
+  arcSite: PropTypes.string.isRequired,
+  arcType: PropTypes.string.isRequired,
+  activeNewsletter: PropTypes.bool.isRequired,
 }
 
 export default AuthFacebookGoogle

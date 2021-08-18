@@ -51,8 +51,10 @@ const Login = ({
   const [hideFormLogin, setHideFormLogin] = React.useState(false)
   const { texts } = PropertiesCommon
 
-  const { customFields: { disableAuthSocialArc = false } = {} } =
-    useFusionContext() || {}
+  const {
+    customFields: { disableAuthSocialArc = false } = {},
+    siteProperties: { activeNewsletter },
+  } = useFusionContext() || {}
 
   const stateSchema = {
     lemail: { value: contTempl || '', error: '' },
@@ -203,6 +205,10 @@ const Login = ({
           hideFormLogin={() => setHideFormLogin(!hideFormLogin)}
           loginSuccess={loginSuccess}
           typeDialog={typeDialog}
+          dataTreatment={checkedPolits ? '1' : '0'}
+          arcSite={arcSite}
+          arcType="login"
+          activeNewsletter={activeNewsletter}
         />
       ) : (
         <div
@@ -235,7 +241,7 @@ const Login = ({
           arcSite={arcSite}
           onClose={() => {}}
           typeDialog={typeDialog}
-          activeNewsletter
+          activeNewsletter={activeNewsletter}
           typeForm="login"
           onLogged={onLoggedFia}
           checkUserSubs={() => {}}
