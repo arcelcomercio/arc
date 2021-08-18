@@ -162,7 +162,7 @@ const Profile = () => {
       )
     }
 
-    if (userErrorApi !== null) updateErrorApi(error)
+    if (error) updateErrorApi(error)
   }, [])
 
   const stateSchema = {
