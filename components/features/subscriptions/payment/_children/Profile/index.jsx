@@ -611,6 +611,8 @@ const Profile = () => {
     window.open(links.profile, '_blank')
   }
 
+  console.log({ msgError, userErrorApi })
+
   return (
     <>
       <ul className={styles.step}>
