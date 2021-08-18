@@ -14,7 +14,7 @@
     "@arc-publishing/sdk-identity": "^1.53.0",
     "@arc-publishing/sdk-sales": "^1.53.0",
     "@fingerprintjs/fingerprintjs": "^3.1.2",
-    "@sentry/browser": "5.10.1",
+    "@sentry/browser": "5.18.0",
     "crypto-js": "4.0.0",
     "google-spreadsheet": "^3.1.15",
     "history": "5.0.0",
@@ -30,7 +30,7 @@
     "react": "^16.6.3"
   },
   "devDependencies": {
-    "@arc-fusion/cli": "^2.0.4",
+    "@arc-fusion/cli": "^2.0.6",
     "@babel/core": "7.13.1",
     "@babel/plugin-proposal-class-properties": "7.13.0",
     "@babel/plugin-proposal-decorators": "7.13.5",

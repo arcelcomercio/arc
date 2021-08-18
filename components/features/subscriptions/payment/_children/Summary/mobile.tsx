@@ -50,7 +50,9 @@ const MobileSummary: React.FC<MobileSummaryProps> = ({
         </div>
         <div>
           <span className="price-item">
-            {billingAmount ? getPlanAmount(billingAmount) : ''}
+            {typeof billingAmount === 'number'
+              ? getPlanAmount(billingAmount)
+              : ''}
           </span>
           <i className={styles.iconUp} />
         </div>
