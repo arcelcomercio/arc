@@ -298,11 +298,15 @@ $heightHeader: 52px;
 
       &-full {
         width: 100%;
+        & button.btn-google,
         & button.btn-facebook {
-          width: 100%;
-          margin: 0;
-          font-size: 12px;
+          // width: 100%;
+          // margin: 0;
+          font-size: 16px;
           background-position: 15px center;
+          text-align: center !important;
+          min-width: 300px;
+          margin: 0 auto !important;
         }
       }
 
@@ -339,6 +343,7 @@ $heightHeader: 52px;
     .fb-login-button {
       margin: 0 auto;
       display: table;
+      margin-bottom: 20px;
     }
 
     #google-sign-in-button {
