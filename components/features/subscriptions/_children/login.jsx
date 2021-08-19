@@ -203,30 +203,17 @@ const Login = ({
       <h2 className={styles.title}>{texts.login}</h2>
 
       {disableAuthSocialArc ? (
-        <>
-          <AuthFacebookGoogle
-            hideFormParent={() => setHideFormLogin(!hideFormLogin)}
-            onAuthSuccess={registerSuccessFabebook}
-            onAuthFailed={registerFailedFacebook}
-            typeDialog={typeDialog}
-            dataTreatment={checkedPolits ? '1' : '0'}
-            arcSite={arcSite}
-            arcType="login"
-            activeNewsletter={activeNewsletter}
-          />
-          {!isFbBrowser && (
-            <div className={`${styles.blockMiddle} ${styles.blockFull}`}>
-              <ButtonSocial
-                arcSocial="google"
-                arcSite={arcSite}
-                arcType="login"
-                showMsgVerify={() => triggerShowVerify()}
-                dataTreatment={checkedPolits ? '1' : '0'}
-                typeDialog={typeDialog}
-              />
-            </div>
-          )}
-        </>
+        <AuthFacebookGoogle
+          hideFormParent={() => setHideFormLogin(!hideFormLogin)}
+          onAuthSuccess={registerSuccessFabebook}
+          onAuthFailed={registerFailedFacebook}
+          typeDialog={typeDialog}
+          dataTreatment={checkedPolits ? '1' : '0'}
+          arcSite={arcSite}
+          arcType="login"
+          activeNewsletter={activeNewsletter}
+          showMsgVerify={() => triggerShowVerify()}
+        />
       ) : (
         <div
           className={`${styles.blockMiddle} ${
