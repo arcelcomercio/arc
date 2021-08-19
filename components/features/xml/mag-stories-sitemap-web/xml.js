@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
-import { localISODate } from '../../../utilities/helpers'
+
+import { localISODate } from '../../../utilities/date-time/dates'
 
 /**
  * @description Sitemap estándar para la web de Mag.
@@ -40,7 +41,7 @@ class XmlMagStoriesSitemapWeb {
     }
 
     const sitemap = {
-      urlset: stories.map(story => {
+      urlset: stories.map((story) => {
         const {
           publish_date: date = '',
           display_date: displayDate,
