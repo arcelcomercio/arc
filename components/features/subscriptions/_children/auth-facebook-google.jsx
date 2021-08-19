@@ -8,7 +8,9 @@ import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
+import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
+import ButtonSocial from './social'
 
 const styles = {
   center: 'step__left-align-center',
@@ -21,6 +23,8 @@ const styles = {
   link: 'step__btn-link',
   linkregister: 'step__left-link-register',
   formFacebok: 'form-email-facebok',
+  blockMiddle: 'step__left-block-middle',
+  blockFull: 'step__left-block-full',
 }
 
 const AuthFacebookGoogle = ({
@@ -32,6 +36,7 @@ const AuthFacebookGoogle = ({
   arcSite,
   arcType,
   activeNewsletter,
+  showMsgVerify,
 }) => {
   const [showFormFacebook, setShowFormFacebook] = React.useState()
   const [loading, setLoading] = React.useState()
@@ -373,6 +378,18 @@ const AuthFacebookGoogle = ({
             data-use-continue-as="true"
             data-onlogin="window.onFacebookSignOn()"
           />
+          {!isFbBrowser && (
+            <div className={`${styles.blockMiddle} ${styles.blockFull}`}>
+              <ButtonSocial
+                arcSocial="google"
+                arcSite={arcSite}
+                arcType={arcType}
+                showMsgVerify={() => showMsgVerify()}
+                dataTreatment={dataTreatment}
+                typeDialog={typeDialog}
+              />
+            </div>
+          )}
           {/* <div id="google-sign-in-button" /> */}
         </>
       )}
@@ -389,6 +406,7 @@ AuthFacebookGoogle.propTypes = {
   arcSite: PropTypes.string.isRequired,
   arcType: PropTypes.string.isRequired,
   activeNewsletter: PropTypes.bool.isRequired,
+  showMsgVerify: PropTypes.func.isRequired,
 }
 
 export default AuthFacebookGoogle
