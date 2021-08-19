@@ -18,6 +18,8 @@ const classes = {
   image: 'video-categories-list__section__item__image',
   duration: 'video-categories-list__section__item__duration',
   title: 'video-categories-list__section__item__title',
+  play: 'video-categories-list__section__item__play',
+  icon: 'video-categories-list__section__item__icon-play',
 }
 
 const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
@@ -49,7 +51,25 @@ const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
 
         {!(
           Story.videoDuration === '00:00' || Story.videoDuration === '00:00:00'
-        ) && <span className={classes.duration}>{Story.videoDuration}</span>}
+        ) && 
+           <> 
+              <span className={classes.duration}>{Story.videoDuration}</span>
+              {
+              (arcSite === 'trome') && (
+              <svg
+                  className={classes.play} 
+                  xmlns="http://www.w3.org/2000/svg "
+                  viewBox="0 0 112 112" 
+                > 
+                <path 
+                  className={classes.icon}
+                  d="M39.67,28V84L86.34,56Z"
+                />
+              </svg>
+              )
+              }
+            </>
+          }
       </a>
       <h3 itemProp="name" className={classes.title}>
         <a itemProp="url" href={Story.websiteLink}>

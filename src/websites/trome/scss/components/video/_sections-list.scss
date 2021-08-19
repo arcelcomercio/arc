@@ -43,6 +43,10 @@
         justify-content: space-between;
       }
     }
+    &__icon-more-videos{
+      height: 22px;
+    }
+
     &__item{
       &__wrapper{
         background-color: #fff;
@@ -69,6 +73,22 @@
         font-weight: 800;
         line-height: 22px;
         padding-top: 12px;
+      }
+      &__play {
+        font: normal normal bold 12px/16px Roboto;
+        border-radius: 3px;
+        opacity: 0.8;
+        position: absolute;
+        bottom: 9px;
+        width: 54px;
+        height: 52px;
+        color: #dddddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      &__icon-play{
+        fill: #fff;
       }
     }
   }

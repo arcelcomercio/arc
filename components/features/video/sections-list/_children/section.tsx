@@ -24,6 +24,7 @@ const classes = {
   arrowTitle: 'video-categories-list__section__arrow-title',
   moreVideos: 'video-categories-list__section__section-more-videos',
   wrapperList: 'video-categories-list__section__wrapper-list',
+  iconMoreVideos: 'video-categories-list__section__icon-more-videos',
 }
 
 const Section: FC<Props> = (props) => {
@@ -57,10 +58,18 @@ const Section: FC<Props> = (props) => {
     <div className={classes.wrapper}>
       <div className={classes.wrapperTitle}>
         <h2 className={classes.name}>
-          {name} <span className={classes.arrowTitle}>&gt;</span>
+          {name} 
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={classes.arrowTitle}>
+              <path  d="M8.59,16.59,13.17,12,8.59,7.41,10,6l6,6-6,6Z"/>
+            </svg>
         </h2>
         <div className={classes.moreVideos}>
-          <a href={url}>Ver más videos &gt; </a>
+          <a href={url}>
+            Ver más videos 
+          </a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={classes.iconMoreVideos}>
+              <path  d="M8.59,16.59,13.17,12,8.59,7.41,10,6l6,6-6,6Z"/>
+            </svg>
         </div>
       </div>
       <div className={classes.wrapperList}>

@@ -26,6 +26,7 @@ const HeaderInvertedFeatured = (props) => {
       customLogoLink,
       tags,
       hideMenu,
+      invertedMenu,
     },
   } = props
 
@@ -171,6 +172,7 @@ const HeaderInvertedFeatured = (props) => {
       logoImg={logoImg}
       winningCallLogo={winningCallLogo}
       hideMenu={hideMenu}
+      invertedMenu={invertedMenu}
     />
   )
 }

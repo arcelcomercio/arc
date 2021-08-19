@@ -59,6 +59,7 @@ const HeaderChildInverted = ({
   isStory,
   winningCallLogo,
   hideMenu,
+  invertedMenu
 }) => {
   const [scrolled, setScrolled] = React.useState(false)
   const [statusSidebar, setStatusSidebar] = React.useState(false)
@@ -189,6 +190,8 @@ const HeaderChildInverted = ({
       window.removeEventListener('scroll', _handleScroll)
     }
   }, [_handleScroll])
+
+  // console.log(bandLinks, 'bandLinks')
 
   return (
     <>
