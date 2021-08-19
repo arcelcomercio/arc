@@ -2,6 +2,7 @@
 import ConfigParams from '../../../../utilities/config-params'
 import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
 import { JWPLAYER } from '../../../../utilities/constants/multimedia-types'
+import { SITE_ELCOMERCIOMAG } from '../../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
@@ -240,8 +241,17 @@ const analyzeParagraph = ({
         let ulrJwplayer = ''
         if (originalParagraph) {
           ulrJwplayer = getResultJwplayer(originalParagraph)
+          if (arcSite === SITE_ELCOMERCIOMAG) {
+            const gulrJwplay = ulrJwplayer.match(
+              /videos\/(([0-9a-zA-Z])\w+-([0-9a-zA-Z])\w+).mp4/
+            )
+            ulrJwplayer = gulrJwplay?.[1] || []
+          }
         }
-        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe></figure>`
+        if (arcSite === SITE_ELCOMERCIOMAG)
+          result.processedParagraph = `<figure xxx class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}.html"></iframe></figure>`
+        else
+          result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe></figure>`
       }
       break
     case ConfigParams.ELEMENT_LINK_LIST:
@@ -658,10 +668,23 @@ const multimediaHeader = (
       let ulrJwplayer = ''
       if (promoItemJwplayer && promoItemJwplayer.key) {
         ulrJwplayer = getResultJwplayer(promoItemJwplayer.conversions)
+        if (arcSite === SITE_ELCOMERCIOMAG) {
+          const gulrJwplay = ulrJwplayer.match(
+            /videos\/(([0-9a-zA-Z])\w+-([0-9a-zA-Z])\w+).mp4/
+          )
+          ulrJwplayer = gulrJwplay?.[1] || []
+        }
       }
-      result = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe>${
-        title ? `<figcaption>${title}</figcaption>` : ''
-      }</figure>`
+
+      if (arcSite === SITE_ELCOMERCIOMAG)
+        result = `<figure ccc class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}.html"></iframe>${
+          title ? `<figcaption>${title}</figcaption>` : ''
+        }</figure>`
+      else
+        result = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe>${
+          title ? `<figcaption>${title}</figcaption>` : ''
+        }</figure>`
+
       break
     case ConfigParams.GALLERY:
       if (subtype === GALLERY_VERTICAL) {
