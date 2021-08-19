@@ -65,6 +65,9 @@ $primary-font: "Roboto", sans-serif;
     background: transparent linear-gradient(90deg, #63298a 0%, #1d1a57 100%) 0%
       0% no-repeat padding-box;
     border-bottom: 1px solid #a2cc18;
+    &__container {
+      max-width: inherit;
+    }
     &__link-logo {
       display: none;
       @media (--desktop) {
@@ -230,7 +233,7 @@ $primary-font: "Roboto", sans-serif;
     }
     &__list-nav {
       justify-content: space-evenly;
-      padding: 0 40px;
+      padding: 0 50px;
     }
     &__megamenu {
       background-color: #1d1a57;
@@ -403,8 +406,9 @@ $primary-font: "Roboto", sans-serif;
       font-weight: 700;
       letter-spacing: -0.2px;
       font-family: $primary-font;
+      font-size: 17px;
       @media (--desktop) {
-        font-size: 17px;
+        font-size: 20px;
       }
     }
     &__author {
@@ -638,6 +642,16 @@ $primary-font: "Roboto", sans-serif;
     }
   }
   .header-full__btn-signwall {
+    display: none;
+  }
+  .sht__summary {
+    font-size: 16px;
+    color: #111;
+    @media (--desktop) {
+      font-size: 19px;
+    }
+  }
+  .st-social {
     display: none;
   }
 }
