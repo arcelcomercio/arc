@@ -7,7 +7,6 @@
 /******* Components *******/
 @import "./scss/lite-components/features/header/basic/menu";
 @import "./scss/lite-components/features/story/gallery/gallery";
-@import "./scss/lite-components/features/story/gallery/gallery-vertical";
 @import "./scss/lite-components/features/story/contents/contents";
 @import "./scss/lite-components/features/story/contents/table";
 @import "./scss/lite-components/features/story/related/st-rel";
@@ -21,3 +20,6 @@
 @import "./scss/lite-components/features/cards/most-read/most-read";
 @import "./scss/lite-components/features/story/google-news/google-news";
 @import "./scss/lite-components/features/story/interest/st-interest";
+// @import "./scss/lite-components/features/signwall/signwall";
+@import "../../general-styles/components/features/signwall/modal";
+@import "../../general-styles/components/features/signwall/loading";

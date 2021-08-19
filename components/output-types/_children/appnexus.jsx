@@ -31,7 +31,11 @@ const dataLayer = (
   formatOrigen,
   contentOrigen,
   genderOrigen,
-  author
+  author,
+  section,
+  subsection,
+  tag1,
+  tag2
 ) => {
   const premium = getPremiumValue === 'premium' && true
   const type = getMultimediaAnalitycs(multimediaType, subtype, true)
@@ -39,8 +43,12 @@ const dataLayer = (
   return `
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ 
+    'seccion': '${section}',
+    'subseccion': '${subsection}',
     'tipo_nota' : '${type}', 
     'id_nota' : '${id}',
+    'tag1': '${tag1}',
+    'tag2': '${tag2}',
     'premium' : '${premium}',
     'autor' : '${author || `Redacción`}',
     'nucleo_ID' : '${nucleoOrigen}',
@@ -119,6 +127,7 @@ const getVars = (
           genderOrigen,
           audienciaNicho,
           subtype,
+          tags,
         } = new StoryData({
           data: globalContent,
           arcSite,
@@ -131,7 +140,7 @@ const getVars = (
           isPremiumFree === 'metered' ? false : isPremiumFree
         const isPremium = isPremiumMete === 'vacio' ? false : isPremiumMete
 
-        const subSectionList = primarySectionLink.split('/').slice(1)
+        const subSectionList = primarySectionLink.split('/').slice(1) || []
         subsection = subSectionList[1]
           ? subSectionList[1].replace('-', '')
           : sectionList[1].replace(
@@ -153,7 +162,11 @@ const getVars = (
           formatOrigen,
           contentOrigen,
           genderOrigen,
-          author
+          author,
+          subSectionList[0] || 'sin-definir',
+          subSectionList[1] || 'sin-definir',
+          tags[0]?.slug || 'sin-definir',
+          tags[1]?.slug || 'sin-definir'
         )
 
         notaId = `${id}`

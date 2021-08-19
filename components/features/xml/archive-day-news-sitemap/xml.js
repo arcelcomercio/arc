@@ -1,12 +1,13 @@
 import Consumer from 'fusion:consumer'
-import StoryData from '../../../utilities/story-data'
+
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { localISODate } from '../../../utilities/helpers'
 import {
-  includeTags,
   includePromoItems,
   includePromoItemsCaptions,
+  includeTags,
 } from '../../../utilities/included-fields'
-import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import StoryData from '../../../utilities/story-data'
 
 let presets = 'landscape_l:648x374'
 
@@ -73,7 +74,7 @@ class XmlArchiveDayNewsSitemap {
     })
 
     const sitemap = {
-      urlset: stories.map(story => {
+      urlset: stories.map((story) => {
         storyData.__data = story
         return {
           url:
@@ -96,7 +97,7 @@ class XmlArchiveDayNewsSitemap {
                       '#cdata':
                         storyData.seoKeywords.toString() ||
                         storyData.tags
-                          .map(tag => tag && tag.description)
+                          .map((tag) => tag && tag.description)
                           .toString() ||
                         arcSite,
                     },
@@ -128,7 +129,7 @@ class XmlArchiveDayNewsSitemap {
                       '#cdata':
                         storyData.seoKeywords.toString() ||
                         storyData.tags
-                          .map(tag => tag && tag.description)
+                          .map((tag) => tag && tag.description)
                           .toString() ||
                         arcSite,
                     },

@@ -611,12 +611,15 @@ const PropertiesSite = {
 const PropertiesCommon = {
   // prettier-ignore
   urls: {
-    ecoID:          `https://${isProd ? '' : 'pre.'}ecoid.pe`,
-    newsLetters:    `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
-    paymentTracker: `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
-    subsDniToken:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
-    dsnSentry:      'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
-    companyEmail:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`
+    ecoID:            `https://${isProd ? '' : 'pre.'}ecoid.pe`,
+    newsLetters:      `https://${isProd ? 'afv5trdj4i' : 'vq01ksb95d'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/userprofile/public/v1`,
+    paymentTracker:   `https://${isProd ? 'su3l9d6w10' : '72q176wl1l'}.execute-api.us-east-1.amazonaws.com/${isProd ? 'prod' : 'dev'}/v1`,
+    subsDniToken:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subscription-online/token/`,
+    sentrySubs:       'https://81cfb3b862494fdaa0be4359e1423bdb@sentry.ec.pe/82',
+    sentrySign:       'https://d78c55937db946dabdf2de8c488358ed@sentry.ec.pe/71',
+    companyEmail:     `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/api/subs-corporativa/`,
+    tokenPayEfectivo: `https://${isProd ? '' : 'pre1a.'}services.pagoefectivo.pe/v1/authorizations`,
+    cipPayEfectivo:   `https://${isProd ? '' : 'dev'}paywall.comerciosuscripciones.pe/notifications/api/cip_creation/`
   },
 
   // prettier-ignore
@@ -628,12 +631,13 @@ const PropertiesCommon = {
     payuPayments: `https://${isProd ? '' : 'sandbox.'}api.payulatam.com/payments-api/4.0/service`,
     payuPublicKey: isProd ? 'PK63j8CtoTehN173BZ568SB6Bs' : 'PKaC6H4cEDJD919n705L544kSU',
     payuAccountID: isProd ? '781124' : '512323',
-    profile:      '/mi-perfil/?outputType=signwall',
+    profile:      '/mi-perfil/?outputType=subscriptions',
     preguntas:    `/suscripcionesdigitales/faqs/${isProd ? '' : '?outputType=subscriptions'}`,
     bannerCorp:   `/suscripcionesdigitales/empresa/${isProd ? '' : '?outputType=subscriptions'}`,
     landingFia:   `/suscripcionesdigitales/fia/${isProd ? '?ref=auth-fia' : '?outputType=subscriptions&ref=auth-fia'}`,
     clubComercio: 'https://clubelcomercio.pe/?home=suscripciones_digitales',
-    callCenter:   'tel:+5113115100'
+    callCenter:   'tel:+5113115100',
+    howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx'
   },
 
   tokens: {
@@ -660,12 +664,13 @@ const PropertiesCommon = {
     noticeUser:      'Con tus datos, mejoraremos tu experiencia de navegación y nunca publicaremos sin tu permiso',
     notHasAccount:   `No tengo cuenta `,
     RememberChose:   'Recuerda que puedes elegir entre nuestros diferentes planes.',
-    verifyEmail:     'Verifique su correo electrónico. A esta enviaremos su boleta.',
+    verifyEmail:     'Verifique su correo electrónico. A este enviaremos su boleta.',
+    verifyEmailPayEfec: 'Verifique su correo electrónico. A este enviaremos su boleta después de realizar el pago.',
     rememberRecurrency: 'El precio de la suscripción se cargará automáticamente en tu tarjeta cada mes o año, según el período elegido.',
     showSecure:      'Compra seguro. Esta web está protegida',
     textTerms:       'Acepto las condiciones de servicio, las políticas de privacidad, y estoy de acuerdo con la información.',
     whereCvv:        '¿Dónde está el CVV?',
-    titlePay:        'Ingresa tu información de pago',
+    titlePay:        'Elige e ingresa tu método de pago',
     labelcNumber:    'Número de tarjeta',
     labelcExpire:    'Fecha de vencimiento',
     labelcCvv:       `CVV `,
@@ -695,7 +700,10 @@ const PropertiesCommon = {
     textWinback:     '¡Tenemos un precio especial para ti!',
     titleCompany:    'Por favor envíanos tus datos para brindarte información sobre nuestras suscripciones corporativas.',
     successCompany:  'Tu mensaje ha sido enviado, nos pondremos en contacto contigo.',
-    errorCompany:    'Ha ocurrido un error. Inténtelo más tarde'
+    errorCompany:    'Ha ocurrido un error. Inténtelo más tarde',
+    howItWork:       '¿Cómo funciona?',
+    textBanca:       'Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Caja Arequipa Y Banco Pichincha, a travéz de la banca por internet o banca móvil en la opción pago de servicios.',
+    textAgentes:     'Depósitos en efectivo via pago efectivo - Paga en BBVA, BCP, Interbank, Scotiabank, Banbif, Wester Union, Tambo+, kasnet Full Carga, Red Digital, Comercio Niubiz Multiservicios, Money Gram, Caja Arequipa, Disashop, Banco de la Nación, Caja Sullana, Caja los Andes, Caja Trujillo, Banco Azteca, Caja del Santa, Caja Raiz.'
   },
 }
 

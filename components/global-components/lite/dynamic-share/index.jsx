@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
 import { socialShare } from './utils'
@@ -44,8 +44,8 @@ const DynamicShareButtons = () => {
         itemProp="url"
         href={urlsShareList.facebook}
         className={classes.btn}
+        title="Compartir en facebook"
         data-dynamic-share="">
-        <title>Compartir en facebook</title>
         <svg xmlns="http://www.w3.org/2000/svg" width="40" viewBox="0 0 40 40">
           <path
             d="M20.4.4a20,20,0,1,0,20,20A20,20,0,0,0,20.4.4Zm4.738,13.821H22.131c-.356,0-.752.469-.752,1.092v2.171h3.76l-.569,3.1H21.379v9.294H17.831V20.579H14.612v-3.1h3.219V15.662a4.463,4.463,0,0,1,4.3-4.735h3.006v3.294Z"
@@ -58,8 +58,9 @@ const DynamicShareButtons = () => {
         itemProp="url"
         href={urlsShareList.twitter}
         className={classes.btn}
+        alt="Compartir en twitter"
+        title="Compartir en twitter"
         data-dynamic-share="">
-        <title>Compartir en twitter</title>
         <svg viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
           <path
             transform="translate(-.4 -.4)"
@@ -70,10 +71,11 @@ const DynamicShareButtons = () => {
       </a>
       <a
         itemProp="url"
+        alt="Compartir en LinkedIn"
+        title="Compartir en LinkedIn"
         href={urlsShareList.linkedin}
         className={classes.btn}
         data-dynamic-share="">
-        <title>Compartir en LinkedIn</title>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -89,9 +91,10 @@ const DynamicShareButtons = () => {
       <a
         itemProp="url"
         href={urlsShareList.whatsapp}
+        title="Compartir en WhatsApp"
+        alt="Compartir en WhatsApp"
         className={`${classes.btn} ${classes.ws}`}
         data-dynamic-share="">
-        <title>Compartir en WhatsApp</title>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -107,7 +110,7 @@ const DynamicShareButtons = () => {
       <script
         dangerouslySetInnerHTML={{
           __html: `${socialShare}`,
-        }}></script>
+        }} />
     </>
   )
 }

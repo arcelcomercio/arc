@@ -95,10 +95,18 @@ const AmpOutputType = ({
   const siteTitleSuffixR = siteTitleSuffix.replace('NOTICIAS ', '')
   const title = `${storyTitleRe} | ${sectionName} | ${siteTitleSuffixR}`
 
-  const description =
+  let description =
     metaValue('description') && !metaValue('description').includes('content')
       ? `${metaValue('description')} `
       : 'Últimas noticias en Perú y el mundo'
+
+  if (isStory && arcSite === 'elcomercio') {
+    description =
+      globalContent?.description?.basic ||
+      (metaValue('description') && !metaValue('description').includes('content')
+        ? `${metaValue('description')} `
+        : 'Últimas noticias en Perú y el mundo')
+  }
 
   const twitterCardsData = {
     twitterUser:
@@ -213,6 +221,7 @@ const AmpOutputType = ({
     arcSite === SITE_ELBOCON ||
     arcSite === SITE_DIARIOCORREO ||
     arcSite === SITE_DEPOR ||
+    arcSite === SITE_GESTION ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||

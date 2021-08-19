@@ -216,27 +216,27 @@ export const FooterSubs = () => {
         </footer>
       )}
 
-      {userStep !== 4 && (
-        <section className="step__bottom">
-          <button className={styles.btnDetail} type="button" id="btn-detail">
-            <div>
-              <span className="title-item">Resumen de pedido:</span>
-              <h5 className="name-item">
-                {planName}
-                <span className="period-item">
-                  {' - '} {period[userDataPlan.billingFrequency]}
-                </span>
-              </h5>
-            </div>
-            <div>
-              <span className="price-item">
-                {getPlanAmount(userDataPlan.amount)}
+      <section
+        className="step__bottom"
+        style={userStep === 4 || userStep === 5 ? { display: 'none' } : {}}>
+        <button className={styles.btnDetail} type="button" id="btn-detail">
+          <div>
+            <span className="title-item">Resumen de pedido:</span>
+            <h5 className="name-item">
+              {planName}
+              <span className="period-item">
+                {' - '} {period[userDataPlan.billingFrequency]}
               </span>
-              <i className={styles.iconUp} />
-            </div>
-          </button>
-        </section>
-      )}
+            </h5>
+          </div>
+          <div>
+            <span className="price-item">
+              {getPlanAmount(userDataPlan.amount)}
+            </span>
+            <i className={styles.iconUp} />
+          </div>
+        </button>
+      </section>
     </>
   )
 }
@@ -343,6 +343,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                       href={urls.twitter}
                       target="_blank"
                       rel="noreferrer"
+                      className="footer__content-encuentranos-social-link"
                       aria-label="Twitter">
                       <i className="icon-twitter" />
                     </a>
@@ -350,6 +351,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                       href={urls.facebook}
                       target="_blank"
                       rel="noreferrer"
+                      className="footer__content-encuentranos-social-link"
                       aria-label="Facebook">
                       <i className="icon-facebook" />
                     </a>
@@ -357,6 +359,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                       href={urls.instangram}
                       target="_blank"
                       rel="noreferrer"
+                      className="footer__content-encuentranos-social-link"
                       aria-label="Instagram">
                       <i className="icon-instangram" />
                     </a>
@@ -368,6 +371,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                         href={urls.appStore}
                         target="_blank"
                         rel="noreferrer"
+                        className="footer__content-encuentranos-apps-link"
                         aria-label="AppStore">
                         <i className="icon-appstore" />
                       </a>
@@ -375,6 +379,7 @@ export const FooterLand = ({ arcType, btnOnTop }) => {
                         href={urls.googlePlay}
                         target="_blank"
                         rel="noreferrer"
+                        className="footer__content-encuentranos-apps-link"
                         aria-label="GooglePlay">
                         <i className="icon-googleplay" />
                       </a>

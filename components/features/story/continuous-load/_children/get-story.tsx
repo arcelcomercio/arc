@@ -1,14 +1,18 @@
 import { useContent } from 'fusion:content'
+import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { ArcSite } from 'types/fusion'
 import { Story } from 'types/story'
 
 import { GALLERY_VERTICAL } from '../../../../utilities/constants/subtypes'
+import { getMultimediaAnalitycs } from '../../../../utilities/helpers'
+import StoryData from '../../../../utilities/story-data'
 import RederStory from './render-story'
 
 declare global {
   interface Window {
     lazyLoadInstance: any
+    dataLayer: any
   }
 }
 
@@ -34,7 +38,7 @@ const GetStory: React.FC<{
     setIsLoading,
     index,
   } = props
-
+  const { siteUrl = '' } = getProperties(arcSite)
   const presets =
     subtype === GALLERY_VERTICAL
       ? 'large:980x0,landscape_md:482x0,landscape_s:280x0'
@@ -50,6 +54,46 @@ const GetStory: React.FC<{
       },
       transform: (story) => {
         if (story?._id) {
+          if (typeof window !== 'undefined') {
+            const {
+              multimediaType,
+              id,
+              getPremiumValue,
+              author,
+              nucleoOrigen,
+              formatOrigen,
+              contentOrigen,
+              genderOrigen,
+              primarySectionLink,
+              tags,
+            } = new StoryData({ data: story, arcSite, contextPath })
+            const type = getMultimediaAnalitycs(multimediaType, subtype, true)
+            const sectionList = primarySectionLink.split('/').slice(1) || []
+            const premium = getPremiumValue === 'premium' && true
+
+            document.title = title
+            window.history.pushState({}, title, link)
+
+            window.dataLayer = window.dataLayer || []
+            window.dataLayer.push({
+              event: 'carga_continua',
+              url_path: `${link}?ref=nota&ft=cargacontinua&nota=${index + 1}`,
+              seccion: sectionList[0] || 'sin-definir',
+              subseccion: sectionList[1] || 'sin-definir',
+              // url_title: title,
+              tipo_nota: type,
+              id_nota: id,
+              tag1: tags[0]?.slug || 'sin-definir',
+              tag2: tags[1]?.slug || 'sin-definir',
+              premium: `${premium}`,
+              autor: author || 'Redacción',
+              nucleo_ID: nucleoOrigen,
+              tipo_formato: formatOrigen,
+              tipo_contenido: contentOrigen,
+              genero: genderOrigen,
+            })
+          }
+
           setIsLoading(false)
         }
         return story
@@ -86,7 +130,10 @@ const GetStory: React.FC<{
   }, [dataStory?._id])
 
   return (
-    <div id={`nota${index + 1}`} ref={container}>
+    <div
+      id={`nota${index + 1}`}
+      className={dataStory?.subtype || ''}
+      ref={container}>
       {dataStory?._id && (
         <RederStory
           data={dataStory}
@@ -94,6 +141,7 @@ const GetStory: React.FC<{
           arcSite={arcSite}
           requestUri={requestUri}
           deployment={deployment}
+          siteUrl={siteUrl}
           index={index}
         />
       )}

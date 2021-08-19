@@ -1,7 +1,8 @@
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import StoryData from '../../../utilities/story-data'
+
 import { localISODate } from '../../../utilities/helpers'
+import StoryData from '../../../utilities/story-data'
 
 /**
  * @description Sitemap para Google News. Este feature obtiene los datos que necesita desde "globalContent" y
@@ -52,7 +53,7 @@ class XmlStoriesSitemapNews {
     })
 
     const sitemap = {
-      urlset: stories.map(story => {
+      urlset: stories.map((story) => {
         storyData.__data = story
         return {
           url:
@@ -75,7 +76,7 @@ class XmlStoriesSitemapNews {
                       '#cdata':
                         storyData.seoKeywords.toString() ||
                         storyData.tags
-                          .map(tag => tag && tag.description)
+                          .map((tag) => tag && tag.description)
                           .toString() ||
                         arcSite,
                     },
@@ -106,7 +107,7 @@ class XmlStoriesSitemapNews {
                       '#cdata':
                         storyData.seoKeywords.toString() ||
                         storyData.tags
-                          .map(tag => tag && tag.description)
+                          .map((tag) => tag && tag.description)
                           .toString() ||
                         arcSite,
                     },

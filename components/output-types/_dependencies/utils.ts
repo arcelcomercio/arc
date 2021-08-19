@@ -1,4 +1,5 @@
 import { useAppContext } from 'fusion:context'
+import { Story } from 'types/story'
 
 import { SITE_DEPOR } from '../../utilities/constants/sitenames'
 
@@ -17,6 +18,8 @@ export const getLang = (): string => {
       lang = 'es-us'
     } else if (/^\/mexico/.test(requestUri)) {
       lang = 'es-mx'
+    } else if (/^\/colombia/.test(requestUri)) {
+      lang = 'es-co'
     }
   }
 
@@ -34,6 +37,13 @@ export const getIsStory = (): boolean => {
     metaValue('id') === 'meta_story' ||
     /^\/preview\/([A-Z0-9]{26})\/?/.test(requestUri)
   )
+}
+
+export const getSectionPath = (): string => {
+  const { requestUri } = useAppContext()
+  const path = requestUri.replace('/carga-continua', '').split('?')[0]
+  const sectionList = path.split('/').slice(1)
+  return sectionList[0]
 }
 
 export const skipAdvertising = (data: { slug: string }[] = []): boolean =>
@@ -93,13 +103,15 @@ export const getTitle = ({
 type GetDescriptionProps = {
   siteName: string
   pageNumber: number
+  isStory: boolean
 }
 
 export const getDescription = ({
   siteName,
   pageNumber,
+  isStory,
 }: GetDescriptionProps): string => {
-  const { requestUri } = useAppContext()
+  const { requestUri, arcSite, globalContent } = useAppContext<Story>()
   let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteName}.`
   const metaDescription = getMetaValue('description')
 
@@ -122,5 +134,9 @@ export const getDescription = ({
       }
     }
   }
+  if (isStory && arcSite === 'elcomercio') {
+    description = globalContent?.description?.basic || metaDescription || ''
+  }
+
   return description
 }

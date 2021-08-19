@@ -121,6 +121,8 @@ export default ({
       classBody = `${classBody} muchafoto`
     } else if (/^\/usa/.test(requestUri)) {
       lang = 'es-us'
+    } else if (/^\/colombia/.test(requestUri)) {
+      lang = 'es-co'
     } else if (/^\/mexico/.test(requestUri)) {
       lang = 'es-mx'
     }
@@ -145,6 +147,7 @@ export default ({
   if (arcSite === SITE_ELCOMERCIO) {
     if (/^\/suscriptor-digital/.test(requestUri)) classBody = `section-premium`
     else if (/^\/saltar-intro/.test(requestUri)) classBody = `saltar-intro`
+    else if (/^\/provecho/.test(requestUri)) classBody = `provecho`
   }
   const isHome = metaValue('id') === META_HOME && true
   const scriptAdpush = getPushud(arcSite)
@@ -221,6 +224,7 @@ export default ({
     siteName: siteProperties.siteName,
     pageNumber,
     requestUri,
+    isStory,
   })
 
   const keywords = getKeywords({ metaValue, siteName: siteProperties.siteName })
@@ -339,6 +343,15 @@ export default ({
     style === 'story-video' // isStyleBasic || (style === 'story' && true)
 
   const isFonts = isTrivia || isCovid
+
+  const robotsIndex = `${
+    /(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
+    !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
+    arcSite === 'trome'
+      ? 'noindex'
+      : 'index'
+  }`
+
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
       <head>
@@ -348,8 +361,21 @@ export default ({
         <meta name="lang" content={lang} />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
-        <meta name="robots" content="index, follow" />
-        <meta name="GOOGLEBOT" content="index follow" />
+        {arcSite === 'trome' && isStory ? (
+          <meta
+            name="robots"
+            content={`${
+              /-agnc-/.test(requestUri) ? 'noindex' : 'index'
+            }, follow`}
+          />
+        ) : (
+          <>
+            <meta name="robots" content={`${robotsIndex}, follow`} />
+          </>
+        )}
+        {arcSite === 'trome' ? null : (
+          <meta name="GOOGLEBOT" content="index follow" />
+        )}
         <meta name="author" content={siteProperties.siteTitle} />
         {isStory && (
           <>
@@ -682,6 +708,21 @@ export default ({
           </>
         ) : null}
         {/* ============== WebTracking */}
+        {metaValue('section_style') === 'depor-play' ? (
+          <Resource path="resources/dist/depor/css/depor-play.css">
+            {({ data }) =>
+              data ? (
+                <style
+                  dangerouslySetInnerHTML={{
+                    __html: data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', ''),
+                  }}
+                />
+              ) : null
+            }
+          </Resource>
+        ) : null}
       </head>
       <body
         className={classBody}

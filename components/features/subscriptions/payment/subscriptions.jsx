@@ -2,9 +2,9 @@ import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { env } from '../../../utilities/arc/env'
-import { PROD } from '../../../utilities/constants/environment'
+import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
+import Loading from '../../signwall/_children/loading'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthContext, AuthProvider } from '../_context/auth'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
@@ -19,16 +19,15 @@ import {
 } from '../_layouts/containers'
 import { FooterLand, FooterSubs } from '../_layouts/footer'
 import HeaderSubs from '../_layouts/header'
-import Loading from '../_layouts/loading'
 import scriptsPayment from '../_scripts/Payment'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
+import customFields from './_dependencies/custom-fields'
 
 const arcType = 'payment'
 const WrapperPaymentSubs = () => {
   const {
     arcSite,
-    deployment,
     globalContent: { fromFia, freeAccess, event },
   } = useAppContext() || {}
 
@@ -54,35 +53,9 @@ const WrapperPaymentSubs = () => {
   })
 
   useRoute(event)
+  useSentry(urlCommon.sentrySubs)
 
   React.useEffect(() => {
-    Sentry.init({
-      dsn: urlCommon.dsnSentry,
-      debug: env !== PROD,
-      release: `arc-deployment@${deployment}`,
-      environment: env,
-      ignoreErrors: [
-        'Unexpected end of JSON input',
-        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
-        'JSON Parse error: Unexpected EOF',
-      ],
-      // allowUrls: [
-      //   // API + origin
-      //   /https:\/\/.+(elcomercio|gestion).pe/,
-      //   // Sandbox CDN
-      //   /https:\/\/elcomercio-(elcomercio|gestion)-sandbox\.cdn\.arcpublishing.com/,
-      //   // Identity & Sales SDKs
-      //   /https:\/\/arc-subs-sdk\.s3\.amazonaws\.com/,
-      //   // PayU
-      //   /https?:\/\/.+payulatam\.com/,
-      // ],
-      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
-    })
-
-    Sentry.configureScope((scope) => {
-      scope.setTag('brand', arcSite)
-    })
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
@@ -117,7 +90,7 @@ const WrapperPaymentSubs = () => {
   return (
     <>
       <>
-        {userLoading && <Loading arcSite={arcSite} />}
+        {userLoading && <Loading typeBg="full" />}
         <HeaderSubs
           userProfile={userProfile}
           arcSite={arcSite}
@@ -130,12 +103,9 @@ const WrapperPaymentSubs = () => {
             userStep === 2 && (
               <LogIntoAccountEventTag subscriptionId={userProfile.uuid} />
             )}
-          <Wrapper
-            style={{
-              minHeight: '530px',
-            }}>
+          <Wrapper step={userStep}>
             {!userLoading && (
-              <PanelLeft>
+              <PanelLeft step={userStep}>
                 {event && userStep !== 4 && (
                   <h2 className="step__left-title-campaign">
                     {texts.textWinback}
@@ -152,8 +122,10 @@ const WrapperPaymentSubs = () => {
                 )}
               </PanelLeft>
             )}
-            <PanelRight>
-              {userStep !== 4 && !freeAccess && <Summary />}
+
+            <PanelRight
+              hidePanel={freeAccess || userStep === 4 || userStep === 5}>
+              <Summary />
             </PanelRight>
           </Wrapper>
         </Container>
@@ -174,5 +146,11 @@ const PaymentSubscriptions = () => (
     <WrapperPaymentSubs />
   </AuthProvider>
 )
+
+PaymentSubscriptions.label = 'Subscriptions - Landing de Compra'
+PaymentSubscriptions.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  customFields,
+}
 
 export default PaymentSubscriptions

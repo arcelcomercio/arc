@@ -34,25 +34,19 @@ export const checkUndefined = (name, alias) => {
   return name || alias
 }
 
-export const checkFbEmail = email => {
-  return email && email.indexOf('facebook.com') >= 0 ? '' : email
-}
+export const checkFbEmail = (email) =>
+  email && email.indexOf('facebook.com') >= 0 ? '' : email
 
-export const Capitalize = string => {
-  return string.charAt(0).toUpperCase() + string.slice(1)
-}
+export const Capitalize = (string) =>
+  string.charAt(0).toUpperCase() + string.slice(1)
 
-export const checkFormatPhone = string => {
+export const checkFormatPhone = (string) => {
   if (!string) return ''
   return checkUndefined(string).replace(/\+|\s|-|\(|\)/g, '')
 }
 
-export const clearUrlAPI = urlDefault => {
+export const clearUrlAPI = (urlDefault) => {
   if (typeof window !== 'undefined') {
-    // const rg = new RegExp(
-    //   /((DNI|CDI|CEX)\/([\w-]+)\/([\w]+)\/?(winback)?\/)|((fia)\/)/g
-    // )
-
     const rg = new RegExp(/((DNI|CDI|CEX)\/([\w-]+)\/([\w]+)\/)|((fia)\/)/g)
     const queryMatch = window.location.href.match(rg)
     const newUrl = window.location.href.split(queryMatch)
@@ -66,15 +60,15 @@ export const clearUrlAPI = urlDefault => {
   }
 }
 
-export const titleCase = string => {
+export const titleCase = (string) => {
   const wordsArray = string.toLowerCase().split(/_/)
-  const upperCased = wordsArray.map(word => {
-    return word.charAt(0).toUpperCase() + word.substr(1)
-  })
+  const upperCased = wordsArray.map(
+    (word) => word.charAt(0).toUpperCase() + word.substr(1)
+  )
   return upperCased.join('_')
 }
 
-export const getLocaleStorage = key => {
+export const getLocaleStorage = (key) => {
   if (typeof window !== 'undefined') {
     if (process.browser) {
       const value = window.localStorage.getItem(key)
@@ -104,15 +98,12 @@ export const getFullNameFormat = (firstName, lastName, secondLastName) => {
   return fullName.length >= 77 ? `${fullName.substring(0, 80)}...` : fullName
 }
 
-export const isFbBrowser = () => {
-  return (
-    typeof window !== 'undefined' &&
-    (window.navigator.userAgent.indexOf('FBAN') > -1 ||
-      window.navigator.userAgent.indexOf('FBAV') > -1)
-  )
-}
+export const isFbBrowser =
+  typeof window !== 'undefined' &&
+  (window.navigator.userAgent.indexOf('FBAN') > -1 ||
+    window.navigator.userAgent.indexOf('FBAV') > -1)
 
-export const getSessionStorage = key => {
+export const getSessionStorage = (key) => {
   if (typeof window !== 'undefined') {
     if (process.browser) {
       return window.sessionStorage.getItem(key)
@@ -121,3 +112,6 @@ export const getSessionStorage = key => {
   }
   return null
 }
+
+export const getUserAgent =
+  typeof window !== 'undefined' ? window.navigator.userAgent : ''

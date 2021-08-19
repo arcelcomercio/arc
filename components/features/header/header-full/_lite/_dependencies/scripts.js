@@ -110,3 +110,23 @@ window.addEventListener('load', () => {requestIdle(() => {
 export const edicionMenu = `
 window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("edicionId").addEventListener("click",function(e){e.preventDefault();var d=document.querySelector(".header-full__e-content");d.classList.contains("block")?(d.classList.remove("block"),d.classList.add("hidden")):(d.classList.remove("hidden"),d.classList.add("block"))})})});
 `
+
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+  const searchDeporPlay = document.body.querySelector('.header-full__dpform')
+  const inputDeporPlay = document.body.querySelector('.header-full__dpforminput')
+  if (searchDeporPlay && inputDeporPlay) {
+    searchDeporPlay.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (inputDeporPlay.value) {
+        const newQuery = encodeURIComponent(inputDeporPlay.value).replace(
+          /%20/g,
+          "+"
+        );
+        window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`;
+      }
+    });
+  }
+})})
+*/
+export const searchDPMenu = `"use strict";window.addEventListener("load",function(){requestIdle(function(){var e=document.body.querySelector(".header-full__dpform"),n=document.body.querySelector(".header-full__dpforminput");e&&n&&e.addEventListener("submit",function(e){if(e.preventDefault(),n.value){var t=encodeURIComponent(n.value).replace(/%20/g,"+");window.location.href="/buscar/"+t+"/todas/descendiente/?query="+t}})})});`

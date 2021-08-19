@@ -118,11 +118,6 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna4-300x250-div-gpt-ad-8599377-19.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-elcomercio/ads-fia-28253241-eco_ia_interna5-300x250-div-gpt-ad-8599377-20.html',
   ],
-  activeSignwall: false,
-  activePaywall: false,
-  activeRulesCounter: false,
-  activeNewsletter: false,
-  activeVerifyEmail: false,
   signwall: {
     mainColorBg: '#000000',
     mainColorTxt: '#ffffff',
@@ -130,7 +125,7 @@ export default {
     mainColorBr: '#cccccc',
     mainColorLink: '#1c75c9',
     mainColorBtn: '#000000',
-    authProviders: ['facebook'],
+    authProviders: ['facebook', 'google'],
   },
   gda: true, // Grupo Diarios de America
   taboola: {

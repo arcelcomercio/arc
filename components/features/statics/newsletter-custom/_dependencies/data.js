@@ -48,6 +48,10 @@ class Data {
     return this._customFields.urlPrivacyPolicies || ''
   }
 
+  get UrlMoreNews() {
+    return this._customFields.UrlMoreNews || ''
+  }
+
   get colorButton() {
     return this._customFields.colorButton || ''
   }

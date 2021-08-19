@@ -1,14 +1,15 @@
 import Consumer from 'fusion:consumer'
 import PropTypes from 'prop-types'
-import StoryData from '../../../utilities/story-data'
+
+import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { localISODate } from '../../../utilities/helpers'
 import {
-  includeTags,
   includePromoItems,
   includePromoItemsCaptions,
+  includeTags,
 } from '../../../utilities/included-fields'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
-import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import StoryData from '../../../utilities/story-data'
 
 let presets = 'landscape_l:648x374'
 /**
@@ -72,7 +73,7 @@ class XmlSitemapNews {
 
     const stories = []
     if (this.state)
-      Object.keys(this.state).forEach(key => {
+      Object.keys(this.state).forEach((key) => {
         const { content_elements: contentElements = [] } =
           (key && this.state[key]) || {}
         stories.push(...contentElements)
@@ -90,7 +91,7 @@ class XmlSitemapNews {
     })
 
     const sitemap = {
-      urlset: stories.map(story => {
+      urlset: stories.map((story) => {
         storyData.__data = story
         const { content_elements: contentElements = [] } = story || {}
         return {
@@ -114,7 +115,7 @@ class XmlSitemapNews {
                       '#cdata':
                         storyData.seoKeywords.toString() ||
                         storyData.tags
-                          .map(tag => tag && tag.description)
+                          .map((tag) => tag && tag.description)
                           .toString() ||
                         arcSite,
                     },
@@ -145,7 +146,7 @@ class XmlSitemapNews {
                       '#cdata':
                         storyData.seoKeywords.toString() ||
                         storyData.tags
-                          .map(tag => tag && tag.description)
+                          .map((tag) => tag && tag.description)
                           .toString() ||
                         arcSite,
                     },

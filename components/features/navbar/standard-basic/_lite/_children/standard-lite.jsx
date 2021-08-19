@@ -1,24 +1,23 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import * as React from 'react'
-import { ENVIRONMENT } from 'fusion:environment'
 import { useFusionContext } from 'fusion:context'
-
-import getResponsiveClasses from '../../../../../utilities/responsive-classes'
-import { socialMediaUrlShareList } from '../../../../../utilities/social-media'
-import { ELEMENT_STORY } from '../../../../../utilities/constants/element-types'
-import { SITE_PERU21 } from '../../../../../utilities/constants/sitenames'
-import {
-  singwallScript,
-  getQueryReloginEmailScript,
-  stickyScript,
-  searchScript,
-  getBtnSubsScript,
-  getBtnSignScript,
-  navBarLoaderScript,
-} from '../../_dependencies/scripts'
+import { ENVIRONMENT } from 'fusion:environment'
+import * as React from 'react'
 
 import Button from '../../../../../global-components/button'
+import { ELEMENT_STORY } from '../../../../../utilities/constants/element-types'
+import { SITE_PERU21 } from '../../../../../utilities/constants/sitenames'
+import getResponsiveClasses from '../../../../../utilities/responsive-classes'
+import { socialMediaUrlShareList } from '../../../../../utilities/social-media'
+import {
+  getBtnSignScript,
+  getBtnSubsScript,
+  navBarLoaderScript,
+  searchScript,
+  singwallScript,
+  // getQueryReloginEmailScript,
+  stickyScript,
+} from '../../_dependencies/scripts'
 import Menu from './menu'
 
 const classes = {
@@ -59,14 +58,14 @@ const classes = {
   iconMore: 'story-header__share-icon',
 }
 
-const NavBarDefault = props => {
+const NavBarDefault = (props) => {
   const {
     globalContent,
     arcSite,
     requestUri,
     siteProperties: {
-      activePaywall, 
-      activeSignwall, 
+      activePaywall,
+      activeSignwall,
       urlSubsOnline,
       siteUrl,
       social: { twitter: { user: siteNameRedSocial } = {} } = {},
@@ -105,7 +104,7 @@ const NavBarDefault = props => {
     },
   ]
 
-  const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
+  const arcEnv = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
 
   const {
     primaryLogo,
@@ -140,14 +139,17 @@ const NavBarDefault = props => {
               <label htmlFor="header-search-input" className="nav__sl oflow-h">
                 Cuadro de búsqueda
               </label>
-              <button className={classes.btnSearch} type="submit">
+              <button
+                className={classes.btnSearch}
+                type="submit"
+                title="abrir cuadro de búsqueda"
+                alt="abrir cuadro de búsqueda">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-basic__search"
                   width="19"
                   height="19"
                   viewBox="0 0 14 14">
-                  <title>abrir cuadro de búsqueda</title>
                   <path d="M13.2 12.4L9.2 8.3C9.8 7.5 10.1 6.5 10.1 5.4 10.1 4.2 9.6 3 8.8 2.1 7.9 1.2 6.7 0.8 5.4 0.8 4.2 0.8 3 1.2 2.1 2.1 1.2 3 0.8 4.2 0.8 5.4 0.8 6.7 1.2 7.9 2.1 8.8 3 9.6 4.2 10.1 5.4 10.1 6.5 10.1 7.5 9.8 8.3 9.2L12.4 13.2C12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.3 12.4 13.3 12.5 13.3 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2L13.2 12.5C13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.3 12.5 13.3 12.4 13.3 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4V12.4ZM7.9 7.9C7.3 8.6 6.4 8.9 5.4 8.9 4.5 8.9 3.6 8.6 3 7.9 2.3 7.3 1.9 6.4 1.9 5.4 1.9 4.5 2.3 3.6 3 3 3.6 2.3 4.5 1.9 5.4 1.9 6.4 1.9 7.3 2.3 7.9 3 8.6 3.6 8.9 4.5 8.9 5.4 8.9 6.4 8.6 7.3 7.9 7.9Z" />
                 </svg>
               </button>
@@ -155,12 +157,15 @@ const NavBarDefault = props => {
           </div>
 
           {!hideMenu && (
-            <button type="button" className={classes.navBtnContainer}>
+            <button
+              type="button"
+              title="Menú"
+              alt="Menú"
+              className={classes.navBtnContainer}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="23"
                 viewBox="0 0 24 24">
-                <title>Menú</title>
                 <path d="M4 6h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4C3.5 8 3 7.6 3 7l0 0C3 6.5 3.5 6 4 6z" />
                 <path d="M4 11h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 11.5 3.5 11 4 11z" />
                 <path d="M4 16h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 16.5 3.5 16 4 16z" />
@@ -179,20 +184,18 @@ const NavBarDefault = props => {
                     url,
                     name = '',
                     display_name: displayName = '',
-                  }) => {
-                    return (
-                      <li
-                        key={`navbar-${url || id}`}
-                        className={classes.listItem}>
-                        <a
-                          itemProp="url"
-                          href={url || id || '/'}
-                          className={classes.listLink}>
-                          {name || displayName}
-                        </a>
-                      </li>
-                    )
-                  }
+                  }) => (
+                    <li
+                      key={`navbar-${url || id}`}
+                      className={classes.listItem}>
+                      <a
+                        itemProp="url"
+                        href={url || id || '/'}
+                        className={classes.listLink}>
+                        {name || displayName}
+                      </a>
+                    </li>
+                  )
                 )}
             </ul>
           </div>
@@ -299,11 +302,12 @@ const NavBarDefault = props => {
 
                 {!disableSticky && (
                   <ul className={classes.listIcon}>
-                    {shareButtons.map(item => (
+                    {shareButtons.map((item) => (
                       <li key={item.icon} className={classes.item}>
                         <a
                           itemProp="url"
                           title={`Compartir en ${item.name}`}
+                          alt={`Compartir en ${item.name}`}
                           className={classes.link}
                           href={item.link}
                           id={`icon-${item.name}`}>
@@ -322,7 +326,6 @@ const NavBarDefault = props => {
                                   xmlns="http://www.w3.org/2000/svg"
                                   height="11"
                                   viewBox="0 0 10 21">
-                                  <title>Compartir en facebook</title>
                                   <path d="M2.6 21V11.1H0V7.6H2.6V4.6C2.6 2.2 4.1 0 7.5 0 8.9 0 10 0.1 10 0.1L9.9 3.5C9.9 3.5 8.8 3.4 7.7 3.4 6.4 3.4 6.2 4 6.2 5V7.6H10L9.8 11.1H6.2V21H2.6Z" />
                                 </svg>
                               )
@@ -333,7 +336,6 @@ const NavBarDefault = props => {
                                   xmlns="http://www.w3.org/2000/svg"
                                   height="11"
                                   viewBox="0 0 14 12">
-                                  <title>Compartir en twitter</title>
                                   <path d="M13.5 2C13 2.2 12.5 2.3 12 2.4 12.5 2.1 12.9 1.5 13.1 0.9 12.6 1.2 12 1.4 11.4 1.6 11.2 1.3 10.9 1.1 10.6 0.9 10.2 0.8 9.9 0.7 9.5 0.7 8 0.7 6.8 1.9 6.8 3.4 6.8 3.6 6.9 3.8 6.9 4 4.7 3.9 2.7 2.8 1.4 1.2 1.2 1.6 1 2.1 1 2.6 1 3.5 1.5 4.3 2.2 4.8 1.8 4.8 1.4 4.6 1 4.4V4.5C1 5.8 1.9 6.8 3.2 7.1 2.9 7.1 2.7 7.2 2.5 7.2 2.3 7.2 2.1 7.2 2 7.1 2.3 8.2 3.3 9 4.5 9 3.5 9.7 2.4 10.1 1.1 10.1 0.9 10.1 0.7 10.1 0.5 10.1 1.7 10.8 3.1 11.3 4.6 11.3 9.5 11.3 12.2 7.2 12.2 3.7 12.2 3.6 12.2 3.5 12.2 3.4 12.7 3 13.1 2.5 13.5 2Z" />
                                 </svg>
                               )
@@ -344,7 +346,6 @@ const NavBarDefault = props => {
                                   xmlns="http://www.w3.org/2000/svg"
                                   height="15"
                                   viewBox="0 0 24 24">
-                                  <title>Compartir en LinkedIn</title>
                                   <path d="M5 7.2C6.2 7.2 7.2 6.2 7.2 5 7.2 3.8 6.2 2.8 5 2.8 3.8 2.8 2.8 3.8 2.8 5 2.8 6.2 3.8 7.2 5 7.2Z" />
                                   <path d="M9.2 8.9V21H13V15C13 13.4 13.3 11.9 15.3 11.9 17.2 11.9 17.2 13.7 17.2 15.1V21H21V14.3C21 11.1 20.3 8.6 16.5 8.6 14.6 8.6 13.4 9.6 12.9 10.5H12.9V8.9H9.2V8.9ZM3.1 8.9H6.9V21H3.1V8.9Z" />
                                 </svg>
@@ -356,7 +357,6 @@ const NavBarDefault = props => {
                                   xmlns="http://www.w3.org/2000/svg"
                                   height="30"
                                   viewBox="0 0 31 32">
-                                  <title>Compartir en WhatsApp</title>
                                   <path
                                     fill="transparent"
                                     d="M8 28.4L3.3 30.5 4.5 25.4C2.3 22.9 1 19.6 1 16 1 8 7.5 1.5 15.5 1.5 23.5 1.5 30 8 30 16 30 24 23.5 30.5 15.5 30.5 12.8 30.5 10.2 29.7 8 28.4Z"
@@ -392,6 +392,8 @@ const NavBarDefault = props => {
                   id="signwall-nav-btn"
                   site="elcomercio"
                   className="f alg-center btn capitalize text-md nav__btn-sign"
+                  title="Iniciar sesión / Perfil"
+                  alt="Iniciar sesión / Perfil"
                   type="button">
                   <i
                     id="signwall-nav-icon"
@@ -402,7 +404,6 @@ const NavBarDefault = props => {
                       viewBox="0 0 18 21"
                       width="18"
                       height="21">
-                      <title>Iniciar sesión / Perfil</title>
                       <path d="M9.49 10.82C6.79 10.82 4.61 8.4 4.61 5.41C4.61 2.42 6.79 0 9.49 0C12.19 0 14.37 2.42 14.37 5.41C14.37 8.4 12.19 10.82 9.49 10.82Z" />
                       <path d="M18 20L18 16.08C18 16.08 15.12 12.09 9.49 12.09C3.85 12.09 0.98 16.08 0.98 16.08L0.98 20L18 20Z" />
                     </svg>
@@ -421,7 +422,7 @@ const NavBarDefault = props => {
         </div>
         {!hideMenu && <Menu sections={sections} />}
       </nav>
-      <div id="nav-pointer"></div>
+      <div id="nav-pointer" />
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
@@ -429,20 +430,22 @@ const NavBarDefault = props => {
             disableSticky ? '' : stickyScript
           }${searchScript}${
             activePaywall && !isPreview
-              ? getBtnSubsScript(_env, arcSite, urlSubsOnline)
+              ? getBtnSubsScript(arcEnv, arcSite, urlSubsOnline)
               : ''
           }${
-            activeSignwall && !isPreview ? getBtnSignScript(_env, arcSite) : ''
+            activeSignwall && !isPreview
+              ? getBtnSignScript(arcEnv, arcSite)
+              : ''
           }${hideMenu ? '' : navBarLoaderScript}`,
         }}
       />
-
+      {/* 
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: getQueryReloginEmailScript(_env, arcSite),
+          __html: getQueryReloginEmailScript(arcEnv, arcSite),
         }}
-      />
+      /> */}
     </>
   )
 }

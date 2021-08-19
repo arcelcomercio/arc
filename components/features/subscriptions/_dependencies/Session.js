@@ -31,18 +31,17 @@ export const isAuthenticated = () => {
   return false
 }
 
-const attrToObject = (attributes = [], getAttributes = []) => {
-  return getAttributes.reduce((prev, name) => {
+const attrToObject = (attributes = [], getAttributes = []) =>
+  getAttributes.reduce((prev, name) => {
     const newAttrs = prev
-    const attrs = (attributes || []).find(attr => attr.name === name)
+    const attrs = (attributes || []).find((attr) => attr.name === name)
     if (attrs && attrs.value !== 'undefined') {
       newAttrs[name] = attrs.value.toUpperCase()
     }
     return newAttrs
   }, {})
-}
 
-export const conformProfile = userPorfile => {
+export const conformProfile = (userPorfile) => {
   const { attributes, contacts = [], ...restProfile } = userPorfile
   const [phone = {}] = contacts || []
 
@@ -59,7 +58,7 @@ export const conformProfile = userPorfile => {
  * @returns {string} Nombre y apellido del usuario | Bienvenido Usuario
  */
 export const getUserName = (firstName, lastName) => {
-  let fullName = 'Bienvenido Usuario'
+  let fullName = ''
   const badName = /undefined|null/
   const isBadFirstName = badName.test(firstName)
   const isBadLastName = badName.test(lastName)

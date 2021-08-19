@@ -1,9 +1,10 @@
 import React from 'react'
+
 // import { formatSlugToText } from '../../utilities/parse/strings'
 import { ELEMENT_TYPE_CHARBEAT } from '../../utilities/constants/element-types'
 import { COMSCORE_ID } from '../../utilities/constants/ids'
+import { getMultimediaAnalitycs, storyTagsBbc } from '../../utilities/helpers'
 import StoryData from '../../utilities/story-data'
-import { getMultimediaAnalitycs } from '../../utilities/helpers'
 
 export default ({
   autors,
@@ -22,6 +23,7 @@ export default ({
     nucleoOrigen,
     subtype,
     title,
+    tags,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -77,14 +79,10 @@ export default ({
     "vars": {
         "uid" : ${siteProperties.charbeatAccountNumber},
         "domain" : "${siteProperties.siteDomain}",
-        "sections" : "${sections &&
-          sections.map(({ name }) => {
-            return `'${name}'`
-          })}",
-        "author" : "'Redacción ${autors &&
-          autors.map(({ name }) => {
-            return `'${name}'`
-          })}'",
+        "sections" : "${sections && sections.map(({ name }) => `'${name}'`)}",
+        "author" : "'Redacción ${
+          autors && autors.map(({ name }) => `'${name}'`)
+        }'",
         "contentType" : "${ELEMENT_TYPE_CHARBEAT}"
 
     }
@@ -107,7 +105,7 @@ export default ({
     subtype,
     true
   )}&cd8=${id}&cd11=nologin-v&cd15=${author}&cd16=${nucleoOrigen} `
-
+  const bbcScript = `{"vars": {"syndication-partner" : "elcomercio.pe", "language" : "mundo"},"triggers": { "trackPageview": {"on": "visible", "request": "wsStoryView"}}}`
   return (
     <>
       <amp-pixel src={urlPixel} layout="nodisplay" />
@@ -132,6 +130,14 @@ export default ({
           dangerouslySetInnerHTML={{ __html: chartbeat }}
         />
       </amp-analytics>
+      {storyTagsBbc(tags) && (
+        <amp-analytics config="https://news.files.bbci.co.uk/ws/partner-analytics/ampAnalyticsConfig.json">
+          <script
+            type="application/json"
+            dangerouslySetInnerHTML={{ __html: bbcScript }}
+          />
+        </amp-analytics>
+      )}
     </>
   )
 }

@@ -1,0 +1,110 @@
+@import "../saltar-intro/saltar-intro-separator";
+
+.saltar-intro-separator {
+  font-family: $primary-font;
+  &__box-item {
+    width: auto;
+    @media (--desktop) {
+      width: calc(100% / 3);
+    }
+    &:nth-child(2) {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+  &__section {
+    display: block;
+    border: 0;
+    // font: normal normal 800 14px/18px Bitter;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 800;
+    letter-spacing: 0;
+    margin-top: 5px;
+    color: #000;
+    position: relative;
+    &:hover {
+      text-decoration: none;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      border-bottom: 4px solid #000;
+      width: 30px;
+      margin-top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 15%;
+    }
+  }
+  &__content {
+    text-align: center;
+    // font: normal normal bold 20px/25px Bitter;
+    letter-spacing: 0;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+    @media (--desktop) {
+      height: unset;
+    }
+  }
+  &__container {
+    background-color: #b6e2ae;
+    margin-top: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    @media (--desktop) {
+      padding: 20px;
+    }
+  }
+  &__box-title {
+    text-align: center;
+    margin-bottom: 20px;
+    @media (--desktop) {
+      text-align: left;
+      position: relative;
+      left: -25px;
+    }
+  }
+  &__title {
+    top: 0;
+    color: #000;
+    background-color: unset;
+    transform: unset;
+    // border: 1px solid #000;
+    padding: 0;
+    text-transform: unset;
+    // font: normal normal medium 15px/24px Bitter;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 500;
+    &--reversing {
+      display: unset;
+      transform: unset;
+      border: 1px solid;
+      padding: 2px 8px;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+    &::before {
+      content: "Recetas del día";
+      background-color: #000;
+      color: #fff;
+      padding: 3px 10px;
+      // font: normal normal 800 15px/24px Bitter;
+      // font-size: 15px;
+      // line-height: 24px;
+      font-weight: 800;
+      letter-spacing: 0.21px;
+    }
+  }
+  &__box-see-more {
+    display: none;
+  }
+  &__author {
+    display: none;
+  }
+}

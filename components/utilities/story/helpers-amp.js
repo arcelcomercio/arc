@@ -1,29 +1,25 @@
 import { OPTA_WIDGET } from '../constants/opta'
 import {
-  SITE_PERU21,
-  SITE_ELCOMERCIO,
-  SITE_TROME,
   SITE_DEPOR,
-  SITE_ELBOCON,
   SITE_DIARIOCORREO,
+  SITE_ELBOCON,
+  SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
+  SITE_PERU21,
+  SITE_TROME,
 } from '../constants/sitenames'
 
-const createMarkup = html => {
-  return {
-    __html: html,
-  }
-}
+const createMarkup = (html) => ({
+  __html: html,
+})
 
 export const publicidadAmp = ({
   dataSlot,
   width,
   height,
   primarySectionLink = '/peru',
-  movil1 = '',
   arcSite = '',
   prebidSlot = '',
-  size = '320x100',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -31,14 +27,17 @@ export const publicidadAmp = ({
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp = ( SITE_PERU21 === arcSite && 
-    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const prebidAmp =
+    (SITE_PERU21 === arcSite &&
+      prebidSlot &&
+      `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
+    ''
+
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
   if (secctionPrimary[1] !== 'respuestas') {
-    resultData = `
-  <amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
-  data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
+    resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
+    data-slot="${dataSlot}" ${json} ${prebidAmp}></amp-ad>`
   }
   return createMarkup(resultData)
 }
@@ -47,10 +46,8 @@ export const publicidadAmpAd = ({
   width,
   height,
   primarySectionLink = '/peru',
-  movil1 = '',
   arcSite = '',
   prebidSlot = '',
-  size = '320x100,320x50,300x1',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -58,8 +55,11 @@ export const publicidadAmpAd = ({
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp = ( SITE_PERU21 === arcSite && 
-    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const prebidAmp =
+    (SITE_PERU21 === arcSite &&
+      prebidSlot &&
+      `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
+    ''
 
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
@@ -69,14 +69,21 @@ export const publicidadAmpAd = ({
   }
   return createMarkup(resultData)
 }
-export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '', prebidSlot = '' }) => {
+export const publicidadAmpMovil0 = ({
+  dataSlot,
+  arcSite = '',
+  prebidSlot = '',
+}) => {
   let resultData = ''
   const json =
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
-  const prebidAmp = ( SITE_PERU21 === arcSite && 
-    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const prebidAmp =
+    (SITE_PERU21 === arcSite &&
+      prebidSlot &&
+      `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
+    ''
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
   resultData = `<amp-ad
     width="320"
@@ -90,10 +97,17 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '', prebidSlot = '' })
   return createMarkup(resultData)
 }
 
-export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '', prebidSlot = '' }) => {
+export const publicidadAmpCaja1 = ({
+  dataSlot,
+  arcSite = '',
+  prebidSlot = '',
+}) => {
   let resultData = ''
-  const prebidAmp = ( SITE_PERU21 === arcSite && 
-    prebidSlot != '' && `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) || ''
+  const prebidAmp =
+    (SITE_PERU21 === arcSite &&
+      prebidSlot &&
+      `rtc-config='{"vendors": {"prebidrubicon": {"REQUEST_ID": "${prebidSlot}", "ACCOUNT_ID": "19186"}}}'`) ||
+    ''
   const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
 
   resultData = `<amp-ad
@@ -107,7 +121,7 @@ export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '', prebidSlot = '' }) 
   return createMarkup(resultData)
 }
 
-export const optaWidgetHtml = html => {
+export const optaWidgetHtml = (html) => {
   if (html.indexOf('<opta-widget') === -1) return html
   const matches = html.match(/<opta-widget (.*?)>(.*)<\/opta-widget>/)
   const matchesResult = matches
@@ -118,7 +132,7 @@ export const optaWidgetHtml = html => {
   return result
 }
 
-export const tikTokHtml = html => {
+export const tikTokHtml = (html) => {
   if (html.indexOf('class="tiktok-embed"') === -1) return html
   let result = html
   const regexTiktok = /<blockquote.*?cite=["|'](.*?)["|'].*?>.*?<\/blockquote>(.+?||)<script.+?><\/script>/g
@@ -129,7 +143,7 @@ export const tikTokHtml = html => {
   return result
 }
 
-export const imageHtmlMxm = html => {
+export const imageHtmlMxm = (html) => {
   let resHtml = html
 
   const rplImageCde =
@@ -149,7 +163,7 @@ export const imageHtmlMxm = html => {
   return resHtml
 }
 
-export const imageHtml = html => {
+export const imageHtml = (html) => {
   if (html.indexOf('<img') === -1) return html
 
   /**
@@ -168,7 +182,7 @@ export const imageHtml = html => {
  * @deprecated esta funcion ahora esta debidamente optimizada en
  * imageHtml. Funciona para notas MIGRADAS y NUEVAS.
  */
-export const imageHtmlLegacy = html => {
+export const imageHtmlLegacy = (html) => {
   let resHtml = ''
   resHtml = html.replace('<figure>', '').replace('</figure>', '')
 
@@ -214,7 +228,7 @@ export const imageHtmlLegacy = html => {
   return resHtml
 }
 
-export const playerHtml = html => {
+export const playerHtml = (html) => {
   if (html.indexOf('player.performgroup.com/eplayer.js') === -1) return html
 
   const regex = /<script src="\/\/player.performgroup.com\/eplayer.js#(.*?)" async><\/script>/g
@@ -225,7 +239,7 @@ export const playerHtml = html => {
   return result
 }
 
-export const jwPlayerJS = html => {
+export const jwPlayerJS = (html) => {
   if (html.indexOf('cdn.jwplayer.com') === -1) return html
 
   const regex = /^(?:.+)cdn.jwplayer.com\/players\/(.+)-(.+).js(?:.+)/
@@ -236,7 +250,7 @@ export const jwPlayerJS = html => {
   return result
 }
 
-export const twitterHtml = html => {
+export const twitterHtml = (html) => {
   if (html.indexOf('twitter.com') === -1) return html
 
   const regex = /<blockquote class="twitter-tweet"(?:.*)<a href="https:\/\/twitter.com\/(?:.*)\/status\/(.*)">(?:.*)<\/blockquote>/g
@@ -256,7 +270,7 @@ export const twitterHtml = html => {
 /**
  * @deprecated esta funcion por ahora no se esta usando
  */
-export const deporPlay = html => {
+export const deporPlay = (html) => {
   const rplDeporPlay =
     '<amp-iframe class="media" src="https://w.soundcloud.com/player/$2"  height="400"  width="600"  frameborder="0"   title="Google map pin on Googleplex, Mountain View CA"    layout="responsive"     sandbox="allow-scripts allow-same-origin allow-popups"     frameborder="0"></amp-iframe>'
 
@@ -302,7 +316,7 @@ export const uploadsUrls = (html, arcSite) => {
   return result
 }
 
-export const iframeHtml = html => {
+export const iframeHtml = (html) => {
   let result = html
 
   if (result.indexOf('<iframe') !== -1) {
@@ -445,7 +459,7 @@ export const iframeHtmlLegacy = (html, arcSite = '') => {
   return result
 }
 
-export const facebookHtml = html => {
+export const facebookHtml = (html) => {
   let resultHtml = html
 
   if (resultHtml.indexOf('facebook.com/plugins/video.php') !== -1) {
@@ -501,7 +515,7 @@ export const facebookHtml = html => {
   return resultHtml
 }
 
-export const youtubeHtml = html => {
+export const youtubeHtml = (html) => {
   const youtubeExists = /<iframe.+youtu\.be|youtube\.com/.test(html)
   if (!youtubeExists) return html
 
@@ -524,7 +538,7 @@ export const youtubeHtml = html => {
  * @deprecated esta funcion ahora esta debidamente optimizada en
  * youtubeHtml. Funciona para notas MIGRADAS y NUEVAS.
  */
-export const youtubeHtmlLegacy = html => {
+export const youtubeHtmlLegacy = (html) => {
   const rplYoutube =
     '<amp-youtube class="media" data-videoid="$3" layout="responsive" width="550" height="$2"></amp-youtube>'
   const rplYoutube1 =
@@ -561,11 +575,10 @@ export const youtubeHtmlLegacy = html => {
 /**
  * @deprecated esta funcion por ahora no se esta usando
  */
-export const replaceHtmlMigracion = html => {
-  return html.replace(/<figure.*http:\/\/cms.minoticia.*<\/figure>/g, '')
-}
+export const replaceHtmlMigracion = (html) =>
+  html.replace(/<figure.*http:\/\/cms.minoticia.*<\/figure>/g, '')
 
-export const instagramHtml = html => {
+export const instagramHtml = (html) => {
   if (html.indexOf('instagram.com') === -1) return html
 
   const regex = /<blockquote (?:.*)class="instagram-media(?:.*)="https:\/\/www.instagram.com\/(?:p|tv)\/(.*?)\/(?:.*?)<\/blockquote>/g
@@ -580,7 +593,7 @@ export const instagramHtml = html => {
  * @deprecated esta funcion ahora esta debidamente optimizada en
  * instagramHtml. Funciona para notas MIGRADAS y NUEVAS.
  */
-export const instagramHtmlLegacy = html => {
+export const instagramHtmlLegacy = (html) => {
   const rplInstagram =
     '<amp-instagram data-shortcode="$3" width="1" height="1" layout="responsive"></amp-instagram>'
 
@@ -590,7 +603,7 @@ export const instagramHtmlLegacy = html => {
   )
 }
 
-export const freeHtml = html => {
+export const freeHtml = (html) => {
   if (html.indexOf('<html_free>') === -1) return html
 
   const regex = /<html_free>(.*?)<\/html_free>/g
@@ -627,7 +640,7 @@ export const iframeMxm = (html, arcSite) => {
   return resHtml.replace(/<mxm-(.*) (.*)><\/mxm>/g, '')
 }
 
-export const mxmDelete = html => {
+export const mxmDelete = (html) => {
   if (html.indexOf('<mxm-') === -1) return html
   return html.replace(/<mxm-event (.*)><\/mxm-event>/gm, '')
 }

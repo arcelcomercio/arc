@@ -4,18 +4,16 @@ import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { env } from '../../../utilities/arc/env'
-import { PROD } from '../../../utilities/constants/environment'
+import useSentry from '../../../hooks/useSentry'
 import addScriptAsync from '../../../utilities/script-async'
-import QueryString from '../../signwall/_dependencies/querystring'
-import Taggeo from '../../signwall/_dependencies/taggeo'
 import Signwall from '../_children/Signwall'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
+import { deleteQuery, getQuery } from '../_dependencies/QueryString'
 import { getUserName, isLogged } from '../_dependencies/Session'
-import { PixelActions, sendAction } from '../_dependencies/Taggeo'
+import { PixelActions, sendAction, Taggeo } from '../_dependencies/Taggeo'
 import { FooterLand } from '../_layouts/footer'
 import scriptsLanding from '../_scripts/Landing'
-import Benefits from './_children/Benefits'
+import BenefitsLanding from './_children/Benefits'
 import CallinCallOut from './_children/CallinCallout'
 import Callout from './_children/Callout'
 import Cards from './_children/Cards'
@@ -30,8 +28,7 @@ const LandingSubscriptions = (props) => {
       btnOnTop = false,
     } = {},
   } = props
-  const { arcSite, deployment, globalContent: items = [] } =
-    useAppContext() || {}
+  const { arcSite, globalContent: items = [] } = useAppContext() || {}
 
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [showTypeLanding, setShowTypeLanding] = React.useState('landing')
@@ -46,34 +43,9 @@ const LandingSubscriptions = (props) => {
     (bannerUniComercio && isComercio) || (bannerUniGestion && !isComercio)
   const moduleCall = callInnCallOut && isComercio
 
+  useSentry(urlCommon.sentrySubs)
+
   React.useEffect(() => {
-    Sentry.init({
-      dsn: urlCommon.dsnSentry,
-      debug: env !== PROD,
-      release: `arc-deployment@${deployment}`,
-      environment: env,
-      ignoreErrors: [
-        'Unexpected end of JSON input',
-        'JSON.parse: unexpected end of data at line 1 column 1 of the JSON data',
-        'JSON Parse error: Unexpected EOF',
-      ],
-      // allowUrls: [
-      //   // API + origin
-      //   /https:\/\/.+(elcomercio|gestion).pe/,
-      //   // Sandbox CDN
-      //   /https:\/\/elcomercio-(elcomercio|gestion)-sandbox\.cdn\.arcpublishing.com/,
-      //   // Identity & Sales SDKs
-      //   /https:\/\/arc-subs-sdk\.s3\.amazonaws\.com/,
-      //   // PayU
-      //   /https?:\/\/.+payulatam\.com/,
-      // ],
-      denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
-    })
-
-    Sentry.configureScope((scope) => {
-      scope.setTag('brand', arcSite)
-    })
-
     addScriptAsync({
       name: 'IdentitySDK',
       url: links.identity,
@@ -103,13 +75,11 @@ const LandingSubscriptions = (props) => {
       },
     })
 
-    if (QueryString.getQuery('signStudents')) {
+    if (getQuery('signStudents')) {
       setShowTypeLanding('students')
     }
 
-    const isParamsRedirect =
-      QueryString.getQuery('signLanding') ||
-      QueryString.getQuery('signStudents')
+    const isParamsRedirect = getQuery('signLanding') || getQuery('signStudents')
 
     setShowSignwall(isParamsRedirect)
   }, [])
@@ -163,9 +133,9 @@ const LandingSubscriptions = (props) => {
 
       setShowProfile(getUserName(userfirstName, userlastName))
       // setShowSignwall(false)
-      QueryString.deleteQuery('signLanding')
-      // QueryString.deleteQuery('signStudents')
-      QueryString.deleteQuery('dataTreatment')
+      deleteQuery('signLanding')
+      // deleteQuery('signStudents')
+      deleteQuery('dataTreatment')
     }
   }
 
@@ -316,7 +286,7 @@ const LandingSubscriptions = (props) => {
           </div>
         </section>
 
-        <Benefits arcSite={arcSite} />
+        <BenefitsLanding arcSite={arcSite} />
 
         <section className="club" id="club">
           <div className="wrapper">
@@ -497,5 +467,7 @@ LandingSubscriptions.propTypes = {
     }),
   }),
 }
+
+LandingSubscriptions.label = 'Subscriptions - Landing Principal'
 
 export default LandingSubscriptions

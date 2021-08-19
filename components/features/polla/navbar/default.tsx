@@ -34,12 +34,12 @@ const PollaNavbar: FC<Props> = (props) => {
           type="button"
           className="polla-nav__btn-menu"
           aria-haspopup="true"
+          title="Menú"
           aria-controls="menu">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="23"
             viewBox="0 0 24 24">
-            <title>Menú</title>
             <path d="M4 6h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4C3.5 8 3 7.6 3 7l0 0C3 6.5 3.5 6 4 6z" />
             <path d="M4 11h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 11.5 3.5 11 4 11z" />
             <path d="M4 16h16c0.6 0 1 0.5 1 1l0 0c0 0.6-0.4 1-1 1H4c-0.5 0-1-0.4-1-1l0 0C3 16.5 3.5 16 4 16z" />
@@ -109,10 +109,10 @@ const PollaNavbar: FC<Props> = (props) => {
             if (btn) {
               btn.addEventListener("click", () => {
                 if (uuid) {
-                  window.location.href = "/mi-perfil/?outputType=signwall";
+                  window.location.href = "/mi-perfil/?outputType=subscriptions";
                 } else {
                   window.location.href =
-                    "/signwall/?outputType=signwall&signwallOrganic=1";
+                    "/signwall/?outputType=subscriptions&signwallOrganic=1";
                 }
               });
               if (uuid) {
@@ -125,7 +125,7 @@ const PollaNavbar: FC<Props> = (props) => {
         <script
           dangerouslySetInnerHTML={{
             __html:
-              '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("signwall-nav-btn"),t=document.getElementById("signwall-nav-text"),n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,a=void 0===i?"":i,l=n.lastName,d=void 0===l?"":l,o=n.uuid,s=void 0===o?"":o;e&&(e.addEventListener("click",function(){window.location.href=s?"/mi-perfil/?outputType=signwall":"/signwall/?outputType=signwall&signwallOrganic=1"}),s&&(t.innerText="Hola, "+(a||d||"Usuario"),e.classList.add("signed")))});',
+              '"use strict";document.addEventListener("DOMContentLoaded",function(){var e=document.getElementById("signwall-nav-btn"),t=document.getElementById("signwall-nav-text"),n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},i=n.firstName,a=void 0===i?"":i,l=n.lastName,d=void 0===l?"":l,o=n.uuid,s=void 0===o?"":o;e&&(e.addEventListener("click",function(){window.location.href=s?"/mi-perfil/?outputType=subscriptions":"/signwall/?outputType=subscriptions&signwallOrganic=1"}),s&&(t.innerText="Hola, "+(a||d||"Usuario"),e.classList.add("signed")))});',
           }}
         />
       ) : null}

@@ -1,0 +1,81 @@
+.provecho-story-banner {
+  font-family: $primary-font;
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  @media (--only-mobile) {
+    flex-direction: column;
+  }
+  @media (--desktop) {
+    max-height: 210px;
+  }
+
+  &__icon {
+    width: 14px;
+    position: absolute;
+    top: -15px;
+  }
+  &__image-box {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &__image {
+    width: 400px;
+    display: block;
+    height: 100%;
+    @media (--only-mobile) {
+      width: 100%;
+      max-height: 200px;
+    }
+  }
+  &__section {
+    border: 1px solid #707070;
+    padding: 5px 20px;
+    background-color: #fff;
+    // display: inline-block;
+    position: absolute;
+    // font: normal normal 800 16px/24px Bitter;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.22px;
+    color: #000;
+    transform: translateX(-50%);
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    top: 30px;
+    @media (--only-mobile) {
+      min-width: 200px;
+    }
+  }
+  &__box {
+    background-color: #b6e2ae;
+    padding-bottom: 26px;
+    padding-top: 50px;
+    padding-left: 35px;
+    padding-right: 35px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+  }
+  &__title-box {
+    text-align: center;
+    // font: normal normal bold 25px/30px Bitter;
+    font-size: 25px;
+    line-height: 30px;
+    font-weight: bold;
+    letter-spacing: 0;
+    color: #000;
+    border-top: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+    padding-bottom: 20px;
+    padding-top: 40px;
+    display: block;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
