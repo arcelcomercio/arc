@@ -1,0 +1,52 @@
+.newsletter {
+  &__box-subscription {
+    background-color: #eedfd1;
+    border: 1px solid #a98e7c;
+    border-radius: 0 !important;
+    height: 374px;
+    padding-left: 25px;
+    padding-right: 25px;
+    & h4 {
+      display: none;
+    }
+    & h3 {
+      margin-bottom: 0;
+      font-family: $secondary-font;
+      font-size: 17px;
+      font-weight: 500;
+    }
+  }
+  &__description {
+    margin-top: 5px;
+    font-size: 15px;
+  }
+  &__row {
+    margin-bottom: 10px;
+  }
+  &__mas-news {
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      color: #1980a8;
+      font-weight: 700;
+      font-family: $secondary-font;
+      & svg {
+        margin-left: 5px;
+      }
+    }
+  }
+  &__button {
+    height: 40px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  &__policies-span {
+    font-size: 12px;
+    font-weight: 500;
+    color: #8f7868;
+    & a {
+      color: #8f7868;
+    }
+  }
+}
