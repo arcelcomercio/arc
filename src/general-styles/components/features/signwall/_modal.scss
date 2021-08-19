@@ -980,6 +980,32 @@
       & .spacing-trome {
         display: none;
       }
+      & .fb-login-button {
+        display: table;
+        margin: 0 auto;
+      }
+      & .btn-google {
+        background: #4385f4
+          url("https://signwall.e3.pe/images/icon-btn-google.png") no-repeat;
+        background-position: 13px center;
+        background-size: 20px;
+        padding: 5px 5px 5px 25px;
+        text-align: center;
+        height: 40px;
+        line-height: 14px;
+        font-size: 16px;
+        color: #fff;
+        font-weight: bold;
+        width: 300px;
+        max-width: 300px;
+        margin: 10px auto;
+        display: table;
+        border: 0;
+        &:disabled {
+          opacity: 0.5;
+          cursor: none;
+        }
+      }
     }
     &-title {
       color: #000;
