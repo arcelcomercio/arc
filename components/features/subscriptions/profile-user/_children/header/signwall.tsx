@@ -7,6 +7,14 @@ import { SITE_TROME } from '../../../../../utilities/constants/sitenames'
 import { Back, Close } from '../../../../signwall/_children/icons'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 
+const classes = {
+  wrapper: 'profile-header__wrapper',
+  content: 'profile-header__content',
+  back: 'profile-header__back',
+  logo: 'profile-header__logo',
+  close: 'profile-header__close',
+}
+
 interface HeaderSignwallProps {
   buttonClose?: boolean
   onClose?: () => void
@@ -30,21 +38,21 @@ const HeaderSignwall = ({
 
   return (
     <div
-      className={`sign-profile_header-wrapper ${
+      className={`${classes.wrapper} ${
         arcSite === SITE_TROME ? 'border-trome' : ''
       }`}
       style={{
         background: arcSite === SITE_TROME ? '#FF650F' : mainColorBg,
         color: mainColorTxt,
       }}>
-      <div className="sign-profile_header-content">
+      <div className={classes.content}>
         {buttonClose ? (
-          <button className="sign-profile_header-back" type="button">
+          <button className={classes.back} type="button">
             {' '}
           </button>
         ) : (
           <button
-            className="sign-profile_header-back"
+            className={classes.back}
             style={{ color: mainColorTxt }}
             type="button"
             onClick={() => {
@@ -55,7 +63,7 @@ const HeaderSignwall = ({
           </button>
         )}
 
-        <div className="sign-profile_header-logo">
+        <div className={classes.logo}>
           <div
             className={`cont cont_${arcSite} ${
               arcSite === SITE_TROME && logoLeft ? 'cont_left' : ''
@@ -76,7 +84,7 @@ const HeaderSignwall = ({
 
         {buttonClose && (
           <button
-            className="sign-profile_header-close"
+            className={classes.close}
             type="button"
             onClick={() => {
               Taggeo(
@@ -91,7 +99,7 @@ const HeaderSignwall = ({
               }
 
               if (
-                window.location.pathname.match(/newsletters/) &&
+                /newsletters/.test(window.location.pathname) &&
                 Identity.userProfile &&
                 typeDialog === 'organico'
               ) {
