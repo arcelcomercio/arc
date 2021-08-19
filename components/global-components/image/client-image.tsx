@@ -151,38 +151,37 @@ const ClientImage: React.FC<ClientImageProps> = ({
     />
   )
 
-  return (
-    mainImage &&
-    (sizes && sizes.length >= 1 ? (
-      <picture className={pictureClassName}>
-        {sizes.map((size) => {
-          const { width: sourceWidth, height: sourceHeight, media } = size
-          const sourceImage =
-            resizedImages?.[`${sourceWidth}x${sourceHeight}`] || placeholder
-          const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
-            sourceImage.length - 30,
-            sourceImage.length
-          )}`
-          return (
-            <source
-              key={key}
-              srcSet={lazy ? undefined : sourceImage}
-              data-srcset={lazy ? sourceImage : undefined}
-              media={media}
-              type={type}
-              className={lazy ? 'lazy' : undefined}
-            />
-          )
-        })}
-        <Image />
-        {icon || null}
-      </picture>
-    ) : (
-      <>
-        <Image />
-        {icon || null}
-      </>
-    ))
+  if (!mainImage) return null
+
+  return sizes && sizes.length >= 1 ? (
+    <picture className={pictureClassName}>
+      {sizes.map((size) => {
+        const { width: sourceWidth, height: sourceHeight, media } = size
+        const sourceImage =
+          resizedImages?.[`${sourceWidth}x${sourceHeight}`] || placeholder
+        const key = `source:${sourceWidth}x${sourceHeight}${sourceImage.substring(
+          sourceImage.length - 30,
+          sourceImage.length
+        )}`
+        return (
+          <source
+            key={key}
+            srcSet={lazy ? undefined : sourceImage}
+            data-srcset={lazy ? sourceImage : undefined}
+            media={media}
+            type={type}
+            className={lazy ? 'lazy' : undefined}
+          />
+        )
+      })}
+      <Image />
+      {icon || null}
+    </picture>
+  ) : (
+    <>
+      <Image />
+      {icon || null}
+    </>
   )
 }
 
