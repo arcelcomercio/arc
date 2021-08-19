@@ -67,7 +67,7 @@ class XmlTagsSitemap {
 
         contentElements.forEach((story) => {
           if (story.taxonomy.tags)
-            story.taxonomy.tags.forEach((tag) => {
+            story.taxonomy.tags.every((tag) => {
               if (sitemap.urlset.length < 1000 && !tags.includes(tag.slug)) {
                 sitemap.urlset.push({
                   url: {
@@ -76,7 +76,9 @@ class XmlTagsSitemap {
                   },
                 })
                 tags.push(tag.slug)
-              } else break
+                return true
+              }
+              return false
             })
         })
       })
