@@ -225,7 +225,7 @@
       }
       &.size-large {
         width: 90%;
-        height: 580px;
+        height: 620px;
         .left-modal {
           display: inline-block;
           width: 58%;
@@ -252,7 +252,7 @@
       }
       &.size-large {
         max-width: 1000px;
-        height: 600px;
+        height: 640px;
       }
     }
   }
@@ -984,27 +984,18 @@
         display: table;
         margin: 0 auto;
       }
-      & .btn-google {
-        background: #4385f4
-          url("https://signwall.e3.pe/images/icon-btn-google.png") no-repeat;
-        background-position: 13px center;
-        background-size: 20px;
-        padding: 5px 5px 5px 25px;
-        text-align: center;
-        height: 40px;
-        line-height: 14px;
-        font-size: 16px;
-        color: #fff;
-        font-weight: bold;
-        width: 300px;
-        max-width: 300px;
-        margin: 10px auto;
+      #google-sign-in-button {
         display: table;
-        border: 0;
-        &:disabled {
-          opacity: 0.5;
-          cursor: none;
-        }
+        margin: 10px auto 10px auto;
+      }
+      #google-sign-in-button > div {
+        border-radius: 4px;
+        box-shadow: none !important;
+      }
+      #google-sign-in-button span {
+        font-size: 17px !important;
+        font-weight: bold;
+        color: white;
       }
     }
     &-title {

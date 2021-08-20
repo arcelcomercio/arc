@@ -10,7 +10,6 @@ import { sendNewsLettersUser } from '../_dependencies/Services'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
-import ButtonSocial from './social'
 
 const styles = {
   center: 'step__left-align-center',
@@ -58,15 +57,73 @@ const AuthFacebookGoogle = ({
   }
 
   const nameTagCategory = `Web_Sign_Wall_${typeDialog}`
-  const arcSocial = 'facebook'
+
+  const attributesUser = (provider) => ({
+    attributes: [
+      {
+        name: 'originDomain',
+        value: window.location.hostname || 'none',
+        type: 'String',
+      },
+      {
+        name: 'originReferer',
+        value:
+          window.location.href
+            .split('&')[0]
+            .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, '') || 'none',
+        type: 'String',
+      },
+      {
+        name: 'originMethod',
+        value: provider === 'facebook' ? '2' : '5',
+        type: 'String',
+      },
+      {
+        name: 'originDevice',
+        value: getDevice(window) || 'none',
+        type: 'String',
+      },
+      {
+        name: 'originAction',
+        value: typeDialog || 'landing',
+        type: 'String',
+      },
+      {
+        name: 'termsCondPrivaPoli',
+        value: '1',
+        type: 'String',
+      },
+      {
+        name: 'dataTreatment',
+        value:
+          dataTreatment && (arcSite === 'elcomercio' || arcSite === 'gestion')
+            ? dataTreatment
+            : 'NULL',
+        type: 'String',
+      },
+    ],
+  })
+
+  const authFailed = (provider) => {
+    setLoadingSocial(false)
+    Taggeo(
+      nameTagCategory,
+      `web_sw${typeDialog[0]}_${arcType}_error_${provider}`
+    )
+    onAuthFailed()
+  }
+
+  const authSuccess = (provider) => {
+    Taggeo(
+      nameTagCategory,
+      `web_sw${typeDialog[0]}_${arcType}_success_${provider}`
+    )
+    onAuthSuccess()
+  }
 
   const checkStatusForms = (emailArc, emailVerified, name, id) => {
     if (emailArc && emailVerified) {
-      onAuthSuccess()
-      Taggeo(
-        nameTagCategory,
-        `web_sw${typeDialog[0]}_${arcType}_success_${arcSocial}`
-      )
+      authSuccess('facebook')
     } else if (emailArc && !emailVerified) {
       setLoadingSocial(false)
       hideFormParent(true)
@@ -79,14 +136,6 @@ const AuthFacebookGoogle = ({
     }
   }
 
-  const authFailed = () => {
-    onAuthFailed()
-    Taggeo(
-      nameTagCategory,
-      `web_sw${typeDialog[0]}_${arcType}_error_${arcSocial}`
-    )
-  }
-
   React.useEffect(() => {
     Identity.initFacebookLogin(links.facebookKey, 'es_ES')
     if (!window.onFacebookSignOn) {
@@ -95,7 +144,7 @@ const AuthFacebookGoogle = ({
           setLoadingSocial(true)
           Taggeo(
             nameTagCategory,
-            `web_sw${typeDialog[0]}_${arcType}_boton_${arcSocial}`
+            `web_sw${typeDialog[0]}_${arcType}_boton_facebook`
           )
           await Identity.facebookSignOn().then((res) => {
             const { accessToken } = res || {}
@@ -110,54 +159,7 @@ const AuthFacebookGoogle = ({
                       if (attributes) {
                         checkStatusForms(emailArc, emailVerified, name, id)
                       } else {
-                        Identity.updateUserProfile({
-                          attributes: [
-                            {
-                              name: 'originDomain',
-                              value: window.location.hostname || 'none',
-                              type: 'String',
-                            },
-                            {
-                              name: 'originReferer',
-                              value:
-                                window.location.href
-                                  .split('&')[0]
-                                  .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, '') ||
-                                'none',
-                              type: 'String',
-                            },
-                            {
-                              name: 'originMethod',
-                              value: '2', // only facebok
-                              type: 'String',
-                            },
-                            {
-                              name: 'originDevice',
-                              value: getDevice(window) || 'none',
-                              type: 'String',
-                            },
-                            {
-                              name: 'originAction',
-                              value: typeDialog || 'landing',
-                              type: 'String',
-                            },
-                            {
-                              name: 'termsCondPrivaPoli',
-                              value: '1',
-                              type: 'String',
-                            },
-                            {
-                              name: 'dataTreatment',
-                              value:
-                                dataTreatment &&
-                                (arcSite === 'elcomercio' ||
-                                  arcSite === 'gestion')
-                                  ? dataTreatment
-                                  : 'NULL',
-                              type: 'String',
-                            },
-                          ],
-                        })
+                        Identity.updateUserProfile(attributesUser('facebook'))
                           .then(() => {
                             checkStatusForms(emailArc, emailVerified, name, id)
                             if (email && activeNewsletter) {
@@ -172,15 +174,13 @@ const AuthFacebookGoogle = ({
                             }
                           })
                           .catch(() => {
-                            setLoadingSocial(false)
-                            authFailed()
+                            authFailed('facebook')
                           })
                       }
                     }
                   )
                   .catch(() => {
-                    setLoadingSocial(false)
-                    authFailed()
+                    authFailed('facebook')
                   })
               }
             )
@@ -192,25 +192,53 @@ const AuthFacebookGoogle = ({
       }
     }
 
-    // const btnGoogle = document.getElementById('google-sign-in-button')
-    // if (btnGoogle) {
-    //   Identity.initGoogleLogin(
-    //     `${links.googleKey}.apps.googleusercontent.com`,
-    //     {
-    //       width: 300,
-    //       height: 40,
-    //       theme: 'dark',
-    //       onSuccess: () => {
-    //         onAuthSuccess()
-    //       },
-    //     }
-    //   ).then(() => {
-    //     setTimeout(() => {
-    //       const textGoogle = btnGoogle.getElementsByTagName('span')
-    //       if (textGoogle) textGoogle[0].innerHTML = 'Iniciar sesión con Google'
-    //     }, 200)
-    //   })
-    // }
+    const btnGoogle = document.getElementById('google-sign-in-button')
+    if (btnGoogle) {
+      Identity.initGoogleLogin(
+        `${links.googleKey}.apps.googleusercontent.com`,
+        {
+          width: 300,
+          height: 40,
+          theme: 'dark',
+          onSuccess: () => {
+            setLoadingSocial(true)
+            Identity.getUserProfile().then(({ uuid, attributes, email }) => {
+              if (attributes) {
+                authSuccess('google')
+              } else {
+                Identity.updateUserProfile(attributesUser('google'))
+                  .then(({ accessToken }) => {
+                    if (email && activeNewsletter) {
+                      sendNewsLettersUser(
+                        urls.newsLetters,
+                        uuid,
+                        email,
+                        arcSite,
+                        accessToken,
+                        ['general']
+                      )
+                    }
+                    authSuccess('google')
+                  })
+                  .catch(() => {
+                    setLoadingSocial(false)
+                    authFailed('google')
+                  })
+              }
+            })
+          },
+          onFailure: () => {
+            setLoadingSocial(false)
+            authFailed('google')
+          },
+        }
+      ).then(() => {
+        setTimeout(() => {
+          const textGoogle = btnGoogle.getElementsByTagName('span')
+          if (textGoogle) textGoogle[0].innerHTML = 'Iniciar sesión con Google'
+        }, 200)
+      })
+    }
   }, [])
 
   const onFormEmailFacebook = ({ femail }) => {
@@ -378,19 +406,7 @@ const AuthFacebookGoogle = ({
             data-use-continue-as="true"
             data-onlogin="window.onFacebookSignOn()"
           />
-          {!isFbBrowser && (
-            <div className={`${styles.blockMiddle} ${styles.blockFull}`}>
-              <ButtonSocial
-                arcSocial="google"
-                arcSite={arcSite}
-                arcType={arcType}
-                showMsgVerify={() => showMsgVerify()}
-                dataTreatment={dataTreatment}
-                typeDialog={typeDialog}
-              />
-            </div>
-          )}
-          {/* <div id="google-sign-in-button" /> */}
+          {!isFbBrowser && <div id="google-sign-in-button" />}
         </>
       )}
     </>
