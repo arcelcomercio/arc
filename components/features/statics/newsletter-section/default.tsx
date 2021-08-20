@@ -34,10 +34,19 @@ const classes = {
   nnLogoMail: 'newsletter-section__right-container__logo-mail',
   nnMoreNews: 'newsletter-section__right-container__mas-news',
   nnForm: 'newsletter-section__left-container__form-news',
+  nnFormDiv: 'newsletter-section__left-container__form',
+  nnFormMessage: 'newsletter-section__left-container__message',
+  nnFormMessageSucces: 'newsletter-section__left-container__message__success',
+  nnFormMessageIcon: 'newsletter-section__left-container__message__icon',
+  nnFormMessageIconSvg: 'newsletter-section__left-container__message__icon-svg',
+  nnFormMessageIconTxt: 'newsletter-section__left-container__message__icon-txt',
 }
+
+// src/websites/gestion/scss/lite-components/features/statics/_newsletter-section.scss
 
 const textRegister =
   'Regístrate gratis al newsletter e infórmate con lo más completo en'
+const txtMessage = 'Ya estás suscrito a nuestro newsletter.'
 
 const NewsletterSection: FC<FeatureProps> = (props) => {
   const { customFields: { UrlTerminos, UrlPolitica, UrlMoreNews } = {} } = props
@@ -81,9 +90,12 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
   /*
     
     window.addEventListener('DOMContentLoaded', () => {requestIdle(() => {
+      const formsDiv = document.getElementsByClassName('${classes.nnFormDiv}')
       const formsInPage = document.getElementsByClassName('${classes.nnForm}')
       const formButton = document.getElementsByClassName('${classes.nnButtonBox}')
       const formEmail = document.getElementsByClassName('${classes.nnTextBox}')
+      const formInTxt = document.getElementsByClassName('${classes.nnText}')
+      const formMessage = document.getElementsByClassName('${classes.nnFormMessage}')
 
       const URL_API = '${urlApi}'
       const brandNL = '${newsletterBrand}'
@@ -94,6 +106,7 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
 
       let Access = "Bearer "+TOKEN_USER+" "+brandNL
       
+      formMessage[0].style.display = "none"
       formsInPage[0].addEventListener("submit", e => {
         e.preventDefault()
         const re = new RegExp(/[\\w\\.-]+@[\\w\\.-]+/, 'i')
@@ -101,6 +114,10 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
 
         if(validEmail) {
           formButton[0].disabled = true;
+
+          formMessage[0].style.display = "block"
+          formsDiv[0].style.display = "none"
+          formInTxt[0].style.display = "none"
         }else{
           alert("Ingrese un correo valido")
           return false
@@ -120,7 +137,7 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
   */
 
   let NewsSectionJs = ''
-  NewsSectionJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementsByClassName("${classes.nnForm}"),t=document.getElementsByClassName("${classes.nnButtonBox}"),n=document.getElementsByClassName("${classes.nnTextBox}");JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken;e[0].addEventListener("submit",function(e){if(e.preventDefault(),!new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(n[0].value))return alert("Ingrese un correo valido"),!1;t[0].disabled=!0;var s=new XMLHttpRequest;s.open("POST","${urlApi}",!0),s.setRequestHeader("Content-Type","application/json"),s.send(JSON.stringify({email:n[0].value,brand:"${newsletterBrand}",topic:"${dataApi}"}))})})});`
+  NewsSectionJs = `"use strict";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementsByClassName("${classes.nnFormDiv}"),s=document.getElementsByClassName("${classes.nnForm}"),t=document.getElementsByClassName("${classes.nnButtonBox}"),n=document.getElementsByClassName("${classes.nnTextBox}"),a=document.getElementsByClassName("${classes.nnText}"),l=document.getElementsByClassName("${classes.nnFormMessage}");JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").uuid,JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")||"{}").accessToken;l[0].style.display="none",s[0].addEventListener("submit",function(s){if(s.preventDefault(),!new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(n[0].value))return alert("Ingrese un correo valido"),!1;t[0].disabled=!0,l[0].style.display="block",e[0].style.display="none",a[0].style.display="none";var o=new XMLHttpRequest;o.open("POST","${urlApi}",!0),o.setRequestHeader("Content-Type","application/json"),o.send(JSON.stringify({email:n[0].value,brand:"${newsletterBrand}",topic:"${dataApi}"}))})})});`
 
   return (
     <>
@@ -170,7 +187,7 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
             {isTuDinero ? 'Tu Dinero' : ''}
             {isInternacional ? 'Internacional' : ''}
           </div>
-          <div>
+          <div className={classes.nnFormDiv}>
             <form className={classes.nnForm}>
               <input
                 type="email"
@@ -205,6 +222,26 @@ const NewsletterSection: FC<FeatureProps> = (props) => {
                 </label>
               </div>
             </form>
+          </div>
+          <div className={classes.nnFormMessage}>
+            <div className={classes.nnFormMessageSucces}>{txtMessage}</div>
+            <div className={classes.nnFormMessageIcon}>
+              <div className={classes.nnFormMessageIconSvg}>
+                <svg
+                  width="48"
+                  data-name="Capa 1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 48 48">
+                  <path
+                    d="M24 0a24 24 0 1 0 24 24A24 24 0 0 0 24 0zm12.16 18.91-13 13a2 2 0 0 1-2.82 0l-6.5-6.5a2 2 0 0 1 2.82-2.82l5.09 5.08 11.59-11.58a2 2 0 0 1 2.82 2.82z"
+                    style={{ fill: '#e84f68' }}
+                  />
+                </svg>
+              </div>
+              <div className={classes.nnFormMessageIconTxt}>
+                ¡Recepción exitosa!
+              </div>
+            </div>
           </div>
         </div>
         <div className={classes.nnRightCont}>

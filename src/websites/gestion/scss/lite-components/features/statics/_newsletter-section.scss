@@ -12,6 +12,40 @@
     @media (--desktop) {
       width: 70%;
     }
+    &__message {
+      &__success {
+        color: #666;
+        font-size: 16px;
+        margin-top: 16px;
+        text-align: center;
+        font-family: $secondary-font;
+        @media (--desktop) {
+          margin-top: 0;
+          text-align: left;
+        }
+      }
+      &__icon {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 45px;
+        margin-bottom: 25px;
+        @media (--desktop) {
+          margin-top: 50px;
+          margin-bottom: 30px;
+        }
+      }
+      &__icon-svg {
+        width: 48px;
+      }
+      &__icon-txt {
+        color: #333;
+        font-weight: 700;
+        font-size: 18px;
+        font-family: $secondary-font;
+        margin-top: 12px;
+      }
+    }
     &__logo {
       margin-right: 12px;
     }
@@ -41,7 +75,7 @@
       width: initial;
       font-family: $primary-font;
       @media (--desktop) {
-        width: min-content;
+        width: auto;
       }
     }
     &__texto {
@@ -134,6 +168,10 @@
       }
     }
     &__mas-news {
+      align-self: flex-end;
+      @media (--desktop) {
+        align-self: flex-start;
+      }
       & a {
         font-weight: 700;
         color: #1980a8;
