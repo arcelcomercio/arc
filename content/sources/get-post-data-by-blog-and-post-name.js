@@ -1,5 +1,6 @@
 import { BLOG_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+
 import RedirectError from '../../components/utilities/redirect-error'
 import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
@@ -62,7 +63,16 @@ const resolve = (key = {}) => {
   const website = key['arc-site']
   const {
     api: { blog: urlApiblog = '' },
+    siteUrl,
   } = getProperties(website)
+
+  const isResultadosOnpe = /^lavidaquequiero/.test(blogPath) || false
+  if (isResultadosOnpe) {
+    throw new RedirectError(
+      `${siteUrl}/blog/emprendedor/${year}/${month}/${postName}/`,
+      301
+    )
+  }
 
   return `${urlApiblog}?json=${json}&blog_path=${blogPath}&year=${year}&month=${month}&post_name=${postName}&posts_limit=${postsLimit}&posts_offset=${postsOffset}&token=${token}`
 }

@@ -1,0 +1,52 @@
+.newsletters-subscription {
+  &__item {
+    @media (--desktop) {
+      margin-bottom: 30px;
+    }
+  }
+  &__card {
+    background-color: transparent;
+    &::before {
+      content: none;
+    }
+  }
+  &__icono {
+    display: none;
+  }
+  &__title-text {
+    margin-bottom: 5px;
+    &::after {
+      content: none;
+    }
+  }
+  &__detail {
+    align-items: flex-start;
+  }
+  &__title-span {
+    font: 900 18px/21px $secondary-font;
+    letter-spacing: 0.18px;
+    color: #333;
+  }
+  &__check-btn {
+    font: 400 16px/20px $secondary-font;
+    color: #333;
+    background-color: transparent;
+    padding: 13px 28px;
+    border: 1px solid #a98e7c;
+    &.subscribed {
+      background-color: #1980a8;
+      color: #fff;
+      border-color: #1980a8;
+    }
+  }
+  &__description {
+    font: 400 16px/20px $secondary-font;
+    text-align: left;
+    padding: 0;
+  }
+  &__frequency {
+    font: 400 15px/20px $secondary-font;
+    color: #1980a8;
+    margin-bottom: 16px;
+  }
+}

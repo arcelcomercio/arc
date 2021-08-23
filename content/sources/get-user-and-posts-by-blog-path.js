@@ -1,7 +1,8 @@
 import { BLOG_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import { createResizedParams } from '../../components/utilities/resizer/resizer'
+
 import RedirectError from '../../components/utilities/redirect-error'
+import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
 const params = [
   {
@@ -21,7 +22,7 @@ const params = [
   },
 ]
 
-const resolve = key => {
+const resolve = (key) => {
   const blogPath = key.blog_path
   const postsLimit = key.posts_limit || 16
   const postsOffset = key.posts_offset || 0
@@ -38,8 +39,15 @@ const resolve = key => {
 
   if (key.posts_offset <= 0)
     throw new RedirectError(`${siteUrl}/blog/${blogPath}/`, 301)
-  return `${urlApiblog}?json=get_user_and_posts_by_blog_path&blog_path=${blogPath}&posts_limit=${postsLimit}&posts_offset=${pagination}&token=${process
-    .env.TOKEN_BLOG || BLOG_TOKEN}`
+
+  const isResultadosOnpe = /^lavidaquequiero/.test(blogPath) || false
+  if (isResultadosOnpe) {
+    throw new RedirectError(`${siteUrl}/blog/emprendedor/`, 301)
+  }
+
+  return `${urlApiblog}?json=get_user_and_posts_by_blog_path&blog_path=${blogPath}&posts_limit=${postsLimit}&posts_offset=${pagination}&token=${
+    process.env.TOKEN_BLOG || BLOG_TOKEN
+  }`
 }
 
 const transform = (data, { 'arc-site': arcSite }) => {

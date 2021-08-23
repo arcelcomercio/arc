@@ -2,8 +2,24 @@
   &__section-link,
   &__title-link {
     font-family: $primary-font;
+    text-align: center;
   }
   &__title-link {
     font-weight: 700;
+  }
+  .premium__wrapper {
+    margin: 20px auto 0;
+  }
+  &.first-premium {
+    .featured-author__section-link {
+      font-size: 16px;
+    }
+    .featured-author__title-link {
+      font-size: 20px;
+      line-height: 1.333;
+    }
+    .premium__wrapper {
+      margin: 10px auto 0;
+    }
   }
 }

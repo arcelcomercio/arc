@@ -43,6 +43,8 @@ const Styles = ({
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (metaValue('section_style') === 'resultados_elecciones')
     style = 'elecciones-2021'
+  else if (!isStory && metaValue('section_style') === 'provecho')
+    style = 'provecho'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
   else if (/^\/covid-19\//.test(requestUri)) style = 'covid'
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
@@ -53,8 +55,9 @@ const Styles = ({
     requestUri.includes('/recetas/')
   )
     style = 'story-recetas'
-  else if (requestUri.includes('/saltar-intro/')) style = 'saltar-intro'
-  else if (requestUri.includes('/provecho/')) style = 'provecho'
+  else if (requestUri.includes('/saltar-intro/') && arcSite === SITE_ELCOMERCIO)
+    style = 'saltar-intro'
+  // else if (requestUri.includes('/provecho/') && arcSite === SITE_ELCOMERCIO) style = 'provecho'
   else if (
     requestUri.includes('/mas-especiales/') ||
     requestUri.includes('/especiales/')

@@ -1,15 +1,15 @@
 // import PropTypes from 'prop-types'
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import StandardFooter from './_children/standard'
-import SecondaryFooter from './_children/secondary'
-import StoryFooter from './_children/story'
 import { getAssetsPath } from '../../../utilities/assets'
 import getFooterProperties from '../../footer/_dependencies/properties'
+import SecondaryFooter from './_children/secondary'
+import StandardFooter from './_children/standard'
+import StoryFooter from './_children/story'
 
 /**
  * TODO: Este feature que controla distintos componentes debe ser
@@ -33,7 +33,7 @@ const SCHEMA = `{
   }
 }`
 
-const LayoutFooter = props => {
+const LayoutFooter = (props) => {
   const {
     customFields: {
       sectionsHierarchyConfig: {
@@ -64,9 +64,9 @@ const LayoutFooter = props => {
     filter: SCHEMA,
   })
 
-  const formatData = res => {
+  const formatData = (res) => {
     const { children = [] } = res || {}
-    const auxList = children.map(el => {
+    const auxList = children.map((el) => {
       if (el.node_type === 'link') {
         return {
           name: el.display_name,

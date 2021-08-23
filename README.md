@@ -8,6 +8,7 @@
 
 ## Tabla de contenido
 
+- [Versión de Fusion](#version-de-fusion)
 - [Sistema Operativo recomendado](#sistema-operativo-recomendado)
 - [Requerimientos](#requerimientos)
 - [Instalación](#instalación)
@@ -16,6 +17,21 @@
 - [Git hooks](#git-hooks)
 - [Pruebas unitarias](#pruebas-unitarias)
 - [Documentación](#documentación)
+
+&nbsp;
+
+## Versión de Fusion
+
+| Versión | Estado    |
+| ------- | --------- |
+| 2.8.3   | Estable   |
+| 3.0.1   | Inestable |
+
+Para usar una versión específica en local, coloca en tu archivo `.env`:
+
+```
+FUSION_RELEASE=2.8.3
+```
 
 &nbsp;
 

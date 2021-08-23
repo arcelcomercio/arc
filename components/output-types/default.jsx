@@ -345,8 +345,8 @@ export default ({
   const isFonts = isTrivia || isCovid
 
   const robotsIndex = `${
-    /(\/autor\/)[\w\d-]+\/([0-9]+)\//.test(requestUri) &&
-    !/(\/autor\/)[\w\d-]+\/([1])\//.test(requestUri) &&
+    /(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
+    !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
     arcSite === 'trome'
       ? 'noindex'
       : 'index'
@@ -361,7 +361,7 @@ export default ({
         <meta name="lang" content={lang} />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
-        {arcSite === 'trome' && isStory ? (
+        {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
           <meta
             name="robots"
             content={`${
@@ -373,7 +373,7 @@ export default ({
             <meta name="robots" content={`${robotsIndex}, follow`} />
           </>
         )}
-        {arcSite === 'trome' ? null : (
+        {arcSite === 'trome' || arcSite === 'depor' ? null : (
           <meta name="GOOGLEBOT" content="index follow" />
         )}
         <meta name="author" content={siteProperties.siteTitle} />
