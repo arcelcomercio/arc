@@ -1,15 +1,25 @@
-/**
- * @param {object} obj
- * @param {string} obj.sizes
- * @param {number[]} [obj.sizesHeight]
- * @param {number} obj.width
- * @param {number} obj.height
- *
- * @returns {MediaSizeObject[]}
- */
-export function validateSizes({ sizes, sizesHeight, width, height }) {
-  /** @type {MediaSizeObject[]} */
-  let validSizes = []
+import { Presets } from 'types/resizer'
+
+export type MediaSizeObject = {
+  media: string
+  width: number
+  height: number
+}
+
+type ValidateSizesProps = {
+  sizes: string | undefined
+  sizesHeight?: number[]
+  width: number
+  height: number
+}
+
+export function validateSizes({
+  sizes,
+  sizesHeight,
+  width,
+  height,
+}: ValidateSizesProps): MediaSizeObject[] {
+  let validSizes: MediaSizeObject[] = []
   if (typeof sizes === 'string') {
     const sizesList = sizes.split(',')
     const sizeRegexp = /(\(.+:\s?\d+px\))?\s?(\d+)(?:px|w)/
@@ -26,19 +36,14 @@ export function validateSizes({ sizes, sizesHeight, width, height }) {
           height: (sizesHeight || [])[i] || sizeHeight,
         }
       })
-      .filter(size => size.width && size.media)
+      .filter((size) => size.width && size.media)
   }
   return validSizes
 }
 
-/**
- * @param {MediaSizeObject[]} sizes
- *
- * @returns {object} presets
- */
-export function buildPresets(sizes) {
-  const presets = {}
-  sizes.forEach(size => {
+export function buildPresets(sizes: MediaSizeObject[]): Presets {
+  const presets: Presets = {}
+  sizes.forEach((size) => {
     const { width, height } = size
     presets[`${width}x${height}`] = { width, height }
   })
