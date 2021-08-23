@@ -1,0 +1,120 @@
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.profile-menu {
+  background: transparent;
+  position: relative;
+  padding: 10px 20px 0 20px;
+  margin-top: -80px;
+  z-index: 0;
+
+  @media (--subs-tabletl) {
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+    background: white;
+    padding: 80px 20px 20px;
+    margin-top: -60px;
+  }
+
+  &__hello {
+    color: #000;
+    font-size: 20px;
+    line-height: 27px;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-transform: capitalize;
+  }
+  &__welcome {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  &__body {
+    position: relative;
+    overflow: hidden;
+
+    @media (--subs-mobile) {
+      background: #fff;
+      margin: 0 -10px;
+      border-radius: 4px;
+      box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 2em;
+        height: 100%;
+        top: 0;
+        z-index: 1;
+        right: 0;
+        opacity: 0;
+        animation: fadeout 15s;
+        background: linear-gradient(
+          to left,
+          #bbb 5%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+    }
+  }
+
+  &__list {
+    @media (--subs-mobile) {
+      overflow-x: scroll;
+      white-space: nowrap;
+      padding: 0 20px;
+    }
+  }
+
+  &__item {
+    display: inline-block;
+    vertical-align: top;
+
+    @media (--subs-tabletl) {
+      display: block;
+      width: 100%;
+      border-top: 1px solid #e8e8e8;
+    }
+  }
+
+  &__button {
+    color: steelblue;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 16px 20px;
+    width: inherit;
+    border-top: 5px solid transparent;
+
+    @media (--subs-tabletl) {
+      padding: 16px;
+      text-align: left;
+      border-top-width: 0;
+      border-left: 5px solid transparent;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: #f8f8f8;
+    }
+
+    &.active {
+      border-color: initial;
+    }
+
+    &.close-session {
+      color: #bbb;
+      font-weight: bold;
+      font-size: 12px;
+    }
+  }
+}

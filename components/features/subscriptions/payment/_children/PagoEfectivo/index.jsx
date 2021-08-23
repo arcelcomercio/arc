@@ -4,13 +4,9 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import Loading from '../../../../signwall/_children/loading'
-import { AuthContext } from '../../../_context/auth'
-import {
-  PropertiesCommon,
-  PropertiesSite,
-} from '../../../_dependencies/Properties'
+import { useAuthContext } from '../../../_context/auth'
+import { PropertiesSite } from '../../../_dependencies/Properties'
 import PWA from '../../../_dependencies/Pwa'
-import { cipPayEfectivo } from '../../../_dependencies/Services'
 import { conformProfile, isLogged } from '../../../_dependencies/Session'
 import { eventCategory, TaggeoJoao } from '../../../_dependencies/Taggeo'
 import { getSessionStorage, getUserAgent } from '../../../_dependencies/Utils'
@@ -23,31 +19,108 @@ const styles = {
   btn: 'step__left-btn-next',
 }
 
-const Confirmation = () => {
+const PaywallCIP = (data) => {
+  const {
+    data: { user_id: Uuid, payment_concept: NamePlan },
+  } = data
+
+  const {
+    globalContent: { printedSubscriber, event },
+  } = useAppContext() || {}
+
+  const result =
+    useContent({
+      source: 'paywall-cip',
+      query: data,
+    }) || {}
+
+  const {
+    response: { data: { cipUrl = '', cip = '' } = {} } = {},
+    status,
+    error,
+  } = result
+
+  const { userPeriod, userPeOption } = useAuthContext()
+
+  React.useEffect(() => {
+    if (status) {
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: eventCategory({
+            step: 2.5,
+            event,
+            hasPrint: printedSubscriber,
+            plan: NamePlan.split(' -')[0],
+            cip: true,
+          }),
+          action: `${userPeriod} | PE - ${userPeOption} - ${cip}`,
+          label: Uuid,
+        },
+        window.location.pathname
+      )
+    } else if (error) {
+      Sentry.captureEvent({
+        message: 'Error al generar CIP',
+        level: 'error',
+        extra: error || {},
+      })
+
+      TaggeoJoao(
+        {
+          event: 'Pasarela Suscripciones Digitales',
+          category: eventCategory({
+            step: 2.5,
+            event,
+            hasPrint: printedSubscriber,
+            plan: NamePlan.split(' -')[0],
+            cancel: true,
+          }),
+          action: `${userPeriod}  | PE - ${userPeOption} - ${'Error al generar CIP'}`,
+          label: Uuid,
+        },
+        window.location.pathname
+      )
+    }
+  }, [status, error])
+
+  return cipUrl ? (
+    <iframe
+      title="pago-efectivo"
+      src={cipUrl}
+      width="100%"
+      height="100%"
+      frameBorder="0"
+    />
+  ) : (
+    <Loading typeBg="block" />
+  )
+}
+
+const PagoEfectivo = () => {
+  const [redirecting, setRedirecting] = React.useState(false)
+  const [cipLink, setCipLink] = React.useState(null)
+  const [dataCip, setDataCip] = React.useState()
   const [dateTime] = React.useState(new Date())
   const utcDate = new Date(dateTime.getTime() - 300 * 60000).toISOString()
   const timeClearToken = utcDate.split('.')[0]
 
   const {
     arcSite,
-    globalContent: { plans = [], printedSubscriber, event, fromFia },
+    globalContent: { plans = [], fromFia },
   } = useAppContext() || {}
 
-  const { data: { token = '' } = {}, error } =
+  const { urls: urlsSite } = PropertiesSite[arcSite]
+  const result =
     useContent({
       source: 'paywall-pago-efectivo',
       query: {
         clientTime: timeClearToken,
       },
     }) || {}
+  const { data: { token = '' } = {}, error = '' } = result
 
-  const {
-    updateStep,
-    userPeriod,
-    userPlan,
-    userProfile,
-    userPeOption,
-  } = React.useContext(AuthContext)
+  const { updateStep, userPeriod, userPlan, userProfile } = useAuthContext()
 
   const {
     uuid,
@@ -59,105 +132,6 @@ const Confirmation = () => {
     documentType,
     documentNumber,
   } = conformProfile(userProfile || {})
-
-  const { urls: urlCommon, tokens } = PropertiesCommon
-  const { urls: urlsSite } = PropertiesSite[arcSite]
-  const [redirecting, setRedirecting] = React.useState(false)
-  /** type CipLink = string | null */
-  const [cipLink, setCipLink] = React.useState(null)
-
-  const getCipPayEfectivo = () => {
-    const getPLanSelected = plans.reduce(
-      (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
-      null
-    )
-
-    const { amount, priceCode, name } = getPLanSelected || {}
-
-    const getUtcDate = new Date(dateTime.getTime() - 300 * 60000)
-    const set24Hours = new Date(
-      getUtcDate.setDate(getUtcDate.getDate() + 1)
-    ).toISOString()
-    const timeClearCip = set24Hours.split('.')[0]
-
-    if (amount) {
-      const dataCIP = {
-        currency: 'PEN',
-        amount,
-        payment_concept: `${name} - ${userPeriod}`,
-        user_email: email,
-        user_id: userProfile.uuid || uuid,
-        user_name: firstName,
-        lastname_father: `${lastName}`,
-        lastname_mother: `${secondLastName || ''}`,
-        user_document_type: documentType,
-        user_document_number: documentNumber,
-        date_expiry: `${timeClearCip.replace('T', ' ')}-05:00`,
-        user_code_country: '+51',
-        user_phone: phone,
-        price_code: priceCode,
-        token,
-        url_referer: getSessionStorage('paywall_last_url') || '',
-        medium: getSessionStorage('paywall_type_modal') || 'organico',
-        confirm_subscription: getSessionStorage('paywall_confirm_subs') || '3',
-        user_agent: getUserAgent,
-        is_pwa: PWA.isPWA() ? 1 : 2,
-      }
-
-      cipPayEfectivo(urlCommon.cipPayEfectivo, tokens.paymentTracker, dataCIP)
-        .then((resCIP) => {
-          const { response: { data: { cipUrl = '', cip = '' } = {} } = {} } =
-            resCIP || {}
-          if (cipUrl === '' || cip === '') {
-            setCipLink('error')
-          } else {
-            setCipLink(cipUrl)
-            TaggeoJoao(
-              {
-                event: 'Pasarela Suscripciones Digitales',
-                category: eventCategory({
-                  step: 2.5,
-                  event,
-                  hasPrint: printedSubscriber,
-                  plan: name,
-                  cip: true,
-                }),
-                action: `${userPeriod} | PE - ${userPeOption} - ${cip}`,
-                label: userProfile.uuid || uuid,
-              },
-              window.location.pathname
-            )
-          }
-        })
-        .catch((errCIP) => {
-          Sentry.captureEvent({
-            message: 'Error al generar CIP',
-            level: 'error',
-            extra: errCIP || {},
-          })
-          setCipLink('error')
-          TaggeoJoao(
-            {
-              event: 'Pasarela Suscripciones Digitales',
-              category: eventCategory({
-                step: 2.5,
-                event,
-                hasPrint: printedSubscriber,
-                plan: name,
-                cancel: true,
-              }),
-              action: `${userPeriod}  | PE - ${userPeOption} - ${
-                errCIP || 'Error al generar CIP'
-              }`,
-              label: uuid,
-            },
-            window.location.pathname
-          )
-        })
-    } else {
-      updateStep(2)
-    }
-  }
 
   React.useEffect(() => {
     Sentry.configureScope((scope) => {
@@ -180,22 +154,57 @@ const Confirmation = () => {
         window.location.reload()
       }, 1000)
     }
-  }, [])
 
-  React.useEffect(() => {
-    if (token && !cipLink) {
-      if (token === '') {
-        Sentry.captureEvent({
-          message: 'Error al generar Token CIP',
-          level: 'error',
-          extra: error || {},
-        })
-        setCipLink('error')
+    if (token && token !== '') {
+      const getPLanSelected = plans.reduce(
+        (prev, plan) => (plan.priceCode === userPlan.priceCode ? plan : prev),
+        null
+      )
+      const { amount, priceCode, name } = getPLanSelected || {}
+      const getUtcDate = new Date(dateTime.getTime() - 300 * 60000)
+      const set24Hours = new Date(
+        getUtcDate.setDate(getUtcDate.getDate() + 1)
+      ).toISOString()
+      const timeClearCip = set24Hours.split('.')[0]
+
+      if (amount) {
+        const dataCIP = {
+          currency: 'PEN',
+          amount,
+          payment_concept: `${name} - ${userPeriod}`,
+          user_email: email,
+          user_id: userProfile.uuid || uuid,
+          user_name: firstName,
+          lastname_father: `${lastName}`,
+          lastname_mother: `${secondLastName || ''}`,
+          user_document_type: documentType,
+          user_document_number: documentNumber,
+          date_expiry: `${timeClearCip.replace('T', ' ')}-05:00`,
+          user_code_country: '+51',
+          user_phone: phone,
+          price_code: priceCode,
+          token,
+          url_referer: getSessionStorage('paywall_last_url') || '',
+          medium: getSessionStorage('paywall_type_modal') || 'organico',
+          confirm_subscription:
+            getSessionStorage('paywall_confirm_subs') || '3',
+          user_agent: getUserAgent,
+          is_pwa: PWA.isPWA() ? 1 : 2,
+        }
+        setDataCip(dataCIP)
+        setCipLink(token)
       } else {
-        getCipPayEfectivo()
+        updateStep(2)
       }
+    } else if (error && error !== '') {
+      Sentry.captureEvent({
+        message: 'Error al generar Token CIP',
+        level: 'error',
+        extra: error || {},
+      })
+      setCipLink('error')
     }
-  }, [token])
+  }, [token, error])
 
   const goToHome = () => {
     if (typeof window !== 'undefined') {
@@ -224,7 +233,6 @@ const Confirmation = () => {
         heading = (
           <>
             <span>Generando Código de pago (CIP), por favor espere...</span>
-            <Loading typeBg="block" />
           </>
         )
         break
@@ -246,19 +254,9 @@ const Confirmation = () => {
       <h3 className={styles.subtitle}>{getHeading()}</h3>
 
       <div className="form-confirmation">
-        {cipLink !== 'error' ? (
-          <div className={styles.cipWrapper}>
-            {cipLink ? (
-              <iframe
-                title="pago-efectivo"
-                src={cipLink}
-                width="100%"
-                height="100%"
-                frameBorder="0"
-              />
-            ) : null}
-          </div>
-        ) : null}
+        <div className={styles.cipWrapper}>
+          {dataCip && <PaywallCIP data={dataCip} />}
+        </div>
       </div>
 
       {!fromFia && (
@@ -287,4 +285,4 @@ const Confirmation = () => {
   )
 }
 
-export default Confirmation
+export default PagoEfectivo

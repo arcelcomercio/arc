@@ -1,4 +1,5 @@
 import { isStorageAvailable } from '../../../utilities/client/storage'
+import { reduceWord } from '../../../utilities/parse/strings'
 
 /**
  * Verifica si el usuario ha iniciado sesión
@@ -57,21 +58,15 @@ export const conformProfile = (userPorfile) => {
  * @param {string|null|undefined} lastName
  * @returns {string} Nombre y apellido del usuario | Bienvenido Usuario
  */
-export const getUserName = (firstName, lastName) => {
+export const getUserName = (firstName = '', lastName = '') => {
   let fullName = ''
-  const badName = /undefined|null/
-  const isBadFirstName = badName.test(firstName)
-  const isBadLastName = badName.test(lastName)
+  const notAllowed = /\s?(?:undefined|null)\s?/g
 
-  if (firstName && !isBadFirstName && lastName && !isBadLastName) {
-    fullName = `${firstName} ${lastName}`
-  } else if (firstName && !isBadFirstName && (!lastName || isBadLastName)) {
-    fullName = firstName
-  } else if (lastName && !isBadLastName && (!firstName || isBadFirstName)) {
-    fullName = lastName
+  if (firstName || lastName) {
+    fullName = `${firstName} ${lastName}`.replace(notAllowed, '')
+    fullName = reduceWord(fullName, 17)
   }
-
-  return fullName.length <= 17 ? fullName : `${fullName.slice(0, 17)}...`
+  return fullName
 }
 
 /**
@@ -89,7 +84,7 @@ export const getStorageProfile = () => {
 }
 
 /**
- * @returns {object|null} Información de la sesión de usuario desde `localStorage`
+ * @returns {import('@arc-publishing/sdk-identity/lib/sdk/userIdentity').UserIdentity|null} Información de la sesión de usuario desde `localStorage`
  */
 export const getStorageInfo = () => {
   if (typeof window !== 'undefined') {

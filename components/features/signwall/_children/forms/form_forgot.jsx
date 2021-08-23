@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import { SITE_TROME } from '../../../../utilities/constants/sitenames'
+import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import { getOriginAPI } from '../../_dependencies/domains'
 import { ForgotPass, MsgForgotPass } from '../icons'
 import { Input } from './control_input_select'
 
@@ -20,12 +21,12 @@ const FormForgot = ({ typeDialog }) => {
     },
   } = useAppContext() || {}
 
-  const textBtnSend = arcSite === 'trome' ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
+  const textBtnSend = arcSite === SITE_TROME ? 'CAMBIAR CONTRASEÑA' : 'ENVIAR'
   const isTromeOrganic =
-    arcSite === 'trome' &&
+    arcSite === SITE_TROME &&
     (typeDialog === 'organico' || typeDialog === 'verify')
 
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showConfirm, setShowConfirm] = React.useState(false)
@@ -60,8 +61,7 @@ const FormForgot = ({ typeDialog }) => {
 
   const onSubmitForm = ({ femail }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.requestResetPassword(femail)
+    Identity.requestResetPassword(femail)
       .then(() => {
         setShowConfirm(!showConfirm)
         taggeoSuccess()
@@ -95,7 +95,7 @@ const FormForgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(femail)
+    Identity.requestVerifyEmail(femail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_contrasena_reenviar_correo`
@@ -116,7 +116,7 @@ const FormForgot = ({ typeDialog }) => {
   return (
     <form
       className={`signwall-inside_forms-form ${
-        arcSite === 'trome' ? 'form-trome' : ''
+        arcSite === SITE_TROME ? 'form-trome' : ''
       } ${typeDialog}`}
       onSubmit={(e) => {
         handleOnSubmit(e)
