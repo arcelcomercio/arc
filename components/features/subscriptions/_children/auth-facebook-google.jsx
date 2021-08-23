@@ -35,7 +35,7 @@ const AuthFacebookGoogle = ({
   arcSite,
   arcType,
   activeNewsletter,
-  showMsgVerify,
+  // showMsgVerify,
 }) => {
   const [showFormFacebook, setShowFormFacebook] = React.useState()
   const [loading, setLoading] = React.useState()
@@ -121,6 +121,12 @@ const AuthFacebookGoogle = ({
     onAuthSuccess()
   }
 
+  const deleteSessionArc = () => {
+    window.localStorage.removeItem('ArcId.USER_INFO')
+    window.localStorage.removeItem('ArcId.USER_PROFILE')
+    Identity.userProfile = null
+    Identity.userIdentity = {}
+  }
   const checkStatusForms = (emailArc, emailVerified, name, id) => {
     if (emailArc && emailVerified) {
       authSuccess('facebook')
@@ -129,10 +135,12 @@ const AuthFacebookGoogle = ({
       hideFormParent(true)
       setShowFormFacebook({ name, id })
       setVerifyEmailFb(emailArc)
+      deleteSessionArc()
     } else {
       setLoadingSocial(false)
       hideFormParent(true)
       setShowFormFacebook({ name, id })
+      deleteSessionArc()
     }
   }
 
@@ -245,6 +253,7 @@ const AuthFacebookGoogle = ({
     setLoading(true)
     setMsgError(false)
     Identity.updateUserProfile({
+      displayName: femail,
       email: femail,
     })
       .then(({ emailVerified, email }) => {
@@ -422,7 +431,7 @@ AuthFacebookGoogle.propTypes = {
   arcSite: PropTypes.string.isRequired,
   arcType: PropTypes.string.isRequired,
   activeNewsletter: PropTypes.bool.isRequired,
-  showMsgVerify: PropTypes.func.isRequired,
+  // showMsgVerify: PropTypes.func.isRequired,
 }
 
 export default AuthFacebookGoogle
