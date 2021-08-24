@@ -1956,6 +1956,8 @@ class StoryData {
             type_event: typeConfig = '',
             url_img: urlImgConfig = '',
             conversions = [],
+            has_ads: hasAds = 0,
+            account = 'gec',
             // date: dateCorrection = '',
           } = {},
         } = {},
@@ -1968,8 +1970,9 @@ class StoryData {
           payload: '',
           streams,
           type_config: '',
+          hasAds,
+          account,
         }
-
         switch (type) {
           case ELEMENT_TEXT:
             result.payload = content
@@ -2014,6 +2017,7 @@ class StoryData {
                 break
               case VIDEO_JWPLAYER:
                 result.payload = conversions
+                result.hasAds = hasAds
                 break
               case STORY_CUSTOMBLOCK:
                 result.payload = contentCustomblock
