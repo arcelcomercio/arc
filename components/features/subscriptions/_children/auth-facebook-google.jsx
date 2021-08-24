@@ -122,11 +122,14 @@ const AuthFacebookGoogle = ({
   }
 
   const deleteSessionArc = () => {
+    // const currentToken = Identity.userIdentity.accessToken
+    // window.sessionStorage.setItem('token_facebook_temp', currentToken)
     window.localStorage.removeItem('ArcId.USER_INFO')
     window.localStorage.removeItem('ArcId.USER_PROFILE')
-    Identity.userProfile = null
-    Identity.userIdentity = {}
+    // Identity.userProfile = null
+    // Identity.userIdentity = {}
   }
+
   const checkStatusForms = (emailArc, emailVerified, name, id) => {
     if (emailArc && emailVerified) {
       authSuccess('facebook')
@@ -243,7 +246,8 @@ const AuthFacebookGoogle = ({
       ).then(() => {
         setTimeout(() => {
           const textGoogle = btnGoogle.getElementsByTagName('span')
-          if (textGoogle) textGoogle[0].innerHTML = 'Iniciar sesión con Google'
+          if (textGoogle && textGoogle[0])
+            textGoogle[0].innerHTML = 'Iniciar sesión con Google'
         }, 200)
       })
     }
