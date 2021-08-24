@@ -151,7 +151,7 @@ const ClientImage: React.FC<ClientImageProps> = ({
     />
   )
 
-  if (!mainImage) return null
+  if (!mainImage) return null // arregla error de validación en la versión 3.0 de Fusion
 
   return sizes && sizes.length >= 1 ? (
     <picture className={pictureClassName}>

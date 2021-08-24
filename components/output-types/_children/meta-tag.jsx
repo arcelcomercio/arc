@@ -1,10 +1,12 @@
 import React from 'react'
+
+import { deleteQueryString } from '../../utilities/parse/queries'
 import {
-  metaPaginationUrl,
   getMetaPagesPagination,
+  metaPaginationUrl,
 } from '../_dependencies/pagination'
 
-export default props => {
+export default (props) => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
   const patternPagination = /\/[0-9]+\/?(?=\?|$)/
 
@@ -31,13 +33,13 @@ export default props => {
     <>
       {pages.prev && (
         <>
-          <link rel="prev" href={urlPrevPage} />
+          <link rel="prev" href={deleteQueryString(urlPrevPage || '')} />
           {/* <link rel="prefetch" href={urlPrevPage} /> */}
         </>
       )}
       {pages.next && (
         <>
-          <link rel="next" href={urlNextPage} />
+          <link rel="next" href={deleteQueryString(urlNextPage || '')} />
           {/* <link rel="prefetch" href={urlNextPage} /> */}
         </>
       )}
