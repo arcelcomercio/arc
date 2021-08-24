@@ -111,7 +111,7 @@ export const getDescription = ({
   pageNumber,
   isStory,
 }: GetDescriptionProps): string => {
-  const { requestUri, arcSite, globalContent } = useAppContext<Story>()
+  const { requestUri, globalContent } = useAppContext<Story>()
   let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteName}.`
   const metaDescription = getMetaValue('description')
 
@@ -134,7 +134,7 @@ export const getDescription = ({
       }
     }
   }
-  if (isStory && arcSite === 'elcomercio') {
+  if (isStory) {
     description = globalContent?.description?.basic || metaDescription || ''
   }
 
