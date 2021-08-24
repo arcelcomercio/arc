@@ -11,7 +11,6 @@ declare module 'fusion:environment' {
     NEWSLETTER_API: string
     NEWSLETTER_COVID19_API: string
     NEWSLETTER_API_TEMATICO: string
-    MIDDLEWARE_TOKEN: string
     FB_SUBSCRIPTION_NODE_ID: string
     FB_APP_SECRET: string
     GS_EMAIL_CLIENT: string
@@ -38,7 +37,6 @@ declare module 'fusion:environment' {
   export const NEWSLETTER_API: string
   export const NEWSLETTER_COVID19_API: string
   export const NEWSLETTER_API_TEMATICO: string
-  export const MIDDLEWARE_TOKEN: string
   export const FB_SUBSCRIPTION_NODE_ID: string
   export const FB_APP_SECRET: string
   export const GS_EMAIL_CLIENT: string
