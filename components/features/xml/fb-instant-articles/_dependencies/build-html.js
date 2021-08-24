@@ -816,6 +816,10 @@ const BuildHtml = ({
     return contenType
   }
   const { type } = multimedia || {}
+  const isProvecho = canonical.match(/\/provecho\//)
+  const headerProvecho = `<figure>
+    <img src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/PC5JSZKFKZEAFJEY7BF4XAPSII.png" />
+  </figure>`
   try {
     const element = `
   <html lang="es" prefix="op: http://media.facebook.com/op#">
@@ -863,6 +867,7 @@ const BuildHtml = ({
       }
     
       <header>
+        ${isProvecho ? headerProvecho : ''}
         <h1>${title}</h1>
         ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
         <time class="op-published" datetime="${oppublished}"> ${oppublished}</time>

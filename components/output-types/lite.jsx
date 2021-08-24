@@ -563,7 +563,7 @@ const LiteOutput = ({
             }
           </Resource>
         ) : null}
-        {/* metaValue('section_style') === 'provecho' ? (
+        {metaValue('section_style') === 'provecho' ? (
           <Resource path="resources/dist/elcomercio/css/lite-provecho.css">
             {({ data }) =>
               data ? (
@@ -577,7 +577,7 @@ const LiteOutput = ({
               ) : null
             }
           </Resource>
-        ) : null */}
+        ) : null}
         <ChartbeatBody
           story={isStory}
           hasVideo={contenidoVideo || hasYoutubeVideo}
