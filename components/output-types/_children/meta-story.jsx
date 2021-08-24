@@ -518,11 +518,7 @@ export default ({
     ${dateline}
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
-    "description":"${
-      arcSite === 'elcomercio'
-        ? data?.description?.basic || formatHtmlToText(subTitle)
-        : formatHtmlToText(subTitle)
-    }",
+    "description":"${data?.description?.basic || formatHtmlToText(subTitle)}",
     ${publishingPrinciples}
   ${bodyStructured}
   ${correctionStructured}
