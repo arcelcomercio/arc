@@ -142,7 +142,7 @@ export default {
   activeVerifyEmail: true,
   activeDataTreatment: true,
   activePhoneRegister: true,
-  activeAuthSocialNative: true,
+  activeAuthSocialNative: false,
   signwall: {
     mainColorBg: '#8f071f',
     mainColorTxt: '#ffffff',
