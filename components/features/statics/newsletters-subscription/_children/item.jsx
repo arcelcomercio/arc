@@ -14,6 +14,7 @@ const classes = {
   titleText: 'newsletters-subscription__title-text text-center mb-10 mt-5',
   titleSpan:
     'newsletters-subscription__title-span  primary-font font-bold text-gray-300',
+  frequency: 'newsletters-subscription__frequency',
   description: 'newsletters-subscription__description',
   chkcont: 'newsletters-subscription__check-cont',
   chkBtn: 'newsletters-subscription__check-btn mt-15',
@@ -26,39 +27,47 @@ const Checkbox = ({
   name,
   description,
   image,
+  frequency,
+  arcSite,
   ...props
-}) => (
-  <article role="listitem" className={classes.item}>
-    <div className={classes.card}>
-      <div className={classes.chkcont}>
-        <figure className={classes.figure}>
-          <img className={classes.image} src={image} alt={name} />
-          <i className={classes.icon} />
-        </figure>
+}) => {
+  const checkedText = arcSite === 'gestion' ? 'Suscrito' : 'Eliminar registro'
+  const uncheckedText = arcSite === 'gestion' ? 'Regístrate' : 'Suscríbete'
+  return (
+    <article role="listitem" className={classes.item}>
+      <div className={classes.card}>
+        <div className={classes.chkcont}>
+          <figure className={classes.figure}>
+            <img className={classes.image} src={image} alt={name} />
+            <i className={classes.icon} />
+          </figure>
+          <div className={classes.detail}>
+            <h3 itemProp="name" className={classes.titleText}>
+              <span className={classes.titleSpan}>{name}</span>
+            </h3>
+            {frequency ? (
+              <h4 className={classes.frequency}>{frequency}</h4>
+            ) : null}
+            <p itemProp="description" className={classes.description}>
+              {description}
+            </p>
 
-        <div className={classes.detail}>
-          <h3 itemProp="name" className={classes.titleText}>
-            <span className={classes.titleSpan}>{name}</span>
-          </h3>
-          <p itemProp="description" className={classes.description}>
-            {description}
-          </p>
-
-          <div className={`${classes.chkBtn} ${checked ? 'subscribed' : ''}`}>
-            {(checked && `Eliminar registro`) || `Suscríbete`}
+            <div className={`${classes.chkBtn} ${checked ? 'subscribed' : ''}`}>
+              {(checked && checkedText) || uncheckedText}
+            </div>
           </div>
-        </div>
 
-        <input
-          className={classes.chk}
-          type="checkbox"
-          checked={checked}
-          disabled={disabled}
-          {...props}
-        />
+          <input
+            className={classes.chk}
+            type="checkbox"
+            checked={checked}
+            disabled={disabled}
+            {...props}
+          />
+        </div>
       </div>
-    </div>
-  </article>
-)
+    </article>
+  )
+}
 
 export default Checkbox

@@ -87,6 +87,7 @@ const classes = {
   adsAmp: 'text-center ad-amp-movil',
   bbcHead: 'bbc-head',
   rawHtmlClasses: 'story-content__embed',
+  listClasses: 'story-contents__paragraph-list',
 }
 
 @Consumer
@@ -96,7 +97,6 @@ class StoryContentAmp extends React.PureComponent {
       contextPath,
       arcSite,
       deployment,
-      requestUri,
       siteProperties: {
         siteUrl,
         adsAmp,
@@ -155,7 +155,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100,320x50'
+      size: '320x100,320x50',
     }
     const parametersCaja3 = {
       // movil4 caja3 caja3
@@ -166,7 +166,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100,320x50,300x1'
+      size: '320x100,320x50,300x1',
     }
     const parametersCaja4 = {
       // movil5 caja5 caja4
@@ -177,7 +177,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100,320x50'
+      size: '320x100,320x50',
     }
     const parametersCaja5 = {
       // movil5 caja5 caja4
@@ -188,7 +188,7 @@ class StoryContentAmp extends React.PureComponent {
       primarySectionLink,
       arcSite,
       movil1: true,
-      size: '320x100,320x50'
+      size: '320x100,320x50',
     }
 
     const URL_BBC = 'http://www.bbc.co.uk/mundo/?ref=ec_top'
@@ -320,6 +320,7 @@ class StoryContentAmp extends React.PureComponent {
                   publicidadCaja3 = false,
                   publicidadCaja4 = false,
                   url = '',
+                  list_type: listType = 'unordered',
                   items = [],
                 } = element
                 if (type === ELEMENT_OEMBED) {
@@ -374,8 +375,21 @@ class StoryContentAmp extends React.PureComponent {
                 }
 
                 // Condicion para mag sin lista - components/features/story/title/amp.jsx
-                if (type === ELEMENT_LIST && arcSite === SITE_ELCOMERCIOMAG) {
-                  return null
+                if (type === ELEMENT_LIST) {
+                  const ListType = listType === 'ordered' ? 'ol' : 'ul'
+                  return (
+                    <ListType className={classes.listClasses}>
+                      {items.map((item) => (
+                        <li
+                          dangerouslySetInnerHTML={{
+                            __html: item.content
+                              ? item.content.replace(/<a/g, '<a itemprop="url"')
+                              : '',
+                          }}
+                        />
+                      ))}
+                    </ListType>
+                  )
                 }
 
                 if (type === ELEMENT_GALLERY) {
