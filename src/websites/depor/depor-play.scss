@@ -351,6 +351,7 @@ $bold: 700;
         background: transparent
           linear-gradient(180deg, #1c1a4300 0%, #1c1a43 100%) 0% 0% no-repeat
           padding-box;
+        border-radius: 6px;
       }
       @media (--only-mobile) {
         padding: 0 10px;
@@ -359,8 +360,12 @@ $bold: 700;
     &__title {
       font-family: $secondary-font;
       font-weight: $bold;
-      font-size: 28px;
+      font-size: 22px !important;
       letter-spacing: 0;
+      max-height: fit-content !important;
+      @media (--desktop) {
+        font-size: 28px !important;
+      }
     }
     &__box-detail {
       width: 100% !important;
@@ -372,12 +377,13 @@ $bold: 700;
         text-transform: uppercase;
         text-shadow: 0 3px 6px #00000029;
         letter-spacing: 0.48px;
-        font-size: 15px;
+        font-size: 14px;
         font-family: $primary-font;
         font-weight: $medium;
         color: #c3c0f0;
         @media (--desktop) {
           color: #fff;
+          font-size: 15px;
         }
         &::before {
           width: 0;
