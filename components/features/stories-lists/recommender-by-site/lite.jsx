@@ -1,21 +1,16 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
-import customFields from './_dependencies/custom-fields'
-import StoryData from '../../../utilities/story-data'
 import { getAssetsPath } from '../../../utilities/assets'
 import { includePromoItems } from '../../../utilities/included-fields'
-
+import StoryData from '../../../utilities/story-data'
+import customFields from './_dependencies/custom-fields'
 import StoriesListRecommenderBySiteChild from './_lite/_children/linked-by-site'
 
-const StoriesListRecommenderBySite = props => {
-  const {
-    arcSite,
-    contextPath,
-    deployment,
-  } = useAppContext()
+const StoriesListRecommenderBySite = (props) => {
+  const { arcSite, contextPath, deployment } = useAppContext()
   const {
     customFields: {
       enabledContentManual,
@@ -34,14 +29,15 @@ const StoriesListRecommenderBySite = props => {
   const { siteUrl, siteName } = getProperties(website || arcSite) || {}
   const {
     assets: {
-      premium: { logo }
-    }
+      premium: { logo },
+    },
   } = getProperties(arcSite)
 
   // 'landscape_s:234x161,square_s:150x150'
   const presets = 'no-presets'
-  const includedFields = `headlines.basic,promo_items.basic_html.content,content_restrictions.content_code,${includePromoItems},websites.${website ||
-    arcSite}.website_url`
+  const includedFields = `headlines.basic,promo_items.basic_html.content,content_restrictions.content_code,${includePromoItems},websites.${
+    website || arcSite
+  }.website_url`
 
   const dataManual =
     (enabledContentManual &&
@@ -66,25 +62,21 @@ const StoriesListRecommenderBySite = props => {
     deployment,
   })
 
-  const process = contentElements => {
+  const process = (contentElements) => {
     const stories = contentElements
-      ? contentElements.map(story => {
+      ? contentElements.map((story) => {
           storyData._data = story
 
           const { websites = {} } = story || {}
           const { website_url: websiteUrl } = websites[website] || {}
 
-          const {
-            title,
-            websiteLink,
-            multimedia,
-            isPremium,
-          } = storyData
+          const { title, websiteLink, multimedia, isPremium } = storyData
 
           return {
             title,
-            websiteLink: `${siteUrl}${websiteUrl ||
-              websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
+            // websiteLink: `${siteUrl}${websiteUrl ||
+            //   websiteLink}${`?ref=recomendados&source=${arcSite}`}`, // Eliminado query strings por motivos de SEO
+            websiteLink: `${siteUrl}${websiteUrl || websiteLink}`,
             multimedia,
             isPremium,
           }
@@ -100,18 +92,20 @@ const StoriesListRecommenderBySite = props => {
   const { content_elements: resaizedContentElements = [] } = data || {}
   const stories = process(resaizedContentElements)
 
-  return <StoriesListRecommenderBySiteChild
-    siteName={siteName}
-    stories={[...storiesManual, ...stories]}
-    isTargetBlank={isTargetBlank}
-    titleField={titleField}
-    subtitleField={subtitleField}
-    logo={`${getAssetsPath(
-      arcSite,
-      contextPath
-    )}/resources/dist/${arcSite}/images/${logo}?d=1`}
-    arcSite={arcSite}
-  />
+  return (
+    <StoriesListRecommenderBySiteChild
+      siteName={siteName}
+      stories={[...storiesManual, ...stories]}
+      isTargetBlank={isTargetBlank}
+      titleField={titleField}
+      subtitleField={subtitleField}
+      logo={`${getAssetsPath(
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/${logo}?d=1`}
+      arcSite={arcSite}
+    />
+  )
 }
 
 StoriesListRecommenderBySite.propTypes = {
