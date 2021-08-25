@@ -1,17 +1,16 @@
 /* eslint-disable import/no-unresolved */
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
-import { includePromoItems } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/assets'
-
+import { includePromoItems } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
 import StoriesListLinkedBySiteChild from './_lite/_children/linked-by-site'
 
-const StoriesListLinkedBySite = props => {
+const StoriesListLinkedBySite = (props) => {
   const { arcSite, contextPath, deployment } = useAppContext()
 
   const {
@@ -33,8 +32,9 @@ const StoriesListLinkedBySite = props => {
   } = getProperties(arcSite)
 
   const presets = 'no-presets'
-  const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${website ||
-    arcSite}.website_url`
+  const includedFields = `headlines.basic,promo_items.basic_html.content,${includePromoItems},websites.${
+    website || arcSite
+  }.website_url`
 
   const data =
     useContent({
@@ -48,7 +48,7 @@ const StoriesListLinkedBySite = props => {
     deployment,
   })
   const { content_elements: resaizedContentElements = [] } = data || {}
-  const stories = resaizedContentElements.map(story => {
+  const stories = resaizedContentElements.map((story) => {
     storyData._data = story
 
     const { websites = {} } = story || {}
@@ -58,8 +58,9 @@ const StoriesListLinkedBySite = props => {
 
     return {
       title,
-      websiteLink: `${siteUrl}${websiteUrl ||
-        websiteLink}${`?ref=recomendados&source=${arcSite}`}`,
+      // websiteLink: `${siteUrl}${websiteUrl ||
+      //   websiteLink}${`?ref=recomendados&source=${arcSite}`}`, // Eliminado query strings por motivos de SEO
+      websiteLink: `${siteUrl}${websiteUrl || websiteLink}`,
       multimedia,
       isPremium,
     }
