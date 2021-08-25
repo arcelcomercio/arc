@@ -193,6 +193,10 @@ class SignwallComponent extends PureComponent {
 
   getListSubs() {
     const { arcSite } = this.props
+    const URL_ORIGIN = getOriginAPI(arcSite)
+    Identity.options({
+      URL_ORIGIN,
+    })
     return Identity.extendSession().then((resExt) => {
       const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
         .then((res) => {
