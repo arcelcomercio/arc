@@ -518,7 +518,8 @@ export default ({
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${
       arcSite === 'elcomercio'
-        ? data?.description?.basic || formatHtmlToText(subTitle)
+        ? formatHtmlToText(data?.description?.basic) ||
+          formatHtmlToText(subTitle)
         : formatHtmlToText(subTitle)
     }",
     ${publishingPrinciples}
@@ -708,7 +709,7 @@ export default ({
           />
         </>
       )}
-       {isAmp !== true &&
+      {isAmp !== true &&
         !(
           isPremium &&
           removeLastSlash(primarySectionLink) === '/archivo-elcomercio'
