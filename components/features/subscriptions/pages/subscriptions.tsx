@@ -54,9 +54,6 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
   const { arcSite, contextPath } = useAppContext()
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [landingType, setLandingType] = React.useState('landing')
-  const [profileButtonText, setProfileButtonText] = React.useState(
-    'Inicia sesión'
-  )
   const [showCallin, setShowCallin] = React.useState(false)
   const [showModalCall, setShowModalCall] = React.useState(false)
   const signwallButton = React.useRef<HTMLButtonElement>(null)
@@ -75,9 +72,13 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
   }, [])
 
   const updateSignwallButton = async () => {
-    const username = await getUsername()
-    if (username && signwallButton?.current) {
-      signwallButton.current.innerHTML = username
+    if (isLoggedIn() && signwallButton?.current) {
+      const username = await getUsername()
+      if (username && signwallButton?.current) {
+        signwallButton.current.innerHTML = username
+      } else {
+        signwallButton.current.innerHTML = 'Usuario'
+      }
     }
   }
 
@@ -115,7 +116,7 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
 
   const handleAfterLogged = async () => {
     if (typeof window !== 'undefined') {
-      setProfileButtonText(await getUsername())
+      updateSignwallButton()
       setShowSignwall(false)
       deleteQuery('signLanding')
       deleteQuery('dataTreatment')
@@ -171,7 +172,7 @@ const Component: React.FC<PagesSubscriptionsProps> = (props) => {
                   ref={signwallButton}
                   id="btn-signwall"
                   onClick={handleSignwall}>
-                  {profileButtonText}
+                  Inicia sesión
                 </button>
               </div>
             </div>

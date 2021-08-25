@@ -55,9 +55,6 @@ const Component = (props: LandingSubscriptionsProps) => {
 
   const [showSignwall, setShowSignwall] = React.useState(false)
   const [landingType, setLandingType] = React.useState<DialogType>('landing')
-  const [profileButtonText, setProfileButtonText] = React.useState(
-    'Inicia sesión'
-  )
   const [showCallin, setShowCallin] = React.useState(false)
   const [showModalCall, setShowModalCall] = React.useState(false)
   const signwallButton = React.useRef<HTMLButtonElement>(null)
@@ -96,9 +93,13 @@ const Component = (props: LandingSubscriptionsProps) => {
   }, [])
 
   const updateSignwallButton = async () => {
-    const username = await getUsername()
-    if (username && signwallButton?.current) {
-      signwallButton.current.innerHTML = username
+    if (isLoggedIn() && signwallButton?.current) {
+      const username = await getUsername()
+      if (username && signwallButton?.current) {
+        signwallButton.current.innerHTML = username
+      } else {
+        signwallButton.current.innerHTML = 'Mi perfil'
+      }
     }
   }
 
@@ -140,7 +141,7 @@ const Component = (props: LandingSubscriptionsProps) => {
 
   const handleAfterLogged = async () => {
     if (typeof window !== 'undefined') {
-      setProfileButtonText(await getUsername())
+      updateSignwallButton()
       deleteQuery('signLanding')
       deleteQuery('dataTreatment')
     }
@@ -191,7 +192,7 @@ const Component = (props: LandingSubscriptionsProps) => {
               id="btn-signwall"
               ref={signwallButton}
               onClick={handleSignwall}>
-              {profileButtonText || 'Inicia sesión'}
+              Inicia sesión
             </button>
           </div>
         </div>
