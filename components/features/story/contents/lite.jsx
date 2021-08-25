@@ -352,6 +352,10 @@ const StoryContentsLite = (props) => {
                           __html: replaceTags(content),
                         }}
                       />
+                      {(arcSite === 'elcomercio' || arcSite === 'gestion') &&
+                      nameAds === 'caja3' ? (
+                        <div id="spc_post_stories" />
+                      ) : null}
                       {nameAds === 'caja3' &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
