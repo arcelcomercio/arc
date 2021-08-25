@@ -204,6 +204,15 @@
     margin-right: 10px;
 
     &:nth-child(1)::after {
+      content: "";
+      width: 1px;
+      height: 100%;
+      background-color: #aaa;
+      display: block;
+      margin-left: 10px;
+    }
+
+    &:nth-child(2)::after {
       @media (--desktop) {
         content: "";
         width: 1px;
@@ -274,4 +283,12 @@
     flex-direction: row;
     width: auto;
   }
+}
+.story-content{
+  &__caption{
+    display: none;
+  }
+}
+#fusion-app{
+  overflow-x: hidden;
 }

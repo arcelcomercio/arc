@@ -151,7 +151,7 @@ export default ({
   }
 
   const fecha = principalVideo.displayDate
-    ? formatDayMonthYear(principalVideo.displayDate, true, false)
+    ? formatDayMonthYear(principalVideo.displayDate, true, false, true, true, false)
     : ''
 
   const playListParams = {
@@ -181,9 +181,8 @@ export default ({
             <div className="section-video__left">
               {arcSite === 'trome' && (
                 <div
-                  className={`section-video__box-section section-video__box-section-top ${
-                    categoryTop ? 'section-video__box-section-top-mobile' : ''
-                  }`}>
+                  className={`section-video__box-section section-video__box-section-top ${categoryTop ? 'section-video__box-section-top-mobile' : ''
+                    }`}>
                   <a
                     itemProp="url"
                     href={principalVideo.primarySectionLink}
@@ -201,7 +200,7 @@ export default ({
                 ) : (
                   <>
                     {principalVideo.video &&
-                    principalVideo.promoItemsType === VIDEO ? (
+                      principalVideo.promoItemsType === VIDEO ? (
                       <PowaPlayer
                         uuid={uuid}
                         time={principalVideo.videoDuration}
@@ -221,16 +220,15 @@ export default ({
                   principalVideo.videoDuration === '00:00' ||
                   principalVideo.videoDuration === '00:00:00'
                 ) && (
-                  <div className="section-video__mobile-duration">
-                    Duración: {principalVideo.videoDuration}
-                  </div>
-                )}
+                    <div className="section-video__mobile-duration">
+                      Duración: {principalVideo.videoDuration}
+                    </div>
+                  )}
                 <div
-                  className={`section-video__box-section section-video__box-section-bottom ${
-                    categoryTop
+                  className={`section-video__box-section section-video__box-section-bottom ${categoryTop
                       ? 'section-video__box-section-bottom-mobile'
                       : null
-                  }`}>
+                    }`}>
                   <a
                     itemProp="url"
                     href={principalVideo.primarySectionLink}
@@ -291,15 +289,15 @@ export default ({
                 {!hidden && (
                   <p itemProp="description" className="section-video__subtitle">
                     {principalVideo.contentElements &&
-                    principalVideo.contentElements.length > 0
+                      principalVideo.contentElements.length > 0
                       ? principalVideo.contentElements[0].type === 'list'
                         ? principalVideo.contentElements[0].items.map((el) => (
-                            <div
-                              dangerouslySetInnerHTML={{ __html: el.content }}
-                              className="section-video__list-items"
-                              key={el.content}
-                            />
-                          ))
+                          <div
+                            dangerouslySetInnerHTML={{ __html: el.content }}
+                            className="section-video__list-items"
+                            key={el.content}
+                          />
+                        ))
                         : principalVideo.subTitle
                       : principalVideo.subTitle}
                   </p>
@@ -381,10 +379,10 @@ export default ({
                           principalVideo.videoDuration === '00:00' ||
                           principalVideo.videoDuration === '00:00:00'
                         ) && (
-                          <li className="section-video__text">
-                            Duración: {principalVideo.videoDuration}
-                          </li>
-                        )}
+                            <li className="section-video__text">
+                              Duración: {principalVideo.videoDuration}
+                            </li>
+                          )}
                       </ul>
                     )}
                   </div>
@@ -422,10 +420,10 @@ export default ({
                     principalVideo.videoDuration === '00:00' ||
                     principalVideo.videoDuration === '00:00:00'
                   ) && (
-                    <li className="section-video__text">
-                      Duración: {principalVideo.videoDuration}
-                    </li>
-                  )}
+                      <li className="section-video__text">
+                        Duración: {principalVideo.videoDuration}
+                      </li>
+                    )}
                 </ul>
               )}
             </div>

@@ -4,6 +4,7 @@
   $tablet: 640px;
   &__container{
     display: flex;
+    padding: 0 20px 0 20px;
     justify-content: center;
     flex-wrap: wrap;
     @media (--tablet) {
@@ -11,6 +12,9 @@
     }
   }
   &__section-title{
+    padding: 0 20px 0 20px;
+    display: flex;
+    align-items: center;
     margin-top: 58px;
     text-align: left;
     font: normal normal normal 21px/26px Fira Sans;

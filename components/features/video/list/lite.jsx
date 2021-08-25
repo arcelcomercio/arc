@@ -124,7 +124,7 @@ class VideoList extends PureComponent {
       <>
         {showTitle && (
           <div className="video-list__section-title">
-            Lo último en
+            Lo último en&nbsp;
             <span className="video-list__section-name"> Espectáculos</span>
             {
               (arcSite === 'trome') && (
