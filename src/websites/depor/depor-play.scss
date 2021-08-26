@@ -525,6 +525,7 @@ $bold: 700;
       @media (--only-mobile) {
         margin-left: 10px;
         text-align: left !important;
+        letter-spacing: 0.17px;
       }
     }
     &__header-title {
