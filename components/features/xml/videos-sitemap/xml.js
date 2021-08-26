@@ -1,4 +1,5 @@
 import Consumer from 'fusion:consumer'
+
 import { VIDEO } from '../../../utilities/constants/multimedia-types'
 import { localISODate } from '../../../utilities/helpers'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
@@ -25,16 +26,14 @@ class XmlVideosSitemap {
           section: '/videos',
           stories_qty: 100,
           presets: 'no-presets',
-          includedFields: `headlines.basic,subheadlines.basic,websites.${arcSite}.website_url,promo_items.${VIDEO}.promo_image.url,promo_items.${VIDEO}.type,promo_items.${VIDEO}.url,promo_items.${VIDEO}.headlines.basic,promo_items.${VIDEO}.subheadlines.basic,promo_items.${VIDEO}.description.basic,promo_items.${VIDEO}.streams.stream_type,promo_items.${VIDEO}.streams.url,promo_items.${VIDEO}.streams.height,promo_items.${VIDEO}.streams.width,promo_items.${VIDEO}.duration,promo_items.${VIDEO}.display_date,promo_items.${VIDEO}.taxonomy.primary_section.name,promo_items.${VIDEO}.taxonomy.tags.text`,
+          includedFields: `headlines.basic,subheadlines.basic,websites.${arcSite}.website_url,promo_items.${VIDEO}.promo_image.url,promo_items.${VIDEO}.type,promo_items.${VIDEO}.url,promo_items.${VIDEO}.headlines.basic,promo_items.${VIDEO}.subheadlines.basic,promo_items.${VIDEO}.description.basic,promo_items.${VIDEO}.streams.stream_type,promo_items.${VIDEO}.streams.url,promo_items.${VIDEO}.streams.height,promo_items.${VIDEO}.streams.width,promo_items.${VIDEO}.duration,promo_items.${VIDEO}.display_date,promo_items.${VIDEO}.taxonomy.primary_section.name,promo_items.${VIDEO}.taxonomy.tags.text,promo_items.basic_jwplayer.embed.config.thumbnail_url`,
         },
         filter: schemaFilter(arcSite, VIDEO),
       },
     })
   }
 
-  msToSec = (duration = 0) => {
-    return duration / 1000
-  }
+  msToSec = (duration = 0) => duration / 1000
 
   render() {
     const { arcSite, siteProperties: { siteUrl = '' } = {} } = this.props
@@ -49,7 +48,7 @@ class XmlVideosSitemap {
       urlset: [
         { '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9' },
         { '@xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1' },
-        ...videos.map(video => {
+        ...videos.map((video) => {
           const {
             headlines: { basic: title = '' } = {},
             subheadlines: { basic: description = '' } = {},
@@ -69,9 +68,16 @@ class XmlVideosSitemap {
               tags = [],
             } = {},
           } = promoItems[VIDEO] || {}
+          const {
+            basic_jwplayer: {
+              embed: {
+                config: { thumbnail_url: thumbnailUrlImg = '' } = {},
+              } = {},
+            } = {},
+          } = promoItems || {}
 
           const { image } = createResizedParams({
-            url: thumbnailUrl,
+            url: thumbnailUrl || thumbnailUrlImg,
             presets: 'image:1280x720',
             arcSite,
           })
@@ -79,9 +85,7 @@ class XmlVideosSitemap {
           const dataVideo =
             streams &&
             streams
-              .map(({ url, stream_type: streamType }) => {
-                return streamType === VIDEO_FORMAT ? url : []
-              })
+              .map(({ url, stream_type: streamType }) => streamType === VIDEO_FORMAT ? url : [])
               .filter(String)
 
           const cantidadVideo = dataVideo.length
@@ -104,11 +108,9 @@ class XmlVideosSitemap {
                 // { 'video:view_count': '15: ni idea de donde sacar esto' },
                 { 'video:publication_date': localISODate(date) },
                 ...tags
-                  .map((tag = {}) => {
-                    return {
+                  .map((tag = {}) => ({
                       'video:tag': tag.text !== 'sample' ? tag.text : '',
-                    }
-                  })
+                    }))
                   .filter(({ 'video:tag': videoTag }) => videoTag !== ''),
                 { 'video:category': section },
                 { 'video:family_friendly': 'yes' }, // o no

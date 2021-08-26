@@ -45,6 +45,13 @@ export default (arcSite, promoType) => `{
                     }
                 }
             }
+            basic_jwplayer{
+                embed{
+                    config{
+                        thumbnail_url
+                    }
+                }
+            }
         }
     }
 }`
