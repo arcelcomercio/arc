@@ -28,10 +28,10 @@ import {
 } from '../../../utilities/constants/element-types'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
-  SITE_DEPOR,
+  // SITE_DEPOR,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
-  SITE_ELCOMERCIOMAG,
+  // SITE_ELCOMERCIOMAG,
   SITE_PERU21,
 } from '../../../utilities/constants/sitenames'
 import {
@@ -380,10 +380,14 @@ class StoryContents extends React.PureComponent {
                             __html: replaceTags(content),
                           }}
                         />
+                        {(arcSite === 'elcomercio' || arcSite === 'gestion') &&
+                        nameAds === 'caja3' ? (
+                          <div id="spc_post_stories" />
+                        ) : null}
                         {publicidad &&
                           isDfp &&
                           !(
-                            subtype == GALLERY_VERTICAL && nameAds == 'caja3'
+                            subtype === GALLERY_VERTICAL && nameAds === 'caja3'
                           ) && (
                             <Ads
                               adElement={nameAds}
