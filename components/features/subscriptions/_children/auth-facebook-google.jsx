@@ -213,7 +213,7 @@ const AuthFacebookGoogle = ({
           height: 40,
           theme: 'dark',
           onSuccess: () => {
-            if (!isLogged) return
+            if (!isLogged()) return
             setLoadingSocial(true)
             Identity.getUserProfile().then(({ uuid, attributes, email }) => {
               if (attributes) {
