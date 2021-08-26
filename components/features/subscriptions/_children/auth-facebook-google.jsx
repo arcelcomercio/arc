@@ -7,6 +7,7 @@ import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { sendNewsLettersUser } from '../_dependencies/Services'
+import { isLogged } from '../_dependencies/Session'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
@@ -212,6 +213,7 @@ const AuthFacebookGoogle = ({
           height: 40,
           theme: 'dark',
           onSuccess: () => {
+            if (!isLogged) return
             setLoadingSocial(true)
             Identity.getUserProfile().then(({ uuid, attributes, email }) => {
               if (attributes) {
