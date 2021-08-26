@@ -521,6 +521,7 @@ $bold: 700;
       color: #fff;
       font-weight: $bold;
       font-family: $primary-font;
+      letter-spacing: 0.18px;
       @media (--only-mobile) {
         margin-left: 10px;
         text-align: left !important;
