@@ -1,17 +1,16 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
-import UtilListKey from '../../../utilities/list-keys'
 import {
-  SITE_ELCOMERCIOMAG,
+  // SITE_ELCOMERCIOMAG,
   SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
-
-import schemaFilter from './_dependencies/schema-filter'
+import UtilListKey from '../../../utilities/list-keys'
+import StoryData from '../../../utilities/story-data'
 import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 import StoryItemChild from './_lite/_children/item'
 
 const classes = {
@@ -22,7 +21,7 @@ const classes = {
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
-const InterestByTagLite = props => {
+const InterestByTagLite = (props) => {
   const {
     customFields: {
       tagToFetch = '',
@@ -38,7 +37,7 @@ const InterestByTagLite = props => {
     globalContent: dataContent,
     contextPath,
     deployment,
-    outputType,
+    // outputType,
   } = useAppContext()
 
   const { tags: [{ slug = 'peru' } = {}] = [], id: excluir } = new StoryData({
@@ -71,28 +70,27 @@ const InterestByTagLite = props => {
   let key = 0
 
   const dataInterest = storyData
-    .map(story => {
-      return story && story._id !== excluir ? story : ''
-    })
+    .map((story) => (story && story._id !== excluir ? story : ''))
     .filter(String)
 
-  const isMag = arcSite === SITE_ELCOMERCIOMAG
-  const linkSource = `&source=${isMag ? 'notepierdas' : 'tepuedeinteresar'}`
+  // const isMag = arcSite === SITE_ELCOMERCIOMAG
+  // const linkSource = `&source=${isMag ? 'notepierdas' : 'tepuedeinteresar'}`
 
   const isTrome = arcSite === SITE_TROME
-  const titleItem = title => {
+  const titleItem = (title) => {
     if (isTrome && title.length > 105) {
       return `${title.substring(0, 105)}...`
     }
     return title
   }
 
-  const getSize = cant => {
+  const getSize = (cant) => {
     const dataStories = dataInterest.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
       key += 1
-      const link = `${instance.websiteLink}?ref=${outputType}&pos=${key}${linkSource}`
+      // const link = `${instance.websiteLink}?ref=${outputType}&pos=${key}${linkSource}` // Eliminado query strings por motivos de SEO
+      const link = instance.websiteLink
 
       return (
         <StoryItemChild
@@ -113,7 +111,7 @@ const InterestByTagLite = props => {
 
   return renderLite && dataInterest && dataInterest[0] ? (
     <section className={classes.storyInterest}>
-      <p className={classes.titleP}></p>
+      <p className={classes.titleP} />
       <h2 className={classes.title}>{titleLite}</h2>
       <>{getSize(storiesQtyLite)}</>
     </section>
