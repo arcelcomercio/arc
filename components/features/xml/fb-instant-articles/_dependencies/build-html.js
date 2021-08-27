@@ -2,7 +2,6 @@
 import ConfigParams from '../../../../utilities/config-params'
 import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
 import { JWPLAYER } from '../../../../utilities/constants/multimedia-types'
-import { SITE_ELCOMERCIOMAG } from '../../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
@@ -245,19 +244,14 @@ const analyzeParagraph = ({
         let jwplayerId = ''
         if (originalParagraph) {
           ulrJwplayer = getResultJwplayer(originalParagraph)
-          if (arcSite === SITE_ELCOMERCIOMAG) {
-            const playerId = jwplayers[account] || jwplayers.gec
-            jwplayerId = hasAds ? playerId.playerAds : playerId.player
-            const gulrJwplay = ulrJwplayer.match(
-              /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
-            )
-            ulrJwplayer = gulrJwplay?.[1] || []
-          }
+          const playerId = jwplayers[account] || jwplayers.gec
+          jwplayerId = hasAds ? playerId.playerAds : playerId.player
+          const gulrJwplay = ulrJwplayer.match(
+            /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
+          )
+          ulrJwplayer = gulrJwplay?.[1] || []
         }
-        if (arcSite === SITE_ELCOMERCIOMAG)
-          result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}-${jwplayerId}.html"></iframe></figure>`
-        else
-          result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe></figure>`
+        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}-${jwplayerId}.html"></iframe></figure>`
       }
       break
     case ConfigParams.ELEMENT_LINK_LIST:
@@ -689,27 +683,19 @@ const multimediaHeader = (
       let jwplayerId = ''
       if (promoItemJwplayer && promoItemJwplayer.key) {
         ulrJwplayer = getResultJwplayer(promoItemJwplayer.conversions)
-        if (arcSite === SITE_ELCOMERCIOMAG) {
-          const playerId =
-            jwplayers[promoItemJwplayer?.account] || jwplayers.gec
-          jwplayerId = promoItemJwplayer?.has_ads
-            ? playerId.playerAds
-            : playerId.player
-          const gulrJwplay = ulrJwplayer.match(
-            /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
-          )
-          ulrJwplayer = gulrJwplay?.[1] || []
-        }
+        const playerId = jwplayers[promoItemJwplayer?.account] || jwplayers.gec
+        jwplayerId = promoItemJwplayer?.has_ads
+          ? playerId.playerAds
+          : playerId.player
+        const gulrJwplay = ulrJwplayer.match(
+          /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
+        )
+        ulrJwplayer = gulrJwplay?.[1] || []
       }
 
-      if (arcSite === SITE_ELCOMERCIOMAG)
-        result = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}-${jwplayerId}.html"></iframe>${
-          title ? `<figcaption>${title}</figcaption>` : ''
-        }</figure>`
-      else
-        result = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe>${
-          title ? `<figcaption>${title}</figcaption>` : ''
-        }</figure>`
+      result = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}-${jwplayerId}.html"></iframe>${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
 
       break
     case ConfigParams.GALLERY:

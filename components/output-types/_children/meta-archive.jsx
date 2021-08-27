@@ -1,19 +1,20 @@
 import React from 'react'
-import { getActualDate } from '../../utilities/date-time/dates'
 
-export default props => {
+import { getActualDate } from '../../utilities/date-time/dates'
+import { deleteQueryString } from '../../utilities/parse/queries'
+
+export default (props) => {
   const { globalContent, siteUrl = '', requestUri = '' } = props
   const { params = {} } = globalContent || {}
   const timeCurrent = new Date()
 
-  const paginationUrl = newDateFormatted => {
-    return requestUri.match(/\/[0-9]{4}-[0-9]{2}-[0-9]{2}?(?=$|\/|\?)/) !== null
+  const paginationUrl = (newDateFormatted) =>
+    requestUri.match(/\/[0-9]{4}-[0-9]{2}-[0-9]{2}?(?=$|\/|\?)/) !== null
       ? `${siteUrl}${requestUri.replace(
           /\/[0-9]{4}-[0-9]{2}-[0-9]{2}?(?=$|\/|\?)/,
           `/${newDateFormatted}`
         )}`
       : `${siteUrl}${requestUri}${newDateFormatted}/`
-  }
 
   const calcDate = (option, date) => {
     const dateParam = new Date(date)
@@ -24,7 +25,7 @@ export default props => {
     return new Date(timeNextDay)
   }
 
-  const getNewDateFormatted = newDate => {
+  const getNewDateFormatted = (newDate) => {
     const newYear = newDate.getUTCFullYear()
     const newMonth = newDate.getUTCMonth() + 1
     const newDay = newDate.getUTCDate()
@@ -35,17 +36,17 @@ export default props => {
   }
   let currentDate = getNewDateFormatted(timeCurrent)
 
-  const getNextDay = date => {
+  const getNextDay = (date) => {
     const newDate = calcDate('next', date)
     return getNewDateFormatted(newDate)
   }
 
-  const getPrevDay = date => {
+  const getPrevDay = (date) => {
     const newDate = calcDate('prev', date || getActualDate())
     return getNewDateFormatted(newDate)
   }
 
-  const hasNextDay = date => {
+  const hasNextDay = (date) => {
     const dateParam = new Date(date).getTime()
     currentDate = new Date(currentDate).getTime()
     return dateParam < currentDate
@@ -60,12 +61,12 @@ export default props => {
 
   return (
     <>
-      <link rel="prev" href={urlPrevPage} />
-      <link rel="prefetch" href={urlPrevPage} />
+      <link rel="prev" href={deleteQueryString(urlPrevPage || '')} />
+      <link rel="prefetch" href={deleteQueryString(urlPrevPage || '')} />
       {hasNext && (
         <>
-          <link rel="next" href={urlNextPage} />
-          <link rel="prefetch" href={urlNextPage} />
+          <link rel="next" href={deleteQueryString(urlNextPage || '')} />
+          <link rel="prefetch" href={deleteQueryString(urlNextPage || '')} />
         </>
       )}
     </>
