@@ -22,8 +22,8 @@ const StoriesListPaginatedList = (props) => {
   const hasAds = (index, adsList) => adsList.filter((el) => el.pos === index)
 
   const {
-    globalContent,
-    globalContentConfig,
+    globalContent: contextGlobalContent,
+    globalContentConfig: contextGlobalContentConfig,
     deployment,
     contextPath,
     arcSite,
@@ -33,6 +33,12 @@ const StoriesListPaginatedList = (props) => {
   const { customFields: customFieldsProps = {} } = props
   const { isDfp = false } = getProperties(arcSite)
   const isSearchSection = /^\/buscar\//.test(requestUri)
+
+  const { isComponent, customGlobalContentConfig, customGlobalContent } = props
+  const globalContent = isComponent ? customGlobalContent : contextGlobalContent
+  const globalContentConfig = isComponent
+    ? customGlobalContentConfig
+    : contextGlobalContentConfig
 
   let {
     content_elements: stories = [],

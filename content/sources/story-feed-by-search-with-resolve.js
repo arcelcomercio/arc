@@ -1,25 +1,13 @@
-import { ARC_ACCESS_TOKEN, CONTENT_BASE } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-// eslint-disable-next-line import/no-extraneous-dependencies
-import request from 'request-promise-native'
 
 import {
   includeCredits,
   includePrimarySection,
   includePromoItems,
 } from '../../components/utilities/included-fields'
-import RedirectError from '../../components/utilities/redirect-error'
 import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'stories-dev'
-
-const options = {
-  gzip: true,
-  json: true,
-  auth: {
-    bearer: ARC_ACCESS_TOKEN,
-  },
-}
 
 const params = [
   {
@@ -56,11 +44,6 @@ const params = [
     name: 'includedFields',
     displayName: 'Campos incluidos',
     type: 'text',
-  },
-  {
-    name: 'manualError',
-    displayName: 'Lanzar Error (colocar código de error)',
-    type: 'number',
   },
 ]
 
@@ -158,7 +141,7 @@ const validateFrom = (page, size) => {
   return '0'
 }
 
-const fetch = async ({
+const resolve = ({
   'arc-site': website,
   query,
   section: rawSection,
@@ -166,7 +149,6 @@ const fetch = async ({
   from: page,
   sort: rawSort,
   includedFields,
-  manualError,
 }) => {
   const sort = rawSort === 'ascendente' ? 'asc' : 'desc'
   const from = `${validateFrom(page, rawSize)}`
@@ -185,42 +167,9 @@ const fetch = async ({
     const sourceExclude =
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website' */
 
-  const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&${queryFilter}${sourceInclude}`
+  const requestUri = `/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&${queryFilter}${sourceInclude}`
 
-  if (manualError) {
-    const error = new Error('Error 410 manual')
-    error.statusCode = manualError
-    throw error
-  }
-
-  if (section === 'todas') {
-    const responseDefult = await request({
-      uri: requestUri,
-      ...options,
-    }).catch(() => ({}))
-    return responseDefult
-  }
-
-  /**
-   * Si se esta buscando por seccion, primero se verifica que la seccion existe.
-   * Si la seccino no existe debe devolver 404.
-   */
-  await request({
-    uri: `${CONTENT_BASE}/site/v3/website/${website}/section?_id=/${section}`,
-    ...options,
-  }).catch((err) => {
-    if (err?.statusCode === 404) {
-      throw new RedirectError('/404', 404)
-    }
-    return {}
-  })
-
-  const responseWithFilter = await request({
-    uri: requestUri,
-    ...options,
-  }).catch(() => ({}))
-
-  return responseWithFilter
+  return requestUri
 }
 
 const transform = (
@@ -245,7 +194,7 @@ const transform = (
 }
 
 const source = {
-  fetch,
+  resolve,
   transform,
   schemaName,
   params,
