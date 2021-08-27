@@ -23,6 +23,7 @@ const classes = {
   name: 'video-categories-list__section__name',
   arrowTitle: 'video-categories-list__section__arrow-title',
   moreVideos: 'video-categories-list__section__section-more-videos',
+  link: 'video-categories-list__section__link',
   wrapperList: 'video-categories-list__section__wrapper-list',
   iconMoreVideos: 'video-categories-list__section__icon-more-videos',
 }
@@ -57,20 +58,28 @@ const Section: FC<Props> = (props) => {
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapperTitle}>
-        <h2 className={classes.name}>
-          {name} 
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={classes.arrowTitle}>
-              <path  d="M8.59,16.59,13.17,12,8.59,7.41,10,6l6,6-6,6Z"/>
+        <a href={url} className={classes.link}>
+          <h2 className={classes.name}>
+            {name}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              className={classes.arrowTitle}>
+              <path d="M8.59,16.59,13.17,12,8.59,7.41,10,6l6,6-6,6Z" />
             </svg>
-        </h2>
-        <div className={classes.moreVideos}>
-          <a href={url}>
-            Ver más videos 
-          </a>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={classes.iconMoreVideos}>
-              <path  d="M8.59,16.59,13.17,12,8.59,7.41,10,6l6,6-6,6Z"/>
+          </h2>
+        </a>
+        <a href={url} className={classes.link}>
+          <div className={classes.moreVideos}>
+            Ver más videos
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              className={classes.iconMoreVideos}>
+              <path d="M8.59,16.59,13.17,12,8.59,7.41,10,6l6,6-6,6Z" />
             </svg>
-        </div>
+          </div>
+        </a>
       </div>
       <div className={classes.wrapperList}>
         {videosSection.content_elements &&

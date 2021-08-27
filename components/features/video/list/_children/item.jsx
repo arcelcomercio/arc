@@ -13,7 +13,7 @@ const videoListChild = ({
   const link = `${websiteLink}?ref=landingvideos&pos=${index + 1}`
   return (
     <div className="video-list__item">
-      <picture className="block mb-10 video-list__image-box">
+      <picture className="block mb-12 video-list__image-box" arcSite={arcSite}>
         <a itemProp="url" className="video-list__link" href={link}>
           <img
             className="video-list__image object-contain w-full"
@@ -23,22 +23,18 @@ const videoListChild = ({
           />
 
           {!(videoDuration === '00:00' || videoDuration === '00:00:00') && (
-            <>
-              <span className="video-list__duration">{videoDuration}</span>
-              {
-                (arcSite === 'trome') && (
-                  <svg
-                    className="video-list__play"
-                    xmlns="http://www.w3.org/2000/svg "
-                    viewBox="0 0 112 112"
-                  >
-                    <path
-                      className="video-list__icon-play"
-                      d="M39.67,28V84L86.34,56Z" />
-                  </svg>
-                )
-              }
-            </>
+            <span className="video-list__duration">{videoDuration}</span>
+          )}
+          {(arcSite === 'trome') && (
+            <svg
+              className="video-list__play"
+              xmlns="http://www.w3.org/2000/svg "
+              viewBox="0 0 112 112"
+            >
+              <path
+                className="video-list__icon-play"
+                d="M39.67,28V84L86.34,56Z" />
+            </svg>
           )}
         </a>
       </picture>
@@ -50,7 +46,7 @@ const videoListChild = ({
           {primarySection}
         </a>
       </div> */}
-      <a itemProp="url" href={link} className="block mb-10 video-list__title">
+      <a itemProp="url" href={link} className="block video-list__title">
         <h3
           itemProp="name"
           className="line-h-xs text-xl font-bold video-list__new">

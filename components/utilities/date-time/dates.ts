@@ -23,6 +23,7 @@ type GetVerboseDateProps = {
   showWeekday?: boolean
   showYear?: boolean
   defaultTimeZone?: boolean
+  longMonth?: boolean
 }
 /**
  * @returns jueves, 19 de noviembre de 2020 09:30 a.m.
@@ -33,9 +34,10 @@ export const getVerboseDate = ({
   showWeekday = true,
   showYear = true,
   defaultTimeZone = true,
+  longMonth = true,
 }: GetVerboseDateProps): string => {
   const options: Intl.DateTimeFormatOptions = {
-    month: 'long',
+    month: longMonth ? 'long' : 'short',
     day: 'numeric',
     hour12: true,
   }
@@ -67,8 +69,19 @@ export const getVerboseDate = ({
 export const formatDayMonthYear = (
   currentDate: Date,
   showTime = true,
-  showWeekday = true
-): string => getVerboseDate({ date: currentDate, showTime, showWeekday })
+  showWeekday = true,
+  showYear = true,
+  defaultTimeZone = true,
+  longMonth = true
+): string =>
+  getVerboseDate({
+    date: currentDate,
+    showTime,
+    showWeekday,
+    showYear,
+    defaultTimeZone,
+    longMonth,
+  })
 
 /**
  * @deprecated usar `getVerboseDate`
