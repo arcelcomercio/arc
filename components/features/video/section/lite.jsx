@@ -143,6 +143,7 @@ const SectionVideo = (props) => {
 
   const playListVideo = (offset = 0) => {
     const fetchPlayList =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent({
         source: 'story-feed-by-section',
         query: {
@@ -164,6 +165,7 @@ const SectionVideo = (props) => {
   } else {
     section = globalContent._id
     const fetchPrincipalVideo =
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useContent({
         source: 'story-by-section',
         query: {
@@ -177,26 +179,7 @@ const SectionVideo = (props) => {
       }) || {}
     playListVideo()
     principalVideo(fetchPrincipalVideo)
-
-    const storyVideoSection = useContent({
-      source: 'story-by-id',
-      query: {
-        _id: fetchPrincipalVideo._id,
-      },
-      transform: ({ content_elements: contentElements = [] } = {}) => {
-        const filteredData = {
-          contentElements,
-        }
-        return { ...filteredData }
-      },
-    })
-
-    dataVideo.principalVideo = {
-      ...dataVideo.principalVideo,
-      ...storyVideoSection,
-    }
   }
-
   const params = {
     ...dataVideo,
     arcSite,

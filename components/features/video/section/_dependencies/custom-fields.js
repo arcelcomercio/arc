@@ -9,12 +9,20 @@ const customFields = PropTypes.shape({
     name: 'Ocultar Playlist',
     defaultValue: false,
   }),
+  hideSectionBar: PropTypes.bool.tag({
+    name: 'Ocultar Barra de Secciones',
+    defaultValue: false,
+  }),
   hideShare: PropTypes.bool.tag({
     name: 'Ocultar Compartir',
     defaultValue: false,
   }),
   hideMeta: PropTypes.bool.tag({
     name: 'Ocultar metadata',
+    defaultValue: false,
+  }),
+  hideSticky: PropTypes.bool.tag({
+    name: 'Ocultar video sticky',
     defaultValue: false,
   }),
   categoryTop: PropTypes.bool.tag({

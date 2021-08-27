@@ -1,6 +1,6 @@
-import React from 'react'
-import Image from '../../../../global-components/image'
+import React, { Fragment } from 'react'
 
+import Image from '../../../../global-components/image'
 import StoryData from '../../../../utilities/story-data'
 
 export default (props) => {
@@ -75,9 +75,24 @@ export default (props) => {
                     Story.videoDuration === '00:00' ||
                     Story.videoDuration === '00:00:00'
                   ) && (
-                    <span className="play-list__duration">
-                      {Story.videoDuration}
-                    </span>
+                      <span className="play-list__duration">
+                        {Story.videoDuration}
+                      </span>
+                    )}
+                  {arcSite === 'trome' && (
+                    <svg
+                      className="play-list__icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 52 52">
+                      <path
+                        className="play-list__icon-back"
+                        d="M0,0H52V52H0Z"
+                      />
+                      <path
+                        className="play-list__icon-front"
+                        d="M15.17,10.83v26l21.66-13Z"
+                      />
+                    </svg>
                   )}
                 </a>
                 <h3 itemProp="name" className="play-list__title">
