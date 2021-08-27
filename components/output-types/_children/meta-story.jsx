@@ -516,7 +516,9 @@ export default ({
     ${dateline}
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
-    "description":"${data?.description?.basic || formatHtmlToText(subTitle)}",
+    "description":"${
+      formatHtmlToText(data?.description?.basic) || formatHtmlToText(subTitle)
+    }",
     ${publishingPrinciples}
   ${bodyStructured}
   ${correctionStructured}

@@ -100,7 +100,10 @@ const StoryContentChildVideo: React.FC<{
   const uidArray = urlVideo.match(
     /data-uuid="(([0-9a-z-A-Z]*[0-9a-z-A-Z])\w+)"/
   )
-  const uuid = id || principalId || (uidArray && uidArray[1])
+
+  const VideoId = uidArray && data.includes('id="powa-') ? uidArray[1] : id
+
+  const uuid = VideoId || principalId || (uidArray && uidArray[1])
 
   const videoArray = urlVideo.match(
     /stream="((.*).(jpeg|jpg|png|gif|mp4|mp3))"/
