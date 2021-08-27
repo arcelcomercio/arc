@@ -7,9 +7,10 @@ const videoListChild = ({
   primarySection,
   primarySectionLink,
   videoDuration,
-  index,
+  // index,
 }) => {
-  const link = `${websiteLink}?ref=landingvideos&pos=${index + 1}`
+  // const link = `${websiteLink}?ref=landingvideos&pos=${index + 1}`
+  const link = websiteLink // Eliminado query strings por motivos de SEO
   return (
     <div className="video-list__item">
       <picture className="block mb-10 video-list__image-box">

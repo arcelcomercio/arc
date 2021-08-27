@@ -13,7 +13,7 @@ const StoryNextStoryButton = ({
   containerClass,
   buttonClass,
   arrowClass,
-  source = 'footer',
+  // source = 'footer',
 }) => {
   const { arcSite, globalContent } = useAppContext()
   const { websites: websitesSec = {} } = globalContent || {}
@@ -32,7 +32,8 @@ const StoryNextStoryButton = ({
 
   const StoryNextStoryLink = () => (
     <a
-      href={`${websiteUrl}?ref=lite&ref=nextarticle&source=${source}`}
+      // href={`${websiteUrl}?ref=lite&ref=nextarticle&source=${source}`} // Eliminado query strings por motivos de SEO
+      href={websiteUrl}
       className={buttonClass || classes.link}>
       Siguiente artículo{' '}
       {/* <span className={arrowClass || classes.span} aria-disabled="true">

@@ -1,7 +1,9 @@
 import React from 'react'
+
+import { deleteQueryString } from '../../utilities/parse/queries'
 import {
-  metaPaginationUrl,
   getMetaPagesPagination,
+  metaPaginationUrl,
 } from '../_dependencies/pagination'
 
 export default ({
@@ -15,19 +17,21 @@ export default ({
   const { content_elements: contentElements = [] } = globalContent || {}
   // const [{ credits: { by = [] } = {} } = {}] = contentElements || {}
   const logoAuthor = `${contextPath}/resources/dist/${arcSite}/images/author.png`
-  const { author: {
-    bio_page: authorPath = '',
-    image: authorImg = '',
-    byline: name = '',
-    email = '', 
-    bio = '',
-    languages = '', 
-    location = '', 
-    twitter = '', 
-    role = '', 
-    books = [],
-    expertise = ''
-  } = {} } = globalContent || {}
+  const {
+    author: {
+      bio_page: authorPath = '',
+      image: authorImg = '',
+      byline: name = '',
+      email = '',
+      bio = '',
+      languages = '',
+      location = '',
+      twitter = '',
+      role = '',
+      books = [],
+      expertise = '',
+    } = {},
+  } = globalContent || {}
 
   const patternPagination = /\/[0-9]+\/?(?=\?|$)/
   const pages = getMetaPagesPagination(
@@ -51,19 +55,19 @@ export default ({
 
   const sameAs = []
   const authorUrl = `${siteUrl}${authorPath}`
-  const authorUrlSameAs = (authorUrl && `"${authorUrl}"`)
+  const authorUrlSameAs = authorUrl && `"${authorUrl}"`
   sameAs.push(authorUrlSameAs)
-  const authorLanguages = (languages && languages.split(','))
-  const twitterData = (twitter && twitter.split(','))
-  const twitterUrl = (twitterData && twitterData[1] && `"${twitterData[1]}"`)
+  const authorLanguages = languages && languages.split(',')
+  const twitterData = twitter && twitter.split(',')
+  const twitterUrl = twitterData && twitterData[1] && `"${twitterData[1]}"`
   sameAs.push(twitterUrl)
-  const booksData = (books && books.map(item => `"${item.url}"`).join(','))
+  const booksData = books && books.map((item) => `"${item.url}"`).join(',')
   sameAs.push(booksData)
 
-  const expertiseData = expertise.split(',').map(item => {
+  const expertiseData = expertise.split(',').map((item) => {
     let text = `"${item}"`
-    const itemMatch = item.match("^{([^}]+)}(.+)")
-    if( itemMatch != null){
+    const itemMatch = item.match('^{([^}]+)}(.+)')
+    if (itemMatch != null) {
       text = `{
         "@type":"${itemMatch[1]}",
         "name":"${itemMatch[2]}"
@@ -96,30 +100,33 @@ export default ({
     }, 
     "knowsAbout": [${expertiseData}], 
     "knowsLanguage": [
-      ${authorLanguages && (authorLanguages.map(language => {
-        return `{"@type": "Language",
+      ${
+        authorLanguages &&
+        authorLanguages.map(
+          (language) => `{"@type": "Language",
                  "name": "${language}"
                 }`
-        }))}
+        )
+      }
       ],
-    "sameAs" : [${sameAs.filter(item => (item && item !== ''))}], 
+    "sameAs" : [${sameAs.filter((item) => item && item !== '')}], 
     "jobTitle"	: "${role}"
   }`
 
-  const listItems = contentElements.map(({ websites = {} }, index) => {
-    return `{
+  const listItems = contentElements.map(
+    ({ websites = {} }, index) => `{
       "@type":"ListItem",
       "position":${index + 1}, 
       "url":"${websites[arcSite].website_url}"
     }`
-  })
+  )
 
   const structuredNews = `{
     "@context":"http://schema.org",
     "url":"${authorUrl}",
     "@type":"ItemList",
     "itemListElement":[
-      ${listItems.map(item => item)}
+      ${listItems.map((item) => item)}
     ]
   }`
 
@@ -127,13 +134,13 @@ export default ({
     <>
       {pages.prev && (
         <>
-          <link rel="prev" href={urlPrevPage} />
+          <link rel="prev" href={deleteQueryString(urlPrevPage || '')} />
           {/* <link rel="prefetch" href={urlPrevPage} /> */}
         </>
       )}
       {pages.next && (
         <>
-          <link rel="next" href={urlNextPage} />
+          <link rel="next" href={deleteQueryString(urlNextPage || '')} />
           {/* <link rel="prefetch" href={urlNextPage} /> */}
         </>
       )}
@@ -141,12 +148,12 @@ export default ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: structuredAutor }}
       />
-      { contentElements.length >0 && 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: structuredNews }}
-      />
-      }
+      {contentElements.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: structuredNews }}
+        />
+      )}
     </>
   )
 }
