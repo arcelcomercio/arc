@@ -708,11 +708,9 @@ export default ({
           />
         </>
       )}
-      {isAmp !== true &&
-        !(
-          isPremium &&
-          removeLastSlash(primarySectionLink) === '/archivo-elcomercio'
-        ) && <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />}
+      {isAmp !== true && !isPremium && (
+        <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
+      )}
       {isAmp === true &&
         dataStructuraHtmlAmp.map((datas) => (
           <>
