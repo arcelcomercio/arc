@@ -5,6 +5,14 @@ const customFields = PropTypes.shape({
     name: 'Etiqueta',
     defaultValue: 'Hoy',
   }),
+  invertedMenu: PropTypes.bool.tag({
+    name: 'Invertir Menu',
+    defaultValue: 'Hoy',
+  }),
+  hideMenu: PropTypes.bool.tag({
+    name: 'Ocultar destacados',
+    defaultValue: false,
+  }),
   customLogoTitle: PropTypes.string.tag({
     name: 'Title y alt de la imagen',
     group: 'Editar logo',

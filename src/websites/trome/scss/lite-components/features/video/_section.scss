@@ -1,12 +1,9 @@
-.content-layout-container {
-  background-color: #fff !important;
-}
-
 .section-video {
-  padding: 10px;
+  background-color: #363636;
 
-  @media(--desktop) {
-    padding: 16px;
+  &__top {
+    display: flex;
+    flex-direction: column;
   }
 
   .section-video__top {
@@ -19,10 +16,10 @@
   }
 
   &__wrapper {
-    padding-bottom: 0px;
+    padding-bottom: 0;
 
     &.fixed {
-      @media(--desktop) {
+      @media (--desktop) {
         width: 1200px;
       }
     }
@@ -31,8 +28,8 @@
   &__frame {
     margin-bottom: 16px;
 
-    @media(--desktop) {
-      margin-bottom: 0px;
+    @media (--desktop) {
+      margin-bottom: 0;
     }
 
     height: auto;
@@ -44,10 +41,12 @@
 
   &__left {
     padding: 0 10px;
+    width: 100%;
     height: 100%;
 
-    @media(--desktop) {
+    @media (--desktop) {
       padding: 0;
+      width: 680px;
     }
   }
 
@@ -61,7 +60,8 @@
     @media (--desktop) {
       padding-left: 32px;
       padding-right: 0;
-      width: 70%;
+      width: 478px;
+      min-height: 382px;
     }
   }
 
@@ -74,38 +74,66 @@
     justify-content: flex-start;
     margin-bottom: 10px;
 
+    @media (--desktop) {
+      padding-top: 3px;
+    }
+
     a {
       font-weight: 700;
       line-height: 20px;
-
     }
   }
 
   &__box-section-top {
-    display: none;
+    display: block;
+
+    @media (--desktop) {
+      display: none;
+    }
 
     a {
       font-family: $fira-s;
       font-size: 22px;
       color: #fff;
     }
-
   }
 
   &__box-section-bottom {
-    a {
-      font-family: $encode-c;
-      font-size: 18px;
-      color: #E06437;
-      text-transform: uppercase;
+    display: none;
+
+    @media (--desktop) {
+      display: block;
     }
 
+    a {
+      font-family: $encode-c;
+      font-size: 1.375rem;
+      color: #fff;
+      text-transform: uppercase;
+
+      @media (--desktop) {
+        font-size: 1.125rem;
+        color: #e06437;
+      }
+    }
+  }
+
+  &__mobile-duration {
+    font-family: $primary-font;
+    font-size: 14px;
+    color: #999;
+    display: block;
+    margin-bottom: 16px;
+
+    @media (--desktop) {
+      display: none;
+    }
   }
 
   &__box-section-bottom-mobile {
     display: none;
 
-    @media(--desktop) {
+    @media (--desktop) {
       display: flex;
     }
   }
@@ -113,7 +141,7 @@
   &__box-section-top-mobile {
     display: flex;
 
-    @media(--desktop) {
+    @media (--desktop) {
       display: none;
     }
   }
@@ -141,9 +169,13 @@
     margin: 16px 0;
     line-height: 28px;
     font-size: 18px;
-    color: #BBBBBB;
+    color: #bbb;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
 
-    @media(--desktop) {
+    @media (--desktop) {
       font-size: 20px;
     }
   }
@@ -152,22 +184,56 @@
     display: none;
   }
 
-
   &__detail {
     padding: 0;
     align-items: center;
     justify-content: flex-start !important;
+    display: flex;
+    width: 100%;
+    padding-bottom: 24px;
 
     @media (--desktop) {
       flex-direction: row;
+      padding-bottom: 0;
     }
   }
-
 
   &__text {
     font-size: 14px;
     color: #999;
-    font-family: $secondary-font;
+    font-family: $primary-font;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+
+    &:nth-child(1)::after {
+      content: "";
+      width: 1px;
+      height: 100%;
+      background-color: #aaa;
+      display: block;
+      margin-left: 10px;
+    }
+
+    &:nth-child(2)::after {
+      @media (--desktop) {
+        content: "";
+        width: 1px;
+        height: 100%;
+        background-color: #aaa;
+        display: block;
+        margin-left: 10px;
+      }
+    }
+
+    &:last-child {
+      display: none;
+
+      @media (--desktop) {
+        display: inline-flex;
+      }
+    }
   }
 
   &::after {
@@ -179,7 +245,7 @@
   }
 
   &__caption {
-    color: #666666;
+    color: #666;
     font-size: 14px;
     font-family: $fira-s !important;
     margin-bottom: 24px;
@@ -193,24 +259,40 @@
   &__content-share {
     border: 0;
     padding: 0;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 
+    @media (--desktop) {
+      margin-bottom: 32px;
+    }
   }
 
   &__share {
+    display: inline-flex;
     margin: 0;
     justify-content: flex-start;
   }
-
 
   &__btn {
     background-color: #222;
     color: #ccc;
     width: 32px;
     height: 32px;
+    margin-right: 10px;
+    border-radius: 50%;
   }
 
   &__list-text {
-    padding: 0;
+    padding-bottom: 3px;
+    display: flex;
+    flex-direction: row;
+    width: auto;
   }
+}
+.story-content{
+  &__caption{
+    display: none;
+  }
+}
+#fusion-app{
+  overflow-x: hidden;
 }

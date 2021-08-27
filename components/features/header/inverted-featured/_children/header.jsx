@@ -58,6 +58,8 @@ const HeaderChildInverted = ({
   search,
   isStory,
   winningCallLogo,
+  hideMenu,
+  invertedMenu
 }) => {
   const [scrolled, setScrolled] = React.useState(false)
   const [statusSidebar, setStatusSidebar] = React.useState(false)
@@ -189,6 +191,8 @@ const HeaderChildInverted = ({
     }
   }, [_handleScroll])
 
+  // console.log(bandLinks, 'bandLinks')
+
   return (
     <>
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
@@ -272,41 +276,43 @@ const HeaderChildInverted = ({
         </div>
         <div className="layer" />
       </header>
-      <nav className={classes.band}>
-        <div className={classes.bandWrapper}>
-          {tags && <div className={classes.tags}>{tags}</div>}
+      {!hideMenu && (
+        <nav className={classes.band}>
+          <div className={classes.bandWrapper}>
+            {tags && <div className={classes.tags}>{tags}</div>}
 
-          {bandLinks && bandLinks[0] && (
-            <ul className={`${classes.featured}`}>
-              {bandLinks.map(({ url, name, styles = [] }) => (
-                <li
-                  className={`${classes.item}${
-                    styles ? ' header__custom-item' : ''
-                  }`}
-                  key={`band-${url}`}>
-                  <a
-                    itemProp="url"
-                    className={classes.link}
-                    href={url}
-                    {...(styles && {
-                      style: {
-                        backgroundColor: styles[0],
-                        color: styles[1] || '#ffffff',
-                      },
-                    })}>
-                    {name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-          {date.active && (
-            <time className={classes.date} dateTime={date.raw}>
-              {date.value}
-            </time>
-          )}
-        </div>
-      </nav>
+            {bandLinks && bandLinks[0] && (
+              <ul className={`${classes.featured}`}>
+                {bandLinks.map(({ url, name, styles = [] }) => (
+                  <li
+                    className={`${classes.item}${
+                      styles ? ' header__custom-item' : ''
+                    }`}
+                    key={`band-${url}`}>
+                    <a
+                      itemProp="url"
+                      className={classes.link}
+                      href={url}
+                      {...(styles && {
+                        style: {
+                          backgroundColor: styles[0],
+                          color: styles[1] || '#ffffff',
+                        },
+                      })}>
+                      {name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {date.active && (
+              <time className={classes.date} dateTime={date.raw}>
+                {date.value}
+              </time>
+            )}
+          </div>
+        </nav>
+      )}
     </>
   )
 }
