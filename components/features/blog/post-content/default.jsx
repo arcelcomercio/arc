@@ -34,7 +34,7 @@ const BlogPostContent = () => {
           {formatDate && `${day}/${month}/${fullYear} ${hours}:${minutes}`}
         </time>
       </div>
-      <div className={classes.story} id="container">
+      <div className={classes.story} id="contenedor">
         <Ads adElement="inline" isDesktop isMobile={false} isDfp={isDfp} />
         <Ads adElement="movil_video" isDesktop={false} isMobile isDfp={isDfp} />
         <Ads adElement="movil3" isDesktop={false} isMobile isDfp={isDfp} />

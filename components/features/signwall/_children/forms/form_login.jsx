@@ -148,7 +148,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         } else {
           setShowUserWithSubs(true) // tengo subs
           setShowLoadingPremium(false)
-          const divPremium = document.getElementById('container')
+          const divPremium = document.getElementById('contenedor')
           if (divPremium) {
             divPremium.classList.remove('story-content__nota-premium')
             divPremium.removeAttribute('style')
@@ -174,7 +174,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         } else {
           setShowUserWithSubs(true) // tengo subs
           setShowLoadingPremium(false)
-          const divPremium = document.getElementById('container')
+          const divPremium = document.getElementById('contenedor')
           if (divPremium) {
             divPremium.classList.remove('story-content__nota-premium')
             divPremium.removeAttribute('style')
