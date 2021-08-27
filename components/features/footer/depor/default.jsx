@@ -6,6 +6,7 @@ import getProperties from 'fusion:properties'
 import getFooterProperties from '../_dependencies/properties'
 import FooterDeporColumnSection from './_children/FooterSection'
 import FooterInfo from './_children/FooterInfo'
+import customFields from './_dependencies/custom-fields'
 import { getAssetsPath } from '../../../utilities/assets'
 
 const DEFAULT_HIERARCHY = 'footer-default'
@@ -30,7 +31,14 @@ const classes = {
   content: 'footer-secction__content-footer ',
 }
 
-const FooterDepor = () => {
+const FooterDepor = (props) => {
+
+  const {
+    customFields: {
+      newDesign
+    }
+  } = props
+
   const { arcSite, contextPath } = useFusionContext()
 
   const {
@@ -80,6 +88,7 @@ const FooterDepor = () => {
     corporateInfo,
     draftingContact,
     copyrightText,
+    newDesign
   }
   const keyString = 'key0'
   return (
@@ -90,6 +99,10 @@ const FooterDepor = () => {
       </div>
     </footer>
   )
+}
+
+FooterDepor.propTypes = {
+  customFields,
 }
 
 FooterDepor.label = 'Pié de página - Depor'

@@ -22,6 +22,27 @@ $hi-dark: #666;
     height: $header-inverted-height;
   }
 
+  &__menu-full {
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 13px;
+    justify-content: center;
+
+    &__list {
+      display: flex;
+
+      &__item {
+        letter-spacing: -0.14px;
+        font: normal normal normal 14px/17px Encode Sans Condensed Medium;
+        opacity: 1;
+        padding: 0 5px;
+      }
+      &__link{
+        color: #888888;
+      }
+    }
+  }
+
   &.wrapper {
     max-width: 1366px;
   }
@@ -115,6 +136,10 @@ $hi-dark: #666;
     font-family: $hi-font-secondary;
     font-size: 14px;
     color: #333;
+
+    &__inverted{
+      font-weight: 700;
+    }
   }
 
   &__band {
@@ -130,6 +155,11 @@ $hi-dark: #666;
 
     @media (--desktop) {
       display: block;
+    }
+
+    &__inverted{
+      display: flex!important;
+      justify-content: center;
     }
   }
 

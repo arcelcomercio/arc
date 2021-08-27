@@ -11,6 +11,10 @@ import searchQuery from '../../../../utilities/client/search'
 import ShareButtons from '../../../../global-components/lite/share'
 
 const classes = {
+  menuFull: 'header-inverted-featured__menu-full',
+  menuList: 'header-inverted-featured__menu-full__list',
+  menuItem: 'header-inverted-featured__menu-full__list__item',
+  menuItemLink: 'header-inverted-featured__menu-full__list__link',
   header: `header-inverted-featured header`,
   wrapper: `header-inverted-featured__wrapper wrapper`,
   logoContainer: 'header-inverted-featured__logo-container',
@@ -18,8 +22,10 @@ const classes = {
   featured: 'header-inverted-featured__features',
   item: 'header-inverted-featured__item header__item',
   link: 'header-inverted-featured__features-link',
+  linkInverted: 'header-inverted-featured__features-link__inverted',
   bandWrapper: 'header-inverted-featured__band-wrapper',
   band: 'header-inverted-featured__band',
+  bandInverted: 'header-inverted-featured__band__inverted',
   tags: 'header-inverted-featured__tags',
   navBtnContainer: `header-inverted-featured__nav-btn-container`,
   leftBtnContainer: `header-inverted-featured__left-btn-container`,
@@ -191,10 +197,44 @@ const HeaderChildInverted = ({
     }
   }, [_handleScroll])
 
-  // console.log(bandLinks, 'bandLinks')
+  const menu = [
+    { name: 'Covid 19', url: '#' },
+    { name: 'Dólar', url: '#' },
+    { name: 'Coronavirus Perú', url: '#' },
+    { name: 'Vizcarra', url: '#' },
+    { name: 'Horóscopo', url: '#' },
+    { name: 'E-Sports', url: '#' },
+    { name: 'Nombre del Añó', url: '#' },
+    { name: 'Feriados 2021', url: '#' },
+    { name: 'Covid 19', url: '#' },
+    { name: 'Dólar', url: '#' },
+    { name: 'Coronavirus Perú', url: '#' },
+    { name: 'Vizcarra', url: '#' },
+    { name: 'Horóscopo', url: '#' },
+    { name: 'E-Sports', url: '#' },
+  ]
 
   return (
     <>
+      {
+        (invertedMenu) &&
+        (<div className={classes.menuFull}>
+          <ul className={classes.menuList}>
+            {
+              menu.map(({ name, url }, i) => (
+                <li className={classes.menuItem} key={i}>
+                  <a
+                    itemProp="url"
+                    href={url}
+                    className={classes.menuItemLink}>
+                    {name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>)
+      }
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
         <div className={classes.navLoader} />
         <div className={classes.wrapper}>
@@ -277,7 +317,7 @@ const HeaderChildInverted = ({
         <div className="layer" />
       </header>
       {!hideMenu && (
-        <nav className={classes.band}>
+        <nav className={`${classes.band} ${(invertedMenu) && classes.bandInverted}`}>
           <div className={classes.bandWrapper}>
             {tags && <div className={classes.tags}>{tags}</div>}
 
@@ -285,13 +325,12 @@ const HeaderChildInverted = ({
               <ul className={`${classes.featured}`}>
                 {bandLinks.map(({ url, name, styles = [] }) => (
                   <li
-                    className={`${classes.item}${
-                      styles ? ' header__custom-item' : ''
-                    }`}
+                    className={`${classes.item}${styles ? ' header__custom-item' : ''
+                      }`}
                     key={`band-${url}`}>
                     <a
                       itemProp="url"
-                      className={classes.link}
+                      className={`${classes.link} ${(invertedMenu) && classes.linkInverted}`}
                       href={url}
                       {...(styles && {
                         style: {
