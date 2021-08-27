@@ -30,7 +30,25 @@
     U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://cdna.depor.com/resources/dist/depor/fonts/exo-2-v10-latin-700.woff2)
+      format("woff2"),
+    url(https://cdna.depor.com/resources/dist/depor/fonts/exo-2-v10-latin-700.woff)
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
 $primary-font: "Roboto", sans-serif;
+$secondary-font: "Exo 2", sans-serif;
+$regular: 400;
+$medium: 500;
+$bold: 700;
 
 /** ----------------------------*
 *           VARIABLES           *
@@ -65,6 +83,9 @@ $primary-font: "Roboto", sans-serif;
     background: transparent linear-gradient(90deg, #63298a 0%, #1d1a57 100%) 0%
       0% no-repeat padding-box;
     border-bottom: 1px solid #a2cc18;
+    &__container {
+      max-width: inherit;
+    }
     &__link-logo {
       display: none;
       @media (--desktop) {
@@ -230,7 +251,7 @@ $primary-font: "Roboto", sans-serif;
     }
     &__list-nav {
       justify-content: space-evenly;
-      padding: 0 40px;
+      padding: 0 50px;
     }
     &__megamenu {
       background-color: #1d1a57;
@@ -330,16 +351,21 @@ $primary-font: "Roboto", sans-serif;
         background: transparent
           linear-gradient(180deg, #1c1a4300 0%, #1c1a43 100%) 0% 0% no-repeat
           padding-box;
+        border-radius: 6px;
       }
       @media (--only-mobile) {
         padding: 0 10px;
       }
     }
     &__title {
-      font-family: $primary-font;
-      font-weight: 700;
-      font-size: 28px;
+      font-family: $secondary-font;
+      font-weight: $bold;
+      font-size: 22px !important;
       letter-spacing: 0;
+      max-height: fit-content !important;
+      @media (--desktop) {
+        font-size: 28px !important;
+      }
     }
     &__box-detail {
       width: 100% !important;
@@ -351,12 +377,13 @@ $primary-font: "Roboto", sans-serif;
         text-transform: uppercase;
         text-shadow: 0 3px 6px #00000029;
         letter-spacing: 0.48px;
-        font-size: 15px;
+        font-size: 14px;
         font-family: $primary-font;
-        font-weight: 500;
+        font-weight: $medium;
         color: #c3c0f0;
         @media (--desktop) {
           color: #fff;
+          font-size: 15px;
         }
         &::before {
           width: 0;
@@ -372,14 +399,20 @@ $primary-font: "Roboto", sans-serif;
   }
   .featured-story {
     border-radius: 6px;
+    height: 112px;
     @media (--tablet) {
       height: 360px;
+    }
+    &__title {
+      margin-bottom: 0;
+      height: 96px;
     }
     &__icon {
       display: none;
     }
     &__detail {
       flex-direction: column-reverse;
+      padding: 0 20px;
       @media (--desktop) {
         justify-content: space-around;
         height: calc(100% - 200px);
@@ -400,11 +433,12 @@ $primary-font: "Roboto", sans-serif;
     }
     &__title-link {
       color: #333;
-      font-weight: 700;
+      font-weight: $bold;
       letter-spacing: -0.2px;
-      font-family: $primary-font;
+      font-family: $secondary-font;
+      font-size: 17px;
       @media (--desktop) {
-        font-size: 17px;
+        font-size: 20px;
       }
     }
     &__author {
@@ -412,13 +446,19 @@ $primary-font: "Roboto", sans-serif;
     }
     &__category {
       background-color: transparent;
+      padding: 0;
+      align-items: baseline;
+      display: none;
+      @media (--desktop) {
+        display: flex;
+      }
     }
     &__category-link {
       font-family: $primary-font;
       color: #666;
       text-transform: uppercase;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: $medium;
       letter-spacing: 0.45px;
     }
   }
@@ -479,17 +519,20 @@ $primary-font: "Roboto", sans-serif;
     }
     &__title {
       color: #fff;
+      font-weight: $bold;
       font-family: $primary-font;
+      letter-spacing: 0.18px;
       @media (--only-mobile) {
         margin-left: 10px;
         text-align: left !important;
+        letter-spacing: 0.17px;
       }
     }
     &__header-title {
       padding: 20px 0 !important;
       margin-left: 10px;
       @media (--desktop) {
-        margin-left: 27px;
+        margin-left: 27px !important;
       }
       @media (--tablet) {
         margin-left: 20px;
@@ -497,9 +540,9 @@ $primary-font: "Roboto", sans-serif;
     }
     &__header-link {
       font-size: 32px !important;
-      font-family: $primary-font !important;
+      font-family: $secondary-font !important;
       text-transform: uppercase !important;
-      font-weight: 500;
+      font-weight: $bold;
     }
   }
   .footerplay {
@@ -639,5 +682,24 @@ $primary-font: "Roboto", sans-serif;
   }
   .header-full__btn-signwall {
     display: none;
+  }
+  .sht__summary {
+    font-size: 16px;
+    color: #111;
+    @media (--desktop) {
+      font-size: 19px;
+    }
+  }
+  .st-social {
+    display: none;
+  }
+  .sht__title {
+    color: #111;
+    font-weight: $bold;
+    font-family: $secondary-font;
+    font-size: 28px;
+    @media (--desktop) {
+      font-size: 36px;
+    }
   }
 }
