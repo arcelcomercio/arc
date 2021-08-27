@@ -109,7 +109,9 @@ class VideoList extends PureComponent {
       dataList: { content_elements: contentElements = [], next = 0 } = {},
       isLoading,
     } = this.state
-    const { arcSite, contextPath, deployment } = this.props
+    const { globalContent, arcSite, contextPath, deployment } = this.props
+
+    const sectionName = globalContent?.websites[arcSite]?.website_section?.name
     const Story = new StoryData({
       data: {},
       arcSite,
@@ -125,7 +127,7 @@ class VideoList extends PureComponent {
         {showTitle && (
           <div className="video-list__section-title">
             Lo último en&nbsp;
-            <span className="video-list__section-name"> Espectáculos</span>
+            <span className="video-list__section-name"> {sectionName}</span>
             {
               (arcSite === 'trome') && (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="video-list__secction-icon">

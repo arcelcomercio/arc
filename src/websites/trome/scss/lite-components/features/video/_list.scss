@@ -111,9 +111,13 @@
     text-align: left;
     font: normal normal bold 18px/22px Fira Sans;
     letter-spacing: -0.18px;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
   }
   &__btn-container {
-    padding: 35px 0 50px;
+    padding: 0 0 50px;
     display: flex;
     justify-content: center;
     width: 100%;

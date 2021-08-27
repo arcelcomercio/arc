@@ -170,6 +170,10 @@
     line-height: 28px;
     font-size: 18px;
     color: #bbb;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
 
     @media (--desktop) {
       font-size: 20px;

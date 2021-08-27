@@ -15,6 +15,7 @@ interface Props {
 
 const classes = {
   wrapper: 'video-categories-list__section__item__wrapper',
+  imageWrapper: 'video-categories-list__section__item__image_wrapper',
   image: 'video-categories-list__section__item__image',
   duration: 'video-categories-list__section__item__duration',
   title: 'video-categories-list__section__item__title',
@@ -36,12 +37,12 @@ const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
     <div className={classes.wrapper}>
       <a
         itemProp="url"
-        className="play-list__image-box"
+        className={classes.imageWrapper}
         href={Story.websiteLink}>
         <img
           src={Story.multimediaLandscapeMD}
-          width={276}
-          height={155}
+          // width={276}
+          // height={155}
           alt={Story.title}
           className={classes.image}
           // loading="lazy"
@@ -51,25 +52,15 @@ const ItemVideo: FC<Props> = ({ story, arcSite, contextPath, deployment }) => {
 
         {!(
           Story.videoDuration === '00:00' || Story.videoDuration === '00:00:00'
-        ) && 
-           <> 
-              <span className={classes.duration}>{Story.videoDuration}</span>
-              {
-              (arcSite === 'trome') && (
-              <svg
-                  className={classes.play} 
-                  xmlns="http://www.w3.org/2000/svg "
-                  viewBox="0 0 112 112" 
-                > 
-                <path 
-                  className={classes.icon}
-                  d="M39.67,28V84L86.34,56Z"
-                />
-              </svg>
-              )
-              }
-            </>
-          }
+        ) && <span className={classes.duration}>{Story.videoDuration}</span>}
+        {arcSite === 'trome' && (
+          <svg
+            className={classes.play}
+            xmlns="http://www.w3.org/2000/svg "
+            viewBox="0 0 112 112">
+            <path className={classes.icon} d="M39.67,28V84L86.34,56Z" />
+          </svg>
+        )}
       </a>
       <h3 itemProp="name" className={classes.title}>
         <a itemProp="url" href={Story.websiteLink}>
