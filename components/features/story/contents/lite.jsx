@@ -214,7 +214,7 @@ const StoryContentsLite = (props) => {
                 }
               : {}
           }
-          id="container">
+          id="contenedor">
           {!isDfp && (
             <>
               <div id="ads_d_inline" />

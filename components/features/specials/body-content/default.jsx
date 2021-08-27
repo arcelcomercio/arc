@@ -57,7 +57,7 @@ const classes = {
   author: 'body-content__author mx-auto text-black',
 }
 
-const BodyContentSpecial = props => {
+const BodyContentSpecial = (props) => {
   const { customFields: { storyCode = '', hideAuthor = false } = {} } = props
 
   const { arcSite, contextPath, deployment } = useFusionContext()
@@ -170,7 +170,7 @@ const BodyContentSpecial = props => {
 */
 
   return (
-    <div className={classes.content} id="container">
+    <div className={classes.content} id="contenedor">
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
@@ -184,7 +184,7 @@ const BodyContentSpecial = props => {
         <ArcStoryContent
           data={contentPosicionPublicidad}
           elementClasses={classes}
-          renderElement={element => {
+          renderElement={(element) => {
             const {
               type,
               subtype: sub,
