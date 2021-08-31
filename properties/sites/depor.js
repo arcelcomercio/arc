@@ -28,7 +28,7 @@ export default {
     'https://news.google.com/publications/CAAqBwgKMOju9wow0fjXAg?oc=3&ceid=PE:es-419',
   googleNewsImage: 'https://depor.com/f/i/pub_40.png',
   infoPagesDev: {
-    termsAndConditions: '',
+    termsAndConditions: '7TRNBRDN7BAANLXPITU2F3QNI4',
     guidingPrinciples: '',
     privacyPolicies: '',
     integratedManagementPolicy: '',
@@ -36,6 +36,7 @@ export default {
     cookiesPolicy: '',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'SE6T5VHSRVDT3I55I3PXZFESUA',
   },
   infoPagesProd: {
     termsAndConditions: 'GKC4YH3FBZGGJNFEPGO7KMPN7U',
@@ -46,6 +47,7 @@ export default {
     cookiesPolicy: '5ORUCK2RHBCH5CUYD4XIAVLQ2E',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'N3B4R5BZ5BH7TPPOF3JAYWY6UI',
   },
 
   assets: {
