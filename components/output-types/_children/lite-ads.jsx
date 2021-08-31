@@ -370,9 +370,7 @@ const LiteAds = ({
   return (
     <>
       {arcSite === 'depor' &&
-      (section === 'futbol-internacional' ||
-        section === 'futbol-peruano' ||
-        section === 'full-deportes') ? (
+      (section === 'futbol-internacional' || section === 'full-deportes') ? (
         <>
           {!(
             arcSite === 'depor' &&
