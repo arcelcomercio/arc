@@ -797,7 +797,6 @@ const LiteOutput = ({
         />
         {arcSite === SITE_DEPOR &&
         (sectionAds === 'futbol-internacional' ||
-          sectionAds === 'futbol-peruano' ||
           sectionAds === 'full-deportes') ? (
           <script
             defer
