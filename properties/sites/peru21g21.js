@@ -55,6 +55,7 @@ export default {
     cookiesPolicy: 'F5UCK5TMLZBRPN3OFRXIAW6HWY',
     aboutUs: '',
     // frequentQuestions: '2ILZRA4AUBFSXK7JLGGN3SZ2XE',
+    dataTreatment: 'AWQBK6AC2REB7AQEB4PAJLXOLQ',
   },
   infoPagesProd: {
     termsAndConditions: 'WBMYZQNJ4FD7HFCQM5RKK4P7UU',
@@ -65,6 +66,7 @@ export default {
     cookiesPolicy: 'UVEA77IFONATBI6K2HBEVES75Y',
     // aboutUs: 'TSXLSV7JIVCPHHKSPJHZQWLG2I',
     // frequentQuestions: 'SLSILPSVUZBPTCQVL4VL6VBRXA',
+    dataTreatment: 'ZLRTGACMWVFOPPWUHZXLHRA4KU',
   },
 
   legalLinks: [
