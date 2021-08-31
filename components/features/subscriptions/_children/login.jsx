@@ -1,16 +1,17 @@
+import Identity from '@arc-publishing/sdk-identity'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
+import { deleteQuery } from '../../../utilities/parse/queries'
 import { AuthURL } from '../../signwall/_children/forms/control_social'
 import {
   dataTreatment,
   PolicyPrivacy,
 } from '../../signwall/_dependencies/domains'
-import { AuthContext } from '../_context/auth'
-import { NavigateConsumer } from '../_context/navigate'
+import { useAuthContext } from '../_context/auth'
+import { useNavigateContext } from '../_context/navigate'
 import getCodeError, { formatEmail, formatPass } from '../_dependencies/Errors'
 import { PropertiesCommon } from '../_dependencies/Properties'
-import { deleteQuery } from '../_dependencies/QueryString'
 import { Taggeo } from '../_dependencies/Taggeo'
 import { isFbBrowser } from '../_dependencies/Utils'
 import useForm from '../_hooks/useForm'
@@ -37,8 +38,8 @@ const Login = ({
   isFia,
   typeDialog,
 }) => {
-  const { changeTemplate } = React.useContext(NavigateConsumer)
-  const { activateAuth, updateStep } = React.useContext(AuthContext)
+  const { changeTemplate } = useNavigateContext()
+  const { activateAuth, updateStep } = useAuthContext()
   const [loading, setLoading] = React.useState()
   const [msgError, setMsgError] = React.useState()
   const [showVerify, setShowVerify] = React.useState()
@@ -70,12 +71,12 @@ const Login = ({
     if (typeof window !== 'undefined') {
       setLoading(true)
       Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_boton_ingresar`)
-      window.Identity.login(lemail, lpass, {
+      Identity.login(lemail, lpass, {
         rememberMe: true,
         cookie: true,
       })
         .then(() => {
-          window.Identity.getUserProfile().then((resProfile) => {
+          Identity.getUserProfile().then((resProfile) => {
             if (
               !resProfile.emailVerified &&
               resProfile.displayName === resProfile.email
@@ -90,8 +91,8 @@ const Login = ({
               )
               window.localStorage.removeItem('ArcId.USER_INFO')
               window.localStorage.removeItem('ArcId.USER_PROFILE')
-              window.Identity.userProfile = null
-              window.Identity.userIdentity = {}
+              Identity.userProfile = null
+              Identity.userIdentity = {}
             } else {
               activateAuth(resProfile)
               updateStep(2)
@@ -144,7 +145,7 @@ const Login = ({
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(lemail)
+    Identity.requestVerifyEmail(lemail)
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {

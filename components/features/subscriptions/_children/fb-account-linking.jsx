@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
+import Identity from '@arc-publishing/sdk-identity'
 import { useContent } from 'fusion:content'
-import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 import * as React from 'react'
-
-import { PropertiesSite } from '../_dependencies/Properties'
 
 const SIGNER_CONTENT_SOURCE = 'fb-event-signer'
 
@@ -38,8 +36,8 @@ const FbEventTag = React.memo(
 )
 
 export const SubscribeEventTag = ({
-  debug,
-  onBeforeSend,
+  debug = false,
+  onBeforeSend = (i) => i,
   subscriptionId,
   offerCode,
   value,
@@ -66,18 +64,15 @@ SubscribeEventTag.propTypes = {
 
 export const LogIntoAccountEventTag = ({
   subscriptionId,
-  debug,
-  onBeforeSend,
+  debug = false,
+  onBeforeSend = (content) => content,
 }) => {
-  const { arcSite } = useAppContext() || {}
-  const { urls } = PropertiesSite[arcSite]
   const [accessToken, setAccessToken] = React.useState()
 
   React.useEffect(() => {
-    window.Identity.options({ apiOrigin: urls.arcOrigin })
-    window.Identity.isLoggedIn().then((resLog) => {
+    Identity.isLoggedIn().then((resLog) => {
       if (resLog) {
-        window.Identity.extendSession().then(({ accessToken: token }) => {
+        Identity.extendSession().then(({ accessToken: token }) => {
           setAccessToken(token)
         })
       }

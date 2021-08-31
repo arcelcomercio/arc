@@ -1,7 +1,8 @@
+import Identity from '@arc-publishing/sdk-identity'
 import * as React from 'react'
 
 import { MsgForgotPass } from '../../signwall/_children/icons'
-import { NavigateConsumer } from '../_context/navigate'
+import { useNavigateContext } from '../_context/navigate'
 import getCodeError, { formatEmail } from '../_dependencies/Errors'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { Taggeo } from '../_dependencies/Taggeo'
@@ -18,7 +19,7 @@ const styles = {
 }
 
 const Forgot = ({ typeDialog }) => {
-  const { changeTemplate } = React.useContext(NavigateConsumer)
+  const { changeTemplate } = useNavigateContext()
   const [loading, setLoading] = React.useState(false)
   const [msgError, setMsgError] = React.useState(false)
   const [showConfirm, setShowConfirm] = React.useState(false)
@@ -47,7 +48,7 @@ const Forgot = ({ typeDialog }) => {
         `web_sw${typeDialog[0]}_contrasena_boton_recuperar`
       )
       setLoading(true)
-      window.Identity.requestResetPassword(femail)
+      Identity.requestResetPassword(femail)
         .then(() => {
           setShowConfirm(true)
           Taggeo(
@@ -91,7 +92,7 @@ const Forgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(femail)
+    Identity.requestVerifyEmail(femail)
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_contrasena_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {

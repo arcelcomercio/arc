@@ -307,6 +307,9 @@ const PropertiesSite = {
       parrafTwo:          'que marcan el rumbo económico del país.',
       help:               '¿Necesitas ayuda?',
       offer:              '¡Recomendado!',
+      bannerTitle:        '',
+      bannerText:         '',
+      bannerButton:       '',
       footerEnd:          'Paquetes que incluyen diario impreso, disponibles sólo para Lima.',
       bannerNew:          '¡Nuevo!',
       uniTitle:           'Plan Universitario',
@@ -316,6 +319,9 @@ const PropertiesSite = {
       helpTitle:          '¿Necesitas ayuda o tienes dudas?',
       helpSubstitle:      'Comunícate con nosotros',
       helpDescription:    'Consulta nuestra sección de',
+      videoTitle:         '',
+      videoSubtitle:      '',
+      videoDescription:   '',
       backSite:           'Volver a Gestión',
     },
 
@@ -638,12 +644,6 @@ const PropertiesCommon = {
     clubComercio: 'https://clubelcomercio.pe/?home=suscripciones_digitales',
     callCenter:   'tel:+5113115100',
     howItWork:    'https://cip.pagoefectivo.pe/CNT/QueEsPagoEfectivo.aspx'
-  },
-
-  tokens: {
-    paymentTracker: isProd
-      ? '5088cbc5ceb807c702b4e3487173ef792eb50be4'
-      : 'deb904a03a4e31d420a014534514b8cc8ca4d111',
   },
 
   // prettier-ignore

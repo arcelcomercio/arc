@@ -1,17 +1,11 @@
+import { InlinePresets, Presets } from 'types/resizer'
+
 import {
   sizeImg,
   sizeImgNewsLetter,
   sizeImgRelated,
   sizeImgStory,
 } from './image-presets'
-
-export type Preset = {
-  width: number
-  height: number
-}
-export type Presets = Record<string, Preset>
-export type InlinePresets = Presets | string
-export type ResizedUrls = Record<string, string>
 
 /**
  * Transforma la cadena de presets en un objeto para que pueda ser digerido

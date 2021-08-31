@@ -300,14 +300,14 @@
     display: none;
   }
 }
-.nav-mujer{
-  &__item-desk{
+.nav-mujer {
+  &__item-desk {
     display: none;
     @media (--desktop) {
       display: block;
     }
   }
-  &__item-mob{
+  &__item-mob {
     display: block;
     align-self: center;
     @media (--desktop) {
@@ -315,25 +315,24 @@
     }
   }
 }
-.nav-region{
+.nav-region {
   display: block;
+  margin-left: 25px;
   @media (--desktop) {
     display: none;
   }
-  &:focus{
+  &:focus {
     outline: none;
   }
-  &__link{
+  &__link {
     display: flex;
-    color: #FFF;
+    color: #fff;
     padding: initial;
-    &:focus{
+    &:focus {
       outline: none;
     }
   }
-  &__icon{
+  &__icon {
     filter: invert(1);
   }
-
 }
-

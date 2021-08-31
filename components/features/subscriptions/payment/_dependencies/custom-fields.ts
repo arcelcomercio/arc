@@ -11,6 +11,10 @@ const customFields = PropTypes.shape({
     group: 'Pago Efectivo',
     defaultValue: undefined,
   }),
+  disableInlineFooter: PropTypes.bool.tag({
+    name: 'Deshabilitar footer interno',
+    defaultValue: false,
+  }),
 })
 
 export default customFields

@@ -23,6 +23,7 @@ const useSentry = (dsn: string): UseSentryValue => {
         debug: env !== PROD,
         release: `arc-deployment@${deployment}`,
         environment: env,
+        denyUrls: [/delivery\.adrecover\.com/, /analytics/, /facebook/],
       })
       Sentry.configureScope((scope) => {
         scope.setTag('brand', arcSite)

@@ -1,17 +1,15 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
-import UtilListKey from '../../../utilities/list-keys'
-import { separatorBasicFields } from '../../../utilities/included-fields'
 import { getAssetsPath } from '../../../utilities/assets'
-
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
+import { separatorBasicFields } from '../../../utilities/included-fields'
+import UtilListKey from '../../../utilities/list-keys'
+import StoryData from '../../../utilities/story-data'
 import StorySeparatorChildItem from './_children/item'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
   storyInterest: 'story-interest w-full h-auto pr-20 pl-20',
@@ -23,7 +21,7 @@ const classes = {
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
-const InterestByTag = props => {
+const InterestByTag = (props) => {
   const {
     customFields: {
       tagToFetch = '',
@@ -70,9 +68,7 @@ const InterestByTag = props => {
   let key = 0
 
   const dataInterest = storyData
-    .map(story => {
-      return story && story._id !== excluir ? story : ''
-    })
+    .map((story) => (story && story._id !== excluir ? story : ''))
     .filter(String)
 
   const {
