@@ -114,7 +114,9 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-peru21/ads-fia-28253241-p21_ia_interna5-300x250-div-gpt-ad-8599377-35.html',
   ],
   activeSignwall: true,
+  activeVerifyEmail: true,
   activeDataTreatment: true,
+  activePhoneRegister: true,
   signwall: {
     mainColorBg: '#0c70bf',
     mainColorTxt: '#ffffff',
