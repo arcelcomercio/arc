@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { useAppContext } from 'fusion:context'
 import Static from 'fusion:static'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import { sectionBlockAsyncScrip } from './_dependencies/scripts'
 
@@ -60,7 +60,8 @@ const GridSectionColumns = ({
               arcSite,
               deployment
             ),
-          }}></script>
+          }}
+        />
       </div>
     </Static>
   )
