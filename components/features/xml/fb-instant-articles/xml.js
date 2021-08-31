@@ -122,6 +122,7 @@ class XmlFacebookInstantArticles {
         fbArticleStyle = '',
         listUrlAdvertisings = [],
         ids: { opta },
+        jwplayers,
       } = {},
     } = this.props
 
@@ -262,6 +263,7 @@ class XmlFacebookInstantArticles {
                 contentElementGallery: storyData.contentElementGallery,
                 promoItemJwplayer: storyData.promoItemJwplayer,
                 tags: storyData.tags,
+                jwplayers,
               }
               const today = new Date()
               const localTime = new Date(today.setHours(today.getHours() - 5))

@@ -1,12 +1,16 @@
+import Identity from '@arc-publishing/sdk-identity'
+import Sales from '@arc-publishing/sdk-sales'
 import Consumer from 'fusion:consumer'
 import React, { Component } from 'react'
 
-import addScriptAsync from '../../../../../../utilities/script-async'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../../../../utilities/constants/sitenames'
 import Loading from '../../../../../signwall/_children/loading'
 import {
   getListBundle,
   getOriginAPI,
-  getScriptSales,
   getUrlPaywall,
 } from '../../../../../signwall/_dependencies/domains'
 import { Taggeo } from '../../../../_dependencies/Taggeo'
@@ -35,50 +39,24 @@ class Subs extends Component {
   componentDidMount() {
     this._isMounted = true
     if (typeof window !== 'undefined') {
-      window.Identity.options({ apiOrigin: this.origin_api })
-      window.Identity.extendSession().then(() => {
-        if (!window.Sales) {
-          addScriptAsync({
-            name: 'sdkSalesARC',
-            url: getScriptSales,
-          }).then(() => {
-            this.getListSubs().then((p) => {
-              setTimeout(() => {
-                if (p.length && this._isMounted) {
-                  this.setState({
-                    userSubsDetail: p,
-                    isSubs: true,
-                    isLoad: false,
-                  })
-                } else if (this._isMounted) {
-                  this.setState({
-                    isSubs: false,
-                    isLoad: false,
-                  })
-                }
-              }, 2000)
-            })
-            this.getCampain()
-          })
-        } else {
-          this.getListSubs().then((p) => {
-            setTimeout(() => {
-              if (p.length && this._isMounted) {
-                this.setState({
-                  userSubsDetail: p,
-                  isSubs: true,
-                  isLoad: false,
-                })
-              } else if (this._isMounted) {
-                this.setState({
-                  isSubs: false,
-                  isLoad: false,
-                })
-              }
-            }, 2000)
-          })
-          this.getCampain()
-        }
+      Identity.extendSession().then(() => {
+        this.getListSubs().then((p) => {
+          setTimeout(() => {
+            if (p.length && this._isMounted) {
+              this.setState({
+                userSubsDetail: p,
+                isSubs: true,
+                isLoad: false,
+              })
+            } else if (this._isMounted) {
+              this.setState({
+                isSubs: false,
+                isLoad: false,
+              })
+            }
+          }, 2000)
+        })
+        this.getCampain()
       })
     }
   }
@@ -89,37 +67,33 @@ class Subs extends Component {
 
   getListSubs = () => {
     this._isMounted = true
-    if (typeof window !== 'undefined') {
-      window.Sales.options({ apiOrigin: this.origin_api })
-      return window.Sales.getAllActiveSubscriptions()
-        .then((res) => {
-          let count = 0
-          const newaray = []
-          let p = Promise.resolve()
-          for (let i = 0; i < res.length; i++) {
-            if (res[i].subscriptionID) {
-              count += 1
-              p = p.then(() => {
-                window.Sales.getSubscriptionDetails(res[i].subscriptionID)
-                  .then((resDetail) => {
-                    newaray.push(resDetail)
-                  })
-                  .catch(window.console.error)
-              })
-            }
-          }
-
-          if (count === 0 && this._isMounted) {
-            this.setState({
-              isSubs: false,
+    return Sales.getAllActiveSubscriptions()
+      .then((res) => {
+        let count = 0
+        const newaray = []
+        let p = Promise.resolve()
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].subscriptionID) {
+            count += 1
+            p = p.then(() => {
+              Sales.getSubscriptionDetails(res[i].subscriptionID)
+                .then((resDetail) => {
+                  newaray.push(resDetail)
+                })
+                .catch(window.console.error)
             })
           }
+        }
 
-          return p.then(() => newaray)
-        })
-        .catch((err) => window.console.error(err))
-    }
-    return null
+        if (count === 0 && this._isMounted) {
+          this.setState({
+            isSubs: false,
+          })
+        }
+
+        return p.then(() => newaray)
+      })
+      .catch((err) => window.console.error(err))
   }
 
   getCampain() {
@@ -128,22 +102,17 @@ class Subs extends Component {
 
     fetched.then((resCam) => {
       if (this._isMounted && typeof resCam === 'object') {
-        const getPLanSelected = resCam.plans.reduce(
-          (prev, plan) => (plan.description.checked ? plan : prev),
-          {}
+        const selectedPlan = resCam.plans.find(
+          (plan) => plan.description.checked
         )
+
+        const { amount, description } = selectedPlan || {}
 
         this.setState({
           paywallName: resCam.name || 'Plan',
-          paywallPrice: getPLanSelected.amount || '-',
-          paywallTitle:
-            (getPLanSelected.description &&
-              getPLanSelected.description.title) ||
-            '-',
-          paywallDesc:
-            (getPLanSelected.description &&
-              getPLanSelected.description.description) ||
-            '-',
+          paywallPrice: amount || '-',
+          paywallTitle: description?.title || '-',
+          paywallDesc: description?.description || '-',
         })
       }
     })
@@ -272,7 +241,7 @@ class Subs extends Component {
               </>
             ) : (
               <>
-                {(arcSite === 'gestion' || arcSite === 'elcomercio') && (
+                {(arcSite === SITE_GESTION || arcSite === SITE_ELCOMERCIO) && (
                   <div className="sign-profile_general-resume-dates">
                     <div className="title-dates">
                       <h2 className="title">Mi suscripción</h2>

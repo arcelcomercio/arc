@@ -1,288 +1,6 @@
 // @import "../base/responsive";
 
 .sign-profile {
-  &_header {
-    &-wrapper {
-      background: gray;
-      color: white;
-      position: relative;
-      width: 100%;
-      &.border-trome {
-        box-shadow: 0 0 0 5px black;
-      }
-    }
-    &-back {
-      background: transparent;
-      border: 0;
-      color: white;
-      width: 25%;
-      cursor: pointer;
-      height: 50px;
-      line-height: 20px;
-      display: inline-block;
-      vertical-align: top;
-      padding: 0 0 0 15px;
-      margin: 0;
-      text-align: left;
-
-      @media (--subs-desktop) {
-        padding: 0;
-      }
-      & > span {
-        text-decoration: underline;
-        margin-left: 20px;
-        font-size: 14px;
-        display: none;
-        @media (--subs-tabletl) {
-          display: inline-block;
-        }
-      }
-    }
-    &-content {
-      max-width: 1120px;
-      width: 100%;
-      margin: 0 auto;
-      height: 50px;
-      box-sizing: border-box;
-    }
-    &-close {
-      color: #eee;
-      width: 35px;
-      cursor: pointer;
-      height: 35px;
-      line-height: 20px;
-      vertical-align: top;
-      float: right;
-      margin: 10px 10px 0 0;
-    }
-    &-logo {
-      width: 50%;
-      display: inline-block;
-      text-align: center;
-      height: 50px;
-      line-height: 65px;
-
-      & > .cont {
-        height: 50px;
-        padding: 5px 10px;
-        margin: 0 auto;
-        & > img {
-          max-width: 160px;
-          height: auto;
-        }
-      }
-
-      & > .cont_left {
-        position: absolute;
-        left: 0;
-      }
-
-      & > .cont_depor {
-        background-color: #d5d745;
-        -webkit-transform: skew(-13deg);
-        transform: skew(-13deg);
-        max-width: 120px;
-        & > img {
-          -webkit-transform: skew(13deg);
-          transform: skew(13deg);
-        }
-      }
-
-      & > .cont_elcomercio {
-        display: inline;
-      }
-
-      & > .cont_gestion {
-        display: inline;
-        & > img {
-          max-width: 140px;
-        }
-      }
-
-      & > .cont_trome {
-        padding: 0 0;
-        & > img {
-          max-width: 180px;
-        }
-      }
-
-      & > .cont_elbocon {
-        padding: 0 0;
-        & > img {
-          max-width: 138px;
-        }
-      }
-
-      & > .cont_peru21 {
-        display: inline;
-        & > img {
-          max-width: 120px;
-        }
-      }
-
-      & > .cont_peru21g21 {
-        & > img {
-          max-width: 58px;
-        }
-      }
-
-      & > .cont_diariocorreo {
-        padding: 0 0;
-        & > img {
-          max-width: 43px;
-        }
-      }
-
-      & > .cont_elcomerciomag {
-        & > img {
-          max-width: 86px;
-        }
-      }
-
-      & > .cont_ojo {
-        display: inline;
-        & > img {
-          max-width: 68px;
-        }
-      }
-    }
-  }
-  &_menu {
-    &-wrapper {
-      background: transparent;
-      position: relative;
-      padding: 10px 20px 0 20px;
-      margin-top: -80px;
-      z-index: 0;
-      @media (--subs-tabletl) {
-        border-radius: 4px;
-        box-shadow: 0 0 0.3rem #dadada;
-        background: white;
-        padding: 80px 20px 20px 20px;
-        margin-top: -60px;
-      }
-
-      @media (--subs-desktop) {
-        padding: 80px 40px 20px 40px;
-      }
-
-      & .hello {
-        color: #000;
-        font-size: 20px;
-        line-height: 27px;
-        margin-bottom: 10px;
-        font-weight: normal;
-        text-transform: capitalize;
-      }
-      & .welcome {
-        color: #000;
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
-      & .cont-menu {
-        position: relative;
-        overflow: hidden;
-        @media (--subs-mobile) {
-          background: #fbfbfb;
-          margin-left: -20px;
-          margin-right: -20px;
-          &:before,
-          &:after {
-            content: "";
-            position: absolute;
-            width: 1em;
-            height: 100%;
-            top: 0;
-            z-index: 1;
-          }
-          &:before {
-            left: 0;
-            background: linear-gradient(
-              to right,
-              #bbb 5%,
-              rgba(255, 255, 255, 0) 100%
-            );
-          }
-          &:after {
-            right: 0;
-            background: linear-gradient(
-              to left,
-              #bbb 5%,
-              rgba(255, 255, 255, 0) 100%
-            );
-          }
-          & > ul {
-            overflow-x: scroll;
-            white-space: nowrap;
-          }
-        }
-
-        & > ul > li {
-          display: inline-block;
-          vertical-align: top;
-          padding: 16px 15px;
-          border-top: 1px solid #e8e8e8;
-          @media (--subs-mobile) {
-            &:first-child {
-              padding-left: 40px;
-            }
-            &:last-child {
-              padding-right: 40px;
-            }
-          }
-
-          @media (--subs-tabletl) {
-            padding: 16px 0;
-            display: block;
-          }
-        }
-        & > ul > li > a,
-        & > ul > li > button {
-          color: steelblue;
-          font-size: 14px;
-          font-weight: bold;
-          text-decoration: none;
-          cursor: pointer;
-        }
-        & .close-sesion {
-          color: #bbb;
-          font-weight: bold;
-          font-size: 12px;
-        }
-      }
-    }
-    &-avatar {
-      border-radius: 50%;
-      position: relative;
-      border: 5px solid gray;
-      max-width: 90px;
-      min-height: 90px;
-      width: 100%;
-      line-height: 0px;
-      margin: 0% 0% 0% 70%;
-      background: #ccc;
-      z-index: 1;
-
-      .picture {
-        width: 100%;
-        border-radius: 50%;
-      }
-
-      @media (--subs-tabletl) {
-        border: 10px solid gray;
-        max-width: 120px;
-        min-height: 120px;
-        margin: 0 auto;
-      }
-
-      @media (--subs-desktop) {
-        max-width: 160px;
-        min-height: 160px;
-        margin: 0 auto;
-      }
-    }
-  }
   &_resume {
     position: relative;
     width: 100%;
@@ -340,6 +58,7 @@
     & .column {
       width: 100%;
       column-count: 1;
+      padding: 20px;
     }
 
     & .right {
@@ -349,7 +68,6 @@
       background: #f4f4f4;
       line-height: 30px;
       font-size: 14px;
-      padding: 10px 20px;
       border-radius: 4px;
       color: black;
       @media (--subs-tabletl) {
@@ -435,6 +153,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
+        padding: 10px;
       }
 
       & .item,
@@ -963,24 +682,25 @@
   &_general {
     &-wrapper {
       position: relative;
-      width: 100%;
       background: #fff;
       border-radius: 4px;
-      box-shadow: 0 0 0.3rem #dadada;
-      margin-left: 0;
-      padding: 20px 10px;
+      box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+      margin: 10px;
+      padding: 20px;
+
       @media (--subs-tabletp) {
+        width: 100%;
         padding: 25px 50px;
       }
       @media (--subs-tabletl) {
-        margin-left: 10px;
+        margin: 0 0 0 10px;
         width: calc(100% - 10px);
-        padding: 15px 20px;
+        padding: 20px;
       }
       @media (--subs-desktop) {
-        margin-left: 20px;
+        margin: 0 0 0 20px;
         width: calc(100% - 20px);
-        padding: 30px 30px;
+        padding: 30px;
       }
 
       & .block-resume {
@@ -1273,13 +993,15 @@
         .first-subs {
           background: #444;
           color: white;
-          padding: 40px 25px;
+          padding: 30px 25px;
           width: 100%;
           box-sizing: border-box;
           font-size: 12px;
           line-height: 20px;
           min-height: auto;
           border-radius: 8px 8px 0 0;
+          text-align: center;
+
           @media (--subs-desktop) {
             border-radius: 8px 0 0 8px;
             min-height: 150px;
@@ -1287,7 +1009,7 @@
           }
         }
         .last-subs {
-          padding: 30px 40px;
+          padding: 30px;
           width: 100%;
           box-sizing: border-box;
           text-align: center;
@@ -1300,7 +1022,7 @@
             color: white;
             padding: 10px;
             border-radius: 5px;
-            margin-top: 18px;
+            margin-top: 10px;
             border: 0;
             cursor: pointer;
           }

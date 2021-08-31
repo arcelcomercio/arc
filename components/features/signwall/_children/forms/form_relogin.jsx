@@ -1,21 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import Identity from '@arc-publishing/sdk-identity'
 import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
-import { setCookie } from '../../../subscriptions/_dependencies/Cookies'
+import { setCookie } from '../../../../utilities/client/cookies'
+import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
   formatPass,
 } from '../../../subscriptions/_dependencies/Errors'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import {
-  dataTreatment,
-  getOriginAPI,
-  PolicyPrivacy,
-} from '../../_dependencies/domains'
+import { dataTreatment, PolicyPrivacy } from '../../_dependencies/domains'
 import { CheckBox } from './control_checkbox'
 import { Input } from './control_input_select'
 import { AuthURL, ButtonSocial } from './control_social'
@@ -31,7 +28,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
     },
   } = useAppContext() || {}
 
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalContext()
   const [showError, setShowError] = React.useState(false)
   const [showLoading, setShowLoading] = React.useState(false)
   const [showVerify, setShowVerify] = React.useState()
@@ -64,14 +61,12 @@ const FormRelogin = ({ onClose, typeDialog }) => {
 
   const onSubmitForm = ({ remail, rpass }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.login(remail, rpass, {
+    Identity.login(remail, rpass, {
       rememberMe: true,
       cookie: true,
     })
       .then(() => {
-        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-        window.Identity.getUserProfile().then((profile) => {
+        Identity.getUserProfile().then((profile) => {
           if (
             activeVerifyEmail &&
             !profile.emailVerified &&
@@ -86,8 +81,8 @@ const FormRelogin = ({ onClose, typeDialog }) => {
             )
             window.localStorage.removeItem('ArcId.USER_INFO')
             window.localStorage.removeItem('ArcId.USER_PROFILE')
-            window.Identity.userProfile = null
-            window.Identity.userIdentity = {}
+            Identity.userProfile = null
+            Identity.userIdentity = {}
           } else {
             setCookie('arc_e_id', sha256(profile.email).toString(), 365)
             Taggeo(
@@ -125,7 +120,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    window.Identity.requestVerifyEmail(remail)
+    Identity.requestVerifyEmail(remail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_email_login_reenviar_correo`

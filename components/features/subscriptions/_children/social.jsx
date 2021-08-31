@@ -1,7 +1,8 @@
+import Identity from '@arc-publishing/sdk-identity'
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import { AuthContext } from '../_context/auth'
+import { useAuthContext } from '../_context/auth'
 import getDevice from '../_dependencies/GetDevice'
 import { PropertiesCommon, PropertiesSite } from '../_dependencies/Properties'
 import { loginSocialEco, sendNewsLettersUser } from '../_dependencies/Services'
@@ -22,7 +23,7 @@ const ButtonSocial = ({
 }) => {
   const [loading, setLoading] = React.useState(false)
   const [loadText, setLoadText] = React.useState('Cargando...')
-  const { activateAuth, updateStep } = React.useContext(AuthContext)
+  const { activateAuth, updateStep } = useAuthContext()
   const { urls } = PropertiesCommon
   const { urls: urlSite } = PropertiesSite[arcSite]
 
@@ -31,8 +32,7 @@ const ButtonSocial = ({
   const setupUserProfile = () => {
     if (typeof window !== 'undefined') {
       setLoadText('Cargando Perfil...')
-      window.Identity.options({ apiOrigin: urlSite.arcOrigin })
-      window.Identity.getUserProfile()
+      Identity.getUserProfile()
         .then((resProfile) => {
           const userEmail =
             resProfile.email ||
@@ -90,7 +90,7 @@ const ButtonSocial = ({
               ],
             }
             setLoadText('Actualizando Perfil...')
-            window.Identity.updateUserProfile(newProfileFB)
+            Identity.updateUserProfile(newProfileFB)
               .then((resUpdateProfile) => {
                 if (userEmail.indexOf('facebook.com') < 0) {
                   setLoadText('Cargando Servicios...')
@@ -99,7 +99,7 @@ const ButtonSocial = ({
                     resUpdateProfile.uuid,
                     userEmail,
                     arcSite,
-                    window.Identity.userIdentity.accessToken,
+                    Identity.userIdentity.accessToken,
                     ['general']
                   )
                     .then(() => {
@@ -152,7 +152,7 @@ const ButtonSocial = ({
 
   const authSocialProvider = ({ data, origin }) => {
     if (typeof window !== 'undefined') {
-      if (origin !== urls.ecoID || window.Identity.userIdentity.uuid) {
+      if (origin !== urls.ecoID || Identity.userIdentity.uuid) {
         setLoading(false)
         return
       }
@@ -167,7 +167,7 @@ const ButtonSocial = ({
         .then((resloginSocialEco) => {
           if (resloginSocialEco.accessToken) {
             setLocaleStorage('ArcId.USER_INFO', resloginSocialEco)
-            window.Identity.userIdentity = resloginSocialEco
+            Identity.userIdentity = resloginSocialEco
             setupUserProfile()
           } else {
             if (resloginSocialEco.code && resloginSocialEco.code === '130051') {

@@ -39,6 +39,13 @@ export const getIsStory = (): boolean => {
   )
 }
 
+export const getSectionPath = (): string => {
+  const { requestUri } = useAppContext()
+  const path = requestUri.replace('/carga-continua', '').split('?')[0]
+  const sectionList = path.split('/').slice(1)
+  return sectionList[0]
+}
+
 export const skipAdvertising = (data: { slug: string }[] = []): boolean =>
   data.some(({ slug }) => slug === 'noads')
 
@@ -104,7 +111,7 @@ export const getDescription = ({
   pageNumber,
   isStory,
 }: GetDescriptionProps): string => {
-  const { requestUri, arcSite, globalContent } = useAppContext<Story>()
+  const { requestUri, globalContent } = useAppContext<Story>()
   let description = `Últimas noticias, fotos, y videos de Perú y el mundo en ${siteName}.`
   const metaDescription = getMetaValue('description')
 
@@ -127,7 +134,7 @@ export const getDescription = ({
       }
     }
   }
-  if (isStory && arcSite === 'elcomercio') {
+  if (isStory) {
     description = globalContent?.description?.basic || metaDescription || ''
   }
 

@@ -100,7 +100,7 @@ const AmpOutputType = ({
       ? `${metaValue('description')} `
       : 'Últimas noticias en Perú y el mundo'
 
-  if (isStory && arcSite === 'elcomercio') {
+  if (isStory) {
     description =
       globalContent?.description?.basic ||
       (metaValue('description') && !metaValue('description').includes('content')
