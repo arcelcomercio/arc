@@ -85,6 +85,18 @@ function isLoggedIn(): boolean {
   return false
 }
 
+// @deprecated Usar `isLoggedIn()` en su lugar
+// function checkSession(): boolean {
+//   if (isClientSide) {
+//     const userProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
+//     const userInfo = window.localStorage.getItem('ArcId.USER_INFO')
+//     if (userProfile) {
+//       return !(userProfile === 'null' || userInfo === '{}') || false
+//     }
+//   }
+//   return false
+// }
+
 /**
  * @param username Nombre del usuario completo
  * @param length Cantidad de caracteres máxima (80 por defecto)

@@ -108,8 +108,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   }
 
   function getPremium() {
-    const isLogged = isLoggedIn()
-    if (!isLogged) {
+    if (!isLoggedIn()) {
       setActiveWall(Walls.Premium)
     } else {
       return getListSubs()
@@ -132,7 +131,6 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
 
   function getPaywall() {
     const W = window || {}
-    const isLogged = isLoggedIn()
 
     const iOS = /iPad|iPhone|iPod/.test(W.navigator.userAgent) && !W.MSStream
     const dataContTyp = W.document.head.querySelector(
@@ -159,6 +157,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
       W.ArcP.run({
         paywallFunction: (campaignURL: string) => {
           if (countOnly) return
+          const isLogged = isLoggedIn()
           if (/signwallHard/.test(campaignURL) && !isLogged) {
             redirectURL('signwallHard', '1')
           } else if (/signwallPaywall/.test(campaignURL) && isLogged) {
@@ -182,7 +181,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
         customSubCheck: () => {
           if (Identity.userIdentity.accessToken) {
             return getListSubs().then((p) => ({
-              s: isLogged,
+              s: isLoggedIn(),
               p: p || null,
               timeTaken: 100,
               updated: Date.now(),
@@ -198,7 +197,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
         customRegCheck: () => {
           const start = Date.now()
           return Promise.resolve({
-            l: isLogged,
+            l: isLoggedIn(),
             timeTaken: Date.now() - start,
             updated: Date.now(),
           })
@@ -270,10 +269,10 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
 
   React.useEffect(() => {
     if (activeSignwall) {
-      if (!isLoggedIn()) checkCookieHash()
-
       const reloginEmail = getQuery('reloginEmail')
       if (reloginEmail) redirectURL('reloginEmail', reloginEmail)
+
+      if (!isLoggedIn()) checkCookieHash()
     }
   }, [])
 

@@ -14,6 +14,7 @@ import {
 } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import { getQuery } from '../../../utilities/parse/queries'
+import { isLoggedIn } from '../../../utilities/subscriptions/identity'
 import {
   getOriginAPI,
   getUrlLandingAuth,
@@ -60,17 +61,6 @@ const SignwallComponent = () => {
     })
   }
 
-  function checkSession() {
-    if (typeof window !== 'undefined') {
-      const profileStorage = window.localStorage.getItem('ArcId.USER_PROFILE')
-      const sesionStorage = window.localStorage.getItem('ArcId.USER_INFO')
-      if (profileStorage) {
-        return !(profileStorage === 'null' || sesionStorage === '{}') || false
-      }
-    }
-    return false
-  }
-
   function unblockContent() {
     const divPremium = document.getElementById('contenedor')
     if (divPremium) {
@@ -86,7 +76,7 @@ const SignwallComponent = () => {
   }
 
   function getPremium() {
-    if (!checkSession()) {
+    if (!isLoggedIn()) {
       window.showArcP = true
       setActiveWall(Walls.Premium)
     } else {
@@ -148,9 +138,10 @@ const SignwallComponent = () => {
     } else if (W.ArcP) {
       W.ArcP.run({
         paywallFunction: (campaignURL: string) => {
-          if (/signwallHard/.test(campaignURL) && !checkSession()) {
+          const isLogged = isLoggedIn()
+          if (/signwallHard/.test(campaignURL) && !isLogged) {
             W.location.href = getUrlSignwall(arcSite, 'signwallHard', '1')
-          } else if (/signwallPaywall/.test(campaignURL) && checkSession()) {
+          } else if (/signwallPaywall/.test(campaignURL) && isLogged) {
             setActiveWall(Walls.Paywall)
           }
         },
@@ -170,15 +161,12 @@ const SignwallComponent = () => {
         apiOrigin: URL_ORIGIN,
         customSubCheck: () => {
           if (Identity.userIdentity.accessToken) {
-            return getListSubs().then((p) => {
-              const isLoggedInSubs = checkSession()
-              return {
-                s: isLoggedInSubs,
-                p: p || null,
-                timeTaken: 100,
-                updated: Date.now(),
-              }
-            })
+            return getListSubs().then((p) => ({
+              s: isLoggedIn(),
+              p: p || null,
+              timeTaken: 100,
+              updated: Date.now(),
+            }))
           }
           return {
             s: false,
@@ -189,9 +177,8 @@ const SignwallComponent = () => {
         },
         customRegCheck: () => {
           const start = Date.now()
-          const isLoggedIn = checkSession()
           return Promise.resolve({
-            l: isLoggedIn,
+            l: isLoggedIn(),
             timeTaken: Date.now() - start,
             updated: Date.now(),
           })
@@ -220,7 +207,6 @@ const SignwallComponent = () => {
     const dataContType = window.document.head.querySelector(
       'meta[name="content-type"]'
     )
-
     if (getCookie('arc_e_id') && dataContType && activePaywall) {
       redirectURL('reloginHash', '1')
     }
@@ -263,7 +249,7 @@ const SignwallComponent = () => {
         const reloginEmail = getQuery('reloginEmail')
         if (reloginEmail) redirectURL('reloginEmail', reloginEmail)
 
-        if (!checkSession()) checkCookieHash()
+        if (!isLoggedIn()) checkCookieHash()
       })
     }
   }, [])
