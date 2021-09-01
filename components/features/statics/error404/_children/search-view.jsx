@@ -60,6 +60,10 @@ const SearchView = ({ customFields }) => {
             window.lazyLoadInstance.update()
           }
         })
+        .catch((e) => {
+          console.log(e)
+          setIsSearchListLoading(false)
+        })
     }
     setIsLoading(false)
   }, [])
