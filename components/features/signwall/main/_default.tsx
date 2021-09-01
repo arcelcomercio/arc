@@ -13,27 +13,52 @@ import {
   setCookie,
 } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
+import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
-import { isLoggedIn } from '../../../utilities/subscriptions/identity'
+import {
+  getUsername,
+  getUsernameInitials,
+  isLoggedIn,
+} from '../../../utilities/subscriptions/identity'
+import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
 import {
   getOriginAPI,
   getUrlLandingAuth,
+  getUrlProfile,
   getUrlSignwall,
 } from '../_dependencies/domains'
 import { getEntitlement } from '../_dependencies/services'
 import { Paywall as PaywallModal } from './_children/paywall'
 import { Premium as PremiumModal } from './_children/premium'
 
+export interface SignwallDefaultProps {
+  classButton: string
+  countOnly: boolean
+}
+
 enum Walls {
   Paywall = 'paywall',
   Premium = 'premium',
 }
 
-const SignwallComponent = () => {
-  const [activeWall, setActiveWall] = React.useState<Walls | null>()
+const classes = {
+  iconLogin: 'nav__icon icon-user  title-sm text-primary-color',
+}
 
+const SignwallComponent: FC<SignwallDefaultProps> = ({
+  classButton = '',
+  countOnly = false,
+}) => {
   const { arcSite } = useAppContext()
-  const { activeSignwall, activePaywall } = getProperties(arcSite)
+  const { activeSignwall, activePaywall, activeRulesCounter } = getProperties(
+    arcSite
+  )
+
+  const [activeWall, setActiveWall] = React.useState<Walls | null>()
+  const [user, setUser] = React.useState({
+    name: '',
+    initials: '',
+  })
 
   function getListSubs() {
     const apiOrigin = getOriginAPI(arcSite)
@@ -67,28 +92,29 @@ const SignwallComponent = () => {
       divPremium.classList.remove('story-content__nota-premium')
       divPremium.removeAttribute('style')
     }
-    const parallaxBannerDiv = document.querySelector<HTMLElement>(
-      '.story-subs-call'
-    )
-    if (parallaxBannerDiv) {
-      parallaxBannerDiv.style.display = 'none'
-    }
+  }
+
+  function redirectURL(
+    typeDialog:
+      | 'tokenVerify'
+      | 'tokenReset'
+      | 'reloginEmail'
+      | 'reloginHash'
+      | 'signwallOrganic'
+      | 'signwallHard',
+    hash: string
+  ) {
+    window.location.href = getUrlSignwall(arcSite, typeDialog, hash)
   }
 
   function getPremium() {
     if (!isLoggedIn()) {
-      window.showArcP = true
       setActiveWall(Walls.Premium)
     } else {
       return getListSubs()
         .then((p) => {
+          // no tengo subs -> muestra valla
           if (p && p.length === 0) {
-            // no tengo subs -> muestra valla
-            window.showArcP = true
-            window.top.postMessage(
-              { id: 'iframe_paywall' },
-              window.location.origin
-            )
             setActiveWall(Walls.Premium)
           } else {
             // tengo subs
@@ -100,7 +126,6 @@ const SignwallComponent = () => {
           window.console.error(err)
         })
     }
-
     return false
   }
 
@@ -123,13 +148,6 @@ const SignwallComponent = () => {
     if (iOS && getQuery('surface') === 'meter_limit_reached') {
       const artURL = decodeURIComponent(getQuery('article_url') || '')
       W.sessionStorage.setItem('paywall_last_url', artURL)
-      W.postMessage(
-        {
-          id: 'iframe_signwall',
-          redirectUrl: getUrlLandingAuth(arcSite),
-        },
-        W.location.origin
-      )
       W.location.href = getUrlLandingAuth(arcSite)
     }
 
@@ -138,9 +156,10 @@ const SignwallComponent = () => {
     } else if (W.ArcP) {
       W.ArcP.run({
         paywallFunction: (campaignURL: string) => {
+          if (countOnly) return
           const isLogged = isLoggedIn()
           if (/signwallHard/.test(campaignURL) && !isLogged) {
-            W.location.href = getUrlSignwall(arcSite, 'signwallHard', '1')
+            redirectURL('signwallHard', '1')
           } else if (/signwallPaywall/.test(campaignURL) && isLogged) {
             setActiveWall(Walls.Paywall)
           }
@@ -187,21 +206,6 @@ const SignwallComponent = () => {
     }
   }
 
-  function redirectURL(
-    typeDialog: 'tokenVerify' | 'tokenReset' | 'reloginEmail' | 'reloginHash',
-    hash: string
-  ) {
-    const urlSignwall = getUrlSignwall(arcSite, typeDialog, hash)
-    const messageId =
-      typeDialog === 'reloginHash' ? 'iframe_relogin' : 'iframe_signwall'
-
-    window.top.postMessage(
-      { id: messageId, redirectUrl: urlSignwall },
-      window.location.origin
-    )
-    window.location.href = urlSignwall
-  }
-
   function checkCookieHash() {
     deleteCookie('ArcId.USER_INFO')
     const dataContType = window.document.head.querySelector(
@@ -210,6 +214,7 @@ const SignwallComponent = () => {
     if (getCookie('arc_e_id') && dataContType && activePaywall) {
       redirectURL('reloginHash', '1')
     }
+
     return null
   }
 
@@ -221,6 +226,31 @@ const SignwallComponent = () => {
     }
     return null
   }
+
+  function toogleButton() {
+    if (isLoggedIn()) {
+      Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresacuenta`)
+      window.location.href = getUrlProfile(arcSite)
+    } else {
+      Taggeo(`Web_Sign_Wall_General`, `web_swg_link_ingresaperfil`)
+      redirectURL('signwallOrganic', '1')
+    }
+  }
+
+  const checkUsername = React.useCallback(async () => {
+    if (isLoggedIn()) {
+      const name = await getUsername()
+      setUser({
+        name,
+        initials: getUsernameInitials(name),
+      })
+    } else {
+      setUser({
+        name: arcSite === SITE_ELCOMERCIO ? 'Iniciar' : 'Iniciar Sesión',
+        initials: '',
+      })
+    }
+  }, [])
 
   React.useEffect(() => {
     const fpPromise = FingerprintJS.load()
@@ -239,53 +269,64 @@ const SignwallComponent = () => {
 
   React.useEffect(() => {
     if (activeSignwall) {
-      window.requestIdle(() => {
-        const tokenVerify = getQuery('tokenVerify')
-        if (tokenVerify) redirectURL('tokenVerify', tokenVerify)
+      const reloginEmail = getQuery('reloginEmail')
+      if (reloginEmail) redirectURL('reloginEmail', reloginEmail)
 
-        const tokenReset = getQuery('tokenReset')
-        if (tokenReset) redirectURL('tokenReset', tokenReset)
-
-        const reloginEmail = getQuery('reloginEmail')
-        if (reloginEmail) redirectURL('reloginEmail', reloginEmail)
-
-        if (!isLoggedIn()) checkCookieHash()
-      })
+      if (!isLoggedIn()) checkCookieHash()
     }
   }, [])
 
   React.useEffect(() => {
-    if (activePaywall) {
+    if (activePaywall || activeRulesCounter) {
+      checkUsername()
       window.requestIdle(() => getPaywall())
     }
   }, [])
 
-  return activePaywall ? (
+  return (
     <>
-      {getQuery('signPaywall') ||
-        (activeWall === Walls.Paywall && (
-          <PaywallModal
-            onClose={() => closeWall()}
-            arcSite={arcSite}
-            typeDialog="paywall"
-          />
-        ))}
+      <button
+        aria-label={user.name}
+        className={classButton}
+        type="button"
+        onClick={() => toogleButton()}>
+        <i className={!user.initials ? `${classes.iconLogin}` : ``}>
+          {user.initials}
+        </i>
+        <span className="capitalize" aria-hidden="true">
+          {user.name}
+        </span>
+      </button>
 
-      {getQuery('signPremium') ||
-        (activeWall === Walls.Premium && (
-          <PremiumModal
-            onClose={() => closeWall()}
-            arcSite={arcSite}
-            typeDialog="premium"
-          />
-        ))}
+      {!countOnly && activePaywall ? (
+        <>
+          {(getQuery('signPaywall') || activeWall === Walls.Paywall) && (
+            <PaywallModal
+              onClose={() => closeWall()}
+              arcSite={arcSite}
+              typeDialog="paywall"
+            />
+          )}
+
+          {(getQuery('signPremium') || activeWall === Walls.Premium) && (
+            <PremiumModal
+              onClose={() => closeWall()}
+              arcSite={arcSite}
+              typeDialog="premium"
+            />
+          )}
+        </>
+      ) : null}
     </>
-  ) : null
+  )
 }
 
-const SignwallComponentContainer: FC = () => (
+const SignwallComponentContainer: FC<SignwallDefaultProps> = ({
+  classButton,
+  countOnly,
+}) => (
   <SdksProvider>
-    <SignwallComponent />
+    <SignwallComponent classButton={classButton} countOnly={countOnly} />
   </SdksProvider>
 )
 
