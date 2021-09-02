@@ -150,6 +150,10 @@ test-bundle-sandbox:
     BUNDLE_FILE: bundle.zip
   script:
     - node config/deploy/assets.js
+  artifacts:
+    when: on_success
+    paths:
+      - node_modules/
   only:
     - sandbox
   tags:
