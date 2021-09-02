@@ -1,13 +1,12 @@
-import * as React from 'react'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
-
-import HeaderContinuousChild from './_lite/_children/header'
 import customFields from './_dependencies/custom-fields'
+import HeaderContinuousChild from './_lite/_children/header'
 
-const HeaderContinuous = props => {
+const HeaderContinuous = (props) => {
   const { customFields: { hideAnchor } = {} } = props
   const {
     arcSite,
@@ -23,6 +22,7 @@ const HeaderContinuous = props => {
   } = getProperties(arcSite)
 
   const isSomos = requestUri.includes('/somos/')
+  const isDeporPlay = /^\/depor-play\//.test(requestUri)
   const mainImage = isSomos
     ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
     : `${getAssetsPath(
@@ -52,6 +52,7 @@ const HeaderContinuous = props => {
       mainImage={mainImage}
       hideAnchor={hideAnchor}
       isSomos={isSomos}
+      isDeporPlay={isDeporPlay}
     />
   )
 }
