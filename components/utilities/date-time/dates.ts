@@ -187,3 +187,16 @@ export const loadDateFromYYYYMMDD = (date: string): Date | null => {
 
   return new Date(year, month, day)
 }
+
+export const dateDayAndMouthNOYEAR = (): string => {
+  const d = new Date()
+  d.setHours(d.getHours() - 5)
+
+  const mes = new Intl.DateTimeFormat(locale, { month: 'long' }).format(d)
+  const num = new Intl.DateTimeFormat(locale, { day: '2-digit' }).format(d)
+  const dia = new Intl.DateTimeFormat(locale, { weekday: 'long' }).format(d)
+  return `${dia} ${num} de ${mes}`
+  /*
+    Martes 31 de Agosto
+  */
+}
