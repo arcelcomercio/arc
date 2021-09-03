@@ -5,6 +5,7 @@ import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import React from 'react'
 
+import { addSlashToEnd } from '../../../../../utilities/parse/strings'
 import { getBtnSignScript } from '../../_dependencies/scripts'
 import {
   edicionMenu,
@@ -166,7 +167,7 @@ export default ({
             <li className={classes.item} key={`navbar-menu-${url || id}`}>
               <a
                 itemProp="url"
-                href={url || id || '/'}
+                href={addSlashToEnd(url || id || '/')}
                 className={classes.link}
                 style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
                 {name || displayName}
@@ -299,7 +300,7 @@ export default ({
                   <li className={classes.itemNav}>
                     <a
                       itemProp="url"
-                      href={item.url || item._id || '/'}
+                      href={addSlashToEnd(item.url || item._id || '/')}
                       className={classes.linkNav}>
                       {item.name || item.display_name}
                     </a>
