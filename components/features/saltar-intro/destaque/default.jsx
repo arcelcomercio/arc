@@ -1,18 +1,19 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
+import {
+  featuredStoryFields,
+  includeContentBasic,
+} from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
 // import FeaturedStory from '../../../global-components/featured-story'
 import FeaturedStory from './_children/destaque'
-import schemaFilter from '../../../global-components/featured-story/schema-filter'
-
-import StoryData from '../../../utilities/story-data'
-import { featuredStoryFields } from '../../../utilities/included-fields'
-
 import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
-const CardFeaturedStoryAdvanced = props => {
+const CardFeaturedStoryAdvanced = (props) => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
@@ -23,7 +24,7 @@ const CardFeaturedStoryAdvanced = props => {
   const { arcSite, contextPath, deployment } = useAppContext()
 
   const { siteName } = getProperties(arcSite)
-  const includedFields = featuredStoryFields
+  const includedFields = `${featuredStoryFields},${includeContentBasic},content_elements.subtype,content_elements.embed,content_elements.embed.config`
 
   const data =
     useContent({
@@ -45,6 +46,7 @@ const CardFeaturedStoryAdvanced = props => {
     multimediaType,
     multimediaCaption,
     multimedia,
+    dataSaltarIntro: { embed: { config: { plataform, score } = {} } = {} },
   } = new StoryData({
     data,
     deployment,
@@ -54,24 +56,24 @@ const CardFeaturedStoryAdvanced = props => {
 
   return (
     <>
-      {(() => {
-        return (
-          <FeaturedStory
-            primarySection={primarySection}
-            primarySectionLink={primarySectionLink}
-            title={title}
-            websiteLink={websiteLink}
-            author={author}
-            authorLink={authorLink}
-            multimediaType={multimediaType}
-            multimediaCaption={multimediaCaption}
-            multimedia={multimedia}
-            arcSite={arcSite}
-            siteName={siteName}
-            starField={starField}
-          />
-        )
-      })()}
+      {(() => (
+        <FeaturedStory
+          primarySection={primarySection}
+          primarySectionLink={primarySectionLink}
+          title={title}
+          websiteLink={websiteLink}
+          author={author}
+          authorLink={authorLink}
+          multimediaType={multimediaType}
+          multimediaCaption={multimediaCaption}
+          multimedia={multimedia}
+          arcSite={arcSite}
+          siteName={siteName}
+          starField={starField}
+          plataform={plataform}
+          score={score}
+        />
+      ))()}
     </>
   )
 }
