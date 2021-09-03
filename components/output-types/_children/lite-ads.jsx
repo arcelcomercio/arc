@@ -247,7 +247,7 @@ const LiteAds = ({
     })
   */
 
-  const adsLite1 = `"use strict";window.lazier=function(e,t){var o,n=arguments.length<=2||void 0===arguments[2]?"0px 0px 200px 0px":arguments[2],a=function(e,o){e.forEach(function(e){var n=e.isIntersecting,a=e.target;n&&(t(a),o.unobserve(a))})};"IntersectionObserver"in window&&(o={rootMargin:n},e.forEach(function(e){new IntersectionObserver(a,o).observe(e)}))},window.isMobiles=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent),window.mobile=window.isMobiles?"mobile":"desktop";var userPaywall=function(){var e="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,o=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];o&&o.sub.p.length&&(e="si")}else e="no";return e},userPaywallStat=userPaywall(),getTmpAd=function(){return(window.location.search.match(/tmp_ad=([^&]*)/)||[])[1]||""},getTarget=function(){return{contenido:"st_value3",publisher:"${arcSite}",seccion:section,categoria:subsection,fuente:"WEB",tipoplantilla:"post",phatname:"st_value6",tags:"st_value9",ab_test:"",paywall:userPaywallStat,tmp_ad:getTmpAd()}};window.googletag=window.googletag||{cmd:[]};window.adsContinua=window.adsContinua||[];window.adsCollection=window.adsCollection||[];`
+  const adsLite1 = `"use strict";window.lazier=function(e,t){var o,n=arguments.length<=2||void 0===arguments[2]?"0px 0px 200px 0px":arguments[2],a=function(e,o){e.forEach(function(e){var n=e.isIntersecting,a=e.target;n&&(t(a),o.unobserve(a))})};"IntersectionObserver"in window&&(o={rootMargin:n},e.forEach(function(e){new IntersectionObserver(a,o).observe(e)}))},window.isMobiles=/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent),window.mobile=window.isMobiles?"mobile":"desktop";var userPaywall=function(){var e="no";if(window.localStorage&&window.localStorage.hasOwnProperty("ArcId.USER_INFO")&&"{}"!==window.localStorage.getItem("ArcId.USER_INFO")){var t=JSON.parse(window.localStorage.getItem("ArcId.USER_INFO")).uuid,o=JSON.parse(window.localStorage.getItem("ArcP")||"{}")[t];o&&o.sub.p.length&&(e="si")}else e="no";return e},userPaywallStat=userPaywall(),getTmpAd=function(){return(window.location.search.match(/tmp_ad=([^&]*)/)||[])[1]||""},getTarget=function(){return{contenido:"st_value3",publisher:"${arcSite}",seccion:section,categoria:subsection,fuente:"WEB",tipoplantilla:"post",phatname:"st_value6",tags:"st_value9",ab_test:"",paywall:userPaywallStat,tmp_ad:getTmpAd()}};window.googletag=window.googletag||{cmd:[]};window.adsCollection=window.adsCollection||[];`
     .replace(/st_value3/g, typeContent)
     .replace(/st_value6/g, `${siteProperties.siteUrl}${requestUri}`)
     .replace(/st_value9/g, targetingTags)
@@ -312,7 +312,6 @@ const LiteAds = ({
         }
     };
     window.googletag = window.googletag || { cmd: [] };
-    window.adsContinua = window.adsContinua || [];
     window.adsCollection = window.adsCollection || [];
   */
 
@@ -369,22 +368,27 @@ const LiteAds = ({
   const tiponota = subtype == 'gallery_vertical' ? 'galeria_v' : 'post'
   return (
     <>
-      {arcSite === 'depor' &&
-      (section === 'futbol-internacional' || section === 'full-deportes') ? (
+      {arcSite === 'elcomerciomag' ||
+      arcSite === 'trome' ||
+      arcSite === 'elbocon' ||
+      arcSite === 'peru21' ||
+      arcSite === 'elcomercio' ||
+      arcSite === 'gestion' ||
+      arcSite === 'depor' ||
+      arcSite === 'ojo' ? (
         <>
-          {!(
+          {arcSite !== 'elcomerciomag' &&
+          !(
             arcSite === 'depor' &&
             (section === 'futbol-internacional' || section === 'off-side')
-          ) ? (
-            <>
-              <script
-                async
-                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}></script>
-            </>
+          ) &&
+          !(arcSite === 'trome' && section === 'deportes') ? (
+            <script
+              async
+              src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
+                .toISOString()
+                .slice(0, 10)}`}></script>
           ) : null}
-          {/* pro: d2dvq461rdwooi | dev: d37z8six7qdyn4 */}
           <script
             defer
             src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
@@ -396,112 +400,64 @@ const LiteAds = ({
             src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
               .toISOString()
               .slice(0, 10)}`}></script>
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: adsLite1,
-            }}
-          />
-          <script
-            async
-            src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-        </>
-      ) : (
-        <>
           {arcSite === 'elcomerciomag' ||
+          arcSite === 'peru21' ||
           arcSite === 'trome' ||
           arcSite === 'elbocon' ||
-          arcSite === 'peru21' ||
-          arcSite === 'elcomercio' ||
-          arcSite === 'gestion' ||
           arcSite === 'depor' ||
           arcSite === 'ojo' ? (
             <>
-              {arcSite !== 'elcomerciomag' &&
-              !(
-                arcSite === 'depor' &&
-                (section === 'futbol-internacional' || section === 'off-side')
-              ) &&
-              !(arcSite === 'trome' && section === 'deportes') ? (
-                <script
-                  async
-                  src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
-                    .toISOString()
-                    .slice(0, 10)}`}></script>
-              ) : null}
               <script
-                defer
-                src={`https://d2dvq461rdwooi.cloudfront.net/${arcSite}/${tiponota}/${section?.replace(
-                  /-/gm,
-                  ''
-                )}/spaces.js?${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}></script>
+                type="text/javascript"
+                dangerouslySetInnerHTML={{
+                  __html: adsLite1,
+                }}
+              />
               <script
-                defer
-                src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}></script>
-              {arcSite === 'elcomerciomag' ||
-              arcSite === 'peru21' ||
-              arcSite === 'trome' ||
-              arcSite === 'elbocon' ||
-              arcSite === 'depor' ||
-              arcSite === 'ojo' ? (
-                <>
-                  <script
-                    type="text/javascript"
-                    dangerouslySetInnerHTML={{
-                      __html: adsLite1,
-                    }}
-                  />
-                  <script
-                    async
-                    src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-                </>
-              ) : (
-                <>
-                  <script
-                    type="text/javascript"
-                    dangerouslySetInnerHTML={{
-                      __html: adsMag1,
-                    }}
-                  />
-                  <script
-                    type="text/javascript"
-                    dangerouslySetInnerHTML={{
-                      __html: adsMag2,
-                    }}
-                  />
-                </>
-              )}
+                async
+                src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
             </>
           ) : (
             <>
               <script
-                async
-                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}></script>
-              <script
-                defer
-                src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}></script>
-              <script
                 type="text/javascript"
                 dangerouslySetInnerHTML={{
-                  __html: adsEconomiaTop,
+                  __html: adsMag1,
                 }}
               />
               <script
                 type="text/javascript"
                 dangerouslySetInnerHTML={{
-                  __html: adsEconomiaNext,
+                  __html: adsMag2,
                 }}
               />
             </>
           )}
+        </>
+      ) : (
+        <>
+          <script
+            async
+            src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
+              .toISOString()
+              .slice(0, 10)}`}></script>
+          <script
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/ads/${arcSite}/arcads.js?${new Date()
+              .toISOString()
+              .slice(0, 10)}`}></script>
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: adsEconomiaTop,
+            }}
+          />
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: adsEconomiaNext,
+            }}
+          />
         </>
       )}
     </>
