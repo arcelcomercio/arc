@@ -27,6 +27,7 @@ const classes = {
   band: 'header-inverted-featured__band',
   bandInverted: 'header-inverted-featured__band__inverted',
   tags: 'header-inverted-featured__tags',
+  tagsTema: 'header-inverted-featured__menu-full__Tags',
   navBtnContainer: `header-inverted-featured__nav-btn-container`,
   leftBtnContainer: `header-inverted-featured__left-btn-container`,
   rightBtnContainer: `header-inverted-featured__right-btn-container`,
@@ -58,14 +59,17 @@ const HeaderChildInverted = ({
   logo,
   logoImg,
   bandLinks,
+  bandLinksTema,
   menuSections,
   tags,
+  tagsTema,
+  hideTema,
   date,
   search,
   isStory,
   winningCallLogo,
   hideMenu,
-  invertedMenu
+  invertedTema
 }) => {
   const [scrolled, setScrolled] = React.useState(false)
   const [statusSidebar, setStatusSidebar] = React.useState(false)
@@ -197,44 +201,42 @@ const HeaderChildInverted = ({
     }
   }, [_handleScroll])
 
-  const menu = [
-    { name: 'Covid 19', url: '#' },
-    { name: 'Dólar', url: '#' },
-    { name: 'Coronavirus Perú', url: '#' },
-    { name: 'Vizcarra', url: '#' },
-    { name: 'Horóscopo', url: '#' },
-    { name: 'E-Sports', url: '#' },
-    { name: 'Nombre del Añó', url: '#' },
-    { name: 'Feriados 2021', url: '#' },
-    { name: 'Covid 19', url: '#' },
-    { name: 'Dólar', url: '#' },
-    { name: 'Coronavirus Perú', url: '#' },
-    { name: 'Vizcarra', url: '#' },
-    { name: 'Horóscopo', url: '#' },
-    { name: 'E-Sports', url: '#' },
-  ]
+  const Header = () => (
+    <nav className={classes.bandInverted}>
+      <div className={classes.menuFull}>
+        {tagsTema && <div className={`${(invertedTema) ? classes.tags : classes.tagsTema}`}>{tagsTema}</div>}
+
+        {bandLinksTema && bandLinksTema[0] && (
+          <ul className={`${classes.menuList}`}>
+            {bandLinksTema.map(({ url, name, styles = [] }) => (
+              <li
+                className={`${classes.menuItem}${styles ? ' header__custom-item' : ''
+                  }`}
+                key={`band-${url}`}>
+                <a
+                  itemProp="url"
+                  className={`${classes.menuItemLink}`}
+                  href={url}
+                  {...(styles && {
+                    style: {
+                      backgroundColor: styles[0],
+                      color: styles[1] || '#ffffff',
+                    },
+                  })}>
+                  {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </nav>
+  )
 
   return (
     <>
-      {
-        (invertedMenu) &&
-        (<div className={classes.menuFull}>
-          <ul className={classes.menuList}>
-            {
-              menu.map(({ name, url }, i) => (
-                <li className={classes.menuItem} key={i}>
-                  <a
-                    itemProp="url"
-                    href={url}
-                    className={classes.menuItemLink}>
-                    {name}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>)
-      }
+      { (!invertedTema && !hideTema) && <Header />}
+
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
         <div className={classes.navLoader} />
         <div className={classes.wrapper}>
@@ -317,9 +319,9 @@ const HeaderChildInverted = ({
         <div className="layer" />
       </header>
       {!hideMenu && (
-        <nav className={`${classes.band} ${(invertedMenu) && classes.bandInverted}`}>
+        <nav className={`${classes.band} ${(!hideTema) && classes.bandInverted}`}>
           <div className={classes.bandWrapper}>
-            {tags && <div className={classes.tags}>{tags}</div>}
+            {(tags && hideTema) && <div className={classes.tags}>{tags}</div>}
 
             {bandLinks && bandLinks[0] && (
               <ul className={`${classes.featured}`}>
@@ -330,7 +332,7 @@ const HeaderChildInverted = ({
                     key={`band-${url}`}>
                     <a
                       itemProp="url"
-                      className={`${classes.link} ${(invertedMenu) && classes.linkInverted}`}
+                      className={`${classes.link} ${(!hideTema) && classes.linkInverted}`}
                       href={url}
                       {...(styles && {
                         style: {
@@ -352,6 +354,7 @@ const HeaderChildInverted = ({
           </div>
         </nav>
       )}
+      { (invertedTema && !hideTema) && <Header />}
     </>
   )
 }
