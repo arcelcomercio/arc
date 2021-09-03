@@ -3,18 +3,25 @@
 /* eslint-disable react/no-string-refs */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
+// eslint-disable-next-line simple-import-sort/imports
 import Identity from '@arc-publishing/sdk-identity'
 import Consumer from 'fusion:consumer'
 import * as React from 'react'
+// import { alpha } from '@material-ui/core/styles'
+import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns'
+import esLocale from 'date-fns/locale/es'
 
 import { Close } from '../../../../../signwall/_children/icons'
 import { Modal } from '../../../../../signwall/_children/modal/index'
 import GetProfile from '../../../../../signwall/_dependencies/get-profile'
 import { clean } from '../../../../../signwall/_dependencies/object'
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
+
 import {
   docRegex,
   emailRegex,
+  /* fechaRegex, */
   namesRegex,
   numberRegex,
   phoneRegex,
@@ -29,7 +36,12 @@ const SET_ATTRIBUTES_PROFILE = [
   'province',
   'district',
   'secondLastName',
+  'gender',
+  'birthYear',
+  'birthMonth',
+  'birthDay',
 ]
+
 const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
 
 @Consumer
@@ -62,6 +74,7 @@ class UpdateProfile extends React.Component {
       dataDepartments: [],
       dataProvinces: [],
       dataDistricts: [],
+      fechaConvertida: '',
       formErrors: {
         firstName: '',
         lastName: '',
@@ -70,6 +83,8 @@ class UpdateProfile extends React.Component {
         documentNumber: '',
         typeDocument: '',
         userEmail: '',
+        gender: '',
+        birthDay: '',
       },
       loading: false,
       hasChange: false,
@@ -178,14 +193,16 @@ class UpdateProfile extends React.Component {
   }
 
   handleUpdateProfile = () => {
-    const { arcSite } = this.props
-
     const {
       firstName,
       lastName,
       secondLastName,
       displayName,
       email,
+      birthDay,
+      birthMonth,
+      birthYear,
+      gender,
       contacts,
       ...restState
     } = this.state
@@ -197,6 +214,10 @@ class UpdateProfile extends React.Component {
       displayName,
       email,
       contacts,
+      birthDay,
+      birthMonth,
+      birthYear,
+      gender,
     }
     clean(profile)
 
@@ -479,6 +500,21 @@ class UpdateProfile extends React.Component {
           formErrors.userEmail = 'Correo Electrónico Inválido'
         }
         break
+      case 'fecha':
+        if (value.length === 0) {
+          formErrors.birthDay = ''
+        } else {
+          formErrors.birthDay = 'Fecha inválida'
+        }
+
+        break
+      // case 'genero':
+      //   if (value !== '') {
+      //     formErrors.genero = ''
+      //   } else {
+      //     formErrors.genero = 'Ingresar el genero'
+      //   }
+      //   break
       default:
     }
 
@@ -489,7 +525,8 @@ class UpdateProfile extends React.Component {
         formErrors.secondLastName.length > 0 ||
         formErrors.documentNumber.length > 0 ||
         formErrors.mobilePhone.length > 0 ||
-        formErrors.typeDocument.length > 0
+        formErrors.typeDocument.length > 0 ||
+        formErrors.birthDay.length > 0
       ) {
         this.setState({
           hasError: true,
@@ -516,7 +553,7 @@ class UpdateProfile extends React.Component {
     e.preventDefault()
 
     const { formErrorsConfirm, currentPassword, email } = this.state
-    const { arcSite } = this.props
+    /* const { arcSite } = this.props */
 
     formErrorsConfirm.oldPassword =
       currentPassword.length === 0 ? 'Este campo es requerido' : ''
@@ -574,6 +611,41 @@ class UpdateProfile extends React.Component {
     }
   }
 
+  handleDateBirthDay = (e) => {
+    console.log(e.target.value)
+
+    if (e.target.value === '') {
+      this.setState({
+        birthYear: '',
+        birthMonth: '',
+        birthDay: '',
+        hasChange: true,
+        fechaConvertida: e.target.value,
+      })
+    } else {
+      this.calcularEdad(e.target.value)
+      const anioCompleto = new Date(e.target.value)
+
+      const anio = `${anioCompleto.getUTCFullYear()}`
+      const mes =
+        anioCompleto.getUTCMonth() + 1 < 10
+          ? `0${anioCompleto.getUTCMonth() + 1}`
+          : `${anioCompleto.getUTCMonth() + 1}`
+
+      const dia =
+        anioCompleto.getUTCDate() < 10
+          ? `0${anioCompleto.getUTCDate()}`
+          : `${anioCompleto.getUTCDate()}`
+      this.setState({
+        birthYear: anio,
+        birthMonth: mes,
+        birthDay: dia,
+        hasChange: true,
+        fechaConvertida: e.target.value,
+      })
+    }
+  }
+
   togglePopupModalConfirm() {
     const { showModalConfirm } = this.state
     this.setState({
@@ -587,6 +659,26 @@ class UpdateProfile extends React.Component {
       ModalProfile.style.overflow = 'auto'
     } else {
       ModalProfile.style.overflow = 'hidden'
+    }
+  }
+
+  calcularEdad(fechaNacimiento) {
+    const birthday = new Date(fechaNacimiento)
+    const anioactual = new Date()
+
+    const { formErrors } = this.state
+
+    const time = parseInt(
+      (anioactual.getTime() - birthday.getTime()) / (1000 * 3600 * 24) / 365,
+      10
+    )
+
+    if (time < 5) {
+      formErrors.birthDay = 'No cumple con la edad mínima'
+    } else if (time > 100) {
+      formErrors.birthDay = '¿Está seguro que tiene esa edad?'
+    } else {
+      formErrors.birthDay = ''
     }
   }
 
@@ -605,6 +697,11 @@ class UpdateProfile extends React.Component {
       department,
       district,
       email,
+      gender,
+      birthYear,
+      birthMonth,
+      birthDay,
+      fechaConvertida = this.fechaConvertida,
       hasChange,
       loading,
       hasError,
@@ -768,9 +865,7 @@ class UpdateProfile extends React.Component {
                       ? 'input input-minimal error'
                       : 'input input-minimal'
                   }
-                  defaultValue={
-                    documentType ? documentType.toUpperCase() : 'default'
-                  }
+                  value={documentType ? documentType.toUpperCase() : 'default'}
                   onChange={(e) => {
                     this.handleOnChange(e)
                     this.handleTypeDocument(e)
@@ -998,6 +1093,76 @@ class UpdateProfile extends React.Component {
                 <span className="error">{formErrors.userEmail}</span>
               )}
             </div>
+            <div className="sign-profile_update-form-group">
+              <select
+                name="gender"
+                className="input input-minimal"
+                value={gender || 'default'}
+                onChange={(e) => {
+                  this.handleOnChange(e)
+                }}
+                tabIndex="11"
+                disabled={!email}>
+                <option disabled="disabled" value="default">
+                  Seleccione
+                </option>
+                <option value="MALE">Masculino</option>
+                <option value="FEMALE">Femenino</option>
+              </select>
+              <label htmlFor="gender" className="label">
+                Género
+              </label>
+            </div>
+          </div>
+          <div className="row three">
+            <div className="sign-profile_update-form-group">
+              <input
+                type="date"
+                name="fecha"
+                step="1"
+                // disabled={
+                //   birthYear && birthMonth && birthDay ? 'disabled' : null
+                // }
+                defaultValue={
+                  this.fechaConvertida === ''
+                    ? fechaConvertida
+                    : `${birthYear}-${birthMonth}-${birthDay}`
+                }
+                onChange={(e) => {
+                  this.handleValidation(e)
+                  this.handleDateBirthDay(e)
+                }}
+                className={
+                  formErrors.birthDay.length > 0
+                    ? 'input error capitalize'
+                    : 'input capitalize'
+                }
+              />
+              <label htmlFor="fecha" className="label">
+                Fecha de Nacimiento
+              </label>
+              {formErrors.birthDay.length > 0 && (
+                <span className="error">{formErrors.birthDay}</span>
+              )}
+            </div>
+            <div className="sign-profile_update-form-group">
+              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+                <DatePicker
+                  format="d MMM yyyy"
+                  name="fecha2"
+                  // onChange={(e) => {
+                  //   this.handleDateBirthDay(e)
+                  // }}
+                  clearLabel="vider"
+                  cancelLabel="annuler"
+                  className="input"
+                />
+                <label htmlFor="fecha2" className="label">
+                  Fecha de Nacimiento
+                </label>
+              </MuiPickersUtilsProvider>
+            </div>
+
             <div className="sign-profile_update-form-group">
               <button
                 className="signwall-inside_forms-btn"

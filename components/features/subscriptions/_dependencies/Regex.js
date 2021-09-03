@@ -33,12 +33,17 @@ const docPatterns = {
   CEX: /^([a-zA-Z0-9-]{5,15})/,
 }
 
+const fechaRegex = new RegExp(
+  /^([0-9]{4})(\/|-)(0[1-9]|1[0-2])(\/|-)(0[1-9]|1[0-9]|2[0-9]|3[0-1])$/
+)
+
 export {
   cellphoneRegex,
   descripRegex,
   docPatterns,
   docRegex,
   emailRegex,
+  fechaRegex,
   maskDocuments,
   mediumRegularExp,
   namesRegex,
