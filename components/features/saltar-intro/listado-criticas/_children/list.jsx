@@ -18,11 +18,12 @@ const classes = {
   image: 'saltar-intro-listado-criticas__image',
 }
 export default ({ isAdmin, seeMoreLink, data: { items = [] } = {} }) => {
-  const getStars = (count, max = 5) => {
+  const getStars = (count = 0, max = 5) => {
+    const limitCount = count > 5 ? 5 : parseInt(count)
     const starFull = `<span class="${classes.starsColor}">☆</span>`.repeat(
-      count
+      limitCount
     )
-    const star = '☆'.repeat(max - count)
+    const star = '☆'.repeat(max - limitCount)
     return `${starFull}${star}`
   }
   return (
