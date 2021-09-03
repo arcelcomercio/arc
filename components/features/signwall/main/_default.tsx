@@ -1,17 +1,16 @@
 import Identity from '@arc-publishing/sdk-identity'
 import { isUserIdentity } from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
-import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import {
-  deleteCookie,
-  getCookie,
-  setCookie,
-} from '../../../utilities/client/cookies'
+  SdksProvider,
+  SdkStatus,
+  useSdksContext,
+} from '../../../contexts/subscriptions-sdks'
+import { deleteCookie, getCookie } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
@@ -21,6 +20,7 @@ import {
   isLoggedIn,
 } from '../../../utilities/subscriptions/identity'
 import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
+import useFingerprint from '../../subscriptions/_hooks/useFingerprint'
 import {
   getOriginAPI,
   getUrlLandingAuth,
@@ -49,6 +49,9 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   classButton = '',
   countOnly = false,
 }) => {
+  useFingerprint()
+
+  const { status } = useSdksContext()
   const { arcSite } = useAppContext()
   const { activeSignwall, activePaywall, activeRulesCounter } = getProperties(
     arcSite
@@ -61,11 +64,6 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   })
 
   function getListSubs() {
-    const apiOrigin = getOriginAPI(arcSite)
-    Identity.options({
-      apiOrigin,
-    })
-
     return Identity.extendSession().then((resExt) => {
       if (isUserIdentity(resExt)) {
         const checkEntitlement = getEntitlement(resExt.accessToken, arcSite)
@@ -253,21 +251,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   }, [])
 
   React.useEffect(() => {
-    const fpPromise = FingerprintJS.load()
-    fpPromise
-      .then((fp) => fp.get())
-      .then((result) => {
-        setCookie('gecdigarc', result.visitorId, 365)
-      })
-      .catch((error) => {
-        window.console.error(
-          'Ha ocurrido un error al crear la cookie - gecdigarc: ',
-          error
-        )
-      })
-  }, [])
-
-  React.useEffect(() => {
+    checkUsername()
     if (activeSignwall) {
       const reloginEmail = getQuery('reloginEmail')
       if (reloginEmail) redirectURL('reloginEmail', reloginEmail)
@@ -277,11 +261,10 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   }, [])
 
   React.useEffect(() => {
-    if (activePaywall || activeRulesCounter) {
-      checkUsername()
+    if ((activePaywall || activeRulesCounter) && status === SdkStatus.Ready) {
       window.requestIdle(() => getPaywall())
     }
-  }, [])
+  }, [status])
 
   return (
     <>
