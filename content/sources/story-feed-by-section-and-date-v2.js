@@ -1,16 +1,16 @@
-import { getResizedImageData } from '../../components/utilities/resizer/resizer'
-import RedirectError from '../../components/utilities/redirect-error'
 import {
-  getYYYYMMDDfromISO,
   getActualDate,
+  getYYYYMMDDfromISO,
 } from '../../components/utilities/date-time/dates'
 import {
   includeCredits,
   includeCreditsImage,
   includePrimarySection,
-  includeSections,
   includePromoItems,
+  includeSections,
 } from '../../components/utilities/included-fields'
+import RedirectError from '../../components/utilities/redirect-error'
+import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const schemaName = 'stories-dev'
 
@@ -90,7 +90,9 @@ const getQueryFilter = (section, excludedSections, website, date) => {
             must: [
               {
                 terms: {
-                  'taxonomy.sections._id': [section],
+                  'taxonomy.sections._id': section.includes(',')
+                    ? section.split(',')
+                    : [section],
                 },
               },
               {
