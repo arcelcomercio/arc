@@ -1,17 +1,16 @@
 import Identity from '@arc-publishing/sdk-identity'
 import { isUserIdentity } from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
-import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { FC } from 'types/features'
 
-import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import {
-  deleteCookie,
-  getCookie,
-  setCookie,
-} from '../../../utilities/client/cookies'
+  SdksProvider,
+  SdkStatus,
+  useSdksContext,
+} from '../../../contexts/subscriptions-sdks'
+import { deleteCookie, getCookie } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import { getQuery } from '../../../utilities/parse/queries'
 import { isLoggedIn } from '../../../utilities/subscriptions/identity'
@@ -32,6 +31,8 @@ enum Walls {
 const SignwallComponent = () => {
   const [activeWall, setActiveWall] = React.useState<Walls | null>()
 
+  useSdksContext()
+  const { status } = useSdksContext()
   const { arcSite } = useAppContext()
   const { activeSignwall, activePaywall } = getProperties(arcSite)
 
@@ -223,21 +224,6 @@ const SignwallComponent = () => {
   }
 
   React.useEffect(() => {
-    const fpPromise = FingerprintJS.load()
-    fpPromise
-      .then((fp) => fp.get())
-      .then((result) => {
-        setCookie('gecdigarc', result.visitorId, 365)
-      })
-      .catch((error) => {
-        window.console.error(
-          'Ha ocurrido un error al crear la cookie - gecdigarc: ',
-          error
-        )
-      })
-  }, [])
-
-  React.useEffect(() => {
     if (activeSignwall) {
       window.requestIdle(() => {
         const tokenVerify = getQuery('tokenVerify')
@@ -255,10 +241,10 @@ const SignwallComponent = () => {
   }, [])
 
   React.useEffect(() => {
-    if (activePaywall) {
+    if (activePaywall && status === SdkStatus.Ready) {
       window.requestIdle(() => getPaywall())
     }
-  }, [])
+  }, [status])
 
   return activePaywall ? (
     <>
