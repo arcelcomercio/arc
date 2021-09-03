@@ -40,7 +40,7 @@ const resolve = (key: StoryByUrlParams): string | never => {
   const { website_url: websiteUrl, published = '' } = key
   const isPublished = published === 'false' ? 'false' : 'true'
 
-  const sourceInclude = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url`
+  const sourceInclude = `&included_fields=type,created_date,revision,last_updated_date,canonical_url,headlines,owner,content_restrictions,subheadlines,taxonomy,promo_items,display_date,credits,first_publish_date,websites,publish_date,website,website_url,redirect_url,content_elements,content_elements._id,content_elements.type,content_elements.subtype,content_elements.embed,content_elements.embed.config`
 
   const requestUri = `/content/v4/stories/?website_url=${websiteUrl}&website=${website}&published=${isPublished}${sourceInclude}`
   return requestUri
