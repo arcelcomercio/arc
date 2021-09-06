@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { useModalContext } from '../../../_context/modal'
 import UpdatePass from './_children/update-pass'
-import UpdateProfile from './_children/update-profile'
+import UpdateProfile from './_children/update-profile-hooks'
 
 const MiPerfil = (): JSX.Element => {
   const { userProfile } = useModalContext()
