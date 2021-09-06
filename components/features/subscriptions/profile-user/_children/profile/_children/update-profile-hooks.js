@@ -116,7 +116,6 @@ export default function UpdateProfile() {
     }
 
     /* Obtener ubiacion */
-
     let country = attributes.find((valor) => valor.name === 'country') || ''
 
     if (country.value) {
@@ -150,7 +149,7 @@ export default function UpdateProfile() {
       district = ''
     }
 
-    saveChangesUser({
+    const [changesuser, saveChangesUser] = useState({
       firstName,
       lastName,
       secondLastName,
