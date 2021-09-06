@@ -312,6 +312,7 @@ const LiteAds = ({
         }
     };
     window.googletag = window.googletag || { cmd: [] };
+    window.adsContinua = window.adsContinua || [];
     window.adsCollection = window.adsCollection || [];
   */
 
@@ -369,20 +370,20 @@ const LiteAds = ({
   return (
     <>
       {arcSite === 'elcomerciomag' ||
-      arcSite === 'trome' ||
-      arcSite === 'elbocon' ||
-      arcSite === 'peru21' ||
-      arcSite === 'elcomercio' ||
-      arcSite === 'gestion' ||
-      arcSite === 'depor' ||
-      arcSite === 'ojo' ? (
+        arcSite === 'trome' ||
+        arcSite === 'elbocon' ||
+        arcSite === 'peru21' ||
+        arcSite === 'elcomercio' ||
+        arcSite === 'gestion' ||
+        arcSite === 'depor' ||
+        arcSite === 'ojo' ? (
         <>
           {arcSite !== 'elcomerciomag' &&
-          !(
-            arcSite === 'depor' &&
-            (section === 'futbol-internacional' || section === 'off-side')
-          ) &&
-          !(arcSite === 'trome' && section === 'deportes') ? (
+            !(
+              arcSite === 'depor' &&
+              (section === 'futbol-internacional' || section === 'off-side')
+            ) &&
+            !(arcSite === 'trome' && section === 'deportes') ? (
             <script
               async
               src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?${new Date()
@@ -401,11 +402,11 @@ const LiteAds = ({
               .toISOString()
               .slice(0, 10)}`}></script>
           {arcSite === 'elcomerciomag' ||
-          arcSite === 'peru21' ||
-          arcSite === 'trome' ||
-          arcSite === 'elbocon' ||
-          arcSite === 'depor' ||
-          arcSite === 'ojo' ? (
+            arcSite === 'peru21' ||
+            arcSite === 'trome' ||
+            arcSite === 'elbocon' ||
+            arcSite === 'depor' ||
+            arcSite === 'ojo' ? (
             <>
               <script
                 type="text/javascript"
