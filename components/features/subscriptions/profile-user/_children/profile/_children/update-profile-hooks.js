@@ -6,11 +6,12 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import Identity from '@arc-publishing/sdk-identity'
+import { useAppContext } from 'fusion:context'
 // import { cleanLegacyAnchor } from 'components/utilities/tags'
 // import { profile } from 'console'
 // import Consumer from 'fusion:consumer'
 // import { element } from 'prop-types'
-import { useState } from 'react'
+import * as React from 'react'
 
 // import { Close } from '../../../../../signwall/_children/icons'
 // import { Modal } from '../../../../../signwall/_children/modal/index'
@@ -26,107 +27,117 @@ import { getUbigeo } from '../../../../../signwall/_dependencies/services'
 //   phoneRegex,
 // } from '../../../../_dependencies/Regex'
 
-// const SET_ATTRIBUTES_PROFILE = [
-//   'documentType',
-//   'documentNumber',
-//   'civilStatus',
-//   'country',
-//   'department',
-//   'province',
-//   'district',
-//   'secondLastName',
-//   'gender',
-//   'birthYear',
-//   'birthMonth',
-//   'birthDay',
-// ]
-// const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
-
 export default function UpdateProfile() {
+  const {
+    siteProperties: {
+      signwall: { mainColorLink, mainColorBtn },
+    },
+  } = useAppContext() || {}
+
   const { publicProfile } = new GetProfile()
 
-  const [departments, saveDeparments] = useState([])
+  const [departments, saveDeparments] = React.useState([])
 
-  const [provinces, saveProvinces] = useState([])
+  const [provinces, saveProvinces] = React.useState([])
 
-  const [districts, saveDistricts] = useState([])
+  const [districts, saveDistricts] = React.useState([])
 
-  const {
-    firstName,
-    lastName,
-    secondLastName,
-    contacts = [],
-    attributes = [],
-    email,
-    country = null,
-    department = null,
-    province = null,
-    district = null,
-    gender = null,
-    birthDay = null,
-    birthMonth = null,
-    birthYear = null,
-  } = publicProfile
-
-  let phone = contacts.find((valor) => valor.phone) || ''
-
-  if (phone.phone) {
-    phone = phone.phone
-  } else {
-    phone = ''
-  }
-
-  let documentType =
-    attributes.find(
-      (valor) => valor.name === 'typeDocument' || valor.name === 'documentType'
-    ) || ''
-
-  if (documentType.value) {
-    documentType = documentType.value
-  } else {
-    documentType = ''
-  }
-
-  let documentNumber =
-    attributes.find(
-      (valor) => valor.name === 'document' || valor.name === 'documentNumber'
-    ) || ''
-
-  if (documentNumber.value) {
-    documentNumber = documentNumber.value
-  } else {
-    documentNumber = ''
-  }
-
-  let civilStatus =
-    attributes.find((valor) => valor.name === 'civilStatus') || ''
-
-  if (civilStatus.value) {
-    civilStatus = civilStatus.value
-  } else {
-    civilStatus = ''
-  }
-
-  const [changesuser, saveChangesUser] = useState({
-    firstName,
-    lastName,
-    secondLastName,
-    phone,
-    email,
-    civilStatus,
-    country,
-    department,
-    province,
-    district,
-    gender,
-    documentType,
-    documentNumber,
-    birthDay,
-    birthMonth,
-    birthYear,
+  const [changesuser, saveChangesUser] = React.useState({
+    firstName: '',
+    lastName: '',
+    secondLastName: '',
+    phone: '',
+    email: '',
+    civilStatus: '',
+    country: '',
+    department: '',
+    province: '',
+    district: '',
+    gender: '',
+    documentType: '',
+    documentNumber: '',
+    birthDay: '',
+    birthMonth: '',
+    birthYear: '',
   })
 
-  const componentDidMount = () => {
+  React.useEffect(() => {
+    const {
+      firstName,
+      lastName,
+      secondLastName,
+      contacts = [],
+      attributes = [],
+      email,
+      country = null,
+      department = null,
+      province = null,
+      district = null,
+      gender = null,
+      birthDay = null,
+      birthMonth = null,
+      birthYear = null,
+    } = publicProfile
+
+    let phone = contacts.find((valor) => valor.phone) || ''
+
+    if (phone.phone) {
+      phone = phone.phone
+    } else {
+      phone = ''
+    }
+
+    let documentType =
+      attributes.find(
+        (valor) =>
+          valor.name === 'typeDocument' || valor.name === 'documentType'
+      ) || ''
+
+    if (documentType.value) {
+      documentType = documentType.value
+    } else {
+      documentType = ''
+    }
+
+    let documentNumber =
+      attributes.find(
+        (valor) => valor.name === 'document' || valor.name === 'documentNumber'
+      ) || ''
+
+    if (documentNumber.value) {
+      documentNumber = documentNumber.value
+    } else {
+      documentNumber = ''
+    }
+
+    let civilStatus =
+      attributes.find((valor) => valor.name === 'civilStatus') || ''
+
+    if (civilStatus.value) {
+      civilStatus = civilStatus.value
+    } else {
+      civilStatus = ''
+    }
+
+    saveChangesUser({
+      firstName,
+      lastName,
+      secondLastName,
+      phone,
+      email,
+      civilStatus,
+      country,
+      department,
+      province,
+      district,
+      gender,
+      documentType,
+      documentNumber,
+      birthDay,
+      birthMonth,
+      birthYear,
+    })
+
     if (changesuser.country) {
       getUbigeo(country, 'department').then((result) => {
         saveDeparments(...departments, result)
@@ -143,34 +154,52 @@ export default function UpdateProfile() {
         saveDeparments(...departments, result)
       })
     }
-  }
+  }, [])
+  const [errors, saveErrors] = React.useState({
+    firstName: '',
+    lastName: '',
+    secondLastName: '',
+    phone: '',
+    email: '',
+    civilStatus: '',
+    country: '',
+    department: '',
+    province: '',
+    district: '',
+    gender: '',
+    documentType: '',
+    documentNumber: '',
+    birthDay: '',
+    birthMonth: '',
+    birthYear: '',
+  })
 
-  // const [errors, saveErrors] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   secondLastName: '',
-  //   mobilePhone: '',
-  //   documentNumber: '',
-  //   typeDocument: '',
-  //   email: '',
-  // })
+  const [loading, saveLoading] = React.useState(false)
 
-  const [loading, saveLoading] = useState(false)
+  const [haschange, saveHasChange] = React.useState(false)
 
-  const [haschange, saveHasChange] = useState(false)
+  const [haserror, saveHasError] = React.useState(false)
 
-  const [haserror, saveHasError] = useState(false)
+  const [showMsgSuccess, saveShowMsgSuccess] = React.useState(false)
 
-  const [showMsgSuccess, saveShowMsgSuccess] = useState(false)
+  const [showMsgError, saveShowMsgError] = React.useState(false)
 
-  const [showMsgError, saveShowMsgError] = useState(false)
+  const [messageErrorDelete, saveMessageErrorDelete] = React.useState(false)
 
-  const [messageErrorDelete, saveMessageErrorDelete] = useState(false)
-
-  const [messageErrorPass, saveMessageErrorPass] = useState('')
+  const [messageErrorPass, saveMessageErrorPass] = React.useState('')
 
   const handleOnChange = (e) => {
     saveChangesUser({ ...changesuser, [e.target.name]: e.target.value })
+  }
+
+  const onLogout = (e) => {
+    e.preventDefault()
+    if (typeof window !== 'undefined') {
+      const linkLogout = document.getElementById('web_link_cerrarsesion')
+      if (linkLogout) {
+        linkLogout.click()
+      }
+    }
   }
 
   return (
@@ -200,7 +229,7 @@ export default function UpdateProfile() {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault()
-                    // this.onLogout(e)
+                    onLogout(e)
                   }}>
                   Clic Aquí
                 </a>
@@ -227,7 +256,7 @@ export default function UpdateProfile() {
               }}
               value={changesuser.firstName}
               tabIndex="1"
-              disabled={!email}
+              disabled={!changesuser.email}
             />
             <label htmlFor="firstName" className="label">
               Nombres
@@ -250,7 +279,7 @@ export default function UpdateProfile() {
               }}
               value={changesuser.lastName}
               tabIndex="2"
-              disabled={!email}
+              disabled={!changesuser.email}
             />
             <label htmlFor="lastnameP" className="label">
               Apellido Paterno
@@ -272,7 +301,7 @@ export default function UpdateProfile() {
               }}
               value={changesuser.secondLastName}
               tabIndex="3"
-              disabled={!email}
+              disabled={!changesuser.email}
             />
             <label htmlFor="secondLastName" className="label">
               Apellido Materno
@@ -300,7 +329,7 @@ export default function UpdateProfile() {
                   // this.handleValidation(e)
                 }}
                 tabIndex="4"
-                disabled={!email}>
+                disabled={!changesuser.email}>
                 <option disabled="disabled" value="default">
                   Seleccione
                 </option>
@@ -327,7 +356,7 @@ export default function UpdateProfile() {
                 }}
                 // onBlur={(e) => handleValidation(e)}
                 tabIndex="5"
-                disabled={!email}
+                disabled={!changesuser.email}
               />
             </div>
             {/* {formErrors.documentNumber.length > 0 && (
@@ -351,7 +380,7 @@ export default function UpdateProfile() {
                 // this.handleValidation(e)
               }}
               tabIndex="6"
-              disabled={!email}>
+              disabled={!changesuser.email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
@@ -380,7 +409,7 @@ export default function UpdateProfile() {
               }}
               value={changesuser.phone}
               tabIndex="7"
-              disabled={!email}
+              disabled={!changesuser.email}
             />
             <label htmlFor="phone" className="label">
               Número de Celular
@@ -405,7 +434,7 @@ export default function UpdateProfile() {
                 // this.handleValidation(e)
               }}
               tabIndex="8"
-              disabled={!email}>
+              disabled={!changesuser.email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
@@ -428,7 +457,7 @@ export default function UpdateProfile() {
                 // handleValidation(e)
               }}
               tabIndex="9"
-              disabled={!email}>
+              disabled={!changesuser.email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
@@ -456,7 +485,7 @@ export default function UpdateProfile() {
                 // this.handleValidation(e)
               }}
               tabIndex="10"
-              disabled={!email}>
+              disabled={!changesuser.email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
@@ -483,7 +512,7 @@ export default function UpdateProfile() {
                 handleOnChange(e)
               }}
               tabIndex="11"
-              disabled={!email}>
+              disabled={!changesuser.email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
@@ -507,9 +536,9 @@ export default function UpdateProfile() {
               placeholder="Correo electrónico"
               noValidate
               maxLength="30"
-              value={email}
+              value={changesuser.email}
               tabIndex="12"
-              disabled={email !== null}
+              disabled={changesuser.email !== null}
               onChange={(e) => {
                 // this.handleValidation(e)
                 handleOnChange(e)
@@ -531,7 +560,7 @@ export default function UpdateProfile() {
                 handleOnChange(e)
               }}
               tabIndex="11"
-              disabled={!email}>
+              disabled={!changesuser.email}>
               <option disabled="disabled" value="default">
                 Seleccione
               </option>
@@ -576,8 +605,8 @@ export default function UpdateProfile() {
               className="signwall-inside_forms-btn"
               type="submit"
               style={{
-                color: 'white',
-                backgroundColor: 'skyblue',
+                color: mainColorLink,
+                backgroundColor: mainColorBtn,
               }}
               disabled={!haschange || loading || haserror}
               tabIndex="13">
