@@ -1,0 +1,12 @@
+.title {
+  &__container {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    align-items: center;
+    &--bg-red {
+      background-color: red;
+    }
+  }
+}
