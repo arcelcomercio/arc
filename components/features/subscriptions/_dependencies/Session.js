@@ -49,7 +49,16 @@ export const conformProfile = (userPorfile) => {
   return {
     ...restProfile,
     ...phone,
-    ...attrToObject(attributes, ['documentNumber', 'phone', 'documentType']),
+    ...attrToObject(attributes, [
+      'documentNumber',
+      'phone',
+      'documentType',
+      'country',
+      'department',
+      'province',
+      'district',
+      'civilStatus',
+    ]),
   }
 }
 
