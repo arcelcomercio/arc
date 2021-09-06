@@ -1,0 +1,109 @@
+.video-categories-list{
+  &__wrapper{
+    padding: 32px 20px 0 20px;
+  }
+
+  &__section{
+    padding-top: 16px;
+    &__wrapper-title{
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 16px;
+    }
+    &__name{
+      font-family: $encode-c;
+      color: #E06437;
+      font-size: 24px;
+      line-height: 30px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+    }
+    &__arrow-title{
+      color: #333;
+      height: 25px;
+      margin-left: 5px;
+      @media (--desktop) {
+        display: none;
+      }
+    }
+    &__section-more-videos{
+      font-family: $fira-s;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 19px;
+      color: #333;
+      display: none;
+      @media (--desktop) {
+        display: flex;
+        align-items: center;
+        line-height: 30px;
+      }
+    }
+    &__link:hover{
+      text-decoration: none;
+    }
+    &__wrapper-list{
+      @media (--desktop) {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    &__icon-more-videos{
+      height: 22px;
+    }
+
+    &__item{
+      &__wrapper{
+        background-color: #fff;
+        margin-bottom: 48px;
+        @media (--desktop) {
+          width: 276px;
+        }
+      }
+      &__image{
+        width: 100%;
+        @media (--desktop) {
+          width: 276px;
+        }
+      }
+      &__duration{
+        font-family: $primary-font;
+        font-size: 12px;
+        color: #fff;
+        width: 33px;
+        height: 14px;
+      }
+      &__title{
+        font-size: $fira-s;
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 22px;
+        padding-top: 12px;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        display: -webkit-box;
+      }
+      &__image_wrapper {
+        position: relative;
+      }
+      &__play {
+        font: normal normal bold 12px/16px Roboto;
+        border-radius: 3px;
+        opacity: 0.8;
+        position: absolute;
+        bottom: 9px;
+        width: 54px;
+        height: 52px;
+        color: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      &__icon-play{
+        fill: #fff;
+      }
+    }
+  }
+}

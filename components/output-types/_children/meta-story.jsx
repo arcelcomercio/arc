@@ -213,9 +213,11 @@ export default ({
         duration,
       } = {}) => {
         if (!date || date < 946702800000) {
+          // eslint-disable-next-line no-param-reassign
           date = getDateSeo(updateDate)
         } else {
           const dateObj = new Date(date)
+          // eslint-disable-next-line no-param-reassign
           date = getDateSeo(dateObj)
         }
 

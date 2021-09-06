@@ -50,6 +50,7 @@ $heightHeader: 52px;
 
       & label {
         color: $gray;
+        text-align: left;
       }
 
       & .note-label {
@@ -297,11 +298,15 @@ $heightHeader: 52px;
 
       &-full {
         width: 100%;
+        & button.btn-google,
         & button.btn-facebook {
-          width: 100%;
-          margin: 0;
-          font-size: 12px;
+          // width: 100%;
+          // margin: 0;
+          font-size: 16px;
           background-position: 15px center;
+          text-align: center !important;
+          min-width: 300px;
+          margin: 0 auto !important;
         }
       }
 
@@ -333,6 +338,35 @@ $heightHeader: 52px;
           border-radius: 0 4px 4px 0;
         }
       }
+    }
+
+    .fb-login-button {
+      margin: 0 auto;
+      display: table;
+      margin-bottom: 20px;
+    }
+
+    #google-sign-in-button {
+      display: table;
+      margin: 20px auto 0 auto;
+    }
+
+    #google-sign-in-button > div {
+      border-radius: 4px;
+      box-shadow: none !important;
+    }
+
+    #google-sign-in-button span {
+      font-size: 17px !important;
+      font-weight: bold;
+      color: white;
+    }
+
+    &-img-facebok {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
     }
 
     &-cont-form {
@@ -673,6 +707,9 @@ $heightHeader: 52px;
         height: 3030px;
       }
       @media (min-width: 767px) {
+        height: 2120px;
+      }
+      @media (min-width: 768px) {
         height: 2120px;
       }
       @media (min-width: 1024px) {

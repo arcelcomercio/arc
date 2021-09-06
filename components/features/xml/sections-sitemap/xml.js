@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
-import { localISODate } from '../../../utilities/helpers'
+
+import { localISODate } from '../../../utilities/date-time/dates'
 
 const SOURCE = 'navigation-by-hierarchy'
 const HIERARCHY = 'sitemap-default'
@@ -33,9 +34,9 @@ class XmlSectionsSitemap {
             _id
           }
         }`,
-        transform: data => {
+        transform: (data) => {
           const { children: sections } = data || {}
-          const ids = sections && sections.map(section => section._id)
+          const ids = sections && sections.map((section) => section._id)
           return ids
         },
       },
@@ -52,7 +53,7 @@ class XmlSectionsSitemap {
     const { siteProperties: { siteUrl = '' } = {} } = this.props
 
     const sitemaps = {
-      sitemapindex: sectionsId.map(id => ({
+      sitemapindex: sectionsId.map((id) => ({
         sitemap: {
           loc: `${siteUrl}${SITEMAP}${id}/${OUTPUTTYPE}`,
           lastmod: localISODate(),

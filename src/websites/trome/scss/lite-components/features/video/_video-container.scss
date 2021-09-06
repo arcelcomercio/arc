@@ -1,0 +1,21 @@
+.lite-video-container {
+  position: relative;
+  height: auto;
+  gap: 20px;
+
+  &::after {
+    z-index: -1;
+    content: "";
+    display: block;
+    position: absolute;
+    top: -20px;
+    bottom: 0;
+    left: -200%;
+    background-color: #363636;
+    width: 500%;
+  }
+
+  @media (--desktop) {
+    gap: 12px;
+  }
+}

@@ -2,16 +2,27 @@
   content-visibility: auto;
   contain-intrinsic-size: 80px;
   color: #333;
+  display: block;
 
   &__title {
+    border-top: 4px solid #333;
     color: #333;
     opacity: 1;
+    font-family: $fira-s;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 0;
+    width: 100%;
   }
 
   &__link {
     background: #fff 0% 0% no-repeat padding-box;
-    border-radius: 3px;
+    border-radius: 0;
     opacity: 1;
-    color: #666;
+    border-color: #A5A5A5;
+    color: #333;
+    padding: 3px 10px;
   }
 }

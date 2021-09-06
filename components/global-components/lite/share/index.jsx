@@ -3,7 +3,7 @@ import getProperties from 'fusion:properties'
 import * as React from 'react'
 
 import { socialMediaUrlShareList } from '../../../utilities/social-media'
-import { copyLink,popup } from './utils'
+import { copyLink, popup } from './utils'
 
 const classes = {
   share: '',
@@ -19,6 +19,7 @@ const ShareButtons = ({
   activeGoogleNews = false,
   activeCopyLink = false,
   activeLinkedin = true,
+  googleNewsText = true,
 }) => {
   const { globalContent, arcSite } = useAppContext()
 
@@ -54,7 +55,9 @@ const ShareButtons = ({
           className={`${classes.btn} ${classes.gnews}`}
           rel="noreferrer"
           target="_blank">
-          <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          {googleNewsText && (
+            <span className={classes.gnewsTxt}>Síguenos en Google News</span>
+          )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="25"
@@ -129,7 +132,8 @@ const ShareButtons = ({
       <script
         dangerouslySetInnerHTML={{
           __html: `${popup}${activeCopyLink ? copyLink : ''}`,
-        }} />
+        }}
+      />
     </>
   )
 }

@@ -41,6 +41,7 @@ import htmlScript from './_dependencies/html-script'
 import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
+import { getEnablePushud, getPushud } from './_dependencies/pushud'
 import {
   getDescription,
   getIsStory,
@@ -179,8 +180,8 @@ const LiteOutput = ({
   }
 
   const structuredTaboola = ` 
-    window._taboola = window._taboola || [];
-    _taboola.push({flush: true});`
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});`
 
   const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
@@ -206,6 +207,9 @@ const LiteOutput = ({
     oembedSubtypes.includes('youtube')
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
+
+  const scriptAdpush = getPushud(arcSite)
+  const enabledPushud = getEnablePushud(arcSite)
 
   /**
    * Lógica para las hojas de estilos
@@ -304,7 +308,12 @@ const LiteOutput = ({
                 }, follow`}
               />
             ) : (
-              <meta name="robots" content="index, follow" />
+              <meta
+                name="robots"
+                content={`${
+                  globalContent?.param === 'noindex' ? 'noindex' : 'index'
+                }, follow`}
+              />
             )}
             {arcSite === 'trome' || arcSite === 'depor' ? null : (
               <meta name="GOOGLEBOT" content="index follow" />
@@ -471,7 +480,6 @@ const LiteOutput = ({
           section={sectionAds}
           subtype={subtype}
         />
-
         <Styles
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...metaSiteData}
@@ -563,7 +571,7 @@ const LiteOutput = ({
             }
           </Resource>
         ) : null}
-        {/* metaValue('section_style') === 'provecho' ? (
+        {metaValue('section_style') === 'provecho' ? (
           <Resource path="resources/dist/elcomercio/css/lite-provecho.css">
             {({ data }) =>
               data ? (
@@ -577,7 +585,7 @@ const LiteOutput = ({
               ) : null
             }
           </Resource>
-        ) : null */}
+        ) : null}
         <ChartbeatBody
           story={isStory}
           hasVideo={contenidoVideo || hasYoutubeVideo}
@@ -618,7 +626,15 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-
+        {enabledPushud && (
+          <>
+            <script
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+            />
+          </>
+        )}
         {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script
@@ -892,6 +908,15 @@ const LiteOutput = ({
           />
         )}
         {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
+        {arcSite === SITE_OJO && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
+              }}
+            />
+          </>
+        )}
       </body>
     </html>
   )

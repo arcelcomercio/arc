@@ -56,15 +56,15 @@ export default (props) => {
           <ul className={classes.list}>
             {dataList.map(
               ({ _id: id, url, name = '', display_name: displayName = '' }) => (
-                  <li className={classes.item}>
-                    <a
-                      itemProp="url"
-                      className={classes.link}
-                      href={url || id || '/'}>
-                      {name || displayName}
-                    </a>
-                  </li>
-                )
+                <li className={classes.item}>
+                  <a
+                    itemProp="url"
+                    className={classes.link}
+                    href={url || id || '/'}>
+                    {name || displayName}
+                  </a>
+                </li>
+              )
             )}
           </ul>
           <a href="/suscripcion-newsletter/" className={classes.news}>

@@ -110,7 +110,8 @@ const DynamicShareButtons = () => {
       <script
         dangerouslySetInnerHTML={{
           __html: `${socialShare}`,
-        }} />
+        }}
+      />
     </>
   )
 }
