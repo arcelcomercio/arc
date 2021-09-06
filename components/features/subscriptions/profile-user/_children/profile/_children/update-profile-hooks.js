@@ -63,16 +63,12 @@ export default function UpdateProfile() {
 
   React.useEffect(() => {
     const {
-      firstName,
-      lastName,
-      secondLastName,
+      firstName = null,
+      lastName = null,
+      secondLastName = null,
       contacts = [],
       attributes = [],
-      email,
-      country = null,
-      department = null,
-      province = null,
-      district = null,
+      email = null,
       gender = null,
       birthDay = null,
       birthMonth = null,
@@ -117,6 +113,41 @@ export default function UpdateProfile() {
       civilStatus = civilStatus.value
     } else {
       civilStatus = ''
+    }
+
+    /* Obtener ubiacion */
+
+    let country = attributes.find((valor) => valor.name === 'country') || ''
+
+    if (country.value) {
+      country = country.value
+    } else {
+      country = ''
+    }
+
+    let department =
+      attributes.find((valor) => valor.name === 'department') || ''
+
+    if (department.value) {
+      department = department.value
+    } else {
+      department = ''
+    }
+
+    let province = attributes.find((valor) => valor.name === 'province') || ''
+
+    if (province.value) {
+      province = province.value
+    } else {
+      province = ''
+    }
+
+    let district = attributes.find((valor) => valor.name === 'district') || ''
+
+    if (district.value) {
+      district = district.value
+    } else {
+      district = ''
     }
 
     saveChangesUser({
@@ -254,7 +285,7 @@ export default function UpdateProfile() {
                 handleOnChange(e)
                 // handleValidation(e)
               }}
-              value={changesuser.firstName}
+              value={changesuser.firstName || ''}
               tabIndex="1"
               disabled={!changesuser.email}
             />
@@ -277,7 +308,7 @@ export default function UpdateProfile() {
               onChange={(e) => {
                 handleOnChange(e)
               }}
-              value={changesuser.lastName}
+              value={changesuser.lastName || ''}
               tabIndex="2"
               disabled={!changesuser.email}
             />
@@ -299,7 +330,7 @@ export default function UpdateProfile() {
               onChange={(e) => {
                 handleOnChange(e)
               }}
-              value={changesuser.secondLastName}
+              value={changesuser.secondLastName || ''}
               tabIndex="3"
               disabled={!changesuser.email}
             />
