@@ -149,7 +149,7 @@ export default function UpdateProfile() {
       district = ''
     }
 
-    const [changesuser, saveChangesUser] = React.useState({
+    saveChangesUser({
       firstName,
       lastName,
       secondLastName,
@@ -168,23 +168,23 @@ export default function UpdateProfile() {
       birthYear,
     })
 
-    if (changesuser.country) {
+    if (country) {
       getUbigeo(country, 'department').then((result) => {
         saveDeparments(...departments, result)
-      })
-    }
-    if (changesuser.department) {
-      getUbigeo(department, 'province').then((result) => {
-        saveProvinces(...provinces, result)
-      })
-    }
-
-    if (changesuser.province) {
-      getUbigeo(province, 'district').then((result) => {
-        saveDeparments(...departments, result)
+        if (department) {
+          getUbigeo(department, 'province').then((result1) => {
+            saveProvinces(...provinces, result1)
+            if (province) {
+              getUbigeo(province, 'district').then((result2) => {
+                saveDistricts(...districts, result2)
+              })
+            }
+          })
+        }
       })
     }
   }, [])
+
   const [errors, saveErrors] = React.useState({
     firstName: '',
     lastName: '',
