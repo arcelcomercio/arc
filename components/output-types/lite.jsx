@@ -819,7 +819,7 @@ const LiteOutput = ({
         arcSite === SITE_OJO ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
+            src={`https://dies75ilbevsu.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
