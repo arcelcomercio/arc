@@ -2,7 +2,7 @@
 import Context from 'fusion:context'
 import React from 'react'
 
-import { getAssetsPath } from '../../../utilities/constants'
+import { getAssetsPath } from '../../../utilities/assets'
 import { Taggeo } from '../../subscriptions/_dependencies/Taggeo'
 import { Back, Close } from './icons'
 

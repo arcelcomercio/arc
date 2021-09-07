@@ -1,9 +1,10 @@
+import Identity from '@arc-publishing/sdk-identity'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import Markdown from 'react-markdown/with-html'
 
-import { ModalConsumer } from '../../../subscriptions/_context/modal'
+import { useModalContext } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { getUrlPaywall } from '../../_dependencies/domains'
 import Loading from '../loading'
@@ -14,7 +15,7 @@ const FormIntro = ({
   checkModal = (i) => i,
 }) => {
   const { arcSite } = useAppContext() || {}
-  const { changeTemplate } = React.useContext(ModalConsumer)
+  const { changeTemplate } = useModalContext()
   const [showLoading, setShowLoading] = React.useState(true)
   const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
 
@@ -41,7 +42,7 @@ const FormIntro = ({
 
   React.useEffect(() => {
     setShowLoading(false)
-    if (window.Identity.userProfile || window.Identity.userIdentity.uuid) {
+    if (Identity.userProfile || Identity.userIdentity.uuid) {
       setShowPaywallBtn(true)
     }
   }, [])

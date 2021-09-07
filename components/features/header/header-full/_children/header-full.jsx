@@ -449,7 +449,7 @@ export default ({
               {isDeporPlay && urlLogoPlay !== '' && (
                 <a
                   itemProp="url"
-                  href="/"
+                  href="/depor-play/"
                   className="header-full__logo-play"
                   title={siteDomain}>
                   <img

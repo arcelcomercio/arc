@@ -249,3 +249,17 @@ nav.nav__wrapper {
     }
   }
 }
+
+.saltar-intro {
+  .header-section {
+    &__img {
+      width: 100%;
+      max-width: 241px;
+      max-height: 31px;
+      @media (--desktop) {
+        max-width: 484px;
+        max-height: 61px;
+      }
+    }
+  }
+}

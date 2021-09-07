@@ -517,9 +517,7 @@ export default ({
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${
-      arcSite === 'elcomercio'
-        ? data?.description?.basic || formatHtmlToText(subTitle)
-        : formatHtmlToText(subTitle)
+      formatHtmlToText(data?.description?.basic) || formatHtmlToText(subTitle)
     }",
     ${publishingPrinciples}
   ${bodyStructured}
@@ -708,11 +706,9 @@ export default ({
           />
         </>
       )}
-       {isAmp !== true &&
-        !(
-          isPremium &&
-          removeLastSlash(primarySectionLink) === '/archivo-elcomercio'
-        ) && <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />}
+      {isAmp !== true && !isPremium && (
+        <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
+      )}
       {isAmp === true &&
         dataStructuraHtmlAmp.map((datas) => (
           <>

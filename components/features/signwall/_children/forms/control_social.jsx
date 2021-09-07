@@ -1,12 +1,11 @@
+import Identity from '@arc-publishing/sdk-identity'
 import sha256 from 'crypto-js/sha256'
+import getProperties from 'fusion:properties'
 import * as React from 'react'
 
-import {
-  setCookie,
-  setCookieDomain,
-} from '../../../subscriptions/_dependencies/Cookies'
+import { setCookie } from '../../../../utilities/client/cookies'
+import { getQuery } from '../../../../utilities/parse/queries'
 import getDevice from '../../../subscriptions/_dependencies/GetDevice'
-import { getQuery } from '../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import { isFbBrowser } from '../../../subscriptions/_dependencies/Utils'
 import { getOriginAPI, getUrlECOID } from '../../_dependencies/domains'
@@ -33,7 +32,7 @@ const AfterLoginRegister = (
   typeDialog,
   typeForm,
   provider,
-  arcSite,
+  siteDomain,
   onLogged,
   resProfile,
   checkUserSubs,
@@ -45,8 +44,8 @@ const AfterLoginRegister = (
     `web_sw${typeDialog[0]}_${typeForm}_success_${provider}`
   )
   setCookie('arc_e_id', sha256(emailUser).toString(), 365)
-  const USER_IDENTITY = JSON.stringify(window.Identity.userIdentity || {})
-  setCookieDomain('ArcId.USER_INFO', USER_IDENTITY, 1, arcSite)
+  const USER_IDENTITY = JSON.stringify(Identity.userIdentity || {})
+  setCookie('ArcId.USER_INFO', USER_IDENTITY, 1, siteDomain)
 
   onLogged(resProfile)
 
@@ -86,8 +85,9 @@ const setupUserProfile = (
   onStudents,
   dataTreatment
 ) => {
-  window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-  window.Identity.getUserProfile()
+  const { siteDomain } = getProperties(arcSite) || {}
+
+  Identity.getUserProfile()
     .then((resProfile) => {
       const EMAIL_USER =
         resProfile.email ||
@@ -141,7 +141,9 @@ const setupUserProfile = (
                   arcSite === 'gestion' ||
                   arcSite === 'trome' ||
                   arcSite === 'ojo' ||
-                  arcSite === 'diariocorreo')
+                  arcSite === 'diariocorreo' ||
+                  arcSite === 'peru21' ||
+                  arcSite === 'peru21g21')
                   ? dataTreatment
                   : 'NULL',
               type: 'String',
@@ -149,11 +151,7 @@ const setupUserProfile = (
           ],
         }
 
-        window.Identity.options({
-          apiOrigin: getOriginAPI(arcSite),
-        })
-
-        window.Identity.updateUserProfile(newProfileFB)
+        Identity.updateUserProfile(newProfileFB)
           .then(() => {
             if (activeNewsletter && EMAIL_USER.indexOf('facebook.com') < 0) {
               sendNewsLettersUser(
@@ -169,7 +167,7 @@ const setupUserProfile = (
                     typeDialog,
                     typeForm,
                     provider,
-                    arcSite,
+                    siteDomain,
                     onLogged,
                     resProfile,
                     checkUserSubs,
@@ -186,7 +184,7 @@ const setupUserProfile = (
                 typeDialog,
                 typeForm,
                 provider,
-                arcSite,
+                siteDomain,
                 onLogged,
                 resProfile,
                 checkUserSubs,
@@ -204,7 +202,7 @@ const setupUserProfile = (
           typeDialog,
           typeForm,
           provider,
-          arcSite,
+          siteDomain,
           onLogged,
           resProfile,
           checkUserSubs,
@@ -230,7 +228,7 @@ const authSocialProviderURL = (
   onStudents,
   dataTreatment
 ) => {
-  if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
+  if (origin !== getUrlECOID || Identity.userIdentity.uuid) {
     return
   }
 
@@ -241,7 +239,7 @@ const authSocialProviderURL = (
           'ArcId.USER_INFO',
           JSON.stringify(resLogSocial)
         )
-        window.Identity.userIdentity = resLogSocial
+        Identity.userIdentity = resLogSocial
         setupUserProfile(
           resLogSocial.accessToken,
           data.providerSource,
@@ -315,7 +313,7 @@ export const ButtonSocial = ({
   }
 
   const authSocialProvider = ({ data, origin }) => {
-    if (origin !== getUrlECOID || window.Identity.userIdentity.uuid) {
+    if (origin !== getUrlECOID || Identity.userIdentity.uuid) {
       return
     }
 
@@ -332,7 +330,7 @@ export const ButtonSocial = ({
           'ArcId.USER_INFO',
           JSON.stringify(resLogSocial)
         )
-        window.Identity.userIdentity = resLogSocial
+        Identity.userIdentity = resLogSocial
 
         setShowTextLoad('Cargando...')
         setupUserProfile(
@@ -459,7 +457,7 @@ export const AuthURL = ({
       'signStudents',
     ]
 
-    listUrlRedirect.map((item) => {
+    listUrlRedirect.forEach((item) => {
       if (getQuery(item)) {
         setTimeout(() => {
           const btnFacebook = document.getElementById('btn-sign-facebook')
@@ -489,7 +487,6 @@ export const AuthURL = ({
           dataTreatment
         )
       }
-      return null
     })
   }
 

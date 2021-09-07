@@ -1,7 +1,7 @@
 import { ConentSourceBase } from 'types/content-source'
+import { ResizedUrls } from 'types/resizer'
 import { AnyObject } from 'types/utils'
 
-import { ResizedUrls } from '../../components/utilities/resizer/format-presets'
 import { createResizedParams } from '../../components/utilities/resizer/resizer'
 
 export type PhotoByIdQuery = {

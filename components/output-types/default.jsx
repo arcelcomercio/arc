@@ -361,7 +361,7 @@ export default ({
         <meta name="lang" content={lang} />
         <meta name="resource-type" content="document" />
         <meta content="global" name="distribution" />
-        {arcSite === 'trome' && isStory ? (
+        {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
           <meta
             name="robots"
             content={`${
@@ -373,7 +373,7 @@ export default ({
             <meta name="robots" content={`${robotsIndex}, follow`} />
           </>
         )}
-        {arcSite === 'trome' ? null : (
+        {arcSite === 'trome' || arcSite === 'depor' ? null : (
           <meta name="GOOGLEBOT" content="index follow" />
         )}
         <meta name="author" content={siteProperties.siteTitle} />
@@ -628,23 +628,7 @@ export default ({
           subtype={subtype}
         />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
-        {/* <!-- Identity & Paywall - Inicio --> */}
-        {(() => {
-          if (
-            isElcomercioHome ||
-            !siteProperties.activeSignwall ||
-            isTrivia ||
-            isPreview
-          ) {
-            return null
-          }
-          return (
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-              defer
-            />
-          )
-        })()}
+        {/* <!-- Paywall - Inicio --> */}
         {(() => {
           if (
             isElcomercioHome ||
@@ -663,7 +647,7 @@ export default ({
             />
           )
         })()}
-        {/* <!-- Identity & Sales & Paywall - Fin --> */}
+        {/* <!-- Paywall - Fin --> */}
         {enabledPushud && (
           <>
             <script
@@ -779,6 +763,15 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
+        {arcSite === SITE_OJO && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
+              }}
+            />
+          </>
+        )}
         {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
           isSearchSection && (
             <script

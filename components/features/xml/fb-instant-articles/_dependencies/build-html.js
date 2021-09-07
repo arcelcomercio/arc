@@ -2,7 +2,6 @@
 import ConfigParams from '../../../../utilities/config-params'
 import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
 import { JWPLAYER } from '../../../../utilities/constants/multimedia-types'
-import { SITE_ELCOMERCIOMAG } from '../../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
   MINUTO_MINUTO,
@@ -190,6 +189,9 @@ const analyzeParagraph = ({
   siteUrl = '',
   typeConfig = '',
   subtypeTheme = '',
+  hasAds = '',
+  jwplayers,
+  account,
 }) => {
   // retorna el parrafo, el numero de palabras del parrafo y typo segunla logica
   const result = {
@@ -239,19 +241,17 @@ const analyzeParagraph = ({
       }
       if (subtype === VIDEO_JWPLAYER) {
         let ulrJwplayer = ''
+        let jwplayerId = ''
         if (originalParagraph) {
           ulrJwplayer = getResultJwplayer(originalParagraph)
-          if (arcSite === SITE_ELCOMERCIOMAG) {
-            const gulrJwplay = ulrJwplayer.match(
-              /videos\/(([0-9a-zA-Z])\w+-([0-9a-zA-Z])\w+).mp4/
-            )
-            ulrJwplayer = gulrJwplay?.[1] || []
-          }
+          const playerId = jwplayers[account] || jwplayers.gec
+          jwplayerId = hasAds ? playerId.playerAds : playerId.player
+          const gulrJwplay = ulrJwplayer.match(
+            /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
+          )
+          ulrJwplayer = gulrJwplay?.[1] || []
         }
-        if (arcSite === SITE_ELCOMERCIOMAG)
-          result.processedParagraph = `<figure xxx class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}.html"></iframe></figure>`
-        else
-          result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe></figure>`
+        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}-${jwplayerId}.html"></iframe></figure>`
       }
       break
     case ConfigParams.ELEMENT_LINK_LIST:
@@ -282,6 +282,7 @@ const analyzeParagraph = ({
         arcSite,
         defaultImage,
         siteUrl,
+        jwplayers,
       }
 
       // eslint-disable-next-line no-use-before-define
@@ -501,6 +502,7 @@ const buildListParagraph = ({
   defaultImage,
   siteUrl = '',
   subtypeTheme,
+  jwplayers,
 }) => {
   const objTextsProcess = { processedParagraph: '', numberWords: 0 }
   const newListParagraph = StoryData.paragraphsNews(listParagraph)
@@ -512,6 +514,8 @@ const buildListParagraph = ({
       streams = [],
       type_config: typeConfig = '',
       subtype = '',
+      hasAds = '',
+      account,
     }) => {
       const { processedParagraph, numberWords } = analyzeParagraph({
         originalParagraph: payload,
@@ -526,6 +530,9 @@ const buildListParagraph = ({
         siteUrl,
         typeConfig,
         subtypeTheme,
+        hasAds,
+        account,
+        jwplayers,
       })
       objTextsProcess.processedParagraph += `<li>${processedParagraph}</li>`
       objTextsProcess.numberWords += numberWords
@@ -548,6 +555,7 @@ const ParagraphshWithAdds = ({
   arcSite,
   subtypeTheme = '',
   defaultImage = '',
+  jwplayers,
 }) => {
   let newsWithAdd = []
   let countWords = 0
@@ -564,6 +572,8 @@ const ParagraphshWithAdds = ({
         link = '',
         streams = [],
         type_config: typeConfig = '',
+        hasAds,
+        account,
       }) => {
         let paragraphwithAdd = ''
 
@@ -581,6 +591,9 @@ const ParagraphshWithAdds = ({
           siteUrl,
           typeConfig,
           subtypeTheme,
+          hasAds,
+          account,
+          jwplayers,
         })
 
         if (ConfigParams.ELEMENT_STORY === type) {
@@ -643,7 +656,8 @@ const multimediaHeader = (
   arcSite,
   subtype,
   contentElementGallery,
-  promoItemJwplayer
+  promoItemJwplayer,
+  jwplayers
 ) => {
   let result = ''
   const urlVideo = getResultVideo(videoPrincipal, arcSite, 'mp4')
@@ -666,24 +680,22 @@ const multimediaHeader = (
       break
     case JWPLAYER:
       let ulrJwplayer = ''
+      let jwplayerId = ''
       if (promoItemJwplayer && promoItemJwplayer.key) {
         ulrJwplayer = getResultJwplayer(promoItemJwplayer.conversions)
-        if (arcSite === SITE_ELCOMERCIOMAG) {
-          const gulrJwplay = ulrJwplayer.match(
-            /videos\/(([0-9a-zA-Z])\w+-([0-9a-zA-Z])\w+).mp4/
-          )
-          ulrJwplayer = gulrJwplay?.[1] || []
-        }
+        const playerId = jwplayers[promoItemJwplayer?.account] || jwplayers.gec
+        jwplayerId = promoItemJwplayer?.has_ads
+          ? playerId.playerAds
+          : playerId.player
+        const gulrJwplay = ulrJwplayer.match(
+          /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
+        )
+        ulrJwplayer = gulrJwplay?.[1] || []
       }
 
-      if (arcSite === SITE_ELCOMERCIOMAG)
-        result = `<figure ccc class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}.html"></iframe>${
-          title ? `<figcaption>${title}</figcaption>` : ''
-        }</figure>`
-      else
-        result = `<figure class="op-interactive"><iframe width="560" height="315" src="${ulrJwplayer}"></iframe>${
-          title ? `<figcaption>${title}</figcaption>` : ''
-        }</figure>`
+      result = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}-${jwplayerId}.html"></iframe>${
+        title ? `<figcaption>${title}</figcaption>` : ''
+      }</figure>`
 
       break
     case ConfigParams.GALLERY:
@@ -759,6 +771,7 @@ const BuildHtml = ({
   contentElementGallery,
   promoItemJwplayer,
   tags = [],
+  jwplayers,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -775,6 +788,7 @@ const BuildHtml = ({
     subtypeTheme: subtype,
     arcSite,
     defaultImage,
+    jwplayers,
   }
   const getContentType = ({ premium = '' } = {}) => {
     const premiumValue =
@@ -846,7 +860,8 @@ const BuildHtml = ({
         arcSite,
         subtype,
         contentElementGallery,
-        promoItemJwplayer
+        promoItemJwplayer,
+        jwplayers
       )}
       
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
