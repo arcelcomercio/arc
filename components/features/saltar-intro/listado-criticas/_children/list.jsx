@@ -10,6 +10,7 @@ const classes = {
   author: 'saltar-intro-listado-criticas__author',
   section: 'saltar-intro-listado-criticas__section',
   stars: 'saltar-intro-listado-criticas__stars',
+  starsColor: 'saltar-intro-listado-criticas__stars--color',
   box: 'saltar-intro-listado-criticas__box',
   line: 'saltar-intro-listado-criticas__line',
   boxSeeMore: 'saltar-intro-listado-criticas__box-see-more',
@@ -17,11 +18,22 @@ const classes = {
   image: 'saltar-intro-listado-criticas__image',
 }
 export default ({ isAdmin, seeMoreLink, data: { items = [] } = {} }) => {
+  const getStars = (count = 0, max = 5) => {
+    const limitCount = count > 5 ? 5 : parseInt(count)
+    const starFull = `<span class="${classes.starsColor}">☆</span>`.repeat(
+      limitCount
+    )
+    const star = '☆'.repeat(max - limitCount)
+    return `${starFull}${star}`
+  }
+
   return (
     <div className={classes.container}>
       <div className={classes.list}>
         {items &&
           items.map((el, index) => {
+            const { embed: { config: { score = 0, chapter } = {} } = {} } =
+              el.dataSaltarIntro || {}
             const params = {
               title: el.title,
               link: el.websiteLink,
@@ -50,16 +62,19 @@ export default ({ isAdmin, seeMoreLink, data: { items = [] } = {} }) => {
                   </figure>
                   <div className={classes.box}>
                     <a className={classes.section} href={params.sectionLink}>
-                      {params.section}
+                      {chapter || params.section}
                     </a>
-                    <div className={classes.stars}>☆☆☆☆☆</div>
+                    <div
+                      className={classes.stars}
+                      dangerouslySetInnerHTML={{ __html: getStars(score) }}
+                    />
                   </div>
                   <a className={classes.title} href={params.link}>
                     {params.title}
                   </a>
                   <div className={classes.author}>{params.author}</div>
                 </article>
-                {(index + 1) % 3 === 0 && <div className={classes.line}></div>}
+                {(index + 1) % 3 === 0 && <div className={classes.line} />}
               </>
             )
           })}

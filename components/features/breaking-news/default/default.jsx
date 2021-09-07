@@ -39,8 +39,10 @@ const BreakingNewsFeat = (props) => {
   const { arcSite } = useAppContext()
   const { editableField } = useEditableContent()
 
+  const isStory = /^\/.*\/.*-noticia/.test(storyLink)
+
   const article = useContent(
-    storyLink
+    storyLink && !storyLink.includes('?') && isStory
       ? {
           source: 'story-by-url',
           query: {

@@ -15,7 +15,7 @@ stages:
   - cleanup
 
 cache:
-  key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
   paths:
     - .npm
     - cache/Cypress
@@ -31,7 +31,7 @@ install_dependencies:
       - node_modules/
     expire_in: 1 day
   cache:
-    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:
       - node_modules/
     policy: push
@@ -73,7 +73,7 @@ deploy-sandbox-prepare:
   dependencies:
     - build-verify
   cache:
-    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:
       - node_modules/
     policy: pull
@@ -83,7 +83,6 @@ deploy-sandbox-prepare:
     PB_VERSION: latest
     BUNDLE_FILE: bundle.zip
   script:
-    - npm install node-fetch --save
     - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
     - echo $BUNDLE_NAME
     - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
@@ -107,17 +106,16 @@ promote-sandbox:
   dependencies:
     - deploy-sandbox-prepare
   cache:
-    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:
       - node_modules/
     policy: pull
   variables:
     ARC_DOMAIN: $ARC_DOMAIN_SANDBOX
     BUNDLE_NAME: $CI_COMMIT_REF_SLUG
-    PB_VERSION: '2.8.3'
+    PB_VERSION: "2.8.3"
     BUNDLE_FILE: bundle.zip
   script:
-    - npm install node-fetch --save
     - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
     - echo $BUNDLE_NAME
     - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
@@ -152,6 +150,10 @@ test-bundle-sandbox:
     BUNDLE_FILE: bundle.zip
   script:
     - node config/deploy/assets.js
+  artifacts:
+    when: on_success
+    paths:
+      - node_modules/
   only:
     - sandbox
   tags:
@@ -163,7 +165,7 @@ deploy-sandbox_live:
   dependencies:
     - test-bundle-sandbox
   cache:
-    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:
       - node_modules/
     policy: pull
@@ -172,7 +174,6 @@ deploy-sandbox_live:
     BUNDLE_NAME: $CI_COMMIT_REF_SLUG
     BUNDLE_FILE: bundle.zip
   script:
-    - npm install node-fetch --save
     - export BUNDLE_NAME="$CI_JOB_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
     - echo $BUNDLE_NAME
     - export ARC_DOMAIN=$ARC_DOMAIN_SANDBOX
@@ -190,7 +191,7 @@ eslint-dev:
   dependencies:
     - install_dependencies
   cache:
-    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:
       - node_modules/
     policy: pull
@@ -264,7 +265,7 @@ deploy-master:
   dependencies:
     - build-verify_master
   cache:
-    key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:
       - node_modules/
     policy: pull

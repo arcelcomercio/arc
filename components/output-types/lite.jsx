@@ -813,7 +813,7 @@ const LiteOutput = ({
             sectionAds === 'full-deportes') ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/dev/main-v3/public/js/main.min.js?v=${new Date()
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
@@ -883,6 +883,15 @@ const LiteOutput = ({
                 />
               </>
             )}
+          </>
+        )}
+        {arcSite === SITE_OJO && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
+              }}
+            />
           </>
         )}
         {vallaSignwall === false &&
