@@ -508,13 +508,7 @@ class UpdateProfile extends React.Component {
         }
 
         break
-      // case 'genero':
-      //   if (value !== '') {
-      //     formErrors.genero = ''
-      //   } else {
-      //     formErrors.genero = 'Ingresar el genero'
-      //   }
-      //   break
+
       default:
     }
 

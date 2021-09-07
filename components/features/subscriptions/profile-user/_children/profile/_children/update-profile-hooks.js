@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
@@ -7,17 +8,14 @@
 
 import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
-// import { cleanLegacyAnchor } from 'components/utilities/tags'
-// import { profile } from 'console'
-// import Consumer from 'fusion:consumer'
-// import { element } from 'prop-types'
 import * as React from 'react'
+import { DatePicker } from '@material-ui/pickers'
 
 // import { Close } from '../../../../../signwall/_children/icons'
 // import { Modal } from '../../../../../signwall/_children/modal/index'
 import GetProfile from '../../../../../signwall/_dependencies/get-profile'
-// import { clean } from '../../../../../signwall/_dependencies/object'
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
+import { alpha } from '@material-ui/core/styles'
 // import {
 //   docRegex,
 //   emailRegex,
@@ -41,6 +39,8 @@ export default function UpdateProfile() {
   const [provinces, saveProvinces] = React.useState([])
 
   const [districts, saveDistricts] = React.useState([])
+
+  const [converteddate, saveConvertedDate] = React.useState('')
 
   const [changesuser, saveChangesUser] = React.useState({
     firstName: '',
@@ -183,25 +183,33 @@ export default function UpdateProfile() {
         }
       })
     }
+
+    if (
+      birthDay ||
+      birthMonth ||
+      birthDay ||
+      birthDay !== '' ||
+      birthMonth !== '' ||
+      birthMonth !== ''
+    ) {
+      const converted = new Date(`${birthYear}-${birthMonth}-${birthDay}`)
+      converted.setDate(converted.getDate() + 1)
+      const convertido = new Date(converted)
+      saveConvertedDate(convertido)
+    } else {
+      saveConvertedDate(null)
+    }
   }, [])
 
-  const [errors, saveErrors] = React.useState({
+  const [formErrors, saveErrors] = React.useState({
     firstName: '',
     lastName: '',
     secondLastName: '',
     phone: '',
     email: '',
-    civilStatus: '',
-    country: '',
-    department: '',
-    province: '',
-    district: '',
-    gender: '',
     documentType: '',
     documentNumber: '',
     birthDay: '',
-    birthMonth: '',
-    birthYear: '',
   })
 
   const [loading, saveLoading] = React.useState(false)
@@ -231,6 +239,100 @@ export default function UpdateProfile() {
       }
     }
   }
+
+  const calculateAge = (date) => {
+    const birthday = new Date(date)
+    const currentDate = new Date()
+
+    const time = parseInt(
+      (currentDate.getTime() - birthday.getTime()) / (1000 * 3600 * 24) / 365,
+      10
+    )
+
+    if (time < 5) {
+      formErrors.birthDay = 'No cumple con la edad mínima'
+    } else if (time > 100) {
+      formErrors.birthDay = '¿Está seguro que tiene esa edad?'
+    } else {
+      formErrors.birthDay = ''
+    }
+  }
+
+  const handleDateBirthDayPicker = (e) => {
+    if (e === '' || e === null) {
+      saveChangesUser({
+        ...changesuser,
+        birthYear: '',
+        birthMonth: '',
+        birthDay: '',
+      })
+      formErrors.birthDay = ''
+      saveHasChange(true)
+      saveConvertedDate(null)
+    } else {
+      calculateAge(e)
+      saveConvertedDate(e)
+
+      const per = new Date(e)
+      per.setDate(per.getDate() - 1)
+      const fullyear = new Date(per)
+
+      const year = `${fullyear.getUTCFullYear()}`
+      const month =
+        fullyear.getUTCMonth() + 1 < 10
+          ? `0${fullyear.getUTCMonth() + 1}`
+          : `${fullyear.getUTCMonth() + 1}`
+
+      const day =
+        fullyear.getUTCDate() + 1 < 10
+          ? `0${fullyear.getUTCDate()}`
+          : `${fullyear.getUTCDate()}`
+
+      saveChangesUser({
+        ...changesuser,
+        birthYear: year,
+        birthMonth: month,
+        birthDay: day,
+      })
+      saveHasChange(false)
+    }
+  }
+
+  // const handleDateBirthDay = (e) => {
+  //   if (e.target.value === '') {
+  //     saveChangesUser({
+  //       ...changesuser,
+  //       birthYear: '',
+  //       birthMonth: '',
+  //       birthDay: '',
+  //     })
+  //     formErrors.birthDay = ''
+  //     saveHasChange(true)
+  //     saveConvertedDate('')
+  //   } else {
+  //     calculateAge(e.target.value)
+  //     const fullyear = new Date(e.target.value)
+
+  //     const year = `${fullyear.getUTCFullYear()}`
+  //     const month =
+  //       fullyear.getUTCMonth() + 1 < 10
+  //         ? `0${fullyear.getUTCMonth() + 1}`
+  //         : `${fullyear.getUTCMonth() + 1}`
+
+  //     const day =
+  //       fullyear.getUTCDate() < 10
+  //         ? `0${fullyear.getUTCDate()}`
+  //         : `${fullyear.getUTCDate()}`
+  //     saveChangesUser({
+  //       ...changesuser,
+  //       birthYear: year,
+  //       birthMonth: month,
+  //       birthDay: day,
+  //     })
+  //     saveHasChange(false)
+  //     saveConvertedDate(e.target.value)
+  //   }
+  // }
 
   return (
     <>
@@ -291,9 +393,9 @@ export default function UpdateProfile() {
             <label htmlFor="firstName" className="label">
               Nombres
             </label>
-            {/* {formErrors.firstName.length > 0 && (
+            {formErrors.firstName.length > 0 && (
               <span className="error">{formErrors.firstName}</span>
-            )} */}
+            )}
           </div>
           <div className="sign-profile_update-form-group">
             <input
@@ -314,9 +416,9 @@ export default function UpdateProfile() {
             <label htmlFor="lastnameP" className="label">
               Apellido Paterno
             </label>
-            {/* {formErrors.lastName.length > 0 && (
+            {formErrors.lastName.length > 0 && (
               <span className="error">{formErrors.lastName}</span>
-            )} */}
+            )}
           </div>
           <div className="sign-profile_update-form-group">
             <input
@@ -336,9 +438,9 @@ export default function UpdateProfile() {
             <label htmlFor="secondLastName" className="label">
               Apellido Materno
             </label>
-            {/* {formErrors.secondLastName.length > 0 && (
+            {formErrors.secondLastName.length > 0 && (
               <span className="error">{formErrors.secondLastName}</span>
-            )} */}
+            )}
           </div>
         </div>
 
@@ -389,12 +491,12 @@ export default function UpdateProfile() {
                 disabled={!changesuser.email}
               />
             </div>
-            {/* {formErrors.documentNumber.length > 0 && (
+            {formErrors.documentNumber.length > 0 && (
               <span className="error">{formErrors.documentNumber}</span>
             )}
-            {formErrors.typeDocument.length > 0 && (
-              <span className="error">{formErrors.typeDocument}</span>
-            )} */}
+            {formErrors.documentType.length > 0 && (
+              <span className="error">{formErrors.documentType}</span>
+            )}
           </div>
           <div className="sign-profile_update-form-group">
             <select
@@ -444,9 +546,9 @@ export default function UpdateProfile() {
             <label htmlFor="phone" className="label">
               Número de Celular
             </label>
-            {/* {formErrors.mobilePhone.length > 0 && (
-              <span className="error">{formErrors.mobilePhone}</span>
-            )} */}
+            {formErrors.phone.length > 0 && (
+              <span className="error">{formErrors.phone}</span>
+            )}
           </div>
         </div>
 
@@ -577,9 +679,9 @@ export default function UpdateProfile() {
             <label htmlFor="email" className="label">
               Correo electrónico
             </label>
-            {/* {formErrors.userEmail.length > 0 && (
-              <span className="error">{formErrors.userEmail}</span>
-            )} */}
+            {formErrors.email.length > 0 && (
+              <span className="error">{formErrors.email}</span>
+            )}
           </div>
           <div className="sign-profile_update-form-group">
             <select
@@ -603,31 +705,51 @@ export default function UpdateProfile() {
           </div>
         </div>
         <div className="row three">
-          <div className="sign-profile_update-form-group">
+          {/* <div className="sign-profile_update-form-group">
             <input
               type="date"
               name="fecha"
               step="1"
-              // disabled={
-              //   birthYear && birthMonth && birthDay ? 'disabled' : null
-              // }
-              // defaultValue={
-              //   this.fechaConvertida === ''
-              //     ? fechaConvertida
-              //     : `${birthYear}-${birthMonth}-${birthDay}`
-              // }
-              // onChange={(e) => {
-              //   this.handleValidation(e)
-              //   this.handleDateBirthDay(e)
-              // }}
+              value={
+                converteddate === ''
+                  ? converteddate
+                  : `${changesuser.birthYear}-${changesuser.birthMonth}-${changesuser.birthDay}`
+              }
+              onChange={(e) => {
+                // handleValidation(e)
+                handleDateBirthDay(e)
+              }}
               className="input capitalize"
             />
             <label htmlFor="fecha" className="label">
               Fecha de Nacimiento
             </label>
-            {/* {formErrors.birthDay.length > 0 && (
+            {formErrors.birthDay.length > 0 && (
               <span className="error">{formErrors.birthDay}</span>
-            )} */}
+            )}
+          </div> */}
+          <div className="sign-profile_update-form-group">
+            <DatePicker
+              clearable
+              format="dd MMM yyyy"
+              name="fecha"
+              ToolbarText={alpha('#00FF44', 1)}
+              value={
+                converteddate !== null ? new Date(converteddate) + 1 : null
+              }
+              onChange={(e) => {
+                handleDateBirthDayPicker(e)
+              }}
+              clearLabel="limpiar"
+              cancelLabel="cancelar"
+              className="input"
+            />
+            <label htmlFor="fecha" className="label">
+              Fecha de Nacimiento
+            </label>
+            {formErrors.birthDay.length > 0 && (
+              <span className="error">{formErrors.birthDay}</span>
+            )}
           </div>
 
           <div className="sign-profile_update-form-group">
