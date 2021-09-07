@@ -1,19 +1,18 @@
 {
   "types": {
-    "Fix": "Corrección de error",
-    "Update": "Actualización de funcionalidad",
-    "New": "Implementación de una nueva funcionalidad",
-    "feat": false,
-    "fix": false,
-    "docs": false,
-    "style": false,
-    "refactor": false,
-    "test": false,
-    "chore": false,
-    "perf": false,
-    "ci": false,
+    "feat": "agregar una nueva característica",
+    "fix": "corregir un problema (bug)",
+    "wip": "(Work in progress)",
+    "docs": "cambios en la documentación",
+    "style": "cambios en los estilos",
+    "refactor": "reescribir un script sin ningún cambio en el funcionamiento",
+    "perf": "cambios que impactan en el rendimiento",
+    "test": "agregar un test a alguna característica",
+    "chore": "actualizaciones que no impactan en el usuario (Ejm. modificaciones en el package.json)",
+    "ci": "modificaciones en el ci",
+    "revert": "revertir algún cambio",
     "temp": false
   },
-  "max-len": 100,
+  "max-len": 120,
   "debug": false
 }
