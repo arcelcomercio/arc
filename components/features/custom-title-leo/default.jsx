@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-const classes = {
-  title: 'prueba',
-}
+// const classes = {
+//   title: 'prueba',
+// }
 
 const CustomTitleFeatLeo = (props) => {
   const { customFields: { isNegrita, isSubrayado } = {} } = props
@@ -12,19 +12,15 @@ const CustomTitleFeatLeo = (props) => {
     <>
       <div>
         <h1> my first component </h1>
-
-        {`
-       ${isNegrita ? <b>{classes.title}</b> : classes.title}
-       ${isSubrayado ? <u>{classes.title}</u> : classes.title}
-       ${
-         isNegrita &&
-         isSubrayado && (
-           <b>
-             <u>{classes.title}</u>
-           </b>
-         )
-       }
-       `}
+        {isNegrita ? <b>HOLA</b> : ''}
+        {isSubrayado ? <u>HOLA</u> : ''}
+        {isNegrita && isSubrayado ? (
+          <b>
+            <u>HOLA</u>
+          </b>
+        ) : (
+          ''
+        )}
       </div>
     </>
   )
