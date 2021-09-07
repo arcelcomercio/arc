@@ -107,9 +107,8 @@ export default ({
   )
 
   let classBody = isStory
-    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
-        storySectionPath.split('/')[1]
-      } ${subtype} `
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${storySectionPath.split('/')[1]
+    } ${subtype} `
     : ''
   classBody = isBlogPost ? 'blogPost' : classBody
 
@@ -139,9 +138,8 @@ export default ({
   } else if (/^\/peru21tv\//.test(requestUri)) {
     classBody = `${isStory ? 'story' : ''} section-peru21tv`
   } else if (isVideosSection) {
-    classBody = `${
-      isStory && arcSite !== SITE_OJO ? 'story' : ''
-    } section-videos`
+    classBody = `${isStory && arcSite !== SITE_OJO ? 'story' : ''
+      } section-videos`
   }
 
   if (arcSite === SITE_ELCOMERCIO) {
@@ -197,13 +195,13 @@ export default ({
     // eslint-disable-next-line no-nested-ternary
     arcSite === SITE_ELCOMERCIOMAG
       ? `https://d1r08wok4169a5.cloudfront.net/ads/elcomerciomag/arcads.js?v=${new Date()
-          .toISOString()
-          .slice(0, 10)}`
+        .toISOString()
+        .slice(0, 10)}`
       : indPrebid
-      ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
+        ? `https://d1r08wok4169a5.cloudfront.net/ads/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
-      : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
+        : `https://d1r08wok4169a5.cloudfront.net/ads/ec/arcads.js?v=${new Date()
           .toISOString()
           .slice(0, 10)}`
 
@@ -354,13 +352,12 @@ export default ({
 
   const isFonts = isTrivia || isCovid
 
-  const robotsIndex = `${
-    /(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
-    !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
-    arcSite === 'trome'
+  const robotsIndex = `${/(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
+      !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
+      arcSite === 'trome'
       ? 'noindex'
       : 'index'
-  }`
+    }`
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -374,9 +371,8 @@ export default ({
         {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
           <meta
             name="robots"
-            content={`${
-              /-agnc-/.test(requestUri) ? 'noindex' : 'index'
-            }, follow`}
+            content={`${/-agnc-/.test(requestUri) ? 'noindex' : 'index'
+              }, follow`}
           />
         ) : (
           <>
@@ -803,14 +799,13 @@ export default ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${
-                  getPreroll({
-                    section: sectionPath,
-                    arcSite,
-                    siteDomain,
-                    metaValue,
-                  }) || siteProperties.urlPreroll
-                }';
+                __html: `window.preroll='${getPreroll({
+                  section: sectionPath,
+                  arcSite,
+                  siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll
+                  }';
                 window.addPrefetch('preconnect', 'https://d1tqo5nrys2b20.cloudfront.net/')`,
               }}
             />
