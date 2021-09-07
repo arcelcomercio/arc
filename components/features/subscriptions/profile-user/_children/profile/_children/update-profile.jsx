@@ -275,6 +275,7 @@ class UpdateProfile extends React.Component {
           this.dispatchEvent('profileUpdate', profile)
         })
         .catch((errUpdate) => {
+          console.log(errUpdate)
           if (errUpdate.code === '100018') {
             this.setState({
               showModalConfirm: true,
@@ -576,7 +577,8 @@ class UpdateProfile extends React.Component {
             })
           }, 5000)
         })
-        .catch(() => {
+        .catch((pe) => {
+          console.log('entro al catch login', pe)
           this.setState({
             messageErrorPass:
               'Ha ocurrido un error al actualizar. Contraseña Incorrecta.',
