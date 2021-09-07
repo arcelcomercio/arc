@@ -41,7 +41,6 @@ import htmlScript from './_dependencies/html-script'
 import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
-import { getEnablePushud, getPushud } from './_dependencies/pushud'
 import {
   getDescription,
   getIsStory,
@@ -207,9 +206,6 @@ const LiteOutput = ({
     oembedSubtypes.includes('youtube')
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
-
-  const scriptAdpush = getPushud(arcSite)
-  const enabledPushud = getEnablePushud(arcSite)
 
   /**
    * Lógica para las hojas de estilos
@@ -626,15 +622,15 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-        {enabledPushud && (
+        {arcSite === SITE_PERU21 ? (
           <>
             <script
               type="text/javascript"
-              data-cfasync="false"
-              dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+              src="https://btloader.com/tag?o=5634903914840064&upapi=true"
+              async
             />
           </>
-        )}
+        ) : null}
         {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script

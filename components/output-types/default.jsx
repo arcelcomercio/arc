@@ -12,6 +12,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
+  SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
@@ -658,12 +659,20 @@ export default ({
           )
         })()}
         {/* <!-- Paywall - Fin --> */}
-        {enabledPushud && (
+        {enabledPushud || arcSite !== SITE_PERU21 ? (
           <>
             <script
               type="text/javascript"
               data-cfasync="false"
               dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+            />
+          </>
+        ) : (
+          <>
+            <script
+              type="text/javascript"
+              src="https://btloader.com/tag?o=5634903914840064&upapi=true"
+              async
             />
           </>
         )}
