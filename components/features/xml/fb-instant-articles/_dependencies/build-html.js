@@ -772,6 +772,10 @@ const BuildHtml = ({
   promoItemJwplayer,
   tags = [],
   jwplayers,
+  editableText1,
+  editableText2,
+  editableText3,
+  editableText4,
 }) => {
   const firstAdd = 100
   const nextAdds = 350
@@ -853,11 +857,14 @@ const BuildHtml = ({
       }
     
       <header>
+        ${editableText1}
         ${isProvecho ? headerProvecho : ''}
         <h1>${title}</h1>
         ${!isEmpty(subTitle) ? `<h2>${subTitle}</h2>` : ''}
         <time class="op-published" datetime="${oppublished}"> ${oppublished}</time>
+        ${editableText2}
       </header>
+      ${editableText3}
       ${multimediaHeader(
         multimedia,
         title,
@@ -868,7 +875,7 @@ const BuildHtml = ({
         promoItemJwplayer,
         jwplayers
       )}
-      
+      ${editableText4}
       ${!isEmpty(author) ? `<p>${author}</p>` : ''}
       ${ParagraphshWithAdds(paramsBuildParagraph)}
       ${
