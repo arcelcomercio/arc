@@ -271,7 +271,7 @@ class StoriesListInfiniteScroll extends PureComponent {
         {next > 0 && <Spinner />}
         {(!this.isSection || this.isMultipleSections) && (
           <RenderPagination
-            section="/politica"
+            section={this.section}
             date={dateField || getActualDate()}
           />
         )}
