@@ -1,10 +1,14 @@
 import * as React from 'react'
 
+import importRetry from '../../../utilities/core/import-retry'
+
 export default React.memo(({ classButton, countOnly }) => {
   const SignwallComponent = React.lazy(() =>
-    import(
-      /* webpackChunkName: "main-signwall" */
-      './_default'
+    importRetry(() =>
+      import(
+        /* webpackChunkName: "main-signwall" */
+        './_default'
+      )
     )
   )
 
