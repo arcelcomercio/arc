@@ -178,8 +178,6 @@ class UpdateProfile extends React.Component {
   }
 
   handleUpdateProfile = () => {
-    const { arcSite } = this.props
-
     const {
       firstName,
       lastName,
@@ -516,7 +514,6 @@ class UpdateProfile extends React.Component {
     e.preventDefault()
 
     const { formErrorsConfirm, currentPassword, email } = this.state
-    const { arcSite } = this.props
 
     formErrorsConfirm.oldPassword =
       currentPassword.length === 0 ? 'Este campo es requerido' : ''

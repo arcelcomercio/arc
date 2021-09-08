@@ -91,7 +91,8 @@ const TriviasMainQuestion = ({
             x2="100%"
             style={{
               strokeWidth: 2,
-            }} />
+            }}
+          />
         </svg>
         <h3 className={classes.question}>{`${number}. ${question}`}</h3>
         <ol

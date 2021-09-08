@@ -20,4 +20,14 @@
       min-width: 980px;
     }
   }
+
+  &-wide {
+    @media (--tablet) {
+      width: 620px;
+    }
+
+    @media (--desktop) {
+      min-width: 1200px;
+    }
+  }
 }

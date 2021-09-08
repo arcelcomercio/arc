@@ -29,9 +29,11 @@ import {
 } from '../../../utilities/constants/element-types'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
+  SITE_DEPOR,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -239,7 +241,17 @@ const StoryContentsLite = (props) => {
                   url = '',
                   items = [],
                   list_type: listType = 'unordered',
+                  title,
                 } = element
+
+                if (
+                  arcSite === SITE_TROME &&
+                  type === ELEMENT_BLOCKQUOTE &&
+                  content.toLowerCase().includes('puedes leer')
+                ) {
+                  return null
+                }
+
                 if (type === ELEMENT_IMAGE) {
                   return (
                     <StoryContentsChildImage
@@ -331,6 +343,11 @@ const StoryContentsLite = (props) => {
                     )
                   }
                 }
+                // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
+                // if (type === ELEMENT_BLOCKQUOTE && arcSite === SITE_TROME) {
+                //   return null
+                // }
+
                 if (type === ELEMENT_GALLERY) {
                   return (
                     <StoryHeaderChildGallery
@@ -392,6 +409,15 @@ const StoryContentsLite = (props) => {
                           data-ads-dimensions-m="[[300, 100], [320, 50], [300, 50], [320, 100], [300, 250]]"
                           data-bloque="4"
                           data-prebid-enabled
+                        />
+                      )}
+                      {arcSite !== SITE_DEPOR && (
+                        <p
+                          itemProp="description"
+                          className={alignmentClass}
+                          dangerouslySetInnerHTML={{
+                            __html: replaceTags(content),
+                          }}
                         />
                       )}
                     </>
@@ -460,6 +486,7 @@ const StoryContentsLite = (props) => {
                     />
                   )
                 }
+
                 if (type === ELEMENT_BLOCKQUOTE) {
                   return (
                     <blockquote
@@ -505,6 +532,10 @@ const StoryContentsLite = (props) => {
                 }
 
                 if (type === ELEMENT_LINK_LIST) {
+                  if (arcSite === SITE_TROME)
+                    return (
+                      <StoryContentsChildLinkList items={items} title={title} />
+                    )
                   return <StoryContentsChildLinkList items={items} />
                 }
 

@@ -85,15 +85,27 @@ function isLoggedIn(): boolean {
   return false
 }
 
+// @deprecated Usar `isLoggedIn()` en su lugar
+// function checkSession(): boolean {
+//   if (isClientSide) {
+//     const userProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
+//     const userInfo = window.localStorage.getItem('ArcId.USER_INFO')
+//     if (userProfile) {
+//       return !(userProfile === 'null' || userInfo === '{}') || false
+//     }
+//   }
+//   return false
+// }
+
 /**
  * @param username Nombre del usuario completo
  * @param length Cantidad de caracteres máxima (80 por defecto)
  * @returns Nombre del usuario completo, sin `null|undefined` o espacios de más
  * @example ```
  * formatUsername(`Carlos undefined Fernández`, 10)
- * // Carlos Fer...
+ * // "Carlos Fer..."
  * formatUsername(`null Carlos Fernández`)
- * // Carlos Fernández
+ * // "Carlos Fernández"
  * ```
  */
 function formatUsername(username: string, length = 80): string {
@@ -109,10 +121,10 @@ function formatUsername(username: string, length = 80): string {
  * sin `null|undefined` o espacios de más, con un máximo de 20 catacteres
  * @example ```
  * await getUsername(`Carlos undefined`)
- * // Carlos
+ * // "Carlos"
  *
  * await getUsername(`William Esternocleidomastoideo`)
- * // William Esternocl...
+ * // "William Esternocl..."
  * ```
  */
 async function getUsername(): Promise<string> {
@@ -126,10 +138,28 @@ async function getUsername(): Promise<string> {
   return username
 }
 
+/**
+ * @param username Nombre del usuario completo
+ * @returns La letra inicial de las primeras dos palabras
+ * del parámetro `username`
+ * @example ```
+ * getUsernameInitials(`José Huamaní Salazar`)
+ * // "JH"
+ * getUsernameInitials(`José`)
+ * // "J"
+ * ```
+ */
+function getUsernameInitials(username: string): string {
+  const names = username.split(' ')
+  const initials = names.map((name) => name.charAt(0))
+  return initials.slice(0, 2).join('').toUpperCase()
+}
+
 export {
   formatUsername,
   getUserIdentity,
   getUsername,
+  getUsernameInitials,
   getUserProfile,
   isLoggedIn,
 }
