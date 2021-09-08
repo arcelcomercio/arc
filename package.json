@@ -185,7 +185,8 @@
     "zip": "npm run prod:all && npx fusion zip",
     "browserlist": "npx browserslist",
     "browserlist:up": "npx browserslist@latest --update-db",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "bootstrap": "npm install && npm run prepare && npm run dev:all"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md,graphql}": [
