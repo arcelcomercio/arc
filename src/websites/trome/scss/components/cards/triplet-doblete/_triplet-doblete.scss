@@ -1,30 +1,70 @@
 .triplet-doblete {
-  border: 0;
-  padding: 0;
-  @media (--only-mobile) {
-    height: auto;
-  }
   &__list {
-    display: grid;
-    gap: 16px;
+    grid-row: span 1;
+
+    @media (--tablet) {
+      height: 362px;
+    }
   }
+
+  &__item {
+    border-top: 1px solid #e06437;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: -0.18px;
+    line-height: 1.2;
+
+    @media (--tablet) {
+      padding-top: 8px;
+      padding-bottom: 16px;
+    }
+  }
+
+  &__item:last-child {
+    padding-bottom: 0;
+  }
+
+  &__information {
+    font-family: $encode-c, sans-serif;
+    font-size: $fs-mobile-medium;
+    color: $main-color-black;
+    padding: 0 10px 0 10px;
+    width: calc(100% - 110px);
+
+    @media (--tablet) {
+      font-size: $fs-triplet-information;
+      padding: 0 6px 0 0;
+      width: 199px;
+    }
+
+    // TODO: Check this later!
+    &__inverted-color {
+      background: #ff8303;
+      padding: 5px 10px 0 10px;
+      color: white;
+    }
+  }
+
   &__title {
-    max-height: 101px;
+    font-size: inherit;
+    margin: 0;
   }
 
   &__title-link {
-    font-family: $encode-c, sans-serif;
     font-weight: 600;
     font-size: inherit;
     text-decoration: none;
     color: inherit;
-    font-size: 18px;
   }
+
   &__title-line {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
+
   &__link {
     color: $color-primary;
     font-size: 14px;
@@ -35,6 +75,7 @@
       color: white;
     }
   }
+
   &__author {
     font-family: $encode-c, sans-serif;
     font-size: 12px;
@@ -44,41 +85,37 @@
     padding-top: 5px;
     display: block;
   }
-  &__item {
-    border-top: 1px solid #e06437;
-    padding-top: 11px;
-    line-height: 1.2;
-    letter-spacing: -0.21px;
-    @media (--only-mobile) {
-      justify-content: flex-end;
+
+  &__multimedia {
+    width: 110px;
+    height: 121px;
+    padding-right: 10px;
+    margin: 0;
+
+    @media (--tablet) {
+      height: 101px;
+      width: 101px;
+      overflow: hidden;
+      padding-right: 0;
     }
-    &--right {
-      .triplet-doblete__information {
-        @media (--only-mobile) {
-          padding-right: 0;
-        }
+
+    a {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      text-decoration: none;
+      display: block;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
       }
     }
   }
-  &__multimedia {
-    width: 101px;
-    height: 101px;
-  }
-  &__information {
-    max-width: calc(100% - 101px);
-    max-height: 101px;
-    @media (--only-mobile) {
-      padding-left: 10px;
-    }
-    &__inverted-color {
-      background: #FF8303;
-      padding: 5px 10px 0 10px;
-      color: white; 
-    }
-  }
-  
+
   &__icon {
-    background-image: url($assets_url+"/resources/dist/trome/images/rgba70.png");
+    background-image: url($assets_url + "/resources/dist/trome/images/rgba70.png");
     border-radius: 10px;
     color: $color-gray-300;
     pointer-events: none;
@@ -96,36 +133,44 @@
     bottom: 0;
     right: 0;
     left: 0;
-    background: #FF8303;
     opacity: 0.8;
   }
 
-  // DOBLETE
+  // ? DOBLETE
+  &__item-doblete {
+    letter-spacing: -0.21px;
+    line-height: 1.1;
+
+    @media (--tablet) {
+      padding-bottom: 30px;
+      padding-top: 9.5px;
+    }
+  }
+
   &__information-doblete {
-    max-width: calc(100% - 127px);
-    max-height: 154px;
+    font-size: $fs-mobile-medium;
+    font-weight: 600;
+    padding-right: 9px;
+    width: calc(100% - 110px);
 
-    @media (--only-mobile) {
-      max-width: calc(100% - 101px);
-      max-height: 101px;
+    @media (--tablet) {
+      font-size: $fs-doublet-information;
+      width: 172px;
     }
   }
+
   &__multimedia-doblete {
-    width: 127px;
-    height: 154px;
-    
-    @media (--only-mobile) {
-      width: 101px;
-      height: 101px;
-    }
-  }
-  &__title-doblete {
-    max-height: 154px;
+    width: 110px;
+    height: 121px;
+    padding-right: 10px;
 
-    @media (--only-mobile) {
-      height: 101px;
+    @media (--tablet) {
+      height: 154px;
+      width: 128px;
+      padding-right: 0;
     }
   }
+
   &__title-line-doblete {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -136,7 +181,38 @@
     }
   }
 }
-.icon-img:before {
-  content: '\e901';
+
+.icon-img::before {
+  content: "\e901";
   color: white;
+}
+
+// ? Triplet Inverted Colors:
+.triplet-doblete__item--inverted {
+  .triplet-doblete__information {
+    background-color: $main-color-orange;
+    color: $main-color-white;
+    padding-right: 11px;
+    padding-left: 10px;
+    padding-top: 5px;
+  }
+
+  .triplet-doblete__multimedia {
+    background-color: $main-color-orange;
+  }
+}
+
+// ? Doublet Inverted Colors:
+.doublet__item--inverted {
+  .triplet-doblete__information-doblete {
+    background-color: $main-color-orange;
+    color: $main-color-white;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 6px;
+  }
+
+  .triplet-doblete__multimedia-doblete {
+    background-color: $main-color-orange;
+  }
 }

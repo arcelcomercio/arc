@@ -21,7 +21,7 @@ const CustomTitleSection: FC<Props> = (props) => {
 
   return (
     <div
-      className={`${classes.wrapper} text-${textAlign} ${
+      className={`${classes.wrapper} justify-${textAlign} ${
         isUppercase ? 'uppercase' : ''
       }`}>
       <h1 className={classes.content}>{customText}</h1>

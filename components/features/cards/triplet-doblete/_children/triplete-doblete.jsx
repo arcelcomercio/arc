@@ -1,10 +1,10 @@
-import React from 'react'
 import { useEditableContent } from 'fusion:content'
+import React from 'react'
 
-import Icon from '../../../../global-components/multimedia-icon'
 import Image from '../../../../global-components/image'
+import Icon from '../../../../global-components/multimedia-icon'
 
-export default props => {
+export default (props) => {
   const {
     lines,
     index,
@@ -24,15 +24,16 @@ export default props => {
     twolines: 'triplet-doblete--twoline',
     threelines: 'triplet-doblete--threeline',
     item: `triplet-doblete__item flex justify-between triplet-doblete__item--${multimediaOrientation}`,
+    itemDoblete: 'triplet-doblete__item-doblete',
+    itemInverted: 'triplet-doblete__item--inverted',
+    itemDoubletInverted: 'doublet__item--inverted',
     title: 'triplet-doblete__title overflow-hidden text-lg line-h-sm',
-    titleDoblete: 'triplet-doblete__title-doblete overflow-hidden text-lg line-h-sm',
     titleLink: 'triplet-doblete__title-link',
     titleLine: 'triplet-doblete__title-line',
     titleLineDoblete: 'triplet-doblete__title-line-doblete',
     oneline: 'triplet-doblete--oneline',
     author: 'triplet-doblete__author uppercase text-xs',
     authorLink: 'triplet-doblete__link text-gray-200',
-    authorLinkInvertedColor: 'triplet-doblete__link__inverted-color',
     multimedia: 'triplet-doblete__multimedia overflow-hidden',
     multimediaDoblete: 'triplet-doblete__multimedia-doblete overflow-hidden',
     mLink: 'w-full h-full block position-relative',
@@ -40,7 +41,6 @@ export default props => {
     icon: `triplet-doblete__icon`,
     information: `triplet-doblete__information flex flex-col`,
     informationDoblete: `triplet-doblete__information-doblete flex flex-col`,
-    informationInvertColor: `triplet-doblete__information__inverted-color`,
   }
 
   const { editableField } = useEditableContent()
@@ -49,16 +49,23 @@ export default props => {
     <div dangerouslySetInnerHTML={{ __html: adSpace }} />
   ) : (
     <article
-      className={classes.item}
-      role="listitem"
-    >
-      <div className={`${(viewDoblete) ? classes.informationDoblete : classes.information} 
-                        ${(invertedColor) && classes.informationInvertColor}`}>
-        <h2 itemProp="name" className={`${(viewDoblete) ? classes.titleDoblete : classes.title} ${classes[lines] || ''}`}>
+      className={`${classes.item} ${viewDoblete && classes.itemDoblete} 
+                  ${invertedColor && classes.itemInverted}
+                  ${
+                    viewDoblete && invertedColor && classes.itemDoubletInverted
+                  }`}
+      role="listitem">
+      <div
+        className={`${classes.information} ${
+          viewDoblete && classes.informationDoblete
+        }`}>
+        <h2
+          itemProp="name"
+          className={`${classes.title} ${classes[lines] || ''}`}>
           <a
             itemProp="url"
             className={`${classes.titleLink} 
-            ${(viewDoblete) ? classes.titleLineDoblete : classes.titleLine}`}
+            ${viewDoblete ? classes.titleLineDoblete : classes.titleLine}`}
             href={websiteLink}
             {...editableField(`title${index + 1}`)}
             suppressContentEditableWarning>
@@ -68,17 +75,17 @@ export default props => {
         <address className={classes.author}>
           <a
             itemProp="url"
-            className={`${classes.authorLink} ${(invertedColor) && classes.authorLinkInvertedColor}`}
+            className={`${classes.authorLink}`}
             href={authorOrSectionLink}>
             {authorOrSection}
           </a>
         </address>
       </div>
-      <figure className={`${(viewDoblete) ? classes.multimediaDoblete : classes.multimedia}`}>
-        <a
-          itemProp="url"
-          className={classes.mLink}
-          href={websiteLink}>
+      <figure
+        className={`${classes.multimedia} ${
+          viewDoblete && classes.multimediaDoblete
+        }`}>
+        <a itemProp="url" className={classes.mLink} href={websiteLink}>
           <Image
             src={multimedia}
             width={150}

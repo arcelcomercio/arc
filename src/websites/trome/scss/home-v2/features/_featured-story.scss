@@ -1,0 +1,261 @@
+// --------------------------------------
+// Featured Story for 1 col
+.featured-story {
+  position: relative;
+  height: auto;
+
+  @media (--only-mobile) {
+    flex-direction: row;
+    padding: 10px 0 0 0;
+    border-top: 1px solid $main-color-orange;
+  }
+
+  @media (--tablet) {
+    position: relative;
+    height: 362px;
+  }
+
+  // ? Specifity Issues!
+  .featured-story__category {
+    display: none;
+  }
+
+  &__detail {
+    height: auto;
+    width: calc(100% - 110px);
+    padding: 0 10px 0 10px;
+
+    @media (--tablet) {
+      width: auto;
+      padding: 0;
+      height: calc(100% - 173px);
+    }
+  }
+
+  &__title {
+    font-family: $encode-c, sans-serif;
+    font-size: $fs-mobile-medium;
+    font-weight: 600;
+    letter-spacing: -0.28px;
+    line-height: 25px;
+    text-align: left;
+    color: $main-color-black;
+    // margin: 5px 0;
+    margin: 0;
+    max-height: 108px;
+    overflow: hidden;
+    padding: 0;
+    // ? Line-clamp
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+
+    @media (--tablet) {
+      font-size: $fs-feat-story-title-col1;
+      line-height: 30px;
+      text-align: center;
+      max-height: 158px;
+      padding: 5px 0;
+      -webkit-line-clamp: 5;
+    }
+  }
+
+  &__title-link {
+    font-size: inherit;
+    color: inherit;
+    text-decoration: none;
+    line-height: inherit;
+
+    span {
+      color: $main-color-orange;
+    }
+  }
+
+  &__author {
+    font-family: $encode-c, sans-serif;
+    font-size: $fs-feat-story-author;
+    font-weight: 500;
+    letter-spacing: -0.21px;
+    color: $main-color-black;
+    text-align: center;
+    display: block;
+  }
+
+  &__author-link {
+    color: inherit;
+    text-decoration: none;
+    font-style: normal;
+  }
+
+  &__img-link {
+    width: 110px;
+    height: 121px;
+    padding-right: 10px;
+    margin-left: 0;
+
+    @media (min-width: 640px) {
+      width: auto;
+      height: 173px;
+      padding-right: 0;
+    }
+  }
+
+  &__img-box {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // ? Specifity Issues!
+  &.featured-story--reverse {
+    flex-direction: row;
+
+    @media (--tablet) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  // ? Inverted Colors!
+  &--inverted {
+    .featured-story__detail {
+      background-color: $main-color-orange;
+      padding-top: 7px;
+
+      @media (min-width: 640px) {
+        padding-right: 16px;
+        padding-left: 16px;
+        padding-top: 5px;
+      }
+    }
+
+    .featured-story__title {
+      color: $main-color-white;
+
+      span {
+        color: $main-color-black;
+      }
+    }
+
+    .featured-story__img-link {
+      background-color: $main-color-orange;
+    }
+  }
+}
+
+// --------------------------------------
+// Featured Story for 2 col (Bottom Text)
+.img-complete.featured-story {
+  min-width: 375px;
+
+  .featured-story {
+    &__detail {
+      background-color: $main-color-black;
+      padding: 7px 10px 0 10px;
+      height: auto;
+
+      @media (--tablet) {
+        position: absolute;
+        bottom: 0;
+        margin: 0;
+        padding: 20px;
+        z-index: 1;
+        background-color: transparent;
+        width: auto;
+        max-width: 100%;
+        height: calc(100% - 173px);
+      }
+    }
+
+    &__title {
+      font-size: $fs-mobile-medium;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      color: $main-color-white;
+      text-align: left;
+      // ? Line Clamp
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+
+      @media (--tablet) {
+        font-size: $fs-feat-story-title-col2;
+        font-weight: 700;
+        text-align: center;
+        line-height: 42px;
+        max-height: 130px;
+        // TODO: REVISAR PADDING!
+        padding: 5px 0 4px 0;
+        -webkit-line-clamp: 2;
+      }
+    }
+
+    &__title-link {
+      span {
+        font-size: $fs-mobile-medium;
+        font-weight: 600;
+        letter-spacing: 0.22px;
+        color: $main-color-orange;
+
+        @media (--tablet) {
+          font-size: $fs-feat-story-title-col2-span;
+          font-weight: 400;
+          color: $main-color-white;
+          letter-spacing: -0.28px;
+        }
+      }
+    }
+
+    &__img-link {
+      background-color: $main-color-black;
+
+      @media (--tablet) {
+        height: 100%;
+        width: 100%;
+        padding-right: 0;
+      }
+    }
+
+    &__img-box::before {
+      @media (--tablet) {
+        content: "";
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 309px;
+        background: transparent
+          linear-gradient(
+            178deg,
+            $sub-color-linear-1 5%,
+            $sub-color-linear-2 100%
+          )
+          0% 0% no-repeat padding-box;
+      }
+    }
+  }
+}
+
+// --------------------------------------
+// Featured Story for 2 col (Top Text)
+.img-complete.top-text {
+  .featured-story {
+    &__detail {
+      top: 0;
+    }
+
+    &__img-box::before {
+      top: 0;
+      background: transparent
+        linear-gradient(2deg, $sub-color-linear-1 5%, $sub-color-linear-2 100%)
+        0% 0% no-repeat padding-box;
+    }
+  }
+}

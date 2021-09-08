@@ -13,10 +13,14 @@
 
 // /******* Components *******/
 // @import "../../../general-styles/components/index";
+@import "./layouts/content-layout";
 @import "../components/header/inverted-featured";
 @import "../components/layout/footer/footer-secction";
-@import "../components/cards/triplet-doblete/triplet-doblete"
+@import "../components/custom-title/custom-title-section";
+@import "./features/featured-story";
+@import "../components/cards/triplet-doblete/triplet-doblete";
 
 // /******* Modificadores *******/
 // @import "./global-components/_";
 // @import "./components/_";
+@import "./modifiers/section-modifier";
