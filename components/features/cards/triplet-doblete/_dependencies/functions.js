@@ -1,7 +1,7 @@
 
 import StoryData from '../../../../utilities/story-data'
 
-export const getParams = (data, arcSite, contextPath, deployment) => {
+export const getParams = (data, arcSite, contextPath, deployment, invertedColor) => {
   const {
     websiteLink,
     title,
@@ -29,5 +29,6 @@ export const getParams = (data, arcSite, contextPath, deployment) => {
     multimediaType,
     multimediaCaption,
     multimedia,
+    invertedColor
   }
 }

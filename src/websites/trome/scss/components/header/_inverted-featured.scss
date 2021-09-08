@@ -35,7 +35,7 @@ $hi-dark: #666;
 
     &__list {
       display: flex;
-      overflow: hidden;
+      overflow: auto;
 
       &__item {
         letter-spacing: -0.14px;
@@ -47,35 +47,9 @@ $hi-dark: #666;
       &__link{
         color: #888888;
       }
-      
-      @media(--desktop) {
-        display: flex;
-      }
-      @media (--tablet) and (max-width: 1023px) {
-        :nth-child(n+9) {
-          display: none;
-        }
-        &::after {
-          content: 'Más';
-          color: #888888;
-          letter-spacing: -0.14px;
-          font: normal normal normal 14px/17px Encode Sans Condensed Medium;
-          opacity: 1;
-          padding: 0 5px;
-        }
-      }
-      @media (--only-mobile) {
-        :nth-child(n+5) {
-          display: none;
-        }
-        &::after {
-          content: 'Más';
-          color: #888888;
-          letter-spacing: -0.14px;
-          font: normal normal normal 14px/17px Encode Sans Condensed Medium;
-          opacity: 1;
-          padding: 0 5px;
-        }
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        height: 0px;
       }
     }
     &__Tags {
@@ -169,6 +143,13 @@ $hi-dark: #666;
     font-style: normal;
     overflow: hidden;
     padding-right: 20px;
+    overflow: auto;
+    white-space: nowrap;
+    
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      height: 0px;
+   }
   }
 
   &__item {

@@ -2,6 +2,24 @@ import PropTypes from 'prop-types'
 import { spacesAdsId, spacesAdsName } from '../../../../utilities/config-params'
 
 const customFields = PropTypes.shape({
+  viewDoblete: PropTypes.bool.tag({
+    name: 'Solo doblete',
+    defaultValue: false,
+  }),
+
+  invertColor1: PropTypes.bool.tag({
+    name: 'Invertir color nota 1',
+    defaultValue: false,
+  }),
+  invertColor2: PropTypes.bool.tag({
+    name: 'Invertir color nota 2',
+    defaultValue: false,
+  }),
+  invertColor3: PropTypes.bool.tag({
+    name: 'Invertir color nota 3',
+    defaultValue: false,
+  }),
+
   data1: PropTypes.string.tag({
     name: 'URL de nota 1',
     group: 'Datos nota 1',

@@ -14,6 +14,8 @@ import TripleteDobleteCard from './_children/triplete-doblete'
 import customFields from './_dependencies/custom-fields'
 import schemaFilter from './_dependencies/schema-filter'
 import Data from './_dependencies/data'
+const API_STORY_BY_URL = 'story-by-url'
+// const API_FEED_BY_COLLECTION = 'story-feed-by-collection'
 
 const TripletDoblete = (props) => {
   const { arcSite, contextPath, deployment } = useFusionContext()
@@ -33,6 +35,10 @@ const TripletDoblete = (props) => {
         contentService: contentService3 = '',
         contentConfigValues: contentConfigValues3 = {},
       } = {},
+      viewDoblete,
+      invertColor1,
+      invertColor2,
+      invertColor3,
     } = {},
   } = props
 
@@ -61,9 +67,9 @@ const TripletDoblete = (props) => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  const params1 = getParams(dataAutomatico1, arcSite, contextPath, deployment)
-  const params2 = getParams(dataAutomatico2, arcSite, contextPath, deployment)
-  const params3 = getParams(dataAutomatico3, arcSite, contextPath, deployment)
+  const paramsAutomatico1 = getParams(dataAutomatico1, arcSite, contextPath, deployment, invertColor1)
+  const paramsAutomatico2 = getParams(dataAutomatico2, arcSite, contextPath, deployment, invertColor2)
+  const paramsAutomatico3 = getParams(dataAutomatico3, arcSite, contextPath, deployment, invertColor3)
 
   /* FIN AUTOMATICO */
 
@@ -184,7 +190,7 @@ const TripletDoblete = (props) => {
   }
 
   // functions 
-  const getInstanceSnap = (el, index, customImage) => {
+  const getInstanceSnap = (el, index, customImage, invertColor) => {
     data.__data = el
     data.__index = index
 
@@ -195,36 +201,10 @@ const TripletDoblete = (props) => {
       multimedia: customImage || data.multimedia,
       multimediaType: data.multimediaType,
       authorOrSection: data.authorOrSection,
-      authorOrSectionLink: data.authorOrSectionLink
+      authorOrSectionLink: data.authorOrSectionLink,
+      invertedColor: invertColor
     }
   }
-
-  // functions 
-  const getFormatedData = (item1, item2, item3) => {
-    return [
-      getInstanceSnap(item1, 1, image1),
-      getInstanceSnap(item2, 2, image2),
-      getInstanceSnap(item3, 3, image3),
-    ]
-  }
-
-  // functions 
-  const getFormatFieldsStories = () => {
-    return getFormatedData(data1, data2, data3)
-  }
-
-  // functions 
-  const getFormatWebskedStories = () => {
-    const { content_elements: contentElements = [] } = webskedData || {}
-    const item1 = contentElements[0] || {}
-    const item2 = contentElements[1] || {}
-    const item3 = contentElements[2] || {}
-    return getFormatedData(item1, item2, item3)
-  }
-
-  const dataFormatted = webskedId
-    ? getFormatWebskedStories()
-    : getFormatFieldsStories()
 
   // functions 
   const spaces = {
@@ -245,13 +225,44 @@ const TripletDoblete = (props) => {
       lines = 'threelines'
       break
   }
+
   /* FIN MANUAL */
 
+  /* ARMAR ARREGLO */
+  // functions 
+  const getFormatedData = (item1, item2, item3) => {
+    return [
+      (paramsAutomatico1.title !== '') ? paramsAutomatico1 : getInstanceSnap(item1, 1, image1, invertColor1),
+      (paramsAutomatico2.title !== '') ? paramsAutomatico2 : getInstanceSnap(item2, 2, image2, invertColor2),
+      (paramsAutomatico3.title !== '') ? paramsAutomatico3 : getInstanceSnap(item3, 3, image3, invertColor3),
+    ]
+  }
+
+  // functions 
+  const getFormatFieldsStories = () => {
+    return getFormatedData(data1, data2, data3)
+  }
+
+  // functions 
+  const getFormatWebskedStories = () => {
+    const { content_elements: contentElements = [] } = webskedData || {}
+    const item1 = contentElements[0] || {}
+    const item2 = contentElements[1] || {}
+    const item3 = contentElements[2] || {}
+    return getFormatedData(item1, item2, item3)
+  }
+
+  let dataFormatted = webskedId
+    ? getFormatWebskedStories()
+    : getFormatFieldsStories()
 
 
+  if (viewDoblete) {
+    dataFormatted = dataFormatted.slice(0, 2)
+  }
 
   return (
-    <div role="list" >
+    <div role="list" className="triplet-doblete__list">
       {dataFormatted.map((story, i) => {
         return (
           <TripleteDobleteCard
@@ -260,7 +271,9 @@ const TripletDoblete = (props) => {
             lines={lines}
             multimediaOrientation={multimediaOrientation}
             adSpace={spaces[`getSpace${i}`]}
+            viewDoblete={viewDoblete}
 
+            invertedColor={story.invertedColor}
             websiteLink={story.websiteLink}
             title={story.title}
             authorOrSection={story.authorOrSection}
@@ -270,14 +283,6 @@ const TripletDoblete = (props) => {
           />
         )
       })}
-    </div>
-  )
-  return (
-    // className="flex flex-col justify-between"
-    <div>
-      <TripleteDobleteCard {...params1} />
-      <TripleteDobleteCard {...params2} />
-      <TripleteDobleteCard {...params3} />
     </div>
   )
 }
