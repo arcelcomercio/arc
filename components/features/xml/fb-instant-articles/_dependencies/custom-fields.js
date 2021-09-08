@@ -20,6 +20,18 @@ const recommenderBySite = {
     description:
       'Dejar vacío para tomar el valor por defecto, "No te pierdas".',
   }),
+  editableText1: PropTypes.richtext.tag({
+    name: 'editableText1',
+  }),
+  editableText2: PropTypes.richtext.tag({
+    name: 'editableText2',
+  }),
+  editableText3: PropTypes.richtext.tag({
+    name: 'editableText3',
+  }),
+  editableText4: PropTypes.richtext.tag({
+    name: 'editableText4',
+  }),
 }
 
 const customFields = PropTypes.shape(recommenderBySite)
