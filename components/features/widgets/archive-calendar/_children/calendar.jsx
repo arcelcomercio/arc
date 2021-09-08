@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import importRetry from '../../../../utilities/core/import-retry'
+
 const classes = {
   box: 'react-calendar__box flex flex-col',
   header:
@@ -19,9 +21,11 @@ const ArchiveCalendarChild = ({
   locale,
 }) => {
   const Calendar = React.lazy(() =>
-    import(
-      /* webpackChunkName: "calendar" */
-      'react-calendar/dist/entry.nostyle'
+    importRetry(() =>
+      import(
+        /* webpackChunkName: "calendar" */
+        'react-calendar/dist/entry.nostyle'
+      )
     )
   )
 
