@@ -6,6 +6,7 @@ const classes = {
   paragraph: 'footer-secction__text mt-20 mb-0 md:mb-10',
   footerLink: 'footer-secction__link-footer',
   footerLinkNewDesign: 'footer-secction__link-footer__new-design',
+  footerLinkNewDesignLastChild: 'footer-secction__link-footer__new-design__last-child',
   titleList: 'footer-secction__list-title',
   titleListNewDesign: 'footer-secction__list-title__new-design',
   listItem: 'footer-secction__site-item',
@@ -83,7 +84,8 @@ const FooterInfo = ({
           <a itemProp="url" href={legalLinks[1].url} className={classes.footerLinkNewDesign}>
             {legalLinks[1].name}
           </a>
-          <a itemProp="url" href={legalLinks[2].url} className={classes.footerLinkNewDesign}>
+          <a itemProp="url" href={legalLinks[2].url}
+            className={`${classes.footerLinkNewDesign} ${classes.footerLinkNewDesignLastChild}`}>
             {legalLinks[2].name}
           </a>
         </>

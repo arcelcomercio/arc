@@ -1,4 +1,8 @@
 .footer-secction {
+  &__content-footer {
+    max-width: 960px;
+    margin: auto;
+  }
   &__item {
     font-weight: 700;
     a {
@@ -28,7 +32,7 @@
       text-align: center;
       @media (--only-mobile) {
         text-align: left;
-      }      
+      }
     }
   }
   &__content-column {
@@ -65,7 +69,7 @@
     }
     @media (--only-mobile) {
       font-size: 15px;
-      max-width: 338px;
+      min-width: 338px;
       text-align: left;
       margin-left: 0;
     }
@@ -78,23 +82,6 @@
     @media (--tablet) {
       font-size: 14px;
     }
-    &__new-design {
-      @media (--only-mobile) {
-        font-size: 16px;
-        width: 100%;
-        text-align: left; 
-        border-right: 0;
-        display: block;
-        padding: 5px;
-        font-weight: 600;
-        &::before {
-          content: "• ";
-          font-size: 17px;
-          vertical-align: -2px;
-          font-weight: 600;
-        }
-      }
-    }
   }
   &__text {
     color: $footer-text;
@@ -105,19 +92,37 @@
     }
   }
   &__link-footer {
-    &__new-design{
+    &__new-design {
       padding-left: 0;
       border-right: 0;
       padding: 0 5px;
 
-      &::after {
-        content: "|";
-        font-size: 17px;
-        padding-left: 8px;
-      }
-      &:last-child {
+      @media (min-width: 640px) {
         &::after {
-          content: '';
+          content: "|";
+          font-size: 17px;
+          padding-left: 8px;
+        }
+      }
+      &__last-child {
+        @media (min-width: 640px) {
+          &::after {
+            content: "";
+          }
+        }
+      }
+      @media (--only-mobile) {
+        font-size: 16px;
+        width: 100%;
+        text-align: left;
+        border-right: 0;
+        display: block;
+        padding: 5px;
+        font-weight: 600;
+        &::before {
+          content: "• ";
+          font-size: 17px;
+          font-weight: 600;
         }
       }
     }
@@ -126,11 +131,12 @@
     a {
       color: $color-black;
     }
-    &__new-design{
+    &__new-design {
       font-family: $encode-c, sans-serif;
       border-right: 0;
-      margin: 10px;
+      margin: 5px 10px;
       color: #000;
+      display: inline-block;
 
       @media (--only-mobile) {
         display: inline-flex;
@@ -148,7 +154,7 @@
       }
     }
   }
-  &__image-logo{
+  &__image-logo {
     width: 150px;
   }
   &__info {
