@@ -15,10 +15,7 @@ const StaticsNewsletterChildConfirmation = () => {
   return (
     <>
       <p className={classes.textCenter}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="45"
-          viewBox="0 0 48 24.33">
+        <svg width="45" viewBox="0 0 48 24.33">
           <path
             id="Trazado_79132"
             data-name="Trazado 79132"
@@ -48,7 +45,7 @@ const StaticsNewsletterChildConfirmation = () => {
       </h3>
       <p className={classes.subtitle}>Boletín</p>
       <p className={classes.textCenter}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" viewBox="0 0 64 64">
+        <svg width="60" viewBox="0 0 64 64">
           <path
             fill="#e06438"
             d="M32 0A32 32 0 1 0 64 32 32 32 0 0 0 32 0ZM48.2 25.2 30.9 42.6a2.7 2.7 0 0 1-3.8 0h0l-8.7-8.7a2.7 2.7 0 0 1 3.8-3.8L29 36.9 44.5 21.5a2.7 2.7 0 0 1 3.8 3.8Z"
