@@ -1,12 +1,9 @@
-/* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// import { DatePicker } from '@material-ui/pickers'
 import Identity from '@arc-publishing/sdk-identity'
+import { DatePicker } from '@material-ui/pickers'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
@@ -95,6 +92,15 @@ const UpdateProfile = () => {
   const [showDocOption, setShowDocOption] = React.useState(
     documentType || 'DNI'
   )
+  const [auxConvertedDate, setAuxConvertedDate] = React.useState(false)
+  const [countConverted, setCountConverted] = React.useState(false)
+
+  const convertDateStringDate = (year: string, month: string, day: string) => {
+    const yearConverted = new Date(`${year}-${month}-${day}`)
+    yearConverted.setDate(yearConverted.getDate() + 1)
+    const newDate = new Date(yearConverted)
+    return newDate
+  }
 
   const stateSchema = {
     pFirstName: { value: checkUndefined(firstName) || '', error: '' },
@@ -116,8 +122,8 @@ const UpdateProfile = () => {
         (birthDay &&
           birthMonth &&
           birthYear &&
-          `${birthYear}-${birthMonth}-${birthDay}`) ||
-        '',
+          convertDateStringDate(birthYear, birthMonth, birthDay)) ||
+        null,
       error: '',
     },
   }
@@ -137,8 +143,8 @@ const UpdateProfile = () => {
     },
     pSecondLastName: {
       required: false,
-      min2caracts: true,
       invalidtext: true,
+      min2caracts: true,
       validator: formatSecondLastName(),
     },
     pDocumentType: {
@@ -244,27 +250,22 @@ const UpdateProfile = () => {
 
   const handleUpdateProfile = () => {
     const profile: any = {
-      firstName: changeuser.pFirstName,
-      lastName: changeuser.pLastName,
-      secondLastName: changeuser.pSecondLastName,
+      firstName: changeuser.pFirstName || null,
+      lastName: changeuser.pLastName || null,
+      secondLastName: changeuser.pSecondLastName || null,
       email,
-      birthDay: changeuser.pBirthDay,
-      birthMonth: changeuser.pBirthMonth,
-      birthYear: changeuser.pBirthYear,
-      gender: changeuser.pGender,
-      contacts: [{ phone: changeuser.pMobilePhone, type: 'PRIMARY' }],
-    }
-
-    for (const prop in profile) {
-      if (profile[prop] !== null) {
-        if (
-          `${profile[prop]}`.trim() === '' ||
-          `${profile[prop]}`.trim() === 'default'
-        ) {
-          profile[prop] = null
-          // console.log('valores vacios o default convertidos a null')
-        }
-      }
+      birthDay: changeuser.pBirthDay || null,
+      birthMonth: changeuser.pBirthMonth || null,
+      birthYear: changeuser.pBirthYear || null,
+      gender: changeuser.pGender || null,
+      contacts: changeuser.pMobilePhone
+        ? [
+            {
+              phone: changeuser.pMobilePhone,
+              type: 'PRIMARY',
+            },
+          ]
+        : null,
     }
 
     const objCivilStatus = createAttribute(
@@ -414,23 +415,25 @@ const UpdateProfile = () => {
         .finally(() => {
           setShowModalConfirm(false)
           setConfirmPassword('')
-          const ModalProfile: any =
-            document.getElementById('profile-signwall').parentNode ||
-            document.getElementById('profile-signwall').parentElement
-          ModalProfile.style.overflow = 'auto'
+          const ModalProfile = document.getElementById('profile-signwall')
+            ?.parentElement
+          if (ModalProfile) {
+            ModalProfile.style.overflow = 'auto'
+          }
         })
     }
   }
 
   const togglePopupModalConfirm = () => {
     setShowModalConfirm(false)
-    const ModalProfile =
-      document.getElementById('profile-signwall').parentNode ||
-      document.getElementById('profile-signwall').parentElement
-    if (showModalConfirm) {
-      ModalProfile.style.overflow = 'auto'
-    } else {
-      ModalProfile.style.overflow = 'hidden'
+    const ModalProfile = document.getElementById('profile-signwall')
+      ?.parentElement
+    if (ModalProfile) {
+      if (showModalConfirm) {
+        ModalProfile.style.overflow = 'auto'
+      } else {
+        ModalProfile.style.overflow = 'hidden'
+      }
     }
   }
 
@@ -511,16 +514,37 @@ const UpdateProfile = () => {
     >
   ) => {
     if (e.target.name === 'pDateBirth') {
-      if (e.target.value.length === 0) {
+      if (e.target.value === null) {
+        setCountConverted(true)
+        setAuxConvertedDate(true)
         setChangeUser({
           ...changeuser,
-          pBirthDay: '',
-          pBirthMonth: '',
-          pBirthYear: '',
+          pBirthDay: null,
+          pBirthMonth: null,
+          pBirthYear: null,
         })
       } else {
-        const fullyear = new Date(e.target.value)
-
+        const per = new Date(e.target.value)
+        if (
+          pDateBirth === null &&
+          auxConvertedDate === false &&
+          countConverted === false
+        ) {
+          console.log('llego al caso 1')
+          setCountConverted(true)
+        } else if (
+          (pDateBirth !== null &&
+            auxConvertedDate === false &&
+            countConverted === false) ||
+          (pDateBirth !== null &&
+            auxConvertedDate === false &&
+            countConverted === false)
+        ) {
+          console.log('llego al caso 2')
+          // setCountConverted(true)
+          per.setDate(per.getDate() - 1)
+        }
+        const fullyear = new Date(per)
         const year = `${fullyear.getUTCFullYear()}`
         const month =
           fullyear.getUTCMonth() + 1 < 10
@@ -537,6 +561,7 @@ const UpdateProfile = () => {
           pBirthMonth: month,
           pBirthDay: day,
         })
+        setAuxConvertedDate(true)
       }
     } else {
       setChangeUser({ ...changeuser, [e.target.name]: e.target.value })
@@ -868,7 +893,7 @@ const UpdateProfile = () => {
             <select
               className={`input input-minimal ${genderError ? 'error' : ''} `}
               name="pGender"
-              value={pGender ? pGender.toUpperCase() : 'default'}
+              value={pGender ? pGender.toUpperCase() : ''}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
@@ -876,7 +901,7 @@ const UpdateProfile = () => {
               onBlur={handleOnChange}
               tabIndex={13}
               disabled={!email}>
-              <option value="default">Seleccione</option>
+              <option value="">Seleccione</option>
               <option value="MALE">Hombre</option>
               <option value="FEMALE">Mujer</option>
             </select>
@@ -889,28 +914,31 @@ const UpdateProfile = () => {
 
         <div className="row three">
           <div className={styles.group}>
-            <input
-              type="date"
+            <DatePicker
+              clearable
+              format="dd MMM yyyy"
               name="pDateBirth"
-              value={pDateBirth}
               className={dateBirthError ? 'input error' : 'input'}
-              placeholder="Fecha Cumpleaños"
-              maxLength={30}
-              tabIndex={14}
+              value={pDateBirth}
               onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
+                const ep: any = {
+                  target: {
+                    name: 'pDateBirth',
+                    value: e,
+                  },
+                }
+                handleChangeInput(ep)
+                handleOnChangeInputProfile(ep)
               }}
-              onBlur={handleOnChange}
+              clearLabel="limpiar"
+              cancelLabel="cancelar"
             />
             <label htmlFor="pDateBirth" className="label">
               Fecha Cumpleaños
             </label>
             {dateBirthError && <span className="error">{dateBirthError}</span>}
           </div>
-
           <div className={styles.group} />
-
           <div className={styles.group}>
             <button
               className={styles.btn}
