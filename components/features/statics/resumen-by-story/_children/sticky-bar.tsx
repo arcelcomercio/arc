@@ -27,7 +27,6 @@ const StaticsResumen2020StickyBar: React.FC<Props> = (props) => {
             id="anchor"
             className="bar__btn">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               aria-disabled="true"
               width="32"
               height="32"

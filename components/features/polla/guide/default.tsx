@@ -48,12 +48,7 @@ const PollaGuide: FC<Props> = (props) => {
               console.log('asdasdasd')
               popUpWindow(urlsShareList.facebook, '', 600, 400)
             }}>
-            <svg
-              width="8"
-              height="15"
-              viewBox="0 0 8 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg width="8" height="15" viewBox="0 0 8 15" fill="none">
               <path
                 d="M2.04221 15V7.96156H0V5.42739H2.04221V3.26287C2.04221 1.56198 3.24856 0 6.02823 0C7.15368 0 7.98589 0.098325 7.98589 0.098325L7.92032 2.46481C7.92032 2.46481 7.07159 2.45728 6.14543 2.45728C5.14303 2.45728 4.98244 2.87826 4.98244 3.57697V5.42739H8L7.8687 7.96156H4.98244V15H2.04221Z"
                 fill="white"

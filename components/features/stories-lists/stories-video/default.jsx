@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-undef */
 import { useFusionContext } from 'fusion:context'
-import React, { useState } from 'react'
+import * as React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
 import StoryItemController from './_children/story-item-controller'
@@ -58,23 +58,23 @@ const StoriesListVideo = (props) => {
     liveStory05,
   ]
 
-  const [textMore, setTextMore] = useState('Mostrar más')
-  const [classBtn, setClassBtn] = useState('stories-video__btn-playlist--show')
-  const [classWrapper, setClassWrapper] = useState(
-    'stories-video__list-wrapper--one-item'
-  )
+  // const [textMore, setTextMore] = React.useState('Mostrar más')
+  // const [classBtn, setClassBtn] = React.useState('stories-video__btn-playlist--show')
+  // const [classWrapper, setClassWrapper] = React.useState(
+  //   'stories-video__list-wrapper--one-item'
+  // )
 
-  const sideScroll = () => {
-    if (textMore === 'Mostrar más') {
-      setTextMore('Mostrar menos')
-      setClassBtn('stories-video__btn-playlist--hide')
-      setClassWrapper('')
-    } else {
-      setTextMore('Mostrar más')
-      setClassBtn('stories-video__btn-playlist--show')
-      setClassWrapper('stories-video__list-wrapper--one-item')
-    }
-  }
+  // const sideScroll = () => {
+  //   if (textMore === 'Mostrar más') {
+  //     setTextMore('Mostrar menos')
+  //     setClassBtn('stories-video__btn-playlist--hide')
+  //     setClassWrapper('')
+  //   } else {
+  //     setTextMore('Mostrar más')
+  //     setClassBtn('stories-video__btn-playlist--show')
+  //     setClassWrapper('stories-video__list-wrapper--one-item')
+  //   }
+  // }
 
   return (
     <>
@@ -115,11 +115,7 @@ const StoriesListVideo = (props) => {
             onClick={() => {
               // sideScroll()
             }}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="8"
-              fill="#fff"
-              viewBox="0 0 8 14">
+            <svg width="8" fill="#fff" viewBox="0 0 8 14">
               <path
                 d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z"
                 transform="translate(-0.293 -0.293)"
