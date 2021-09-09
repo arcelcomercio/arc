@@ -444,10 +444,10 @@ const UpdateProfile = () => {
         : ''
     const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
     setErrorPass(value.length === 0 ? 'Este campo es requerido' : min)
-    if (value === 8 && errorPass.length >= 1) {
+    if (value.length === 8 && errorPass.length >= 1) {
       setSending(false)
     }
-    if ((errorPass.length >= 0 && value < 8) || errorPass.length > 0) {
+    if ((errorPass.length >= 0 && value.length < 8) || errorPass.length > 0) {
       setSending(true)
     } else {
       setSending(false)
@@ -873,8 +873,8 @@ const UpdateProfile = () => {
               tabIndex={13}
               disabled={!email}>
               <option value="default">Seleccione</option>
-              <option value="M">Hombre</option>
-              <option value="F">Mujer</option>
+              <option value="MALE">Hombre</option>
+              <option value="FEMALE">Mujer</option>
             </select>
             <label htmlFor="pGender" className="label">
               Género
