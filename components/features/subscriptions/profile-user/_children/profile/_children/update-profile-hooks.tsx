@@ -1,9 +1,12 @@
-/* eslint-disable array-callback-return */
+/* eslint-disable import/no-duplicates */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
-import Identity from '@arc-publishing/sdk-identity'
+/* eslint-disable jsx-a11y/label-has-associated-control */
 // import { DatePicker } from '@material-ui/pickers'
+import Identity from '@arc-publishing/sdk-identity'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
@@ -81,7 +84,7 @@ const UpdateProfile = () => {
   })
 
   const [loading, setLoading] = React.useState(false)
-  const [msgError, setMsgError] = React.useState(false)
+  const [msgError, setMsgError] = React.useState('')
   const [msgSuccess, setMsgSuccess] = React.useState(false)
   const [showModalConfirm, setShowModalConfirm] = React.useState(false)
   const [sending, setSending] = React.useState(true)
@@ -143,7 +146,7 @@ const UpdateProfile = () => {
     pDocumentNumber: {
       required: false,
       validator: {
-        func: (value) =>
+        func: (value: string) =>
           docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
           !value.match(/00000000|12345678/),
         error: 'Formato inválido.',
@@ -203,7 +206,7 @@ const UpdateProfile = () => {
     }
   }, [])
 
-  const setUbigeo = (value, type) => {
+  const setUbigeo = (value: string, type: string) => {
     getUbigeo(value).then((list) => {
       switch (type) {
         case 'country':
@@ -225,7 +228,11 @@ const UpdateProfile = () => {
     })
   }
 
-  const createAttribute = (nameP, valueP, typeP = 'String') => {
+  const createAttribute = (
+    nameP?: string,
+    valueP?: string,
+    typeP = 'String'
+  ) => {
     const object = {
       name: nameP,
       value: valueP,
@@ -235,7 +242,7 @@ const UpdateProfile = () => {
   }
 
   const handleUpdateProfile = () => {
-    const profile = {
+    const profile: any = {
       firstName: changeuser.pFirstName,
       lastName: changeuser.pLastName,
       secondLastName: changeuser.pSecondLastName,
@@ -246,7 +253,6 @@ const UpdateProfile = () => {
       gender: changeuser.pGender,
       contacts: [{ phone: changeuser.pMobilePhone, type: 'PRIMARY' }],
     }
-    // console.log('profile antes:', profile)
 
     for (const prop in profile) {
       if (profile[prop] !== null) {
@@ -277,7 +283,7 @@ const UpdateProfile = () => {
     )
 
     const clean = attributes.filter(
-      (attribute) =>
+      (attribute: any) =>
         attribute.name !== 'civilStatus' &&
         attribute.name !== 'country' &&
         attribute.name !== 'department' &&
@@ -296,7 +302,6 @@ const UpdateProfile = () => {
       objDistrict,
       objDocumentType,
       objDocumentNumber,
-      // eslint-disable-next-line consistent-return
     ].filter((attribute) => {
       if (attribute.name === 'originReferer' && attribute.value) {
         return {
@@ -346,20 +351,22 @@ const UpdateProfile = () => {
           setMsgSuccess(false)
         }, 5000)
       })
-      .catch((errUpdate) => {
-        console.log(errUpdate)
+      .catch((errUpdate: any) => {
+        // console.log(errUpdate)
+        const { code } = errUpdate
         setLoading(false)
-        if (errUpdate.code === '100018') {
+        if (code === '100018') {
           setShowModalConfirm(true)
-        } else if (errUpdate.code === '3001001') {
-          setMsgError(getCodeError(errUpdate.code))
+        } else if (code === '3001001') {
+          const message: string = getCodeError(code)
+          setMsgError(message)
           setTimeout(() => {
-            setMsgError(false)
+            setMsgError('')
           }, 5000)
         } else {
-          setMsgError(getCodeError(errUpdate.code))
+          setMsgError(getCodeError(code))
           setTimeout(() => {
-            setMsgError(false)
+            setMsgError('')
           }, 5000)
         }
       })
@@ -368,12 +375,13 @@ const UpdateProfile = () => {
   const [confirmPassword, setConfirmPassword] = React.useState('')
   const [errorPass, setErrorPass] = React.useState('')
 
-  const submitConfirmPassword = (e) => {
+  const submitConfirmPassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setTextConfirmed(true)
     if (typeof window !== 'undefined' && errorPass.trim.length === 0) {
       setSending(true)
-      const currentEmail = email || Identity.userProfile.email
+      const Identity1: any = Identity
+      const currentEmail = email || Identity1.userProfile.email
 
       Identity.login(currentEmail, confirmPassword, {
         rememberMe: true,
@@ -396,13 +404,13 @@ const UpdateProfile = () => {
           setSending(false)
 
           setTimeout(() => {
-            setMsgError(false)
+            setMsgError('')
           }, 5000)
         })
         .finally(() => {
           setShowModalConfirm(false)
           setConfirmPassword('')
-          const ModalProfile =
+          const ModalProfile: any =
             document.getElementById('profile-signwall').parentNode ||
             document.getElementById('profile-signwall').parentElement
           ModalProfile.style.overflow = 'auto'
@@ -422,7 +430,11 @@ const UpdateProfile = () => {
     }
   }
 
-  const changeValidationConfirm = (e) => {
+  const changeValidationConfirm = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { value } = e.target
     setConfirmPassword(value)
 
@@ -480,15 +492,22 @@ const UpdateProfile = () => {
     disable,
   } = useForm(stateSchema, stateValidatorSchema, handleUpdateProfile)
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     handleOnChange(e)
-    setMsgError(false)
+    setMsgError('')
   }
 
-  const handleOnChangeInputProfile = (e) => {
+  const handleOnChangeInputProfile = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     if (e.target.name === 'pDateBirth') {
       if (e.target.value.length === 0) {
-        console.log('entro a vacio')
         setChangeUser({
           ...changeuser,
           pBirthDay: '',
@@ -522,7 +541,10 @@ const UpdateProfile = () => {
 
   return (
     <>
-      <form onSubmit={handleOnSubmit} className="sign-profile_update-form-grid">
+      <form
+        onSubmit={handleOnSubmit}
+        className="sign-profile_update-form-grid"
+        noValidate>
         <div className="row btw">
           <h3 className="title">Mis Datos</h3>
         </div>
@@ -548,14 +570,13 @@ const UpdateProfile = () => {
               value={pFirstName}
               className={`input capitalize ${firstNameError ? 'error' : ''}`}
               placeholder="Nombres"
-              noValidate
-              maxLength="50"
+              maxLength={50}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex="1"
+              tabIndex={1}
               disabled={!email}
             />
             <label htmlFor="pFirstName" className="label">
@@ -571,14 +592,13 @@ const UpdateProfile = () => {
               value={pLastName}
               className={`input capitalize ${lastNameError ? 'error' : ''}`}
               placeholder="Apellido Paterno"
-              noValidate
-              maxLength="50"
+              maxLength={50}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex="2"
+              tabIndex={2}
               disabled={!email}
             />
             <label htmlFor="pLastName" className="label">
@@ -595,14 +615,13 @@ const UpdateProfile = () => {
                 secondLastNameError ? 'error' : ''
               }`}
               placeholder="Apellido Materno"
-              noValidate
-              maxLength="50"
+              maxLength={50}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex="3"
+              tabIndex={3}
               disabled={!email}
             />
             <label htmlFor="pSecondLastName" className="label">
@@ -628,9 +647,9 @@ const UpdateProfile = () => {
                   handleOnChangeInputProfile(e)
                   setShowDocOption(e.target.value)
                 }}
-                tabIndex="4"
+                tabIndex={4}
                 disabled={!email}>
-                <option disabled="disabled" value="default">
+                <option disabled value="default">
                   Seleccione
                 </option>
                 <option value="DNI">DNI</option>
@@ -648,7 +667,6 @@ const UpdateProfile = () => {
                 value={pDocumentNumber}
                 className={documentNumberError ? 'input error' : 'input'}
                 placeholder="Num. Documento"
-                noValidate
                 maxLength={pDocumentNumber === 'DNI' ? '8' : '15'}
                 minLength={pDocumentNumber === 'DNI' ? '8' : '5'}
                 onChange={(e) => {
@@ -656,7 +674,7 @@ const UpdateProfile = () => {
                   handleOnChangeInputProfile(e)
                 }}
                 onBlur={handleOnChange}
-                tabIndex="5"
+                tabIndex={5}
                 disabled={!email}
               />
             </div>
@@ -678,7 +696,7 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex="6"
+              tabIndex={6}
               disabled={!email}>
               <option value="default">Seleccione</option>
               <option value="SO">Soltero(a)</option>
@@ -702,14 +720,13 @@ const UpdateProfile = () => {
               value={pMobilePhone}
               className={`input ${mobilePhoneError ? 'error' : ''}`}
               placeholder="Número de Celular"
-              noValidate
-              maxLength="12"
+              maxLength={12}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex="7"
+              tabIndex={7}
               disabled={!email}
             />
             <label htmlFor="pMobilePhone" className="label">
@@ -732,7 +749,7 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
                 setUbigeo(e.target.value, 'country')
               }}
-              tabIndex="8"
+              tabIndex={8}
               disabled={!email}>
               <option value="default">Seleccione</option>
               <option value="260000">Perú</option>
@@ -752,7 +769,7 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
                 setUbigeo(e.target.value, 'department')
               }}
-              tabIndex="9"
+              tabIndex={9}
               disabled={!email}>
               <option value="default">Seleccione</option>
               {dataDepartments.map(([code, name]) => (
@@ -778,7 +795,7 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
                 setUbigeo(e.target.value, 'province')
               }}
-              tabIndex="10"
+              tabIndex={10}
               disabled={!email}>
               <option value="default">Seleccione</option>
               {dataProvinces.map(([code, name]) => (
@@ -804,7 +821,7 @@ const UpdateProfile = () => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
               }}
-              tabIndex="11"
+              tabIndex={11}
               disabled={!email}>
               <option value="default">Seleccione</option>
               {dataDistricts.map(([code, name]) => (
@@ -828,9 +845,8 @@ const UpdateProfile = () => {
               value={pEmail}
               className={emailError ? 'input error' : 'input'}
               placeholder="Correo electrónico"
-              noValidate
-              maxLength="30"
-              tabIndex="12"
+              maxLength={30}
+              tabIndex={12}
               disabled={email !== null}
               onChange={(e) => {
                 handleChangeInput(e)
@@ -854,7 +870,7 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex="13"
+              tabIndex={13}
               disabled={!email}>
               <option value="default">Seleccione</option>
               <option value="M">Hombre</option>
@@ -875,9 +891,8 @@ const UpdateProfile = () => {
               value={pDateBirth}
               className={dateBirthError ? 'input error' : 'input'}
               placeholder="Fecha Cumpleaños"
-              noValidate
-              maxLength="30"
-              tabIndex="14"
+              maxLength={30}
+              tabIndex={14}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
@@ -901,7 +916,7 @@ const UpdateProfile = () => {
                 backgroundColor: mainColorLink,
               }}
               disabled={disable || loading}
-              tabIndex="15">
+              tabIndex={15}>
               {loading ? 'Guardando...' : 'Guardar Cambios'}
             </button>
           </div>
@@ -909,7 +924,11 @@ const UpdateProfile = () => {
       </form>
 
       {showModalConfirm && (
-        <Modal size="mini" position="middle" bgColor="white">
+        <Modal
+          size="mini"
+          position="middle"
+          bgColor="white"
+          arcSite={undefined}>
           <div className="text-right">
             <button type="button" onClick={togglePopupModalConfirm}>
               <Close />
@@ -918,7 +937,10 @@ const UpdateProfile = () => {
 
           <form
             className="sign-profile_update-form-grid"
-            onSubmit={submitConfirmPassword}>
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+              submitConfirmPassword(e)
+            }
+            noValidate>
             <p
               style={{
                 lineHeight: '28px',
@@ -938,8 +960,7 @@ const UpdateProfile = () => {
                 name="currentPassword"
                 className={errorPass.length > 0 ? 'input error' : 'input'}
                 placeholder="Contraseña"
-                noValidate
-                maxLength="50"
+                maxLength={50}
                 autoComplete="off"
                 value={confirmPassword}
                 onChange={(e) => {
