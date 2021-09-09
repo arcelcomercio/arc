@@ -618,7 +618,15 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-
+        {arcSite === SITE_PERU21 ? (
+          <>
+            <script
+              type="text/javascript"
+              src="https://btloader.com/tag?o=5634903914840064&upapi=true"
+              async
+            />
+          </>
+        ) : null}
         {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script
