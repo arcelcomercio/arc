@@ -25,6 +25,22 @@ content_elements {
     config{
       key
       chapter
+      score
+      plataform
+      year
+      director {
+        name
+        url
+      }
+      cast {
+        name
+        url
+      }
+      genre {
+        name
+        url
+      }
+      clasification
       description
       duration
       thumbnail_url
