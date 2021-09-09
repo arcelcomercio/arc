@@ -19,7 +19,7 @@ const params = [
   {
     name: 'format',
     displayName: 'Formato de la imagen (jpeg, png, etc.)',
-    type: 'number',
+    type: 'text',
   },
 ]
 

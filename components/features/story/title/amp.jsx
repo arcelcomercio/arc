@@ -100,7 +100,7 @@ const StoryTitleAmp = () => {
                 <amp-img
                   width="240px"
                   height="31px"
-                  src="https://arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/B576KDATVBA4XFMUPCFSMTEC4A.png"
+                  src="https://elcomercio.pe/resizer/naRu0PT5lScjAnLV3MMk2JxYS8I=/240x0/smart/filters:format(png):quality(100)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/B576KDATVBA4XFMUPCFSMTEC4A.png"
                   alt="Saltar Intro"
                   layout="responsive"
                 />
