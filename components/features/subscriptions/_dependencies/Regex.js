@@ -28,7 +28,6 @@ const maskDocuments = {
 }
 
 const docPatterns = {
-  default: '',
   DNI: /(\d){8}/,
   CDI: /^([a-zA-Z0-9-]{5,15})/,
   CEX: /^([a-zA-Z0-9-]{5,15})/,
