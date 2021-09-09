@@ -47,7 +47,7 @@ const CovidChildGraph = ({
   const [barra, setSelectBarra] = React.useState(true)
   const [fiebre, setSelectFiebre] = React.useState(false)
 
-  const dataValue = infected => {
+  const dataValue = (infected) => {
     return Math.round((infected * 100) / maxValue)
   }
 
@@ -60,7 +60,7 @@ const CovidChildGraph = ({
     setSelectBarra(false)
   }
 
-  const handleBarra = value => {
+  const handleBarra = (value) => {
     const color = value <= 0 ? 'transparent' : colorBar
     return {
       'background-color': color,
@@ -68,7 +68,7 @@ const CovidChildGraph = ({
     }
   }
 
-  const handleDate = dateTitle => {
+  const handleDate = (dateTitle) => {
     const ListMonth = [
       'Enero',
       'Febrero',
@@ -99,11 +99,7 @@ const CovidChildGraph = ({
             top: '5px',
           }}>
           <a href={closeUrl}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.979"
-              height="13.979"
-              viewBox="0 0 13.979 13.979">
+            <svg width="13.979" height="13.979" viewBox="0 0 13.979 13.979">
               <g transform="translate(-314.287 -136.011)">
                 <line
                   style={{ fill: '#fff', stroke: '#707070' }}

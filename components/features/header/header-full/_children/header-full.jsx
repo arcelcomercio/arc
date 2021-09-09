@@ -168,12 +168,7 @@ export default ({
         <div className={`${cName}${classes.eName}`}>EDICIONES:</div>
 
         <a className={`${cName}${classes.ePais}`} href="/?noredirect">
-          <svg
-            width="18"
-            height="12"
-            viewBox="0 0 18 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
             <path d="M18 0H0V12H18V0Z" fill="white" />
             <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
             <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
@@ -182,12 +177,7 @@ export default ({
           {`${has ? 'PE (Perú)' : 'Perú'}`}
         </a>
         <a className={`${cName}${classes.ePais}`} href="/mexico/">
-          <svg
-            width="18"
-            height="12"
-            viewBox="0 0 18 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
             <path d="M18 0H0V12H18V0Z" fill="white" />
             <path d="M6 0H0V12H6V0Z" fill="#006847" />
             <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
@@ -200,12 +190,7 @@ export default ({
           {`${has ? 'MX (México)' : 'México'}`}
         </a>
         <a className={`${cName}${classes.ePais}`} href="/colombia/">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="12"
-            viewBox="0 0 18 12"
-            fill="none">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
             <rect width="18" height="6" fill="#fcd116" />
             <rect y="6" width="18" height="4" fill="#003893" />
             <rect y="9" width="18" height="4" fill="#ce1126" />
@@ -367,11 +352,7 @@ export default ({
                     {isDeporPlay && (
                       <li className="nav-sidebar__item header-full__newsletter-li">
                         <a href="/suscripcion-newsletter/">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="16"
-                            viewBox="0 0 20 16">
+                          <svg width="20" height="16" viewBox="0 0 20 16">
                             <path d="M20,2a2.006,2.006,0,0,0-2-2H2A2.006,2.006,0,0,0,0,2V14a2.006,2.006,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2ZM18,2,10,6.99,2,2Zm0,12H2V4l8,5,8-5Z" />
                           </svg>
                           <span>Newsletter</span>
@@ -409,7 +390,6 @@ export default ({
                         {showArrowLeft && (
                           <svg
                             width="74"
-                            xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 492 492"
                             xmlSpace="preserve">
                             <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" />
@@ -434,11 +414,7 @@ export default ({
                 href="/"
                 title={siteDomain}>
                 {isDeporPlay && showArrowLeft && (
-                  <svg
-                    width="74"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 492 492"
-                    xmlSpace="preserve">
+                  <svg width="74" viewBox="0 0 492 492" xmlSpace="preserve">
                     <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" />
                   </svg>
                 )}
@@ -491,9 +467,7 @@ export default ({
                       <>
                         <div className={classes.dpsearch}>
                           <form className={classes.dpform}>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 14 14">
+                            <svg viewBox="0 0 14 14">
                               <path d="M13.2 12.4L9.2 8.3C9.8 7.5 10.1 6.5 10.1 5.4 10.1 4.2 9.6 3 8.8 2.1 7.9 1.2 6.7 0.8 5.4 0.8 4.2 0.8 3 1.2 2.1 2.1 1.2 3 0.8 4.2 0.8 5.4 0.8 6.7 1.2 7.9 2.1 8.8 3 9.6 4.2 10.1 5.4 10.1 6.5 10.1 7.5 9.8 8.3 9.2L12.4 13.2C12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.3 12.4 13.3 12.5 13.3 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.2L13.2 12.5C13.2 12.5 13.2 12.5 13.2 12.5 13.2 12.5 13.3 12.5 13.3 12.4 13.3 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4 13.2 12.4V12.4ZM7.9 7.9C7.3 8.6 6.4 8.9 5.4 8.9 4.5 8.9 3.6 8.6 3 7.9 2.3 7.3 1.9 6.4 1.9 5.4 1.9 4.5 2.3 3.6 3 3 3.6 2.3 4.5 1.9 5.4 1.9 6.4 1.9 7.3 2.3 7.9 3 8.6 3.6 8.9 4.5 8.9 5.4 8.9 6.4 8.6 7.3 7.9 7.9Z" />
                             </svg>
                             <input
@@ -525,7 +499,6 @@ export default ({
                         {showArrowLeft && (
                           <svg
                             width="74"
-                            xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 492 492"
                             xmlSpace="preserve">
                             <path d="M198.608 246.104 382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z" />
@@ -613,9 +586,7 @@ export default ({
                     <label
                       htmlFor="stNewsCinDesk"
                       className={`${classes.newsCin} ${classes.newsCinDesk} `}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 1080 320">
+                      <svg viewBox="0 0 1080 320">
                         <g>
                           <g
                             fill="#aa4315"
@@ -653,9 +624,7 @@ export default ({
                     <label
                       htmlFor="stNewsCinMob"
                       className={`${classes.newsCin} ${classes.newsCinMob}`}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 1080 320">
+                      <svg viewBox="0 0 1080 320">
                         <g>
                           <g
                             fill="#aa4315"
@@ -727,11 +696,7 @@ export default ({
                     title="Edicion"
                     className={classes.eLink}>
                     <div className={classes.mx}>{countryName}</div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      width="24">
+                    <svg height="24" viewBox="0 0 24 24" width="24">
                       <path d="M0 0h24v24H0z" fill="none" />
                       <path d="M7 10l5 5 5-5z" />
                     </svg>
@@ -746,11 +711,7 @@ export default ({
             {isDeporPlay && showNewsletter && (
               <div className={classes.news}>
                 <a href="/suscripcion-newsletter/">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="16"
-                    viewBox="0 0 20 16">
+                  <svg width="20" height="16" viewBox="0 0 20 16">
                     <path d="M20,2a2.006,2.006,0,0,0-2-2H2A2.006,2.006,0,0,0,0,2V14a2.006,2.006,0,0,0,2,2H18a2.006,2.006,0,0,0,2-2ZM18,2,10,6.99,2,2Zm0,12H2V4l8,5,8-5Z" />
                   </svg>
                   <span>Newsletter</span>

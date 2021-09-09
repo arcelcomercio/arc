@@ -120,11 +120,7 @@ const Pagination = (props) => {
           itemProp="url"
           className={`${classes.page} ${classes.center}`}
           href={pathOrigin}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24">
+          <svg width="24" height="24" viewBox="0 0 24 24">
             <g>
               <path
                 d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
@@ -140,11 +136,7 @@ const Pagination = (props) => {
           itemProp="url"
           className={`${classes.page} ${classes.center}`}
           href={urlPrevPage}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24">
+          <svg width="24" height="24" viewBox="0 0 24 24">
             <g>
               <path
                 d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
@@ -215,11 +207,7 @@ const Pagination = (props) => {
           className={`${classes.page} ${classes.center}`}
           href={urlNextPage}>
           <span className="non-mobile">siguiente</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24">
+          <svg width="24" height="24" viewBox="0 0 24 24">
             <g>
               <path
                 d="M-16.776,9.78a.8.8,0,0,0-.018,1.091.759.759,0,0,0,.536.23.78.78,0,0,0,.518-.21l4.808-4.783a.78.78,0,0,0,.222-.555A.78.78,0,0,0-10.932,5L-15.74.213a.736.736,0,0,0-1.054.019.8.8,0,0,0,.018,1.091l4.253,4.229Z"
