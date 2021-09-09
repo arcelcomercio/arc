@@ -14,8 +14,7 @@ async function importRetry(
       await wait(interval)
       return importRetry(importFn, retries - 1, interval)
     }
-
-    throw new Error(error as any)
+    throw new Error(`importRetry - ${error}`)
   }
 }
 
