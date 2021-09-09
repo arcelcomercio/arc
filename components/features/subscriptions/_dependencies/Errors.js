@@ -17,20 +17,41 @@ export const formatPass = () => ({
 })
 
 export const formatNames = () => ({
-  func: (value) => namesRegex.test(value),
+  func: (value) => value !== null || namesRegex.test(value),
   error: 'Formato inválido, solo letras',
 })
 
 export const formatSecondLastName = () => ({
   func: (value) =>
     value === '' || (value.length >= 2 && namesRegex.test(value)),
-  error: 'Formato inválido, solo letras',
+  error: 'Se requiere mínimo 2 caracteres',
 })
 
 export const formatPhone = () => ({
   func: (value) =>
     value === '' || (value.length >= 2 && numberRegex.test(value)),
   error: 'Formato inválido. Solo números',
+})
+
+const calculateAge = (date) => {
+  const birthday = new Date(date)
+  const currentDate = new Date()
+
+  const time = parseInt(
+    (currentDate.getTime() - birthday.getTime()) / (1000 * 3600 * 24) / 365,
+    10
+  )
+  return time
+}
+
+export const minBirthDay = () => ({
+  func: (value) => value === null || calculateAge(value) > 4,
+  error: 'No cumple con la edad mínima',
+})
+
+export const maxBirthDay = () => ({
+  func: (value) => value === null || calculateAge(value) < 100,
+  error: '¿Está seguro que tiene esa edad?',
 })
 
 export const formatCellphone = () => ({
