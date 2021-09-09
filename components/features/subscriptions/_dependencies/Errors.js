@@ -15,16 +15,15 @@ export const formatPass = () => ({
   func: (value) => value.length >= 8,
   error: 'Mínimo 8 caracteres',
 })
-
 export const formatNames = () => ({
-  func: (value) => value !== null || namesRegex.test(value),
+  func: (value) => value === '' || namesRegex.test(value),
   error: 'Formato inválido, solo letras',
 })
 
 export const formatSecondLastName = () => ({
   func: (value) =>
     value === '' || (value.length >= 2 && namesRegex.test(value)),
-  error: 'Se requiere mínimo 2 caracteres',
+  error: 'Formato inválido, solo letras',
 })
 
 export const formatPhone = () => ({
