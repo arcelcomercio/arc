@@ -137,6 +137,7 @@ const UpdateProfile = () => {
     },
     pSecondLastName: {
       required: false,
+      min2caracts: true,
       invalidtext: true,
       validator: formatSecondLastName(),
     },
