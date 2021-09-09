@@ -256,9 +256,12 @@ const UpdateProfile = () => {
 
     for (const prop in profile) {
       if (profile[prop] !== null) {
-        if (`${profile[prop]}`.trim() === '') {
+        if (
+          `${profile[prop]}`.trim() === '' ||
+          `${profile[prop]}`.trim() === 'default'
+        ) {
           profile[prop] = null
-          // console.log('valores vacios convertidos a null')
+          // console.log('valores vacios o default convertidos a null')
         }
       }
     }
