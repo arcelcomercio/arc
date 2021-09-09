@@ -923,7 +923,7 @@ class StoryData {
     return (
       (this._data &&
         StoryData.getDataSaltarIntro(this._data.content_elements)) ||
-      []
+      {}
     )
   }
 

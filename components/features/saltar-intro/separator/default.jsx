@@ -3,6 +3,7 @@ import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
 import {
+  includeContentBasic,
   includeCredits,
   separatorBasicFields,
 } from '../../../utilities/included-fields'
@@ -54,7 +55,7 @@ const SeparatorSaltarIntro = (props) => {
       source: contentService,
       query: Object.assign(contentConfigValues, {
         presets: 'landscape_s:298x156',
-        includedFields: `${separatorBasicFields},${includeCredits}`,
+        includedFields: `${separatorBasicFields},${includeCredits},${includeContentBasic},content_elements.subtype,content_elements.embed,content_elements.embed.config`,
       }),
       filter: schemaFilter(arcSite),
       transform: dataTransform,

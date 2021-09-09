@@ -40,7 +40,7 @@ const classes = {
   icon: `featured-story-si__icon`,
 }
 
-const FeaturedStory = props => {
+const FeaturedStory = (props) => {
   const {
     primarySection,
     primarySectionLink,
@@ -54,8 +54,12 @@ const FeaturedStory = props => {
     // arcSite,
     // siteName,
     isLazyLoadActivate = true,
-    starField,
+    starField: startInput,
+    plataform,
+    score,
   } = props
+
+  const starField = score || startInput
 
   // width y height para imagen dinámico
   const imageWidth = 313
@@ -101,7 +105,7 @@ const FeaturedStory = props => {
             itemProp="url"
             className={classes.categoryLink}
             href={primarySectionLink}>
-            {primarySection}
+            {plataform || primarySection}
           </a>
         </h3>
         <h2 itemProp="name" className={classes.title}>

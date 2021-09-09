@@ -30,6 +30,7 @@ const StoryChildrenContinueHeader: React.FC<Props> = (props) => {
   } = getProperties(arcSite)
 
   const isSomos = requestUri.includes('/somos/')
+  const isDeporPlay = /^\/depor-play\//.test(requestUri)
   const mainImage = isSomos
     ? 'https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HJJOUB5ZYJDCZLCVEKSSBBWXPE.png'
     : `${getAssetsPath(
@@ -53,7 +54,10 @@ const StoryChildrenContinueHeader: React.FC<Props> = (props) => {
       <header
         className={`${classes.header} ${isSomos ? classes.somos : ''}`}
         id="h-continuous">
-        <a itemProp="url" href="/" title={siteDomain}>
+        <a
+          itemProp="url"
+          href={`${isDeporPlay ? '/depor-play/' : '/'}`}
+          title={siteDomain}>
           <img
             className={classes.image}
             src={mainImage}

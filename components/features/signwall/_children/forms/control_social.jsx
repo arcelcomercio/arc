@@ -141,7 +141,9 @@ const setupUserProfile = (
                   arcSite === 'gestion' ||
                   arcSite === 'trome' ||
                   arcSite === 'ojo' ||
-                  arcSite === 'diariocorreo')
+                  arcSite === 'diariocorreo' ||
+                  arcSite === 'peru21' ||
+                  arcSite === 'peru21g21')
                   ? dataTreatment
                   : 'NULL',
               type: 'String',
