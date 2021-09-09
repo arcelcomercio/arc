@@ -40,6 +40,10 @@ const useSentry = (dsn: string): UseSentryValue => {
           /metrics\.itunes\.apple\.com\.edgesuite\.net\//i,
         ],
         ignoreErrors: [
+          // Errores causados por Microsoft Outlook SafeLink crawlers
+          // https://forum.sentry.io/t/unhandledrejection-non-error-promise-rejection-captured-with-value/14062/13
+          'Non-Error exception captured',
+          'Non-Error promise rejection captured',
           // Random plugins/extensions
           'top.GLOBALS',
           // See: http://blog.errorception.com/2012/03/tale-of-unfindable-js-error.html
