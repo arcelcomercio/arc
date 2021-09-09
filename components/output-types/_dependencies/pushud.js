@@ -1,4 +1,4 @@
-export const getPushud = (arcSite) => {
+export const getPushud = arcSite => {
   let pushud = ''
   let idPushud = '41308'
   if (arcSite === 'peru21') {
@@ -22,7 +22,7 @@ export const getPushud = (arcSite) => {
   return pushud
 }
 
-export const getEnablePushud = (arcSite) => {
+export const getEnablePushud = arcSite => {
   let epushud = false
   if (
     arcSite === 'depor' ||
