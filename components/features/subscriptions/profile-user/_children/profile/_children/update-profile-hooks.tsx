@@ -29,6 +29,27 @@ import {
 } from '../../../../_dependencies/Utils'
 import useForm from '../../../../_hooks/useForm'
 
+import { UserDocumentType } from 'types/subscriptions'
+import { UserProfile } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
+import { getUserProfile } from '../../../../../../utilities/subscriptions/identity'
+
+export type AttributeNames =
+  | 'documentNumber'
+  | 'phone'
+  | 'documentType'
+  | 'civilStatus'
+  | 'country'
+  | 'province'
+  | 'department'
+  | 'district'
+
+interface ProfileWithAttributes
+  extends UserProfile,
+    Record<AttributeNames, string> {
+  documentType: UserDocumentType
+  attributes: never
+}
+
 const styles = {
   group: 'sign-profile_update-form-group',
   btn: 'signwall-inside_forms-btn',
@@ -41,44 +62,45 @@ const UpdateProfile = () => {
     },
   } = useAppContext() || {}
 
-  const {
-    firstName,
-    lastName,
-    secondLastName,
-    documentType = null,
-    documentNumber = null,
-    email,
-    phone,
-    gender,
-    birthDay,
-    birthMonth,
-    birthYear,
-    country = null,
-    department = null,
-    province = null,
-    district = null,
-    civilStatus = null,
-    attributes = [],
-  } = conformProfile(getStorageProfile())
+  // const {
+  //   firstName,
+  //   lastName,
+  //   secondLastName,
+  //   documentType = null,
+  //   documentNumber = null,
+  //   email,
+  //   phone,
+  //   gender,
+  //   birthDay,
+  //   birthMonth,
+  //   birthYear,
+  //   country = null,
+  //   department = null,
+  //   province = null,
+  //   district = null,
+  //   civilStatus = null,
+  //   attributes = [],
+  // } = conformProfile(getStorageProfile())
 
-  const [changeuser, setChangeUser] = React.useState({
-    pFirstName: firstName,
-    pLastName: lastName,
-    pSecondLastName: secondLastName,
-    pDocumentType: documentType,
-    pDocumentNumber: documentNumber,
-    pCivilStatus: civilStatus,
-    pMobilePhone: phone,
-    pCountry: country,
-    pDepartment: department,
-    pProvince: province,
-    pDistrict: district,
-    pEmail: email,
-    pGender: gender,
-    pBirthDay: birthDay,
-    pBirthMonth: birthMonth,
-    pBirthYear: birthYear,
-  })
+  // const [changeuser, setChangeUser] = React.useState({
+  //   pFirstName: firstName,
+  //   pLastName: lastName,
+  //   pSecondLastName: secondLastName,
+  //   pDocumentType: documentType,
+  //   pDocumentNumber: documentNumber,
+  //   pCivilStatus: civilStatus,
+  //   pMobilePhone: phone,
+  //   pCountry: country,
+  //   pDepartment: department,
+  //   pProvince: province,
+  //   pDistrict: district,
+  //   pEmail: email,
+  //   pGender: gender,
+  //   pBirthDay: birthDay,
+  //   pBirthMonth: birthMonth,
+  //   pBirthYear: birthYear,
+  // })
+  const [profile, setProfile] = React.useState<ProfileWithAttributes>()
 
   const [loading, setLoading] = React.useState(false)
   const [msgError, setMsgError] = React.useState('')
@@ -89,8 +111,8 @@ const UpdateProfile = () => {
   const [dataDepartments, setDataDepartments] = React.useState([])
   const [dataProvinces, setDataProvinces] = React.useState([])
   const [dataDistricts, setDataDistricts] = React.useState([])
-  const [showDocOption, setShowDocOption] = React.useState(
-    documentType || 'DNI'
+  const [showDocOption, setShowDocOption] = React.useState<UserDocumentType>(
+    'DNI'
   )
   const [auxConvertedDate, setAuxConvertedDate] = React.useState(false)
   const [countConverted, setCountConverted] = React.useState(false)
@@ -103,27 +125,21 @@ const UpdateProfile = () => {
   }
 
   const stateSchema = {
-    pFirstName: { value: checkUndefined(firstName) || '', error: '' },
-    pLastName: { value: checkUndefined(lastName) || '', error: '' },
-    pSecondLastName: { value: checkUndefined(secondLastName) || '', error: '' },
-    pDocumentType: { value: documentType || 'DNI', error: '' },
-    // pDocumentType: { value: documentType || '', error: '' },
-    pDocumentNumber: { value: checkUndefined(documentNumber) || '', error: '' },
-    pCivilStatus: { value: civilStatus || '', error: '' },
-    pMobilePhone: { value: checkFormatPhone(phone) || '', error: '' },
-    pCountry: { value: country, error: '' },
-    pDepartment: { value: department, error: '' },
-    pProvince: { value: province, error: '' },
-    pDistrict: { value: district, error: '' },
-    pEmail: { value: checkFbEmail(email) || '', error: '' },
-    pGender: { value: gender || '', error: '' },
+    pFirstName: { value: '', error: '' },
+    pLastName: { value: '', error: '' },
+    pSecondLastName: { value: '', error: '' },
+    pDocumentType: { value: 'DNI', error: '' },
+    pDocumentNumber: { value: '', error: '' },
+    pCivilStatus: { value: '', error: '' },
+    pMobilePhone: { value: '', error: '' },
+    pCountry: { value: '', error: '' },
+    pDepartment: { value: '', error: '' },
+    pProvince: { value: '', error: '' },
+    pDistrict: { value: '', error: '' },
+    pEmail: { value: '', error: '' },
+    pGender: { value: '', error: '' },
     pDateBirth: {
-      value:
-        (birthDay &&
-          birthMonth &&
-          birthYear &&
-          convertDateStringDate(birthYear, birthMonth, birthDay)) ||
-        null,
+      value: '',
       error: '',
     },
   }
@@ -194,6 +210,44 @@ const UpdateProfile = () => {
   }
 
   React.useEffect(() => {
+    const {
+      firstName,
+      lastName,
+      secondLastName,
+      documentType,
+      documentNumber,
+      email,
+      phone,
+      gender,
+      birthDay,
+      birthMonth,
+      birthYear,
+      country = null,
+      department = null,
+      province = null,
+      district = null,
+      civilStatus,
+    } = conformProfile(Identity.userProfile) as ProfileWithAttributes
+
+    setProfile({
+      firstName,
+      lastName,
+      secondLastName,
+      documentType,
+      documentNumber,
+      civilStatus,
+      phone,
+      country,
+      department,
+      province,
+      district,
+      email,
+      gender,
+      birthDay,
+      birthMonth,
+      birthYear,
+    })
+
     if (country) {
       getUbigeo(country).then((listDepartaments) => {
         setDataDepartments(listDepartaments)
@@ -326,6 +380,7 @@ const UpdateProfile = () => {
           ...attribute,
         }
       }
+      return 
     })
 
     profile.attributes = cleanAttributes
