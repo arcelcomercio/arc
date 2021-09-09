@@ -1,16 +1,18 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import List from './_children/list'
-import StoryData from '../../../utilities/story-data'
+import * as React from 'react'
+
 import {
+  includeContentBasic,
   includeCredits,
   separatorBasicFields,
 } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import List from './_children/list'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
-const SaltarIntroListadoCriticas = props => {
+const SaltarIntroListadoCriticas = (props) => {
   const {
     customFields: {
       seeMoreLink,
@@ -20,7 +22,7 @@ const SaltarIntroListadoCriticas = props => {
 
   const { arcSite, deployment, contextPath, isAdmin } = useFusionContext()
 
-  const dataTransform = data => {
+  const dataTransform = (data) => {
     const { content_elements: contentElements = [] } = data || {}
 
     const dataFormat = new StoryData({
@@ -31,7 +33,7 @@ const SaltarIntroListadoCriticas = props => {
 
     const newData =
       contentElements.length > 0
-        ? contentElements.map(story => {
+        ? contentElements.map((story) => {
             dataFormat.__data = story
             return { ...dataFormat.attributesRaw }
           })
@@ -45,7 +47,7 @@ const SaltarIntroListadoCriticas = props => {
       source: contentService,
       query: Object.assign(contentConfigValues, {
         presets: 'landscape_s:296x158',
-        includedFields: `${separatorBasicFields},${includeCredits}`,
+        includedFields: `${separatorBasicFields},${includeCredits},${includeContentBasic},content_elements.subtype,content_elements.embed,content_elements.embed.config`,
       }),
       filter: schemaFilter(arcSite),
       transform: dataTransform,
