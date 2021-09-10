@@ -14,9 +14,9 @@ const Ubigeo = (props: any) => {
   const [provinces, setProvinces] = React.useState([])
   const [districts, setDistricts] = React.useState([])
 
-  const [enabledCountry, setEnableCountry] = React.useState(true)
-  const [enableDepartment, setEnableDepartment] = React.useState(true)
-  const [enableProvince, setEnableProvince] = React.useState(true)
+  const [enabledCountry, setEnableCountry] = React.useState(false)
+  const [enableDepartment, setEnableDepartment] = React.useState(false)
+  const [enableProvince, setEnableProvince] = React.useState(false)
 
   let contador = 0
   React.useEffect(() => {
@@ -24,7 +24,7 @@ const Ubigeo = (props: any) => {
       if (country) {
         getUbigeo(country).then((listDepartaments) => {
           setDepartments(listDepartaments)
-          setEnableCountry(false)
+          setEnableCountry(true)
         })
       }
 
@@ -32,13 +32,13 @@ const Ubigeo = (props: any) => {
         getUbigeo(department).then((listProvinces) => {
           setProvinces(listProvinces)
         })
-        setEnableDepartment(false)
+        setEnableDepartment(true)
       }
       if (province) {
         getUbigeo(province).then((listDistrics) => {
           setDistricts(listDistrics)
         })
-        setEnableProvince(false)
+        setEnableProvince(true)
       }
       contador = 1
     }
@@ -61,6 +61,9 @@ const Ubigeo = (props: any) => {
           docDepartment?.onchange
           docProvince?.onchange
           docDistrict?.onchange
+          if (value !== 'default') {
+            setEnableCountry(true)
+          }
           break
         case 'department':
           setProvinces(list)
@@ -69,11 +72,21 @@ const Ubigeo = (props: any) => {
           docDistrict.value = 'default'
           docProvince?.onchange
           docDistrict?.onchange
+          if (value !== 'default') {
+            setEnableDepartment(true)
+          } else {
+            setEnableCountry(false)
+          }
           break
         case 'province':
           setDistricts(list)
           docDistrict.value = 'default'
           docDistrict?.onchange
+          if (value !== 'default') {
+            setEnableProvince(true)
+          } else {
+            setEnableDepartment(false)
+          }
           break
         default:
           return null
@@ -95,7 +108,7 @@ const Ubigeo = (props: any) => {
               handleChangeInput(e)
               setUbigeo(e.target.value, 'country')
             }}
-            disabled={!email}>
+            disabled={email ? enabledCountry : true}>
             <option value="default">Seleccione</option>
             <option value="260000">Perú</option>
           </select>
@@ -113,7 +126,7 @@ const Ubigeo = (props: any) => {
               handleChangeInput(e)
               setUbigeo(e.target.value, 'department')
             }}
-            disabled={!email}>
+            disabled={email ? enableDepartment : true}>
             <option value="default">Seleccione</option>
             {departments.map(([code, name]) => (
               <option key={code} value={code}>
@@ -135,7 +148,7 @@ const Ubigeo = (props: any) => {
               handleChangeInput(e)
               setUbigeo(e.target.value, 'province')
             }}
-            disabled={!email}>
+            disabled={email ? enableProvince : true}>
             <option value="default">Seleccione</option>
             {provinces.map(([code, name]) => (
               <option key={code} value={code}>
@@ -156,6 +169,9 @@ const Ubigeo = (props: any) => {
             name="district"
             value={district || 'default'}
             onChange={(e) => {
+              if (e.target.value === 'default') {
+                setEnableProvince(false)
+              }
               handleChangeInput(e)
             }}
             disabled={!email}>

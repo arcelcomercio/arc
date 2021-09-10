@@ -1,1247 +1,952 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/tabindex-no-positive */
-/* eslint-disable react/no-string-refs */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
-// eslint-disable-next-line simple-import-sort/imports
+/* eslint-disable jsx-a11y/tabindex-no-positive */
 import Identity from '@arc-publishing/sdk-identity'
-import Consumer from 'fusion:consumer'
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
-// import { alpha } from '@material-ui/core/styles'
-import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
-import esLocale from 'date-fns/locale/es'
+import TextMask from 'react-text-mask'
 
-import { Close } from '../../../../../signwall/_children/icons'
-import { Modal } from '../../../../../signwall/_children/modal/index'
-import GetProfile from '../../../../../signwall/_dependencies/get-profile'
+// import { Close } from '../../../../../signwall/_children/icons'
+// import { Modal } from '../../../../../signwall/_children/modal/index'
 import { clean } from '../../../../../signwall/_dependencies/object'
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
-
+import getCodeError, {
+  formatEmail,
+  formatNames,
+  formatPhone,
+  formatSecondLastName,
+} from '../../../../_dependencies/Errors'
+import { docPatterns, maskDocuments } from '../../../../_dependencies/Regex'
 import {
-  docRegex,
-  emailRegex,
-  /* fechaRegex, */
-  namesRegex,
-  numberRegex,
-  phoneRegex,
-} from '../../../../_dependencies/Regex'
+  conformProfile,
+  getStorageProfile,
+  // isLogged,
+} from '../../../../_dependencies/Session'
+import {
+  checkFbEmail,
+  checkFormatPhone,
+  checkUndefined,
+} from '../../../../_dependencies/Utils'
+import useForm from '../../../../_hooks/useForm'
 
-const SET_ATTRIBUTES_PROFILE = [
-  'documentType',
-  'documentNumber',
-  'civilStatus',
-  'country',
-  'department',
-  'province',
-  'district',
-  'secondLastName',
-  'gender',
-  'birthYear',
-  'birthMonth',
-  'birthDay',
-]
+const styles = {
+  group: 'sign-profile_update-form-group',
+  btn: 'signwall-inside_forms-btn',
+}
 
-const GET_ATTRIBUTES_PROFILE = ['mobilePhone', ...SET_ATTRIBUTES_PROFILE]
+const UpdateProfile = () => {
+  const {
+    siteProperties: {
+      signwall: { mainColorLink, mainColorBtn },
+    },
+  } = useAppContext() || {}
 
-@Consumer
-class UpdateProfile extends React.Component {
-  constructor(props) {
-    super(props)
-    const { publicProfile } = new GetProfile()
-    const { attributes = [] } = publicProfile
-    const attributesObj = this.attributeToObject(attributes)
+  const {
+    firstName,
+    lastName,
+    secondLastName,
+    documentType,
+    documentNumber,
+    email,
+    phone,
+    // emailVerified,
+    gender,
+    birthDay,
+    birthMonth,
+    birthYear,
+    country,
+    department,
+    province,
+    district,
+    civilStatus,
+  } = conformProfile(getStorageProfile())
 
-    this._backup_attributes = Array.isArray(attributes)
-      ? attributes.filter(({ name }) => !GET_ATTRIBUTES_PROFILE.includes(name))
-      : []
+  const [loading, setLoading] = React.useState()
+  const [msgError, setMsgError] = React.useState()
+  const [msgSuccess, setMsgSuccess] = React.useState()
+  const [dataDepartments, setDataDepartments] = React.useState([])
+  const [dataProvinces, setDataProvinces] = React.useState([])
+  const [dataDistricts, setDataDistricts] = React.useState([])
+  const [showDocOption, setShowDocOption] = React.useState(
+    documentType || 'DNI'
+  )
 
-    const customVars = {
-      showMsgSuccess: false,
-      showMsgError: false,
-      showModalConfirm: false,
-      currentPassword: '',
-      formErrorsConfirm: {
-        currentPassword: '',
-      },
-      sending: true,
-      sendingConfirmText: 'CONFIRMAR',
-      messageErrorPass: '',
-      messageErrorDelete: '',
-    }
-
-    this.state = {
-      dataDepartments: [],
-      dataProvinces: [],
-      dataDistricts: [],
-      fechaConvertida: '',
-      formErrors: {
-        firstName: '',
-        lastName: '',
-        secondLastName: '',
-        mobilePhone: '',
-        documentNumber: '',
-        typeDocument: '',
-        userEmail: '',
-        gender: '',
-        birthDay: '',
-      },
-      loading: false,
-      hasChange: false,
-      textSubmit: 'GUARDAR CAMBIOS',
-      typeDocLenghtMax: attributesObj.documentType !== 'dni' ? '15' : '8',
-      typeDocLenghtMin: attributesObj.documentType !== 'dni' ? '5' : '8',
-      typeDoc: attributesObj.documentType !== 'dni' ? 'text' : 'numeric',
-      ...publicProfile,
-      ...attributesObj,
-      ...customVars,
-    }
+  const stateSchema = {
+    pFirstName: { value: checkUndefined(firstName) || '', error: '' },
+    pLastName: { value: checkUndefined(lastName) || '', error: '' },
+    pSecondLastName: { value: checkUndefined(secondLastName) || '', error: '' },
+    pDocumentType: { value: documentType || 'DNI', error: '' },
+    pDocumentNumber: { value: checkUndefined(documentNumber) || '', error: '' },
+    pCivilStatus: { value: civilStatus || '', error: '' },
+    pMobilePhone: { value: checkFormatPhone(phone) || '', error: '' },
+    pCountry: { value: country, error: '' },
+    pDepartment: { value: department, error: '' },
+    pProvince: { value: province, error: '' },
+    pDistrict: { value: district, error: '' },
+    pEmail: { value: checkFbEmail(email) || '', error: '' },
+    pGender: { value: gender || '', error: '' },
+    pDateBirth: {
+      value:
+        (birthDay &&
+          birthMonth &&
+          birthYear &&
+          `${birthDay}-${birthMonth}-${birthYear}`) ||
+        '',
+      error: '',
+    },
   }
 
-  attributeToObject = (attributes = []) => {
-    if (attributes === null) return {}
-
-    const clearObject = []
-    for (let i = 0; i < attributes.length; i++) {
-      if (attributes[i].value !== null) {
-        clearObject.push(attributes[i])
-      }
-    }
-
-    return clearObject.reduce((prev, { name, value }) => {
-      const newPrev = prev
-      switch (name) {
-        case 'mobilePhone':
-          newPrev.contacts = [{ type: 'PRIMARY', phone: value }]
-          break
-        default:
-          newPrev[name] = value
-          break
-      }
-      return prev
-    }, {})
+  const stateValidatorSchema = {
+    pFirstName: {
+      required: false,
+      validator: formatNames(),
+      min2caracts: true,
+      invalidtext: true,
+    },
+    pLastName: {
+      required: false,
+      validator: formatNames(),
+      min2caracts: true,
+      invalidtext: true,
+    },
+    pSecondLastName: {
+      required: false,
+      invalidtext: true,
+      validator: formatSecondLastName(),
+    },
+    pDocumentType: {
+      required: false,
+    },
+    pDocumentNumber: {
+      required: false,
+      validator: {
+        func: (value) =>
+          docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
+          !value.match(/00000000|12345678/),
+        error: 'Formato inválido.',
+      },
+    },
+    pCivilStatus: {
+      required: false,
+    },
+    pMobilePhone: {
+      required: false,
+      validator: formatPhone(),
+      min6caracts: true,
+    },
+    pCountry: {
+      required: false,
+    },
+    pDepartment: {
+      required: false,
+    },
+    pProvince: {
+      required: false,
+    },
+    pDistrict: {
+      required: false,
+    },
+    pEmail: {
+      required: false,
+      validator: formatEmail(),
+    },
+    pGender: {
+      required: false,
+    },
+    pDateBirth: {
+      required: false,
+    },
   }
 
-  componentDidMount = () => {
-    const { country, department, province } = this.state
+  // constructor(props) {
+  //   super(props)
+  //   const { publicProfile } = new GetProfile()
+  //   const { attributes = [] } = publicProfile
+  //   const attributesObj = this.attributeToObject(attributes)
 
+  //   this._backup_attributes = Array.isArray(attributes)
+  //     ? attributes.filter(({ name }) => !GET_ATTRIBUTES_PROFILE.includes(name))
+  //     : []
+
+  //   const customVars = {
+  //     showMsgSuccess: false,
+  //     showMsgError: false,
+  //     showModalConfirm: false,
+  //     currentPassword: '',
+  //     formErrorsConfirm: {
+  //       currentPassword: '',
+  //     },
+  //     sending: true,
+  //     sendingConfirmText: 'CONFIRMAR',
+  //     messageErrorPass: '',
+  //     messageErrorDelete: '',
+  //   }
+
+  //   this.state = {
+  //     dataDepartments: [],
+  //     dataProvinces: [],
+  //     dataDistricts: [],
+  //     formErrors: {
+  //       firstName: '',
+  //       lastName: '',
+  //       secondLastName: '',
+  //       mobilePhone: '',
+  //       documentNumber: '',
+  //       typeDocument: '',
+  //       userEmail: '',
+  //     },
+  //     loading: false,
+  //     hasChange: false,
+  //     textSubmit: 'GUARDAR CAMBIOS',
+  //     typeDocLenghtMax: attributesObj.documentType !== 'dni' ? '15' : '8',
+  //     typeDocLenghtMin: attributesObj.documentType !== 'dni' ? '5' : '8',
+  //     typeDoc: attributesObj.documentType !== 'dni' ? 'text' : 'numeric',
+  //     ...publicProfile,
+  //     ...attributesObj,
+  //     ...customVars,
+  //   }
+  // }
+
+  React.useEffect(() => {
     if (country) {
-      this._getUbigeo(country, 'department')
+      getUbigeo(country).then((listDepartaments) => {
+        setDataDepartments(listDepartaments)
+      })
     }
 
     if (department) {
-      this._getUbigeo(department, 'province')
+      getUbigeo(department).then((listProvinces) => {
+        setDataProvinces(listProvinces)
+      })
     }
 
     if (province) {
-      this._getUbigeo(province, 'district')
+      getUbigeo(province).then((listDistrics) => {
+        setDataDistricts(listDistrics)
+      })
     }
-  }
+  }, [])
 
-  _getUbigeo = (input, geo) => {
-    const state = {}
-    let value = input
-    const hasTarget = Object.prototype.hasOwnProperty.call(input, 'target')
-    if (hasTarget) {
-      const newValue = input.target.value
-      value = newValue
-      switch (geo) {
+  const setUbigeo = (value, type) => {
+    getUbigeo(value).then((list) => {
+      switch (type) {
+        case 'country':
+          setDataDepartments(list)
+          setDataProvinces([])
+          setDataDistricts([])
+          break
         case 'departament':
-          state.departament = 'default'
-          state.province = 'default'
-          state.district = 'default'
+          setDataProvinces(list)
+          setDataDistricts([])
           break
         case 'province':
-          state.province = 'default'
-          state.district = 'default'
+          setDataDistricts(list)
           break
         default:
+          return null
       }
-    }
-    const result = getUbigeo(value)
-
-    result
-      .then((geoData) => {
-        const GeoUpper = geo.charAt(0).toUpperCase() + geo.slice(1)
-        Object.assign(state, {
-          [`data${GeoUpper}s`]: geoData,
-        })
-        this.setState(state)
-      })
-      .catch((error) => {
-        throw new Error(error)
-      })
+      return null
+    })
   }
 
-  getAtributes = (state, list = []) => {
-    if (typeof window !== 'undefined') {
-      return list.reduce((prev, item) => {
-        if (
-          Object.prototype.hasOwnProperty.call(state, item) &&
-          state[item] !== ''
-        ) {
-          prev.push({
-            name: item,
-            value: state[item],
-            type: 'String',
-          })
-        }
-        return prev
-      }, [])
-    }
-    return null
-  }
+  // const attributeToObject = (attributes = []) => {
+  //   if (attributes === null) return {}
 
-  handleUpdateProfile = () => {
-    const {
-      firstName,
-      lastName,
-      secondLastName,
-      displayName,
-      email,
-      birthDay,
-      birthMonth,
-      birthYear,
-      gender,
-      contacts,
-      ...restState
-    } = this.state
+  //   const clearObject = []
+  //   for (let i = 0; i < attributes.length; i++) {
+  //     if (attributes[i].value !== null) {
+  //       clearObject.push(attributes[i])
+  //     }
+  //   }
+
+  //   return clearObject.reduce((prev, { name, value }) => {
+  //     const newPrev = prev
+  //     switch (name) {
+  //       case 'mobilePhone':
+  //         newPrev.contacts = [{ type: 'PRIMARY', phone: value }]
+  //         break
+  //       default:
+  //         newPrev[name] = value
+  //         break
+  //     }
+  //     return prev
+  //   }, {})
+  // }
+
+  // const getAtributes = (state, list = []) => {
+  //   if (typeof window !== 'undefined') {
+  //     return list.reduce((prev, item) => {
+  //       if (
+  //         Object.prototype.hasOwnProperty.call(state, item) &&
+  //         state[item] !== ''
+  //       ) {
+  //         prev.push({
+  //           name: item,
+  //           value: state[item],
+  //           type: 'String',
+  //         })
+  //       }
+  //       return prev
+  //     }, [])
+  //   }
+  //   return null
+  // }
+
+  const handleUpdateProfile = () => {
+    // const {
+    //   firstName,
+    //   lastName,
+    //   secondLastName,
+    //   displayName,
+    //   email,
+    //   contacts,
+    //   ...restState
+    // } = this.state
 
     const profile = {
       firstName,
       lastName,
       secondLastName,
-      displayName,
+      // displayName,
       email,
-      contacts,
-      birthDay,
-      birthMonth,
-      birthYear,
-      gender,
+      // contacts,
     }
+
     clean(profile)
 
-    profile.attributes = [
-      ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
-      ...this._backup_attributes,
-    ].map((attribute) => {
-      if (attribute.name === 'originReferer' && attribute.value) {
-        return {
-          ...attribute,
-          value: attribute.value
-            .split('&')[0]
-            .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, ''),
+    setLoading(true)
+
+    // profile.attributes = [
+    //   ...this.getAtributes(restState, SET_ATTRIBUTES_PROFILE),
+    //   ...this._backup_attributes,
+    // ].map((attribute) => {
+    //   if (attribute.name === 'originReferer' && attribute.value) {
+    //     return {
+    //       ...attribute,
+    //       value: attribute.value
+    //         .split('&')[0]
+    //         .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, ''),
+    //     }
+    //   }
+    //   if (!attribute.value) {
+    //     return {
+    //       ...attribute,
+    //       value: 'undefined',
+    //     }
+    //   }
+    //   return attribute
+    // })
+
+    Identity.updateUserProfile(profile)
+      .then(() => {
+        // this.setState({
+        //   showMsgSuccess: true,
+        //   loading: false,
+        //   hasChange: false,
+        //   textSubmit: 'GUARDAR CAMBIOS',
+        // })
+
+        setMsgSuccess(true)
+
+        const modalConfirmPass = document.getElementById('profile-signwall')
+        if (modalConfirmPass) {
+          modalConfirmPass.scrollIntoView()
         }
-      }
-      if (!attribute.value) {
-        return {
-          ...attribute,
-          value: 'undefined',
+
+        const textProfile = document.getElementById('name-user-profile')
+        if (textProfile) {
+          textProfile.textContent = `Hola ${
+            profile.firstName ? profile.firstName : 'Usuario'
+          }`
         }
-      }
-      return attribute
-    }) // work around - [MEJORA]
 
-    this.setState({ loading: true, textSubmit: 'GUARDANDO...' })
+        setTimeout(() => {
+          // this.setState({
+          //   showMsgSuccess: false,
+          // })
+        }, 5000)
 
-    if (typeof window !== 'undefined') {
-      Identity.updateUserProfile(profile)
-        .then(() => {
-          this.setState({
-            showMsgSuccess: true,
-            loading: false,
-            hasChange: false,
-            textSubmit: 'GUARDAR CAMBIOS',
-          })
-
-          const modalConfirmPass = document.getElementById('profile-signwall')
-          if (modalConfirmPass) {
-            modalConfirmPass.scrollIntoView()
-          }
-
-          const textProfile = document.getElementById('name-user-profile')
-          if (textProfile) {
-            textProfile.textContent = `Hola ${
-              profile.firstName ? profile.firstName : 'Usuario'
-            }`
-          }
-
-          setTimeout(() => {
-            this.setState({
-              showMsgSuccess: false,
-            })
-          }, 5000)
-
-          this.dispatchEvent('profileUpdate', profile)
-        })
-        .catch((errUpdate) => {
-          console.log(errUpdate)
-          if (errUpdate.code === '100018') {
-            this.setState({
-              showModalConfirm: true,
-            })
-          } else if (errUpdate.code === '3001001') {
-            this.setState({
-              messageErrorDelete:
-                'Al parecer hubo un problema con su cuenta, intente ingresar nuevamente. ',
-              showMsgError: true,
-            })
-          } else {
-            this.setState({
-              messageErrorPass:
-                'Ha ocurrido un error al actualizar. Inténtalo en otro momento.',
-              showMsgError: true,
-            })
-            setTimeout(() => {
-              this.setState({
-                showMsgError: false,
-              })
-            }, 5000)
-          }
-        })
-        .finally(() => {
-          this.setState({
-            loading: false,
-            textSubmit: 'GUARDAR CAMBIOS',
-          })
-        })
-    }
-  }
-
-  handleOnChange = (e) => {
-    if (e.target.name === 'mobilePhone') {
-      this.setState({
-        contacts: [{ type: 'PRIMARY', phone: e.target.value }],
-        hasChange: true,
+        // this.dispatchEvent('profileUpdate', profile)
       })
-    } else {
-      this.setState({
-        [e.target.name]: e.target.value,
-        hasChange: true,
+      .catch((errUpdate) => {
+        setMsgError(getCodeError(errUpdate.code))
+        if (errUpdate.code === '100018') {
+          // this.setState({
+          //   showModalConfirm: true,
+          // })
+        } else if (errUpdate.code === '3001001') {
+          // this.setState({
+          //   messageErrorDelete:
+          //     'Al parecer hubo un problema con su cuenta, intente ingresar nuevamente. ',
+          //   showMsgError: true,
+          // })
+        } else {
+          // this.setState({
+          //   messageErrorPass:
+          //     'Ha ocurrido un error al actualizar. Inténtalo en otro momento.',
+          //   showMsgError: true,
+          // })
+          // setTimeout(() => {
+          //   this.setState({
+          //     showMsgError: false,
+          //   })
+          // }, 5000)
+        }
       })
-    }
   }
 
-  handleTypeDocument = (e) => {
-    e.preventDefault()
-    const { value } = e.target
-    let state = {}
-    switch (value) {
-      case 'DNI':
-        state = {
-          typeDocLenghtMax: '8',
-          typeDocLenghtMin: '8',
-          typeDoc: 'numeric',
-        }
-        break
-      case 'CDI':
-      case 'CEX':
-        state = {
-          typeDocLenghtMin: '5',
-          typeDocLenghtMax: '15',
-          typeDoc: 'text',
-        }
-        break
-      default:
-    }
+  // const submitConfirmPassword = (e) => {
+  //   e.preventDefault()
 
-    this.setState(state, () => {
-      let { documentNumber } = this.state
-      documentNumber = documentNumber !== undefined ? documentNumber : ''
-      const { typeDocLenghtMin, typeDoc } = state
-      const minLenghtInput = typeDocLenghtMin
-      const { formErrors } = this.state
+  //   const { formErrorsConfirm, currentPassword, email } = this.state
+  //   const { arcSite } = this.props
 
-      if (typeDoc === 'numeric') {
-        if (
-          documentNumber.length < minLenghtInput ||
-          documentNumber.length > minLenghtInput
-        ) {
-          formErrors.documentNumber = `Longitud inválida, requiere ${minLenghtInput} dígitos`
-        } else if (numberRegex.test(documentNumber)) {
-          formErrors.documentNumber = ''
-        } else {
-          formErrors.documentNumber = 'Formato inválido. Solo números'
-        }
-      } else if (typeDoc === 'text') {
-        if (documentNumber.length < minLenghtInput) {
-          formErrors.documentNumber = `Longitud inválida, mínimo ${minLenghtInput} dígitos`
-        } else if (docRegex.test(documentNumber)) {
-          formErrors.documentNumber = ''
-        } else {
-          formErrors.documentNumber = 'Formato inválido.'
-        }
-      }
+  //   formErrorsConfirm.oldPassword =
+  //     currentPassword.length === 0 ? 'Este campo es requerido' : ''
+  //   this.setState({ formErrorsConfirm })
 
-      this.setState({
-        formErrors,
-      })
-    })
+  //   if (
+  //     typeof window !== 'undefined' &&
+  //     formErrorsConfirm.currentPassword === ''
+  //   ) {
+  //     this.setState({ sending: true, sendingConfirmText: 'CONFIRMANDO...' })
+
+  //     const currentEmail = email || Identity.userProfile.email
+
+  //     Identity.login(currentEmail, currentPassword, {
+  //       rememberMe: true,
+  //       cookie: true,
+  //     })
+  //       .then(() => {
+  //         this.handleUpdateProfile()
+  //         this.setState({
+  //           showMsgSuccess: true,
+  //         })
+  //         setTimeout(() => {
+  //           this.setState({
+  //             showMsgSuccess: false,
+  //           })
+  //         }, 5000)
+  //       })
+  //       .catch(() => {
+  //         this.setState({
+  //           messageErrorPass:
+  //             'Ha ocurrido un error al actualizar. Contraseña Incorrecta.',
+  //           showMsgError: true,
+  //         })
+
+  //         setTimeout(() => {
+  //           this.setState({
+  //             showMsgError: false,
+  //           })
+  //         }, 5000)
+  //       })
+  //       .finally(() => {
+  //         this.setState({
+  //           currentPassword: '',
+  //           showModalConfirm: false,
+  //           sending: false,
+  //           sendingConfirmText: 'CONFIRMAR',
+  //         })
+
+  //         const ModalProfile =
+  //           document.getElementById('profile-signwall').parentNode ||
+  //           document.getElementById('profile-signwall').parentElement
+  //         ModalProfile.style.overflow = 'auto'
+  //       })
+  //   }
+  // }
+
+  // const togglePopupModalConfirm = () => {
+  //   const { showModalConfirm } = this.state
+  //   this.setState({
+  //     showModalConfirm: !showModalConfirm,
+  //   })
+
+  //   const ModalProfile =
+  //     document.getElementById('profile-signwall').parentNode ||
+  //     document.getElementById('profile-signwall').parentElement
+  //   if (showModalConfirm) {
+  //     ModalProfile.style.overflow = 'auto'
+  //   } else {
+  //     ModalProfile.style.overflow = 'hidden'
+  //   }
+  // }
+
+  const {
+    values: {
+      pFirstName,
+      pLastName,
+      pSecondLastName,
+      pDocumentType,
+      pDocumentNumber,
+      pCivilStatus,
+      pMobilePhone,
+      pCountry,
+      pDepartment,
+      pProvince,
+      pDistrict,
+      pEmail,
+      pGender,
+      pDateBirth,
+    },
+    errors: {
+      pFirstName: firstNameError,
+      pLastName: lastNameError,
+      pSecondLastName: secondLastNameError,
+      pDocumentType: documentTypeError,
+      pDocumentNumber: documentNumberError,
+      pCivilStatus: civilStatusError,
+      pMobilePhone: mobilePhoneError,
+      pCountry: countryError,
+      pDepartment: departmentError,
+      pProvince: provinceError,
+      pDistrict: districtError,
+      pEmail: emailError,
+      pGender: genderError,
+      pDateBirth: dateBirthError,
+    },
+    handleOnChange,
+    handleOnSubmit,
+    disable,
+  } = useForm(stateSchema, stateValidatorSchema, handleUpdateProfile)
+
+  const handleChangeInput = (e) => {
+    handleOnChange(e)
+    setMsgError(false)
   }
 
-  changeValidationConfirm = (e) => {
-    const { name, value } = e.target
-    const { formErrorsConfirm } = this.state
-    const space =
-      value.indexOf(' ') >= 0
-        ? 'Contraseña inválida, no se permite espacios'
-        : ''
-    const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
+  return (
+    <>
+      <form onSubmit={handleOnSubmit} className="sign-profile_update-form-grid">
+        <div className="row btw">
+          <h3 className="title">Mis Datos</h3>
+        </div>
 
-    formErrorsConfirm.currentPassword =
-      value.length === 0 ? 'Este campo es requerido' : min
-
-    this.setState({ formErrorsConfirm, [name]: value })
-
-    if (formErrorsConfirm.currentPassword.length >= 1) {
-      this.setState({
-        sending: true,
-      })
-    } else {
-      this.setState({
-        sending: false,
-      })
-    }
-  }
-
-  handleValidation = (e) => {
-    const { name, value } = e.target
-    const { formErrors } = this.state
-    const { documentType } = this.state
-
-    const minLenghtInput = e.target.getAttribute('minlength')
-    const typeDoc = e.target.getAttribute('typedoc')
-
-    switch (name) {
-      case 'firstName':
-        if (value.length < 2) {
-          formErrors.firstName = 'Longitud inválida, mínimo 2 caracteres'
-        } else if (
-          namesRegex.test(value) &&
-          value !== 'null' &&
-          value !== 'undefined'
-        ) {
-          formErrors.firstName = ''
-        } else {
-          formErrors.firstName = 'Formato inválido, solo letras'
-        }
-        break
-      case 'lastName':
-        if (value.length < 2) {
-          formErrors.lastName = 'Longitud inválida, mínimo 2 caracteres'
-        } else if (
-          namesRegex.test(value) &&
-          value !== 'null' &&
-          value !== 'undefined'
-        ) {
-          formErrors.lastName = ''
-        } else {
-          formErrors.lastName = 'Formato inválido, solo letras'
-        }
-        break
-      case 'secondLastName':
-        if (value.length < 2) {
-          formErrors.secondLastName = 'Longitud inválida, mínimo 2 caracteres'
-        } else if (
-          namesRegex.test(value) &&
-          value !== 'null' &&
-          value !== 'undefined'
-        ) {
-          formErrors.secondLastName = ''
-        } else {
-          formErrors.secondLastName = 'Formato inválido, solo letras'
-        }
-        break
-      case 'mobilePhone':
-        if (value.length < 9 || value.length > 12) {
-          formErrors.mobilePhone = 'Longitud inválida, entre 9  y 12 caracteres'
-        } else if (phoneRegex.test(value)) {
-          formErrors.mobilePhone = ''
-        } else {
-          formErrors.mobilePhone = 'Formato inválido. Solo números y guiones'
-        }
-        break
-      case 'documentNumber':
-        if (typeDoc === 'numeric') {
-          if (value.length < minLenghtInput || value.length > minLenghtInput) {
-            formErrors.documentNumber = `Longitud inválida, requiere ${minLenghtInput} dígitos`
-          } else if (numberRegex.test(value)) {
-            formErrors.documentNumber = ''
-          } else {
-            formErrors.documentNumber = 'Formato inválido. Solo números'
-          }
-        } else if (typeDoc === 'text') {
-          if (value.length < minLenghtInput) {
-            formErrors.documentNumber = `Longitud inválida, mínimo ${minLenghtInput} dígitos`
-          } else if (docRegex.test(value)) {
-            formErrors.documentNumber = ''
-          } else {
-            formErrors.documentNumber = 'Formato inválido.'
-          }
-        }
-        if (documentType === undefined || documentType === null) {
-          formErrors.typeDocument = 'Ingresar tipo documento'
-        }
-        break
-
-      case 'documentType':
-        if (value !== '') {
-          formErrors.typeDocument = ''
-        } else {
-          formErrors.typeDocument = 'Ingresar tipo documento'
-        }
-        break
-
-      case 'email':
-        if (value.length === 0) {
-          formErrors.userEmail = 'Este campo es requerido'
-        } else if (emailRegex.test(value)) {
-          formErrors.userEmail = ''
-        } else {
-          formErrors.userEmail = 'Correo Electrónico Inválido'
-        }
-        break
-      case 'fecha':
-        if (value.length === 0) {
-          formErrors.birthDay = ''
-        } else {
-          formErrors.birthDay = 'Fecha inválida'
-        }
-
-        break
-
-      default:
-    }
-
-    this.setState({ formErrors, [name]: value }, () => {
-      if (
-        formErrors.firstName.length > 0 ||
-        formErrors.lastName.length > 0 ||
-        formErrors.secondLastName.length > 0 ||
-        formErrors.documentNumber.length > 0 ||
-        formErrors.mobilePhone.length > 0 ||
-        formErrors.typeDocument.length > 0 ||
-        formErrors.birthDay.length > 0
-      ) {
-        this.setState({
-          hasError: true,
-        })
-      } else {
-        this.setState({
-          hasError: false,
-        })
-      }
-    })
-  }
-
-  onLogout = (e) => {
-    e.preventDefault()
-    if (typeof window !== 'undefined') {
-      const linkLogout = document.getElementById('web_link_cerrarsesion')
-      if (linkLogout) {
-        linkLogout.click()
-      }
-    }
-  }
-
-  submitConfirmPassword = (e) => {
-    e.preventDefault()
-
-    const { formErrorsConfirm, currentPassword, email } = this.state
-    /* const { arcSite } = this.props */
-
-    formErrorsConfirm.oldPassword =
-      currentPassword.length === 0 ? 'Este campo es requerido' : ''
-    this.setState({ formErrorsConfirm })
-
-    if (
-      typeof window !== 'undefined' &&
-      formErrorsConfirm.currentPassword === ''
-    ) {
-      this.setState({ sending: true, sendingConfirmText: 'CONFIRMANDO...' })
-
-      const currentEmail = email || Identity.userProfile.email
-
-      Identity.login(currentEmail, currentPassword, {
-        rememberMe: true,
-        cookie: true,
-      })
-        .then(() => {
-          this.handleUpdateProfile()
-          this.setState({
-            showMsgSuccess: true,
-          })
-          setTimeout(() => {
-            this.setState({
-              showMsgSuccess: false,
-            })
-          }, 5000)
-        })
-        .catch((pe) => {
-          console.log('entro al catch login', pe)
-          this.setState({
-            messageErrorPass:
-              'Ha ocurrido un error al actualizar. Contraseña Incorrecta.',
-            showMsgError: true,
-          })
-
-          setTimeout(() => {
-            this.setState({
-              showMsgError: false,
-            })
-          }, 5000)
-        })
-        .finally(() => {
-          this.setState({
-            currentPassword: '',
-            showModalConfirm: false,
-            sending: false,
-            sendingConfirmText: 'CONFIRMAR',
-          })
-
-          const ModalProfile =
-            document.getElementById('profile-signwall').parentNode ||
-            document.getElementById('profile-signwall').parentElement
-          ModalProfile.style.overflow = 'auto'
-        })
-    }
-  }
-
-  handleDateBirthDay = (e) => {
-    console.log(e.target.value)
-
-    if (e.target.value === '') {
-      this.setState({
-        birthYear: '',
-        birthMonth: '',
-        birthDay: '',
-        hasChange: true,
-        fechaConvertida: e.target.value,
-      })
-    } else {
-      this.calcularEdad(e.target.value)
-      const anioCompleto = new Date(e.target.value)
-
-      const anio = `${anioCompleto.getUTCFullYear()}`
-      const mes =
-        anioCompleto.getUTCMonth() + 1 < 10
-          ? `0${anioCompleto.getUTCMonth() + 1}`
-          : `${anioCompleto.getUTCMonth() + 1}`
-
-      const dia =
-        anioCompleto.getUTCDate() < 10
-          ? `0${anioCompleto.getUTCDate()}`
-          : `${anioCompleto.getUTCDate()}`
-      this.setState({
-        birthYear: anio,
-        birthMonth: mes,
-        birthDay: dia,
-        hasChange: true,
-        fechaConvertida: e.target.value,
-      })
-    }
-  }
-
-  togglePopupModalConfirm() {
-    const { showModalConfirm } = this.state
-    this.setState({
-      showModalConfirm: !showModalConfirm,
-    })
-
-    const ModalProfile =
-      document.getElementById('profile-signwall').parentNode ||
-      document.getElementById('profile-signwall').parentElement
-    if (showModalConfirm) {
-      ModalProfile.style.overflow = 'auto'
-    } else {
-      ModalProfile.style.overflow = 'hidden'
-    }
-  }
-
-  calcularEdad(fechaNacimiento) {
-    const birthday = new Date(fechaNacimiento)
-    const anioactual = new Date()
-
-    const { formErrors } = this.state
-
-    const time = parseInt(
-      (anioactual.getTime() - birthday.getTime()) / (1000 * 3600 * 24) / 365,
-      10
-    )
-
-    if (time < 5) {
-      formErrors.birthDay = 'No cumple con la edad mínima'
-    } else if (time > 100) {
-      formErrors.birthDay = '¿Está seguro que tiene esa edad?'
-    } else {
-      formErrors.birthDay = ''
-    }
-  }
-
-  render() {
-    const {
-      formErrors,
-      firstName,
-      lastName,
-      secondLastName,
-      documentType,
-      province,
-      documentNumber,
-      civilStatus,
-      contacts,
-      country,
-      department,
-      district,
-      email,
-      gender,
-      birthYear,
-      birthMonth,
-      birthDay,
-      fechaConvertida = this.fechaConvertida,
-      hasChange,
-      loading,
-      hasError,
-      showMsgSuccess,
-      showMsgError,
-      typeDocLenghtMin,
-      typeDocLenghtMax,
-      typeDoc,
-      dataDepartments,
-      dataProvinces,
-      dataDistricts,
-      textSubmit,
-      showModalConfirm,
-      formErrorsConfirm,
-      sending,
-      sendingConfirmText,
-      messageErrorPass,
-      messageErrorDelete,
-    } = this.state
-
-    const {
-      siteProperties: {
-        signwall: { mainColorBtn, mainColorLink },
-      },
-    } = this.props
-
-    const [primaryPhone = { phone: null }] = contacts
-    const { phone } = primaryPhone
-
-    return (
-      <>
-        <form
-          className="sign-profile_update-form-grid"
-          onSubmit={(e) => {
-            e.preventDefault()
-            this.handleUpdateProfile()
-          }}>
-          <div className="row btw">
-            <h3 className="title">Mis Datos</h3>
+        {msgSuccess && (
+          <div className="sign-profile_update-message sign-profile_update-message-success">
+            Tus datos de perfil han sido actualizados correctamente.
           </div>
-
-          {showMsgSuccess && (
-            <div className="sign-profile_update-message sign-profile_update-message-success">
-              Tus datos de perfil han sido actualizados correctamente.
-            </div>
-          )}
-
-          {showMsgError && (
-            <div className="sign-profile_update-message sign-profile_update-message-failed">
-              {messageErrorDelete ? (
-                <>
-                  {messageErrorDelete}
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      this.onLogout(e)
-                    }}>
-                    Clic Aquí
-                  </a>
-                </>
-              ) : (
-                messageErrorPass
-              )}
-            </div>
-          )}
-
-          <div className="row three">
-            <div className="sign-profile_update-form-group">
-              <input
-                type="text"
-                autoComplete="given-name"
-                name="firstName"
-                className={
-                  formErrors.firstName.length > 0
-                    ? 'input error capitalize'
-                    : 'input capitalize'
-                }
-                placeholder="Nombres"
-                noValidate
-                maxLength="50"
-                onChange={(e) => {
-                  this.handleOnChange(e)
-                  this.handleValidation(e)
-                }}
-                defaultValue={firstName}
-                tabIndex="1"
-                disabled={!email}
-              />
-              <label htmlFor="name" className="label">
-                Nombres
-              </label>
-              {formErrors.firstName.length > 0 && (
-                <span className="error">{formErrors.firstName}</span>
-              )}
-            </div>
-            <div className="sign-profile_update-form-group">
-              <input
-                type="text"
-                autoComplete="family-name"
-                name="lastName"
-                className={
-                  formErrors.lastName.length > 0
-                    ? 'input error capitalize'
-                    : 'input capitalize'
-                }
-                placeholder="Apellido Paterno"
-                noValidate
-                maxLength="50"
-                onChange={(e) => {
-                  this.handleValidation(e)
-                  this.handleOnChange(e)
-                }}
-                defaultValue={lastName}
-                tabIndex="2"
-                disabled={!email}
-              />
-              <label htmlFor="lastnameP" className="label">
-                Apellido Paterno
-              </label>
-              {formErrors.lastName.length > 0 && (
-                <span className="error">{formErrors.lastName}</span>
-              )}
-            </div>
-            <div className="sign-profile_update-form-group">
-              <input
-                type="text"
-                name="secondLastName"
-                className={
-                  formErrors.secondLastName.length > 0
-                    ? 'input error capitalize'
-                    : 'input capitalize'
-                }
-                placeholder="Apellido Materno"
-                noValidate
-                maxLength="50"
-                onChange={(e) => {
-                  this.handleValidation(e)
-                  this.handleOnChange(e)
-                }}
-                defaultValue={secondLastName}
-                tabIndex="3"
-                disabled={!email}
-              />
-              <label htmlFor="secondLastName" className="label">
-                Apellido Materno
-              </label>
-              {formErrors.secondLastName.length > 0 && (
-                <span className="error">{formErrors.secondLastName}</span>
-              )}
-            </div>
-          </div>
-
-          <div className="row three">
-            <div className="sign-profile_update-form-group">
-              <div className="combo">
-                <select
-                  name="documentType"
-                  className={
-                    formErrors.typeDocument.length > 0
-                      ? 'input input-minimal error'
-                      : 'input input-minimal'
-                  }
-                  value={documentType ? documentType.toUpperCase() : 'default'}
-                  onChange={(e) => {
-                    this.handleOnChange(e)
-                    this.handleTypeDocument(e)
-                    this.handleValidation(e)
-                  }}
-                  tabIndex="4"
-                  disabled={!email}>
-                  <option disabled="disabled" value="default">
-                    Seleccione
-                  </option>
-                  <option value="DNI">DNI</option>
-                  <option value="CEX">CEX</option>
-                  <option value="CDI">CDI</option>
-                </select>
-                <label htmlFor="statusCivil" className="label">
-                  Tipo Doc.
-                </label>
-
-                <input
-                  type="text"
-                  name="documentNumber"
-                  className={
-                    formErrors.documentNumber.length > 0
-                      ? 'input error'
-                      : 'input'
-                  }
-                  placeholder="Num Documento"
-                  noValidate
-                  minLength={typeDocLenghtMin}
-                  maxLength={typeDocLenghtMax}
-                  typedoc={typeDoc}
-                  onChange={(e) => {
-                    this.handleOnChange(e)
-                    this.handleValidation(e)
-                  }}
-                  onBlur={(e) => this.handleValidation(e)}
-                  defaultValue={documentNumber}
-                  tabIndex="5"
-                  disabled={!email}
-                />
-              </div>
-              {formErrors.documentNumber.length > 0 && (
-                <span className="error">{formErrors.documentNumber}</span>
-              )}
-              {formErrors.typeDocument.length > 0 && (
-                <span className="error">{formErrors.typeDocument}</span>
-              )}
-            </div>
-            <div className="sign-profile_update-form-group">
-              <select
-                name="civilStatus"
-                className="input input-minimal"
-                value={civilStatus ? civilStatus.toUpperCase() : 'default'}
-                onChange={(e) => {
-                  this.handleOnChange(e)
-                  this.handleValidation(e)
-                }}
-                tabIndex="6"
-                disabled={!email}>
-                <option disabled="disabled" value="default">
-                  Seleccione
-                </option>
-                <option value="SO">Soltero(a)</option>
-                <option value="CA">Casado(a)</option>
-                <option value="DI">Divorciado(a)</option>
-                <option value="VI">Viudo(a)</option>
-              </select>
-              <label htmlFor="statusCivil" className="label">
-                Estado Civil
-              </label>
-            </div>
-            <div className="sign-profile_update-form-group">
-              <input
-                type="text"
-                inputMode="tel"
-                autoComplete="tel"
-                name="mobilePhone"
-                className={
-                  formErrors.mobilePhone.length > 0 ? 'input error' : 'input'
-                }
-                placeholder="Número de Celular"
-                noValidate
-                maxLength="12"
-                onChange={(e) => {
-                  this.handleOnChange(e)
-                  this.handleValidation(e)
-                }}
-                defaultValue={phone}
-                tabIndex="7"
-                disabled={!email}
-              />
-              <label htmlFor="mobilePhone" className="label">
-                Número de Celular
-              </label>
-              {formErrors.mobilePhone.length > 0 && (
-                <span className="error">{formErrors.mobilePhone}</span>
-              )}
-            </div>
-          </div>
-
-          <div className="row three">
-            <div className="sign-profile_update-form-group">
-              <select
-                name="country"
-                className="input input-minimal"
-                value={country || 'default'}
-                onChange={(e) => {
-                  this.handleOnChange(e)
-                  this._getUbigeo(e, 'department')
-                  this.handleValidation(e)
-                }}
-                tabIndex="8"
-                disabled={!email}>
-                <option disabled="disabled" value="default">
-                  Seleccione
-                </option>
-                <option value="260000">Perú</option>
-              </select>
-              <label htmlFor="País" className="label">
-                País
-              </label>
-            </div>
-            <div className="sign-profile_update-form-group">
-              <select
-                name="department"
-                className="input input-minimal"
-                value={department || 'default'}
-                onChange={(e) => {
-                  this.handleOnChange(e)
-                  this._getUbigeo(e, 'province')
-                  this.handleValidation(e)
-                }}
-                tabIndex="9"
-                disabled={!email}>
-                <option disabled="disabled" value="default">
-                  Seleccione
-                </option>
-                {dataDepartments.map(([code, name]) => (
-                  <option key={code} value={code}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-
-              <label htmlFor="Departamento" className="label">
-                Departamento
-              </label>
-            </div>
-            <div className="sign-profile_update-form-group">
-              <select
-                name="province"
-                className="input input-minimal"
-                value={province || 'default'}
-                onChange={(e) => {
-                  this.handleOnChange(e)
-                  this._getUbigeo(e, 'district')
-                  this.handleValidation(e)
-                }}
-                tabIndex="10"
-                disabled={!email}>
-                <option disabled="disabled" value="default">
-                  Seleccione
-                </option>
-                {dataProvinces.map(([code, name]) => (
-                  <option key={code} value={code}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-              <label htmlFor="Provincia" className="label">
-                Provincia
-              </label>
-            </div>
-          </div>
-
-          <div className="row three">
-            <div className="sign-profile_update-form-group">
-              <select
-                name="district"
-                className="input input-minimal"
-                value={district || 'default'}
-                onChange={(e) => {
-                  this.handleValidation(e)
-                  this.handleOnChange(e)
-                }}
-                tabIndex="11"
-                disabled={!email}>
-                <option disabled="disabled" value="default">
-                  Seleccione
-                </option>
-                {dataDistricts.map(([code, name]) => (
-                  <option key={code} value={code}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-              <label htmlFor="Distrito" className="label">
-                Distrito
-              </label>
-            </div>
-            <div className="sign-profile_update-form-group">
-              <input
-                type="text"
-                inputMode="email"
-                autoComplete="email"
-                name="email"
-                className={
-                  formErrors.userEmail.length > 0 ? 'input error' : 'input'
-                }
-                placeholder="Correo electrónico"
-                noValidate
-                maxLength="30"
-                defaultValue={email}
-                tabIndex="12"
-                disabled={email !== null}
-                onChange={(e) => {
-                  this.handleValidation(e)
-                  this.handleOnChange(e)
-                }}
-              />
-              <label htmlFor="email" className="label">
-                Correo electrónico
-              </label>
-              {formErrors.userEmail.length > 0 && (
-                <span className="error">{formErrors.userEmail}</span>
-              )}
-            </div>
-            <div className="sign-profile_update-form-group">
-              <select
-                name="gender"
-                className="input input-minimal"
-                value={gender || 'default'}
-                onChange={(e) => {
-                  this.handleOnChange(e)
-                }}
-                tabIndex="11"
-                disabled={!email}>
-                <option disabled="disabled" value="default">
-                  Seleccione
-                </option>
-                <option value="MALE">Masculino</option>
-                <option value="FEMALE">Femenino</option>
-              </select>
-              <label htmlFor="gender" className="label">
-                Género
-              </label>
-            </div>
-          </div>
-          <div className="row three">
-            <div className="sign-profile_update-form-group">
-              <input
-                type="date"
-                name="fecha"
-                step="1"
-                // disabled={
-                //   birthYear && birthMonth && birthDay ? 'disabled' : null
-                // }
-                defaultValue={
-                  this.fechaConvertida === ''
-                    ? fechaConvertida
-                    : `${birthYear}-${birthMonth}-${birthDay}`
-                }
-                onChange={(e) => {
-                  this.handleValidation(e)
-                  this.handleDateBirthDay(e)
-                }}
-                className={
-                  formErrors.birthDay.length > 0
-                    ? 'input error capitalize'
-                    : 'input capitalize'
-                }
-              />
-              <label htmlFor="fecha" className="label">
-                Fecha de Nacimiento
-              </label>
-              {formErrors.birthDay.length > 0 && (
-                <span className="error">{formErrors.birthDay}</span>
-              )}
-            </div>
-            <div className="sign-profile_update-form-group">
-              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
-                <DatePicker
-                  format="d MMM yyyy"
-                  name="fecha2"
-                  // onChange={(e) => {
-                  //   this.handleDateBirthDay(e)
-                  // }}
-                  clearLabel="vider"
-                  cancelLabel="annuler"
-                  className="input"
-                />
-                <label htmlFor="fecha2" className="label">
-                  Fecha de Nacimiento
-                </label>
-              </MuiPickersUtilsProvider>
-            </div>
-
-            <div className="sign-profile_update-form-group">
-              <button
-                className="signwall-inside_forms-btn"
-                type="submit"
-                style={{
-                  color: mainColorBtn,
-                  backgroundColor: mainColorLink,
-                }}
-                disabled={!hasChange || loading || hasError}
-                tabIndex="13">
-                {textSubmit}
-              </button>
-            </div>
-          </div>
-        </form>
-
-        {showModalConfirm && (
-          <Modal size="mini" position="middle" bgColor="white">
-            <div className="text-right">
-              <button
-                type="button"
-                onClick={(e) => this.togglePopupModalConfirm(e)}>
-                <Close />
-              </button>
-            </div>
-
-            <form
-              className="sign-profile_update-form-grid"
-              onSubmit={(e) => this.submitConfirmPassword(e)}>
-              <p
-                style={{
-                  lineHeight: '28px',
-                }}
-                className="signwall-inside_forms-text mt-10 mb-10 center">
-                Para realizar los cambios, por favor ingresa tu contraseña
-              </p>
-
-              <div
-                className="sign-profile_update-form-group"
-                style={{
-                  width: '100%',
-                  margin: '10px 0px',
-                }}>
-                <input
-                  type="password"
-                  name="currentPassword"
-                  className={
-                    formErrorsConfirm.currentPassword.length > 0
-                      ? 'input error'
-                      : 'input'
-                  }
-                  placeholder="Contraseña"
-                  noValidate
-                  maxLength="50"
-                  autoComplete="off"
-                  onChange={(e) => {
-                    this.setState({ currentPassword: e.target.value })
-                    this.changeValidationConfirm(e)
-                  }}
-                />
-                <label htmlFor="currentPassword" className="label">
-                  Contraseña
-                </label>
-                {formErrorsConfirm.currentPassword.length > 0 && (
-                  <span className="error">
-                    {formErrorsConfirm.currentPassword}
-                  </span>
-                )}
-              </div>
-
-              <button
-                className="signwall-inside_forms-btn"
-                type="submit"
-                disabled={sending}
-                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
-                {sendingConfirmText}
-              </button>
-            </form>
-          </Modal>
         )}
-      </>
-    )
-  }
+
+        {msgError && (
+          <div className="sign-profile_update-message sign-profile_update-message-failed">
+            {msgError}
+          </div>
+        )}
+
+        <div className="row three">
+          <div className={styles.group}>
+            <input
+              type="text"
+              autoComplete="given-name"
+              name="pFirstName"
+              value={pFirstName}
+              className={`input capitalize ${firstNameError ? 'error' : ''}`}
+              placeholder="Nombres"
+              noValidate
+              maxLength="50"
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              tabIndex="1"
+              disabled={!email}
+            />
+            <label htmlFor="pFirstName" className="label">
+              Nombres
+            </label>
+            {firstNameError && <span className="error">{firstNameError}</span>}
+          </div>
+          <div className={styles.group}>
+            <input
+              type="text"
+              autoComplete="family-name"
+              name="pLastName"
+              value={pLastName}
+              className={`input capitalize ${lastNameError ? 'error' : ''}`}
+              placeholder="Apellido Paterno"
+              noValidate
+              maxLength="50"
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              tabIndex="2"
+              disabled={!email}
+            />
+            <label htmlFor="pLastName" className="label">
+              Apellido Paterno
+            </label>
+            {lastNameError && <span className="error">{lastNameError}</span>}
+          </div>
+          <div className={styles.group}>
+            <input
+              type="text"
+              name="pSecondLastName"
+              value={pSecondLastName}
+              className={`input capitalize ${
+                secondLastNameError ? 'error' : ''
+              }`}
+              placeholder="Apellido Materno"
+              noValidate
+              maxLength="50"
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              tabIndex="3"
+              disabled={!email}
+            />
+            <label htmlFor="pSecondLastName" className="label">
+              Apellido Materno
+            </label>
+            {secondLastNameError && (
+              <span className="error">{secondLastNameError}</span>
+            )}
+          </div>
+        </div>
+
+        <div className="row three">
+          <div className={styles.group}>
+            <div className="combo">
+              <select
+                name="pDocumentType"
+                className={`input input-minimal ${
+                  documentTypeError ? 'error' : ''
+                }`}
+                value={pDocumentType ? pDocumentType.toUpperCase() : 'default'}
+                onChange={(e) => {
+                  handleChangeInput(e)
+                  setShowDocOption(e.target.value)
+                }}
+                tabIndex="4"
+                disabled={!email}>
+                <option disabled="disabled" value="default">
+                  Seleccione
+                </option>
+                <option value="DNI">DNI</option>
+                <option value="CEX">CEX</option>
+                <option value="CDI">CDI</option>
+              </select>
+              <label htmlFor="pDocumentType" className="label">
+                Tipo Doc.
+              </label>
+              <TextMask
+                mask={maskDocuments[pDocumentType]}
+                guide={false}
+                type="text"
+                name="pDocumentNumber"
+                value={pDocumentNumber}
+                className={documentNumberError ? 'input error' : 'input'}
+                placeholder="Num. Documento"
+                noValidate
+                maxLength={pDocumentNumber === 'DNI' ? '8' : '15'}
+                minLength={pDocumentNumber === 'DNI' ? '8' : '5'}
+                onChange={handleChangeInput}
+                onBlur={handleOnChange}
+                tabIndex="5"
+                disabled={!email}
+              />
+            </div>
+            {(documentNumberError || documentTypeError) && (
+              <span className="error">
+                {documentNumberError || documentTypeError}
+              </span>
+            )}
+          </div>
+          <div className={styles.group}>
+            <select
+              name="pCivilStatus"
+              className={`input input-minimal ${
+                civilStatusError ? 'error' : ''
+              }`}
+              value={pCivilStatus ? pCivilStatus.toUpperCase() : 'default'}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              tabIndex="6"
+              disabled={!email}>
+              <option disabled="disabled" value="default">
+                Seleccione
+              </option>
+              <option value="SO">Soltero(a)</option>
+              <option value="CA">Casado(a)</option>
+              <option value="DI">Divorciado(a)</option>
+              <option value="VI">Viudo(a)</option>
+            </select>
+            <label htmlFor="pCivilStatus" className="label">
+              Estado Civil
+            </label>
+            {civilStatusError && (
+              <span className="error">{civilStatusError}</span>
+            )}
+          </div>
+          <div className={styles.group}>
+            <input
+              type="text"
+              inputMode="tel"
+              autoComplete="tel"
+              name="pMobilePhone"
+              value={pMobilePhone}
+              className={`input ${mobilePhoneError ? 'error' : ''}`}
+              placeholder="Número de Celular"
+              noValidate
+              maxLength="12"
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              tabIndex="7"
+              disabled={!email}
+            />
+            <label htmlFor="pMobilePhone" className="label">
+              Número de Celular
+            </label>
+            {mobilePhoneError && (
+              <span className="error">{mobilePhoneError}</span>
+            )}
+          </div>
+        </div>
+
+        <div className="row three">
+          <div className={styles.group}>
+            <select
+              className="input input-minimal"
+              name="pCountry"
+              value={pCountry || 'default'}
+              onChange={(e) => {
+                handleChangeInput(e)
+                setUbigeo(e.target.value, 'country')
+              }}
+              tabIndex="8"
+              disabled={!email}>
+              <option disabled="disabled" value="default">
+                Seleccione
+              </option>
+              <option value="260000">Perú</option>
+            </select>
+            <label htmlFor="pCountry" className="label">
+              País
+            </label>
+            {countryError && <span className="error">{countryError}</span>}
+          </div>
+          <div className={styles.group}>
+            <select
+              className="input input-minimal"
+              name="pDepartment"
+              value={pDepartment || 'default'}
+              onChange={(e) => {
+                handleChangeInput(e)
+                setUbigeo(e.target.value, 'departament')
+              }}
+              tabIndex="9"
+              disabled={!email}>
+              <option disabled="disabled" value="default">
+                Seleccione
+              </option>
+              {dataDepartments.map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="pDepartment" className="label">
+              Departamento
+            </label>
+            {departmentError && (
+              <span className="error">{departmentError}</span>
+            )}
+          </div>
+          <div className={styles.group}>
+            <select
+              className="input input-minimal"
+              name="pProvince"
+              value={pProvince || 'default'}
+              onChange={(e) => {
+                handleChangeInput(e)
+                setUbigeo(e.target.value, 'province')
+              }}
+              tabIndex="10"
+              disabled={!email}>
+              <option disabled="disabled" value="default">
+                Seleccione
+              </option>
+              {dataProvinces.map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="pProvince" className="label">
+              Provincia
+            </label>
+            {provinceError && <span className="error">{provinceError}</span>}
+          </div>
+        </div>
+
+        <div className="row three">
+          <div className={styles.group}>
+            <select
+              className="input input-minimal"
+              name="pDistrict"
+              value={pDistrict || 'default'}
+              onChange={handleChangeInput}
+              tabIndex="11"
+              disabled={!email}>
+              <option disabled="disabled" value="default">
+                Seleccione
+              </option>
+              {dataDistricts.map(([code, name]) => (
+                <option key={code} value={code}>
+                  {name}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="pDistrict" className="label">
+              Distrito
+            </label>
+            {districtError && <span className="error">{districtError}</span>}
+          </div>
+
+          <div className={styles.group}>
+            <input
+              type="text"
+              inputMode="email"
+              autoComplete="email"
+              name="pEmail"
+              value={pEmail}
+              className={emailError ? 'input error' : 'input'}
+              placeholder="Correo electrónico"
+              noValidate
+              maxLength="30"
+              tabIndex="12"
+              disabled={email !== null}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+            />
+            <label htmlFor="pEmail" className="label">
+              Correo electrónico
+            </label>
+            {emailError && <span className="error">{emailError}</span>}
+          </div>
+
+          <div className={styles.group}>
+            <select
+              className={`input input-minimal ${genderError ? 'error' : ''} `}
+              name="pGender"
+              value={pGender ? pGender.toUpperCase() : 'default'}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              tabIndex="13"
+              disabled={!email}>
+              <option disabled="disabled" value="default">
+                Seleccione
+              </option>
+              <option value="M">Hombre</option>
+              <option value="F">Mujer</option>
+            </select>
+            <label htmlFor="pGender" className="label">
+              Género
+            </label>
+            {genderError && <span className="error">{genderError}</span>}
+          </div>
+        </div>
+
+        <div className="row three">
+          <div className={styles.group}>
+            <input
+              type="date"
+              name="pDateBirth"
+              value={pDateBirth}
+              className={dateBirthError ? 'input error' : 'input'}
+              placeholder="Fecha Cumpleaños"
+              noValidate
+              maxLength="30"
+              tabIndex="14"
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+            />
+            <label htmlFor="pDateBirth" className="label">
+              Fecha Cumpleaños
+            </label>
+            {dateBirthError && <span className="error">{dateBirthError}</span>}
+          </div>
+
+          <div className={styles.group} />
+
+          <div className={styles.group}>
+            <button
+              className={styles.btn}
+              type="submit"
+              style={{
+                color: mainColorBtn,
+                backgroundColor: mainColorLink,
+              }}
+              disabled={disable || loading}
+              tabIndex="15">
+              {loading ? 'Guardando...' : 'Guardar Cambios'}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      {/* {showModalConfirm && (
+        <Modal size="mini" position="middle" bgColor="white">
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={(e) => this.togglePopupModalConfirm(e)}>
+              <Close />
+            </button>
+          </div>
+
+          <form
+            className="sign-profile_update-form-grid"
+            onSubmit={(e) => this.submitConfirmPassword(e)}>
+            <p
+              style={{
+                lineHeight: '28px',
+              }}
+              className="signwall-inside_forms-text mt-10 mb-10 center">
+              Para realizar los cambios, por favor ingresa tu contraseña
+            </p>
+
+            <div
+              className={styles.group}
+              style={{
+                width: '100%',
+                margin: '10px 0px',
+              }}>
+              <input
+                type="password"
+                name="currentPassword"
+                className={
+                  formErrorsConfirm.currentPassword.length > 0
+                    ? 'input error'
+                    : 'input'
+                }
+                placeholder="Contraseña"
+                noValidate
+                maxLength="50"
+                autoComplete="off"
+                onChange={(e) => {
+                  this.setState({ currentPassword: e.target.value })
+                  this.changeValidationConfirm(e)
+                }}
+              />
+              <label htmlFor="currentPassword" className="label">
+                Contraseña
+              </label>
+              {formErrorsConfirm.currentPassword.length > 0 && (
+                <span className="error">
+                  {formErrorsConfirm.currentPassword}
+                </span>
+              )}
+            </div>
+
+            <button
+              className="signwall-inside_forms-btn"
+              type="submit"
+              disabled={sending}
+              style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
+              {sendingConfirmText}
+            </button>
+          </form>
+        </Modal>
+      )} */}
+    </>
+  )
 }
 
 export default UpdateProfile
