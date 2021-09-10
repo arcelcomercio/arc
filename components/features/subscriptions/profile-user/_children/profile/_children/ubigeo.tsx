@@ -7,7 +7,7 @@ const styles = {
   btn: 'signwall-inside_forms-btn',
 }
 
-const Ubigeo = (props) => {
+const Ubigeo = (props:any) => {
   const { country, handleChangeInput } = props
   const { department, province, district, email } = props
   const [departments, setDepartments] = React.useState([])

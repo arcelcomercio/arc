@@ -10,7 +10,7 @@ const styles = {
   btn: 'signwall-inside_forms-btn',
 }
 
-const PersonalDetails = (props) => {
+const PersonalDetails = (props: any) => {
   const {
     email,
     firstName,
@@ -36,7 +36,7 @@ const PersonalDetails = (props) => {
     dateBirthError,
   } = props
 
-  const { setSelectedDocumentType,handleChangeInput, handleOnChange } = props
+  const { setSelectedDocumentType, handleChangeInput, handleOnChange } = props
 
   return (
     <>

@@ -28,7 +28,7 @@ import {
 import useForm from '../../../../_hooks/useForm'
 import ConfirmPass from './confirm-pass'
 import PersonalDetails from './personal-details'
-import Ubigeo from './Ubigeo'
+import Ubigeo from './ubigeo'
 
 export type AttributeNames =
   | 'documentNumber'
