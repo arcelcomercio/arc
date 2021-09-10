@@ -1,15 +1,17 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable consistent-return */
-/* eslint-disable jsx-a11y/tabindex-no-positive */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import Identity from '@arc-publishing/sdk-identity'
+import {
+  BaseUserProfile,
+  // UserProfile,
+} from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
 import { DatePicker } from '@material-ui/pickers'
+// import { getUserProfile } from '../../../../../../utilities/subscriptions/identity'
+// import GetProfile from 'components/features/signwall/_dependencies/get-profile'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
+import { UserDocumentType } from 'types/subscriptions'
 
-import { Close } from '../../../../../signwall/_children/icons'
-import { Modal } from '../../../../../signwall/_children/modal/index'
+import useProfile from '../../../../../../hooks/useProfile'
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
 import getCodeError, {
   formatEmail,
@@ -19,19 +21,13 @@ import getCodeError, {
 } from '../../../../_dependencies/Errors'
 import { docPatterns, maskDocuments } from '../../../../_dependencies/Regex'
 import {
-  conformProfile,
-  getStorageProfile,
+  conformProfile /* ,
+  getStorageProfile, */,
 } from '../../../../_dependencies/Session'
-import {
-  checkFbEmail,
-  checkFormatPhone,
-  checkUndefined,
-} from '../../../../_dependencies/Utils'
+// import { checkFbEmail,checkFormatPhone,checkUndefined} from '../../../../_dependencies/Utils'
 import useForm from '../../../../_hooks/useForm'
-
-import { UserDocumentType } from 'types/subscriptions'
-import { UserProfile } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
-import { getUserProfile } from '../../../../../../utilities/subscriptions/identity'
+import ConfirmPass from './confirm-pass'
+import Ubigeo from './Ubigeo'
 
 export type AttributeNames =
   | 'documentNumber'
@@ -44,7 +40,7 @@ export type AttributeNames =
   | 'district'
 
 interface ProfileWithAttributes
-  extends UserProfile,
+  extends BaseUserProfile,
     Record<AttributeNames, string> {
   documentType: UserDocumentType
   attributes: never
@@ -61,59 +57,23 @@ const UpdateProfile = () => {
       signwall: { mainColorLink, mainColorBtn },
     },
   } = useAppContext() || {}
-
-  // const {
-  //   firstName,
-  //   lastName,
-  //   secondLastName,
-  //   documentType = null,
-  //   documentNumber = null,
-  //   email,
-  //   phone,
-  //   gender,
-  //   birthDay,
-  //   birthMonth,
-  //   birthYear,
-  //   country = null,
-  //   department = null,
-  //   province = null,
-  //   district = null,
-  //   civilStatus = null,
-  //   attributes = [],
-  // } = conformProfile(getStorageProfile())
-
-  // const [changeuser, setChangeUser] = React.useState({
-  //   pFirstName: firstName,
-  //   pLastName: lastName,
-  //   pSecondLastName: secondLastName,
-  //   pDocumentType: documentType,
-  //   pDocumentNumber: documentNumber,
-  //   pCivilStatus: civilStatus,
-  //   pMobilePhone: phone,
-  //   pCountry: country,
-  //   pDepartment: department,
-  //   pProvince: province,
-  //   pDistrict: district,
-  //   pEmail: email,
-  //   pGender: gender,
-  //   pBirthDay: birthDay,
-  //   pBirthMonth: birthMonth,
-  //   pBirthYear: birthYear,
-  // })
-  const [profile, setProfile] = React.useState<ProfileWithAttributes>()
+  const [userProfile, updateUserProfile] = useProfile()
+  console.log(userProfile)
 
   const [loading, setLoading] = React.useState(false)
-  const [msgError, setMsgError] = React.useState('')
-  const [msgSuccess, setMsgSuccess] = React.useState(false)
-  const [showModalConfirm, setShowModalConfirm] = React.useState(false)
-  const [sending, setSending] = React.useState(true)
-  const [textConfirmed, setTextConfirmed] = React.useState(false)
-  const [dataDepartments, setDataDepartments] = React.useState([])
-  const [dataProvinces, setDataProvinces] = React.useState([])
-  const [dataDistricts, setDataDistricts] = React.useState([])
-  const [showDocOption, setShowDocOption] = React.useState<UserDocumentType>(
-    'DNI'
-  )
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const [successMessage, setSuccessMessage] = React.useState(false)
+  const [showPassConfirmation, setShowPassConfirmation] = React.useState(false)
+
+  // const [departaments, setDepartaments] = React.useState([])
+  // const [provinces, setProvices] = React.useState([])
+  // const [districts, setDisctricts] = React.useState([])
+
+  const [
+    selectedDocumentType,
+    setSelectedDocumentType,
+  ] = React.useState<UserDocumentType>('DNI')
+
   const [auxConvertedDate, setAuxConvertedDate] = React.useState(false)
   const [countConverted, setCountConverted] = React.useState(false)
 
@@ -124,171 +84,198 @@ const UpdateProfile = () => {
     return newDate
   }
 
-  const stateSchema = {
-    pFirstName: { value: '', error: '' },
-    pLastName: { value: '', error: '' },
-    pSecondLastName: { value: '', error: '' },
-    pDocumentType: { value: 'DNI', error: '' },
-    pDocumentNumber: { value: '', error: '' },
-    pCivilStatus: { value: '', error: '' },
-    pMobilePhone: { value: '', error: '' },
-    pCountry: { value: '', error: '' },
-    pDepartment: { value: '', error: '' },
-    pProvince: { value: '', error: '' },
-    pDistrict: { value: '', error: '' },
-    pEmail: { value: '', error: '' },
-    pGender: { value: '', error: '' },
-    pDateBirth: {
-      value: '',
-      error: '',
-    },
-  }
+  // let stateSchema = {
+  //   firstName: { value: '', error: '' },
+  //   lastName: { value: '', error: '' },
+  //   secondLastName: { value: '', error: '' },
+  //   documentType: { value: 'DNI', error: '' },
+  //   documentNumber: { value: '', error: '' },
+  //   civilStatus: { value: '', error: '' },
+  //   pMobilePhone: { value: '', error: '' },
+  //   country: { value: '', error: '' },
+  //   department: { value: '', error: '' },
+  //   province: { value: '', error: '' },
+  //   district: { value: '', error: '' },
+  //   email: { value: '', error: '' },
+  //   gender: { value: '', error: '' },
+  //   birthDate: {
+  //     value: '',
+  //     error: '',
+  //   },
+  // }
 
   const stateValidatorSchema = {
-    pFirstName: {
+    firstName: {
       required: false,
       validator: formatNames(),
       min2caracts: true,
       invalidtext: true,
     },
-    pLastName: {
+    lastName: {
       required: false,
       validator: formatNames(),
       min2caracts: true,
       invalidtext: true,
     },
-    pSecondLastName: {
+    secondLastName: {
       required: false,
       min2caracts: true,
       invalidtext: true,
-      min2caracts: true,
       validator: formatSecondLastName(),
     },
-    pDocumentType: {
+    documentType: {
       required: false,
     },
-    pDocumentNumber: {
+    documentNumber: {
       required: false,
       validator: {
         func: (value: string) =>
-          docPatterns[showDocOption].test(value.replace(/\s/g, '')) &&
+          docPatterns[selectedDocumentType].test(value.replace(/\s/g, '')) &&
           !value.match(/00000000|12345678/),
         error: 'Formato inválido.',
       },
     },
-    pCivilStatus: {
+    civilStatus: {
       required: false,
     },
-    pMobilePhone: {
+    phone: {
       required: false,
       validator: formatPhone(),
       min6caracts: true,
     },
-    pCountry: {
+    country: {
       required: false,
     },
-    pDepartment: {
+    department: {
       required: false,
     },
-    pProvince: {
+    province: {
       required: false,
     },
-    pDistrict: {
+    district: {
       required: false,
     },
-    pEmail: {
+    email: {
       required: false,
       validator: formatEmail(),
     },
-    pGender: {
+    gender: {
       required: false,
     },
-    pDateBirth: {
+    birthDate: {
       required: false,
       minAge: true,
       maxAge: true,
     },
   }
 
-  React.useEffect(() => {
-    const {
-      firstName,
-      lastName,
-      secondLastName,
-      documentType,
-      documentNumber,
-      email,
-      phone,
-      gender,
-      birthDay,
-      birthMonth,
-      birthYear,
-      country = null,
-      department = null,
-      province = null,
-      district = null,
-      civilStatus,
-    } = conformProfile(Identity.userProfile) as ProfileWithAttributes
+  const {
+    firstName: initialFirstName,
+    lastName: initialLastName,
+    secondLastName: initialSecondLastName,
+    documentType: initialDocumentType,
+    documentNumber: initialDocumentNumber,
+    email: initialEmail,
+    phone: initialPhone,
+    gender: initialGender,
+    birthDay: initialBirthDay,
+    birthMonth: initialBirthMonth,
+    birthYear: initialBirthYear,
+    country: initialCountry,
+    department: initialDepartment,
+    province: initialProvince,
+    district: initialDistrict,
+    civilStatus: initialCivilStatus,
+  } = conformProfile(userProfile || {}) as ProfileWithAttributes
 
-    setProfile({
-      firstName,
-      lastName,
-      secondLastName,
-      documentType,
-      documentNumber,
-      civilStatus,
-      phone,
-      country,
-      department,
-      province,
-      district,
-      email,
-      gender,
-      birthDay,
-      birthMonth,
-      birthYear,
-    })
-
-    if (country) {
-      getUbigeo(country).then((listDepartaments) => {
-        setDataDepartments(listDepartaments)
-      })
-    }
-
-    if (department) {
-      getUbigeo(department).then((listProvinces) => {
-        setDataProvinces(listProvinces)
-      })
-    }
-
-    if (province) {
-      getUbigeo(province).then((listDistrics) => {
-        setDataDistricts(listDistrics)
-      })
-    }
-  }, [])
-
-  const setUbigeo = (value: string, type: string) => {
-    getUbigeo(value).then((list) => {
-      switch (type) {
-        case 'country':
-          setDataDepartments(list)
-          setDataProvinces([])
-          setDataDistricts([])
-          break
-        case 'department':
-          setDataProvinces(list)
-          setDataDistricts([])
-          break
-        case 'province':
-          setDataDistricts(list)
-          break
-        default:
-          return null
-      }
-      return null
-    })
+  const stateSchema = {
+    firstName: {
+      value: initialFirstName || '',
+      error: '',
+    },
+    lastName: { value: initialLastName || '', error: '' },
+    secondLastName: {
+      value: initialSecondLastName || '',
+      error: '',
+    },
+    documentType: {
+      value: initialDocumentType || 'DNI',
+      error: '',
+    },
+    documentNumber: {
+      value: initialDocumentNumber || '',
+      error: '',
+    },
+    civilStatus: {
+      value: initialCivilStatus || '',
+      error: '',
+    },
+    phone: { value: initialPhone || '', error: '' },
+    country: { value: initialCountry || '', error: '' },
+    department: {
+      value: initialDepartment || '',
+      error: '',
+    },
+    province: { value: initialProvince || '', error: '' },
+    district: { value: initialDistrict || '', error: '' },
+    email: { value: initialEmail || '', error: '' },
+    gender: { value: initialGender || '', error: '' },
+    birthDate: {
+      value:
+        (initialBirthDay &&
+          initialBirthMonth &&
+          initialBirthYear &&
+          convertDateStringDate(
+            initialBirthYear,
+            initialBirthMonth,
+            initialBirthDay
+          )) ||
+        null,
+      error: '',
+    },
   }
+
+  // React.useEffect(() => {
+  //   if (initialCountry) {
+  //     getUbigeo(initialCountry).then((listDepartaments) => {
+  //       setDepartaments(listDepartaments)
+  //     })
+  //   }
+
+  //   if (initialDepartment) {
+  //     getUbigeo(initialDepartment).then((listProvinces) => {
+  //       setProvices(listProvinces)
+  //     })
+  //   }
+
+  //   if (initialProvince) {
+  //     getUbigeo(initialProvince).then((listDistrics) => {
+  //       setDisctricts(listDistrics)
+  //     })
+  //   }
+  // }, [])
+
+  // const setUbigeo = (value: string, type: string) => {
+  //   getUbigeo(value).then((list) => {
+  //     switch (type) {
+  //       case 'country':
+  //         setDepartaments(list)
+  //         setProvices([])
+  //         setDisctricts([])
+  //         break
+  //       case 'department':
+  //         setProvices(list)
+  //         setDisctricts([])
+  //         break
+  //       case 'province':
+  //         setDisctricts(list)
+  //         break
+  //       default:
+  //         return null
+  //     }
+  //     return null
+  //   })
+  // }
 
   const createAttribute = (
     nameP?: string,
@@ -303,47 +290,47 @@ const UpdateProfile = () => {
     return object
   }
 
-  const handleUpdateProfile = () => {
-    const profile: any = {
-      firstName: changeuser.pFirstName || null,
-      lastName: changeuser.pLastName || null,
-      secondLastName: changeuser.pSecondLastName || null,
-      email,
-      birthDay: changeuser.pBirthDay || null,
-      birthMonth: changeuser.pBirthMonth || null,
-      birthYear: changeuser.pBirthYear || null,
-      gender: changeuser.pGender || null,
-      contacts: changeuser.pMobilePhone
-        ? [
-            {
-              phone: changeuser.pMobilePhone,
-              type: 'PRIMARY',
-            },
-          ]
-        : null,
+  const handleUpdateProfile = (profile: ProfileWithAttributes) => {
+    const user = {
+      firstName: profile?.firstName || null,
+      lastName: profile?.lastName || null,
+      secondLastName: profile?.secondLastName || null,
+      email: profile?.email,
+      birthDay: profile?.birthDay || null,
+      birthMonth: profile?.birthMonth || null,
+      birthYear: profile?.birthYear || null,
+      gender: profile?.gender || null,
+      contacts:
+        profile?.phone && profile.phone !== undefined
+          ? [
+              {
+                phone: profile?.phone,
+                type: 'PRIMARY',
+              },
+            ]
+          : null,
+      attributes: [],
+      emailVerified: userProfile?.emailVerified || false,
     }
 
-    const objCivilStatus = createAttribute(
-      'civilStatus',
-      changeuser.pCivilStatus
-    )
-    const objCountry = createAttribute('country', changeuser.pCountry)
-    const objDepartment = createAttribute('department', changeuser.pDepartment)
-    const objProvince = createAttribute('province', changeuser.pProvince)
-    const objDistrict = createAttribute('district', changeuser.pDistrict)
+    const objCivilStatus = createAttribute('civilStatus', profile?.civilStatus)
+    const objCountry = createAttribute('country', profile?.country)
+    const objDepartment = createAttribute('department', profile?.department)
+    const objProvince = createAttribute('province', profile?.province)
+    const objDistrict = createAttribute('district', profile?.district)
 
     const objDocumentType = createAttribute(
       'documentType',
-      changeuser.pDocumentType
+      profile?.documentType
     )
 
     const objDocumentNumber = createAttribute(
       'documentNumber',
-      changeuser.pDocumentNumber
+      profile?.documentNumber
     )
 
-    const clean = attributes.filter(
-      (attribute: any) =>
+    const clean = Array(attributes).filter(
+      (attribute: { name: string }) =>
         attribute.name !== 'civilStatus' &&
         attribute.name !== 'country' &&
         attribute.name !== 'department' &&
@@ -353,15 +340,15 @@ const UpdateProfile = () => {
         attribute.name !== 'documentNumber'
     )
 
-    const cleanAttributes = [
+    const cleanAttributes: any = [
       ...clean,
       objCivilStatus,
       objCountry,
       objDepartment,
       objProvince,
       objDistrict,
-      objDocumentType,
       objDocumentNumber,
+      objDocumentType,
     ].filter((attribute) => {
       if (attribute.name === 'originReferer' && attribute.value) {
         return {
@@ -373,28 +360,25 @@ const UpdateProfile = () => {
       }
       if (
         attribute.name &&
-        attribute.value &&
-        attribute.value !== 'DEFAULT' &&
+        attribute.value !== null &&
+        attribute.value !== undefined &&
         attribute.value !== 'default'
       ) {
         return {
           ...attribute,
         }
       }
-      return 
     })
 
-    profile.attributes = cleanAttributes
-    console.log('profile despues:', profile)
+    user.attributes = cleanAttributes || []
+
+    console.log('profile que se enviará:', user)
 
     setLoading(true)
 
-    // console.log('solo atributos:', attributes)
-    // console.log('profile atributos:', profile.attributes)
-
-    Identity.updateUserProfile(profile)
-      .then(() => {
-        setMsgSuccess(true)
+    updateUserProfile(user, {
+      onSuccess: () => {
+        setSuccessMessage(true)
         setLoading(false)
 
         const modalConfirmPass = document.getElementById('profile-signwall')
@@ -404,151 +388,68 @@ const UpdateProfile = () => {
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
-          textProfile.textContent = `Hola ${
-            profile.firstName ? profile.firstName : 'Usuario'
-          }`
+          const name = profile?.firstName ? profile?.firstName : 'Usuario'
+          const lName = profile?.lastName ? profile?.lastName : ''
+          textProfile.textContent = `Hola ${name} ${lName}`
         }
+
         setTimeout(() => {
-          setMsgSuccess(false)
+          setSuccessMessage(false)
         }, 5000)
-      })
-      .catch((errUpdate: any) => {
-        // console.log(errUpdate)
+      },
+      onError: (errUpdate: any) => {
         const { code } = errUpdate
         setLoading(false)
         if (code === '100018') {
-          setShowModalConfirm(true)
+          setShowPassConfirmation(true)
         } else if (code === '3001001') {
           const message: string = getCodeError(code)
-          setMsgError(message)
+          setErrorMessage(message)
           setTimeout(() => {
-            setMsgError('')
+            setErrorMessage('')
           }, 5000)
         } else {
-          setMsgError(getCodeError(code))
+          setErrorMessage(getCodeError(code))
           setTimeout(() => {
-            setMsgError('')
+            setErrorMessage('')
           }, 5000)
         }
-      })
-  }
-
-  const [confirmPassword, setConfirmPassword] = React.useState('')
-  const [errorPass, setErrorPass] = React.useState('')
-
-  const submitConfirmPassword = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setTextConfirmed(true)
-    if (typeof window !== 'undefined' && errorPass.trim.length === 0) {
-      setSending(true)
-      const Identity1: any = Identity
-      const currentEmail = email || Identity1.userProfile.email
-
-      Identity.login(currentEmail, confirmPassword, {
-        rememberMe: true,
-        cookie: true,
-      })
-        .then(() => {
-          handleUpdateProfile()
-          setMsgSuccess(true)
-          setTimeout(() => {
-            setMsgSuccess(false)
-          }, 5000)
-          setSending(false)
-          setTextConfirmed(false)
-        })
-        .catch(() => {
-          setMsgError(
-            'Ha ocurrido un error al actualizar. Contraseña Incorrecta.'
-          )
-          setTextConfirmed(false)
-          setSending(false)
-
-          setTimeout(() => {
-            setMsgError('')
-          }, 5000)
-        })
-        .finally(() => {
-          setShowModalConfirm(false)
-          setConfirmPassword('')
-          const ModalProfile = document.getElementById('profile-signwall')
-            ?.parentElement
-          if (ModalProfile) {
-            ModalProfile.style.overflow = 'auto'
-          }
-        })
-    }
-  }
-
-  const togglePopupModalConfirm = () => {
-    setShowModalConfirm(false)
-    const ModalProfile = document.getElementById('profile-signwall')
-      ?.parentElement
-    if (ModalProfile) {
-      if (showModalConfirm) {
-        ModalProfile.style.overflow = 'auto'
-      } else {
-        ModalProfile.style.overflow = 'hidden'
-      }
-    }
-  }
-
-  const changeValidationConfirm = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { value } = e.target
-    setConfirmPassword(value)
-
-    const space =
-      value.indexOf(' ') >= 0
-        ? 'Contraseña inválida, no se permite espacios'
-        : ''
-    const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
-    setErrorPass(value.length === 0 ? 'Este campo es requerido' : min)
-    if (value.length === 8 && errorPass.length >= 1) {
-      setSending(false)
-    }
-    if ((errorPass.length >= 0 && value.length < 8) || errorPass.length > 0) {
-      setSending(true)
-    } else {
-      setSending(false)
-    }
+      },
+    })
   }
 
   const {
     values: {
-      pFirstName,
-      pLastName,
-      pSecondLastName,
-      pDocumentType,
-      pDocumentNumber,
-      pCivilStatus,
-      pMobilePhone,
-      pCountry,
-      pDepartment,
-      pProvince,
-      pDistrict,
-      pEmail,
-      pGender,
-      pDateBirth,
+      firstName,
+      lastName,
+      secondLastName,
+      documentType,
+      documentNumber,
+      civilStatus,
+      phone,
+      country,
+      department,
+      province,
+      district,
+      email,
+      gender,
+      birthDate,
     },
     errors: {
-      pFirstName: firstNameError,
-      pLastName: lastNameError,
-      pSecondLastName: secondLastNameError,
-      pDocumentType: documentTypeError,
-      pDocumentNumber: documentNumberError,
-      pCivilStatus: civilStatusError,
-      pMobilePhone: mobilePhoneError,
-      pCountry: countryError,
-      pDepartment: departmentError,
-      pProvince: provinceError,
-      pDistrict: districtError,
-      pEmail: emailError,
-      pGender: genderError,
-      pDateBirth: dateBirthError,
+      firstName: firstNameError,
+      lastName: lastNameError,
+      secondLastName: secondLastNameError,
+      documentType: documentTypeError,
+      documentNumber: documentNumberError,
+      civilStatus: civilStatusError,
+      phone: mobilePhoneError,
+      // country: countryError,
+      // department: departmentError,
+      // province: provinceError,
+      // district: districtError,
+      email: emailError,
+      gender: genderError,
+      birthDate: dateBirthError,
     },
     handleOnChange,
     handleOnSubmit,
@@ -561,67 +462,83 @@ const UpdateProfile = () => {
     >
   ) => {
     handleOnChange(e)
-    setMsgError('')
+    setErrorMessage('')
   }
 
-  const handleOnChangeInputProfile = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    if (e.target.name === 'pDateBirth') {
-      if (e.target.value === null) {
-        setCountConverted(true)
-        setAuxConvertedDate(true)
-        setChangeUser({
-          ...changeuser,
-          pBirthDay: null,
-          pBirthMonth: null,
-          pBirthYear: null,
-        })
-      } else {
-        const per = new Date(e.target.value)
-        if (
-          pDateBirth === null &&
-          auxConvertedDate === false &&
-          countConverted === false
-        ) {
-          console.log('llego al caso 1')
-          setCountConverted(true)
-        } else if (
-          (pDateBirth !== null &&
-            auxConvertedDate === false &&
-            countConverted === false) ||
-          (pDateBirth !== null &&
-            auxConvertedDate === false &&
-            countConverted === false)
-        ) {
-          console.log('llego al caso 2')
-          // setCountConverted(true)
-          per.setDate(per.getDate() - 1)
-        }
-        const fullyear = new Date(per)
-        const year = `${fullyear.getUTCFullYear()}`
-        const month =
-          fullyear.getUTCMonth() + 1 < 10
-            ? `0${fullyear.getUTCMonth() + 1}`
-            : `${fullyear.getUTCMonth() + 1}`
+  // const handleOnChangeInputProfile = (
+  //   e: React.ChangeEvent<
+  //     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  //   >
+  // ) => {
+  //   if (e.target.name === 'birthDate') {
+  //     if (e.target.value === null) {
+  //       setCountConverted(true)
+  //       setAuxConvertedDate(true)
+  //     } else {
+  //       const per = new Date(e.target.value)
+  //       if (
+  //         birthDate === null &&
+  //         auxConvertedDate === false &&
+  //         countConverted === false
+  //       ) {
+  //         console.log('llego al caso 1')
+  //         setCountConverted(true)
+  //       } else if (
+  //         (birthDate !== null &&
+  //           auxConvertedDate === false &&
+  //           countConverted === false) ||
+  //         (birthDate !== null &&
+  //           auxConvertedDate === false &&
+  //           countConverted === false)
+  //       ) {
+  //         console.log('llego al caso 2')
+  //         // setCountConverted(true)
+  //         per.setDate(per.getDate() - 1)
+  //       }
+  //       const fullyear = new Date(per)
+  //       const year = `${fullyear.getUTCFullYear()}`
+  //       const month =
+  //         fullyear.getUTCMonth() + 1 < 10
+  //           ? `0${fullyear.getUTCMonth() + 1}`
+  //           : `${fullyear.getUTCMonth() + 1}`
+  //       const day =
+  //         fullyear.getUTCDate() < 10
+  //           ? `0${fullyear.getUTCDate()}`
+  //           : `${fullyear.getUTCDate()}`
+  //       setAuxConvertedDate(true)
+  //     }
+  //   }
+  // }
 
-        const day =
-          fullyear.getUTCDate() < 10
-            ? `0${fullyear.getUTCDate()}`
-            : `${fullyear.getUTCDate()}`
-        setChangeUser({
-          ...changeuser,
-          pBirthYear: year,
-          pBirthMonth: month,
-          pBirthDay: day,
-        })
-        setAuxConvertedDate(true)
+  const onPassConfirmationClose = () => {
+    setShowPassConfirmation(false)
+    const ModalProfile = document.getElementById('profile-signwall')
+      ?.parentElement
+    if (ModalProfile) {
+      if (showPassConfirmation) {
+        ModalProfile.style.overflow = 'auto'
+      } else {
+        ModalProfile.style.overflow = 'hidden'
       }
-    } else {
-      setChangeUser({ ...changeuser, [e.target.name]: e.target.value })
     }
+  }
+
+  const onPassConfirmationSuccess = () => {
+    // handleOnSubmit()
+    // handleUpdateProfile(stateSchema)
+    setSuccessMessage(true)
+    setTimeout(() => {
+      setSuccessMessage(false)
+    }, 5000)
+  }
+
+  const onPassConfirmationError = () => {
+    setErrorMessage(
+      'Ha ocurrido un error al actualizar. Contraseña Incorrecta.'
+    )
+    setTimeout(() => {
+      setErrorMessage('')
+    }, 5000)
   }
 
   return (
@@ -634,15 +551,15 @@ const UpdateProfile = () => {
           <h3 className="title">Mis Datos</h3>
         </div>
 
-        {msgSuccess && (
+        {successMessage && (
           <div className="sign-profile_update-message sign-profile_update-message-success">
             Tus datos de perfil han sido actualizados correctamente.
           </div>
         )}
 
-        {msgError && (
+        {errorMessage && (
           <div className="sign-profile_update-message sign-profile_update-message-failed">
-            {msgError}
+            {errorMessage}
           </div>
         )}
 
@@ -651,8 +568,8 @@ const UpdateProfile = () => {
             <input
               type="text"
               autoComplete="given-name"
-              name="pFirstName"
-              value={pFirstName}
+              name="firstName"
+              value={firstName || ''}
               className={`input capitalize ${firstNameError ? 'error' : ''}`}
               placeholder="Nombres"
               maxLength={50}
@@ -661,10 +578,9 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex={1}
-              disabled={!email}
+              disabled={!stateSchema.email}
             />
-            <label htmlFor="pFirstName" className="label">
+            <label htmlFor="firstName" className="label">
               Nombres
             </label>
             {firstNameError && <span className="error">{firstNameError}</span>}
@@ -673,8 +589,8 @@ const UpdateProfile = () => {
             <input
               type="text"
               autoComplete="family-name"
-              name="pLastName"
-              value={pLastName}
+              name="lastName"
+              value={lastName || ''}
               className={`input capitalize ${lastNameError ? 'error' : ''}`}
               placeholder="Apellido Paterno"
               maxLength={50}
@@ -683,10 +599,9 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex={2}
               disabled={!email}
             />
-            <label htmlFor="pLastName" className="label">
+            <label htmlFor="lastName" className="label">
               Apellido Paterno
             </label>
             {lastNameError && <span className="error">{lastNameError}</span>}
@@ -694,8 +609,8 @@ const UpdateProfile = () => {
           <div className={styles.group}>
             <input
               type="text"
-              name="pSecondLastName"
-              value={pSecondLastName}
+              name="secondLastName"
+              value={secondLastName || ''}
               className={`input capitalize ${
                 secondLastNameError ? 'error' : ''
               }`}
@@ -706,10 +621,9 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex={3}
               disabled={!email}
             />
-            <label htmlFor="pSecondLastName" className="label">
+            <label htmlFor="secondLastName" className="label">
               Apellido Materno
             </label>
             {secondLastNameError && (
@@ -722,44 +636,42 @@ const UpdateProfile = () => {
           <div className={styles.group}>
             <div className="combo">
               <select
-                name="pDocumentType"
+                name="documentType"
                 className={`input input-minimal ${
                   documentTypeError ? 'error' : ''
                 }`}
-                value={pDocumentType || 'default'}
+                value={documentType || ''}
                 onChange={(e) => {
                   handleChangeInput(e)
                   handleOnChangeInputProfile(e)
-                  setShowDocOption(e.target.value)
+                  setSelectedDocumentType(e.target.value as UserDocumentType)
                 }}
-                tabIndex={4}
                 disabled={!email}>
-                <option disabled value="default">
+                <option disabled value="">
                   Seleccione
                 </option>
                 <option value="DNI">DNI</option>
                 <option value="CEX">CEX</option>
                 <option value="CDI">CDI</option>
               </select>
-              <label htmlFor="pDocumentType" className="label">
+              <label htmlFor="documentType" className="label">
                 Tipo Doc.
               </label>
               <TextMask
-                mask={maskDocuments[pDocumentType]}
+                mask={maskDocuments[documentType]}
                 guide={false}
                 type="text"
-                name="pDocumentNumber"
-                value={pDocumentNumber}
+                name="documentNumber"
+                value={documentNumber || ''}
                 className={documentNumberError ? 'input error' : 'input'}
                 placeholder="Num. Documento"
-                maxLength={pDocumentNumber === 'DNI' ? '8' : '15'}
-                minLength={pDocumentNumber === 'DNI' ? '8' : '5'}
+                maxLength={documentNumber === 'DNI' ? 8 : 15}
+                minLength={documentNumber === 'DNI' ? 8 : 5}
                 onChange={(e) => {
                   handleChangeInput(e)
                   handleOnChangeInputProfile(e)
                 }}
                 onBlur={handleOnChange}
-                tabIndex={5}
                 disabled={!email}
               />
             </div>
@@ -771,25 +683,24 @@ const UpdateProfile = () => {
           </div>
           <div className={styles.group}>
             <select
-              name="pCivilStatus"
+              name="civilStatus"
               className={`input input-minimal ${
                 civilStatusError ? 'error' : ''
               }`}
-              value={pCivilStatus ? pCivilStatus.toUpperCase() : 'default'}
+              value={civilStatus ? civilStatus.toUpperCase() : ''}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex={6}
               disabled={!email}>
-              <option value="default">Seleccione</option>
+              <option value="">Seleccione</option>
               <option value="SO">Soltero(a)</option>
               <option value="CA">Casado(a)</option>
               <option value="DI">Divorciado(a)</option>
               <option value="VI">Viudo(a)</option>
             </select>
-            <label htmlFor="pCivilStatus" className="label">
+            <label htmlFor="civilStatus" className="label">
               Estado Civil
             </label>
             {civilStatusError && (
@@ -801,8 +712,8 @@ const UpdateProfile = () => {
               type="text"
               inputMode="tel"
               autoComplete="tel"
-              name="pMobilePhone"
-              value={pMobilePhone}
+              name="phone"
+              value={phone || ''}
               className={`input ${mobilePhoneError ? 'error' : ''}`}
               placeholder="Número de Celular"
               maxLength={12}
@@ -811,10 +722,9 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex={7}
               disabled={!email}
             />
-            <label htmlFor="pMobilePhone" className="label">
+            <label htmlFor="phone" className="label">
               Número de Celular
             </label>
             {mobilePhoneError && (
@@ -822,116 +732,17 @@ const UpdateProfile = () => {
             )}
           </div>
         </div>
-
         <div className="row three">
-          <div className={styles.group}>
-            <select
-              className="input input-minimal"
-              name="pCountry"
-              value={pCountry || 'default'}
-              onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
-                setUbigeo(e.target.value, 'country')
-              }}
-              tabIndex={8}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
-              <option value="260000">Perú</option>
-            </select>
-            <label htmlFor="pCountry" className="label">
-              País
-            </label>
-            {countryError && <span className="error">{countryError}</span>}
-          </div>
-          <div className={styles.group}>
-            <select
-              className="input input-minimal"
-              name="pDepartment"
-              value={pDepartment || 'default'}
-              onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
-                setUbigeo(e.target.value, 'department')
-              }}
-              tabIndex={9}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
-              {dataDepartments.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="pDepartment" className="label">
-              Departamento
-            </label>
-            {departmentError && (
-              <span className="error">{departmentError}</span>
-            )}
-          </div>
-          <div className={styles.group}>
-            <select
-              className="input input-minimal"
-              name="pProvince"
-              value={pProvince || 'default'}
-              onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
-                setUbigeo(e.target.value, 'province')
-              }}
-              tabIndex={10}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
-              {dataProvinces.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="pProvince" className="label">
-              Provincia
-            </label>
-            {provinceError && <span className="error">{provinceError}</span>}
-          </div>
-        </div>
-
-        <div className="row three">
-          <div className={styles.group}>
-            <select
-              className="input input-minimal"
-              name="pDistrict"
-              value={pDistrict || 'default'}
-              onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
-              }}
-              tabIndex={11}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
-              {dataDistricts.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="pDistrict" className="label">
-              Distrito
-            </label>
-            {districtError && <span className="error">{districtError}</span>}
-          </div>
-
           <div className={styles.group}>
             <input
               type="text"
               inputMode="email"
               autoComplete="email"
-              name="pEmail"
-              value={pEmail}
+              name="email"
+              value={email}
               className={emailError ? 'input error' : 'input'}
               placeholder="Correo electrónico"
               maxLength={30}
-              tabIndex={12}
               disabled={email !== null}
               onChange={(e) => {
                 handleChangeInput(e)
@@ -939,7 +750,7 @@ const UpdateProfile = () => {
               }}
               onBlur={handleOnChange}
             />
-            <label htmlFor="pEmail" className="label">
+            <label htmlFor="email" className="label">
               Correo electrónico
             </label>
             {emailError && <span className="error">{emailError}</span>}
@@ -948,38 +759,36 @@ const UpdateProfile = () => {
           <div className={styles.group}>
             <select
               className={`input input-minimal ${genderError ? 'error' : ''} `}
-              name="pGender"
-              value={pGender ? pGender.toUpperCase() : ''}
+              name="gender"
+              value={gender ? gender.toUpperCase() : ''}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
-              tabIndex={13}
               disabled={!email}>
               <option value="">Seleccione</option>
               <option value="MALE">Hombre</option>
               <option value="FEMALE">Mujer</option>
             </select>
-            <label htmlFor="pGender" className="label">
+            <label htmlFor="gender" className="label">
               Género
             </label>
             {genderError && <span className="error">{genderError}</span>}
           </div>
-        </div>
-
-        <div className="row three">
           <div className={styles.group}>
             <DatePicker
               clearable
               format="dd MMM yyyy"
-              name="pDateBirth"
+              id="birthDate"
+              name="birthDate"
+              disabled={!email}
               className={dateBirthError ? 'input error' : 'input'}
-              value={pDateBirth}
+              value={birthDate}
               onChange={(e) => {
                 const ep: any = {
                   target: {
-                    name: 'pDateBirth',
+                    name: 'birthDate',
                     value: e,
                   },
                 }
@@ -989,11 +798,21 @@ const UpdateProfile = () => {
               clearLabel="limpiar"
               cancelLabel="cancelar"
             />
-            <label htmlFor="pDateBirth" className="label">
+            <label className="label" htmlFor="birthDate">
               Fecha Cumpleaños
             </label>
             {dateBirthError && <span className="error">{dateBirthError}</span>}
           </div>
+        </div>
+        <Ubigeo
+          handleChangeInput={handleChangeInput}
+          country={country}
+          department={department}
+          province={province}
+          district={district}
+        />
+        <div className="row three">
+          <div className={styles.group} />
           <div className={styles.group} />
           <div className={styles.group}>
             <button
@@ -1003,75 +822,19 @@ const UpdateProfile = () => {
                 color: mainColorBtn,
                 backgroundColor: mainColorLink,
               }}
-              disabled={disable || loading}
-              tabIndex={15}>
+              disabled={disable || loading}>
               {loading ? 'Guardando...' : 'Guardar Cambios'}
             </button>
           </div>
         </div>
       </form>
 
-      {showModalConfirm && (
-        <Modal
-          size="mini"
-          position="middle"
-          bgColor="white"
-          arcSite={undefined}>
-          <div className="text-right">
-            <button type="button" onClick={togglePopupModalConfirm}>
-              <Close />
-            </button>
-          </div>
-
-          <form
-            className="sign-profile_update-form-grid"
-            onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
-              submitConfirmPassword(e)
-            }
-            noValidate>
-            <p
-              style={{
-                lineHeight: '28px',
-              }}
-              className="signwall-inside_forms-text mt-10 mb-10 center">
-              Para realizar los cambios, por favor ingresa tu contraseña
-            </p>
-
-            <div
-              className={styles.group}
-              style={{
-                width: '100%',
-                margin: '10px 0px',
-              }}>
-              <input
-                type="password"
-                name="currentPassword"
-                className={errorPass.length > 0 ? 'input error' : 'input'}
-                placeholder="Contraseña"
-                maxLength={50}
-                autoComplete="off"
-                value={confirmPassword}
-                onChange={(e) => {
-                  changeValidationConfirm(e)
-                }}
-              />
-              <label htmlFor="currentPassword" className="label">
-                Contraseña
-              </label>
-              {errorPass.length > 0 && (
-                <span className="error">{errorPass}</span>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={!(confirmPassword.length > 7 && errorPass.length === 0)}
-              className="signwall-inside_forms-btn"
-              style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
-              {sending && textConfirmed ? 'CONFIRMANDO...' : 'CONFIRMAR'}
-            </button>
-          </form>
-        </Modal>
+      {showPassConfirmation && (
+        <ConfirmPass
+          onClose={onPassConfirmationClose}
+          onSuccess={onPassConfirmationSuccess}
+          onError={onPassConfirmationError}
+        />
       )}
     </>
   )
