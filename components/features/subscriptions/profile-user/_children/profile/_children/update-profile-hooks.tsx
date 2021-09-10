@@ -60,9 +60,9 @@ const UpdateProfile = () => {
   console.log(userProfile)
 
   const [loading, setLoading] = React.useState(false)
-  const [msgError, setMsgError] = React.useState('')
-  const [msgSuccess, setMsgSuccess] = React.useState(false)
-  const [showModalConfirm, setShowModalConfirm] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const [successMessage, setSuccessMessage] = React.useState(false)
+  const [showPassConfirmation, setShowPassConfirmation] = React.useState(false)
 
   const [departaments, setDepartaments] = React.useState([])
   const [provinces, setProvices] = React.useState([])
@@ -377,7 +377,7 @@ const UpdateProfile = () => {
 
     updateUserProfile(user, {
       onSuccess: () => {
-        setMsgSuccess(true)
+        setSuccessMessage(true)
         setLoading(false)
 
         const modalConfirmPass = document.getElementById('profile-signwall')
@@ -393,24 +393,24 @@ const UpdateProfile = () => {
         }
 
         setTimeout(() => {
-          setMsgSuccess(false)
+          setSuccessMessage(false)
         }, 5000)
       },
       onError: (errUpdate: any) => {
         const { code } = errUpdate
         setLoading(false)
         if (code === '100018') {
-          setShowModalConfirm(true)
+          setShowPassConfirmation(true)
         } else if (code === '3001001') {
           const message: string = getCodeError(code)
-          setMsgError(message)
+          setErrorMessage(message)
           setTimeout(() => {
-            setMsgError('')
+            setErrorMessage('')
           }, 5000)
         } else {
-          setMsgError(getCodeError(code))
+          setErrorMessage(getCodeError(code))
           setTimeout(() => {
-            setMsgError('')
+            setErrorMessage('')
           }, 5000)
         }
       },
@@ -461,7 +461,7 @@ const UpdateProfile = () => {
     >
   ) => {
     handleOnChange(e)
-    setMsgError('')
+    setErrorMessage('')
   }
 
   const handleOnChangeInputProfile = (
@@ -550,11 +550,11 @@ const UpdateProfile = () => {
   }
 
   const onPassConfirmationClose = () => {
-    setShowModalConfirm(false)
+    setShowPassConfirmation(false)
     const ModalProfile = document.getElementById('profile-signwall')
       ?.parentElement
     if (ModalProfile) {
-      if (showModalConfirm) {
+      if (showPassConfirmation) {
         ModalProfile.style.overflow = 'auto'
       } else {
         ModalProfile.style.overflow = 'hidden'
@@ -563,17 +563,19 @@ const UpdateProfile = () => {
   }
 
   const onPassConfirmationSuccess = () => {
-    handleUpdateProfile()
-    setMsgSuccess(true)
+    handleOnSubmit()
+    setSuccessMessage(true)
     setTimeout(() => {
-      setMsgSuccess(false)
+      setSuccessMessage(false)
     }, 5000)
   }
 
   const onPassConfirmationError = () => {
-    setMsgError('Ha ocurrido un error al actualizar. Contraseña Incorrecta.')
+    setErrorMessage(
+      'Ha ocurrido un error al actualizar. Contraseña Incorrecta.'
+    )
     setTimeout(() => {
-      setMsgError('')
+      setErrorMessage('')
     }, 5000)
   }
 
@@ -587,15 +589,15 @@ const UpdateProfile = () => {
           <h3 className="title">Mis Datos</h3>
         </div>
 
-        {msgSuccess && (
+        {successMessage && (
           <div className="sign-profile_update-message sign-profile_update-message-success">
             Tus datos de perfil han sido actualizados correctamente.
           </div>
         )}
 
-        {msgError && (
+        {errorMessage && (
           <div className="sign-profile_update-message sign-profile_update-message-failed">
-            {msgError}
+            {errorMessage}
           </div>
         )}
 
@@ -951,7 +953,7 @@ const UpdateProfile = () => {
         </div>
       </form>
 
-      {showModalConfirm && (
+      {showPassConfirmation && (
         <ConfirmPass
           onClose={onPassConfirmationClose}
           onSuccess={onPassConfirmationSuccess}
