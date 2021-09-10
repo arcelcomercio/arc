@@ -5,7 +5,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Identity from '@arc-publishing/sdk-identity'
 import {
-//  BaseUserProfile,
+  //  BaseUserProfile,
   UserProfile,
 } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
 import { DatePicker } from '@material-ui/pickers'
@@ -231,11 +231,11 @@ const UpdateProfile = () => {
     pGender: { value: gender !== undefined ? gender : '', error: '' },
     pDateBirth: {
       value:
-        birthDay !== undefined &&
-        birthMonth !== undefined &&
-        birthYear !== undefined
-          ? convertDateStringDate(birthYear, birthMonth, birthDay)
-          : null,
+        (birthDay &&
+          birthMonth &&
+          birthYear &&
+          convertDateStringDate(birthYear, birthMonth, birthDay)) ||
+        null,
       error: '',
     },
   }
