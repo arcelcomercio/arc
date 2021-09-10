@@ -1,12 +1,20 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable consistent-return */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Identity from '@arc-publishing/sdk-identity'
+import {
+//  BaseUserProfile,
+  UserProfile,
+} from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
 import { DatePicker } from '@material-ui/pickers'
+// import { getUserProfile } from '../../../../../../utilities/subscriptions/identity'
+// import GetProfile from 'components/features/signwall/_dependencies/get-profile'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 import TextMask from 'react-text-mask'
+import { UserDocumentType } from 'types/subscriptions'
 
 import { Close } from '../../../../../signwall/_children/icons'
 import { Modal } from '../../../../../signwall/_children/modal/index'
@@ -19,19 +27,11 @@ import getCodeError, {
 } from '../../../../_dependencies/Errors'
 import { docPatterns, maskDocuments } from '../../../../_dependencies/Regex'
 import {
-  conformProfile,
-  getStorageProfile,
+  conformProfile /* ,
+  getStorageProfile, */,
 } from '../../../../_dependencies/Session'
-import {
-  checkFbEmail,
-  checkFormatPhone,
-  checkUndefined,
-} from '../../../../_dependencies/Utils'
+// import { checkFbEmail,checkFormatPhone,checkUndefined} from '../../../../_dependencies/Utils'
 import useForm from '../../../../_hooks/useForm'
-
-import { UserDocumentType } from 'types/subscriptions'
-import { UserProfile } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
-import { getUserProfile } from '../../../../../../utilities/subscriptions/identity'
 
 export type AttributeNames =
   | 'documentNumber'
@@ -62,44 +62,6 @@ const UpdateProfile = () => {
     },
   } = useAppContext() || {}
 
-  // const {
-  //   firstName,
-  //   lastName,
-  //   secondLastName,
-  //   documentType = null,
-  //   documentNumber = null,
-  //   email,
-  //   phone,
-  //   gender,
-  //   birthDay,
-  //   birthMonth,
-  //   birthYear,
-  //   country = null,
-  //   department = null,
-  //   province = null,
-  //   district = null,
-  //   civilStatus = null,
-  //   attributes = [],
-  // } = conformProfile(getStorageProfile())
-
-  // const [changeuser, setChangeUser] = React.useState({
-  //   pFirstName: firstName,
-  //   pLastName: lastName,
-  //   pSecondLastName: secondLastName,
-  //   pDocumentType: documentType,
-  //   pDocumentNumber: documentNumber,
-  //   pCivilStatus: civilStatus,
-  //   pMobilePhone: phone,
-  //   pCountry: country,
-  //   pDepartment: department,
-  //   pProvince: province,
-  //   pDistrict: district,
-  //   pEmail: email,
-  //   pGender: gender,
-  //   pBirthDay: birthDay,
-  //   pBirthMonth: birthMonth,
-  //   pBirthYear: birthYear,
-  // })
   const [profile, setProfile] = React.useState<ProfileWithAttributes>()
 
   const [loading, setLoading] = React.useState(false)
@@ -114,6 +76,9 @@ const UpdateProfile = () => {
   const [showDocOption, setShowDocOption] = React.useState<UserDocumentType>(
     'DNI'
   )
+  const [confirmPassword, setConfirmPassword] = React.useState('')
+  const [errorPass, setErrorPass] = React.useState('')
+
   const [auxConvertedDate, setAuxConvertedDate] = React.useState(false)
   const [countConverted, setCountConverted] = React.useState(false)
 
@@ -124,25 +89,25 @@ const UpdateProfile = () => {
     return newDate
   }
 
-  const stateSchema = {
-    pFirstName: { value: '', error: '' },
-    pLastName: { value: '', error: '' },
-    pSecondLastName: { value: '', error: '' },
-    pDocumentType: { value: 'DNI', error: '' },
-    pDocumentNumber: { value: '', error: '' },
-    pCivilStatus: { value: '', error: '' },
-    pMobilePhone: { value: '', error: '' },
-    pCountry: { value: '', error: '' },
-    pDepartment: { value: '', error: '' },
-    pProvince: { value: '', error: '' },
-    pDistrict: { value: '', error: '' },
-    pEmail: { value: '', error: '' },
-    pGender: { value: '', error: '' },
-    pDateBirth: {
-      value: '',
-      error: '',
-    },
-  }
+  // let stateSchema = {
+  //   pFirstName: { value: '', error: '' },
+  //   pLastName: { value: '', error: '' },
+  //   pSecondLastName: { value: '', error: '' },
+  //   pDocumentType: { value: 'DNI', error: '' },
+  //   pDocumentNumber: { value: '', error: '' },
+  //   pCivilStatus: { value: '', error: '' },
+  //   pMobilePhone: { value: '', error: '' },
+  //   pCountry: { value: '', error: '' },
+  //   pDepartment: { value: '', error: '' },
+  //   pProvince: { value: '', error: '' },
+  //   pDistrict: { value: '', error: '' },
+  //   pEmail: { value: '', error: '' },
+  //   pGender: { value: '', error: '' },
+  //   pDateBirth: {
+  //     value: '',
+  //     error: '',
+  //   },
+  // }
 
   const stateValidatorSchema = {
     pFirstName: {
@@ -159,8 +124,8 @@ const UpdateProfile = () => {
     },
     pSecondLastName: {
       required: false,
-      invalidtext: true,
       min2caracts: true,
+      invalidtext: true,
       validator: formatSecondLastName(),
     },
     pDocumentType: {
@@ -178,7 +143,7 @@ const UpdateProfile = () => {
     pCivilStatus: {
       required: false,
     },
-    pMobilePhone: {
+    pPhone: {
       required: false,
       validator: formatPhone(),
       min6caracts: true,
@@ -209,26 +174,73 @@ const UpdateProfile = () => {
     },
   }
 
-  React.useEffect(() => {
-    const {
-      firstName,
-      lastName,
-      secondLastName,
-      documentType,
-      documentNumber,
-      email,
-      phone,
-      gender,
-      birthDay,
-      birthMonth,
-      birthYear,
-      country = null,
-      department = null,
-      province = null,
-      district = null,
-      civilStatus,
-    } = conformProfile(Identity.userProfile) as ProfileWithAttributes
+  const {
+    firstName,
+    lastName,
+    secondLastName,
+    documentType,
+    documentNumber,
+    email,
+    phone,
+    gender,
+    birthDay,
+    birthMonth,
+    birthYear,
+    country,
+    department,
+    province,
+    district,
+    civilStatus,
+    attributes,
+    uuid,
+    identities,
+    emailVerified,
+  } = conformProfile(Identity.userProfile) as ProfileWithAttributes
+  const stateSchema = {
+    pFirstName: {
+      value: firstName !== undefined ? firstName : '',
+      error: '',
+    },
 
+    pLastName: { value: lastName !== undefined ? lastName : '', error: '' },
+    pSecondLastName: {
+      value: secondLastName !== undefined ? secondLastName : '',
+      error: '',
+    },
+    pDocumentType: {
+      value: documentType !== undefined ? documentType : 'DNI',
+      error: '',
+    },
+    pDocumentNumber: {
+      value: documentNumber !== undefined ? documentNumber : '',
+      error: '',
+    },
+    pCivilStatus: {
+      value: civilStatus !== undefined ? civilStatus : '',
+      error: '',
+    },
+    pPhone: { value: phone !== undefined ? phone : '', error: '' },
+    pCountry: { value: country !== undefined ? country : '', error: '' },
+    pDepartment: {
+      value: department !== undefined ? department : '',
+      error: '',
+    },
+    pProvince: { value: province !== undefined ? province : '', error: '' },
+    pDistrict: { value: district !== undefined ? district : '', error: '' },
+    pEmail: { value: email !== undefined ? email : '', error: '' },
+    pGender: { value: gender !== undefined ? gender : '', error: '' },
+    pDateBirth: {
+      value:
+        birthDay !== undefined &&
+        birthMonth !== undefined &&
+        birthYear !== undefined
+          ? convertDateStringDate(birthYear, birthMonth, birthDay)
+          : null,
+      error: '',
+    },
+  }
+
+  React.useEffect(() => {
     setProfile({
       firstName,
       lastName,
@@ -246,6 +258,10 @@ const UpdateProfile = () => {
       birthDay,
       birthMonth,
       birthYear,
+      attributes,
+      uuid,
+      identities,
+      emailVerified,
     })
 
     if (country) {
@@ -303,46 +319,45 @@ const UpdateProfile = () => {
   }
 
   const handleUpdateProfile = () => {
-    const profile: any = {
-      firstName: changeuser.pFirstName || null,
-      lastName: changeuser.pLastName || null,
-      secondLastName: changeuser.pSecondLastName || null,
+    const user: any = {
+      firstName: profile?.firstName || null,
+      lastName: profile?.lastName || null,
+      secondLastName: profile?.secondLastName || null,
       email,
-      birthDay: changeuser.pBirthDay || null,
-      birthMonth: changeuser.pBirthMonth || null,
-      birthYear: changeuser.pBirthYear || null,
-      gender: changeuser.pGender || null,
-      contacts: changeuser.pMobilePhone
-        ? [
-            {
-              phone: changeuser.pMobilePhone,
-              type: 'PRIMARY',
-            },
-          ]
-        : null,
+      birthDay: profile?.birthDay || null,
+      birthMonth: profile?.birthMonth || null,
+      birthYear: profile?.birthYear || null,
+      gender: profile?.gender || null,
+      contacts:
+        profile?.phone && profile.phone !== undefined
+          ? [
+              {
+                phone: profile?.phone,
+                type: 'PRIMARY',
+              },
+            ]
+          : null,
+      attributes: [],
     }
 
-    const objCivilStatus = createAttribute(
-      'civilStatus',
-      changeuser.pCivilStatus
-    )
-    const objCountry = createAttribute('country', changeuser.pCountry)
-    const objDepartment = createAttribute('department', changeuser.pDepartment)
-    const objProvince = createAttribute('province', changeuser.pProvince)
-    const objDistrict = createAttribute('district', changeuser.pDistrict)
+    const objCivilStatus = createAttribute('civilStatus', profile?.civilStatus)
+    const objCountry = createAttribute('country', profile?.country)
+    const objDepartment = createAttribute('department', profile?.department)
+    const objProvince = createAttribute('province', profile?.province)
+    const objDistrict = createAttribute('district', profile?.district)
 
     const objDocumentType = createAttribute(
       'documentType',
-      changeuser.pDocumentType
+      profile?.documentType
     )
 
     const objDocumentNumber = createAttribute(
       'documentNumber',
-      changeuser.pDocumentNumber
+      profile?.documentNumber
     )
 
-    const clean = attributes.filter(
-      (attribute: any) =>
+    const clean = Array(attributes).filter(
+      (attribute: { name: string }) =>
         attribute.name !== 'civilStatus' &&
         attribute.name !== 'country' &&
         attribute.name !== 'department' &&
@@ -352,15 +367,15 @@ const UpdateProfile = () => {
         attribute.name !== 'documentNumber'
     )
 
-    const cleanAttributes = [
+    const cleanAttributes: any = [
       ...clean,
       objCivilStatus,
       objCountry,
       objDepartment,
       objProvince,
       objDistrict,
-      objDocumentType,
       objDocumentNumber,
+      objDocumentType,
     ].filter((attribute) => {
       if (attribute.name === 'originReferer' && attribute.value) {
         return {
@@ -372,26 +387,23 @@ const UpdateProfile = () => {
       }
       if (
         attribute.name &&
-        attribute.value &&
-        attribute.value !== 'DEFAULT' &&
+        attribute.value !== null &&
+        attribute.value !== undefined &&
         attribute.value !== 'default'
       ) {
         return {
           ...attribute,
         }
       }
-      return 
     })
 
-    profile.attributes = cleanAttributes
-    console.log('profile despues:', profile)
+    user.attributes = cleanAttributes || []
+
+    console.log('profile que se enviará:', user)
 
     setLoading(true)
 
-    // console.log('solo atributos:', attributes)
-    // console.log('profile atributos:', profile.attributes)
-
-    Identity.updateUserProfile(profile)
+    Identity.updateUserProfile(user)
       .then(() => {
         setMsgSuccess(true)
         setLoading(false)
@@ -403,16 +415,16 @@ const UpdateProfile = () => {
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
-          textProfile.textContent = `Hola ${
-            profile.firstName ? profile.firstName : 'Usuario'
-          }`
+          const name = profile?.firstName ? profile?.firstName : 'Usuario'
+          const lName = profile?.lastName ? profile?.lastName : ''
+          textProfile.textContent = `Hola ${name} ${lName}`
         }
+
         setTimeout(() => {
           setMsgSuccess(false)
         }, 5000)
       })
       .catch((errUpdate: any) => {
-        // console.log(errUpdate)
         const { code } = errUpdate
         setLoading(false)
         if (code === '100018') {
@@ -432,50 +444,47 @@ const UpdateProfile = () => {
       })
   }
 
-  const [confirmPassword, setConfirmPassword] = React.useState('')
-  const [errorPass, setErrorPass] = React.useState('')
-
   const submitConfirmPassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setTextConfirmed(true)
     if (typeof window !== 'undefined' && errorPass.trim.length === 0) {
       setSending(true)
-      const Identity1: any = Identity
-      const currentEmail = email || Identity1.userProfile.email
+      if (Identity) {
+        const currentEmail = email || Identity.userProfile?.email
+        Identity.login(currentEmail || '', confirmPassword, {
+          rememberMe: true,
+          cookie: true,
+        })
+          .then(() => {
+            handleUpdateProfile()
+            setMsgSuccess(true)
+            setTimeout(() => {
+              setMsgSuccess(false)
+            }, 5000)
+            setSending(false)
+            setTextConfirmed(false)
+          })
+          .catch(() => {
+            setMsgError(
+              'Ha ocurrido un error al actualizar. Contraseña Incorrecta.'
+            )
+            setTextConfirmed(false)
+            setSending(false)
 
-      Identity.login(currentEmail, confirmPassword, {
-        rememberMe: true,
-        cookie: true,
-      })
-        .then(() => {
-          handleUpdateProfile()
-          setMsgSuccess(true)
-          setTimeout(() => {
-            setMsgSuccess(false)
-          }, 5000)
-          setSending(false)
-          setTextConfirmed(false)
-        })
-        .catch(() => {
-          setMsgError(
-            'Ha ocurrido un error al actualizar. Contraseña Incorrecta.'
-          )
-          setTextConfirmed(false)
-          setSending(false)
-
-          setTimeout(() => {
-            setMsgError('')
-          }, 5000)
-        })
-        .finally(() => {
-          setShowModalConfirm(false)
-          setConfirmPassword('')
-          const ModalProfile = document.getElementById('profile-signwall')
-            ?.parentElement
-          if (ModalProfile) {
-            ModalProfile.style.overflow = 'auto'
-          }
-        })
+            setTimeout(() => {
+              setMsgError('')
+            }, 5000)
+          })
+          .finally(() => {
+            setShowModalConfirm(false)
+            setConfirmPassword('')
+            const ModalProfile = document.getElementById('profile-signwall')
+              ?.parentElement
+            if (ModalProfile) {
+              ModalProfile.style.overflow = 'auto'
+            }
+          })
+      }
     }
   }
 
@@ -524,7 +533,7 @@ const UpdateProfile = () => {
       pDocumentType,
       pDocumentNumber,
       pCivilStatus,
-      pMobilePhone,
+      pPhone,
       pCountry,
       pDepartment,
       pProvince,
@@ -540,7 +549,7 @@ const UpdateProfile = () => {
       pDocumentType: documentTypeError,
       pDocumentNumber: documentNumberError,
       pCivilStatus: civilStatusError,
-      pMobilePhone: mobilePhoneError,
+      pPhone: mobilePhoneError,
       pCountry: countryError,
       pDepartment: departmentError,
       pProvince: provinceError,
@@ -572,11 +581,11 @@ const UpdateProfile = () => {
       if (e.target.value === null) {
         setCountConverted(true)
         setAuxConvertedDate(true)
-        setChangeUser({
-          ...changeuser,
-          pBirthDay: null,
-          pBirthMonth: null,
-          pBirthYear: null,
+        setProfile({
+          ...profile,
+          birthDay: null,
+          birthMonth: null,
+          birthYear: null,
         })
       } else {
         const per = new Date(e.target.value)
@@ -605,21 +614,58 @@ const UpdateProfile = () => {
           fullyear.getUTCMonth() + 1 < 10
             ? `0${fullyear.getUTCMonth() + 1}`
             : `${fullyear.getUTCMonth() + 1}`
-
         const day =
           fullyear.getUTCDate() < 10
             ? `0${fullyear.getUTCDate()}`
             : `${fullyear.getUTCDate()}`
-        setChangeUser({
-          ...changeuser,
-          pBirthYear: year,
-          pBirthMonth: month,
-          pBirthDay: day,
+        setProfile({
+          ...profile,
+          birthYear: year,
+          birthMonth: month,
+          birthDay: day,
         })
         setAuxConvertedDate(true)
       }
     } else {
-      setChangeUser({ ...changeuser, [e.target.name]: e.target.value })
+      const att = e.target.name
+      const pe = att.substring(1, att.length)
+      const aux = pe[0].toLowerCase() + pe.substring(1, pe.length)
+
+      switch (aux) {
+        case 'country':
+          setProfile({
+            ...profile,
+            country: e.target.value,
+            department: 'default',
+            province: 'default',
+            district: 'default',
+          })
+          break
+        case 'department':
+          setProfile({
+            ...profile,
+            department: e.target.value,
+            province: 'default',
+            district: 'default',
+          })
+          break
+        case 'province':
+          setProfile({
+            ...profile,
+            province: e.target.value,
+            district: 'default',
+          })
+          break
+        case 'district':
+          setProfile({
+            ...profile,
+            district: e.target.value,
+          })
+          break
+        default:
+          setProfile({ ...profile, [aux]: e.target.value })
+          break
+      }
     }
   }
 
@@ -651,7 +697,7 @@ const UpdateProfile = () => {
               type="text"
               autoComplete="given-name"
               name="pFirstName"
-              value={pFirstName}
+              value={pFirstName || ''}
               className={`input capitalize ${firstNameError ? 'error' : ''}`}
               placeholder="Nombres"
               maxLength={50}
@@ -661,7 +707,7 @@ const UpdateProfile = () => {
               }}
               onBlur={handleOnChange}
               tabIndex={1}
-              disabled={!email}
+              disabled={!stateSchema.pEmail}
             />
             <label htmlFor="pFirstName" className="label">
               Nombres
@@ -673,7 +719,7 @@ const UpdateProfile = () => {
               type="text"
               autoComplete="family-name"
               name="pLastName"
-              value={pLastName}
+              value={pLastName || ''}
               className={`input capitalize ${lastNameError ? 'error' : ''}`}
               placeholder="Apellido Paterno"
               maxLength={50}
@@ -683,7 +729,7 @@ const UpdateProfile = () => {
               }}
               onBlur={handleOnChange}
               tabIndex={2}
-              disabled={!email}
+              disabled={!pEmail}
             />
             <label htmlFor="pLastName" className="label">
               Apellido Paterno
@@ -694,7 +740,7 @@ const UpdateProfile = () => {
             <input
               type="text"
               name="pSecondLastName"
-              value={pSecondLastName}
+              value={pSecondLastName || ''}
               className={`input capitalize ${
                 secondLastNameError ? 'error' : ''
               }`}
@@ -706,7 +752,7 @@ const UpdateProfile = () => {
               }}
               onBlur={handleOnChange}
               tabIndex={3}
-              disabled={!email}
+              disabled={!pEmail}
             />
             <label htmlFor="pSecondLastName" className="label">
               Apellido Materno
@@ -725,15 +771,15 @@ const UpdateProfile = () => {
                 className={`input input-minimal ${
                   documentTypeError ? 'error' : ''
                 }`}
-                value={pDocumentType || 'default'}
+                value={pDocumentType || ''}
                 onChange={(e) => {
                   handleChangeInput(e)
                   handleOnChangeInputProfile(e)
-                  setShowDocOption(e.target.value)
+                  setShowDocOption(e.target.value as UserDocumentType)
                 }}
                 tabIndex={4}
-                disabled={!email}>
-                <option disabled value="default">
+                disabled={!pEmail}>
+                <option disabled value="">
                   Seleccione
                 </option>
                 <option value="DNI">DNI</option>
@@ -748,18 +794,18 @@ const UpdateProfile = () => {
                 guide={false}
                 type="text"
                 name="pDocumentNumber"
-                value={pDocumentNumber}
+                value={pDocumentNumber || ''}
                 className={documentNumberError ? 'input error' : 'input'}
                 placeholder="Num. Documento"
-                maxLength={pDocumentNumber === 'DNI' ? '8' : '15'}
-                minLength={pDocumentNumber === 'DNI' ? '8' : '5'}
+                maxLength={pDocumentNumber === 'DNI' ? 8 : 15}
+                minLength={pDocumentNumber === 'DNI' ? 8 : 5}
                 onChange={(e) => {
                   handleChangeInput(e)
                   handleOnChangeInputProfile(e)
                 }}
                 onBlur={handleOnChange}
                 tabIndex={5}
-                disabled={!email}
+                disabled={!pEmail}
               />
             </div>
             {(documentNumberError || documentTypeError) && (
@@ -774,15 +820,15 @@ const UpdateProfile = () => {
               className={`input input-minimal ${
                 civilStatusError ? 'error' : ''
               }`}
-              value={pCivilStatus ? pCivilStatus.toUpperCase() : 'default'}
+              value={pCivilStatus ? pCivilStatus.toUpperCase() : ''}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
               }}
               onBlur={handleOnChange}
               tabIndex={6}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
+              disabled={!pEmail}>
+              <option value="">Seleccione</option>
               <option value="SO">Soltero(a)</option>
               <option value="CA">Casado(a)</option>
               <option value="DI">Divorciado(a)</option>
@@ -800,8 +846,8 @@ const UpdateProfile = () => {
               type="text"
               inputMode="tel"
               autoComplete="tel"
-              name="pMobilePhone"
-              value={pMobilePhone}
+              name="pPhone"
+              value={pPhone || ''}
               className={`input ${mobilePhoneError ? 'error' : ''}`}
               placeholder="Número de Celular"
               maxLength={12}
@@ -811,9 +857,9 @@ const UpdateProfile = () => {
               }}
               onBlur={handleOnChange}
               tabIndex={7}
-              disabled={!email}
+              disabled={!pEmail}
             />
-            <label htmlFor="pMobilePhone" className="label">
+            <label htmlFor="pPhone" className="label">
               Número de Celular
             </label>
             {mobilePhoneError && (
@@ -834,7 +880,7 @@ const UpdateProfile = () => {
                 setUbigeo(e.target.value, 'country')
               }}
               tabIndex={8}
-              disabled={!email}>
+              disabled={!pEmail}>
               <option value="default">Seleccione</option>
               <option value="260000">Perú</option>
             </select>
@@ -854,7 +900,7 @@ const UpdateProfile = () => {
                 setUbigeo(e.target.value, 'department')
               }}
               tabIndex={9}
-              disabled={!email}>
+              disabled={!pEmail}>
               <option value="default">Seleccione</option>
               {dataDepartments.map(([code, name]) => (
                 <option key={code} value={code}>
@@ -880,7 +926,7 @@ const UpdateProfile = () => {
                 setUbigeo(e.target.value, 'province')
               }}
               tabIndex={10}
-              disabled={!email}>
+              disabled={!pEmail}>
               <option value="default">Seleccione</option>
               {dataProvinces.map(([code, name]) => (
                 <option key={code} value={code}>
@@ -906,7 +952,7 @@ const UpdateProfile = () => {
                 handleOnChangeInputProfile(e)
               }}
               tabIndex={11}
-              disabled={!email}>
+              disabled={!pEmail}>
               <option value="default">Seleccione</option>
               {dataDistricts.map(([code, name]) => (
                 <option key={code} value={code}>
@@ -931,7 +977,7 @@ const UpdateProfile = () => {
               placeholder="Correo electrónico"
               maxLength={30}
               tabIndex={12}
-              disabled={email !== null}
+              disabled={pEmail !== null}
               onChange={(e) => {
                 handleChangeInput(e)
                 handleOnChangeInputProfile(e)
@@ -955,7 +1001,7 @@ const UpdateProfile = () => {
               }}
               onBlur={handleOnChange}
               tabIndex={13}
-              disabled={!email}>
+              disabled={!pEmail}>
               <option value="">Seleccione</option>
               <option value="MALE">Hombre</option>
               <option value="FEMALE">Mujer</option>
