@@ -14,10 +14,9 @@ const Ubigeo = (props: any) => {
   const [provinces, setProvinces] = React.useState([])
   const [districts, setDistricts] = React.useState([])
 
-  const [enabledCountry, setEnableCountry]=(true)
-  const[enableDepartment, setEnableDepartment]=(true)
-  const[enableProvince, setEnableProvince]=(true)
-  const[enableDistrict, setEnableDistrict]=(true)
+  const [enabledCountry, setEnableCountry] = React.useState(true)
+  const [enableDepartment, setEnableDepartment] = React.useState(true)
+  const [enableProvince, setEnableProvince] = React.useState(true)
 
   let contador = 0
   React.useEffect(() => {
@@ -33,11 +32,13 @@ const Ubigeo = (props: any) => {
         getUbigeo(department).then((listProvinces) => {
           setProvinces(listProvinces)
         })
+        setEnableDepartment(false)
       }
       if (province) {
         getUbigeo(province).then((listDistrics) => {
           setDistricts(listDistrics)
         })
+        setEnableProvince(false)
       }
       contador = 1
     }
