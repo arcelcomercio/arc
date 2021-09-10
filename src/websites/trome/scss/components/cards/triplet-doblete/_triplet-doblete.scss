@@ -38,18 +38,19 @@
       padding: 0 6px 0 0;
       width: 199px;
     }
-
-    // TODO: Check this later!
-    &__inverted-color {
-      background: #ff8303;
-      padding: 5px 10px 0 10px;
-      color: white;
-    }
   }
 
   &__title {
     font-size: inherit;
+    line-height: 25px;
+    letter-spacing: -0.22px;
     margin: 0;
+
+    @media (--tablet) {
+      line-height: 23px;
+      letter-spacing: -0.21px;
+      padding-bottom: 0;
+    }
   }
 
   &__title-link {
@@ -59,31 +60,42 @@
     color: inherit;
   }
 
+  // ? Line clamp!
   &__title-line {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
 
-  &__link {
-    color: $color-primary;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: -0.21px;
-    text-align: left;
-    &__inverted-color {
-      color: white;
+  &__title-line-doblete {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+
+    @media (--only-mobile) {
+      -webkit-line-clamp: 3;
     }
   }
 
   &__author {
     font-family: $encode-c, sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: -0.21px;
-    color: #000;
+    color: #a1a1a1;
     text-align: left;
     padding-top: 5px;
     display: block;
+    padding-bottom: 1px;
+
+    @media (--tablet) {
+      font-size: 13px;
+      letter-spacing: -0.2px;
+      font-weight: 500;
+    }
+  }
+
+  &__link {
+    color: inherit;
   }
 
   &__multimedia {
@@ -142,8 +154,8 @@
     line-height: 1.1;
 
     @media (--tablet) {
-      padding-bottom: 30px;
-      padding-top: 9.5px;
+      padding-bottom: 32px;
+      padding-top: 10px;
     }
   }
 
@@ -156,6 +168,12 @@
     @media (--tablet) {
       font-size: $fs-doublet-information;
       width: 172px;
+    }
+
+    .triplet-doblete__title {
+      @media (--tablet) {
+        padding-bottom: 2px;
+      }
     }
   }
 
@@ -171,14 +189,8 @@
     }
   }
 
-  &__title-line-doblete {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-
-    @media (--only-mobile) {
-      -webkit-line-clamp: 3;
-    }
+  &__title-line-triplete {
+    -webkit-line-clamp: 3;
   }
 }
 
@@ -197,6 +209,10 @@
     padding-top: 5px;
   }
 
+  .triplet-doblete__author {
+    color: $main-color-white;
+  }
+
   .triplet-doblete__multimedia {
     background-color: $main-color-orange;
   }
@@ -210,6 +226,10 @@
     padding-right: 10px;
     padding-left: 10px;
     padding-top: 6px;
+  }
+
+  .triplet-doblete__author {
+    color: $main-color-white;
   }
 
   .triplet-doblete__multimedia-doblete {
