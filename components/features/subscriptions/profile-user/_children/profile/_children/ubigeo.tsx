@@ -7,12 +7,41 @@ const styles = {
   btn: 'signwall-inside_forms-btn',
 }
 
-const Ubigeo = (props:any) => {
+const Ubigeo = (props: any) => {
   const { country, handleChangeInput } = props
   const { department, province, district, email } = props
   const [departments, setDepartments] = React.useState([])
   const [provinces, setProvinces] = React.useState([])
   const [districts, setDistricts] = React.useState([])
+
+  const [enabledCountry, setEnableCountry]=(true)
+  const[enableDepartment, setEnableDepartment]=(true)
+  const[enableProvince, setEnableProvince]=(true)
+  const[enableDistrict, setEnableDistrict]=(true)
+
+  let contador = 0
+  React.useEffect(() => {
+    if (contador === 0) {
+      if (country) {
+        getUbigeo(country).then((listDepartaments) => {
+          setDepartments(listDepartaments)
+          setEnableCountry(false)
+        })
+      }
+
+      if (department) {
+        getUbigeo(department).then((listProvinces) => {
+          setProvinces(listProvinces)
+        })
+      }
+      if (province) {
+        getUbigeo(province).then((listDistrics) => {
+          setDistricts(listDistrics)
+        })
+      }
+      contador = 1
+    }
+  }, [])
 
   const setUbigeo = (value: string, type: string) => {
     getUbigeo(value).then((list) => {
@@ -28,10 +57,9 @@ const Ubigeo = (props:any) => {
           docDepartment.value = 'default'
           docProvince.value = 'default'
           docDistrict.value = 'default'
-          docDepartment.onchange
-          docProvince.onchange
-          docDistrict.onchange
-
+          docDepartment?.onchange
+          docProvince?.onchange
+          docDistrict?.onchange
           break
         case 'department':
           setProvinces(list)

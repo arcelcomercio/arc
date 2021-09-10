@@ -59,16 +59,11 @@ const UpdateProfile = () => {
     },
   } = useAppContext() || {}
   const [userProfile, updateUserProfile] = useProfile()
-  console.log(userProfile)
 
   const [loading, setLoading] = React.useState(false)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [successMessage, setSuccessMessage] = React.useState(false)
   const [showPassConfirmation, setShowPassConfirmation] = React.useState(false)
-
-  // const [departaments, setDepartaments] = React.useState([])
-  // const [provinces, setProvices] = React.useState([])
-  // const [districts, setDisctricts] = React.useState([])
 
   const [
     selectedDocumentType,
@@ -187,7 +182,8 @@ const UpdateProfile = () => {
     province: initialProvince,
     district: initialDistrict,
     civilStatus: initialCivilStatus,
-  } = conformProfile(userProfile || {}) as ProfileWithAttributes
+    attributes,
+  } = conformProfile(Identity.userProfile || {}) as ProfileWithAttributes
 
   const stateSchema = {
     firstName: {
@@ -236,48 +232,6 @@ const UpdateProfile = () => {
     },
   }
 
-  // React.useEffect(() => {
-  //   if (initialCountry) {
-  //     getUbigeo(initialCountry).then((listDepartaments) => {
-  //       setDepartaments(listDepartaments)
-  //     })
-  //   }
-
-  //   if (initialDepartment) {
-  //     getUbigeo(initialDepartment).then((listProvinces) => {
-  //       setProvices(listProvinces)
-  //     })
-  //   }
-
-  //   if (initialProvince) {
-  //     getUbigeo(initialProvince).then((listDistrics) => {
-  //       setDisctricts(listDistrics)
-  //     })
-  //   }
-  // }, [])
-
-  // const setUbigeo = (value: string, type: string) => {
-  //   getUbigeo(value).then((list) => {
-  //     switch (type) {
-  //       case 'country':
-  //         setDepartaments(list)
-  //         setProvices([])
-  //         setDisctricts([])
-  //         break
-  //       case 'department':
-  //         setProvices(list)
-  //         setDisctricts([])
-  //         break
-  //       case 'province':
-  //         setDisctricts(list)
-  //         break
-  //       default:
-  //         return null
-  //     }
-  //     return null
-  //   })
-  // }
-
   const createAttribute = (
     nameP?: string,
     valueP?: string,
@@ -311,7 +265,6 @@ const UpdateProfile = () => {
             ]
           : null,
       attributes: [],
-      emailVerified: userProfile?.emailVerified || false,
     }
 
     const objCivilStatus = createAttribute('civilStatus', profile?.civilStatus)
@@ -362,6 +315,7 @@ const UpdateProfile = () => {
       if (
         attribute.name &&
         attribute.value !== null &&
+        attribute.value !== '' &&
         attribute.value !== undefined &&
         attribute.value !== 'default'
       ) {
