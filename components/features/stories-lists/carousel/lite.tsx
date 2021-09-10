@@ -7,7 +7,7 @@ import { FeatureComponent } from 'types/features'
 import { Stories, Story } from 'types/story'
 
 const placeholderSrc = (width: number, height: number): string =>
-  `data:image/svg+xml,%3Csvg  viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
+  `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}"%3E%3C/svg%3E`
 
 interface FeatureProps {
   customFields?: {
