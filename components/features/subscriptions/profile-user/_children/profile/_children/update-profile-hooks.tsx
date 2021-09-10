@@ -27,6 +27,7 @@ import {
 // import { checkFbEmail,checkFormatPhone,checkUndefined} from '../../../../_dependencies/Utils'
 import useForm from '../../../../_hooks/useForm'
 import ConfirmPass from './confirm-pass'
+import Ubigeo from './Ubigeo'
 
 export type AttributeNames =
   | 'documentNumber'
@@ -64,9 +65,9 @@ const UpdateProfile = () => {
   const [successMessage, setSuccessMessage] = React.useState(false)
   const [showPassConfirmation, setShowPassConfirmation] = React.useState(false)
 
-  const [departaments, setDepartaments] = React.useState([])
-  const [provinces, setProvices] = React.useState([])
-  const [districts, setDisctricts] = React.useState([])
+  // const [departaments, setDepartaments] = React.useState([])
+  // const [provinces, setProvices] = React.useState([])
+  // const [districts, setDisctricts] = React.useState([])
 
   const [
     selectedDocumentType,
@@ -234,47 +235,47 @@ const UpdateProfile = () => {
     },
   }
 
-  React.useEffect(() => {
-    if (initialCountry) {
-      getUbigeo(initialCountry).then((listDepartaments) => {
-        setDepartaments(listDepartaments)
-      })
-    }
+  // React.useEffect(() => {
+  //   if (initialCountry) {
+  //     getUbigeo(initialCountry).then((listDepartaments) => {
+  //       setDepartaments(listDepartaments)
+  //     })
+  //   }
 
-    if (initialDepartment) {
-      getUbigeo(initialDepartment).then((listProvinces) => {
-        setProvices(listProvinces)
-      })
-    }
+  //   if (initialDepartment) {
+  //     getUbigeo(initialDepartment).then((listProvinces) => {
+  //       setProvices(listProvinces)
+  //     })
+  //   }
 
-    if (initialProvince) {
-      getUbigeo(initialProvince).then((listDistrics) => {
-        setDisctricts(listDistrics)
-      })
-    }
-  }, [])
+  //   if (initialProvince) {
+  //     getUbigeo(initialProvince).then((listDistrics) => {
+  //       setDisctricts(listDistrics)
+  //     })
+  //   }
+  // }, [])
 
-  const setUbigeo = (value: string, type: string) => {
-    getUbigeo(value).then((list) => {
-      switch (type) {
-        case 'country':
-          setDepartaments(list)
-          setProvices([])
-          setDisctricts([])
-          break
-        case 'department':
-          setProvices(list)
-          setDisctricts([])
-          break
-        case 'province':
-          setDisctricts(list)
-          break
-        default:
-          return null
-      }
-      return null
-    })
-  }
+  // const setUbigeo = (value: string, type: string) => {
+  //   getUbigeo(value).then((list) => {
+  //     switch (type) {
+  //       case 'country':
+  //         setDepartaments(list)
+  //         setProvices([])
+  //         setDisctricts([])
+  //         break
+  //       case 'department':
+  //         setProvices(list)
+  //         setDisctricts([])
+  //         break
+  //       case 'province':
+  //         setDisctricts(list)
+  //         break
+  //       default:
+  //         return null
+  //     }
+  //     return null
+  //   })
+  // }
 
   const createAttribute = (
     nameP?: string,
@@ -442,10 +443,10 @@ const UpdateProfile = () => {
       documentNumber: documentNumberError,
       civilStatus: civilStatusError,
       phone: mobilePhoneError,
-      country: countryError,
-      department: departmentError,
-      province: provinceError,
-      district: districtError,
+      // country: countryError,
+      // department: departmentError,
+      // province: provinceError,
+      // district: districtError,
       email: emailError,
       gender: genderError,
       birthDate: dateBirthError,
@@ -464,90 +465,50 @@ const UpdateProfile = () => {
     setErrorMessage('')
   }
 
-  const handleOnChangeInputProfile = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    if (e.target.name === 'birthDate') {
-      if (e.target.value === null) {
-        setCountConverted(true)
-        setAuxConvertedDate(true)
-      } else {
-        const per = new Date(e.target.value)
-        if (
-          birthDate === null &&
-          auxConvertedDate === false &&
-          countConverted === false
-        ) {
-          console.log('llego al caso 1')
-          setCountConverted(true)
-        } else if (
-          (birthDate !== null &&
-            auxConvertedDate === false &&
-            countConverted === false) ||
-          (birthDate !== null &&
-            auxConvertedDate === false &&
-            countConverted === false)
-        ) {
-          console.log('llego al caso 2')
-          // setCountConverted(true)
-          per.setDate(per.getDate() - 1)
-        }
-        const fullyear = new Date(per)
-        const year = `${fullyear.getUTCFullYear()}`
-        const month =
-          fullyear.getUTCMonth() + 1 < 10
-            ? `0${fullyear.getUTCMonth() + 1}`
-            : `${fullyear.getUTCMonth() + 1}`
-        const day =
-          fullyear.getUTCDate() < 10
-            ? `0${fullyear.getUTCDate()}`
-            : `${fullyear.getUTCDate()}`
-        setAuxConvertedDate(true)
-      }
-    } else {
-      const att = e.target.name
-      const pe = att.substring(1, att.length)
-      const aux = pe[0].toLowerCase() + pe.substring(1, pe.length)
-
-      switch (aux) {
-        case 'country':
-          setProfile({
-            ...profile,
-            country: e.target.value,
-            department: 'default',
-            province: 'default',
-            district: 'default',
-          })
-          break
-        case 'department':
-          setProfile({
-            ...profile,
-            department: e.target.value,
-            province: 'default',
-            district: 'default',
-          })
-          break
-        case 'province':
-          setProfile({
-            ...profile,
-            province: e.target.value,
-            district: 'default',
-          })
-          break
-        case 'district':
-          setProfile({
-            ...profile,
-            district: e.target.value,
-          })
-          break
-        default:
-          setProfile({ ...profile, [aux]: e.target.value })
-          break
-      }
-    }
-  }
+  // const handleOnChangeInputProfile = (
+  //   e: React.ChangeEvent<
+  //     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  //   >
+  // ) => {
+  //   if (e.target.name === 'birthDate') {
+  //     if (e.target.value === null) {
+  //       setCountConverted(true)
+  //       setAuxConvertedDate(true)
+  //     } else {
+  //       const per = new Date(e.target.value)
+  //       if (
+  //         birthDate === null &&
+  //         auxConvertedDate === false &&
+  //         countConverted === false
+  //       ) {
+  //         console.log('llego al caso 1')
+  //         setCountConverted(true)
+  //       } else if (
+  //         (birthDate !== null &&
+  //           auxConvertedDate === false &&
+  //           countConverted === false) ||
+  //         (birthDate !== null &&
+  //           auxConvertedDate === false &&
+  //           countConverted === false)
+  //       ) {
+  //         console.log('llego al caso 2')
+  //         // setCountConverted(true)
+  //         per.setDate(per.getDate() - 1)
+  //       }
+  //       const fullyear = new Date(per)
+  //       const year = `${fullyear.getUTCFullYear()}`
+  //       const month =
+  //         fullyear.getUTCMonth() + 1 < 10
+  //           ? `0${fullyear.getUTCMonth() + 1}`
+  //           : `${fullyear.getUTCMonth() + 1}`
+  //       const day =
+  //         fullyear.getUTCDate() < 10
+  //           ? `0${fullyear.getUTCDate()}`
+  //           : `${fullyear.getUTCDate()}`
+  //       setAuxConvertedDate(true)
+  //     }
+  //   }
+  // }
 
   const onPassConfirmationClose = () => {
     setShowPassConfirmation(false)
@@ -563,7 +524,8 @@ const UpdateProfile = () => {
   }
 
   const onPassConfirmationSuccess = () => {
-    handleOnSubmit()
+    // handleOnSubmit()
+    // handleUpdateProfile(stateSchema)
     setSuccessMessage(true)
     setTimeout(() => {
       setSuccessMessage(false)
@@ -770,101 +732,7 @@ const UpdateProfile = () => {
             )}
           </div>
         </div>
-
         <div className="row three">
-          <div className={styles.group}>
-            <select
-              className="input input-minimal"
-              name="country"
-              value={country || 'default'}
-              onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
-                setUbigeo(e.target.value, 'country')
-              }}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
-              <option value="260000">Perú</option>
-            </select>
-            <label htmlFor="country" className="label">
-              País
-            </label>
-            {countryError && <span className="error">{countryError}</span>}
-          </div>
-          <div className={styles.group}>
-            <select
-              className="input input-minimal"
-              name="department"
-              value={department || 'default'}
-              onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
-                setUbigeo(e.target.value, 'department')
-              }}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
-              {departaments.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="department" className="label">
-              Departamento
-            </label>
-            {departmentError && (
-              <span className="error">{departmentError}</span>
-            )}
-          </div>
-          <div className={styles.group}>
-            <select
-              className="input input-minimal"
-              name="province"
-              value={province || 'default'}
-              onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
-                setUbigeo(e.target.value, 'province')
-              }}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
-              {provinces.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="province" className="label">
-              Provincia
-            </label>
-            {provinceError && <span className="error">{provinceError}</span>}
-          </div>
-        </div>
-
-        <div className="row three">
-          <div className={styles.group}>
-            <select
-              className="input input-minimal"
-              name="district"
-              value={district || 'default'}
-              onChange={(e) => {
-                handleChangeInput(e)
-                handleOnChangeInputProfile(e)
-              }}
-              disabled={!email}>
-              <option value="default">Seleccione</option>
-              {districts.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="district" className="label">
-              Distrito
-            </label>
-            {districtError && <span className="error">{districtError}</span>}
-          </div>
-
           <div className={styles.group}>
             <input
               type="text"
@@ -908,15 +776,13 @@ const UpdateProfile = () => {
             </label>
             {genderError && <span className="error">{genderError}</span>}
           </div>
-        </div>
-
-        <div className="row three">
           <div className={styles.group}>
             <DatePicker
               clearable
               format="dd MMM yyyy"
               id="birthDate"
               name="birthDate"
+              disabled={!email}
               className={dateBirthError ? 'input error' : 'input'}
               value={birthDate}
               onChange={(e) => {
@@ -937,6 +803,16 @@ const UpdateProfile = () => {
             </label>
             {dateBirthError && <span className="error">{dateBirthError}</span>}
           </div>
+        </div>
+        <Ubigeo
+          handleChangeInput={handleChangeInput}
+          country={country}
+          department={department}
+          province={province}
+          district={district}
+        />
+        <div className="row three">
+          <div className={styles.group} />
           <div className={styles.group} />
           <div className={styles.group}>
             <button
