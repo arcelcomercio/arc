@@ -3,23 +3,20 @@ import {
   BaseUserProfile,
   // UserProfile,
 } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
-// import { DatePicker } from '@material-ui/pickers'
 // import { getUserProfile } from '../../../../../../utilities/subscriptions/identity'
 // import GetProfile from 'components/features/signwall/_dependencies/get-profile'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-// import TextMask from 'react-text-mask'
 import { UserDocumentType } from '../../../../../../../types/subscriptions'
 import useProfile from '../../../../../../hooks/useProfile'
-// import { getUbigeo } from '../../../../../signwall/_dependencies/services'
 import getCodeError, {
   formatEmail,
   formatNames,
   formatPhone,
   formatSecondLastName,
 } from '../../../../_dependencies/Errors'
-import { docPatterns, maskDocuments } from '../../../../_dependencies/Regex'
+import { docPatterns } from '../../../../_dependencies/Regex'
 import {
   conformProfile /* ,
   getStorageProfile, */,
@@ -70,35 +67,12 @@ const UpdateProfile = () => {
     setSelectedDocumentType,
   ] = React.useState<UserDocumentType>('DNI')
 
-  // const [auxConvertedDate, setAuxConvertedDate] = React.useState(false)
-  // const [countConverted, setCountConverted] = React.useState(false)
-
   const convertDateStringDate = (year: string, month: string, day: string) => {
     const yearConverted = new Date(`${year}-${month}-${day}`)
     yearConverted.setDate(yearConverted.getDate() + 1)
     const newDate = new Date(yearConverted)
     return newDate
   }
-
-  // let stateSchema = {
-  //   firstName: { value: '', error: '' },
-  //   lastName: { value: '', error: '' },
-  //   secondLastName: { value: '', error: '' },
-  //   documentType: { value: 'DNI', error: '' },
-  //   documentNumber: { value: '', error: '' },
-  //   civilStatus: { value: '', error: '' },
-  //   pMobilePhone: { value: '', error: '' },
-  //   country: { value: '', error: '' },
-  //   department: { value: '', error: '' },
-  //   province: { value: '', error: '' },
-  //   district: { value: '', error: '' },
-  //   email: { value: '', error: '' },
-  //   gender: { value: '', error: '' },
-  //   birthDate: {
-  //     value: '',
-  //     error: '',
-  //   },
-  // }
 
   const stateValidatorSchema = {
     firstName: {
@@ -183,7 +157,9 @@ const UpdateProfile = () => {
     district: initialDistrict,
     civilStatus: initialCivilStatus,
     attributes,
-  } = conformProfile(Identity.userProfile || {}) as ProfileWithAttributes
+  } = conformProfile(
+    Identity.userProfile /* userProfile */ || {}
+  ) as ProfileWithAttributes
 
   const stateSchema = {
     firstName: {
@@ -246,14 +222,36 @@ const UpdateProfile = () => {
   }
 
   const handleUpdateProfile = (profile: ProfileWithAttributes) => {
+    console.log('esquema recibido:', profile)
+
+    let year = null
+    let month = null
+    let day = null
+    if (profile?.birthDate !== null) {
+      const restartDate = new Date(profile?.birthDate)
+      const newDate = new Date(restartDate.setDate(restartDate.getDate() - 1))
+
+      year = `${newDate.getFullYear()}`
+      month =
+        newDate.getMonth() + 1 < 10
+          ? `0${newDate.getMonth() + 1}`
+          : `${newDate.getMonth() + 1}`
+      day =
+        newDate.getUTCDate() < 10
+          ? `0${newDate.getUTCDate()}`
+          : `${newDate.getUTCDate()}`
+    }
+
+    console.log(year, month, day)
+
     const user = {
       firstName: profile?.firstName || null,
       lastName: profile?.lastName || null,
       secondLastName: profile?.secondLastName || null,
       email: profile?.email,
-      birthDay: profile?.birthDay || null,
-      birthMonth: profile?.birthMonth || null,
-      birthYear: profile?.birthYear || null,
+      birthDay: day,
+      birthMonth: month,
+      birthYear: year,
       gender: profile?.gender || null,
       contacts:
         profile?.phone && profile.phone !== undefined
@@ -419,51 +417,6 @@ const UpdateProfile = () => {
     handleOnChange(e)
     setErrorMessage('')
   }
-
-  // const handleOnChangeInputProfile = (
-  //   e: React.ChangeEvent<
-  //     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-  //   >
-  // ) => {
-  //   if (e.target.name === 'birthDate') {
-  //     if (e.target.value === null) {
-  //       setCountConverted(true)
-  //       setAuxConvertedDate(true)
-  //     } else {
-  //       const per = new Date(e.target.value)
-  //       if (
-  //         birthDate === null &&
-  //         auxConvertedDate === false &&
-  //         countConverted === false
-  //       ) {
-  //         console.log('llego al caso 1')
-  //         setCountConverted(true)
-  //       } else if (
-  //         (birthDate !== null &&
-  //           auxConvertedDate === false &&
-  //           countConverted === false) ||
-  //         (birthDate !== null &&
-  //           auxConvertedDate === false &&
-  //           countConverted === false)
-  //       ) {
-  //         console.log('llego al caso 2')
-  //         // setCountConverted(true)
-  //         per.setDate(per.getDate() - 1)
-  //       }
-  //       const fullyear = new Date(per)
-  //       const year = `${fullyear.getUTCFullYear()}`
-  //       const month =
-  //         fullyear.getUTCMonth() + 1 < 10
-  //           ? `0${fullyear.getUTCMonth() + 1}`
-  //           : `${fullyear.getUTCMonth() + 1}`
-  //       const day =
-  //         fullyear.getUTCDate() < 10
-  //           ? `0${fullyear.getUTCDate()}`
-  //           : `${fullyear.getUTCDate()}`
-  //       setAuxConvertedDate(true)
-  //     }
-  //   }
-  // }
 
   const onPassConfirmationClose = () => {
     setShowPassConfirmation(false)

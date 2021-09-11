@@ -24,7 +24,6 @@ const Ubigeo = (props: any) => {
       if (country) {
         getUbigeo(country).then((listDepartaments) => {
           setDepartments(listDepartaments)
-          setEnableCountry(true)
         })
       }
 
@@ -32,12 +31,15 @@ const Ubigeo = (props: any) => {
         getUbigeo(department).then((listProvinces) => {
           setProvinces(listProvinces)
         })
-        setEnableDepartment(true)
+        setEnableCountry(true)
       }
       if (province) {
         getUbigeo(province).then((listDistrics) => {
           setDistricts(listDistrics)
         })
+        setEnableDepartment(true)
+      }
+      if (district) {
         setEnableProvince(true)
       }
       contador = 1
@@ -63,6 +65,8 @@ const Ubigeo = (props: any) => {
           docDistrict?.onchange
           if (value !== 'default') {
             setEnableCountry(true)
+          } else {
+            setEnableCountry(false)
           }
           break
         case 'department':
@@ -76,6 +80,7 @@ const Ubigeo = (props: any) => {
             setEnableDepartment(true)
           } else {
             setEnableCountry(false)
+            setDepartments([])
           }
           break
         case 'province':
@@ -86,6 +91,7 @@ const Ubigeo = (props: any) => {
             setEnableProvince(true)
           } else {
             setEnableDepartment(false)
+            setProvinces([])
           }
           break
         default:
@@ -171,6 +177,7 @@ const Ubigeo = (props: any) => {
             onChange={(e) => {
               if (e.target.value === 'default') {
                 setEnableProvince(false)
+                setDistricts([])
               }
               handleChangeInput(e)
             }}
