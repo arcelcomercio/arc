@@ -1,3 +1,4 @@
+import { string } from 'prop-types'
 import * as React from 'react'
 
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
@@ -7,9 +8,27 @@ const styles = {
   btn: 'signwall-inside_forms-btn',
 }
 
-const Ubigeo = (props: any) => {
-  const { country, handleChangeInput } = props
-  const { department, province, district, email } = props
+interface UbigeoProps {
+  country: string | null
+  department: string | null
+  province: string | null
+  district: string | null
+  email: string | null
+  handleChangeInput: (
+    e:
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLInputElement>
+  ) => void
+}
+
+const Ubigeo: React.FC<UbigeoProps> = ({
+  country,
+  handleChangeInput,
+  department,
+  province,
+  district,
+  email,
+}) => {
   const [departments, setDepartments] = React.useState([])
   const [provinces, setProvinces] = React.useState([])
   const [districts, setDistricts] = React.useState([])
@@ -50,7 +69,7 @@ const Ubigeo = (props: any) => {
     getUbigeo(value).then((list) => {
       const docDepartment = document.getElementById('departmentList')
       const docProvince = document.getElementById('provinceList')
-      const docDistrict = document.getElementById('districtList') || null
+      const docDistrict = document.getElementById('districtList')
 
       switch (type) {
         case 'country':
@@ -60,9 +79,9 @@ const Ubigeo = (props: any) => {
           docDepartment.value = 'default'
           docProvince.value = 'default'
           docDistrict.value = 'default'
-          docDepartment?.onchange
-          docProvince?.onchange
-          docDistrict?.onchange
+          docDepartment.onchange
+          docProvince.onchange
+          docDistrict.onchange
           if (value !== 'default') {
             setEnableCountry(true)
           } else {
@@ -74,8 +93,8 @@ const Ubigeo = (props: any) => {
           setDistricts([])
           docProvince.value = 'default'
           docDistrict.value = 'default'
-          docProvince?.onchange
-          docDistrict?.onchange
+          docProvince.onchange
+          docDistrict.onchange
           if (value !== 'default') {
             setEnableDepartment(true)
           } else {
@@ -86,7 +105,7 @@ const Ubigeo = (props: any) => {
         case 'province':
           setDistricts(list)
           docDistrict.value = 'default'
-          docDistrict?.onchange
+          docDistrict.onchange
           if (value !== 'default') {
             setEnableProvince(true)
           } else {

@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 import Identity from '@arc-publishing/sdk-identity'
 import {
   BaseUserProfile,
@@ -42,6 +44,7 @@ interface ProfileWithAttributes
     Record<AttributeNames, string> {
   documentType: UserDocumentType
   attributes: never
+  birthDate: Date | null
 }
 
 const styles = {
@@ -343,14 +346,18 @@ const UpdateProfile = () => {
         if (textProfile) {
           const name = profile?.firstName ? profile?.firstName : 'Usuario'
           const lName = profile?.lastName ? profile?.lastName : ''
-          textProfile.textContent = `Hola ${name} ${lName}`
+          if (name === 'Usuario') {
+            textProfile.textContent = `Hola ${name}`
+          } else {
+            textProfile.textContent = `Hola ${name} ${lName}`
+          }
         }
 
         setTimeout(() => {
           setSuccessMessage(false)
         }, 5000)
       },
-      onError: (errUpdate: any) => {
+      onError: (errUpdate) => {
         const { code } = errUpdate
         setLoading(false)
         if (code === '100018') {
@@ -396,10 +403,6 @@ const UpdateProfile = () => {
       documentNumber: documentNumberError,
       civilStatus: civilStatusError,
       phone: mobilePhoneError,
-      // country: countryError,
-      // department: departmentError,
-      // province: provinceError,
-      // district: districtError,
       email: emailError,
       gender: genderError,
       birthDate: dateBirthError,
@@ -432,8 +435,7 @@ const UpdateProfile = () => {
   }
 
   const onPassConfirmationSuccess = () => {
-    // handleOnSubmit()
-    // handleUpdateProfile(stateSchema)
+    handleOnSubmit()
     setSuccessMessage(true)
     setTimeout(() => {
       setSuccessMessage(false)
