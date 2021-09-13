@@ -618,7 +618,15 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-
+        {arcSite === SITE_PERU21 ? (
+          <>
+            <script
+              type="text/javascript"
+              src="https://btloader.com/tag?o=5634903914840064&upapi=true"
+              async
+            />
+          </>
+        ) : null}
         {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script
@@ -795,39 +803,26 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {arcSite === SITE_DEPOR &&
-        (sectionAds === 'futbol-internacional' ||
-          sectionAds === 'full-deportes') ? (
+        {arcSite === SITE_ELCOMERCIOMAG ||
+        arcSite === SITE_PERU21 ||
+        arcSite === SITE_TROME ||
+        arcSite === SITE_ELBOCON ||
+        arcSite === SITE_DEPOR ||
+        arcSite === SITE_OJO ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
         ) : (
-          <>
-            {arcSite === SITE_ELCOMERCIOMAG ||
-            arcSite === SITE_PERU21 ||
-            arcSite === SITE_TROME ||
-            arcSite === SITE_ELBOCON ||
-            arcSite === SITE_DEPOR ||
-            arcSite === SITE_OJO ? (
-              <script
-                defer
-                src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}
-              />
-            ) : (
-              <script
-                type="module"
-                defer
-                src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}
-              />
-            )}
-          </>
+          <script
+            type="module"
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+          />
         )}
         {isStory && (
           <>
