@@ -27,6 +27,9 @@ const CardFeaturedStoryAdvanced = props => {
       adsSpace,
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
       isLazyLoadActivate = true,
+      anteTitulo,
+      invertedTitle,
+      invertedColor
     } = {},
   } = props
 
@@ -66,9 +69,9 @@ const CardFeaturedStoryAdvanced = props => {
     useContent(
       adsSpace && adsSpace !== 'none'
         ? {
-            source: 'get-ads-spaces',
-            query: { space: adsSpace },
-          }
+          source: 'get-ads-spaces',
+          query: { space: adsSpace },
+        }
         : {}
     ) || {}
 
@@ -97,6 +100,11 @@ const CardFeaturedStoryAdvanced = props => {
   }
 
   const adSpace = getAdsSpace()
+
+  console.log("======================*===================")
+  console.log("HOLA DOLA")
+  console.log("======================*===================")
+
   return (
     <>
       {(() => {
@@ -136,6 +144,9 @@ const CardFeaturedStoryAdvanced = props => {
             arcSite={arcSite}
             siteName={siteName}
             isLazyLoadActivate={isLazyLoadActivate}
+            anteTitulo={anteTitulo}
+            invertedTitle={invertedTitle}
+            invertedColor={invertedColor}
           />
         )
       })()}

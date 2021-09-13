@@ -14,13 +14,17 @@ const IMAGE_COMPLETE = 'complete'
 
 const classes = {
   featuredStory: `featured-story position-relative pt-10 pb-10 pr-20 pl-20 flex md:flex-col md:p-0`,
-  detail: `featured-story__detail flex flex-col position relative md:p-20`,
+  featuredStoryInvertedColor: `featured-story--inverted`,
+  detail: `featured-story__detail position relative md:p-20`,
+  detailInverted: `featured-story__detail__inverted`,
 
   category:
     'featured-story__category pb-15 hidden md:inline-block position-relative',
   categoryLink: 'featured-story__category-link text-md',
-
+  textBlock: 'featured-story__text-block',
+  textBlockInvertedColor: 'featured-story__text-block__inverted-color',
   title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
+  titleInvertedColor: 'featured-story__title__inverted-color',
   titleLink: 'featured-story__title-link title-xs line-h-sm ',
 
   author: 'featured-story__author uppercase',
@@ -31,6 +35,7 @@ const classes = {
   image: 'featured-story__img w-full h-full object-cover',
 
   imgComplete: 'img-complete justify-end',
+  imgCompleteInvertedTitle: 'img-complete top-text',
   parcialTop: 'featured-story--reverse',
 
   [SIZE_TWO_COL]: 'col-2',
@@ -64,6 +69,9 @@ const FeaturedStory = props => {
     arcSite,
     siteName,
     isLazyLoadActivate = true,
+    anteTitulo = '',
+    invertedTitle,
+    invertedColor = false
   } = props
   const { editableField } = useEditableContent()
 
@@ -142,12 +150,16 @@ const FeaturedStory = props => {
 
   return (
     <article
-      className={`${
-        classes.featuredStory
-      } ${getImageSizeClass()} ${getHeadBandClass()} ${
-        size === SIZE_TWO_COL ? classes.twoCol : ''
-      } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass}`}>
-      <div className={`${classes.detail}${author ? ' justify-between' : ''}`}>
+      className={`${classes.featuredStory
+        } ${getImageSizeClass()} ${getHeadBandClass()} ${size === SIZE_TWO_COL ? classes.twoCol : ''
+        } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass
+        } ${(invertedColor) && classes.featuredStoryInvertedColor
+        } ${(invertedTitle) && classes.imgCompleteInvertedTitle}`}>
+      <div className={`${classes.detail} 
+                      ${author ? ' justify-between' : ''}`}>
+        {(anteTitulo.length > 0) && (
+          <p className={classes.textBlock} >{anteTitulo}</p>
+        )}
         {headband === 'normal' || !headband ? (
           <h3
             itemProp="name"
