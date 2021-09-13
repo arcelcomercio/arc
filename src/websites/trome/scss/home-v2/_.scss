@@ -14,11 +14,13 @@
 // /******* Components *******/
 // @import "../../../general-styles/components/index";
 @import "./layouts/content-layout";
+@import "./layouts/chain-ordered-stories";
 @import "../components/header/inverted-featured";
 @import "../components/layout/footer/footer-secction";
 @import "../components/custom-title/custom-title-section";
 @import "./features/featured-story";
 @import "../components/cards/triplet-doblete/triplet-doblete";
+@import "./features/breaking-news";
 
 // /******* Modificadores *******/
 // @import "./global-components/_";

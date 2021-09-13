@@ -33,7 +33,7 @@ export default (props) => {
     titleLineDoblete: 'triplet-doblete__title-line-doblete',
     oneline: 'triplet-doblete--oneline',
     author: 'triplet-doblete__author uppercase text-xs',
-    authorLink: 'triplet-doblete__link text-gray-200',
+    authorLink: 'triplet-doblete__link',
     multimedia: 'triplet-doblete__multimedia overflow-hidden',
     multimediaDoblete: 'triplet-doblete__multimedia-doblete overflow-hidden',
     mLink: 'w-full h-full block position-relative',

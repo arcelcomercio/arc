@@ -12,6 +12,22 @@
   }
 }
 
+.content-layout-container {
+  max-width: 100%;
+  min-width: 375px;
+  margin-top: 10px;
+
+  @media (--tablet) {
+    width: 630px;
+    margin-top: 30px;
+  }
+
+  @media (--desktop) {
+    min-width: 960px;
+    width: 960px;
+  }
+}
+
 .grid {
   &--col-1 {
     grid-template-columns: repeat(1, minmax(375px, 100vw));
