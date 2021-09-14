@@ -435,7 +435,12 @@ const UpdateProfile = () => {
   }
 
   const onPassConfirmationSuccess = () => {
-    handleOnSubmit()
+    const form: HTMLElement | null = document.getElementById('formUpdate')
+
+    if (form) {
+      form.onsubmit()
+      console.log(form, form.onsubmit, 'ejecutando form on submit')
+    }
     setSuccessMessage(true)
     setTimeout(() => {
       setSuccessMessage(false)
@@ -454,6 +459,7 @@ const UpdateProfile = () => {
   return (
     <>
       <form
+        id="formUpdate"
         onSubmit={handleOnSubmit}
         className="sign-profile_update-form-grid"
         noValidate>

@@ -1,4 +1,3 @@
-import { string } from 'prop-types'
 import * as React from 'react'
 
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
@@ -197,6 +196,8 @@ const Ubigeo: React.FC<UbigeoProps> = ({
               if (e.target.value === 'default') {
                 setEnableProvince(false)
                 setDistricts([])
+              } else if (e.target.value !== 'default') {
+                setEnableProvince(true)
               }
               handleChangeInput(e)
             }}
