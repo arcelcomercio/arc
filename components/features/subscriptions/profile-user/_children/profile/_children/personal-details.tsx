@@ -10,6 +10,7 @@ const styles = {
   btn: 'signwall-inside_forms-btn',
 }
 
+
 interface PersonalDetailsProps {
   email: string | null
   firstName: string | null
