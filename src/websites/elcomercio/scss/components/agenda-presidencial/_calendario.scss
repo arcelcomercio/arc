@@ -1,0 +1,93 @@
+.react-calendar {
+  padding: 0 44px 0 69px;
+  &__header {
+    background-color: $calendar-background;
+  }
+
+  &__title {
+    font-size: 18px;
+    color: $calendar-title;
+  }
+
+  &__brand {
+    background-color: $calendar-bg-icon;
+    width: 30px;
+    height: 30px;
+  }
+
+  &__icon {
+    font-size: 18px;
+    color: #333;
+  }
+
+  &__content-calendar {
+    min-height: 260px;
+  }
+
+  /** Estas clases son añadidas por la biblioteca */
+  &__navigation {
+    padding-bottom: 10px;
+  }
+
+  &__navigation__arrow {
+    font-size: 20px;
+  }
+
+  &__navigation__label {
+    text-transform: uppercase;
+    font-size: 15px;
+  }
+
+  &__month-view__weekdays {
+    padding: 10px 0;
+    border-bottom: solid 1px $calendar-line;
+    border-top: solid 1px $calendar-line;
+  }
+
+  &__month-view__weekdays__weekday {
+    font-family: $secondary-font;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #d3d3d3;
+
+    & abbr {
+      text-decoration: none;
+    }
+  }
+
+  &__year-view__months__month,
+  &__decade-view__years__year {
+    text-transform: uppercase;
+    height: 20px;
+  }
+
+  &__month-view__days__day {
+    padding: 8px 5px;
+    font-size: 17px;
+    font-family: $secondary-font;
+    border-bottom: solid 1px #ebe9e2;
+    margin: 2px 0;
+    background-color: #f5f3ec;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &__tile {
+    &--active {
+      background-color: #d64b4b;
+      color: #fff;
+    }
+  }
+}
+
+// .react-calendar {
+//   &__icon {
+//     color: $color-gray-300;
+//     font-size: 18px;
+//   }
+// }
