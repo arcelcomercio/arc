@@ -585,10 +585,12 @@
       font-size: 16px !important;
       position: relative;
       height: 45px !important;
-      display: inline-block;
+      //display: inline-block;
+      display: block;
       vertical-align: top;
       padding: 0 10px 0 45px !important;
-      width: calc(50% - 10px) !important;
+      width: calc(100% - 10px) !important;
+      //width: 100% !important;
       text-transform: capitalize;
       font-weight: normal;
       margin-right: 0;
