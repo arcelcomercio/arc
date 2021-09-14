@@ -379,7 +379,9 @@ const FormRegisterAux = ({
                       )}
                     </div>
                   )}
-
+                  <p className="signwall-inside_forms-text mt-15 center">
+                    Registrarse
+                  </p>
                   <Input
                     type="email"
                     inputMode="email"

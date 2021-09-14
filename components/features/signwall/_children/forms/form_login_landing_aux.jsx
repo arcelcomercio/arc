@@ -248,15 +248,13 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
               type="submit"
               className="signwall-inside_forms-btn"
               disabled={disable || showLoading}>
-              {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
+              {showLoading ? 'CARGANDO...' : 'Ingresar'}
             </button>
             <div
-            style={{
-              marginTop: '10px',
-              textAlign: 'center'
-            }}
-            >
-
+              style={{
+                marginTop: '10px',
+                textAlign: 'center',
+              }}>
               {isFbBrowser ? (
                 <ButtonSocial
                   brand="facebook"
@@ -271,11 +269,9 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
                   showMsgVerify={() => triggerShowVerify()}
                   dataTreatment={checkedPolits ? '1' : '0'}
                 />
-                
               ) : (
                 <>
                   {authProviders.map((item) => (
-                    
                     <ButtonSocial
                       key={item}
                       brand={item}

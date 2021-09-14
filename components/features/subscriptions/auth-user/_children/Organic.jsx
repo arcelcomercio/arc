@@ -9,13 +9,13 @@ import Header from '../../profile-user/_children/header/signwall'
 
 const FormLogin = React.lazy(() =>
   import(
-    /* webpackChunkName: 'Auth-FormLogin' */ '../../../signwall/_children/forms/form_login'
+    /* webpackChunkName: 'Auth-FormLogin' */ '../../../signwall/_children/forms/form_login_aux'
   )
 )
 
 const FormRegister = React.lazy(() =>
   import(
-    /* webpackChunkName: 'Auth-FormRegister' */ '../../../signwall/_children/forms/form_register'
+    /* webpackChunkName: 'Auth-FormRegister' */ '../../../signwall/_children/forms/form_register_aux'
   )
 )
 

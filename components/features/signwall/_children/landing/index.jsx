@@ -10,7 +10,7 @@ import {
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import FormForgot from '../forms/form_forgot'
 import { FormLoginPaywall } from '../forms/form_login_landing_aux'
-import FormRegisterAux from '../forms/form_register_aux'
+import FormRegister from '../forms/form_register_aux'
 import { Close } from '../icons'
 import { Modal } from '../modal/index'
 
@@ -18,7 +18,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
   const templates = {
     login: <FormLoginPaywall {...{ valTemplate, attributes }} />,
     forgot: <FormForgot {...attributes} />,
-    register: <FormRegisterAux {...attributes} />,
+    register: <FormRegister {...attributes} />,
   }
 
   if (getQuery('signLanding') || getQuery('signStudents')) {
