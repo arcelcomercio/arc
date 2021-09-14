@@ -86,7 +86,6 @@ const PollaHomepage: FC<Props> = (props) => {
             data-name="Capa 1"
             height="180"
             width="180"
-            xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 92">
             <g id="Grupo_1172" data-name="Grupo 1172">
               <g id="Grupo_1169" data-name="Grupo 1169">

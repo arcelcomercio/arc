@@ -1,6 +1,7 @@
 import Consumer from 'fusion:consumer'
+
+import { localISODate } from '../../../utilities/date-time/dates'
 import StoryData from '../../../utilities/story-data'
-import { localISODate } from '../../../utilities/helpers'
 import BuildContent from './_dependencies/build-content'
 /**
  * @description Feed para Newsletter.

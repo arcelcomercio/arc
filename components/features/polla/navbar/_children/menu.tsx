@@ -9,12 +9,7 @@ const edittion = (cName: string, opcion = '', has = true) => (
       <div className={`${cName}__e-name`}>EDICIONES:</div>
 
       <a className={`${cName}__e-pais`} href="/?noredirect">
-        <svg
-          width="18"
-          height="12"
-          viewBox="0 0 18 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
           <path d="M18 0H0V12H18V0Z" fill="white" />
           <path d="M6 0H0V12H6V0Z" fill="#DB161D" />
           <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
@@ -23,12 +18,7 @@ const edittion = (cName: string, opcion = '', has = true) => (
       </a>
 
       <a className={`${cName}__e-pais`} href="/mexico/">
-        <svg
-          width="18"
-          height="12"
-          viewBox="0 0 18 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
           <path d="M18 0H0V12H18V0Z" fill="white" />
           <path d="M6 0H0V12H6V0Z" fill="#006847" />
           <path d="M18 0H12V12H18V0Z" fill="#DB161D" />
@@ -41,12 +31,7 @@ const edittion = (cName: string, opcion = '', has = true) => (
       </a>
 
       <a className={`${cName}__e-pais`} href="/colombia/">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="12"
-          viewBox="0 0 18 12"
-          fill="none">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
           <rect width="18" height="6" fill="#fcd116" />
           <rect y="6" width="18" height="4" fill="#003893" />
           <rect y="9" width="18" height="4" fill="#ce1126" />
@@ -92,10 +77,7 @@ const renderSections = (sections: any, deep: number, nameId = 'root') => {
                 <label
                   htmlFor={idElem}
                   className="nav-sidebar__parent-item pos-abs">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="8"
-                    viewBox="0 0 8 14">
+                  <svg width="8" viewBox="0 0 8 14">
                     <path
                       d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z"
                       transform="translate(-0.293 -0.293)"

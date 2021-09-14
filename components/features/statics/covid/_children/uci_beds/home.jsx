@@ -26,7 +26,7 @@ const groupBy = (list, key) =>
  * @param {Array} paths
  * @returns {PageInfo}
  */
-const getPageInfo = paths => {
+const getPageInfo = (paths) => {
   let type = ''
   let title = 'Ubica tu zona y elige tu centro médico'
   if (paths.length === 4) {
@@ -58,7 +58,7 @@ export default function UciBedsHome() {
   const paths = requestUri
     .split('?')[0]
     .split('/')
-    .filter(item => item)
+    .filter((item) => item)
 
   const mainPath = `/${paths[0]}/${paths[1]}`
 
@@ -84,12 +84,7 @@ export default function UciBedsHome() {
         <h2 className="uci-home__subtitle">{pageInfo.title}</h2>
         {pageInfo.type === 'group' && (
           <a className="uci-home__close-link" href={`${mainPath}/${paths[2]}/`}>
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <g clipPath="url(#clip0)">
                 <path d="M0.353027 0.353027L13.625 13.625" stroke="#707070" />
                 <path d="M13.625 0.353027L0.353027 13.625" stroke="#707070" />
@@ -104,7 +99,7 @@ export default function UciBedsHome() {
         )}
         {pageInfo.type !== 'hospital' && (
           <div className="uci-home__link-d-container">
-            {Object.keys(dataGroupByTerritory).map(slug => (
+            {Object.keys(dataGroupByTerritory).map((slug) => (
               <a className="uci-home__link-d" href={`${mainPath}/${slug}/`}>
                 {(dataGroupByTerritory[slug] || [])[0]?.territorio}
               </a>
@@ -114,18 +109,13 @@ export default function UciBedsHome() {
         {pageInfo.type === 'home' && (
           <>
             <ul className="uci-home__list">
-              {Object.keys(dataGroupByGroup).map(slug => (
+              {Object.keys(dataGroupByGroup).map((slug) => (
                 <li className="uci-home__item">
                   <a
                     href={`${mainPath}/${paths[2] || 'lima'}/${slug}/`}
                     className="uci-home__item-link">
                     <span>{(dataGroupByGroup[slug] || [])[0]?.grupo}</span>
-                    <svg
-                      width="8"
-                      height="6"
-                      viewBox="0 0 8 6"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
                       <g clipPath="url(#clip0)">
                         <path d="M4 6L0 0L8 0L4 6Z" fill="#707071" />
                       </g>

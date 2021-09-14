@@ -9,6 +9,10 @@ const customFields = PropTypes.shape({
     name: 'Cantidad de notas',
     description: 'Indique el numero de notas que tendra el listado',
   }),
+  showTitle: PropTypes.bool.tag({
+    name: 'Mostrar título e íconos de nuevo diseño',
+    defaultValue: false,
+  }),
 })
 
 export default customFields

@@ -213,9 +213,11 @@ export default ({
         duration,
       } = {}) => {
         if (!date || date < 946702800000) {
+          // eslint-disable-next-line no-param-reassign
           date = getDateSeo(updateDate)
         } else {
           const dateObj = new Date(date)
+          // eslint-disable-next-line no-param-reassign
           date = getDateSeo(dateObj)
         }
 
@@ -556,7 +558,7 @@ export default ({
   const taboolaScript =
     arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
 
-  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){function e(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}}if("IntersectionObserver"in window){var o=1200;/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)&&(o=600);var n=new IntersectionObserver(function(o,t){o.forEach(function(o){o.isIntersecting&&(e(),n.unobserve(o.target))})},{rootMargin:"0px 0px "+o+"px 0px"}),t=document.getElementById("taboola-below-content-thumbnails");t&&n.observe(t)}else e()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
+  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){function e(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}}if("IntersectionObserver"in window){var o=1200;/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)&&(o=300);var n=new IntersectionObserver(function(o,t){o.forEach(function(o){o.isIntersecting&&(e(),n.unobserve(o.target))})},{rootMargin:"0px 0px "+o+"px 0px"}),t=document.getElementById("taboola-below-content-thumbnails");t&&n.observe(t)}else e()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
     window._taboola = window._taboola || [];
@@ -617,7 +619,7 @@ export default ({
               let marginTaboola = 1200;
               const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)
               if (isMobile) {
-                marginTaboola = 600;
+                marginTaboola = 300;
               }
               const taboolaObserver = new IntersectionObserver(
                 (entries, observer) => {

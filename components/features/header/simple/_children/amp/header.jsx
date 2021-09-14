@@ -50,11 +50,7 @@ const HeaderSimpleChildAmp = ({
             />
           </a>
           <a className={classes.logoTrivia} href="/trivias/">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="55"
-              height="16"
-              viewBox="0 0 60 16">
+            <svg width="55" height="16" viewBox="0 0 60 16">
               <text
                 style={{
                   fill: '#ffc900',

@@ -31,12 +31,13 @@ export default {
   infoPagesDev: {
     termsAndConditions: '',
     guidingPrinciples: '',
-    privacyPolicies: '',
+    privacyPolicies: 'RVQF23ZVKZCARMOZDNH4U4EGUM',
     integratedManagementPolicy: '',
     arcoProcedure: '',
     cookiesPolicy: '',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'BWEVGA3XC5A6VEGCTFFLJXPBEU',
   },
   infoPagesProd: {
     termsAndConditions: 'VYFDOX6VOZH7ZDDDA6ZRIW44ZM',
@@ -47,6 +48,7 @@ export default {
     cookiesPolicy: 'Q3OMMN6EQBE3XCX46Q44NDNNRU',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: '6SH4XPKURFH5TAP5PEA6LT5Y2E',
   },
 
   assets: {

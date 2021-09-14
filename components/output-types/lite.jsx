@@ -109,9 +109,8 @@ const LiteOutput = ({
   const isPreview = /^\/preview\//.test(requestUri)
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
-    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
-        storySectionPath.split('/')[1]
-      } ${subtype} `
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${storySectionPath.split('/')[1]
+    } ${subtype} `
     : ''
 
   const metaSiteData = {
@@ -179,8 +178,8 @@ const LiteOutput = ({
   }
 
   const structuredTaboola = ` 
-    window._taboola = window._taboola || [];
-    _taboola.push({flush: true});`
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});`
 
   const structuredBBC = `
   !function(s,e,n,c,r){if(r=s._ns_bbcws=s._ns_bbcws||r,s[r]||(s[r+"_d"]=s[r+"_d"]||[],s[r]=function(){s[r+"_d"].push(arguments)},s[r].sources=[]),c&&0>s[r].sources.indexOf(c)){var t=e.createElement(n);t.async=1,t.src=c;var a=e.getElementsByTagName(n)[0];a.parentNode.insertBefore(t,a),s[r].sources.push(c)}}
@@ -299,12 +298,15 @@ const LiteOutput = ({
             {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
               <meta
                 name="robots"
-                content={`${
-                  /-agnc-/.test(requestUri) ? 'noindex' : 'index'
-                }, follow`}
+                content={`${/-agnc-/.test(requestUri) ? 'noindex' : 'index'
+                  }, follow`}
               />
             ) : (
-              <meta name="robots" content="index, follow" />
+              <meta
+                name="robots"
+                content={`${globalContent?.param === 'noindex' ? 'noindex' : 'index'
+                  }, follow`}
+              />
             )}
             {arcSite === 'trome' || arcSite === 'depor' ? null : (
               <meta name="GOOGLEBOT" content="index follow" />
@@ -471,7 +473,6 @@ const LiteOutput = ({
           section={sectionAds}
           subtype={subtype}
         />
-
         <Styles
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...metaSiteData}
@@ -563,7 +564,7 @@ const LiteOutput = ({
             }
           </Resource>
         ) : null}
-        {/* metaValue('section_style') === 'provecho' ? (
+        {metaValue('section_style') === 'provecho' ? (
           <Resource path="resources/dist/elcomercio/css/lite-provecho.css">
             {({ data }) =>
               data ? (
@@ -577,7 +578,7 @@ const LiteOutput = ({
               ) : null
             }
           </Resource>
-        ) : null */}
+        ) : null}
         {metaValue('section_style') === 'saltar-intro' ? (
           <Resource path="resources/dist/elcomercio/css/lite-saltar-intro.css">
             {({ data }) =>
@@ -608,8 +609,8 @@ const LiteOutput = ({
           <Libs />
         ) : null}
         {isPremium &&
-        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-        !isPreview ? (
+          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+          !isPreview ? (
           <script
             src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
               .toISOString()
@@ -714,14 +715,13 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${
-                  getPreroll({
-                    section: storySectionPath,
-                    arcSite,
-                    siteDomain: siteProperties.siteDomain,
-                    metaValue,
-                  }) || siteProperties.urlPreroll
-                }'`,
+                __html: `window.preroll='${getPreroll({
+                  section: storySectionPath,
+                  arcSite,
+                  siteDomain: siteProperties.siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll
+                  }'`,
               }}
             />
             <script
@@ -819,14 +819,14 @@ const LiteOutput = ({
           }
         />
         {arcSite === SITE_ELCOMERCIOMAG ||
-        arcSite === SITE_PERU21 ||
-        arcSite === SITE_TROME ||
-        arcSite === SITE_ELBOCON ||
-        arcSite === SITE_DEPOR ||
-        arcSite === SITE_OJO ? (
+          arcSite === SITE_PERU21 ||
+          arcSite === SITE_TROME ||
+          arcSite === SITE_ELBOCON ||
+          arcSite === SITE_DEPOR ||
+          arcSite === SITE_OJO ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
+            src={`https://dies75ilbevsu.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
@@ -892,8 +892,8 @@ const LiteOutput = ({
           </>
         )}
         {vallaSignwall === false &&
-        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-        !isPreview ? (
+          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+          !isPreview ? (
           <>
             <script
               dangerouslySetInnerHTML={{
@@ -915,6 +915,15 @@ const LiteOutput = ({
           />
         )}
         {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
+        {arcSite === SITE_OJO && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
+              }}
+            />
+          </>
+        )}
       </body>
     </html>
   )
