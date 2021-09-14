@@ -5,6 +5,7 @@ import React from 'react'
 import { getAssetsPath } from '../../../utilities/assets'
 import {
   SITE_DEPOR,
+  SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
 } from '../../../utilities/constants/sitenames'
 import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
@@ -116,9 +117,10 @@ const StoryTitleAmp = () => {
             </div>
           ) : null}
 
-          {arcSite === SITE_DEPOR &&
-          (/^\/mexico\//.test(requestUri) ||
-            /^\/colombia\//.test(requestUri)) ? null : (
+          {arcSite === SITE_ELCOMERCIO ||
+          (arcSite === SITE_DEPOR &&
+            (/^\/mexico\//.test(requestUri) ||
+              /^\/colombia\//.test(requestUri))) ? null : (
             <AmpStoriesChild arcSite={arcSite} />
           )}
 

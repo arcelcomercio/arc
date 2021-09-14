@@ -1,7 +1,10 @@
 import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
-import { SITE_GESTION } from '../../../utilities/constants/sitenames'
+import {
+  SITE_DEPOR,
+  SITE_GESTION,
+} from '../../../utilities/constants/sitenames'
 import StoryData from '../../../utilities/story-data'
 import StoryTitleChildHeading from './_children/heading'
 import StoryTitleChildShareSubheading from './_children/subheading'
@@ -16,6 +19,7 @@ const StoryTitle = () => {
     globalContent: data,
     globalContent,
     arcSite,
+    requestUri,
   } = useFusionContext()
   const {
     headlines: { basic: title = '' } = {},
@@ -34,6 +38,10 @@ const StoryTitle = () => {
   const parameters = { title, subTitle, isPremium, arcSite, items, type }
   return (
     <>
+      {arcSite === SITE_DEPOR &&
+      !(/^\/mexico\//.test(requestUri) || /^\/colombia\//.test(requestUri)) ? (
+        <div id="spc_post_stories" />
+      ) : null}
       <div
         className={`${classes.story} ${
           isPremium && arcSite === SITE_GESTION && 'no_copy'

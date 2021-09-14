@@ -537,9 +537,10 @@ class StoryContentAmp extends React.PureComponent {
                         )}
 
                       {element?.activateStories &&
-                      arcSite === SITE_DEPOR &&
-                      (/^\/mexico\//.test(requestUri) ||
-                        /^\/colombia\//.test(requestUri)) ? (
+                      (arcSite === SITE_ELCOMERCIO ||
+                        (arcSite === SITE_DEPOR &&
+                          (/^\/mexico\//.test(requestUri) ||
+                            /^\/colombia\//.test(requestUri)))) ? (
                         <AmpStoriesChild arcSite={arcSite} />
                       ) : null}
                     </>
