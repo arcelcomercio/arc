@@ -39,6 +39,8 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
     // if (passwordError.trim.length === 0) {}
     setLoading(true)
     const { email: userEmail } = Identity.userProfile || {}
+    console.log(userEmail)
+    console.log(password)
 
     Identity.login(userEmail || '', password, {
       rememberMe: true,
@@ -66,7 +68,7 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
     password: {
       required: true,
       validator: {
-        func: (value: string) => value.length < 8 && value.includes(' '),
+        func: (value: string) => value.length > 7 && !value.includes(' '),
         error: 'La contraseña debe tener mínimo 8 caracteres, sin espacios',
       },
     },
@@ -109,17 +111,17 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
           <input
             type="password"
             id="currentPassword"
-            name="currentPassword"
+            name="password"
             autoComplete="current-password"
             className={passwordError.length > 0 ? 'input error' : 'input'}
             placeholder="Contraseña"
             maxLength={50}
             value={password}
             required
-            disabled={disable || loading}
+            disabled={loading}
             onChange={handleOnChange}
           />
-          <label htmlFor="currentPassword" className="label">
+          <label htmlFor="password" className="label">
             Contraseña
           </label>
           {passwordError.length > 0 && (
@@ -129,10 +131,12 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
 
         <button
           type="submit"
-          disabled={!(password.length > 7 && passwordError.length === 0)}
+          disabled={
+            !(password.length > 7 && passwordError.length === 0) || loading
+          }
           className="signwall-inside_forms-btn"
           style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
-          {disable || loading ? 'CONFIRMANDO...' : 'CONFIRMAR'}
+          {!disable && loading ? 'CONFIRMANDO...' : 'CONFIRMAR'}
         </button>
       </form>
     </Modal>
