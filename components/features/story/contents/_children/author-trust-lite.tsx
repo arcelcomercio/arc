@@ -79,7 +79,7 @@ const StoryContentChildAuthorTrustLite: React.FC<FeatureProps> = ({
       {primarySection !== 'Columnistas' &&
         authorsList &&
         authorsList.map((authorData) => {
-          const authorList = authorData?.name
+          const authorList = authorData?.nameAuthor
           const authorLinkList = authorData?.urlAuthor
           const authorEmailList = authorData?.mailAuthor
           const authorImageList = authorData?.imageAuthor

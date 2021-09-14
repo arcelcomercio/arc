@@ -199,19 +199,18 @@ const StoryContentsLite = (props) => {
           </>
         )}
         <div
-          className={`${classes.content} ${
-            isPremium && !isPreview
+          className={`${classes.content} ${isPremium && !isPreview
               ? 'story-content__nota-premium paywall no_copy'
               : ''
-          }`}
+            }`}
           style={
             isPremium && !isPreview
               ? {
-                  display: 'none',
-                  opacity: '0',
-                  userSelect: 'none',
-                  visibility: 'hidden',
-                }
+                display: 'none',
+                opacity: '0',
+                userSelect: 'none',
+                visibility: 'hidden',
+              }
               : {}
           }
           id="contenedor">
@@ -369,10 +368,6 @@ const StoryContentsLite = (props) => {
                           __html: replaceTags(content),
                         }}
                       />
-                      {(arcSite === 'elcomercio' || arcSite === 'gestion') &&
-                      nameAds === 'caja3' ? (
-                        <div id="spc_post_stories" />
-                      ) : null}
                       {nameAds === 'caja3' &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
@@ -411,15 +406,14 @@ const StoryContentsLite = (props) => {
                           data-prebid-enabled
                         />
                       )}
-                      {arcSite !== SITE_DEPOR && (
-                        <p
-                          itemProp="description"
-                          className={alignmentClass}
-                          dangerouslySetInnerHTML={{
-                            __html: replaceTags(content),
-                          }}
-                        />
-                      )}
+                      {(arcSite === 'elcomercio' ||
+                        arcSite === 'gestion' ||
+                        (arcSite === 'depor' &&
+                          (/^\/mexico\//.test(requestUri) ||
+                            /^\/colombia\//.test(requestUri)))) &&
+                        nameAds === 'caja3' ? (
+                        <div id="spc_post_stories" />
+                      ) : null}
                     </>
                   )
                 }
@@ -439,9 +433,9 @@ const StoryContentsLite = (props) => {
                             dangerouslySetInnerHTML={{
                               __html: item.content
                                 ? item.content.replace(
-                                    /<a/g,
-                                    '<a itemprop="url"'
-                                  )
+                                  /<a/g,
+                                  '<a itemprop="url"'
+                                )
                                 : '',
                             }}
                           />

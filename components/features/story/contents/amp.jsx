@@ -31,6 +31,7 @@ import {
   ELEMENT_VIDEO,
 } from '../../../utilities/constants/element-types'
 import {
+  SITE_DEPOR,
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
@@ -60,6 +61,7 @@ import {
   replaceTags,
   storyTagsBbc,
 } from '../../../utilities/tags'
+import AmpStoriesChild from '../title/_children/amp-stories'
 import ElePrincipal from './_children/amp-ele-principal'
 import StoryContentsChildJwplayerRecommender from './_children/amp-jwplayer-recommender'
 import StoryContentChildVideo from './_children/amp-video'
@@ -95,6 +97,7 @@ class StoryContentAmp extends React.PureComponent {
   render() {
     const {
       contextPath,
+      requestUri,
       arcSite,
       deployment,
       siteProperties: {
@@ -532,6 +535,13 @@ class StoryContentAmp extends React.PureComponent {
                             )}
                           />
                         )}
+
+                      {element?.activateStories &&
+                      arcSite === SITE_DEPOR &&
+                      (/^\/mexico\//.test(requestUri) ||
+                        /^\/colombia\//.test(requestUri)) ? (
+                        <AmpStoriesChild arcSite={arcSite} />
+                      ) : null}
                     </>
                   )
                 }

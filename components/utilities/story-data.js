@@ -1008,6 +1008,10 @@ class StoryData {
           }
         }
 
+        if (i === 1) {
+          dataElements.activateStories = true
+        }
+
         return dataElements
       })
     )
