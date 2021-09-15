@@ -379,8 +379,10 @@ const FormRegisterAux = ({
                       )}
                     </div>
                   )}
-                  <p className="signwall-inside_forms-text mt-15 center">
-                    Registrarse
+                  <p className="signwall-inside_forms-text mt-15"
+                      style={{fontWeight: 'bold',fontSize: '18px' }}
+                  >
+                    Registrarme
                   </p>
                   <Input
                     type="email"
@@ -423,7 +425,7 @@ const FormRegisterAux = ({
                         `web_sw${typeDialog[0]}_registro_boton_registrarme`
                       )
                     }}>
-                    {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
+                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
                   </button>
 
                   {/* {!activePhoneRegister && (
@@ -565,7 +567,7 @@ const FormRegisterAux = ({
                     </p>
                   </CheckBox>
 
-                  <p
+                  {/* <p
                     style={{
                       fontSize: '12px',
                       color: '#000000',
@@ -594,7 +596,7 @@ const FormRegisterAux = ({
                       }}>
                       Iniciar Sesión
                     </a>
-                  </p>
+                  </p> */}
                 </>
               )}
 

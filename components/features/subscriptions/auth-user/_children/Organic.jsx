@@ -5,7 +5,9 @@ import { Benefits } from '../../../signwall/_children/benefits'
 import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalProvider, useModalContext } from '../../_context/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
+import HeaderDefault from '../../profile-user/_children/header/Default'
 import Header from '../../profile-user/_children/header/signwall'
+
 
 const FormLogin = React.lazy(() =>
   import(
@@ -131,13 +133,22 @@ export const ContGeneric = ({ properties }) => {
       size={activePaywall ? 'large' : isTrome ? 'medium' : 'small'}
       arcSite={arcSite}
       position="middle">
-      <Header
-        buttonClose
-        onClose={onClose}
-        typeDialog={typeDialog}
-        noLoading
-        logoLeft
-      />
+      {(isTrome || isComercio || isGestion) ?
+        <Header
+          buttonClose
+          onClose={onClose}
+          typeDialog={typeDialog}
+          noLoading
+          logoLeft
+        />
+       :<HeaderDefault
+       buttonClose
+       onClose={onClose}
+       typeDialog={typeDialog}
+       noLoading
+       logoLeft
+     /> }
+
       <div className="cont-modal">
         {(isTrome || isComercio || isGestion) && (
           <div className={`left-modal ${isTrome ? 'bg-trome' : ''}`}>
