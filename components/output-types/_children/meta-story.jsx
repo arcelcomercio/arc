@@ -446,9 +446,8 @@ export default ({
 
   const bodyStructured =
     isAmp !== true
-      ? `"articleBody":"${dataElement.replace(
-          /\(function\(d, s, id\).*\)\);/g,
-          ''
+      ? `"articleBody":"${formatHtmlToText(
+          dataElement.replace(/\(function\(d, s, id\).*\)\);/g, '')
         )}",`
       : ''
 
