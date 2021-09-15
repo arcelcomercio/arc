@@ -648,7 +648,7 @@ export default ({
       <meta property="article:publisher" content={socialName?.url} />
       <meta name="author" content={`Redacción ${siteName}`} />
       <meta name="bi3dPubDate" content={publishDateZone} />
-      {sourceId && (
+      {sourceId && sourceId.includes('_story') && (
         <meta
           name="cms_old_id"
           content={sourceId.match(/_story([0-9]+)/, '$1')[1]}
@@ -708,7 +708,7 @@ export default ({
           />
         </>
       )}
-       {isAmp !== true &&
+      {isAmp !== true &&
         !(
           isPremium &&
           removeLastSlash(primarySectionLink) === '/archivo-elcomercio'
