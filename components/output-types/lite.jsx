@@ -453,15 +453,6 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        {arcSite === SITE_DEPOR && sectionAds === 'futbol-internacional' && (
-          <script
-            async
-            id="browsi-tag"
-            data-pubKey="elcomercio"
-            data-siteKey="deporperu"
-            src="https://cdn.browsiprod.com/bootstrap/bootstrap.js"
-          />
-        )}
         <LiteAds
           requestUri={requestUri}
           tags={tags}
