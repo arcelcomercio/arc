@@ -5,6 +5,7 @@ import { FB_APP_SECRET } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import request from 'request-promise-native'
 import { ConentSourceBase } from 'types/content-source'
+import { SubsArcSite } from 'types/subscriptions'
 import { v4 as uuidv4 } from 'uuid'
 
 import { PropertiesSite } from '../../components/features/subscriptions/_dependencies/Properties'
@@ -91,7 +92,7 @@ const fetch = (key: FbEventSignerParams): Promise<FbEventSignature> => {
   const site = key['arc-site']
   const { fbPixelId } = getProperties(site)
   const { debug, accessToken, event, ...data } = key || {}
-  const { urls } = PropertiesSite[site as 'elcomercio' | 'gestion']
+  const { urls } = PropertiesSite[site as SubsArcSite]
   const uri = `${urls.arcOrigin}/sales/public/v1/entitlements`
 
   return new Promise((resolve, reject) => {

@@ -1,3 +1,5 @@
+import { Domain } from './utils'
+
 interface Urls {
   canonical: string
   image: string
@@ -95,7 +97,9 @@ export interface Signwall {
   mainLogo: string
   mainColorBr: string
   mainColorLink: string
+  mainColorTitle: string
   authProviders: any[]
+  primaryFont: string
 }
 
 export interface Taboola {
@@ -127,7 +131,7 @@ export interface SiteProperties {
   siteTitle: string
   newsletterBrand: string
   colorPrimary: string
-  siteDomain: string
+  siteDomain: Domain
   siteUrl: string
   resizerUrl: string
   resizerSecretKeyEnvVar: string

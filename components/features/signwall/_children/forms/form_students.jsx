@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { ENVIRONMENT } from 'fusion:environment'
-import React, { useEffect, useState } from 'react'
+import Identity from '@arc-publishing/sdk-identity'
+import * as React from 'react'
 
+import { isProd } from '../../../../utilities/arc/env'
 import {
   deleteCookie,
   getCookie,
-  setCookieSession,
-} from '../../../subscriptions/_dependencies/Cookies'
+  setCookie,
+} from '../../../../utilities/client/cookies'
 import useForm from '../../../subscriptions/_hooks/useForm'
-import { getOriginAPI } from '../../_dependencies/domains'
 import { checkCodeStudents, checkStudents } from '../../_dependencies/services'
 import { Back } from '../icons'
 import { Input, Select } from './control_input_select'
@@ -16,9 +16,9 @@ import { Input, Select } from './control_input_select'
 const cookieStudents = 'EcoId.REQUEST_STUDENTS'
 
 const FormCode = ({ arcSite, showRequest }) => {
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
-  const [showLinkMail, setShowLinkMail] = useState(true)
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
+  const [showLinkMail, setShowLinkMail] = React.useState(true)
   const EMAIL_USER = JSON.parse(getCookie(cookieStudents)).uemail || ''
 
   const stateSchema = {
@@ -37,8 +37,7 @@ const FormCode = ({ arcSite, showRequest }) => {
 
   const sendRequestMail = () => {
     const REQUEST = JSON.parse(getCookie(cookieStudents))
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.extendSession()
+    Identity.extendSession()
       .then((resExtend) => {
         checkStudents(
           REQUEST.uemail,
@@ -66,8 +65,7 @@ const FormCode = ({ arcSite, showRequest }) => {
 
   const onSubmitFormCode = ({ ucode }) => {
     setShowLoading(true)
-    window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-    window.Identity.extendSession()
+    Identity.extendSession()
       .then((resExtend) => {
         checkCodeStudents(
           ucode.trim(),
@@ -79,10 +77,9 @@ const FormCode = ({ arcSite, showRequest }) => {
             if (resCode.status) {
               deleteCookie(cookieStudents)
               setTimeout(() => {
-                window.location.href =
-                  ENVIRONMENT === 'elcomercio'
-                    ? `/suscripcionesdigitales/DNI/00000000/${resCode.token}/`
-                    : `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=subscriptions`
+                window.location.href = isProd
+                  ? `/suscripcionesdigitales/DNI/00000000/${resCode.token}/`
+                  : `/suscripcionesdigitales/DNI/00000000/${resCode.token}/?outputType=subscriptions`
               }, 1000)
             } else {
               setShowLoading(false)
@@ -193,8 +190,8 @@ const FormCode = ({ arcSite, showRequest }) => {
 }
 
 const FormRequest = ({ arcSite, showCode }) => {
-  const [showError, setShowError] = useState(false)
-  const [showLoading, setShowLoading] = useState(false)
+  const [showError, setShowError] = React.useState(false)
+  const [showLoading, setShowLoading] = React.useState(false)
 
   const ListMonth = [
     'Enero',
@@ -294,18 +291,20 @@ const FormRequest = ({ arcSite, showCode }) => {
         const userCredentials = JSON.parse(
           window.localStorage.getItem('ArcId.USER_INFO') || '{}'
         )
-        window.Identity.userIdentity = userCredentials
-        window.Identity.options({ apiOrigin: getOriginAPI(arcSite) })
-        window.Identity.extendSession()
+        Identity.userIdentity = userCredentials
+        Identity.extendSession()
           .then((resExtend) => {
             checkStudents(uemail, udate, ugrade, arcSite, resExtend.accessToken)
               .then((res) => {
                 if (res.status) {
-                  setCookieSession(cookieStudents, {
-                    uemail,
-                    udate,
-                    ugrade,
-                  })
+                  setCookie(
+                    cookieStudents,
+                    JSON.stringify({
+                      uemail,
+                      udate,
+                      ugrade,
+                    })
+                  )
                   showCode()
                 }
                 setShowError(res.message)
@@ -482,9 +481,9 @@ const FormRequest = ({ arcSite, showCode }) => {
 }
 
 export const FormStudents = ({ arcSite }) => {
-  const [showReqCode, setShowReqCode] = useState(false)
+  const [showReqCode, setShowReqCode] = React.useState(false)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (getCookie(cookieStudents)) {
       setShowReqCode(true)
     }

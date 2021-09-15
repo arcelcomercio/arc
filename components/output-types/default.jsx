@@ -12,6 +12,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
+  SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
@@ -628,23 +629,7 @@ export default ({
           subtype={subtype}
         />
         {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
-        {/* <!-- Identity & Paywall - Inicio --> */}
-        {(() => {
-          if (
-            isElcomercioHome ||
-            !siteProperties.activeSignwall ||
-            isTrivia ||
-            isPreview
-          ) {
-            return null
-          }
-          return (
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-              defer
-            />
-          )
-        })()}
+        {/* <!-- Paywall - Inicio --> */}
         {(() => {
           if (
             isElcomercioHome ||
@@ -663,13 +648,21 @@ export default ({
             />
           )
         })()}
-        {/* <!-- Identity & Sales & Paywall - Fin --> */}
-        {enabledPushud && (
+        {/* <!-- Paywall - Fin --> */}
+        {enabledPushud || arcSite !== SITE_PERU21 ? (
           <>
             <script
               type="text/javascript"
               data-cfasync="false"
               dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+            />
+          </>
+        ) : (
+          <>
+            <script
+              type="text/javascript"
+              src="https://btloader.com/tag?o=5634903914840064&upapi=true"
+              async
             />
           </>
         )}
@@ -779,6 +772,15 @@ export default ({
             .toISOString()
             .slice(0, 10)}`}
         />
+        {arcSite === SITE_OJO && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
+              }}
+            />
+          </>
+        )}
         {(arcSite === SITE_DEPOR || arcSite === SITE_GESTION) &&
           isSearchSection && (
             <script

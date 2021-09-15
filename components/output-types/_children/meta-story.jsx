@@ -517,9 +517,7 @@ export default ({
     "headline":"${formatHtmlToText(title)}",
     "alternativeHeadline":"${formatHtmlToText(metaTitle)}",
     "description":"${
-      arcSite === 'elcomercio'
-        ? data?.description?.basic || formatHtmlToText(subTitle)
-        : formatHtmlToText(subTitle)
+      formatHtmlToText(data?.description?.basic) || formatHtmlToText(subTitle)
     }",
     ${publishingPrinciples}
   ${bodyStructured}
@@ -558,7 +556,7 @@ export default ({
   const taboolaScript =
     arcSite === SITE_ELCOMERCIOMAG ? SITE_ELCOMERCIO : arcSite
 
-  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){function e(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),t=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,t.parentNode.insertBefore(o,t)}}if("IntersectionObserver"in window){var o=new IntersectionObserver(function(t,n){t.forEach(function(t){t.isIntersecting&&(e(),o.unobserve(t.target))})},{rootMargin:"0px 0px 1200px 0px"}),t=document.getElementById("taboola-below-content-thumbnails");t&&o.observe(t)}else e()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
+  const scriptTaboola = `"use strict";window._taboola=window._taboola||[],_taboola.push({article:"auto"}),function(){if("undefined"!=typeof window){if(window.location.search.includes("widgettaboola=none"))return;document.addEventListener("DOMContentLoaded",function(){function e(){var e="tb_loader_script";if(!document.getElementById(e)){var o=document.createElement("script"),n=document.getElementsByTagName("script")[0];o.defer=1,o.src="//cdn.taboola.com/libtrc/grupoelcomercio-${taboolaScript}/loader.js",o.id=e,n.parentNode.insertBefore(o,n)}}if("IntersectionObserver"in window){var o=1200;/iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)&&(o=300);var n=new IntersectionObserver(function(o,t){o.forEach(function(o){o.isIntersecting&&(e(),n.unobserve(o.target))})},{rootMargin:"0px 0px "+o+"px 0px"}),t=document.getElementById("taboola-below-content-thumbnails");t&&n.observe(t)}else e()}),window.performance&&"function"==typeof window.performance.mark&&window.performance.mark("tbl_ic")}}();`
 
   /*  ******************************* Version con event scroll que iba a reemplazar a la lazyload
     window._taboola = window._taboola || [];
@@ -616,6 +614,11 @@ export default ({
             }
       
             if ('IntersectionObserver' in window) {
+              let marginTaboola = 1200;
+              const isMobile = /iPad|iPhone|iPod|android|webOS|Windows Phone/i.test(navigator.userAgent)
+              if (isMobile) {
+                marginTaboola = 300;
+              }
               const taboolaObserver = new IntersectionObserver(
                 (entries, observer) => {
                   entries.forEach(entry => {
@@ -624,7 +627,7 @@ export default ({
                       taboolaObserver.unobserve(entry.target)
                     }
                   })
-                },{rootMargin: "0px 0px 1200px 0px"}
+                },{rootMargin: "0px 0px "+marginTaboola+"px 0px"}
               )
 
               const taboolaDiv = document.getElementById('taboola-below-content-thumbnails')
@@ -708,11 +711,9 @@ export default ({
           />
         </>
       )}
-      {isAmp !== true &&
-        !(
-          isPremium &&
-          removeLastSlash(primarySectionLink) === '/archivo-elcomercio'
-        ) && <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />}
+      {isAmp !== true && (
+        <script dangerouslySetInnerHTML={{ __html: scriptTaboola }} />
+      )}
       {isAmp === true &&
         dataStructuraHtmlAmp.map((datas) => (
           <>
