@@ -25,7 +25,7 @@ export const formatHtmlToText = (html = ''): string => {
   const htmlData = html.toString()
 
   return htmlData
-    .replace(/"(.+)"/g, '“$1”')
+    .replace(/"(.+?)"/g, '“$1”')
     .replace(/<[^>]*>/g, '')
     .replace(/\\/g, '')
 }
