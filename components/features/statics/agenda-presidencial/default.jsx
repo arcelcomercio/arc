@@ -2,8 +2,10 @@
 // import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
 
+import AgendaNota from './_children/nota'
+
 // import * as React from 'react'
-import AgendaCalendario from './_children/calendario'
+// import AgendaCalendario from './_children/calendario'
 
 /**
  * @see estilos `src/websites/elcomercio/covid.scss`
@@ -11,7 +13,7 @@ import AgendaCalendario from './_children/calendario'
 
 const StaticsCovid = () => (
   <>
-    <AgendaCalendario />
+    <AgendaNota />
   </>
 )
 
