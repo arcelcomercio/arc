@@ -4,6 +4,7 @@
 import { useAppContext } from 'fusion:context'
 import React from 'react'
 
+import { addSlashToEnd } from '../../../../utilities/parse/strings'
 import {
   edicionMenu,
   getBtnSignScript,
@@ -232,7 +233,7 @@ export default ({
             <li className={classes.item} key={`navbar-menu-${url || id}`}>
               <a
                 itemProp="url"
-                href={url || id || '/'}
+                href={addSlashToEnd(url || id || '/')}
                 className={classes.link}
                 style={{ paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px` }}>
                 {name || displayName}
@@ -330,7 +331,7 @@ export default ({
                           <li className={classes.headerItem}>
                             <a
                               itemProp="url"
-                              href={item.url || item._id || '/'}
+                              href={addSlashToEnd(item.url || item._id || '/')}
                               className={`${classes.headerLink} pt-15 pb-15`}>
                               {item.name || item.display_name}
                             </a>
@@ -348,7 +349,9 @@ export default ({
                                     <li className={classes.subMenuItem}>
                                       <a
                                         itemProp="url"
-                                        href={subItem.url || subItem._id || '/'}
+                                        href={addSlashToEnd(
+                                          subItem.url || subItem._id || '/'
+                                        )}
                                         className={classes.headerLink}>
                                         {subItem.name || subItem.display_name}
                                       </a>
@@ -449,7 +452,7 @@ export default ({
               {isDeporPlay && urlLogoPlay !== '' && (
                 <a
                   itemProp="url"
-                  href="/"
+                  href="/depor-play/"
                   className="header-full__logo-play"
                   title={siteDomain}>
                   <img

@@ -1,5 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
+
+import { deleteQueryString } from '../utilities/parse/queries'
 import { addParamToEndPath } from '../utilities/parse/strings'
 
 const classes = {
@@ -60,7 +62,7 @@ const createPaginator = (currentPage, totalPages) => {
   return listPages
 }
 
-const testSearchPath = path => {
+const testSearchPath = (path) => {
   let newPath = path
   let regex = /^\/buscar\/.+$/g
   if (regex.test(path)) {
@@ -82,7 +84,7 @@ const testSearchPath = path => {
   return newPath
 }
 
-const Pagination = props => {
+const Pagination = (props) => {
   const { totalElements, storiesQty, requestUri } = props
   let { currentPage } = props
 
@@ -96,8 +98,12 @@ const Pagination = props => {
   const nextPage = currentPage === 0 ? currentPage + 2 : currentPage + 1
   const prevPage = currentPage - 1
 
-  const urlPrevPage = addParamToEndPath(pathOrigin, prevPage) // `${pathOrigin}/${prevPage}/`
-  const urlNextPage = addParamToEndPath(pathOrigin, nextPage) // `${pathOrigin}/${nextPage}/`
+  const urlPrevPage = deleteQueryString(
+    addParamToEndPath(pathOrigin, prevPage) || ''
+  ) // `${pathOrigin}/${prevPage}/`
+  const urlNextPage = deleteQueryString(
+    addParamToEndPath(pathOrigin, nextPage) || ''
+  ) // `${pathOrigin}/${nextPage}/`
 
   return (
     <div
@@ -156,7 +162,9 @@ const Pagination = props => {
         const key = `pagination-${i}-${page || ''}`
 
         if (page !== '...') {
-          const urlPage = addParamToEndPath(pathOrigin, page) // `${pathOrigin}/${page}/`
+          const urlPage = deleteQueryString(
+            addParamToEndPath(pathOrigin, page) || ''
+          ) // `${pathOrigin}/${page}/`
           if (currentPage === page || (currentPage === 0 && page === 1)) {
             tag = (
               <span
@@ -171,7 +179,7 @@ const Pagination = props => {
                 itemProp="url"
                 key={key}
                 className={classes.page}
-                href={pathOrigin}>
+                href={deleteQueryString(pathOrigin || '')}>
                 {page}
               </a>
             )

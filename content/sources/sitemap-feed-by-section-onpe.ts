@@ -1,10 +1,10 @@
 import getProperties from 'fusion:properties'
 import { ConentSourceBase } from 'types/content-source'
 import { ArcSite } from 'types/fusion'
+import { InlinePresets } from 'types/resizer'
 import { Stories, Story } from 'types/story'
 
 import { removeLastSlash } from '../../components/utilities/parse/strings'
-import { InlinePresets } from '../../components/utilities/resizer/format-presets'
 import { getResizedImageData } from '../../components/utilities/resizer/resizer'
 
 const SCHEMA_NAME = 'stories-dev'

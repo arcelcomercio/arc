@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { useContent, useEditableContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import schemaFilter from './_dependencies/schema-filter'
 import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
   breakingnews: `breaking-news secondary-font flex justify-between mt-20 md:mt-0 pt-15 pb-15 pl-20 pr-20 text-white`,
@@ -23,7 +23,7 @@ const classes = {
 }) */
 const handleClose = `"use strict";requestIdle(function(){document.getElementById("close-breaking-news").addEventListener("click",function(){document.getElementById("breaking-news").remove()})});`
 
-const BreakingNewsFeat = props => {
+const BreakingNewsFeat = (props) => {
   const {
     customFields: {
       title,
@@ -39,8 +39,10 @@ const BreakingNewsFeat = props => {
   const { arcSite } = useAppContext()
   const { editableField } = useEditableContent()
 
+  const isStory = /^\/.*\/.*-noticia/.test(storyLink)
+
   const article = useContent(
-    storyLink
+    storyLink && !storyLink.includes('?') && isStory
       ? {
           source: 'story-by-url',
           query: {
@@ -75,8 +77,8 @@ const BreakingNewsFeat = props => {
             <h2 itemProp="name" className={classes.text}>
               {showIcon ? (
                 <>
-                  <span className={classes.envivoborder}></span>
-                  <span className={classes.envivo}></span>
+                  <span className={classes.envivoborder} />
+                  <span className={classes.envivo} />
                 </>
               ) : null}
               <span
@@ -89,11 +91,12 @@ const BreakingNewsFeat = props => {
                 <a
                   itemProp="url"
                   className={classes.link}
-                  href={`${objContent.link}${
-                    objContent.link.includes('?')
-                      ? '&ref=article&source=cintillo'
-                      : '?ref=article&source=cintillo'
-                  }`}
+                  // href={`${objContent.link}${
+                  //   objContent.link.includes('?')
+                  //     ? '&ref=article&source=cintillo'
+                  //     : '?ref=article&source=cintillo'
+                  // }`}
+                  href={objContent.link} // Eliminado query strings por motivos de SEO
                   rel="noopener noreferrer"
                   {...editableField('title')}
                   suppressContentEditableWarning>
@@ -110,7 +113,7 @@ const BreakingNewsFeat = props => {
               <i className={classes.icon} aria-hidden="true" />
             </button>
           </div>
-          <script dangerouslySetInnerHTML={{ __html: handleClose }}></script>
+          <script dangerouslySetInnerHTML={{ __html: handleClose }} />
         </>
       ) : null}
     </>

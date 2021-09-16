@@ -2,14 +2,11 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../../utilities/assets'
+import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
-  ModalConsumer,
   ModalProvider,
+  useModalContext,
 } from '../../../../subscriptions/_context/modal'
-import {
-  deleteQuery,
-  getQuery,
-} from '../../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import FormForgot from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
@@ -47,7 +44,7 @@ export const PaywallInt = ({ properties }) => {
     },
   } = useAppContext() || {}
 
-  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
+  const { selectedTemplate, valTemplate } = useModalContext()
 
   // const handleLeavePage = (event) => {
   //   event.preventDefault()

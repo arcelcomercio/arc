@@ -60,13 +60,22 @@
     // padding-top: 2px
   }
   &__stars {
-    display: none;
+    // display: none;
     // display: inline-block;
     float: right;
-    width: 50%;
+    width: 40%;
     padding: 3px 0;
     text-align: right;
     border-bottom: 1px solid #0000004d;
+    &--color {
+      &::before {
+        text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+        color: #7360bc !important;
+        content: "★";
+        position: absolute;
+        // left: 0;
+      }
+    }
   }
   &__title {
     // font: normal normal bold 19px/24px $primary-font;

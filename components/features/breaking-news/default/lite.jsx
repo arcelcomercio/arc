@@ -37,8 +37,10 @@ const BreakingNewsFeat = (props) => {
 
   const { arcSite } = useAppContext()
 
+  const isStory = /^\/.*\/.*-noticia/.test(storyLink)
+
   const article = useContent(
-    storyLink
+    storyLink && !storyLink.includes('?') && isStory
       ? {
           source: 'story-by-url',
           query: {
@@ -74,11 +76,12 @@ const BreakingNewsFeat = (props) => {
               <a
                 itemProp="url"
                 className={classes.link}
-                href={`${objContent.link}${
-                  objContent.link.includes('?')
-                    ? '&ref=article&source=cintillo'
-                    : '?ref=article&source=cintillo'
-                }`}
+                // href={`${objContent.link}${
+                //   objContent.link.includes('?')
+                //     ? '&ref=article&source=cintillo'
+                //     : '?ref=article&source=cintillo'
+                // }`}
+                href={objContent.link} // Eliminado query strings por motivos de SEO
                 rel="noopener noreferrer">
                 {showIcon ? (
                   <>

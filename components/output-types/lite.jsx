@@ -296,7 +296,7 @@ const LiteOutput = ({
           <>
             <meta name="resource-type" content="document" />
             <meta content="global" name="distribution" />
-            {arcSite === 'trome' && isStory ? (
+            {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
               <meta
                 name="robots"
                 content={`${
@@ -306,7 +306,7 @@ const LiteOutput = ({
             ) : (
               <meta name="robots" content="index, follow" />
             )}
-            {arcSite === 'trome' ? null : (
+            {arcSite === 'trome' || arcSite === 'depor' ? null : (
               <meta name="GOOGLEBOT" content="index follow" />
             )}
             <meta name="author" content={siteProperties.siteName} />
@@ -453,15 +453,6 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        {arcSite === SITE_DEPOR && sectionAds === 'futbol-internacional' && (
-          <script
-            async
-            id="browsi-tag"
-            data-pubKey="elcomercio"
-            data-siteKey="deporperu"
-            src="https://cdn.browsiprod.com/bootstrap/bootstrap.js"
-          />
-        )}
         <LiteAds
           requestUri={requestUri}
           tags={tags}
@@ -577,6 +568,21 @@ const LiteOutput = ({
               ) : null
             }
           </Resource>
+        ) : null }
+        {metaValue('section_style') === 'saltar-intro' ? (
+          <Resource path="resources/dist/elcomercio/css/lite-saltar-intro.css">
+            {({ data }) =>
+              data ? (
+                <style
+                  dangerouslySetInnerHTML={{
+                    __html: data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', ''),
+                  }}
+                />
+              ) : null
+            }
+          </Resource>
         ) : null}
         <ChartbeatBody
           story={isStory}
@@ -595,18 +601,12 @@ const LiteOutput = ({
         {isPremium &&
         (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
         !isPreview ? (
-          <>
-            <script
-              src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
-                .toISOString()
-                .slice(0, 10)}`}
-              async
-            />
-            <script
-              src={`https://arc-subs-sdk.s3.amazonaws.com/${CURRENT_ENVIRONMENT}/sdk-identity.min.js?v=07112019`}
-              defer
-            />
-          </>
+          <script
+            src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+            async
+          />
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
         {/* ============== WebTracking */}
@@ -624,7 +624,15 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-
+        {arcSite === SITE_PERU21 ? (
+          <>
+            <script
+              type="text/javascript"
+              src="https://btloader.com/tag?o=5634903914840064&upapi=true"
+              async
+            />
+          </>
+        ) : null}
         {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script
@@ -801,40 +809,26 @@ const LiteOutput = ({
             requestUri.includes('/wikibocon/')
           }
         />
-        {arcSite === SITE_DEPOR &&
-        (sectionAds === 'futbol-internacional' ||
-          sectionAds === 'futbol-peruano' ||
-          sectionAds === 'full-deportes') ? (
+        {arcSite === SITE_ELCOMERCIOMAG ||
+        arcSite === SITE_PERU21 ||
+        arcSite === SITE_TROME ||
+        arcSite === SITE_ELBOCON ||
+        arcSite === SITE_DEPOR ||
+        arcSite === SITE_OJO ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
         ) : (
-          <>
-            {arcSite === SITE_ELCOMERCIOMAG ||
-            arcSite === SITE_PERU21 ||
-            arcSite === SITE_TROME ||
-            arcSite === SITE_ELBOCON ||
-            arcSite === SITE_DEPOR ||
-            arcSite === SITE_OJO ? (
-              <script
-                defer
-                src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}
-              />
-            ) : (
-              <script
-                type="module"
-                defer
-                src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
-                  .toISOString()
-                  .slice(0, 10)}`}
-              />
-            )}
-          </>
+          <script
+            type="module"
+            defer
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-development/public/js/main.js?v=${new Date()
+              .toISOString()
+              .slice(0, 10)}`}
+          />
         )}
         {isStory && (
           <>
@@ -877,6 +871,15 @@ const LiteOutput = ({
                 />
               </>
             )}
+          </>
+        )}
+        {arcSite === SITE_OJO && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
+              }}
+            />
           </>
         )}
         {vallaSignwall === false &&

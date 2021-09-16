@@ -12,7 +12,7 @@ type BgProps = {
 }
 
 type ColorProps = {
-  color: string
+  color?: string
 }
 
 export const Google = (): JSX.Element => (

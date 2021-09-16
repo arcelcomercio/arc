@@ -2,14 +2,11 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../utilities/assets'
+import { deleteQuery, getQuery } from '../../../../utilities/parse/queries'
 import {
-  ModalConsumer,
   ModalProvider,
+  useModalContext,
 } from '../../../subscriptions/_context/modal'
-import {
-  deleteQuery,
-  getQuery,
-} from '../../../subscriptions/_dependencies/QueryString'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import FormForgot from '../forms/form_forgot'
 import { FormLoginPaywall } from '../forms/form_login_landing'
@@ -39,7 +36,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
 export const LandingInt = ({ properties }) => {
   const { onClose, noBtnClose, typeDialog } = properties
   const { arcSite, contextPath } = useAppContext() || {}
-  const { selectedTemplate, valTemplate } = React.useContext(ModalConsumer)
+  const { selectedTemplate, valTemplate } = useModalContext()
   const IMG = typeDialog === 'landing' ? 'bg_login' : 'bg_students'
 
   return (
