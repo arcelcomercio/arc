@@ -4,33 +4,33 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { setCookie } from '../../../../utilities/client/cookies'
-import { useModalContext } from '../../../subscriptions/_context/modal'
+import { setCookie } from '../../../../../utilities/client/cookies'
+import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
   formatPass,
   formatPhone,
-} from '../../../subscriptions/_dependencies/Errors'
-import getDevice from '../../../subscriptions/_dependencies/GetDevice'
-import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import useForm from '../../../subscriptions/_hooks/useForm'
+} from '../../../../subscriptions/_dependencies/Errors'
+import getDevice from '../../../../subscriptions/_dependencies/GetDevice'
+import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../../subscriptions/_hooks/useForm'
 import {
   dataTreatment,
   getUrlPaywall,
   PolicyPrivacy,
   TermsConditions,
-} from '../../_dependencies/domains'
+} from '../../../_dependencies/domains'
 import {
   getEntitlement,
   sendNewsLettersUser,
-} from '../../_dependencies/services'
-import { MsgRegister } from '../icons'
-import Loading from '../loading'
-import { CheckBox } from './control_checkbox'
-import { Input } from './control_input_select'
-import { AuthURL, ButtonSocial } from './control_social'
-import { FormStudents } from './form_students'
+} from '../../../_dependencies/services'
+import { MsgRegister } from '../../icons'
+import Loading from '../../loading'
+import { CheckBox } from '../control_checkbox'
+import { Input } from '../control_input_select'
+import { AuthURL, ButtonSocial } from '../control_social'
+import { FormStudents } from '../form_students'
 
 const FormRegisterAux = ({
   typeDialog,
@@ -46,7 +46,7 @@ const FormRegisterAux = ({
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
-      activePhoneRegister,
+      // activePhoneRegister,
       siteDomain,
     },
   } = useAppContext() || {}
@@ -307,11 +307,15 @@ const FormRegisterAux = ({
   }
 
   const {
-    values: { remail, rpass, rphone },
+    values: {
+      remail,
+      rpass,
+      //  , rphone
+    },
     errors: {
       remail: remailError,
       rpass: rpassError,
-      rphone: rphoneError,
+      // rphone: rphoneError,
       rterms: rtermsError,
     },
     handleOnChange,
@@ -379,9 +383,9 @@ const FormRegisterAux = ({
                       )}
                     </div>
                   )}
-                  <p className="signwall-inside_forms-text mt-15"
-                      style={{fontWeight: 'bold',fontSize: '18px' }}
-                  >
+                  <p
+                    className="signwall-inside_forms-text mt-15"
+                    style={{ fontWeight: 'bold', fontSize: '18px' }}>
                     Registrarme
                   </p>
                   <Input
@@ -428,6 +432,35 @@ const FormRegisterAux = ({
                     {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
                   </button>
 
+                  {authProviders.map((item) => (
+                    <ButtonSocial
+                      key={item}
+                      brand={item}
+                      size={sizeBtnSocial}
+                      defaultSize="default-size"
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+                  ))}
+
+                  <AuthURL
+                    arcSite={arcSite}
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    activeNewsletter={activeNewsletter}
+                    typeForm="registro"
+                    onLogged={onLogged}
+                    checkUserSubs={checkUserSubs}
+                    onStudents={() => setShowStudents(!showStudents)}
+                  />
+
                   {/* {!activePhoneRegister && (
                     <Input
                       type="tel"
@@ -447,42 +480,7 @@ const FormRegisterAux = ({
                   <div
                     style={{
                       marginTop: '10px',
-                    }}
-                    className={isTromeOrganic ? 'group-float-trome' : ''}>
-                    {isTromeOrganic && (
-                      <h1 className="group-float-trome__title">
-                        ¡Regístrate gratis!
-                      </h1>
-                    )}
-
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
-                        dataTreatment={checkedPolits ? '1' : '0'}
-                      />
-                    ))}
-
-                    <AuthURL
-                      arcSite={arcSite}
-                      onClose={onClose}
-                      typeDialog={typeDialog}
-                      activeNewsletter={activeNewsletter}
-                      typeForm="registro"
-                      onLogged={onLogged}
-                      checkUserSubs={checkUserSubs}
-                      onStudents={() => setShowStudents(!showStudents)}
-                    />
-
+                    }}>
                     <p
                       style={{
                         fontSize: '12px',

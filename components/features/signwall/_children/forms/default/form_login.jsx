@@ -4,26 +4,26 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { setCookie } from '../../../../utilities/client/cookies'
-import { SITE_TROME } from '../../../../utilities/constants/sitenames'
-import { useModalContext } from '../../../subscriptions/_context/modal'
+import { setCookie } from '../../../../../utilities/client/cookies'
+import { SITE_TROME } from '../../../../../utilities/constants/sitenames'
+import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   formatEmail,
   formatPass,
-} from '../../../subscriptions/_dependencies/Errors'
-import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import useForm from '../../../subscriptions/_hooks/useForm'
+} from '../../../../subscriptions/_dependencies/Errors'
+import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../../subscriptions/_hooks/useForm'
 import {
   dataTreatment,
   getUrlPaywall,
   PolicyPrivacy,
-} from '../../_dependencies/domains'
-import { getEntitlement } from '../../_dependencies/services'
-import { MsgRegister } from '../icons'
-import Loading from '../loading'
-import { CheckBox } from './control_checkbox'
-import { Input } from './control_input_select'
-import { AuthURL, ButtonEmail, ButtonSocial } from './control_social'
+} from '../../../_dependencies/domains'
+import { getEntitlement } from '../../../_dependencies/services'
+import { MsgRegister } from '../../icons'
+import Loading from '../../loading'
+import { CheckBox } from '../control_checkbox'
+import { Input } from '../control_input_select'
+import { AuthURL, ButtonEmail, ButtonSocial } from '../control_social'
 
 const FormLogin = ({ valTemplate, attributes }) => {
   const {
@@ -49,10 +49,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
     removeBefore = (i) => i,
     onLogged = (i) => i,
   } = attributes
-
-  const isTromeOrganic =
-    arcSite === SITE_TROME &&
-    (typeDialog === 'organico' || typeDialog === 'verify')
 
   const { changeTemplate } = useModalContext()
   const [showLoginEmail, setShowLoginEmail] = React.useState(
@@ -283,15 +279,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
       {!showCheckPremium ? (
         <>
           <form
-            className={`signwall-inside_forms-form ${
-              arcSite === SITE_TROME ? 'form-trome' : ''
-            } ${typeDialog}`}
+            className={`signwall-inside_forms-form ${typeDialog}`}
             onSubmit={handleOnSubmit}>
-            <div className={isTromeOrganic ? 'group-float-trome' : ''}>
-              {isTromeOrganic && (
-                <h1 className="group-float-trome__title">Ingresa</h1>
-              )}
-
+            <div>
               {typeDialog === 'paywall' && !showLoginEmail && (
                 <h4
                   style={{ fontSize: '22px', fontFamily: primaryFont }}
@@ -301,47 +291,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 </h4>
               )}
 
-              <p className="signwall-inside_forms-text mb-10 mt-10 center">
-                {arcSite === SITE_TROME
-                  ? 'Accede fácilmente con:'
-                  : ' Ingresa con'}
+              <p
+                className="signwall-inside_forms-text mb-10 mt-10"
+                style={{ fontWeight: 'bold', fontSize: '16.5px' }}>
+                Ingresar
               </p>
-
-              {authProviders.map((item) => (
-                <ButtonSocial
-                  key={item}
-                  brand={item}
-                  size="middle"
-                  onClose={onClose}
-                  typeDialog={typeDialog}
-                  arcSite={arcSite}
-                  typeForm="login"
-                  activeNewsletter={activeNewsletter}
-                  checkUserSubs={checkUserSubs}
-                  onLogged={onLogged}
-                  showMsgVerify={() => triggerShowVerify()}
-                  dataTreatment={checkedPolits ? '1' : '0'}
-                />
-              ))}
-
-              <AuthURL
-                arcSite={arcSite}
-                onClose={onClose}
-                typeDialog={typeDialog}
-                activeNewsletter={activeNewsletter}
-                typeForm="login"
-                onLogged={onLogged}
-                checkUserSubs={checkUserSubs}
-              />
-
-              {arcSite === SITE_TROME && (
-                <p className="signwall-inside_forms-text mt-15 center">
-                  o completa tus datos para acceder
-                </p>
-              )}
             </div>
-
-            {isTromeOrganic && <div className="spacing-trome" />}
 
             {!showLoginEmail && (
               <ButtonEmail
@@ -434,7 +389,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 <button
                   type="submit"
                   className="signwall-inside_forms-btn"
-                  style={{ color: mainColorBtn, background: mainColorLink }}
+                  style={{
+                    color: mainColorBtn,
+                    background: mainColorLink,
+                    marginBottom: '15px',
+                  }}
                   disabled={disable || showLoading || showFormatInvalid}
                   onClick={() =>
                     Taggeo(
@@ -446,7 +405,32 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 </button>
               </>
             )}
-
+            {authProviders.map((item) => (
+              <ButtonSocial
+                key={item}
+                size="middle"
+                brand={item}
+                defaultSize="default-size"
+                onClose={onClose}
+                typeDialog={typeDialog}
+                arcSite={arcSite}
+                typeForm="login"
+                activeNewsletter={activeNewsletter}
+                checkUserSubs={checkUserSubs}
+                onLogged={onLogged}
+                showMsgVerify={() => triggerShowVerify()}
+                dataTreatment={checkedPolits ? '1' : '0'}
+              />
+            ))}
+            <AuthURL
+              arcSite={arcSite}
+              onClose={onClose}
+              typeDialog={typeDialog}
+              activeNewsletter={activeNewsletter}
+              typeForm="login"
+              onLogged={onLogged}
+              checkUserSubs={checkUserSubs}
+            />
             <p
               style={{
                 fontSize: '12px',
