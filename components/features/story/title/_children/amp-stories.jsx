@@ -4,6 +4,7 @@ import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
+  SITE_ELCOMERCIO,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
@@ -102,6 +103,20 @@ const AmpStoriesChild = ({ arcSite }) => (
         layout="fixed-height"
         sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
         src="https://stories.gestion.pe/spc/load/ZECO_453_877_194/228/amp/stories-amp"
+        noloading="">
+        <amp-img
+          layout="fill"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+          placeholder
+        />
+      </amp-iframe>
+    )}
+    {arcSite === SITE_ELCOMERCIO && (
+      <amp-iframe
+        height="150"
+        layout="fixed-height"
+        sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
+        src="https://stories.elcomercio.pe/spc/load/ZECO_453_877_194/227/amp/stories-amp"
         noloading="">
         <amp-img
           layout="fill"
