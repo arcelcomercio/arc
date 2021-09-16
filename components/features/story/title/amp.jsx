@@ -3,7 +3,11 @@ import getProperties from 'fusion:properties'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
-import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import {
+  SITE_DEPOR,
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+} from '../../../utilities/constants/sitenames'
 import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 import {
   publicidadAmp,
@@ -27,7 +31,12 @@ const classes = {
   listClasses: 'amp-story-content mt-20',
 }
 const StoryTitleAmp = () => {
-  const { arcSite, contextPath, globalContent: data } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    globalContent: data,
+    requestUri = '',
+  } = useFusionContext()
 
   const { adsAmp } = getProperties(arcSite)
 
@@ -108,7 +117,12 @@ const StoryTitleAmp = () => {
             </div>
           ) : null}
 
-          <AmpStoriesChild arcSite={arcSite} />
+          {arcSite === SITE_ELCOMERCIO ||
+          (arcSite === SITE_DEPOR &&
+            (/^\/mexico\//.test(requestUri) ||
+              /^\/colombia\//.test(requestUri))) ? null : (
+            <AmpStoriesChild arcSite={arcSite} />
+          )}
 
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
 
