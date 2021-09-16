@@ -3,8 +3,9 @@
 import PropTypes from 'prop-types'
 
 // import * as React from 'react'
-import AgendaCalendario from './_children/calendario'
+// import AgendaCalendario from './_children/calendario'
 import NavBar from './_children/navbar'
+import AgendaNota from './_children/nota'
 
 /**
  * @see estilos `src/websites/elcomercio/agenda-presidencial.scss`
@@ -13,7 +14,8 @@ import NavBar from './_children/navbar'
 const StaticsAgendaPresidencial = () => (
   <>
     <NavBar isNota day="2021-09-13" />
-    <AgendaCalendario />
+    <AgendaNota />
+    {/* <AgendaCalendario /> */}
   </>
 )
 

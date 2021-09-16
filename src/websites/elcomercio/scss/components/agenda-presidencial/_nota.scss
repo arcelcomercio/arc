@@ -1,0 +1,95 @@
+.agenda-presidencial__nota {
+  /*
+  &__image {
+    height: 511.96px;
+    width: 428px;
+  }
+  */
+
+  &__contenedor {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__elemento__contenedor1 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__elemento__parrafo {
+    margin: 22.5px 38px 10.5px 44.48px;
+    max-width: 361.52px;
+    font-size: 18px;
+    line-height: 30px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    @media (--desktop) {
+      max-width: 589.77px;
+      margin: 15px 195.62px 15px 214.62px;
+    }
+  }
+
+  &__linea {
+    border: 1px dashed #d64b4b;
+    width: 362px;
+    margin: 15.41px 22px 9.18px 44.48px;
+    @media (--desktop) {
+      width: 605px;
+      margin: 17.9px 195.5px 0 199.5px;
+    }
+  }
+
+  &__elemento__indicador {
+    margin: 23px 89.52px 0 44.48px;
+    max-width: 294px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 18px;
+    line-height: 30px;
+    @media (--desktop) {
+      margin: 24px 491.38px 0 214.62px;
+    }
+  }
+
+  &__elemento__contenedor2 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__elemento__caja {
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 13.96px 38px 213px 39px;
+    border: 1px solid #ccc;
+    width: 351px;
+    height: 180px;
+    @media (--desktop) {
+      border: 1px solid #ccc;
+      margin: 15px 324px 156px 325px;
+    }
+  }
+
+  &__informe {
+    margin: 23.25px 21.5px 10px 20.5px;
+    width: 309px;
+    height: 180px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  &__vernota {
+    margin: 13px 210.15px 23.25px 20.5px;
+    padding: 9px 24px 8px 24px;
+    width: 120px;
+    height: 36px;
+    border-radius: 15px;
+    color: rgb(91, 93, 95);
+    background-color: rgb(224, 210, 15);
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    font-weight: bold;
+    @media (--desktop) {
+      margin: 10px 40px 10px 10px;
+    }
+  }
+}
