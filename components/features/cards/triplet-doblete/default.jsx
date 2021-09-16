@@ -2,10 +2,7 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
-import {
-  includeCredits,
-  includePrimarySection,
-} from '../../../utilities/included-fields'
+import { featuredStoryFields } from '../../../utilities/included-fields'
 import TripleteDobleteCard from './_children/triplete-doblete'
 import customFields from './_dependencies/custom-fields'
 import { getParams } from './_dependencies/functions'
@@ -55,9 +52,7 @@ const TripletDoblete = (props) => {
     } = {},
   } = props
 
-  const includedFields = `websites.${arcSite}.website_url,headlines.basic,${includeCredits},${includePrimarySection(
-    { arcSite }
-  )}`
+  const includedFields = featuredStoryFields
 
   const dataAutomatico1 =
     useContent({

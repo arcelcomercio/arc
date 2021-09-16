@@ -105,6 +105,10 @@
       color: $main-color-black;
     }
 
+    .triplet-doblete__icon {
+      background-color: $sub-color-opinion;
+    }
+
     &.triplet-doblete__item--inverted {
       .triplet-doblete__information {
         background-color: $sub-color-opinion;
@@ -243,6 +247,10 @@
       color: $main-color-black;
     }
 
+    .triplet-doblete__icon {
+      background-color: $sub-color-celebrities;
+    }
+
     &.triplet-doblete__item--inverted {
       .triplet-doblete__information {
         background-color: $sub-color-celebrities;
@@ -377,6 +385,10 @@
       color: $main-color-black;
     }
 
+    .triplet-doblete__icon {
+      background-color: $sub-color-deportes;
+    }
+
     &.triplet-doblete__item--inverted {
       .triplet-doblete__information {
         background-color: $sub-color-deportes;
@@ -509,6 +521,10 @@
 
     .triplet-doblete__author {
       color: $main-color-black;
+    }
+
+    .triplet-doblete__icon {
+      background-color: $sub-color-historias;
     }
 
     &.triplet-doblete__item--inverted {
@@ -655,6 +671,10 @@
 
     .triplet-doblete__author {
       color: $main-color-black;
+    }
+
+    .triplet-doblete__icon {
+      background-color: $sub-color-virales;
     }
 
     &.triplet-doblete__item--inverted {

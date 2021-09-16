@@ -131,14 +131,13 @@
   }
 
   &__icon {
-    background-image: url($assets_url + "/resources/dist/trome/images/rgba70.png");
-    border-radius: 10px;
-    color: $color-gray-300;
+    background-color: $main-color-orange;
+    color: $main-color-white;
+    border-radius: 5px;
     pointer-events: none;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 26px;
+    width: 36px;
+    height: 36px;
+    font-size: 30px;
     position: absolute;
     display: flex;
     align-items: center;
@@ -195,11 +194,6 @@
   &__title-line-triplete {
     -webkit-line-clamp: 3;
   }
-}
-
-.icon-img::before {
-  content: "\e901";
-  color: white;
 }
 
 // ? Triplet Inverted Colors:
