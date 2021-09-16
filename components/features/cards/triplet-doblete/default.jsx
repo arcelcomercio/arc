@@ -6,14 +6,12 @@ import {
   includeCredits,
   includePrimarySection,
 } from '../../../utilities/included-fields'
-import {
-  getParams
-}
-  from './_dependencies/functions'
 import TripleteDobleteCard from './_children/triplete-doblete'
 import customFields from './_dependencies/custom-fields'
-import schemaFilter from './_dependencies/schema-filter'
 import Data from './_dependencies/data'
+import { getParams } from './_dependencies/functions'
+import schemaFilter from './_dependencies/schema-filter'
+
 const API_STORY_BY_URL = 'story-by-url'
 // const API_FEED_BY_COLLECTION = 'story-feed-by-collection'
 
@@ -39,6 +37,25 @@ const TripletDoblete = (props) => {
       invertColor1,
       invertColor2,
       invertColor3,
+      hideAuthorSection1,
+      hideAuthorSection2,
+      hideAuthorSection3,
+      adsSpace,
+      adsSpace2,
+      adsSpace3,
+      multimediaOrientation,
+      headerField1,
+      headerField2,
+      headerField3,
+      titleField1,
+      titleField2,
+      titleField3,
+      authorOrSectionField1,
+      authorOrSectionField2,
+      authorOrSectionField3,
+      image1,
+      image2,
+      image3,
     } = {},
   } = props
 
@@ -67,26 +84,54 @@ const TripletDoblete = (props) => {
       filter: schemaFilter(arcSite),
     }) || {}
 
-  const paramsAutomatico1 = getParams(dataAutomatico1, arcSite, contextPath, deployment, invertColor1)
-  const paramsAutomatico2 = getParams(dataAutomatico2, arcSite, contextPath, deployment, invertColor2)
-  const paramsAutomatico3 = getParams(dataAutomatico3, arcSite, contextPath, deployment, invertColor3)
+  const paramsAutomatico1 = getParams(
+    dataAutomatico1,
+    arcSite,
+    contextPath,
+    deployment
+  )
+  const paramsAutomatico2 = getParams(
+    dataAutomatico2,
+    arcSite,
+    contextPath,
+    deployment
+  )
+  const paramsAutomatico3 = getParams(
+    dataAutomatico3,
+    arcSite,
+    contextPath,
+    deployment
+  )
+
+  console.log('-------------------------------')
+  console.log('Props:')
+  console.log(props)
+  console.log('-------------------------------')
+
+  console.log('-------------------------------')
+  console.log('Data Automático:')
+  console.log(dataAutomatico1)
+  console.log(dataAutomatico2)
+  console.log(dataAutomatico3)
+  console.log('-------------------------------')
+
+  console.log('-------------------------------')
+  console.log('Parametros Automáticos:')
+  console.log(paramsAutomatico1)
+  console.log(paramsAutomatico2)
+  console.log(paramsAutomatico3)
+  console.log('-------------------------------')
 
   /* FIN AUTOMATICO */
 
   /* MANUAL */
-
-  const { customFields } = props
-  const { webskedId, adsSpace, adsSpace2, adsSpace3, multimediaOrientation } = customFields
-
-  const presets = 'no-presets'
-
   const adsSpaces =
     useContent(
       adsSpace && adsSpace !== 'none'
         ? {
-          source: 'get-ads-spaces',
-          query: { space: adsSpace },
-        }
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
+          }
         : {}
     ) || {}
 
@@ -94,61 +139,30 @@ const TripletDoblete = (props) => {
     useContent(
       adsSpace2 && adsSpace2 !== 'none'
         ? {
-          source: 'get-ads-spaces',
-          query: { space: adsSpace2 },
-        }
+            source: 'get-ads-spaces',
+            query: { space: adsSpace2 },
+          }
         : {}
     ) || {}
   const adsSpaces3 =
     useContent(
       adsSpace3 && adsSpace3 !== 'none'
         ? {
-          source: 'get-ads-spaces',
-          query: { space: adsSpace3 },
-        }
+            source: 'get-ads-spaces',
+            query: { space: adsSpace3 },
+          }
         : {}
     ) || {}
 
-  // URLs de historias
-
-  const {
-    data1: url1,
-    data2: url2,
-    data3: url3,
-    image1 = '',
-    image2 = '',
-    image3 = '',
-  } = customFields || {}
-
   // functions
-  const fetchDataModel = url => {
-    return {
-      source: API_STORY_BY_URL,
-      query: { website_url: url, presets },
-      filter: schemaFilter(arcSite),
-    }
-  }
-
-  const data1 = useContent(url1 ? fetchDataModel(url1) : {}) || {}
-  const data2 = useContent(url2 ? fetchDataModel(url2) : {}) || {}
-  const data3 = useContent(url3 ? fetchDataModel(url3) : {}) || {}
-
-  const data = new Data({
-    deployment,
-    contextPath,
-    arcSite,
-    customFields,
-  })
-
-  // functions
-  const toDate = dateStr => {
+  const toDate = (dateStr) => {
     const [date, time] = dateStr.split(' ')
     const [day, month, year] = date.split('/')
     return new Date(`${year}/${month}/${day} ${time} GMT-0500`)
   }
 
   // functions
-  const ads = currentSpace => {
+  const ads = (currentSpace) => {
     const {
       fec_inicio: fecInicio,
       fec_fin: fecFin,
@@ -162,7 +176,7 @@ const TripletDoblete = (props) => {
     return currentDate > initDate && endDate > currentDate ? desHtml : false
   }
 
-  // functions 
+  // AddSpaces
   const getAdsSpace = () => {
     if (adsSpaces[adsSpace]) {
       const [currentSpace] = adsSpaces[adsSpace] || []
@@ -171,7 +185,6 @@ const TripletDoblete = (props) => {
     return false
   }
 
-  // functions 
   const getAdsSpace2 = () => {
     if (adsSpaces2[adsSpace2]) {
       const [currentSpace] = adsSpaces2[adsSpace2] || []
@@ -180,7 +193,6 @@ const TripletDoblete = (props) => {
     return false
   }
 
-  // functions 
   const getAdsSpace3 = () => {
     if (adsSpaces3[adsSpace3]) {
       const [currentSpace] = adsSpaces3[adsSpace3] || []
@@ -189,28 +201,46 @@ const TripletDoblete = (props) => {
     return false
   }
 
-  // functions 
-  const getInstanceSnap = (el, index, customImage, invertColor) => {
-    data.__data = el
-    data.__index = index
-
-    return {
-      id: data.id,
-      websiteLink: data.websiteLink,
-      title: data.title,
-      multimedia: customImage || data.multimedia,
-      multimediaType: data.multimediaType,
-      authorOrSection: data.authorOrSection,
-      authorOrSectionLink: data.authorOrSectionLink,
-      invertedColor: invertColor
-    }
-  }
-
-  // functions 
   const spaces = {
     getSpace0: getAdsSpace(),
     getSpace1: getAdsSpace2(),
     getSpace2: getAdsSpace3(),
+  }
+
+  const invertedColors = {
+    getInvertedColor0: invertColor1,
+    getInvertedColor1: invertColor2,
+    getInvertedColor2: invertColor3,
+  }
+
+  const hideAuthorSections = {
+    getHideAuthorSection0: hideAuthorSection1,
+    getHideAuthorSection1: hideAuthorSection2,
+    getHideAuthorSection2: hideAuthorSection3,
+  }
+
+  const headers = {
+    getHeader0: headerField1,
+    getHeader1: headerField2,
+    getHeader2: headerField3,
+  }
+
+  const titles = {
+    getTitles0: titleField1,
+    getTitles1: titleField2,
+    getTitles2: titleField3,
+  }
+
+  const authorOrSections = {
+    getAuthorOrSection0: authorOrSectionField1,
+    getAuthorOrSection1: authorOrSectionField2,
+    getAuthorOrSection2: authorOrSectionField3,
+  }
+
+  const images = {
+    getImage0: image1,
+    getImage1: image2,
+    getImage2: image3,
   }
 
   let lines = ''
@@ -229,33 +259,14 @@ const TripletDoblete = (props) => {
   /* FIN MANUAL */
 
   /* ARMAR ARREGLO */
-  // functions 
-  const getFormatedData = (item1, item2, item3) => {
-    return [
-      (paramsAutomatico1.title !== '') ? paramsAutomatico1 : getInstanceSnap(item1, 1, image1, invertColor1),
-      (paramsAutomatico2.title !== '') ? paramsAutomatico2 : getInstanceSnap(item2, 2, image2, invertColor2),
-      (paramsAutomatico3.title !== '') ? paramsAutomatico3 : getInstanceSnap(item3, 3, image3, invertColor3),
-    ]
-  }
 
-  // functions 
-  const getFormatFieldsStories = () => {
-    return getFormatedData(data1, data2, data3)
-  }
+  const getFormatedData = () => [
+    paramsAutomatico1,
+    paramsAutomatico2,
+    paramsAutomatico3,
+  ]
 
-  // functions 
-  const getFormatWebskedStories = () => {
-    const { content_elements: contentElements = [] } = webskedData || {}
-    const item1 = contentElements[0] || {}
-    const item2 = contentElements[1] || {}
-    const item3 = contentElements[2] || {}
-    return getFormatedData(item1, item2, item3)
-  }
-
-  let dataFormatted = webskedId
-    ? getFormatWebskedStories()
-    : getFormatFieldsStories()
-
+  let dataFormatted = getFormatedData()
 
   if (viewDoblete) {
     dataFormatted = dataFormatted.slice(0, 2)
@@ -263,26 +274,27 @@ const TripletDoblete = (props) => {
 
   return (
     <div role="list" className="triplet-doblete__list">
-      {dataFormatted.map((story, i) => {
-        return (
-          <TripleteDobleteCard
-            key={`triplet-${story.id}`}
-            index={i}
-            lines={lines}
-            multimediaOrientation={multimediaOrientation}
-            adSpace={spaces[`getSpace${i}`]}
-            viewDoblete={viewDoblete}
-
-            invertedColor={story.invertedColor}
-            websiteLink={story.websiteLink}
-            title={story.title}
-            authorOrSection={story.authorOrSection}
-            authorOrSectionLink={story.authorOrSectionLink}
-            multimedia={story.multimedia}
-            multimediaType={story.multimediaType}
-          />
-        )
-      })}
+      {dataFormatted.map((story, i) => (
+        <TripleteDobleteCard
+          key={`triplet-${story.id}`}
+          index={i}
+          lines={lines}
+          multimediaOrientation={multimediaOrientation}
+          adSpace={spaces[`getSpace${i}`]}
+          viewDoblete={viewDoblete}
+          invertedColor={invertedColors[`getInvertedColor${i}`]}
+          hideAuthorSection={hideAuthorSections[`getHideAuthorSection${i}`]}
+          websiteLink={story.websiteLink}
+          header={headers[`getHeader${i}`]}
+          title={titles[`getTitles${i}`] || story.title}
+          authorOrSection={
+            authorOrSections[`getAuthorOrSection${i}`] || story.authorOrSection
+          }
+          authorOrSectionLink={story.authorOrSectionLink}
+          multimedia={images[`getImage${i}`] || story.multimedia}
+          multimediaType={story.multimediaType}
+        />
+      ))}
     </div>
   )
 }
@@ -295,4 +307,3 @@ TripletDoblete.label = 'Triplete - Doblete avanzado'
 TripletDoblete.static = true
 
 export default TripletDoblete
-

@@ -8,6 +8,7 @@ export default (props) => {
   const {
     lines,
     index,
+    header = '',
     websiteLink,
     title,
     authorOrSection,
@@ -15,6 +16,7 @@ export default (props) => {
     multimedia,
     multimediaType,
     invertedColor = false,
+    hideAuthorSection = false,
     viewDoblete = false,
     multimediaOrientation = 'right',
     adSpace = '',
@@ -27,6 +29,8 @@ export default (props) => {
     itemDoblete: 'triplet-doblete__item-doblete',
     itemInverted: 'triplet-doblete__item--inverted',
     itemDoubletInverted: 'doublet__item--inverted',
+    header: 'triplet-doblete__header',
+    headerDoblete: 'triplet-doblete__header-doblete',
     title: 'triplet-doblete__title overflow-hidden text-lg line-h-sm',
     titleLink: 'triplet-doblete__title-link',
     titleLine: 'triplet-doblete__title-line',
@@ -59,6 +63,15 @@ export default (props) => {
         className={`${classes.information} ${
           viewDoblete && classes.informationDoblete
         }`}>
+        {header.length > 0 && (
+          <h2
+            itemProp="name"
+            className={`${classes.header} ${
+              viewDoblete && classes.headerDoblete
+            }`}>
+            {header}
+          </h2>
+        )}
         <h2
           itemProp="name"
           className={`${classes.title} ${classes[lines] || ''}`}>
@@ -72,14 +85,16 @@ export default (props) => {
             {title}
           </a>
         </h2>
-        <address className={classes.author}>
-          <a
-            itemProp="url"
-            className={`${classes.authorLink}`}
-            href={authorOrSectionLink}>
-            {authorOrSection}
-          </a>
-        </address>
+        {!hideAuthorSection && (
+          <address className={classes.author}>
+            <a
+              itemProp="url"
+              className={`${classes.authorLink}`}
+              href={authorOrSectionLink}>
+              {authorOrSection}
+            </a>
+          </address>
+        )}
       </div>
       <figure
         className={`${classes.multimedia} ${
