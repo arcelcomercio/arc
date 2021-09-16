@@ -4,35 +4,35 @@ import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { setCookie } from '../../../../utilities/client/cookies'
-import { useModalContext } from '../../../subscriptions/_context/modal'
+import { setCookie } from '../../../../../utilities/client/cookies'
+import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
   formatPass,
   formatPhone,
-} from '../../../subscriptions/_dependencies/Errors'
-import getDevice from '../../../subscriptions/_dependencies/GetDevice'
-import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import useForm from '../../../subscriptions/_hooks/useForm'
+} from '../../../../subscriptions/_dependencies/Errors'
+import getDevice from '../../../../subscriptions/_dependencies/GetDevice'
+import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../../subscriptions/_hooks/useForm'
 import {
   dataTreatment,
   getUrlPaywall,
   PolicyPrivacy,
   TermsConditions,
-} from '../../_dependencies/domains'
+} from '../../../_dependencies/domains'
 import {
   getEntitlement,
   sendNewsLettersUser,
-} from '../../_dependencies/services'
-import { MsgRegister } from '../icons'
-import Loading from '../loading'
-import { CheckBox } from './control_checkbox'
-import { Input } from './control_input_select'
-import { AuthURL, ButtonSocial } from './control_social'
-import { FormStudents } from './form_students'
+} from '../../../_dependencies/services'
+import { MsgRegister } from '../../icons'
+import Loading from '../../loading'
+import { CheckBox } from '../control_checkbox'
+import { Input } from '../control_input_select'
+import { AuthURL, ButtonSocial } from '../control_social'
+import { FormStudents } from '../form_students'
 
-const FormRegister = ({
+const FormRegisterAux = ({
   typeDialog,
   onClose,
   onLogged = (i) => i,
@@ -46,7 +46,7 @@ const FormRegister = ({
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
-      activePhoneRegister,
+      // activePhoneRegister,
       siteDomain,
     },
   } = useAppContext() || {}
@@ -307,11 +307,15 @@ const FormRegister = ({
   }
 
   const {
-    values: { remail, rpass, rphone },
+    values: {
+      remail,
+      rpass,
+      //  , rphone
+    },
     errors: {
       remail: remailError,
       rpass: rpassError,
-      rphone: rphoneError,
+      // rphone: rphoneError,
       rterms: rtermsError,
     },
     handleOnChange,
@@ -356,50 +360,6 @@ const FormRegister = ({
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
-                  <div className={isTromeOrganic ? 'group-float-trome' : ''}>
-                    {isTromeOrganic && (
-                      <h1 className="group-float-trome__title">
-                        ¡Regístrate gratis!
-                      </h1>
-                    )}
-
-                    <p className="signwall-inside_forms-text mt-10 mb-10 center">
-                      Accede fácilmente con:
-                    </p>
-
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
-                        dataTreatment={checkedPolits ? '1' : '0'}
-                      />
-                    ))}
-
-                    <AuthURL
-                      arcSite={arcSite}
-                      onClose={onClose}
-                      typeDialog={typeDialog}
-                      activeNewsletter={activeNewsletter}
-                      typeForm="registro"
-                      onLogged={onLogged}
-                      checkUserSubs={checkUserSubs}
-                      onStudents={() => setShowStudents(!showStudents)}
-                    />
-
-                    <p className="signwall-inside_forms-text mt-15 center">
-                      o completa tus datos para registrarte
-                    </p>
-                  </div>
-
                   {isTromeOrganic && <div className="spacing-trome" />}
 
                   {showError && (
@@ -423,7 +383,11 @@ const FormRegister = ({
                       )}
                     </div>
                   )}
-
+                  <p
+                    className="signwall-inside_forms-text mt-15"
+                    style={{ fontWeight: 'bold', fontSize: '18px' }}>
+                    Registrarme
+                  </p>
                   <Input
                     type="email"
                     inputMode="email"
@@ -454,7 +418,50 @@ const FormRegister = ({
                     error={rpassError || showFormatInvalid}
                   />
 
-                  {activePhoneRegister && (
+                  <button
+                    style={{ color: mainColorBtn, background: mainColorLink }}
+                    type="submit"
+                    className="signwall-inside_forms-btn mt-15 mb-5"
+                    disabled={disable || showLoading || showFormatInvalid}
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+                      )
+                    }}>
+                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
+                  </button>
+
+                  {authProviders.map((item) => (
+                    <ButtonSocial
+                      key={item}
+                      brand={item}
+                      size={sizeBtnSocial}
+                      defaultSize="default-size"
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
+                    />
+                  ))}
+
+                  <AuthURL
+                    arcSite={arcSite}
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    activeNewsletter={activeNewsletter}
+                    typeForm="registro"
+                    onLogged={onLogged}
+                    checkUserSubs={checkUserSubs}
+                    onStudents={() => setShowStudents(!showStudents)}
+                  />
+
+                  {/* {!activePhoneRegister && (
                     <Input
                       type="tel"
                       inputMode="tel"
@@ -468,7 +475,28 @@ const FormRegister = ({
                       }}
                       error={rphoneError}
                     />
-                  )}
+                  )} */}
+
+                  <div
+                    style={{
+                      marginTop: '10px',
+                    }}>
+                    <p
+                      style={{
+                        fontSize: '12px',
+                      }}
+                      className="signwall-inside_forms-text mt-15 center">
+                      Ya tengo una cuenta
+                      <a
+                        href={dataTreatment}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: mainColorLink, fontWeight: 'bold' }}
+                        className="signwall-inside_forms-link ml-5 inline">
+                        Ingresar
+                      </a>
+                    </p>
+                  </div>
 
                   {activeDataTreatment && (
                     <CheckBox
@@ -537,21 +565,7 @@ const FormRegister = ({
                     </p>
                   </CheckBox>
 
-                  <button
-                    style={{ color: mainColorBtn, background: mainColorLink }}
-                    type="submit"
-                    className="signwall-inside_forms-btn mt-15 mb-5"
-                    disabled={disable || showLoading || showFormatInvalid}
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
-                      )
-                    }}>
-                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
-                  </button>
-
-                  <p
+                  {/* <p
                     style={{
                       fontSize: '12px',
                       color: '#000000',
@@ -580,7 +594,7 @@ const FormRegister = ({
                       }}>
                       Iniciar Sesión
                     </a>
-                  </p>
+                  </p> */}
                 </>
               )}
 
@@ -792,4 +806,4 @@ const FormRegister = ({
   )
 }
 
-export default FormRegister
+export default FormRegisterAux

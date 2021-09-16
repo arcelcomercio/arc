@@ -602,6 +602,11 @@
         width: calc(100% - 0px) !important;
       }
 
+      &.default-size {
+        width: calc(100%) !important;
+        margin: 5px 0 !important;
+      }
+
       &.facebook-middle {
         margin-right: 10px !important;
       }

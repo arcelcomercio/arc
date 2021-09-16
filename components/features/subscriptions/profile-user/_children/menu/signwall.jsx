@@ -109,6 +109,7 @@ const MenuSignwall = ({ handleMenu }) => {
             )}
             <li className={classes.item}>
               <button
+                id="btn-profile"
                 className={`${classes.button} ${
                   activeButton === 'prof' ? 'active' : ''
                 }`}
