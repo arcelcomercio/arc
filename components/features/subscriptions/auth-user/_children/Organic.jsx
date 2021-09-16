@@ -19,6 +19,7 @@ const FormLoginDefault = React.lazy(() =>
     /* webpackChunkName: 'Auth-FormLogin' */ '../../../signwall/_children/forms/default/form_login'
   )
 )
+
 const FormRegister = React.lazy(() =>
   import(
     /* webpackChunkName: 'Auth-FormRegister' */ '../../../signwall/_children/forms/form_register'
