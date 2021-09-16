@@ -4,21 +4,23 @@ import PropTypes from 'prop-types'
 
 // import * as React from 'react'
 import AgendaCalendario from './_children/calendario'
+import NavBar from './_children/navbar'
 
 /**
- * @see estilos `src/websites/elcomercio/covid.scss`
+ * @see estilos `src/websites/elcomercio/agenda-presidencial.scss`
  */
 
-const StaticsCovid = () => (
+const StaticsAgendaPresidencial = () => (
   <>
+    <NavBar isNota day="2021-09-13" />
     <AgendaCalendario />
   </>
 )
 
-StaticsCovid.label = 'Agenda Presidencial'
+StaticsAgendaPresidencial.label = 'Agenda Presidencial'
 
-StaticsCovid.propTypes = {
+StaticsAgendaPresidencial.propTypes = {
   customFields: PropTypes.shape({}),
 }
 
-export default StaticsCovid
+export default StaticsAgendaPresidencial

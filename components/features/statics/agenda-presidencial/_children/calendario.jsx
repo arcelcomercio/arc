@@ -33,18 +33,21 @@ const AgendaCalendario = () => {
     const monthFormat = month < 10 ? `0${month}` : month
     const newDateFormat = `${year}-${monthFormat}-${dayFormat}`
 
-    return `/archivo/todas/${newDateFormat}/`
+    return `/agenda-presidencial/${newDateFormat}/`
   }
 
-  const mes = () => {
+  const day = () => {
     const d = new Date()
     d.setHours(d.getHours() - 5)
+    return d.setDate(d.getDate() - 1)
+  }
+
+  const mes = (date) => {
+    const d = new Date(date)
     return new Intl.DateTimeFormat('es-419', { month: 'long' }).format(d)
   }
 
-  const [calendarDate, setStateDate] = React.useState(getCalendarDate(urlDate))
   const setNewDate = (data) => {
-    setStateDate(data)
     window.location.href = renderNewURL(data)
   }
 
@@ -63,14 +66,19 @@ const AgendaCalendario = () => {
             <React.Suspense fallback="Cargando...">
               <Calendar
                 activeStartDate={getCalendarDate(urlDate)}
-                maxDate={new Date()}
+                maxDate={new Date(day())}
                 minDate={new Date(2021, 6, 28)}
                 onChange={(newDate) => setNewDate(newDate)}
-                value={calendarDate}
+                value={new Date()}
                 locale="es-419"
-                navigationLabel={() => `${mes()}`}
+                navigationLabel={({ date, locale }) =>
+                  `${mes(date.toLocaleDateString(locale))}`
+                }
                 prev2Label=""
                 next2Label=""
+                formatShortWeekday={(locale, value) =>
+                  ['DO', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA'][value.getDay()]
+                }
               />
             </React.Suspense>
           )}

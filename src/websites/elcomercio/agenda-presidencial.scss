@@ -173,6 +173,7 @@ section {
 
 body {
   line-height: 1;
+  background-color: #e8e8e8;
 }
 
 a,
@@ -285,6 +286,7 @@ $calendar-day: #8c8c8c !default;
 *             STYLES            *
 * ----------------------------- */
 @import "./scss/components/header/simple";
+@import "./scss/components/agenda-presidencial/navbar";
 @import "./scss/components/agenda-presidencial/calendario";
 // @import "./scss/components/presidential-election/presidential-election-graph";
 // @import "./scss/components/presidential-election/presidential-election-paginator";
@@ -292,6 +294,9 @@ $calendar-day: #8c8c8c !default;
 // @import "./scss/components/presidential-election/navigation-menu";
 // @import "./scss/components/presidential-election/option-congresal";
 // @import "./scss/components/presidential-election/projection-graph";
+.content-layout-container {
+  text-align: -webkit-center;
+}
 .h-simple__container-rigth ul li:nth-child(3) {
   display: none;
 }

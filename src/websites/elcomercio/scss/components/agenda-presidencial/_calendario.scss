@@ -1,7 +1,29 @@
 .react-calendar {
   padding: 0 44px 0 69px;
+  &__box {
+    align-items: center;
+    background: url(https://server1.dev/others/imgjp/Grupo_23_2x.png), #fffcf5;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 600px;
+    @media (--desktop) {
+      background: url(https://server1.dev/others/imgjp/Grupo_212_2x.png),
+        #fffcf5;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      max-width: 1000px;
+    }
+  }
   &__header {
     background-color: $calendar-background;
+  }
+  &__navigation__prev2-button {
+    display: none;
+  }
+  &__navigation__next2-button {
+    display: none;
   }
 
   &__title {
@@ -22,26 +44,30 @@
 
   &__content-calendar {
     min-height: 260px;
+    max-width: 480px;
   }
 
   /** Estas clases son añadidas por la biblioteca */
   &__navigation {
     padding-bottom: 10px;
+    margin: 0 20px;
   }
 
   &__navigation__arrow {
-    font-size: 20px;
+    font-size: 35px;
+    width: 15px;
   }
 
   &__navigation__label {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 15px;
+    @media (--desktop) {
+      font-size: 18px;
+    }
   }
 
   &__month-view__weekdays {
     padding: 10px 0;
-    border-bottom: solid 1px $calendar-line;
-    border-top: solid 1px $calendar-line;
   }
 
   &__month-view__weekdays__weekday {
@@ -68,9 +94,10 @@
     padding: 8px 5px;
     font-size: 17px;
     font-family: $secondary-font;
-    border-bottom: solid 1px #ebe9e2;
+    border: solid 1px #ebe9e2;
     margin: 2px 0;
     background-color: #f5f3ec;
+    height: 34px;
 
     &:hover {
       text-decoration: none;
