@@ -8,12 +8,8 @@ import {
 } from '../../../utilities/included-fields'
 import TripleteDobleteCard from './_children/triplete-doblete'
 import customFields from './_dependencies/custom-fields'
-import Data from './_dependencies/data'
 import { getParams } from './_dependencies/functions'
 import schemaFilter from './_dependencies/schema-filter'
-
-const API_STORY_BY_URL = 'story-by-url'
-// const API_FEED_BY_COLLECTION = 'story-feed-by-collection'
 
 const TripletDoblete = (props) => {
   const { arcSite, contextPath, deployment } = useFusionContext()
