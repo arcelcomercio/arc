@@ -133,9 +133,8 @@ const NavbarChildMenu = props => {
     <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
       {showSidebar && (
         <div
-          className={`${classes.content} ${
-            IS_MOBILE.current ? 'w-full' : 'w-desktop'
-          } ${showSidebar ? 'active' : ''}`}>
+          className={`${classes.content} ${IS_MOBILE.current ? 'w-full' : 'w-desktop'
+            } ${showSidebar ? 'active' : ''}`}>
           <div className={classes.top}>
             <div className={classes.header}>
               <div className={classes.btnBox}>

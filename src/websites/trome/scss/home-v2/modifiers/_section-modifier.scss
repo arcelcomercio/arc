@@ -11,6 +11,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-opinion;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -22,7 +26,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-black;
 
         @media (--tablet) {
@@ -57,7 +61,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $sub-color-opinion;
       }
 
@@ -75,7 +79,7 @@
       .featured-story__detail {
         background-color: $sub-color-opinion;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-black;
         }
 
@@ -97,13 +101,25 @@
   .triplet-doblete__item {
     border-top: 1px solid $sub-color-opinion;
 
+    .triplet-doblete__header {
+      color: $sub-color-opinion;
+    }
+
     .triplet-doblete__author {
       color: $main-color-black;
+    }
+
+    .triplet-doblete__icon {
+      background-color: $sub-color-opinion;
     }
 
     &.triplet-doblete__item--inverted {
       .triplet-doblete__information {
         background-color: $sub-color-opinion;
+
+        .triplet-doblete__header {
+          color: $main-color-black;
+        }
 
         .triplet-doblete__title {
           color: $main-color-black;
@@ -123,9 +139,17 @@
   .triplet-doblete__item-doblete {
     border-top: 1px solid $sub-color-opinion;
 
+    .triplet-doblete__header {
+      color: $sub-color-opinion;
+    }
+
     &.doublet__item--inverted {
       .triplet-doblete__information-doblete {
         background-color: $sub-color-opinion;
+
+        .triplet-doblete__header {
+          color: $main-color-black;
+        }
       }
 
       .triplet-doblete__multimedia-doblete {
@@ -145,6 +169,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-celebrities;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -156,7 +184,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-black;
 
         @media (--tablet) {
@@ -183,7 +211,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $sub-color-celebrities;
       }
 
@@ -201,7 +229,7 @@
       .featured-story__detail {
         background-color: $sub-color-celebrities;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-black;
         }
 
@@ -219,13 +247,25 @@
   .triplet-doblete__item {
     border-top: 1px solid $sub-color-celebrities;
 
+    .triplet-doblete__header {
+      color: $sub-color-celebrities;
+    }
+
     .triplet-doblete__author {
       color: $main-color-black;
+    }
+
+    .triplet-doblete__icon {
+      background-color: $sub-color-celebrities;
     }
 
     &.triplet-doblete__item--inverted {
       .triplet-doblete__information {
         background-color: $sub-color-celebrities;
+
+        .triplet-doblete__header {
+          color: $main-color-black;
+        }
 
         .triplet-doblete__author {
           color: $main-color-white;
@@ -241,9 +281,17 @@
   .triplet-doblete__item-doblete {
     border-top: 1px solid $sub-color-celebrities;
 
+    .triplet-doblete__header {
+      color: $sub-color-celebrities;
+    }
+
     &.doublet__item--inverted {
       .triplet-doblete__information-doblete {
         background-color: $sub-color-celebrities;
+
+        .triplet-doblete__header {
+          color: $main-color-black;
+        }
       }
 
       .triplet-doblete__multimedia-doblete {
@@ -263,6 +311,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-deportes;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -274,7 +326,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-black;
 
         @media (--tablet) {
@@ -301,7 +353,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $sub-color-deportes;
       }
 
@@ -319,7 +371,7 @@
       .featured-story__detail {
         background-color: $sub-color-deportes;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-black;
         }
 
@@ -337,13 +389,25 @@
   .triplet-doblete__item {
     border-top: 1px solid $sub-color-deportes;
 
+    .triplet-doblete__header {
+      color: $sub-color-deportes;
+    }
+
     .triplet-doblete__author {
       color: $main-color-black;
+    }
+
+    .triplet-doblete__icon {
+      background-color: $sub-color-deportes;
     }
 
     &.triplet-doblete__item--inverted {
       .triplet-doblete__information {
         background-color: $sub-color-deportes;
+
+        .triplet-doblete__header {
+          color: $main-color-black;
+        }
 
         .triplet-doblete__author {
           color: $main-color-white;
@@ -359,9 +423,17 @@
   .triplet-doblete__item-doblete {
     border-top: 1px solid $sub-color-deportes;
 
+    .triplet-doblete__header {
+      color: $sub-color-deportes;
+    }
+
     &.doublet__item--inverted {
       .triplet-doblete__information-doblete {
         background-color: $sub-color-deportes;
+
+        .triplet-doblete__header {
+          color: $main-color-black;
+        }
       }
 
       .triplet-doblete__multimedia-doblete {
@@ -381,6 +453,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-historias;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -392,7 +468,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-black;
 
         @media (--tablet) {
@@ -419,7 +495,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $sub-color-historias;
       }
 
@@ -437,7 +513,7 @@
       .featured-story__detail {
         background-color: $sub-color-historias;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-black;
         }
 
@@ -455,13 +531,25 @@
   .triplet-doblete__item {
     border-top: 1px solid $sub-color-historias;
 
+    .triplet-doblete__header {
+      color: $sub-color-historias;
+    }
+
     .triplet-doblete__author {
       color: $main-color-black;
+    }
+
+    .triplet-doblete__icon {
+      background-color: $sub-color-historias;
     }
 
     &.triplet-doblete__item--inverted {
       .triplet-doblete__information {
         background-color: $sub-color-historias;
+
+        .triplet-doblete__header {
+          color: $main-color-black;
+        }
 
         .triplet-doblete__author {
           color: $main-color-white;
@@ -477,9 +565,17 @@
   .triplet-doblete__item-doblete {
     border-top: 1px solid $sub-color-historias;
 
+    .triplet-doblete__header {
+      color: $sub-color-historias;
+    }
+
     &.doublet__item--inverted {
       .triplet-doblete__information-doblete {
         background-color: $sub-color-historias;
+
+        .triplet-doblete__header {
+          color: $main-color-black;
+        }
       }
 
       .triplet-doblete__multimedia-doblete {
@@ -499,6 +595,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-virales;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -510,7 +610,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-orange;
 
         @media (--tablet) {
@@ -545,7 +645,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-orange;
       }
 
@@ -563,7 +663,7 @@
       .featured-story__detail {
         background-color: $sub-color-virales;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-orange;
         }
 
@@ -585,8 +685,16 @@
   .triplet-doblete__item {
     border-top: 1px solid $sub-color-virales;
 
+    .triplet-doblete__header {
+      color: $main-color-orange;
+    }
+
     .triplet-doblete__author {
       color: $main-color-black;
+    }
+
+    .triplet-doblete__icon {
+      background-color: $sub-color-virales;
     }
 
     &.triplet-doblete__item--inverted {
@@ -595,6 +703,10 @@
 
         .triplet-doblete__title {
           color: $main-color-black;
+        }
+
+        .triplet-doblete__header {
+          color: $main-color-orange;
         }
 
         .triplet-doblete__author {
@@ -611,9 +723,17 @@
   .triplet-doblete__item-doblete {
     border-top: 1px solid $sub-color-virales;
 
+    .triplet-doblete__header {
+      color: $main-color-orange;
+    }
+
     &.doublet__item--inverted {
       .triplet-doblete__information-doblete {
         background-color: $sub-color-virales;
+
+        .triplet-doblete__header {
+          color: $main-color-orange;
+        }
       }
 
       .triplet-doblete__multimedia-doblete {

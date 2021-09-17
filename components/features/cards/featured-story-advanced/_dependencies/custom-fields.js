@@ -21,6 +21,10 @@ const customFields = PropTypes.shape({
     name: 'Invertir color',
     defaultValue: false,
   }),
+  hideAuthor: PropTypes.bool.tag({
+    name: 'Ocultar autor de nota',
+    defaultValue: false,
+  }),
   size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
     name: 'Tamaño del destaque',
     group: 'Configuración',
@@ -52,8 +56,8 @@ const customFields = PropTypes.shape({
     group: 'Configuración',
     defaultValue: true,
   }),
-  anteTitulo: PropTypes.string.tag({
-    name: 'Ante-título',
+  titleHeaderField: PropTypes.string.tag({
+    name: 'Antetítulo',
     group: 'Editar campos',
     description: 'Dejar vacío para tomar el valor original de la historia.',
   }),

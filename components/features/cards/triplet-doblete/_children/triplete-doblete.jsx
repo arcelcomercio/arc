@@ -8,9 +8,9 @@ export default (props) => {
   const {
     lines,
     index,
-    header = '',
     websiteLink,
     title,
+    titleHeader = '',
     authorOrSection,
     authorOrSectionLink,
     multimedia,
@@ -63,15 +63,6 @@ export default (props) => {
         className={`${classes.information} ${
           viewDoblete && classes.informationDoblete
         }`}>
-        {header.length > 0 && (
-          <h2
-            itemProp="name"
-            className={`${classes.header} ${
-              viewDoblete && classes.headerDoblete
-            }`}>
-            {header}
-          </h2>
-        )}
         <h2
           itemProp="name"
           className={`${classes.title} ${classes[lines] || ''}`}>
@@ -82,6 +73,14 @@ export default (props) => {
             href={websiteLink}
             {...editableField(`title${index + 1}`)}
             suppressContentEditableWarning>
+            {titleHeader.length > 0 && (
+              <span
+                className={`${classes.header} ${
+                  viewDoblete && classes.headerDoblete
+                }`}>
+                {titleHeader} &#183;{' '}
+              </span>
+            )}
             {title}
           </a>
         </h2>
