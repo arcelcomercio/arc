@@ -1,18 +1,16 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
 import FeaturedStory from '../../../global-components/featured-story'
 import schemaFilter from '../../../global-components/featured-story/schema-filter'
-
-import StoryData from '../../../utilities/story-data'
 import { featuredStoryFields } from '../../../utilities/included-fields'
-
-import customFields from './_dependencies/custom-fields'
+import StoryData from '../../../utilities/story-data'
 import FacebookLive from './_children/facebook-live'
+import customFields from './_dependencies/custom-fields'
 
-const CardFeaturedStoryAdvanced = props => {
+const CardFeaturedStoryAdvanced = (props) => {
   const {
     customFields: {
       imageSize,
@@ -29,7 +27,7 @@ const CardFeaturedStoryAdvanced = props => {
       isLazyLoadActivate = true,
       anteTitulo,
       invertedTitle,
-      invertedColor
+      invertedColor,
     } = {},
   } = props
 
@@ -69,14 +67,14 @@ const CardFeaturedStoryAdvanced = props => {
     useContent(
       adsSpace && adsSpace !== 'none'
         ? {
-          source: 'get-ads-spaces',
-          query: { space: adsSpace },
-        }
+            source: 'get-ads-spaces',
+            query: { space: adsSpace },
+          }
         : {}
     ) || {}
 
   const getAdsSpace = () => {
-    const toDate = dateStr => {
+    const toDate = (dateStr) => {
       const [date, time] = dateStr.split(' ')
       const [day, month, year] = date.split('/')
       return new Date(`${year}/${month}/${day} ${time} GMT-0500`)

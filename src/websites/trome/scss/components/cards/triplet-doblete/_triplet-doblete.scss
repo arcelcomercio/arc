@@ -8,7 +8,7 @@
   }
 
   &__item {
-    border-top: 1px solid #e06437;
+    border-top: 1px solid $main-color-orange;
     padding-top: 10px;
     padding-bottom: 10px;
     display: flex;
@@ -28,14 +28,14 @@
 
   &__information {
     font-family: $encode-c, sans-serif;
-    font-size: $fs-mobile-medium;
+    font-size: 22px;
     color: $main-color-black;
     padding: 0 10px 0 10px;
     width: calc(100% - 110px);
 
     @media (--tablet) {
-      font-size: $fs-triplet-information;
-      padding: 0 6px 0 0;
+      font-size: 18px;
+      padding: 0 10px 0 0;
       width: 199px;
     }
   }
@@ -47,8 +47,8 @@
     margin: 0;
 
     @media (--tablet) {
-      line-height: 23px;
-      letter-spacing: -0.21px;
+      line-height: 21px;
+      letter-spacing: -0.18px;
       padding-bottom: 0;
     }
   }
@@ -58,6 +58,10 @@
     font-size: inherit;
     text-decoration: none;
     color: inherit;
+  }
+
+  &__header {
+    color: $main-color-orange;
   }
 
   // ? Line clamp!
@@ -80,6 +84,7 @@
   &__author {
     font-family: $encode-c, sans-serif;
     font-size: 14px;
+    font-weight: 500;
     letter-spacing: -0.21px;
     color: #a1a1a1;
     text-align: left;
@@ -90,7 +95,6 @@
     @media (--tablet) {
       font-size: 13px;
       letter-spacing: -0.2px;
-      font-weight: 500;
     }
   }
 
@@ -127,14 +131,13 @@
   }
 
   &__icon {
-    background-image: url($assets_url + "/resources/dist/trome/images/rgba70.png");
-    border-radius: 10px;
-    color: $color-gray-300;
+    background-color: $main-color-orange;
+    color: $main-color-white;
+    border-radius: 5px;
     pointer-events: none;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 26px;
+    width: 36px;
+    height: 36px;
+    font-size: 30px;
     position: absolute;
     display: flex;
     align-items: center;
@@ -160,12 +163,12 @@
   }
 
   &__information-doblete {
-    font-size: $fs-mobile-medium;
-    padding-right: 9px;
+    font-size: 22px;
+    padding-right: 10px;
     width: calc(100% - 110px);
 
     @media (--tablet) {
-      font-size: $fs-doublet-information;
+      font-size: 21px;
       width: 172px;
     }
 
@@ -193,19 +196,18 @@
   }
 }
 
-.icon-img::before {
-  content: "\e901";
-  color: white;
-}
-
 // ? Triplet Inverted Colors:
 .triplet-doblete__item--inverted {
   .triplet-doblete__information {
     background-color: $main-color-orange;
     color: $main-color-white;
-    padding-right: 11px;
+    padding-right: 10px;
     padding-left: 10px;
-    padding-top: 5px;
+    padding-top: 10px;
+  }
+
+  .triplet-doblete__header {
+    color: $main-color-black;
   }
 
   .triplet-doblete__author {
@@ -224,7 +226,11 @@
     color: $main-color-white;
     padding-right: 10px;
     padding-left: 10px;
-    padding-top: 6px;
+    padding-top: 10px;
+  }
+
+  .triplet-doblete__header {
+    color: $main-color-black;
   }
 
   .triplet-doblete__author {

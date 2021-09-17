@@ -27,8 +27,25 @@
 
     @media (--tablet) {
       width: auto;
-      padding: 0;
+      padding: 10px 0 0 0;
       height: calc(100% - 173px);
+    }
+  }
+
+  &__text-block {
+    font-family: $encode-c, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.22px;
+    line-height: 30px;
+    text-align: left;
+    color: $main-color-orange;
+
+    @media (--tablet) {
+      font-size: 28px;
+      letter-spacing: -0.28px;
+      line-height: 25px;
+      text-align: center;
     }
   }
 
@@ -40,7 +57,6 @@
     line-height: 25px;
     text-align: left;
     color: $main-color-black;
-    // margin: 5px 0;
     margin: 0;
     max-height: 108px;
     overflow: hidden;
@@ -48,25 +64,18 @@
     // ? Line-clamp
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
 
     @media (--tablet) {
       font-size: $fs-feat-story-title-col1;
       line-height: 30px;
       text-align: center;
       max-height: 158px;
-      padding: 5px 0;
-      -webkit-line-clamp: 5;
+      padding: 5px 0 3px 0;
+      -webkit-line-clamp: 4;
     }
   }
-  &__text-block {
-    margin-top: 9px;
-    text-align: center;
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: 0.22px;
-    color: $main-color-orange;
-  }
+
   &__title-link {
     font-size: inherit;
     color: inherit;
@@ -76,18 +85,27 @@
 
   &__author {
     font-family: $encode-c, sans-serif;
-    font-size: $fs-feat-story-author;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: -0.21px;
+    line-height: 26px;
     color: #a1a1a1;
-    text-align: center;
-    display: block;
+    text-align: left;
+    display: none;
+
+    @media (--tablet) {
+      font-size: 13px;
+      letter-spacing: -0.2px;
+      text-align: center;
+      display: block;
+    }
   }
 
   &__author-link {
+    font-size: inherit;
+    font-style: normal;
     color: inherit;
     text-decoration: none;
-    font-style: normal;
   }
 
   &__img-link {
@@ -132,21 +150,24 @@
       background-color: $main-color-orange;
       padding-top: 7px;
 
-      @media (min-width: 640px) {
+      @media (--tablet) {
         padding-right: 16px;
         padding-left: 16px;
-        padding-top: 5px;
+        padding-top: 15px;
       }
+    }
+
+    .featured-story__text-block {
+      color: $main-color-black;
     }
 
     .featured-story__title {
       color: $main-color-white;
+      -webkit-line-clamp: 3;
     }
-    .featured-story__text-block {
-      color: $main-color-black;
-    }
+
     .featured-story__author {
-      color: $main-color-black;
+      color: $main-color-white;
     }
 
     .featured-story__img-link {
@@ -170,24 +191,25 @@
         position: absolute;
         bottom: 0;
         margin: 0;
-        padding: 20px;
+        padding: 30px 40px 27px 40px;
         z-index: 1;
         background-color: transparent;
         width: auto;
         max-width: 100%;
-        height: calc(100% - 173px);
-      }
-      &__inverted {
-        top: 0;
+        height: auto;
       }
     }
+
     &__text-block {
-      text-align: center;
-      font-size: 28px;
-      font-weight: 400;
-      color: #fff;
-      letter-spacing: -0.28px;
+      line-height: 25px;
+      color: $main-color-orange;
+
+      @media (--tablet) {
+        font-weight: 500;
+        color: $main-color-white;
+      }
     }
+
     &__title {
       font-size: $fs-mobile-medium;
       font-weight: 600;
@@ -197,7 +219,7 @@
       // ? Line Clamp
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 4;
+      -webkit-line-clamp: 3;
 
       @media (--tablet) {
         font-size: $fs-feat-story-title-col2;
@@ -205,7 +227,6 @@
         text-align: center;
         line-height: 42px;
         max-height: 130px;
-        // TODO: REVISAR PADDING!
         padding: 5px 0 4px 0;
         -webkit-line-clamp: 2;
       }
@@ -225,6 +246,10 @@
           letter-spacing: -0.28px;
         }
       }
+    }
+
+    &__author {
+      color: $main-color-white;
     }
 
     &__img-link {
@@ -258,10 +283,11 @@
 }
 
 // --------------------------------------
-// Featured Story for 2 col (Top Text)
-.img-complete.top-text {
+// ? Featured Story for 2 col (Top Text)
+.img-complete.featured-story.top-text {
   .featured-story {
     &__detail {
+      bottom: unset;
       top: 0;
     }
 
@@ -275,6 +301,110 @@
             $sub-color-linear-2 100%
           )
           0% 0% no-repeat padding-box;
+      }
+    }
+  }
+}
+
+// --------------------------------------------
+// ? Featured Story for 2 col Mobile Expanded
+.img-complete.featured-story.expand {
+  @media (--only-mobile) {
+    border-top: none;
+    flex-direction: column;
+    padding-top: 0;
+
+    .featured-story {
+      &__detail {
+        width: auto;
+        height: 180px;
+        padding: 12px 20px 0 20px;
+      }
+
+      &__text-block {
+        text-align: center;
+        font-size: 28px;
+        color: $main-color-black;
+        line-height: 30px;
+        padding-top: 3px;
+      }
+
+      &__title {
+        font-size: 28px;
+        text-align: center;
+        line-height: 30px;
+        letter-spacing: -0.28px;
+        padding: 2px 0 3px 0;
+      }
+
+      &__author {
+        color: $main-color-white;
+        text-align: center;
+        display: block;
+      }
+
+      &__img-link {
+        width: 100%;
+        height: 217px;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+// --------------------------------------------
+// ? Featured Story for 2 col Mobile Expanded
+// ? Styles for default fixed
+.section-default {
+  .img-complete.featured-story.expand {
+    @media (--only-mobile) {
+      .featured-story {
+        &__detail {
+          background-color: $main-color-orange;
+        }
+      }
+    }
+  }
+}
+
+// --------------------------------------------
+// ? Featured Story for 1 col Mobile Expanded
+.featured-story.expand:not(.img-complete) {
+  @media (--only-mobile) {
+    border-top: none;
+    flex-direction: column-reverse;
+    padding-top: 0;
+
+    .featured-story {
+      &__detail {
+        width: auto;
+        height: 180px;
+        padding-top: 10px;
+      }
+
+      &__text-block {
+        text-align: center;
+        font-size: 28px;
+        color: $main-color-orange;
+        line-height: 30px;
+      }
+
+      &__title {
+        font-size: 28px;
+        text-align: center;
+        line-height: 30px;
+        max-height: 123px;
+        letter-spacing: -0.28px;
+      }
+
+      &__author {
+        text-align: center;
+      }
+
+      &__img-link {
+        width: 100%;
+        height: 217px;
+        padding-right: 0;
       }
     }
   }
