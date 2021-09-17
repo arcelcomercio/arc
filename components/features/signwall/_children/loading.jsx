@@ -48,6 +48,7 @@ const Inside = ({ arcSite, mainColorBg, urlLogo, typeBg }) => (
     })()}
   </div>
 )
+
 const Loading = ({ typeBg }) => {
   const {
     siteProperties: {
@@ -65,7 +66,7 @@ const Loading = ({ typeBg }) => {
 
   return (
     <>
-      {typeBg === 'full' ? (
+      {typeBg === 'full' || typeBg === 'full-transparent' ? (
         <Portal id="sign-loading">
           <Inside
             mainColorBg={mainColorBg}

@@ -99,21 +99,24 @@ export const subDniToken = (URL, jwt) => {
 }
 
 export const pushCallOut = (name, phone) => {
+  const data = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <tem:ws_EC_Suscripcion>\r\n         <tem:user>3C05U5</tem:user>\r\n         <tem:Datos>{"Telefono":"${phone}","Nombre":"${name}"}</tem:Datos>\r\n      </tem:ws_EC_Suscripcion>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>\r\n`
   const response = new Promise((resolve) => {
-    fetch('https://servicios.scc.pe/web_api_comercio/insertar_cliente/', {
+    fetch('https://pe-eca.grupodigitex.com/ws_EC/ServiceEC.svc', {
       method: 'POST',
-      body: JSON.stringify({
-        nombre: name,
-        telefono: phone,
-      }),
+      body: data,
+      // mode: 'no-cors',
+      // credentials: 'omit',
+      // referrerPolicy: 'no-referrer',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization:
-          'Basic dXN1YXJpb19jb21lcmNpb19jMmM6YzBtM3JjMTAuQzJDLnczYi5AcGk=',
+        'Content-Type': 'text/xml',
+        SOAPAction: 'http://tempuri.org/IServiceEC/ws_EC_Suscripcion',
+        // 'Access-Control-Allow-Origin': '*',
       },
-    }).then((res) => resolve(res.json()))
+    }).then((res) => {
+      console.log('========>', res)
+      resolve(res.text())
+    })
   })
-
   return response
 }
 

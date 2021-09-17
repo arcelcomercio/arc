@@ -1,7 +1,7 @@
 import Consumer from 'fusion:consumer'
 
 import { VIDEO } from '../../../utilities/constants/multimedia-types'
-import { localISODate } from '../../../utilities/helpers'
+import { localISODate } from '../../../utilities/date-time/dates'
 import { createResizedParams } from '../../../utilities/resizer/resizer'
 import schemaFilter from './_dependencies/schema-filter'
 

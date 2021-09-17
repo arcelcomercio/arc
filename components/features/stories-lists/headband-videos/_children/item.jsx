@@ -1,5 +1,5 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
 
 const classes = {
   containerItem: 'headband__container-item flex flex-row',
@@ -54,12 +54,7 @@ export default function VideoItem(props) {
           )}
         </div>
         <div className={classes.iconPlay}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            fill="#fff"
-            viewBox="0 0 20 20">
+          <svg width="20" height="20" fill="#fff" viewBox="0 0 20 20">
             <path
               d="M12,20a8,8,0,1,1,8-8A8.011,8.011,0,0,1,12,20ZM12,2a10,10,0,1,0,3.827.761A10,10,0,0,0,12,2ZM10,16.5,16,12,10,7.5Z"
               transform="translate(-2 -2)"

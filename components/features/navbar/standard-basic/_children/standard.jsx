@@ -282,7 +282,6 @@ class NavBarDefault extends React.PureComponent {
                     className={classes.menuRegionL}
                     id="btn-region">
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
                       className={classes.menuRegionI}
                       width={20}
                       height={20}

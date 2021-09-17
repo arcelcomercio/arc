@@ -37,6 +37,7 @@ export default {
     cookiesPolicy: '',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
+    dataTreatment: 'JCUSOICWBNDKLG4OGQJWXCG77Q',
   },
   infoPagesProd: {
     termsAndConditions: 'HZEXCT3K3RFM5EJXLMK3TBD3YU',
@@ -47,6 +48,7 @@ export default {
     cookiesPolicy: '4V3RWECMVVAY7AIQQZCBXFSCUM',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'JCUSOICWBNDKLG4OGQJWXCG77Q',
   },
   assets: {
     nav: {
@@ -115,6 +117,10 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna4-300x250-div-gpt-ad-8599377-4.html',
     'https://d1r08wok4169a5.cloudfront.net/ads-elbocon/ads-fia-28253241-boc_ia_interna5-300x250-div-gpt-ad-8599377-5.html',
   ],
+  activeSignwall: true,
+  activeVerifyEmail: true,
+  activeDataTreatment: true,
+  activePhoneRegister: true,
   signwall: {
     mainColorBg: '#333333',
     mainColorTxt: '#ffffff',
