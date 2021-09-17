@@ -134,7 +134,8 @@ const WrapperProfile = () => {
               </React.Suspense>
             </div>
             <div className="panel-right">
-              {siteProperties.activePaywall ? (
+              {siteProperties.activePaywall ||
+              siteProperties.activeNewsletter ? (
                 renderTemplate(
                   selectedTemplate as ProfileModalTemplates,
                   idTemplate
