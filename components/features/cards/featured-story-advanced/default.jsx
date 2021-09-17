@@ -25,9 +25,10 @@ const CardFeaturedStoryAdvanced = (props) => {
       adsSpace,
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
       isLazyLoadActivate = true,
-      anteTitulo,
+      titleHeaderField,
       invertedTitle,
       invertedColor,
+      hideAuthor,
     } = {},
   } = props
 
@@ -138,9 +139,10 @@ const CardFeaturedStoryAdvanced = (props) => {
             arcSite={arcSite}
             siteName={siteName}
             isLazyLoadActivate={isLazyLoadActivate}
-            anteTitulo={anteTitulo}
+            titleHeaderField={titleHeaderField}
             invertedTitle={invertedTitle}
             invertedColor={invertedColor}
+            hideAuthor={hideAuthor}
           />
         )
       })()}

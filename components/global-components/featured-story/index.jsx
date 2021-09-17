@@ -1,10 +1,9 @@
-import * as React from 'react'
 import { useEditableContent } from 'fusion:content'
+import * as React from 'react'
 
 import { SITE_TROME } from '../../utilities/constants/sitenames'
-
-import Icon from '../multimedia-icon'
 import Image from '../image'
+import Icon from '../multimedia-icon'
 
 const SIZE_ONE_COL = 'oneCol'
 const SIZE_TWO_COL = 'twoCol'
@@ -21,11 +20,11 @@ const classes = {
   category:
     'featured-story__category pb-15 hidden md:inline-block position-relative',
   categoryLink: 'featured-story__category-link text-md',
-  textBlock: 'featured-story__text-block',
-  textBlockInvertedColor: 'featured-story__text-block__inverted-color',
+  titleHeader: 'featured-story__header',
   title: 'featured-story__title overflow-hidden mb-10 line-h-xs',
   titleInvertedColor: 'featured-story__title__inverted-color',
   titleLink: 'featured-story__title-link title-xs line-h-sm ',
+  titleClamp: 'featured-story__title--clamp',
 
   author: 'featured-story__author uppercase',
   authorLink: 'featured-story__author-link text-gray-200 text-xs',
@@ -49,7 +48,7 @@ const classes = {
   icon: `featured-story__icon`,
 }
 
-const FeaturedStory = props => {
+const FeaturedStory = (props) => {
   const {
     primarySection,
     primarySectionLink,
@@ -69,9 +68,10 @@ const FeaturedStory = props => {
     arcSite,
     siteName,
     isLazyLoadActivate = true,
-    anteTitulo = '',
-    invertedTitle,
-    invertedColor = false
+    titleHeaderField = '',
+    invertedTitle = false,
+    invertedColor = false,
+    hideAuthor = false,
   } = props
   const { editableField } = useEditableContent()
 
@@ -101,7 +101,7 @@ const FeaturedStory = props => {
     return ''
   }
 
-  const getEditableField = element =>
+  const getEditableField = (element) =>
     editableField ? editableField(element) : null
 
   let headbandText = ''
@@ -150,16 +150,16 @@ const FeaturedStory = props => {
 
   return (
     <article
-      className={`${classes.featuredStory
-        } ${getImageSizeClass()} ${getHeadBandClass()} ${size === SIZE_TWO_COL ? classes.twoCol : ''
-        } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass
-        } ${(invertedColor) && classes.featuredStoryInvertedColor
-        } ${(invertedTitle) && classes.imgCompleteInvertedTitle}`}>
-      <div className={`${classes.detail} 
+      className={`${
+        classes.featuredStory
+      } ${getImageSizeClass()} ${getHeadBandClass()} ${
+        size === SIZE_TWO_COL ? classes.twoCol : ''
+      } ${hightlightOnMobile ? 'expand' : ''} ${noExpandedClass} ${
+        invertedColor && classes.featuredStoryInvertedColor
+      } ${invertedTitle && classes.imgCompleteInvertedTitle}`}>
+      <div
+        className={`${classes.detail} 
                       ${author ? ' justify-between' : ''}`}>
-        {(anteTitulo.length > 0) && (
-          <p className={classes.textBlock} >{anteTitulo}</p>
-        )}
         {headband === 'normal' || !headband ? (
           <h3
             itemProp="name"
@@ -183,27 +183,36 @@ const FeaturedStory = props => {
             </a>
           </div>
         )}
-        <h2 itemProp="name" className={classes.title}>
+        <h2
+          itemProp="name"
+          className={`${classes.title} ${
+            titleHeaderField.length > 0 && classes.titleClamp
+          }`}>
           <a
             itemProp="url"
             className={classes.titleLink}
             href={websiteLink}
             {...getEditableField('titleField')}
             suppressContentEditableWarning>
+            {titleHeaderField.length > 0 && (
+              <span className={classes.titleHeader}>{titleHeaderField}</span>
+            )}
             {titleField || title}
           </a>
         </h2>
 
-        {author ? (
-          <address className={classes.author}>
-            <a
-              itemProp="url"
-              className={classes.authorLink}
-              href={authorLink || '/autores/'}>
-              {author}
-            </a>
-          </address>
-        ) : null}
+        {author
+          ? !hideAuthor && (
+              <address className={classes.author}>
+                <a
+                  itemProp="url"
+                  className={classes.authorLink}
+                  href={authorLink || '/autores/'}>
+                  {author}
+                </a>
+              </address>
+            )
+          : null}
       </div>
       <a itemProp="url" className={classes.imageLink} href={websiteLink}>
         <Image

@@ -11,6 +11,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-opinion;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -22,7 +26,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-black;
 
         @media (--tablet) {
@@ -57,7 +61,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $sub-color-opinion;
       }
 
@@ -75,7 +79,7 @@
       .featured-story__detail {
         background-color: $sub-color-opinion;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-black;
         }
 
@@ -165,6 +169,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-celebrities;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -176,7 +184,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-black;
 
         @media (--tablet) {
@@ -203,7 +211,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $sub-color-celebrities;
       }
 
@@ -221,7 +229,7 @@
       .featured-story__detail {
         background-color: $sub-color-celebrities;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-black;
         }
 
@@ -303,6 +311,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-deportes;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -314,7 +326,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-black;
 
         @media (--tablet) {
@@ -341,7 +353,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $sub-color-deportes;
       }
 
@@ -359,7 +371,7 @@
       .featured-story__detail {
         background-color: $sub-color-deportes;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-black;
         }
 
@@ -441,6 +453,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-historias;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -452,7 +468,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-black;
 
         @media (--tablet) {
@@ -479,7 +495,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $sub-color-historias;
       }
 
@@ -497,7 +513,7 @@
       .featured-story__detail {
         background-color: $sub-color-historias;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-black;
         }
 
@@ -579,6 +595,10 @@
     @media (--tablet) {
       border-top: none;
     }
+
+    &__icon {
+      background-color: $sub-color-virales;
+    }
   }
 
   // ? For Col 2 featured-stories
@@ -590,7 +610,7 @@
         background-color: transparent;
       }
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-orange;
 
         @media (--tablet) {
@@ -625,7 +645,7 @@
     .featured-story__detail {
       background-color: $main-color-white;
 
-      .featured-story__text-block {
+      .featured-story__header {
         color: $main-color-orange;
       }
 
@@ -643,7 +663,7 @@
       .featured-story__detail {
         background-color: $sub-color-virales;
 
-        .featured-story__text-block {
+        .featured-story__header {
           color: $main-color-orange;
         }
 
