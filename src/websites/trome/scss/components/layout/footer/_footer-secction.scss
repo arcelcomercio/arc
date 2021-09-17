@@ -174,8 +174,9 @@
         display: none;
       }
     }
-    @media (--desktop) {
+    @media (--tablet) {
       text-align: center;
+      font-size: 16px;
     }
     @media (--only-mobile) {
       padding-left: 19px;
