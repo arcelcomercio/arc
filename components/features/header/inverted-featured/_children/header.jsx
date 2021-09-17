@@ -235,7 +235,7 @@ const HeaderChildInverted = ({
 
   return (
     <>
-      { (!invertedTema && !hideTema) && <Header />}
+      {(!invertedTema && !hideTema) && <Header />}
 
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
         <div className={classes.navLoader} />
@@ -354,7 +354,7 @@ const HeaderChildInverted = ({
           </div>
         </nav>
       )}
-      { (invertedTema && !hideTema) && <Header />}
+      {(invertedTema && !hideTema) && <Header />}
     </>
   )
 }

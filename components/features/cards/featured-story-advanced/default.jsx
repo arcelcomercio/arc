@@ -101,10 +101,6 @@ const CardFeaturedStoryAdvanced = props => {
 
   const adSpace = getAdsSpace()
 
-  console.log("======================*===================")
-  console.log("HOLA DOLA")
-  console.log("======================*===================")
-
   return (
     <>
       {(() => {
