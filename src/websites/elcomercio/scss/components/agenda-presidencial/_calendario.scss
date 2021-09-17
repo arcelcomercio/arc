@@ -2,19 +2,6 @@
   padding: 0 44px 0 69px;
   &__box {
     align-items: center;
-    background: url(https://server1.dev/others/imgjp/Grupo_23_2x.png), #fffcf5;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-height: 600px;
-    @media (--desktop) {
-      background: url(https://server1.dev/others/imgjp/Grupo_212_2x.png),
-        #fffcf5;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      max-width: 1000px;
-    }
   }
   &__header {
     background-color: $calendar-background;
@@ -61,6 +48,7 @@
   &__navigation__label {
     text-transform: capitalize;
     font-size: 15px;
+    pointer-events: none;
     @media (--desktop) {
       font-size: 18px;
     }
