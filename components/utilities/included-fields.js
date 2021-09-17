@@ -54,7 +54,7 @@ export const includeTags = `${tags}.description,${tags}.slug,${tags}.text`
 
 const creditsBy = 'credits.by'
 
-export const includeCredits = `${creditsBy}._id, ${creditsBy}.name,${creditsBy}.url,${creditsBy}.type`
+export const includeCredits = `${creditsBy}._id,${creditsBy}.name,${creditsBy}.url,${creditsBy}.type`
 
 export const includeCreditsImage = `${creditsBy}.image.url`
 
