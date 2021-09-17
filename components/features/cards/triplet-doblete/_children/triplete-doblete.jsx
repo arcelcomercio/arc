@@ -8,9 +8,9 @@ export default (props) => {
   const {
     lines,
     index,
-    header = '',
     websiteLink,
     title,
+    titleHeader = '',
     authorOrSection,
     authorOrSectionLink,
     multimedia,
@@ -73,12 +73,12 @@ export default (props) => {
             href={websiteLink}
             {...editableField(`title${index + 1}`)}
             suppressContentEditableWarning>
-            {header.length > 0 && (
+            {titleHeader.length > 0 && (
               <span
                 className={`${classes.header} ${
                   viewDoblete && classes.headerDoblete
                 }`}>
-                {header} &#183;{' '}
+                {titleHeader} &#183;{' '}
               </span>
             )}
             {title}

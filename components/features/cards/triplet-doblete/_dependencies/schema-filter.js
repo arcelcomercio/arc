@@ -2,7 +2,8 @@ export default function (arcSite) {
   return `{ 
     _id
     headlines { 
-      basic 
+      basic
+      mobile
     }
     promo_items {
       basic_video {

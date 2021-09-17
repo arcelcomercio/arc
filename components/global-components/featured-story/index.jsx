@@ -68,7 +68,7 @@ const FeaturedStory = (props) => {
     arcSite,
     siteName,
     isLazyLoadActivate = true,
-    titleHeaderField = '',
+    titleHeader = '',
     invertedTitle = false,
     invertedColor = false,
     hideAuthor = false,
@@ -186,7 +186,7 @@ const FeaturedStory = (props) => {
         <h2
           itemProp="name"
           className={`${classes.title} ${
-            titleHeaderField.length > 0 && classes.titleClamp
+            titleHeader.length > 0 && classes.titleClamp
           }`}>
           <a
             itemProp="url"
@@ -194,8 +194,8 @@ const FeaturedStory = (props) => {
             href={websiteLink}
             {...getEditableField('titleField')}
             suppressContentEditableWarning>
-            {titleHeaderField.length > 0 && (
-              <span className={classes.titleHeader}>{titleHeaderField}</span>
+            {titleHeader.length > 0 && (
+              <span className={classes.titleHeader}>{titleHeader}</span>
             )}
             {titleField || title}
           </a>

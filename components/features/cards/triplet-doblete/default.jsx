@@ -2,7 +2,13 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
-import { featuredStoryFields } from '../../../utilities/included-fields'
+import {
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+  includePromoItemsCaptions,
+  includeSections,
+} from '../../../utilities/included-fields'
 import TripleteDobleteCard from './_children/triplete-doblete'
 import customFields from './_dependencies/custom-fields'
 import { getParams } from './_dependencies/functions'
@@ -52,7 +58,9 @@ const TripletDoblete = (props) => {
     } = {},
   } = props
 
-  const includedFields = featuredStoryFields
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,headlines.mobile,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
+    { arcSite }
+  )},${includeSections},publish_date,display_date`
 
   const dataAutomatico1 =
     useContent({
@@ -276,8 +284,8 @@ const TripletDoblete = (props) => {
           invertedColor={invertedColors[`getInvertedColor${i}`]}
           hideAuthorSection={hideAuthorSections[`getHideAuthorSection${i}`]}
           websiteLink={story.websiteLink}
-          header={headers[`getHeader${i}`]}
           title={titles[`getTitles${i}`] || story.title}
+          titleHeader={headers[`getHeader${i}`] || story.titleHeader}
           authorOrSection={
             authorOrSections[`getAuthorOrSection${i}`] || story.authorOrSection
           }
