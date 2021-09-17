@@ -27,7 +27,7 @@ const SCHEMA = `{
 }`
 
 const classes = {
-  footer: 'bg-white',
+  footer: 'footer-secction__footer',
   content: 'footer-secction__content-footer ',
 }
 

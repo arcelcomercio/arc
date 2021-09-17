@@ -1,4 +1,9 @@
 .footer-secction {
+  margin-top: 35px;
+
+  &__footer {
+    background-color: #f5f5f5;
+  }
   &__content-footer {
     max-width: 960px;
     margin: auto;
@@ -25,6 +30,7 @@
   &__list-title {
     color: $color-primary;
     &__new-design {
+      text-transform: uppercase;
       margin-top: 23px;
       color: $color-primary;
       font-size: 16px;
@@ -118,7 +124,8 @@
         text-align: left;
         border-right: 0;
         display: block;
-        padding: 5px;
+        padding: 10px;
+        padding-left: 0;
         font-weight: 600;
         &::before {
           content: "• ";
@@ -143,7 +150,7 @@
         display: inline-flex;
         width: calc(100% - 50%);
         text-align: left;
-        font-weight: bold;
+        font-weight: 600;
         font-size: 18px;
         margin: 5px 0;
         &::before {
@@ -160,13 +167,15 @@
   }
   &__info {
     color: #727272;
-    padding-bottom: 20px;
+    margin-bottom: 68px;
     padding-top: 20px;
-    text-align: center;
     ul {
       @media (--only-mobile) {
         display: none;
       }
+    }
+    @media (--desktop) {
+      text-align: center;
     }
     @media (--only-mobile) {
       padding-left: 19px;
