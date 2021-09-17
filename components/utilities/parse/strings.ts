@@ -28,6 +28,7 @@ export const formatHtmlToText = (html = ''): string => {
     .replace(/"(.+?)"/g, '“$1”')
     .replace(/<[^>]*>/g, '')
     .replace(/\\/g, '')
+    .replace(/"/g, '“')
 }
 
 export const getUrlFromHtml = (html = ''): string[] => {
