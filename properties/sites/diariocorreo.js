@@ -123,8 +123,6 @@ export default {
     'https://d1r08wok4169a5.cloudfront.net/ads-diariocorreo/ads-fia-28253241-cor_ia_interna5-300x250-div-gpt-ad-8599377-10.html',
   ],
   activeSignwall: true,
-  // sin el Paywall activo no hay newsletter
-  // activePaywall: true,
   activeVerifyEmail: true,
   activeDataTreatment: true,
   activeNewsletter: true,
