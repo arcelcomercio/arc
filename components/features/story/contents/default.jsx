@@ -380,10 +380,7 @@ class StoryContents extends React.PureComponent {
                             __html: replaceTags(content),
                           }}
                         />
-                        {(arcSite === 'elcomercio' || arcSite === 'gestion') &&
-                        nameAds === 'caja3' ? (
-                          <div id="spc_post_stories" />
-                        ) : null}
+
                         {publicidad &&
                           isDfp &&
                           !(
@@ -396,6 +393,15 @@ class StoryContents extends React.PureComponent {
                               isDfp={isDfp}
                             />
                           )}
+
+                        {(arcSite === 'elcomercio' ||
+                          arcSite === 'gestion' ||
+                          (arcSite === 'depor' &&
+                            (/^\/mexico\//.test(requestUri) ||
+                              /^\/colombia\//.test(requestUri)))) &&
+                        nameAds === 'caja3' ? (
+                          <div id="spc_post_stories" />
+                        ) : null}
                       </>
                     )
                   }
