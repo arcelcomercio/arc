@@ -421,7 +421,7 @@ const FormRegisterAux = ({
                   <button
                     style={{ color: mainColorBtn, background: mainColorLink }}
                     type="submit"
-                    className="signwall-inside_forms-btn mt-15 mb-5"
+                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15 mb-5"
                     disabled={disable || showLoading || showFormatInvalid}
                     onClick={() => {
                       Taggeo(
@@ -429,7 +429,7 @@ const FormRegisterAux = ({
                         `web_sw${typeDialog[0]}_registro_boton_registrarme`
                       )
                     }}>
-                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
+                    {showLoading ? 'Registrando...' : 'Registrarme'}
                   </button>
 
                   {authProviders.map((item) => (
@@ -623,7 +623,7 @@ const FormRegisterAux = ({
                       </div>
 
                       <h4
-                        style={{ fontSize: '22px' }}
+                        style={{ fontSize: '22px', lineHeight: '26px' }}
                         className="signwall-inside_forms-title center mb-10">
                         {showUserWithSubs
                           ? `Bienvenido(a) ${
@@ -636,7 +636,7 @@ const FormRegisterAux = ({
 
                   {showContinueVerify && (
                     <h4
-                      style={{ fontSize: '14px', color: '#6a6a6a' }}
+                      style={{ fontSize: '20px', color: '#000' , fontWeight: 'normal' }}
                       className="signwall-inside_forms-title mb-10 center">
                       {remail}
                     </h4>
@@ -725,7 +725,7 @@ const FormRegisterAux = ({
 
                       <button
                         type="button"
-                        className="signwall-inside_forms-btn"
+                        className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                         style={{
                           color: mainColorBtn,
                           background: mainColorLink,
@@ -755,7 +755,7 @@ const FormRegisterAux = ({
                             }
                           }
                         }}>
-                        {arcSite === 'trome' ? 'CONFIRMAR CORREO' : 'CONTINUAR'}
+                        {arcSite === 'trome' ? 'Confirmar Correo' : 'Continuar'}
                       </button>
                     </>
                   )}
