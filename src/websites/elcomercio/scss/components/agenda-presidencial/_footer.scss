@@ -1,0 +1,99 @@
+.agenda-presidencial__footer {
+  &__contenedor {
+    display: flex;
+    flex-direction: row;
+    max-width: 428px;
+    max-height: 204.07;
+    @media (--desktop) {
+      max-width: 1000px;
+      max-height: 206.65;
+    }
+  }
+
+  &__elemento__contenedor {
+    display: flex;
+    width: 214px;
+    height: 204.07px;
+    @media (--desktop) {
+      width: 500px;
+      height: 206.65px;
+    }
+  }
+
+  &__elemento__back {
+    margin: 124.89px 119.42px 28.1px 31px;
+    width: 50.94px;
+    height: 50.94px;
+    & svg {
+      width: 50.94px;
+      height: 50.94px;
+      @media (--desktop) {
+        width: 50.94px;
+        height: 50.94px;
+      }
+    }
+    @media (--desktop) {
+      margin: 121.97px 415.32px 30.68px 54px;
+    }
+  }
+
+  &__elemento__contenedor2 {
+    display: flex;
+    position: relative;
+    width: 214px;
+    height: 204.07px;
+    @media (--desktop) {
+      width: 500px;
+      height: 206.65px;
+    }
+  }
+
+  &__elemento__hoja {
+    // position: absolute;
+    z-index: 1;
+    width: 190.11px;
+    height: 204.07px;
+    margin-left: 23.89px;
+    & svg {
+      width: 190.11px;
+      height: 204.07px;
+      @media (--desktop) {
+        width: 190.11px;
+        height: 206.65px;
+      }
+    }
+    @media (--desktop) {
+      margin-left: 309.89px;
+      width: 190.11px;
+      height: 206.65px;
+    }
+  }
+
+  &__elemento__ahead {
+    // position: absolute;
+    z-index: 2;
+    width: 50.94px;
+    height: 50.94px;
+    margin: 124.89px 19.75px 28.24px 166.01px;
+    // top: 124.89px;
+    // left: 19.75px;
+    // bottom: 28.24px;
+    // right: 166.01px;
+
+    @media (--desktop) {
+      margin: 0 54px 30.68px 449.43px;
+      // top: 0px;
+      // left: 54px;
+      // bottom: 30.68px;
+      // right: 449.43px;
+    }
+    & svg {
+      width: 50.94px;
+      height: 50.94px;
+      @media (--desktop) {
+        width: 50.94px;
+        height: 50.94px;
+      }
+    }
+  }
+}
