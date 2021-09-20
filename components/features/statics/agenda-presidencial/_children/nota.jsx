@@ -38,12 +38,12 @@ const AgendaNota = () => (
           <li className={classes.eleindicador}>Dolar</li>
           <li
             className={`${classes.eleindicador}`}
-            style={{ 'list-style': 'none' }}>
+            style={{ listStyle: 'none' }}>
             <b>COMPRA</b> S/.4.50 (+0.25)
           </li>
           <li
             className={`${classes.eleindicador}`}
-            style={{ 'list-style': 'none' }}>
+            style={{ listStyle: 'none' }}>
             <b>VENTA</b> S/.4.53 (+0.30)
           </li>
           <li className={`${classes.eleindicador}`}>
