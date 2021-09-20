@@ -131,6 +131,12 @@ class StoryData {
     )
   }
 
+  get titleHeader() {
+    return (
+      (this._data && this._data.headlines && this._data.headlines.mobile) || ''
+    )
+  }
+
   get locality() {
     return (
       (this._data && this._data.address && this._data.address.locality) || ''
