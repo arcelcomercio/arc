@@ -454,6 +454,34 @@
           margin-top: 0;
         }
       }
+
+      & .default-border {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border: 2.5px solid #000;
+        border-radius: 4px;
+        &:after {
+          left: 6px;
+          top: 3px;
+          width: 5px;
+          height: 10px;
+          border: solid #fff;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+          content: "";
+          position: absolute;
+          display: none;
+        }
+        &.error {
+          border: 1px solid #ff2b2b;
+          margin-top: 0;
+        }
+      }
+
       & span.error {
         color: #ff2b2b;
         line-height: 18px;
@@ -606,7 +634,7 @@
         width: calc(100%) !important;
         margin: 5px 0 !important;
       }
-
+     
       &.facebook-middle {
         margin-right: 10px !important;
       }
@@ -824,6 +852,10 @@
       border: 0 !important;
       &:disabled {
         opacity: 0.7;
+      }
+      &-codp {
+        font-size: 18px !important;
+        font-weight: normal !important;
       }
     }
     &-form {
@@ -1272,4 +1304,24 @@
     font-family: "Encode Sans Condensed", sans-serif;
     line-height: 13px;
   }
+}
+
+.form-peru21 {
+
+}
+
+.form-diariocorreo {
+  
+}
+
+.form-ojo {
+  
+}
+
+.form-depor {
+  
+}
+
+.form-elbocon {
+  
 }

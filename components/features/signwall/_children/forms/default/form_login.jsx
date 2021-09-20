@@ -279,7 +279,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
       {!showCheckPremium ? (
         <>
           <form
-            className={`signwall-inside_forms-form ${typeDialog}`}
+            className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
             onSubmit={handleOnSubmit}>
             <div>
               {typeDialog === 'paywall' && !showLoginEmail && (
@@ -373,8 +373,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   href="#"
                   style={{
                     color: 'gray',
+                    fontSize: '14px',
                   }}
-                  className="signwall-inside_forms-link mt-10 mb-20 inline f-right text-sm"
+                  className="signwall-inside_forms-link mt-10 mb-20 inline f-right"
                   onClick={(e) => {
                     e.preventDefault()
                     Taggeo(
@@ -388,7 +389,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
                 <button
                   type="submit"
-                  className="signwall-inside_forms-btn"
+                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   style={{
                     color: mainColorBtn,
                     background: mainColorLink,
@@ -401,7 +402,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
                   }>
-                  {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
+                  {showLoading ? 'CARGANDO...' : 'Ingresar'}
                 </button>
               </>
             )}
@@ -460,6 +461,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 <CheckBox
                   checked={checkedPolits}
                   value={checkedPolits ? '1' : '0'}
+                  defaultBorder="default-border checkmark"
                   name="rpolit"
                   arcSite={arcSite}
                   onChange={() => {
