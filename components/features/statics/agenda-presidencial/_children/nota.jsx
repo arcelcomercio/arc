@@ -35,12 +35,18 @@ const AgendaNota = () => (
             nostrud exercitation ullamco laboris
           </li>
           <hr className={classes.linea} />
-          <li className={classes.eleindicador}>
-            Dolar <br />
-            <b>COMPRA</b> S/.4.50 (+0.25) <br />
+          <li className={classes.eleindicador}>Dolar</li>
+          <li
+            className={`${classes.eleindicador}`}
+            style={{ 'list-style': 'none' }}>
+            <b>COMPRA</b> S/.4.50 (+0.25)
+          </li>
+          <li
+            className={`${classes.eleindicador}`}
+            style={{ 'list-style': 'none' }}>
             <b>VENTA</b> S/.4.53 (+0.30)
           </li>
-          <li className={`${classes.eleindicador} margin-bottom: 25.54px`}>
+          <li className={`${classes.eleindicador}`}>
             Kilo de pollo: S/.9 (+4.50)
           </li>
         </ul>
