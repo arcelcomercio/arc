@@ -11,12 +11,12 @@ export default (props) => {
     websiteLink,
     title,
     titleHeader = '',
-    authorOrSection,
-    authorOrSectionLink,
+    author,
+    authorLink,
     multimedia,
     multimediaType,
     invertedColor = false,
-    hideAuthorSection = false,
+    hideAuthor = false,
     viewDoblete = false,
     multimediaOrientation = 'right',
     adSpace = '',
@@ -84,13 +84,13 @@ export default (props) => {
             {title}
           </a>
         </h2>
-        {!hideAuthorSection && (
+        {!hideAuthor && (
           <address className={classes.author}>
             <a
               itemProp="url"
               className={`${classes.authorLink}`}
-              href={authorOrSectionLink}>
-              {authorOrSection}
+              href={authorLink}>
+              {author}
             </a>
           </address>
         )}
