@@ -1,7 +1,7 @@
+import { useContent } from 'fusion:content'
 import * as React from 'react'
 
 import { formatCellphone, formatNames } from '../../_dependencies/Errors'
-import { pushCallOut } from '../../_dependencies/Services'
 import useForm from '../../_hooks/useForm'
 
 type CallOutFormProps = {
@@ -9,11 +9,87 @@ type CallOutFormProps = {
   phonecall: string
 }
 
+type DataCallProps = {
+  name: string
+  phone: string
+}
+
+const PaywallCallIn = (data: DataCallProps) => {
+  const [loading, setLoading] = React.useState(true)
+  const [showError, setShowError] = React.useState<string>()
+  const [showSuccess, setShowSuccess] = React.useState<number>()
+
+  const result =
+    useContent({
+      source: 'paywall-callin',
+      query: data,
+    }) || {}
+  const { success, error } = result
+
+  React.useEffect(() => {
+    const msgError =
+      'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
+
+    if (success) {
+      const parser = new DOMParser()
+      const doc = parser.parseFromString(success, 'text/xml')
+      const parent = doc.getElementsByTagName('ws_EC_SuscripcionResult')[0]
+      const child = parent.childNodes[0]
+      if (parent && child) {
+        const numOrderClear = Number(child.nodeValue)
+        if (numOrderClear >= 0) {
+          setShowSuccess(numOrderClear)
+        } else {
+          setShowError(msgError)
+        }
+        setLoading(false)
+      } else {
+        setShowError(msgError)
+        setLoading(false)
+      }
+    }
+    if (error) {
+      setLoading(false)
+    }
+  }, [success, error])
+
+  return (
+    <div className="msg-confirmation">
+      {loading ? (
+        <div className="loading-call">
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      ) : (
+        <>
+          {showSuccess && (
+            <>
+              <h3>
+                Tus datos han sido enviados correctamente - Orden: {showSuccess}
+              </h3>
+              <p>Uno de nuestros ejecutivos se pondrá en contacto contigo.</p>
+              <p className="note-schedule">
+                Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM
+              </p>
+            </>
+          )}
+          {(error || showError) && (
+            <>
+              <h3>Oh, oh, algo salió mal</h3>
+              <p>{error || showError}</p>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+
 const CallinCallout = (): JSX.Element => {
-  const [showConfirmCall, setShowConfirmCall] = React.useState(false)
-  const [showRepeatCall, setShowRepeatCall] = React.useState<string>()
-  const [showErrorCall, setShowErrorCall] = React.useState<string>()
   const [loading, setLoading] = React.useState(false)
+  const [dataCallInn, setDataCallInn] = React.useState<DataCallProps>()
 
   const stateSchema = {
     namecall: { value: '', error: '' },
@@ -33,33 +109,7 @@ const CallinCallout = (): JSX.Element => {
 
   const onFomrCallOut = ({ namecall, phonecall }: CallOutFormProps) => {
     setLoading(true)
-    pushCallOut(namecall, phonecall)
-      .then((resCall) => {
-        if (
-          resCall.resultado ||
-          resCall.mensaje ===
-            'El numero de telefono ya ha sido registrado el dia de hoy'
-        ) {
-          if (
-            resCall.mensaje ===
-            'El numero de telefono ya ha sido registrado el dia de hoy'
-          ) {
-            setLoading(false)
-            setShowRepeatCall(resCall.mensaje)
-          } else {
-            setLoading(false)
-            setShowConfirmCall(true)
-          }
-        } else {
-          setShowErrorCall(resCall.mensaje || resCall.Message)
-        }
-      })
-      .catch(() => {
-        setLoading(false)
-        setShowErrorCall(
-          'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
-        )
-      })
+    setDataCallInn({ name: namecall, phone: phonecall })
   }
 
   const {
@@ -77,26 +127,8 @@ const CallinCallout = (): JSX.Element => {
   return (
     <section id="callin" className="callin">
       <div className="wrapper">
-        {showConfirmCall || showErrorCall || showRepeatCall ? (
-          <div className="msg-confirmation">
-            {showConfirmCall && (
-              <h3>Tus datos han sido enviados correctamente</h3>
-            )}
-
-            {showRepeatCall && <h3>{showRepeatCall} </h3>}
-
-            {showErrorCall && <h3>Ocurrió un error</h3>}
-
-            {(showConfirmCall || showRepeatCall) && (
-              <>
-                <p>Uno de nuestros ejecutivos se pondrá en contacto contigo.</p>
-                <p className="note-schedule">
-                  Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM
-                </p>
-              </>
-            )}
-            {showErrorCall && <p>{showErrorCall}</p>}
-          </div>
+        {dataCallInn ? (
+          <PaywallCallIn name={dataCallInn.name} phone={dataCallInn.phone} />
         ) : (
           <form onSubmit={handleOnSubmit}>
             <input
