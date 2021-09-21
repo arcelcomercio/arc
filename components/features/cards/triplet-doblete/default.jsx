@@ -2,7 +2,13 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
-import { featuredStoryFields } from '../../../utilities/included-fields'
+import {
+  includeCredits,
+  includePrimarySection,
+  includePromoItems,
+  includePromoItemsCaptions,
+  includeSections,
+} from '../../../utilities/included-fields'
 import TripleteDobleteCard from './_children/triplete-doblete'
 import customFields from './_dependencies/custom-fields'
 import { getParams } from './_dependencies/functions'
@@ -30,9 +36,9 @@ const TripletDoblete = (props) => {
       invertColor1,
       invertColor2,
       invertColor3,
-      hideAuthorSection1,
-      hideAuthorSection2,
-      hideAuthorSection3,
+      hideAuthor1,
+      hideAuthor2,
+      hideAuthor3,
       adsSpace,
       adsSpace2,
       adsSpace3,
@@ -43,16 +49,18 @@ const TripletDoblete = (props) => {
       titleField1,
       titleField2,
       titleField3,
-      authorOrSectionField1,
-      authorOrSectionField2,
-      authorOrSectionField3,
+      authorField1,
+      authorField2,
+      authorField3,
       image1,
       image2,
       image3,
     } = {},
   } = props
 
-  const includedFields = featuredStoryFields
+  const includedFields = `websites.${arcSite}.website_url,headlines.basic,headlines.mobile,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
+    { arcSite }
+  )},${includeSections},publish_date,display_date`
 
   const dataAutomatico1 =
     useContent({
@@ -93,25 +101,6 @@ const TripletDoblete = (props) => {
     contextPath,
     deployment
   )
-
-  console.log('-------------------------------')
-  console.log('Props:')
-  console.log(props)
-  console.log('-------------------------------')
-
-  console.log('-------------------------------')
-  console.log('Data Automático:')
-  console.log(dataAutomatico1)
-  console.log(dataAutomatico2)
-  console.log(dataAutomatico3)
-  console.log('-------------------------------')
-
-  console.log('-------------------------------')
-  console.log('Parametros Automáticos:')
-  console.log(paramsAutomatico1)
-  console.log(paramsAutomatico2)
-  console.log(paramsAutomatico3)
-  console.log('-------------------------------')
 
   /* FIN AUTOMATICO */
 
@@ -204,10 +193,10 @@ const TripletDoblete = (props) => {
     getInvertedColor2: invertColor3,
   }
 
-  const hideAuthorSections = {
-    getHideAuthorSection0: hideAuthorSection1,
-    getHideAuthorSection1: hideAuthorSection2,
-    getHideAuthorSection2: hideAuthorSection3,
+  const hideAuthors = {
+    getHideAuthor0: hideAuthor1,
+    getHideAuthor1: hideAuthor2,
+    getHideAuthor2: hideAuthor3,
   }
 
   const headers = {
@@ -222,10 +211,10 @@ const TripletDoblete = (props) => {
     getTitles2: titleField3,
   }
 
-  const authorOrSections = {
-    getAuthorOrSection0: authorOrSectionField1,
-    getAuthorOrSection1: authorOrSectionField2,
-    getAuthorOrSection2: authorOrSectionField3,
+  const authors = {
+    getAuthor0: authorField1,
+    getAuthor1: authorField2,
+    getAuthor2: authorField3,
   }
 
   const images = {
@@ -274,14 +263,12 @@ const TripletDoblete = (props) => {
           adSpace={spaces[`getSpace${i}`]}
           viewDoblete={viewDoblete}
           invertedColor={invertedColors[`getInvertedColor${i}`]}
-          hideAuthorSection={hideAuthorSections[`getHideAuthorSection${i}`]}
+          hideAuthor={hideAuthors[`getHideAuthor${i}`]}
           websiteLink={story.websiteLink}
-          header={headers[`getHeader${i}`]}
           title={titles[`getTitles${i}`] || story.title}
-          authorOrSection={
-            authorOrSections[`getAuthorOrSection${i}`] || story.authorOrSection
-          }
-          authorOrSectionLink={story.authorOrSectionLink}
+          titleHeader={headers[`getHeader${i}`] || story.titleHeader}
+          author={authors[`getAuthor${i}`] || story.author}
+          authorLink={story.authorLink}
           multimedia={images[`getImage${i}`] || story.multimedia}
           multimediaType={story.multimediaType}
         />

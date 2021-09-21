@@ -8,15 +8,15 @@ export default (props) => {
   const {
     lines,
     index,
-    header = '',
     websiteLink,
     title,
-    authorOrSection,
-    authorOrSectionLink,
+    titleHeader = '',
+    author,
+    authorLink,
     multimedia,
     multimediaType,
     invertedColor = false,
-    hideAuthorSection = false,
+    hideAuthor = false,
     viewDoblete = false,
     multimediaOrientation = 'right',
     adSpace = '',
@@ -73,24 +73,24 @@ export default (props) => {
             href={websiteLink}
             {...editableField(`title${index + 1}`)}
             suppressContentEditableWarning>
-            {header.length > 0 && (
+            {titleHeader.length > 0 && (
               <span
                 className={`${classes.header} ${
                   viewDoblete && classes.headerDoblete
                 }`}>
-                {header} &#183;{' '}
+                {titleHeader} &#183;{' '}
               </span>
             )}
             {title}
           </a>
         </h2>
-        {!hideAuthorSection && (
+        {!hideAuthor && (
           <address className={classes.author}>
             <a
               itemProp="url"
               className={`${classes.authorLink}`}
-              href={authorOrSectionLink}>
-              {authorOrSection}
+              href={authorLink}>
+              {author}
             </a>
           </address>
         )}

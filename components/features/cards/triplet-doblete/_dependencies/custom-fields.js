@@ -21,15 +21,15 @@ const customFields = PropTypes.shape({
     defaultValue: false,
   }),
 
-  hideAuthorSection1: PropTypes.bool.tag({
+  hideAuthor1: PropTypes.bool.tag({
     name: 'Ocultar autor nota 1',
     defaultValue: false,
   }),
-  hideAuthorSection2: PropTypes.bool.tag({
+  hideAuthor2: PropTypes.bool.tag({
     name: 'Ocultar autor nota 2',
     defaultValue: false,
   }),
-  hideAuthorSection3: PropTypes.bool.tag({
+  hideAuthor3: PropTypes.bool.tag({
     name: 'Ocultar autor nota 3',
     defaultValue: false,
   }),
@@ -44,9 +44,9 @@ const customFields = PropTypes.shape({
     description: 'Dejar vacío para mostrar el título original de la nota.',
     group: 'Datos nota 1',
   }),
-  authorOrSectionField1: PropTypes.string.tag({
-    name: 'Autor o sección de la nota 1',
-    description: 'Dejar vacío para mostrar el autor o sección original.',
+  authorField1: PropTypes.string.tag({
+    name: 'Autor de la nota 1',
+    description: 'Dejar vacío para mostrar el autor original.',
     group: 'Datos nota 1',
   }),
   image1: PropTypes.string.tag({
@@ -76,9 +76,9 @@ const customFields = PropTypes.shape({
     description: 'Dejar vacío para mostrar el título original de la nota.',
     group: 'Datos nota 2',
   }),
-  authorOrSectionField2: PropTypes.string.tag({
-    name: 'Autor o sección de la nota 2',
-    description: 'Dejar vacío para mostrar el autor o sección original.',
+  authorField2: PropTypes.string.tag({
+    name: 'Autor de la nota 2',
+    description: 'Dejar vacío para mostrar el autor original.',
     group: 'Datos nota 2',
   }),
   image2: PropTypes.string.tag({
@@ -108,9 +108,9 @@ const customFields = PropTypes.shape({
     description: 'Dejar vacío para mostrar el título original de la nota.',
     group: 'Datos nota 3',
   }),
-  authorOrSectionField3: PropTypes.string.tag({
-    name: 'Autor o sección de la nota 3',
-    description: 'Dejar vacío para mostrar el autor o sección original.',
+  authorField3: PropTypes.string.tag({
+    name: 'Autor de la nota 3',
+    description: 'Dejar vacío para mostrar el autor original.',
     group: 'Datos nota 3',
   }),
   image3: PropTypes.string.tag({
