@@ -56,7 +56,14 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
     multimediaLandscapeS,
     multimediaCaption,
     multimediaLazyDefault,
-    dataSaltarIntro: { embed: { config: { interviewed = '' } = {} } = {} },
+    dataSaltarIntro: {
+      embed: {
+        config: {
+          interviewed = '',
+          career_interviewed: careerInterviewed = '',
+        } = {},
+      } = {},
+    },
   } = new StoryData({
     data,
     deployment,
@@ -67,8 +74,8 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.info}>
-        <div className={classes.interviewed}>Nombre Apellido</div>
-        <div className={classes.rol}>Cargo o profesión del entrevistado</div>
+        <div className={classes.interviewed}>{interviewed}</div>
+        <div className={classes.rol}>{careerInterviewed}</div>
         <a href={websiteLink} className={classes.title}>
           {title}
         </a>

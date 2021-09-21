@@ -7,6 +7,8 @@ export default (arcSite) => `{
       config {
         plataform
         score
+        career_interviewed
+        interviewed
       }
     }
   }
