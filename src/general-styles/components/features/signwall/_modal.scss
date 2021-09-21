@@ -1316,6 +1316,17 @@
 }
 
 .form-diariocorreo {
+  & input {
+    border-radius: 10px !important;
+  }
+
+  & .signwall-inside_forms-btn {
+    border-radius: 10px !important;
+    &-social{
+      border-radius: 10px !important;
+    }
+  }
+  
 }
 
 .form-ojo {
