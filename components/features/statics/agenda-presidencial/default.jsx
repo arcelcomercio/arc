@@ -55,7 +55,7 @@ const StaticsAgendaPresidencial = (props) => {
     useContent({
       source: 'story-feed-by-section-and-date-v3',
       query: {
-        section: '/lima',
+        section: '/agenda-presidencial',
         date: fecha10Men(),
         date2: dateUrl,
         size: 12,
@@ -66,7 +66,7 @@ const StaticsAgendaPresidencial = (props) => {
     useContent({
       source: 'story-feed-by-section-and-date-v3',
       query: {
-        section: '/lima',
+        section: '/agenda-presidencial',
         date: dateUrl,
         date2: fecha10Mas(),
         size: 12,
