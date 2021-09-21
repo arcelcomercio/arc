@@ -108,7 +108,7 @@ SaltarIntroDestaqueEntrevista.propTypes = {
   customFields,
 }
 
-SaltarIntroDestaqueEntrevista.label = 'Destaque Entrevista - Saltar Intro'
+SaltarIntroDestaqueEntrevista.label = 'Destaque Entrevista -  Saltar Intro'
 SaltarIntroDestaqueEntrevista.static = true
 
 export default SaltarIntroDestaqueEntrevista
