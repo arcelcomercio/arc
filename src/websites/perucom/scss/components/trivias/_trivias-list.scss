@@ -1,0 +1,65 @@
+.trivias-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  justify-content: space-evenly;
+  width: 100%;
+  max-width: 970px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.trivias-item {
+  background-color: $color-black;
+  width: 100%;
+  max-width: 247px;
+  height: 280px;
+  margin: 0 10px 35px 10px;
+
+  @media (--tablet) {
+    max-width: 211px;
+    height: 240px;
+  }
+
+  &__figure {
+    height: 50%;
+    overflow: hidden;
+  }
+
+  &__img {
+    object-position: center;
+    object-fit: cover;
+  }
+
+  &__content {
+    height: 50%;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  &__title {
+    color: $color-white;
+    font-size: 15px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 45px;
+  }
+
+  &__link {
+    color: $color-gold;
+    border: 1px solid $color-gold;
+    display: inline-block;
+    font-size: 12px;
+    padding: 8px 20px;
+
+    &:hover {
+      color: $color-black;
+      background-color: $color-gold;
+    }
+  }
+}
