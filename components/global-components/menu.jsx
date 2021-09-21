@@ -12,7 +12,7 @@ const classes = {
   containerSubMenu: 'nav-sidebar__container-submenu w-full overflow-hidden',
   menuArrow: 'nav-sidebar__menu-arrow hidden',
   labelParentItem:
-    'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
+    'nav-sidebar__parent-item pl-25 pr-20 pb-10 position-absolute right-0',
   link: 'nav-sidebar__link block p-15 pl-25 text-md text-white',
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30 hidden',

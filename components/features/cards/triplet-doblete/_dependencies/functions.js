@@ -21,16 +21,13 @@ export const getParams = (data, arcSite, contextPath, deployment) => {
     defaultImgSize: 'sm',
   })
 
-  const authorOrSection = author
-  const authorOrSectionLink = authorLink
-
   return {
     id,
     websiteLink,
     title,
     titleHeader,
-    authorOrSection,
-    authorOrSectionLink,
+    author,
+    authorLink,
     primarySection,
     primarySectionLink,
     multimediaType,
