@@ -17,8 +17,6 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
     },
   } = useAppContext() || {}
 
-  const isTromeVerify = arcSite === 'trome' && typeDialog === 'verify'
-
   const { changeTemplate } = useModalContext()
   const [showLoading, setShowLoading] = React.useState(true)
   const [showConfirm, setShowConfirm] = React.useState(false)
@@ -60,84 +58,67 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
         case 'diariocorreo':
           setWelcomeMessage('Diario Correo')
           break
-
+        case 'peru21':
+          setWelcomeMessage('Diario Peru21')
+          break
+        case 'elbocon':
+          setWelcomeMessage('Diario El Bocon')
+          break
+        case 'ojo':
+          setWelcomeMessage('Diario Ojo')
+          break;
+        case 'depor':
+          setWelcomeMessage('Diario Depor')   
+          break;
         default:
+          setWelcomeMessage('Diario')
           break
       }
     }
   }, [])
 
-  
-
   return (
     <form
       className={`signwall-inside_forms-form ${
         arcSite === 'trome' ? 'form-trome' : ''
-      }`}
-      >
+      }`}>
       {showLoading ? (
         <Loading typeBg="block" />
       ) : (
         <>
-          {isTromeVerify ? (
-            <>
-              <div className={isTromeVerify ? 'group-float-trome' : ''}>
-                <br />
-                <h1 className="group-float-trome__title">
-                  ¡Gracias por ser un Trome!
-                </h1>
-                <p className="group-float-trome__subtitle">
-                  {showConfirm
-                    ? 'Tu cuenta de correo electrónico ha sido verificado correctamente.'
-                    : 'Tu cuenta de correo electrónico podría ya estar validado.'}
-                </p>
-              </div>
-              <div className="spacing-trome" />
-              <div className="spacing-trome" />
-              {showError && (
-                <div className="signwall-inside_forms-error">{showError}</div>
-              )}
-              <br />
-            </>
-          ) : (
-            <>
-              <br />
+          <br />
+          <h4
+            style={{ fontSize: '20px', fontFamily: primaryFont }}
+            className="signwall-inside_forms-title  mb-10">
+            {showConfirm ? `Bienvenido usuario! ` : `Bienvenido nuevamente!`}
+          </h4>
 
-              <h4
-                style={{ fontSize: '20px', fontFamily: primaryFont }}
-                className="signwall-inside_forms-title  mb-10">
-                {showConfirm
-                  ? `Bienvenido usuario! `
-                  : `Bienvenido nuevamente!`}
-              </h4>
+          <h4
+            style={{ fontSize: '20px', fontFamily: primaryFont }}
+            className="signwall-inside_forms-title  mb-10">
+            {showConfirm
+              ? ` Gracias por unirte al ${welcomeMessage}`
+              : ` Gracias por unirte al ${welcomeMessage}`}
+          </h4>
 
-              <h4
-                style={{ fontSize: '20px', fontFamily: primaryFont }}
-                className="signwall-inside_forms-title  mb-10">
-                {showConfirm
-                  ? ` Gracias por unirte al ${welcomeMessage}`
-                  : ` Gracias por unirte al ${welcomeMessage}`}
-              </h4>
-
-              {showError && (
-                <div className="signwall-inside_forms-error">{showError}</div>
-              )}
-
-              <p
-                style={{
-                  lineHeight: '28px',
-                  textAlign: 'center',
-                }}
-                className="signwall-inside_forms-text mt-10 mb-20 center">
-                {showConfirm
-                  ? 'Tu correo electrónico ha sido validado correctamente.'
-                  : 'Tu correo electrónico podría ya estar validado.'}
-                <br />
-
-                {!activePaywall && 'disfruta nuestro contenido sin límites'}
-              </p>
-            </>
+          {showError && (
+            <div className="signwall-inside_forms-error">{showError}</div>
           )}
+
+          <p
+            style={{
+              lineHeight: '28px',
+              textAlign: 'center',
+            }}
+            className="signwall-inside_forms-text mt-10 mb-20 center">
+            {showConfirm
+              ? 'Tu correo electrónico ha sido validado correctamente.'
+              : 'Tu correo electrónico podría ya estar validado.'}
+            <br />
+
+            {!activePaywall && 'disfruta nuestro contenido sin límites'}
+          </p>
+
           {showBtnContinue ? (
             <button
               type="button"
