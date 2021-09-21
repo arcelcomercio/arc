@@ -634,7 +634,7 @@
         width: calc(100%) !important;
         margin: 5px 0 !important;
       }
-     
+
       &.facebook-middle {
         margin-right: 10px !important;
       }
@@ -853,7 +853,13 @@
       &:disabled {
         opacity: 0.7;
       }
-      &-codp {
+    }
+    &-btn-codp {
+      font-size: 18px !important;
+      font-weight: normal !important;
+
+      &:disabled {
+        opacity: 0.7;
         font-size: 18px !important;
         font-weight: normal !important;
       }
@@ -1307,21 +1313,16 @@
 }
 
 .form-peru21 {
-
 }
 
 .form-diariocorreo {
-  
 }
 
 .form-ojo {
-  
 }
 
 .form-depor {
-  
 }
 
 .form-elbocon {
-  
 }

@@ -46,7 +46,7 @@ const FormReset = React.lazy(() =>
 
 const FormVerify = React.lazy(() =>
   import(
-    /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/form_verify'
+    /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/default/form_verify'
   )
 )
 
@@ -173,7 +173,10 @@ export const ContGeneric = ({ properties }) => {
         />
       )}
 
-      <div className="cont-modal">
+      <div className="cont-modal"
+      style={(isTrome || isComercio || isGestion)? undefined
+      :{minHeight : '350px'}}
+      >
         {(isTrome || isComercio || isGestion) && (
           <div className={`left-modal ${isTrome ? 'bg-trome' : ''}`}>
             <React.Suspense fallback={null}>
@@ -188,7 +191,7 @@ export const ContGeneric = ({ properties }) => {
           </div>
         )}
 
-        <div className="right-modal">
+        <div className="right-modal" style={{paddingBottom:'50px'}}>
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
           })}

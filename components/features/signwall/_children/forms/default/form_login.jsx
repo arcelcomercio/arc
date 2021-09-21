@@ -402,7 +402,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
                   }>
-                  {showLoading ? 'CARGANDO...' : 'Ingresar'}
+                  {showLoading ? 'Cargando...' : 'Ingresar'}
                 </button>
               </>
             )}
