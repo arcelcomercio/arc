@@ -113,7 +113,6 @@ export const pushCallOut = (name, phone) => {
         // 'Access-Control-Allow-Origin': '*',
       },
     }).then((res) => {
-      console.log('========>', res)
       resolve(res.text())
     })
   })
