@@ -31,8 +31,8 @@ const StaticsAgendaPresidencial = (props) => {
     useContent({
       source: 'story-by-url-and-related-filter',
       query: {
-        // website_url: `/agenda-presidencial/${dateUrl}/`,
-        website_url: `/lima/magdalena-del-mar-proceso-de-elecciones-vecinales-se-llevara-a-cabo-de-forma-virtual-por-la-pandemia-nndc-noticia/`,
+        website_url: `/agenda-presidencial/${dateUrl}/`,
+        // website_url: `/lima/magdalena-del-mar-proceso-de-elecciones-vecinales-se-llevara-a-cabo-de-forma-virtual-por-la-pandemia-nndc-noticia/`,
       },
     }) || {}
 
