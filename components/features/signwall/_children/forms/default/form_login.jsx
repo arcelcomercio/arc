@@ -432,13 +432,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
               onLogged={onLogged}
               checkUserSubs={checkUserSubs}
             />
-            <p
-              style={{
-                fontSize: '12px',
-                color: '#000000',
-                textAlign: 'center',
-              }}
-              className="signwall-inside_forms-text mt-10 mb-20">
+            <p className="signwall-inside_forms-text center mt-10 mb-20 p-link">
               ¿Aún no tienes una cuenta?
               <a
                 href="#"
@@ -470,6 +464,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   <p
                     style={{
                       fontSize: '12px',
+                      fontWeight: '600',
+                      color: '#000',
                     }}
                     className="signwall-inside_forms-text mt-10">
                     Al ingresar por redes sociales autorizo el uso de mis datos
@@ -489,7 +485,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   style={{
                     textAlign: 'justify',
                     color: '#818181',
-                    fontSize: '11px',
+                    fontSize: '11.5px',
+                    letterSpacing: '0.015em',
                   }}
                   className="signwall-inside_forms-text mt-10 mb-10">
                   En caso hayas autorizado los fines de uso adicionales

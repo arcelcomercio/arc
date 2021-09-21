@@ -354,7 +354,7 @@ const FormRegisterAux = ({
             <Loading typeBg="block" />
           ) : (
             <form
-            className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
+              className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -479,18 +479,14 @@ const FormRegisterAux = ({
                     style={{
                       marginTop: '10px',
                     }}>
-                    <p
-                      style={{
-                        fontSize: '12px',
-                      }}
-                      className="signwall-inside_forms-text mt-15 center">
+                    <p className="signwall-inside_forms-text mt-15 center p-link">
                       Ya tengo una cuenta
                       <a
                         href={dataTreatment}
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline">
+                        className="signwall-inside_forms-link ml-5 inline ">
                         Ingresar
                       </a>
                     </p>

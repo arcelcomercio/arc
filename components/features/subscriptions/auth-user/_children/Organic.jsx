@@ -191,7 +191,7 @@ export const ContGeneric = ({ properties }) => {
           </div>
         )}
 
-        <div className="right-modal" style={{paddingBottom:'50px'}}>
+        <div className="right-modal" style={{paddingBottom:'20px'}}>
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
           })}

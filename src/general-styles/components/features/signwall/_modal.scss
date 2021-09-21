@@ -1320,13 +1320,20 @@
     border-radius: 10px !important;
   }
 
+  & .p-link {
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #000;
+  }
+
   & .signwall-inside_forms-btn {
     border-radius: 10px !important;
-    &-social{
+    &-social {
       border-radius: 10px !important;
     }
   }
-  
 }
 
 .form-ojo {

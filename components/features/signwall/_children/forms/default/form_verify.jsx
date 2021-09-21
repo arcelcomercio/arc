@@ -84,22 +84,26 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
       ) : (
         <>
           <br />
+          <div className="center block mb-20">
+            <MsgResetPass bgcolor={mainColorBr} />
+          </div>
+          {showError && (
+            <div
+              style={{ width: '100%' }}
+              className="signwall-inside_forms-error mb-10">
+              {showError}
+            </div>
+          )}
           <h4
             style={{ fontSize: '20px', fontFamily: primaryFont }}
-            className="signwall-inside_forms-title  mb-10">
+            className="signwall-inside_forms-title center ">
             {showConfirm ? `Bienvenido usuario! ` : `Bienvenido nuevamente!`}
           </h4>
           <h4
             style={{ fontSize: '20px', fontFamily: primaryFont }}
-            className="signwall-inside_forms-title  mb-10">
-            {showConfirm
-              ? ` Gracias por unirte al ${welcomeMessage}`
-              : ` Gracias por unirte al ${welcomeMessage}`}
+            className="signwall-inside_forms-title center ">
+            {` Gracias por unirte al ${welcomeMessage}`}
           </h4>
-
-          {showError && (
-            <div className="signwall-inside_forms-error">{showError}</div>
-          )}
 
           <p
             style={{
