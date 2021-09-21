@@ -51,8 +51,8 @@ const AgendaNota = (props) => {
                         element.items.map((item) => (
                           <li
                             className={`${classes.eleindicador}`}
-                            style={{ listStyle: 'none' }}
-                            key={element._id}
+                            style={{ listStyle: 'none', paddingBottom: '15px' }}
+                            key={item.content}
                             dangerouslySetInnerHTML={{ __html: item.content }}
                           />
                         ))}

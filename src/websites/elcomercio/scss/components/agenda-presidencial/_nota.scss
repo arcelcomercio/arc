@@ -26,15 +26,15 @@
     line-height: 30px;
     font-family: $primary-font;
     text-align: left;
+    padding-top: 30px;
+    &:first-child {
+      padding-top: 0;
+    }
     @media (--desktop) {
       max-width: 589.77px;
       margin: auto;
       padding-left: 15px;
-      padding-top: 30px;
       text-align: justify;
-      &:first-child {
-        padding-top: 0;
-      }
     }
   }
 

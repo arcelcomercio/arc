@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import AgendaCalendario from './_children/calendario'
+import Footer from './_children/footer'
 import NavBar from './_children/navbar'
 import AgendaNota from './_children/nota'
 
@@ -12,13 +13,14 @@ import AgendaNota from './_children/nota'
  * @see estilos `src/websites/elcomercio/agenda-presidencial.scss`
  */
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const StaticsAgendaPresidencial = (props) => {
   const { customFields: { titleUpDown } = {} } = props
   const { requestUri } = useAppContext()
+
   const isNotaWeb = /\/agenda-presidencial\/(\d{4})-(\d{1,2})-(\d{1,2})\//.test(
     requestUri
   )
+
   const dateUrl = requestUri
     .split('?')[0]
     .split('/')
@@ -29,15 +31,15 @@ const StaticsAgendaPresidencial = (props) => {
     useContent({
       source: 'story-by-url-and-related-filter',
       query: {
-        website_url: `/agenda-presidencial/${dateUrl}/`,
+        // website_url: `/agenda-presidencial/${dateUrl}/`,
+        website_url: `/lima/magdalena-del-mar-proceso-de-elecciones-vecinales-se-llevara-a-cabo-de-forma-virtual-por-la-pandemia-nndc-noticia/`,
       },
     }) || {}
-  console.log('=========DATA', dataNota)
 
   const fecha10Mas = () => {
     const d = new Date(dateUrl)
     d.setHours(d.getHours() - 5)
-    d.setDate(d.getDate() + 11)
+    d.setDate(d.getDate() + 10)
     const match = /\d{4}-\d{2}-\d{2}/.exec(d.toISOString())
     return match ? match[0] : ''
   }
@@ -45,7 +47,7 @@ const StaticsAgendaPresidencial = (props) => {
   const fecha10Men = () => {
     const d = new Date(dateUrl)
     d.setHours(d.getHours() - 5)
-    d.setDate(d.getDate() - 9)
+    d.setDate(d.getDate() - 8)
     const match = /\d{4}-\d{2}-\d{2}/.exec(d.toISOString())
     return match ? match[0] : ''
   }
@@ -57,7 +59,7 @@ const StaticsAgendaPresidencial = (props) => {
         section: '/lima',
         date: fecha10Men(),
         date2: dateUrl,
-        size: 10,
+        size: 12,
       },
     }) || {}
 
@@ -68,7 +70,7 @@ const StaticsAgendaPresidencial = (props) => {
         section: '/lima',
         date: dateUrl,
         date2: fecha10Mas(),
-        size: 10,
+        size: 12,
       },
     }) || {}
 
@@ -89,9 +91,6 @@ const StaticsAgendaPresidencial = (props) => {
     }
   }
 
-  console.log('BackUrlBackUrl', BackUrl)
-  console.log('NextUrlNextUrl', NextUrl)
-
   return (
     <>
       <NavBar isNota={isNotaWeb} day={dateUrl} />
@@ -100,6 +99,7 @@ const StaticsAgendaPresidencial = (props) => {
       ) : (
         <AgendaCalendario />
       )}
+      <Footer isBack={BackUrl} isAhead={NextUrl} />
     </>
   )
 }
