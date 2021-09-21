@@ -10,6 +10,10 @@ import searchQuery from '../../../../utilities/client/search'
 
 import ShareButtons from '../../../../global-components/lite/share'
 
+import {
+  toggleMenu,
+} from '../_dependencies/scripts'
+
 const classes = {
   menuFull: 'header-inverted-featured__menu-full',
   menuList: 'header-inverted-featured__menu-full__list',
@@ -36,8 +40,8 @@ const classes = {
   searchLabel: 'header-inverted-featured__search-label',
   btnSearch: `header-inverted-featured__btn-search`,
   iconSearch: 'header-inverted-featured__icon-search icon-search',
-  btnMenu: 'header-inverted-featured__btn-menu',
-  iconMenu: 'header-inverted-featured__icon-hamburguer icon-hamburguer',
+  btnMenu: 'header-inverted-featured__btn-menu ',
+  iconMenu: 'header-inverted-featured__icon-menu icon-hamburguer',
   navStoryTitle: 'header-inverted-featured__nav-story-title',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
   listIcon: 'header-inverted-featured__list-icon story-header__list',
@@ -247,6 +251,7 @@ const HeaderChildInverted = ({
               type="button"
               className={classes.btnMenu}
               onClick={_handleToggleSectionElements}
+              id="btn-menu"
               tabIndex="0">
               <i className={classes.iconMenu} />
               <span aria-hidden="true">Menú</span>
@@ -304,7 +309,7 @@ const HeaderChildInverted = ({
         </div>
         <Menu
           sections={menuSections}
-          showSidebar={statusSidebar}
+          showSidebar={true}
           contextPath={contextPath}
           siteProperties={siteProperties}
         />
@@ -355,6 +360,11 @@ const HeaderChildInverted = ({
         </nav>
       )}
       {(invertedTema && !hideTema) && <Header />}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: toggleMenu
+        }}
+      ></script>
     </>
   )
 }
