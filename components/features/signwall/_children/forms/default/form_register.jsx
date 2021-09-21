@@ -354,9 +354,7 @@ const FormRegisterAux = ({
             <Loading typeBg="block" />
           ) : (
             <form
-              className={`signwall-inside_forms-form ${
-                arcSite === 'trome' ? 'form-trome' : ''
-              } ${typeDialog}`}
+            className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -500,6 +498,7 @@ const FormRegisterAux = ({
 
                   {activeDataTreatment && (
                     <CheckBox
+                      defaultBorder="default-border checkmark"
                       checked={checkedPolits}
                       value={checkedPolits ? '1' : '0'}
                       name="rpolit"
@@ -528,6 +527,7 @@ const FormRegisterAux = ({
                   )}
 
                   <CheckBox
+                    defaultBorder="default-border checkmark"
                     checked={checkedTerms}
                     value={checkedTerms ? '1' : '0'}
                     name="rterms"
@@ -636,7 +636,11 @@ const FormRegisterAux = ({
 
                   {showContinueVerify && (
                     <h4
-                      style={{ fontSize: '20px', color: '#000' , fontWeight: 'normal' }}
+                      style={{
+                        fontSize: '20px',
+                        color: '#000',
+                        fontWeight: 'normal',
+                      }}
                       className="signwall-inside_forms-title mb-10 center">
                       {remail}
                     </h4>
