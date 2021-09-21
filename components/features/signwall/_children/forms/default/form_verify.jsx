@@ -66,10 +66,10 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
           break
         case 'ojo':
           setWelcomeMessage('Diario Ojo')
-          break;
+          break
         case 'depor':
-          setWelcomeMessage('Diario Depor')   
-          break;
+          setWelcomeMessage('Diario Depor')
+          break
         default:
           setWelcomeMessage('Diario')
           break
@@ -78,10 +78,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   }, [])
 
   return (
-    <form
-      className={`signwall-inside_forms-form ${
-        arcSite === 'trome' ? 'form-trome' : ''
-      }`}>
+    <form className="signwall-inside_forms-form">
       {showLoading ? (
         <Loading typeBg="block" />
       ) : (
@@ -92,7 +89,6 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
             className="signwall-inside_forms-title  mb-10">
             {showConfirm ? `Bienvenido usuario! ` : `Bienvenido nuevamente!`}
           </h4>
-
           <h4
             style={{ fontSize: '20px', fontFamily: primaryFont }}
             className="signwall-inside_forms-title  mb-10">
