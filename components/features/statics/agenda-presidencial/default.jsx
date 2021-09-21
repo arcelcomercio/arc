@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
