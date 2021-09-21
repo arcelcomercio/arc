@@ -24,13 +24,21 @@ const classes = {
 export default ({
   isAdmin,
   seeMoreLink,
-  interviewed,
+  interviewed: isInterviewed,
   data: { items = [] } = {},
 }) => (
   <div className={classes.container}>
     <div className={classes.list}>
       {items &&
         items.map((el) => {
+          const {
+            embed: {
+              config: {
+                interviewed = '',
+                career_interviewed: careerInterviewed = '',
+              } = {},
+            } = {},
+          } = el.dataSaltarIntro
           const params = {
             title: el.title,
             link: el.websiteLink,
@@ -59,11 +67,11 @@ export default ({
                     </a>
                   </figure>
                   <div className={classes.boxInfo}>
-                    {interviewed ? (
+                    {isInterviewed ? (
                       <>
-                        <div className={classes.name}>Nombre Apellido</div>
+                        <div className={classes.name}>{interviewed}</div>
                         <div className={classes.descrip}>
-                          Cargo o profesión del entrevistado
+                          {careerInterviewed}
                         </div>
                       </>
                     ) : (
