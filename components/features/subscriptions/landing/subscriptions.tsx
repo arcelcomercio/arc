@@ -170,7 +170,7 @@ const Component = (props: LandingSubscriptionsProps) => {
 
             {moduleCall && (
               <div className="header__content-call">
-                <span>Llama Gratis</span>
+                <span>Llámanos</span>
                 <button
                   type="button"
                   className="icon-phone"
