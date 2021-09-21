@@ -14,59 +14,92 @@ const classes = {
   informe: 'agenda-presidencial__nota__informe',
 }
 
-const AgendaNota = () => (
-  <>
-    <div className={classes.contenedor}>
-      <div className={classes.elecont1}>
-        <ul>
-          <li className={classes.eleparrafo}>
-            El presidente se reunió con la presidenta del congreso y dijo. Las
-            mil y una pandemias. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris
-          </li>
-          <li className={classes.eleparrafo}>
-            Decreto del Peruano designa como embajador de Perú en a loores ipsum
-            loores. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris.
-          </li>
-          <li className={classes.eleparrafo}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore.Ut enim ad minim veniam, quis
-            nostrud exercitation ullamco laboris
-          </li>
-          <hr className={classes.linea} />
-          <li className={classes.eleindicador}>Dolar</li>
-          <li
-            className={`${classes.eleindicador}`}
-            style={{ listStyle: 'none' }}>
-            <b>COMPRA</b> S/.4.50 (+0.25)
-          </li>
-          <li
-            className={`${classes.eleindicador}`}
-            style={{ listStyle: 'none' }}>
-            <b>VENTA</b> S/.4.53 (+0.30)
-          </li>
-          <li className={`${classes.eleindicador}`}>
-            Kilo de pollo: S/.9 (+4.50)
-          </li>
-        </ul>
-      </div>
+const AgendaNota = (props) => {
+  const { dataNota = '', titleUpDown = '' } = props
+  return (
+    <>
+      <div className={classes.contenedor}>
+        <div className={classes.elecont1}>
+          <ul>
+            {dataNota &&
+              dataNota !== undefined &&
+              dataNota.content_elements !== undefined && (
+                <>
+                  {dataNota.content_elements.map((element) => (
+                    <>
+                      {element.type === 'text' && (
+                        <li
+                          className={classes.eleparrafo}
+                          key={element._id}
+                          dangerouslySetInnerHTML={{ __html: element.content }}
+                        />
+                      )}
+                    </>
+                  ))}
+                </>
+              )}
+            <hr className={classes.linea} />
+            <li className={classes.eleindicador}>{titleUpDown}</li>
+            {dataNota &&
+              dataNota !== undefined &&
+              dataNota.content_elements !== undefined && (
+                <>
+                  {dataNota.content_elements.map((element) => (
+                    <>
+                      {element.type === 'list' &&
+                        element.list_type === 'unordered' &&
+                        element.items.map((item) => (
+                          <li
+                            className={`${classes.eleindicador}`}
+                            style={{ listStyle: 'none' }}
+                            key={element._id}
+                            dangerouslySetInnerHTML={{ __html: item.content }}
+                          />
+                        ))}
+                    </>
+                  ))}
+                </>
+              )}
+          </ul>
+        </div>
 
-      <div className={classes.elecont2}>
-        <div className={classes.elecaja}>
-          <span className={classes.informe}>
-            <b>Lee el informe:</b> <br />
-            La telaraña de Cerrón. Un conjunto de lorem ipsum loores ipsum
-          </span>
-          <a
-            className={classes.vernota}
-            href="https://especiales.elcomercio.pe/?q=especiales/calculadora-eliminatorias-qatar-2022-nndd-ecvisual-ecpm/index.html">
-            Ver nota
-          </a>
+        <div className={classes.elecont2}>
+          <div className={classes.elecaja}>
+            <span className={classes.informe}>
+              <b>Lee el informe:</b> <br />
+              {dataNota &&
+                dataNota !== undefined &&
+                dataNota.content_elements !== undefined && (
+                  <>
+                    {dataNota.content_elements.map((element) => (
+                      <>
+                        {element.type === 'interstitial_link' &&
+                          element.content}
+                      </>
+                    ))}
+                  </>
+                )}
+            </span>
+            {dataNota &&
+              dataNota !== undefined &&
+              dataNota.content_elements !== undefined && (
+                <>
+                  {dataNota.content_elements.map((element) => (
+                    <>
+                      {element.type === 'interstitial_link' && (
+                        <a className={classes.vernota} href={element.url}>
+                          Ver nota
+                        </a>
+                      )}
+                    </>
+                  ))}
+                </>
+              )}
+          </div>
         </div>
       </div>
-    </div>
-  </>
-)
+    </>
+  )
+}
 
 export default AgendaNota

@@ -41,6 +41,7 @@
       margin-top: 16px;
       text-align: left;
       width: max-content;
+      font-family: $primary-font;
       @media (--desktop) {
         text-align: center;
       }
@@ -57,6 +58,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    font-family: $tertiary-font;
     @media (--desktop) {
       max-height: 138px;
       align-items: end;
