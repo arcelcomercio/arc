@@ -26,69 +26,96 @@ const StaticsAgendaPresidencial = (props) => {
     .filter((item) => item)
     .pop()
 
-  const dataNota =
-    useContent({
-      source: 'story-by-url-and-related-filter',
-      query: {
-        website_url: `/agenda-presidencial/${dateUrl}/`,
-        // website_url: `/lima/magdalena-del-mar-proceso-de-elecciones-vecinales-se-llevara-a-cabo-de-forma-virtual-por-la-pandemia-nndc-noticia/`,
-      },
-    }) || {}
+  let dataNota = ''
+  let fecha10Mas = ''
+  let fecha10Men = ''
+  let dataLast10 = ''
+  let dataMore10 = ''
 
-  const fecha10Mas = () => {
-    const d = new Date(dateUrl)
-    d.setHours(d.getHours() - 5)
-    d.setDate(d.getDate() + 10)
-    const match = /\d{4}-\d{2}-\d{2}/.exec(d.toISOString())
-    return match ? match[0] : ''
+  if (dateUrl !== 'agenda-presidencial') {
+    dataNota =
+      useContent({
+        source: 'story-by-url-and-related-filter',
+        query: {
+          website_url: `/agenda-presidencial/${dateUrl}/`,
+          // website_url: `/lima/magdalena-del-mar-proceso-de-elecciones-vecinales-se-llevara-a-cabo-de-forma-virtual-por-la-pandemia-nndc-noticia/`,
+        },
+      }) || {}
+
+    fecha10Mas = () => {
+      const d = new Date(dateUrl)
+      d.setHours(d.getHours() - 5)
+      d.setDate(d.getDate() + 10)
+      const match = /\d{4}-\d{2}-\d{2}/.exec(d.toISOString())
+      return match ? match[0] : ''
+    }
+
+    fecha10Men = () => {
+      const d = new Date(dateUrl)
+      d.setHours(d.getHours() - 5)
+      d.setDate(d.getDate() - 8)
+      const match = /\d{4}-\d{2}-\d{2}/.exec(d.toISOString())
+      return match ? match[0] : ''
+    }
+
+    dataLast10 =
+      useContent({
+        source: 'story-feed-by-section-and-date-v3',
+        query: {
+          section: '/agenda-presidencial',
+          date: fecha10Men(),
+          date2: dateUrl,
+          size: 12,
+        },
+      }) || {}
+
+    dataMore10 =
+      useContent({
+        source: 'story-feed-by-section-and-date-v3',
+        query: {
+          section: '/agenda-presidencial',
+          date: dateUrl,
+          date2: fecha10Mas(),
+          size: 12,
+        },
+      }) || {}
   }
-
-  const fecha10Men = () => {
-    const d = new Date(dateUrl)
-    d.setHours(d.getHours() - 5)
-    d.setDate(d.getDate() - 8)
-    const match = /\d{4}-\d{2}-\d{2}/.exec(d.toISOString())
-    return match ? match[0] : ''
-  }
-
-  const dataLast10 =
-    useContent({
-      source: 'story-feed-by-section-and-date-v3',
-      query: {
-        section: '/agenda-presidencial',
-        date: fecha10Men(),
-        date2: dateUrl,
-        size: 12,
-      },
-    }) || {}
-
-  const dataMore10 =
-    useContent({
-      source: 'story-feed-by-section-and-date-v3',
-      query: {
-        section: '/agenda-presidencial',
-        date: dateUrl,
-        date2: fecha10Mas(),
-        size: 12,
-      },
-    }) || {}
 
   let BackUrl = ''
   if (dataLast10 && dataLast10.content_elements) {
     if (dataLast10.content_elements.length > 0) {
       // eslint-disable-next-line prefer-destructuring
-      BackUrl = dataLast10.content_elements.slice(-1)[0].websites.elcomercio
-        .website_url
+      // BackUrl = dataLast10.content_elements.slice(-1)[0].websites.elcomercio
+      //   .website_url
+      BackUrl = dataLast10.content_elements[0].websites.elcomercio.website_url
     }
   }
 
   let NextUrl = ''
   if (dataMore10 && dataMore10.content_elements) {
-    if (dataMore10.content_elements.length > 0) {
+    // console.log('DATAMORE10=====', dataMore10)
+    // NextUrl = ''
+
+    // if(element[i].websites.elcomercio.website_url === `/agenda-presidencial/${dateUrl}/`){
+    //   console.log("ENCONTRADO",element);
+    // }
+    Object.keys(dataMore10.content_elements).forEach((key) => {
+      if (
+        dataMore10.content_elements[key].websites.elcomercio.website_url ===
+        `/agenda-presidencial/${dateUrl}/`
+      ) {
+        dataMore10.content_elements.splice(key)
+        // console.log('SSSSSSSS', dataMore10.content_elements[key])
+      }
+      // console.log('SLICENOTEEEE=====', dataMore10.content_elements.slice(-1)[0])
       // eslint-disable-next-line prefer-destructuring
-      NextUrl = dataMore10.content_elements[0].websites.elcomercio.website_url
-    }
+      NextUrl = dataMore10.content_elements.slice(-1)[0].websites.elcomercio
+        .website_url
+    })
   }
+
+  console.log('NESDSSSS', NextUrl)
+  console.log('BACKKKK', BackUrl)
 
   return (
     <>
