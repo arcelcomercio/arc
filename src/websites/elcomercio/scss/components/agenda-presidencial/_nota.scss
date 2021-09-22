@@ -1,0 +1,107 @@
+.agenda-presidencial__nota {
+  /*
+  &__image {
+    height: 511.96px;
+    width: 428px;
+  }
+  */
+
+  &__contenedor {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__elemento__contenedor1 {
+    display: flex;
+    flex-direction: column;
+    @media (--desktop) {
+      margin-top: 25px;
+    }
+  }
+
+  &__elemento__parrafo {
+    margin: 0 42px;
+    max-width: 361.52px;
+    font-size: 18px;
+    line-height: 30px;
+    font-family: $primary-font;
+    text-align: left;
+    padding-top: 30px;
+    &:first-child {
+      padding-top: 0;
+    }
+    @media (--desktop) {
+      max-width: 589.77px;
+      margin: auto;
+      padding-left: 15px;
+      text-align: justify;
+    }
+  }
+
+  &__linea {
+    border: 1px dashed #d64b4b;
+    margin: 25px 40px;
+    @media (--desktop) {
+      width: 597px;
+      margin: 32px 0;
+    }
+  }
+
+  &__elemento__indicador {
+    margin: 0 42px;
+    max-width: 361.52px;
+    font-family: $primary-font;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: left;
+    @media (--desktop) {
+      max-width: 589.77px;
+      margin: auto;
+      padding-left: 15px;
+    }
+  }
+
+  &__elemento__contenedor2 {
+    display: flex;
+    flex-direction: column;
+    padding: 43px 0;
+    background: #fffcf5;
+  }
+
+  &__elemento__caja {
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 1px solid #ccc;
+    width: 351px;
+    background-color: #fffcf5;
+    @media (--desktop) {
+      border: 1px solid #ccc;
+      margin: auto;
+    }
+  }
+
+  &__informe {
+    margin: 20px;
+    width: 309px;
+    font-family: $primary-font;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: left;
+  }
+
+  &__vernota {
+    margin: 20px;
+    padding: 10px 20px;
+    width: 120px;
+    height: 36px;
+    border-radius: 5px;
+    color: rgb(91, 93, 95);
+    background-color: #fcc716;
+    font-family: $primary-font;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+  }
+}
