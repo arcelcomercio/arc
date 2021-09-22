@@ -47,4 +47,12 @@
       background-color: $main-color-orange;
     }
   }
+
+  &--bgcolor-2 {
+    background-color: #000;
+
+    .breaking-news__tag {
+      background-color: #fc0303;
+    }
+  }
 }

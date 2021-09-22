@@ -33,13 +33,16 @@
     line-height: 22px;
     text-align: center;
     color: #333;
-    margin: 0 16px 16px 16px;
+    padding-bottom: 16px;
+    margin: 0 16px;
+    border-bottom: 1px solid #aaa;
 
     @media (--desktop) {
       font-size: 28px;
       line-height: 28px;
       letter-spacing: -0.28px;
-      margin: 0 57px 24px 57px;
+      padding: 0 37px 24px 37px;
+      margin: 0 20px;
     }
   }
 
@@ -81,25 +84,23 @@
       font-weight: 800;
       font-size: 14px;
 
-      @media(--desktop) {
+      @media (--desktop) {
         font-size: 22px;
       }
     }
 
     a {
-      color: #D35B2C;
+      color: #d35b2c;
       font-weight: 800;
       text-decoration: none;
       font-family: $encode-c;
       font-size: 20px;
       line-height: 24px;
 
-      @media(--desktop) {
+      @media (--desktop) {
         font-size: 24px;
         line-height: 32px;
       }
     }
   }
-
-
 }
