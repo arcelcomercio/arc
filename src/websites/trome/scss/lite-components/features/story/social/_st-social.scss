@@ -4,10 +4,13 @@
   align-items: center;
   justify-content: center;
 
-  @media(--desktop) {
-    padding: 16px 0 34px 0;
+  @media (--tablet) {
     justify-content: space-between;
-    border-top: 3px solid #AAAAAA;
+  }
+
+  @media (--desktop) {
+    padding: 16px 0 34px 0;
+    border-top: 1px solid #aaa;
   }
 
   &__txt {
@@ -22,14 +25,14 @@
   &__link {
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #D35B2C;
+    color: #d35b2c;
     text-transform: uppercase;
     font-size: 18px;
     line-height: 24px;
     letter-spacing: 0.58px;
     font-family: $encode-c;
 
-    @media(--desktop) {
+    @media (--desktop) {
       font-size: 24px;
       letter-spacing: 0.77px;
     }
@@ -76,22 +79,24 @@
   // }
 
   &__share {
-    display: none;
+    display: flex;
     margin-right: -15px;
-
-    @media(--desktop) {
-
-      display: flex;
-    }
-
     // Este margen es para contraarrestar el margin-right que tienen los .share-btn
   }
 
   .share-btn {
-    border-color: #BABABA;
+    border-color: #bababa;
 
     svg {
       fill: #333;
+    }
+  }
+
+  .st-social__share {
+    display: none;
+
+    @media (--tablet) {
+      display: flex;
     }
   }
 
