@@ -31,7 +31,7 @@ import { Input } from '../control_input_select'
 import { AuthURL, ButtonSocial } from '../control_social'
 import { FormStudents } from '../form_students'
 
-const FormRegisterAux = ({
+const FormRegister = ({
   typeDialog,
   onClose,
   onLogged = (i) => i,
@@ -415,7 +415,11 @@ const FormRegisterAux = ({
                   />
 
                   <button
-                    style={{ color: mainColorBtn, background: mainColorLink }}
+                    style={{
+                      color: mainColorBtn,
+                      background: mainColorLink,
+                      marginBottom: '15px',
+                    }}
                     type="submit"
                     className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15 mb-5"
                     disabled={disable || showLoading || showFormatInvalid}
@@ -794,4 +798,4 @@ const FormRegisterAux = ({
   )
 }
 
-export default FormRegisterAux
+export default FormRegister
