@@ -305,17 +305,8 @@ const FormRegister = ({
   }
 
   const {
-    values: {
-      remail,
-      rpass,
-      //  , rphone
-    },
-    errors: {
-      remail: remailError,
-      rpass: rpassError,
-      // rphone: rphoneError,
-      rterms: rtermsError,
-    },
+    values: { remail, rpass },
+    errors: { remail: remailError, rpass: rpassError, rterms: rtermsError },
     handleOnChange,
     handleOnSubmit,
     disable,
@@ -464,17 +455,6 @@ const FormRegister = ({
                     style={{
                       marginTop: '10px',
                     }}>
-                    {/* <p className="signwall-inside_forms-text mt-15 center p-link">
-                      Ya tengo una cuenta
-                      <a
-                        href={dataTreatment}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline ">
-                        Ingresar
-                      </a>
-                    </p> */}
                     <p className="signwall-inside_forms-text mt-15 center p-link">
                       Ya tengo una cuenta
                       <a
@@ -572,37 +552,6 @@ const FormRegister = ({
                       </a>
                     </p>
                   </CheckBox>
-
-                  {/* <p
-                    style={{
-                      fontSize: '12px',
-                      color: '#000000',
-                      textAlign: 'center',
-                    }}
-                    className="signwall-inside_forms-text mt-20 mb-10">
-                    Ya tengo una cuenta
-                    <a
-                      href="#"
-                      style={{ color: mainColorLink, fontWeight: 'bold' }}
-                      className="signwall-inside_forms-link ml-5"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        Taggeo(
-                          `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_registro_link_volver`
-                        )
-                        switch (typeDialog) {
-                          case 'relogemail':
-                          case 'reloghash':
-                            changeTemplate('relogin')
-                            break
-                          default:
-                            changeTemplate('login')
-                        }
-                      }}>
-                      Iniciar Sesión
-                    </a>
-                  </p> */}
                 </>
               )}
 
