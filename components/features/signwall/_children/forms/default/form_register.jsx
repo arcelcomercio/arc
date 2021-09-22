@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import Identity from '@arc-publishing/sdk-identity'
 import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
@@ -46,7 +45,6 @@ const FormRegisterAux = ({
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
-      // activePhoneRegister,
       siteDomain,
     },
   } = useAppContext() || {}
@@ -366,7 +364,7 @@ const FormRegisterAux = ({
                         <>
                           {showError}
                           <a
-                            href="#"
+                            href="!#"
                             style={{ color: 'white', fontWeight: 'bold' }}
                             className="signwall-inside_forms-link"
                             onClick={(e) => {
@@ -458,28 +456,11 @@ const FormRegisterAux = ({
                     checkUserSubs={checkUserSubs}
                     onStudents={() => setShowStudents(!showStudents)}
                   />
-
-                  {/* {!activePhoneRegister && (
-                    <Input
-                      type="tel"
-                      inputMode="tel"
-                      autoComplete="tel"
-                      name="rphone"
-                      placeholder="Teléfono"
-                      maxLength="12"
-                      value={rphone}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                      }}
-                      error={rphoneError}
-                    />
-                  )} */}
-
                   <div
                     style={{
                       marginTop: '10px',
                     }}>
-                    <p className="signwall-inside_forms-text mt-15 center p-link">
+                    {/* <p className="signwall-inside_forms-text mt-15 center p-link">
                       Ya tengo una cuenta
                       <a
                         href={dataTreatment}
@@ -487,6 +468,32 @@ const FormRegisterAux = ({
                         rel="noreferrer"
                         style={{ color: mainColorLink, fontWeight: 'bold' }}
                         className="signwall-inside_forms-link ml-5 inline ">
+                        Ingresar
+                      </a>
+                    </p> */}
+                    <p className="signwall-inside_forms-text mt-15 center p-link">
+                      Ya tengo una cuenta
+                      <a
+                        href="!#"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: mainColorLink, fontWeight: 'bold' }}
+                        className="signwall-inside_forms-link ml-5 inline"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_registro_link_volver`
+                          )
+                          switch (typeDialog) {
+                            case 'relogemail':
+                            case 'reloghash':
+                              changeTemplate('relogin')
+                              break
+                            default:
+                              changeTemplate('login')
+                          }
+                        }}>
                         Ingresar
                       </a>
                     </p>
@@ -538,24 +545,25 @@ const FormRegisterAux = ({
                     <p
                       style={{
                         fontSize: '12px',
+                        letterSpacing: '0.015em',
                       }}
                       className="signwall-inside_forms-text mt-10">
-                      Al crear la cuenta acepto los
+                      Al crear la cuenta acepto los {'  '}
                       <a
                         href={TermsConditions(arcSite)}
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 mr-5 inline">
+                        className="signwall-inside_forms-link mr-2 inline">
                         Términos y Condiciones
                       </a>
-                      y
+                      {'  '}y{'  '}
                       <a
                         href={PolicyPrivacy(arcSite)}
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline">
+                        className="signwall-inside_forms-link inline">
                         Políticas de Privacidad
                       </a>
                     </p>
@@ -596,39 +604,18 @@ const FormRegisterAux = ({
 
               {showConfirm && (
                 <>
-                  {isTromeOrganic ? (
-                    <>
-                      <div
-                        className={isTromeOrganic ? 'group-float-trome' : ''}>
-                        <br />
-                        <h1 className="group-float-trome__title">
-                          ¡Gracias por ser un Trome!
-                        </h1>
-                        <p className="group-float-trome__subtitle mb-20">
-                          Para confirmar tu registro te solicitamos confirmar tu
-                          <br /> cuenta de correo electrónico.
-                        </p>
-                      </div>
-                      <div className="spacing-trome" />
-                      <div className="spacing-trome" />
-                    </>
-                  ) : (
-                    <>
-                      <div className="center block mb-20 mt-20">
-                        <MsgRegister bgcolor={mainColorBr} />
-                      </div>
-
-                      <h4
-                        style={{ fontSize: '22px', lineHeight: '26px' }}
-                        className="signwall-inside_forms-title center mb-10">
-                        {showUserWithSubs
-                          ? `Bienvenido(a) ${
-                              Identity.userProfile.firstName || 'Usuario'
-                            }`
-                          : 'Tu cuenta ha sido creada correctamente'}
-                      </h4>
-                    </>
-                  )}
+                  <div className="center block mb-20 mt-20">
+                    <MsgRegister bgcolor={mainColorBr} />
+                  </div>
+                  <h4
+                    style={{ fontSize: '22px', lineHeight: '26px' }}
+                    className="signwall-inside_forms-title center mb-10">
+                    {showUserWithSubs
+                      ? `Bienvenido(a) ${
+                          Identity.userProfile.firstName || 'Usuario'
+                        }`
+                      : 'Tu cuenta ha sido creada correctamente'}
+                  </h4>
 
                   {showContinueVerify && (
                     <h4
@@ -641,7 +628,6 @@ const FormRegisterAux = ({
                       {remail}
                     </h4>
                   )}
-
                   {(typeDialog === 'premium' || typeDialog === 'paywall') &&
                     !showContinueVerify && (
                       <>
@@ -707,7 +693,6 @@ const FormRegisterAux = ({
                         )}
                       </>
                     )}
-
                   {(showContinueVerify || !activeVerifyEmail) && (
                     <>
                       {!isTromeOrganic && (
@@ -759,7 +744,6 @@ const FormRegisterAux = ({
                       </button>
                     </>
                   )}
-
                   {showContinueVerify && (
                     <p
                       style={{
@@ -772,8 +756,12 @@ const FormRegisterAux = ({
                       <br />
                       {!showSendEmail ? (
                         <a
-                          href="#"
-                          style={{ color: mainColorLink, fontWeight: 'bold' }}
+                          href="!#"
+                          style={{
+                            color: mainColorLink,
+                            fontWeight: 'bold',
+                            textDecoration: 'none',
+                          }}
                           className="signwall-inside_forms-link ml-10"
                           onClick={sendVerifyEmail}>
                           Reenviar correo de activación

@@ -10,7 +10,7 @@ import Loading from '../../loading'
 
 const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const {
-    arcSite,
+    // arcSite,
     siteProperties: {
       signwall: { mainColorBr, mainColorBtn, primaryFont, mainColorLink },
       activePaywall,
@@ -22,7 +22,6 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const [showConfirm, setShowConfirm] = React.useState(false)
   const [showError, setShowError] = React.useState(false)
   const [showBtnContinue, setShowBtnContinue] = React.useState(false)
-  const [welcomeMessage, setWelcomeMessage] = React.useState('')
 
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -52,29 +51,6 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
         setShowBtnContinue(true)
       }
     }
-
-    if (arcSite) {
-      switch (arcSite) {
-        case 'diariocorreo':
-          setWelcomeMessage('Diario Correo')
-          break
-        case 'peru21':
-          setWelcomeMessage('Diario Peru21')
-          break
-        case 'elbocon':
-          setWelcomeMessage('Diario El Bocon')
-          break
-        case 'ojo':
-          setWelcomeMessage('Diario Ojo')
-          break
-        case 'depor':
-          setWelcomeMessage('Diario Depor')
-          break
-        default:
-          setWelcomeMessage('Diario')
-          break
-      }
-    }
   }, [])
 
   return (
@@ -97,12 +73,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
           <h4
             style={{ fontSize: '20px', fontFamily: primaryFont }}
             className="signwall-inside_forms-title center ">
-            {showConfirm ? `Bienvenido usuario! ` : `Bienvenido nuevamente!`}
-          </h4>
-          <h4
-            style={{ fontSize: '20px', fontFamily: primaryFont }}
-            className="signwall-inside_forms-title center ">
-            {` Gracias por unirte al ${welcomeMessage}`}
+            Bienvenido
           </h4>
 
           <p

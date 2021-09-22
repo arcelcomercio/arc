@@ -46,6 +46,11 @@ const FormReset = React.lazy(() =>
 
 const FormVerify = React.lazy(() =>
   import(
+    /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/form_verify'
+  )
+)
+const FormVerifyDefault = React.lazy(() =>
+  import(
     /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/default/form_verify'
   )
 )
@@ -95,7 +100,11 @@ const renderTemplate = (template, valTemplate, attributes) => {
     ),
     verify: (
       <React.Suspense fallback={lazyFallback}>
-        <FormVerify {...attributes} />
+        {marca ? (
+          <FormVerify {...attributes} />
+        ) : (
+          <FormVerifyDefault {...attributes} />
+        )}
       </React.Suspense>
     ),
     relogin: (
@@ -173,10 +182,13 @@ export const ContGeneric = ({ properties }) => {
         />
       )}
 
-      <div className="cont-modal"
-      style={(isTrome || isComercio || isGestion)? undefined
-      :{minHeight : '350px'}}
-      >
+      <div
+        className="cont-modal"
+        style={
+          isTrome || isComercio || isGestion
+            ? undefined
+            : { minHeight: '350px' }
+        }>
         {(isTrome || isComercio || isGestion) && (
           <div className={`left-modal ${isTrome ? 'bg-trome' : ''}`}>
             <React.Suspense fallback={null}>
@@ -191,7 +203,7 @@ export const ContGeneric = ({ properties }) => {
           </div>
         )}
 
-        <div className="right-modal" style={{paddingBottom:'20px'}}>
+        <div className="right-modal" style={{ paddingBottom: '20px' }}>
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
           })}
