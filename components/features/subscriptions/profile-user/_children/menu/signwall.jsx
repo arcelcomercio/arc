@@ -142,6 +142,7 @@ const MenuSignwall = ({ handleMenu }) => {
             {activeNewsletter && (
               <li className={classes.item}>
                 <button
+                  id="btn-newsletter"
                   className={`${classes.button} ${
                     activeButton === 'news' ? 'active' : ''
                   }`}
