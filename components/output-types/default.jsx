@@ -163,6 +163,7 @@ export default ({
   })(window, document);`
 
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const isTromeHome = arcSite === SITE_TROME && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
 
@@ -333,8 +334,13 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (isTromeHome) style = 'home-v2'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
+
+  console.log('======Name dtylesheet=======')
+  console.log(style)
+  console.log('============================')
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {

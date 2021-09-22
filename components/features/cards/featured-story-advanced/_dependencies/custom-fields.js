@@ -13,6 +13,18 @@ const customFields = PropTypes.shape({
     },
     defaultValue: 'parcialBot',
   }),
+  invertedTitle: PropTypes.bool.tag({
+    name: 'Posición de título',
+    defaultValue: false,
+  }),
+  invertedColor: PropTypes.bool.tag({
+    name: 'Invertir color',
+    defaultValue: false,
+  }),
+  hideAuthor: PropTypes.bool.tag({
+    name: 'Ocultar autor de nota',
+    defaultValue: false,
+  }),
   size: PropTypes.oneOf(['oneCol', 'twoCol']).tag({
     name: 'Tamaño del destaque',
     group: 'Configuración',
@@ -43,6 +55,11 @@ const customFields = PropTypes.shape({
     name: 'Activar lazy load',
     group: 'Configuración',
     defaultValue: true,
+  }),
+  titleHeaderField: PropTypes.string.tag({
+    name: 'Antetítulo',
+    group: 'Editar campos',
+    description: 'Dejar vacío para tomar el valor original de la historia.',
   }),
   categoryField: PropTypes.string.tag({
     name: 'Sección',

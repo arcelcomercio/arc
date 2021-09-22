@@ -4,7 +4,8 @@ import SocialColumnSection from './SocialColumn'
 import SectionColumn from './SectionColumn'
 
 const classes = {
-  footer: 'footer-secction flex-row mb-25',
+  footer: 'footer-secction flex-row',
+  footerNewDesign: 'footer-secction__'
 }
 const arcSiteDepor = 'depor'
 const DeporFooter = ({ sections = [], socialNetworks, arcSite }) => {
