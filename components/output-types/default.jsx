@@ -293,6 +293,7 @@ export default ({
 
   const isCovid = /^\/covid-19\//.test(requestUri)
   const isElecciones = metaValue('section_style') === 'resultados_elecciones'
+  const isAgendaPre = metaValue('section_style') === 'agenda_presidencial'
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
@@ -478,24 +479,28 @@ export default ({
             />
           </>
         )}
-        {arcSite === 'elcomercio' && !isTrivia && !isCovid && !isElecciones && (
-          <>
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="crossorigin"
-              type="font/woff2"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
-            />
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="crossorigin"
-              type="font/woff2"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
-            />
-          </>
-        )}
+        {arcSite === 'elcomercio' &&
+          !isTrivia &&
+          !isCovid &&
+          !isElecciones &&
+          !isAgendaPre && (
+            <>
+              <link
+                rel="preload"
+                as="font"
+                crossOrigin="crossorigin"
+                type="font/woff2"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
+              />
+              <link
+                rel="preload"
+                as="font"
+                crossOrigin="crossorigin"
+                type="font/woff2"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
+              />
+            </>
+          )}
 
         {/* Este cambio se ha devuelto para evaluar problema 
         de monetizacion con los ads.

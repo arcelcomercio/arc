@@ -1,0 +1,81 @@
+.agenda_presidencial__navbar {
+  &__box {
+    display: flex;
+    background-color: #fffcf5;
+    @media (--desktop) {
+      max-width: 1000px;
+    }
+  }
+  &__flag {
+    margin-left: 18px;
+    @media (--desktop) {
+      margin-left: 180px;
+    }
+    & svg {
+      width: 42px;
+      height: 156px;
+    }
+  }
+  &__box-logo {
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-right: 25px;
+    @media (--desktop) {
+      margin-left: 90px;
+      margin-top: 35px;
+      margin-right: 95px;
+    }
+    &__agenda {
+      & svg {
+        width: 190px;
+        height: 80px;
+        @media (--desktop) {
+          width: 370px;
+        }
+      }
+    }
+    &__fecha {
+      color: #d64b4b;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 16px;
+      text-align: left;
+      width: max-content;
+      font-family: $primary-font;
+      @media (--desktop) {
+        text-align: center;
+      }
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+  &__dia {
+    border-left: 1px solid #707070;
+    max-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-family: $tertiary-font;
+    @media (--desktop) {
+      max-height: 138px;
+      align-items: end;
+      padding-left: 30px;
+    }
+    &__letra {
+      font-size: 18px;
+      height: 23px;
+      @media (--desktop) {
+        margin-left: 5px;
+      }
+    }
+    &__numero {
+      font-size: 34px;
+    }
+  }
+  &__marginleft35 {
+    margin-left: 35px;
+  }
+}
