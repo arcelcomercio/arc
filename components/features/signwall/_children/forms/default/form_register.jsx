@@ -371,8 +371,8 @@ const FormRegister = ({
                     </div>
                   )}
                   <p
-                    className="signwall-inside_forms-text mt-15"
-                    style={{ fontWeight: 'bold', fontSize: '18px' }}>
+                    className="signwall-inside_forms-text mb-10 mt-10"
+                    style={{ fontWeight: 'bold', fontSize: '16.5px' }}>
                     Registrarme
                   </p>
                   <Input
