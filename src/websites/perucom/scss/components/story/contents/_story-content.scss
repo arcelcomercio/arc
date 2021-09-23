@@ -33,6 +33,7 @@
     font-weight: 700;
     color: $color-gray-300;
     margin-right: 8px;
+    padding: 20px 0 10px;
     @media (--tablet) {
       order: -1;
     }
@@ -42,25 +43,25 @@
     font-family: $primary-font;
   }
   &__author {
-    justify-content: end;
-    align-items: end;
-    border-top: dotted 1px #999;
-    border-bottom: dotted 1px #999;
+    align-items: flex-start;
     width: 100%;
     padding-top: 8px;
     padding-bottom: 7px;
     margin: 10px 0;
     @media (--tablet) {
-      align-items: center;
+      flex-direction: column;
     }
   }
   &__author-link,
   &__author-email {
-    display: inline;
+    padding: 0;
+    display: block;
   }
   &__author-link {
-    margin-right: 6px;
     line-height: 16px;
+    @media (--desktop) {
+      line-height: 16px;
+    }
   }
   li {
     font-family: $primary-font;

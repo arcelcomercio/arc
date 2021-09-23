@@ -8,22 +8,25 @@
   }
 
   &__link {
-    font-size: 10px;
+    font-family: $primary-font;
+    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    @media (--only-mobile) {
-      font-size: 12px;
+    padding: 20px 15px;
+    @media (--desktop) {
+      font-size: 14px;
+      line-height: 37px;
     }
   }
   &__logo {
     position: absolute;
+    top: 33px;
     left: 13px;
-    width: 105px;
-    height: 121px;
+    height: 90px;
   }
   &__wrapper--dashed {
-    border-bottom: 0;
-    background-color: #a8a89b;
+    background-color: #fff;
+    border-bottom: 1px solid #dadada;
   }
   &__tags,
   &__date {
@@ -39,20 +42,6 @@
     font-family: $tertiary-font;
     color: $color-base-300;
   }
-  &__item {
-    &::after {
-      content: "";
-      display: block;
-      width: 1px;
-      height: 10px;
-      background-color: $color-white;
-    }
-    &:last-child {
-      &::after {
-        display: none;
-      }
-    }
-  }
   &__button.left,
   &__button.right {
     &::before {
@@ -64,8 +53,8 @@
   &__featured {
     flex-wrap: wrap;
     max-width: 826px;
-    @media (--only-mobile) {
-      justify-content: center;
+    @media (--desktop) {
+      margin-left: 155px;
     }
   }
 }
