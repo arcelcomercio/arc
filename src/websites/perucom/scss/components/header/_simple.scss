@@ -1,0 +1,59 @@
+.h-simple {
+  background-color: #000;
+  display: block;
+  color: #fff;
+  height: 48px;
+  @media (--desktop) {
+    height: 51px;
+  }
+
+  &__container {
+    margin: 0 auto;
+    max-width: 990px;
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    padding: 0 12px;
+    @media (--desktop) {
+      padding: 0;
+    }
+    &-left {
+      align-items: center;
+      display: flex;
+      &__logo-brand {
+        img {
+          max-width: 114px;
+        }
+      }
+      &__logo-trivia {
+        max-width: 80px;
+        padding-left: 8px;
+      }
+    }
+    &-rigth {
+      align-items: center;
+      display: flex;
+      ul li {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0 3px;
+        img {
+          filter: invert(1);
+          max-width: 20px;
+        }
+      }
+      ul {
+        @media (--only-mobile) {
+          display: flex;
+        }
+      }
+      svg {
+        @media (--only-mobile) {
+          width: 23px;
+          height: 23px;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
