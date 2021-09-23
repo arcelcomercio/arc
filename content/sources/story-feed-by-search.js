@@ -57,6 +57,11 @@ const params = [
     displayName: 'Campos incluidos',
     type: 'text',
   },
+  {
+    name: 'manualError',
+    displayName: 'Lanzar Error (colocar código de error)',
+    type: 'number',
+  },
 ]
 
 const getQueryFilter = (query, section, website) => {
@@ -161,6 +166,7 @@ const fetch = async ({
   from: page,
   sort: rawSort,
   includedFields,
+  manualError,
 }) => {
   const sort = rawSort === 'ascendente' ? 'asc' : 'desc'
   const from = `${validateFrom(page, rawSize)}`
@@ -180,6 +186,12 @@ const fetch = async ({
     '&_sourceExclude=owner,address,workflow,label,content_elements,type,revision,language,source,distributor,planning,additional_properties,publishing,website' */
 
   const requestUri = `${CONTENT_BASE}/content/v4/search/published?sort=display_date:${sort}&from=${from}&size=${size}&website=${website}&${queryFilter}${sourceInclude}`
+
+  if (manualError) {
+    const error = new Error('Error 410 manual')
+    error.statusCode = manualError
+    throw error
+  }
 
   if (section === 'todas') {
     const responseDefult = await request({

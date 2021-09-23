@@ -9,6 +9,7 @@ import {
   SITE_DEPOR,
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
+  SITE_ELCOMERCIO,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
@@ -100,7 +101,7 @@ const AmpOutputType = ({
       ? `${metaValue('description')} `
       : 'Últimas noticias en Perú y el mundo'
 
-  if (isStory && arcSite === 'elcomercio') {
+  if (isStory) {
     description =
       globalContent?.description?.basic ||
       (metaValue('description') && !metaValue('description').includes('content')
@@ -222,6 +223,7 @@ const AmpOutputType = ({
     arcSite === SITE_DIARIOCORREO ||
     arcSite === SITE_DEPOR ||
     arcSite === SITE_GESTION ||
+    arcSite === SITE_ELCOMERCIO ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
       rawHtmlContent
     ) ||
