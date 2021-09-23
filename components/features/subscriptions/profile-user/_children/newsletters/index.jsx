@@ -140,8 +140,9 @@ class NewsLetter extends Component {
         {!loading ? (
           <>
             <h4>
-              Selecciona los tipos de Newsletters que más te interesen para que
-              los recibas en tu correo electrónico:
+              {arcSite === 'diariocorreo'
+                ? 'Desactiva, recibir el boletín de noticias Correo Hoy, sino requieres recibirlo en tu correo electrónico:'
+                : 'Selecciona los tipos de Newsletters que más te interesen para que los recibas en tu correo electrónico:'}
             </h4>
 
             {showsuccess && (

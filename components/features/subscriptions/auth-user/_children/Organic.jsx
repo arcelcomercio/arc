@@ -5,6 +5,7 @@ import { Benefits } from '../../../signwall/_children/benefits'
 import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalProvider, useModalContext } from '../../_context/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
+import HeaderDefault from '../../profile-user/_children/header/Default'
 import Header from '../../profile-user/_children/header/signwall'
 
 const FormLogin = React.lazy(() =>
@@ -13,9 +14,21 @@ const FormLogin = React.lazy(() =>
   )
 )
 
+const FormLoginDefault = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormLogin' */ '../../../signwall/_children/forms/default/form_login'
+  )
+)
+
 const FormRegister = React.lazy(() =>
   import(
     /* webpackChunkName: 'Auth-FormRegister' */ '../../../signwall/_children/forms/form_register'
+  )
+)
+
+const FormRegisterDefault = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormRegister' */ '../../../signwall/_children/forms/default/form_register'
   )
 )
 
@@ -36,6 +49,11 @@ const FormVerify = React.lazy(() =>
     /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/form_verify'
   )
 )
+const FormVerifyDefault = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/default/form_verify'
+  )
+)
 
 const FormRelogin = React.lazy(() =>
   import(
@@ -48,15 +66,26 @@ const lazyFallback = <div style={{ padding: '30px' }}>Cargando...</div>
 const renderTemplate = (template, valTemplate, attributes) => {
   const { typeDialog, arcSite } = attributes
 
+  const marca =
+    arcSite === 'trome' || arcSite === 'elcomercio' || arcSite === 'gestion'
+
   const templates = {
     login: (
       <React.Suspense fallback={lazyFallback}>
-        <FormLogin {...{ valTemplate, attributes }} />
+        {marca ? (
+          <FormLogin {...{ valTemplate, attributes }} />
+        ) : (
+          <FormLoginDefault {...{ valTemplate, attributes }} />
+        )}
       </React.Suspense>
     ),
     register: (
       <React.Suspense fallback={lazyFallback}>
-        <FormRegister {...attributes} />
+        {marca ? (
+          <FormRegister {...attributes} />
+        ) : (
+          <FormRegisterDefault {...attributes} />
+        )}
       </React.Suspense>
     ),
     forgot: (
@@ -71,7 +100,11 @@ const renderTemplate = (template, valTemplate, attributes) => {
     ),
     verify: (
       <React.Suspense fallback={lazyFallback}>
-        <FormVerify {...attributes} />
+        {marca ? (
+          <FormVerify {...attributes} />
+        ) : (
+          <FormVerifyDefault {...attributes} />
+        )}
       </React.Suspense>
     ),
     relogin: (
@@ -131,14 +164,31 @@ export const ContGeneric = ({ properties }) => {
       size={activePaywall ? 'large' : isTrome ? 'medium' : 'small'}
       arcSite={arcSite}
       position="middle">
-      <Header
-        buttonClose
-        onClose={onClose}
-        typeDialog={typeDialog}
-        noLoading
-        logoLeft
-      />
-      <div className="cont-modal">
+      {isTrome || isComercio || isGestion ? (
+        <Header
+          buttonClose
+          onClose={onClose}
+          typeDialog={typeDialog}
+          noLoading
+          logoLeft
+        />
+      ) : (
+        <HeaderDefault
+          buttonClose
+          onClose={onClose}
+          typeDialog={typeDialog}
+          noLoading
+          logoLeft
+        />
+      )}
+
+      <div
+        className="cont-modal"
+        style={
+          isTrome || isComercio || isGestion
+            ? undefined
+            : { minHeight: '350px' }
+        }>
         {(isTrome || isComercio || isGestion) && (
           <div className={`left-modal ${isTrome ? 'bg-trome' : ''}`}>
             <React.Suspense fallback={null}>
@@ -153,7 +203,7 @@ export const ContGeneric = ({ properties }) => {
           </div>
         )}
 
-        <div className="right-modal">
+        <div className="right-modal" style={{ paddingBottom: '20px' }}>
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
           })}

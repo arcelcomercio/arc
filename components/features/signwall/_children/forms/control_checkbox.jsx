@@ -2,6 +2,7 @@
 import React from 'react'
 
 export const CheckBox = ({
+  defaultBorder,
   checked,
   value,
   name,
@@ -25,6 +26,8 @@ export const CheckBox = ({
     {children}
 
     <span className={error && 'error'}>{error}</span>
-    <span className={error ? 'error checkmark' : `checkmark ${arcSite}`} />
+    
+    <span className={(error ? 'error checkmark' : defaultBorder||(`checkmark ${arcSite}`))} />
+    
   </label>
 )

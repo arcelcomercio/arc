@@ -137,7 +137,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   }
 
   const stateSchema = {
-    firstName: { value: userProfile?.firstName || '', error: '' },
+    firstName: { value: '', error: '' },
     lastName: { value: '', error: '' },
     secondLastName: { value: '', error: '' },
     documentType: { value: 'DNI', error: '' },

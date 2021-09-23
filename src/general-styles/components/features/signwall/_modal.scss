@@ -454,6 +454,34 @@
           margin-top: 0;
         }
       }
+
+      & .default-border {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border: 2.5px solid #000;
+        border-radius: 4px;
+        &:after {
+          left: 6px;
+          top: 3px;
+          width: 5px;
+          height: 10px;
+          border: solid #fff;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+          content: "";
+          position: absolute;
+          display: none;
+        }
+        &.error {
+          border: 1px solid #ff2b2b;
+          margin-top: 0;
+        }
+      }
+
       & span.error {
         color: #ff2b2b;
         line-height: 18px;
@@ -600,6 +628,11 @@
         font-size: 18px !important;
         padding: 0 45px 0 45px !important;
         width: calc(100% - 0px) !important;
+      }
+
+      &.default-size {
+        width: calc(100%) !important;
+        margin: 5px 0 !important;
       }
 
       &.facebook-middle {
@@ -819,6 +852,16 @@
       border: 0 !important;
       &:disabled {
         opacity: 0.7;
+      }
+    }
+    &-btn-codp {
+      font-size: 18px !important;
+      font-weight: normal !important;
+
+      &:disabled {
+        opacity: 0.7;
+        font-size: 18px !important;
+        font-weight: normal !important;
       }
     }
     &-form {
@@ -1266,5 +1309,110 @@
     margin-top: 100px;
     font-family: "Encode Sans Condensed", sans-serif;
     line-height: 13px;
+  }
+}
+
+.form-peru21 {
+  & input {
+    border-radius: 10px !important;
+  }
+
+  & .p-link {
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #000;
+  }
+
+  & .signwall-inside_forms-btn {
+    border-radius: 10px !important;
+    &-social {
+      border-radius: 10px !important;
+    }
+  }
+}
+
+.form-diariocorreo {
+  & input {
+    border-radius: 10px !important;
+  }
+
+  & .p-link {
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #000;
+  }
+
+  & .signwall-inside_forms-btn {
+    border-radius: 10px !important;
+    &-social {
+      border-radius: 10px !important;
+    }
+  }
+}
+
+.form-ojo {
+  & input {
+    border-radius: 10px !important;
+  }
+
+  & .p-link {
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #000;
+  }
+
+  & .signwall-inside_forms-btn {
+    border-radius: 10px !important;
+    &-social {
+      border-radius: 10px !important;
+    }
+  }
+}
+
+.form-depor {
+  & input {
+    border-radius: 10px !important;
+  }
+
+  & .p-link {
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #000;
+  }
+
+  & .signwall-inside_forms-btn {
+    border-radius: 10px !important;
+    &-social {
+      border-radius: 10px !important;
+    }
+  }
+}
+
+.form-elbocon {
+  & input {
+    border-radius: 10px !important;
+  }
+
+  & .p-link {
+    letter-spacing: 0.02em;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #000;
+  }
+
+  & .signwall-inside_forms-btn {
+    border-radius: 10px !important;
+    &-social {
+      border-radius: 10px !important;
+    }
   }
 }
