@@ -2,6 +2,7 @@
   &__box {
     display: flex;
     background-color: #fffcf5;
+    justify-content: flex-start;
     @media (--desktop) {
       max-width: 1000px;
     }
