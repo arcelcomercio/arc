@@ -238,10 +238,10 @@ export default ({
             : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
 
         return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
-          titleVideo || arcSite
+          titleVideo.trim() || title
         )}", ${isAmp === true ? publishedVideoOrganization : ''
           }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
-            titleVideo || arcSite
+            titleVideo.trim() || subTitle
           )}", "contentUrl": "${getResultJwplayer(
             conversions
           )}",  "uploadDate": "${date}", "duration": "${msToTimeJplayer(
@@ -270,6 +270,7 @@ export default ({
           : `["${ampVideo1x1}", "${ampVideo4x3}", "${ampVideo16x9}"]`
 
       return `{ "@type":"VideoObject",  "name":"${formatHtmlToText(
+<<<<<<< HEAD
         caption || arcSite
       )}", ${isAmp === true ? publishedVideoOrganization : ''
         }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
@@ -281,6 +282,20 @@ export default ({
           duration,
           false
         )}" } `
+=======
+        caption.trim() || title
+      )}", ${
+        isAmp === true ? publishedVideoOrganization : ''
+      }  "thumbnailUrl": ${image},  "description":"${formatHtmlToText(
+        description.trim() || caption.trim() || subTitle
+      )}", "contentUrl": "${getAssetsPathVideo(
+        arcSite,
+        url
+      )}",  "uploadDate": "${date}", "duration": "${msToTime(
+        duration,
+        false
+      )}" } `
+>>>>>>> 1e081f4d30abac5c592b68621ce7ba5aa728bc43
     }
   )
 
