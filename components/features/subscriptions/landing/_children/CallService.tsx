@@ -1,5 +1,9 @@
+import * as Sentry from '@sentry/browser'
 import { useContent } from 'fusion:content'
 import * as React from 'react'
+
+import useSentry from '../../../../hooks/useSentry'
+import { PropertiesCommon } from '../../_dependencies/Properties'
 
 type DataCallProps = {
   name: string
@@ -16,7 +20,10 @@ export const CallService = (data: DataCallProps) => {
       source: 'paywall-callin',
       query: data,
     }) || {}
+
   const { success, error } = result
+  const { urls: urlCommon } = PropertiesCommon
+  useSentry(urlCommon.sentrySubs)
 
   React.useEffect(() => {
     const msgError =
@@ -33,15 +40,30 @@ export const CallService = (data: DataCallProps) => {
           setShowSuccess(numOrderClear)
         } else {
           setShowError(msgError)
+          Sentry.captureEvent({
+            message: 'Error al recibir ID inválido - Servicio CallIn',
+            level: Sentry.Severity.Error,
+            extra: error || {},
+          })
         }
         setLoading(false)
       } else {
         setShowError(msgError)
         setLoading(false)
+        Sentry.captureEvent({
+          message: 'Error al recibir formato inválido - Servicio CallIn',
+          level: Sentry.Severity.Error,
+          extra: error || {},
+        })
       }
     }
     if (error) {
       setLoading(false)
+      Sentry.captureEvent({
+        message: 'Error al recibir respuesta - Servicio CallIn',
+        level: Sentry.Severity.Error,
+        extra: error || {},
+      })
     }
   }, [success, error])
 
