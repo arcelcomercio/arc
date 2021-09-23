@@ -470,20 +470,20 @@
     }
 
     .s-fb {
-      background-color: #21589b;
-      border: none;
+      background-color: #fff;
+      // border: none;
 
       svg {
-        fill: #fff;
+        fill: #333;
       }
     }
 
     .s-tw {
-      background-color: #00aef0;
-      border: none;
+      background-color: #fff;
+      // border: none;
 
       svg {
-        fill: #fff;
+        fill: #333;
       }
     }
 
@@ -492,7 +492,12 @@
     }
 
     .share-btn--ws {
-      display: none;
+      background-color: #fff;
+      // border: none;
+
+      svg {
+        fill: #333;
+      }
     }
   }
 

@@ -57,6 +57,12 @@
     }
   }
 
+  &__icon {
+    fill: #fff;
+    height: 24px;
+    width: 24px;
+  }
+
   &__envivo-border {
     opacity: 0.16;
     float: left;
@@ -97,6 +103,20 @@
 
     .b-news__tag {
       background-color: #fc0303;
+    }
+  }
+
+  &--color-3 {
+    background-color: #fff;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+
+    .b-news__tag {
+      background-color: #fc0303;
+    }
+
+    .b-news__title {
+      color: #343434;
     }
   }
 }
