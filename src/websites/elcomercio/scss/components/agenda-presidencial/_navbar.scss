@@ -60,16 +60,13 @@
     width: 100%;
     font-family: $tertiary-font;
     @media (--desktop) {
+      width: initial;
       max-height: 138px;
-      align-items: end;
       padding-left: 30px;
     }
     &__letra {
       font-size: 18px;
       height: 23px;
-      @media (--desktop) {
-        margin-left: 5px;
-      }
     }
     &__numero {
       font-size: 34px;

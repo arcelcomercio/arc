@@ -14,8 +14,19 @@ const classes = {
   informe: 'agenda-presidencial__nota__informe',
 }
 
+// const ObjetoHTML = (item) => {
+//   let texto='',
+//   if (item.search(/[(+]/) !== -1){texto=`${item} SVG1`}
+//   if (item.search(/[(-]/) !== -1){texto=`${item} SVG2`}
+//   else {
+//     texto=item
+//   }
+//   return texto
+// }
+
 const AgendaNota = (props) => {
   const { dataNota = '', titleUpDown = '' } = props
+
   return (
     <>
       <div className={classes.contenedor}>
