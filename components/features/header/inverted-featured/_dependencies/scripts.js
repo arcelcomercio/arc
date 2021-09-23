@@ -86,10 +86,12 @@ export const toggleMenu = `window.addEventListener("load",function(){requestIdle
     ;[e,a].forEach(function(e){e.addEventListener("click",function(){
       s.className.indexOf("icon-hamburguer")>0
       ?(n.className=n.className.replace(" hidden", ""),
-      s.className=s.className.replace("icon-hamburguer","icon-close active")
+      s.className=s.className.replace("icon-hamburguer","icon-close active"),
+      b.className=b.className.concat(" header-inverted-featured__btn-menu-close")
       )
       :(n.className=n.className.concat(" hidden"),
-      s.className=s.className.replace("icon-close active","icon-hamburguer")
+      s.className=s.className.replace("icon-close active","icon-hamburguer"),
+      b.className=b.className.replace(" header-inverted-featured__btn-menu-close", "")
       )
     })})
   })});`
