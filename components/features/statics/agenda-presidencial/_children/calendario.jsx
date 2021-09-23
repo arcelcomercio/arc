@@ -42,10 +42,10 @@ const AgendaCalendario = () => {
     return d.setDate(d.getDate() - 1)
   }
 
-  const mes = (date) => {
-    const d = new Date(date)
-    return new Intl.DateTimeFormat('es-419', { month: 'long' }).format(d)
-  }
+  // const mes = (date) => {
+  //   const d = new Date(date)
+  //   return new Intl.DateTimeFormat('es-419', { month: 'long' }).format(d)
+  // }
 
   const setNewDate = (data) => {
     window.location.href = renderNewURL(data)
@@ -71,9 +71,9 @@ const AgendaCalendario = () => {
                 onChange={(newDate) => setNewDate(newDate)}
                 value={new Date()}
                 locale="es-419"
-                navigationLabel={({ date, locale }) =>
-                  `${mes(date.toLocaleDateString(locale))}`
-                }
+                // navigationLabel={({ date, locale }) =>
+                //   `${mes(date.toLocaleDateString(locale))}`
+                // }
                 prev2Label=""
                 next2Label=""
                 formatShortWeekday={(locale, value) =>
