@@ -11,7 +11,7 @@ import { Benefits } from '../../../signwall/_children/benefits'
 import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalProvider, useModalContext } from '../../_context/modal'
 import { Taggeo } from '../../_dependencies/Taggeo'
-import HeaderDefault from '../../profile-user/_children/header/Default'
+import HeaderDefault from '../../profile-user/_children/header/default'
 import Header from '../../profile-user/_children/header/signwall'
 
 const FormLogin = React.lazy(() =>
