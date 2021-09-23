@@ -256,6 +256,7 @@ export const ButtonSocial = ({
   typeDialog,
   brand,
   size,
+  defaultSize,
   onLogged = (i) => i,
   onClose,
   onStudents,
@@ -390,9 +391,9 @@ export const ButtonSocial = ({
 
   return (
     <button
-      className={`signwall-inside_forms-btn-social ${brand} ${size} ${brand}-${size} ${
-        arcSite === 'trome' ? `trome-${brand}` : ''
-      }`}
+      className={`signwall-inside_forms-btn-social ${brand} ${size}
+      ${defaultSize || `${brand}-${size}`} 
+      ${arcSite === 'trome' ? `trome-${brand}` : ''}`}
       type="button"
       id={`btn-sign-${brand}`}
       disabled={showTextLoad}

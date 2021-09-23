@@ -8,6 +8,10 @@ const fieldsWhite = [
   'attributes',
   'identities',
   'contacts',
+  'birthYear',
+  'birthMonth',
+  'birthDay',
+  'gender',
 ]
 
 class GetProfile {
@@ -15,6 +19,7 @@ class GetProfile {
     this.profile = null
     if (typeof window !== 'undefined') {
       const localProfile = window.localStorage.getItem('ArcId.USER_PROFILE')
+
       this.profile = JSON.parse(localProfile || '{}') || {}
     }
     this.publicProfile = this._getComplete()
