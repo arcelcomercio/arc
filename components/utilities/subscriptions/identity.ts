@@ -1,12 +1,5 @@
 import Identity from '@arc-publishing/sdk-identity'
-import {
-  isUserIdentity,
-  UserIdentity,
-} from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
-import {
-  isUserProfile,
-  UserProfile,
-} from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
+import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelpers/APIErrorResponse'
 import * as Sentry from '@sentry/browser'
 
 import { isStorageAvailable } from '../client/storage'
@@ -16,8 +9,8 @@ const isClientSide = typeof window !== 'undefined'
 const USER_INFO_KEY = 'ArcId.USER_INFO'
 // const USER_PROFILE_KEY = 'ArcId.USER_PROFILE'
 
-async function getUserProfile(): Promise<UserProfile | undefined> {
-  let userProfile: UserProfile | undefined
+async function getUserProfile(): Promise<typeof Identity.userProfile> {
+  let userProfile: typeof Identity.userProfile = null
 
   try {
     const { userProfile: localProfile } = Identity
@@ -26,9 +19,16 @@ async function getUserProfile(): Promise<UserProfile | undefined> {
       userProfile = localProfile
     } else if (await Identity.isLoggedIn()) {
       const userProfileResponse = await Identity.getUserProfile()
-      userProfile = isUserProfile(userProfileResponse)
-        ? userProfileResponse
-        : undefined
+
+      if (isAPIErrorResponse(userProfileResponse)) {
+        Sentry.captureEvent({
+          message: 'Error obtener perfil del usuario - getUserProfile()',
+          level: Sentry.Severity.Error,
+          extra: userProfileResponse || {},
+        })
+      } else {
+        userProfile = userProfileResponse
+      }
     }
   } catch (error) {
     Sentry.captureEvent({
@@ -40,8 +40,8 @@ async function getUserProfile(): Promise<UserProfile | undefined> {
   return userProfile
 }
 
-async function getUserIdentity(): Promise<UserIdentity | undefined> {
-  let userIdentity: UserIdentity | undefined
+async function getUserIdentity(): Promise<typeof Identity.userIdentity | null> {
+  let userIdentity: typeof Identity.userIdentity | null = null
 
   try {
     const { userIdentity: localIdentity } = Identity
@@ -50,7 +50,16 @@ async function getUserIdentity(): Promise<UserIdentity | undefined> {
       userIdentity = localIdentity
     } else if (await Identity.isLoggedIn()) {
       const heartbeat = await Identity.heartbeat()
-      userIdentity = isUserIdentity(heartbeat) ? heartbeat : undefined
+
+      if (isAPIErrorResponse(heartbeat)) {
+        Sentry.captureEvent({
+          message: 'Error obtener identidad del usuario - getUserIdentity()',
+          level: Sentry.Severity.Error,
+          extra: heartbeat || {},
+        })
+      } else {
+        userIdentity = heartbeat
+      }
     }
   } catch (error) {
     Sentry.captureEvent({

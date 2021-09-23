@@ -21,9 +21,7 @@ import Header from './_children/header/signwall'
 const MenuSignwall = React.lazy(() =>
   importRetry(
     () =>
-      import(
-        /* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu/signwall'
-      )
+      import(/* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu')
   )
 )
 
