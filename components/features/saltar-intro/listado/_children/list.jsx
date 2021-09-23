@@ -13,6 +13,7 @@ const classes = {
   name: 'saltar-intro-listado__name',
   descrip: 'saltar-intro-listado__description',
   date: 'saltar-intro-listado__date',
+  dateBorder: 'saltar-intro-listado__date--border',
   box: 'saltar-intro-listado__box flex',
   boxInfo: 'saltar-intro-listado__box-info flex',
   detail: 'saltar-intro-listado__detail flex',
@@ -24,7 +25,7 @@ const classes = {
 export default ({
   isAdmin,
   seeMoreLink,
-  interviewed: isInterviewed,
+  infoInterviewed,
   data: { items = [] } = {},
 }) => (
   <div className={classes.container}>
@@ -34,8 +35,8 @@ export default ({
           const {
             embed: {
               config: {
-                interviewed = '',
-                career_interviewed: careerInterviewed = '',
+                interviewed = '-',
+                career_interviewed: careerInterviewed = '-',
               } = {},
             } = {},
           } = el.dataSaltarIntro
@@ -51,7 +52,12 @@ export default ({
           }
           return (
             <>
-              <article className={classes.item}>
+              <article
+                className={
+                  infoInterviewed
+                    ? `${classes.item} ${classes.dateBorder}`
+                    : `${classes.item}`
+                }>
                 <div className={classes.box}>
                   <figure className={classes.figure}>
                     <a
@@ -67,7 +73,7 @@ export default ({
                     </a>
                   </figure>
                   <div className={classes.boxInfo}>
-                    {isInterviewed ? (
+                    {infoInterviewed ? (
                       <>
                         <div className={classes.name}>{interviewed}</div>
                         <div className={classes.descrip}>
