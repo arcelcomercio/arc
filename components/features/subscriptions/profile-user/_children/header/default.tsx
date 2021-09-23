@@ -3,7 +3,6 @@ import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../../utilities/assets'
-import { SITE_TROME } from '../../../../../utilities/constants/sitenames'
 import { Back, Close } from '../../../../signwall/_children/icons'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 
@@ -19,19 +18,17 @@ interface HeaderSignwallProps {
   buttonClose?: boolean
   onClose?: () => void
   typeDialog?: 'hard' | 'organico'
-  logoLeft?: boolean
 }
 
 const HeaderSignwall = ({
   buttonClose = false,
   onClose = () => {},
-  logoLeft = false,
   typeDialog,
 }: HeaderSignwallProps): JSX.Element => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorBg, mainColorTxt, mainLogo },
+      signwall: { mainColorTxt, mainLogo },
     },
     contextPath,
   } = useFusionContext() || {}
@@ -46,9 +43,7 @@ const HeaderSignwall = ({
       }}>
       <div className={classes.content}>
         {buttonClose ? (
-          <div className={classes.back} >
-            {' '}
-          </div>
+          <div className={classes.back}> </div>
         ) : (
           <button
             className={classes.back}
