@@ -3,10 +3,10 @@ import Sales from '@arc-publishing/sdk-sales'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import useProfile from '../../../../../hooks/useProfile'
 import { deleteCookie } from '../../../../../utilities/client/cookies'
 import { SITE_ELCOMERCIO } from '../../../../../utilities/constants/sitenames'
 import { formatUsername } from '../../../../../utilities/subscriptions/identity'
-import { useModalContext } from '../../../_context/modal'
 import { isAuthenticated } from '../../../_dependencies/Session'
 import { Taggeo } from '../../../_dependencies/Taggeo'
 import Avatar from './avatar'
@@ -32,10 +32,9 @@ const MenuSignwall = ({ handleMenu }) => {
     arcSite,
   } = useAppContext() || {}
 
-  const { userProfile } = useModalContext()
+  const { userProfile } = useProfile()
   const [activeButton, setActiveButton] = React.useState('home')
-  const { firstName, lastName, email, identities } = userProfile || {}
-
+  const { firstName, email, identities } = userProfile || {}
   const [identitie = { type: 'Password' }] = identities || []
   const [usernameid = { userName: '' }] = identities || []
 
@@ -86,7 +85,7 @@ const MenuSignwall = ({ handleMenu }) => {
       />
       <div className={classes.menu}>
         <h1 className={classes.hello} id="name-user-profile">
-          Hola {formatUsername(`${firstName} ${lastName}`, 17)}
+          Hola {formatUsername(firstName || '', 17)}
         </h1>
         <p className={classes.welcome}>Bienvenido a tu perfil</p>
         <div className={classes.body}>

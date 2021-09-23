@@ -1,4 +1,5 @@
 import {
+  birthDateRegex,
   cellphoneRegex,
   descripRegex,
   emailRegex,
@@ -30,6 +31,11 @@ export const formatPhone = () => ({
   func: (value) =>
     value === '' || (value.length >= 2 && numberRegex.test(value)),
   error: 'Formato inválido. Solo números',
+})
+
+export const formatDate = () => ({
+  func: (value) => value === '' || (value && birthDateRegex.test(value)),
+  error: 'El formato de la fecha es incorrecto.',
 })
 
 const calculateAge = (date) => {

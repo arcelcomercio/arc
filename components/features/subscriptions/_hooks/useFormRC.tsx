@@ -33,7 +33,7 @@ type UseForm<TValues extends StateValues = StateValues> = {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => void
-  handleOnSubmit: (event?: React.FormEvent<HTMLFormElement>) => void
+  handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   values: TValues
   errors: StateValues
   disable: boolean
@@ -205,13 +205,16 @@ function useForm<TValues extends StateValues = StateValues>(
   )
 
   const handleOnSubmit = React.useCallback(
-    (event?: React.FormEvent<HTMLFormElement>) => {
-      event?.preventDefault()
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+
+      const formData = new FormData(event.currentTarget)
+      const fieldValues = Object.fromEntries(formData.entries())
 
       // Making sure that there's no error in the state
       // before calling the submit callback function
       if (!validateErrorState()) {
-        submitFormCallback(values)
+        submitFormCallback(fieldValues as TValues)
       }
     },
     [validateErrorState, submitFormCallback, values]

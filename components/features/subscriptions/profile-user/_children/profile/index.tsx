@@ -1,28 +1,44 @@
-// eslint-disable-next-line simple-import-sort/imports
 import * as React from 'react'
 
-import { useModalContext } from '../../../_context/modal'
+import useProfile from '../../../../../hooks/useProfile'
+import UpdateLocation from './_children/update-location'
 import UpdatePass from './_children/update-pass'
 import UpdateProfile from './_children/update-profile-hooks'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
-import esLocale from 'date-fns/locale/es'
 
 const MiPerfil = (): JSX.Element => {
-  const { userProfile } = useModalContext()
+  const { composeUserProfile, userProfile, updateUserProfile } = useProfile()
   const { identities = [] } = userProfile || {}
   const [identitie = { type: 'Password' }] = identities || []
   const disabledSocial = identitie.type !== 'Password'
+  console.log({ profile: userProfile })
+
+  const composedProfile = composeUserProfile(userProfile)
+
+  console.log({ composedProfile })
 
   return (
-    <div className="sign-profile_general-wrapper">
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
-        <UpdateProfile />
-      </MuiPickersUtilsProvider>
-      <div className="space-40" />
-      <div hidden={disabledSocial}>
-        <UpdatePass />
+    <div>
+      <div className="sign-profile_general-wrapper">
+        <UpdateProfile
+          userProfile={composedProfile}
+          updateUserProfile={updateUserProfile}
+        />
       </div>
+      <div className="space-40" />
+      <div className="sign-profile_general-wrapper">
+        <UpdateLocation
+          userProfile={composedProfile}
+          updateUserProfile={updateUserProfile}
+        />
+      </div>
+      {disabledSocial ? null : (
+        <>
+          <div className="space-40" />
+          <div className="sign-profile_general-wrapper">
+            <UpdatePass />
+          </div>
+        </>
+      )}
     </div>
   )
 }

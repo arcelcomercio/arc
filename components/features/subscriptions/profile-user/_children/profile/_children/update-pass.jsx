@@ -1,21 +1,14 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import Identity from '@arc-publishing/sdk-identity'
-import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import getCodeError, { formatPass } from '../../../../_dependencies/Errors'
 import useForm from '../../../../_hooks/useForm'
+import FormContainer from './form-container'
 
 const UpdatePassword = () => {
-  const {
-    siteProperties: {
-      signwall: { mainColorLink, mainColorBtn },
-    },
-  } = useAppContext() || {}
-
   const [loading, setLoading] = React.useState()
-  const [msgError, setMsgError] = React.useState()
-  const [msgSuccess, setMsgSuccess] = React.useState()
+  const [errorMessage, setErrorMessage] = React.useState()
+  const [hasSuccessMessage, setHasSuccessMessage] = React.useState()
 
   const stateSchema = {
     newPassword: { value: '', error: '' },
@@ -40,16 +33,16 @@ const UpdatePassword = () => {
     Identity.updatePassword(oldPassword, newPassword)
       .then(() => {
         setLoading(false)
-        setMsgSuccess(true)
+        setHasSuccessMessage(true)
       })
       .catch((err) => {
         setLoading(false)
-        setMsgError(getCodeError(err.code))
+        setErrorMessage(getCodeError(err.code))
       })
       .finally(() => {
         setTimeout(() => {
-          setMsgError(false)
-          setMsgSuccess(false)
+          setErrorMessage(false)
+          setHasSuccessMessage(false)
         }, 5000)
       })
   }
@@ -64,85 +57,64 @@ const UpdatePassword = () => {
 
   const handleChangeInput = (e) => {
     handleOnChange(e)
-    setMsgError(false)
+    setErrorMessage(false)
   }
 
   return (
-    <>
-      <form
-        className="sign-profile_update-form-grid"
-        onSubmit={handleOnSubmit}
-        autoComplete="off">
-        <div className="row">
-          <h3 className="title">Cambiar contraseña</h3>
+    <FormContainer
+      title="Cambiar contraseña"
+      onSubmit={handleOnSubmit}
+      successMessage={
+        hasSuccessMessage
+          ? 'Su contraseña ha sido actualizada exitosamente'
+          : undefined
+      }
+      errorMessage={errorMessage}
+      loading={disable || loading}>
+      <div className="row three">
+        <div className="sign-profile_update-form-group">
+          <div hidden>
+            <input type="password" />
+          </div>
+          <input
+            type="password"
+            name="newPassword"
+            value={newPassword}
+            className={newPasswordError ? 'input error' : 'input'}
+            placeholder="Nueva contraseña"
+            noValidate
+            maxLength="50"
+            onChange={handleChangeInput}
+            onBlur={handleOnChange}
+          />
+          <label htmlFor="newPassword" className="label">
+            Nueva contraseña
+          </label>
+          {newPasswordError && (
+            <span className="error">{newPasswordError}</span>
+          )}
         </div>
-
-        {msgSuccess && (
-          <div className="sign-profile_update-message sign-profile_update-message-success">
-            Tu contraseña ha sido actualizada correctamente.
-          </div>
-        )}
-
-        {msgError && (
-          <div className="sign-profile_update-message sign-profile_update-message-failed">
-            {msgError}
-          </div>
-        )}
-
-        <div className="row three">
-          <div className="sign-profile_update-form-group">
-            <div hidden>
-              <input type="password" />
-            </div>
-            <input
-              type="password"
-              name="newPassword"
-              value={newPassword}
-              className={newPasswordError ? 'input error' : 'input'}
-              placeholder="Nueva contraseña"
-              noValidate
-              maxLength="50"
-              onChange={handleChangeInput}
-              onBlur={handleOnChange}
-            />
-            <label htmlFor="newPassword" className="label">
-              Nueva contraseña
-            </label>
-            {newPasswordError && (
-              <span className="error">{newPasswordError}</span>
-            )}
-          </div>
-          <div className="sign-profile_update-form-group">
-            <input
-              type="password"
-              name="oldPassword"
-              value={oldPassword}
-              className={oldPasswordError ? 'input error' : 'input'}
-              placeholder="Contraseña Actual"
-              noValidate
-              maxLength="50"
-              onChange={handleChangeInput}
-              onBlur={handleOnChange}
-            />
-            <label htmlFor="oldPassword" className="label">
-              Contraseña Actual
-            </label>
-            {oldPasswordError && (
-              <span className="error">{oldPasswordError}</span>
-            )}
-          </div>
-          <div className="sign-profile_update-form-group">
-            <button
-              className="signwall-inside_forms-btn"
-              style={{ color: mainColorBtn, backgroundColor: mainColorLink }}
-              type="submit"
-              disabled={disable || loading}>
-              {loading ? 'Guardando...' : 'Guardar Cambios'}
-            </button>
-          </div>
+        <div className="sign-profile_update-form-group">
+          <input
+            type="password"
+            name="oldPassword"
+            value={oldPassword}
+            className={oldPasswordError ? 'input error' : 'input'}
+            placeholder="Contraseña Actual"
+            noValidate
+            maxLength="50"
+            onChange={handleChangeInput}
+            onBlur={handleOnChange}
+          />
+          <label htmlFor="oldPassword" className="label">
+            Contraseña Actual
+          </label>
+          {oldPasswordError && (
+            <span className="error">{oldPasswordError}</span>
+          )}
         </div>
-      </form>
-    </>
+      </div>
+    </FormContainer>
   )
 }
 

@@ -2,18 +2,46 @@ import Identity from '@arc-publishing/sdk-identity'
 import { BaseUserProfile } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
 import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelpers/APIErrorResponse'
 import * as React from 'react'
-import { PromiseType } from 'types/utils'
+import { Attribute, ComposedUserProfile, UserProfile } from 'types/identity'
 
 import { getUserProfile } from '../utilities/subscriptions/identity'
 
 interface UpdateProfileProps {
-  onSuccess: (
-    profile: PromiseType<ReturnType<typeof Identity.updateUserProfile>>
-  ) => void
+  onSuccess: (profile: UserProfile) => void
   onError: (error: any) => void
 }
 
-const useProfile = (): [typeof userProfile, typeof updateUserProfile] => {
+export type UpdateUserProfile = (
+  profile: BaseUserProfile,
+  { onSuccess, onError }: UpdateProfileProps
+) => Promise<any>
+
+const composeUserProfile = (
+  userProfile: Partial<typeof Identity.userProfile>
+): ComposedUserProfile => {
+  const { attributes, contacts = [], ...profile } = userProfile || {}
+  const [phone = {}] = contacts || []
+
+  const attributesObject: Partial<Record<string, string>> = {}
+  userProfile?.attributes?.forEach((attribute) => {
+    const { name, value } = attribute as Attribute
+    attributesObject[name] = value
+  })
+
+  return {
+    attributes,
+    contacts,
+    ...profile,
+    ...phone,
+    ...attributesObject,
+  }
+}
+
+const useProfile = (): {
+  composeUserProfile: typeof composeUserProfile
+  userProfile: typeof userProfile
+  updateUserProfile: UpdateUserProfile
+} => {
   const [userProfile, setUserProfile] = React.useState<
     typeof Identity.userProfile
   >(null)
@@ -36,12 +64,13 @@ const useProfile = (): [typeof userProfile, typeof updateUserProfile] => {
     }
   }, [Identity.userProfile])
 
-  const updateUserProfile = async (
+  const updateUserProfile: UpdateUserProfile = async (
     profile: BaseUserProfile,
     { onSuccess, onError }: UpdateProfileProps
   ) =>
     Identity.updateUserProfile(profile)
       .then((response) => {
+        console.log({ profile })
         if (isAPIErrorResponse(response)) {
           console.error('Error al actualizar perfil - updateUserProfile()')
           onError(response)
@@ -51,12 +80,13 @@ const useProfile = (): [typeof userProfile, typeof updateUserProfile] => {
         return response
       })
       .catch((error) => {
+        console.log({ profile })
         console.error('Error al actualizar perfil - updateUserProfile()', error)
         onError(error)
         return error
       })
 
-  return [userProfile, updateUserProfile]
+  return { composeUserProfile, userProfile, updateUserProfile }
 }
 
 export default useProfile

@@ -1,6 +1,4 @@
 import Identity from '@arc-publishing/sdk-identity'
-import { UserIdentity } from '@arc-publishing/sdk-identity/lib/sdk/userIdentity'
-import { UserProfile } from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
 import { isAPIErrorResponse } from '@arc-publishing/sdk-identity/lib/serviceHelpers/APIErrorResponse'
 import * as Sentry from '@sentry/browser'
 
@@ -11,8 +9,8 @@ const isClientSide = typeof window !== 'undefined'
 const USER_INFO_KEY = 'ArcId.USER_INFO'
 // const USER_PROFILE_KEY = 'ArcId.USER_PROFILE'
 
-async function getUserProfile(): Promise<UserProfile | null> {
-  let userProfile: UserProfile | null = null
+async function getUserProfile(): Promise<typeof Identity.userProfile> {
+  let userProfile: typeof Identity.userProfile = null
 
   try {
     const { userProfile: localProfile } = Identity
@@ -42,8 +40,8 @@ async function getUserProfile(): Promise<UserProfile | null> {
   return userProfile
 }
 
-async function getUserIdentity(): Promise<UserIdentity | null> {
-  let userIdentity: UserIdentity | null = null
+async function getUserIdentity(): Promise<typeof Identity.userIdentity | null> {
+  let userIdentity: typeof Identity.userIdentity | null = null
 
   try {
     const { userIdentity: localIdentity } = Identity

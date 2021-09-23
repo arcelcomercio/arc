@@ -1,81 +1,86 @@
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
-import Identity from '@arc-publishing/sdk-identity'
-import {
-  BaseUserProfile,
-  // UserProfile,
-} from '@arc-publishing/sdk-identity/lib/sdk/userProfile'
-// import { getUserProfile } from '../../../../../../utilities/subscriptions/identity'
-// import GetProfile from 'components/features/signwall/_dependencies/get-profile'
-import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import TextMask from 'react-text-mask'
+import {
+  ComposedUserProfile,
+  LocationAttributes,
+  PersonalAttributes,
+  UserProfile,
+} from 'types/identity'
+import { UserDocumentType } from 'types/subscriptions'
 
-import { UserDocumentType } from '../../../../../../../types/subscriptions'
-import useProfile from '../../../../../../hooks/useProfile'
+import { UpdateUserProfile } from '../../../../../../hooks/useProfile'
 import getCodeError, {
+  formatDate,
   formatEmail,
   formatNames,
   formatPhone,
   formatSecondLastName,
 } from '../../../../_dependencies/Errors'
-import { docPatterns } from '../../../../_dependencies/Regex'
 import {
-  conformProfile /* ,
-  getStorageProfile, */,
-} from '../../../../_dependencies/Session'
-// import { checkFbEmail,checkFormatPhone,checkUndefined} from '../../../../_dependencies/Utils'
-import useForm from '../../../../_hooks/useForm'
+  birthDatePattern,
+  docPatterns,
+  maskDocuments,
+} from '../../../../_dependencies/Regex'
+import useForm from '../../../../_hooks/useFormRC'
 import ConfirmPass from './confirm-pass'
-import PersonalDetails from './personal-details'
-import Ubigeo from './ubigeo'
-
-export type AttributeNames =
-  | 'documentNumber'
-  | 'phone'
-  | 'documentType'
-  | 'civilStatus'
-  | 'country'
-  | 'province'
-  | 'department'
-  | 'district'
-
-interface ProfileWithAttributes
-  extends BaseUserProfile,
-    Record<AttributeNames, string> {
-  documentType: UserDocumentType
-  attributes: never
-  birthDate: Date | null
-}
+import FormContainer from './form-container'
 
 const styles = {
   group: 'sign-profile_update-form-group',
   btn: 'signwall-inside_forms-btn',
 }
 
-const UpdateProfile = () => {
-  const {
-    siteProperties: {
-      signwall: { mainColorLink, mainColorBtn },
-    },
-  } = useAppContext() || {}
-  const [userProfile, updateUserProfile] = useProfile()
+interface UpdateProfileProps {
+  userProfile: ComposedUserProfile
+  updateUserProfile: UpdateUserProfile
+}
 
+type ProfileWithAttributes = Pick<
+  ComposedUserProfile,
+  | 'firstName'
+  | 'lastName'
+  | 'secondLastName'
+  | 'documentNumber'
+  | 'civilStatus'
+  | 'phone'
+  | 'email'
+  | 'gender'
+> & {
+  documentType: UserDocumentType
+  birthDate: string
+}
+
+const convertDateStringDate = (day: string, month: string, year: string) =>
+  `${day}-${month}-${year}`
+
+const createAttribute = (name?: string, value?: string, type = 'String') => ({
+  name,
+  value,
+  type,
+})
+
+const UpdateProfile: React.FC<UpdateProfileProps> = ({
+  userProfile,
+  updateUserProfile,
+}) => {
   const [loading, setLoading] = React.useState(false)
   const [errorMessage, setErrorMessage] = React.useState('')
-  const [successMessage, setSuccessMessage] = React.useState(false)
-  const [showPassConfirmation, setShowPassConfirmation] = React.useState(false)
+  const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
+  const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
 
   const [
     selectedDocumentType,
     setSelectedDocumentType,
   ] = React.useState<UserDocumentType>('DNI')
 
-  const convertDateStringDate = (year: string, month: string, day: string) => {
-    const yearConverted = new Date(`${year}-${month}-${day}`)
-    yearConverted.setDate(yearConverted.getDate() + 1)
-    const newDate = new Date(yearConverted)
-    return newDate
-  }
+  const initialBirthDate =
+    userProfile?.birthDay && userProfile?.birthMonth && userProfile?.birthYear
+      ? convertDateStringDate(
+          userProfile?.birthDay,
+          userProfile?.birthMonth,
+          userProfile?.birthYear
+        )
+      : ''
 
   const stateValidatorSchema = {
     firstName: {
@@ -116,18 +121,6 @@ const UpdateProfile = () => {
       validator: formatPhone(),
       min6caracts: true,
     },
-    country: {
-      required: false,
-    },
-    department: {
-      required: false,
-    },
-    province: {
-      required: false,
-    },
-    district: {
-      required: false,
-    },
     email: {
       required: false,
       validator: formatEmail(),
@@ -137,231 +130,127 @@ const UpdateProfile = () => {
     },
     birthDate: {
       required: false,
+      validator: formatDate(),
       minAge: true,
       maxAge: true,
     },
   }
 
-  const {
-    firstName: initialFirstName,
-    lastName: initialLastName,
-    secondLastName: initialSecondLastName,
-    documentType: initialDocumentType,
-    documentNumber: initialDocumentNumber,
-    email: initialEmail,
-    phone: initialPhone,
-    gender: initialGender,
-    birthDay: initialBirthDay,
-    birthMonth: initialBirthMonth,
-    birthYear: initialBirthYear,
-    country: initialCountry,
-    department: initialDepartment,
-    province: initialProvince,
-    district: initialDistrict,
-    civilStatus: initialCivilStatus,
-    attributes,
-  } = conformProfile(
-    Identity.userProfile /* userProfile */ || {}
-  ) as ProfileWithAttributes
-
   const stateSchema = {
-    firstName: {
-      value: initialFirstName || '',
-      error: '',
-    },
-    lastName: { value: initialLastName || '', error: '' },
-    secondLastName: {
-      value: initialSecondLastName || '',
-      error: '',
-    },
-    documentType: {
-      value: initialDocumentType || 'DNI',
-      error: '',
-    },
-    documentNumber: {
-      value: initialDocumentNumber || '',
-      error: '',
-    },
-    civilStatus: {
-      value: initialCivilStatus || '',
-      error: '',
-    },
-    phone: { value: initialPhone || '', error: '' },
-    country: { value: initialCountry || '', error: '' },
-    department: {
-      value: initialDepartment || '',
-      error: '',
-    },
-    province: { value: initialProvince || '', error: '' },
-    district: { value: initialDistrict || '', error: '' },
-    email: { value: initialEmail || '', error: '' },
-    gender: { value: initialGender || '', error: '' },
-    birthDate: {
-      value:
-        (initialBirthDay &&
-          initialBirthMonth &&
-          initialBirthYear &&
-          convertDateStringDate(
-            initialBirthYear,
-            initialBirthMonth,
-            initialBirthDay
-          )) ||
-        null,
-      error: '',
-    },
+    firstName: { value: userProfile?.firstName || '', error: '' },
+    lastName: { value: '', error: '' },
+    secondLastName: { value: '', error: '' },
+    documentType: { value: 'DNI', error: '' },
+    documentNumber: { value: '', error: '' },
+    civilStatus: { value: '', error: '' },
+    phone: { value: '', error: '' },
+    email: { value: '', error: '' },
+    gender: { value: '', error: '' },
+    birthDate: { value: '', error: '' },
   }
 
-  const createAttribute = (
-    nameP?: string,
-    valueP?: string,
-    typeP = 'String'
-  ) => {
-    const object = {
-      name: nameP,
-      value: valueP,
-      type: typeP,
-    }
-    return object
-  }
+  const handleUpdateProfile = (profileValues: ProfileWithAttributes) => {
+    const [day, month, year] = profileValues?.birthDate?.split('-') || []
 
-  const handleUpdateProfile = (profile: ProfileWithAttributes) => {
-    console.log('esquema recibido:', profile)
+    const personalAttributes: Array<PersonalAttributes> = [
+      'civilStatus',
+      'documentType',
+      'documentNumber',
+    ]
+    const locationAttributes: Array<LocationAttributes> = [
+      'country',
+      'department',
+      'province',
+      'district',
+    ]
 
-    let year = null
-    let month = null
-    let day = null
-    if (profile?.birthDate !== null) {
-      const restartDate = new Date(profile?.birthDate)
-      const newDate = new Date(restartDate.setDate(restartDate.getDate() - 1))
+    const knownAttributes = [
+      ...personalAttributes.map((attr) =>
+        createAttribute(attr, profileValues?.[attr])
+      ),
+      ...locationAttributes.map((attr) =>
+        createAttribute(attr, userProfile?.[attr])
+      ),
+    ]
 
-      year = `${newDate.getFullYear()}`
-      month =
-        newDate.getMonth() + 1 < 10
-          ? `0${newDate.getMonth() + 1}`
-          : `${newDate.getMonth() + 1}`
-      day =
-        newDate.getUTCDate() < 10
-          ? `0${newDate.getUTCDate()}`
-          : `${newDate.getUTCDate()}`
-    }
+    const extraAttributes =
+      userProfile?.attributes?.filter(
+        (attr) =>
+          ![...personalAttributes, ...locationAttributes].includes(
+            attr.name as PersonalAttributes | LocationAttributes
+          )
+      ) || []
 
-    console.log(year, month, day)
+    const validAttributes = [...extraAttributes, ...knownAttributes]
+      .map((attribute) => {
+        if (attribute.name === 'originReferer' && attribute.value) {
+          return {
+            ...attribute,
+            value: attribute.value
+              .split('&')[0]
+              .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, ''),
+          }
+        }
+        if (
+          !attribute.name ||
+          !attribute.value ||
+          attribute.value === 'default'
+        ) {
+          return null
+        }
 
-    const user = {
-      firstName: profile?.firstName || null,
-      lastName: profile?.lastName || null,
-      secondLastName: profile?.secondLastName || null,
-      email: profile?.email,
-      birthDay: day,
-      birthMonth: month,
-      birthYear: year,
-      gender: profile?.gender || null,
+        return attribute
+      })
+      .filter((attribute) => attribute !== null)
+
+    const profileToUpdate = {
+      displayName: userProfile?.displayName || null,
+      picture: userProfile?.picture || null,
+      addresses: userProfile?.addresses || null,
+      firstName: profileValues?.firstName || null,
+      lastName: profileValues?.lastName || null,
+      secondLastName: profileValues?.secondLastName || null,
+      email: profileValues?.email,
+      birthDay: day || null,
+      birthMonth: month || null,
+      birthYear: year || null,
+      gender: profileValues?.gender || null,
       contacts:
-        profile?.phone && profile.phone !== undefined
+        profileValues?.phone && profileValues.phone !== undefined
           ? [
               {
-                phone: profile?.phone,
+                phone: profileValues?.phone,
                 type: 'PRIMARY',
               },
             ]
           : null,
-      attributes: [],
+      attributes: validAttributes || [],
     }
-
-    const objCivilStatus = createAttribute('civilStatus', profile?.civilStatus)
-    const objCountry = createAttribute('country', profile?.country)
-    const objDepartment = createAttribute('department', profile?.department)
-    const objProvince = createAttribute('province', profile?.province)
-    const objDistrict = createAttribute('district', profile?.district)
-
-    const objDocumentType = createAttribute(
-      'documentType',
-      profile?.documentType
-    )
-
-    const objDocumentNumber = createAttribute(
-      'documentNumber',
-      profile?.documentNumber
-    )
-
-    const clean = Array(attributes).filter(
-      (attribute: { name: string }) =>
-        attribute.name !== 'civilStatus' &&
-        attribute.name !== 'country' &&
-        attribute.name !== 'department' &&
-        attribute.name !== 'province' &&
-        attribute.name !== 'district' &&
-        attribute.name !== 'documentType' &&
-        attribute.name !== 'documentNumber'
-    )
-
-    const cleanAttributes: any = [
-      ...clean,
-      objCivilStatus,
-      objCountry,
-      objDepartment,
-      objProvince,
-      objDistrict,
-      objDocumentNumber,
-      objDocumentType,
-    ].filter((attribute) => {
-      if (attribute.name === 'originReferer' && attribute.value) {
-        return {
-          ...attribute,
-          value: attribute.value
-            .split('&')[0]
-            .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, ''),
-        }
-      }
-      if (
-        attribute.name &&
-        attribute.value !== null &&
-        attribute.value !== '' &&
-        attribute.value !== undefined &&
-        attribute.value !== 'default'
-      ) {
-        return {
-          ...attribute,
-        }
-      }
-    })
-
-    user.attributes = cleanAttributes || []
-
-    console.log('profile que se enviará:', user)
 
     setLoading(true)
 
-    updateUserProfile(user, {
-      onSuccess: () => {
-        setSuccessMessage(true)
+    updateUserProfile(profileToUpdate as any, {
+      onSuccess: (updatedProfile: UserProfile) => {
+        setHasSuccessMessage(true)
         setLoading(false)
-
-        const modalConfirmPass = document.getElementById('profile-signwall')
-        if (modalConfirmPass) {
-          modalConfirmPass.scrollIntoView()
-        }
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
-          const name = profile?.firstName ? profile?.firstName : 'Usuario'
-          const lName = profile?.lastName ? profile?.lastName : ''
-          if (name === 'Usuario') {
-            textProfile.textContent = `Hola ${name}`
-          } else {
-            textProfile.textContent = `Hola ${name} ${lName}`
-          }
+          textProfile.textContent = `Hola ${
+            updatedProfile.firstName ? updatedProfile.firstName : 'Usuario'
+          }`
         }
+        window.scrollTo(0, 0)
 
         setTimeout(() => {
-          setSuccessMessage(false)
+          setHasSuccessMessage(false)
         }, 5000)
       },
-      onError: (errUpdate) => {
-        const { code } = errUpdate
+      onError: (error: Record<string, string>) => {
+        const { code } = error || {}
         setLoading(false)
         if (code === '100018') {
-          setShowPassConfirmation(true)
+          setShouldConfirmPass(true)
         } else if (code === '3001001') {
           const message: string = getCodeError(code)
           setErrorMessage(message)
@@ -387,10 +276,6 @@ const UpdateProfile = () => {
       documentNumber,
       civilStatus,
       phone,
-      country,
-      department,
-      province,
-      district,
       email,
       gender,
       birthDate,
@@ -409,8 +294,11 @@ const UpdateProfile = () => {
     },
     handleOnChange,
     handleOnSubmit,
-    disable,
-  } = useForm(stateSchema, stateValidatorSchema, handleUpdateProfile)
+  } = useForm<ProfileWithAttributes>(
+    stateSchema,
+    stateValidatorSchema,
+    handleUpdateProfile
+  )
 
   const handleChangeInput = (
     e: React.ChangeEvent<
@@ -422,11 +310,11 @@ const UpdateProfile = () => {
   }
 
   const onPassConfirmationClose = () => {
-    setShowPassConfirmation(false)
+    setShouldConfirmPass(false)
     const ModalProfile = document.getElementById('profile-signwall')
       ?.parentElement
     if (ModalProfile) {
-      if (showPassConfirmation) {
+      if (shouldConfirmPass) {
         ModalProfile.style.overflow = 'auto'
       } else {
         ModalProfile.style.overflow = 'hidden'
@@ -435,10 +323,10 @@ const UpdateProfile = () => {
   }
 
   const onPassConfirmationSuccess = () => {
-    handleOnSubmit()
-    setSuccessMessage(true)
+    // handleOnSubmit()
+    setHasSuccessMessage(true)
     setTimeout(() => {
-      setSuccessMessage(false)
+      setHasSuccessMessage(false)
     }, 5000)
   }
 
@@ -453,78 +341,239 @@ const UpdateProfile = () => {
 
   return (
     <>
-      <form
+      <FormContainer
         onSubmit={handleOnSubmit}
-        className="sign-profile_update-form-grid"
-        noValidate>
-        <div className="row btw">
-          <h3 className="title">Mis Datos</h3>
-        </div>
-
-        {successMessage && (
-          <div className="sign-profile_update-message sign-profile_update-message-success">
-            Tus datos de perfil han sido actualizados correctamente.
-          </div>
-        )}
-
-        {errorMessage && (
-          <div className="sign-profile_update-message sign-profile_update-message-failed">
-            {errorMessage}
-          </div>
-        )}
-
-        <PersonalDetails
-          email={email}
-          firstName={firstName}
-          lastName={lastName}
-          secondLastName={secondLastName}
-          documentType={documentType}
-          documentNumber={documentNumber}
-          civilStatus={civilStatus}
-          phone={phone}
-          gender={gender}
-          birthDate={birthDate}
-          firstNameError={firstNameError}
-          lastNameError={lastNameError}
-          secondLastNameError={secondLastNameError}
-          documentTypeError={documentTypeError}
-          documentNumberError={documentNumberError}
-          civilStatusError={civilStatusError}
-          mobilePhoneError={mobilePhoneError}
-          emailError={emailError}
-          genderError={genderError}
-          dateBirthError={dateBirthError}
-          setSelectedDocumentType={setSelectedDocumentType}
-          handleChangeInput={handleChangeInput}
-          handleOnChange={handleOnChange}
-        />
-        <Ubigeo
-          handleChangeInput={handleChangeInput}
-          country={country}
-          department={department}
-          province={province}
-          district={district}
-          email={email}
-        />
+        title="Datos personales"
+        errorMessage={errorMessage}
+        successMessage={
+          hasSuccessMessage
+            ? 'Sus datos han sido actualizados correctamente'
+            : undefined
+        }
+        loading={loading}>
         <div className="row three">
-          <div className={styles.group} />
-          <div className={styles.group} />
           <div className={styles.group}>
-            <button
-              className={styles.btn}
-              type="submit"
-              style={{
-                color: mainColorBtn,
-                backgroundColor: mainColorLink,
-              }}
-              disabled={disable || loading}>
-              {loading ? 'Guardando...' : 'Guardar Cambios'}
-            </button>
+            <input
+              type="text"
+              autoComplete="given-name"
+              id="firstName"
+              name="firstName"
+              value={firstName || userProfile?.firstName || ''}
+              className={`input capitalize ${firstNameError ? 'error' : ''}`}
+              placeholder="Nombres"
+              maxLength={50}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              disabled={!userProfile?.email}
+            />
+            <label htmlFor="firstName" className="label">
+              Nombres
+            </label>
+            {firstNameError && <span className="error">{firstNameError}</span>}
+          </div>
+          <div className={styles.group}>
+            <input
+              type="text"
+              autoComplete="family-name"
+              id="lastName"
+              name="lastName"
+              value={lastName || userProfile?.lastName || ''}
+              className={`input capitalize ${lastNameError ? 'error' : ''}`}
+              placeholder="Apellido Paterno"
+              maxLength={50}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              disabled={!userProfile?.email}
+            />
+            <label htmlFor="lastName" className="label">
+              Apellido Paterno
+            </label>
+            {lastNameError && <span className="error">{lastNameError}</span>}
+          </div>
+          <div className={styles.group}>
+            <input
+              type="text"
+              id="secondLastName"
+              name="secondLastName"
+              value={secondLastName || userProfile?.secondLastName || ''}
+              className={`input capitalize ${
+                secondLastNameError ? 'error' : ''
+              }`}
+              placeholder="Apellido Materno"
+              maxLength={50}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              disabled={!userProfile?.email}
+            />
+            <label htmlFor="secondLastName" className="label">
+              Apellido Materno
+            </label>
+            {secondLastNameError && (
+              <span className="error">{secondLastNameError}</span>
+            )}
           </div>
         </div>
-      </form>
 
-      {showPassConfirmation && (
+        <div className="row three">
+          <div className={styles.group}>
+            <div className="combo">
+              <select
+                id="documentType"
+                name="documentType"
+                className={`input input-minimal ${
+                  documentTypeError ? 'error' : ''
+                }`}
+                value={documentType || userProfile?.documentType || ''}
+                onChange={(e) => {
+                  handleChangeInput(e)
+                  setSelectedDocumentType(e.target.value as UserDocumentType)
+                }}
+                disabled={!userProfile?.email}>
+                <option disabled value="">
+                  Seleccione
+                </option>
+                <option value="DNI">DNI</option>
+                <option value="CEX">CEX</option>
+                <option value="CDI">CDI</option>
+              </select>
+              <label htmlFor="documentType" className="label">
+                Tipo Doc.
+              </label>
+              <TextMask
+                mask={maskDocuments[documentType]}
+                guide={false}
+                type="text"
+                id="documentNumber"
+                name="documentNumber"
+                value={documentNumber || userProfile?.documentNumber || ''}
+                className={documentNumberError ? 'input error' : 'input'}
+                placeholder="Num. Documento"
+                maxLength={documentNumber === 'DNI' ? 8 : 15}
+                minLength={documentNumber === 'DNI' ? 8 : 5}
+                onChange={handleChangeInput}
+                onBlur={handleOnChange}
+                disabled={!userProfile?.email}
+              />
+            </div>
+            {(documentNumberError || documentTypeError) && (
+              <span className="error">
+                {documentNumberError || documentTypeError}
+              </span>
+            )}
+          </div>
+          <div className={styles.group}>
+            <select
+              id="civilStatus"
+              name="civilStatus"
+              className={`input input-minimal ${
+                civilStatusError ? 'error' : ''
+              }`}
+              value={
+                (civilStatus || userProfile?.civilStatus)?.toUpperCase() || ''
+              }
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              disabled={!userProfile?.email}>
+              <option value="">Seleccione</option>
+              <option value="SO">Soltero(a)</option>
+              <option value="CA">Casado(a)</option>
+              <option value="DI">Divorciado(a)</option>
+              <option value="VI">Viudo(a)</option>
+            </select>
+            <label htmlFor="civilStatus" className="label">
+              Estado Civil
+            </label>
+            {civilStatusError && (
+              <span className="error">{civilStatusError}</span>
+            )}
+          </div>
+          <div className={styles.group}>
+            <input
+              type="text"
+              inputMode="tel"
+              autoComplete="tel"
+              id="phone"
+              name="phone"
+              value={phone || userProfile?.phone || ''}
+              className={`input ${mobilePhoneError ? 'error' : ''}`}
+              placeholder="Número de Celular"
+              maxLength={12}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              disabled={!userProfile?.email}
+            />
+            <label htmlFor="phone" className="label">
+              Número de Celular
+            </label>
+            {mobilePhoneError && (
+              <span className="error">{mobilePhoneError}</span>
+            )}
+          </div>
+        </div>
+        <div className="row three">
+          <div className={styles.group}>
+            <input
+              type="text"
+              inputMode="email"
+              autoComplete="email"
+              id="email"
+              name="email"
+              value={email || userProfile?.email || ''}
+              className={emailError ? 'input error' : 'input'}
+              placeholder="Correo electrónico"
+              maxLength={30}
+              disabled={!userProfile?.email}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+            />
+            <label htmlFor="email" className="label">
+              Correo electrónico
+            </label>
+            {emailError && <span className="error">{emailError}</span>}
+          </div>
+
+          <div className={styles.group}>
+            <select
+              className={`input input-minimal ${genderError ? 'error' : ''} `}
+              id="gender"
+              name="gender"
+              autoComplete="sex"
+              value={(gender || userProfile?.gender)?.toUpperCase() || ''}
+              onChange={handleChangeInput}
+              onBlur={handleOnChange}
+              disabled={!userProfile?.email}>
+              <option value="">Seleccione</option>
+              <option value="MALE">Hombre</option>
+              <option value="FEMALE">Mujer</option>
+              <option value="PREFER_NOT_TO_SAY">Prefiero no decirlo</option>
+              <option value="NON_CONFORMING">Otro</option>
+            </select>
+            <label htmlFor="gender" className="label">
+              Género
+            </label>
+          </div>
+          <div className={styles.group}>
+            <TextMask
+              mask={birthDatePattern}
+              id="birthDate"
+              name="birthDate"
+              inputMode="numeric"
+              autoComplete="bday"
+              // disabled={!userProfile?.email}
+              className={dateBirthError ? 'input error' : 'input'}
+              value={birthDate || initialBirthDate || ''}
+              onChange={handleChangeInput}
+              placeholder="Fecha de Nacimiento"
+            />
+            <label className="label" htmlFor="birthDate">
+              Fecha de Nacimiento
+            </label>
+            {dateBirthError && <span className="error">{dateBirthError}</span>}
+          </div>
+        </div>
+      </FormContainer>
+
+      {shouldConfirmPass && (
         <ConfirmPass
           onClose={onPassConfirmationClose}
           onSuccess={onPassConfirmationSuccess}
