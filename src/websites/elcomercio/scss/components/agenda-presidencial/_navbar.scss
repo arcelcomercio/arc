@@ -2,13 +2,13 @@
   &__box {
     display: flex;
     background-color: #fffcf5;
-    justify-content: center;
+    justify-content: flex-start;
     @media (--tablet) {
       justify-content: center;
     }
     @media (--desktop) {
+      justify-content: flex-start;
       max-width: 1000px;
-      justify-content: end;
     }
   }
   &__flag {
