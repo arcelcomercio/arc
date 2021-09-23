@@ -3,7 +3,11 @@
     display: flex;
     background-color: #fffcf5;
     justify-content: flex-start;
+    @media (--tablet) {
+      justify-content: center;
+    }
     @media (--desktop) {
+      justify-content: flex-start;
       max-width: 1000px;
     }
   }
@@ -58,10 +62,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: initial;
+    padding-left: 10px;
     font-family: $tertiary-font;
     @media (--desktop) {
-      width: initial;
       max-height: 138px;
       padding-left: 30px;
     }
