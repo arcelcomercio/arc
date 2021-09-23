@@ -66,7 +66,10 @@ const AgendaNota = (props) => {
         <div className={classes.elecont2}>
           <div className={classes.elecaja}>
             <span className={classes.informe}>
-              <b>Lee el informe:</b> <br />
+              <i>
+                <b>Lee el informe:</b>
+              </i>
+              <br />
               {dataNota &&
                 dataNota !== undefined &&
                 dataNota.content_elements !== undefined && (
