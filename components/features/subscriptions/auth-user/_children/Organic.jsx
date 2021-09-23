@@ -1,6 +1,12 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+  SITE_TROME,
+} from '../../../../utilities/constants/sitenames'
 import { Benefits } from '../../../signwall/_children/benefits'
 import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalProvider, useModalContext } from '../../_context/modal'
@@ -67,7 +73,9 @@ const renderTemplate = (template, valTemplate, attributes) => {
   const { typeDialog, arcSite } = attributes
 
   const marca =
-    arcSite === 'trome' || arcSite === 'elcomercio' || arcSite === 'gestion'
+    arcSite === SITE_TROME ||
+    arcSite === SITE_ELCOMERCIO ||
+    arcSite === SITE_GESTION
 
   const templates = {
     login: (
@@ -124,7 +132,9 @@ const renderTemplate = (template, valTemplate, attributes) => {
       case 'reloghash':
         return templates.relogin
       default:
-        return arcSite === 'trome' ? templates.register : templates.login
+        return arcSite === SITE_TROME || arcSite === SITE_DIARIOCORREO
+          ? templates.register
+          : templates.login
     }
   }
 
@@ -142,9 +152,9 @@ export const ContGeneric = ({ properties }) => {
   } = useAppContext() || {}
 
   const { selectedTemplate, valTemplate } = useModalContext()
-  const isTrome = arcSite === 'trome'
-  const isComercio = arcSite === 'elcomercio'
-  const isGestion = arcSite === 'gestion'
+  const isTrome = arcSite === SITE_TROME
+  const isComercio = arcSite === SITE_ELCOMERCIO
+  const isGestion = arcSite === SITE_GESTION
 
   // const handleLeavePage = useRef(() => {
   //   Taggeo(`Web_Sign_Wall_${typeDialog}`, `web_sw${typeDialog[0]}_leave`)
