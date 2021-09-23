@@ -1,5 +1,4 @@
 import Identity from '@arc-publishing/sdk-identity'
-import * as Sentry from '@sentry/browser'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -51,11 +50,6 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
       .catch((error) => {
         console.log({ error })
         onError()
-        Sentry.captureEvent({
-          message: 'Error al iniciar sesión - Identity.login()',
-          level: Sentry.Severity.Error,
-          extra: error || {},
-        })
       })
       .finally(() => {
         setLoading(false)

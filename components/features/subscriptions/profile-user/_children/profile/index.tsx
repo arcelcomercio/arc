@@ -10,11 +10,8 @@ const MiPerfil = (): JSX.Element => {
   const { identities = [] } = userProfile || {}
   const [identitie = { type: 'Password' }] = identities || []
   const disabledSocial = identitie.type !== 'Password'
-  console.log({ profile: userProfile })
 
   const composedProfile = composeUserProfile(userProfile)
-
-  console.log({ composedProfile })
 
   return (
     <div>

@@ -70,17 +70,16 @@ const useProfile = (): {
   ) =>
     Identity.updateUserProfile(profile)
       .then((response) => {
-        console.log({ profile })
         if (isAPIErrorResponse(response)) {
           console.error('Error al actualizar perfil - updateUserProfile()')
           onError(response)
         } else {
+          setUserProfile(response)
           onSuccess(response)
         }
         return response
       })
       .catch((error) => {
-        console.log({ profile })
         console.error('Error al actualizar perfil - updateUserProfile()', error)
         onError(error)
         return error

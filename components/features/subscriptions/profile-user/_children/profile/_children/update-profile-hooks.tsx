@@ -2,7 +2,6 @@ import * as React from 'react'
 import TextMask from 'react-text-mask'
 import {
   ComposedUserProfile,
-  LocationAttributes,
   PersonalAttributes,
   UserProfile,
 } from 'types/identity'
@@ -149,7 +148,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     birthDate: { value: '', error: '' },
   }
 
-  const handleUpdateProfile = (profileValues: ProfileWithAttributes) => {
+  const handleUpdateProfile = async (profileValues: ProfileWithAttributes) => {
     const [day, month, year] = profileValues?.birthDate?.split('-') || []
 
     const personalAttributes: Array<PersonalAttributes> = [
@@ -157,28 +156,17 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
       'documentType',
       'documentNumber',
     ]
-    const locationAttributes: Array<LocationAttributes> = [
-      'country',
-      'department',
-      'province',
-      'district',
-    ]
 
     const knownAttributes = [
       ...personalAttributes.map((attr) =>
         createAttribute(attr, profileValues?.[attr])
-      ),
-      ...locationAttributes.map((attr) =>
-        createAttribute(attr, userProfile?.[attr])
       ),
     ]
 
     const extraAttributes =
       userProfile?.attributes?.filter(
         (attr) =>
-          ![...personalAttributes, ...locationAttributes].includes(
-            attr.name as PersonalAttributes | LocationAttributes
-          )
+          ![...personalAttributes].includes(attr.name as PersonalAttributes)
       ) || []
 
     const validAttributes = [...extraAttributes, ...knownAttributes]
@@ -204,9 +192,6 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
       .filter((attribute) => attribute !== null)
 
     const profileToUpdate = {
-      displayName: userProfile?.displayName || null,
-      picture: userProfile?.picture || null,
-      addresses: userProfile?.addresses || null,
       firstName: profileValues?.firstName || null,
       lastName: profileValues?.lastName || null,
       secondLastName: profileValues?.secondLastName || null,
@@ -322,13 +307,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     }
   }
 
-  const onPassConfirmationSuccess = () => {
-    // handleOnSubmit()
-    setHasSuccessMessage(true)
-    setTimeout(() => {
-      setHasSuccessMessage(false)
-    }, 5000)
-  }
+  const onPassConfirmationSuccess = () => {}
 
   const onPassConfirmationError = () => {
     setErrorMessage(

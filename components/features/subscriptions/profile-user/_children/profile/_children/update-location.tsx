@@ -1,8 +1,10 @@
 import * as React from 'react'
-import { ComposedUserProfile } from 'types/identity'
+import { ComposedUserProfile, LocationAttributes } from 'types/identity'
 
 import { UpdateUserProfile } from '../../../../../../hooks/useProfile'
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
+import getCodeError from '../../../../_dependencies/Errors'
+import ConfirmPass from './confirm-pass'
 import FormContainer from './form-container'
 
 const styles = {
@@ -18,20 +20,31 @@ interface UpdateProfileProps {
   updateUserProfile: UpdateUserProfile
 }
 
+const createAttribute = (name?: string, value?: string, type = 'String') => ({
+  name,
+  value,
+  type,
+})
+
 const UpdateLocation: React.FC<UpdateProfileProps> = ({
   userProfile,
   updateUserProfile,
 }) => {
   const { country, department, province, district, email } = userProfile || {}
-
-  console.log({ country, department, province, district, email })
   const [departments, setDepartments] = React.useState<AreaList>()
   const [provinces, setProvinces] = React.useState<AreaList>()
   const [districts, setDistricts] = React.useState<AreaList>()
+  const [location, setLocation] = React.useState({
+    country: country || '',
+    department: department || '',
+    province: province || '',
+    district: district || '',
+  })
 
-  const departamentSelect = React.useRef<HTMLSelectElement | null>(null)
-  const provinceSelect = React.useRef<HTMLSelectElement | null>(null)
-  const districtSelect = React.useRef<HTMLSelectElement | null>(null)
+  const [loading, setLoading] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
+  const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
 
   React.useEffect(() => {
     if (country) {
@@ -49,7 +62,15 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
         setDistricts(listDistrics)
       })
     }
-  }, [])
+    if (country || department || province || district) {
+      setLocation({
+        country: country || '',
+        department: department || '',
+        province: province || '',
+        district: district || '',
+      })
+    }
+  }, [email])
 
   const setUbigeo = (value: string, type: Areas) => {
     getUbigeo(value).then((list) => {
@@ -58,20 +79,13 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
           setDepartments(list)
           setProvinces(undefined)
           setDistricts(undefined)
-          if (departamentSelect.current)
-            departamentSelect.current.value = 'default'
-          if (provinceSelect.current) provinceSelect.current.value = 'default'
-          if (districtSelect.current) districtSelect.current.value = 'default'
           break
         case 'department':
           setProvinces(list)
           setDistricts(undefined)
-          if (provinceSelect.current) provinceSelect.current.value = 'default'
-          if (districtSelect.current) districtSelect.current.value = 'default'
           break
         case 'province':
           setDistricts(list)
-          if (districtSelect.current) districtSelect.current.value = 'default'
           break
         default:
           return null
@@ -82,142 +96,261 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const form = e.currentTarget
-    const formData = new FormData(form)
-    console.log({ formData })
+    setLoading(true)
+    const formData = new FormData(e.currentTarget)
+    const fieldValues = Object.fromEntries(formData.entries()) as Record<
+      LocationAttributes,
+      string
+    >
+
+    const locationAttributes: Array<LocationAttributes> = [
+      'country',
+      'province',
+      'department',
+      'district',
+    ]
+
+    const knownAttributes = [
+      ...locationAttributes.map((attr) =>
+        createAttribute(attr, fieldValues[attr])
+      ),
+    ]
+
+    const extraAttributes =
+      userProfile?.attributes?.filter(
+        (attr) =>
+          ![...locationAttributes].includes(attr.name as LocationAttributes)
+      ) || []
+
+    const validAttributes = [...extraAttributes, ...knownAttributes]
+      .map((attribute) => {
+        if (attribute.name === 'originReferer' && attribute.value) {
+          return {
+            ...attribute,
+            value: attribute.value
+              .split('&')[0]
+              .replace(/(\/|=|#|\/#|#\/|=\/|\/=)$/, ''),
+          }
+        }
+        if (
+          !attribute.name ||
+          !attribute.value ||
+          attribute.value === 'default'
+        ) {
+          return null
+        }
+
+        return attribute
+      })
+      .filter((attribute) => attribute !== null)
+
+    updateUserProfile(
+      {
+        email: userProfile?.email,
+        attributes: validAttributes || [],
+      } as any,
+      {
+        onSuccess: () => {
+          setHasSuccessMessage(true)
+          setTimeout(() => {
+            setHasSuccessMessage(false)
+          }, 5000)
+        },
+        onError: (error: Record<string, string>) => {
+          const { code } = error || {}
+          setLoading(false)
+          if (code === '100018') {
+            setShouldConfirmPass(true)
+          } else if (code === '3001001') {
+            const message: string = getCodeError(code)
+            setErrorMessage(message)
+            setTimeout(() => {
+              setErrorMessage('')
+            }, 5000)
+          } else {
+            setErrorMessage(getCodeError(code))
+            setTimeout(() => {
+              setErrorMessage('')
+            }, 5000)
+          }
+        },
+      }
+    ).finally(() => {
+      setLoading(false)
+    })
   }
 
   const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target
-    console.log({ value, name })
-    console.log({ departamentSelect })
-    if (
-      departamentSelect.current &&
-      provinceSelect.current &&
-      districtSelect.current
-    ) {
-      switch (name) {
-        case 'country':
-          departamentSelect.current.value = 'default'
-          provinceSelect.current.value = 'default'
-          districtSelect.current.value = 'default'
-          break
-        case 'department':
-          departamentSelect.current = e.target
-          provinceSelect.current.value = 'default'
-          districtSelect.current.value = 'default'
-          break
-        case 'province':
-          provinceSelect.current = e.target
-          districtSelect.current.value = 'default'
-          break
-        case 'district':
-          districtSelect.current = e.target
-          break
-        default:
-          break
-      }
+
+    switch (name) {
+      case 'country':
+        if (value === location.country) break
+        setLocation({
+          country: value,
+          department: 'default',
+          province: 'default',
+          district: 'default',
+        })
+        break
+      case 'department':
+        if (value === location.department) break
+        setLocation({
+          ...location,
+          department: value,
+          province: 'default',
+          district: 'default',
+        })
+        break
+      case 'province':
+        if (value === location.province) break
+        setLocation({
+          ...location,
+          province: value,
+          district: 'default',
+        })
+        break
+      case 'district':
+        if (value === location.district) break
+        setLocation({
+          ...location,
+          district: value,
+        })
+        break
+      default:
+        break
     }
 
-    setUbigeo(value, name as Areas)
+    if (name !== 'district') setUbigeo(value, name as Areas)
+  }
+
+  const onPassConfirmationSuccess = () => {}
+
+  const onPassConfirmationError = () => {
+    setErrorMessage(
+      'Ha ocurrido un error al actualizar. Contraseña Incorrecta.'
+    )
+    setTimeout(() => {
+      setErrorMessage('')
+    }, 5000)
+  }
+
+  const onPassConfirmationClose = () => {
+    setShouldConfirmPass(false)
+    const ModalProfile = document.getElementById('profile-signwall')
+      ?.parentElement
+    if (ModalProfile) {
+      if (shouldConfirmPass) {
+        ModalProfile.style.overflow = 'auto'
+      } else {
+        ModalProfile.style.overflow = 'hidden'
+      }
+    }
   }
 
   return (
-    <FormContainer
-      onSubmit={handleOnSubmit}
-      title="Ubicación"
-      // errorMessage={errorMessage}
-      // successMessage={
-      //   hasSuccessMessage
-      //     ? 'Sus datos han sido actualizados correctamente'
-      //     : undefined
-      // }
-      loading={false}>
-      <div className="row three">
-        <div className={styles.group}>
-          <select
-            id="country"
-            className="input input-minimal"
-            name="country"
-            value={country || 'default'}
-            onChange={handleOnChange}
-            disabled={!email}>
-            <option value="default">Seleccione</option>
-            <option value="260000">Perú</option>
-          </select>
-          <label htmlFor="country" className="label">
-            País
-          </label>
+    <>
+      <FormContainer
+        onSubmit={handleOnSubmit}
+        title="Ubicación"
+        loading={loading}
+        errorMessage={errorMessage}
+        successMessage={
+          hasSuccessMessage
+            ? 'Sus datos han sido actualizados correctamente'
+            : undefined
+        }>
+        <div className="row three">
+          <div className={styles.group}>
+            <select
+              id="country"
+              className="input input-minimal"
+              name="country"
+              value={location.country || 'default'}
+              onChange={handleOnChange}
+              disabled={!email || loading}>
+              <option value="default">Seleccione</option>
+              <option value="260000">Perú</option>
+            </select>
+            <label htmlFor="country" className="label">
+              País
+            </label>
+          </div>
+          <div className={styles.group}>
+            <select
+              id="department"
+              className="input input-minimal"
+              name="department"
+              value={location.department || 'default'}
+              onChange={handleOnChange}
+              disabled={(!email && !departments) || loading}>
+              <option value="default">Seleccione</option>
+              {departments
+                ? departments.map(([code, name]) => (
+                    <option key={code} value={code}>
+                      {name}
+                    </option>
+                  ))
+                : null}
+            </select>
+            <label htmlFor="department" className="label">
+              Departamento
+            </label>
+          </div>
+          <div className={styles.group}>
+            <select
+              id="province"
+              className="input input-minimal"
+              name="province"
+              value={location.province || 'default'}
+              onChange={handleOnChange}
+              disabled={(!email && !provinces) || loading}>
+              <option value="default">Seleccione</option>
+              {provinces
+                ? provinces.map(([code, name]) => (
+                    <option key={code} value={code}>
+                      {name}
+                    </option>
+                  ))
+                : null}
+            </select>
+            <label htmlFor="province" className="label">
+              Provincia
+            </label>
+          </div>
         </div>
-        <div className={styles.group}>
-          <select
-            id="department"
-            className="input input-minimal"
-            name="department"
-            value={department || 'default'}
-            ref={departamentSelect}
-            onChange={handleOnChange}
-            disabled={!email && !departments}>
-            <option value="default">Seleccione</option>
-            {departments
-              ? departments.map(([code, name]) => (
-                  <option key={code} value={code}>
-                    {name}
-                  </option>
-                ))
-              : null}
-          </select>
-          <label htmlFor="department" className="label">
-            Departamento
-          </label>
+        <div className="row three">
+          <div className={styles.group}>
+            <select
+              id="district"
+              className="input input-minimal"
+              name="district"
+              value={location.district || 'default'}
+              onChange={handleOnChange}
+              disabled={(!email && !districts) || loading}>
+              <option value="default">Seleccione</option>
+              {districts
+                ? districts.map(([code, name]) => (
+                    <option key={code} value={code}>
+                      {name}
+                    </option>
+                  ))
+                : null}
+            </select>
+            <label htmlFor="district" className="label">
+              Distrito
+            </label>
+          </div>
         </div>
-        <div className={styles.group}>
-          <select
-            id="province"
-            className="input input-minimal"
-            name="province"
-            value={province || 'default'}
-            ref={provinceSelect}
-            onChange={handleOnChange}
-            disabled={!email && !provinces}>
-            <option value="default">Seleccione</option>
-            {provinces
-              ? provinces.map(([code, name]) => (
-                  <option key={code} value={code}>
-                    {name}
-                  </option>
-                ))
-              : null}
-          </select>
-          <label htmlFor="province" className="label">
-            Provincia
-          </label>
-        </div>
-      </div>
-      <div className="row three">
-        <div className={styles.group}>
-          <select
-            id="district"
-            className="input input-minimal"
-            name="district"
-            value={district || 'default'}
-            ref={districtSelect}
-            disabled={!email && !districts}>
-            <option value="default">Seleccione</option>
-            {districts
-              ? districts.map(([code, name]) => (
-                  <option key={code} value={code}>
-                    {name}
-                  </option>
-                ))
-              : null}
-          </select>
-          <label htmlFor="district" className="label">
-            Distrito
-          </label>
-        </div>
-      </div>
-    </FormContainer>
+      </FormContainer>
+      {shouldConfirmPass && (
+        <ConfirmPass
+          onClose={onPassConfirmationClose}
+          onSuccess={onPassConfirmationSuccess}
+          onError={onPassConfirmationError}
+        />
+      )}
+    </>
   )
 }
 
