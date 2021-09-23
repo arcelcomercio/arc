@@ -36,12 +36,6 @@
     letter-spacing: 0.17px;
     color: #000;
     opacity: 1;
-    border-top: 1px dotted #707070;
-    @media (--only-mobile) {
-      border-top: 0;
-      border-bottom: 1px dotted #707070;
-      //align-self: baseline;
-    }
   }
   &__title {
     // font: normal normal bold 21px/25px Bitter;
@@ -80,24 +74,31 @@
   &__name {
     // font: normal normal bold 21px/25px Bitter;
     font-weight: 900;
-    font-size: 20px;
-    line-height: 20px;
-    letter-spacing: 0;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.22px;
+    text-align: left;
     color: #000;
     opacity: 1;
     margin-bottom: 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     @media (--only-mobile) {
-      font-size: 18px;
-      line-height: 20px;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.26px;
       margin-bottom: 5px;
     }
   }
   &__description {
     // font: normal normal medium 14px/17px Bitter;
     font-weight: 500;
-    font-size: 13px;
-    line-height: 15px;
-    letter-spacing: 0;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.17px;
+    text-align: left;
     color: #000;
     opacity: 1;
     margin-bottom: 7px;
@@ -107,8 +108,9 @@
     -webkit-line-clamp: 2;
     display: -webkit-box;
     @media (--only-mobile) {
-      font-size: 14px;
-      line-height: 15px;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: 0.17px;
       margin-bottom: 5px;
     }
   }
@@ -141,6 +143,28 @@
       padding-bottom: 30px;
       padding-top: 10px;
     }
+    &.saltar-intro-listado__date--border {
+      .saltar-intro-listado__date {
+        border-top: 1px dotted #707070;
+        @media (--only-mobile) {
+          border-top: 0;
+          margin-top: 11px;
+          border-bottom: 1px dotted #707070;
+        }
+      }
+      .saltar-intro-listado__box-info {
+        width: 200px;
+        @media (--only-mobile) {
+          width: 100%;
+          max-width: unset;
+        }
+      }
+      .saltar-intro-listado__image {
+        @media (--only-mobile) {
+          max-width: 160px;
+        }
+      }
+    }
   }
   &__see-more {
     // font: normal normal 800 13px/17px Bitter;
@@ -167,7 +191,7 @@
   &__image {
     max-width: 280px;
     @media (--only-mobile) {
-      max-width: 160px;
+      max-width: 230px;
     }
   }
 }

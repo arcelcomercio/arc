@@ -11,6 +11,17 @@ export default (arcSite) => `
             }
           }
         }
+        content_elements{
+          _id
+          type
+          subtype
+          embed {
+            config {
+              career_interviewed
+              interviewed
+            }
+          }
+        }
         promo_items{
           basic_video {
             type
@@ -61,17 +72,6 @@ export default (arcSite) => `
               landscape_s
               lazy_default
               portrait_md
-            }
-          }
-        }
-        content_elements {
-          _id
-          type
-          subtype
-          embed {
-            config {
-              career_interviewed
-              interviewed
             }
           }
         }
