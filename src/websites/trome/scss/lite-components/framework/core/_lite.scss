@@ -155,14 +155,18 @@ $tertiary-font: $secondary-font;
 
 .gv {
   &.story-contents__author {
-    padding: 0 20px;
+    padding: 0 16px;
+
+    @media (--desktop) {
+      padding: 0 20px;
+    }
   }
 
   .story-contents__author-date {
     padding-bottom: 16px;
     color: #444;
     font-size: 13px;
-    border-bottom: 2px solid #aaa;
+    border-bottom: 1px solid #aaa;
   }
 }
 
