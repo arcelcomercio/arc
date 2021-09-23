@@ -15,7 +15,7 @@ const SaltarIntroListado = (props) => {
   const {
     customFields: {
       seeMoreLink,
-      interviewed,
+      infoInterviewed,
       storiesConfig: { contentService = '', contentConfigValues = {} } = {},
     },
   } = props
@@ -47,7 +47,7 @@ const SaltarIntroListado = (props) => {
       source: contentService,
       query: Object.assign(contentConfigValues, {
         presets: 'landscape_s:280x150',
-        includedFields: `${separatorBasicFields},${includeCredits},display_date,publish_date`,
+        includedFields: `${separatorBasicFields},${includeCredits},display_date,publish_date,content_elements.embed.config,content_elements.type,content_elements.subtype`,
       }),
       filter: schemaFilter(arcSite),
       transform: dataTransform,
@@ -62,7 +62,7 @@ const SaltarIntroListado = (props) => {
   return (
     <List
       data={getDataComponent()}
-      {...{ isAdmin, seeMoreLink, interviewed }}
+      {...{ isAdmin, seeMoreLink, infoInterviewed }}
     />
   )
 }
