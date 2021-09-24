@@ -61,8 +61,8 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
     dataSaltarIntro: {
       embed: {
         config: {
-          interviewed = '',
-          career_interviewed: careerInterviewed = '',
+          interviewed = '-',
+          career_interviewed: careerInterviewed = '-',
         } = {},
       } = {},
     },
