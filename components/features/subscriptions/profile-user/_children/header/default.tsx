@@ -35,11 +35,11 @@ const HeaderSignwall = ({
 
   return (
     <div
-      className=""
       style={{
         background: '#ffffff',
         color: mainColorTxt,
-        height: '120px',
+        minHeight: '117px',
+        maxHeight: '120px',
       }}>
       <div className={classes.content}>
         {buttonClose ? (
