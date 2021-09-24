@@ -75,6 +75,9 @@
   &--card {
     flex-direction: column-reverse !important;
     margin-top: 0 !important;
+    @media (--desktop) {
+      align-self: start;
+    }
     .saltar-intro-destaque-entrevista {
       &__info {
         max-width: unset;
@@ -98,6 +101,12 @@
         line-height: 28px !important;
         letter-spacing: 0 !important;
         margin-top: 10px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        // height: 52px;
       }
     }
   }
