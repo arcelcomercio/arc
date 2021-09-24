@@ -18,9 +18,11 @@ import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
 
-const MenuSignwall = React.lazy(
-  () =>
-    import(/* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu')
+const MenuSignwall = React.lazy(() =>
+  importRetry(
+    () =>
+      import(/* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu')
+  )
 )
 
 const ResumeProfile = React.lazy(() =>
@@ -130,7 +132,8 @@ const WrapperProfile = () => {
               </React.Suspense>
             </div>
             <div className="panel-right">
-              {siteProperties.activePaywall ? (
+              {siteProperties.activePaywall ||
+              siteProperties.activeNewsletter ? (
                 renderTemplate(
                   selectedTemplate as ProfileModalTemplates,
                   idTemplate

@@ -1,0 +1,24 @@
+.custom-title-section {
+  display: flex;
+  border-top: 1px solid $main-color-black;
+  grid-column: span 1;
+  margin-top: 30px;
+
+  @media (min-width: 640px) {
+    grid-column: span 2;
+  }
+
+  @media (min-width: 1024px) {
+    grid-column: span 3;
+  }
+
+  &__content {
+    font-family: $encode-c, sans-serif;
+    font-size: $fs-custom-title;
+    font-weight: 700;
+    color: $main-color-white;
+    background-color: $main-color-black;
+    padding: 4px 20px 5px 20px;
+    margin: 0;
+  }
+}

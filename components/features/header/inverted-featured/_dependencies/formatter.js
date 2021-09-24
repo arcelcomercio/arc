@@ -11,11 +11,13 @@ export default class StandardHeader {
     headerProperties = {},
     arcSite = '',
     bandData = {},
+    bandDataTema= {},
     menuData = {},
     customLogoTitle = '',
     customLogo = '',
     customLogoLink = '/',
     tags = 'HOY:',
+    tagsTema = 'HOY:',
     showDate = false
   ) {
     this.deployment = deployment
@@ -24,16 +26,21 @@ export default class StandardHeader {
     this.headerProperties = headerProperties
     this.arcSite = arcSite
     this.bandData = bandData
+    this.bandDataTema = bandDataTema
     this.menuData = menuData
     this.customLogoTitle = customLogoTitle
     this.customLogo = customLogo
     this.customLogoLink = customLogoLink
     this.tags = tags
+    this.tagsTema = tagsTema
     this.showDate = showDate
   }
 
   setBandData(bandData) {
     this.bandData = bandData
+  }
+  setBandDataTema(bandDataTema) {
+    this.bandDataTema = bandDataTema
   }
 
   setMenuData(menuData) {
@@ -66,6 +73,7 @@ export default class StandardHeader {
 
   getParams() {
     const bandLinks = this.formatData(this.bandData)
+    const bandLinksTema = this.formatData(this.bandDataTema)
     const { children: menuSections = [] } = this.menuData || {}
 
     const { inverted: logo, auxLogo } = this.headerProperties
@@ -88,6 +96,7 @@ export default class StandardHeader {
           }/images/${auxLogo}?d=1`,
       },
       bandLinks,
+      bandLinksTema,
       menuSections,
       date: {
         active: this.showDate,
@@ -95,6 +104,7 @@ export default class StandardHeader {
         raw: new Date(),
       },
       tags: this.tags,
+      tagsTema: this.tagsTema
     }
   }
 }

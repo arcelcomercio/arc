@@ -5,6 +5,10 @@ const customFields = PropTypes.shape({
     name: 'Configuración del contenido',
   }),
   seeMoreLink: PropTypes.string.tag({ name: 'Link de Ver Mas' }),
+  infoInterviewed: PropTypes.bool.tag({
+    name: 'Ver info entrevistado',
+    defaultValue: false,
+  }),
 })
 
 export default customFields
