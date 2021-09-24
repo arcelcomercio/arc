@@ -17,6 +17,7 @@ import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
   container: 'saltar-intro-destaque-entrevista',
+  containerCard: 'saltar-intro-destaque-entrevista--card',
   image: 'saltar-intro-destaque-entrevista__image',
   imageBox: 'saltar-intro-destaque-entrevista__image-box',
   title: 'saltar-intro-destaque-entrevista__title',
@@ -29,6 +30,7 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
   const {
     customFields: {
       storyConfig: { contentService = '', contentConfigValues = {} } = {},
+      isCard = false,
     } = {},
   } = props
 
@@ -59,8 +61,8 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
     dataSaltarIntro: {
       embed: {
         config: {
-          interviewed = '',
-          career_interviewed: careerInterviewed = '',
+          interviewed = '-',
+          career_interviewed: careerInterviewed = '-',
         } = {},
       } = {},
     },
@@ -71,8 +73,10 @@ const SaltarIntroDestaqueEntrevista: React.FC = (props) => {
     arcSite,
   })
 
+  const classCard = isCard ? classes.containerCard : ''
+
   return (
-    <div className={classes.container}>
+    <div className={`${classes.container} ${classCard}`}>
       <div className={classes.info}>
         <div className={classes.interviewed}>{interviewed}</div>
         <div className={classes.rol}>{careerInterviewed}</div>

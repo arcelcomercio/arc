@@ -72,4 +72,53 @@
     line-height: 24px;
     letter-spacing: -0.38px;
   }
+  &--card {
+    flex-direction: column-reverse !important;
+    margin-top: 0 !important;
+    @media (--desktop) {
+      align-self: start;
+    }
+    .saltar-intro-destaque-entrevista {
+      &__info {
+        max-width: unset;
+        padding-top: 10px !important;
+      }
+      &__interviewed {
+        // font: normal normal 900 18px/24px Bitter;
+        font-size: 18px !important;
+        line-height: 24px !important;
+        letter-spacing: -0.29px !important;
+      }
+      &__rol {
+        // font: normal normal medium 14px/24px Bitter;
+        font-size: 14px !important;
+        line-height: 24px !important;
+        letter-spacing: 0.2px !important;
+      }
+      &__title {
+        // font: normal normal bold 23px/28px Bitter;
+        font-size: 23px !important;
+        line-height: 28px !important;
+        letter-spacing: 0 !important;
+        margin-top: 10px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        // height: 52px;
+      }
+    }
+  }
+}
+.saltar-intro {
+  .bg-white {
+    background-color: #fff !important;
+  }
+  .grid.grid--content {
+    @media (--desktop) {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
 }
