@@ -137,12 +137,14 @@ $min-with-header: 961px;
     font-weight: bold;
     text-decoration: none;
     font-family: $hi-font-primary;
-    &::after {
-      content: "|";
-      position: absolute;
-      margin-left: 35px;
-      color: #fff;
-      font-size: 17px;
+    @media (min-width: $min-with-header) {
+      &::after {
+        content: "|";
+        position: absolute;
+        margin-left: 35px;
+        color: #fff;
+        font-size: 17px;
+      }
     }
     @media (max-width: 960px) {
       margin-right: 10px;
