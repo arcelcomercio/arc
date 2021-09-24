@@ -123,12 +123,8 @@ const AuthFacebookGoogle = ({
   }
 
   const deleteSessionArc = () => {
-    // const currentToken = Identity.userIdentity.accessToken
-    // window.sessionStorage.setItem('token_facebook_temp', currentToken)
     window.localStorage.removeItem('ArcId.USER_INFO')
     window.localStorage.removeItem('ArcId.USER_PROFILE')
-    // Identity.userProfile = null
-    // Identity.userIdentity = {}
   }
 
   const checkStatusForms = (emailArc, emailVerified, name, id) => {
@@ -405,6 +401,21 @@ const AuthFacebookGoogle = ({
                   </button>
                 </div>
               </form>
+              <p className={styles.backLogin}>
+                {texts.backLogin}
+                <button
+                  className={styles.link}
+                  type="button"
+                  onClick={() => {
+                    hideFormParent(false)
+                    Taggeo(
+                      nameTagCategory,
+                      `web_sw${typeDialog[0]}_facebook_email_link_volver`
+                    )
+                  }}>
+                  Inciar Sesión
+                </button>
+              </p>
             </>
           )}
         </div>
