@@ -449,7 +449,7 @@ const FormRegister = ({
                     style={{
                       marginTop: '10px',
                     }}>
-                    <p className="signwall-inside_forms-text mt-15 center p-link">
+                    <p className="signwall-inside_forms-text center p-link">
                       Ya tengo una cuenta
                       <a
                         href="!#"
@@ -558,9 +558,8 @@ const FormRegister = ({
                     style={{ fontSize: '22px', lineHeight: '26px' }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
-                      ? `Bienvenido(a) ${
-                          Identity.userProfile.firstName || 'Usuario'
-                        }`
+                      ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
+                      }`
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h4>
 
