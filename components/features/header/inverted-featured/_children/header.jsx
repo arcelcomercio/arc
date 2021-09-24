@@ -335,6 +335,17 @@ const HeaderChildInverted = ({
       </header>
       {!hideMenu && (
         <nav className={`${classes.band} ${(!hideTema) && classes.bandInverted}`}>
+
+          {/* <button
+            type="button"
+            className={classes.btnMenu}
+            onClick={_handleToggleSectionElements}
+            id="btn-menu"
+            tabIndex="0">
+            <i className={classes.iconMenu} />
+            <span aria-hidden="true">Menú</span>
+          </button> */}
+
           <div className={classes.bandWrapper}>
             {(tags && hideTema) && <div className={classes.tags}>{tags}</div>}
 
