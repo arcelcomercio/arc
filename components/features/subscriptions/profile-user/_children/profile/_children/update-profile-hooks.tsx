@@ -139,7 +139,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
     firstName: { value: '', error: '' },
     lastName: { value: '', error: '' },
     secondLastName: { value: '', error: '' },
-    documentType: { value: 'DNI', error: '' },
+    documentType: { value: '', error: '' },
     documentNumber: { value: '', error: '' },
     civilStatus: { value: '', error: '' },
     phone: { value: '', error: '' },
@@ -419,7 +419,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
                 Tipo Doc.
               </label>
               <TextMask
-                mask={maskDocuments[documentType]}
+                mask={maskDocuments[documentType || 'DNI']}
                 guide={false}
                 type="text"
                 id="documentNumber"
@@ -501,9 +501,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
               className={emailError ? 'input error' : 'input'}
               placeholder="Correo electrónico"
               maxLength={30}
-              disabled={!userProfile?.email}
-              onChange={handleChangeInput}
-              onBlur={handleOnChange}
+              disabled
             />
             <label htmlFor="email" className="label">
               Correo electrónico
