@@ -136,6 +136,7 @@ $min-with-header: 961px;
     border-radius: 50px;
     font-weight: bold;
     text-decoration: none;
+    font-family: $hi-font-primary;
     &::after {
       content: "|";
       position: absolute;
@@ -354,7 +355,7 @@ $min-with-header: 961px;
     font-weight: bold;
 
     @media (--desktop) {
-      padding-right: 10px;
+      padding-right: 3px;
       padding-left: 0;
     }
   }
