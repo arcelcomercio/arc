@@ -4,6 +4,7 @@ import { ComposedUserProfile, LocationAttributes } from 'types/identity'
 import { UpdateUserProfile } from '../../../../../../hooks/useProfile'
 import { getUbigeo } from '../../../../../signwall/_dependencies/services'
 import getCodeError from '../../../../_dependencies/Errors'
+import { Status } from '../_dependencies/types'
 import ConfirmPass from './confirm-pass'
 import FormContainer from './form-container'
 
@@ -41,10 +42,15 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
     district: district || '',
   })
 
-  const [loading, setLoading] = React.useState(false)
+  const [status, setStatus] = React.useState<Status>(Status.Initial)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
+  const disabled = status === Status.Loading || status === Status.Initial
+
+  React.useEffect(() => {
+    setStatus(Status.Ready)
+  }, [])
 
   React.useEffect(() => {
     if (country) {
@@ -96,7 +102,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setLoading(true)
+    setStatus(Status.Loading)
     const formData = new FormData(e.currentTarget)
     const fieldValues = Object.fromEntries(formData.entries()) as Record<
       LocationAttributes,
@@ -158,7 +164,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
         },
         onError: (error: Record<string, string>) => {
           const { code } = error || {}
-          setLoading(false)
+          setStatus(Status.Ready)
           if (code === '100018') {
             setShouldConfirmPass(true)
           } else if (code === '3001001') {
@@ -176,7 +182,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
         },
       }
     ).finally(() => {
-      setLoading(false)
+      setStatus(Status.Ready)
     })
   }
 
@@ -253,7 +259,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
       <FormContainer
         onSubmit={handleOnSubmit}
         title="Ubicación"
-        loading={loading}
+        status={status}
         errorMessage={errorMessage}
         successMessage={
           hasSuccessMessage
@@ -268,7 +274,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="country"
               value={location.country || 'default'}
               onChange={handleOnChange}
-              disabled={!email || loading}>
+              disabled={!email || disabled}>
               <option value="default">Seleccione</option>
               <option value="260000">Perú</option>
             </select>
@@ -283,7 +289,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="department"
               value={location.department || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !departments) || loading}>
+              disabled={(!email && !departments) || disabled}>
               <option value="default">Seleccione</option>
               {departments
                 ? departments.map(([code, name]) => (
@@ -304,7 +310,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="province"
               value={location.province || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !provinces) || loading}>
+              disabled={(!email && !provinces) || disabled}>
               <option value="default">Seleccione</option>
               {provinces
                 ? provinces.map(([code, name]) => (
@@ -327,7 +333,7 @@ const UpdateLocation: React.FC<UpdateProfileProps> = ({
               name="district"
               value={location.district || 'default'}
               onChange={handleOnChange}
-              disabled={(!email && !districts) || loading}>
+              disabled={(!email && !districts) || disabled}>
               <option value="default">Seleccione</option>
               {districts
                 ? districts.map(([code, name]) => (
