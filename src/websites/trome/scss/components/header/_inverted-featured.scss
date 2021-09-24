@@ -19,19 +19,25 @@ $min-with-header: 961px;
   font-size: 0.8rem;
   z-index: 72;
   height: $nav-height-active;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 50%,
+    rgb(255, 130, 5) 50%,
+    rgb(255, 130, 5) 100%
+  );
 
-  @media (min-width: $min-with-header) {
+  @media (--tablet) {
     height: $header-inverted-height;
+  }
+  @media (--only-mobile) {
     background: linear-gradient(
       90deg,
       rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 1) 50%,
-      rgba(224, 100, 55, 1) 50%,
-      rgba(224, 100, 55, 1) 100%
+      rgba(0, 0, 0, 1) 30%,
+      rgb(255, 130, 5) 30%,
+      rgb(255, 130, 5) 100%
     );
-  }
-  @media (max-width: 960px) {
-    background: #ff8303;
   }
 
   &__menu-full {
@@ -88,11 +94,8 @@ $min-with-header: 961px;
     position: relative;
     max-width: 961px;
     z-index: 99;
-
-    @media (min-width: $min-with-header) {
+    @media (--tablet) {
       justify-content: center;
-    }
-    @media (--only-mobile) {
     }
   }
 
@@ -106,14 +109,17 @@ $min-with-header: 961px;
   }
 
   &__logo-container {
-    position: absolute;
     height: $nav-height-active;
 
     img {
       height: 100%;
+      @media (--only-mobile) {
+        width: 195px;
+      }
     }
 
-    @media (min-width: $min-with-header) {
+    @media (--tablet) {
+      position: absolute;
       left: initial;
       padding-right: 0;
       border: 0;
@@ -147,12 +153,9 @@ $min-with-header: 961px;
         font-size: 17px;
       }
     }
-    @media (max-width: 960px) {
-      margin-right: 10px;
-    }
     @media (--only-mobile) {
-      font-size: 16px;
-      padding: 8px 18px;
+      font-size: 14px;
+      padding: 6px 15px;
     }
   }
   &__call-img {
@@ -167,11 +170,13 @@ $min-with-header: 961px;
       align-items: center;
       display: flex;
     }
-    @media (max-width: 960px) {
-      max-width: 600px;
+    @media (--tablet) and (max-width: 960px) {
+      top: 25px;
       right: 10px;
-      height: $nav-height-active;
-      display: contents;
+    }
+    @media (--only-mobile) {
+      top: 21px;
+      right: 10px;
     }
 
     img {
@@ -232,11 +237,6 @@ $min-with-header: 961px;
     @media (--desktop) {
       display: block;
     }
-    @media (max-width: $min-with-header) {
-      position: sticky;
-      top: $nav-height-active;
-    }
-
     &__inverted {
       display: flex !important;
       justify-content: center;
@@ -274,15 +274,14 @@ $min-with-header: 961px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    position: absolute;
+
+    @media (--tablet) {
+      position: absolute;
+    }
   }
 
   &__left-btn-container {
     left: 0;
-
-    // @media (--desktop) {
-    //   margin-left: 20px;
-    // }
   }
 
   &__right-btn-container {
@@ -360,20 +359,32 @@ $min-with-header: 961px;
       padding-right: 3px;
       padding-left: 0;
     }
+    @media (--only-mobile) {
+      padding-right: 19px;
+      span {
+        display: none;
+      }
+    }
   }
   &__btn-menu-close {
     background-color: #ff8303;
-    height: 70px;
-    width: 70px;
     justify-content: center;
     padding: 0;
 
-    @media (--desktop) {
+    @media (--tablet) {
+      height: 70px;
+      width: 70px;
       padding: 0;
+    }
+    @media (--only-mobile) {
+      height: 55px;
+      width: 55px;
+      padding-right: 0px;
     }
 
     .header-inverted-featured__icon-menu {
       padding: 0;
+      color: #000;
     }
     span {
       display: none;
@@ -384,6 +395,11 @@ $min-with-header: 961px;
     font-size: 1.5rem;
     padding-right: 10px;
     color: #fff;
+
+    @media (--only-mobile) {
+      padding-right: 0;
+      padding-left: 10px;
+    }
   }
 
   &__nav-story-title {
@@ -413,9 +429,10 @@ $min-with-header: 961px;
     // left: 0;
     z-index: 1;
 
-    width: 961px;
-
     @media (--desktop) {
+      width: 961px;
+    }
+    @media (--tablet) {
       top: $header-inverted-height;
       height: calc(100vh - #{$header-inverted-height});
     }
@@ -509,7 +526,7 @@ $min-with-header: 961px;
     &__search {
       padding: 0;
 
-      @media (--tablet) {
+      @media (--desktop) {
         display: none;
       }
     }
