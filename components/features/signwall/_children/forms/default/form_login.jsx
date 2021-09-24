@@ -291,7 +291,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
               )}
 
               <p
-                className="signwall-inside_forms-text mb-10 mt-10"
+                className="signwall-inside_forms-text mb-5 mt-5"
                 style={{ fontWeight: 'bold', fontSize: '16.5px' }}>
                 Ingresar
               </p>
