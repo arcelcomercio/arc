@@ -157,7 +157,7 @@ class NewsLetter extends Component {
                   <Checkbox
                     image={item.image}
                     name={item.name}
-                    site={arcSite}
+                    arcSite={arcSite}
                     checked={checksNews[item.code]}
                     onChange={(e) => this.handleCheckbox(e, item.code)}
                     value={item.code}
