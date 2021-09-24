@@ -54,7 +54,13 @@ export const conformProfile = (userPorfile) => {
       'phone',
       'documentType',
       'province',
+      'civilStatus',
+      'country',
+      'province',
+      'department',
+      'district',
     ]),
+    attributes,
   }
 }
 

@@ -76,6 +76,10 @@ class NewsResume extends React.Component {
     this._isMounted = false
   }
 
+  activeNewsLetter = () => {
+    document.getElementById('btn-newsletter').click()
+  }
+
   render() {
     const { newsletters, checksNews, loading } = this.state
     const { news, arcSite } = this.props
@@ -107,7 +111,10 @@ class NewsResume extends React.Component {
                     <button
                       type="button"
                       className="add-item"
-                      onClick={() => news()}>
+                      onClick={() => {
+                        news()
+                        this.activeNewsLetter()
+                      }}>
                       <span className="icon-plus">&#43;</span>
                       Personaliza tus newsletters
                     </button>

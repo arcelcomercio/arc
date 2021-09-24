@@ -1,11 +1,30 @@
-import React from 'react'
+import * as React from 'react'
+import { ArcSite } from 'types/fusion'
 
-const Checkbox = ({ checked, disabled, name, site, image, ...props }) => (
+import { SITE_DIARIOCORREO } from '../../../../../../utilities/constants/sitenames'
+
+interface CheckboxProps {
+  checked: boolean
+  disabled: boolean
+  name: string
+  arcSite: ArcSite
+  image: string
+}
+
+const Checkbox: React.FC<CheckboxProps> = ({
+  checked,
+  disabled,
+  name,
+  arcSite,
+  image,
+  ...props
+}) => (
   <div className="sign-profile_checkbox-container">
     <div
       className="sign-profile_checkbox-image"
       style={{
         backgroundImage: `url(${image})`,
+        borderRadius: arcSite === SITE_DIARIOCORREO ? '4px' : '0',
       }}
     />
     <div
