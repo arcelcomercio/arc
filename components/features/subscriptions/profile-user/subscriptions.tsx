@@ -18,13 +18,9 @@ import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
 import Header from './_children/header/signwall'
 
-const MenuSignwall = React.lazy(() =>
-  importRetry(
-    () =>
-      import(
-        /* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu/signwall'
-      )
-  )
+const MenuSignwall = React.lazy(
+  () =>
+    import(/* webpackChunkName: 'Profile-MenuSignwall' */ './_children/menu')
 )
 
 const ResumeProfile = React.lazy(() =>

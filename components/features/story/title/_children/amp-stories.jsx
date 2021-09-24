@@ -55,20 +55,20 @@ const AmpStoriesChild = ({ arcSite }) => (
         />
       </amp-iframe>
     )}
-    {arcSite === SITE_DEPOR && (
-      <amp-iframe
-        height="150"
-        layout="fixed-height"
-        sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
-        src="https://stories.depor.com/spc/load/ZECO_453_877_194/70/amp/stories-amp"
-        noloading="">
-        <amp-img
-          layout="fill"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-          placeholder
-        />
-      </amp-iframe>
-    )}
+    {arcSite === SITE_DEPOR &&
+      // <amp-iframe
+      //   height="150"
+      //   layout="fixed-height"
+      //   sandbox="allow-scripts allow-popups allow-same-origin allow-top-navigation"
+      //   src="https://stories.depor.com/spc/load/ZECO_453_877_194/70/amp/stories-amp"
+      //   noloading="">
+      //   <amp-img
+      //     layout="fill"
+      //     src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+      //     placeholder
+      //   />
+      // </amp-iframe>
+      ''}
     {arcSite === SITE_DIARIOCORREO && (
       <amp-iframe
         height="150"

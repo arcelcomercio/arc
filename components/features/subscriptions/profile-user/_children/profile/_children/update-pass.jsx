@@ -1,356 +1,121 @@
-/* eslint-disable react/no-string-refs */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
 import Identity from '@arc-publishing/sdk-identity'
-import Consumer from 'fusion:consumer'
-import React, { Component } from 'react'
+import * as React from 'react'
 
-import { Close } from '../../../../../signwall/_children/icons'
-import { Modal } from '../../../../../signwall/_children/modal/index'
-import FormValid from '../../../../../signwall/_dependencies/form-valid'
-import {
-  mediumRegularExp,
-  strongRegularExp,
-} from '../../../../_dependencies/Regex'
+import getCodeError, { formatPass } from '../../../../_dependencies/Errors'
+import useForm from '../../../../_hooks/useForm'
+import FormContainer from './form-container'
 
-@Consumer
-class UpdatePassword extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      checkpwdStrength: '0px',
-      newPassword: null,
-      repeatPassword: null,
-      oldPassword: '',
-      showModalConfirm: false,
-      showMsgSuccess: false,
-      showMsgError: false,
-      MessageErrorPass: '',
-      formErrors: {
-        newPassword: '',
-        repeatPassword: '',
-      },
-      formErrorsConfirm: {
-        oldPassword: '',
-      },
-      sending: true,
-    }
+const UpdatePassword = () => {
+  const [loading, setLoading] = React.useState()
+  const [errorMessage, setErrorMessage] = React.useState()
+  const [hasSuccessMessage, setHasSuccessMessage] = React.useState()
+
+  const stateSchema = {
+    newPassword: { value: '', error: '' },
+    oldPassword: { value: '', error: '' },
   }
 
-  handleChangePassword = (e) => {
-    const { newPassword, repeatPassword, formErrors } = this.state
-    e.preventDefault()
-    if (FormValid(this.state)) {
-      this.setState({
-        showModalConfirm: true,
+  const stateValidatorSchema = {
+    newPassword: {
+      required: true,
+      validator: formatPass(),
+      nospaces: true,
+    },
+    oldPassword: {
+      required: true,
+      validator: formatPass(),
+      nospaces: true,
+    },
+  }
+
+  const submitConfirmPassword = ({ newPassword, oldPassword }) => {
+    setLoading(true)
+    Identity.updatePassword(oldPassword, newPassword)
+      .then(() => {
+        setLoading(false)
+        setHasSuccessMessage(true)
       })
+      .catch((err) => {
+        setLoading(false)
+        setErrorMessage(getCodeError(err.code))
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setErrorMessage(false)
+          setHasSuccessMessage(false)
+        }, 5000)
+      })
+  }
 
-      const ModalProfile =
-        document.getElementById('profile-signwall').parentNode ||
-        document.getElementById('profile-signwall').parentElement
-      ModalProfile.style.overflow = 'hidden'
-    } else {
-      if (newPassword == null) {
-        formErrors.newPassword = 'Este campo es requerido'
-        this.setState({ formErrors })
+  const {
+    values: { newPassword, oldPassword },
+    errors: { newPassword: newPasswordError, oldPassword: oldPasswordError },
+    handleOnChange,
+    handleOnSubmit,
+    // disable,
+  } = useForm(stateSchema, stateValidatorSchema, submitConfirmPassword)
+
+  const handleChangeInput = (e) => {
+    handleOnChange(e)
+    setErrorMessage(false)
+  }
+
+  return (
+    <FormContainer
+      title="Cambiar contraseña"
+      onSubmit={handleOnSubmit}
+      successMessage={
+        hasSuccessMessage
+          ? 'Su contraseña ha sido actualizada exitosamente'
+          : undefined
       }
-      if (repeatPassword == null) {
-        formErrors.repeatPassword = 'Este campo es requerido'
-        this.setState({ formErrors })
-      }
-    }
-  }
-
-  handleChangeValidation = (e) => {
-    e.preventDefault()
-    this.setState({ messageError: false })
-    const { name, value } = e.target
-    const { formErrors, newPassword } = this.state
-    if (name === 'newPassword') {
-      const space =
-        value.indexOf(' ') >= 0
-          ? 'Contraseña inválida, no se permite espacios'
-          : ''
-      const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
-      formErrors.newPassword =
-        value.length === 0 ? 'Este campo es requerido' : min
-    } else if (name === 'repeatPassword') {
-      const same = newPassword === value ? '' : 'Tu contraseña no coincide'
-      formErrors.repeatPassword =
-        value.length === 0 ? 'Este campo es requerido' : same
-    }
-
-    this.setState({ formErrors, [name]: value })
-  }
-
-  handleForcePassword(e) {
-    const { value } = e.target
-
-    if (strongRegularExp.test(value)) {
-      this.setState({ checkpwdStrength: '40px' })
-    } else if (mediumRegularExp.test(value)) {
-      this.setState({ checkpwdStrength: '20px' })
-    } else if (value.length >= '3') {
-      this.setState({ checkpwdStrength: '10px' })
-    } else {
-      this.setState({ checkpwdStrength: '0px' })
-    }
-  }
-
-  changeValidationConfirm = (e) => {
-    const { name, value } = e.target
-    const { formErrorsConfirm } = this.state
-    const space =
-      value.indexOf(' ') >= 0
-        ? 'Contraseña inválida, no se permite espacios'
-        : ''
-    const min = value.length < 8 ? 'Mínimo 8 caracteres' : space
-    formErrorsConfirm.oldPassword =
-      value.length === 0 ? 'Este campo es requerido' : min
-    this.setState({ formErrorsConfirm, [name]: value })
-  }
-
-  submitConfirmPassword = (e) => {
-    const { formErrorsConfirm, oldPassword, newPassword } = this.state
-    e.preventDefault()
-
-    formErrorsConfirm.oldPassword =
-      oldPassword.length === 0 ? 'Este campo es requerido' : ''
-    this.setState({ formErrorsConfirm })
-
-    if (typeof window !== 'undefined' && formErrorsConfirm.oldPassword === '') {
-      this.setState({ sending: false })
-
-      Identity.updatePassword(oldPassword, newPassword)
-        .then(() => {
-          this.setState({
-            newPassword: null,
-            repeatPassword: null,
-            oldPassword: '',
-            showModalConfirm: false,
-            showMsgSuccess: true,
-            sending: true,
-          })
-          this.refs.newPassword.value = ''
-          this.refs.repeatPassword.value = ''
-          setTimeout(() => {
-            this.setState({
-              showMsgSuccess: false,
-            })
-          }, 5000)
-        })
-        .catch((err) => {
-          this.setState({
-            oldPassword: '',
-            showModalConfirm: false,
-            showMsgError: true,
-            sending: true,
-            MessageErrorPass:
-              err.code === '300040'
-                ? 'Ha ocurrido un error. Contraseña incorrecta'
-                : 'Error inesperado',
-          })
-          setTimeout(() => {
-            this.setState({
-              showMsgError: false,
-            })
-          }, 5000)
-        })
-
-      const ModalProfile =
-        document.getElementById('profile-signwall').parentNode ||
-        document.getElementById('profile-signwall').parentElement
-      ModalProfile.style.overflow = 'auto'
-    }
-  }
-
-  togglePopupModalConfirm() {
-    const { showModalConfirm } = this.state
-    this.setState({
-      showModalConfirm: !showModalConfirm,
-    })
-
-    const ModalProfile =
-      document.getElementById('profile-signwall').parentNode ||
-      document.getElementById('profile-signwall').parentElement
-    if (showModalConfirm) {
-      ModalProfile.style.overflow = 'auto'
-    } else {
-      ModalProfile.style.overflow = 'hidden'
-    }
-  }
-
-  render() {
-    const { formErrors } = this.state
-    const {
-      formErrorsConfirm,
-      showMsgSuccess,
-      showMsgError,
-      MessageErrorPass,
-      checkpwdStrength,
-      showModalConfirm,
-      sending,
-    } = this.state
-    const {
-      siteProperties: {
-        signwall: { mainColorBtn, mainColorLink },
-      },
-    } = this.props
-    return (
-      <>
-        <form
-          className="sign-profile_update-form-grid"
-          onSubmit={(e) => this.handleChangePassword(e)}
-          autoComplete="off">
-          <div className="row">
-            <h3 className="title">Cambiar contraseña</h3>
+      errorMessage={errorMessage}
+      loading={loading}>
+      <div className="row three">
+        <div className="sign-profile_update-form-group">
+          <div hidden>
+            <input type="password" />
           </div>
-
-          {showMsgSuccess && (
-            <div className="sign-profile_update-message sign-profile_update-message-success">
-              Tu contraseña ha sido actualizada correctamente.
-            </div>
+          <input
+            type="password"
+            name="newPassword"
+            value={newPassword}
+            className={newPasswordError ? 'input error' : 'input'}
+            placeholder="Nueva contraseña"
+            noValidate
+            maxLength="50"
+            onChange={handleChangeInput}
+            onBlur={handleOnChange}
+          />
+          <label htmlFor="newPassword" className="label">
+            Nueva contraseña
+          </label>
+          {newPasswordError && (
+            <span className="error">{newPasswordError}</span>
           )}
-          {showMsgError && (
-            <div className="sign-profile_update-message sign-profile_update-message-failed">
-              {MessageErrorPass}
-            </div>
+        </div>
+        <div className="sign-profile_update-form-group">
+          <input
+            type="password"
+            name="oldPassword"
+            value={oldPassword}
+            className={oldPasswordError ? 'input error' : 'input'}
+            placeholder="Contraseña Actual"
+            noValidate
+            maxLength="50"
+            onChange={handleChangeInput}
+            onBlur={handleOnChange}
+          />
+          <label htmlFor="oldPassword" className="label">
+            Contraseña Actual
+          </label>
+          {oldPasswordError && (
+            <span className="error">{oldPasswordError}</span>
           )}
-
-          <div className="row three">
-            <div className="sign-profile_update-form-group">
-              <div hidden>
-                <input type="password" />
-              </div>
-              <input
-                type="password"
-                autoComplete="new-password"
-                name="newPassword"
-                ref="newPassword"
-                className={
-                  formErrors.newPassword.length > 0 ? 'input error' : 'input'
-                }
-                placeholder="Nueva contraseña"
-                noValidate
-                maxLength="50"
-                onChange={(e) => {
-                  this.handleChangeValidation(e)
-                  this.handleForcePassword(e)
-                }}
-              />
-              <label htmlFor="pass1" className="label">
-                Nueva contraseña
-              </label>
-              {formErrors.newPassword.length > 0 && (
-                <span className="error">{formErrors.newPassword}</span>
-              )}
-              <div className="password-security">
-                <div className="password-security__back" />
-                <div
-                  className="password-security__front"
-                  style={{ width: checkpwdStrength }}
-                />
-              </div>
-            </div>
-            <div className="sign-profile_update-form-group">
-              <input
-                type="password"
-                name="repeatPassword"
-                ref="repeatPassword"
-                className={
-                  formErrors.repeatPassword.length > 0 ? 'input error' : 'input'
-                }
-                placeholder="Confirmar nueva contraseña "
-                noValidate
-                maxLength="50"
-                autoComplete="off"
-                onChange={(e) => {
-                  this.handleChangeValidation(e)
-                }}
-              />
-              <label htmlFor="repeatPassword" className="label">
-                Confirmar nueva contraseña
-              </label>
-              {formErrors.repeatPassword.length > 0 && (
-                <span className="error">{formErrors.repeatPassword}</span>
-              )}
-            </div>
-            <div className="sign-profile_update-form-group">
-              <button
-                className="signwall-inside_forms-btn"
-                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}
-                type="submit">
-                GUARDAR CAMBIOS
-              </button>
-            </div>
-          </div>
-        </form>
-
-        {showModalConfirm && (
-          <Modal size="mini" position="middle" bgColor="white">
-            <button
-              className="close-modal"
-              type="button"
-              onClick={(e) => this.togglePopupModalConfirm(e)}>
-              <Close />
-            </button>
-
-            <form
-              className="sign-profile_update-form-grid"
-              onSubmit={(e) => this.submitConfirmPassword(e)}>
-              <p
-                style={{
-                  lineHeight: '28px',
-                  marginTop: '20px',
-                }}
-                className="signwall-inside_forms-text mt-10 mb-10 center">
-                Para confirmar el cambio, por favor ingresa tu contraseña actual
-              </p>
-
-              <div
-                className="sign-profile_update-form-group"
-                style={{
-                  width: '100%',
-                  margin: '10px 0px',
-                }}>
-                <input
-                  type="password"
-                  name="oldPassword"
-                  className={
-                    formErrorsConfirm.oldPassword.length > 0
-                      ? 'input error'
-                      : 'input'
-                  }
-                  placeholder="Contraseña Actual"
-                  noValidate
-                  maxLength="50"
-                  autoComplete="off"
-                  onChange={(e) => {
-                    this.setState({ oldPassword: e.target.value })
-                    this.changeValidationConfirm(e)
-                  }}
-                />
-                <label htmlFor="oldPassword" className="label">
-                  Contraseña actual
-                </label>
-                {formErrorsConfirm.oldPassword.length > 0 && (
-                  <span className="error">{formErrorsConfirm.oldPassword}</span>
-                )}
-              </div>
-
-              <button
-                className="signwall-inside_forms-btn"
-                type="submit"
-                disabled={!sending}
-                style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
-                {!sending ? 'CONFIRMANDO...' : 'CONFIRMAR'}
-              </button>
-            </form>
-          </Modal>
-        )}
-      </>
-    )
-  }
+        </div>
+      </div>
+    </FormContainer>
+  )
 }
 
 export default UpdatePassword
