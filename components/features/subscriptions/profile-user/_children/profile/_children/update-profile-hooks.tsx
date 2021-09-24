@@ -431,7 +431,13 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
                 Tipo Doc.
               </label>
               <TextMask
-                mask={maskDocuments[documentType || 'DNI']}
+                mask={
+                  maskDocuments[
+                    (documentType ??
+                      (userProfile?.documentType as UserDocumentType)) ||
+                      'DNI'
+                  ]
+                }
                 guide={false}
                 type="text"
                 id="documentNumber"
