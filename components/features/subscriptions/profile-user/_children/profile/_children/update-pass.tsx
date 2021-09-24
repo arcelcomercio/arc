@@ -3,12 +3,17 @@ import * as React from 'react'
 
 import getCodeError, { formatPass } from '../../../../_dependencies/Errors'
 import useForm from '../../../../_hooks/useForm'
+import { Status } from '../_dependencies/types'
 import FormContainer from './form-container'
 
 const UpdatePassword = () => {
-  const [loading, setLoading] = React.useState()
-  const [errorMessage, setErrorMessage] = React.useState()
-  const [hasSuccessMessage, setHasSuccessMessage] = React.useState()
+  const [status, setStatus] = React.useState<Status>(Status.Initial)
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
+
+  React.useEffect(() => {
+    setStatus(Status.Ready)
+  }, [])
 
   const stateSchema = {
     newPassword: { value: '', error: '' },
@@ -28,20 +33,26 @@ const UpdatePassword = () => {
     },
   }
 
-  const submitConfirmPassword = ({ newPassword, oldPassword }) => {
-    setLoading(true)
+  const submitConfirmPassword = ({
+    newPassword,
+    oldPassword,
+  }: {
+    newPassword: string
+    oldPassword: string
+  }) => {
+    setStatus(Status.Loading)
     Identity.updatePassword(oldPassword, newPassword)
       .then(() => {
-        setLoading(false)
+        setStatus(Status.Ready)
         setHasSuccessMessage(true)
       })
       .catch((err) => {
-        setLoading(false)
+        setStatus(Status.Ready)
         setErrorMessage(getCodeError(err.code))
       })
       .finally(() => {
         setTimeout(() => {
-          setErrorMessage(false)
+          setErrorMessage('')
           setHasSuccessMessage(false)
         }, 5000)
       })
@@ -55,9 +66,9 @@ const UpdatePassword = () => {
     // disable,
   } = useForm(stateSchema, stateValidatorSchema, submitConfirmPassword)
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleOnChange(e)
-    setErrorMessage(false)
+    setErrorMessage('')
   }
 
   return (
@@ -70,7 +81,7 @@ const UpdatePassword = () => {
           : undefined
       }
       errorMessage={errorMessage}
-      loading={loading}>
+      status={status}>
       <div className="row three">
         <div className="sign-profile_update-form-group">
           <div hidden>
@@ -82,8 +93,8 @@ const UpdatePassword = () => {
             value={newPassword}
             className={newPasswordError ? 'input error' : 'input'}
             placeholder="Nueva contraseña"
-            noValidate
-            maxLength="50"
+            formNoValidate
+            maxLength={50}
             onChange={handleChangeInput}
             onBlur={handleOnChange}
           />
@@ -101,8 +112,8 @@ const UpdatePassword = () => {
             value={oldPassword}
             className={oldPasswordError ? 'input error' : 'input'}
             placeholder="Contraseña Actual"
-            noValidate
-            maxLength="50"
+            formNoValidate
+            maxLength={50}
             onChange={handleChangeInput}
             onBlur={handleOnChange}
           />
