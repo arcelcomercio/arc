@@ -1,5 +1,5 @@
 export interface ComposedUserProfile extends Partial<UserProfile> {
-  [key: string]: any
+  [key: LocationAttributes | PersonalAttributes | string]: any
 }
 
 export interface BaseUserProfile {

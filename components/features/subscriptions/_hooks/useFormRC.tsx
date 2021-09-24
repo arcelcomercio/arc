@@ -11,7 +11,7 @@ const TEXT_INVALID_ERROR = 'Este valor no está permitido'
 const MIN_AGE_ERROR = 'No cumple con la edad mínima'
 const MAX_AGE_ERROR = '¿Está seguro que tiene esa edad?'
 
-type StateSchemaValue = { value: string; error: string }
+type StateSchemaValue = { value: string | null; error: string }
 type StateSchema = Record<string, StateSchemaValue>
 
 type StateValidatorProps = {
@@ -25,7 +25,7 @@ type StateValidatorProps = {
   maxAge?: boolean
 }
 type StateValidator = Record<keyof StateSchema, StateValidatorProps>
-type StateValues = Record<keyof StateSchema, string>
+type StateValues = Record<keyof StateSchema, string | null>
 
 type UseForm<TValues extends StateValues = StateValues> = {
   handleOnChange: (

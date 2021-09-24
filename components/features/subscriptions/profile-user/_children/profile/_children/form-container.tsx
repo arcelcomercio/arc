@@ -1,13 +1,15 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
+import { Status } from '../_dependencies/types'
+
 interface FormContainerProps {
   title: string
   children: React.ReactNode
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
   errorMessage?: string
   successMessage?: string
-  loading: boolean
+  status: Status
 }
 
 const styles = {
@@ -21,13 +23,25 @@ const FormContainer: React.FC<FormContainerProps> = ({
   onSubmit,
   errorMessage,
   successMessage,
-  loading = false,
+  status = Status.Initial,
 }) => {
   const {
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn },
     },
   } = useAppContext() || {}
+
+  let buttonText = ''
+  switch (status) {
+    case Status.Ready:
+      buttonText = 'Guardar Cambios'
+      break
+    case Status.Loading:
+      buttonText = 'Guardando...'
+      break
+    default:
+      break
+  }
 
   return (
     <form
@@ -61,8 +75,8 @@ const FormContainer: React.FC<FormContainerProps> = ({
               color: mainColorBtn,
               backgroundColor: mainColorLink,
             }}
-            disabled={loading}>
-            {loading ? 'Guardando...' : 'Guardar Cambios'}
+            disabled={status === Status.Initial || status === Status.Loading}>
+            {buttonText}
           </button>
         </div>
       </div>
