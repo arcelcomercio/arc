@@ -20,6 +20,7 @@ const classes = {
   menuItem: 'header-inverted-featured__menu-full__list__item',
   menuItemLink: 'header-inverted-featured__menu-full__list__link',
   header: `header-inverted-featured header`,
+  headerContainer: `header-inverted-featured__container`,
   wrapper: `header-inverted-featured__wrapper wrapper`,
   logoContainer: 'header-inverted-featured__logo-container',
   logo: 'header-inverted-featured__logo',
@@ -45,7 +46,9 @@ const classes = {
   navStoryTitle: 'header-inverted-featured__nav-story-title',
   navLoader: 'nav__loader-bar position-absolute h-full left-0 bg-link',
   listIcon: 'header-inverted-featured__list-icon story-header__list',
+  btnRegistrate: 'header-inverted-featured__btn-registrate',
   callImg: 'header-inverted-featured__call-img',
+  callLink: 'header-inverted-featured__call-link',
 }
 
 const popUpWindow = (url, title, w, h) => {
@@ -242,6 +245,7 @@ const HeaderChildInverted = ({
       {(!invertedTema && !hideTema) && <Header />}
 
       <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
+
         <div className={classes.navLoader} />
         <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
@@ -314,10 +318,16 @@ const HeaderChildInverted = ({
           siteProperties={siteProperties}
         />
         <div className={classes.callImg}>
+          <Button
+            btnClass={classes.btnRegistrate}
+            btnText="REGÍSTRATE"
+          />
           <a
             itemProp="url"
             href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
-            title="Llamada Ganadora">
+            title="Llamada Ganadora"
+            className={classes.callLink}
+          >
             <img src={winningCallLogo} alt="Llamada Ganadora" />
           </a>
         </div>
@@ -325,6 +335,17 @@ const HeaderChildInverted = ({
       </header>
       {!hideMenu && (
         <nav className={`${classes.band} ${(!hideTema) && classes.bandInverted}`}>
+
+          {/* <button
+            type="button"
+            className={classes.btnMenu}
+            onClick={_handleToggleSectionElements}
+            id="btn-menu"
+            tabIndex="0">
+            <i className={classes.iconMenu} />
+            <span aria-hidden="true">Menú</span>
+          </button> */}
+
           <div className={classes.bandWrapper}>
             {(tags && hideTema) && <div className={classes.tags}>{tags}</div>}
 
@@ -359,12 +380,12 @@ const HeaderChildInverted = ({
           </div>
         </nav>
       )}
-      {(invertedTema && !hideTema) && <Header />}
       <script
         dangerouslySetInnerHTML={{
           __html: toggleMenu
         }}
       ></script>
+      {(invertedTema && !hideTema) && <Header />}
     </>
   )
 }

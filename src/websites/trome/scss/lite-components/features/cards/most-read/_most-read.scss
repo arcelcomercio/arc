@@ -9,10 +9,9 @@
 
   &__title {
     font: 900 14px/18px $encode-c;
-    text-transform: capitalize;
+    text-transform: uppercase;
     height: 60px;
     align-items: center;
-    margin: 0 20px;
     margin-bottom: 5px;
     border-bottom: 1px solid #e1e1e1;
     border-top: 4px solid #434343;
@@ -28,7 +27,6 @@
   }
 
   &__item {
-    margin: 0 20px;
     padding: 15px 0;
     border-bottom: 1px solid #e1e1e1;
 
