@@ -109,9 +109,8 @@ const LiteOutput = ({
   const isPreview = /^\/preview\//.test(requestUri)
   const isStory = getIsStory({ metaValue, requestUri })
   const classBody = isStory
-    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${
-        storySectionPath.split('/')[1]
-      } ${subtype} `
+    ? `story ${promoItems.basic_gallery && 'basic_gallery'} ${arcSite} ${storySectionPath.split('/')[1]
+    } ${subtype} `
     : ''
 
   const metaSiteData = {
@@ -299,16 +298,14 @@ const LiteOutput = ({
             {(arcSite === 'trome' || arcSite === 'depor') && isStory ? (
               <meta
                 name="robots"
-                content={`${
-                  /-agnc-/.test(requestUri) ? 'noindex' : 'index'
-                }, follow`}
+                content={`${/-agnc-/.test(requestUri) ? 'noindex' : 'index'
+                  }, follow`}
               />
             ) : (
               <meta
                 name="robots"
-                content={`${
-                  globalContent?.param === 'noindex' ? 'noindex' : 'index'
-                }, follow`}
+                content={`${globalContent?.param === 'noindex' ? 'noindex' : 'index'
+                  }, follow`}
               />
             )}
             {arcSite === 'trome' || arcSite === 'depor' ? null : (
@@ -603,8 +600,8 @@ const LiteOutput = ({
           <Libs />
         ) : null}
         {isPremium &&
-        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-        !isPreview ? (
+          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+          !isPreview ? (
           <script
             src={`https://elcomercio-${arcSite}-${CURRENT_ENVIRONMENT}.cdn.arcpublishing.com/arc/subs/p.min.js?v=${new Date()
               .toISOString()
@@ -628,7 +625,7 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-        {arcSite === SITE_PERU21 ? (
+        {arcSite === SITE_PERU21 || (arcSite === SITE_ELCOMERCIO && requestUri.includes('/mundo/')) ? (
           <>
             <script
               type="text/javascript"
@@ -709,14 +706,13 @@ const LiteOutput = ({
           <>
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.preroll='${
-                  getPreroll({
-                    section: storySectionPath,
-                    arcSite,
-                    siteDomain: siteProperties.siteDomain,
-                    metaValue,
-                  }) || siteProperties.urlPreroll
-                }'`,
+                __html: `window.preroll='${getPreroll({
+                  section: storySectionPath,
+                  arcSite,
+                  siteDomain: siteProperties.siteDomain,
+                  metaValue,
+                }) || siteProperties.urlPreroll
+                  }'`,
               }}
             />
             <script
@@ -814,11 +810,11 @@ const LiteOutput = ({
           }
         />
         {arcSite === SITE_ELCOMERCIOMAG ||
-        arcSite === SITE_PERU21 ||
-        arcSite === SITE_TROME ||
-        arcSite === SITE_ELBOCON ||
-        arcSite === SITE_DEPOR ||
-        arcSite === SITE_OJO ? (
+          arcSite === SITE_PERU21 ||
+          arcSite === SITE_TROME ||
+          arcSite === SITE_ELBOCON ||
+          arcSite === SITE_DEPOR ||
+          arcSite === SITE_OJO ? (
           <script
             defer
             src={`https://dies75ilbevsu.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
@@ -887,8 +883,8 @@ const LiteOutput = ({
           </>
         )}
         {vallaSignwall === false &&
-        (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
-        !isPreview ? (
+          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION) &&
+          !isPreview ? (
           <>
             <script
               dangerouslySetInnerHTML={{
