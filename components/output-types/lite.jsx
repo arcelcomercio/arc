@@ -628,7 +628,7 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-        {arcSite === SITE_PERU21 ? (
+        {arcSite === SITE_PERU21 || (arcSite === SITE_ELCOMERCIO && requestUri.includes('/mundo/')) ? (
           <>
             <script
               type="text/javascript"
