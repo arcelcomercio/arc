@@ -290,12 +290,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   relevantes del Perú y el mundo
                 </h4>
               )}
-
-              <p
-                className="signwall-inside_forms-text mb-10 mt-10"
-                style={{ fontWeight: 'bold', fontSize: '16.5px' }}>
-                Ingresar
-              </p>
             </div>
 
             {!showLoginEmail && (
@@ -389,12 +383,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
                 <button
                   type="submit"
-                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   style={{
                     color: mainColorBtn,
                     background: mainColorLink,
                     marginBottom: '15px',
                   }}
+                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   disabled={disable || showLoading || showFormatInvalid}
                   onClick={() =>
                     Taggeo(
@@ -402,7 +396,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
                   }>
-                  {showLoading ? 'Cargando...' : 'Ingresar'}
+                  {showLoading ? 'Cargando...' : 'Iniciar Sesión'}
                 </button>
               </>
             )}
