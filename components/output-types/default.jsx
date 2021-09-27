@@ -361,10 +361,10 @@ export default ({
   const isFonts = isTrivia || isCovid
 
   const robotsIndex = `${/(\/(autor|autores)\/)(|[\w\d-]+\/)([0-9]+)\//.test(requestUri) &&
-      !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
-      arcSite === 'trome'
-      ? 'noindex'
-      : 'index'
+    !/(\/(autor|autores)\/)([\w\d-]+\/|)([1])\//.test(requestUri) &&
+    arcSite === 'trome'
+    ? 'noindex'
+    : 'index'
     }`
 
   return (
