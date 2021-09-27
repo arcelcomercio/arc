@@ -1,0 +1,60 @@
+.header {
+  background-color: transparent;
+  position: relative;
+  @media (--desktop) {
+    z-index: 20;
+    height: 0;
+    top: -46px;
+  }
+
+  &__link {
+    font-family: $primary-font;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 20px 15px;
+    @media (--desktop) {
+      font-size: 14px;
+      line-height: 37px;
+    }
+  }
+  &__logo {
+    position: absolute;
+    top: 33px;
+    left: 13px;
+    height: 90px;
+  }
+  &__wrapper--dashed {
+    background-color: #fff;
+    border-bottom: 1px solid #dadada;
+  }
+  &__tags,
+  &__date {
+    @media (--tablet) {
+      display: none;
+    }
+    @media (--desktop) {
+      display: none;
+    }
+  }
+  &__tags,
+  &__link {
+    font-family: $tertiary-font;
+    color: $color-base-300;
+  }
+  &__button.left,
+  &__button.right {
+    &::before {
+      @media (--desktop) {
+        background: transparent;
+      }
+    }
+  }
+  &__featured {
+    flex-wrap: wrap;
+    max-width: 826px;
+    @media (--desktop) {
+      margin-left: 155px;
+    }
+  }
+}

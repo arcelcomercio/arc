@@ -583,7 +583,7 @@ const FormRegister = ({
                         `web_sw${typeDialog[0]}_registro_boton_registrarme`
                       )
                     }}>
-                    {showLoading ? 'REGISTRANDO...' : 'REGISTRARME'}
+                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
                   </button>
 
                   <p

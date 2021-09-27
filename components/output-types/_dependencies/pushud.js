@@ -25,7 +25,6 @@ export const getPushud = arcSite => {
 export const getEnablePushud = arcSite => {
   let epushud = false
   if (
-    arcSite === 'peru21' ||
     arcSite === 'depor' ||
     arcSite === 'elbocon' ||
     arcSite === 'diariocorreo' ||

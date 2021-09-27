@@ -13,7 +13,7 @@ const classes = {
   authorDesc: 'pt-10 secondary-font text-md text-gray-200',
 }
 
-const AuthorsList = props => {
+const AuthorsList = (props) => {
   const {
     customFields: { size: customSize },
   } = props
@@ -39,12 +39,13 @@ const AuthorsList = props => {
     <div className={classes.container}>
       <ul className={classes.list}>
         {authors &&
-          authors.map(author => (
+          authors.map((author) => (
             <li className={classes.author} key={author._id}>
               <a href={author.bio_page || '#'} className={classes.authorLink}>
                 <div>
-                  <h2 className={classes.authorName}>{`${author.firstName ||
-                    ''} ${author.lastName || ''}`}</h2>
+                  <h2 className={classes.authorName}>{`${
+                    author.firstName || ''
+                  } ${author.lastName || ''}`}</h2>
                   {author.role && (
                     <p className={classes.authorDesc}>
                       <strong>{author.role}</strong>
@@ -54,11 +55,7 @@ const AuthorsList = props => {
                     <p className={classes.authorDesc}>{author.email}</p>
                   )}
                 </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24">
+                <svg width="24" height="24" viewBox="0 0 24 24">
                   <path
                     fill="#000"
                     d="M13.6 11.9 6.3 19.1 7.9 20.8l9.1-8.9L7.9 3 6.3 4.6Z"

@@ -7,5 +7,6 @@ interface Window {
   payU?: any
   showArcP?: boolean
   ArcP?: any
+  MSStream?: any
   requestIdle: (callback: () => void) => void
 }

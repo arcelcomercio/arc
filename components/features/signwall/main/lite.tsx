@@ -37,10 +37,10 @@ const SignwallComponent = () => {
   const { activeSignwall, activePaywall } = getProperties(arcSite)
 
   function getListSubs() {
-    const apiOrigin = getOriginAPI(arcSite)
-    Identity.options({
-      apiOrigin,
-    })
+    // const apiOrigin = getOriginAPI(arcSite)
+    // Identity.options({
+    //   apiOrigin,
+    // })
 
     return Identity.extendSession().then((resExt) => {
       if (isUserIdentity(resExt)) {
@@ -86,7 +86,7 @@ const SignwallComponent = () => {
           if (p && p.length === 0) {
             // no tengo subs -> muestra valla
             window.showArcP = true
-            window.top.postMessage(
+            window.top?.postMessage(
               { id: 'iframe_paywall' },
               window.location.origin
             )
@@ -196,7 +196,7 @@ const SignwallComponent = () => {
     const messageId =
       typeDialog === 'reloginHash' ? 'iframe_relogin' : 'iframe_signwall'
 
-    window.top.postMessage(
+    window.top?.postMessage(
       { id: messageId, redirectUrl: urlSignwall },
       window.location.origin
     )

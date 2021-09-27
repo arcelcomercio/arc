@@ -43,6 +43,8 @@ const Styles = ({
   else if (requestUri.includes('/trivias/')) style = 'trivias'
   else if (metaValue('section_style') === 'resultados_elecciones')
     style = 'elecciones-2021'
+  else if (metaValue('section_style') === 'agenda_presidencial')
+    style = 'agenda-presidencial'
   else if (!isStory && metaValue('section_style') === 'provecho')
     style = 'provecho'
   // else if (requestUri.includes('/covid-19/')) style = 'covid'
@@ -68,6 +70,7 @@ const Styles = ({
     style = 'polla'
 
   style = isHome && arcSite === SITE_ELCOMERCIO ? 'basic' : style
+  style = isHome && arcSite === SITE_TROME ? 'home-v2' : style
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
 

@@ -12,6 +12,7 @@ import {
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
+  SITE_PERU21,
   SITE_PERU21G21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
@@ -160,6 +161,7 @@ export default ({
   })(window, document);`
 
   const isElcomercioHome = arcSite === SITE_ELCOMERCIO && isHome
+  const isTromeHome = arcSite === SITE_TROME && isHome
   const isPreview = /^\/preview\//.test(requestUri)
   const { uuid_match: idMatch = '' } = promoItems
 
@@ -289,6 +291,7 @@ export default ({
 
   const isCovid = /^\/covid-19\//.test(requestUri)
   const isElecciones = metaValue('section_style') === 'resultados_elecciones'
+  const isAgendaPre = metaValue('section_style') === 'agenda_presidencial'
   // const isSaltarIntro = /^\/saltar-intro\//.test(requestUri)
   const isPremium = contentCode === PREMIUM || false
   const htmlAmpIs = isPremium ? '' : true
@@ -330,8 +333,13 @@ export default ({
   else if (isStory && (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DEPOR))
     style = 'story'
   else if (isElcomercioHome) style = 'dbasic'
+  else if (isTromeHome) style = 'home-v2'
   else if (arcSite === SITE_TROME && /^\/pollon-eliminatorias/.test(requestUri))
     style = 'polla'
+
+  console.log('======Name dtylesheet=======')
+  console.log(style)
+  console.log('============================')
 
   let styleUrl = `${contextPath}/resources/dist/${arcSite}/css/${style}.css`
   if (CURRENT_ENVIRONMENT === 'prod') {
@@ -467,24 +475,28 @@ export default ({
             />
           </>
         )}
-        {arcSite === 'elcomercio' && !isTrivia && !isCovid && !isElecciones && (
-          <>
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="crossorigin"
-              type="font/woff2"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
-            />
-            <link
-              rel="preload"
-              as="font"
-              crossOrigin="crossorigin"
-              type="font/woff2"
-              href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
-            />
-          </>
-        )}
+        {arcSite === 'elcomercio' &&
+          !isTrivia &&
+          !isCovid &&
+          !isElecciones &&
+          !isAgendaPre && (
+            <>
+              <link
+                rel="preload"
+                as="font"
+                crossOrigin="crossorigin"
+                type="font/woff2"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/libre-franklin-v4-latin-500.woff2"
+              />
+              <link
+                rel="preload"
+                as="font"
+                crossOrigin="crossorigin"
+                type="font/woff2"
+                href="https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/noto-serif-sc-v6-latin-500.woff2"
+              />
+            </>
+          )}
 
         {/* Este cambio se ha devuelto para evaluar problema 
         de monetizacion con los ads.
@@ -654,12 +666,20 @@ export default ({
           )
         })()}
         {/* <!-- Paywall - Fin --> */}
-        {enabledPushud && (
+        {enabledPushud || arcSite !== SITE_PERU21 ? (
           <>
             <script
               type="text/javascript"
               data-cfasync="false"
               dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+            />
+          </>
+        ) : (
+          <>
+            <script
+              type="text/javascript"
+              src="https://btloader.com/tag?o=5634903914840064&upapi=true"
+              async
             />
           </>
         )}

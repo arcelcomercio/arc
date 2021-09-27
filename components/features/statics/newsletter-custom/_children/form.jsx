@@ -15,7 +15,7 @@ const classes = {
   inputCheckbox: 'newsletter__input-checkbox mr-10',
 }
 
-const StaticsNewsletterChildForm = props => {
+const StaticsNewsletterChildForm = (props) => {
   const {
     description,
     colorButton,
@@ -30,10 +30,7 @@ const StaticsNewsletterChildForm = props => {
   return (
     <>
       <p className={classes.textCenter}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="45"
-          viewBox="0 0 48 24.33">
+        <svg width="45" viewBox="0 0 48 24.33">
           <path
             id="Trazado_79132"
             data-name="Trazado 79132"

@@ -41,7 +41,6 @@ import htmlScript from './_dependencies/html-script'
 import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
-import { getEnablePushud, getPushud } from './_dependencies/pushud'
 import {
   getDescription,
   getIsStory,
@@ -207,9 +206,6 @@ const LiteOutput = ({
     oembedSubtypes.includes('youtube')
   const contenidoVideo =
     content.includes('id="powa-') || videoSeo[0] ? 1 : false
-
-  const scriptAdpush = getPushud(arcSite)
-  const enabledPushud = getEnablePushud(arcSite)
 
   /**
    * Lógica para las hojas de estilos
@@ -462,15 +458,6 @@ const LiteOutput = ({
             __html: `"undefined"!=typeof window&&(window.requestIdle=window.requestIdleCallback||function(e){var n=Date.now();return setTimeout(function(){e({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-n))}})},1)},window.addPrefetch=function(e,n,t){var i=document.createElement("link");i.rel=e,i.href=n,t&&(i.as=t),i.crossOrigin="true",document.head.append(i)});`,
           }}
         />
-        {arcSite === SITE_DEPOR && sectionAds === 'futbol-internacional' && (
-          <script
-            async
-            id="browsi-tag"
-            data-pubKey="elcomercio"
-            data-siteKey="deporperu"
-            src="https://cdn.browsiprod.com/bootstrap/bootstrap.js"
-          />
-        )}
         <LiteAds
           requestUri={requestUri}
           tags={tags}
@@ -586,6 +573,21 @@ const LiteOutput = ({
             }
           </Resource>
         ) : null}
+        {metaValue('section_style') === 'saltar-intro' ? (
+          <Resource path="resources/dist/elcomercio/css/lite-saltar-intro.css">
+            {({ data }) =>
+              data ? (
+                <style
+                  dangerouslySetInnerHTML={{
+                    __html: data
+                      .replace('@charset "UTF-8";', '')
+                      .replace('-----------', ''),
+                  }}
+                />
+              ) : null
+            }
+          </Resource>
+        ) : null}
         <ChartbeatBody
           story={isStory}
           hasVideo={contenidoVideo || hasYoutubeVideo}
@@ -626,15 +628,15 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-        {enabledPushud && (
+        {arcSite === SITE_PERU21 ? (
           <>
             <script
               type="text/javascript"
-              data-cfasync="false"
-              dangerouslySetInnerHTML={{ __html: scriptAdpush }}
+              src="https://btloader.com/tag?o=5634903914840064&upapi=true"
+              async
             />
           </>
-        )}
+        ) : null}
         {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
           <>
             <script
@@ -819,7 +821,7 @@ const LiteOutput = ({
         arcSite === SITE_OJO ? (
           <script
             defer
-            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
+            src={`https://dies75ilbevsu.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />

@@ -24,7 +24,7 @@ const classes = {
   showMore: 'st-foot__showmore',
 }
 
-const FooterStory = props => {
+const FooterStory = (props) => {
   const {
     customFields: { directors },
   } = props
@@ -51,11 +51,7 @@ const FooterStory = props => {
         <a itemProp="url" href="/" title="Portada" className={classes.logoBox}>
           {metaValue('section_style') === 'parallax' &&
           arcSite === SITE_ELCOMERCIO ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="151"
-              height="24"
-              viewBox="0 0 151 24">
+            <svg width="151" height="24" viewBox="0 0 151 24">
               <path
                 d="M100.78,8.543l4.137,4.6L100.78,16.06Zm-.906,0c-.634.3-1.691.664-2.673,1.041v9.177a5.932,5.932,0,0,1-.2,1.993,1.343,1.343,0,0,1-.695.77v.408a25.383,25.383,0,0,1,2.929.77,17.608,17.608,0,0,1,2.7,1.268l5.421-3.774-.377-.574-2.3,1.6-3.88-1.509V16.785l7.112-5-4.409-5.177L99.874,8.483Z"
                 fill="#aaa"
@@ -128,11 +124,7 @@ const FooterStory = props => {
         {isMag ? (
           <label htmlFor="toggle_showmore" className={classes.showMore}>
             Ver más
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="15"
-              viewBox="0 0 284.9 284.9">
+            <svg width="15" height="15" viewBox="0 0 284.9 284.9">
               <path d="M282.1 76.5l-14.3-14.3c-1.9-1.9-4.1-2.9-6.6-2.9 -2.5 0-4.7 1-6.6 2.9L142.5 174.4 30.3 62.2c-1.9-1.9-4.1-2.9-6.6-2.9 -2.5 0-4.7 1-6.6 2.9L2.9 76.5C1 78.4 0 80.6 0 83.1c0 2.5 1 4.7 2.9 6.6l133 133c1.9 1.9 4.1 2.9 6.6 2.9s4.7-1 6.6-2.9L282.1 89.6c1.9-1.9 2.8-4.1 2.8-6.6C284.9 80.6 284 78.4 282.1 76.5z" />
             </svg>
             <input type="checkbox" id="toggle_showmore"></input>
@@ -141,7 +133,7 @@ const FooterStory = props => {
         <div className={classes.content}>
           {directorsObject && isElcomercio ? (
             <div className={classes.block}>
-              {Object.keys(directorsObject).map(person => (
+              {Object.keys(directorsObject).map((person) => (
                 <p>
                   {person}:<br />
                   <strong>{directorsObject[person]}</strong>
@@ -171,7 +163,7 @@ const FooterStory = props => {
             </a>
           </div>
           <div className={classes.block}>
-            {siteLegal.map(legalLine => (
+            {siteLegal.map((legalLine) => (
               <p>{legalLine || ''}</p>
             ))}
           </div>

@@ -283,17 +283,6 @@ const Register = ({ arcSite, handleCallToAction, isFia, typeDialog }) => {
                 arcType="registro"
                 activeNewsletter={activeNewsletter}
               />
-              {!isFbBrowser && (
-                <div className={`${styles.blockMiddle} ${styles.blockFull}`}>
-                  <ButtonSocial
-                    arcSocial="google"
-                    arcSite={arcSite}
-                    arcType="registro"
-                    dataTreatment={checkedPolits ? '1' : '0'}
-                    typeDialog={typeDialog}
-                  />
-                </div>
-              )}
             </>
           ) : (
             <div

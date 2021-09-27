@@ -18,7 +18,7 @@ const classes = {
   buttonApp: 'stick__button',
 }
 
-const Stick = props => {
+const Stick = (props) => {
   const {
     customFields: {
       urlpwd = '',
@@ -91,12 +91,7 @@ const Stick = props => {
           role="button"
           tabIndex={0}
           className={classes.closeApp}>
-          <svg
-            width="8"
-            height="8"
-            viewBox="0 0 8 8"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
             <path
               d="M8 1.455L6.545 0L4 2.545L1.455 0L0 1.455L2.545 4L0 6.545L1.455 8L4 5.455L6.545 8L8 6.545L5.455 4L8 1.455Z"
               fill="white"

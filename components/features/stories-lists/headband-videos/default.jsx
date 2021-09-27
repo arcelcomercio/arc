@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
 import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
+
 import { getAssetsPath } from '../../../utilities/assets'
-import customFieldsInput from './_dependencies/custom-fields'
-import ProcessItem from './_children/process-item'
 import FixedVideo from './_children/fixed-video'
+import ProcessItem from './_children/process-item'
+import customFieldsInput from './_dependencies/custom-fields'
 
 const classes = {
   main: 'headband',
@@ -16,7 +17,7 @@ const classes = {
   next: 'headband__next',
 }
 
-const HeadbandVideo = props => {
+const HeadbandVideo = (props) => {
   const { contextPath, arcSite } = useFusionContext()
 
   const {
@@ -55,10 +56,10 @@ const HeadbandVideo = props => {
     }
   }
 
-  const [showFixed, setShowFixed] = useState(false)
-  const [dataVideo, setDataVideo] = useState({})
+  const [showFixed, setShowFixed] = React.useState(false)
+  const [dataVideo, setDataVideo] = React.useState({})
 
-  const sendEventAnalitycs = number => {
+  const sendEventAnalitycs = (number) => {
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
       event: 'peru21tv_player_cintillo',
@@ -70,7 +71,7 @@ const HeadbandVideo = props => {
     const jwpObj = document.querySelector('.stories-video__item-dest .jwplayer')
     if (jwpObj !== null) {
       if (typeof jwplayer !== 'undefined') {
-        jwplayer(jwpObj.id).stop()
+        window.jwplayer(jwpObj.id).stop()
       }
     } else {
       const listVideoPlayer = document.querySelector(
@@ -97,30 +98,24 @@ const HeadbandVideo = props => {
             />
             <div className={classes.swipe}>
               Desliza{' '}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="8"
-                fill="#fff"
-                viewBox="0 0 8 14">
+              <svg width="8" fill="#fff" viewBox="0 0 8 14">
                 <path
                   d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z"
-                  transform="translate(-0.293 -0.293)"></path>
+                  transform="translate(-0.293 -0.293)"
+                />
               </svg>
             </div>
           </div>
           <div className={classes.boxItems}>
-            {stories.map((url, index) => {
-              const randomKey = Math.floor(Math.random() * 100 * index)
-              return (
-                <ProcessItem
-                  storyUrl={url}
-                  storyLive={storiesLive[index]}
-                  position={(index+1)}
-                  key={index}
-                  loadFixedVideo={loadFixedVideo}
-                />
-              )
-            })}
+            {stories.map((url, index) => (
+              <ProcessItem
+                storyUrl={url}
+                storyLive={storiesLive[index]}
+                position={index + 1}
+                key={url}
+                loadFixedVideo={loadFixedVideo}
+              />
+            ))}
           </div>
         </div>
         <button
@@ -129,21 +124,19 @@ const HeadbandVideo = props => {
           onClick={() => {
             sideScroll()
           }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="8"
-            fill="#fff"
-            viewBox="0 0 8 14">
+          <svg width="8" fill="#fff" viewBox="0 0 8 14">
             <path
               d="M2.079,14.713,9.289,7.5,2.079.293.293,2.079,5.717,7.5.293,12.927Z"
-              transform="translate(-0.293 -0.293)"></path>
+              transform="translate(-0.293 -0.293)"
+            />
           </svg>
         </button>
       </div>
       <FixedVideo
         active={showFixed}
         setActive={setShowFixed}
-        dataVideo={dataVideo}></FixedVideo>
+        dataVideo={dataVideo}
+      />
     </>
   )
 }

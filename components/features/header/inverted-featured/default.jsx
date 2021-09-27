@@ -25,8 +25,11 @@ const HeaderInvertedFeatured = (props) => {
       customLogo,
       customLogoLink,
       tags,
+      tagsTema,
       hideMenu,
-      invertedMenu,
+      hideTema,
+      invertedTema,
+      hierarchyTemaConfig
     },
   } = props
 
@@ -67,9 +70,8 @@ const HeaderInvertedFeatured = (props) => {
       !metaValue('title').match(/content/) &&
       metaValue('title')
 
-    customLogoTitle = `${seoTitle}: ${
-      storyTitleRe ? storyTitleRe.substring(0, 70) : ''
-    } | ${siteProperties.siteTitle.toUpperCase()}`
+    customLogoTitle = `${seoTitle}: ${storyTitleRe ? storyTitleRe.substring(0, 70) : ''
+      } | ${siteProperties.siteTitle.toUpperCase()}`
   }
 
   const urlsShareList = socialMediaUrlShareList(
@@ -111,27 +113,47 @@ const HeaderInvertedFeatured = (props) => {
     arcSite,
     {},
     {},
+    {},
     customLogoTitle,
     customLogo,
     customLogoLink,
-    tags
+    tags,
+    tagsTema
   )
 
   const { contentService = '', contentConfigValues = {} } =
     hierarchyConfig || {}
+
+  const { contentService: contentServiceTema = '', contentConfigValues: contentConfigValuesTema = {} } =
+    hierarchyTemaConfig || {}
 
   const isHierarchyReady = !!contentConfigValues.hierarchy
   const bandSource = isHierarchyReady ? contentService : CONTENT_SOURCE
   const sourceQuery = isHierarchyReady
     ? contentConfigValues
     : {
-        website: arcSite,
-        hierarchy: BAND_HIERARCHY,
-      }
+      website: arcSite,
+      hierarchy: BAND_HIERARCHY,
+    }
+
+  const isHierarchyReadyTema = !!contentConfigValuesTema.hierarchy
+  const bandSourceTema = isHierarchyReadyTema ? contentServiceTema : CONTENT_SOURCE
+  const sourceQueryTema = isHierarchyReadyTema
+    ? contentConfigValuesTema
+    : {
+      website: arcSite,
+      hierarchy: BAND_HIERARCHY,
+    }
 
   const bandData = useContent({
     source: bandSource,
     query: sourceQuery,
+    filter: bandFilter,
+  })
+
+  const bandDataTema = useContent({
+    source: bandSourceTema,
+    query: sourceQueryTema,
     filter: bandFilter,
   })
   const menuData =
@@ -145,22 +167,23 @@ const HeaderInvertedFeatured = (props) => {
     }) || {}
 
   formatter.setBandData(bandData)
+  formatter.setBandDataTema(bandDataTema)
   formatter.setMenuData(menuData)
 
   const logoImg =
     arcSite === SITE_DEPOR
       ? 'https://d1r08wok4169a5.cloudfront.net/iframes/depor_logo.svg'
       : `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
 
   const winningCallLogo =
     arcSite === 'trome'
       ? `${getAssetsPath(
-          arcSite,
-          contextPath
-        )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
+        arcSite,
+        contextPath
+      )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
       : ''
 
   return (
@@ -172,7 +195,8 @@ const HeaderInvertedFeatured = (props) => {
       logoImg={logoImg}
       winningCallLogo={winningCallLogo}
       hideMenu={hideMenu}
-      invertedMenu={invertedMenu}
+      invertedTema={invertedTema}
+      hideTema={hideTema}
     />
   )
 }
