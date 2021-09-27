@@ -666,7 +666,7 @@ export default ({
           )
         })()}
         {/* <!-- Paywall - Fin --> */}
-        {enabledPushud || (arcSite !== SITE_PERU21 && arcSite !== SITE_GESTION) ? (
+        {enabledPushud || arcSite !== SITE_PERU21 ? (
           <>
             <script
               type="text/javascript"
