@@ -280,7 +280,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
           <form
             className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
             onSubmit={handleOnSubmit}>
-            <div>
+            <div >
               {typeDialog === 'paywall' && !showLoginEmail && (
                 <h4
                   style={{ fontSize: '22px', fontFamily: primaryFont }}
@@ -289,12 +289,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   relevantes del Perú y el mundo
                 </h4>
               )}
-
-              <p
-                className="signwall-inside_forms-text mb-5 mt-5"
-                style={{ fontWeight: 'bold', fontSize: '16.5px' }}>
-                Ingresar
-              </p>
             </div>
 
             {!showLoginEmail && (
@@ -387,11 +381,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
                 <button
                   type="submit"
-                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   style={{
                     color: mainColorBtn,
                     background: mainColorLink,
                   }}
+                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   disabled={disable || showLoading || showFormatInvalid}
                   onClick={() =>
                     Taggeo(
@@ -399,7 +393,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
                   }>
-                  {showLoading ? 'Cargando...' : 'Ingresar'}
+                  {showLoading ? 'Cargando...' : 'Iniciar Sesión'}
                 </button>
               </>
             )}

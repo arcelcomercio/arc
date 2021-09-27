@@ -370,11 +370,6 @@ const FormRegister = ({
                       )}
                     </div>
                   )}
-                  <p
-                    className="signwall-inside_forms-text mb-5 mt-5"
-                    style={{ fontWeight: 'bold', fontSize: '16.5px' }}>
-                    Registrarme
-                  </p>
                   <Input
                     type="email"
                     inputMode="email"
@@ -409,10 +404,9 @@ const FormRegister = ({
                     style={{
                       color: mainColorBtn,
                       background: mainColorLink,
-                      marginBottom: '15px',
                     }}
                     type="submit"
-                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15 mb-5"
+                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15"
                     disabled={disable || showLoading || showFormatInvalid}
                     onClick={() => {
                       Taggeo(
