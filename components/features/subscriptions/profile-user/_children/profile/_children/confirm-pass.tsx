@@ -5,6 +5,7 @@ import * as React from 'react'
 import { Close } from '../../../../../signwall/_children/icons'
 import { Modal } from '../../../../../signwall/_children/modal/index'
 import useForm from '../../../../_hooks/useForm'
+import { Status } from '../_dependencies/types'
 
 interface ConfirmPassProps {
   onClose: () => void
@@ -28,7 +29,12 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
     },
   } = useAppContext() || {}
 
-  const [loading, setLoading] = React.useState(false)
+  const [status, setStatus] = React.useState<Status>(Status.Initial)
+  const disabled = status === Status.Loading || status === Status.Initial
+
+  React.useEffect(() => {
+    setStatus(Status.Ready)
+  }, [])
 
   const handleClose = (e?: React.SyntheticEvent<HTMLButtonElement>) => {
     e?.preventDefault()
@@ -37,7 +43,7 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
 
   const onPasswordSubmit = ({ password }: { password: string }) => {
     // if (passwordError.trim.length === 0) {}
-    setLoading(true)
+    setStatus(Status.Loading)
     const { email: userEmail = '' } = Identity.userProfile || {}
     Identity.login(userEmail, password, {
       rememberMe: true,
@@ -52,7 +58,7 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
         onError()
       })
       .finally(() => {
-        setLoading(false)
+        setStatus(Status.Ready)
       })
   }
 
@@ -75,7 +81,6 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
     errors: { password: passwordError },
     handleOnChange,
     handleOnSubmit,
-    disable,
   } = useForm(stateSchema, stateValidatorSchema, onPasswordSubmit)
 
   return (
@@ -114,7 +119,7 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
             maxLength={50}
             value={password}
             required
-            disabled={loading}
+            disabled={disabled}
             onChange={handleOnChange}
           />
           <label htmlFor="password" className="label">
@@ -128,11 +133,13 @@ const ConfirmPass: React.FC<ConfirmPassProps> = ({
         <button
           type="submit"
           disabled={
-            !(password.length > 7 && passwordError.length === 0) || loading
+            !(password.length > 7 && passwordError.length === 0) || disabled
           }
           className="signwall-inside_forms-btn"
           style={{ color: mainColorBtn, backgroundColor: mainColorLink }}>
-          {!disable && loading ? 'CONFIRMANDO...' : 'CONFIRMAR'}
+          {status === Status.Loading || status === Status.Initial
+            ? 'CONFIRMANDO...'
+            : 'CONFIRMAR'}
         </button>
       </form>
     </Modal>

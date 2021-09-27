@@ -6,6 +6,7 @@ import {
   UserProfile,
 } from 'types/identity'
 import { UserDocumentType } from 'types/subscriptions'
+import { Nullable } from 'types/utils'
 
 import { UpdateUserProfile } from '../../../../../../hooks/useProfile'
 import getCodeError, {
@@ -21,6 +22,7 @@ import {
   maskDocuments,
 } from '../../../../_dependencies/Regex'
 import useForm from '../../../../_hooks/useFormRC'
+import { Status } from '../_dependencies/types'
 import ConfirmPass from './confirm-pass'
 import FormContainer from './form-container'
 
@@ -34,20 +36,22 @@ interface UpdateProfileProps {
   updateUserProfile: UpdateUserProfile
 }
 
-type ProfileWithAttributes = Pick<
-  ComposedUserProfile,
-  | 'firstName'
-  | 'lastName'
-  | 'secondLastName'
-  | 'documentNumber'
-  | 'civilStatus'
-  | 'phone'
-  | 'email'
-  | 'gender'
-> & {
-  documentType: UserDocumentType
-  birthDate: string
-}
+type ProfileWithAttributes = Nullable<
+  Pick<
+    ComposedUserProfile,
+    | 'firstName'
+    | 'lastName'
+    | 'secondLastName'
+    | 'documentNumber'
+    | 'civilStatus'
+    | 'phone'
+    | 'email'
+    | 'gender'
+  > & {
+    documentType: UserDocumentType
+    birthDate: string
+  }
+>
 
 const convertDateStringDate = (day: string, month: string, year: string) =>
   `${day}-${month}-${year}`
@@ -62,15 +66,23 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   userProfile,
   updateUserProfile,
 }) => {
-  const [loading, setLoading] = React.useState(false)
+  const [status, setStatus] = React.useState<Status>(Status.Initial)
   const [errorMessage, setErrorMessage] = React.useState('')
   const [hasSuccessMessage, setHasSuccessMessage] = React.useState(false)
   const [shouldConfirmPass, setShouldConfirmPass] = React.useState(false)
-
   const [
     selectedDocumentType,
     setSelectedDocumentType,
   ] = React.useState<UserDocumentType>('DNI')
+
+  React.useEffect(() => {
+    setStatus(Status.Ready)
+  }, [])
+
+  const disabled =
+    status === Status.Loading ||
+    status === Status.Initial ||
+    !userProfile?.email
 
   const initialBirthDate =
     userProfile?.birthDay && userProfile?.birthMonth && userProfile?.birthYear
@@ -136,16 +148,16 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
   }
 
   const stateSchema = {
-    firstName: { value: '', error: '' },
-    lastName: { value: '', error: '' },
-    secondLastName: { value: '', error: '' },
-    documentType: { value: '', error: '' },
-    documentNumber: { value: '', error: '' },
-    civilStatus: { value: '', error: '' },
-    phone: { value: '', error: '' },
-    email: { value: '', error: '' },
-    gender: { value: '', error: '' },
-    birthDate: { value: '', error: '' },
+    firstName: { value: null, error: '' },
+    lastName: { value: null, error: '' },
+    secondLastName: { value: null, error: '' },
+    documentType: { value: null, error: '' },
+    documentNumber: { value: null, error: '' },
+    civilStatus: { value: null, error: '' },
+    phone: { value: null, error: '' },
+    email: { value: null, error: '' },
+    gender: { value: null, error: '' },
+    birthDate: { value: null, error: '' },
   }
 
   const handleUpdateProfile = async (profileValues: ProfileWithAttributes) => {
@@ -212,12 +224,12 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
       attributes: validAttributes || [],
     }
 
-    setLoading(true)
+    setStatus(Status.Loading)
 
     updateUserProfile(profileToUpdate as any, {
       onSuccess: (updatedProfile: UserProfile) => {
         setHasSuccessMessage(true)
-        setLoading(false)
+        setStatus(Status.Ready)
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
@@ -233,7 +245,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
       },
       onError: (error: Record<string, string>) => {
         const { code } = error || {}
-        setLoading(false)
+        setStatus(Status.Ready)
         if (code === '100018') {
           setShouldConfirmPass(true)
         } else if (code === '3001001') {
@@ -329,7 +341,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
             ? 'Sus datos han sido actualizados correctamente'
             : undefined
         }
-        loading={loading}>
+        status={status}>
         <div className="row three">
           <div className={styles.group}>
             <input
@@ -337,13 +349,13 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
               autoComplete="given-name"
               id="firstName"
               name="firstName"
-              value={firstName || userProfile?.firstName || ''}
+              value={(firstName ?? userProfile?.firstName) || ''}
               className={`input capitalize ${firstNameError ? 'error' : ''}`}
               placeholder="Nombres"
               maxLength={50}
               onChange={handleChangeInput}
               onBlur={handleOnChange}
-              disabled={!userProfile?.email}
+              disabled={disabled}
             />
             <label htmlFor="firstName" className="label">
               Nombres
@@ -356,13 +368,13 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
               autoComplete="family-name"
               id="lastName"
               name="lastName"
-              value={lastName || userProfile?.lastName || ''}
+              value={(lastName ?? userProfile?.lastName) || ''}
               className={`input capitalize ${lastNameError ? 'error' : ''}`}
               placeholder="Apellido Paterno"
               maxLength={50}
               onChange={handleChangeInput}
               onBlur={handleOnChange}
-              disabled={!userProfile?.email}
+              disabled={disabled}
             />
             <label htmlFor="lastName" className="label">
               Apellido Paterno
@@ -374,7 +386,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
               type="text"
               id="secondLastName"
               name="secondLastName"
-              value={secondLastName || userProfile?.secondLastName || ''}
+              value={(secondLastName ?? userProfile?.secondLastName) || ''}
               className={`input capitalize ${
                 secondLastNameError ? 'error' : ''
               }`}
@@ -382,7 +394,7 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
               maxLength={50}
               onChange={handleChangeInput}
               onBlur={handleOnChange}
-              disabled={!userProfile?.email}
+              disabled={disabled}
             />
             <label htmlFor="secondLastName" className="label">
               Apellido Materno
@@ -402,12 +414,12 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
                 className={`input input-minimal ${
                   documentTypeError ? 'error' : ''
                 }`}
-                value={documentType || userProfile?.documentType || ''}
+                value={(documentType ?? userProfile?.documentType) || ''}
                 onChange={(e) => {
                   handleChangeInput(e)
                   setSelectedDocumentType(e.target.value as UserDocumentType)
                 }}
-                disabled={!userProfile?.email}>
+                disabled={disabled}>
                 <option disabled value="">
                   Seleccione
                 </option>
@@ -419,19 +431,33 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
                 Tipo Doc.
               </label>
               <TextMask
-                mask={maskDocuments[documentType || 'DNI']}
+                mask={
+                  maskDocuments[
+                    (documentType ??
+                      (userProfile?.documentType as UserDocumentType)) ||
+                      'DNI'
+                  ]
+                }
                 guide={false}
                 type="text"
                 id="documentNumber"
                 name="documentNumber"
-                value={documentNumber || userProfile?.documentNumber || ''}
+                value={(documentNumber ?? userProfile?.documentNumber) || ''}
                 className={documentNumberError ? 'input error' : 'input'}
                 placeholder="Num. Documento"
-                maxLength={documentNumber === 'DNI' ? 8 : 15}
-                minLength={documentNumber === 'DNI' ? 8 : 5}
+                maxLength={
+                  (documentNumber ?? userProfile?.documentNumber) === 'DNI'
+                    ? 8
+                    : 15
+                }
+                minLength={
+                  (documentNumber ?? userProfile?.documentNumber) === 'DNI'
+                    ? 8
+                    : 5
+                }
                 onChange={handleChangeInput}
                 onBlur={handleOnChange}
-                disabled={!userProfile?.email}
+                disabled={disabled}
               />
             </div>
             {(documentNumberError || documentTypeError) && (
@@ -448,11 +474,11 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
                 civilStatusError ? 'error' : ''
               }`}
               value={
-                (civilStatus || userProfile?.civilStatus)?.toUpperCase() || ''
+                (civilStatus ?? userProfile?.civilStatus)?.toUpperCase() || ''
               }
               onChange={handleChangeInput}
               onBlur={handleOnChange}
-              disabled={!userProfile?.email}>
+              disabled={disabled}>
               <option value="">Seleccione</option>
               <option value="SO">Soltero(a)</option>
               <option value="CA">Casado(a)</option>
@@ -473,13 +499,13 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
               autoComplete="tel"
               id="phone"
               name="phone"
-              value={phone || userProfile?.phone || ''}
+              value={(phone ?? userProfile?.phone) || ''}
               className={`input ${mobilePhoneError ? 'error' : ''}`}
               placeholder="Número de Celular"
               maxLength={12}
               onChange={handleChangeInput}
               onBlur={handleOnChange}
-              disabled={!userProfile?.email}
+              disabled={disabled}
             />
             <label htmlFor="phone" className="label">
               Número de Celular
@@ -515,10 +541,10 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
               id="gender"
               name="gender"
               autoComplete="sex"
-              value={(gender || userProfile?.gender)?.toUpperCase() || ''}
+              value={(gender ?? userProfile?.gender)?.toUpperCase() || ''}
               onChange={handleChangeInput}
               onBlur={handleOnChange}
-              disabled={!userProfile?.email}>
+              disabled={disabled}>
               <option value="">Seleccione</option>
               <option value="MALE">Hombre</option>
               <option value="FEMALE">Mujer</option>
@@ -536,9 +562,9 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
               name="birthDate"
               inputMode="numeric"
               autoComplete="bday"
-              // disabled={!userProfile?.email}
+              disabled={disabled}
               className={dateBirthError ? 'input error' : 'input'}
-              value={birthDate || initialBirthDate || ''}
+              value={(birthDate ?? initialBirthDate) || ''}
               onChange={handleChangeInput}
               placeholder="Fecha de Nacimiento"
             />
