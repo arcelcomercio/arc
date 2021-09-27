@@ -384,7 +384,8 @@ const LiteOutput = ({
             {isStory &&
               (arcSite === SITE_ELCOMERCIOMAG ||
                 arcSite === SITE_PERU21 ||
-                arcSite === SITE_DEPOR) && (
+                arcSite === SITE_DEPOR ||
+                (arcSite === SITE_ELCOMERCIO && sectionAds === 'luces')) && (
                 <>
                   <link
                     rel="preconnect"
@@ -818,10 +819,11 @@ const LiteOutput = ({
         arcSite === SITE_TROME ||
         arcSite === SITE_ELBOCON ||
         arcSite === SITE_DEPOR ||
-        arcSite === SITE_OJO ? (
+        arcSite === SITE_OJO ||
+        (arcSite === SITE_ELCOMERCIO && sectionAds === 'luces') ? (
           <script
             defer
-            src={`https://dies75ilbevsu.cloudfront.net/gpt-adtmp/ads-formats-v3/public/js/main.min.js?v=${new Date()
+            src={`https://d1r08wok4169a5.cloudfront.net/gpt-adtmp/ads-formats-v2/public/js/main.min.js?v=${new Date()
               .toISOString()
               .slice(0, 10)}`}
           />
