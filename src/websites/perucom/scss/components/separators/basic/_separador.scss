@@ -1,6 +1,7 @@
 .separator {
-  border-top-color: $color-gray-300;
-  background-color: $color-gray-300;
+  border: 2px solid #333;
+  background-color: #f5f5f5;
+  padding-bottom: 25px;
   &__title {
     font-size: 13px;
     font-weight: 700;
@@ -18,10 +19,12 @@
       );
     }
   }
-
+  &__header-title {
+    padding: 25px 0;
+  }
   &__header-link {
-    color: $color-white;
-    font-weight: 400;
+    font-size: 2rem;
+    font-weight: 800;
   }
   &__threeline {
     -webkit-line-clamp: 4;
