@@ -32,9 +32,11 @@ const VideoSeoItem = ({
 
   return `{ 
     "@type":"VideoObject",  
-    "name":"${formatHtmlToText(caption || arcSite)}", 
+    "name":"${formatHtmlToText(caption.trim() || arcSite)}", 
     "thumbnailUrl": ${image},  
-    "description":"${formatHtmlToText(description || caption || arcSite)}", 
+    "description":"${formatHtmlToText(
+      description.trim() || caption.trim() || arcSite
+    )}", 
     "contentUrl": "${getAssetsPathVideo(arcSite, url)}",  
     "uploadDate": "${date}", 
     "duration": "${msToTime(duration, false)}" } `
