@@ -39,6 +39,7 @@ export default {
     cookiesPolicy: 'LNDHYOVT3FBTLCKME4EKQQMNLM',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
+    dataTreatment: 'JCUSOICWBNDKLG4OGQJWXCG77Q',
   },
   infoPagesProd: {
     termsAndConditions: '2NBNX77YV5CG3PQOMD4RPZSYJE',
@@ -49,6 +50,7 @@ export default {
     cookiesPolicy: 'FAZESR2JTBBTZLBSEKCUR42DRA',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'UWK3Q7DYTRFERAL3NGTIXEMWLI',
   },
   assets: {
     nav: {
