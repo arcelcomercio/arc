@@ -46,7 +46,7 @@
   }
 
   &__navigation__label {
-    font-weight: bold;
+    font-weight: 700;
     text-transform: capitalize;
     font-size: 15px;
     pointer-events: none;
@@ -78,15 +78,12 @@
     text-transform: uppercase;
     height: 20px;
   }
-  &__month-view__days {
-    opacity: 0.5;
-  }
 
   &__month-view__days__day {
-    font-weight: bold;
+    font-weight: 700;
     padding: 8px 5px;
     font-size: 17px;
-    font-family: $secondary-font;
+    font-family: Georgia, "Times New Roman", Times, serif;
     border: solid 1px #ebe9e2;
     margin: 2px 0;
     background-color: #f5f3ec;
