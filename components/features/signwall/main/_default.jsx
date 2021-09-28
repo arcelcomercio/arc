@@ -251,11 +251,12 @@ class SignwallComponent extends React.PureComponent {
     this._isMounted = true
     const { arcSite } = this.props
     const isLogged = isLoggedIn()
+    const profile = new GetProfile(arcSite)
 
     if (isLogged && this._isMounted) {
       this.setState({
-        userName: new GetProfile().username,
-        initialUser: new GetProfile().initname,
+        userName: profile.username,
+        initialUser: profile.initname,
       })
     } else if (this._isMounted) {
       this.setState({
