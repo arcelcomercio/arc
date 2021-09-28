@@ -1,24 +1,23 @@
-import React, { PureComponent, Fragment } from 'react'
-import PropTypes from 'prop-types'
 import Consumer from 'fusion:consumer'
+import PropTypes from 'prop-types'
+import React, { Fragment, PureComponent } from 'react'
 
+import Ads from '../../../global-components/ads'
+import Spinner from '../../../global-components/spinner'
 import { getAssetsPath } from '../../../utilities/assets'
+import { SITE_DIARIOCORREO } from '../../../utilities/constants/sitenames'
 import { getActualDate } from '../../../utilities/date-time/dates'
-import StoryData from '../../../utilities/story-data'
-import schemaFilter from './_dependencies/schema-filter'
 import {
   includeCredits,
   includeCreditsImage,
   includePrimarySection,
-  includeSections,
   includePromoItems,
+  includeSections,
 } from '../../../utilities/included-fields'
-
-import RenderPagination from './_children/pagination-by-date'
-import Ads from '../../../global-components/ads'
+import StoryData from '../../../utilities/story-data'
 import ListItem from './_children/list-item'
-import Spinner from '../../../global-components/spinner'
-import { SITE_DIARIOCORREO } from '../../../utilities/constants/sitenames'
+import RenderPagination from './_children/pagination-by-date'
+import schemaFilter from './_dependencies/schema-filter'
 
 const SECTION_SOURCE = 'story-feed-by-section'
 
@@ -45,6 +44,11 @@ class StoriesListInfiniteScroll extends PureComponent {
     } = this.props
 
     this.section = contentConfigValues.section || sectionField
+
+    this.isSection =
+      this.section && this.section !== '/' && this.section !== '/todas'
+    this.isMultipleSections = (this.section || '').includes(',')
+
     this.presets = 'landscape_s:234x161,landscape_xs:118x72'
     this.includedFields = `&_sourceInclude=websites.${arcSite}.website_url,_id,headlines.basic,subheadlines.basic,display_date,content_restrictions.content_code,${includeCredits},${includeCreditsImage},${includePrimarySection(
       { arcSite }
@@ -53,11 +57,11 @@ class StoriesListInfiniteScroll extends PureComponent {
     this.fetchContent({
       data: {
         source:
-          this.section && this.section !== '/' && this.section !== '/todas'
+          this.isSection && !this.isMultipleSections
             ? SECTION_SOURCE
             : contentService,
         query:
-          this.section && this.section !== '/' && this.section !== '/todas'
+          this.isSection && !this.isMultipleSections
             ? {
                 section: this.section,
                 stories_qty:
@@ -110,11 +114,11 @@ class StoriesListInfiniteScroll extends PureComponent {
     this.fetchContent({
       data: {
         source:
-          this.section && this.section !== '/' && this.section !== '/todas'
+          this.isSection && !this.isMultipleSections
             ? SECTION_SOURCE
             : contentService,
         query:
-          this.section && this.section !== '/' && this.section !== '/todas'
+          this.isSection && !this.isMultipleSections
             ? {
                 section: this.section,
                 feedOffset: next,
@@ -235,16 +239,13 @@ class StoriesListInfiniteScroll extends PureComponent {
       .filter((key) => customFieldsProps[key] === true)
     const typeSpace = isDfp ? 'caja' : 'movil'
 
-    const activeAdsArray = activeAds.map((el) => {
-      return {
-        name: `${typeSpace}${el.slice(-1)}`,
-        pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
-        inserted: false,
-      }
-    })
+    const activeAdsArray = activeAds.map((el) => ({
+      name: `${typeSpace}${el.slice(-1)}`,
+      pos: customFieldsProps[`adsMobilePosition${el.slice(-1)}`] || 0,
+      inserted: false,
+    }))
 
     const { isRender } = this.state
-
     return (
       <>
         <div>
@@ -268,14 +269,12 @@ class StoriesListInfiniteScroll extends PureComponent {
           })}
         </div>
         {next > 0 && <Spinner />}
-        {!this.section ||
-          this.section === '/todas' ||
-          (this.section === '/' && (
-            <RenderPagination
-              section={this.section}
-              date={dateField || getActualDate()}
-            />
-          ))}
+        {(!this.isSection || this.isMultipleSections) && (
+          <RenderPagination
+            section={this.isMultipleSections ? '/' : this.section}
+            date={dateField || getActualDate()}
+          />
+        )}
       </>
     )
   }

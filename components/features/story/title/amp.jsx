@@ -3,7 +3,11 @@ import getProperties from 'fusion:properties'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
-import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import {
+  SITE_DEPOR,
+  SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
+} from '../../../utilities/constants/sitenames'
 import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 import {
   publicidadAmp,
@@ -27,7 +31,12 @@ const classes = {
   listClasses: 'amp-story-content mt-20',
 }
 const StoryTitleAmp = () => {
-  const { arcSite, contextPath, globalContent: data } = useFusionContext()
+  const {
+    arcSite,
+    contextPath,
+    globalContent: data,
+    requestUri = '',
+  } = useFusionContext()
 
   const { adsAmp } = getProperties(arcSite)
 
@@ -41,6 +50,7 @@ const StoryTitleAmp = () => {
     contentElementsListOne: { items = [], type = '' } = {},
   } = new StoryData({
     data,
+    arcSite,
     contextPath,
   })
   const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
@@ -93,7 +103,26 @@ const StoryTitleAmp = () => {
             </div>
           )}
 
-          <AmpStoriesChild arcSite={arcSite} />
+          {/^\/saltar-intro/.test(primarySectionLink) ? (
+            <div style={{ maxWidth: '240px', margin: '30px auto;' }}>
+              <a href="/saltar-intro/">
+                <amp-img
+                  width="240px"
+                  height="31px"
+                  src="https://elcomercio.pe/resizer/naRu0PT5lScjAnLV3MMk2JxYS8I=/240x0/smart/filters:format(png):quality(100)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/B576KDATVBA4XFMUPCFSMTEC4A.png"
+                  alt="Saltar Intro"
+                  layout="responsive"
+                />
+              </a>
+            </div>
+          ) : null}
+
+          {arcSite === SITE_ELCOMERCIO ||
+          (arcSite === SITE_DEPOR &&
+            (/^\/mexico\//.test(requestUri) ||
+              /^\/colombia\//.test(requestUri))) ? null : (
+            <AmpStoriesChild arcSite={arcSite} />
+          )}
 
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
 
@@ -102,10 +131,10 @@ const StoryTitleAmp = () => {
             <div className={classes.listClasses}>
               <ul>
                 {items.map(({ content }) => (
-                    <>
-                      <li dangerouslySetInnerHTML={{ __html: content }} />
-                    </>
-                  ))}
+                  <>
+                    <li dangerouslySetInnerHTML={{ __html: content }} />
+                  </>
+                ))}
               </ul>
             </div>
           ) : null}

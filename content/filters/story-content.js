@@ -24,6 +24,24 @@ content_elements {
     config{
       key
       chapter
+      score
+      plataform
+      interviewed
+      career_interviewed
+      year
+      director {
+        name
+        url
+      }
+      cast {
+        name
+        url
+      }
+      genre {
+        name
+        url
+      }
+      clasification
       description
       duration
       thumbnail_url

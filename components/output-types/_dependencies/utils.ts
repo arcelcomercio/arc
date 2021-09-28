@@ -2,6 +2,7 @@ import { useAppContext } from 'fusion:context'
 import { Story } from 'types/story'
 
 import { SITE_DEPOR } from '../../utilities/constants/sitenames'
+import { dateDayAndMouthNOYEAR } from '../../utilities/date-time/dates'
 
 export const getMetaValue = (key: string): string | undefined => {
   const { metaValue } = useAppContext()
@@ -96,6 +97,8 @@ export const getTitle = ({
     if (!hasDate && !hasSection) {
       title = `Archivo de Noticias | ${siteTitleSuffix}`
     }
+  } else if (metaId === 'meta_tag' && /\/noticias\//.test(requestUri)) {
+    title = `${seoTitle} hoy ${dateDayAndMouthNOYEAR()} | ${siteTitleSuffix}`
   }
   return title
 }

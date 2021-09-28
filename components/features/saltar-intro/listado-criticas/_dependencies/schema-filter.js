@@ -11,6 +11,17 @@ export default (arcSite) => `
             }
           }
         }
+        content_elements {
+          _id
+          type
+          subtype
+          embed {
+            config {
+              chapter
+              score
+            }
+          }
+        }
         promo_items{
           basic_video {
             type

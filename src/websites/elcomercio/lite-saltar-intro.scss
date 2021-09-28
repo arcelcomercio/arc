@@ -1,0 +1,46 @@
+// @import "./scss/components/saltar-intro/saltar-intro-title";
+//// @import "../../general-styles/framework/generators/index";
+.saltar-intro {
+  .items-center,
+  .text-center {
+    text-align: center;
+  }
+  .p-10 {
+    padding: 10px;
+  }
+  .menu.pos-abs.oflow-h {
+    // position: unset;
+  }
+  .section-menu.position-absolute,
+  .header-section__icon-wrapper,
+  .header__nav.just-between {
+    display: none;
+  }
+  .section-menu.position-absolute {
+    z-index: 0;
+  }
+
+  .header-section {
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .h-basic__wrapper {
+    .menu {
+      width: calc(100% - 96px);
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .lg\:flex {
+      display: flex;
+    }
+    .lg\:hidden {
+      display: none;
+    }
+    .header-section {
+      border-bottom: none;
+    }
+    .section-menu.position-absolute {
+      display: flex;
+    }
+  }
+}
