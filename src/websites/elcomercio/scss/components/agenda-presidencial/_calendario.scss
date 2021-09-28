@@ -1,5 +1,6 @@
 .react-calendar {
-  padding: 0 44px 0 69px;
+  // acaaaaaaaaaaaaa
+  padding: 0 30px 0 69px;
   &__box {
     align-items: center;
   }
@@ -32,6 +33,10 @@
   &__content-calendar {
     min-height: 260px;
     max-width: 480px;
+  }
+  // acaaaaaaaaaaaaaaaaaaa
+  &__viewContainer {
+    min-width: 390px !important;
   }
 
   /** Estas clases son añadidas por la biblioteca */
@@ -79,15 +84,25 @@
     height: 20px;
   }
 
+  // acaaaaaaaaaa
+
+  /*
+  &__month-view__days {
+    max-width: 450px;
+  }
+  */
+
   &__month-view__days__day {
     font-weight: 700;
     padding: 8px 5px;
     font-size: 17px;
     font-family: Georgia, "Times New Roman", Times, serif;
     border: solid 1px #ebe9e2;
-    margin: 2px 0;
+    // acaaaaaaa
+    margin: 4px 4px;
     background-color: #f5f3ec;
     height: 34px;
+    max-width: 12% !important;
 
     &:hover {
       text-decoration: none;
