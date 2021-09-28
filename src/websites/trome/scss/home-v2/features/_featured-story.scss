@@ -67,7 +67,7 @@
     color: $main-color-black;
     margin: 0;
     overflow: hidden;
-    padding: 0;
+    padding: 0 0 2px 0;
     // ? Line-clamp
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -78,7 +78,7 @@
       line-height: 30px;
       text-align: center;
       max-height: 158px;
-      padding: 0 0 3px 0;
+      padding: 0 0 2px 0;
       -webkit-line-clamp: 4;
     }
   }
@@ -270,7 +270,7 @@
         padding: 30px 40px 27px 40px;
         z-index: 1;
         background-color: transparent;
-        width: auto;
+        width: 100%;
         max-width: 100%;
         height: auto;
       }
