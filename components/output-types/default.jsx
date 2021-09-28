@@ -670,7 +670,7 @@ export default ({
           )
         })()}
         {/* <!-- Paywall - Fin --> */}
-        {enabledPushud || arcSite !== SITE_PERU21 ? (
+        {enabledPushud || (arcSite !== SITE_PERU21 && arcSite !== SITE_GESTION) ? (
           <>
             <script
               type="text/javascript"
