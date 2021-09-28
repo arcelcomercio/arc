@@ -1,36 +1,35 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import Identity from '@arc-publishing/sdk-identity'
 import sha256 from 'crypto-js/sha256'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { setCookie } from '../../../../utilities/client/cookies'
-import { useModalContext } from '../../../subscriptions/_context/modal'
+import { setCookie } from '../../../../../utilities/client/cookies'
+import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
   formatEmail,
   formatPass,
   formatPhone,
-} from '../../../subscriptions/_dependencies/Errors'
-import getDevice from '../../../subscriptions/_dependencies/GetDevice'
-import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-import useForm from '../../../subscriptions/_hooks/useForm'
+} from '../../../../subscriptions/_dependencies/Errors'
+import getDevice from '../../../../subscriptions/_dependencies/GetDevice'
+import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
+import useForm from '../../../../subscriptions/_hooks/useForm'
 import {
   dataTreatment,
   getUrlPaywall,
   PolicyPrivacy,
   TermsConditions,
-} from '../../_dependencies/domains'
+} from '../../../_dependencies/domains'
 import {
   getEntitlement,
   sendNewsLettersUser,
-} from '../../_dependencies/services'
-import { MsgRegister } from '../icons'
-import Loading from '../loading'
-import { CheckBox } from './control_checkbox'
-import { Input } from './control_input_select'
-import { AuthURL, ButtonSocial } from './control_social'
-import { FormStudents } from './form_students'
+} from '../../../_dependencies/services'
+import { MsgRegister } from '../../icons'
+import Loading from '../../loading'
+import { CheckBox } from '../control_checkbox'
+import { Input } from '../control_input_select'
+import { AuthURL, ButtonSocial } from '../control_social'
+import { FormStudents } from '../form_students'
 
 const FormRegister = ({
   typeDialog,
@@ -46,7 +45,6 @@ const FormRegister = ({
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
-      activePhoneRegister,
       siteDomain,
     },
   } = useAppContext() || {}
@@ -307,13 +305,8 @@ const FormRegister = ({
   }
 
   const {
-    values: { remail, rpass, rphone },
-    errors: {
-      remail: remailError,
-      rpass: rpassError,
-      rphone: rphoneError,
-      rterms: rtermsError,
-    },
+    values: { remail, rpass },
+    errors: { remail: remailError, rpass: rpassError, rterms: rtermsError },
     handleOnChange,
     handleOnSubmit,
     disable,
@@ -350,56 +343,10 @@ const FormRegister = ({
             <Loading typeBg="block" />
           ) : (
             <form
-              className={`signwall-inside_forms-form ${
-                arcSite === 'trome' ? 'form-trome' : ''
-              } ${typeDialog}`}
+              className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
-                  <div className={isTromeOrganic ? 'group-float-trome' : ''}>
-                    {isTromeOrganic && (
-                      <h1 className="group-float-trome__title">
-                        ¡Regístrate gratis!
-                      </h1>
-                    )}
-
-                    <p className="signwall-inside_forms-text mt-10 mb-10 center">
-                      Accede fácilmente con:
-                    </p>
-
-                    {authProviders.map((item) => (
-                      <ButtonSocial
-                        key={item}
-                        brand={item}
-                        size={sizeBtnSocial}
-                        onLogged={onLogged}
-                        onClose={onClose}
-                        typeDialog={typeDialog}
-                        onStudents={() => setShowStudents(!showStudents)}
-                        arcSite={arcSite}
-                        typeForm="registro"
-                        activeNewsletter={activeNewsletter}
-                        checkUserSubs={checkUserSubs}
-                        dataTreatment={checkedPolits ? '1' : '0'}
-                      />
-                    ))}
-
-                    <AuthURL
-                      arcSite={arcSite}
-                      onClose={onClose}
-                      typeDialog={typeDialog}
-                      activeNewsletter={activeNewsletter}
-                      typeForm="registro"
-                      onLogged={onLogged}
-                      checkUserSubs={checkUserSubs}
-                      onStudents={() => setShowStudents(!showStudents)}
-                    />
-
-                    <p className="signwall-inside_forms-text mt-15 center">
-                      o completa tus datos para registrarte
-                    </p>
-                  </div>
-
                   {isTromeOrganic && <div className="spacing-trome" />}
 
                   {showError && (
@@ -408,7 +355,7 @@ const FormRegister = ({
                         <>
                           {showError}
                           <a
-                            href="#"
+                            href="!#"
                             style={{ color: 'white', fontWeight: 'bold' }}
                             className="signwall-inside_forms-link"
                             onClick={(e) => {
@@ -423,7 +370,11 @@ const FormRegister = ({
                       )}
                     </div>
                   )}
-
+                  <p
+                    className="signwall-inside_forms-text mb-10 mt-10"
+                    style={{ fontWeight: 'bold', fontSize: '16.5px' }}>
+                    Registrarme
+                  </p>
                   <Input
                     type="email"
                     inputMode="email"
@@ -454,24 +405,87 @@ const FormRegister = ({
                     error={rpassError || showFormatInvalid}
                   />
 
-                  {activePhoneRegister && (
-                    <Input
-                      type="tel"
-                      inputMode="tel"
-                      autoComplete="tel"
-                      name="rphone"
-                      placeholder="Teléfono"
-                      maxLength="12"
-                      value={rphone}
-                      onChange={(e) => {
-                        handleOnChange(e)
-                      }}
-                      error={rphoneError}
+                  <button
+                    style={{
+                      color: mainColorBtn,
+                      background: mainColorLink,
+                      marginBottom: '15px',
+                    }}
+                    type="submit"
+                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15 mb-5"
+                    disabled={disable || showLoading || showFormatInvalid}
+                    onClick={() => {
+                      Taggeo(
+                        `Web_Sign_Wall_${typeDialog}`,
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+                      )
+                    }}>
+                    {showLoading ? 'Registrando...' : 'Registrarme'}
+                  </button>
+
+                  {authProviders.map((item) => (
+                    <ButtonSocial
+                      key={item}
+                      brand={item}
+                      size={sizeBtnSocial}
+                      defaultSize="default-size"
+                      onLogged={onLogged}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      onStudents={() => setShowStudents(!showStudents)}
+                      arcSite={arcSite}
+                      typeForm="registro"
+                      activeNewsletter={activeNewsletter}
+                      checkUserSubs={checkUserSubs}
+                      dataTreatment={checkedPolits ? '1' : '0'}
                     />
-                  )}
+                  ))}
+
+                  <AuthURL
+                    arcSite={arcSite}
+                    onClose={onClose}
+                    typeDialog={typeDialog}
+                    activeNewsletter={activeNewsletter}
+                    typeForm="registro"
+                    onLogged={onLogged}
+                    checkUserSubs={checkUserSubs}
+                    onStudents={() => setShowStudents(!showStudents)}
+                  />
+                  <div
+                    style={{
+                      marginTop: '10px',
+                    }}>
+                    <p className="signwall-inside_forms-text mt-15 center p-link">
+                      Ya tengo una cuenta
+                      <a
+                        href="!#"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: mainColorLink, fontWeight: 'bold' }}
+                        className="signwall-inside_forms-link ml-5 inline"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          Taggeo(
+                            `Web_Sign_Wall_${typeDialog}`,
+                            `web_sw${typeDialog[0]}_registro_link_volver`
+                          )
+                          switch (typeDialog) {
+                            case 'relogemail':
+                            case 'reloghash':
+                              changeTemplate('relogin')
+                              break
+                            default:
+                              changeTemplate('login')
+                          }
+                        }}>
+                        Ingresar
+                      </a>
+                    </p>
+                  </div>
 
                   {activeDataTreatment && (
                     <CheckBox
+                      defaultBorder="default-border checkmark"
                       checked={checkedPolits}
                       value={checkedPolits ? '1' : '0'}
                       name="rpolit"
@@ -500,6 +514,7 @@ const FormRegister = ({
                   )}
 
                   <CheckBox
+                    defaultBorder="default-border checkmark"
                     checked={checkedTerms}
                     value={checkedTerms ? '1' : '0'}
                     name="rterms"
@@ -514,120 +529,58 @@ const FormRegister = ({
                     <p
                       style={{
                         fontSize: '12px',
+                        letterSpacing: '0.015em',
                       }}
                       className="signwall-inside_forms-text mt-10">
-                      Al crear la cuenta acepto los
+                      Al crear la cuenta acepto los {'  '}
                       <a
                         href={TermsConditions(arcSite)}
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 mr-5 inline">
+                        className="signwall-inside_forms-link mr-2 inline">
                         Términos y Condiciones
                       </a>
-                      y
+                      {'  '}y{'  '}
                       <a
                         href={PolicyPrivacy(arcSite)}
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link ml-5 inline">
+                        className="signwall-inside_forms-link inline">
                         Políticas de Privacidad
                       </a>
                     </p>
                   </CheckBox>
-
-                  <button
-                    style={{ color: mainColorBtn, background: mainColorLink }}
-                    type="submit"
-                    className="signwall-inside_forms-btn mt-15 mb-5"
-                    disabled={disable || showLoading || showFormatInvalid}
-                    onClick={() => {
-                      Taggeo(
-                        `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
-                      )
-                    }}>
-                    {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
-                  </button>
-
-                  <p
-                    style={{
-                      fontSize: '12px',
-                      color: '#000000',
-                      textAlign: 'center',
-                    }}
-                    className="signwall-inside_forms-text mt-20 mb-10">
-                    Ya tengo una cuenta
-                    <a
-                      href="#"
-                      style={{ color: mainColorLink, fontWeight: 'bold' }}
-                      className="signwall-inside_forms-link ml-5"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        Taggeo(
-                          `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_registro_link_volver`
-                        )
-                        switch (typeDialog) {
-                          case 'relogemail':
-                          case 'reloghash':
-                            changeTemplate('relogin')
-                            break
-                          default:
-                            changeTemplate('login')
-                        }
-                      }}>
-                      Iniciar Sesión
-                    </a>
-                  </p>
                 </>
               )}
 
               {showConfirm && (
                 <>
-                  {isTromeOrganic ? (
-                    <>
-                      <div
-                        className={isTromeOrganic ? 'group-float-trome' : ''}>
-                        <br />
-                        <h1 className="group-float-trome__title">
-                          ¡Gracias por ser un Trome!
-                        </h1>
-                        <p className="group-float-trome__subtitle mb-20">
-                          Para confirmar tu registro te solicitamos confirmar tu
-                          <br /> cuenta de correo electrónico.
-                        </p>
-                      </div>
-                      <div className="spacing-trome" />
-                      <div className="spacing-trome" />
-                    </>
-                  ) : (
-                    <>
-                      <div className="center block mb-20 mt-20">
-                        <MsgRegister bgcolor={mainColorBr} />
-                      </div>
-
-                      <h4
-                        style={{ fontSize: '22px' }}
-                        className="signwall-inside_forms-title center mb-10">
-                        {showUserWithSubs
-                          ? `Bienvenido(a) ${
-                              Identity.userProfile.firstName || 'Usuario'
-                            }`
-                          : 'Tu cuenta ha sido creada correctamente'}
-                      </h4>
-                    </>
-                  )}
+                  <div className="center block mb-20 mt-20">
+                    <MsgRegister bgcolor={mainColorBr} />
+                  </div>
+                  <h4
+                    style={{ fontSize: '22px', lineHeight: '26px' }}
+                    className="signwall-inside_forms-title center mb-10">
+                    {showUserWithSubs
+                      ? `Bienvenido(a) ${
+                          Identity.userProfile.firstName || 'Usuario'
+                        }`
+                      : 'Tu cuenta ha sido creada correctamente'}
+                  </h4>
 
                   {showContinueVerify && (
                     <h4
-                      style={{ fontSize: '14px', color: '#6a6a6a' }}
+                      style={{
+                        fontSize: '20px',
+                        color: '#000',
+                        fontWeight: 'normal',
+                      }}
                       className="signwall-inside_forms-title mb-10 center">
                       {remail}
                     </h4>
                   )}
-
                   {(typeDialog === 'premium' || typeDialog === 'paywall') &&
                     !showContinueVerify && (
                       <>
@@ -693,7 +646,6 @@ const FormRegister = ({
                         )}
                       </>
                     )}
-
                   {(showContinueVerify || !activeVerifyEmail) && (
                     <>
                       {!isTromeOrganic && (
@@ -711,7 +663,7 @@ const FormRegister = ({
 
                       <button
                         type="button"
-                        className="signwall-inside_forms-btn"
+                        className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                         style={{
                           color: mainColorBtn,
                           background: mainColorLink,
@@ -741,11 +693,10 @@ const FormRegister = ({
                             }
                           }
                         }}>
-                        {arcSite === 'trome' ? 'CONFIRMAR CORREO' : 'CONTINUAR'}
+                        {arcSite === 'trome' ? 'Confirmar Correo' : 'Continuar'}
                       </button>
                     </>
                   )}
-
                   {showContinueVerify && (
                     <p
                       style={{
@@ -758,8 +709,12 @@ const FormRegister = ({
                       <br />
                       {!showSendEmail ? (
                         <a
-                          href="#"
-                          style={{ color: mainColorLink, fontWeight: 'bold' }}
+                          href="!#"
+                          style={{
+                            color: mainColorLink,
+                            fontWeight: 'bold',
+                            textDecoration: 'none',
+                          }}
                           className="signwall-inside_forms-link ml-10"
                           onClick={sendVerifyEmail}>
                           Reenviar correo de activación

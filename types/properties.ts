@@ -98,6 +98,7 @@ export interface Signwall {
   mainColorBr: string
   mainColorLink: string
   mainColorTitle: string
+  mainColorBtn: string
   authProviders: any[]
   primaryFont: string
 }
