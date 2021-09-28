@@ -10,6 +10,27 @@ type DataCallProps = {
   phone: string
 }
 
+const styles = {
+  msg: 'msg-confirmation',
+  load: 'loading-call',
+  success: 'title-success',
+  note: 'note-schedule',
+}
+
+// prettier-ignore
+const texts = {
+  businessHours:  'Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM',
+  successDescrip: 'Uno de nuestros ejecutivos se pondrá en contacto contigo.',
+  successTitle:   'Tus datos han sido enviados correctamente',
+  errorTitle:     'Oh, oh, algo salió mal',
+  errorID:        'Error al recibir ID inválido - Servicio CallIn',
+  errorFormat:    'Error al recibir formato inválido - Servicio CallIn',
+  errorResponse:  'Error al recibir respuesta - Servicio CallIn',
+  errorResolver:  'Error al cargar resolver de ARC',
+  msgError:       'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.',
+  arcError:       'Ocurrió un error inesperado. Por favor, inténtalo nuevamente refrescando la página.',
+}
+
 export const CallService = (data: DataCallProps) => {
   const [loading, setLoading] = React.useState(true)
   const [showError, setShowError] = React.useState<string>()
@@ -21,14 +42,11 @@ export const CallService = (data: DataCallProps) => {
       query: data,
     }) || {}
 
-  const { success, error } = result
+  const { success, error, Message, Type } = result
   const { urls: urlCommon } = PropertiesCommon
   useSentry(urlCommon.sentrySubs)
 
   React.useEffect(() => {
-    const msgError =
-      'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
-
     if (success) {
       const parser = new DOMParser()
       const doc = parser.parseFromString(success, 'text/xml')
@@ -39,19 +57,19 @@ export const CallService = (data: DataCallProps) => {
         if (numOrderClear >= 0) {
           setShowSuccess(numOrderClear)
         } else {
-          setShowError(msgError)
+          setShowError(texts.msgError)
           Sentry.captureEvent({
-            message: 'Error al recibir ID inválido - Servicio CallIn',
+            message: texts.errorID,
             level: Sentry.Severity.Error,
             extra: error || {},
           })
         }
         setLoading(false)
       } else {
-        setShowError(msgError)
+        setShowError(texts.msgError)
         setLoading(false)
         Sentry.captureEvent({
-          message: 'Error al recibir formato inválido - Servicio CallIn',
+          message: texts.errorFormat,
           level: Sentry.Severity.Error,
           extra: error || {},
         })
@@ -60,7 +78,16 @@ export const CallService = (data: DataCallProps) => {
     if (error) {
       setLoading(false)
       Sentry.captureEvent({
-        message: 'Error al recibir respuesta - Servicio CallIn',
+        message: texts.errorResponse,
+        level: Sentry.Severity.Error,
+        extra: error || {},
+      })
+    }
+    if (Message && Type) {
+      setLoading(false)
+      setShowError(texts.arcError)
+      Sentry.captureEvent({
+        message: texts.errorResolver,
         level: Sentry.Severity.Error,
         extra: error || {},
       })
@@ -68,9 +95,9 @@ export const CallService = (data: DataCallProps) => {
   }, [success, error])
 
   return (
-    <div className="msg-confirmation">
+    <div className={styles.msg}>
       {loading ? (
-        <div className="loading-call">
+        <div className={styles.load}>
           <div />
           <div />
           <div />
@@ -80,18 +107,14 @@ export const CallService = (data: DataCallProps) => {
         <>
           {showSuccess && (
             <>
-              <h3 className="title-success">
-                Tus datos han sido enviados correctamente - Orden: {showSuccess}
-              </h3>
-              <p>Uno de nuestros ejecutivos se pondrá en contacto contigo.</p>
-              <p className="note-schedule">
-                Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM
-              </p>
+              <h3 className={styles.success}>{texts.successTitle}</h3>
+              <p>{texts.successDescrip}</p>
+              <p className={styles.note}>{texts.businessHours}</p>
             </>
           )}
-          {(error || showError) && (
+          {(error || showError || (Message && Type)) && (
             <>
-              <h3>Oh, oh, algo salió mal</h3>
+              <h3>{texts.errorTitle}</h3>
               <p>{error || showError}</p>
             </>
           )}
