@@ -422,12 +422,22 @@ $min-with-header: 961px;
   }
 
   .nav-sidebar {
-    // background-color: #000;
     top: $nav-height-active;
     height: calc(100vh - #{$nav-height-active});
-    // max-width: 330px;
-    // left: 0;
     z-index: 1;
+
+    // Si se encuentra los estilos de lite quitar lo siguiente
+    max-width: none;
+    left: auto;
+    will-change: auto;
+    transition: none;
+    transform-origin: unset;
+    transform: none;
+    @media (--only-mobile) {
+      transform: none;
+      position: absolute;
+    }
+    //
 
     @media (--desktop) {
       width: 961px;
@@ -666,7 +676,7 @@ $min-with-header: 961px;
   }
 
   // estilos para scrolled status
-  &.active {
+  &.actives {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;
     height: $nav-height-active;
