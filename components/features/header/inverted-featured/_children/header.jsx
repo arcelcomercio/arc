@@ -12,6 +12,10 @@ import ShareButtons from '../../../../global-components/lite/share'
 
 import {
   toggleMenu,
+  searchScript,
+  btnSearch,
+  searchScriptMobile,
+  btnSearchMobile
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -260,7 +264,11 @@ const HeaderChildInverted = ({
               <i className={classes.iconMenu} />
               <span aria-hidden="true">Menú</span>
             </button>
-            <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
+            <form
+              id='header-search-form'
+              className={classes.form}
+              onSubmit={(e) => e.preventDefault()}
+            >
               <input
                 id="header-search-input"
                 ref={inputSearch}
@@ -277,6 +285,7 @@ const HeaderChildInverted = ({
                 Cuadro de búsqueda
               </label>
               <Button
+                idButton="header-search-button"
                 iconClass={classes.iconSearch}
                 btnClass={`${classes.btnSearch} ${activeSearch()}`}
                 onClick={optionButtonClick}
@@ -316,6 +325,9 @@ const HeaderChildInverted = ({
           showSidebar={true}
           contextPath={contextPath}
           siteProperties={siteProperties}
+          winningCallLogo={winningCallLogo}
+          searchScriptMobile={searchScriptMobile}
+          btnSearchMobile={btnSearchMobile}
         />
         <div className={classes.callImg}>
           <Button
@@ -385,6 +397,17 @@ const HeaderChildInverted = ({
           __html: toggleMenu
         }}
       ></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: btnSearch
+        }}
+      ></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: hideMenu ? '' : searchScript
+        }}
+      >
+      </script>
       {(invertedTema && !hideTema) && <Header />}
     </>
   )
