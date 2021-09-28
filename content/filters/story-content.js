@@ -26,6 +26,8 @@ content_elements {
       chapter
       score
       plataform
+      interviewed
+      career_interviewed
       year
       director {
         name
