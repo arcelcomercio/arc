@@ -7,6 +7,7 @@ import {
   SITE_GESTION,
   SITE_TROME,
 } from '../../../../utilities/constants/sitenames'
+import importRetry from '../../../../utilities/core/import-retry'
 import { Benefits } from '../../../signwall/_children/benefits'
 import { Modal } from '../../../signwall/_children/modal/index'
 import { ModalProvider, useModalContext } from '../../_context/modal'
@@ -15,8 +16,10 @@ import HeaderDefault from '../../profile-user/_children/header/default'
 import Header from '../../profile-user/_children/header/signwall'
 
 const FormLogin = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Auth-FormLogin' */ '../../../signwall/_children/forms/form_login'
+  importRetry(() =>
+    import(
+      /* webpackChunkName: 'Auth-FormLogin' */ '../../../signwall/_children/forms/form_login'
+    )
   )
 )
 
@@ -27,8 +30,10 @@ const FormLoginDefault = React.lazy(() =>
 )
 
 const FormRegister = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Auth-FormRegister' */ '../../../signwall/_children/forms/form_register'
+  importRetry(() =>
+    import(
+      /* webpackChunkName: 'Auth-FormRegister' */ '../../../signwall/_children/forms/form_register'
+    )
   )
 )
 
@@ -39,20 +44,26 @@ const FormRegisterDefault = React.lazy(() =>
 )
 
 const FormForgot = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Auth-FormForgot' */ '../../../signwall/_children/forms/form_forgot'
+  importRetry(() =>
+    import(
+      /* webpackChunkName: 'Auth-FormForgot' */ '../../../signwall/_children/forms/form_forgot'
+    )
   )
 )
 
 const FormReset = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Auth-FormReset' */ '../../../signwall/_children/forms/form_reset'
+  importRetry(() =>
+    import(
+      /* webpackChunkName: 'Auth-FormReset' */ '../../../signwall/_children/forms/form_reset'
+    )
   )
 )
 
 const FormVerify = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/form_verify'
+  importRetry(() =>
+    import(
+      /* webpackChunkName: 'Auth-FormVerify' */ '../../../signwall/_children/forms/form_verify'
+    )
   )
 )
 const FormVerifyDefault = React.lazy(() =>
@@ -62,8 +73,10 @@ const FormVerifyDefault = React.lazy(() =>
 )
 
 const FormRelogin = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'Auth-FormRelogin' */ '../../../signwall/_children/forms/form_relogin'
+  importRetry(() =>
+    import(
+      /* webpackChunkName: 'Auth-FormRelogin' */ '../../../signwall/_children/forms/form_relogin'
+    )
   )
 )
 
