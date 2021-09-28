@@ -53,7 +53,6 @@ export const conformProfile = (userPorfile) => {
       'documentNumber',
       'phone',
       'documentType',
-      'province',
       'civilStatus',
       'country',
       'province',
@@ -69,7 +68,6 @@ export const conformProfile = (userPorfile) => {
  * @param {string|null|undefined} lastName
  * @returns {string} Nombre y apellido del usuario | Bienvenido Usuario
  */
-
 export const getUserName = (firstName = '', lastName = '') => {
   let fullName = ''
   const notAllowed = /\s?(?:undefined|null)\s?/g
