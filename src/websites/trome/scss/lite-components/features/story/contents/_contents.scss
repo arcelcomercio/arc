@@ -44,22 +44,19 @@
     text-decoration: underline;
   }
 
-  // mark {
-  //   background: #000;
-  //   color: #fff;
-  //   padding: 3px 6px;
-  //   font-family: $encode-c;
-  //   font-weight: 800;
-  //   font-size: 14px;
+  // ? Mark for 'Puedes Leer'
+  .hl_purple {
+    background: #000;
+    color: #fff;
+    padding: 3px 6px;
+    font-family: $encode-c;
+    font-weight: 800;
+    font-size: 14px;
 
-  //   @media (--desktop) {
-  //     font-size: 22px;
-  //   }
-
-  //   h6 {
-  //     font-weight: 800;
-  //   }
-  // }
+    @media (--desktop) {
+      font-size: 22px;
+    }
+  }
 
   &__blockquote {
     padding: 19px 0;
@@ -91,15 +88,15 @@
 
   &__author {
     font-family: $fira-s;
-    font-weight: 900;
-    font-size: 16px;
+    font-weight: 400;
+    font-size: 18px;
     letter-spacing: 0;
     line-height: 22px;
     color: #333;
     padding-bottom: 8px;
 
-    @media (--desktop) {
-      font-size: 18px;
+    & > .story-contents__author-link {
+      font-weight: 400;
     }
   }
 
@@ -169,8 +166,8 @@
     margin-top: 8px;
     font-family: $fira-s;
     font-weight: 400;
-    font-size: 13px;
-    letter-spacing: -0.13px;
+    font-size: 12px;
+    letter-spacing: 0;
     line-height: 18px;
     color: #444;
   }
