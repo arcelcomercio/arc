@@ -42,7 +42,10 @@
     margin: 25px 40px;
     @media (--desktop) {
       width: 597px;
-      margin: 32px 0;
+      margin: 32px;
+    }
+    @media (--tablet) {
+      margin: 25px 140px;
     }
   }
 
