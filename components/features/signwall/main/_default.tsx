@@ -15,6 +15,7 @@ import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import {
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
+  SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
@@ -286,7 +287,10 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
           {user.initials}
         </i>
         <span className="capitalize" aria-hidden="true">
-          {user.name} 
+          {user.name ||
+            (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+              ? 'Bienvenido'
+              : 'Mi Perfil')}
         </span>
       </button>
 
