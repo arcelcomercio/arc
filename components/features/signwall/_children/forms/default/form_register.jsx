@@ -370,11 +370,6 @@ const FormRegister = ({
                       )}
                     </div>
                   )}
-                  <p
-                    className="signwall-inside_forms-text mb-10 mt-10"
-                    style={{ fontWeight: 'bold', fontSize: '16.5px' }}>
-                    Registrarme
-                  </p>
                   <Input
                     type="email"
                     inputMode="email"
@@ -409,10 +404,9 @@ const FormRegister = ({
                     style={{
                       color: mainColorBtn,
                       background: mainColorLink,
-                      marginBottom: '15px',
                     }}
                     type="submit"
-                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15 mb-5"
+                    className="signwall-inside_forms-btn signwall-inside_forms-btn-codp mt-15"
                     disabled={disable || showLoading || showFormatInvalid}
                     onClick={() => {
                       Taggeo(
@@ -455,7 +449,7 @@ const FormRegister = ({
                     style={{
                       marginTop: '10px',
                     }}>
-                    <p className="signwall-inside_forms-text mt-15 center p-link">
+                    <p className="signwall-inside_forms-text center p-link">
                       Ya tengo una cuenta
                       <a
                         href="!#"
@@ -564,9 +558,8 @@ const FormRegister = ({
                     style={{ fontSize: '22px', lineHeight: '26px' }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
-                      ? `Bienvenido(a) ${
-                          Identity.userProfile.firstName || 'Usuario'
-                        }`
+                      ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
+                      }`
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h4>
 
