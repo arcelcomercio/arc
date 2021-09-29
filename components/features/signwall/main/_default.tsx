@@ -286,7 +286,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
           {user.initials}
         </i>
         <span className="capitalize" aria-hidden="true">
-          {user.name}
+          {user.name} 
         </span>
       </button>
 
