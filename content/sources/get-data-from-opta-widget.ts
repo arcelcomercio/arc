@@ -1,4 +1,7 @@
-import { OPTA_SCRAPING_API_DEV } from 'fusion:environment'
+import {
+  OPTA_SCRAPING_API_DEV,
+  OPTA_SCRAPING_TOKEN_DEV,
+} from 'fusion:environment'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import request from 'request-promise-native'
 
@@ -26,6 +29,9 @@ const fetch = async (key: ContentSourceQuery) => {
     {
       gzip: true,
       json: true,
+      auth: {
+        bearer: OPTA_SCRAPING_TOKEN_DEV,
+      },
     }
   )
 
