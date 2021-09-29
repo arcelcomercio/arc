@@ -3,7 +3,7 @@ import React from 'react'
 const classes = {
   info: 'footer-secction__info',
   logo: 'footer-secction__image-logo',
-  paragraph: 'footer-secction__text mt-20 mb-0 md:mb-10',
+  paragraph: 'footer-secction__text mt-20 mb-0',
   footerLink: 'footer-secction__link-footer',
   footerLinkNewDesign: 'footer-secction__link-footer__new-design',
   footerLinkNewDesignLastChild: 'footer-secction__link-footer__new-design__last-child',
