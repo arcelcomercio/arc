@@ -216,7 +216,7 @@ export default ({
             </div>
             <div className="section-video__right">
               <div className="section-video__information">
-                {!(
+                {arcSite === 'trome' && !(
                   principalVideo.videoDuration === '00:00' ||
                   principalVideo.videoDuration === '00:00:00'
                 ) && (
@@ -226,8 +226,8 @@ export default ({
                   )}
                 <div
                   className={`section-video__box-section section-video__box-section-bottom ${categoryTop
-                      ? 'section-video__box-section-bottom-mobile'
-                      : null
+                    ? 'section-video__box-section-bottom-mobile'
+                    : null
                     }`}>
                   <a
                     itemProp="url"
