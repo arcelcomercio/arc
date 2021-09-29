@@ -633,7 +633,7 @@ const LiteOutput = ({
             />
           </>
         ) : null}
-        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
+        {arcSite === SITE_GESTION ? (
           <>
             <script
               defer
