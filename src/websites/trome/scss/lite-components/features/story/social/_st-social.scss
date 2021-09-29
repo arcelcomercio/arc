@@ -1,37 +1,48 @@
 .st-social {
-  margin: 20px 20px 0 20px;
-  padding: 12px;
-  align-items: center;
+  margin: 20px 16px 0 16px;
+  padding-bottom: 17px;
+  align-items: flex-start;
   justify-content: center;
+  flex-direction: column;
+  gap: 18px;
 
-  @media(--desktop) {
-    padding: 16px 0 34px 0;
+  @media (--tablet) {
     justify-content: space-between;
-    border-top: 3px solid #AAAAAA;
+    align-items: center;
+    flex-direction: row;
+    gap: unset;
+  }
+
+  @media (--desktop) {
+    margin: 20px 20px 0 20px;
+    padding: 16px 0 34px 0;
+    border-top: 1px solid #aaa;
   }
 
   &__txt {
     font: 700 15px/1 $primary-font;
+    font-size: 22px;
     text-transform: capitalize;
 
     @media (--tablet) {
       font: 700 16px/1 $primary-font;
+      padding-top: 8px;
+      font-size: 32px;
     }
   }
 
   &__link {
+    font-family: $encode-c;
+    font-weight: 800;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #D35B2C;
+    color: #d35b2c;
     text-transform: uppercase;
-    font-size: 18px;
     line-height: 24px;
-    letter-spacing: 0.58px;
-    font-family: $encode-c;
+    letter-spacing: 0.44px;
 
-    @media(--desktop) {
-      font-size: 24px;
-      letter-spacing: 0.77px;
+    @media (--desktop) {
+      letter-spacing: 0.64px;
     }
   }
 
@@ -76,23 +87,32 @@
   // }
 
   &__share {
-    display: none;
-    margin-right: -15px;
-
-    @media(--desktop) {
-
-      display: flex;
-    }
-
+    display: flex;
+    justify-content: flex-end;
+    // margin-right: -15px;
     // Este margen es para contraarrestar el margin-right que tienen los .share-btn
+    // ? Last of type removes margin-right of last icon
+
+    @media (--tablet) {
+      margin-top: 5px;
+    }
   }
 
   .share-btn {
-    border-color: #BABABA;
+    border-color: #888;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.29);
 
     svg {
       fill: #333;
     }
+  }
+
+  .share-btn:last-of-type {
+    margin-right: 0;
+  }
+
+  .st-social__share {
+    display: flex;
   }
 
   // &__special {
