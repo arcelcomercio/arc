@@ -422,12 +422,22 @@ $min-with-header: 961px;
   }
 
   .nav-sidebar {
-    // background-color: #000;
     top: $nav-height-active;
     height: calc(100vh - #{$nav-height-active});
-    // max-width: 330px;
-    // left: 0;
     z-index: 1;
+
+    // Si se encuentra los estilos de lite quitar lo siguiente
+    max-width: none;
+    left: auto;
+    will-change: auto;
+    transition: none;
+    transform-origin: unset;
+    transform: none;
+    @media (--only-mobile) {
+      transform: none;
+      position: absolute;
+    }
+    //
 
     @media (--desktop) {
       width: 961px;
@@ -541,7 +551,7 @@ $min-with-header: 961px;
       padding: 10px 15px 10px 16px;
       border-radius: 4px;
       height: 56px;
-      width: 280px;
+      width: 224px;
       font-size: 17px;
     }
 
@@ -560,14 +570,40 @@ $min-with-header: 961px;
     }
 
     &__footer {
-      display: none;
-
-      padding: 30px;
+      // Diseño anterior
+      /* padding: 30px;
       border-bottom: 1px solid #e8e8e8;
-
       .nav-sidebar__text {
         padding-top: 5px;
         padding-bottom: 5px;
+      } */
+      @media (min-width: 960px) {
+        display: none;
+      }
+      @media (max-width: 960px) {
+        margin-bottom: 113px;
+        &__call-link {
+          img {
+            height: 118px;
+          }
+        }
+        &__icon-search {
+          width: 59px;
+          color: #888888;
+          font-size: 18px;
+          background: #fff;
+          position: absolute;
+          height: 56px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          border-left: 1px solid #888888;
+
+          &:active {
+            background: #e1e1e1;
+            color: #555555;
+          }
+        }
       }
     }
   }
@@ -640,7 +676,7 @@ $min-with-header: 961px;
   }
 
   // estilos para scrolled status
-  &.active {
+  &.actives {
     position: fixed; // No borrar, si no reconce sticky deja fixed
     position: sticky;
     height: $nav-height-active;
