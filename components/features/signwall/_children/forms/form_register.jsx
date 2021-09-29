@@ -5,6 +5,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../utilities/client/cookies'
+import { SITE_ELCOMERCIO, SITE_GESTION } from '../../../../utilities/constants/sitenames'
 import AuthFacebookGoogle from '../../../subscriptions/_children/auth-facebook-google'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import getCodeError, {
@@ -367,9 +368,8 @@ const FormRegister = ({
             <Loading typeBg="block" />
           ) : (
             <form
-              className={`signwall-inside_forms-form ${
-                arcSite === 'trome' ? 'form-trome' : ''
-              } ${typeDialog}`}
+              className={`signwall-inside_forms-form ${arcSite === 'trome' ? 'form-trome' : ''
+                } ${typeDialog}`}
               onSubmit={handleOnSubmit}>
               {!showConfirm && (
                 <>
@@ -396,7 +396,7 @@ const FormRegister = ({
                         arcSite={arcSite}
                         arcType="login"
                         activeNewsletter={activeNewsletter}
-                        showMsgVerify={() => {}}
+                        showMsgVerify={() => { }}
                       />
                     ) : (
                       <>
@@ -647,9 +647,8 @@ const FormRegister = ({
                         style={{ fontSize: '22px' }}
                         className="signwall-inside_forms-title center mb-10">
                         {showUserWithSubs
-                          ? `Bienvenido(a) ${
-                              Identity.userProfile.firstName || 'Usuario'
-                            }`
+                          ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
+                          }`
                           : 'Tu cuenta ha sido creada correctamente'}
                       </h4>
                     </>
@@ -767,7 +766,7 @@ const FormRegister = ({
                               'signwall-nav-btn'
                             )
                             if (typeDialog === 'newsletter' && btnSignwall) {
-                              btnSignwall.textContent = 'Bienvenido'
+                              btnSignwall.textContent = (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION ? 'Bienvenido' : 'Mi Perfil')
                             }
                             if (showContinueVerify) {
                               changeTemplate('login', '', remail)

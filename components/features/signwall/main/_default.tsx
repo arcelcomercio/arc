@@ -12,7 +12,10 @@ import {
 } from '../../../contexts/subscriptions-sdks'
 import { deleteCookie, getCookie } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
-import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+} from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
   getUsername,
@@ -243,8 +246,14 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
         initials: getUsernameInitials(name),
       })
     } else {
+      let btnTitle = 'Iniciar Sesión'
+      if (arcSite === SITE_ELCOMERCIO) {
+        btnTitle = 'Iniciar'
+      } else if (arcSite === SITE_DIARIOCORREO) {
+        btnTitle = 'Regístrate'
+      }
       setUser({
-        name: arcSite === SITE_ELCOMERCIO ? 'Iniciar' : 'Iniciar Sesión',
+        name: btnTitle,
         initials: '',
       })
     }
