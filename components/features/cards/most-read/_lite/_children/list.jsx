@@ -36,7 +36,7 @@ const CardMostReadChildList = (props) => {
     logoSidebar = `${getAssetsPath(
       arcSite,
       contextPath
-    )}/resources/dist/trome/images/logo-circular.png?d=1`
+    )}/resources/dist/trome/images/logo_twitter.jpg`
   }
 
   return (
