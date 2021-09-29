@@ -39,7 +39,8 @@ const HeaderSignwall = ({
       style={{
         background: '#ffffff',
         color: mainColorTxt,
-        height: '120px',
+        height: 'auto',
+        minHeight: '100px',
       }}>
       <div className={classes.content}>
         {buttonClose ? (

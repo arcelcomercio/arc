@@ -125,6 +125,7 @@ export default {
   activeSignwall: true,
   activeVerifyEmail: true,
   activeDataTreatment: true,
+  activeNewsletter: true,
   activePhoneRegister: true,
   signwall: {
     mainColorBg: '#000000',
