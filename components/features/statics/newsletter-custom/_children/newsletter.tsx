@@ -1,8 +1,15 @@
 /* eslint-disable no-nested-ternary */
-import { useFusionContext } from 'fusion:context'
 import { NEWSLETTER_API } from 'fusion:environment'
 import getProperties from 'fusion:properties'
-import React from 'react'
+import * as React from 'react'
+import { ArcSite } from 'types/fusion'
+
+import {
+  SITE_DIARIOCORREO,
+  SITE_GESTION,
+  SITE_TROME,
+} from '../../../../utilities/constants/sitenames'
+import { newsletterScript } from '../_dependencies/scripts'
 
 const classes = {
   newsletter: `newsletter__custom`,
@@ -28,7 +35,7 @@ const classes = {
   divConfirmation: 'newsletter__divConfirmation',
   divFormInputs: 'newsletter__formInputs',
   divFormCustom: 'class-news-custom-form',
-  tos: 'newsletter__tos',
+  terms: 'newsletter__tos',
   wrapperLogo: 'newsletter__wrapper-logo',
   correohoy: 'block mx-auto newsletter__logo',
   cafe: 'block mx-auto newsletter__cafe',
@@ -36,131 +43,31 @@ const classes = {
   checkmark: 'block mx-auto mb-30 mt-30 newsletter__checkmark',
   nnMoreNews: 'newsletter__mas-news',
 }
-const Newsletter = (props) => {
-  // const { confirmRegister, formMessage } = props
 
-  // const formHtml = confirmRegister ? (
-  //   <Confirmation {...props} />
-  // ) : (
-  //   <Form {...props} />
-  // )
+interface CustomNewsletterChildProps {
+  arcSite: ArcSite
+  description: string
+  colorButton: string
+  urlTerms: string
+  urlPrivacyPolicies: string
+  urlMoreNews: string
+  activateJS: string
+}
 
-  const {
-    description,
-    colorButton,
-    urlTos,
-    urlPrivacyPolicies,
-    UrlMoreNews,
-    activateJS,
-  } = props
-  const { arcSite } = useFusionContext()
+const CustomNewsletterChild: React.FC<CustomNewsletterChildProps> = ({
+  arcSite,
+  description,
+  colorButton,
+  urlTerms,
+  urlPrivacyPolicies,
+  urlMoreNews,
+  activateJS,
+}) => {
   const { newsletterBrand } = getProperties(arcSite)
 
-  /*
-    const URL_NEWSLETTER_API = '${NEWSLETTER_API}'
-    const brandNL = '${newsletterBrand}'
-    window.addEventListener('DOMContentLoaded', () => {requestIdle(() => {
-      const formsInPage = document.getElementsByClassName("class-news-custom-form")
-      const formButton = document.getElementsByClassName('newsletter__button')
-      const first_div = document.getElementsByClassName("newsletter__formInputs")
-      const second_div = document.getElementsByClassName("newsletter__divConfirmation")
-
-      let estadoNL = false
-      if(formsInPage[0]){
-        estadoNL = true
-      }
-
-      if(estadoNL){
-        formsInPage[0].addEventListener("submit", (event) => {
-          event.preventDefault()
-          formButton[0].disabled = true
-          const IEmailNC = document.getElementsByClassName("newsletter__email")[0]
-          const EmailMessageNC = document.getElementsByClassName("newsletter__error-message")[0]
-          const re = new RegExp(/[\\w\\.-]+@[\\w\\.-]+/, 'i')
-          const validEmail  = re.test(IEmailNC.value)
-          if(validEmail) {
-            EmailMessageNC.textContent = ""
-            first_div[0].style.display = "none";
-            second_div[0].style.display = 'block'
-          }else{
-            formButton[0].disabled = false
-            EmailMessageNC.textContent = "Ingrese un correo valido"
-            return false
-          }
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", URL_NEWSLETTER_API, true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send(JSON.stringify({
-              email: IEmailNC.value,
-              brand: brandNL
-          }))
-        })
-      }
-
-      //solo para trome
-      if((brandNL == 'trome' || brandNL == 'correo') && estadoNL){
-        const checkDesk = document.getElementById('stNewsCinDesk')
-        const checkMob = document.getElementById('stNewsCinMob')
-
-        const HeaderNewsletter = document.getElementById('HeaderNewsletter')
-        HeaderNewsletter.className=''
-        HeaderNewsletter.style.display = 'none'
-        checkDesk.addEventListener('change', function() {
-          if (checkDesk.checked) {
-            HeaderNewsletter.className='header-full__newsletter-tooltip showTooltipDesk'
-            HeaderNewsletter.style.display = 'flex'
-          }else{
-            HeaderNewsletter.style.display = 'none'
-          }
-        })
-
-        checkMob.addEventListener('change', function() {
-          if (checkMob.checked) {
-            HeaderNewsletter.className='header-full__newsletter-modal active showModalMob'
-            HeaderNewsletter.style.display = 'block'
-          }else{
-            HeaderNewsletter.style.display = 'none'
-          }
-        })
-      }
-
-      if(formsInPage.length > 1){
-        formsInPage[1].addEventListener("submit", (event) => {
-          event.preventDefault()
-          formButton[1].disabled = true
-          const IEmailNC = document.getElementsByClassName("newsletter__email")[1]
-          const EmailMessageNC = document.getElementsByClassName("newsletter__error-message")[1]
-          const re = new RegExp(/[\\w\\.-]+@[\\w\\.-]+/, 'i')
-          const validEmail  = re.test(IEmailNC.value)
-          if(validEmail) {
-            EmailMessageNC.textContent = ""
-            first_div[1].style.display = "none";
-            second_div[1].style.display = 'block'
-          }else{
-            formButton[1].disabled = false
-            EmailMessageNC.textContent = "Ingrese un correo valido"
-            return false
-          }
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", URL_NEWSLETTER_API, true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send(JSON.stringify({
-              email: IEmailNC.value,
-              brand: brandNL
-          }))
-        })
-      }
-
-    })})
-  */
-  let NewsCustomJs = ''
-  NewsCustomJs = `"use strict";var URL_NEWSLETTER_API="${NEWSLETTER_API}",brandNL="${newsletterBrand}";window.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var e=document.getElementsByClassName("class-news-custom-form"),t=document.getElementsByClassName("newsletter__button"),n=document.getElementsByClassName("newsletter__formInputs"),s=document.getElementsByClassName("newsletter__divConfirmation"),a=!1;if(e[0]&&(a=!0),a&&e[0].addEventListener("submit",function(e){e.preventDefault(),t[0].disabled=!0;var a=document.getElementsByClassName("newsletter__email")[0],l=document.getElementsByClassName("newsletter__error-message")[0];if(!new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(a.value))return t[0].disabled=!1,l.textContent="Ingrese un correo valido",!1;l.textContent="",n[0].style.display="none",s[0].style.display="block";var d=new XMLHttpRequest;d.open("POST",URL_NEWSLETTER_API,!0),d.setRequestHeader("Content-Type","application/json"),d.send(JSON.stringify({email:a.value,brand:brandNL}))}),("trome"==brandNL||"correo"==brandNL)&&a){var l=document.getElementById("stNewsCinDesk"),d=document.getElementById("stNewsCinMob"),o=document.getElementById("HeaderNewsletter");o.className="",o.style.display="none",l.addEventListener("change",function(){l.checked?(o.className="header-full__newsletter-tooltip showTooltipDesk",o.style.display="flex"):o.style.display="none"}),d.addEventListener("change",function(){d.checked?(o.className="header-full__newsletter-modal active showModalMob",o.style.display="block"):o.style.display="none"})}e.length>1&&e[1].addEventListener("submit",function(e){e.preventDefault(),t[1].disabled=!0;var a=document.getElementsByClassName("newsletter__email")[1],l=document.getElementsByClassName("newsletter__error-message")[1];if(!new RegExp(/[\\w\\.-]+@[\\w\\.-]+/,"i").test(a.value))return t[1].disabled=!1,l.textContent="Ingrese un correo valido",!1;l.textContent="",n[1].style.display="none",s[1].style.display="block";var d=new XMLHttpRequest;d.open("POST",URL_NEWSLETTER_API,!0),d.setRequestHeader("Content-Type","application/json"),d.send(JSON.stringify({email:a.value,brand:brandNL}))})})});`
-  if (activateJS === 'DESACTIVAR') {
-    NewsCustomJs = ''
-  }
   return (
     <>
-      {arcSite === 'diariocorreo' ? (
+      {arcSite === SITE_DIARIOCORREO ? (
         <div className={classes.newsletter}>
           <div
             className={`${classes.boxSubscription} ${classes.divFormInputs}`}>
@@ -194,7 +101,7 @@ const Newsletter = (props) => {
                   type="text"
                   name="email"
                   placeholder="Ingresa tu Email"
-                  required="required"
+                  required
                 />
               </div>
               <div className={`${classes.row} ${classes.textCenter}`}>
@@ -202,20 +109,20 @@ const Newsletter = (props) => {
                   Recibir
                 </button>
               </div>
-              <div className={`${classes.tos} ${classes.row}`}>
+              <div className={`${classes.terms} ${classes.row}`}>
                 <input
                   type="checkbox"
-                  name="tos"
-                  required="required"
+                  name="terms"
+                  required
                   value="1"
                   className={classes.inputCheckbox}
                 />
-                <label className={classes.policies} htmlFor="tos">
+                <label className={classes.policies} htmlFor="terms">
                   Acepto los
                   <a
                     itemProp="url"
                     className={`${classes.pageLink}`}
-                    href={urlTos}
+                    href={urlTerms}
                     target="_blank"
                     rel="noopener noreferrer">
                     {' '}
@@ -271,7 +178,7 @@ const Newsletter = (props) => {
             <p className={`${classes.title}`}>¡Recepción exitosa!</p>
           </div>
         </div>
-      ) : arcSite === 'trome' ? (
+      ) : arcSite === SITE_TROME ? (
         <div className={classes.newsletter}>
           <div
             className={`${classes.boxSubscription} ${classes.divFormInputs}`}>
@@ -303,7 +210,7 @@ const Newsletter = (props) => {
                   type="text"
                   name="email"
                   placeholder="Ingresa tu Email"
-                  required="required"
+                  required
                 />
               </div>
               <div className={`${classes.row} ${classes.textCenter}`}>
@@ -314,20 +221,20 @@ const Newsletter = (props) => {
                   Recibir
                 </button>
               </div>
-              <div className={`${classes.tos} ${classes.row}`}>
+              <div className={`${classes.terms} ${classes.row}`}>
                 <input
                   type="checkbox"
-                  name="tos"
-                  required="required"
+                  name="terms"
+                  required
                   value="1"
                   className={classes.inputCheckbox}
                 />
-                <label className={classes.policies} htmlFor="tos">
+                <label className={classes.policies} htmlFor="terms">
                   Acepto los
                   <a
                     itemProp="url"
                     className={`${classes.pageLink}`}
-                    href={urlTos}
+                    href={urlTerms}
                     target="_blank"
                     rel="noopener noreferrer">
                     {' '}
@@ -352,10 +259,7 @@ const Newsletter = (props) => {
             className={`${classes.boxSubscription} ${classes.divConfirmation}`}
             style={{ display: 'none' }}>
             <p className={classes.textCenter}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="45"
-                viewBox="0 0 48 24.33">
+              <svg width="45" viewBox="0 0 48 24.33">
                 <path
                   id="Trazado_79132"
                   data-name="Trazado 79132"
@@ -399,7 +303,7 @@ const Newsletter = (props) => {
             <p className={`${classes.title}`}>¡Recepción exitosa!</p>
           </div>
         </div>
-      ) : arcSite === 'gestion' ? (
+      ) : arcSite === SITE_GESTION ? (
         <div className={classes.newsletter}>
           <div
             className={`${classes.boxSubscription} ${classes.divFormInputs}`}>
@@ -408,10 +312,7 @@ const Newsletter = (props) => {
               {' '}
             </h4>
             <p className={`${classes.textCenter}`}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="45"
-                viewBox="0 0 48 24.33">
+              <svg width="45" viewBox="0 0 48 24.33">
                 <path
                   id="Trazado_79132"
                   data-name="Trazado 79132"
@@ -451,7 +352,7 @@ const Newsletter = (props) => {
                   type="text"
                   name="email"
                   placeholder="Introduce tu correo electrónico"
-                  required="required"
+                  required
                 />
               </div>
               <div className={`${classes.row} ${classes.textCenter}`}>
@@ -463,11 +364,11 @@ const Newsletter = (props) => {
                 </button>
               </div>
               <div className={classes.row}>
-                <label className={classes.policies} htmlFor="tos">
+                <label className={classes.policies} htmlFor="terms">
                   <input
                     type="checkbox"
-                    name="tos"
-                    required="required"
+                    name="terms"
+                    required
                     value="1"
                     className={classes.inputCheckbox}
                   />
@@ -477,7 +378,7 @@ const Newsletter = (props) => {
                   <a
                     itemProp="url"
                     className={classes.pageLink}
-                    href={urlTos}
+                    href={urlTerms}
                     target="_blank"
                     rel="noopener noreferrer">
                     {' '}
@@ -498,12 +399,11 @@ const Newsletter = (props) => {
               </div>
               <div className={classes.nnMoreNews}>
                 {' '}
-                <a href={UrlMoreNews} target="_blank" rel="noreferrer">
+                <a href={urlMoreNews} target="_blank" rel="noreferrer">
                   Más newsletter{' '}
                   <svg
                     width="20px"
                     height="20px"
-                    xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 48 48"
                     xmlSpace="preserve">
                     <style />
@@ -525,10 +425,7 @@ const Newsletter = (props) => {
             className={`${classes.boxSubscription} ${classes.divConfirmation}`}
             style={{ display: 'none' }}>
             <p className={classes.textCenter}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="45"
-                viewBox="0 0 48 24.33">
+              <svg width="45" viewBox="0 0 48 24.33">
                 <path
                   id="Trazado_79132"
                   data-name="Trazado 79132"
@@ -558,10 +455,7 @@ const Newsletter = (props) => {
             </h3>
             <p className={classes.subtitle}>Boletín</p>
             <p className={classes.textCenter}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="60"
-                viewBox="0 0 64 64">
+              <svg width="60" viewBox="0 0 64 64">
                 <path
                   fill="#e06438"
                   d="M32 0A32 32 0 1 0 64 32 32 32 0 0 0 32 0ZM48.2 25.2 30.9 42.6a2.7 2.7 0 0 1-3.8 0h0l-8.7-8.7a2.7 2.7 0 0 1 3.8-3.8L29 36.9 44.5 21.5a2.7 2.7 0 0 1 3.8 3.8Z"
@@ -580,10 +474,7 @@ const Newsletter = (props) => {
               {' '}
             </h4>
             <p className={`${classes.textCenter}`}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="45"
-                viewBox="0 0 48 24.33">
+              <svg width="45" viewBox="0 0 48 24.33">
                 <path
                   id="Trazado_79132"
                   data-name="Trazado 79132"
@@ -623,7 +514,7 @@ const Newsletter = (props) => {
                   type="text"
                   name="email"
                   placeholder="Ingresa tu Email"
-                  required="required"
+                  required
                 />
               </div>
               <div className={`${classes.row} ${classes.textCenter}`}>
@@ -635,11 +526,11 @@ const Newsletter = (props) => {
                 </button>
               </div>
               <div className={classes.row}>
-                <label className={classes.policies} htmlFor="tos">
+                <label className={classes.policies} htmlFor="terms">
                   <input
                     type="checkbox"
-                    name="tos"
-                    required="required"
+                    name="terms"
+                    required
                     value="1"
                     className={classes.inputCheckbox}
                   />
@@ -647,7 +538,7 @@ const Newsletter = (props) => {
                   <a
                     itemProp="url"
                     className={classes.pageLink}
-                    href={urlTos}
+                    href={urlTerms}
                     target="_blank"
                     rel="noopener noreferrer">
                     {' '}
@@ -672,10 +563,7 @@ const Newsletter = (props) => {
             className={`${classes.boxSubscription} ${classes.divConfirmation}`}
             style={{ display: 'none' }}>
             <p className={classes.textCenter}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="45"
-                viewBox="0 0 48 24.33">
+              <svg width="45" viewBox="0 0 48 24.33">
                 <path
                   id="Trazado_79132"
                   data-name="Trazado 79132"
@@ -705,10 +593,7 @@ const Newsletter = (props) => {
             </h3>
             <p className={classes.subtitle}>Boletín</p>
             <p className={classes.textCenter}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="60"
-                viewBox="0 0 64 64">
+              <svg width="60" viewBox="0 0 64 64">
                 <path
                   fill="#e06438"
                   d="M32 0A32 32 0 1 0 64 32 32 32 0 0 0 32 0ZM48.2 25.2 30.9 42.6a2.7 2.7 0 0 1-3.8 0h0l-8.7-8.7a2.7 2.7 0 0 1 3.8-3.8L29 36.9 44.5 21.5a2.7 2.7 0 0 1 3.8 3.8Z"
@@ -723,11 +608,11 @@ const Newsletter = (props) => {
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: NewsCustomJs,
+          __html: newsletterScript(NEWSLETTER_API, newsletterBrand, activateJS),
         }}
       />
     </>
   )
 }
 
-export default Newsletter
+export default CustomNewsletterChild
