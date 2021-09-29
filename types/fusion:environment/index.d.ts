@@ -48,5 +48,6 @@ declare module 'fusion:environment' {
   export const PAGO_EFECTIVO_ACCESS_GESTION: string
   export const PAGO_EFECTIVO_ID_ELCOMERCIO: string
   export const PAGO_EFECTIVO_ID_GESTION: string
+  export const OPTA_SCRAPING_API_DEV: string
   export default Environment
 }

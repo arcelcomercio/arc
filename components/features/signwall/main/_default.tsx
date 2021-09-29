@@ -12,7 +12,10 @@ import {
 } from '../../../contexts/subscriptions-sdks'
 import { deleteCookie, getCookie } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
-import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
   getUsername,
@@ -277,7 +280,10 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
           {user.initials}
         </i>
         <span className="capitalize" aria-hidden="true">
-          {user.name}
+          {user.name ||
+            (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+              ? 'Bienvenido'
+              : 'Mi Perfil')}
         </span>
       </button>
 
