@@ -116,3 +116,58 @@ export const btnSearchMobile = `window.addEventListener("load",function(){reques
     })
   })
 })`
+
+/* TODO: Agregar la lógica sin minificar de este script, no son iguales
+document.addEventListener('DOMContentLoaded', function() {
+  requestIdle(() => {
+    const localProfile = JSON.parse(
+      window.localStorage.getItem('ArcId.USER_PROFILE') 
+    )
+    const { firstName = '', lastName = '', uuid = '' } = localProfile || {}
+    document.getElementById("signwall-nav-btn").addEventListener("click", () => {
+      if (uuid) {
+        window.location.href  = '/mi-perfil/?outputType=signwall'
+      } else {
+        // window.location.href  = '/signwall/?outputType=signwall'
+        window.location.href  = '/politica/?reloginEmail=1'
+      }
+    })
+    if (uuid) {
+      const signwallButton = document.getElementById('signwall-nav-user')
+      const signwallIcon = document.getElementById('signwall-nav-icon')
+      if (!firstName && !lastName) {
+        signwallButton.innerHTML = 'Bienvenido Usuario'
+      } else {
+        let buttonText = ''
+        let iconText = ''
+        if (firstName && lastName) {
+          buttonText = `${firstName} ${lastName}`
+          iconText = `${firstName[0] || ''}${lastName[0] || ''}`
+        } else if (firstName && !lastName) {
+          buttonText = firstName
+          iconText = `${firstName[0] || ''}${firstName[1] || ''}`
+        } else if (!firstName && lastName) {
+          buttonText = lastName
+          iconText = `${lastName[0] || ''}${lastName[1] || ''}`
+        }
+        signwallButton.innerHTML = buttonText.length >= 15 ? `${buttonText.slice(0, 15)}...` : buttonText
+        signwallIcon.innerHTML = iconText
+        signwallIcon.className = 'uppercase'
+      }
+    }
+  })
+})
+*/
+
+export const singwallScript =
+  '"use strict";document.addEventListener("DOMContentLoaded",function(){requestIdle(function(){var n=JSON.parse(window.localStorage.getItem("ArcId.USER_PROFILE"))||{},e=n.firstName,t=void 0===e?"":e,c=n.lastName,a=void 0===c?"":c,i=n.uuid,o=void 0===i?"":i;if(document.getElementById("signwall-nav-btn").addEventListener("click",function(){window.location.href=o?"/mi-perfil/?outputType=signwall":"/politica/?reloginEmail=1"}),o){var l=document.getElementById("signwall-nav-user"),d=document.getElementById("signwall-nav-icon");if(t||a){var r="",s="";t&&a?(r="".concat(t," ").concat(a),s="".concat(t[0]||"").concat(a[0]||"")):t&&!a?(r=t,s="".concat(t[0]||"").concat(t[1]||"")):!t&&a&&(r=a,s="".concat(a[0]||"").concat(a[1]||"")),l.innerHTML=r.length>=15?"".concat(r.slice(0,15),"..."):r,d.innerHTML=s,d.className="uppercase"}else l.innerHTML="Bienvenido Usuario"}})});'
+export const getQueryReloginEmailScript = (_env, arcSite) => `"use strict";
+document.addEventListener('DOMContentLoaded', function () {
+  requestIdle(function () {
+    if (window.location.href.match(/reloginEmail=/)) { window.location.href = '${
+      _env === 'prod'
+        ? `/signwall/?outputType=signwall&reloginEmail=1`
+        : `/signwall/?_website=${arcSite}&outputType=signwall&reloginEmail=1`
+    }';}
+  });
+})`

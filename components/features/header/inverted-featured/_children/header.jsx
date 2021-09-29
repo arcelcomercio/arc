@@ -15,7 +15,8 @@ import {
   searchScript,
   btnSearch,
   searchScriptMobile,
-  btnSearchMobile
+  btnSearchMobile,
+  singwallScript
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -331,6 +332,7 @@ const HeaderChildInverted = ({
         />
         <div className={classes.callImg}>
           <Button
+            idButton="signwall-nav-btn"
             btnClass={classes.btnRegistrate}
             btnText="REGÍSTRATE"
           />
@@ -408,6 +410,12 @@ const HeaderChildInverted = ({
         }}
       >
       </script>
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: singwallScript
+        }}
+      />
       {(invertedTema && !hideTema) && <Header />}
     </>
   )
