@@ -431,7 +431,7 @@ class NavBarDefault extends React.PureComponent {
 
                 {activeSignwall && (
                   <button
-                    aria-label="Iniciar"
+                    aria-label="Ingresar / Mi perfil"
                     id="signwall-nav-btn"
                     site="elcomercio"
                     className="flex items-center btn capitalize text-md nav__btn-sign"
@@ -444,7 +444,7 @@ class NavBarDefault extends React.PureComponent {
                       id="signwall-nav-user"
                       className="capitalize"
                       aria-hidden="true">
-                      Iniciar
+                      {arcSite === SITE_DIARIOCORREO ? 'Regístrate' : 'Iniciar'}
                     </span>
                   </button>
                 )}

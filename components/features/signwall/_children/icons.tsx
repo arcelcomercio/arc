@@ -267,7 +267,7 @@ export const Plus = (): JSX.Element => (
   </svg>
 )
 
-export const Close = ({ color }: ColorProps): JSX.Element => (
+export const Close = ({ color='#00000' }: ColorProps): JSX.Element => (
   <svg width="14" height="14">
     {/* <g fill="#1e201d"> */}
     <g fill={color}>

@@ -1,17 +1,25 @@
 import * as React from 'react'
 
-const Singwall = React.lazy(
-  () => import(/* webpackChunkName: 'Signwall' */ '../Singwall')
+import importRetry from '../../../../../utilities/core/import-retry'
+
+const Singwall = React.lazy(() =>
+  importRetry(() => import(/* webpackChunkName: 'Signwall' */ '../Singwall'))
 )
-const Profile = React.lazy(
-  () => import(/* webpackChunkName: 'Profile' */ '../Profile')
+const Profile = React.lazy(() =>
+  importRetry(() => import(/* webpackChunkName: 'Profile' */ '../Profile'))
 )
-const Pay = React.lazy(() => import(/* webpackChunkName: 'Pay' */ '../Pay'))
-const Confirmation = React.lazy(
-  () => import(/* webpackChunkName: 'Confirmation' */ '../Confirmation')
+const Pay = React.lazy(() =>
+  importRetry(() => import(/* webpackChunkName: 'Pay' */ '../Pay'))
 )
-const PagoEfectivo = React.lazy(
-  () => import(/* webpackChunkName: 'PagoEfectivo' */ '../PagoEfectivo')
+const Confirmation = React.lazy(() =>
+  importRetry(
+    () => import(/* webpackChunkName: 'Confirmation' */ '../Confirmation')
+  )
+)
+const PagoEfectivo = React.lazy(() =>
+  importRetry(
+    () => import(/* webpackChunkName: 'PagoEfectivo' */ '../PagoEfectivo')
+  )
 )
 
 type PaymentSubscriptionsStepsProps = {

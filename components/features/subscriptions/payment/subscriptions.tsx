@@ -7,6 +7,7 @@ import { PaywallCampaign, SubsArcSite } from 'types/subscriptions'
 
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
+import importRetry from '../../../utilities/core/import-retry'
 import Loading from '../../signwall/_children/loading'
 import { LogIntoAccountEventTag } from '../_children/fb-account-linking'
 import { AuthProvider, useAuthContext } from '../_context/auth'
@@ -28,9 +29,11 @@ import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
 import customFields from './_dependencies/custom-fields'
 
-const Confirmation = React.lazy(
-  () =>
-    import(/* webpackChunkName: 'Confirmation' */ './_children/Confirmation')
+const Confirmation = React.lazy(() =>
+  importRetry(
+    () =>
+      import(/* webpackChunkName: 'Confirmation' */ './_children/Confirmation')
+  )
 )
 
 const arcType = 'payment'

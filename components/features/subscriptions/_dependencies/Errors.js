@@ -1,4 +1,5 @@
 import {
+  birthDateRegex,
   cellphoneRegex,
   descripRegex,
   emailRegex,
@@ -15,9 +16,8 @@ export const formatPass = () => ({
   func: (value) => value.length >= 8,
   error: 'Mínimo 8 caracteres',
 })
-
 export const formatNames = () => ({
-  func: (value) => namesRegex.test(value),
+  func: (value) => value === '' || namesRegex.test(value),
   error: 'Formato inválido, solo letras',
 })
 
@@ -31,6 +31,32 @@ export const formatPhone = () => ({
   func: (value) =>
     value === '' || (value.length >= 2 && numberRegex.test(value)),
   error: 'Formato inválido. Solo números',
+})
+
+export const formatDate = () => ({
+  func: (value) => value === '' || (value && birthDateRegex.test(value)),
+  error: 'El formato de la fecha es incorrecto.',
+})
+
+const calculateAge = (date) => {
+  const birthday = new Date(date)
+  const currentDate = new Date()
+
+  const time = parseInt(
+    (currentDate.getTime() - birthday.getTime()) / (1000 * 3600 * 24) / 365,
+    10
+  )
+  return time
+}
+
+export const minBirthDay = () => ({
+  func: (value) => value === null || calculateAge(value) > 4,
+  error: 'No cumple con la edad mínima',
+})
+
+export const maxBirthDay = () => ({
+  func: (value) => value === null || calculateAge(value) < 100,
+  error: '¿Está seguro que tiene esa edad?',
 })
 
 export const formatCellphone = () => ({

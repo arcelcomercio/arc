@@ -77,6 +77,14 @@ module.exports = {
       },
     ],
     'jsx-a11y/media-has-caption': ['warn'],
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
   },
   globals: {
     document: true,
