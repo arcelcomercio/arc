@@ -1,10 +1,14 @@
 import * as React from 'react'
 
-const SignwallCallout = React.lazy(
-  () =>
-    import(
-      /* webpackChunkName: 'signwall-callout' */ '../../../signwall/_children/callout/index'
-    )
+import importRetry from '../../../../utilities/core/import-retry'
+
+const SignwallCallout = React.lazy(() =>
+  importRetry(
+    () =>
+      import(
+        /* webpackChunkName: 'signwall-callout' */ '../../../signwall/_children/callout/index'
+      )
+  )
 )
 
 type CalloutProps = {

@@ -80,7 +80,11 @@ const Modal = ({ bgColor, position, size, children, arcSite }) => {
             isTrome ? 'bottom-trome' : ''
           }`}
           onTouchStart={turnOffFormScroll}
-          onTouchEnd={turnOnFormScroll}>
+          onTouchEnd={turnOnFormScroll}
+          /* style={{
+            borderRadius: '26px',
+            boxShadow: '11px 12px 24px #000',
+          }} */ >
           {children}
         </div>
       </div>

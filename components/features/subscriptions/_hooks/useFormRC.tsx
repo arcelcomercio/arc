@@ -11,7 +11,7 @@ const TEXT_INVALID_ERROR = 'Este valor no está permitido'
 const MIN_AGE_ERROR = 'No cumple con la edad mínima'
 const MAX_AGE_ERROR = '¿Está seguro que tiene esa edad?'
 
-type StateSchemaValue = { value: string; error: string }
+type StateSchemaValue = { value: string | null; error: string }
 type StateSchema = Record<string, StateSchemaValue>
 
 type StateValidatorProps = {
@@ -25,7 +25,7 @@ type StateValidatorProps = {
   maxAge?: boolean
 }
 type StateValidator = Record<keyof StateSchema, StateValidatorProps>
-type StateValues = Record<keyof StateSchema, string>
+type StateValues = Record<keyof StateSchema, string | null>
 
 type UseForm<TValues extends StateValues = StateValues> = {
   handleOnChange: (
@@ -33,7 +33,7 @@ type UseForm<TValues extends StateValues = StateValues> = {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => void
-  handleOnSubmit: (event?: React.FormEvent<HTMLFormElement>) => void
+  handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   values: TValues
   errors: StateValues
   disable: boolean
@@ -205,13 +205,16 @@ function useForm<TValues extends StateValues = StateValues>(
   )
 
   const handleOnSubmit = React.useCallback(
-    (event?: React.FormEvent<HTMLFormElement>) => {
-      event?.preventDefault()
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+
+      const formData = new FormData(event.currentTarget)
+      const fieldValues = Object.fromEntries(formData.entries())
 
       // Making sure that there's no error in the state
       // before calling the submit callback function
       if (!validateErrorState()) {
-        submitFormCallback(values)
+        submitFormCallback(fieldValues as TValues)
       }
     },
     [validateErrorState, submitFormCallback, values]
