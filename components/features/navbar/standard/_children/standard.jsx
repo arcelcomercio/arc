@@ -1,20 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Consumer from 'fusion:consumer'
-import * as React from 'react'
 import { ENVIRONMENT } from 'fusion:environment'
-
-import getResponsiveClasses from '../../../../utilities/responsive-classes'
-import searchQuery from '../../../../utilities/client/search'
-import { socialMediaUrlShareList } from '../../../../utilities/social-media'
+import * as React from 'react'
 
 import Button from '../../../../global-components/button'
-import SignwallComponent from '../../../signwall/main/default'
 import Menu from '../../../../global-components/menu'
+import searchQuery from '../../../../utilities/client/search'
 import {
+  SITE_ELCOMERCIOMAG,
   SITE_OJO,
   SITE_PERU21,
 } from '../../../../utilities/constants/sitenames'
+import getResponsiveClasses from '../../../../utilities/responsive-classes'
+import { socialMediaUrlShareList } from '../../../../utilities/social-media'
+import SignwallComponent from '../../../signwall/main/default'
 
 const ELEMENT_STORY = 'story'
 
@@ -340,6 +340,7 @@ class NavBarDefault extends React.PureComponent {
   }
 
   render() {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     const _env = ENVIRONMENT === 'elcomercio' ? 'prod' : 'sandbox'
     const { statusSidebar, scrolled } = this.state
     const {
@@ -445,20 +446,18 @@ class NavBarDefault extends React.PureComponent {
                       url,
                       name = '',
                       display_name: displayName = '',
-                    }) => {
-                      return (
-                        <li
-                          key={`navbar-${url || id}`}
-                          className="nav__list-item text-center pr-15 h-full">
-                          <a
-                            itemProp="url"
-                            href={url || id || '/'}
-                            className="nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm">
-                            {name || displayName}
-                          </a>
-                        </li>
-                      )
-                    }
+                    }) => (
+                      <li
+                        key={`navbar-${url || id}`}
+                        className="nav__list-item text-center pr-15 h-full">
+                        <a
+                          itemProp="url"
+                          href={url || id || '/'}
+                          className="nav__list-link text-gray-200 h-inherit flex items-center uppercase secondary-font font-normal text-sm">
+                          {name || displayName}
+                        </a>
+                      </li>
+                    )
                   )}
               </ul>
             </div>
@@ -503,7 +502,10 @@ class NavBarDefault extends React.PureComponent {
                     </a>
                   </div>
 
-                  <ul className="story-header__list flex justify-between">
+                  <ul
+                    className={`story-header__list flex justify-between ${
+                      arcSite === SITE_ELCOMERCIOMAG ? 'hidden' : ''
+                    }`}>
                     {this.shareButtons.map((item, i) => (
                       <li
                         key={item.icon}
