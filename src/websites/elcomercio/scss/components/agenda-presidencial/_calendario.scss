@@ -1,5 +1,35 @@
+/* 
+@import url(https://fonts.googleapis.com/css?family=Stylish&display=swap);
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Roboto Bold"), local("Roboto-Bold"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff2")
+      format("woff2"),
+    url("https://cdna.elcomercio.pe/resources/dist/elcomercio/fonts/roboto-v20-latin-700.woff")
+      format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+----------
+@font-face {
+  font-family: "Georgia-Pro";
+  font-style: normal;
+  font-weight: 700;
+  src: url("GeorgiaPro-Bold.eot");
+  src: local("Georgia Pro Bold"), local("GeorgiaPro-Bold"),
+    url("GeorgiaPro-Bold.eot?#iefix") format("embedded-opentype"),
+    url("GeorgiaPro-Bold.woff2") format("woff2"),
+    url("GeorgiaPro-Bold.woff") format("woff"),
+    url("GeorgiaPro-Bold.ttf") format("truetype");
+}
+*/
+
 .react-calendar {
-  // acaaaaaaaaaaaaa
   padding: 0 30px 0 69px;
   &__box {
     align-items: center;
@@ -34,7 +64,7 @@
     min-height: 260px;
     max-width: 480px;
   }
-  // acaaaaaaaaaaaaaaaaaaa
+
   &__viewContainer {
     @media (--desktop) {
       min-width: 390px !important;
@@ -53,6 +83,7 @@
   }
 
   &__navigation__label {
+    font-family: Georgia Pro, "Times New Roman", Times, serif !important;
     font-weight: 700;
     text-transform: capitalize;
     font-size: 15px;
@@ -68,7 +99,7 @@
 
   &__month-view__weekdays__weekday {
     max-width: 13% !important;
-    font-family: $secondary-font;
+    font-family: Georgia Pro, "Times New Roman", Times, serif !important;
     font-weight: 600;
     display: flex;
     justify-content: center;
@@ -86,18 +117,10 @@
     height: 20px;
   }
 
-  // acaaaaaaaaaa
-
-  /*
-  &__month-view__days {
-    max-width: 450px;
-  }
-  */
-
   &__month-view__days__day {
     font-weight: 700;
     padding: 8px 5px;
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: Georgia Pro, "Times New Roman", Times, serif;
     border: solid 1px #ebe9e2;
     background-color: #f5f3ec;
     // acaaaaaaa
@@ -118,10 +141,3 @@
     }
   }
 }
-
-// .react-calendar {
-//   &__icon {
-//     color: $color-gray-300;
-//     font-size: 18px;
-//   }
-// }
