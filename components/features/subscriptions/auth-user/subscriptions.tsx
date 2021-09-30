@@ -108,6 +108,7 @@ const AuthUser = () => {
               arcSite={arcSite}
               typeDialog={activeModal}
               tokenVerify={isTokenVerify && getQuery('tokenVerify')}
+              tokenOTA={isTokenVerify && getQuery('tokenOTA')}
               tokenReset={isResetPassword && getQuery('tokenReset')}
             />
           )}
