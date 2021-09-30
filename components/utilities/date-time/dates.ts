@@ -187,3 +187,14 @@ export const dateDayAndMouthNOYEAR = (): string => {
     Martes 31 de Agosto
   */
 }
+
+/**
+ * @returns 31 de Agosto
+ */
+export const dateDayAndMonth = (date: string): string | null => {
+  const d = loadDateFromYYYYMMDD(date)
+  if (d === null) return null
+  const mes = new Intl.DateTimeFormat(locale, { month: 'long' }).format(d)
+  const num = new Intl.DateTimeFormat(locale, { day: '2-digit' }).format(d)
+  return `${num} de ${mes}`
+}
