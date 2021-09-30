@@ -1,7 +1,6 @@
-import React from 'react'
 import { useEditableContent } from 'fusion:content'
+import * as React from 'react'
 
-import { createMarkup } from '../../../../utilities/helpers'
 import SeparatorItem from './item'
 
 const classes = {
@@ -17,20 +16,18 @@ const classes = {
     'separator__btn position-absolute font-bold block text-black text-sm pt-10 pb-10 pr-15 pl-15 rounded-sm capitalize',
 }
 
-const SeparatorsBasicChildSeparator = props => {
+const SeparatorsBasicChildSeparator = (props) => {
   const {
     isAdmin,
     model,
     seeMore,
     seeMoreLink,
     textAling,
-    data: {
-      items,
-      arcSite,
-      titleSeparator = '',
-      titleLink = '/',
-      htmlCode = '',
-    } = {},
+    items,
+    arcSite,
+    titleSeparator = '',
+    titleLink = '/',
+    htmlCode = '',
   } = props
   const { editableField } = useEditableContent()
 
@@ -47,7 +44,7 @@ const SeparatorsBasicChildSeparator = props => {
       break
   }
 
-  const getImgUrl = el => {
+  const getImgUrl = (el) => {
     if (arcSite === 'peru21') {
       return el.multimediaPortraitMD
     }
@@ -62,7 +59,7 @@ const SeparatorsBasicChildSeparator = props => {
       {htmlCode ? (
         <div
           className={classes.title}
-          dangerouslySetInnerHTML={createMarkup(htmlCode)}
+          dangerouslySetInnerHTML={{ __html: htmlCode }}
         />
       ) : (
         <div className={classes.boxTitle}>
@@ -85,20 +82,22 @@ const SeparatorsBasicChildSeparator = props => {
       )}
       <div role="list" className={classes.body}>
         {items &&
-          items.map(el => {
-            const params = {
-              title: el.title,
-              link: el.websiteLink,
-              section: el.primarySection,
-              sectionLink: el.primarySectionLink,
-              numline,
-              imageUrl: getImgUrl(el),
-              lazyImage: el.multimediaLazyDefault,
-              mediaIcon: el.multimediaType,
-              isAdmin,
-            }
-            return <SeparatorItem key={el.link || '/'} {...params} />
-          })}
+          items.map((el) => (
+            <SeparatorItem
+              key={el.link || '/'}
+              title={el.title}
+              link={el.websiteLink}
+              section={el.primarySection}
+              sectionLink={el.primarySectionLink}
+              numline={numline}
+              imageUrl={getImgUrl(el)}
+              lazyImage={el.multimediaLazyDefault}
+              mediaIcon={el.multimediaType}
+              isPremium={el.isPremium}
+              isAdmin={isAdmin}
+              arcSite={arcSite}
+            />
+          ))}
       </div>
     </div>
   )

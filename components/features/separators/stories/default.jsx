@@ -74,6 +74,7 @@ const SeparatorStories = (props) => {
    * @property {string} author
    * @property {string} authorLink
    * @property {string} imageUrl
+   * @property {boolean} isPremium
    */
   /**
    * @type {Array<StoriesSeparatorStory>}
@@ -88,8 +89,9 @@ const SeparatorStories = (props) => {
       author,
       authorLink,
       imageUrl,
+      isPremium,
     } = storyData
-
+    console.log({ story })
     return {
       id,
       title,
@@ -98,6 +100,7 @@ const SeparatorStories = (props) => {
       multimediaType,
       author,
       authorLink,
+      isPremium,
     }
   })
 
@@ -122,6 +125,8 @@ const SeparatorStories = (props) => {
     deporBetsUrl,
     deporBetsAlt,
   }
+
+  console.log({ stories })
 
   return arcSite === SITE_ELCOMERCIO ? (
     <SeparatorOpt {...separatorParams} />

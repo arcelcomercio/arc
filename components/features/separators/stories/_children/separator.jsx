@@ -107,6 +107,7 @@ const SeparatorsBasicChildSeparator = ({
             imageUrl,
             author,
             authorLink,
+            isPremium,
           }) => (
             <SeparatorStory
               key={`separator-st-${id}`}
@@ -116,6 +117,7 @@ const SeparatorsBasicChildSeparator = ({
               imageUrl={imageUrl}
               author={author}
               authorLink={authorLink}
+              isPremium={isPremium}
               isAuthorVisible={isAuthorVisible}
               isImageVisible={isImageVisible}
               arcSite={arcSite}
