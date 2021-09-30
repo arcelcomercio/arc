@@ -177,8 +177,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${profile.lastName || ''
-          }`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
+          profile.lastName || ''
+        }`
       }
       onClose()
     }
@@ -280,7 +281,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
           <form
             className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
             onSubmit={handleOnSubmit}>
-            <div >
+            <div>
               {typeDialog === 'paywall' && !showLoginEmail && (
                 <h4
                   style={{ fontSize: '22px', fontFamily: primaryFont }}
@@ -289,6 +290,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   relevantes del Perú y el mundo
                 </h4>
               )}
+
+              
             </div>
 
             {!showLoginEmail && (
@@ -308,8 +311,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <>
                 {showError && (
                   <div
-                    className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
-                      }`}>
+                    className={`signwall-inside_forms-error ${
+                      showVerify ? 'warning' : ''
+                    }`}>
                     {` ${showError} `}
                     {showVerify && (
                       <>
@@ -381,11 +385,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
                 <button
                   type="submit"
+                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   style={{
                     color: mainColorBtn,
                     background: mainColorLink,
+                    marginBottom: '15px',
                   }}
-                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   disabled={disable || showLoading || showFormatInvalid}
                   onClick={() =>
                     Taggeo(
@@ -393,7 +398,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
                   }>
-                  {showLoading ? 'Cargando...' : 'Iniciar Sesión'}
+                  {showLoading ? 'Cargando...' : 'Ingresar'}
                 </button>
               </>
             )}
@@ -402,7 +407,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 key={item}
                 size="middle"
                 brand={item}
-                defaultSize="default-size"
+                defaultSize=""
                 onClose={onClose}
                 typeDialog={typeDialog}
                 arcSite={arcSite}
@@ -423,7 +428,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
               onLogged={onLogged}
               checkUserSubs={checkUserSubs}
             />
-            <p className="signwall-inside_forms-text center p-link">
+            <p className="signwall-inside_forms-text center mt-10 mb-20 p-link">
               ¿Aún no tienes una cuenta?
               <a
                 href="#"
@@ -479,7 +484,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     fontSize: '11.5px',
                     letterSpacing: '0.015em',
                   }}
-                  className="signwall-inside_forms-text mt-10">
+                  className="signwall-inside_forms-text mt-10 mb-10">
                   En caso hayas autorizado los fines de uso adicionales
                   anteriormente, no es necesario que lo vuelvas a marcar. Si
                   deseas retirar dicho consentimiento, revisa el procedimiento
@@ -520,8 +525,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <h4
                 style={{ fontSize: '22px' }}
                 className="signwall-inside_forms-title center mb-10">
-                {`Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                  } `}
+                {`Bienvenido(a) ${
+                  Identity.userProfile.firstName || 'Usuario'
+                } `}
               </h4>
               <p
                 style={{
