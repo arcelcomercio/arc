@@ -1,0 +1,12 @@
+.stories-l-item {
+  background-color: transparent;
+  border-color: $color-base-100;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__time {
+    color: $color-primary;
+  }
+}
