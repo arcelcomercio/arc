@@ -35,5 +35,6 @@ export default {
     name: 'text',
     phone: 'text',
   },
+  cache: false,
   ttl: 20,
 }

@@ -216,7 +216,7 @@ export default ({
             </div>
             <div className="section-video__right">
               <div className="section-video__information">
-                {!(
+                {arcSite === 'trome' && !(
                   principalVideo.videoDuration === '00:00' ||
                   principalVideo.videoDuration === '00:00:00'
                 ) && (

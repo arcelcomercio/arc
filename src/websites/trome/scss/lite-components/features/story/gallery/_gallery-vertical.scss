@@ -1,7 +1,12 @@
 .story-gallery {
   padding-top: 32px;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: 16px;
+  padding-left: 16px;
+
+  @media (--desktop) {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 
   &__number {
     width: 72px;
@@ -13,8 +18,12 @@
     font-size: 15px;
     font-family: $fira-s;
     align-items: center;
-    margin-left: 10px;
+    margin-left: 4px;
     justify-content: center;
+
+    @media (--desktop) {
+      margin-left: 10px;
+    }
 
     & strong {
       color: #000;
@@ -28,6 +37,7 @@
 
   &__caption {
     margin-top: 16px;
+    line-height: 25px;
   }
 
   &__caption-image {
@@ -50,8 +60,11 @@
   }
 
   &__credit {
-    color: #999;
+    font-family: $fira-s, sans-serif;
     font-size: 13px;
+    letter-spacing: 0.26px;
+    line-height: 20px;
+    color: #999;
     margin-top: 10px;
     display: block;
   }
@@ -70,20 +83,24 @@
     color: #343434;
   }
 
-  // .itemv {
-  //   width: 530px;
-  //   margin: auto;
+  .itemv {
+    width: 100%;
 
-  //   @media (--only-mobile) {
-  //     width: 100%;
-  //   }
-  // }
+    @media (--desktop) {
+      width: 520px;
+      margin: auto;
+    }
+  }
 
   & .icon-compartir {
     position: absolute;
-    right: 0;
+    right: 4px;
     cursor: pointer;
     top: 5px;
+
+    @media (--tablet) {
+      right: 10px;
+    }
   }
 
   & .more-compartir {
