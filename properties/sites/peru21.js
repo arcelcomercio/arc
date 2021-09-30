@@ -68,7 +68,9 @@ export default {
     frequentQuestions: 'SLSILPSVUZBPTCQVL4VL6VBRXA',
     dataTreatment: 'ZLRTGACMWVFOPPWUHZXLHRA4KU',
   },
-
+  paywall: {
+    title: 'Ingresar | Perú21',
+  },
   legalLinks: [
     {
       name: 'Quiénes Somos',
