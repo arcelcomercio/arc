@@ -27,6 +27,7 @@ import { storyTagsBbc } from '../utilities/tags'
 import AppNexus from './_children/appnexus'
 import ChartbeatBody from './_children/chartbeat-body'
 import LiteAds from './_children/lite-ads'
+import LiveBlogPostingData from './_children/live-blog-posting-data'
 import MetaSite from './_children/meta-site'
 import MetaStory from './_children/meta-story'
 import OpenGraph from './_children/open-graph'
@@ -41,6 +42,7 @@ import htmlScript from './_dependencies/html-script'
 import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
+import { isStoryHasOpta } from './_dependencies/opta-widget-utils'
 import {
   getDescription,
   getIsStory,
@@ -905,6 +907,9 @@ const LiteOutput = ({
             )}
           />
         )}
+        {isStory && isStoryHasOpta(globalContent) ? (
+          <LiveBlogPostingData />
+        ) : null}
         {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
       </body>
     </html>
