@@ -50,7 +50,9 @@ export default {
     frequentQuestions: '',
     dataTreatment: '6SH4XPKURFH5TAP5PEA6LT5Y2E',
   },
-
+  paywall: {
+    title: 'Ingresar | Club Trome',
+  },
   assets: {
     seo: {
       logoAmp: 'logo-amp.png',
