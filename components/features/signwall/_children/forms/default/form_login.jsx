@@ -177,9 +177,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
-          profile.lastName || ''
-        }`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${profile.lastName || ''
+          }`
       }
       onClose()
     }
@@ -290,8 +289,38 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   relevantes del Perú y el mundo
                 </h4>
               )}
+            </div>
 
-              
+            <div className="center ">
+              <p className="signwall-inside_forms-text mb-20 center bold">
+                 Ingresa con
+              </p>
+              {authProviders.map((item) => (
+                <ButtonSocial
+                  key={item}
+                  size="middle"
+                  brand={item}
+                  defaultSize=""
+                  onClose={onClose}
+                  typeDialog={typeDialog}
+                  arcSite={arcSite}
+                  typeForm="login"
+                  activeNewsletter={activeNewsletter}
+                  checkUserSubs={checkUserSubs}
+                  onLogged={onLogged}
+                  showMsgVerify={() => triggerShowVerify()}
+                  dataTreatment={checkedPolits ? '1' : '0'}
+                />
+              ))}
+              <AuthURL
+                arcSite={arcSite}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                activeNewsletter={activeNewsletter}
+                typeForm="login"
+                onLogged={onLogged}
+                checkUserSubs={checkUserSubs}
+              />
             </div>
 
             {!showLoginEmail && (
@@ -307,13 +336,13 @@ const FormLogin = ({ valTemplate, attributes }) => {
               />
             )}
 
+
             {showLoginEmail && (
               <>
                 {showError && (
                   <div
-                    className={`signwall-inside_forms-error ${
-                      showVerify ? 'warning' : ''
-                    }`}>
+                    className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
+                      }`}>
                     {` ${showError} `}
                     {showVerify && (
                       <>
@@ -398,36 +427,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
                   }>
-                  {showLoading ? 'Cargando...' : 'Ingresar'}
+                  {showLoading ? 'Cargando...' : 'Iniciar Sesión'}
                 </button>
               </>
             )}
-            {authProviders.map((item) => (
-              <ButtonSocial
-                key={item}
-                size="middle"
-                brand={item}
-                defaultSize=""
-                onClose={onClose}
-                typeDialog={typeDialog}
-                arcSite={arcSite}
-                typeForm="login"
-                activeNewsletter={activeNewsletter}
-                checkUserSubs={checkUserSubs}
-                onLogged={onLogged}
-                showMsgVerify={() => triggerShowVerify()}
-                dataTreatment={checkedPolits ? '1' : '0'}
-              />
-            ))}
-            <AuthURL
-              arcSite={arcSite}
-              onClose={onClose}
-              typeDialog={typeDialog}
-              activeNewsletter={activeNewsletter}
-              typeForm="login"
-              onLogged={onLogged}
-              checkUserSubs={checkUserSubs}
-            />
+
             <p className="signwall-inside_forms-text center mt-10 mb-20 p-link">
               ¿Aún no tienes una cuenta?
               <a
@@ -525,9 +529,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <h4
                 style={{ fontSize: '22px' }}
                 className="signwall-inside_forms-title center mb-10">
-                {`Bienvenido(a) ${
-                  Identity.userProfile.firstName || 'Usuario'
-                } `}
+                {`Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
+                  } `}
               </h4>
               <p
                 style={{

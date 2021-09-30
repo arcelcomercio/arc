@@ -371,6 +371,44 @@ const FormRegister = ({
                       )}
                     </div>
                   )}
+
+                  <div className=" mt-10 center">
+                    <p className="signwall-inside_forms-text mb-20 center bold">
+                      Accede fácilmente con:
+                    </p>
+                    {authProviders.map((item) => (
+                      <ButtonSocial
+                        key={item}
+                        brand={item}
+                        size={sizeBtnSocial}
+                        defaultSize=""
+                        onLogged={onLogged}
+                        onClose={onClose}
+                        typeDialog={typeDialog}
+                        onStudents={() => setShowStudents(!showStudents)}
+                        arcSite={arcSite}
+                        typeForm="registro"
+                        activeNewsletter={activeNewsletter}
+                        checkUserSubs={checkUserSubs}
+                        dataTreatment={checkedPolits ? '1' : '0'}
+                      />
+                    ))}
+                    <AuthURL
+                      arcSite={arcSite}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      activeNewsletter={activeNewsletter}
+                      typeForm="registro"
+                      onLogged={onLogged}
+                      checkUserSubs={checkUserSubs}
+                      onStudents={() => setShowStudents(!showStudents)}
+                    />
+
+                    <p className="signwall-inside_forms-text mt-10 center bold">
+                      o completa tus datos para registrarte
+                    </p>
+                  </div>
+
                   <Input
                     type="email"
                     inputMode="email"
@@ -418,34 +456,7 @@ const FormRegister = ({
                     {showLoading ? 'Registrando...' : 'Registrarme'}
                   </button>
 
-                  {authProviders.map((item) => (
-                    <ButtonSocial
-                      key={item}
-                      brand={item}
-                      size={sizeBtnSocial}
-                      defaultSize=""
-                      onLogged={onLogged}
-                      onClose={onClose}
-                      typeDialog={typeDialog}
-                      onStudents={() => setShowStudents(!showStudents)}
-                      arcSite={arcSite}
-                      typeForm="registro"
-                      activeNewsletter={activeNewsletter}
-                      checkUserSubs={checkUserSubs}
-                      dataTreatment={checkedPolits ? '1' : '0'}
-                    />
-                  ))}
 
-                  <AuthURL
-                    arcSite={arcSite}
-                    onClose={onClose}
-                    typeDialog={typeDialog}
-                    activeNewsletter={activeNewsletter}
-                    typeForm="registro"
-                    onLogged={onLogged}
-                    checkUserSubs={checkUserSubs}
-                    onStudents={() => setShowStudents(!showStudents)}
-                  />
                   <div
                     style={{
                       marginTop: '10px',
