@@ -305,7 +305,7 @@ $min-with-header: 961px;
     position: relative;
     align-items: center;
     display: none;
-    margin-left: 15px;
+    margin-left: 5px;
 
     @media (--desktop) {
       display: flex;
@@ -362,10 +362,9 @@ $min-with-header: 961px;
     display: flex;
     align-items: center;
     font-weight: bold;
-    letter-spacing: -0.01px;
 
     @media (--desktop) {
-      padding-right: 3px;
+      padding-right: 10px;
       padding-left: 0;
     }
     @media (--only-mobile) {
@@ -384,7 +383,7 @@ $min-with-header: 961px;
     @media (--tablet) {
       height: 70px;
       width: 70px;
-      padding: 0;
+      padding: 0 !important;
     }
     @media (--only-mobile) {
       height: 55px;
