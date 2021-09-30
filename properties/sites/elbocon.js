@@ -50,6 +50,9 @@ export default {
     frequentQuestions: '',
     dataTreatment: 'JCUSOICWBNDKLG4OGQJWXCG77Q',
   },
+  paywall: {
+    title: 'Ingresar | El Bocón',
+  },
   assets: {
     nav: {
       logoSomos: 'logo.png',
