@@ -114,9 +114,6 @@ const StaticsAgendaPresidencial = (props) => {
     })
   }
 
-  console.log('NESDSSSS', NextUrl)
-  console.log('BACKKKK', BackUrl)
-
   return (
     <>
       <NavBar isNota={isNotaWeb} day={dateUrl} />
