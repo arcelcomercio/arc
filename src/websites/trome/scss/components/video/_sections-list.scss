@@ -87,6 +87,7 @@
         background-color: #000;
 
         @media (--tablet) {
+          min-height: 127px;
           max-height: 186px;
         }
 

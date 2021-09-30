@@ -57,13 +57,13 @@
     background-color: #000;
     object-fit: contain;
 
-    @media (--desktop) {
+    @media (--tablet) {
       height: 100%;
       min-height: 127px;
       max-height: 186px;
     }
 
-    @media (--tablet) {
+    @media (--desktop) {
       width: 276px;
       height: 155px;
       min-height: unset;
