@@ -16,7 +16,8 @@ import {
   btnSearch,
   searchScriptMobile,
   btnSearchMobile,
-  singwallScript
+  singwallScript,
+  fusionApp
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -407,6 +408,12 @@ const HeaderChildInverted = ({
       <script
         dangerouslySetInnerHTML={{
           __html: hideMenu ? '' : searchScript
+        }}
+      >
+      </script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: fusionApp
         }}
       >
       </script>
