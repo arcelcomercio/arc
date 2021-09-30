@@ -1,5 +1,4 @@
 .react-calendar {
-  // acaaaaaaaaaaaaa
   padding: 0 30px 0 69px;
   &__box {
     align-items: center;
@@ -34,7 +33,7 @@
     min-height: 260px;
     max-width: 480px;
   }
-  // acaaaaaaaaaaaaaaaaaaa
+
   &__viewContainer {
     @media (--desktop) {
       min-width: 390px !important;
@@ -53,6 +52,7 @@
   }
 
   &__navigation__label {
+    font-family: $quaternary-font !important;
     font-weight: 700;
     text-transform: capitalize;
     font-size: 15px;
@@ -68,7 +68,7 @@
 
   &__month-view__weekdays__weekday {
     max-width: 13% !important;
-    font-family: $secondary-font;
+    font-family: $quaternary-font !important;
     font-weight: 600;
     display: flex;
     justify-content: center;
@@ -86,18 +86,10 @@
     height: 20px;
   }
 
-  // acaaaaaaaaaa
-
-  /*
-  &__month-view__days {
-    max-width: 450px;
-  }
-  */
-
   &__month-view__days__day {
     font-weight: 700;
     padding: 8px 5px;
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: $quaternary-font;
     border: solid 1px #ebe9e2;
     background-color: #f5f3ec;
     // acaaaaaaa
@@ -118,10 +110,3 @@
     }
   }
 }
-
-// .react-calendar {
-//   &__icon {
-//     color: $color-gray-300;
-//     font-size: 18px;
-//   }
-// }
