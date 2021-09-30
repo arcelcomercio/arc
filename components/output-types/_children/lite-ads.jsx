@@ -405,7 +405,8 @@ window.addEventListener('load', function liteAds() {
           arcSite === 'trome' ||
           arcSite === 'elbocon' ||
           arcSite === 'depor' ||
-          arcSite === 'ojo' ? (
+          arcSite === 'ojo' ||
+          (arcSite === 'elcomercio' && section === 'luces') ? (
             <>
               <script
                 type="text/javascript"
