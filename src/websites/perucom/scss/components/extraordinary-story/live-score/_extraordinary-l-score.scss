@@ -1,0 +1,18 @@
+.extraordinary-l-score {
+  &__title-link {
+    font-weight: 900;
+    font-size: 28px;
+  }
+  &__team {
+    background-color: $color-white;
+    color: $color-primary;
+  }
+  &__subtitle {
+    @media (--only-mobile) {
+      display: block;
+      color: $color-primary;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}
