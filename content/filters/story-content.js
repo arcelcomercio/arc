@@ -29,6 +29,8 @@ content_elements {
       plataform
       interviewed
       career_interviewed
+      release_date
+      premiere_image
       year
       director {
         name
