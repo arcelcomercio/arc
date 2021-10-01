@@ -22,6 +22,8 @@ declare module 'fusion:environment' {
     PAGO_EFECTIVO_ACCESS_GESTION: string
     PAGO_EFECTIVO_ID_ELCOMERCIO: string
     PAGO_EFECTIVO_ID_GESTION: string
+    OPTA_SCRAPING_API_DEV: string
+    OPTA_SCRAPING_TOKEN_DEV: string
   }
 
   const Environment: Env

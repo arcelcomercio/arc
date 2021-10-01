@@ -913,7 +913,9 @@ const LiteOutput = ({
             )}
           />
         )}
-        {isStory && isStoryHasOpta(globalContent) ? (
+        {isStory &&
+        // metaValue('opta_scraping_path') &&
+        isStoryHasOpta(globalContent) ? (
           <LiveBlogPostingData />
         ) : null}
         {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
