@@ -7,6 +7,7 @@ import {
   useSdksContext,
 } from '../../../contexts/subscriptions-sdks'
 import useSentry from '../../../hooks/useSentry'
+import { SITE_DIARIOCORREO } from '../../../utilities/constants/sitenames'
 import importRetry from '../../../utilities/core/import-retry'
 import Loading from '../../signwall/_children/loading'
 import {
@@ -16,7 +17,7 @@ import {
 } from '../_context/modal'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { isAuthenticated } from '../_dependencies/Session'
-import Header from './_children/header/signwall'
+import Header from './_children/header/correo-header'
 
 const MenuSignwall = React.lazy(() =>
   importRetry(
@@ -100,7 +101,7 @@ const renderTemplate = (template: ProfileModalTemplates, id: number) => {
 }
 
 const WrapperProfile = () => {
-  const { siteProperties } = useAppContext()
+  const { siteProperties, arcSite } = useAppContext()
   const { status: identityStatus } = useSdksContext()
   const { urls: urlCommon } = PropertiesCommon
 
@@ -115,13 +116,30 @@ const WrapperProfile = () => {
   }, [])
 
   return (
-    <div className="sign-profile_general-panel-wrapper" id="profile-signwall">
+    <div
+      className="sign-profile_general-panel-wrapper"
+      id="profile-signwall"
+      style={
+        arcSite === SITE_DIARIOCORREO
+          ? {
+              backgroundImage:
+                'url("https://cdn.shopify.com/s/files/1/0449/4229/5199/files/background-correo-full.png")',
+              backgroundSize: '100% 100%',
+            }
+          : {}
+      }>
       {identityStatus === SdkStatus.Loading ? (
         <Loading typeBg="full" />
       ) : (
         <>
           <Header />
-          <div className="sign-profile_general-panel-content">
+          <div
+            className="sign-profile_general-panel-content"
+            style={
+              arcSite === SITE_DIARIOCORREO
+                ? { marginTop: '50px' }
+                : { marginTop: '0px' }
+            }>
             <div className="panel-left">
               <React.Suspense fallback={null}>
                 <MenuSignwall
