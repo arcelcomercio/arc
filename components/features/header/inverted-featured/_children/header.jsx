@@ -16,8 +16,7 @@ import {
   btnSearch,
   searchScriptMobile,
   btnSearchMobile,
-  singwallScript,
-  fusionApp
+  singwallScript
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -250,7 +249,8 @@ const HeaderChildInverted = ({
     <>
       {(!invertedTema && !hideTema) && <Header />}
 
-      <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
+      {/* <header className={`${classes.header} ${scrolled ? 'active' : ''}`}> */}
+      <header className={classes.header}>
 
         <div className={classes.navLoader} />
         <div className={classes.wrapper}>
@@ -408,12 +408,6 @@ const HeaderChildInverted = ({
       <script
         dangerouslySetInnerHTML={{
           __html: hideMenu ? '' : searchScript
-        }}
-      >
-      </script>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: fusionApp
         }}
       >
       </script>

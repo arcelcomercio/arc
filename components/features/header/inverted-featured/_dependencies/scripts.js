@@ -171,8 +171,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }';}
   });
 })`
-
-export const fusionApp = `window.addEventListener("load",function(){requestIdle(function(){
-  document.getElementById("fusion-app").setAttribute("style","overflow: initial");
-  })
-})`
