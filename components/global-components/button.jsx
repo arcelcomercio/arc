@@ -17,6 +17,7 @@ import React from 'react'
 
 export default props => {
   const {
+    idButton,
     iconClass,
     btnClass,
     btnText,
@@ -27,6 +28,7 @@ export default props => {
 
   return (
     <a
+      id={idButton}
       title={btnText}
       className={btnClass}
       href={btnLink}

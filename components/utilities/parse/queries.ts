@@ -41,9 +41,12 @@ export function parseQueryString(str: string): Record<string, any> {
  *
  * @param query key de la query de la que se quiere obtener el valor
  * @param defaultUrl url con query parameters. Por defecto usa `window.location.href`
- * @returns valor de la query
+ * @returns valor de la query, si existe
  */
-export function getQuery(query: string, defaultUrl?: string): string {
+export function getQuery(
+  query: string,
+  defaultUrl?: string
+): string | undefined {
   const url = defaultUrl || window.location.href
   const regex = RegExp(`[?&]${query}=([^&]+)`)
   const [, value] = regex.exec(url) || []

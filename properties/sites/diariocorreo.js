@@ -52,6 +52,9 @@ export default {
     frequentQuestions: '',
     dataTreatment: 'UWK3Q7DYTRFERAL3NGTIXEMWLI',
   },
+  paywall: {
+    title: 'Comunidad Digital | Diario Correo',
+  },
   assets: {
     nav: {
       logoSomos: 'logo.png',

@@ -10,6 +10,7 @@ website_section{
 }
 `
 export const storyContent = `
+param
 _id
 type
 content_elements {
@@ -28,6 +29,8 @@ content_elements {
       plataform
       interviewed
       career_interviewed
+      release_date
+      premiere_image
       year
       director {
         name

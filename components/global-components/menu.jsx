@@ -5,25 +5,27 @@ import searchQuery from '../utilities/client/search'
 import Button from './button'
 
 const classes = {
-  sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 bg-gray-300 hidden`,
+  sidebar: `nav-sidebar w-full position-absolute overflow-hidden bottom-0 hidden`,
   content: `nav-sidebar__content flex flex-col justify-between h-full overflow-y`,
   item:
     'nav-sidebar__item position-relative flex justify-between items-center flex-wrap',
   containerSubMenu: 'nav-sidebar__container-submenu w-full overflow-hidden',
   menuArrow: 'nav-sidebar__menu-arrow hidden',
   labelParentItem:
-    'nav-sidebar__parent-item pl-25 pt-10 pr-20 pb-10 position-absolute right-0',
-  link: 'nav-sidebar__link block p-15 pl-25 text-md text-white',
+    'nav-sidebar__parent-item pl-25 pr-20 pb-10 position-absolute right-0',
+  link: 'nav-sidebar__link block text-md text-white',
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30 hidden',
   btnBox: 'nav-sidebar__box-btn pb-15 border-b-1 border-solid border-gray',
   btn: `flex items-center justify-center btn bg-link text-white nav-sidebar__btn pt-10 pb-10 pr-15 pl-15`,
-  search: 'nav-sidebar__search pt-15 pr-30 pb-15 pl-30 block lg:hidden',
+  search: 'nav-sidebar__search block lg:hidden',
   from: 'nav-sidebar__box-search pb-15 border-b-1 border-solid border-gray',
-  input: `nav-sidebar__input w-full inline-block pt-10 pr-15 pb-10 pl-15 bg-white border-0 text-md rounded-sm line-h-sm`,
-  body: 'nav-sidebar__body pt-15 pr-0 pb-15 pl-0',
+  input: `nav-sidebar__input w-full inline-block bg-white line-h-sm`,
+  body: 'nav-sidebar__body pr-0 pb-15 pl-0',
   list: 'nav- sidebar__list',
-  footer: `nav-sidebar__footer p-30 border-b-1 border-solid border-gray`,
+  footer: `nav-sidebar__footer`,
+  callLink: `nav-sidebar__footer__call-link`,
+  iconSearch: `nav-sidebar__footer__icon-search icon-search`,
   text: `nav-sidebar__text block font-thin pt-5 pr-0 pb-5 pl-0 text-md text-white`,
 }
 
@@ -67,9 +69,10 @@ const NavbarChildMenu = props => {
                 itemProp="url"
                 href={url || id || '/'}
                 className={classes.link}
-                style={{
-                  paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px`,
-                }}>
+              // style={{
+              //   paddingLeft: `${deep > 0 ? 25 + deep * 15 : 25}px`,
+              // }}
+              >
                 {name || displayName}
               </a>
               {children && children.length > 0 && (
@@ -116,7 +119,8 @@ const NavbarChildMenu = props => {
     siteProperties: { siteDomain = '', legalLinks = [] } = {},
   } = props
 
-  let { sections = [] } = props
+  let { sections = [], winningCallLogo = '' } = props
+  const { searchScriptMobile, btnSearchMobile } = props
 
   sections =
     /elcomercio/.test(siteDomain) && sections.length <= 0
@@ -130,12 +134,12 @@ const NavbarChildMenu = props => {
   }, [])
 
   return (
-    <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
+    // <div className={`${classes.sidebar} ${showSidebar ? 'active' : ''}`}>
+    <div className={classes.sidebar}>
       {showSidebar && (
         <div
-          className={`${classes.content} ${
-            IS_MOBILE.current ? 'w-full' : 'w-desktop'
-          } ${showSidebar ? 'active' : ''}`}>
+          className={`${classes.content} ${IS_MOBILE.current ? 'w-full' : 'w-desktop'
+            } ${showSidebar ? 'active' : ''}`}>
           <div className={classes.top}>
             <div className={classes.header}>
               <div className={classes.btnBox}>
@@ -148,19 +152,26 @@ const NavbarChildMenu = props => {
             </div>
             <div className={classes.search}>
               <form
+                id='header-search-form-mobile'
                 className={classes.from}
                 onSubmit={e => {
                   e.preventDefault()
                   _handleSearch()
                 }}>
                 <input
+                  id="header-search-input-mobile"
                   ref={inputSearchMovil}
                   type="search"
                   // onBlur={this.handleCloseSectionsSearch}
-                  placeholder="Buscar"
+                  placeholder="¿Qué estas buscando?"
                   className={classes.input}
                 />
+                <i
+                  id="header-search-icon-mobile"
+                  className={classes.iconSearch}
+                />
               </form>
+
             </div>
             <div className={classes.body}>
               <ul className={classes.list}>
@@ -169,7 +180,17 @@ const NavbarChildMenu = props => {
             </div>
           </div>
           <div className={classes.footer}>
-            <a itemProp="url" href="/" className={classes.text}>
+
+            <a
+              itemProp="url"
+              href="https://promociones.trome.pe/registro/super-llamada-ganadora/"
+              title="Llamada Ganadora"
+              className={classes.callLink}
+            >
+              <img src={winningCallLogo} alt="Llamada Ganadora" />
+            </a>
+
+            {/* <a itemProp="url" href="/" className={classes.text}>
               {siteDomain}
             </a>
             {legalLinks.map(link => (
@@ -180,10 +201,20 @@ const NavbarChildMenu = props => {
                 className={classes.text}>
                 {link.name}
               </a>
-            ))}
+            ))} */}
           </div>
         </div>
       )}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: searchScriptMobile
+        }}
+      ></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: btnSearchMobile
+        }}
+      ></script>
     </div>
   )
 }

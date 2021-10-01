@@ -100,7 +100,7 @@ const getCodeError = (code, status) => {
       return 'Correo electrónico y/o contraseña incorrecta.'
 
     case '130051':
-      return 'Activa tu cuenta para iniciar sesión'
+      return 'Tu cuenta necesita ser verificada para iniciar sesión'
 
     case '100014':
     case '300014':

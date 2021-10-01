@@ -23,6 +23,7 @@ type GetVerboseDateProps = {
   showWeekday?: boolean
   showYear?: boolean
   defaultTimeZone?: boolean
+  longMonth?: boolean
 }
 /**
  * @returns jueves, 19 de noviembre de 2020 09:30 a.m.
@@ -33,9 +34,10 @@ export const getVerboseDate = ({
   showWeekday = true,
   showYear = true,
   defaultTimeZone = true,
+  longMonth = true,
 }: GetVerboseDateProps): string => {
   const options: Intl.DateTimeFormatOptions = {
-    month: 'long',
+    month: longMonth ? 'long' : 'short',
     day: 'numeric',
     hour12: true,
   }
@@ -67,8 +69,19 @@ export const getVerboseDate = ({
 export const formatDayMonthYear = (
   currentDate: Date,
   showTime = true,
-  showWeekday = true
-): string => getVerboseDate({ date: currentDate, showTime, showWeekday })
+  showWeekday = true,
+  showYear = true,
+  defaultTimeZone = true,
+  longMonth = true
+): string =>
+  getVerboseDate({
+    date: currentDate,
+    showTime,
+    showWeekday,
+    showYear,
+    defaultTimeZone,
+    longMonth,
+  })
 
 /**
  * @deprecated usar `getVerboseDate`
@@ -186,4 +199,15 @@ export const dateDayAndMouthNOYEAR = (): string => {
   /*
     Martes 31 de Agosto
   */
+}
+
+/**
+ * @returns 31 de Agosto
+ */
+export const dateDayAndMonth = (date: string): string | null => {
+  const d = loadDateFromYYYYMMDD(date)
+  if (d === null) return null
+  const mes = new Intl.DateTimeFormat(locale, { month: 'long' }).format(d)
+  const num = new Intl.DateTimeFormat(locale, { day: '2-digit' }).format(d)
+  return `${num} de ${mes}`
 }

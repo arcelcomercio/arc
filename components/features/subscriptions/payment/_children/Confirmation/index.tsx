@@ -21,6 +21,7 @@ import {
   pushCxense,
   sendAction,
   TaggeoJoao,
+  TagsAdsMurai,
 } from '../../../_dependencies/Taggeo'
 import { getSessionStorage, getUserAgent } from '../../../_dependencies/Utils'
 
@@ -233,6 +234,19 @@ const Confirmation = (): JSX.Element => {
               action: `${userPeriod} | Tarjeta - ${window.payU.card.method}`,
               label: uuid,
               value: `${amount}`,
+            },
+            window.location.pathname
+          )
+
+          TagsAdsMurai(
+            {
+              event: 'Subscribe',
+              content_ids: sku,
+              content_type: 'product',
+              content_name: name,
+              value: amount,
+              currency: 'PEN',
+              subscription_type: userPeriod,
             },
             window.location.pathname
           )

@@ -16,6 +16,7 @@ import {
 import { getQuery } from '../../../utilities/parse/queries'
 import { isLoggedIn } from '../../../utilities/subscriptions/identity'
 import Loading from '../../signwall/_children/loading'
+import { AuthProvider } from '../_context/auth'
 import { PropertiesCommon } from '../_dependencies/Properties'
 import { SignOrganic } from './_children/Organic'
 
@@ -108,6 +109,7 @@ const AuthUser = () => {
               arcSite={arcSite}
               typeDialog={activeModal}
               tokenVerify={isTokenVerify && getQuery('tokenVerify')}
+              tokenOTA={isTokenVerify && getQuery('tokenOTA')}
               tokenReset={isResetPassword && getQuery('tokenReset')}
             />
           )}
@@ -119,7 +121,9 @@ const AuthUser = () => {
 
 const AuthUserContainer = (): JSX.Element => (
   <SdksProvider>
-    <AuthUser />
+    <AuthProvider>
+      <AuthUser />
+    </AuthProvider>
   </SdksProvider>
 )
 

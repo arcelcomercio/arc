@@ -29,9 +29,11 @@ import {
 } from '../../../utilities/constants/element-types'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
+  SITE_DEPOR,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
+  SITE_TROME,
 } from '../../../utilities/constants/sitenames'
 import {
   GALLERY_VERTICAL,
@@ -197,19 +199,18 @@ const StoryContentsLite = (props) => {
           </>
         )}
         <div
-          className={`${classes.content} ${
-            isPremium && !isPreview
+          className={`${classes.content} ${isPremium && !isPreview
               ? 'story-content__nota-premium paywall no_copy'
               : ''
-          }`}
+            }`}
           style={
             isPremium && !isPreview
               ? {
-                  display: 'none',
-                  opacity: '0',
-                  userSelect: 'none',
-                  visibility: 'hidden',
-                }
+                display: 'none',
+                opacity: '0',
+                userSelect: 'none',
+                visibility: 'hidden',
+              }
               : {}
           }
           id="contenedor">
@@ -239,7 +240,17 @@ const StoryContentsLite = (props) => {
                   url = '',
                   items = [],
                   list_type: listType = 'unordered',
+                  title,
                 } = element
+
+                if (
+                  arcSite === SITE_TROME &&
+                  type === ELEMENT_BLOCKQUOTE &&
+                  content.toLowerCase().includes('puedes leer')
+                ) {
+                  return null
+                }
+
                 if (type === ELEMENT_IMAGE) {
                   return (
                     <StoryContentsChildImage
@@ -331,6 +342,11 @@ const StoryContentsLite = (props) => {
                     )
                   }
                 }
+                // // Condicion para trome sin blockquoute - components/features/story/title/lite.jsx
+                // if (type === ELEMENT_BLOCKQUOTE && arcSite === SITE_TROME) {
+                //   return null
+                // }
+
                 if (type === ELEMENT_GALLERY) {
                   return (
                     <StoryHeaderChildGallery
@@ -395,7 +411,7 @@ const StoryContentsLite = (props) => {
                         (arcSite === 'depor' &&
                           (/^\/mexico\//.test(requestUri) ||
                             /^\/colombia\//.test(requestUri)))) &&
-                      nameAds === 'caja3' ? (
+                        nameAds === 'caja3' ? (
                         <div id="spc_post_stories" />
                       ) : null}
                     </>
@@ -417,9 +433,9 @@ const StoryContentsLite = (props) => {
                             dangerouslySetInnerHTML={{
                               __html: item.content
                                 ? item.content.replace(
-                                    /<a/g,
-                                    '<a itemprop="url"'
-                                  )
+                                  /<a/g,
+                                  '<a itemprop="url"'
+                                )
                                 : '',
                             }}
                           />
@@ -464,6 +480,7 @@ const StoryContentsLite = (props) => {
                     />
                   )
                 }
+
                 if (type === ELEMENT_BLOCKQUOTE) {
                   return (
                     <blockquote
@@ -509,6 +526,10 @@ const StoryContentsLite = (props) => {
                 }
 
                 if (type === ELEMENT_LINK_LIST) {
+                  if (arcSite === SITE_TROME)
+                    return (
+                      <StoryContentsChildLinkList items={items} title={title} />
+                    )
                   return <StoryContentsChildLinkList items={items} />
                 }
 

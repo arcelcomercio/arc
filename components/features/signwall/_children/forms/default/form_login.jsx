@@ -280,7 +280,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
           <form
             className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
             onSubmit={handleOnSubmit}>
-            <div>
+            <div >
               {typeDialog === 'paywall' && !showLoginEmail && (
                 <h4
                   style={{ fontSize: '22px', fontFamily: primaryFont }}
