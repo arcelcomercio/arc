@@ -293,7 +293,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
             <div className="center ">
               <p className="signwall-inside_forms-text mb-20 center bold">
-                 Ingresa con
+                Ingresa con
               </p>
               {authProviders.map((item) => (
                 <ButtonSocial
@@ -418,7 +418,6 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   style={{
                     color: mainColorBtn,
                     background: mainColorLink,
-                    marginBottom: '15px',
                   }}
                   disabled={disable || showLoading || showFormatInvalid}
                   onClick={() =>
