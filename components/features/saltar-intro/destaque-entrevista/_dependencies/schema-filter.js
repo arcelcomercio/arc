@@ -13,6 +13,7 @@ export default (arcSite) => `{
     }
   }
   headlines { basic }
+  subheadlines { basic }
   credits {
     by { name url type }
   }
