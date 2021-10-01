@@ -16,7 +16,8 @@ const StaticsAgendaPresidencial = (props) => {
   const { customFields: { titleUpDown } = {} } = props
   const { requestUri } = useAppContext()
 
-  const isNotaWeb = /\/agenda-presidencial\/(\d{4})-(\d{1,2})-(\d{1,2})\//.test(
+  // antigua ER: /\/agenda-presidencial\/(\d{4})-(\d{1,2})-(\d{1,2})\//
+  const isNotaWeb = /\/agenda-presidencial\/(202[1-6])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\//.test(
     requestUri
   )
 
@@ -26,11 +27,34 @@ const StaticsAgendaPresidencial = (props) => {
     .filter((item) => item)
     .pop()
 
+  console.log('PRUEBA', dateUrl)
+
   let dataNota = ''
   let fecha10Mas = ''
   let fecha10Men = ''
   let dataLast10 = ''
   let dataMore10 = ''
+
+  const dateStart = new Date(2021, 6, 28)
+  console.log('PRUEBA2', dateStart)
+
+  // area de prueba-----------
+
+  // 1.Validar si el formato ingresado de la fecha dateurl (2021-09-16) es valido
+  // 2.Validar si la fecha es real
+  // 3. evaluar si cambiarle formato a dateurl a uno estandar
+  // 4. convertir dateUrl a un formato para comparar
+  const funcion = (fecha) => {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const dateStart = new Date(2021, 6, 28)
+    const dateEnd = new Date(2026, 6, 27)
+    if (fecha >= dateStart && fecha <= dateEnd) return true
+    return false
+  }
+  const valorF = funcion(new Date(2027, 10, 1))
+  console.log('PRUEBALOOOOOOOOOOOOOOOOOOO', valorF)
+
+  // hasta acaaaaaaa
 
   if (dateUrl !== 'agenda-presidencial') {
     dataNota =
