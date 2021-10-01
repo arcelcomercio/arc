@@ -176,14 +176,14 @@ const HeaderInvertedFeatured = (props) => {
       : `${getAssetsPath(
         arcSite,
         contextPath
-      )}/resources/dist/${arcSite}/images/alternate-logo.png?d=1`
+      )}/resources/dist/${arcSite}/images/trome-logo_5.png?d=1`
 
   const winningCallLogo =
     arcSite === 'trome'
       ? `${getAssetsPath(
         arcSite,
         contextPath
-      )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome.png?d=1`
+      )}/resources/dist/${arcSite}/images/super_llamada_ganadora_trome_2x.png?d=1`
       : ''
 
   return (
