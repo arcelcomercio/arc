@@ -146,6 +146,7 @@ $min-with-header: 961px;
     font-weight: bold;
     text-decoration: none;
     font-family: $hi-font-primary;
+    margin-right: 26px;
     @media (min-width: $min-with-header) {
       &::after {
         content: "|";
@@ -158,6 +159,7 @@ $min-with-header: 961px;
     @media (--only-mobile) {
       font-size: 14px;
       padding: 6px 15px;
+      margin-right: 0;
     }
   }
   &__call-img {
@@ -182,7 +184,9 @@ $min-with-header: 961px;
     }
 
     img {
-      height: 100%;
+      height: 89px;
+      width: 93px;
+      margin-top: -6px;
     }
   }
   &__call-link {
@@ -305,7 +309,7 @@ $min-with-header: 961px;
     position: relative;
     align-items: center;
     display: none;
-    margin-left: 15px;
+    margin-left: 5px;
 
     @media (--desktop) {
       display: flex;
@@ -362,10 +366,9 @@ $min-with-header: 961px;
     display: flex;
     align-items: center;
     font-weight: bold;
-    letter-spacing: -0.01px;
 
     @media (--desktop) {
-      padding-right: 3px;
+      padding-right: 10px;
       padding-left: 0;
     }
     @media (--only-mobile) {
@@ -384,11 +387,11 @@ $min-with-header: 961px;
     @media (--tablet) {
       height: 70px;
       width: 70px;
-      padding: 0;
+      padding: 0 !important;
     }
     @media (--only-mobile) {
       height: 55px;
-      width: 44px;
+      width: 41px;
       padding-right: 0px;
     }
 
@@ -499,6 +502,7 @@ $min-with-header: 961px;
       margin-right: $link-margin-right;
       margin-left: $link-margin-left;
       border-bottom: 1px dashed #888888;
+      padding: 0;
 
       &:hover {
         color: #ffffff;
@@ -596,6 +600,8 @@ $min-with-header: 961px;
       }
       @media (max-width: 960px) {
         margin-bottom: 113px;
+        padding: 0;
+        padding-left: 10px;
         &__call-link {
           img {
             height: 118px;
