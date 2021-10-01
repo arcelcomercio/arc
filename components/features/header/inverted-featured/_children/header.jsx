@@ -298,7 +298,8 @@ const HeaderChildInverted = ({
           <a
             itemProp="url"
             href="/"
-            className={`${classes.logoContainer}  ${scrolled ? 'active' : ''}`}
+            // className={`${classes.logoContainer}  ${scrolled ? 'active' : ''}`}
+            className={classes.logoContainer}
             title={logo.alt}>
             <img
               // src={
