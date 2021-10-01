@@ -46,6 +46,7 @@
   &__list-title {
     color: $color-primary;
     &__new-design {
+      font-family: "Encode Sans Condensed", sans-serif;
       border-top: 1px dashed #d1d1d1;
       text-transform: uppercase;
       padding-top: 20px;
@@ -80,7 +81,7 @@
       }
     }
     @media (--tablet) {
-      min-height: 150px;
+      height: 300px;
       width: 16.66667%;
     }
     @media (--only-mobile) {
@@ -99,6 +100,7 @@
       &:first-child {
         a {
           font-weight: 700;
+          color: #000000;
         }
       }
     }
@@ -107,9 +109,11 @@
     color: $footer-text;
     font-family: $encode-c, sans-serif;
     margin: auto;
+    color: #888888;
     // margin-top: 16px;
     margin-bottom: 28px;
     @media (--tablet) {
+      font-size: 14px;
       max-width: 516px;
     }
     @media (--only-mobile) {
@@ -227,6 +231,7 @@
   }
   &__bold {
     a {
+      color: #000000;
       font-weight: 700;
     }
   }
