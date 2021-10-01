@@ -249,7 +249,8 @@ const HeaderChildInverted = ({
     <>
       {(!invertedTema && !hideTema) && <Header />}
 
-      <header className={`${classes.header} ${scrolled ? 'active' : ''}`}>
+      {/* <header className={`${classes.header} ${scrolled ? 'active' : ''}`}> */}
+      <header className={classes.header}>
 
         <div className={classes.navLoader} />
         <div className={classes.wrapper}>
@@ -297,7 +298,8 @@ const HeaderChildInverted = ({
           <a
             itemProp="url"
             href="/"
-            className={`${classes.logoContainer}  ${scrolled ? 'active' : ''}`}
+            // className={`${classes.logoContainer}  ${scrolled ? 'active' : ''}`}
+            className={classes.logoContainer}
             title={logo.alt}>
             <img
               // src={
