@@ -19,13 +19,15 @@
 
     &__name {
       font-family: $encode-c;
-      color: #e06437;
       font-size: 24px;
+      color: #e06437;
+      letter-spacing: -0.24px;
       line-height: 30px;
       font-weight: 800;
       display: flex;
       align-items: center;
     }
+
     &__arrow-title {
       color: #333;
       height: 25px;
@@ -85,6 +87,7 @@
         background-color: #000;
 
         @media (--tablet) {
+          min-height: 127px;
           max-height: 186px;
         }
 
@@ -97,7 +100,10 @@
       }
 
       &__duration {
-        font: normal normal bold 12px/16px Roboto;
+        font-family: $primary-font;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 16px;
         letter-spacing: 0.48px;
         position: absolute;
         left: inherit;
@@ -115,16 +121,13 @@
       }
 
       &__title {
-        font-size: $fira-s;
+        font-family: $fira-s;
         font-size: 18px;
         font-weight: 800;
         letter-spacing: -0.18px;
         line-height: 22px;
         padding-top: 12px;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
         overflow: hidden;
-        display: -webkit-box;
 
         @media (--desktop) {
           font-size: 18px;
@@ -135,7 +138,10 @@
         position: relative;
       }
       &__play {
-        font: normal normal bold 12px/16px Roboto;
+        font-family: $primary-font;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: bold;
         border-radius: 3px;
         opacity: 0.8;
         position: absolute;

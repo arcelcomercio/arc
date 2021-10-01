@@ -86,6 +86,7 @@
 
   &__box-section-top {
     display: block;
+    padding-left: 10px;
 
     @media (--desktop) {
       display: none;
@@ -152,6 +153,7 @@
     font-weight: 800;
     line-height: 36px;
     letter-spacing: 0.32px;
+    color: #eaeaea;
 
     @media (--desktop) {
       font-size: 32px;
@@ -170,10 +172,7 @@
     line-height: 28px;
     font-size: 18px;
     color: #bbb;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
     overflow: hidden;
-    display: -webkit-box;
 
     @media (--desktop) {
       font-size: 20px;
@@ -288,11 +287,8 @@
     width: auto;
   }
 }
-.story-content{
-  &__caption{
+.story-content {
+  &__caption {
     display: none;
   }
-}
-#fusion-app{
-  overflow-x: hidden;
 }
