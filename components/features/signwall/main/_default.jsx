@@ -77,24 +77,16 @@ class SignwallComponent extends React.PureComponent {
     const isLogged = isLoggedIn()
     this._isMounted = true
     if (typeof window !== 'undefined' && this._isMounted) {
-      if (!isLogged) {
-        this.setState({ showPremium: true })
+      if (isLogged) {
+        const { siteProperties } = this.props
+        if (siteProperties.activeRegisterwall) {
+          this.unlockContent()
+        }
+        this.hasActiveSubscriptions()
       } else {
-        return this.getListSubs().then((p) => {
-          if (p && p.length === 0) {
-            this.setState({ showPremium: true })
-          } else {
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
-          }
-          return false // tengo subs :D
-        })
+        this.setState({ showPremium: true })
       }
     }
-    return false
   }
 
   getPaywall() {
@@ -245,6 +237,24 @@ class SignwallComponent extends React.PureComponent {
       }, 500)
     }
     return vars[name]
+  }
+
+  unlockContent = () => {
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
+  hasActiveSubscriptions = () => {
+    this.getListSubs().then((p) => {
+      if (p && p.length === 0) {
+        this.setState({ showPremium: true })
+      } else {
+        this.unlockContent()
+      }
+    })
   }
 
   checkUserName() {

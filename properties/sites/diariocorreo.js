@@ -124,6 +124,7 @@ export default {
   ],
   activeSignwall: true,
   activeVerifyEmail: true,
+  activeRegisterwall: true,
   activeDataTreatment: true,
   activeNewsletter: true,
   activePhoneRegister: true,

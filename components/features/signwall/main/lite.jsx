@@ -71,34 +71,16 @@ class SignwallComponent extends PureComponent {
   getPremium() {
     this._isMounted = true
     if (typeof window !== 'undefined' && this._isMounted) {
-      if (!this.checkSession()) {
-        window.showArcP = true
-        this.setState({ showPremium: true })
+      if (this.checkSession()) {
+        const { siteProperties } = this.props
+        if (siteProperties.activeRegisterwall) {
+          this.unlockContent()
+        }
+        this.hasActiveSubscription()
       } else {
-        return this.getListSubs().then((p) => {
-          if (p && p.length === 0) {
-            window.showArcP = true
-            window.top.postMessage(
-              { id: 'iframe_paywall' },
-              window.location.origin
-            )
-            this.setState({ showPremium: true })
-          } else {
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
-            const parallaxBannerDiv = document.querySelector('.story-subs-call')
-            if (parallaxBannerDiv) {
-              parallaxBannerDiv.style = 'display:none;'
-            }
-          }
-          return false // tengo subs :D
-        })
+        this.showPremium()
       }
     }
-    return false
   }
 
   getPaywall() {
@@ -283,6 +265,34 @@ class SignwallComponent extends PureComponent {
     }
     return vars[name]
   }
+
+  showPremium = () => {
+    window.showArcP = true
+    window.top.postMessage({ id: 'iframe_paywall' }, window.location.origin)
+    this.setState({ showPremium: true })
+  }
+
+  unlockContent = () => {
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+    const parallaxBannerDiv = document.querySelector('.story-subs-call')
+    if (parallaxBannerDiv) {
+      parallaxBannerDiv.style = 'display:none;'
+    }
+  }
+
+  hasActiveSubscription = () =>
+    this.getListSubs().then((p) => {
+      if (p && p.length === 0) {
+        this.showPremium()
+      } else {
+        this.unlockContent()
+      }
+      return false // tengo subs :D
+    })
 
   closePopUp(name) {
     this._isMounted = true
