@@ -9,6 +9,10 @@ const customFields = PropTypes.shape({
     name: 'Ver info entrevistado',
     defaultValue: false,
   }),
+  isTrailer: PropTypes.bool.tag({
+    name: 'Sección Tráilers',
+    defaultValue: false,
+  }),
 })
 
 export default customFields
