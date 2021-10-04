@@ -15,7 +15,8 @@ import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import {
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
-  SITE_GESTION} from '../../../utilities/constants/sitenames'
+  SITE_GESTION,
+} from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
   getUsername,
@@ -33,6 +34,7 @@ import {
 import { getEntitlement } from '../_dependencies/services'
 import { Paywall as PaywallModal } from './_children/paywall'
 import { Premium as PremiumModal } from './_children/premium'
+import { Register as RegisterModal } from './_children/register'
 
 export interface SignwallDefaultProps {
   classButton: string
