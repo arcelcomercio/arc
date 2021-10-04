@@ -9,7 +9,7 @@ import { handleUserStatus } from './_dependencies/scripts'
 
 const classes = {
   container: 'items-center tabloid row-1 flex flex-col',
-  logo: '',
+  logo: 'logo',
   text: 'bold',
   button: 'rounded-sm pt-15 pb-15 bold',
 }
@@ -38,12 +38,18 @@ const CardSubscribe: FC = () => {
 
   return (
     <div
-      className="items-center tabloid row-1 flex flex-col icono"
+      className="items-center tabloid row-1 flex flex-col position-relative icono"
       style={{
         border: `3.5px solid ${mainColorLink}`,
-        backgroundImage:
-          'url("https://cdn.shopify.com/s/files/1/0449/4229/5199/files/diario-correo-background.png")',
       }}>
+        <img
+        className="lazy position-absolute top-0 right-0 bottom-0 left-0 w-full h-full"
+          src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/diario-correo-background.png"
+          alt='fondo boletin'
+          style={{
+            zIndex: -1,
+          }}
+        />
       <img
         src={`${getAssetsPath(
           arcSite,
@@ -51,7 +57,7 @@ const CardSubscribe: FC = () => {
         )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
         alt={`Logo ${siteName}`}
        
-        className="logo"
+        className={classes.logo}
       />
       <div
         className="mt-25 ml-20 mr-20"
