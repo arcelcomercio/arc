@@ -12,7 +12,9 @@ const classes = {
   containerSubMenu: 'nav-sidebar__container-submenu w-full overflow-hidden',
   menuArrow: 'nav-sidebar__menu-arrow hidden',
   labelParentItem:
-    'nav-sidebar__parent-item pl-25 pr-20 pb-10 position-absolute right-0',
+    'nav-sidebar__parent-item',
+  labelParentItemDown: 'nav-sidebar__parent-item__down',
+  labelParentItemUp: 'nav-sidebar__parent-item__up',
   link: 'nav-sidebar__link block text-md text-white',
   top: 'nav-sidebar__top',
   header: 'nav-sidebar__header pt-30 pr-30 pb-0 pl-30 hidden',
@@ -87,7 +89,37 @@ const NavbarChildMenu = props => {
                    * del label pero por problemas de estilos para hecer la funcionalidad
                    * con puro CSS no se encontró forma.
                    * */}
-                  <label htmlFor={idElem} className={classes.labelParentItem} />
+                  {/* <label htmlFor={idElem} className={classes.labelParentItem} /> */}
+                  <label htmlFor={idElem} className={classes.labelParentItem} >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="fas"
+                      data-icon="angle-down"
+                      className={classes.labelParentItemDown}
+                      role="img"
+                      htmlFor={idElem}
+                      viewBox="0 0 320 512">
+                      <path
+
+                        fill="currentColor"
+                        d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                      />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="fas"
+                      data-icon="angle-up"
+                      className={classes.labelParentItemUp}
+                      role="img" viewBox="0 0 320 512">
+                      <path
+                        fill="currentColor"
+                        d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+                      />
+                    </svg>
+                  </label>
                   <ul
                     className={`${classes.containerSubMenu} deep-${deep} ${idElem}`}>
                     {renderSections(children, aux + 1, idElem)}
