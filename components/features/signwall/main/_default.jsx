@@ -59,7 +59,11 @@ class SignwallComponent extends React.PureComponent {
 
     window.requestIdle(() => {
       this.checkUserName()
-      if (siteProperties.activePaywall || siteProperties.activeRulesCounter) {
+      if (
+        siteProperties.activePaywall ||
+        siteProperties.activeRulesCounter ||
+        siteProperties.activeRegisterwall
+      ) {
         this.getPaywall()
       }
     })

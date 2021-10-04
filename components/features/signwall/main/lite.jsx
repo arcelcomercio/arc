@@ -59,7 +59,7 @@ class SignwallComponent extends PureComponent {
       })
     }
 
-    if (siteProperties.activePaywall) {
+    if (siteProperties.activePaywall || siteProperties.activeRegisterwall) {
       window.requestIdle(() => this.getPaywall())
     }
   }
@@ -112,7 +112,6 @@ class SignwallComponent extends PureComponent {
       )
       W.location.href = getUrlLandingAuth(arcSite)
     }
-
     if (typeContentTier === 'locked') {
       this.getPremium()
     } else if (W.ArcP) {
