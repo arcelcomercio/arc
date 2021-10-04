@@ -161,6 +161,7 @@ export interface SiteProperties {
   linkTabloide: string
   activeSignwall: boolean
   activePaywall: boolean
+  activeRegisterwall: boolean
   activeRulesCounter: boolean
   activeNewsletter: boolean
   activeVerifyEmail: boolean
