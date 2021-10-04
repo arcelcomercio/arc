@@ -53,9 +53,12 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
 
   const { status } = useSdksContext()
   const { arcSite } = useAppContext()
-  const { activeSignwall, activePaywall, activeRulesCounter } = getProperties(
-    arcSite
-  )
+  const {
+    activeSignwall,
+    activePaywall,
+    activeRulesCounter,
+    activeRegisterwall,
+  } = getProperties(arcSite)
 
   const [activeWall, setActiveWall] = React.useState<Walls | null>()
   const [user, setUser] = React.useState({
@@ -105,26 +108,33 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
     window.location.href = getUrlSignwall(arcSite, typeDialog, hash)
   }
 
+  function hasActiveSubscriptions() {
+    getListSubs()
+      .then((p) => {
+        // no tengo subs -> muestra valla
+        if (p && p.length === 0) {
+          setActiveWall(Walls.Premium)
+        } else {
+          // tengo subs
+          unblockContent()
+        }
+        return false // tengo subs :D
+      })
+      .catch((err) => {
+        window.console.error(err)
+      })
+  }
+
   function getPremium() {
-    if (!isLoggedIn()) {
-      setActiveWall(Walls.Premium)
+    if (isLoggedIn()) {
+      if (activeRegisterwall) {
+        setActiveWall(Walls.Premium)
+      } else {
+        hasActiveSubscriptions()
+      }
     } else {
-      return getListSubs()
-        .then((p) => {
-          // no tengo subs -> muestra valla
-          if (p && p.length === 0) {
-            setActiveWall(Walls.Premium)
-          } else {
-            // tengo subs
-            unblockContent()
-          }
-          return false // tengo subs :D
-        })
-        .catch((err) => {
-          window.console.error(err)
-        })
+      setActiveWall(Walls.Premium)
     }
-    return false
   }
 
   function getPaywall() {

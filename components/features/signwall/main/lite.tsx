@@ -34,7 +34,9 @@ const SignwallComponent = () => {
   useSdksContext()
   const { status } = useSdksContext()
   const { arcSite } = useAppContext()
-  const { activeSignwall, activePaywall } = getProperties(arcSite)
+  const { activeSignwall, activePaywall, activeRegisterwall } = getProperties(
+    arcSite
+  )
 
   function getListSubs() {
     // const apiOrigin = getOriginAPI(arcSite)
@@ -76,33 +78,39 @@ const SignwallComponent = () => {
     }
   }
 
+  function hasActiveSubscriptions() {
+    getListSubs()
+      .then((p) => {
+        if (p && p.length === 0) {
+          // no tengo subs -> muestra valla
+          window.showArcP = true
+          window.top?.postMessage(
+            { id: 'iframe_paywall' },
+            window.location.origin
+          )
+          setActiveWall(Walls.Premium)
+        } else {
+          // tengo subs
+          unblockContent()
+        }
+      })
+      .catch((err) => {
+        window.console.error(err)
+      })
+  }
+
   function getPremium() {
-    if (!isLoggedIn()) {
+    if (isLoggedIn()) {
+      if (activeRegisterwall) {
+        window.showArcP = true
+        setActiveWall(Walls.Premium)
+      } else {
+        hasActiveSubscriptions()
+      }
+    } else {
       window.showArcP = true
       setActiveWall(Walls.Premium)
-    } else {
-      return getListSubs()
-        .then((p) => {
-          if (p && p.length === 0) {
-            // no tengo subs -> muestra valla
-            window.showArcP = true
-            window.top?.postMessage(
-              { id: 'iframe_paywall' },
-              window.location.origin
-            )
-            setActiveWall(Walls.Premium)
-          } else {
-            // tengo subs
-            unblockContent()
-          }
-          return false // tengo subs :D
-        })
-        .catch((err) => {
-          window.console.error(err)
-        })
     }
-
-    return false
   }
 
   function getPaywall() {
