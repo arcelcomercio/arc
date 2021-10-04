@@ -26,6 +26,21 @@ const customFields = PropTypes.shape({
     group: 'Editar campos',
     description: 'Dejar vacío para tomar el valor original de la noticia.',
   }),
+  backgroundImgSponsor: PropTypes.string.tag({
+    name: 'Imagen de Fondoxx',
+    group: 'Auspiciadores',
+    description: 'Dejar vacio para no mostrar nada',
+  }),
+  bannerImage: PropTypes.string.tag({
+    name: 'Imagen de Banner',
+    group: 'Auspiciadores',
+    description: 'Dejar vacio para no mostrar nada',
+  }),
+  bannerImageUrl: PropTypes.string.tag({
+    name: 'URL de Imagen de Banner',
+    group: 'Auspiciadores',
+    description: 'Dejar vacio para no mostrar nada',
+  }),
 })
 
 export default customFields
