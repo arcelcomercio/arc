@@ -154,6 +154,8 @@
   }
 
   & .st-social {
+    align-items: center;
+
     @media (--desktop) {
       padding-top: 0;
       margin-top: 0;
@@ -164,12 +166,25 @@
 
     &__txt {
       font-family: $encode-c;
-      font-size: 24px;
+      font-size: 18px;
       line-height: 24px;
       letter-spacing: 0.77px;
 
+      @media (--tablet) {
+        font-size: 24px;
+        letter-spacing: 0.58px;
+      }
+
       @media (--desktop) {
         padding-top: 0;
+      }
+    }
+
+    &__share {
+      display: none;
+
+      @media (--tablet) {
+        display: flex;
       }
     }
 
@@ -177,8 +192,30 @@
       border-color: #bababa;
       box-shadow: none;
 
+      &.s-lk {
+        display: inherit;
+      }
+
       &--gnews-txt {
         font-size: 12px;
+      }
+
+      &--ws {
+        border: none;
+
+        svg {
+          height: 32px;
+          margin-left: 0;
+
+          path:first-of-type {
+            fill: transparent;
+            stroke: #bababa;
+          }
+
+          path:last-of-type {
+            fill: #333;
+          }
+        }
       }
     }
   }
