@@ -105,6 +105,16 @@
     svg {
       fill: #333;
     }
+
+    &.s-fb {
+      svg {
+        fill: #000;
+      }
+    }
+
+    &.s-lk {
+      display: none;
+    }
   }
 
   .share-btn:last-of-type {
