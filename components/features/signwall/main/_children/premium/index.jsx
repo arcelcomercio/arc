@@ -3,6 +3,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../../utilities/assets'
+import { SITE_DIARIOCORREO, SITE_GESTION } from '../../../../../utilities/constants/sitenames'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
   ModalProvider,
@@ -13,12 +14,17 @@ import FormForgot from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
 import FormLogin from '../../../_children/forms/form_login'
 import FormRegister from '../../../_children/forms/form_register'
+import FormIntroFree from "../../../_children/forms/form-intro-free"
 import { Close } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
 
 const renderTemplate = (template, valTemplate, attributes) => {
+  const {
+    siteProperties
+  } = useAppContext() || {}
   const templates = {
     intro: <FormIntro {...attributes} />,
+    introfree: <FormIntroFree {...attributes} />,
     login: <FormLogin {...{ valTemplate, attributes }} />,
     forgot: <FormForgot {...attributes} />,
     register: <FormRegister {...attributes} />,
@@ -32,7 +38,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
     return templates.login
   }
 
-  return templates[template] || templates.intro
+  return templates[template] || (siteProperties.activeRegisterwall ? templates.introfree : templates.intro)
 }
 
 export const PremiumInt = ({ properties }) => {
@@ -75,6 +81,15 @@ export const PremiumInt = ({ properties }) => {
     // removeEventListener('beforeunload', handleLeavePage)
   }
 
+  const backgroundOfSite = (arcsite) => {
+    switch (arcsite) {
+      case SITE_GESTION: return '#fff6f0';
+      case SITE_DIARIOCORREO: return '#ffffff';
+      default:
+        return '#f4f4f4'
+    }
+  }
+
   return (
     <Modal
       size={resizeModal}
@@ -114,7 +129,7 @@ export const PremiumInt = ({ properties }) => {
           <div
             className="signwall-inside_body-cont premium"
             style={{
-              padding: arcSite === 'gestion' ? '15px 10px' : '12px 20px',
+              padding: arcSite === SITE_GESTION ? '15px 10px' : '12px 20px',
             }}>
             <p>
               Para acceder a este contenido
@@ -148,7 +163,7 @@ export const PremiumInt = ({ properties }) => {
         <div
           className="signwall-inside_body-right premium"
           style={{
-            backgroundColor: arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4',
+            backgroundColor: backgroundOfSite(arcSite)
           }}>
           {renderTemplate(selectedTemplate, valTemplate, {
             removeBefore,
