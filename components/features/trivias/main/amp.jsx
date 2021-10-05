@@ -112,7 +112,7 @@ const TriviasMainAmp = ({
               __html: `{
                   "ad-attributes": {
                     "type": "doubleclick",
-                    "data-slot": "${dataSlot}",
+                    "data-slot": "${dataSlot}"
                     }
                   }`,
             }}

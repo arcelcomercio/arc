@@ -88,6 +88,7 @@ const StoryContentsLite = (props) => {
   const {
     customFields: {
       shareAlign = 'right',
+      shareLinks = false,
       copyLink = false,
       liteAdsEvery = 2,
     } = {},
@@ -696,8 +697,9 @@ const StoryContentsLite = (props) => {
             <ShareButtons
               activeCopyLink={copyLink}
               activeLinkedin={
-                arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+                arcSite === 'elcomercio' || arcSite === 'elcomerciomag' || arcSite === 'trome'
               }
+              hideShareLinks={shareLinks}
             />
           </div>
         </div>

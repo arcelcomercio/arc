@@ -22,10 +22,17 @@ const customFields = PropTypes.shape({
     defaultValue: 'right',
     group: 'Opciones Lite',
   }),
+  shareLinks: PropTypes.bool.tag({
+    name: 'Activar botón para ocultar links de redes sociales',
+    description:
+      'Si se activa, al final del cuerpo de la nota se ocultará los links de Redes Sociales',
+    defaultValue: false,
+    group: 'Opciones Lite',
+  }),
   copyLink: PropTypes.bool.tag({
     name: 'Activar botón para Copiar enlace de nota',
     description:
-      'Si se activa, al final del cuerpo de la nota aparecerá el butón para Copiar enlace',
+      'Si se activa, al final del cuerpo de la nota aparecerá el botón para Copiar enlace',
     defaultValue: false,
     group: 'Opciones Lite',
   }),
