@@ -108,23 +108,15 @@ const TriviasMainAmp = ({
 
         <amp-story-auto-ads>
           <script
-              type="application/json"
-              dangerouslySetInnerHTML={{
-                __html: `{
+            type="application/json"
+            dangerouslySetInnerHTML={{
+              __html: `{
                   "ad-attributes": {
                     "type": "doubleclick",
-                    "data-slot": "${dataSlot}",
-                      "rtc-config": {
-                        "vendors": {
-                          "prebidrubicon": {
-                            "REQUEST_ID": "${prebidSlot}", 
-                            "ACCOUNT_ID": "19186"
-                          }
-                        }
-                      }
+                    "data-slot": "${dataSlot}"
                     }
                   }`,
-              }}
+            }}
           />
         </amp-story-auto-ads>
 
