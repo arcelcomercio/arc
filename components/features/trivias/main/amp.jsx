@@ -1,15 +1,13 @@
-import * as React from 'react'
-import { useFusionContext, useAppContext } from 'fusion:context'
+import { useAppContext,useFusionContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
+import * as React from 'react'
 
+import AmpTagManager from '../../../output-types/_children/amp-tag-manager'
+import Header from '../../header/simple/_children/amp/header'
 import customFields from './_dependencies/custom-fields'
-import TriviaStart from './amp/_children/start'
 import TriviaQuestion from './amp/_children/question'
 import TriviaResult from './amp/_children/result'
-
-import Header from '../../header/simple/_children/amp/header'
-import AmpTagManager from '../../../output-types/_children/amp-tag-manager'
-import { SITE_PERU21 } from '../../../utilities/constants/sitenames'
+import TriviaStart from './amp/_children/start'
 
 /**
  * @param {object} props
@@ -29,9 +27,8 @@ const TriviasMainAmp = ({
 }) => {
   const { globalContent, siteProperties } = useFusionContext()
   const { requestUri, arcSite } = useAppContext()
-  const { siteUrl, social: { twitter: { user } = {} } = {} } = getProperties(
-    arcSite
-  )
+  const { siteUrl, social: { twitter: { user } = {} } = {} } =
+    getProperties(arcSite)
 
   const {
     content_elements: contentElements = '',
@@ -45,9 +42,10 @@ const TriviasMainAmp = ({
   const triviaImage = triviaImageMovil || triviaImageDefault
   const questions = contentElements
     .filter(
-      element => element.subtype === 'trivia' && element.type === 'custom_embed'
+      (element) =>
+        element.subtype === 'trivia' && element.type === 'custom_embed'
     )
-    .map(trivia => {
+    .map((trivia) => {
       const {
         embed: {
           config: {
@@ -85,7 +83,6 @@ const TriviasMainAmp = ({
 
   const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
   const dataSlot = `/28253241/${namePublicidad}/amp/post/default/zocalo`
-  const prebidSlot = `19186-${namePublicidad}-amp-zocalo`
 
   return (
     <>
@@ -96,7 +93,8 @@ const TriviasMainAmp = ({
         publisher-logo-src={triviaImage}
         poster-portrait-src={triviaImage}
         poster-square-src={triviaImage}
-        poster-landscape-src={triviaImage}>
+        poster-landscape-src={triviaImage}
+      >
         <AmpTagManager
           requestUri={requestUri}
           arcSite={arcSite}
@@ -128,15 +126,16 @@ const TriviasMainAmp = ({
             twitter={user}
             width={90}
             height={35}
-            customLogo=""></Header>
+            customLogo=""
+           />
         </TriviaStart>
         {questions &&
-          questions.map(el => {
-            return (
+          questions.map((el) => (
               <TriviaQuestion
                 title={title}
                 question={el}
-                triviaImage={triviaImage}>
+                triviaImage={triviaImage}
+              >
                 {' '}
                 <Header
                   requestUri={requestUri}
@@ -145,10 +144,10 @@ const TriviasMainAmp = ({
                   width={90}
                   height={35}
                   twitter={user}
-                  customLogo=""></Header>
+                  customLogo=""
+                 />
               </TriviaQuestion>
-            )
-          })}
+            ))}
         <TriviaResult
           title={title}
           requestUri={requestUri}
@@ -156,7 +155,8 @@ const TriviasMainAmp = ({
           messagePoor={messagePoor}
           messageGood={messageGood}
           messagePerfect={messagePerfect}
-          triviaImage={triviaImage}>
+          triviaImage={triviaImage}
+        >
           <Header
             requestUri={requestUri}
             siteUrl={siteUrl}
@@ -164,14 +164,16 @@ const TriviasMainAmp = ({
             width={90}
             height={35}
             twitter={user}
-            customLogo=""></Header>
+            customLogo=""
+           />
         </TriviaResult>
         <amp-story-bookend layout="nodisplay">
           <script
             type="application/json"
             dangerouslySetInnerHTML={{
               __html: bookend,
-            }}></script>
+            }}
+           />
         </amp-story-bookend>
       </amp-story>
     </>
