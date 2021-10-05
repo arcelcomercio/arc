@@ -24,7 +24,7 @@ const AgendaCalendario = () => {
     return new Date(...newDate)
   }
   // eslint-disable-next-line no-octal
-  console.log('PRUEBA3', getCalendarDate(new Date(2021, 10, 4)))
+  console.log('PRUEBA40', getCalendarDate(new Date(2021, 10, 4)))
 
   const renderNewURL = (date) => {
     const mydate = new Date(date)
@@ -38,7 +38,7 @@ const AgendaCalendario = () => {
     return `/agenda-presidencial/${newDateFormat}/`
   }
 
-  console.log('PRUEBA4', renderNewURL(new Date(2021, 10, 4)))
+  console.log('PRUEBA 50', renderNewURL(new Date(2021, 10, 4)))
 
   const day = () => {
     const d = new Date()

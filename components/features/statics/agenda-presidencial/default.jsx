@@ -1,3 +1,5 @@
+// import 'react-calendar/dist/entry.nostyle'
+
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
@@ -20,6 +22,7 @@ const StaticsAgendaPresidencial = (props) => {
   const isNotaWeb = /\/agenda-presidencial\/(202[1-6])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\//.test(
     requestUri
   )
+  console.log('10 requestUri', requestUri)
 
   const dateUrl = requestUri
     .split('?')[0]
@@ -27,7 +30,7 @@ const StaticsAgendaPresidencial = (props) => {
     .filter((item) => item)
     .pop()
 
-  console.log('PRUEBA', dateUrl)
+  console.log('20 dateUrl', dateUrl)
 
   let dataNota = ''
   let fecha10Mas = ''
@@ -35,28 +38,38 @@ const StaticsAgendaPresidencial = (props) => {
   let dataLast10 = ''
   let dataMore10 = ''
 
-  const dateStart = new Date(2021, 6, 28)
-  console.log('PRUEBA2', dateStart)
+  // convertimos la dateUrl a una fecha estandar
+  const setCalendarDate = (dateUrl2) => {
+    const myArr = dateUrl2
+      .split('?')[0]
+      .split('/')
+      .filter((item) => item)
+      .pop()
+      .split('-')
+    const y = myArr[0]
+    const m = myArr[1]
+    const d = myArr[2]
+    const year = Number(y)
+    const month = Number(m - 1)
+    const day = Number(d)
+    const newDate = [year, month, day]
+    return new Date(...newDate)
+  }
+  console.log('30 setCalendarDate(dateUrl)', setCalendarDate(dateUrl))
 
-  // area de prueba-----------
-
-  // 1.Validar si el formato ingresado de la fecha dateurl (2021-09-16) es valido
-  // 2.Validar si la fecha es real
-  // 3. evaluar si cambiarle formato a dateurl a uno estandar
-  // 4. convertir dateUrl a un formato para comparar
+  // validamos dateUrl dentro de periodo de mandato presidencial
   const funcion = (fecha) => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const dateStart = new Date(2021, 6, 28)
     const dateEnd = new Date(2026, 6, 27)
     if (fecha >= dateStart && fecha <= dateEnd) return true
     return false
   }
-  const valorF = funcion(new Date(2027, 10, 1))
-  console.log('PRUEBALOOOOOOOOOOOOOOOOOOO', valorF)
+  const valorF = funcion(setCalendarDate(dateUrl))
+  console.log('40 valorF = funcion(setCalendarDate(dateUrl))', valorF)
 
   // hasta acaaaaaaa
 
-  if (dateUrl !== 'agenda-presidencial') {
+  if (dateUrl !== 'agenda-presidencial' && valorF) {
     dataNota =
       useContent({
         source: 'story-by-url-and-related-filter',
@@ -141,7 +154,7 @@ const StaticsAgendaPresidencial = (props) => {
   return (
     <>
       <NavBar isNota={isNotaWeb} day={dateUrl} />
-      {isNotaWeb === true && JSON.stringify(dataNota) !== '{}' ? (
+      {isNotaWeb === true && valorF && JSON.stringify(dataNota) !== '{}' ? (
         <AgendaNota dataNota={dataNota} titleUpDown={titleUpDown} />
       ) : (
         <AgendaCalendario />
