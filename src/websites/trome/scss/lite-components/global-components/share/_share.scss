@@ -23,7 +23,7 @@
       margin-left: 1px;
 
       path {
-        fill: #333;
+        fill: #000;
       }
 
       path:last-of-type {
@@ -48,7 +48,8 @@
       display: none;
       font-family: $primary-font;
       font-weight: bold;
-      font-size: 0.8rem;
+      font-size: 12px;
+      color: #3a3a3a;
       @media (--desktop) {
         display: block;
         padding-right: 3px;
