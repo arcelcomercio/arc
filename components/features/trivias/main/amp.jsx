@@ -84,7 +84,6 @@ const TriviasMainAmp = ({
 
   const namePublicidad = arcSite !== 'peru21g21' ? arcSite : 'peru21'
   const dataSlot = `/28253241/${namePublicidad}/amp/post/default/zocalo`
-  const prebidSlot = `19186-${namePublicidad}-amp-zocalo`
 
   return (
     <>
