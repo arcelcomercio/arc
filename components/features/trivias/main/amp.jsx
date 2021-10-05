@@ -9,7 +9,6 @@ import TriviaResult from './amp/_children/result'
 
 import Header from '../../header/simple/_children/amp/header'
 import AmpTagManager from '../../../output-types/_children/amp-tag-manager'
-import { SITE_PERU21 } from '../../../utilities/constants/sitenames'
 
 /**
  * @param {object} props
@@ -113,15 +112,7 @@ const TriviasMainAmp = ({
                 __html: `{
                   "ad-attributes": {
                     "type": "doubleclick",
-                    "data-slot": "${dataSlot}",
-                      "rtc-config": {
-                        "vendors": {
-                          "prebidrubicon": {
-                            "REQUEST_ID": "${prebidSlot}", 
-                            "ACCOUNT_ID": "19186"
-                          }
-                        }
-                      }
+                    "data-slot": "${dataSlot}"
                     }
                   }`,
               }}
