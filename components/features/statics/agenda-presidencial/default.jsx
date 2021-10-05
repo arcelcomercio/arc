@@ -1,5 +1,3 @@
-// import 'react-calendar/dist/entry.nostyle'
-
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import PropTypes from 'prop-types'
@@ -16,13 +14,12 @@ import AgendaNota from './_children/nota'
 
 const StaticsAgendaPresidencial = (props) => {
   const { customFields: { titleUpDown } = {} } = props
+
   const { requestUri } = useAppContext()
 
-  // antigua ER: /\/agenda-presidencial\/(\d{4})-(\d{1,2})-(\d{1,2})\//
   const isNotaWeb = /\/agenda-presidencial\/(202[1-6])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\//.test(
     requestUri
   )
-  console.log('10 requestUri', requestUri)
 
   const dateUrl = requestUri
     .split('?')[0]
@@ -30,46 +27,13 @@ const StaticsAgendaPresidencial = (props) => {
     .filter((item) => item)
     .pop()
 
-  console.log('20 dateUrl', dateUrl)
-
   let dataNota = ''
   let fecha10Mas = ''
   let fecha10Men = ''
   let dataLast10 = ''
   let dataMore10 = ''
 
-  // convertimos la dateUrl a una fecha estandar
-  const setCalendarDate = (dateUrl2) => {
-    const myArr = dateUrl2
-      .split('?')[0]
-      .split('/')
-      .filter((item) => item)
-      .pop()
-      .split('-')
-    const y = myArr[0]
-    const m = myArr[1]
-    const d = myArr[2]
-    const year = Number(y)
-    const month = Number(m - 1)
-    const day = Number(d)
-    const newDate = [year, month, day]
-    return new Date(...newDate)
-  }
-  console.log('30 setCalendarDate(dateUrl)', setCalendarDate(dateUrl))
-
-  // validamos dateUrl dentro de periodo de mandato presidencial
-  const funcion = (fecha) => {
-    const dateStart = new Date(2021, 6, 28)
-    const dateEnd = new Date(2026, 6, 27)
-    if (fecha >= dateStart && fecha <= dateEnd) return true
-    return false
-  }
-  const valorF = funcion(setCalendarDate(dateUrl))
-  console.log('40 valorF = funcion(setCalendarDate(dateUrl))', valorF)
-
-  // hasta acaaaaaaa
-
-  if (dateUrl !== 'agenda-presidencial' && valorF) {
+  if (dateUrl !== 'agenda-presidencial') {
     dataNota =
       useContent({
         source: 'story-by-url-and-related-filter',
@@ -134,7 +98,7 @@ const StaticsAgendaPresidencial = (props) => {
     // NextUrl = ''
 
     // if(element[i].websites.elcomercio.website_url === `/agenda-presidencial/${dateUrl}/`){
-    //   console.log("ENCONTRADO",element);
+
     // }
     Object.keys(dataMore10.content_elements).forEach((key) => {
       if (
@@ -142,9 +106,8 @@ const StaticsAgendaPresidencial = (props) => {
         `/agenda-presidencial/${dateUrl}/`
       ) {
         dataMore10.content_elements.splice(key)
-        // console.log('SSSSSSSS', dataMore10.content_elements[key])
       }
-      // console.log('SLICENOTEEEE=====', dataMore10.content_elements.slice(-1)[0])
+
       // eslint-disable-next-line prefer-destructuring
       NextUrl = dataMore10.content_elements.slice(-1)[0].websites.elcomercio
         .website_url
@@ -154,7 +117,7 @@ const StaticsAgendaPresidencial = (props) => {
   return (
     <>
       <NavBar isNota={isNotaWeb} day={dateUrl} />
-      {isNotaWeb === true && valorF && JSON.stringify(dataNota) !== '{}' ? (
+      {isNotaWeb === true && JSON.stringify(dataNota) !== '{}' ? (
         <AgendaNota dataNota={dataNota} titleUpDown={titleUpDown} />
       ) : (
         <AgendaCalendario />
@@ -171,6 +134,9 @@ StaticsAgendaPresidencial.propTypes = {
     titleUpDown: PropTypes.string.tag({
       name: 'Titulo de subida y bajada de precios',
       default: 'SUBIDA Y BAJADA DE PRECIOS',
+    }),
+    isLastDayClick: PropTypes.bool.tag({
+      name: '¿Es el ultimo dia clickable?',
     }),
   }),
 }
