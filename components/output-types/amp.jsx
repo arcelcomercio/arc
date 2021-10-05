@@ -472,21 +472,6 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-        {arcSite === SITE_PERU21 && (
-          <amp-iframe
-            width="1"
-            title="User Sync"
-            height="1"
-            sandbox="allow-scripts"
-            frameborder="0"
-            src="https://ads.rubiconproject.com/prebid/load-cookie.html?endpoint=rubicon&max_sync_count=5&args=account:19186">
-            <amp-img
-              layout="fill"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-              placeholder
-            />
-          </amp-iframe>
-        )}
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
