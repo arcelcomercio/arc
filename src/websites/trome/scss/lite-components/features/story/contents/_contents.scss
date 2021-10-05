@@ -96,6 +96,7 @@
     padding-bottom: 8px;
 
     & > .story-contents__author-link {
+      font-family: inherit;
       font-weight: 400;
     }
   }
@@ -510,7 +511,7 @@
       // border: none;
 
       svg {
-        fill: #333;
+        fill: #000;
       }
     }
 
@@ -524,17 +525,17 @@
     }
 
     .s-lk {
-      display: none;
+      background-color: #fff;
+
+      svg {
+        fill: #030303;
+      }
     }
 
     .share-btn--ws {
       background-color: #fff;
       // border: none;
       margin-right: 0;
-
-      svg {
-        fill: #333;
-      }
     }
   }
 

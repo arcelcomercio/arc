@@ -88,6 +88,7 @@ const StoryContentsLite = (props) => {
   const {
     customFields: {
       shareAlign = 'right',
+      shareLinks = false,
       copyLink = false,
       liteAdsEvery = 2,
     } = {},
@@ -199,19 +200,18 @@ const StoryContentsLite = (props) => {
           </>
         )}
         <div
-          className={`${classes.content} ${
-            isPremium && !isPreview
-              ? 'story-content__nota-premium paywall no_copy'
-              : ''
-          }`}
+          className={`${classes.content} ${isPremium && !isPreview
+            ? 'story-content__nota-premium paywall no_copy'
+            : ''
+            }`}
           style={
             isPremium && !isPreview
               ? {
-                  display: 'none',
-                  opacity: '0',
-                  userSelect: 'none',
-                  visibility: 'hidden',
-                }
+                display: 'none',
+                opacity: '0',
+                userSelect: 'none',
+                visibility: 'hidden',
+              }
               : {}
           }
           id="contenedor">
@@ -437,9 +437,9 @@ const StoryContentsLite = (props) => {
                             dangerouslySetInnerHTML={{
                               __html: item.content
                                 ? item.content.replace(
-                                    /<a/g,
-                                    '<a itemprop="url"'
-                                  )
+                                  /<a/g,
+                                  '<a itemprop="url"'
+                                )
                                 : '',
                             }}
                           />
@@ -700,8 +700,9 @@ const StoryContentsLite = (props) => {
             <ShareButtons
               activeCopyLink={copyLink}
               activeLinkedin={
-                arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+                arcSite === 'elcomercio' || arcSite === 'elcomerciomag' || arcSite === 'trome'
               }
+              hideShareLinks={shareLinks}
             />
           </div>
         </div>
