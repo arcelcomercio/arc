@@ -12,7 +12,6 @@
     margin-right: auto;
     margin-top: 25px;
   }
-
   & div {
     & a.rounded-sm {
       text-decoration: none;
@@ -28,6 +27,21 @@
       font-weight: 501;
       color: black;
       line-height: 35px;
+    }
+    & #suscriber-user {
+      text-align: left !important;
+      margin-bottom: 10px;
+    }
+    & .welcome-register {
+      text-align: left !important;
+      font-size: 20px !important;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    & .welcome-info {
+      text-align: left !important;
+      font-size: 20px !important;
+      color: #000;
     }
   }
 }
