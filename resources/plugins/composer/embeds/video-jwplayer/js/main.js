@@ -80,8 +80,8 @@ const fetchData = (imageId,videoKey) => {
     .query({ query: JSON.stringify({"_id":imageId})})
     .set('Accept', 'application/json')
     .then(res => {
-      content = res.body
-      render(content,videoKey)
+      content[videoKey] = res.body
+      render(content[videoKey],videoKey)
     });
 }
 
@@ -129,8 +129,8 @@ const buildDataAns = (data, brand) => {
     const {key, title, description='', size, duration, status, updated,link='', date, tags = '', custom:{ thumbnail_url = '' } = {}} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
     let image =''
-    if(content?.url){
-      image = content?.url // ?width=720`
+    if(content[key]?.url){
+      image = content[key]?.url // ?width=720`
     }else{
       image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`  
     }
