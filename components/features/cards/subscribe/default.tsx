@@ -4,14 +4,18 @@ import * as React from 'react'
 import { FC } from 'types/features'
 
 import { getAssetsPath } from '../../../utilities/assets'
+import CardSubscribeAnonymus from './_children/anonymus'
+import CardSubscribeRegister from './_children/register'
 import { handleUserStatus } from './_dependencies/scripts'
+
 // import background from '../../../../resources/assets/newsletter/diario-correo-background.png'
 
 const classes = {
-  container: 'items-center tabloid row-1 flex flex-col',
-  logo: '',
+  container: 'items-center tabloid row-1 flex flex-col position-relative icono',
+  logo: 'logo',
   text: 'bold',
   button: 'rounded-sm pt-15 pb-15 bold',
+  imagen: 'lazy position-absolute top-0 right-0 bottom-0 left-0 w-full h-full',
 }
 
 /**
@@ -38,39 +42,28 @@ const CardSubscribe: FC = () => {
 
   return (
     <div
-      className="items-center tabloid row-1 flex flex-col icono"
+      className={classes.container}
       style={{
         border: `3.5px solid ${mainColorLink}`,
-        backgroundImage:
-          'url("https://cdn.shopify.com/s/files/1/0449/4229/5199/files/diario-correo-background.png")',
       }}>
+      <img
+        className="lazy position-absolute top-0 right-0 bottom-0 left-0 w-full h-full"
+        src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/diario-correo-background.png"
+        alt="fondo boletin"
+        style={{
+          zIndex: -1,
+        }}
+      />
       <img
         src={`${getAssetsPath(
           arcSite,
           contextPath
         )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
         alt={`Logo ${siteName}`}
-       
-        className="logo"
+        className={classes.logo}
       />
-      <div
-        className="mt-25 ml-20 mr-20"
-        style={{
-          textAlign: 'center',
-        }}>
-        <p
-          className={classes.text}>
-          ¿Aún no tienes una cuenta?
-        </p>
-        <a
-          href="/signwall/?outputType=subscriptions&signwallOrganic=1"
-          className={classes.button}
-          style={{
-            background: mainColorLink,
-          }}>
-          Regístrate ¡Gratis!
-        </a>
-      </div>
+      <CardSubscribeAnonymus />
+      <CardSubscribeRegister />
 
       <script dangerouslySetInnerHTML={{ __html: handleUserStatus() }} />
     </div>
