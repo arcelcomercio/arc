@@ -16,6 +16,7 @@ const SaltarIntroListado = (props) => {
     customFields: {
       seeMoreLink,
       infoInterviewed,
+      isTrailer,
       storiesConfig: { contentService = '', contentConfigValues = {} } = {},
     },
   } = props
@@ -62,7 +63,7 @@ const SaltarIntroListado = (props) => {
   return (
     <List
       data={getDataComponent()}
-      {...{ isAdmin, seeMoreLink, infoInterviewed }}
+      {...{ isAdmin, seeMoreLink, infoInterviewed, isTrailer }}
     />
   )
 }
