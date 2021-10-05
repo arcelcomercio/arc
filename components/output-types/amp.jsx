@@ -244,8 +244,8 @@ const AmpOutputType = ({
 
   const hasPowaVideo =
     content.includes('id="powa-') ||
-    videoSeo[0] ||
-    rawHtmlContent.includes('.mp4')
+      videoSeo[0] ||
+      rawHtmlContent.includes('.mp4')
       ? 1
       : false
 
@@ -286,9 +286,8 @@ const AmpOutputType = ({
         {/* add additional head elements here */}
 
         <Resource
-          path={`resources/dist/${arcSite}/css/${
-            isTrivia ? 'amp-trivias' : 'amp'
-          }.css`}>
+          path={`resources/dist/${arcSite}/css/${isTrivia ? 'amp-trivias' : 'amp'
+            }.css`}>
           {({ data }) =>
             data ? (
               <style
@@ -472,21 +471,6 @@ const AmpOutputType = ({
         )}
       </head>
       <body className={subtype}>
-        {arcSite === SITE_PERU21 && (
-          <amp-iframe
-            width="1"
-            title="User Sync"
-            height="1"
-            sandbox="allow-scripts"
-            frameborder="0"
-            src="https://ads.rubiconproject.com/prebid/load-cookie.html?endpoint=rubicon&max_sync_count=5&args=account:19186">
-            <amp-img
-              layout="fill"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-              placeholder
-            />
-          </amp-iframe>
-        )}
         {!isTrivia && (
           <>
             <AmpTagManager {...parametros} />
