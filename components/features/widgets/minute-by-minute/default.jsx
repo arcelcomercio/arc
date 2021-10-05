@@ -248,7 +248,7 @@ class MinuteByMinute extends React.PureComponent {
                 target="_blank"
                 rel="noreferrer">
                 <picture>
-                  <img src={bannerImage} alt="" width="300" height="100" />
+                  <img src={bannerImage} alt="" width="300" height="70" />
                 </picture>
               </a>
             </div>
