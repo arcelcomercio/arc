@@ -1,8 +1,12 @@
 import * as React from 'react'
 
+import importRetry from '../../../utilities/core/import-retry'
+
 const SignwallLanding = React.lazy(() =>
-  import(
-    /* webpackChunkName: 'signwall-landing' */ '../../signwall/_children/landing/index'
+  importRetry(() =>
+    import(
+      /* webpackChunkName: 'signwall-landing' */ '../../signwall/_children/landing/index'
+    )
   )
 )
 

@@ -121,11 +121,22 @@ class Prof extends Component {
     const { phone } = primaryPhone || {}
     const { prof } = this.props
 
+    const activarLink = () => {
+      const btnProfile = document.getElementById('btn-profile')
+      btnProfile.click()
+    }
+
     return (
       <div className="sign-profile_resume">
         <div className="left">
           <h3>Mis Datos</h3>
-          <button className="link" type="button" onClick={() => prof()}>
+          <button
+            className="link"
+            type="button"
+            onClick={() => {
+              prof()
+              activarLink()
+            }}>
             EDITAR DATOS
           </button>
         </div>

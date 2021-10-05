@@ -1,0 +1,40 @@
+.st-tags {
+  margin: 25px 0;
+  padding: 0 20px;
+  position: relative;
+
+  &__title {
+    display: inline-block;
+    font: 400 11px/1 $primary-font;
+    padding-bottom: 10px;
+    position: absolute;
+    top: 15px;
+  }
+
+  &__tag {
+    display: inline-block;
+    &:first-child {
+      @media (--tablet) {
+        margin-left: 206px;
+      }
+    }
+  }
+
+  &__box {
+    flex: 1;
+    margin-top: 30px;
+    @media (--tablet) {
+      margin-top: 0;
+    }
+  }
+
+  &__link {
+    display: block;
+    font-size: 0.9rem;
+    letter-spacing: 0.28px;
+    padding: 8px 10px;
+    & span {
+      display: none;
+    }
+  }
+}

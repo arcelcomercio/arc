@@ -94,9 +94,7 @@ const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
               <h4
                 style={{ fontSize: '20px', fontFamily: primaryFont }}
                 className="signwall-inside_forms-title center mb-10">
-                {showConfirm
-                  ? '¡Bienvenido(a) Usuario!'
-                  : '¡Bienvenido(a) Nuevamente!'}
+                Bienvenido
               </h4>
 
               {showError && (
