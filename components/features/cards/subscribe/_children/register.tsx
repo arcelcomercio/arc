@@ -68,7 +68,5 @@ const CardSubscribeResgister: FC = () => {
   )
 }
 
-// CardSubscribeResgister.label = 'Triplete'
-// CardSubscribeResgister.static = true
 
 export default CardSubscribeResgister
