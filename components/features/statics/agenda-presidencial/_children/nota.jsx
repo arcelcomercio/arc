@@ -19,7 +19,7 @@ const AgendaNota = (props) => {
 
   const objetoHTML = (value) => {
     if (value.search(/[+]/) !== -1) {
-      return `${value} <svg
+      return `${value}&nbsp;&nbsp;<svg
     xmlns="http://www.w3.org/2000/svg"
     width={15.484}
     height={20.817}
@@ -39,7 +39,7 @@ const AgendaNota = (props) => {
   </svg>`
     }
     if (value.search(/[(-]/) !== -1) {
-      return `${value} <svg
+      return `${value}&nbsp;&nbsp;<svg
     xmlns="http://www.w3.org/2000/svg"
     width={15.484}
     height={20.817}
