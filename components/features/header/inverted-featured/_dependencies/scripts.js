@@ -23,15 +23,18 @@ export const toggleMenu = `window.addEventListener("load",function(){requestIdle
   c=document.body.querySelector(".header-inverted-featured"),
   b=c.querySelector(".header-inverted-featured__btn-menu"),
   s=c.querySelector(".header-inverted-featured__icon-menu"),
+  i=c.querySelector(".svg-inline-close")
   n=document.body.querySelector(".nav-sidebar")
     ;[e,a].forEach(function(e){e.addEventListener("click",function(){
-      s.className.indexOf("icon-hamburguer")>0
+      s.className.baseVal.indexOf("icon-hamburguer")>0
       ?(n.className=n.className.replace(" hidden", ""),
-      s.className=s.className.replace("icon-hamburguer","icon-close active"),
+      s.className.baseVal=s.className.baseVal.replace("icon-hamburguer","icon-close hidden"),
+      i.className.baseVal=i.className.baseVal.replace(" hidden",""),
       b.className=b.className.concat(" header-inverted-featured__btn-menu-close")
       )
       :(n.className=n.className.concat(" hidden"),
-      s.className=s.className.replace("icon-close active","icon-hamburguer"),
+      s.className.baseVal=s.className.baseVal.replace("icon-close hidden","icon-hamburguer"),
+      i.className.baseVal=i.className.baseVal.concat(" hidden"),
       b.className=b.className.replace(" header-inverted-featured__btn-menu-close", "")
       )
     })})
@@ -74,18 +77,18 @@ export const btnSearch = `window.addEventListener("load",function(){requestIdle(
   b=document.body.querySelector(".header-inverted-featured__btn-search"),
   s=document.body.querySelector(".header-inverted-featured__search")
     ;e.addEventListener("click",function(){
-      if(b.className.indexOf("active")>0){
+      if(b.className.baseVal.indexOf("active")>0){
         var t=a.value;
         var n=encodeURIComponent(t).replace(/%20/g,"+");
         (t.length > 0)
         ?(
           window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n)
         )
-        :(b.className=b.className.replace(" active", ""),
+        :(b.className.baseVal=b.className.baseVal.replace(" active", ""),
           s.className=s.className.replace(" active", "")
         )
       } else {
-        b.className=b.className.concat(" active");
+        b.className.baseVal=b.className.baseVal.concat(" active");
         s.className=s.className.concat(" active")
       }
     })
