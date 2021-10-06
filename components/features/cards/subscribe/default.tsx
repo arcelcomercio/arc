@@ -11,8 +11,9 @@ import { handleUserStatus } from './_dependencies/scripts'
 // import background from '../../../../resources/assets/newsletter/diario-correo-background.png'
 
 const classes = {
-  container: 'items-center tabloid row-1 flex flex-col position-relative icono',
-  logo: 'logo',
+  container: ' flex justify-center w-full row-1 col-1 position-relative',
+  minicontainer: 'flex flex-col items-center position-absolute w-full h-full',
+  logo: 'subscribe__logo',
   text: 'bold',
   button: 'rounded-sm pt-15 pb-15 bold',
   imagen: 'lazy position-absolute top-0 right-0 bottom-0 left-0 w-full h-full',
@@ -44,18 +45,14 @@ const CardSubscribe: FC = () => {
     <div
       className={classes.container}
       style={{
-        border: `3.5px solid ${mainColorLink}`,
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        border: `3.5px solid ${mainColorLink}`
       }}>
       <img
         className={classes.imagen}
         src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/diario-correo-background.png?d=1"
         alt="fondo boletin"
-        style={{
-          zIndex: -1,
-        }}
       />
+      <div className={classes.minicontainer}>
       <img
         src={`${getAssetsPath(
           arcSite,
@@ -66,12 +63,14 @@ const CardSubscribe: FC = () => {
       />
       <CardSubscribeAnonymus />
       <CardSubscribeRegister />
+      </div>
+    
       <script dangerouslySetInnerHTML={{ __html: handleUserStatus() }} />
     </div>
   )
 }
 
-CardSubscribe.label = 'Triplete'
+CardSubscribe.label = 'caja de suscripcion'
 CardSubscribe.static = true
 
 export default CardSubscribe
