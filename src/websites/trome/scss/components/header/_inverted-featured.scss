@@ -44,8 +44,7 @@ $min-with-header: 961px;
     display: flex;
     margin-top: 15px;
     margin-bottom: 13px;
-    justify-content: center;
-    width: 100%;
+    width: $min-with-header;
 
     @media (--only-mobile) {
       justify-content: left;
@@ -73,7 +72,7 @@ $min-with-header: 961px;
     }
     &__Tags {
       font-size: 14px;
-      font-family: $hi-font-secondary;
+      font-family: $hi-font-primary;
       align-items: center;
       justify-content: center;
       margin-left: 20px;
@@ -83,10 +82,6 @@ $min-with-header: 961px;
       text-transform: uppercase;
     }
   }
-
-  // &.wrapper {
-  //   max-width: 1366px;
-  // }
 
   &__wrapper {
     width: 100%;

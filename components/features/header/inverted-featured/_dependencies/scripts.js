@@ -4,13 +4,21 @@ window.addEventListener('load', () => {requestIdle(() => {
   const $btnCloseMenu = document.getElementById('btn-close-menu')
   const $header = document.body.querySelector('.header-inverted-featured')
   const $buttonMenu = $header.querySelector('.header-inverted-featured__btn-menu')
-  const $navSidebar = document.body.querySelector(".nav-sidebar")
+  const $iconMenu = $header.querySelector('.header-inverted-featured__icon-menu')
+  const $svgInline = $header.querySelector(".svg-inline-close")
+  const $navSidebar=document.body.querySelector(".nav-sidebar")
   ;[$btnMenu,$btnCloseMenu].forEach( menuButton => {
     menuButton.addEventListener('click', () => {
-      if($menuIcon.className.indexOf('icon-hamburguer') > 0) {
-        $menuBtnBox.className = $menuBtnBox.className.concat(' bg-white')
+      if(iconMenu.className.indexOf('icon-hamburguer') > 0) {
+        navSidebar.className=navSidebar.className.replace(" hidden", ""),
+        iconMenu.className=iconMenu.className.replace("icon-hamburguer","icon-close hidden"),
+        svgInline.className=svgInline.className.replace(" hidden",""),
+        buttonMenu.className=buttonMenu.className.concat(" header-inverted-featured__btn-menu-close")
       }else{
-
+        navSidebar.className=navSidebar.className.concat(" hidden"),
+        iconMenu.className=iconMenu.className.replace("icon-close hidden","icon-hamburguer"),
+        svgInline.className=svgInline.className.concat(" hidden"),
+        buttonMenu.className=buttonMenu.className.replace(" header-inverted-featured__btn-menu-close", "")
       }
     })
   })
@@ -41,8 +49,6 @@ export const toggleMenu = `window.addEventListener("load",function(){requestIdle
   })});`
 
 /* 
-  header-search-icon
-
   window.addEventListener('load', () => {requestIdle(() => {
   const $searchForm = document.getElementById('header-search-form')
   $searchForm.addEventListener('submit', e => {
