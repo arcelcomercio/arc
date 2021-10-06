@@ -222,7 +222,11 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
     const dataContType = window.document.head.querySelector(
       'meta[name="content-type"]'
     )
-    if (getCookie('arc_e_id') && dataContType && activePaywall) {
+    if (
+      getCookie('arc_e_id') &&
+      dataContType &&
+      (activePaywall || activeRegisterwall)
+    ) {
       redirectURL('reloginHash', '1')
     }
 
@@ -280,7 +284,10 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   }, [])
 
   React.useEffect(() => {
-    if ((activePaywall || activeRulesCounter) && status === SdkStatus.Ready) {
+    if (
+      (activePaywall || activeRulesCounter || activeRegisterwall) &&
+      status === SdkStatus.Ready
+    ) {
       window.requestIdle(() => getPaywall())
     }
   }, [status])
@@ -303,7 +310,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
         </span>
       </button>
 
-      {!countOnly && activePaywall ? (
+      {!countOnly && (activePaywall || activeRegisterwall) ? (
         <>
           {(getQuery('signPaywall') || activeWall === Walls.Paywall) && (
             <PaywallModal
