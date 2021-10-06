@@ -265,7 +265,6 @@ const HeaderChildInverted = ({
               tabIndex="0">
               {/* <i className={classes.iconMenu} /> */}
               <svg
-                xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
@@ -279,7 +278,6 @@ const HeaderChildInverted = ({
                 />
               </svg>
               <svg
-                xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
