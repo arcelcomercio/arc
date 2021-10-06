@@ -38,22 +38,37 @@ const CardSubscribeResgister: FC = () => {
       style={{
         display: 'none',
         textAlign: 'center',
+        minWidth: '200px',
+        maxWidth: '270px',
       }}>
-      <p id="suscriber-user" className={classes.text}>
-        {' '}
+      <p
+        id="suscriber-user"
+        className={classes.text}
+        style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+        ¡Hola!
       </p>
-      <p style={{ color: mainColorLink }} className="welcome-register">
-        {' '}
+      <p
+        style={{
+          color: mainColorLink,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+        className="welcome-register">
         Bienvenido a nuestra comunidad digital
       </p>
-      <p className="welcome-info">
-        Ahora podras seguir artículos y noticias de interés
+      <p
+        className="welcome-info"
+        style={{
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}>
+        Ahora podrás seguir artículos y noticias de interés
       </p>
     </div>
   )
 }
 
-CardSubscribeResgister.label = 'Triplete'
-CardSubscribeResgister.static = true
+// CardSubscribeResgister.label = 'Triplete'
+// CardSubscribeResgister.static = true
 
 export default CardSubscribeResgister

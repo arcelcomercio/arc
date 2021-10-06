@@ -38,6 +38,8 @@ const CardSubscribeAnonymus: FC = () => {
       style={{
         display: 'none',
         textAlign: 'center',
+        minWidth: '200px',
+        maxWidth: '270px',
       }}>
       <p className={classes.text}>¿Aún no tienes una cuenta?</p>
       <a
