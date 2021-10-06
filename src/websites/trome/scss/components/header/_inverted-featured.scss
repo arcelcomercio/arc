@@ -141,12 +141,16 @@ $min-with-header: 961px;
     font-size: 14px;
     background-color: #fff;
     color: #ff8303;
-    padding: 9px 23px;
+    padding: 10px 23px;
+    padding-top: 11px;
     border-radius: 50px;
     font-weight: bold;
     text-decoration: none;
     font-family: $hi-font-primary;
     margin-right: 26px;
+    letter-spacing: 0px;
+    width: 120px;
+    height: 35px;
     @media (min-width: $min-with-header) {
       &::after {
         content: "|";
@@ -157,8 +161,10 @@ $min-with-header: 961px;
       }
     }
     @media (--only-mobile) {
-      font-size: 14px;
-      padding: 6px 15px;
+      font-size: 16px;
+      padding: 8px 13px;
+      padding-bottom: 7px;
+      width: 110px;
       margin-right: 0;
     }
   }
@@ -179,8 +185,10 @@ $min-with-header: 961px;
       right: 10px;
     }
     @media (--only-mobile) {
+      z-index: 99;
       top: 21px;
-      right: 23px;
+      right: 10px;
+      width: 110px;
     }
 
     img {
@@ -373,9 +381,12 @@ $min-with-header: 961px;
       padding-right: 8px;
       padding-left: 0;
       width: 70px;
+      span {
+        width: 31px;
+      }
     }
     @media (--only-mobile) {
-      padding-right: 9px;
+      padding-right: 6px;
       padding-left: 0;
       span {
         display: none;
@@ -394,13 +405,14 @@ $min-with-header: 961px;
     }
     @media (--only-mobile) {
       height: 55px;
-      width: 46px;
+      width: 43px;
       padding-right: 0px;
     }
 
     svg {
       padding: 0;
       height: 24px;
+      width: 17px;
       color: #000;
     }
     span {
