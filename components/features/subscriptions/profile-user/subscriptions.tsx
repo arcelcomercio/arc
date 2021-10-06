@@ -120,7 +120,7 @@ const WrapperProfile = () => {
         <Loading typeBg="full" />
       ) : (
         <>
-          <Header />l{' '}
+          <Header />
           <div className="sign-profile_general-panel-content">
             <div className="panel-left">
               <React.Suspense fallback={null}>
