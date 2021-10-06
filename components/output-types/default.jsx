@@ -599,7 +599,7 @@ export default ({
             {indPrebid && (
               <script
                 defer
-                src={`https://d34fzxxwb5p53o.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
+                src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
                   .toISOString()
                   .slice(0, 10)}`}
               />
@@ -691,7 +691,7 @@ export default ({
           </>
         ) : null}
 
-        {arcSite === SITE_GESTION && requestUri.includes('/economia/') ? (
+        {arcSite === SITE_GESTION ? (
           <>
             <script
               defer

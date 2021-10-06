@@ -23,14 +23,17 @@ const Subscriptions: OT<OutputProps> = ({
 }) => {
   const {
     siteName,
+    siteUrl,
+    siteTitle,
+    siteDescription,
     colorPrimary,
     googleTagManagerId,
     googleTagManagerIdSandbox,
     fbPixelId,
     paywall: {
       urls: { canonical, image } = {},
-      title: defaultTitle,
-      description: defaultDescription,
+      title: defaultTitle = siteTitle,
+      description: defaultDescription = siteDescription,
     } = {},
     social: { twitter: { user: twitterSite = '' } = {} } = {},
   } = siteProperties
@@ -46,6 +49,7 @@ const Subscriptions: OT<OutputProps> = ({
 
   const title = getMetaValue('title') || defaultTitle
   const description = getMetaValue('description') || defaultDescription
+  const canonicalUrl = canonical || siteUrl + requestUri
   // eslint-disable-next-line no-nested-ternary
   const stylesheet = isSignwallPage
     ? 'subs-signwall'
@@ -92,7 +96,7 @@ const Subscriptions: OT<OutputProps> = ({
             />
             <title>{title}</title>
             <meta name="description" content={description} />
-            <link rel="canonical" href={canonical} />
+            <link rel="canonical" href={canonicalUrl} />
             <meta name="theme-color" content={colorPrimary} />
             <meta name="msapplication-TileColor" content={colorPrimary} />
             <meta name="twitter:card" content="summary" />
@@ -103,7 +107,7 @@ const Subscriptions: OT<OutputProps> = ({
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
             <meta property="og:image" content={image} />
-            <meta property="og:url" content={canonical} />
+            <meta property="og:url" content={canonicalUrl} />
             <meta property="og:site_name" content={siteName} />
             <meta property="og:type" content="website" />
             <link

@@ -166,6 +166,21 @@
       }
     }
   }
+  &--trailer {
+    .saltar-intro-listado__date {
+      @media (--only-mobile) {
+        line-height: 0px;
+      }
+    }
+    .saltar-intro-listado__box-info {
+      width: 70px;
+      max-width: 70px;
+      @media (--only-mobile) {
+        margin-right: auto;
+        width: 100%;
+      }
+    }
+  }
   &__see-more {
     // font: normal normal 800 13px/17px Bitter;
     font-size: 13px;
