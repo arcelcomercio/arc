@@ -157,11 +157,80 @@
       border-radius: 5px;
       overflow: hidden;
       width: 180px;
-
-      &:hover {
-        background-color: #333;
-        color: #fff;
-      }
     }
+
+    .spinner {
+      content-visibility: auto;
+      contain-intrinsic-size: 100px;
+      padding: 0;
+    }
+
+    .spinner__svg {
+      -webkit-animation: b 1.4s linear infinite;
+      stroke: #333;
+      animation: b 1.4s linear infinite;
+      height: 19px;
+    }
+
+    .spinner__circle {
+      stroke-dasharray: 187;
+      stroke-dashoffset: 0;
+      -webkit-animation: c 1.4s ease-in-out infinite,
+        colors 5.6s ease-in-out infinite;
+      animation: c 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+      transform-origin: center;
+    }
+  }
+}
+
+@-webkit-keyframes b {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes b {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(270deg);
+  }
+}
+
+@-webkit-keyframes c {
+  0% {
+    stroke-dashoffset: 187;
+  }
+
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+
+  to {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
+  }
+}
+
+@keyframes c {
+  0% {
+    stroke-dashoffset: 187;
+  }
+
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+
+  to {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
   }
 }
