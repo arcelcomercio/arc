@@ -49,7 +49,9 @@ export default {
     frequentQuestions: '',
     dataTreatment: 'N3B4R5BZ5BH7TPPOF3JAYWY6UI',
   },
-
+  paywall: {
+    title: 'Ingresar | Depor',
+  },
   assets: {
     seo: {
       logoAmp: 'logo-amp.png',
