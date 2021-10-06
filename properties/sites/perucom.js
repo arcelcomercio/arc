@@ -58,8 +58,8 @@ export default {
       logoAmp: 'logo-amp.png',
       width: 214,
       height: 60,
-      widthAmp: 35,
-      heightAmp: 40,
+      widthAmp: 63,
+      heightAmp: 48,
     },
     path: `/resources/dist/diariocorreo/`,
     fullAssets(contextPath, deployment = (path) => path) {

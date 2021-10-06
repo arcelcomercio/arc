@@ -82,8 +82,7 @@
     .featured-story__icon {
       width: 30px;
       height: 30px;
-      font-size: 24px;
-      background-color: $color-secondary;
+      font-size: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -92,7 +91,6 @@
       bottom: 6px;
       top: inherit;
       transform: none;
-      border-radius: 0;
     }
     &.expand {
       @media (--only-mobile) {
@@ -185,8 +183,7 @@
     .featured-story__icon {
       width: 30px;
       height: 30px;
-      font-size: 24px;
-      background-color: $color-secondary;
+      font-size: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -195,7 +192,6 @@
       bottom: 6px;
       top: inherit;
       transform: none;
-      border-radius: 0;
     }
   }
 }
