@@ -141,7 +141,6 @@ const SignwallComponent = () => {
       )
       W.location.href = getUrlLandingAuth(arcSite)
     }
-
     if (typeContentTier === ContentTiers.Locked) {
       getPremium()
     } else if (W.ArcP) {
@@ -216,7 +215,11 @@ const SignwallComponent = () => {
     const dataContType = window.document.head.querySelector(
       'meta[name="content-type"]'
     )
-    if (getCookie('arc_e_id') && dataContType && activePaywall) {
+    if (
+      getCookie('arc_e_id') &&
+      dataContType &&
+      (activePaywall || activeRegisterwall)
+    ) {
       redirectURL('reloginHash', '1')
     }
     return null
@@ -249,12 +252,12 @@ const SignwallComponent = () => {
   }, [])
 
   React.useEffect(() => {
-    if (activePaywall && status === SdkStatus.Ready) {
+    if ((activePaywall || activeRegisterwall) && status === SdkStatus.Ready) {
       window.requestIdle(() => getPaywall())
     }
   }, [status])
 
-  return activePaywall ? (
+  return activePaywall || activeRegisterwall ? (
     <>
       {getQuery('signPaywall') ||
         (activeWall === Walls.Paywall && (

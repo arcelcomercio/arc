@@ -126,10 +126,6 @@ const SaltarIntroSeparatorPremiere: React.FC = (props) => {
                     data-src={premiereImage || multimediaLandscapeS}
                     alt={multimediaCaption || title}
                   />
-                  {/* <img
-                    alt="prueba"
-                    src="https://fakeimg.pl/159x235/ff0000/000/"
-                  /> */}
                 </picture>
                 <div className={classes.plataform}>
                   <span className={classes.plataformReversing}>
