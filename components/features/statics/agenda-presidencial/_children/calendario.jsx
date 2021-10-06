@@ -11,7 +11,8 @@ const classes = {
   content: 'react-calendar__content-calendar p-10',
 }
 
-const AgendaCalendario = () => {
+const AgendaCalendario = (props) => {
+  const { isLastDayClick = false } = props
   const {
     globalContentConfig: { query },
   } = useAppContext()
@@ -39,7 +40,7 @@ const AgendaCalendario = () => {
   const day = (val) => {
     const d = new Date()
     d.setHours(d.getHours() - 5)
-    if (val === 1) {
+    if (val) {
       return d.setDate(d.getDate())
     }
     return d.setDate(d.getDate() - 1)
@@ -64,7 +65,7 @@ const AgendaCalendario = () => {
             <React.Suspense fallback="Cargando...">
               <Calendar
                 activeStartDate={getCalendarDate(urlDate)}
-                maxDate={new Date(day(1))}
+                maxDate={new Date(day(isLastDayClick))}
                 minDate={new Date(2021, 6, 28)}
                 onChange={(newDate) => setNewDate(newDate)}
                 value={new Date()}
