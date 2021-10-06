@@ -3,6 +3,7 @@ const frequencies = {
   Month: 'Mensual',
   Year: 'Anual',
   semester: 'Semestral',
+  trimestre: 'Trimestral',
 }
 
 export { frequencies }
