@@ -17,7 +17,7 @@ const FormIntroFree = ({
   const { arcSite } = useAppContext() || {}
   const { changeTemplate } = useModalContext()
   const [showLoading, setShowLoading] = React.useState(true)
-  // const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
+  const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
 
   const { summary: { feature = [] } = {},/* plans = [] , */ printAttributes = [] } =
     useContent({
@@ -42,7 +42,7 @@ const FormIntroFree = ({
   React.useEffect(() => {
     setShowLoading(false)
     if (Identity.userProfile || Identity.userIdentity.uuid) {
-      // setShowPaywallBtn(true)
+      setShowPaywallBtn(true)
     }
   }, [])
 
@@ -64,6 +64,8 @@ const FormIntroFree = ({
   //   window.location.href = getUrlPaywall(arcSite)
   // }
 
+  console.log('Cargando Form Intro Free')
+
   return (
     <form className={`signwall-inside_forms-form ${typeDialog}`}>
       {showLoading ? (
@@ -71,14 +73,19 @@ const FormIntroFree = ({
       ) : (
         <>
           <div className="signwall-inside_forms-cont-paywall">
-            <div className="cont-price-detail">
+            <div className="cont-price-detail center">
               Además accede al
               <div
                 className='detail-price'>
                 <p>
-                  <strong>{newsletter.header}</strong>
+                  <strong>Boletín de noticias</strong>
                 </p>
               </div>
+            </div>
+            <div className="cont-price center">
+              <hr />
+              <h3 className="center">CORREO HOY</h3>
+              <hr />
             </div>
 
             {typeDialog !== 'premium' ? (
@@ -124,7 +131,7 @@ const FormIntroFree = ({
               changeTemplate('register')
               checkModal()
             }}>
-            CONTINUAR
+            INGRESAR
           </button>
 
 
@@ -161,7 +168,7 @@ const FormIntroFree = ({
         </>
       )
       }
-    </form >
+    </form>
   )
 }
 
