@@ -74,33 +74,42 @@ export const searchScript = `window.addEventListener("load",function(){
   });
   `
 /*
-
-*/
-
-export const btnSearch = `window.addEventListener("load",function(){requestIdle(function(){
-  var e=document.getElementById("header-search-button"),
-  a=document.getElementById("header-search-input"),
-  b=document.body.querySelector(".header-inverted-featured__btn-search"),
-  s=document.body.querySelector(".header-inverted-featured__search")
-    ;e.addEventListener("click",function(){
-      if(b.className.baseVal.indexOf("active")>0){
-        var t=a.value;
-        var n=encodeURIComponent(t).replace(/%20/g,"+");
-        (t.length > 0)
-        ?(
-          window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n)
-        )
-        :(b.className.baseVal=b.className.baseVal.replace(" active", ""),
-          s.className=s.className.replace(" active", "")
-        )
-      } else {
-        b.className.baseVal=b.className.baseVal.concat(" active");
-        s.className=s.className.concat(" active")
+window.addEventListener('load', () => {requestIdle(() => {
+  const $searchButton = document.getElementById('header-search-button')
+  const $searchInput = document.getElementById('header-search-input')
+  const $headerButtonSearch = document.body.querySelector('.header-inverted-featured__btn-search')
+  const $headerSearch = $header.querySelector('.header-inverted-featured__search')
+  ;searchButton.addEventListener('click', () => {
+      
+    if(headerButtonSearch.className.indexOf('active') > 0) {
+        const $value = searchInput.value
+        const $encode = encodeURIComponent(t).replace(/%20/g,"+");
+        value.length>0
+        ?(window.location.href="/buscar/".concat(encode,"/todas/descendiente/?query=").concat(encode))
+        :(headerButtonSearch.className=headerButtonSearch.className.replace(" active", ""),
+          headerSearch.className=headerSearch.className.replace(" active", "")
+          )
+      }else{
+        headerButtonSearch.className=headerButtonSearch.className.baseVal.concat(" active");
+        headerSearch.className=headerSearch.className.concat(" active")
       }
     })
-  })
-})`
+})})
+*/
+export const btnSearch = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("header-search-button"),a=document.getElementById("header-search-input"),b=document.body.querySelector(".header-inverted-featured__btn-search"),s=document.body.querySelector(".header-inverted-featured__search");e.addEventListener("click",function(){if(b.className.baseVal.indexOf("active")>0){var t=a.value;var n=encodeURIComponent(t).replace(/%20/g,"+");(t.length > 0)?(window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n)):(b.className.baseVal=b.className.baseVal.replace(" active", ""),s.className=s.className.replace(" active", ""))}else{b.className.baseVal=b.className.baseVal.concat(" active");s.className=s.className.concat(" active")}}) })})`
 
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+  document.getElementById('header-search-form-mobile').addEventListener('submit', e => {
+    e.preventDefault()
+    const value = e.target[0].value
+    if(value){
+      const newQuery = encodeURIComponent(value).replace(/%20/g, '+')
+      window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
+    }
+  })
+})})
+*/
 export const searchScriptMobile = `window.addEventListener("load",function(){
   document.getElementById("header-search-form-mobile").addEventListener("submit",function(e){
     e.preventDefault();
@@ -112,6 +121,20 @@ export const searchScriptMobile = `window.addEventListener("load",function(){
   })
 });
 `
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+  const $iconMobile = document.getElementById('header-search-icon-mobile')
+  const $inputMobile = document.getElementById('header-search-input-mobile')
+  $iconMobile.addEventListener('submit', e => {
+    e.preventDefault()
+    const value = inputMobile.value
+    if(value){
+      const newQuery = encodeURIComponent(value).replace(/%20/g, '+')
+      window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
+    }
+  })
+})})
+*/
 
 export const btnSearchMobile = `window.addEventListener("load",function(){requestIdle(function(){
   var e=document.getElementById("header-search-icon-mobile"),
