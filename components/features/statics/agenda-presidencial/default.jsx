@@ -13,10 +13,11 @@ import AgendaNota from './_children/nota'
  */
 
 const StaticsAgendaPresidencial = (props) => {
-  const { customFields: { titleUpDown } = {} } = props
+  const { customFields: { titleUpDown, isLastDayClick } = {} } = props
+
   const { requestUri } = useAppContext()
 
-  const isNotaWeb = /\/agenda-presidencial\/(\d{4})-(\d{1,2})-(\d{1,2})\//.test(
+  const isNotaWeb = /\/agenda-presidencial\/(202[1-6])-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\//.test(
     requestUri
   )
 
@@ -97,7 +98,7 @@ const StaticsAgendaPresidencial = (props) => {
     // NextUrl = ''
 
     // if(element[i].websites.elcomercio.website_url === `/agenda-presidencial/${dateUrl}/`){
-    //   console.log("ENCONTRADO",element);
+
     // }
     Object.keys(dataMore10.content_elements).forEach((key) => {
       if (
@@ -105,17 +106,13 @@ const StaticsAgendaPresidencial = (props) => {
         `/agenda-presidencial/${dateUrl}/`
       ) {
         dataMore10.content_elements.splice(key)
-        // console.log('SSSSSSSS', dataMore10.content_elements[key])
       }
-      // console.log('SLICENOTEEEE=====', dataMore10.content_elements.slice(-1)[0])
+
       // eslint-disable-next-line prefer-destructuring
       NextUrl = dataMore10.content_elements.slice(-1)[0].websites.elcomercio
         .website_url
     })
   }
-
-  console.log('NESDSSSS', NextUrl)
-  console.log('BACKKKK', BackUrl)
 
   return (
     <>
@@ -123,7 +120,7 @@ const StaticsAgendaPresidencial = (props) => {
       {isNotaWeb === true && JSON.stringify(dataNota) !== '{}' ? (
         <AgendaNota dataNota={dataNota} titleUpDown={titleUpDown} />
       ) : (
-        <AgendaCalendario />
+        <AgendaCalendario isLastDayClick={isLastDayClick} />
       )}
       <Footer isBack={BackUrl} isAhead={NextUrl} />
     </>
@@ -137,6 +134,9 @@ StaticsAgendaPresidencial.propTypes = {
     titleUpDown: PropTypes.string.tag({
       name: 'Titulo de subida y bajada de precios',
       default: 'SUBIDA Y BAJADA DE PRECIOS',
+    }),
+    isLastDayClick: PropTypes.bool.tag({
+      name: '¿Es el ultimo dia clickable?',
     }),
   }),
 }
