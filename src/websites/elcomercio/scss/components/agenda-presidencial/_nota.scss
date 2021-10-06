@@ -43,6 +43,8 @@
   }
 
   &__elemento__indicador {
+    display: flex;
+    align-items: center;
     margin: 0 42px;
     max-width: 361.52px;
     font-family: $primary-font;
