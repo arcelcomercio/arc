@@ -71,7 +71,7 @@ const CardSubscribe: FC = () => {
   )
 }
 
-CardSubscribe.label = 'Triplete'
+CardSubscribe.label = 'Caja Suscripción'
 CardSubscribe.static = true
 
 export default CardSubscribe

@@ -54,7 +54,4 @@ const CardSubscribeAnonymus: FC = () => {
   )
 }
 
-CardSubscribeAnonymus.label = 'Triplete'
-CardSubscribeAnonymus.static = true
-
 export default CardSubscribeAnonymus
