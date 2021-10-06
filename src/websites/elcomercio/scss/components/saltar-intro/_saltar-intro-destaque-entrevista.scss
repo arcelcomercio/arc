@@ -8,7 +8,7 @@
   }
 
   &__image {
-    max-width: 430px;
+    //max-width: 430px;
     width: 100%;
     @media (--desktop) {
       max-width: unset;
@@ -54,9 +54,12 @@
       content: "";
       width: 36px;
       position: absolute;
-      border: 1px solid #000;
+      border-bottom: 2px solid #000;
       left: 0;
       bottom: 0;
+      @media (--desktop) {
+        border-bottom: 3px solid #000;
+      }
     }
   }
   &__rol {
@@ -107,6 +110,91 @@
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         // height: 52px;
+      }
+    }
+  }
+  &--trailer {
+    .saltar-intro-destaque-entrevista {
+      &__info {
+        @media (--only-mobile) {
+          padding-top: 10px;
+        }
+      }
+      &__title {
+        font-size: 30px;
+        line-height: 35px;
+        letter-spacing: -0.3px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        display: -webkit-box;
+        @media (--desktop) {
+          margin-top: 15px;
+        }
+        @media (--only-mobile) {
+          margin-top: 0;
+          font-size: 25px;
+          line-height: 30px;
+          letter-spacing: -0.25px;
+        }
+      }
+      &__subtitle {
+        // font: normal normal medium 14px/17px Bitter;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0;
+        color: #000;
+        opacity: 1;
+        margin-bottom: 7px;
+        margin-top: 7px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        display: -webkit-box;
+        @media (--only-mobile) {
+          font-size: 15px;
+          line-height: 19px;
+        }
+      }
+      &__category-link {
+        font-family: $primary-font;
+        font-weight: 600;
+        font-size: 12px;
+        background-color: #000;
+        text-transform: uppercase;
+        color: #fff;
+        transform: skew(10deg);
+        display: block;
+      }
+      &__category {
+        background-color: #000;
+        color: #fff;
+        display: inline-block;
+        letter-spacing: 0.17px;
+        line-height: 18px;
+        padding: 3px 8px 3px;
+        text-transform: uppercase;
+        -webkit-transform: skew(-10deg);
+        transform: skew(-10deg);
+        &::after {
+          display: none;
+        }
+        @media (--desktop) {
+          top: -30%;
+          width: fit-content;
+          z-index: 1;
+        }
+
+        top: -18%;
+        width: fit-content;
+        z-index: 1;
+        @media (--only-mobile) {
+          position: relative;
+          bottom: 20px;
+        }
       }
     }
   }
