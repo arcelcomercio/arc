@@ -9,8 +9,7 @@ const classes = {
   hello: 'subscribe__hello bold',
   welcome: 'subscribe__welcome',
   info: 'subscribe__info',
-  image: 'subscribe__image',
-  cajainfo: 'subscribe__cajainfo ml-30',
+  image: 'subscribe__image position-absolute bottom-0 right-0',
 }
 
 interface CardSubscribeResgisterProps {
@@ -43,8 +42,6 @@ const CardSubscribeResgister: React.FC<CardSubscribeResgisterProps> = ({
         className={classes.welcome}>
         Bienvenido a nuestra comunidad digital
       </p>
-    </div>
-    <div className={classes.cajainfo}>
       <p className={classes.info}>
         Ahora podrás seguir artículos y noticias de interés
       </p>
