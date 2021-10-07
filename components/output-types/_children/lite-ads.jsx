@@ -385,7 +385,7 @@ window.addEventListener('load', function liteAds() {
           !(arcSite === 'trome' && section === 'deportes') ? (
             <script
               async
-              src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?${new Date()
+              src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v1${new Date()
                 .toISOString()
                 .slice(0, 10)}`}></script>
           ) : null}
@@ -439,7 +439,7 @@ window.addEventListener('load', function liteAds() {
         <>
           <script
             async
-            src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?${new Date()
+            src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v1${new Date()
               .toISOString()
               .slice(0, 10)}`}></script>
           <script
