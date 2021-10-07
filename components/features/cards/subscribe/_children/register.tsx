@@ -1,11 +1,14 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 const classes = {
-  container: 'mt-25 ml-20 mr-20 text-center',
+  container: 'mt-25 ml-30 mr-20 text-center',
   hello: 'subscribe__hello bold',
   welcome: 'subscribe__welcome',
   info: 'subscribe__info',
+  image: 'subscribe__image',
+  cajainfo: 'subscribe__cajainfo ml-20'
 }
 const CardSubscribeResgister: React.FC = () => {
   const {
@@ -15,6 +18,7 @@ const CardSubscribeResgister: React.FC = () => {
   } = useAppContext()
 
   return (
+    <>
     <div
       id="register-suscribe"
       className={classes.container}
@@ -33,10 +37,14 @@ const CardSubscribeResgister: React.FC = () => {
         className={classes.welcome}>
         Bienvenido a nuestra comunidad digital
       </p>
-      <p className={classes.info}>
-        Ahora podrás seguir artículos y noticias de interés
-      </p>
     </div>
+     <div className={classes.cajainfo} > 
+     <p className={classes.info}>
+       Ahora podrás seguir artículos y noticias de interés
+     </p>
+     <img className={classes.image}src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/imagrn_admin_correo.png" alt="carta correo" />
+     </div>
+     </>
   )
 }
 

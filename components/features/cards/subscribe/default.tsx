@@ -16,7 +16,7 @@ const classes = {
   logo: 'subscribe__logo',
   text: 'bold',
   button: 'rounded-sm pt-15 pb-15 bold',
-  imagen: 'lazy position-absolute top-0 right-0 bottom-0 left-0 w-full h-full',
+  imagen: 'lazy position-absolute top-0 right-0 bottom-0 left-0 w-full h-full object-cover',
 }
 
 /**
