@@ -311,6 +311,7 @@ const StoryContentsLite = (props) => {
                         <div
                           className="jwplayer-lazy "
                           id={mediaId}
+                          data-hasAds={hasAds}
                           data-playerId={jwplayerId}>
                           <div className="jwplayer-lazy-icon-play" />
                           <Image
