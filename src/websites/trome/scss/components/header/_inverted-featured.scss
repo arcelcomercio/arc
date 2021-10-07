@@ -48,6 +48,7 @@ $min-with-header: 961px;
 
     @media (--only-mobile) {
       justify-content: left;
+      width: auto;
     }
 
     &__list {
@@ -265,6 +266,9 @@ $min-with-header: 961px;
       margin-bottom: 0;
       padding-right: 20px;
       padding-left: 20px;
+      @media (--only-mobile) {
+        display: initial !important;
+      }
     }
   }
 
