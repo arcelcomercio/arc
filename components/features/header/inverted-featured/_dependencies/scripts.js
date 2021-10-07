@@ -4,13 +4,21 @@ window.addEventListener('load', () => {requestIdle(() => {
   const $btnCloseMenu = document.getElementById('btn-close-menu')
   const $header = document.body.querySelector('.header-inverted-featured')
   const $buttonMenu = $header.querySelector('.header-inverted-featured__btn-menu')
-  const $navSidebar = document.body.querySelector(".nav-sidebar")
+  const $iconMenu = $header.querySelector('.header-inverted-featured__icon-menu')
+  const $svgInline = $header.querySelector(".svg-inline-close")
+  const $navSidebar=document.body.querySelector(".nav-sidebar")
   ;[$btnMenu,$btnCloseMenu].forEach( menuButton => {
     menuButton.addEventListener('click', () => {
-      if($menuIcon.className.indexOf('icon-hamburguer') > 0) {
-        $menuBtnBox.className = $menuBtnBox.className.concat(' bg-white')
+      if(iconMenu.className.indexOf('icon-hamburguer') > 0) {
+        navSidebar.className=navSidebar.className.replace(" hidden", ""),
+        iconMenu.className=iconMenu.className.replace("icon-hamburguer","icon-close hidden"),
+        svgInline.className=svgInline.className.replace(" hidden",""),
+        buttonMenu.className=buttonMenu.className.concat(" header-inverted-featured__btn-menu-close")
       }else{
-
+        navSidebar.className=navSidebar.className.concat(" hidden"),
+        iconMenu.className=iconMenu.className.replace("icon-close hidden","icon-hamburguer"),
+        svgInline.className=svgInline.className.concat(" hidden"),
+        buttonMenu.className=buttonMenu.className.replace(" header-inverted-featured__btn-menu-close", "")
       }
     })
   })
@@ -23,23 +31,24 @@ export const toggleMenu = `window.addEventListener("load",function(){requestIdle
   c=document.body.querySelector(".header-inverted-featured"),
   b=c.querySelector(".header-inverted-featured__btn-menu"),
   s=c.querySelector(".header-inverted-featured__icon-menu"),
+  i=c.querySelector(".svg-inline-close")
   n=document.body.querySelector(".nav-sidebar")
     ;[e,a].forEach(function(e){e.addEventListener("click",function(){
-      s.className.indexOf("icon-hamburguer")>0
+      s.className.baseVal.indexOf("icon-hamburguer")>0
       ?(n.className=n.className.replace(" hidden", ""),
-      s.className=s.className.replace("icon-hamburguer","icon-close active"),
+      s.className.baseVal=s.className.baseVal.replace("icon-hamburguer","icon-close hidden"),
+      i.className.baseVal=i.className.baseVal.replace(" hidden",""),
       b.className=b.className.concat(" header-inverted-featured__btn-menu-close")
       )
       :(n.className=n.className.concat(" hidden"),
-      s.className=s.className.replace("icon-close active","icon-hamburguer"),
+      s.className.baseVal=s.className.baseVal.replace("icon-close hidden","icon-hamburguer"),
+      i.className.baseVal=i.className.baseVal.concat(" hidden"),
       b.className=b.className.replace(" header-inverted-featured__btn-menu-close", "")
       )
     })})
   })});`
 
 /* 
-  header-search-icon
-
   window.addEventListener('load', () => {requestIdle(() => {
   const $searchForm = document.getElementById('header-search-form')
   $searchForm.addEventListener('submit', e => {
@@ -65,33 +74,42 @@ export const searchScript = `window.addEventListener("load",function(){
   });
   `
 /*
-
-*/
-
-export const btnSearch = `window.addEventListener("load",function(){requestIdle(function(){
-  var e=document.getElementById("header-search-button"),
-  a=document.getElementById("header-search-input"),
-  b=document.body.querySelector(".header-inverted-featured__btn-search"),
-  s=document.body.querySelector(".header-inverted-featured__search")
-    ;e.addEventListener("click",function(){
-      if(b.className.indexOf("active")>0){
-        var t=a.value;
-        var n=encodeURIComponent(t).replace(/%20/g,"+");
-        (t.length > 0)
-        ?(
-          window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n)
-        )
-        :(b.className=b.className.replace(" active", ""),
-          s.className=s.className.replace(" active", "")
-        )
-      } else {
-        b.className=b.className.concat(" active");
-        s.className=s.className.concat(" active")
+window.addEventListener('load', () => {requestIdle(() => {
+  const $searchButton = document.getElementById('header-search-button')
+  const $searchInput = document.getElementById('header-search-input')
+  const $headerButtonSearch = document.body.querySelector('.header-inverted-featured__btn-search')
+  const $headerSearch = $header.querySelector('.header-inverted-featured__search')
+  ;searchButton.addEventListener('click', () => {
+      
+    if(headerButtonSearch.className.indexOf('active') > 0) {
+        const $value = searchInput.value
+        const $encode = encodeURIComponent(t).replace(/%20/g,"+");
+        value.length>0
+        ?(window.location.href="/buscar/".concat(encode,"/todas/descendiente/?query=").concat(encode))
+        :(headerButtonSearch.className=headerButtonSearch.className.replace(" active", ""),
+          headerSearch.className=headerSearch.className.replace(" active", "")
+          )
+      }else{
+        headerButtonSearch.className=headerButtonSearch.className.baseVal.concat(" active");
+        headerSearch.className=headerSearch.className.concat(" active")
       }
     })
-  })
-})`
+})})
+*/
+export const btnSearch = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("header-search-button"),a=document.getElementById("header-search-input"),b=document.body.querySelector(".header-inverted-featured__btn-search"),s=document.body.querySelector(".header-inverted-featured__search");e.addEventListener("click",function(){if(b.className.baseVal.indexOf("active")>0){var t=a.value;var n=encodeURIComponent(t).replace(/%20/g,"+");(t.length > 0)?(window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n)):(b.className.baseVal=b.className.baseVal.replace(" active", ""),s.className=s.className.replace(" active", ""))}else{b.className.baseVal=b.className.baseVal.concat(" active");s.className=s.className.concat(" active")}}) })})`
 
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+  document.getElementById('header-search-form-mobile').addEventListener('submit', e => {
+    e.preventDefault()
+    const value = e.target[0].value
+    if(value){
+      const newQuery = encodeURIComponent(value).replace(/%20/g, '+')
+      window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
+    }
+  })
+})})
+*/
 export const searchScriptMobile = `window.addEventListener("load",function(){
   document.getElementById("header-search-form-mobile").addEventListener("submit",function(e){
     e.preventDefault();
@@ -103,6 +121,20 @@ export const searchScriptMobile = `window.addEventListener("load",function(){
   })
 });
 `
+/*
+window.addEventListener('load', () => {requestIdle(() => {
+  const $iconMobile = document.getElementById('header-search-icon-mobile')
+  const $inputMobile = document.getElementById('header-search-input-mobile')
+  $iconMobile.addEventListener('submit', e => {
+    e.preventDefault()
+    const value = inputMobile.value
+    if(value){
+      const newQuery = encodeURIComponent(value).replace(/%20/g, '+')
+      window.location.href = `/buscar/${newQuery}/todas/descendiente/?query=${newQuery}`
+    }
+  })
+})})
+*/
 
 export const btnSearchMobile = `window.addEventListener("load",function(){requestIdle(function(){
   var e=document.getElementById("header-search-icon-mobile"),

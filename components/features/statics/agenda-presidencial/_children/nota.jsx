@@ -14,18 +14,48 @@ const classes = {
   informe: 'agenda-presidencial__nota__informe',
 }
 
-// const ObjetoHTML = (item) => {
-//   let texto='',
-//   if (item.search(/[(+]/) !== -1){texto=`${item} SVG1`}
-//   if (item.search(/[(-]/) !== -1){texto=`${item} SVG2`}
-//   else {
-//     texto=item
-//   }
-//   return texto
-// }
-
 const AgendaNota = (props) => {
   const { dataNota = '', titleUpDown = '' } = props
+
+  const objetoHTML = (value) => {
+    if (value.search(/[+]/) !== -1) {
+      return `${value}&nbsp;&nbsp;<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={15.484}
+    height={20.817}
+    viewBox="0 0 512 512"
+    style={{
+      enableBackground: "new 0 0 512 512",
+    }}
+    xmlSpace="preserve"
+    {...props}
+  >
+    <path fill="#54C762"
+      style={{
+        fill: "#54C762",
+      }}
+      d="M263.169 3.051A10.666 10.666 0 0 0 255.617 0a10.669 10.669 0 0 0-7.552 3.136L35.286 216.555a10.667 10.667 0 0 0 7.552 18.112h117.333v266.667c0 5.891 4.776 10.667 10.667 10.667h170.667c5.891 0 10.667-4.776 10.667-10.667V234.667h116.885a10.667 10.667 0 0 0 7.552-18.219L263.169 3.051z"
+    />
+  </svg>`
+    }
+    if (value.search(/[(-]/) !== -1) {
+      return `${value}&nbsp;&nbsp;<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={15.484}
+    height={20.817}
+    viewBox="0 0 512.171 512.171"
+    style={{
+      enableBackground: "new 0 0 512.171 512.171",
+    }}
+    xmlSpace="preserve"
+    {...props}
+  >
+    <path fill="#F73910" d="M479.046 283.925c-1.664-3.989-5.547-6.592-9.856-6.592H352.305V10.667C352.305 4.779 347.526 0 341.638 0H170.971c-5.888 0-10.667 4.779-10.667 10.667v266.667H42.971a10.702 10.702 0 0 0-9.856 6.571c-1.643 3.989-.747 8.576 2.304 11.627l212.8 213.504c2.005 2.005 4.715 3.136 7.552 3.136s5.547-1.131 7.552-3.115l213.419-213.504a10.645 10.645 0 0 0 2.304-11.628z" />
+  </svg>`
+    }
+
+    return value
+  }
 
   return (
     <>
@@ -64,7 +94,9 @@ const AgendaNota = (props) => {
                             className={`${classes.eleindicador}`}
                             style={{ listStyle: 'none', paddingBottom: '15px' }}
                             key={item.content}
-                            dangerouslySetInnerHTML={{ __html: item.content }}
+                            dangerouslySetInnerHTML={{
+                              __html: objetoHTML(item.content),
+                            }}
                           />
                         ))}
                     </>

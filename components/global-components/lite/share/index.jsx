@@ -20,6 +20,7 @@ const ShareButtons = ({
   activeCopyLink = false,
   activeLinkedin = true,
   googleNewsText = true,
+  hideShareLinks = false,
 }) => {
   const { globalContent, arcSite } = useAppContext()
 
@@ -46,7 +47,7 @@ const ShareButtons = ({
     siteNameRedSocial
   )
 
-  return (
+  const getShareLinks = () => (
     <>
       {activeGoogleNews ? (
         <a
@@ -119,6 +120,12 @@ const ShareButtons = ({
           Copiar enlace
         </button>
       ) : null}
+    </>
+  )
+
+  return (
+    <>
+      {hideShareLinks ? null : getShareLinks()}
       <script
         dangerouslySetInnerHTML={{
           __html: `${popup}${activeCopyLink ? copyLink : ''}`,

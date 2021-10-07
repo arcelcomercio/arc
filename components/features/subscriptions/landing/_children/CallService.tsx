@@ -42,7 +42,7 @@ export const CallService = (data: DataCallProps) => {
       query: data,
     }) || {}
 
-  const { success, error, Message, Type } = result
+  const { success, error, Message } = result
   const { urls: urlCommon } = PropertiesCommon
   useSentry(urlCommon.sentrySubs)
 
@@ -83,7 +83,7 @@ export const CallService = (data: DataCallProps) => {
         extra: error || {},
       })
     }
-    if (Message && Type) {
+    if (Message) {
       setLoading(false)
       setShowError(texts.arcError)
       Sentry.captureEvent({
@@ -92,7 +92,7 @@ export const CallService = (data: DataCallProps) => {
         extra: error || {},
       })
     }
-  }, [success, error])
+  }, [success, error, Message])
 
   return (
     <div className={styles.msg}>
@@ -112,10 +112,10 @@ export const CallService = (data: DataCallProps) => {
               <p className={styles.note}>{texts.businessHours}</p>
             </>
           )}
-          {(error || showError || (Message && Type)) && (
+          {(showError || error || Message) && (
             <>
               <h3>{texts.errorTitle}</h3>
-              <p>{error || showError}</p>
+              <p>{showError || error}</p>
             </>
           )}
         </>

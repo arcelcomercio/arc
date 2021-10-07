@@ -36,6 +36,7 @@ export default (props) => {
                 className="play-list__image"
                 loading="lazy"
                 sizes="(max-width: 360px) 360px"
+                uid="current_video"
               />
 
               {/* {!(
@@ -75,10 +76,10 @@ export default (props) => {
                     Story.videoDuration === '00:00' ||
                     Story.videoDuration === '00:00:00'
                   ) && (
-                      <span className="play-list__duration">
-                        {Story.videoDuration}
-                      </span>
-                    )}
+                    <span className="play-list__duration">
+                      {Story.videoDuration}
+                    </span>
+                  )}
                   {arcSite === 'trome' && (
                     <svg
                       className="play-list__icon"

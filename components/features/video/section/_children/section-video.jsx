@@ -326,10 +326,10 @@ export default ({
                           <span className="icon-twitter" />
                         </button>
                         <button
-                          onClick={() => shareNew('whatsapp')}
+                          onClick={() => shareNew('linkedin')}
                           type="button"
-                          className="section-video__btn section-video__btn--whatsapp">
-                          <span className="icon-whatsapp" />
+                          className="section-video__btn section-video__btn--linkedin">
+                          <span className="icon-linkedin" />
                         </button>
                         <button
                           onClick={shareBtnHandler}

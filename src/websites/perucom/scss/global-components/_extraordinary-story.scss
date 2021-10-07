@@ -1,4 +1,5 @@
 .extraordinary-story {
+  padding: 15px 0;
   &__section-link {
     text-transform: capitalize;
     color: $color-primary;
@@ -21,5 +22,11 @@
   &--twoline {
     -webkit-line-clamp: 4;
     max-height: 145px;
+  }
+
+  &__multimedia {
+    @media (--only-mobile) {
+      min-height: 170px;
+    }
   }
 }

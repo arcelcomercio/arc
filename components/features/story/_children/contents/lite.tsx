@@ -328,10 +328,12 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
                     return (
                       <>
                         <div
-                          className="jwplayer-lazy "
-                          id={`botr_${mediaId}_${jwplayerId}_div`}>
+                          className="jwplayer-lazy"
+                          id={mediaId}
+                          data-playerId={jwplayerId}>
                           <div className="jwplayer-lazy-icon-play" />
                           <Image
+                            id={`image_${mediaId}`}
                             src={image}
                             width={580}
                             height={326}

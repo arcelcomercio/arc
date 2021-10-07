@@ -11,7 +11,8 @@ const classes = {
   content: 'react-calendar__content-calendar p-10',
 }
 
-const AgendaCalendario = () => {
+const AgendaCalendario = (props) => {
+  const { isLastDayClick = false } = props
   const {
     globalContentConfig: { query },
   } = useAppContext()
@@ -36,16 +37,14 @@ const AgendaCalendario = () => {
     return `/agenda-presidencial/${newDateFormat}/`
   }
 
-  const day = () => {
+  const day = (val) => {
     const d = new Date()
     d.setHours(d.getHours() - 5)
+    if (val) {
+      return d.setDate(d.getDate())
+    }
     return d.setDate(d.getDate() - 1)
   }
-
-  // const mes = (date) => {
-  //   const d = new Date(date)
-  //   return new Intl.DateTimeFormat('es-419', { month: 'long' }).format(d)
-  // }
 
   const setNewDate = (data) => {
     window.location.href = renderNewURL(data)
@@ -66,7 +65,7 @@ const AgendaCalendario = () => {
             <React.Suspense fallback="Cargando...">
               <Calendar
                 activeStartDate={getCalendarDate(urlDate)}
-                maxDate={new Date(day())}
+                maxDate={new Date(day(isLastDayClick))}
                 minDate={new Date(2021, 6, 28)}
                 onChange={(newDate) => setNewDate(newDate)}
                 value={new Date()}

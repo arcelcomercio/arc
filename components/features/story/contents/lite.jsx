@@ -88,6 +88,7 @@ const StoryContentsLite = (props) => {
   const {
     customFields: {
       shareAlign = 'right',
+      shareLinks = false,
       copyLink = false,
       liteAdsEvery = 2,
     } = {},
@@ -309,9 +310,11 @@ const StoryContentsLite = (props) => {
                       <>
                         <div
                           className="jwplayer-lazy "
-                          id={`botr_${mediaId}_${jwplayerId}_div`}>
+                          id={mediaId}
+                          data-playerId={jwplayerId}>
                           <div className="jwplayer-lazy-icon-play" />
                           <Image
+                            id={`image_${mediaId}`}
                             src={image}
                             width={580}
                             height={326}
@@ -696,8 +699,9 @@ const StoryContentsLite = (props) => {
             <ShareButtons
               activeCopyLink={copyLink}
               activeLinkedin={
-                arcSite === 'elcomercio' || arcSite === 'elcomerciomag'
+                arcSite === 'elcomercio' || arcSite === 'elcomerciomag' || arcSite === 'trome'
               }
+              hideShareLinks={shareLinks}
             />
           </div>
         </div>
