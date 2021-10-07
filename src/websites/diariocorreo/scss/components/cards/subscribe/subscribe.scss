@@ -1,0 +1,48 @@
+.subscribe {
+  &__logo {
+    width: 90px;
+    height: 110px;
+    margin-top: 25px;
+  }
+  &__hello {
+    font-size: 25px;
+    font-weight: 501;
+    color: black;
+    line-height: 35px;
+    text-align: left;
+    margin-bottom: 18px;
+  }
+  &__welcome {
+    text-align: left;
+    font-size: 21px;
+    margin-bottom: 18px;
+    font-weight: bold;
+  }
+  &__info {
+    text-align: left;
+    font-size: 14px;
+    color: #000;
+    float: left;
+  }
+  &__text {
+    font-size: 25px;
+    font-weight: 501;
+    color: black;
+    line-height: 35px;
+  }
+  &__button {
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    margin-top: 35px;
+    border-radius: 8px;
+    font-size: 19px;
+    color: white;
+  }
+  &__image {
+    width: 125px;
+  }
+  &__cajainfo {
+    display: flex;
+  }
+}

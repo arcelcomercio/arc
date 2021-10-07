@@ -106,15 +106,15 @@ const TriviasMainAmp = ({
 
         <amp-story-auto-ads>
           <script
-              type="application/json"
-              dangerouslySetInnerHTML={{
-                __html: `{
+            type="application/json"
+            dangerouslySetInnerHTML={{
+              __html: `{
                   "ad-attributes": {
                     "type": "doubleclick",
-                    "data-slot": "${dataSlot}"
-                    }
-                  }`,
-              }}
+                    "data-slot": "${dataSlot}",
+                  }
+                }`,
+            }}
           />
         </amp-story-auto-ads>
 
