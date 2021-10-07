@@ -4,6 +4,10 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -558,8 +562,9 @@ const FormRegister = ({
                     style={{ fontSize: '22px', lineHeight: '26px' }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
-                      ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                      }`
+                      ? `Bienvenido(a) ${
+                          Identity.userProfile.firstName || 'Usuario'
+                        }`
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h4>
 
@@ -677,7 +682,11 @@ const FormRegister = ({
                               'signwall-nav-btn'
                             )
                             if (typeDialog === 'newsletter' && btnSignwall) {
-                              btnSignwall.textContent = 'Bienvenido'
+                              btnSignwall.textContent =
+                                arcSite === SITE_ELCOMERCIO ||
+                                arcSite === SITE_GESTION
+                                  ? 'Bienvenido'
+                                  : 'Mi Perfil'
                             }
                             if (showContinueVerify) {
                               changeTemplate('login', '', remail)

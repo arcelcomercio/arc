@@ -5,6 +5,11 @@ import * as React from 'react'
 
 import { SdksProvider } from '../../../contexts/subscriptions-sdks'
 import { getCookie, setCookie } from '../../../utilities/client/cookies'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
   // getUsername,
@@ -259,8 +264,15 @@ class SignwallComponent extends React.PureComponent {
         initialUser: profile.initname,
       })
     } else if (this._isMounted) {
+      let btnTitle = 'Iniciar Sesión'
+      if (arcSite === SITE_ELCOMERCIO) {
+        btnTitle = 'Iniciar'
+      } else if (arcSite === SITE_DIARIOCORREO) {
+        btnTitle = 'Regístrate'
+      }
+
       this.setState({
-        userName: arcSite === 'elcomercio' ? 'Iniciar' : 'Iniciar Sesión',
+        userName: btnTitle,
         initialUser: false,
       })
     }
@@ -311,7 +323,10 @@ class SignwallComponent extends React.PureComponent {
             {initialUser}
           </i>
           <span className="capitalize" aria-hidden="true">
-            {userName}
+            {userName ||
+              (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+                ? 'Bienvenido'
+                : 'Mi Perfil')}
           </span>
         </button>
 
