@@ -16,7 +16,8 @@ const classes = {
   logo: 'subscribe__logo',
   text: 'bold',
   button: 'rounded-sm pt-15 pb-15 bold',
-  imagen: 'lazy position-absolute top-0 right-0 bottom-0 left-0 w-full h-full object-cover',
+  imagen:
+    'lazy position-absolute top-0 right-0 bottom-0 left-0 w-full h-full object-cover',
 }
 
 /**
@@ -45,26 +46,33 @@ const CardSubscribe: FC = () => {
     <div
       className={classes.container}
       style={{
-        border: `3.5px solid ${mainColorLink}`
+        border: `3.5px solid ${mainColorLink}`,
       }}>
       <img
         className={classes.imagen}
-        src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/diario-correo-background.png?d=1"
-        alt="fondo boletin"
-      />
-      <div className={classes.minicontainer}>
-      <img
         src={`${getAssetsPath(
           arcSite,
           contextPath
-        )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
-        alt={`Logo ${siteName}`}
-        className={classes.logo}
+        )}/resources/dist/${arcSite}/images/boletin.png`}
+        alt="fondo boletin"
       />
-      <CardSubscribeAnonymus />
-      <CardSubscribeRegister />
+      <div className={classes.minicontainer}>
+        <img
+          src={`${getAssetsPath(
+            arcSite,
+            contextPath
+          )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
+          alt={`Logo ${siteName}`}
+          className={classes.logo}
+        />
+        <CardSubscribeAnonymus />
+        <CardSubscribeRegister
+          arcSite={arcSite}
+          contextPath={contextPath}
+          mainColorLink={mainColorLink}
+        />
       </div>
-    
+
       <script dangerouslySetInnerHTML={{ __html: handleUserStatus() }} />
     </div>
   )
