@@ -42,7 +42,7 @@ import htmlScript from './_dependencies/html-script'
 import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-lite-script'
-import { isStoryHasOpta } from './_dependencies/opta-widget-utils'
+import { getOptaWidgetsFromStory } from './_dependencies/opta-widget-utils'
 import {
   getDescription,
   getIsStory,
@@ -286,6 +286,8 @@ const LiteOutput = ({
   ).replace(/^\/carga-continua/, '')}`
 
   const fontFace = `@font-face {font-family: fallback-local; src: local(Arial); ascent-override: 125%; descent-override: 25%; line-gap-override: 0%;}`
+
+  const OptaWidgetsFromStory = getOptaWidgetsFromStory(globalContent)
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -913,10 +915,11 @@ const LiteOutput = ({
             )}
           />
         )}
-        {isStory &&
-        // metaValue('opta_scraping_path') &&
-        isStoryHasOpta(globalContent) ? (
-          <LiveBlogPostingData />
+        {arcSite === 'elcomercio' &&
+        isStory &&
+        metaValue('opta_scraping_path') &&
+        OptaWidgetsFromStory.length > 0 ? (
+          <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
         {/* <RegisterServiceWorker path={deployment("/sw.js")}/> */}
         {arcSite === SITE_OJO && (

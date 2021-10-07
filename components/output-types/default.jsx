@@ -27,6 +27,7 @@ import { storyTagsBbc } from '../utilities/tags'
 import AppNexus from './_children/appnexus'
 import ChartbeatBody from './_children/chartbeat-body'
 import Dfp from './_children/dfp'
+import LiveBlogPostingData from './_children/live-blog-posting-data'
 import MetaSite from './_children/meta-site'
 import OpenGraph from './_children/open-graph'
 import RegisterServiceWorker from './_children/register-service-worker'
@@ -39,6 +40,7 @@ import htmlScript from './_dependencies/html-script'
 import iframeScript from './_dependencies/iframe-script'
 import jwplayerScript from './_dependencies/jwplayer-script'
 import minutoMinutoScript from './_dependencies/minuto-minuto-script'
+import { getOptaWidgetsFromStory } from './_dependencies/opta-widget-utils'
 import { getEnablePushud, getPushud } from './_dependencies/pushud'
 import {
   getDescription,
@@ -369,6 +371,8 @@ export default ({
       ? 'noindex'
       : 'index'
   }`
+
+  const OptaWidgetsFromStory = getOptaWidgetsFromStory(globalContent)
 
   return (
     <html itemScope itemType="http://schema.org/WebPage" lang={lang}>
@@ -942,6 +946,13 @@ export default ({
         )}
         {arcSite === SITE_ELBOCON ? (
           <RegisterServiceWorker path={deployment('/sw.js')} />
+        ) : null}
+
+        {arcSite === 'elcomercio' &&
+        isStory &&
+        metaValue('opta_scraping_path') &&
+        getOptaWidgetsFromStory.length > 0 ? (
+          <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
       </body>
     </html>

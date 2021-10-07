@@ -1,13 +1,9 @@
-import { Story } from 'types/story'
+import { ContentElement, Story } from 'types/story'
 
-export const isStoryHasOpta = (data?: Story): boolean => {
-  if (
-    data?.content_elements?.some(
-      ({ type, content }) =>
-        type === 'raw_html' && content.includes('opta-widget')
-    )
-  ) {
-    return true
-  }
-  return false
-}
+export const getOptaWidgetsFromStory = (data?: Story): ContentElement[] =>
+  data?.content_elements?.filter(
+    ({ type, content }) =>
+      type === 'raw_html' &&
+      content.includes('opta-widget') &&
+      content.includes('widget="commentary"')
+  ) || []
