@@ -9,7 +9,7 @@
     font-weight: 501;
     color: black;
     line-height: 35px;
-    text-align: left ;
+    text-align: left;
     margin-bottom: 18px;
   }
   &__welcome {
@@ -20,8 +20,9 @@
   }
   &__info {
     text-align: left;
-    font-size: 18px;
+    font-size: 14px;
     color: #000;
+    float: left;
   }
   &__text {
     font-size: 25px;
@@ -29,14 +30,19 @@
     color: black;
     line-height: 35px;
   }
-  &__button{
+  &__button {
     text-decoration: none;
-      width: 100%;
-      display: block;
-      margin-top: 35px;
-      border-radius: 8px;
-      font-size: 19px;
-      color: white;
+    width: 100%;
+    display: block;
+    margin-top: 35px;
+    border-radius: 8px;
+    font-size: 19px;
+    color: white;
+  }
+  &__image {
+    width: 125px;
+  }
+  &__cajainfo {
+    display: flex;
   }
 }
-
