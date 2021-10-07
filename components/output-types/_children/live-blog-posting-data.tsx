@@ -2,8 +2,10 @@ import { useContent } from 'fusion:content'
 import { useFusionContext } from 'fusion:context'
 import * as React from 'react'
 import { CommetaryOptaWidget } from 'types/commentary-opta-widget'
+import { ContentElement } from 'types/story'
 
 import { getAssetsPath } from '../../utilities/assets'
+import { OPTA_WIDGET } from '../../utilities/constants/opta'
 import { localISODate } from '../../utilities/date-time/dates'
 import StoryData from '../../utilities/story-data'
 
@@ -21,7 +23,28 @@ const addHoursToDate = (hours: number, entryDate?: string) => {
   return localISODate(localDate)
 }
 
-const LiveBlogPostingData = (): JSX.Element => {
+const getOptaUrlFromWidget = (widget: string) => {
+  if (widget.indexOf('<opta-widget') === -1) return widget
+  const matches = widget.match(
+    /<opta-widget (.*?)>(.*?)<\/(?: )?opta-widget(?: )?>/
+  )
+  const matchesResult = matches
+    ? matches[1].replace(/="| = "| =/g, '=').replace(/"/g, '&')
+    : ''
+  return `${OPTA_WIDGET}/optawidget?${matchesResult.replace(/ /g, '')}`
+}
+
+interface Props {
+  OptaWidgetsFromStory: ContentElement[]
+}
+
+const LiveBlogPostingData = (props: Props): JSX.Element => {
+  const { OptaWidgetsFromStory } = props
+
+  // Por el momento solo se soporta 1 widget por nota
+  const firstWidget = OptaWidgetsFromStory[0]?.content || ''
+  const optaUrlFromWidget = getOptaUrlFromWidget(firstWidget)
+
   const {
     siteProperties: { siteUrl, siteName, socialNetworks },
     arcSite,
@@ -57,13 +80,16 @@ const LiveBlogPostingData = (): JSX.Element => {
     ) || {}
 
   const widgetData: CommetaryOptaWidget =
-    useContent({
-      source: 'get-data-from-opta-widget',
-      query: {
-        url:
-          'https://secure.widget.cloud.opta.net/v3/amp.html?w=widget~commentary%C2%A6competition~5%C2%A6season~2021%C2%A6match~2244604%C2%A6template~normal%C2%A6live~true%C2%A6data_type~auto%C2%A6order_by~time_descending%C2%A6show_event_icons~true%C2%A6show_minor_events~true%C2%A6fixed_height_comments~0%C2%A6show_live~true%C2%A6show_logo~true%C2%A6show_title~true%C2%A6breakpoints~400%C2%A6sport~football&s=782834e1fd5a215304e57cddad80b844&t=America%2FLima&l=es_CO',
-      },
-    }) || {}
+    useContent(
+      optaUrlFromWidget
+        ? {
+            source: 'get-data-from-opta-widget',
+            query: {
+              url: optaUrlFromWidget,
+            },
+          }
+        : {}
+    ) || {}
 
   const startDate = formatWidgetDate(
     widgetData?.data?.Commentary?.['@attributes']?.game_date
