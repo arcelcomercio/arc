@@ -25,7 +25,7 @@ import { PixelActions, sendAction, Taggeo } from '../_dependencies/Taggeo'
 import scriptsLanding from '../_scripts/Landing'
 import Footer from '../footer/subscriptions'
 import BenefitsLanding from './_children/Benefits'
-import CallinCallOut from './_children/CallinCallout'
+import CallinCallOut from './_children/CallDesktop'
 import Callout from './_children/Callout'
 import Cards from './_children/Cards'
 
@@ -170,7 +170,7 @@ const Component = (props: LandingSubscriptionsProps) => {
 
             {moduleCall && (
               <div className="header__content-call">
-                <span>Llama Gratis</span>
+                <span>Llámanos</span>
                 <button
                   type="button"
                   className="icon-phone"
