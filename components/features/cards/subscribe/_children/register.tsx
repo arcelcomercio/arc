@@ -54,6 +54,7 @@ const CardSubscribeResgister: React.FC<CardSubscribeResgisterProps> = ({
           arcSite,
           contextPath
         )}/resources/dist/${arcSite}/images/boletin.png`}
+        loading="lazy"
         alt="carta correo"
       />
     </div>
