@@ -45,7 +45,7 @@ const CardSubscribe: FC = () => {
     <div
       className={classes.container}
       style={{
-        border: `3.5px solid ${mainColorLink}`,
+        border: `3.5px solid ${mainColorLink}`
       }}>
       <img
         className={classes.imagen}
@@ -53,18 +53,18 @@ const CardSubscribe: FC = () => {
         alt="fondo boletin"
       />
       <div className={classes.minicontainer}>
-        <img
-          src={`${getAssetsPath(
-            arcSite,
-            contextPath
-          )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
-          alt={`Logo ${siteName}`}
-          className={classes.logo}
-        />
-        <CardSubscribeAnonymus />
-        <CardSubscribeRegister />
+      <img
+        src={`${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
+        alt={`Logo ${siteName}`}
+        className={classes.logo}
+      />
+      <CardSubscribeAnonymus />
+      <CardSubscribeRegister />
       </div>
-
+    
       <script dangerouslySetInnerHTML={{ __html: handleUserStatus() }} />
     </div>
   )
