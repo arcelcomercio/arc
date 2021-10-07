@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useAppContext } from 'fusion:context'
 import * as React from 'react'
+import { ArcSite } from 'types/fusion'
+
+import { getAssetsPath } from '../../../../utilities/assets'
 
 const classes = {
   container: 'mt-25 ml-30 mr-20 text-center',
@@ -10,46 +12,53 @@ const classes = {
   image: 'subscribe__image',
   cajainfo: 'subscribe__cajainfo ml-30',
 }
-const CardSubscribeResgister: React.FC = () => {
-  const {
-    siteProperties: {
-      signwall: { mainColorLink },
-    },
-  } = useAppContext()
 
-  return (
-    <>
-      <div
-        id="register-suscribe"
-        className={classes.container}
-        style={{
-          display: 'none',
-          minWidth: '200px',
-          maxWidth: '270px',
-        }}>
-        <p id="suscriber-user" className={classes.hello}>
-          ¡Hola!
-        </p>
-        <p
-          style={{
-            color: mainColorLink,
-          }}
-          className={classes.welcome}>
-          Bienvenido a nuestra comunidad digital
-        </p>
-      </div>
-      <div className={classes.cajainfo}>
-        <p className={classes.info}>
-          Ahora podrás seguir artículos y noticias de interés
-        </p>
-        <img
-          className={classes.image}
-          src="https://cdn.shopify.com/s/files/1/0449/4229/5199/files/imagrn_admin_correo.png"
-          alt="carta correo"
-        />
-      </div>
-    </>
-  )
+interface CardSubscribeResgisterProps {
+  arcSite: ArcSite
+  contextPath: string
+  mainColorLink: string
 }
+
+const CardSubscribeResgister: React.FC<CardSubscribeResgisterProps> = ({
+  arcSite,
+  contextPath,
+  mainColorLink,
+}) => (
+  <>
+    <div
+      id="register-suscribe"
+      className={classes.container}
+      style={{
+        display: 'none',
+        minWidth: '200px',
+        maxWidth: '270px',
+      }}>
+      <p id="suscriber-user" className={classes.hello}>
+        ¡Hola!
+      </p>
+      <p
+        style={{
+          color: mainColorLink,
+        }}
+        className={classes.welcome}>
+        Bienvenido a nuestra comunidad digital
+      </p>
+    </div>
+    <div className={classes.cajainfo}>
+      <p className={classes.info}>
+        Ahora podrás seguir artículos y noticias de interés
+      </p>
+      <img
+        className={classes.image}
+        src={`${getAssetsPath(
+          arcSite,
+          contextPath
+        )}/resources/dist/${arcSite}/images/boletin.png`}
+        loading="lazy"
+        alt="carta correo"
+      />
+    </div>
+  </>
+)
 
 export default CardSubscribeResgister
