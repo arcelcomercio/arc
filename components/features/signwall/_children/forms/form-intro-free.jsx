@@ -11,60 +11,30 @@ import Loading from '../loading'
 
 const FormIntroFree = ({
   typeDialog,
-  // removeBefore = (i) => i,
   checkModal = (i) => i,
 }) => {
-  const { arcSite } = useAppContext() || {}
+  const {
+    arcSite,
+    siteProperties: {
+      signwall: { mainColorBtn }
+    },
+  } = useAppContext() || {}
   const { changeTemplate } = useModalContext()
   const [showLoading, setShowLoading] = React.useState(true)
-  const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
+  // const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
 
-  const { summary: { feature = [] } = {},/* plans = [] , */ printAttributes = [] } =
+  const { /* plans = [] , */ printAttributes = [] } =
     useContent({
       source: 'paywall-campaing',
     }) || {}
 
 
-  const newsletter = {
-    header: 'Boletín de noticias',
-  }
-
-  // const getPLanSelected = plans.reduce(
-  //   (prev, plan) => (plan.description.checked ? plan : prev),
-  //   null
-  // )
-
-  // const {
-  //   amount = '',
-  //   description: { title = '', description = '' } = {},
-  // } = getPLanSelected || {}
-
   React.useEffect(() => {
     setShowLoading(false)
     if (Identity.userProfile || Identity.userIdentity.uuid) {
-      setShowPaywallBtn(true)
+      // setShowPaywallBtn(true)
     }
   }, [])
-
-  // const handleSuscription = () => {
-  //   switch (typeDialog) {
-  //     case 'premium':
-  //     case 'paywall':
-  //       window.sessionStorage.setItem(
-  //         'paywall_last_url',
-  //         window.location.pathname ? window.location.pathname : ''
-  //       )
-  //       break
-  //     default:
-  //       window.sessionStorage.setItem('paywall_last_url', '/')
-  //   }
-
-  //   removeBefore()
-  //   window.sessionStorage.setItem('paywall_type_modal', typeDialog)
-  //   window.location.href = getUrlPaywall(arcSite)
-  // }
-
-  console.log('Cargando Form Intro Free')
 
   return (
     <form className={`signwall-inside_forms-form ${typeDialog}`}>
@@ -72,67 +42,50 @@ const FormIntroFree = ({
         <Loading typeBg="premium" />
       ) : (
         <>
-          <div className="signwall-inside_forms-cont-paywall">
-            <div className="cont-price-detail center">
-              Además accede al
-              <div
-                className='detail-price'>
-                <p>
-                  <strong>Boletín de noticias</strong>
-                </p>
-              </div>
-            </div>
-            <div className="cont-price center">
-              <hr />
-              <h3 className="center">CORREO HOY</h3>
-              <hr />
-            </div>
+          <div className="signwall-inside_forms-cont-register center">
+            <p className="text-info">Además accede al</p>
+            <p className='text-boletin'>Boletín de noticias</p>
+            <hr className="barra" />
+            <p className="text-news" style={{ color: mainColorBtn }}>CORREO HOY</p>
+            <hr className="barra" />
+            <button
+              type="button"
+              className="signwall-inside_forms-btn"
+              style={{
+                fontSize: '18px',
+                backgroundColor: mainColorBtn,
+                width: '90%',
 
-            {typeDialog !== 'premium' ? (
-              <>
-                <h3 className="title-line line-gestion uppercase text-center mt-30 mb-20">
-                  <span>Beneficios</span>
-                </h3>
+              }}
+              onClick={() => {
+                Taggeo(
+                  `Web_${typeDialog}_Hard`,
+                  `web_${typeDialog}_boton_iniciar_continuar`
+                )
 
-                <ul className="list-benefits mb-20">
-                  {feature.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <div className="mt-20 block" />
-            )}
+                if (typeDialog === 'premium') {
+                  window.sessionStorage.setItem(
+                    'paywall_last_url',
+                    window.location.pathname ? window.location.pathname : ''
+                  )
+                } else {
+                  window.sessionStorage.setItem(
+                    'paywall_last_url',
+                    window.document.referrer
+                      ? window.document.referrer.split(
+                        window.location.origin
+                      )[1]
+                      : ''
+                  )
+                }
+                changeTemplate('register')
+                checkModal()
+              }}>
+              INGRESAR
+            </button>
+
           </div>
-          <button
-            type="button"
-            className="signwall-inside_forms-btn"
-            onClick={() => {
-              Taggeo(
-                `Web_${typeDialog}_Hard`,
-                `web_${typeDialog}_boton_iniciar_continuar`
-              )
 
-              if (typeDialog === 'premium') {
-                window.sessionStorage.setItem(
-                  'paywall_last_url',
-                  window.location.pathname ? window.location.pathname : ''
-                )
-              } else {
-                window.sessionStorage.setItem(
-                  'paywall_last_url',
-                  window.document.referrer
-                    ? window.document.referrer.split(
-                      window.location.origin
-                    )[1]
-                    : ''
-                )
-              }
-              changeTemplate('register')
-              checkModal()
-            }}>
-            INGRESAR
-          </button>
 
 
           <p

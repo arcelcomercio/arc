@@ -294,7 +294,10 @@
           max-width: 320px;
           height: auto;
         }
+      
       }
+
+      
       &.premium {
         min-height: 140px !important;
         p {
@@ -309,6 +312,47 @@
           margin-top: 20px;
           max-width: 200px;
         }
+        .title-register{
+          font-weight: bold;
+        }
+
+        .subtitle-register{
+          color: #000;
+        }
+
+        .first__block{
+          &-access{
+            font-size: 15px;
+            font-family: 'Bitter', Arial, Helvetica, sans-serif;
+            color: #000;
+            text-align: left;
+            font-weight: bold;
+            
+          }
+          &-categories {
+            font-size: 13px;
+            padding-left: 10px;
+            font-family: 'Bitter', Arial, Helvetica, sans-serif;
+            color: #000;
+            text-align: left;
+            line-height: 1.3;
+          }
+        }
+        .second__block{
+          margin-top: 10px;
+          &-nav{
+            font-size: 15px;
+            font-family: 'Bitter', Arial, Helvetica, sans-serif;
+            color: #000;
+            text-align: left;
+            line-height: 1.3;
+            font-weight: bold;
+            &-link{
+              text-decoration: underline;
+            }
+          }
+        }
+
         .list-benefits {
           line-height: 22px;
           margin-top: 20px;
@@ -693,6 +737,39 @@
       &:disabled {
         opacity: 0.7;
       }
+    }
+    &-cont-register{
+      margin-top: 50px;
+      font-family: "Bitter",Arial, Helvetica, sans-serif;
+      position: relative;
+      .text-info{
+        font-size: 17px;
+        font-family: "Titillium", Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        color:#000;
+        margin-bottom: 5px;
+      }
+      .text-boletin{
+        font-family: "Titillium", Arial, Helvetica, sans-serif;
+        color:#000;
+        font-size: 20px;
+        font-weight: bold;
+        // margin-bottom: 1.5px;
+      }
+      .barra{
+        width: 50%;
+        background-color: #000;
+        margin-top: 14px;
+        margin-bottom: 14px; 
+        color: #000;
+      }
+      .text-news{
+        font-family: "Bitter",Arial, Helvetica, sans-serif;
+        font-size: 32px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }      
+      
     }
     &-cont-paywall {
       font-family: "Open Sans", Arial, Helvetica, sans-serif;

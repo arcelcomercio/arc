@@ -1,8 +1,8 @@
-import { useContent } from 'fusion:content'
+// import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { getAssetsPath } from '../../../../../utilities/assets'
+// import { getAssetsPath } from '../../../../../utilities/assets'
 import { SITE_DIARIOCORREO, SITE_GESTION } from '../../../../../utilities/constants/sitenames'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
@@ -17,14 +17,19 @@ import FormRegister from '../../../_children/forms/form_register'
 import FormIntroFree from "../../../_children/forms/form-intro-free"
 import { Close } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
+import { PremiumDefault } from './_children/default'
+import { PremiumRegister } from './_children/register'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const {
-    siteProperties
+    siteProperties,
+    arcSite
   } = useAppContext() || {}
+  const introOFree = siteProperties.activeRegisterwall && arcSite === SITE_DIARIOCORREO ?
+    <FormIntroFree {...attributes} /> :
+    <FormIntro {...attributes} />
   const templates = {
-    intro: <FormIntro {...attributes} />,
-    introfree: <FormIntroFree {...attributes} />,
+    intro: introOFree,
     login: <FormLogin {...{ valTemplate, attributes }} />,
     forgot: <FormForgot {...attributes} />,
     register: <FormRegister {...attributes} />,
@@ -35,29 +40,33 @@ const renderTemplate = (template, valTemplate, attributes) => {
       deleteQuery('signPremium')
       deleteQuery('dataTreatment')
     }, 2000)
-    return templates.login
+    return templates.intro
   }
 
-  return templates[template] || (siteProperties.activeRegisterwall ? templates.introfree : templates.intro)
+  return templates[template] ||  /* (siteProperties.activeRegisterwall ? templates.introfree : */
+    templates.intro // )
 }
 
 export const PremiumInt = ({ properties }) => {
   const { typeDialog, onClose } = properties
   const {
     arcSite,
-    contextPath,
+    // contextPath,
     siteProperties: {
-      signwall: { primaryFont },
+      activeRegisterwall = ''
+    },
+    siteProperties: {
+      signwall: { mainColorBtn },
     },
   } = useAppContext() || {}
 
   const { selectedTemplate, valTemplate } = useModalContext()
   const [resizeModal, setResizeModal] = React.useState('smallbottom')
-  const { name = '', summary: { feature = [] } = {} } =
+  /* const { name = '', summary: { feature = [] } = {} } =
     useContent({
       source: 'paywall-campaing',
     }) || {}
-
+*/
   const checkModal = () => {
     if (typeDialog === 'premium') {
       setResizeModal('smallbottom-large')
@@ -99,6 +108,7 @@ export const PremiumInt = ({ properties }) => {
         <button
           type="button"
           className="signwall-inside_body-close premium"
+          style={(activeRegisterwall && arcSite === SITE_DIARIOCORREO) && { backgroundColor: mainColorBtn }}
           onClick={() => {
             Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
             if (typeDialog === 'premium') {
@@ -111,55 +121,10 @@ export const PremiumInt = ({ properties }) => {
               onClose()
             }
           }}>
-          <Close />
+          {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (<Close color="#fff" />) : <Close />}
         </button>
-        <div
-          className="signwall-inside_body-left premium"
-          style={{
-            background: `${arcSite === 'gestion' ? '#8f071f' : '#232323'}`,
-          }}>
-          <img
-            src={`${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1`}
-            alt={`Ejemplo de usuario suscriptor de ${arcSite}`}
-            className="signwall-inside_body-left__bg"
-          />
-          <div
-            className="signwall-inside_body-cont premium"
-            style={{
-              padding: arcSite === SITE_GESTION ? '15px 10px' : '12px 20px',
-            }}>
-            <p>
-              Para acceder a este contenido
-              <br />
-              exclusivo, adquiere tu
-            </p>
-            <h3
-              className="signwall-inside_body-title premium"
-              style={{
-                fontFamily: primaryFont,
-              }}>
-              {name}
-            </h3>
-            <center>
-              <img
-                alt="Logo"
-                className={`logo ${arcSite}`}
-                src={`${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
-              />
-            </center>
-            <ul className="list-benefits mb-20">
-              {feature.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        {activeRegisterwall && arcSite === SITE_DIARIOCORREO
+          ? (<PremiumRegister />) : (<PremiumDefault />)}
         <div
           className="signwall-inside_body-right premium"
           style={{

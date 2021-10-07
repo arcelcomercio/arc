@@ -15,7 +15,8 @@ import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import {
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
-  SITE_GESTION} from '../../../utilities/constants/sitenames'
+  SITE_GESTION,
+} from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
   getUsername,
@@ -68,6 +69,8 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
     name: '',
     initials: '',
   })
+
+  console.log('cargó el _default')
 
   function getListSubs() {
     return Identity.extendSession().then((resExt) => {
@@ -163,6 +166,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
     }
 
     if (typeContentTier === ContentTiers.Locked) {
+      console.log('llegó a typeContentTier')
       getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({
