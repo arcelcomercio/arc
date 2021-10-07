@@ -195,15 +195,6 @@ window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("ed
             ? 'Bienvenido Usuario'
             : 'Mi Perfil'
       } else {
-        let buttonText = ''
-        let iconText = ''
-        if (firstName && lastName) {
-          buttonText = `${firstName} ${lastName}`
-          iconText = `${firstName[0] || ''}${lastName[0] || ''}`
-        } else if (firstName && !lastName) {
-          buttonText = firstName
-          iconText = `${firstName[0] || ''}${firstName[1] || ''}`
-        } else if (!firstName && lastName) {
           buttonText = lastName
           iconText = `${lastName[0] || ''}${lastName[1] || ''}`
         }
@@ -212,8 +203,6 @@ window.addEventListener("load",()=>{requestIdle(()=>{document.getElementById("ed
         signwallIcon.innerHTML = iconText
         signwallIcon.className = 'uppercase'
       }
-    }
-  })
 })
 */
 
