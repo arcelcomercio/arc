@@ -24,29 +24,7 @@ window.addEventListener('load', () => {requestIdle(() => {
   })
 })})
 */
-
-export const toggleMenu = `window.addEventListener("load",function(){requestIdle(function(){
-  var e=document.getElementById("btn-menu"),
-  a=document.getElementById("btn-close-menu"),
-  c=document.body.querySelector(".header-inverted-featured"),
-  b=c.querySelector(".header-inverted-featured__btn-menu"),
-  s=c.querySelector(".header-inverted-featured__icon-menu"),
-  i=c.querySelector(".svg-inline-close")
-  n=document.body.querySelector(".nav-sidebar")
-    ;[e,a].forEach(function(e){e.addEventListener("click",function(){
-      s.className.baseVal.indexOf("icon-hamburguer")>0
-      ?(n.className=n.className.replace(" hidden", ""),
-      s.className.baseVal=s.className.baseVal.replace("icon-hamburguer","icon-close hidden"),
-      i.className.baseVal=i.className.baseVal.replace(" hidden",""),
-      b.className=b.className.concat(" header-inverted-featured__btn-menu-close")
-      )
-      :(n.className=n.className.concat(" hidden"),
-      s.className.baseVal=s.className.baseVal.replace("icon-close hidden","icon-hamburguer"),
-      i.className.baseVal=i.className.baseVal.concat(" hidden"),
-      b.className=b.className.replace(" header-inverted-featured__btn-menu-close", "")
-      )
-    })})
-  })});`
+export const toggleMenu = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("btn-menu"),a=document.getElementById("btn-close-menu"),c=document.body.querySelector(".header-inverted-featured"),b=c.querySelector(".header-inverted-featured__btn-menu"),s=c.querySelector(".header-inverted-featured__icon-menu"),i=c.querySelector(".svg-inline-close"),n=document.body.querySelector(".nav-sidebar");[e,a].forEach(function(e){e.addEventListener("click",function(){s.className.baseVal.indexOf("icon-hamburguer")>0?(n.className=n.className.replace(" hidden", ""),s.className.baseVal=s.className.baseVal.replace("icon-hamburguer","icon-close hidden"),i.className.baseVal=i.className.baseVal.replace(" hidden",""),b.className=b.className.concat(" header-inverted-featured__btn-menu-close")):(n.className=n.className.concat(" hidden"),s.className.baseVal=s.className.baseVal.replace("icon-close hidden","icon-hamburguer"),i.className.baseVal=i.className.baseVal.concat(" hidden"),b.className=b.className.replace(" header-inverted-featured__btn-menu-close", ""))})})})});`
 
 /* 
   window.addEventListener('load', () => {requestIdle(() => {
@@ -61,18 +39,8 @@ export const toggleMenu = `window.addEventListener("load",function(){requestIdle
   })
 })})
   */
+export const searchScript = `window.addEventListener("load",function(){document.getElementById("header-search-form").addEventListener("submit",function(e){e.preventDefault();var t=e.target[0].value;if(t){var n=encodeURIComponent(t).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);}})})`
 
-export const searchScript = `window.addEventListener("load",function(){
-    document.getElementById("header-search-form").addEventListener("submit",function(e){
-      e.preventDefault();
-      var t=e.target[0].value;
-      if(t){
-        var n=encodeURIComponent(t).replace(/%20/g,"+");
-        window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);
-      }
-    })
-  });
-  `
 /*
 window.addEventListener('load', () => {requestIdle(() => {
   const $searchButton = document.getElementById('header-search-button')
@@ -110,17 +78,8 @@ window.addEventListener('load', () => {requestIdle(() => {
   })
 })})
 */
-export const searchScriptMobile = `window.addEventListener("load",function(){
-  document.getElementById("header-search-form-mobile").addEventListener("submit",function(e){
-    e.preventDefault();
-    var t=e.target[0].value;
-    if(t){
-      var n=encodeURIComponent(t).replace(/%20/g,"+");
-      window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);
-    }
-  })
-});
-`
+export const searchScriptMobile = `window.addEventListener("load",function(){document.getElementById("header-search-form-mobile").addEventListener("submit",function(e){e.preventDefault();var t=e.target[0].value;if(t){var n=encodeURIComponent(t).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);}})})`
+
 /*
 window.addEventListener('load', () => {requestIdle(() => {
   const $iconMobile = document.getElementById('header-search-icon-mobile')
@@ -135,19 +94,7 @@ window.addEventListener('load', () => {requestIdle(() => {
   })
 })})
 */
-
-export const btnSearchMobile = `window.addEventListener("load",function(){requestIdle(function(){
-  var e=document.getElementById("header-search-icon-mobile"),
-  a=document.getElementById("header-search-input-mobile")
-    ;e.addEventListener("click",function(){
-      var t=a.value;
-      if(t){
-        var n=encodeURIComponent(t).replace(/%20/g,"+");
-        window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);
-      }
-    })
-  })
-})`
+export const btnSearchMobile = `window.addEventListener("load",function(){requestIdle(function(){var e=document.getElementById("header-search-icon-mobile"),a=document.getElementById("header-search-input-mobile");e.addEventListener("click",function(){var t=a.value;if(t){var n=encodeURIComponent(t).replace(/%20/g,"+");window.location.href="/buscar/".concat(n,"/todas/descendiente/?query=").concat(n);}})})})`
 
 /* TODO: Agregar la lógica sin minificar de este script, no son iguales
 document.addEventListener('DOMContentLoaded', function() {
