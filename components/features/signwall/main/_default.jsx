@@ -324,7 +324,11 @@ class SignwallComponent extends React.PureComponent {
           </i>
           <span className="capitalize" aria-hidden="true">
             {userName ||
-              (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+              (arcSite === SITE_DIARIOCORREO && isLogged === false
+                ? 'Regístrate'
+                : 'Iniciar') ||
+              (arcSite === SITE_ELCOMERCIO ||
+              (arcSite === SITE_GESTION && isLogged === true)
                 ? 'Bienvenido'
                 : 'Mi Perfil')}
           </span>
