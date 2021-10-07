@@ -8,6 +8,8 @@ const EMPTY_FIELD_ERROR = 'No se permiten espacios'
 const MIN_2_CARACTS_FIELD_ERROR = 'Se requiere mínimo 2 caracteres'
 const MIN_6_CARACTS_FIELD_ERROR = 'Se requiere mínimo 6 caracteres'
 const TEXT_INVALID_ERROR = 'Este valor no está permitido'
+const MIN_AGE_ERROR = 'No cumple con la edad mínima'
+const MAX_AGE_ERROR = '¿Está seguro que tiene esa edad?'
 
 type StateSchemaValue = { value: string; error: string }
 type StateSchema = Record<string, StateSchemaValue>
@@ -19,6 +21,8 @@ type StateValidatorProps = {
   min2caracts?: boolean
   min6caracts?: boolean
   invalidtext?: boolean
+  minAge?: boolean
+  maxAge?: boolean
 }
 type StateValidator = Record<keyof StateSchema, StateValidatorProps>
 type StateValues = Record<keyof StateSchema, string>
@@ -29,7 +33,7 @@ type UseForm<TValues extends StateValues = StateValues> = {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => void
-  handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  handleOnSubmit: (event?: React.FormEvent<HTMLFormElement>) => void
   values: TValues
   errors: StateValues
   disable: boolean
@@ -64,11 +68,27 @@ function notSpaces(value: string) {
 }
 
 function min2Caracts(value: string) {
-  return value.length < 2 ? MIN_2_CARACTS_FIELD_ERROR : ''
+  return value.length < 2 && value.length > 0 ? MIN_2_CARACTS_FIELD_ERROR : ''
 }
 
 function min6Caracts(value: string) {
   return value.length >= 1 && value.length < 6 ? MIN_6_CARACTS_FIELD_ERROR : ''
+}
+
+const calculateAge = (date: string) => {
+  const birthday = new Date(date)
+  const currentDate = new Date()
+
+  const time =
+    (currentDate.getTime() - birthday.getTime()) / (1000 * 3600 * 24) / 365
+  return time
+}
+
+function minAge(value: string) {
+  return calculateAge(value) < 5 ? MIN_AGE_ERROR : ''
+}
+function maxAge(value: string) {
+  return calculateAge(value) > 99 ? MAX_AGE_ERROR : ''
 }
 
 function invalidText(value: string) {
@@ -154,6 +174,14 @@ function useForm<TValues extends StateValues = StateValues>(
         errorObj = invalidText(value)
       }
 
+      if (fieldValid.minAge && errorObj === '') {
+        errorObj = minAge(value)
+      }
+
+      if (fieldValid.maxAge && errorObj === '') {
+        errorObj = maxAge(value)
+      }
+
       // Prevent running this function if the value is required field
       if (
         errorObj === '' &&
@@ -177,8 +205,8 @@ function useForm<TValues extends StateValues = StateValues>(
   )
 
   const handleOnSubmit = React.useCallback(
-    (event) => {
-      event.preventDefault()
+    (event?: React.FormEvent<HTMLFormElement>) => {
+      event?.preventDefault()
 
       // Making sure that there's no error in the state
       // before calling the submit callback function

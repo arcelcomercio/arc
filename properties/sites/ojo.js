@@ -33,6 +33,7 @@ export default {
     cookiesPolicy: 'FKYQXTQVJBBIXGT6P22O6E24OE',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'JR6SWNIIHVDF3DPHXCBNNHBJKE',
   },
   infoPagesProd: {
     termsAndConditions: 'OX3HQTTGGNGEFO6X2MH7OM2ZMI',
@@ -43,6 +44,10 @@ export default {
     cookiesPolicy: 'NH3NHETIQBEUDKMEVTH5KW576Q',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'RLJ5XMTMIBDMFC76MJRUQSJPRM',
+  },
+  paywall: {
+    title: 'Ingresar | Ojo',
   },
   assets: {
     seo: {

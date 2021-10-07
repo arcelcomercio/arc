@@ -37,6 +37,7 @@ export default {
     cookiesPolicy: '',
     aboutUs: 'AH524OO2XFEE3CZBDR3VZTXN6A',
     frequentQuestions: 'TAKBHA5E4JBONGF5UAWFDAU2GM',
+    dataTreatment: 'JCUSOICWBNDKLG4OGQJWXCG77Q',
   },
   infoPagesProd: {
     termsAndConditions: 'HZEXCT3K3RFM5EJXLMK3TBD3YU',
@@ -47,6 +48,10 @@ export default {
     cookiesPolicy: '4V3RWECMVVAY7AIQQZCBXFSCUM',
     aboutUs: '',
     frequentQuestions: '',
+    dataTreatment: 'JCUSOICWBNDKLG4OGQJWXCG77Q',
+  },
+  paywall: {
+    title: 'Ingresar | El Bocón',
   },
   assets: {
     nav: {

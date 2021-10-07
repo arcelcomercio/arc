@@ -11,6 +11,17 @@ export default (arcSite) => `
             }
           }
         }
+        content_elements{
+          _id
+          type
+          subtype
+          embed {
+            config {
+              career_interviewed
+              interviewed
+            }
+          }
+        }
         promo_items{
           basic_video {
             type

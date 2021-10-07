@@ -8,8 +8,18 @@
   &__box {
     border-right: 1px solid #707070;
     @media (--only-mobile) {
+      border-right: 0;
       flex-direction: row-reverse;
       margin-bottom: 10px;
+    }
+  }
+  &__box-info {
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 120px;
+    @media (--only-mobile) {
+      max-width: 155px;
     }
   }
   &__list {
@@ -18,11 +28,11 @@
     margin-bottom: 10px;
   }
   &__date {
-    padding: 0 10px;
+    //padding: 0 10px;
     // font: normal normal medium 12px/24px Bitter;
     font-size: 12px;
     line-height: 24px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.17px;
     color: #000;
     opacity: 1;
@@ -61,6 +71,49 @@
       line-height: 19px;
     }
   }
+  &__name {
+    // font: normal normal bold 21px/25px Bitter;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.22px;
+    text-align: left;
+    color: #000;
+    opacity: 1;
+    margin-bottom: 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    @media (--only-mobile) {
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.26px;
+      margin-bottom: 5px;
+    }
+  }
+  &__description {
+    // font: normal normal medium 14px/17px Bitter;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.17px;
+    text-align: left;
+    color: #000;
+    opacity: 1;
+    margin-bottom: 7px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    @media (--only-mobile) {
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: 0.17px;
+      margin-bottom: 5px;
+    }
+  }
   &__author {
     // font: normal normal medium 10px/24px Bitter;
     font-weight: 500;
@@ -89,6 +142,43 @@
       flex-direction: column;
       padding-bottom: 30px;
       padding-top: 10px;
+    }
+    &.saltar-intro-listado__date--border {
+      .saltar-intro-listado__date {
+        border-top: 1px dotted #707070;
+        @media (--only-mobile) {
+          border-top: 0;
+          margin-top: 11px;
+          border-bottom: 1px dotted #707070;
+        }
+      }
+      .saltar-intro-listado__box-info {
+        width: 200px;
+        @media (--only-mobile) {
+          width: 100%;
+          max-width: unset;
+        }
+      }
+      .saltar-intro-listado__image {
+        @media (--only-mobile) {
+          max-width: 160px;
+        }
+      }
+    }
+  }
+  &--trailer {
+    .saltar-intro-listado__date {
+      @media (--only-mobile) {
+        line-height: 0px;
+      }
+    }
+    .saltar-intro-listado__box-info {
+      width: 70px;
+      max-width: 70px;
+      @media (--only-mobile) {
+        margin-right: auto;
+        width: 100%;
+      }
     }
   }
   &__see-more {
