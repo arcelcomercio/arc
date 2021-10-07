@@ -1,7 +1,5 @@
 import * as React from 'react'
 
-// import background from '../../../../resources/assets/newsletter/diario-correo-background.png'
-
 const classes = {
   container: 'mt-25 ml-20 mr-20 text-center',
   text: 'subscribe__text bold',

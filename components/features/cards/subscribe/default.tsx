@@ -8,12 +8,10 @@ import CardSubscribeAnonymus from './_children/anonymus'
 import CardSubscribeRegister from './_children/register'
 import { handleUserStatus } from './_dependencies/scripts'
 
-// import background from '../../../../resources/assets/newsletter/diario-correo-background.png'
-
 const classes = {
   container: ' flex justify-center w-full row-1 col-1 position-relative',
   minicontainer: 'flex flex-col items-center position-absolute w-full h-full',
-  logo: 'subscribe__logo',
+  logo: 'mt-25',
   text: 'bold',
   button: 'rounded-sm pt-15 pb-15 bold',
   imagen:
@@ -61,6 +59,8 @@ const CardSubscribe: FC = () => {
             contextPath
           )}/resources/dist/${arcSite}/images/${mainLogo}?d=1`}
           loading="lazy"
+          width={90}
+          height={104}
           alt={`Logo ${siteName}`}
           className={classes.logo}
         />
