@@ -911,7 +911,7 @@ const LiteOutput = ({
         )}
         {arcSite === 'elcomercio' &&
         isStory &&
-        // metaValue('opta_scraping_path') &&
+        metaValue('opta_scraping_path') &&
         OptaWidgetsFromStory.length > 0 ? (
           <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}

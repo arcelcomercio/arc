@@ -925,7 +925,7 @@ export default ({
 
         {arcSite === 'elcomercio' &&
         isStory &&
-        // metaValue('opta_scraping_path') &&
+        metaValue('opta_scraping_path') &&
         getOptaWidgetsFromStory.length > 0 ? (
           <LiveBlogPostingData OptaWidgetsFromStory={OptaWidgetsFromStory} />
         ) : null}
