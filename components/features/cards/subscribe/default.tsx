@@ -8,8 +8,6 @@ import CardSubscribeAnonymus from './_children/anonymus'
 import CardSubscribeRegister from './_children/register'
 import { handleUserStatus } from './_dependencies/scripts'
 
-// import background from '../../../../resources/assets/newsletter/diario-correo-background.png'
-
 const classes = {
   container: ' flex justify-center w-full row-1 col-1 position-relative',
   minicontainer: 'flex flex-col items-center position-absolute w-full h-full',
