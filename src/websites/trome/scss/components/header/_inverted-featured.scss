@@ -88,7 +88,7 @@ $min-with-header: 961px;
     align-items: center;
     position: relative;
     max-width: 961px;
-    z-index: 99;
+    z-index: 90;
     @media (--tablet) {
       justify-content: center;
     }
@@ -159,19 +159,22 @@ $min-with-header: 961px;
       padding-bottom: 7px;
       width: 110px;
       margin-right: 0;
+      align-items: center;
+      display: flex;
     }
   }
   &__call-img {
     position: absolute;
     top: 0;
-    z-index: 90;
+    z-index: 99;
     height: $header-inverted-height;
 
     @media (min-width: $min-with-header) {
-      width: 989px;
+      width: 659px;
       justify-content: end;
       align-items: center;
       display: flex;
+      margin-left: 330px;
     }
     @media (--tablet) and (max-width: 960px) {
       top: 25px;
@@ -640,6 +643,7 @@ $min-with-header: 961px;
           justify-content: center;
           align-items: center;
           border-left: 1px solid #888888;
+          padding: 19px;
 
           &:active {
             background: #e1e1e1;
