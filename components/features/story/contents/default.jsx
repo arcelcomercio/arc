@@ -326,6 +326,7 @@ class StoryContents extends React.PureComponent {
                           <div
                             className="jwplayer-lazy"
                             id={mediaId}
+                            data-hasAds={hasAds}
                             data-playerId={jwplayerId}>
                             <div className="jwplayer-lazy-icon-play" />
                             <Image
