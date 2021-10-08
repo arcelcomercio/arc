@@ -49,7 +49,7 @@ const CardSubscribeResgister: React.FC<CardSubscribeResgisterProps> = ({
         src={`${getAssetsPath(
           arcSite,
           contextPath
-        )}/resources/dist/${arcSite}/images/boletin.png`}
+        )}/resources/dist/${arcSite}/images/boletin-anim.png`}
         loading="lazy"
         alt="carta correo"
       />
