@@ -48,7 +48,6 @@ export const PremiumInt = ({ properties }) => {
   const { typeDialog, onClose } = properties
   const {
     arcSite,
-    // contextPath,
     siteProperties: { activeRegisterwall = '' },
     siteProperties: {
       signwall: { mainColorBtn },
@@ -57,21 +56,12 @@ export const PremiumInt = ({ properties }) => {
 
   const { selectedTemplate, valTemplate } = useModalContext()
   const [resizeModal, setResizeModal] = React.useState('smallbottom')
-  /* const { name = '', summary: { feature = [] } = {} } =
-    useContent({
-      source: 'paywall-campaing',
-    }) || {}
-*/
+
   const checkModal = () => {
     if (typeDialog === 'premium') {
       setResizeModal('smallbottom-large')
     }
   }
-
-  // const handleLeavePage = (event) => {
-  //   event.preventDefault()
-  //   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
-  // }
 
   React.useEffect(() => {
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)

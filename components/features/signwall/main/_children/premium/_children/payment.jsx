@@ -20,11 +20,6 @@ export const PremiumPayment = () => {
       source: 'paywall-campaing',
     }) || {}
 
-  // const handleLeavePage = (event) => {
-  //   event.preventDefault()
-  //   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
-  // }
-
   return (
     <div
       className="signwall-inside_body-left premium"
