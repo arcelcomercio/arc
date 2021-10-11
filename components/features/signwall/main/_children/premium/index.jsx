@@ -1,4 +1,3 @@
-// import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -13,6 +12,7 @@ import FormForgot from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
 import FormLogin from '../../../_children/forms/form_login'
 import FormRegister from '../../../_children/forms/form_register'
+import FormIntroFree from '../../../_children/forms/form-intro-free'
 import { Close } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
 import { PremiumDefault } from './_children/default'
@@ -41,12 +41,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
     return templates.intro
   }
 
-  return (
-    templates[
-      template
-    ] /* (siteProperties.activeRegisterwall ? templates.introfree : */ ||
-    templates.intro
-  ) // )
+  return templates[template] || templates.intro
 }
 
 export const PremiumInt = ({ properties }) => {
@@ -115,17 +110,9 @@ export const PremiumInt = ({ properties }) => {
               onClose()
             }
           }}>
-          {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
-            <Close color="#fff" />
-          ) : (
-            <Close />
-          )}
+          {activeRegisterwall ? <Close color="#fff" /> : <Close />}
         </button>
-        {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
-          <PremiumRegister />
-        ) : (
-          <PremiumDefault />
-        )}
+        {activeRegisterwall ? <PremiumRegister /> : <PremiumDefault />}
         <div
           className="signwall-inside_body-right premium"
           style={{
