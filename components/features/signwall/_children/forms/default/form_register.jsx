@@ -4,10 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
-import {
-  SITE_ELCOMERCIO,
-  SITE_GESTION,
-} from '../../../../../utilities/constants/sitenames'
+import { SITE_ELCOMERCIO, SITE_GESTION } from '../../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -374,6 +371,44 @@ const FormRegister = ({
                       )}
                     </div>
                   )}
+
+                  <div className=" mt-10 center">
+                    <p className="signwall-inside_forms-text mb-20 center bold">
+                      Accede fácilmente con:
+                    </p>
+                    {authProviders.map((item) => (
+                      <ButtonSocial
+                        key={item}
+                        brand={item}
+                        size={sizeBtnSocial}
+                        defaultSize=""
+                        onLogged={onLogged}
+                        onClose={onClose}
+                        typeDialog={typeDialog}
+                        onStudents={() => setShowStudents(!showStudents)}
+                        arcSite={arcSite}
+                        typeForm="registro"
+                        activeNewsletter={activeNewsletter}
+                        checkUserSubs={checkUserSubs}
+                        dataTreatment={checkedPolits ? '1' : '0'}
+                      />
+                    ))}
+                    <AuthURL
+                      arcSite={arcSite}
+                      onClose={onClose}
+                      typeDialog={typeDialog}
+                      activeNewsletter={activeNewsletter}
+                      typeForm="registro"
+                      onLogged={onLogged}
+                      checkUserSubs={checkUserSubs}
+                      onStudents={() => setShowStudents(!showStudents)}
+                    />
+
+                    <p className="signwall-inside_forms-text mt-10 center bold">
+                      o completa tus datos para registrarte
+                    </p>
+                  </div>
+
                   <Input
                     type="email"
                     inputMode="email"
@@ -421,38 +456,8 @@ const FormRegister = ({
                     {showLoading ? 'Registrando...' : 'Registrarme'}
                   </button>
 
-                  {authProviders.map((item) => (
-                    <ButtonSocial
-                      key={item}
-                      brand={item}
-                      size={sizeBtnSocial}
-                      defaultSize="default-size"
-                      onLogged={onLogged}
-                      onClose={onClose}
-                      typeDialog={typeDialog}
-                      onStudents={() => setShowStudents(!showStudents)}
-                      arcSite={arcSite}
-                      typeForm="registro"
-                      activeNewsletter={activeNewsletter}
-                      checkUserSubs={checkUserSubs}
-                      dataTreatment={checkedPolits ? '1' : '0'}
-                    />
-                  ))}
 
-                  <AuthURL
-                    arcSite={arcSite}
-                    onClose={onClose}
-                    typeDialog={typeDialog}
-                    activeNewsletter={activeNewsletter}
-                    typeForm="registro"
-                    onLogged={onLogged}
-                    checkUserSubs={checkUserSubs}
-                    onStudents={() => setShowStudents(!showStudents)}
-                  />
-                  <div
-                    style={{
-                      marginTop: '10px',
-                    }}>
+                  <div>
                     <p className="signwall-inside_forms-text center p-link">
                       Ya tengo una cuenta
                       <a
@@ -480,6 +485,7 @@ const FormRegister = ({
                       </a>
                     </p>
                   </div>
+
 
                   {activeDataTreatment && (
                     <CheckBox
@@ -511,45 +517,47 @@ const FormRegister = ({
                     </CheckBox>
                   )}
 
-                  <CheckBox
-                    defaultBorder="default-border checkmark"
-                    checked={checkedTerms}
-                    value={checkedTerms ? '1' : '0'}
-                    name="rterms"
-                    arcSite={arcSite}
-                    onChange={(e) => {
-                      handleOnChange(e)
-                      setCheckedTerms(!checkedTerms)
-                      setShowError(false)
-                    }}
-                    valid
-                    error={rtermsError}>
-                    <p
-                      style={{
-                        fontSize: '12px',
-                        letterSpacing: '0.015em',
+                  <div className="mb-10">
+                    <CheckBox
+                      defaultBorder="default-border checkmark"
+                      checked={checkedTerms}
+                      value={checkedTerms ? '1' : '0'}
+                      name="rterms"
+                      arcSite={arcSite}
+                      onChange={(e) => {
+                        handleOnChange(e)
+                        setCheckedTerms(!checkedTerms)
+                        setShowError(false)
                       }}
-                      className="signwall-inside_forms-text mt-10">
-                      Al crear la cuenta acepto los {'  '}
-                      <a
-                        href={TermsConditions(arcSite)}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link mr-2 inline">
-                        Términos y Condiciones
-                      </a>
-                      {'  '}y{'  '}
-                      <a
-                        href={PolicyPrivacy(arcSite)}
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: mainColorLink, fontWeight: 'bold' }}
-                        className="signwall-inside_forms-link inline">
-                        Políticas de Privacidad
-                      </a>
-                    </p>
-                  </CheckBox>
+                      valid
+                      error={rtermsError}>
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          letterSpacing: '0.015em',
+                        }}
+                        className="signwall-inside_forms-text mt-10">
+                        Al crear la cuenta acepto los {'  '}
+                        <a
+                          href={TermsConditions(arcSite)}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ color: mainColorLink, fontWeight: 'bold' }}
+                          className="signwall-inside_forms-link mr-2 inline">
+                          Términos y Condiciones
+                        </a>
+                        {'  '}y{'  '}
+                        <a
+                          href={PolicyPrivacy(arcSite)}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ color: mainColorLink, fontWeight: 'bold' }}
+                          className="signwall-inside_forms-link inline">
+                          Políticas de Privacidad
+                        </a>
+                      </p>
+                    </CheckBox>
+                  </div>
                 </>
               )}
 
