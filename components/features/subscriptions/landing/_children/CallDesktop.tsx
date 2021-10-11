@@ -1,19 +1,22 @@
 import * as React from 'react'
 
 import { formatCellphone, formatNames } from '../../_dependencies/Errors'
-import { pushCallOut } from '../../_dependencies/Services'
 import useForm from '../../_hooks/useForm'
+import { CallService } from './CallService'
 
 type CallOutFormProps = {
   namecall: string
   phonecall: string
 }
 
+type DataCallProps = {
+  name: string
+  phone: string
+}
+
 const CallinCallout = (): JSX.Element => {
-  const [showConfirmCall, setShowConfirmCall] = React.useState(false)
-  const [showRepeatCall, setShowRepeatCall] = React.useState<string>()
-  const [showErrorCall, setShowErrorCall] = React.useState<string>()
   const [loading, setLoading] = React.useState(false)
+  const [dataCallInn, setDataCallInn] = React.useState<DataCallProps>()
 
   const stateSchema = {
     namecall: { value: '', error: '' },
@@ -24,6 +27,8 @@ const CallinCallout = (): JSX.Element => {
     namecall: {
       required: true,
       validator: formatNames(),
+      min2caracts: true,
+      invalidtext: true,
     },
     phonecall: {
       required: true,
@@ -33,33 +38,7 @@ const CallinCallout = (): JSX.Element => {
 
   const onFomrCallOut = ({ namecall, phonecall }: CallOutFormProps) => {
     setLoading(true)
-    pushCallOut(namecall, phonecall)
-      .then((resCall) => {
-        if (
-          resCall.resultado ||
-          resCall.mensaje ===
-            'El numero de telefono ya ha sido registrado el dia de hoy'
-        ) {
-          if (
-            resCall.mensaje ===
-            'El numero de telefono ya ha sido registrado el dia de hoy'
-          ) {
-            setLoading(false)
-            setShowRepeatCall(resCall.mensaje)
-          } else {
-            setLoading(false)
-            setShowConfirmCall(true)
-          }
-        } else {
-          setShowErrorCall(resCall.mensaje || resCall.Message)
-        }
-      })
-      .catch(() => {
-        setLoading(false)
-        setShowErrorCall(
-          'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.'
-        )
-      })
+    setDataCallInn({ name: namecall, phone: phonecall })
   }
 
   const {
@@ -77,26 +56,8 @@ const CallinCallout = (): JSX.Element => {
   return (
     <section id="callin" className="callin">
       <div className="wrapper">
-        {showConfirmCall || showErrorCall || showRepeatCall ? (
-          <div className="msg-confirmation">
-            {showConfirmCall && (
-              <h3>Tus datos han sido enviados correctamente</h3>
-            )}
-
-            {showRepeatCall && <h3>{showRepeatCall} </h3>}
-
-            {showErrorCall && <h3>Ocurrió un error</h3>}
-
-            {(showConfirmCall || showRepeatCall) && (
-              <>
-                <p>Uno de nuestros ejecutivos se pondrá en contacto contigo.</p>
-                <p className="note-schedule">
-                  Horario de atención es de L-V: 9AM a 8PM y S: 9AM a 1PM
-                </p>
-              </>
-            )}
-            {showErrorCall && <p>{showErrorCall}</p>}
-          </div>
+        {dataCallInn ? (
+          <CallService name={dataCallInn.name} phone={dataCallInn.phone} />
         ) : (
           <form onSubmit={handleOnSubmit}>
             <input
