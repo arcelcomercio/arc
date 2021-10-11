@@ -4,13 +4,9 @@ import * as React from 'react'
 
 import { getAssetsPath } from '../../../../../../utilities/assets'
 import { SITE_GESTION } from '../../../../../../utilities/constants/sitenames'
-import {
-  ModalProvider,
-} from '../../../../../subscriptions/_context/modal'
+import { ModalProvider } from '../../../../../subscriptions/_context/modal'
 
-
-
-export const PremiumDefault = () => {
+export const PremiumPayment = () => {
   const {
     arcSite,
     contextPath,
@@ -30,7 +26,6 @@ export const PremiumDefault = () => {
   // }
 
   return (
-
     <div
       className="signwall-inside_body-left premium"
       style={{
@@ -78,14 +73,13 @@ export const PremiumDefault = () => {
         </ul>
       </div>
     </div>
-
   )
 }
 
-const PremiumDefaultInt = (props) => (
+const PremiumPaymentInt = (props) => (
   <ModalProvider>
-    <PremiumDefault properties={props} />
+    <PremiumPayment properties={props} />
   </ModalProvider>
 )
 
-export { PremiumDefaultInt }
+export { PremiumPaymentInt }

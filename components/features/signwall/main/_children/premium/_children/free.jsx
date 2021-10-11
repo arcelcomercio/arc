@@ -1,15 +1,11 @@
-// import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { getAssetsPath } from '../../../../../../utilities/assets'
 import { SITE_DIARIOCORREO } from '../../../../../../utilities/constants/sitenames'
-import {
-  ModalProvider,
-} from '../../../../../subscriptions/_context/modal'
+import { ModalProvider } from '../../../../../subscriptions/_context/modal'
 
-
-export const PremiumRegister = () => {
+export const PremiumFree = () => {
   const {
     arcSite,
     contextPath,
@@ -30,7 +26,6 @@ export const PremiumRegister = () => {
   // }
 
   return (
-
     <div
       className="signwall-inside_body-left premium"
       style={{
@@ -43,7 +38,9 @@ export const PremiumRegister = () => {
         }}>
         <center>
           <h2 className="title-register">Regístrate Gratis</h2>
-          <p className="subtitle-register">para acceder al contenido exclusivo</p>
+          <p className="subtitle-register">
+            para acceder al contenido exclusivo
+          </p>
           <img
             alt="Logo"
             className={`logo ${arcSite}`}
@@ -55,23 +52,37 @@ export const PremiumRegister = () => {
           />
         </center>
         <div className="first__block pl-20 pr-20">
-          <p className="first__block-access" ><i style={{ color: mainColorBtn }}>&raquo;</i> Acceso al contenido Premium</p>
-          <p className="first__block-categories pl-15">Newsletter, economía, opinión, tendencias, deportes.</p>
+          <p className="first__block-access">
+            <i style={{ color: mainColorBtn }}>&raquo;</i> Acceso al contenido
+            Premium
+          </p>
+          <p className="first__block-categories pl-15">
+            Newsletter, economía, opinión, tendencias, deportes.
+          </p>
         </div>
 
         <div className="second__block pl-20 pr-20">
-          <p className="second__block-nav"><i style={{ color: mainColorBtn }}>&raquo;</i> Navegación ilimitada a <a href="/#" className="second__block-nav-link">diariocorreo.pe</a> desde cualquier dispositivo</p>
+          <p className="second__block-nav">
+            <i style={{ color: mainColorBtn }}>&raquo;</i> Navegación ilimitada
+            a{' '}
+            <a
+              href="/#"
+              className="second__block-nav-link"
+              style={{ color: mainColorBtn }}>
+              diariocorreo.pe
+            </a>{' '}
+            desde cualquier dispositivo
+          </p>
         </div>
       </div>
-    </div >
-
+    </div>
   )
 }
 
-const PremiumRegisterInt = (props) => (
+const PremiumFreeInt = (props) => (
   <ModalProvider>
-    <PremiumRegister properties={props} />
+    <PremiumFree properties={props} />
   </ModalProvider>
 )
 
-export { PremiumRegisterInt }
+export { PremiumFreeInt }

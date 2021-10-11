@@ -15,8 +15,8 @@ import FormRegister from '../../../_children/forms/form_register'
 import FormIntroFree from '../../../_children/forms/form-intro-free'
 import { Close } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
-import { PremiumDefault } from './_children/default'
-import { PremiumRegister } from './_children/register'
+import { PremiumFree } from './_children/free'
+import { PremiumPayment } from './_children/payment'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const { siteProperties, arcSite } = useAppContext() || {}
@@ -110,9 +110,17 @@ export const PremiumInt = ({ properties }) => {
               onClose()
             }
           }}>
-          {activeRegisterwall ? <Close color="#fff" /> : <Close />}
+          {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
+            <Close color="#fff" />
+          ) : (
+            <Close />
+          )}
         </button>
-        {activeRegisterwall ? <PremiumRegister /> : <PremiumDefault />}
+        {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
+          <PremiumFree />
+        ) : (
+          <PremiumPayment />
+        )}
         <div
           className="signwall-inside_body-right premium"
           style={{
