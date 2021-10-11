@@ -70,6 +70,8 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
     initials: '',
   })
 
+  console.log('cargó el _default')
+
   function getListSubs() {
     return Identity.extendSession().then((resExt) => {
       if (isUserIdentity(resExt)) {
@@ -164,6 +166,7 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
     }
 
     if (typeContentTier === ContentTiers.Locked) {
+      console.log('llegó a typeContentTier')
       getPremium()
     } else if (W.ArcP) {
       W.ArcP.run({
