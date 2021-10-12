@@ -9,25 +9,20 @@ import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 // import { getUrlPaywall } from '../../_dependencies/domains'
 import Loading from '../loading'
 
-const FormIntroFree = ({
-  typeDialog,
-  checkModal = (i) => i,
-}) => {
+const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
   const {
     arcSite,
     siteProperties: {
-      signwall: { mainColorBtn }
+      signwall: { mainColorBtn },
     },
   } = useAppContext() || {}
   const { changeTemplate } = useModalContext()
   const [showLoading, setShowLoading] = React.useState(true)
-  // const [showPaywallBtn, setShowPaywallBtn] = React.useState(false)
 
-  const { /* plans = [] , */ printAttributes = [] } =
+  const { printAttributes = [] } =
     useContent({
       source: 'paywall-campaing',
     }) || {}
-
 
   React.useEffect(() => {
     setShowLoading(false)
@@ -44,9 +39,11 @@ const FormIntroFree = ({
         <>
           <div className="signwall-inside_forms-cont-register center">
             <p className="text-info">Además accede al</p>
-            <p className='text-boletin'>Boletín de noticias</p>
+            <p className="text-boletin">Boletín de noticias</p>
             <hr className="barra" />
-            <p className="text-news" style={{ color: mainColorBtn }}>CORREO HOY</p>
+            <p className="text-news" style={{ color: mainColorBtn }}>
+              CORREO HOY
+            </p>
             <hr className="barra" />
             <button
               type="button"
@@ -55,7 +52,6 @@ const FormIntroFree = ({
                 fontSize: '18px',
                 backgroundColor: mainColorBtn,
                 width: '90%',
-
               }}
               onClick={() => {
                 Taggeo(
@@ -73,8 +69,8 @@ const FormIntroFree = ({
                     'paywall_last_url',
                     window.document.referrer
                       ? window.document.referrer.split(
-                        window.location.origin
-                      )[1]
+                          window.location.origin
+                        )[1]
                       : ''
                   )
                 }
@@ -83,10 +79,7 @@ const FormIntroFree = ({
               }}>
               INGRESAR
             </button>
-
           </div>
-
-
 
           <p
             style={{
@@ -102,8 +95,9 @@ const FormIntroFree = ({
 
           <p
             style={{ fontSize: typeDialog === 'premium' ? '12px' : '15px' }}
-            className={`signwall-inside_forms-text center note-premium ${arcSite === 'elcomercio' ? 'mb-10' : ''
-              }`}>
+            className={`signwall-inside_forms-text center note-premium ${
+              arcSite === 'elcomercio' ? 'mb-10' : ''
+            }`}>
             {printAttributes.map(
               (item) =>
                 item.name === 'subscriber_detail_popup' && (
@@ -119,8 +113,7 @@ const FormIntroFree = ({
             )}
           </p>
         </>
-      )
-      }
+      )}
     </form>
   )
 }

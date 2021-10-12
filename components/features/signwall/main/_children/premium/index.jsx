@@ -1,13 +1,20 @@
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { SITE_DIARIOCORREO } from '../../../../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+  SITE_TROME,
+} from '../../../../../utilities/constants/sitenames'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
   ModalProvider,
   useModalContext,
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
+import FormLoginDef from '../../../_children/forms/default/form_login'
+import FormRegisterDef from '../../../_children/forms/default/form_register'
 import FormForgot from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
 import FormLogin from '../../../_children/forms/form_login'
@@ -20,17 +27,33 @@ import { PremiumPayment } from './_children/payment'
 
 const renderTemplate = (template, valTemplate, attributes) => {
   const { siteProperties, arcSite } = useAppContext() || {}
+  const marca =
+    arcSite === SITE_TROME ||
+    arcSite === SITE_ELCOMERCIO ||
+    arcSite === SITE_GESTION
   const introOFree =
     siteProperties.activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
       <FormIntroFree {...attributes} />
     ) : (
       <FormIntro {...attributes} />
     )
+
+  const loginODef = marca ? (
+    <FormLogin {...{ valTemplate, attributes }} />
+  ) : (
+    <FormLoginDef {...{ valTemplate, attributes }} />
+  )
+
+  const registerODef = marca ? (
+    <FormRegister {...attributes} />
+  ) : (
+    <FormRegisterDef {...attributes} />
+  )
   const templates = {
     intro: introOFree,
-    login: <FormLogin {...{ valTemplate, attributes }} />,
+    login: loginODef,
     forgot: <FormForgot {...attributes} />,
-    register: <FormRegister {...attributes} />,
+    register: registerODef,
   }
 
   if (getQuery('signPremium')) {

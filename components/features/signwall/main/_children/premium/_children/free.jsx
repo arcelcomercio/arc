@@ -55,7 +55,7 @@ export const PremiumFree = () => {
             <i style={{ color: mainColorBtn }}>&raquo;</i> Navegación ilimitada
             a{' '}
             <a
-              href="/#"
+              href="https://diariocorreo.pe/"
               className="second__block-nav-link"
               style={{ color: mainColorBtn }}>
               diariocorreo.pe
