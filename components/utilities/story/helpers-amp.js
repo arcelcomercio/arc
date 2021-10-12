@@ -19,7 +19,6 @@ export const publicidadAmp = ({
   height,
   primarySectionLink = '/peru',
   arcSite = '',
-  prebidSlot = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -28,7 +27,10 @@ export const publicidadAmp = ({
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
 
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  if (arcSite === SITE_DEPOR) {
+    adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="0.5"`
+  }
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
@@ -42,7 +44,6 @@ export const publicidadAmpAd = ({
   height,
   primarySectionLink = '/peru',
   arcSite = '',
-  prebidSlot = '',
 }) => {
   const secctionPrimary = primarySectionLink.split('/')
   let resultData = ''
@@ -51,7 +52,10 @@ export const publicidadAmpAd = ({
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
 
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  if (arcSite === SITE_DEPOR) {
+    adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="0.5"`
+  }
 
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
@@ -59,18 +63,17 @@ export const publicidadAmpAd = ({
   }
   return createMarkup(resultData)
 }
-export const publicidadAmpMovil0 = ({
-  dataSlot,
-  arcSite = '',
-  prebidSlot = '',
-}) => {
+export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
   let resultData = ''
   const json =
     (SITE_PERU21 === arcSite &&
       `json='{"targeting":{"invent_type":["AMP"]}}'`) ||
     ''
 
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  if (arcSite === SITE_DEPOR) {
+    adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="0.5"`
+  }
   resultData = `<amp-ad
     width="320"
     height="50"
@@ -82,14 +85,13 @@ export const publicidadAmpMovil0 = ({
   return createMarkup(resultData)
 }
 
-export const publicidadAmpCaja1 = ({
-  dataSlot,
-  arcSite = '',
-  prebidSlot = '',
-}) => {
+export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '' }) => {
   let resultData = ''
 
-  const adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
+  if (arcSite === SITE_DEPOR) {
+    adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="0.5"`
+  }
 
   resultData = `<amp-ad
     width="320"
