@@ -42,7 +42,7 @@ const CardSubscribeResgister: React.FC<CardSubscribeResgisterProps> = ({
         Bienvenido a nuestra comunidad digital
       </p>
       <p className={classes.info}>
-        Ahora podrás seguir artículos y noticias de interés
+        Ahora podrás seguir artículos y noticias de tú interés
       </p>
       <img
         className={classes.image}
