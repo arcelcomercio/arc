@@ -46,7 +46,7 @@ const CardSubscribeResgister: React.FC<CardSubscribeResgisterProps> = ({
     </div>
     <div className={classes.cajainfo}>
       <p className={classes.info}>
-        Ahora podrás seguir artículos y noticias tú interés
+        Ahora podrás seguir artículos y noticias de tú interés
       </p>
       <img
         className={classes.image}
