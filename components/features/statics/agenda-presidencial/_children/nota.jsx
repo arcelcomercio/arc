@@ -5,6 +5,9 @@ const classes = {
 
   elecont1: 'agenda-presidencial__nota__elemento__contenedor1',
   eleparrafo: 'agenda-presidencial__nota__elemento__parrafo',
+  eleimage: 'agenda-presidencial__nota__elemento__image',
+  elecaption: 'agenda-presidencial__nota__elemento__caption',
+
   linea: 'agenda-presidencial__nota__linea',
   eleindicador: 'agenda-presidencial__nota__elemento__indicador',
 
@@ -76,6 +79,24 @@ const AgendaNota = (props) => {
                           key={element._id}
                           dangerouslySetInnerHTML={{ __html: element.content }}
                         />
+                      )}
+
+                      {element.type === 'image' && (
+                        <>
+                          <img
+                            className={classes.eleimage}
+                            key={element._id}
+                            src={element.url}
+                            alt="fuente el comercio"
+                          />
+                          <div
+                            className={classes.elecaption}
+                            key={element._id}
+                            dangerouslySetInnerHTML={{
+                              __html: element.caption,
+                            }}
+                          />
+                        </>
                       )}
                     </>
                   ))}
