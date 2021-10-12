@@ -1,27 +1,59 @@
-import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
-import { getAssetsPath } from '../../../../../utilities/assets'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+  SITE_TROME,
+} from '../../../../../utilities/constants/sitenames'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
   ModalProvider,
   useModalContext,
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
+import FormLoginDef from '../../../_children/forms/default/form_login'
+import FormRegisterDef from '../../../_children/forms/default/form_register'
 import FormForgot from '../../../_children/forms/form_forgot'
 import FormIntro from '../../../_children/forms/form_intro'
 import FormLogin from '../../../_children/forms/form_login'
 import FormRegister from '../../../_children/forms/form_register'
+import FormIntroFree from '../../../_children/forms/form-intro-free'
 import { Close } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
+import { PremiumFree } from './_children/free'
+import { PremiumPayment } from './_children/payment'
 
 const renderTemplate = (template, valTemplate, attributes) => {
+  const { siteProperties, arcSite } = useAppContext() || {}
+  const marca =
+    arcSite === SITE_TROME ||
+    arcSite === SITE_ELCOMERCIO ||
+    arcSite === SITE_GESTION
+  const introOFree =
+    siteProperties.activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
+      <FormIntroFree {...attributes} />
+    ) : (
+      <FormIntro {...attributes} />
+    )
+
+  const loginODef = marca ? (
+    <FormLogin {...{ valTemplate, attributes }} />
+  ) : (
+    <FormLoginDef {...{ valTemplate, attributes }} />
+  )
+
+  const registerODef = marca ? (
+    <FormRegister {...attributes} />
+  ) : (
+    <FormRegisterDef {...attributes} />
+  )
   const templates = {
-    intro: <FormIntro {...attributes} />,
-    login: <FormLogin {...{ valTemplate, attributes }} />,
+    intro: introOFree,
+    login: loginODef,
     forgot: <FormForgot {...attributes} />,
-    register: <FormRegister {...attributes} />,
+    register: registerODef,
   }
 
   if (getQuery('signPremium')) {
@@ -29,7 +61,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
       deleteQuery('signPremium')
       deleteQuery('dataTreatment')
     }, 2000)
-    return templates.login
+    return templates.intro
   }
 
   return templates[template] || templates.intro
@@ -39,29 +71,20 @@ export const PremiumInt = ({ properties }) => {
   const { typeDialog, onClose } = properties
   const {
     arcSite,
-    contextPath,
+    siteProperties: { activeRegisterwall = '' },
     siteProperties: {
-      signwall: { primaryFont },
+      signwall: { mainColorBtn },
     },
   } = useAppContext() || {}
 
   const { selectedTemplate, valTemplate } = useModalContext()
   const [resizeModal, setResizeModal] = React.useState('smallbottom')
-  const { name = '', summary: { feature = [] } = {} } =
-    useContent({
-      source: 'paywall-campaing',
-    }) || {}
 
   const checkModal = () => {
     if (typeDialog === 'premium') {
       setResizeModal('smallbottom-large')
     }
   }
-
-  // const handleLeavePage = (event) => {
-  //   event.preventDefault()
-  //   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
-  // }
 
   React.useEffect(() => {
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)
@@ -84,6 +107,10 @@ export const PremiumInt = ({ properties }) => {
         <button
           type="button"
           className="signwall-inside_body-close premium"
+          style={
+            activeRegisterwall &&
+            arcSite === SITE_DIARIOCORREO && { backgroundColor: mainColorBtn }
+          }
           onClick={() => {
             Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
             if (typeDialog === 'premium') {
@@ -96,55 +123,17 @@ export const PremiumInt = ({ properties }) => {
               onClose()
             }
           }}>
-          <Close />
+          {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
+            <Close color="#fff" />
+          ) : (
+            <Close />
+          )}
         </button>
-        <div
-          className="signwall-inside_body-left premium"
-          style={{
-            background: `${arcSite === 'gestion' ? '#8f071f' : '#232323'}`,
-          }}>
-          <img
-            src={`${getAssetsPath(
-              arcSite,
-              contextPath
-            )}/resources/dist/${arcSite}/images/paywall_bg.jpg?d=1`}
-            alt={`Ejemplo de usuario suscriptor de ${arcSite}`}
-            className="signwall-inside_body-left__bg"
-          />
-          <div
-            className="signwall-inside_body-cont premium"
-            style={{
-              padding: arcSite === 'gestion' ? '15px 10px' : '12px 20px',
-            }}>
-            <p>
-              Para acceder a este contenido
-              <br />
-              exclusivo, adquiere tu
-            </p>
-            <h3
-              className="signwall-inside_body-title premium"
-              style={{
-                fontFamily: primaryFont,
-              }}>
-              {name}
-            </h3>
-            <center>
-              <img
-                alt="Logo"
-                className={`logo ${arcSite}`}
-                src={`${getAssetsPath(
-                  arcSite,
-                  contextPath
-                )}/resources/dist/${arcSite}/images/logo_${arcSite}.png?d=1`}
-              />
-            </center>
-            <ul className="list-benefits mb-20">
-              {feature.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
+          <PremiumFree />
+        ) : (
+          <PremiumPayment />
+        )}
         <div
           className="signwall-inside_body-right premium"
           style={{

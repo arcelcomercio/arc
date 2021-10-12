@@ -1,8 +1,6 @@
-import React from 'react'
+import { FC } from 'types/features'
 
-const StoryPremium = () => {
-  return <></>
-}
+const StoryPremium: FC = () => null
 
 StoryPremium.label = 'Artículo - Premium'
 StoryPremium.static = true
