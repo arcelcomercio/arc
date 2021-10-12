@@ -1,48 +1,60 @@
 .b-news {
-  justify-content: center;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 0;
+
+  @media (--tablet) {
+    justify-content: center;
+  }
 
   & h2 {
-    width: 980px;
-    padding: 10px 16px 11px 16px;
+    padding: 15px 10px 15px 10px;
     margin: 0;
 
+    @media (--tablet) {
+      padding: 10px 10px 10px 10px;
+      max-width: 630px;
+    }
+
     @media (--desktop) {
-      padding: 10px 20px 11px 20px;
+      max-width: 960px;
     }
   }
 
   &__link {
-    font-family: $fira-s;
-    font-size: 18px;
+    font-family: $encode-c, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.36px;
     display: inline-block;
     padding: 0;
-    line-height: 29px;
-    letter-spacing: -0.36px;
-    color: $color-white;
+
+    span {
+      vertical-align: middle;
+    }
   }
 
   &__tag {
-    color: #000;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 700;
-    padding: 4px 5px 3px 6px;
-    margin-right: 12px;
+    letter-spacing: 0;
+    line-height: 29px;
     text-transform: uppercase;
+    padding: 8px 9px 7px 9px;
+    margin-right: 10px;
+    border-radius: 5px;
 
     @media (--tablet) {
-      color: #fff;
-      font-size: 18px;
-      font-weight: 800;
-      text-transform: none;
-      padding: 4px 9px 4px 7px;
+      letter-spacing: -0.12px;
+      padding: 8px 14px 7px 15px;
     }
   }
 
   &__title {
-    font-weight: 400;
-    padding-right: 12px;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.22px;
+    line-height: 29px;
+    text-decoration: none;
   }
 
   &__close {
@@ -91,28 +103,54 @@
   }
 
   &--color-1 {
-    background-color: #000;
+    background-color: transparent;
+    border-top: 1px solid #e5240d;
+
+    @media (--tablet) {
+      border-top: none;
+    }
+
+    .b-news__link {
+      color: #e5240d;
+    }
 
     .b-news__tag {
-      background-color: #ff8303;
+      background-color: #e5240d;
+      color: #fff;
+    }
+
+    .b-news__title {
+      color: #e5240d;
     }
   }
 
   &--color-2 {
     background-color: #000;
 
+    .b-news__link {
+      color: #fff;
+    }
+
     .b-news__tag {
-      background-color: #fc0303;
+      background-color: #ff8303;
+      color: #fff;
+    }
+
+    .b-news__title {
+      color: #fff;
     }
   }
 
   &--color-3 {
-    background-color: #fff;
-    border-top: 1px solid #e1e1e1;
-    border-bottom: 1px solid #e1e1e1;
+    background-color: transparent;
+
+    .b-news__link {
+      color: #343434;
+    }
 
     .b-news__tag {
-      background-color: #fc0303;
+      background-color: #e5240d;
+      color: #fff;
     }
 
     .b-news__title {
