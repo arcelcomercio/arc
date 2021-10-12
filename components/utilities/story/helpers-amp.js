@@ -29,7 +29,11 @@ export const publicidadAmp = ({
 
   let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
   if (arcSite === SITE_DEPOR) {
-    adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="0.5"`
+    if (!dataSlot.includes('caja1') && !dataSlot.includes('zocalo')) {
+      adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="1"`
+    } else {
+      adsLoadAmp = ``
+    }
   }
 
   if (secctionPrimary[1] !== 'respuestas') {
@@ -54,7 +58,11 @@ export const publicidadAmpAd = ({
 
   let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
   if (arcSite === SITE_DEPOR) {
-    adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="0.5"`
+    if (!dataSlot.includes('caja1') && !dataSlot.includes('zocalo')) {
+      adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="1"`
+    } else {
+      adsLoadAmp = ``
+    }
   }
 
   if (secctionPrimary[1] !== 'respuestas') {
@@ -72,7 +80,11 @@ export const publicidadAmpMovil0 = ({ dataSlot, arcSite = '' }) => {
 
   let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
   if (arcSite === SITE_DEPOR) {
-    adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="0.5"`
+    if (!dataSlot.includes('caja1') && !dataSlot.includes('zocalo')) {
+      adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="1"`
+    } else {
+      adsLoadAmp = ``
+    }
   }
   resultData = `<amp-ad
     width="320"
@@ -90,7 +102,11 @@ export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '' }) => {
 
   let adsLoadAmp = `data-loading-strategy="prefer-viewability-over-views"`
   if (arcSite === SITE_DEPOR) {
-    adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="0.5"`
+    if (!dataSlot.includes('caja1') && !dataSlot.includes('zocalo')) {
+      adsLoadAmp = `data-lazy-fetch="true" data-loading-strategy="1"`
+    } else {
+      adsLoadAmp = ``
+    }
   }
 
   resultData = `<amp-ad
