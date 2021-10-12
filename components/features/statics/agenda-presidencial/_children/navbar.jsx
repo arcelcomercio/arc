@@ -47,11 +47,11 @@ const NavBar = (props) => {
   const { requestUri } = useAppContext()
 
   // eslint-disable-next-line no-useless-escape
-  const isCal = /^(\/\d{4}\-\d{2}\-\d{2}\/)/.test(requestUri)
-  let show = 1
-  if (isCal) {
-    show = 0
-  }
+  const isCal = /\/\d{4}\-\d{2}\-\d{2}\//.test(requestUri)
+  // let show = 1
+  // if (isCal) {
+  //   show = 0
+  // }
 
   // modificar la ruta para produccion a /agenda-presidencial/
   const haciaCalendario = (e) => {
@@ -117,7 +117,7 @@ const NavBar = (props) => {
           {isNota && (
             <div className={classes.boxFecha}>{ConvertDateToString(day)}</div>
           )}
-          {show === 1 ? (
+          {isCal && (
             <button
               type="submit"
               className={classes.boxcalendario}
@@ -188,8 +188,6 @@ const NavBar = (props) => {
                 </g>
               </svg>
             </button>
-          ) : (
-            ''
           )}
         </div>
         {isNota && (

@@ -45,7 +45,7 @@
       font-size: 18px;
       font-weight: 700;
       margin-top: 16px;
-      margin-bottom: 18px;
+      margin-bottom: 10px;
       text-align: left;
       width: max-content;
       font-family: $primary-font;
@@ -57,6 +57,7 @@
       }
     }
     &__calendario {
+      margin-bottom: 10px;
       & svg {
         width: 116px;
         height: 25px;
