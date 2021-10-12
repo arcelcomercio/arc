@@ -5,7 +5,7 @@ import { getLocaleStorage } from '../_dependencies/Utils'
 
 type ProfileModalTemplates = 'home' | 'news' | 'subs' | 'prof' | 'detail'
 type FormModalTemplates = 'login' | 'forgot' | 'register'
-type PaywallModalTemplates = FormModalTemplates | 'intro'
+type PaywallModalTemplates = FormModalTemplates | 'intro' // | 'introfree'
 type OrganicModalTemplates = FormModalTemplates | 'reset' | 'verify' | 'relogin'
 type ModalTemplates =
   | ProfileModalTemplates
