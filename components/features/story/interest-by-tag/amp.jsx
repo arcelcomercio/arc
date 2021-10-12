@@ -1,16 +1,15 @@
-import * as React from 'react'
 import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
+import * as React from 'react'
 
-import StoryData from '../../../utilities/story-data'
-import UtilListKey from '../../../utilities/list-keys'
 import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
 import { separatorBasicFields } from '../../../utilities/included-fields'
-
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
+import UtilListKey from '../../../utilities/list-keys'
+import StoryData from '../../../utilities/story-data'
 import StorySeparatorChildItemAmp from './_children/amp'
 import StorySeparatorChildItemSliderAmp from './_children/amp-item-slider'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const classes = {
   storyInterest:
@@ -23,7 +22,7 @@ const classes = {
 
 const CONTENT_SOURCE = 'story-feed-by-tag'
 
-const InterestByTagAmp = props => {
+const InterestByTagAmp = (props) => {
   const {
     customFields: {
       tagToFetch = '',
@@ -79,16 +78,14 @@ const InterestByTagAmp = props => {
   let key = 0
 
   const dataInterest = storyData
-    .map(story => {
-      return story && story._id !== excluir ? story : ''
-    })
+    .map((story) => story && story._id !== excluir ? story : '')
     .filter(String)
 
   const isMag = arcSite === SITE_ELCOMERCIOMAG
   const linkSource = `&source=${isMag ? 'notepierdas' : 'tepuedeinteresar'}`
   const linkOutput = isMag ? '' : `&outputType=${outputType}`
 
-  const getSize = cant => {
+  const getSize = (cant) => {
     const dataStories = dataInterest.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
