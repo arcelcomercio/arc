@@ -4,10 +4,7 @@ import importRetry from '../../../../utilities/core/import-retry'
 
 const SignwallCallout = React.lazy(() =>
   importRetry(
-    () =>
-      import(
-        /* webpackChunkName: 'signwall-callout' */ '../../../signwall/_children/callout/index'
-      )
+    () => import(/* webpackChunkName: 'signwall-callout' */ './CallMobile')
   )
 )
 
