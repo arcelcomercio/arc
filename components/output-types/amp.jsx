@@ -136,6 +136,7 @@ const AmpOutputType = ({
     story: isStory, // check data origin - Boolean
     deployment,
     globalContent,
+    isAmp: true,
   }
   const parametros = {
     sections,

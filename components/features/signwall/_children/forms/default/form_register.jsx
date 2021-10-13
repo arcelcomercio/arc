@@ -4,6 +4,7 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
+import { SITE_TROME } from '../../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -42,6 +43,7 @@ const FormRegister = ({
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -272,21 +274,29 @@ const FormRegister = ({
       return checkEntitlement
     })
 
+  // agregado despues de pasar test por default/form_login
+  // es un codigo diferente al de login
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true)
 
       getListSubs()
         .then((p) => {
-          if (p && p.length === 0) {
+          if (activeRegisterwall) {
+            unblockContent()
+          } else if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
           } else {
-            setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
+            unblockContent()
           }
         })
         .finally(() => {
@@ -558,8 +568,9 @@ const FormRegister = ({
                     style={{ fontSize: '22px', lineHeight: '26px' }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
-                      ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                      }`
+                      ? `Bienvenido(a) ${
+                          Identity.userProfile.firstName || 'Usuario'
+                        }`
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h4>
 
@@ -686,7 +697,9 @@ const FormRegister = ({
                             }
                           }
                         }}>
-                        {arcSite === 'trome' ? 'Confirmar Correo' : 'Continuar'}
+                        {arcSite === SITE_TROME
+                          ? 'Confirmar Correo'
+                          : 'Continuar'}
                       </button>
                     </>
                   )}

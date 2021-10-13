@@ -43,6 +43,7 @@ const FormRegister = ({
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -274,21 +275,29 @@ const FormRegister = ({
       return checkEntitlement
     })
 
+  // agregado despues de pasar test por default/form_login
+  // es un codigo diferente al de login
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true)
 
       getListSubs()
         .then((p) => {
-          if (p && p.length === 0) {
+          if (activeRegisterwall) {
+            unblockContent()
+          } else if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
           } else {
-            setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
+            unblockContent()
           }
         })
         .finally(() => {
