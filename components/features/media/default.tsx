@@ -25,7 +25,7 @@ const MediaJWplayer = (): JSX.Element => {
   jwplayer('${globalContent?.mediaId}').setup({
     playlist: [{
     file: "https://cdn.jwplayer.com/manifests/${globalContent?.mediaId}.m3u8",
-    title: decodeURI("${globalContent?.title}"),
+    title: decodeURIComponent("${globalContent?.title}"),
     recommendations :"https://cdn.jwplayer.com/v2/media/${globalContent?.mediaId}",
     image: "${imagenJwplayer}",
     }]

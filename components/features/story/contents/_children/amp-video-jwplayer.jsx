@@ -13,7 +13,9 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
 
-  const url = `/media/${jwplayerId}/${mediaId}/${title}/${image}/?outputType=html`
+  const url = `/media/${jwplayerId}/${mediaId}/${encodeURIComponent(
+    title
+  )}/${image}/?outputType=html`
   return (
     <>
       {mediaId && (
