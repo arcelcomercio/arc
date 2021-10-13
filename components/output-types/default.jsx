@@ -698,15 +698,6 @@ export default ({
             />
           </>
         )}
-        {arcSite === SITE_ELBOCON ? (
-          <>
-            <script
-              type="text/javascript"
-              data-cfasync="false"
-              dangerouslySetInnerHTML={{ __html: jsAdpushup }}
-            />
-          </>
-        ) : null}
         <TagManager
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...siteProperties}
