@@ -4,6 +4,7 @@ import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { FC } from 'types/features'
+import { ArcSite } from 'types/fusion'
 
 import {
   SdksProvider,
@@ -12,7 +13,10 @@ import {
 } from '../../../contexts/subscriptions-sdks'
 import { deleteCookie, getCookie } from '../../../utilities/client/cookies'
 import { ContentTiers } from '../../../utilities/constants/content-tiers'
-import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+} from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
   getUsername,
@@ -260,8 +264,13 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
         initials: getUsernameInitials(name),
       })
     } else {
+      const name: Partial<Record<ArcSite, string>> = {
+        [SITE_ELCOMERCIO]: 'Iniciar',
+        [SITE_DIARIOCORREO]: 'Regístrate',
+      }
+      const defaultName = 'Iniciar Sesión'
       setUser({
-        name: arcSite === SITE_ELCOMERCIO ? 'Iniciar' : 'Iniciar Sesión',
+        name: name[arcSite] || defaultName,
         initials: '',
       })
     }
