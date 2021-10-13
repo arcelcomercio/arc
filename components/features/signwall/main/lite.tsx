@@ -102,8 +102,7 @@ const SignwallComponent = () => {
   function getPremium() {
     if (isLoggedIn()) {
       if (activeRegisterwall) {
-        window.showArcP = true
-        setActiveWall(Walls.Premium)
+        unblockContent()
       } else {
         hasActiveSubscriptions()
       }
