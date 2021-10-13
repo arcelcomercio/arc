@@ -4,7 +4,11 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
-import { SITE_ELCOMERCIO, SITE_GESTION } from '../../../../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+  SITE_TROME,
+} from '../../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -43,6 +47,7 @@ const FormRegister = ({
     arcSite,
     siteProperties: {
       signwall: { mainColorLink, mainColorBtn, mainColorBr, authProviders },
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -273,21 +278,29 @@ const FormRegister = ({
       return checkEntitlement
     })
 
+  // agregado despues de pasar test por default/form_login
+  // es un codigo diferente al de login
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true)
 
       getListSubs()
         .then((p) => {
-          if (p && p.length === 0) {
+          if (activeRegisterwall) {
+            unblockContent()
+          } else if (p && p.length === 0) {
             setShowUserWithSubs(false) // no tengo subs
           } else {
-            setShowUserWithSubs(true) // tengo subs
-            const divPremium = document.getElementById('contenedor')
-            if (divPremium) {
-              divPremium.classList.remove('story-content__nota-premium')
-              divPremium.removeAttribute('style')
-            }
+            unblockContent()
           }
         })
         .finally(() => {
@@ -456,7 +469,6 @@ const FormRegister = ({
                     {showLoading ? 'Registrando...' : 'Registrarme'}
                   </button>
 
-
                   <div>
                     <p className="signwall-inside_forms-text center p-link">
                       Ya tengo una cuenta
@@ -485,7 +497,6 @@ const FormRegister = ({
                       </a>
                     </p>
                   </div>
-
 
                   {activeDataTreatment && (
                     <CheckBox
@@ -690,7 +701,11 @@ const FormRegister = ({
                               'signwall-nav-btn'
                             )
                             if (typeDialog === 'newsletter' && btnSignwall) {
-                              btnSignwall.textContent = (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION ? 'Bienvenido' : 'Mi Perfil')
+                              btnSignwall.textContent =
+                                arcSite === SITE_ELCOMERCIO ||
+                                arcSite === SITE_GESTION
+                                  ? 'Bienvenido'
+                                  : 'Mi Perfil'
                             }
                             if (showContinueVerify) {
                               changeTemplate('login', '', remail)
@@ -699,7 +714,9 @@ const FormRegister = ({
                             }
                           }
                         }}>
-                        {arcSite === 'trome' ? 'Confirmar Correo' : 'Continuar'}
+                        {arcSite === SITE_TROME
+                          ? 'Confirmar Correo'
+                          : 'Continuar'}
                       </button>
                     </>
                   )}

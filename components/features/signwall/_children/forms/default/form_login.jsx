@@ -36,6 +36,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBr,
         authProviders,
       },
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -130,22 +131,31 @@ const FormLogin = ({ valTemplate, attributes }) => {
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
 
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    setShowLoadingPremium(false)
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+  // crear 2 funciones
+  // unblockContent
+  // en caso haya activeRegisterwall se manda la funcion
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
-
       getListSubs().then((p) => {
-        if (p && p.length === 0) {
+        console.log('llego al then de getList de checkUserSubs')
+        if (activeRegisterwall) {
+          unblockContent()
+        } else if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
         } else {
-          setShowUserWithSubs(true) // tengo subs
-          setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
-          if (divPremium) {
-            divPremium.classList.remove('story-content__nota-premium')
-            divPremium.removeAttribute('style')
-          }
+          unblockContent()
         }
       })
     }
@@ -160,25 +170,26 @@ const FormLogin = ({ valTemplate, attributes }) => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
 
+      console.log('llegó a handleGet Profile')
       getListSubs().then((p) => {
-        if (p && p.length === 0) {
+        if (activeRegisterwall) {
+          console.log(
+            'llego despues del activeRegisterWall de handleGetProfile'
+          )
+          unblockContent()
+        } else if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
         } else {
-          setShowUserWithSubs(true) // tengo subs
-          setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
-          if (divPremium) {
-            divPremium.classList.remove('story-content__nota-premium')
-            divPremium.removeAttribute('style')
-          }
+          unblockContent()
         }
       })
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${profile.lastName || ''
-          }`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
+          profile.lastName || ''
+        }`
       }
       onClose()
     }
@@ -280,7 +291,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
           <form
             className={`signwall-inside_forms-form form-${arcSite} ${typeDialog}`}
             onSubmit={handleOnSubmit}>
-            <div >
+            <div>
               {typeDialog === 'paywall' && !showLoginEmail && (
                 <h4
                   style={{ fontSize: '22px', fontFamily: primaryFont }}
@@ -336,13 +347,13 @@ const FormLogin = ({ valTemplate, attributes }) => {
               />
             )}
 
-
             {showLoginEmail && (
               <>
                 {showError && (
                   <div
-                    className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
-                      }`}>
+                    className={`signwall-inside_forms-error ${
+                      showVerify ? 'warning' : ''
+                    }`}>
                     {` ${showError} `}
                     {showVerify && (
                       <>
@@ -420,12 +431,12 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     background: mainColorLink,
                   }}
                   disabled={disable || showLoading || showFormatInvalid}
-                  onClick={() =>
+                  onClick={() => {
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
-                  }>
+                  }}>
                   {showLoading ? 'Cargando...' : 'Iniciar Sesión'}
                 </button>
               </>
@@ -528,8 +539,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <h4
                 style={{ fontSize: '22px' }}
                 className="signwall-inside_forms-title center mb-10">
-                {`Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                  } `}
+                {`Bienvenido(a) ${
+                  Identity.userProfile.firstName || 'Usuario'
+                } `}
               </h4>
               <p
                 style={{

@@ -37,6 +37,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBr,
         authProviders,
       },
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -137,22 +138,28 @@ const FormLogin = ({ valTemplate, attributes }) => {
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
 
+  // agregado despues de pasar test por default/form_login
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    setShowLoadingPremium(false)
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
-
       getListSubs().then((p) => {
-        if (p && p.length === 0) {
+        if (activeRegisterwall) {
+          unblockContent()
+        } else if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
         } else {
-          setShowUserWithSubs(true) // tengo subs
-          setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
-          if (divPremium) {
-            divPremium.classList.remove('story-content__nota-premium')
-            divPremium.removeAttribute('style')
-          }
+          unblockContent()
         }
       })
     }
@@ -166,19 +173,14 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
-
       getListSubs().then((p) => {
-        if (p && p.length === 0) {
+        if (activeRegisterwall) {
+          unblockContent()
+        } else if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
         } else {
-          setShowUserWithSubs(true) // tengo subs
-          setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
-          if (divPremium) {
-            divPremium.classList.remove('story-content__nota-premium')
-            divPremium.removeAttribute('style')
-          }
+          unblockContent()
         }
       })
     } else {
