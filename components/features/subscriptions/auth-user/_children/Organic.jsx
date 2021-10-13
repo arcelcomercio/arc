@@ -209,7 +209,9 @@ export const ContGeneric = ({ properties }) => {
         className="cont-modal"
         style={
           isTrome || isComercio || isGestion
-            ? undefined
+            ? {
+              height: "calc(100% - 50px)",
+            }
             : { minHeight: '350px' }
         }>
         {(isTrome || isComercio || isGestion) && (
