@@ -162,7 +162,7 @@ const FormRegister = ({
 
   const originAction = () => {
     switch (typeDialog) {
-      case 'organico':
+      case 'organico' || 'banner':
         return '0'
       case 'hard':
         return '1'
@@ -558,8 +558,9 @@ const FormRegister = ({
                     style={{ fontSize: '22px', lineHeight: '26px' }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
-                      ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                      }`
+                      ? `Bienvenido(a) ${
+                          Identity.userProfile.firstName || 'Usuario'
+                        }`
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h4>
 
