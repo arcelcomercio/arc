@@ -6,18 +6,18 @@ export type ArchiveSitemapQuery = {
   playerId?: string
   mediaId?: string
   imagen?: string
+  title?: string
 }
 
 const MediaJWplayer = (): JSX.Element => {
   const { globalContent } = useAppContext<ArchiveSitemapQuery>()
-  console.log('globalContent', globalContent?.imagen)
 
   const { resized_urls: { imagenJwplayer = '' } = {} } =
     useContent({
       source: 'photo-resizer',
       query: {
         url: globalContent?.imagen,
-        presets: 'imagenJwplayer:480x300',
+        presets: 'imagenJwplayer:600x330',
       },
     }) || {}
 
@@ -25,12 +25,11 @@ const MediaJWplayer = (): JSX.Element => {
   jwplayer('${globalContent?.mediaId}').setup({
     playlist: [{
     file: "https://cdn.jwplayer.com/manifests/${globalContent?.mediaId}.m3u8",
-    recommendations :'https://cdn.jwplayer.com/v2/media/${globalContent?.mediaId}',
+    title: decodeURI("${globalContent?.title}"),
+    recommendations :"https://cdn.jwplayer.com/v2/media/${globalContent?.mediaId}",
     image: "${imagenJwplayer}",
-    }],
-    advertising: {
-        schedule: "",
-    }
+    }]
+    
   });  
   `
   return (

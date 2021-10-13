@@ -1,4 +1,4 @@
-import { useContent, useFusionContext } from 'fusion:context'
+import { useFusionContext } from 'fusion:context'
 import React from 'react'
 
 const StoryContentChildVideoAmp = ({ data = {} }) => {
@@ -13,7 +13,7 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
 
-  const url = `/media/${jwplayerId}/${mediaId}/${image}/?_website=depor&outputType=html`
+  const url = `http://localhost/media/${jwplayerId}/${mediaId}/${title}/${image}/?outputType=html`
   return (
     <>
       {mediaId && (
@@ -21,9 +21,7 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
           <amp-iframe
             width="500"
             height="281"
-            title="Netflix House of Cards branding: The Stack"
             layout="responsive"
-            sandbox="allow-scripts allow-same-origin allow-popups"
             allowfullscreen
             frameborder="0"
             src={url}
