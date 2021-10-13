@@ -4,6 +4,7 @@ import { useAppContext } from 'fusion:context'
 import getProperties from 'fusion:properties'
 import * as React from 'react'
 import { FC } from 'types/features'
+import { ArcSite } from 'types/fusion'
 
 import {
   SdksProvider,
@@ -269,14 +270,13 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
         initials: getUsernameInitials(name),
       })
     } else {
-      let btnTitle = 'Iniciar Sesión'
-      if (arcSite === SITE_ELCOMERCIO) {
-        btnTitle = 'Iniciar'
-      } else if (arcSite === SITE_DIARIOCORREO) {
-        btnTitle = 'Regístrate'
+      const name: Partial<Record<ArcSite, string>> = {
+        [SITE_ELCOMERCIO]: 'Iniciar',
+        [SITE_DIARIOCORREO]: 'Regístrate',
       }
+      const defaultName = 'Iniciar Sesión'
       setUser({
-        name: btnTitle,
+        name: name[arcSite] || defaultName,
         initials: '',
       })
     }

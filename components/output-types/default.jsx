@@ -14,6 +14,7 @@ import {
   SITE_OJO,
   SITE_PERU21,
   SITE_PERU21G21,
+  SITE_PERUCOM,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
 import {
@@ -355,6 +356,9 @@ export default ({
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+  if (arcSite === SITE_PERUCOM && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
   const iscriptJwplayer = jwplayerSeo || isVideosSection
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
@@ -653,7 +657,9 @@ export default ({
           arcSite={arcSite}
           subtype={subtype}
         />
-        {(!(metaValue('exclude_libs') === 'true') || isAdmin) && <Libs />}
+        {(!(metaValue('exclude_libs') === 'true') || isAdmin || isPremium) && (
+          <Libs />
+        )}
         {/* <!-- Paywall - Inicio --> */}
         {(() => {
           if (
@@ -674,7 +680,8 @@ export default ({
           )
         })()}
         {/* <!-- Paywall - Fin --> */}
-        {enabledPushud || (arcSite !== SITE_PERU21 && arcSite !== SITE_GESTION) ? (
+        {enabledPushud ||
+        (arcSite !== SITE_PERU21 && arcSite !== SITE_GESTION) ? (
           <>
             <script
               type="text/javascript"
@@ -767,7 +774,9 @@ export default ({
         <div id="fusion-app" role="application">
           {children}
         </div>
-        {(!(metaValue('exclude_fusion') === 'true') || isAdmin) && <Fusion />}
+        {(!(metaValue('exclude_fusion') === 'true') ||
+          isAdmin ||
+          isPremium) && <Fusion />}
         {isStory && (
           <script
             type="text/javascript"
