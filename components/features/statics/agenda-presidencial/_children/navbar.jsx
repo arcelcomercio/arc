@@ -56,7 +56,7 @@ const NavBar = (props) => {
   // modificar la ruta para produccion a /agenda-presidencial/
   const haciaCalendario = (e) => {
     e.preventDefault()
-    window.location.href = `/pf/agenda-presidencial/?_website=elcomercio`
+    window.location.href = `/agenda-presidencial/`
   }
 
   return (

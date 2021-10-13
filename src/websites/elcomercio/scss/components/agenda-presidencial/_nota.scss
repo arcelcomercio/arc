@@ -36,8 +36,9 @@
     margin-top: 20;
     margin-bottom: 6;
     border: 1px solid #ccc;
-    width: 428px;
-    height: 385px;
+    width: 100%;
+    height: auto;
+    max-height: 385px; // lo maximo pe chato estudia sonso !
 
     @media (--desktop) {
       width: 418px;
@@ -45,7 +46,7 @@
       margin: 17px 290px 10px 290px;
     }
     @media (--tablet) {
-      width: 400px;
+      width: 361px;
       height: 250px;
       margin: auto;
     }
@@ -55,18 +56,29 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    // border: 1px solid #ccc;
-    width: 400px;
-    height: 20px;
+    padding: 0 44px;
+    font-family: $quinary-font;
+    font-size: 18px;
+    color: #868686;
+    text-align: left;
+    line-height: 26px;
+    width: 100%;
+    height: auto; //sino cambiar a 20px
 
     @media (--desktop) {
+      padding: 0 0;
+      font-family: $primary-font;
+      font-size: 14px;
       width: 418px;
-      height: 45px;
-      margin: 0 290px 30px 290px;
+      // height: 45px;
+      margin: 0 290px 8px 290px;
     }
     @media (--tablet) {
-      width: 400px;
-      height: 30px;
+      padding: 0 0;
+      font-family: $primary-font;
+      font-size: 14px;
+      width: 361px;
+      // height: 30px;
       margin: auto;
     }
   }

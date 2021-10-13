@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import Image from '../../../../global-components/image'
+
 const classes = {
   contenedor: 'agenda-presidencial__nota__contenedor',
 
@@ -83,11 +85,14 @@ const AgendaNota = (props) => {
 
                       {element.type === 'image' && (
                         <>
-                          <img
+                          <Image
                             className={classes.eleimage}
                             key={element._id}
                             src={element.url}
                             alt="fuente el comercio"
+                            loading="lazy"
+                            width={410}
+                            height={260}
                           />
                           <div
                             className={classes.elecaption}
