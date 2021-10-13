@@ -384,13 +384,7 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
           />
         )}
-        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideoDate) && (
-          <script
-            async
-            custom-element="amp-video-docking"
-            src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
-          />
-        )}
+
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
           <>
             <script
