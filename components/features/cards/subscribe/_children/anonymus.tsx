@@ -23,7 +23,7 @@ const CardSubscribeAnonymus: React.FunctionComponent<CardSubscribeAnonymusProps>
     }}>
     <p className={classes.text}>¿Aún no tienes una cuenta?</p>
     <a
-      href="/signwall/?outputType=subscriptions&signwallOrganic=1"
+      href="/signwall/?outputType=subscriptions&banner=1"
       className={classes.button}
       style={{
         background: mainColorLink,

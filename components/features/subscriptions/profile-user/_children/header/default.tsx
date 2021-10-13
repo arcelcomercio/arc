@@ -14,10 +14,16 @@ const classes = {
   close: 'profile-header__close-default',
 }
 
+enum Modals {
+  Hard = 'hard',
+  Organic = 'organico',
+  Banner = 'banner',
+}
+
 interface HeaderSignwallProps {
   buttonClose?: boolean
   onClose?: () => void
-  typeDialog?: 'hard' | 'organico'
+  typeDialog?: Modals
 }
 
 const HeaderSignwall = ({
@@ -79,7 +85,7 @@ const HeaderSignwall = ({
                 `web_sw${typeDialog?.[0]}_boton_cerrar`
               )
 
-              if (typeDialog === 'hard') {
+              if (typeDialog === Modals.Hard) {
                 window.location.href = '/?ref=signwall'
               } else if (onClose) {
                 onClose()
@@ -88,7 +94,7 @@ const HeaderSignwall = ({
               if (
                 /newsletters/.test(window.location.pathname) &&
                 Identity.userProfile &&
-                typeDialog === 'organico'
+                (typeDialog === Modals.Organic || typeDialog === Modals.Banner)
               ) {
                 setTimeout(() => {
                   window.location.reload()
