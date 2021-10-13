@@ -104,31 +104,6 @@ export const PremiumInt = ({ properties }) => {
       position="bottom"
       bgColor={arcSite === 'gestion' ? 'black' : 'white'}>
       <div className="signwall-inside_body-container premium">
-        <button
-          type="button"
-          className="signwall-inside_body-close premium"
-          style={
-            activeRegisterwall &&
-            arcSite === SITE_DIARIOCORREO && { backgroundColor: mainColorBtn }
-          }
-          onClick={() => {
-            Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
-            if (typeDialog === 'premium') {
-              if (document.getElementById('btn-premium-continue')) {
-                onClose()
-              } else {
-                window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
-              }
-            } else {
-              onClose()
-            }
-          }}>
-          {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
-            <Close color="#fff" />
-          ) : (
-            <Close />
-          )}
-        </button>
         {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
           <PremiumFree />
         ) : (
@@ -139,6 +114,31 @@ export const PremiumInt = ({ properties }) => {
           style={{
             backgroundColor: arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4',
           }}>
+          <button
+            type="button"
+            className="signwall-inside_body-close premium"
+            style={
+              activeRegisterwall &&
+              arcSite === SITE_DIARIOCORREO && { backgroundColor: mainColorBtn }
+            }
+            onClick={() => {
+              Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
+              if (typeDialog === 'premium') {
+                if (document.getElementById('btn-premium-continue')) {
+                  onClose()
+                } else {
+                  window.location.href = `/?signwallPremium=1&ref=${window.location.pathname}`
+                }
+              } else {
+                onClose()
+              }
+            }}>
+            {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
+              <Close color="#fff" />
+            ) : (
+              <Close />
+            )}
+          </button>
           {renderTemplate(selectedTemplate, valTemplate, {
             removeBefore,
             checkModal,
