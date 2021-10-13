@@ -23,7 +23,7 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
             width="600"
             height="340"
             layout="responsive"
-            sandbox="allow-scripts allow-same-origin allow-popups"
+            sandbox="allow-scripts allow-popups"
             frameborder="0"
             src={url}
           />

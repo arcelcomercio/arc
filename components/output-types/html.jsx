@@ -4,7 +4,7 @@ import * as React from 'react'
 const AmpOutputType = ({ children = [] }) => {
   const style = { margin: 0 }
   return (
-    <html amp="" lang="es">
+    <html lang="es">
       <head>
         <meta charSet="utf-8" />
         <meta
