@@ -19,10 +19,11 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
       {mediaId && (
         <>
           <amp-iframe
-            width="500"
-            height="281"
+            class="media"
+            width="600"
+            height="340"
             layout="responsive"
-            allowfullscreen
+            sandbox="allow-scripts allow-same-origin allow-popups"
             frameborder="0"
             src={url}
           />
