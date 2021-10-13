@@ -1,24 +1,19 @@
 export type GetMediaJWPlayerQuery = {
   mediaId: string
   playerId: string
-  imgen: string
   title: string
+  imagen: string
 }
 
 const params = [
-  {
-    name: 'mediaId',
-    displayName: 'mediaId',
-    type: 'string',
-  },
   {
     name: 'playerId',
     displayName: 'playerId',
     type: 'string',
   },
   {
-    name: 'imgen',
-    displayName: 'imagen',
+    name: 'mediaId',
+    displayName: 'mediaId',
     type: 'string',
   },
   {
@@ -26,15 +21,20 @@ const params = [
     displayName: 'title',
     type: 'string',
   },
+  {
+    name: 'imagen',
+    displayName: 'imagen',
+    type: 'string',
+  },
 ]
 
 const fetch = (key: GetMediaJWPlayerQuery): GetMediaJWPlayerQuery => {
-  const { mediaId, playerId, imgen, title } = key
+  const { playerId, mediaId, imagen, title } = key
   return {
     playerId,
-    mediaId,
-    imgen,
     title,
+    mediaId,
+    imagen,
   }
 }
 
