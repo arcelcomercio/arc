@@ -22,6 +22,7 @@ export default (website) => `
               basic {
                 type 
                 url
+                resized_urls { landscape_md }
               }
             }
           }
@@ -31,6 +32,7 @@ export default (website) => `
             embed{
               config{
                 thumbnail_url
+                resized_urls { landscape_md }
               }
             }
           }
@@ -40,12 +42,14 @@ export default (website) => `
               basic {
                 type 
                 url
+                resized_urls { landscape_md }
               }
             }
           }
           basic {
             type 
             url
+            resized_urls { landscape_md }
           }
         }
         headlines{

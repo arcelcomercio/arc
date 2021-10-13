@@ -14,6 +14,7 @@ import {
   SITE_OJO,
   SITE_PERU21,
   SITE_PERU21G21,
+  SITE_PERUCOM,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
 import {
@@ -337,6 +338,9 @@ export default ({
   if (arcSite === SITE_PERU21G21 && CURRENT_ENVIRONMENT === 'prod') {
     styleUrl = `https://cdnc.g21.peru21.pe/dist/${arcSite}/css/${style}.css`
   }
+  if (arcSite === SITE_PERUCOM && CURRENT_ENVIRONMENT === 'prod') {
+    styleUrl = `https://cdnc.elcomercio.pe/dist/${arcSite}/css/${style}.css`
+  }
   const iscriptJwplayer = jwplayerSeo || isVideosSection
 
   const isStyleBasic = arcSite === 'elcomercio c' && isHome && true
@@ -599,7 +603,7 @@ export default ({
             {indPrebid && (
               <script
                 defer
-                src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v=${new Date()
+                src={`https://d2dvq461rdwooi.cloudfront.net/output/assets/js/prebid.js?v=v1${new Date()
                   .toISOString()
                   .slice(0, 10)}`}
               />

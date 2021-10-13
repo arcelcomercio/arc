@@ -1,5 +1,6 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
+
 import { createResizedParams } from '../../../../utilities/resizer/resizer'
 
 const classes = {
@@ -8,11 +9,23 @@ const classes = {
 }
 
 const StoryContentChildAmpImage = ({ data }) => {
-  const { arcSite } = useFusionContext()
+  const { arcSite, requestUri } = useFusionContext()
+
+  const isStory = /^\/.*\/.*-noticia/.test(requestUri)
+  const hasImpresa =
+    (arcSite === 'depor' ||
+      arcSite === 'trome' ||
+      arcSite === 'peru21' ||
+      arcSite === 'ojo') &&
+    /^\/impresa\//.test(requestUri)
+
+  const widthSize = isStory && hasImpresa ? 560 : 600
+  const heightSize = isStory && hasImpresa ? 586 : 360
+
   const images =
     createResizedParams({
       url: data.url,
-      presets: 'medium:600x360',
+      presets: `medium:${widthSize}x${heightSize}`,
       arcSite,
     }) || {}
 
@@ -22,9 +35,10 @@ const StoryContentChildAmpImage = ({ data }) => {
         <amp-img
           src={images && images.medium}
           alt={data.caption}
-          height={360}
+          height={heightSize}
           layout="responsive"
-          width={600}></amp-img>
+          width={widthSize}
+        />
         <figcaption className={classes.description}>{data.caption}</figcaption>
       </figure>
     </>

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Image from '../../../../global-components/image'
+
 const classes = {
   item: 'amp-story-interest__item flex w-full mb-25',
   item_full_imagen:
@@ -38,17 +40,19 @@ const StorySeparatorChildItemAmp = ({ data }) => {
       className={` ${isFullImage ? classes.item_full_imagen : classes.item} `}>
       {multimediaType === 'video' && <span>&#8227;</span>}
       {multimediaType === 'gallery' && <span>G</span>}
+
       {link && (
         <a href={link} className={classes.link}>
-          <amp-img
-            src={multimediaLandscapeMD}
-            layout="responsive"
-            width="16"
-            height="9"
-            alt={title}
-            class={` ${
+          <Image
+            className={` ${
               isFullImage ? classes.itemImage_full_imagen : classes.itemImage
             } `}
+            src={multimediaLandscapeMD}
+            alt={title}
+            width={118}
+            layout="responsive"
+            height={66}
+            loading="lazy"
           />
         </a>
       )}
