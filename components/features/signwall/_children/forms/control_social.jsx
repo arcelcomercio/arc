@@ -14,7 +14,7 @@ import { Facebook, Google, Mail } from '../icons'
 
 const originAction = (dialogModal) => {
   switch (dialogModal) {
-    case 'organico':
+    case 'organico' || 'banner':
       return '0'
     case 'hard':
       return '1'
@@ -279,6 +279,8 @@ export const ButtonSocial = ({
         return 'signEmail'
       case 'reloghash':
         return 'signHash'
+      case 'banner':
+        return 'banner'
       case 'paywall':
         return 'signPaywall'
       case 'premium':
