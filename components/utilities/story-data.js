@@ -93,6 +93,7 @@ class StoryData {
 
   constructor({
     data = {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     deployment = (resource) => '',
     contextPath = '',
     arcSite = '',
@@ -1064,7 +1065,7 @@ class StoryData {
           dataElements.publicidad = true
           dataElements.nameAds = `caja4`
         }
-        if (i === 6) {
+        if (i === 8) {
           dataElements.publicidad = true
           dataElements.nameAds = `caja5`
         }
