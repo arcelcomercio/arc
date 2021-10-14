@@ -64,7 +64,6 @@ export const publicidadAmpAd = ({
       adsLoadAmp = ``
     }
   }
-
   if (secctionPrimary[1] !== 'respuestas') {
     resultData = `<amp-ad width="${width}" height="${height}" ${adsLoadAmp} type="doubleclick"
   data-slot="${dataSlot}" ${json}></amp-ad>`
@@ -108,7 +107,6 @@ export const publicidadAmpCaja1 = ({ dataSlot, arcSite = '' }) => {
       adsLoadAmp = ``
     }
   }
-
   resultData = `<amp-ad
     width="320"
     height="100"
