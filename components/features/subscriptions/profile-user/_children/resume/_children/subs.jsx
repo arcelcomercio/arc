@@ -128,27 +128,23 @@ class Subs extends Component {
     }
   }
 
-  checkPeriod = (dataPeriod) => {
+  namePeriod = (dataPeriod) => {
     if (dataPeriod) {
       const daysPeriod =
         (new Date(dataPeriod.periodTo) - new Date(dataPeriod.periodFrom)) /
         (1000 * 60 * 60 * 24)
-
       switch (true) {
         case daysPeriod >= 88 && daysPeriod <= 93:
           return 'TRIMESTRAL'
-
         case daysPeriod >= 178 && daysPeriod <= 186:
           return 'SEMESTRAL'
-
         case daysPeriod >= 358 && daysPeriod <= 372:
           return 'ANUAL'
-
         default:
           return 'MENSUAL'
       }
     }
-    return ''
+    return '-'
   }
 
   render() {
@@ -230,7 +226,7 @@ class Subs extends Component {
                               <p>
                                 <strong>Plan de pago: </strong>{' '}
                                 <span>
-                                  {this.checkPeriod(reSubs.paymentHistory[0])}
+                                  {this.namePeriod(reSubs.paymentHistory[0])}
                                 </span>
                               </p>
                               <p>
