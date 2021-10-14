@@ -15,7 +15,8 @@ export default {
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/trome/amp/post/default/preroll&description_url=https%3A%2F%2Ftrome.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Dtrome%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
 
   fbAppId: 'fbappidDEEEEEPOR',
-  googleTagManagerId: 'GTM-PP8XNMR',
+  googleTagManagerId: 'GTM-PP8XNMR', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-PP8XNMR', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-3055636-13',
   ampGoogleTagManagerName: 'trome',
   charbeatAccountNumber: 99999,
