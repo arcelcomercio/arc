@@ -611,7 +611,7 @@ const LiteOutput = ({
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
         {/* ============== WebTracking */}
-        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
+        {arcSite === SITE_ELCOMERCIO ? (
           <>
             <script
               defer
