@@ -310,81 +310,60 @@ export default ({
               )}
               {arcSite === 'trome' && !hideShare ? (
                 <>
-                  {!hidden && (
-                    <div className="section-video__content-share pt-10 pb-20 flex flex-row justify-between border-b-1 border-solid">
-                      <div className="section-video__share">
-                        <button
-                          onClick={() => shareNew('facebook')}
-                          type="button"
-                          className="section-video__btn section-video__btn--facebook">
-                          <span className="icon-facebook" />
-                        </button>
-                        <button
-                          onClick={() => shareNew('twitter')}
-                          type="button"
-                          className="section-video__btn section-video__btn--twitter">
-                          <span className="icon-twitter" />
-                        </button>
-                        <button
-                          onClick={() => shareNew('linkedin')}
-                          type="button"
-                          className="section-video__btn section-video__btn--linkedin">
-                          <span className="icon-linkedin" />
-                        </button>
-                        <button
-                          onClick={shareBtnHandler}
-                          type="button"
-                          className="section-video__btn">
-                          <svg
-                            viewBox="0 0 28 28"
-                            width="16"
-                            height="16"
-                            fill="#ccc">
-                            <path d="M28 10c0 0.266-0.109 0.516-0.297 0.703l-8 8c-0.187 0.187-0.438 0.297-0.703 0.297-0.547 0-1-0.453-1-1v-4h-3.5c-6.734 0-11.156 1.297-11.156 8.75 0 0.641 0.031 1.281 0.078 1.922 0.016 0.25 0.078 0.531 0.078 0.781 0 0.297-0.187 0.547-0.5 0.547-0.219 0-0.328-0.109-0.438-0.266-0.234-0.328-0.406-0.828-0.578-1.188-0.891-2-1.984-4.859-1.984-7.047 0-1.75 0.172-3.547 0.828-5.203 2.172-5.391 8.547-6.297 13.672-6.297h3.5v-4c0-0.547 0.453-1 1-1 0.266 0 0.516 0.109 0.703 0.297l8 8c0.187 0.187 0.297 0.438 0.297 0.703z"></path>
-                          </svg>
-                        </button>
-                      </div>
-                      {!hidden ? (
-                        <button
-                          type="button"
-                          onClick={() => setHidden(true)}
-                          className="section-video__read">
-                          Mostrar menos{' '}
-                          <i className="section-video__icon section-video__icon--up icon-down"></i>
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() => setHidden(false)}
-                          className="section-video__read">
-                          Mostrar más{' '}
-                          <i className="section-video__icon icon-down"></i>
-                        </button>
-                      )}
+                  <div className="section-video__content-share pt-10 pb-20 flex flex-row justify-between border-b-1 border-solid">
+                    <div className="section-video__share">
+                      <button
+                        onClick={() => shareNew('facebook')}
+                        type="button"
+                        className="section-video__btn section-video__btn--facebook">
+                        <span className="icon-facebook" />
+                      </button>
+                      <button
+                        onClick={() => shareNew('twitter')}
+                        type="button"
+                        className="section-video__btn section-video__btn--twitter">
+                        <span className="icon-twitter" />
+                      </button>
+                      <button
+                        onClick={() => shareNew('linkedin')}
+                        type="button"
+                        className="section-video__btn section-video__btn--linkedin">
+                        <span className="icon-linkedin" />
+                      </button>
+                      <button
+                        onClick={shareBtnHandler}
+                        type="button"
+                        className="section-video__btn">
+                        <svg
+                          viewBox="0 0 28 28"
+                          width="16"
+                          height="16"
+                          fill="#ccc">
+                          <path d="M28 10c0 0.266-0.109 0.516-0.297 0.703l-8 8c-0.187 0.187-0.438 0.297-0.703 0.297-0.547 0-1-0.453-1-1v-4h-3.5c-6.734 0-11.156 1.297-11.156 8.75 0 0.641 0.031 1.281 0.078 1.922 0.016 0.25 0.078 0.531 0.078 0.781 0 0.297-0.187 0.547-0.5 0.547-0.219 0-0.328-0.109-0.438-0.266-0.234-0.328-0.406-0.828-0.578-1.188-0.891-2-1.984-4.859-1.984-7.047 0-1.75 0.172-3.547 0.828-5.203 2.172-5.391 8.547-6.297 13.672-6.297h3.5v-4c0-0.547 0.453-1 1-1 0.266 0 0.516 0.109 0.703 0.297l8 8c0.187 0.187 0.297 0.438 0.297 0.703z"></path>
+                        </svg>
+                      </button>
                     </div>
-                  )}
+                  </div>
 
                   <div className="section-video__detail">
-                    {!hidden && (
-                      <ul className="section-video__list-text">
-                        {principalVideo.author !== '' && (
+                    <ul className="section-video__list-text">
+                      {principalVideo.author !== '' && (
+                        <li className="section-video__text">
+                          {principalVideo.author}
+                        </li>
+                      )}
+                      {principalVideo.displayDate !== '' && (
+                        <li className="section-video__text">{fecha}</li>
+                      )}
+                      {!(
+                        principalVideo.videoDuration === '00:00' ||
+                        principalVideo.videoDuration === '00:00:00'
+                      ) && (
                           <li className="section-video__text">
-                            {principalVideo.author}
+                            Duración: {principalVideo.videoDuration}
                           </li>
                         )}
-                        {principalVideo.displayDate !== '' && (
-                          <li className="section-video__text">{fecha}</li>
-                        )}
-                        {!(
-                          principalVideo.videoDuration === '00:00' ||
-                          principalVideo.videoDuration === '00:00:00'
-                        ) && (
-                            <li className="section-video__text">
-                              Duración: {principalVideo.videoDuration}
-                            </li>
-                          )}
-                      </ul>
-                    )}
+                    </ul>
                   </div>
                 </>
               ) : null}
