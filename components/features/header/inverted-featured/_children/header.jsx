@@ -12,11 +12,15 @@ import ShareButtons from '../../../../global-components/lite/share'
 
 import {
   toggleMenu,
+  toggleSearch,
   searchScript,
   btnSearch,
   searchScriptMobile,
   btnSearchMobile,
-  singwallScript
+  singwallScript,
+
+  sticky,
+  hoverSearch
 } from '../_dependencies/scripts'
 
 const classes = {
@@ -45,7 +49,11 @@ const classes = {
   search: `header-inverted-featured__search`,
   searchLabel: 'header-inverted-featured__search-label',
   btnSearch: `header-inverted-featured__btn-search`,
+  btnBuscar: `header-inverted-featured__btn-buscar`,
   iconSearch: 'header-inverted-featured__icon-search icon-search',
+  iconSearchBuscador: 'header-inverted-featured__icon-search-buscador',
+  buscadorContainer: 'header-inverted-featured__buscador-container hidden',
+  buscador: 'header-inverted-featured__buscador',
   btnMenu: 'header-inverted-featured__btn-menu ',
   iconMenu: 'header-inverted-featured__icon-menu icon-hamburguer',
   navStoryTitle: 'header-inverted-featured__nav-story-title',
@@ -248,10 +256,7 @@ const HeaderChildInverted = ({
   return (
     <>
       {(!invertedTema && !hideTema) && <Header />}
-
-      {/* <header className={`${classes.header} ${scrolled ? 'active' : ''}`}> */}
       <header className={classes.header}>
-
         <div className={classes.navLoader} />
         <div className={classes.wrapper}>
           {/** ************* LEFT *************** */}
@@ -263,7 +268,6 @@ const HeaderChildInverted = ({
               onClick={_handleToggleSectionElements}
               id="btn-menu"
               tabIndex="0">
-              {/* <i className={classes.iconMenu} /> */}
               <svg
                 aria-hidden="true"
                 focusable="false"
@@ -297,24 +301,9 @@ const HeaderChildInverted = ({
               className={classes.form}
               onSubmit={(e) => e.preventDefault()}
             >
-              <input
-                id="header-search-input"
-                ref={inputSearch}
-                type="search"
-                defaultValue={search}
-                /* onBlur={this._handleCloseSectionsSearch} */
-                onKeyUp={_handleKeyDown}
-                placeholder="¿Qué Buscas?"
-                className={`${classes.search} ${activeSearch()}`}
-              />
-              <label
-                htmlFor="header-search-input"
-                className={classes.searchLabel}>
-                Cuadro de búsqueda
-              </label>
               <svg
                 id="header-search-button"
-                className={`${classes.btnSearch} ${activeSearch()}`}
+                className={classes.btnSearch}
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
                 focusable="false"
@@ -325,6 +314,19 @@ const HeaderChildInverted = ({
                 <path
                   fill="currentColor"
                   d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                />
+              </svg>
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="times"
+                className="search-button-close hidden"
+                role="img"
+                viewBox="0 0 352 512">
+                <path
+                  fill="currentColor"
+                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
                 />
               </svg>
             </form>
@@ -383,20 +385,45 @@ const HeaderChildInverted = ({
           </a>
         </div>
         <div className="layer" />
+        <div id="search-container" className={classes.buscadorContainer}>
+          <div className={classes.buscador}>
+            <svg
+              id="header-search-button"
+              className={classes.iconSearchBuscador}
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="search"
+              role="img"
+              viewBox="0 0 512 512">
+              <path
+                fill="currentColor"
+                d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+              />
+            </svg>
+            <input
+              id="header-search-input"
+              type="search"
+              defaultValue={search}
+              /* onBlur={this._handleCloseSectionsSearch} */
+              onKeyUp={_handleKeyDown}
+              placeholder="¿Qué estas buscando?"
+              className={classes.search}
+            />
+            <Button
+              idButton="btn-search"
+              btnClass={classes.btnBuscar}
+              btnText="BUSCAR"
+            />
+
+          </div>
+        </div>
       </header>
+
+
       {!hideMenu && (
         <nav className={`${classes.band} ${(!hideTema) && classes.bandInverted}`}>
-
-          {/* <button
-            type="button"
-            className={classes.btnMenu}
-            onClick={_handleToggleSectionElements}
-            id="btn-menu"
-            tabIndex="0">
-            <i className={classes.iconMenu} />
-            <span aria-hidden="true">Menú</span>
-          </button> */}
-
           <div className={classes.bandWrapper}>
             {(tags && hideTema) && <div className={classes.tags}>{tags}</div>}
 
@@ -438,12 +465,28 @@ const HeaderChildInverted = ({
       ></script>
       <script
         dangerouslySetInnerHTML={{
+          __html: toggleSearch
+        }}
+      ></script>
+      <script
+        dangerouslySetInnerHTML={{
           __html: btnSearch
         }}
       ></script>
       <script
         dangerouslySetInnerHTML={{
+          __html: hoverSearch
+        }}
+      ></script>
+      <script
+        dangerouslySetInnerHTML={{
           __html: hideMenu ? '' : searchScript
+        }}
+      >
+      </script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: sticky
         }}
       >
       </script>
