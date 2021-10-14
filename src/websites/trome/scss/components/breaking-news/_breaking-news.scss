@@ -1,28 +1,44 @@
 .breaking-news {
   padding: 0;
+  margin-top: 0;
+
+  @media (--tablet) {
+    justify-content: center;
+    border-top: none;
+  }
 
   &__text {
-    padding: 9px 10px 12px 10px;
+    padding: 15px 10px 15px 10px;
     margin: 0;
+
+    @media (--tablet) {
+      padding: 10px 10px 10px 10px;
+      max-width: 630px;
+    }
+
+    @media (--desktop) {
+      max-width: 960px;
+    }
+
+    span {
+      vertical-align: middle;
+    }
   }
 
   &__tag {
     font-family: $encode-c, sans-serif;
-    font-size: 16px;
-    color: #000;
+    font-size: 12px;
     font-weight: 700;
-    padding: 3px 5px 3px 6px;
-    margin-right: 15px;
-    letter-spacing: -0.16px;
-    line-height: 27px;
-    text-transform: none;
+    letter-spacing: 0;
+    line-height: 29px;
+    text-transform: uppercase;
+    padding: 8px 9px 7px 9px;
+    margin-right: 10px;
+    border-radius: 5px;
 
     @media (--tablet) {
-      font-size: 20px;
-      color: #fff;
-      padding: 1px 9px 4px 7px;
-      letter-spacing: -0.2px;
-      line-height: 29px;
+      letter-spacing: -0.12px;
+      padding: 8px 14px 7px 15px;
     }
   }
 
@@ -30,7 +46,6 @@
     font-family: $encode-c, sans-serif;
     font-size: 22px;
     font-weight: 500;
-    color: #fff;
     letter-spacing: -0.22px;
     line-height: 29px;
     text-decoration: none;
@@ -68,10 +83,20 @@
   }
 
   &--bgcolor-1 {
-    background-color: #000;
+    background-color: transparent;
+    border-top: 1px solid #e5240d;
+
+    @media (--tablet) {
+      border-top: none;
+    }
 
     .breaking-news__tag {
-      background-color: #ff8303;
+      background-color: #e5240d;
+      color: #fff;
+    }
+
+    .breaking-news__link {
+      color: #e5240d;
     }
   }
 
@@ -79,17 +104,21 @@
     background-color: #000;
 
     .breaking-news__tag {
-      background-color: #fc0303;
+      background-color: #ff8303;
+      color: #fff;
+    }
+
+    .breaking-news__link {
+      color: #fff;
     }
   }
 
   &--bgcolor-3 {
-    background-color: #fff;
-    border-top: 1px solid #e1e1e1;
-    border-bottom: 1px solid #e1e1e1;
+    background-color: transparent;
 
     .breaking-news__tag {
-      background-color: #fc0303;
+      background-color: #e5240d;
+      color: #fff;
     }
 
     .breaking-news__link {

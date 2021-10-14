@@ -39,21 +39,23 @@
 
   &__multimedia {
     height: 80px;
-    margin-right: 10px;
+    margin-right: 8px;
   }
 
   &__img {
-    width: 120px;
+    width: 140px;
     -o-object-fit: cover;
     object-fit: cover;
   }
 
   &__txt {
-    font: 800 16px/19px $encode-c;
-    letter-spacing: 0.16px;
+    font-family: $encode-c;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 18px;
     opacity: 1;
     color: #333;
-    max-height: 72px;
+    max-height: 75px;
     -webkit-line-clamp: 4;
     display: -webkit-box;
     -webkit-box-orient: vertical;
