@@ -33,6 +33,7 @@ const SignwallComponent = React.lazy(() =>
   )
 )
 
+// se quitó el estilo hidden en searchContainer
 const classes = {
   nav: `nav text-white text-sm w-full flex items-center top-0 secondary-font`,
   wrapper: `nav__wrapper flex items-center bg-primary w-full top-0 h-inherit justify-between lg:justify-start pl-10 pr-10`,
@@ -41,7 +42,7 @@ const classes = {
   navContainerRight: `nav__container-right position-absolute lg:inline-block`,
   navBtnContainer: `flex items-center justify-start nav__container-menu lg:pr-10 lg:pl-10 border-r-1 border-solid`,
   searchContainer:
-    'nav__search-box hidden lg:flex items-center border-r-1 border-solid',
+    'nav__search-box lg:flex items-center border-r-1 border-solid',
   btnSearch: `flex items-center btn nav__btn nav__btn--search text-gray-200 hidden lg:flex`,
   btnSection: 'flex items-center btn nav__btn nav__btn--section p-5',
   iconSearch: 'nav__icon-search text-primary-color icon-search text-lg',
