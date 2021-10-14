@@ -29,7 +29,6 @@ import {
 } from '../../../utilities/constants/element-types'
 import { OPTA_CSS_LINK, OPTA_JS_LINK } from '../../../utilities/constants/opta'
 import {
-  SITE_DEPOR,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_PERU21,
@@ -175,7 +174,6 @@ const StoryContentsLite = (props) => {
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
-    arcSite,
   })
   const isPreview = /^\/preview\//.test(requestUri)
 
@@ -200,18 +198,19 @@ const StoryContentsLite = (props) => {
           </>
         )}
         <div
-          className={`${classes.content} ${isPremium && !isPreview
+          className={`${classes.content} ${
+            isPremium && !isPreview
               ? 'story-content__nota-premium paywall no_copy'
               : ''
-            }`}
+          }`}
           style={
             isPremium && !isPreview
               ? {
-                display: 'none',
-                opacity: '0',
-                userSelect: 'none',
-                visibility: 'hidden',
-              }
+                  display: 'none',
+                  opacity: '0',
+                  userSelect: 'none',
+                  visibility: 'hidden',
+                }
               : {}
           }
           id="contenedor">
@@ -296,6 +295,7 @@ const StoryContentsLite = (props) => {
                           key: mediaId = '',
                           has_ads: hasAds = 0,
                           account = 'gec',
+                          // eslint-disable-next-line @typescript-eslint/no-shadow
                           title = '',
                           thumbnail_url: image = '',
                           description: descriptionTxt,
@@ -415,7 +415,7 @@ const StoryContentsLite = (props) => {
                         (arcSite === 'depor' &&
                           (/^\/mexico\//.test(requestUri) ||
                             /^\/colombia\//.test(requestUri)))) &&
-                        nameAds === 'caja3' ? (
+                      nameAds === 'caja3' ? (
                         <div id="spc_post_stories" />
                       ) : null}
                     </>
@@ -437,9 +437,9 @@ const StoryContentsLite = (props) => {
                             dangerouslySetInnerHTML={{
                               __html: item.content
                                 ? item.content.replace(
-                                  /<a/g,
-                                  '<a itemprop="url"'
-                                )
+                                    /<a/g,
+                                    '<a itemprop="url"'
+                                  )
                                 : '',
                             }}
                           />
@@ -700,7 +700,9 @@ const StoryContentsLite = (props) => {
             <ShareButtons
               activeCopyLink={copyLink}
               activeLinkedin={
-                arcSite === 'elcomercio' || arcSite === 'elcomerciomag' || arcSite === 'trome'
+                arcSite === 'elcomercio' ||
+                arcSite === 'elcomerciomag' ||
+                arcSite === 'trome'
               }
               hideShareLinks={shareLinks}
             />
