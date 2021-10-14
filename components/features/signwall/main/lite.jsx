@@ -46,8 +46,8 @@ class SignwallComponent extends PureComponent {
 
     if (siteProperties.activeSignwall) {
       window.requestIdle(() => {
-        const tokenVerify = this.getUrlParam('tokenVerify')
-        if (tokenVerify) this.redirectURL('tokenVerify', tokenVerify)
+        const tokenVerify = this.getUrlParam('tokenMagicLink')
+        if (tokenVerify) this.redirectURL('tokenMagicLink', tokenVerify)
 
         const tokenReset = this.getUrlParam('tokenReset')
         if (tokenReset) this.redirectURL('tokenReset', tokenReset)
