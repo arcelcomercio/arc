@@ -46,6 +46,9 @@ export default {
     frequentQuestions: '',
     dataTreatment: 'RLJ5XMTMIBDMFC76MJRUQSJPRM',
   },
+  paywall: {
+    title: 'Ingresar | Ojo',
+  },
   assets: {
     seo: {
       logoAmp: 'logo-amp.png',

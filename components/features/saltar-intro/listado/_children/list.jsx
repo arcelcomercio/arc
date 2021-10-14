@@ -4,6 +4,7 @@ import { getActualDate } from '../../../../utilities/date-time/dates'
 
 const classes = {
   container: 'saltar-intro-listado__container',
+  trailer: 'saltar-intro-listado--trailer',
   list: 'saltar-intro-listado__list flex',
   item: 'saltar-intro-listado__item flex',
   figure: 'saltar-intro-listado__figure',
@@ -26,9 +27,10 @@ export default ({
   isAdmin,
   seeMoreLink,
   infoInterviewed,
+  isTrailer,
   data: { items = [] } = {},
 }) => (
-  <div className={classes.container}>
+  <div className={`${classes.container} ${isTrailer ? classes.trailer : ''}`}>
     <div className={classes.list}>
       {items &&
         items.map((el) => {

@@ -1,0 +1,56 @@
+/******* Brand colors *******/
+$color-primary: #de2326;
+$color-secondary: #ed1c24;
+$color-tertiary: #eb1c23;
+
+/* ----------------------- */
+$color-base-400: #1b2c3b;
+$color-base-300: #444;
+$color-base-200: #7f7f7f;
+$color-base-100: #a8a89b;
+
+/* ----------------------- */
+
+/******* Other colors *******/
+$color-link: #36b;
+
+/* ----------------------- */
+
+/** ----------------------------*
+*        GENERAL CONFIG         *
+*------------------------------- */
+
+/******** border colors *********/
+$border-color-base: $color-base-200;
+
+/******* Header colors *******/
+$header-bg-color: $color-primary;
+$header-text-color: $color-gray-300;
+
+/* ----------------------- */
+
+/******* Nav colors *******/
+$nav-color: $color-gray-300;
+
+/* ----------------------- */
+
+/******* Colors Signwall *******/
+$signwall-color-item-title: $color-tertiary;
+$signwall-color-link: $color-primary;
+$signwall-login-text: $color-base-100;
+$signwall-login-bg: $color-primary;
+$signwall-btn-m-bg: $color-white;
+$signwall-btn-m-color: $color-base-300;
+$signwall-btn-d-color: $color-base-300;
+$signwall-btn-d-bg: $color-white;
+$signwall-btn-d-border: $color-white;
+
+/* ---------------------------- */
+
+/* -------------CALENDAR---------------- */
+$calendar-background: #de2326;
+$calendar-title: #fff;
+$calendar-bg-icon: #fff;
+$calendar-icon: #de2326;
+
+/* -------------CALENDAR---------------- */

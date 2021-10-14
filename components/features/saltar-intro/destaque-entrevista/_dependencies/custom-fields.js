@@ -8,6 +8,10 @@ const customFields = PropTypes.shape({
     name: 'Modo Card',
     defaultValue: false,
   }),
+  isTrailer: PropTypes.bool.tag({
+    name: 'Sección Tráilers',
+    defaultValue: false,
+  }),
 })
 
 export default customFields

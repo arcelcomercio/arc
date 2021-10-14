@@ -1,0 +1,40 @@
+.sht {
+  &__title {
+    font: 700 24px/1.166 $primary-font;
+    padding: 0 20px 20px 20px;
+    color: #333;
+    @media (--tablet) {
+      font-weight: 400;
+      font-size: 44px;
+    }
+  }
+
+  &__summary {
+    font: 400 16px/1.33 $primary-font;
+    padding: 0 20px 20px 20px;
+    color: $color-black;
+    font-family: $secondary-font;
+  }
+
+  &__list {
+    list-style-type: disc;
+    padding: 0 40px 30px 20px;
+    & li {
+      font-size: 19px;
+      line-height: 26px;
+      color: #000;
+      margin-bottom: 10px;
+      & a {
+        text-decoration: underline;
+        font-weight: 700;
+      }
+      @media (--desktop) {
+        font-size: 20px;
+        line-height: 1.5;
+      }
+    }
+  }
+  &__link:hover {
+    text-decoration: none;
+  }
+}

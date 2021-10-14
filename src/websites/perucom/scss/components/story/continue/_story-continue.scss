@@ -1,0 +1,21 @@
+.story-continue {
+  &__story-load-image {
+    background-image: url("https://cdna.elcomercio.pe/resources/dist/perucom/images/logo-perucom.png");
+    background-size: cover;
+    height: 29px;
+    width: 67px;
+    left: 17px;
+    top: 33px;
+  }
+  &__counter {
+    &::after {
+      background: $color-white;
+    }
+  }
+  &__story-load-text {
+    font-family: $primary-font;
+  }
+  &__progress {
+    background: #ee3a36;
+  }
+}
