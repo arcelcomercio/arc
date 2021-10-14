@@ -95,10 +95,10 @@ $min-with-header: 961px;
     //
     .header-inverted-featured__btn-menu {
       @media (--only-mobile) {
-        position: initial;
-        height: initial;
-        width: inherit;
-        top: initial;
+        height: 53px;
+        position: relative;
+        top: auto;
+        width: 43px;
       }
     }
     .header-inverted-featured__icon-menu {
@@ -463,7 +463,7 @@ $min-with-header: 961px;
     }
   }
   &__search {
-    width: 100%;
+    width: 83%;
     text-align: center;
     height: 28px;
     font-size: 22px;
