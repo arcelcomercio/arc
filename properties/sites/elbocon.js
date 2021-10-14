@@ -14,7 +14,8 @@ export default {
   urlPrerollAmp:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/elbocon/amp/post/default/preroll&description_url=https%3A%2F%2Felbocon.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Delbocon%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1667917060088448',
-  googleTagManagerId: 'GTM-WB49SJD',
+  googleTagManagerId: 'GTM-WB49SJD', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-WB49SJD', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-15667156-1',
   ampGoogleTagManagerName: 'elbocon',
   charbeatAccountNumber: 57773,
