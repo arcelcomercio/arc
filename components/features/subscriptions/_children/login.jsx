@@ -145,7 +145,7 @@ const Login = ({
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(lemail)
+    Identity.requestOTALink(lemail)
     Taggeo(nameTagCategory, `web_sw${typeDialog[0]}_login_reenviar_correo`)
     let timeleft = 9
     const downloadTimer = setInterval(() => {

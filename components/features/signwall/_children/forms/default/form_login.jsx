@@ -177,8 +177,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
     } else {
       const btnSignwall = document.getElementById('signwall-nav-btn')
       if (typeDialog === 'newsletter' && btnSignwall) {
-        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${profile.lastName || ''
-          }`
+        btnSignwall.textContent = `${profile.firstName || 'Bienvenido'} ${
+          profile.lastName || ''
+        }`
       }
       onClose()
     }
@@ -249,7 +250,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(lemail)
+    Identity.requestOTALink(lemail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_login_reenviar_correo`
@@ -308,8 +309,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <>
                 {showError && (
                   <div
-                    className={`signwall-inside_forms-error ${showVerify ? 'warning' : ''
-                      }`}>
+                    className={`signwall-inside_forms-error ${
+                      showVerify ? 'warning' : ''
+                    }`}>
                     {` ${showError} `}
                     {showVerify && (
                       <>
@@ -520,8 +522,9 @@ const FormLogin = ({ valTemplate, attributes }) => {
               <h4
                 style={{ fontSize: '22px' }}
                 className="signwall-inside_forms-title center mb-10">
-                {`Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                  } `}
+                {`Bienvenido(a) ${
+                  Identity.userProfile.firstName || 'Usuario'
+                } `}
               </h4>
               <p
                 style={{

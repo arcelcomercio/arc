@@ -194,7 +194,7 @@ export const getProfilePayu = (jwt, idsubs, site) => {
   return response
 }
 
-export const requestVerifyEmail = (email, site) => {
+export const requestOTALink = (email, site) => {
   const response = new Promise((resolve) => {
     fetch(`${getOriginAPI(site)}/identity/public/v1/email/verify`, {
       method: 'POST',

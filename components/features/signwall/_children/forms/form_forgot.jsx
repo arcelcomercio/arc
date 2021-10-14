@@ -95,7 +95,7 @@ const FormForgot = ({ typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(femail)
+    Identity.requestOTALink(femail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_contrasena_reenviar_correo`

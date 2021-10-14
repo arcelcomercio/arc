@@ -9,7 +9,7 @@ import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
 import { MsgResetPass } from '../../icons'
 import Loading from '../../loading'
 
-const FormVerify = ({ onClose, tokenVerify, tokenOTA, typeDialog }) => {
+const FormVerify = ({ onClose, tokenVerify, typeDialog }) => {
   const {
     // arcSite,
     siteProperties: {
@@ -25,10 +25,10 @@ const FormVerify = ({ onClose, tokenVerify, tokenOTA, typeDialog }) => {
   const [showBtnContinue, setShowBtnContinue] = React.useState(false)
 
   React.useEffect(() => {
-    Identity.verifyEmail(tokenVerify)
-      .then((verifyResponse) => {
-        if (isAPIErrorResponse(verifyResponse)) {
-          const error = `Error al verificar email: ${verifyResponse.message} - ${verifyResponse.code}`
+    Identity.redeemOTALink(tokenVerify)
+      .then((OTAResponse) => {
+        if (isAPIErrorResponse(OTAResponse)) {
+          const error = `Error al iniciar sesión: ${OTAResponse.message} - ${OTAResponse.code}`
           setShowError(error)
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
@@ -42,21 +42,7 @@ const FormVerify = ({ onClose, tokenVerify, tokenOTA, typeDialog }) => {
           `Web_Sign_Wall_${typeDialog}`,
           `web_sw${typeDialog[0]}_aceptar_sucess`
         )
-
-        if (tokenOTA) {
-          Identity.redeemOTALink(tokenOTA).then((OTAResponse) => {
-            if (isAPIErrorResponse(OTAResponse)) {
-              const error = `Error al iniciar sesión: ${OTAResponse.message} - ${OTAResponse.code}`
-              setShowError(error)
-              Taggeo(
-                `Web_Sign_Wall_${typeDialog}`,
-                `web_sw${typeDialog[0]}_aceptar_error`
-              )
-              throw new Error(error)
-            }
-            Identity.getUserProfile()
-          })
-        }
+        Identity.getUserProfile()
       })
       .catch((errLogin) => {
         setShowError(getCodeError(errLogin.code))

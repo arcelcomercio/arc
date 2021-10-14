@@ -135,7 +135,7 @@ export const FormLoginPaywall = ({ valTemplate, attributes }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(lemail)
+    Identity.requestOTALink(lemail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_login_reenviar_correo`

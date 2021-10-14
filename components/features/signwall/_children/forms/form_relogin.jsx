@@ -120,7 +120,7 @@ const FormRelogin = ({ onClose, typeDialog }) => {
 
   const sendVerifyEmail = () => {
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    Identity.requestOTALink(remail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_email_login_reenviar_correo`

@@ -133,6 +133,7 @@ const FormRegister = ({
     if (activeNewsletter && profile.accessToken) {
       handleNewsleters(profile)
     }
+    Identity.requestOTALink(profile.profile.email)
     setShowConfirm(true)
     setShowContinueVerify(true)
     window.localStorage.removeItem('ArcId.USER_INFO')
@@ -232,9 +233,7 @@ const FormRegister = ({
             type: 'String',
           },
         ],
-      },
-      { doLogin: true },
-      { rememberMe: true }
+      }
     )
       .then((resSignUp) => {
         if (activeVerifyEmail) {
@@ -322,7 +321,7 @@ const FormRegister = ({
   const sendVerifyEmail = (e) => {
     e.preventDefault()
     setShowSendEmail(true)
-    Identity.requestVerifyEmail(remail)
+    Identity.requestOTALink(remail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
       `web_sw${typeDialog[0]}_registro_reenviar_correo`

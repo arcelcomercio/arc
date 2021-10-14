@@ -53,7 +53,7 @@
 //       return displayName && displayName === email
 //     }
 
-//     const requestVerifyEmail = mail => {
+//     const requestOTALink = mail => {
 //       const response = new Promise(resolve => {
 //         fetch(
 //           `https://api${
@@ -74,7 +74,7 @@
 //     }
 
 //     const sendVerifyEmail = () => {
-//       requestVerifyEmail(email)
+//       requestOTALink(email)
 //       Taggeo('Web_Sign_Wall_Organico', 'web_swo_cintillo_reenviar_correo')
 //       let timeleft = 9
 //       const downloadTimer = setInterval(() => {
