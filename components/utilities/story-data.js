@@ -1048,7 +1048,7 @@ class StoryData {
           dataElements.publicidad = true
           dataElements.nameAds = `caja4`
         }
-        if (i === 6) {
+        if (i === 8) {
           dataElements.publicidad = true
           dataElements.nameAds = `caja5`
         }
