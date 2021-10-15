@@ -122,11 +122,11 @@ const NavBar = (props) => {
               type="submit"
               className={classes.boxcalendario}
               onClick={haciaCalendario}>
-              <svg width={116} height={25}>
+              <svg width={125} height={25}>
                 <g data-name="Grupo 222" transform="translate(-300 -240)">
                   <rect
                     data-name="Rect\xE1ngulo 3049"
-                    width={115}
+                    width={125}
                     height={24}
                     rx={5}
                     transform="translate(300 240)"
