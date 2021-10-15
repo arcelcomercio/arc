@@ -28,13 +28,18 @@
       margin: auto;
       padding-left: 15px;
     }
+    @media (--tablet) {
+      max-width: 350px;
+      margin: auto;
+      padding-left: 10px;
+    }
   }
   &__elemento__image {
     // overflow: hidden;
     display: flex;
     flex-direction: column;
-    margin-top: 20;
-    margin-bottom: 6;
+    margin-top: 20px;
+    margin-bottom: 6px;
     border: 1px solid #ccc;
     width: 100%;
     height: auto;
@@ -46,9 +51,11 @@
       margin: 17px 290px 10px 290px;
     }
     @media (--tablet) {
-      width: 361px;
+      width: 330px;
       height: 250px;
       margin: auto;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
   }
   &__elemento__caption {
@@ -77,7 +84,7 @@
       padding: 0 0;
       font-family: $primary-font;
       font-size: 14px;
-      width: 361px;
+      width: 330px;
       // height: 30px;
       margin: auto;
     }
@@ -87,11 +94,14 @@
     border: 1px dashed #d64b4b;
     margin: 25px 40px;
     @media (--desktop) {
-      width: 597px;
-      margin: 32px;
+      max-width: 605px;
+      margin: 30px 199px;
     }
     @media (--tablet) {
-      margin: 25px 140px;
+      max-width: 350px;
+      margin: auto;
+      margin-bottom: 25px;
+      margin-top: 25px;
     }
   }
   &__linea2 {
@@ -102,7 +112,8 @@
       max-width: 330px;
     }
     @media (--tablet) {
-      margin: 25px 150px;
+      max-width: 300px;
+      margin: 50px 250px 20px 250px;
     }
   }
 
@@ -120,9 +131,17 @@
       margin: auto;
       padding-left: 15px;
     }
+    @media (--tablet) {
+      max-width: 350px;
+      margin: auto;
+      padding-left: 15px;
+    }
     & svg {
       width: 15px !important;
       height: 20px !important;
+    }
+    & b {
+      margin-right: 10px;
     }
   }
 
@@ -170,6 +189,10 @@
     font-style: italic;
   }
   &__ecdata {
+    margin: auto;
+    @media (--desktop) {
+      margin: auto;
+    }
     & svg {
       width: 124px;
       height: 26px;
