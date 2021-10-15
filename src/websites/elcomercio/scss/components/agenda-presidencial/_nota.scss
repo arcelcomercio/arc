@@ -94,7 +94,7 @@
     border: 1px dashed #d64b4b;
     margin: 25px 40px;
     @media (--desktop) {
-      width: 605px;
+      max-width: 605px;
       margin: 30px 199px;
     }
     @media (--tablet) {

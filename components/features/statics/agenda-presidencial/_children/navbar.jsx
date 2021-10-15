@@ -42,7 +42,7 @@ const ConvertDateToString = (date) => {
 }
 
 const NavBar = (props) => {
-  const { isNota = false, day = new Date() } = props
+  const { isNota = false, day = new Date(), dataNota = '' } = props
 
   const { requestUri } = useAppContext()
 
@@ -58,6 +58,16 @@ const NavBar = (props) => {
     e.preventDefault()
     window.location.href = `/agenda-presidencial/`
   }
+
+  console.log('isCal', isCal)
+  console.log('JSON en el navbar', JSON.stringify(dataNota))
+
+  let a = -1
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  if (JSON.stringify(dataNota) === '') {
+    a = 0
+  } else a = 1
+  console.log('val JSON', a)
 
   return (
     <>
@@ -117,7 +127,7 @@ const NavBar = (props) => {
           {isNota && (
             <div className={classes.boxFecha}>{ConvertDateToString(day)}</div>
           )}
-          {isCal && (
+          {isCal && JSON.stringify(dataNota) !== '{}' && (
             <button
               type="submit"
               className={classes.boxcalendario}
@@ -189,6 +199,7 @@ const NavBar = (props) => {
               </svg>
             </button>
           )}
+          {isCal && JSON.stringify(dataNota) === '{}' && ''}
         </div>
         {isNota && (
           <div className={classes.boxDia}>
