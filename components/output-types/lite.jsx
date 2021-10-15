@@ -300,11 +300,16 @@ const LiteOutput = ({
               <meta
                 name="robots"
                 content={`${
-                  /-agnc-/.test(requestUri) ? 'noindex' : 'index'
-                }, follow`}
+                  /-agnc-/.test(requestUri)
+                    ? 'noindex, follow'
+                    : 'index, follow,max-image-preview:large'
+                }`}
               />
             ) : (
-              <meta name="robots" content="index, follow" />
+              <meta
+                name="robots"
+                content="index, follow,max-image-preview:large"
+              />
             )}
             {arcSite === 'trome' || arcSite === 'depor' ? null : (
               <meta name="GOOGLEBOT" content="index follow" />
@@ -401,12 +406,6 @@ const LiteOutput = ({
             <link rel="preconnect" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-            <link rel="preconnect" href="//cdn.cxense.com/" />
-            <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-            <link rel="preconnect" href="//scdn.cxense.com/" />
-            <link rel="dns-prefetch" href="//scdn.cxense.com/" />
-            <link rel="preconnect" href="//scomcluster.cxense.com/" />
-            <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
             <link rel="preconnect" href="//sb.scorecardresearch.com/" />
             <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
             <link rel="dns-prefetch" href="//fonts.gstatic.com" />
