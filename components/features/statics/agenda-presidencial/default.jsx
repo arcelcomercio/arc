@@ -113,10 +113,11 @@ const StaticsAgendaPresidencial = (props) => {
         .website_url
     })
   }
+  console.log('JSON en el default', JSON.stringify(dataNota))
 
   return (
     <>
-      <NavBar isNota={isNotaWeb} day={dateUrl} />
+      <NavBar isNota={isNotaWeb} day={dateUrl} dataNota={dataNota} />
       {isNotaWeb === true && JSON.stringify(dataNota) !== '{}' ? (
         <AgendaNota dataNota={dataNota} titleUpDown={titleUpDown} />
       ) : (

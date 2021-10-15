@@ -75,11 +75,13 @@ const AgendaNota = (props) => {
                 <>
                   {dataNota.content_elements.map((element) => (
                     <>
-                      {element.type === 'text' && (
+                      {element.type === 'text' && element.content !== '<br/>' && (
                         <li
                           className={classes.eleparrafo}
                           key={element._id}
-                          dangerouslySetInnerHTML={{ __html: element.content }}
+                          dangerouslySetInnerHTML={{
+                            __html: element.content,
+                          }}
                         />
                       )}
 
