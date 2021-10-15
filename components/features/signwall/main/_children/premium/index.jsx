@@ -1,3 +1,4 @@
+import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -5,55 +6,89 @@ import {
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
   SITE_GESTION,
-  SITE_TROME,
 } from '../../../../../utilities/constants/sitenames'
+import importRetry from '../../../../../utilities/core/import-retry'
 import { deleteQuery, getQuery } from '../../../../../utilities/parse/queries'
 import {
   ModalProvider,
   useModalContext,
 } from '../../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../../subscriptions/_dependencies/Taggeo'
-import FormLoginDef from '../../../_children/forms/default/form_login'
-import FormRegisterDef from '../../../_children/forms/default/form_register'
-import FormForgot from '../../../_children/forms/form_forgot'
-import FormIntro from '../../../_children/forms/form_intro'
-import FormLogin from '../../../_children/forms/form_login'
-import FormRegister from '../../../_children/forms/form_register'
-import FormIntroFree from '../../../_children/forms/form-intro-free'
 import { Close } from '../../../_children/icons'
 import { Modal } from '../../../_children/modal/index'
 import { PremiumFree } from './_children/free'
 import { PremiumPayment } from './_children/payment'
 
+const FormIntro = React.lazy(() =>
+  importRetry(() => import('../../../_children/forms/form_intro'))
+)
+
+const FormIntroFree = React.lazy(() =>
+  importRetry(() => import('../../../_children/forms/form-intro-free'))
+)
+
+const FormLogin = React.lazy(() =>
+  importRetry(() => import('../../../_children/forms/form_login'))
+)
+
+const FormLoginDef = React.lazy(() =>
+  importRetry(() => import('../../../_children/forms/default/form_login'))
+)
+
+const FormForgot = React.lazy(() =>
+  importRetry(() => import('../../../_children/forms/form_forgot'))
+)
+
+const FormRegister = React.lazy(() =>
+  importRetry(() => import('../../../_children/forms/form_register'))
+)
+
+const FormRegisterDef = React.lazy(() =>
+  importRetry(() => import('../../../_children/forms/default/form_register'))
+)
+
+const lazyFallback = <div style={{ padding: '30px' }}>Cargando...</div>
+
 const renderTemplate = (template, valTemplate, attributes) => {
-  const { siteProperties, arcSite } = useAppContext() || {}
-  const marca =
-    arcSite === SITE_TROME ||
-    arcSite === SITE_ELCOMERCIO ||
-    arcSite === SITE_GESTION
-  const introOFree =
-    siteProperties.activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
-      <FormIntroFree {...attributes} />
-    ) : (
-      <FormIntro {...attributes} />
-    )
+  const {
+    siteProperties: { activeRegisterwall },
+    arcSite,
+  } = useAppContext() || {}
+  const marca = arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
 
-  const loginODef = marca ? (
-    <FormLogin {...{ valTemplate, attributes }} />
-  ) : (
-    <FormLoginDef {...{ valTemplate, attributes }} />
-  )
-
-  const registerODef = marca ? (
-    <FormRegister {...attributes} />
-  ) : (
-    <FormRegisterDef {...attributes} />
-  )
   const templates = {
-    intro: introOFree,
-    login: loginODef,
-    forgot: <FormForgot {...attributes} />,
-    register: registerODef,
+    intro: (
+      <React.Suspense fallback={lazyFallback}>
+        {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
+          <FormIntroFree {...attributes} />
+        ) : (
+          <FormIntro {...attributes} />
+        )}
+      </React.Suspense>
+    ),
+    login: (
+      <React.Suspense fallback={lazyFallback}>
+        {marca ? (
+          <FormLogin {...{ valTemplate, attributes }} />
+        ) : (
+          <FormLoginDef {...{ valTemplate, attributes }} />
+        )}
+      </React.Suspense>
+    ),
+    forgot: (
+      <React.Suspense fallback={lazyFallback}>
+        <FormForgot {...attributes} />
+      </React.Suspense>
+    ),
+    register: (
+      <React.Suspense fallback={lazyFallback}>
+        {marca ? (
+          <FormRegister {...attributes} />
+        ) : (
+          <FormRegisterDef {...attributes} />
+        )}
+      </React.Suspense>
+    ),
   }
 
   if (getQuery('signPremium')) {
@@ -61,7 +96,7 @@ const renderTemplate = (template, valTemplate, attributes) => {
       deleteQuery('signPremium')
       deleteQuery('dataTreatment')
     }, 2000)
-    return templates.intro
+    return templates.login
   }
 
   return templates[template] || templates.intro
@@ -71,8 +106,8 @@ export const PremiumInt = ({ properties }) => {
   const { typeDialog, onClose } = properties
   const {
     arcSite,
-    siteProperties: { activeRegisterwall = '' },
     siteProperties: {
+      activeRegisterwall,
       signwall: { mainColorBtn },
     },
   } = useAppContext() || {}
@@ -85,6 +120,16 @@ export const PremiumInt = ({ properties }) => {
       setResizeModal('smallbottom-large')
     }
   }
+
+  const { name = '', summary: { feature = [] } = {} } =
+    useContent({
+      source: 'paywall-campaing',
+    }) || {}
+
+  // const handleLeavePage = (event) => {
+  //   event.preventDefault()
+  //   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
+  // }
 
   React.useEffect(() => {
     Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)
@@ -107,7 +152,7 @@ export const PremiumInt = ({ properties }) => {
         {activeRegisterwall && arcSite === SITE_DIARIOCORREO ? (
           <PremiumFree />
         ) : (
-          <PremiumPayment />
+          <PremiumPayment name={name} feature={feature} />
         )}
         <div
           className="signwall-inside_body-right premium"
@@ -117,10 +162,12 @@ export const PremiumInt = ({ properties }) => {
           <button
             type="button"
             className="signwall-inside_body-close premium"
-            style={
-              activeRegisterwall &&
-              arcSite === SITE_DIARIOCORREO && { backgroundColor: mainColorBtn }
-            }
+            style={{
+              backgroundColor:
+                activeRegisterwall && arcSite === SITE_DIARIOCORREO
+                  ? mainColorBtn
+                  : 'none',
+            }}
             onClick={() => {
               Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
               if (typeDialog === 'premium') {
