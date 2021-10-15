@@ -438,12 +438,19 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   className="signwall-inside_forms-btn"
                   style={{ color: mainColorBtn, background: mainColorLink }}
                   disabled={disable || showLoading || showFormatInvalid}
-                  onClick={() =>
+                  onClick={() => {
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
-                  }>
+                    // agregado para el taggeo de diario correo por valla
+                    if (typeDialog === 'premium' && activeRegisterwall) {
+                      Taggeo(
+                        `Web_${typeDialog}_Registro`,
+                        `web_${typeDialog}_boton_iniciar_sesion`
+                      )
+                    }
+                  }}>
                   {showLoading ? 'CARGANDO...' : 'INICIA SESIÓN'}
                 </button>
               </>
@@ -569,8 +576,13 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   type="button"
                   style={{ color: mainColorBtn, background: mainColorLink }}
                   onClick={() => {
+                    // modificado para el taggeo de diario correo por valla
                     Taggeo(
-                      `Web_${typeDialog}_Hard`,
+                      `Web_${typeDialog}_${
+                        activeRegisterwall && typeDialog === 'premium'
+                          ? 'Registro'
+                          : 'Hard'
+                      }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )
                     if (

@@ -386,6 +386,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       `Web_Sign_Wall_${typeDialog}`,
                       `web_sw${typeDialog[0]}_contrasena_link_olvide`
                     )
+
                     changeTemplate('forgot')
                   }}>
                   Olvidé mi contraseña
@@ -404,6 +405,14 @@ const FormLogin = ({ valTemplate, attributes }) => {
                       `Web_Sign_Wall_${typeDialog}`,
                       `web_sw${typeDialog[0]}_login_boton_ingresar`
                     )
+
+                    // agregado para el taggeo de diario correo por valla
+                    if (typeDialog === 'premium' && activeRegisterwall) {
+                      Taggeo(
+                        `Web_${typeDialog}_Registro`,
+                        `web_${typeDialog}_boton_iniciar_sesion`
+                      )
+                    }
                   }}>
                   {showLoading ? 'Cargando...' : 'Iniciar Sesión'}
                 </button>
@@ -553,8 +562,13 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   type="button"
                   style={{ color: mainColorBtn, background: mainColorLink }}
                   onClick={() => {
+                    // modificado para el taggeo de diario correo por valla
                     Taggeo(
-                      `Web_${typeDialog}_Hard`,
+                      `Web_${typeDialog}_${
+                        activeRegisterwall && typeDialog === 'premium'
+                          ? 'Registro'
+                          : 'Hard'
+                      }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )
                     if (

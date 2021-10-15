@@ -608,8 +608,14 @@ const FormRegister = ({
                                 background: mainColorLink,
                               }}
                               onClick={() => {
+                                // modificado para el taggeo de diario correo por valla
                                 Taggeo(
-                                  `Web_${typeDialog}_Hard`,
+                                  `Web_${typeDialog}_${
+                                    activeRegisterwall &&
+                                    typeDialog === 'premium'
+                                      ? 'Registro'
+                                      : 'Hard'
+                                  }`,
                                   `web_${typeDialog}_boton_sigue_navegando`
                                 )
                                 if (

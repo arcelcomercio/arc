@@ -128,11 +128,22 @@ export const PremiumInt = ({ properties }) => {
 
   // const handleLeavePage = (event) => {
   //   event.preventDefault()
-  //   Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_leave`)
+  // modificado para el taggeo de diario correo por valla
+  // Taggeo(
+  //   `Web_${typeDialog}_${
+  //     activeRegisterwall &&
+  //     typeDialog === 'premium'
+  //       ? 'Registro'
+  //       : 'Hard'
+  //   }`, `web_${typeDialog}_leave`)
   // }
 
   React.useEffect(() => {
-    Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_open`)
+    // modificado para comprobar el taggeo
+    Taggeo(
+      `Web_${typeDialog}_${activeRegisterwall ? 'Registro' : 'Hard'}`,
+      `web_${typeDialog}_open`
+    )
     // addEventListener('beforeunload', handleLeavePage)
     return () => {
       // removeEventListener('beforeunload', handleLeavePage)
@@ -169,7 +180,11 @@ export const PremiumInt = ({ properties }) => {
                   : 'none',
             }}
             onClick={() => {
-              Taggeo(`Web_${typeDialog}_Hard`, `web_${typeDialog}_cerrar`)
+              // modificado para comprobar eficacidad con el taggeo de valla correo
+              Taggeo(
+                `Web_${typeDialog}_${activeRegisterwall ? 'Registro' : 'Hard'}`,
+                `web_${typeDialog}_cerrar`
+              )
               if (typeDialog === 'premium') {
                 if (document.getElementById('btn-premium-continue')) {
                   onClose()
