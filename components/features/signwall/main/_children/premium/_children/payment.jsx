@@ -1,4 +1,3 @@
-import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
@@ -6,7 +5,7 @@ import { getAssetsPath } from '../../../../../../utilities/assets'
 import { SITE_GESTION } from '../../../../../../utilities/constants/sitenames'
 import { ModalProvider } from '../../../../../subscriptions/_context/modal'
 
-export const PremiumPayment = () => {
+export const PremiumPayment = ({ name = '', feature = [] }) => {
   const {
     arcSite,
     contextPath,
@@ -14,11 +13,6 @@ export const PremiumPayment = () => {
       signwall: { primaryFont },
     },
   } = useAppContext() || {}
-
-  const { name = '', summary: { feature = [] } = {} } =
-    useContent({
-      source: 'paywall-campaing',
-    }) || {}
 
   return (
     <div
