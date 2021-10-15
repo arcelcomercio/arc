@@ -98,7 +98,10 @@
       margin: 30px 199px;
     }
     @media (--tablet) {
-      margin: 25px 240px;
+      max-width: 350px;
+      margin: auto;
+      margin-bottom: 25px;
+      margin-top: 25px;
     }
   }
   &__linea2 {
@@ -109,7 +112,8 @@
       max-width: 330px;
     }
     @media (--tablet) {
-      margin: 25px 280px;
+      max-width: 300px;
+      margin: 50px 250px 20px 250px;
     }
   }
 
