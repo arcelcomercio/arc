@@ -158,7 +158,8 @@ const FormRegister = ({
       .catch(() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
       })
   }
@@ -245,7 +246,8 @@ const FormRegister = ({
         }
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_success_registrarme`
+          `web_sw${typeDialog[0]}_registro_success_registrarme`,
+          arcSite
         )
       })
       .catch((errLogin) => {
@@ -254,7 +256,8 @@ const FormRegister = ({
         setShowLoading(false)
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
         setCookie('lostEmail', remail, 1)
       })
@@ -334,7 +337,8 @@ const FormRegister = ({
     Identity.requestVerifyEmail(remail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_registro_reenviar_correo`
+      `web_sw${typeDialog[0]}_registro_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -554,7 +558,8 @@ const FormRegister = ({
                     onClick={() => {
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                        arcSite
                       )
                     }}>
                     {showLoading ? 'REGISTRANDO...' : 'Registrarme'}
@@ -576,7 +581,8 @@ const FormRegister = ({
                         e.preventDefault()
                         Taggeo(
                           `Web_Sign_Wall_${typeDialog}`,
-                          `web_sw${typeDialog[0]}_registro_link_volver`
+                          `web_sw${typeDialog[0]}_registro_link_volver`,
+                          arcSite
                         )
                         switch (typeDialog) {
                           case 'relogemail':
@@ -699,7 +705,8 @@ const FormRegister = ({
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
-                                `web_sw${typeDialog[0]}_boton_ver_planes`
+                                `web_sw${typeDialog[0]}_boton_ver_planes`,
+                                arcSite
                               )
                               handleSuscription()
                             }}>
@@ -734,7 +741,8 @@ const FormRegister = ({
                         onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`
+                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                            arcSite
                           )
                           if (typeDialog === 'students') {
                             if (showContinueVerify) {

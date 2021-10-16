@@ -89,14 +89,16 @@ const FormLogin = ({ valTemplate, attributes }) => {
   const taggeoSuccess = () => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_login_success_ingresar`
+      `web_sw${typeDialog[0]}_login_success_ingresar`,
+      arcSite
     )
   }
 
   const taggeoError = () => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_login_error_ingresar`
+      `web_sw${typeDialog[0]}_login_error_ingresar`,
+      arcSite
     )
   }
 
@@ -210,7 +212,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
             setShowVerify(true)
             Taggeo(
               `Web_Sign_Wall_${typeDialog}`,
-              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+              `web_sw${typeDialog[0]}_login_show_reenviar_correo`,
+              arcSite
             )
             window.localStorage.removeItem('ArcId.USER_INFO')
             window.localStorage.removeItem('ArcId.USER_PROFILE')
@@ -230,7 +233,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
         if (errLogin.code === '130051') {
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
-            `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+            `web_sw${typeDialog[0]}_login_show_reenviar_correo`,
+            arcSite
           )
         } else {
           taggeoError()
@@ -259,7 +263,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
     Identity.requestVerifyEmail(lemail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_login_reenviar_correo`
+      `web_sw${typeDialog[0]}_login_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -351,7 +356,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 onClick={() => {
                   Taggeo(
                     `Web_Sign_Wall_${typeDialog}`,
-                    `web_sw${typeDialog[0]}_open_login_boton_ingresar`
+                    `web_sw${typeDialog[0]}_open_login_boton_ingresar`,
+                    arcSite
                   )
                   setShowLoginEmail(!showLoginEmail)
                 }}
@@ -426,7 +432,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     e.preventDefault()
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_contrasena_link_olvide`
+                      `web_sw${typeDialog[0]}_contrasena_link_olvide`,
+                      arcSite
                     )
                     changeTemplate('forgot')
                   }}>
@@ -441,7 +448,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   onClick={() => {
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_login_boton_ingresar`
+                      `web_sw${typeDialog[0]}_login_boton_ingresar`,
+                      arcSite
                     )
                     // agregado para el taggeo de diario correo por valla
                     if (typeDialog === 'premium' && activeRegisterwall) {
@@ -472,7 +480,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   e.preventDefault()
                   Taggeo(
                     `Web_Sign_Wall_${typeDialog}`,
-                    `web_sw${typeDialog[0]}_login_boton_registrate`
+                    `web_sw${typeDialog[0]}_login_boton_registrate`,
+                    arcSite
                   )
                   changeTemplate('register')
                 }}>

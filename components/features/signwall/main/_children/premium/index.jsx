@@ -135,14 +135,15 @@ export const PremiumInt = ({ properties }) => {
   //     typeDialog === 'premium'
   //       ? 'Registro'
   //       : 'Hard'
-  //   }`, `web_${typeDialog}_leave`)
+  //   }`, `web_${typeDialog}_leave`, arcSite)
   // }
 
   React.useEffect(() => {
     // modificado para comprobar el taggeo
     Taggeo(
       `Web_${typeDialog}_${activeRegisterwall ? 'Registro' : 'Hard'}`,
-      `web_${typeDialog}_open`
+      `web_${typeDialog}_open`,
+      arcSite
     )
     // addEventListener('beforeunload', handleLeavePage)
     return () => {
@@ -183,7 +184,8 @@ export const PremiumInt = ({ properties }) => {
               // modificado para comprobar eficacidad con el taggeo de valla correo
               Taggeo(
                 `Web_${typeDialog}_${activeRegisterwall ? 'Registro' : 'Hard'}`,
-                `web_${typeDialog}_cerrar`
+                `web_${typeDialog}_cerrar`,
+                arcSite
               )
               if (typeDialog === 'premium') {
                 if (document.getElementById('btn-premium-continue')) {
