@@ -12,13 +12,8 @@ export const Taggeo = (cat, acc, arcSite = '') => {
       activeRegisterwall && cat === 'Web_Sign_Wall_premium'
         ? cat.concat('registro')
         : cat
-
-    console.log(activeRegisterwall)
   }
 
-  console.log(cat)
-
-  console.log(titleCase(category), acc)
   const TRIGGER = 'tag_signwall'
 
   if (typeof window !== 'undefined') {
