@@ -14,6 +14,7 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
     arcSite,
     siteProperties: {
       signwall: { mainColorBtn },
+      activeRegisterwall,
     },
   } = useAppContext() || {}
   const { changeTemplate } = useModalContext()
@@ -54,10 +55,21 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
                 width: '90%',
               }}
               onClick={() => {
+                // modificado para el taggeo de diario correo por valla
                 Taggeo(
-                  `Web_${typeDialog}_Hard`,
+                  `Web_${typeDialog}_${
+                    activeRegisterwall ? 'Registro' : 'Hard'
+                  }`,
                   `web_${typeDialog}_boton_iniciar_continuar`
                 )
+
+                // agregado para el taggeo de diario correo por valla
+                if (typeDialog === 'premium' && activeRegisterwall) {
+                  Taggeo(
+                    `Web_${typeDialog}_Registro`,
+                    `web_${typeDialog}_boton_continuar`
+                  )
+                }
 
                 if (typeDialog === 'premium') {
                   window.sessionStorage.setItem(

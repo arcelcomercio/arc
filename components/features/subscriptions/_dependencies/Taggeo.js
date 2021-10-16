@@ -1,13 +1,26 @@
+import getProperties from 'fusion:properties'
+
 import { isProd } from '../../../utilities/arc/env'
 import { titleCase } from './Utils'
 
-export const Taggeo = (cat, acc) => {
+export const Taggeo = (cat, acc, arcSite = '') => {
+  let category = cat
+  if (arcSite) {
+    const { activeRegisterwall } = getProperties(arcSite)
+    // modificación para el taggeo por premium register (valla diario correo)
+    category =
+      activeRegisterwall && cat === 'Web_Sign_Wall_premium'
+        ? cat.concat('registro')
+        : cat
+  }
+
   const TRIGGER = 'tag_signwall'
+
   if (typeof window !== 'undefined') {
     window.dataLayer = window.dataLayer || []
     const dataPush = {
       event: TRIGGER,
-      eventCategory: titleCase(cat),
+      eventCategory: titleCase(category),
       eventAction: acc,
     }
     window.dataLayer.push(dataPush)
