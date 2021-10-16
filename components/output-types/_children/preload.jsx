@@ -40,6 +40,12 @@ export default ({ arcSite }) => (
       <>
         <link
           rel="preload"
+          href="https://cdna.depor.com/resources/dist/depor/fonts/roboto-v20-latin-700.woff2"
+          as="font"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
           href="https://cdna.depor.com/resources/dist/depor/fonts/roboto-v20-latin-regular.woff2"
           as="font"
           type="font/woff2"
