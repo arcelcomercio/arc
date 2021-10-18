@@ -40,16 +40,11 @@ const AuthorBiography = ({
     <>
       {arcSite === 'trome' ? (
         <div className={classes.container}>
-<<<<<<< HEAD
-          <div className={classes.svgContainer}>
-            <svg fill="none" viewBox="0 0 171 192">
-=======
           {/* <div className={classes.svgContainer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 171 192">
->>>>>>> hu-49487
               {' '}
               <defs />{' '}
               <g fill="#F15A22" clipPath="url(#clip0)">
