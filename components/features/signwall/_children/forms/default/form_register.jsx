@@ -4,7 +4,10 @@ import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 import { setCookie } from '../../../../../utilities/client/cookies'
-import { SITE_ELCOMERCIO, SITE_GESTION } from '../../../../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIO,
+  SITE_GESTION,
+} from '../../../../../utilities/constants/sitenames'
 import { useModalContext } from '../../../../subscriptions/_context/modal'
 import getCodeError, {
   acceptCheckTerms,
@@ -350,28 +353,6 @@ const FormRegister = ({
                 <>
                   {isTromeOrganic && <div className="spacing-trome" />}
 
-                  {showError && (
-                    <div className="signwall-inside_forms-error">
-                      {showError.indexOf('ya existe') ? (
-                        <>
-                          {showError}
-                          <a
-                            href="!#"
-                            style={{ color: 'white', fontWeight: 'bold' }}
-                            className="signwall-inside_forms-link"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              changeTemplate('forgot')
-                            }}>
-                            Recuperar contraseña
-                          </a>
-                        </>
-                      ) : (
-                        showError
-                      )}
-                    </div>
-                  )}
-
                   <div className=" mt-10 center">
                     <p className="signwall-inside_forms-text mb-20 center bold">
                       Accede fácilmente con:
@@ -408,6 +389,28 @@ const FormRegister = ({
                       o completa tus datos para registrarte
                     </p>
                   </div>
+
+                  {showError && (
+                    <div className="signwall-inside_forms-error">
+                      {showError.indexOf('ya existe') ? (
+                        <>
+                          {showError}
+                          <a
+                            href="!#"
+                            style={{ color: 'white', fontWeight: 'bold' }}
+                            className="signwall-inside_forms-link"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              changeTemplate('forgot')
+                            }}>
+                            Recuperar contraseña
+                          </a>
+                        </>
+                      ) : (
+                        showError
+                      )}
+                    </div>
+                  )}
 
                   <Input
                     type="email"
@@ -456,7 +459,6 @@ const FormRegister = ({
                     {showLoading ? 'Registrando...' : 'Registrarme'}
                   </button>
 
-
                   <div>
                     <p className="signwall-inside_forms-text center p-link">
                       Ya tengo una cuenta
@@ -485,7 +487,6 @@ const FormRegister = ({
                       </a>
                     </p>
                   </div>
-
 
                   {activeDataTreatment && (
                     <CheckBox
@@ -567,11 +568,12 @@ const FormRegister = ({
                     <MsgRegister bgcolor={mainColorBr} />
                   </div>
                   <h4
-                    style={{ fontSize: '22px', lineHeight: '26px' }}
+                    style={{ fontSize: '22px', lineHeight: '26px', wordBreak: "break-all", }}
                     className="signwall-inside_forms-title center mb-10">
                     {showUserWithSubs
-                      ? `Bienvenido(a) ${Identity.userProfile.firstName || 'Usuario'
-                      }`
+                      ? `Bienvenido(a) ${
+                          Identity.userProfile.firstName || 'Usuario'
+                        }`
                       : 'Tu cuenta ha sido creada correctamente'}
                   </h4>
 
@@ -689,7 +691,11 @@ const FormRegister = ({
                               'signwall-nav-btn'
                             )
                             if (typeDialog === 'newsletter' && btnSignwall) {
-                              btnSignwall.textContent = (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION ? 'Bienvenido' : 'Mi Perfil')
+                              btnSignwall.textContent =
+                                arcSite === SITE_ELCOMERCIO ||
+                                arcSite === SITE_GESTION
+                                  ? 'Bienvenido'
+                                  : 'Mi Perfil'
                             }
                             if (showContinueVerify) {
                               changeTemplate('login', '', remail)
