@@ -52,6 +52,15 @@
       border-bottom: none;
       border-right: 1px solid #ccc;
     }
+
+    a {
+      color: #444;
+      text-decoration: underline;
+
+      @media (--desktop) {
+        text-decoration: none;
+      }
+    }
   }
 
   &__column:last-of-type {
