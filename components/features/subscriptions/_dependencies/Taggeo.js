@@ -3,13 +3,18 @@ import getProperties from 'fusion:properties'
 import { isProd } from '../../../utilities/arc/env'
 import { titleCase } from './Utils'
 
+/**
+ * @param {string} cat
+ * @param {string} acc
+ * @param {import('types/fusion').ArcSite} arcSite
+ */
 export const Taggeo = (cat, acc, arcSite = '') => {
   let category = cat
   if (arcSite) {
     const { activeRegisterwall } = getProperties(arcSite)
     // modificación para el taggeo por premium register (valla diario correo)
     category =
-      activeRegisterwall && cat === 'Web_Sign_Wall_premium'
+      activeRegisterwall && cat.endsWith('_premium')
         ? cat.concat('registro')
         : cat
   }
