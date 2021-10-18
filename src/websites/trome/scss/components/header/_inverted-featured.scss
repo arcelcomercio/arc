@@ -136,6 +136,10 @@ $min-with-header: 961px;
         padding: 0 5px;
         white-space: nowrap;
         font-family: $hi-font-primary;
+
+        @media (--only-mobile) {
+          font-size: 15px;
+        }
       }
       &__link {
         color: #888888;
@@ -153,6 +157,10 @@ $min-with-header: 961px;
       color: #ff8303;
       display: flex;
       text-transform: uppercase;
+
+      @media (--only-mobile) {
+        font-size: 15px;
+      }
     }
   }
 
@@ -183,7 +191,7 @@ $min-with-header: 961px;
     img {
       height: 100%;
       @media (--only-mobile) {
-        width: 195px;
+        width: 202px;
       }
     }
 
