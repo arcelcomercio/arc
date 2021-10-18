@@ -6,7 +6,6 @@ import Markdown from 'react-markdown/with-html'
 
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
-// import { getUrlPaywall } from '../../_dependencies/domains'
 import Loading from '../loading'
 
 const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
