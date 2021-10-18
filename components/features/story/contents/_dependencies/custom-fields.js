@@ -1,6 +1,22 @@
 import PropTypes from 'prop-types'
 
 const customFields = PropTypes.shape({
+  // Congig AMP
+  shareLinksAMP: PropTypes.bool.tag({
+    name: 'Mostrar links de redes sociales',
+    description:
+      'Si se activa, al final del cuerpo de la nota se mostrará los links de Redes Sociales',
+    defaultValue: false,
+    group: 'Opciones AMP',
+  }),
+  tagsAMP: PropTypes.bool.tag({
+    name: 'Ocultar tags de la nota',
+    description:
+      'Si se activa, al final del cuerpo se ocultará los tags de la noticia',
+    defaultValue: false,
+    group: 'Opciones AMP',
+  }),
+  // Config Lite
   adsEvery: PropTypes.number.tag({
     name: '¿Inyectar Ads cada cuantos párrafos?',
     description:
