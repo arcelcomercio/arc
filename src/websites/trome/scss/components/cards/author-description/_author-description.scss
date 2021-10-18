@@ -1,132 +1,119 @@
-$author-main-font: "Encode Sans",
-sans-serif;
+$author-main-font: "Encode Sans Condensed", sans-serif;
 
 .author-description {
   &__container {
     font-family: $author-main-font;
-    margin-bottom: 20px;
     color: #000;
     font-size: 14px;
-    margin-top: 15px !important;
+    background: #f5f5f5;
+    top: -20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
 
-    @media(--desktop) {
+    @media (--desktop) {
       font-size: 23px;
-      display: flex;
-      align-items: flex-start;
+
+      // solo porque el tamaño del main es otro y tons se tuvo que forzar con lo siguiente
+      width: 5000px;
+      left: -2000px;
     }
-
-  }
-
-  &__svg-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 80px;
-
-    @media(--desktop) {
-      width: 171px;
+    @media (--tablet) {
+      // solo porque el tamaño del main es otro y tons se tuvo que forzar con lo siguiente
+      width: 1024px;
+      left: -200px;
     }
   }
+
+  // &__svg-container {
+  //   position: absolute;
+  //   top: 0;
+  //   right: 0;
+  //   width: 80px;
+
+  //   @media (--desktop) {
+  //     width: 171px;
+  //   }
+  // }
 
   &__text-box {
-    margin-bottom: 50px;
+    margin-bottom: 33px;
+    margin-top: 32px;
+    width: 600px;
   }
 
   &__title {
     font-family: $author-main-font;
-    font-weight: 400;
-    margin-bottom: 6px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    letter-spacing: -0.4px;
     color: #000;
-    padding-left: 0 !important;
-    font-size: 24px !important;
+    height: 50px;
 
-    @media(--desktop) {
-      margin-top: 46px;
-      font-size: 39px !important;
+    @media (--desktop) {
+      font-size: 40px;
     }
   }
 
   &__subtitle {
     font-family: $author-main-font;
-    font-weight: 700;
-    font-size: 1em;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     color: #000;
-    padding-left: 0 !important;
+    letter-spacing: -0.2px;
+    font-weight: 500;
+    height: 16px;
 
-    @media(--desktop) {
-      font-size: 19px;
-      margin-bottom: 30px;
+    @media (--desktop) {
+      font-size: 13px;
+      margin-bottom: 14px;
     }
   }
 
   &__content {
-    font-weight: 300;
-    font-size: 1em;
-    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 18px;
+    padding-bottom: 5px;
+    color: #666666;
 
-    @media(--desktop) {
-      margin-bottom: 30px;
-    }
-
-    &.mb-0 {
-      margin-bottom: 0;
+    strong {
+      color: #000;
+      font-weight: 500;
     }
   }
 
   &__bio {
-    margin-bottom: 30px;
-
-    @media(--desktop) {
-      margin-bottom: 70px;
-    }
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    color: #000;
   }
 
   &__social {
     color: #000;
-    font-size: 1em;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: bold;
     display: flex;
-    align-items: center;
-    padding-left: 0 !important;
-    padding-bottom: 0 !important;
-    margin-bottom: 0;
-
-    @media(--desktop) {
-      margin-bottom: 24px;
-    }
+    padding-bottom: 0px !important;
 
     &::before {
-      color: #59afec;
-      font-size: 24px;
-      margin-right: 10px;
-
-      @media(--desktop) {
-        font-size: 50px;
-      }
+      color: #000;
+      font-size: 22px;
+      margin-right: 6px;
     }
   }
 
   &__box {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 0 !important;
-    width: 100% !important;
+    margin-bottom: 15px;
   }
 
   &__image {
-    margin-bottom: 20px;
-    border: 6px solid #000;
-    border-radius: 360deg;
+    border-radius: 50%;
+    width: 191px;
+    height: 191px;
+    top: 41px;
 
-    width: 120px;
-    height: 120px;
-
-    @media(--desktop) {
+    @media (--desktop) {
       border-width: 13px;
-      margin-right: 45px;
-      width: 311px;
-      height: 311px;
+      margin-right: 30px;
     }
   }
 
