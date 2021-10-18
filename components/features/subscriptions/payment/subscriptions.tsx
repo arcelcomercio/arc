@@ -27,6 +27,7 @@ import Footer from '../footer/subscriptions'
 import PrintUserValidator from './_children/print-user-validator'
 import PaymentSteps from './_children/Steps'
 import Summary from './_children/Summary'
+import MobileSummary from './_children/Summary/mobile'
 import customFields from './_dependencies/custom-fields'
 
 const Confirmation = React.lazy(() =>
@@ -49,7 +50,12 @@ const Component: React.FC<SubscriptionsPaymentProps> = (props) => {
 
   const {
     arcSite,
-    globalContent: { fromFia = false, freeAccess = false, event = '' } = {},
+    globalContent: {
+      fromFia = false,
+      freeAccess = false,
+      event = '',
+      name = '',
+    } = {},
   } = useAppContext<PaywallCampaign>()
 
   const {
@@ -59,6 +65,7 @@ const Component: React.FC<SubscriptionsPaymentProps> = (props) => {
     userLoading,
     updateLoading,
     updateStep,
+    userDataPlan,
   } = useAuthContext() || {}
   const { urls: urlCommon, texts } = PropertiesCommon
   const { urls } = PropertiesSite[arcSite as SubsArcSite]
@@ -136,6 +143,14 @@ const Component: React.FC<SubscriptionsPaymentProps> = (props) => {
             hidePanel={freeAccess || userStep === 4 || userStep === 5}>
             <Summary />
           </PanelRight>
+          {!freeAccess ? (
+            <MobileSummary
+              userStep={userStep}
+              planName={name}
+              billingFrequency={userDataPlan?.billingFrequency}
+              billingAmount={userDataPlan?.amount}
+            />
+          ) : null}
         </Wrapper>
       </Container>
       {!freeAccess ? <PrintUserValidator /> : null}
