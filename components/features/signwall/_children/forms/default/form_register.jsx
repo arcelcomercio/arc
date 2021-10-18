@@ -589,7 +589,7 @@ const FormRegister = ({
                       lineHeight: '26px',
                       wordBreak: 'break-all',
                     }}
-                    className="signwall-inside_forms-title center mb-10">
+                    className="signwall-inside_forms-title center mb-10 word-break">
                     {showUserWithSubs
                       ? `Bienvenido(a) ${
                           Identity.userProfile.firstName || 'Usuario'
