@@ -2,12 +2,12 @@ import React from 'react'
 
 import { getAssetsPath } from '../../utilities/assets'
 import {
+  SITE_DEPOR,
   SITE_ELCOMERCIO,
   SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_PERU21,
   SITE_PERU21G21,
-  SITE_DEPOR,
 } from '../../utilities/constants/sitenames'
 
 const Preconnects = ({
@@ -16,8 +16,7 @@ const Preconnects = ({
   contextPath,
   activePaywall,
   isHome,
-}) => {
-  return (
+}) => (
     <>
       {/**
        * dns-prefetch hace solo DNS lookup.
@@ -84,12 +83,8 @@ const Preconnects = ({
       <link rel="dns-prefetch" href="//static.chartbeat.com/" />
       <link rel="preconnect" href="//mab.chartbeat.com/" />
       <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
-      <link rel="preconnect" href="//scomcluster.cxense.com/" />
-      <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
       <link rel="preconnect" href="//sb.scorecardresearch.com/" />
       <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
-      <link rel="preconnect" href="//cdn.cxense.com" />
-      <link rel="dns-prefetch" href="//cdn.cxense.com" />
       {arcSite === SITE_ELCOMERCIO ||
         arcSite === SITE_GESTION ||
         arcSite === SITE_PERU21 ||
@@ -121,6 +116,5 @@ const Preconnects = ({
       )}
     </>
   )
-}
 
 export default Preconnects

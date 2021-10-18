@@ -13,7 +13,7 @@ import { ELEMENT_LIST, ELEMENT_TEXT } from '../constants/element-types'
 export const contentWithAds = ({ contentElements, adsEvery = 2 }) => {
   let textElementsCounter = 0
   let adsCounter = 0
-  const contentAdsList = ['caja3', 'inline', 'caja4', '' /* teads */, 'caja5']
+  const contentAdsList = ['caja3', 'inline', 'caja4', '', 'caja5']
 
   return contentElements
     ? contentElements.map((dataContent, i) => {
