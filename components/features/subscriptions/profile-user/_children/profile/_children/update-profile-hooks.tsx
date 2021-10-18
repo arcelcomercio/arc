@@ -9,6 +9,7 @@ import { UserDocumentType } from 'types/subscriptions'
 import { Nullable } from 'types/utils'
 
 import { UpdateUserProfile } from '../../../../../../hooks/useProfile'
+import { reduceWord } from '../../../../../../utilities/parse/strings'
 import getCodeError, {
   formatDate,
   formatEmail,
@@ -233,9 +234,8 @@ const UpdateProfile: React.FC<UpdateProfileProps> = ({
 
         const textProfile = document.getElementById('name-user-profile')
         if (textProfile) {
-          textProfile.textContent = `Hola ${
-            updatedProfile.firstName ? updatedProfile.firstName : 'Usuario'
-          }`
+          const name = reduceWord(updatedProfile?.firstName || 'Usuario', 17)
+          textProfile.textContent = `Hola ${name}`
         }
         window.scrollTo(0, 0)
 

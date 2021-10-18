@@ -212,9 +212,7 @@ export const ContGeneric = ({ properties }) => {
             ? {
               height: "calc(100% - 50px)",
             }
-            : {
-              minHeight: '350px',
-            }
+            : { minHeight: '350px' }
         }>
         {(isTrome || isComercio || isGestion) && (
           <div className={`left-modal ${isTrome ? 'bg-trome' : ''}`}>
