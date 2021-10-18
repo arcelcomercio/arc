@@ -302,6 +302,38 @@ const FormLogin = ({ valTemplate, attributes }) => {
               )}
             </div>
 
+            <div className="center ">
+              <p className="signwall-inside_forms-text mb-20 center bold">
+                Ingresa con
+              </p>
+              {authProviders.map((item) => (
+                <ButtonSocial
+                  key={item}
+                  size="middle"
+                  brand={item}
+                  defaultSize=""
+                  onClose={onClose}
+                  typeDialog={typeDialog}
+                  arcSite={arcSite}
+                  typeForm="login"
+                  activeNewsletter={activeNewsletter}
+                  checkUserSubs={checkUserSubs}
+                  onLogged={onLogged}
+                  showMsgVerify={() => triggerShowVerify()}
+                  dataTreatment={checkedPolits ? '1' : '0'}
+                />
+              ))}
+              <AuthURL
+                arcSite={arcSite}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                activeNewsletter={activeNewsletter}
+                typeForm="login"
+                onLogged={onLogged}
+                checkUserSubs={checkUserSubs}
+              />
+            </div>
+
             {!showLoginEmail && (
               <ButtonEmail
                 size="full"
@@ -315,6 +347,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 }}
               />
             )}
+
 
             {showLoginEmail && (
               <>
@@ -396,11 +429,11 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
                 <button
                   type="submit"
+                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   style={{
                     color: mainColorBtn,
                     background: mainColorLink,
                   }}
-                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   disabled={disable || showLoading || showFormatInvalid}
                   onClick={() => {
                     Taggeo(
@@ -421,33 +454,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                 </button>
               </>
             )}
-            {authProviders.map((item) => (
-              <ButtonSocial
-                key={item}
-                size="middle"
-                brand={item}
-                defaultSize="default-size"
-                onClose={onClose}
-                typeDialog={typeDialog}
-                arcSite={arcSite}
-                typeForm="login"
-                activeNewsletter={activeNewsletter}
-                checkUserSubs={checkUserSubs}
-                onLogged={onLogged}
-                showMsgVerify={() => triggerShowVerify()}
-                dataTreatment={checkedPolits ? '1' : '0'}
-              />
-            ))}
-            <AuthURL
-              arcSite={arcSite}
-              onClose={onClose}
-              typeDialog={typeDialog}
-              activeNewsletter={activeNewsletter}
-              typeForm="login"
-              onLogged={onLogged}
-              checkUserSubs={checkUserSubs}
-            />
-            <p className="signwall-inside_forms-text center p-link">
+
+            <p className="signwall-inside_forms-text center mt-10 mb-20 p-link">
               ¿Aún no tienes una cuenta?
               <a
                 href="#"
@@ -504,7 +512,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     fontSize: '11.5px',
                     letterSpacing: '0.015em',
                   }}
-                  className="signwall-inside_forms-text mt-10">
+                  className="signwall-inside_forms-text mt-10 mb-10">
                   En caso hayas autorizado los fines de uso adicionales
                   anteriormente, no es necesario que lo vuelvas a marcar. Si
                   deseas retirar dicho consentimiento, revisa el procedimiento

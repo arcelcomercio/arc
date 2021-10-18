@@ -1,9 +1,9 @@
 import Identity from '@arc-publishing/sdk-identity'
-import { useContent } from 'fusion:content'
+// import { useContent } from 'fusion:content'
 import { useAppContext } from 'fusion:context'
 import * as React from 'react'
-import Markdown from 'react-markdown/with-html'
 
+// import Markdown from 'react-markdown/with-html'
 import { useModalContext } from '../../../subscriptions/_context/modal'
 import { Taggeo } from '../../../subscriptions/_dependencies/Taggeo'
 import Loading from '../loading'
@@ -18,11 +18,6 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
   } = useAppContext() || {}
   const { changeTemplate } = useModalContext()
   const [showLoading, setShowLoading] = React.useState(true)
-
-  const { printAttributes = [] } =
-    useContent({
-      source: 'paywall-campaing',
-    }) || {}
 
   React.useEffect(() => {
     setShowLoading(false)
@@ -97,11 +92,11 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
               fontSize: typeDialog === 'premium' ? '12px' : '15px',
             }}
             className="signwall-inside_forms-text mt-20 mb-10 center">
-            {printAttributes.map((item) => (
+            {/* {printAttributes.map((item) => (
               <React.Fragment key={item.name}>
                 {item.name === 'subscriber_title_popup' && item.value}
               </React.Fragment>
-            ))}
+            ))} */}
           </p>
 
           <p
@@ -109,7 +104,7 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
             className={`signwall-inside_forms-text center note-premium ${
               arcSite === 'elcomercio' ? 'mb-10' : ''
             }`}>
-            {printAttributes.map(
+            {/* {printAttributes.map(
               (item) =>
                 item.name === 'subscriber_detail_popup' && (
                   <React.Fragment key={item.name}>
@@ -121,7 +116,7 @@ const FormIntroFree = ({ typeDialog, checkModal = (i) => i }) => {
                     />
                   </React.Fragment>
                 )
-            )}
+            )} */}
           </p>
         </>
       )}
