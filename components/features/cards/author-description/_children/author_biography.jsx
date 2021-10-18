@@ -1,15 +1,15 @@
 import React from 'react'
 
 const classes = {
-  container: 'author-description__container pr-20 pl-20 mt-20',
+  container: 'author-description__container',
   textBox: 'author-description__text-box',
   title:
-    'author-description__title custom-title text-left uppercase medium w-full',
-  box: 'author-description__box inline-block ml-10',
+    'author-description__title text-left w-full',
+  box: 'author-description__box inline-block',
   boxImg: 'author-description__content-img mt-20',
-  subtitle: 'author-description__subtitle custom-title role',
+  subtitle: 'author-description__subtitle uppercase role',
   image: 'author-description__image',
-  social: 'author-description__social custom-title twitter icon-twitter',
+  social: 'author-description__social twitter icon-twitter',
   link: 'author-description__link',
   content: 'author-description__content line-h-sm',
   svgContainer: 'author-description__svg-container',
@@ -40,7 +40,7 @@ const AuthorBiography = ({
     <>
       {arcSite === 'trome' ? (
         <div className={classes.container}>
-          <div className={classes.svgContainer}>
+          {/* <div className={classes.svgContainer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -61,7 +61,7 @@ const AuthorBiography = ({
                 </clipPath>{' '}
               </defs>{' '}
             </svg>
-          </div>
+          </div> */}
           <img className={classes.image} src={imageLG} alt={byline} />
 
           <div className={classes.textBox}>
@@ -86,7 +86,7 @@ const AuthorBiography = ({
               <p className={`${classes.content} mb-0`}>
                 {location && (
                   <>
-                    Escribe desde&nbsp;
+                    Escribe desde: &nbsp;
                     <strong>{location}</strong>
                   </>
                 )}

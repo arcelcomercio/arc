@@ -3,7 +3,10 @@ import getProperties from 'fusion:properties'
 import React from 'react'
 
 import { getAssetsPath } from '../../../utilities/assets'
-import { SITE_ELCOMERCIOMAG } from '../../../utilities/constants/sitenames'
+import {
+  SITE_ELCOMERCIOMAG,
+  SITE_TROME,
+} from '../../../utilities/constants/sitenames'
 import { GALLERY_VERTICAL } from '../../../utilities/constants/subtypes'
 import {
   publicidadAmp,
@@ -16,6 +19,7 @@ import AmpStoriesChild from './_children/amp-stories'
 
 const classes = {
   stories: 'amp-sh bg-white pr-20 pl-20 m-5 mx-auto',
+  sectionAmp: 'amp-sh__section font-bold secondary-font',
   titleAmp:
     'amp-sh__title font-bold secondary-font title-md text-gray-300 line-h-xs mt-20',
   datetime: 'amp-sh__datetime mt-15 mb-15 block secondary-font text-lg',
@@ -34,6 +38,7 @@ const StoryTitleAmp = () => {
   const {
     title,
     subTitle,
+    primarySection,
     tags,
     subtype,
     primarySectionLink,
@@ -95,6 +100,13 @@ const StoryTitleAmp = () => {
 
           <AmpStoriesChild arcSite={arcSite} />
 
+          {/* Condition for Trome */}
+          {primarySection && arcSite === SITE_TROME && (
+            <h2 itemProp="name" className={classes.sectionAmp}>
+              {primarySection}
+            </h2>
+          )}
+
           {title && <h1 className={classes.titleAmp}>{title}</h1>}
 
           {/* Condicion para mag igual que web */}
@@ -102,10 +114,10 @@ const StoryTitleAmp = () => {
             <div className={classes.listClasses}>
               <ul>
                 {items.map(({ content }) => (
-                    <>
-                      <li dangerouslySetInnerHTML={{ __html: content }} />
-                    </>
-                  ))}
+                  <>
+                    <li dangerouslySetInnerHTML={{ __html: content }} />
+                  </>
+                ))}
               </ul>
             </div>
           ) : null}
@@ -124,7 +136,9 @@ const StoryTitleAmp = () => {
           />
         )}
         {subTitle && <div className={classes.description}> {subTitle}</div>}
-        {arcSite !== SITE_ELCOMERCIOMAG && <StorySocialChildAmpSocial />}
+        {arcSite !== SITE_ELCOMERCIOMAG && arcSite !== SITE_TROME && (
+          <StorySocialChildAmpSocial />
+        )}
       </div>
     </>
   )
