@@ -167,7 +167,9 @@ export const PremiumInt = ({ properties }) => {
           <PremiumPayment name={name} feature={feature} />
         )}
         <div
-          className="signwall-inside_body-right premium"
+          className={`signwall-inside_body-right premium ${
+            arcSite === SITE_DIARIOCORREO && 'register'
+          }`}
           style={{
             backgroundColor: arcSite === 'gestion' ? '#fff6f0' : '#f4f4f4',
           }}>
