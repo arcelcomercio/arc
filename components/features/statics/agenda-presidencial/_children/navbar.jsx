@@ -1,3 +1,4 @@
+import { useAppContext } from 'fusion:context'
 import * as React from 'react'
 
 const classes = {
@@ -6,6 +7,7 @@ const classes = {
   boxLogo: 'agenda_presidencial__navbar__box-logo',
   boxLogoAgenda: 'agenda_presidencial__navbar__box-logo__agenda',
   boxFecha: 'agenda_presidencial__navbar__box-logo__fecha',
+  boxcalendario: 'agenda_presidencial__navbar__box-logo__calendario',
   boxDia: 'agenda_presidencial__navbar__dia',
   boxDiaLetra: 'agenda_presidencial__navbar__dia__letra',
   boxDiaNum: 'agenda_presidencial__navbar__dia__numero',
@@ -40,7 +42,22 @@ const ConvertDateToString = (date) => {
 }
 
 const NavBar = (props) => {
-  const { isNota = false, day = new Date() } = props
+  const { isNota = false, day = new Date(), dataNota = '' } = props
+
+  const { requestUri } = useAppContext()
+
+  // eslint-disable-next-line no-useless-escape
+  const isCal = /\/\d{4}\-\d{2}\-\d{2}\//.test(requestUri)
+  // let show = 1
+  // if (isCal) {
+  //   show = 0
+  // }
+
+  // modificar la ruta para produccion a /agenda-presidencial/
+  const haciaCalendario = (e) => {
+    e.preventDefault()
+    window.location.href = `/agenda-presidencial/`
+  }
 
   return (
     <>
@@ -100,6 +117,79 @@ const NavBar = (props) => {
           {isNota && (
             <div className={classes.boxFecha}>{ConvertDateToString(day)}</div>
           )}
+          {isCal && JSON.stringify(dataNota) !== '{}' && (
+            <button
+              type="submit"
+              className={classes.boxcalendario}
+              onClick={haciaCalendario}>
+              <svg width={125} height={25}>
+                <g data-name="Grupo 222" transform="translate(-300 -240)">
+                  <rect
+                    data-name="Rect\xE1ngulo 3049"
+                    width={125}
+                    height={24}
+                    rx={5}
+                    transform="translate(300 240)"
+                    fill="#d64b4b"
+                  />
+                  <g data-name="Grupo 221" fill="#fff">
+                    <path
+                      data-name="Trazado 112"
+                      d="M324.004 251.757c-.1-.1-.19-.206-.3-.3a25.18 25.18 0 0 0-.775-.644.227.227 0 0 1-.1-.2c.006-.364 0-.729 0-1.1h-12.641v7.615a.611.611 0 0 0 .7.689h4.711a.3.3 0 0 1 .26.136c.285.351.583.69.872 1.029a.4.4 0 0 1-.069.007h-5.925a1.742 1.742 0 0 1-1.712-1.707v-10.387a1.747 1.747 0 0 1 1.72-1.715h.736v-1.171h1.17v1.158h7.725v-1.161h1.17v1.171h.722a1.669 1.669 0 0 1 1.468.834 4.123 4.123 0 0 1 .269.686Zm-1.175-3.429c0-.487.013-.964-.005-1.44a.538.538 0 0 0-.51-.531c-.25-.023-.5 0-.771 0v1.15h-1.172v-1.15h-7.73v1.155h-1.167v-1.163h-.657a.6.6 0 0 0-.629.637v1.346Z"
+                    />
+                    <path
+                      data-name="Trazado 113"
+                      d="M324.003 255.414c-.037.18-.066.363-.113.54a3.812 3.812 0 0 1-2.588 2.817 3.787 3.787 0 0 1-3.869-.789 3.685 3.685 0 0 1-1.245-2.144 3.853 3.853 0 0 1 1.151-3.666 3.66 3.66 0 0 1 1.925-1.008 3.86 3.86 0 0 1 3.651 1.15 3.82 3.82 0 0 1 1.012 1.924c.029.137.053.276.079.414Zm-3.947 2.4a2.8 2.8 0 0 0 2.776-2.775 2.8 2.8 0 0 0-2.782-2.783 2.8 2.8 0 0 0-2.776 2.775 2.8 2.8 0 0 0 2.782 2.782Z"
+                    />
+                    <path
+                      data-name="Trazado 114"
+                      d="M312.409 251.897h-1.152v-1.155h1.152Z"
+                    />
+                    <path
+                      data-name="Trazado 115"
+                      d="M314.749 251.896h-1.151v-1.154h1.151Z"
+                    />
+                    <path
+                      data-name="Trazado 116"
+                      d="M317.086 251.898h-1.149v-1.157h1.149Z"
+                    />
+                    <path
+                      data-name="Trazado 117"
+                      d="M311.253 254.235v-1.154h1.154v1.151Z"
+                    />
+                    <path
+                      data-name="Trazado 118"
+                      d="M313.594 254.235v-1.154h1.154v1.151Z"
+                    />
+                    <path
+                      data-name="Trazado 119"
+                      d="M311.252 256.577v-1.154h1.156v1.154Z"
+                    />
+                    <path
+                      data-name="Trazado 120"
+                      d="M313.593 256.578v-1.153h1.155v1.153Z"
+                    />
+                    <path
+                      data-name="Trazado 121"
+                      d="M319.446 255.608v-2.527h1.158v1.366h.993v1.161Z"
+                    />
+                  </g>
+                  <text
+                    data-name="VER CALENDARIO"
+                    transform="translate(328 255)"
+                    fill="#fff"
+                    fontSize={9}
+                    fontFamily="Prelo-SemiBold, Prelo"
+                    fontWeight={600}>
+                    <tspan x={0} y={0}>
+                      VER CALENDARIO
+                    </tspan>
+                  </text>
+                </g>
+              </svg>
+            </button>
+          )}
+          {isCal && JSON.stringify(dataNota) === '{}' && ''}
         </div>
         {isNota && (
           <div className={classes.boxDia}>
