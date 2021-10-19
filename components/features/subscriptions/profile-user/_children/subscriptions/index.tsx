@@ -24,33 +24,31 @@ const Subscription = (): JSX.Element => {
   const [showSubs, setShowSubs] = React.useState(false)
 
   const getListSubs = () => {
-    if (typeof window !== 'undefined') {
-      Identity.extendSession()
-        .then(() => {
-          Sales.getAllActiveSubscriptions()
-            .then((res) => {
-              if (Array.isArray(res) && res.length > 0) {
-                setShowSubs(true)
-              }
-              setShowLoading(false)
-            })
-            .catch((error) => {
-              Sentry.captureEvent({
-                message:
-                  'Error al obtener suscripciones activas - Sales.getAllActiveSubscriptions()',
-                level: Sentry.Severity.Error,
-                extra: error || {},
-              })
-            })
-        })
-        .catch((error) => {
-          Sentry.captureEvent({
-            message: 'Error al extender la sesión - Identity.extendSession()',
-            level: Sentry.Severity.Error,
-            extra: error || {},
+    Identity.extendSession()
+      .then(() => {
+        Sales.getAllActiveSubscriptions()
+          .then((res) => {
+            if (Array.isArray(res) && res.length > 0) {
+              setShowSubs(true)
+            }
+            setShowLoading(false)
           })
+          .catch((error) => {
+            Sentry.captureEvent({
+              message:
+                'Error al obtener suscripciones activas - Sales.getAllActiveSubscriptions()',
+              level: Sentry.Severity.Error,
+              extra: error || {},
+            })
+          })
+      })
+      .catch((error) => {
+        Sentry.captureEvent({
+          message: 'Error al extender la sesión - Identity.extendSession()',
+          level: Sentry.Severity.Error,
+          extra: error || {},
         })
-    }
+      })
   }
 
   React.useEffect(() => {

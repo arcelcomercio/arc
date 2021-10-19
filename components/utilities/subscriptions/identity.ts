@@ -135,7 +135,41 @@ async function getUsername(): Promise<string> {
   return username
 }
 
+function extendSession({
+  onSuccess,
+  onError,
+}: {
+  onSuccess: () => void
+  onError?: (error?: Error) => void
+}): void {
+  if (!Identity.isLoggedIn()) {
+    window.location.href = '/signwall/?outputType=subscriptions&reloginHash=1'
+  } else if (Identity.userIdentity.refreshToken) {
+    Identity.extendSession()
+      .then(() => {
+        onSuccess()
+      })
+      .catch((error) => {
+        Sentry.captureEvent({
+          message: 'Error al extender la sesión - Identity.extendSession()',
+          level: Sentry.Severity.Error,
+          extra: error || {},
+        })
+
+        if (onError) onError(error)
+      })
+  } else {
+    try {
+      onSuccess()
+    } catch (error) {
+      window.console.error(error)
+      if (onError) onError(error as Error)
+    }
+  }
+}
+
 export {
+  extendSession,
   formatUsername,
   getUserIdentity,
   getUsername,
