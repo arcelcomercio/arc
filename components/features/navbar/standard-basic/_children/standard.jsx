@@ -498,7 +498,7 @@ class NavBarDefault extends React.PureComponent {
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `${
-              activeSignwall && !isPreview && !isPremium ? singwallScript : ''
+              activeSignwall && !isPreview ? singwallScript(arcSite) : ''
             }${stickyScript}${searchScript}${
               activePaywall && !isPreview
                 ? getBtnSubsScript(env, arcSite, urlSubsOnline)

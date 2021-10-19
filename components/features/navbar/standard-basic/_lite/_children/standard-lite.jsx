@@ -427,9 +427,9 @@ const NavBarDefault = (props) => {
       <script
         type="text/javascript"
         dangerouslySetInnerHTML={{
-          __html: `${activeSignwall && !isPreview ? singwallScript : ''}${
-            disableSticky ? '' : stickyScript
-          }${searchScript}${
+          __html: `${
+            activeSignwall && !isPreview ? singwallScript(arcSite) : ''
+          }${disableSticky ? '' : stickyScript}${searchScript}${
             activePaywall && !isPreview
               ? getBtnSubsScript(arcEnv, arcSite, urlSubsOnline)
               : ''

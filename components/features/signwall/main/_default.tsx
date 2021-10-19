@@ -16,6 +16,7 @@ import { ContentTiers } from '../../../utilities/constants/content-tiers'
 import {
   SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
+  SITE_GESTION,
 } from '../../../utilities/constants/sitenames'
 import { getQuery } from '../../../utilities/parse/queries'
 import {
@@ -256,8 +257,13 @@ const SignwallComponent: FC<SignwallDefaultProps> = ({
   const checkUsername = React.useCallback(async () => {
     if (isLoggedIn()) {
       const name = await getUsername()
+
       setUser({
-        name,
+        name:
+          name ||
+          (arcSite === SITE_ELCOMERCIO || arcSite === SITE_GESTION
+            ? 'Bienvenido'
+            : 'Mi Perfil'),
         initials: getUsernameInitials(name),
       })
     } else {

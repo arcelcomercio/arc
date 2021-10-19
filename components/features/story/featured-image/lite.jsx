@@ -111,18 +111,6 @@ const StoryTitleLite = () => {
   ) : null
 }
 
-/* 
-<div id={`botr_${'JWVegU6y'}_${jwplayerId}_div`}></div>
-<script
-  src={`https://cdn.jwplayer.com/players/${'JWVegU6y'}-${jwplayerId}.js`}></script>
-
-<script
-  dangerouslySetInnerHTML={{
-    __html: `
-    jwplayer("botr_JWVegU6y_CW5g4pdQ_div").setup(Object.assign(jwplayer("botr_JWVegU6y_CW5g4pdQ_div").getConfig(), {autostart: true, controls: false, mute: true}))
-`,
-  }}></script> */
-
 StoryTitleLite.label = 'Artículo - Imagen Destacada con Titular'
 StoryTitleLite.static = true
 
