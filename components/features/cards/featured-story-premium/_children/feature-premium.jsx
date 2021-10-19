@@ -1,9 +1,10 @@
-import * as React from 'react'
 import { useEditableContent } from 'fusion:content'
+import * as React from 'react'
 
 import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
 import {
+  SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../../../utilities/constants/sitenames'
@@ -30,7 +31,7 @@ const classes = {
   lastMinute: 'featured-premium--last-minute',
 }
 
-const getModel = model => {
+const getModel = (model) => {
   const type = {
     basic: ' featured-premium--card ',
     twoCol: ' col-2 ',
@@ -62,7 +63,7 @@ const FeaturedStoryPremiumChild = ({
 }) => {
   const { editableField } = useEditableContent()
 
-  const getEditableField = element =>
+  const getEditableField = (element) =>
     editableField ? editableField(element) : null
 
   // width y height para imagen dinámico en mobile
@@ -86,9 +87,10 @@ const FeaturedStoryPremiumChild = ({
 
   const isComercio = arcSite === SITE_ELCOMERCIO
   const isGestion = arcSite === SITE_GESTION
+  // const isCorreo = arcSite === SITE_DIARIOCORREO
 
   return (
-    <div
+    <article
       className={classes.featuredPremium
         .concat(getModel(model))
         .concat(` featured-premium--${bgColor}`)
@@ -151,39 +153,45 @@ const FeaturedStoryPremiumChild = ({
                 {categoryField || primarySection || 'Sección'}
               </a>
             </p>
-            {isPremium && !isComercio && (
+            {isPremium && isGestion ? (
               <img
                 className={classes.iconImagePremium}
                 src={logo}
                 alt="premium"
               />
+            ) : (
+              <div className={classes.premiumWrapper}>
+                <p itemProp="description" className={classes.premiumText}>
+                  {isComercio ? (
+                    'Suscriptor Digital'
+                  ) : (
+                    <>
+                      <span style={{ color: '#FFD333' }}>★</span>&nbsp;Comunidad
+                      Digital
+                    </>
+                  )}
+                </p>
+              </div>
             )}
           </div>
-          {isPremium && isComercio && (
-            <div className={classes.premiumWrapper}>
-              <p itemProp="description" className={classes.premiumText}>
-                Suscriptor Digital
-              </p>
-            </div>
-          )}
+        </div>
+        <div className={classes.right}>
+          <Icon type={multimediaType} iconClass={classes.icon} />
+          <a itemProp="url" href={websiteLink}>
+            <Image
+              src={multimedia}
+              width={imageWidth}
+              height={imageHeight}
+              sizes={`(max-width: 480px) ${imageMobileWidth}px, ${imageWidth}px`}
+              sizesHeight={[imageMobileHeight]}
+              alt={multimediaSubtitle || title}
+              className={classes.image}
+              loading="lazy"
+            />
+          </a>
         </div>
       </div>
-      <div className={classes.right}>
-        <Icon type={multimediaType} iconClass={classes.icon} />
-        <a itemProp="url" href={websiteLink}>
-          <Image
-            src={multimedia}
-            width={imageWidth}
-            height={imageHeight}
-            sizes={`(max-width: 480px) ${imageMobileWidth}px, ${imageWidth}px`}
-            sizesHeight={[imageMobileHeight]}
-            alt={multimediaSubtitle || title}
-            className={classes.image}
-            loading='lazy'
-          />
-        </a>
-      </div>
-    </div>
+    </article>
   )
 }
 

@@ -1,18 +1,18 @@
-import React from 'react'
-import { useFusionContext } from 'fusion:context'
 import { useContent } from 'fusion:content'
+import { useFusionContext } from 'fusion:context'
+import * as React from 'react'
 
-import schemaFilter from './_dependencies/schema-filter'
-import customFields from './_dependencies/custom-fields'
-import SeparatorList from './_children/separator'
-import StoryData from '../../../utilities/story-data'
 import { separatorBasicFields } from '../../../utilities/included-fields'
+import StoryData from '../../../utilities/story-data'
+import SeparatorList from './_children/separator'
+import customFields from './_dependencies/custom-fields'
+import schemaFilter from './_dependencies/schema-filter'
 
 const STORIES_QTY_DEFAULT = 4
 const CONTENT_SOURCE = 'story-feed-by-section'
 const DEFAULT_TITLE = 'Últimas noticias'
 
-const SeparatorBasic = props => {
+const SeparatorBasic = (props) => {
   const {
     customFields: {
       section,
@@ -37,7 +37,7 @@ const SeparatorBasic = props => {
       includedFields: separatorBasicFields,
     },
     filter: schemaFilter(arcSite),
-    transform: data => {
+    transform: (data) => {
       const {
         content_elements: contentElements = [],
         section_name: sectionName = '',
@@ -51,9 +51,21 @@ const SeparatorBasic = props => {
 
       const newData =
         contentElements.length > 0
-          ? contentElements.map(story => {
+          ? contentElements.map((story) => {
               dataFormat.__data = story
-              return { ...dataFormat.attributesRaw }
+
+              return {
+                link: dataFormat.link,
+                title: dataFormat.title,
+                websiteLink: dataFormat.websiteLink,
+                primarySection: dataFormat.primarySection,
+                primarySectionLink: dataFormat.primarySectionLink,
+                multimediaPortraitMD: dataFormat.multimediaPortraitMD,
+                multimediaLandscapeS: dataFormat.multimediaLandscapeS,
+                multimediaLazyDefault: dataFormat.multimediaLazyDefault,
+                multimediaType: dataFormat.multimediaType,
+                isPremium: dataFormat.isPremium,
+              }
             })
           : []
 
@@ -61,22 +73,27 @@ const SeparatorBasic = props => {
     },
   })
 
-  const getDataComponent = () => {
-    const { data, sectionName } = dataApi
-    const title =
-      titleSeparator ||
-      (sectionName === 'Sección' && DEFAULT_TITLE) ||
-      sectionName ||
-      DEFAULT_TITLE
-    const items = Object.values(data)
-    // const items = values.slice(0, getStoriesQty(isMobile, isTablet, 4, 4, 1))
-    return { titleSeparator: title, arcSite, titleLink, htmlCode, items }
-  }
+  const { data, sectionName } = dataApi
+  const title =
+    titleSeparator ||
+    (sectionName === 'Sección' && DEFAULT_TITLE) ||
+    sectionName ||
+    DEFAULT_TITLE
+
+  const items = Object.values(data)
 
   return (
     <SeparatorList
-      data={getDataComponent()}
-      {...{ isAdmin, model, seeMore, seeMoreLink, textAling }}
+      titleSeparator={title}
+      arcSite={arcSite}
+      titleLink={titleLink}
+      htmlCode={htmlCode}
+      items={items}
+      isAdmin={isAdmin}
+      model={model}
+      seeMore={seeMore}
+      seeMoreLink={seeMoreLink}
+      textAling={textAling}
     />
   )
 }

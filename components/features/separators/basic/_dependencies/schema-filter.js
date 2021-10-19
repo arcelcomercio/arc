@@ -2,6 +2,7 @@
 export default (arcSite) => `
     {
       content_elements{
+        content_restrictions { content_code }
         canonical_url
         websites {
           ${arcSite} {

@@ -12,16 +12,15 @@ const classes = {
 const PLATFORM_FACEBOOK = 'facebook'
 const PLATFORM_YOUTUBE = 'youtube'
 
-const LiveStreaming = props => {
+const LiveStreaming = (props) => {
   const { arcSite, contextPath, deployment, platformLive, urlVideo } = props
 
-  const getFormatUrl = (platform, video) => {
-    return platform === PLATFORM_FACEBOOK
+  const getFormatUrl = (platform, video) =>
+    platform === PLATFORM_FACEBOOK
       ? `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
           video
         )}&show_text=false&appId=467845563244454`
       : `https://www.youtube.com/embed/${video}`
-  }
 
   const patterYt = /(https|www|facebook\.com)/
   const isValidUrl =
