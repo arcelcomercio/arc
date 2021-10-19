@@ -113,7 +113,6 @@ const StaticsAgendaPresidencial = (props) => {
         .website_url
     })
   }
-  console.log('JSON en el default', JSON.stringify(dataNota))
 
   return (
     <>
