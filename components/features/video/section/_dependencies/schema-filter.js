@@ -1,5 +1,4 @@
-export const SchemaSingleStory = (arcSite) => {
-  return `{
+export const SchemaSingleStory = (arcSite) => `{
     websites { ${arcSite} { website_url website_section{name path} } }
     headlines { basic }
     subheadlines { basic }
@@ -13,6 +12,7 @@ export const SchemaSingleStory = (arcSite) => {
         embed{
           config{
             key
+            title
             thumbnail_url
             resized_urls { 
               landscape_xs
@@ -39,10 +39,8 @@ export const SchemaSingleStory = (arcSite) => {
       }
     }
   }`
-}
 
-export const SchemaMultiStory = (arcSite) => {
-  return `{
+export const SchemaMultiStory = (arcSite) => `{
     content_elements {
       websites { ${arcSite} { website_url website_section{name path} } }
       headlines { basic }
@@ -67,6 +65,7 @@ export const SchemaMultiStory = (arcSite) => {
             config{
               key
               thumbnail_url
+              title
               resized_urls { 
                 landscape_xs
                 landscape_s
@@ -81,10 +80,8 @@ export const SchemaMultiStory = (arcSite) => {
       }
     }
   }`
-}
 
-export const SchemaHierarchy = () => {
-  return `{ 
+export const SchemaHierarchy = () => `{ 
 		children {
 			name
 			_id
@@ -93,4 +90,3 @@ export const SchemaHierarchy = () => {
 			node_type
 		}
 	}`
-}
