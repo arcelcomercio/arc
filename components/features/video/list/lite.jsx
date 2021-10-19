@@ -128,14 +128,14 @@ class VideoList extends PureComponent {
           <div className="video-list__section-title">
             Lo último en&nbsp;
             <span className="video-list__section-name"> {sectionName}</span>
-            {
-              (arcSite === 'trome') && (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="video-list__secction-icon">
-                  <path d="M8.59,16.59,13.17,12,8.59,7.41,10,6l6,6-6,6Z" />
-                </svg>
-
-              )
-            }
+            {arcSite === 'trome' && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                className="video-list__secction-icon">
+                <path d="M8.59,16.59,13.17,12,8.59,7.41,10,6l6,6-6,6Z" />
+              </svg>
+            )}
           </div>
         )}
         <div className="video-list video-list__container">
@@ -157,11 +157,14 @@ class VideoList extends PureComponent {
               primarySectionLink,
               videoDuration,
               index: i,
-              arcSite
+              arcSite,
             }
             return <VideoListItem {...params} />
           })}
-          <div className="video-list__btn-container">
+          <div
+            className={`video-list__btn-container ${
+              next > 0 && contentElements.length <= 160 ? '' : 'empty'
+            }`}>
             {next > 0 && contentElements.length <= 160 ? (
               <button
                 type="button"
