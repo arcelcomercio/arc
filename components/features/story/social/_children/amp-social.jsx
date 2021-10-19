@@ -11,6 +11,7 @@ const classes = {
   rounded: 'amp-sh__rounded',
   rect: 'amp-sh__rect',
   message: 'amp-sh__message',
+  google: 'amp-sh__google-news',
 }
 
 const StoryHeaderAmp = ({ isContent = false }) => {
@@ -51,7 +52,7 @@ const StoryHeaderAmp = ({ isContent = false }) => {
         <a
           itemProp="url"
           href={googleNewsUrl}
-          className={shareButtonClass}
+          className={`${shareButtonClass} ${classes.google}`}
           rel="noreferrer"
           target="_blank">
           <svg
