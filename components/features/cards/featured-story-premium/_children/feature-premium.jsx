@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { useEditableContent } from 'fusion:content'
+import * as React from 'react'
 
 import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
@@ -30,7 +30,7 @@ const classes = {
   lastMinute: 'featured-premium--last-minute',
 }
 
-const getModel = model => {
+const getModel = (model) => {
   const type = {
     basic: ' featured-premium--card ',
     twoCol: ' col-2 ',
@@ -62,7 +62,7 @@ const FeaturedStoryPremiumChild = ({
 }) => {
   const { editableField } = useEditableContent()
 
-  const getEditableField = element =>
+  const getEditableField = (element) =>
     editableField ? editableField(element) : null
 
   // width y height para imagen dinámico en mobile
@@ -88,7 +88,7 @@ const FeaturedStoryPremiumChild = ({
   const isGestion = arcSite === SITE_GESTION
 
   return (
-    <div
+    <article
       className={classes.featuredPremium
         .concat(getModel(model))
         .concat(` featured-premium--${bgColor}`)
@@ -151,15 +151,16 @@ const FeaturedStoryPremiumChild = ({
                 {categoryField || primarySection || 'Sección'}
               </a>
             </p>
-            {isPremium && !isComercio && (
+            {isPremium && isGestion ? (
               <img
                 className={classes.iconImagePremium}
                 src={logo}
                 alt="premium"
               />
-            )}
+            ) : null}
           </div>
-          {isPremium && isComercio && (
+
+          {isPremium && !isGestion && (
             <div className={classes.premiumWrapper}>
               <p itemProp="description" className={classes.premiumText}>
                 Suscriptor Digital
@@ -179,11 +180,11 @@ const FeaturedStoryPremiumChild = ({
             sizesHeight={[imageMobileHeight]}
             alt={multimediaSubtitle || title}
             className={classes.image}
-            loading='lazy'
+            loading="lazy"
           />
         </a>
       </div>
-    </div>
+    </article>
   )
 }
 

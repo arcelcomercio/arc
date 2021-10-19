@@ -103,7 +103,7 @@ const getFeaturesIncludedFields = (arcSite) => ({
   separatorBasic: `websites.${arcSite}.website_url,canonical_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePrimarySection(
     { arcSite }
   )}`,
-  separatorStories: `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url`,
+  separatorStories: `headlines.basic,${includeCredits},${includePromoItems},websites.${arcSite}.website_url,content_restrictions.content_code`,
   featuredStoryPremium: `websites.${arcSite}.website_url,headlines.basic,subheadlines.basic,content_restrictions.content_code,${includePromoItems},${includePromoItemsCaptions},${includeCredits},${includePrimarySection(
     { arcSite }
   )}`,

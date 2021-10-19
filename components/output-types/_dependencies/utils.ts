@@ -33,9 +33,9 @@ export const getIframeStory = (): boolean => {
 }
 
 export const getIsStory = (): boolean => {
-  const { requestUri, metaValue } = useAppContext()
+  const { requestUri } = useAppContext()
   return (
-    metaValue('id') === 'meta_story' ||
+    getMetaValue('id') === 'meta_story' ||
     /^\/preview\/([A-Z0-9]{26})\/?/.test(requestUri)
   )
 }
