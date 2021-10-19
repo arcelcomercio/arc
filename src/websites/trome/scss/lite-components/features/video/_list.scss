@@ -16,25 +16,33 @@
     }
   }
 
-  &__section-title {
-    padding: 0 20px 0 20px;
-    display: flex;
-    align-items: center;
-    margin-top: 58px;
+  &__section-title,
+  &__section-name {
+    font-family: $fira-s;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 22px;
     text-align: left;
-    font: normal normal normal 21px/26px $fira-s;
-    letter-spacing: -0.21px;
-    color: #333;
 
     @media (--desktop) {
+      font-size: 21px;
+      letter-spacing: -0.21px;
+      line-height: 26px;
       padding: 0;
     }
   }
 
+  &__section-title {
+    font-weight: 400;
+    padding: 0 20px 0 20px;
+    display: flex;
+    align-items: center;
+    margin-top: 58px;
+    color: #333;
+  }
+
   &__section-name {
-    text-align: left;
-    font: normal normal 800 21px/26px $fira-s;
-    letter-spacing: -0.21px;
+    font-weight: 800;
     color: #e06437;
   }
 
@@ -108,7 +116,7 @@
   }
 
   &__secction-icon {
-    height: 25px;
+    height: 24px;
     margin-left: 5px;
     @media (--desktop) {
       visibility: hidden;
@@ -146,6 +154,10 @@
     justify-content: center;
     width: 100%;
     border-bottom: 1px solid #aaa;
+
+    &.empty {
+      padding: 0;
+    }
 
     button {
       font-family: $primary-font;
