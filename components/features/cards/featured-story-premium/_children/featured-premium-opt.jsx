@@ -42,10 +42,8 @@ const FeaturedStoryPremiumChild = ({
     image: 'featured-story__img w-full h-full object-cover',
     icon: 'featured-premium__icon',
 
-    premiumWrapper:
-      'premium__wrapper bg-primary flex justify-center items-center',
-    premiumText:
-      'premium__text flex justify-center items-center text-black font-bold icon-padlock',
+    premiumWrapper: 'premium__wrapper flex justify-center items-center',
+    premiumText: 'premium__text flex justify-center items-center font-bold',
   }
 
   const { editableField } = useEditableContent()
@@ -146,8 +144,16 @@ const FeaturedStoryPremiumChild = ({
           ) : null}
         </h6>
         {isPremium ? (
-          <div className={classes.premiumWrapper}>
-            <p itemProp="description" className={classes.premiumText}>
+          <div
+            className={`${classes.premiumWrapper} ${
+              isComercio ? 'bg-primary' : 'bg-black'
+            }`}>
+            <p
+              itemProp="description"
+              className={`${classes.premiumText} ${
+                // agrega el candado para comercio
+                isComercio ? 'icon-padlock text-black' : 'text-white'
+              }`}>
               {isComercio ? (
                 'Suscriptor Digital'
               ) : (

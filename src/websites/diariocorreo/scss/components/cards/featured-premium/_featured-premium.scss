@@ -2,6 +2,12 @@
   &.featured-story.expand.featured-premium--gray {
     background-color: #e8e8e8;
   }
+
+    & .bg-default{
+        background-color: #000;
+    }
+  
+
   &.featured-story.expand {
     flex-direction: column-reverse;
     @media (--only-mobile) {
@@ -74,4 +80,8 @@
       }
     }
   }
+}
+
+.bg-correo{
+  background-color: "black" !important;
 }
