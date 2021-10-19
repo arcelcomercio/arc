@@ -415,6 +415,10 @@
     }
     &-right {
       background-color: #fff;
+
+      &.register{
+        padding:20px 0;
+      }
     }
     &-left {
       overflow: hidden;
@@ -742,6 +746,7 @@
       margin-top: 50px;
       font-family: "Bitter",Arial, Helvetica, sans-serif;
       position: relative;
+
       .text-info{
         font-size: 17px;
         font-family: "Titillium", Arial, Helvetica, sans-serif;
@@ -769,6 +774,9 @@
         font-weight: bold;
         text-transform: uppercase;
       }      
+      @media (--subs-mobile) {
+        margin-top: 0;
+      }
       
     }
     &-cont-paywall {
@@ -1252,6 +1260,9 @@
       font-family: inherit;
       font-weight: bold;
       line-height: 28px;
+      &.word-break{
+        word-break: break-all;
+      }
     }
     &-text {
       color: #444;

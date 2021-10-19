@@ -19,6 +19,7 @@ export const PremiumFree = () => {
       className="signwall-inside_body-left premium"
       style={{
         background: `${arcSite === SITE_DIARIOCORREO ? '#EFEFEF' : '#232323'}`,
+        padding: '20px 0px',
       }}>
       <div
         className="signwall-inside_body-cont premium"

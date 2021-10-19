@@ -161,7 +161,8 @@ const FormRegister = ({
       .catch(() => {
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`,arcSite
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
       })
   }
@@ -248,7 +249,8 @@ const FormRegister = ({
         }
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_success_registrarme`,arcSite
+          `web_sw${typeDialog[0]}_registro_success_registrarme`,
+          arcSite
         )
       })
       .catch((errLogin) => {
@@ -257,7 +259,8 @@ const FormRegister = ({
         setShowLoading(false)
         Taggeo(
           `Web_Sign_Wall_${typeDialog}`,
-          `web_sw${typeDialog[0]}_registro_error_registrarme`,arcSite
+          `web_sw${typeDialog[0]}_registro_error_registrarme`,
+          arcSite
         )
         setCookie('lostEmail', remail, 1)
       })
@@ -332,7 +335,8 @@ const FormRegister = ({
     Identity.requestVerifyEmail(remail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_registro_reenviar_correo`,arcSite
+      `web_sw${typeDialog[0]}_registro_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -362,28 +366,6 @@ const FormRegister = ({
               {!showConfirm && (
                 <>
                   {isTromeOrganic && <div className="spacing-trome" />}
-
-                  {showError && (
-                    <div className="signwall-inside_forms-error">
-                      {showError.indexOf('ya existe') ? (
-                        <>
-                          {showError}
-                          <a
-                            href="!#"
-                            style={{ color: 'white', fontWeight: 'bold' }}
-                            className="signwall-inside_forms-link"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              changeTemplate('forgot')
-                            }}>
-                            Recuperar contraseña
-                          </a>
-                        </>
-                      ) : (
-                        showError
-                      )}
-                    </div>
-                  )}
 
                   <div className=" mt-10 center">
                     <p className="signwall-inside_forms-text mb-20 center bold">
@@ -421,6 +403,28 @@ const FormRegister = ({
                       o completa tus datos para registrarte
                     </p>
                   </div>
+
+                  {showError && (
+                    <div className="signwall-inside_forms-error">
+                      {showError.indexOf('ya existe') ? (
+                        <>
+                          {showError}
+                          <a
+                            href="!#"
+                            style={{ color: 'white', fontWeight: 'bold' }}
+                            className="signwall-inside_forms-link"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              changeTemplate('forgot')
+                            }}>
+                            Recuperar contraseña
+                          </a>
+                        </>
+                      ) : (
+                        showError
+                      )}
+                    </div>
+                  )}
 
                   <Input
                     type="email"
@@ -463,7 +467,8 @@ const FormRegister = ({
                     onClick={() => {
                       Taggeo(
                         `Web_Sign_Wall_${typeDialog}`,
-                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,arcSite
+                        `web_sw${typeDialog[0]}_registro_boton_registrarme`,
+                        arcSite
                       )
                     }}>
                     {showLoading ? 'Registrando...' : 'Registrarme'}
@@ -482,7 +487,8 @@ const FormRegister = ({
                           e.preventDefault()
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_link_volver`,arcSite
+                            `web_sw${typeDialog[0]}_registro_link_volver`,
+                            arcSite
                           )
                           switch (typeDialog) {
                             case 'relogemail':
@@ -578,8 +584,12 @@ const FormRegister = ({
                     <MsgRegister bgcolor={mainColorBr} />
                   </div>
                   <h4
-                    style={{ fontSize: '22px', lineHeight: '26px' }}
-                    className="signwall-inside_forms-title center mb-10">
+                    style={{
+                      fontSize: '22px',
+                      lineHeight: '26px',
+                      wordBreak: 'break-all',
+                    }}
+                    className="signwall-inside_forms-title center mb-10 word-break">
                     {showUserWithSubs
                       ? `Bienvenido(a) ${
                           Identity.userProfile.firstName || 'Usuario'
@@ -660,7 +670,8 @@ const FormRegister = ({
                             onClick={() => {
                               Taggeo(
                                 `Web_Sign_Wall_${typeDialog}`,
-                                `web_sw${typeDialog[0]}_boton_ver_planes`,arcSite
+                                `web_sw${typeDialog[0]}_boton_ver_planes`,
+                                arcSite
                               )
                               handleSuscription()
                             }}>
@@ -694,7 +705,8 @@ const FormRegister = ({
                         onClick={() => {
                           Taggeo(
                             `Web_Sign_Wall_${typeDialog}`,
-                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,arcSite
+                            `web_sw${typeDialog[0]}_registro_continuar_navegando`,
+                            arcSite
                           )
                           if (typeDialog === 'students') {
                             if (showContinueVerify) {
