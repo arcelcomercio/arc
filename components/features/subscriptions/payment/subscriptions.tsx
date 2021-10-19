@@ -143,18 +143,18 @@ const Component: React.FC<SubscriptionsPaymentProps> = (props) => {
             hidePanel={freeAccess || userStep === 4 || userStep === 5}>
             <Summary />
           </PanelRight>
-          {!freeAccess ? (
-            <MobileSummary
-              userStep={userStep}
-              planName={name}
-              billingFrequency={userDataPlan?.billingFrequency}
-              billingAmount={userDataPlan?.amount}
-            />
-          ) : null}
         </Wrapper>
       </Container>
       {!freeAccess ? <PrintUserValidator /> : null}
       {disableInlineFooter ? null : <Footer customFields={{ type: arcType }} />}
+      {!freeAccess && (
+        <MobileSummary
+          userStep={userStep}
+          planName={name}
+          billingFrequency={userDataPlan?.billingFrequency}
+          billingAmount={userDataPlan?.amount}
+        />
+      )}
       <script
         dangerouslySetInnerHTML={{
           __html: scriptsPayment,
