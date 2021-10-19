@@ -300,11 +300,16 @@ const LiteOutput = ({
               <meta
                 name="robots"
                 content={`${
-                  /-agnc-/.test(requestUri) ? 'noindex' : 'index'
-                }, follow`}
+                  /-agnc-/.test(requestUri)
+                    ? 'noindex, follow'
+                    : 'index, follow,max-image-preview:large'
+                }`}
               />
             ) : (
-              <meta name="robots" content="index, follow" />
+              <meta
+                name="robots"
+                content="index, follow,max-image-preview:large"
+              />
             )}
             {arcSite === 'trome' || arcSite === 'depor' ? null : (
               <meta name="GOOGLEBOT" content="index follow" />
@@ -401,12 +406,6 @@ const LiteOutput = ({
             <link rel="preconnect" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//mab.chartbeat.com/" />
             <link rel="dns-prefetch" href="//tags.bkrtx.com/" />
-            <link rel="preconnect" href="//cdn.cxense.com/" />
-            <link rel="dns-prefetch" href="//cdn.cxense.com/" />
-            <link rel="preconnect" href="//scdn.cxense.com/" />
-            <link rel="dns-prefetch" href="//scdn.cxense.com/" />
-            <link rel="preconnect" href="//scomcluster.cxense.com/" />
-            <link rel="dns-prefetch" href="//scomcluster.cxense.com/" />
             <link rel="preconnect" href="//sb.scorecardresearch.com/" />
             <link rel="dns-prefetch" href="//sb.scorecardresearch.com/" />
             <link rel="dns-prefetch" href="//fonts.gstatic.com" />
@@ -611,7 +610,7 @@ const LiteOutput = ({
         ) : null}
         {!isIframeStory && <TagManager {...parameters} />}
         {/* ============== WebTracking */}
-        {arcSite === SITE_ELCOMERCIO && requestUri.includes('/lima/') ? (
+        {arcSite === SITE_ELCOMERCIO ? (
           <>
             <script
               defer
@@ -880,6 +879,15 @@ const LiteOutput = ({
             <script
               dangerouslySetInnerHTML={{
                 __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42879/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
+              }}
+            />
+          </>
+        )}
+        {arcSite === SITE_ELBOCON && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `setTimeout(function(){var e,t;window,e=document,(t=e.createElement("script")).src="//cdn.adpushup.com/42614/adpushup.js",t.crossOrigin="anonymous",t.type="text/javascript",t.async=!0,(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(t)},5e3);`,
               }}
             />
           </>

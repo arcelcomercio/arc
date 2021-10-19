@@ -1,9 +1,10 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
-import StorySeparatorChildItemAmp from '../../story/interest-by-tag/_children/amp'
-import StoryData from '../../../utilities/story-data'
-import UtilListKey from '../../../utilities/list-keys'
+import React from 'react'
+
 import StoriesRecent from '../../../global-components/stories-recent'
+import UtilListKey from '../../../utilities/list-keys'
+import StoryData from '../../../utilities/story-data'
+import StorySeparatorChildItemAmp from '../../story/interest-by-tag/_children/amp'
 
 const classes = {
   storyInterest:
@@ -49,7 +50,7 @@ const InterestByTag = () => {
 
   let key = 0
 
-  const getSize = cant => {
+  const getSize = (cant) => {
     const dataStorys = resultStoryRecent.map((story, i) => {
       if (key === cant) return false
       instance.__data = story
