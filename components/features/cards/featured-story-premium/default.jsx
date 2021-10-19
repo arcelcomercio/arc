@@ -5,7 +5,10 @@ import * as React from 'react'
 
 import DatepickerVisualHelp from '../../../global-components/datepicker-visual-help'
 import { getAssetsPath } from '../../../utilities/assets'
-import { SITE_ELCOMERCIO } from '../../../utilities/constants/sitenames'
+import {
+  SITE_DIARIOCORREO,
+  SITE_ELCOMERCIO,
+} from '../../../utilities/constants/sitenames'
 import { featuredStoryPremiumFields } from '../../../utilities/included-fields'
 import StoryData from '../../../utilities/story-data'
 import FeaturedStoryPremiumChild from './_children/feature-premium'
@@ -174,7 +177,7 @@ const FeaturedStoryPremium = (props) => {
             />
           )
         }
-        if (arcSite === SITE_ELCOMERCIO)
+        if (arcSite === SITE_ELCOMERCIO || arcSite === SITE_DIARIOCORREO)
           return (
             <FeaturedStoryPremiumOpt
               websiteLink={websiteLink}
@@ -194,6 +197,7 @@ const FeaturedStoryPremium = (props) => {
               bgColor={bgColor}
               titleField={titleField}
               categoryField={categoryField}
+              arcSite={arcSite}
             />
           )
         return (

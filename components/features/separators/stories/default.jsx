@@ -91,7 +91,6 @@ const SeparatorStories = (props) => {
       imageUrl,
       isPremium,
     } = storyData
-    console.log({ story })
     return {
       id,
       title,
@@ -125,8 +124,6 @@ const SeparatorStories = (props) => {
     deporBetsUrl,
     deporBetsAlt,
   }
-
-  console.log({ stories })
 
   return arcSite === SITE_ELCOMERCIO ? (
     <SeparatorOpt {...separatorParams} />

@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
+import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
 
 const FeaturedStoryPremiumChild = ({
   websiteLink,
@@ -20,12 +21,13 @@ const FeaturedStoryPremiumChild = ({
   bgColor,
   titleField,
   categoryField,
+  arcSite,
 }) => {
   const classes = {
     featuredPremium: `f-premium featured-story position-relative flex expand`,
     detail: `flex flex-col flex-1`,
 
-    section: 'featured-story__category mt-10 mb-10',
+    section: 'featured-story__category mt-10 mb-10 position-relative',
     sectionLink: 'featured-story__category-link text-md',
 
     title: 'featured-story__title overflow-hidden mb-5 line-h-xs flex-1',
@@ -34,7 +36,8 @@ const FeaturedStoryPremiumChild = ({
     author: 'featured-story__author uppercase mb-10',
     authorLink: 'featured-story__author-link text-gray-200 text-xs',
 
-    imageLink: 'featured-story__img-link block h-full ml-10 md:ml-0',
+    imageLink:
+      'featured-story__img-link block h-full position-relative ml-10 md:ml-0',
     imageBox: `featured-story__img-box block position-relative overflow-hidden w-full h-full`,
     image: 'featured-story__img w-full h-full object-cover',
     icon: 'featured-premium__icon',
@@ -88,6 +91,8 @@ const FeaturedStoryPremiumChild = ({
     imageWidth = 900
     imageHeight = 900
   }
+
+  const isComercio = arcSite === SITE_ELCOMERCIO
 
   return (
     <article
@@ -143,7 +148,14 @@ const FeaturedStoryPremiumChild = ({
         {isPremium ? (
           <div className={classes.premiumWrapper}>
             <p itemProp="description" className={classes.premiumText}>
-              Suscriptor Digital
+              {isComercio ? (
+                'Suscriptor Digital'
+              ) : (
+                <>
+                  <span style={{ color: '#FFD333' }}>★</span>&nbsp;COMUNIDAD
+                  DIGITAL
+                </>
+              )}
             </p>
           </div>
         ) : null}
