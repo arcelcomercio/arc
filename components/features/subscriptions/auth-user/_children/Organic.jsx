@@ -209,7 +209,9 @@ export const ContGeneric = ({ properties }) => {
         className="cont-modal"
         style={
           isTrome || isComercio || isGestion
-            ? undefined
+            ? {
+              height: "calc(100% - 50px)",
+            }
             : { minHeight: '350px' }
         }>
         {(isTrome || isComercio || isGestion) && (
@@ -226,7 +228,7 @@ export const ContGeneric = ({ properties }) => {
           </div>
         )}
 
-        <div className="right-modal" style={{ paddingBottom: '20px' }}>
+        <div className="right-modal" >
           {renderTemplate(selectedTemplate, valTemplate, {
             ...properties,
           })}
