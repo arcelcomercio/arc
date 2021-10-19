@@ -126,7 +126,7 @@
 
 import { ArcSite } from 'types/fusion'
 
-import { env } from '../../../utilities/arc/env'
+import { env } from '../../../../utilities/arc/env'
 
 export const cintilloScript = ({
   arcEnv,

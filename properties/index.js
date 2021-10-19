@@ -137,6 +137,7 @@ export default {
   ],
   activeSignwall: false,
   activePaywall: false,
+  activeRegisterwall: false,
   activeRulesCounter: false,
   activeNewsletter: false,
   activeVerifyEmail: false,

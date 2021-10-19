@@ -16,7 +16,8 @@ export default {
   urlPrerollAmp:
     'https://pubads.g.doubleclick.net/gampad/ads?iu=/28253241/diariocorreo/amp/post/default/preroll&description_url=https%3A%2F%2Fdiariocorreo.pe%2F&tfcd=0&npa=0&sz=640x480|400x300|640x360&cust_params=fuente%3Damp%26publisher%3Ddiariocorreo%26tipoplantilla%3Dpost&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
   fbAppId: '1390081201315241',
-  googleTagManagerId: 'GTM-TD2GS9Q',
+  googleTagManagerId: 'GTM-TD2GS9Q', // Google Tag Manager Prod
+  googleTagManagerIdSandbox: 'GTM-TD2GS9Q', // Google Tag Manager Sandbox
   ampGoogleTagManagerId: 'UA-22221683-1',
   ampGoogleTagManagerName: 'correo',
   charbeatAccountNumber: 57773,
@@ -127,6 +128,7 @@ export default {
   ],
   activeSignwall: true,
   activeVerifyEmail: true,
+  activeRegisterwall: true,
   activeDataTreatment: true,
   activeNewsletter: true,
   activePhoneRegister: true,

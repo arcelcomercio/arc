@@ -36,6 +36,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
         mainColorBr,
         authProviders,
       },
+      activeRegisterwall,
       activeNewsletter,
       activeVerifyEmail,
       activeDataTreatment,
@@ -84,14 +85,16 @@ const FormLogin = ({ valTemplate, attributes }) => {
   const taggeoSuccess = () => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_login_success_ingresar`
+      `web_sw${typeDialog[0]}_login_success_ingresar`,
+      arcSite
     )
   }
 
   const taggeoError = () => {
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_login_error_ingresar`
+      `web_sw${typeDialog[0]}_login_error_ingresar`,
+      arcSite
     )
   }
 
@@ -130,22 +133,30 @@ const FormLogin = ({ valTemplate, attributes }) => {
     window.sessionStorage.setItem('paywall_type_modal', typeDialog)
   }
 
+  const unblockContent = () => {
+    setShowUserWithSubs(true) // tengo subs
+    setShowLoadingPremium(false)
+    const divPremium = document.getElementById('contenedor')
+    if (divPremium) {
+      divPremium.classList.remove('story-content__nota-premium')
+      divPremium.removeAttribute('style')
+    }
+  }
+  // crear 2 funciones
+  // unblockContent
+  // en caso haya activeRegisterwall se manda la funcion
+
   const checkUserSubs = () => {
     if (typeDialog === 'premium' || typeDialog === 'paywall') {
       setShowCheckPremium(true) // no tengo subs
-
       getListSubs().then((p) => {
-        if (p && p.length === 0) {
+        if (activeRegisterwall) {
+          unblockContent()
+        } else if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
         } else {
-          setShowUserWithSubs(true) // tengo subs
-          setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
-          if (divPremium) {
-            divPremium.classList.remove('story-content__nota-premium')
-            divPremium.removeAttribute('style')
-          }
+          unblockContent()
         }
       })
     }
@@ -161,17 +172,13 @@ const FormLogin = ({ valTemplate, attributes }) => {
       setShowCheckPremium(true) // no tengo subs
 
       getListSubs().then((p) => {
-        if (p && p.length === 0) {
+        if (activeRegisterwall) {
+          unblockContent()
+        } else if (p && p.length === 0) {
           setShowUserWithSubs(false) // no tengo subs
           setShowLoadingPremium(false)
         } else {
-          setShowUserWithSubs(true) // tengo subs
-          setShowLoadingPremium(false)
-          const divPremium = document.getElementById('contenedor')
-          if (divPremium) {
-            divPremium.classList.remove('story-content__nota-premium')
-            divPremium.removeAttribute('style')
-          }
+          unblockContent()
         }
       })
     } else {
@@ -204,7 +211,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
             setShowVerify(true)
             Taggeo(
               `Web_Sign_Wall_${typeDialog}`,
-              `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+              `web_sw${typeDialog[0]}_login_show_reenviar_correo`,
+              arcSite
             )
             window.localStorage.removeItem('ArcId.USER_INFO')
             window.localStorage.removeItem('ArcId.USER_PROFILE')
@@ -224,7 +232,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
         if (errLogin.code === '130051') {
           Taggeo(
             `Web_Sign_Wall_${typeDialog}`,
-            `web_sw${typeDialog[0]}_login_show_reenviar_correo`
+            `web_sw${typeDialog[0]}_login_show_reenviar_correo`,
+            arcSite
           )
         } else {
           taggeoError()
@@ -253,7 +262,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
     Identity.requestOTALink(lemail)
     Taggeo(
       `Web_Sign_Wall_${typeDialog}`,
-      `web_sw${typeDialog[0]}_login_reenviar_correo`
+      `web_sw${typeDialog[0]}_login_reenviar_correo`,
+      arcSite
     )
     let timeleft = 9
     const downloadTimer = setInterval(() => {
@@ -292,13 +302,46 @@ const FormLogin = ({ valTemplate, attributes }) => {
               )}
             </div>
 
+            <div className="center ">
+              <p className="signwall-inside_forms-text mb-20 center bold">
+                Ingresa con
+              </p>
+              {authProviders.map((item) => (
+                <ButtonSocial
+                  key={item}
+                  size="middle"
+                  brand={item}
+                  defaultSize=""
+                  onClose={onClose}
+                  typeDialog={typeDialog}
+                  arcSite={arcSite}
+                  typeForm="login"
+                  activeNewsletter={activeNewsletter}
+                  checkUserSubs={checkUserSubs}
+                  onLogged={onLogged}
+                  showMsgVerify={() => triggerShowVerify()}
+                  dataTreatment={checkedPolits ? '1' : '0'}
+                />
+              ))}
+              <AuthURL
+                arcSite={arcSite}
+                onClose={onClose}
+                typeDialog={typeDialog}
+                activeNewsletter={activeNewsletter}
+                typeForm="login"
+                onLogged={onLogged}
+                checkUserSubs={checkUserSubs}
+              />
+            </div>
+
             {!showLoginEmail && (
               <ButtonEmail
                 size="full"
                 onClick={() => {
                   Taggeo(
                     `Web_Sign_Wall_${typeDialog}`,
-                    `web_sw${typeDialog[0]}_open_login_boton_ingresar`
+                    `web_sw${typeDialog[0]}_open_login_boton_ingresar`,
+                    arcSite
                   )
                   setShowLoginEmail(!showLoginEmail)
                 }}
@@ -374,8 +417,10 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     e.preventDefault()
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_contrasena_link_olvide`
+                      `web_sw${typeDialog[0]}_contrasena_link_olvide`,
+                      arcSite
                     )
+
                     changeTemplate('forgot')
                   }}>
                   Olvidé mi contraseña
@@ -383,49 +428,33 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
                 <button
                   type="submit"
+                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   style={{
                     color: mainColorBtn,
                     background: mainColorLink,
                   }}
-                  className="signwall-inside_forms-btn signwall-inside_forms-btn-codp"
                   disabled={disable || showLoading || showFormatInvalid}
-                  onClick={() =>
+                  onClick={() => {
                     Taggeo(
                       `Web_Sign_Wall_${typeDialog}`,
-                      `web_sw${typeDialog[0]}_login_boton_ingresar`
+                      `web_sw${typeDialog[0]}_login_boton_ingresar`,
+                      arcSite
                     )
-                  }>
+
+                    // agregado para el taggeo de diario correo por valla
+                    if (typeDialog === 'premium' && activeRegisterwall) {
+                      Taggeo(
+                        `Web_${typeDialog}_Registro`,
+                        `web_${typeDialog}_boton_iniciar_sesion`
+                      )
+                    }
+                  }}>
                   {showLoading ? 'Cargando...' : 'Iniciar Sesión'}
                 </button>
               </>
             )}
-            {authProviders.map((item) => (
-              <ButtonSocial
-                key={item}
-                size="middle"
-                brand={item}
-                defaultSize="default-size"
-                onClose={onClose}
-                typeDialog={typeDialog}
-                arcSite={arcSite}
-                typeForm="login"
-                activeNewsletter={activeNewsletter}
-                checkUserSubs={checkUserSubs}
-                onLogged={onLogged}
-                showMsgVerify={() => triggerShowVerify()}
-                dataTreatment={checkedPolits ? '1' : '0'}
-              />
-            ))}
-            <AuthURL
-              arcSite={arcSite}
-              onClose={onClose}
-              typeDialog={typeDialog}
-              activeNewsletter={activeNewsletter}
-              typeForm="login"
-              onLogged={onLogged}
-              checkUserSubs={checkUserSubs}
-            />
-            <p className="signwall-inside_forms-text center p-link">
+
+            <p className="signwall-inside_forms-text center mt-10 mb-20 p-link">
               ¿Aún no tienes una cuenta?
               <a
                 href="#"
@@ -435,7 +464,8 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   e.preventDefault()
                   Taggeo(
                     `Web_Sign_Wall_${typeDialog}`,
-                    `web_sw${typeDialog[0]}_login_boton_registrate`
+                    `web_sw${typeDialog[0]}_login_boton_registrate`,
+                    arcSite
                   )
                   changeTemplate('register')
                 }}>
@@ -481,7 +511,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
                     fontSize: '11.5px',
                     letterSpacing: '0.015em',
                   }}
-                  className="signwall-inside_forms-text mt-10">
+                  className="signwall-inside_forms-text mt-10 mb-10">
                   En caso hayas autorizado los fines de uso adicionales
                   anteriormente, no es necesario que lo vuelvas a marcar. Si
                   deseas retirar dicho consentimiento, revisa el procedimiento
@@ -521,7 +551,7 @@ const FormLogin = ({ valTemplate, attributes }) => {
 
               <h4
                 style={{ fontSize: '22px' }}
-                className="signwall-inside_forms-title center mb-10">
+                className="signwall-inside_forms-title center mb-10 word-break">
                 {`Bienvenido(a) ${
                   Identity.userProfile.firstName || 'Usuario'
                 } `}
@@ -543,8 +573,13 @@ const FormLogin = ({ valTemplate, attributes }) => {
                   type="button"
                   style={{ color: mainColorBtn, background: mainColorLink }}
                   onClick={() => {
+                    // modificado para el taggeo de diario correo por valla
                     Taggeo(
-                      `Web_${typeDialog}_Hard`,
+                      `Web_${typeDialog}_${
+                        activeRegisterwall && typeDialog === 'premium'
+                          ? 'Registro'
+                          : 'Hard'
+                      }`,
                       `web_${typeDialog}_boton_sigue_navegando`
                     )
                     if (

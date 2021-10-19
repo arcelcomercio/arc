@@ -1,10 +1,10 @@
 import Consumer from 'fusion:consumer'
-import * as React from 'react'
 import PropTypes from 'prop-types'
+import * as React from 'react'
 
+import Newsletter from '../../statics/newsletter-custom/default'
 import NavBarComercio from './_children/standard'
 import Formatter from './_dependencies/formatter'
-import Newsletter from '../../statics/newsletter-custom/default'
 
 @Consumer
 class LayoutNavbar extends React.PureComponent {
@@ -57,16 +57,13 @@ class LayoutNavbar extends React.PureComponent {
     const formatData = (datas = {}) => {
       const LINK = 'link'
       const { children = [] } = datas || {}
-      return children.map(child => {
+      return children.map((child) => {
         let name = child.node_type === LINK ? child.display_name : child.name
         const rawMatch = name.match(/\[#.*\]/g)
         const match =
           rawMatch === null
             ? []
-            : rawMatch[0]
-                .replace('[', '')
-                .replace(']', '')
-                .split(',')
+            : rawMatch[0].replace('[', '').replace(']', '').split(',')
         if (match) {
           name = name.replace(/\[#.*\]/g, '')
         }
@@ -121,6 +118,5 @@ LayoutNavbar.propTypes = {
 }
 
 LayoutNavbar.label = 'Barra de Navegación - básico'
-LayoutNavbar.static = true
 
 export default LayoutNavbar

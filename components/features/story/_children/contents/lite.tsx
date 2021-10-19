@@ -163,7 +163,6 @@ const StoryChildrenContentsLite: FC<FeaturesProps> = (props) => {
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
-    arcSite,
   })
   const isPreview = /^\/preview\//.test(requestUri)
 
