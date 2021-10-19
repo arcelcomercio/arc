@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { useEditableContent } from 'fusion:content'
+import * as React from 'react'
 
 import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
@@ -47,7 +47,7 @@ const FeaturedStoryPremiumChild = ({
 
   const { editableField } = useEditableContent()
 
-  const getEditableField = element =>
+  const getEditableField = (element) =>
     editableField ? editableField(element) : null
 
   if (model === 'basic' && imgType) {
@@ -96,7 +96,7 @@ const FeaturedStoryPremiumChild = ({
       }`}>
       <a itemProp="url" href={websiteLink} className={classes.imageLink}>
         <Icon type={multimediaType} iconClass={classes.icon} />
-        <Image 
+        <Image
           src={multimedia}
           width={imageWidth}
           height={imageHeight}
@@ -105,7 +105,7 @@ const FeaturedStoryPremiumChild = ({
           alt={multimediaSubtitle || title}
           className={classes.image}
           pictureClassName={classes.imageBox}
-          loading='lazy'
+          loading="lazy"
         />
       </a>
 

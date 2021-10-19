@@ -1,6 +1,7 @@
-export default arcSite => `
+export default (arcSite) => `
 {
   content_elements{
+    content_restrictions { content_code }
     websites { ${arcSite} { website_url } }
     credits {
       by { 
