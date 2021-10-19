@@ -24,6 +24,8 @@ import './images/seccion.jpg'
 import './images/bullet.jpg'
 import './images/big-lines.png'
 import './images/logo-diariocorreo.jpg'
+import './images/boletin-anim.png'
+import './images/boletin.png'
 
 /** Fonts & icons */
 import './icons/fonts/default.woff'

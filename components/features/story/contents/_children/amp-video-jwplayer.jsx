@@ -1,5 +1,5 @@
-import React from 'react'
 import { useFusionContext } from 'fusion:context'
+import React from 'react'
 
 const StoryContentChildVideoAmp = ({ data = {} }) => {
   const { siteProperties: { jwplayers = '' } = {} } = useFusionContext()
@@ -8,20 +8,27 @@ const StoryContentChildVideoAmp = ({ data = {} }) => {
     account = 'gec',
     has_ads: hasAds,
     title = '',
+    thumbnail_url: image = '',
   } = data
   const playerId = jwplayers[account] || jwplayers.gec
   const jwplayerId = hasAds ? playerId.playerAds : playerId.player
+
+  const url = `/media/${jwplayerId}/${mediaId}/${encodeURIComponent(
+    title
+  )}/${image}/?outputType=html`
   return (
     <>
       {mediaId && (
         <>
-          <amp-jwplayer
-            data-player-id={jwplayerId}
-            data-media-id={`${mediaId}`}
+          <amp-iframe
+            class="media"
+            width="600"
+            height="340"
             layout="responsive"
-            width="16"
-            dock="#my-dock-slot"
-            height="9"></amp-jwplayer>
+            sandbox="allow-scripts allow-popups"
+            frameborder="0"
+            src={url}
+          />
           {title && (
             <>
               <div className="pt-10"> {title}</div>
