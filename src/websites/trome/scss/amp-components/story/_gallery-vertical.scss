@@ -1,0 +1,48 @@
+.story-gallery {
+  &__number {
+    font-size: 13px;
+    margin-left: 4px;
+
+    strong {
+      color: #111;
+    }
+  }
+
+  &__figure {
+    span {
+      font-family: $fira-s;
+      font-size: 13px;
+      letter-spacing: 0.26px;
+      line-height: 20px;
+      color: #999;
+      margin-top: 10px;
+      display: block;
+      padding-right: 4px;
+      padding-left: 4px;
+    }
+  }
+
+  &__title {
+    font-family: $encode-c;
+    font-size: 24px;
+    letter-spacing: -0.24px;
+    line-height: 30px;
+    color: #343434;
+    padding-right: 4px;
+    padding-left: 4px;
+
+    strong {
+      font-weight: 900;
+    }
+  }
+
+  &__caption-image {
+    font-family: $fira-s;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    line-height: 28px;
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+}
