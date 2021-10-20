@@ -11,7 +11,7 @@
       padding-bottom: 16px;
       @media (--only-mobile) {
         position: sticky;
-        top: 55px;
+        top: 54px;
         z-index: 1;
         background-color: #fff;
       }
@@ -30,7 +30,7 @@
 
     &__arrow-title {
       color: #333;
-      height: 25px;
+      height: 24px;
       margin-left: 5px;
       @media (--desktop) {
         display: none;

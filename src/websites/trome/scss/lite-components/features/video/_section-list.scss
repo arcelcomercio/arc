@@ -23,7 +23,7 @@
 
       @media (--only-mobile) {
         position: sticky;
-        top: 55px;
+        top: 54px;
         z-index: 1;
         background-color: #fff;
       }
@@ -97,12 +97,18 @@
       }
 
       &__title {
-        font-size: 18px;
-        font-weight: 800;
-        letter-spacing: -0.18px;
+        font-family: $fira-s;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: -0.17px;
         line-height: 22px;
         padding-top: 12px;
         overflow: hidden;
+
+        @media (--desktop) {
+          font-size: 18px;
+          letter-spacing: -0.18px;
+        }
       }
 
       &__link:hover {
