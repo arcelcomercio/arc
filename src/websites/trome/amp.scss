@@ -1,3 +1,6 @@
+/******* Fonts *******/
+@import "./scss/partials/amp/import-fonts";
+
 /******* Framework Variables *******/
 @import "../../general-styles/framework/variables/amp-index";
 
@@ -20,3 +23,6 @@
 @import "./scss/amp-components/navbar/amp-navbar";
 @import "./scss/amp-components/social/amp-social";
 @import "./scss/amp-components/header/amp-sh";
+@import "./scss/amp-components/story/amp-story-content";
+@import "./scss/amp-components/story/table";
+@import "./scss/amp-components/story/amp-story-interest";
