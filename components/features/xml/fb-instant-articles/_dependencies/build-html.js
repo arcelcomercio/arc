@@ -257,7 +257,7 @@ const analyzeParagraph = ({
           )
           mediaId = gulrJwplay?.[1] || []
 
-          urlVideIframe = `https://${siteDomain}/media/${jwplayerId}/${mediaId}/${encodeURIComponent(
+          urlVideIframe = `https://${siteDomain}/media-jw/${jwplayerId}/${mediaId}/${encodeURIComponent(
             titleVideo
           )}/${imagenVideo}/?outputType=html`
         }
@@ -713,7 +713,7 @@ const multimediaHeader = (
           /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
         )
         ulrJwplayer = gulrJwplay?.[1] || []
-        urlVideIframe = `https://${siteDomain}/media/${jwplayerId}/${ulrJwplayer}/${encodeURIComponent(
+        urlVideIframe = `https://${siteDomain}/media-jw/${jwplayerId}/${ulrJwplayer}/${encodeURIComponent(
           titleVideo
         )}/${thumbnailUrl}/?outputType=html`
       }
