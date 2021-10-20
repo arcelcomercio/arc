@@ -117,15 +117,8 @@ const FeaturedStoryPremiumChild = ({
         />
       </a>
 
-      <div
-        className={`${classes.detail}`}
-        // style={!isComercio ? { padding: '20px 20px 13px' } : undefined}
-      >
-        <h3
-          itemProp="name"
-          className={`${classes.section}`}
-          // isComercio ? 'mt-10 mb-10' : 'pb-15 hidden md:inline-block' */}`}
-        >
+      <div className={`${classes.detail}`}>
+        <h3 itemProp="name" className={`${classes.section}`}>
           <a
             itemProp="url"
             className={classes.sectionLink}
@@ -157,14 +150,7 @@ const FeaturedStoryPremiumChild = ({
         </h6>
         {isPremium ? (
           <div className={`${classes.premiumWrapper}`}>
-            <p
-              itemProp="description"
-              className={`${classes.premiumText}`}
-              /* ${
-                // agrega el candado para comercio
-                isComercio ? 'icon-padlock text-black font-bold' : 'text-white'
-              } */
-            >
+            <p itemProp="description" className={`${classes.premiumText}`}>
               {isComercio ? (
                 'Suscriptor Digital'
               ) : (
