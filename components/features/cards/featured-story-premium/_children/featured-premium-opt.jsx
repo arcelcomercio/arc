@@ -119,12 +119,10 @@ const FeaturedStoryPremiumChild = ({
 
       <div
         className={`${classes.detail}`}
-        // style={!isComercio ? { padding: '20px 20px 13px' } : undefined}
       >
         <h3
           itemProp="name"
           className={`${classes.section}`}
-          // isComercio ? 'mt-10 mb-10' : 'pb-15 hidden md:inline-block' */}`}
         >
           <a
             itemProp="url"
@@ -160,10 +158,6 @@ const FeaturedStoryPremiumChild = ({
             <p
               itemProp="description"
               className={`${classes.premiumText}`}
-              /* ${
-                // agrega el candado para comercio
-                isComercio ? 'icon-padlock text-black font-bold' : 'text-white'
-              } */
             >
               {isComercio ? (
                 'Suscriptor Digital'
