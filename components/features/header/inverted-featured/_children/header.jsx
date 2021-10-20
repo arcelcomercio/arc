@@ -35,9 +35,11 @@ const classes = {
   logo: 'header-inverted-featured__logo',
   featured: 'header-inverted-featured__features',
   item: 'header-inverted-featured__item header__item',
+  itemInverted: 'header-inverted-featured__item__inverted',
   link: 'header-inverted-featured__features-link',
   linkInverted: 'header-inverted-featured__features-link__inverted',
   bandWrapper: 'header-inverted-featured__band-wrapper',
+  bandWrapperInveted: 'header-inverted-featured__band-wrapper__inverted',
   band: 'header-inverted-featured__band',
   bandInverted: 'header-inverted-featured__band__inverted',
   tags: 'header-inverted-featured__tags',
@@ -424,7 +426,7 @@ const HeaderChildInverted = ({
 
       {!hideMenu && (
         <nav className={`${classes.band} ${(!hideTema) && classes.bandInverted}`}>
-          <div className={classes.bandWrapper}>
+          <div className={`${classes.bandWrapper} ${(!hideTema) && classes.bandWrapperInveted}`}>
             {(tags && hideTema) && <div className={classes.tags}>{tags}</div>}
 
             {bandLinks && bandLinks[0] && (
@@ -432,7 +434,7 @@ const HeaderChildInverted = ({
                 {bandLinks.map(({ url, name, styles = [] }) => (
                   <li
                     className={`${classes.item}${styles ? ' header__custom-item' : ''
-                      }`}
+                      } ${(!hideTema) && classes.itemInverted}`}
                     key={`band-${url}`}>
                     <a
                       itemProp="url"
