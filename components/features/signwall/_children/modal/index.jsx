@@ -8,7 +8,14 @@ const HIDE_SCROLL_IOS = 'overflow-hidden-ios'
 const VIEWPORT_DEFAULT = 'width=device-width, initial-scale=1'
 const VIEWPORT_CUSTOM = `${VIEWPORT_DEFAULT}, user-scalable=0, shrink-to-fit=no`
 
-const Modal = ({ bgColor, position, size, children, arcSite }) => {
+const Modal = ({
+  bgColor,
+  position,
+  marginDef = '',
+  size,
+  children,
+  arcSite,
+}) => {
   const changeView = (rule) => {
     const view = window.document.querySelector('meta[name=viewport]')
     if (view) view.remove()
@@ -79,12 +86,18 @@ const Modal = ({ bgColor, position, size, children, arcSite }) => {
           className={`body-modal position-${position} size-${size} ${
             isTrome ? 'bottom-trome' : ''
           }`}
+          style={
+            marginDef
+              ? { margin: marginDef, overflowY: 'initial', padding: '0px' }
+              : undefined
+          }
           onTouchStart={turnOffFormScroll}
           onTouchEnd={turnOnFormScroll}
           /* style={{
             borderRadius: '26px',
             boxShadow: '11px 12px 24px #000',
-          }} */ >
+          }} */
+        >
           {children}
         </div>
       </div>
