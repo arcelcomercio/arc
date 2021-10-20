@@ -1,6 +1,6 @@
-.content-layout-container {
-  background-color: #fff !important;
-}
+// .content-layout-container {
+//   background-color: #fff !important;
+// }
 
 .section-video {
   // ? specifity issues with padding
@@ -95,9 +95,15 @@
   &__box-section-bottom {
     a {
       font-family: $encode-c;
-      font-size: 18px;
+      font-size: 16px;
+      letter-spacing: 1.08px;
       color: #e06437;
       text-transform: uppercase;
+
+      @media (--desktop) {
+        font-size: 18px;
+        letter-spacing: 0.96px;
+      }
     }
   }
 
@@ -123,6 +129,7 @@
     font-weight: 800;
     line-height: 36px;
     letter-spacing: 0.32px;
+    color: #eaeaea;
 
     @media (--desktop) {
       font-size: 32px;
@@ -143,7 +150,7 @@
     color: #bbb;
 
     @media (--desktop) {
-      font-size: 20px;
+      font-size: 22px;
     }
   }
 

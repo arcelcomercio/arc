@@ -6,40 +6,37 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
     color: #000;
     font-size: 14px;
     background: #f5f5f5;
-    top: -20px;
+    top: -40px;
     position: relative;
-    display: flex;
-    justify-content: center;
 
     @media (--desktop) {
       font-size: 23px;
-
       // solo porque el tamaño del main es otro y tons se tuvo que forzar con lo siguiente
       width: 5000px;
       left: -2000px;
     }
     @media (--tablet) {
+      display: flex;
+      justify-content: center;
       // solo porque el tamaño del main es otro y tons se tuvo que forzar con lo siguiente
       width: 1024px;
       left: -200px;
     }
+    @media (--only-mobile) {
+      padding: 22px 20px 40px 20px;
+    }
   }
-
-  // &__svg-container {
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   width: 80px;
-
-  //   @media (--desktop) {
-  //     width: 171px;
-  //   }
-  // }
 
   &__text-box {
     margin-bottom: 33px;
     margin-top: 32px;
     width: 600px;
+
+    @media (--only-mobile) {
+      margin-top: 16px;
+      margin-bottom: 0;
+      max-width: 335px;
+    }
   }
 
   &__title {
@@ -49,9 +46,15 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
     letter-spacing: -0.4px;
     color: #000;
     height: 50px;
+    padding-left: 0 !important;
 
-    @media (--desktop) {
+    @media (--tablet) {
       font-size: 40px;
+    }
+    @media (--only-mobile) {
+      height: 38px;
+      font-size: 30px;
+      margin-bottom: 6px;
     }
   }
 
@@ -62,18 +65,15 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
     letter-spacing: -0.2px;
     font-weight: 500;
     height: 16px;
-
-    @media (--desktop) {
-      font-size: 13px;
-      margin-bottom: 14px;
-    }
+    font-size: 13px;
+    padding-left: 0 !important;
   }
 
   &__content {
     font-weight: 500;
     font-size: 18px;
     padding-bottom: 5px;
-    color: #666666;
+    color: #666;
 
     strong {
       color: #000;
@@ -82,17 +82,30 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
   }
 
   &__bio {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     padding-bottom: 10px;
     color: #000;
   }
+  &__box {
+    margin-left: 0 !important;
+  }
 
   &__social {
+    font-family: $author-main-font;
     color: #000;
     font-size: 18px;
     font-weight: bold;
     display: flex;
-    padding-bottom: 0px !important;
+    margin-bottom: 15px;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+
+    @media (--tablet) {
+      margin-top: 2px;
+    }
+    @media (--only-mobile) {
+      margin-top: 3px;
+    }
 
     &::before {
       color: #000;
@@ -101,19 +114,19 @@ $author-main-font: "Encode Sans Condensed", sans-serif;
     }
   }
 
-  &__box {
-    margin-bottom: 15px;
-  }
-
   &__image {
     border-radius: 50%;
-    width: 191px;
-    height: 191px;
-    top: 41px;
 
-    @media (--desktop) {
-      border-width: 13px;
+    @media (--tablet) {
+      top: 41px;
       margin-right: 30px;
+      width: 191px;
+      height: 191px;
+    }
+    @media (--only-mobile) {
+      top: 0;
+      width: 150px;
+      height: 150px;
     }
   }
 
