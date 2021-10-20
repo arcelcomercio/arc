@@ -43,7 +43,7 @@ const FeaturedStoryPremiumChild = ({
       'featured-story__img-link block h-full position-relative ml-10 md:ml-0',
     imageBox: `featured-story__img-box block position-relative overflow-hidden w-full h-full`,
     image: 'featured-story__img w-full h-full object-cover',
-    icon: 'featured-premium__icon',
+    icon: `${isComercio ? 'featured-premium__icon' : 'featured-story__icon'}`,
 
     premiumWrapper: `premium__wrapper flex justify-center items-center ${
       isComercio && 'bg-primary'
