@@ -4,7 +4,6 @@ import * as React from 'react'
 import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
 import {
-  SITE_DIARIOCORREO,
   SITE_ELCOMERCIO,
   SITE_GESTION,
 } from '../../../../utilities/constants/sitenames'
@@ -87,7 +86,6 @@ const FeaturedStoryPremiumChild = ({
 
   const isComercio = arcSite === SITE_ELCOMERCIO
   const isGestion = arcSite === SITE_GESTION
-  // const isCorreo = arcSite === SITE_DIARIOCORREO
 
   return (
     <article
@@ -159,37 +157,32 @@ const FeaturedStoryPremiumChild = ({
                 src={logo}
                 alt="premium"
               />
-            ) : (
-              <div className={classes.premiumWrapper}>
-                <p itemProp="description" className={classes.premiumText}>
-                  {isComercio ? (
-                    'Suscriptor Digital'
-                  ) : (
-                    <>
-                      <span style={{ color: '#FFD333' }}>★</span>&nbsp;Comunidad
-                      Digital
-                    </>
-                  )}
-                </p>
-              </div>
-            )}
+            ) : null}
           </div>
+
+          {isPremium && !isGestion && (
+            <div className={classes.premiumWrapper}>
+              <p itemProp="description" className={classes.premiumText}>
+                Suscriptor Digital
+              </p>
+            </div>
+          )}
         </div>
-        <div className={classes.right}>
-          <Icon type={multimediaType} iconClass={classes.icon} />
-          <a itemProp="url" href={websiteLink}>
-            <Image
-              src={multimedia}
-              width={imageWidth}
-              height={imageHeight}
-              sizes={`(max-width: 480px) ${imageMobileWidth}px, ${imageWidth}px`}
-              sizesHeight={[imageMobileHeight]}
-              alt={multimediaSubtitle || title}
-              className={classes.image}
-              loading="lazy"
-            />
-          </a>
-        </div>
+      </div>
+      <div className={classes.right}>
+        <Icon type={multimediaType} iconClass={classes.icon} />
+        <a itemProp="url" href={websiteLink}>
+          <Image
+            src={multimedia}
+            width={imageWidth}
+            height={imageHeight}
+            sizes={`(max-width: 480px) ${imageMobileWidth}px, ${imageWidth}px`}
+            sizesHeight={[imageMobileHeight]}
+            alt={multimediaSubtitle || title}
+            className={classes.image}
+            loading="lazy"
+          />
+        </a>
       </div>
     </article>
   )

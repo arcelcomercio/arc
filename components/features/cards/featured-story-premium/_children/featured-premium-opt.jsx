@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import Image from '../../../../global-components/image'
 import Icon from '../../../../global-components/multimedia-icon'
+import { SITE_ELCOMERCIO } from '../../../../utilities/constants/sitenames'
 
 const FeaturedStoryPremiumChild = ({
   websiteLink,
@@ -20,12 +21,16 @@ const FeaturedStoryPremiumChild = ({
   bgColor,
   titleField,
   categoryField,
+  arcSite,
 }) => {
+  const isComercio = arcSite === SITE_ELCOMERCIO
+
   const classes = {
     featuredPremium: `f-premium featured-story position-relative flex expand`,
-    detail: `flex flex-col flex-1`,
-
-    section: 'featured-story__category mt-10 mb-10',
+    detail: `flex flex-col flex-1 ${!isComercio && 'pt-20 pl-20 pb-15'}`,
+    section: `featured-story__category position-relative ${
+      isComercio ? 'mt-10 mb-10' : 'pb-15 hidden md:inline-block'
+    }`,
     sectionLink: 'featured-story__category-link text-md',
 
     title: 'featured-story__title overflow-hidden mb-5 line-h-xs flex-1',
@@ -34,15 +39,18 @@ const FeaturedStoryPremiumChild = ({
     author: 'featured-story__author uppercase mb-10',
     authorLink: 'featured-story__author-link text-gray-200 text-xs',
 
-    imageLink: 'featured-story__img-link block h-full ml-10 md:ml-0',
+    imageLink:
+      'featured-story__img-link block h-full position-relative ml-10 md:ml-0',
     imageBox: `featured-story__img-box block position-relative overflow-hidden w-full h-full`,
     image: 'featured-story__img w-full h-full object-cover',
-    icon: 'featured-premium__icon',
+    icon: `${isComercio ? 'featured-premium__icon' : 'featured-story__icon'}`,
 
-    premiumWrapper:
-      'premium__wrapper bg-primary flex justify-center items-center',
-    premiumText:
-      'premium__text flex justify-center items-center text-black font-bold icon-padlock',
+    premiumWrapper: `premium__wrapper flex justify-center items-center ${
+      isComercio && 'bg-primary'
+    }`,
+    premiumText: `premium__text flex justify-center items-center ${
+      isComercio ? 'icon-padlock text-black font-bold' : 'text-white'
+    }`,
   }
 
   const { editableField } = useEditableContent()
@@ -109,8 +117,8 @@ const FeaturedStoryPremiumChild = ({
         />
       </a>
 
-      <div className={classes.detail}>
-        <h3 itemProp="name" className={classes.section}>
+      <div className={`${classes.detail}`}>
+        <h3 itemProp="name" className={`${classes.section}`}>
           <a
             itemProp="url"
             className={classes.sectionLink}
@@ -141,9 +149,16 @@ const FeaturedStoryPremiumChild = ({
           ) : null}
         </h6>
         {isPremium ? (
-          <div className={classes.premiumWrapper}>
-            <p itemProp="description" className={classes.premiumText}>
-              Suscriptor Digital
+          <div className={`${classes.premiumWrapper}`}>
+            <p itemProp="description" className={`${classes.premiumText}`}>
+              {isComercio ? (
+                'Suscriptor Digital'
+              ) : (
+                <>
+                  <span style={{ color: '#FFD333' }}>★</span>
+                  &nbsp;&nbsp;COMUNIDAD DIGITAL
+                </>
+              )}
             </p>
           </div>
         ) : null}
