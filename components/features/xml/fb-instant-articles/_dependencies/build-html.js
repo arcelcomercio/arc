@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-// import getProperties from 'fusion:properties'
+import getProperties from 'fusion:properties'
 
 import ConfigParams from '../../../../utilities/config-params'
 import { ELEMENT_CUSTOM_EMBED } from '../../../../utilities/constants/element-types'
@@ -192,8 +192,8 @@ const analyzeParagraph = ({
   typeConfig = '',
   subtypeTheme = '',
   hasAds = '',
-  // titleVideo,
-  // imagenVideo,
+  titleVideo,
+  imagenVideo,
   jwplayers,
   account,
 }) => {
@@ -244,18 +244,24 @@ const analyzeParagraph = ({
         result.processedParagraph = textProcess.processedParagraph
       }
       if (subtype === VIDEO_JWPLAYER) {
-        let ulrJwplayer = ''
+        let mediaId = ''
         let jwplayerId = ''
+        let urlVideIframe = ''
         if (originalParagraph) {
-          ulrJwplayer = getResultJwplayer(originalParagraph)
+          const { siteDomain } = getProperties(arcSite)
+          mediaId = getResultJwplayer(originalParagraph)
           const playerId = jwplayers[account] || jwplayers.gec
           jwplayerId = hasAds ? playerId.playerAds : playerId.player
-          const gulrJwplay = ulrJwplayer.match(
+          const gulrJwplay = mediaId.match(
             /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
           )
-          ulrJwplayer = gulrJwplay?.[1] || []
+          mediaId = gulrJwplay?.[1] || []
+
+          urlVideIframe = `https://${siteDomain}/media/${jwplayerId}/${mediaId}/${encodeURIComponent(
+            titleVideo
+          )}/${imagenVideo}/?outputType=html`
         }
-        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}-${jwplayerId}.html"></iframe></figure>`
+        result.processedParagraph = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="${urlVideIframe}"></iframe></figure>`
       }
       break
     case ConfigParams.ELEMENT_LINK_LIST:
@@ -693,7 +699,11 @@ const multimediaHeader = (
     case JWPLAYER:
       let ulrJwplayer = ''
       let jwplayerId = ''
+      let urlVideIframe = ''
       if (promoItemJwplayer && promoItemJwplayer.key) {
+        const titleVideo = promoItemJwplayer?.title
+        const thumbnailUrl = promoItemJwplayer?.thumbnail_url
+        const { siteDomain } = getProperties(arcSite)
         ulrJwplayer = getResultJwplayer(promoItemJwplayer.conversions)
         const playerId = jwplayers[promoItemJwplayer?.account] || jwplayers.gec
         jwplayerId = promoItemJwplayer?.has_ads
@@ -703,9 +713,12 @@ const multimediaHeader = (
           /videos\/(([0-9a-zA-Z])\w+)-([0-9a-zA-Z])\w+.mp4/
         )
         ulrJwplayer = gulrJwplay?.[1] || []
+        urlVideIframe = `https://${siteDomain}/media-jw/${jwplayerId}/${ulrJwplayer}/${encodeURIComponent(
+          titleVideo
+        )}/${thumbnailUrl}/?outputType=html`
       }
 
-      result = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="https://cdn.jwplayer.com/players/${ulrJwplayer}-${jwplayerId}.html"></iframe>${
+      result = `<figure class="op-interactive"><iframe width="560" height="315" frameborder="0" scrolling="auto" title="mag" style="position:absolute;" allowfullscreen src="${urlVideIframe}"></iframe>${
         title ? `<figcaption>${title}</figcaption>` : ''
       }</figure>`
 
