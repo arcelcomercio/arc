@@ -172,7 +172,6 @@ const StoryContentsLite = (props) => {
   const storyContent = contentWithAds({
     contentElements,
     adsEvery: liteAdsEvery,
-    arcSite,
   })
   const isPreview = /^\/preview\//.test(requestUri)
 
@@ -298,9 +297,12 @@ const StoryContentsLite = (props) => {
                       <>
                         <div
                           className="jwplayer-lazy "
-                          id={`botr_${mediaId}_${jwplayerId}_div`}>
+                          id={mediaId}
+                          data-hasAds={hasAds}
+                          data-playerId={jwplayerId}>
                           <div className="jwplayer-lazy-icon-play" />
                           <Image
+                            id={`image_${mediaId}`}
                             src={image}
                             width={580}
                             height={326}
