@@ -10,12 +10,12 @@ import {
   SITE_DIARIOCORREO,
   SITE_ELBOCON,
   SITE_ELCOMERCIO,
+  SITE_ELCOMERCIOMAG,
   SITE_GESTION,
   SITE_OJO,
   SITE_PERU21,
   SITE_TROME,
 } from '../utilities/constants/sitenames'
-import { getMultimedia } from '../utilities/multimedia'
 import { addSlashToEnd } from '../utilities/parse/strings'
 import RedirectError from '../utilities/redirect-error'
 import { publicidadAmpMovil0 } from '../utilities/story/helpers-amp'
@@ -160,8 +160,6 @@ const AmpOutputType = ({
     jwplayerSeo = [],
     haveJwplayerMatching = false,
     publishDate,
-    multimediaType,
-    primarySectionLink,
   } = new StoryData({
     data: globalContent,
     arcSite,
@@ -222,7 +220,6 @@ const AmpOutputType = ({
     arcSite === SITE_PERU21 ||
     arcSite === SITE_ELBOCON ||
     arcSite === SITE_DIARIOCORREO ||
-    arcSite === SITE_DEPOR ||
     arcSite === SITE_GESTION ||
     arcSite === SITE_ELCOMERCIO ||
     /<iframe|<amp-iframe|<opta-widget|player.performgroup.com|<mxm-|ECO.Widget/.test(
@@ -384,7 +381,13 @@ const AmpOutputType = ({
             src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
           />
         )}
-
+        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideoDate) && (
+          <script
+            async
+            custom-element="amp-video-docking"
+            src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
+          />
+        )}
         {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
           <>
             <script
@@ -428,11 +431,13 @@ const AmpOutputType = ({
           custom-element="amp-bind"
           src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
         />
-        <script
-          async
-          custom-element="amp-fit-text"
-          src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
-        />
+        {arcSite === SITE_ELCOMERCIOMAG && (
+          <script
+            async
+            custom-element="amp-fit-text"
+            src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"
+          />
+        )}
         {arcSite === SITE_GESTION && (
           <script
             async

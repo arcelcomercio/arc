@@ -44,7 +44,6 @@ const SeparatorsBasicChildSeparatorStory = ({
       sizes = '(max-width: 639px) 640px, 234px'
       break
   }
-  console.log({ isPremium })
   const shouldRenderPremiumTag = isPremium && arcSite === SITE_DIARIOCORREO
 
   return (

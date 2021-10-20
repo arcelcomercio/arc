@@ -59,16 +59,6 @@ const NavBar = (props) => {
     window.location.href = `/agenda-presidencial/`
   }
 
-  console.log('isCal', isCal)
-  console.log('JSON en el navbar', JSON.stringify(dataNota))
-
-  let a = -1
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  if (JSON.stringify(dataNota) === '') {
-    a = 0
-  } else a = 1
-  console.log('val JSON', a)
-
   return (
     <>
       <div className={classes.box}>
