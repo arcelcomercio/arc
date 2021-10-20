@@ -257,7 +257,7 @@ const analyzeParagraph = ({
           )
           mediaId = gulrJwplay?.[1] || []
 
-          urlVideIframe = `https://${siteDomain}/media/${jwplayerId}/${mediaId}/${encodeURIComponent(
+          urlVideIframe = `https://${siteDomain}/media-jw/${jwplayerId}/${mediaId}/${encodeURIComponent(
             titleVideo
           )}/${imagenVideo}/?outputType=html`
         }
