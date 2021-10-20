@@ -43,7 +43,7 @@ const FeaturedStoryPremiumChild = ({
     icon: 'featured-premium__icon',
 
     premiumWrapper: 'premium__wrapper flex justify-center items-center',
-    premiumText: 'premium__text flex justify-center items-center font-bold',
+    premiumText: 'premium__text flex justify-center items-center',
   }
 
   const { editableField } = useEditableContent()
@@ -112,7 +112,7 @@ const FeaturedStoryPremiumChild = ({
         />
       </a>
 
-      <div className={classes.detail}>
+      <div className={`${classes.detail} ${!isComercio && 'p-20'}`}>
         <h3 itemProp="name" className={classes.section}>
           <a
             itemProp="url"
@@ -146,13 +146,13 @@ const FeaturedStoryPremiumChild = ({
         {isPremium ? (
           <div
             className={`${classes.premiumWrapper} ${
-              isComercio ? 'bg-primary' : 'bg-black'
+              isComercio && 'bg-primary'
             }`}>
             <p
               itemProp="description"
               className={`${classes.premiumText} ${
                 // agrega el candado para comercio
-                isComercio ? 'icon-padlock text-black' : 'text-white'
+                isComercio ? 'icon-padlock text-black font-bold' : 'text-white'
               }`}>
               {isComercio ? (
                 'Suscriptor Digital'
