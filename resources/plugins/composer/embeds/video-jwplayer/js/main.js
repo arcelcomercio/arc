@@ -72,13 +72,40 @@ window.handleSearch = () => {
     const brand = document.getElementById('brand').value || "";
     renderVideos(search, brand)
 }
+let data = {}      // ANS custom embed response
+let content = {} 
+
+const fetchData = (imageId,videoKey) => {
+  superagent.get('/pf/api/v3/content/fetch/photo-by-id')
+    .query({ query: JSON.stringify({"_id":imageId})})
+    .set('Accept', 'application/json')
+    .then(res => {
+      content[videoKey] = res.body
+      render(content[videoKey],videoKey)
+    });
+}
+
+window.selectImage = (videoKey) => {
+  const imageId =document.getElementById('image-id-'+videoKey).value || '';
+  if(imageId)
+    fetchData(imageId,videoKey)
+  else
+    alert('Agregar el ID de la imagen')
+}
+
+// Render the content data and contextual configuration together
+const render = (data,videoKey) => {
+  document.getElementById('iamge_id_'+videoKey).src = data.url
+}
 
 window.selectVideo = (videoKey) => {
+
     const brand =event.currentTarget.getAttribute('data-brand');
     const dataVideo = JSON.parse(decodeURI(event.currentTarget.getAttribute('data-data')));
-    // console.log('dataVideo', dataVideo);
+    // console.log('dataVideo', dataVideo); KEIGIBVF2ZDANLIMLZ32A46BKA
     // const hasAds = document.querySelector('input[type=checkbox][name=has_ads]:checked');
     // dataVideo.has_ads = (hasAds && hasAds.value) || 0;
+
     buildMessage(generateId(), buildDataAns(dataVideo, brand));
 }
 
@@ -97,10 +124,16 @@ window.selectVideoId = (videoKey, brand) => {
 
 const generateId = () =>  Date.now() + '-' + Math.floor(Math.random() * 1000000);
 
+
 const buildDataAns = (data, brand) => {
     const {key, title, description='', size, duration, status, updated,link='', date, tags = '', custom:{ thumbnail_url = '' } = {}} = data || {};
     // const source_file_mp4 = `https://content.jwplatform.com/videos/${key}-${template_id}.mp4`;
-    const image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`
+    let image =''
+    if(content[key]?.url){
+      image = content[key]?.url // ?width=720`
+    }else{
+      image = thumbnail_url ? thumbnail_url: `https://cdn.jwplayer.com/v2/media/${key}/poster.jpg` // ?width=720`  
+    }
     const conversions = getPathsVideos(key, brand);
     const hasAds = hasAdsVideo(tags)
     const descriptionLink = `${description} <a href="${link}">${link}</a>`
@@ -119,6 +152,7 @@ const buildDataAns = (data, brand) => {
         account: brand
     }
 }
+
 
 async function getPathsVideos(videoKey, brand) {
     const response = await getConversionsVideo(videoKey, brand);
