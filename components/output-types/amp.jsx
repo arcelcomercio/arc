@@ -347,10 +347,7 @@ const AmpOutputType = ({
           custom-element="amp-ad"
           src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"
         />
-        {(hasIframe ||
-          promoItemJwplayer.key ||
-          jwplayerSeo[0] ||
-          haveJwplayerMatching) && (
+        {hasIframe && (
           <script
             async
             custom-element="amp-iframe"
@@ -376,6 +373,30 @@ const AmpOutputType = ({
           custom-element="amp-sidebar"
           src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"
         />
+
+        {(arcSite === SITE_DEPOR || arcSite === SITE_ELBOCON) && hasJwVideo && (
+          <script
+            async
+            custom-element="amp-jwplayer"
+            src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+          />
+        )}
+        {(promoItemJwplayer.key || jwplayerSeo[0] || hasPowaVideoDate) && (
+          <script
+            async
+            custom-element="amp-video-docking"
+            src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"
+          />
+        )}
+        {(promoItemJwplayer.key || jwplayerSeo[0] || haveJwplayerMatching) && (
+          <>
+            <script
+              async
+              custom-element="amp-jwplayer"
+              src="https://cdn.ampproject.org/v0/amp-jwplayer-0.1.js"
+            />
+          </>
+        )}
 
         {hasTwitter && (
           <script
