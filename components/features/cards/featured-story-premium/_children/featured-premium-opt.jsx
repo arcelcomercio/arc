@@ -23,11 +23,14 @@ const FeaturedStoryPremiumChild = ({
   categoryField,
   arcSite,
 }) => {
+  const isComercio = arcSite === SITE_ELCOMERCIO
+
   const classes = {
     featuredPremium: `f-premium featured-story position-relative flex expand`,
-    detail: `flex flex-col flex-1`,
-
-    section: 'featured-story__category mt-10 mb-10 position-relative',
+    detail: `flex flex-col flex-1 ${!isComercio && 'pt-20 pl-20 pb-15'}`,
+    section: `featured-story__category position-relative ${
+      isComercio ? 'mt-10 mb-10' : 'pb-15 hidden md:inline-block'
+    }`,
     sectionLink: 'featured-story__category-link text-md',
 
     title: 'featured-story__title overflow-hidden mb-5 line-h-xs flex-1',
@@ -42,8 +45,12 @@ const FeaturedStoryPremiumChild = ({
     image: 'featured-story__img w-full h-full object-cover',
     icon: 'featured-premium__icon',
 
-    premiumWrapper: 'premium__wrapper flex justify-center items-center',
-    premiumText: 'premium__text flex justify-center items-center',
+    premiumWrapper: `premium__wrapper flex justify-center items-center ${
+      isComercio && 'bg-primary'
+    }`,
+    premiumText: `premium__text flex justify-center items-center ${
+      isComercio ? 'icon-padlock text-black font-bold' : 'text-white'
+    }`,
   }
 
   const { editableField } = useEditableContent()
@@ -90,8 +97,6 @@ const FeaturedStoryPremiumChild = ({
     imageHeight = 900
   }
 
-  const isComercio = arcSite === SITE_ELCOMERCIO
-
   return (
     <article
       className={`${classes.featuredPremium}${
@@ -112,8 +117,15 @@ const FeaturedStoryPremiumChild = ({
         />
       </a>
 
-      <div className={`${classes.detail} ${!isComercio && 'p-20'}`}>
-        <h3 itemProp="name" className={classes.section}>
+      <div
+        className={`${classes.detail}`}
+        // style={!isComercio ? { padding: '20px 20px 13px' } : undefined}
+      >
+        <h3
+          itemProp="name"
+          className={`${classes.section}`}
+          // isComercio ? 'mt-10 mb-10' : 'pb-15 hidden md:inline-block' */}`}
+        >
           <a
             itemProp="url"
             className={classes.sectionLink}
@@ -144,22 +156,21 @@ const FeaturedStoryPremiumChild = ({
           ) : null}
         </h6>
         {isPremium ? (
-          <div
-            className={`${classes.premiumWrapper} ${
-              isComercio && 'bg-primary'
-            }`}>
+          <div className={`${classes.premiumWrapper}`}>
             <p
               itemProp="description"
-              className={`${classes.premiumText} ${
+              className={`${classes.premiumText}`}
+              /* ${
                 // agrega el candado para comercio
                 isComercio ? 'icon-padlock text-black font-bold' : 'text-white'
-              }`}>
+              } */
+            >
               {isComercio ? (
                 'Suscriptor Digital'
               ) : (
                 <>
-                  <span style={{ color: '#FFD333' }}>★</span>&nbsp;COMUNIDAD
-                  DIGITAL
+                  <span style={{ color: '#FFD333' }}>★</span>
+                  &nbsp;&nbsp;COMUNIDAD DIGITAL
                 </>
               )}
             </p>

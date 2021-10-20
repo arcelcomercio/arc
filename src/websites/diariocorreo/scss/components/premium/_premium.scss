@@ -1,16 +1,12 @@
 .premium {
   &__wrapper {
-    width: 133px;
-    height: 22px;
+    width: 144px;
+    height: 24px;
     border-radius: 4px;
     background-color: #000;
-    // @media (--only-mobile) {
-    //   margin-left: 20px;
-    //   margin-bottom: 4px;
-    // }
   }
   &__text {
-    font-size: 10px;
+    font-size: 12px;
     text-transform: uppercase;
     font-family: $secondary-font !important;
     &:before {
