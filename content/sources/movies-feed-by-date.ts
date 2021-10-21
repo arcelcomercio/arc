@@ -80,7 +80,7 @@ const transform = (
       if (!Object.keys(movies).includes(releaseDate)) {
         movies[releaseDate] = []
       }
-      movies[releaseDate].push(releaseDate)
+      movies[releaseDate].push(el)
     }
   })
 
