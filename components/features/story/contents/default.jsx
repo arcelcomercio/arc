@@ -389,7 +389,7 @@ class StoryContents extends React.PureComponent {
                           !(
                             subtype === GALLERY_VERTICAL && nameAds === 'caja3'
                           ) && (
-                            <div className="content_gpt_top_ads">
+                            <div className={`content_gpt_${nameAds}`}>
                               <Ads
                                 adElement={nameAds}
                                 isDesktop={false}

@@ -357,7 +357,7 @@ const StoryContentsLite = (props) => {
                       {nameAds === 'caja3' &&
                         subtype !== MINUTO_MINUTO &&
                         subtype !== GALLERY_VERTICAL && (
-                          <div className="content_gpt_top_ads">
+                          <div className="content_gpt_caja3">
                             <div
                               id="gpt_caja3"
                               data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja3`}
@@ -368,7 +368,7 @@ const StoryContentsLite = (props) => {
                           </div>
                         )}
                       {nameAds === 'inline' && (
-                        <div className="content_gpt_top_ads">
+                        <div className="content_gpt_inline">
                           <div
                             id="gpt_inline"
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/inline`}
@@ -379,7 +379,7 @@ const StoryContentsLite = (props) => {
                         </div>
                       )}
                       {nameAds === 'caja4' && subtype !== GALLERY_VERTICAL && (
-                        <div className="content_gpt_top_ads">
+                        <div className="content_gpt_caja4">
                           <div
                             id="gpt_caja4"
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja4`}
@@ -390,7 +390,7 @@ const StoryContentsLite = (props) => {
                         </div>
                       )}
                       {nameAds === 'caja5' && subtype !== GALLERY_VERTICAL && (
-                        <div className="content_gpt_top_ads">
+                        <div className="content_gpt_caja5">
                           <div
                             id="gpt_caja5"
                             data-ads-name={`/28253241/${arcSite}/web/post/${secc}/caja5`}
