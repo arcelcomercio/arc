@@ -95,13 +95,13 @@ export const processedAds = (content, type = '', arcSite = '', secc = '') => {
     const divContent = i === 0 ? '' : '<div class="live-event2-comment">'
 
     if (i === 3) {
-      publicidad = type !== 'lite' ? spaceDefault(2) : publicidadHtml('caja2')
+      publicidad = type !== 'lite' ? spaceDefault(2) : publicidadHtml('caja3')
     }
-    if (i === 7) {
-      publicidad = type !== 'lite' ? spaceDefault(3) : publicidadHtml('caja3')
+    if (i === 10) {
+      publicidad = type !== 'lite' ? spaceDefault(3) : publicidadHtml('caja4')
     }
-    if (i === 11) {
-      publicidad = type !== 'lite' ? spaceDefault(4) : publicidadHtml('caja4')
+    if (i === 13) {
+      publicidad = type !== 'lite' ? spaceDefault(4) : publicidadHtml('caja5')
     }
     entryHtml = `${entryHtml} ${divContent} ${entry} ${publicidad} `
   })
