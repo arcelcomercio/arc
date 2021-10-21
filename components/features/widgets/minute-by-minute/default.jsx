@@ -60,6 +60,7 @@ class MinuteByMinute extends React.PureComponent {
         backgroundImgSponsor = '',
         bannerImage = '',
         bannerImageUrl = '',
+        colorText = '',
       } = {},
       editableField,
       arcSite,
@@ -74,7 +75,7 @@ class MinuteByMinute extends React.PureComponent {
           typeComponent === 'partido' ? 'mxm-partido' : 'mxm-eventos'
         }`}>
         <div
-          className="by-minute__left p-20"
+          className="by-minute__left p-15"
           style={{
             backgroundImage: `${
               backgroundImgSponsor ? `url(${backgroundImgSponsor})` : 'none'
@@ -82,7 +83,7 @@ class MinuteByMinute extends React.PureComponent {
             backgroundPosition: `${
               backgroundImgSponsor ? `center` : 'initial'
             }`,
-            backgroundSize: `${backgroundImgSponsor ? `contain` : 'initial'}`,
+            backgroundSize: `${backgroundImgSponsor ? `cover` : 'initial'}`,
             backgroundRepeat: `${
               backgroundImgSponsor ? `no-repeat` : 'initial'
             }`,
@@ -174,7 +175,9 @@ class MinuteByMinute extends React.PureComponent {
           ) : (
             <>
               <div className="w-game-info flex justify-center">
-                <div className="game-live secondary-font mt-20 text-md flex items-center text-white">
+                <div
+                  className="game-live secondary-font text-md flex items-center"
+                  style={{ color: colorText || '#FFF' }}>
                   <img
                     src={`${getAssetsPath(
                       arcSite,
@@ -188,22 +191,24 @@ class MinuteByMinute extends React.PureComponent {
               </div>
               <h2
                 itemProp="name"
-                className="text-center text-xl line-h-sm font-bold mt-20">
+                className="text-center text-xl line-h-sm font-bold mt-10">
                 <a
                   itemProp="url"
                   {...editableField('titleField')}
                   suppressContentEditableWarning
                   href={url}
-                  className="text-white tertiary-font">
+                  className="tertiary-font"
+                  style={{ color: colorText || '#FFF' }}>
                   {titleField || title}
                 </a>
               </h2>
-              <p itemProp="description" className="text-center mt-15">
+              <p itemProp="description" className="text-center mt-10">
                 <a
                   itemProp="url"
                   {...editableField('subtitleField')}
                   suppressContentEditableWarning
-                  className="text-white line-h-xs"
+                  className="line-h-xs"
+                  style={{ color: colorText || '#FFF' }}
                   href={url}>
                   {subtitleField || subTitle}
                 </a>
@@ -241,7 +246,7 @@ class MinuteByMinute extends React.PureComponent {
           </div> */}
 
           {bannerImage && (
-            <div className="scrorer-sponsor text-center mt-15">
+            <div className="scrorer-sponsor text-center mt-10">
               <a
                 itemProp="url"
                 href={bannerImageUrl}
