@@ -41,6 +41,11 @@ const customFields = PropTypes.shape({
     group: 'Auspiciadores',
     description: 'Dejar vacio para no mostrar nada',
   }),
+  colorText: PropTypes.string.tag({
+    name: 'Color de las letras',
+    group: 'Auspiciadores',
+    description: 'El valor es Hexadecimal: #000000',
+  }),
 })
 
 export default customFields
