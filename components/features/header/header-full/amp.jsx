@@ -1,10 +1,10 @@
 import Consumer from 'fusion:consumer'
-import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
 
-import NavBarAmp from '../../navbar/standard/_children/amp'
-import Formatter from '../../layout/navbar/_dependencies/formatter'
 import { getAssetsPath } from '../../../utilities/assets'
+import Formatter from '../../layout/navbar/_dependencies/formatter'
+import NavBarAmp from '../../navbar/standard/_children/amp'
 
 const classes = {
   header: 'amp-header w-full position-absolute mx-auto',
@@ -91,7 +91,7 @@ class LayoutNavbarAmp extends PureComponent {
                   src={imgLogo}
                   alt={arcSite}
                   width={widthAmp}
-                  height={heightAmp}
+                  height={arcSite === 'trome' ? 48 : heightAmp}
                   tabIndex="0"
                 />
               </a>
