@@ -1,0 +1,48 @@
+.footer-trome {
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e6e6e6;
+    color: #444;
+    padding-top: 24px;
+    padding-bottom: 8px;
+  }
+
+  &__logo {
+    width: 280px;
+    padding-bottom: 8px;
+    text-align: center;
+
+    img {
+      width: 118px;
+    }
+  }
+
+  &__column {
+    width: 280px;
+    font-family: $primary-font;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 16px 0 16px 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+
+    a {
+      color: #444;
+      text-decoration: underline;
+    }
+
+    strong {
+      font-size: 12px;
+      letter-spacing: 0;
+      color: #444;
+    }
+  }
+
+  &__column:last-of-type {
+    border-bottom: none;
+  }
+}
