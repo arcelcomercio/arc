@@ -1949,6 +1949,8 @@ class StoryData {
             url_img: urlImgConfig = '',
             conversions = [],
             has_ads: hasAds = 0,
+            title: titleVideo = '',
+            thumbnail_url: imagenVideo = '',
             account = 'gec',
             // date: dateCorrection = '',
           } = {},
@@ -1963,6 +1965,8 @@ class StoryData {
           streams,
           type_config: '',
           hasAds,
+          titleVideo,
+          imagenVideo,
           account,
         }
         switch (type) {

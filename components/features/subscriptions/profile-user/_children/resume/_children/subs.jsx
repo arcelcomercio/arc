@@ -128,6 +128,25 @@ class Subs extends Component {
     }
   }
 
+  namePeriod = (dataPeriod) => {
+    if (dataPeriod) {
+      const daysPeriod =
+        (new Date(dataPeriod.periodTo) - new Date(dataPeriod.periodFrom)) /
+        (1000 * 60 * 60 * 24)
+      switch (true) {
+        case daysPeriod >= 88 && daysPeriod <= 93:
+          return 'TRIMESTRAL'
+        case daysPeriod >= 178 && daysPeriod <= 186:
+          return 'SEMESTRAL'
+        case daysPeriod >= 358 && daysPeriod <= 372:
+          return 'ANUAL'
+        default:
+          return 'MENSUAL'
+      }
+    }
+    return '-'
+  }
+
   render() {
     const {
       isSubs,
@@ -206,20 +225,9 @@ class Subs extends Component {
                             <>
                               <p>
                                 <strong>Plan de pago: </strong>{' '}
-                                {reSubs.paymentHistory[0] && (
-                                  <span>
-                                    {(new Date(
-                                      reSubs.paymentHistory[0].periodTo
-                                    ) -
-                                      new Date(
-                                        reSubs.paymentHistory[0].periodFrom
-                                      )) /
-                                      (1000 * 60 * 60 * 24) <=
-                                    31
-                                      ? 'MENSUAL'
-                                      : 'ANUAL'}
-                                  </span>
-                                )}
+                                <span>
+                                  {this.namePeriod(reSubs.paymentHistory[0])}
+                                </span>
                               </p>
                               <p>
                                 <strong>Precio: </strong>{' '}

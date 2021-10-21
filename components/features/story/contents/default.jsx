@@ -325,9 +325,12 @@ class StoryContents extends React.PureComponent {
                         <>
                           <div
                             className="jwplayer-lazy"
-                            id={`botr_${mediaId}_${jwplayerId}_div`}>
+                            id={mediaId}
+                            data-hasAds={hasAds}
+                            data-playerId={jwplayerId}>
                             <div className="jwplayer-lazy-icon-play" />
                             <Image
+                              id={`image_${mediaId}`}
                               src={image}
                               width={580}
                               height={326}
@@ -386,12 +389,14 @@ class StoryContents extends React.PureComponent {
                           !(
                             subtype === GALLERY_VERTICAL && nameAds === 'caja3'
                           ) && (
-                            <Ads
-                              adElement={nameAds}
-                              isDesktop={false}
-                              isMobile
-                              isDfp={isDfp}
-                            />
+                            <div className={`content_gpt_${nameAds}`}>
+                              <Ads
+                                adElement={nameAds}
+                                isDesktop={false}
+                                isMobile
+                                isDfp={isDfp}
+                              />
+                            </div>
                           )}
 
                         {(arcSite === 'elcomercio' ||
